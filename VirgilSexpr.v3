@@ -1,0 +1,6 @@
+// manually parse from Sexpr
+type VirgilNode {
+}
+
+def main(args: Array<string>) {
+}

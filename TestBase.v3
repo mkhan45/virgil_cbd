@@ -1,0 +1,38 @@
+def main(args: Array<string>) {
+    def filename = args[0];
+    def file_bytes = System.fileLoad(filename);
+    if (file_bytes == null) {
+        System.puts("Error reading ");
+        System.puts(filename);
+        System.ln();
+    }
+
+    def parser = SexpParser.new(filename, file_bytes);
+    def res = parser.readSexp();
+    match (res) {
+        Success(res) => {
+            def reader = StringBuilder.new();
+            res.buildString(reader);
+            System.puts(reader.toString());
+        }
+        _ => {
+            System.puts("error: ");
+            match (res) {
+                Expected(s) => {
+                    System.puts("expected ");
+                    System.puts(s);
+                    System.ln();
+                }
+                EmptySexp => System.puts("empty sexp\n");
+                Success(_) => {} // unreachable
+            }
+            System.puts("line: ");
+            System.puti(parser.error_line);
+            System.puts(", col: ");
+            System.puti(parser.error_column);
+            System.ln();
+            System.puts(parser.error_msg);
+            System.ln();
+        }
+    }
+}
