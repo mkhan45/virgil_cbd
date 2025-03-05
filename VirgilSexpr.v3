@@ -1,5 +1,63 @@
-// manually parse from Sexpr
-type VirgilNode {
+type MatchCase {
+    case Variant(variant_tag: string, expr: VirgilExpr);
+    case Constant(test_expr: VirgilExpr, body_expr: VirgilExpr);
+}
+
+type SexprRes<T> {
+    case Success(res: T);
+    case TODO;
+    case Malformed;
+}
+
+type VirgilStmt {
+    case Block(stmts: Array<VirgilStmt>);
+    case Expr(expr: VirgilExpr);
+    case Return(expr: VirgilExpr);
+    case Local(var_name: string, expr: VirgilExpr);
+    case Match(subj: VirgilExpr, branches: Array<MatchCase>);
+
+    def from_sexpr(sexpr: Sexp) -> SexprRes<VirgilExpr> {
+        match (sexpr) {
+            List(elts) => match (elts[0]) {
+                List(_) => return SexprRes.Malformed;
+                Atom(tag) => {
+                    if (tag == "BlockStmt") return SexprRes.TODO; 
+                    else if (tag == "ExprStmt") return SexprRes.TODO; 
+                    else if (tag == "IfStmt") return SexprRes.TODO; 
+                    else if (tag == "ReturnStmt") return SexprRes.TODO; 
+                    else if (tag == "LocalStmt") return SexprRes.TODO; 
+                    else if (tag == "MatchStmt") return SexprRes.TODO; 
+                }
+            }
+            Atom(a) => return SexprRes.Malformed;
+        }
+
+        return SexprRes.TODO; // unreachable? 
+    }
+}
+
+type VirgilExpr {
+    case AppExpr(fn: string, args: VirgilExpr);
+    case BinOpExpr(op: string, left: VirgilExpr, right: VirgilExpr);
+    case Literal(tipe: string, string_rep: string);
+    case VarExpr(var_name: string);
+
+    def from_sexpr(sexpr: Sexp) -> SexprRes<VirgilExpr> {
+        match (sexpr) {
+            List(elts) => match (elts[0]) {
+                List(_) => return SexprRes.Malformed;
+                Atom(tag) => {
+                    if (tag == "AppExpr") return SexprRes.TODO;
+                    else if (tag == "BinOpExpr") return SexprRes.TODO;
+                    else if (tag == "Literal") return SexprRes.TODO;
+                    else if (tag == "VarExpr") return SexprRes.TODO;
+                }
+            }
+            Atom(a) => return SexprRes.Malformed;
+        }
+
+        return SexprRes.TODO; // unreachable? 
+    }
 }
 
 def main(args: Array<string>) {
