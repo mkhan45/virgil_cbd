@@ -1,12 +1,76 @@
+def quote: byte = 0x22;
+
+def cleanIdent(s: string) -> string {
+    if (s.length < 2) return s;
+
+    if (s[s.length - 1] == ':') {
+        s = Arrays.range(s, 0, s.length - 1);
+    }
+    
+    // Check for double quotes
+    if (s[0] == quote && s[s.length - 1] == quote) {
+        return Arrays.range(s, 1, s.length - 1);
+    }
+    
+    // Check for single quotes
+    if (s[0] == '\'' && s[s.length - 1] == '\'') {
+        return Arrays.range(s, 1, s.length - 1);
+    }
+    
+    return s;
+}
+
 type MatchCase {
     case Variant(variant_tag: string, expr: VirgilExpr);
     case Constant(test_expr: VirgilExpr, body_expr: VirgilExpr);
+    
+    def buildString(buf: StringBuilder) {
+        match (this) {
+            Variant(tag, expr) => {
+                buf.puts(tag);
+                buf.puts(" => ");
+                expr.buildString(buf);
+            }
+            Constant(test, body) => {
+                test.buildString(buf);
+                buf.puts(" => ");
+                body.buildString(buf);
+            }
+        }
+    }
+    
+    def toString() -> string {
+        def buf = StringBuilder.new();
+        buildString(buf);
+        return buf.toString();
+    }
 }
 
 type SexprRes<T> {
     case Success(res: T);
     case TODO;
+    // General case
     case Malformed;
+    // More specific error cases
+    case MissingElements(expected: int, found: int);
+    case InvalidTag(t: string);
+    case InvalidStructure(description: string);
+    case InvalidType(expected: string, found: string);
+    case MissingAttribute(attr: string);
+    
+    // Cast method to convert error types between different SexprRes types
+    def castError<U>() -> SexprRes<U> {
+        match (this) {
+            Success(_) => return SexprRes.InvalidStructure("Cannot cast a successful result");
+            TODO => return SexprRes.TODO;
+            Malformed => return SexprRes.Malformed;
+            MissingElements(expected, found) => return SexprRes.MissingElements(expected, found);
+            InvalidTag(t) => return SexprRes.InvalidTag(t);
+            InvalidStructure(description) => return SexprRes.InvalidStructure(description);
+            InvalidType(expected, found) => return SexprRes.InvalidType(expected, found);
+            MissingAttribute(attr) => return SexprRes.MissingAttribute(attr);
+        }
+    }
 }
 
 type VirgilStmt {
@@ -15,13 +79,118 @@ type VirgilStmt {
     case Return(expr: VirgilExpr);
     case Local(var_name: string, expr: VirgilExpr);
     case Match(subj: VirgilExpr, branches: Array<MatchCase>);
+    case If(cond: VirgilExpr, then_stmt: VirgilStmt, else_stmt: VirgilStmt);
+    
+    def buildString(buf: StringBuilder) {
+        buildStringIndented(buf, 0);
+    }
+    
+    def buildStringIndented(buf: StringBuilder, indent: int) {
+        // Add indentation
+        for (i = 0; i < indent; i++) buf.putc(' ');
+        
+        match (this) {
+            Block(stmts) => {
+                buf.puts("{\n");
+                for (i = 0; i < stmts.length; i++) {
+                    stmts[i].buildStringIndented(buf, indent + 2);
+                    buf.putc('\n');
+                }
+                for (i = 0; i < indent; i++) buf.putc(' ');
+                buf.putc('}');
+            }
+            Expr(expr) => {
+                expr.buildString(buf);
+                buf.putc(';');
+            }
+            Return(expr) => {
+                buf.puts("return ");
+                expr.buildString(buf);
+                buf.putc(';');
+            }
+            Local(var_name, expr) => {
+                buf.puts("var ");
+                buf.puts(var_name);
+                buf.puts(" = ");
+                expr.buildString(buf);
+                buf.putc(';');
+            }
+            Match(subj, branches) => {
+                buf.puts("match (");
+                subj.buildString(buf);
+                buf.puts(") {\n");
+                
+                for (i = 0; i < branches.length; i++) {
+                    for (j = 0; j < indent + 2; j++) buf.putc(' ');
+                    
+                    match (branches[i]) {
+                        Variant(tag, expr) => {
+                            buf.puts(tag);
+                            buf.puts(" => ");
+                            expr.buildString(buf);
+                        }
+                        Constant(test, body) => {
+                            test.buildString(buf);
+                            buf.puts(" => ");
+                            body.buildString(buf);
+                        }
+                    }
+                    
+                    buf.putc('\n');
+                }
+                
+                for (i = 0; i < indent; i++) buf.putc(' ');
+                buf.putc('}');
+            }
+            If(cond, then_stmt, else_stmt) => {
+                buf.puts("if (");
+                cond.buildString(buf);
+                buf.puts(") ");
+                
+                // Check if then_stmt is a Block
+                match (then_stmt) {
+                    Block(_) => then_stmt.buildStringIndented(buf, 0);
+                    _ => {
+                        buf.putc('\n');
+                        then_stmt.buildStringIndented(buf, indent + 2);
+                    }
+                }
+                
+                // Check if there's a non-empty else block
+                match (else_stmt) {
+                    Block(stmts) => {
+                        if (stmts.length > 0) {
+                            buf.puts(" else ");
+                            else_stmt.buildStringIndented(buf, 0);
+                        }
+                    }
+                    _ => {
+                        buf.puts(" else ");
+                        match (else_stmt) {
+                            If(_, _, _) => else_stmt.buildStringIndented(buf, 0);
+                            _ => {
+                                buf.putc('\n');
+                                else_stmt.buildStringIndented(buf, indent + 2);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    def toString() -> string {
+        def buf = StringBuilder.new();
+        buildString(buf);
+        return buf.toString();
+    }
 }
 
 component VirgilStmts {
     // format: <var_name:string>: <atom list: type> <expr>
     // Returns the expression that follows the type
-    private def extractExprAfterType(tuple: Range<Sexp>) -> SexprRes<Sexp> {
-        if (tuple.length < 2) return SexprRes.Malformed;
+    def extractExprAfterType(tuple: Range<Sexp>) -> SexprRes<Sexp> {
+        if (tuple.length < 2) return SexprRes.MissingElements(2, tuple.length);
         
         // Skip the var name (first element)
         var i = 1;
@@ -35,7 +204,7 @@ component VirgilStmts {
         }
         
         // If we reached the end or didn't find a non-atom, it's malformed
-        if (i >= tuple.length) return SexprRes.Malformed;
+        if (i >= tuple.length) return SexprRes.InvalidStructure("No expression found after type");
         
         // The expression is the first non-atom element
         return SexprRes.Success(tuple[i]);
@@ -43,122 +212,475 @@ component VirgilStmts {
     
     def from_sexpr(sexpr: Sexp) -> SexprRes<VirgilStmt> {
         match (sexpr) {
-            List(elts) => match (elts[0]) {
-                List(_) => return SexprRes.Malformed;
-                Atom(tag) => {
-                    if (tag == "BlockStmt") {
-                        if (elts.length < 2) return SexprRes.Malformed;
-                        def stmts = Array<VirgilStmt>.new(elts.length - 1);
-                        for (i = 1; i < elts.length; i++) {
-                            def stmt_res = VirgilStmts.from_sexpr(elts[i]);
-                            match (stmt_res) {
-                                Success(stmt) => stmts[i - 1] = stmt;
-                                _ => return SexprRes.Malformed;
-                            }
-                        }
-                        return SexprRes.Success(VirgilStmt.Block(stmts));
-                    }
-                    else if (tag == "ExprStmt") return SexprRes.TODO; 
-                    else if (tag == "IfStmt") return SexprRes.TODO; 
-                    else if (tag == "ReturnStmt") {
-                        if (elts.length != 2) return SexprRes.Malformed;
-                        def expr_res = VirgilExprs.from_sexpr(elts[1]);
-                        match (expr_res) {
-                            Success(expr) => return SexprRes.Success(VirgilStmt.Return(expr));
-                            _ => return SexprRes.Malformed;
-                        }
-                    }
-                    else if (tag == "LocalStmt") {
-                        if (elts.length != 2) return SexprRes.Malformed;
-                        match (elts[1]) {
-                            List(declaration) => {
-                                if (declaration.length < 2) return SexprRes.Malformed;
-                                
-                                // Extract variable name
-                                match (declaration[0]) {
-                                    Atom(var_name) => {
-                                        // Extract expression after the type
-                                        def expr_sexp_res = extractExprAfterType(declaration);
-                                        match (expr_sexp_res) {
-                                            Success(expr_sexp) => {
-                                                def expr_res = VirgilExprs.from_sexpr(expr_sexp);
-                                                match (expr_res) {
-                                                    Success(expr) => return SexprRes.Success(VirgilStmt.Local(var_name, expr));
-                                                    _ => return SexprRes.Malformed;
-                                                }
-                                            }
-                                            _ => return SexprRes.Malformed; // ew, refactor by making mutable error val, or wait for lambdas to do monad stuff
-                                        }
-                                    }
-                                    _ => return SexprRes.Malformed;
+            List(elts) => {
+                if (elts.length == 0) return SexprRes.MissingElements(1, 0);
+                match (elts[0]) {
+                    List(_) => return SexprRes.InvalidType("Atom", "List");
+                    Atom(tag) => {
+                        if (Strings.equal(tag, "BlockStmt")) {
+                            if (elts.length < 2) return SexprRes.MissingElements(2, elts.length);
+                            def stmts = Array<VirgilStmt>.new(elts.length - 1);
+                            for (i = 1; i < elts.length; i++) {
+                                def stmt_res = VirgilStmts.from_sexpr(elts[i]);
+                                match (stmt_res) {
+                                    Success(stmt) => stmts[i - 1] = stmt;
+                                    _ => return stmt_res; // Propagate the specific error
                                 }
                             }
-                            _ => return SexprRes.Malformed;
+                            return SexprRes.Success(VirgilStmt.Block(stmts));
+                        }
+                        else if (Strings.equal(tag, "ExprStmt")) {
+                            if (elts.length != 2) return SexprRes.MissingElements(2, elts.length);
+                            
+                            System.puts("1\n");
+                            def expr_res = VirgilExprs.from_sexpr(elts[1]);
+                            match (expr_res) {
+                                Success(expr) => return SexprRes.Success(VirgilStmt.Expr(expr));
+                                _ => return expr_res.castError<VirgilStmt>(); // Cast error to appropriate type
+                            }
+                        } 
+                        else if (Strings.equal(tag, "IfStmt")) {
+                            if (elts.length < 3) return SexprRes.MissingElements(3, elts.length); // Need at least: IfStmt, condition, then_stmt
+                            
+                            // Parse the condition expression
+                            System.puts("2\n");
+                            def cond_res = VirgilExprs.from_sexpr(elts[1]);
+                            match (cond_res) {
+                                Success(cond) => {
+                                    // Parse the then statement
+                                    def then_res = VirgilStmts.from_sexpr(elts[2]);
+                                    match (then_res) {
+                                        Success(then_stmt) => {
+                                            // Check if there's an else statement (optional)
+                                            if (elts.length > 3) {
+                                                def else_res = VirgilStmts.from_sexpr(elts[3]);
+                                                match (else_res) {
+                                                    Success(else_stmt) => {
+                                                        // Return if with both then and else statements
+                                                        return SexprRes.Success(VirgilStmt.If(cond, then_stmt, else_stmt));
+                                                    }
+                                                    _ => return else_res; // No need to cast, already correct type
+                                                }
+                                            } else {
+                                                // No else statement, use an empty block as the else
+                                                def empty_block = VirgilStmt.Block(Array<VirgilStmt>.new(0));
+                                                return SexprRes.Success(VirgilStmt.If(cond, then_stmt, empty_block));
+                                            }
+                                        }
+                                        _ => return then_res; // No need to cast, already correct type
+                                    }
+                                }
+                                _ => return cond_res.castError<VirgilStmt>(); // Cast error to appropriate type
+                            }
+                        } 
+                        else if (Strings.equal(tag, "ReturnStmt")) {
+                            if (elts.length != 2) return SexprRes.MissingElements(2, elts.length);
+                            System.puts("3\n");
+                            def expr_res = VirgilExprs.from_sexpr(elts[1]);
+                            match (expr_res) {
+                                Success(expr) => return SexprRes.Success(VirgilStmt.Return(expr));
+                                _ => return expr_res.castError<VirgilStmt>(); // Cast error to appropriate type
+                            }
+                        }
+                        else if (Strings.equal(tag, "LocalStmt")) {
+                            if (elts.length != 2) return SexprRes.MissingElements(2, elts.length);
+                            match (elts[1]) {
+                                List(declaration) => {
+                                    if (declaration.length < 2) return SexprRes.MissingElements(2, declaration.length);
+                                    
+                                    // Extract variable name
+                                    match (declaration[0]) {
+                                        Atom(var_name) => {
+                                            // Extract expression after the type
+                                            def expr_sexp_res = extractExprAfterType(declaration);
+                                            match (expr_sexp_res) {
+                                                Success(expr_sexp) => {
+                                                    System.puts("4\n");
+                                                    def expr_res = VirgilExprs.from_sexpr(expr_sexp);
+                                                    // ew, refactor by making mutable error val, or wait for lam
+                                                    match (expr_res) {
+                                                        Success(expr) => return SexprRes.Success(VirgilStmt.Local(cleanIdent(var_name), expr));
+                                                        _ => return expr_res.castError<VirgilStmt>(); // Cast error to appropriate type
+                                                    }
+                                                }
+                                                _ => return SexprRes.InvalidStructure("Failed to extract expression after type"); // More descriptive error
+                                            }
+                                        }
+                                        _ => return SexprRes.MissingAttribute("variable name");
+                                    }
+                                }
+                                _ => return SexprRes.InvalidType("List", "other");
+                            }
+                        }
+                        else if (Strings.equal(tag, "MatchStmt")) return SexprRes.TODO; 
+                        else {
+                            return SexprRes.InvalidTag(tag);
                         }
                     }
-                    else if (tag == "MatchStmt") return SexprRes.TODO; 
                 }
             }
-            Atom(a) => return SexprRes.Malformed;
+            Atom(a) => {
+                System.puts("atom: ");
+                System.puts(a);
+                System.ln();
+                return SexprRes.InvalidType("List", "Atom");
+            }
         }
-
-        return SexprRes.TODO; // unreachable? 
     }
 }
 
 type VirgilExpr {
-    case AppExpr(fn: string, args: VirgilExpr);
+    case AppExpr(fn: string, args: Array<VirgilExpr>);
     case BinOpExpr(op: string, left: VirgilExpr, right: VirgilExpr);
     case Literal(tipe: string, string_rep: string);
     case VarExpr(var_name: string);
+    case IfExpr(cond: VirgilExpr, then_expr: VirgilExpr, else_expr: VirgilExpr);
+    
+    def buildString(buf: StringBuilder) {
+        match (this) {
+            AppExpr(fn, args) => {
+                buf.puts(fn);
+                buf.putc('(');
+                for (i = 0; i < args.length; i++) {
+                    if (i > 0) buf.puts(", ");
+                    args[i].buildString(buf);
+                }
+                buf.putc(')');
+            }
+            BinOpExpr(op, left, right) => {
+                buf.putc('(');
+                left.buildString(buf);
+                buf.puts(" ");
+                buf.puts(op);
+                buf.puts(" ");
+                right.buildString(buf);
+                buf.putc(')');
+            }
+            Literal(tipe, string_rep) => {
+                buf.puts(string_rep);
+                //if (!Strings.equal(tipe, "unknown")) {
+                //    buf.putc(':');
+                //    buf.puts(tipe);
+                //}
+            }
+            VarExpr(var_name) => buf.puts(var_name);
+            IfExpr(cond, then_expr, else_expr) => {
+                buf.puts("if (");
+                cond.buildString(buf);
+                buf.puts(") ");
+                then_expr.buildString(buf);
+                buf.puts(" else ");
+                else_expr.buildString(buf);
+            }
+        }
+    }
+    
+    def toString() -> string {
+        def buf = StringBuilder.new();
+        buildString(buf);
+        return buf.toString();
+    }
 }
 
 component VirgilExprs {
     def from_sexpr(sexpr: Sexp) -> SexprRes<VirgilExpr> {
         match (sexpr) {
-            List(elts) => match (elts[0]) {
-                List(_) => return SexprRes.Malformed;
-                Atom(tag) => {
-                    if (tag == "AppExpr") return SexprRes.TODO;
-                    else if (tag == "BinOpExpr") return SexprRes.TODO;
-                    else if (tag == "Literal") {
-                        if (elts.length < 3) return SexprRes.Malformed; // Need at least: Literal, value, type
-                        
-                        // Extract the literal value
-                        match (elts[1]) {
-                            Atom(string_rep) => {
-                                // Build the type from all atoms until a non-atom is encountered
-                                var i = 2;
-                                def tipe_builder = StringBuilder.new();
-                                var first = true;
-                                
-                                while (i < elts.length) {
-                                    match (elts[i]) {
-                                        Atom(t) => {
-                                            if (!first) tipe_builder.sp();
-                                            tipe_builder.puts(t);
-                                            first = false;
-                                            i++;
+            List(elts) => {
+                if (elts.length == 0) return SexprRes.MissingElements(1, 0);
+                match (elts[0]) {
+                    List(_) => {
+                        System.puts("here\n");
+                        return SexprRes.InvalidType("Atom", "List");
+                    }
+                    Atom(tag) => {
+                        if (Strings.startsWith(tag, "AppExpr")) {
+                            if (elts.length < 2) return SexprRes.MissingElements(2, elts.length); // Need at least: AppExpr, fn_name
+                            
+                            // Extract the function name
+                            match (elts[1]) {
+                                Atom(fn_name) => {
+                                    // Skip over the type atoms (elements that follow fn_name)
+                                    var i = 2;
+                                    while (i < elts.length) {
+                                        match (elts[i]) {
+                                            Atom(_) => i++;
+                                            _ => break;
                                         }
-                                        _ => break;
+                                    }
+                                    
+                                    // First pass: count the valid arguments (excluding special VarExpr arguments)
+                                    def validArgs = Vector<Sexp>.new();
+                                    
+                                    for (arg_idx = i; arg_idx < elts.length; arg_idx++) {
+                                        match (elts[arg_idx]) {
+                                            List(argElts) => {
+                                                // Check if this is a special VarExpr argument to skip
+                                                if (argElts.length > 0) {
+                                                    match (argElts[0]) {
+                                                        Atom(argTag) => {
+                                                            if (Strings.startsWith(argTag, "VarExpr[ObjectMethod]") ||
+                                                                Strings.startsWith(argTag, "VarExpr[Local]") || 
+                                                                Strings.startsWith(argTag, "VarExpr[VariantCase]")) {
+                                                                // Skip this special argument
+                                                                continue;
+                                                            }
+                                                        }
+                                                        _ => {} // Not a tagged VarExpr, include it
+                                                    }
+                                                }
+                                                // Add to valid arguments
+                                                validArgs.put(elts[arg_idx]);
+                                            }
+                                            _ => {
+                                                // Non-list arguments are always included
+                                                validArgs.put(elts[arg_idx]);
+                                            }
+                                        }
+                                    }
+                                    
+                                    // Create array for parsed arguments
+                                    def args = Array<VirgilExpr>.new(validArgs.length);
+                                    
+                                    // Parse all valid arguments
+                                    for (arg_idx = 0; arg_idx < validArgs.length; arg_idx++) {
+                                        def expr_res = VirgilExprs.from_sexpr(validArgs[arg_idx]);
+                                        match (expr_res) {
+                                            Success(expr) => args[arg_idx] = expr;
+                                            _ => return expr_res; // Propagate the specific error
+                                        }
+                                    }
+                                    
+                                    return SexprRes.Success(VirgilExpr.AppExpr(cleanIdent(fn_name), args));
+                                }
+                                _ => return SexprRes.MissingAttribute("function name");
+                            }
+                        }
+                        else if (Strings.startsWith(tag, "BinOpExpr")) {
+                            if (elts.length < 4) return SexprRes.MissingElements(4, elts.length); // Need at least: BinOpExpr, op, left, right
+                        
+                            // Extract the operator
+                            match (elts[1]) {
+                                Atom(op) => {
+                                    // Skip over the type atoms (elements that follow op)
+                                    var i = 2;
+                                    while (i < elts.length) {
+                                        match (elts[i]) {
+                                            Atom(_) => i++;
+                                            _ => break;
+                                        }
+                                    }
+                                    
+                                    // If we don't have enough elements for both left and right operands
+                                    if (i + 1 >= elts.length) return SexprRes.MissingElements(i+2, elts.length);
+                                    
+                                    // Parse left operand
+                                    System.puts("6\n");
+                                    def left_res = VirgilExprs.from_sexpr(elts[i]);
+                                    match (left_res) {
+                                        Success(left) => {
+                                            // Parse right operand
+                                            System.puts("7\n");
+                                            def right_res = VirgilExprs.from_sexpr(elts[i+1]);
+                                            match (right_res) {
+                                                Success(right) => return SexprRes.Success(VirgilExpr.BinOpExpr(cleanIdent(op), left, right));
+                                                _ => return right_res; // Propagate the specific error
+                                            }
+                                        }
+                                        _ => return left_res; // Propagate the specific error
                                     }
                                 }
-                                
-                                def tipe = if(tipe_builder.length > 0, tipe_builder.toString(), "unknown");
-                                return SexprRes.Success(VirgilExpr.Literal(tipe, string_rep));
+                                _ => return SexprRes.MissingAttribute("operator");
                             }
-                            _ => return SexprRes.Malformed;
+                        }
+                        else if (Strings.startsWith(tag, "Literal") || Strings.startsWith(tag, "StringExpr")) {
+                            if (elts.length < 3) return SexprRes.MissingElements(3, elts.length); // Need at least: Literal, value, type
+                        
+                            // Extract the literal value
+                            match (elts[1]) {
+                                Atom(string_rep) => {
+                                    // Build the type from all atoms until a non-atom is encountered
+                                    var i = 2;
+                                    def tipe_builder = StringBuilder.new();
+                                    var first = true;
+                                    
+                                    while (i < elts.length) {
+                                        match (elts[i]) {
+                                            Atom(t) => {
+                                                if (!first) tipe_builder.sp();
+                                                tipe_builder.puts(t);
+                                                first = false;
+                                                i++;
+                                            }
+                                            _ => break;
+                                        }
+                                    }
+                                    
+                                    def tipe = if(tipe_builder.length > 0, tipe_builder.toString(), "unknown");
+                                    return SexprRes.Success(VirgilExpr.Literal(tipe, cleanIdent(string_rep)));
+                                }
+                                _ => return SexprRes.MissingAttribute("literal value");
+                            }
+                        }
+                        else if (Strings.startsWith(tag, "IfExpr")) {
+                            if (elts.length < 4) return SexprRes.MissingElements(4, elts.length); // Need at least: IfExpr, type-atoms, cond, then, else
+                            
+                            // Skip over the type atoms that follow the IfExpr tag
+                            var i = 1;
+                            while (i < elts.length) {
+                                match (elts[i]) {
+                                    Atom(_) => i++;
+                                    _ => break;
+                                }
+                            }
+                            
+                            // We need at least 3 more elements after the type atoms (cond, then, else)
+                            if (i + 2 >= elts.length) return SexprRes.MissingElements(i+3, elts.length);
+                            
+                            // Parse the condition expression
+                            def cond_res = VirgilExprs.from_sexpr(elts[i]);
+                            match (cond_res) {
+                                Success(cond) => {
+                                    // Parse the then expression
+                                    def then_res = VirgilExprs.from_sexpr(elts[i+1]);
+                                    match (then_res) {
+                                        Success(then_expr) => {
+                                            // Parse the else expression
+                                            def else_res = VirgilExprs.from_sexpr(elts[i+2]);
+                                            match (else_res) {
+                                                Success(else_expr) => {
+                                                    // Return IfExpr with condition, then, and else expressions
+                                                    return SexprRes.Success(VirgilExpr.IfExpr(cond, then_expr, else_expr));
+                                                }
+                                                _ => return else_res; // Propagate the specific error
+                                            }
+                                        }
+                                        _ => return then_res; // Propagate the specific error
+                                    }
+                                }
+                                _ => return cond_res; // Propagate the specific error
+                            }
+                        }
+                        else if (Strings.startsWith(tag, "VarExpr")) {
+                            if (elts.length < 2) return SexprRes.MissingElements(2, elts.length); // Need at least: VarExpr, var_name
+                            
+                            // Extract the variable name
+                            match (elts[1]) {
+                                Atom(var_name) => {
+                                    // Skip the type information and return the VarExpr with unquoted name
+                                    return SexprRes.Success(VirgilExpr.VarExpr(cleanIdent(var_name)));
+                                }
+                                _ => return SexprRes.MissingAttribute("variable name");
+                            }
+                        }
+                        else {
+                            return SexprRes.InvalidTag(tag);
                         }
                     }
-                    else if (tag == "VarExpr") return SexprRes.TODO;
                 }
             }
-            Atom(a) => return SexprRes.Malformed;
+            Atom(a) => {
+                System.puts("atom in top expr parse: ");
+                System.puts(a);
+                System.ln();
+                return SexprRes.InvalidType("List", "Atom");
+            }
         }
-
-        return SexprRes.TODO; // unreachable? 
     }
 }
 
 def main(args: Array<string>) {
+    if (args.length < 1) {
+        System.puts("Usage: VirgilSexpr <filename>\n");
+        return;
+    }
+
+    def filename = args[0];
+    def file_bytes = System.fileLoad(filename);
+    if (file_bytes == null) {
+        System.puts("Error reading ");
+        System.puts(filename);
+        System.ln();
+        return;
+    }
+
+    // Parse the file into an S-expression
+    def parser = SexpParser.new(filename, file_bytes);
+    def sexp_res = parser.readSexp();
+    
+    match (sexp_res) {
+        Success(sexp) => {
+            // Print the original S-expression
+            System.puts("Original S-expression:\n");
+            def sexp_buf = StringBuilder.new();
+            sexp.buildString(sexp_buf);
+            System.puts(sexp_buf.toString());
+            System.ln();
+            System.ln();
+            
+            // Convert to VirgilStmt
+            def stmt_res = VirgilStmts.from_sexpr(sexp);
+            match (stmt_res) {
+                Success(stmt) => {
+                    // Print the VirgilStmt as Virgil code
+                    System.puts("Converted to Virgil code:\n");
+                    System.puts(stmt.toString());
+                    System.ln();
+                }
+                TODO => {
+                    System.puts("TODO: Not implemented yet.\n");
+                }
+                Malformed => {
+                    System.puts("Error: Malformed S-expression for Virgil statement.\n");
+                }
+                MissingElements(expected, found) => {
+                    System.puts("Error: Expected at least ");
+                    System.puti(expected);
+                    System.puts(" element(s), but found ");
+                    System.puti(found);
+                    System.puts(".\n");
+                }
+                InvalidTag(tag) => {
+                    System.puts("Error: Invalid or unexpected tag \"");
+                    System.puts(tag);
+                    System.puts("\".\n");
+                }
+                InvalidStructure(desc) => {
+                    System.puts("Error: Invalid structure - ");
+                    System.puts(desc);
+                    System.puts(".\n");
+                }
+                InvalidType(expected, found) => {
+                    System.puts("Error: Expected type \"");
+                    System.puts(expected);
+                    System.puts("\", but found \"");
+                    System.puts(found);
+                    System.puts("\".\n");
+                }
+                MissingAttribute(name) => {
+                    System.puts("Error: Missing required attribute \"");
+                    System.puts(name);
+                    System.puts("\".\n");
+                }
+            }
+        }
+        _ => {
+            System.puts("Error parsing S-expression: ");
+            match (sexp_res) {
+                Expected(s) => {
+                    System.puts("expected ");
+                    System.puts(s);
+                    System.ln();
+                }
+                EmptySexp => System.puts("empty sexp\n");
+                Success(_) => {} // unreachable
+            }
+            System.puts("line: ");
+            System.puti(parser.error_line);
+            System.puts(", col: ");
+            System.puti(parser.error_column);
+            System.ln();
+            System.puts(parser.error_msg);
+            System.ln();
+        }
+    }
 }
