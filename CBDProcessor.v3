@@ -17,13 +17,13 @@ def find_idx(s: string, c: byte) -> int {
 }
 
 def extractInstrNames(v3_file: string) -> Array<string> {
-    def defs: Vector<CBDDef> = Vector.new();
+    def defs = Vector<string>.new();
 
     // TODO:
     // the .v3 file has the //@bytecode start comments, but we can only get
     // the s-expressions from the full file. To solve this, find the definition
     // names from the raw .v3 file, and then actually parse them from the s-expr file
-    def lines = Strings.splitOnChar(file_content, is_newline, -1);
+    def lines = Strings.splitOnChar(v3_file, is_newline, -1);
     var cur_line = 0;
     while (!Strings.startsWith(lines[cur_line], "//@bytecode start")) cur_line += 1;
 
@@ -44,6 +44,31 @@ def extractInstrNames(v3_file: string) -> Array<string> {
     return defs.copy();
 }
 
+def isSpace(c: byte) -> bool {
+    return c == ' ';
+}
+
+def hasMethod(reader: TextReader) -> bool {
+    reader.skipWhitespace();
+    return reader.optN("method") != -1;
+}
+
+def notLParen(c: byte) -> bool {
+    return c != '(';
+}
+
+def readMethodName(reader: TextReader) -> string {
+    reader.skipWhitespace();
+    def end = reader.star_rel(1, notLParen);
+    def tok = reader.readToken(end - reader.pos);
+    return tok.image;
+}
+
+def nextLine(reader: TextReader) {
+    def start_line = reader.line;
+    while (reader.line == start_line) reader.advance1();
+}
+
 def extractDefs(instrs: Array<string>, filename: string, file_content: string) -> Array<CBDDef> {
     def defs: Vector<CBDDef> = Vector.new();
 
@@ -54,21 +79,35 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
 
     // TODO: iterate by lines in TextReader
     def sexp_parser = SexpParser.new(filename, file_content);
-    while (!Strings.startsWith(lines[cur_line], "//@bytecode end")) {
-        def line = Strings.strip(lines[cur_line]);
-        if (Strings.equal(line, "")) { 
-            cur_line += 1; 
-        } else if (GlobMatcher.new("def ?*()*{").matches(line)) {
-            def fn_name_start = 4; // skip `def `
-            def fn_name_end = find_idx(line, '(');
-
-            def fn_name = Arrays.range(line, fn_name_start, fn_name_end);
-            System.puts(fn_name);
-            System.ln();
-
-            cur_line += 1;
+    while (sexp_parser.ok && sexp_parser.pos < sexp_parser.data.length) {
+        if (hasMethod(sexp_parser)) {
+            def meth = readMethodName(sexp_parser);
+            nextLine(sexp_parser);
+            def result = sexp_parser.readSexp();
+            match (result) {
+                Success(sexp) => {
+                    def stmt_res = VirgilStmts.from_sexpr(sexp);
+                    match (stmt_res) {
+                        Success(stmt) => {
+                            System.puts(meth);
+                            System.ln();
+                            System.puts(stmt.toString());
+                            System.ln();
+                            defs.put(CBDDef.new(meth, stmt));
+                        }
+                        _ => {
+                            System.puts(meth);
+                            System.puts(": skipping unhandled stmt sexpr\n");
+                            nextLine(sexp_parser);
+                        }
+                    }
+                }
+                _ => {
+                    break; // TODO
+                }
+            }
         } else {
-            cur_line += 1;
+            nextLine(sexp_parser);
         }
     }
 
@@ -76,13 +115,22 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
 }
 
 def main(args: Array<string>) {
-    def filename = args[0];
-    def file_bytes = System.fileLoad(filename);
-    if (file_bytes == null) {
+    def v3file = args[0];
+    def v3bytes = System.fileLoad(v3file);
+    if (v3bytes == null) {
         System.puts("Error reading ");
-        System.puts(filename);
+        System.puts(v3file);
         System.ln();
     }
 
-    def defs = extractDefs(filename, file_bytes);
+    def sexpr_file = args[1];
+    def sexpr_bytes = System.fileLoad(sexpr_file);
+    if (sexpr_bytes == null) {
+        System.puts("Error reading ");
+        System.puts(sexpr_file);
+        System.ln();
+    }
+
+    def instrs = extractInstrNames(v3bytes);
+    def defs = extractDefs(instrs, sexpr_file, sexpr_bytes);
 }
