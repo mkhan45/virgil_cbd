@@ -16,7 +16,7 @@ def find_idx(s: string, c: byte) -> int {
     return -1;
 }
 
-def extractDefs(filename: string, file_content: string) -> Array<CBDDef> {
+def extractInstrNames(v3_file: string) -> Array<string> {
     def defs: Vector<CBDDef> = Vector.new();
 
     // TODO:
@@ -27,6 +27,33 @@ def extractDefs(filename: string, file_content: string) -> Array<CBDDef> {
     var cur_line = 0;
     while (!Strings.startsWith(lines[cur_line], "//@bytecode start")) cur_line += 1;
 
+    while (!Strings.startsWith(lines[cur_line], "//@bytecode end")) {
+        def line = Strings.strip(lines[cur_line]);
+        if (GlobMatcher.new("def ?*()*{").matches(line)) {
+            def fn_name_start = 4; // skip `def `
+            def fn_name_end = find_idx(line, '(');
+
+            def fn_name = Arrays.range(line, fn_name_start, fn_name_end);
+            defs.put(fn_name);
+            cur_line += 1;
+        }
+        
+        cur_line += 1;
+    }
+
+    return defs.copy();
+}
+
+def extractDefs(instrs: Array<string>, filename: string, file_content: string) -> Array<CBDDef> {
+    def defs: Vector<CBDDef> = Vector.new();
+
+    // TODO:
+    // the .v3 file has the //@bytecode start comments, but we can only get
+    // the s-expressions from the full file. To solve this, find the definition
+    // names from the raw .v3 file, and then actually parse them from the s-expr file
+
+    // TODO: iterate by lines in TextReader
+    def sexp_parser = SexpParser.new(filename, file_content);
     while (!Strings.startsWith(lines[cur_line], "//@bytecode end")) {
         def line = Strings.strip(lines[cur_line]);
         if (Strings.equal(line, "")) { 
