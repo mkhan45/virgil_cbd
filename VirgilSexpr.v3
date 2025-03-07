@@ -232,7 +232,6 @@ component VirgilStmts {
                         else if (Strings.equal(tag, "ExprStmt")) {
                             if (elts.length != 2) return SexprRes.MissingElements(2, elts.length);
                             
-                            System.puts("1\n");
                             def expr_res = VirgilExprs.from_sexpr(elts[1]);
                             match (expr_res) {
                                 Success(expr) => return SexprRes.Success(VirgilStmt.Expr(expr));
@@ -243,7 +242,6 @@ component VirgilStmts {
                             if (elts.length < 3) return SexprRes.MissingElements(3, elts.length); // Need at least: IfStmt, condition, then_stmt
                             
                             // Parse the condition expression
-                            System.puts("2\n");
                             def cond_res = VirgilExprs.from_sexpr(elts[1]);
                             match (cond_res) {
                                 Success(cond) => {
@@ -275,7 +273,6 @@ component VirgilStmts {
                         } 
                         else if (Strings.equal(tag, "ReturnStmt")) {
                             if (elts.length != 2) return SexprRes.MissingElements(2, elts.length);
-                            System.puts("3\n");
                             def expr_res = VirgilExprs.from_sexpr(elts[1]);
                             match (expr_res) {
                                 Success(expr) => return SexprRes.Success(VirgilStmt.Return(expr));
@@ -295,7 +292,6 @@ component VirgilStmts {
                                             def expr_sexp_res = extractExprAfterType(declaration);
                                             match (expr_sexp_res) {
                                                 Success(expr_sexp) => {
-                                                    System.puts("4\n");
                                                     def expr_res = VirgilExprs.from_sexpr(expr_sexp);
                                                     // ew, refactor by making mutable error val, or wait for lam
                                                     match (expr_res) {
@@ -320,9 +316,6 @@ component VirgilStmts {
                 }
             }
             Atom(a) => {
-                System.puts("atom: ");
-                System.puts(a);
-                System.ln();
                 return SexprRes.InvalidType("List", "Atom");
             }
         }
@@ -389,7 +382,6 @@ component VirgilExprs {
                 if (elts.length == 0) return SexprRes.MissingElements(1, 0);
                 match (elts[0]) {
                     List(_) => {
-                        System.puts("here\n");
                         return SexprRes.InvalidType("Atom", "List");
                     }
                     Atom(tag) => {
@@ -474,12 +466,10 @@ component VirgilExprs {
                                     if (i + 1 >= elts.length) return SexprRes.MissingElements(i+2, elts.length);
                                     
                                     // Parse left operand
-                                    System.puts("6\n");
                                     def left_res = VirgilExprs.from_sexpr(elts[i]);
                                     match (left_res) {
                                         Success(left) => {
                                             // Parse right operand
-                                            System.puts("7\n");
                                             def right_res = VirgilExprs.from_sexpr(elts[i+1]);
                                             match (right_res) {
                                                 Success(right) => return SexprRes.Success(VirgilExpr.BinOpExpr(cleanIdent(op), left, right));
@@ -579,108 +569,8 @@ component VirgilExprs {
                 }
             }
             Atom(a) => {
-                System.puts("atom in top expr parse: ");
-                System.puts(a);
-                System.ln();
                 return SexprRes.InvalidType("List", "Atom");
             }
-        }
-    }
-}
-
-def main(args: Array<string>) {
-    if (args.length < 1) {
-        System.puts("Usage: VirgilSexpr <filename>\n");
-        return;
-    }
-
-    def filename = args[0];
-    def file_bytes = System.fileLoad(filename);
-    if (file_bytes == null) {
-        System.puts("Error reading ");
-        System.puts(filename);
-        System.ln();
-        return;
-    }
-
-    // Parse the file into an S-expression
-    def parser = SexpParser.new(filename, file_bytes);
-    def sexp_res = parser.readSexp();
-    
-    match (sexp_res) {
-        Success(sexp) => {
-            // Print the original S-expression
-            System.puts("Original S-expression:\n");
-            def sexp_buf = StringBuilder.new();
-            sexp.buildString(sexp_buf);
-            System.puts(sexp_buf.toString());
-            System.ln();
-            System.ln();
-            
-            // Convert to VirgilStmt
-            def stmt_res = VirgilStmts.from_sexpr(sexp);
-            match (stmt_res) {
-                Success(stmt) => {
-                    // Print the VirgilStmt as Virgil code
-                    System.puts("Converted to Virgil code:\n");
-                    System.puts(stmt.toString());
-                    System.ln();
-                }
-                TODO => {
-                    System.puts("TODO: Not implemented yet.\n");
-                }
-                Malformed => {
-                    System.puts("Error: Malformed S-expression for Virgil statement.\n");
-                }
-                MissingElements(expected, found) => {
-                    System.puts("Error: Expected at least ");
-                    System.puti(expected);
-                    System.puts(" element(s), but found ");
-                    System.puti(found);
-                    System.puts(".\n");
-                }
-                InvalidTag(tag) => {
-                    System.puts("Error: Invalid or unexpected tag \"");
-                    System.puts(tag);
-                    System.puts("\".\n");
-                }
-                InvalidStructure(desc) => {
-                    System.puts("Error: Invalid structure - ");
-                    System.puts(desc);
-                    System.puts(".\n");
-                }
-                InvalidType(expected, found) => {
-                    System.puts("Error: Expected type \"");
-                    System.puts(expected);
-                    System.puts("\", but found \"");
-                    System.puts(found);
-                    System.puts("\".\n");
-                }
-                MissingAttribute(name) => {
-                    System.puts("Error: Missing required attribute \"");
-                    System.puts(name);
-                    System.puts("\".\n");
-                }
-            }
-        }
-        _ => {
-            System.puts("Error parsing S-expression: ");
-            match (sexp_res) {
-                Expected(s) => {
-                    System.puts("expected ");
-                    System.puts(s);
-                    System.ln();
-                }
-                EmptySexp => System.puts("empty sexp\n");
-                Success(_) => {} // unreachable
-            }
-            System.puts("line: ");
-            System.puti(parser.error_line);
-            System.puts(", col: ");
-            System.puti(parser.error_column);
-            System.ln();
-            System.puts(parser.error_msg);
-            System.ln();
         }
     }
 }

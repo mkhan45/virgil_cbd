@@ -1,0 +1,61 @@
+class CBDDef(opcode: string, body: VirgilStmt) {
+    def buildString(buf: StringBuilder) {
+        // TODO
+    }
+}
+
+def is_newline(c: byte) -> bool {
+    return c == '\n';
+}
+
+def find_idx(s: string, c: byte) -> int {
+    for (i < s.length) if (s[i] == c) {
+        return i;
+    }
+
+    return -1;
+}
+
+def extractDefs(filename: string, file_content: string) -> Array<CBDDef> {
+    def defs: Vector<CBDDef> = Vector.new();
+
+    // TODO:
+    // the .v3 file has the //@bytecode start comments, but we can only get
+    // the s-expressions from the full file. To solve this, find the definition
+    // names from the raw .v3 file, and then actually parse them from the s-expr file
+    def lines = Strings.splitOnChar(file_content, is_newline, -1);
+    var cur_line = 0;
+    while (!Strings.startsWith(lines[cur_line], "//@bytecode start")) cur_line += 1;
+
+    while (!Strings.startsWith(lines[cur_line], "//@bytecode end")) {
+        def line = Strings.strip(lines[cur_line]);
+        if (Strings.equal(line, "")) { 
+            cur_line += 1; 
+        } else if (GlobMatcher.new("def ?*()*{").matches(line)) {
+            def fn_name_start = 4; // skip `def `
+            def fn_name_end = find_idx(line, '(');
+
+            def fn_name = Arrays.range(line, fn_name_start, fn_name_end);
+            System.puts(fn_name);
+            System.ln();
+
+            cur_line += 1;
+        } else {
+            cur_line += 1;
+        }
+    }
+
+    return defs.copy();
+}
+
+def main(args: Array<string>) {
+    def filename = args[0];
+    def file_bytes = System.fileLoad(filename);
+    if (file_bytes == null) {
+        System.puts("Error reading ");
+        System.puts(filename);
+        System.ln();
+    }
+
+    def defs = extractDefs(filename, file_bytes);
+}
