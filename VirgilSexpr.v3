@@ -390,7 +390,8 @@ component VirgilExprs {
                             
                             // Extract the function name
                             match (elts[1]) {
-                                Atom(fn_name) => {
+                                Atom(fn_name_atom) => {
+                                    def fn_name = cleanIdent(fn_name_atom);
                                     // Skip over the type atoms (elements that follow fn_name)
                                     var i = 2;
                                     while (i < elts.length) {
@@ -401,48 +402,23 @@ component VirgilExprs {
                                     }
                                     
                                     // First pass: count the valid arguments (excluding special VarExpr arguments)
-                                    def validArgs = Vector<Sexp>.new();
-                                    
-                                    for (arg_idx = i; arg_idx < elts.length; arg_idx++) {
-                                        match (elts[arg_idx]) {
-                                            List(argElts) => {
-                                                // Check if this is a special VarExpr argument to skip
-                                                if (argElts.length > 0) {
-                                                    match (argElts[0]) {
-                                                        Atom(argTag) => {
-                                                            if (Strings.startsWith(argTag, "VarExpr[ObjectMethod]") ||
-                                                                Strings.startsWith(argTag, "VarExpr[Local]") || 
-                                                                Strings.startsWith(argTag, "VarExpr[VariantCase]")) {
-                                                                // Skip this special argument
-                                                                continue;
-                                                            }
-                                                        }
-                                                        _ => {} // Not a tagged VarExpr, include it
-                                                    }
-                                                }
-                                                // Add to valid arguments
-                                                validArgs.put(elts[arg_idx]);
-                                            }
-                                            _ => {
-                                                // Non-list arguments are always included
-                                                validArgs.put(elts[arg_idx]);
-                                            }
-                                        }
-                                    }
-                                    
-                                    // Create array for parsed arguments
-                                    def args = Array<VirgilExpr>.new(validArgs.length);
-                                    
-                                    // Parse all valid arguments
-                                    for (arg_idx = 0; arg_idx < validArgs.length; arg_idx++) {
-                                        def expr_res = VirgilExprs.from_sexpr(validArgs[arg_idx]);
+                                    def args = Vector<VirgilExpr>.new();
+                                    for (arg_idx = i; arg_idx < elts.length; arg_idx += 1) {
+                                        def expr_res = VirgilExprs.from_sexpr(elts[arg_idx]);
                                         match (expr_res) {
-                                            Success(expr) => args[arg_idx] = expr;
-                                            _ => return expr_res; // Propagate the specific error
+                                            Success(expr) => {
+                                                match (expr) {
+                                                    VarExpr(name) => {
+                                                        if (!Strings.equal(name, fn_name)) args.put(expr);
+                                                    }
+                                                    _ => args.put(expr);
+                                                }
+                                            }
+                                            _ => return expr_res;
                                         }
                                     }
                                     
-                                    return SexprRes.Success(VirgilExpr.AppExpr(cleanIdent(fn_name), args));
+                                    return SexprRes.Success(VirgilExpr.AppExpr(fn_name, args.copy()));
                                 }
                                 _ => return SexprRes.MissingAttribute("function name");
                             }

@@ -69,19 +69,18 @@ def nextLine(reader: TextReader) {
     while (reader.line == start_line) reader.advance1();
 }
 
+def containsStr(strs: Range<string>, k: string) -> bool {
+    for (s in strs) if (Strings.equal(s, k)) return true;
+    return false;
+}
+
 def extractDefs(instrs: Array<string>, filename: string, file_content: string) -> Array<CBDDef> {
     def defs: Vector<CBDDef> = Vector.new();
-
-    // TODO:
-    // the .v3 file has the //@bytecode start comments, but we can only get
-    // the s-expressions from the full file. To solve this, find the definition
-    // names from the raw .v3 file, and then actually parse them from the s-expr file
-
-    // TODO: iterate by lines in TextReader
     def sexp_parser = SexpParser.new(filename, file_content);
     while (sexp_parser.ok && sexp_parser.pos < sexp_parser.data.length) {
         if (hasMethod(sexp_parser)) {
             def meth = readMethodName(sexp_parser);
+            if (!containsStr(instrs, meth)) continue;
             nextLine(sexp_parser);
             def result = sexp_parser.readSexp();
             match (result) {
