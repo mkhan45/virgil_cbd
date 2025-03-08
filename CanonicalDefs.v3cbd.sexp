@@ -451,6 +451,18 @@ component CanonicalDefs {
                             (VarExpr[Local] "doCall": CanonicalDefs)
                             (VarExpr[Local] "sig": Signature)
                             (VarExpr[Local] "target": Function))))))
+    method I32_CONST()
+        (BlockStmt
+            (LocalStmt
+                ("x": int
+                    (AppExpr "readImmILEB32": int
+                        (VarExpr[ComponentMethod] "readImmILEB32": void -> int)
+                        (VarExpr[Local] "readImmILEB32": CanonicalDefs))))
+            (ExprStmt
+                (AppExpr "push_i32": void
+                    (VarExpr[ComponentMethod] "push_i32": int -> void)
+                    (VarExpr[Local] "push_i32": CanonicalDefs)
+                    (VarExpr[Local] "x": int))))
     method I32_ADD()
         (BlockStmt
             (LocalStmt

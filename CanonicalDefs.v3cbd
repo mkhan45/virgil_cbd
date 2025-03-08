@@ -180,6 +180,10 @@ def CALL_INDIRECT() {
 		doCall(sig, target);
 	}
 }
+def I32_CONST() {
+	var x = readImmILEB32();
+        push_i32(x);
+}
 def I32_ADD() {
 	var x = pop_u32();
 	var y = pop_u32();

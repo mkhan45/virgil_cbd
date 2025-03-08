@@ -41,6 +41,8 @@ def readImmU8() -> u8 {
 }
 
 // Value stack.
+def stack: Vector<i32> = Vector.new();
+
 def pop_i32() -> i32;
 def pop_u32() -> u32;
 def pop_i64() -> i64;
@@ -51,7 +53,9 @@ def pop_v128() -> v128;
 def pop_Object() -> Object;
 def pop_Value(tv: TypeVar) -> Value;
 
-def push_i32(v: i32);
+def push_i32(v: i32) {
+    stack.put(v);
+}
 def push_u32(v: u32);
 def push_i64(v: i64);
 def push_u64(v: u64);
@@ -126,6 +130,8 @@ component Interpreter {
     def dispatch() {
         while (codeptr.pos < codeptr.data.length) {
             def op = codeptr.read_opcode();
+            System.puts(op.mnemonic);
+            System.ln();
             DISPATCH_TABLE[op.code]();
         }
     }

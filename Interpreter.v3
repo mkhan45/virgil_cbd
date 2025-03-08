@@ -78,6 +78,11 @@ def CALL_INDIRECT() {
   doCall(sig, target);
 }
 }
+def I32_CONST() {
+  var x = readImmILEB32();
+  System.puti(x);
+  push_i32(x);
+}
 def I32_ADD() {
   var x = pop_u32();
   var y = pop_u32();
@@ -104,6 +109,7 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.TABLE_SET.code] = TABLE_SET;
   DISPATCH_TABLE[Opcode.CALL.code] = CALL;
   DISPATCH_TABLE[Opcode.CALL_INDIRECT.code] = CALL_INDIRECT;
+  DISPATCH_TABLE[Opcode.I32_CONST.code] = I32_CONST;
   DISPATCH_TABLE[Opcode.I32_ADD.code] = I32_ADD;
   DISPATCH_TABLE[Opcode.BR_IF.code] = BR_IF;
   return DISPATCH_TABLE;
@@ -150,6 +156,8 @@ def readImmU8() -> u8 {
 }
 
 // Value stack.
+def stack: Vector<i32> = Vector.new();
+
 def pop_i32() -> i32;
 def pop_u32() -> u32;
 def pop_i64() -> i64;
@@ -160,7 +168,9 @@ def pop_v128() -> v128;
 def pop_Object() -> Object;
 def pop_Value(tv: TypeVar) -> Value;
 
-def push_i32(v: i32);
+def push_i32(v: i32) {
+    stack.put(v);
+}
 def push_u32(v: u32);
 def push_i64(v: i64);
 def push_u64(v: u64);
@@ -235,6 +245,8 @@ component Interpreter {
     def dispatch() {
         while (codeptr.pos < codeptr.data.length) {
             def op = codeptr.read_opcode();
+            System.puts(op.mnemonic);
+            System.ln();
             DISPATCH_TABLE[op.code]();
         }
     }
