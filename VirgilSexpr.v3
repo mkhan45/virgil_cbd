@@ -387,41 +387,82 @@ component VirgilExprs {
                     Atom(tag) => {
                         if (Strings.startsWith(tag, "AppExpr")) {
                             if (elts.length < 2) return SexprRes.MissingElements(2, elts.length); // Need at least: AppExpr, fn_name
-                            
-                            // Extract the function name
-                            match (elts[1]) {
-                                Atom(fn_name_atom) => {
-                                    def fn_name = cleanIdent(fn_name_atom);
-                                    // Skip over the type atoms (elements that follow fn_name)
-                                    var i = 2;
-                                    while (i < elts.length) {
-                                        match (elts[i]) {
-                                            Atom(_) => i++;
-                                            _ => break;
-                                        }
+
+                            var fn: string;
+                            var arg_start_idx: int;
+
+                            // assume this is an operator application of the form
+                            // <type>.<op>(<args>)
+                            if (Strings.endsWith(tag, ":")) {
+                                // case looks like AppExpr: <type> (VarExpr <op>: <type> (VarExpr <type_var>)) <args*>
+                                var i = 1;
+                                // skip over type
+                                while (i < elts.length) {
+                                    match (elts[i]) {
+                                        Atom(_) => i++;
+                                        _ => break;
                                     }
-                                    
-                                    // First pass: count the valid arguments (excluding special VarExpr arguments)
-                                    def args = Vector<VirgilExpr>.new();
-                                    for (arg_idx = i; arg_idx < elts.length; arg_idx += 1) {
-                                        def expr_res = VirgilExprs.from_sexpr(elts[arg_idx]);
-                                        match (expr_res) {
-                                            Success(expr) => {
-                                                match (expr) {
-                                                    VarExpr(name) => {
-                                                        if (!Strings.equal(name, fn_name)) args.put(expr);
+                                }
+                                match (elts[i]) {
+                                    List(op_ls) => {
+                                        match (op_ls[1]) {
+                                            Atom(op_atom) => {
+                                                var j = 2;
+                                                while (j < op_ls.length) {
+                                                    match (elts[j]) {
+                                                        Atom(_) => i++;
+                                                        _ => break;
                                                     }
-                                                    _ => args.put(expr);
+                                                }
+                                                match (op_ls[j]) {
+                                                    List(type_ls) => {
+                                                        match (type_ls[1]) {
+                                                            Atom(type_atom) => fn = Strings.format2("%s.%s", type_atom, cleanIdent(op_atom));
+                                                            _ => return SexprRes.Malformed;
+                                                        }
+                                                    }
+                                                    _ => return SexprRes.Malformed;
                                                 }
                                             }
-                                            _ => return expr_res;
+                                            _ => return SexprRes.Malformed;
                                         }
                                     }
-                                    
-                                    return SexprRes.Success(VirgilExpr.AppExpr(fn_name, args.copy()));
+                                    _ => return SexprRes.Malformed;
                                 }
-                                _ => return SexprRes.MissingAttribute("function name");
+                                arg_start_idx = i + 1;
+                            } else {
+                                match (elts[1]) {
+                                    Atom(fn_name_atom) => {
+                                        fn = cleanIdent(fn_name_atom);
+                                        var i = 2;
+                                        while (i < elts.length) {
+                                            match (elts[i]) {
+                                                Atom(_) => i++;
+                                                _ => break;
+                                            }
+                                        }
+                                        arg_start_idx = i + 1;
+                                    }
+                                    _ => return SexprRes.Malformed;
+                                }
                             }
+
+                            def args = Vector<VirgilExpr>.new();
+                            for (arg_idx = arg_start_idx; arg_idx < elts.length; arg_idx += 1) {
+                                def expr_res = VirgilExprs.from_sexpr(elts[arg_idx]);
+                                match (expr_res) {
+                                    Success(expr) => {
+                                        match (expr) {
+                                            VarExpr(name) => {
+                                                if (!Strings.equal(name, fn)) args.put(expr);
+                                            }
+                                            _ => args.put(expr);
+                                        }
+                                    }
+                                    _ => return expr_res;
+                                }
+                            }
+                            return SexprRes.Success(VirgilExpr.AppExpr(fn, args.copy()));
                         }
                         else if (Strings.startsWith(tag, "BinOpExpr")) {
                             if (elts.length < 4) return SexprRes.MissingElements(4, elts.length); // Need at least: BinOpExpr, op, left, right

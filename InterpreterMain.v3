@@ -1,0 +1,12 @@
+def main(args: Array<string>) {
+    def filename = args[0];
+    def file_bytes = System.fileLoad(filename);
+    if (file_bytes == null) {
+        System.puts("Error reading ");
+        System.puts(filename);
+        System.ln();
+    }
+
+    Interpreter.init(file_bytes);
+    Interpreter.dispatch();
+}

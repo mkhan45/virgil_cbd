@@ -1,0 +1,132 @@
+def build_dispatch_table() -> Array<void -> void> { return Array.new(0); } // dummy so this file compiles independently, replaced by processor
+
+var codeptr: CodePtr;
+var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
+
+// Constants
+def HAS_MEM_INDEX = 0x40u8;
+
+// Types.
+type v128(low: u64, high: u64);
+type Label;
+type Value;
+class Object { }
+type TypeVar;
+type FieldOffset;
+class Signature { }
+class Function { }
+
+enum FieldKind {
+	U8, U16, I32, I64, F32, F64, V128, REF
+}
+
+def readImmULEB32() -> u32 {
+    return codeptr.read_uleb32();
+}
+
+def readImmILEB32() -> i32 {
+    return i32.!(codeptr.read_uleb32());
+}
+
+def readImmULEB64() -> u64 {
+    return codeptr.read_uleb64();
+}
+
+def readImmILEB64() -> i64 {
+    return i64.!(codeptr.read_uleb64());
+}
+
+def readImmU8() -> u8 {
+    return codeptr.read1();
+}
+
+// Value stack.
+def pop_i32() -> i32;
+def pop_u32() -> u32;
+def pop_i64() -> i64;
+def pop_u64() -> u64;
+def pop_f32() -> float;
+def pop_f64() -> double;
+def pop_v128() -> v128;
+def pop_Object() -> Object;
+def pop_Value(tv: TypeVar) -> Value;
+
+def push_i32(v: i32);
+def push_u32(v: u32);
+def push_i64(v: i64);
+def push_u64(v: u64);
+def push_f32(v: float);
+def push_f64(v: double);
+def push_v128(v: v128);
+def push_Object(v: Object);
+def push_Value(tv: TypeVar, v: Value);
+
+// Local variables.
+def getLocal(tv: TypeVar, index: u32) -> Value;
+def setLocal(tv: TypeVar, index: u32, v: Value);
+
+// Global variables.
+def getGlobal(tv: TypeVar, index: u32) -> Value;
+def setGlobal(tv: TypeVar, index: u32, v: Value);
+
+// Function context.
+def f_getLabel(depth: u32) -> Label;
+def f_getLocalType(index: u32) -> TypeVar;
+
+// Module context.
+def m_getGlobalType(index: u32) -> TypeVar;
+def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
+def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset;
+def m_isMemory64(memory_index: u32) -> bool;
+def m_isTable64(memory_index: u32) -> bool;
+def m_getFuncSignature(func_index: u32) -> Signature;
+def m_getSignature(sig_index: u32) -> Signature;
+
+// Instance context.
+def i_getTableFunction64(table_index: u32, sig: Signature, func_index: u64) -> Function;
+def i_getTableFunction32(table_index: u32, sig: Signature, func_index: u32) -> Function;
+def i_getFunction(func_index: u32) -> Function;
+
+// Control flow.
+def doCall(sig: Signature, target: Function);
+def doBranch(label: Label);
+def doFallThru();
+
+// Machine intrinsics.
+def mach_readStructField_i8(obj: Object, offset: FieldOffset) -> i8;
+def mach_readStructField_u8(obj: Object, offset: FieldOffset) -> u8;
+def mach_readStructField_i16(obj: Object, offset: FieldOffset) -> i16;
+def mach_readStructField_u16(obj: Object, offset: FieldOffset) -> u16;
+def mach_readStructField_u32(obj: Object, offset: FieldOffset) -> u32;
+def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> u64;
+def mach_readStructField_f32(obj: Object, offset: FieldOffset) -> float;
+def mach_readStructField_f64(obj: Object, offset: FieldOffset) -> double;
+def mach_readStructField_v128(obj: Object, offset: FieldOffset) -> v128;
+def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> Object;
+
+def mach_readMemory64_u32(memory_index: u32, index: u64, offset: u64) -> u32;
+def mach_readMemory32_u32(memory_index: u32, index: u32, offset: u32) -> u32;
+
+def mach_readTable64(table_index: u32, index: u64) -> Object;
+def mach_readTable32(table_index: u32, index: u32) -> Object;
+
+def mach_writeTable64(table_index: u32, index: u64, val: Object);
+def mach_writeTable32(table_index: u32, index: u32, val: Object);
+
+// Traps.
+def invalid(); // should never occur
+def trapNull();
+def trapUnreachable();
+
+component Interpreter {
+    def init(code: Array<byte>) {
+        codeptr = CodePtr.new(code);
+    }
+
+    def dispatch() {
+        while (codeptr.pos < codeptr.data.length) {
+            def op = codeptr.read_opcode();
+            DISPATCH_TABLE[op.code]();
+        }
+    }
+}
