@@ -1,12 +1,29 @@
+// TODO: use virgil's BinParser.v3
+// https://github.com/titzer/wizard-engine/blob/0add3c2516f79ecd3ef03e81b7daf9e43cb4d8cb/src/engine/Engine.v3#L15
 def main(args: Array<string>) {
     def filename = args[0];
     def file_bytes = System.fileLoad(filename);
-    if (file_bytes == null) {
-        System.puts("Error reading ");
-        System.puts(filename);
-        System.ln();
-    }
 
-    Interpreter.init(file_bytes);
+    var interpreter_args: Array<int> = Array.new(args.length - 1);
+    for (i = 1; i < args.length; i += 1) interpreter_args[i - 1] = Ints.parseDecimal(args[i], 0).1;
+
+    def extensions = Extension.set.all;
+    def limits = Limits.new().set(extensions);
+    def err = ErrorGen.new(filename);
+
+    def bp = BinParser.new(extensions, limits, err, filename);
+
+    def module = bp.push(file_bytes, 0, file_bytes.length).finish();
+    def func0 = module.functions[0];
+    def func_code = func0.orig_bytecode;
+
+    Interpreter.init(func_code, interpreter_args);
     Interpreter.dispatch();
+
+    System.puts("stack top: ");
+    match (Interpreter.get_stack().peek()) {
+        I32(i) => System.puti(int.!(i));
+        _ => {}
+    }
+    System.ln();
 }

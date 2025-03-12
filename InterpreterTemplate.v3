@@ -2,6 +2,8 @@ def build_dispatch_table() -> Array<void -> void> { return Array.new(0); } // du
 
 var codeptr: CodePtr;
 var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
+var local_types: Vector<TypeVar>; // TODO: just get ValueKinds from stack
+var stack: ArrayStack<Value>;
 
 // Constants
 def HAS_MEM_INDEX = 0x40u8;
@@ -9,12 +11,14 @@ def HAS_MEM_INDEX = 0x40u8;
 // Types.
 type v128(low: u64, high: u64);
 type Label;
-type Value;
-class Object { }
-type TypeVar;
+// type Value;
+// class Object { }
+type TypeVar {
+    case I32;
+}
 type FieldOffset;
 class Signature { }
-class Function { }
+// class Function { }
 
 enum FieldKind {
 	U8, U16, I32, I64, F32, F64, V128, REF
@@ -40,11 +44,13 @@ def readImmU8() -> u8 {
     return codeptr.read1();
 }
 
-// Value stack.
-def stack: Vector<i32> = Vector.new();
-
 def pop_i32() -> i32;
-def pop_u32() -> u32;
+def pop_u32() -> u32 {
+    match (stack.pop()) {
+        I32(u) => return u;
+        _ => return 0; // TODO: fail() function
+    }
+}
 def pop_i64() -> i64;
 def pop_u64() -> u64;
 def pop_f32() -> float;
@@ -54,19 +60,25 @@ def pop_Object() -> Object;
 def pop_Value(tv: TypeVar) -> Value;
 
 def push_i32(v: i32) {
-    stack.put(v);
+    stack.push(Value.I32(u32.!(v)));
 }
-def push_u32(v: u32);
+def push_u32(v: u32) {
+    stack.push(Value.I32(u32.!(v)));
+}
 def push_i64(v: i64);
 def push_u64(v: u64);
 def push_f32(v: float);
 def push_f64(v: double);
 def push_v128(v: v128);
 def push_Object(v: Object);
-def push_Value(tv: TypeVar, v: Value);
+def push_Value(tv: TypeVar, v: Value) {
+    stack.push(v);
+}
 
 // Local variables.
-def getLocal(tv: TypeVar, index: u32) -> Value;
+def getLocal(tv: TypeVar, index: u32) -> Value {
+    return stack.elems[index];
+}
 def setLocal(tv: TypeVar, index: u32, v: Value);
 
 // Global variables.
@@ -75,7 +87,9 @@ def setGlobal(tv: TypeVar, index: u32, v: Value);
 
 // Function context.
 def f_getLabel(depth: u32) -> Label;
-def f_getLocalType(index: u32) -> TypeVar;
+def f_getLocalType(index: u32) -> TypeVar {
+    return local_types[int.!(index)];
+}
 
 // Module context.
 def m_getGlobalType(index: u32) -> TypeVar;
@@ -122,17 +136,42 @@ def invalid(); // should never occur
 def trapNull();
 def trapUnreachable();
 
+def end() {
+    return;
+}
+
+def push_locals(count: u32, vtc: ValueTypeCode) {
+    System.puts("push\n");
+    var tv: TypeVar;
+    match (vtc.code) {
+        BpTypeCode.I32.val => tv = TypeVar.I32;
+        _ => tv = TypeVar.I32; // TODO
+    }
+    
+    for (i < count) local_types.put(tv);
+}
+
 component Interpreter {
-    def init(code: Array<byte>) {
+    def init(code: Array<byte>, args: Array<int>) {
         codeptr = CodePtr.new(code);
+        DISPATCH_TABLE[Opcode.END.code] = end;
+        local_types = Vector.new();
+        stack = ArrayStack.new();
+        for (a in args) local_types.put(TypeVar.I32);
+        for (a in args) stack.push(Value.I32(u32.!(a)));
     }
 
     def dispatch() {
+        codeptr.iterate_local_codes(push_locals);
         while (codeptr.pos < codeptr.data.length) {
             def op = codeptr.read_opcode();
             System.puts(op.mnemonic);
             System.ln();
             DISPATCH_TABLE[op.code]();
         }
+    }
+
+    def get_stack() -> ArrayStack<Value> {
+        return stack;
     }
 }
