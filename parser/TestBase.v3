@@ -7,8 +7,8 @@ def main(args: Array<string>) {
         System.ln();
     }
 
-    def parser = SexpParser.new(filename, file_bytes);
-    def res = parser.readSexp();
+    def parser = SExprParser.new(filename, file_bytes);
+    def res = parser.readSExpr();
     match (res) {
         Success(res) => {
             def reader = StringBuilder.new();
@@ -23,7 +23,7 @@ def main(args: Array<string>) {
                     System.puts(s);
                     System.ln();
                 }
-                EmptySexp => System.puts("empty sexp\n");
+                EmptySExpr => System.puts("empty sexp\n");
                 Success(_) => {} // unreachable
             }
             System.puts("line: ");
