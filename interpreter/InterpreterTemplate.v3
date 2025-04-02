@@ -5,6 +5,12 @@ var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
 var local_types: Vector<TypeVar>; // TODO: just get ValueKinds from stack
 var stack: ArrayStack<Value>;
 
+type CtlEntry {
+	Block(end_pc: int);
+	Loop(start_pc: int, end_pc: int);
+}
+var ctl_stack: ArrayStack<CtlEntry>;
+
 // Constants
 def HAS_MEM_INDEX = 0x40u8;
 

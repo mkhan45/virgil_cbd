@@ -21,15 +21,15 @@ all: test_virgil test_base test_processor run_interpreter
 
 # Test the Virgil S-expression parser
 test_virgil:
-	$(VIRGIL) $(VIRGIL_STD) $(PARSER_DIR)/ParseSexpr.v3 $(PARSER_DIR)/VirgilSexpr.v3 $(PARSER_DIR)/TestVirgilSexpr.v3 $(ARGS)
+	$(VIRGIL) $(VIRGIL_STD) $(PARSER_DIR)/VirgilSexpr.v3 $(PARSER_DIR)/TestVirgilSexpr.v3 $(ARGS)
 
 # Test the base S-expression parser
 test_base:
-	$(VIRGIL) $(VIRGIL_STD) $(PARSER_DIR)/ParseSexpr.v3 $(PARSER_DIR)/TestBase.v3 $(ARGS)
+	$(VIRGIL) $(VIRGIL_STD) $(PARSER_DIR)/TestBase.v3 $(ARGS)
 
 # Test the Canonical Bytecode Definition Processor
 test_processor:
-	$(VIRGIL) $(VIRGIL_STD) $(PARSER_DIR)/ParseSexpr.v3 $(PARSER_DIR)/VirgilSexpr.v3 interpreter/InterpreterGen.v3 $(ARGS)
+	$(VIRGIL) $(VIRGIL_STD) $(PARSER_DIR)/VirgilSexpr.v3 interpreter/InterpreterGen.v3 $(ARGS)
 
 # Run the interpreter
 run_interpreter:
@@ -37,7 +37,7 @@ run_interpreter:
 
 # Generate the interpreter from template
 generate_interpreter:
-	$(VIRGIL) $(VIRGIL_STD) $(PARSER_DIR)/ParseSexpr.v3 $(PARSER_DIR)/VirgilSexpr.v3 interpreter/InterpreterGen.v3 defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp interpreter/InterpreterTemplate.v3 > interpreter/Interpreter.v3
+	$(VIRGIL) $(VIRGIL_STD) $(PARSER_DIR)/VirgilSexpr.v3 interpreter/InterpreterGen.v3 defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp interpreter/InterpreterTemplate.v3 > interpreter/Interpreter.v3
 
 # Clean build artifacts
 clean:

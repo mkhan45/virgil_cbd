@@ -21,6 +21,7 @@ def readImmILEB32() -> i32;
 def readImmULEB64() -> u64;
 def readImmILEB64() -> i64;
 def readImmU8() -> u8;
+def readImmBlockType() -> i32; // should consider using Wizard's repr
 
 // Value stack.
 def pop_i32() -> i32;
@@ -73,6 +74,12 @@ def i_getFunction(func_index: u32) -> Function;
 def doCall(sig: Signature, target: Function);
 def doBranch(label: Label);
 def doFallThru();
+def doBlock(bt: i32);
+def doLoop(bt: i32);
+def doTry(bt: i32);
+def doReturn();
+def doEnd();
+def f_isAtEnd() -> bool;
 
 // Machine intrinsics.
 def mach_readStructField_i8(obj: Object, offset: FieldOffset) -> i8;
@@ -105,6 +112,7 @@ def trapUnreachable();
 def UNREACHABLE() {
 	trapUnreachable();
 }
+def NOP() { }
 def LOCAL_GET() {
 	var index = readImmULEB32();
 	var tv = f_getLocalType(index);
@@ -180,10 +188,6 @@ def CALL_INDIRECT() {
 		doCall(sig, target);
 	}
 }
-def I32_CONST() {
-	var x = readImmILEB32();
-        push_i32(x);
-}
 def I32_ADD() {
 	var x = pop_u32();
 	var y = pop_u32();
@@ -196,6 +200,33 @@ def BR_IF() {
 	var cond = pop_u32();
 	if (u32.!=(cond, 0)) return doBranch(label);
 	doFallThru();
+}
+def BLOCK() {
+	var bt = readImmBlockType();
+	return doBlock(bt);
+}
+def LOOP() {
+	var bt = readImmBlockType();
+	return doLoop(bt);
+}
+def TRY() {
+	var bt = readImmBlockType();
+	return doTry(bt);
+}
+def IF() {
+	var bt = readImmBlockType();
+	var cond = pop_i32();
+	var label = f_getLabel(0);
+	if (cond == 0) return doBranch(label);
+	else return doFallThru();
+}
+def ELSE() {
+	var label = f_getLabel(0);
+	return doBranch(label);
+}
+def END() {
+	doEnd();
+	if (f_isAtEnd()) return doReturn();
 }
 def STRUCT_GET() {
 	var struct_index = readImmULEB32();

@@ -189,7 +189,7 @@ type VirgilStmt {
 component VirgilStmts {
     // format: <var_name:string>: <atom list: type> <expr>
     // Returns the expression that follows the type
-    def extractExprAfterType(tuple: Range<Sexp>) -> SexprRes<Sexp> {
+    def extractExprAfterType(tuple: Range<SExpr>) -> SexprRes<SExpr> {
         if (tuple.length < 2) return SexprRes.MissingElements(2, tuple.length);
         
         // Skip the var name (first element)
@@ -210,18 +210,18 @@ component VirgilStmts {
         return SexprRes.Success(tuple[i]);
     }
     
-    def from_sexpr(sexpr: Sexp) -> SexprRes<VirgilStmt> {
+    def from_sexpr(sexpr: SExpr) -> SexprRes<VirgilStmt> {
         match (sexpr) {
-            List(elts) => {
-                if (elts.length == 0) return SexprRes.MissingElements(1, 0);
-                match (elts[0]) {
+            List(elems) => {
+                if (elems.length == 0) return SexprRes.MissingElements(1, 0);
+                match (elems[0]) {
                     List(_) => return SexprRes.InvalidType("Atom", "List");
                     Atom(tag) => {
                         if (Strings.equal(tag, "BlockStmt")) {
-                            if (elts.length < 2) return SexprRes.MissingElements(2, elts.length);
-                            def stmts = Array<VirgilStmt>.new(elts.length - 1);
-                            for (i = 1; i < elts.length; i++) {
-                                def stmt_res = VirgilStmts.from_sexpr(elts[i]);
+                            if (elems.length < 2) return SexprRes.MissingElements(2, elems.length);
+                            def stmts = Array<VirgilStmt>.new(elems.length - 1);
+                            for (i = 1; i < elems.length; i++) {
+                                def stmt_res = VirgilStmts.from_sexpr(elems[i]);
                                 match (stmt_res) {
                                     Success(stmt) => stmts[i - 1] = stmt;
                                     _ => return stmt_res; // Propagate the specific error
@@ -230,28 +230,28 @@ component VirgilStmts {
                             return SexprRes.Success(VirgilStmt.Block(stmts));
                         }
                         else if (Strings.equal(tag, "ExprStmt")) {
-                            if (elts.length != 2) return SexprRes.MissingElements(2, elts.length);
+                            if (elems.length != 2) return SexprRes.MissingElements(2, elems.length);
                             
-                            def expr_res = VirgilExprs.from_sexpr(elts[1]);
+                            def expr_res = VirgilExprs.from_sexpr(elems[1]);
                             match (expr_res) {
                                 Success(expr) => return SexprRes.Success(VirgilStmt.Expr(expr));
                                 _ => return expr_res.castError<VirgilStmt>(); // Cast error to appropriate type
                             }
                         } 
                         else if (Strings.equal(tag, "IfStmt")) {
-                            if (elts.length < 3) return SexprRes.MissingElements(3, elts.length); // Need at least: IfStmt, condition, then_stmt
+                            if (elems.length < 3) return SexprRes.MissingElements(3, elems.length); // Need at least: IfStmt, condition, then_stmt
                             
                             // Parse the condition expression
-                            def cond_res = VirgilExprs.from_sexpr(elts[1]);
+                            def cond_res = VirgilExprs.from_sexpr(elems[1]);
                             match (cond_res) {
                                 Success(cond) => {
                                     // Parse the then statement
-                                    def then_res = VirgilStmts.from_sexpr(elts[2]);
+                                    def then_res = VirgilStmts.from_sexpr(elems[2]);
                                     match (then_res) {
                                         Success(then_stmt) => {
                                             // Check if there's an else statement (optional)
-                                            if (elts.length > 3) {
-                                                def else_res = VirgilStmts.from_sexpr(elts[3]);
+                                            if (elems.length > 3) {
+                                                def else_res = VirgilStmts.from_sexpr(elems[3]);
                                                 match (else_res) {
                                                     Success(else_stmt) => {
                                                         // Return if with both then and else statements
@@ -272,16 +272,16 @@ component VirgilStmts {
                             }
                         } 
                         else if (Strings.equal(tag, "ReturnStmt")) {
-                            if (elts.length != 2) return SexprRes.MissingElements(2, elts.length);
-                            def expr_res = VirgilExprs.from_sexpr(elts[1]);
+                            if (elems.length != 2) return SexprRes.MissingElements(2, elems.length);
+                            def expr_res = VirgilExprs.from_sexpr(elems[1]);
                             match (expr_res) {
                                 Success(expr) => return SexprRes.Success(VirgilStmt.Return(expr));
                                 _ => return expr_res.castError<VirgilStmt>(); // Cast error to appropriate type
                             }
                         }
                         else if (Strings.equal(tag, "LocalStmt")) {
-                            if (elts.length != 2) return SexprRes.MissingElements(2, elts.length);
-                            match (elts[1]) {
+                            if (elems.length != 2) return SexprRes.MissingElements(2, elems.length);
+                            match (elems[1]) {
                                 List(declaration) => {
                                     if (declaration.length < 2) return SexprRes.MissingElements(2, declaration.length);
                                     
@@ -376,17 +376,17 @@ type VirgilExpr {
 }
 
 component VirgilExprs {
-    def from_sexpr(sexpr: Sexp) -> SexprRes<VirgilExpr> {
+    def from_sexpr(sexpr: SExpr) -> SexprRes<VirgilExpr> {
         match (sexpr) {
-            List(elts) => {
-                if (elts.length == 0) return SexprRes.MissingElements(1, 0);
-                match (elts[0]) {
+            List(elems) => {
+                if (elems.length == 0) return SexprRes.MissingElements(1, 0);
+                match (elems[0]) {
                     List(_) => {
                         return SexprRes.InvalidType("Atom", "List");
                     }
                     Atom(tag) => {
                         if (Strings.startsWith(tag, "AppExpr")) {
-                            if (elts.length < 2) return SexprRes.MissingElements(2, elts.length); // Need at least: AppExpr, fn_name
+                            if (elems.length < 2) return SexprRes.MissingElements(2, elems.length); // Need at least: AppExpr, fn_name
 
                             var fn: string;
                             var arg_start_idx: int;
@@ -397,19 +397,19 @@ component VirgilExprs {
                                 // case looks like AppExpr: <type> (VarExpr <op>: <type> (VarExpr <type_var>)) <args*>
                                 var i = 1;
                                 // skip over type
-                                while (i < elts.length) {
-                                    match (elts[i]) {
+                                while (i < elems.length) {
+                                    match (elems[i]) {
                                         Atom(_) => i++;
                                         _ => break;
                                     }
                                 }
-                                match (elts[i]) {
+                                match (elems[i]) {
                                     List(op_ls) => {
                                         match (op_ls[1]) {
                                             Atom(op_atom) => {
                                                 var j = 2;
                                                 while (j < op_ls.length) {
-                                                    match (elts[j]) {
+                                                    match (elems[j]) {
                                                         Atom(_) => i++;
                                                         _ => break;
                                                     }
@@ -431,12 +431,12 @@ component VirgilExprs {
                                 }
                                 arg_start_idx = i + 1;
                             } else {
-                                match (elts[1]) {
+                                match (elems[1]) {
                                     Atom(fn_name_atom) => {
                                         fn = cleanIdent(fn_name_atom);
                                         var i = 2;
-                                        while (i < elts.length) {
-                                            match (elts[i]) {
+                                        while (i < elems.length) {
+                                            match (elems[i]) {
                                                 Atom(_) => i++;
                                                 _ => break;
                                             }
@@ -448,8 +448,8 @@ component VirgilExprs {
                             }
 
                             def args = Vector<VirgilExpr>.new();
-                            for (arg_idx = arg_start_idx; arg_idx < elts.length; arg_idx += 1) {
-                                def expr_res = VirgilExprs.from_sexpr(elts[arg_idx]);
+                            for (arg_idx = arg_start_idx; arg_idx < elems.length; arg_idx += 1) {
+                                def expr_res = VirgilExprs.from_sexpr(elems[arg_idx]);
                                 match (expr_res) {
                                     Success(expr) => {
                                         match (expr) {
@@ -465,29 +465,29 @@ component VirgilExprs {
                             return SexprRes.Success(VirgilExpr.AppExpr(fn, args.copy()));
                         }
                         else if (Strings.startsWith(tag, "BinOpExpr")) {
-                            if (elts.length < 4) return SexprRes.MissingElements(4, elts.length); // Need at least: BinOpExpr, op, left, right
+                            if (elems.length < 4) return SexprRes.MissingElements(4, elems.length); // Need at least: BinOpExpr, op, left, right
                         
                             // Extract the operator
-                            match (elts[1]) {
+                            match (elems[1]) {
                                 Atom(op) => {
                                     // Skip over the type atoms (elements that follow op)
                                     var i = 2;
-                                    while (i < elts.length) {
-                                        match (elts[i]) {
+                                    while (i < elems.length) {
+                                        match (elems[i]) {
                                             Atom(_) => i++;
                                             _ => break;
                                         }
                                     }
                                     
                                     // If we don't have enough elements for both left and right operands
-                                    if (i + 1 >= elts.length) return SexprRes.MissingElements(i+2, elts.length);
+                                    if (i + 1 >= elems.length) return SexprRes.MissingElements(i+2, elems.length);
                                     
                                     // Parse left operand
-                                    def left_res = VirgilExprs.from_sexpr(elts[i]);
+                                    def left_res = VirgilExprs.from_sexpr(elems[i]);
                                     match (left_res) {
                                         Success(left) => {
                                             // Parse right operand
-                                            def right_res = VirgilExprs.from_sexpr(elts[i+1]);
+                                            def right_res = VirgilExprs.from_sexpr(elems[i+1]);
                                             match (right_res) {
                                                 Success(right) => return SexprRes.Success(VirgilExpr.BinOpExpr(cleanIdent(op), left, right));
                                                 _ => return right_res; // Propagate the specific error
@@ -500,18 +500,18 @@ component VirgilExprs {
                             }
                         }
                         else if (Strings.startsWith(tag, "Literal") || Strings.startsWith(tag, "StringExpr")) {
-                            if (elts.length < 3) return SexprRes.MissingElements(3, elts.length); // Need at least: Literal, value, type
+                            if (elems.length < 3) return SexprRes.MissingElements(3, elems.length); // Need at least: Literal, value, type
                         
                             // Extract the literal value
-                            match (elts[1]) {
+                            match (elems[1]) {
                                 Atom(string_rep) => {
                                     // Build the type from all atoms until a non-atom is encountered
                                     var i = 2;
                                     def tipe_builder = StringBuilder.new();
                                     var first = true;
                                     
-                                    while (i < elts.length) {
-                                        match (elts[i]) {
+                                    while (i < elems.length) {
+                                        match (elems[i]) {
                                             Atom(t) => {
                                                 if (!first) tipe_builder.sp();
                                                 tipe_builder.puts(t);
@@ -529,30 +529,30 @@ component VirgilExprs {
                             }
                         }
                         else if (Strings.startsWith(tag, "IfExpr")) {
-                            if (elts.length < 4) return SexprRes.MissingElements(4, elts.length); // Need at least: IfExpr, type-atoms, cond, then, else
+                            if (elems.length < 4) return SexprRes.MissingElements(4, elems.length); // Need at least: IfExpr, type-atoms, cond, then, else
                             
                             // Skip over the type atoms that follow the IfExpr tag
                             var i = 1;
-                            while (i < elts.length) {
-                                match (elts[i]) {
+                            while (i < elems.length) {
+                                match (elems[i]) {
                                     Atom(_) => i++;
                                     _ => break;
                                 }
                             }
                             
                             // We need at least 3 more elements after the type atoms (cond, then, else)
-                            if (i + 2 >= elts.length) return SexprRes.MissingElements(i+3, elts.length);
+                            if (i + 2 >= elems.length) return SexprRes.MissingElements(i+3, elems.length);
                             
                             // Parse the condition expression
-                            def cond_res = VirgilExprs.from_sexpr(elts[i]);
+                            def cond_res = VirgilExprs.from_sexpr(elems[i]);
                             match (cond_res) {
                                 Success(cond) => {
                                     // Parse the then expression
-                                    def then_res = VirgilExprs.from_sexpr(elts[i+1]);
+                                    def then_res = VirgilExprs.from_sexpr(elems[i+1]);
                                     match (then_res) {
                                         Success(then_expr) => {
                                             // Parse the else expression
-                                            def else_res = VirgilExprs.from_sexpr(elts[i+2]);
+                                            def else_res = VirgilExprs.from_sexpr(elems[i+2]);
                                             match (else_res) {
                                                 Success(else_expr) => {
                                                     // Return IfExpr with condition, then, and else expressions
@@ -568,10 +568,10 @@ component VirgilExprs {
                             }
                         }
                         else if (Strings.startsWith(tag, "VarExpr")) {
-                            if (elts.length < 2) return SexprRes.MissingElements(2, elts.length); // Need at least: VarExpr, var_name
+                            if (elems.length < 2) return SexprRes.MissingElements(2, elems.length); // Need at least: VarExpr, var_name
                             
                             // Extract the variable name
-                            match (elts[1]) {
+                            match (elems[1]) {
                                 Atom(var_name) => {
                                     // Skip the type information and return the VarExpr with unquoted name
                                     return SexprRes.Success(VirgilExpr.VarExpr(cleanIdent(var_name)));
