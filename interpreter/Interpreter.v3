@@ -1,6 +1,99 @@
-[[0;34mparser/ParseSexpr.v3[1;00m @ [0;36m21:6[1;00m] [0;31mTypeRedefined[1;00m: type "ParseResult" redefined
-type ParseResult<T> {
-     ^^^^^^^^^^^
-[[0;34m../virgil/lib/util/Sexpr.v3[1;00m @ [0;36m72:37[1;00m] [0;31mUnresolvedMember[1;00m: type ParseResult<?T> has no such member "EmptySExpr"
-            0 => return ParseResult.EmptySExpr;
-                                    ^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m201:25[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "strings" cannot be found
+                    if (strings.equal("BlockStmt", tag)) return parse_block_stmt(sexpr);
+                        ^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m201:33[1;00m] [0;31mUnresolvedMember[1;00m: expression of type <null> has no such member "equal"
+                    if (strings.equal("BlockStmt", tag)) return parse_block_stmt(sexpr);
+                                ^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m201:25[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
+                    if (strings.equal("BlockStmt", tag)) return parse_block_stmt(sexpr);
+                        ^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m201:25[1;00m] [0;31mTypeError[1;00m: expected bool in if condition, got ?
+                    if (strings.equal("BlockStmt", tag)) return parse_block_stmt(sexpr);
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:25[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "strings" cannot be found
+                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
+                        ^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:33[1;00m] [0;31mUnresolvedMember[1;00m: expression of type <null> has no such member "equal"
+                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
+                                ^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:25[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
+                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
+                        ^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:25[1;00m] [0;31mTypeError[1;00m: expected bool in if condition, got ?
+                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:64[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "parse_expr_stmt" cannot be found
+                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
+                                                               ^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:64[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
+                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
+                                                               ^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:64[1;00m] [0;31mTypeError[1;00m: expected SExprRes<VirgilStmt> in return statement, got ?
+                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
+                                                               ^^^^^^^^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:25[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "strings" cannot be found
+                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
+                        ^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:33[1;00m] [0;31mUnresolvedMember[1;00m: expression of type <null> has no such member "equal"
+                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
+                                ^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:25[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
+                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
+                        ^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:25[1;00m] [0;31mTypeError[1;00m: expected bool in if condition, got ?
+                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:62[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "parse_if_stmt" cannot be found
+                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
+                                                             ^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:62[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
+                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
+                                                             ^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:62[1;00m] [0;31mTypeError[1;00m: expected SExprRes<VirgilStmt> in return statement, got ?
+                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
+                                                             ^^^^^^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:25[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "strings" cannot be found
+                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
+                        ^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:33[1;00m] [0;31mUnresolvedMember[1;00m: expression of type <null> has no such member "equal"
+                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
+                                ^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:25[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
+                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
+                        ^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:25[1;00m] [0;31mTypeError[1;00m: expected bool in if condition, got ?
+                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:66[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "parse_return_stmt" cannot be found
+                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
+                                                                 ^^^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:66[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
+                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
+                                                                 ^^^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:66[1;00m] [0;31mTypeError[1;00m: expected SExprRes<VirgilStmt> in return statement, got ?
+                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
+                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:25[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "strings" cannot be found
+                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
+                        ^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:33[1;00m] [0;31mUnresolvedMember[1;00m: expression of type <null> has no such member "equal"
+                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
+                                ^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:25[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
+                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
+                        ^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:25[1;00m] [0;31mTypeError[1;00m: expected bool in if condition, got ?
+                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:65[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "parse_local_stmt" cannot be found
+                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
+                                                                ^^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:65[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
+                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
+                                                                ^^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:65[1;00m] [0;31mTypeError[1;00m: expected SExprRes<VirgilStmt> in return statement, got ?
+                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m195:58[1;00m] [0;31mMissingReturn[1;00m: method does not end in a return statement
+    def from_sexpr(sexpr: SExpr) -> SExprRes<VirgilStmt> {
+                                                         ^

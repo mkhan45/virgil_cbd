@@ -76,13 +76,13 @@ def containsStr(strs: Range<string>, k: string) -> bool {
 
 def extractDefs(instrs: Array<string>, filename: string, file_content: string) -> Array<CBDDef> {
     def defs: Vector<CBDDef> = Vector.new();
-    def sexp_parser = SexpParser.new(filename, file_content);
+    def sexp_parser = SExprParser.new(filename, file_content);
     while (sexp_parser.ok && sexp_parser.pos < sexp_parser.data.length) {
         if (hasMethod(sexp_parser)) {
             def meth = readMethodName(sexp_parser);
             if (!containsStr(instrs, meth)) continue;
             nextLine(sexp_parser);
-            def result = sexp_parser.readSexp();
+            def result = sexp_parser.readSExpr();
             match (result) {
                 Success(sexp) => {
                     def stmt_res = VirgilStmts.from_sexpr(sexp);

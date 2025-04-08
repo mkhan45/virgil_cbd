@@ -14,8 +14,8 @@ def main(args: Array<string>) {
     }
 
     // Parse the file into an S-expression
-    def parser = SexpParser.new(filename, file_bytes);
-    def sexp_res = parser.readSexp();
+    def parser = SExprParser.new(filename, file_bytes);
+    def sexp_res = parser.readSExpr();
     
     match (sexp_res) {
         Success(sexp) => {
@@ -39,58 +39,20 @@ def main(args: Array<string>) {
                 TODO => {
                     System.puts("TODO: Not implemented yet.\n");
                 }
-                Malformed => {
-                    System.puts("Error: Malformed S-expression for Virgil statement.\n");
+                Malformed(sexpr) => {
+                    System.puts("Error: Malformed S-expression for Virgil statement:\n");
+                    def sexp_buf = StringBuilder.new();
+                    sexpr.buildString(sexp_buf);
+                    System.puts(sexp_buf.toString());
+                    System.ln();
                 }
-                MissingElements(expected, found) => {
-                    System.puts("Error: Expected at least ");
-                    System.puti(expected);
-                    System.puts(" element(s), but found ");
-                    System.puti(found);
-                    System.puts(".\n");
-                }
-                InvalidTag(tag) => {
-                    System.puts("Error: Invalid or unexpected tag \"");
-                    System.puts(tag);
-                    System.puts("\".\n");
-                }
-                InvalidStructure(desc) => {
-                    System.puts("Error: Invalid structure - ");
-                    System.puts(desc);
-                    System.puts(".\n");
-                }
-                InvalidType(expected, found) => {
-                    System.puts("Error: Expected type \"");
-                    System.puts(expected);
-                    System.puts("\", but found \"");
-                    System.puts(found);
-                    System.puts("\".\n");
-                }
-                MissingAttribute(name) => {
-                    System.puts("Error: Missing required attribute \"");
-                    System.puts(name);
-                    System.puts("\".\n");
+                ParserBug => {
+                    System.puts("Error: Parser Bug\n");
                 }
             }
         }
         _ => {
-            System.puts("Error parsing S-expression: ");
-            match (sexp_res) {
-                Expected(s) => {
-                    System.puts("expected ");
-                    System.puts(s);
-                    System.ln();
-                }
-                EmptySexp => System.puts("empty sexp\n");
-                Success(_) => {} // unreachable
-            }
-            System.puts("line: ");
-            System.puti(parser.error_line);
-            System.puts(", col: ");
-            System.puti(parser.error_column);
-            System.ln();
-            System.puts(parser.error_msg);
-            System.ln();
+            System.puts("Error parsing S-expression\n");
         }
     }
 }
