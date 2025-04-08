@@ -1,99 +1,325 @@
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m201:25[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "strings" cannot be found
-                    if (strings.equal("BlockStmt", tag)) return parse_block_stmt(sexpr);
-                        ^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m201:33[1;00m] [0;31mUnresolvedMember[1;00m: expression of type <null> has no such member "equal"
-                    if (strings.equal("BlockStmt", tag)) return parse_block_stmt(sexpr);
-                                ^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m201:25[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
-                    if (strings.equal("BlockStmt", tag)) return parse_block_stmt(sexpr);
-                        ^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m201:25[1;00m] [0;31mTypeError[1;00m: expected bool in if condition, got ?
-                    if (strings.equal("BlockStmt", tag)) return parse_block_stmt(sexpr);
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:25[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "strings" cannot be found
-                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
-                        ^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:33[1;00m] [0;31mUnresolvedMember[1;00m: expression of type <null> has no such member "equal"
-                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
-                                ^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:25[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
-                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
-                        ^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:25[1;00m] [0;31mTypeError[1;00m: expected bool in if condition, got ?
-                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:64[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "parse_expr_stmt" cannot be found
-                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
-                                                               ^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:64[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
-                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
-                                                               ^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m202:64[1;00m] [0;31mTypeError[1;00m: expected SExprRes<VirgilStmt> in return statement, got ?
-                    if (strings.equal("ExprStmt", tag)) return parse_expr_stmt(sexpr);
-                                                               ^^^^^^^^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:25[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "strings" cannot be found
-                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
-                        ^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:33[1;00m] [0;31mUnresolvedMember[1;00m: expression of type <null> has no such member "equal"
-                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
-                                ^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:25[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
-                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
-                        ^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:25[1;00m] [0;31mTypeError[1;00m: expected bool in if condition, got ?
-                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:62[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "parse_if_stmt" cannot be found
-                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
-                                                             ^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:62[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
-                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
-                                                             ^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m203:62[1;00m] [0;31mTypeError[1;00m: expected SExprRes<VirgilStmt> in return statement, got ?
-                    if (strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
-                                                             ^^^^^^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:25[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "strings" cannot be found
-                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
-                        ^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:33[1;00m] [0;31mUnresolvedMember[1;00m: expression of type <null> has no such member "equal"
-                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
-                                ^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:25[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
-                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
-                        ^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:25[1;00m] [0;31mTypeError[1;00m: expected bool in if condition, got ?
-                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:66[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "parse_return_stmt" cannot be found
-                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
-                                                                 ^^^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:66[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
-                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
-                                                                 ^^^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m204:66[1;00m] [0;31mTypeError[1;00m: expected SExprRes<VirgilStmt> in return statement, got ?
-                    if (strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
-                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:25[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "strings" cannot be found
-                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
-                        ^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:33[1;00m] [0;31mUnresolvedMember[1;00m: expression of type <null> has no such member "equal"
-                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
-                                ^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:25[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
-                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
-                        ^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:25[1;00m] [0;31mTypeError[1;00m: expected bool in if condition, got ?
-                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:65[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "parse_local_stmt" cannot be found
-                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
-                                                                ^^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:65[1;00m] [0;31mTypeError[1;00m: expected function for call, got ?
-                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
-                                                                ^^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m205:65[1;00m] [0;31mTypeError[1;00m: expected SExprRes<VirgilStmt> in return statement, got ?
-                    if (strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
-                                                                ^^^^^^^^^^^^^^^^^^^^^^^
-[[0;34mparser/VirgilSexpr.v3[1;00m @ [0;36m195:58[1;00m] [0;31mMissingReturn[1;00m: method does not end in a return statement
-    def from_sexpr(sexpr: SExpr) -> SExprRes<VirgilStmt> {
-                                                         ^
+// GENERATED BY InterpreterGen.v3def UNREACHABLE() {
+  trapUnreachable(trapUnreachable, trapUnreachable);
+}
+def LOCAL_GET() {
+  var index = readImmULEB32(readImmULEB32, readImmULEB32);
+  var tv = f_getLocalType(f_getLocalType, f_getLocalType, index);
+  var val = getLocal(getLocal, getLocal, tv, index);
+  push_Value(push_Value, push_Value, tv, val);
+}
+def LOCAL_SET() {
+  var index = readImmULEB32(readImmULEB32, readImmULEB32);
+  var tv = f_getLocalType(f_getLocalType, f_getLocalType, index);
+  var val = pop_Value(pop_Value, pop_Value, tv);
+  setLocal(setLocal, setLocal, tv, index, val);
+}
+def LOCAL_TEE() {
+  var index = readImmULEB32(readImmULEB32, readImmULEB32);
+  var tv = f_getLocalType(f_getLocalType, f_getLocalType, index);
+  var val = pop_Value(pop_Value, pop_Value, tv);
+  setLocal(setLocal, setLocal, tv, index, val);
+  push_Value(push_Value, push_Value, tv, val);
+}
+def GLOBAL_GET() {
+  var index = readImmULEB32(readImmULEB32, readImmULEB32);
+  var tv = m_getGlobalType(m_getGlobalType, m_getGlobalType, index);
+  var val = getGlobal(getGlobal, getGlobal, tv, index);
+  push_Value(push_Value, push_Value, tv, val);
+}
+def GLOBAL_SET() {
+  var index = readImmULEB32(readImmULEB32, readImmULEB32);
+  var tv = m_getGlobalType(m_getGlobalType, m_getGlobalType, index);
+  var val = pop_Value(pop_Value, pop_Value, tv);
+  setGlobal(setGlobal, setGlobal, tv, index, val);
+}
+def TABLE_GET() {
+  var table_index = readImmULEB32(readImmULEB32, readImmULEB32);
+  if (m_isTable64(m_isTable64, m_isTable64, table_index)) {
+  var index = pop_u64(pop_u64, pop_u64);
+  var val = mach_readTable64(mach_readTable64, mach_readTable64, table_index, index);
+  push_Object(push_Object, push_Object, val);
+} else {
+  var index = pop_u32(pop_u32, pop_u32);
+  var val = mach_readTable32(mach_readTable32, mach_readTable32, table_index, index);
+  push_Object(push_Object, push_Object, val);
+}
+}
+def TABLE_SET() {
+  var table_index = readImmULEB32(readImmULEB32, readImmULEB32);
+  if (m_isTable64(m_isTable64, m_isTable64, table_index)) {
+  var val = pop_Object(pop_Object, pop_Object);
+  var index = pop_u64(pop_u64, pop_u64);
+  mach_writeTable64(mach_writeTable64, mach_writeTable64, table_index, index, val);
+} else {
+  var val = pop_Object(pop_Object, pop_Object);
+  var index = pop_u32(pop_u32, pop_u32);
+  mach_writeTable32(mach_writeTable32, mach_writeTable32, table_index, index, val);
+}
+}
+def CALL() {
+  var index = readImmULEB32(readImmULEB32, readImmULEB32);
+  var sig = m_getFuncSignature(m_getFuncSignature, m_getFuncSignature, index);
+  var target = i_getFunction(i_getFunction, i_getFunction, index);
+  doCall(doCall, doCall, sig, target);
+}
+def CALL_INDIRECT() {
+  var sig_index = readImmULEB32(readImmULEB32, readImmULEB32);
+  var table_index = readImmULEB32(readImmULEB32, readImmULEB32);
+  var sig = m_getSignature(m_getSignature, m_getSignature, sig_index);
+  if (m_isTable64(m_isTable64, m_isTable64, table_index)) {
+  var func_index = pop_u64(pop_u64, pop_u64);
+  var target = i_getTableFunction64(i_getTableFunction64, i_getTableFunction64, table_index, sig, func_index);
+  doCall(doCall, doCall, sig, target);
+} else {
+  var func_index = pop_u32(pop_u32, pop_u32);
+  var target = i_getTableFunction32(i_getTableFunction32, i_getTableFunction32, table_index, sig, func_index);
+  doCall(doCall, doCall, sig, target);
+}
+}
+def I32_ADD() {
+  var x = pop_u32(pop_u32, pop_u32);
+  var y = pop_u32(pop_u32, pop_u32);
+  var r = u32.+(+, x, y);
+  push_u32(push_u32, push_u32, r);
+}
+def BR_IF() {
+  var depth = readImmULEB32(readImmULEB32, readImmULEB32);
+  var label = f_getLabel(f_getLabel, f_getLabel, depth);
+  var cond = pop_u32(pop_u32, pop_u32);
+  if (u32.!=(!=, cond, u32)) 
+    return doBranch(doBranch, doBranch, label);
+  doFallThru(doFallThru, doFallThru);
+}
+def BLOCK() {
+  var bt = readImmBlockType(readImmBlockType, readImmBlockType);
+  return doBlock(doBlock, doBlock, bt);
+}
+def LOOP() {
+  var bt = readImmBlockType(readImmBlockType, readImmBlockType);
+  return doLoop(doLoop, doLoop, bt);
+}
+def TRY() {
+  var bt = readImmBlockType(readImmBlockType, readImmBlockType);
+  return doTry(doTry, doTry, bt);
+}
+def IF() {
+  var bt = readImmBlockType(readImmBlockType, readImmBlockType);
+  var cond = pop_i32(pop_i32, pop_i32);
+  var label = f_getLabel(f_getLabel, f_getLabel, u32);
+  if ((cond == int)) 
+    return doBranch(doBranch, doBranch, label); else 
+    return doFallThru(doFallThru, doFallThru);
+}
+def ELSE() {
+  var label = f_getLabel(f_getLabel, f_getLabel, u32);
+  return doBranch(doBranch, doBranch, label);
+}
+def END() {
+  doEnd(doEnd, doEnd);
+  if (f_isAtEnd(f_isAtEnd, f_isAtEnd)) 
+    return doReturn(doReturn, doReturn);
+}
+def build_dispatch_table() -> Array<void -> void> {
+  DISPATCH_TABLE = Array.new(0xE5 + 1);
+  DISPATCH_TABLE[Opcode.UNREACHABLE.code] = UNREACHABLE;
+  DISPATCH_TABLE[Opcode.LOCAL_GET.code] = LOCAL_GET;
+  DISPATCH_TABLE[Opcode.LOCAL_SET.code] = LOCAL_SET;
+  DISPATCH_TABLE[Opcode.LOCAL_TEE.code] = LOCAL_TEE;
+  DISPATCH_TABLE[Opcode.GLOBAL_GET.code] = GLOBAL_GET;
+  DISPATCH_TABLE[Opcode.GLOBAL_SET.code] = GLOBAL_SET;
+  DISPATCH_TABLE[Opcode.TABLE_GET.code] = TABLE_GET;
+  DISPATCH_TABLE[Opcode.TABLE_SET.code] = TABLE_SET;
+  DISPATCH_TABLE[Opcode.CALL.code] = CALL;
+  DISPATCH_TABLE[Opcode.CALL_INDIRECT.code] = CALL_INDIRECT;
+  DISPATCH_TABLE[Opcode.I32_ADD.code] = I32_ADD;
+  DISPATCH_TABLE[Opcode.BR_IF.code] = BR_IF;
+  DISPATCH_TABLE[Opcode.BLOCK.code] = BLOCK;
+  DISPATCH_TABLE[Opcode.LOOP.code] = LOOP;
+  DISPATCH_TABLE[Opcode.TRY.code] = TRY;
+  DISPATCH_TABLE[Opcode.IF.code] = IF;
+  DISPATCH_TABLE[Opcode.ELSE.code] = ELSE;
+  DISPATCH_TABLE[Opcode.END.code] = END;
+  return DISPATCH_TABLE;
+}
+
+var codeptr: CodePtr;
+var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
+var local_types: Vector<TypeVar>; // TODO: just get ValueKinds from stack
+var stack: ArrayStack<Value>;
+
+type CtlEntry {
+	Block(end_pc: int);
+	Loop(start_pc: int, end_pc: int);
+}
+var ctl_stack: ArrayStack<CtlEntry>;
+
+// Constants
+def HAS_MEM_INDEX = 0x40u8;
+
+// Types.
+type v128(low: u64, high: u64);
+type Label;
+// type Value;
+// class Object { }
+type TypeVar {
+    case I32;
+}
+type FieldOffset;
+class Signature { }
+// class Function { }
+
+enum FieldKind {
+	U8, U16, I32, I64, F32, F64, V128, REF
+}
+
+def readImmULEB32() -> u32 {
+    return codeptr.read_uleb32();
+}
+
+def readImmILEB32() -> i32 {
+    return i32.!(codeptr.read_uleb32());
+}
+
+def readImmULEB64() -> u64 {
+    return codeptr.read_uleb64();
+}
+
+def readImmILEB64() -> i64 {
+    return i64.!(codeptr.read_uleb64());
+}
+
+def readImmU8() -> u8 {
+    return codeptr.read1();
+}
+
+def pop_i32() -> i32;
+def pop_u32() -> u32 {
+    match (stack.pop()) {
+        I32(u) => return u;
+        _ => return 0; // TODO: fail() function
+    }
+}
+def pop_i64() -> i64;
+def pop_u64() -> u64;
+def pop_f32() -> float;
+def pop_f64() -> double;
+def pop_v128() -> v128;
+def pop_Object() -> Object;
+def pop_Value(tv: TypeVar) -> Value;
+
+def push_i32(v: i32) {
+    stack.push(Value.I32(u32.!(v)));
+}
+def push_u32(v: u32) {
+    stack.push(Value.I32(u32.!(v)));
+}
+def push_i64(v: i64);
+def push_u64(v: u64);
+def push_f32(v: float);
+def push_f64(v: double);
+def push_v128(v: v128);
+def push_Object(v: Object);
+def push_Value(tv: TypeVar, v: Value) {
+    stack.push(v);
+}
+
+// Local variables.
+def getLocal(tv: TypeVar, index: u32) -> Value {
+    return stack.elems[index];
+}
+def setLocal(tv: TypeVar, index: u32, v: Value);
+
+// Global variables.
+def getGlobal(tv: TypeVar, index: u32) -> Value;
+def setGlobal(tv: TypeVar, index: u32, v: Value);
+
+// Function context.
+def f_getLabel(depth: u32) -> Label;
+def f_getLocalType(index: u32) -> TypeVar {
+    return local_types[int.!(index)];
+}
+
+// Module context.
+def m_getGlobalType(index: u32) -> TypeVar;
+def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
+def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset;
+def m_isMemory64(memory_index: u32) -> bool;
+def m_isTable64(memory_index: u32) -> bool;
+def m_getFuncSignature(func_index: u32) -> Signature;
+def m_getSignature(sig_index: u32) -> Signature;
+
+// Instance context.
+def i_getTableFunction64(table_index: u32, sig: Signature, func_index: u64) -> Function;
+def i_getTableFunction32(table_index: u32, sig: Signature, func_index: u32) -> Function;
+def i_getFunction(func_index: u32) -> Function;
+
+// Control flow.
+def doCall(sig: Signature, target: Function);
+def doBranch(label: Label);
+def doFallThru();
+
+// Machine intrinsics.
+def mach_readStructField_i8(obj: Object, offset: FieldOffset) -> i8;
+def mach_readStructField_u8(obj: Object, offset: FieldOffset) -> u8;
+def mach_readStructField_i16(obj: Object, offset: FieldOffset) -> i16;
+def mach_readStructField_u16(obj: Object, offset: FieldOffset) -> u16;
+def mach_readStructField_u32(obj: Object, offset: FieldOffset) -> u32;
+def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> u64;
+def mach_readStructField_f32(obj: Object, offset: FieldOffset) -> float;
+def mach_readStructField_f64(obj: Object, offset: FieldOffset) -> double;
+def mach_readStructField_v128(obj: Object, offset: FieldOffset) -> v128;
+def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> Object;
+
+def mach_readMemory64_u32(memory_index: u32, index: u64, offset: u64) -> u32;
+def mach_readMemory32_u32(memory_index: u32, index: u32, offset: u32) -> u32;
+
+def mach_readTable64(table_index: u32, index: u64) -> Object;
+def mach_readTable32(table_index: u32, index: u32) -> Object;
+
+def mach_writeTable64(table_index: u32, index: u64, val: Object);
+def mach_writeTable32(table_index: u32, index: u32, val: Object);
+
+// Traps.
+def invalid(); // should never occur
+def trapNull();
+def trapUnreachable();
+
+def end() {
+    return;
+}
+
+def push_locals(count: u32, vtc: ValueTypeCode) {
+    System.puts("push\n");
+    var tv: TypeVar;
+    match (vtc.code) {
+        BpTypeCode.I32.val => tv = TypeVar.I32;
+        _ => tv = TypeVar.I32; // TODO
+    }
+    
+    for (i < count) local_types.put(tv);
+}
+
+component Interpreter {
+    def init(code: Array<byte>, args: Array<int>) {
+        codeptr = CodePtr.new(code);
+        DISPATCH_TABLE[Opcode.END.code] = end;
+        local_types = Vector.new();
+        stack = ArrayStack.new();
+        for (a in args) local_types.put(TypeVar.I32);
+        for (a in args) stack.push(Value.I32(u32.!(a)));
+    }
+
+    def dispatch() {
+        codeptr.iterate_local_codes(push_locals);
+        while (codeptr.pos < codeptr.data.length) {
+            def op = codeptr.read_opcode();
+            System.puts(op.mnemonic);
+            System.ln();
+            DISPATCH_TABLE[op.code]();
+        }
+    }
+
+    def get_stack() -> ArrayStack<Value> {
+        return stack;
+    }
+}

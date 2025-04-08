@@ -307,7 +307,7 @@ component VirgilStmts {
         def decl = elems.tail.head.forceList();
         if (decl == null) return SExprRes.Malformed(sexpr);
         
-        def var_name = decl.head.forceAtom();
+        def var_name = cleanIdent(decl.head.forceAtom());
         if (var_name == null) return SExprRes.Malformed(sexpr);
         
         // Verify type information
@@ -423,18 +423,18 @@ component VirgilExprs {
         var args: List<SExpr>;
         match (elems.tail.head) {
             Atom(func) => {
-                func_name = func;
+                func_name = cleanIdent(func);
                 args = elems.tail.tail.tail;
             }
             List(hlist) => {
                 if (!hlist.head.matchesAtom("type")) return SExprRes.Malformed(sexpr);
 
                 // expect: (VarExpr "method" (type ...) (VarExpr "class" (type ...)))
-                def method_sexp = hlist.tail.head.forceList();
+                def method_sexp = elems.tail.tail.head.forceList();
                 if (method_sexp == null) return SExprRes.ParserBug;
-                if (!method_sexp.head.matchesAtom("VarExp[Inst]")) return SExprRes.Malformed(sexpr);
+                if (!method_sexp.head.matchesAtom("VarExpr[Inst]")) return SExprRes.Malformed(sexpr);
 
-                def meth = method_sexp.tail.head.forceAtom();
+                def meth = cleanIdent(method_sexp.tail.head.forceAtom());
                 if (meth == null) return SExprRes.ParserBug;
 
                 def ty = method_sexp.tail.tail.head;
@@ -444,7 +444,7 @@ component VirgilExprs {
                 def klass = method_sexp.tail.tail.tail.head;
                 def klass_list = klass.forceList();
                 if (klass_list == null || !klass_list.head.matchesAtom("VarExpr[Type]")) return SExprRes.Malformed(sexpr);
-                def klass_str = klass_list.tail.head.forceAtom();
+                def klass_str = cleanIdent(klass_list.tail.head.forceAtom());
                 if (klass_str == null) return SExprRes.ParserBug;
 
                 func_name = Strings.format2("%s.%s", klass_str, meth);
@@ -470,7 +470,7 @@ component VirgilExprs {
         def elems = sexpr.forceList();
         if (!elems.head.matchesAtom("BinOpExpr")) return SExprRes.ParserBug;
 
-        def op = elems.tail.head.forceAtom();
+        def op = cleanIdent(elems.tail.head.forceAtom());
         if (op == null) return SExprRes.Malformed(sexpr);
 
         def tipe_ls = elems.tail.tail.head.forceList();
@@ -491,7 +491,7 @@ component VirgilExprs {
         def elems = sexpr.forceList();
         if (!elems.head.matchesAtom("Literal")) return SExprRes.ParserBug;
 
-        def lit = elems.tail.head.forceAtom();
+        def lit = cleanIdent(elems.tail.head.forceAtom());
         if (lit == null) return SExprRes.Malformed(sexpr);
 
         def tipe = elems.tail.tail.head;
@@ -517,7 +517,7 @@ component VirgilExprs {
         if (tag == null) return SExprRes.ParserBug;
         if (!Strings.startsWith(tag, "VarExpr")) return SExprRes.ParserBug;
 
-        def var_name = elems.tail.head.forceAtom();
+        def var_name = cleanIdent(elems.tail.head.forceAtom());
         if (var_name == null) return SExprRes.Malformed(sexpr);
 
         return SExprRes.Success(VirgilExpr.VarExpr(var_name));
