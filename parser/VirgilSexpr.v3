@@ -424,7 +424,7 @@ component VirgilExprs {
         match (elems.tail.head) {
             Atom(func) => {
                 func_name = cleanIdent(func);
-                args = elems.tail.tail.tail;
+                args = elems.tail.tail.tail.tail.tail; // seems like AppExprs get passed the func twice for resolution or smth
             }
             List(hlist) => {
                 if (!hlist.head.matchesAtom("type")) return SExprRes.Malformed(sexpr);
@@ -448,7 +448,7 @@ component VirgilExprs {
                 if (klass_str == null) return SExprRes.ParserBug;
 
                 func_name = Strings.format2("%s.%s", klass_str, meth);
-                args = elems.tail.tail;
+                args = elems.tail.tail.tail;
             }
         }
 
@@ -499,7 +499,7 @@ component VirgilExprs {
         if (!parsed_type_res.isSuccess()) return parsed_type_res.castError();
         def parsed_type = parsed_type_res.orDefault(null);
 
-        return SExprRes.Success(VirgilExpr.Literal(lit, parsed_type));
+        return SExprRes.Success(VirgilExpr.Literal(parsed_type, lit));
     }
 
     def parse_if_expr(sexpr: SExpr) -> SExprRes<VirgilExpr> {

@@ -6,8 +6,8 @@ var local_types: Vector<TypeVar>; // TODO: just get ValueKinds from stack
 var stack: ArrayStack<Value>;
 
 type CtlEntry {
-	Block(end_pc: int);
-	Loop(start_pc: int, end_pc: int);
+	case Block(end_pc: int);
+	case Loop(start_pc: int, end_pc: int);
 }
 var ctl_stack: ArrayStack<CtlEntry>;
 
@@ -48,6 +48,10 @@ def readImmILEB64() -> i64 {
 
 def readImmU8() -> u8 {
     return codeptr.read1();
+}
+
+def readImmBlockType() -> () {
+    return ();
 }
 
 def pop_i32() -> i32;
@@ -142,8 +146,28 @@ def invalid(); // should never occur
 def trapNull();
 def trapUnreachable();
 
-def end() {
+def doBlock(bt: ()) {
     return;
+}
+
+def doLoop(bt: ()) {
+    return;
+}
+
+def doEnd() {
+    return;
+}
+
+def doReturn() {
+    return;
+}
+
+def doTry(bt: ()) {
+    return;
+}
+
+def f_isAtEnd() -> bool {
+    return false;
 }
 
 def push_locals(count: u32, vtc: ValueTypeCode) {
@@ -160,7 +184,6 @@ def push_locals(count: u32, vtc: ValueTypeCode) {
 component Interpreter {
     def init(code: Array<byte>, args: Array<int>) {
         codeptr = CodePtr.new(code);
-        DISPATCH_TABLE[Opcode.END.code] = end;
         local_types = Vector.new();
         stack = ArrayStack.new();
         for (a in args) local_types.put(TypeVar.I32);
