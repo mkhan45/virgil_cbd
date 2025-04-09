@@ -36,8 +36,13 @@ run_interpreter: generate_interpreter
 	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL) interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
 
 # Generate the interpreter from template
-generate_interpreter:
+generate_interpreter: cbd_sexp
+	cp defs/CanonicalDefs.v3 defs/CanonicalDefs.v3cbd
 	$(VIRGIL) $(VIRGIL_STD) $(PARSER_DIR)/VirgilSexpr.v3 interpreter/InterpreterGen.v3 defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp interpreter/InterpreterTemplate.v3 > interpreter/Interpreter.v3
+	rm defs/CanonicalDefs.v3cbd
+
+cbd_sexp:
+	$(VIRGIL) -print-vst defs/CanonicalDefs.v3 > defs/CanonicalDefs.v3cbd.sexp
 
 # Clean build artifacts
 clean:

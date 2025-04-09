@@ -22,7 +22,7 @@ def main(args: Array<string>) {
 
     System.puts("stack top: ");
     match (Interpreter.get_stack().peek()) {
-        I32(i) => System.puti(int.!(i));
+        I32(i) => System.puti(i32.view(i));
         _ => {}
     }
     System.ln();

@@ -57,7 +57,12 @@ def readImmBlockType() -> () {
     return ();
 }
 
-def pop_i32() -> i32;
+def pop_i32() -> i32 {
+    match (stack.pop()) {
+        I32(u) => return i32.view(u);
+        _ => return 0; // TODO: fail() function
+    }
+}
 def pop_u32() -> u32 {
     match (stack.pop()) {
         I32(u) => return u;
@@ -75,10 +80,10 @@ def pop_Value(tv: TypeVar) -> Value {
 }
 
 def push_i32(v: i32) {
-    stack.push(Value.I32(u32.!(v)));
+    stack.push(Value.I32(u32.view(v)));
 }
 def push_u32(v: u32) {
-    stack.push(Value.I32(u32.!(v)));
+    stack.push(Value.I32(v));
 }
 def push_i64(v: i64);
 def push_u64(v: u64);
@@ -130,7 +135,7 @@ def doCall(sig: Signature, target: Function);
 
 def doBranch(label: Label) {
     for (i < label.depth) ctl_stack.pop();
-    def ctl_idx = ctl_stack.pop();
+    def ctl_idx = ctl_stack.peek();
     match (ctls[ctl_idx]) {
         Block(end_pc) => {
             if (end_pc == -1) {
@@ -139,19 +144,17 @@ def doBranch(label: Label) {
             } else {
 		codeptr.at(end_pc);
 	    }
+	    ctl_stack.pop();
         }
 	Loop(start_pc, end_pc) => {
-		codeptr.at(end_pc);
+		codeptr.at(start_pc);
 	}
 	None => invalid();
     }
 }
 
-// TODO: easier to just do a quick sidetable build loop in init() than mess with ctl stack here
 def skipToEnd(depth: u32) {
-    def prev_pos = codeptr.pos;
-
-    while (depth > 0) {
+    while (depth + 1 > 0) {
 	def op = codeptr.read_opcode();
 	if (op == Opcode.END) depth -= 1;
 	codeptr.skip_immediates(op.imms);
@@ -247,6 +250,7 @@ component Interpreter {
         codeptr.iterate_local_codes(push_locals);
         while (codeptr.pos < codeptr.data.length) {
             def op = codeptr.read_opcode();
+	    print_stack();
             System.puts(op.mnemonic);
             System.ln();
             DISPATCH_TABLE[op.code]();
@@ -255,5 +259,17 @@ component Interpreter {
 
     def get_stack() -> ArrayStack<Value> {
         return stack;
+    }
+
+    def print_stack() {
+	System.puts("[");
+	for (i < stack.top) {
+	    match (stack.elems[i]) {
+		I32(i) => System.puti(i32.!(i));
+		_ => {}
+	    }
+	    if (i < stack.top - 1) System.puts(" ");
+	}
+	System.puts("]\n");
     }
 }
