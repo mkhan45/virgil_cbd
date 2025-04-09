@@ -8,15 +8,17 @@ var stack: ArrayStack<Value>;
 type CtlEntry {
 	case Block(end_pc: int);
 	case Loop(start_pc: int, end_pc: int);
+        case None;
 }
-var ctl_stack: ArrayStack<CtlEntry>;
+var ctls: Array<CtlEntry>;
+var ctl_stack: ArrayStack<int>;
 
 // Constants
 def HAS_MEM_INDEX = 0x40u8;
 
 // Types.
 type v128(low: u64, high: u64);
-type Label;
+type Label(depth: u32);
 // type Value;
 // class Object { }
 type TypeVar {
@@ -96,7 +98,10 @@ def getGlobal(tv: TypeVar, index: u32) -> Value;
 def setGlobal(tv: TypeVar, index: u32, v: Value);
 
 // Function context.
-def f_getLabel(depth: u32) -> Label;
+def f_getLabel(depth: u32) -> Label {
+    return Label(depth);
+}
+
 def f_getLocalType(index: u32) -> TypeVar {
     return local_types[int.!(index)];
 }
@@ -117,8 +122,27 @@ def i_getFunction(func_index: u32) -> Function;
 
 // Control flow.
 def doCall(sig: Signature, target: Function);
-def doBranch(label: Label);
-def doFallThru();
+
+def doBranch(label: Label) {
+    for (i < label.depth) ctl_stack.pop();
+    def ctl = ctl_stack.peek();
+    match (ctl) {
+        Block(end_pc) => {
+            if (end_pc == -1) {
+            }
+        }
+    }
+}
+
+// TODO: easier to just do a quick sidetable build loop in init() than mess with ctl stack here
+def findEnd(depth: u32) -> u32 {
+    u32 d = depth;
+    while (depth > 0) {
+    }
+}
+
+def doFallThru() {
+}
 
 // Machine intrinsics.
 def mach_readStructField_i8(obj: Object, offset: FieldOffset) -> i8;
@@ -147,15 +171,22 @@ def trapNull();
 def trapUnreachable();
 
 def doBlock(bt: ()) {
-    return;
+    if (ctls[codeptr.pos] == CtlEntry.None) ctls[codeptr.pos] = CtlEntry.Block(-1);
+    ctl_stack.push(codeptr.pos);
 }
 
 def doLoop(bt: ()) {
-    return;
+    if (ctls[codeptr.pos] == CtlEntry.None) ctls[codeptr.pos] = CtlEntry.Loop(codeptr.pos, -1);
+    ctl_stack.push(codeptr.pos);
 }
 
 def doEnd() {
-    return;
+    def ctl_idx = ctl_stack.pop();
+    match (ctls[ctl_idx]) {
+        Block(end_pc) => if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Block(codeptr.pos);
+        Loop(start_pc, end_pc) => if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Loop(start_pc, codeptr.pos);
+        None => doReturn();
+    }
 }
 
 def doReturn() {
@@ -167,7 +198,7 @@ def doTry(bt: ()) {
 }
 
 def f_isAtEnd() -> bool {
-    return false;
+    return codeptr.pos >= codeptr.data.length;
 }
 
 def push_locals(count: u32, vtc: ValueTypeCode) {
@@ -186,6 +217,11 @@ component Interpreter {
         codeptr = CodePtr.new(code);
         local_types = Vector.new();
         stack = ArrayStack.new();
+
+        ctls = Array.new(code.length);
+        for (i < code.length) ctls[i] = CtlEntry.None;
+        ctl_stack = ArrayStack.new();
+
         for (a in args) local_types.put(TypeVar.I32);
         for (a in args) stack.push(Value.I32(u32.!(a)));
     }
