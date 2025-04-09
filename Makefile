@@ -32,7 +32,7 @@ test_processor:
 	$(VIRGIL) $(VIRGIL_STD) $(PARSER_DIR)/VirgilSexpr.v3 interpreter/InterpreterGen.v3 $(ARGS)
 
 # Run the interpreter
-run_interpreter:
+run_interpreter: generate_interpreter
 	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL) interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
 
 # Generate the interpreter from template
