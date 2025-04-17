@@ -183,6 +183,22 @@ type VirgilStmt {
             }
         }
     }
+
+    def appendStmt(stmt: VirgilStmt) -> VirgilStmt {
+        var left_stmts: Array<VirgilStmt>;
+        match (this) {
+            Block(ss) => left_stmts = ss;
+            _ => left_stmts = [this];
+        }
+
+        var right_stmts: Array<VirgilStmt>;
+        match (stmt) {
+            Block(ss) => right_stmts = ss;
+            _ => left_stmts = [this];
+        }
+
+        return VirgilStmt.Block(Arrays.concat(left_stmts, right_stmts));
+    }
     
     def toString() -> string {
         def buf = StringBuilder.new();
