@@ -1,0 +1,19 @@
+// TODO: use virgil's BinParser.v3
+// https://github.com/titzer/wizard-engine/blob/0add3c2516f79ecd3ef03e81b7daf9e43cb4d8cb/src/engine/Engine.v3#L15
+def main(args: Array<string>) {
+    def filename = args[0];
+    def file_bytes = System.fileLoad(filename);
+
+    def extensions = Extension.set.all;
+    def limits = Limits.new().set(extensions);
+    def err = ErrorGen.new(filename);
+
+    def bp = BinParser.new(extensions, limits, err, filename);
+
+    def module = bp.push(file_bytes, 0, file_bytes.length).finish();
+    def func0 = module.functions[0];
+    def func_code = func0.orig_bytecode;
+
+    Validator.init(func_code);
+    Validator.dispatch();
+}

@@ -1,0 +1,180 @@
+class CBDDef(opcode: string, body: VirgilStmt) {
+    def buildString(buf: StringBuilder) {
+        // TODO
+    }
+}
+
+def is_newline(c: byte) -> bool {
+    return c == '\n';
+}
+
+def find_idx(s: string, c: byte) -> int {
+    for (i < s.length) if (s[i] == c) {
+        return i;
+    }
+
+    return -1;
+}
+
+def extractInstrNames(v3_file: string) -> Array<string> {
+    def defs = Vector<string>.new();
+
+    // TODO:
+    // the .v3 file has the //@bytecode start comments, but we can only get
+    // the s-expressions from the full file. To solve this, find the definition
+    // names from the raw .v3 file, and then actually parse them from the s-expr file
+    def lines = Strings.splitOnChar(v3_file, is_newline, -1);
+    var cur_line = 0;
+    while (!Strings.startsWith(lines[cur_line], "//@bytecode start")) cur_line += 1;
+
+    while (!Strings.startsWith(lines[cur_line], "//@bytecode end")) {
+        def line = Strings.strip(lines[cur_line]);
+        if (GlobMatcher.new("def ?*()*{").matches(line)) {
+            def fn_name_start = 4; // skip `def `
+            def fn_name_end = find_idx(line, '(');
+
+            def fn_name = Arrays.range(line, fn_name_start, fn_name_end);
+            defs.put(fn_name);
+            cur_line += 1;
+        }
+        
+        cur_line += 1;
+    }
+
+    return defs.copy();
+}
+
+def isSpace(c: byte) -> bool {
+    return c == ' ';
+}
+
+def hasMethod(reader: TextReader) -> bool {
+    reader.skipWhitespace();
+    return reader.optN("method") != -1;
+}
+
+def notLParen(c: byte) -> bool {
+    return c != '(';
+}
+
+def readMethodName(reader: TextReader) -> string {
+    reader.skipWhitespace();
+    def end = reader.star_rel(1, notLParen);
+    def tok = reader.readToken(end - reader.pos);
+    return tok.image;
+}
+
+def nextLine(reader: TextReader) {
+    def start_line = reader.line;
+    while (reader.line == start_line) reader.advance1();
+}
+
+def containsStr(strs: Range<string>, k: string) -> bool {
+    for (s in strs) if (Strings.equal(s, k)) return true;
+    return false;
+}
+
+def extractDefs(instrs: Array<string>, filename: string, file_content: string) -> Array<CBDDef> {
+    def defs: Vector<CBDDef> = Vector.new();
+    def sexp_parser = SExprParser.new(filename, file_content);
+    while (sexp_parser.ok && sexp_parser.pos < sexp_parser.data.length) {
+        if (hasMethod(sexp_parser)) {
+            def meth = readMethodName(sexp_parser);
+            if (!containsStr(instrs, meth)) continue;
+            nextLine(sexp_parser);
+            def result = sexp_parser.readSExpr();
+            match (result) {
+                Success(sexp) => {
+                    def stmt_res = VirgilStmts.from_sexpr(sexp);
+                    match (stmt_res) {
+                        Success(stmt) => {
+                            defs.put(CBDDef.new(meth, stmt));
+                        }
+                        _ => {
+                            System.write(2, meth);
+                            System.write(2, ": skipping unhandled stmt sexpr\n");
+                            nextLine(sexp_parser);
+                        }
+                    }
+                }
+                _ => {
+                    break; // TODO
+                }
+            }
+        } else {
+            nextLine(sexp_parser);
+        }
+    }
+
+    return defs.copy();
+}
+
+def main(args: Array<string>) {
+    def v3file = args[0];
+    def v3bytes = System.fileLoad(v3file);
+    if (v3bytes == null) {
+        System.puts("Error reading ");
+        System.puts(v3file);
+        System.ln();
+    }
+
+    def sexpr_file = args[1];
+    def sexpr_bytes = System.fileLoad(sexpr_file);
+    if (sexpr_bytes == null) {
+        System.puts("Error reading ");
+        System.puts(sexpr_file);
+        System.ln();
+    }
+
+    def instrs = extractInstrNames(v3bytes);
+    def defs = extractDefs(instrs, sexpr_file, sexpr_bytes);
+
+    // for concrete interpreter 
+
+    def codestr_builder = StringBuilder.new();
+
+    def dispatch_builder = StringBuilder.new();
+    dispatch_builder.puts("def build_dispatch_table() -> Array<void -> void> {\n");
+    dispatch_builder.puts("  DISPATCH_TABLE = Array.new(0xE5 + 1);\n"); // 0xE5 = highest opcode (SWITCH)
+
+    for (d in defs) {
+        codestr_builder.puts("def ");
+        codestr_builder.puts(d.opcode);
+        codestr_builder.puts("() ");
+        codestr_builder.puts(d.body.toString());
+        codestr_builder.ln();
+
+        dispatch_builder.puts("  DISPATCH_TABLE[Opcode.");
+        dispatch_builder.puts(d.opcode);
+        dispatch_builder.puts(".code] = ");
+        dispatch_builder.puts(d.opcode);
+        dispatch_builder.puts(";\n");
+    }
+
+    dispatch_builder.puts("  return DISPATCH_TABLE;\n");
+    dispatch_builder.puts("}\n");
+
+    def concrete_template = args[2];
+    def concrete_bytes = System.fileLoad(concrete_template);
+    if (concrete_bytes == null) {
+        System.puts("Error reading ");
+        System.puts(concrete_template);
+        System.ln();
+    }
+
+    var first_newline = 0;
+    while (first_newline < concrete_bytes.length) {
+        if (concrete_bytes[first_newline] == '\n') break;
+        first_newline += 1;
+    }
+    def template_code = Arrays.range(concrete_bytes, first_newline + 1, concrete_bytes.length);
+
+    def final_code_builder = StringBuilder.new();
+    final_code_builder.puts("// GENERATED BY InterpreterGen.v3\n");
+    final_code_builder.puts(codestr_builder.toString());
+    final_code_builder.puts(dispatch_builder.toString());
+    final_code_builder.puts(dispatch_builder.toString());
+    final_code_builder.puts(template_code);
+
+    System.puts(final_code_builder.toString());
+}
