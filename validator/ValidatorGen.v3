@@ -4,6 +4,18 @@ class CBDDef(opcode: string, body: VirgilStmt) {
     }
 }
 
+class SidetableField(tp: string) {
+    def toString() {
+        return tp;
+    }
+}
+
+class SidetableCase(fields: Array<SidetableField>);
+
+class SidetableBuilder {
+    var cases: Array<SidetableCase>;
+}
+
 def is_newline(c: byte) -> bool {
     return c == '\n';
 }
@@ -88,6 +100,7 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
                     def stmt_res = VirgilStmts.from_sexpr(sexp);
                     match (stmt_res) {
                         Success(stmt) => {
+                            // TODO: sidetable stuff
                             defs.put(CBDDef.new(meth, stmt));
                         }
                         _ => {
