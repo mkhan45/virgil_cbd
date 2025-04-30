@@ -5,12 +5,13 @@ class CBDDef(opcode: string, body: VirgilStmt) {
 }
 
 class SidetableField(tp: string) {
-    def toString() {
-        return tp;
+    def toString() -> string {
+        return "TODO";
     }
 }
 
-class SidetableCase(fields: Array<SidetableField>);
+class SidetableCase(fields: Array<SidetableField>) {
+}
 
 class SidetableBuilder {
     var cases: Array<SidetableCase>;

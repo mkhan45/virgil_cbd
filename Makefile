@@ -41,6 +41,10 @@ generate_interpreter: cbd_sexp
 	$(VIRGIL) $(VIRGIL_STD) $(PARSER_DIR)/VirgilSexpr.v3 interpreter/InterpreterGen.v3 defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp interpreter/InterpreterTemplate.v3 > interpreter/Interpreter.v3
 	rm defs/CanonicalDefs.v3cbd
 
+generate_validator: cbd_sexp
+	cp defs/CanonicalDefs.v3 defs/CanonicalDefs.v3cbd
+	$(VIRGIL) $(VIRGIL_STD) $(PARSER_DIR)/VirgilSexpr.v3 validator/ValidatorGen.v3 defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp validator/ValidatorTemplate.v3 > validator/Validator.v3
+
 cbd_sexp:
 	$(VIRGIL) -print-vst defs/CanonicalDefs.v3 > defs/CanonicalDefs.v3cbd.sexp
 

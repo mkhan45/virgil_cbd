@@ -2,7 +2,7 @@ component CanonicalDefs {
     new()
         (BlockStmt)
     def HAS_MEM_INDEX: null = 
-        (Literal "0x40u8" (type byte));
+        (Literal "0x40u8": byte);
     method readImmULEB32() -> u32
         (EmptyStmt)
     method readImmILEB32() -> int
@@ -142,886 +142,901 @@ component CanonicalDefs {
     method UNREACHABLE()
         (BlockStmt
             (ExprStmt
-                (AppExpr "trapUnreachable" (type void)
-                    (VarExpr[ComponentMethod] "trapUnreachable" (type void -> void))
-                    (VarExpr[Local] "trapUnreachable" (type CanonicalDefs)))))
+                (AppExpr "trapUnreachable": void
+                    (VarExpr[ComponentMethod] "trapUnreachable": void -> void)
+                    (VarExpr[Local] "trapUnreachable": CanonicalDefs))))
     method NOP()
         (BlockStmt)
     method LOCAL_GET()
         (BlockStmt
             (LocalStmt
-                ("index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("tv" (type TypeVar)
-                    (AppExpr "f_getLocalType" (type TypeVar)
-                        (VarExpr[ComponentMethod] "f_getLocalType" (type u32 -> TypeVar))
-                        (VarExpr[Local] "f_getLocalType" (type CanonicalDefs))
-                        (VarExpr[Local] "index" (type u32)))))
+                ("tv": TypeVar
+                    (AppExpr "f_getLocalType": TypeVar
+                        (VarExpr[ComponentMethod] "f_getLocalType": u32 -> TypeVar)
+                        (VarExpr[Local] "f_getLocalType": CanonicalDefs)
+                        (VarExpr[Local] "index": u32))))
             (LocalStmt
-                ("val" (type Value)
-                    (AppExpr "getLocal" (type Value)
-                        (VarExpr[ComponentMethod] "getLocal" (type (TypeVar, u32) -> Value))
-                        (VarExpr[Local] "getLocal" (type CanonicalDefs))
-                        (VarExpr[Local] "tv" (type TypeVar))
-                        (VarExpr[Local] "index" (type u32)))))
+                ("val": Value
+                    (AppExpr "getLocal": Value
+                        (VarExpr[ComponentMethod] "getLocal": (TypeVar, u32) -> Value)
+                        (VarExpr[Local] "getLocal": CanonicalDefs)
+                        (VarExpr[Local] "tv": TypeVar)
+                        (VarExpr[Local] "index": u32))))
             (ExprStmt
-                (AppExpr "push_Value" (type void)
-                    (VarExpr[ComponentMethod] "push_Value" (type (TypeVar, Value) -> void))
-                    (VarExpr[Local] "push_Value" (type CanonicalDefs))
-                    (VarExpr[Local] "tv" (type TypeVar))
-                    (VarExpr[Local] "val" (type Value)))))
+                (AppExpr "push_Value": void
+                    (VarExpr[ComponentMethod] "push_Value": (TypeVar, Value) -> void)
+                    (VarExpr[Local] "push_Value": CanonicalDefs)
+                    (VarExpr[Local] "tv": TypeVar)
+                    (VarExpr[Local] "val": Value))))
     method LOCAL_SET()
         (BlockStmt
             (LocalStmt
-                ("index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("tv" (type TypeVar)
-                    (AppExpr "f_getLocalType" (type TypeVar)
-                        (VarExpr[ComponentMethod] "f_getLocalType" (type u32 -> TypeVar))
-                        (VarExpr[Local] "f_getLocalType" (type CanonicalDefs))
-                        (VarExpr[Local] "index" (type u32)))))
+                ("tv": TypeVar
+                    (AppExpr "f_getLocalType": TypeVar
+                        (VarExpr[ComponentMethod] "f_getLocalType": u32 -> TypeVar)
+                        (VarExpr[Local] "f_getLocalType": CanonicalDefs)
+                        (VarExpr[Local] "index": u32))))
             (LocalStmt
-                ("val" (type Value)
-                    (AppExpr "pop_Value" (type Value)
-                        (VarExpr[ComponentMethod] "pop_Value" (type TypeVar -> Value))
-                        (VarExpr[Local] "pop_Value" (type CanonicalDefs))
-                        (VarExpr[Local] "tv" (type TypeVar)))))
+                ("val": Value
+                    (AppExpr "pop_Value": Value
+                        (VarExpr[ComponentMethod] "pop_Value": TypeVar -> Value)
+                        (VarExpr[Local] "pop_Value": CanonicalDefs)
+                        (VarExpr[Local] "tv": TypeVar))))
             (ExprStmt
-                (AppExpr "setLocal" (type void)
-                    (VarExpr[ComponentMethod] "setLocal" (type (TypeVar, u32, Value) -> void))
-                    (VarExpr[Local] "setLocal" (type CanonicalDefs))
-                    (VarExpr[Local] "tv" (type TypeVar))
-                    (VarExpr[Local] "index" (type u32))
-                    (VarExpr[Local] "val" (type Value)))))
+                (AppExpr "setLocal": void
+                    (VarExpr[ComponentMethod] "setLocal": (TypeVar, u32, Value) -> void)
+                    (VarExpr[Local] "setLocal": CanonicalDefs)
+                    (VarExpr[Local] "tv": TypeVar)
+                    (VarExpr[Local] "index": u32)
+                    (VarExpr[Local] "val": Value))))
     method LOCAL_TEE()
         (BlockStmt
             (LocalStmt
-                ("index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("tv" (type TypeVar)
-                    (AppExpr "f_getLocalType" (type TypeVar)
-                        (VarExpr[ComponentMethod] "f_getLocalType" (type u32 -> TypeVar))
-                        (VarExpr[Local] "f_getLocalType" (type CanonicalDefs))
-                        (VarExpr[Local] "index" (type u32)))))
+                ("tv": TypeVar
+                    (AppExpr "f_getLocalType": TypeVar
+                        (VarExpr[ComponentMethod] "f_getLocalType": u32 -> TypeVar)
+                        (VarExpr[Local] "f_getLocalType": CanonicalDefs)
+                        (VarExpr[Local] "index": u32))))
             (LocalStmt
-                ("val" (type Value)
-                    (AppExpr "pop_Value" (type Value)
-                        (VarExpr[ComponentMethod] "pop_Value" (type TypeVar -> Value))
-                        (VarExpr[Local] "pop_Value" (type CanonicalDefs))
-                        (VarExpr[Local] "tv" (type TypeVar)))))
+                ("val": Value
+                    (AppExpr "pop_Value": Value
+                        (VarExpr[ComponentMethod] "pop_Value": TypeVar -> Value)
+                        (VarExpr[Local] "pop_Value": CanonicalDefs)
+                        (VarExpr[Local] "tv": TypeVar))))
             (ExprStmt
-                (AppExpr "setLocal" (type void)
-                    (VarExpr[ComponentMethod] "setLocal" (type (TypeVar, u32, Value) -> void))
-                    (VarExpr[Local] "setLocal" (type CanonicalDefs))
-                    (VarExpr[Local] "tv" (type TypeVar))
-                    (VarExpr[Local] "index" (type u32))
-                    (VarExpr[Local] "val" (type Value))))
+                (AppExpr "setLocal": void
+                    (VarExpr[ComponentMethod] "setLocal": (TypeVar, u32, Value) -> void)
+                    (VarExpr[Local] "setLocal": CanonicalDefs)
+                    (VarExpr[Local] "tv": TypeVar)
+                    (VarExpr[Local] "index": u32)
+                    (VarExpr[Local] "val": Value)))
             (ExprStmt
-                (AppExpr "push_Value" (type void)
-                    (VarExpr[ComponentMethod] "push_Value" (type (TypeVar, Value) -> void))
-                    (VarExpr[Local] "push_Value" (type CanonicalDefs))
-                    (VarExpr[Local] "tv" (type TypeVar))
-                    (VarExpr[Local] "val" (type Value)))))
+                (AppExpr "push_Value": void
+                    (VarExpr[ComponentMethod] "push_Value": (TypeVar, Value) -> void)
+                    (VarExpr[Local] "push_Value": CanonicalDefs)
+                    (VarExpr[Local] "tv": TypeVar)
+                    (VarExpr[Local] "val": Value))))
     method GLOBAL_GET()
         (BlockStmt
             (LocalStmt
-                ("index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("tv" (type TypeVar)
-                    (AppExpr "m_getGlobalType" (type TypeVar)
-                        (VarExpr[ComponentMethod] "m_getGlobalType" (type u32 -> TypeVar))
-                        (VarExpr[Local] "m_getGlobalType" (type CanonicalDefs))
-                        (VarExpr[Local] "index" (type u32)))))
+                ("tv": TypeVar
+                    (AppExpr "m_getGlobalType": TypeVar
+                        (VarExpr[ComponentMethod] "m_getGlobalType": u32 -> TypeVar)
+                        (VarExpr[Local] "m_getGlobalType": CanonicalDefs)
+                        (VarExpr[Local] "index": u32))))
             (LocalStmt
-                ("val" (type Value)
-                    (AppExpr "getGlobal" (type Value)
-                        (VarExpr[ComponentMethod] "getGlobal" (type (TypeVar, u32) -> Value))
-                        (VarExpr[Local] "getGlobal" (type CanonicalDefs))
-                        (VarExpr[Local] "tv" (type TypeVar))
-                        (VarExpr[Local] "index" (type u32)))))
+                ("val": Value
+                    (AppExpr "getGlobal": Value
+                        (VarExpr[ComponentMethod] "getGlobal": (TypeVar, u32) -> Value)
+                        (VarExpr[Local] "getGlobal": CanonicalDefs)
+                        (VarExpr[Local] "tv": TypeVar)
+                        (VarExpr[Local] "index": u32))))
             (ExprStmt
-                (AppExpr "push_Value" (type void)
-                    (VarExpr[ComponentMethod] "push_Value" (type (TypeVar, Value) -> void))
-                    (VarExpr[Local] "push_Value" (type CanonicalDefs))
-                    (VarExpr[Local] "tv" (type TypeVar))
-                    (VarExpr[Local] "val" (type Value)))))
+                (AppExpr "push_Value": void
+                    (VarExpr[ComponentMethod] "push_Value": (TypeVar, Value) -> void)
+                    (VarExpr[Local] "push_Value": CanonicalDefs)
+                    (VarExpr[Local] "tv": TypeVar)
+                    (VarExpr[Local] "val": Value))))
     method GLOBAL_SET()
         (BlockStmt
             (LocalStmt
-                ("index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("tv" (type TypeVar)
-                    (AppExpr "m_getGlobalType" (type TypeVar)
-                        (VarExpr[ComponentMethod] "m_getGlobalType" (type u32 -> TypeVar))
-                        (VarExpr[Local] "m_getGlobalType" (type CanonicalDefs))
-                        (VarExpr[Local] "index" (type u32)))))
+                ("tv": TypeVar
+                    (AppExpr "m_getGlobalType": TypeVar
+                        (VarExpr[ComponentMethod] "m_getGlobalType": u32 -> TypeVar)
+                        (VarExpr[Local] "m_getGlobalType": CanonicalDefs)
+                        (VarExpr[Local] "index": u32))))
             (LocalStmt
-                ("val" (type Value)
-                    (AppExpr "pop_Value" (type Value)
-                        (VarExpr[ComponentMethod] "pop_Value" (type TypeVar -> Value))
-                        (VarExpr[Local] "pop_Value" (type CanonicalDefs))
-                        (VarExpr[Local] "tv" (type TypeVar)))))
+                ("val": Value
+                    (AppExpr "pop_Value": Value
+                        (VarExpr[ComponentMethod] "pop_Value": TypeVar -> Value)
+                        (VarExpr[Local] "pop_Value": CanonicalDefs)
+                        (VarExpr[Local] "tv": TypeVar))))
             (ExprStmt
-                (AppExpr "setGlobal" (type void)
-                    (VarExpr[ComponentMethod] "setGlobal" (type (TypeVar, u32, Value) -> void))
-                    (VarExpr[Local] "setGlobal" (type CanonicalDefs))
-                    (VarExpr[Local] "tv" (type TypeVar))
-                    (VarExpr[Local] "index" (type u32))
-                    (VarExpr[Local] "val" (type Value)))))
+                (AppExpr "setGlobal": void
+                    (VarExpr[ComponentMethod] "setGlobal": (TypeVar, u32, Value) -> void)
+                    (VarExpr[Local] "setGlobal": CanonicalDefs)
+                    (VarExpr[Local] "tv": TypeVar)
+                    (VarExpr[Local] "index": u32)
+                    (VarExpr[Local] "val": Value))))
     method TABLE_GET()
         (BlockStmt
             (LocalStmt
-                ("table_index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("table_index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (IfStmt
-                (AppExpr "m_isTable64" (type bool)
-                    (VarExpr[ComponentMethod] "m_isTable64" (type u32 -> bool))
-                    (VarExpr[Local] "m_isTable64" (type CanonicalDefs))
-                    (VarExpr[Local] "table_index" (type u32)))
+                (AppExpr "m_isTable64": bool
+                    (VarExpr[ComponentMethod] "m_isTable64": u32 -> bool)
+                    (VarExpr[Local] "m_isTable64": CanonicalDefs)
+                    (VarExpr[Local] "table_index": u32))
                 (BlockStmt
                     (LocalStmt
-                        ("index" (type u64)
-                            (AppExpr "pop_u64" (type u64)
-                                (VarExpr[ComponentMethod] "pop_u64" (type void -> u64))
-                                (VarExpr[Local] "pop_u64" (type CanonicalDefs)))))
+                        ("index": u64
+                            (AppExpr "pop_u64": u64
+                                (VarExpr[ComponentMethod] "pop_u64": void -> u64)
+                                (VarExpr[Local] "pop_u64": CanonicalDefs))))
                     (LocalStmt
-                        ("val" (type Object)
-                            (AppExpr "mach_readTable64" (type Object)
-                                (VarExpr[ComponentMethod] "mach_readTable64" (type (u32, u64) -> Object))
-                                (VarExpr[Local] "mach_readTable64" (type CanonicalDefs))
-                                (VarExpr[Local] "table_index" (type u32))
-                                (VarExpr[Local] "index" (type u64)))))
+                        ("val": Object
+                            (AppExpr "mach_readTable64": Object
+                                (VarExpr[ComponentMethod] "mach_readTable64": (u32, u64) -> Object)
+                                (VarExpr[Local] "mach_readTable64": CanonicalDefs)
+                                (VarExpr[Local] "table_index": u32)
+                                (VarExpr[Local] "index": u64))))
                     (ExprStmt
-                        (AppExpr "push_Object" (type void)
-                            (VarExpr[ComponentMethod] "push_Object" (type Object -> void))
-                            (VarExpr[Local] "push_Object" (type CanonicalDefs))
-                            (VarExpr[Local] "val" (type Object)))))
+                        (AppExpr "push_Object": void
+                            (VarExpr[ComponentMethod] "push_Object": Object -> void)
+                            (VarExpr[Local] "push_Object": CanonicalDefs)
+                            (VarExpr[Local] "val": Object))))
                 (BlockStmt
                     (LocalStmt
-                        ("index" (type u32)
-                            (AppExpr "pop_u32" (type u32)
-                                (VarExpr[ComponentMethod] "pop_u32" (type void -> u32))
-                                (VarExpr[Local] "pop_u32" (type CanonicalDefs)))))
+                        ("index": u32
+                            (AppExpr "pop_u32": u32
+                                (VarExpr[ComponentMethod] "pop_u32": void -> u32)
+                                (VarExpr[Local] "pop_u32": CanonicalDefs))))
                     (LocalStmt
-                        ("val" (type Object)
-                            (AppExpr "mach_readTable32" (type Object)
-                                (VarExpr[ComponentMethod] "mach_readTable32" (type (u32, u32) -> Object))
-                                (VarExpr[Local] "mach_readTable32" (type CanonicalDefs))
-                                (VarExpr[Local] "table_index" (type u32))
-                                (VarExpr[Local] "index" (type u32)))))
+                        ("val": Object
+                            (AppExpr "mach_readTable32": Object
+                                (VarExpr[ComponentMethod] "mach_readTable32": (u32, u32) -> Object)
+                                (VarExpr[Local] "mach_readTable32": CanonicalDefs)
+                                (VarExpr[Local] "table_index": u32)
+                                (VarExpr[Local] "index": u32))))
                     (ExprStmt
-                        (AppExpr "push_Object" (type void)
-                            (VarExpr[ComponentMethod] "push_Object" (type Object -> void))
-                            (VarExpr[Local] "push_Object" (type CanonicalDefs))
-                            (VarExpr[Local] "val" (type Object)))))))
+                        (AppExpr "push_Object": void
+                            (VarExpr[ComponentMethod] "push_Object": Object -> void)
+                            (VarExpr[Local] "push_Object": CanonicalDefs)
+                            (VarExpr[Local] "val": Object))))))
     method TABLE_SET()
         (BlockStmt
             (LocalStmt
-                ("table_index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("table_index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (IfStmt
-                (AppExpr "m_isTable64" (type bool)
-                    (VarExpr[ComponentMethod] "m_isTable64" (type u32 -> bool))
-                    (VarExpr[Local] "m_isTable64" (type CanonicalDefs))
-                    (VarExpr[Local] "table_index" (type u32)))
+                (AppExpr "m_isTable64": bool
+                    (VarExpr[ComponentMethod] "m_isTable64": u32 -> bool)
+                    (VarExpr[Local] "m_isTable64": CanonicalDefs)
+                    (VarExpr[Local] "table_index": u32))
                 (BlockStmt
                     (LocalStmt
-                        ("val" (type Object)
-                            (AppExpr "pop_Object" (type Object)
-                                (VarExpr[ComponentMethod] "pop_Object" (type void -> Object))
-                                (VarExpr[Local] "pop_Object" (type CanonicalDefs)))))
+                        ("val": Object
+                            (AppExpr "pop_Object": Object
+                                (VarExpr[ComponentMethod] "pop_Object": void -> Object)
+                                (VarExpr[Local] "pop_Object": CanonicalDefs))))
                     (LocalStmt
-                        ("index" (type u64)
-                            (AppExpr "pop_u64" (type u64)
-                                (VarExpr[ComponentMethod] "pop_u64" (type void -> u64))
-                                (VarExpr[Local] "pop_u64" (type CanonicalDefs)))))
+                        ("index": u64
+                            (AppExpr "pop_u64": u64
+                                (VarExpr[ComponentMethod] "pop_u64": void -> u64)
+                                (VarExpr[Local] "pop_u64": CanonicalDefs))))
                     (ExprStmt
-                        (AppExpr "mach_writeTable64" (type void)
-                            (VarExpr[ComponentMethod] "mach_writeTable64" (type (u32, u64, Object) -> void))
-                            (VarExpr[Local] "mach_writeTable64" (type CanonicalDefs))
-                            (VarExpr[Local] "table_index" (type u32))
-                            (VarExpr[Local] "index" (type u64))
-                            (VarExpr[Local] "val" (type Object)))))
+                        (AppExpr "mach_writeTable64": void
+                            (VarExpr[ComponentMethod] "mach_writeTable64": (u32, u64, Object) -> void)
+                            (VarExpr[Local] "mach_writeTable64": CanonicalDefs)
+                            (VarExpr[Local] "table_index": u32)
+                            (VarExpr[Local] "index": u64)
+                            (VarExpr[Local] "val": Object))))
                 (BlockStmt
                     (LocalStmt
-                        ("val" (type Object)
-                            (AppExpr "pop_Object" (type Object)
-                                (VarExpr[ComponentMethod] "pop_Object" (type void -> Object))
-                                (VarExpr[Local] "pop_Object" (type CanonicalDefs)))))
+                        ("val": Object
+                            (AppExpr "pop_Object": Object
+                                (VarExpr[ComponentMethod] "pop_Object": void -> Object)
+                                (VarExpr[Local] "pop_Object": CanonicalDefs))))
                     (LocalStmt
-                        ("index" (type u32)
-                            (AppExpr "pop_u32" (type u32)
-                                (VarExpr[ComponentMethod] "pop_u32" (type void -> u32))
-                                (VarExpr[Local] "pop_u32" (type CanonicalDefs)))))
+                        ("index": u32
+                            (AppExpr "pop_u32": u32
+                                (VarExpr[ComponentMethod] "pop_u32": void -> u32)
+                                (VarExpr[Local] "pop_u32": CanonicalDefs))))
                     (ExprStmt
-                        (AppExpr "mach_writeTable32" (type void)
-                            (VarExpr[ComponentMethod] "mach_writeTable32" (type (u32, u32, Object) -> void))
-                            (VarExpr[Local] "mach_writeTable32" (type CanonicalDefs))
-                            (VarExpr[Local] "table_index" (type u32))
-                            (VarExpr[Local] "index" (type u32))
-                            (VarExpr[Local] "val" (type Object)))))))
+                        (AppExpr "mach_writeTable32": void
+                            (VarExpr[ComponentMethod] "mach_writeTable32": (u32, u32, Object) -> void)
+                            (VarExpr[Local] "mach_writeTable32": CanonicalDefs)
+                            (VarExpr[Local] "table_index": u32)
+                            (VarExpr[Local] "index": u32)
+                            (VarExpr[Local] "val": Object))))))
     method CALL()
         (BlockStmt
             (LocalStmt
-                ("index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("sig" (type Signature)
-                    (AppExpr "m_getFuncSignature" (type Signature)
-                        (VarExpr[ComponentMethod] "m_getFuncSignature" (type u32 -> Signature))
-                        (VarExpr[Local] "m_getFuncSignature" (type CanonicalDefs))
-                        (VarExpr[Local] "index" (type u32)))))
+                ("sig": Signature
+                    (AppExpr "m_getFuncSignature": Signature
+                        (VarExpr[ComponentMethod] "m_getFuncSignature": u32 -> Signature)
+                        (VarExpr[Local] "m_getFuncSignature": CanonicalDefs)
+                        (VarExpr[Local] "index": u32))))
             (LocalStmt
-                ("target" (type Function)
-                    (AppExpr "i_getFunction" (type Function)
-                        (VarExpr[ComponentMethod] "i_getFunction" (type u32 -> Function))
-                        (VarExpr[Local] "i_getFunction" (type CanonicalDefs))
-                        (VarExpr[Local] "index" (type u32)))))
+                ("target": Function
+                    (AppExpr "i_getFunction": Function
+                        (VarExpr[ComponentMethod] "i_getFunction": u32 -> Function)
+                        (VarExpr[Local] "i_getFunction": CanonicalDefs)
+                        (VarExpr[Local] "index": u32))))
             (ExprStmt
-                (AppExpr "doCall" (type void)
-                    (VarExpr[ComponentMethod] "doCall" (type (Signature, Function) -> void))
-                    (VarExpr[Local] "doCall" (type CanonicalDefs))
-                    (VarExpr[Local] "sig" (type Signature))
-                    (VarExpr[Local] "target" (type Function)))))
+                (AppExpr "doCall": void
+                    (VarExpr[ComponentMethod] "doCall": (Signature, Function) -> void)
+                    (VarExpr[Local] "doCall": CanonicalDefs)
+                    (VarExpr[Local] "sig": Signature)
+                    (VarExpr[Local] "target": Function))))
     method CALL_INDIRECT()
         (BlockStmt
             (LocalStmt
-                ("sig_index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("sig_index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("table_index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("table_index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("sig" (type Signature)
-                    (AppExpr "m_getSignature" (type Signature)
-                        (VarExpr[ComponentMethod] "m_getSignature" (type u32 -> Signature))
-                        (VarExpr[Local] "m_getSignature" (type CanonicalDefs))
-                        (VarExpr[Local] "sig_index" (type u32)))))
+                ("sig": Signature
+                    (AppExpr "m_getSignature": Signature
+                        (VarExpr[ComponentMethod] "m_getSignature": u32 -> Signature)
+                        (VarExpr[Local] "m_getSignature": CanonicalDefs)
+                        (VarExpr[Local] "sig_index": u32))))
             (IfStmt
-                (AppExpr "m_isTable64" (type bool)
-                    (VarExpr[ComponentMethod] "m_isTable64" (type u32 -> bool))
-                    (VarExpr[Local] "m_isTable64" (type CanonicalDefs))
-                    (VarExpr[Local] "table_index" (type u32)))
+                (AppExpr "m_isTable64": bool
+                    (VarExpr[ComponentMethod] "m_isTable64": u32 -> bool)
+                    (VarExpr[Local] "m_isTable64": CanonicalDefs)
+                    (VarExpr[Local] "table_index": u32))
                 (BlockStmt
                     (LocalStmt
-                        ("func_index" (type u64)
-                            (AppExpr "pop_u64" (type u64)
-                                (VarExpr[ComponentMethod] "pop_u64" (type void -> u64))
-                                (VarExpr[Local] "pop_u64" (type CanonicalDefs)))))
+                        ("func_index": u64
+                            (AppExpr "pop_u64": u64
+                                (VarExpr[ComponentMethod] "pop_u64": void -> u64)
+                                (VarExpr[Local] "pop_u64": CanonicalDefs))))
                     (LocalStmt
-                        ("target" (type Function)
-                            (AppExpr "i_getTableFunction64" (type Function)
-                                (VarExpr[ComponentMethod] "i_getTableFunction64" (type (u32, Signature, u64) -> Function))
-                                (VarExpr[Local] "i_getTableFunction64" (type CanonicalDefs))
-                                (VarExpr[Local] "table_index" (type u32))
-                                (VarExpr[Local] "sig" (type Signature))
-                                (VarExpr[Local] "func_index" (type u64)))))
+                        ("target": Function
+                            (AppExpr "i_getTableFunction64": Function
+                                (VarExpr[ComponentMethod] "i_getTableFunction64": (u32, Signature, u64) -> Function)
+                                (VarExpr[Local] "i_getTableFunction64": CanonicalDefs)
+                                (VarExpr[Local] "table_index": u32)
+                                (VarExpr[Local] "sig": Signature)
+                                (VarExpr[Local] "func_index": u64))))
                     (ExprStmt
-                        (AppExpr "doCall" (type void)
-                            (VarExpr[ComponentMethod] "doCall" (type (Signature, Function) -> void))
-                            (VarExpr[Local] "doCall" (type CanonicalDefs))
-                            (VarExpr[Local] "sig" (type Signature))
-                            (VarExpr[Local] "target" (type Function)))))
+                        (AppExpr "doCall": void
+                            (VarExpr[ComponentMethod] "doCall": (Signature, Function) -> void)
+                            (VarExpr[Local] "doCall": CanonicalDefs)
+                            (VarExpr[Local] "sig": Signature)
+                            (VarExpr[Local] "target": Function))))
                 (BlockStmt
                     (LocalStmt
-                        ("func_index" (type u32)
-                            (AppExpr "pop_u32" (type u32)
-                                (VarExpr[ComponentMethod] "pop_u32" (type void -> u32))
-                                (VarExpr[Local] "pop_u32" (type CanonicalDefs)))))
+                        ("func_index": u32
+                            (AppExpr "pop_u32": u32
+                                (VarExpr[ComponentMethod] "pop_u32": void -> u32)
+                                (VarExpr[Local] "pop_u32": CanonicalDefs))))
                     (LocalStmt
-                        ("target" (type Function)
-                            (AppExpr "i_getTableFunction32" (type Function)
-                                (VarExpr[ComponentMethod] "i_getTableFunction32" (type (u32, Signature, u32) -> Function))
-                                (VarExpr[Local] "i_getTableFunction32" (type CanonicalDefs))
-                                (VarExpr[Local] "table_index" (type u32))
-                                (VarExpr[Local] "sig" (type Signature))
-                                (VarExpr[Local] "func_index" (type u32)))))
+                        ("target": Function
+                            (AppExpr "i_getTableFunction32": Function
+                                (VarExpr[ComponentMethod] "i_getTableFunction32": (u32, Signature, u32) -> Function)
+                                (VarExpr[Local] "i_getTableFunction32": CanonicalDefs)
+                                (VarExpr[Local] "table_index": u32)
+                                (VarExpr[Local] "sig": Signature)
+                                (VarExpr[Local] "func_index": u32))))
                     (ExprStmt
-                        (AppExpr "doCall" (type void)
-                            (VarExpr[ComponentMethod] "doCall" (type (Signature, Function) -> void))
-                            (VarExpr[Local] "doCall" (type CanonicalDefs))
-                            (VarExpr[Local] "sig" (type Signature))
-                            (VarExpr[Local] "target" (type Function)))))))
+                        (AppExpr "doCall": void
+                            (VarExpr[ComponentMethod] "doCall": (Signature, Function) -> void)
+                            (VarExpr[Local] "doCall": CanonicalDefs)
+                            (VarExpr[Local] "sig": Signature)
+                            (VarExpr[Local] "target": Function))))))
     method I32_CONST()
         (BlockStmt
             (LocalStmt
-                ("x" (type int)
-                    (AppExpr "readImmILEB32" (type int)
-                        (VarExpr[ComponentMethod] "readImmILEB32" (type void -> int))
-                        (VarExpr[Local] "readImmILEB32" (type CanonicalDefs)))))
+                ("x": int
+                    (AppExpr "readImmILEB32": int
+                        (VarExpr[ComponentMethod] "readImmILEB32": void -> int)
+                        (VarExpr[Local] "readImmILEB32": CanonicalDefs))))
             (ExprStmt
-                (AppExpr "push_i32" (type void)
-                    (VarExpr[ComponentMethod] "push_i32" (type int -> void))
-                    (VarExpr[Local] "push_i32" (type CanonicalDefs))
-                    (VarExpr[Local] "x" (type int)))))
+                (AppExpr "push_i32": void
+                    (VarExpr[ComponentMethod] "push_i32": int -> void)
+                    (VarExpr[Local] "push_i32": CanonicalDefs)
+                    (VarExpr[Local] "x": int))))
     method I32_ADD()
         (BlockStmt
             (LocalStmt
-                ("x" (type int)
-                    (AppExpr "pop_i32" (type int)
-                        (VarExpr[ComponentMethod] "pop_i32" (type void -> int))
-                        (VarExpr[Local] "pop_i32" (type CanonicalDefs)))))
+                ("x": int
+                    (AppExpr "pop_i32": int
+                        (VarExpr[ComponentMethod] "pop_i32": void -> int)
+                        (VarExpr[Local] "pop_i32": CanonicalDefs))))
             (LocalStmt
-                ("y" (type int)
-                    (AppExpr "pop_i32" (type int)
-                        (VarExpr[ComponentMethod] "pop_i32" (type void -> int))
-                        (VarExpr[Local] "pop_i32" (type CanonicalDefs)))))
+                ("y": int
+                    (AppExpr "pop_i32": int
+                        (VarExpr[ComponentMethod] "pop_i32": void -> int)
+                        (VarExpr[Local] "pop_i32": CanonicalDefs))))
             (LocalStmt
-                ("r" (type int)
-                    (AppExpr (type int)
-                        (VarExpr[Inst] "+" (type (int, int) -> int)
-                            (VarExpr[Type] "i32" (type int)))
-                        (VarExpr[Local] "x" (type int))
-                        (VarExpr[Local] "y" (type int)))))
+                ("r": int
+                    (AppExpr: int
+                        (VarExpr[Inst] "+": (int, int) -> int
+                            (VarExpr[Type] "i32": int))
+                        (VarExpr[Local] "x": int)
+                        (VarExpr[Local] "y": int))))
             (ExprStmt
-                (AppExpr "push_i32" (type void)
-                    (VarExpr[ComponentMethod] "push_i32" (type int -> void))
-                    (VarExpr[Local] "push_i32" (type CanonicalDefs))
-                    (VarExpr[Local] "r" (type int)))))
+                (AppExpr "push_i32": void
+                    (VarExpr[ComponentMethod] "push_i32": int -> void)
+                    (VarExpr[Local] "push_i32": CanonicalDefs)
+                    (VarExpr[Local] "r": int))))
     method I32_SUB()
         (BlockStmt
             (LocalStmt
-                ("x" (type int)
-                    (AppExpr "pop_i32" (type int)
-                        (VarExpr[ComponentMethod] "pop_i32" (type void -> int))
-                        (VarExpr[Local] "pop_i32" (type CanonicalDefs)))))
+                ("x": int
+                    (AppExpr "pop_i32": int
+                        (VarExpr[ComponentMethod] "pop_i32": void -> int)
+                        (VarExpr[Local] "pop_i32": CanonicalDefs))))
             (LocalStmt
-                ("y" (type int)
-                    (AppExpr "pop_i32" (type int)
-                        (VarExpr[ComponentMethod] "pop_i32" (type void -> int))
-                        (VarExpr[Local] "pop_i32" (type CanonicalDefs)))))
+                ("y": int
+                    (AppExpr "pop_i32": int
+                        (VarExpr[ComponentMethod] "pop_i32": void -> int)
+                        (VarExpr[Local] "pop_i32": CanonicalDefs))))
             (LocalStmt
-                ("r" (type int)
-                    (AppExpr (type int)
-                        (VarExpr[Inst] "-" (type (int, int) -> int)
-                            (VarExpr[Type] "i32" (type int)))
-                        (VarExpr[Local] "y" (type int))
-                        (VarExpr[Local] "x" (type int)))))
+                ("r": int
+                    (AppExpr: int
+                        (VarExpr[Inst] "-": (int, int) -> int
+                            (VarExpr[Type] "i32": int))
+                        (VarExpr[Local] "y": int)
+                        (VarExpr[Local] "x": int))))
             (ExprStmt
-                (AppExpr "push_i32" (type void)
-                    (VarExpr[ComponentMethod] "push_i32" (type int -> void))
-                    (VarExpr[Local] "push_i32" (type CanonicalDefs))
-                    (VarExpr[Local] "r" (type int)))))
+                (AppExpr "push_i32": void
+                    (VarExpr[ComponentMethod] "push_i32": int -> void)
+                    (VarExpr[Local] "push_i32": CanonicalDefs)
+                    (VarExpr[Local] "r": int))))
     method I32_EQZ()
         (BlockStmt
             (LocalStmt
-                ("x" (type int)
-                    (AppExpr "pop_i32" (type int)
-                        (VarExpr[ComponentMethod] "pop_i32" (type void -> int))
-                        (VarExpr[Local] "pop_i32" (type CanonicalDefs)))))
+                ("x": int
+                    (AppExpr "pop_i32": int
+                        (VarExpr[ComponentMethod] "pop_i32": void -> int)
+                        (VarExpr[Local] "pop_i32": CanonicalDefs))))
             (IfStmt
-                (BinOpExpr "==" (type bool)
-                    (VarExpr[Local] "x" (type int))
-                    (Literal "0" (type int)))
+                (BinOpExpr "==": bool
+                    (VarExpr[Local] "x": int)
+                    (Literal "0": int))
                 (ExprStmt
-                    (AppExpr "push_i32" (type void)
-                        (VarExpr[ComponentMethod] "push_i32" (type int -> void))
-                        (VarExpr[Local] "push_i32" (type CanonicalDefs))
-                        (Literal "1" (type int))))
+                    (AppExpr "push_i32": void
+                        (VarExpr[ComponentMethod] "push_i32": int -> void)
+                        (VarExpr[Local] "push_i32": CanonicalDefs)
+                        (Literal "1": int)))
                 (ExprStmt
-                    (AppExpr "push_i32" (type void)
-                        (VarExpr[ComponentMethod] "push_i32" (type int -> void))
-                        (VarExpr[Local] "push_i32" (type CanonicalDefs))
-                        (Literal "0" (type int))))))
+                    (AppExpr "push_i32": void
+                        (VarExpr[ComponentMethod] "push_i32": int -> void)
+                        (VarExpr[Local] "push_i32": CanonicalDefs)
+                        (Literal "0": int)))))
     method BR()
         (BlockStmt
             (LocalStmt
-                ("depth" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("depth": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("label" (type Label)
-                    (AppExpr "f_getLabel" (type Label)
-                        (VarExpr[ComponentMethod] "f_getLabel" (type u32 -> Label))
-                        (VarExpr[Local] "f_getLabel" (type CanonicalDefs))
-                        (VarExpr[Local] "depth" (type u32)))))
+                ("label": Label
+                    (AppExpr "f_getLabel": Label
+                        (VarExpr[ComponentMethod] "f_getLabel": u32 -> Label)
+                        (VarExpr[Local] "f_getLabel": CanonicalDefs)
+                        (VarExpr[Local] "depth": u32))))
             (ReturnStmt
-                (AppExpr "doBranch" (type void)
-                    (VarExpr[ComponentMethod] "doBranch" (type Label -> void))
-                    (VarExpr[Local] "doBranch" (type CanonicalDefs))
-                    (VarExpr[Local] "label" (type Label)))))
+                (AppExpr "doBranch": void
+                    (VarExpr[ComponentMethod] "doBranch": Label -> void)
+                    (VarExpr[Local] "doBranch": CanonicalDefs)
+                    (VarExpr[Local] "label": Label))))
     method BR_IF()
         (BlockStmt
             (LocalStmt
-                ("depth" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("depth": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("label" (type Label)
-                    (AppExpr "f_getLabel" (type Label)
-                        (VarExpr[ComponentMethod] "f_getLabel" (type u32 -> Label))
-                        (VarExpr[Local] "f_getLabel" (type CanonicalDefs))
-                        (VarExpr[Local] "depth" (type u32)))))
+                ("label": Label
+                    (AppExpr "f_getLabel": Label
+                        (VarExpr[ComponentMethod] "f_getLabel": u32 -> Label)
+                        (VarExpr[Local] "f_getLabel": CanonicalDefs)
+                        (VarExpr[Local] "depth": u32))))
             (LocalStmt
-                ("cond" (type u32)
-                    (AppExpr "pop_u32" (type u32)
-                        (VarExpr[ComponentMethod] "pop_u32" (type void -> u32))
-                        (VarExpr[Local] "pop_u32" (type CanonicalDefs)))))
+                ("cond": u32
+                    (AppExpr "pop_u32": u32
+                        (VarExpr[ComponentMethod] "pop_u32": void -> u32)
+                        (VarExpr[Local] "pop_u32": CanonicalDefs))))
             (IfStmt
-                (AppExpr (type bool)
-                    (VarExpr[Inst] "!=" (type (u32, u32) -> bool)
-                        (VarExpr[Type] "u32" (type u32)))
-                    (VarExpr[Local] "cond" (type u32))
-                    (Literal "0" (type u32)))
+                (AppExpr: bool
+                    (VarExpr[Inst] "!=": (u32, u32) -> bool
+                        (VarExpr[Type] "u32": u32))
+                    (VarExpr[Local] "cond": u32)
+                    (Literal "0": u32))
                 (ReturnStmt
-                    (AppExpr "doBranch" (type void)
-                        (VarExpr[ComponentMethod] "doBranch" (type Label -> void))
-                        (VarExpr[Local] "doBranch" (type CanonicalDefs))
-                        (VarExpr[Local] "label" (type Label)))))
+                    (AppExpr "doBranch": void
+                        (VarExpr[ComponentMethod] "doBranch": Label -> void)
+                        (VarExpr[Local] "doBranch": CanonicalDefs)
+                        (VarExpr[Local] "label": Label))))
             (ExprStmt
-                (AppExpr "doFallThru" (type void)
-                    (VarExpr[ComponentMethod] "doFallThru" (type void -> void))
-                    (VarExpr[Local] "doFallThru" (type CanonicalDefs)))))
+                (AppExpr "doFallThru": void
+                    (VarExpr[ComponentMethod] "doFallThru": void -> void)
+                    (VarExpr[Local] "doFallThru": CanonicalDefs))))
     method BLOCK()
         (BlockStmt
             (LocalStmt
-                ("bt" (type int)
-                    (AppExpr "readImmBlockType" (type int)
-                        (VarExpr[ComponentMethod] "readImmBlockType" (type void -> int))
-                        (VarExpr[Local] "readImmBlockType" (type CanonicalDefs)))))
+                ("bt": int
+                    (AppExpr "readImmBlockType": int
+                        (VarExpr[ComponentMethod] "readImmBlockType": void -> int)
+                        (VarExpr[Local] "readImmBlockType": CanonicalDefs))))
             (ReturnStmt
-                (AppExpr "doBlock" (type void)
-                    (VarExpr[ComponentMethod] "doBlock" (type int -> void))
-                    (VarExpr[Local] "doBlock" (type CanonicalDefs))
-                    (VarExpr[Local] "bt" (type int)))))
+                (AppExpr "doBlock": void
+                    (VarExpr[ComponentMethod] "doBlock": int -> void)
+                    (VarExpr[Local] "doBlock": CanonicalDefs)
+                    (VarExpr[Local] "bt": int))))
     method LOOP()
         (BlockStmt
             (LocalStmt
-                ("bt" (type int)
-                    (AppExpr "readImmBlockType" (type int)
-                        (VarExpr[ComponentMethod] "readImmBlockType" (type void -> int))
-                        (VarExpr[Local] "readImmBlockType" (type CanonicalDefs)))))
+                ("bt": int
+                    (AppExpr "readImmBlockType": int
+                        (VarExpr[ComponentMethod] "readImmBlockType": void -> int)
+                        (VarExpr[Local] "readImmBlockType": CanonicalDefs))))
             (ReturnStmt
-                (AppExpr "doLoop" (type void)
-                    (VarExpr[ComponentMethod] "doLoop" (type int -> void))
-                    (VarExpr[Local] "doLoop" (type CanonicalDefs))
-                    (VarExpr[Local] "bt" (type int)))))
+                (AppExpr "doLoop": void
+                    (VarExpr[ComponentMethod] "doLoop": int -> void)
+                    (VarExpr[Local] "doLoop": CanonicalDefs)
+                    (VarExpr[Local] "bt": int))))
     method TRY()
         (BlockStmt
             (LocalStmt
-                ("bt" (type int)
-                    (AppExpr "readImmBlockType" (type int)
-                        (VarExpr[ComponentMethod] "readImmBlockType" (type void -> int))
-                        (VarExpr[Local] "readImmBlockType" (type CanonicalDefs)))))
+                ("bt": int
+                    (AppExpr "readImmBlockType": int
+                        (VarExpr[ComponentMethod] "readImmBlockType": void -> int)
+                        (VarExpr[Local] "readImmBlockType": CanonicalDefs))))
             (ReturnStmt
-                (AppExpr "doTry" (type void)
-                    (VarExpr[ComponentMethod] "doTry" (type int -> void))
-                    (VarExpr[Local] "doTry" (type CanonicalDefs))
-                    (VarExpr[Local] "bt" (type int)))))
+                (AppExpr "doTry": void
+                    (VarExpr[ComponentMethod] "doTry": int -> void)
+                    (VarExpr[Local] "doTry": CanonicalDefs)
+                    (VarExpr[Local] "bt": int))))
     method IF()
         (BlockStmt
             (LocalStmt
-                ("bt" (type int)
-                    (AppExpr "readImmBlockType" (type int)
-                        (VarExpr[ComponentMethod] "readImmBlockType" (type void -> int))
-                        (VarExpr[Local] "readImmBlockType" (type CanonicalDefs)))))
+                ("bt": int
+                    (AppExpr "readImmBlockType": int
+                        (VarExpr[ComponentMethod] "readImmBlockType": void -> int)
+                        (VarExpr[Local] "readImmBlockType": CanonicalDefs))))
             (LocalStmt
-                ("cond" (type int)
-                    (AppExpr "pop_i32" (type int)
-                        (VarExpr[ComponentMethod] "pop_i32" (type void -> int))
-                        (VarExpr[Local] "pop_i32" (type CanonicalDefs)))))
+                ("cond": int
+                    (AppExpr "pop_i32": int
+                        (VarExpr[ComponentMethod] "pop_i32": void -> int)
+                        (VarExpr[Local] "pop_i32": CanonicalDefs))))
             (LocalStmt
-                ("label" (type Label)
-                    (AppExpr "f_getLabel" (type Label)
-                        (VarExpr[ComponentMethod] "f_getLabel" (type u32 -> Label))
-                        (VarExpr[Local] "f_getLabel" (type CanonicalDefs))
-                        (Literal "0" (type u32)))))
+                ("label": Label
+                    (AppExpr "f_getLabel": Label
+                        (VarExpr[ComponentMethod] "f_getLabel": u32 -> Label)
+                        (VarExpr[Local] "f_getLabel": CanonicalDefs)
+                        (Literal "0": u32))))
             (IfStmt
-                (BinOpExpr "==" (type bool)
-                    (VarExpr[Local] "cond" (type int))
-                    (Literal "0" (type int)))
+                (BinOpExpr "==": bool
+                    (VarExpr[Local] "cond": int)
+                    (Literal "0": int))
                 (ReturnStmt
-                    (AppExpr "doBranch" (type void)
-                        (VarExpr[ComponentMethod] "doBranch" (type Label -> void))
-                        (VarExpr[Local] "doBranch" (type CanonicalDefs))
-                        (VarExpr[Local] "label" (type Label))))
+                    (AppExpr "doBranch": void
+                        (VarExpr[ComponentMethod] "doBranch": Label -> void)
+                        (VarExpr[Local] "doBranch": CanonicalDefs)
+                        (VarExpr[Local] "label": Label)))
                 (ReturnStmt
-                    (AppExpr "doFallThru" (type void)
-                        (VarExpr[ComponentMethod] "doFallThru" (type void -> void))
-                        (VarExpr[Local] "doFallThru" (type CanonicalDefs))))))
+                    (AppExpr "doFallThru": void
+                        (VarExpr[ComponentMethod] "doFallThru": void -> void)
+                        (VarExpr[Local] "doFallThru": CanonicalDefs)))))
     method ELSE()
         (BlockStmt
             (LocalStmt
-                ("label" (type Label)
-                    (AppExpr "f_getLabel" (type Label)
-                        (VarExpr[ComponentMethod] "f_getLabel" (type u32 -> Label))
-                        (VarExpr[Local] "f_getLabel" (type CanonicalDefs))
-                        (Literal "0" (type u32)))))
+                ("label": Label
+                    (AppExpr "f_getLabel": Label
+                        (VarExpr[ComponentMethod] "f_getLabel": u32 -> Label)
+                        (VarExpr[Local] "f_getLabel": CanonicalDefs)
+                        (Literal "0": u32))))
             (ReturnStmt
-                (AppExpr "doBranch" (type void)
-                    (VarExpr[ComponentMethod] "doBranch" (type Label -> void))
-                    (VarExpr[Local] "doBranch" (type CanonicalDefs))
-                    (VarExpr[Local] "label" (type Label)))))
+                (AppExpr "doBranch": void
+                    (VarExpr[ComponentMethod] "doBranch": Label -> void)
+                    (VarExpr[Local] "doBranch": CanonicalDefs)
+                    (VarExpr[Local] "label": Label))))
     method END()
         (BlockStmt
             (ExprStmt
-                (AppExpr "doEnd" (type void)
-                    (VarExpr[ComponentMethod] "doEnd" (type void -> void))
-                    (VarExpr[Local] "doEnd" (type CanonicalDefs))))
+                (AppExpr "doEnd": void
+                    (VarExpr[ComponentMethod] "doEnd": void -> void)
+                    (VarExpr[Local] "doEnd": CanonicalDefs)))
             (IfStmt
-                (AppExpr "f_isAtEnd" (type bool)
-                    (VarExpr[ComponentMethod] "f_isAtEnd" (type void -> bool))
-                    (VarExpr[Local] "f_isAtEnd" (type CanonicalDefs)))
+                (AppExpr "f_isAtEnd": bool
+                    (VarExpr[ComponentMethod] "f_isAtEnd": void -> bool)
+                    (VarExpr[Local] "f_isAtEnd": CanonicalDefs))
                 (ReturnStmt
-                    (AppExpr "doReturn" (type void)
-                        (VarExpr[ComponentMethod] "doReturn" (type void -> void))
-                        (VarExpr[Local] "doReturn" (type CanonicalDefs))))))
+                    (AppExpr "doReturn": void
+                        (VarExpr[ComponentMethod] "doReturn": void -> void)
+                        (VarExpr[Local] "doReturn": CanonicalDefs)))))
     method STRUCT_GET()
         (BlockStmt
             (LocalStmt
-                ("struct_index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("struct_index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("field_index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("field_index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("kind" (type FieldKind)
-                    (AppExpr "m_getFieldKind" (type FieldKind)
-                        (VarExpr[ComponentMethod] "m_getFieldKind" (type (u32, u32) -> FieldKind))
-                        (VarExpr[Local] "m_getFieldKind" (type CanonicalDefs))
-                        (VarExpr[Local] "struct_index" (type u32))
-                        (VarExpr[Local] "field_index" (type u32)))))
+                ("kind": FieldKind
+                    (AppExpr "m_getFieldKind": FieldKind
+                        (VarExpr[ComponentMethod] "m_getFieldKind": (u32, u32) -> FieldKind)
+                        (VarExpr[Local] "m_getFieldKind": CanonicalDefs)
+                        (VarExpr[Local] "struct_index": u32)
+                        (VarExpr[Local] "field_index": u32))))
             (LocalStmt
-                ("offset" (type FieldOffset)
-                    (AppExpr "m_getFieldOffset" (type FieldOffset)
-                        (VarExpr[ComponentMethod] "m_getFieldOffset" (type (u32, u32) -> FieldOffset))
-                        (VarExpr[Local] "m_getFieldOffset" (type CanonicalDefs))
-                        (VarExpr[Local] "struct_index" (type u32))
-                        (VarExpr[Local] "field_index" (type u32)))))
+                ("offset": FieldOffset
+                    (AppExpr "m_getFieldOffset": FieldOffset
+                        (VarExpr[ComponentMethod] "m_getFieldOffset": (u32, u32) -> FieldOffset)
+                        (VarExpr[Local] "m_getFieldOffset": CanonicalDefs)
+                        (VarExpr[Local] "struct_index": u32)
+                        (VarExpr[Local] "field_index": u32))))
             (LocalStmt
-                ("obj" (type Object)
-                    (AppExpr "pop_Object" (type Object)
-                        (VarExpr[ComponentMethod] "pop_Object" (type void -> Object))
-                        (VarExpr[Local] "pop_Object" (type CanonicalDefs)))))
+                ("obj": Object
+                    (AppExpr "pop_Object": Object
+                        (VarExpr[ComponentMethod] "pop_Object": void -> Object)
+                        (VarExpr[Local] "pop_Object": CanonicalDefs))))
             (IfStmt
-                (BinOpExpr "==" (type bool)
-                    (VarExpr[Local] "obj" (type Object))
-                    (Literal "null" (type #null) (implicitType Object)))
+                (BinOpExpr "==": bool
+                    (VarExpr[Local] "obj": Object)
+                    (Literal "null": #null implicitly Object))
                 (ReturnStmt
-                    (AppExpr "trapNull" (type void)
-                        (VarExpr[ComponentMethod] "trapNull" (type void -> void))
-                        (VarExpr[Local] "trapNull" (type CanonicalDefs)))))
+                    (AppExpr "trapNull": void
+                        (VarExpr[ComponentMethod] "trapNull": void -> void)
+                        (VarExpr[Local] "trapNull": CanonicalDefs))))
             (MatchStmt
-                (VarExpr[Local] "kind" (type FieldKind))
+                (VarExpr[Local] "kind": FieldKind)
                     (VarExpr[None] "I32")
                     (ExprStmt
-                        (AppExpr "push_u32" (type void)
-                            (VarExpr[ComponentMethod] "push_u32" (type u32 -> void))
-                            (VarExpr[Local] "push_u32" (type CanonicalDefs))
-                            (AppExpr "mach_readStructField_u32" (type u32)
-                                (VarExpr[ComponentMethod] "mach_readStructField_u32" (type (Object, FieldOffset) -> u32))
-                                (VarExpr[Local] "mach_readStructField_u32" (type CanonicalDefs))
-                                (VarExpr[Local] "obj" (type Object))
-                                (VarExpr[Local] "offset" (type FieldOffset)))))
+                        (AppExpr "push_u32": void
+                            (VarExpr[ComponentMethod] "push_u32": u32 -> void)
+                            (VarExpr[Local] "push_u32": CanonicalDefs)
+                            (AppExpr "mach_readStructField_u32": u32
+                                (VarExpr[ComponentMethod] "mach_readStructField_u32": (Object, FieldOffset) -> u32)
+                                (VarExpr[Local] "mach_readStructField_u32": CanonicalDefs)
+                                (VarExpr[Local] "obj": Object)
+                                (VarExpr[Local] "offset": FieldOffset))))
                     (VarExpr[None] "I64")
                     (ExprStmt
-                        (AppExpr "push_u64" (type void)
-                            (VarExpr[ComponentMethod] "push_u64" (type u64 -> void))
-                            (VarExpr[Local] "push_u64" (type CanonicalDefs))
-                            (AppExpr "mach_readStructField_u64" (type u64)
-                                (VarExpr[ComponentMethod] "mach_readStructField_u64" (type (Object, FieldOffset) -> u64))
-                                (VarExpr[Local] "mach_readStructField_u64" (type CanonicalDefs))
-                                (VarExpr[Local] "obj" (type Object))
-                                (VarExpr[Local] "offset" (type FieldOffset)))))
+                        (AppExpr "push_u64": void
+                            (VarExpr[ComponentMethod] "push_u64": u64 -> void)
+                            (VarExpr[Local] "push_u64": CanonicalDefs)
+                            (AppExpr "mach_readStructField_u64": u64
+                                (VarExpr[ComponentMethod] "mach_readStructField_u64": (Object, FieldOffset) -> u64)
+                                (VarExpr[Local] "mach_readStructField_u64": CanonicalDefs)
+                                (VarExpr[Local] "obj": Object)
+                                (VarExpr[Local] "offset": FieldOffset))))
                     (VarExpr[None] "F32")
                     (ExprStmt
-                        (AppExpr "push_f32" (type void)
-                            (VarExpr[ComponentMethod] "push_f32" (type float -> void))
-                            (VarExpr[Local] "push_f32" (type CanonicalDefs))
-                            (AppExpr "mach_readStructField_f32" (type float)
-                                (VarExpr[ComponentMethod] "mach_readStructField_f32" (type (Object, FieldOffset) -> float))
-                                (VarExpr[Local] "mach_readStructField_f32" (type CanonicalDefs))
-                                (VarExpr[Local] "obj" (type Object))
-                                (VarExpr[Local] "offset" (type FieldOffset)))))
+                        (AppExpr "push_f32": void
+                            (VarExpr[ComponentMethod] "push_f32": float -> void)
+                            (VarExpr[Local] "push_f32": CanonicalDefs)
+                            (AppExpr "mach_readStructField_f32": float
+                                (VarExpr[ComponentMethod] "mach_readStructField_f32": (Object, FieldOffset) -> float)
+                                (VarExpr[Local] "mach_readStructField_f32": CanonicalDefs)
+                                (VarExpr[Local] "obj": Object)
+                                (VarExpr[Local] "offset": FieldOffset))))
                     (VarExpr[None] "F64")
                     (ExprStmt
-                        (AppExpr "push_f64" (type void)
-                            (VarExpr[ComponentMethod] "push_f64" (type double -> void))
-                            (VarExpr[Local] "push_f64" (type CanonicalDefs))
-                            (AppExpr "mach_readStructField_f64" (type double)
-                                (VarExpr[ComponentMethod] "mach_readStructField_f64" (type (Object, FieldOffset) -> double))
-                                (VarExpr[Local] "mach_readStructField_f64" (type CanonicalDefs))
-                                (VarExpr[Local] "obj" (type Object))
-                                (VarExpr[Local] "offset" (type FieldOffset)))))
+                        (AppExpr "push_f64": void
+                            (VarExpr[ComponentMethod] "push_f64": double -> void)
+                            (VarExpr[Local] "push_f64": CanonicalDefs)
+                            (AppExpr "mach_readStructField_f64": double
+                                (VarExpr[ComponentMethod] "mach_readStructField_f64": (Object, FieldOffset) -> double)
+                                (VarExpr[Local] "mach_readStructField_f64": CanonicalDefs)
+                                (VarExpr[Local] "obj": Object)
+                                (VarExpr[Local] "offset": FieldOffset))))
                     (VarExpr[None] "V128")
                     (ExprStmt
-                        (AppExpr "push_v128" (type void)
-                            (VarExpr[ComponentMethod] "push_v128" (type v128 -> void))
-                            (VarExpr[Local] "push_v128" (type CanonicalDefs))
-                            (AppExpr "mach_readStructField_v128" (type v128)
-                                (VarExpr[ComponentMethod] "mach_readStructField_v128" (type (Object, FieldOffset) -> v128))
-                                (VarExpr[Local] "mach_readStructField_v128" (type CanonicalDefs))
-                                (VarExpr[Local] "obj" (type Object))
-                                (VarExpr[Local] "offset" (type FieldOffset)))))
+                        (AppExpr "push_v128": void
+                            (VarExpr[ComponentMethod] "push_v128": v128 -> void)
+                            (VarExpr[Local] "push_v128": CanonicalDefs)
+                            (AppExpr "mach_readStructField_v128": v128
+                                (VarExpr[ComponentMethod] "mach_readStructField_v128": (Object, FieldOffset) -> v128)
+                                (VarExpr[Local] "mach_readStructField_v128": CanonicalDefs)
+                                (VarExpr[Local] "obj": Object)
+                                (VarExpr[Local] "offset": FieldOffset))))
                     (VarExpr[None] "REF")
                     (ExprStmt
-                        (AppExpr "push_Object" (type void)
-                            (VarExpr[ComponentMethod] "push_Object" (type Object -> void))
-                            (VarExpr[Local] "push_Object" (type CanonicalDefs))
-                            (AppExpr "mach_readStructField_Object" (type Object)
-                                (VarExpr[ComponentMethod] "mach_readStructField_Object" (type (Object, FieldOffset) -> Object))
-                                (VarExpr[Local] "mach_readStructField_Object" (type CanonicalDefs))
-                                (VarExpr[Local] "obj" (type Object))
-                                (VarExpr[Local] "offset" (type FieldOffset)))))
+                        (AppExpr "push_Object": void
+                            (VarExpr[ComponentMethod] "push_Object": Object -> void)
+                            (VarExpr[Local] "push_Object": CanonicalDefs)
+                            (AppExpr "mach_readStructField_Object": Object
+                                (VarExpr[ComponentMethod] "mach_readStructField_Object": (Object, FieldOffset) -> Object)
+                                (VarExpr[Local] "mach_readStructField_Object": CanonicalDefs)
+                                (VarExpr[Local] "obj": Object)
+                                (VarExpr[Local] "offset": FieldOffset))))
                     (DefCase)
                     (ReturnStmt
-                        (AppExpr "invalid" (type void)
-                            (VarExpr[ComponentMethod] "invalid" (type void -> void))
-                            (VarExpr[Local] "invalid" (type CanonicalDefs))))))
+                        (AppExpr "invalid": void
+                            (VarExpr[ComponentMethod] "invalid": void -> void)
+                            (VarExpr[Local] "invalid": CanonicalDefs)))
+                    (DefCase)
+                    (ReturnStmt
+                        (AppExpr "invalid": void
+                            (VarExpr[ComponentMethod] "invalid": void -> void)
+                            (VarExpr[Local] "invalid": CanonicalDefs)))))
     method STRUCT_GET_S()
         (BlockStmt
             (LocalStmt
-                ("struct_index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("struct_index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("field_index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("field_index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("kind" (type FieldKind)
-                    (AppExpr "m_getFieldKind" (type FieldKind)
-                        (VarExpr[ComponentMethod] "m_getFieldKind" (type (u32, u32) -> FieldKind))
-                        (VarExpr[Local] "m_getFieldKind" (type CanonicalDefs))
-                        (VarExpr[Local] "struct_index" (type u32))
-                        (VarExpr[Local] "field_index" (type u32)))))
+                ("kind": FieldKind
+                    (AppExpr "m_getFieldKind": FieldKind
+                        (VarExpr[ComponentMethod] "m_getFieldKind": (u32, u32) -> FieldKind)
+                        (VarExpr[Local] "m_getFieldKind": CanonicalDefs)
+                        (VarExpr[Local] "struct_index": u32)
+                        (VarExpr[Local] "field_index": u32))))
             (LocalStmt
-                ("offset" (type FieldOffset)
-                    (AppExpr "m_getFieldOffset" (type FieldOffset)
-                        (VarExpr[ComponentMethod] "m_getFieldOffset" (type (u32, u32) -> FieldOffset))
-                        (VarExpr[Local] "m_getFieldOffset" (type CanonicalDefs))
-                        (VarExpr[Local] "struct_index" (type u32))
-                        (VarExpr[Local] "field_index" (type u32)))))
+                ("offset": FieldOffset
+                    (AppExpr "m_getFieldOffset": FieldOffset
+                        (VarExpr[ComponentMethod] "m_getFieldOffset": (u32, u32) -> FieldOffset)
+                        (VarExpr[Local] "m_getFieldOffset": CanonicalDefs)
+                        (VarExpr[Local] "struct_index": u32)
+                        (VarExpr[Local] "field_index": u32))))
             (LocalStmt
-                ("obj" (type Object)
-                    (AppExpr "pop_Object" (type Object)
-                        (VarExpr[ComponentMethod] "pop_Object" (type void -> Object))
-                        (VarExpr[Local] "pop_Object" (type CanonicalDefs)))))
+                ("obj": Object
+                    (AppExpr "pop_Object": Object
+                        (VarExpr[ComponentMethod] "pop_Object": void -> Object)
+                        (VarExpr[Local] "pop_Object": CanonicalDefs))))
             (IfStmt
-                (BinOpExpr "==" (type bool)
-                    (VarExpr[Local] "obj" (type Object))
-                    (Literal "null" (type #null) (implicitType Object)))
+                (BinOpExpr "==": bool
+                    (VarExpr[Local] "obj": Object)
+                    (Literal "null": #null implicitly Object))
                 (ReturnStmt
-                    (AppExpr "trapNull" (type void)
-                        (VarExpr[ComponentMethod] "trapNull" (type void -> void))
-                        (VarExpr[Local] "trapNull" (type CanonicalDefs)))))
+                    (AppExpr "trapNull": void
+                        (VarExpr[ComponentMethod] "trapNull": void -> void)
+                        (VarExpr[Local] "trapNull": CanonicalDefs))))
             (MatchStmt
-                (VarExpr[Local] "kind" (type FieldKind))
+                (VarExpr[Local] "kind": FieldKind)
                     (VarExpr[None] "U8")
                     (ExprStmt
-                        (AppExpr "push_u32" (type void)
-                            (VarExpr[ComponentMethod] "push_u32" (type u32 -> void))
-                            (VarExpr[Local] "push_u32" (type CanonicalDefs))
-                            (AppExpr (type u32)
-                                (VarExpr[Inst] "view" (type i8 -> u32)
-                                    (VarExpr[Type] "u32" (type u32)))
-                                (AppExpr "mach_readStructField_i8" (type i8)
-                                    (VarExpr[ComponentMethod] "mach_readStructField_i8" (type (Object, FieldOffset) -> i8))
-                                    (VarExpr[Local] "mach_readStructField_i8" (type CanonicalDefs))
-                                    (VarExpr[Local] "obj" (type Object))
-                                    (VarExpr[Local] "offset" (type FieldOffset))))))
+                        (AppExpr "push_u32": void
+                            (VarExpr[ComponentMethod] "push_u32": u32 -> void)
+                            (VarExpr[Local] "push_u32": CanonicalDefs)
+                            (AppExpr: u32
+                                (VarExpr[Inst] "view": i8 -> u32
+                                    (VarExpr[Type] "u32": u32))
+                                (AppExpr "mach_readStructField_i8": i8
+                                    (VarExpr[ComponentMethod] "mach_readStructField_i8": (Object, FieldOffset) -> i8)
+                                    (VarExpr[Local] "mach_readStructField_i8": CanonicalDefs)
+                                    (VarExpr[Local] "obj": Object)
+                                    (VarExpr[Local] "offset": FieldOffset)))))
                     (VarExpr[None] "U16")
                     (ExprStmt
-                        (AppExpr "push_u32" (type void)
-                            (VarExpr[ComponentMethod] "push_u32" (type u32 -> void))
-                            (VarExpr[Local] "push_u32" (type CanonicalDefs))
-                            (AppExpr (type u32)
-                                (VarExpr[Inst] "view" (type short -> u32)
-                                    (VarExpr[Type] "u32" (type u32)))
-                                (AppExpr "mach_readStructField_i16" (type short)
-                                    (VarExpr[ComponentMethod] "mach_readStructField_i16" (type (Object, FieldOffset) -> short))
-                                    (VarExpr[Local] "mach_readStructField_i16" (type CanonicalDefs))
-                                    (VarExpr[Local] "obj" (type Object))
-                                    (VarExpr[Local] "offset" (type FieldOffset))))))
+                        (AppExpr "push_u32": void
+                            (VarExpr[ComponentMethod] "push_u32": u32 -> void)
+                            (VarExpr[Local] "push_u32": CanonicalDefs)
+                            (AppExpr: u32
+                                (VarExpr[Inst] "view": short -> u32
+                                    (VarExpr[Type] "u32": u32))
+                                (AppExpr "mach_readStructField_i16": short
+                                    (VarExpr[ComponentMethod] "mach_readStructField_i16": (Object, FieldOffset) -> short)
+                                    (VarExpr[Local] "mach_readStructField_i16": CanonicalDefs)
+                                    (VarExpr[Local] "obj": Object)
+                                    (VarExpr[Local] "offset": FieldOffset)))))
                     (DefCase)
                     (ReturnStmt
-                        (AppExpr "invalid" (type void)
-                            (VarExpr[ComponentMethod] "invalid" (type void -> void))
-                            (VarExpr[Local] "invalid" (type CanonicalDefs))))))
+                        (AppExpr "invalid": void
+                            (VarExpr[ComponentMethod] "invalid": void -> void)
+                            (VarExpr[Local] "invalid": CanonicalDefs)))
+                    (DefCase)
+                    (ReturnStmt
+                        (AppExpr "invalid": void
+                            (VarExpr[ComponentMethod] "invalid": void -> void)
+                            (VarExpr[Local] "invalid": CanonicalDefs)))))
     method STRUCT_GET_U()
         (BlockStmt
             (LocalStmt
-                ("struct_index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("struct_index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("field_index" (type u32)
-                    (AppExpr "readImmULEB32" (type u32)
-                        (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                        (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                ("field_index": u32
+                    (AppExpr "readImmULEB32": u32
+                        (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                        (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
             (LocalStmt
-                ("kind" (type FieldKind)
-                    (AppExpr "m_getFieldKind" (type FieldKind)
-                        (VarExpr[ComponentMethod] "m_getFieldKind" (type (u32, u32) -> FieldKind))
-                        (VarExpr[Local] "m_getFieldKind" (type CanonicalDefs))
-                        (VarExpr[Local] "struct_index" (type u32))
-                        (VarExpr[Local] "field_index" (type u32)))))
+                ("kind": FieldKind
+                    (AppExpr "m_getFieldKind": FieldKind
+                        (VarExpr[ComponentMethod] "m_getFieldKind": (u32, u32) -> FieldKind)
+                        (VarExpr[Local] "m_getFieldKind": CanonicalDefs)
+                        (VarExpr[Local] "struct_index": u32)
+                        (VarExpr[Local] "field_index": u32))))
             (LocalStmt
-                ("offset" (type FieldOffset)
-                    (AppExpr "m_getFieldOffset" (type FieldOffset)
-                        (VarExpr[ComponentMethod] "m_getFieldOffset" (type (u32, u32) -> FieldOffset))
-                        (VarExpr[Local] "m_getFieldOffset" (type CanonicalDefs))
-                        (VarExpr[Local] "struct_index" (type u32))
-                        (VarExpr[Local] "field_index" (type u32)))))
+                ("offset": FieldOffset
+                    (AppExpr "m_getFieldOffset": FieldOffset
+                        (VarExpr[ComponentMethod] "m_getFieldOffset": (u32, u32) -> FieldOffset)
+                        (VarExpr[Local] "m_getFieldOffset": CanonicalDefs)
+                        (VarExpr[Local] "struct_index": u32)
+                        (VarExpr[Local] "field_index": u32))))
             (LocalStmt
-                ("obj" (type Object)
-                    (AppExpr "pop_Object" (type Object)
-                        (VarExpr[ComponentMethod] "pop_Object" (type void -> Object))
-                        (VarExpr[Local] "pop_Object" (type CanonicalDefs)))))
+                ("obj": Object
+                    (AppExpr "pop_Object": Object
+                        (VarExpr[ComponentMethod] "pop_Object": void -> Object)
+                        (VarExpr[Local] "pop_Object": CanonicalDefs))))
             (IfStmt
-                (BinOpExpr "==" (type bool)
-                    (VarExpr[Local] "obj" (type Object))
-                    (Literal "null" (type #null) (implicitType Object)))
+                (BinOpExpr "==": bool
+                    (VarExpr[Local] "obj": Object)
+                    (Literal "null": #null implicitly Object))
                 (ReturnStmt
-                    (AppExpr "trapNull" (type void)
-                        (VarExpr[ComponentMethod] "trapNull" (type void -> void))
-                        (VarExpr[Local] "trapNull" (type CanonicalDefs)))))
+                    (AppExpr "trapNull": void
+                        (VarExpr[ComponentMethod] "trapNull": void -> void)
+                        (VarExpr[Local] "trapNull": CanonicalDefs))))
             (MatchStmt
-                (VarExpr[Local] "kind" (type FieldKind))
+                (VarExpr[Local] "kind": FieldKind)
                     (VarExpr[None] "U8")
                     (ExprStmt
-                        (AppExpr "push_u32" (type void)
-                            (VarExpr[ComponentMethod] "push_u32" (type u32 -> void))
-                            (VarExpr[Local] "push_u32" (type CanonicalDefs))
-                            (AppExpr (type u32)
-                                (VarExpr[Inst] "view" (type byte -> u32)
-                                    (VarExpr[Type] "u32" (type u32)))
-                                (AppExpr "mach_readStructField_u8" (type byte)
-                                    (VarExpr[ComponentMethod] "mach_readStructField_u8" (type (Object, FieldOffset) -> byte))
-                                    (VarExpr[Local] "mach_readStructField_u8" (type CanonicalDefs))
-                                    (VarExpr[Local] "obj" (type Object))
-                                    (VarExpr[Local] "offset" (type FieldOffset))))))
+                        (AppExpr "push_u32": void
+                            (VarExpr[ComponentMethod] "push_u32": u32 -> void)
+                            (VarExpr[Local] "push_u32": CanonicalDefs)
+                            (AppExpr: u32
+                                (VarExpr[Inst] "view": byte -> u32
+                                    (VarExpr[Type] "u32": u32))
+                                (AppExpr "mach_readStructField_u8": byte
+                                    (VarExpr[ComponentMethod] "mach_readStructField_u8": (Object, FieldOffset) -> byte)
+                                    (VarExpr[Local] "mach_readStructField_u8": CanonicalDefs)
+                                    (VarExpr[Local] "obj": Object)
+                                    (VarExpr[Local] "offset": FieldOffset)))))
                     (VarExpr[None] "U16")
                     (ExprStmt
-                        (AppExpr "push_u32" (type void)
-                            (VarExpr[ComponentMethod] "push_u32" (type u32 -> void))
-                            (VarExpr[Local] "push_u32" (type CanonicalDefs))
-                            (AppExpr (type u32)
-                                (VarExpr[Inst] "view" (type u16 -> u32)
-                                    (VarExpr[Type] "u32" (type u32)))
-                                (AppExpr "mach_readStructField_u16" (type u16)
-                                    (VarExpr[ComponentMethod] "mach_readStructField_u16" (type (Object, FieldOffset) -> u16))
-                                    (VarExpr[Local] "mach_readStructField_u16" (type CanonicalDefs))
-                                    (VarExpr[Local] "obj" (type Object))
-                                    (VarExpr[Local] "offset" (type FieldOffset))))))
+                        (AppExpr "push_u32": void
+                            (VarExpr[ComponentMethod] "push_u32": u32 -> void)
+                            (VarExpr[Local] "push_u32": CanonicalDefs)
+                            (AppExpr: u32
+                                (VarExpr[Inst] "view": u16 -> u32
+                                    (VarExpr[Type] "u32": u32))
+                                (AppExpr "mach_readStructField_u16": u16
+                                    (VarExpr[ComponentMethod] "mach_readStructField_u16": (Object, FieldOffset) -> u16)
+                                    (VarExpr[Local] "mach_readStructField_u16": CanonicalDefs)
+                                    (VarExpr[Local] "obj": Object)
+                                    (VarExpr[Local] "offset": FieldOffset)))))
                     (DefCase)
                     (ReturnStmt
-                        (AppExpr "invalid" (type void)
-                            (VarExpr[ComponentMethod] "invalid" (type void -> void))
-                            (VarExpr[Local] "invalid" (type CanonicalDefs))))))
+                        (AppExpr "invalid": void
+                            (VarExpr[ComponentMethod] "invalid": void -> void)
+                            (VarExpr[Local] "invalid": CanonicalDefs)))
+                    (DefCase)
+                    (ReturnStmt
+                        (AppExpr "invalid": void
+                            (VarExpr[ComponentMethod] "invalid": void -> void)
+                            (VarExpr[Local] "invalid": CanonicalDefs)))))
     method I32_LOAD()
         (BlockStmt
             (LocalStmt
-                ("flags" (type byte)
-                    (AppExpr "readImmU8" (type byte)
-                        (VarExpr[ComponentMethod] "readImmU8" (type void -> byte))
-                        (VarExpr[Local] "readImmU8" (type CanonicalDefs)))))
+                ("flags": byte
+                    (AppExpr "readImmU8": byte
+                        (VarExpr[ComponentMethod] "readImmU8": void -> byte)
+                        (VarExpr[Local] "readImmU8": CanonicalDefs))))
             (LocalStmt
-                ("memindex" (type u32)
-                    (Literal "0" (type u32))))
+                ("memindex": u32
+                    (Literal "0": u32)))
             (IfStmt
-                (AppExpr (type bool)
-                    (VarExpr[Inst] "!=" (type (byte, byte) -> bool)
-                        (VarExpr[Type] "u8" (type byte)))
-                    (AppExpr (type byte)
-                        (VarExpr[Inst] "&" (type (byte, byte) -> byte)
-                            (VarExpr[Type] "u8" (type byte)))
-                        (VarExpr[Local] "flags" (type byte))
-                        (VarExpr[ComponentField] "HAS_MEM_INDEX" (type byte)))
-                    (Literal "0" (type byte)))
+                (AppExpr: bool
+                    (VarExpr[Inst] "!=": (byte, byte) -> bool
+                        (VarExpr[Type] "u8": byte))
+                    (AppExpr: byte
+                        (VarExpr[Inst] "&": (byte, byte) -> byte
+                            (VarExpr[Type] "u8": byte))
+                        (VarExpr[Local] "flags": byte)
+                        (VarExpr[ComponentField] "HAS_MEM_INDEX": byte))
+                    (Literal "0": byte))
                 (ExprStmt
-                    (AssignExpr (type u32)
-                        (VarExpr[Local] "memindex" (type u32))
-                        (AppExpr "readImmULEB32" (type u32)
-                            (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                            (VarExpr[Local] "readImmULEB32" (type CanonicalDefs))))))
+                    (AssignExpr: u32
+                        (VarExpr[Local] "memindex": u32)
+                        (AppExpr "readImmULEB32": u32
+                            (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                            (VarExpr[Local] "readImmULEB32": CanonicalDefs)))))
             (IfStmt
-                (AppExpr "m_isMemory64" (type bool)
-                    (VarExpr[ComponentMethod] "m_isMemory64" (type u32 -> bool))
-                    (VarExpr[Local] "m_isMemory64" (type CanonicalDefs))
-                    (VarExpr[Local] "memindex" (type u32)))
+                (AppExpr "m_isMemory64": bool
+                    (VarExpr[ComponentMethod] "m_isMemory64": u32 -> bool)
+                    (VarExpr[Local] "m_isMemory64": CanonicalDefs)
+                    (VarExpr[Local] "memindex": u32))
                 (BlockStmt
                     (LocalStmt
-                        ("offset" (type u64)
-                            (AppExpr "readImmULEB64" (type u64)
-                                (VarExpr[ComponentMethod] "readImmULEB64" (type void -> u64))
-                                (VarExpr[Local] "readImmULEB64" (type CanonicalDefs)))))
+                        ("offset": u64
+                            (AppExpr "readImmULEB64": u64
+                                (VarExpr[ComponentMethod] "readImmULEB64": void -> u64)
+                                (VarExpr[Local] "readImmULEB64": CanonicalDefs))))
                     (LocalStmt
-                        ("index" (type u64)
-                            (AppExpr "pop_u64" (type u64)
-                                (VarExpr[ComponentMethod] "pop_u64" (type void -> u64))
-                                (VarExpr[Local] "pop_u64" (type CanonicalDefs)))))
+                        ("index": u64
+                            (AppExpr "pop_u64": u64
+                                (VarExpr[ComponentMethod] "pop_u64": void -> u64)
+                                (VarExpr[Local] "pop_u64": CanonicalDefs))))
                     (LocalStmt
-                        ("val" (type u32)
-                            (AppExpr "mach_readMemory64_u32" (type u32)
-                                (VarExpr[ComponentMethod] "mach_readMemory64_u32" (type (u32, u64, u64) -> u32))
-                                (VarExpr[Local] "mach_readMemory64_u32" (type CanonicalDefs))
-                                (VarExpr[Local] "memindex" (type u32))
-                                (VarExpr[Local] "index" (type u64))
-                                (VarExpr[Local] "offset" (type u64)))))
+                        ("val": u32
+                            (AppExpr "mach_readMemory64_u32": u32
+                                (VarExpr[ComponentMethod] "mach_readMemory64_u32": (u32, u64, u64) -> u32)
+                                (VarExpr[Local] "mach_readMemory64_u32": CanonicalDefs)
+                                (VarExpr[Local] "memindex": u32)
+                                (VarExpr[Local] "index": u64)
+                                (VarExpr[Local] "offset": u64))))
                     (ExprStmt
-                        (AppExpr "push_u32" (type void)
-                            (VarExpr[ComponentMethod] "push_u32" (type u32 -> void))
-                            (VarExpr[Local] "push_u32" (type CanonicalDefs))
-                            (VarExpr[Local] "val" (type u32)))))
+                        (AppExpr "push_u32": void
+                            (VarExpr[ComponentMethod] "push_u32": u32 -> void)
+                            (VarExpr[Local] "push_u32": CanonicalDefs)
+                            (VarExpr[Local] "val": u32))))
                 (BlockStmt
                     (LocalStmt
-                        ("offset" (type u32)
-                            (AppExpr "readImmULEB32" (type u32)
-                                (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
-                                (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
+                        ("offset": u32
+                            (AppExpr "readImmULEB32": u32
+                                (VarExpr[ComponentMethod] "readImmULEB32": void -> u32)
+                                (VarExpr[Local] "readImmULEB32": CanonicalDefs))))
                     (LocalStmt
-                        ("index" (type u32)
-                            (AppExpr "pop_u32" (type u32)
-                                (VarExpr[ComponentMethod] "pop_u32" (type void -> u32))
-                                (VarExpr[Local] "pop_u32" (type CanonicalDefs)))))
+                        ("index": u32
+                            (AppExpr "pop_u32": u32
+                                (VarExpr[ComponentMethod] "pop_u32": void -> u32)
+                                (VarExpr[Local] "pop_u32": CanonicalDefs))))
                     (LocalStmt
-                        ("val" (type u32)
-                            (AppExpr "mach_readMemory32_u32" (type u32)
-                                (VarExpr[ComponentMethod] "mach_readMemory32_u32" (type (u32, u32, u32) -> u32))
-                                (VarExpr[Local] "mach_readMemory32_u32" (type CanonicalDefs))
-                                (VarExpr[Local] "memindex" (type u32))
-                                (VarExpr[Local] "index" (type u32))
-                                (VarExpr[Local] "offset" (type u32)))))
+                        ("val": u32
+                            (AppExpr "mach_readMemory32_u32": u32
+                                (VarExpr[ComponentMethod] "mach_readMemory32_u32": (u32, u32, u32) -> u32)
+                                (VarExpr[Local] "mach_readMemory32_u32": CanonicalDefs)
+                                (VarExpr[Local] "memindex": u32)
+                                (VarExpr[Local] "index": u32)
+                                (VarExpr[Local] "offset": u32))))
                     (ExprStmt
-                        (AppExpr "push_u32" (type void)
-                            (VarExpr[ComponentMethod] "push_u32" (type u32 -> void))
-                            (VarExpr[Local] "push_u32" (type CanonicalDefs))
-                            (VarExpr[Local] "val" (type u32)))))))
+                        (AppExpr "push_u32": void
+                            (VarExpr[ComponentMethod] "push_u32": u32 -> void)
+                            (VarExpr[Local] "push_u32": CanonicalDefs)
+                            (VarExpr[Local] "val": u32))))))
 }
 class v128 {
     new(low: u64, high: u64)
