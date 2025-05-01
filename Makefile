@@ -8,7 +8,7 @@ V3TARGET = $(WIZARD)/src/engine/v3/*.v3
 UTIL = $(WIZARD)/src/util/*.v3
 
 # Virgil compiler command (adjust as needed)
-VIRGIL ?= virgil
+VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -run
 
 # Parser files
 PARSER_DIR = parser
