@@ -1,20 +1,44 @@
-class CBDDef(opcode: string, body: VirgilStmt) {
+class FieldMgr {
+    var fields: Array<(string, string)>; // (name, type)
+
+    def fieldIdx(field: string) -> int {
+    	for (i < fields.length) if (Strings.equal(fields[i], field))
+	    return i;
+
+	return -1;
+    }
+
+    def fieldToBitmask(field: string) -> long {
+	def idx = fieldIdx(field);
+	return 1L << idx;
+    }
+
+    def fieldsToBitset(fields: Range<string>) -> long {
+	var set = 0;
+	for (f in fields) {
+	    def mask = fieldToBitmask(f);
+	    set |= mask;
+	}
+
+	return set;
+    }
+}
+
+class CBDDef(field_bitset: long, body: VirgilStmt) {
     def buildString(buf: StringBuilder) {
         // TODO
     }
 }
 
-class SidetableField(tp: string) {
-    def toString() -> string {
-        return "TODO";
+class SidetableEntry(fields: Array<(string, string)>) {
+    def field_bitset() -> long {
+	return 0; // TODO
     }
 }
 
-class SidetableCase(fields: Array<SidetableField>) {
-}
-
 class SidetableBuilder {
-    var cases: Array<SidetableCase>;
+    var field_mgr: FieldMgr;
+    var current_fields: Map<string, string>;
 }
 
 def is_newline(c: byte) -> bool {
