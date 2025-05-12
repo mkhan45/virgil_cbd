@@ -19,6 +19,11 @@ type CtlEntry {
 var ctls: Array<CtlEntry>;
 var ctl_stack: ArrayStack<int>;
 
+class SidetableBuilder {
+    var field_mgr: FieldMgr;
+    def entries: Array<SidetableEntry>;
+}
+
 // Constants
 def HAS_MEM_INDEX = 0x40u8;
 
