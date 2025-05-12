@@ -1,30 +1,12 @@
-[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m141:49[1;00m] [0;31mTypeError[1;00m: expected long in call, got Array<byte>
+[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m150:49[1;00m] [0;31mTypeError[1;00m: expected long in call, got Array<byte>
                             defs.put(CBDDef.new(meth, stmt));
                                                 ^^^^
-[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m192:32[1;00m] [0;31mUnresolvedMember[1;00m: expression of type CBDDef has no such member "opcode"
-        codestr_builder.puts(d.opcode);
-                               ^^^^^^
-[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m198:33[1;00m] [0;31mUnresolvedMember[1;00m: expression of type CBDDef has no such member "opcode"
-        dispatch_builder.puts(d.opcode);
-                                ^^^^^^
-[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m200:33[1;00m] [0;31mUnresolvedMember[1;00m: expression of type CBDDef has no such member "opcode"
-        dispatch_builder.puts(d.opcode);
-                                ^^^^^^
-[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m11:64[1;00m] [0;31mUnresolvedIdentifier[1;00m: identifier "field" cannot be found
-    	for (i < fields.length) if (Strings.equal(fields[i].0, field)) {
-                                                               ^^^^^
-[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m21:28[1;00m] [0;31mTypeError[1;00m: expected (Array<byte>, Array<byte>) in call, got Array<byte>
-	def idx = fieldIdx(field);
-                           ^^^^^
-[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m22:22[1;00m] [0;31mTypeError[1;00m: expected byte in infix operator, got int
-	return 1L << idx;
-                     ^^^
-[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m29:20[1;00m] [0;31mTypeError[1;00m: expected int in compound assignment, got long
-	    set |= mask;
-                   ^^^^
-[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m37:23[1;00m] [0;31mTypeError[1;00m: foreach requires iterable expression and found Vector<long>
-	for (entry in entries) if (entry == bs) return bs;
-                      ^^^^^^^
-[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m37:36[1;00m] [0;31mTypeError[1;00m: expected bool in if condition, got ?
-	for (entry in entries) if (entry == bs) return bs;
-                                   ^^^^^^^^^^^
+[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m150:55[1;00m] [0;31mTypeError[1;00m: expected Array<byte> in call, got VirgilStmt
+                            defs.put(CBDDef.new(meth, stmt));
+                                                      ^^^^
+[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m150:59[1;00m] [0;31mTypeError[1;00m: call requires 3 arguments and found 2
+                            defs.put(CBDDef.new(meth, stmt));
+                                                          ^
+[[0;34mvalidator/ValidatorGen.v3[1;00m @ [0;36m47:13[1;00m] [0;31mMatchError[1;00m: duplicate variant pattern (previous at 46:13)
+	    Return(_) => return;
+            ^^^^^^

@@ -39,6 +39,15 @@ class STFieldMgr {
 	entries.put(bs);
 	return bs;
     }
+
+    def putFieldsFromStmt(stmt: VirgilStmt) {
+	match (stmt) {
+	    Expr(_) => return;
+	    Return(_) => return;
+	    Block(ss) => for (s in ss) putFieldsFromStmt(s);
+	    _ => return; // TODO
+	}
+    }
 }
 
 class CBDDef(field_bitset: long, opcode: string, body: VirgilStmt) {
@@ -137,7 +146,8 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
                     def stmt_res = VirgilStmts.from_sexpr(sexp);
                     match (stmt_res) {
                         Success(stmt) => {
-                            // TODO: sidetable stuff
+			    // TODO: get field bitset
+                            defs.put(CBDDef.new(0, meth, stmt));
                         }
                         _ => {
                             System.write(2, meth);

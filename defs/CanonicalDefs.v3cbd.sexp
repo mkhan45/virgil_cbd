@@ -551,7 +551,7 @@ component CanonicalDefs {
     method BR()
         (BlockStmt
             (LocalStmt
-                ("depth" (type u32)
+                ("depth" (type u32) (repHints #sidetable)
                     (AppExpr "readImmULEB32" (type u32)
                         (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
                         (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))

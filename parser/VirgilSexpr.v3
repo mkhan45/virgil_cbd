@@ -82,7 +82,7 @@ type VirgilStmt {
     case Block(stmts: Array<VirgilStmt>);
     case Expr(expr: VirgilExpr);
     case Return(expr: VirgilExpr);
-    case Local(var_name: string, expr: VirgilExpr);
+    case Local(var_name: string, expr: VirgilExpr, sidetable: bool);
     case Match(subj: VirgilExpr, branches: Array<MatchCase>);
     case If(cond: VirgilExpr, then_stmt: VirgilStmt, else_stmt: VirgilStmt);
     
@@ -113,7 +113,7 @@ type VirgilStmt {
                 expr.buildString(buf);
                 buf.putc(';');
             }
-            Local(var_name, expr) => {
+            Local(var_name, expr, sidetable) => {
                 buf.puts("var ");
                 buf.puts(var_name);
                 buf.puts(" = ");
@@ -320,6 +320,7 @@ component VirgilStmts {
         def elems = sexpr.forceList();
         if (!elems.head.matchesAtom("LocalStmt")) return SExprRes.ParserBug;
         
+	// TODO: refactor to munch decl
         def decl = elems.tail.head.forceList();
         if (decl == null) return SExprRes.Malformed(sexpr);
         
@@ -330,12 +331,23 @@ component VirgilStmts {
         if (decl.tail == null) return SExprRes.Malformed(sexpr);
         def type_ls = decl.tail.head.forceList();
         if (type_ls == null || !type_ls.head.matchesAtom("type")) return SExprRes.Malformed(sexpr);
-        
-        // Get and parse the initializer expression
+
         if (decl.tail.tail == null) return SExprRes.Malformed(sexpr);
-        def expr_res = VirgilExprs.from_sexpr(decl.tail.tail.head);
+
+	var sidetable = false;
+	var expr_res: SExprRes<VirgilExpr> = SExprRes.ParserBug;
+
+	def rephint_ls = decl.tail.tail.head.forceList();
+	if (rephint_ls != null && rephint_ls.head.matchesAtom("repHints")) {
+	    sidetable = true;
+	    if (decl.tail.tail.tail == null) return SExprRes.Malformed(sexpr);
+	    expr_res = VirgilExprs.from_sexpr(decl.tail.tail.tail.head);
+	} else {
+	    expr_res = VirgilExprs.from_sexpr(decl.tail.tail.head);
+	}
+        
         match (expr_res) {
-            Success(expr) => return SExprRes.Success(VirgilStmt.Local(cleanIdent(var_name), expr));
+            Success(expr) => return SExprRes.Success(VirgilStmt.Local(cleanIdent(var_name), expr, sidetable));
             _ => return expr_res.castError();
         }
     }
