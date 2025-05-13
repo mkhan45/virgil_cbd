@@ -85,6 +85,7 @@ type VirgilStmt {
     case Local(var_name: string, expr: VirgilExpr, sidetable: bool); // TODO: add type
     case Match(subj: VirgilExpr, branches: Array<MatchCase>);
     case If(cond: VirgilExpr, then_stmt: VirgilStmt, else_stmt: VirgilStmt);
+    case Injected(s: string);
     
     def buildString(buf: StringBuilder) {
         buildStringIndented(buf, 0);
@@ -181,6 +182,9 @@ type VirgilStmt {
                     }
                 }
             }
+	    Injected(s) => {
+                buf.puts(s);
+	    }
         }
     }
 
@@ -194,7 +198,7 @@ type VirgilStmt {
         var right_stmts: Array<VirgilStmt>;
         match (stmt) {
             Block(ss) => right_stmts = ss;
-            _ => left_stmts = [this];
+            _ => right_stmts = [stmt];
         }
 
         return VirgilStmt.Block(Arrays.concat(left_stmts, right_stmts));

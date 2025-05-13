@@ -30,6 +30,19 @@ component STFieldMgr {
 	return set;
     }
 
+    def bitsetToFields(bs: long) -> Vector<(string, string)> {
+        var result = Vector<(string, string)>.new();
+        for (i < 64) {
+            def mask = 1L << byte.!(i);
+            if ((bs & mask) != 0L) {
+                if (i < fields.length) {
+                    result.put(fields[i]);
+                }
+            }
+        }
+        return result;
+    }
+
     def putEntry(fields: Vector<(string, string)>) -> long {
 	def bs = fieldsToBitset(fields);
 
@@ -45,12 +58,13 @@ def getSidetableFields(stmt: VirgilStmt, buf: Vector<(string, string)>) {
         Expr(_) => return;
         Return(_) => return;
 	Match(_, _) => return;
+	Injected(_) => return;
         Block(ss) => for (s in ss) getSidetableFields(s, buf);
 	If(_, t, e) => {
 	    getSidetableFields(t, buf);
 	    getSidetableFields(e, buf);
 	}
-        Local(name, _, sidetable) => if (sidetable) buf.put((name, "")); // TODO: tipe
+        Local(name, _, sidetable) => if (sidetable) buf.put((name, "int")); // TODO: tipe
     }
 }
 
@@ -136,6 +150,32 @@ def containsStr(strs: Range<string>, k: string) -> bool {
     return false;
 }
 
+def instrumentSTLocals(stmt: VirgilStmt) -> VirgilStmt {
+    match (stmt) {
+	Expr(_) => return stmt;
+        Return(_) => return stmt;
+	Match(_, _) => return stmt;
+	Injected(_) => return stmt;
+        Block(ss) => return VirgilStmt.Block(Arrays.map(ss, instrumentSTLocals));
+	If(c, t, e) => return VirgilStmt.If(c, instrumentSTLocals(t), instrumentSTLocals(e));
+	Local(name, _, sidetable) => {
+	    if (sidetable) {
+		def inj_builder = StringBuilder.new();
+		inj_builder.puts("st_builder.");
+		inj_builder.puts(name);
+		inj_builder.puts(" = ");
+		inj_builder.puts(name);
+		inj_builder.puts(";");
+		def assignment = VirgilStmt.Injected(inj_builder.toString());
+	        def ss = [stmt, assignment];
+		return VirgilStmt.Block(ss);
+	    } else {
+	        return stmt;
+	    }
+	}
+    }
+}
+
 def extractDefs(instrs: Array<string>, filename: string, file_content: string) -> Array<CBDDef> {
     def defs: Vector<CBDDef> = Vector.new();
     def sexp_parser = SExprParser.new(filename, file_content);
@@ -154,7 +194,10 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
 			    getSidetableFields(stmt, st_field_buf);
 
 			    def bs = STFieldMgr.putEntry(st_field_buf);
-                            defs.put(CBDDef.new(bs, meth, stmt));
+			    def st_fields = STFieldMgr.bitsetToFields(bs);
+
+ 			    def instStmt = instrumentSTLocals(stmt);
+			    defs.put(CBDDef.new(bs, meth, instStmt));
                         }
                         _ => {
                             System.write(2, meth);

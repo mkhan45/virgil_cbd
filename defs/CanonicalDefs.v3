@@ -212,8 +212,8 @@ def I32_EQZ() {
 	    push_i32(0);
 }
 def BR() {
-	var depth #sidetable = readImmULEB32();
-	var label = f_getLabel(depth);
+	var depth = readImmULEB32();
+	var label #sidetable = f_getLabel(depth);
 	return doBranch(label);
 }
 def BR_IF() {
