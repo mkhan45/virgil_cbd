@@ -82,7 +82,7 @@ type VirgilStmt {
     case Block(stmts: Array<VirgilStmt>);
     case Expr(expr: VirgilExpr);
     case Return(expr: VirgilExpr);
-    case Local(var_name: string, expr: VirgilExpr, sidetable: bool);
+    case Local(var_name: string, expr: VirgilExpr, sidetable: bool); // TODO: add type
     case Match(subj: VirgilExpr, branches: Array<MatchCase>);
     case If(cond: VirgilExpr, then_stmt: VirgilStmt, else_stmt: VirgilStmt);
     

@@ -1,11 +1,6 @@
-class STFieldMgr {
-    var fields: Vector<(string, string)>; // (name, type)
-    var entries: Vector<long>; // keep track of which bitset insts are actually used
-
-    new() {
-	fields = Vector.new();
-	entries = Vector.new();
-    }
+component STFieldMgr {
+    var fields: Vector<(string, string)> = Vector.new(); // (name, type)
+    var entries: Vector<long> = Vector.new(); // keep track of which bitset insts are actually used
 
     def fieldIdx(field_name: string, field_tipe: string) -> int {
     	for (i < fields.length) if (Strings.equal(fields[i].0, field_name)) {
@@ -18,23 +13,27 @@ class STFieldMgr {
     }
 
     def fieldToBitmask(field_name: string, field_tipe: string) -> long {
+	System.puts("field name: ");
+	System.puts(field_name);
+	System.ln();
 	def idx = byte.!(fieldIdx(field_name, field_tipe));
 	return 1L << idx;
     }
 
-    def fieldsToBitset(fields: Range<(string, string)>) -> long {
+    def fieldsToBitset(fields: Vector<(string, string)>) -> long {
 	var set = 0L;
-	for (f in fields) {
-	    def mask = fieldToBitmask(f);
+	for (i < fields.length) {
+	    def mask = fieldToBitmask(fields[i]);
 	    set |= mask;
 	}
 
 	return set;
     }
 
-    def putEntry(fields: Range<(string, string)>) -> long {
+    def putEntry(fields: Vector<(string, string)>) -> long {
 	def bs = fieldsToBitset(fields);
-	for (entry in entries.array) if (entry == bs) return bs;
+
+        for (i < entries.length) if (entries[i] == bs) return bs;
 
 	entries.put(bs);
 	return bs;
@@ -45,8 +44,13 @@ def getSidetableFields(stmt: VirgilStmt, buf: Vector<(string, string)>) {
     match (stmt) {
         Expr(_) => return;
         Return(_) => return;
-        Block(ss) => for (s in ss) putFieldsFromStmt(s);
-        _ => return; // TODO
+	Match(_, _) => return;
+        Block(ss) => for (s in ss) getSidetableFields(s, buf);
+	If(_, t, e) => {
+	    getSidetableFields(t, buf);
+	    getSidetableFields(e, buf);
+	}
+        Local(name, _, sidetable) => if (sidetable) buf.put((name, "")); // TODO: tipe
     }
 }
 
@@ -146,12 +150,11 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
                     def stmt_res = VirgilStmts.from_sexpr(sexp);
                     match (stmt_res) {
                         Success(stmt) => {
-			    def st_field_buf = Vector.new();
+			    def st_field_buf = Vector<(string, string)>.new();
 			    getSidetableFields(stmt, st_field_buf);
 
-			    // TODO: return STFieldMgr from extractDefs?
 			    def bs = STFieldMgr.putEntry(st_field_buf);
-                            defs.put(CBDDef.new(0, meth, stmt));
+                            defs.put(CBDDef.new(bs, meth, stmt));
                         }
                         _ => {
                             System.write(2, meth);
@@ -201,6 +204,9 @@ def main(args: Array<string>) {
     dispatch_builder.puts("  DISPATCH_TABLE = Array.new(0xE5 + 1);\n"); // 0xE5 = highest opcode (SWITCH)
 
     for (d in defs) {
+	codestr_builder.puts("// st bitset: ");
+	codestr_builder.putd(d.field_bitset);
+	codestr_builder.ln();
         codestr_builder.puts("def ");
         codestr_builder.puts(d.opcode);
         codestr_builder.puts("() ");
