@@ -13,9 +13,6 @@ component STFieldMgr {
     }
 
     def fieldToBitmask(field_name: string, field_tipe: string) -> long {
-	System.puts("field name: ");
-	System.puts(field_name);
-	System.ln();
 	def idx = byte.!(fieldIdx(field_name, field_tipe));
 	return 1L << idx;
     }
@@ -45,11 +42,24 @@ component STFieldMgr {
 
     def putEntry(fields: Vector<(string, string)>) -> long {
 	def bs = fieldsToBitset(fields);
+	if (bs == 0) return 0;
 
         for (i < entries.length) if (entries[i] == bs) return bs;
 
 	entries.put(bs);
 	return bs;
+    }
+
+    def bitsetCaseName(bs: long) -> string {
+	def builder = StringBuilder.new();
+	def fields = bitsetToFields(bs);
+	for (i < fields.length) {
+	    def n = fields[i].0;
+	    n[0] -= 32; // uppercase first letter
+	    builder.puts(n);
+	    n[0] += 32;
+	}
+	return builder.toString();
     }
 }
 
@@ -95,7 +105,6 @@ def find_idx(s: string, c: byte) -> int {
 def extractInstrNames(v3_file: string) -> Array<string> {
     def defs = Vector<string>.new();
 
-    // TODO:
     // the .v3 file has the //@bytecode start comments, but we can only get
     // the s-expressions from the full file. To solve this, find the definition
     // names from the raw .v3 file, and then actually parse them from the s-expr file
@@ -150,14 +159,31 @@ def containsStr(strs: Range<string>, k: string) -> bool {
     return false;
 }
 
-def instrumentSTLocals(stmt: VirgilStmt) -> VirgilStmt {
+def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
     match (stmt) {
 	Expr(_) => return stmt;
-        Return(_) => return stmt;
 	Match(_, _) => return stmt;
 	Injected(_) => return stmt;
-        Block(ss) => return VirgilStmt.Block(Arrays.map(ss, instrumentSTLocals));
-	If(c, t, e) => return VirgilStmt.If(c, instrumentSTLocals(t), instrumentSTLocals(e));
+        Block(ss) => return VirgilStmt.Block(Arrays.map(ss, instrumentSTLocals(_, bs)));
+	If(c, t, e) => return VirgilStmt.If(c, instrumentSTLocals(t, bs), instrumentSTLocals(e, bs));
+        Return(_) => {
+	    // extract fields from st_builder into real st case
+	    def name = STFieldMgr.bitsetCaseName(bs);
+	    def fields = STFieldMgr.bitsetToFields(bs);
+	    def injBuilder = StringBuilder.new();
+	    injBuilder.puts("def st_case = STCase.");
+	    injBuilder.puts(name);
+	    injBuilder.puts("(\n");
+	    for (i < fields.length) {
+		injBuilder.puts("        ");
+	        injBuilder.puts(fields[i].0);
+		injBuilder.puts(",\n");
+	    }
+	    injBuilder.puts("    );\n");
+	    injBuilder.puts("    st_entries.put(st_case);");
+	    def inj = VirgilStmt.Injected(injBuilder.toString());
+	    return inj.appendStmt(stmt);
+	}
 	Local(name, _, sidetable) => {
 	    if (sidetable) {
 		def inj_builder = StringBuilder.new();
@@ -167,8 +193,7 @@ def instrumentSTLocals(stmt: VirgilStmt) -> VirgilStmt {
 		inj_builder.puts(name);
 		inj_builder.puts(";");
 		def assignment = VirgilStmt.Injected(inj_builder.toString());
-	        def ss = [stmt, assignment];
-		return VirgilStmt.Block(ss);
+		return stmt.appendStmt(assignment);
 	    } else {
 	        return stmt;
 	    }
@@ -194,10 +219,13 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
 			    getSidetableFields(stmt, st_field_buf);
 
 			    def bs = STFieldMgr.putEntry(st_field_buf);
-			    def st_fields = STFieldMgr.bitsetToFields(bs);
-
- 			    def instStmt = instrumentSTLocals(stmt);
-			    defs.put(CBDDef.new(bs, meth, instStmt));
+			    if (bs != 0) {
+			        def st_fields = STFieldMgr.bitsetToFields(bs);
+ 			        def instStmt = instrumentSTLocals(stmt, bs);
+			        defs.put(CBDDef.new(bs, meth, instStmt));
+			    } else {
+			        defs.put(CBDDef.new(bs, meth, stmt));
+			    }
                         }
                         _ => {
                             System.write(2, meth);
@@ -273,13 +301,25 @@ def main(args: Array<string>) {
     def st_builder_builder = StringBuilder.new();
     st_builder_builder.puts("class STBuilder {\n");
     for (i < STFieldMgr.fields.length) {
-        def name = STFieldMgr.fields[i].0;
+        def field = STFieldMgr.fields[i].0;
         def tp = STFieldMgr.fields[i].1;
-	st_builder_builder.puts("     var ");
-	st_builder_builder.puts(name);
+	st_builder_builder.puts("    ");
+	st_builder_builder.puts(field);
 	st_builder_builder.puts(": ");
 	st_builder_builder.puts(tp);
 	st_builder_builder.puts(";\n");
+    }
+    st_builder_builder.puts("}\n");
+    st_builder_builder.puts("type STEntry {\n");
+    // TODO
+    for (i < STFieldMgr.entries.length) {
+        def entry_bs = STFieldMgr.entries[i];
+	def entry_name = STFieldMgr.bitsetCaseName(entry_bs);
+	st_builder_builder.puts("    case ");
+	st_builder_builder.puts(entry_name);
+	st_builder_builder.puts("(");
+	// TODO
+	st_builder_builder.puts(");\n");
     }
     st_builder_builder.puts("}\n");
 

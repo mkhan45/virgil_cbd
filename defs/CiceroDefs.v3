@@ -1,0 +1,29 @@
+def NOP() { }
+def LOAD_CONST() {
+    var idx = readOp(); // 24 bits
+    var tv #sidetable = f_getConstType(idx);
+    var val #sidetable = f_getConst(idx, tv);
+    push_Value(tv, val);
+}
+def LOAD_GLOBAL() {
+    var idx = readOp();
+    var id = m_getString(idx);
+    if (m_hasGlobal(id)) {
+	var tv = m_getGlobalType(id);
+	var val = m_getGlobal(tv, id);
+	push_Value(tv, val);
+    } else {
+	trap();
+    }
+}
+def LOAD_LOCAL() {
+    var index = readOp();
+    var tv = f_getLocalType(index);
+    if (f_localInit(index)) {
+        var val = getLocal(tv, index);
+	push_Value(tv, val);
+    } else {
+	trap();
+    }
+}
+
