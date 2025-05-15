@@ -45,6 +45,8 @@ generate_validator: cbd_sexp
 	cp defs/CanonicalDefs.v3 defs/CanonicalDefs.v3cbd
 	$(VIRGIL) $(VIRGIL_STD) $(PARSER_DIR)/VirgilSexpr.v3 validator/ValidatorGen.v3 defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp validator/ValidatorTemplate.v3 > validator/Validator.v3
 
+run_validator: generate_validator
+	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL) validator/Validator.v3 validator/ValidatorMain.v3 $(ARGS)
 cbd_sexp:
 	$(VIRGIL) -print-vst defs/CanonicalDefs.v3 > defs/CanonicalDefs.v3cbd.sexp
 

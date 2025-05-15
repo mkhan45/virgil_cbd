@@ -28,11 +28,11 @@ def HAS_MEM_INDEX = 0x40u8;
 // Types.
 type v128(low: u64, high: u64);
 type Label(depth: u32);
-// type Value;
 // class Object { }
 type TypeVar {
     case I32;
     case U32;
+    case Err;
 }
 type FieldOffset;
 class Signature { }
@@ -67,10 +67,10 @@ def readImmBlockType() -> () {
     return ();
 }
 
-def pop_i32() -> i32 {
+def pop_i32() -> TypeVar {
     match (stack.pop()) {
-        I32(u) => return i32.view(u);
-        _ => return 0; // TODO: fail() function
+        I32 => return I32;
+        _ => return Err; // TODO: fail() function
     }
 }
 def pop_u32() -> u32 {
@@ -102,7 +102,7 @@ def push_f32(v: float);
 def push_f64(v: double);
 def push_v128(v: v128);
 def push_Object(v: Object);
-def push_Value(tv: TypeVar, v: Value) {
+def push_Value(tv: TypeVar, v: TypeVar) {
     // TODO: assert v has tv
     stack.push(tv);
 }
@@ -111,18 +111,18 @@ def push_Value(tv: TypeVar, v: Value) {
 def getLocal(tv: TypeVar, index: u32) -> TypeVar {
     return stack.elems[index];
 }
-def setLocal(tv: TypeVar, index: u32, v: Value) {
+def setLocal(tv: TypeVar, index: u32, v: TypeVar) {
     // TODO: assert that v has tv
     stack.elems[index] = tv;
 }
 
 // Global variables.
-def getGlobal(tv: TypeVar, index: u32) -> Value;
-def setGlobal(tv: TypeVar, index: u32, v: Value);
+def getGlobal(tv: TypeVar, index: u32) -> TypeVar;
+def setGlobal(tv: TypeVar, index: u32, v: TypeVar);
 
 // Function context.
-def f_getLabel(depth: u32) -> Label {
-    return Label(depth);
+def f_getLabel(depth: u32) -> int {
+    return int.!(depth);
 }
 
 def f_getLocalType(index: u32) -> TypeVar {
@@ -146,7 +146,7 @@ def i_getFunction(func_index: u32) -> Function;
 // Control flow.
 def doCall(sig: Signature, target: Function);
 
-def doBranch(label: Label) {
+def doBranch(label: int) {
     for (i < label.depth) ctl_stack.pop();
     def ctl_idx = ctl_stack.peek();
     match (ctls[ctl_idx]) {

@@ -175,14 +175,15 @@ def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
 	    injBuilder.puts(name);
 	    injBuilder.puts("(\n");
 	    for (i < fields.length) {
-		injBuilder.puts("        ");
+		injBuilder.puts("      ");
 	        injBuilder.puts(fields[i].0);
-		injBuilder.puts(",\n");
+		if (i + 1 < fields.length) injBuilder.puts(",");
+		injBuilder.puts("\n");
 	    }
-	    injBuilder.puts("    );\n");
-	    injBuilder.puts("    st_entries.put(st_case);");
+	    injBuilder.puts("  );\n");
+	    injBuilder.puts("  st_entries.put(st_case);");
 	    def inj = VirgilStmt.Injected(injBuilder.toString());
-	    return inj.appendStmt(stmt);
+	    return inj.appendStmt(stmt).flatten();
 	}
 	Local(name, _, sidetable) => {
 	    if (sidetable) {
@@ -193,7 +194,7 @@ def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
 		inj_builder.puts(name);
 		inj_builder.puts(";");
 		def assignment = VirgilStmt.Injected(inj_builder.toString());
-		return stmt.appendStmt(assignment);
+		return stmt.appendStmt(assignment).flatten();
 	    } else {
 	        return stmt;
 	    }
@@ -221,7 +222,7 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
 			    def bs = STFieldMgr.putEntry(st_field_buf);
 			    if (bs != 0) {
 			        def st_fields = STFieldMgr.bitsetToFields(bs);
- 			        def instStmt = instrumentSTLocals(stmt, bs);
+ 			        def instStmt = instrumentSTLocals(stmt, bs).flatten();
 			        defs.put(CBDDef.new(bs, meth, instStmt));
 			    } else {
 			        defs.put(CBDDef.new(bs, meth, stmt));
@@ -303,7 +304,7 @@ def main(args: Array<string>) {
     for (i < STFieldMgr.fields.length) {
         def field = STFieldMgr.fields[i].0;
         def tp = STFieldMgr.fields[i].1;
-	st_builder_builder.puts("    ");
+	st_builder_builder.puts("    var ");
 	st_builder_builder.puts(field);
 	st_builder_builder.puts(": ");
 	st_builder_builder.puts(tp);
@@ -325,7 +326,8 @@ def main(args: Array<string>) {
 	    st_builder_builder.puts(entry_fields[i].0);
 	    st_builder_builder.puts(": ");
 	    st_builder_builder.puts(entry_fields[i].1);
-	    st_builder_builder.puts(",\n");
+	    if (i + 1 < entry_fields.length) st_builder_builder.puts(",");
+	    st_builder_builder.puts("\n");
         }
 	st_builder_builder.puts("    );\n");
     }

@@ -203,6 +203,22 @@ type VirgilStmt {
 
         return VirgilStmt.Block(Arrays.concat(left_stmts, right_stmts));
     }
+
+    def flatten() -> VirgilStmt {
+	match (this) {
+	    Block(ss) => {
+	        var acc = Vector<VirgilStmt>.new();;
+		for (s in ss) {
+		    match (s) {
+		        Block(sss) => acc.puta(sss); // only flatten one level
+			_ => acc.put(s);
+		    }
+		}
+		return VirgilStmt.Block(acc.copy());
+	    }
+	    _ => return this;
+	}
+    }
     
     def toString() -> string {
         def buf = StringBuilder.new();
