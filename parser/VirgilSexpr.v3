@@ -82,7 +82,7 @@ type VirgilStmt {
     case Block(stmts: Array<VirgilStmt>);
     case Expr(expr: VirgilExpr);
     case Return(expr: VirgilExpr);
-    case Local(var_name: string, expr: VirgilExpr, sidetable: bool); // TODO: add type
+    case Local(var_name: string, expr: VirgilExpr, sidetable: bool, rtcast: string); // TODO: add type
     case Match(subj: VirgilExpr, branches: Array<MatchCase>);
     case If(cond: VirgilExpr, then_stmt: VirgilStmt, else_stmt: VirgilStmt);
     case Injected(s: string);
@@ -114,7 +114,7 @@ type VirgilStmt {
                 expr.buildString(buf);
                 buf.putc(';');
             }
-            Local(var_name, expr, sidetable) => {
+            Local(var_name, expr, sidetable, rtcast) => {
                 buf.puts("var ");
                 buf.puts(var_name);
                 buf.puts(" = ");
@@ -225,7 +225,7 @@ type VirgilStmt {
 	    Block(ss) => return VirgilStmt.Block(Arrays.map(ss, VirgilStmt.substTy(_, old, knew)));
 	    Expr(e) => return VirgilStmt.Expr(e.substTy(old, knew));
 	    Return(e) => return VirgilStmt.Return(e.substTy(old, knew));
-	    Local(v, e, s) => return VirgilStmt.Local(v, e.substTy(old, knew), s);
+	    Local(v, e, st, rtcast) => return VirgilStmt.Local(v, e.substTy(old, knew), st, rtcast);
 	    Match(s, b) => return this; // TODO
 	    If(c, t, e) => return VirgilStmt.If(c.substTy(old, knew), t.substTy(old, knew), e.substTy(old, knew));
 	    Injected(s) => return this;
@@ -367,11 +367,18 @@ component VirgilStmts {
         if (decl.tail.tail == null) return SExprRes.Malformed(sexpr);
 
 	var sidetable = false;
+	var rtcast: string = null;
 	var expr_res: SExprRes<VirgilExpr> = SExprRes.ParserBug;
 
 	def rephint_ls = decl.tail.tail.head.forceList();
 	if (rephint_ls != null && rephint_ls.head.matchesAtom("repHints")) {
-	    sidetable = true;
+	    for (ls = rephint_ls.tail; ls != null; ls = ls.tail) {
+		var atom = ls.head.forceAtom();
+	        sidetable |= atom != null && Strings.equal(atom, "#sidetable");;
+	        if (atom != null && Strings.startsWith(atom, "#rtcast_")) {
+		    rtcast = Arrays.range(atom, 1, atom.length);
+		}
+	    }
 	    if (decl.tail.tail.tail == null) return SExprRes.Malformed(sexpr);
 	    expr_res = VirgilExprs.from_sexpr(decl.tail.tail.tail.head);
 	} else {
@@ -379,7 +386,7 @@ component VirgilStmts {
 	}
         
         match (expr_res) {
-            Success(expr) => return SExprRes.Success(VirgilStmt.Local(cleanIdent(var_name), expr, sidetable));
+            Success(expr) => return SExprRes.Success(VirgilStmt.Local(cleanIdent(var_name), expr, sidetable, rtcast));
             _ => return expr_res.castError();
         }
     }

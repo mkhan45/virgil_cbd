@@ -470,7 +470,7 @@ component CanonicalDefs {
     method I32_CONST()
         (BlockStmt
             (LocalStmt
-                ("x" (type int)
+                ("x" (type int) (repHints #rtcast_i32)
                     (AppExpr "readImmILEB32" (type int)
                         (VarExpr[ComponentMethod] "readImmILEB32" (type void -> int))
                         (VarExpr[Local] "readImmILEB32" (type CanonicalDefs)))))
@@ -585,11 +585,9 @@ component CanonicalDefs {
                         (VarExpr[ComponentMethod] "pop_u32" (type void -> u32))
                         (VarExpr[Local] "pop_u32" (type CanonicalDefs)))))
             (IfStmt
-                (AppExpr (type bool)
-                    (VarExpr[Inst] "!=" (type (u32, u32) -> bool)
-                        (VarExpr[Type] "u32" (type u32)))
+                (BinOpExpr "!=" (type bool)
                     (VarExpr[Local] "cond" (type u32))
-                    (Literal "0" (type u32)))
+                    (Literal "0" (type int)))
                 (ReturnStmt
                     (AppExpr "doBranch" (type void)
                         (VarExpr[ComponentMethod] "doBranch" (type Label -> void))

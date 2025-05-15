@@ -74,7 +74,7 @@ def getSidetableFields(stmt: VirgilStmt, buf: Vector<(string, string)>) {
 	    getSidetableFields(t, buf);
 	    getSidetableFields(e, buf);
 	}
-        Local(name, _, sidetable) => if (sidetable) buf.put((name, "int")); // TODO: tipe
+        Local(name, _, sidetable, rtcast) => if (sidetable) buf.put((name, "int")); // TODO: tipe
     }
 }
 
@@ -167,6 +167,7 @@ def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
         Block(ss) => return VirgilStmt.Block(Arrays.map(ss, instrumentSTLocals(_, bs)));
 	If(c, t, e) => return VirgilStmt.If(c, instrumentSTLocals(t, bs), instrumentSTLocals(e, bs));
         Return(_) => {
+	    if (bs == 0) return stmt;
 	    // extract fields from st_builder into real st case
 	    def name = STFieldMgr.bitsetCaseName(bs);
 	    def fields = STFieldMgr.bitsetToFields(bs);
@@ -185,7 +186,12 @@ def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
 	    def inj = VirgilStmt.Injected(injBuilder.toString());
 	    return inj.appendStmt(stmt).flatten();
 	}
-	Local(name, _, sidetable) => {
+	Local(name, body, sidetable, rtcast) => {
+	    var new_body = body;
+	    if (rtcast != null) {
+	        new_body = VirgilExpr.AppExpr(rtcast, [body]);
+	    }
+	    var base = VirgilStmt.Local(name, new_body, sidetable, rtcast);
 	    if (sidetable) {
 		def inj_builder = StringBuilder.new();
 		inj_builder.puts("st_builder.");
@@ -194,9 +200,9 @@ def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
 		inj_builder.puts(name);
 		inj_builder.puts(";");
 		def assignment = VirgilStmt.Injected(inj_builder.toString());
-		return stmt.appendStmt(assignment).flatten();
+		return base.appendStmt(assignment).flatten();
 	    } else {
-	        return stmt;
+	        return base;
 	    }
 	}
     }
@@ -221,13 +227,9 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
 
 			    def bs = STFieldMgr.putEntry(st_field_buf);
 			    def substStmt = stmt.substTy("i32", "TypeVar.I32");
-			    if (bs != 0) {
-			        def st_fields = STFieldMgr.bitsetToFields(bs);
- 			        def instStmt = instrumentSTLocals(substStmt, bs).flatten();
-			        defs.put(CBDDef.new(bs, meth, instStmt));
-			    } else {
-			        defs.put(CBDDef.new(bs, meth, substStmt));
-			    }
+			    def st_fields = STFieldMgr.bitsetToFields(bs);
+ 			    def instStmt = instrumentSTLocals(substStmt, bs).flatten();
+			    defs.put(CBDDef.new(bs, meth, instStmt));
                         }
                         _ => {
                             System.write(2, meth);

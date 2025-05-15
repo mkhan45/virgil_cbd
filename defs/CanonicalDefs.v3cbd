@@ -189,7 +189,7 @@ def CALL_INDIRECT() {
 	}
 }
 def I32_CONST() {
-	var x = readImmILEB32();
+	var x #rtcast_i32 = readImmILEB32();
 	push_i32(x);
 }
 def I32_ADD() {
@@ -220,7 +220,7 @@ def BR_IF() {
 	var depth = readImmULEB32();
 	var label = f_getLabel(depth);
 	var cond = pop_u32();
-	if (u32.!=(cond, 0)) return doBranch(label);
+	if (cond != 0) return doBranch(label);
 	doFallThru();
 }
 def BLOCK() {
