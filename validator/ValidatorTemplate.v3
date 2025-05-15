@@ -112,6 +112,12 @@ def push_i32(v: TypeVar.I32) {
 def push_u32(v: u32) {
     stack.push(TypeVar.U32);
 }
+def trueVal() -> TypeVar.I32 {
+    return TypeVar.I32;
+}
+def falseVal() -> TypeVar.I32 {
+    return TypeVar.I32;
+}
 def push_i64(v: i64);
 def push_u64(v: u64);
 def push_f32(v: float);

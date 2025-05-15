@@ -51,6 +51,10 @@ component CanonicalDefs {
         (EmptyStmt)
     method push_Value(tv: TypeVar, v: Value)
         (EmptyStmt)
+    method trueVal() -> int
+        (EmptyStmt)
+    method falseVal() -> int
+        (EmptyStmt)
     method getLocal(tv: TypeVar, index: u32) -> Value
         (EmptyStmt)
     method setLocal(tv: TypeVar, index: u32, v: Value)
@@ -534,20 +538,23 @@ component CanonicalDefs {
                     (AppExpr "pop_i32" (type int)
                         (VarExpr[ComponentMethod] "pop_i32" (type void -> int))
                         (VarExpr[Local] "pop_i32" (type CanonicalDefs)))))
-            (IfStmt
-                (BinOpExpr "==" (type bool)
-                    (VarExpr[Local] "x" (type int))
-                    (Literal "0" (type int)))
-                (ExprStmt
-                    (AppExpr "push_i32" (type void)
-                        (VarExpr[ComponentMethod] "push_i32" (type int -> void))
-                        (VarExpr[Local] "push_i32" (type CanonicalDefs))
-                        (Literal "1" (type int))))
-                (ExprStmt
-                    (AppExpr "push_i32" (type void)
-                        (VarExpr[ComponentMethod] "push_i32" (type int -> void))
-                        (VarExpr[Local] "push_i32" (type CanonicalDefs))
-                        (Literal "0" (type int))))))
+            (LocalStmt
+                ("test" (type int)
+                    (IfExpr (type int)
+                        (BinOpExpr "==" (type bool)
+                            (VarExpr[Local] "x" (type int))
+                            (Literal "0" (type int)))
+                        (AppExpr "trueVal" (type int)
+                            (VarExpr[ComponentMethod] "trueVal" (type void -> int))
+                            (VarExpr[Local] "trueVal" (type CanonicalDefs)))
+                        (AppExpr "falseVal" (type int)
+                            (VarExpr[ComponentMethod] "falseVal" (type void -> int))
+                            (VarExpr[Local] "falseVal" (type CanonicalDefs))))))
+            (ExprStmt
+                (AppExpr "push_i32" (type void)
+                    (VarExpr[ComponentMethod] "push_i32" (type int -> void))
+                    (VarExpr[Local] "push_i32" (type CanonicalDefs))
+                    (VarExpr[Local] "test" (type int)))))
     method BR()
         (BlockStmt
             (LocalStmt

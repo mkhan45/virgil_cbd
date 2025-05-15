@@ -231,6 +231,13 @@ type VirgilStmt {
 	    Injected(s) => return this;
 	}
     }
+
+    def isEmptyBlock() -> bool {
+        match (this) {
+	    Block(ss) => return ss.length == 0;
+	    _ => return false;
+	}
+    }
     
     def toString() -> string {
         def buf = StringBuilder.new();
@@ -430,10 +437,11 @@ type VirgilExpr {
             IfExpr(cond, then_expr, else_expr) => {
                 buf.puts("if (");
                 cond.buildString(buf);
-                buf.puts(") ");
+		buf.puts(", ");
                 then_expr.buildString(buf);
-                buf.puts(" else ");
+		buf.puts(", ");
                 else_expr.buildString(buf);
+                buf.puts(")");
             }
         }
     }
@@ -600,7 +608,28 @@ component VirgilExprs {
         def elems = sexpr.forceList();
         if (!elems.head.matchesAtom("IfExpr")) return SExprRes.ParserBug;
 
-        return SExprRes.TODO; // not actually used in cbd right now
+	def ty_ls = elems.tail;
+	if (ty_ls == null) return SExprRes.ParserBug;
+
+	def cond_ls = ty_ls.tail;
+	if (cond_ls == null) return SExprRes.ParserBug;
+	def cond_expr = VirgilExprs.from_sexpr(cond_ls.head);
+        if (!cond_expr.isSuccess()) return cond_expr.castError();
+	def c = cond_expr.orDefault(VirgilExpr.Literal("", ""));
+
+	def then_ls = cond_ls.tail;
+	if (then_ls == null) return SExprRes.ParserBug;
+	def then_expr = VirgilExprs.from_sexpr(then_ls.head);
+        if (!then_expr.isSuccess()) return cond_expr.castError();
+	def t = then_expr.orDefault(VirgilExpr.Literal("", ""));
+
+	def else_ls = then_ls.tail;
+	if (else_ls == null) return SExprRes.ParserBug;
+	def else_expr = VirgilExprs.from_sexpr(else_ls.head);
+        if (!else_expr.isSuccess()) return cond_expr.castError();
+	def e = else_expr.orDefault(VirgilExpr.Literal("", ""));
+
+        return SExprRes.Success(VirgilExpr.IfExpr(c, t, e));
     }
 
     def parse_var_expr(sexpr: SExpr) -> SExprRes<VirgilExpr> {

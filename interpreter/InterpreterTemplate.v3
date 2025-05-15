@@ -85,6 +85,12 @@ def push_i32(v: i32) {
 def push_u32(v: u32) {
     stack.push(Value.I32(v));
 }
+def trueVal() -> i32 {
+    return 1;
+}
+def falseVal() -> i32 {
+    return 0;
+}
 def push_i64(v: i64);
 def push_u64(v: u64);
 def push_f32(v: float);

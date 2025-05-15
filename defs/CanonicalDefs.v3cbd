@@ -43,6 +43,8 @@ def push_f64(v: double);
 def push_v128(v: v128);
 def push_Object(v: Object);
 def push_Value(tv: TypeVar, v: Value);
+def trueVal() -> i32;
+def falseVal() -> i32;
 
 // Local variables.
 def getLocal(tv: TypeVar, index: u32) -> Value;
@@ -206,10 +208,8 @@ def I32_SUB() {
 }
 def I32_EQZ() {
 	var x = pop_i32();
-	if (x == 0) 
-	    push_i32(1);
-	else
-	    push_i32(0);
+	var test = if(x == 0, trueVal(), falseVal());
+	push_i32(test);
 }
 def BR() {
 	var depth = readImmULEB32();

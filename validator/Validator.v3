@@ -109,9 +109,8 @@ def I32_SUB() {
 // st bitset: 0
 def I32_EQZ() {
   var x = pop_i32();
-  if ((x == 0)) 
-    push_i32(1); else 
-    push_i32(0);
+  var test = if ((x == 0), trueVal(), falseVal());
+  push_i32(test);
 }
 // st bitset: 1
 def BR() {
@@ -314,6 +313,12 @@ def push_i32(v: TypeVar.I32) {
 }
 def push_u32(v: u32) {
     stack.push(TypeVar.U32);
+}
+def trueVal() -> TypeVar.I32 {
+    return TypeVar.I32;
+}
+def falseVal() -> TypeVar.I32 {
+    return TypeVar.I32;
 }
 def push_i64(v: i64);
 def push_u64(v: u64);
