@@ -5,6 +5,9 @@ var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
 var local_types: Vector<TypeVar>;
 var stack: ArrayStack<TypeVar>;
 
+var st_builder: STBuilder = STBuilder.new();
+var st_entries: Vector<STEntry> = Vector.new();
+
 def assert(b: bool) {
     if (!b) {
         System.puts("assert fail :(\n");

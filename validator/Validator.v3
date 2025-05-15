@@ -121,7 +121,7 @@ def BR() {
     st_builder.label = label;
   }
   {
-    def st_case = STCase.Label(
+    def st_case = STEntry.Label(
         label,
     );
     st_entries.put(st_case);
@@ -202,13 +202,17 @@ class STBuilder {
     label: int;
 }
 type STEntry {
-    case Label();
+    case Label(
+        label: int,
+    );
 }
 
 var codeptr: CodePtr;
 var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
 var local_types: Vector<TypeVar>;
 var stack: ArrayStack<TypeVar>;
+
+var st_builder: STBuilder = STBuilder.new();
 
 def assert(b: bool) {
     if (!b) {

@@ -171,7 +171,7 @@ def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
 	    def name = STFieldMgr.bitsetCaseName(bs);
 	    def fields = STFieldMgr.bitsetToFields(bs);
 	    def injBuilder = StringBuilder.new();
-	    injBuilder.puts("def st_case = STCase.");
+	    injBuilder.puts("def st_case = STEntry.");
 	    injBuilder.puts(name);
 	    injBuilder.puts("(\n");
 	    for (i < fields.length) {
@@ -314,12 +314,20 @@ def main(args: Array<string>) {
     // TODO
     for (i < STFieldMgr.entries.length) {
         def entry_bs = STFieldMgr.entries[i];
+	def entry_fields = STFieldMgr.bitsetToFields(entry_bs);
 	def entry_name = STFieldMgr.bitsetCaseName(entry_bs);
 	st_builder_builder.puts("    case ");
 	st_builder_builder.puts(entry_name);
-	st_builder_builder.puts("(");
+	st_builder_builder.puts("(\n");
 	// TODO
-	st_builder_builder.puts(");\n");
+	for (i < entry_fields.length) {
+	    st_builder_builder.puts("        ");
+	    st_builder_builder.puts(entry_fields[i].0);
+	    st_builder_builder.puts(": ");
+	    st_builder_builder.puts(entry_fields[i].1);
+	    st_builder_builder.puts(",\n");
+        }
+	st_builder_builder.puts("    );\n");
     }
     st_builder_builder.puts("}\n");
 
