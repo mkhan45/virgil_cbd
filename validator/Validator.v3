@@ -96,14 +96,14 @@ def I32_CONST() {
 def I32_ADD() {
   var x = pop_i32();
   var y = pop_i32();
-  var r = i32.+(x, y);
+  var r = TypeVar.I32.plus(x, y);
   push_i32(r);
 }
 // st bitset: 0
 def I32_SUB() {
   var x = pop_i32();
   var y = pop_i32();
-  var r = i32.-(y, x);
+  var r = TypeVar.I32.minus(y, x);
   push_i32(r);
 }
 // st bitset: 0
@@ -214,6 +214,7 @@ var st_entries: Vector<STEntry> = Vector.new();
 def assert(b: bool) {
     if (!b) {
         System.puts("assert fail :(\n");
+	return [][1];
     }
 }
 
@@ -233,7 +234,10 @@ type v128(low: u64, high: u64);
 type Label(depth: u32);
 // class Object { }
 type TypeVar {
-    case I32;
+    case I32 {
+	def plus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
+	def minus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
+    }
     case U32;
     case Err;
 }
@@ -270,16 +274,22 @@ def readImmBlockType() -> () {
     return ();
 }
 
-def pop_i32() -> TypeVar {
+def pop_i32() -> TypeVar.I32 {
     match (stack.pop()) {
-        I32 => return I32;
-        _ => return Err; // TODO: fail() function
+        I32 => return TypeVar.I32;
+        _ => {
+	    assert(false);
+	    return TypeVar.I32;
+	}
     }
 }
-def pop_u32() -> u32 {
+def pop_u32() -> TypeVar.U32 {
     match (stack.pop()) {
-        I32(u) => return u;
-        _ => return 0; // TODO: fail() function
+        U32 => return TypeVar.U32;
+        _ => {
+	    assert(false);
+	    return TypeVar.U32;
+	}
     }
 }
 def pop_i64() -> i64;
@@ -293,8 +303,8 @@ def pop_Value(tv: TypeVar) -> TypeVar {
     return tv;
 }
 
-def push_i32(v: i32) {
-    stack.push(TypeVar.I32);
+def push_i32(v: TypeVar.I32) {
+    stack.push(v);
 }
 def push_u32(v: u32) {
     stack.push(TypeVar.U32);
@@ -350,12 +360,12 @@ def i_getFunction(func_index: u32) -> Function;
 def doCall(sig: Signature, target: Function);
 
 def doBranch(label: int) {
-    for (i < label.depth) ctl_stack.pop();
+    for (i < label) ctl_stack.pop();
     def ctl_idx = ctl_stack.peek();
     match (ctls[ctl_idx]) {
         Block(end_pc) => {
             if (end_pc == -1) {
-		skipToEnd(label.depth);
+		skipToEnd(u32.!(label));
 		ctls[ctl_idx] = CtlEntry.Block(codeptr.pos);
             } else {
 		codeptr.at(end_pc);
@@ -449,7 +459,7 @@ def push_locals(count: u32, vtc: ValueTypeCode) {
 }
 
 component Validator {
-    def init(code: Array<byte>, args: Array<TypeVar>, ret: TypeVar) {
+    def init(code: Array<byte>, args: Array<TypeVar>, ret: Array<TypeVar>) {
         codeptr = CodePtr.new(code);
         local_types = Vector.new();
         stack = ArrayStack.new();
@@ -466,7 +476,6 @@ component Validator {
         codeptr.iterate_local_codes(push_locals);
         while (codeptr.pos < codeptr.data.length) {
             def op = codeptr.read_opcode();
-	    print_stack();
             System.puts(op.mnemonic);
             System.ln();
             DISPATCH_TABLE[op.code]();

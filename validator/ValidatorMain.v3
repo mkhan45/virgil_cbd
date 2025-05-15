@@ -14,6 +14,6 @@ def main(args: Array<string>) {
     def func0 = module.functions[0];
     def func_code = func0.orig_bytecode;
 
-    Validator.init(func_code);
+    Validator.init(func_code, [], []);
     Validator.dispatch();
 }

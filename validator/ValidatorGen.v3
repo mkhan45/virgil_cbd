@@ -220,12 +220,13 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
 			    getSidetableFields(stmt, st_field_buf);
 
 			    def bs = STFieldMgr.putEntry(st_field_buf);
+			    def substStmt = stmt.substTy("i32", "TypeVar.I32");
 			    if (bs != 0) {
 			        def st_fields = STFieldMgr.bitsetToFields(bs);
- 			        def instStmt = instrumentSTLocals(stmt, bs).flatten();
+ 			        def instStmt = instrumentSTLocals(substStmt, bs).flatten();
 			        defs.put(CBDDef.new(bs, meth, instStmt));
 			    } else {
-			        defs.put(CBDDef.new(bs, meth, stmt));
+			        defs.put(CBDDef.new(bs, meth, substStmt));
 			    }
                         }
                         _ => {

@@ -219,6 +219,18 @@ type VirgilStmt {
 	    _ => return this;
 	}
     }
+
+    def substTy(old: string, knew: string) -> VirgilStmt {
+	match (this) {
+	    Block(ss) => return VirgilStmt.Block(Arrays.map(ss, VirgilStmt.substTy(_, old, knew)));
+	    Expr(e) => return VirgilStmt.Expr(e.substTy(old, knew));
+	    Return(e) => return VirgilStmt.Return(e.substTy(old, knew));
+	    Local(v, e, s) => return VirgilStmt.Local(v, e.substTy(old, knew), s);
+	    Match(s, b) => return this; // TODO
+	    If(c, t, e) => return VirgilStmt.If(c.substTy(old, knew), t.substTy(old, knew), e.substTy(old, knew));
+	    Injected(s) => return this;
+	}
+    }
     
     def toString() -> string {
         def buf = StringBuilder.new();
@@ -416,6 +428,33 @@ type VirgilExpr {
                 buf.puts(" else ");
                 else_expr.buildString(buf);
             }
+        }
+    }
+
+    def substTy(old: string, knew: string) -> VirgilExpr {
+        match (this) {
+            AppExpr(fn, args) => {
+		// check if this is an app of an operator like i32.+(...)
+	        def spl = Strings.splitOnChar(fn, byte.==(_, '.'), 1);
+		if (spl.length == 2 && Strings.equal(spl[0], old)) {
+		    def ty = spl[0];
+		    var op = spl[1];
+		    op = if (Strings.equal(op, "+"), "plus", op);
+		    op = if (Strings.equal(op, "-"), "minus", op);
+		    def fn_builder = StringBuilder.new();
+    		    fn_builder.puts(knew);
+        	    fn_builder.puts(".");
+                    fn_builder.puts(op);
+		    return VirgilExpr.AppExpr(fn_builder.toString(), Arrays.map(args, VirgilExpr.substTy(_, old, knew)));
+		} else {
+		    return VirgilExpr.AppExpr(fn, Arrays.map(args, VirgilExpr.substTy(_, old, knew)));
+		}
+	    }
+            BinOpExpr(op, l, r) => return VirgilExpr.BinOpExpr(op, l.substTy(old, knew), r.substTy(old, knew));
+            Literal(t, s) => return if(Strings.equal(t, old), VirgilExpr.Literal(knew, s), this);
+	    VarExpr(e) => return this;
+	    IfExpr(c, t, e) => 
+		    return VirgilExpr.IfExpr(c.substTy(old, knew), t.substTy(old, knew), e.substTy(old, knew));
         }
     }
     
