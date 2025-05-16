@@ -173,8 +173,6 @@ def i_getFunction(func_index: u32) -> Function;
 def doCall(sig: Signature, target: Function);
 
 def doBranch(label: int) {
-    def current_stp = st_entries.length;
-    def current_pc = codeptr.pos;
     def ctl_idx = ctl_stack.elems[ctl_stack.top - 1 - label];
     st_controls.put(ctl_idx);
 }

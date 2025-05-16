@@ -177,7 +177,7 @@ def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
 	    injBuilder.puts(name);
 	    injBuilder.puts("(\n");
 	    for (i < fields.length) {
-		injBuilder.puts("      ");
+		injBuilder.puts("      st_builder.");
 	        injBuilder.puts(fields[i].0);
 		if (i + 1 < fields.length) injBuilder.puts(",");
 		injBuilder.puts("\n");

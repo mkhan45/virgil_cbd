@@ -211,11 +211,12 @@ type VirgilStmt {
 		for (s in ss) {
 		    match (s) {
 		        Block(sss) => acc.puta(sss); // only flatten one level
-			_ => acc.put(s);
+			_ => acc.put(s.flatten());
 		    }
 		}
 		return VirgilStmt.Block(acc.copy());
 	    }
+	    If(c, t, e) => return VirgilStmt.If(c, t.flatten(), e.flatten());
 	    _ => return this;
 	}
     }

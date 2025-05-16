@@ -80,11 +80,11 @@ def CALL_INDIRECT() {
   if (m_isTable64(table_index)) {
   var func_index = pop_u64();
   var target = i_getTableFunction64(table_index, sig, func_index);
-  doCall(sig, target);
+  return doCall(sig, target);
 } else {
   var func_index = pop_u32();
   var target = i_getTableFunction32(table_index, sig, func_index);
-  doCall(sig, target);
+  return doCall(sig, target);
 }
 }
 // st bitset: 0
@@ -119,7 +119,7 @@ def BR() {
   st_builder.label = label;
   doBranch(label);
   def st_case = STEntry.Label(
-      label
+      st_builder.label
   );
   st_entries.put(st_case);
   return void;
@@ -133,7 +133,7 @@ def BR_IF() {
   doBranch(label);
   doFallThru();
   def st_case = STEntry.Label(
-      label
+      st_builder.label
   );
   st_entries.put(st_case);
   return void;
@@ -380,8 +380,6 @@ def i_getFunction(func_index: u32) -> Function;
 def doCall(sig: Signature, target: Function);
 
 def doBranch(label: int) {
-    def current_stp = st_entries.length;
-    def current_pc = codeptr.pos;
     def ctl_idx = ctl_stack.elems[ctl_stack.top - 1 - label];
     st_controls.put(ctl_idx);
 }
@@ -483,6 +481,7 @@ component Validator {
         }
     }
 
+    // for other sidetable entries, do we need a post processing phase?
     def build_sidetable() -> (Vector<STEntry>, Vector<(int, int)>) {
         def reified_st_controls = Vector<(int, int)>.new();
 	for (i < st_controls.length) {

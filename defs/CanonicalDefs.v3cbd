@@ -181,11 +181,11 @@ def CALL_INDIRECT() {
 	if (m_isTable64(table_index)) {
 		var func_index = pop_u64();
 		var target = i_getTableFunction64(table_index, sig, func_index);
-		doCall(sig, target);
+		return doCall(sig, target);
 	} else {
 		var func_index = pop_u32();
 		var target = i_getTableFunction32(table_index, sig, func_index);
-		doCall(sig, target);
+		return doCall(sig, target);
 	}
 }
 def I32_CONST() {

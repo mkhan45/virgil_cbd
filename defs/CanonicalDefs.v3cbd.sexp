@@ -441,7 +441,7 @@ component CanonicalDefs {
                                 (VarExpr[Local] "table_index" (type u32))
                                 (VarExpr[Local] "sig" (type Signature))
                                 (VarExpr[Local] "func_index" (type u64)))))
-                    (ExprStmt
+                    (ReturnStmt
                         (AppExpr "doCall" (type void)
                             (VarExpr[ComponentMethod] "doCall" (type (Signature, Function) -> void))
                             (VarExpr[Local] "doCall" (type CanonicalDefs))
@@ -461,7 +461,7 @@ component CanonicalDefs {
                                 (VarExpr[Local] "table_index" (type u32))
                                 (VarExpr[Local] "sig" (type Signature))
                                 (VarExpr[Local] "func_index" (type u32)))))
-                    (ExprStmt
+                    (ReturnStmt
                         (AppExpr "doCall" (type void)
                             (VarExpr[ComponentMethod] "doCall" (type (Signature, Function) -> void))
                             (VarExpr[Local] "doCall" (type CanonicalDefs))
