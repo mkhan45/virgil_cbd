@@ -43,8 +43,6 @@ def push_f64(v: double);
 def push_v128(v: v128);
 def push_Object(v: Object);
 def push_Value(tv: TypeVar, v: Value);
-def trueVal() -> i32;
-def falseVal() -> i32;
 
 // Local variables.
 def getLocal(tv: TypeVar, index: u32) -> Value;
@@ -208,47 +206,49 @@ def I32_SUB() {
 }
 def I32_EQZ() {
 	var x = pop_i32();
-	var test = if(x == 0, trueVal(), falseVal());
+	var test = if(x == 0, 1, 0);
 	push_i32(test);
 }
 def BR() {
 	var depth = readImmULEB32();
 	var label #sidetable = f_getLabel(depth);
-	return doBranch(label);
+	doBranch(label);
+	return void;
 }
 def BR_IF() {
 	var depth = readImmULEB32();
-	var label = f_getLabel(depth);
-	var cond = pop_u32();
-	if (cond != 0) return doBranch(label);
-	doFallThru();
+	var label #sidetable = f_getLabel(depth);
+	var cond = pop_i32();
+	if (cond != 0) doBranch(label);
+	else doFallThru();
+	return void;
 }
 def BLOCK() {
 	var bt = readImmBlockType();
-	return doBlock(bt);
+	doBlock(bt);
 }
 def LOOP() {
 	var bt = readImmBlockType();
-	return doLoop(bt);
+	doLoop(bt);
 }
 def TRY() {
 	var bt = readImmBlockType();
-	return doTry(bt);
+	doTry(bt);
 }
 def IF() {
 	var bt = readImmBlockType();
 	var cond = pop_i32();
 	var label = f_getLabel(0);
-	if (cond == 0) return doBranch(label);
-	else return doFallThru();
+	if (cond == 0) doBranch(label);
+	else doFallThru();
 }
 def ELSE() {
 	var label = f_getLabel(0);
-	return doBranch(label);
+	doBranch(label);
 }
 def END() {
 	doEnd();
-	if (f_isAtEnd()) return doReturn();
+	if (f_isAtEnd()) doReturn();
 }
 def STRUCT_GET() {
 	var struct_index = readImmULEB32();

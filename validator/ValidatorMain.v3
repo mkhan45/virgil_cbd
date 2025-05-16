@@ -14,6 +14,20 @@ def main(args: Array<string>) {
     def func0 = module.functions[0];
     def func_code = func0.orig_bytecode;
 
-    Validator.init(func_code, [], []);
+    Validator.init(func_code, [TypeVar.I32, TypeVar.I32], []);
     Validator.dispatch();
+
+    def sts = Validator.build_sidetable();
+    def st_data = sts.0;
+    def st_ctl = sts.1;
+    for (i < st_data.length) {
+        def data = st_data[i];
+        def ctl = st_ctl[i];
+	System.puti(i);
+	System.puts(": jump pc = ");
+	System.puti(ctl.0);
+	System.puts(", jump stp = ");
+	System.puti(ctl.1);
+	System.puts("\n");
+    }
 }

@@ -51,10 +51,6 @@ component CanonicalDefs {
         (EmptyStmt)
     method push_Value(tv: TypeVar, v: Value)
         (EmptyStmt)
-    method trueVal() -> int
-        (EmptyStmt)
-    method falseVal() -> int
-        (EmptyStmt)
     method getLocal(tv: TypeVar, index: u32) -> Value
         (EmptyStmt)
     method setLocal(tv: TypeVar, index: u32, v: Value)
@@ -544,12 +540,8 @@ component CanonicalDefs {
                         (BinOpExpr "==" (type bool)
                             (VarExpr[Local] "x" (type int))
                             (Literal "0" (type int)))
-                        (AppExpr "trueVal" (type int)
-                            (VarExpr[ComponentMethod] "trueVal" (type void -> int))
-                            (VarExpr[Local] "trueVal" (type CanonicalDefs)))
-                        (AppExpr "falseVal" (type int)
-                            (VarExpr[ComponentMethod] "falseVal" (type void -> int))
-                            (VarExpr[Local] "falseVal" (type CanonicalDefs))))))
+                        (Literal "1" (type int))
+                        (Literal "0" (type int)))))
             (ExprStmt
                 (AppExpr "push_i32" (type void)
                     (VarExpr[ComponentMethod] "push_i32" (type int -> void))
@@ -568,11 +560,13 @@ component CanonicalDefs {
                         (VarExpr[ComponentMethod] "f_getLabel" (type u32 -> Label))
                         (VarExpr[Local] "f_getLabel" (type CanonicalDefs))
                         (VarExpr[Local] "depth" (type u32)))))
-            (ReturnStmt
+            (ExprStmt
                 (AppExpr "doBranch" (type void)
                     (VarExpr[ComponentMethod] "doBranch" (type Label -> void))
                     (VarExpr[Local] "doBranch" (type CanonicalDefs))
-                    (VarExpr[Local] "label" (type Label)))))
+                    (VarExpr[Local] "label" (type Label))))
+            (ReturnStmt
+                (VarExpr[Void] "void" (type void))))
     method BR_IF()
         (BlockStmt
             (LocalStmt
@@ -581,29 +575,31 @@ component CanonicalDefs {
                         (VarExpr[ComponentMethod] "readImmULEB32" (type void -> u32))
                         (VarExpr[Local] "readImmULEB32" (type CanonicalDefs)))))
             (LocalStmt
-                ("label" (type Label)
+                ("label" (type Label) (repHints #sidetable)
                     (AppExpr "f_getLabel" (type Label)
                         (VarExpr[ComponentMethod] "f_getLabel" (type u32 -> Label))
                         (VarExpr[Local] "f_getLabel" (type CanonicalDefs))
                         (VarExpr[Local] "depth" (type u32)))))
             (LocalStmt
-                ("cond" (type u32)
-                    (AppExpr "pop_u32" (type u32)
-                        (VarExpr[ComponentMethod] "pop_u32" (type void -> u32))
-                        (VarExpr[Local] "pop_u32" (type CanonicalDefs)))))
+                ("cond" (type int)
+                    (AppExpr "pop_i32" (type int)
+                        (VarExpr[ComponentMethod] "pop_i32" (type void -> int))
+                        (VarExpr[Local] "pop_i32" (type CanonicalDefs)))))
             (IfStmt
                 (BinOpExpr "!=" (type bool)
-                    (VarExpr[Local] "cond" (type u32))
+                    (VarExpr[Local] "cond" (type int))
                     (Literal "0" (type int)))
-                (ReturnStmt
+                (ExprStmt
                     (AppExpr "doBranch" (type void)
                         (VarExpr[ComponentMethod] "doBranch" (type Label -> void))
                         (VarExpr[Local] "doBranch" (type CanonicalDefs))
-                        (VarExpr[Local] "label" (type Label)))))
-            (ExprStmt
-                (AppExpr "doFallThru" (type void)
-                    (VarExpr[ComponentMethod] "doFallThru" (type void -> void))
-                    (VarExpr[Local] "doFallThru" (type CanonicalDefs)))))
+                        (VarExpr[Local] "label" (type Label))))
+                (ExprStmt
+                    (AppExpr "doFallThru" (type void)
+                        (VarExpr[ComponentMethod] "doFallThru" (type void -> void))
+                        (VarExpr[Local] "doFallThru" (type CanonicalDefs)))))
+            (ReturnStmt
+                (VarExpr[Void] "void" (type void))))
     method BLOCK()
         (BlockStmt
             (LocalStmt
@@ -611,7 +607,7 @@ component CanonicalDefs {
                     (AppExpr "readImmBlockType" (type int)
                         (VarExpr[ComponentMethod] "readImmBlockType" (type void -> int))
                         (VarExpr[Local] "readImmBlockType" (type CanonicalDefs)))))
-            (ReturnStmt
+            (ExprStmt
                 (AppExpr "doBlock" (type void)
                     (VarExpr[ComponentMethod] "doBlock" (type int -> void))
                     (VarExpr[Local] "doBlock" (type CanonicalDefs))
@@ -623,7 +619,7 @@ component CanonicalDefs {
                     (AppExpr "readImmBlockType" (type int)
                         (VarExpr[ComponentMethod] "readImmBlockType" (type void -> int))
                         (VarExpr[Local] "readImmBlockType" (type CanonicalDefs)))))
-            (ReturnStmt
+            (ExprStmt
                 (AppExpr "doLoop" (type void)
                     (VarExpr[ComponentMethod] "doLoop" (type int -> void))
                     (VarExpr[Local] "doLoop" (type CanonicalDefs))
@@ -635,7 +631,7 @@ component CanonicalDefs {
                     (AppExpr "readImmBlockType" (type int)
                         (VarExpr[ComponentMethod] "readImmBlockType" (type void -> int))
                         (VarExpr[Local] "readImmBlockType" (type CanonicalDefs)))))
-            (ReturnStmt
+            (ExprStmt
                 (AppExpr "doTry" (type void)
                     (VarExpr[ComponentMethod] "doTry" (type int -> void))
                     (VarExpr[Local] "doTry" (type CanonicalDefs))
@@ -662,12 +658,12 @@ component CanonicalDefs {
                 (BinOpExpr "==" (type bool)
                     (VarExpr[Local] "cond" (type int))
                     (Literal "0" (type int)))
-                (ReturnStmt
+                (ExprStmt
                     (AppExpr "doBranch" (type void)
                         (VarExpr[ComponentMethod] "doBranch" (type Label -> void))
                         (VarExpr[Local] "doBranch" (type CanonicalDefs))
                         (VarExpr[Local] "label" (type Label))))
-                (ReturnStmt
+                (ExprStmt
                     (AppExpr "doFallThru" (type void)
                         (VarExpr[ComponentMethod] "doFallThru" (type void -> void))
                         (VarExpr[Local] "doFallThru" (type CanonicalDefs))))))
@@ -679,7 +675,7 @@ component CanonicalDefs {
                         (VarExpr[ComponentMethod] "f_getLabel" (type u32 -> Label))
                         (VarExpr[Local] "f_getLabel" (type CanonicalDefs))
                         (Literal "0" (type u32)))))
-            (ReturnStmt
+            (ExprStmt
                 (AppExpr "doBranch" (type void)
                     (VarExpr[ComponentMethod] "doBranch" (type Label -> void))
                     (VarExpr[Local] "doBranch" (type CanonicalDefs))
@@ -694,7 +690,7 @@ component CanonicalDefs {
                 (AppExpr "f_isAtEnd" (type bool)
                     (VarExpr[ComponentMethod] "f_isAtEnd" (type void -> bool))
                     (VarExpr[Local] "f_isAtEnd" (type CanonicalDefs)))
-                (ReturnStmt
+                (ExprStmt
                     (AppExpr "doReturn" (type void)
                         (VarExpr[ComponentMethod] "doReturn" (type void -> void))
                         (VarExpr[Local] "doReturn" (type CanonicalDefs))))))

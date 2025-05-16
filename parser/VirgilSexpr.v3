@@ -456,6 +456,8 @@ type VirgilExpr {
 		    var op = spl[1];
 		    op = if (Strings.equal(op, "+"), "plus", op);
 		    op = if (Strings.equal(op, "-"), "minus", op);
+		    op = if (Strings.equal(op, "=="), "eq", op);
+		    op = if (Strings.equal(op, "!="), "neq", op);
 		    def fn_builder = StringBuilder.new();
     		    fn_builder.puts(knew);
         	    fn_builder.puts(".");

@@ -95,50 +95,50 @@ def I32_SUB() {
 }
 def I32_EQZ() {
   var x = pop_i32();
-  var test = if ((x == 0), trueVal(), falseVal());
+  var test = if ((x == 0), 1, 0);
   push_i32(test);
 }
 def BR() {
   var depth = readImmULEB32();
   var label = f_getLabel(depth);
-  return doBranch(label);
+  doBranch(label);
 }
 def BR_IF() {
   var depth = readImmULEB32();
   var label = f_getLabel(depth);
   var cond = pop_u32();
   if ((cond != 0)) 
-    return doBranch(label);
-  doFallThru();
+    doBranch(label); else 
+    doFallThru();
 }
 def BLOCK() {
   var bt = readImmBlockType();
-  return doBlock(bt);
+  doBlock(bt);
 }
 def LOOP() {
   var bt = readImmBlockType();
-  return doLoop(bt);
+  doLoop(bt);
 }
 def TRY() {
   var bt = readImmBlockType();
-  return doTry(bt);
+  doTry(bt);
 }
 def IF() {
   var bt = readImmBlockType();
   var cond = pop_i32();
   var label = f_getLabel(0);
   if ((cond == 0)) 
-    return doBranch(label); else 
-    return doFallThru();
+    doBranch(label); else 
+    doFallThru();
 }
 def ELSE() {
   var label = f_getLabel(0);
-  return doBranch(label);
+  doBranch(label);
 }
 def END() {
   doEnd();
   if (f_isAtEnd()) 
-    return doReturn();
+    doReturn();
 }
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
@@ -251,12 +251,6 @@ def push_i32(v: i32) {
 }
 def push_u32(v: u32) {
     stack.push(Value.I32(v));
-}
-def trueVal() -> i32 {
-    return 1;
-}
-def falseVal() -> i32 {
-    return 0;
 }
 def push_i64(v: i64);
 def push_u64(v: u64);

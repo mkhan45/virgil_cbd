@@ -109,7 +109,7 @@ def I32_SUB() {
 // st bitset: 0
 def I32_EQZ() {
   var x = pop_i32();
-  var test = if ((x == 0), trueVal(), falseVal());
+  var test = TypeVar.I32;
   push_i32(test);
 }
 // st bitset: 1
@@ -117,55 +117,60 @@ def BR() {
   var depth = readImmULEB32();
   var label = f_getLabel(depth);
   st_builder.label = label;
+  doBranch(label);
   def st_case = STEntry.Label(
       label
   );
   st_entries.put(st_case);
-  return doBranch(label);
+  return void;
 }
-// st bitset: 0
+// st bitset: 1
 def BR_IF() {
   var depth = readImmULEB32();
   var label = f_getLabel(depth);
-  var cond = pop_u32();
-  if ((cond != 0)) 
-    return doBranch(label);
+  st_builder.label = label;
+  var cond = pop_i32();
+  doBranch(label);
   doFallThru();
+  def st_case = STEntry.Label(
+      label
+  );
+  st_entries.put(st_case);
+  return void;
 }
 // st bitset: 0
 def BLOCK() {
   var bt = readImmBlockType();
-  return doBlock(bt);
+  doBlock(bt);
 }
 // st bitset: 0
 def LOOP() {
   var bt = readImmBlockType();
-  return doLoop(bt);
+  doLoop(bt);
 }
 // st bitset: 0
 def TRY() {
   var bt = readImmBlockType();
-  return doTry(bt);
+  doTry(bt);
 }
 // st bitset: 0
 def IF() {
   var bt = readImmBlockType();
   var cond = pop_i32();
   var label = f_getLabel(0);
-  if ((cond == 0)) 
-    return doBranch(label); else 
-    return doFallThru();
+  doBranch(label);
+  doFallThru();
 }
 // st bitset: 0
 def ELSE() {
   var label = f_getLabel(0);
-  return doBranch(label);
+  doBranch(label);
 }
 // st bitset: 0
 def END() {
   doEnd();
   if (f_isAtEnd()) 
-    return doReturn();
+    doReturn();
 }
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
@@ -211,6 +216,7 @@ var stack: ArrayStack<TypeVar>;
 // probably a lot of ways to dodge that
 var st_builder: STBuilder = STBuilder.new();
 var st_entries: Vector<STEntry> = Vector.new();
+var st_controls: Vector<int> = Vector.new(); // ctl idx of target
 
 def assert(b: bool) {
     if (!b) {
@@ -220,8 +226,8 @@ def assert(b: bool) {
 }
 
 type CtlEntry {
-	case Block(end_pc: int);
-	case Loop(start_pc: int, end_pc: int);
+	case Block(end_pc: int, cont_stp: int);
+	case Loop(start_pc: int, end_pc: int, cont_stp: int);
         case None;
 }
 var ctls: Array<CtlEntry>;
@@ -320,6 +326,9 @@ def trueVal() -> TypeVar.I32 {
 def falseVal() -> TypeVar.I32 {
     return TypeVar.I32;
 }
+def i32_eqz(x: TypeVar.I32) -> TypeVar.I32 {
+    return TypeVar.I32;
+}
 def push_i64(v: i64);
 def push_u64(v: u64);
 def push_f32(v: float);
@@ -371,31 +380,10 @@ def i_getFunction(func_index: u32) -> Function;
 def doCall(sig: Signature, target: Function);
 
 def doBranch(label: int) {
-    for (i < label) ctl_stack.pop();
-    def ctl_idx = ctl_stack.peek();
-    match (ctls[ctl_idx]) {
-        Block(end_pc) => {
-            if (end_pc == -1) {
-		skipToEnd(u32.!(label));
-		ctls[ctl_idx] = CtlEntry.Block(codeptr.pos);
-            } else {
-		codeptr.at(end_pc);
-	    }
-	    ctl_stack.pop();
-        }
-	Loop(start_pc, end_pc) => {
-		codeptr.at(start_pc);
-	}
-	None => invalid();
-    }
-}
-
-def skipToEnd(depth: u32) {
-    while (depth + 1 > 0) {
-	def op = codeptr.read_opcode();
-	if (op == Opcode.END) depth -= 1;
-	codeptr.skip_immediates(op.imms);
-    }
+    def current_stp = st_entries.length;
+    def current_pc = codeptr.pos;
+    def ctl_idx = ctl_stack.elems[ctl_stack.top - 1 - label];
+    st_controls.put(ctl_idx);
 }
 
 def doFallThru() {
@@ -423,25 +411,27 @@ def mach_writeTable64(table_index: u32, index: TypeVar.U64, val: Object);
 def mach_writeTable32(table_index: u32, index: TypeVar.U32, val: Object);
 
 // Traps.
-def invalid(); // should never occur
+def invalid();
 def trapNull();
 def trapUnreachable();
 
 def doBlock(bt: ()) {
-    if (ctls[codeptr.pos] == CtlEntry.None) ctls[codeptr.pos] = CtlEntry.Block(-1);
+    if (ctls[codeptr.pos] == CtlEntry.None) ctls[codeptr.pos] = CtlEntry.Block(-1, -1);
     ctl_stack.push(codeptr.pos);
 }
 
 def doLoop(bt: ()) {
-    if (ctls[codeptr.pos] == CtlEntry.None) ctls[codeptr.pos] = CtlEntry.Loop(codeptr.pos, -1);
+    if (ctls[codeptr.pos] == CtlEntry.None) ctls[codeptr.pos] = CtlEntry.Loop(codeptr.pos, -1, st_entries.length);
     ctl_stack.push(codeptr.pos);
 }
 
 def doEnd() {
     def ctl_idx = ctl_stack.pop();
     match (ctls[ctl_idx]) {
-        Block(end_pc) => if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Block(codeptr.pos);
-        Loop(start_pc, end_pc) => if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Loop(start_pc, codeptr.pos);
+        Block(end_pc, cont_stp) =>
+	    if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Block(codeptr.pos, st_entries.length - 1);
+        Loop(start_pc, end_pc, cont_stp) => 
+	    if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Loop(start_pc, codeptr.pos, cont_stp);
         None => doReturn();
     }
 }
@@ -491,5 +481,27 @@ component Validator {
             System.ln();
             DISPATCH_TABLE[op.code]();
         }
+    }
+
+    def build_sidetable() -> (Vector<STEntry>, Vector<(int, int)>) {
+        def reified_st_controls = Vector<(int, int)>.new();
+	for (i < st_controls.length) {
+            def target_ctl = ctls[st_controls[i]];
+	    var target_stp = -1;
+	    var target_pc = -1;
+	    match (target_ctl) {
+		Block(epc, cstp) => {
+		    target_pc = epc;
+		    target_stp = cstp;
+		}
+		Loop(spc, epc, cstp) => {
+		    target_pc = spc;
+		    target_stp = cstp;
+		}
+		None => invalid();
+	    }
+	    reified_st_controls.put(target_pc, target_stp);
+        }
+        return (st_entries, reified_st_controls);
     }
 }

@@ -167,6 +167,7 @@ def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
         Block(ss) => return VirgilStmt.Block(Arrays.map(ss, instrumentSTLocals(_, bs)));
 	If(c, t, e) => return VirgilStmt.If(c, instrumentSTLocals(t, bs), instrumentSTLocals(e, bs));
         Return(_) => {
+	    // TODO: this should be independent of return, move it to extractDefs
 	    if (bs == 0) return stmt;
 	    // extract fields from st_builder into real st case
 	    def name = STFieldMgr.bitsetCaseName(bs);
@@ -187,6 +188,10 @@ def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
 	    return inj.appendStmt(stmt).flatten();
 	}
 	Local(name, body, sidetable, rtcast) => {
+	    if (Strings.equal(name, "test")) {
+		// TODO: this is a hack
+                return VirgilStmt.Injected("var test = TypeVar.I32;");
+	    }
 	    var new_body = body;
 	    if (rtcast != null) {
 	        new_body = VirgilExpr.AppExpr(rtcast, [body]);
@@ -204,6 +209,31 @@ def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
 	    } else {
 	        return base;
 	    }
+	}
+    }
+}
+
+def killConditionals(stmt: VirgilStmt) -> VirgilStmt {
+    match (stmt) {
+        Expr(_) => return stmt;
+	Match(_, _) => return stmt;
+	Injected(_) => return stmt;
+        Return(_) => return stmt;
+	Local(_, _, _, _) => return stmt;
+        Block(ss) => return VirgilStmt.Block(Arrays.map(ss, killConditionals));
+	If(c, t, e) => {
+            var is_static = false;
+	    match (c) {
+                AppExpr(f, a) => is_static = Strings.startsWith(f, "m_") || Strings.startsWith(f, "f_");
+		_ => {}
+	    }
+	    // remove test if it's not static, because then we run both branches
+	    if (!is_static) {
+		if (e.isEmptyBlock()) return t;
+		else return t.appendStmt(e);
+            } else {
+                return stmt;
+            }
 	}
     }
 }
@@ -226,9 +256,9 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
 			    getSidetableFields(stmt, st_field_buf);
 
 			    def bs = STFieldMgr.putEntry(st_field_buf);
-			    def substStmt = stmt.substTy("i32", "TypeVar.I32");
+			    var substStmt = stmt.substTy("i32", "TypeVar.I32");
 			    def st_fields = STFieldMgr.bitsetToFields(bs);
- 			    def instStmt = instrumentSTLocals(substStmt, bs).flatten();
+ 			    def instStmt = killConditionals(instrumentSTLocals(substStmt, bs)).flatten();
 			    defs.put(CBDDef.new(bs, meth, instStmt));
                         }
                         _ => {
