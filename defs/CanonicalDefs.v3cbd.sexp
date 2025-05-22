@@ -434,7 +434,7 @@ component CanonicalDefs {
                                 (VarExpr[ComponentMethod] "pop_u64" (type void -> u64))
                                 (VarExpr[Local] "pop_u64" (type CanonicalDefs)))))
                     (LocalStmt
-                        ("target" (type Function)
+                        ("target" (type Function) (repHints #sidetable)
                             (AppExpr "i_getTableFunction64" (type Function)
                                 (VarExpr[ComponentMethod] "i_getTableFunction64" (type (u32, Signature, u64) -> Function))
                                 (VarExpr[Local] "i_getTableFunction64" (type CanonicalDefs))
@@ -454,7 +454,7 @@ component CanonicalDefs {
                                 (VarExpr[ComponentMethod] "pop_u32" (type void -> u32))
                                 (VarExpr[Local] "pop_u32" (type CanonicalDefs)))))
                     (LocalStmt
-                        ("target" (type Function)
+                        ("target" (type Function) (repHints #sidetable)
                             (AppExpr "i_getTableFunction32" (type Function)
                                 (VarExpr[ComponentMethod] "i_getTableFunction32" (type (u32, Signature, u32) -> Function))
                                 (VarExpr[Local] "i_getTableFunction32" (type CanonicalDefs))

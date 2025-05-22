@@ -1,0 +1,63 @@
+type SSAD {
+    case LetApp(n: string, f: string, args: Array<string>, rest: SSAD);
+    case If(cond: string, then: SSAD, els: SSAD);
+    case Void;
+    case Injected(inj: string);
+    case Final(v: string);
+}
+
+component SSAD_IR {
+    var counter = 0;
+    def uid() -> string {
+        def res = Strings.format1("var%i", counter);
+	counter += 1;
+	return res;
+    }
+    def uidl(l: string) -> string {
+        def res = Strings.format2("%s%i", l, counter);
+	counter += 1;
+	return res;
+    }
+
+    def from_virgil(stmt: VirgilStmt) -> SSAD {
+	match (stmt) {
+            Block(ss) => {
+                var res = SSAD.Void;
+		return res;
+	    }
+	    Expr(_) => return SSAD.Void;
+	    Return(e) => return SSAD.Void;
+	    _ => return SSAD.Void; // TODO
+	}
+    }
+
+    def from_virgil_expr(name: string, expr: VirgilExpr) -> SSAD {
+	match (expr) {
+            AppExpr(f, args) => {
+		var res = from_virgil_expr(name, expr);
+		for (a < args.length) {
+		    def n = uidl("arg");
+		    res = from_virgil_expr(n, args[a]);
+		}
+		return res;
+            }
+	    BinOpExpr(o, l, r) => {
+	        def ln = uidl("left");
+	        def rn = uidl("right");
+		return SSAD.LetApp(name, from_virgil_expr(ln, l), from_virgil_expr(rn, r));
+	    }
+	    Literal(tipe, string_rep) => {
+                return SSAD.Injected(string_rep); // TODO: literals, types?
+	    }
+	    VarExpr(v) => {
+                return SSAD.Final(v);
+            }
+	    IfExpr(c, t, e) => {
+		def cn = uidl("cond");
+		def tv = uidl("tv");
+		def ev = uidl("ev");
+		return SSAD.If(cn, from_virgil_expr(tv, t), from_virgil_expr(ev, e));
+	    }
+        }
+    }
+}

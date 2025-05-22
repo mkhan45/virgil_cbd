@@ -180,11 +180,11 @@ def CALL_INDIRECT() {
 	var sig = m_getSignature(sig_index);
 	if (m_isTable64(table_index)) {
 		var func_index = pop_u64();
-		var target = i_getTableFunction64(table_index, sig, func_index);
+		var target #sidetable = i_getTableFunction64(table_index, sig, func_index);
 		return doCall(sig, target);
 	} else {
 		var func_index = pop_u32();
-		var target = i_getTableFunction32(table_index, sig, func_index);
+		var target #sidetable = i_getTableFunction32(table_index, sig, func_index);
 		return doCall(sig, target);
 	}
 }

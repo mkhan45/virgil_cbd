@@ -72,7 +72,7 @@ def CALL() {
   var target = i_getFunction(index);
   doCall(sig, target);
 }
-// st bitset: 0
+// st bitset: 1
 def CALL_INDIRECT() {
   var sig_index = readImmULEB32();
   var table_index = readImmULEB32();
@@ -80,10 +80,20 @@ def CALL_INDIRECT() {
   if (m_isTable64(table_index)) {
   var func_index = pop_u64();
   var target = i_getTableFunction64(table_index, sig, func_index);
+  st_builder.target = target;
+  def st_case = STEntry.Target(
+      st_builder.target
+  );
+  st_entries.put(st_case);
   return doCall(sig, target);
 } else {
   var func_index = pop_u32();
   var target = i_getTableFunction32(table_index, sig, func_index);
+  st_builder.target = target;
+  def st_case = STEntry.Target(
+      st_builder.target
+  );
+  st_entries.put(st_case);
   return doCall(sig, target);
 }
 }
@@ -112,7 +122,7 @@ def I32_EQZ() {
   var test = TypeVar.I32;
   push_i32(test);
 }
-// st bitset: 1
+// st bitset: 2
 def BR() {
   var depth = readImmULEB32();
   var label = f_getLabel(depth);
@@ -124,7 +134,7 @@ def BR() {
   st_entries.put(st_case);
   return void;
 }
-// st bitset: 1
+// st bitset: 2
 def BR_IF() {
   var depth = readImmULEB32();
   var label = f_getLabel(depth);
@@ -199,9 +209,13 @@ def build_dispatch_table() -> Array<void -> void> {
   return DISPATCH_TABLE;
 }
 class STBuilder {
+    var target: int;
     var label: int;
 }
 type STEntry {
+    case Target(
+        target: int
+    );
     case Label(
         label: int
     );
