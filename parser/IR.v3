@@ -26,37 +26,42 @@ component SSAD_IR {
 		return res;
 	    }
 	    Expr(_) => return SSAD.Void;
-	    Return(e) => return SSAD.Void;
+	    Return(e) => {
+	        def n = uidl("ret");
+                return from_virgil_expr(n, e, SSAD.Final(n));
+	    }
 	    _ => return SSAD.Void; // TODO
 	}
     }
 
-    def from_virgil_expr(name: string, expr: VirgilExpr) -> SSAD {
+    def from_virgil_expr(name: string, expr: VirgilExpr, rest: SSAD) -> SSAD {
 	match (expr) {
             AppExpr(f, args) => {
-		var res = from_virgil_expr(name, expr);
+		def arg_names = Arrays.map(args, fun (a: VirgilExpr) => uidl("arg"));
+		var res: SSAD = SSAD.LetApp(name, f, arg_names, rest);
 		for (a < args.length) {
-		    def n = uidl("arg");
-		    res = from_virgil_expr(n, args[a]);
+		    res = from_virgil_expr(arg_names[a], args[a], res);
 		}
 		return res;
             }
 	    BinOpExpr(o, l, r) => {
 	        def ln = uidl("left");
 	        def rn = uidl("right");
-		return SSAD.LetApp(name, from_virgil_expr(ln, l), from_virgil_expr(rn, r));
+		return from_virgil_expr(ln, l, 
+				from_virgil_expr(rn, r,
+					SSAD.LetApp(name, o, [ln, rn], rest)));
 	    }
 	    Literal(tipe, string_rep) => {
-                return SSAD.Injected(string_rep); // TODO: literals, types?
+                return SSAD.LetApp(name, "lit", [string_rep], rest); // TODO: literals, types?
 	    }
 	    VarExpr(v) => {
-                return SSAD.Final(v);
+                return SSAD.LetApp(name, "id", [v], rest);
             }
 	    IfExpr(c, t, e) => {
 		def cn = uidl("cond");
 		def tv = uidl("tv");
 		def ev = uidl("ev");
-		return SSAD.If(cn, from_virgil_expr(tv, t), from_virgil_expr(ev, e));
+		return SSAD.If(cn, from_virgil_expr(tv, t, rest), from_virgil_expr(ev, e, rest));
 	    }
         }
     }
