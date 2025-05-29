@@ -141,9 +141,11 @@ def main(args: Array<string>) {
         codestr_builder.puts("def ");
         codestr_builder.puts(d.opcode);
         codestr_builder.puts("() {\n");
-	def ssa = SSAD_IR.ssa(SSAD_IR.from_virgil(d.body));
+	def ir = SSAD_IR.from_virgil(d.body);
+	SSAD_IR.counter = 0;
+	def ssa = SSAD_IR.ssa(ir);
         // codestr_builder.puts(d.body.toString());
-        codestr_builder.puts(ssa.toString()).puts("}");
+        codestr_builder.puts(ssa.toString(1)).puts("}");
         codestr_builder.ln();
 
         dispatch_builder.puts("  DISPATCH_TABLE[Opcode.");

@@ -6,9 +6,9 @@ type SSAD {
     case Injected(inj: string);
     case Final(v: string);
     
-    def toString() -> string {
+    def toString(indent: int) -> string {
 	def buf = StringBuilder.new();
-	SSAD_IR.buildString(this, buf);
+	SSAD_IR.buildString(this, buf, indent);
         return buf.toString();
     }
 }
@@ -125,9 +125,10 @@ component SSAD_IR {
 	}
     }
 
-    def buildString(ir: SSAD, buf: StringBuilder) {
+    def buildString(ir: SSAD, buf: StringBuilder, indent: int) {
         match (ir) {
 	    LetApp(n, f, a, r) => {
+		for (i < indent) buf.tab();
 		def fn = if(Strings.equal(f, "id"), "", f);
 		buf.puts("def ").puts(n).puts(" = ");
 		buf.puts(fn); buf.puts("(");
@@ -136,26 +137,31 @@ component SSAD_IR {
 		    if (i != a.length - 1) buf.puts(", ");
 		}
 		buf.puts(");\n");
-		buildString(r, buf);
+		buildString(r, buf, indent);
 	    }
 	    LetLit(n, l, t, r) => {
+		for (i < indent) buf.tab();
 		buf.puts("def ").puts(n).puts(" : ").puts(t).puts(" = ");
 		buf.puts(l).puts(";\n");
-		buildString(r, buf);
+		buildString(r, buf, indent);
 	    }
 	    Void => {
 		return;
 	    }
 	    Final(v) => {
+		for (i < indent) buf.tab();
 		buf.puts("return ").puts(v).puts(";\n");
 	    }
 	    If(c, t, e, ps, r) => {
+		for (i < indent) buf.tab();
 	        buf.puts("if (").puts(c).puts(") {\n");
-		buildString(t, buf);
+		buildString(t, buf, indent + 1);
+		for (i < indent) buf.tab();
 		buf.puts("} else {\n");
-		buildString(e, buf);
+		buildString(e, buf, indent + 1);
+		for (i < indent) buf.tab();
 		buf.puts("}\n");
-		buildString(r, buf);
+		buildString(r, buf, indent);
 	    }
 	    _ => {
 		return; // TODO
