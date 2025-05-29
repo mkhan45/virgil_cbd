@@ -4,7 +4,7 @@ def main() {
         VirgilStmt.Local("y", VirgilExpr.BinOpExpr("+", VirgilExpr.VarExpr("x"), VirgilExpr.Literal("int", "20")), false, null),
 	VirgilStmt.Return(VirgilExpr.VarExpr("y"))
     ]);
-    def ssa = SSAD_IR.from_virgil(ast);
+    def ssa = SSAD_IR.ssa(SSAD_IR.from_virgil(ast));
     def buf = StringBuilder.new();
     SSAD_IR.buildString(ssa, buf);
     System.puts(buf.toString());

@@ -5,10 +5,22 @@ type SSAD {
     case Void;
     case Injected(inj: string);
     case Final(v: string);
+    
+    def toString() -> string {
+	def buf = StringBuilder.new();
+	SSAD_IR.buildString(this, buf);
+        return buf.toString();
+    }
 }
 
 component SSAD_IR {
     var counter = 0;
+    var substs = HashMap<string, string>.new(Strings.hash, Strings.equal);
+
+    def subst(s: string) -> string {
+	return if(substs[s] == null, s, substs[s]);
+    }
+
     def uid() -> string {
         def res = Strings.format1("var%i", counter);
 	counter += 1;
@@ -30,7 +42,10 @@ component SSAD_IR {
 		}
 		return res;
 	    }
-	    Expr(_) => return rest; // TODO: gotta do side effects
+	    Expr(e) => {
+	        def v = uidl("eff");
+		return from_virgil_expr(v, e, rest);
+	    }
 	    Return(e) => {
 		// skips rest
 	        def n = uidl("ret");
@@ -66,9 +81,10 @@ component SSAD_IR {
 	    BinOpExpr(o, l, r) => {
 	        def ln = uidl("left");
 	        def rn = uidl("right");
+		def op_fn = Strings.format1("i32.%s", o); // TODO: other types
 		return from_virgil_expr(ln, l, 
 				from_virgil_expr(rn, r,
-					SSAD.LetApp(name, o, [ln, rn], rest)));
+					SSAD.LetApp(name, op_fn, [ln, rn], rest)));
 	    }
 	    Literal(tipe, string_rep) => {
                 return SSAD.LetLit(name, string_rep, tipe, rest);
@@ -80,16 +96,41 @@ component SSAD_IR {
 		def cn = uidl("cond");
 		def tv = uidl("tv");
 		def ev = uidl("ev");
-		return SSAD.If(cn, from_virgil_expr(tv, t, rest), from_virgil_expr(ev, e, rest), [], rest);
+		def t_ssa = from_virgil_expr(tv, t, SSAD.Final(tv));
+		def e_ssa = from_virgil_expr(ev, e, SSAD.Final(ev));
+		return from_virgil_expr(cn, c, SSAD.If(cn, t_ssa, e_ssa, [], rest));
 	    }
         }
+    }
+
+    def ssa(ir: SSAD) -> SSAD {
+        match (ir) {
+            LetApp(n, f, a, r) => {
+                def fresh = uidl(n);
+		substs[n] = fresh;
+		def args = Arrays.map(a, fun (v : string) => subst(v));
+		return SSAD.LetApp(fresh, f, args, ssa(r));
+	    }
+	    LetLit(n, l, t, r) => {
+		def fresh = uidl(n);
+		substs[n] = fresh;
+	        return SSAD.LetLit(fresh, l, t, ssa(r));
+	    }
+	    If(c, t, e, ps, r) => {
+	        return SSAD.If(subst(c), ssa(t), ssa(e), ps, ssa(r));
+	    }
+	    Void => return ir;
+	    Injected(inj) => return ir;
+	    Final(v) => return SSAD.Final(subst(v));
+	}
     }
 
     def buildString(ir: SSAD, buf: StringBuilder) {
         match (ir) {
 	    LetApp(n, f, a, r) => {
+		def fn = if(Strings.equal(f, "id"), "", f);
 		buf.puts("def ").puts(n).puts(" = ");
-		buf.puts(f); buf.puts("(");
+		buf.puts(fn); buf.puts("(");
 		for (i < a.length) {
 		    buf.puts(a[i]);
 		    if (i != a.length - 1) buf.puts(", ");
@@ -106,7 +147,15 @@ component SSAD_IR {
 		return;
 	    }
 	    Final(v) => {
-		buf.puts("return ").puts(v).puts("\n");
+		buf.puts("return ").puts(v).puts(";\n");
+	    }
+	    If(c, t, e, ps, r) => {
+	        buf.puts("if (").puts(c).puts(") {\n");
+		buildString(t, buf);
+		buf.puts("} else {\n");
+		buildString(e, buf);
+		buf.puts("}\n");
+		buildString(r, buf);
 	    }
 	    _ => {
 		return; // TODO

@@ -534,19 +534,22 @@ component CanonicalDefs {
                     (AppExpr "pop_i32" (type int)
                         (VarExpr[ComponentMethod] "pop_i32" (type void -> int))
                         (VarExpr[Local] "pop_i32" (type CanonicalDefs)))))
-            (LocalStmt
-                ("test" (type int)
-                    (IfExpr (type int)
-                        (BinOpExpr "==" (type bool)
-                            (VarExpr[Local] "x" (type int))
-                            (Literal "0" (type int)))
-                        (Literal "1" (type int))
-                        (Literal "0" (type int)))))
-            (ExprStmt
-                (AppExpr "push_i32" (type void)
-                    (VarExpr[ComponentMethod] "push_i32" (type int -> void))
-                    (VarExpr[Local] "push_i32" (type CanonicalDefs))
-                    (VarExpr[Local] "test" (type int)))))
+            (IfStmt
+                (BinOpExpr "==" (type bool)
+                    (VarExpr[Local] "x" (type int))
+                    (Literal "0" (type int)))
+                (BlockStmt
+                    (ExprStmt
+                        (AppExpr "push_i32" (type void)
+                            (VarExpr[ComponentMethod] "push_i32" (type int -> void))
+                            (VarExpr[Local] "push_i32" (type CanonicalDefs))
+                            (Literal "1" (type int)))))
+                (BlockStmt
+                    (ExprStmt
+                        (AppExpr "push_i32" (type void)
+                            (VarExpr[ComponentMethod] "push_i32" (type int -> void))
+                            (VarExpr[Local] "push_i32" (type CanonicalDefs))
+                            (Literal "0" (type int)))))))
     method BR()
         (BlockStmt
             (LocalStmt

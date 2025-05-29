@@ -206,8 +206,11 @@ def I32_SUB() {
 }
 def I32_EQZ() {
 	var x = pop_i32();
-	var test = if(x == 0, 1, 0);
-	push_i32(test);
+	if (x == 0) {
+	    push_i32(1);
+	} else {
+	    push_i32(0);
+	}
 }
 def BR() {
 	var depth = readImmULEB32();
