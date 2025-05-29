@@ -1,6 +1,7 @@
 type SSAD {
     case LetApp(n: string, f: string, args: Array<string>, rest: SSAD);
-    case If(cond: string, then: SSAD, els: SSAD);
+    case LetLit(n: string, l: string, t: string, rest: SSAD);
+    case If(cond: string, then: SSAD, els: SSAD, phis: Array<string>, rest: SSAD);
     case Void;
     case Injected(inj: string);
     case Final(v: string);
@@ -14,24 +15,42 @@ component SSAD_IR {
 	return res;
     }
     def uidl(l: string) -> string {
-        def res = Strings.format2("%s%i", l, counter);
+        def res = Strings.format2("%s%d", l, counter);
 	counter += 1;
 	return res;
     }
 
-    def from_virgil(stmt: VirgilStmt) -> SSAD {
+    def from_virgil_aux(stmt: VirgilStmt, rest: SSAD) -> SSAD {
 	match (stmt) {
             Block(ss) => {
-                var res = SSAD.Void;
+                var res = rest;
+		for (i = ss.length - 1; i >= 0; i -= 1) {
+		    def s = ss[i];
+                    res = from_virgil_aux(s, res);
+		}
 		return res;
 	    }
-	    Expr(_) => return SSAD.Void;
+	    Expr(_) => return rest; // TODO: gotta do side effects
 	    Return(e) => {
+		// skips rest
 	        def n = uidl("ret");
                 return from_virgil_expr(n, e, SSAD.Final(n));
 	    }
+	    Local(v, e, st, rtc) => {
+	        return from_virgil_expr(v, e, rest);
+            }
+	    If(c, t, e) => {
+		def c_var = uidl("cond");
+	        def t_ssa = from_virgil(t);
+	        def e_ssa = from_virgil(e);
+		return from_virgil_expr(c_var, c, SSAD.If(c_var, t_ssa, e_ssa, [], rest));
+	    }
 	    _ => return SSAD.Void; // TODO
 	}
+    }
+
+    def from_virgil(stmt: VirgilStmt) -> SSAD {
+	return from_virgil_aux(stmt, SSAD.Void);
     }
 
     def from_virgil_expr(name: string, expr: VirgilExpr, rest: SSAD) -> SSAD {
@@ -52,7 +71,7 @@ component SSAD_IR {
 					SSAD.LetApp(name, o, [ln, rn], rest)));
 	    }
 	    Literal(tipe, string_rep) => {
-                return SSAD.LetApp(name, "lit", [string_rep], rest); // TODO: literals, types?
+                return SSAD.LetLit(name, string_rep, tipe, rest);
 	    }
 	    VarExpr(v) => {
                 return SSAD.LetApp(name, "id", [v], rest);
@@ -61,8 +80,37 @@ component SSAD_IR {
 		def cn = uidl("cond");
 		def tv = uidl("tv");
 		def ev = uidl("ev");
-		return SSAD.If(cn, from_virgil_expr(tv, t, rest), from_virgil_expr(ev, e, rest));
+		return SSAD.If(cn, from_virgil_expr(tv, t, rest), from_virgil_expr(ev, e, rest), [], rest);
 	    }
         }
+    }
+
+    def buildString(ir: SSAD, buf: StringBuilder) {
+        match (ir) {
+	    LetApp(n, f, a, r) => {
+		buf.puts("def ").puts(n).puts(" = ");
+		buf.puts(f); buf.puts("(");
+		for (i < a.length) {
+		    buf.puts(a[i]);
+		    if (i != a.length - 1) buf.puts(", ");
+		}
+		buf.puts(");\n");
+		buildString(r, buf);
+	    }
+	    LetLit(n, l, t, r) => {
+		buf.puts("def ").puts(n).puts(" : ").puts(t).puts(" = ");
+		buf.puts(l).puts(";\n");
+		buildString(r, buf);
+	    }
+	    Void => {
+		return;
+	    }
+	    Final(v) => {
+		buf.puts("return ").puts(v).puts("\n");
+	    }
+	    _ => {
+		return; // TODO
+	    }
+	}
     }
 }
