@@ -3,39 +3,40 @@ class SSADCtx {
     var static: HashMap<string, int>;
 
     new(body) {
-	static = HashMap.new(Strings.hash, Strings.equal);
+        static = HashMap.new(Strings.hash, Strings.equal);
+	tipe = HashMap.new(Strings.hash, Strings.equal);
+        getStatic(body);
+    }
 
-	def getStatic(node: SSAD) {
-            match (node) {
-                LetApp(n, f, as, rest) => {
-		    def f_static = (Strings.startsWith(f, "f_") || Strings.startsWith(f, "m_"));
-		    var as_static = true;
-		    for (a in as) {
-                        as_static &= static[a]; // a ∈ static because all args are already defined
-		    }
-                    static.put(n, f_static || as_static);
-		    getStatic(rest);
-		}
-		LetLit(n, l, t, rest) => {
-                    static.put(n, true);
-		    getStatic(rest);
-		}
-		If(c, t, e, phis, rest) => {
-                    // TODO:
-                    // I don't think we care about propagating the path's
-                    // staticness to each branch?
-                    getStatic(t);
-		    getStatic(e);
-		    for (p in phis) {
-                        static[p] = static[c];
-                    }
-		    getStatic(rest);
-		}
-		Void => return;
-		Injected => return;
-		Final(v) => return;
+    def getStatic(node: SSAD) {
+        match (node) {
+            LetApp(n, f, as, rest) => {
+                def f_static = (Strings.startsWith(f, "f_") || Strings.startsWith(f, "m_"));
+                var as_static = true;
+                for (a in as) {
+                    as_static &= static[a]; // a ∈ static because all args are already defined
+                }
+                static.put(n, f_static || as_static);
+                getStatic(rest);
             }
-	}
-	getStatic(body);
+            LetLit(n, l, t, rest) => {
+                static.put(n, true);
+                getStatic(rest);
+            }
+            If(c, t, e, phis, rest) => {
+                // TODO:
+                // I don't think we care about propagating the path's
+                // staticness to each branch?
+                getStatic(t);
+                getStatic(e);
+                for (p in phis) {
+                    static[p] = static[c];
+                }
+                getStatic(rest);
+            }
+            Void => return;
+            Injected => return;
+            Final(v) => return;
+        }
     }
 }
