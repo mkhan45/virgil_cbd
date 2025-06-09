@@ -6,19 +6,6 @@ type SSAD {
     case Injected(inj: string, rest: SSAD);
     case Final(v: string);
 
-    def inject(inj: string) -> SSAD {
-        match (this) {
-           LetApp(n, f, as, rest) => return LetApp(n, f, as, Injected(inj, rest));
-           LetLit(n, l, t, rest) => return LetLit(n, l, t, Injected(inj, rest));
-	   If(c, t, e, ps, rest) => return If(c, t, e, ps, Injected(inj, rest));
-	   Injected(i, rest) => return Injected(i, Injected(inj, rest));
-
-	   // these prepend the injection instead of append
-	   Void => return Injected(inj, SSAD.Void);
-	   Final(v) => return Injected(inj, Final(v));
-        }
-    }
-    
     def toString(indent: int) -> string {
 	def buf = StringBuilder.new();
 	SSAD_IR.buildString(this, buf, indent);
@@ -133,7 +120,7 @@ component SSAD_IR {
 	        return SSAD.If(subst(c), ssa(t), ssa(e), ps, ssa(r));
 	    }
 	    Void => return ir;
-	    Injected(inj) => return ir;
+	    Injected(inj, r) => return SSAD.Injected(inj, ssa(r));
 	    Final(v) => return SSAD.Final(subst(v));
 	}
     }
