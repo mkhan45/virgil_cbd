@@ -4,19 +4,20 @@ class SSADCtx {
 
     new(body) {
         static = HashMap.new(Strings.hash, Strings.equal);
-	tipe = HashMap.new(Strings.hash, Strings.equal);
         getStatic(body);
     }
 
     def getStatic(node: SSAD) {
         match (node) {
             LetApp(n, f, as, rest) => {
-                def f_static = (Strings.startsWith(f, "f_") || Strings.startsWith(f, "m_"));
+                def f_static = Strings.startsWith(f, "f_")
+		            || Strings.startsWith(f, "m_")
+		            || Strings.startsWith(f, "read");
                 var as_static = true;
                 for (a in as) {
                     as_static &= static[a]; // a ∈ static because all args are already defined
                 }
-                static.put(n, f_static || as_static);
+                static.put(n, f_static && as_static);
                 getStatic(rest);
             }
             LetLit(n, l, t, rest) => {
@@ -35,7 +36,7 @@ class SSADCtx {
                 getStatic(rest);
             }
             Void => return;
-            Injected => return;
+            Injected(i, rest) => getStatic(rest);
             Final(v) => return;
         }
     }

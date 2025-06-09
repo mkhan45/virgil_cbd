@@ -212,6 +212,15 @@ def I32_EQZ() {
 	    push_i32(0);
 	}
 }
+def F32_MAX() {
+	var b = pop_f32();
+	var a = pop_f32();
+	var r: f32;
+	if (a > b) r = a;
+	if (a == b) r = if(b.sign == 0, b, a); // handle -0
+	if (b > a) r = b;
+	push_f32(r);
+}
 def BR() {
 	var depth = readImmULEB32();
 	var label #sidetable = f_getLabel(depth);

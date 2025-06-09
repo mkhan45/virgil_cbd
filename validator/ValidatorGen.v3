@@ -213,6 +213,37 @@ def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
     }
 }
 
+def instrumentSTLocalsSSA(ssa: SSAD, bs: long) -> SSAD {
+    match (ssa) {
+    	Void => return ssa;
+	Injected(inj, rest) => return SSAD.Injected(inj, instrumentSTLocalsSSA(rest));
+	LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, instrumentSTLocalsSSA(rest));
+	If(c, t, e, phis, rest) => return SSAD.If(
+	    c, 
+	    instrumentSTLocalsSSA(t),
+	    instrumentSTLocalsSSA(e),
+	    phis,
+	    instrumentSTLocalsSSA(rest));
+	LetApp(n, f, args, rest) => return ssa; // TODO
+	Final(v) => {
+	    if (bs == 0) return ssa;
+
+	    // insert completed st record into table
+	    def name = STFieldMgr.bitsetCaseName(bs);
+	    def fields = STFieldMgr.bitsetToFields(bs);
+	    def injBuilder = StringBuilder.new();
+	    for (i < fields.length) {
+		injBuilder.puts("      st_builder.").puts(fields[i].0);
+		if (i + 1 < fields.length) injBuilder.puts(",");
+		injBuilder.puts("\n");
+	    }
+	    injBuilder.puts("  );\n");
+	    injBuilder.puts("  st_entries.put(st_case);");
+	    return SSAD.Injected(injBuilder.toString(), ssa);
+	}
+    }
+}
+
 def killConditionals(stmt: VirgilStmt) -> VirgilStmt {
     match (stmt) {
         Expr(_) => return stmt;
