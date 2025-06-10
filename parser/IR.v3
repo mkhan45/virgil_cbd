@@ -13,6 +13,12 @@ type SSAD {
     }
 }
 
+class CBDType(rt: bool, prim: CBDPrimType) {}
+type CBDPrimType {
+    case I32;
+    case U32;
+}
+
 component SSAD_IR {
     var counter = 0;
     var substs = HashMap<string, string>.new(Strings.hash, Strings.equal);
@@ -167,5 +173,14 @@ component SSAD_IR {
 		return; // TODO
 	    }
 	}
+    }
+
+    def intrinsic_type(fn_name: string) -> (Array<CBDType>, CBDType) {
+	if (Strings.equal(fn_name, "readImmULEB32")) return ([], CBDType.new(false, CBDPrimType.U32));
+	if (Strings.equal(fn_name, "readImmILEB32")) return ([], CBDType.new(false, CBDPrimType.I32));
+
+	if (Strings.equal(fn_name, "pop_i32")) return ([], CBDType.new(true, CBDPrimType.I32));
+
+	return (null, CBDType.new(false, CBDPrimType.I32));
     }
 }

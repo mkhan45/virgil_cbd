@@ -1,0 +1,3 @@
+- add assign stmts to virgilsexpr
+	- properly conv to ssa
+- infer variable types in ssa

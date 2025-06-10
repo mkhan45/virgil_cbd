@@ -119,20 +119,8 @@ def I32_SUB() {
 // st bitset: 0
 def I32_EQZ() {
   var x = pop_i32();
-  var test = TypeVar.I32;
-  push_i32(test);
-}
-// st bitset: 2
-def BR() {
-  var depth = readImmULEB32();
-  var label = f_getLabel(depth);
-  st_builder.label = label;
-  doBranch(label);
-  def st_case = STEntry.Label(
-      st_builder.label
-  );
-  st_entries.put(st_case);
-  return void;
+  push_i32(1);
+  push_i32(0);
 }
 // st bitset: 2
 def BR_IF() {
@@ -198,7 +186,6 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.I32_ADD.code] = I32_ADD;
   DISPATCH_TABLE[Opcode.I32_SUB.code] = I32_SUB;
   DISPATCH_TABLE[Opcode.I32_EQZ.code] = I32_EQZ;
-  DISPATCH_TABLE[Opcode.BR.code] = BR;
   DISPATCH_TABLE[Opcode.BR_IF.code] = BR_IF;
   DISPATCH_TABLE[Opcode.BLOCK.code] = BLOCK;
   DISPATCH_TABLE[Opcode.LOOP.code] = LOOP;

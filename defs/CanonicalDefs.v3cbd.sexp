@@ -550,6 +550,55 @@ component CanonicalDefs {
                             (VarExpr[ComponentMethod] "push_i32" (type int -> void))
                             (VarExpr[Local] "push_i32" (type CanonicalDefs))
                             (Literal "0" (type int)))))))
+    method F32_MAX()
+        (BlockStmt
+            (LocalStmt
+                ("b" (type float)
+                    (AppExpr "pop_f32" (type float)
+                        (VarExpr[ComponentMethod] "pop_f32" (type void -> float))
+                        (VarExpr[Local] "pop_f32" (type CanonicalDefs)))))
+            (LocalStmt
+                ("a" (type float)
+                    (AppExpr "pop_f32" (type float)
+                        (VarExpr[ComponentMethod] "pop_f32" (type void -> float))
+                        (VarExpr[Local] "pop_f32" (type CanonicalDefs)))))
+            (LocalStmt
+                ("r" (type float)))
+            (IfStmt
+                (BinOpExpr ">" (type bool)
+                    (VarExpr[Local] "a" (type float))
+                    (VarExpr[Local] "b" (type float)))
+                (ExprStmt
+                    (AssignExpr (type float)
+                        (VarExpr[Local] "r" (type float))
+                        (VarExpr[Local] "a" (type float)))))
+            (IfStmt
+                (BinOpExpr "==" (type bool)
+                    (VarExpr[Local] "a" (type float))
+                    (VarExpr[Local] "b" (type float)))
+                (ExprStmt
+                    (AssignExpr (type float)
+                        (VarExpr[Local] "r" (type float))
+                        (IfExpr (type float)
+                            (BinOpExpr "==" (type bool)
+                                (VarExpr[Apply] "sign" (type u1) (implicitType int)
+                                    (VarExpr[Local] "b" (type float)))
+                                (Literal "0" (type int)))
+                            (VarExpr[Local] "b" (type float))
+                            (VarExpr[Local] "a" (type float))))))
+            (IfStmt
+                (BinOpExpr ">" (type bool)
+                    (VarExpr[Local] "b" (type float))
+                    (VarExpr[Local] "a" (type float)))
+                (ExprStmt
+                    (AssignExpr (type float)
+                        (VarExpr[Local] "r" (type float))
+                        (VarExpr[Local] "b" (type float)))))
+            (ExprStmt
+                (AppExpr "push_f32" (type void)
+                    (VarExpr[ComponentMethod] "push_f32" (type float -> void))
+                    (VarExpr[Local] "push_f32" (type CanonicalDefs))
+                    (VarExpr[Local] "r" (type float)))))
     method BR()
         (BlockStmt
             (LocalStmt

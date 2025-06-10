@@ -216,15 +216,17 @@ def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
 def instrumentSTLocalsSSA(ssa: SSAD, bs: long) -> SSAD {
     match (ssa) {
     	Void => return ssa;
-	Injected(inj, rest) => return SSAD.Injected(inj, instrumentSTLocalsSSA(rest));
-	LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, instrumentSTLocalsSSA(rest));
+	Injected(inj, rest) => return SSAD.Injected(inj, instrumentSTLocalsSSA(rest, bs));
+	LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, instrumentSTLocalsSSA(rest, bs));
 	If(c, t, e, phis, rest) => return SSAD.If(
 	    c, 
-	    instrumentSTLocalsSSA(t),
-	    instrumentSTLocalsSSA(e),
+	    instrumentSTLocalsSSA(t, bs),
+	    instrumentSTLocalsSSA(e, bs),
 	    phis,
-	    instrumentSTLocalsSSA(rest));
-	LetApp(n, f, args, rest) => return ssa; // TODO
+	    instrumentSTLocalsSSA(rest, bs));
+	LetApp(n, f, args, rest) => {
+	    return ssa; // TODO
+	}
 	Final(v) => {
 	    if (bs == 0) return ssa;
 
