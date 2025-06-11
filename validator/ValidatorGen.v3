@@ -296,21 +296,38 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 }
             }
 
-            var new_f = f;
-            if (Strings.equal(f, "==") ||  Strings.equal(f, "+")) {
+            if (Strings.equal(f, "==") ||  Strings.equal(f, "+") || Strings.equal(f, ">") || Strings.equal(f, "!=")) {
                 def tp = ctx.types[args[0]];
                 def is_rt = !ctx.static[args[0]];
                 var prefix: string;
                 match (tp) {
                     I32 => prefix = if(is_rt, "TypeVar.I32", "i32");
                     U32 => prefix = if(is_rt, "TypeVar.U32", "u32");
-                    Bot => prefix = if(is_rt, "TypeVar", "");
+                    F32 => prefix = if(is_rt, "TypeVar.F32", "f32");
+                    Bot => prefix = if(is_rt, "TypeVar", "Bot");
                 }
-                // TODO: rewrite op to "equals", "plus", etc.
-                // also, detect when rhs is not runtime, and insert an rtcast
-                new_f = Strings.format2("%s.%s", prefix, f);
+                var op: string;
+                if (Strings.equal(f, "==")) op = "equals";
+                if (Strings.equal(f, "!=")) op = "not_equals";
+                if (Strings.equal(f, "+")) op = "plus";
+                if (Strings.equal(f, ">")) op = "gt";
+
+                def new_f = Strings.format2("%s.%s", prefix, op);
+
+                res = SSAD.LetApp(n, new_f, args, res.rest);
+
+                // detect when rhs is not runtime and insert an rtcast
+                def rhs_rt = !ctx.static[args[1]];
+                if (!rhs_rt) {
+                    def fv = SSAD_IR.uidl("rtcast");
+                    def rtcast_f = Strings.format1("rtcast_%s", tp.toString());
+                    res = SSAD.LetApp(fv, rtcast_f, [args[1]],
+                            SSAD.LetApp(n, new_f, [args[0], fv], res.rest));
+                }
+
+                // since all TypeVar ops are 'static', i.e. they just return TypeVar unconditionally
+                ctx.static[n] = true;
             }
-            res = SSAD.LetApp(n, new_f, args, res.rest);
             // TODO: sidetable stuff
             return res;
         }

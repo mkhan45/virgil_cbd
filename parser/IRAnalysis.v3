@@ -1,12 +1,14 @@
 type CBDType {
     case I32;
     case U32;
+    case F32;
     case Bot;
 
     def toString() -> string {
         match (this) {
             I32 => return "i32";
             U32 => return "u32";
+            F32 => return "f32";
             Bot => return "⊥";
         }
     }
@@ -18,6 +20,7 @@ component CBDTypes {
         if (Strings.equal(fn_name, "readImmILEB32")) return ([], CBDType.I32);
 
         if (Strings.equal(fn_name, "pop_i32")) return ([], CBDType.I32);
+        if (Strings.equal(fn_name, "pop_f32")) return ([], CBDType.F32);
 
         return (null, CBDType.Bot);
     }
@@ -48,10 +51,6 @@ class SSADCtx {
                     as_static &= static[a]; // a ∈ static because all args are already defined
                 }
                 static[n] = f_static && as_static;
-
-                if (!f_static) {
-                    for (a in as) static[a] = false;
-                }
                 getStatic(rest);
             }
             LetLit(n, l, t, rest) => {
@@ -90,6 +89,7 @@ class SSADCtx {
             LetLit(n, l, t, rest) => {
                 var tp: CBDType = CBDType.Bot;
                 if (Strings.equal(t, "int")) tp = CBDType.I32;
+                if (Strings.equal(t, "float")) tp = CBDType.F32;
                 types[n] = tp;
                 getTypes(rest);
             }

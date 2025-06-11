@@ -28,3 +28,15 @@ TypeVar.I32.eqz is known statically. However, cond is a runtime i32,
 so eqz is not static.
 
 This reasoning is kind of goofy, but I think it makes sense
+
+^^^
+it doesnt make sense
+
+i think we should do an effects system. there should be a push
+effect and a control xfer effect (or sidetable modification)
+
+we can change fn types per cbd instantiation, including their effects
+
+we can also kind of use this to typecheck the CBDs themselves, because
+if there are an unequal amount of push effects in two branches it
+can't be a valid WASM instruction

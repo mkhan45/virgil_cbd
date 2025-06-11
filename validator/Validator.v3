@@ -11,9 +11,9 @@ def LOCAL_GET() {
 // index8 -- static: yes, type: u32
 // eff216 -- static: no, type: ⊥
 // arg414 -- static: no, type: ⊥
-// arg315 -- static: no, type: ⊥
-// arg611 -- static: no, type: u32
-// arg512 -- static: no, type: ⊥
+// arg315 -- static: yes, type: ⊥
+// arg611 -- static: yes, type: u32
+// arg512 -- static: yes, type: ⊥
 // tv10 -- static: yes, type: ⊥
 // arg79 -- static: yes, type: u32
 
@@ -29,12 +29,12 @@ def LOCAL_GET() {
 }
 // st bitset: 0
 def LOCAL_SET() {
-	// arg1929 -- static: no, type: u32
+	// arg1929 -- static: yes, type: u32
 // index23 -- static: yes, type: u32
 // tv25 -- static: yes, type: ⊥
 // arg2028 -- static: no, type: ⊥
-// arg1830 -- static: no, type: ⊥
-// arg2126 -- static: no, type: ⊥
+// arg1830 -- static: yes, type: ⊥
+// arg2126 -- static: yes, type: ⊥
 // eff1731 -- static: no, type: ⊥
 // arg2224 -- static: yes, type: u32
 // val27 -- static: no, type: ⊥
@@ -53,15 +53,15 @@ def LOCAL_SET() {
 def LOCAL_TEE() {
 	// val45 -- static: no, type: ⊥
 // arg3450 -- static: no, type: ⊥
-// arg3351 -- static: no, type: ⊥
+// arg3351 -- static: yes, type: ⊥
 // eff3252 -- static: no, type: ⊥
 // arg4042 -- static: yes, type: u32
 // index41 -- static: yes, type: u32
 // arg3846 -- static: no, type: ⊥
-// arg3747 -- static: no, type: u32
-// arg3648 -- static: no, type: ⊥
+// arg3747 -- static: yes, type: u32
+// arg3648 -- static: yes, type: ⊥
 // tv43 -- static: yes, type: ⊥
-// arg3944 -- static: no, type: ⊥
+// arg3944 -- static: yes, type: ⊥
 // eff3549 -- static: no, type: ⊥
 
 	def index41 = readImmULEB32();
@@ -81,9 +81,9 @@ def LOCAL_TEE() {
 def GLOBAL_GET() {
 	// index59 -- static: yes, type: u32
 // arg5565 -- static: no, type: ⊥
-// arg5466 -- static: no, type: ⊥
-// arg5762 -- static: no, type: u32
-// arg5663 -- static: no, type: ⊥
+// arg5466 -- static: yes, type: ⊥
+// arg5762 -- static: yes, type: u32
+// arg5663 -- static: yes, type: ⊥
 // eff5367 -- static: no, type: ⊥
 // arg5860 -- static: yes, type: u32
 // val64 -- static: no, type: ⊥
@@ -103,13 +103,13 @@ def GLOBAL_GET() {
 def GLOBAL_SET() {
 	// val78 -- static: no, type: ⊥
 // arg7179 -- static: no, type: ⊥
-// arg6981 -- static: no, type: ⊥
-// arg7277 -- static: no, type: ⊥
+// arg6981 -- static: yes, type: ⊥
+// arg7277 -- static: yes, type: ⊥
 // eff6882 -- static: no, type: ⊥
 // arg7375 -- static: yes, type: u32
 // index74 -- static: yes, type: u32
 // tv76 -- static: yes, type: ⊥
-// arg7080 -- static: no, type: u32
+// arg7080 -- static: yes, type: u32
 
 	def index74 = readImmULEB32();
 	def arg7375 = (index74);
@@ -126,7 +126,7 @@ def TABLE_GET() {
 	// table_index93 -- static: yes, type: u32
 // arg91103 -- static: no, type: i32
 // arg8797 -- static: no, type: i32
-// arg8698 -- static: no, type: i32
+// arg8698 -- static: yes, type: i32
 // val99 -- static: no, type: i32
 // val105 -- static: no, type: i32
 // eff88107 -- static: no, type: i32
@@ -137,7 +137,7 @@ def TABLE_GET() {
 // arg85100 -- static: no, type: i32
 // arg9294 -- static: yes, type: u32
 // cond8395 -- static: yes, type: ⊥
-// arg90104 -- static: no, type: i32
+// arg90104 -- static: yes, type: i32
 
 	def table_index93 = readImmULEB32();
 	def arg9294 = (table_index93);
@@ -167,14 +167,14 @@ def TABLE_SET() {
 // index128 -- static: no, type: i32
 // val127 -- static: no, type: i32
 // eff113132 -- static: no, type: i32
-// arg114131 -- static: no, type: i32
+// arg114131 -- static: yes, type: i32
 // index122 -- static: no, type: i32
 // eff109126 -- static: no, type: i32
 // arg115130 -- static: no, type: i32
 // table_index118 -- static: yes, type: u32
 // val121 -- static: no, type: i32
 // cond108120 -- static: yes, type: ⊥
-// arg110125 -- static: no, type: i32
+// arg110125 -- static: yes, type: i32
 
 	def table_index118 = readImmULEB32();
 	def arg117119 = (table_index118);
@@ -200,9 +200,9 @@ def CALL() {
 	// arg137139 -- static: yes, type: u32
 // eff133145 -- static: no, type: ⊥
 // index138 -- static: yes, type: u32
-// arg134144 -- static: no, type: ⊥
+// arg134144 -- static: yes, type: ⊥
 // arg135143 -- static: no, type: ⊥
-// arg136141 -- static: no, type: u32
+// arg136141 -- static: yes, type: u32
 // target142 -- static: no, type: ⊥
 // sig140 -- static: yes, type: ⊥
 
@@ -218,21 +218,21 @@ def CALL() {
 // st bitset: 1
 def CALL_INDIRECT() {
 	// func_index167 -- static: no, type: i32
-// arg156178 -- static: no, type: i32
-// arg150170 -- static: no, type: i32
+// arg156178 -- static: yes, type: i32
+// arg150170 -- static: yes, type: i32
 // func_index175 -- static: no, type: i32
-// arg157177 -- static: no, type: i32
+// arg157177 -- static: yes, type: i32
 // table_index162 -- static: yes, type: u32
 // cond146166 -- static: yes, type: ⊥
 // arg158176 -- static: no, type: i32
 // target179 -- static: no, type: i32
 // arg159165 -- static: yes, type: u32
-// arg154181 -- static: no, type: i32
-// arg148173 -- static: no, type: i32
+// arg154181 -- static: yes, type: i32
+// arg148173 -- static: yes, type: i32
 // arg155180 -- static: no, type: i32
 // sig_index161 -- static: yes, type: u32
 // sig164 -- static: yes, type: ⊥
-// arg151169 -- static: no, type: i32
+// arg151169 -- static: yes, type: i32
 // ret153182 -- static: no, type: i32
 // arg149172 -- static: no, type: i32
 // arg152168 -- static: no, type: i32
@@ -270,7 +270,7 @@ def CALL_INDIRECT() {
 }
 // st bitset: 0
 def I32_CONST() {
-	// arg184186 -- static: no, type: i32
+	// arg184186 -- static: yes, type: i32
 // x185 -- static: yes, type: i32
 // eff183187 -- static: no, type: ⊥
 
@@ -292,7 +292,7 @@ def I32_ADD() {
 	def y193 = pop_i32();
 	def left190194 = (x192);
 	def right191195 = (y193);
-	def r196 = TypeVar.I32.+(left190194, right191195);
+	def r196 = TypeVar.I32.plus(left190194, right191195);
 	def arg189197 = (r196);
 	def eff188198 = push_i32(arg189197);
 }
@@ -319,16 +319,17 @@ def I32_EQZ() {
 	// eff211222 -- static: no, type: i32
 // eff213224 -- static: no, type: i32
 // cond210220 -- static: no, type: ⊥
-// arg212221 -- static: no, type: i32
-// arg214223 -- static: no, type: i32
+// arg212221 -- static: yes, type: i32
+// arg214223 -- static: yes, type: i32
 // x217 -- static: no, type: i32
 // left215218 -- static: no, type: i32
-// right216219 -- static: no, type: i32
+// right216219 -- static: yes, type: i32
 
 	def x217 = pop_i32();
 	def left215218 = (x217);
 	def right216219 : int = 0;
-	def cond210220 = TypeVar.I32.==(left215218, right216219);
+	def rtcast225 = rtcast_i32(right216219);
+	def cond210220 = TypeVar.I32.equals(left215218, rtcast225);
 	def arg212221 : int = 1;
 	def eff211222 = push_i32(arg212221);
 	def arg214223 : int = 0;
@@ -336,156 +337,158 @@ def I32_EQZ() {
 }
 // st bitset: 0
 def F32_MAX() {
-	// cond230244 -- static: no, type: ⊥
-// eff225249 -- static: no, type: ⊥
-// arg226248 -- static: no, type: ⊥
-// left228245 -- static: no, type: ⊥
-// right229246 -- static: no, type: ⊥
-// right235240 -- static: no, type: ⊥
-// cond227247 -- static: no, type: ⊥
-// a237 -- static: no, type: ⊥
-// r238 -- static: no, type: ⊥
-// cond233241 -- static: no, type: ⊥
-// b236 -- static: no, type: ⊥
-// left234239 -- static: no, type: ⊥
-// left231242 -- static: no, type: ⊥
-// right232243 -- static: no, type: ⊥
+	// cond231245 -- static: no, type: ⊥
+// arg227249 -- static: no, type: f32
+// left229246 -- static: no, type: f32
+// left235240 -- static: no, type: f32
+// right236241 -- static: no, type: f32
+// a238 -- static: no, type: f32
+// r239 -- static: no, type: f32
+// cond228248 -- static: no, type: ⊥
+// cond234242 -- static: no, type: ⊥
+// b237 -- static: no, type: f32
+// right230247 -- static: no, type: f32
+// eff226250 -- static: no, type: ⊥
+// left232243 -- static: no, type: f32
+// right233244 -- static: no, type: f32
 
-	def b236 = pop_f32();
-	def a237 = pop_f32();
-	def r238 = (a237);
-	def left234239 = (a237);
-	def right235240 = (b236);
-	def cond233241 = >(left234239, right235240);
-	def left231242 = (a237);
-	def right232243 = (b236);
-	def cond230244 = TypeVar.==(left231242, right232243);
-	def left228245 = (b236);
-	def right229246 = (a237);
-	def cond227247 = >(left228245, right229246);
-	def arg226248 = (r238);
-	def eff225249 = push_f32(arg226248);
+	def b237 = pop_f32();
+	def a238 = pop_f32();
+	def r239 = (a238);
+	def left235240 = (a238);
+	def right236241 = (b237);
+	def cond234242 = TypeVar.F32.gt(left235240, right236241);
+	def left232243 = (a238);
+	def right233244 = (b237);
+	def cond231245 = TypeVar.F32.equals(left232243, right233244);
+	def left229246 = (b237);
+	def right230247 = (a238);
+	def cond228248 = TypeVar.F32.gt(left229246, right230247);
+	def arg227249 = (r239);
+	def eff226250 = push_f32(arg227249);
 }
 // st bitset: 2
 def BR() {
-	// arg253255 -- static: yes, type: u32
-// label256 -- static: yes, type: ⊥
-// depth254 -- static: yes, type: u32
-// eff251258 -- static: no, type: ⊥
-// arg252257 -- static: no, type: ⊥
-// ret250259 -- static: no, type: i32
+	// arg254256 -- static: yes, type: u32
+// label257 -- static: yes, type: ⊥
+// depth255 -- static: yes, type: u32
+// ret251260 -- static: no, type: i32
+// eff252259 -- static: no, type: ⊥
+// arg253258 -- static: yes, type: ⊥
 
-	def depth254 = readImmULEB32();
-	def arg253255 = (depth254);
-	def label256 = f_getLabel(arg253255);
-	def arg252257 = (label256);
-	def eff251258 = doBranch(arg252257);
-	def ret250259 = (void);
-	return ret250259;
+	def depth255 = readImmULEB32();
+	def arg254256 = (depth255);
+	def label257 = f_getLabel(arg254256);
+	def arg253258 = (label257);
+	def eff252259 = doBranch(arg253258);
+	def ret251260 = (void);
+	return ret251260;
 }
 // st bitset: 2
 def BR_IF() {
-	// arg267269 -- static: yes, type: u32
-// label270 -- static: yes, type: ⊥
-// eff262276 -- static: no, type: i32
-// ret260278 -- static: no, type: i32
-// cond261274 -- static: no, type: ⊥
-// arg263275 -- static: no, type: i32
-// eff264277 -- static: no, type: i32
-// left265272 -- static: no, type: i32
-// right266273 -- static: no, type: i32
-// depth268 -- static: yes, type: u32
-// cond271 -- static: no, type: i32
+	// eff263277 -- static: no, type: i32
+// ret261279 -- static: no, type: i32
+// cond262275 -- static: no, type: ⊥
+// arg264276 -- static: yes, type: i32
+// eff265278 -- static: no, type: i32
+// left266273 -- static: no, type: i32
+// right267274 -- static: yes, type: i32
+// depth269 -- static: yes, type: u32
+// arg268270 -- static: yes, type: u32
+// cond272 -- static: no, type: i32
+// label271 -- static: yes, type: ⊥
 
-	def depth268 = readImmULEB32();
-	def arg267269 = (depth268);
-	def label270 = f_getLabel(arg267269);
-	def cond271 = pop_i32();
-	def left265272 = (cond271);
-	def right266273 : int = 0;
-	def cond261274 = !=(left265272, right266273);
-	def arg263275 = (label270);
-	def eff262276 = doBranch(arg263275);
-	def eff264277 = doFallThru();
-	def ret260278 = (void);
-	return ret260278;
+	def depth269 = readImmULEB32();
+	def arg268270 = (depth269);
+	def label271 = f_getLabel(arg268270);
+	def cond272 = pop_i32();
+	def left266273 = (cond272);
+	def right267274 : int = 0;
+	def rtcast280 = rtcast_i32(right267274);
+	def cond262275 = TypeVar.I32.not_equals(left266273, rtcast280);
+	def arg264276 = (label271);
+	def eff263277 = doBranch(arg264276);
+	def eff265278 = doFallThru();
+	def ret261279 = (void);
+	return ret261279;
 }
 // st bitset: 0
 def BLOCK() {
-	// arg280282 -- static: no, type: ⊥
-// eff279283 -- static: no, type: ⊥
-// bt281 -- static: yes, type: ⊥
+	// arg282284 -- static: yes, type: ⊥
+// bt283 -- static: yes, type: ⊥
+// eff281285 -- static: no, type: ⊥
 
-	def bt281 = readImmBlockType();
-	def arg280282 = (bt281);
-	def eff279283 = doBlock(arg280282);
+	def bt283 = readImmBlockType();
+	def arg282284 = (bt283);
+	def eff281285 = doBlock(arg282284);
 }
 // st bitset: 0
 def LOOP() {
-	// arg285287 -- static: no, type: ⊥
-// bt286 -- static: yes, type: ⊥
-// eff284288 -- static: no, type: ⊥
+	// arg287289 -- static: yes, type: ⊥
+// bt288 -- static: yes, type: ⊥
+// eff286290 -- static: no, type: ⊥
 
-	def bt286 = readImmBlockType();
-	def arg285287 = (bt286);
-	def eff284288 = doLoop(arg285287);
+	def bt288 = readImmBlockType();
+	def arg287289 = (bt288);
+	def eff286290 = doLoop(arg287289);
 }
 // st bitset: 0
 def TRY() {
-	// arg290292 -- static: no, type: ⊥
-// eff289293 -- static: no, type: ⊥
-// bt291 -- static: yes, type: ⊥
+	// arg292294 -- static: yes, type: ⊥
+// bt293 -- static: yes, type: ⊥
+// eff291295 -- static: no, type: ⊥
 
-	def bt291 = readImmBlockType();
-	def arg290292 = (bt291);
-	def eff289293 = doTry(arg290292);
+	def bt293 = readImmBlockType();
+	def arg292294 = (bt293);
+	def eff291295 = doTry(arg292294);
 }
 // st bitset: 0
 def IF() {
-	// eff297310 -- static: no, type: i32
-// bt301 -- static: yes, type: ⊥
-// cond302 -- static: no, type: i32
-// label304 -- static: yes, type: ⊥
-// eff295309 -- static: no, type: i32
-// cond294307 -- static: no, type: ⊥
-// arg296308 -- static: no, type: i32
-// left298305 -- static: no, type: i32
-// right299306 -- static: no, type: i32
-// arg300303 -- static: yes, type: ⊥
+	// bt303 -- static: yes, type: ⊥
+// eff297311 -- static: no, type: i32
+// cond304 -- static: no, type: i32
+// arg298310 -- static: yes, type: i32
+// eff299312 -- static: no, type: i32
+// label306 -- static: yes, type: ⊥
+// cond296309 -- static: no, type: ⊥
+// left300307 -- static: no, type: i32
+// right301308 -- static: yes, type: i32
+// arg302305 -- static: yes, type: ⊥
 
-	def bt301 = readImmBlockType();
-	def cond302 = pop_i32();
-	def arg300303 : u32 = 0;
-	def label304 = f_getLabel(arg300303);
-	def left298305 = (cond302);
-	def right299306 : int = 0;
-	def cond294307 = TypeVar.I32.==(left298305, right299306);
-	def arg296308 = (label304);
-	def eff295309 = doBranch(arg296308);
-	def eff297310 = doFallThru();
+	def bt303 = readImmBlockType();
+	def cond304 = pop_i32();
+	def arg302305 : u32 = 0;
+	def label306 = f_getLabel(arg302305);
+	def left300307 = (cond304);
+	def right301308 : int = 0;
+	def rtcast313 = rtcast_i32(right301308);
+	def cond296309 = TypeVar.I32.equals(left300307, rtcast313);
+	def arg298310 = (label306);
+	def eff297311 = doBranch(arg298310);
+	def eff299312 = doFallThru();
 }
 // st bitset: 0
 def ELSE() {
-	// arg313314 -- static: yes, type: ⊥
-// label315 -- static: yes, type: ⊥
-// eff311317 -- static: no, type: ⊥
-// arg312316 -- static: no, type: ⊥
+	// arg316317 -- static: yes, type: ⊥
+// label318 -- static: yes, type: ⊥
+// eff314320 -- static: no, type: ⊥
+// arg315319 -- static: yes, type: ⊥
 
-	def arg313314 : u32 = 0;
-	def label315 = f_getLabel(arg313314);
-	def arg312316 = (label315);
-	def eff311317 = doBranch(arg312316);
+	def arg316317 : u32 = 0;
+	def label318 = f_getLabel(arg316317);
+	def arg315319 = (label318);
+	def eff314320 = doBranch(arg315319);
 }
 // st bitset: 0
 def END() {
-	// eff320321 -- static: no, type: ⊥
-// cond318322 -- static: yes, type: ⊥
-// eff319323 -- static: no, type: i32
+	// eff323324 -- static: no, type: ⊥
+// cond321325 -- static: yes, type: ⊥
+// eff322326 -- static: no, type: i32
 
-	def eff320321 = doEnd();
-	def cond318322 = f_isAtEnd();
-	if (cond318322) {
-		def eff319323 = doReturn();
+	def eff323324 = doEnd();
+	def cond321325 = f_isAtEnd();
+	if (cond321325) {
+		def eff322326 = doReturn();
 	} else {
 	}
 }
@@ -564,11 +567,13 @@ type Label(depth: u32);
 // class Object { }
 type TypeVar {
     case I32 {
-	def plus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
-	def minus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
+        def plus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
+        def minus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
     }
     case U32;
     case U64;
+    case F32 {
+    }
     case Err;
 }
 def rtcast_i32(x: i32) -> TypeVar.I32 {

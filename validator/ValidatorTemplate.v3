@@ -35,11 +35,13 @@ type Label(depth: u32);
 // class Object { }
 type TypeVar {
     case I32 {
-	def plus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
-	def minus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
+        def plus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
+        def minus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
     }
     case U32;
     case U64;
+    case F32 {
+    }
     case Err;
 }
 def rtcast_i32(x: i32) -> TypeVar.I32 {
