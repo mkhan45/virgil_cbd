@@ -274,6 +274,21 @@ def killConditionals(stmt: VirgilStmt) -> VirgilStmt {
     }
 }
 
+def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
+    // 1. run both sides of a conditional if the cond is not static
+    //      - if the cond *is* static, we only want to run one branch, so we want to emit an if
+    // 2. identify when a transition to runtime types happen, and insert an rtcast
+    // 3. add sidetable instrumentation
+    match (ssa) {
+        Void => return ssa;
+        Final(_) => return ssa;
+        Injected(inj, rest) => return SSAD.Injected(inj, transformSSA(rest, ctx));
+        LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
+        LetApp(n, f, args, rest) => return SSAD.Void; // TODO
+        If(c, t, e, phis, rest) => return SSAD.Void; // TODO
+    }
+}
+
 def extractDefs(instrs: Array<string>, filename: string, file_content: string) -> Array<CBDDef> {
     def defs: Vector<CBDDef> = Vector.new();
     def sexp_parser = SExprParser.new(filename, file_content);
