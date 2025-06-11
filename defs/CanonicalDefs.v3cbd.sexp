@@ -648,9 +648,7 @@ component CanonicalDefs {
                 (ExprStmt
                     (AppExpr "doFallThru" (type void)
                         (VarExpr[ComponentMethod] "doFallThru" (type void -> void))
-                        (VarExpr[Local] "doFallThru" (type CanonicalDefs)))))
-            (ReturnStmt
-                (VarExpr[Void] "void" (type void))))
+                        (VarExpr[Local] "doFallThru" (type CanonicalDefs))))))
     method BLOCK()
         (BlockStmt
             (LocalStmt

@@ -175,4 +175,38 @@ class SSADCtx {
             }
         }
     }
+
+    def usesVar(node: SSAD, v: string) -> bool {
+        match (node) {
+            Void => return false;
+            Final(n) => return Strings.equal(v, n);
+            LetLit(_, _, _, rest) => return usesVar(rest, v);
+            Injected(_, rest) => return usesVar(rest, v);
+            LetApp(_, _, args, rest) => {
+                for (i < args.length) if (Strings.equal(v, args[i])) return true;
+                return usesVar(rest, v);
+            }
+            If(c, t, e, phis, rest) => return Strings.equal(v, c) || usesVar(t, v) || usesVar(e, v) || usesVar(rest, v);
+        }
+    }
+
+    def DCE(node: SSAD) -> SSAD {
+        match (node) {
+            Void => return node;
+            Final(_) => return node;
+            Injected(inj, rest) => return SSAD.Injected(inj, DCE(rest));
+            If(c, t, e, phis, rest) => return SSAD.If(c, DCE(t), DCE(e), phis, DCE(rest));
+            LetLit(n, l, t, rest) => {
+                def r = DCE(rest);
+                def used = usesVar(r, n);
+                return if(used, SSAD.LetLit(n, l, t, r), r);
+            }
+            LetApp(n, f, args, rest) => {
+                def r = DCE(rest);
+                def used = usesVar(r, n);
+                def eff = effects[n] != CBDEffect.None;
+                return if(used || eff, SSAD.LetApp(n, f, args, r), r);
+            }
+        }
+    }
 }

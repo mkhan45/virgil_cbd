@@ -324,12 +324,12 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 if (!rhs_rt) {
                     def fv = SSAD_IR.uidl("rtcast");
                     def rtcast_f = Strings.format1("rtcast_%s", tp.toString());
+                    ctx.static[fv] = false;
+                    ctx.types[fv] = ctx.types[args[1]];
+                    ctx.effects[fv] = CBDEffect.None;
                     res = SSAD.LetApp(fv, rtcast_f, [args[1]],
                             SSAD.LetApp(n, new_f, [args[0], fv], res.rest));
                 }
-
-                // since all TypeVar ops are 'static', i.e. they just return TypeVar unconditionally
-                ctx.static[n] = true;
             }
             // TODO: sidetable stuff
             return res;
@@ -344,6 +344,8 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
             def e_res = CBDEffects.run_fx(efx);
             // assert t_res.stack_delta == e_res.stack_delta
 
+            // TODO: could do a finer grained thing which just filters out
+            // bad effects
             if (ctx.static[c] || t_res.stack_delta != 0) {
                 // TODO: what to do with phis?
                 return SSAD.If(c, t, e, phis, transformSSA(rest, ctx));
@@ -388,7 +390,7 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
                                 sb.puts("effect: ").puts(analysis.effects[v.head].toString());
                                 sb.ln();
                             }
-                            def instSsa = SSAD.Injected(sb.toString(), transformSSA(ssa, analysis));
+                            def instSsa = SSAD.Injected(sb.toString(), analysis.DCE(transformSSA(ssa, analysis)));
                             defs.put(CBDDef.new(bs, meth, instSsa));
                         }
                         _ => {
