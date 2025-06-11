@@ -493,9 +493,7 @@ component CanonicalDefs {
                         (VarExpr[Local] "pop_i32" (type CanonicalDefs)))))
             (LocalStmt
                 ("r" (type int)
-                    (AppExpr (type int)
-                        (VarExpr[Inst] "+" (type (int, int) -> int)
-                            (VarExpr[Type] "i32" (type int)))
+                    (BinOpExpr "+" (type int)
                         (VarExpr[Local] "x" (type int))
                         (VarExpr[Local] "y" (type int)))))
             (ExprStmt

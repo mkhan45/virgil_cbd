@@ -292,18 +292,29 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 if (old_static && !new_static && ctx.types[n] != CBDType.Bot) {
                     // transition from static to runtime
                     def rtcast_fn = Strings.format1("rtcast_%s", ctx.types[n].toString());
-                    res = SSAD.LetApp(n, rtcast_fn, args, transformSSA(rest, ctx));
+                    res = SSAD.LetApp(n, rtcast_fn, args, res.rest);
                 }
             }
+
+            var new_f = f;
+            if (Strings.equal(f, "==") ||  Strings.equal(f, "+")) {
+                def tp = ctx.types[args[0]];
+                def is_rt = !ctx.static[args[0]];
+                var prefix: string;
+                match (tp) {
+                    I32 => prefix = if(is_rt, "TypeVar.I32", "i32");
+                    U32 => prefix = if(is_rt, "TypeVar.U32", "u32");
+                    Bot => prefix = if(is_rt, "TypeVar", "");
+                }
+                // TODO: rewrite op to "equals", "plus", etc.
+                // also, detect when rhs is not runtime, and insert an rtcast
+                new_f = Strings.format2("%s.%s", prefix, f);
+            }
+            res = SSAD.LetApp(n, new_f, args, res.rest);
             // TODO: sidetable stuff
             return res;
         }
         If(c, t, e, phis, rest) => {
-            System.puts("c: ");
-            System.puts(c);
-            System.puts(" static? ");
-            System.puts(if(ctx.static[c], "yes", "no"));
-            System.ln();
             if (ctx.static[c]) {
                 // TODO: what to do with phis?
                 return SSAD.If(c, t, e, phis, transformSSA(rest, ctx));
@@ -334,7 +345,7 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
                             def bs = STFieldMgr.putEntry(st_field_buf);
 
                             var substStmt = stmt.substTy("i32", "TypeVar.I32"); // TODO: proper type rewriting
-                            def ir = SSAD_IR.from_virgil(substStmt);
+                            def ir = SSAD_IR.from_virgil(stmt);
                             def ssa = SSAD_IR.ssa(ir);
                             def analysis = SSADCtx.new(ssa);
 

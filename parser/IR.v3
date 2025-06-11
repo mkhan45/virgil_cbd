@@ -92,10 +92,9 @@ component SSAD_IR {
             BinOpExpr(o, l, r) => {
                 def ln = uidl("left");
                 def rn = uidl("right");
-                def op_fn = Strings.format1("i32.%s", o); // TODO: other types
                 return from_virgil_expr(ln, l, 
                         from_virgil_expr(rn, r,
-                            SSAD.LetApp(name, op_fn, [ln, rn], rest)));
+                            SSAD.LetApp(name, o, [ln, rn], rest)));
             }
             Literal(tipe, string_rep) => {
                 return SSAD.LetLit(name, string_rep, tipe, rest);

@@ -195,7 +195,7 @@ def I32_CONST() {
 def I32_ADD() {
 	var x = pop_i32();
 	var y = pop_i32();
-	var r = i32.+(x, y);
+	var r = x + y;
 	push_i32(r);
 }
 def I32_SUB() {
