@@ -313,6 +313,9 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 if (Strings.equal(f, ">")) op = "gt";
 
                 def new_f = Strings.format2("%s.%s", prefix, op);
+                ctx.static[new_f] = !is_rt;
+                ctx.types[new_f] = tp;
+                ctx.effects[new_f] = CBDEffect.None;
 
                 res = SSAD.LetApp(n, new_f, args, res.rest);
 
@@ -332,7 +335,16 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
             return res;
         }
         If(c, t, e, phis, rest) => {
-            if (ctx.static[c]) {
+            def tfx = Vector<CBDEffect>.new();
+            def efx = Vector<CBDEffect>.new();
+            ctx.collectEffects(t, tfx);
+            ctx.collectEffects(e, efx);
+
+            def t_res = CBDEffects.run_fx(tfx);
+            def e_res = CBDEffects.run_fx(efx);
+            // assert t_res.stack_delta == e_res.stack_delta
+
+            if (ctx.static[c] || t_res.stack_delta != 0) {
                 // TODO: what to do with phis?
                 return SSAD.If(c, t, e, phis, transformSSA(rest, ctx));
             } else {
@@ -372,7 +384,8 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
                             for (v = vars; v != null; v = v.tail) {
                                 sb.puts("// ").puts(v.head).puts(" -- ");
                                 sb.puts("static: ").puts(if(analysis.static[v.head], "yes", "no")).puts(", ");
-                                sb.puts("type: ").puts(analysis.types[v.head].toString());
+                                sb.puts("type: ").puts(analysis.types[v.head].toString()).puts(", ");
+                                sb.puts("effect: ").puts(analysis.effects[v.head].toString());
                                 sb.ln();
                             }
                             def instSsa = SSAD.Injected(sb.toString(), transformSSA(ssa, analysis));

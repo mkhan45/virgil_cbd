@@ -26,16 +26,66 @@ component CBDTypes {
     }
 }
 
+class EffectResult(stack_delta: int, ctl_xfer: bool) {}
+
+component CBDEffects {
+    def run_fx(fx: Vector<CBDEffect>) -> EffectResult {
+        var sd = 0;
+        var ctl = false;
+        for (i < fx.length) {
+            if (fx[i] == CBDEffect.Push) sd += 1;
+            if (fx[i] == CBDEffect.Pop) sd -= 1;
+            if (fx[i] == CBDEffect.CtlXfer) ctl = true;
+        }
+        return EffectResult.new(sd, ctl);
+    }
+}
+
+type CBDEffect {
+    // TODO: type push and pop?
+    case Push;
+    case Pop;
+    case CtlXfer;
+    case None;
+
+    def is_stack() -> bool {
+        match (this) {
+            Push => return true;
+            Pop => return true;
+            _ => return false;
+        }
+    }
+
+    // this should probably be specific to tier
+    def is_sidetable() -> bool {
+        match (this) {
+            CtlXfer => return true;
+            _ => return false;
+        }
+    }
+
+    def toString() -> string {
+        match (this) {
+            Push => return "push";
+            Pop => return "pop";
+            CtlXfer => return "ctl";
+            None => return "none";
+        }
+    }
+}
+
 class SSADCtx {
     var body: SSAD;
     var static: HashMap<string, bool>;
     var types: HashMap<string, CBDType>;
+    var effects: HashMap<string, CBDEffect>; // should it be a list?
 
     new(body) {
         static = HashMap.new(Strings.hash, Strings.equal);
         getStatic(body);
 
         types = HashMap.new(Strings.hash, Strings.equal);
+        effects = HashMap.new(Strings.hash, Strings.equal);
         getTypes(body);
     }
 
@@ -47,9 +97,7 @@ class SSADCtx {
                     || Strings.startsWith(f, "read")
                     || Strings.equal(f, "id");
                 var as_static = true;
-                for (a in as) {
-                    as_static &= static[a]; // a ∈ static because all args are already defined
-                }
+                for (a in as) as_static &= static[a]; // a ∈ static because all args are already defined
                 static[n] = f_static && as_static;
                 getStatic(rest);
             }
@@ -58,14 +106,9 @@ class SSADCtx {
                 getStatic(rest);
             }
             If(c, t, e, phis, rest) => {
-                // TODO:
-                // I don't think we care about propagating the path's
-                // staticness to each branch?
                 getStatic(t);
                 getStatic(e);
-                for (p in phis) {
-                    static[p] = static[c];
-                }
+                for (p in phis) static[p] = static[c];
                 getStatic(rest);
             }
             Void => return;
@@ -84,9 +127,18 @@ class SSADCtx {
                     def f_type = CBDTypes.intrinsic_type(f);
                     types[n] = f_type.1;
                 }
+
+                // could consider collecting effects from args
+                effects[n] = CBDEffect.None;
+                if (Strings.startsWith(f, "push")) effects[n] = CBDEffect.Push;
+                if (Strings.startsWith(f, "pop")) effects[n] = CBDEffect.Pop;
+                if (Strings.equal(f, "doBranch")) effects[n] = CBDEffect.CtlXfer;
+                if (Strings.equal(f, "doFallthru")) effects[n] = CBDEffect.CtlXfer;
+
                 getTypes(rest);
             }
             LetLit(n, l, t, rest) => {
+                effects[n] = CBDEffect.None;
                 var tp: CBDType = CBDType.Bot;
                 if (Strings.equal(t, "int")) tp = CBDType.I32;
                 if (Strings.equal(t, "float")) tp = CBDType.F32;
@@ -95,11 +147,32 @@ class SSADCtx {
             }
             If(c, t, e, phis, rest) => {
                 // TODO: give phis types
+                getTypes(t);
+                getTypes(e);
                 getTypes(rest);
             }
             Void => return;
             Injected(i, rest) => getStatic(rest);
             Final(v) => return;
+        }
+    }
+
+    def collectEffects(node: SSAD, buf: Vector<CBDEffect>) {
+        match (node) {
+            Final(v) => return;
+            Void => return;
+            Injected(i, rest) => collectEffects(rest, buf);
+            LetLit(n, l, t, rest) => collectEffects(rest, buf);
+            LetApp(n, f, as, rest) => {
+                if (effects[n] != CBDEffect.None) buf.put(effects[n]);
+                collectEffects(rest, buf);
+            }
+            If(c, t, e, phis, rest) => {
+                // TODO: t and e should have the same effects?
+                collectEffects(t, buf);
+                // collectEffects(e, buf);
+                collectEffects(rest, buf);
+            }
         }
     }
 }
