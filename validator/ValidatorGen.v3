@@ -281,26 +281,36 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
     // 3. add sidetable instrumentation
     match (ssa) {
         Void => return ssa;
-        Final(_) => return ssa;
+        Final(_) => return ssa; // TODO: move stuff from instrument... to here
         Injected(inj, rest) => return SSAD.Injected(inj, transformSSA(rest, ctx));
         LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
         LetApp(n, f, args, rest) => {
-            var res = ssa;
+            var res = SSAD.LetApp(n, f, args, transformSSA(rest, ctx));
             if (Strings.equal(f, "id")) {
                 def old_static = ctx.static[args[0]];
                 def new_static = ctx.static[n];
-                if (old_static && !new_static) {
+                if (old_static && !new_static && ctx.types[n] != CBDType.Bot) {
                     // transition from static to runtime
                     def rtcast_fn = Strings.format1("rtcast_%s", ctx.types[n].toString());
                     res = SSAD.LetApp(n, rtcast_fn, args, transformSSA(rest, ctx));
                 }
-            } else {
-                res = SSAD.LetApp(n, f, args, transformSSA(rest, ctx));
             }
             // TODO: sidetable stuff
             return res;
         }
-        If(c, t, e, phis, rest) => return SSAD.If(c, t, e, phis, transformSSA(rest, ctx)); // TODO
+        If(c, t, e, phis, rest) => {
+            System.puts("c: ");
+            System.puts(c);
+            System.puts(" static? ");
+            System.puts(if(ctx.static[c], "yes", "no"));
+            System.ln();
+            if (ctx.static[c]) {
+                // TODO: what to do with phis?
+                return SSAD.If(c, t, e, phis, transformSSA(rest, ctx));
+            } else {
+                return t.appended(e).appended(transformSSA(rest, ctx));
+            }
+        }
     }
 }
 
@@ -323,11 +333,11 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
 
                             def bs = STFieldMgr.putEntry(st_field_buf);
 
-                            def ir = SSAD_IR.from_virgil(stmt);
+                            var substStmt = stmt.substTy("i32", "TypeVar.I32"); // TODO: proper type rewriting
+                            def ir = SSAD_IR.from_virgil(substStmt);
                             def ssa = SSAD_IR.ssa(ir);
                             def analysis = SSADCtx.new(ssa);
 
-                            // var substStmt = stmt.substTy("i32", "TypeVar.I32");
                             // def instStmt = killConditionals(instrumentSTLocals(substStmt, bs)).flatten();
                             def sb = StringBuilder.new();
                             def vars = Maps.keyList(analysis.static);

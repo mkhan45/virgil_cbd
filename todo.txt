@@ -1,3 +1,30 @@
 - add assign stmts to virgilsexpr
 	- properly conv to ssa
 - infer variable types in ssa
+
+# "Static"
+
+def I32_EQZ() {
+	var x = pop_i32();
+	if (x == 0) {
+	    push_i32(1);
+	} else {
+	    push_i32(0);
+	}
+}
+
+def BR_IF() {
+	var depth = readImmULEB32();
+	var label #sidetable = f_getLabel(depth);
+	var cond = pop_i32();
+	if (cond != 0) doBranch(label);
+	else doFallThru();
+	return void;
+}
+
+At first, it looks like both conditionals are not known statically.
+However, in the validator the type of x in eqz is a TypeVar, and
+TypeVar.I32.eqz is known statically. However, cond is a runtime i32,
+so eqz is not static.
+
+This reasoning is kind of goofy, but I think it makes sense

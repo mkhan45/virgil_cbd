@@ -563,7 +563,8 @@ component CanonicalDefs {
                         (VarExpr[ComponentMethod] "pop_f32" (type void -> float))
                         (VarExpr[Local] "pop_f32" (type CanonicalDefs)))))
             (LocalStmt
-                ("r" (type float)))
+                ("r" (type float)
+                    (VarExpr[Local] "a" (type float))))
             (IfStmt
                 (BinOpExpr ">" (type bool)
                     (VarExpr[Local] "a" (type float))

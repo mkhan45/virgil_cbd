@@ -122,11 +122,11 @@ type VirgilStmt {
                 expr.buildString(buf);
                 buf.putc(';');
             }
-	    Assign(var_name, expr) => {
-		buf.puts(var_name).puts(" = ");
-		expr.buildString(buf);
-		buf.putc(';');
-	    }
+            Assign(var_name, expr) => {
+                buf.puts(var_name).puts(" = ");
+                expr.buildString(buf);
+                buf.putc(';');
+            }
             Match(subj, branches) => {
                 buf.puts("match (");
                 subj.buildString(buf);
@@ -188,9 +188,9 @@ type VirgilStmt {
                     }
                 }
             }
-	    Injected(s) => {
+            Injected(s) => {
                 buf.puts(s);
-	    }
+            }
         }
     }
 
@@ -211,40 +211,40 @@ type VirgilStmt {
     }
 
     def flatten() -> VirgilStmt {
-	match (this) {
-	    Block(ss) => {
-	        var acc = Vector<VirgilStmt>.new();;
-		for (s in ss) {
-		    match (s) {
-		        Block(sss) => acc.puta(sss); // only flatten one level
-			_ => acc.put(s.flatten());
-		    }
-		}
-		return VirgilStmt.Block(acc.copy());
-	    }
-	    If(c, t, e) => return VirgilStmt.If(c, t.flatten(), e.flatten());
-	    _ => return this;
-	}
+        match (this) {
+            Block(ss) => {
+                var acc = Vector<VirgilStmt>.new();;
+                for (s in ss) {
+                    match (s) {
+                        Block(sss) => acc.puta(sss); // only flatten one level
+                        _ => acc.put(s.flatten());
+                    }
+                }
+                return VirgilStmt.Block(acc.copy());
+            }
+            If(c, t, e) => return VirgilStmt.If(c, t.flatten(), e.flatten());
+            _ => return this;
+        }
     }
 
     def substTy(old: string, knew: string) -> VirgilStmt {
-	match (this) {
-	    Block(ss) => return VirgilStmt.Block(Arrays.map(ss, VirgilStmt.substTy(_, old, knew)));
-	    Expr(e) => return VirgilStmt.Expr(e.substTy(old, knew));
-	    Return(e) => return VirgilStmt.Return(e.substTy(old, knew));
-	    Local(v, e, st, rtcast) => return VirgilStmt.Local(v, e.substTy(old, knew), st, rtcast);
-	    Assign(v, e) => return VirgilStmt.Assign(v, e.substTy(old, knew));
-	    Match(s, b) => return this; // TODO
-	    If(c, t, e) => return VirgilStmt.If(c.substTy(old, knew), t.substTy(old, knew), e.substTy(old, knew));
-	    Injected(s) => return this;
-	}
+        match (this) {
+            Block(ss) => return VirgilStmt.Block(Arrays.map(ss, VirgilStmt.substTy(_, old, knew)));
+            Expr(e) => return VirgilStmt.Expr(e.substTy(old, knew));
+            Return(e) => return VirgilStmt.Return(e.substTy(old, knew));
+            Local(v, e, st, rtcast) => return VirgilStmt.Local(v, e.substTy(old, knew), st, rtcast);
+            Assign(v, e) => return VirgilStmt.Assign(v, e.substTy(old, knew));
+            Match(s, b) => return this; // TODO
+            If(c, t, e) => return VirgilStmt.If(c.substTy(old, knew), t.substTy(old, knew), e.substTy(old, knew));
+            Injected(s) => return this;
+        }
     }
 
     def isEmptyBlock() -> bool {
         match (this) {
-	    Block(ss) => return ss.length == 0;
-	    _ => return false;
-	}
+            Block(ss) => return ss.length == 0;
+            _ => return false;
+        }
     }
     
     def toString() -> string {
@@ -306,8 +306,22 @@ component VirgilStmts {
         // Get the expression
         if (elems.tail == null) return SExprRes.Malformed(sexpr);
         
-        // Parse the expression
-        def expr_res = VirgilExprs.from_sexpr(elems.tail.head);
+        // Check if this is an AssignExpr - if so, convert to Assign statement
+        def inner_expr = elems.tail.head;
+        match (inner_expr) {
+            List(inner_elems) => match (inner_elems.head) {
+                Atom(tag) => {
+                    if (Strings.equal("AssignExpr", tag)) {
+                        return parse_assign_from_expr_stmt(inner_expr);
+                    }
+                }
+                _ => {}
+            }
+            _ => {}
+        }
+        
+        // Parse as regular expression statement
+        def expr_res = VirgilExprs.from_sexpr(inner_expr);
         match (expr_res) {
             Success(expr) => return SExprRes.Success(VirgilStmt.Expr(expr));
             _ => return expr_res.castError();
@@ -367,7 +381,7 @@ component VirgilStmts {
         def elems = sexpr.forceList();
         if (!elems.head.matchesAtom("LocalStmt")) return SExprRes.ParserBug;
         
-	// TODO: refactor to munch decl
+        // TODO: refactor to munch decl
         def decl = elems.tail.head.forceList();
         if (decl == null) return SExprRes.Malformed(sexpr);
         
@@ -381,27 +395,55 @@ component VirgilStmts {
 
         if (decl.tail.tail == null) return SExprRes.Malformed(sexpr);
 
-	var sidetable = false;
-	var rtcast: string = null;
-	var expr_res: SExprRes<VirgilExpr> = SExprRes.ParserBug;
+        var sidetable = false;
+        var rtcast: string = null;
+        var expr_res: SExprRes<VirgilExpr> = SExprRes.ParserBug;
 
-	def rephint_ls = decl.tail.tail.head.forceList();
-	if (rephint_ls != null && rephint_ls.head.matchesAtom("repHints")) {
-	    for (ls = rephint_ls.tail; ls != null; ls = ls.tail) {
-		var atom = ls.head.forceAtom();
-	        sidetable |= atom != null && Strings.equal(atom, "#sidetable");;
-	        if (atom != null && Strings.startsWith(atom, "#rtcast_")) {
-		    rtcast = Arrays.range(atom, 1, atom.length);
-		}
-	    }
-	    if (decl.tail.tail.tail == null) return SExprRes.Malformed(sexpr);
-	    expr_res = VirgilExprs.from_sexpr(decl.tail.tail.tail.head);
-	} else {
-	    expr_res = VirgilExprs.from_sexpr(decl.tail.tail.head);
-	}
+        def rephint_ls = decl.tail.tail.head.forceList();
+        if (rephint_ls != null && rephint_ls.head.matchesAtom("repHints")) {
+            for (ls = rephint_ls.tail; ls != null; ls = ls.tail) {
+                var atom = ls.head.forceAtom();
+                sidetable |= atom != null && Strings.equal(atom, "#sidetable");;
+                if (atom != null && Strings.startsWith(atom, "#rtcast_")) {
+                    rtcast = Arrays.range(atom, 1, atom.length);
+                }
+            }
+            if (decl.tail.tail.tail == null) return SExprRes.Malformed(sexpr);
+            expr_res = VirgilExprs.from_sexpr(decl.tail.tail.tail.head);
+        } else {
+            expr_res = VirgilExprs.from_sexpr(decl.tail.tail.head);
+        }
         
         match (expr_res) {
             Success(expr) => return SExprRes.Success(VirgilStmt.Local(cleanIdent(var_name), expr, sidetable, rtcast));
+            _ => return expr_res.castError();
+        }
+    }
+    
+    def parse_assign_from_expr_stmt(assign_sexpr: SExpr) -> SExprRes<VirgilStmt> {
+        // format: (AssignExpr (type ...) (VarExpr[Local] "var_name" ...) (expr))
+        def elems = assign_sexpr.forceList();
+        if (!elems.head.matchesAtom("AssignExpr")) return SExprRes.ParserBug;
+        
+        // Skip type info
+        if (elems.tail == null || elems.tail.tail == null) return SExprRes.Malformed(assign_sexpr);
+        
+        // Parse target variable (VarExpr)
+        def var_sexpr = elems.tail.tail.head;
+        def var_list = var_sexpr.forceList();
+        if (var_list == null) return SExprRes.Malformed(assign_sexpr);
+        
+        def var_tag = var_list.head.forceAtom();
+        if (var_tag == null || !Strings.startsWith(var_tag, "VarExpr")) return SExprRes.Malformed(assign_sexpr);
+        
+        def var_name = cleanIdent(var_list.tail.head.forceAtom());
+        if (var_name == null) return SExprRes.Malformed(assign_sexpr);
+        
+        // Parse assignment expression
+        if (elems.tail.tail.tail == null) return SExprRes.Malformed(assign_sexpr);
+        def expr_res = VirgilExprs.from_sexpr(elems.tail.tail.tail.head);
+        match (expr_res) {
+            Success(expr) => return SExprRes.Success(VirgilStmt.Assign(var_name, expr));
             _ => return expr_res.castError();
         }
     }
@@ -445,9 +487,9 @@ type VirgilExpr {
             IfExpr(cond, then_expr, else_expr) => {
                 buf.puts("if (");
                 cond.buildString(buf);
-		buf.puts(", ");
+                buf.puts(", ");
                 then_expr.buildString(buf);
-		buf.puts(", ");
+                buf.puts(", ");
                 else_expr.buildString(buf);
                 buf.puts(")");
             }
@@ -457,29 +499,29 @@ type VirgilExpr {
     def substTy(old: string, knew: string) -> VirgilExpr {
         match (this) {
             AppExpr(fn, args) => {
-		// check if this is an app of an operator like i32.+(...)
-	        def spl = Strings.splitOnChar(fn, byte.==(_, '.'), 1);
-		if (spl.length == 2 && Strings.equal(spl[0], old)) {
-		    def ty = spl[0];
-		    var op = spl[1];
-		    op = if (Strings.equal(op, "+"), "plus", op);
-		    op = if (Strings.equal(op, "-"), "minus", op);
-		    op = if (Strings.equal(op, "=="), "eq", op);
-		    op = if (Strings.equal(op, "!="), "neq", op);
-		    def fn_builder = StringBuilder.new();
-    		    fn_builder.puts(knew);
-        	    fn_builder.puts(".");
+                // check if this is an app of an operator like i32.+(...)
+                def spl = Strings.splitOnChar(fn, byte.==(_, '.'), 1);
+                if (spl.length == 2 && Strings.equal(spl[0], old)) {
+                    def ty = spl[0];
+                    var op = spl[1];
+                    op = if (Strings.equal(op, "+"), "plus", op);
+                    op = if (Strings.equal(op, "-"), "minus", op);
+                    op = if (Strings.equal(op, "=="), "eq", op);
+                    op = if (Strings.equal(op, "!="), "neq", op);
+                    def fn_builder = StringBuilder.new();
+                    fn_builder.puts(knew);
+                    fn_builder.puts(".");
                     fn_builder.puts(op);
-		    return VirgilExpr.AppExpr(fn_builder.toString(), Arrays.map(args, VirgilExpr.substTy(_, old, knew)));
-		} else {
-		    return VirgilExpr.AppExpr(fn, Arrays.map(args, VirgilExpr.substTy(_, old, knew)));
-		}
-	    }
+                    return VirgilExpr.AppExpr(fn_builder.toString(), Arrays.map(args, VirgilExpr.substTy(_, old, knew)));
+                } else {
+                    return VirgilExpr.AppExpr(fn, Arrays.map(args, VirgilExpr.substTy(_, old, knew)));
+                }
+            }
             BinOpExpr(op, l, r) => return VirgilExpr.BinOpExpr(op, l.substTy(old, knew), r.substTy(old, knew));
             Literal(t, s) => return if(Strings.equal(t, old), VirgilExpr.Literal(knew, s), this);
-	    VarExpr(e) => return this;
-	    IfExpr(c, t, e) => 
-		    return VirgilExpr.IfExpr(c.substTy(old, knew), t.substTy(old, knew), e.substTy(old, knew));
+            VarExpr(e) => return this;
+            IfExpr(c, t, e) => 
+                return VirgilExpr.IfExpr(c.substTy(old, knew), t.substTy(old, knew), e.substTy(old, knew));
         }
     }
     
@@ -618,26 +660,26 @@ component VirgilExprs {
         def elems = sexpr.forceList();
         if (!elems.head.matchesAtom("IfExpr")) return SExprRes.ParserBug;
 
-	def ty_ls = elems.tail;
-	if (ty_ls == null) return SExprRes.ParserBug;
+        def ty_ls = elems.tail;
+        if (ty_ls == null) return SExprRes.ParserBug;
 
-	def cond_ls = ty_ls.tail;
-	if (cond_ls == null) return SExprRes.ParserBug;
-	def cond_expr = VirgilExprs.from_sexpr(cond_ls.head);
+        def cond_ls = ty_ls.tail;
+        if (cond_ls == null) return SExprRes.ParserBug;
+        def cond_expr = VirgilExprs.from_sexpr(cond_ls.head);
         if (!cond_expr.isSuccess()) return cond_expr.castError();
-	def c = cond_expr.orDefault(VirgilExpr.Literal("", ""));
+        def c = cond_expr.orDefault(VirgilExpr.Literal("", ""));
 
-	def then_ls = cond_ls.tail;
-	if (then_ls == null) return SExprRes.ParserBug;
-	def then_expr = VirgilExprs.from_sexpr(then_ls.head);
+        def then_ls = cond_ls.tail;
+        if (then_ls == null) return SExprRes.ParserBug;
+        def then_expr = VirgilExprs.from_sexpr(then_ls.head);
         if (!then_expr.isSuccess()) return cond_expr.castError();
-	def t = then_expr.orDefault(VirgilExpr.Literal("", ""));
+        def t = then_expr.orDefault(VirgilExpr.Literal("", ""));
 
-	def else_ls = then_ls.tail;
-	if (else_ls == null) return SExprRes.ParserBug;
-	def else_expr = VirgilExprs.from_sexpr(else_ls.head);
+        def else_ls = then_ls.tail;
+        if (else_ls == null) return SExprRes.ParserBug;
+        def else_expr = VirgilExprs.from_sexpr(else_ls.head);
         if (!else_expr.isSuccess()) return cond_expr.castError();
-	def e = else_expr.orDefault(VirgilExpr.Literal("", ""));
+        def e = else_expr.orDefault(VirgilExpr.Literal("", ""));
 
         return SExprRes.Success(VirgilExpr.IfExpr(c, t, e));
     }

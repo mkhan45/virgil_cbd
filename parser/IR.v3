@@ -11,6 +11,17 @@ type SSAD {
         SSAD_IR.buildString(this, buf, indent);
         return buf.toString();
     }
+
+    def appended(rhs: SSAD) -> SSAD {
+        match (this) {
+            LetApp(n, f, args, rest) => return SSAD.LetApp(n, f, args, rest.appended(rhs));
+            LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, rest.appended(rhs));
+            If(cond, then, els, phis, rest) => return SSAD.If(cond, then, els, phis, rest.appended(rhs));
+            Void => return rhs;
+            Injected(inj, rest) => return SSAD.Injected(inj, rest.appended(rhs));
+            Final(v) => return rhs;
+        }
+    }
 }
 
 component SSAD_IR {
