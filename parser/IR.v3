@@ -7,16 +7,10 @@ type SSAD {
     case Final(v: string);
 
     def toString(indent: int) -> string {
-	def buf = StringBuilder.new();
-	SSAD_IR.buildString(this, buf, indent);
+        def buf = StringBuilder.new();
+        SSAD_IR.buildString(this, buf, indent);
         return buf.toString();
     }
-}
-
-class CBDType(rt: bool, prim: CBDPrimType) {}
-type CBDPrimType {
-    case I32;
-    case U32;
 }
 
 component SSAD_IR {
@@ -24,88 +18,88 @@ component SSAD_IR {
     var substs = HashMap<string, string>.new(Strings.hash, Strings.equal);
 
     def subst(s: string) -> string {
-	return if(substs[s] == null, s, substs[s]);
+        return if(substs[s] == null, s, substs[s]);
     }
 
     def uid() -> string {
         def res = Strings.format1("var%i", counter);
-	counter += 1;
-	return res;
+        counter += 1;
+        return res;
     }
     def uidl(l: string) -> string {
         def res = Strings.format2("%s%d", l, counter);
-	counter += 1;
-	return res;
+        counter += 1;
+        return res;
     }
 
     def from_virgil_aux(stmt: VirgilStmt, rest: SSAD) -> SSAD {
-	match (stmt) {
+        match (stmt) {
             Block(ss) => {
                 var res = rest;
-		for (i = ss.length - 1; i >= 0; i -= 1) {
-		    def s = ss[i];
+                for (i = ss.length - 1; i >= 0; i -= 1) {
+                    def s = ss[i];
                     res = from_virgil_aux(s, res);
-		}
-		return res;
-	    }
-	    Expr(e) => {
-	        def v = uidl("eff");
-		return from_virgil_expr(v, e, rest);
-	    }
-	    Return(e) => {
-		// skips rest
-	        def n = uidl("ret");
-                return from_virgil_expr(n, e, SSAD.Final(n));
-	    }
-	    Local(v, e, st, rtc) => {
-	        return from_virgil_expr(v, e, rest);
+                }
+                return res;
             }
-	    If(c, t, e) => {
-		def c_var = uidl("cond");
-	        def t_ssa = from_virgil(t);
-	        def e_ssa = from_virgil(e);
-		return from_virgil_expr(c_var, c, SSAD.If(c_var, t_ssa, e_ssa, [], rest));
-	    }
-	    _ => return SSAD.Void; // TODO
-	}
+            Expr(e) => {
+                def v = uidl("eff");
+                return from_virgil_expr(v, e, rest);
+            }
+            Return(e) => {
+                // skips rest
+                def n = uidl("ret");
+                return from_virgil_expr(n, e, SSAD.Final(n));
+            }
+            Local(v, e, st, rtc) => {
+                return from_virgil_expr(v, e, rest);
+            }
+            If(c, t, e) => {
+                def c_var = uidl("cond");
+                def t_ssa = from_virgil(t);
+                def e_ssa = from_virgil(e);
+                return from_virgil_expr(c_var, c, SSAD.If(c_var, t_ssa, e_ssa, [], rest));
+            }
+            _ => return SSAD.Void; // TODO
+        }
     }
 
     def from_virgil(stmt: VirgilStmt) -> SSAD {
-	return from_virgil_aux(stmt, SSAD.Void);
+        return from_virgil_aux(stmt, SSAD.Void);
     }
 
     def from_virgil_expr(name: string, expr: VirgilExpr, rest: SSAD) -> SSAD {
-	match (expr) {
+        match (expr) {
             AppExpr(f, args) => {
-		def arg_names = Arrays.map(args, fun (a: VirgilExpr) => uidl("arg"));
-		var res: SSAD = SSAD.LetApp(name, f, arg_names, rest);
-		for (a < args.length) {
-		    res = from_virgil_expr(arg_names[a], args[a], res);
-		}
-		return res;
+                def arg_names = Arrays.map(args, fun (a: VirgilExpr) => uidl("arg"));
+                var res: SSAD = SSAD.LetApp(name, f, arg_names, rest);
+                for (a < args.length) {
+                    res = from_virgil_expr(arg_names[a], args[a], res);
+                }
+                return res;
             }
-	    BinOpExpr(o, l, r) => {
-	        def ln = uidl("left");
-	        def rn = uidl("right");
-		def op_fn = Strings.format1("i32.%s", o); // TODO: other types
-		return from_virgil_expr(ln, l, 
-				from_virgil_expr(rn, r,
-					SSAD.LetApp(name, op_fn, [ln, rn], rest)));
-	    }
-	    Literal(tipe, string_rep) => {
+            BinOpExpr(o, l, r) => {
+                def ln = uidl("left");
+                def rn = uidl("right");
+                def op_fn = Strings.format1("i32.%s", o); // TODO: other types
+                return from_virgil_expr(ln, l, 
+                        from_virgil_expr(rn, r,
+                            SSAD.LetApp(name, op_fn, [ln, rn], rest)));
+            }
+            Literal(tipe, string_rep) => {
                 return SSAD.LetLit(name, string_rep, tipe, rest);
-	    }
-	    VarExpr(v) => {
+            }
+            VarExpr(v) => {
                 return SSAD.LetApp(name, "id", [v], rest);
             }
-	    IfExpr(c, t, e) => {
-		def cn = uidl("cond");
-		def tv = uidl("tv");
-		def ev = uidl("ev");
-		def t_ssa = from_virgil_expr(tv, t, SSAD.Final(tv));
-		def e_ssa = from_virgil_expr(ev, e, SSAD.Final(ev));
-		return from_virgil_expr(cn, c, SSAD.If(cn, t_ssa, e_ssa, [], rest));
-	    }
+            IfExpr(c, t, e) => {
+                def cn = uidl("cond");
+                def tv = uidl("tv");
+                def ev = uidl("ev");
+                def t_ssa = from_virgil_expr(tv, t, SSAD.Final(tv));
+                def e_ssa = from_virgil_expr(ev, e, SSAD.Final(ev));
+                return from_virgil_expr(cn, c, SSAD.If(cn, t_ssa, e_ssa, [], rest));
+            }
         }
     }
 
@@ -113,74 +107,67 @@ component SSAD_IR {
         match (ir) {
             LetApp(n, f, a, r) => {
                 def fresh = uidl(n);
-		substs[n] = fresh;
-		def args = Arrays.map(a, fun (v : string) => subst(v));
-		return SSAD.LetApp(fresh, f, args, ssa(r));
-	    }
-	    LetLit(n, l, t, r) => {
-		def fresh = uidl(n);
-		substs[n] = fresh;
-	        return SSAD.LetLit(fresh, l, t, ssa(r));
-	    }
-	    If(c, t, e, ps, r) => {
-	        return SSAD.If(subst(c), ssa(t), ssa(e), ps, ssa(r));
-	    }
-	    Void => return ir;
-	    Injected(inj, r) => return SSAD.Injected(inj, ssa(r));
-	    Final(v) => return SSAD.Final(subst(v));
-	}
+                substs[n] = fresh;
+                def args = Arrays.map(a, fun (v : string) => subst(v));
+                return SSAD.LetApp(fresh, f, args, ssa(r));
+            }
+            LetLit(n, l, t, r) => {
+                def fresh = uidl(n);
+                substs[n] = fresh;
+                return SSAD.LetLit(fresh, l, t, ssa(r));
+            }
+            If(c, t, e, ps, r) => {
+                return SSAD.If(subst(c), ssa(t), ssa(e), ps, ssa(r));
+            }
+            Void => return ir;
+            Injected(inj, r) => return SSAD.Injected(inj, ssa(r));
+            Final(v) => return SSAD.Final(subst(v));
+        }
     }
 
     def buildString(ir: SSAD, buf: StringBuilder, indent: int) {
         match (ir) {
-	    LetApp(n, f, a, r) => {
-		for (i < indent) buf.tab();
-		def fn = if(Strings.equal(f, "id"), "", f);
-		buf.puts("def ").puts(n).puts(" = ");
-		buf.puts(fn); buf.puts("(");
-		for (i < a.length) {
-		    buf.puts(a[i]);
-		    if (i != a.length - 1) buf.puts(", ");
-		}
-		buf.puts(");\n");
-		buildString(r, buf, indent);
-	    }
-	    LetLit(n, l, t, r) => {
-		for (i < indent) buf.tab();
-		buf.puts("def ").puts(n).puts(" : ").puts(t).puts(" = ");
-		buf.puts(l).puts(";\n");
-		buildString(r, buf, indent);
-	    }
-	    Void => {
-		return;
-	    }
-	    Final(v) => {
-		for (i < indent) buf.tab();
-		buf.puts("return ").puts(v).puts(";\n");
-	    }
-	    If(c, t, e, ps, r) => {
-		for (i < indent) buf.tab();
-	        buf.puts("if (").puts(c).puts(") {\n");
-		buildString(t, buf, indent + 1);
-		for (i < indent) buf.tab();
-		buf.puts("} else {\n");
-		buildString(e, buf, indent + 1);
-		for (i < indent) buf.tab();
-		buf.puts("}\n");
-		buildString(r, buf, indent);
-	    }
-	    _ => {
-		return; // TODO
-	    }
-	}
-    }
-
-    def intrinsic_type(fn_name: string) -> (Array<CBDType>, CBDType) {
-	if (Strings.equal(fn_name, "readImmULEB32")) return ([], CBDType.new(false, CBDPrimType.U32));
-	if (Strings.equal(fn_name, "readImmILEB32")) return ([], CBDType.new(false, CBDPrimType.I32));
-
-	if (Strings.equal(fn_name, "pop_i32")) return ([], CBDType.new(true, CBDPrimType.I32));
-
-	return (null, CBDType.new(false, CBDPrimType.I32));
+            LetApp(n, f, a, r) => {
+                for (i < indent) buf.tab();
+                def fn = if(Strings.equal(f, "id"), "", f);
+                buf.puts("def ").puts(n).puts(" = ");
+                buf.puts(fn); buf.puts("(");
+                for (i < a.length) {
+                    buf.puts(a[i]);
+                    if (i != a.length - 1) buf.puts(", ");
+                }
+                buf.puts(");\n");
+                buildString(r, buf, indent);
+            }
+            LetLit(n, l, t, r) => {
+                for (i < indent) buf.tab();
+                buf.puts("def ").puts(n).puts(" : ").puts(t).puts(" = ");
+                buf.puts(l).puts(";\n");
+                buildString(r, buf, indent);
+            }
+            Void => {
+                return;
+            }
+            Final(v) => {
+                for (i < indent) buf.tab();
+                buf.puts("return ").puts(v).puts(";\n");
+            }
+            If(c, t, e, ps, r) => {
+                for (i < indent) buf.tab();
+                buf.puts("if (").puts(c).puts(") {\n");
+                buildString(t, buf, indent + 1);
+                for (i < indent) buf.tab();
+                buf.puts("} else {\n");
+                buildString(e, buf, indent + 1);
+                for (i < indent) buf.tab();
+                buf.puts("}\n");
+                buildString(r, buf, indent);
+            }
+            Injected(inj, r) => {
+                for (i < indent) buf.tab();
+                buf.puts(inj).ln();
+                buildString(r, buf, indent);
+            }
+        }
     }
 }

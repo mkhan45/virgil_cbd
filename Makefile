@@ -43,7 +43,7 @@ generate_interpreter: cbd_sexp
 
 generate_validator: cbd_sexp
 	cp defs/CanonicalDefs.v3 defs/CanonicalDefs.v3cbd
-	$(VIRGIL) -fun-exprs $(VIRGIL_STD) $(PARSER_DIR)/VirgilSexpr.v3 $(PARSER_DIR)/IR.v3 validator/ValidatorGen.v3 defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp validator/ValidatorTemplate.v3 > validator/Validator.v3
+	$(VIRGIL) -fun-exprs $(VIRGIL_STD) $(PARSER_DIR)/VirgilSexpr.v3 $(PARSER_DIR)/IR.v3 $(PARSER_DIR)/IRAnalysis.v3 validator/ValidatorGen.v3 defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp validator/ValidatorTemplate.v3 > validator/Validator.v3
 
 run_validator: generate_validator
 	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL) validator/Validator.v3 validator/ValidatorMain.v3 $(ARGS)

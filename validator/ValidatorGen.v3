@@ -3,28 +3,28 @@ component STFieldMgr {
     var entries: Vector<long> = Vector.new(); // keep track of which bitset insts are actually used
 
     def fieldIdx(field_name: string, field_tipe: string) -> int {
-    	for (i < fields.length) if (Strings.equal(fields[i].0, field_name)) {
-	    // TODO: check field_tipe eq
-	    return i;
-	}
+        for (i < fields.length) if (Strings.equal(fields[i].0, field_name)) {
+            // TODO: check field_tipe eq
+            return i;
+        }
 
-	fields.put((field_name, field_tipe));
-	return fields.length - 1;
+        fields.put((field_name, field_tipe));
+        return fields.length - 1;
     }
 
     def fieldToBitmask(field_name: string, field_tipe: string) -> long {
-	def idx = byte.!(fieldIdx(field_name, field_tipe));
-	return 1L << idx;
+        def idx = byte.!(fieldIdx(field_name, field_tipe));
+        return 1L << idx;
     }
 
     def fieldsToBitset(fields: Vector<(string, string)>) -> long {
-	var set = 0L;
-	for (i < fields.length) {
-	    def mask = fieldToBitmask(fields[i]);
-	    set |= mask;
-	}
+        var set = 0L;
+        for (i < fields.length) {
+            def mask = fieldToBitmask(fields[i]);
+            set |= mask;
+        }
 
-	return set;
+        return set;
     }
 
     def bitsetToFields(bs: long) -> Vector<(string, string)> {
@@ -41,25 +41,25 @@ component STFieldMgr {
     }
 
     def putEntry(fields: Vector<(string, string)>) -> long {
-	def bs = fieldsToBitset(fields);
-	if (bs == 0) return 0;
+        def bs = fieldsToBitset(fields);
+        if (bs == 0) return 0;
 
         for (i < entries.length) if (entries[i] == bs) return bs;
 
-	entries.put(bs);
-	return bs;
+        entries.put(bs);
+        return bs;
     }
 
     def bitsetCaseName(bs: long) -> string {
-	def builder = StringBuilder.new();
-	def fields = bitsetToFields(bs);
-	for (i < fields.length) {
-	    def n = fields[i].0;
-	    n[0] -= 32; // uppercase first letter
-	    builder.puts(n);
-	    n[0] += 32;
-	}
-	return builder.toString();
+        def builder = StringBuilder.new();
+        def fields = bitsetToFields(bs);
+        for (i < fields.length) {
+            def n = fields[i].0;
+            n[0] -= 32; // uppercase first letter
+            builder.puts(n);
+            n[0] += 32;
+        }
+        return builder.toString();
     }
 }
 
@@ -67,18 +67,19 @@ def getSidetableFields(stmt: VirgilStmt, buf: Vector<(string, string)>) {
     match (stmt) {
         Expr(_) => return;
         Return(_) => return;
-	Match(_, _) => return;
-	Injected(_) => return;
+        Match(_, _) => return;
+        Injected(_) => return;
+        Assign(_, _) => return;
         Block(ss) => for (s in ss) getSidetableFields(s, buf);
-	If(_, t, e) => {
-	    getSidetableFields(t, buf);
-	    getSidetableFields(e, buf);
-	}
+        If(_, t, e) => {
+            getSidetableFields(t, buf);
+            getSidetableFields(e, buf);
+        }
         Local(name, _, sidetable, rtcast) => if (sidetable) buf.put((name, "int")); // TODO: tipe
     }
 }
 
-class CBDDef(field_bitset: long, opcode: string, body: VirgilStmt) {
+class CBDDef(field_bitset: long, opcode: string, body: SSAD) {
     def buildString(buf: StringBuilder) {
         // TODO
     }
@@ -86,7 +87,7 @@ class CBDDef(field_bitset: long, opcode: string, body: VirgilStmt) {
 
 class SidetableEntry(fields: Array<(string, string)>) {
     def field_bitset() -> long {
-	return 0; // TODO
+        return 0; // TODO
     }
 }
 
@@ -122,7 +123,7 @@ def extractInstrNames(v3_file: string) -> Array<string> {
             defs.put(fn_name);
             cur_line += 1;
         }
-        
+
         cur_line += 1;
     }
 
@@ -161,113 +162,115 @@ def containsStr(strs: Range<string>, k: string) -> bool {
 
 def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
     match (stmt) {
-	Expr(_) => return stmt;
-	Match(_, _) => return stmt;
-	Injected(_) => return stmt;
+        Expr(_) => return stmt;
+        Match(_, _) => return stmt;
+        Injected(_) => return stmt;
         Block(ss) => return VirgilStmt.Block(Arrays.map(ss, instrumentSTLocals(_, bs)));
-	If(c, t, e) => return VirgilStmt.If(c, instrumentSTLocals(t, bs), instrumentSTLocals(e, bs));
+        If(c, t, e) => return VirgilStmt.If(c, instrumentSTLocals(t, bs), instrumentSTLocals(e, bs));
+        Assign(_, _) => return stmt;
         Return(_) => {
-	    // TODO: this should be independent of return, move it to extractDefs
-	    if (bs == 0) return stmt;
-	    // extract fields from st_builder into real st case
-	    def name = STFieldMgr.bitsetCaseName(bs);
-	    def fields = STFieldMgr.bitsetToFields(bs);
-	    def injBuilder = StringBuilder.new();
-	    injBuilder.puts("def st_case = STEntry.");
-	    injBuilder.puts(name);
-	    injBuilder.puts("(\n");
-	    for (i < fields.length) {
-		injBuilder.puts("      st_builder.");
-	        injBuilder.puts(fields[i].0);
-		if (i + 1 < fields.length) injBuilder.puts(",");
-		injBuilder.puts("\n");
-	    }
-	    injBuilder.puts("  );\n");
-	    injBuilder.puts("  st_entries.put(st_case);");
-	    def inj = VirgilStmt.Injected(injBuilder.toString());
-	    return inj.appendStmt(stmt).flatten();
-	}
-	Local(name, body, sidetable, rtcast) => {
-	    if (Strings.equal(name, "test")) {
-		// TODO: this is a hack
+            // TODO: this should be independent of return, move it to extractDefs
+            if (bs == 0) return stmt;
+            // extract fields from st_builder into real st case
+            def name = STFieldMgr.bitsetCaseName(bs);
+            def fields = STFieldMgr.bitsetToFields(bs);
+            def injBuilder = StringBuilder.new();
+            injBuilder.puts("def st_case = STEntry.");
+            injBuilder.puts(name);
+            injBuilder.puts("(\n");
+            for (i < fields.length) {
+                injBuilder.puts("      st_builder.");
+                injBuilder.puts(fields[i].0);
+                if (i + 1 < fields.length) injBuilder.puts(",");
+                injBuilder.puts("\n");
+            }
+            injBuilder.puts("  );\n");
+            injBuilder.puts("  st_entries.put(st_case);");
+            def inj = VirgilStmt.Injected(injBuilder.toString());
+            return inj.appendStmt(stmt).flatten();
+        }
+        Local(name, body, sidetable, rtcast) => {
+            if (Strings.equal(name, "test")) {
+                // TODO: this is a hack
                 return VirgilStmt.Injected("var test = TypeVar.I32;");
-	    }
-	    var new_body = body;
-	    if (rtcast != null) {
-	        new_body = VirgilExpr.AppExpr(rtcast, [body]);
-	    }
-	    var base = VirgilStmt.Local(name, new_body, sidetable, rtcast);
-	    if (sidetable) {
-		def inj_builder = StringBuilder.new();
-		inj_builder.puts("st_builder.");
-		inj_builder.puts(name);
-		inj_builder.puts(" = ");
-		inj_builder.puts(name);
-		inj_builder.puts(";");
-		def assignment = VirgilStmt.Injected(inj_builder.toString());
-		return base.appendStmt(assignment).flatten();
-	    } else {
-	        return base;
-	    }
-	}
+            }
+            var new_body = body;
+            if (rtcast != null) {
+                new_body = VirgilExpr.AppExpr(rtcast, [body]);
+            }
+            var base = VirgilStmt.Local(name, new_body, sidetable, rtcast);
+            if (sidetable) {
+                def inj_builder = StringBuilder.new();
+                inj_builder.puts("st_builder.");
+                inj_builder.puts(name);
+                inj_builder.puts(" = ");
+                inj_builder.puts(name);
+                inj_builder.puts(";");
+                def assignment = VirgilStmt.Injected(inj_builder.toString());
+                return base.appendStmt(assignment).flatten();
+            } else {
+                return base;
+            }
+        }
     }
 }
 
 def instrumentSTLocalsSSA(ssa: SSAD, bs: long) -> SSAD {
     match (ssa) {
-    	Void => return ssa;
-	Injected(inj, rest) => return SSAD.Injected(inj, instrumentSTLocalsSSA(rest, bs));
-	LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, instrumentSTLocalsSSA(rest, bs));
-	If(c, t, e, phis, rest) => return SSAD.If(
-	    c, 
-	    instrumentSTLocalsSSA(t, bs),
-	    instrumentSTLocalsSSA(e, bs),
-	    phis,
-	    instrumentSTLocalsSSA(rest, bs));
-	LetApp(n, f, args, rest) => {
-	    return ssa; // TODO
-	}
-	Final(v) => {
-	    if (bs == 0) return ssa;
+        Void => return ssa;
+        Injected(inj, rest) => return SSAD.Injected(inj, instrumentSTLocalsSSA(rest, bs));
+        LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, instrumentSTLocalsSSA(rest, bs));
+        If(c, t, e, phis, rest) => return SSAD.If(
+                c, 
+                instrumentSTLocalsSSA(t, bs),
+                instrumentSTLocalsSSA(e, bs),
+                phis,
+                instrumentSTLocalsSSA(rest, bs));
+        LetApp(n, f, args, rest) => {
+            return ssa; // TODO
+        }
+        Final(v) => {
+            if (bs == 0) return ssa;
 
-	    // insert completed st record into table
-	    def name = STFieldMgr.bitsetCaseName(bs);
-	    def fields = STFieldMgr.bitsetToFields(bs);
-	    def injBuilder = StringBuilder.new();
-	    for (i < fields.length) {
-		injBuilder.puts("      st_builder.").puts(fields[i].0);
-		if (i + 1 < fields.length) injBuilder.puts(",");
-		injBuilder.puts("\n");
-	    }
-	    injBuilder.puts("  );\n");
-	    injBuilder.puts("  st_entries.put(st_case);");
-	    return SSAD.Injected(injBuilder.toString(), ssa);
-	}
+            // insert completed st record into table
+            def name = STFieldMgr.bitsetCaseName(bs);
+            def fields = STFieldMgr.bitsetToFields(bs);
+            def injBuilder = StringBuilder.new();
+            for (i < fields.length) {
+                injBuilder.puts("      st_builder.").puts(fields[i].0);
+                if (i + 1 < fields.length) injBuilder.puts(",");
+                injBuilder.puts("\n");
+            }
+            injBuilder.puts("  );\n");
+            injBuilder.puts("  st_entries.put(st_case);");
+            return SSAD.Injected(injBuilder.toString(), ssa);
+        }
     }
 }
 
 def killConditionals(stmt: VirgilStmt) -> VirgilStmt {
     match (stmt) {
         Expr(_) => return stmt;
-	Match(_, _) => return stmt;
-	Injected(_) => return stmt;
+        Match(_, _) => return stmt;
+        Injected(_) => return stmt;
         Return(_) => return stmt;
-	Local(_, _, _, _) => return stmt;
+        Local(_, _, _, _) => return stmt;
+        Assign(_, _) => return stmt;
         Block(ss) => return VirgilStmt.Block(Arrays.map(ss, killConditionals));
-	If(c, t, e) => {
+        If(c, t, e) => {
             var is_static = false;
-	    match (c) {
+            match (c) {
                 AppExpr(f, a) => is_static = Strings.startsWith(f, "m_") || Strings.startsWith(f, "f_");
-		_ => {}
-	    }
-	    // remove test if it's not static, because then we run both branches
-	    if (!is_static) {
-		if (e.isEmptyBlock()) return t;
-		else return t.appendStmt(e);
+                _ => {}
+            }
+            // remove test if it's not static, because then we run both branches
+            if (!is_static) {
+                if (e.isEmptyBlock()) return t;
+                else return t.appendStmt(e);
             } else {
                 return stmt;
             }
-	}
+        }
     }
 }
 
@@ -285,14 +288,27 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
                     def stmt_res = VirgilStmts.from_sexpr(sexp);
                     match (stmt_res) {
                         Success(stmt) => {
-			    def st_field_buf = Vector<(string, string)>.new();
-			    getSidetableFields(stmt, st_field_buf);
+                            def st_field_buf = Vector<(string, string)>.new();
+                            getSidetableFields(stmt, st_field_buf);
 
-			    def bs = STFieldMgr.putEntry(st_field_buf);
-			    var substStmt = stmt.substTy("i32", "TypeVar.I32");
-			    def st_fields = STFieldMgr.bitsetToFields(bs);
- 			    def instStmt = killConditionals(instrumentSTLocals(substStmt, bs)).flatten();
-			    defs.put(CBDDef.new(bs, meth, instStmt));
+                            def bs = STFieldMgr.putEntry(st_field_buf);
+
+                            def ir = SSAD_IR.from_virgil(stmt);
+                            def ssa = SSAD_IR.ssa(ir);
+                            def analysis = SSADCtx.new(ssa);
+
+                            // var substStmt = stmt.substTy("i32", "TypeVar.I32");
+                            // def instStmt = killConditionals(instrumentSTLocals(substStmt, bs)).flatten();
+                            def sb = StringBuilder.new();
+                            def vars = Maps.keyList(analysis.static);
+                            for (v = vars; v != null; v = v.tail) {
+                                sb.puts("// ").puts(v.head).puts(" -- ");
+                                sb.puts("static: ").puts(if(analysis.static[v.head], "yes", "no")).puts(", ");
+                                sb.puts("type: ").puts(analysis.types[v.head].toString());
+                                sb.ln();
+                            }
+                            def instSsa = SSAD.Injected(sb.toString(), ssa);
+                            defs.put(CBDDef.new(bs, meth, instSsa));
                         }
                         _ => {
                             System.write(2, meth);
@@ -342,14 +358,14 @@ def main(args: Array<string>) {
     dispatch_builder.puts("  DISPATCH_TABLE = Array.new(0xE5 + 1);\n"); // 0xE5 = highest opcode (SWITCH)
 
     for (d in defs) {
-	codestr_builder.puts("// st bitset: ");
-	codestr_builder.putd(d.field_bitset);
-	codestr_builder.ln();
+        codestr_builder.puts("// st bitset: ");
+        codestr_builder.putd(d.field_bitset);
+        codestr_builder.ln();
         codestr_builder.puts("def ");
         codestr_builder.puts(d.opcode);
-        codestr_builder.puts("() ");
-        codestr_builder.puts(d.body.toString());
-        codestr_builder.ln();
+        codestr_builder.puts("() ").puts("{\n");
+        codestr_builder.puts(d.body.toString(1));
+        codestr_builder.puts("}\n");
 
         dispatch_builder.puts("  DISPATCH_TABLE[Opcode.");
         dispatch_builder.puts(d.opcode);
@@ -370,32 +386,32 @@ def main(args: Array<string>) {
     for (i < STFieldMgr.fields.length) {
         def field = STFieldMgr.fields[i].0;
         def tp = STFieldMgr.fields[i].1;
-	st_builder_builder.puts("    var ");
-	st_builder_builder.puts(field);
-	st_builder_builder.puts(": ");
-	st_builder_builder.puts(tp);
-	st_builder_builder.puts(";\n");
+        st_builder_builder.puts("    var ");
+        st_builder_builder.puts(field);
+        st_builder_builder.puts(": ");
+        st_builder_builder.puts(tp);
+        st_builder_builder.puts(";\n");
     }
     st_builder_builder.puts("}\n");
     st_builder_builder.puts("type STEntry {\n");
     // TODO
     for (i < STFieldMgr.entries.length) {
         def entry_bs = STFieldMgr.entries[i];
-	def entry_fields = STFieldMgr.bitsetToFields(entry_bs);
-	def entry_name = STFieldMgr.bitsetCaseName(entry_bs);
-	st_builder_builder.puts("    case ");
-	st_builder_builder.puts(entry_name);
-	st_builder_builder.puts("(\n");
-	// TODO
-	for (i < entry_fields.length) {
-	    st_builder_builder.puts("        ");
-	    st_builder_builder.puts(entry_fields[i].0);
-	    st_builder_builder.puts(": ");
-	    st_builder_builder.puts(entry_fields[i].1);
-	    if (i + 1 < entry_fields.length) st_builder_builder.puts(",");
-	    st_builder_builder.puts("\n");
+        def entry_fields = STFieldMgr.bitsetToFields(entry_bs);
+        def entry_name = STFieldMgr.bitsetCaseName(entry_bs);
+        st_builder_builder.puts("    case ");
+        st_builder_builder.puts(entry_name);
+        st_builder_builder.puts("(\n");
+        // TODO
+        for (i < entry_fields.length) {
+            st_builder_builder.puts("        ");
+            st_builder_builder.puts(entry_fields[i].0);
+            st_builder_builder.puts(": ");
+            st_builder_builder.puts(entry_fields[i].1);
+            if (i + 1 < entry_fields.length) st_builder_builder.puts(",");
+            st_builder_builder.puts("\n");
         }
-	st_builder_builder.puts("    );\n");
+        st_builder_builder.puts("    );\n");
     }
     st_builder_builder.puts("}\n");
 

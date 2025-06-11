@@ -122,6 +122,11 @@ type VirgilStmt {
                 expr.buildString(buf);
                 buf.putc(';');
             }
+	    Assign(var_name, expr) => {
+		buf.puts(var_name).puts(" = ");
+		expr.buildString(buf);
+		buf.putc(';');
+	    }
             Match(subj, branches) => {
                 buf.puts("match (");
                 subj.buildString(buf);
@@ -228,6 +233,7 @@ type VirgilStmt {
 	    Expr(e) => return VirgilStmt.Expr(e.substTy(old, knew));
 	    Return(e) => return VirgilStmt.Return(e.substTy(old, knew));
 	    Local(v, e, st, rtcast) => return VirgilStmt.Local(v, e.substTy(old, knew), st, rtcast);
+	    Assign(v, e) => return VirgilStmt.Assign(v, e.substTy(old, knew));
 	    Match(s, b) => return this; // TODO
 	    If(c, t, e) => return VirgilStmt.If(c.substTy(old, knew), t.substTy(old, knew), e.substTy(old, knew));
 	    Injected(s) => return this;

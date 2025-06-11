@@ -1,27 +1,57 @@
+type CBDType {
+    case I32;
+    case U32;
+    case Bot;
+
+    def toString() -> string {
+        match (this) {
+            I32 => return "i32";
+            U32 => return "u32";
+            Bot => return "⊥";
+        }
+    }
+}
+
+component CBDTypes {
+    def intrinsic_type(fn_name: string) -> (Array<CBDType>, CBDType) {
+        if (Strings.equal(fn_name, "readImmULEB32")) return ([], CBDType.U32);
+        if (Strings.equal(fn_name, "readImmILEB32")) return ([], CBDType.I32);
+
+        if (Strings.equal(fn_name, "pop_i32")) return ([], CBDType.I32);
+
+        return (null, CBDType.Bot);
+    }
+}
+
 class SSADCtx {
     var body: SSAD;
-    var static: HashMap<string, int>;
+    var static: HashMap<string, bool>;
+    var types: HashMap<string, CBDType>;
 
     new(body) {
         static = HashMap.new(Strings.hash, Strings.equal);
         getStatic(body);
+
+        types = HashMap.new(Strings.hash, Strings.equal);
+        getTypes(body);
     }
 
     def getStatic(node: SSAD) {
         match (node) {
             LetApp(n, f, as, rest) => {
                 def f_static = Strings.startsWith(f, "f_")
-		            || Strings.startsWith(f, "m_")
-		            || Strings.startsWith(f, "read");
+                    || Strings.startsWith(f, "m_")
+                    || Strings.startsWith(f, "read")
+                    || Strings.equal(f, "id");
                 var as_static = true;
                 for (a in as) {
                     as_static &= static[a]; // a ∈ static because all args are already defined
                 }
-                static.put(n, f_static && as_static);
+                static[n] = f_static && as_static;
                 getStatic(rest);
             }
             LetLit(n, l, t, rest) => {
-                static.put(n, true);
+                static[n] = true;
                 getStatic(rest);
             }
             If(c, t, e, phis, rest) => {
@@ -34,6 +64,34 @@ class SSADCtx {
                     static[p] = static[c];
                 }
                 getStatic(rest);
+            }
+            Void => return;
+            Injected(i, rest) => getStatic(rest);
+            Final(v) => return;
+        }
+    }
+
+    def getTypes(node: SSAD) {
+        match (node) {
+	        LetApp(n, f, as, rest) => {
+                // don't bother checking args
+                if (Strings.equal(f, "id")) {
+                    types[n] = types[as[0]];
+                } else {
+                    def f_type = CBDTypes.intrinsic_type(f);
+                    types[n] = f_type.1;
+                }
+                getTypes(rest);
+            }
+            LetLit(n, l, t, rest) => {
+                var tp: CBDType = CBDType.Bot;
+                if (Strings.equal(t, "int")) tp = CBDType.I32;
+                types[n] = tp;
+                getTypes(rest);
+            }
+            If(c, t, e, phis, rest) => {
+                // TODO: give phis types
+                getTypes(rest);
             }
             Void => return;
             Injected(i, rest) => getStatic(rest);
