@@ -278,6 +278,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
     // 1. run both sides of a conditional if the cond is not static (from wasm's perspective)
     //      - if the cond *is* static, we only want to run one branch, so we want to emit an if
     // 2. identify when a transition to runtime types happen, and insert an rtcast
+    //      - also, insert rtcast as needed when rt fn applied to static var
     // 3. add sidetable instrumentation
     match (ssa) {
         Void => return ssa;

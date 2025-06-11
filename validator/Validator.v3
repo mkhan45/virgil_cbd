@@ -6,10 +6,10 @@ def UNREACHABLE() {
 }
 // st bitset: 0
 def LOCAL_GET() {
-	// val13 -- static: no, type: ⊥, effect: none
+	// val13 -- static: yes, type: ⊥, effect: none
 // index8 -- static: yes, type: u32, effect: none
 // eff216 -- static: no, type: ⊥, effect: push
-// arg414 -- static: no, type: ⊥, effect: none
+// arg414 -- static: yes, type: ⊥, effect: none
 // arg315 -- static: yes, type: ⊥, effect: none
 // arg611 -- static: yes, type: u32, effect: none
 // arg512 -- static: yes, type: ⊥, effect: none
@@ -71,13 +71,13 @@ def LOCAL_TEE() {
 // st bitset: 0
 def GLOBAL_GET() {
 	// index59 -- static: yes, type: u32, effect: none
-// arg5565 -- static: no, type: ⊥, effect: none
+// arg5565 -- static: yes, type: ⊥, effect: none
 // arg5466 -- static: yes, type: ⊥, effect: none
 // arg5762 -- static: yes, type: u32, effect: none
 // arg5663 -- static: yes, type: ⊥, effect: none
 // eff5367 -- static: no, type: ⊥, effect: push
 // arg5860 -- static: yes, type: u32, effect: none
-// val64 -- static: no, type: ⊥, effect: none
+// val64 -- static: yes, type: ⊥, effect: none
 // tv61 -- static: yes, type: ⊥, effect: none
 
 	def index59 = readImmULEB32();

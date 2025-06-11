@@ -1,6 +1,10 @@
+____________________________________________
+
 - add assign stmts to virgilsexpr
 	- properly conv to ssa
-- infer variable types in ssa
+- need to sometimes infer arg types backwards
+
+_____________________________________________
 
 # "Static"
 

@@ -92,9 +92,12 @@ class SSADCtx {
     def getStatic(node: SSAD) {
         match (node) {
             LetApp(n, f, as, rest) => {
+                // TODO: handle when function has static args and dyn result
                 def f_static = Strings.startsWith(f, "f_")
                     || Strings.startsWith(f, "m_")
                     || Strings.startsWith(f, "read")
+                    || Strings.startsWith(f, "getLocal")
+                    || Strings.startsWith(f, "getGlobal")
                     || Strings.equal(f, "id");
                 var as_static = true;
                 for (a in as) as_static &= static[a]; // a ∈ static because all args are already defined
