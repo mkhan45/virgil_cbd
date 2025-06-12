@@ -156,9 +156,9 @@ def I32_ADD() {
 def I32_SUB() {
 	def x0 = pop_i32();
 	def y1 = pop_i32();
-	def arg102 = (x0);
-	def arg93 = (y1);
-	def r4 = i32.-(arg93, arg102);
+	def left92 = (y1);
+	def right103 = (x0);
+	def r4 = -(left92, right103);
 	def arg85 = (r4);
 	def eff76 = push_i32(arg85);
 }
@@ -211,25 +211,23 @@ def BR() {
 }
 def BR_IF() {
 	def depth0 = readImmULEB32();
-	def arg131 = (depth0);
-	def label2 = f_getLabel(arg131);
+	def arg121 = (depth0);
+	def label2 = f_getLabel(arg121);
 	def cond3 = pop_i32();
-	def left114 = (cond3);
-	def right125 : int = 0;
-	def cond76 = !=(left114, right125);
-	if (cond76) {
-		def arg97 = (label2);
-		def eff88 = doBranch(arg97);
+	def left104 = (cond3);
+	def right115 : int = 0;
+	def cond66 = !=(left104, right115);
+	if (cond66) {
+		def arg87 = (label2);
+		def eff78 = doBranch(arg87);
 	} else {
-		def eff109 = doFallThru();
+		def eff99 = doFallThru();
 	}
-	def ret610 = (void);
-	return ret610;
 }
 def BLOCK() {
 	def bt0 = readImmBlockType();
-	def arg121 = (bt0);
-	def eff112 = doBlock(arg121);
+	def arg111 = (bt0);
+	def eff102 = doBlock(arg111);
 }
 def LOOP() {
 	def bt0 = readImmBlockType();

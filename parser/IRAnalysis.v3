@@ -24,6 +24,33 @@ component CBDTypes {
 
         return (null, CBDType.Bot);
     }
+
+    // should extract these from a file?
+    def intrinsic_static(fn_name: string) -> (Array<bool>, bool) {
+        if (Strings.equal(fn_name, "readImmULEB32")) return ([], true);
+        if (Strings.equal(fn_name, "readImmILEB32")) return ([], true);
+
+        if (Strings.equal(fn_name, "pop_i32")) return ([], false);
+        if (Strings.equal(fn_name, "pop_f32")) return ([], false);
+        if (Strings.equal(fn_name, "push_i32")) return ([false], false);
+        if (Strings.equal(fn_name, "push_f32")) return ([false], false);
+
+        if (Strings.equal(fn_name, "f_getLabel")) return ([true], true); 
+        if (Strings.equal(fn_name, "f_getLocalType")) return ([true], true); 
+
+        if (Strings.equal(fn_name, "m_getGlobalType")) return ([true], true); 
+        if (Strings.equal(fn_name, "m_getFieldKind")) return ([true, true], true); 
+        if (Strings.equal(fn_name, "m_getFieldOffset")) return ([true, true], true); 
+        if (Strings.equal(fn_name, "m_isMemory64")) return ([true], true); 
+        if (Strings.equal(fn_name, "m_isTable64")) return ([true], true); 
+        if (Strings.equal(fn_name, "m_getFuncSignature")) return ([true], true); 
+        if (Strings.equal(fn_name, "m_getSignature")) return ([true], true); 
+
+        if (Strings.equal(fn_name, "getLocal")) return ([true, true], false); 
+        if (Strings.equal(fn_name, "getGlobal")) return ([true, true], false); 
+
+        return (null, false);
+    }
 }
 
 class EffectResult(stack_delta: int, ctl_xfer: bool) {}
@@ -92,16 +119,18 @@ class SSADCtx {
     def getStatic(node: SSAD) {
         match (node) {
             LetApp(n, f, as, rest) => {
-                // TODO: handle when function has static args and dyn result
-                def f_static = Strings.startsWith(f, "f_")
-                    || Strings.startsWith(f, "m_")
-                    || Strings.startsWith(f, "read")
-                    || Strings.startsWith(f, "getLocal")
-                    || Strings.startsWith(f, "getGlobal")
-                    || Strings.equal(f, "id");
-                var as_static = true;
-                for (a in as) as_static &= static[a]; // a ∈ static because all args are already defined
-                static[n] = f_static && as_static;
+                if (Strings.equal(f, "id")) {
+                    static[n] = static[as[0]];
+                } else {
+                    def f_static = CBDTypes.intrinsic_static(f);
+                    def args_static = f_static.0;
+                    def ret_static = f_static.1;
+
+                    if (args_static != null)
+                        for (i < as.length) static[as[i]] = args_static[i];
+                    static[n] = ret_static;
+                }
+
                 getStatic(rest);
             }
             LetLit(n, l, t, rest) => {
@@ -136,7 +165,7 @@ class SSADCtx {
                 if (Strings.startsWith(f, "push")) effects[n] = CBDEffect.Push;
                 if (Strings.startsWith(f, "pop")) effects[n] = CBDEffect.Pop;
                 if (Strings.equal(f, "doBranch")) effects[n] = CBDEffect.CtlXfer;
-                if (Strings.equal(f, "doFallthru")) effects[n] = CBDEffect.CtlXfer;
+                if (Strings.equal(f, "doFallThru")) effects[n] = CBDEffect.CtlXfer;
 
                 getTypes(rest);
             }

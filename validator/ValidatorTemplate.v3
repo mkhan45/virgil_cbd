@@ -37,6 +37,7 @@ type TypeVar {
     case I32 {
         def plus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
         def minus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
+        def equals(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
     }
     case U32;
     case U64;
