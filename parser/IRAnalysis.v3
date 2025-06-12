@@ -72,6 +72,7 @@ type CBDEffect {
     // TODO: type push and pop?
     case Push;
     case Pop;
+    case State;
     case CtlXfer;
     case None;
 
@@ -95,6 +96,7 @@ type CBDEffect {
         match (this) {
             Push => return "push";
             Pop => return "pop";
+            State => return "state";
             CtlXfer => return "ctl";
             None => return "none";
         }
@@ -164,12 +166,20 @@ class SSADCtx {
                 effects[n] = CBDEffect.None;
                 if (Strings.startsWith(f, "push")) effects[n] = CBDEffect.Push;
                 if (Strings.startsWith(f, "pop")) effects[n] = CBDEffect.Pop;
+
                 if (Strings.equal(f, "doBranch")) effects[n] = CBDEffect.CtlXfer;
                 if (Strings.equal(f, "doFallThru")) effects[n] = CBDEffect.CtlXfer;
                 if (Strings.equal(f, "doBlock")) effects[n] = CBDEffect.CtlXfer;
                 if (Strings.equal(f, "doLoop")) effects[n] = CBDEffect.CtlXfer;
                 if (Strings.equal(f, "doReturn")) effects[n] = CBDEffect.CtlXfer;
                 if (Strings.equal(f, "doEnd")) effects[n] = CBDEffect.CtlXfer;
+                if (Strings.equal(f, "doCall")) effects[n] = CBDEffect.CtlXfer;
+                if (Strings.equal(f, "doTry")) effects[n] = CBDEffect.CtlXfer;
+                if (Strings.equal(f, "trapUnreachable")) effects[n] = CBDEffect.CtlXfer;
+
+                if (Strings.equal(f, "setLocal")) effects[n] = CBDEffect.State;
+                if (Strings.equal(f, "setGlobal")) effects[n] = CBDEffect.State;
+                if (Strings.equal(f, "mach_writeTable64")) effects[n] = CBDEffect.State;
 
                 if (Strings.startsWith(f, "read")) effects[n] = CBDEffect.CtlXfer; // codeptr change ~= ctl xfer
 

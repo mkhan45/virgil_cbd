@@ -185,8 +185,9 @@ def main(args: Array<string>) {
         def ssa = SSAD_IR.ssa(ir);
         def analysis = SSADCtx.new(ssa);
         def transformed = transformSSA(ssa, analysis);
-        // codestr_builder.puts(d.body.toString());
-        codestr_builder.puts(transformed.toString(1)).puts("}");
+        // TODO: 
+        def processed = analysis.DCE(analysis.id_propagate(transformed, HashMap<string, string>.new(Strings.hash, Strings.equal)));
+        codestr_builder.puts(processed.toString(1)).puts("}");
         codestr_builder.ln();
 
         dispatch_builder.puts("  DISPATCH_TABLE[Opcode.");

@@ -4,169 +4,103 @@ def UNREACHABLE() {
 }
 def LOCAL_GET() {
 	def index0 = readImmULEB32();
-	def arg61 = (index0);
-	def tv2 = f_getLocalType(arg61);
-	def arg53 = (index0);
-	def arg44 = (tv2);
-	def val5 = getLocal(arg44, arg53);
-	def arg36 = (val5);
-	def arg27 = (tv2);
-	def eff18 = push_Value(arg27, arg36);
+	def tv2 = f_getLocalType(index0);
+	def val5 = getLocal(tv2, index0);
+	def eff18 = push_Value(tv2, val5);
 }
 def LOCAL_SET() {
 	def index0 = readImmULEB32();
-	def arg141 = (index0);
-	def tv2 = f_getLocalType(arg141);
-	def arg133 = (tv2);
-	def val4 = pop_Value(arg133);
-	def arg125 = (val4);
-	def arg116 = (index0);
-	def arg107 = (tv2);
-	def eff98 = setLocal(arg107, arg116, arg125);
+	def tv2 = f_getLocalType(index0);
+	def val4 = pop_Value(tv2);
+	def eff98 = setLocal(tv2, index0, val4);
 }
 def LOCAL_TEE() {
 	def index0 = readImmULEB32();
-	def arg171 = (index0);
-	def tv2 = f_getLocalType(arg171);
-	def arg163 = (tv2);
-	def val4 = pop_Value(arg163);
-	def arg155 = (val4);
-	def arg146 = (index0);
-	def arg137 = (tv2);
-	def eff128 = setLocal(arg137, arg146, arg155);
-	def arg119 = (val4);
-	def arg1010 = (tv2);
-	def eff911 = push_Value(arg1010, arg119);
+	def tv2 = f_getLocalType(index0);
+	def val4 = pop_Value(tv2);
+	def eff128 = setLocal(tv2, index0, val4);
+	def eff911 = push_Value(tv2, val4);
 }
 def GLOBAL_GET() {
 	def index0 = readImmULEB32();
-	def arg171 = (index0);
-	def tv2 = m_getGlobalType(arg171);
-	def arg163 = (index0);
-	def arg154 = (tv2);
-	def val5 = getGlobal(arg154, arg163);
-	def arg146 = (val5);
-	def arg137 = (tv2);
-	def eff128 = push_Value(arg137, arg146);
+	def tv2 = m_getGlobalType(index0);
+	def val5 = getGlobal(tv2, index0);
+	def eff128 = push_Value(tv2, val5);
 }
 def GLOBAL_SET() {
 	def index0 = readImmULEB32();
-	def arg141 = (index0);
-	def tv2 = m_getGlobalType(arg141);
-	def arg133 = (tv2);
-	def val4 = pop_Value(arg133);
-	def arg125 = (val4);
-	def arg116 = (index0);
-	def arg107 = (tv2);
-	def eff98 = setGlobal(arg107, arg116, arg125);
+	def tv2 = m_getGlobalType(index0);
+	def val4 = pop_Value(tv2);
+	def eff98 = setGlobal(tv2, index0, val4);
 }
 def TABLE_GET() {
 	def table_index0 = readImmULEB32();
-	def arg181 = (table_index0);
-	def cond92 = m_isTable64(arg181);
+	def cond92 = m_isTable64(table_index0);
 	if (cond92) {
 		def index3 = pop_u64();
-		def arg134 = (index3);
-		def arg125 = (table_index0);
-		def val6 = mach_readTable64(arg125, arg134);
-		def arg117 = (val6);
-		def eff108 = push_Object(arg117);
+		def val6 = mach_readTable64(table_index0, index3);
+		def eff108 = push_Object(val6);
 	} else {
 		def index9 = pop_u32();
-		def arg1710 = (index9);
-		def arg1611 = (table_index0);
-		def val12 = mach_readTable32(arg1611, arg1710);
-		def arg1513 = (val12);
-		def eff1414 = push_Object(arg1513);
+		def val12 = mach_readTable32(table_index0, index9);
+		def eff1414 = push_Object(val12);
 	}
 }
 def TABLE_SET() {
 	def table_index0 = readImmULEB32();
-	def arg241 = (table_index0);
-	def cond152 = m_isTable64(arg241);
+	def cond152 = m_isTable64(table_index0);
 	if (cond152) {
 		def val3 = pop_Object();
 		def index4 = pop_u64();
-		def arg195 = (val3);
-		def arg186 = (index4);
-		def arg177 = (table_index0);
-		def eff168 = mach_writeTable64(arg177, arg186, arg195);
+		def eff168 = mach_writeTable64(table_index0, index4, val3);
 	} else {
 		def val9 = pop_Object();
 		def index10 = pop_u32();
-		def arg2311 = (val9);
-		def arg2212 = (index10);
-		def arg2113 = (table_index0);
-		def eff2014 = mach_writeTable32(arg2113, arg2212, arg2311);
 	}
 }
 def CALL() {
 	def index0 = readImmULEB32();
-	def arg191 = (index0);
-	def sig2 = m_getFuncSignature(arg191);
-	def arg183 = (index0);
-	def target4 = i_getFunction(arg183);
-	def arg175 = (target4);
-	def arg166 = (sig2);
-	def eff157 = doCall(arg166, arg175);
+	def sig2 = m_getFuncSignature(index0);
+	def target4 = i_getFunction(index0);
+	def eff157 = doCall(sig2, target4);
 }
 def CALL_INDIRECT() {
 	def sig_index0 = readImmULEB32();
 	def table_index1 = readImmULEB32();
-	def arg222 = (sig_index0);
-	def sig3 = m_getSignature(arg222);
-	def arg214 = (table_index1);
-	def cond85 = m_isTable64(arg214);
+	def sig3 = m_getSignature(sig_index0);
+	def cond85 = m_isTable64(table_index1);
 	if (cond85) {
 		def func_index6 = pop_u64();
-		def arg147 = (func_index6);
-		def arg138 = (sig3);
-		def arg129 = (table_index1);
-		def target10 = i_getTableFunction64(arg129, arg138, arg147);
-		def arg1111 = (target10);
-		def arg1012 = (sig3);
-		def ret913 = doCall(arg1012, arg1111);
+		def target10 = i_getTableFunction64(table_index1, sig3, func_index6);
+		def ret913 = doCall(sig3, target10);
 		return ret913;
 	} else {
 		def func_index14 = pop_u32();
-		def arg2015 = (func_index14);
-		def arg1916 = (sig3);
-		def arg1817 = (table_index1);
-		def target18 = i_getTableFunction32(arg1817, arg1916, arg2015);
-		def arg1719 = (target18);
-		def arg1620 = (sig3);
-		def ret1521 = doCall(arg1620, arg1719);
+		def target18 = i_getTableFunction32(table_index1, sig3, func_index14);
+		def ret1521 = doCall(sig3, target18);
 		return ret1521;
 	}
 }
 def I32_CONST() {
 	def x0 = readImmILEB32();
-	def arg231 = (x0);
-	def eff222 = push_i32(arg231);
+	def eff222 = push_i32(x0);
 }
 def I32_ADD() {
 	def x0 = pop_i32();
 	def y1 = pop_i32();
-	def left52 = (x0);
-	def right63 = (y1);
-	def r4 = i32.+(left52, right63);
-	def arg45 = (r4);
-	def eff36 = push_i32(arg45);
+	def r4 = i32.+(x0, y1);
+	def eff36 = push_i32(r4);
 }
 def I32_SUB() {
 	def x0 = pop_i32();
 	def y1 = pop_i32();
-	def left92 = (y1);
-	def right103 = (x0);
-	def r4 = i32.-(left92, right103);
-	def arg85 = (r4);
-	def eff76 = push_i32(arg85);
+	def r4 = i32.-(y1, x0);
+	def eff76 = push_i32(r4);
 }
 def I32_EQZ() {
 	def x0 = pop_i32();
-	def left121 = (x0);
 	def right132 : int = 0;
-	def cond73 = i32.==(left121, right132);
+	def cond73 = i32.==(x0, right132);
 	if (cond73) {
 		def arg94 : int = 1;
 		def eff85 = push_i32(arg94);
@@ -178,78 +112,59 @@ def I32_EQZ() {
 def F32_MAX() {
 	def b0 = pop_f32();
 	def a1 = pop_f32();
-	def r2 = (a1);
-	def left173 = (a1);
-	def right184 = (b0);
-	def cond165 = float.>(left173, right184);
+	def cond165 = float.>(a1, b0);
 	if (cond165) {
 	} else {
 	}
-	def left146 = (a1);
-	def right157 = (b0);
-	def cond138 = float.==(left146, right157);
+	def cond138 = float.==(a1, b0);
 	if (cond138) {
 	} else {
 	}
-	def left119 = (b0);
-	def right1210 = (a1);
-	def cond1011 = float.>(left119, right1210);
+	def cond1011 = float.>(b0, a1);
 	if (cond1011) {
 	} else {
 	}
-	def arg912 = (r2);
-	def eff813 = push_f32(arg912);
+	def eff813 = push_f32(a1);
 }
 def BR() {
 	def depth0 = readImmULEB32();
-	def arg171 = (depth0);
-	def label2 = f_getLabel(arg171);
-	def arg163 = (label2);
-	def eff154 = doBranch(arg163);
-	def ret145 = (void);
-	return ret145;
+	def label2 = f_getLabel(depth0);
+	def eff154 = doBranch(label2);
+	return void;
 }
 def BR_IF() {
 	def depth0 = readImmULEB32();
-	def arg121 = (depth0);
-	def label2 = f_getLabel(arg121);
+	def label2 = f_getLabel(depth0);
 	def cond3 = pop_i32();
-	def left104 = (cond3);
 	def right115 : int = 0;
-	def cond66 = i32.!=(left104, right115);
+	def cond66 = i32.!=(cond3, right115);
 	if (cond66) {
-		def arg87 = (label2);
-		def eff78 = doBranch(arg87);
+		def eff78 = doBranch(label2);
 	} else {
 		def eff99 = doFallThru();
 	}
 }
 def BLOCK() {
 	def bt0 = readImmBlockType();
-	def arg111 = (bt0);
-	def eff102 = doBlock(arg111);
+	def eff102 = doBlock(bt0);
 }
 def LOOP() {
 	def bt0 = readImmBlockType();
-	def arg41 = (bt0);
-	def eff32 = doLoop(arg41);
+	def eff32 = doLoop(bt0);
 }
 def TRY() {
 	def bt0 = readImmBlockType();
-	def arg41 = (bt0);
-	def eff32 = doTry(arg41);
+	def eff32 = doTry(bt0);
 }
 def IF() {
 	def bt0 = readImmBlockType();
 	def cond1 = pop_i32();
 	def arg92 : u32 = 0;
 	def label3 = f_getLabel(arg92);
-	def left74 = (cond1);
 	def right85 : int = 0;
-	def cond36 = i32.==(left74, right85);
+	def cond36 = i32.==(cond1, right85);
 	if (cond36) {
-		def arg57 = (label3);
-		def eff48 = doBranch(arg57);
+		def eff48 = doBranch(label3);
 	} else {
 		def eff69 = doFallThru();
 	}
@@ -257,8 +172,7 @@ def IF() {
 def ELSE() {
 	def arg120 : u32 = 0;
 	def label1 = f_getLabel(arg120);
-	def arg112 = (label1);
-	def eff103 = doBranch(arg112);
+	def eff103 = doBranch(label1);
 }
 def END() {
 	def eff60 = doEnd();
