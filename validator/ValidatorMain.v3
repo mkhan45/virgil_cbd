@@ -1,5 +1,3 @@
-// TODO: use virgil's BinParser.v3
-// https://github.com/titzer/wizard-engine/blob/0add3c2516f79ecd3ef03e81b7daf9e43cb4d8cb/src/engine/Engine.v3#L15
 def main(args: Array<string>) {
     def filename = args[0];
     def file_bytes = System.fileLoad(filename);
@@ -23,11 +21,11 @@ def main(args: Array<string>) {
     for (i < st_data.length) {
         def data = st_data[i];
         def ctl = st_ctl[i];
-	System.puti(i);
-	System.puts(": jump pc = ");
-	System.puti(ctl.0);
-	System.puts(", jump stp = ");
-	System.puti(ctl.1);
-	System.puts("\n");
+        System.puti(i);
+        System.puts(": jump pc = ");
+        System.puti(ctl.0);
+        System.puts(", jump stp = ");
+        System.puti(ctl.1);
+        System.puts("\n");
     }
 }

@@ -167,6 +167,8 @@ class SSADCtx {
                 if (Strings.equal(f, "doBranch")) effects[n] = CBDEffect.CtlXfer;
                 if (Strings.equal(f, "doFallThru")) effects[n] = CBDEffect.CtlXfer;
 
+                if (Strings.startsWith(f, "read")) effects[n] = CBDEffect.CtlXfer; // codeptr change ~= ctl xfer
+
                 getTypes(rest);
             }
             LetLit(n, l, t, rest) => {
@@ -238,6 +240,33 @@ class SSADCtx {
                 def used = usesVar(r, n);
                 def eff = effects[n] != CBDEffect.None;
                 return if(used || eff, SSAD.LetApp(n, f, args, r), r);
+            }
+        }
+    }
+
+    def id_propagate(node: SSAD, substs: HashMap<string, string>) -> SSAD {
+        match (node) {
+            Void => return node;
+            Final(x) => return if(substs.has(x), SSAD.Final(substs[x]), node);
+            Injected(inj, rest) => return SSAD.Injected(inj, id_propagate(rest, substs));
+            LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, id_propagate(rest, substs));
+            If(c, t, e, phis, rest) => {
+                def new_c = if(substs.has(c), substs[c], c);
+                def new_t = id_propagate(t, substs);
+                def new_e = id_propagate(e, substs);
+                def new_phis = phis; // TODO: idk, might want new substs?
+                return SSAD.If(new_c, new_t, new_e, new_phis, id_propagate(rest, substs));
+            }
+            LetApp(n, f, args, rest) => {
+                if (Strings.equal(f, "id")) {
+                    var arg = args[0];
+                    while (substs.has(arg)) arg = substs[arg]; // cycles should be impossible
+                    substs[n] = arg;
+                    return id_propagate(rest, substs);
+                } else {
+                    def new_args = Arrays.map(args, fun (a: string) => if(substs.has(a), substs[a], a));
+                    return SSAD.LetApp(n, f, new_args, id_propagate(rest, substs));
+                }
             }
         }
     }

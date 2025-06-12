@@ -397,6 +397,8 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
                             def ir = SSAD_IR.from_virgil(stmt);
                             def ssa = SSAD_IR.ssa(ir);
                             def analysis = SSADCtx.new(ssa);
+                            def transformed = transformSSA(ssa, analysis);
+                            def processed = analysis.DCE(analysis.id_propagate(transformed, HashMap<string, string>.new(Strings.hash, Strings.equal)));
 
                             // def instStmt = killConditionals(instrumentSTLocals(substStmt, bs)).flatten();
                             def sb = StringBuilder.new();
@@ -408,7 +410,7 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
                                 sb.puts("effect: ").puts(analysis.effects[v.head].toString());
                                 sb.ln();
                             }
-                            def instSsa = SSAD.Injected(sb.toString(), analysis.DCE(transformSSA(ssa, analysis)));
+                            def instSsa = SSAD.Injected(sb.toString(), processed);
                             defs.put(CBDDef.new(bs, meth, instSsa));
                         }
                         _ => {
