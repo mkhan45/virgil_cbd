@@ -74,6 +74,45 @@ def containsStr(strs: Range<string>, k: string) -> bool {
     return false;
 }
 
+def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
+    // 1. run both sides of a conditional if the cond is not static (from wasm's perspective)
+    //      - if the cond *is* static, we only want to run one branch, so we want to emit an if
+    // 2. identify when a transition to runtime types happen, and insert an rtcast
+    //      - also, insert rtcast as needed when rt fn applied to static var
+    // 3. add sidetable instrumentation
+    match (ssa) {
+        Void => return ssa;
+        Final(_) => return ssa;
+        Injected(inj, rest) => return SSAD.Injected(inj, transformSSA(rest, ctx));
+        LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
+        If(c, t, e, phis, rest) => return SSAD.If(c, transformSSA(t, ctx), transformSSA(e, ctx), phis, transformSSA(rest, ctx));
+        LetApp(n, f, args, rest) => {
+            var res = SSAD.LetApp(n, f, args, transformSSA(rest, ctx));
+
+            if (Strings.equal(f, "==") ||  Strings.equal(f, "+") || Strings.equal(f, ">") || Strings.equal(f, "!=") || Strings.equal(f, "-")) {
+                def tp = ctx.types[args[0]];
+                def is_rt = !ctx.static[args[0]];
+                var prefix: string;
+                match (tp) {
+                    I32 => prefix = "i32";
+                    U32 => prefix = "u32";
+                    F32 => prefix = "float";
+                    Bot => prefix = "Bot";
+                }
+
+                def new_f = Strings.format2("%s.%s", prefix, f);
+                ctx.static[n] = !is_rt;
+                ctx.types[n] = tp;
+                ctx.effects[n] = CBDEffect.None;
+
+                res = SSAD.LetApp(n, new_f, args, res.rest);
+            }
+            // TODO: sidetable stuff
+            return res;
+        }
+    }
+}
+
 def extractDefs(instrs: Array<string>, filename: string, file_content: string) -> Array<CBDDef> {
     def defs: Vector<CBDDef> = Vector.new();
     def sexp_parser = SExprParser.new(filename, file_content);
@@ -141,11 +180,13 @@ def main(args: Array<string>) {
         codestr_builder.puts("def ");
         codestr_builder.puts(d.opcode);
         codestr_builder.puts("() {\n");
-	def ir = SSAD_IR.from_virgil(d.body);
-	SSAD_IR.counter = 0;
-	def ssa = SSAD_IR.ssa(ir);
+        def ir = SSAD_IR.from_virgil(d.body);
+        SSAD_IR.counter = 0;
+        def ssa = SSAD_IR.ssa(ir);
+        def analysis = SSADCtx.new(ssa);
+        def transformed = transformSSA(ssa, analysis);
         // codestr_builder.puts(d.body.toString());
-        codestr_builder.puts(ssa.toString(1)).puts("}");
+        codestr_builder.puts(transformed.toString(1)).puts("}");
         codestr_builder.ln();
 
         dispatch_builder.puts("  DISPATCH_TABLE[Opcode.");

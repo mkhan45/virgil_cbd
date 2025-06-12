@@ -160,120 +160,6 @@ def containsStr(strs: Range<string>, k: string) -> bool {
     return false;
 }
 
-def instrumentSTLocals(stmt: VirgilStmt, bs: long) -> VirgilStmt {
-    match (stmt) {
-        Expr(_) => return stmt;
-        Match(_, _) => return stmt;
-        Injected(_) => return stmt;
-        Block(ss) => return VirgilStmt.Block(Arrays.map(ss, instrumentSTLocals(_, bs)));
-        If(c, t, e) => return VirgilStmt.If(c, instrumentSTLocals(t, bs), instrumentSTLocals(e, bs));
-        Assign(_, _) => return stmt;
-        Return(_) => {
-            // TODO: this should be independent of return, move it to extractDefs
-            if (bs == 0) return stmt;
-            // extract fields from st_builder into real st case
-            def name = STFieldMgr.bitsetCaseName(bs);
-            def fields = STFieldMgr.bitsetToFields(bs);
-            def injBuilder = StringBuilder.new();
-            injBuilder.puts("def st_case = STEntry.");
-            injBuilder.puts(name);
-            injBuilder.puts("(\n");
-            for (i < fields.length) {
-                injBuilder.puts("      st_builder.");
-                injBuilder.puts(fields[i].0);
-                if (i + 1 < fields.length) injBuilder.puts(",");
-                injBuilder.puts("\n");
-            }
-            injBuilder.puts("  );\n");
-            injBuilder.puts("  st_entries.put(st_case);");
-            def inj = VirgilStmt.Injected(injBuilder.toString());
-            return inj.appendStmt(stmt).flatten();
-        }
-        Local(name, body, sidetable, rtcast) => {
-            if (Strings.equal(name, "test")) {
-                // TODO: this is a hack
-                return VirgilStmt.Injected("var test = TypeVar.I32;");
-            }
-            var new_body = body;
-            if (rtcast != null) {
-                new_body = VirgilExpr.AppExpr(rtcast, [body]);
-            }
-            var base = VirgilStmt.Local(name, new_body, sidetable, rtcast);
-            if (sidetable) {
-                def inj_builder = StringBuilder.new();
-                inj_builder.puts("st_builder.");
-                inj_builder.puts(name);
-                inj_builder.puts(" = ");
-                inj_builder.puts(name);
-                inj_builder.puts(";");
-                def assignment = VirgilStmt.Injected(inj_builder.toString());
-                return base.appendStmt(assignment).flatten();
-            } else {
-                return base;
-            }
-        }
-    }
-}
-
-def instrumentSTLocalsSSA(ssa: SSAD, bs: long) -> SSAD {
-    match (ssa) {
-        Void => return ssa;
-        Injected(inj, rest) => return SSAD.Injected(inj, instrumentSTLocalsSSA(rest, bs));
-        LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, instrumentSTLocalsSSA(rest, bs));
-        If(c, t, e, phis, rest) => return SSAD.If(
-                c, 
-                instrumentSTLocalsSSA(t, bs),
-                instrumentSTLocalsSSA(e, bs),
-                phis,
-                instrumentSTLocalsSSA(rest, bs));
-        LetApp(n, f, args, rest) => {
-            return ssa; // TODO
-        }
-        Final(v) => {
-            if (bs == 0) return ssa;
-
-            // insert completed st record into table
-            def name = STFieldMgr.bitsetCaseName(bs);
-            def fields = STFieldMgr.bitsetToFields(bs);
-            def injBuilder = StringBuilder.new();
-            for (i < fields.length) {
-                injBuilder.puts("      st_builder.").puts(fields[i].0);
-                if (i + 1 < fields.length) injBuilder.puts(",");
-                injBuilder.puts("\n");
-            }
-            injBuilder.puts("  );\n");
-            injBuilder.puts("  st_entries.put(st_case);");
-            return SSAD.Injected(injBuilder.toString(), ssa);
-        }
-    }
-}
-
-def killConditionals(stmt: VirgilStmt) -> VirgilStmt {
-    match (stmt) {
-        Expr(_) => return stmt;
-        Match(_, _) => return stmt;
-        Injected(_) => return stmt;
-        Return(_) => return stmt;
-        Local(_, _, _, _) => return stmt;
-        Assign(_, _) => return stmt;
-        Block(ss) => return VirgilStmt.Block(Arrays.map(ss, killConditionals));
-        If(c, t, e) => {
-            var is_static = false;
-            match (c) {
-                AppExpr(f, a) => is_static = Strings.startsWith(f, "m_") || Strings.startsWith(f, "f_");
-                _ => {}
-            }
-            // remove test if it's not static, because then we run both branches
-            if (!is_static) {
-                if (e.isEmptyBlock()) return t;
-                else return t.appendStmt(e);
-            } else {
-                return stmt;
-            }
-        }
-    }
-}
-
 def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
     // 1. run both sides of a conditional if the cond is not static (from wasm's perspective)
     //      - if the cond *is* static, we only want to run one branch, so we want to emit an if
@@ -328,9 +214,9 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 if (Strings.equal(f, ">")) op = "gt";
 
                 def new_f = Strings.format2("%s.%s", prefix, op);
-                ctx.static[new_f] = !is_rt;
-                ctx.types[new_f] = tp;
-                ctx.effects[new_f] = CBDEffect.None;
+                ctx.static[n] = !is_rt;
+                ctx.types[n] = tp;
+                ctx.effects[n] = CBDEffect.None;
 
                 res = SSAD.LetApp(n, new_f, args, res.rest);
 
@@ -395,12 +281,12 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
 
                             var substStmt = stmt.substTy("i32", "TypeVar.I32"); // TODO: proper type rewriting
                             def ir = SSAD_IR.from_virgil(stmt);
+                            SSAD_IR.counter = 0;
                             def ssa = SSAD_IR.ssa(ir);
                             def analysis = SSADCtx.new(ssa);
                             def transformed = transformSSA(ssa, analysis);
                             def processed = analysis.DCE(analysis.id_propagate(transformed, HashMap<string, string>.new(Strings.hash, Strings.equal)));
 
-                            // def instStmt = killConditionals(instrumentSTLocals(substStmt, bs)).flatten();
                             def sb = StringBuilder.new();
                             def vars = Maps.keyList(analysis.static);
                             for (v = vars; v != null; v = v.tail) {
