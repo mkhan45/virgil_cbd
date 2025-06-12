@@ -300,17 +300,19 @@ def BR_IF() {
 def BLOCK() {
 	// arg281283 -- static: no, type: ⊥, effect: none
 // bt282 -- static: no, type: ⊥, effect: ctl
-// eff280284 -- static: no, type: ⊥, effect: none
+// eff280284 -- static: no, type: ⊥, effect: ctl
 
 	def bt282 = readImmBlockType();
+	def eff280284 = doBlock(bt282);
 }
 // st bitset: 0
 def LOOP() {
 	// arg286288 -- static: no, type: ⊥, effect: none
 // bt287 -- static: no, type: ⊥, effect: ctl
-// eff285289 -- static: no, type: ⊥, effect: none
+// eff285289 -- static: no, type: ⊥, effect: ctl
 
 	def bt287 = readImmBlockType();
+	def eff285289 = doLoop(bt287);
 }
 // st bitset: 0
 def TRY() {
@@ -355,10 +357,12 @@ def ELSE() {
 }
 // st bitset: 0
 def END() {
-	// eff322323 -- static: no, type: ⊥, effect: none
+	// eff322323 -- static: no, type: ⊥, effect: ctl
 // cond320324 -- static: no, type: ⊥, effect: none
-// eff321325 -- static: no, type: ⊥, effect: none
+// eff321325 -- static: no, type: ⊥, effect: ctl
 
+	def eff322323 = doEnd();
+	def eff321325 = doReturn();
 }
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
@@ -680,22 +684,22 @@ component Validator {
     // for other sidetable entries, do we need a post processing phase?
     def build_sidetable() -> (Vector<STEntry>, Vector<(int, int)>) {
         def reified_st_controls = Vector<(int, int)>.new();
-	for (i < st_controls.length) {
+        for (i < st_controls.length) {
             def target_ctl = ctls[st_controls[i]];
-	    var target_stp = -1;
-	    var target_pc = -1;
-	    match (target_ctl) {
-		Block(epc, cstp) => {
-		    target_pc = epc;
-		    target_stp = cstp;
-		}
-		Loop(spc, epc, cstp) => {
-		    target_pc = spc;
-		    target_stp = cstp;
-		}
-		None => invalid();
-	    }
-	    reified_st_controls.put(target_pc, target_stp);
+            var target_stp = -1;
+            var target_pc = -1;
+            match (target_ctl) {
+                Block(epc, cstp) => {
+                    target_pc = epc;
+                    target_stp = cstp;
+                }
+                Loop(spc, epc, cstp) => {
+                    target_pc = spc;
+                    target_stp = cstp;
+                }
+                None => invalid();
+            }
+            reified_st_controls.put(target_pc, target_stp);
         }
         return (st_entries, reified_st_controls);
     }

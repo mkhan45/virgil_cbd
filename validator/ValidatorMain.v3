@@ -18,8 +18,8 @@ def main(args: Array<string>) {
     def sts = Validator.build_sidetable();
     def st_data = sts.0;
     def st_ctl = sts.1;
-    for (i < st_data.length) {
-        def data = st_data[i];
+    for (i < st_ctl.length) {
+        //def data = st_data[i];
         def ctl = st_ctl[i];
         System.puti(i);
         System.puts(": jump pc = ");

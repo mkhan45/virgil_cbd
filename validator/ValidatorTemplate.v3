@@ -280,22 +280,22 @@ component Validator {
     // for other sidetable entries, do we need a post processing phase?
     def build_sidetable() -> (Vector<STEntry>, Vector<(int, int)>) {
         def reified_st_controls = Vector<(int, int)>.new();
-	for (i < st_controls.length) {
+        for (i < st_controls.length) {
             def target_ctl = ctls[st_controls[i]];
-	    var target_stp = -1;
-	    var target_pc = -1;
-	    match (target_ctl) {
-		Block(epc, cstp) => {
-		    target_pc = epc;
-		    target_stp = cstp;
-		}
-		Loop(spc, epc, cstp) => {
-		    target_pc = spc;
-		    target_stp = cstp;
-		}
-		None => invalid();
-	    }
-	    reified_st_controls.put(target_pc, target_stp);
+            var target_stp = -1;
+            var target_pc = -1;
+            match (target_ctl) {
+                Block(epc, cstp) => {
+                    target_pc = epc;
+                    target_stp = cstp;
+                }
+                Loop(spc, epc, cstp) => {
+                    target_pc = spc;
+                    target_stp = cstp;
+                }
+                None => invalid();
+            }
+            reified_st_controls.put(target_pc, target_stp);
         }
         return (st_entries, reified_st_controls);
     }

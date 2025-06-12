@@ -166,6 +166,10 @@ class SSADCtx {
                 if (Strings.startsWith(f, "pop")) effects[n] = CBDEffect.Pop;
                 if (Strings.equal(f, "doBranch")) effects[n] = CBDEffect.CtlXfer;
                 if (Strings.equal(f, "doFallThru")) effects[n] = CBDEffect.CtlXfer;
+                if (Strings.equal(f, "doBlock")) effects[n] = CBDEffect.CtlXfer;
+                if (Strings.equal(f, "doLoop")) effects[n] = CBDEffect.CtlXfer;
+                if (Strings.equal(f, "doReturn")) effects[n] = CBDEffect.CtlXfer;
+                if (Strings.equal(f, "doEnd")) effects[n] = CBDEffect.CtlXfer;
 
                 if (Strings.startsWith(f, "read")) effects[n] = CBDEffect.CtlXfer; // codeptr change ~= ctl xfer
 
