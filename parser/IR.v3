@@ -22,6 +22,35 @@ type SSAD {
             Final(v) => return rhs;
         }
     }
+
+    def filter(pred: SSAD -> bool) -> SSAD {
+    	def node = this;
+    	match (node) {
+            Void => return SSAD.Void;
+            Final(_) => return if(pred(node), node, SSAD.Void);
+            Injected(inj, rest) => {
+                def r = rest.filter(pred);
+                return if(pred(node), r, SSAD.Injected(inj, r));
+            }
+            LetApp(n, f, args, rest) => {
+                def r = rest.filter(pred);
+		System.puts("n: ");
+		System.puts(n);
+		System.puts(", pred n: ");
+		System.puts(if(pred(node), "yes", "no"));
+		System.ln();
+                return if(pred(node), SSAD.LetApp(n, f, args, r), r);
+            }
+            LetLit(n, l, t, rest) => {
+                def r = rest.filter(pred);
+                return if(pred(node), SSAD.LetLit(n, l, t, r), r);
+            }
+            If(c, t, e, phis, rest) => {
+                def r = rest.filter(pred);
+                return if(pred(node), SSAD.If(c, t.filter(pred), e.filter(pred), phis, r), r);
+            }
+        }
+    }
 }
 
 component SSAD_IR {

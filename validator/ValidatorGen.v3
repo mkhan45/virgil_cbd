@@ -160,6 +160,17 @@ def containsStr(strs: Range<string>, k: string) -> bool {
     return false;
 }
 
+def runUnconditionally(node: SSAD, ctx: SSADCtx) -> bool {
+    match (node) {
+	LetApp(n, _, _, _) => return ctx.effects[n].is_sidetable();
+	LetLit(n, _, _, _) => return ctx.effects[n].is_sidetable();
+	If(_, _, _, _, _) => return true; // TODO: check phis?
+	Void => return true;
+	Injected(_, _) => return true;
+	Final(_) => return true;
+    }
+}
+
 def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
     // 1. run both sides of a conditional if the cond is not static (from wasm's perspective)
     //      - if the cond *is* static, we only want to run one branch, so we want to emit an if
@@ -245,14 +256,19 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
             def e_res = CBDEffects.run_fx(efx);
             // assert t_res.stack_delta == e_res.stack_delta
 
-            // TODO: could do a finer grained thing which just filters out
-            // bad effects
-            if (ctx.static[c] || t_res.stack_delta != 0) {
+            if (!ctx.static[c]) {
                 // TODO: what to do with phis?
-                // return SSAD.If(c, t, e, phis, transformSSA(rest, ctx));
-                // we can't emit an If because the cond is not a bool, so we just choose
-                // the first branch. I think we should require the effects to be equivalent
-                return transformSSA(t, ctx).appended(transformSSA(rest, ctx));
+		// we should assume that the effects on each side are equivalent
+		// by some notion
+		// so we run all the effects from the first branch, and then only
+		// some effects on the second branch, which is tier dependent.
+		// for the validator, either branch may modify the sidetable.
+		// for an abstract interpreter, effects tracking may need to be
+		// more complex
+		def ef = e.filter(runUnconditionally(_, ctx));
+		return transformSSA(t, ctx)
+			.appended(transformSSA(ef, ctx))
+			.appended(transformSSA(rest, ctx));
             } else {
                 return transformSSA(t, ctx).appended(transformSSA(e, ctx)).appended(transformSSA(rest, ctx));
             }
