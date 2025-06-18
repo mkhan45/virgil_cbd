@@ -1,8 +1,7 @@
-____________________________________________
-
 - add assign stmts to virgilsexpr
 	- properly conv to ssa
-- need to sometimes infer arg types backwards
+- generate a unified sidetable struct, which
+  includes the ctl stuff and other
 
 _____________________________________________
 

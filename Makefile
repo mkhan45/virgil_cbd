@@ -33,7 +33,7 @@ test_processor:
 
 # Run the interpreter
 run_interpreter: generate_interpreter
-	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL) interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
+	$(VIRGIL) -O3 -fun-exprs -simple-bodies $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL) validator/Validator.v3 interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
 
 # Generate the interpreter from template
 generate_interpreter: cbd_sexp

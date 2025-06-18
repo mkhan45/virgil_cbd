@@ -5,32 +5,16 @@ var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
 var local_types: Vector<TypeVar>; // TODO: just get ValueKinds from stack
 var stack: ArrayStack<Value>;
 
-type CtlEntry {
-	case Block(end_pc: int);
-	case Loop(start_pc: int, end_pc: int);
-        case None;
-}
-var ctls: Array<CtlEntry>;
-var ctl_stack: ArrayStack<int>;
+var sidetable: Vector<(int, int)>; // (target_pc, target_stp)
+var stp: int = 0;
 
 // Constants
 def HAS_MEM_INDEX = 0x40u8;
 
 // Types.
-type v128(low: u64, high: u64);
-type Label(depth: u32);
 // type Value;
 // class Object { }
-type TypeVar {
-    case I32;
-}
-type FieldOffset;
-class Signature { }
 // class Function { }
-
-enum FieldKind {
-	U8, U16, I32, I64, F32, F64, V128, REF
-}
 
 def readImmULEB32() -> u32 {
     return codeptr.read_uleb32();
@@ -134,34 +118,13 @@ def i_getFunction(func_index: u32) -> Function;
 def doCall(sig: Signature, target: Function);
 
 def doBranch(label: Label) {
-    for (i < label.depth) ctl_stack.pop();
-    def ctl_idx = ctl_stack.peek();
-    match (ctls[ctl_idx]) {
-        Block(end_pc) => {
-            if (end_pc == -1) {
-		skipToEnd(label.depth);
-		ctls[ctl_idx] = CtlEntry.Block(codeptr.pos);
-            } else {
-		codeptr.at(end_pc);
-	    }
-	    ctl_stack.pop();
-        }
-	Loop(start_pc, end_pc) => {
-		codeptr.at(start_pc);
-	}
-	None => invalid();
-    }
-}
-
-def skipToEnd(depth: u32) {
-    while (depth + 1 > 0) {
-	def op = codeptr.read_opcode();
-	if (op == Opcode.END) depth -= 1;
-	codeptr.skip_immediates(op.imms);
-    }
+    def ste = sidetable[stp];
+    codeptr.at(ste.0);
+    stp = ste.1;
 }
 
 def doFallThru() {
+    stp += 1;
 }
 
 // Machine intrinsics.
@@ -191,22 +154,12 @@ def trapNull();
 def trapUnreachable();
 
 def doBlock(bt: ()) {
-    if (ctls[codeptr.pos] == CtlEntry.None) ctls[codeptr.pos] = CtlEntry.Block(-1);
-    ctl_stack.push(codeptr.pos);
 }
 
 def doLoop(bt: ()) {
-    if (ctls[codeptr.pos] == CtlEntry.None) ctls[codeptr.pos] = CtlEntry.Loop(codeptr.pos, -1);
-    ctl_stack.push(codeptr.pos);
 }
 
 def doEnd() {
-    def ctl_idx = ctl_stack.pop();
-    match (ctls[ctl_idx]) {
-        Block(end_pc) => if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Block(codeptr.pos);
-        Loop(start_pc, end_pc) => if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Loop(start_pc, codeptr.pos);
-        None => doReturn();
-    }
 }
 
 def doReturn() {
@@ -234,13 +187,16 @@ def push_locals(count: u32, vtc: ValueTypeCode) {
 
 component Interpreter {
     def init(code: Array<byte>, args: Array<int>) {
+        // TODO: make the interpreter run the validator
         codeptr = CodePtr.new(code);
         local_types = Vector.new();
         stack = ArrayStack.new();
 
-        ctls = Array.new(code.length);
-        for (i < code.length) ctls[i] = CtlEntry.None;
-        ctl_stack = ArrayStack.new();
+        Validator.init(code, [TypeVar.I32, TypeVar.I32], []);
+        Validator.dispatch();
+        def sts = Validator.build_sidetable();
+        sidetable = sts.1;
+        stp = 0;
 
         for (a in args) local_types.put(TypeVar.I32);
         for (a in args) stack.push(Value.I32(u32.!(a)));
@@ -250,9 +206,9 @@ component Interpreter {
         codeptr.iterate_local_codes(push_locals);
         while (codeptr.pos < codeptr.data.length) {
             def op = codeptr.read_opcode();
-	    print_stack();
-            System.puts(op.mnemonic);
-            System.ln();
+            // print_stack();
+            // System.puts(op.mnemonic);
+            // System.ln();
             DISPATCH_TABLE[op.code]();
         }
     }
@@ -262,14 +218,14 @@ component Interpreter {
     }
 
     def print_stack() {
-	System.puts("[");
-	for (i < stack.top) {
-	    match (stack.elems[i]) {
-		I32(i) => System.puti(i32.!(i));
-		_ => {}
-	    }
-	    if (i < stack.top - 1) System.puts(" ");
-	}
-	System.puts("]\n");
+        System.puts("[");
+        for (i < stack.top) {
+            match (stack.elems[i]) {
+            I32(i) => System.puti(i32.!(i));
+            _ => {}
+            }
+            if (i < stack.top - 1) System.puts(" ");
+        }
+        System.puts("]\n");
     }
 }

@@ -34,11 +34,6 @@ type SSAD {
             }
             LetApp(n, f, args, rest) => {
                 def r = rest.filter(pred);
-		System.puts("n: ");
-		System.puts(n);
-		System.puts(", pred n: ");
-		System.puts(if(pred(node), "yes", "no"));
-		System.ln();
                 return if(pred(node), SSAD.LetApp(n, f, args, r), r);
             }
             LetLit(n, l, t, rest) => {
