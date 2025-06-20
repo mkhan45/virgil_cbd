@@ -83,6 +83,15 @@ component EmitOpF32 {
         return (new_var, TypeVar.I32);
     }
 }
+def emitFwdI32() -> (string, TypeVar.I32) {
+    def new_var = uidl("fwd_i32");
+    code_builder.puts(Strings.format1("int %s;\n", new_var));
+    return (new_var, TypeVar.I32);
+}
+def emitPopAssign(fwd_var: (string, TypeVar.I32)) {
+    def sp = stack.pop();
+    code_builder.puts(Strings.format2("%s = %s;\n", fwd_var.0, sp.0));
+}
 def emitIf(v: (string, TypeVar.I32)) {
     code_builder.puts(Strings.format1("if (%s) {\n", v.0));
 }
@@ -179,6 +188,7 @@ def getLocal(tv: TypeVar, index: u32) -> (string, TypeVar) {
 }
 def setLocal(tv: TypeVar, index: u32, v: (string, TypeVar)) {
     // TODO: assert that v has tv
+    code_builder.puts(Strings.format2("local_%d = %s;\n", int.!(index), v.0));
     stack.elems[index] = v;
 }
 
@@ -220,7 +230,7 @@ def doBranch(label: int) {
         Loop(_, _, ln) => label_name = ln;
         _ => label_name = null;
     }
-    code_builder.puts("goto ").puts(label_name).ln();
+    code_builder.puts("goto ").puts(label_name).puts(";").ln();
 }
 
 def doFallThru() {
@@ -275,11 +285,13 @@ def doEnd() {
         Loop(start_pc, end_pc, label_name) => {
             if (end_pc == -1) ctls[ctl_idx] = CompilerCtlEntry.Loop(start_pc, codeptr.pos, label_name);
         }
-        None => doReturn();
+        None => return; // doReturn();
     }
 }
 
 def doReturn() {
+    def ret = stack.pop();
+    code_builder.puts(Strings.format1("return %s;\n", ret.0));
     return;
 }
 

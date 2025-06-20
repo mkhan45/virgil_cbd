@@ -183,6 +183,7 @@ class SSADCtx {
                 if (Strings.equal(f, "mach_writeTable64")) effects[n] = CBDEffect.State;
 
                 if (Strings.startsWith(f, "read")) effects[n] = CBDEffect.CtlXfer; // codeptr change ~= ctl xfer
+                if (Strings.startsWith(f, "emit")) effects[n] = CBDEffect.State; // should be new effect
 
                 getTypes(rest);
             }

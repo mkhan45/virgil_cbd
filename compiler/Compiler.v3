@@ -236,63 +236,67 @@ def I32_SUB() {
 	def eff76 = push_i32(r4);
 }
 def I32_EQZ() {
-	// eff85 -- static: no, type: ⊥, effect: push
+	// rtcast17 -- static: no, type: i32, effect: none
+// eff85 -- static: no, type: ⊥, effect: push
 // right132 -- static: yes, type: i32, effect: none
 // arg94 -- static: no, type: i32, effect: none
-// rtcast13 -- static: no, type: i32, effect: none
 // x0 -- static: no, type: i32, effect: pop
 // eff107 -- static: no, type: ⊥, effect: push
 // arg116 -- static: no, type: i32, effect: none
-// lit9 -- static: yes, type: ⊥, effect: none
+// lit15 -- static: yes, type: ⊥, effect: none
 // cond73 -- static: no, type: i32, effect: none
+// lit13 -- static: yes, type: ⊥, effect: none
 // left121 -- static: no, type: i32, effect: none
-// lit11 -- static: yes, type: ⊥, effect: none
 
 	def x0 = pop_i32();
 	def right132 : int = 0;
-	def rtcast13 = rtcast_i32(right132);
-	def cond73 = EmitOpI32.equals(x0, rtcast13);
-	def if8 = emitIf(cond73);
-	def lit9 : int = 1;
-	def arg94 = rtcast_i32(lit9);
+	def rtcast17 = rtcast_i32(right132);
+	def cond73 = EmitOpI32.equals(x0, rtcast17);
+	def stack_phi8 = emitFwdI32();
+	def if12 = emitIf(cond73);
+	def lit13 : int = 1;
+	def arg94 = rtcast_i32(lit13);
 	def eff85 = push_i32(arg94);
-	def else10 = emitElse();
-	def lit11 : int = 0;
-	def arg116 = rtcast_i32(lit11);
+	def phi_pop9 = emitPopAssign(stack_phi8);
+	def else14 = emitElse();
+	def lit15 : int = 0;
+	def arg116 = rtcast_i32(lit15);
 	def eff107 = push_i32(arg116);
-	def endBrace12 = emitEnd();
+	def phi_pop10 = emitPopAssign(stack_phi8);
+	def endBrace16 = emitEnd();
+	def phi_push11 = push_i32(stack_phi8);
 }
 def F32_MAX() {
-	// cond1611 -- static: no, type: f32, effect: none
-// right244 -- static: no, type: f32, effect: none
-// cond225 -- static: no, type: f32, effect: none
-// left206 -- static: no, type: f32, effect: none
-// right1810 -- static: no, type: f32, effect: none
-// cond198 -- static: no, type: f32, effect: none
-// left179 -- static: no, type: f32, effect: none
-// left233 -- static: no, type: f32, effect: none
-// right217 -- static: no, type: f32, effect: none
-// arg1512 -- static: no, type: f32, effect: none
-// eff1413 -- static: no, type: ⊥, effect: push
+	// cond238 -- static: no, type: f32, effect: none
+// left219 -- static: no, type: f32, effect: none
+// right284 -- static: no, type: f32, effect: none
+// cond265 -- static: no, type: f32, effect: none
+// cond2011 -- static: no, type: f32, effect: none
+// arg1912 -- static: no, type: f32, effect: none
+// eff1813 -- static: no, type: ⊥, effect: push
+// left246 -- static: no, type: f32, effect: none
 // a1 -- static: no, type: f32, effect: pop
 // r2 -- static: no, type: f32, effect: none
+// right2210 -- static: no, type: f32, effect: none
 // b0 -- static: no, type: f32, effect: pop
+// left273 -- static: no, type: f32, effect: none
+// right257 -- static: no, type: f32, effect: none
 
 	def b0 = pop_f32();
 	def a1 = pop_f32();
-	def cond225 = EmitOpF32.gt(a1, b0);
-	def if14 = emitIf(cond225);
+	def cond265 = EmitOpF32.gt(a1, b0);
+	def if14 = emitIf(cond265);
 	def else15 = emitElse();
 	def endBrace16 = emitEnd();
-	def cond198 = EmitOpF32.equals(a1, b0);
-	def if17 = emitIf(cond198);
+	def cond238 = EmitOpF32.equals(a1, b0);
+	def if17 = emitIf(cond238);
 	def else18 = emitElse();
 	def endBrace19 = emitEnd();
-	def cond1611 = EmitOpF32.gt(b0, a1);
-	def if20 = emitIf(cond1611);
+	def cond2011 = EmitOpF32.gt(b0, a1);
+	def if20 = emitIf(cond2011);
 	def else21 = emitElse();
 	def endBrace22 = emitEnd();
-	def eff1413 = push_f32(a1);
+	def eff1813 = push_f32(a1);
 }
 def BR() {
 	// arg261 -- static: yes, type: u32, effect: none
@@ -515,6 +519,15 @@ component EmitOpF32 {
         return (new_var, TypeVar.I32);
     }
 }
+def emitFwdI32() -> (string, TypeVar.I32) {
+    def new_var = uidl("fwd_i32");
+    code_builder.puts(Strings.format1("int %s;\n", new_var));
+    return (new_var, TypeVar.I32);
+}
+def emitPopAssign(fwd_var: (string, TypeVar.I32)) {
+    def sp = stack.pop();
+    code_builder.puts(Strings.format2("%s = %s;\n", fwd_var.0, sp.0));
+}
 def emitIf(v: (string, TypeVar.I32)) {
     code_builder.puts(Strings.format1("if (%s) {\n", v.0));
 }
@@ -611,6 +624,7 @@ def getLocal(tv: TypeVar, index: u32) -> (string, TypeVar) {
 }
 def setLocal(tv: TypeVar, index: u32, v: (string, TypeVar)) {
     // TODO: assert that v has tv
+    code_builder.puts(Strings.format2("local_%d = %s;\n", int.!(index), v.0));
     stack.elems[index] = v;
 }
 
@@ -652,7 +666,7 @@ def doBranch(label: int) {
         Loop(_, _, ln) => label_name = ln;
         _ => label_name = null;
     }
-    code_builder.puts("goto ").puts(label_name).ln();
+    code_builder.puts("goto ").puts(label_name).puts(";").ln();
 }
 
 def doFallThru() {
@@ -707,11 +721,13 @@ def doEnd() {
         Loop(start_pc, end_pc, label_name) => {
             if (end_pc == -1) ctls[ctl_idx] = CompilerCtlEntry.Loop(start_pc, codeptr.pos, label_name);
         }
-        None => doReturn();
+        None => return; // doReturn();
     }
 }
 
 def doReturn() {
+    def ret = stack.pop();
+    code_builder.puts(Strings.format1("return %s;\n", ret.0));
     return;
 }
 
