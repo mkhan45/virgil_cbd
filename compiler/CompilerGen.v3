@@ -1,93 +1,6 @@
-component STFieldMgr {
-    var fields: Vector<(string, string)> = Vector.new(); // (name, type)
-    var entries: Vector<long> = Vector.new(); // keep track of which bitset insts are actually used
-
-    def fieldIdx(field_name: string, field_tipe: string) -> int {
-        for (i < fields.length) if (Strings.equal(fields[i].0, field_name)) {
-            // TODO: check field_tipe eq
-            return i;
-        }
-
-        fields.put((field_name, field_tipe));
-        return fields.length - 1;
-    }
-
-    def fieldToBitmask(field_name: string, field_tipe: string) -> long {
-        def idx = byte.!(fieldIdx(field_name, field_tipe));
-        return 1L << idx;
-    }
-
-    def fieldsToBitset(fields: Vector<(string, string)>) -> long {
-        var set = 0L;
-        for (i < fields.length) {
-            def mask = fieldToBitmask(fields[i]);
-            set |= mask;
-        }
-
-        return set;
-    }
-
-    def bitsetToFields(bs: long) -> Vector<(string, string)> {
-        var result = Vector<(string, string)>.new();
-        for (i < 64) {
-            def mask = 1L << byte.!(i);
-            if ((bs & mask) != 0L) {
-                if (i < fields.length) {
-                    result.put(fields[i]);
-                }
-            }
-        }
-        return result;
-    }
-
-    def putEntry(fields: Vector<(string, string)>) -> long {
-        def bs = fieldsToBitset(fields);
-        if (bs == 0) return 0;
-
-        for (i < entries.length) if (entries[i] == bs) return bs;
-
-        entries.put(bs);
-        return bs;
-    }
-
-    def bitsetCaseName(bs: long) -> string {
-        def builder = StringBuilder.new();
-        def fields = bitsetToFields(bs);
-        for (i < fields.length) {
-            def n = fields[i].0;
-            n[0] -= 32; // uppercase first letter
-            builder.puts(n);
-            n[0] += 32;
-        }
-        return builder.toString();
-    }
-}
-
-def getSidetableFields(stmt: VirgilStmt, buf: Vector<(string, string)>) {
-    match (stmt) {
-        Expr(_) => return;
-        Return(_) => return;
-        Match(_, _) => return;
-        Injected(_) => return;
-        Assign(_, _) => return;
-        Block(ss) => for (s in ss) getSidetableFields(s, buf);
-        If(_, t, e) => {
-            getSidetableFields(t, buf);
-            getSidetableFields(e, buf);
-        }
-        Local(name, _, sidetable, rtcast) => if (sidetable) buf.put((name, "int")); // TODO: tipe
-    }
-}
-
-class CBDDef(field_bitset: long, opcode: string, body: SSAD) {
+class CBDDef(opcode: string, body: SSAD) {
     def buildString(buf: StringBuilder) {
         // TODO
-    }
-}
-
-class SidetableEntry(fields: Array<(string, string)>) {
-    def field_bitset() -> long {
-        return 0; // TODO
     }
 }
 
@@ -172,14 +85,9 @@ def runUnconditionally(node: SSAD, ctx: SSADCtx) -> bool {
 }
 
 def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
-    // 1. run both sides of a conditional if the cond is not static (from wasm's perspective)
-    //      - if the cond *is* static, we only want to run one branch, so we want to emit an if
-    // 2. identify when a transition to runtime types happen, and insert an rtcast
-    //      - also, insert rtcast as needed when rt fn applied to static var
-    // 3. add sidetable instrumentation
     match (ssa) {
         Void => return ssa;
-        Final(_) => return ssa; // TODO: move stuff from instrument... to here
+        Final(_) => return ssa;
         Injected(inj, rest) => return SSAD.Injected(inj, transformSSA(rest, ctx));
         LetLit(n, l, t, rest) => {
             if (ctx.static[n]) {
@@ -212,9 +120,9 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 def is_rt = !ctx.static[args[0]];
                 var prefix: string;
                 match (tp) {
-                    I32 => prefix = if(is_rt, "TypeVar.I32", "i32");
-                    U32 => prefix = if(is_rt, "TypeVar.U32", "u32");
-                    F32 => prefix = if(is_rt, "TypeVar.F32", "f32");
+                    I32 => prefix = if(is_rt, "EmitOpI32", "i32");
+                    U32 => prefix = if(is_rt, "EmitOpU32", "u32");
+                    F32 => prefix = if(is_rt, "EmitOpF32", "f32");
                     Bot => prefix = if(is_rt, "TypeVar", "Bot");
                 }
                 var op: string;
@@ -243,7 +151,6 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                             SSAD.LetApp(n, new_f, [args[0], fv], res.rest));
                 }
             }
-            // TODO: sidetable stuff
             return res;
         }
         If(c, t, e, phis, rest) => {
@@ -256,22 +163,15 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
             def e_res = CBDEffects.run_fx(efx);
             // assert t_res.stack_delta == e_res.stack_delta
 
-            if (!ctx.static[c]) {
-                // TODO: what to do with phis?
-                // we should assume that the effects on each side are equivalent
-                // by some notion
-                // so we run all the effects from the first branch, and then only
-                // some effects on the second branch, which is tier dependent.
-                // for the validator, either branch may modify the sidetable.
-                // for an abstract interpreter, effects tracking may need to be
-                // more complex
-                def ef = e.filter(runUnconditionally(_, ctx));
-                return transformSSA(t, ctx)
-            	        .appended(transformSSA(ef, ctx))
-	                    .appended(transformSSA(rest, ctx));
-            } else {
-                return transformSSA(t, ctx).appended(transformSSA(e, ctx)).appended(transformSSA(rest, ctx));
-            }
+	    // TODO: somehow forward declare phis stack vars and then emit "pops" into the fwd declared phis
+	    // which assign the phis to whichever branch ran
+	    def emit_if_fn = if(ctx.static[c], "emitIfStatic", "emitIf");
+	    return SSAD.LetApp(SSAD_IR.uidl("if"), emit_if_fn, [c],
+			transformSSA(t, ctx).appended(
+				SSAD.LetApp(SSAD_IR.uidl("else"), "emitElse", [],
+					transformSSA(e, ctx).appended(
+						SSAD.LetApp(SSAD_IR.uidl("endBrace"), "emitEnd", [],
+							transformSSA(rest, ctx))))));
         }
     }
 }
@@ -290,11 +190,6 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
                     def stmt_res = VirgilStmts.from_sexpr(sexp);
                     match (stmt_res) {
                         Success(stmt) => {
-                            def st_field_buf = Vector<(string, string)>.new();
-                            getSidetableFields(stmt, st_field_buf);
-
-                            def bs = STFieldMgr.putEntry(st_field_buf);
-
                             def ir = SSAD_IR.from_virgil(stmt);
                             SSAD_IR.counter = 0;
                             def ssa = SSAD_IR.ssa(ir);
@@ -312,7 +207,7 @@ def extractDefs(instrs: Array<string>, filename: string, file_content: string) -
                                 sb.ln();
                             }
                             def instSsa = SSAD.Injected(sb.toString(), processed);
-                            defs.put(CBDDef.new(bs, meth, instSsa));
+                            defs.put(CBDDef.new(meth, instSsa));
                         }
                         _ => {
                             System.write(2, meth);
@@ -362,9 +257,6 @@ def main(args: Array<string>) {
     dispatch_builder.puts("  DISPATCH_TABLE = Array.new(0xE5 + 1);\n"); // 0xE5 = highest opcode (SWITCH)
 
     for (d in defs) {
-        codestr_builder.puts("// st bitset: ");
-        codestr_builder.putd(d.field_bitset);
-        codestr_builder.ln();
         codestr_builder.puts("def ");
         codestr_builder.puts(d.opcode);
         codestr_builder.puts("() ").puts("{\n");
@@ -380,44 +272,6 @@ def main(args: Array<string>) {
 
     dispatch_builder.puts("  return DISPATCH_TABLE;\n");
     dispatch_builder.puts("}\n");
-
-    // TODO:
-    // instead of a global st builder, gen each case, change the local
-    // instrumentation to init a single case and then put it into sidetable meta list,
-    // here generate the sidetable meta list and adt
-    def st_builder_builder = StringBuilder.new();
-    st_builder_builder.puts("class STBuilder {\n");
-    for (i < STFieldMgr.fields.length) {
-        def field = STFieldMgr.fields[i].0;
-        def tp = STFieldMgr.fields[i].1;
-        st_builder_builder.puts("    var ");
-        st_builder_builder.puts(field);
-        st_builder_builder.puts(": ");
-        st_builder_builder.puts(tp);
-        st_builder_builder.puts(";\n");
-    }
-    st_builder_builder.puts("}\n");
-    st_builder_builder.puts("type STEntry {\n");
-    // TODO
-    for (i < STFieldMgr.entries.length) {
-        def entry_bs = STFieldMgr.entries[i];
-        def entry_fields = STFieldMgr.bitsetToFields(entry_bs);
-        def entry_name = STFieldMgr.bitsetCaseName(entry_bs);
-        st_builder_builder.puts("    case ");
-        st_builder_builder.puts(entry_name);
-        st_builder_builder.puts("(\n");
-        // TODO
-        for (i < entry_fields.length) {
-            st_builder_builder.puts("        ");
-            st_builder_builder.puts(entry_fields[i].0);
-            st_builder_builder.puts(": ");
-            st_builder_builder.puts(entry_fields[i].1);
-            if (i + 1 < entry_fields.length) st_builder_builder.puts(",");
-            st_builder_builder.puts("\n");
-        }
-        st_builder_builder.puts("    );\n");
-    }
-    st_builder_builder.puts("}\n");
 
     def concrete_template = args[2];
     def concrete_bytes = System.fileLoad(concrete_template);
@@ -438,7 +292,6 @@ def main(args: Array<string>) {
     final_code_builder.puts("// GENERATED BY ValidatorGen.v3\n");
     final_code_builder.puts(codestr_builder.toString());
     final_code_builder.puts(dispatch_builder.toString());
-    final_code_builder.puts(st_builder_builder.toString());
     final_code_builder.puts(template_code);
 
     System.puts(final_code_builder.toString());

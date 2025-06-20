@@ -1,0 +1,334 @@
+def build_dispatch_table() -> Array<void -> void> { return Array.new(0); } // dummy so this file compiles independently, replaced by processor
+
+var codeptr: CodePtr;
+var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
+var local_types: Vector<TypeVar>; // local varnames are just local_$i
+var stack: ArrayStack<(string, TypeVar)>;
+
+var code_builder: StringBuilder;
+var cnt: int = 0;
+
+def uidl(l: string) -> string {
+    def r = Strings.format2<string, int>("%s_%d", l, cnt);
+    cnt += 1;
+    return r;
+}
+
+def assert(b: bool) {
+    if (!b) {
+        System.puts("assert fail :(\n");
+	return [][1];
+    }
+}
+
+type CompilerCtlEntry {
+    case Block(end_pc: int, label_name: string);
+    case Loop(start_pc: int, end_pc: int, label_name: string);
+    case None;
+}
+var ctls: Array<CompilerCtlEntry>;
+var ctl_stack: ArrayStack<int>;
+
+// Constants
+def HAS_MEM_INDEX = 0x40u8;
+
+// Types.
+// class Object { }
+component EmitOpI32 {
+    def plus(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
+        def new_var = uidl(Strings.format2("%s_plus_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("int %s = %s + %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.I32);
+    }
+    def minus(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
+        def new_var = uidl(Strings.format2("%s_minus_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("int %s = %s - %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.I32);
+    }
+    def equals(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
+        def new_var = uidl(Strings.format2("%s_equals_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("int %s = %s == %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.I32);
+    }
+    def not_equals(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
+        def new_var = uidl(Strings.format2("%s_not_equals__%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("int %s = %s != %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.I32);
+    }
+}
+def rtcast_i32(x: i32) -> (string, TypeVar.I32) {
+    def var_name = uidl("rtcast");
+    code_builder.puts(Strings.format2("int %s = %d;\n", var_name, x));
+    return (var_name, TypeVar.I32);
+}
+component EmitOpF32 {
+    def plus(lhs: (string, TypeVar.F32), rhs: (string, TypeVar.F32)) -> (string, TypeVar.F32) {
+        def new_var = uidl(Strings.format2("%s_plus_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("float %s = %s + %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.F32);
+    }
+    def minus(lhs: (string, TypeVar.F32), rhs: (string, TypeVar.F32)) -> (string, TypeVar.F32) {
+        def new_var = uidl(Strings.format2("%s_minus_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("float %s = %s - %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.F32);
+    }
+    def equals(lhs: (string, TypeVar.F32), rhs: (string, TypeVar.F32)) -> (string, TypeVar.I32) {
+        def new_var = uidl(Strings.format2("%s_minus_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("int %s = %s - %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.I32);
+    }
+    def gt(lhs: (string, TypeVar.F32), rhs: (string, TypeVar.F32)) -> (string, TypeVar.I32) {
+        def new_var = uidl(Strings.format2("%s_gt_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("int %s = %s > %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.I32);
+    }
+}
+def emitIf(v: (string, TypeVar.I32)) {
+    code_builder.puts(Strings.format1("if (%s) {\n", v.0));
+}
+def emitIfStatic(v: bool) {
+    code_builder.puts(Strings.format1("if (%z) {\n", v));
+}
+def emitElse() {
+    code_builder.puts("} else {\n");
+}
+def emitEnd() {
+    code_builder.puts("}\n");
+}
+
+def readImmULEB32() -> u32 {
+    return codeptr.read_uleb32();
+}
+
+def readImmILEB32() -> i32 {
+    return i32.!(codeptr.read_uleb32());
+}
+
+def readImmULEB64() -> u64 {
+    return codeptr.read_uleb64();
+}
+
+def readImmILEB64() -> i64 {
+    return i64.!(codeptr.read_uleb64());
+}
+
+def readImmU8() -> u8 {
+    return codeptr.read1();
+}
+
+def readImmBlockType() -> () {
+    def bt = codeptr.read_BlockTypeCode();
+    return ();
+}
+
+def pop_i32() -> (string, TypeVar.I32) {
+    def sp = stack.pop();
+    def var_name = sp.0;
+    def var_type = sp.1;
+    match (var_type) {
+        I32 => return (var_name, TypeVar.I32);
+        _ => {
+            assert(false);
+            return (null, TypeVar.I32);
+        }
+    }
+}
+def pop_u32() -> (string, TypeVar.U32) {
+    def sp = stack.pop();
+    def var_name = sp.0;
+    def var_type = sp.1;
+    match (var_type) {
+        U32 => return (var_name, TypeVar.U32);
+        _ => {
+            assert(false);
+            return (null, TypeVar.U32);
+        }
+    }
+}
+def pop_i64() -> i64;
+def pop_u64() -> (string, TypeVar.U64);
+def pop_f32() -> (string, TypeVar.F32);
+def pop_f64() -> double;
+def pop_v128() -> v128;
+def pop_Object() -> Object;
+def pop_Value(tv: TypeVar) -> (string, TypeVar) {
+    def sp = stack.pop();
+    assert(tv == sp.1);
+    return sp;
+}
+
+def push_i32(v: (string, TypeVar.I32)) {
+    stack.push(v);
+}
+def push_u32(v: (string, TypeVar.U32)) {
+    stack.push(v);
+}
+def push_i64(v: i64);
+def push_u64(v: u64);
+def push_f32(v: (string, TypeVar.F32));
+def push_f64(v: double);
+def push_v128(v: v128);
+def push_Object(v: Object);
+def push_Value(tv: TypeVar, v: (string, TypeVar)) {
+    stack.push(v);
+}
+
+// Local variables.
+def getLocal(tv: TypeVar, index: u32) -> (string, TypeVar) {
+    return stack.elems[index];
+}
+def setLocal(tv: TypeVar, index: u32, v: (string, TypeVar)) {
+    // TODO: assert that v has tv
+    stack.elems[index] = v;
+}
+
+// Global variables.
+def getGlobal(tv: TypeVar, index: u32) -> (string, TypeVar);
+def setGlobal(tv: TypeVar, index: u32, v: (string, TypeVar));
+
+// Function context.
+def f_getLabel(depth: u32) -> int {
+    return int.!(depth);
+}
+
+def f_getLocalType(index: u32) -> TypeVar {
+    return local_types[int.!(index)];
+}
+
+// Module context.
+def m_getGlobalType(index: u32) -> TypeVar;
+def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
+def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset;
+def m_isMemory64(memory_index: u32) -> bool;
+def m_isTable64(memory_index: u32) -> bool;
+def m_getFuncSignature(func_index: u32) -> Signature;
+def m_getSignature(sig_index: u32) -> Signature;
+
+// Instance context.
+def i_getTableFunction64(table_index: u32, sig: Signature, func_index: (string, TypeVar.U64)) -> Function;
+def i_getTableFunction32(table_index: u32, sig: Signature, func_index: (string, TypeVar.U32)) -> Function;
+def i_getFunction(func_index: u32) -> Function;
+
+// Control flow.
+def doCall(sig: Signature, target: Function);
+
+def doBranch(label: int) {
+    def ctl_idx = ctl_stack.elems[ctl_stack.top - 1 - label];
+    var label_name: string;
+    match (ctls[ctl_idx]) {
+        Block(_, ln) => label_name = ln;
+        Loop(_, _, ln) => label_name = ln;
+        _ => label_name = null;
+    }
+    code_builder.puts("goto ").puts(label_name).ln();
+}
+
+def doFallThru() {
+}
+
+// Machine intrinsics.
+def mach_readStructField_i8(obj: Object, offset: FieldOffset) -> i8;
+def mach_readStructField_u8(obj: Object, offset: FieldOffset) -> u8;
+def mach_readStructField_i16(obj: Object, offset: FieldOffset) -> i16;
+def mach_readStructField_u16(obj: Object, offset: FieldOffset) -> u16;
+def mach_readStructField_u32(obj: Object, offset: FieldOffset) -> u32;
+def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> u64;
+def mach_readStructField_f32(obj: Object, offset: FieldOffset) -> float;
+def mach_readStructField_f64(obj: Object, offset: FieldOffset) -> double;
+def mach_readStructField_v128(obj: Object, offset: FieldOffset) -> v128;
+def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> Object;
+
+def mach_readMemory64_u32(memory_index: u32, index: u64, offset: u64) -> u32;
+def mach_readMemory32_u32(memory_index: u32, index: u32, offset: u32) -> u32;
+
+def mach_readTable64(table_index: u32, index: (string, TypeVar.U64)) -> Object;
+def mach_readTable32(table_index: u32, index: (string, TypeVar.U32)) -> Object;
+
+def mach_writeTable64(table_index: u32, index: (string, TypeVar.U64), val: Object);
+def mach_writeTable32(table_index: u32, index: (string, TypeVar.U32), val: Object);
+
+// Traps.
+def invalid();
+def trapNull();
+def trapUnreachable();
+
+def doBlock(bt: ()) {
+    def label_name = uidl("block_end");
+    if (ctls[codeptr.pos] == CompilerCtlEntry.None) ctls[codeptr.pos] = CompilerCtlEntry.Block(-1, label_name);
+    ctl_stack.push(codeptr.pos);
+}
+
+def doLoop(bt: ()) {
+    def label_name = uidl("loop_start");
+    code_builder.puts(label_name).puts(":\n");
+    if (ctls[codeptr.pos] == CompilerCtlEntry.None) ctls[codeptr.pos] = CompilerCtlEntry.Loop(codeptr.pos, -1, label_name);
+    ctl_stack.push(codeptr.pos);
+}
+
+def doEnd() {
+    def ctl_idx = ctl_stack.pop();
+    match (ctls[ctl_idx]) {
+        Block(end_pc, label_name) => {
+            code_builder.puts(label_name).puts(":\n");
+            if (end_pc == -1) ctls[ctl_idx] = CompilerCtlEntry.Block(codeptr.pos, label_name);
+        }
+        Loop(start_pc, end_pc, label_name) => {
+            if (end_pc == -1) ctls[ctl_idx] = CompilerCtlEntry.Loop(start_pc, codeptr.pos, label_name);
+        }
+        None => doReturn();
+    }
+}
+
+def doReturn() {
+    return;
+}
+
+def doTry(bt: ()) {
+    return;
+}
+
+def f_isAtEnd() -> bool {
+    return codeptr.pos >= codeptr.data.length;
+}
+
+def push_locals(count: u32, vtc: ValueTypeCode) {
+    System.puts("push\n");
+    var tv: TypeVar;
+    match (vtc.code) {
+        BpTypeCode.I32.val => tv = TypeVar.I32;
+        _ => tv = TypeVar.I32; // TODO
+    }
+    
+    for (i < count) local_types.put(tv);
+}
+
+component Compiler {
+    def init(code: Array<byte>, args: Array<TypeVar>, ret: Array<TypeVar>) {
+        codeptr = CodePtr.new(code);
+        local_types = Vector.new();
+        stack = ArrayStack.new();
+
+        ctls = Array.new(code.length);
+        for (i < code.length) ctls[i] = CompilerCtlEntry.None;
+        ctl_stack = ArrayStack.new();
+
+        code_builder = StringBuilder.new();
+
+        for (a in args) local_types.put(TypeVar.I32);
+        for (i < args.length) {
+            stack.push((Strings.format1("local_%d", i), TypeVar.I32));
+        }
+    }
+
+    def dispatch() {
+        codeptr.iterate_local_codes(push_locals);
+        while (codeptr.pos < codeptr.data.length) {
+            def op = codeptr.read_opcode();
+            System.puts(op.mnemonic);
+            System.ln();
+            DISPATCH_TABLE[op.code]();
+        }
+    }
+
+    def getCode() => code_builder.toString();
+}

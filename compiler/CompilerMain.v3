@@ -1,0 +1,21 @@
+def main(args: Array<string>) {
+    def filename = args[0];
+    def file_bytes = System.fileLoad(filename);
+
+    def extensions = Extension.set.all;
+    def limits = Limits.new().set(extensions);
+    def err = ErrorGen.new(filename);
+
+    def bp = BinParser.new(extensions, limits, err, filename);
+
+    def module = bp.push(file_bytes, 0, file_bytes.length).finish();
+    def func0 = module.functions[0];
+    def func_code = func0.orig_bytecode;
+
+    Validator.init(func_code, [TypeVar.I32, TypeVar.I32], []);
+    Validator.dispatch();
+
+    def compiler = Compiler.init(func_code, [TypeVar.I32, TypeVar.I32], []);
+    Compiler.dispatch();
+    System.puts(Compiler.getCode());
+}

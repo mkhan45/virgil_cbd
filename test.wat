@@ -8,7 +8,7 @@
 	    (local.set 1 (i32.add (local.get 1) (local.get 0)))
 	    (local.set 0 (i32.sub (local.get 0) (i32.const 1)))
 	    (br 0)
-	)
+        )
     )
     (local.get 1)
   )

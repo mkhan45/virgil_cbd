@@ -37,6 +37,7 @@ component CBDTypes {
 
         if (Strings.equal(fn_name, "f_getLabel")) return ([true], true); 
         if (Strings.equal(fn_name, "f_getLocalType")) return ([true], true); 
+        if (Strings.equal(fn_name, "f_isAtEnd")) return ([true], true); 
 
         if (Strings.equal(fn_name, "m_getGlobalType")) return ([true], true); 
         if (Strings.equal(fn_name, "m_getFieldKind")) return ([true, true], true); 
