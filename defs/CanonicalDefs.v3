@@ -188,6 +188,9 @@ def CALL_INDIRECT() {
 		return doCall(sig, target);
 	}
 }
+def RETURN() {
+    return doReturn();
+}
 def I32_CONST() {
 	var x #rtcast_i32 = readImmILEB32();
 	push_i32(x);
@@ -207,6 +210,15 @@ def I32_SUB() {
 def I32_EQZ() {
 	var x = pop_i32();
 	if (x == 0) {
+	    push_i32(1);
+	} else {
+	    push_i32(0);
+	}
+}
+def I32_LT_U() {
+	var y = pop_i32();
+	var x = pop_i32();
+	if (x < y) {
 	    push_i32(1);
 	} else {
 	    push_i32(0);

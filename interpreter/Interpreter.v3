@@ -81,9 +81,13 @@ def CALL_INDIRECT() {
 		return ret1521;
 	}
 }
+def RETURN() {
+	def ret220 = doReturn();
+	return ret220;
+}
 def I32_CONST() {
 	def x0 = readImmILEB32();
-	def eff222 = push_i32(x0);
+	def eff12 = push_i32(x0);
 }
 def I32_ADD() {
 	def x0 = pop_i32();
@@ -109,39 +113,50 @@ def I32_EQZ() {
 		def eff107 = push_i32(arg116);
 	}
 }
+def I32_LT_U() {
+	def y0 = pop_i32();
+	def x1 = pop_i32();
+	def cond84 = i32.<(x1, y0);
+	if (cond84) {
+		def arg105 : int = 1;
+		def eff96 = push_i32(arg105);
+	} else {
+		def arg127 : int = 0;
+		def eff118 = push_i32(arg127);
+	}
+}
 def F32_MAX() {
 	def b0 = pop_f32();
 	def a1 = pop_f32();
-	def cond165 = float.>(a1, b0);
-	if (cond165) {
+	def cond175 = float.>(a1, b0);
+	if (cond175) {
 	} else {
 	}
-	def cond138 = float.==(a1, b0);
-	if (cond138) {
+	def cond148 = float.==(a1, b0);
+	if (cond148) {
 	} else {
 	}
-	def cond1011 = float.>(b0, a1);
-	if (cond1011) {
+	def cond1111 = float.>(b0, a1);
+	if (cond1111) {
 	} else {
 	}
-	def eff813 = push_f32(a1);
+	def eff913 = push_f32(a1);
 }
 def BR() {
 	def depth0 = readImmULEB32();
 	def label2 = f_getLabel(depth0);
-	def eff154 = doBranch(label2);
-	return void;
+	def eff144 = doBranch(label2);
 }
 def BR_IF() {
 	def depth0 = readImmULEB32();
 	def label2 = f_getLabel(depth0);
 	def cond3 = pop_i32();
-	def right115 : int = 0;
-	def cond66 = i32.!=(cond3, right115);
-	if (cond66) {
-		def eff78 = doBranch(label2);
+	def right105 : int = 0;
+	def cond56 = i32.!=(cond3, right105);
+	if (cond56) {
+		def eff68 = doBranch(label2);
 	} else {
-		def eff99 = doFallThru();
+		def eff89 = doFallThru();
 	}
 }
 def BLOCK() {
@@ -194,10 +209,12 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.TABLE_SET.code] = TABLE_SET;
   DISPATCH_TABLE[Opcode.CALL.code] = CALL;
   DISPATCH_TABLE[Opcode.CALL_INDIRECT.code] = CALL_INDIRECT;
+  DISPATCH_TABLE[Opcode.RETURN.code] = RETURN;
   DISPATCH_TABLE[Opcode.I32_CONST.code] = I32_CONST;
   DISPATCH_TABLE[Opcode.I32_ADD.code] = I32_ADD;
   DISPATCH_TABLE[Opcode.I32_SUB.code] = I32_SUB;
   DISPATCH_TABLE[Opcode.I32_EQZ.code] = I32_EQZ;
+  DISPATCH_TABLE[Opcode.I32_LT_U.code] = I32_LT_U;
   DISPATCH_TABLE[Opcode.F32_MAX.code] = F32_MAX;
   DISPATCH_TABLE[Opcode.BR.code] = BR;
   DISPATCH_TABLE[Opcode.BR_IF.code] = BR_IF;
@@ -219,10 +236,9 @@ class Frame {
     var codeptr: CodePtr;
     var num_rets: int;
 
-    new(parent: Frame, f_idx: int) {
-        def fn = functions[f_idx];
+    new(parent: Frame, fn: CBDFunction) {
         fp = stack.top - fn.args.length;
-        sidetable = sidetables[f_idx];
+        sidetable = fn.sidetable;
         stp = 0;
         codeptr = CodePtr.new(fn.code);
         local_types = fn.locals;
@@ -235,6 +251,7 @@ class CBDFunction {
     def args: Vector<TypeVar> = Vector.new();
     def rets: Vector<TypeVar> = Vector.new();
     def locals: Vector<TypeVar> = Vector.new();
+    var sidetable: Vector<(int, int)> = null;
 
     new(decl: FuncDecl) {
         for (param in decl.sig.params) args.put(value_type_to_type_var(param));
@@ -254,7 +271,6 @@ class CBDFunction {
 }
 
 var functions: Vector<CBDFunction>;
-var sidetables: Vector<Vector<(int, int)>>;
 
 var current_frame: Frame;
 var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
@@ -327,10 +343,10 @@ def push_Value(tv: TypeVar, v: Value) {
 
 // Local variables.
 def getLocal(tv: TypeVar, index: u32) -> Value {
-    return stack.elems[index];
+    return stack.elems[current_frame.fp + int.!(index)];
 }
 def setLocal(tv: TypeVar, index: u32, v: Value) {
-    stack.elems[index] = v;
+    stack.elems[current_frame.fp + int.!(index)] = v;
 }
 
 // Global variables.
@@ -352,16 +368,24 @@ def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
 def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset;
 def m_isMemory64(memory_index: u32) -> bool;
 def m_isTable64(memory_index: u32) -> bool;
-def m_getFuncSignature(func_index: u32) -> Signature;
-def m_getSignature(sig_index: u32) -> Signature;
+def m_getFuncSignature(func_index: u32) -> SigDecl {
+    return null; // already in CBDFunction, TODO: refactor
+}
+def m_getSignature(sig_index: u32) -> SigDecl;
 
 // Instance context.
-def i_getTableFunction64(table_index: u32, sig: Signature, func_index: u64) -> Function;
-def i_getTableFunction32(table_index: u32, sig: Signature, func_index: u32) -> Function;
-def i_getFunction(func_index: u32) -> Function;
+def i_getTableFunction64(table_index: u32, sig: SigDecl, func_index: u64) -> CBDFunction;
+def i_getTableFunction32(table_index: u32, sig: SigDecl, func_index: u32) -> CBDFunction;
+def i_getFunction(func_index: u32) -> CBDFunction {
+    return functions[int.!(func_index)];
+}
 
 // Control flow.
-def doCall(sig: Signature, target: Function);
+def doCall(sig: SigDecl, target: CBDFunction) {
+    def new_frame = Frame.new(current_frame, target);
+    current_frame = new_frame;
+    current_frame.codeptr.iterate_local_codes(push_locals);
+}
 
 def doBranch(label: Label) {
     def ste = current_frame.sidetable[current_frame.stp];
@@ -409,7 +433,11 @@ def doEnd() {
 }
 
 def doReturn() {
-    return;
+    // TODO
+    def ret = stack.pop();
+    stack.top = current_frame.fp;
+    current_frame = current_frame.parent;
+    stack.push(ret);
 }
 
 def doTry(bt: ()) {
@@ -433,13 +461,12 @@ def push_locals(count: u32, vtc: ValueTypeCode) {
 
 component Interpreter {
     def init(fns: Vector<CBDFunction>, main_idx: int, args: Array<int>) {
-        sidetables = Vector.new();
         for (i < fns.length) {
             def fn = fns[i];
             Validator.init(fn.code, fn.locals.copy(), fn.rets.copy());
             Validator.dispatch();
             def sts = Validator.build_sidetable();
-            sidetables.put(sts.1);
+            fn.sidetable = sts.1;
             System.puts("validated ");
             System.puti(i);
             System.ln();
@@ -448,14 +475,14 @@ component Interpreter {
         stack = ArrayStack<Value>.new();
         for (arg in args) stack.push(Value.I32(u32.view(arg)));
         functions = fns;
-        current_frame = Frame.new(null, main_idx);
+        current_frame = Frame.new(null, functions[main_idx]);
     }
 
     def dispatch() {
         current_frame.codeptr.iterate_local_codes(push_locals);
-        while (current_frame.codeptr.pos < current_frame.codeptr.data.length) {
+        while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length) {
             def op = current_frame.codeptr.read_opcode();
-            // print_stack()current_frame.;
+            // print_stack();
             // System.puts(op.mnemonic);
             // System.ln();
             DISPATCH_TABLE[op.code]();

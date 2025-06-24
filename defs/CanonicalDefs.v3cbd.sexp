@@ -467,6 +467,12 @@ component CanonicalDefs {
                             (VarExpr[Local] "doCall" (type CanonicalDefs))
                             (VarExpr[Local] "sig" (type Signature))
                             (VarExpr[Local] "target" (type Function)))))))
+    method RETURN()
+        (BlockStmt
+            (ReturnStmt
+                (AppExpr "doReturn" (type void)
+                    (VarExpr[ComponentMethod] "doReturn" (type void -> void))
+                    (VarExpr[Local] "doReturn" (type CanonicalDefs)))))
     method I32_CONST()
         (BlockStmt
             (LocalStmt
@@ -546,6 +552,34 @@ component CanonicalDefs {
                             (VarExpr[ComponentMethod] "push_i32" (type int -> void))
                             (VarExpr[Local] "push_i32" (type CanonicalDefs))
                             (Literal "0" (type int)))))))
+    method I32_LT_U()
+        (BlockStmt
+            (LocalStmt
+                ("y" (type int)
+                    (AppExpr "pop_i32" (type int)
+                        (VarExpr[ComponentMethod] "pop_i32" (type void -> int))
+                        (VarExpr[Local] "pop_i32" (type CanonicalDefs)))))
+            (LocalStmt
+                ("x" (type int)
+                    (AppExpr "pop_i32" (type int)
+                        (VarExpr[ComponentMethod] "pop_i32" (type void -> int))
+                        (VarExpr[Local] "pop_i32" (type CanonicalDefs)))))
+            (IfStmt
+                (BinOpExpr "<" (type bool)
+                    (VarExpr[Local] "x" (type int))
+                    (VarExpr[Local] "y" (type int)))
+                (BlockStmt
+                    (ExprStmt
+                        (AppExpr "push_i32" (type void)
+                            (VarExpr[ComponentMethod] "push_i32" (type int -> void))
+                            (VarExpr[Local] "push_i32" (type CanonicalDefs))
+                            (Literal "1" (type int)))))
+                (BlockStmt
+                    (ExprStmt
+                        (AppExpr "push_i32" (type void)
+                            (VarExpr[ComponentMethod] "push_i32" (type int -> void))
+                            (VarExpr[Local] "push_i32" (type CanonicalDefs))
+                            (Literal "0" (type int)))))))
     method F32_MAX()
         (BlockStmt
             (LocalStmt
@@ -613,9 +647,7 @@ component CanonicalDefs {
                 (AppExpr "doBranch" (type void)
                     (VarExpr[ComponentMethod] "doBranch" (type Label -> void))
                     (VarExpr[Local] "doBranch" (type CanonicalDefs))
-                    (VarExpr[Local] "label" (type Label))))
-            (ReturnStmt
-                (VarExpr[Void] "void" (type void))))
+                    (VarExpr[Local] "label" (type Label)))))
     method BR_IF()
         (BlockStmt
             (LocalStmt

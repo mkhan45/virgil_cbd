@@ -9,10 +9,9 @@ class Frame {
     var codeptr: CodePtr;
     var num_rets: int;
 
-    new(parent: Frame, f_idx: int) {
-        def fn = functions[f_idx];
+    new(parent: Frame, fn: CBDFunction) {
         fp = stack.top - fn.args.length;
-        sidetable = sidetables[f_idx];
+        sidetable = fn.sidetable;
         stp = 0;
         codeptr = CodePtr.new(fn.code);
         local_types = fn.locals;
@@ -25,6 +24,7 @@ class CBDFunction {
     def args: Vector<TypeVar> = Vector.new();
     def rets: Vector<TypeVar> = Vector.new();
     def locals: Vector<TypeVar> = Vector.new();
+    var sidetable: Vector<(int, int)> = null;
 
     new(decl: FuncDecl) {
         for (param in decl.sig.params) args.put(value_type_to_type_var(param));
@@ -44,7 +44,6 @@ class CBDFunction {
 }
 
 var functions: Vector<CBDFunction>;
-var sidetables: Vector<Vector<(int, int)>>;
 
 var current_frame: Frame;
 var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
@@ -117,10 +116,10 @@ def push_Value(tv: TypeVar, v: Value) {
 
 // Local variables.
 def getLocal(tv: TypeVar, index: u32) -> Value {
-    return stack.elems[index];
+    return stack.elems[current_frame.fp + int.!(index)];
 }
 def setLocal(tv: TypeVar, index: u32, v: Value) {
-    stack.elems[index] = v;
+    stack.elems[current_frame.fp + int.!(index)] = v;
 }
 
 // Global variables.
@@ -142,16 +141,24 @@ def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
 def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset;
 def m_isMemory64(memory_index: u32) -> bool;
 def m_isTable64(memory_index: u32) -> bool;
-def m_getFuncSignature(func_index: u32) -> Signature;
-def m_getSignature(sig_index: u32) -> Signature;
+def m_getFuncSignature(func_index: u32) -> SigDecl {
+    return null; // already in CBDFunction, TODO: refactor
+}
+def m_getSignature(sig_index: u32) -> SigDecl;
 
 // Instance context.
-def i_getTableFunction64(table_index: u32, sig: Signature, func_index: u64) -> Function;
-def i_getTableFunction32(table_index: u32, sig: Signature, func_index: u32) -> Function;
-def i_getFunction(func_index: u32) -> Function;
+def i_getTableFunction64(table_index: u32, sig: SigDecl, func_index: u64) -> CBDFunction;
+def i_getTableFunction32(table_index: u32, sig: SigDecl, func_index: u32) -> CBDFunction;
+def i_getFunction(func_index: u32) -> CBDFunction {
+    return functions[int.!(func_index)];
+}
 
 // Control flow.
-def doCall(sig: Signature, target: Function);
+def doCall(sig: SigDecl, target: CBDFunction) {
+    def new_frame = Frame.new(current_frame, target);
+    current_frame = new_frame;
+    current_frame.codeptr.iterate_local_codes(push_locals);
+}
 
 def doBranch(label: Label) {
     def ste = current_frame.sidetable[current_frame.stp];
@@ -199,7 +206,11 @@ def doEnd() {
 }
 
 def doReturn() {
-    return;
+    // TODO
+    def ret = stack.pop();
+    stack.top = current_frame.fp;
+    current_frame = current_frame.parent;
+    stack.push(ret);
 }
 
 def doTry(bt: ()) {
@@ -223,13 +234,12 @@ def push_locals(count: u32, vtc: ValueTypeCode) {
 
 component Interpreter {
     def init(fns: Vector<CBDFunction>, main_idx: int, args: Array<int>) {
-        sidetables = Vector.new();
         for (i < fns.length) {
             def fn = fns[i];
             Validator.init(fn.code, fn.locals.copy(), fn.rets.copy());
             Validator.dispatch();
             def sts = Validator.build_sidetable();
-            sidetables.put(sts.1);
+            fn.sidetable = sts.1;
             System.puts("validated ");
             System.puti(i);
             System.ln();
@@ -238,14 +248,14 @@ component Interpreter {
         stack = ArrayStack<Value>.new();
         for (arg in args) stack.push(Value.I32(u32.view(arg)));
         functions = fns;
-        current_frame = Frame.new(null, main_idx);
+        current_frame = Frame.new(null, functions[main_idx]);
     }
 
     def dispatch() {
         current_frame.codeptr.iterate_local_codes(push_locals);
-        while (current_frame.codeptr.pos < current_frame.codeptr.data.length) {
+        while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length) {
             def op = current_frame.codeptr.read_opcode();
-            // print_stack()current_frame.;
+            // print_stack();
             // System.puts(op.mnemonic);
             // System.ln();
             DISPATCH_TABLE[op.code]();

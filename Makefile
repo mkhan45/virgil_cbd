@@ -30,10 +30,10 @@ test_processor:
 
 # Run the interpreter
 run_interpreter: generate_interpreter generate_validator
-	$(VIRGIL) -O3 -fun-exprs -simple-bodies $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL) validator/Validator.v3 interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
+	$(VIRGIL) -O2 -fun-exprs -simple-bodies $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL) validator/Validator.v3 interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
 
 compile_interpreter: generate_interpreter
-	$(V3C) -O2 -fun-exprs -simple-bodies $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL) validator/Validator.v3 interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
+	$(V3C) -O3 -fun-exprs -simple-bodies $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL) validator/Validator.v3 interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
 
 # Generate the interpreter from template
 generate_interpreter: cbd_sexp
@@ -47,7 +47,9 @@ generate_validator: cbd_sexp
 
 run_validator: generate_validator
 	$(VIRGIL) -fun-exprs -simple-bodies $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL) validator/Validator.v3 validator/ValidatorMain.v3 $(ARGS)
+
 cbd_sexp:
+	$(VIRGIL) -print-vst defs/CanonicalDefs.v3 > defs/CanonicalDefs.v3cbd.sexp
 
 generate_compiler: cbd_sexp
 	cp defs/CanonicalDefs.v3 defs/CanonicalDefs.v3cbd

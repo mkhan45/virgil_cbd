@@ -50,8 +50,6 @@ def rtcast_i32(x: i32) -> TypeVar.I32 {
     return TypeVar.I32;
 }
 type FieldOffset;
-class Signature { }
-// class Function { }
 
 enum FieldKind {
 	U8, U16, I32, I64, F32, F64, V128, REF
@@ -165,16 +163,22 @@ def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
 def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset;
 def m_isMemory64(memory_index: u32) -> bool;
 def m_isTable64(memory_index: u32) -> bool;
-def m_getFuncSignature(func_index: u32) -> Signature;
-def m_getSignature(sig_index: u32) -> Signature;
+def m_getFuncSignature(func_index: u32) -> SigDecl {
+    return null;
+}
+def m_getSignature(sig_index: u32) -> SigDecl;
 
 // Instance context.
-def i_getTableFunction64(table_index: u32, sig: Signature, func_index: TypeVar.U64) -> Function;
-def i_getTableFunction32(table_index: u32, sig: Signature, func_index: TypeVar.U32) -> Function;
-def i_getFunction(func_index: u32) -> Function;
+def i_getTableFunction64(table_index: u32, sig: SigDecl, func_index: TypeVar.U64) -> CBDFunction;
+def i_getTableFunction32(table_index: u32, sig: SigDecl, func_index: TypeVar.U32) -> CBDFunction;
+def i_getFunction(func_index: u32) -> CBDFunction {
+    return null;
+}
 
 // Control flow.
-def doCall(sig: Signature, target: Function);
+def doCall(sig: SigDecl, target: CBDFunction) {
+    return; // TODO
+}
 
 def doBranch(label: int) {
     def ctl_idx = ctl_stack.elems[ctl_stack.top - 1 - label];
