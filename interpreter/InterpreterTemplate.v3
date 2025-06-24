@@ -1,43 +1,63 @@
 def build_dispatch_table() -> Array<void -> void> { return Array.new(0); } // dummy so this file compiles independently, replaced by processor
 
-var codeptr: CodePtr;
+class Frame {
+    var parent: Frame;
+    var fp: int;
+    var sidetable: Vector<(int, int)>;
+    var stp: int;
+    var local_types: Vector<TypeVar>; // TODO: just get ValueKinds from stack
+    var codeptr: CodePtr;
+    var num_rets: int;
+
+    new(parent: Frame, f_idx: int) {
+        def fn = functions[f_idx];
+        fp = stack.top - fn.args.length;
+        sidetable = sidetables[f_idx];
+        stp = 0;
+        codeptr = CodePtr.new(fn.code);
+        local_types = fn.locals;
+        num_rets = fn.rets.length;
+    }
+}
+
+class CBDFunction {
+    def code: Array<byte>;
+    def args: Vector<TypeVar>;
+    def rets: Vector<TypeVar>;
+    def locals: Vector<TypeVar>;
+}
+
+var functions: Vector<CBDFunction>;
+var sidetables: Vector<Vector<(int, int)>>;
+
+var current_frame: Frame;
 var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
-var local_types: Vector<TypeVar>; // TODO: just get ValueKinds from stack
 var stack: ArrayStack<Value>;
 
-var sidetable: Vector<(int, int)>; // (target_pc, target_stp)
-var stp: int = 0;
-
-// Constants
 def HAS_MEM_INDEX = 0x40u8;
 
-// Types.
-// type Value;
-// class Object { }
-// class Function { }
-
 def readImmULEB32() -> u32 {
-    return codeptr.read_uleb32();
+    return current_frame.codeptr.read_uleb32();
 }
 
 def readImmILEB32() -> i32 {
-    return i32.!(codeptr.read_uleb32());
+    return i32.!(current_frame.codeptr.read_uleb32());
 }
 
 def readImmULEB64() -> u64 {
-    return codeptr.read_uleb64();
+    return current_frame.codeptr.read_uleb64();
 }
 
 def readImmILEB64() -> i64 {
-    return i64.!(codeptr.read_uleb64());
+    return i64.!(current_frame.codeptr.read_uleb64());
 }
 
 def readImmU8() -> u8 {
-    return codeptr.read1();
+    return current_frame.codeptr.read1();
 }
 
 def readImmBlockType() -> () {
-    def bt = codeptr.read_BlockTypeCode();
+    def bt = current_frame.codeptr.read_BlockTypeCode();
     return ();
 }
 
@@ -91,13 +111,13 @@ def setLocal(tv: TypeVar, index: u32, v: Value) {
 def getGlobal(tv: TypeVar, index: u32) -> Value;
 def setGlobal(tv: TypeVar, index: u32, v: Value);
 
-// Function context.
+// CBDFunction context.
 def f_getLabel(depth: u32) -> Label {
     return Label(depth);
 }
 
 def f_getLocalType(index: u32) -> TypeVar {
-    return local_types[int.!(index)];
+    return current_frame.local_types[int.!(index)];
 }
 
 // Module context.
@@ -118,13 +138,13 @@ def i_getFunction(func_index: u32) -> Function;
 def doCall(sig: Signature, target: Function);
 
 def doBranch(label: Label) {
-    def ste = sidetable[stp];
-    codeptr.at(ste.0);
-    stp = ste.1;
+    def ste = current_frame.sidetable[current_frame.stp];
+    current_frame.codeptr.at(ste.0);
+    current_frame.stp = ste.1;
 }
 
 def doFallThru() {
-    stp += 1;
+    current_frame.stp += 1;
 }
 
 // Machine intrinsics.
@@ -171,7 +191,7 @@ def doTry(bt: ()) {
 }
 
 def f_isAtEnd() -> bool {
-    return codeptr.pos >= codeptr.data.length;
+    return current_frame.codeptr.pos >= current_frame.codeptr.data.length;
 }
 
 def push_locals(count: u32, vtc: ValueTypeCode) {
@@ -182,31 +202,30 @@ def push_locals(count: u32, vtc: ValueTypeCode) {
         _ => tv = TypeVar.I32; // TODO
     }
     
-    for (i < count) local_types.put(tv);
+    for (i < count) current_frame.local_types.put(tv);
 }
 
 component Interpreter {
-    def init(code: Array<byte>, args: Array<int>) {
-        // TODO: make the interpreter run the validator
-        codeptr = CodePtr.new(code);
-        local_types = Vector.new();
+    def init(fns: Vector<CBDFunction>, main_idx: int, args: Array<int>) {
+        functions = fns;
+        current_frame = Frame.new(null, main_idx);
+
         stack = ArrayStack.new();
 
-        Validator.init(code, [TypeVar.I32, TypeVar.I32], []);
-        Validator.dispatch();
-        def sts = Validator.build_sidetable();
-        sidetable = sts.1;
-        stp = 0;
-
-        for (a in args) local_types.put(TypeVar.I32);
-        for (a in args) stack.push(Value.I32(u32.!(a)));
+        for (i < fns.length) {
+            def fn = fns[i];
+            Validator.init(fn.code, fn.locals.copy(), fn.rets.copy());
+            Validator.dispatch();
+            def sts = Validator.build_sidetable();
+            sidetables[i] = sts.1;
+        }
     }
 
     def dispatch() {
-        codeptr.iterate_local_codes(push_locals);
-        while (codeptr.pos < codeptr.data.length) {
-            def op = codeptr.read_opcode();
-            // print_stack();
+        current_frame.codeptr.iterate_local_codes(push_locals);
+        while (current_frame.codeptr.pos < current_frame.codeptr.data.length) {
+            def op = current_frame.codeptr.read_opcode();
+            // print_stack()current_frame.;
             // System.puts(op.mnemonic);
             // System.ln();
             DISPATCH_TABLE[op.code]();

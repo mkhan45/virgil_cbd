@@ -225,7 +225,6 @@ def BR() {
 	var depth = readImmULEB32();
 	var label #sidetable = f_getLabel(depth);
 	doBranch(label);
-	return void;
 }
 def BR_IF() {
 	var depth = readImmULEB32();
