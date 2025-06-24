@@ -372,7 +372,7 @@ def ELSE() {
 def END() {
 	// eff52 -- static: no, type: ⊥, effect: ctl
 // eff60 -- static: no, type: ⊥, effect: ctl
-// cond41 -- static: no, type: ⊥, effect: none
+// cond41 -- static: yes, type: ⊥, effect: none
 
 	def eff60 = doEnd();
 	def eff52 = doReturn();
@@ -424,9 +424,9 @@ var stack: ArrayStack<TypeVar>;
 
 // this is mainly to lift sidetable vars out of conditionals,
 // probably a lot of ways to dodge that
-var st_builder: STBuilder = STBuilder.new();
-var st_entries: Vector<STEntry> = Vector.new();
-var st_controls: Vector<int> = Vector.new(); // ctl idx of target
+var st_builder: STBuilder;
+var st_entries: Vector<STEntry>;
+var st_controls: Vector<int>; // ctl idx of target
 
 def assert(b: bool) {
     if (!b) {
@@ -461,6 +461,7 @@ type TypeVar {
     case F32 {
     }
     case Err;
+    case Bot;
 }
 def rtcast_i32(x: i32) -> TypeVar.I32 {
     return TypeVar.I32;
@@ -682,6 +683,10 @@ component Validator {
 
         for (a in args) local_types.put(TypeVar.I32);
         for (a in args) stack.push(a);
+
+        st_builder = STBuilder.new();
+        st_entries = Vector.new();
+        st_controls = Vector.new();
     }
 
     def dispatch() {

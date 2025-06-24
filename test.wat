@@ -12,7 +12,7 @@
     )
     (local.get 1)
   )
-  (func (export "test1") (param i32 i32) (result i32)
+  (func (export "testfn") (param i32 i32) (result i32)
     ;; fn (x, y) => if (x == 0) then y else y * 2
     (block
 	    (i32.eqz (local.get 0))

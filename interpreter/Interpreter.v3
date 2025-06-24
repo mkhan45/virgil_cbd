@@ -231,10 +231,26 @@ class Frame {
 }
 
 class CBDFunction {
-    def code: Array<byte>;
-    def args: Vector<TypeVar>;
-    def rets: Vector<TypeVar>;
-    def locals: Vector<TypeVar>;
+    var code: Array<byte>;
+    def args: Vector<TypeVar> = Vector.new();
+    def rets: Vector<TypeVar> = Vector.new();
+    def locals: Vector<TypeVar> = Vector.new();
+
+    new(decl: FuncDecl) {
+        for (param in decl.sig.params) args.put(value_type_to_type_var(param));
+        for (result in decl.sig.results) rets.put(value_type_to_type_var(result));
+        for (i < decl.num_locals) locals.put(TypeVar.I32); // no type?
+        code = decl.orig_bytecode;
+    }
+
+    def value_type_to_type_var(vt: ValueType) -> TypeVar {
+        match (vt) {
+            BOTTOM => return TypeVar.Bot;
+            I32 => return TypeVar.I32;
+            F32 => return TypeVar.F32;
+            _ => return TypeVar.Err;
+        }
+    }
 }
 
 var functions: Vector<CBDFunction>;
@@ -417,18 +433,22 @@ def push_locals(count: u32, vtc: ValueTypeCode) {
 
 component Interpreter {
     def init(fns: Vector<CBDFunction>, main_idx: int, args: Array<int>) {
-        functions = fns;
-        current_frame = Frame.new(null, main_idx);
-
-        stack = ArrayStack.new();
-
+        sidetables = Vector.new();
         for (i < fns.length) {
             def fn = fns[i];
             Validator.init(fn.code, fn.locals.copy(), fn.rets.copy());
             Validator.dispatch();
             def sts = Validator.build_sidetable();
-            sidetables[i] = sts.1;
+            sidetables.put(sts.1);
+            System.puts("validated ");
+            System.puti(i);
+            System.ln();
         }
+
+        stack = ArrayStack<Value>.new();
+        for (arg in args) stack.push(Value.I32(u32.view(arg)));
+        functions = fns;
+        current_frame = Frame.new(null, main_idx);
     }
 
     def dispatch() {
