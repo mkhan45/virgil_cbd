@@ -166,8 +166,8 @@ def CALL_INDIRECT() {
 	// arg1111 -- static: no, type: ⊥, effect: none
 // arg1012 -- static: yes, type: ⊥, effect: none
 // arg1719 -- static: no, type: ⊥, effect: none
+// ret1521 -- static: no, type: ⊥, effect: ctl
 // table_index1 -- static: yes, type: u32, effect: ctl
-// eff913 -- static: no, type: ⊥, effect: ctl
 // arg1916 -- static: yes, type: ⊥, effect: none
 // arg1817 -- static: yes, type: u32, effect: none
 // arg129 -- static: yes, type: u32, effect: none
@@ -183,7 +183,7 @@ def CALL_INDIRECT() {
 // arg222 -- static: yes, type: u32, effect: none
 // arg1620 -- static: yes, type: ⊥, effect: none
 // arg2015 -- static: no, type: ⊥, effect: none
-// eff1521 -- static: no, type: ⊥, effect: ctl
+// ret913 -- static: no, type: ⊥, effect: ctl
 // target18 -- static: no, type: ⊥, effect: none
 
 	def sig_index0 = readImmULEB32();
@@ -191,16 +191,17 @@ def CALL_INDIRECT() {
 	def sig3 = m_getSignature(sig_index0);
 	def func_index6 = pop_u64();
 	def target10 = i_getTableFunction64(table_index1, sig3, func_index6);
-	def eff913 = doCall(sig3, target10);
+	def ret913 = doCall(sig3, target10);
 	def func_index14 = pop_u32();
 	def target18 = i_getTableFunction32(table_index1, sig3, func_index14);
-	def eff1521 = doCall(sig3, target18);
+	def ret1521 = doCall(sig3, target18);
 }
 // st bitset: 0
 def RETURN() {
-	// eff220 -- static: no, type: ⊥, effect: ctl
+	// ret220 -- static: no, type: ⊥, effect: ctl
 
-	def eff220 = doReturn();
+	def ret220 = doReturn();
+	return ret220;
 }
 // st bitset: 0
 def I32_CONST() {

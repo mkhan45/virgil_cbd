@@ -181,15 +181,15 @@ def CALL_INDIRECT() {
 	if (m_isTable64(table_index)) {
 		var func_index = pop_u64();
 		var target #sidetable = i_getTableFunction64(table_index, sig, func_index);
-		doCall(sig, target);
+		return doCall(sig, target);
 	} else {
 		var func_index = pop_u32();
 		var target #sidetable = i_getTableFunction32(table_index, sig, func_index);
-		doCall(sig, target);
+		return doCall(sig, target);
 	}
 }
 def RETURN() {
-    doReturn();
+    return doReturn();
 }
 def I32_CONST() {
 	var x #rtcast_i32 = readImmILEB32();
@@ -278,15 +278,15 @@ def STRUCT_GET() {
 	var kind = m_getFieldKind(struct_index, field_index);		//#sidetable
 	var offset = m_getFieldOffset(struct_index, field_index);	//#sidetable
 	var obj = pop_Object();
-	if (obj == null) trapNull();
-    else match (kind) {
+	if (obj == null) return trapNull();
+	match (kind) {
 		I32 => push_u32(mach_readStructField_u32(obj, offset));
 		I64 => push_u64(mach_readStructField_u64(obj, offset));
 		F32 => push_f32(mach_readStructField_f32(obj, offset));
 		F64 => push_f64(mach_readStructField_f64(obj, offset));
 		V128 => push_v128(mach_readStructField_v128(obj, offset));
 		REF => push_Object(mach_readStructField_Object(obj, offset));
-		_ => invalid();
+		_ => return invalid();
 	}
 }
 def STRUCT_GET_S() {
@@ -295,11 +295,11 @@ def STRUCT_GET_S() {
 	var kind = m_getFieldKind(struct_index, field_index);		//#sidetable
 	var offset = m_getFieldOffset(struct_index, field_index);	//#sidetable
 	var obj = pop_Object();
-	if (obj == null) trapNull();
-    else match (kind) {
+	if (obj == null) return trapNull();
+	match (kind) {
 		U8 => push_u32(u32.view(mach_readStructField_i8(obj, offset)));
 		U16 => push_u32(u32.view(mach_readStructField_i16(obj, offset)));
-		_ => invalid();
+		_ => return invalid();
 	}
 }
 def STRUCT_GET_U() {
@@ -308,11 +308,11 @@ def STRUCT_GET_U() {
 	var kind = m_getFieldKind(struct_index, field_index);		//#sidetable
 	var offset = m_getFieldOffset(struct_index, field_index);	//#sidetable
 	var obj = pop_Object();
-	if (obj == null) trapNull();
+	if (obj == null) return trapNull();
 	match (kind) {
 		U8 => push_u32(u32.view(mach_readStructField_u8(obj, offset)));
 		U16 => push_u32(u32.view(mach_readStructField_u16(obj, offset)));
-		_ => invalid();
+		_ => return invalid();
 	}
 }
 def I32_LOAD() {
