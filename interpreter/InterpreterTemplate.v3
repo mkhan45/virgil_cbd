@@ -46,7 +46,7 @@ class CBDFunction {
 var functions: Vector<CBDFunction>;
 
 var current_frame: Frame;
-var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
+// var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
 var stack: ArrayStack<Value>;
 
 def HAS_MEM_INDEX = 0x40u8;
@@ -252,14 +252,15 @@ component Interpreter {
     }
 
     def dispatch() {
-        current_frame.codeptr.iterate_local_codes(push_locals);
-        while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length) {
-            def op = current_frame.codeptr.read_opcode();
-            // print_stack();
-            // System.puts(op.mnemonic);
-            // System.ln();
-            DISPATCH_TABLE[op.code]();
-        }
+        generated_dispatch();
+        // current_frame.codeptr.iterate_local_codes(push_locals);
+        // while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length) {
+        //     def op = current_frame.codeptr.read_opcode();
+        //     // print_stack();
+        //     // System.puts(op.mnemonic);
+        //     // System.ln();
+        //     DISPATCH_TABLE[op.tag]();
+        // }
     }
 
     def get_stack() -> ArrayStack<Value> {

@@ -38,7 +38,7 @@ compile_interpreter: generate_interpreter
 # Generate the interpreter from template
 generate_interpreter: cbd_sexp
 	cp defs/CanonicalDefs.v3 defs/CanonicalDefs.v3cbd
-	$(VIRGIL) -fun-exprs $(VIRGIL_STD) parser/VirgilSexpr.v3 IR/*.v3 interpreter/InterpreterGen.v3 defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp interpreter/InterpreterTemplate.v3 > interpreter/Interpreter.v3
+	$(VIRGIL) -fun-exprs -simple-bodies $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL) parser/VirgilSexpr.v3 IR/*.v3 interpreter/InterpreterGen.v3 defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp interpreter/InterpreterTemplate.v3 > interpreter/Interpreter.v3
 	rm defs/CanonicalDefs.v3cbd
 
 generate_validator: cbd_sexp
