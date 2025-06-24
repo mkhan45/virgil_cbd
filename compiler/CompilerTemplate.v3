@@ -51,8 +51,13 @@ component EmitOpI32 {
         return (new_var, TypeVar.I32);
     }
     def not_equals(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
-        def new_var = uidl(Strings.format2("%s_not_equals__%s", lhs.0, rhs.0));
+        def new_var = uidl(Strings.format2("%s_not_equals_%s", lhs.0, rhs.0));
         code_builder.puts(Strings.format3("int %s = %s != %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.I32);
+    }
+    def lt(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
+        def new_var = uidl(Strings.format2("%s_lt_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("int %s = %s < %s;\n", new_var, lhs.0, rhs.0));
         return (new_var, TypeVar.I32);
     }
 }
@@ -211,16 +216,22 @@ def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
 def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset;
 def m_isMemory64(memory_index: u32) -> bool;
 def m_isTable64(memory_index: u32) -> bool;
-def m_getFuncSignature(func_index: u32) -> Signature;
-def m_getSignature(sig_index: u32) -> Signature;
+def m_getFuncSignature(func_index: u32) -> SigDecl {
+    return null; // TODO
+}
+def m_getSignature(sig_index: u32) -> SigDecl;
 
 // Instance context.
-def i_getTableFunction64(table_index: u32, sig: Signature, func_index: (string, TypeVar.U64)) -> Function;
-def i_getTableFunction32(table_index: u32, sig: Signature, func_index: (string, TypeVar.U32)) -> Function;
-def i_getFunction(func_index: u32) -> Function;
+def i_getTableFunction64(table_index: u32, sig: SigDecl, func_index: (string, TypeVar.U64)) -> Function;
+def i_getTableFunction32(table_index: u32, sig: SigDecl, func_index: (string, TypeVar.U32)) -> Function;
+def i_getFunction(func_index: u32) -> Function {
+    return null; // TODO
+}
 
 // Control flow.
-def doCall(sig: Signature, target: Function);
+def doCall(sig: SigDecl, target: Function) {
+    // TODO: grab args from function, pop names off stack
+}
 
 def doBranch(label: int) {
     def ctl_idx = ctl_stack.elems[ctl_stack.top - 1 - label];

@@ -115,7 +115,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 }
             }
 
-            if (Strings.equal(f, "==") ||  Strings.equal(f, "+") || Strings.equal(f, ">") || Strings.equal(f, "!=") || Strings.equal(f, "-")) {
+            if (Strings.equal(f, "==") ||  Strings.equal(f, "+") || Strings.equal(f, ">") || Strings.equal(f, "!=") || Strings.equal(f, "-") || Strings.equal(f, "<")) {
                 def tp = ctx.types[args[0]];
                 def is_rt = !ctx.static[args[0]];
                 var prefix: string;
@@ -131,6 +131,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 if (Strings.equal(f, "+")) op = "plus";
                 if (Strings.equal(f, "-")) op = "minus";
                 if (Strings.equal(f, ">")) op = "gt";
+                if (Strings.equal(f, "<")) op = "lt";
 
                 def new_f = Strings.format2("%s.%s", prefix, op);
                 ctx.static[n] = !is_rt;

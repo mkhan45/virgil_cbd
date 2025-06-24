@@ -1,0 +1,24 @@
+class CBDFunction {
+    var code: Array<byte>;
+    def args: Vector<TypeVar> = Vector.new();
+    def rets: Vector<TypeVar> = Vector.new();
+    def locals: Vector<TypeVar> = Vector.new();
+    var sidetable: Vector<(int, int)> = null;
+
+    new(decl: FuncDecl) {
+        for (param in decl.sig.params) args.put(value_type_to_type_var(param));
+        for (result in decl.sig.results) rets.put(value_type_to_type_var(result));
+        for (i < decl.num_locals) locals.put(TypeVar.I32); // no type?
+        code = decl.orig_bytecode;
+    }
+
+    def value_type_to_type_var(vt: ValueType) -> TypeVar {
+        match (vt) {
+            BOTTOM => return TypeVar.Bot;
+            I32 => return TypeVar.I32;
+            F32 => return TypeVar.F32;
+            _ => return TypeVar.Err;
+        }
+    }
+}
+
