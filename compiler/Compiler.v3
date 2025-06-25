@@ -701,7 +701,9 @@ def i_getFunction(func_index: u32) -> Function {
 }
 
 // Control flow.
-def doCall(sig: SigDecl, target: Function);
+def doCall(sig: SigDecl, target: Function) {
+    // TODO: grab args from function, pop names off stack
+}
 
 def doBranch(label: int) {
     def ctl_idx = ctl_stack.elems[ctl_stack.top - 1 - label];
