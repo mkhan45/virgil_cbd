@@ -1,7 +1,7 @@
 (module
   (func (export "main") (result i32)
-        (call $ack (i32.const 3) (i32.const 9))
-        (; (call $fib (i32.const 30)) ;)
+        (; (call $ack (i32.const 3) (i32.const 9)) ;)
+        (call $fib (i32.const 30))
   )
   (func $fib (param i32) (result i32)
     (block

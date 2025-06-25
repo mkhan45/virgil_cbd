@@ -75,6 +75,7 @@ type CBDEffect {
     case Pop;
     case State;
     case CtlXfer;
+    case Emit;
     case None;
 
     def is_stack() -> bool {
@@ -99,6 +100,7 @@ type CBDEffect {
             Pop => return "pop";
             State => return "state";
             CtlXfer => return "ctl";
+            Emit => return "emit";
             None => return "none";
         }
     }
@@ -183,7 +185,7 @@ class SSADCtx {
                 if (Strings.equal(f, "mach_writeTable64")) effects[n] = CBDEffect.State;
 
                 if (Strings.startsWith(f, "read")) effects[n] = CBDEffect.CtlXfer; // codeptr change ~= ctl xfer
-                if (Strings.startsWith(f, "emit")) effects[n] = CBDEffect.State; // should be new effect
+                if (Strings.startsWith(f, "emit")) effects[n] = CBDEffect.Emit; // should be new effect
 
                 getTypes(rest);
             }
