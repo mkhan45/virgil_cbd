@@ -1,0 +1,39 @@
+```scala
+def I32_EQZ() {
+	var x = pop_i32();
+	if (x == 0) {
+	    push_i32(1);
+	} else {
+	    push_i32(0);
+	}
+}
+```
+
+|
+v
+
+```scala
+def I32_EQZ() {
+    var x_interp = Interpreter.pop_i32();
+    var x_ai = Analysis.pop_i32();
+    if (x_ai.static()) {
+        if (x_interp == 0) {
+            var lit_interp = 1;
+            var lit_ai = rtcast_i32(1); // static int(1)
+            Interpreter.push_i32(lit_interp);
+            Analysis.push_i32(lit_ai);
+        } else {
+            var lit_interp = 0;
+            var lit_ai = rtcast_i32(0); // static int(1)
+            Interpreter.push_i32(lit_interp);
+            Analysis.push_i32(lit_ai);
+        }
+    } else {
+        var lit_interp = 1; // dummy, taken from first branch but never used
+        var lit_ai = Dyn.I32;
+        var lit_compiler = Compiler.pop_i32();
+        Interpreter.push_i32(lit_interp);
+        Analysis.push_i32(lit_ai);
+        Compiler.push_i32(lit_compiler);
+    }
+}

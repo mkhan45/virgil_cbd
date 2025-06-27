@@ -9,7 +9,7 @@ UTIL = $(WIZARD)/src/util/*.v3
 
 # Virgil compiler command (adjust as needed)
 VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -run
-V3C ?= ../virgil/bin/v3c-host
+V3C ?= ../virgil/bin/v3c-x86-64-linux
 
 # Targets
 .PHONY: all clean test_virgil test_base test_processor run_interpreter
