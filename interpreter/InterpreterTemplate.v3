@@ -32,27 +32,27 @@ var stack: ArrayStack<CBDValue>;
 
 def HAS_MEM_INDEX = 0x40u8;
 
-def readImmULEB32() -> u32 {
+def imm_readULEB32() -> u32 {
     return current_frame.codeptr.read_uleb32();
 }
 
-def readImmILEB32() -> i32 {
+def imm_readILEB32() -> i32 {
     return i32.!(current_frame.codeptr.read_uleb32());
 }
 
-def readImmULEB64() -> u64 {
+def imm_readULEB64() -> u64 {
     return current_frame.codeptr.read_uleb64();
 }
 
-def readImmILEB64() -> i64 {
+def imm_readILEB64() -> i64 {
     return i64.!(current_frame.codeptr.read_uleb64());
 }
 
-def readImmU8() -> u8 {
+def imm_readU8() -> u8 {
     return current_frame.codeptr.read1();
 }
 
-def readImmBlockType() -> () {
+def imm_readBlockType() -> () {
     def bt = current_frame.codeptr.read_BlockTypeCode();
     return ();
 }
@@ -110,6 +110,13 @@ def f_getLocalType(index: u32) -> TypeVar {
     return current_frame.local_types[int.!(index)];
 }
 
+def f_getTopOfStackType() -> TypeVar {
+    match (stack.peek()) {
+        I32(_) => return TypeVar.I32;
+        U32(_) => return TypeVar.U32;
+    }
+}
+
 // Module context.
 def m_getGlobalType(index: u32) -> TypeVar;
 def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
@@ -141,7 +148,7 @@ def doBranch(label: Label) {
     current_frame.stp = ste.1;
 }
 
-def doFallThru() {
+def doFallthru() {
     current_frame.stp += 1;
 }
 
@@ -170,6 +177,8 @@ def mach_writeTable32(table_index: u32, index: u32, val: Object);
 def invalid(); // should never occur
 def trapNull();
 def trapUnreachable();
+def trapDivideByZero();
+def trapDivideUnrepresentable();
 
 def doBlock(bt: ()) {
 }

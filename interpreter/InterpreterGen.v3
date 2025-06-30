@@ -89,7 +89,8 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
         LetApp(n, f, args, rest) => {
             var res = SSAD.LetApp(n, f, args, transformSSA(rest, ctx));
 
-            if (Strings.equal(f, "==") ||  Strings.equal(f, "+") || Strings.equal(f, ">") || Strings.equal(f, "!=") || Strings.equal(f, "-") || Strings.equal(f, "<")) {
+            if (Strings.equal(f, "==") ||  Strings.equal(f, "+") || Strings.equal(f, ">") || Strings.equal(f, "!=") || Strings.equal(f, "-") || Strings.equal(f, "<")
+                    || Strings.equal(f, "&&")) {
                 def tp = ctx.types[args[0]];
                 def is_rt = !ctx.static[args[0]];
                 var prefix: string;
@@ -99,6 +100,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                     F32 => prefix = "float";
                     Bot => prefix = "Bot";
                 }
+                if (Strings.equal(f, "&&")) prefix = "bool";
 
                 def new_f = Strings.format2("%s.%s", prefix, f);
                 ctx.static[n] = !is_rt;

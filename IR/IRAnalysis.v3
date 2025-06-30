@@ -16,23 +16,31 @@ type CBDType {
 
 component CBDTypes {
     def intrinsic_type(fn_name: string) -> (Array<CBDType>, CBDType) {
-        if (Strings.equal(fn_name, "readImmULEB32")) return ([], CBDType.U32);
-        if (Strings.equal(fn_name, "readImmILEB32")) return ([], CBDType.I32);
+        if (Strings.equal(fn_name, "imm_readULEB32")) return ([], CBDType.U32);
+        if (Strings.equal(fn_name, "imm_readILEB32")) return ([], CBDType.I32);
 
         if (Strings.equal(fn_name, "pop_i32")) return ([], CBDType.I32);
+        if (Strings.equal(fn_name, "pop_u32")) return ([], CBDType.U32);
         if (Strings.equal(fn_name, "pop_f32")) return ([], CBDType.F32);
+
+        if (Strings.equal(fn_name, "i32.==")) return ([CBDType.I32, CBDType.I32], CBDType.I32);
+        if (Strings.equal(fn_name, "u32.+")) return ([CBDType.U32, CBDType.U32], CBDType.U32);
+        if (Strings.equal(fn_name, "u32.==")) return ([CBDType.U32, CBDType.U32], CBDType.U32);
+        if (Strings.equal(fn_name, "u32.!=")) return ([CBDType.U32, CBDType.U32], CBDType.U32);
 
         return (null, CBDType.Bot);
     }
 
     // should extract these from a file?
     def intrinsic_static(fn_name: string) -> (Array<bool>, bool) {
-        if (Strings.equal(fn_name, "readImmULEB32")) return ([], true);
-        if (Strings.equal(fn_name, "readImmILEB32")) return ([], true);
+        if (Strings.equal(fn_name, "imm_readULEB32")) return ([], true);
+        if (Strings.equal(fn_name, "imm_readILEB32")) return ([], true);
 
         if (Strings.equal(fn_name, "pop_i32")) return ([], false);
+        if (Strings.equal(fn_name, "pop_u32")) return ([], false);
         if (Strings.equal(fn_name, "pop_f32")) return ([], false);
         if (Strings.equal(fn_name, "push_i32")) return ([false], false);
+        if (Strings.equal(fn_name, "push_u32")) return ([false], false);
         if (Strings.equal(fn_name, "push_f32")) return ([false], false);
 
         if (Strings.equal(fn_name, "f_getLabel")) return ([true], true); 
@@ -193,6 +201,7 @@ class SSADCtx {
                 effects[n] = CBDEffect.None;
                 var tp: CBDType = CBDType.Bot;
                 if (Strings.equal(t, "int")) tp = CBDType.I32;
+                if (Strings.equal(t, "u32")) tp = CBDType.U32;
                 if (Strings.equal(t, "float")) tp = CBDType.F32;
                 types[n] = tp;
                 getTypes(rest);

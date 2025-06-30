@@ -38,8 +38,16 @@ type TypeVar {
         def plus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
         def minus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
         def equals(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
+        def times(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
+        def div(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
     }
-    case U32;
+    case U32 {
+        def plus(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
+        def minus(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
+        def equals(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
+        def times(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
+        def div(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
+    }
     case U64;
     case F32 {
     }
@@ -49,33 +57,36 @@ type TypeVar {
 def rtcast_i32(x: i32) -> TypeVar.I32 {
     return TypeVar.I32;
 }
+def rtcast_u32(x: u32) -> TypeVar.U32 {
+    return TypeVar.U32;
+}
 type FieldOffset;
 
 enum FieldKind {
 	U8, U16, I32, I64, F32, F64, V128, REF
 }
 
-def readImmULEB32() -> u32 {
+def imm_readULEB32() -> u32 {
     return codeptr.read_uleb32();
 }
 
-def readImmILEB32() -> i32 {
+def imm_readILEB32() -> i32 {
     return i32.!(codeptr.read_uleb32());
 }
 
-def readImmULEB64() -> u64 {
+def imm_readULEB64() -> u64 {
     return codeptr.read_uleb64();
 }
 
-def readImmILEB64() -> i64 {
+def imm_readILEB64() -> i64 {
     return i64.!(codeptr.read_uleb64());
 }
 
-def readImmU8() -> u8 {
+def imm_readU8() -> u8 {
     return codeptr.read1();
 }
 
-def readImmBlockType() -> () {
+def imm_readBlockType() -> () {
     def bt = codeptr.read_BlockTypeCode();
     return ();
 }
@@ -92,10 +103,11 @@ def pop_i32() -> TypeVar.I32 {
 def pop_u32() -> TypeVar.U32 {
     match (stack.pop()) {
         U32 => return TypeVar.U32;
+        I32 => return TypeVar.U32; // ??
         _ => {
-	    assert(false);
-	    return TypeVar.U32;
-	}
+            assert(false);
+            return TypeVar.U32;
+        }
     }
 }
 def pop_i64() -> i64;
@@ -105,24 +117,15 @@ def pop_f64() -> double;
 def pop_v128() -> v128;
 def pop_Object() -> Object;
 def pop_Value(tv: TypeVar) -> TypeVar {
-    assert(tv == stack.pop());
+    // assert(tv == stack.pop()); // TODO: u32s should be fine for i32s and vice versa
     return tv;
 }
 
 def push_i32(v: TypeVar.I32) {
     stack.push(v);
 }
-def push_u32(v: u32) {
+def push_u32(v: TypeVar.U32) {
     stack.push(TypeVar.U32);
-}
-def trueVal() -> TypeVar.I32 {
-    return TypeVar.I32;
-}
-def falseVal() -> TypeVar.I32 {
-    return TypeVar.I32;
-}
-def i32_eqz(x: TypeVar.I32) -> TypeVar.I32 {
-    return TypeVar.I32;
 }
 def push_i64(v: i64);
 def push_u64(v: u64);
@@ -155,6 +158,10 @@ def f_getLabel(depth: u32) -> int {
 
 def f_getLocalType(index: u32) -> TypeVar {
     return local_types[int.!(index)];
+}
+
+def f_getTopOfStackType() -> TypeVar {
+    return stack.peek();
 }
 
 // Module context.

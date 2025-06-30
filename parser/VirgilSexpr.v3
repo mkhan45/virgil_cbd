@@ -381,43 +381,50 @@ component VirgilStmts {
         def elems = sexpr.forceList();
         if (!elems.head.matchesAtom("LocalStmt")) return SExprRes.ParserBug;
         
-        // TODO: refactor to munch decl
-        def decl = elems.tail.head.forceList();
-        if (decl == null) return SExprRes.Malformed(sexpr);
-        
-        def var_name = cleanIdent(decl.head.forceAtom());
-        if (var_name == null) return SExprRes.Malformed(sexpr);
-        
-        // Verify type information
-        if (decl.tail == null) return SExprRes.Malformed(sexpr);
-        def type_ls = decl.tail.head.forceList();
-        if (type_ls == null || !type_ls.head.matchesAtom("type")) return SExprRes.Malformed(sexpr);
+        def declList = Vector<VirgilStmt>.new();
+        var currentHead = elems.tail;
+        while (currentHead != null) {
+            def decl = currentHead.head.forceList();
+            if (decl == null) return SExprRes.Malformed(sexpr);
+            
+            def var_name = cleanIdent(decl.head.forceAtom());
+            if (var_name == null) return SExprRes.Malformed(sexpr);
+            
+            // Verify type information
+            if (decl.tail == null) return SExprRes.Malformed(sexpr);
+            def type_ls = decl.tail.head.forceList();
+            if (type_ls == null || !type_ls.head.matchesAtom("type")) return SExprRes.Malformed(sexpr);
 
-        if (decl.tail.tail == null) return SExprRes.Malformed(sexpr);
+            if (decl.tail.tail == null) return SExprRes.Malformed(sexpr);
 
-        var sidetable = false;
-        var rtcast: string = null;
-        var expr_res: SExprRes<VirgilExpr> = SExprRes.ParserBug;
+            var sidetable = false;
+            var rtcast: string = null;
+            var expr_res: SExprRes<VirgilExpr> = SExprRes.ParserBug;
 
-        def rephint_ls = decl.tail.tail.head.forceList();
-        if (rephint_ls != null && rephint_ls.head.matchesAtom("repHints")) {
-            for (ls = rephint_ls.tail; ls != null; ls = ls.tail) {
-                var atom = ls.head.forceAtom();
-                sidetable |= atom != null && Strings.equal(atom, "#sidetable");;
-                if (atom != null && Strings.startsWith(atom, "#rtcast_")) {
-                    rtcast = Arrays.range(atom, 1, atom.length);
+            def rephint_ls = decl.tail.tail.head.forceList();
+            if (rephint_ls != null && rephint_ls.head.matchesAtom("repHints")) {
+                for (ls = rephint_ls.tail; ls != null; ls = ls.tail) {
+                    var atom = ls.head.forceAtom();
+                    sidetable |= atom != null && Strings.equal(atom, "#sidetable");
+                    if (atom != null && Strings.startsWith(atom, "#rtcast_")) {
+                        rtcast = Arrays.range(atom, 1, atom.length);
+                    }
                 }
+                if (decl.tail.tail.tail == null) return SExprRes.Malformed(sexpr);
+                expr_res = VirgilExprs.from_sexpr(decl.tail.tail.tail.head);
+            } else {
+                expr_res = VirgilExprs.from_sexpr(decl.tail.tail.head);
             }
-            if (decl.tail.tail.tail == null) return SExprRes.Malformed(sexpr);
-            expr_res = VirgilExprs.from_sexpr(decl.tail.tail.tail.head);
-        } else {
-            expr_res = VirgilExprs.from_sexpr(decl.tail.tail.head);
+            
+            match (expr_res) {
+                Success(expr) => declList.put(VirgilStmt.Local(cleanIdent(var_name), expr, sidetable, rtcast));
+                _ => return expr_res.castError();
+            }
+
+            currentHead = currentHead.tail;
         }
-        
-        match (expr_res) {
-            Success(expr) => return SExprRes.Success(VirgilStmt.Local(cleanIdent(var_name), expr, sidetable, rtcast));
-            _ => return expr_res.castError();
-        }
+
+        return SExprRes.Success(VirgilStmt.Block(declList.copy()));
     }
     
     def parse_assign_from_expr_stmt(assign_sexpr: SExpr) -> SExprRes<VirgilStmt> {
