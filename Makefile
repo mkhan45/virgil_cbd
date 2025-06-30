@@ -2,7 +2,7 @@
 
 # Paths and variables
 VIRGIL_STD = ../virgil/lib/util/*.v3
-WIZARD = ../wizard-engine
+WIZARD = wizard-engine
 ENGINE = $(WIZARD)/src/engine/*.v3
 V3TARGET = $(WIZARD)/src/engine/v3/*.v3
 UTIL = $(WIZARD)/src/util/*.v3
