@@ -55,8 +55,8 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
 }
 
 def main(args: Array<string>) {
-    def v3file = args[0];
-    def sexpr_file = args[1];
+    def sexpr_file = args[0];
+    def v3file = args[1];
 
     def defs = TierGen.extractDefsFromFile(v3file, sexpr_file, transformDef);
 

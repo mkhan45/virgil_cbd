@@ -2,94 +2,79 @@
 
 # Paths and variables
 VIRGIL_STD = ../virgil/lib/util/*.v3
-WIZARD = wizard-engine
+WIZARD = ./wizard-engine
 ENGINE = $(WIZARD)/src/engine/*.v3
 V3TARGET = $(WIZARD)/src/engine/v3/*.v3
 UTIL = $(WIZARD)/src/util/*.v3
+DEFS = $(WIZARD)/src/bytecode/CanonicalDefs.v3
 
 # Virgil compiler command (adjust as needed)
 VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -run -fun-exprs -simple-bodies
-V3C ?= ../virgil/bin/v3c-x86-64-linux
+V3C ?= ../virgil/bin/v3c-x86-64-linux -fun-exprs -simple-bodies
 
 GENERATE_LIB = parser/VirgilSexpr.v3 IR/*.v3 gen_common/*.v3
 
 # Targets
-.PHONY: all clean test_virgil test_base test_processor run_interpreter
+.PHONY: all clean help run_interpreter run_validator run_compiler
 
-all: test_virgil test_base test_processor run_interpreter
+all: validator/Validator.v3 interpreter/Interpreter.v3 compiler/Compiler.v3 InterpreterMain
 
-# Test the Virgil S-expression parser
-test_virgil:
-	$(VIRGIL) $(VIRGIL_STD) parser/VirgilSexpr.v3 parser/TestVirgilSexpr.v3 $(ARGS)
+$(DEFS).sexp:
+	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
 
-# Test the base S-expression parser
-test_base:
-	$(VIRGIL) $(VIRGIL_STD) parser/TestBase.v3 $(ARGS)
-
-# Test the Canonical Bytecode Definition Processor
-test_processor:
-	$(VIRGIL) $(VIRGIL_STD) parser/VirgilSexpr.v3 interpreter/InterpreterGen.v3 $(ARGS)
-
-# Run the interpreter
-run_interpreter: generate_interpreter generate_validator
-	$(VIRGIL) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		runtime_common/*.v3 validator/Validator.v3 interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
-
-compile_interpreter: generate_interpreter
-	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		runtime_common/*.v3 validator/Validator.v3 interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
-
-# Generate the interpreter from template
-generate_interpreter: cbd_sexp
-	cp defs/CanonicalDefs.v3 defs/CanonicalDefs.v3cbd
-	$(VIRGIL) $(VIRGIL_STD) \
-		$(GENERATE_LIB)\
-		interpreter/InterpreterGen.v3 defs/CanonicalDefs.v3cbd\
-		defs/CanonicalDefs.v3cbd.sexp interpreter/InterpreterTemplate.v3\
-		> interpreter/Interpreter.v3
-	rm defs/CanonicalDefs.v3cbd
-
-generate_validator: cbd_sexp
-	cp defs/CanonicalDefs.v3 defs/CanonicalDefs.v3cbd
+validator/Validator.v3: $(DEFS).sexp
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		validator/ValidatorGen.v3\
-		defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp validator/ValidatorTemplate.v3\
+		$(DEFS).sexp $(DEFS) validator/ValidatorTemplate.v3\
 		> validator/Validator.v3
 
-run_validator: generate_validator
-	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		validator/Validator.v3 validator/ValidatorMain.v3 $(ARGS)
+interpreter/Interpreter.v3: $(DEFS).sexp
+	$(VIRGIL) $(VIRGIL_STD) \
+		$(GENERATE_LIB)\
+		interpreter/InterpreterGen.v3\
+		$(DEFS).sexp $(DEFS) interpreter/InterpreterTemplate.v3\
+		> interpreter/Interpreter.v3
 
-cbd_sexp:
-	$(VIRGIL) -print-vst defs/CanonicalDefs.v3 > defs/CanonicalDefs.v3cbd.sexp
-
-generate_compiler: cbd_sexp
-	cp defs/CanonicalDefs.v3 defs/CanonicalDefs.v3cbd
+compiler/Compiler.v3: $(DEFS).sexp
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		compiler/CompilerGen.v3\
-		defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp compiler/CompilerTemplate.v3\
+		$(DEFS).sexp $(DEFS) compiler/CompilerTemplate.v3\
 		> compiler/Compiler.v3
 
-run_compiler: generate_compiler
+run_interpreter: interpreter/Interpreter.v3 validator/Validator.v3
+	$(VIRGIL) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
+		runtime_common/*.v3 validator/Validator.v3 interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
+
+run_validator: validator/Validator.v3
+	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
+		validator/Validator.v3 validator/ValidatorMain.v3 $(ARGS)
+
+run_compiler: compiler/Compiler.v3
 	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
 		runtime_common/*.v3 validator/Validator.v3 compiler/Compiler.v3 compiler/CompilerMain.v3 $(ARGS)
 
+InterpreterMain: interpreter/Interpreter.v3
+	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
+		runtime_common/*.v3 validator/Validator.v3 interpreter/Interpreter.v3 interpreter/InterpreterMain.v3
+
 # Clean build artifacts
 clean:
-	# Add commands to clean build artifacts here
-	# For example: rm -f *.class *.jar
+	rm -f interpreter/Interpreter.v3 compiler/Compiler.v3 validator/Validator.v3 InterpreterMain $(DEFS).sexp
 
 # Usage instructions
 help:
-	@echo "Virgil S-Expression Project Makefile"
+	@echo "Wasm CBD"
 	@echo ""
 	@echo "Available targets:"
-	@echo "  make test_virgil ARGS='file.sexp'  - Test the Virgil S-expression parser"
-	@echo "  make test_base ARGS='file.sexp'    - Test the base S-expression parser"
-	@echo "  make test_processor ARGS='args'    - Test the CBD processor"
+	@echo "  make all                           - Build validator, interpreter, and compiler"
+	@echo "  make validator/Validator.v3        - Generate validator from template"
+	@echo "  make interpreter/Interpreter.v3    - Generate interpreter from template"
+	@echo "  make compiler/Compiler.v3          - Generate compiler from template"
+	@echo "  make run_validator ARGS='args'     - Run the validator"
 	@echo "  make run_interpreter ARGS='args'   - Run the interpreter"
-	@echo "  make generate_interpreter          - Generate interpreter from template"
+	@echo "  make run_compiler ARGS='args'      - Run the compiler"
+	@echo "  make InterpreterMain               - Compile interpreter to binary"
 	@echo "  make clean                         - Clean build artifacts"
 	@echo "  make help                          - Show this help message"
