@@ -4,86 +4,6 @@ class CBDDef(opcode: string, body: SSAD) {
     }
 }
 
-def is_newline(c: byte) -> bool {
-    return c == '\n';
-}
-
-def find_idx(s: string, c: byte) -> int {
-    for (i < s.length) if (s[i] == c) {
-        return i;
-    }
-
-    return -1;
-}
-
-def extractInstrNames(v3_file: string) -> Array<string> {
-    def defs = Vector<string>.new();
-
-    // the .v3 file has the //@bytecode start comments, but we can only get
-    // the s-expressions from the full file. To solve this, find the definition
-    // names from the raw .v3 file, and then actually parse them from the s-expr file
-    def lines = Strings.splitOnChar(v3_file, is_newline, -1);
-    var cur_line = 0;
-    while (!Strings.startsWith(lines[cur_line], "//@bytecode start")) cur_line += 1;
-
-    while (!Strings.startsWith(lines[cur_line], "//@bytecode end")) {
-        def line = Strings.strip(lines[cur_line]);
-        if (GlobMatcher.new("def ?*()*{").matches(line)) {
-            def fn_name_start = 4; // skip `def `
-            def fn_name_end = find_idx(line, '(');
-
-            def fn_name = Arrays.range(line, fn_name_start, fn_name_end);
-            defs.put(fn_name);
-            cur_line += 1;
-        }
-
-        cur_line += 1;
-    }
-
-    return defs.copy();
-}
-
-def isSpace(c: byte) -> bool {
-    return c == ' ';
-}
-
-def hasMethod(reader: TextReader) -> bool {
-    reader.skipWhitespace();
-    return reader.optN("method") != -1;
-}
-
-def notLParen(c: byte) -> bool {
-    return c != '(';
-}
-
-def readMethodName(reader: TextReader) -> string {
-    reader.skipWhitespace();
-    def end = reader.star_rel(1, notLParen);
-    def tok = reader.readToken(end - reader.pos);
-    return tok.image;
-}
-
-def nextLine(reader: TextReader) {
-    def start_line = reader.line;
-    while (reader.line == start_line) reader.advance1();
-}
-
-def containsStr(strs: Range<string>, k: string) -> bool {
-    for (s in strs) if (Strings.equal(s, k)) return true;
-    return false;
-}
-
-def runUnconditionally(node: SSAD, ctx: SSADCtx) -> bool {
-    match (node) {
-        LetApp(n, _, _, _) => return ctx.effects[n].is_sidetable();
-        LetLit(n, _, _, _) => return ctx.effects[n].is_sidetable();
-        If(_, _, _, _, _) => return true; // TODO: check phis?
-        Void => return true;
-        Injected(_, _) => return true;
-        Final(_) => return true;
-    }
-}
-
 def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
     match (ssa) {
         Void => return ssa;
@@ -206,82 +126,35 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
     }
 }
 
-def extractDefs(instrs: Array<string>, filename: string, file_content: string) -> Array<CBDDef> {
-    def defs: Vector<CBDDef> = Vector.new();
-    def sexp_parser = SExprParser.new(filename, file_content);
-    while (sexp_parser.ok && sexp_parser.pos < sexp_parser.data.length) {
-        if (hasMethod(sexp_parser)) {
-            def meth = readMethodName(sexp_parser);
-            if (!containsStr(instrs, meth)) continue;
-            nextLine(sexp_parser);
-            def result = sexp_parser.readSExpr();
-            match (result) {
-                Success(sexp) => {
-                    def stmt_res = VirgilStmts.from_sexpr(sexp);
-                    match (stmt_res) {
-                        Success(stmt) => {
-                            def ir = SSAD_IR.from_virgil(stmt);
-                            SSAD_IR.counter = 0;
-                            def ssa = SSAD_IR.ssa(ir);
-                            def analysis = SSADCtx.new(ssa);
-                            def transformed = transformSSA(ssa, analysis);
-                            def processed = analysis.DCE(analysis.id_propagate(transformed, HashMap<string, string>.new(Strings.hash, Strings.equal)));
+def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
+    def ir = SSAD_IR.from_virgil(stmt);
+    SSAD_IR.counter = 0;
+    def ssa = SSAD_IR.ssa(ir);
+    def analysis = SSADCtx.new(ssa);
+    def transformed = transformSSA(ssa, analysis);
+    def processed = analysis.DCE(analysis.id_propagate(transformed, HashMap<string, string>.new(Strings.hash, Strings.equal)));
 
-                            def sb = StringBuilder.new();
-                            def vars = Maps.keyList(analysis.static);
-                            for (v = vars; v != null; v = v.tail) {
-                                sb.puts("// ").puts(v.head).puts(" -- ");
-                                sb.puts("static: ").puts(if(analysis.static[v.head], "yes", "no")).puts(", ");
-                                sb.puts("type: ").puts(analysis.types[v.head].toString()).puts(", ");
-                                sb.puts("effect: ").puts(analysis.effects[v.head].toString());
-                                sb.ln();
-                            }
-                            def instSsa = SSAD.Injected(sb.toString(), processed);
-                            defs.put(CBDDef.new(meth, instSsa));
-                        }
-                        _ => {
-                            System.write(2, meth);
-                            System.write(2, ": skipping unhandled stmt sexpr\n");
-                            nextLine(sexp_parser);
-                        }
-                    }
-                }
-                _ => {
-                    break; // TODO
-                }
-            }
-        } else {
-            nextLine(sexp_parser);
-        }
+    def sb = StringBuilder.new();
+    def vars = Maps.keyList(analysis.static);
+    for (v = vars; v != null; v = v.tail) {
+        sb.puts("// ").puts(v.head).puts(" -- ");
+        sb.puts("static: ").puts(if(analysis.static[v.head], "yes", "no")).puts(", ");
+        sb.puts("type: ").puts(analysis.types[v.head].toString()).puts(", ");
+        sb.puts("effect: ").puts(analysis.effects[v.head].toString());
+        sb.ln();
     }
+    def instSsa = SSAD.Injected(sb.toString(), processed);
 
-    return defs.copy();
+    return CBDDef.new(opcode, instSsa);
 }
 
 def main(args: Array<string>) {
     def v3file = args[0];
-    def v3bytes = System.fileLoad(v3file);
-    if (v3bytes == null) {
-        System.puts("Error reading ");
-        System.puts(v3file);
-        System.ln();
-    }
-
     def sexpr_file = args[1];
-    def sexpr_bytes = System.fileLoad(sexpr_file);
-    if (sexpr_bytes == null) {
-        System.puts("Error reading ");
-        System.puts(sexpr_file);
-        System.ln();
-    }
 
-    def instrs = extractInstrNames(v3bytes);
-    def defs = extractDefs(instrs, sexpr_file, sexpr_bytes);
-
-    // for concrete interpreter 
+    def defs = TierGen.extractDefsFromFile(v3file, sexpr_file, transformDef);
 
     def codestr_builder = StringBuilder.new();
-
     def dispatch_builder = StringBuilder.new();
     dispatch_builder.puts("def build_dispatch_table() -> Array<void -> void> {\n");
     dispatch_builder.puts("  DISPATCH_TABLE = Array.new(0xE5 + 1);\n"); // 0xE5 = highest opcode (SWITCH)

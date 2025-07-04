@@ -8,8 +8,10 @@ V3TARGET = $(WIZARD)/src/engine/v3/*.v3
 UTIL = $(WIZARD)/src/util/*.v3
 
 # Virgil compiler command (adjust as needed)
-VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -run
+VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -run -fun-exprs -simple-bodies
 V3C ?= ../virgil/bin/v3c-x86-64-linux
+
+GENERATE_LIB = parser/VirgilSexpr.v3 IR/*.v3 gen_common/*.v3
 
 # Targets
 .PHONY: all clean test_virgil test_base test_processor run_interpreter
@@ -30,30 +32,33 @@ test_processor:
 
 # Run the interpreter
 run_interpreter: generate_interpreter generate_validator
-	$(VIRGIL) -O2 -fun-exprs -simple-bodies $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
+	$(VIRGIL) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
 		runtime_common/*.v3 validator/Validator.v3 interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
 
 compile_interpreter: generate_interpreter
-	$(V3C) -O3 -fun-exprs -simple-bodies $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
+	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
 		runtime_common/*.v3 validator/Validator.v3 interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
 
 # Generate the interpreter from template
 generate_interpreter: cbd_sexp
 	cp defs/CanonicalDefs.v3 defs/CanonicalDefs.v3cbd
-	$(VIRGIL) -fun-exprs $(VIRGIL_STD) \
-		parser/VirgilSexpr.v3 IR/*.v3 interpreter/InterpreterGen.v3 defs/CanonicalDefs.v3cbd\
+	$(VIRGIL) $(VIRGIL_STD) \
+		$(GENERATE_LIB)\
+		interpreter/InterpreterGen.v3 defs/CanonicalDefs.v3cbd\
 		defs/CanonicalDefs.v3cbd.sexp interpreter/InterpreterTemplate.v3\
 		> interpreter/Interpreter.v3
 	rm defs/CanonicalDefs.v3cbd
 
 generate_validator: cbd_sexp
 	cp defs/CanonicalDefs.v3 defs/CanonicalDefs.v3cbd
-	$(VIRGIL) -fun-exprs $(VIRGIL_STD) parser/VirgilSexpr.v3 IR/*.v3 validator/ValidatorGen.v3\
+	$(VIRGIL) $(VIRGIL_STD)\
+		$(GENERATE_LIB)\
+		validator/ValidatorGen.v3\
 		defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp validator/ValidatorTemplate.v3\
 		> validator/Validator.v3
 
 run_validator: generate_validator
-	$(VIRGIL) -fun-exprs -simple-bodies $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
+	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
 		validator/Validator.v3 validator/ValidatorMain.v3 $(ARGS)
 
 cbd_sexp:
@@ -61,12 +66,14 @@ cbd_sexp:
 
 generate_compiler: cbd_sexp
 	cp defs/CanonicalDefs.v3 defs/CanonicalDefs.v3cbd
-	$(VIRGIL) -fun-exprs -simple-bodies $(VIRGIL_STD) parser/VirgilSexpr.v3 IR/*.v3 compiler/CompilerGen.v3\
+	$(VIRGIL) $(VIRGIL_STD)\
+		$(GENERATE_LIB)\
+		compiler/CompilerGen.v3\
 		defs/CanonicalDefs.v3cbd defs/CanonicalDefs.v3cbd.sexp compiler/CompilerTemplate.v3\
 		> compiler/Compiler.v3
 
 run_compiler: generate_compiler
-	$(VIRGIL) -fun-exprs -simple-bodies $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
+	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
 		runtime_common/*.v3 validator/Validator.v3 compiler/Compiler.v3 compiler/CompilerMain.v3 $(ARGS)
 
 # Clean build artifacts
