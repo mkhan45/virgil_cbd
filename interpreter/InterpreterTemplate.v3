@@ -1,5 +1,3 @@
-def build_dispatch_table() -> Array<void -> void> { return Array.new(0); } // dummy so this file compiles independently, replaced by processor
-
 class Frame {
     var parent: Frame;
     var fp: int;

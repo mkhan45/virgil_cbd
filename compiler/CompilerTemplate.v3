@@ -1,5 +1,3 @@
-def build_dispatch_table() -> Array<void -> void> { return Array.new(0); } // dummy so this file compiles independently, replaced by processor
-
 var codeptr: CodePtr;
 var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
 var local_types: Vector<TypeVar>; // local varnames are just local_$i

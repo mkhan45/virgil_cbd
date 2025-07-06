@@ -1,3 +1,9 @@
+class CBDDef(opcode: string, body: SSAD) {
+    def buildString(buf: StringBuilder) {
+        // TODO
+    }
+}
+
 component TierGen {
     def is_newline(c: byte) -> bool {
         return c == '\n';
@@ -121,4 +127,31 @@ component TierGen {
         def instrs = extractInstrNames(v3bytes);
         return extractDefs<D>(instrs, sexpr_filename, sexpr_bytes, transformer);
     }
+
+    def buildDispatch<D>(defs: Array<D>, toDef: D -> CBDDef) -> string {
+        def codestr_builder = StringBuilder.new();
+        def dispatch_builder = StringBuilder.new();
+        dispatch_builder.puts("def build_dispatch_table() -> Array<void -> void> {\n");
+        dispatch_builder.puts("  DISPATCH_TABLE = Array.new(0xE5 + 1);\n"); // 0xE5 = highest opcode (SWITCH)
+
+        for (d in defs) {
+            def extracted_def = toDef(d);
+            codestr_builder.puts("def ");
+            codestr_builder.puts(extracted_def.opcode);
+            codestr_builder.puts("() ").puts("{\n");
+            codestr_builder.puts(extracted_def.body.toString(1));
+            codestr_builder.puts("}\n");
+
+            dispatch_builder.puts("  DISPATCH_TABLE[Opcode.");
+            dispatch_builder.puts(extracted_def.opcode);
+            dispatch_builder.puts(".code] = ");
+            dispatch_builder.puts(extracted_def.opcode);
+            dispatch_builder.puts(";\n");
+        }
+
+        dispatch_builder.puts("  return DISPATCH_TABLE;\n");
+        dispatch_builder.puts("}\n");
+
+        return codestr_builder.puts(dispatch_builder.toString()).toString();
+    }       
 }

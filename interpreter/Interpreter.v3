@@ -316,7 +316,6 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.RETURN.code] = RETURN;
   return DISPATCH_TABLE;
 }
-
 class Frame {
     var parent: Frame;
     var fp: int;

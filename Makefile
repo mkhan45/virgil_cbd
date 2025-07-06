@@ -15,33 +15,37 @@ V3C ?= ../virgil/bin/v3c-x86-64-linux -fun-exprs -simple-bodies
 GENERATE_LIB = parser/VirgilSexpr.v3 IR/*.v3 gen_common/*.v3
 
 # Targets
-.PHONY: all clean help run_interpreter run_validator run_compiler
+.PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler
 
 all: validator/Validator.v3 interpreter/Interpreter.v3 compiler/Compiler.v3 InterpreterMain
 
 $(DEFS).sexp:
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
 
-validator/Validator.v3: $(DEFS).sexp
+validator/Validator.v3: $(DEFS).sexp $(GENERATE_LIB) validator/ValidatorGen.v3 validator/ValidatorTemplate.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		validator/ValidatorGen.v3\
 		$(DEFS).sexp $(DEFS) validator/ValidatorTemplate.v3\
 		> validator/Validator.v3
 
-interpreter/Interpreter.v3: $(DEFS).sexp
+interpreter/Interpreter.v3: $(DEFS).sexp $(GENERATE_LIB) interpreter/InterpreterGen.v3 interpreter/InterpreterTemplate.v3
 	$(VIRGIL) $(VIRGIL_STD) \
 		$(GENERATE_LIB)\
 		interpreter/InterpreterGen.v3\
 		$(DEFS).sexp $(DEFS) interpreter/InterpreterTemplate.v3\
 		> interpreter/Interpreter.v3
 
-compiler/Compiler.v3: $(DEFS).sexp
+compiler/Compiler.v3: $(DEFS).sexp $(GENERATE_LIB) compiler/CompilerGen.v3 compiler/CompilerTemplate.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		compiler/CompilerGen.v3\
 		$(DEFS).sexp $(DEFS) compiler/CompilerTemplate.v3\
 		> compiler/Compiler.v3
+
+validator: validator/Validator.v3
+interpreter: interpreter/Interpreter.v3
+compiler: compiler/Compiler.v3
 
 run_interpreter: interpreter/Interpreter.v3 validator/Validator.v3
 	$(VIRGIL) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
@@ -69,9 +73,9 @@ help:
 	@echo ""
 	@echo "Available targets:"
 	@echo "  make all                           - Build validator, interpreter, and compiler"
-	@echo "  make validator/Validator.v3        - Generate validator from template"
-	@echo "  make interpreter/Interpreter.v3    - Generate interpreter from template"
-	@echo "  make compiler/Compiler.v3          - Generate compiler from template"
+	@echo "  make validator                     - Generate validator from template"
+	@echo "  make interpreter                   - Generate interpreter from template"
+	@echo "  make compiler                      - Generate compiler from template"
 	@echo "  make run_validator ARGS='args'     - Run the validator"
 	@echo "  make run_interpreter ARGS='args'   - Run the interpreter"
 	@echo "  make run_compiler ARGS='args'      - Run the compiler"
