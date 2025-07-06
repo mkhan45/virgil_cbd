@@ -1,0 +1,60 @@
+enum Stage {
+    VALIDATE,
+    COMPILE,
+    INTERPRET,
+}
+class IntrinsicType(primitive: string, stage: Stage) {}
+class IntrinsicTypedef(name: string, args: Array<IntrinsicType>, return_type: IntrinsicType) {}
+
+def processTypeString(s: string) -> IntrinsicType {
+    def split = Strings.splitOnChar(s, u8.==(_, '.'), -1);
+    def name = split[0];
+    def stage_string = split[1];
+    var stage: Stage;
+    if (Strings.equal(stage_string, "V")) stage = Stage.VALIDATE;
+    if (Strings.equal(stage_string, "C")) stage = Stage.COMPILE;
+    if (Strings.equal(stage_string, "I")) stage = Stage.INTERPRET;
+    return IntrinsicType.new(name, stage);
+}
+
+component IntrinsicTypes {
+    def getIntrinsicTypes(filename: string) -> HashMap<string, IntrinsicTypedef> {
+        def typedef_file = System.fileLoad(filename);
+
+        def lines = Strings.splitOnChar(typedef_file, u8.==(_, '\n'), -1);
+        def intrinsics: HashMap<string, IntrinsicTypedef> = Strings.newMap();
+        for (line in lines) {
+            if (!Strings.startsWith(line, "def ")) continue;
+
+            def name_start = "def ".length;
+            var name_end = name_start + 1;
+            while (line[name_end] != '(') name_end += 1;
+            def name = Arrays.range(line, name_start, name_end);
+
+            def args: Vector<IntrinsicType> = Vector.new();
+            var current_arg_start = name_end;
+            var current_arg_end = current_arg_start + 1;
+            while (line[current_arg_end] != ')') {
+                while (line[current_arg_start] != ':') current_arg_start += 1;
+                current_arg_start += ": ".length;
+                current_arg_end = current_arg_start + 1;
+                while (line[current_arg_end] != ',' && line[current_arg_end] != ')') current_arg_end += 1;
+                args.put(processTypeString(Arrays.range(line, current_arg_start, current_arg_end)));
+            }
+
+            var return_type: IntrinsicType;
+            if (line[current_arg_end + 1] == ';') {
+                return_type = processTypeString("void.V");
+            } else {
+                def type_start = current_arg_end + " -> ".length;
+                var type_end = type_start;
+                while (line[type_end] != ';') type_end += 1;
+                return_type = processTypeString(Arrays.range(line, type_start, type_end));
+            }
+
+            intrinsics[name] = IntrinsicTypedef.new(name, args.copy(), return_type);
+        }
+
+        return intrinsics;
+    }
+}
