@@ -113,31 +113,10 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
         Final(_) => return ssa; // TODO: move stuff from instrument... to here
         Injected(inj, rest) => return SSAD.Injected(inj, transformSSA(rest, ctx));
         LetLit(n, l, t, rest) => {
-            if (ctx.static[n]) {
-                return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
-            } else {
-                // insert rtcast
-                def fv = SSAD_IR.uidl("lit");
-                ctx.static[fv] = true;
-                ctx.types[fv] = CBDType.Bot; // doesn't really matter
-                ctx.effects[fv] = CBDEffect.None;
-                def rtcast_f = Strings.format1("rtcast_%s", ctx.types[n].toString());
-                return SSAD.LetLit(fv, l, t,
-                        SSAD.LetApp(n, rtcast_f, [fv], transformSSA(rest, ctx)));
-            }
+            return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
         }
         LetApp(n, f, args, rest) => {
             var res = SSAD.LetApp(n, f, args, transformSSA(rest, ctx));
-            if (Strings.equal(f, "id")) {
-                def old_static = ctx.static[args[0]];
-                def new_static = ctx.static[n];
-                if (old_static && !new_static && ctx.types[n] != CBDType.Bot) {
-                    // transition from static to runtime
-                    def rtcast_fn = Strings.format1("rtcast_%s", ctx.types[n].toString());
-                    res = SSAD.LetApp(n, rtcast_fn, args, res.rest);
-                }
-            }
-
             if (Strings.endsWith(f, "==") ||  Strings.endsWith(f, "+") || Strings.endsWith(f, ">") || Strings.endsWith(f, "!=") || Strings.endsWith(f, "-")
                     || Strings.endsWith(f, "/") || Strings.endsWith(f, "*")) {
                 def tp = ctx.types[args[0]];
@@ -165,17 +144,28 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 ctx.effects[n] = CBDEffect.None;
 
                 res = SSAD.LetApp(n, new_f, args, res.rest);
+            }
 
-                // detect when rhs is not runtime and insert an rtcast
-                def rhs_rt = !ctx.static[args[1]];
-                if (!rhs_rt) {
-                    def fv = SSAD_IR.uidl("rtcast");
-                    def rtcast_f = Strings.format1("rtcast_%s", tp.toString());
-                    ctx.static[fv] = false;
-                    ctx.types[fv] = ctx.types[args[1]];
-                    ctx.effects[fv] = CBDEffect.None;
-                    res = SSAD.LetApp(fv, rtcast_f, [args[1]],
-                            SSAD.LetApp(n, new_f, [args[0], fv], res.rest));
+            def intrinsic_static = IntrinsicTypes.intrinsic_static(f);
+            def intrinsic_type = IntrinsicTypes.intrinsic_type(f);
+            def args_static = intrinsic_static.0;
+            def args_types = intrinsic_type.0;
+            if (args_static != null) {
+                for (i < args_static.length) {
+                    def is_runtime = !ctx.static[args[i]];
+                    def should_be_runtime = !args_static[i];
+                    if (!is_runtime && should_be_runtime) {
+                        def fv = SSAD_IR.uidl("rtcast");
+                        def tp = args_types[i];
+                        def rtcast_f = Strings.format1("rtcast_%s", tp.toString());
+                        ctx.static[fv] = false;
+                        ctx.types[fv] = ctx.types[args[i]];
+                        ctx.effects[fv] = CBDEffect.None;
+                        def new_args = Arrays.dup(res.args);
+                        new_args[i] = fv;
+                        res = SSAD.LetApp(fv, rtcast_f, [args[i]],
+                                SSAD.LetApp(res.n, res.f, new_args, res.rest));
+                    }
                 }
             }
             // TODO: sidetable stuff
@@ -221,8 +211,8 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     SSAD_IR.counter = 0;
     def ssa = SSAD_IR.ssa(ir);
     def analysis = SSADCtx.new(ssa);
-    def transformed = transformSSA(ssa, analysis);
-    def processed = analysis.DCE(analysis.id_propagate(transformed, HashMap<string, string>.new(Strings.hash, Strings.equal)));
+    def transformed = transformSSA(analysis.id_propagate(ssa, Strings.newMap<string>()), analysis);
+    def processed = analysis.DCE(transformed);
 
     def sb = StringBuilder.new();
     def vars = Maps.keyList(analysis.static);

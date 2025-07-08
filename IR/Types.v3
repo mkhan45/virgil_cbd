@@ -1,23 +1,60 @@
+type CBDType {
+    case I32;
+    case U32;
+    case F32;
+    case Bot;
+
+    def toString() -> string {
+        match (this) {
+            I32 => return "i32";
+            U32 => return "u32";
+            F32 => return "f32";
+            Bot => return "⊥";
+        }
+    }
+}
+
 enum Stage {
     VALIDATE,
     COMPILE,
     INTERPRET,
 }
-class IntrinsicType(primitive: string, stage: Stage) {}
+class IntrinsicType(primitive: CBDType, stage: Stage) {
+    def isStatic() -> bool {
+        return (stage == Stage.VALIDATE) || (stage == Stage.COMPILE);
+    }
+}
+
 class IntrinsicTypedef(name: string, args: Array<IntrinsicType>, return_type: IntrinsicType) {}
+
+def typeFromString(s: string) -> CBDType {
+    if (Strings.equal(s, "int")) return CBDType.I32;
+    if (Strings.equal(s, "i32")) return CBDType.I32;
+    if (Strings.equal(s, "u32")) return CBDType.U32;
+    if (Strings.equal(s, "float")) return CBDType.F32;
+    if (Strings.equal(s, "f32")) return CBDType.F32;
+
+    return CBDType.Bot;
+}
 
 def processTypeString(s: string) -> IntrinsicType {
     def split = Strings.splitOnChar(s, u8.==(_, '.'), -1);
-    def name = split[0];
-    def stage_string = split[1];
+    def name = Strings.strip(split[0]);
+    def stage_string = Strings.strip(split[1]);
     var stage: Stage;
     if (Strings.equal(stage_string, "V")) stage = Stage.VALIDATE;
     if (Strings.equal(stage_string, "C")) stage = Stage.COMPILE;
     if (Strings.equal(stage_string, "I")) stage = Stage.INTERPRET;
-    return IntrinsicType.new(name, stage);
+    return IntrinsicType.new(typeFromString(name), stage);
 }
 
 component IntrinsicTypes {
+    var intrinsic_types: HashMap<string, IntrinsicTypedef>;
+
+    def init(filename: string) {
+        intrinsic_types = getIntrinsicTypes(filename);
+    }
+    
     def getIntrinsicTypes(filename: string) -> HashMap<string, IntrinsicTypedef> {
         def typedef_file = System.fileLoad(filename);
 
@@ -56,5 +93,23 @@ component IntrinsicTypes {
         }
 
         return intrinsics;
+    }
+
+    def intrinsic_type(fn_name: string) -> (Array<CBDType>, CBDType) {
+        if (intrinsic_types.has(fn_name)) {
+            def t = intrinsic_types[fn_name];
+            return (Arrays.map(t.args, fun (a: IntrinsicType) => a.primitive), t.return_type.primitive);
+        } else {
+            return (null, CBDType.Bot);
+        }
+    }
+
+    def intrinsic_static(fn_name: string) -> (Array<bool>, bool) {
+        if (intrinsic_types.has(fn_name)) {
+            def t = intrinsic_types[fn_name];
+            return (Arrays.map(t.args, fun (a: IntrinsicType) => a.isStatic()), t.return_type.isStatic());
+        } else {
+            return (null, false);
+        }
     }
 }

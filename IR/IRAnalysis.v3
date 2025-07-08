@@ -1,18 +1,4 @@
-type CBDType {
-    case I32;
-    case U32;
-    case F32;
-    case Bot;
-
-    def toString() -> string {
-        match (this) {
-            I32 => return "i32";
-            U32 => return "u32";
-            F32 => return "f32";
-            Bot => return "⊥";
-        }
-    }
-}
+def TYPE_DEF_FILE: string = "./wizard-engine/src/bytecode/Intrinsics.v3";
 
 component CBDTypes {
     def intrinsic_type(fn_name: string) -> (Array<CBDType>, CBDType) {
@@ -121,6 +107,7 @@ class SSADCtx {
     var effects: HashMap<string, CBDEffect>; // should it be a list?
 
     new(body) {
+        IntrinsicTypes.init(TYPE_DEF_FILE);
         static = HashMap.new(Strings.hash, Strings.equal);
         getStatic(body);
 
@@ -135,13 +122,12 @@ class SSADCtx {
                 if (Strings.equal(f, "id")) {
                     static[n] = static[as[0]];
                 } else {
-                    def f_static = CBDTypes.intrinsic_static(f);
+                    def f_static = IntrinsicTypes.intrinsic_static(f);
                     def args_static = f_static.0;
                     def ret_static = f_static.1;
 
-                    if (args_static != null)
-                        for (i < as.length) static[as[i]] = args_static[i];
                     static[n] = ret_static;
+                    for (a in as) static[n] &= static[a];
                 }
 
                 getStatic(rest);
@@ -169,7 +155,7 @@ class SSADCtx {
                 if (Strings.equal(f, "id")) {
                     types[n] = types[as[0]];
                 } else {
-                    def f_type = CBDTypes.intrinsic_type(f);
+                    def f_type = IntrinsicTypes.intrinsic_type(f);
                     types[n] = f_type.1;
                 }
 

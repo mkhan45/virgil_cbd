@@ -7,12 +7,14 @@ ENGINE = $(WIZARD)/src/engine/*.v3
 V3TARGET = $(WIZARD)/src/engine/v3/*.v3
 UTIL = $(WIZARD)/src/util/*.v3
 DEFS = $(WIZARD)/src/bytecode/CanonicalDefs.v3
+TYPEDEFS = $(WIZARD)/src/bytecode/Intrinsics.v3
 
 # Virgil compiler command (adjust as needed)
 VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -run -fun-exprs -simple-bodies
 V3C ?= ../virgil/bin/v3c-x86-64-linux -fun-exprs -simple-bodies
 
 GENERATE_LIB = parser/VirgilSexpr.v3 IR/*.v3 gen_common/*.v3
+GENERATE_DEPS = $(GENERATE_LIB) $(DEFS).sexp $(TYPEDEFS)
 
 # Targets
 .PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler
@@ -22,21 +24,21 @@ all: validator/Validator.v3 interpreter/Interpreter.v3 compiler/Compiler.v3 Inte
 $(DEFS).sexp:
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
 
-validator/Validator.v3: $(DEFS).sexp $(GENERATE_LIB) validator/ValidatorGen.v3 validator/ValidatorTemplate.v3
+validator/Validator.v3: $(GENERATE_DEPS) validator/ValidatorGen.v3 validator/ValidatorTemplate.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		validator/ValidatorGen.v3\
 		$(DEFS).sexp $(DEFS) validator/ValidatorTemplate.v3\
 		> validator/Validator.v3
 
-interpreter/Interpreter.v3: $(DEFS).sexp $(GENERATE_LIB) interpreter/InterpreterGen.v3 interpreter/InterpreterTemplate.v3
+interpreter/Interpreter.v3: $(GENERATE_DEPS) interpreter/InterpreterGen.v3 interpreter/InterpreterTemplate.v3
 	$(VIRGIL) $(VIRGIL_STD) \
 		$(GENERATE_LIB)\
 		interpreter/InterpreterGen.v3\
 		$(DEFS).sexp $(DEFS) interpreter/InterpreterTemplate.v3\
 		> interpreter/Interpreter.v3
 
-compiler/Compiler.v3: $(DEFS).sexp $(GENERATE_LIB) compiler/CompilerGen.v3 compiler/CompilerTemplate.v3
+compiler/Compiler.v3: $(GENERATE_DEPS) compiler/CompilerGen.v3 compiler/CompilerTemplate.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		compiler/CompilerGen.v3\

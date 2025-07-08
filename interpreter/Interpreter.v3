@@ -88,8 +88,8 @@ def SELECT() {
 	def tv1 = f_getTopOfStackType();
 	def b3 = pop_Value(tv1);
 	def a5 = pop_Value(tv1);
-	def right117 : u32 = 0u;
-	def cond38 = u32.!=(c0, right117);
+	def arg116 : u32 = 0u;
+	def cond38 = u32.!=(c0, arg116);
 	if (cond38) {
 		def eff411 = push_Value(tv1, a5);
 	} else {
@@ -144,8 +144,8 @@ def I32_DIV_S() {
 def I32_DIV_U() {
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def right263 : u32 = 0u;
-	def cond234 = u32.==(b0, right263);
+	def arg262 : u32 = 0u;
+	def cond234 = u32.==(b0, arg262);
 	if (cond234) {
 		def ret245 = trapDivideByZero();
 		return ret245;
@@ -251,8 +251,8 @@ def IF() {
 	def cond1 = pop_i32();
 	def arg92 : u32 = 0;
 	def label3 = f_getLabel(arg92);
-	def right85 : int = 0;
-	def cond36 = i32.==(cond1, right85);
+	def arg84 : int = 0;
+	def cond36 = i32.==(cond1, arg84);
 	if (cond36) {
 		def ret48 = doBranch(label3);
 		return ret48;
