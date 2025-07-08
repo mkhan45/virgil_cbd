@@ -3,7 +3,6 @@ class Frame {
     var fp: int;
     var sidetable: Vector<(int, int)>;
     var stp: int;
-    var local_types: Vector<TypeVar>; // TODO: just get ValueKinds from stack
     var codeptr: CodePtr;
     var num_rets: int;
 
@@ -12,21 +11,18 @@ class Frame {
         sidetable = fn.sidetable;
         stp = 0;
         codeptr = CodePtr.new(fn.code);
-        local_types = fn.locals;
         num_rets = fn.rets.length;
     }
 }
 
-type CBDValue #unboxed {
-    case I32(val: u32);
-    case U32(val: u32);
-}
-
+var module: Module;
 var functions: Vector<CBDFunction>;
 
 var current_frame: Frame;
 var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
-var stack: ArrayStack<CBDValue>;
+var stack: ArrayStack<Value>;
+var globals: Vector<Value>;
+
 
 def HAS_MEM_INDEX = 0x40u8;
 
@@ -56,67 +52,90 @@ def imm_readBlockType() -> () {
 }
 
 def pop_i32() -> i32 {
-    return i32.view(CBDValue.I32.!(stack.pop()).val);
+    return Values.unbox_i(stack.pop());
 }
 def pop_u32() -> u32 {
-    return CBDValue.I32.!(stack.pop()).val;
+    return Values.unbox_u(stack.pop());
 }
-def pop_i64() -> i64;
-def pop_u64() -> u64;
-def pop_f32() -> float;
-def pop_f64() -> double;
+def pop_i64() -> i64 {
+    return Values.unbox_l(stack.pop());
+}
+def pop_u64() -> u64 {
+    return Values.unbox_w(stack.pop());
+}
+def pop_f32() -> float {
+    return Values.unbox_f(stack.pop());
+}
+def pop_f64() -> double {
+    return Values.unbox_d(stack.pop());
+}
 def pop_v128() -> v128;
-def pop_Object() -> Object;
-def pop_Value(tv: TypeVar) -> CBDValue {
+def pop_Object() -> Object {
+    return Values.unbox<Object>(stack.pop());
+}
+def pop_Value(tv: ()) -> Value {
     return stack.pop();
 }
 
 def push_i32(v: i32) {
-    stack.push(CBDValue.I32(u32.view(v)));
+    stack.push(Values.box_i(v));
 }
 def push_u32(v: u32) {
-    stack.push(CBDValue.I32(v));
+    stack.push(Values.box_u(v));
 }
-def push_i64(v: i64);
-def push_u64(v: u64);
-def push_f32(v: float);
-def push_f64(v: double);
+def push_i64(v: i64) {
+    stack.push(Values.box_l(v));
+}
+def push_u64(v: u64) {
+    stack.push(Values.box_w(v));
+}
+def push_f32(v: float) {
+    stack.push(Values.box_f(v));
+}
+def push_f64(v: double) {
+    stack.push(Values.box_d(v));
+}
 def push_v128(v: v128);
-def push_Object(v: Object);
-def push_Value(tv: TypeVar, v: CBDValue) {
+def push_Object(v: Object) {
+    stack.push(Values.box<Object>(v));
+}
+def push_Value(tv: (), v: Value) {
     stack.push(v);
 }
 
 // Local variables.
-def getLocal(tv: TypeVar, index: u32) -> CBDValue {
+def getLocal(tv: (), index: u32) -> Value {
     return stack.elems[current_frame.fp + int.!(index)];
 }
-def setLocal(tv: TypeVar, index: u32, v: CBDValue) {
+def setLocal(tv: (), index: u32, v: Value) {
     stack.elems[current_frame.fp + int.!(index)] = v;
 }
 
 // Global variables.
-def getGlobal(tv: TypeVar, index: u32) -> CBDValue;
-def setGlobal(tv: TypeVar, index: u32, v: CBDValue);
+def getGlobal(tv: (), index: u32) -> Value {
+    return globals[int.!(index)];
+}
+def setGlobal(tv: (), index: u32, v: Value) {
+    globals[int.!(index)] = v;
+}
 
 // CBDFunction context.
 def f_getLabel(depth: u32) -> Label {
     return Label(depth);
 }
 
-def f_getLocalType(index: u32) -> TypeVar {
-    return current_frame.local_types[int.!(index)];
+def f_getLocalType(index: u32) -> () {
+    return ();
 }
 
-def f_getTopOfStackType() -> TypeVar {
-    match (stack.peek()) {
-        I32(_) => return TypeVar.I32;
-        U32(_) => return TypeVar.U32;
-    }
+def f_getTopOfStackType() -> () {
+    return ();
 }
 
 // Module context.
-def m_getGlobalType(index: u32) -> TypeVar;
+def m_getGlobalType(index: u32) -> () {
+    return ();
+}
 def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
 def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset;
 def m_isMemory64(memory_index: u32) -> bool;
@@ -188,7 +207,7 @@ def doEnd() {
 }
 
 def doReturn() {
-    // TODO
+    // TODO look at num returns?
     def ret = stack.pop();
     stack.top = current_frame.fp;
     current_frame = current_frame.parent;
@@ -204,21 +223,31 @@ def f_isAtEnd() -> bool {
 }
 
 def push_locals(count: u32, vtc: ValueTypeCode) {
-    System.puts("push\n");
-    var tv: TypeVar;
+    // TODO: push to stack
+    var tv: ValueType;
     match (vtc.code) {
-        BpTypeCode.I32.val => tv = TypeVar.I32;
-        _ => tv = TypeVar.I32; // TODO
+        BpTypeCode.I32.val => tv = ValueType.I32;
+        _ => tv = ValueType.I32; // TODO
     }
-    
-    for (i < count) current_frame.local_types.put(tv);
 }
 
 component Interpreter {
-    def init(fns: Vector<CBDFunction>, main_idx: int, args: Array<int>) {
-        for (i < fns.length) {
-            def fn = fns[i];
-            Validator.init(fn.code, fn.locals.copy(), fn.rets.copy());
+    def init(new_module: Module, args: Array<int>) {
+        module = new_module;
+
+        var main_idx = -1;
+        for (i < module.exports.length) {
+            if (Strings.equal(module.exports[i].0, "main")) main_idx = FuncDecl.!(module.exports[i].1).func_index;
+        }
+
+        functions = Vector<CBDFunction>.new();
+        for (i < module.functions.length) functions.put(CBDFunction.new(module.functions[i]));
+
+        Validator.init(module, args);
+        
+        for (i < functions.length) {
+            def fn = functions[i];
+            Validator.init_function(fn.code, fn.locals.copy(), fn.rets.copy());
             Validator.dispatch();
             def sts = Validator.build_sidetable();
             fn.sidetable = sts.1;
@@ -227,10 +256,19 @@ component Interpreter {
             System.ln();
         }
 
-        stack = ArrayStack<CBDValue>.new();
-        for (arg in args) stack.push(CBDValue.I32(u32.view(arg)));
-        functions = fns;
+        stack = ArrayStack<Value>.new();
+        for (arg in args) stack.push(Value.I32(u32.view(arg)));
         current_frame = Frame.new(null, functions[main_idx]);
+        
+        globals = Vector.new();
+        for (i < module.globals.length) {
+            def module_global = module.globals[i];
+            // TODO: full eval initexpr
+            match (module_global.init) {
+                I32(v) => globals.put(Values.box_i(v));
+                _ => globals.put(Value.I32(0));
+            }
+        }
     }
 
     def dispatch() {
@@ -244,7 +282,7 @@ component Interpreter {
         }
     }
 
-    def get_stack() -> ArrayStack<CBDValue> {
+    def get_stack() -> ArrayStack<Value> {
         return stack;
     }
 

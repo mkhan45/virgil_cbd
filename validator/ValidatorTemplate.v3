@@ -1,7 +1,9 @@
+var module: Module;
 var codeptr: CodePtr;
 var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
 var local_types: Vector<TypeVar>;
 var stack: ArrayStack<TypeVar>;
+var globals: Vector<TypeVar>;
 
 // this is mainly to lift sidetable vars out of conditionals,
 // probably a lot of ways to dodge that
@@ -12,7 +14,7 @@ var st_controls: Vector<int>; // ctl idx of target
 def assert(b: bool) {
     if (!b) {
         System.puts("assert fail :(\n");
-	return [][1];
+        return [][1];
     }
 }
 
@@ -46,20 +48,76 @@ type TypeVar {
         def times(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
         def div(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
     }
+    case I64;
     case U64;
-    case F32 {
-    }
+    case F32;
+    case F64;
+    case V128;
+    case Object;
     case Err;
     case Bot;
+
+    def unbox_i32() -> TypeVar.I32 {
+        if (TypeVar.I32.?(this) || TypeVar.U32.?(this)) return TypeVar.I32;
+        return invalid_t(TypeVar.I32);
+    }
+
+    def unbox_u32() -> TypeVar.U32 {
+        if (TypeVar.U32.?(this) || TypeVar.I32.?(this)) return TypeVar.U32;
+        return invalid_t(TypeVar.U32);
+    }
+    
+    def unbox_i64() -> TypeVar.I64 {
+        if (TypeVar.I64.?(this)) return TypeVar.I64;
+        return invalid_t(TypeVar.I64);
+    }
+    
+    def unbox_u64() -> TypeVar.U64 {
+        if (TypeVar.U64.?(this)) return TypeVar.U64;
+        return invalid_t(TypeVar.U64);
+    }
+    
+    def unbox_f32() -> TypeVar.F32 {
+        if (TypeVar.F32.?(this)) return TypeVar.F32;
+        return invalid_t(TypeVar.F32);
+    }
+    
+    def unbox_f64() -> TypeVar.F64 {
+        if (TypeVar.F64.?(this)) return TypeVar.F64;
+        return invalid_t(TypeVar.F64);
+    }
+    
+    def unbox_v128() -> TypeVar.V128 {
+        if (TypeVar.V128.?(this)) return TypeVar.V128;
+        return invalid_t(TypeVar.V128);
+    }
+    
+    def unbox_Object() -> TypeVar.Object {
+        if (TypeVar.Object.?(this)) return TypeVar.Object;
+        return invalid_t(TypeVar.Object);
+    }
+    
+    def matches(other: TypeVar) -> bool {
+        if (this == other) return true;
+        // I32/U32 compatibility
+        // maybe i32 and u32 should be the same typevar?
+        return (TypeVar.I32.?(this) && TypeVar.U32.?(other)) || (TypeVar.U32.?(this) && TypeVar.I32.?(other));
+    }
 }
+
+def invalid_t<T>(t: T) -> T {
+    invalid();
+    return t;
+}
+
 def rtcast_i32(x: i32) -> TypeVar.I32 {
     return TypeVar.I32;
 }
 def rtcast_u32(x: u32) -> TypeVar.U32 {
     return TypeVar.U32;
 }
-type FieldOffset;
 
+type FieldOffset;
 enum FieldKind {
 	U8, U16, I32, I64, F32, F64, V128, REF
 }
@@ -90,33 +148,33 @@ def imm_readBlockType() -> () {
 }
 
 def pop_i32() -> TypeVar.I32 {
-    match (stack.pop()) {
-        I32 => return TypeVar.I32;
-        _ => {
-	    assert(false);
-	    return TypeVar.I32;
-	}
-    }
+    return stack.pop().unbox_i32();
 }
 def pop_u32() -> TypeVar.U32 {
-    match (stack.pop()) {
-        U32 => return TypeVar.U32;
-        I32 => return TypeVar.U32; // ??
-        _ => {
-            assert(false);
-            return TypeVar.U32;
-        }
-    }
+    return stack.pop().unbox_u32();
 }
-def pop_i64() -> i64;
-def pop_u64() -> TypeVar.U64;
-def pop_f32() -> float;
-def pop_f64() -> double;
-def pop_v128() -> v128;
-def pop_Object() -> Object;
+def pop_i64() -> TypeVar.I64 {
+    return stack.pop().unbox_i64();
+}
+def pop_u64() -> TypeVar.U64 {
+    return stack.pop().unbox_u64();
+}
+def pop_f32() -> TypeVar.F32 {
+    return stack.pop().unbox_f32();
+}
+def pop_f64() -> TypeVar.F64 {
+    return stack.pop().unbox_f64();
+}
+def pop_v128() -> TypeVar.V128 {
+    return stack.pop().unbox_v128();
+}
+def pop_Object() -> TypeVar.Object {
+    return stack.pop().unbox_Object();
+}
 def pop_Value(tv: TypeVar) -> TypeVar {
-    // assert(tv == stack.pop()); // TODO: u32s should be fine for i32s and vice versa
-    return tv;
+    def actual = stack.pop();
+    if (tv.matches(actual)) return tv;
+    return invalid_t(tv);
 }
 
 def push_i32(v: TypeVar.I32) {
@@ -125,14 +183,26 @@ def push_i32(v: TypeVar.I32) {
 def push_u32(v: TypeVar.U32) {
     stack.push(TypeVar.U32);
 }
-def push_i64(v: i64);
-def push_u64(v: u64);
-def push_f32(v: float);
-def push_f64(v: double);
-def push_v128(v: v128);
-def push_Object(v: Object);
+def push_i64(v: i64) {
+    stack.push(TypeVar.I64);
+}
+def push_u64(v: u64) {
+    stack.push(TypeVar.U64);
+}
+def push_f32(v: float) {
+    stack.push(TypeVar.F32);
+}
+def push_f64(v: double) {
+    stack.push(TypeVar.F64);
+}
+def push_v128(v: v128) {
+    stack.push(TypeVar.V128);
+}
+def push_Object(v: TypeVar.Object) {
+    stack.push(v);
+}
 def push_Value(tv: TypeVar, v: TypeVar) {
-    // TODO: assert v has tv
+    if (!tv.matches(v)) invalid();
     stack.push(tv);
 }
 
@@ -141,13 +211,17 @@ def getLocal(tv: TypeVar, index: u32) -> TypeVar {
     return stack.elems[index];
 }
 def setLocal(tv: TypeVar, index: u32, v: TypeVar) {
-    // TODO: assert that v has tv
+    if (!tv.matches(v)) invalid();
     stack.elems[index] = tv;
 }
 
 // Global variables.
-def getGlobal(tv: TypeVar, index: u32) -> TypeVar;
-def setGlobal(tv: TypeVar, index: u32, v: TypeVar);
+def getGlobal(tv: TypeVar, index: u32) -> TypeVar {
+    return globals[int.!(index)];
+}
+def setGlobal(tv: TypeVar, index: u32, v: TypeVar) {
+    globals[int.!(index)] = v;
+}
 
 // Function context.
 def f_getLabel(depth: u32) -> int {
@@ -163,7 +237,9 @@ def f_getTopOfStackType() -> TypeVar {
 }
 
 // Module context.
-def m_getGlobalType(index: u32) -> TypeVar;
+def m_getGlobalType(index: u32) -> TypeVar {
+    return globals[int.!(index)];
+}
 def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
 def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset;
 def m_isMemory64(memory_index: u32) -> bool;
@@ -203,16 +279,16 @@ def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> u64;
 def mach_readStructField_f32(obj: Object, offset: FieldOffset) -> float;
 def mach_readStructField_f64(obj: Object, offset: FieldOffset) -> double;
 def mach_readStructField_v128(obj: Object, offset: FieldOffset) -> v128;
-def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> Object;
+def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> TypeVar.Object;
 
 def mach_readMemory64_u32(memory_index: u32, index: u64, offset: u64) -> u32;
 def mach_readMemory32_u32(memory_index: u32, index: u32, offset: u32) -> u32;
 
-def mach_readTable64(table_index: u32, index: TypeVar.U64) -> Object;
-def mach_readTable32(table_index: u32, index: TypeVar.U32) -> Object;
+def mach_readTable64(table_index: u32, index: TypeVar.U64) -> TypeVar.Object;
+def mach_readTable32(table_index: u32, index: TypeVar.U32) -> TypeVar.Object;
 
-def mach_writeTable64(table_index: u32, index: TypeVar.U64, val: Object);
-def mach_writeTable32(table_index: u32, index: TypeVar.U32, val: Object);
+def mach_writeTable64(table_index: u32, index: TypeVar.U64, val: TypeVar.Object);
+def mach_writeTable32(table_index: u32, index: TypeVar.U32, val: TypeVar.Object);
 
 // Traps.
 def invalid();
@@ -253,18 +329,47 @@ def f_isAtEnd() -> bool {
 }
 
 def push_locals(count: u32, vtc: ValueTypeCode) {
-    System.puts("push\n");
     var tv: TypeVar;
     match (vtc.code) {
         BpTypeCode.I32.val => tv = TypeVar.I32;
-        _ => tv = TypeVar.I32; // TODO
+        BpTypeCode.I64.val => tv = TypeVar.I64;
+        BpTypeCode.F32.val => tv = TypeVar.F32;
+        BpTypeCode.F64.val => tv = TypeVar.F64;
+        BpTypeCode.V128.val => tv = TypeVar.V128;
+        BpTypeCode.FUNCREF.val => tv = TypeVar.Object;
+        BpTypeCode.EXTERNREF.val => tv = TypeVar.Object;
+        BpTypeCode.ANYREF.val => tv = TypeVar.Object;
+        BpTypeCode.EQREF.val => tv = TypeVar.Object;
+        BpTypeCode.I31REF.val => tv = TypeVar.Object;
+        BpTypeCode.STRUCTREF.val => tv = TypeVar.Object;
+        BpTypeCode.ARRAYREF.val => tv = TypeVar.Object;
+        _ => tv = TypeVar.Object; // default to Object for unknown ref types
     }
     
     for (i < count) local_types.put(tv);
 }
 
 component Validator {
-    def init(code: Array<byte>, args: Array<TypeVar>, ret: Array<TypeVar>) {
+    def init(new_module: Module, args: Array<int>) {
+        module = new_module;
+        
+        globals = Vector.new();
+        for (i < module.globals.length) {
+            def module_global = module.globals[i];
+            var global_type: TypeVar;
+            match (module_global.valtype) {
+                I32 => global_type = TypeVar.I32;
+                I64 => global_type = TypeVar.I64;
+                F32 => global_type = TypeVar.F32;
+                F64 => global_type = TypeVar.F64;
+                V128 => global_type = TypeVar.V128;
+                _ => global_type = TypeVar.I32; // TODO: handle ref types
+            }
+            globals.put(global_type);
+        }
+    }
+    
+    def init_function(code: Array<byte>, args: Array<TypeVar>, ret: Array<TypeVar>) {
         codeptr = CodePtr.new(code);
         local_types = Vector.new();
         stack = ArrayStack.new();

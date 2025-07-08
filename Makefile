@@ -31,14 +31,14 @@ validator/Validator.v3: $(GENERATE_DEPS) validator/ValidatorGen.v3 validator/Val
 		$(DEFS).sexp $(DEFS) validator/ValidatorTemplate.v3\
 		> validator/Validator.v3
 
-interpreter/Interpreter.v3: $(GENERATE_DEPS) interpreter/InterpreterGen.v3 interpreter/InterpreterTemplate.v3
+interpreter/Interpreter.v3: $(GENERATE_DEPS) interpreter/InterpreterGen.v3 interpreter/InterpreterTemplate.v3 validator/ValidatorTemplate.v3
 	$(VIRGIL) $(VIRGIL_STD) \
 		$(GENERATE_LIB)\
 		interpreter/InterpreterGen.v3\
 		$(DEFS).sexp $(DEFS) interpreter/InterpreterTemplate.v3\
 		> interpreter/Interpreter.v3
 
-compiler/Compiler.v3: $(GENERATE_DEPS) compiler/CompilerGen.v3 compiler/CompilerTemplate.v3
+compiler/Compiler.v3: $(GENERATE_DEPS) compiler/CompilerGen.v3 compiler/CompilerTemplate.v3 validator/ValidatorTemplate.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		compiler/CompilerGen.v3\

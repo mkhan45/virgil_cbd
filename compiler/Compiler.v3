@@ -455,6 +455,32 @@ def I32_LT_U() {
 	def endBrace15 = emitEnd();
 	def phi_push12 = push_i32(stack_phi9);
 }
+def I32_LE_S() {
+	// arg185 -- static: yes, type: u32, effect: none
+// arg207 -- static: yes, type: u32, effect: none
+// cond164 -- static: no, type: ⊥, effect: none
+// arg213 -- static: no, type: u32, effect: none
+// a1 -- static: no, type: u32, effect: pop
+// arg222 -- static: no, type: u32, effect: none
+// eff176 -- static: yes, type: ⊥, effect: push
+// eff198 -- static: yes, type: ⊥, effect: push
+// b0 -- static: no, type: u32, effect: pop
+
+	def b0 = pop_u32();
+	def a1 = pop_u32();
+	def cond164 = u32.<=(a1, b0);
+	def stack_phi9 = emitFwdI32();
+	def if13 = emitIf(cond164);
+	def arg185 : u32 = 1;
+	def eff176 = push_u32(arg185);
+	def phi_pop10 = emitPopAssign(stack_phi9);
+	def else14 = emitElse();
+	def arg207 : u32 = 0;
+	def eff198 = push_u32(arg207);
+	def phi_pop11 = emitPopAssign(stack_phi9);
+	def endBrace15 = emitEnd();
+	def phi_push12 = push_i32(stack_phi9);
+}
 def I32_GT_U() {
 	// arg185 -- static: yes, type: u32, effect: none
 // arg207 -- static: yes, type: u32, effect: none
@@ -617,6 +643,7 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.I32_EQ.code] = I32_EQ;
   DISPATCH_TABLE[Opcode.I32_NE.code] = I32_NE;
   DISPATCH_TABLE[Opcode.I32_LT_U.code] = I32_LT_U;
+  DISPATCH_TABLE[Opcode.I32_LE_S.code] = I32_LE_S;
   DISPATCH_TABLE[Opcode.I32_GT_U.code] = I32_GT_U;
   DISPATCH_TABLE[Opcode.BR.code] = BR;
   DISPATCH_TABLE[Opcode.BR_IF.code] = BR_IF;

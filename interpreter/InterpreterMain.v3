@@ -13,18 +13,7 @@ def main(args: Array<string>) {
 
     def module = bp.push(file_bytes, 0, file_bytes.length).finish();
 
-    var main_idx = -1;
-    for (i < module.exports.length) {
-        if (Strings.equal(module.exports[i].0, "main")) main_idx = FuncDecl.!(module.exports[i].1).func_index;
-    }
-
-    def funcs = Vector<CBDFunction>.new();
-    for (i < module.functions.length) funcs.put(CBDFunction.new(module.functions[i]));
-
-    def func0 = module.functions[0];
-    def func_code = func0.orig_bytecode;
-
-    Interpreter.init(funcs, main_idx, interpreter_args);
+    Interpreter.init(module, interpreter_args);
     Interpreter.dispatch();
 
     System.puts("stack top: ");
