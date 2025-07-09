@@ -377,9 +377,9 @@ def imm_readU8() -> u8 {
     return current_frame.codeptr.read1();
 }
 
-def imm_readBlockType() -> () {
+def imm_readBlockType() -> (Array<ValueType>, Array<ValueType>) {
     def bt = current_frame.codeptr.read_BlockTypeCode();
-    return ();
+    return bt.toAbstractBlockType(module);
 }
 
 def pop_i32() -> i32 {
@@ -528,24 +528,29 @@ def trapUnreachable();
 def trapDivideByZero();
 def trapDivideUnrepresentable();
 
-def doBlock(bt: ()) {
+def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
 }
 
-def doLoop(bt: ()) {
+def doLoop(bt: (Array<ValueType>, Array<ValueType>)) {
 }
 
 def doEnd() {
+    // CBD calls doReturn if at end
 }
 
 def doReturn() {
-    // TODO look at num returns?
-    def ret = stack.pop();
-    stack.top = current_frame.fp;
+    def count = current_frame.num_rets;
+    def dest = current_frame.fp;
+    def sp = stack.top - count;
+    if (sp != dest) {
+        var e = stack.elems;
+        for (i < count) e[dest + i] = e[sp + i];
+    }
+    stack.top = dest + count;
     current_frame = current_frame.parent;
-    stack.push(ret);
 }
 
-def doTry(bt: ()) {
+def doTry(bt: (Array<ValueType>, Array<ValueType>)) {
     return;
 }
 

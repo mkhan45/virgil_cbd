@@ -4,6 +4,7 @@
 VIRGIL_STD = ../virgil/lib/util/*.v3
 WIZARD = ./wizard-engine
 ENGINE = $(WIZARD)/src/engine/*.v3
+WIZARD_UTIL = $(WIZARD)/src/util/*.v3
 V3TARGET = $(WIZARD)/src/engine/v3/*.v3
 UTIL = $(WIZARD)/src/util/*.v3
 DEFS = $(WIZARD)/src/bytecode/CanonicalDefs.v3

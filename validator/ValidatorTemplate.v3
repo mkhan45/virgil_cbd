@@ -4,6 +4,7 @@ var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
 var local_types: Vector<TypeVar>;
 var stack: ArrayStack<TypeVar>;
 var globals: Vector<TypeVar>;
+var rets: Array<TypeVar>;
 
 // this is mainly to lift sidetable vars out of conditionals,
 // probably a lot of ways to dodge that
@@ -19,9 +20,9 @@ def assert(b: bool) {
 }
 
 type CtlEntry {
-	case Block(end_pc: int, cont_stp: int);
-	case Loop(start_pc: int, end_pc: int, cont_stp: int);
-        case None;
+    case Block(end_pc: int, cont_stp: int);
+    case Loop(start_pc: int, end_pc: int, cont_stp: int);
+    case None;
 }
 var ctls: Array<CtlEntry>;
 var ctl_stack: ArrayStack<int>;
@@ -119,7 +120,7 @@ def rtcast_u32(x: u32) -> TypeVar.U32 {
 
 type FieldOffset;
 enum FieldKind {
-	U8, U16, I32, I64, F32, F64, V128, REF
+    U8, U16, I32, I64, F32, F64, V128, REF
 }
 
 def imm_readULEB32() -> u32 {
@@ -309,15 +310,15 @@ def doEnd() {
     def ctl_idx = ctl_stack.pop();
     match (ctls[ctl_idx]) {
         Block(end_pc, cont_stp) =>
-	    if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Block(codeptr.pos, st_entries.length - 1);
+        if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Block(codeptr.pos, st_entries.length - 1);
         Loop(start_pc, end_pc, cont_stp) => 
-	    if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Loop(start_pc, codeptr.pos, cont_stp);
+        if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Loop(start_pc, codeptr.pos, cont_stp);
         None => doReturn();
     }
 }
 
 def doReturn() {
-    return;
+    for (i = rets.length - 1; i >= 0; i -= 1) pop_Value(rets[i]);
 }
 
 def doTry(bt: ()) {
@@ -384,6 +385,7 @@ component Validator {
         st_builder = STBuilder.new();
         st_entries = Vector.new();
         st_controls = Vector.new();
+        rets = ret;
     }
 
     def dispatch() {
