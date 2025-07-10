@@ -217,6 +217,9 @@ def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
 def doLoop(bt: (Array<ValueType>, Array<ValueType>)) {
 }
 
+def doIf(bt: (Array<ValueType>, Array<ValueType>)) {
+}
+
 def doEnd() {
     // CBD calls doReturn if at end
 }

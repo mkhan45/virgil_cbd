@@ -563,29 +563,26 @@ def BR_IF() {
 def BLOCK() {
 	// arg141 -- static: yes, type: ⊥, effect: none
 // bt0 -- static: yes, type: ⊥, effect: none
-// ret132 -- static: yes, type: ⊥, effect: ctl
+// eff132 -- static: yes, type: ⊥, effect: ctl
 
 	def bt0 = imm_readBlockType();
-	def ret132 = doBlock(bt0);
-	return ret132;
+	def eff132 = doBlock(bt0);
 }
 def LOOP() {
-	// arg41 -- static: yes, type: ⊥, effect: none
+	// eff32 -- static: yes, type: ⊥, effect: ctl
+// arg41 -- static: yes, type: ⊥, effect: none
 // bt0 -- static: yes, type: ⊥, effect: none
-// ret32 -- static: yes, type: ⊥, effect: ctl
 
 	def bt0 = imm_readBlockType();
-	def ret32 = doLoop(bt0);
-	return ret32;
+	def eff32 = doLoop(bt0);
 }
 def TRY() {
-	// arg41 -- static: yes, type: ⊥, effect: none
+	// eff32 -- static: yes, type: ⊥, effect: ctl
+// arg41 -- static: yes, type: ⊥, effect: none
 // bt0 -- static: yes, type: ⊥, effect: none
-// ret32 -- static: yes, type: ⊥, effect: ctl
 
 	def bt0 = imm_readBlockType();
-	def ret32 = doTry(bt0);
-	return ret32;
+	def eff32 = doTry(bt0);
 }
 def IF() {
 	// arg75 -- static: no, type: i32, effect: none
@@ -594,14 +591,14 @@ def IF() {
 // bt0 -- static: yes, type: ⊥, effect: none
 // cond36 -- static: no, type: i32, effect: none
 // cond1 -- static: no, type: i32, effect: pop
-// arg92 -- static: yes, type: u32, effect: none
-// label3 -- static: yes, type: ⊥, effect: none
-// arg57 -- static: yes, type: ⊥, effect: none
-// ret48 -- static: yes, type: ⊥, effect: ctl
+// arg92 -- static: yes, type: ⊥, effect: none
+// label3 -- static: no, type: ⊥, effect: none
+// arg57 -- static: no, type: ⊥, effect: none
+// ret48 -- static: no, type: ⊥, effect: ctl
 
+	def bt0 = imm_readBlockType();
 	def cond1 = pop_i32();
-	def arg92 : u32 = 0;
-	def label3 = f_getLabel(arg92);
+	def label3 = doIf(bt0);
 	def arg84 : int = 0;
 	def cond36 = i32.==(cond1, arg84);
 	def if10 = emitIf(cond36);

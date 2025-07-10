@@ -470,30 +470,27 @@ def BR_IF() {
 }
 def BLOCK() {
 	// bt0 -- static: yes, type: ⊥, effect: none
-// ret102 -- static: yes, type: ⊥, effect: ctl
+// eff102 -- static: yes, type: ⊥, effect: ctl
 // arg111 -- static: yes, type: ⊥, effect: none
 
 	def bt0 = imm_readBlockType();
-	def ret102 = doBlock(bt0);
-	return ret102;
+	def eff102 = doBlock(bt0);
 }
 def LOOP() {
-	// arg41 -- static: yes, type: ⊥, effect: none
+	// eff32 -- static: yes, type: ⊥, effect: ctl
+// arg41 -- static: yes, type: ⊥, effect: none
 // bt0 -- static: yes, type: ⊥, effect: none
-// ret32 -- static: yes, type: ⊥, effect: ctl
 
 	def bt0 = imm_readBlockType();
-	def ret32 = doLoop(bt0);
-	return ret32;
+	def eff32 = doLoop(bt0);
 }
 def TRY() {
-	// arg41 -- static: yes, type: ⊥, effect: none
+	// eff32 -- static: yes, type: ⊥, effect: ctl
+// arg41 -- static: yes, type: ⊥, effect: none
 // bt0 -- static: yes, type: ⊥, effect: none
-// ret32 -- static: yes, type: ⊥, effect: ctl
 
 	def bt0 = imm_readBlockType();
-	def ret32 = doTry(bt0);
-	return ret32;
+	def eff32 = doTry(bt0);
 }
 def IF() {
 	// arg75 -- static: no, type: i32, effect: none
@@ -502,14 +499,14 @@ def IF() {
 // bt0 -- static: yes, type: ⊥, effect: none
 // cond36 -- static: no, type: i32, effect: none
 // cond1 -- static: no, type: i32, effect: pop
-// arg92 -- static: yes, type: u32, effect: none
-// label3 -- static: yes, type: ⊥, effect: none
-// arg57 -- static: yes, type: ⊥, effect: none
-// ret48 -- static: yes, type: ⊥, effect: ctl
+// arg92 -- static: yes, type: ⊥, effect: none
+// label3 -- static: no, type: ⊥, effect: none
+// arg57 -- static: no, type: ⊥, effect: none
+// ret48 -- static: no, type: ⊥, effect: ctl
 
+	def bt0 = imm_readBlockType();
 	def cond1 = pop_i32();
-	def arg92 : u32 = 0;
-	def label3 = f_getLabel(arg92);
+	def label3 = doIf(bt0);
 	def ret48 = doBranch(label3);
 }
 def ELSE() {
@@ -860,17 +857,7 @@ def setGlobal(tv: TypeVar, index: u32, v: TypeVar) {
 
 // Function context.
 def f_getLabel(depth: u32) -> ControlEntry {
-    if (depth == 0 && opcode == Opcode.IF) {
-        // create a new label for the if and return it
-        // TODO: ugly
-        codeptr.at(opcode_pos);
-        codeptr.read_opcode();
-        def bt = imm_readBlockType();
-        pushControl(Opcode.IF.code, bt.0, bt.1, stack.top);
-        return ctl_top;
-    } else {
-        return ctl_stack.elems[ctl_stack.top - int.!(depth) - 1];
-    }
+    return ctl_stack.elems[ctl_stack.top - int.!(depth) - 1];
 }
 
 def f_getLocalType(index: u32) -> TypeVar {
@@ -942,21 +929,33 @@ def invalid();
 def trapNull();
 def trapUnreachable();
 
-def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
+def doBlock(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     def args = bt.0;
     def rets = bt.1;
     popTypes(args);
     pushTypes(args);
     pushControl(Opcode.BLOCK.code, args, rets, stack.top);
+    return ctl_top;
 }
 
-def doLoop(bt: (Array<ValueType>, Array<ValueType>)) {
+def doLoop(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     def args = bt.0;
     def rets = bt.1;
     popTypes(args);
     pushTypes(args);
     pushControl(Opcode.LOOP.code, args, rets, stack.top);
     ctl_top.sidetable_pos = ctlxfer.sidetable.length;
+    return ctl_top;
+}
+
+def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
+    def args = bt.0;
+    def rets = bt.1;
+    popTypes(args);
+    pushTypes(args);
+    pushControl(Opcode.IF.code, args, rets, stack.top);
+    ctl_top.sidetable_pos = ctlxfer.sidetable.length;
+    return ctl_top;
 }
 
 def doEnd() {

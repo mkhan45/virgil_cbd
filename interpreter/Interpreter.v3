@@ -255,23 +255,20 @@ def BR_IF() {
 }
 def BLOCK() {
 	def bt0 = imm_readBlockType();
-	def ret102 = doBlock(bt0);
-	return ret102;
+	def eff102 = doBlock(bt0);
 }
 def LOOP() {
 	def bt0 = imm_readBlockType();
-	def ret32 = doLoop(bt0);
-	return ret32;
+	def eff32 = doLoop(bt0);
 }
 def TRY() {
 	def bt0 = imm_readBlockType();
-	def ret32 = doTry(bt0);
-	return ret32;
+	def eff32 = doTry(bt0);
 }
 def IF() {
+	def bt0 = imm_readBlockType();
 	def cond1 = pop_i32();
-	def arg92 : u32 = 0;
-	def label3 = f_getLabel(arg92);
+	def label3 = doIf(bt0);
 	def arg84 : int = 0;
 	def cond36 = i32.==(cond1, arg84);
 	if (cond36) {
@@ -557,6 +554,9 @@ def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
 }
 
 def doLoop(bt: (Array<ValueType>, Array<ValueType>)) {
+}
+
+def doIf(bt: (Array<ValueType>, Array<ValueType>)) {
 }
 
 def doEnd() {

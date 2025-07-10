@@ -274,17 +274,7 @@ def setGlobal(tv: TypeVar, index: u32, v: TypeVar) {
 
 // Function context.
 def f_getLabel(depth: u32) -> ControlEntry {
-    if (depth == 0 && opcode == Opcode.IF) {
-        // create a new label for the if and return it
-        // TODO: ugly
-        codeptr.at(opcode_pos);
-        codeptr.read_opcode();
-        def bt = imm_readBlockType();
-        pushControl(Opcode.IF.code, bt.0, bt.1, stack.top);
-        return ctl_top;
-    } else {
-        return ctl_stack.elems[ctl_stack.top - int.!(depth) - 1];
-    }
+    return ctl_stack.elems[ctl_stack.top - int.!(depth) - 1];
 }
 
 def f_getLocalType(index: u32) -> TypeVar {
@@ -356,21 +346,33 @@ def invalid();
 def trapNull();
 def trapUnreachable();
 
-def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
+def doBlock(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     def args = bt.0;
     def rets = bt.1;
     popTypes(args);
     pushTypes(args);
     pushControl(Opcode.BLOCK.code, args, rets, stack.top);
+    return ctl_top;
 }
 
-def doLoop(bt: (Array<ValueType>, Array<ValueType>)) {
+def doLoop(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     def args = bt.0;
     def rets = bt.1;
     popTypes(args);
     pushTypes(args);
     pushControl(Opcode.LOOP.code, args, rets, stack.top);
     ctl_top.sidetable_pos = ctlxfer.sidetable.length;
+    return ctl_top;
+}
+
+def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
+    def args = bt.0;
+    def rets = bt.1;
+    popTypes(args);
+    pushTypes(args);
+    pushControl(Opcode.IF.code, args, rets, stack.top);
+    ctl_top.sidetable_pos = ctlxfer.sidetable.length;
+    return ctl_top;
 }
 
 def doEnd() {
