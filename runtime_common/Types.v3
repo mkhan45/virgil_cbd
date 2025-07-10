@@ -3,7 +3,7 @@ class CBDFunction {
     def args: Vector<TypeVar> = Vector.new();
     def rets: Vector<TypeVar> = Vector.new();
     def locals: Vector<TypeVar> = Vector.new();
-    var sidetable: Vector<(int, int)> = null;
+    var sidetable: Sidetable;
 
     new(decl: FuncDecl) {
         for (param in decl.sig.params) args.put(value_type_to_type_var(param));

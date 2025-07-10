@@ -6,33 +6,42 @@ var stack: ArrayStack<TypeVar>;
 var globals: Vector<TypeVar>;
 var rets: Array<TypeVar>;
 
-// this is mainly to lift sidetable vars out of conditionals,
-// probably a lot of ways to dodge that
-var st_builder: STBuilder;
-var st_entries: Vector<STEntry>;
-var st_controls: Vector<int>; // ctl idx of target
+// steal sidetable stuff from existing validator,
+// to support custom sidetable stuff I think we can keep ControlEntry but replace SidetableBuilder
+var ctl_stack: ArrayStack<ControlEntry>;
+var ctlxfer: SidetableBuilder;
+var ctl_top: ControlEntry;
 
-def assert(b: bool) {
-    if (!b) {
-        System.puts("assert fail :(\n");
-        return [][1];
+// stolen from CodeValidator.v3
+def pushControl(opcode: u16, params: Array<ValueType>, results: Array<ValueType>, val_stack_top: int) -> ControlEntry {
+    var ctl = ctl_stack.next();
+    if (ctl != null) { // FAST: reuse previous ControlEntry object
+        ctl_stack.top++;
+    } else { // allocate and cache new ControlEntry object
+        ctl = ControlEntry.new();
+        ctl_stack.push(ctl);
     }
+    ctl_top = ctl;
+    ctl.start_pos = codeptr.pos;
+    ctl.delegate_pos = codeptr.pos;
+    ctl.start_opcode = opcode;
+    ctl.sidetable_pos = -1;
+    ctl.params = params;
+    ctl.results = results;
+    ctl.val_stack_top = val_stack_top;
+    ctl.reachable = true;
+    ctl.first_ref = -1;
+    ctl.else_ref = -1;
+    ctl.undo_init_list = null;
+    ctl.handler_dest_id = -1;
+    return ctl;
 }
-
-type CtlEntry {
-    case Block(end_pc: int, cont_stp: int);
-    case Loop(start_pc: int, end_pc: int, cont_stp: int);
-    case None;
-}
-var ctls: Array<CtlEntry>;
-var ctl_stack: ArrayStack<int>;
 
 // Constants
 def HAS_MEM_INDEX = 0x40u8;
 
 // Types.
 type v128(low: u64, high: u64);
-type Label(depth: u32);
 // class Object { }
 type TypeVar {
     case I32 {
@@ -106,6 +115,34 @@ type TypeVar {
     }
 }
 
+def typeVarFromValType(vt: ValueType) -> TypeVar {
+    match (vt) {
+        I32 => return TypeVar.I32;
+        I64 => return TypeVar.I64;
+        F32 => return TypeVar.F32;
+        F64 => return TypeVar.F64;
+        V128 => return TypeVar.V128;
+        Ref => return TypeVar.Object;
+        Host => return TypeVar.Object;
+        BOTTOM => return TypeVar.Bot;
+    }
+}
+
+def valTypeFromTypeVar(tv: TypeVar) -> ValueType {
+    match (tv) {
+        I32 => return ValueType.I32;
+        U32 => return ValueType.I32;
+        I64 => return ValueType.I64;
+        U64 => return ValueType.I64;
+        F32 => return ValueType.F32;
+        F64 => return ValueType.F64;
+        V128 => return ValueType.V128;
+        Object => return ValueTypes.ANYREF;
+        Err => return ValueType.BOTTOM;
+        Bot => return ValueType.BOTTOM;
+    }
+}
+
 def invalid_t<T>(t: T) -> T {
     invalid();
     return t;
@@ -143,9 +180,9 @@ def imm_readU8() -> u8 {
     return codeptr.read1();
 }
 
-def imm_readBlockType() -> () {
+def imm_readBlockType() -> (Array<ValueType>, Array<ValueType>) {
     def bt = codeptr.read_BlockTypeCode();
-    return ();
+    return bt.toAbstractBlockType(module);
 }
 
 def pop_i32() -> TypeVar.I32 {
@@ -225,8 +262,8 @@ def setGlobal(tv: TypeVar, index: u32, v: TypeVar) {
 }
 
 // Function context.
-def f_getLabel(depth: u32) -> int {
-    return int.!(depth);
+def f_getLabel(depth: u32) -> ControlEntry {
+    return ctl_stack.elems[ctl_stack.top - int.!(depth) - 1];
 }
 
 def f_getLocalType(index: u32) -> TypeVar {
@@ -262,9 +299,11 @@ def doCall(sig: SigDecl, target: CBDFunction) {
     return; // TODO
 }
 
-def doBranch(label: int) {
-    def ctl_idx = ctl_stack.elems[ctl_stack.top - 1 - label];
-    st_controls.put(ctl_idx);
+def doBranch(label: ControlEntry) {
+    ctlxfer.refS(label, codeptr.pos, stack.top);
+    def args = if(label.start_opcode == Opcode.LOOP.code, label.params, label.results);
+    for (i = args.length - 1; i >= 0; i -= 1) pop_Value(typeVarFromValType(args[i]));
+    for (i < args.length) push_Value(typeVarFromValType(args[i]), typeVarFromValType(args[i]));
 }
 
 def doFallThru() {
@@ -296,32 +335,45 @@ def invalid();
 def trapNull();
 def trapUnreachable();
 
-def doBlock(bt: ()) {
-    if (ctls[codeptr.pos] == CtlEntry.None) ctls[codeptr.pos] = CtlEntry.Block(-1, -1);
-    ctl_stack.push(codeptr.pos);
+def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
+    def args = bt.0;
+    def rets = bt.1;
+    for (i = args.length - 1; i >= 0; i -= 1) pop_Value(typeVarFromValType(args[i]));
+    for (i < args.length) push_Value(typeVarFromValType(args[i]), typeVarFromValType(args[i]));
+    pushControl(Opcode.BLOCK.code, args, rets, stack.top);
 }
 
-def doLoop(bt: ()) {
-    if (ctls[codeptr.pos] == CtlEntry.None) ctls[codeptr.pos] = CtlEntry.Loop(codeptr.pos, -1, st_entries.length);
-    ctl_stack.push(codeptr.pos);
+def doLoop(bt: (Array<ValueType>, Array<ValueType>)) {
+    def args = bt.0;
+    def rets = bt.1;
+    for (i = args.length - 1; i >= 0; i -= 1) pop_Value(typeVarFromValType(args[i]));
+    for (i < args.length) push_Value(typeVarFromValType(args[i]), typeVarFromValType(args[i]));
+    pushControl(Opcode.BLOCK.code, args, rets, stack.top);
+    ctl_top.sidetable_pos = ctlxfer.sidetable.length;
 }
 
 def doEnd() {
-    def ctl_idx = ctl_stack.pop();
-    match (ctls[ctl_idx]) {
-        Block(end_pc, cont_stp) =>
-        if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Block(codeptr.pos, st_entries.length - 1);
-        Loop(start_pc, end_pc, cont_stp) => 
-        if (end_pc == -1) ctls[ctl_idx] = CtlEntry.Loop(start_pc, codeptr.pos, cont_stp);
-        None => doReturn();
+    def p = ctl_top.results;
+    for (i = p.length - 1; i >= 0; i -= 1) pop_Value(typeVarFromValType(p[i]));
+    stack.top = ctl_top.val_stack_top;
+    for (i < p.length) push_Value(typeVarFromValType(p[i]), typeVarFromValType(p[i]));
+	var ctl = ctl_stack.peek();
+    match (ctl.start_opcode) {
+        Opcode.LOOP.code => {
+            ctlxfer.bind(ctl, ctl.start_pos, ctl.sidetable_pos);
+        }
+        _ => {
+            ctlxfer.bind(ctl, codeptr.pos, ctlxfer.sidetable.length);
+        }
     }
+    ctl_stack.pop();
 }
 
 def doReturn() {
     for (i = rets.length - 1; i >= 0; i -= 1) pop_Value(rets[i]);
 }
 
-def doTry(bt: ()) {
+def doTry(bt: (Array<ValueType>, Array<ValueType>)) {
     return;
 }
 
@@ -375,16 +427,14 @@ component Validator {
         local_types = Vector.new();
         stack = ArrayStack.new();
 
-        ctls = Array.new(code.length);
-        for (i < code.length) ctls[i] = CtlEntry.None;
         ctl_stack = ArrayStack.new();
+        ctlxfer = SidetableBuilder.new();
+
+        pushControl(Opcode.UNREACHABLE.code, Arrays.map(args, valTypeFromTypeVar), Arrays.map(ret, valTypeFromTypeVar), 0);
 
         for (a in args) local_types.put(TypeVar.I32);
         for (a in args) stack.push(a);
 
-        st_builder = STBuilder.new();
-        st_entries = Vector.new();
-        st_controls = Vector.new();
         rets = ret;
     }
 
@@ -398,26 +448,7 @@ component Validator {
         }
     }
 
-    // for other sidetable entries, do we need a post processing phase?
-    def build_sidetable() -> (Vector<STEntry>, Vector<(int, int)>) {
-        def reified_st_controls = Vector<(int, int)>.new();
-        for (i < st_controls.length) {
-            def target_ctl = ctls[st_controls[i]];
-            var target_stp = -1;
-            var target_pc = -1;
-            match (target_ctl) {
-                Block(epc, cstp) => {
-                    target_pc = epc;
-                    target_stp = cstp;
-                }
-                Loop(spc, epc, cstp) => {
-                    target_pc = spc;
-                    target_stp = cstp;
-                }
-                None => invalid();
-            }
-            reified_st_controls.put(target_pc, target_stp);
-        }
-        return (st_entries, reified_st_controls);
+    def build_sidetable() -> Sidetable {
+        return ctlxfer.extract();
     }
 }

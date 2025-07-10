@@ -234,22 +234,8 @@ def main(args: Array<string>) {
     def defs: Array<ValidatorCBDDef> = TierGen.extractDefsFromFile(v3file, sexpr_file, transformDef);
     def dispatch_table = TierGen.buildDispatch(defs, CBDDef.!<ValidatorCBDDef>(_));
 
-    // TODO:
-    // instead of a global st builder, gen each case, change the local
-    // instrumentation to init a single case and then put it into sidetable meta list,
-    // here generate the sidetable meta list and adt
+    // TODO: redo non-ctl sidetable stuff
     def st_builder_builder = StringBuilder.new();
-    st_builder_builder.puts("class STBuilder {\n");
-    for (i < STFieldMgr.fields.length) {
-        def field = STFieldMgr.fields[i].0;
-        def tp = STFieldMgr.fields[i].1;
-        st_builder_builder.puts("    var ");
-        st_builder_builder.puts(field);
-        st_builder_builder.puts(": ");
-        st_builder_builder.puts(tp);
-        st_builder_builder.puts(";\n");
-    }
-    st_builder_builder.puts("}\n");
     st_builder_builder.puts("type STEntry {\n");
     // TODO
     for (i < STFieldMgr.entries.length) {
