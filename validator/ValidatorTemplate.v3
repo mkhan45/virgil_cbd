@@ -1,5 +1,7 @@
 var module: Module;
 var codeptr: CodePtr;
+var opcode: Opcode;
+var opcode_pos: int; // for some reason it works when i use codeptr.pos but not opcode_pos?
 var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
 var local_types: Vector<TypeVar>;
 var stack: ArrayStack<TypeVar>;
@@ -37,6 +39,14 @@ def pushControl(opcode: u16, params: Array<ValueType>, results: Array<ValueType>
     return ctl;
 }
 
+def popTypes(ts: Array<ValueType>) {
+    for (i = ts.length - 1; i >= 0; i -= 1) pop_Value(typeVarFromValType(ts[i]));
+}
+
+def pushTypes(ts: Array<ValueType>) {
+    for (i < ts.length) push_Value(typeVarFromValType(ts[i]), typeVarFromValType(ts[i]));
+}
+
 // Constants
 def HAS_MEM_INDEX = 0x40u8;
 
@@ -57,6 +67,7 @@ type TypeVar {
         def equals(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
         def times(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
         def div(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
+        def and(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
     }
     case I64;
     case U64;
@@ -263,7 +274,17 @@ def setGlobal(tv: TypeVar, index: u32, v: TypeVar) {
 
 // Function context.
 def f_getLabel(depth: u32) -> ControlEntry {
-    return ctl_stack.elems[ctl_stack.top - int.!(depth) - 1];
+    if (depth == 0 && opcode == Opcode.IF) {
+        // create a new label for the if and return it
+        // TODO: ugly
+        codeptr.at(opcode_pos);
+        codeptr.read_opcode();
+        def bt = imm_readBlockType();
+        pushControl(Opcode.IF.code, bt.0, bt.1, stack.top);
+        return ctl_top;
+    } else {
+        return ctl_stack.elems[ctl_stack.top - int.!(depth) - 1];
+    }
 }
 
 def f_getLocalType(index: u32) -> TypeVar {
@@ -302,8 +323,8 @@ def doCall(sig: SigDecl, target: CBDFunction) {
 def doBranch(label: ControlEntry) {
     ctlxfer.refS(label, codeptr.pos, stack.top);
     def args = if(label.start_opcode == Opcode.LOOP.code, label.params, label.results);
-    for (i = args.length - 1; i >= 0; i -= 1) pop_Value(typeVarFromValType(args[i]));
-    for (i < args.length) push_Value(typeVarFromValType(args[i]), typeVarFromValType(args[i]));
+    popTypes(args);
+    pushTypes(args);
 }
 
 def doFallThru() {
@@ -338,32 +359,40 @@ def trapUnreachable();
 def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
     def args = bt.0;
     def rets = bt.1;
-    for (i = args.length - 1; i >= 0; i -= 1) pop_Value(typeVarFromValType(args[i]));
-    for (i < args.length) push_Value(typeVarFromValType(args[i]), typeVarFromValType(args[i]));
+    popTypes(args);
+    pushTypes(args);
     pushControl(Opcode.BLOCK.code, args, rets, stack.top);
 }
 
 def doLoop(bt: (Array<ValueType>, Array<ValueType>)) {
     def args = bt.0;
     def rets = bt.1;
-    for (i = args.length - 1; i >= 0; i -= 1) pop_Value(typeVarFromValType(args[i]));
-    for (i < args.length) push_Value(typeVarFromValType(args[i]), typeVarFromValType(args[i]));
-    pushControl(Opcode.BLOCK.code, args, rets, stack.top);
+    popTypes(args);
+    pushTypes(args);
+    pushControl(Opcode.LOOP.code, args, rets, stack.top);
     ctl_top.sidetable_pos = ctlxfer.sidetable.length;
 }
 
 def doEnd() {
     def p = ctl_top.results;
-    for (i = p.length - 1; i >= 0; i -= 1) pop_Value(typeVarFromValType(p[i]));
+    popTypes(p);
     stack.top = ctl_top.val_stack_top;
-    for (i < p.length) push_Value(typeVarFromValType(p[i]), typeVarFromValType(p[i]));
-	var ctl = ctl_stack.peek();
-    match (ctl.start_opcode) {
+    pushTypes(p);
+    match (ctl_top.start_opcode) {
         Opcode.LOOP.code => {
-            ctlxfer.bind(ctl, ctl.start_pos, ctl.sidetable_pos);
+            ctlxfer.bind(ctl_top, ctl_top.start_pos, ctl_top.sidetable_pos);
+        }
+        Opcode.IF.code => {
+            // one-armed if; simulate an empty else clause
+            stack.top = ctl_top.val_stack_top;
+            ctl_top.reachable = true;
+            pushTypes(ctl_top.params);
+            popTypes(ctl_top.results);
+            ctlxfer.bindElse(ctl_top, codeptr.pos);
+            ctlxfer.bind(ctl_top, codeptr.pos, ctlxfer.sidetable.length);
         }
         _ => {
-            ctlxfer.bind(ctl, codeptr.pos, ctlxfer.sidetable.length);
+            ctlxfer.bind(ctl_top, codeptr.pos, ctlxfer.sidetable.length);
         }
     }
     ctl_stack.pop();
@@ -430,6 +459,7 @@ component Validator {
         ctl_stack = ArrayStack.new();
         ctlxfer = SidetableBuilder.new();
 
+        opcode_pos = codeptr.pos;
         pushControl(Opcode.UNREACHABLE.code, Arrays.map(args, valTypeFromTypeVar), Arrays.map(ret, valTypeFromTypeVar), 0);
 
         for (a in args) local_types.put(TypeVar.I32);
@@ -441,10 +471,11 @@ component Validator {
     def dispatch() {
         codeptr.iterate_local_codes(push_locals);
         while (codeptr.pos < codeptr.data.length) {
-            def op = codeptr.read_opcode();
-            System.puts(op.mnemonic);
+            opcode_pos = codeptr.pos;
+            opcode = codeptr.read_opcode();
+            System.puts(opcode.mnemonic);
             System.ln();
-            DISPATCH_TABLE[op.code]();
+            DISPATCH_TABLE[opcode.code]();
         }
     }
 

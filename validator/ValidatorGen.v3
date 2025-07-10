@@ -118,7 +118,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
         LetApp(n, f, args, rest) => {
             var res = SSAD.LetApp(n, f, args, transformSSA(rest, ctx));
             if (Strings.endsWith(f, "==") ||  Strings.endsWith(f, "+") || Strings.endsWith(f, ">") || Strings.endsWith(f, "!=") || Strings.endsWith(f, "-")
-                    || Strings.endsWith(f, "/") || Strings.endsWith(f, "*")) {
+                    || Strings.endsWith(f, "/") || Strings.endsWith(f, "*") || Strings.endsWith(f, "&")) {
                 def tp = ctx.types[args[0]];
                 def is_rt = !ctx.static[args[0]];
                 var prefix: string;
@@ -137,6 +137,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 if (Strings.endsWith(f, "<")) op = "lt";
                 if (Strings.endsWith(f, "/")) op = "div";
                 if (Strings.endsWith(f, "*")) op = "times";
+                if (Strings.endsWith(f, "&")) op = "and";
 
                 def new_f = Strings.format2("%s.%s", prefix, op);
                 ctx.static[n] = !is_rt;

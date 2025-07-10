@@ -2,6 +2,9 @@
 def UNREACHABLE() {
 	def eff00 = trapUnreachable();
 }
+def NOP() {
+	return void;
+}
 def LOCAL_GET() {
 	def index0 = imm_readULEB32();
 	def tv2 = f_getLocalType(index0);
@@ -226,11 +229,17 @@ def I32_GT_U() {
 		def eff128 = push_u32(arg137);
 	}
 }
+def I32_AND() {
+	def b0 = pop_u32();
+	def a1 = pop_u32();
+	def r4 = u32.&(a1, b0);
+	def eff96 = push_u32(r4);
+}
 def BR() {
 	def depth0 = imm_readULEB32();
 	def label2 = f_getLabel(depth0);
-	def ret94 = doBranch(label2);
-	return ret94;
+	def ret74 = doBranch(label2);
+	return ret74;
 }
 def BR_IF() {
 	def depth0 = imm_readULEB32();
@@ -295,6 +304,7 @@ def RETURN() {
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
   DISPATCH_TABLE[Opcode.UNREACHABLE.code] = UNREACHABLE;
+  DISPATCH_TABLE[Opcode.NOP.code] = NOP;
   DISPATCH_TABLE[Opcode.LOCAL_GET.code] = LOCAL_GET;
   DISPATCH_TABLE[Opcode.LOCAL_SET.code] = LOCAL_SET;
   DISPATCH_TABLE[Opcode.LOCAL_TEE.code] = LOCAL_TEE;
@@ -318,6 +328,7 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.I32_LT_U.code] = I32_LT_U;
   DISPATCH_TABLE[Opcode.I32_LE_S.code] = I32_LE_S;
   DISPATCH_TABLE[Opcode.I32_GT_U.code] = I32_GT_U;
+  DISPATCH_TABLE[Opcode.I32_AND.code] = I32_AND;
   DISPATCH_TABLE[Opcode.BR.code] = BR;
   DISPATCH_TABLE[Opcode.BR_IF.code] = BR_IF;
   DISPATCH_TABLE[Opcode.BLOCK.code] = BLOCK;
@@ -620,8 +631,8 @@ component Interpreter {
         while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length) {
             def op = current_frame.codeptr.read_opcode();
             // print_stack();
-            // System.puts(op.mnemonic);
-            // System.ln();
+            System.puts(op.mnemonic);
+            System.ln();
             DISPATCH_TABLE[op.code]();
         }
     }

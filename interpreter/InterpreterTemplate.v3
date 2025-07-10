@@ -289,8 +289,8 @@ component Interpreter {
         while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length) {
             def op = current_frame.codeptr.read_opcode();
             // print_stack();
-            // System.puts(op.mnemonic);
-            // System.ln();
+            System.puts(op.mnemonic);
+            System.ln();
             DISPATCH_TABLE[op.code]();
         }
     }

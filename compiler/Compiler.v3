@@ -4,6 +4,11 @@ def UNREACHABLE() {
 
 	def eff00 = trapUnreachable();
 }
+def NOP() {
+	// ret10 -- static: no, type: i32, effect: none
+
+	return void;
+}
 def LOCAL_GET() {
 	// arg53 -- static: yes, type: u32, effect: none
 // tv2 -- static: yes, type: ⊥, effect: none
@@ -507,17 +512,31 @@ def I32_GT_U() {
 	def endBrace15 = emitEnd();
 	def phi_push12 = push_i32(stack_phi9);
 }
+def I32_AND() {
+	// arg175 -- static: no, type: ⊥, effect: none
+// arg183 -- static: no, type: u32, effect: none
+// arg192 -- static: no, type: u32, effect: none
+// r4 -- static: no, type: ⊥, effect: none
+// a1 -- static: no, type: u32, effect: pop
+// eff166 -- static: no, type: ⊥, effect: push
+// b0 -- static: no, type: u32, effect: pop
+
+	def b0 = pop_u32();
+	def a1 = pop_u32();
+	def r4 = u32.&(a1, b0);
+	def eff166 = push_u32(r4);
+}
 def BR() {
-	// arg173 -- static: yes, type: ⊥, effect: none
-// arg181 -- static: yes, type: u32, effect: none
+	// arg83 -- static: yes, type: ⊥, effect: none
+// arg91 -- static: yes, type: u32, effect: none
+// ret74 -- static: yes, type: ⊥, effect: ctl
 // label2 -- static: yes, type: ⊥, effect: none
-// ret164 -- static: yes, type: ⊥, effect: ctl
 // depth0 -- static: yes, type: u32, effect: none
 
 	def depth0 = imm_readULEB32();
 	def label2 = f_getLabel(depth0);
-	def ret164 = doBranch(label2);
-	return ret164;
+	def ret74 = doBranch(label2);
+	return ret74;
 }
 def BR_IF() {
 	// arg95 -- static: no, type: u32, effect: none
@@ -622,6 +641,7 @@ def RETURN() {
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
   DISPATCH_TABLE[Opcode.UNREACHABLE.code] = UNREACHABLE;
+  DISPATCH_TABLE[Opcode.NOP.code] = NOP;
   DISPATCH_TABLE[Opcode.LOCAL_GET.code] = LOCAL_GET;
   DISPATCH_TABLE[Opcode.LOCAL_SET.code] = LOCAL_SET;
   DISPATCH_TABLE[Opcode.LOCAL_TEE.code] = LOCAL_TEE;
@@ -645,6 +665,7 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.I32_LT_U.code] = I32_LT_U;
   DISPATCH_TABLE[Opcode.I32_LE_S.code] = I32_LE_S;
   DISPATCH_TABLE[Opcode.I32_GT_U.code] = I32_GT_U;
+  DISPATCH_TABLE[Opcode.I32_AND.code] = I32_AND;
   DISPATCH_TABLE[Opcode.BR.code] = BR;
   DISPATCH_TABLE[Opcode.BR_IF.code] = BR_IF;
   DISPATCH_TABLE[Opcode.BLOCK.code] = BLOCK;

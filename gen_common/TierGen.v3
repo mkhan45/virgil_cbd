@@ -29,13 +29,12 @@ component TierGen {
 
         while (!Strings.startsWith(lines[cur_line], "//@bytecode end")) {
             def line = Strings.strip(lines[cur_line]);
-            if (GlobMatcher.new("def ?*()*{").matches(line)) {
+            if (GlobMatcher.new("def ?*()*{*").matches(line)) {
                 def fn_name_start = 4; // skip `def `
                 def fn_name_end = find_idx(line, '(');
 
                 def fn_name = Arrays.range(line, fn_name_start, fn_name_end);
                 defs.put(fn_name);
-                cur_line += 1;
             }
 
             cur_line += 1;
