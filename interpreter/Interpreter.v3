@@ -130,11 +130,11 @@ def I32_DIV_S() {
 		return ret205;
 	} else {
 	}
-	def arg186 : int = -1;
-	def left138 = i32.==(b0, arg186);
-	def arg169 : int = -2_147_483_648;
-	def right1411 = i32.==(a1, arg169);
-	def cond1112 = bool.&&(left138, right1411);
+	def arg186 : int = -2_147_483_648;
+	def arg148 = i32.==(a1, arg186);
+	def arg169 : int = -1;
+	def arg1311 = i32.==(b0, arg169);
+	def cond1112 = bool.&&(arg1311, arg148);
 	if (cond1112) {
 		def ret1213 = trapDivideUnrepresentable();
 		return ret1213;

@@ -243,7 +243,7 @@ def I32_ADD() {
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def r4 = TypeVar.U32.plus(a1, b0);
+	def r4 = TypeVar.U32.binop(u32.+)(a1, b0);
 	def eff46 = push_u32(r4);
 }
 def I32_SUB() {
@@ -257,7 +257,7 @@ def I32_SUB() {
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def r4 = TypeVar.U32.minus(a1, b0);
+	def r4 = TypeVar.U32.binop(u32.-)(a1, b0);
 	def eff76 = push_u32(r4);
 }
 def I32_MUL() {
@@ -271,7 +271,7 @@ def I32_MUL() {
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def r4 = TypeVar.U32.times(a1, b0);
+	def r4 = TypeVar.U32.binop(u32.*)(a1, b0);
 	def eff76 = push_u32(r4);
 }
 def I32_DIV_S() {
@@ -281,9 +281,8 @@ def I32_DIV_S() {
 // ret1213 -- static: yes, type: void, effect: ctl
 // arg915 -- static: no, type: i32, effect: none
 // ret205 -- static: yes, type: void, effect: ctl
-// cond1112 -- static: no, type: i32, effect: none
-// left138 -- static: no, type: i32, effect: none
-// right1411 -- static: no, type: i32, effect: none
+// cond1112 -- static: no, type: ⊥, effect: none
+// arg148 -- static: no, type: i32, effect: none
 // arg213 -- static: no, type: i32, effect: none
 // arg169 -- static: yes, type: i32, effect: none
 // r16 -- static: no, type: i32, effect: none
@@ -292,6 +291,7 @@ def I32_DIV_S() {
 // arg222 -- static: yes, type: i32, effect: none
 // arg1510 -- static: no, type: i32, effect: none
 // arg177 -- static: no, type: i32, effect: none
+// arg1311 -- static: no, type: i32, effect: none
 // arg1014 -- static: no, type: i32, effect: none
 // b0 -- static: no, type: i32, effect: pop
 
@@ -299,7 +299,7 @@ def I32_DIV_S() {
 	def a1 = pop_i32();
 	def ret205 = trapDivideByZero();
 	def ret1213 = trapDivideUnrepresentable();
-	def r16 = TypeVar.I32.div(a1, b0);
+	def r16 = TypeVar.I32.binop(i32./)(a1, b0);
 	def eff718 = push_i32(r16);
 }
 def I32_DIV_U() {
@@ -318,7 +318,7 @@ def I32_DIV_U() {
 	def b0 = pop_u32();
 	def a1 = pop_u32();
 	def ret245 = trapDivideByZero();
-	def r8 = TypeVar.U32.div(a1, b0);
+	def r8 = TypeVar.U32.binop(u32./)(a1, b0);
 	def eff1910 = push_u32(r8);
 }
 def I32_EQZ() {
@@ -394,7 +394,7 @@ def I32_LT_U() {
 def I32_LE_S() {
 	// arg153 -- static: no, type: u32, effect: none
 // arg162 -- static: no, type: u32, effect: none
-// cond104 -- static: no, type: ⊥, effect: none
+// cond104 -- static: no, type: u32, effect: none
 // eff116 -- static: yes, type: void, effect: push
 // eff138 -- static: yes, type: void, effect: push
 // arg125 -- static: yes, type: u32, effect: none
@@ -429,7 +429,7 @@ def I32_GT_U() {
 }
 def I32_AND() {
 	// eff106 -- static: no, type: void, effect: push
-// arg115 -- static: no, type: ⊥, effect: none
+// arg115 -- static: no, type: u32, effect: none
 // r4 -- static: no, type: u32, effect: none
 // a1 -- static: no, type: u32, effect: pop
 // arg123 -- static: no, type: u32, effect: none
@@ -438,7 +438,7 @@ def I32_AND() {
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def r4 = TypeVar.U32.and(a1, b0);
+	def r4 = TypeVar.U32.binop(u32.&)(a1, b0);
 	def eff106 = push_u32(r4);
 }
 def BR() {
@@ -639,29 +639,48 @@ def HAS_MEM_INDEX = 0x40u8;
 
 // Types.
 type v128(low: u64, high: u64);
-// class Object { }
+
+// goofy way to avoid having to impl every operator
+// but still specialize type and show the called operator in the generated code
+def gen_binop<C, R>(op: (C, C) -> C) -> (R, R) -> R { 
+    return fun (lhs: R, rhs: R) => lhs; 
+}
+def gen_testop<C, R>(op: (C, C) -> bool) -> (R, R) -> R { 
+    return fun (lhs: R, rhs: R) => lhs; 
+}
 type TypeVar {
     case I32 {
-        def plus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
-        def minus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
-        def equals(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
-        def times(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
-        def div(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
+        def binop(op: (i32, i32) -> i32) => gen_binop<i32, TypeVar.I32>(op);
+        def testop(op: (i32, i32) -> bool) => gen_testop<i32, TypeVar.I32>(op);
     }
     case U32 {
-        def plus(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
-        def minus(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
-        def equals(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
-        def times(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
-        def div(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
-        def and(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
+        def binop(op: (u32, u32) -> u32) => gen_binop<u32, TypeVar.U32>(op);
+        def testop(op: (u32, u32) -> bool) => gen_testop<u32, TypeVar.U32>(op);
     }
-    case I64;
-    case U64;
-    case F32;
-    case F64;
-    case V128;
-    case Object;
+    case I64 {
+        def binop(op: (i64, i64) -> i64) => gen_binop<i64, TypeVar.I64>(op);
+        def testop(op: (i64, i64) -> bool) => gen_testop<i64, TypeVar.I64>(op);
+    }
+    case U64 {
+        def binop(op: (u64, u64) -> u64) => gen_binop<u64, TypeVar.U64>(op);
+        def testop(op: (u64, u64) -> bool) => gen_testop<u64, TypeVar.U64>(op);
+    }
+    case F32 {
+        def binop(op: (float, float) -> float) => gen_binop<float, TypeVar.F32>(op);
+        def testop(op: (float, float) -> bool) => gen_testop<float, TypeVar.F32>(op);
+    }
+    case F64 {
+        def binop(op: (double, double) -> double) => gen_binop<double, TypeVar.F64>(op);
+        def testop(op: (double, double) -> bool) => gen_testop<double, TypeVar.F64>(op);
+    }
+    case V128 {
+        def binop(op: (v128, v128) -> v128) => gen_binop<v128, TypeVar.V128>(op);
+        def testop(op: (v128, v128) -> bool) => gen_testop<v128, TypeVar.V128>(op);
+    }
+    case Object {
+        def binop(op: (Object, Object) -> Object) => gen_binop<Object, TypeVar.Object>(op);
+        def testop(op: (Object, Object) -> bool) => gen_testop<Object, TypeVar.Object>(op);
+    }
     case Err;
     case Bot;
 

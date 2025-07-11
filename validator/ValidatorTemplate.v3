@@ -52,29 +52,48 @@ def HAS_MEM_INDEX = 0x40u8;
 
 // Types.
 type v128(low: u64, high: u64);
-// class Object { }
+
+// goofy way to avoid having to impl every operator
+// but still specialize type and show the called operator in the generated code
+def gen_binop<C, R>(op: (C, C) -> C) -> (R, R) -> R { 
+    return fun (lhs: R, rhs: R) => lhs; 
+}
+def gen_testop<C, R>(op: (C, C) -> bool) -> (R, R) -> R { 
+    return fun (lhs: R, rhs: R) => lhs; 
+}
 type TypeVar {
     case I32 {
-        def plus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
-        def minus(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
-        def equals(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
-        def times(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
-        def div(lhs: TypeVar.I32, rhs: TypeVar.I32) -> TypeVar.I32 { return TypeVar.I32; }
+        def binop(op: (i32, i32) -> i32) => gen_binop<i32, TypeVar.I32>(op);
+        def testop(op: (i32, i32) -> bool) => gen_testop<i32, TypeVar.I32>(op);
     }
     case U32 {
-        def plus(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
-        def minus(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
-        def equals(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
-        def times(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
-        def div(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
-        def and(lhs: TypeVar.U32, rhs: TypeVar.U32) -> TypeVar.U32 { return TypeVar.U32; }
+        def binop(op: (u32, u32) -> u32) => gen_binop<u32, TypeVar.U32>(op);
+        def testop(op: (u32, u32) -> bool) => gen_testop<u32, TypeVar.U32>(op);
     }
-    case I64;
-    case U64;
-    case F32;
-    case F64;
-    case V128;
-    case Object;
+    case I64 {
+        def binop(op: (i64, i64) -> i64) => gen_binop<i64, TypeVar.I64>(op);
+        def testop(op: (i64, i64) -> bool) => gen_testop<i64, TypeVar.I64>(op);
+    }
+    case U64 {
+        def binop(op: (u64, u64) -> u64) => gen_binop<u64, TypeVar.U64>(op);
+        def testop(op: (u64, u64) -> bool) => gen_testop<u64, TypeVar.U64>(op);
+    }
+    case F32 {
+        def binop(op: (float, float) -> float) => gen_binop<float, TypeVar.F32>(op);
+        def testop(op: (float, float) -> bool) => gen_testop<float, TypeVar.F32>(op);
+    }
+    case F64 {
+        def binop(op: (double, double) -> double) => gen_binop<double, TypeVar.F64>(op);
+        def testop(op: (double, double) -> bool) => gen_testop<double, TypeVar.F64>(op);
+    }
+    case V128 {
+        def binop(op: (v128, v128) -> v128) => gen_binop<v128, TypeVar.V128>(op);
+        def testop(op: (v128, v128) -> bool) => gen_testop<v128, TypeVar.V128>(op);
+    }
+    case Object {
+        def binop(op: (Object, Object) -> Object) => gen_binop<Object, TypeVar.Object>(op);
+        def testop(op: (Object, Object) -> bool) => gen_testop<Object, TypeVar.Object>(op);
+    }
     case Err;
     case Bot;
 

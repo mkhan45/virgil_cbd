@@ -117,37 +117,28 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
         }
         LetApp(n, f, args, rest) => {
             var res = SSAD.LetApp(n, f, args, transformSSA(rest, ctx));
-            if (Strings.endsWith(f, "==") ||  Strings.endsWith(f, "+") || Strings.endsWith(f, ">") || Strings.endsWith(f, "!=") || Strings.endsWith(f, "-")
-                    || Strings.endsWith(f, "/") || Strings.endsWith(f, "*") || Strings.endsWith(f, "&")) {
-                def tp = ctx.types[args[0]];
-                def is_rt = !ctx.static[args[0]];
+            var is_op = false;
+            for (c in f) if (c == '.') is_op = true;
+            def is_rt = !ctx.static[n];
+            if (is_op && is_rt) {
+                def tp = ctx.types[n];
+                def tp_str = tp.toString();
                 var prefix: string;
+                // there is a weird case for this, in Virgil test ops
+                // return booleans but in Wasm they don't. So e.g. i32.==
+                // returns a boolean but then we can't use i32.&, but it's
+                // still an i32 in wasm and we want to validator to know that.
+                // Luckily, all testops necessarily get DCE'd since the 
+                // validator executes every path. So sometimes Bot will occur
+                // here but get DCE'd out.
                 match (tp) {
-                    I32 => prefix = if(is_rt, "TypeVar.I32", "i32");
-                    U32 => prefix = if(is_rt, "TypeVar.U32", "u32");
-                    I64 => prefix = if(is_rt, "TypeVar.I64", "i64");
-                    U64 => prefix = if(is_rt, "TypeVar.U64", "u64");
-                    F32 => prefix = if(is_rt, "TypeVar.F32", "f32");
-                    F64 => prefix = if(is_rt, "TypeVar.F64", "f64");
-                    Void => prefix = if(is_rt, "TypeVar", "Bot");
-                    Bot => prefix = if(is_rt, "TypeVar", "Bot");
+                    Void => prefix = "TypeVar";
+                    Bot => prefix = "TypeVar";
+                    _ => prefix = Strings.format1("TypeVar.%s", Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8));
                 }
-                var op: string;
-                if (Strings.endsWith(f, "==")) op = "equals";
-                if (Strings.endsWith(f, "!=")) op = "not_equals";
-                if (Strings.endsWith(f, "+")) op = "plus";
-                if (Strings.endsWith(f, "-")) op = "minus";
-                if (Strings.endsWith(f, ">")) op = "gt";
-                if (Strings.endsWith(f, "<")) op = "lt";
-                if (Strings.endsWith(f, "/")) op = "div";
-                if (Strings.endsWith(f, "*")) op = "times";
-                if (Strings.endsWith(f, "&")) op = "and";
 
-                def new_f = Strings.format2("%s.%s", prefix, op);
-                ctx.static[n] = !is_rt;
-                ctx.types[n] = tp;
+                def new_f = Strings.format2("%s.binop(%s)", prefix, f);
                 ctx.effects[n] = CBDEffect.None;
-
                 res = SSAD.LetApp(n, new_f, args, res.rest);
             }
 

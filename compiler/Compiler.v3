@@ -302,8 +302,7 @@ def I32_DIV_S() {
 // arg915 -- static: no, type: i32, effect: none
 // ret205 -- static: yes, type: void, effect: ctl
 // cond1112 -- static: no, type: ⊥, effect: none
-// left138 -- static: no, type: i32, effect: none
-// right1411 -- static: no, type: i32, effect: none
+// arg148 -- static: no, type: i32, effect: none
 // arg213 -- static: no, type: i32, effect: none
 // arg169 -- static: yes, type: i32, effect: none
 // r16 -- static: no, type: i32, effect: none
@@ -312,6 +311,7 @@ def I32_DIV_S() {
 // arg222 -- static: yes, type: i32, effect: none
 // arg1510 -- static: no, type: i32, effect: none
 // arg177 -- static: no, type: i32, effect: none
+// arg1311 -- static: no, type: i32, effect: none
 // arg1014 -- static: no, type: i32, effect: none
 // b0 -- static: no, type: i32, effect: pop
 
@@ -323,11 +323,11 @@ def I32_DIV_S() {
 	def ret205 = trapDivideByZero();
 	def else20 = emitElse();
 	def endBrace21 = emitEnd();
-	def arg186 : int = -1;
-	def left138 = i32.==(b0, arg186);
-	def arg169 : int = -2_147_483_648;
-	def right1411 = i32.==(a1, arg169);
-	def cond1112 = &&(left138, right1411);
+	def arg186 : int = -2_147_483_648;
+	def arg148 = i32.==(a1, arg186);
+	def arg169 : int = -1;
+	def arg1311 = i32.==(b0, arg169);
+	def cond1112 = bool.&&(arg1311, arg148);
 	def if22 = emitIf(cond1112);
 	def ret1213 = trapDivideUnrepresentable();
 	def else23 = emitElse();
@@ -465,7 +465,7 @@ def I32_LT_U() {
 def I32_LE_S() {
 	// arg185 -- static: yes, type: u32, effect: none
 // arg207 -- static: yes, type: u32, effect: none
-// cond164 -- static: no, type: ⊥, effect: none
+// cond164 -- static: no, type: u32, effect: none
 // arg213 -- static: no, type: u32, effect: none
 // a1 -- static: no, type: u32, effect: pop
 // arg222 -- static: no, type: u32, effect: none
@@ -515,10 +515,10 @@ def I32_GT_U() {
 	def phi_push12 = push_i32(stack_phi9);
 }
 def I32_AND() {
-	// arg175 -- static: no, type: ⊥, effect: none
+	// arg175 -- static: no, type: u32, effect: none
 // arg183 -- static: no, type: u32, effect: none
 // arg192 -- static: no, type: u32, effect: none
-// r4 -- static: no, type: ⊥, effect: none
+// r4 -- static: no, type: u32, effect: none
 // a1 -- static: no, type: u32, effect: pop
 // eff166 -- static: no, type: void, effect: push
 // b0 -- static: no, type: u32, effect: pop
