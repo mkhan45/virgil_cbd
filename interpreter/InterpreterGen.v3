@@ -1,9 +1,5 @@
 def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
-    // 1. run both sides of a conditional if the cond is not static (from wasm's perspective)
-    //      - if the cond *is* static, we only want to run one branch, so we want to emit an if
-    // 2. identify when a transition to runtime types happen, and insert an rtcast
-    //      - also, insert rtcast as needed when rt fn applied to static var
-    // 3. add sidetable instrumentation
+    // return ssa;
     match (ssa) {
         Void => return ssa;
         Final(_) => return ssa;
@@ -21,7 +17,11 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 match (tp) {
                     I32 => prefix = "i32";
                     U32 => prefix = "u32";
+                    I64 => prefix = "i64";
+                    U64 => prefix = "u64";
                     F32 => prefix = "float";
+                    F64 => prefix = "double";
+                    Void => prefix = "Bot";
                     Bot => prefix = "Bot";
                 }
                 if (Strings.equal(f, "&&")) prefix = "bool";

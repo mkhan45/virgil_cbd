@@ -125,7 +125,11 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 match (tp) {
                     I32 => prefix = if(is_rt, "TypeVar.I32", "i32");
                     U32 => prefix = if(is_rt, "TypeVar.U32", "u32");
+                    I64 => prefix = if(is_rt, "TypeVar.I64", "i64");
+                    U64 => prefix = if(is_rt, "TypeVar.U64", "u64");
                     F32 => prefix = if(is_rt, "TypeVar.F32", "f32");
+                    F64 => prefix = if(is_rt, "TypeVar.F64", "f64");
+                    Void => prefix = if(is_rt, "TypeVar", "Bot");
                     Bot => prefix = if(is_rt, "TypeVar", "Bot");
                 }
                 var op: string;

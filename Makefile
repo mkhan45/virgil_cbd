@@ -15,7 +15,7 @@ VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -run -fun-exprs -simple-bodi
 V3C ?= ../virgil/bin/v3c-x86-64-linux -fun-exprs -simple-bodies
 
 GENERATE_LIB = parser/VirgilSexpr.v3 IR/*.v3 gen_common/*.v3
-GENERATE_DEPS = $(GENERATE_LIB) $(DEFS).sexp $(TYPEDEFS)
+GENERATE_DEPS = $(GENERATE_LIB) $(DEFS) $(DEFS).sexp $(TYPEDEFS)
 
 # Targets
 .PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler

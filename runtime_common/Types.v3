@@ -1,3 +1,4 @@
+// TODO: we should probably use wizard's rep
 class CBDFunction {
     var code: Array<byte>;
     def args: Vector<TypeVar> = Vector.new();

@@ -180,7 +180,7 @@ def doBranch(label: ()) {
 }
 
 def doFallthru() {
-    current_frame.stp += 1;
+    current_frame.stp += 4;
 }
 
 // Machine intrinsics.
@@ -240,12 +240,16 @@ def f_isAtEnd() -> bool {
 }
 
 def push_locals(count: u32, vtc: ValueTypeCode) {
-    // TODO: push to stack
-    var tv: ValueType;
-    match (vtc.code) {
-        BpTypeCode.I32.val => tv = ValueType.I32;
-        _ => tv = ValueType.I32; // TODO
+    var val: Value;
+    match (vtc.toConcreteValueKind(null)) {
+        I32 => val = Values.I32_0;
+        I64 => val = Values.I64_0;
+        F32 => val = Values.F32_0;
+        F64 => val = Values.F64_0;
+        V128 => val = Values.V128_0;
+        REF => val = Values.REF_NULL;
     }
+    stack.pushn(val, int.!(count));
 }
 
 component Interpreter {
@@ -292,8 +296,8 @@ component Interpreter {
         while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length) {
             def op = current_frame.codeptr.read_opcode();
             // print_stack();
-            System.puts(op.mnemonic);
-            System.ln();
+            // System.puts(op.mnemonic);
+            // System.ln();
             DISPATCH_TABLE[op.code]();
         }
     }

@@ -1,7 +1,7 @@
 var module: Module;
 var codeptr: CodePtr;
 var opcode: Opcode;
-var opcode_pos: int; // for some reason it works when i use codeptr.pos but not opcode_pos?
+var opcode_pos: int; // not used much, because interpreter uses codeptr.pos
 var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
 var local_types: Vector<TypeVar>;
 var stack: ArrayStack<TypeVar>;
@@ -317,7 +317,7 @@ def doBranch(label: ControlEntry) {
     pushTypes(args);
 }
 
-def doFallThru() {
+def doFallthru() {
 }
 
 // Machine intrinsics.
@@ -345,6 +345,8 @@ def mach_writeTable32(table_index: u32, index: TypeVar.U32, val: TypeVar.Object)
 def invalid();
 def trapNull();
 def trapUnreachable();
+def trapDivideByZero();
+def trapDivideUnrepresentable();
 
 def doBlock(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     def args = bt.0;
@@ -371,7 +373,6 @@ def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     popTypes(args);
     pushTypes(args);
     pushControl(Opcode.IF.code, args, rets, stack.top);
-    ctl_top.sidetable_pos = ctlxfer.sidetable.length;
     return ctl_top;
 }
 
@@ -398,6 +399,7 @@ def doEnd() {
         }
     }
     ctl_stack.pop();
+    ctl_top = ctl_stack.peek();
 }
 
 def doReturn() {
@@ -460,6 +462,7 @@ component Validator {
 
         ctl_stack = ArrayStack.new();
         ctlxfer = SidetableBuilder.new();
+        ctl_top = null;
 
         opcode_pos = codeptr.pos;
         pushControl(Opcode.UNREACHABLE.code, Arrays.map(args, valTypeFromTypeVar), Arrays.map(ret, valTypeFromTypeVar), 0);
@@ -472,6 +475,7 @@ component Validator {
 
     def dispatch() {
         codeptr.iterate_local_codes(push_locals);
+        ctlxfer.reset(codeptr.pos);
         while (codeptr.pos < codeptr.data.length) {
             opcode_pos = codeptr.pos;
             opcode = codeptr.read_opcode();

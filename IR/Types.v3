@@ -1,14 +1,22 @@
 type CBDType {
     case I32;
     case U32;
+    case I64;
+    case U64;
     case F32;
+    case F64;
+    case Void;
     case Bot;
 
     def toString() -> string {
         match (this) {
             I32 => return "i32";
             U32 => return "u32";
+            I64 => return "i64";
+            U64 => return "u64";
             F32 => return "f32";
+            F64 => return "f64";
+            Void => return "void";
             Bot => return "⊥";
         }
     }
@@ -19,20 +27,99 @@ enum Stage {
     COMPILE,
     INTERPRET,
 }
+
+class EffectResult(stack_delta: int, ctl_xfer: bool) {}
+
+component CBDEffects {
+    def fromString(s: string) -> CBDEffect {
+        if (Strings.equal(s, "read")) return CBDEffect.Read;
+        if (Strings.equal(s, "push")) return CBDEffect.Push;
+        if (Strings.equal(s, "pop")) return CBDEffect.Pop;
+        if (Strings.equal(s, "local")) return CBDEffect.Local;
+        if (Strings.equal(s, "global")) return CBDEffect.Global;
+        if (Strings.equal(s, "memory")) return CBDEffect.Memory;
+        if (Strings.equal(s, "ctl")) return CBDEffect.Ctl;
+        if (Strings.equal(s, "emit")) return CBDEffect.Emit;
+        if (Strings.equal(s, "trap")) return CBDEffect.Ctl; // trap is a control transfer
+        if (Strings.equal(s, "none")) return CBDEffect.None;
+        return CBDEffect.None; // default case
+    }
+
+    def run_fx(fx: Vector<CBDEffect>) -> EffectResult {
+        var sd = 0;
+        var ctl = false;
+        for (i < fx.length) {
+            if (fx[i] == CBDEffect.Push) sd += 1;
+            if (fx[i] == CBDEffect.Pop) sd -= 1;
+            if (fx[i] == CBDEffect.Ctl) ctl = true;
+        }
+        return EffectResult.new(sd, ctl);
+    }
+}
+
+type CBDEffect {
+    // TODO: type push and pop?
+    case Read;
+    case Push;
+    case Pop;
+    case Local;
+    case Global;
+    case Memory;
+    case Ctl;
+    case Emit;
+    case None;
+
+    def is_stack() -> bool {
+        match (this) {
+            Push => return true;
+            Pop => return true;
+            _ => return false;
+        }
+    }
+
+    // this should probably be specific to tier
+    def is_sidetable() -> bool {
+        match (this) {
+            Ctl => return true;
+            _ => return false;
+        }
+    }
+
+    def toString() -> string {
+        match (this) {
+            Read => return "read";
+            Push => return "push";
+            Pop => return "pop";
+            Local => return "local";
+            Global => return "global";
+            Memory => return "memory";
+            Ctl => return "ctl";
+            Emit => return "emit";
+            None => return "none";
+        }
+    }
+}
+
 class IntrinsicType(primitive: CBDType, stage: Stage) {
     def isStatic() -> bool {
         return (stage == Stage.VALIDATE) || (stage == Stage.COMPILE);
     }
 }
 
-class IntrinsicTypedef(name: string, args: Array<IntrinsicType>, return_type: IntrinsicType) {}
+// maybe a list of effects
+class IntrinsicTypedef(name: string, args: Array<IntrinsicType>, return_type: IntrinsicType, effect: CBDEffect) {}
 
 def typeFromString(s: string) -> CBDType {
     if (Strings.equal(s, "int")) return CBDType.I32;
     if (Strings.equal(s, "i32")) return CBDType.I32;
     if (Strings.equal(s, "u32")) return CBDType.U32;
+    if (Strings.equal(s, "i64")) return CBDType.I64;
+    if (Strings.equal(s, "u64")) return CBDType.U64;
     if (Strings.equal(s, "float")) return CBDType.F32;
     if (Strings.equal(s, "f32")) return CBDType.F32;
+    if (Strings.equal(s, "f64")) return CBDType.F64;
+    if (Strings.equal(s, "double")) return CBDType.F64;
+    if (Strings.equal(s, "void")) return CBDType.Void;
 
     return CBDType.Bot;
 }
@@ -40,8 +127,12 @@ def typeFromString(s: string) -> CBDType {
 def processTypeString(s: string) -> IntrinsicType {
     def split = Strings.splitOnChar(s, u8.==(_, '.'), -1);
     def name = Strings.strip(split[0]);
+    if (split.length < 2) {
+        // No stage specified, default to VALIDATE
+        return IntrinsicType.new(typeFromString(name), Stage.VALIDATE);
+    }
     def stage_string = Strings.strip(split[1]);
-    var stage: Stage;
+    var stage: Stage = Stage.VALIDATE; // default
     if (Strings.equal(stage_string, "V")) stage = Stage.VALIDATE;
     if (Strings.equal(stage_string, "C")) stage = Stage.COMPILE;
     if (Strings.equal(stage_string, "I")) stage = Stage.INTERPRET;
@@ -69,27 +160,63 @@ component IntrinsicTypes {
             def name = Arrays.range(line, name_start, name_end);
 
             def args: Vector<IntrinsicType> = Vector.new();
-            var current_arg_start = name_end;
-            var current_arg_end = current_arg_start + 1;
+            var current_arg_start = name_end + 1; // start after opening paren
+            var current_arg_end = current_arg_start;
             while (line[current_arg_end] != ')') {
-                while (line[current_arg_start] != ':') current_arg_start += 1;
+                if (line[current_arg_start] == ')') break; // no more args
+                
                 current_arg_start += ": ".length;
-                current_arg_end = current_arg_start + 1;
+                current_arg_end = current_arg_start;
                 while (line[current_arg_end] != ',' && line[current_arg_end] != ')') current_arg_end += 1;
                 args.put(processTypeString(Arrays.range(line, current_arg_start, current_arg_end)));
+                current_arg_start = current_arg_end + 1; // advance for next iteration
             }
 
+            // Find the closing parenthesis
+            var paren_pos = current_arg_end;
+            while (paren_pos < line.length && line[paren_pos] != ')') paren_pos += 1;
+            
             var return_type: IntrinsicType;
-            if (line[current_arg_end + 1] == ';') {
+            var effect: CBDEffect = CBDEffect.None;
+            
+            // Check if there's a return type or just effects
+            var has_return_type = false;
+            var check_pos = paren_pos + 1;
+            while (check_pos < line.length && line[check_pos] == ' ') check_pos += 1; // skip spaces
+            if (check_pos < line.length && line[check_pos] == '-' && check_pos + 1 < line.length && line[check_pos + 1] == '>') {
+                has_return_type = true;
+            }
+            
+            if (!has_return_type) {
                 return_type = processTypeString("void.V");
+                // Check for effects after colon
+                var colon_pos = paren_pos + 1;
+                while (colon_pos < line.length && line[colon_pos] == ' ') colon_pos += 1; // skip spaces
+                if (colon_pos < line.length && line[colon_pos] == ':') {
+                    var effect_start = colon_pos + 1;
+                    while (effect_start < line.length && line[effect_start] == ' ') effect_start += 1; // skip spaces after colon
+                    var effect_end = effect_start;
+                    while (effect_end < line.length && line[effect_end] != ';') effect_end += 1;
+                    def effect_str = Arrays.range(line, effect_start, effect_end);
+                    effect = CBDEffects.fromString(Strings.strip(effect_str));
+                }
             } else {
-                def type_start = current_arg_end + " -> ".length;
+                def type_start = paren_pos + " -> ".length + 1;
                 var type_end = type_start;
-                while (line[type_end] != ';') type_end += 1;
+                while (type_end < line.length && line[type_end] != ';' && line[type_end] != ':') type_end += 1;
                 return_type = processTypeString(Arrays.range(line, type_start, type_end));
+                
+                // Check for effects after colon
+                if (type_end < line.length && line[type_end] == ':') {
+                    def effect_start = type_end + 2; // skip ": "
+                    var effect_end = effect_start;
+                    while (effect_end < line.length && line[effect_end] != ';') effect_end += 1;
+                    def effect_str = Arrays.range(line, effect_start, effect_end);
+                    effect = CBDEffects.fromString(Strings.strip(effect_str));
+                }
             }
 
-            intrinsics[name] = IntrinsicTypedef.new(name, args.copy(), return_type);
+            intrinsics[name] = IntrinsicTypedef.new(name, args.copy(), return_type, effect);
         }
 
         return intrinsics;
@@ -110,6 +237,15 @@ component IntrinsicTypes {
             return (Arrays.map(t.args, fun (a: IntrinsicType) => a.isStatic()), t.return_type.isStatic());
         } else {
             return (null, false);
+        }
+    }
+
+    def intrinsic_effect(fn_name: string) -> CBDEffect {
+        if (intrinsic_types.has(fn_name)) {
+            def t = intrinsic_types[fn_name];
+            return t.effect;
+        } else {
+            return CBDEffect.None;
         }
     }
 }
