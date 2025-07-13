@@ -18,9 +18,9 @@ GENERATE_LIB = $(wildcard gen_common/*.v3) $(wildcard gen_common/*/*.v3)
 GENERATE_DEPS = $(GENERATE_LIB) $(DEFS) $(DEFS).sexp $(TYPEDEFS)
 
 # Targets
-.PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler
+.PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler abstract_interpreter
 
-all: validator/Validator.v3 interpreter/Interpreter.v3 compiler/Compiler.v3 InterpreterMain
+all: validator/Validator.v3 interpreter/Interpreter.v3 compiler/Compiler.v3 abstract_interpreter/AbstractInterpreter.v3 InterpreterMain
 
 $(DEFS).sexp:
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
@@ -32,23 +32,31 @@ validator/Validator.v3: $(GENERATE_DEPS) validator/ValidatorGen.v3 validator/Val
 		$(DEFS).sexp $(DEFS) validator/ValidatorTemplate.v3\
 		> validator/Validator.v3
 
-interpreter/Interpreter.v3: $(GENERATE_DEPS) interpreter/InterpreterGen.v3 interpreter/InterpreterTemplate.v3 validator/ValidatorTemplate.v3
+interpreter/Interpreter.v3: $(GENERATE_DEPS) interpreter/InterpreterGen.v3 interpreter/InterpreterTemplate.v3 validator/Validator.v3
 	$(VIRGIL) $(VIRGIL_STD) \
 		$(GENERATE_LIB)\
 		interpreter/InterpreterGen.v3\
 		$(DEFS).sexp $(DEFS) interpreter/InterpreterTemplate.v3\
 		> interpreter/Interpreter.v3
 
-compiler/Compiler.v3: $(GENERATE_DEPS) compiler/CompilerGen.v3 compiler/CompilerTemplate.v3 validator/ValidatorTemplate.v3
+compiler/Compiler.v3: $(GENERATE_DEPS) compiler/CompilerGen.v3 compiler/CompilerTemplate.v3 validator/Validator.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		compiler/CompilerGen.v3\
 		$(DEFS).sexp $(DEFS) compiler/CompilerTemplate.v3\
 		> compiler/Compiler.v3
 
+abstract_interpreter/AbstractInterpreter.v3: $(GENERATE_DEPS) abstract_interpreter/AbstractInterpreterGen.v3 abstract_interpreter/AbstractInterpreterTemplate.v3 validator/Validator.v3
+	$(VIRGIL) $(VIRGIL_STD) \
+		$(GENERATE_LIB)\
+		abstract_interpreter/AbstractInterpreterGen.v3\
+		$(DEFS).sexp $(DEFS) abstract_interpreter/AbstractInterpreterTemplate.v3\
+		> abstract_interpreter/AbstractInterpreter.v3
+
 validator: validator/Validator.v3
 interpreter: interpreter/Interpreter.v3
 compiler: compiler/Compiler.v3
+abstract_interpreter: abstract_interpreter/AbstractInterpreter.v3
 
 run_interpreter: interpreter/Interpreter.v3 validator/Validator.v3
 	$(VIRGIL) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\

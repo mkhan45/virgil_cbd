@@ -1,0 +1,25 @@
+def main(args: Array<string>) {
+    def filename = args[0];
+    def file_bytes = System.fileLoad(filename);
+
+    var interpreter_args: Array<int> = Array.new(args.length - 1);
+    for (i = 1; i < args.length; i += 1) interpreter_args[i - 1] = Ints.parseDecimal(args[i], 0).1;
+
+    def extensions = Extension.set.all;
+    def limits = Limits.new().set(extensions);
+    def err = ErrorGen.new(filename);
+
+    def bp = BinParser.new(extensions, limits, err, filename);
+
+    def module = bp.push(file_bytes, 0, file_bytes.length).finish();
+
+    Interpreter.init(module, interpreter_args);
+    Interpreter.dispatch();
+
+    System.puts("stack top: ");
+    match (Interpreter.get_stack().peek()) {
+        I32(i) => System.puti(i32.view(i));
+        _ => {}
+    }
+    System.ln();
+}
