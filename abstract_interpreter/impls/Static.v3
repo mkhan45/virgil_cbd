@@ -1,15 +1,15 @@
 type SV {
-    I32(static: bool, val: i32),
-    I64(static: bool, val: i64),
-    U32(static: bool, val: u32),
-    U64(static: bool, val: u64),
-    F32(static: bool, val: f32),
-    F64(static: bool, val: f64),
-    REF(static: bool),
+    case I32(static: bool, val: i32);
+    case I64(static: bool, val: i64);
+    case U32(static: bool, val: u32);
+    case U64(static: bool, val: u64);
+    case F32(static: bool, val: float);
+    case F64(static: bool, val: double);
+    case REF(static: bool);
 }
 
-class StaticnessEval extends AI<SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F64, REF> {
-    def new() {}
+class StaticnessEval extends AI<SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F64, SV.REF> {
+    new(module: Module, args: Array<int>) super(module, args) {}
 
     def I32_equals(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
         if (lhs.static && rhs.static) return SV.I32(true, if(lhs.val == rhs.val, 1, 0));
@@ -76,11 +76,19 @@ class StaticnessEval extends AI<SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F
         else return SV.U32(false, 0u);
     }
 
-    def box_i(i: i32) -> SV.I32 {
+    def box_i(i: SV.I32) -> SV {
+        return i;
+    }
+
+    def box_u(u: SV.U32) -> SV {
+        return u;
+    }
+
+    def rtcast_i32(i: i32) -> SV.I32 {
         return SV.I32(true, i);
     }
 
-    def box_u(u: u32) -> SV.U32 {
+    def rtcast_u32(u: i32) -> SV.U32 {
         return SV.U32(true, u);
     }
 }

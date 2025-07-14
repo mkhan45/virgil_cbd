@@ -15,6 +15,7 @@ class Frame {
     }
 }
 
+type Cont(frame: Frame, stack: ArrayStack<V>, globals: Vector<V>);
 class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     var module: Module;
     var functions: Vector<CBDFunction>;
@@ -24,7 +25,6 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     var stack: ArrayStack<V>;
     var globals: Vector<V>;
 
-    type Cont(frame: Frame, stack: ArrayStack<V>; globals: Vector<V>);
     var worklist: ArrayStack<Cont>;
     var should_break_inner_loop: bool;
 
@@ -167,7 +167,7 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def pop_f64() -> F64 {
         return unbox_d(stack.pop());
     }
-    def pop_v128() -> V128;
+    def pop_v128() -> ();
     def pop_Object() -> REF {
         return unbox_ref(stack.pop());
     }
@@ -193,7 +193,7 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def push_f64(v: F64) {
         stack.push(box_d(v));
     }
-    def push_v128(v: V128);
+    def push_v128(v: ());
     def push_Object(v: Object) {
         stack.push(box<Object>(v));
     }
