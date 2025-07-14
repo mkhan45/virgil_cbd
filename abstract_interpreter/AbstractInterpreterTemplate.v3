@@ -6,8 +6,8 @@ class Frame {
     var codeptr: CodePtr;
     var num_rets: int;
 
-    new(parent: Frame, fn: CBDFunction) {
-        fp = stack.top - fn.args.length;
+    new(parent: Frame, stack_top: int, fn: CBDFunction) {
+        fp = stack_top - fn.args.length;
         sidetable = fn.sidetable;
         stp = 0;
         codeptr = CodePtr.new(fn.code);
@@ -20,8 +20,8 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     var module: Module;
     var functions: Vector<CBDFunction>;
 
-    var current_frame: Frame;
-    var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
+    var current_frame: Frame; // maybe should be current cont
+    var DISPATCH_TABLE: Array<void -> void>;
     var stack: ArrayStack<V>;
     var globals: Vector<V>;
 
@@ -29,6 +29,8 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     var should_break_inner_loop: bool;
 
     new(module: Module, args: Array<int>) {
+        DISPATCH_TABLE = build_dispatch_table();
+
         var main_idx = -1;
         for (i < module.exports.length) {
             if (Strings.equal(module.exports[i].0, "main")) main_idx = FuncDecl.!(module.exports[i].1).func_index;
@@ -50,18 +52,18 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
         }
 
         stack = ArrayStack<V>.new();
-        for (arg in args) stack.push(box_i(arg));
-        current_frame = Frame.new(null, functions[main_idx]);
+        for (arg in args) stack.push(box_i(rtcast_i32(arg)));
+        current_frame = Frame.new(null, stack.top, functions[main_idx]);
         
-        worklist = ArrayStack<Cont>.new();
+        worklist = ArrayStack<Cont<V>>.new();
         
-        globals = Vector.new();
+        globals = Vector<V>.new();
         for (i < module.globals.length) {
             def module_global = module.globals[i];
             // TODO: full eval initexpr
             match (module_global.init) {
-                I32(v) => globals.put(box_i(v));
-                _ => globals.put(rtcast_i32(0));
+                I32(v) => globals.put(box_i(rtcast_i32(v)));
+                _ => globals.put(box_i(rtcast_i32(0)));
             }
         }
     }
@@ -69,7 +71,12 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def dispatch() {
         // Initialize the worklist with the starting state
         current_frame.codeptr.iterate_local_codes(push_locals);
-        worklist.push(Cont(current_frame, stack.copy(), globals.copy()));
+        def new_stack = ArrayStack<V>.new();
+        for (i < stack.top) new_stack.push(stack.elems[i]);
+        def new_globals = Vector<V>.new();
+        new_globals.array = globals.copy();
+        new_globals.length = globals.length;
+        worklist.push(Cont<V>(current_frame, new_stack, new_globals));
         
         // Outer loop: process continuations from worklist
         while (!worklist.empty()) {
@@ -104,6 +111,9 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def U32_times(lhs: U32, rhs: U32) -> U32;
     def U32_and(lhs: U32, rhs: U32) -> U32;
 
+    def I32_maybeTrue(i: I32) -> bool;
+    def U32_maybeTrue(u: U32) -> bool;
+
     def unbox_i(v: V) -> I32;
     def unbox_l(v: V) -> I64;
     def unbox_u(v: V) -> U32;
@@ -120,7 +130,11 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def box_d(v: F64) -> V;
     def box_ref(v: REF) -> V;
     def rtcast_i32(i: i32) -> I32;
+    def rtcast_i64(i: i64) -> I64;
     def rtcast_u32(u: u32) -> U32;
+    def rtcast_f32(f: float) -> F32;
+    def rtcast_f64(f: double) -> F64;
+    def ref_null() -> REF;
 
     def copyVals(count: int, dest: int) {
         def sp = stack.top - count;
@@ -176,9 +190,9 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     }
     def pop_v128() -> ();
     def pop_Object() -> REF {
-        return unbox_ref(stack.pop());
+        return unbox_r(stack.pop());
     }
-    def pop_Value(tv: ()) -> Value {
+    def pop_Value(tv: ()) -> V {
         return stack.pop();
     }
 
@@ -204,7 +218,7 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def push_Object(v: REF) {
         stack.push(box_ref(v));
     }
-    def push_Value(tv: (), v: Value) {
+    def push_Value(tv: (), v: V) {
         stack.push(v);
     }
 
@@ -251,7 +265,7 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def m_getSignature(sig_index: u32) -> SigDecl;
 
     // Instance context.
-    def i_getTableFunction64(table_index: u32, sig: SigDecl, func_index: U32) -> CBDFunction;
+    def i_getTableFunction64(table_index: u32, sig: SigDecl, func_index: U64) -> CBDFunction;
     def i_getTableFunction32(table_index: u32, sig: SigDecl, func_index: U32) -> CBDFunction;
     def i_getFunction(func_index: u32) -> CBDFunction {
         return functions[int.!(func_index)];
@@ -259,7 +273,7 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
 
     // Control flow.
     def doCall(sig: SigDecl, target: CBDFunction) {
-        def new_frame = Frame.new(current_frame, target);
+        def new_frame = Frame.new(current_frame, stack.top, target);
         current_frame = new_frame;
         current_frame.codeptr.iterate_local_codes(push_locals);
     }
@@ -269,9 +283,14 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
         def ste = current_frame.sidetable.getBrEntry(current_frame.stp);
         
         // Create new frame with updated code pointer and sidetable pointer
-        def new_frame = Frame(current_frame.parent, current_frame.fp, current_frame.sidetable, 
-                             current_frame.stp + ste.dstp, current_frame.codeptr, current_frame.num_rets);
+        // TODO: change frame constructor?
+        def new_frame = Frame.new(current_frame.parent, stack.top, functions[0]);
+        new_frame.fp = current_frame.fp;
+        new_frame.sidetable = current_frame.sidetable;
+        new_frame.stp = current_frame.stp + ste.dstp;
+        new_frame.codeptr = current_frame.codeptr.dup();
         new_frame.codeptr.at(current_frame.codeptr.pos + ste.dpc);
+        new_frame.num_rets = current_frame.num_rets;
         
         // Handle stack adjustments
         if (ste.popcount > 0) {
@@ -280,7 +299,12 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
         }
         
         // Add continuation to worklist and break inner loop
-        worklist.push(Cont(new_frame, stack.copy(), globals.copy()));
+        def new_stack = ArrayStack<V>.new();
+        for (i < stack.top) new_stack.push(stack.elems[i]);
+        def new_globals = Vector<V>.new();
+        new_globals.array = globals.copy();
+        new_globals.length = globals.length;
+        worklist.push(Cont(new_frame, new_stack, new_globals));
         should_break_inner_loop = true;
     }
 
@@ -299,8 +323,8 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def mach_readMemory64_u32(memory_index: u32, index: U64, offset: u64) -> U32;
     def mach_readMemory32_u32(memory_index: u32, index: U32, offset: u32) -> U32;
 
-    def mach_readTable64(table_index: u32, index: u64) -> REF;
-    def mach_readTable32(table_index: u32, index: u32) -> REF;
+    def mach_readTable64(table_index: u32, index: U64) -> REF;
+    def mach_readTable32(table_index: u32, index: U32) -> REF;
 
     def mach_writeTable64(table_index: u32, index: U64, val: REF);
     def mach_writeTable32(table_index: u32, index: U32, val: REF);
@@ -341,15 +365,14 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     }
 
     def push_locals(count: u32, vtc: ValueTypeCode) {
-        var val: Value;
+        var val: V;
         match (vtc.toConcreteValueKind(null)) {
-            I32 => val = I32_0;
-            I64 => val = I64_0;
-            F32 => val = F32_0;
-            F64 => val = F64_0;
-            V128 => val = V128_0;
-            REF => val = REF_NULL;
+            I32 => val = box_i(rtcast_i32(0));
+            I64 => val = box_l(rtcast_i64(0));
+            F32 => val = box_f(rtcast_f32(0.0f));
+            F64 => val = box_d(rtcast_f64(0.0));
+            REF => val = box_ref(ref_null());
+            _ => val = box_i(rtcast_i32(0));
         }
         stack.pushn(val, int.!(count));
-    }
-}
+    } // remove last brace for easier templating

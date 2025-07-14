@@ -222,6 +222,10 @@ component IntrinsicTypes {
         return intrinsics;
     }
 
+    def add_def(f: string, d: IntrinsicTypedef) {
+        intrinsic_types[f] = d;
+    }
+
     def intrinsic_type(fn_name: string) -> (Array<CBDType>, CBDType) {
         if (intrinsic_types.has(fn_name)) {
             def t = intrinsic_types[fn_name];

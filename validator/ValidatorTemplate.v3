@@ -35,7 +35,6 @@ def pushControl(opcode: u16, params: Array<ValueType>, results: Array<ValueType>
     ctl.first_ref = -1;
     ctl.else_ref = -1;
     ctl.undo_init_list = null;
-    ctl.handler_dest_id = -1;
     return ctl;
 }
 

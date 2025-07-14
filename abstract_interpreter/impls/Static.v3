@@ -88,7 +88,7 @@ class StaticnessEval extends AI<SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F
         return SV.I32(true, i);
     }
 
-    def rtcast_u32(u: i32) -> SV.U32 {
+    def rtcast_u32(u: u32) -> SV.U32 {
         return SV.U32(true, u);
     }
 }

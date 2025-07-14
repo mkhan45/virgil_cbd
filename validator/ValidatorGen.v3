@@ -1,3 +1,5 @@
+def TYPE_DEF_FILE: string = "./wizard-engine/src/bytecode/Intrinsics.v3";
+
 component STFieldMgr {
     var fields: Vector<(string, string)> = Vector.new(); // (name, type)
     var entries: Vector<long> = Vector.new(); // keep track of which bitset insts are actually used
@@ -204,7 +206,6 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def bs = STFieldMgr.putEntry(st_field_buf);
 
     def ir = SSAD_IR.from_virgil(stmt);
-    SSAD_IR.counter = 0;
     def ssa = SSAD_IR.ssa(ir);
     def analysis = SSADCtx.new(ssa);
     def transformed = transformSSA(analysis.id_propagate(ssa, Strings.newMap<string>()), analysis);
@@ -226,6 +227,10 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
 def main(args: Array<string>) {
     def sexpr_file = args[0];
     def v3file = args[1];
+
+    IntrinsicTypes.init(TYPE_DEF_FILE);
+    def ai_intrinsics = IntrinsicTypes.getIntrinsicTypes("abstract_interpreter/Intrinsics.v3");
+    ai_intrinsics.apply(IntrinsicTypes.add_def);
 
     def defs: Array<ValidatorCBDDef> = TierGen.extractDefsFromFile(v3file, sexpr_file, transformDef);
     def dispatch_table = TierGen.buildDispatch(defs, CBDDef.!<ValidatorCBDDef>(_));

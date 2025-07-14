@@ -1,3 +1,5 @@
+def TYPE_DEF_FILE: string = "./wizard-engine/src/bytecode/Intrinsics.v3";
+
 def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
     // return ssa;
     match (ssa) {
@@ -5,36 +7,83 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
         Final(_) => return ssa;
         Injected(inj, rest) => return SSAD.Injected(inj, transformSSA(rest, ctx));
         LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
-        If(c, t, e, phis, rest) => return SSAD.If(c, transformSSA(t, ctx), transformSSA(e, ctx), phis, transformSSA(rest, ctx));
-        LetApp(n, f, args, rest) => {
-            var res = SSAD.LetApp(n, f, args, transformSSA(rest, ctx));
-
-            if (Strings.equal(f, "==") ||  Strings.equal(f, "+") || Strings.equal(f, ">") || Strings.equal(f, "!=") || Strings.equal(f, "-") || Strings.equal(f, "<")
-                    || Strings.equal(f, "&&")) {
-                def tp = ctx.types[args[0]];
-                def is_rt = !ctx.static[args[0]];
-                var prefix: string;
-                match (tp) {
-                    I32 => prefix = "i32";
-                    U32 => prefix = "u32";
-                    I64 => prefix = "i64";
-                    U64 => prefix = "u64";
-                    F32 => prefix = "float";
-                    F64 => prefix = "double";
-                    Void => prefix = "Bot";
-                    Bot => prefix = "Bot";
-                }
-                if (Strings.equal(f, "&&")) prefix = "bool";
-
-                def new_f = Strings.format2("%s.%s", prefix, f);
-                ctx.static[n] = !is_rt;
-                ctx.types[n] = tp;
-                ctx.effects[n] = CBDEffect.None;
-
-                res = SSAD.LetApp(n, new_f, args, res.rest);
+        If(c, t, e, phis, rest) => {
+            if (!ctx.static[c]) {
+                def fv = SSAD_IR.uidl("cond");
+                def tp = ctx.types[c];
+                var tp_str = tp.toString();
+                if (tp != CBDType.Bot) tp_str = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
+                def fn = Strings.format1("%s_maybeTrue", tp_str);
+                ctx.static[fv] = false;
+                return SSAD.LetApp(fv, fn, [c],
+                        SSAD.If(fv, transformSSA(t, ctx), transformSSA(e, ctx), phis, transformSSA(rest, ctx)));
+            } else {
+                return SSAD.If(c, transformSSA(t, ctx), transformSSA(e, ctx), phis, rest);
             }
-            // TODO: sidetable stuff
-            return res;
+        }
+        LetApp(n, f, args, rest) => {
+            var is_op = false;
+            for (c in f) if (c == '.') is_op = true;
+            def is_rt = !ctx.static[n];
+            if (is_op && is_rt) {
+                def tp = ctx.types[n];
+                def tp_str = tp.toString();
+                var prefix: string;
+                // there is a weird case for this, in Virgil test ops
+                // return booleans but in Wasm they don't. So e.g. i32.==
+                // returns a boolean but then we can't use i32.&, but it's
+                // still an i32 in wasm and we want to validator to know that.
+                // Luckily, all testops necessarily get DCE'd since the 
+                // validator executes every path. So sometimes Bot will occur
+                // here but get DCE'd out.
+                match (tp) {
+                    Void => prefix = "TypeVar";
+                    Bot => prefix = "V";
+                    _ => prefix = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
+                }
+
+                var op: string = Strings.format1("UNHANDLED_OP_%s", f);
+                if (Strings.endsWith(f, "==")) op = "equals";
+                if (Strings.endsWith(f, "!=")) op = "not_equals";
+                if (Strings.endsWith(f, "/")) op = "div";
+                if (Strings.endsWith(f, "&&")) op = "and";
+                if (Strings.endsWith(f, "&")) op = "and";
+                if (Strings.endsWith(f, "+")) op = "plus";
+                if (Strings.endsWith(f, "-")) op = "minus";
+                if (Strings.endsWith(f, "<")) op = "lt";
+                if (Strings.endsWith(f, "<=")) op = "lte";
+                if (Strings.endsWith(f, ">")) op = "gt";
+                if (Strings.endsWith(f, "*")) op = "times";
+
+                def new_f = Strings.format2("%s_%s", prefix, op);
+                ctx.effects[n] = CBDEffect.None;
+                return transformSSA(SSAD.LetApp(n, new_f, args, rest), ctx);
+            }
+
+            def intrinsic_static = IntrinsicTypes.intrinsic_static(f);
+            def intrinsic_type = IntrinsicTypes.intrinsic_type(f);
+            def args_static = intrinsic_static.0;
+            def args_types = intrinsic_type.0;
+            var rtcasts: SSAD = SSAD.Void;
+            def new_args = Arrays.dup(args);
+            if (args_static != null) {
+                for (i < args_static.length) {
+                    def is_runtime = !ctx.static[args[i]];
+                    def should_be_runtime = !args_static[i];
+                    if (!is_runtime && should_be_runtime) {
+                        def fv = SSAD_IR.uidl("rtcast");
+                        def tp = if(args_types[i] != CBDType.Bot, args_types[i], ctx.types[args[i]]);
+                        def rtcast_f = Strings.format1("rtcast_%s", tp.toString());
+                        ctx.static[fv] = false;
+                        ctx.types[fv] = ctx.types[args[i]];
+                        ctx.effects[fv] = CBDEffect.None;
+                        new_args[i] = fv;
+                        rtcasts = SSAD.LetApp(fv, rtcast_f, [args[i]], rtcasts);
+                    }
+                }
+            }
+
+            return rtcasts.appended(SSAD.LetApp(n, f, new_args, transformSSA(rest, ctx)));
         }
     }
 }
@@ -53,6 +102,10 @@ def main(args: Array<string>) {
     def sexpr_file = args[0];
     def v3file = args[1];
 
+    IntrinsicTypes.init(TYPE_DEF_FILE);
+    def ai_intrinsics = IntrinsicTypes.getIntrinsicTypes("abstract_interpreter/Intrinsics.v3");
+    ai_intrinsics.apply(IntrinsicTypes.add_def);
+
     def defs: Array<CBDDef> = TierGen.extractDefsFromFile(v3file, sexpr_file, transformDef);
     def dispatch_table = TierGen.buildDispatch(defs, CBDDef.!<CBDDef>(_));
 
@@ -66,8 +119,9 @@ def main(args: Array<string>) {
 
     def final_code_builder = StringBuilder.new();
     final_code_builder.puts("// GENERATED BY InterpreterGen.v3\n");
-    final_code_builder.puts(dispatch_table);
     final_code_builder.puts(template_code);
+    final_code_builder.puts(dispatch_table);
+    final_code_builder.puts("}");
 
     System.puts(final_code_builder.toString());
 }

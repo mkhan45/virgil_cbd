@@ -1,0 +1,16 @@
+def I32_equals(lhs: I32.I, rhs: I32.I) -> I32.I;
+def I32_div(lhs: I32.I, rhs: I32.I) -> I32.I;
+def I32_and(lhs: I32.I, rhs: I32.I) -> I32.I;
+def U32_equals(lhs: U32.I, rhs: U32.I) -> U32.I;
+def U32_not_equals(lhs: U32.I, rhs: U32.I) -> U32.I;
+def U32_plus(lhs: U32.I, rhs: U32.I) -> U32.I;
+def U32_minus(lhs: U32.I, rhs: U32.I) -> U32.I;
+def U32_div(lhs: U32.I, rhs: U32.I) -> U32.I;
+def U32_lt(lhs: U32.I, rhs: U32.I) -> U32.I;
+def U32_lte(lhs: U32.I, rhs: U32.I) -> U32.I;
+def U32_gt(lhs: U32.I, rhs: U32.I) -> U32.I;
+def U32_times(lhs: U32.I, rhs: U32.I) -> U32.I;
+def U32_and(lhs: U32.I, rhs: U32.I) -> U32.I;
+
+def I32_maybeTrue(i: I32.I) -> bool.I;
+def U32_maybeTrue(u: U32.I) -> bool.I;
