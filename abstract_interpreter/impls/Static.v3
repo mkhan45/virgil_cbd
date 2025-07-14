@@ -1,0 +1,86 @@
+type SV {
+    I32(static: bool, val: i32),
+    I64(static: bool, val: i64),
+    U32(static: bool, val: u32),
+    U64(static: bool, val: u64),
+    F32(static: bool, val: f32),
+    F64(static: bool, val: f64),
+    REF(static: bool),
+}
+
+class StaticnessEval extends AI<SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F64, REF> {
+    def new() {}
+
+    def I32_equals(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
+        if (lhs.static && rhs.static) return SV.I32(true, if(lhs.val == rhs.val, 1, 0));
+        else return SV.I32(false, 0);
+    }
+
+    def I32_div(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
+        if (lhs.static && rhs.static && rhs.val != 0) return SV.I32(true, lhs.val / rhs.val);
+        else return SV.I32(false, 0);
+    }
+
+    def I32_and(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
+        if (lhs.static && rhs.static) return SV.I32(true, lhs.val & rhs.val);
+        else return SV.I32(false, 0);
+    }
+
+    def U32_equals(lhs: SV.U32, rhs: SV.U32) -> SV.U32 {
+        if (lhs.static && rhs.static) return SV.U32(true, if(lhs.val == rhs.val, 1u, 0u));
+        else return SV.U32(false, 0u);
+    }
+
+    def U32_not_equals(lhs: SV.U32, rhs: SV.U32) -> SV.U32 {
+        if (lhs.static && rhs.static) return SV.U32(true, if(lhs.val != rhs.val, 1u, 0u));
+        else return SV.U32(false, 0u);
+    }
+
+    def U32_plus(lhs: SV.U32, rhs: SV.U32) -> SV.U32 {
+        if (lhs.static && rhs.static) return SV.U32(true, lhs.val + rhs.val);
+        else return SV.U32(false, 0u);
+    }
+
+    def U32_minus(lhs: SV.U32, rhs: SV.U32) -> SV.U32 {
+        if (lhs.static && rhs.static) return SV.U32(true, lhs.val - rhs.val);
+        else return SV.U32(false, 0u);
+    }
+
+    def U32_div(lhs: SV.U32, rhs: SV.U32) -> SV.U32 {
+        if (lhs.static && rhs.static && rhs.val != 0u) return SV.U32(true, lhs.val / rhs.val);
+        else return SV.U32(false, 0u);
+    }
+
+    def U32_lt(lhs: SV.U32, rhs: SV.U32) -> SV.U32 {
+        if (lhs.static && rhs.static) return SV.U32(true, if(lhs.val < rhs.val, 1u, 0u));
+        else return SV.U32(false, 0u);
+    }
+
+    def U32_lte(lhs: SV.U32, rhs: SV.U32) -> SV.U32 {
+        if (lhs.static && rhs.static) return SV.U32(true, if(lhs.val <= rhs.val, 1u, 0u));
+        else return SV.U32(false, 0u);
+    }
+
+    def U32_gt(lhs: SV.U32, rhs: SV.U32) -> SV.U32 {
+        if (lhs.static && rhs.static) return SV.U32(true, if(lhs.val > rhs.val, 1u, 0u));
+        else return SV.U32(false, 0u);
+    }
+
+    def U32_times(lhs: SV.U32, rhs: SV.U32) -> SV.U32 {
+        if (lhs.static && rhs.static) return SV.U32(true, lhs.val * rhs.val);
+        else return SV.U32(false, 0u);
+    }
+
+    def U32_and(lhs: SV.U32, rhs: SV.U32) -> SV.U32 {
+        if (lhs.static && rhs.static) return SV.U32(true, lhs.val & rhs.val);
+        else return SV.U32(false, 0u);
+    }
+
+    def box_i(i: i32) -> SV.I32 {
+        return SV.I32(true, i);
+    }
+
+    def box_u(u: u32) -> SV.U32 {
+        return SV.U32(true, u);
+    }
+}
