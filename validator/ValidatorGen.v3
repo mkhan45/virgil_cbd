@@ -1,5 +1,3 @@
-def TYPE_DEF_FILE: string = "./wizard-engine/src/bytecode/Intrinsics.v3";
-
 component STFieldMgr {
     var fields: Vector<(string, string)> = Vector.new(); // (name, type)
     var entries: Vector<long> = Vector.new(); // keep track of which bitset insts are actually used
@@ -114,9 +112,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
         Void => return ssa;
         Final(_) => return ssa; // TODO: move stuff from instrument... to here
         Injected(inj, rest) => return SSAD.Injected(inj, transformSSA(rest, ctx));
-        LetLit(n, l, t, rest) => {
-            return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
-        }
+        LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
         LetApp(n, f, args, rest) => {
             var res = SSAD.LetApp(n, f, args, transformSSA(rest, ctx));
             var is_op = false;
@@ -228,9 +224,7 @@ def main(args: Array<string>) {
     def sexpr_file = args[0];
     def v3file = args[1];
 
-    IntrinsicTypes.init(TYPE_DEF_FILE);
-    def ai_intrinsics = IntrinsicTypes.getIntrinsicTypes("abstract_interpreter/Intrinsics.v3");
-    ai_intrinsics.apply(IntrinsicTypes.add_def);
+    IntrinsicTypes.init(IntrinsicTypes.TYPE_DEF_FILE);
 
     def defs: Array<ValidatorCBDDef> = TierGen.extractDefsFromFile(v3file, sexpr_file, transformDef);
     def dispatch_table = TierGen.buildDispatch(defs, CBDDef.!<ValidatorCBDDef>(_));

@@ -102,7 +102,7 @@ def TABLE_GET() {
 // val101 -- static: no, type: ⊥, effect: none
 // arg87102 -- static: no, type: ⊥, effect: none
 // eff90109 -- static: no, type: void, effect: push
-// cond8597 -- static: yes, type: i32, effect: none
+// cond8597 -- static: yes, type: ⊥, effect: none
 // arg88100 -- static: yes, type: u32, effect: none
 // arg91108 -- static: no, type: ⊥, effect: none
 // table_index95 -- static: yes, type: u32, effect: read
@@ -119,7 +119,7 @@ def TABLE_GET() {
 }
 def TABLE_SET() {
 	// arg113126 -- static: no, type: u64, effect: none
-// cond110122 -- static: yes, type: i32, effect: none
+// cond110122 -- static: yes, type: ⊥, effect: none
 // arg114125 -- static: no, type: ⊥, effect: none
 // val129 -- static: no, type: ⊥, effect: pop
 // table_index120 -- static: yes, type: u32, effect: read
@@ -160,7 +160,7 @@ def CALL_INDIRECT() {
 // func_index178 -- static: no, type: u32, effect: pop
 // table_index164 -- static: yes, type: u32, effect: read
 // arg152173 -- static: yes, type: u32, effect: none
-// cond148169 -- static: yes, type: i32, effect: none
+// cond148169 -- static: yes, type: ⊥, effect: none
 // arg153172 -- static: yes, type: ⊥, effect: none
 // eff155185 -- static: no, type: void, effect: ctl
 // arg154171 -- static: no, type: u64, effect: none
@@ -171,7 +171,7 @@ def CALL_INDIRECT() {
 // func_index170 -- static: no, type: u64, effect: pop
 // arg157183 -- static: no, type: ⊥, effect: none
 // arg160179 -- static: no, type: u32, effect: none
-// is64168 -- static: yes, type: i32, effect: none
+// is64168 -- static: yes, type: ⊥, effect: none
 // target174 -- static: no, type: ⊥, effect: none
 // arg161167 -- static: yes, type: u32, effect: none
 // arg158181 -- static: yes, type: u32, effect: none

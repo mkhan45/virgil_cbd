@@ -1,5 +1,3 @@
-def TYPE_DEF_FILE: string = "./wizard-engine/src/bytecode/Intrinsics.v3";
-
 def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
     // return ssa;
     match (ssa) {
@@ -8,15 +6,21 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
         Injected(inj, rest) => return SSAD.Injected(inj, transformSSA(rest, ctx));
         LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
         If(c, t, e, phis, rest) => {
+            // TODO: could check for returns and choose not to execute a branch
             if (!ctx.static[c]) {
-                def fv = SSAD_IR.uidl("cond");
+                def fvTrue = SSAD_IR.uidl("cond");
+                def fvFalse = SSAD_IR.uidl("cond");
                 def tp = ctx.types[c];
                 var tp_str = tp.toString();
                 if (tp != CBDType.Bot) tp_str = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
-                def fn = Strings.format1("%s_maybeTrue", tp_str);
-                ctx.static[fv] = false;
-                return SSAD.LetApp(fv, fn, [c],
-                        SSAD.If(fv, transformSSA(t, ctx), transformSSA(e, ctx), phis, transformSSA(rest, ctx)));
+                def fnTrue = Strings.format1("%s_maybeTrue", tp_str);
+                def fnFalse = Strings.format1("%s_maybeFalse", tp_str);
+                ctx.static[fvTrue] = false;
+                ctx.static[fvFalse] = false;
+                return SSAD.LetApp(fvTrue, fnTrue, [c],
+                        SSAD.LetApp(fvFalse, fnFalse, [c],
+                            SSAD.If(fvTrue, transformSSA(t, ctx), SSAD.Void, [],
+                                SSAD.If(fvFalse, transformSSA(e, ctx), SSAD.Void, phis, transformSSA(rest, ctx)))));
             } else {
                 return SSAD.If(c, transformSSA(t, ctx), transformSSA(e, ctx), phis, rest);
             }
@@ -102,7 +106,7 @@ def main(args: Array<string>) {
     def sexpr_file = args[0];
     def v3file = args[1];
 
-    IntrinsicTypes.init(TYPE_DEF_FILE);
+    IntrinsicTypes.init(IntrinsicTypes.TYPE_DEF_FILE);
     def ai_intrinsics = IntrinsicTypes.getIntrinsicTypes("abstract_interpreter/Intrinsics.v3");
     ai_intrinsics.apply(IntrinsicTypes.add_def);
 

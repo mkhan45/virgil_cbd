@@ -17,6 +17,8 @@ V3C ?= ../virgil/bin/v3c-x86-64-linux -fun-exprs -simple-bodies
 GENERATE_LIB = $(wildcard gen_common/*.v3) $(wildcard gen_common/*/*.v3)
 GENERATE_DEPS = $(GENERATE_LIB) $(DEFS) $(DEFS).sexp $(TYPEDEFS)
 
+AIS = $(foreach I,$(wildcard abstract_interpreter/impls/*.v3),$(basename $I)AI.v3)
+
 # Targets
 .PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler abstract_interpreter
 
@@ -73,6 +75,10 @@ run_compiler: compiler/Compiler.v3
 InterpreterMain: interpreter/Interpreter.v3
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
 		runtime_common/*.v3 validator/Validator.v3 interpreter/Interpreter.v3 interpreter/InterpreterMain.v3
+
+%AI:
+	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
+		runtime_common/*.v3 validator/Validator.v3 abstract_interpreter/AbstractInterpreter.v3 abstract_interpreter/impls/$*.v3 -output=$@
 
 # Clean build artifacts
 clean:

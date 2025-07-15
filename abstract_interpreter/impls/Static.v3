@@ -78,8 +78,10 @@ class StaticnessEval extends AI<SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F
         else return SV.U32(false, 0u);
     }
 
-    def I32_maybeTrue(i: SV.I32) => (i.static && i.val == 1) || (!i.static);
-    def U32_maybeTrue(u: SV.U32) => (u.static && u.val == 1) || (!u.static);
+    def I32_maybeTrue(i: SV.I32)  => (i.static && i.val == 1) || (!i.static);
+    def I32_maybeFalse(i: SV.I32) => (i.static && i.val == 0) || (!i.static);
+    def U32_maybeTrue(u: SV.U32)  => (u.static && u.val == 1) || (!u.static);
+    def U32_maybeFalse(u: SV.U32) => (u.static && u.val == 0) || (!u.static);
 
     def unbox_i(v: SV) -> SV.I32 {
         if (SV.U32.?(v)) {

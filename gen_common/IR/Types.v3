@@ -140,6 +140,7 @@ def processTypeString(s: string) -> IntrinsicType {
 }
 
 component IntrinsicTypes {
+    def TYPE_DEF_FILE: string = "./wizard-engine/src/bytecode/Intrinsics.v3";
     var intrinsic_types: HashMap<string, IntrinsicTypedef>;
 
     def init(filename: string) {

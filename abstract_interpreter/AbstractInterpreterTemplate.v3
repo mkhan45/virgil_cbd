@@ -132,7 +132,9 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def U32_and(lhs: U32, rhs: U32) -> U32;
 
     def I32_maybeTrue(i: I32) -> bool;
+    def I32_maybeFalse(i: I32) -> bool;
     def U32_maybeTrue(u: U32) -> bool;
+    def U32_maybeFalse(u: U32) -> bool;
 
     def unbox_i(v: V) -> I32;
     def unbox_l(v: V) -> I64;
