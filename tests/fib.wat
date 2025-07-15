@@ -1,6 +1,6 @@
 (module
-  (func (export "main") (result i32)
-    (call $fib (i32.const 11))
+  (func (export "main") (param i32) (result i32)
+    (call $fib (local.get 0))
   )
   (func $fib (param i32) (result i32)
     (block

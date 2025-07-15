@@ -16,6 +16,26 @@ class Frame {
     }
 }
 
+def main(args: Array<string>) {
+    def filename = args[0];
+    def file_bytes = System.fileLoad(filename);
+
+    var interpreter_args: Array<int> = Array.new(args.length - 1);
+    for (i = 1; i < args.length; i += 1) interpreter_args[i - 1] = Ints.parseDecimal(args[i], 0).1;
+
+    def extensions = Extension.set.all;
+    def limits = Limits.new().set(extensions);
+    def err = ErrorGen.new(filename);
+
+    def bp = BinParser.new(extensions, limits, err, filename);
+
+    def module = bp.push(file_bytes, 0, file_bytes.length).finish();
+
+    def i = AIRunner.init(module, interpreter_args);
+    i.dispatch();
+    AIRunner.on_finish(module, i);
+}
+
 type Cont<V>(frame: Frame, stack: ArrayStack<V>, globals: Vector<V>);
 class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     var module: Module;
@@ -381,7 +401,6 @@ def UNREACHABLE() {
 	def eff00 = trapUnreachable();
 }
 def NOP() {
-	return void;
 }
 def LOCAL_GET() {
 	def index0 = imm_readULEB32();
@@ -510,7 +529,6 @@ def I32_DIV_S() {
 	def cond20 = I32_maybeTrue(cond194);
 	if (cond20) {
 		def ret205 = trapDivideByZero();
-		return ret205;
 	} else {
 	}
 	def arg186 : int = -2_147_483_648;
@@ -523,7 +541,6 @@ def I32_DIV_S() {
 	def cond23 = I32_maybeTrue(cond1112);
 	if (cond23) {
 		def ret1213 = trapDivideUnrepresentable();
-		return ret1213;
 	} else {
 	}
 	def r16 = I32_div(a1, b0);
@@ -538,7 +555,6 @@ def I32_DIV_U() {
 	def cond12 = U32_maybeTrue(cond284);
 	if (cond12) {
 		def ret295 = trapDivideByZero();
-		return ret295;
 	} else {
 	}
 	def r8 = U32_div(a1, b0);
@@ -645,7 +661,6 @@ def BR() {
 	def depth0 = imm_readULEB32();
 	def label2 = f_getLabel(depth0);
 	def ret74 = doBranch(label2);
-	return ret74;
 }
 def BR_IF() {
 	def depth0 = imm_readULEB32();
@@ -653,14 +668,13 @@ def BR_IF() {
 	def cond3 = pop_u32();
 	def arg104 : u32 = 0;
 	def rtcast10 = rtcast_u32(arg104);
-	def cond66 = U32_not_equals(cond3, rtcast10);
-	def cond11 = U32_maybeTrue(cond66);
+	def cond56 = U32_not_equals(cond3, rtcast10);
+	def cond11 = U32_maybeTrue(cond56);
 	if (cond11) {
-		def ret78 = doBranch(label2);
-		return ret78;
+		def ret68 = doBranch(label2);
 	} else {
+		def ret89 = doFallthru();
 	}
-	def eff59 = doFallthru();
 }
 def BLOCK() {
 	def bt0 = imm_readBlockType();
@@ -684,30 +698,25 @@ def IF() {
 	def cond11 = I32_maybeTrue(cond36);
 	if (cond11) {
 		def ret48 = doBranch(label3);
-		return ret48;
 	} else {
 		def ret69 = doFallthru();
-		return ret69;
 	}
 }
 def ELSE() {
 	def arg140 : u32 = 0;
 	def label1 = f_getLabel(arg140);
 	def ret123 = doBranch(label1);
-	return ret123;
 }
 def END() {
 	def eff60 = doEnd();
 	def cond41 = f_isAtEnd();
 	if (cond41) {
 		def ret52 = doReturn();
-		return ret52;
 	} else {
 	}
 }
 def RETURN() {
 	def ret30 = doReturn();
-	return ret30;
 }
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);

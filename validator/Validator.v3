@@ -7,7 +7,6 @@ def UNREACHABLE() {
 def NOP() {
 	// ret23 -- static: no, type: i32, effect: none
 
-	return void;
 }
 def LOCAL_GET() {
 	// eff418 -- static: no, type: void, effect: push
@@ -451,25 +450,24 @@ def BR() {
 	def depth425 = imm_readULEB32();
 	def label427 = f_getLabel(depth425);
 	def ret422429 = doBranch(label427);
-	return ret422429;
 }
 def BR_IF() {
 	// arg436438 -- static: yes, type: u32, effect: none
 // label439 -- static: yes, type: ⊥, effect: none
+// cond430443 -- static: no, type: u32, effect: none
+// arg432444 -- static: yes, type: ⊥, effect: none
 // depth437 -- static: yes, type: u32, effect: read
-// cond431443 -- static: no, type: u32, effect: none
-// arg433444 -- static: yes, type: ⊥, effect: none
+// ret431445 -- static: yes, type: void, effect: ctl
 // arg434442 -- static: no, type: u32, effect: none
-// ret432445 -- static: yes, type: void, effect: ctl
+// ret433446 -- static: yes, type: void, effect: ctl
 // arg435441 -- static: yes, type: u32, effect: none
 // cond440 -- static: no, type: u32, effect: pop
-// eff430446 -- static: yes, type: void, effect: ctl
 
 	def depth437 = imm_readULEB32();
 	def label439 = f_getLabel(depth437);
 	def cond440 = pop_u32();
-	def ret432445 = doBranch(label439);
-	def eff430446 = doFallthru();
+	def ret431445 = doBranch(label439);
+	def ret433446 = doFallthru();
 }
 def BLOCK() {
 	// eff447451 -- static: yes, type: void, effect: ctl
@@ -522,7 +520,6 @@ def ELSE() {
 	def arg481482 : u32 = 0;
 	def label483 = f_getLabel(arg481482);
 	def ret479485 = doBranch(label483);
-	return ret479485;
 }
 def END() {
 	// eff488489 -- static: yes, type: void, effect: ctl
@@ -536,7 +533,6 @@ def RETURN() {
 	// ret492493 -- static: yes, type: void, effect: ctl
 
 	def ret492493 = doReturn();
-	return ret492493;
 }
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);

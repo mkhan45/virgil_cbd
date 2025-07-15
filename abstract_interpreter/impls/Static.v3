@@ -9,7 +9,9 @@ type SV {
 }
 
 class StaticnessEval extends AI<SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F64, SV.REF> {
-    new(module: Module, args: Array<int>) super(module, args) {}
+    new(module: Module, args: Array<int>) super(module, args) {
+        if (args[0] == -1) stack.elems[0] = SV.I32(false, 0);
+    }
 
     def I32_equals(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
         if (lhs.static && rhs.static) return SV.I32(true, if(lhs.val == rhs.val, 1, 0));
@@ -76,6 +78,31 @@ class StaticnessEval extends AI<SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F
         else return SV.U32(false, 0u);
     }
 
+    def I32_maybeTrue(i: SV.I32) => (i.static && i.val == 1) || (!i.static);
+    def U32_maybeTrue(u: SV.U32) => (u.static && u.val == 1) || (!u.static);
+
+    def unbox_i(v: SV) -> SV.I32 {
+        if (SV.U32.?(v)) {
+            def u = SV.U32.!(v);
+            return SV.I32(u.static, i32.view(u.val));
+        } else {
+            return SV.I32.!(v);
+        }
+    }
+    def unbox_l(v: SV) => SV.I64.!(v);
+    def unbox_u(v: SV) -> SV.U32 {
+        if (SV.I32.?(v)) {
+            def i = SV.I32.!(v);
+            return SV.U32(i.static, u32.view(i.val));
+        } else {
+            return SV.U32.!(v);
+        }
+    }
+    def unbox_w(v: SV) => SV.U64.!(v);
+    def unbox_f(v: SV) => SV.F32.!(v);
+    def unbox_d(v: SV) => SV.F64.!(v);
+    def unbox_r(v: SV) => SV.REF.!(v);
+
     def box_i(i: SV.I32) -> SV {
         return i;
     }
@@ -90,5 +117,22 @@ class StaticnessEval extends AI<SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F
 
     def rtcast_u32(u: u32) -> SV.U32 {
         return SV.U32(true, u);
+    }
+}
+
+component AIRunner {
+    def init(m: Module, args: Array<int>) -> AI<SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F64, SV.REF> {
+        return StaticnessEval.new(m, args);
+    }
+
+    def on_finish(m: Module, i: AI<SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F64, SV.REF>) {
+        def i = StaticnessEval.!(i);
+        def stack = i.stack;
+        def stack_top = stack.pop();
+        def x = i.unbox_i(stack_top);
+        System.puts("stack top: ");
+        if (x.static) System.puti(x.val);
+        else System.puts("not static");
+        System.ln();
     }
 }

@@ -183,8 +183,8 @@ component SSAD_IR {
                 return;
             }
             Final(v) => {
-                for (i < indent) buf.tab();
-                buf.puts("return ").puts(v).puts(";\n");
+                // for (i < indent) buf.tab();
+                // buf.puts(v).puts(";\n");
             }
             If(c, t, e, ps, r) => {
                 for (i < indent) buf.tab();
