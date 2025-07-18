@@ -23,3 +23,8 @@ class CBDFunction {
     }
 }
 
+class CBDFunctionI extends CBDFunction {
+    var fn_idx: int;
+
+    new(decl: FuncDecl, fn_idx: int) super(decl) {}
+}

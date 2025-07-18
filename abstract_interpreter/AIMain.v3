@@ -13,13 +13,7 @@ def main(args: Array<string>) {
 
     def module = bp.push(file_bytes, 0, file_bytes.length).finish();
 
-    Interpreter.init(module, interpreter_args);
-    Interpreter.dispatch();
-
-    System.puts("stack top: ");
-    match (Interpreter.get_stack().peek()) {
-        I32(i) => System.puti(i32.view(i));
-        _ => {}
-    }
-    System.ln();
+    def i = AIRunner.init(module, interpreter_args);
+    i.dispatch();
+    AIRunner.on_finish(module, i);
 }

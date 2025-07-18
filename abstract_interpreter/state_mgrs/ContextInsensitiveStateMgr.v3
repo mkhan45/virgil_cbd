@@ -1,0 +1,98 @@
+class ContextInsensitiveStateMgr<V, I32, I64, U32, U64, F32, F64, REF> extends StateManager<V, I32, I64, U32, U64, F32, F64, REF> {
+    var states: Vector<Vector<State<V>>>; // [function][pc]
+    var worklist: ArrayStack<Frame>;
+    var shouldBreak: bool;
+
+    def init(frame: Frame) {
+        current_frame = frame;
+        worklist.push(frame);
+    }
+
+    new(module: Module) {
+        states = Vector.new();
+        for (i < module.functions.length) {
+            states.put(Vector.new());
+            def codelen = module.functions[i].orig_bytecode.length;
+            for (j < codelen) states[i].put(null);
+        }
+        worklist = ArrayStack<Frame>.new();
+        shouldBreak = false;
+    }
+
+    // TODO: some extra deep copies here if it's ok to modify the passed state
+    def merge_here(state: State<V>) {
+        if (states[current_frame.fn_idx][current_frame.codeptr.pos] == null) {
+            states[current_frame.fn_idx][current_frame.codeptr.pos] = state.dup();
+        } else {
+            // TODO: break iff there was no change
+            ai.merge_into(states[current_frame.fn_idx][current_frame.codeptr.pos], state);
+            shouldBreak = true;
+        }
+        ai.set_current_state(states[current_frame.fn_idx][current_frame.codeptr.pos].dup());
+    }
+
+    def branch(state: State<V>) {
+        def ste = current_frame.sidetable.getBrEntry(current_frame.stp);
+        current_frame.codeptr.at(current_frame.codeptr.pos + ste.dpc);
+        current_frame.stp += ste.dstp;
+        merge_here(state);
+    }
+    def fallthru(state: State<V>) {
+        current_frame.stp += 4;
+        merge_here(state);
+    }
+    def call(target: CBDFunctionI, state: State<V>) {
+        def num_args = target.args.length;
+        def args_start = state.stack.top - num_args;
+        state.stack.top = args_start;
+        merge_here(state); // save caller state, so we can get it on return
+
+        def new_frame = Frame.new(current_frame, target.fn_idx).init(target);
+        current_frame = new_frame;
+        def new_stack = ArrayStack<V>.new();
+        for (i < num_args) new_stack.push(state.stack.elems[args_start + i]);
+        def new_stps = ArrayStack<TypeVar>.new();
+        for (i < target.args.length) new_stps.push(target.args[i]);
+        def new_state = State<V>.new(new_stack, state.globals, new_stps, state.global_types);
+        merge_here(new_state); // merge args into callee
+    }
+    def ret(state: State<V>) {
+        // the state after return has a stack of just rets
+        def count = current_frame.num_rets;
+        def new_stack = ArrayStack<V>.new();
+        def new_stps = ArrayStack<TypeVar>.new();
+        for (i = state.stack.top - count; i < state.stack.top; i += 1) new_stack.push(state.stack.elems[i]);
+        for (i = state.stack.top - count; i < state.stack.top; i += 1) new_stps.push(state.stack_types.elems[i]);
+        def new_state = State<V>.new(new_stack, state.globals, new_stps, state.global_types);
+
+        // TODO: idk if we actually want to merge into an abstract return,
+        // maybe the current return site is better
+        // set the codeptr to end of fn, designated as fn abstract return,
+        // current_frame.codeptr.at(current_frame.codeptr.data.limit - 1);
+        merge_here(new_state);
+        def merged_rets = ai.current_state().stack;
+        def merged_rtps = ai.current_state().stack_types;
+
+        current_frame = current_frame.parent;
+        for (i < merged_rets.top) ai.push_Value(merged_rtps.elems[i], merged_rets.elems[i]);
+        // merge_here(ai.current_state());
+    }
+    def block(bt: (Array<ValueType>, Array<ValueType>), state: State<V>) {}
+    def loop(bt: (Array<ValueType>, Array<ValueType>), state: State<V>) {
+        merge_here(state);
+    }
+    def startIf(bt: (Array<ValueType>, Array<ValueType>), state: State<V>) {}
+    def end(state: State<V>) {
+        merge_here(state);
+    }
+    def hasNextCont() -> bool {
+        return !worklist.empty();
+    }
+    def startNextCont() {
+        current_frame = worklist.pop();
+        shouldBreak = false;
+    }
+    def shouldFinishCont() -> bool {
+        return shouldBreak;
+    }
+}

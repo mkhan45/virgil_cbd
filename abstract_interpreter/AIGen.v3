@@ -7,6 +7,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
         LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
         If(c, t, e, phis, rest) => {
             // TODO: could check for returns and choose not to execute a branch
+            // TODO: have to do stack phis
             if (!ctx.static[c]) {
                 def fvTrue = SSAD_IR.uidl("cond");
                 def fvFalse = SSAD_IR.uidl("cond");

@@ -42,6 +42,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                     F64 => prefix = if(is_rt, "EmitOpF64", "f64");
                     Void => prefix = if(is_rt, "TypeVar", "Bot");
                     Bot => prefix = if(is_rt, "TypeVar", "Bot");
+                    REF => prefix = if(is_rt, "EmitObject", "Bot");
                 }
                 var op: string;
                 if (Strings.equal(f, "==")) op = "equals";

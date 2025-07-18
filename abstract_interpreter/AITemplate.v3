@@ -1,63 +1,93 @@
+// TODO: frames need to have their own stack, don't include
+// values before the fp
 class Frame {
     var parent: Frame;
-    var fp: int;
     var sidetable: Sidetable;
     var stp: int;
     var codeptr: CodePtr;
     var num_rets: int;
+    var fn_idx: int;
 
-    new(parent: Frame, stack_top: int, fn: CBDFunction) {
-        fp = stack_top - fn.args.length;
+    new(parent: Frame, fn_idx: int) { }
+
+    def init(fn: CBDFunctionI) -> this {
         sidetable = fn.sidetable;
         stp = 0;
         codeptr = CodePtr.new(fn.code);
         num_rets = fn.rets.length;
+        fn_idx = fn.fn_idx;
+    }
+
+    def dup() -> Frame {
+        def f = Frame.new(parent, fn_idx); 
+        f.sidetable = sidetable;
+        f.stp = stp;
+        f.codeptr = codeptr.dup();
+        f.num_rets = num_rets;
+        return f;
     }
 }
 
-def main(args: Array<string>) {
-    def filename = args[0];
-    def file_bytes = System.fileLoad(filename);
-
-    var interpreter_args: Array<int> = Array.new(args.length - 1);
-    for (i = 1; i < args.length; i += 1) interpreter_args[i - 1] = Ints.parseDecimal(args[i], 0).1;
-
-    def extensions = Extension.set.all;
-    def limits = Limits.new().set(extensions);
-    def err = ErrorGen.new(filename);
-
-    def bp = BinParser.new(extensions, limits, err, filename);
-
-    def module = bp.push(file_bytes, 0, file_bytes.length).finish();
-
-    def i = AIRunner.init(module, interpreter_args);
-    i.dispatch();
-    AIRunner.on_finish(module, i);
+class State<V>(stack: ArrayStack<V>, globals: Vector<V>, stack_types: ArrayStack<TypeVar>, global_types: Vector<TypeVar>) {
+    // should maybe be inheritable?
+    def dup() -> State<V> {
+        def new_stack = ArrayStack<V>.new();
+        for (i < stack.top) new_stack.push(stack.elems[i]);
+        def new_sts = ArrayStack<TypeVar>.new();
+        for (i < stack_types.top) new_sts.push(stack_types.elems[i]);
+        def new_globals = Vector<V>.new();
+        for (i < globals.length) new_globals.put(globals[i]);
+        def new_gts = Vector<TypeVar>.new();
+        for (i < global_types.length) new_gts.put(global_types[i]);
+        return State<V>.new(new_stack, new_globals, new_sts, new_gts);
+    }
 }
+class StateManager<V, I32, I64, U32, U64, F32, F64, REF> {
+    var current_frame: Frame;
+    var ai: AI<V, I32, I64, U32, U64, F32, F64, REF>;
 
-type Cont<V>(frame: Frame, stack: ArrayStack<V>, globals: Vector<V>);
+    def init(frame: Frame);
+    def branch(state: State<V>);
+    def fallthru(state: State<V>);
+    def call(target: CBDFunctionI, state: State<V>);
+    def ret(state: State<V>);
+    def block(bt: (Array<ValueType>, Array<ValueType>), state: State<V>);
+    def loop(bt: (Array<ValueType>, Array<ValueType>), state: State<V>);
+    def startIf(bt: (Array<ValueType>, Array<ValueType>), state: State<V>);
+    def end(state: State<V>);
+    def hasNextCont() -> bool;
+    def startNextCont();
+    def shouldFinishCont() -> bool;
+}
 class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     var module: Module;
-    var functions: Vector<CBDFunction>;
+    var functions: Vector<CBDFunctionI>;
 
-    var current_frame: Frame; // maybe should be current cont
     var DISPATCH_TABLE: Array<void -> void>;
+
+    // maybe should be owned by state_manager?
+    // it feels like they should be observed but not changed by state manager
     var stack: ArrayStack<V>;
+    var stack_types: ArrayStack<TypeVar>;
     var globals: Vector<V>;
+    var global_types: Vector<TypeVar>;
+    def current_state() => State<V>.new(stack, globals, stack_types, global_types);
+    def set_current_state(s: State<V>) {
+        stack = s.stack;
+        stack_types = s.stack_types;
+        globals = s.globals;
+        global_types = s.global_types;
+    }
 
-    var worklist: ArrayStack<Cont<V>>;
-    var should_break_inner_loop: bool;
+    var state_manager: StateManager<V, I32, I64, U32, U64, F32, F64, REF>;
+    def current_frame() => state_manager.current_frame;
 
-    new(module: Module, args: Array<int>) {
+    new(module: Module, state_manager, args: Array<int>) {
+        state_manager.ai = this;
         DISPATCH_TABLE = build_dispatch_table();
 
-        var main_idx = -1;
-        for (i < module.exports.length) {
-            if (Strings.equal(module.exports[i].0, "main")) main_idx = FuncDecl.!(module.exports[i].1).func_index;
-        }
-
-        functions = Vector<CBDFunction>.new();
-        for (i < module.functions.length) functions.put(CBDFunction.new(module.functions[i]));
+        functions = Vector<CBDFunctionI>.new();
+        for (i < module.functions.length) functions.put(CBDFunctionI.new(module.functions[i], i));
 
         Validator.init(module, args);
         
@@ -72,12 +102,19 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
         }
 
         stack = ArrayStack<V>.new();
+        stack_types = ArrayStack<TypeVar>.new();
         for (arg in args) stack.push(box_i(rtcast_i32(arg)));
-        current_frame = Frame.new(null, stack.top, functions[main_idx]);
-        
-        worklist = ArrayStack<Cont<V>>.new();
+        for (arg in args) stack_types.push(TypeVar.I32);
+
+        var main_idx = -1;
+        for (i < module.exports.length) {
+            if (Strings.equal(module.exports[i].0, "main")) main_idx = FuncDecl.!(module.exports[i].1).func_index;
+        }
+        state_manager.init(Frame.new(null, main_idx).init(functions[main_idx]));
+        current_frame().codeptr.iterate_local_codes(push_locals);
         
         globals = Vector<V>.new();
+        global_types = Vector<TypeVar>.new();
         for (i < module.globals.length) {
             def module_global = module.globals[i];
             // TODO: full eval initexpr
@@ -85,33 +122,22 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
                 I32(v) => globals.put(box_i(rtcast_i32(v)));
                 _ => globals.put(box_i(rtcast_i32(0)));
             }
+            global_types.put(TypeVar.I32);
         }
     }
 
     def dispatch() {
-        // Initialize the worklist with the starting state
-        current_frame.codeptr.iterate_local_codes(push_locals);
-        def new_stack = ArrayStack<V>.new();
-        for (i < stack.top) new_stack.push(stack.elems[i]);
-        def new_globals = Vector<V>.new();
-        new_globals.array = globals.copy();
-        new_globals.length = globals.length;
-        worklist.push(Cont<V>(current_frame, new_stack, new_globals));
-        
-        // Outer loop: process continuations from worklist
-        while (!worklist.empty()) {
-            def cont = worklist.pop();
-            current_frame = cont.frame;
-            stack = cont.stack;
-            globals = cont.globals;
-            should_break_inner_loop = false;
-            
-            // Inner loop: process instructions until branch/return/end
-            while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length && !should_break_inner_loop) {
-                def op = current_frame.codeptr.read_opcode();
+        while (state_manager.hasNextCont()) {
+            state_manager.startNextCont();
+
+            while (
+                    current_frame().codeptr.pos < current_frame().codeptr.data.length && 
+                    !state_manager.shouldFinishCont()
+            ) {
+                def op = current_frame().codeptr.read_opcode();
                 // print_stack();
-                // System.puts(op.mnemonic);
-                // System.ln();
+                System.puts(op.mnemonic);
+                System.ln();
                 DISPATCH_TABLE[op.code]();
             }
         }
@@ -144,6 +170,40 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def unbox_d(v: V) -> F64;
     def unbox_r(v: V) -> REF;
 
+    def merge_i(lhs: I32, rhs: I32) -> I32;
+    def merge_l(lhs: I64, rhs: I64) -> I64;
+    def merge_u(lhs: U32, rhs: U32) -> U32;
+    def merge_w(lhs: U64, rhs: U64) -> U64;
+    def merge_f(lhs: F32, rhs: F32) -> F32;
+    def merge_d(lhs: F64, rhs: F64) -> F64;
+    def merge_r(lhs: REF, rhs: REF) -> REF;
+    def merge_val(tv: TypeVar, lhs: V, rhs: V) -> V {
+        match (tv) {
+            I32 => return box_i(merge_i(unbox_i(lhs), unbox_i(rhs)));
+            I64 => return box_l(merge_l(unbox_l(lhs), unbox_l(rhs)));
+            U32 => return box_u(merge_u(unbox_u(lhs), unbox_u(rhs)));
+            U64 => return box_w(merge_w(unbox_w(lhs), unbox_w(rhs)));
+            F32 => return box_f(merge_f(unbox_f(lhs), unbox_f(rhs)));
+            F64 => return box_d(merge_d(unbox_d(lhs), unbox_d(rhs)));
+            _ => {
+                invalid();
+                return lhs;
+            }
+        }
+    }
+
+    // TODO: return whether or not there was a change
+    def merge_into(dst: State<V>, src: State<V>) {
+        for (i < dst.stack.top) {
+            def tv = dst.stack_types.elems[i];
+            dst.stack.elems[i] = merge_val(tv, dst.stack.elems[i], src.stack.elems[i]);
+        }
+        for (i < dst.globals.length) {
+            def tv = dst.global_types[i];
+            dst.globals[i] = merge_val(tv, dst.globals[i], src.globals[i]);
+        }
+    }
+
     def box_i(v: I32) -> V;
     def box_u(v: U32) -> V;
     def box_l(v: I64) -> V;
@@ -168,27 +228,27 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     }
 
     def imm_readULEB32() -> u32 {
-        return current_frame.codeptr.read_uleb32();
+        return current_frame().codeptr.read_uleb32();
     }
 
     def imm_readILEB32() -> i32 {
-        return i32.!(current_frame.codeptr.read_uleb32());
+        return i32.!(current_frame().codeptr.read_uleb32());
     }
 
     def imm_readULEB64() -> u64 {
-        return current_frame.codeptr.read_uleb64();
+        return current_frame().codeptr.read_uleb64();
     }
 
     def imm_readILEB64() -> i64 {
-        return i64.!(current_frame.codeptr.read_uleb64());
+        return i64.!(current_frame().codeptr.read_uleb64());
     }
 
     def imm_readU8() -> u8 {
-        return current_frame.codeptr.read1();
+        return current_frame().codeptr.read1();
     }
 
     def imm_readBlockType() -> (Array<ValueType>, Array<ValueType>) {
-        def bt = current_frame.codeptr.read_BlockTypeCode();
+        def bt = current_frame().codeptr.read_BlockTypeCode();
         return bt.toAbstractBlockType(module);
     }
 
@@ -214,49 +274,56 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def pop_Object() -> REF {
         return unbox_r(stack.pop());
     }
-    def pop_Value(tv: ()) -> V {
+    def pop_Value(tv: TypeVar) -> V {
         return stack.pop();
     }
 
     def push_i32(v: I32) {
         stack.push(box_i(v));
+        stack_types.push(TypeVar.I32);
     }
     def push_u32(v: U32) {
         stack.push(box_u(v));
+        stack_types.push(TypeVar.U32);
     }
     def push_i64(v: I64) {
         stack.push(box_l(v));
+        stack_types.push(TypeVar.I64);
     }
     def push_u64(v: U64) {
         stack.push(box_w(v));
+        stack_types.push(TypeVar.U64);
     }
     def push_f32(v: F32) {
         stack.push(box_f(v));
+        stack_types.push(TypeVar.F32);
     }
     def push_f64(v: F64) {
         stack.push(box_d(v));
+        stack_types.push(TypeVar.F64);
     }
     def push_v128(v: ());
     def push_Object(v: REF) {
         stack.push(box_ref(v));
     }
-    def push_Value(tv: (), v: V) {
+    def push_Value(tv: TypeVar, v: V) {
         stack.push(v);
+        stack_types.push(tv);
     }
 
     // Local variables.
-    def getLocal(tv: (), index: u32) -> V {
-        return stack.elems[current_frame.fp + int.!(index)];
+    def getLocal(tv: TypeVar, index: u32) -> V {
+        return stack.elems[int.!(index)];
     }
-    def setLocal(tv: (), index: u32, v: V) {
-        stack.elems[current_frame.fp + int.!(index)] = v;
+    def setLocal(tv: TypeVar, index: u32, v: V) {
+        stack.elems[int.!(index)] = v;
     }
 
     // Global variables.
-    def getGlobal(tv: (), index: u32) -> V {
+    def getGlobal(tv: TypeVar, index: u32) -> V {
         return globals[int.!(index)];
     }
-    def setGlobal(tv: (), index: u32, v: V) {
+    def setGlobal(tv: TypeVar, index: u32, v: V) {
         globals[int.!(index)] = v;
     }
 
@@ -265,17 +332,17 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
         return ();
     }
 
-    def f_getLocalType(index: u32) -> () {
-        return ();
+    def f_getLocalType(index: u32) -> TypeVar {
+        return stack_types.elems[int.!(index)];
     }
 
-    def f_getTopOfStackType() -> () {
-        return ();
+    def f_getTopOfStackType() -> TypeVar {
+        return stack_types.peek();
     }
 
     // Module context.
-    def m_getGlobalType(index: u32) -> () {
-        return ();
+    def m_getGlobalType(index: u32) -> TypeVar {
+        return global_types[int.!(index)];
     }
     def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
     def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset;
@@ -287,53 +354,31 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def m_getSignature(sig_index: u32) -> SigDecl;
 
     // Instance context.
-    def i_getTableFunction64(table_index: u32, sig: SigDecl, func_index: U64) -> CBDFunction;
-    def i_getTableFunction32(table_index: u32, sig: SigDecl, func_index: U32) -> CBDFunction;
-    def i_getFunction(func_index: u32) -> CBDFunction {
+    def i_getTableFunction64(table_index: u32, sig: SigDecl, func_index: U64) -> CBDFunctionI;
+    def i_getTableFunction32(table_index: u32, sig: SigDecl, func_index: U32) -> CBDFunctionI;
+    def i_getFunction(func_index: u32) -> CBDFunctionI {
         return functions[int.!(func_index)];
     }
 
     // Control flow.
-    def doCall(sig: SigDecl, target: CBDFunction) {
-        def new_frame = Frame.new(current_frame, stack.top, target);
-        current_frame = new_frame;
-        current_frame.codeptr.iterate_local_codes(push_locals);
+    def doCall(sig: SigDecl, target: CBDFunctionI) {
+        state_manager.call(target, current_state());
+        current_frame().codeptr.iterate_local_codes(push_locals);
     }
 
     def doBranch(label: ()) {
-        // TODO: merge current state into label
-
-        // doCtlXfer
-        def ste = current_frame.sidetable.getBrEntry(current_frame.stp);
+        def ste = current_frame().sidetable.getBrEntry(current_frame().stp);
         
-        // Create new frame with updated code pointer and sidetable pointer
-        // TODO: change frame constructor?
-        def new_frame = Frame.new(current_frame.parent, stack.top, functions[0]);
-        new_frame.fp = current_frame.fp;
-        new_frame.sidetable = current_frame.sidetable;
-        new_frame.stp = current_frame.stp + ste.dstp;
-        new_frame.codeptr = current_frame.codeptr.dup();
-        new_frame.codeptr.at(current_frame.codeptr.pos + ste.dpc);
-        new_frame.num_rets = current_frame.num_rets;
-        
-        // Handle stack adjustments
         if (ste.popcount > 0) {
             if (ste.valcount > 0) copyVals(ste.valcount, stack.top - int.!(ste.popcount + ste.valcount));
             else stack.top -= ste.popcount;
         }
         
-        // Add continuation to worklist and break inner loop
-        def new_stack = ArrayStack<V>.new();
-        for (i < stack.top) new_stack.push(stack.elems[i]);
-        def new_globals = Vector<V>.new();
-        new_globals.array = globals.copy();
-        new_globals.length = globals.length;
-        worklist.push(Cont(new_frame, new_stack, new_globals));
-        should_break_inner_loop = true;
+        state_manager.branch(current_state());
     }
 
     def doFallthru() {
-        current_frame.stp += 4;
+        state_manager.fallthru(current_state());
     }
 
     // Machine intrinsics.
@@ -361,23 +406,23 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def trapDivideUnrepresentable();
 
     def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
+        state_manager.block(bt, current_state());
     }
 
     def doLoop(bt: (Array<ValueType>, Array<ValueType>)) {
+        state_manager.loop(bt, current_state());
     }
 
     def doIf(bt: (Array<ValueType>, Array<ValueType>)) {
+        state_manager.startIf(bt, current_state());
     }
 
     def doEnd() {
-        // CBD calls doReturn if at end
+        state_manager.end(current_state());
     }
 
     def doReturn() {
-        def count = current_frame.num_rets;
-        def dest = current_frame.fp;
-        copyVals(count, dest);
-        current_frame = current_frame.parent;
+        state_manager.ret(current_state());
     }
 
     def doTry(bt: (Array<ValueType>, Array<ValueType>)) {
@@ -385,7 +430,7 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     }
 
     def f_isAtEnd() -> bool {
-        return current_frame.codeptr.pos >= current_frame.codeptr.data.length;
+        return current_frame().codeptr.pos >= current_frame().codeptr.data.length;
     }
 
     def push_locals(count: u32, vtc: ValueTypeCode) {

@@ -5,6 +5,7 @@ type CBDType {
     case U64;
     case F32;
     case F64;
+    case REF;
     case Void;
     case Bot;
 
@@ -16,6 +17,7 @@ type CBDType {
             U64 => return "u64";
             F32 => return "f32";
             F64 => return "f64";
+            REF => return "ref";
             Void => return "void";
             Bot => return "⊥";
         }
