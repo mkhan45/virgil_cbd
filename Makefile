@@ -41,14 +41,14 @@ interpreter/Interpreter.v3: $(GENERATE_DEPS) interpreter/InterpreterGen.v3 inter
 		$(DEFS).sexp $(DEFS) interpreter/InterpreterTemplate.v3\
 		> interpreter/Interpreter.v3
 
-compiler/Compiler.v3: $(GENERATE_DEPS) compiler/CompilerGen.v3 compiler/CompilerTemplate.v3 validator/Validator.v3
+compiler/Compiler.v3: $(GENERATE_DEPS) compiler/CompilerGen.v3 compiler/CompilerTemplate.v3 validator/Validator.v3 compiler/Intrinsics.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		compiler/CompilerGen.v3\
 		$(DEFS).sexp $(DEFS) compiler/CompilerTemplate.v3\
 		> compiler/Compiler.v3
 
-abstract_interpreter/AI.v3: $(GENERATE_DEPS) abstract_interpreter/AIGen.v3 abstract_interpreter/AITemplate.v3 validator/Validator.v3
+abstract_interpreter/AI.v3: $(GENERATE_DEPS) abstract_interpreter/AIGen.v3 abstract_interpreter/AITemplate.v3 validator/Validator.v3 abstract_interpreter/Intrinsics.v3
 	$(VIRGIL) $(VIRGIL_STD) \
 		$(GENERATE_LIB)\
 		abstract_interpreter/AIGen.v3\

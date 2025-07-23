@@ -212,7 +212,8 @@ def DROP() {
 }
 def SELECT() {
 	// c0 -- static: no, type: u32, effect: pop
-// cond38 -- static: no, type: u32, effect: none
+// cond38 -- static: no, type: u32, effect: emit
+// rtcast15 -- static: no, type: u32, effect: none
 // tv1 -- static: yes, type: ⊥, effect: none
 // eff714 -- static: no, type: void, effect: push
 // arg912 -- static: no, type: ⊥, effect: none
@@ -232,65 +233,68 @@ def SELECT() {
 	def b3 = pop_Value(tv1);
 	def a5 = pop_Value(tv1);
 	def arg116 : u32 = 0u;
-	def cond38 = u32.!=(c0, arg116);
-	def stack_phi15 = emitFwdI32();
-	def if19 = emitIf(cond38);
+	def rtcast15 = rtcast_u32(arg116);
+	def cond38 = EmitOpU32.not_equals(c0, rtcast15);
+	def stack_phi16 = emitFwdI32();
+	def if20 = emitIf(cond38);
 	def eff411 = push_Value(tv1, a5);
-	def phi_pop16 = emitPopAssign(stack_phi15);
-	def else20 = emitElse();
+	def phi_pop17 = emitPopAssign(stack_phi16);
+	def else21 = emitElse();
 	def eff714 = push_Value(tv1, b3);
-	def phi_pop17 = emitPopAssign(stack_phi15);
-	def endBrace21 = emitEnd();
-	def phi_push18 = push_i32(stack_phi15);
+	def phi_pop18 = emitPopAssign(stack_phi16);
+	def endBrace22 = emitEnd();
+	def phi_push19 = push_i32(stack_phi16);
 }
 def I32_CONST() {
-	// x0 -- static: yes, type: i32, effect: read
-// eff222 -- static: yes, type: void, effect: push
-// arg231 -- static: yes, type: i32, effect: none
+	// arg241 -- static: yes, type: i32, effect: none
+// rtcast3 -- static: no, type: i32, effect: none
+// x0 -- static: yes, type: i32, effect: read
+// eff232 -- static: yes, type: void, effect: push
 
 	def x0 = imm_readILEB32();
-	def eff222 = push_i32(x0);
+	def rtcast3 = rtcast_i32(x0);
+	def eff232 = push_i32(rtcast3);
 }
 def I32_ADD() {
-	// arg53 -- static: no, type: u32, effect: none
-// arg62 -- static: no, type: u32, effect: none
-// r4 -- static: no, type: u32, effect: none
-// eff36 -- static: no, type: void, effect: push
+	// arg63 -- static: no, type: u32, effect: none
+// arg72 -- static: no, type: u32, effect: none
+// r4 -- static: no, type: u32, effect: emit
 // a1 -- static: no, type: u32, effect: pop
-// arg45 -- static: no, type: u32, effect: none
+// eff46 -- static: no, type: void, effect: push
+// arg55 -- static: no, type: u32, effect: none
 // b0 -- static: no, type: u32, effect: pop
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def r4 = u32.+(a1, b0);
-	def eff36 = push_u32(r4);
+	def r4 = EmitOpU32.plus(a1, b0);
+	def eff46 = push_u32(r4);
 }
 def I32_SUB() {
 	// eff76 -- static: no, type: void, effect: push
 // arg85 -- static: no, type: u32, effect: none
 // arg93 -- static: no, type: u32, effect: none
-// r4 -- static: no, type: u32, effect: none
+// r4 -- static: no, type: u32, effect: emit
 // arg102 -- static: no, type: u32, effect: none
 // a1 -- static: no, type: u32, effect: pop
 // b0 -- static: no, type: u32, effect: pop
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def r4 = u32.-(a1, b0);
+	def r4 = EmitOpU32.minus(a1, b0);
 	def eff76 = push_u32(r4);
 }
 def I32_MUL() {
 	// eff76 -- static: no, type: void, effect: push
 // arg85 -- static: no, type: u32, effect: none
 // arg93 -- static: no, type: u32, effect: none
-// r4 -- static: no, type: u32, effect: none
+// r4 -- static: no, type: u32, effect: emit
 // arg102 -- static: no, type: u32, effect: none
 // a1 -- static: no, type: u32, effect: pop
 // b0 -- static: no, type: u32, effect: pop
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def r4 = u32.*(a1, b0);
+	def r4 = EmitOpU32.times(a1, b0);
 	def eff76 = push_u32(r4);
 }
 def I32_DIV_S() {
@@ -300,232 +304,266 @@ def I32_DIV_S() {
 // ret1213 -- static: yes, type: void, effect: ctl
 // arg915 -- static: no, type: i32, effect: none
 // ret205 -- static: yes, type: void, effect: ctl
-// cond1112 -- static: no, type: ⊥, effect: none
-// arg148 -- static: no, type: i32, effect: none
+// cond1112 -- static: no, type: ⊥, effect: emit
+// rtcast24 -- static: no, type: i32, effect: none
+// rtcast23 -- static: no, type: i32, effect: none
+// arg148 -- static: no, type: i32, effect: emit
 // arg213 -- static: no, type: i32, effect: none
 // arg169 -- static: yes, type: i32, effect: none
-// r16 -- static: no, type: i32, effect: none
-// cond194 -- static: no, type: i32, effect: none
+// r16 -- static: no, type: i32, effect: emit
+// cond194 -- static: no, type: i32, effect: emit
 // a1 -- static: no, type: i32, effect: pop
 // arg222 -- static: yes, type: i32, effect: none
 // arg1510 -- static: no, type: i32, effect: none
 // arg177 -- static: no, type: i32, effect: none
-// arg1311 -- static: no, type: i32, effect: none
+// arg1311 -- static: no, type: i32, effect: emit
 // arg1014 -- static: no, type: i32, effect: none
+// rtcast19 -- static: no, type: i32, effect: none
 // b0 -- static: no, type: i32, effect: pop
 
 	def b0 = pop_i32();
 	def a1 = pop_i32();
 	def arg222 : int = 0;
-	def cond194 = i32.==(b0, arg222);
-	def if19 = emitIf(cond194);
+	def rtcast19 = rtcast_i32(arg222);
+	def cond194 = EmitOpI32.equals(b0, rtcast19);
+	def if20 = emitIf(cond194);
 	def ret205 = trapDivideByZero();
-	def else20 = emitElse();
-	def endBrace21 = emitEnd();
+	def else21 = emitElse();
+	def endBrace22 = emitEnd();
 	def arg186 : int = -2_147_483_648;
-	def arg148 = i32.==(a1, arg186);
+	def rtcast23 = rtcast_i32(arg186);
+	def arg148 = EmitOpI32.equals(a1, rtcast23);
 	def arg169 : int = -1;
-	def arg1311 = i32.==(b0, arg169);
-	def cond1112 = bool.&&(arg1311, arg148);
-	def if22 = emitIf(cond1112);
+	def rtcast24 = rtcast_i32(arg169);
+	def arg1311 = EmitOpI32.equals(b0, rtcast24);
+	def cond1112 = EmitOpV.and(arg1311, arg148);
+	def if25 = emitIf(cond1112);
 	def ret1213 = trapDivideUnrepresentable();
-	def else23 = emitElse();
-	def endBrace24 = emitEnd();
-	def r16 = i32./(a1, b0);
+	def else26 = emitElse();
+	def endBrace27 = emitEnd();
+	def r16 = EmitOpI32.div(a1, b0);
 	def eff718 = push_i32(r16);
 }
 def I32_DIV_U() {
-	// ret305 -- static: yes, type: void, effect: ctl
-// r8 -- static: no, type: u32, effect: none
-// arg313 -- static: no, type: u32, effect: none
-// arg269 -- static: no, type: u32, effect: none
-// cond294 -- static: no, type: u32, effect: none
-// arg322 -- static: yes, type: u32, effect: none
+	// cond324 -- static: no, type: u32, effect: emit
+// ret335 -- static: yes, type: void, effect: ctl
+// arg307 -- static: no, type: u32, effect: none
+// rtcast11 -- static: no, type: u32, effect: none
+// arg316 -- static: no, type: u32, effect: none
+// r8 -- static: no, type: u32, effect: emit
+// eff2810 -- static: no, type: void, effect: push
 // a1 -- static: no, type: u32, effect: pop
-// arg277 -- static: no, type: u32, effect: none
+// arg343 -- static: no, type: u32, effect: none
+// arg299 -- static: no, type: u32, effect: none
 // b0 -- static: no, type: u32, effect: pop
-// arg286 -- static: no, type: u32, effect: none
-// eff2510 -- static: no, type: void, effect: push
+// arg352 -- static: yes, type: u32, effect: none
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def arg322 : u32 = 0u;
-	def cond294 = u32.==(b0, arg322);
-	def if11 = emitIf(cond294);
-	def ret305 = trapDivideByZero();
-	def else12 = emitElse();
-	def endBrace13 = emitEnd();
-	def r8 = u32./(a1, b0);
-	def eff2510 = push_u32(r8);
+	def arg352 : u32 = 0u;
+	def rtcast11 = rtcast_u32(arg352);
+	def cond324 = EmitOpU32.equals(b0, rtcast11);
+	def if12 = emitIf(cond324);
+	def ret335 = trapDivideByZero();
+	def else13 = emitElse();
+	def endBrace14 = emitEnd();
+	def r8 = EmitOpU32.div(a1, b0);
+	def eff2810 = push_u32(r8);
 }
 def I32_EQZ() {
-	// arg164 -- static: yes, type: u32, effect: none
-// arg186 -- static: yes, type: u32, effect: none
-// arg192 -- static: no, type: u32, effect: none
-// cond143 -- static: no, type: u32, effect: none
-// arg201 -- static: yes, type: u32, effect: none
-// eff155 -- static: yes, type: void, effect: push
-// eff177 -- static: yes, type: void, effect: push
+	// arg174 -- static: yes, type: u32, effect: none
+// arg196 -- static: yes, type: u32, effect: none
+// rtcast16 -- static: no, type: u32, effect: none
+// rtcast14 -- static: no, type: u32, effect: none
+// cond153 -- static: no, type: u32, effect: emit
+// arg202 -- static: no, type: u32, effect: none
+// arg211 -- static: yes, type: u32, effect: none
 // a0 -- static: no, type: u32, effect: pop
+// eff165 -- static: yes, type: void, effect: push
+// eff187 -- static: yes, type: void, effect: push
+// rtcast8 -- static: no, type: u32, effect: none
 
 	def a0 = pop_u32();
-	def arg201 : u32 = 0;
-	def cond143 = u32.==(a0, arg201);
-	def stack_phi8 = emitFwdI32();
-	def if12 = emitIf(cond143);
-	def arg164 : u32 = 1;
-	def eff155 = push_u32(arg164);
-	def phi_pop9 = emitPopAssign(stack_phi8);
-	def else13 = emitElse();
-	def arg186 : u32 = 0;
-	def eff177 = push_u32(arg186);
-	def phi_pop10 = emitPopAssign(stack_phi8);
-	def endBrace14 = emitEnd();
-	def phi_push11 = push_i32(stack_phi8);
+	def arg211 : u32 = 0;
+	def rtcast8 = rtcast_u32(arg211);
+	def cond153 = EmitOpU32.equals(a0, rtcast8);
+	def stack_phi9 = emitFwdI32();
+	def if13 = emitIf(cond153);
+	def arg174 : u32 = 1;
+	def rtcast14 = rtcast_u32(arg174);
+	def eff165 = push_u32(rtcast14);
+	def phi_pop10 = emitPopAssign(stack_phi9);
+	def else15 = emitElse();
+	def arg196 : u32 = 0;
+	def rtcast16 = rtcast_u32(arg196);
+	def eff187 = push_u32(rtcast16);
+	def phi_pop11 = emitPopAssign(stack_phi9);
+	def endBrace17 = emitEnd();
+	def phi_push12 = push_i32(stack_phi9);
 }
 def I32_EQ() {
-	// arg175 -- static: yes, type: u32, effect: none
-// arg197 -- static: yes, type: u32, effect: none
-// cond154 -- static: no, type: u32, effect: none
-// arg203 -- static: no, type: u32, effect: none
-// arg212 -- static: no, type: u32, effect: none
+	// eff196 -- static: yes, type: void, effect: push
+// rtcast16 -- static: no, type: u32, effect: none
+// rtcast14 -- static: no, type: u32, effect: none
+// eff218 -- static: yes, type: void, effect: push
+// arg205 -- static: yes, type: u32, effect: none
+// arg227 -- static: yes, type: u32, effect: none
+// cond184 -- static: no, type: u32, effect: emit
 // a1 -- static: no, type: u32, effect: pop
-// eff166 -- static: yes, type: void, effect: push
-// eff188 -- static: yes, type: void, effect: push
+// arg233 -- static: no, type: u32, effect: none
 // b0 -- static: no, type: u32, effect: pop
+// arg242 -- static: no, type: u32, effect: none
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def cond154 = u32.==(a1, b0);
+	def cond184 = EmitOpU32.equals(a1, b0);
 	def stack_phi9 = emitFwdI32();
-	def if13 = emitIf(cond154);
-	def arg175 : u32 = 1;
-	def eff166 = push_u32(arg175);
+	def if13 = emitIf(cond184);
+	def arg205 : u32 = 1;
+	def rtcast14 = rtcast_u32(arg205);
+	def eff196 = push_u32(rtcast14);
 	def phi_pop10 = emitPopAssign(stack_phi9);
-	def else14 = emitElse();
-	def arg197 : u32 = 0;
-	def eff188 = push_u32(arg197);
+	def else15 = emitElse();
+	def arg227 : u32 = 0;
+	def rtcast16 = rtcast_u32(arg227);
+	def eff218 = push_u32(rtcast16);
 	def phi_pop11 = emitPopAssign(stack_phi9);
-	def endBrace15 = emitEnd();
+	def endBrace17 = emitEnd();
 	def phi_push12 = push_i32(stack_phi9);
 }
 def I32_NE() {
-	// arg185 -- static: yes, type: u32, effect: none
-// arg207 -- static: yes, type: u32, effect: none
-// cond164 -- static: no, type: u32, effect: none
-// arg213 -- static: no, type: u32, effect: none
+	// eff196 -- static: yes, type: void, effect: push
+// rtcast16 -- static: no, type: u32, effect: none
+// rtcast14 -- static: no, type: u32, effect: none
+// eff218 -- static: yes, type: void, effect: push
+// arg205 -- static: yes, type: u32, effect: none
+// arg227 -- static: yes, type: u32, effect: none
+// cond184 -- static: no, type: u32, effect: emit
 // a1 -- static: no, type: u32, effect: pop
-// arg222 -- static: no, type: u32, effect: none
-// eff176 -- static: yes, type: void, effect: push
-// eff198 -- static: yes, type: void, effect: push
+// arg233 -- static: no, type: u32, effect: none
 // b0 -- static: no, type: u32, effect: pop
+// arg242 -- static: no, type: u32, effect: none
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def cond164 = u32.!=(a1, b0);
+	def cond184 = EmitOpU32.not_equals(a1, b0);
 	def stack_phi9 = emitFwdI32();
-	def if13 = emitIf(cond164);
-	def arg185 : u32 = 1;
-	def eff176 = push_u32(arg185);
+	def if13 = emitIf(cond184);
+	def arg205 : u32 = 1;
+	def rtcast14 = rtcast_u32(arg205);
+	def eff196 = push_u32(rtcast14);
 	def phi_pop10 = emitPopAssign(stack_phi9);
-	def else14 = emitElse();
-	def arg207 : u32 = 0;
-	def eff198 = push_u32(arg207);
+	def else15 = emitElse();
+	def arg227 : u32 = 0;
+	def rtcast16 = rtcast_u32(arg227);
+	def eff218 = push_u32(rtcast16);
 	def phi_pop11 = emitPopAssign(stack_phi9);
-	def endBrace15 = emitEnd();
+	def endBrace17 = emitEnd();
 	def phi_push12 = push_i32(stack_phi9);
 }
 def I32_LT_U() {
-	// arg185 -- static: yes, type: u32, effect: none
-// arg207 -- static: yes, type: u32, effect: none
-// cond164 -- static: no, type: u32, effect: none
-// arg213 -- static: no, type: u32, effect: none
+	// eff196 -- static: yes, type: void, effect: push
+// rtcast16 -- static: no, type: u32, effect: none
+// rtcast14 -- static: no, type: u32, effect: none
+// eff218 -- static: yes, type: void, effect: push
+// arg205 -- static: yes, type: u32, effect: none
+// arg227 -- static: yes, type: u32, effect: none
+// cond184 -- static: no, type: u32, effect: emit
 // a1 -- static: no, type: u32, effect: pop
-// arg222 -- static: no, type: u32, effect: none
-// eff176 -- static: yes, type: void, effect: push
-// eff198 -- static: yes, type: void, effect: push
+// arg233 -- static: no, type: u32, effect: none
 // b0 -- static: no, type: u32, effect: pop
+// arg242 -- static: no, type: u32, effect: none
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def cond164 = u32.<(a1, b0);
+	def cond184 = EmitOpU32.lt(a1, b0);
 	def stack_phi9 = emitFwdI32();
-	def if13 = emitIf(cond164);
-	def arg185 : u32 = 1;
-	def eff176 = push_u32(arg185);
+	def if13 = emitIf(cond184);
+	def arg205 : u32 = 1;
+	def rtcast14 = rtcast_u32(arg205);
+	def eff196 = push_u32(rtcast14);
 	def phi_pop10 = emitPopAssign(stack_phi9);
-	def else14 = emitElse();
-	def arg207 : u32 = 0;
-	def eff198 = push_u32(arg207);
+	def else15 = emitElse();
+	def arg227 : u32 = 0;
+	def rtcast16 = rtcast_u32(arg227);
+	def eff218 = push_u32(rtcast16);
 	def phi_pop11 = emitPopAssign(stack_phi9);
-	def endBrace15 = emitEnd();
+	def endBrace17 = emitEnd();
 	def phi_push12 = push_i32(stack_phi9);
 }
 def I32_LE_S() {
-	// arg185 -- static: yes, type: u32, effect: none
-// arg207 -- static: yes, type: u32, effect: none
-// cond164 -- static: no, type: u32, effect: none
-// arg213 -- static: no, type: u32, effect: none
+	// eff196 -- static: yes, type: void, effect: push
+// rtcast16 -- static: no, type: u32, effect: none
+// rtcast14 -- static: no, type: u32, effect: none
+// eff218 -- static: yes, type: void, effect: push
+// arg205 -- static: yes, type: u32, effect: none
+// arg227 -- static: yes, type: u32, effect: none
+// cond184 -- static: no, type: u32, effect: emit
 // a1 -- static: no, type: u32, effect: pop
-// arg222 -- static: no, type: u32, effect: none
-// eff176 -- static: yes, type: void, effect: push
-// eff198 -- static: yes, type: void, effect: push
+// arg233 -- static: no, type: u32, effect: none
 // b0 -- static: no, type: u32, effect: pop
+// arg242 -- static: no, type: u32, effect: none
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def cond164 = u32.<=(a1, b0);
+	def cond184 = EmitOpU32.lte(a1, b0);
 	def stack_phi9 = emitFwdI32();
-	def if13 = emitIf(cond164);
-	def arg185 : u32 = 1;
-	def eff176 = push_u32(arg185);
+	def if13 = emitIf(cond184);
+	def arg205 : u32 = 1;
+	def rtcast14 = rtcast_u32(arg205);
+	def eff196 = push_u32(rtcast14);
 	def phi_pop10 = emitPopAssign(stack_phi9);
-	def else14 = emitElse();
-	def arg207 : u32 = 0;
-	def eff198 = push_u32(arg207);
+	def else15 = emitElse();
+	def arg227 : u32 = 0;
+	def rtcast16 = rtcast_u32(arg227);
+	def eff218 = push_u32(rtcast16);
 	def phi_pop11 = emitPopAssign(stack_phi9);
-	def endBrace15 = emitEnd();
+	def endBrace17 = emitEnd();
 	def phi_push12 = push_i32(stack_phi9);
 }
 def I32_GT_U() {
-	// arg185 -- static: yes, type: u32, effect: none
-// arg207 -- static: yes, type: u32, effect: none
-// cond164 -- static: no, type: u32, effect: none
-// arg213 -- static: no, type: u32, effect: none
+	// eff196 -- static: yes, type: void, effect: push
+// rtcast16 -- static: no, type: u32, effect: none
+// rtcast14 -- static: no, type: u32, effect: none
+// eff218 -- static: yes, type: void, effect: push
+// arg205 -- static: yes, type: u32, effect: none
+// arg227 -- static: yes, type: u32, effect: none
+// cond184 -- static: no, type: u32, effect: emit
 // a1 -- static: no, type: u32, effect: pop
-// arg222 -- static: no, type: u32, effect: none
-// eff176 -- static: yes, type: void, effect: push
-// eff198 -- static: yes, type: void, effect: push
+// arg233 -- static: no, type: u32, effect: none
 // b0 -- static: no, type: u32, effect: pop
+// arg242 -- static: no, type: u32, effect: none
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def cond164 = u32.>(a1, b0);
+	def cond184 = EmitOpU32.gt(a1, b0);
 	def stack_phi9 = emitFwdI32();
-	def if13 = emitIf(cond164);
-	def arg185 : u32 = 1;
-	def eff176 = push_u32(arg185);
+	def if13 = emitIf(cond184);
+	def arg205 : u32 = 1;
+	def rtcast14 = rtcast_u32(arg205);
+	def eff196 = push_u32(rtcast14);
 	def phi_pop10 = emitPopAssign(stack_phi9);
-	def else14 = emitElse();
-	def arg207 : u32 = 0;
-	def eff198 = push_u32(arg207);
+	def else15 = emitElse();
+	def arg227 : u32 = 0;
+	def rtcast16 = rtcast_u32(arg227);
+	def eff218 = push_u32(rtcast16);
 	def phi_pop11 = emitPopAssign(stack_phi9);
-	def endBrace15 = emitEnd();
+	def endBrace17 = emitEnd();
 	def phi_push12 = push_i32(stack_phi9);
 }
 def I32_AND() {
-	// arg175 -- static: no, type: u32, effect: none
-// arg183 -- static: no, type: u32, effect: none
-// arg192 -- static: no, type: u32, effect: none
-// r4 -- static: no, type: u32, effect: none
+	// arg195 -- static: no, type: u32, effect: none
+// arg203 -- static: no, type: u32, effect: none
+// r4 -- static: no, type: u32, effect: emit
+// arg212 -- static: no, type: u32, effect: none
 // a1 -- static: no, type: u32, effect: pop
-// eff166 -- static: no, type: void, effect: push
 // b0 -- static: no, type: u32, effect: pop
+// eff186 -- static: no, type: void, effect: push
 
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def r4 = u32.&(a1, b0);
-	def eff166 = push_u32(r4);
+	def r4 = EmitOpU32.and(a1, b0);
+	def eff186 = push_u32(r4);
 }
 def BR() {
 	// arg83 -- static: yes, type: ⊥, effect: none
@@ -543,7 +581,8 @@ def BR_IF() {
 // arg95 -- static: no, type: u32, effect: none
 // ret89 -- static: yes, type: void, effect: ctl
 // cond3 -- static: no, type: u32, effect: pop
-// cond56 -- static: no, type: u32, effect: none
+// cond56 -- static: no, type: u32, effect: emit
+// rtcast10 -- static: no, type: u32, effect: none
 // arg104 -- static: yes, type: u32, effect: none
 // label2 -- static: yes, type: ⊥, effect: none
 // depth0 -- static: yes, type: u32, effect: read
@@ -554,20 +593,21 @@ def BR_IF() {
 	def label2 = f_getLabel(depth0);
 	def cond3 = pop_u32();
 	def arg104 : u32 = 0;
-	def cond56 = u32.!=(cond3, arg104);
-	def if10 = emitIf(cond56);
+	def rtcast10 = rtcast_u32(arg104);
+	def cond56 = EmitOpU32.not_equals(cond3, rtcast10);
+	def if11 = emitIf(cond56);
 	def ret68 = doBranch(label2);
-	def else11 = emitElse();
+	def else12 = emitElse();
 	def ret89 = doFallthru();
-	def endBrace12 = emitEnd();
+	def endBrace13 = emitEnd();
 }
 def BLOCK() {
-	// arg141 -- static: yes, type: ⊥, effect: none
+	// arg151 -- static: yes, type: ⊥, effect: none
 // bt0 -- static: yes, type: ⊥, effect: read
-// eff132 -- static: yes, type: void, effect: ctl
+// eff142 -- static: yes, type: void, effect: ctl
 
 	def bt0 = imm_readBlockType();
-	def eff132 = doBlock(bt0);
+	def eff142 = doBlock(bt0);
 }
 def LOOP() {
 	// eff32 -- static: yes, type: void, effect: ctl
@@ -590,9 +630,10 @@ def IF() {
 // ret69 -- static: yes, type: void, effect: ctl
 // arg84 -- static: yes, type: i32, effect: none
 // bt0 -- static: yes, type: ⊥, effect: read
-// cond36 -- static: no, type: i32, effect: none
+// cond36 -- static: no, type: i32, effect: emit
 // cond1 -- static: no, type: i32, effect: pop
 // arg92 -- static: yes, type: ⊥, effect: none
+// rtcast10 -- static: no, type: i32, effect: none
 // label3 -- static: no, type: ⊥, effect: none
 // arg57 -- static: no, type: ⊥, effect: none
 // ret48 -- static: no, type: void, effect: ctl
@@ -601,22 +642,23 @@ def IF() {
 	def cond1 = pop_i32();
 	def label3 = doIf(bt0);
 	def arg84 : int = 0;
-	def cond36 = i32.==(cond1, arg84);
-	def if10 = emitIf(cond36);
+	def rtcast10 = rtcast_i32(arg84);
+	def cond36 = EmitOpI32.equals(cond1, rtcast10);
+	def if11 = emitIf(cond36);
 	def ret48 = doBranch(label3);
-	def else11 = emitElse();
+	def else12 = emitElse();
 	def ret69 = doFallthru();
-	def endBrace12 = emitEnd();
+	def endBrace13 = emitEnd();
 }
 def ELSE() {
-	// arg142 -- static: yes, type: ⊥, effect: none
-// arg150 -- static: yes, type: u32, effect: none
-// ret133 -- static: yes, type: void, effect: ctl
+	// arg152 -- static: yes, type: ⊥, effect: none
+// arg160 -- static: yes, type: u32, effect: none
+// ret143 -- static: yes, type: void, effect: ctl
 // label1 -- static: yes, type: ⊥, effect: none
 
-	def arg150 : u32 = 0;
-	def label1 = f_getLabel(arg150);
-	def ret133 = doBranch(label1);
+	def arg160 : u32 = 0;
+	def label1 = f_getLabel(arg160);
+	def ret143 = doBranch(label1);
 }
 def END() {
 	// eff60 -- static: yes, type: void, effect: ctl
@@ -714,6 +756,11 @@ component EmitOpI32 {
         code_builder.puts(Strings.format3("int %s = %s + %s;\n", new_var, lhs.0, rhs.0));
         return (new_var, TypeVar.I32);
     }
+    def div(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
+        def new_var = uidl(Strings.format2("%s_div_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("int %s = %s / %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.I32);
+    }
     def minus(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
         def new_var = uidl(Strings.format2("%s_minus_%s", lhs.0, rhs.0));
         code_builder.puts(Strings.format3("int %s = %s - %s;\n", new_var, lhs.0, rhs.0));
@@ -735,10 +782,74 @@ component EmitOpI32 {
         return (new_var, TypeVar.I32);
     }
 }
+component EmitOpU32 {
+    def plus(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_plus_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s + %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def div(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_div_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s / %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def times(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_mul_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s * %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def minus(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_minus_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s - %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def equals(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_equals_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s == %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def not_equals(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_not_equals_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s != %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def lt(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_lt_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s < %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def lte(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_lte_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s <= %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def gt(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_gt_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s > %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def and(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_and_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("bool %s = %s > %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+}
+component EmitOpV {
+    def and(lhs: (string, TypeVar), rhs: (string, TypeVar)) -> (string, TypeVar) {
+        def new_var = uidl(Strings.format2("%s_and_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("bool %s = %s && %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.Bot);
+    }
+}
 def rtcast_i32(x: i32) -> (string, TypeVar.I32) {
     def var_name = uidl("rtcast");
     code_builder.puts(Strings.format2("int %s = %d;\n", var_name, x));
     return (var_name, TypeVar.I32);
+}
+def rtcast_u32(x: u32) -> (string, TypeVar.U32) {
+    def var_name = uidl("rtcast");
+    code_builder.puts(Strings.format2("u32 %s = %d;\n", var_name, x));
+    return (var_name, TypeVar.U32);
 }
 component EmitOpF32 {
     def plus(lhs: (string, TypeVar.F32), rhs: (string, TypeVar.F32)) -> (string, TypeVar.F32) {
@@ -771,7 +882,7 @@ def emitPopAssign(fwd_var: (string, TypeVar.I32)) {
     def sp = stack.pop();
     code_builder.puts(Strings.format2("%s = %s;\n", fwd_var.0, sp.0));
 }
-def emitIf(v: (string, TypeVar.I32)) {
+def emitIf(v: (string, TypeVar)) {
     code_builder.puts(Strings.format1("if (%s) {\n", v.0));
 }
 def emitIfStatic(v: bool) {
@@ -784,27 +895,27 @@ def emitEnd() {
     code_builder.puts("}\n");
 }
 
-def readImmULEB32() -> u32 {
+def imm_readULEB32() -> u32 {
     return codeptr.read_uleb32();
 }
 
-def readImmILEB32() -> i32 {
+def imm_readILEB32() -> i32 {
     return i32.!(codeptr.read_uleb32());
 }
 
-def readImmULEB64() -> u64 {
+def imm_readULEB64() -> u64 {
     return codeptr.read_uleb64();
 }
 
-def readImmILEB64() -> i64 {
+def imm_readILEB64() -> i64 {
     return i64.!(codeptr.read_uleb64());
 }
 
-def readImmU8() -> u8 {
+def imm_readU8() -> u8 {
     return codeptr.read1();
 }
 
-def readImmBlockType() -> () {
+def imm_readBlockType() -> () {
     def bt = codeptr.read_BlockTypeCode();
     return ();
 }
@@ -813,25 +924,13 @@ def pop_i32() -> (string, TypeVar.I32) {
     def sp = stack.pop();
     def var_name = sp.0;
     def var_type = sp.1;
-    match (var_type) {
-        I32 => return (var_name, TypeVar.I32);
-        _ => {
-            assert(false);
-            return (null, TypeVar.I32);
-        }
-    }
+    return (var_name, TypeVar.I32);
 }
 def pop_u32() -> (string, TypeVar.U32) {
     def sp = stack.pop();
     def var_name = sp.0;
     def var_type = sp.1;
-    match (var_type) {
-        U32 => return (var_name, TypeVar.U32);
-        _ => {
-            assert(false);
-            return (null, TypeVar.U32);
-        }
-    }
+    return (var_name, TypeVar.U32);
 }
 def pop_i64() -> i64;
 def pop_u64() -> (string, TypeVar.U64);
@@ -841,7 +940,7 @@ def pop_v128() -> v128;
 def pop_Object() -> Object;
 def pop_Value(tv: TypeVar) -> (string, TypeVar) {
     def sp = stack.pop();
-    assert(tv == sp.1);
+    // assert(tv == sp.1);
     return sp;
 }
 
@@ -883,6 +982,9 @@ def f_getLabel(depth: u32) -> int {
 def f_getLocalType(index: u32) -> TypeVar {
     return local_types[int.!(index)];
 }
+def f_getTopOfStackType() -> TypeVar {
+    return stack.peek().1;
+}
 
 // Module context.
 def m_getGlobalType(index: u32) -> TypeVar;
@@ -918,7 +1020,7 @@ def doBranch(label: int) {
     code_builder.puts("goto ").puts(label_name).puts(";").ln();
 }
 
-def doFallThru() {
+def doFallthru() {
 }
 
 // Machine intrinsics.
@@ -946,11 +1048,18 @@ def mach_writeTable32(table_index: u32, index: (string, TypeVar.U32), val: Objec
 def invalid();
 def trapNull();
 def trapUnreachable();
+def trapDivideByZero();
+def trapDivideUnrepresentable();
 
 def doBlock(bt: ()) {
     def label_name = uidl("block_end");
     if (ctls[codeptr.pos] == CompilerCtlEntry.None) ctls[codeptr.pos] = CompilerCtlEntry.Block(-1, label_name);
     ctl_stack.push(codeptr.pos);
+}
+
+def doIf(bt: ()) -> int {
+    // TODO
+    return 0;
 }
 
 def doLoop(bt: ()) {

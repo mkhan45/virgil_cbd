@@ -9,10 +9,12 @@ def main(args: Array<string>) {
     def bp = BinParser.new(extensions, limits, err, filename);
 
     def module = bp.push(file_bytes, 0, file_bytes.length).finish();
-    def func0 = module.functions[0];
-    def func_code = func0.orig_bytecode;
+    def func1 = module.functions[1];
+    def func_code = func1.orig_bytecode;
+    def fn = CBDFunction.new(func1);
 
-    Validator.init(func_code, [TypeVar.I32, TypeVar.I32], []);
+    Validator.init(module, [0, 0]);
+    Validator.init_function(fn.code, fn.locals.copy(), fn.rets.copy());
     Validator.dispatch();
 
     def compiler = Compiler.init(func_code, [TypeVar.I32, TypeVar.I32], []);

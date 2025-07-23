@@ -543,8 +543,8 @@ def SELECT() {
 	def condFalse17 = U32_maybeFalse(cond38);
 	def condBoth18 = bool.&&(condTrue16, condFalse17);
 	if (condBoth18) {
-		def eff411 = push_Value(tv1, a5);
-		def eff714 = push_Value(tv1, b3);
+		def stack_merge19 = merge_val(tv1, tv1);
+		def eff20 = push_Value(stack_merge19);
 	} else {
 		if (condTrue16) {
 			def eff411 = push_Value(tv1, a5);
@@ -556,7 +556,7 @@ def SELECT() {
 def I32_CONST() {
 	def x0 = imm_readILEB32();
 	def rtcast3 = rtcast_i32(x0);
-	def eff192 = push_i32(rtcast3);
+	def eff212 = push_i32(rtcast3);
 }
 def I32_ADD() {
 	def b0 = pop_u32();

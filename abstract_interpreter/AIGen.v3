@@ -22,8 +22,8 @@ def execBoth(a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
         def stack_merge = SSAD_IR.uidl("stack_merge");
         def eff = SSAD_IR.uidl("eff");
         def tp = ctx.types[a_pushes[i]];
-        def merge_fn = Strings.format1("merge_%s", tp.toStringShort());
-        def push_fn = Strings.format1("push_%s", tp.toString());
+        def merge_fn = Strings.format1("merge_%s", if (tp == CBDType.Bot, "val", tp.toStringShort()));
+        def push_fn = Strings.format1("push_%s", if (tp == CBDType.Bot, "Value", tp.toString()));
         res = res.appended(
                 SSAD.LetApp(stack_merge, merge_fn, [a_pushes[i], b_pushes[i]],
                     SSAD.LetApp(eff, push_fn, [stack_merge], SSAD.Void)));
@@ -44,9 +44,9 @@ def collectPushes(s: SSAD, pushBuf: Vector<string>, ctx: SSADCtx) -> SSAD {
             if (ctx.effects[n] == CBDEffect.Push) {
                 // one arg, value being pushed
                 pushBuf.put(args[0]);
-                return rest;
+                return collectPushes(rest, pushBuf, ctx);
             } else {
-                return s;
+                return SSAD.LetApp(n, f, args, collectPushes(rest, pushBuf, ctx));
             }
         }
     }

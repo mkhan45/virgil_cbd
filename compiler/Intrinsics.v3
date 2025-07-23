@@ -1,0 +1,13 @@
+def EmitOpI32.equals(lhs: I32.I, rhs: I32.I) -> I32.I;
+def EmitOpI32.div(lhs: I32.I, rhs: I32.I) -> I32.I : emit;
+def EmitOpU32.equals(lhs: U32.I, rhs: U32.I) -> Value.I : emit;
+def EmitOpU32.not_equals(lhs: U32.I, rhs: U32.I) -> Value.I : emit;
+def EmitOpU32.plus(lhs: U32.I, rhs: U32.I) -> U32.I : emit;
+def EmitOpU32.minus(lhs: U32.I, rhs: U32.I) -> U32.I : emit;
+def EmitOpU32.div(lhs: U32.I, rhs: U32.I) -> U32.I : emit;
+def EmitOpU32.lt(lhs: U32.I, rhs: U32.I) -> Value.I : emit;
+def EmitOpU32.lte(lhs: U32.I, rhs: U32.I) -> Value.I : emit;
+def EmitOpU32.gt(lhs: U32.I, rhs: U32.I) -> Value.I : emit;
+def EmitOpU32.times(lhs: U32.I, rhs: U32.I) -> U32.I : emit;
+
+def emitIf(cond: Value.I) : emit;

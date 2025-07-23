@@ -38,6 +38,11 @@ component EmitOpI32 {
         code_builder.puts(Strings.format3("int %s = %s + %s;\n", new_var, lhs.0, rhs.0));
         return (new_var, TypeVar.I32);
     }
+    def div(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
+        def new_var = uidl(Strings.format2("%s_div_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("int %s = %s / %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.I32);
+    }
     def minus(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
         def new_var = uidl(Strings.format2("%s_minus_%s", lhs.0, rhs.0));
         code_builder.puts(Strings.format3("int %s = %s - %s;\n", new_var, lhs.0, rhs.0));
@@ -59,10 +64,74 @@ component EmitOpI32 {
         return (new_var, TypeVar.I32);
     }
 }
+component EmitOpU32 {
+    def plus(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_plus_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s + %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def div(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_div_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s / %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def times(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_mul_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s * %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def minus(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_minus_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s - %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def equals(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_equals_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s == %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def not_equals(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_not_equals_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s != %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def lt(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_lt_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s < %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def lte(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_lte_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s <= %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def gt(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_gt_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("u32 %s = %s > %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+    def and(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
+        def new_var = uidl(Strings.format2("%s_and_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("bool %s = %s > %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.U32);
+    }
+}
+component EmitOpV {
+    def and(lhs: (string, TypeVar), rhs: (string, TypeVar)) -> (string, TypeVar) {
+        def new_var = uidl(Strings.format2("%s_and_%s", lhs.0, rhs.0));
+        code_builder.puts(Strings.format3("bool %s = %s && %s;\n", new_var, lhs.0, rhs.0));
+        return (new_var, TypeVar.Bot);
+    }
+}
 def rtcast_i32(x: i32) -> (string, TypeVar.I32) {
     def var_name = uidl("rtcast");
     code_builder.puts(Strings.format2("int %s = %d;\n", var_name, x));
     return (var_name, TypeVar.I32);
+}
+def rtcast_u32(x: u32) -> (string, TypeVar.U32) {
+    def var_name = uidl("rtcast");
+    code_builder.puts(Strings.format2("u32 %s = %d;\n", var_name, x));
+    return (var_name, TypeVar.U32);
 }
 component EmitOpF32 {
     def plus(lhs: (string, TypeVar.F32), rhs: (string, TypeVar.F32)) -> (string, TypeVar.F32) {
@@ -95,7 +164,7 @@ def emitPopAssign(fwd_var: (string, TypeVar.I32)) {
     def sp = stack.pop();
     code_builder.puts(Strings.format2("%s = %s;\n", fwd_var.0, sp.0));
 }
-def emitIf(v: (string, TypeVar.I32)) {
+def emitIf(v: (string, TypeVar)) {
     code_builder.puts(Strings.format1("if (%s) {\n", v.0));
 }
 def emitIfStatic(v: bool) {
@@ -108,27 +177,27 @@ def emitEnd() {
     code_builder.puts("}\n");
 }
 
-def readImmULEB32() -> u32 {
+def imm_readULEB32() -> u32 {
     return codeptr.read_uleb32();
 }
 
-def readImmILEB32() -> i32 {
+def imm_readILEB32() -> i32 {
     return i32.!(codeptr.read_uleb32());
 }
 
-def readImmULEB64() -> u64 {
+def imm_readULEB64() -> u64 {
     return codeptr.read_uleb64();
 }
 
-def readImmILEB64() -> i64 {
+def imm_readILEB64() -> i64 {
     return i64.!(codeptr.read_uleb64());
 }
 
-def readImmU8() -> u8 {
+def imm_readU8() -> u8 {
     return codeptr.read1();
 }
 
-def readImmBlockType() -> () {
+def imm_readBlockType() -> () {
     def bt = codeptr.read_BlockTypeCode();
     return ();
 }
@@ -137,25 +206,13 @@ def pop_i32() -> (string, TypeVar.I32) {
     def sp = stack.pop();
     def var_name = sp.0;
     def var_type = sp.1;
-    match (var_type) {
-        I32 => return (var_name, TypeVar.I32);
-        _ => {
-            assert(false);
-            return (null, TypeVar.I32);
-        }
-    }
+    return (var_name, TypeVar.I32);
 }
 def pop_u32() -> (string, TypeVar.U32) {
     def sp = stack.pop();
     def var_name = sp.0;
     def var_type = sp.1;
-    match (var_type) {
-        U32 => return (var_name, TypeVar.U32);
-        _ => {
-            assert(false);
-            return (null, TypeVar.U32);
-        }
-    }
+    return (var_name, TypeVar.U32);
 }
 def pop_i64() -> i64;
 def pop_u64() -> (string, TypeVar.U64);
@@ -165,7 +222,7 @@ def pop_v128() -> v128;
 def pop_Object() -> Object;
 def pop_Value(tv: TypeVar) -> (string, TypeVar) {
     def sp = stack.pop();
-    assert(tv == sp.1);
+    // assert(tv == sp.1);
     return sp;
 }
 
@@ -207,6 +264,9 @@ def f_getLabel(depth: u32) -> int {
 def f_getLocalType(index: u32) -> TypeVar {
     return local_types[int.!(index)];
 }
+def f_getTopOfStackType() -> TypeVar {
+    return stack.peek().1;
+}
 
 // Module context.
 def m_getGlobalType(index: u32) -> TypeVar;
@@ -242,7 +302,7 @@ def doBranch(label: int) {
     code_builder.puts("goto ").puts(label_name).puts(";").ln();
 }
 
-def doFallThru() {
+def doFallthru() {
 }
 
 // Machine intrinsics.
@@ -270,11 +330,18 @@ def mach_writeTable32(table_index: u32, index: (string, TypeVar.U32), val: Objec
 def invalid();
 def trapNull();
 def trapUnreachable();
+def trapDivideByZero();
+def trapDivideUnrepresentable();
 
 def doBlock(bt: ()) {
     def label_name = uidl("block_end");
     if (ctls[codeptr.pos] == CompilerCtlEntry.None) ctls[codeptr.pos] = CompilerCtlEntry.Block(-1, label_name);
     ctl_stack.push(codeptr.pos);
+}
+
+def doIf(bt: ()) -> int {
+    // TODO
+    return 0;
 }
 
 def doLoop(bt: ()) {
