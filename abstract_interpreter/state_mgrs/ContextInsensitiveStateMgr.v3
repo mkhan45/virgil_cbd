@@ -1,11 +1,11 @@
 class ContextInsensitiveStateMgr<V, I32, I64, U32, U64, F32, F64, REF> extends StateManager<V, I32, I64, U32, U64, F32, F64, REF> {
     var states: Vector<Vector<State<V>>>; // [function][pc]
-    var worklist: ArrayStack<Frame>;
+    var worklist: ArrayStack<(Frame, State<V>)>;
     var shouldBreak: bool;
 
-    def init(frame: Frame) {
+    def init(frame: Frame, state: State<V>) {
         current_frame = frame;
-        worklist.push(frame);
+        worklist.push(frame, state);
     }
 
     new(module: Module) {
@@ -15,7 +15,7 @@ class ContextInsensitiveStateMgr<V, I32, I64, U32, U64, F32, F64, REF> extends S
             def codelen = module.functions[i].orig_bytecode.length;
             for (j < codelen) states[i].put(null);
         }
-        worklist = ArrayStack<Frame>.new();
+        worklist = ArrayStack<(Frame, State<V>)>.new();
         shouldBreak = false;
     }
 
@@ -24,18 +24,19 @@ class ContextInsensitiveStateMgr<V, I32, I64, U32, U64, F32, F64, REF> extends S
         if (states[current_frame.fn_idx][current_frame.codeptr.pos] == null) {
             states[current_frame.fn_idx][current_frame.codeptr.pos] = state.dup();
         } else {
-            // TODO: break iff there was no change
             ai.merge_into(states[current_frame.fn_idx][current_frame.codeptr.pos], state);
-            shouldBreak = true;
         }
         ai.set_current_state(states[current_frame.fn_idx][current_frame.codeptr.pos].dup());
     }
 
     def branch(state: State<V>) {
+        shouldBreak = true;
+        def new_frame = current_frame.dup();
+
         def ste = current_frame.sidetable.getBrEntry(current_frame.stp);
-        current_frame.codeptr.at(current_frame.codeptr.pos + ste.dpc);
-        current_frame.stp += ste.dstp;
-        merge_here(state);
+        new_frame.codeptr.at(current_frame.codeptr.pos + ste.dpc);
+        new_frame.stp += ste.dstp;
+        worklist.push(new_frame, state);
     }
     def fallthru(state: State<V>) {
         current_frame.stp += 4;
@@ -89,7 +90,9 @@ class ContextInsensitiveStateMgr<V, I32, I64, U32, U64, F32, F64, REF> extends S
         return !worklist.empty();
     }
     def startNextCont() {
-        current_frame = worklist.pop();
+        def wl_top = worklist.pop();
+        current_frame = wl_top.0;
+        ai.set_current_state(wl_top.1);
         shouldBreak = false;
     }
     def shouldFinishCont() -> bool {
