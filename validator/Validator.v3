@@ -276,7 +276,7 @@ def I32_MUL() {
 def I32_DIV_S() {
 	// b272 -- static: no, type: i32, effect: pop
 // arg266279 -- static: no, type: i32, effect: none
-// cond260284 -- static: no, type: i32, effect: none
+// cond260284 -- static: no, type: ⊥, effect: none
 // arg267278 -- static: yes, type: i32, effect: none
 // arg262283 -- static: no, type: i32, effect: none
 // arg257289 -- static: no, type: i32, effect: none
@@ -523,7 +523,7 @@ def ELSE() {
 }
 def END() {
 	// eff488489 -- static: yes, type: void, effect: ctl
-// cond486490 -- static: yes, type: i32, effect: none
+// cond486490 -- static: yes, type: ⊥, effect: none
 // ret487491 -- static: yes, type: void, effect: ctl
 
 	def eff488489 = doEnd();
@@ -724,6 +724,36 @@ type TypeVar {
         // I32/U32 compatibility
         // maybe i32 and u32 should be the same typevar?
         return (TypeVar.I32.?(this) && TypeVar.U32.?(other)) || (TypeVar.U32.?(this) && TypeVar.I32.?(other));
+    }
+
+    def short_str() -> string {
+        match (this) {
+            I32 => return "i";
+            I64 => return "l";
+            U32 => return "u";
+            U64 => return "w";
+            F32 => return "f";
+            F64 => return "d";
+            V128 => return "v";
+            Object => return "r";
+            Err => return "err";
+            Bot => return "V";
+        }
+    }
+
+    def long_str() -> string {
+        match (this) {
+            I32 => return "i32";
+            I64 => return "i64";
+            U32 => return "u32";
+            U64 => return "u64";
+            F32 => return "f32";
+            F64 => return "f64";
+            V128 => return "v128";
+            Object => return "Ref";
+            Err => return "Err";
+            Bot => return "Value";
+        }
     }
 }
 

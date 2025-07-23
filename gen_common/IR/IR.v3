@@ -191,11 +191,15 @@ component SSAD_IR {
                 buf.puts("if (").puts(c).puts(") {\n");
                 buildString(t, buf, indent + 1);
                 for (i < indent) buf.tab();
-                buf.puts("} else {\n");
-                buildString(e, buf, indent + 1);
-                for (i < indent) buf.tab();
-                buf.puts("}\n");
-                buildString(r, buf, indent);
+                if (e != SSAD.Void) {
+                    buf.puts("} else {\n");
+                    buildString(e, buf, indent + 1);
+                    for (i < indent) buf.tab();
+                    buf.puts("}\n");
+                    buildString(r, buf, indent);
+                } else {
+                    buf.puts("}\n");
+                }
             }
             Injected(inj, r) => {
                 for (i < indent) buf.tab();

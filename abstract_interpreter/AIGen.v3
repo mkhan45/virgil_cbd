@@ -1,3 +1,57 @@
+// TODO: properly handle pops
+def execBoth(a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
+    def afx = Vector<CBDEffect>.new();
+    def bfx = Vector<CBDEffect>.new();
+    ctx.collectEffects(a, afx);
+    ctx.collectEffects(b, bfx);
+
+    def a_res = CBDEffects.run_fx(afx);
+    def b_res = CBDEffects.run_fx(bfx);
+    // assert fx equal
+
+    def a_pushes = Vector<string>.new();
+    def b_pushes = Vector<string>.new();
+    def a_nopush = collectPushes(a, a_pushes, ctx);
+    def b_nopush = collectPushes(b, b_pushes, ctx);
+    // assert a_pushes.length == b_pushes.length
+
+    // TODO: consider other effects to be filtered,
+    // e.g. locals, globals, memory
+    var res = a_nopush.appended(b_nopush);
+    for (i < a_pushes.length) {
+        def stack_merge = SSAD_IR.uidl("stack_merge");
+        def eff = SSAD_IR.uidl("eff");
+        def tp = ctx.types[a_pushes[i]];
+        def merge_fn = Strings.format1("merge_%s", tp.toStringShort());
+        def push_fn = Strings.format1("push_%s", tp.toString());
+        res = res.appended(
+                SSAD.LetApp(stack_merge, merge_fn, [a_pushes[i], b_pushes[i]],
+                    SSAD.LetApp(eff, push_fn, [stack_merge], SSAD.Void)));
+    }
+
+    return res;
+}
+
+def collectPushes(s: SSAD, pushBuf: Vector<string>, ctx: SSADCtx) -> SSAD {
+    match (s) {
+        Void => return s;
+        Final(_) => return s;
+        Injected(inj, rest) => return SSAD.Injected(inj, collectPushes(rest, pushBuf, ctx));
+        LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, collectPushes(rest, pushBuf, ctx));
+        // I we can defer this to recursion in transformSSA
+        If(c, t, e, phis, rest) => return SSAD.If(c, t, e, phis, collectPushes(rest, pushBuf, ctx));
+        LetApp(n, f, args, rest) => {
+            if (ctx.effects[n] == CBDEffect.Push) {
+                // one arg, value being pushed
+                pushBuf.put(args[0]);
+                return rest;
+            } else {
+                return s;
+            }
+        }
+    }
+}
+
 def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
     // return ssa;
     match (ssa) {
@@ -9,8 +63,9 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
             // TODO: could check for returns and choose not to execute a branch
             // TODO: have to do stack phis
             if (!ctx.static[c]) {
-                def fvTrue = SSAD_IR.uidl("cond");
-                def fvFalse = SSAD_IR.uidl("cond");
+                def fvTrue = SSAD_IR.uidl("condTrue");
+                def fvFalse = SSAD_IR.uidl("condFalse");
+                def fvBoth = SSAD_IR.uidl("condBoth");
                 def tp = ctx.types[c];
                 var tp_str = tp.toString();
                 if (tp != CBDType.Bot) tp_str = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
@@ -20,8 +75,17 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 ctx.static[fvFalse] = false;
                 return SSAD.LetApp(fvTrue, fnTrue, [c],
                         SSAD.LetApp(fvFalse, fnFalse, [c],
-                            SSAD.If(fvTrue, transformSSA(t, ctx), SSAD.Void, [],
-                                SSAD.If(fvFalse, transformSSA(e, ctx), SSAD.Void, phis, transformSSA(rest, ctx)))));
+                            SSAD.LetApp(fvBoth, "bool.&&", [fvTrue, fvFalse],
+                                SSAD.If(fvBoth,
+                                    execBoth(t, e, ctx),
+                                    SSAD.If(fvTrue, 
+                                        transformSSA(t, ctx), 
+                                        transformSSA(e, ctx), // else must be true (issue #11)
+                                        [],
+                                        SSAD.Void
+                                    ),
+                                    phis,
+                                    transformSSA(rest, ctx)))));
             } else {
                 return SSAD.If(c, transformSSA(t, ctx), transformSSA(e, ctx), phis, rest);
             }

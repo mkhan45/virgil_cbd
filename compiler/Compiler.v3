@@ -300,7 +300,7 @@ def I32_DIV_S() {
 // ret1213 -- static: yes, type: void, effect: ctl
 // arg915 -- static: no, type: i32, effect: none
 // ret205 -- static: yes, type: void, effect: ctl
-// cond1112 -- static: no, type: i32, effect: none
+// cond1112 -- static: no, type: ⊥, effect: none
 // arg148 -- static: no, type: i32, effect: none
 // arg213 -- static: no, type: i32, effect: none
 // arg169 -- static: yes, type: i32, effect: none
@@ -621,7 +621,7 @@ def ELSE() {
 def END() {
 	// eff60 -- static: yes, type: void, effect: ctl
 // ret52 -- static: yes, type: void, effect: ctl
-// cond41 -- static: yes, type: i32, effect: none
+// cond41 -- static: yes, type: ⊥, effect: none
 
 	def eff60 = doEnd();
 	def cond41 = f_isAtEnd();

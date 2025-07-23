@@ -85,6 +85,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
 
             // forward declare phis stack vars and then emit "pops" into the fwd declared phis
             // which assign the phis to whichever branch ran
+            // could possibly be improved by intercepting pushes with assignments
 
             // let phi1 = emit_fwd_i32();
             // emitIf(...)

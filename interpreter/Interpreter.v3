@@ -126,19 +126,7 @@ def I32_DIV_S() {
 	def cond267275 = i32.==(b271, arg270273);
 	if (cond267275) {
 		def ret268276 = trapDivideByZero();
-	} else {
 	}
-	def arg266277 : int = -2_147_483_648;
-	def arg262279 = i32.==(a272, arg266277);
-	def arg264280 : int = -1;
-	def arg261282 = i32.==(b271, arg264280);
-	def cond259283 = bool.&&(arg261282, arg262279);
-	if (cond259283) {
-		def ret260284 = trapDivideUnrepresentable();
-	} else {
-	}
-	def r287 = i32./(a272, b271);
-	def eff255289 = push_i32(r287);
 }
 def I32_DIV_U() {
 	def b298 = pop_u32();
@@ -147,10 +135,7 @@ def I32_DIV_U() {
 	def cond294302 = u32.==(b298, arg297300);
 	if (cond294302) {
 		def ret295303 = trapDivideByZero();
-	} else {
 	}
-	def r306 = u32./(a299, b298);
-	def eff290308 = push_u32(r306);
 }
 def I32_EQZ() {
 	def a316 = pop_u32();
@@ -281,7 +266,6 @@ def END() {
 	def cond479483 = f_isAtEnd();
 	if (cond479483) {
 		def ret480484 = doReturn();
-	} else {
 	}
 }
 def RETURN() {

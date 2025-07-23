@@ -184,6 +184,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 // for the validator, either branch may modify the sidetable.
                 // for an abstract interpreter, effects tracking may need to be
                 // more complex
+                // TODO: this doesn't really account for if there are pops in each branch
                 def ef = e.filter(runUnconditionally(_, ctx));
                 return transformSSA(t, ctx)
             	        .appended(transformSSA(ef, ctx))

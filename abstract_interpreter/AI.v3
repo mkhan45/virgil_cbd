@@ -539,21 +539,24 @@ def SELECT() {
 	def arg116 : u32 = 0u;
 	def rtcast15 = rtcast_u32(arg116);
 	def cond38 = U32_not_equals(c0, rtcast15);
-	def cond16 = U32_maybeTrue(cond38);
-	def cond17 = U32_maybeFalse(cond38);
-	if (cond16) {
+	def condTrue16 = U32_maybeTrue(cond38);
+	def condFalse17 = U32_maybeFalse(cond38);
+	def condBoth18 = bool.&&(condTrue16, condFalse17);
+	if (condBoth18) {
 		def eff411 = push_Value(tv1, a5);
-	} else {
-	}
-	if (cond17) {
 		def eff714 = push_Value(tv1, b3);
 	} else {
+		if (condTrue16) {
+			def eff411 = push_Value(tv1, a5);
+		} else {
+			def eff714 = push_Value(tv1, b3);
+		}
 	}
 }
 def I32_CONST() {
 	def x0 = imm_readILEB32();
 	def rtcast3 = rtcast_i32(x0);
-	def eff182 = push_i32(rtcast3);
+	def eff192 = push_i32(rtcast3);
 }
 def I32_ADD() {
 	def b0 = pop_u32();
@@ -579,30 +582,32 @@ def I32_DIV_S() {
 	def arg222 : int = 0;
 	def rtcast19 = rtcast_i32(arg222);
 	def cond194 = I32_equals(b0, rtcast19);
-	def cond20 = I32_maybeTrue(cond194);
-	def cond21 = I32_maybeFalse(cond194);
-	if (cond20) {
+	def condTrue20 = I32_maybeTrue(cond194);
+	def condFalse21 = I32_maybeFalse(cond194);
+	def condBoth22 = bool.&&(condTrue20, condFalse21);
+	if (condBoth22) {
 		def ret205 = trapDivideByZero();
 	} else {
-	}
-	if (cond21) {
-	} else {
+		if (condTrue20) {
+			def ret205 = trapDivideByZero();
+		}
 	}
 	def arg186 : int = -2_147_483_648;
-	def rtcast22 = rtcast_i32(arg186);
-	def arg148 = I32_equals(a1, rtcast22);
+	def rtcast23 = rtcast_i32(arg186);
+	def arg148 = I32_equals(a1, rtcast23);
 	def arg169 : int = -1;
-	def rtcast23 = rtcast_i32(arg169);
-	def arg1311 = I32_equals(b0, rtcast23);
-	def cond1112 = I32_and(arg1311, arg148);
-	def cond24 = I32_maybeTrue(cond1112);
-	def cond25 = I32_maybeFalse(cond1112);
-	if (cond24) {
+	def rtcast24 = rtcast_i32(arg169);
+	def arg1311 = I32_equals(b0, rtcast24);
+	def cond1112 = V_and(arg1311, arg148);
+	def condTrue25 = ⊥_maybeTrue(cond1112);
+	def condFalse26 = ⊥_maybeFalse(cond1112);
+	def condBoth27 = bool.&&(condTrue25, condFalse26);
+	if (condBoth27) {
 		def ret1213 = trapDivideUnrepresentable();
 	} else {
-	}
-	if (cond25) {
-	} else {
+		if (condTrue25) {
+			def ret1213 = trapDivideUnrepresentable();
+		}
 	}
 	def r16 = I32_div(a1, b0);
 	def eff718 = push_i32(r16);
@@ -610,141 +615,172 @@ def I32_DIV_S() {
 def I32_DIV_U() {
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def arg332 : u32 = 0u;
-	def rtcast11 = rtcast_u32(arg332);
-	def cond304 = U32_equals(b0, rtcast11);
-	def cond12 = U32_maybeTrue(cond304);
-	def cond13 = U32_maybeFalse(cond304);
-	if (cond12) {
-		def ret315 = trapDivideByZero();
+	def arg352 : u32 = 0u;
+	def rtcast11 = rtcast_u32(arg352);
+	def cond324 = U32_equals(b0, rtcast11);
+	def condTrue12 = U32_maybeTrue(cond324);
+	def condFalse13 = U32_maybeFalse(cond324);
+	def condBoth14 = bool.&&(condTrue12, condFalse13);
+	if (condBoth14) {
+		def ret335 = trapDivideByZero();
 	} else {
-	}
-	if (cond13) {
-	} else {
+		if (condTrue12) {
+			def ret335 = trapDivideByZero();
+		}
 	}
 	def r8 = U32_div(a1, b0);
-	def eff2610 = push_u32(r8);
+	def eff2810 = push_u32(r8);
 }
 def I32_EQZ() {
 	def a0 = pop_u32();
-	def arg201 : u32 = 0;
-	def rtcast8 = rtcast_u32(arg201);
-	def cond143 = U32_equals(a0, rtcast8);
-	def cond9 = U32_maybeTrue(cond143);
-	def cond10 = U32_maybeFalse(cond143);
-	if (cond9) {
-		def arg164 : u32 = 1;
-		def rtcast11 = rtcast_u32(arg164);
-		def eff155 = push_u32(rtcast11);
+	def arg211 : u32 = 0;
+	def rtcast8 = rtcast_u32(arg211);
+	def cond153 = U32_equals(a0, rtcast8);
+	def condTrue9 = U32_maybeTrue(cond153);
+	def condFalse10 = U32_maybeFalse(cond153);
+	def condBoth11 = bool.&&(condTrue9, condFalse10);
+	if (condBoth11) {
+		def arg174 : u32 = 1;
+		def arg196 : u32 = 0;
+		def stack_merge12 = merge_u(arg174, arg196);
+		def eff13 = push_u32(stack_merge12);
 	} else {
-	}
-	if (cond10) {
-		def arg186 : u32 = 0;
-		def rtcast12 = rtcast_u32(arg186);
-		def eff177 = push_u32(rtcast12);
-	} else {
+		if (condTrue9) {
+			def arg174 : u32 = 1;
+			def rtcast14 = rtcast_u32(arg174);
+			def eff165 = push_u32(rtcast14);
+		} else {
+			def arg196 : u32 = 0;
+			def rtcast15 = rtcast_u32(arg196);
+			def eff187 = push_u32(rtcast15);
+		}
 	}
 }
 def I32_EQ() {
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def cond134 = U32_equals(a1, b0);
-	def cond9 = U32_maybeTrue(cond134);
-	def cond10 = U32_maybeFalse(cond134);
-	if (cond9) {
-		def arg155 : u32 = 1;
-		def rtcast11 = rtcast_u32(arg155);
-		def eff146 = push_u32(rtcast11);
+	def cond164 = U32_equals(a1, b0);
+	def condTrue9 = U32_maybeTrue(cond164);
+	def condFalse10 = U32_maybeFalse(cond164);
+	def condBoth11 = bool.&&(condTrue9, condFalse10);
+	if (condBoth11) {
+		def arg185 : u32 = 1;
+		def arg207 : u32 = 0;
+		def stack_merge12 = merge_u(arg185, arg207);
+		def eff13 = push_u32(stack_merge12);
 	} else {
-	}
-	if (cond10) {
-		def arg177 : u32 = 0;
-		def rtcast12 = rtcast_u32(arg177);
-		def eff168 = push_u32(rtcast12);
-	} else {
+		if (condTrue9) {
+			def arg185 : u32 = 1;
+			def rtcast14 = rtcast_u32(arg185);
+			def eff176 = push_u32(rtcast14);
+		} else {
+			def arg207 : u32 = 0;
+			def rtcast15 = rtcast_u32(arg207);
+			def eff198 = push_u32(rtcast15);
+		}
 	}
 }
 def I32_NE() {
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def cond134 = U32_not_equals(a1, b0);
-	def cond9 = U32_maybeTrue(cond134);
-	def cond10 = U32_maybeFalse(cond134);
-	if (cond9) {
-		def arg155 : u32 = 1;
-		def rtcast11 = rtcast_u32(arg155);
-		def eff146 = push_u32(rtcast11);
+	def cond164 = U32_not_equals(a1, b0);
+	def condTrue9 = U32_maybeTrue(cond164);
+	def condFalse10 = U32_maybeFalse(cond164);
+	def condBoth11 = bool.&&(condTrue9, condFalse10);
+	if (condBoth11) {
+		def arg185 : u32 = 1;
+		def arg207 : u32 = 0;
+		def stack_merge12 = merge_u(arg185, arg207);
+		def eff13 = push_u32(stack_merge12);
 	} else {
-	}
-	if (cond10) {
-		def arg177 : u32 = 0;
-		def rtcast12 = rtcast_u32(arg177);
-		def eff168 = push_u32(rtcast12);
-	} else {
+		if (condTrue9) {
+			def arg185 : u32 = 1;
+			def rtcast14 = rtcast_u32(arg185);
+			def eff176 = push_u32(rtcast14);
+		} else {
+			def arg207 : u32 = 0;
+			def rtcast15 = rtcast_u32(arg207);
+			def eff198 = push_u32(rtcast15);
+		}
 	}
 }
 def I32_LT_U() {
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def cond134 = U32_lt(a1, b0);
-	def cond9 = U32_maybeTrue(cond134);
-	def cond10 = U32_maybeFalse(cond134);
-	if (cond9) {
-		def arg155 : u32 = 1;
-		def rtcast11 = rtcast_u32(arg155);
-		def eff146 = push_u32(rtcast11);
+	def cond164 = U32_lt(a1, b0);
+	def condTrue9 = U32_maybeTrue(cond164);
+	def condFalse10 = U32_maybeFalse(cond164);
+	def condBoth11 = bool.&&(condTrue9, condFalse10);
+	if (condBoth11) {
+		def arg185 : u32 = 1;
+		def arg207 : u32 = 0;
+		def stack_merge12 = merge_u(arg185, arg207);
+		def eff13 = push_u32(stack_merge12);
 	} else {
-	}
-	if (cond10) {
-		def arg177 : u32 = 0;
-		def rtcast12 = rtcast_u32(arg177);
-		def eff168 = push_u32(rtcast12);
-	} else {
+		if (condTrue9) {
+			def arg185 : u32 = 1;
+			def rtcast14 = rtcast_u32(arg185);
+			def eff176 = push_u32(rtcast14);
+		} else {
+			def arg207 : u32 = 0;
+			def rtcast15 = rtcast_u32(arg207);
+			def eff198 = push_u32(rtcast15);
+		}
 	}
 }
 def I32_LE_S() {
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def cond134 = U32_lte(a1, b0);
-	def cond9 = U32_maybeTrue(cond134);
-	def cond10 = U32_maybeFalse(cond134);
-	if (cond9) {
-		def arg155 : u32 = 1;
-		def rtcast11 = rtcast_u32(arg155);
-		def eff146 = push_u32(rtcast11);
+	def cond164 = U32_lte(a1, b0);
+	def condTrue9 = U32_maybeTrue(cond164);
+	def condFalse10 = U32_maybeFalse(cond164);
+	def condBoth11 = bool.&&(condTrue9, condFalse10);
+	if (condBoth11) {
+		def arg185 : u32 = 1;
+		def arg207 : u32 = 0;
+		def stack_merge12 = merge_u(arg185, arg207);
+		def eff13 = push_u32(stack_merge12);
 	} else {
-	}
-	if (cond10) {
-		def arg177 : u32 = 0;
-		def rtcast12 = rtcast_u32(arg177);
-		def eff168 = push_u32(rtcast12);
-	} else {
+		if (condTrue9) {
+			def arg185 : u32 = 1;
+			def rtcast14 = rtcast_u32(arg185);
+			def eff176 = push_u32(rtcast14);
+		} else {
+			def arg207 : u32 = 0;
+			def rtcast15 = rtcast_u32(arg207);
+			def eff198 = push_u32(rtcast15);
+		}
 	}
 }
 def I32_GT_U() {
 	def b0 = pop_u32();
 	def a1 = pop_u32();
-	def cond134 = U32_gt(a1, b0);
-	def cond9 = U32_maybeTrue(cond134);
-	def cond10 = U32_maybeFalse(cond134);
-	if (cond9) {
-		def arg155 : u32 = 1;
-		def rtcast11 = rtcast_u32(arg155);
-		def eff146 = push_u32(rtcast11);
+	def cond164 = U32_gt(a1, b0);
+	def condTrue9 = U32_maybeTrue(cond164);
+	def condFalse10 = U32_maybeFalse(cond164);
+	def condBoth11 = bool.&&(condTrue9, condFalse10);
+	if (condBoth11) {
+		def arg185 : u32 = 1;
+		def arg207 : u32 = 0;
+		def stack_merge12 = merge_u(arg185, arg207);
+		def eff13 = push_u32(stack_merge12);
 	} else {
-	}
-	if (cond10) {
-		def arg177 : u32 = 0;
-		def rtcast12 = rtcast_u32(arg177);
-		def eff168 = push_u32(rtcast12);
-	} else {
+		if (condTrue9) {
+			def arg185 : u32 = 1;
+			def rtcast14 = rtcast_u32(arg185);
+			def eff176 = push_u32(rtcast14);
+		} else {
+			def arg207 : u32 = 0;
+			def rtcast15 = rtcast_u32(arg207);
+			def eff198 = push_u32(rtcast15);
+		}
 	}
 }
 def I32_AND() {
 	def b0 = pop_u32();
 	def a1 = pop_u32();
 	def r4 = U32_and(a1, b0);
-	def eff136 = push_u32(r4);
+	def eff166 = push_u32(r4);
 }
 def BR() {
 	def depth0 = imm_readULEB32();
@@ -758,20 +794,23 @@ def BR_IF() {
 	def arg104 : u32 = 0;
 	def rtcast10 = rtcast_u32(arg104);
 	def cond56 = U32_not_equals(cond3, rtcast10);
-	def cond11 = U32_maybeTrue(cond56);
-	def cond12 = U32_maybeFalse(cond56);
-	if (cond11) {
+	def condTrue11 = U32_maybeTrue(cond56);
+	def condFalse12 = U32_maybeFalse(cond56);
+	def condBoth13 = bool.&&(condTrue11, condFalse12);
+	if (condBoth13) {
 		def ret68 = doBranch(label2);
-	} else {
-	}
-	if (cond12) {
 		def ret89 = doFallthru();
 	} else {
+		if (condTrue11) {
+			def ret68 = doBranch(label2);
+		} else {
+			def ret89 = doFallthru();
+		}
 	}
 }
 def BLOCK() {
 	def bt0 = imm_readBlockType();
-	def eff132 = doBlock(bt0);
+	def eff142 = doBlock(bt0);
 }
 def LOOP() {
 	def bt0 = imm_readBlockType();
@@ -788,28 +827,30 @@ def IF() {
 	def arg84 : int = 0;
 	def rtcast10 = rtcast_i32(arg84);
 	def cond36 = I32_equals(cond1, rtcast10);
-	def cond11 = I32_maybeTrue(cond36);
-	def cond12 = I32_maybeFalse(cond36);
-	if (cond11) {
+	def condTrue11 = I32_maybeTrue(cond36);
+	def condFalse12 = I32_maybeFalse(cond36);
+	def condBoth13 = bool.&&(condTrue11, condFalse12);
+	if (condBoth13) {
 		def ret48 = doBranch(label3);
-	} else {
-	}
-	if (cond12) {
 		def ret69 = doFallthru();
 	} else {
+		if (condTrue11) {
+			def ret48 = doBranch(label3);
+		} else {
+			def ret69 = doFallthru();
+		}
 	}
 }
 def ELSE() {
-	def arg150 : u32 = 0;
-	def label1 = f_getLabel(arg150);
-	def ret133 = doBranch(label1);
+	def arg160 : u32 = 0;
+	def label1 = f_getLabel(arg160);
+	def ret143 = doBranch(label1);
 }
 def END() {
 	def eff60 = doEnd();
 	def cond41 = f_isAtEnd();
 	if (cond41) {
 		def ret52 = doReturn();
-	} else {
 	}
 }
 def RETURN() {

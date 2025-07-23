@@ -22,6 +22,20 @@ type CBDType {
             Bot => return "⊥";
         }
     }
+
+    def toStringShort() -> string {
+        match (this) {
+            I32 => return "i";
+            I64 => return "l";
+            U32 => return "u";
+            U64 => return "w";
+            F32 => return "f";
+            F64 => return "d";
+            REF => return "r";
+            Void => return "void";
+            Bot => return "V";
+        }
+    }
 }
 
 enum Stage {
