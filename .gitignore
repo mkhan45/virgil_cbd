@@ -2,3 +2,4 @@
 *.notwasm
 
 InterpreterMain
+AIMain

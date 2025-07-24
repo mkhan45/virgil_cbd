@@ -163,6 +163,15 @@ class StaticnessEval extends AI<SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F
         return u;
     }
 
+    def I32_abs_eq(lhs: SV.I32, rhs: SV.I32) -> bool {
+        return (lhs.static && rhs.static && lhs.val == rhs.val)
+            || (!lhs.static && !rhs.static);
+    }
+    def U32_abs_eq(lhs: SV.U32, rhs: SV.U32) -> bool {
+        return (lhs.static && rhs.static && lhs.val == rhs.val)
+            || (!lhs.static && !rhs.static);
+    }
+
     def rtcast_i32(i: i32) -> SV.I32 {
         return SV.I32(true, i);
     }
@@ -179,12 +188,12 @@ component AIRunner {
 
     def on_finish(m: Module, i: AI<SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F64, SV.REF>) {
         def i = StaticnessEval.!(i);
-        def stack = i.stack;
-        def stack_top = stack.pop();
-        def x = i.unbox_i(stack_top);
-        System.puts("stack top: ");
-        if (x.static) System.puti(x.val);
-        else System.puts("not static");
+        def ctx = ContextInsensitiveStateMgr<
+            SV, SV.I32, SV.I64, SV.U32, SV.U64, SV.F32, SV.F64, SV.REF
+        >.!(i.state_manager);
+        def state = ctx.ret_state(0);
+        i.set_current_state(state);
+        i.print_stack();
         System.ln();
     }
 }

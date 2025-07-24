@@ -19,8 +19,14 @@ class ContextInsensitiveStateMgr<V, I32, I64, U32, U64, F32, F64, REF> extends S
         shouldBreak = false;
     }
 
+    def ret_state(fn_idx: int) -> State<V> {
+        def fn_code_len = states[fn_idx].length;
+        return states[fn_idx][fn_code_len - 1];
+    }
+
     // TODO: some extra deep copies here if it's ok to modify the passed state
     def merge_here(state: State<V>) {
+        if (current_frame == null) return;
         if (states[current_frame.fn_idx][current_frame.codeptr.pos] == null) {
             states[current_frame.fn_idx][current_frame.codeptr.pos] = state.dup();
         } else {
@@ -30,24 +36,26 @@ class ContextInsensitiveStateMgr<V, I32, I64, U32, U64, F32, F64, REF> extends S
     }
 
     def branch(state: State<V>) {
-        shouldBreak = true;
         def new_frame = current_frame.dup();
 
         def ste = current_frame.sidetable.getBrEntry(current_frame.stp);
         new_frame.codeptr.at(current_frame.codeptr.pos + ste.dpc);
         new_frame.stp += ste.dstp;
-        worklist.push(new_frame, state);
+
+        worklist.push(new_frame, state.dup());
+        // shouldBreak = true;
     }
     def fallthru(state: State<V>) {
         current_frame.stp += 4;
-        merge_here(state);
+        // merge_here(state);
     }
     def call(target: CBDFunctionI, state: State<V>) {
         def num_args = target.args.length;
         def args_start = state.stack.top - num_args;
         state.stack.top = args_start;
-        merge_here(state); // save caller state, so we can get it on return
+        // merge_here(state); // save caller state, so we can get it on return
 
+        def old_frame = current_frame;
         def new_frame = Frame.new(current_frame, target.fn_idx).init(target);
         current_frame = new_frame;
         def new_stack = ArrayStack<V>.new();
@@ -55,36 +63,41 @@ class ContextInsensitiveStateMgr<V, I32, I64, U32, U64, F32, F64, REF> extends S
         def new_stps = ArrayStack<TypeVar>.new();
         for (i < target.args.length) new_stps.push(target.args[i]);
         def new_state = State<V>.new(new_stack, state.globals, new_stps, state.global_types);
-        merge_here(new_state); // merge args into callee
+        // worklist.push(old_frame, null); // TODO: how get returns?
+        worklist.push(new_frame, new_state);
+        shouldBreak = true;
+        // ai.set_current_state(new_state);
+
+        // merge_here(new_state); // merge args into callee
     }
     def ret(state: State<V>) {
         // the state after return has a stack of just rets
         def count = current_frame.num_rets;
-        def new_stack = ArrayStack<V>.new();
-        def new_stps = ArrayStack<TypeVar>.new();
-        for (i = state.stack.top - count; i < state.stack.top; i += 1) new_stack.push(state.stack.elems[i]);
-        for (i = state.stack.top - count; i < state.stack.top; i += 1) new_stps.push(state.stack_types.elems[i]);
-        def new_state = State<V>.new(new_stack, state.globals, new_stps, state.global_types);
+        def ret_stack = ArrayStack<V>.new();
+        def ret_stps = ArrayStack<TypeVar>.new();
+        for (i = state.stack.top - count; i < state.stack.top; i += 1) ret_stack.push(state.stack.elems[i]);
+        for (i = state.stack.top - count; i < state.stack.top; i += 1) ret_stps.push(state.stack_types.elems[i]);
+        def ret_state = State<V>.new(ret_stack, state.globals, ret_stps, state.global_types);
 
         // TODO: idk if we actually want to merge into an abstract return,
         // maybe the current return site is better
         // set the codeptr to end of fn, designated as fn abstract return,
-        // current_frame.codeptr.at(current_frame.codeptr.data.limit - 1);
-        merge_here(new_state);
-        def merged_rets = ai.current_state().stack;
-        def merged_rtps = ai.current_state().stack_types;
+        current_frame.codeptr.at(current_frame.codeptr.data.length - 1);
+        merge_here(ret_state);
+
+        // shouldBreak = true;
 
         current_frame = current_frame.parent;
-        for (i < merged_rets.top) ai.push_Value(merged_rtps.elems[i], merged_rets.elems[i]);
-        // merge_here(ai.current_state());
+        for (i < count) ai.push_Value(ret_stps.elems[i], ret_stack.elems[i]);
+        merge_here(ai.current_state());
     }
     def block(bt: (Array<ValueType>, Array<ValueType>), state: State<V>) {}
     def loop(bt: (Array<ValueType>, Array<ValueType>), state: State<V>) {
-        merge_here(state);
+        // merge_here(state);
     }
     def startIf(bt: (Array<ValueType>, Array<ValueType>), state: State<V>) {}
     def end(state: State<V>) {
-        merge_here(state);
+        // merge_here(state);
     }
     def hasNextCont() -> bool {
         return !worklist.empty();
@@ -92,8 +105,8 @@ class ContextInsensitiveStateMgr<V, I32, I64, U32, U64, F32, F64, REF> extends S
     def startNextCont() {
         def wl_top = worklist.pop();
         current_frame = wl_top.0;
-        ai.set_current_state(wl_top.1);
-        shouldBreak = false;
+        if (wl_top.1 != null) merge_here(wl_top.1);
+        shouldBreak = !(ai.state_abs_eq(wl_top.1, ai.current_state()));
     }
     def shouldFinishCont() -> bool {
         return shouldBreak;

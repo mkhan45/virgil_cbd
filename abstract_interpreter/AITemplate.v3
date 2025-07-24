@@ -133,6 +133,7 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
             state_manager.startNextCont();
 
             while (
+                    current_frame() != null &&
                     current_frame().codeptr.pos < current_frame().codeptr.data.length && 
                     !state_manager.shouldFinishCont()
             ) {
@@ -174,6 +175,39 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def unbox_f(v: V) -> F32;
     def unbox_d(v: V) -> F64;
     def unbox_r(v: V) -> REF;
+
+    def I32_abs_eq(lhs: I32, rhs: I32) -> bool;
+    def I64_abs_eq(lhs: I64, rhs: I64) -> bool;
+    def U32_abs_eq(lhs: U32, rhs: U32) -> bool;
+    def U64_abs_eq(lhs: U64, rhs: U64) -> bool;
+    def F32_abs_eq(lhs: F32, rhs: F32) -> bool;
+    def F64_abs_eq(lhs: F64, rhs: F64) -> bool;
+    def REF_abs_eq(lhs: REF, rhs: REF) -> bool;
+    def val_abs_eq(tv: TypeVar, lhs: V, rhs: V) -> bool {
+        match (tv) {
+            I32 => return I32_abs_eq(unbox_i(lhs), unbox_i(rhs));
+            I64 => return I64_abs_eq(unbox_l(lhs), unbox_l(rhs));
+            U32 => return U32_abs_eq(unbox_u(lhs), unbox_u(rhs));
+            U64 => return U64_abs_eq(unbox_w(lhs), unbox_w(rhs));
+            F32 => return F32_abs_eq(unbox_f(lhs), unbox_f(rhs));
+            F64 => return F64_abs_eq(unbox_d(lhs), unbox_d(rhs));
+            _ => {
+                invalid();
+                return false;
+            }
+        }
+    }
+    def state_abs_eq(lhs: State<V>, rhs: State<V>) -> bool {
+        for (i < lhs.stack.top) {
+            def tv = lhs.stack_types.elems[i];
+            if (!val_abs_eq(tv, lhs.stack.elems[i], rhs.stack.elems[i])) return false;
+        }
+        for (i < lhs.globals.length) {
+            def tv = lhs.global_types[i];
+            if (!val_abs_eq(tv, lhs.globals[i], rhs.globals[i])) return false;
+        }
+        return true;
+    }
 
     def merge_i(lhs: I32, rhs: I32) -> I32;
     def merge_l(lhs: I64, rhs: I64) -> I64;
