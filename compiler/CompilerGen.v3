@@ -10,11 +10,10 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
             def is_rt = !ctx.static[n];
             if (is_op && is_rt) {
                 def tp = ctx.types[n];
-                def tp_str = tp.toString();
+                def tp_str = Strings.render(tp.render);
                 var prefix: string;
                 match (tp) {
-                    Void => prefix = "TypeVar";
-                    Bot => prefix = "V";
+                    BOTTOM => prefix = "V";
                     _ => prefix = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
                 }
 
@@ -48,8 +47,8 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                     def should_be_runtime = !args_static[i];
                     if (!is_runtime && should_be_runtime) {
                         def fv = SSAD_IR.uidl("rtcast");
-                        def tp = if(args_types[i] != CBDType.Bot, args_types[i], ctx.types[args[i]]);
-                        def rtcast_f = Strings.format1("rtcast_%s", tp.toString());
+                        def tp = if(args_types[i] != ValueType.BOTTOM, args_types[i], ctx.types[args[i]]);
+                        def rtcast_f = Strings.format1("rtcast_%s", Strings.render(tp.render));
                         ctx.static[fv] = false;
                         ctx.types[fv] = ctx.types[args[i]];
                         ctx.effects[fv] = CBDEffect.None;
@@ -127,7 +126,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     for (v = vars; v != null; v = v.tail) {
         sb.puts("// ").puts(v.head).puts(" -- ");
         sb.puts("static: ").puts(if(analysis.static[v.head], "yes", "no")).puts(", ");
-        sb.puts("type: ").puts(analysis.types[v.head].toString()).puts(", ");
+        sb.puts("type: ").putq(analysis.types[v.head].render).puts(", ");
         sb.puts("effect: ").puts(analysis.effects[v.head].toString());
         sb.ln();
     }

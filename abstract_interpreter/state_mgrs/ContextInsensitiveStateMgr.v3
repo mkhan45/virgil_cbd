@@ -1,4 +1,4 @@
-class ContextInsensitiveStateMgr<V, I32, I64, U32, U64, F32, F64, REF> extends StateManager<V, I32, I64, U32, U64, F32, F64, REF> {
+class ContextInsensitiveStateMgr<V, I32, I64, F32, F64, REF> extends StateManager<V, I32, I64, F32, F64, REF> {
     var states: Vector<Vector<State<V>>>; // [function][pc]
     var worklist: ArrayStack<(Frame, State<V>)>;
     var shouldBreak: bool;
@@ -63,7 +63,6 @@ class ContextInsensitiveStateMgr<V, I32, I64, U32, U64, F32, F64, REF> extends S
         def new_stps = ArrayStack<TypeVar>.new();
         for (i < target.args.length) new_stps.push(target.args[i]);
         def new_state = State<V>.new(new_stack, state.globals, new_stps, state.global_types);
-        // worklist.push(old_frame, null); // TODO: how get returns?
         worklist.push(new_frame, new_state);
         shouldBreak = true;
         // ai.set_current_state(new_state);
@@ -87,6 +86,7 @@ class ContextInsensitiveStateMgr<V, I32, I64, U32, U64, F32, F64, REF> extends S
 
         // shouldBreak = true;
 
+        // TODO: idk if this works in a loop
         current_frame = current_frame.parent;
         for (i < count) ai.push_Value(ret_stps.elems[i], ret_stack.elems[i]);
         merge_here(ai.current_state());

@@ -1,7 +1,7 @@
 class SSADCtx {
     var body: SSAD;
     var static: HashMap<string, bool>;
-    var types: HashMap<string, CBDType>;
+    var types: HashMap<string, ValueType>;
     var effects: HashMap<string, CBDEffect>; // should it be a list?
 
     new(body) {
@@ -63,10 +63,7 @@ class SSADCtx {
             }
             LetLit(n, l, t, rest) => {
                 effects[n] = CBDEffect.None;
-                var tp: CBDType = CBDType.Bot;
-                if (Strings.equal(t, "int")) tp = CBDType.I32;
-                if (Strings.equal(t, "u32")) tp = CBDType.U32;
-                if (Strings.equal(t, "float")) tp = CBDType.F32;
+                var tp = TypeUtil.fromString(t);
                 types[n] = tp;
                 getTypes(rest);
             }

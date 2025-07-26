@@ -22,8 +22,8 @@ def execBoth(a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
         def stack_merge = SSAD_IR.uidl("stack_merge");
         def eff = SSAD_IR.uidl("eff");
         def tp = ctx.types[a_pushes[i].0];
-        def merge_fn = Strings.format1("merge_%s", if (tp == CBDType.Bot, "val", tp.toStringShort()));
-        def push_fn = Strings.format1("push_%s", if (tp == CBDType.Bot, "Value", tp.toString()));
+        def merge_fn = Strings.format1("merge_%s", if (tp == ValueType.BOTTOM, "val", TypeUtil.toStringShort(tp)));
+        def push_fn = Strings.format1("push_%s", if (tp == ValueType.BOTTOM, "Value", TypeUtil.toString(tp)));
         def tv = a_pushes[i].1;
         def merge_args = if(tv == null, [a_pushes[i].0, b_pushes[i].0], [tv, a_pushes[i].0, b_pushes[i].0]); 
         def push_args = if(tv == null, [stack_merge], [tv, stack_merge]); 
@@ -77,8 +77,8 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 def fvFalse = SSAD_IR.uidl("condFalse");
                 def fvBoth = SSAD_IR.uidl("condBoth");
                 def tp = ctx.types[c];
-                var tp_str = tp.toString();
-                if (tp != CBDType.Bot) tp_str = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
+                var tp_str = TypeUtil.toString(tp);
+                if (tp != ValueType.BOTTOM) tp_str = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
                 def fnTrue = Strings.format1("%s_maybeTrue", tp_str);
                 def fnFalse = Strings.format1("%s_maybeFalse", tp_str);
                 ctx.static[fvTrue] = false;
@@ -109,8 +109,8 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
             if (is_op && is_rt) {
                 var tp = ctx.types[n];
                 // infer type, applies to bools
-                if (tp == CBDType.Bot && args.length > 0) tp = ctx.types[args[0]];
-                def tp_str = tp.toString();
+                if (tp == ValueType.BOTTOM && args.length > 0) tp = ctx.types[args[0]];
+                def tp_str = TypeUtil.toString(tp);
                 var prefix: string;
                 // there is a weird case for this, in Virgil test ops
                 // return booleans but in Wasm they don't. So e.g. i32.==
@@ -120,8 +120,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 // validator executes every path. So sometimes Bot will occur
                 // here but get DCE'd out.
                 match (tp) {
-                    Void => prefix = "TypeVar";
-                    Bot => prefix = "V";
+                    BOTTOM => prefix = "V";
                     _ => prefix = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
                 }
 
@@ -155,8 +154,8 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                     def should_be_runtime = !args_static[i];
                     if (!is_runtime && should_be_runtime) {
                         def fv = SSAD_IR.uidl("rtcast");
-                        def tp = if(args_types[i] != CBDType.Bot, args_types[i], ctx.types[args[i]]);
-                        def rtcast_f = Strings.format1("rtcast_%s", tp.toString());
+                        def tp = if(args_types[i] != ValueType.BOTTOM, args_types[i], ctx.types[args[i]]);
+                        def rtcast_f = Strings.format1("rtcast_%q", tp.render);
                         ctx.static[fv] = false;
                         ctx.types[fv] = ctx.types[args[i]];
                         ctx.effects[fv] = CBDEffect.None;

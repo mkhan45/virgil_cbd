@@ -1,43 +1,3 @@
-type CBDType {
-    case I32;
-    case U32;
-    case I64;
-    case U64;
-    case F32;
-    case F64;
-    case REF;
-    case Void;
-    case Bot;
-
-    def toString() -> string {
-        match (this) {
-            I32 => return "i32";
-            U32 => return "u32";
-            I64 => return "i64";
-            U64 => return "u64";
-            F32 => return "f32";
-            F64 => return "f64";
-            REF => return "ref";
-            Void => return "void";
-            Bot => return "⊥";
-        }
-    }
-
-    def toStringShort() -> string {
-        match (this) {
-            I32 => return "i";
-            I64 => return "l";
-            U32 => return "u";
-            U64 => return "w";
-            F32 => return "f";
-            F64 => return "d";
-            REF => return "r";
-            Void => return "void";
-            Bot => return "V";
-        }
-    }
-}
-
 enum Stage {
     VALIDATE,
     COMPILE,
@@ -116,7 +76,7 @@ type CBDEffect {
     }
 }
 
-class IntrinsicType(primitive: CBDType, stage: Stage) {
+class IntrinsicType(primitive: ValueType, stage: Stage) {
     def isStatic() -> bool {
         return (stage == Stage.VALIDATE) || (stage == Stage.COMPILE);
     }
@@ -125,34 +85,52 @@ class IntrinsicType(primitive: CBDType, stage: Stage) {
 // maybe a list of effects
 class IntrinsicTypedef(name: string, args: Array<IntrinsicType>, return_type: IntrinsicType, effect: CBDEffect) {}
 
-def typeFromString(s: string) -> CBDType {
-    if (Strings.equal(s, "int")) return CBDType.I32;
-    if (Strings.equal(s, "i32")) return CBDType.I32;
-    if (Strings.equal(s, "u32")) return CBDType.U32;
-    if (Strings.equal(s, "i64")) return CBDType.I64;
-    if (Strings.equal(s, "u64")) return CBDType.U64;
-    if (Strings.equal(s, "float")) return CBDType.F32;
-    if (Strings.equal(s, "f32")) return CBDType.F32;
-    if (Strings.equal(s, "f64")) return CBDType.F64;
-    if (Strings.equal(s, "double")) return CBDType.F64;
-    if (Strings.equal(s, "void")) return CBDType.Void;
-
-    return CBDType.Bot;
-}
-
 def processTypeString(s: string) -> IntrinsicType {
     def split = Strings.splitOnChar(s, u8.==(_, '.'), -1);
     def name = Strings.strip(split[0]);
     if (split.length < 2) {
         // No stage specified, default to VALIDATE
-        return IntrinsicType.new(typeFromString(name), Stage.VALIDATE);
+        return IntrinsicType.new(TypeUtil.fromString(name), Stage.VALIDATE);
     }
     def stage_string = Strings.strip(split[1]);
     var stage: Stage = Stage.VALIDATE; // default
     if (Strings.equal(stage_string, "V")) stage = Stage.VALIDATE;
     if (Strings.equal(stage_string, "C")) stage = Stage.COMPILE;
     if (Strings.equal(stage_string, "I")) stage = Stage.INTERPRET;
-    return IntrinsicType.new(typeFromString(name), stage);
+    return IntrinsicType.new(TypeUtil.fromString(name), stage);
+}
+
+component TypeUtil {
+    def fromString(s: string) -> ValueType {
+        if (Strings.equal(s, "int")) return ValueType.I32;
+        if (Strings.equal(s, "i32")) return ValueType.I32;
+        if (Strings.equal(s, "u32")) return ValueType.I32;
+        if (Strings.equal(s, "i64")) return ValueType.I64;
+        if (Strings.equal(s, "u64")) return ValueType.I64;
+        if (Strings.equal(s, "float")) return ValueType.F32;
+        if (Strings.equal(s, "f32")) return ValueType.F32;
+        if (Strings.equal(s, "f64")) return ValueType.F64;
+        if (Strings.equal(s, "double")) return ValueType.F64;
+
+        return ValueType.BOTTOM;
+    }
+
+    def toStringShort(t: ValueType) -> string {
+        match (t) {
+            I32 => return "i";
+            I64 => return "l";
+            F32 => return "f";
+            F64 => return "d";
+            V128 => return "v";
+            Host(_) => return "H";
+            Ref(_, _) => return "r";
+            BOTTOM => return "V";
+        }
+    }
+
+    def toString(t: ValueType) -> string {
+        return StringBuilder.new().putq(t.render).toString();
+    }
 }
 
 component IntrinsicTypes {
@@ -243,12 +221,12 @@ component IntrinsicTypes {
         intrinsic_types[f] = d;
     }
 
-    def intrinsic_type(fn_name: string) -> (Array<CBDType>, CBDType) {
+    def intrinsic_type(fn_name: string) -> (Array<ValueType>, ValueType) {
         if (intrinsic_types.has(fn_name)) {
             def t = intrinsic_types[fn_name];
             return (Arrays.map(t.args, fun (a: IntrinsicType) => a.primitive), t.return_type.primitive);
         } else {
-            return (null, CBDType.Bot);
+            return (null, ValueType.BOTTOM);
         }
     }
 

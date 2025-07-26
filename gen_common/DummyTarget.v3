@@ -1,0 +1,29 @@
+component Target {
+	def limit_memory_pages = 30000u;
+	def newMemory(decl: MemoryDecl) -> Memory {
+        return null;
+    }
+	def newWasmStack() => null;
+
+	def forceGC();
+	def ticksNs() -> u64;
+	def rdtsc() -> u64;
+	def getRdtsc() -> (void -> u64) { return rdtsc; }
+	def pregenIntoFile(filename: string) -> ErrorBuilder;
+
+	def getTestTiers() -> List<(string, ExecutionStrategy)>;
+	def fastFwCopy(dst: Range<byte>, src: Range<byte>);
+}
+
+class DummyStrategy extends ExecutionStrategy {
+	def call(func: Function, args: Range<Value>) -> Result;
+	private def popStackInChain(stack: void) -> void;
+}
+
+type TargetOsrInfo #unboxed { }
+type TargetCode #unboxed { }
+type TargetModule #unboxed { }
+type TargetFrame(frame: void) #unboxed {
+	def getFrameAccessor() -> FrameAccessor { return null; }
+}
+class TargetHandlerDest(is_dummy: bool) { }

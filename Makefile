@@ -30,30 +30,49 @@ $(DEFS).sexp:
 validator/Validator.v3: $(GENERATE_DEPS) validator/ValidatorGen.v3 validator/ValidatorTemplate.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
+		$(ENGINE)\
+		$(WIZARD_UTIL)\
 		validator/ValidatorGen.v3\
-		$(DEFS).sexp $(DEFS) validator/ValidatorTemplate.v3\
-		> validator/Validator.v3
+		$(DEFS).sexp\
+		$(DEFS)\
+		validator/ValidatorTemplate.v3\
+		> $@~
+	mv --force $@~ $@
 
 interpreter/Interpreter.v3: $(GENERATE_DEPS) interpreter/InterpreterGen.v3 interpreter/InterpreterTemplate.v3 validator/Validator.v3
 	$(VIRGIL) $(VIRGIL_STD) \
 		$(GENERATE_LIB)\
+		$(ENGINE)\
+		$(WIZARD_UTIL)\
 		interpreter/InterpreterGen.v3\
-		$(DEFS).sexp $(DEFS) interpreter/InterpreterTemplate.v3\
-		> interpreter/Interpreter.v3
+		$(DEFS).sexp $(DEFS)\
+		interpreter/InterpreterTemplate.v3\
+		> $@~
+	mv --force $@~ $@
 
 compiler/Compiler.v3: $(GENERATE_DEPS) compiler/CompilerGen.v3 compiler/CompilerTemplate.v3 validator/Validator.v3 compiler/Intrinsics.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
+		$(ENGINE)\
+		$(WIZARD_UTIL)\
 		compiler/CompilerGen.v3\
-		$(DEFS).sexp $(DEFS) compiler/CompilerTemplate.v3\
-		> compiler/Compiler.v3
+		$(DEFS).sexp\
+		$(DEFS)\
+		compiler/CompilerTemplate.v3\
+		> $@~
+	mv --force $@~ $@
 
 abstract_interpreter/AI.v3: $(GENERATE_DEPS) abstract_interpreter/AIGen.v3 abstract_interpreter/AITemplate.v3 validator/Validator.v3 abstract_interpreter/Intrinsics.v3
 	$(VIRGIL) $(VIRGIL_STD) \
 		$(GENERATE_LIB)\
+		$(ENGINE)\
+		$(WIZARD_UTIL)\
 		abstract_interpreter/AIGen.v3\
-		$(DEFS).sexp $(DEFS) abstract_interpreter/AITemplate.v3\
-		> abstract_interpreter/AI.v3
+		$(DEFS).sexp\
+		$(DEFS)\
+		abstract_interpreter/AITemplate.v3\
+		> $@~
+	mv --force $@~ $@
 
 validator: validator/Validator.v3
 interpreter: interpreter/Interpreter.v3
@@ -80,11 +99,12 @@ InterpreterMain: interpreter/Interpreter.v3
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
 		gen_common/IR/Types.v3\
 		runtime_common/*.v3 validator/Validator.v3 abstract_interpreter/AI.v3\
-		abstract_interpreter/state_mgrs/*.v3 abstract_interpreter/impls/$*.v3 abstract_interpreter/AIMain.v3 -output=$@
+		abstract_interpreter/state_mgrs/*.v3 abstract_interpreter/impls/$*.v3 abstract_interpreter/AIMain.v3
+	mv AIMain $@
 
 # Clean build artifacts
 clean:
-	rm -f interpreter/Interpreter.v3 compiler/Compiler.v3 validator/Validator.v3 InterpreterMain $(DEFS).sexp
+	rm -f interpreter/Interpreter.v3 compiler/Compiler.v3 validator/Validator.v3 InterpreterMain $(DEFS).sexp AIMain *AI
 
 # Usage instructions
 help:

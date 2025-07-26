@@ -43,9 +43,9 @@ class State<V>(stack: ArrayStack<V>, globals: Vector<V>, stack_types: ArrayStack
         return State<V>.new(new_stack, new_globals, new_sts, new_gts);
     }
 }
-class StateManager<V, I32, I64, U32, U64, F32, F64, REF> {
+class StateManager<V, I32, I64, F32, F64, REF> {
     var current_frame: Frame;
-    var ai: AI<V, I32, I64, U32, U64, F32, F64, REF>;
+    var ai: AI<V, I32, I64, F32, F64, REF>;
 
     def init(frame: Frame, state: State<V>);
     def branch(state: State<V>);
@@ -60,7 +60,7 @@ class StateManager<V, I32, I64, U32, U64, F32, F64, REF> {
     def startNextCont();
     def shouldFinishCont() -> bool;
 }
-class AI<V, I32, I64, U32, U64, F32, F64, REF> {
+class AI<V, I32, I64, F32, F64, REF> {
     var module: Module;
     var functions: Vector<CBDFunctionI>;
 
@@ -80,7 +80,7 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
         global_types = s.global_types;
     }
 
-    var state_manager: StateManager<V, I32, I64, U32, U64, F32, F64, REF>;
+    var state_manager: StateManager<V, I32, I64, F32, F64, REF>;
     def current_frame() => state_manager.current_frame;
 
     new(module: Module, state_manager, args: Array<int>) {
@@ -151,36 +151,27 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def print_stack() {}
 
     def I32_equals(lhs: I32, rhs: I32) -> I32;
+    def I32_not_equals(lhs: I32, rhs: I32) -> I32;
+    def I32_plus(lhs: I32, rhs: I32) -> I32;
+    def I32_minus(lhs: I32, rhs: I32) -> I32;
     def I32_div(lhs: I32, rhs: I32) -> I32;
+    def I32_lt(lhs: I32, rhs: I32) -> I32;
+    def I32_lte(lhs: I32, rhs: I32) -> I32;
+    def I32_gt(lhs: I32, rhs: I32) -> I32;
+    def I32_times(lhs: I32, rhs: I32) -> I32;
     def I32_and(lhs: I32, rhs: I32) -> I32;
-    def U32_equals(lhs: U32, rhs: U32) -> U32;
-    def U32_not_equals(lhs: U32, rhs: U32) -> U32;
-    def U32_plus(lhs: U32, rhs: U32) -> U32;
-    def U32_minus(lhs: U32, rhs: U32) -> U32;
-    def U32_div(lhs: U32, rhs: U32) -> U32;
-    def U32_lt(lhs: U32, rhs: U32) -> U32;
-    def U32_lte(lhs: U32, rhs: U32) -> U32;
-    def U32_gt(lhs: U32, rhs: U32) -> U32;
-    def U32_times(lhs: U32, rhs: U32) -> U32;
-    def U32_and(lhs: U32, rhs: U32) -> U32;
 
     def I32_maybeTrue(i: I32) -> bool;
     def I32_maybeFalse(i: I32) -> bool;
-    def U32_maybeTrue(u: U32) -> bool;
-    def U32_maybeFalse(u: U32) -> bool;
 
     def unbox_i(v: V) -> I32;
     def unbox_l(v: V) -> I64;
-    def unbox_u(v: V) -> U32;
-    def unbox_w(v: V) -> U64;
     def unbox_f(v: V) -> F32;
     def unbox_d(v: V) -> F64;
     def unbox_r(v: V) -> REF;
 
     def I32_abs_eq(lhs: I32, rhs: I32) -> bool;
     def I64_abs_eq(lhs: I64, rhs: I64) -> bool;
-    def U32_abs_eq(lhs: U32, rhs: U32) -> bool;
-    def U64_abs_eq(lhs: U64, rhs: U64) -> bool;
     def F32_abs_eq(lhs: F32, rhs: F32) -> bool;
     def F64_abs_eq(lhs: F64, rhs: F64) -> bool;
     def REF_abs_eq(lhs: REF, rhs: REF) -> bool;
@@ -188,8 +179,6 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
         match (tv) {
             I32 => return I32_abs_eq(unbox_i(lhs), unbox_i(rhs));
             I64 => return I64_abs_eq(unbox_l(lhs), unbox_l(rhs));
-            U32 => return U32_abs_eq(unbox_u(lhs), unbox_u(rhs));
-            U64 => return U64_abs_eq(unbox_w(lhs), unbox_w(rhs));
             F32 => return F32_abs_eq(unbox_f(lhs), unbox_f(rhs));
             F64 => return F64_abs_eq(unbox_d(lhs), unbox_d(rhs));
             _ => {
@@ -212,8 +201,6 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
 
     def merge_i(lhs: I32, rhs: I32) -> I32;
     def merge_l(lhs: I64, rhs: I64) -> I64;
-    def merge_u(lhs: U32, rhs: U32) -> U32;
-    def merge_w(lhs: U64, rhs: U64) -> U64;
     def merge_f(lhs: F32, rhs: F32) -> F32;
     def merge_d(lhs: F64, rhs: F64) -> F64;
     def merge_r(lhs: REF, rhs: REF) -> REF;
@@ -221,8 +208,6 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
         match (tv) {
             I32 => return box_i(merge_i(unbox_i(lhs), unbox_i(rhs)));
             I64 => return box_l(merge_l(unbox_l(lhs), unbox_l(rhs)));
-            U32 => return box_u(merge_u(unbox_u(lhs), unbox_u(rhs)));
-            U64 => return box_w(merge_w(unbox_w(lhs), unbox_w(rhs)));
             F32 => return box_f(merge_f(unbox_f(lhs), unbox_f(rhs)));
             F64 => return box_d(merge_d(unbox_d(lhs), unbox_d(rhs)));
             _ => {
@@ -245,15 +230,12 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     }
 
     def box_i(v: I32) -> V;
-    def box_u(v: U32) -> V;
     def box_l(v: I64) -> V;
-    def box_w(v: U64) -> V;
     def box_f(v: F32) -> V;
     def box_d(v: F64) -> V;
     def box_ref(v: REF) -> V;
     def rtcast_i32(i: i32) -> I32;
     def rtcast_i64(i: i64) -> I64;
-    def rtcast_u32(u: u32) -> U32;
     def rtcast_f32(f: float) -> F32;
     def rtcast_f64(f: double) -> F64;
     def ref_null() -> REF;
@@ -267,16 +249,8 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
         stack.top = dest + count;
     }
 
-    def imm_readULEB32() -> u32 {
-        return current_frame().codeptr.read_uleb32();
-    }
-
     def imm_readILEB32() -> i32 {
         return i32.!(current_frame().codeptr.read_uleb32());
-    }
-
-    def imm_readULEB64() -> u64 {
-        return current_frame().codeptr.read_uleb64();
     }
 
     def imm_readILEB64() -> i64 {
@@ -295,14 +269,8 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     def pop_i32() -> I32 {
         return unbox_i(stack.pop());
     }
-    def pop_u32() -> U32 {
-        return unbox_u(stack.pop());
-    }
     def pop_i64() -> I64 {
         return unbox_l(stack.pop());
-    }
-    def pop_u64() -> U64 {
-        return unbox_w(stack.pop());
     }
     def pop_f32() -> F32 {
         return unbox_f(stack.pop());
@@ -322,17 +290,9 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
         stack.push(box_i(v));
         stack_types.push(TypeVar.I32);
     }
-    def push_u32(v: U32) {
-        stack.push(box_u(v));
-        stack_types.push(TypeVar.U32);
-    }
     def push_i64(v: I64) {
         stack.push(box_l(v));
         stack_types.push(TypeVar.I64);
-    }
-    def push_u64(v: U64) {
-        stack.push(box_w(v));
-        stack_types.push(TypeVar.U64);
     }
     def push_f32(v: F32) {
         stack.push(box_f(v));
@@ -352,28 +312,28 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     }
 
     // Local variables.
-    def getLocal(tv: TypeVar, index: u32) -> V {
-        return stack.elems[int.!(index)];
+    def getLocal(tv: TypeVar, index: i32) -> V {
+        return stack.elems[index];
     }
-    def setLocal(tv: TypeVar, index: u32, v: V) {
-        stack.elems[int.!(index)] = v;
+    def setLocal(tv: TypeVar, index: i32, v: V) {
+        stack.elems[index] = v;
     }
 
     // Global variables.
-    def getGlobal(tv: TypeVar, index: u32) -> V {
-        return globals[int.!(index)];
+    def getGlobal(tv: TypeVar, index: i32) -> V {
+        return globals[index];
     }
-    def setGlobal(tv: TypeVar, index: u32, v: V) {
-        globals[int.!(index)] = v;
+    def setGlobal(tv: TypeVar, index: i32, v: V) {
+        globals[index] = v;
     }
 
     // CBDFunction context.
-    def f_getLabel(depth: u32) -> () {
+    def f_getLabel(depth: i32) -> () {
         return ();
     }
 
-    def f_getLocalType(index: u32) -> TypeVar {
-        return stack_types.elems[int.!(index)];
+    def f_getLocalType(index: i32) -> TypeVar {
+        return stack_types.elems[index];
     }
 
     def f_getTopOfStackType() -> TypeVar {
@@ -381,22 +341,22 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     }
 
     // Module context.
-    def m_getGlobalType(index: u32) -> TypeVar {
-        return global_types[int.!(index)];
+    def m_getGlobalType(index: i32) -> TypeVar {
+        return global_types[index];
     }
-    def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
-    def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset;
-    def m_isMemory64(memory_index: u32) -> bool;
-    def m_isTable64(memory_index: u32) -> bool;
-    def m_getFuncSignature(func_index: u32) -> SigDecl {
+    def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind;
+    def m_getFieldOffset(struct_index: i32, field_index: i32) -> FieldOffset;
+    def m_isMemory64(memory_index: i32) -> bool;
+    def m_isTable64(memory_index: i32) -> bool;
+    def m_getFuncSignature(func_index: i32) -> SigDecl {
         return null; // already in CBDFunction, TODO: refactor
     }
-    def m_getSignature(sig_index: u32) -> SigDecl;
+    def m_getSignature(sig_index: i32) -> SigDecl;
 
     // Instance context.
-    def i_getTableFunction64(table_index: u32, sig: SigDecl, func_index: U64) -> CBDFunctionI;
-    def i_getTableFunction32(table_index: u32, sig: SigDecl, func_index: U32) -> CBDFunctionI;
-    def i_getFunction(func_index: u32) -> CBDFunctionI {
+    def i_getTableFunction64(table_index: i32, sig: SigDecl, func_index: I64) -> CBDFunctionI;
+    def i_getTableFunction32(table_index: i32, sig: SigDecl, func_index: I32) -> CBDFunctionI;
+    def i_getFunction(func_index: i32) -> CBDFunctionI {
         return functions[int.!(func_index)];
     }
 
@@ -422,21 +382,21 @@ class AI<V, I32, I64, U32, U64, F32, F64, REF> {
     }
 
     // Machine intrinsics.
-    def mach_readStructField_u32(obj: REF, offset: FieldOffset) -> U32;
-    def mach_readStructField_u64(obj: REF, offset: FieldOffset) -> U64;
+    def mach_readStructField_u32(obj: REF, offset: FieldOffset) -> I32;
+    def mach_readStructField_u64(obj: REF, offset: FieldOffset) -> I64;
     def mach_readStructField_f32(obj: REF, offset: FieldOffset) -> F32;
     def mach_readStructField_f64(obj: REF, offset: FieldOffset) -> F64;
     def mach_readStructField_v128(obj: REF, offset: FieldOffset) -> v128;
     def mach_readStructField_Object(obj: REF, offset: FieldOffset) -> REF;
 
-    def mach_readMemory64_u32(memory_index: u32, index: U64, offset: u64) -> U32;
-    def mach_readMemory32_u32(memory_index: u32, index: U32, offset: u32) -> U32;
+    def mach_readMemory64_u32(memory_index: i32, index: I64, offset: i64) -> I32;
+    def mach_readMemory32_u32(memory_index: i32, index: I32, offset: i32) -> I32;
 
-    def mach_readTable64(table_index: u32, index: U64) -> REF;
-    def mach_readTable32(table_index: u32, index: U32) -> REF;
+    def mach_readTable64(table_index: i32, index: I64) -> REF;
+    def mach_readTable32(table_index: i32, index: I32) -> REF;
 
-    def mach_writeTable64(table_index: u32, index: U64, val: REF);
-    def mach_writeTable32(table_index: u32, index: U32, val: REF);
+    def mach_writeTable64(table_index: i32, index: I64, val: REF);
+    def mach_writeTable32(table_index: i32, index: I32, val: REF);
 
     // Traps.
     def invalid(); // should never occur
@@ -491,77 +451,77 @@ def UNREACHABLE() {
 def NOP() {
 }
 def LOCAL_GET() {
-	def index0 = imm_readULEB32();
+	def index0 = imm_readILEB32();
 	def tv2 = f_getLocalType(index0);
 	def val5 = getLocal(tv2, index0);
 	def eff18 = push_Value(tv2, val5);
 }
 def LOCAL_SET() {
-	def index0 = imm_readULEB32();
+	def index0 = imm_readILEB32();
 	def tv2 = f_getLocalType(index0);
 	def val4 = pop_Value(tv2);
 	def eff98 = setLocal(tv2, index0, val4);
 }
 def LOCAL_TEE() {
-	def index0 = imm_readULEB32();
+	def index0 = imm_readILEB32();
 	def tv2 = f_getLocalType(index0);
 	def val4 = pop_Value(tv2);
 	def eff128 = setLocal(tv2, index0, val4);
 	def eff911 = push_Value(tv2, val4);
 }
 def GLOBAL_GET() {
-	def index0 = imm_readULEB32();
+	def index0 = imm_readILEB32();
 	def tv2 = m_getGlobalType(index0);
 	def val5 = getGlobal(tv2, index0);
 	def eff128 = push_Value(tv2, val5);
 }
 def GLOBAL_SET() {
-	def index0 = imm_readULEB32();
+	def index0 = imm_readILEB32();
 	def tv2 = m_getGlobalType(index0);
 	def val4 = pop_Value(tv2);
 	def eff98 = setGlobal(tv2, index0, val4);
 }
 def TABLE_GET() {
-	def table_index0 = imm_readULEB32();
+	def table_index0 = imm_readILEB32();
 	def cond92 = m_isTable64(table_index0);
 	if (cond92) {
-		def index3 = pop_u64();
+		def index3 = pop_i64();
 		def val6 = mach_readTable64(table_index0, index3);
 		def eff108 = push_Object(val6);
 	} else {
-		def index9 = pop_u32();
+		def index9 = pop_i32();
 		def val12 = mach_readTable32(table_index0, index9);
 		def eff1414 = push_Object(val12);
 	}
 }
 def TABLE_SET() {
-	def table_index0 = imm_readULEB32();
+	def table_index0 = imm_readILEB32();
 	def cond152 = m_isTable64(table_index0);
 	if (cond152) {
 		def val3 = pop_Object();
-		def index4 = pop_u64();
+		def index4 = pop_i64();
 	} else {
 		def val9 = pop_Object();
-		def index10 = pop_u32();
+		def index10 = pop_i32();
 	}
 }
 def CALL() {
-	def index0 = imm_readULEB32();
+	def index0 = imm_readILEB32();
 	def sig2 = m_getFuncSignature(index0);
 	def target4 = i_getFunction(index0);
 	def eff157 = doCall(sig2, target4);
 }
 def CALL_INDIRECT() {
-	def sig_index0 = imm_readULEB32();
-	def table_index1 = imm_readULEB32();
+	def sig_index0 = imm_readILEB32();
+	def table_index1 = imm_readILEB32();
 	def sig3 = m_getSignature(sig_index0);
 	def is645 = m_isTable64(table_index1);
 	if (is645) {
-		def func_index7 = pop_u64();
+		def func_index7 = pop_i64();
 		def target11 = i_getTableFunction64(table_index1, sig3, func_index7);
 		def eff914 = doCall(sig3, target11);
 	} else {
-		def func_index15 = pop_u32();
+		def func_index15 = pop_i32();
 		def target19 = i_getTableFunction32(table_index1, sig3, func_index15);
 		def eff1522 = doCall(sig3, target19);
 	}
@@ -571,15 +531,15 @@ def DROP() {
 	def eff232 = pop_Value(tv0);
 }
 def SELECT() {
-	def c0 = pop_u32();
+	def c0 = pop_i32();
 	def tv1 = f_getTopOfStackType();
 	def b3 = pop_Value(tv1);
 	def a5 = pop_Value(tv1);
-	def arg116 : u32 = 0u;
-	def rtcast15 = rtcast_u32(arg116);
-	def cond38 = U32_not_equals(c0, rtcast15);
-	def condTrue16 = U32_maybeTrue(cond38);
-	def condFalse17 = U32_maybeFalse(cond38);
+	def arg116 : int = 0;
+	def rtcast15 = rtcast_i32(arg116);
+	def cond38 = I32_not_equals(c0, rtcast15);
+	def condTrue16 = I32_maybeTrue(cond38);
+	def condFalse17 = I32_maybeFalse(cond38);
 	def condBoth18 = bool.&&(condTrue16, condFalse17);
 	if (condBoth18) {
 		def stack_merge19 = merge_val(tv1, a5, b3);
@@ -598,22 +558,22 @@ def I32_CONST() {
 	def eff212 = push_i32(rtcast3);
 }
 def I32_ADD() {
-	def b0 = pop_u32();
-	def a1 = pop_u32();
-	def r4 = U32_plus(a1, b0);
-	def eff46 = push_u32(r4);
+	def b0 = pop_i32();
+	def a1 = pop_i32();
+	def r4 = I32_plus(a1, b0);
+	def eff46 = push_i32(r4);
 }
 def I32_SUB() {
-	def b0 = pop_u32();
-	def a1 = pop_u32();
-	def r4 = U32_minus(a1, b0);
-	def eff76 = push_u32(r4);
+	def b0 = pop_i32();
+	def a1 = pop_i32();
+	def r4 = I32_minus(a1, b0);
+	def eff76 = push_i32(r4);
 }
 def I32_MUL() {
-	def b0 = pop_u32();
-	def a1 = pop_u32();
-	def r4 = U32_times(a1, b0);
-	def eff76 = push_u32(r4);
+	def b0 = pop_i32();
+	def a1 = pop_i32();
+	def r4 = I32_times(a1, b0);
+	def eff76 = push_i32(r4);
 }
 def I32_DIV_S() {
 	def b0 = pop_i32();
@@ -652,13 +612,13 @@ def I32_DIV_S() {
 	def eff718 = push_i32(r16);
 }
 def I32_DIV_U() {
-	def b0 = pop_u32();
-	def a1 = pop_u32();
-	def arg352 : u32 = 0u;
-	def rtcast11 = rtcast_u32(arg352);
-	def cond324 = U32_equals(b0, rtcast11);
-	def condTrue12 = U32_maybeTrue(cond324);
-	def condFalse13 = U32_maybeFalse(cond324);
+	def b0 = pop_i32();
+	def a1 = pop_i32();
+	def arg352 : int = 0;
+	def rtcast11 = rtcast_i32(arg352);
+	def cond324 = I32_equals(b0, rtcast11);
+	def condTrue12 = I32_maybeTrue(cond324);
+	def condFalse13 = I32_maybeFalse(cond324);
 	def condBoth14 = bool.&&(condTrue12, condFalse13);
 	if (condBoth14) {
 		def ret335 = trapDivideByZero();
@@ -667,186 +627,186 @@ def I32_DIV_U() {
 			def ret335 = trapDivideByZero();
 		}
 	}
-	def r8 = U32_div(a1, b0);
-	def eff2810 = push_u32(r8);
+	def r8 = I32_div(a1, b0);
+	def eff2810 = push_i32(r8);
 }
 def I32_EQZ() {
-	def a0 = pop_u32();
-	def arg211 : u32 = 0;
-	def rtcast8 = rtcast_u32(arg211);
-	def cond153 = U32_equals(a0, rtcast8);
-	def condTrue9 = U32_maybeTrue(cond153);
-	def condFalse10 = U32_maybeFalse(cond153);
+	def a0 = pop_i32();
+	def arg211 : int = 0;
+	def rtcast8 = rtcast_i32(arg211);
+	def cond153 = I32_equals(a0, rtcast8);
+	def condTrue9 = I32_maybeTrue(cond153);
+	def condFalse10 = I32_maybeFalse(cond153);
 	def condBoth11 = bool.&&(condTrue9, condFalse10);
 	if (condBoth11) {
-		def arg174 : u32 = 1;
-		def rtcast12 = rtcast_u32(arg174);
-		def arg196 : u32 = 0;
-		def rtcast13 = rtcast_u32(arg196);
-		def stack_merge14 = merge_u(rtcast12, rtcast13);
-		def eff15 = push_u32(stack_merge14);
+		def arg174 : int = 1;
+		def rtcast12 = rtcast_i32(arg174);
+		def arg196 : int = 0;
+		def rtcast13 = rtcast_i32(arg196);
+		def stack_merge14 = merge_i(rtcast12, rtcast13);
+		def eff15 = push_i32(stack_merge14);
 	} else {
 		if (condTrue9) {
-			def arg174 : u32 = 1;
-			def rtcast12 = rtcast_u32(arg174);
-			def eff165 = push_u32(rtcast12);
+			def arg174 : int = 1;
+			def rtcast12 = rtcast_i32(arg174);
+			def eff165 = push_i32(rtcast12);
 		} else {
-			def arg196 : u32 = 0;
-			def rtcast13 = rtcast_u32(arg196);
-			def eff187 = push_u32(rtcast13);
+			def arg196 : int = 0;
+			def rtcast13 = rtcast_i32(arg196);
+			def eff187 = push_i32(rtcast13);
 		}
 	}
 }
 def I32_EQ() {
-	def b0 = pop_u32();
-	def a1 = pop_u32();
-	def cond164 = U32_equals(a1, b0);
-	def condTrue9 = U32_maybeTrue(cond164);
-	def condFalse10 = U32_maybeFalse(cond164);
+	def b0 = pop_i32();
+	def a1 = pop_i32();
+	def cond164 = I32_equals(a1, b0);
+	def condTrue9 = I32_maybeTrue(cond164);
+	def condFalse10 = I32_maybeFalse(cond164);
 	def condBoth11 = bool.&&(condTrue9, condFalse10);
 	if (condBoth11) {
-		def arg185 : u32 = 1;
-		def rtcast12 = rtcast_u32(arg185);
-		def arg207 : u32 = 0;
-		def rtcast13 = rtcast_u32(arg207);
-		def stack_merge14 = merge_u(rtcast12, rtcast13);
-		def eff15 = push_u32(stack_merge14);
+		def arg185 : int = 1;
+		def rtcast12 = rtcast_i32(arg185);
+		def arg207 : int = 0;
+		def rtcast13 = rtcast_i32(arg207);
+		def stack_merge14 = merge_i(rtcast12, rtcast13);
+		def eff15 = push_i32(stack_merge14);
 	} else {
 		if (condTrue9) {
-			def arg185 : u32 = 1;
-			def rtcast12 = rtcast_u32(arg185);
-			def eff176 = push_u32(rtcast12);
+			def arg185 : int = 1;
+			def rtcast12 = rtcast_i32(arg185);
+			def eff176 = push_i32(rtcast12);
 		} else {
-			def arg207 : u32 = 0;
-			def rtcast13 = rtcast_u32(arg207);
-			def eff198 = push_u32(rtcast13);
+			def arg207 : int = 0;
+			def rtcast13 = rtcast_i32(arg207);
+			def eff198 = push_i32(rtcast13);
 		}
 	}
 }
 def I32_NE() {
-	def b0 = pop_u32();
-	def a1 = pop_u32();
-	def cond164 = U32_not_equals(a1, b0);
-	def condTrue9 = U32_maybeTrue(cond164);
-	def condFalse10 = U32_maybeFalse(cond164);
+	def b0 = pop_i32();
+	def a1 = pop_i32();
+	def cond164 = I32_not_equals(a1, b0);
+	def condTrue9 = I32_maybeTrue(cond164);
+	def condFalse10 = I32_maybeFalse(cond164);
 	def condBoth11 = bool.&&(condTrue9, condFalse10);
 	if (condBoth11) {
-		def arg185 : u32 = 1;
-		def rtcast12 = rtcast_u32(arg185);
-		def arg207 : u32 = 0;
-		def rtcast13 = rtcast_u32(arg207);
-		def stack_merge14 = merge_u(rtcast12, rtcast13);
-		def eff15 = push_u32(stack_merge14);
+		def arg185 : int = 1;
+		def rtcast12 = rtcast_i32(arg185);
+		def arg207 : int = 0;
+		def rtcast13 = rtcast_i32(arg207);
+		def stack_merge14 = merge_i(rtcast12, rtcast13);
+		def eff15 = push_i32(stack_merge14);
 	} else {
 		if (condTrue9) {
-			def arg185 : u32 = 1;
-			def rtcast12 = rtcast_u32(arg185);
-			def eff176 = push_u32(rtcast12);
+			def arg185 : int = 1;
+			def rtcast12 = rtcast_i32(arg185);
+			def eff176 = push_i32(rtcast12);
 		} else {
-			def arg207 : u32 = 0;
-			def rtcast13 = rtcast_u32(arg207);
-			def eff198 = push_u32(rtcast13);
+			def arg207 : int = 0;
+			def rtcast13 = rtcast_i32(arg207);
+			def eff198 = push_i32(rtcast13);
 		}
 	}
 }
 def I32_LT_U() {
-	def b0 = pop_u32();
-	def a1 = pop_u32();
-	def cond164 = U32_lt(a1, b0);
-	def condTrue9 = U32_maybeTrue(cond164);
-	def condFalse10 = U32_maybeFalse(cond164);
+	def b0 = pop_i32();
+	def a1 = pop_i32();
+	def cond164 = I32_lt(a1, b0);
+	def condTrue9 = I32_maybeTrue(cond164);
+	def condFalse10 = I32_maybeFalse(cond164);
 	def condBoth11 = bool.&&(condTrue9, condFalse10);
 	if (condBoth11) {
-		def arg185 : u32 = 1;
-		def rtcast12 = rtcast_u32(arg185);
-		def arg207 : u32 = 0;
-		def rtcast13 = rtcast_u32(arg207);
-		def stack_merge14 = merge_u(rtcast12, rtcast13);
-		def eff15 = push_u32(stack_merge14);
+		def arg185 : int = 1;
+		def rtcast12 = rtcast_i32(arg185);
+		def arg207 : int = 0;
+		def rtcast13 = rtcast_i32(arg207);
+		def stack_merge14 = merge_i(rtcast12, rtcast13);
+		def eff15 = push_i32(stack_merge14);
 	} else {
 		if (condTrue9) {
-			def arg185 : u32 = 1;
-			def rtcast12 = rtcast_u32(arg185);
-			def eff176 = push_u32(rtcast12);
+			def arg185 : int = 1;
+			def rtcast12 = rtcast_i32(arg185);
+			def eff176 = push_i32(rtcast12);
 		} else {
-			def arg207 : u32 = 0;
-			def rtcast13 = rtcast_u32(arg207);
-			def eff198 = push_u32(rtcast13);
+			def arg207 : int = 0;
+			def rtcast13 = rtcast_i32(arg207);
+			def eff198 = push_i32(rtcast13);
 		}
 	}
 }
 def I32_LE_S() {
-	def b0 = pop_u32();
-	def a1 = pop_u32();
-	def cond164 = U32_lte(a1, b0);
-	def condTrue9 = U32_maybeTrue(cond164);
-	def condFalse10 = U32_maybeFalse(cond164);
+	def b0 = pop_i32();
+	def a1 = pop_i32();
+	def cond164 = I32_lte(a1, b0);
+	def condTrue9 = I32_maybeTrue(cond164);
+	def condFalse10 = I32_maybeFalse(cond164);
 	def condBoth11 = bool.&&(condTrue9, condFalse10);
 	if (condBoth11) {
-		def arg185 : u32 = 1;
-		def rtcast12 = rtcast_u32(arg185);
-		def arg207 : u32 = 0;
-		def rtcast13 = rtcast_u32(arg207);
-		def stack_merge14 = merge_u(rtcast12, rtcast13);
-		def eff15 = push_u32(stack_merge14);
+		def arg185 : int = 1;
+		def rtcast12 = rtcast_i32(arg185);
+		def arg207 : int = 0;
+		def rtcast13 = rtcast_i32(arg207);
+		def stack_merge14 = merge_i(rtcast12, rtcast13);
+		def eff15 = push_i32(stack_merge14);
 	} else {
 		if (condTrue9) {
-			def arg185 : u32 = 1;
-			def rtcast12 = rtcast_u32(arg185);
-			def eff176 = push_u32(rtcast12);
+			def arg185 : int = 1;
+			def rtcast12 = rtcast_i32(arg185);
+			def eff176 = push_i32(rtcast12);
 		} else {
-			def arg207 : u32 = 0;
-			def rtcast13 = rtcast_u32(arg207);
-			def eff198 = push_u32(rtcast13);
+			def arg207 : int = 0;
+			def rtcast13 = rtcast_i32(arg207);
+			def eff198 = push_i32(rtcast13);
 		}
 	}
 }
 def I32_GT_U() {
-	def b0 = pop_u32();
-	def a1 = pop_u32();
-	def cond164 = U32_gt(a1, b0);
-	def condTrue9 = U32_maybeTrue(cond164);
-	def condFalse10 = U32_maybeFalse(cond164);
+	def b0 = pop_i32();
+	def a1 = pop_i32();
+	def cond164 = I32_gt(a1, b0);
+	def condTrue9 = I32_maybeTrue(cond164);
+	def condFalse10 = I32_maybeFalse(cond164);
 	def condBoth11 = bool.&&(condTrue9, condFalse10);
 	if (condBoth11) {
-		def arg185 : u32 = 1;
-		def rtcast12 = rtcast_u32(arg185);
-		def arg207 : u32 = 0;
-		def rtcast13 = rtcast_u32(arg207);
-		def stack_merge14 = merge_u(rtcast12, rtcast13);
-		def eff15 = push_u32(stack_merge14);
+		def arg185 : int = 1;
+		def rtcast12 = rtcast_i32(arg185);
+		def arg207 : int = 0;
+		def rtcast13 = rtcast_i32(arg207);
+		def stack_merge14 = merge_i(rtcast12, rtcast13);
+		def eff15 = push_i32(stack_merge14);
 	} else {
 		if (condTrue9) {
-			def arg185 : u32 = 1;
-			def rtcast12 = rtcast_u32(arg185);
-			def eff176 = push_u32(rtcast12);
+			def arg185 : int = 1;
+			def rtcast12 = rtcast_i32(arg185);
+			def eff176 = push_i32(rtcast12);
 		} else {
-			def arg207 : u32 = 0;
-			def rtcast13 = rtcast_u32(arg207);
-			def eff198 = push_u32(rtcast13);
+			def arg207 : int = 0;
+			def rtcast13 = rtcast_i32(arg207);
+			def eff198 = push_i32(rtcast13);
 		}
 	}
 }
 def I32_AND() {
-	def b0 = pop_u32();
-	def a1 = pop_u32();
-	def r4 = U32_and(a1, b0);
-	def eff166 = push_u32(r4);
+	def b0 = pop_i32();
+	def a1 = pop_i32();
+	def r4 = I32_and(a1, b0);
+	def eff166 = push_i32(r4);
 }
 def BR() {
-	def depth0 = imm_readULEB32();
+	def depth0 = imm_readILEB32();
 	def label2 = f_getLabel(depth0);
 	def ret74 = doBranch(label2);
 }
 def BR_IF() {
-	def depth0 = imm_readULEB32();
+	def depth0 = imm_readILEB32();
 	def label2 = f_getLabel(depth0);
-	def cond3 = pop_u32();
-	def arg104 : u32 = 0;
-	def rtcast10 = rtcast_u32(arg104);
-	def cond56 = U32_not_equals(cond3, rtcast10);
-	def condTrue11 = U32_maybeTrue(cond56);
-	def condFalse12 = U32_maybeFalse(cond56);
+	def cond3 = pop_i32();
+	def arg104 : int = 0;
+	def rtcast10 = rtcast_i32(arg104);
+	def cond56 = I32_not_equals(cond3, rtcast10);
+	def condTrue11 = I32_maybeTrue(cond56);
+	def condFalse12 = I32_maybeFalse(cond56);
 	def condBoth13 = bool.&&(condTrue11, condFalse12);
 	if (condBoth13) {
 		def ret68 = doBranch(label2);
@@ -893,7 +853,7 @@ def IF() {
 	}
 }
 def ELSE() {
-	def arg160 : u32 = 0;
+	def arg160 : int = 0;
 	def label1 = f_getLabel(arg160);
 	def ret143 = doBranch(label1);
 }

@@ -120,7 +120,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
             def is_rt = !ctx.static[n];
             if (is_op && is_rt) {
                 def tp = ctx.types[n];
-                def tp_str = tp.toString();
+                def tp_str = Strings.render(tp.render);
                 var prefix: string;
                 // there is a weird case for this, in Virgil test ops
                 // return booleans but in Wasm they don't. So e.g. i32.==
@@ -130,8 +130,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 // validator executes every path. So sometimes Bot will occur
                 // here but get DCE'd out.
                 match (tp) {
-                    Void => prefix = "TypeVar";
-                    Bot => prefix = "TypeVar";
+                    BOTTOM => prefix = "TypeVar";
                     _ => prefix = Strings.format1("TypeVar.%s", Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8));
                 }
 
@@ -151,7 +150,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                     if (!is_runtime && should_be_runtime) {
                         def fv = SSAD_IR.uidl("rtcast");
                         def tp = args_types[i];
-                        def rtcast_f = Strings.format1("rtcast_%s", tp.toString());
+                        def rtcast_f = Strings.format1("rtcast_%s", Strings.render(tp.render));
                         ctx.static[fv] = false;
                         ctx.types[fv] = ctx.types[args[i]];
                         ctx.effects[fv] = CBDEffect.None;
@@ -213,7 +212,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     for (v = vars; v != null; v = v.tail) {
         sb.puts("// ").puts(v.head).puts(" -- ");
         sb.puts("static: ").puts(if(analysis.static[v.head], "yes", "no")).puts(", ");
-        sb.puts("type: ").puts(analysis.types[v.head].toString()).puts(", ");
+        sb.puts("type: ").puts(Strings.render(analysis.types[v.head].render)).puts(", ");
         sb.puts("effect: ").puts(analysis.effects[v.head].toString());
         sb.ln();
     }
