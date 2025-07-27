@@ -109,8 +109,10 @@ def setGlobal(tv: (), index: i32, v: Value) {
 }
 
 // CBDFunction context.
-def f_getLabel(depth: i32) -> () {
-    return ();
+
+// XXX: is a label always a SidetableBrEntry?
+def f_getLabel(depth: i32) -> SidetableBrEntry {
+    return current_frame.sidetable.getBrEntry(current_frame.stp);
 }
 
 def f_getLocalType(index: i32) -> () {
@@ -148,14 +150,13 @@ def doCall(sig: SigDecl, target: CBDFunction) {
     current_frame.codeptr.iterate_local_codes(push_locals);
 }
 
-def doBranch(label: ()) {
+def doBranch(label: SidetableBrEntry) {
     // doCtlXfer
-    def ste = current_frame.sidetable.getBrEntry(current_frame.stp);
-    current_frame.codeptr.at(current_frame.codeptr.pos + ste.dpc);
-    current_frame.stp += ste.dstp;
-    if (ste.popcount > 0) {
-        if (ste.valcount > 0) copyVals(ste.valcount, stack.top - int.!(ste.popcount + ste.valcount));
-        else stack.top -= ste.popcount;
+    current_frame.codeptr.at(current_frame.codeptr.pos + label.dpc);
+    current_frame.stp += label.dstp;
+    if (label.popcount > 0) {
+        if (label.valcount > 0) copyVals(label.valcount, stack.top - int.!(label.popcount + label.valcount));
+        else stack.top -= label.popcount;
     }
 }
 
@@ -197,7 +198,8 @@ def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
 def doLoop(bt: (Array<ValueType>, Array<ValueType>)) {
 }
 
-def doIf(bt: (Array<ValueType>, Array<ValueType>)) {
+def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> SidetableBrEntry {
+    return current_frame.sidetable.getBrEntry(current_frame.stp);
 }
 
 def doEnd() {

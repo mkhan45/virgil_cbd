@@ -459,7 +459,7 @@ component Validator {
         stack = ArrayStack.new();
 
         ctl_stack = ArrayStack.new();
-        ctlxfer = SidetableBuilder.new();
+        ctlxfer = CBDSidetableBuilder.new();
         ctl_top = null;
 
         opcode_pos = codeptr.pos;
@@ -486,4 +486,7 @@ component Validator {
     def build_sidetable() -> Sidetable {
         return ctlxfer.extract();
     }
+}
+
+class CBDSidetableBuilder extends SidetableBuilder {
 }
