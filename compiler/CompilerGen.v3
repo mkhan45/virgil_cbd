@@ -94,19 +94,19 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                     def phi_name = SSAD_IR.uidl("stack_phi");
                     fwd_decls[i] = phi_name;
                     fwd_decl_code = SSAD.LetApp(phi_name, "emitFwdI32", [], fwd_decl_code);
-                    thenPops = SSAD.LetApp(SSAD_IR.uidl("phi_pop"), "emitPopAssign", [fwd_decls[n_stack_phis - i - 1]], thenPops);
-                    elsePops = SSAD.LetApp(SSAD_IR.uidl("phi_pop"), "emitPopAssign", [fwd_decls[n_stack_phis - i - 1]], elsePops);
-                    phi_pushes = SSAD.LetApp(SSAD_IR.uidl("phi_push"), "push_i32", [fwd_decls[i]], phi_pushes);
+                    thenPops = SSAD.LetApp(SSAD_IR.uidl("eff_phi_pop"), "emitPopAssign", [fwd_decls[n_stack_phis - i - 1]], thenPops);
+                    elsePops = SSAD.LetApp(SSAD_IR.uidl("eff_phi_pop"), "emitPopAssign", [fwd_decls[n_stack_phis - i - 1]], elsePops);
+                    phi_pushes = SSAD.LetApp(SSAD_IR.uidl("eff_phi_push"), "push_i32", [fwd_decls[i]], phi_pushes);
                 }
             }
 
             def emit_if_fn = if(ctx.static[c], "emitIfStatic", "emitIf");
             return fwd_decl_code.appended(
-                    SSAD.LetApp(SSAD_IR.uidl("if"), emit_if_fn, [c],
+                    SSAD.LetApp(SSAD_IR.uidl("eff_if_"), emit_if_fn, [c],
                         transformSSA(t, ctx).appended(thenPops).appended(
-                            SSAD.LetApp(SSAD_IR.uidl("else"), "emitElse", [],
+                            SSAD.LetApp(SSAD_IR.uidl("eff_else_"), "emitElse", [],
                                 transformSSA(e, ctx).appended(elsePops).appended(
-                                    SSAD.LetApp(SSAD_IR.uidl("endBrace"), "emitEnd", [],
+                                    SSAD.LetApp(SSAD_IR.uidl("eff_endBrace"), "emitEnd", [],
                                         phi_pushes.appended(transformSSA(rest, ctx)))))))
                     );
         }

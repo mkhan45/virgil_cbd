@@ -483,7 +483,7 @@ def F32_MUL() {
 def F32_DIV() {
 	// arg465478 -- static: no, type: f32, effect: none
 // arg466477 -- static: no, type: f32, effect: none
-// cond467475 -- static: no, type: f32, effect: none
+// cond467475 -- static: no, type: i32, effect: none
 // r479 -- static: no, type: f32, effect: none
 // eff463481 -- static: no, type: <bottom>, effect: push
 // arg469474 -- static: no, type: f32, effect: none
@@ -503,41 +503,41 @@ def F32_EQ() {
 	// a490 -- static: no, type: f32, effect: pop
 // eff483495 -- static: yes, type: <bottom>, effect: push
 // eff485497 -- static: yes, type: <bottom>, effect: push
-// cond482493 -- static: no, type: f32, effect: none
-// arg484494 -- static: yes, type: f32, effect: none
-// arg486496 -- static: yes, type: f32, effect: none
-// rtcast498 -- static: no, type: f32, effect: none
+// cond482493 -- static: no, type: i32, effect: none
+// arg484494 -- static: yes, type: i32, effect: none
+// arg486496 -- static: yes, type: i32, effect: none
+// rtcast498 -- static: no, type: i32, effect: none
 // b489 -- static: no, type: f32, effect: pop
 // arg487492 -- static: no, type: f32, effect: none
 // arg488491 -- static: no, type: f32, effect: none
 
 	def b = pop_f32();
 	def a = pop_f32();
-	push_f32(rtcast_f32(1.0f));
+	push_i32(rtcast_i32(1));
 }
 def F32_NE() {
 	// a507 -- static: no, type: f32, effect: pop
-// rtcast515 -- static: no, type: f32, effect: none
+// rtcast515 -- static: no, type: i32, effect: none
 // b506 -- static: no, type: f32, effect: pop
 // eff500512 -- static: yes, type: <bottom>, effect: push
 // eff502514 -- static: yes, type: <bottom>, effect: push
-// cond499510 -- static: no, type: f32, effect: none
-// arg501511 -- static: yes, type: f32, effect: none
-// arg503513 -- static: yes, type: f32, effect: none
+// cond499510 -- static: no, type: i32, effect: none
+// arg501511 -- static: yes, type: i32, effect: none
+// arg503513 -- static: yes, type: i32, effect: none
 // arg504509 -- static: no, type: f32, effect: none
 // arg505508 -- static: no, type: f32, effect: none
 
 	def b = pop_f32();
 	def a = pop_f32();
-	push_f32(rtcast_f32(1.0f));
+	push_i32(rtcast_i32(1));
 }
 def F32_LT() {
 	// eff517529 -- static: yes, type: <bottom>, effect: push
-// cond516527 -- static: no, type: f32, effect: none
-// arg518528 -- static: yes, type: f32, effect: none
-// arg520530 -- static: yes, type: f32, effect: none
+// cond516527 -- static: no, type: i32, effect: none
+// arg518528 -- static: yes, type: i32, effect: none
+// arg520530 -- static: yes, type: i32, effect: none
 // a524 -- static: no, type: f32, effect: pop
-// rtcast532 -- static: no, type: f32, effect: none
+// rtcast532 -- static: no, type: i32, effect: none
 // b523 -- static: no, type: f32, effect: pop
 // arg521526 -- static: no, type: f32, effect: none
 // eff519531 -- static: yes, type: <bottom>, effect: push
@@ -545,39 +545,39 @@ def F32_LT() {
 
 	def b = pop_f32();
 	def a = pop_f32();
-	push_f32(rtcast_f32(1.0f));
+	push_i32(rtcast_i32(1));
 }
 def F32_LE() {
 	// eff534546 -- static: yes, type: <bottom>, effect: push
 // eff536548 -- static: yes, type: <bottom>, effect: push
-// cond533544 -- static: no, type: f32, effect: none
-// arg535545 -- static: yes, type: f32, effect: none
-// arg537547 -- static: yes, type: f32, effect: none
+// cond533544 -- static: no, type: i32, effect: none
+// arg535545 -- static: yes, type: i32, effect: none
+// arg537547 -- static: yes, type: i32, effect: none
 // arg538543 -- static: no, type: f32, effect: none
 // a541 -- static: no, type: f32, effect: pop
 // arg539542 -- static: no, type: f32, effect: none
 // b540 -- static: no, type: f32, effect: pop
-// rtcast549 -- static: no, type: f32, effect: none
+// rtcast549 -- static: no, type: i32, effect: none
 
 	def b = pop_f32();
 	def a = pop_f32();
-	push_f32(rtcast_f32(1.0f));
+	push_i32(rtcast_i32(1));
 }
 def F32_GT() {
 	// eff551563 -- static: yes, type: <bottom>, effect: push
 // eff553565 -- static: yes, type: <bottom>, effect: push
-// cond550561 -- static: no, type: f32, effect: none
-// arg552562 -- static: yes, type: f32, effect: none
-// arg554564 -- static: yes, type: f32, effect: none
+// cond550561 -- static: no, type: i32, effect: none
+// arg552562 -- static: yes, type: i32, effect: none
+// arg554564 -- static: yes, type: i32, effect: none
 // a558 -- static: no, type: f32, effect: pop
-// rtcast566 -- static: no, type: f32, effect: none
+// rtcast566 -- static: no, type: i32, effect: none
 // b557 -- static: no, type: f32, effect: pop
 // arg555560 -- static: no, type: f32, effect: none
 // arg556559 -- static: no, type: f32, effect: none
 
 	def b = pop_f32();
 	def a = pop_f32();
-	push_f32(rtcast_f32(1.0f));
+	push_i32(rtcast_i32(1));
 }
 def BR() {
 	// arg568573 -- static: yes, type: <bottom>, effect: none

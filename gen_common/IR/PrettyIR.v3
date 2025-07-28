@@ -168,7 +168,9 @@ component Pretty_IR {
     def removeUselessAssigns(n: PrettyIR, ctx: SSADCtx) -> PrettyIR {
         match (n) {
             Let(name, rhs, stage, rest) => {
-                if (Strings.startsWith(name, "eff") || Strings.startsWith(name, "ret")) {
+                if (Strings.startsWith(name, "eff") || 
+                    Strings.startsWith(name, "ret"))
+                {
                     def effect = ctx.effects[name];
                     return PrettyIR.Exec(rhs, stage, effect, removeUselessAssigns(rest, ctx));
                 } else {

@@ -224,45 +224,45 @@ def F32_EQ() {
 	def b = pop_f32();
 	def a = pop_f32();
 	if (float.==(a, b)) {
-		push_f32(1.0f);
+		push_i32(1);
 	} else {
-		push_f32(0.0f);
+		push_i32(0);
 	}
 }
 def F32_NE() {
 	def b = pop_f32();
 	def a = pop_f32();
 	if (float.!=(a, b)) {
-		push_f32(1.0f);
+		push_i32(1);
 	} else {
-		push_f32(0.0f);
+		push_i32(0);
 	}
 }
 def F32_LT() {
 	def b = pop_f32();
 	def a = pop_f32();
 	if (float.<(a, b)) {
-		push_f32(1.0f);
+		push_i32(1);
 	} else {
-		push_f32(0.0f);
+		push_i32(0);
 	}
 }
 def F32_LE() {
 	def b = pop_f32();
 	def a = pop_f32();
 	if (float.<=(a, b)) {
-		push_f32(1.0f);
+		push_i32(1);
 	} else {
-		push_f32(0.0f);
+		push_i32(0);
 	}
 }
 def F32_GT() {
 	def b = pop_f32();
 	def a = pop_f32();
 	if (float.>(a, b)) {
-		push_f32(1.0f);
+		push_i32(1);
 	} else {
-		push_f32(0.0f);
+		push_i32(0);
 	}
 }
 def BR() {

@@ -9,3 +9,7 @@ def EmitOpI32.gt(lhs: i32.I, rhs: i32.I) -> Value.I : emit;
 def EmitOpI32.times(lhs: i32.I, rhs: i32.I) -> i32.I : emit;
 
 def emitIf(cond: Value.I) : emit;
+def emitElse() : emit;
+def emitEnd() : emit;
+def emitFwdI32() -> i32.I : emit;
+def emitPopAssign(i32.I): emit;
