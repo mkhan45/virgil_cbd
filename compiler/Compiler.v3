@@ -2,7 +2,7 @@
 def UNREACHABLE() {
 	// eff00 -- static: yes, type: <bottom>, effect: ctl
 
-	def eff00 = trapUnreachable();
+	trapUnreachable(); // read
 }
 def NOP() {
 	// ret10 -- static: no, type: <bottom>, effect: none
@@ -19,10 +19,10 @@ def LOCAL_GET() {
 // arg36 -- static: no, type: <bottom>, effect: none
 // arg44 -- static: yes, type: <bottom>, effect: none
 
-	def index0 = imm_readILEB32();
-	def tv2 = f_getLocalType(index0);
-	def val5 = getLocal(tv2, index0);
-	def eff18 = push_Value(tv2, val5);
+	def index = imm_readILEB32();
+	def tv = f_getLocalType(index);
+	def val = getLocal(tv, index);
+	push_Value(tv, val); // read
 }
 def LOCAL_SET() {
 	// eff98 -- static: no, type: <bottom>, effect: local
@@ -35,10 +35,10 @@ def LOCAL_SET() {
 // arg125 -- static: no, type: <bottom>, effect: none
 // arg133 -- static: yes, type: <bottom>, effect: none
 
-	def index0 = imm_readILEB32();
-	def tv2 = f_getLocalType(index0);
-	def val4 = pop_Value(tv2);
-	def eff98 = setLocal(tv2, index0, val4);
+	def index = imm_readILEB32();
+	def tv = f_getLocalType(index);
+	def val = pop_Value(tv);
+	setLocal(tv, index, val); // read
 }
 def LOCAL_TEE() {
 	// arg163 -- static: yes, type: <bottom>, effect: none
@@ -54,11 +54,11 @@ def LOCAL_TEE() {
 // arg146 -- static: yes, type: i32, effect: none
 // arg155 -- static: no, type: <bottom>, effect: none
 
-	def index0 = imm_readILEB32();
-	def tv2 = f_getLocalType(index0);
-	def val4 = pop_Value(tv2);
-	def eff128 = setLocal(tv2, index0, val4);
-	def eff911 = push_Value(tv2, val4);
+	def index = imm_readILEB32();
+	def tv = f_getLocalType(index);
+	def val = pop_Value(tv);
+	setLocal(tv, index, val); // read
+	push_Value(tv, val); // read
 }
 def GLOBAL_GET() {
 	// arg163 -- static: yes, type: i32, effect: none
@@ -71,10 +71,10 @@ def GLOBAL_GET() {
 // arg146 -- static: no, type: <bottom>, effect: none
 // arg154 -- static: yes, type: <bottom>, effect: none
 
-	def index0 = imm_readILEB32();
-	def tv2 = m_getGlobalType(index0);
-	def val5 = getGlobal(tv2, index0);
-	def eff128 = push_Value(tv2, val5);
+	def index = imm_readILEB32();
+	def tv = m_getGlobalType(index);
+	def val = getGlobal(tv, index);
+	push_Value(tv, val); // read
 }
 def GLOBAL_SET() {
 	// eff98 -- static: no, type: <bottom>, effect: global
@@ -87,10 +87,10 @@ def GLOBAL_SET() {
 // arg125 -- static: no, type: <bottom>, effect: none
 // arg133 -- static: yes, type: <bottom>, effect: none
 
-	def index0 = imm_readILEB32();
-	def tv2 = m_getGlobalType(index0);
-	def val4 = pop_Value(tv2);
-	def eff98 = setGlobal(tv2, index0, val4);
+	def index = imm_readILEB32();
+	def tv = m_getGlobalType(index);
+	def val = pop_Value(tv);
+	setGlobal(tv, index, val); // read
 }
 def TABLE_GET() {
 	// index9 -- static: no, type: i32, effect: pop
@@ -109,17 +109,15 @@ def TABLE_GET() {
 // arg134 -- static: no, type: i64, effect: none
 // cond92 -- static: yes, type: <bottom>, effect: none
 
-	def table_index0 = imm_readILEB32();
-	def cond92 = m_isTable64(table_index0);
-	def if15 = emitIfStatic(cond92);
-	def index3 = pop_i64();
-	def val6 = mach_readTable64(table_index0, index3);
-	def eff108 = push_Object(val6);
-	def else16 = emitElse();
-	def index9 = pop_i32();
-	def val12 = mach_readTable32(table_index0, index9);
-	def eff1414 = push_Object(val12);
-	def endBrace17 = emitEnd();
+	def table_index = imm_readILEB32();
+	def cond = m_isTable64(table_index);
+	def if = emitIfStatic(cond);
+	def index = pop_i64();
+	def val = mach_readTable64(table_index, index);
+	push_Object(val); // read
+	def index1 = pop_i32();
+	def val1 = mach_readTable32(table_index, index1);
+	push_Object(val1); // read
 }
 def TABLE_SET() {
 	// arg271 -- static: yes, type: i32, effect: none
@@ -138,15 +136,13 @@ def TABLE_SET() {
 // eff2314 -- static: no, type: <bottom>, effect: none
 // eff198 -- static: no, type: <bottom>, effect: none
 
-	def table_index0 = imm_readILEB32();
-	def cond182 = m_isTable64(table_index0);
-	def if15 = emitIfStatic(cond182);
-	def val3 = pop_Object();
-	def index4 = pop_i64();
-	def else16 = emitElse();
-	def val9 = pop_Object();
-	def index10 = pop_i32();
-	def endBrace17 = emitEnd();
+	def table_index = imm_readILEB32();
+	def cond = m_isTable64(table_index);
+	def if = emitIfStatic(cond);
+	def val = pop_Object();
+	def index = pop_i64();
+	def val1 = pop_Object();
+	def index1 = pop_i32();
 }
 def CALL() {
 	// arg196 -- static: yes, type: <bottom>, effect: none
@@ -158,10 +154,10 @@ def CALL() {
 // arg221 -- static: yes, type: i32, effect: none
 // eff187 -- static: yes, type: <bottom>, effect: ctl
 
-	def index0 = imm_readILEB32();
-	def sig2 = m_getFuncSignature(index0);
-	def target4 = i_getFunction(index0);
-	def eff187 = doCall(sig2, target4);
+	def index = imm_readILEB32();
+	def sig = m_getFuncSignature(index);
+	def target = i_getFunction(index);
+	doCall(sig, target); // read
 }
 def CALL_INDIRECT() {
 	// arg1210 -- static: yes, type: i32, effect: none
@@ -188,27 +184,25 @@ def CALL_INDIRECT() {
 // arg1112 -- static: no, type: <bottom>, effect: none
 // arg1013 -- static: yes, type: <bottom>, effect: none
 
-	def sig_index0 = imm_readILEB32();
-	def table_index1 = imm_readILEB32();
-	def sig3 = m_getSignature(sig_index0);
-	def is645 = m_isTable64(table_index1);
-	def if23 = emitIfStatic(is645);
-	def func_index7 = pop_i64();
-	def target11 = i_getTableFunction64(table_index1, sig3, func_index7);
-	def eff914 = doCall(sig3, target11);
-	def else24 = emitElse();
-	def func_index15 = pop_i32();
-	def target19 = i_getTableFunction32(table_index1, sig3, func_index15);
-	def eff1522 = doCall(sig3, target19);
-	def endBrace25 = emitEnd();
+	def sig_index = imm_readILEB32();
+	def table_index = imm_readILEB32();
+	def sig = m_getSignature(sig_index);
+	def is = m_isTable64(table_index);
+	def if = emitIfStatic(is);
+	def func_index = pop_i64();
+	def target = i_getTableFunction64(table_index, sig, func_index);
+	doCall(sig, target); // read
+	def func_index1 = pop_i32();
+	def target1 = i_getTableFunction32(table_index, sig, func_index1);
+	doCall(sig, target1); // read
 }
 def DROP() {
 	// eff262 -- static: no, type: <bottom>, effect: pop
 // arg271 -- static: yes, type: <bottom>, effect: none
 // tv0 -- static: yes, type: <bottom>, effect: none
 
-	def tv0 = f_getTopOfStackType();
-	def eff262 = pop_Value(tv0);
+	def tv = f_getTopOfStackType();
+	pop_Value(tv); // read
 }
 def SELECT() {
 	// c0 -- static: no, type: i32, effect: pop
@@ -228,22 +222,17 @@ def SELECT() {
 // arg124 -- static: yes, type: <bottom>, effect: none
 // arg132 -- static: yes, type: <bottom>, effect: none
 
-	def c0 = pop_i32();
-	def tv1 = f_getTopOfStackType();
-	def b3 = pop_Value(tv1);
-	def a5 = pop_Value(tv1);
-	def arg116 : int = 0;
-	def rtcast15 = rtcast_i32(arg116);
-	def cond38 = EmitOpI32.not_equals(c0, rtcast15);
-	def stack_phi16 = emitFwdI32();
-	def if20 = emitIf(cond38);
-	def eff411 = push_Value(tv1, a5);
-	def phi_pop17 = emitPopAssign(stack_phi16);
-	def else21 = emitElse();
-	def eff714 = push_Value(tv1, b3);
-	def phi_pop18 = emitPopAssign(stack_phi16);
-	def endBrace22 = emitEnd();
-	def phi_push19 = push_i32(stack_phi16);
+	def c = pop_i32();
+	def tv = f_getTopOfStackType();
+	def b = pop_Value(tv);
+	def a = pop_Value(tv);
+	def cond = EmitOpI32.not_equals(c, rtcast_i32(0));
+	def if = emitIf(cond);
+	push_Value(tv, a); // read
+	def phi_pop = emitPopAssign(emitFwdI32());
+	push_Value(tv, b); // read
+	def phi_pop1 = emitPopAssign(emitFwdI32());
+	def phi_push = push_i32(emitFwdI32());
 }
 def I32_CONST() {
 	// arg241 -- static: yes, type: i32, effect: none
@@ -251,9 +240,8 @@ def I32_CONST() {
 // x0 -- static: yes, type: i32, effect: read
 // eff232 -- static: yes, type: <bottom>, effect: push
 
-	def x0 = imm_readILEB32();
-	def rtcast3 = rtcast_i32(x0);
-	def eff232 = push_i32(rtcast3);
+	def x = imm_readILEB32();
+	push_i32(rtcast_i32(x)); // read
 }
 def I32_ADD() {
 	// arg63 -- static: no, type: i32, effect: none
@@ -264,10 +252,10 @@ def I32_ADD() {
 // arg55 -- static: no, type: i32, effect: none
 // b0 -- static: no, type: i32, effect: pop
 
-	def b0 = pop_i32();
-	def a1 = pop_i32();
-	def r4 = EmitOpI32.plus(a1, b0);
-	def eff46 = push_i32(r4);
+	def b = pop_i32();
+	def a = pop_i32();
+	def r = EmitOpI32.plus(a, b);
+	push_i32(r); // read
 }
 def I32_SUB() {
 	// eff76 -- static: no, type: <bottom>, effect: push
@@ -278,10 +266,10 @@ def I32_SUB() {
 // a1 -- static: no, type: i32, effect: pop
 // b0 -- static: no, type: i32, effect: pop
 
-	def b0 = pop_i32();
-	def a1 = pop_i32();
-	def r4 = EmitOpI32.minus(a1, b0);
-	def eff76 = push_i32(r4);
+	def b = pop_i32();
+	def a = pop_i32();
+	def r = EmitOpI32.minus(a, b);
+	push_i32(r); // read
 }
 def I32_MUL() {
 	// eff76 -- static: no, type: <bottom>, effect: push
@@ -292,10 +280,10 @@ def I32_MUL() {
 // a1 -- static: no, type: i32, effect: pop
 // b0 -- static: no, type: i32, effect: pop
 
-	def b0 = pop_i32();
-	def a1 = pop_i32();
-	def r4 = EmitOpI32.times(a1, b0);
-	def eff76 = push_i32(r4);
+	def b = pop_i32();
+	def a = pop_i32();
+	def r = EmitOpI32.times(a, b);
+	push_i32(r); // read
 }
 def I32_DIV_S() {
 	// arg186 -- static: yes, type: i32, effect: none
@@ -321,28 +309,18 @@ def I32_DIV_S() {
 // rtcast19 -- static: no, type: i32, effect: none
 // b0 -- static: no, type: i32, effect: pop
 
-	def b0 = pop_i32();
-	def a1 = pop_i32();
-	def arg222 : int = 0;
-	def rtcast19 = rtcast_i32(arg222);
-	def cond194 = EmitOpI32.equals(b0, rtcast19);
-	def if20 = emitIf(cond194);
-	def ret205 = trapDivideByZero();
-	def else21 = emitElse();
-	def endBrace22 = emitEnd();
-	def arg186 : int = -2_147_483_648;
-	def rtcast23 = rtcast_i32(arg186);
-	def arg148 = EmitOpI32.equals(a1, rtcast23);
-	def arg169 : int = -1;
-	def rtcast24 = rtcast_i32(arg169);
-	def arg1311 = EmitOpI32.equals(b0, rtcast24);
-	def cond1112 = EmitOpV.and(arg1311, arg148);
-	def if25 = emitIf(cond1112);
-	def ret1213 = trapDivideUnrepresentable();
-	def else26 = emitElse();
-	def endBrace27 = emitEnd();
-	def r16 = EmitOpI32.div(a1, b0);
-	def eff718 = push_i32(r16);
+	def b = pop_i32();
+	def a = pop_i32();
+	def cond = EmitOpI32.equals(b, rtcast_i32(0));
+	def if = emitIf(cond);
+	def ret = trapDivideByZero();
+	def arg = EmitOpI32.equals(a, rtcast_i32(-2_147_483_648));
+	def arg1 = EmitOpI32.equals(b, rtcast_i32(-1));
+	def cond1 = EmitOpV.and(arg1, arg);
+	def if1 = emitIf(cond1);
+	def ret1 = trapDivideUnrepresentable();
+	def r = EmitOpI32.div(a, b);
+	push_i32(r); // read
 }
 def I32_DIV_U() {
 	// cond324 -- static: no, type: i32, effect: emit
@@ -358,17 +336,13 @@ def I32_DIV_U() {
 // b0 -- static: no, type: i32, effect: pop
 // arg352 -- static: yes, type: i32, effect: none
 
-	def b0 = pop_i32();
-	def a1 = pop_i32();
-	def arg352 : int = 0;
-	def rtcast11 = rtcast_i32(arg352);
-	def cond324 = EmitOpI32.equals(b0, rtcast11);
-	def if12 = emitIf(cond324);
-	def ret335 = trapDivideByZero();
-	def else13 = emitElse();
-	def endBrace14 = emitEnd();
-	def r8 = EmitOpI32.div(a1, b0);
-	def eff2810 = push_i32(r8);
+	def b = pop_i32();
+	def a = pop_i32();
+	def cond = EmitOpI32.equals(b, rtcast_i32(0));
+	def if = emitIf(cond);
+	def ret = trapDivideByZero();
+	def r = EmitOpI32.div(a, b);
+	push_i32(r); // read
 }
 def I32_EQZ() {
 	// arg174 -- static: yes, type: i32, effect: none
@@ -383,23 +357,14 @@ def I32_EQZ() {
 // eff187 -- static: yes, type: <bottom>, effect: push
 // rtcast8 -- static: no, type: i32, effect: none
 
-	def a0 = pop_i32();
-	def arg211 : int = 0;
-	def rtcast8 = rtcast_i32(arg211);
-	def cond153 = EmitOpI32.equals(a0, rtcast8);
-	def stack_phi9 = emitFwdI32();
-	def if13 = emitIf(cond153);
-	def arg174 : int = 1;
-	def rtcast14 = rtcast_i32(arg174);
-	def eff165 = push_i32(rtcast14);
-	def phi_pop10 = emitPopAssign(stack_phi9);
-	def else15 = emitElse();
-	def arg196 : int = 0;
-	def rtcast16 = rtcast_i32(arg196);
-	def eff187 = push_i32(rtcast16);
-	def phi_pop11 = emitPopAssign(stack_phi9);
-	def endBrace17 = emitEnd();
-	def phi_push12 = push_i32(stack_phi9);
+	def a = pop_i32();
+	def cond = EmitOpI32.equals(a, rtcast_i32(0));
+	def if = emitIf(cond);
+	push_i32(rtcast_i32(1)); // read
+	def phi_pop = emitPopAssign(emitFwdI32());
+	push_i32(rtcast_i32(0)); // read
+	def phi_pop1 = emitPopAssign(emitFwdI32());
+	def phi_push = push_i32(emitFwdI32());
 }
 def I32_EQ() {
 	// eff196 -- static: yes, type: <bottom>, effect: push
@@ -414,22 +379,15 @@ def I32_EQ() {
 // b0 -- static: no, type: i32, effect: pop
 // arg242 -- static: no, type: i32, effect: none
 
-	def b0 = pop_i32();
-	def a1 = pop_i32();
-	def cond184 = EmitOpI32.equals(a1, b0);
-	def stack_phi9 = emitFwdI32();
-	def if13 = emitIf(cond184);
-	def arg205 : int = 1;
-	def rtcast14 = rtcast_i32(arg205);
-	def eff196 = push_i32(rtcast14);
-	def phi_pop10 = emitPopAssign(stack_phi9);
-	def else15 = emitElse();
-	def arg227 : int = 0;
-	def rtcast16 = rtcast_i32(arg227);
-	def eff218 = push_i32(rtcast16);
-	def phi_pop11 = emitPopAssign(stack_phi9);
-	def endBrace17 = emitEnd();
-	def phi_push12 = push_i32(stack_phi9);
+	def b = pop_i32();
+	def a = pop_i32();
+	def cond = EmitOpI32.equals(a, b);
+	def if = emitIf(cond);
+	push_i32(rtcast_i32(1)); // read
+	def phi_pop = emitPopAssign(emitFwdI32());
+	push_i32(rtcast_i32(0)); // read
+	def phi_pop1 = emitPopAssign(emitFwdI32());
+	def phi_push = push_i32(emitFwdI32());
 }
 def I32_NE() {
 	// eff196 -- static: yes, type: <bottom>, effect: push
@@ -444,22 +402,15 @@ def I32_NE() {
 // b0 -- static: no, type: i32, effect: pop
 // arg242 -- static: no, type: i32, effect: none
 
-	def b0 = pop_i32();
-	def a1 = pop_i32();
-	def cond184 = EmitOpI32.not_equals(a1, b0);
-	def stack_phi9 = emitFwdI32();
-	def if13 = emitIf(cond184);
-	def arg205 : int = 1;
-	def rtcast14 = rtcast_i32(arg205);
-	def eff196 = push_i32(rtcast14);
-	def phi_pop10 = emitPopAssign(stack_phi9);
-	def else15 = emitElse();
-	def arg227 : int = 0;
-	def rtcast16 = rtcast_i32(arg227);
-	def eff218 = push_i32(rtcast16);
-	def phi_pop11 = emitPopAssign(stack_phi9);
-	def endBrace17 = emitEnd();
-	def phi_push12 = push_i32(stack_phi9);
+	def b = pop_i32();
+	def a = pop_i32();
+	def cond = EmitOpI32.not_equals(a, b);
+	def if = emitIf(cond);
+	push_i32(rtcast_i32(1)); // read
+	def phi_pop = emitPopAssign(emitFwdI32());
+	push_i32(rtcast_i32(0)); // read
+	def phi_pop1 = emitPopAssign(emitFwdI32());
+	def phi_push = push_i32(emitFwdI32());
 }
 def I32_LT_U() {
 	// eff196 -- static: yes, type: <bottom>, effect: push
@@ -474,22 +425,15 @@ def I32_LT_U() {
 // b0 -- static: no, type: i32, effect: pop
 // arg242 -- static: no, type: i32, effect: none
 
-	def b0 = pop_i32();
-	def a1 = pop_i32();
-	def cond184 = EmitOpI32.lt(a1, b0);
-	def stack_phi9 = emitFwdI32();
-	def if13 = emitIf(cond184);
-	def arg205 : int = 1;
-	def rtcast14 = rtcast_i32(arg205);
-	def eff196 = push_i32(rtcast14);
-	def phi_pop10 = emitPopAssign(stack_phi9);
-	def else15 = emitElse();
-	def arg227 : int = 0;
-	def rtcast16 = rtcast_i32(arg227);
-	def eff218 = push_i32(rtcast16);
-	def phi_pop11 = emitPopAssign(stack_phi9);
-	def endBrace17 = emitEnd();
-	def phi_push12 = push_i32(stack_phi9);
+	def b = pop_i32();
+	def a = pop_i32();
+	def cond = EmitOpI32.lt(a, b);
+	def if = emitIf(cond);
+	push_i32(rtcast_i32(1)); // read
+	def phi_pop = emitPopAssign(emitFwdI32());
+	push_i32(rtcast_i32(0)); // read
+	def phi_pop1 = emitPopAssign(emitFwdI32());
+	def phi_push = push_i32(emitFwdI32());
 }
 def I32_LE_S() {
 	// eff196 -- static: yes, type: <bottom>, effect: push
@@ -504,22 +448,15 @@ def I32_LE_S() {
 // b0 -- static: no, type: i32, effect: pop
 // arg242 -- static: no, type: i32, effect: none
 
-	def b0 = pop_i32();
-	def a1 = pop_i32();
-	def cond184 = EmitOpI32.lte(a1, b0);
-	def stack_phi9 = emitFwdI32();
-	def if13 = emitIf(cond184);
-	def arg205 : int = 1;
-	def rtcast14 = rtcast_i32(arg205);
-	def eff196 = push_i32(rtcast14);
-	def phi_pop10 = emitPopAssign(stack_phi9);
-	def else15 = emitElse();
-	def arg227 : int = 0;
-	def rtcast16 = rtcast_i32(arg227);
-	def eff218 = push_i32(rtcast16);
-	def phi_pop11 = emitPopAssign(stack_phi9);
-	def endBrace17 = emitEnd();
-	def phi_push12 = push_i32(stack_phi9);
+	def b = pop_i32();
+	def a = pop_i32();
+	def cond = EmitOpI32.lte(a, b);
+	def if = emitIf(cond);
+	push_i32(rtcast_i32(1)); // read
+	def phi_pop = emitPopAssign(emitFwdI32());
+	push_i32(rtcast_i32(0)); // read
+	def phi_pop1 = emitPopAssign(emitFwdI32());
+	def phi_push = push_i32(emitFwdI32());
 }
 def I32_GT_U() {
 	// eff196 -- static: yes, type: <bottom>, effect: push
@@ -534,22 +471,15 @@ def I32_GT_U() {
 // b0 -- static: no, type: i32, effect: pop
 // arg242 -- static: no, type: i32, effect: none
 
-	def b0 = pop_i32();
-	def a1 = pop_i32();
-	def cond184 = EmitOpI32.gt(a1, b0);
-	def stack_phi9 = emitFwdI32();
-	def if13 = emitIf(cond184);
-	def arg205 : int = 1;
-	def rtcast14 = rtcast_i32(arg205);
-	def eff196 = push_i32(rtcast14);
-	def phi_pop10 = emitPopAssign(stack_phi9);
-	def else15 = emitElse();
-	def arg227 : int = 0;
-	def rtcast16 = rtcast_i32(arg227);
-	def eff218 = push_i32(rtcast16);
-	def phi_pop11 = emitPopAssign(stack_phi9);
-	def endBrace17 = emitEnd();
-	def phi_push12 = push_i32(stack_phi9);
+	def b = pop_i32();
+	def a = pop_i32();
+	def cond = EmitOpI32.gt(a, b);
+	def if = emitIf(cond);
+	push_i32(rtcast_i32(1)); // read
+	def phi_pop = emitPopAssign(emitFwdI32());
+	push_i32(rtcast_i32(0)); // read
+	def phi_pop1 = emitPopAssign(emitFwdI32());
+	def phi_push = push_i32(emitFwdI32());
 }
 def I32_AND() {
 	// arg195 -- static: no, type: i32, effect: none
@@ -560,21 +490,209 @@ def I32_AND() {
 // b0 -- static: no, type: i32, effect: pop
 // eff186 -- static: no, type: <bottom>, effect: push
 
-	def b0 = pop_i32();
-	def a1 = pop_i32();
-	def r4 = EmitOpI32.and(a1, b0);
-	def eff186 = push_i32(r4);
+	def b = pop_i32();
+	def a = pop_i32();
+	def r = EmitOpI32.and(a, b);
+	push_i32(r); // read
+}
+def F32_CONST() {
+	// eff73 -- static: no, type: <bottom>, effect: push
+// rtcast4 -- static: no, type: i32, effect: none
+// arg82 -- static: no, type: f32, effect: none
+// x0 -- static: yes, type: i32, effect: read
+// arg91 -- static: yes, type: i32, effect: none
+
+	def x = imm_readILEB32();
+	def arg = f32_reinterpret_i32(rtcast_i32(x));
+	push_f32(arg); // read
+}
+def F32_ADD() {
+	// arg73 -- static: no, type: f32, effect: none
+// arg82 -- static: no, type: f32, effect: none
+// r4 -- static: no, type: f32, effect: emit
+// a1 -- static: no, type: f32, effect: pop
+// eff56 -- static: no, type: <bottom>, effect: push
+// b0 -- static: no, type: f32, effect: pop
+// arg65 -- static: no, type: f32, effect: none
+
+	def b = pop_f32();
+	def a = pop_f32();
+	def r = EmitOpF32.plus(a, b);
+	push_f32(r); // read
+}
+def F32_SUB() {
+	// eff76 -- static: no, type: <bottom>, effect: push
+// arg85 -- static: no, type: f32, effect: none
+// arg93 -- static: no, type: f32, effect: none
+// r4 -- static: no, type: f32, effect: emit
+// arg102 -- static: no, type: f32, effect: none
+// a1 -- static: no, type: f32, effect: pop
+// b0 -- static: no, type: f32, effect: pop
+
+	def b = pop_f32();
+	def a = pop_f32();
+	def r = EmitOpF32.minus(a, b);
+	push_f32(r); // read
+}
+def F32_MUL() {
+	// eff76 -- static: no, type: <bottom>, effect: push
+// arg85 -- static: no, type: f32, effect: none
+// arg93 -- static: no, type: f32, effect: none
+// r4 -- static: no, type: f32, effect: emit
+// arg102 -- static: no, type: f32, effect: none
+// a1 -- static: no, type: f32, effect: pop
+// b0 -- static: no, type: f32, effect: pop
+
+	def b = pop_f32();
+	def a = pop_f32();
+	def r = EmitOpF32.times(a, b);
+	push_f32(r); // read
+}
+def F32_DIV() {
+	// arg142 -- static: yes, type: f32, effect: none
+// arg97 -- static: no, type: f32, effect: none
+// cond114 -- static: no, type: f32, effect: emit
+// ret125 -- static: yes, type: <bottom>, effect: ctl
+// r8 -- static: no, type: f32, effect: emit
+// arg106 -- static: no, type: f32, effect: none
+// eff710 -- static: no, type: <bottom>, effect: push
+// a1 -- static: no, type: f32, effect: pop
+// arg89 -- static: no, type: f32, effect: none
+// arg133 -- static: no, type: f32, effect: none
+// b0 -- static: no, type: f32, effect: pop
+
+	def b = pop_f32();
+	def a = pop_f32();
+	def cond = EmitOpF32.equals(b, 0.0f);
+	def if = emitIf(cond);
+	def ret = trapDivideByZero();
+	def r = EmitOpF32.div(a, b);
+	push_f32(r); // read
+}
+def F32_EQ() {
+	// rtcast16 -- static: no, type: f32, effect: none
+// rtcast14 -- static: no, type: f32, effect: none
+// arg193 -- static: no, type: f32, effect: none
+// cond144 -- static: no, type: f32, effect: emit
+// arg202 -- static: no, type: f32, effect: none
+// eff156 -- static: yes, type: <bottom>, effect: push
+// eff178 -- static: yes, type: <bottom>, effect: push
+// a1 -- static: no, type: f32, effect: pop
+// b0 -- static: no, type: f32, effect: pop
+// arg165 -- static: yes, type: f32, effect: none
+// arg187 -- static: yes, type: f32, effect: none
+
+	def b = pop_f32();
+	def a = pop_f32();
+	def cond = EmitOpF32.equals(a, b);
+	def if = emitIf(cond);
+	push_f32(rtcast_f32(1.0f)); // read
+	def phi_pop = emitPopAssign(emitFwdI32());
+	push_f32(rtcast_f32(0.0f)); // read
+	def phi_pop1 = emitPopAssign(emitFwdI32());
+	def phi_push = push_i32(emitFwdI32());
+}
+def F32_NE() {
+	// eff196 -- static: yes, type: <bottom>, effect: push
+// rtcast16 -- static: no, type: f32, effect: none
+// rtcast14 -- static: no, type: f32, effect: none
+// eff218 -- static: yes, type: <bottom>, effect: push
+// arg205 -- static: yes, type: f32, effect: none
+// arg227 -- static: yes, type: f32, effect: none
+// cond184 -- static: no, type: f32, effect: emit
+// a1 -- static: no, type: f32, effect: pop
+// arg233 -- static: no, type: f32, effect: none
+// b0 -- static: no, type: f32, effect: pop
+// arg242 -- static: no, type: f32, effect: none
+
+	def b = pop_f32();
+	def a = pop_f32();
+	def cond = EmitOpF32.not_equals(a, b);
+	def if = emitIf(cond);
+	push_f32(rtcast_f32(1.0f)); // read
+	def phi_pop = emitPopAssign(emitFwdI32());
+	push_f32(rtcast_f32(0.0f)); // read
+	def phi_pop1 = emitPopAssign(emitFwdI32());
+	def phi_push = push_i32(emitFwdI32());
+}
+def F32_LT() {
+	// eff196 -- static: yes, type: <bottom>, effect: push
+// rtcast16 -- static: no, type: f32, effect: none
+// rtcast14 -- static: no, type: f32, effect: none
+// eff218 -- static: yes, type: <bottom>, effect: push
+// arg205 -- static: yes, type: f32, effect: none
+// arg227 -- static: yes, type: f32, effect: none
+// cond184 -- static: no, type: f32, effect: emit
+// a1 -- static: no, type: f32, effect: pop
+// arg233 -- static: no, type: f32, effect: none
+// b0 -- static: no, type: f32, effect: pop
+// arg242 -- static: no, type: f32, effect: none
+
+	def b = pop_f32();
+	def a = pop_f32();
+	def cond = EmitOpF32.lt(a, b);
+	def if = emitIf(cond);
+	push_f32(rtcast_f32(1.0f)); // read
+	def phi_pop = emitPopAssign(emitFwdI32());
+	push_f32(rtcast_f32(0.0f)); // read
+	def phi_pop1 = emitPopAssign(emitFwdI32());
+	def phi_push = push_i32(emitFwdI32());
+}
+def F32_LE() {
+	// eff196 -- static: yes, type: <bottom>, effect: push
+// rtcast16 -- static: no, type: f32, effect: none
+// rtcast14 -- static: no, type: f32, effect: none
+// eff218 -- static: yes, type: <bottom>, effect: push
+// arg205 -- static: yes, type: f32, effect: none
+// arg227 -- static: yes, type: f32, effect: none
+// cond184 -- static: no, type: f32, effect: emit
+// a1 -- static: no, type: f32, effect: pop
+// arg233 -- static: no, type: f32, effect: none
+// b0 -- static: no, type: f32, effect: pop
+// arg242 -- static: no, type: f32, effect: none
+
+	def b = pop_f32();
+	def a = pop_f32();
+	def cond = EmitOpF32.lte(a, b);
+	def if = emitIf(cond);
+	push_f32(rtcast_f32(1.0f)); // read
+	def phi_pop = emitPopAssign(emitFwdI32());
+	push_f32(rtcast_f32(0.0f)); // read
+	def phi_pop1 = emitPopAssign(emitFwdI32());
+	def phi_push = push_i32(emitFwdI32());
+}
+def F32_GT() {
+	// eff196 -- static: yes, type: <bottom>, effect: push
+// rtcast16 -- static: no, type: f32, effect: none
+// rtcast14 -- static: no, type: f32, effect: none
+// eff218 -- static: yes, type: <bottom>, effect: push
+// arg205 -- static: yes, type: f32, effect: none
+// arg227 -- static: yes, type: f32, effect: none
+// cond184 -- static: no, type: f32, effect: emit
+// a1 -- static: no, type: f32, effect: pop
+// arg233 -- static: no, type: f32, effect: none
+// b0 -- static: no, type: f32, effect: pop
+// arg242 -- static: no, type: f32, effect: none
+
+	def b = pop_f32();
+	def a = pop_f32();
+	def cond = EmitOpF32.gt(a, b);
+	def if = emitIf(cond);
+	push_f32(rtcast_f32(1.0f)); // read
+	def phi_pop = emitPopAssign(emitFwdI32());
+	push_f32(rtcast_f32(0.0f)); // read
+	def phi_pop1 = emitPopAssign(emitFwdI32());
+	def phi_push = push_i32(emitFwdI32());
 }
 def BR() {
-	// arg83 -- static: yes, type: <bottom>, effect: none
-// arg91 -- static: yes, type: i32, effect: none
-// ret74 -- static: yes, type: <bottom>, effect: ctl
+	// arg193 -- static: yes, type: <bottom>, effect: none
 // label2 -- static: yes, type: <bottom>, effect: none
 // depth0 -- static: yes, type: i32, effect: read
+// arg201 -- static: yes, type: i32, effect: none
+// ret184 -- static: yes, type: <bottom>, effect: ctl
 
-	def depth0 = imm_readILEB32();
-	def label2 = f_getLabel(depth0);
-	def ret74 = doBranch(label2);
+	def depth = imm_readILEB32();
+	def ret = doBranch(f_getLabel(depth));
 }
 def BR_IF() {
 	// ret68 -- static: yes, type: <bottom>, effect: ctl
@@ -589,41 +707,36 @@ def BR_IF() {
 // arg111 -- static: yes, type: i32, effect: none
 // arg77 -- static: yes, type: <bottom>, effect: none
 
-	def depth0 = imm_readILEB32();
-	def label2 = f_getLabel(depth0);
-	def cond3 = pop_i32();
-	def arg104 : int = 0;
-	def rtcast10 = rtcast_i32(arg104);
-	def cond56 = EmitOpI32.not_equals(cond3, rtcast10);
-	def if11 = emitIf(cond56);
-	def ret68 = doBranch(label2);
-	def else12 = emitElse();
-	def ret89 = doFallthru();
-	def endBrace13 = emitEnd();
+	def depth = imm_readILEB32();
+	def cond = pop_i32();
+	def cond1 = EmitOpI32.not_equals(cond, rtcast_i32(0));
+	def if = emitIf(cond1);
+	def ret = doBranch(f_getLabel(depth));
+	def ret1 = doFallthru();
 }
 def BLOCK() {
 	// arg151 -- static: yes, type: <bottom>, effect: none
 // bt0 -- static: yes, type: <bottom>, effect: read
 // eff142 -- static: yes, type: <bottom>, effect: ctl
 
-	def bt0 = imm_readBlockType();
-	def eff142 = doBlock(bt0);
+	def bt = imm_readBlockType();
+	doBlock(bt); // read
 }
 def LOOP() {
 	// eff32 -- static: yes, type: <bottom>, effect: ctl
 // arg41 -- static: yes, type: <bottom>, effect: none
 // bt0 -- static: yes, type: <bottom>, effect: read
 
-	def bt0 = imm_readBlockType();
-	def eff32 = doLoop(bt0);
+	def bt = imm_readBlockType();
+	doLoop(bt); // read
 }
 def TRY() {
 	// eff32 -- static: yes, type: <bottom>, effect: ctl
 // arg41 -- static: yes, type: <bottom>, effect: none
 // bt0 -- static: yes, type: <bottom>, effect: read
 
-	def bt0 = imm_readBlockType();
-	def eff32 = doTry(bt0);
+	def bt = imm_readBlockType();
+	doTry(bt); // read
 }
 def IF() {
 	// arg75 -- static: no, type: i32, effect: none
@@ -638,17 +751,12 @@ def IF() {
 // arg57 -- static: no, type: <bottom>, effect: none
 // ret48 -- static: no, type: <bottom>, effect: ctl
 
-	def bt0 = imm_readBlockType();
-	def cond1 = pop_i32();
-	def label3 = doIf(bt0);
-	def arg84 : int = 0;
-	def rtcast10 = rtcast_i32(arg84);
-	def cond36 = EmitOpI32.equals(cond1, rtcast10);
-	def if11 = emitIf(cond36);
-	def ret48 = doBranch(label3);
-	def else12 = emitElse();
-	def ret69 = doFallthru();
-	def endBrace13 = emitEnd();
+	def bt = imm_readBlockType();
+	def cond = pop_i32();
+	def cond1 = EmitOpI32.equals(cond, rtcast_i32(0));
+	def if = emitIf(cond1);
+	def ret = doBranch(doIf(bt));
+	def ret1 = doFallthru();
 }
 def ELSE() {
 	// arg152 -- static: yes, type: <bottom>, effect: none
@@ -656,26 +764,21 @@ def ELSE() {
 // ret143 -- static: yes, type: <bottom>, effect: ctl
 // label1 -- static: yes, type: <bottom>, effect: none
 
-	def arg160 : int = 0;
-	def label1 = f_getLabel(arg160);
-	def ret143 = doBranch(label1);
+	def ret = doBranch(f_getLabel(0));
 }
 def END() {
 	// eff60 -- static: yes, type: <bottom>, effect: ctl
 // ret52 -- static: yes, type: <bottom>, effect: ctl
 // cond41 -- static: yes, type: <bottom>, effect: none
 
-	def eff60 = doEnd();
-	def cond41 = f_isAtEnd();
-	def if3 = emitIfStatic(cond41);
-	def ret52 = doReturn();
-	def else4 = emitElse();
-	def endBrace5 = emitEnd();
+	doEnd(); // read
+	def if = emitIfStatic(f_isAtEnd());
+	def ret = doReturn();
 }
 def RETURN() {
 	// ret60 -- static: yes, type: <bottom>, effect: ctl
 
-	def ret60 = doReturn();
+	def ret = doReturn();
 }
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
@@ -705,6 +808,16 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.I32_LE_S.code] = I32_LE_S;
   DISPATCH_TABLE[Opcode.I32_GT_U.code] = I32_GT_U;
   DISPATCH_TABLE[Opcode.I32_AND.code] = I32_AND;
+  DISPATCH_TABLE[Opcode.F32_CONST.code] = F32_CONST;
+  DISPATCH_TABLE[Opcode.F32_ADD.code] = F32_ADD;
+  DISPATCH_TABLE[Opcode.F32_SUB.code] = F32_SUB;
+  DISPATCH_TABLE[Opcode.F32_MUL.code] = F32_MUL;
+  DISPATCH_TABLE[Opcode.F32_DIV.code] = F32_DIV;
+  DISPATCH_TABLE[Opcode.F32_EQ.code] = F32_EQ;
+  DISPATCH_TABLE[Opcode.F32_NE.code] = F32_NE;
+  DISPATCH_TABLE[Opcode.F32_LT.code] = F32_LT;
+  DISPATCH_TABLE[Opcode.F32_LE.code] = F32_LE;
+  DISPATCH_TABLE[Opcode.F32_GT.code] = F32_GT;
   DISPATCH_TABLE[Opcode.BR.code] = BR;
   DISPATCH_TABLE[Opcode.BR_IF.code] = BR_IF;
   DISPATCH_TABLE[Opcode.BLOCK.code] = BLOCK;

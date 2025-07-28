@@ -247,4 +247,13 @@ component IntrinsicTypes {
             return CBDEffect.None;
         }
     }
+
+    def intrinsic_stage(fn_name: string) -> Stage {
+        if (intrinsic_types.has(fn_name)) {
+            def t = intrinsic_types[fn_name];
+            return t.return_type.stage;
+        } else {
+            return Stage.VALIDATE;
+        }
+    }
 }

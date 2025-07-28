@@ -183,6 +183,9 @@ def invalid_t<T>(t: T) -> T {
 def rtcast_i32(x: i32) -> TypeVar.I32 {
     return TypeVar.I32;
 }
+def rtcast_f32(x: float) -> TypeVar.F32 {
+    return TypeVar.F32;
+}
 
 type FieldOffset;
 enum FieldKind {
@@ -236,7 +239,7 @@ def push_i32(v: TypeVar.I32) {
 def push_i64(v: i64) {
     stack.push(TypeVar.I64);
 }
-def push_f32(v: float) {
+def push_f32(v: TypeVar.F32) {
     stack.push(TypeVar.F32);
 }
 def push_f64(v: double) {
@@ -411,6 +414,11 @@ def doTry(bt: (Array<ValueType>, Array<ValueType>)) {
 def f_isAtEnd() -> bool {
     return codeptr.pos >= codeptr.data.length;
 }
+
+def f32_reinterpret_i32(i: TypeVar.I32) -> TypeVar.F32;
+def f64_reinterpret_i64(i: TypeVar.I64) -> TypeVar.F64;
+def i32_reinterpret_f32(f: TypeVar.F32) -> TypeVar.I32;
+def i64_reinterpret_f64(f: TypeVar.F64) -> TypeVar.I64;
 
 def push_locals(count: u32, vtc: ValueTypeCode) {
     var tv: TypeVar;

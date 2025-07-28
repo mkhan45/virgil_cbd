@@ -221,6 +221,11 @@ def f_isAtEnd() -> bool {
     return current_frame.codeptr.pos >= current_frame.codeptr.data.length;
 }
 
+def f32_reinterpret_i32(i: i32) -> float;
+def f64_reinterpret_i64(i: i64) -> double;
+def i32_reinterpret_f32(f: float) -> i32;
+def i64_reinterpret_f64(f: double) -> i64;
+
 def push_locals(count: u32, vtc: ValueTypeCode) {
     var val: Value;
     match (vtc.toConcreteValueKind(null)) {

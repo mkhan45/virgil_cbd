@@ -1,0 +1,279 @@
+type PrettyIR {
+    case Let(n: string, rhs: PrettyExpr, stage: Stage, rest: PrettyIR);
+    case If(cond: PrettyExpr, then: PrettyIR, els: PrettyIR, stage: Stage, rest: PrettyIR);
+    case Exec(e: PrettyExpr, stage: Stage, effect: CBDEffect, rest: PrettyIR);
+    case Void;
+    case Injected(inj: string, stage: Stage, rest: PrettyIR);
+
+    def toString(indent: int) -> string {
+        def buf = StringBuilder.new();
+        this.buildString(buf, indent);
+        return buf.toString();
+    }
+
+    def buildString(buf: StringBuilder, indent: int) {
+        match (this) {
+            Let(n, rhs, stage, rest) => {
+                for (i < indent) buf.tab();
+                buf.puts("def ").puts(n).puts(" = ");
+                rhs.buildString(buf);
+                buf.puts(";\n");
+                rest.buildString(buf, indent);
+            }
+            If(cond, then, els, stage, rest) => {
+                for (i < indent) buf.tab();
+                buf.puts("if (");
+                cond.buildString(buf);
+                buf.puts(") {\n");
+                then.buildString(buf, indent + 1);
+                for (i < indent) buf.tab();
+                if (els != PrettyIR.Void) {
+                    buf.puts("} else {\n");
+                    els.buildString(buf, indent + 1);
+                    for (i < indent) buf.tab();
+                    buf.puts("}\n");
+                } else {
+                    buf.puts("}\n");
+                }
+                rest.buildString(buf, indent);
+            }
+            Void => {
+                return;
+            }
+            Exec(e, stage, effect, rest) => {
+                for (i < indent) buf.tab();
+                e.buildString(buf);
+                buf.puts("; // ").puts(effect.toString()).puts("\n");
+                rest.buildString(buf, indent);
+            }
+            Injected(inj, stage, rest) => {
+                for (i < indent) buf.tab();
+                buf.puts(inj).ln();
+                rest.buildString(buf, indent);
+            }
+        }
+    }
+}
+
+type PrettyExpr {
+    case Var(v: string);
+    case Lit(l: string);
+    case App(f: string, args: Array<PrettyExpr>);
+
+    def toString() -> string {
+        def buf = StringBuilder.new();
+        this.buildString(buf);
+        return buf.toString();
+    }
+
+    def buildString(buf: StringBuilder) {
+        match (this) {
+            Var(v) => buf.puts(v);
+            Lit(l) => buf.puts(l);
+            App(f, args) => {
+                def fn = if(Strings.equal(f, "id"), "", f);
+                buf.puts(fn);
+                buf.puts("(");
+                for (i < args.length) {
+                    args[i].buildString(buf);
+                    if (i != args.length - 1) buf.puts(", ");
+                }
+                buf.puts(")");
+            }
+        }
+    }
+}
+
+component Pretty_IR {
+    var no_inline_functions: Array<string> = [];
+    def fromSSAD(s: SSAD, ctx: SSADCtx) -> PrettyIR {
+        match (s) {
+            LetApp(n, f, args, rest) => {
+                def argExprs: Array<PrettyExpr> = Arrays.map(args, PrettyExpr.Var);
+                def rhs = PrettyExpr.App(f, argExprs);
+                def stage = if(Strings.equal(f, "id"), Stage.VALIDATE, IntrinsicTypes.intrinsic_stage(f));
+                return PrettyIR.Let(n, rhs, stage, fromSSAD(rest, ctx));
+            }
+            LetLit(n, l, t, rest) => {
+                def rhs = PrettyExpr.Lit(l);
+                return PrettyIR.Let(n, rhs, Stage.VALIDATE, fromSSAD(rest, ctx));
+            }
+            If(cond, then, els, phis, rest) => {
+                def condExpr = PrettyExpr.Var(cond);
+                def thenPretty = fromSSAD(then, ctx);
+                def elsPretty = fromSSAD(els, ctx);
+                def restPretty = fromSSAD(rest, ctx);
+                def stage = if(ctx.static[cond], Stage.COMPILE, Stage.INTERPRET);
+                return PrettyIR.If(condExpr, thenPretty, elsPretty, stage, restPretty);
+            }
+            Void => return PrettyIR.Void;
+            Injected(inj, rest) => {
+                return PrettyIR.Injected(inj, Stage.VALIDATE, fromSSAD(rest, ctx));
+            }
+            Final(v) => {
+                return PrettyIR.Void;
+            }
+        }
+    }
+
+    def inlineLets(
+        n: PrettyIR, pred: (PrettyIR, SSADCtx) -> bool, ctx: SSADCtx, var_exprs: HashMap<string, PrettyExpr>
+    ) -> PrettyIR {
+        match (n) {
+            Let(name, rhs, stage, rest) => {
+                if (pred(n, ctx)) {
+                    var_exprs[name] = inlineExpr(rhs, var_exprs);
+                    return inlineLets(rest, pred, ctx, var_exprs);
+                } else {
+                    def inlined_rhs = inlineExpr(rhs, var_exprs);
+                    def inlined_rest = inlineLets(rest, pred, ctx, var_exprs);
+                    return PrettyIR.Let(name, inlined_rhs, stage, inlined_rest);
+                }
+            }
+            If(cond, then, els, stage, rest) => {
+                def inlined_cond = inlineExpr(cond, var_exprs);
+                def inlined_then = inlineLets(then, pred, ctx, var_exprs);
+                def inlined_els = inlineLets(els, pred, ctx, var_exprs);
+                def inlined_rest = inlineLets(rest, pred, ctx, var_exprs);
+                return PrettyIR.If(inlined_cond, inlined_then, inlined_els, stage, inlined_rest);
+            }
+            Exec(e, stage, effect, rest) => {
+                def inlined_e = inlineExpr(e, var_exprs);
+                def inlined_rest = inlineLets(rest, pred, ctx, var_exprs);
+                return PrettyIR.Exec(inlined_e, stage, effect, inlined_rest);
+            }
+            Injected(inj, stage, rest) => {
+                def inlined_rest = inlineLets(rest, pred, ctx, var_exprs);
+                return PrettyIR.Injected(inj, stage, inlined_rest);
+            }
+            Void => return PrettyIR.Void;
+        }
+    }
+
+    def inlineExpr(expr: PrettyExpr, var_exprs: HashMap<string, PrettyExpr>) -> PrettyExpr {
+        match (expr) {
+            Var(v) => {
+                return if(var_exprs.has(v), var_exprs[v], expr);
+            }
+            App(f, args) => {
+                def inlined_args = Arrays.map(args, fun(arg: PrettyExpr) => inlineExpr(arg, var_exprs));
+                return PrettyExpr.App(f, inlined_args);
+            }
+            Lit(l) => return expr;
+        }
+    }
+
+    def removeUselessAssigns(n: PrettyIR, ctx: SSADCtx) -> PrettyIR {
+        match (n) {
+            Let(name, rhs, stage, rest) => {
+                if (Strings.startsWith(name, "eff")) {
+                    def effect = ctx.effects[name];
+                    return PrettyIR.Exec(rhs, stage, effect, removeUselessAssigns(rest, ctx));
+                } else {
+                    return PrettyIR.Let(name, rhs, stage, removeUselessAssigns(rest, ctx));
+                }
+            }
+            If(cond, then, els, stage, rest) => {
+                return PrettyIR.If(
+                    cond, 
+                    removeUselessAssigns(then, ctx),
+                    removeUselessAssigns(els, ctx),
+                    stage,
+                    removeUselessAssigns(rest, ctx)
+                );
+            }
+            Exec(e, stage, effect, rest) => {
+                return PrettyIR.Exec(e, stage, effect, removeUselessAssigns(rest, ctx));
+            }
+            Injected(inj, stage, rest) => {
+                return PrettyIR.Injected(inj, stage, removeUselessAssigns(rest, ctx));
+            }
+            Void => return PrettyIR.Void;
+        }
+    }
+
+    def defaultInlinePredicate(n: PrettyIR, ctx: SSADCtx) -> bool {
+        match (n) {
+            Let(name, rhs, stage, rest) => {
+                match (rhs) {
+                    Lit(l) => return true; // Always inline literals
+                    App(f, args) => {
+                        if (f.length > 10) return false;
+                        for (no_inline in no_inline_functions) {
+                            if (Strings.equal(f, no_inline)) return false;
+                        }
+                        
+                        // Inline functions with no effect
+                        def effect = IntrinsicTypes.intrinsic_effect(f);
+                        return effect == CBDEffect.None;
+                    }
+                    Var(v) => return true; // Always inline variable assignments
+                }
+            }
+            _ => return false;
+        }
+    }
+
+    def simplifyVarNums(n: PrettyIR, used_varnums: HashMap<string, int>, var_map: HashMap<string, string>) -> PrettyIR {
+        match (n) {
+            Let(name, rhs, stage, rest) => {
+                def baseName = getBaseName(name);
+                def nextNum = if(used_varnums.has(baseName), used_varnums[baseName], 0);
+                def newName = if(nextNum == 0, baseName, Strings.format2("%s%d", baseName, nextNum));
+                used_varnums[baseName] = nextNum + 1;
+                var_map[name] = newName;
+                
+                def newRhs = substExprVars(rhs, var_map);
+                def newRest = simplifyVarNums(rest, used_varnums, var_map);
+                return PrettyIR.Let(newName, newRhs, stage, newRest);
+            }
+            If(cond, then, els, stage, rest) => {
+                def newCond = substExprVars(cond, var_map);
+                def newThen = simplifyVarNums(then, used_varnums, var_map);
+                def newEls = simplifyVarNums(els, used_varnums, var_map);
+                def newRest = simplifyVarNums(rest, used_varnums, var_map);
+                return PrettyIR.If(newCond, newThen, newEls, stage, newRest);
+            }
+            Exec(e, stage, effect, rest) => {
+                def newE = substExprVars(e, var_map);
+                def newRest = simplifyVarNums(rest, used_varnums, var_map);
+                return PrettyIR.Exec(newE, stage, effect, newRest);
+            }
+            Injected(inj, stage, rest) => {
+                def newRest = simplifyVarNums(rest, used_varnums, var_map);
+                return PrettyIR.Injected(inj, stage, newRest);
+            }
+            Void => return PrettyIR.Void;
+        }
+    }
+
+    def substExprVars(expr: PrettyExpr, var_map: HashMap<string, string>) -> PrettyExpr {
+        match (expr) {
+            Var(v) => {
+                return if(var_map.has(v), PrettyExpr.Var(var_map[v]), expr);
+            }
+            App(f, args) => {
+                def newArgs = Arrays.map(args, fun(arg: PrettyExpr) => substExprVars(arg, var_map));
+                return PrettyExpr.App(f, newArgs);
+            }
+            Lit(l) => return expr;
+        }
+    }
+
+    def recordVarUsage(varname: string, used_varnums: HashMap<string, int>) {
+        def baseName = getBaseName(varname);
+        def count = if(used_varnums.has(baseName), used_varnums[baseName] + 1, 0);
+        used_varnums[baseName] = count;
+    }
+
+    def isDigit(c: byte) => c >= '0' && c <= '9';
+    def getBaseName(varname: string) -> string {
+        def len = varname.length;
+        var i = len - 1;
+        
+        while (i >= 0 && isDigit(varname[i])) i--;
+        if (i < 0 || i == len - 1) return varname;
+        
+        return Arrays.range(varname, 0, i + 1);
+    }
+}
