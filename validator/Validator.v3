@@ -2,7 +2,7 @@
 def UNREACHABLE() {
 	// eff01 -- static: yes, type: <bottom>, effect: ctl
 
-	trapUnreachable(); // read
+	trapUnreachable();
 }
 def NOP() {
 	// ret23 -- static: no, type: <bottom>, effect: none
@@ -22,7 +22,7 @@ def LOCAL_GET() {
 	def index = imm_readILEB32();
 	def tv = f_getLocalType(index);
 	def val = getLocal(tv, index);
-	push_Value(tv, val); // read
+	push_Value(tv, val);
 }
 def LOCAL_SET() {
 	// index25 -- static: yes, type: i32, effect: read
@@ -38,7 +38,7 @@ def LOCAL_SET() {
 	def index = imm_readILEB32();
 	def tv = f_getLocalType(index);
 	def val = pop_Value(tv);
-	setLocal(tv, index, val); // read
+	setLocal(tv, index, val);
 }
 def LOCAL_TEE() {
 	// val47 -- static: no, type: <bottom>, effect: pop
@@ -57,8 +57,8 @@ def LOCAL_TEE() {
 	def index = imm_readILEB32();
 	def tv = f_getLocalType(index);
 	def val = pop_Value(tv);
-	setLocal(tv, index, val); // read
-	push_Value(tv, val); // read
+	setLocal(tv, index, val);
+	push_Value(tv, val);
 }
 def GLOBAL_GET() {
 	// val66 -- static: no, type: <bottom>, effect: push
@@ -74,7 +74,7 @@ def GLOBAL_GET() {
 	def index = imm_readILEB32();
 	def tv = m_getGlobalType(index);
 	def val = getGlobal(tv, index);
-	push_Value(tv, val); // read
+	push_Value(tv, val);
 }
 def GLOBAL_SET() {
 	// arg7479 -- static: yes, type: <bottom>, effect: none
@@ -90,7 +90,7 @@ def GLOBAL_SET() {
 	def index = imm_readILEB32();
 	def tv = m_getGlobalType(index);
 	def val = pop_Value(tv);
-	setGlobal(tv, index, val); // read
+	setGlobal(tv, index, val);
 }
 def TABLE_GET() {
 	// arg93105 -- static: no, type: i32, effect: none
@@ -112,10 +112,10 @@ def TABLE_GET() {
 	def table_index = imm_readILEB32();
 	def index = pop_i64();
 	def val = mach_readTable64(table_index, index);
-	push_Object(val); // read
+	push_Object(val);
 	def index1 = pop_i32();
 	def val1 = mach_readTable32(table_index, index1);
-	push_Object(val1); // read
+	push_Object(val1);
 }
 def TABLE_SET() {
 	// arg113126 -- static: no, type: i64, effect: none
@@ -153,7 +153,7 @@ def CALL() {
 	def index = imm_readILEB32();
 	def sig = m_getFuncSignature(index);
 	def target = i_getFunction(index);
-	doCall(sig, target); // read
+	doCall(sig, target);
 }
 def CALL_INDIRECT() {
 	// arg151175 -- static: no, type: <bottom>, effect: none
@@ -185,10 +185,10 @@ def CALL_INDIRECT() {
 	def sig = m_getSignature(sig_index);
 	def func_index = pop_i64();
 	def target = i_getTableFunction64(table_index, sig, func_index);
-	doCall(sig, target); // read
+	doCall(sig, target);
 	def func_index1 = pop_i32();
 	def target1 = i_getTableFunction32(table_index, sig, func_index1);
-	doCall(sig, target1); // read
+	doCall(sig, target1);
 }
 def DROP() {
 	// arg187189 -- static: yes, type: <bottom>, effect: none
@@ -196,7 +196,7 @@ def DROP() {
 // eff186190 -- static: no, type: <bottom>, effect: pop
 
 	def tv = f_getTopOfStackType();
-	pop_Value(tv); // read
+	pop_Value(tv);
 }
 def SELECT() {
 	// tv203 -- static: yes, type: <bottom>, effect: none
@@ -219,7 +219,7 @@ def SELECT() {
 	def tv = f_getTopOfStackType();
 	def b = pop_Value(tv);
 	def a = pop_Value(tv);
-	push_Value(tv, a); // read
+	push_Value(tv, a);
 }
 def I32_CONST() {
 	// rtcast222 -- static: no, type: i32, effect: none
@@ -228,7 +228,7 @@ def I32_CONST() {
 // arg218220 -- static: yes, type: i32, effect: none
 
 	def x = imm_readILEB32();
-	push_i32(rtcast_i32(x)); // read
+	push_i32(rtcast_i32(x));
 }
 def I32_ADD() {
 	// a228 -- static: no, type: i32, effect: pop
@@ -242,7 +242,7 @@ def I32_ADD() {
 	def b = pop_i32();
 	def a = pop_i32();
 	def r = TypeVar.I32.binop(i32.+)(a, b);
-	push_i32(r); // read
+	push_i32(r);
 }
 def I32_SUB() {
 	// a239 -- static: no, type: i32, effect: pop
@@ -256,7 +256,7 @@ def I32_SUB() {
 	def b = pop_i32();
 	def a = pop_i32();
 	def r = TypeVar.I32.binop(i32.-)(a, b);
-	push_i32(r); // read
+	push_i32(r);
 }
 def I32_MUL() {
 	// eff245255 -- static: no, type: <bottom>, effect: push
@@ -270,7 +270,7 @@ def I32_MUL() {
 	def b = pop_i32();
 	def a = pop_i32();
 	def r = TypeVar.I32.binop(i32.*)(a, b);
-	push_i32(r); // read
+	push_i32(r);
 }
 def I32_DIV_S() {
 	// b272 -- static: no, type: i32, effect: pop
@@ -295,10 +295,10 @@ def I32_DIV_S() {
 
 	def b = pop_i32();
 	def a = pop_i32();
-	def ret = trapDivideByZero();
-	def ret1 = trapDivideUnrepresentable();
+	trapDivideByZero();
+	trapDivideUnrepresentable();
 	def r = TypeVar.I32.binop(i32./)(a, b);
-	push_i32(r); // read
+	push_i32(r);
 }
 def I32_DIV_U() {
 	// eff291309 -- static: no, type: <bottom>, effect: push
@@ -315,9 +315,9 @@ def I32_DIV_U() {
 
 	def b = pop_i32();
 	def a = pop_i32();
-	def ret = trapDivideByZero();
+	trapDivideByZero();
 	def r = TypeVar.I32.binop(i32./)(a, b);
-	push_i32(r); // read
+	push_i32(r);
 }
 def I32_EQZ() {
 	// arg316318 -- static: yes, type: i32, effect: none
@@ -331,7 +331,7 @@ def I32_EQZ() {
 // arg315319 -- static: no, type: i32, effect: none
 
 	def a = pop_i32();
-	push_i32(rtcast_i32(1)); // read
+	push_i32(rtcast_i32(1));
 }
 def I32_EQ() {
 	// eff327339 -- static: yes, type: <bottom>, effect: push
@@ -347,7 +347,7 @@ def I32_EQ() {
 
 	def b = pop_i32();
 	def a = pop_i32();
-	push_i32(rtcast_i32(1)); // read
+	push_i32(rtcast_i32(1));
 }
 def I32_NE() {
 	// eff344356 -- static: yes, type: <bottom>, effect: push
@@ -363,7 +363,7 @@ def I32_NE() {
 
 	def b = pop_i32();
 	def a = pop_i32();
-	push_i32(rtcast_i32(1)); // read
+	push_i32(rtcast_i32(1));
 }
 def I32_LT_U() {
 	// eff361373 -- static: yes, type: <bottom>, effect: push
@@ -379,7 +379,7 @@ def I32_LT_U() {
 
 	def b = pop_i32();
 	def a = pop_i32();
-	push_i32(rtcast_i32(1)); // read
+	push_i32(rtcast_i32(1));
 }
 def I32_LE_S() {
 	// eff380392 -- static: yes, type: <bottom>, effect: push
@@ -395,7 +395,7 @@ def I32_LE_S() {
 
 	def b = pop_i32();
 	def a = pop_i32();
-	push_i32(rtcast_i32(1)); // read
+	push_i32(rtcast_i32(1));
 }
 def I32_GT_U() {
 	// a402 -- static: no, type: i32, effect: pop
@@ -411,7 +411,7 @@ def I32_GT_U() {
 
 	def b = pop_i32();
 	def a = pop_i32();
-	push_i32(rtcast_i32(1)); // read
+	push_i32(rtcast_i32(1));
 }
 def I32_AND() {
 	// r419 -- static: no, type: i32, effect: none
@@ -425,7 +425,7 @@ def I32_AND() {
 	def b = pop_i32();
 	def a = pop_i32();
 	def r = TypeVar.I32.binop(i32.&)(a, b);
-	push_i32(r); // read
+	push_i32(r);
 }
 def F32_CONST() {
 	// arg424426 -- static: yes, type: i32, effect: none
@@ -436,7 +436,7 @@ def F32_CONST() {
 
 	def x = imm_readILEB32();
 	def arg = f32_reinterpret_i32(rtcast_i32(x));
-	push_f32(arg); // read
+	push_f32(arg);
 }
 def F32_ADD() {
 	// r438 -- static: no, type: f32, effect: none
@@ -450,7 +450,7 @@ def F32_ADD() {
 	def b = pop_f32();
 	def a = pop_f32();
 	def r = TypeVar.F32.binop(float.+)(a, b);
-	push_f32(r); // read
+	push_f32(r);
 }
 def F32_SUB() {
 	// r449 -- static: no, type: f32, effect: none
@@ -464,7 +464,7 @@ def F32_SUB() {
 	def b = pop_f32();
 	def a = pop_f32();
 	def r = TypeVar.F32.binop(float.-)(a, b);
-	push_f32(r); // read
+	push_f32(r);
 }
 def F32_MUL() {
 	// eff452462 -- static: no, type: <bottom>, effect: push
@@ -478,7 +478,7 @@ def F32_MUL() {
 	def b = pop_f32();
 	def a = pop_f32();
 	def r = TypeVar.F32.binop(float.*)(a, b);
-	push_f32(r); // read
+	push_f32(r);
 }
 def F32_DIV() {
 	// arg465478 -- static: no, type: f32, effect: none
@@ -495,9 +495,9 @@ def F32_DIV() {
 
 	def b = pop_f32();
 	def a = pop_f32();
-	def ret = trapDivideByZero();
+	trapDivideByZero();
 	def r = TypeVar.F32.binop(float./)(a, b);
-	push_f32(r); // read
+	push_f32(r);
 }
 def F32_EQ() {
 	// a490 -- static: no, type: f32, effect: pop
@@ -513,7 +513,7 @@ def F32_EQ() {
 
 	def b = pop_f32();
 	def a = pop_f32();
-	push_f32(rtcast_f32(1.0f)); // read
+	push_f32(rtcast_f32(1.0f));
 }
 def F32_NE() {
 	// a507 -- static: no, type: f32, effect: pop
@@ -529,7 +529,7 @@ def F32_NE() {
 
 	def b = pop_f32();
 	def a = pop_f32();
-	push_f32(rtcast_f32(1.0f)); // read
+	push_f32(rtcast_f32(1.0f));
 }
 def F32_LT() {
 	// eff517529 -- static: yes, type: <bottom>, effect: push
@@ -545,7 +545,7 @@ def F32_LT() {
 
 	def b = pop_f32();
 	def a = pop_f32();
-	push_f32(rtcast_f32(1.0f)); // read
+	push_f32(rtcast_f32(1.0f));
 }
 def F32_LE() {
 	// eff534546 -- static: yes, type: <bottom>, effect: push
@@ -561,7 +561,7 @@ def F32_LE() {
 
 	def b = pop_f32();
 	def a = pop_f32();
-	push_f32(rtcast_f32(1.0f)); // read
+	push_f32(rtcast_f32(1.0f));
 }
 def F32_GT() {
 	// eff551563 -- static: yes, type: <bottom>, effect: push
@@ -577,7 +577,7 @@ def F32_GT() {
 
 	def b = pop_f32();
 	def a = pop_f32();
-	push_f32(rtcast_f32(1.0f)); // read
+	push_f32(rtcast_f32(1.0f));
 }
 def BR() {
 	// arg568573 -- static: yes, type: <bottom>, effect: none
@@ -587,7 +587,8 @@ def BR() {
 // depth570 -- static: yes, type: i32, effect: read
 
 	def depth = imm_readILEB32();
-	def ret = doBranch(f_getLabel(depth));
+	def label = f_getLabel(depth);
+	doBranch(label);
 }
 def BR_IF() {
 	// arg581583 -- static: yes, type: i32, effect: none
@@ -602,9 +603,10 @@ def BR_IF() {
 // ret576590 -- static: yes, type: <bottom>, effect: ctl
 
 	def depth = imm_readILEB32();
+	def label = f_getLabel(depth);
 	def cond = pop_i32();
-	def ret = doBranch(f_getLabel(depth));
-	def ret1 = doFallthru();
+	doBranch(label);
+	doFallthru();
 }
 def BLOCK() {
 	// arg593595 -- static: yes, type: <bottom>, effect: none
@@ -612,7 +614,7 @@ def BLOCK() {
 // eff592596 -- static: yes, type: <bottom>, effect: ctl
 
 	def bt = imm_readBlockType();
-	doBlock(bt); // read
+	doBlock(bt);
 }
 def LOOP() {
 	// arg598600 -- static: yes, type: <bottom>, effect: none
@@ -620,7 +622,7 @@ def LOOP() {
 // eff597601 -- static: yes, type: <bottom>, effect: ctl
 
 	def bt = imm_readBlockType();
-	doLoop(bt); // read
+	doLoop(bt);
 }
 def TRY() {
 	// arg603605 -- static: yes, type: <bottom>, effect: none
@@ -628,7 +630,7 @@ def TRY() {
 // eff602606 -- static: yes, type: <bottom>, effect: ctl
 
 	def bt = imm_readBlockType();
-	doTry(bt); // read
+	doTry(bt);
 }
 def IF() {
 	// ret610623 -- static: yes, type: <bottom>, effect: ctl
@@ -644,8 +646,8 @@ def IF() {
 
 	def bt = imm_readBlockType();
 	def cond = pop_i32();
-	def ret = doBranch(doIf(bt));
-	def ret1 = doFallthru();
+	doBranch(doIf(bt));
+	doFallthru();
 }
 def ELSE() {
 	// arg626627 -- static: yes, type: i32, effect: none
@@ -653,20 +655,21 @@ def ELSE() {
 // arg625629 -- static: yes, type: <bottom>, effect: none
 // label628 -- static: yes, type: <bottom>, effect: none
 
-	def ret = doBranch(f_getLabel(0));
+	def label = f_getLabel(0);
+	doBranch(label);
 }
 def END() {
 	// eff633634 -- static: yes, type: <bottom>, effect: ctl
 // ret632636 -- static: yes, type: <bottom>, effect: ctl
 // cond631635 -- static: yes, type: <bottom>, effect: none
 
-	doEnd(); // read
-	def ret = doReturn();
+	doEnd();
+	doReturn();
 }
 def RETURN() {
 	// ret637638 -- static: yes, type: <bottom>, effect: ctl
 
-	def ret = doReturn();
+	doReturn();
 }
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);

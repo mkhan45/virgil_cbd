@@ -43,7 +43,8 @@ type PrettyIR {
             Exec(e, stage, effect, rest) => {
                 for (i < indent) buf.tab();
                 e.buildString(buf);
-                buf.puts("; // ").puts(effect.toString()).puts("\n");
+                buf.puts(";\n");
+                // buf.puts("; // ").puts(effect.toString()).puts("\n");
                 rest.buildString(buf, indent);
             }
             Injected(inj, stage, rest) => {
@@ -85,7 +86,7 @@ type PrettyExpr {
 }
 
 component Pretty_IR {
-    var no_inline_functions: Array<string> = [];
+    var no_inline_functions: Array<string> = ["f_getLabel"];
     def fromSSAD(s: SSAD, ctx: SSADCtx) -> PrettyIR {
         match (s) {
             LetApp(n, f, args, rest) => {
@@ -121,7 +122,8 @@ component Pretty_IR {
     ) -> PrettyIR {
         match (n) {
             Let(name, rhs, stage, rest) => {
-                if (pred(n, ctx)) {
+                def inlined_rhs = inlineExpr(rhs, var_exprs);
+                if (pred(n, ctx) && exprSize(inlined_rhs) < 7) {
                     var_exprs[name] = inlineExpr(rhs, var_exprs);
                     return inlineLets(rest, pred, ctx, var_exprs);
                 } else {
@@ -166,7 +168,7 @@ component Pretty_IR {
     def removeUselessAssigns(n: PrettyIR, ctx: SSADCtx) -> PrettyIR {
         match (n) {
             Let(name, rhs, stage, rest) => {
-                if (Strings.startsWith(name, "eff")) {
+                if (Strings.startsWith(name, "eff") || Strings.startsWith(name, "ret")) {
                     def effect = ctx.effects[name];
                     return PrettyIR.Exec(rhs, stage, effect, removeUselessAssigns(rest, ctx));
                 } else {
@@ -211,6 +213,18 @@ component Pretty_IR {
                 }
             }
             _ => return false;
+        }
+    }
+
+    def exprSize(n: PrettyExpr) -> int {
+        match (n) {
+            Var(_) => return 1;
+            Lit(_) => return 1;
+            App(f, args) => {
+                var res = 1;
+                for (arg in args) res += exprSize(arg);
+                return res;
+            }
         }
     }
 

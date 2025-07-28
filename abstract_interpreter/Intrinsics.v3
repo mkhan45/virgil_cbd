@@ -9,4 +9,16 @@ def I32_gt(lhs: i32.I, rhs: i32.I) -> i32.I;
 def I32_times(lhs: i32.I, rhs: i32.I) -> i32.I;
 def I32_and(lhs: i32.I, rhs: i32.I) -> i32.I;
 
+def F32_equals(lhs: f32.I, rhs: f32.I) -> f32.I;
+def F32_not_equals(lhs: f32.I, rhs: f32.I) -> f32.I;
+def F32_plus(lhs: f32.I, rhs: f32.I) -> f32.I;
+def F32_minus(lhs: f32.I, rhs: f32.I) -> f32.I;
+def F32_div(lhs: f32.I, rhs: f32.I) -> f32.I;
+def F32_lt(lhs: f32.I, rhs: f32.I) -> f32.I;
+def F32_lte(lhs: f32.I, rhs: f32.I) -> f32.I;
+def F32_gt(lhs: f32.I, rhs: f32.I) -> f32.I;
+def F32_times(lhs: f32.I, rhs: f32.I) -> f32.I;
+def F32_and(lhs: f32.I, rhs: f32.I) -> f32.I;
+
 def I32_maybeTrue(i: i32.I) -> bool.I;
+def F32_maybeTrue(i: i32.I) -> bool.I;
