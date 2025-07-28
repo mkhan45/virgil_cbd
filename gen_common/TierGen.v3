@@ -145,6 +145,7 @@ component TierGen {
             pretty = Pretty_IR.removeUselessAssigns(pretty, ctx);
             pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>());
             codestr_builder.puts(pretty.toString(1));
+            // codestr_builder.puts(pretty.toStringCol(1));
             codestr_builder.puts("}\n");
 
             dispatch_builder.puts("  DISPATCH_TABLE[Opcode.");

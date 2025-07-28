@@ -54,6 +54,67 @@ type PrettyIR {
             }
         }
     }
+
+    def toStringCol(indent: int) -> string {
+        def buf = StringBuilder.new();
+        this.buildStringCol(buf, indent);
+        return buf.toString();
+    }
+
+    def buildStringCol(buf: StringBuilder, indent: int) {
+        match (this) {
+            Let(n, rhs, stage, rest) => {
+                for (i < indent) buf.tab();
+                buf.puts(getStageColor(stage));
+                buf.puts("def ").puts(n).puts(" = ");
+                rhs.buildString(buf);
+                buf.puts(";\x1b[0m\n");
+                rest.buildStringCol(buf, indent);
+            }
+            If(cond, then, els, stage, rest) => {
+                for (i < indent) buf.tab();
+                buf.puts(getStageColor(stage));
+                buf.puts("if (");
+                cond.buildString(buf);
+                buf.puts(") {\x1b[0m\n");
+                then.buildStringCol(buf, indent + 1);
+                for (i < indent) buf.tab();
+                if (els != PrettyIR.Void) {
+                    buf.puts(getStageColor(stage)).puts("} else {\x1b[0m\n");
+                    els.buildStringCol(buf, indent + 1);
+                    for (i < indent) buf.tab();
+                    buf.puts(getStageColor(stage)).puts("}\x1b[0m\n");
+                } else {
+                    buf.puts(getStageColor(stage)).puts("}\x1b[0m\n");
+                }
+                rest.buildStringCol(buf, indent);
+            }
+            Void => {
+                return;
+            }
+            Exec(e, stage, effect, rest) => {
+                for (i < indent) buf.tab();
+                buf.puts(getStageColor(stage));
+                e.buildString(buf);
+                buf.puts(";\x1b[0m\n");
+                rest.buildStringCol(buf, indent);
+            }
+            Injected(inj, stage, rest) => {
+                for (i < indent) buf.tab();
+                buf.puts(getStageColor(stage));
+                buf.puts(inj).puts("\x1b[0m\n");
+                rest.buildStringCol(buf, indent);
+            }
+        }
+    }
+
+    def getStageColor(stage: Stage) -> string {
+        match (stage) {
+            VALIDATE => return "\x1b[32m";    // green
+            COMPILE => return "\x1b[31m";     // red
+            INTERPRET => return "\x1b[36m";   // cyan
+        }
+    }
 }
 
 type PrettyExpr {
