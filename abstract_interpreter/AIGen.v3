@@ -48,10 +48,11 @@ def collectPushes(s: SSAD, pushBuf: Vector<(string, string)>, ctx: SSADCtx) -> S
         If(c, t, e, phis, rest) => return SSAD.If(c, t, e, phis, collectPushes(rest, pushBuf, ctx));
         LetApp(n, f, args, rest) => {
             if (ctx.effects[n] == CBDEffect.Push) {
-                // one arg, value being pushed
                 if (args.length == 1) {
+            // one arg, value being pushed
                     pushBuf.put(args[0], null);
                 } else {
+            // (typevar, value)
                     pushBuf.put(args[1], args[0]);
                 }
                 return collectPushes(rest, pushBuf, ctx);
@@ -63,7 +64,6 @@ def collectPushes(s: SSAD, pushBuf: Vector<(string, string)>, ctx: SSADCtx) -> S
 }
 
 def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
-    // return ssa;
     match (ssa) {
         Void => return ssa;
         Final(_) => return ssa;
@@ -71,7 +71,6 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
         LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
         If(c, t, e, phis, rest) => {
             // TODO: could check for returns and choose not to execute a branch
-            // TODO: have to do stack phis
             if (!ctx.static[c]) {
                 def fvTrue = SSAD_IR.uidl("condTrue");
                 def fvFalse = SSAD_IR.uidl("condFalse");
@@ -103,22 +102,19 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
             }
         }
         LetApp(n, f, args, rest) => {
-            var is_op = false;
-            for (c in f) if (c == '.') is_op = true;
+            var op_tp_end = -1;
+            for (i < f.length) if (f[i] == '.') {
+                op_tp_end = i;
+                break;
+            }
+            def is_op = op_tp_end != -1;
             def is_rt = !ctx.static[n];
             if (is_op && is_rt) {
-                var tp = ctx.types[n];
+                var tp = TypeUtil.fromString(Arrays.range(f, 0, op_tp_end));
                 // infer type, applies to bools
                 if (tp == ValueType.BOTTOM && args.length > 0) tp = ctx.types[args[0]];
                 def tp_str = TypeUtil.toString(tp);
                 var prefix: string;
-                // there is a weird case for this, in Virgil test ops
-                // return booleans but in Wasm they don't. So e.g. i32.==
-                // returns a boolean but then we can't use i32.&, but it's
-                // still an i32 in wasm and we want to validator to know that.
-                // Luckily, all testops necessarily get DCE'd since the 
-                // validator executes every path. So sometimes Bot will occur
-                // here but get DCE'd out.
                 match (tp) {
                     BOTTOM => prefix = "V";
                     _ => prefix = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);

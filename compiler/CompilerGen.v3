@@ -9,7 +9,13 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
             if (!Strings.startsWith(f, "Emit")) for (c in f) if (c == '.') is_op = true;
             def is_rt = !ctx.static[n];
             if (is_op && is_rt) {
-                def tp = ctx.types[n];
+                var op_tp_end = -1;
+                for (i < f.length) if (f[i] == '.') {
+                    op_tp_end = i;
+                    break;
+                }
+                var tp = TypeUtil.fromString(Arrays.range(f, 0, op_tp_end));
+                if (tp == ValueType.BOTTOM && args.length > 0) tp = ctx.types[args[0]];
                 def tp_str = Strings.render(tp.render);
                 var prefix: string;
                 match (tp) {
@@ -122,15 +128,16 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     def processed = analysis.DCE(analysis.id_propagate(transformed, HashMap<string, string>.new(Strings.hash, Strings.equal)));
 
     def sb = StringBuilder.new();
-    def vars = Maps.keyList(analysis.static);
-    for (v = vars; v != null; v = v.tail) {
-        sb.puts("// ").puts(v.head).puts(" -- ");
-        sb.puts("static: ").puts(if(analysis.static[v.head], "yes", "no")).puts(", ");
-        sb.puts("type: ").putq(analysis.types[v.head].render).puts(", ");
-        sb.puts("effect: ").puts(analysis.effects[v.head].toString());
-        sb.ln();
-    }
-    def instSsa = SSAD.Injected(sb.toString(), processed);
+    // def vars = Maps.keyList(analysis.static);
+    // for (v = vars; v != null; v = v.tail) {
+    //     sb.puts("// ").puts(v.head).puts(" -- ");
+    //     sb.puts("static: ").puts(if(analysis.static[v.head], "yes", "no")).puts(", ");
+    //     sb.puts("type: ").putq(analysis.types[v.head].render).puts(", ");
+    //     sb.puts("effect: ").puts(analysis.effects[v.head].toString());
+    //     sb.ln();
+    // }
+    // def instSsa = SSAD.Injected(sb.toString(), processed);
+    def instSsa = processed;
 
     return CBDDef.new(opcode, instSsa);
 }

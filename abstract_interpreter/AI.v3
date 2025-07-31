@@ -164,6 +164,16 @@ class AI<V, I32, I64, F32, F64, REF> {
     def I32_maybeTrue(i: I32) -> bool;
     def I32_maybeFalse(i: I32) -> bool;
 
+    def F32_equals(lhs: F32, rhs: F32) -> I32;
+    def F32_not_equals(lhs: F32, rhs: F32) -> I32;
+    def F32_plus(lhs: F32, rhs: F32) -> F32;
+    def F32_minus(lhs: F32, rhs: F32) -> F32;
+    def F32_div(lhs: F32, rhs: F32) -> F32;
+    def F32_lt(lhs: F32, rhs: F32) -> I32;
+    def F32_lte(lhs: F32, rhs: F32) -> I32;
+    def F32_gt(lhs: F32, rhs: F32) -> I32;
+    def F32_times(lhs: F32, rhs: F32) -> F32;
+
     def unbox_i(v: V) -> I32;
     def unbox_l(v: V) -> I64;
     def unbox_f(v: V) -> F32;
@@ -239,6 +249,9 @@ class AI<V, I32, I64, F32, F64, REF> {
     def rtcast_f32(f: float) -> F32;
     def rtcast_f64(f: double) -> F64;
     def ref_null() -> REF;
+
+    def f32_reinterpret_i32(i: I32) -> F32;
+    def f64_reinterpret_i64(i: I64) -> F64;
 
     def copyVals(count: int, dest: int) {
         def sp = stack.top - count;
@@ -723,8 +736,8 @@ def F32_MUL() {
 def F32_DIV() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def condTrue = I32_maybeTrue(I32_equals(b, rtcast_f32(0.0f)));
-	def condFalse = I32_maybeFalse(I32_equals(b, rtcast_f32(0.0f)));
+	def condTrue = I32_maybeTrue(F32_equals(b, rtcast_f32(0.0f)));
+	def condFalse = I32_maybeFalse(F32_equals(b, rtcast_f32(0.0f)));
 	if (bool.&&(condTrue, condFalse)) {
 		trapDivideByZero();
 	} else {
@@ -737,8 +750,8 @@ def F32_DIV() {
 def F32_EQ() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def condTrue = I32_maybeTrue(I32_equals(a, b));
-	def condFalse = I32_maybeFalse(I32_equals(a, b));
+	def condTrue = I32_maybeTrue(F32_equals(a, b));
+	def condFalse = I32_maybeFalse(F32_equals(a, b));
 	if (bool.&&(condTrue, condFalse)) {
 		push_i32(merge_i(rtcast_i32(1), rtcast_i32(0)));
 	} else {
@@ -752,7 +765,7 @@ def F32_EQ() {
 def F32_NE() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def cond = I32_not_equals(a, b);
+	def cond = F32_not_equals(a, b);
 	def condTrue = I32_maybeTrue(cond);
 	def condFalse = I32_maybeFalse(cond);
 	if (bool.&&(condTrue, condFalse)) {
@@ -768,8 +781,8 @@ def F32_NE() {
 def F32_LT() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def condTrue = I32_maybeTrue(I32_lt(a, b));
-	def condFalse = I32_maybeFalse(I32_lt(a, b));
+	def condTrue = I32_maybeTrue(F32_lt(a, b));
+	def condFalse = I32_maybeFalse(F32_lt(a, b));
 	if (bool.&&(condTrue, condFalse)) {
 		push_i32(merge_i(rtcast_i32(1), rtcast_i32(0)));
 	} else {
@@ -783,8 +796,8 @@ def F32_LT() {
 def F32_LE() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def condTrue = I32_maybeTrue(I32_lte(a, b));
-	def condFalse = I32_maybeFalse(I32_lte(a, b));
+	def condTrue = I32_maybeTrue(F32_lte(a, b));
+	def condFalse = I32_maybeFalse(F32_lte(a, b));
 	if (bool.&&(condTrue, condFalse)) {
 		push_i32(merge_i(rtcast_i32(1), rtcast_i32(0)));
 	} else {
@@ -798,8 +811,8 @@ def F32_LE() {
 def F32_GT() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def condTrue = I32_maybeTrue(I32_gt(a, b));
-	def condFalse = I32_maybeFalse(I32_gt(a, b));
+	def condTrue = I32_maybeTrue(F32_gt(a, b));
+	def condFalse = I32_maybeFalse(F32_gt(a, b));
 	if (bool.&&(condTrue, condFalse)) {
 		push_i32(merge_i(rtcast_i32(1), rtcast_i32(0)));
 	} else {

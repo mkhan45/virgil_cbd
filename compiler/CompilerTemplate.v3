@@ -32,128 +32,59 @@ def HAS_MEM_INDEX = 0x40u8;
 
 // Types.
 // class Object { }
-component EmitOpI32 {
-    def plus(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
-        def new_var = uidl(Strings.format2("%s_plus_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("int %s = %s + %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.I32);
+def binopG<L, R, O>(
+    op_mnemonic: string, op_str: string, tp_str: string, tv: O
+) -> ((string, L), (string, R)) -> (string, O) {
+    def inner(lhs: (string, L), rhs: (string, R)) -> (string, O) {
+        def new_var = uidl(Strings.format3("%s_%s_%s", lhs.0, op_mnemonic, rhs.0));
+        def expr = Strings.format3("%s %s %s", lhs.0, op_str, rhs.0);
+        code_builder.puts(Strings.format3("%s %s = %s;\n", tp_str, new_var, expr));
+        return (new_var, tv);
     }
-    def div(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
-        def new_var = uidl(Strings.format2("%s_div_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("int %s = %s / %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.I32);
-    }
-    def minus(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
-        def new_var = uidl(Strings.format2("%s_minus_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("int %s = %s - %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.I32);
-    }
-    def equals(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
-        def new_var = uidl(Strings.format2("%s_equals_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("int %s = %s == %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.I32);
-    }
-    def not_equals(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
-        def new_var = uidl(Strings.format2("%s_not_equals_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("int %s = %s != %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.I32);
-    }
-    def lt(lhs: (string, TypeVar.I32), rhs: (string, TypeVar.I32)) -> (string, TypeVar.I32) {
-        def new_var = uidl(Strings.format2("%s_lt_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("int %s = %s < %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.I32);
-    }
+    return inner;
 }
-component EmitOpU32 {
-    def plus(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
-        def new_var = uidl(Strings.format2("%s_plus_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("u32 %s = %s + %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.U32);
-    }
-    def div(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
-        def new_var = uidl(Strings.format2("%s_div_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("u32 %s = %s / %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.U32);
-    }
-    def times(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
-        def new_var = uidl(Strings.format2("%s_mul_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("u32 %s = %s * %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.U32);
-    }
-    def minus(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
-        def new_var = uidl(Strings.format2("%s_minus_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("u32 %s = %s - %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.U32);
-    }
-    def equals(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
-        def new_var = uidl(Strings.format2("%s_equals_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("u32 %s = %s == %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.U32);
-    }
-    def not_equals(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
-        def new_var = uidl(Strings.format2("%s_not_equals_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("u32 %s = %s != %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.U32);
-    }
-    def lt(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
-        def new_var = uidl(Strings.format2("%s_lt_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("u32 %s = %s < %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.U32);
-    }
-    def lte(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
-        def new_var = uidl(Strings.format2("%s_lte_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("u32 %s = %s <= %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.U32);
-    }
-    def gt(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
-        def new_var = uidl(Strings.format2("%s_gt_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("u32 %s = %s > %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.U32);
-    }
-    def and(lhs: (string, TypeVar.U32), rhs: (string, TypeVar.U32)) -> (string, TypeVar.U32) {
-        def new_var = uidl(Strings.format2("%s_and_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("bool %s = %s > %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.U32);
-    }
+def binop<T>(op_mn: string, op_str: string, tp_str: string, tv: T) => binopG<T, T, T>(op_mn, op_str, tp_str, tv);
+component EmitOpI32 {
+    def plus = binop("plus", "+", "int", TypeVar.I32);
+    def minus = binop("minus", "-", "int", TypeVar.I32);
+    def times = binop("times", "*", "int", TypeVar.I32);
+    def div = binop("div", "/", "int", TypeVar.I32);
+    def equals = binop("eq", "==", "int", TypeVar.I32);
+    def not_equals = binop("neq", "!=", "int", TypeVar.I32);
+    def lt = binop("lt", "<", "int", TypeVar.I32);
+    def lte = binop("lte", "<=", "int", TypeVar.I32);
+    def gt = binop("gt", ">", "int", TypeVar.I32);
+    def and = binop("and", "&", "int", TypeVar.I32);
+}
+component EmitOpF32 {
+    def plus = binop("plus", "+", "float", TypeVar.F32);
+    def minus = binop("minus", "-", "float", TypeVar.F32);
+    def times = binop("times", "*", "float", TypeVar.F32);
+    def div = binop("div", "/", "float", TypeVar.F32);
+    def equals = binopG<TypeVar.F32, TypeVar.F32, TypeVar.I32>("eq", "==", "int", TypeVar.I32);
+    def not_equals = binopG<TypeVar.F32, TypeVar.F32, TypeVar.I32>("neq", "!=", "int", TypeVar.I32);
+    def lt = binopG<TypeVar.F32, TypeVar.F32, TypeVar.I32>("lt", "<", "int", TypeVar.I32);
+    def lte = binopG<TypeVar.F32, TypeVar.F32, TypeVar.I32>("lte", "<=", "int", TypeVar.I32);
+    def gt = binopG<TypeVar.F32, TypeVar.F32, TypeVar.I32>("gt", ">", "int", TypeVar.I32);
+    def gte = binopG<TypeVar.F32, TypeVar.F32, TypeVar.I32>("gte", ">=", "int", TypeVar.I32);
 }
 component EmitOpV {
-    def and(lhs: (string, TypeVar), rhs: (string, TypeVar)) -> (string, TypeVar) {
-        def new_var = uidl(Strings.format2("%s_and_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("bool %s = %s && %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.Bot);
-    }
+    // def and = binop<TypeVar>("and", "&&", TypeVar.Bot);
 }
 def rtcast_i32(x: i32) -> (string, TypeVar.I32) {
     def var_name = uidl("rtcast");
     code_builder.puts(Strings.format2("int %s = %d;\n", var_name, x));
     return (var_name, TypeVar.I32);
 }
-def rtcast_u32(x: u32) -> (string, TypeVar.U32) {
+def rtcast_f32(x: float) -> (string, TypeVar.F32) {
     def var_name = uidl("rtcast");
-    code_builder.puts(Strings.format2("u32 %s = %d;\n", var_name, x));
-    return (var_name, TypeVar.U32);
+    code_builder.puts(Strings.format2("float %s = %d;\n", var_name, x));
+    return (var_name, TypeVar.F32);
 }
-component EmitOpF32 {
-    def plus(lhs: (string, TypeVar.F32), rhs: (string, TypeVar.F32)) -> (string, TypeVar.F32) {
-        def new_var = uidl(Strings.format2("%s_plus_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("float %s = %s + %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.F32);
-    }
-    def minus(lhs: (string, TypeVar.F32), rhs: (string, TypeVar.F32)) -> (string, TypeVar.F32) {
-        def new_var = uidl(Strings.format2("%s_minus_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("float %s = %s - %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.F32);
-    }
-    def equals(lhs: (string, TypeVar.F32), rhs: (string, TypeVar.F32)) -> (string, TypeVar.I32) {
-        def new_var = uidl(Strings.format2("%s_minus_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("int %s = %s - %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.I32);
-    }
-    def gt(lhs: (string, TypeVar.F32), rhs: (string, TypeVar.F32)) -> (string, TypeVar.I32) {
-        def new_var = uidl(Strings.format2("%s_gt_%s", lhs.0, rhs.0));
-        code_builder.puts(Strings.format3("int %s = %s > %s;\n", new_var, lhs.0, rhs.0));
-        return (new_var, TypeVar.I32);
-    }
+def f32_reinterpret_i32(x: (string, TypeVar.I32)) -> (string, TypeVar.F32) {
+    def var_name = uidl("float_reinterp");
+    code_builder.puts(Strings.format2("float %s = (float) (%s)", var_name, x.0));
+    return (var_name, TypeVar.F32);
 }
 def emitFwdI32() -> (string, TypeVar.I32) {
     def new_var = uidl("fwd_i32");
@@ -182,7 +113,7 @@ def imm_readULEB32() -> u32 {
 }
 
 def imm_readILEB32() -> i32 {
-    return i32.!(codeptr.read_uleb32());
+    return codeptr.read_sleb32();
 }
 
 def imm_readULEB64() -> u64 {
@@ -208,14 +139,7 @@ def pop_i32() -> (string, TypeVar.I32) {
     def var_type = sp.1;
     return (var_name, TypeVar.I32);
 }
-def pop_u32() -> (string, TypeVar.U32) {
-    def sp = stack.pop();
-    def var_name = sp.0;
-    def var_type = sp.1;
-    return (var_name, TypeVar.U32);
-}
-def pop_i64() -> i64;
-def pop_u64() -> (string, TypeVar.U64);
+def pop_i64() -> (string, TypeVar.I64);
 def pop_f32() -> (string, TypeVar.F32);
 def pop_f64() -> double;
 def pop_v128() -> v128;
@@ -229,11 +153,7 @@ def pop_Value(tv: TypeVar) -> (string, TypeVar) {
 def push_i32(v: (string, TypeVar.I32)) {
     stack.push(v);
 }
-def push_u32(v: (string, TypeVar.U32)) {
-    stack.push(v);
-}
 def push_i64(v: i64);
-def push_u64(v: u64);
 def push_f32(v: (string, TypeVar.F32));
 def push_f64(v: double);
 def push_v128(v: v128);
@@ -243,25 +163,25 @@ def push_Value(tv: TypeVar, v: (string, TypeVar)) {
 }
 
 // Local variables.
-def getLocal(tv: TypeVar, index: u32) -> (string, TypeVar) {
+def getLocal(tv: TypeVar, index: int) -> (string, TypeVar) {
     return stack.elems[index];
 }
-def setLocal(tv: TypeVar, index: u32, v: (string, TypeVar)) {
+def setLocal(tv: TypeVar, index: int, v: (string, TypeVar)) {
     // TODO: assert that v has tv
     code_builder.puts(Strings.format2("local_%d = %s;\n", int.!(index), v.0));
     stack.elems[index] = v;
 }
 
 // Global variables.
-def getGlobal(tv: TypeVar, index: u32) -> (string, TypeVar);
-def setGlobal(tv: TypeVar, index: u32, v: (string, TypeVar));
+def getGlobal(tv: TypeVar, index: int) -> (string, TypeVar);
+def setGlobal(tv: TypeVar, index: int, v: (string, TypeVar));
 
 // Function context.
-def f_getLabel(depth: u32) -> int {
+def f_getLabel(depth: int) -> int {
     return int.!(depth);
 }
 
-def f_getLocalType(index: u32) -> TypeVar {
+def f_getLocalType(index: int) -> TypeVar {
     return local_types[int.!(index)];
 }
 def f_getTopOfStackType() -> TypeVar {
@@ -269,20 +189,20 @@ def f_getTopOfStackType() -> TypeVar {
 }
 
 // Module context.
-def m_getGlobalType(index: u32) -> TypeVar;
-def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
-def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset;
-def m_isMemory64(memory_index: u32) -> bool;
-def m_isTable64(memory_index: u32) -> bool;
-def m_getFuncSignature(func_index: u32) -> SigDecl {
+def m_getGlobalType(index: int) -> TypeVar;
+def m_getFieldKind(struct_index: int, field_index: int) -> FieldKind;
+def m_getFieldOffset(struct_index: int, field_index: int) -> FieldOffset;
+def m_isMemory64(memory_index: int) -> bool;
+def m_isTable64(memory_index: int) -> bool;
+def m_getFuncSignature(func_index: int) -> SigDecl {
     return null; // TODO
 }
-def m_getSignature(sig_index: u32) -> SigDecl;
+def m_getSignature(sig_index: int) -> SigDecl;
 
 // Instance context.
-def i_getTableFunction64(table_index: u32, sig: SigDecl, func_index: (string, TypeVar.U64)) -> Function;
-def i_getTableFunction32(table_index: u32, sig: SigDecl, func_index: (string, TypeVar.U32)) -> Function;
-def i_getFunction(func_index: u32) -> Function {
+def i_getTableFunction64(table_index: int, sig: SigDecl, func_index: (string, TypeVar.I64)) -> Function;
+def i_getTableFunction32(table_index: int, sig: SigDecl, func_index: (string, TypeVar.I32)) -> Function;
+def i_getFunction(func_index: int) -> Function {
     return null; // TODO
 }
 
@@ -310,21 +230,21 @@ def mach_readStructField_i8(obj: Object, offset: FieldOffset) -> i8;
 def mach_readStructField_u8(obj: Object, offset: FieldOffset) -> u8;
 def mach_readStructField_i16(obj: Object, offset: FieldOffset) -> i16;
 def mach_readStructField_u16(obj: Object, offset: FieldOffset) -> u16;
-def mach_readStructField_u32(obj: Object, offset: FieldOffset) -> u32;
-def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> u64;
+def mach_readStructField_u32(obj: Object, offset: FieldOffset) -> int;
+def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> long;
 def mach_readStructField_f32(obj: Object, offset: FieldOffset) -> float;
 def mach_readStructField_f64(obj: Object, offset: FieldOffset) -> double;
 def mach_readStructField_v128(obj: Object, offset: FieldOffset) -> v128;
 def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> Object;
 
-def mach_readMemory64_u32(memory_index: u32, index: u64, offset: u64) -> u32;
-def mach_readMemory32_u32(memory_index: u32, index: u32, offset: u32) -> u32;
+def mach_readMemory64_u32(memory_index: int, index: long, offset: long) -> int;
+def mach_readMemory32_u32(memory_index: int, index: int, offset: int) -> int;
 
-def mach_readTable64(table_index: u32, index: (string, TypeVar.U64)) -> Object;
-def mach_readTable32(table_index: u32, index: (string, TypeVar.U32)) -> Object;
+def mach_readTable64(table_index: int, index: (string, TypeVar.I64)) -> Object;
+def mach_readTable32(table_index: int, index: (string, TypeVar.I32)) -> Object;
 
-def mach_writeTable64(table_index: u32, index: (string, TypeVar.U64), val: Object);
-def mach_writeTable32(table_index: u32, index: (string, TypeVar.U32), val: Object);
+def mach_writeTable64(table_index: int, index: (string, TypeVar.I64), val: Object);
+def mach_writeTable32(table_index: int, index: (string, TypeVar.I32), val: Object);
 
 // Traps.
 def invalid();

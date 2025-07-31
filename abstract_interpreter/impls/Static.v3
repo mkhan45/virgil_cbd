@@ -30,102 +30,59 @@ class StaticnessEval extends AI<SV, SV.I32, SV.I64, SV.F32, SV.F64, SV.REF> {
         System.puts("]\n");
     }
 
-    def I32_equals(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
-        if (lhs.static && rhs.static) return SV.I32(true, if(lhs.val == rhs.val, 1, 0));
-        else return SV.I32(false, 0);
-    }
+    def I32_equals(lhs: SV.I32, rhs: SV.I32) =>
+	SV.I32(lhs.static && rhs.static, if(lhs.val == rhs.val, 1, 0));
 
-    def I32_not_equals(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
-        if (lhs.static && rhs.static) return SV.I32(true, if(lhs.val != rhs.val, 1, 0));
-        else return SV.I32(false, 0);
-    }
+    def I32_not_equals(lhs: SV.I32, rhs: SV.I32) =>
+	SV.I32(lhs.static && rhs.static, if(lhs.val != rhs.val, 1, 0));
 
-    def I32_plus(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
-        if (lhs.static && rhs.static) return SV.I32(true, lhs.val + rhs.val);
-        else return SV.I32(false, 0);
-    }
+    def I32_plus(lhs: SV.I32, rhs: SV.I32) => 
+	SV.I32(lhs.static && rhs.static, lhs.val + rhs.val);
 
-    def I32_minus(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
-        if (lhs.static && rhs.static) return SV.I32(true, lhs.val - rhs.val);
-        else return SV.I32(false, 0);
-    }
+    def I32_minus(lhs: SV.I32, rhs: SV.I32) =>
+	SV.I32(lhs.static && rhs.static, lhs.val - rhs.val);
 
-    def I32_div(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
-        if (lhs.static && rhs.static && rhs.val != 0) return SV.I32(true, lhs.val / rhs.val);
-        else return SV.I32(false, 0);
-    }
+    def I32_div(lhs: SV.I32, rhs: SV.I32) =>
+	SV.I32(lhs.static && rhs.static, lhs.val / rhs.val);
 
-    def I32_lt(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
-        if (lhs.static && rhs.static) return SV.I32(true, if(lhs.val < rhs.val, 1, 0));
-        else return SV.I32(false, 0);
-    }
+    def I32_times(lhs: SV.I32, rhs: SV.I32) =>
+	SV.I32(lhs.static && rhs.static, lhs.val * rhs.val);
 
-    def I32_lte(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
-        if (lhs.static && rhs.static) return SV.I32(true, if(lhs.val <= rhs.val, 1, 0));
-        else return SV.I32(false, 0);
-    }
+    def I32_lt(lhs: SV.I32, rhs: SV.I32) =>
+	SV.I32(lhs.static && rhs.static, if(lhs.val < rhs.val, 1, 0));
 
-    def I32_gt(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
-        if (lhs.static && rhs.static) return SV.I32(true, if(lhs.val > rhs.val, 1, 0));
-        else return SV.I32(false, 0);
-    }
+    def I32_lte(lhs: SV.I32, rhs: SV.I32) =>
+	SV.I32(lhs.static && rhs.static, if(lhs.val <= rhs.val, 1, 0));
 
-    def I32_times(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
-        if (lhs.static && rhs.static) return SV.I32(true, lhs.val * rhs.val);
-        else return SV.I32(false, 0);
-    }
+    def I32_gt(lhs: SV.I32, rhs: SV.I32) =>
+	SV.I32(lhs.static && rhs.static, if(lhs.val > rhs.val, 1, 0));
 
-    def I32_and(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
-        if (lhs.static && rhs.static) return SV.I32(true, lhs.val & rhs.val);
-        else return SV.I32(false, 0);
-    }
+    def I32_and(lhs: SV.I32, rhs: SV.I32) =>
+	SV.I32(lhs.static && rhs.static, lhs.val & rhs.val);
 
-    def I32_maybeTrue(i: SV.I32)  -> bool { return (i.val == 1) || (!i.static); }
-    def I32_maybeFalse(i: SV.I32) -> bool { return (i.val == 0) || (!i.static); }
+    def I32_maybeTrue(i: SV.I32)  => (i.val == 1) || (!i.static);
+    def I32_maybeFalse(i: SV.I32) => (i.val == 0) || (!i.static);
 
     def merge_i(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
         if (lhs.static && rhs.static && lhs.val == rhs.val) return lhs;
         else return SV.I32(false, 0);
     }
 
-    def unbox_i(v: SV) -> SV.I32 {
-        if (SV.I32.?(v)) return SV.I32.!(v);
-        else return SV.I32(false, 0);
-    }
-    // def unbox_w(v: SV) -> SV.U64 { return SV.U64.!(v); } // TODO: v3c internal error
-    // def unbox_l(v: SV) -> SV.I64 { return SV.I64.!(v); }
-    // def unbox_f(v: SV) -> SV.F32 { return SV.F32.!(v); }
-    // def unbox_d(v: SV) -> SV.F64 { return SV.F64.!(v); }
-    // def unbox_r(v: SV) -> SV.REF { return SV.REF.!(v); }
-    def unbox_l(v: SV) -> SV.I64 {
-        if (SV.I64.?(v)) return SV.I64.!(v); 
-        else return SV.I64(false, 0);
-    }
-    def unbox_f(v: SV) -> SV.F32 { 
-        if (SV.F32.?(v)) return SV.F32.!(v); 
-        else return SV.F32(false, 0.0f);
-    }
-    def unbox_d(v: SV) -> SV.F64 { 
-        if (SV.F64.?(v)) return SV.F64.!(v); 
-        else return SV.F64(false, 0.0d);
-    }
-    def unbox_r(v: SV) -> SV.REF { 
-        if (SV.REF.?(v)) return SV.REF.!(v); 
-        else return SV.REF(false);
-    }
+    def unbox_i(v: SV) => SV.I32.!(v);
+    def unbox_l(v: SV) => SV.I64.!(v); 
+    def unbox_f(v: SV) => SV.F32.!(v); 
+    def unbox_d(v: SV) => SV.F64.!(v); 
+    def unbox_r(v: SV) => SV.REF.!(v); 
 
-    def box_i(i: SV.I32) -> SV {
-        return i;
-    }
+    def box_i(i: SV.I32) => SV.!(i);
 
     def I32_abs_eq(lhs: SV.I32, rhs: SV.I32) -> bool {
         return (lhs.static && rhs.static && lhs.val == rhs.val)
             || (!lhs.static && !rhs.static);
     }
 
-    def rtcast_i32(i: i32) -> SV.I32 {
-        return SV.I32(true, i);
-    }
+    def rtcast_i32(i: i32) => SV.I32(true, i);
+    def rtcast_f32(f: float) => SV.F32(true, f);
 }
 
 component AIRunner {

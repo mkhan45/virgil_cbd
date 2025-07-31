@@ -8,6 +8,16 @@ def EmitOpI32.lte(lhs: i32.I, rhs: i32.I) -> Value.I : emit;
 def EmitOpI32.gt(lhs: i32.I, rhs: i32.I) -> Value.I : emit;
 def EmitOpI32.times(lhs: i32.I, rhs: i32.I) -> i32.I : emit;
 
+def EmitOpF32.equals(lhs: f32.I, rhs: f32.I) -> Value.I : emit;
+def EmitOpF32.not_equals(lhs: f32.I, rhs: f32.I) -> Value.I : emit;
+def EmitOpF32.plus(lhs: f32.I, rhs: f32.I) -> f32.I : emit;
+def EmitOpF32.minus(lhs: f32.I, rhs: f32.I) -> f32.I : emit;
+def EmitOpF32.div(lhs: f32.I, rhs: f32.I) -> f32.I : emit;
+def EmitOpF32.lt(lhs: f32.I, rhs: f32.I) -> Value.I : emit;
+def EmitOpF32.lte(lhs: f32.I, rhs: f32.I) -> Value.I : emit;
+def EmitOpF32.gt(lhs: f32.I, rhs: f32.I) -> Value.I : emit;
+def EmitOpF32.times(lhs: f32.I, rhs: f32.I) -> f32.I : emit;
+
 def emitIf(cond: Value.I) : emit;
 def emitElse() : emit;
 def emitEnd() : emit;

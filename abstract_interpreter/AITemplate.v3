@@ -163,6 +163,16 @@ class AI<V, I32, I64, F32, F64, REF> {
     def I32_maybeTrue(i: I32) -> bool;
     def I32_maybeFalse(i: I32) -> bool;
 
+    def F32_equals(lhs: F32, rhs: F32) -> I32;
+    def F32_not_equals(lhs: F32, rhs: F32) -> I32;
+    def F32_plus(lhs: F32, rhs: F32) -> F32;
+    def F32_minus(lhs: F32, rhs: F32) -> F32;
+    def F32_div(lhs: F32, rhs: F32) -> F32;
+    def F32_lt(lhs: F32, rhs: F32) -> I32;
+    def F32_lte(lhs: F32, rhs: F32) -> I32;
+    def F32_gt(lhs: F32, rhs: F32) -> I32;
+    def F32_times(lhs: F32, rhs: F32) -> F32;
+
     def unbox_i(v: V) -> I32;
     def unbox_l(v: V) -> I64;
     def unbox_f(v: V) -> F32;
@@ -238,6 +248,9 @@ class AI<V, I32, I64, F32, F64, REF> {
     def rtcast_f32(f: float) -> F32;
     def rtcast_f64(f: double) -> F64;
     def ref_null() -> REF;
+
+    def f32_reinterpret_i32(i: I32) -> F32;
+    def f64_reinterpret_i64(i: I64) -> F64;
 
     def copyVals(count: int, dest: int) {
         def sp = stack.top - count;

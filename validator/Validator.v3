@@ -939,9 +939,10 @@ def imm_readBlockType() -> (Array<ValueType>, Array<ValueType>) {
     return bt.toAbstractBlockType(module);
 }
 
-def pop_i32() -> TypeVar.I32 {
-    return stack.pop().unbox_i32();
-}
+def pop_i32() -> TypeVar.I32 => stack.pop().unbox_i32();
+// def pop_i32() -> TypeVar.I32 {
+//     return stack.pop().unbox_i32();
+// }
 def pop_i64() -> TypeVar.I64 {
     return stack.pop().unbox_i64();
 }
