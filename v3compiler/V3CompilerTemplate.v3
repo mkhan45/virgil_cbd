@@ -1,0 +1,62 @@
+type CBDExpr {
+    case Call(f: string, args: Array<CBDExpr>);
+    case Prim(s: string);
+    case WasmCall(idx: int, args: Array<CBDExpr>);
+}
+
+class ASTEval extends AI<
+    CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr
+> {
+    new(module: Module, args: Array<int>) super(module, CFGStateMgr.new(module), args) {}
+
+    def I32_equals(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("i32_equals", [lhs, rhs]);
+    def I32_not_equals(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_not_equals", [lhs, rhs]);
+    def I32_plus(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_plus", [lhs, rhs]);
+    def I32_minus(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_minus", [lhs, rhs]);
+    def I32_div(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_div", [lhs, rhs]);
+    def I32_lt(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_lt", [lhs, rhs]);
+    def I32_lte(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_lte", [lhs, rhs]);
+    def I32_gt(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_gt", [lhs, rhs]);
+    def I32_times(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_times", [lhs, rhs]);
+    def I32_and(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_and", [lhs, rhs]);
+
+    def F32_equals(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("F32_equals", [lhs, rhs]);
+    def F32_not_equals(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("F32_not_equals", [lhs, rhs]);
+    def F32_plus(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("F32_plus", [lhs, rhs]);
+    def F32_minus(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("F32_minus", [lhs, rhs]);
+    def F32_div(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("F32_div", [lhs, rhs]);
+    def F32_lt(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("F32_lt", [lhs, rhs]);
+    def F32_lte(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("F32_lte", [lhs, rhs]);
+    def F32_gt(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("F32_gt", [lhs, rhs]);
+    def F32_times(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("F32_times", [lhs, rhs]);
+
+    def unbox_i(v: CBDExpr) -> CBDExpr => v;
+    def unbox_l(v: CBDExpr) -> CBDExpr => v;
+    def unbox_f(v: CBDExpr) -> CBDExpr => v;
+    def unbox_d(v: CBDExpr) -> CBDExpr => v;
+    def unbox_r(v: CBDExpr) -> CBDExpr => v;
+    
+    def emitIf(cond: CBDExpr) {
+        CFGStateMgr<CBDExpr>.!(state_manager).startCBDIf(cond);
+    }
+    def emitElse() {
+        CFGStateMgr<CBDExpr>.!(state_manager).startCBDElse();
+    }
+    def emitEnd() {
+        CFGStateMgr<CBDExpr>.!(state_manager).endCond();
+    }
+    def doCall(sig: SigDecl, target: CBDFunctionI) {
+        // TODO: pop args, make a WasmCall
+    }
+}
+
+component AIRunner {
+    def init(m: Module, args: Array<int>) -> AI<CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr> {
+        return ASTEval.new(m, args);
+    }
+
+    def on_finish(m: Module, i: AI<CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr>) {
+        def i = ASTEval.!(i);
+        def ctx = CFGStateMgr<CBDExpr>.!(i.state_manager);
+    }
+}

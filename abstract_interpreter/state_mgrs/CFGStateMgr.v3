@@ -1,0 +1,86 @@
+// i think basic blocks also need to track block args
+class BasicBlock<AST> {
+    var state: State<AST>;
+    var cond: AST;
+    var then: int;
+    var els: int;
+
+    new(state: State<AST>) {
+        then = -1;
+        els = -1;
+    }
+}
+
+class CFGStateMgr<AST> extends StateManager<AST, AST, AST, AST, AST, AST> {
+    var states: Vector<Vector<BasicBlock<AST>>>; // [function][pc]
+    var shouldBreak: bool;
+    var nullAST: void -> AST;
+
+    // probably need a stack here for nested control flow?
+    var inIf: bool;
+    var inElse: bool;
+
+    var currentBB: BasicBlock<AST>;
+    var currentBBStart: int;
+
+    def init(frame: Frame, state: State<AST>) {
+        current_frame = frame;
+        currentBB = BasicBlock.new(state.dup());
+        currentBBStart = current_frame.codeptr.pos;
+    }
+
+    def startBB() {
+        // TODO: only keep block args and globals
+        states[current_frame.fn_idx][currentBBStart] = currentBB;
+        def state = currentBB.state.dup();
+        currentBB = BasicBlock.new(state);
+        currentBBStart = current_frame.codeptr.pos;
+    }
+
+    new(module: Module) {
+        states = Vector.new();
+        for (i < module.functions.length) {
+            states.put(Vector.new());
+            def codelen = module.functions[i].orig_bytecode.length;
+            for (j < codelen) states[i].put(null);
+        }
+        shouldBreak = false;
+    }
+
+    def branch(state: State<AST>) {
+        def ste = current_frame.sidetable.getBrEntry(current_frame.stp);
+        def new_pos = current_frame.codeptr.pos + ste.dpc;
+        if (inIf) currentBB.then = new_pos;
+        if (inElse) currentBB.els = new_pos;
+    }
+    def fallthru(state: State<AST>) {
+        if (inIf) currentBB.then = current_frame.codeptr.pos;
+        if (inElse) currentBB.els = current_frame.codeptr.pos;
+    }
+    def call(target: CBDFunctionI, state: State<AST>) {
+        // do nothing, doesn't affect fn CFG
+    }
+    def loop(bt: (Array<ValueType>, Array<ValueType>), state: State<AST>) {
+        startBB();
+    }
+    def end(state: State<AST>) {
+        startBB();
+    }
+    def ret(state: State<AST>) {
+        shouldBreak = true;
+    }
+
+    def startCBDIf(cond: AST) {
+        currentBB.cond = cond;
+        inIf = true;
+        inElse = false;
+    }
+    def startCBDElse() {
+        inIf = false;
+        inElse = true;
+    }
+    def endCond() {
+        inIf = false;
+        inElse = false;
+    }
+}

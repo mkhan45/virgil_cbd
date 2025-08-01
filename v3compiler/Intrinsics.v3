@@ -1,0 +1,25 @@
+def I32_equals(lhs: i32.I, rhs: i32.I) -> i32.I : emit;
+def I32_not_equals(lhs: i32.I, rhs: i32.I) -> i32.I : emit;
+def I32_plus(lhs: i32.I, rhs: i32.I) -> i32.I : emit;
+def I32_minus(lhs: i32.I, rhs: i32.I) -> i32.I : emit;
+def I32_div(lhs: i32.I, rhs: i32.I) -> i32.I : emit;
+def I32_lt(lhs: i32.I, rhs: i32.I) -> Value.I : emit;
+def I32_lte(lhs: i32.I, rhs: i32.I) -> Value.I : emit;
+def I32_gt(lhs: i32.I, rhs: i32.I) -> Value.I : emit;
+def I32_times(lhs: i32.I, rhs: i32.I) -> i32.I : emit;
+
+def F32_equals(lhs: f32.I, rhs: f32.I) -> Value.I : emit;
+def F32_not_equals(lhs: f32.I, rhs: f32.I) -> Value.I : emit;
+def F32_plus(lhs: f32.I, rhs: f32.I) -> f32.I : emit;
+def F32_minus(lhs: f32.I, rhs: f32.I) -> f32.I : emit;
+def F32_div(lhs: f32.I, rhs: f32.I) -> f32.I : emit;
+def F32_lt(lhs: f32.I, rhs: f32.I) -> Value.I : emit;
+def F32_lte(lhs: f32.I, rhs: f32.I) -> Value.I : emit;
+def F32_gt(lhs: f32.I, rhs: f32.I) -> Value.I : emit;
+def F32_times(lhs: f32.I, rhs: f32.I) -> f32.I : emit;
+
+def emitIf(cond: Value.I) : emit;
+def emitElse() : emit;
+def emitEnd() : emit;
+def emitFwdI32() -> i32.I : emit;
+def emitPopAssign(i32.I): emit;

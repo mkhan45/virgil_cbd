@@ -1,0 +1,17 @@
+// doesn't work cause of variance
+// also not sure how to reify conditionals
+// class CBDExpr<T> {}
+// class Call<T>(f: string, args: Array<CBDExpr<TypeVar>>) extends CBDExpr<T> {}
+// class Prim<T>(s: string) extends CBDExpr<T> {}
+
+// class ASTEval extends AI<
+//     CBDExpr<TypeVar>, 
+//     CBDExpr<TypeVar.I32>, CBDExpr<TypeVar.I64>,
+//     CBDExpr<TypeVar.F32>, CBDExpr<TypeVar.F64>,
+//     CBDExpr<TypeVar.Object>
+// > {
+//     new(module: Module, args: Array<int>) super(module, ContextInsensitiveStateMgr.new(module), args) {}
+
+//     def I32_equals(lhs: CBDExpr<TypeVar.I32>, rhs: CBDExpr<TypeVar.I32>) =>
+//         Call<TypeVar.I32>.new("i32_equals", [lhs, rhs]);
+// }

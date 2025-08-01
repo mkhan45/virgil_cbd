@@ -253,6 +253,12 @@ class AI<V, I32, I64, F32, F64, REF> {
     def f32_reinterpret_i32(i: I32) -> F32;
     def f64_reinterpret_i64(i: I64) -> F64;
 
+    // only for V3Compiler
+    def emitIf(c: I32);
+    def emitElse();
+    def emitIfStatic(c: bool);
+    def emitEnd();
+
     def copyVals(count: int, dest: int) {
         def sp = stack.top - count;
         if (sp != dest) {
