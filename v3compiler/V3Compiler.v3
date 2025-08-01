@@ -8,7 +8,8 @@ type CBDExpr {
 class ASTEval extends AI<
     CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr
 > {
-    new(module: Module, args: Array<int>) super(module, CFGStateMgr.new(module), args) {}
+    new(module: Module, args: Array<int>) super(module, CFGStateMgr.new(module), args) {
+    }
 
     def I32_equals(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("i32_equals", [lhs, rhs]);
     def I32_not_equals(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_not_equals", [lhs, rhs]);
@@ -36,9 +37,21 @@ class ASTEval extends AI<
     def unbox_f(v: CBDExpr) -> CBDExpr => v;
     def unbox_d(v: CBDExpr) -> CBDExpr => v;
     def unbox_r(v: CBDExpr) -> CBDExpr => v;
+
+    def box_i(v: CBDExpr) -> CBDExpr => v;
+    def box_l(v: CBDExpr) -> CBDExpr => v;
+    def box_f(v: CBDExpr) -> CBDExpr => v;
+    def box_d(v: CBDExpr) -> CBDExpr => v;
+    def box_r(v: CBDExpr) -> CBDExpr => v;
+
+    def rtcast_i32(i: i32) -> CBDExpr => CBDExpr.Prim(StringBuilder.new().putd_i32(i).toString());
+    def rtcast_f32(f: float) -> CBDExpr => CBDExpr.Prim("0.0"); // TODO
     
     def emitIf(cond: CBDExpr) {
         CFGStateMgr<CBDExpr>.!(state_manager).startCBDIf(cond);
+    }
+    def emitIfStatic(cond: bool) {
+        CFGStateMgr<CBDExpr>.!(state_manager).startCBDIf(CBDExpr.Prim(StringBuilder.new().putz(cond).toString()));
     }
     def emitElse() {
         CFGStateMgr<CBDExpr>.!(state_manager).startCBDElse();
@@ -59,6 +72,17 @@ component AIRunner {
     def on_finish(m: Module, i: AI<CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr>) {
         def i = ASTEval.!(i);
         def ctx = CFGStateMgr<CBDExpr>.!(i.state_manager);
+        for (fn < ctx.states.length) {
+            System.puts("fn ");
+            System.puti(fn);
+            System.ln();
+            for (pc < ctx.states[fn].length) if (ctx.states[fn][pc] != null) {
+                System.puts("bb at ");
+                System.puti(pc);
+                System.puts(": ");
+                ctx.states[fn][pc].print();
+            }
+        }
     }
 }
 // TODO: frames need to have their own stack, don't include
@@ -202,6 +226,8 @@ class AI<V, I32, I64, F32, F64, REF> {
             ) {
                 def op = current_frame().codeptr.read_opcode();
                 print_stack();
+                System.puti(current_frame().codeptr.pos);
+                System.puts(" ");
                 System.puts(op.mnemonic);
                 System.ln();
                 DISPATCH_TABLE[op.code]();

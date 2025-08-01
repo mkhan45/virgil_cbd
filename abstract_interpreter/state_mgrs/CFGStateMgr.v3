@@ -9,6 +9,14 @@ class BasicBlock<AST> {
         then = -1;
         els = -1;
     }
+
+    def print() {
+        System.puts("block ");
+        System.puti(then);
+        System.puts(" ");
+        System.puti(els);
+        System.ln();
+    }
 }
 
 class CFGStateMgr<AST> extends StateManager<AST, AST, AST, AST, AST, AST> {
@@ -20,21 +28,23 @@ class CFGStateMgr<AST> extends StateManager<AST, AST, AST, AST, AST, AST> {
     var inIf: bool;
     var inElse: bool;
 
-    var currentBB: BasicBlock<AST>;
-    var currentBBStart: int;
+    var currentBB: int;
+
+    var currentFun: int;
 
     def init(frame: Frame, state: State<AST>) {
         current_frame = frame;
-        currentBB = BasicBlock.new(state.dup());
-        currentBBStart = current_frame.codeptr.pos;
+        currentBB = frame.codeptr.pos;
+        def state = State<AST>.new(ArrayStack.new(), Vector.new(), ArrayStack.new(), Vector.new());
+        states[current_frame.fn_idx][currentBB] = BasicBlock.new(state);
     }
 
     def startBB() {
         // TODO: only keep block args and globals
-        states[current_frame.fn_idx][currentBBStart] = currentBB;
-        def state = currentBB.state.dup();
-        currentBB = BasicBlock.new(state);
-        currentBBStart = current_frame.codeptr.pos;
+        def old_bb = states[current_frame.fn_idx][currentBB];
+        def state = old_bb.state.dup();
+        currentBB = current_frame.codeptr.pos;
+        states[current_frame.fn_idx][currentBB] = BasicBlock.new(state);
     }
 
     new(module: Module) {
@@ -45,20 +55,23 @@ class CFGStateMgr<AST> extends StateManager<AST, AST, AST, AST, AST, AST> {
             for (j < codelen) states[i].put(null);
         }
         shouldBreak = false;
+        currentFun = -1;
     }
 
     def branch(state: State<AST>) {
         def ste = current_frame.sidetable.getBrEntry(current_frame.stp);
         def new_pos = current_frame.codeptr.pos + ste.dpc;
-        if (inIf) currentBB.then = new_pos;
-        if (inElse) currentBB.els = new_pos;
+        if (inIf) states[current_frame.fn_idx][currentBB].then = new_pos;
+        if (inElse) states[current_frame.fn_idx][currentBB].els = new_pos;
     }
     def fallthru(state: State<AST>) {
-        if (inIf) currentBB.then = current_frame.codeptr.pos;
-        if (inElse) currentBB.els = current_frame.codeptr.pos;
+        if (inIf) states[current_frame.fn_idx][currentBB].then = current_frame.codeptr.pos;
+        if (inElse) states[current_frame.fn_idx][currentBB].els = current_frame.codeptr.pos;
     }
     def call(target: CBDFunctionI, state: State<AST>) {
         // do nothing, doesn't affect fn CFG
+    }
+    def block(bt: (Array<ValueType>, Array<ValueType>), state: State<AST>) {
     }
     def loop(bt: (Array<ValueType>, Array<ValueType>), state: State<AST>) {
         startBB();
@@ -71,7 +84,7 @@ class CFGStateMgr<AST> extends StateManager<AST, AST, AST, AST, AST, AST> {
     }
 
     def startCBDIf(cond: AST) {
-        currentBB.cond = cond;
+        states[current_frame.fn_idx][currentBB].cond = cond;
         inIf = true;
         inElse = false;
     }
@@ -83,4 +96,14 @@ class CFGStateMgr<AST> extends StateManager<AST, AST, AST, AST, AST, AST> {
         inIf = false;
         inElse = false;
     }
+
+    def hasNextCont() -> bool => currentFun < ai.module.functions.length - 1;
+    def startNextCont() {
+        currentFun += 1;
+        shouldBreak = false;
+        def new_frame = Frame.new(null, currentFun).init(ai.functions[currentFun]);
+        init(new_frame, State<AST>.new(ArrayStack.new(), Vector.new(), ArrayStack.new(), Vector.new()));
+        current_frame.codeptr.iterate_local_codes(ai.push_locals);
+    }
+    def shouldFinishCont() => shouldBreak;
 }

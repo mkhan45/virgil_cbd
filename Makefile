@@ -124,7 +124,7 @@ V3CompilerMain: v3compiler/V3Compiler.v3 validator abstract_interpreter/state_mg
 
 # Clean build artifacts
 clean:
-	rm -f interpreter/Interpreter.v3 compiler/Compiler.v3 validator/Validator.v3 InterpreterMain $(DEFS).sexp AIMain *AI
+	rm -f interpreter/Interpreter.v3 compiler/Compiler.v3 validator/Validator.v3 $(DEFS).sexp *Main *AI
 
 # Usage instructions
 help:
