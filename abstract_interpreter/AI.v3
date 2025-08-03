@@ -140,6 +140,8 @@ class AI<V, I32, I64, F32, F64, REF> {
             ) {
                 def op = current_frame().codeptr.read_opcode();
                 print_stack();
+                System.puti(current_frame().codeptr.pos);
+                System.puts(" ");
                 System.puts(op.mnemonic);
                 System.ln();
                 DISPATCH_TABLE[op.code]();

@@ -2,12 +2,32 @@ type CBDExpr {
     case Call(f: string, args: Array<CBDExpr>);
     case Prim(s: string);
     case WasmCall(idx: int, args: Array<CBDExpr>);
+
+    def toString() -> string => StringBuilder.new().putq(this.render).toString();
+
+    def render(buf: StringBuilder) -> StringBuilder {
+        match (this) {
+            Call(fn, args) => {
+                if (fn == null) return buf.puts("nullcall");
+                buf.puts(fn).puts("(");
+                for (i < args.length) {
+                    args[i].render(buf);
+                    if (i != args.length - 1) buf.puts(", ");
+                }
+                buf.puts(")");
+            }
+            Prim(s) => buf.puts(s);
+            WasmCall(idx, args) => {} // TODO
+        }
+        return buf;
+    }
 }
 
 class ASTEval extends AI<
     CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr
 > {
     new(module: Module, args: Array<int>) super(module, CFGStateMgr.new(module), args) {
+        CFGStateMgr<CBDExpr>.!(state_manager).localAST = fun i => CBDExpr.Prim(Strings.format1("local_%d", i));
     }
 
     def I32_equals(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("i32_equals", [lhs, rhs]);
@@ -75,11 +95,49 @@ component AIRunner {
             System.puts("fn ");
             System.puti(fn);
             System.ln();
+            def cbdfn = i.functions[fn];
+            def nlocals = cbdfn.locals.length;
+            def bbs = Vector<(BasicBlock<CBDExpr>, int)>.new();
             for (pc < ctx.states[fn].length) if (ctx.states[fn][pc] != null) {
-                System.puts("bb at ");
-                System.puti(pc);
-                System.puts(": ");
-                ctx.states[fn][pc].print();
+                bbs.put((ctx.states[fn][pc], pc));
+            }
+            for (bbi < bbs.length) {
+                def bb = bbs[bbi].0;
+                def bb_pc = bbs[bbi].1;
+                def st = bb.state;
+                def args_strb = StringBuilder.new();
+                for (i < nlocals) {
+                    args_strb.puts("local_").putd(i).puts(": int");
+                    if (i + 1 < nlocals) args_strb.puts(", ");
+                }
+                System.puts(Strings.format2("def bb_%d(%s) {\n", bb_pc, args_strb.toString()));
+
+                for (i < nlocals) {
+                    System.puts(Strings.format1("\tlocal_%d = ", i));
+                    System.puts(st.stack.elems[i].toString());
+                    System.puts(";\n");
+                }
+
+                def call_args_b = StringBuilder.new();
+                for (i < nlocals) {
+                    call_args_b.puts("local_").putd(i);
+                    if (i + 1 < nlocals) call_args_b.puts(", ");
+                }
+                def arg_str = call_args_b.toString();
+                if (bb.then == -1) {
+                    if (bbi + 1 < bbs.length) {
+                        System.puts(Strings.format2("\treturn bb_%d(%s);\n", bbs[bbi+1].1, arg_str));
+                    } else {
+                        // def ret = st.stack.peek().toString();
+                        // System.puts(Strings.format1("\treturn %s;\n", ret));
+                    }
+                } else {
+                    def cond = bb.cond.toString();
+                    def t_call = Strings.format2("bb_%d(%s)", bb.then, arg_str);
+                    def e_call = Strings.format2("bb_%d(%s)", bb.els, arg_str);
+                    System.puts(Strings.format3("\tif(%s) return %s;\n\telse return %s;\n", cond, t_call, e_call));
+                }
+                System.puts("}\n");
             }
         }
     }

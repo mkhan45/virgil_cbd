@@ -23,6 +23,7 @@ class CFGStateMgr<AST> extends StateManager<AST, AST, AST, AST, AST, AST> {
     var states: Vector<Vector<BasicBlock<AST>>>; // [function][pc]
     var shouldBreak: bool;
     var nullAST: void -> AST;
+    var localAST: int -> AST;
 
     // probably need a stack here for nested control flow?
     var inIf: bool;
@@ -42,9 +43,12 @@ class CFGStateMgr<AST> extends StateManager<AST, AST, AST, AST, AST, AST> {
     def startBB() {
         // TODO: only keep block args and globals
         def old_bb = states[current_frame.fn_idx][currentBB];
-        def state = old_bb.state.dup();
+        old_bb.state = ai.current_state().dup();
         currentBB = current_frame.codeptr.pos;
-        states[current_frame.fn_idx][currentBB] = BasicBlock.new(state);
+        states[current_frame.fn_idx][currentBB] = BasicBlock.new(ai.current_state());
+        for (i < ai.functions[currentFun].locals.length) {
+            ai.current_state().stack.elems[i] = localAST(i);
+        }
     }
 
     new(module: Module) {
@@ -60,13 +64,14 @@ class CFGStateMgr<AST> extends StateManager<AST, AST, AST, AST, AST, AST> {
 
     def branch(state: State<AST>) {
         def ste = current_frame.sidetable.getBrEntry(current_frame.stp);
-        def new_pos = current_frame.codeptr.pos + ste.dpc;
+        def new_pos = current_frame.codeptr.pos - 1 + ste.dpc;
         if (inIf) states[current_frame.fn_idx][currentBB].then = new_pos;
         if (inElse) states[current_frame.fn_idx][currentBB].els = new_pos;
     }
     def fallthru(state: State<AST>) {
         if (inIf) states[current_frame.fn_idx][currentBB].then = current_frame.codeptr.pos;
         if (inElse) states[current_frame.fn_idx][currentBB].els = current_frame.codeptr.pos;
+        startBB();
     }
     def call(target: CBDFunctionI, state: State<AST>) {
         // do nothing, doesn't affect fn CFG
@@ -104,6 +109,9 @@ class CFGStateMgr<AST> extends StateManager<AST, AST, AST, AST, AST, AST> {
         def new_frame = Frame.new(null, currentFun).init(ai.functions[currentFun]);
         init(new_frame, State<AST>.new(ArrayStack.new(), Vector.new(), ArrayStack.new(), Vector.new()));
         current_frame.codeptr.iterate_local_codes(ai.push_locals);
+        for (i < ai.functions[currentFun].locals.length) {
+            ai.current_state().stack.elems[i] = localAST(i);
+        }
     }
     def shouldFinishCont() => shouldBreak;
 }
