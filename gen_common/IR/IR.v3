@@ -2,6 +2,8 @@ type SSAD {
     case LetApp(n: string, f: string, args: Array<string>, rest: SSAD);
     case LetLit(n: string, l: string, t: string, rest: SSAD);
     case If(cond: string, then: SSAD, els: SSAD, phis: Array<string>, rest: SSAD);
+    // treat each case match as a boolean var
+    case Match(subj: string, branches: Array<(string, SSAD)>, rest: SSAD);
     case Void;
     case Injected(inj: string, rest: SSAD);
     case Final(v: string);
@@ -95,6 +97,16 @@ component SSAD_IR {
                 def e_ssa = from_virgil(e);
                 return from_virgil_expr(c_var, c, SSAD.If(c_var, t_ssa, e_ssa, [], rest));
             }
+            Match(subj, branches) => {
+                def c_var = uidl("cond");
+                def ir_branches = Array<(string, SSAD)>.new(branches.length);
+                for (i < branches.length) {
+                    def b = MatchCase.Variant.!(branches[i]); // XXX
+                    ir_branches[i] = (b.variant_tag, from_virgil(b.body));
+                }
+
+                return from_virgil_expr(c_var, subj, SSAD.Match(c_var, ir_branches, rest));
+            }
             _ => return SSAD.Void; // TODO
         }
     }
@@ -153,6 +165,9 @@ component SSAD_IR {
             If(c, t, e, ps, r) => {
                 return SSAD.If(subst(c), ssa(t), ssa(e), ps, ssa(r));
             }
+            Match(subj, branches, rest) => {
+                return SSAD.Match(subst(subj), branches, ssa(rest)); // TODO: branches
+            }
             Void => return ir;
             Injected(inj, r) => return SSAD.Injected(inj, ssa(r));
             Final(v) => return SSAD.Final(subst(v));
@@ -200,6 +215,9 @@ component SSAD_IR {
                 } else {
                     buf.puts("}\n");
                 }
+            }
+            Match(subj, branches, rest) => {
+                // TODO
             }
             Injected(inj, r) => {
                 for (i < indent) buf.tab();
