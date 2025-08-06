@@ -1,3 +1,68 @@
+// TODO: properly handle pops
+def execBoth(a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
+    def afx = Vector<CBDEffect>.new();
+    def bfx = Vector<CBDEffect>.new();
+    ctx.collectEffects(a, afx);
+    ctx.collectEffects(b, bfx);
+
+    def a_res = CBDEffects.run_fx(afx);
+    def b_res = CBDEffects.run_fx(bfx);
+    // assert fx equal
+
+    def a_pushes = Vector<(string, string)>.new();
+    def b_pushes = Vector<(string, string)>.new();
+    def a_nopush = collectPushes(a, a_pushes, ctx);
+    def b_nopush = collectPushes(b, b_pushes, ctx);
+    // assert a_pushes.length == b_pushes.length
+
+    // TODO: consider other effects to be filtered,
+    // e.g. locals, globals, memory
+    var res = a_nopush.appended(b_nopush);
+    for (i < a_pushes.length) {
+        def stack_merge = SSAD_IR.uidl("stack_merge");
+        def eff = SSAD_IR.uidl("eff");
+        def tp = ctx.types[a_pushes[i].0];
+        def merge_fn = Strings.format1("merge_%s", if (tp == ValueType.BOTTOM, "val", TypeUtil.toStringShort(tp)));
+        def push_fn = Strings.format1("push_%s", if (tp == ValueType.BOTTOM, "Value", TypeUtil.toString(tp)));
+        def tv = a_pushes[i].1;
+        def merge_args = if(tv == null, [a_pushes[i].0, b_pushes[i].0], [tv, a_pushes[i].0, b_pushes[i].0]); 
+        def push_args = if(tv == null, [stack_merge], [tv, stack_merge]); 
+        res = res.appended(
+                SSAD.LetApp(stack_merge, merge_fn, merge_args,
+                    SSAD.LetApp(eff, push_fn, push_args, SSAD.Void)));
+    }
+
+    ctx.getStatic(res);
+    ctx.getTypes(res);
+    return res;
+}
+
+// pushBuf: (varname, typevar name | null)
+def collectPushes(s: SSAD, pushBuf: Vector<(string, string)>, ctx: SSADCtx) -> SSAD {
+    match (s) {
+        Void => return s;
+        Final(_) => return s;
+        Injected(inj, rest) => return SSAD.Injected(inj, collectPushes(rest, pushBuf, ctx));
+        LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, collectPushes(rest, pushBuf, ctx));
+        // I we can defer this to recursion in transformSSA
+        If(c, t, e, phis, rest) => return SSAD.If(c, t, e, phis, collectPushes(rest, pushBuf, ctx));
+        LetApp(n, f, args, rest) => {
+            if (ctx.effects[n] == CBDEffect.Push) {
+                if (args.length == 1) {
+            // one arg, value being pushed
+                    pushBuf.put(args[0], null);
+                } else {
+            // (typevar, value)
+                    pushBuf.put(args[1], args[0]);
+                }
+                return collectPushes(rest, pushBuf, ctx);
+            } else {
+                return SSAD.LetApp(n, f, args, collectPushes(rest, pushBuf, ctx));
+            }
+        }
+    }
+}
+
 def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
     match (ssa) {
         Void => return ssa;
@@ -67,56 +132,91 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
             return rtcasts.appended(SSAD.LetApp(n, f, new_args, transformSSA(rest, ctx)));
         }
         If(c, t, e, phis, rest) => {
-            def tfx = Vector<CBDEffect>.new();
-            def efx = Vector<CBDEffect>.new();
-            ctx.collectEffects(t, tfx);
-            ctx.collectEffects(e, efx);
-
-            def t_res = CBDEffects.run_fx(tfx);
-            def e_res = CBDEffects.run_fx(efx);
-            // assert t_res.stack_delta == e_res.stack_delta
-
-            // forward declare phis stack vars and then emit "pops" into the fwd declared phis
-            // which assign the phis to whichever branch ran
-            // could possibly be improved by intercepting pushes with assignments
-
-            // let phi1 = emit_fwd_i32();
-            // emitIf(...)
-            // ...
-            // emitPopAssign(phi1);
-            // emitElse()
-            // ...
-            // emitPopAssign(phi1);
-            // emitEnd()
-
-            // def n_stack_phis = t_res.stack_delta;
-            def n_stack_phis = 0; // XXX
-            var fwd_decl_code: SSAD = SSAD.Void;
-            var thenPops: SSAD = SSAD.Void; // thenPops and elsePops are the same but different uids
-            var elsePops: SSAD = SSAD.Void;
-            var phi_pushes: SSAD = SSAD.Void;
-            if (n_stack_phis >= 0) {
-                def fwd_decls = Array<string>.new(n_stack_phis);
-                for (i < n_stack_phis) {
-                    def phi_name = SSAD_IR.uidl("stack_phi");
-                    fwd_decls[i] = phi_name;
-                    fwd_decl_code = SSAD.LetApp(phi_name, "emitFwdI32", [], fwd_decl_code);
-                    thenPops = SSAD.LetApp(SSAD_IR.uidl("eff_phi_pop"), "emitPopAssign", [fwd_decls[n_stack_phis - i - 1]], thenPops);
-                    elsePops = SSAD.LetApp(SSAD_IR.uidl("eff_phi_pop"), "emitPopAssign", [fwd_decls[n_stack_phis - i - 1]], elsePops);
-                    phi_pushes = SSAD.LetApp(SSAD_IR.uidl("eff_phi_push"), "push_i32", [fwd_decls[i]], phi_pushes);
-                }
+            // TODO: could check for returns and choose not to execute a branch
+            if (!ctx.static[c]) {
+                def fvTrue = SSAD_IR.uidl("condTrue");
+                def fvFalse = SSAD_IR.uidl("condFalse");
+                def fvBoth = SSAD_IR.uidl("condBoth");
+                def tp = ctx.types[c];
+                var tp_str = TypeUtil.toString(tp);
+                if (tp != ValueType.BOTTOM) tp_str = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
+                def fnTrue = Strings.format1("%s_maybeTrue", tp_str);
+                def fnFalse = Strings.format1("%s_maybeFalse", tp_str);
+                ctx.static[fvTrue] = false;
+                ctx.static[fvFalse] = false;
+                def t_transform = transformSSA(t, ctx);
+                def e_transform = transformSSA(e, ctx);
+                return SSAD.LetApp(fvTrue, fnTrue, [c],
+                        SSAD.LetApp(fvFalse, fnFalse, [c],
+                            SSAD.LetApp(fvBoth, "bool.&&", [fvTrue, fvFalse],
+                                SSAD.If(fvBoth,
+                                    execBoth(
+                                        SSAD.LetApp(SSAD_IR.uidl("emit_if"), "emitIf", [c], t_transform),
+                                        SSAD.LetApp(SSAD_IR.uidl("emit_else"), "emitElse", [], e_transform),
+                                        ctx).appended(SSAD.LetApp(SSAD_IR.uidl("emit_end"), "emitEnd", [], SSAD.Void)),
+                                    SSAD.If(fvTrue, 
+                                    SSAD.LetApp(SSAD_IR.uidl("emit_if"), "emitIf", [c], t_transform),
+                                    SSAD.LetApp(SSAD_IR.uidl("emit_else"), "emitElse", [], e_transform),
+                                    [], 
+                                    SSAD.LetApp(SSAD_IR.uidl("emit_end"), "emitEnd", [], SSAD.Void)
+                                    ),
+                                    phis,
+                                    transformSSA(rest, ctx)))));
+            } else {
+                return SSAD.If(c, transformSSA(t, ctx), transformSSA(e, ctx), phis, rest);
             }
-
-            def emit_if_fn = if(ctx.static[c], "emitIfStatic", "emitIf");
-            return fwd_decl_code.appended(
-                    SSAD.LetApp(SSAD_IR.uidl("eff_if_"), emit_if_fn, [c],
-                        transformSSA(t, ctx).appended(thenPops).appended(
-                            SSAD.LetApp(SSAD_IR.uidl("eff_else_"), "emitElse", [],
-                                transformSSA(e, ctx).appended(elsePops).appended(
-                                    SSAD.LetApp(SSAD_IR.uidl("eff_endBrace"), "emitEnd", [],
-                                        phi_pushes.appended(transformSSA(rest, ctx)))))))
-                    );
         }
+        // If(c, t, e, phis, rest) => {
+        //     def tfx = Vector<CBDEffect>.new();
+        //     def efx = Vector<CBDEffect>.new();
+        //     ctx.collectEffects(t, tfx);
+        //     ctx.collectEffects(e, efx);
+
+        //     def t_res = CBDEffects.run_fx(tfx);
+        //     def e_res = CBDEffects.run_fx(efx);
+        //     // assert t_res.stack_delta == e_res.stack_delta
+
+        //     // forward declare phis stack vars and then emit "pops" into the fwd declared phis
+        //     // which assign the phis to whichever branch ran
+        //     // could possibly be improved by intercepting pushes with assignments
+
+        //     // let phi1 = emit_fwd_i32();
+        //     // emitIf(...)
+        //     // ...
+        //     // emitPopAssign(phi1);
+        //     // emitElse()
+        //     // ...
+        //     // emitPopAssign(phi1);
+        //     // emitEnd()
+
+        //     def n_stack_phis = t_res.stack_delta;
+        //     // def n_stack_phis = 0; // XXX
+        //     var fwd_decl_code: SSAD = SSAD.Void;
+        //     var thenPops: SSAD = SSAD.Void; // thenPops and elsePops are the same but different uids
+        //     var elsePops: SSAD = SSAD.Void;
+        //     var phi_pushes: SSAD = SSAD.Void;
+        //     if (n_stack_phis >= 0) {
+        //         def fwd_decls = Array<string>.new(n_stack_phis);
+        //         for (i < n_stack_phis) {
+        //             def phi_name = SSAD_IR.uidl("stack_phi");
+        //             fwd_decls[i] = phi_name;
+        //             fwd_decl_code = SSAD.LetApp(phi_name, "emitFwdI32", [], fwd_decl_code);
+        //             thenPops = SSAD.LetApp(SSAD_IR.uidl("eff_phi_pop"), "emitPopAssign", [fwd_decls[n_stack_phis - i - 1]], thenPops);
+        //             elsePops = SSAD.LetApp(SSAD_IR.uidl("eff_phi_pop"), "emitPopAssign", [fwd_decls[n_stack_phis - i - 1]], elsePops);
+        //             phi_pushes = SSAD.LetApp(SSAD_IR.uidl("eff_phi_push"), "push_i32", [fwd_decls[i]], phi_pushes);
+        //         }
+        //     }
+
+        //     def emit_if_fn = if(ctx.static[c], "emitIfStatic", "emitIf");
+        //     return fwd_decl_code.appended(
+        //             SSAD.LetApp(SSAD_IR.uidl("eff_if_"), emit_if_fn, [c],
+        //                 transformSSA(t, ctx).appended(thenPops).appended(
+        //                     SSAD.LetApp(SSAD_IR.uidl("eff_else_"), "emitElse", [],
+        //                         transformSSA(e, ctx).appended(elsePops).appended(
+        //                             SSAD.LetApp(SSAD_IR.uidl("eff_endBrace"), "emitEnd", [],
+        //                                 phi_pushes.appended(transformSSA(rest, ctx)))))))
+        //             );
+        // }
     }
 }
 
@@ -148,8 +248,10 @@ def main(args: Array<string>) {
     def v3file = args[1];
 
     IntrinsicTypes.init(IntrinsicTypes.TYPE_DEF_FILE);
-    def ai_intrinsics = IntrinsicTypes.getIntrinsicTypes("v3compiler/Intrinsics.v3");
+    def ai_intrinsics = IntrinsicTypes.getIntrinsicTypes("abstract_interpreter/Intrinsics.v3");
     ai_intrinsics.apply(IntrinsicTypes.add_def);
+    def c_intrinsics = IntrinsicTypes.getIntrinsicTypes("v3compiler/Intrinsics.v3");
+    c_intrinsics.apply(IntrinsicTypes.add_def);
 
     def defs: Array<CBDDef> = TierGen.extractDefsFromFile(v3file, sexpr_file, transformDef);
     def dispatch_table = TierGen.buildDispatch(defs, CBDDef.!<CBDDef>(_));

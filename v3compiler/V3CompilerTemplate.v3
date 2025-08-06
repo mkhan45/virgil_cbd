@@ -1,5 +1,6 @@
 type CBDExpr {
     case Call(f: string, args: Array<CBDExpr>);
+    case If(cond: CBDExpr, lhs: CBDExpr, rhs: CBDExpr);
     case Prim(s: string);
     case WasmCall(idx: int, args: Array<CBDExpr>);
 
@@ -16,6 +17,8 @@ type CBDExpr {
                 }
                 buf.puts(")");
             }
+            If(cond, lhs, rhs) => 
+                buf.puts("if(").putq(cond.render).puts(", ").putq(lhs.render).puts(", ").putq(rhs.render);
             Prim(s) => buf.puts(s);
             WasmCall(idx, args) => {} // TODO
         }
@@ -26,6 +29,8 @@ type CBDExpr {
 class ASTEval extends AI<
     CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr, CBDExpr
 > {
+    var merge_cond: CBDExpr;
+
     new(module: Module, args: Array<int>) super(module, CFGStateMgr.new(module), args) {
         CFGStateMgr<CBDExpr>.!(state_manager).localAST = fun i => CBDExpr.Prim(Strings.format1("local_%d", i));
     }
@@ -40,6 +45,9 @@ class ASTEval extends AI<
     def I32_gt(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_gt", [lhs, rhs]);
     def I32_times(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_times", [lhs, rhs]);
     def I32_and(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_and", [lhs, rhs]);
+
+    def I32_maybeTrue(i: CBDExpr) -> bool => true;
+    def I32_maybeFalse(i: CBDExpr) -> bool => true;
 
     def F32_equals(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("F32_equals", [lhs, rhs]);
     def F32_not_equals(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("F32_not_equals", [lhs, rhs]);
@@ -63,10 +71,22 @@ class ASTEval extends AI<
     def box_d(v: CBDExpr) -> CBDExpr => v;
     def box_r(v: CBDExpr) -> CBDExpr => v;
 
+    def merge_i(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.If(merge_cond, lhs, rhs);
+
     def rtcast_i32(i: i32) -> CBDExpr => CBDExpr.Prim(StringBuilder.new().putd_i32(i).toString());
     def rtcast_f32(f: float) -> CBDExpr => CBDExpr.Prim("0.0"); // TODO
+
+    def print_stack() {
+        def sb = StringBuilder.new();
+        def s = current_state().stack;
+        for (i < s.top) {
+            sb.putq(s.elems[i].render).puts(", ");
+        }
+        System.puts(sb.puts("\n").toString());
+    }
     
     def emitIf(cond: CBDExpr) {
+        merge_cond = cond;
         CFGStateMgr<CBDExpr>.!(state_manager).startCBDIf(cond);
     }
     def emitIfStatic(cond: bool) {
@@ -99,6 +119,8 @@ component AIRunner {
             def nlocals = cbdfn.locals.length;
             def bbs = Vector<(BasicBlock<CBDExpr>, int)>.new();
             for (pc < ctx.states[fn].length) if (ctx.states[fn][pc] != null) {
+                System.puti(pc); System.puts(": ");
+                ctx.states[fn][pc].print();
                 bbs.put((ctx.states[fn][pc], pc));
             }
             for (bbi < bbs.length) {
@@ -112,11 +134,21 @@ component AIRunner {
                 }
                 System.puts(Strings.format2("def bb_%d(%s) {\n", bb_pc, args_strb.toString()));
 
-                for (i < nlocals) {
-                    System.puts(Strings.format1("\tlocal_%d = ", i));
-                    System.puts(st.stack.elems[i].toString());
-                    System.puts(";\n");
+                def bb_end = if(bbi + 1 < bbs.length, bbs[bbi+1].1-4, cbdfn.code.length);
+                if (bb_pc > bb_end) {
+                    System.puts("}\n");
+                    continue;
                 }
+                def bb_code = Arrays.range(cbdfn.code, bb_pc, bb_end);
+                Compiler.init(bb_code, cbdfn.locals.copy(), []);
+                Compiler.dispatch();
+                System.puts(Compiler.getCode());
+
+                // for (i < nlocals) {
+                //     System.puts(Strings.format1("\tlocal_%d = ", i));
+                //     System.puts(st.stack.elems[i].toString());
+                //     System.puts(";\n");
+                // }
 
                 def call_args_b = StringBuilder.new();
                 for (i < nlocals) {

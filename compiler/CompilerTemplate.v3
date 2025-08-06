@@ -300,7 +300,7 @@ def f_isAtEnd() -> bool {
 }
 
 def push_locals(count: u32, vtc: ValueTypeCode) {
-    System.puts("push\n");
+    // System.puts("push\n");
     var tv: TypeVar;
     match (vtc.code) {
         BpTypeCode.I32.val => tv = TypeVar.I32;
@@ -332,8 +332,8 @@ component Compiler {
         codeptr.iterate_local_codes(push_locals);
         while (codeptr.pos < codeptr.data.length) {
             def op = codeptr.read_opcode();
-            System.puts(op.mnemonic);
-            System.ln();
+            // System.puts(op.mnemonic);
+            // System.ln();
             DISPATCH_TABLE[op.code]();
         }
     }

@@ -22,4 +22,4 @@ def emitIf(cond: Value.I) : emit;
 def emitElse() : emit;
 def emitEnd() : emit;
 def emitFwdI32() -> i32.I : emit;
-def emitPopAssign(i32.I): emit;
+def emitPopAssign(i: i32.I): emit;

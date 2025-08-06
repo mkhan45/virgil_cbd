@@ -1,5 +1,9 @@
 def quote: byte = 0x22;
 
+def isTypeStr(s: string) => Strings.equal(s, "type") || Strings.equal(s, "implicitType");
+// probably a better way but cant think of it rn
+def isTypeStrF = fun (f: string -> bool) => f("type") || f("implicitType");
+
 def cleanIdent(s: string) -> string {
     if (s.length < 2) return s;
 
@@ -22,15 +26,15 @@ def cleanIdent(s: string) -> string {
 
 
 type MatchCase {
-    case Variant(variant_tag: string, expr: VirgilExpr);
-    case Constant(test_expr: VirgilExpr, body_expr: VirgilExpr);
+    case Variant(variant_tag: string, body: VirgilStmt);
+    case Constant(test_expr: VirgilExpr, body: VirgilStmt);
     
     def buildString(buf: StringBuilder) {
         match (this) {
-            Variant(tag, expr) => {
+            Variant(tag, body) => {
                 buf.puts(tag);
                 buf.puts(" => ");
-                expr.buildString(buf);
+                body.buildString(buf);
             }
             Constant(test, body) => {
                 test.buildString(buf);
@@ -227,19 +231,6 @@ type VirgilStmt {
         }
     }
 
-    def substTy(old: string, knew: string) -> VirgilStmt {
-        match (this) {
-            Block(ss) => return VirgilStmt.Block(Arrays.map(ss, VirgilStmt.substTy(_, old, knew)));
-            Expr(e) => return VirgilStmt.Expr(e.substTy(old, knew));
-            Return(e) => return VirgilStmt.Return(e.substTy(old, knew));
-            Local(v, e, st, rtcast) => return VirgilStmt.Local(v, e.substTy(old, knew), st, rtcast);
-            Assign(v, e) => return VirgilStmt.Assign(v, e.substTy(old, knew));
-            Match(s, b) => return this; // TODO
-            If(c, t, e) => return VirgilStmt.If(c.substTy(old, knew), t.substTy(old, knew), e.substTy(old, knew));
-            Injected(s) => return this;
-        }
-    }
-
     def isEmptyBlock() -> bool {
         match (this) {
             Block(ss) => return ss.length == 0;
@@ -266,6 +257,7 @@ component VirgilStmts {
                     if (Strings.equal("IfStmt", tag)) return parse_if_stmt(sexpr);
                     if (Strings.equal("ReturnStmt", tag)) return parse_return_stmt(sexpr);
                     if (Strings.equal("LocalStmt", tag)) return parse_local_stmt(sexpr);
+                    if (Strings.equal("MatchStmt", tag)) return parse_match_stmt(sexpr);
                     else return SExprRes.Malformed(sexpr);
                 }
             }
@@ -393,7 +385,7 @@ component VirgilStmts {
             // Verify type information
             if (decl.tail == null) return SExprRes.Malformed(sexpr);
             def type_ls = decl.tail.head.forceList();
-            if (type_ls == null || !type_ls.head.matchesAtom("type")) return SExprRes.Malformed(sexpr);
+            if (type_ls == null || !isTypeStrF(type_ls.head.matchesAtom)) return SExprRes.Malformed(sexpr);
 
             if (decl.tail.tail == null) return SExprRes.Malformed(sexpr);
 
@@ -454,6 +446,40 @@ component VirgilStmts {
             _ => return expr_res.castError();
         }
     }
+
+    def parse_match_stmt(sexpr: SExpr) -> SExprRes<VirgilStmt> {
+        def elems = sexpr.forceList();
+        if (!elems.head.matchesAtom("MatchStmt")) return SExprRes.ParserBug;
+
+        def match_expr = elems.tail.head;
+        def match_expr_res = VirgilExprs.from_sexpr(match_expr);
+        if (!match_expr_res.isSuccess()) return match_expr_res.castError();
+        def match_fin = match_expr_res.orDefault(VirgilExpr.Literal("", ""));
+
+        var cases = elems.tail.tail;
+        def case_vec = Vector<MatchCase>.new();
+        while (cases != null) {
+            def case_match = cases.head;
+            def case_body = cases.tail.head;
+            cases = cases.tail.tail;
+
+            def match_res = VirgilExprs.from_sexpr(case_match);
+            def body_res = VirgilStmts.from_sexpr(case_body);
+            if (!match_res.isSuccess()) {
+                if (Strings.equal(case_match.forceAtom(), "DefCase")) break;
+                return match_res.castError();
+            }
+            if (!body_res.isSuccess()) return body_res.castError();
+
+            def m = match_res.orDefault(VirgilExpr.Literal("", ""));
+            def b = body_res.orDefault(VirgilStmt.Block(Array.new(0)));
+
+            // XXX: handle not variant
+            case_vec.put(MatchCase.Variant(m.toString(), b));
+        }
+
+        return SExprRes.Success(VirgilStmt.Match(match_fin, case_vec.copy()));
+    }
 }
 
 type VirgilExpr {
@@ -502,35 +528,6 @@ type VirgilExpr {
             }
         }
     }
-
-    def substTy(old: string, knew: string) -> VirgilExpr {
-        match (this) {
-            AppExpr(fn, args) => {
-                // check if this is an app of an operator like i32.+(...)
-                def spl = Strings.splitOnChar(fn, byte.==(_, '.'), 1);
-                if (spl.length == 2 && Strings.equal(spl[0], old)) {
-                    def ty = spl[0];
-                    var op = spl[1];
-                    op = if (Strings.equal(op, "+"), "plus", op);
-                    op = if (Strings.equal(op, "-"), "minus", op);
-                    op = if (Strings.equal(op, "=="), "eq", op);
-                    op = if (Strings.equal(op, "!="), "neq", op);
-                    def fn_builder = StringBuilder.new();
-                    fn_builder.puts(knew);
-                    fn_builder.puts(".");
-                    fn_builder.puts(op);
-                    return VirgilExpr.AppExpr(fn_builder.toString(), Arrays.map(args, VirgilExpr.substTy(_, old, knew)));
-                } else {
-                    return VirgilExpr.AppExpr(fn, Arrays.map(args, VirgilExpr.substTy(_, old, knew)));
-                }
-            }
-            BinOpExpr(op, l, r) => return VirgilExpr.BinOpExpr(op, l.substTy(old, knew), r.substTy(old, knew));
-            Literal(t, s) => return if(Strings.equal(t, old), VirgilExpr.Literal(knew, s), this);
-            VarExpr(e) => return this;
-            IfExpr(c, t, e) => 
-                return VirgilExpr.IfExpr(c.substTy(old, knew), t.substTy(old, knew), e.substTy(old, knew));
-        }
-    }
     
     def toString() -> string {
         def buf = StringBuilder.new();
@@ -561,7 +558,7 @@ component VirgilExprs {
         def sexpr_ls = sexpr.forceList();
         if (sexpr_ls == null) return SExprRes.ParserBug;
 
-        if (!sexpr_ls.head.matchesAtom("type")) return SExprRes.ParserBug;
+        if (!isTypeStrF(sexpr_ls.head.matchesAtom)) return SExprRes.ParserBug;
         def sb = StringBuilder.new();
         for (n = sexpr_ls.tail; n != null; n = n.tail) {
             match (n.head) {
@@ -588,10 +585,14 @@ component VirgilExprs {
                 args = elems.tail.tail.tail.tail.tail; // seems like AppExprs get passed the func twice for resolution or smth
             }
             List(hlist) => {
-                if (!hlist.head.matchesAtom("type")) return SExprRes.Malformed(sexpr);
+                if (!isTypeStrF(hlist.head.matchesAtom)) return SExprRes.Malformed(sexpr);
 
                 // expect: (VarExpr "method" (type ...) (VarExpr "class" (type ...)))
-                def method_sexp = elems.tail.tail.head.forceList();
+                var method_sexp = elems.tail.tail.head.forceList();
+                // could also have implicit type
+                if (isTypeStrF(method_sexp.head.matchesAtom)) {
+                    method_sexp = elems.tail.tail.tail.head.forceList();
+                }
                 if (method_sexp == null) return SExprRes.ParserBug;
                 if (!method_sexp.head.matchesAtom("VarExpr[Inst]")) return SExprRes.Malformed(sexpr);
 
@@ -600,7 +601,7 @@ component VirgilExprs {
 
                 def ty = method_sexp.tail.tail.head;
                 def ty_list = ty.forceList();
-                if (ty_list == null || !ty_list.head.matchesAtom("type")) return SExprRes.ParserBug;
+                if (ty_list == null || !isTypeStrF(ty_list.head.matchesAtom)) return SExprRes.ParserBug;
                 
                 def klass = method_sexp.tail.tail.tail.head;
                 def klass_list = klass.forceList();
@@ -635,7 +636,7 @@ component VirgilExprs {
         if (op == null) return SExprRes.Malformed(sexpr);
 
         def tipe_ls = elems.tail.tail.head.forceList();
-        if (tipe_ls == null || !tipe_ls.head.matchesAtom("type")) return SExprRes.Malformed(sexpr);
+        if (tipe_ls == null || !isTypeStrF(tipe_ls.head.matchesAtom)) return SExprRes.Malformed(sexpr);
 
         def lhs = VirgilExprs.from_sexpr(elems.tail.tail.tail.head);
         def rhs = VirgilExprs.from_sexpr(elems.tail.tail.tail.tail.head);

@@ -255,6 +255,7 @@ class AI<V, I32, I64, F32, F64, REF> {
     def f64_reinterpret_i64(i: I64) -> F64;
 
     // only for V3Compiler
+    def emitFwdI32() -> I32;
     def emitIf(c: I32);
     def emitElse();
     def emitIfStatic(c: bool);

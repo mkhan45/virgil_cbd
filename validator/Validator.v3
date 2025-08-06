@@ -671,6 +671,104 @@ def RETURN() {
 
 	doReturn();
 }
+def STRUCT_GET() {
+	// arg643653 -- static: yes, type: i32, effect: none
+// field_index648 -- static: yes, type: i32, effect: read
+// arg644652 -- static: yes, type: i32, effect: none
+// offset654 -- static: yes, type: <bottom>, effect: none
+// cond639658 -- static: no, type: <bottom>, effect: none
+// arg645650 -- static: yes, type: i32, effect: none
+// kind651 -- static: yes, type: <bottom>, effect: none
+// obj655 -- static: no, type: <bottom>, effect: pop
+// left641656 -- static: no, type: <bottom>, effect: none
+// right642657 -- static: yes, type: <bottom>, effect: none
+// struct_index647 -- static: yes, type: i32, effect: read
+// arg646649 -- static: yes, type: i32, effect: none
+// ret640659 -- static: yes, type: <bottom>, effect: ctl
+
+	def struct_index = imm_readILEB32();
+	def field_index = imm_readILEB32();
+	def obj = pop_Object();
+	trapNull();
+}
+def STRUCT_GET_S() {
+	// arg664674 -- static: yes, type: i32, effect: none
+// field_index669 -- static: yes, type: i32, effect: read
+// arg665673 -- static: yes, type: i32, effect: none
+// offset675 -- static: yes, type: <bottom>, effect: none
+// arg666671 -- static: yes, type: i32, effect: none
+// kind672 -- static: yes, type: <bottom>, effect: none
+// arg667670 -- static: yes, type: i32, effect: none
+// left662677 -- static: no, type: <bottom>, effect: none
+// right663678 -- static: yes, type: <bottom>, effect: none
+// ret661680 -- static: yes, type: <bottom>, effect: ctl
+// obj676 -- static: no, type: <bottom>, effect: pop
+// cond660679 -- static: no, type: <bottom>, effect: none
+// struct_index668 -- static: yes, type: i32, effect: read
+
+	def struct_index = imm_readILEB32();
+	def field_index = imm_readILEB32();
+	def obj = pop_Object();
+	trapNull();
+}
+def STRUCT_GET_U() {
+	// field_index690 -- static: yes, type: i32, effect: read
+// arg685695 -- static: yes, type: i32, effect: none
+// arg686694 -- static: yes, type: i32, effect: none
+// arg687692 -- static: yes, type: i32, effect: none
+// offset696 -- static: yes, type: <bottom>, effect: none
+// arg688691 -- static: yes, type: i32, effect: none
+// kind693 -- static: yes, type: <bottom>, effect: none
+// left683698 -- static: no, type: <bottom>, effect: none
+// right684699 -- static: yes, type: <bottom>, effect: none
+// cond681700 -- static: no, type: <bottom>, effect: none
+// obj697 -- static: no, type: <bottom>, effect: pop
+// struct_index689 -- static: yes, type: i32, effect: read
+// ret682701 -- static: yes, type: <bottom>, effect: ctl
+
+	def struct_index = imm_readILEB32();
+	def field_index = imm_readILEB32();
+	def obj = pop_Object();
+	trapNull();
+}
+def I32_LOAD() {
+	// memindex721 -- static: yes, type: i32, effect: none
+// cond714727 -- static: no, type: <bottom>, effect: none
+// val735 -- static: no, type: i32, effect: none
+// eff703737 -- static: no, type: <bottom>, effect: push
+// arg704736 -- static: no, type: i32, effect: none
+// arg710742 -- static: yes, type: i32, effect: none
+// index731 -- static: no, type: i64, effect: pop
+// val743 -- static: no, type: i32, effect: none
+// arg711741 -- static: no, type: i32, effect: none
+// arg717724 -- static: no, type: <bottom>, effect: none
+// arg705734 -- static: yes, type: i32, effect: none
+// offset730 -- static: yes, type: i64, effect: read
+// arg712740 -- static: yes, type: i32, effect: none
+// arg718723 -- static: yes, type: <bottom>, effect: none
+// arg706733 -- static: no, type: i64, effect: none
+// flags720 -- static: yes, type: <bottom>, effect: read
+// arg719722 -- static: no, type: <bottom>, effect: none
+// arg707732 -- static: yes, type: i64, effect: none
+// eff708745 -- static: no, type: <bottom>, effect: push
+// arg709744 -- static: no, type: i32, effect: none
+// index739 -- static: no, type: i32, effect: pop
+// arg713728 -- static: yes, type: i32, effect: none
+// cond702729 -- static: yes, type: <bottom>, effect: none
+// left715725 -- static: no, type: <bottom>, effect: none
+// right716726 -- static: yes, type: i32, effect: none
+// offset738 -- static: yes, type: i32, effect: read
+
+	def flags = imm_readU8();
+	def offset = imm_readILEB64();
+	def index = pop_i64();
+	def val = mach_readMemory64_i32(0, index, offset);
+	push_i32(val);
+	def offset1 = imm_readILEB32();
+	def index1 = pop_i32();
+	def val1 = mach_readMemory32_i32(0, index1, offset1);
+	push_i32(val1);
+}
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
   DISPATCH_TABLE[Opcode.UNREACHABLE.code] = UNREACHABLE;
@@ -718,6 +816,10 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.ELSE.code] = ELSE;
   DISPATCH_TABLE[Opcode.END.code] = END;
   DISPATCH_TABLE[Opcode.RETURN.code] = RETURN;
+  DISPATCH_TABLE[Opcode.STRUCT_GET.code] = STRUCT_GET;
+  DISPATCH_TABLE[Opcode.STRUCT_GET_S.code] = STRUCT_GET_S;
+  DISPATCH_TABLE[Opcode.STRUCT_GET_U.code] = STRUCT_GET_U;
+  DISPATCH_TABLE[Opcode.I32_LOAD.code] = I32_LOAD;
   return DISPATCH_TABLE;
 }
 type STEntry {
@@ -726,6 +828,10 @@ type STEntry {
     );
     case Label(
         label: int
+    );
+    case KindOffset(
+        kind: int,
+        offset: int
     );
 }
 var module: Module;

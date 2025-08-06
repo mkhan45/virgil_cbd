@@ -114,11 +114,12 @@ InterpreterMain: interpreter/Interpreter.v3
 		abstract_interpreter/state_mgrs/*.v3 abstract_interpreter/impls/$*.v3 abstract_interpreter/AIMain.v3
 	mv AIMain $@
 
-V3CompilerMain: v3compiler/V3Compiler.v3 validator abstract_interpreter/state_mgrs/CFGStateMgr.v3
+V3CompilerMain: v3compiler/V3Compiler.v3 validator abstract_interpreter/state_mgrs/CFGStateMgr.v3 compiler/Compiler.v3
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
 		runtime_common/*.v3\
 		validator/Validator.v3\
 		abstract_interpreter/state_mgrs/CFGStateMgr.v3\
+		compiler/Compiler.v3\
 		v3compiler/V3Compiler.v3\
 		v3compiler/V3CompilerMain.v3
 
