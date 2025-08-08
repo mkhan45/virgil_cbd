@@ -19,6 +19,7 @@ type SSAD {
             LetApp(n, f, args, rest) => return SSAD.LetApp(n, f, args, rest.appended(rhs));
             LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, rest.appended(rhs));
             If(cond, then, els, phis, rest) => return SSAD.If(cond, then, els, phis, rest.appended(rhs));
+            Match(subj, branches, rest) => return SSAD.Match(subj, branches, rest.appended(rhs));
             Void => return rhs;
             Injected(inj, rest) => return SSAD.Injected(inj, rest.appended(rhs));
             Final(v) => return rhs;
@@ -45,6 +46,18 @@ type SSAD {
             If(c, t, e, phis, rest) => {
                 def r = rest.filter(pred);
                 return if(pred(node), SSAD.If(c, t.filter(pred), e.filter(pred), phis, r), r);
+            }
+            Match(subj, branches, rest) => {
+                def r = rest.filter(pred);
+                if (pred(node)) {
+                    def new_branches = Array<(string, SSAD)>.new(branches.length);
+                    for (i < branches.length) {
+                        new_branches[i] = (branches[i].0, branches[i].1.filter(pred));
+                    }
+                    return SSAD.Match(subj, new_branches, r);
+                } else {
+                    return r;
+                }
             }
         }
     }

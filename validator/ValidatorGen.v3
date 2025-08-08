@@ -96,6 +96,7 @@ def runUnconditionally(node: SSAD, ctx: SSADCtx) -> bool {
         LetApp(n, _, _, _) => return ctx.effects[n].is_sidetable();
         LetLit(n, _, _, _) => return ctx.effects[n].is_sidetable();
         If(_, _, _, _, _) => return true; // TODO: check phis?
+        Match(_, _, _) => return true; // TODO: check branches?
         Void => return true;
         Injected(_, _) => return true;
         Final(_) => return true;
@@ -113,6 +114,14 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
         Final(_) => return ssa; // TODO: move stuff from instrument... to here
         Injected(inj, rest) => return SSAD.Injected(inj, transformSSA(rest, ctx));
         LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
+        Match(subj, branches, rest) => {
+            // Transform each branch and continue with rest
+            def new_branches = Array<(string, SSAD)>.new(branches.length);
+            for (i < branches.length) {
+                new_branches[i] = (branches[i].0, transformSSA(branches[i].1, ctx));
+            }
+            return SSAD.Match(subj, new_branches, transformSSA(rest, ctx));
+        }
         LetApp(n, f, args, rest) => {
             var res = SSAD.LetApp(n, f, args, transformSSA(rest, ctx));
             var is_op = false;

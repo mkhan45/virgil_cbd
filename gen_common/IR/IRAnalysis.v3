@@ -39,6 +39,10 @@ class SSADCtx {
                 for (p in phis) static[p] = static[c];
                 getStatic(rest);
             }
+            Match(subj, branches, rest) => {
+                for (b in branches) getStatic(b.1);
+                getStatic(rest);
+            }
             Void => return;
             Injected(i, rest) => getStatic(rest);
             Final(v) => return;
@@ -73,6 +77,10 @@ class SSADCtx {
                 getTypes(e);
                 getTypes(rest);
             }
+            Match(subj, branches, rest) => {
+                for (b in branches) getTypes(b.1);
+                getTypes(rest);
+            }
             Void => return;
             Injected(i, rest) => getStatic(rest);
             Final(v) => return;
@@ -95,6 +103,10 @@ class SSADCtx {
                 // collectEffects(e, buf);
                 collectEffects(rest, buf);
             }
+            Match(subj, branches, rest) => {
+                for (b in branches) collectEffects(b.1, buf);
+                collectEffects(rest, buf);
+            }
         }
     }
 
@@ -109,6 +121,11 @@ class SSADCtx {
                 return usesVar(rest, v);
             }
             If(c, t, e, phis, rest) => return Strings.equal(v, c) || usesVar(t, v) || usesVar(e, v) || usesVar(rest, v);
+            Match(subj, branches, rest) => {
+                if (Strings.equal(v, subj)) return true;
+                for (b in branches) if (usesVar(b.1, v)) return true;
+                return usesVar(rest, v);
+            }
         }
     }
 
@@ -118,6 +135,13 @@ class SSADCtx {
             Final(_) => return node;
             Injected(inj, rest) => return SSAD.Injected(inj, DCE(rest));
             If(c, t, e, phis, rest) => return SSAD.If(c, DCE(t), DCE(e), phis, DCE(rest));
+            Match(subj, branches, rest) => {
+                def new_branches = Array<(string, SSAD)>.new(branches.length);
+                for (i < branches.length) {
+                    new_branches[i] = (branches[i].0, DCE(branches[i].1));
+                }
+                return SSAD.Match(subj, new_branches, DCE(rest));
+            }
             LetLit(n, l, t, rest) => {
                 def r = DCE(rest);
                 def used = usesVar(r, n);
@@ -144,6 +168,14 @@ class SSADCtx {
                 def new_e = id_propagate(e, substs);
                 def new_phis = phis; // TODO: idk, might want new substs?
                 return SSAD.If(new_c, new_t, new_e, new_phis, id_propagate(rest, substs));
+            }
+            Match(subj, branches, rest) => {
+                def new_subj = if(substs.has(subj), substs[subj], subj);
+                def new_branches = Array<(string, SSAD)>.new(branches.length);
+                for (i < branches.length) {
+                    new_branches[i] = (branches[i].0, id_propagate(branches[i].1, substs));
+                }
+                return SSAD.Match(new_subj, new_branches, id_propagate(rest, substs));
             }
             LetApp(n, f, args, rest) => {
                 if (Strings.equal(f, "id")) {

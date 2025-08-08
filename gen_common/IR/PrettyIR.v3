@@ -1,6 +1,7 @@
 type PrettyIR {
     case Let(n: string, rhs: PrettyExpr, stage: Stage, rest: PrettyIR);
     case If(cond: PrettyExpr, then: PrettyIR, els: PrettyIR, stage: Stage, rest: PrettyIR);
+    case Match(subj: PrettyExpr, branches: Array<(string, PrettyIR)>, stage: Stage, rest: PrettyIR);
     case Exec(e: PrettyExpr, stage: Stage, effect: CBDEffect, rest: PrettyIR);
     case Void;
     case Injected(inj: string, stage: Stage, rest: PrettyIR);
@@ -35,6 +36,24 @@ type PrettyIR {
                 } else {
                     buf.puts("}\n");
                 }
+                rest.buildString(buf, indent);
+            }
+            Match(subj, branches, stage, rest) => {
+                for (i < indent) buf.tab();
+                buf.puts("match (");
+                subj.buildString(buf);
+                buf.puts(") {\n");
+                for (b in branches) {
+                    for (i < indent + 1) buf.tab();
+                    buf.puts(b.0).puts(" => {\n");
+                    b.1.buildString(buf, indent + 2);
+                    for (i < indent + 1) buf.tab();
+                    buf.puts("}\n");
+                }
+                for (i < indent + 1) buf.tab();
+                buf.puts("_ => trapUnreachable();\n");
+                for (i < indent) buf.tab();
+                buf.puts("}\n");
                 rest.buildString(buf, indent);
             }
             Void => {
@@ -87,6 +106,23 @@ type PrettyIR {
                 } else {
                     buf.puts(getStageColor(stage)).puts("}\x1b[0m\n");
                 }
+                rest.buildStringCol(buf, indent);
+            }
+            Match(subj, branches, stage, rest) => {
+                for (i < indent) buf.tab();
+                buf.puts(getStageColor(stage));
+                buf.puts("match (");
+                subj.buildString(buf);
+                buf.puts(") {\x1b[0m\n");
+                for (b in branches) {
+                    for (i < indent + 1) buf.tab();
+                    buf.puts(getStageColor(stage)).puts(b.0).puts(" => {\x1b[0m\n");
+                    b.1.buildStringCol(buf, indent + 2);
+                    for (i < indent + 1) buf.tab();
+                    buf.puts(getStageColor(stage)).puts("}\x1b[0m\n");
+                }
+                for (i < indent) buf.tab();
+                buf.puts(getStageColor(stage)).puts("}\x1b[0m\n");
                 rest.buildStringCol(buf, indent);
             }
             Void => {
@@ -168,6 +204,16 @@ component Pretty_IR {
                 def stage = if(ctx.static[cond], Stage.COMPILE, Stage.INTERPRET);
                 return PrettyIR.If(condExpr, thenPretty, elsPretty, stage, restPretty);
             }
+            Match(subj, branches, rest) => {
+                def subjExpr = PrettyExpr.Var(subj);
+                def prettyBranches = Array<(string, PrettyIR)>.new(branches.length);
+                for (i < branches.length) {
+                    prettyBranches[i] = (branches[i].0, fromSSAD(branches[i].1, ctx));
+                }
+                def restPretty = fromSSAD(rest, ctx);
+                def stage = if(ctx.static[subj], Stage.COMPILE, Stage.INTERPRET);
+                return PrettyIR.Match(subjExpr, prettyBranches, stage, restPretty);
+            }
             Void => return PrettyIR.Void;
             Injected(inj, rest) => {
                 return PrettyIR.Injected(inj, Stage.VALIDATE, fromSSAD(rest, ctx));
@@ -199,6 +245,15 @@ component Pretty_IR {
                 def inlined_els = inlineLets(els, pred, ctx, var_exprs);
                 def inlined_rest = inlineLets(rest, pred, ctx, var_exprs);
                 return PrettyIR.If(inlined_cond, inlined_then, inlined_els, stage, inlined_rest);
+            }
+            Match(subj, branches, stage, rest) => {
+                def inlined_subj = inlineExpr(subj, var_exprs);
+                def inlined_branches = Array<(string, PrettyIR)>.new(branches.length);
+                for (i < branches.length) {
+                    inlined_branches[i] = (branches[i].0, inlineLets(branches[i].1, pred, ctx, var_exprs));
+                }
+                def inlined_rest = inlineLets(rest, pred, ctx, var_exprs);
+                return PrettyIR.Match(inlined_subj, inlined_branches, stage, inlined_rest);
             }
             Exec(e, stage, effect, rest) => {
                 def inlined_e = inlineExpr(e, var_exprs);
@@ -243,6 +298,18 @@ component Pretty_IR {
                     cond, 
                     removeUselessAssigns(then, ctx),
                     removeUselessAssigns(els, ctx),
+                    stage,
+                    removeUselessAssigns(rest, ctx)
+                );
+            }
+            Match(subj, branches, stage, rest) => {
+                def newBranches = Array<(string, PrettyIR)>.new(branches.length);
+                for (i < branches.length) {
+                    newBranches[i] = (branches[i].0, removeUselessAssigns(branches[i].1, ctx));
+                }
+                return PrettyIR.Match(
+                    subj,
+                    newBranches,
                     stage,
                     removeUselessAssigns(rest, ctx)
                 );
@@ -310,6 +377,15 @@ component Pretty_IR {
                 def newEls = simplifyVarNums(els, used_varnums, var_map);
                 def newRest = simplifyVarNums(rest, used_varnums, var_map);
                 return PrettyIR.If(newCond, newThen, newEls, stage, newRest);
+            }
+            Match(subj, branches, stage, rest) => {
+                def newSubj = substExprVars(subj, var_map);
+                def newBranches = Array<(string, PrettyIR)>.new(branches.length);
+                for (i < branches.length) {
+                    newBranches[i] = (branches[i].0, simplifyVarNums(branches[i].1, used_varnums, var_map));
+                }
+                def newRest = simplifyVarNums(rest, used_varnums, var_map);
+                return PrettyIR.Match(newSubj, newBranches, stage, newRest);
             }
             Exec(e, stage, effect, rest) => {
                 def newE = substExprVars(e, var_map);

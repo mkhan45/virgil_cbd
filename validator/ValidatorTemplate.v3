@@ -322,16 +322,18 @@ def doFallthru() {
 }
 
 // Machine intrinsics.
-def mach_readStructField_i8(obj: Object, offset: FieldOffset) -> i8;
-def mach_readStructField_u8(obj: Object, offset: FieldOffset) -> u8;
-def mach_readStructField_i16(obj: Object, offset: FieldOffset) -> i16;
-def mach_readStructField_u16(obj: Object, offset: FieldOffset) -> u16;
-def mach_readStructField_u32(obj: Object, offset: FieldOffset) -> i32;
-def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> u64;
-def mach_readStructField_f32(obj: Object, offset: FieldOffset) -> float;
-def mach_readStructField_f64(obj: Object, offset: FieldOffset) -> double;
-def mach_readStructField_v128(obj: Object, offset: FieldOffset) -> v128;
-def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> TypeVar.Object;
+def mach_readStructField_i8(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
+def mach_readStructField_u8(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
+def mach_readStructField_i16(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
+def mach_readStructField_u16(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
+def mach_readStructField_i32(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
+def mach_readStructField_u32(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
+def mach_readStructField_i64(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I64;
+def mach_readStructField_u64(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I64;
+def mach_readStructField_f32(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.F32;
+def mach_readStructField_f64(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.F64;
+def mach_readStructField_v128(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.V128;
+def mach_readStructField_Object(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.Object;
 
 def mach_readMemory64_u32(memory_index: i32, index: u64, offset: u64) -> i32;
 def mach_readMemory32_u32(memory_index: i32, index: i32, offset: i32) -> i32;
@@ -344,7 +346,10 @@ def mach_writeTable32(table_index: i32, index: TypeVar.I32, val: TypeVar.Object)
 
 // Traps.
 def invalid();
-def trapNull();
+def trapNull() {
+    // since this is a runtime trap only, 
+    // we don't actually want to trap here
+}
 def trapUnreachable();
 def trapDivideByZero();
 def trapDivideUnrepresentable();
