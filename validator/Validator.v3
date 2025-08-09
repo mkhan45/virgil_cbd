@@ -110,12 +110,16 @@ def TABLE_GET() {
 // arg92106 -- static: yes, type: i32, effect: none
 
 	def table_index = imm_readILEB32();
-	def index = pop_i64();
-	def val = mach_readTable64(table_index, index);
-	push_Object(val);
-	def index1 = pop_i32();
-	def val1 = mach_readTable32(table_index, index1);
-	push_Object(val1);
+	def cond = m_isTable64(table_index);
+	if (cond) {
+		def index = pop_i64();
+		def val = mach_readTable64(table_index, index);
+		push_Object(val);
+	} else {
+		def index1 = pop_i32();
+		def val1 = mach_readTable32(table_index, index1);
+		push_Object(val1);
+	}
 }
 def TABLE_SET() {
 	// arg113126 -- static: no, type: i64, effect: none
@@ -135,10 +139,14 @@ def TABLE_SET() {
 // arg112127 -- static: yes, type: i32, effect: none
 
 	def table_index = imm_readILEB32();
-	def val = pop_Object();
-	def index = pop_i64();
-	def val1 = pop_Object();
-	def index1 = pop_i32();
+	def cond = m_isTable64(table_index);
+	if (cond) {
+		def val = pop_Object();
+		def index = pop_i64();
+	} else {
+		def val1 = pop_Object();
+		def index1 = pop_i32();
+	}
 }
 def CALL() {
 	// eff135147 -- static: yes, type: <bottom>, effect: ctl
@@ -183,12 +191,16 @@ def CALL_INDIRECT() {
 	def sig_index = imm_readILEB32();
 	def table_index = imm_readILEB32();
 	def sig = m_getSignature(sig_index);
-	def func_index = pop_i64();
-	def target = i_getTableFunction64(table_index, sig, func_index);
-	doCall(sig, target);
-	def func_index1 = pop_i32();
-	def target1 = i_getTableFunction32(table_index, sig, func_index1);
-	doCall(sig, target1);
+	def is = m_isTable64(table_index);
+	if (is) {
+		def func_index = pop_i64();
+		def target = i_getTableFunction64(table_index, sig, func_index);
+		doCall(sig, target);
+	} else {
+		def func_index1 = pop_i32();
+		def target1 = i_getTableFunction32(table_index, sig, func_index1);
+		doCall(sig, target1);
+	}
 }
 def DROP() {
 	// arg187189 -- static: yes, type: <bottom>, effect: none
@@ -673,7 +685,9 @@ def END() {
 // ret649653 -- static: yes, type: <bottom>, effect: ctl
 
 	doEnd();
-	doReturn();
+	if (f_isAtEnd()) {
+		doReturn();
+	}
 }
 def RETURN() {
 	// ret654655 -- static: yes, type: <bottom>, effect: ctl
@@ -918,14 +932,57 @@ def I32_LOAD() {
 // arg863889 -- static: yes, type: i32, effect: none
 
 	def flags = imm_readU8();
-	def offset = imm_readILEB64();
-	def index = pop_i64();
-	def val = mach_readMemory64_i32(0, index, offset);
-	push_i32(val);
-	def offset1 = imm_readILEB32();
-	def index1 = pop_i32();
-	def val1 = mach_readMemory32_i32(0, index1, offset1);
-	push_i32(val1);
+	def cond = m_isMemory64(0);
+	if (cond) {
+		def offset = imm_readILEB64();
+		def index = pop_i64();
+		def val = mach_readMemory64_i32(0, index, offset);
+		push_i32(val);
+	} else {
+		def offset1 = imm_readILEB32();
+		def index1 = pop_i32();
+		def val1 = mach_readMemory32_i32(0, index1, offset1);
+		push_i32(val1);
+	}
+}
+def I32_STORE() {
+	// arg900924 -- static: no, type: i32, effect: none
+// offset922 -- static: yes, type: i64, effect: read
+// eff901935 -- static: no, type: <bottom>, effect: memory
+// cond907918 -- static: no, type: <bottom>, effect: none
+// index930 -- static: no, type: i32, effect: pop
+// arg902934 -- static: yes, type: i32, effect: none
+// flags912 -- static: yes, type: <bottom>, effect: read
+// arg908917 -- static: no, type: <bottom>, effect: none
+// arg903933 -- static: no, type: i32, effect: none
+// arg904932 -- static: yes, type: i32, effect: none
+// arg909914 -- static: yes, type: <bottom>, effect: none
+// val919 -- static: no, type: i32, effect: pop
+// eff896928 -- static: no, type: <bottom>, effect: memory
+// arg905931 -- static: no, type: i32, effect: none
+// arg906920 -- static: yes, type: i32, effect: none
+// arg897927 -- static: yes, type: i32, effect: none
+// offset929 -- static: yes, type: i32, effect: read
+// memindex913 -- static: yes, type: i32, effect: none
+// arg910916 -- static: yes, type: <bottom>, effect: none
+// arg898926 -- static: no, type: i64, effect: none
+// arg911915 -- static: no, type: <bottom>, effect: none
+// arg899925 -- static: yes, type: i64, effect: none
+// cond895921 -- static: yes, type: <bottom>, effect: none
+// index923 -- static: no, type: i64, effect: pop
+
+	def flags = imm_readU8();
+	def val = pop_i32();
+	def cond = m_isMemory64(0);
+	if (cond) {
+		def offset = imm_readILEB64();
+		def index = pop_i64();
+		mach_writeMemory64_i32(0, index, offset, val);
+	} else {
+		def offset1 = imm_readILEB32();
+		def index1 = pop_i32();
+		mach_writeMemory32_i32(0, index1, offset1, val);
+	}
 }
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
@@ -983,6 +1040,7 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.STRUCT_GET_S.tag] = STRUCT_GET_S;
   DISPATCH_TABLE[Opcode.STRUCT_GET_U.tag] = STRUCT_GET_U;
   DISPATCH_TABLE[Opcode.I32_LOAD.tag] = I32_LOAD;
+  DISPATCH_TABLE[Opcode.I32_STORE.tag] = I32_STORE;
   return DISPATCH_TABLE;
 }
 type STEntry {
@@ -1335,7 +1393,7 @@ def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind {
 def m_getFieldOffset(struct_index: i32, field_index: i32) -> FieldOffset {
     return FieldOffset(u32.!(field_index)); // TODO
 }
-def m_isMemory64(memory_index: i32) -> bool;
+def m_isMemory64(memory_index: i32) -> bool => false; // TODO mem64
 def m_isTable64(memory_index: i32) -> bool;
 def m_getFuncSignature(func_index: i32) -> SigDecl {
     return null;
@@ -1380,7 +1438,15 @@ def mach_readStructField_v128(obj: TypeVar.Object, offset: FieldOffset) => TypeV
 def mach_readStructField_Object(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.Object;
 
 def mach_readMemory64_i32(memory_index: i32, index: TypeVar.I64, offset: i64) -> TypeVar.I32;
-def mach_readMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32) -> TypeVar.I32;
+def mach_readMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32) -> TypeVar.I32 {
+    // TODO: validate
+    return TypeVar.I32;
+}
+
+def mach_writeMemory64_i32(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.I32);
+def mach_writeMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.I32) {
+    // TODO: validate
+}
 
 def mach_readTable64(table_index: i32, index: TypeVar.I64) -> TypeVar.Object;
 def mach_readTable32(table_index: i32, index: TypeVar.I32) -> TypeVar.Object;

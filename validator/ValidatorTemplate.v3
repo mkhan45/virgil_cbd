@@ -336,7 +336,7 @@ def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind {
 def m_getFieldOffset(struct_index: i32, field_index: i32) -> FieldOffset {
     return FieldOffset(u32.!(field_index)); // TODO
 }
-def m_isMemory64(memory_index: i32) -> bool;
+def m_isMemory64(memory_index: i32) -> bool => false; // TODO mem64
 def m_isTable64(memory_index: i32) -> bool;
 def m_getFuncSignature(func_index: i32) -> SigDecl {
     return null;
@@ -381,7 +381,15 @@ def mach_readStructField_v128(obj: TypeVar.Object, offset: FieldOffset) => TypeV
 def mach_readStructField_Object(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.Object;
 
 def mach_readMemory64_i32(memory_index: i32, index: TypeVar.I64, offset: i64) -> TypeVar.I32;
-def mach_readMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32) -> TypeVar.I32;
+def mach_readMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32) -> TypeVar.I32 {
+    // TODO: validate
+    return TypeVar.I32;
+}
+
+def mach_writeMemory64_i32(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.I32);
+def mach_writeMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.I32) {
+    // TODO: validate
+}
 
 def mach_readTable64(table_index: i32, index: TypeVar.I64) -> TypeVar.Object;
 def mach_readTable32(table_index: i32, index: TypeVar.I32) -> TypeVar.Object;

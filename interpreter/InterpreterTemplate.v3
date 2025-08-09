@@ -16,6 +16,7 @@ class Frame {
 }
 
 var module: Module;
+var memory: V3Memory;
 var functions: Vector<CBDFunction>;
 
 var current_frame: Frame;
@@ -143,9 +144,9 @@ def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind {
     }
 }
 def m_getFieldOffset(struct_index: i32, field_index: i32) -> FieldOffset {
-    return FieldOffset(u32.!(field_index)); // TODO
+    return FieldOffset(u32.!(field_index)); // XXX?
 }
-def m_isMemory64(memory_index: i32) -> bool;
+def m_isMemory64(memory_index: i32) -> bool => false; // TODO mem64
 def m_isTable64(memory_index: i32) -> bool;
 def m_getFuncSignature(func_index: i32) -> SigDecl {
     return null; // already in CBDFunction, TODO: refactor
@@ -219,7 +220,18 @@ def object_New(sig: HeapTypeDecl, num_fields: int) -> Object {
 
 
 def mach_readMemory64_i32(memory_index: i32, index: i64, offset: i64) -> i32;
-def mach_readMemory32_i32(memory_index: i32, index: i32, offset: i32) -> i32;
+def mach_readMemory32_i32(memory_index: i32, index: i32, offset: i32) -> i32 {
+    def read_res = memory.read_u32(u32.!(offset), u32.!(index));
+    if (read_res.trapped()) {
+        trapMem();
+    }
+    return i32.view(read_res.result);
+}
+
+def mach_writeMemory64_i32(memory_index: i32, index: i64, offset: i64, val: i32);
+def mach_writeMemory32_i32(memory_index: i32, index: i32, offset: i32, val: i32) {
+    memory.write_u32(u32.!(offset), u32.!(index), u32.view(val));
+}
 
 def mach_readTable64(table_index: i32, index: i64) -> Object;
 def mach_readTable32(table_index: i32, index: i32) -> Object;
@@ -233,6 +245,7 @@ def trapNull();
 def trapUnreachable();
 def trapDivideByZero();
 def trapDivideUnrepresentable();
+def trapMem();
 
 def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
 }
@@ -284,6 +297,8 @@ def push_locals(count: u32, vtc: ValueTypeCode) {
 component Interpreter {
     def init(new_module: Module, args: Array<int>) {
         module = new_module;
+        memory = null;
+        if (module.memories.length > 0) memory = V3Memory.new(module.memories[0]);
 
         var main_idx = -1;
         for (i < module.exports.length) {

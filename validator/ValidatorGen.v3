@@ -196,7 +196,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
             	        .appended(transformSSA(ef, ctx))
 	                    .appended(transformSSA(rest, ctx));
             } else {
-                return transformSSA(t, ctx).appended(transformSSA(e, ctx)).appended(transformSSA(rest, ctx));
+                return SSAD.If(c, transformSSA(t, ctx), transformSSA(e, ctx), phis, transformSSA(rest, ctx));
             }
         }
     }
