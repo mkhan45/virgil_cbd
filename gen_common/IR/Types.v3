@@ -273,8 +273,7 @@ component IntrinsicTypes {
         if (Strings.endsWith(op_str, "<=")) prose_op = "lte";
         if (Strings.endsWith(op_str, ">")) prose_op = "gt";
         if (Strings.endsWith(op_str, "*")) prose_op = "times";
-        if (Strings.endsWith(op_str, "view")) prose_op = "view";
-        if (prose_op == null) System.puts(op_str);
+        if (prose_op == null) prose_op = op_str;
 
         def tp = TypeUtil.fromString(tp_str);
         return (tp, prose_op);

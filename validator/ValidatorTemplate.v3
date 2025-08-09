@@ -169,8 +169,12 @@ def F32_plus = TypeVar.F32.binop(float.+);
 def F32_minus = TypeVar.F32.binop(float.-);
 def F32_div = TypeVar.F32.binop(float./);
 def F32_times = TypeVar.F32.binop(float.*);
+def F32_sqrt = fun (x: TypeVar.F32) => x;
 
+def object_Null() -> TypeVar.Object => TypeVar.Object;
 def object_isNull(o: TypeVar.Object) => true;
+def object_New(sig: HeapTypeDecl, num_fields: int) -> TypeVar.Object => TypeVar.Object;
+def sig_nfields(sig: HeapTypeDecl) => StructDecl.!(sig).field_types.length;
 
 def typeVarFromValType(vt: ValueType) -> TypeVar {
     match (vt) {
@@ -281,7 +285,8 @@ def push_Value(tv: TypeVar, v: TypeVar) {
 
 // Local variables.
 def getLocal(tv: TypeVar, index: i32) -> TypeVar {
-    return stack.elems[index];
+    if (!tv.matches(stack.elems[index])) invalid();
+    return tv;
 }
 def setLocal(tv: TypeVar, index: i32, v: TypeVar) {
     if (!tv.matches(v)) invalid();
@@ -314,7 +319,19 @@ def m_getGlobalType(index: i32) -> TypeVar {
     return globals[index];
 }
 def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind {
-    return FieldKind.I32; // TODO
+    def ht = module.heaptypes[struct_index];
+    def decl = StructDecl.!(ht);
+    def st = decl.field_types[field_index];
+    match (st.valtype) {
+        BOTTOM => return FieldKind.REF;
+        I32 => return FieldKind.I32;
+        I64 => return FieldKind.I64;
+        F32 => return FieldKind.F32;
+        F64 => return FieldKind.F64;
+        V128 => return FieldKind.V128;
+        Host => return FieldKind.REF;
+        Ref => return FieldKind.REF;
+    }
 }
 def m_getFieldOffset(struct_index: i32, field_index: i32) -> FieldOffset {
     return FieldOffset(u32.!(field_index)); // TODO
@@ -324,18 +341,19 @@ def m_isTable64(memory_index: i32) -> bool;
 def m_getFuncSignature(func_index: i32) -> SigDecl {
     return null;
 }
-def m_getSignature(sig_index: i32) -> SigDecl;
-
-// Instance context.
-def i_getTableFunction64(table_index: i32, sig: SigDecl, func_index: TypeVar.I64) -> CBDFunction;
-def i_getTableFunction32(table_index: i32, sig: SigDecl, func_index: TypeVar.I32) -> CBDFunction;
-def i_getFunction(func_index: i32) -> CBDFunction {
-    return null;
+def m_getSignature(sig_index: i32) -> HeapTypeDecl {
+    return module.heaptypes[sig_index];
 }
 
+// Instance context.
+def i_getTableFunction64(table_index: i32, sig: Decl, func_index: TypeVar.I64) -> CBDFunction;
+def i_getTableFunction32(table_index: i32, sig: Decl, func_index: TypeVar.I32) -> CBDFunction;
+def i_getFunction(func_index: i32) => CBDFunction.new(module.functions[func_index]);
+
 // Control flow.
-def doCall(sig: SigDecl, target: CBDFunction) {
-    return; // TODO
+def doCall(sig: Decl, target: CBDFunction) {
+    for (i = target.args.length - 1; i >= 0; i -= 1) pop_Value(target.args[i]);
+    for (i < target.rets.length) push_Value(target.rets[i], target.rets[i]);
 }
 
 def doBranch(label: ControlEntry) {
@@ -349,18 +367,18 @@ def doFallthru() {
 }
 
 // Machine intrinsics.
-def mach_readStructField_i8(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
-def mach_readStructField_u8(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
-def mach_readStructField_i16(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
-def mach_readStructField_u16(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
-def mach_readStructField_i32(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
-def mach_readStructField_u32(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
-def mach_readStructField_i64(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I64;
-def mach_readStructField_u64(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I64;
-def mach_readStructField_f32(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.F32;
-def mach_readStructField_f64(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.F64;
-def mach_readStructField_v128(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.V128;
-def mach_readStructField_Object(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.Object;
+def mach_readStructField_i8(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
+def mach_readStructField_u8(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
+def mach_readStructField_i16(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
+def mach_readStructField_u16(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
+def mach_readStructField_i32(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
+def mach_readStructField_u32(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
+def mach_readStructField_i64(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I64;
+def mach_readStructField_u64(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I64;
+def mach_readStructField_f32(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.F32;
+def mach_readStructField_f64(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.F64;
+def mach_readStructField_v128(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.V128;
+def mach_readStructField_Object(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.Object;
 
 def mach_readMemory64_i32(memory_index: i32, index: TypeVar.I64, offset: i64) -> TypeVar.I32;
 def mach_readMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32) -> TypeVar.I32;
@@ -437,6 +455,7 @@ def doEnd() {
 
 def doReturn() {
     for (i = rets.length - 1; i >= 0; i -= 1) pop_Value(rets[i]);
+    for (i < rets.length) push_Value(rets[i], rets[i]);
 }
 
 def doTry(bt: (Array<ValueType>, Array<ValueType>)) {
@@ -469,8 +488,9 @@ def push_locals(count: u32, vtc: ValueTypeCode) {
         BpTypeCode.ARRAYREF.val => tv = TypeVar.Object;
         _ => tv = TypeVar.Object; // default to Object for unknown ref types
     }
-    
+ 
     for (i < count) local_types.put(tv);
+    for (i < count) stack.push(tv);
 }
 
 component Validator {
@@ -480,20 +500,12 @@ component Validator {
         globals = Vector.new();
         for (i < module.globals.length) {
             def module_global = module.globals[i];
-            var global_type: TypeVar;
-            match (module_global.valtype) {
-                I32 => global_type = TypeVar.I32;
-                I64 => global_type = TypeVar.I64;
-                F32 => global_type = TypeVar.F32;
-                F64 => global_type = TypeVar.F64;
-                V128 => global_type = TypeVar.V128;
-                _ => global_type = TypeVar.I32; // TODO: handle ref types
-            }
+            var global_type = typeVarFromValType(module_global.valtype);
             globals.put(global_type);
         }
     }
     
-    def init_function(code: Array<byte>, args: Array<TypeVar>, ret: Array<TypeVar>) {
+    def init_function(code: Array<byte>, args: Array<TypeVar>, locals: Array<TypeVar>, ret: Array<TypeVar>) {
         codeptr = CodePtr.new(code);
         local_types = Vector.new();
         stack = ArrayStack.new();
@@ -505,7 +517,7 @@ component Validator {
         opcode_pos = codeptr.pos;
         pushControl(Opcode.UNREACHABLE.code, Arrays.map(args, valTypeFromTypeVar), Arrays.map(ret, valTypeFromTypeVar), 0);
 
-        for (a in args) local_types.put(TypeVar.I32);
+        for (a in args) local_types.put(a);
         for (a in args) stack.push(a);
 
         rets = ret;

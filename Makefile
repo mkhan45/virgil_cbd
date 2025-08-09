@@ -24,10 +24,10 @@ AIS = $(foreach I,$(wildcard abstract_interpreter/impls/*.v3),$(basename $I)AI.v
 
 all: validator/Validator.v3 interpreter/Interpreter.v3 compiler/Compiler.v3 abstract_interpreter/AI.v3 InterpreterMain
 
-$(DEFS).sexp:
+$(DEFS).sexp: wizard-engine/src/bytecode/CanonicalDefs.v3
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
 
-validator/Validator.v3: $(GENERATE_DEPS) validator/ValidatorGen.v3 validator/ValidatorTemplate.v3
+validator/Validator.v3: $(GENERATE_DEPS) validator/ValidatorGen.v3 validator/ValidatorTemplate.v3 validator/Intrinsics.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		$(ENGINE)\

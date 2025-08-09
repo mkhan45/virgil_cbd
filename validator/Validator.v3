@@ -496,109 +496,119 @@ def F32_DIV() {
 	trapDivideByZero();
 	push_f32(F32_div(a, b));
 }
+def F32_SQRT() {
+	// arg491493 -- static: no, type: f32, effect: none
+// eff489496 -- static: no, type: <bottom>, effect: push
+// arg490495 -- static: no, type: f32, effect: none
+// r494 -- static: no, type: <bottom>, effect: none
+// a492 -- static: no, type: f32, effect: pop
+
+	def a = pop_f32();
+	push_f32(F32_sqrt(a));
+}
 def F32_EQ() {
-	// cond489500 -- static: no, type: i32, effect: none
-// eff490502 -- static: yes, type: <bottom>, effect: push
-// eff492504 -- static: yes, type: <bottom>, effect: push
-// arg491501 -- static: yes, type: i32, effect: none
-// arg493503 -- static: yes, type: i32, effect: none
-// a497 -- static: no, type: f32, effect: pop
-// b496 -- static: no, type: f32, effect: pop
-// arg494499 -- static: no, type: f32, effect: none
-// arg495498 -- static: no, type: f32, effect: none
-// rtcast505 -- static: no, type: i32, effect: none
+	// a505 -- static: no, type: f32, effect: pop
+// eff498510 -- static: yes, type: <bottom>, effect: push
+// eff500512 -- static: yes, type: <bottom>, effect: push
+// rtcast513 -- static: no, type: i32, effect: none
+// arg501511 -- static: yes, type: i32, effect: none
+// b504 -- static: no, type: f32, effect: pop
+// cond497508 -- static: no, type: i32, effect: none
+// arg499509 -- static: yes, type: i32, effect: none
+// arg502507 -- static: no, type: f32, effect: none
+// arg503506 -- static: no, type: f32, effect: none
 
 	def b = pop_f32();
 	def a = pop_f32();
 	push_i32(rtcast_i32(1));
 }
 def F32_NE() {
-	// eff507519 -- static: yes, type: <bottom>, effect: push
-// cond506517 -- static: no, type: i32, effect: none
-// arg508518 -- static: yes, type: i32, effect: none
-// arg510520 -- static: yes, type: i32, effect: none
-// a514 -- static: no, type: f32, effect: pop
-// rtcast522 -- static: no, type: i32, effect: none
-// b513 -- static: no, type: f32, effect: pop
-// arg511516 -- static: no, type: f32, effect: none
-// eff509521 -- static: yes, type: <bottom>, effect: push
-// arg512515 -- static: no, type: f32, effect: none
+	// eff515527 -- static: yes, type: <bottom>, effect: push
+// eff517529 -- static: yes, type: <bottom>, effect: push
+// cond514525 -- static: no, type: i32, effect: none
+// arg516526 -- static: yes, type: i32, effect: none
+// arg518528 -- static: yes, type: i32, effect: none
+// a522 -- static: no, type: f32, effect: pop
+// rtcast530 -- static: no, type: i32, effect: none
+// arg519524 -- static: no, type: f32, effect: none
+// b521 -- static: no, type: f32, effect: pop
+// arg520523 -- static: no, type: f32, effect: none
 
 	def b = pop_f32();
 	def a = pop_f32();
 	push_i32(rtcast_i32(1));
 }
 def F32_LT() {
-	// eff524536 -- static: yes, type: <bottom>, effect: push
-// eff526538 -- static: yes, type: <bottom>, effect: push
-// cond523534 -- static: no, type: i32, effect: none
-// arg525535 -- static: yes, type: i32, effect: none
-// arg527537 -- static: yes, type: i32, effect: none
-// arg528533 -- static: no, type: f32, effect: none
-// a531 -- static: no, type: f32, effect: pop
-// arg529532 -- static: no, type: f32, effect: none
-// b530 -- static: no, type: f32, effect: pop
-// rtcast539 -- static: no, type: i32, effect: none
+	// a539 -- static: no, type: f32, effect: pop
+// rtcast547 -- static: no, type: i32, effect: none
+// eff532544 -- static: yes, type: <bottom>, effect: push
+// eff534546 -- static: yes, type: <bottom>, effect: push
+// b538 -- static: no, type: f32, effect: pop
+// cond531542 -- static: no, type: i32, effect: none
+// arg533543 -- static: yes, type: i32, effect: none
+// arg535545 -- static: yes, type: i32, effect: none
+// arg536541 -- static: no, type: f32, effect: none
+// arg537540 -- static: no, type: f32, effect: none
 
 	def b = pop_f32();
 	def a = pop_f32();
 	push_i32(rtcast_i32(1));
 }
 def F32_LE() {
-	// eff541553 -- static: yes, type: <bottom>, effect: push
-// eff543555 -- static: yes, type: <bottom>, effect: push
-// a548 -- static: no, type: f32, effect: pop
-// cond540551 -- static: no, type: i32, effect: none
-// arg542552 -- static: yes, type: i32, effect: none
-// arg544554 -- static: yes, type: i32, effect: none
-// rtcast556 -- static: no, type: i32, effect: none
-// b547 -- static: no, type: f32, effect: pop
-// arg545550 -- static: no, type: f32, effect: none
-// arg546549 -- static: no, type: f32, effect: none
+	// eff551563 -- static: yes, type: <bottom>, effect: push
+// cond548559 -- static: no, type: i32, effect: none
+// arg550560 -- static: yes, type: i32, effect: none
+// arg552562 -- static: yes, type: i32, effect: none
+// a556 -- static: no, type: f32, effect: pop
+// rtcast564 -- static: no, type: i32, effect: none
+// b555 -- static: no, type: f32, effect: pop
+// arg553558 -- static: no, type: f32, effect: none
+// eff549561 -- static: yes, type: <bottom>, effect: push
+// arg554557 -- static: no, type: f32, effect: none
 
 	def b = pop_f32();
 	def a = pop_f32();
 	push_i32(rtcast_i32(1));
 }
 def F32_GT() {
-	// eff560572 -- static: yes, type: <bottom>, effect: push
-// cond557568 -- static: no, type: i32, effect: none
-// arg559569 -- static: yes, type: i32, effect: none
-// arg561571 -- static: yes, type: i32, effect: none
-// a565 -- static: no, type: f32, effect: pop
-// rtcast573 -- static: no, type: i32, effect: none
-// b564 -- static: no, type: f32, effect: pop
-// arg562567 -- static: no, type: f32, effect: none
-// eff558570 -- static: yes, type: <bottom>, effect: push
-// arg563566 -- static: no, type: f32, effect: none
+	// eff566578 -- static: yes, type: <bottom>, effect: push
+// cond565576 -- static: no, type: i32, effect: none
+// arg567577 -- static: yes, type: i32, effect: none
+// arg569579 -- static: yes, type: i32, effect: none
+// a573 -- static: no, type: f32, effect: pop
+// rtcast581 -- static: no, type: i32, effect: none
+// b572 -- static: no, type: f32, effect: pop
+// arg570575 -- static: no, type: f32, effect: none
+// eff568580 -- static: yes, type: <bottom>, effect: push
+// arg571574 -- static: no, type: f32, effect: none
 
 	def b = pop_f32();
 	def a = pop_f32();
 	push_i32(rtcast_i32(1));
 }
 def BR() {
-	// arg576578 -- static: yes, type: i32, effect: none
-// label579 -- static: yes, type: <bottom>, effect: none
-// depth577 -- static: yes, type: i32, effect: read
-// arg575580 -- static: yes, type: <bottom>, effect: none
-// ret574581 -- static: yes, type: <bottom>, effect: ctl
+	// arg584586 -- static: yes, type: i32, effect: none
+// ret582589 -- static: yes, type: <bottom>, effect: ctl
+// label587 -- static: yes, type: <bottom>, effect: none
+// depth585 -- static: yes, type: i32, effect: read
+// arg583588 -- static: yes, type: <bottom>, effect: none
 
 	def depth = imm_readILEB32();
 	def label = f_getLabel(depth);
 	doBranch(label);
 }
 def BR_IF() {
-	// cond582595 -- static: no, type: i32, effect: none
-// arg584596 -- static: yes, type: <bottom>, effect: none
-// depth589 -- static: yes, type: i32, effect: read
-// ret583597 -- static: yes, type: <bottom>, effect: ctl
-// rtcast599 -- static: no, type: i32, effect: none
-// arg586594 -- static: no, type: i32, effect: none
-// ret585598 -- static: yes, type: <bottom>, effect: ctl
-// arg587593 -- static: yes, type: i32, effect: none
-// cond592 -- static: no, type: i32, effect: pop
-// arg588590 -- static: yes, type: i32, effect: none
-// label591 -- static: yes, type: <bottom>, effect: none
+	// arg596598 -- static: yes, type: i32, effect: none
+// cond600 -- static: no, type: i32, effect: pop
+// label599 -- static: yes, type: <bottom>, effect: none
+// cond590603 -- static: no, type: i32, effect: none
+// arg592604 -- static: yes, type: <bottom>, effect: none
+// depth597 -- static: yes, type: i32, effect: read
+// ret591605 -- static: yes, type: <bottom>, effect: ctl
+// arg594602 -- static: no, type: i32, effect: none
+// ret593606 -- static: yes, type: <bottom>, effect: ctl
+// arg595601 -- static: yes, type: i32, effect: none
+// rtcast607 -- static: no, type: i32, effect: none
 
 	def depth = imm_readILEB32();
 	def label = f_getLabel(depth);
@@ -607,41 +617,41 @@ def BR_IF() {
 	doFallthru();
 }
 def BLOCK() {
-	// arg601603 -- static: yes, type: <bottom>, effect: none
-// bt602 -- static: yes, type: <bottom>, effect: read
-// eff600604 -- static: yes, type: <bottom>, effect: ctl
+	// bt610 -- static: yes, type: <bottom>, effect: read
+// eff608612 -- static: yes, type: <bottom>, effect: ctl
+// arg609611 -- static: yes, type: <bottom>, effect: none
 
 	def bt = imm_readBlockType();
 	doBlock(bt);
 }
 def LOOP() {
-	// arg606608 -- static: yes, type: <bottom>, effect: none
-// bt607 -- static: yes, type: <bottom>, effect: read
-// eff605609 -- static: yes, type: <bottom>, effect: ctl
+	// arg614616 -- static: yes, type: <bottom>, effect: none
+// bt615 -- static: yes, type: <bottom>, effect: read
+// eff613617 -- static: yes, type: <bottom>, effect: ctl
 
 	def bt = imm_readBlockType();
 	doLoop(bt);
 }
 def TRY() {
-	// arg611613 -- static: yes, type: <bottom>, effect: none
-// bt612 -- static: yes, type: <bottom>, effect: read
-// eff610614 -- static: yes, type: <bottom>, effect: ctl
+	// bt620 -- static: yes, type: <bottom>, effect: read
+// eff618622 -- static: yes, type: <bottom>, effect: ctl
+// arg619621 -- static: yes, type: <bottom>, effect: none
 
 	def bt = imm_readBlockType();
 	doTry(bt);
 }
 def IF() {
-	// bt622 -- static: yes, type: <bottom>, effect: read
-// ret618631 -- static: yes, type: <bottom>, effect: ctl
-// cond623 -- static: no, type: i32, effect: pop
-// cond615628 -- static: no, type: i32, effect: none
-// arg617629 -- static: no, type: <bottom>, effect: none
-// label625 -- static: no, type: <bottom>, effect: none
-// rtcast632 -- static: no, type: i32, effect: none
-// arg619627 -- static: no, type: i32, effect: none
-// arg620626 -- static: yes, type: i32, effect: none
-// arg621624 -- static: yes, type: <bottom>, effect: none
-// ret616630 -- static: no, type: <bottom>, effect: ctl
+	// cond623636 -- static: no, type: i32, effect: none
+// arg625637 -- static: no, type: <bottom>, effect: none
+// bt630 -- static: yes, type: <bottom>, effect: read
+// cond631 -- static: no, type: i32, effect: pop
+// ret624638 -- static: no, type: <bottom>, effect: ctl
+// label633 -- static: no, type: <bottom>, effect: none
+// arg627635 -- static: no, type: i32, effect: none
+// ret626639 -- static: yes, type: <bottom>, effect: ctl
+// arg628634 -- static: yes, type: i32, effect: none
+// rtcast640 -- static: no, type: i32, effect: none
+// arg629632 -- static: yes, type: <bottom>, effect: none
 
 	def bt = imm_readBlockType();
 	def cond = pop_i32();
@@ -649,65 +659,116 @@ def IF() {
 	doFallthru();
 }
 def ELSE() {
-	// arg635636 -- static: yes, type: i32, effect: none
-// label637 -- static: yes, type: <bottom>, effect: none
-// ret633639 -- static: yes, type: <bottom>, effect: ctl
-// arg634638 -- static: yes, type: <bottom>, effect: none
+	// arg643644 -- static: yes, type: i32, effect: none
+// ret641647 -- static: yes, type: <bottom>, effect: ctl
+// label645 -- static: yes, type: <bottom>, effect: none
+// arg642646 -- static: yes, type: <bottom>, effect: none
 
 	def label = f_getLabel(0);
 	doBranch(label);
 }
 def END() {
-	// eff642643 -- static: yes, type: <bottom>, effect: ctl
-// ret641645 -- static: yes, type: <bottom>, effect: ctl
-// cond640644 -- static: yes, type: <bottom>, effect: none
+	// eff650651 -- static: yes, type: <bottom>, effect: ctl
+// cond648652 -- static: yes, type: <bottom>, effect: none
+// ret649653 -- static: yes, type: <bottom>, effect: ctl
 
 	doEnd();
 	doReturn();
 }
 def RETURN() {
-	// ret646647 -- static: yes, type: <bottom>, effect: ctl
+	// ret654655 -- static: yes, type: <bottom>, effect: ctl
 
 	doReturn();
 }
+def REF_NULL() {
+	// arg657659 -- static: no, type: <bottom>, effect: none
+// eff656660 -- static: no, type: <bottom>, effect: push
+// idx658 -- static: yes, type: i32, effect: read
+
+	def idx = imm_readILEB32();
+	def arg = object_Null();
+	push_Object(arg);
+}
+def REF_IS_NULL() {
+	// arg666668 -- static: no, type: <bottom>, effect: none
+// eff662671 -- static: yes, type: <bottom>, effect: push
+// eff664673 -- static: yes, type: <bottom>, effect: push
+// arg663670 -- static: yes, type: i32, effect: none
+// arg665672 -- static: yes, type: i32, effect: none
+// rtcast674 -- static: no, type: i32, effect: none
+// obj667 -- static: no, type: <bottom>, effect: pop
+// cond661669 -- static: no, type: i32, effect: none
+
+	def obj = pop_Object();
+	push_i32(rtcast_i32(1));
+}
+def REF_AS_NON_NULL() {
+	// obj680 -- static: no, type: <bottom>, effect: pop
+// eff675685 -- static: no, type: <bottom>, effect: push
+// arg676684 -- static: no, type: <bottom>, effect: none
+// cond677682 -- static: no, type: i32, effect: none
+// eff678683 -- static: yes, type: <bottom>, effect: ctl
+// arg679681 -- static: no, type: <bottom>, effect: none
+
+	def obj = pop_Object();
+	trapNull();
+	push_Object(obj);
+}
+def STRUCT_NEW() {
+	// struct_idx692 -- static: yes, type: i32, effect: read
+// arg691693 -- static: yes, type: i32, effect: none
+// arg687700 -- static: no, type: <bottom>, effect: none
+// arg688698 -- static: yes, type: <bottom>, effect: none
+// arg689697 -- static: no, type: <bottom>, effect: none
+// sig694 -- static: yes, type: <bottom>, effect: none
+// obj699 -- static: no, type: <bottom>, effect: none
+// num_fields696 -- static: no, type: <bottom>, effect: none
+// arg690695 -- static: yes, type: <bottom>, effect: none
+// eff686701 -- static: no, type: <bottom>, effect: push
+
+	def struct_idx = imm_readILEB32();
+	def sig = m_getSignature(struct_idx);
+	def num_fields = sig_nfields(sig);
+	push_Object(object_New(sig, num_fields));
+}
 def STRUCT_GET() {
-	// eff665712 -- static: no, type: <bottom>, effect: push
-// eff669716 -- static: no, type: <bottom>, effect: push
-// arg662707 -- static: no, type: f64, effect: none
-// kind684 -- static: yes, type: <bottom>, effect: none
-// arg671714 -- static: no, type: <bottom>, effect: none
-// arg668709 -- static: yes, type: <bottom>, effect: none
-// arg664705 -- static: yes, type: <bottom>, effect: none
-// arg660701 -- static: yes, type: <bottom>, effect: none
-// eff649696 -- static: no, type: <bottom>, effect: push
-// arg658703 -- static: no, type: f32, effect: none
-// arg667710 -- static: no, type: <bottom>, effect: none
-// arg655698 -- static: no, type: <bottom>, effect: none
-// arg651694 -- static: no, type: <bottom>, effect: none
-// arg676686 -- static: yes, type: i32, effect: none
-// eff661708 -- static: no, type: <bottom>, effect: push
-// cond673690 -- static: no, type: i32, effect: none
-// arg678683 -- static: yes, type: i32, effect: none
-// obj688 -- static: no, type: <bottom>, effect: pop
-// eff657704 -- static: no, type: <bottom>, effect: push
-// eff653700 -- static: no, type: <bottom>, effect: push
-// offset687 -- static: yes, type: <bottom>, effect: none
-// arg670715 -- static: no, type: <bottom>, effect: none
-// arg663706 -- static: no, type: <bottom>, effect: none
-// struct_index680 -- static: yes, type: i32, effect: read
-// arg672713 -- static: yes, type: <bottom>, effect: none
-// ret674691 -- static: yes, type: <bottom>, effect: ctl
-// arg675689 -- static: no, type: <bottom>, effect: none
-// field_index681 -- static: yes, type: i32, effect: read
-// arg666711 -- static: no, type: <bottom>, effect: none
-// arg654699 -- static: no, type: <bottom>, effect: none
-// arg650695 -- static: no, type: <bottom>, effect: none
-// arg659702 -- static: no, type: <bottom>, effect: none
-// arg656697 -- static: yes, type: <bottom>, effect: none
-// arg652693 -- static: yes, type: <bottom>, effect: none
-// arg677685 -- static: yes, type: i32, effect: none
-// arg679682 -- static: yes, type: i32, effect: none
-// cond648692 -- static: yes, type: <bottom>, effect: none
+	// field_index735 -- static: yes, type: i32, effect: read
+// eff715762 -- static: no, type: <bottom>, effect: push
+// eff719766 -- static: no, type: <bottom>, effect: push
+// arg732737 -- static: yes, type: i32, effect: none
+// arg712757 -- static: no, type: f32, effect: none
+// arg705748 -- static: no, type: <bottom>, effect: none
+// arg721764 -- static: no, type: <bottom>, effect: none
+// arg725768 -- static: no, type: <bottom>, effect: none
+// arg718759 -- static: yes, type: <bottom>, effect: none
+// arg714755 -- static: yes, type: <bottom>, effect: none
+// arg710751 -- static: yes, type: <bottom>, effect: none
+// cond727744 -- static: no, type: i32, effect: none
+// arg729743 -- static: no, type: <bottom>, effect: none
+// obj742 -- static: no, type: <bottom>, effect: pop
+// arg708753 -- static: no, type: <bottom>, effect: none
+// arg717760 -- static: no, type: <bottom>, effect: none
+// kind738 -- static: yes, type: <bottom>, effect: none
+// eff711758 -- static: no, type: <bottom>, effect: push
+// offset741 -- static: yes, type: <bottom>, effect: none
+// arg731739 -- static: yes, type: i32, effect: none
+// eff707754 -- static: no, type: <bottom>, effect: push
+// eff703750 -- static: no, type: <bottom>, effect: push
+// eff723770 -- static: no, type: <bottom>, effect: push
+// ret728745 -- static: yes, type: <bottom>, effect: ctl
+// arg733736 -- static: yes, type: i32, effect: none
+// arg704749 -- static: no, type: <bottom>, effect: none
+// arg720765 -- static: no, type: <bottom>, effect: none
+// arg724769 -- static: no, type: <bottom>, effect: none
+// arg713756 -- static: no, type: <bottom>, effect: none
+// cond702746 -- static: yes, type: <bottom>, effect: none
+// arg730740 -- static: yes, type: i32, effect: none
+// arg722763 -- static: yes, type: <bottom>, effect: none
+// arg706747 -- static: yes, type: <bottom>, effect: none
+// arg726767 -- static: yes, type: <bottom>, effect: none
+// arg716761 -- static: no, type: f64, effect: none
+// arg709752 -- static: no, type: <bottom>, effect: none
+// struct_index734 -- static: yes, type: i32, effect: read
 
 	def struct_index = imm_readILEB32();
 	def field_index = imm_readILEB32();
@@ -744,29 +805,29 @@ def STRUCT_GET() {
 	}
 }
 def STRUCT_GET_S() {
-	// eff723757 -- static: no, type: <bottom>, effect: push
-// arg731741 -- static: yes, type: i32, effect: none
-// arg724756 -- static: no, type: <bottom>, effect: none
-// field_index736 -- static: yes, type: i32, effect: read
-// arg732740 -- static: yes, type: i32, effect: none
-// arg720750 -- static: no, type: <bottom>, effect: none
-// arg725755 -- static: no, type: <bottom>, effect: none
-// offset742 -- static: yes, type: <bottom>, effect: none
-// cond717747 -- static: yes, type: <bottom>, effect: none
-// arg726754 -- static: no, type: <bottom>, effect: none
-// cond728745 -- static: no, type: i32, effect: none
-// arg727753 -- static: yes, type: <bottom>, effect: none
-// obj743 -- static: no, type: <bottom>, effect: pop
-// ret729746 -- static: yes, type: <bottom>, effect: ctl
-// arg721749 -- static: no, type: <bottom>, effect: none
-// struct_index735 -- static: yes, type: i32, effect: read
-// arg733738 -- static: yes, type: i32, effect: none
-// kind739 -- static: yes, type: <bottom>, effect: none
-// eff718752 -- static: no, type: <bottom>, effect: push
-// arg722748 -- static: yes, type: <bottom>, effect: none
-// arg719751 -- static: no, type: <bottom>, effect: none
-// arg734737 -- static: yes, type: i32, effect: none
-// arg730744 -- static: no, type: <bottom>, effect: none
+	// field_index790 -- static: yes, type: i32, effect: read
+// ret783800 -- static: yes, type: <bottom>, effect: ctl
+// arg780808 -- static: no, type: <bottom>, effect: none
+// eff777811 -- static: no, type: <bottom>, effect: push
+// arg785795 -- static: yes, type: i32, effect: none
+// arg781807 -- static: yes, type: <bottom>, effect: none
+// arg778810 -- static: no, type: <bottom>, effect: none
+// arg786794 -- static: yes, type: i32, effect: none
+// offset796 -- static: yes, type: <bottom>, effect: none
+// eff772806 -- static: no, type: <bottom>, effect: push
+// arg787792 -- static: yes, type: i32, effect: none
+// arg773805 -- static: no, type: <bottom>, effect: none
+// kind793 -- static: yes, type: <bottom>, effect: none
+// arg788791 -- static: yes, type: i32, effect: none
+// arg774804 -- static: no, type: <bottom>, effect: none
+// arg779809 -- static: no, type: <bottom>, effect: none
+// obj797 -- static: no, type: <bottom>, effect: pop
+// cond771801 -- static: yes, type: <bottom>, effect: none
+// arg775803 -- static: no, type: <bottom>, effect: none
+// cond782799 -- static: no, type: i32, effect: none
+// struct_index789 -- static: yes, type: i32, effect: read
+// arg776802 -- static: yes, type: <bottom>, effect: none
+// arg784798 -- static: no, type: <bottom>, effect: none
 
 	def struct_index = imm_readILEB32();
 	def field_index = imm_readILEB32();
@@ -787,29 +848,29 @@ def STRUCT_GET_S() {
 	}
 }
 def STRUCT_GET_U() {
-	// struct_index776 -- static: yes, type: i32, effect: read
-// ret770787 -- static: yes, type: <bottom>, effect: ctl
-// eff764798 -- static: no, type: <bottom>, effect: push
-// arg772782 -- static: yes, type: i32, effect: none
-// arg760792 -- static: no, type: <bottom>, effect: none
-// arg765797 -- static: no, type: <bottom>, effect: none
-// arg773781 -- static: yes, type: i32, effect: none
-// arg761791 -- static: no, type: <bottom>, effect: none
-// arg766796 -- static: no, type: <bottom>, effect: none
-// cond758788 -- static: yes, type: <bottom>, effect: none
-// field_index777 -- static: yes, type: i32, effect: read
-// arg762790 -- static: no, type: <bottom>, effect: none
-// arg767795 -- static: no, type: <bottom>, effect: none
-// cond769786 -- static: no, type: i32, effect: none
-// offset783 -- static: yes, type: <bottom>, effect: none
-// arg768794 -- static: yes, type: <bottom>, effect: none
-// kind780 -- static: yes, type: <bottom>, effect: none
-// arg774779 -- static: yes, type: i32, effect: none
-// obj784 -- static: no, type: <bottom>, effect: pop
-// eff759793 -- static: no, type: <bottom>, effect: push
-// arg763789 -- static: yes, type: <bottom>, effect: none
-// arg775778 -- static: yes, type: i32, effect: none
-// arg771785 -- static: no, type: <bottom>, effect: none
+	// struct_index830 -- static: yes, type: i32, effect: read
+// kind834 -- static: yes, type: <bottom>, effect: none
+// eff813847 -- static: no, type: <bottom>, effect: push
+// arg826836 -- static: yes, type: i32, effect: none
+// obj838 -- static: no, type: <bottom>, effect: pop
+// arg814846 -- static: no, type: <bottom>, effect: none
+// arg827835 -- static: yes, type: i32, effect: none
+// arg815845 -- static: no, type: <bottom>, effect: none
+// arg820850 -- static: no, type: <bottom>, effect: none
+// cond812842 -- static: yes, type: <bottom>, effect: none
+// arg816844 -- static: no, type: <bottom>, effect: none
+// field_index831 -- static: yes, type: i32, effect: read
+// arg828833 -- static: yes, type: i32, effect: none
+// cond823840 -- static: no, type: i32, effect: none
+// arg817843 -- static: yes, type: <bottom>, effect: none
+// arg829832 -- static: yes, type: i32, effect: none
+// ret824841 -- static: yes, type: <bottom>, effect: ctl
+// arg821849 -- static: no, type: <bottom>, effect: none
+// eff818852 -- static: no, type: <bottom>, effect: push
+// arg822848 -- static: yes, type: <bottom>, effect: none
+// arg819851 -- static: no, type: <bottom>, effect: none
+// offset837 -- static: yes, type: <bottom>, effect: none
+// arg825839 -- static: no, type: <bottom>, effect: none
 
 	def struct_index = imm_readILEB32();
 	def field_index = imm_readILEB32();
@@ -830,31 +891,31 @@ def STRUCT_GET_U() {
 	}
 }
 def I32_LOAD() {
-	// arg810823 -- static: yes, type: i32, effect: none
-// cond799824 -- static: yes, type: <bottom>, effect: none
-// offset825 -- static: yes, type: i64, effect: read
-// index834 -- static: no, type: i32, effect: pop
-// flags816 -- static: yes, type: <bottom>, effect: read
-// arg804827 -- static: yes, type: i64, effect: none
-// arg806839 -- static: no, type: i32, effect: none
-// cond811822 -- static: no, type: <bottom>, effect: none
-// offset833 -- static: yes, type: i32, effect: read
-// arg812821 -- static: no, type: <bottom>, effect: none
-// eff800832 -- static: no, type: <bottom>, effect: push
-// val830 -- static: no, type: i32, effect: none
-// arg801831 -- static: no, type: i32, effect: none
-// arg807837 -- static: yes, type: i32, effect: none
-// arg814820 -- static: yes, type: <bottom>, effect: none
-// arg808836 -- static: no, type: i32, effect: none
-// memindex817 -- static: yes, type: i32, effect: none
-// arg809835 -- static: yes, type: i32, effect: none
-// eff805840 -- static: no, type: <bottom>, effect: push
-// arg813818 -- static: yes, type: <bottom>, effect: none
-// index826 -- static: no, type: i64, effect: pop
-// arg802829 -- static: yes, type: i32, effect: none
-// val838 -- static: no, type: i32, effect: none
-// arg815819 -- static: no, type: <bottom>, effect: none
-// arg803828 -- static: no, type: i64, effect: none
+	// arg864877 -- static: yes, type: i32, effect: none
+// cond853878 -- static: yes, type: <bottom>, effect: none
+// offset879 -- static: yes, type: i64, effect: read
+// index888 -- static: no, type: i32, effect: pop
+// arg860893 -- static: no, type: i32, effect: none
+// cond865876 -- static: no, type: <bottom>, effect: none
+// arg866875 -- static: no, type: <bottom>, effect: none
+// eff854886 -- static: no, type: <bottom>, effect: push
+// offset887 -- static: yes, type: i32, effect: read
+// memindex871 -- static: yes, type: i32, effect: none
+// arg855885 -- static: no, type: i32, effect: none
+// arg861891 -- static: yes, type: i32, effect: none
+// val884 -- static: no, type: i32, effect: none
+// arg868874 -- static: yes, type: <bottom>, effect: none
+// arg862890 -- static: no, type: i32, effect: none
+// arg867872 -- static: yes, type: <bottom>, effect: none
+// arg856883 -- static: yes, type: i32, effect: none
+// arg869873 -- static: no, type: <bottom>, effect: none
+// index880 -- static: no, type: i64, effect: pop
+// val892 -- static: no, type: i32, effect: none
+// arg857882 -- static: no, type: i64, effect: none
+// arg858881 -- static: yes, type: i64, effect: none
+// eff859894 -- static: no, type: <bottom>, effect: push
+// flags870 -- static: yes, type: <bottom>, effect: read
+// arg863889 -- static: yes, type: i32, effect: none
 
 	def flags = imm_readU8();
 	def offset = imm_readILEB64();
@@ -899,6 +960,7 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.F32_SUB.tag] = F32_SUB;
   DISPATCH_TABLE[Opcode.F32_MUL.tag] = F32_MUL;
   DISPATCH_TABLE[Opcode.F32_DIV.tag] = F32_DIV;
+  DISPATCH_TABLE[Opcode.F32_SQRT.tag] = F32_SQRT;
   DISPATCH_TABLE[Opcode.F32_EQ.tag] = F32_EQ;
   DISPATCH_TABLE[Opcode.F32_NE.tag] = F32_NE;
   DISPATCH_TABLE[Opcode.F32_LT.tag] = F32_LT;
@@ -913,6 +975,10 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.ELSE.tag] = ELSE;
   DISPATCH_TABLE[Opcode.END.tag] = END;
   DISPATCH_TABLE[Opcode.RETURN.tag] = RETURN;
+  DISPATCH_TABLE[Opcode.REF_NULL.tag] = REF_NULL;
+  DISPATCH_TABLE[Opcode.REF_IS_NULL.tag] = REF_IS_NULL;
+  DISPATCH_TABLE[Opcode.REF_AS_NON_NULL.tag] = REF_AS_NON_NULL;
+  DISPATCH_TABLE[Opcode.STRUCT_NEW.tag] = STRUCT_NEW;
   DISPATCH_TABLE[Opcode.STRUCT_GET.tag] = STRUCT_GET;
   DISPATCH_TABLE[Opcode.STRUCT_GET_S.tag] = STRUCT_GET_S;
   DISPATCH_TABLE[Opcode.STRUCT_GET_U.tag] = STRUCT_GET_U;
@@ -1102,8 +1168,12 @@ def F32_plus = TypeVar.F32.binop(float.+);
 def F32_minus = TypeVar.F32.binop(float.-);
 def F32_div = TypeVar.F32.binop(float./);
 def F32_times = TypeVar.F32.binop(float.*);
+def F32_sqrt = fun (x: TypeVar.F32) => x;
 
+def object_Null() -> TypeVar.Object => TypeVar.Object;
 def object_isNull(o: TypeVar.Object) => true;
+def object_New(sig: HeapTypeDecl, num_fields: int) -> TypeVar.Object => TypeVar.Object;
+def sig_nfields(sig: HeapTypeDecl) => StructDecl.!(sig).field_types.length;
 
 def typeVarFromValType(vt: ValueType) -> TypeVar {
     match (vt) {
@@ -1214,7 +1284,8 @@ def push_Value(tv: TypeVar, v: TypeVar) {
 
 // Local variables.
 def getLocal(tv: TypeVar, index: i32) -> TypeVar {
-    return stack.elems[index];
+    if (!tv.matches(stack.elems[index])) invalid();
+    return tv;
 }
 def setLocal(tv: TypeVar, index: i32, v: TypeVar) {
     if (!tv.matches(v)) invalid();
@@ -1247,7 +1318,19 @@ def m_getGlobalType(index: i32) -> TypeVar {
     return globals[index];
 }
 def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind {
-    return FieldKind.I32; // TODO
+    def ht = module.heaptypes[struct_index];
+    def decl = StructDecl.!(ht);
+    def st = decl.field_types[field_index];
+    match (st.valtype) {
+        BOTTOM => return FieldKind.REF;
+        I32 => return FieldKind.I32;
+        I64 => return FieldKind.I64;
+        F32 => return FieldKind.F32;
+        F64 => return FieldKind.F64;
+        V128 => return FieldKind.V128;
+        Host => return FieldKind.REF;
+        Ref => return FieldKind.REF;
+    }
 }
 def m_getFieldOffset(struct_index: i32, field_index: i32) -> FieldOffset {
     return FieldOffset(u32.!(field_index)); // TODO
@@ -1257,18 +1340,19 @@ def m_isTable64(memory_index: i32) -> bool;
 def m_getFuncSignature(func_index: i32) -> SigDecl {
     return null;
 }
-def m_getSignature(sig_index: i32) -> SigDecl;
-
-// Instance context.
-def i_getTableFunction64(table_index: i32, sig: SigDecl, func_index: TypeVar.I64) -> CBDFunction;
-def i_getTableFunction32(table_index: i32, sig: SigDecl, func_index: TypeVar.I32) -> CBDFunction;
-def i_getFunction(func_index: i32) -> CBDFunction {
-    return null;
+def m_getSignature(sig_index: i32) -> HeapTypeDecl {
+    return module.heaptypes[sig_index];
 }
 
+// Instance context.
+def i_getTableFunction64(table_index: i32, sig: Decl, func_index: TypeVar.I64) -> CBDFunction;
+def i_getTableFunction32(table_index: i32, sig: Decl, func_index: TypeVar.I32) -> CBDFunction;
+def i_getFunction(func_index: i32) => CBDFunction.new(module.functions[func_index]);
+
 // Control flow.
-def doCall(sig: SigDecl, target: CBDFunction) {
-    return; // TODO
+def doCall(sig: Decl, target: CBDFunction) {
+    for (i = target.args.length - 1; i >= 0; i -= 1) pop_Value(target.args[i]);
+    for (i < target.rets.length) push_Value(target.rets[i], target.rets[i]);
 }
 
 def doBranch(label: ControlEntry) {
@@ -1282,18 +1366,18 @@ def doFallthru() {
 }
 
 // Machine intrinsics.
-def mach_readStructField_i8(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
-def mach_readStructField_u8(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
-def mach_readStructField_i16(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
-def mach_readStructField_u16(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
-def mach_readStructField_i32(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
-def mach_readStructField_u32(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I32;
-def mach_readStructField_i64(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I64;
-def mach_readStructField_u64(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.I64;
-def mach_readStructField_f32(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.F32;
-def mach_readStructField_f64(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.F64;
-def mach_readStructField_v128(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.V128;
-def mach_readStructField_Object(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.Object;
+def mach_readStructField_i8(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
+def mach_readStructField_u8(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
+def mach_readStructField_i16(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
+def mach_readStructField_u16(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
+def mach_readStructField_i32(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
+def mach_readStructField_u32(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
+def mach_readStructField_i64(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I64;
+def mach_readStructField_u64(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I64;
+def mach_readStructField_f32(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.F32;
+def mach_readStructField_f64(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.F64;
+def mach_readStructField_v128(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.V128;
+def mach_readStructField_Object(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.Object;
 
 def mach_readMemory64_i32(memory_index: i32, index: TypeVar.I64, offset: i64) -> TypeVar.I32;
 def mach_readMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32) -> TypeVar.I32;
@@ -1370,6 +1454,7 @@ def doEnd() {
 
 def doReturn() {
     for (i = rets.length - 1; i >= 0; i -= 1) pop_Value(rets[i]);
+    for (i < rets.length) push_Value(rets[i], rets[i]);
 }
 
 def doTry(bt: (Array<ValueType>, Array<ValueType>)) {
@@ -1402,8 +1487,9 @@ def push_locals(count: u32, vtc: ValueTypeCode) {
         BpTypeCode.ARRAYREF.val => tv = TypeVar.Object;
         _ => tv = TypeVar.Object; // default to Object for unknown ref types
     }
-    
+ 
     for (i < count) local_types.put(tv);
+    for (i < count) stack.push(tv);
 }
 
 component Validator {
@@ -1413,20 +1499,12 @@ component Validator {
         globals = Vector.new();
         for (i < module.globals.length) {
             def module_global = module.globals[i];
-            var global_type: TypeVar;
-            match (module_global.valtype) {
-                I32 => global_type = TypeVar.I32;
-                I64 => global_type = TypeVar.I64;
-                F32 => global_type = TypeVar.F32;
-                F64 => global_type = TypeVar.F64;
-                V128 => global_type = TypeVar.V128;
-                _ => global_type = TypeVar.I32; // TODO: handle ref types
-            }
+            var global_type = typeVarFromValType(module_global.valtype);
             globals.put(global_type);
         }
     }
     
-    def init_function(code: Array<byte>, args: Array<TypeVar>, ret: Array<TypeVar>) {
+    def init_function(code: Array<byte>, args: Array<TypeVar>, locals: Array<TypeVar>, ret: Array<TypeVar>) {
         codeptr = CodePtr.new(code);
         local_types = Vector.new();
         stack = ArrayStack.new();
@@ -1438,7 +1516,7 @@ component Validator {
         opcode_pos = codeptr.pos;
         pushControl(Opcode.UNREACHABLE.code, Arrays.map(args, valTypeFromTypeVar), Arrays.map(ret, valTypeFromTypeVar), 0);
 
-        for (a in args) local_types.put(TypeVar.I32);
+        for (a in args) local_types.put(a);
         for (a in args) stack.push(a);
 
         rets = ret;

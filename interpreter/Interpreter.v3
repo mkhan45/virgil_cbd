@@ -220,6 +220,10 @@ def F32_DIV() {
 	}
 	push_f32(float./(a, b));
 }
+def F32_SQRT() {
+	def a = pop_f32();
+	push_f32(float.sqrt(a));
+}
 def F32_EQ() {
 	def b = pop_f32();
 	def a = pop_f32();
@@ -313,6 +317,34 @@ def END() {
 }
 def RETURN() {
 	doReturn();
+}
+def REF_NULL() {
+	def idx = imm_readILEB32();
+	def arg = object_Null();
+	push_Object(arg);
+}
+def REF_IS_NULL() {
+	def obj = pop_Object();
+	def cond = object_isNull(obj);
+	if (cond) {
+		push_i32(1);
+	} else {
+		push_i32(0);
+	}
+}
+def REF_AS_NON_NULL() {
+	def obj = pop_Object();
+	def cond = object_isNull(obj);
+	if (cond) {
+		trapNull();
+	}
+	push_Object(obj);
+}
+def STRUCT_NEW() {
+	def struct_idx = imm_readILEB32();
+	def sig = m_getSignature(struct_idx);
+	def num_fields = sig_nfields(sig);
+	push_Object(object_New(sig, num_fields));
 }
 def STRUCT_GET() {
 	def struct_index = imm_readILEB32();
@@ -446,6 +478,7 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.F32_SUB.tag] = F32_SUB;
   DISPATCH_TABLE[Opcode.F32_MUL.tag] = F32_MUL;
   DISPATCH_TABLE[Opcode.F32_DIV.tag] = F32_DIV;
+  DISPATCH_TABLE[Opcode.F32_SQRT.tag] = F32_SQRT;
   DISPATCH_TABLE[Opcode.F32_EQ.tag] = F32_EQ;
   DISPATCH_TABLE[Opcode.F32_NE.tag] = F32_NE;
   DISPATCH_TABLE[Opcode.F32_LT.tag] = F32_LT;
@@ -460,6 +493,10 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.ELSE.tag] = ELSE;
   DISPATCH_TABLE[Opcode.END.tag] = END;
   DISPATCH_TABLE[Opcode.RETURN.tag] = RETURN;
+  DISPATCH_TABLE[Opcode.REF_NULL.tag] = REF_NULL;
+  DISPATCH_TABLE[Opcode.REF_IS_NULL.tag] = REF_IS_NULL;
+  DISPATCH_TABLE[Opcode.REF_AS_NON_NULL.tag] = REF_AS_NON_NULL;
+  DISPATCH_TABLE[Opcode.STRUCT_NEW.tag] = STRUCT_NEW;
   DISPATCH_TABLE[Opcode.STRUCT_GET.tag] = STRUCT_GET;
   DISPATCH_TABLE[Opcode.STRUCT_GET_S.tag] = STRUCT_GET_S;
   DISPATCH_TABLE[Opcode.STRUCT_GET_U.tag] = STRUCT_GET_U;
@@ -554,7 +591,7 @@ def push_f64(v: double) {
 }
 def push_v128(v: v128);
 def push_Object(v: Object) {
-    stack.push(Values.box<Object>(v));
+    stack.push(Value.Ref(v));
 }
 def push_Value(tv: (), v: Value) {
     stack.push(v);
@@ -576,10 +613,6 @@ def setGlobal(tv: (), index: i32, v: Value) {
     globals[index] = v;
 }
 
-def object_isNull(obj: Object) -> bool {
-    return false; // TODO
-}
-
 // CBDFunction context.
 
 // XXX: is a label always a SidetableBrEntry?
@@ -599,24 +632,42 @@ def f_getTopOfStackType() -> () {
 def m_getGlobalType(index: i32) -> () {
     return ();
 }
-def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind;
-def m_getFieldOffset(struct_index: i32, field_index: i32) -> FieldOffset;
+def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind {
+    def ht = module.heaptypes[struct_index];
+    def decl = StructDecl.!(ht);
+    def st = decl.field_types[field_index];
+    match (st.valtype) {
+        BOTTOM => return FieldKind.REF;
+        I32 => return FieldKind.I32;
+        I64 => return FieldKind.I64;
+        F32 => return FieldKind.F32;
+        F64 => return FieldKind.F64;
+        V128 => return FieldKind.V128;
+        Host => return FieldKind.REF;
+        Ref => return FieldKind.REF;
+    }
+}
+def m_getFieldOffset(struct_index: i32, field_index: i32) -> FieldOffset {
+    return FieldOffset(u32.!(field_index)); // TODO
+}
 def m_isMemory64(memory_index: i32) -> bool;
 def m_isTable64(memory_index: i32) -> bool;
 def m_getFuncSignature(func_index: i32) -> SigDecl {
     return null; // already in CBDFunction, TODO: refactor
 }
-def m_getSignature(sig_index: i32) -> SigDecl;
+def m_getSignature(sig_index: i32) -> HeapTypeDecl {
+    return module.heaptypes[sig_index];
+}
 
 // Instance context.
-def i_getTableFunction64(table_index: i32, sig: SigDecl, func_index: i64) -> CBDFunction;
-def i_getTableFunction32(table_index: i32, sig: SigDecl, func_index: i32) -> CBDFunction;
+def i_getTableFunction64(table_index: i32, sig: HeapTypeDecl, func_index: i64) -> CBDFunction;
+def i_getTableFunction32(table_index: i32, sig: HeapTypeDecl, func_index: i32) -> CBDFunction;
 def i_getFunction(func_index: i32) -> CBDFunction {
     return functions[int.!(func_index)];
 }
 
 // Control flow.
-def doCall(sig: SigDecl, target: CBDFunction) {
+def doCall(sig: Decl, target: CBDFunction) {
     def new_frame = Frame.new(current_frame, target);
     current_frame = new_frame;
     current_frame.codeptr.iterate_local_codes(push_locals);
@@ -641,14 +692,36 @@ def mach_readStructField_i8(obj: Object, offset: FieldOffset) -> i8;
 def mach_readStructField_u8(obj: Object, offset: FieldOffset) -> u8;
 def mach_readStructField_i16(obj: Object, offset: FieldOffset) -> i16;
 def mach_readStructField_u16(obj: Object, offset: FieldOffset) -> u16;
-def mach_readStructField_i32(obj: Object, offset: FieldOffset) -> i32;
+def mach_readStructField_i32(obj: Object, offset: FieldOffset) -> i32 {
+    def s = HeapStruct.!(obj);
+    return Values.unbox_i(s.vals[offset.offset]);
+}
 def mach_readStructField_u32(obj: Object, offset: FieldOffset) -> i32;
 def mach_readStructField_i64(obj: Object, offset: FieldOffset) -> i64;
 def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> i64;
 def mach_readStructField_f32(obj: Object, offset: FieldOffset) -> float;
 def mach_readStructField_f64(obj: Object, offset: FieldOffset) -> double;
 def mach_readStructField_v128(obj: Object, offset: FieldOffset) -> v128;
-def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> Object;
+def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> Object {
+    def s = HeapStruct.!(obj);
+    def r = Value.Ref.!(s.vals[offset.offset]);
+    return r.val;
+}
+
+// XXX: should Object always be HeapObject?
+def object_Null() -> Object => null;
+def object_isNull(o: Object) => o == null;
+def sig_nfields(sig: HeapTypeDecl) => StructDecl.!(sig).field_types.length;
+// should see how much we can leverage Runtime.v3
+def object_New(sig: HeapTypeDecl, num_fields: int) -> Object {
+    def decl = StructDecl.!(sig);
+    def fields = Array<Value>.new(decl.field_types.length);
+    for (i = num_fields - 1; i >= 0; i -= 1) {
+        fields[i] = pop_Value(());
+    }
+    return HeapStruct.new(decl, fields);
+}
+
 
 def mach_readMemory64_i32(memory_index: i32, index: i64, offset: i64) -> i32;
 def mach_readMemory32_i32(memory_index: i32, index: i32, offset: i32) -> i32;
@@ -729,7 +802,7 @@ component Interpreter {
         
         for (i < functions.length) {
             def fn = functions[i];
-            Validator.init_function(fn.code, fn.locals.copy(), fn.rets.copy());
+            Validator.init_function(fn.code, fn.args.copy(), fn.locals.copy(), fn.rets.copy());
             Validator.dispatch();
             fn.sidetable = Validator.build_sidetable();
             System.puts("validated ");
@@ -770,10 +843,7 @@ component Interpreter {
     def print_stack() {
         System.puts("[");
         for (i < stack.top) {
-            match (stack.elems[i]) {
-                I32(i) => System.puti(i32.!(i));
-                _ => {}
-            }
+            System.puts(StringBuilder.new().putq(Values.render(stack.elems[i], _)).toString());
             if (i < stack.top - 1) System.puts(" ");
         }
         System.puts("]\n");
