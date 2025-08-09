@@ -256,4 +256,27 @@ component IntrinsicTypes {
             return Stage.VALIDATE;
         }
     }
+
+    def split_op(op: string) -> (ValueType, string) {
+        def sp = Strings.splitOnChar(op, byte.==(_, '.'), 1);
+        def tp_str = sp[0];
+        def op_str = sp[1];
+        var prose_op: string;
+        if (Strings.endsWith(op_str, "==")) prose_op = "equals";
+        if (Strings.endsWith(op_str, "!=")) prose_op = "not_equals";
+        if (Strings.endsWith(op_str, "/")) prose_op = "div";
+        if (Strings.endsWith(op_str, "&&")) prose_op = "and";
+        if (Strings.endsWith(op_str, "&")) prose_op = "and";
+        if (Strings.endsWith(op_str, "+")) prose_op = "plus";
+        if (Strings.endsWith(op_str, "-")) prose_op = "minus";
+        if (Strings.endsWith(op_str, "<")) prose_op = "lt";
+        if (Strings.endsWith(op_str, "<=")) prose_op = "lte";
+        if (Strings.endsWith(op_str, ">")) prose_op = "gt";
+        if (Strings.endsWith(op_str, "*")) prose_op = "times";
+        if (Strings.endsWith(op_str, "view")) prose_op = "view";
+        if (prose_op == null) System.puts(op_str);
+
+        def tp = TypeUtil.fromString(tp_str);
+        return (tp, prose_op);
+    }
 }

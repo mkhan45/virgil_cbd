@@ -150,7 +150,7 @@ component TierGen {
 
             dispatch_builder.puts("  DISPATCH_TABLE[Opcode.");
             dispatch_builder.puts(extracted_def.opcode);
-            dispatch_builder.puts(".code] = ");
+            dispatch_builder.puts(".tag] = ");
             dispatch_builder.puts(extracted_def.opcode);
             dispatch_builder.puts(";\n");
         }

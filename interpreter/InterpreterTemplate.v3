@@ -108,6 +108,10 @@ def setGlobal(tv: (), index: i32, v: Value) {
     globals[index] = v;
 }
 
+def object_isNull(obj: Object) -> bool {
+    return false; // TODO
+}
+
 // CBDFunction context.
 
 // XXX: is a label always a SidetableBrEntry?
@@ -169,15 +173,17 @@ def mach_readStructField_i8(obj: Object, offset: FieldOffset) -> i8;
 def mach_readStructField_u8(obj: Object, offset: FieldOffset) -> u8;
 def mach_readStructField_i16(obj: Object, offset: FieldOffset) -> i16;
 def mach_readStructField_u16(obj: Object, offset: FieldOffset) -> u16;
+def mach_readStructField_i32(obj: Object, offset: FieldOffset) -> i32;
 def mach_readStructField_u32(obj: Object, offset: FieldOffset) -> i32;
+def mach_readStructField_i64(obj: Object, offset: FieldOffset) -> i64;
 def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> i64;
 def mach_readStructField_f32(obj: Object, offset: FieldOffset) -> float;
 def mach_readStructField_f64(obj: Object, offset: FieldOffset) -> double;
 def mach_readStructField_v128(obj: Object, offset: FieldOffset) -> v128;
 def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> Object;
 
-def mach_readMemory64_u32(memory_index: i32, index: i64, offset: i64) -> i32;
-def mach_readMemory32_u32(memory_index: i32, index: i32, offset: i32) -> i32;
+def mach_readMemory64_i32(memory_index: i32, index: i64, offset: i64) -> i32;
+def mach_readMemory32_i32(memory_index: i32, index: i32, offset: i32) -> i32;
 
 def mach_readTable64(table_index: i32, index: i64) -> Object;
 def mach_readTable32(table_index: i32, index: i32) -> Object;
@@ -285,7 +291,7 @@ component Interpreter {
             // print_stack();
             // System.puts(op.mnemonic);
             // System.ln();
-            DISPATCH_TABLE[op.code]();
+            DISPATCH_TABLE[op.tag]();
         }
     }
 

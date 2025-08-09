@@ -179,7 +179,11 @@ component SSAD_IR {
                 return SSAD.If(subst(c), ssa(t), ssa(e), ps, ssa(r));
             }
             Match(subj, branches, rest) => {
-                return SSAD.Match(subst(subj), branches, ssa(rest)); // TODO: branches
+                def new_branches = Array<(string, SSAD)>.new(branches.length);
+                for (i < branches.length) {
+                    new_branches[i] = (branches[i].0, ssa(branches[i].1));
+                }
+                return SSAD.Match(subst(subj), new_branches, ssa(rest)); // TODO: branches
             }
             Void => return ir;
             Injected(inj, r) => return SSAD.Injected(inj, ssa(r));

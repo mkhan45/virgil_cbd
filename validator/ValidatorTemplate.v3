@@ -149,6 +149,29 @@ type TypeVar {
     }
 }
 
+def I32_equals = TypeVar.I32.testop(i32.==);
+def I32_not_equals = TypeVar.I32.testop(i32.!=);
+def I32_plus = TypeVar.I32.binop(i32.+);
+def I32_minus = TypeVar.I32.binop(i32.-);
+def I32_div = TypeVar.I32.binop(i32./);
+def I32_lt = TypeVar.I32.testop(i32.<);
+def I32_lte = TypeVar.I32.testop(i32.<=);
+def I32_gt = TypeVar.I32.testop(i32.>);
+def I32_times = TypeVar.I32.binop(i32.*);
+def I32_and = TypeVar.I32.binop(i32.&);
+
+def F32_equals = TypeVar.F32.testop(float.==);
+def F32_not_equals = TypeVar.F32.testop(float.==);
+def F32_lt = TypeVar.F32.testop(float.<);
+def F32_lte = TypeVar.F32.testop(float.<=);
+def F32_gt = TypeVar.F32.testop(float.>);
+def F32_plus = TypeVar.F32.binop(float.+);
+def F32_minus = TypeVar.F32.binop(float.-);
+def F32_div = TypeVar.F32.binop(float./);
+def F32_times = TypeVar.F32.binop(float.*);
+
+def object_isNull(o: TypeVar.Object) => true;
+
 def typeVarFromValType(vt: ValueType) -> TypeVar {
     match (vt) {
         I32 => return TypeVar.I32;
@@ -187,7 +210,7 @@ def rtcast_f32(x: float) -> TypeVar.F32 {
     return TypeVar.F32;
 }
 
-type FieldOffset;
+type FieldOffset(offset: u32);
 enum FieldKind {
     U8, U16, I32, I64, F32, F64, V128, REF
 }
@@ -236,16 +259,16 @@ def pop_Value(tv: TypeVar) -> TypeVar {
 def push_i32(v: TypeVar.I32) {
     stack.push(v);
 }
-def push_i64(v: i64) {
+def push_i64(v: TypeVar.I64) {
     stack.push(TypeVar.I64);
 }
 def push_f32(v: TypeVar.F32) {
     stack.push(TypeVar.F32);
 }
-def push_f64(v: double) {
+def push_f64(v: TypeVar.F64) {
     stack.push(TypeVar.F64);
 }
-def push_v128(v: v128) {
+def push_v128(v: TypeVar.V128) {
     stack.push(TypeVar.V128);
 }
 def push_Object(v: TypeVar.Object) {
@@ -290,8 +313,12 @@ def f_getTopOfStackType() -> TypeVar {
 def m_getGlobalType(index: i32) -> TypeVar {
     return globals[index];
 }
-def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind;
-def m_getFieldOffset(struct_index: i32, field_index: i32) -> FieldOffset;
+def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind {
+    return FieldKind.I32; // TODO
+}
+def m_getFieldOffset(struct_index: i32, field_index: i32) -> FieldOffset {
+    return FieldOffset(u32.!(field_index)); // TODO
+}
 def m_isMemory64(memory_index: i32) -> bool;
 def m_isTable64(memory_index: i32) -> bool;
 def m_getFuncSignature(func_index: i32) -> SigDecl {
@@ -335,8 +362,8 @@ def mach_readStructField_f64(obj: TypeVar.Object, offset: FieldOffset) -> TypeVa
 def mach_readStructField_v128(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.V128;
 def mach_readStructField_Object(obj: TypeVar.Object, offset: FieldOffset) -> TypeVar.Object;
 
-def mach_readMemory64_u32(memory_index: i32, index: u64, offset: u64) -> i32;
-def mach_readMemory32_u32(memory_index: i32, index: i32, offset: i32) -> i32;
+def mach_readMemory64_i32(memory_index: i32, index: TypeVar.I64, offset: i64) -> TypeVar.I32;
+def mach_readMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32) -> TypeVar.I32;
 
 def mach_readTable64(table_index: i32, index: TypeVar.I64) -> TypeVar.Object;
 def mach_readTable32(table_index: i32, index: TypeVar.I32) -> TypeVar.Object;
@@ -492,7 +519,7 @@ component Validator {
             opcode = codeptr.read_opcode();
             System.puts(opcode.mnemonic);
             System.ln();
-            DISPATCH_TABLE[opcode.code]();
+            DISPATCH_TABLE[opcode.tag]();
         }
     }
 

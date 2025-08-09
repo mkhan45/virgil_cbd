@@ -143,7 +143,7 @@ class AI<V, I32, I64, F32, F64, REF> {
                 System.puts(" ");
                 System.puts(op.mnemonic);
                 System.ln();
-                DISPATCH_TABLE[op.code]();
+                DISPATCH_TABLE[op.tag]();
             }
         }
         print_stack();

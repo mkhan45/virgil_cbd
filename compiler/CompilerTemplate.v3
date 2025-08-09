@@ -334,7 +334,7 @@ component Compiler {
             def op = codeptr.read_opcode();
             // System.puts(op.mnemonic);
             // System.ln();
-            DISPATCH_TABLE[op.code]();
+            DISPATCH_TABLE[op.tag]();
         }
     }
 
