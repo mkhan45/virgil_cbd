@@ -343,8 +343,7 @@ def REF_AS_NON_NULL() {
 def STRUCT_NEW() {
 	def struct_idx = imm_readILEB32();
 	def sig = m_getSignature(struct_idx);
-	def num_fields = sig_nfields(sig);
-	push_Object(object_New(sig, num_fields));
+	push_Object(object_New(sig));
 }
 def STRUCT_GET() {
 	def struct_index = imm_readILEB32();
@@ -729,12 +728,11 @@ def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> Object {
 // XXX: should Object always be HeapObject?
 def object_Null() -> Object => null;
 def object_isNull(o: Object) => o == null;
-def sig_nfields(sig: HeapTypeDecl) => StructDecl.!(sig).field_types.length;
 // should see how much we can leverage Runtime.v3
-def object_New(sig: HeapTypeDecl, num_fields: int) -> Object {
+def object_New(sig: HeapTypeDecl) -> Object {
     def decl = StructDecl.!(sig);
     def fields = Array<Value>.new(decl.field_types.length);
-    for (i = num_fields - 1; i >= 0; i -= 1) {
+    for (i = fields.length - 1; i >= 0; i -= 1) {
         fields[i] = pop_Value(());
     }
     return HeapStruct.new(decl, fields);
