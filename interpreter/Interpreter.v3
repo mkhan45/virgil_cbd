@@ -169,6 +169,15 @@ def I32_LT_U() {
 		push_i32(0);
 	}
 }
+def I32_LT_S() {
+	def b = pop_i32();
+	def a = pop_i32();
+	if (i32.<(a, b)) {
+		push_i32(1);
+	} else {
+		push_i32(0);
+	}
+}
 def I32_LE_S() {
 	def b = pop_i32();
 	def a = pop_i32();
@@ -444,6 +453,91 @@ def I32_LOAD() {
 		push_i32(val1);
 	}
 }
+def I32_LOAD8_U() {
+	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+	}
+	def cond = m_isMemory64(0);
+	if (cond) {
+		def offset = imm_readILEB64();
+		def index = pop_i64();
+		def val = mach_readMemory64_u8(0, index, offset);
+		push_i32(val);
+	} else {
+		def offset1 = imm_readILEB32();
+		def index1 = pop_i32();
+		def val1 = mach_readMemory32_u8(0, index1, offset1);
+		push_i32(val1);
+	}
+}
+def I32_LOAD16_S() {
+	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+	}
+	def cond = m_isMemory64(0);
+	if (cond) {
+		def offset = imm_readILEB64();
+		def index = pop_i64();
+		def val = mach_readMemory64_i16(0, index, offset);
+		push_i32(val);
+	} else {
+		def offset1 = imm_readILEB32();
+		def index1 = pop_i32();
+		def val1 = mach_readMemory32_i16(0, index1, offset1);
+		push_i32(val1);
+	}
+}
+def I64_LOAD() {
+	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+	}
+	def cond = m_isMemory64(0);
+	if (cond) {
+		def offset = imm_readILEB64();
+		def index = pop_i64();
+		def val = mach_readMemory64_i64(0, index, offset);
+		push_i64(val);
+	} else {
+		def offset1 = imm_readILEB32();
+		def index1 = pop_i32();
+		def val1 = mach_readMemory32_i64(0, index1, offset1);
+		push_i64(val1);
+	}
+}
+def F32_LOAD() {
+	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+	}
+	def cond = m_isMemory64(0);
+	if (cond) {
+		def offset = imm_readILEB64();
+		def index = pop_i64();
+		def val = mach_readMemory64_f32(0, index, offset);
+		push_f32(val);
+	} else {
+		def offset1 = imm_readILEB32();
+		def index1 = pop_i32();
+		def val1 = mach_readMemory32_f32(0, index1, offset1);
+		push_f32(val1);
+	}
+}
+def F64_LOAD() {
+	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+	}
+	def cond = m_isMemory64(0);
+	if (cond) {
+		def offset = imm_readILEB64();
+		def index = pop_i64();
+		def val = mach_readMemory64_f64(0, index, offset);
+		push_f64(val);
+	} else {
+		def offset1 = imm_readILEB32();
+		def index1 = pop_i32();
+		def val1 = mach_readMemory32_f64(0, index1, offset1);
+		push_f64(val1);
+	}
+}
 def I32_STORE() {
 	def flags = imm_readU8();
 	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
@@ -458,6 +552,84 @@ def I32_STORE() {
 		def offset1 = imm_readILEB32();
 		def index1 = pop_i32();
 		mach_writeMemory32_i32(0, index1, offset1, val);
+	}
+}
+def I32_STORE8() {
+	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+	}
+	def val = pop_i32();
+	def cond = m_isMemory64(0);
+	if (cond) {
+		def offset = imm_readILEB64();
+		def index = pop_i64();
+		mach_writeMemory64_i8(0, index, offset, val);
+	} else {
+		def offset1 = imm_readILEB32();
+		def index1 = pop_i32();
+		mach_writeMemory32_i8(0, index1, offset1, val);
+	}
+}
+def I32_STORE16() {
+	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+	}
+	def val = pop_i32();
+	def cond = m_isMemory64(0);
+	if (cond) {
+		def offset = imm_readILEB64();
+		def index = pop_i64();
+		mach_writeMemory64_i16(0, index, offset, val);
+	} else {
+		def offset1 = imm_readILEB32();
+		def index1 = pop_i32();
+		mach_writeMemory32_i16(0, index1, offset1, val);
+	}
+}
+def I64_STORE() {
+	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+	}
+	def val = pop_i64();
+	def cond = m_isMemory64(0);
+	if (cond) {
+		def offset = imm_readILEB64();
+		def index = pop_i64();
+		mach_writeMemory64_i64(0, index, offset, val);
+	} else {
+		def offset1 = imm_readILEB32();
+		def index1 = pop_i32();
+		mach_writeMemory32_i64(0, index1, offset1, val);
+	}
+}
+def F32_STORE() {
+	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+	}
+	def val = pop_f32();
+	def cond = m_isMemory64(0);
+	if (cond) {
+		def offset = imm_readILEB64();
+		def index = pop_i64();
+	} else {
+		def offset1 = imm_readILEB32();
+		def index1 = pop_i32();
+	}
+}
+def F64_STORE() {
+	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+	}
+	def val = pop_f64();
+	def cond = m_isMemory64(0);
+	if (cond) {
+		def offset = imm_readILEB64();
+		def index = pop_i64();
+		mach_writeMemory64_f64(0, index, offset, val);
+	} else {
+		def offset1 = imm_readILEB32();
+		def index1 = pop_i32();
+		mach_writeMemory32_f64(0, index1, offset1, val);
 	}
 }
 def build_dispatch_table() -> Array<void -> void> {
@@ -485,6 +657,7 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.I32_EQ.tag] = I32_EQ;
   DISPATCH_TABLE[Opcode.I32_NE.tag] = I32_NE;
   DISPATCH_TABLE[Opcode.I32_LT_U.tag] = I32_LT_U;
+  DISPATCH_TABLE[Opcode.I32_LT_S.tag] = I32_LT_S;
   DISPATCH_TABLE[Opcode.I32_LE_S.tag] = I32_LE_S;
   DISPATCH_TABLE[Opcode.I32_GT_U.tag] = I32_GT_U;
   DISPATCH_TABLE[Opcode.I32_AND.tag] = I32_AND;
@@ -516,7 +689,17 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.STRUCT_GET_S.tag] = STRUCT_GET_S;
   DISPATCH_TABLE[Opcode.STRUCT_GET_U.tag] = STRUCT_GET_U;
   DISPATCH_TABLE[Opcode.I32_LOAD.tag] = I32_LOAD;
+  DISPATCH_TABLE[Opcode.I32_LOAD8_U.tag] = I32_LOAD8_U;
+  DISPATCH_TABLE[Opcode.I32_LOAD16_S.tag] = I32_LOAD16_S;
+  DISPATCH_TABLE[Opcode.I64_LOAD.tag] = I64_LOAD;
+  DISPATCH_TABLE[Opcode.F32_LOAD.tag] = F32_LOAD;
+  DISPATCH_TABLE[Opcode.F64_LOAD.tag] = F64_LOAD;
   DISPATCH_TABLE[Opcode.I32_STORE.tag] = I32_STORE;
+  DISPATCH_TABLE[Opcode.I32_STORE8.tag] = I32_STORE8;
+  DISPATCH_TABLE[Opcode.I32_STORE16.tag] = I32_STORE16;
+  DISPATCH_TABLE[Opcode.I64_STORE.tag] = I64_STORE;
+  DISPATCH_TABLE[Opcode.F32_STORE.tag] = F32_STORE;
+  DISPATCH_TABLE[Opcode.F64_STORE.tag] = F64_STORE;
   return DISPATCH_TABLE;
 }
 class Frame {
@@ -738,20 +921,47 @@ def object_New(sig: HeapTypeDecl) -> Object {
     return HeapStruct.new(decl, fields);
 }
 
+def doRead32<R, T>(
+    memory_index: i32, index: i32, offset: i32, read: (Memory, u32, u32) -> MaybeTrap<R>, view: R -> T
+) -> T {
+    def read_res = read(memory, u32.view(offset), u32.view(index));
+    if (read_res.trapped()) trapMem();
+    return view(read_res.result);
+}
 
+
+def mach_readMemory64_u8(memory_index: i32, index: i64, offset: i64) -> i8;
+def mach_readMemory32_u8 = doRead32<u8, i8>(_, _, _, Memory.read_u8, i8.view);
+def mach_readMemory64_i16(memory_index: i32, index: i64, offset: i64) -> i16;
+def mach_readMemory32_i16 = doRead32<u16, i16>(_, _, _, Memory.read_u16, i16.view);
 def mach_readMemory64_i32(memory_index: i32, index: i64, offset: i64) -> i32;
-def mach_readMemory32_i32(memory_index: i32, index: i32, offset: i32) -> i32 {
-    def read_res = memory.read_u32(u32.!(offset), u32.!(index));
-    if (read_res.trapped()) {
-        trapMem();
-    }
-    return i32.view(read_res.result);
-}
+def mach_readMemory32_i32 = doRead32<u32, i32>(_, _, _, Memory.read_u32, i32.view);
+def mach_readMemory64_i64(memory_index: i32, index: i64, offset: i64) -> i64;
+def mach_readMemory32_i64 = doRead32<u64, i64>(_, _, _, Memory.read_u64, i64.view);
+def mach_readMemory64_f32(memory_index: i32, index: i64, offset: i64) -> float;
+def mach_readMemory32_f32 = doRead32<float, float>(_, _, _, Memory.read_float, fun x => x);
+def mach_readMemory64_f64(memory_index: i32, index: i64, offset: i64) -> double;
+def mach_readMemory32_f64 = doRead32<double, double>(_, _, _, Memory.read_double, fun x => x);
 
-def mach_writeMemory64_i32(memory_index: i32, index: i64, offset: i64, val: i32);
-def mach_writeMemory32_i32(memory_index: i32, index: i32, offset: i32, val: i32) {
-    memory.write_u32(u32.!(offset), u32.!(index), u32.view(val));
+def doWrite32<P, T>(
+    memory_index: i32, index: i32, offset: i32, val: P, write: (Memory, u32, u32, T) -> TrapReason, view: P -> T
+) {
+    def t = write(memory, u32.view(offset), u32.view(index), view(val));
+    if (t != TrapReason.NONE) trapMem();
 }
+def mach_writeMemory64_i8(memory_index: i32, index: i64, offset: i64, val: i32);
+def mach_writeMemory32_i8 = doWrite32<i32, u8>(_, _, _, _, Memory.write_u8, u8.view);
+def mach_writeMemory64_i16(memory_index: i32, index: i64, offset: i64, val: i32);
+def mach_writeMemory32_i16 = doWrite32<i32, u16>(_, _, _, _, Memory.write_u16, u16.view);
+def mach_writeMemory64_i32(memory_index: i32, index: i64, offset: i64, val: i32);
+def mach_writeMemory32_i32 = doWrite32<i32, u32>(_, _, _, _, Memory.write_u32, u32.view);
+def mach_writeMemory64_i64(memory_index: i32, index: i64, offset: i64, val: i64);
+def mach_writeMemory32_i64 = doWrite32<i64, u64>(_, _, _, _, Memory.write_u64, u64.view);
+
+def mach_writeMemory64_f32(memory_index: i32, index: i64, offset: i64, val: float);
+def mach_writeMemory32_f32 = doWrite32<float, float>(_, _, _, _, Memory.write_float, fun x => x);
+def mach_writeMemory64_f64(memory_index: i32, index: i64, offset: i64, val: double);
+def mach_writeMemory32_f64 = doWrite32<double, double>(_, _, _, _, Memory.write_double, fun x => x);
 
 def mach_readTable64(table_index: i32, index: i64) -> Object;
 def mach_readTable32(table_index: i32, index: i32) -> Object;

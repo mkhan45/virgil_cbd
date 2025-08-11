@@ -379,16 +379,34 @@ def mach_readStructField_f64(obj: TypeVar.Object, offset: FieldOffset) => TypeVa
 def mach_readStructField_v128(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.V128;
 def mach_readStructField_Object(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.Object;
 
-def mach_readMemory64_i32(memory_index: i32, index: TypeVar.I64, offset: i64) -> TypeVar.I32;
-def mach_readMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32) -> TypeVar.I32 {
-    // TODO: validate
-    return TypeVar.I32;
-}
+// TODO: validate read/write
+def mach_readMemory64_i8(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.I32;
+def mach_readMemory32_i8(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.I32;
+def mach_readMemory64_u8(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.I32;
+def mach_readMemory32_u8(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.I32;
+def mach_readMemory64_i16(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.I32;
+def mach_readMemory32_i16(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.I32;
+def mach_readMemory64_i32(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.I32;
+def mach_readMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.I32;
+def mach_readMemory64_i64(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.I64;
+def mach_readMemory32_i64(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.I64;
+def mach_readMemory64_f32(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.F32;
+def mach_readMemory32_f32(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.F32;
+def mach_readMemory64_f64(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.F64;
+def mach_readMemory32_f64(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.F64;
 
-def mach_writeMemory64_i32(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.I32);
-def mach_writeMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.I32) {
-    // TODO: validate
-}
+def mach_writeMemory64_i8(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.I32) => void;
+def mach_writeMemory32_i8(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.I32) => void;
+def mach_writeMemory64_i16(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.I32) => void;
+def mach_writeMemory32_i16(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.I32) => void;
+def mach_writeMemory64_i32(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.I32) => void;
+def mach_writeMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.I32) => void;
+def mach_writeMemory64_i64(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.I64) => void;
+def mach_writeMemory32_i64(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.I64) => void;
+def mach_writeMemory64_f32(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.F32) => void;
+def mach_writeMemory32_f32(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.F32) => void;
+def mach_writeMemory64_f64(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.F64) => void;
+def mach_writeMemory32_f64(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.F64) => void;
 
 def mach_readTable64(table_index: i32, index: TypeVar.I64) -> TypeVar.Object;
 def mach_readTable32(table_index: i32, index: TypeVar.I32) -> TypeVar.Object;
@@ -402,7 +420,7 @@ def trapNull() {
     // since this is a runtime trap only, 
     // we don't actually want to trap here
 }
-def trapUnreachable();
+def trapUnreachable() {} // XXX: validator tries to validate unreachable code
 def trapDivideByZero();
 def trapDivideUnrepresentable();
 
