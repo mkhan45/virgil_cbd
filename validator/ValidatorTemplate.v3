@@ -355,6 +355,8 @@ def doCall(sig: Decl, target: CBDFunction) {
     for (i < target.rets.length) push_Value(target.rets[i], target.rets[i]);
 }
 
+def doReturnCall = doCall;
+
 def doBranch(label: ControlEntry) {
     ctlxfer.refS(label, codeptr.pos, stack.top);
     def args = if(label.start_opcode == Opcode.LOOP.code, label.params, label.results);
@@ -448,7 +450,8 @@ def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     def rets = bt.1;
     popTypes(args);
     pushTypes(args);
-    pushControl(Opcode.IF.code, args, rets, stack.top);
+    def ctl = pushControl(Opcode.IF.code, args, rets, stack.top);
+    ctlxfer.refElse(ctl, codeptr.pos);
     return ctl_top;
 }
 

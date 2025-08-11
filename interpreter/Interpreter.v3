@@ -80,6 +80,12 @@ def CALL_INDIRECT() {
 		doCall(sig, target1);
 	}
 }
+def RETURN_CALL() {
+	def index = imm_readILEB32();
+	def sig = m_getFuncSignature(index);
+	def target = i_getFunction(index);
+	doReturnCall(sig, target);
+}
 def DROP() {
 	def tv = f_getTopOfStackType();
 	pop_Value(tv);
@@ -645,6 +651,7 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.TABLE_SET.tag] = TABLE_SET;
   DISPATCH_TABLE[Opcode.CALL.tag] = CALL;
   DISPATCH_TABLE[Opcode.CALL_INDIRECT.tag] = CALL_INDIRECT;
+  DISPATCH_TABLE[Opcode.RETURN_CALL.tag] = RETURN_CALL;
   DISPATCH_TABLE[Opcode.DROP.tag] = DROP;
   DISPATCH_TABLE[Opcode.SELECT.tag] = SELECT;
   DISPATCH_TABLE[Opcode.I32_CONST.tag] = I32_CONST;
@@ -711,6 +718,10 @@ class Frame {
     var num_rets: int;
 
     new(parent: Frame, fn: CBDFunction) {
+        reset(fn);
+    }
+
+    def reset(fn: CBDFunction) {
         fp = stack.top - fn.args.length;
         sidetable = fn.sidetable;
         stp = 0;
@@ -870,6 +881,11 @@ def i_getFunction(func_index: i32) -> CBDFunction {
 def doCall(sig: Decl, target: CBDFunction) {
     def new_frame = Frame.new(current_frame, target);
     current_frame = new_frame;
+    current_frame.codeptr.iterate_local_codes(push_locals);
+}
+def doReturnCall(sig: Decl, target: CBDFunction) {
+    current_frame.reset(target);
+    copyVals(target.args.length, current_frame.fp);
     current_frame.codeptr.iterate_local_codes(push_locals);
 }
 
@@ -1069,9 +1085,9 @@ component Interpreter {
         current_frame.codeptr.iterate_local_codes(push_locals);
         while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length) {
             def op = current_frame.codeptr.read_opcode();
-            // print_stack();
-            // System.puts(op.mnemonic);
-            // System.ln();
+            print_stack();
+            System.puts(op.mnemonic);
+            System.ln();
             DISPATCH_TABLE[op.tag]();
         }
     }

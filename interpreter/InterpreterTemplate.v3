@@ -7,6 +7,10 @@ class Frame {
     var num_rets: int;
 
     new(parent: Frame, fn: CBDFunction) {
+        reset(fn);
+    }
+
+    def reset(fn: CBDFunction) {
         fp = stack.top - fn.args.length;
         sidetable = fn.sidetable;
         stp = 0;
@@ -166,6 +170,11 @@ def i_getFunction(func_index: i32) -> CBDFunction {
 def doCall(sig: Decl, target: CBDFunction) {
     def new_frame = Frame.new(current_frame, target);
     current_frame = new_frame;
+    current_frame.codeptr.iterate_local_codes(push_locals);
+}
+def doReturnCall(sig: Decl, target: CBDFunction) {
+    current_frame.reset(target);
+    copyVals(target.args.length, current_frame.fp);
     current_frame.codeptr.iterate_local_codes(push_locals);
 }
 
@@ -365,9 +374,9 @@ component Interpreter {
         current_frame.codeptr.iterate_local_codes(push_locals);
         while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length) {
             def op = current_frame.codeptr.read_opcode();
-            // print_stack();
-            // System.puts(op.mnemonic);
-            // System.ln();
+            print_stack();
+            System.puts(op.mnemonic);
+            System.ln();
             DISPATCH_TABLE[op.tag]();
         }
     }
