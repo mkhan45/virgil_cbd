@@ -175,7 +175,7 @@ def doBranch(label: SidetableBrEntry) {
     current_frame.stp += label.dstp;
     if (label.popcount > 0) {
         if (label.valcount > 0) copyVals(label.valcount, stack.top - int.!(label.popcount + label.valcount));
-        else stack.top -= label.popcount;
+        else stack.top -= label.popcount - 1;
     }
 }
 
