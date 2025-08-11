@@ -160,6 +160,7 @@ component IntrinsicTypes {
             while (line[current_arg_end] != ')') {
                 if (line[current_arg_start] == ')') break; // no more args
                 
+                while (line[current_arg_start] != ':') current_arg_start += 1;
                 current_arg_start += ": ".length;
                 current_arg_end = current_arg_start;
                 while (line[current_arg_end] != ',' && line[current_arg_end] != ')') current_arg_end += 1;

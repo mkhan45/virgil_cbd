@@ -1,1 +1,5 @@
 def I32_maybeTrue(i: i32.I) -> bool.I;
+def I32_maybeFalse(i: i32.I) -> bool.I;
+
+def F32_maybeTrue(f: f32.I) -> bool.I;
+def F32_maybeFalse(f: f32.I) -> bool.I;

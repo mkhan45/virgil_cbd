@@ -936,20 +936,22 @@ def I32_LOAD() {
 // cond876901 -- static: yes, type: <bottom>, effect: none
 // offset902 -- static: yes, type: i64, effect: read
 // index911 -- static: no, type: i32, effect: pop
-// cond888899 -- static: no, type: <bottom>, effect: none
+// cond888899 -- static: no, type: i32, effect: none
 // offset910 -- static: yes, type: i32, effect: read
 // memindex894 -- static: yes, type: i32, effect: none
-// arg889898 -- static: no, type: <bottom>, effect: none
+// arg889898 -- static: no, type: i32, effect: none
 // arg880905 -- static: no, type: i64, effect: none
 // arg881904 -- static: yes, type: i64, effect: none
 // eff882917 -- static: no, type: <bottom>, effect: push
 // arg883916 -- static: no, type: i32, effect: none
+// rtcast919 -- static: no, type: <bottom>, effect: none
 // eff877909 -- static: no, type: <bottom>, effect: push
+// rtcast918 -- static: no, type: i32, effect: none
 // val907 -- static: no, type: i32, effect: none
 // arg878908 -- static: no, type: i32, effect: none
 // arg884914 -- static: yes, type: i32, effect: none
-// flags893 -- static: yes, type: <bottom>, effect: read
-// arg891897 -- static: yes, type: <bottom>, effect: none
+// flags893 -- static: yes, type: i32, effect: read
+// arg891897 -- static: yes, type: i32, effect: none
 // arg885913 -- static: no, type: i32, effect: none
 // arg890895 -- static: yes, type: <bottom>, effect: none
 // index903 -- static: no, type: i64, effect: pop
@@ -973,31 +975,33 @@ def I32_LOAD() {
 	}
 }
 def I32_LOAD8_U() {
-	// arg923946 -- static: yes, type: i64, effect: none
-// eff924959 -- static: no, type: <bottom>, effect: push
-// offset944 -- static: yes, type: i64, effect: read
-// index953 -- static: no, type: i32, effect: pop
-// arg925958 -- static: no, type: i32, effect: none
-// flags935 -- static: yes, type: <bottom>, effect: read
-// cond930941 -- static: no, type: <bottom>, effect: none
-// arg931940 -- static: no, type: <bottom>, effect: none
-// arg920950 -- static: no, type: i32, effect: none
-// offset952 -- static: yes, type: i32, effect: read
-// arg926956 -- static: yes, type: i32, effect: none
-// arg927955 -- static: no, type: i32, effect: none
-// arg928954 -- static: yes, type: i32, effect: none
-// memindex936 -- static: yes, type: i32, effect: none
-// arg929942 -- static: yes, type: i32, effect: none
-// cond918943 -- static: yes, type: <bottom>, effect: none
-// arg933939 -- static: yes, type: <bottom>, effect: none
-// val949 -- static: no, type: i32, effect: none
-// arg932937 -- static: yes, type: <bottom>, effect: none
-// arg921948 -- static: yes, type: i32, effect: none
-// arg934938 -- static: no, type: <bottom>, effect: none
-// index945 -- static: no, type: i64, effect: pop
-// arg922947 -- static: no, type: i64, effect: none
-// eff919951 -- static: no, type: <bottom>, effect: push
-// val957 -- static: no, type: i32, effect: none
+	// arg931944 -- static: yes, type: i32, effect: none
+// cond920945 -- static: yes, type: <bottom>, effect: none
+// offset946 -- static: yes, type: i64, effect: read
+// index955 -- static: no, type: i32, effect: pop
+// flags937 -- static: yes, type: i32, effect: read
+// arg925948 -- static: yes, type: i64, effect: none
+// cond932943 -- static: no, type: i32, effect: none
+// offset954 -- static: yes, type: i32, effect: read
+// rtcast963 -- static: no, type: <bottom>, effect: none
+// arg933942 -- static: no, type: i32, effect: none
+// eff921953 -- static: no, type: <bottom>, effect: push
+// rtcast962 -- static: no, type: i32, effect: none
+// val951 -- static: no, type: i32, effect: none
+// arg922952 -- static: no, type: i32, effect: none
+// arg928958 -- static: yes, type: i32, effect: none
+// arg935941 -- static: yes, type: i32, effect: none
+// arg929957 -- static: no, type: i32, effect: none
+// arg923950 -- static: yes, type: i32, effect: none
+// memindex938 -- static: yes, type: i32, effect: none
+// arg936940 -- static: no, type: <bottom>, effect: none
+// eff926961 -- static: no, type: <bottom>, effect: push
+// arg934939 -- static: yes, type: <bottom>, effect: none
+// index947 -- static: no, type: i64, effect: pop
+// val959 -- static: no, type: i32, effect: none
+// arg927960 -- static: no, type: i32, effect: none
+// arg930956 -- static: yes, type: i32, effect: none
+// arg924949 -- static: no, type: i64, effect: none
 
 	def flags = imm_readU8();
 	def cond = m_isMemory64(0);
@@ -1014,31 +1018,33 @@ def I32_LOAD8_U() {
 	}
 }
 def I32_LOAD16_S() {
-	// arg971984 -- static: yes, type: i32, effect: none
-// cond960985 -- static: yes, type: <bottom>, effect: none
-// index987 -- static: no, type: i64, effect: pop
-// arg965988 -- static: yes, type: i64, effect: none
-// val999 -- static: no, type: i32, effect: none
-// eff9661001 -- static: no, type: <bottom>, effect: push
-// arg9671000 -- static: no, type: i32, effect: none
-// cond972983 -- static: no, type: <bottom>, effect: none
-// arg973982 -- static: no, type: <bottom>, effect: none
-// offset986 -- static: yes, type: i64, effect: read
-// eff961993 -- static: no, type: <bottom>, effect: push
-// index995 -- static: no, type: i32, effect: pop
-// flags977 -- static: yes, type: <bottom>, effect: read
-// arg962992 -- static: no, type: i32, effect: none
-// arg968998 -- static: yes, type: i32, effect: none
-// arg975981 -- static: yes, type: <bottom>, effect: none
-// offset994 -- static: yes, type: i32, effect: read
-// arg969997 -- static: no, type: i32, effect: none
-// arg963990 -- static: yes, type: i32, effect: none
-// arg976980 -- static: no, type: <bottom>, effect: none
-// val991 -- static: no, type: i32, effect: none
-// memindex978 -- static: yes, type: i32, effect: none
-// arg974979 -- static: yes, type: <bottom>, effect: none
-// arg970996 -- static: yes, type: i32, effect: none
-// arg964989 -- static: no, type: i64, effect: none
+	// arg975988 -- static: yes, type: i32, effect: none
+// cond964989 -- static: yes, type: <bottom>, effect: none
+// index999 -- static: no, type: i32, effect: pop
+// cond976987 -- static: no, type: i32, effect: none
+// offset998 -- static: yes, type: i32, effect: read
+// val1003 -- static: no, type: i32, effect: none
+// memindex982 -- static: yes, type: i32, effect: none
+// arg977986 -- static: no, type: i32, effect: none
+// eff965997 -- static: no, type: <bottom>, effect: push
+// eff9701005 -- static: no, type: <bottom>, effect: push
+// val995 -- static: no, type: i32, effect: none
+// arg966996 -- static: no, type: i32, effect: none
+// arg9711004 -- static: no, type: i32, effect: none
+// arg9741000 -- static: yes, type: i32, effect: none
+// arg9731001 -- static: no, type: i32, effect: none
+// arg9721002 -- static: yes, type: i32, effect: none
+// arg979985 -- static: yes, type: i32, effect: none
+// arg978983 -- static: yes, type: <bottom>, effect: none
+// index991 -- static: no, type: i64, effect: pop
+// arg967994 -- static: yes, type: i32, effect: none
+// arg968993 -- static: no, type: i64, effect: none
+// offset990 -- static: yes, type: i64, effect: read
+// flags981 -- static: yes, type: i32, effect: read
+// arg969992 -- static: yes, type: i64, effect: none
+// arg980984 -- static: no, type: <bottom>, effect: none
+// rtcast1007 -- static: no, type: <bottom>, effect: none
+// rtcast1006 -- static: no, type: i32, effect: none
 
 	def flags = imm_readU8();
 	def cond = m_isMemory64(0);
@@ -1055,31 +1061,33 @@ def I32_LOAD16_S() {
 	}
 }
 def I64_LOAD() {
-	// eff10081043 -- static: no, type: <bottom>, effect: push
-// val1033 -- static: no, type: i64, effect: none
-// cond10021027 -- static: yes, type: <bottom>, effect: none
-// arg10091042 -- static: no, type: i64, effect: none
-// arg10111039 -- static: no, type: i32, effect: none
-// arg10121038 -- static: yes, type: i32, effect: none
-// index1037 -- static: no, type: i32, effect: pop
-// flags1019 -- static: yes, type: <bottom>, effect: read
-// offset1036 -- static: yes, type: i32, effect: read
-// eff10031035 -- static: no, type: <bottom>, effect: push
-// val1041 -- static: no, type: i64, effect: none
-// cond10141025 -- static: no, type: <bottom>, effect: none
-// arg10171023 -- static: yes, type: <bottom>, effect: none
-// arg10181022 -- static: no, type: <bottom>, effect: none
-// index1029 -- static: no, type: i64, effect: pop
-// arg10131026 -- static: yes, type: i32, effect: none
-// arg10151024 -- static: no, type: <bottom>, effect: none
-// arg10041034 -- static: no, type: i64, effect: none
-// arg10051032 -- static: yes, type: i32, effect: none
-// arg10061031 -- static: no, type: i64, effect: none
-// arg10071030 -- static: yes, type: i64, effect: none
-// arg10161021 -- static: yes, type: <bottom>, effect: none
-// memindex1020 -- static: yes, type: i32, effect: none
-// arg10101040 -- static: yes, type: i32, effect: none
-// offset1028 -- static: yes, type: i64, effect: read
+	// val1039 -- static: no, type: i64, effect: none
+// eff10091041 -- static: no, type: <bottom>, effect: push
+// offset1042 -- static: yes, type: i32, effect: read
+// arg10231029 -- static: yes, type: i32, effect: none
+// arg10241028 -- static: no, type: <bottom>, effect: none
+// arg10191032 -- static: yes, type: i32, effect: none
+// arg10111038 -- static: yes, type: i32, effect: none
+// arg10121037 -- static: no, type: i64, effect: none
+// arg10131036 -- static: yes, type: i64, effect: none
+// arg10221027 -- static: yes, type: <bottom>, effect: none
+// index1035 -- static: no, type: i64, effect: pop
+// eff10141049 -- static: no, type: <bottom>, effect: push
+// offset1034 -- static: yes, type: i64, effect: read
+// val1047 -- static: no, type: i64, effect: none
+// cond10081033 -- static: yes, type: <bottom>, effect: none
+// arg10151048 -- static: no, type: i64, effect: none
+// arg10161046 -- static: yes, type: i32, effect: none
+// arg10171045 -- static: no, type: i32, effect: none
+// arg10181044 -- static: yes, type: i32, effect: none
+// memindex1026 -- static: yes, type: i32, effect: none
+// cond10201031 -- static: no, type: i32, effect: none
+// index1043 -- static: no, type: i32, effect: pop
+// rtcast1051 -- static: no, type: <bottom>, effect: none
+// arg10211030 -- static: no, type: i32, effect: none
+// rtcast1050 -- static: no, type: i32, effect: none
+// arg10101040 -- static: no, type: i64, effect: none
+// flags1025 -- static: yes, type: i32, effect: read
 
 	def flags = imm_readU8();
 	def cond = m_isMemory64(0);
@@ -1096,31 +1104,33 @@ def I64_LOAD() {
 	}
 }
 def F32_LOAD() {
-	// cond10441069 -- static: yes, type: <bottom>, effect: none
-// cond10561067 -- static: no, type: <bottom>, effect: none
-// offset1078 -- static: yes, type: i32, effect: read
-// arg10591065 -- static: yes, type: <bottom>, effect: none
-// arg10571066 -- static: no, type: <bottom>, effect: none
-// arg10551068 -- static: yes, type: i32, effect: none
-// arg10461076 -- static: no, type: <bottom>, effect: none
-// index1079 -- static: no, type: i32, effect: pop
-// arg10581063 -- static: yes, type: <bottom>, effect: none
-// arg10491072 -- static: yes, type: i64, effect: none
-// arg10481073 -- static: no, type: i64, effect: none
-// arg10471074 -- static: yes, type: i32, effect: none
-// eff10451077 -- static: no, type: <bottom>, effect: push
-// flags1061 -- static: yes, type: <bottom>, effect: read
-// val1075 -- static: no, type: <bottom>, effect: none
-// offset1070 -- static: yes, type: i64, effect: read
-// memindex1062 -- static: yes, type: i32, effect: none
+	// arg10601090 -- static: yes, type: i32, effect: none
+// offset1086 -- static: yes, type: i32, effect: read
+// eff10581093 -- static: no, type: <bottom>, effect: push
+// val1091 -- static: no, type: <bottom>, effect: none
+// index1079 -- static: no, type: i64, effect: pop
+// cond10521077 -- static: yes, type: <bottom>, effect: none
+// arg10591092 -- static: no, type: <bottom>, effect: none
+// arg10611089 -- static: no, type: i32, effect: none
+// arg10621088 -- static: yes, type: i32, effect: none
+// memindex1070 -- static: yes, type: i32, effect: none
+// offset1078 -- static: yes, type: i64, effect: read
 // val1083 -- static: no, type: <bottom>, effect: none
-// index1071 -- static: no, type: i64, effect: pop
-// arg10601064 -- static: no, type: <bottom>, effect: none
-// arg10511084 -- static: no, type: <bottom>, effect: none
-// arg10541080 -- static: yes, type: i32, effect: none
-// arg10531081 -- static: no, type: i32, effect: none
-// arg10521082 -- static: yes, type: i32, effect: none
-// eff10501085 -- static: no, type: <bottom>, effect: push
+// eff10531085 -- static: no, type: <bottom>, effect: push
+// cond10641075 -- static: no, type: i32, effect: none
+// index1087 -- static: no, type: i32, effect: pop
+// arg10671073 -- static: yes, type: i32, effect: none
+// arg10681072 -- static: no, type: <bottom>, effect: none
+// rtcast1095 -- static: no, type: <bottom>, effect: none
+// rtcast1094 -- static: no, type: i32, effect: none
+// arg10631076 -- static: yes, type: i32, effect: none
+// arg10651074 -- static: no, type: i32, effect: none
+// arg10541084 -- static: no, type: <bottom>, effect: none
+// arg10551082 -- static: yes, type: i32, effect: none
+// arg10561081 -- static: no, type: i64, effect: none
+// arg10571080 -- static: yes, type: i64, effect: none
+// arg10661071 -- static: yes, type: <bottom>, effect: none
+// flags1069 -- static: yes, type: i32, effect: read
 
 	def flags = imm_readU8();
 	def cond = m_isMemory64(0);
@@ -1137,31 +1147,33 @@ def F32_LOAD() {
 	}
 }
 def F64_LOAD() {
-	// offset1112 -- static: yes, type: i64, effect: read
-// memindex1104 -- static: yes, type: i32, effect: none
-// val1125 -- static: no, type: <bottom>, effect: none
-// cond10861111 -- static: yes, type: <bottom>, effect: none
-// index1113 -- static: no, type: i64, effect: pop
-// offset1120 -- static: yes, type: i32, effect: read
-// index1121 -- static: no, type: i32, effect: pop
-// arg10931126 -- static: no, type: <bottom>, effect: none
-// arg10971110 -- static: yes, type: i32, effect: none
-// arg10961122 -- static: yes, type: i32, effect: none
-// arg10951123 -- static: no, type: i32, effect: none
-// arg10941124 -- static: yes, type: i32, effect: none
-// eff10921127 -- static: no, type: <bottom>, effect: push
-// cond10981109 -- static: no, type: <bottom>, effect: none
-// arg10911114 -- static: yes, type: i64, effect: none
-// arg10901115 -- static: no, type: i64, effect: none
-// arg11021106 -- static: no, type: <bottom>, effect: none
-// arg11011107 -- static: yes, type: <bottom>, effect: none
-// arg10991108 -- static: no, type: <bottom>, effect: none
-// flags1103 -- static: yes, type: <bottom>, effect: read
-// arg10881118 -- static: no, type: <bottom>, effect: none
-// arg11001105 -- static: yes, type: <bottom>, effect: none
-// arg10891116 -- static: yes, type: i32, effect: none
-// val1117 -- static: no, type: <bottom>, effect: none
-// eff10871119 -- static: no, type: <bottom>, effect: push
+	// offset1122 -- static: yes, type: i64, effect: read
+// val1135 -- static: no, type: <bottom>, effect: none
+// arg11111117 -- static: yes, type: i32, effect: none
+// arg11121116 -- static: no, type: <bottom>, effect: none
+// arg11071120 -- static: yes, type: i32, effect: none
+// arg11001125 -- static: no, type: i64, effect: none
+// arg11011124 -- static: yes, type: i64, effect: none
+// arg11101115 -- static: yes, type: <bottom>, effect: none
+// memindex1114 -- static: yes, type: i32, effect: none
+// index1131 -- static: no, type: i32, effect: pop
+// flags1113 -- static: yes, type: i32, effect: read
+// eff11021137 -- static: no, type: <bottom>, effect: push
+// val1127 -- static: no, type: <bottom>, effect: none
+// eff10971129 -- static: no, type: <bottom>, effect: push
+// cond11081119 -- static: no, type: i32, effect: none
+// arg11091118 -- static: no, type: i32, effect: none
+// offset1130 -- static: yes, type: i32, effect: read
+// arg11031136 -- static: no, type: <bottom>, effect: none
+// rtcast1139 -- static: no, type: <bottom>, effect: none
+// arg11061132 -- static: yes, type: i32, effect: none
+// arg11051133 -- static: no, type: i32, effect: none
+// arg11041134 -- static: yes, type: i32, effect: none
+// rtcast1138 -- static: no, type: i32, effect: none
+// arg10981128 -- static: no, type: <bottom>, effect: none
+// arg10991126 -- static: yes, type: i32, effect: none
+// index1123 -- static: no, type: i64, effect: pop
+// cond10961121 -- static: yes, type: <bottom>, effect: none
 
 	def flags = imm_readU8();
 	def cond = m_isMemory64(0);
@@ -1178,30 +1190,32 @@ def F64_LOAD() {
 	}
 }
 def I32_STORE() {
-	// flags1145 -- static: yes, type: <bottom>, effect: read
-// arg11441148 -- static: no, type: <bottom>, effect: none
-// arg11431149 -- static: yes, type: <bottom>, effect: none
-// arg11391153 -- static: yes, type: i32, effect: none
-// arg11381164 -- static: no, type: i32, effect: none
-// arg11371165 -- static: yes, type: i32, effect: none
-// arg11361166 -- static: no, type: i32, effect: none
-// arg11351167 -- static: yes, type: i32, effect: none
-// offset1155 -- static: yes, type: i64, effect: read
-// arg11331157 -- static: no, type: i32, effect: none
-// arg11321158 -- static: yes, type: i64, effect: none
-// arg11311159 -- static: no, type: i64, effect: none
-// eff11341168 -- static: no, type: <bottom>, effect: memory
-// arg11421147 -- static: yes, type: <bottom>, effect: none
-// eff11291161 -- static: no, type: <bottom>, effect: memory
-// memindex1146 -- static: yes, type: i32, effect: none
-// index1156 -- static: no, type: i64, effect: pop
-// offset1162 -- static: yes, type: i32, effect: read
-// val1152 -- static: no, type: i32, effect: pop
-// cond11401151 -- static: no, type: <bottom>, effect: none
-// index1163 -- static: no, type: i32, effect: pop
-// arg11411150 -- static: no, type: <bottom>, effect: none
-// cond11281154 -- static: yes, type: <bottom>, effect: none
-// arg11301160 -- static: yes, type: i32, effect: none
+	// arg11451169 -- static: no, type: i32, effect: none
+// arg11541159 -- static: yes, type: <bottom>, effect: none
+// offset1167 -- static: yes, type: i64, effect: read
+// memindex1158 -- static: yes, type: i32, effect: none
+// index1168 -- static: no, type: i64, effect: pop
+// cond11401166 -- static: yes, type: <bottom>, effect: none
+// offset1174 -- static: yes, type: i32, effect: read
+// cond11521163 -- static: no, type: i32, effect: none
+// val1164 -- static: no, type: i32, effect: pop
+// index1175 -- static: no, type: i32, effect: pop
+// arg11561160 -- static: no, type: <bottom>, effect: none
+// arg11551161 -- static: yes, type: i32, effect: none
+// arg11511165 -- static: yes, type: i32, effect: none
+// arg11531162 -- static: no, type: i32, effect: none
+// arg11501176 -- static: no, type: i32, effect: none
+// rtcast1182 -- static: no, type: <bottom>, effect: none
+// arg11441170 -- static: yes, type: i64, effect: none
+// arg11431171 -- static: no, type: i64, effect: none
+// arg11421172 -- static: yes, type: i32, effect: none
+// eff11461180 -- static: no, type: <bottom>, effect: memory
+// rtcast1181 -- static: no, type: i32, effect: none
+// eff11411173 -- static: no, type: <bottom>, effect: memory
+// flags1157 -- static: yes, type: i32, effect: read
+// arg11491177 -- static: yes, type: i32, effect: none
+// arg11481178 -- static: no, type: i32, effect: none
+// arg11471179 -- static: yes, type: i32, effect: none
 
 	def flags = imm_readU8();
 	def val = pop_i32();
@@ -1217,30 +1231,32 @@ def I32_STORE() {
 	}
 }
 def I32_STORE8() {
-	// arg11841190 -- static: yes, type: <bottom>, effect: none
-// arg11801194 -- static: yes, type: i32, effect: none
-// index1204 -- static: no, type: i32, effect: pop
-// arg11821191 -- static: no, type: <bottom>, effect: none
-// cond11691195 -- static: yes, type: <bottom>, effect: none
-// flags1186 -- static: yes, type: <bottom>, effect: read
-// offset1196 -- static: yes, type: i64, effect: read
-// arg11851189 -- static: no, type: <bottom>, effect: none
-// memindex1187 -- static: yes, type: i32, effect: none
-// index1197 -- static: no, type: i64, effect: pop
-// arg11741198 -- static: no, type: i32, effect: none
-// arg11731199 -- static: yes, type: i64, effect: none
-// arg11721200 -- static: no, type: i64, effect: none
-// arg11711201 -- static: yes, type: i32, effect: none
-// arg11831188 -- static: yes, type: <bottom>, effect: none
-// eff11701202 -- static: no, type: <bottom>, effect: memory
-// val1193 -- static: no, type: i32, effect: pop
-// arg11791205 -- static: no, type: i32, effect: none
-// arg11781206 -- static: yes, type: i32, effect: none
-// arg11771207 -- static: no, type: i32, effect: none
-// arg11761208 -- static: yes, type: i32, effect: none
-// eff11751209 -- static: no, type: <bottom>, effect: memory
-// offset1203 -- static: yes, type: i32, effect: read
-// cond11811192 -- static: no, type: <bottom>, effect: none
+	// flags1200 -- static: yes, type: i32, effect: read
+// eff11891223 -- static: no, type: <bottom>, effect: memory
+// cond11831209 -- static: yes, type: <bottom>, effect: none
+// index1218 -- static: no, type: i32, effect: pop
+// rtcast1225 -- static: no, type: <bottom>, effect: none
+// arg11931219 -- static: no, type: i32, effect: none
+// rtcast1224 -- static: no, type: i32, effect: none
+// index1211 -- static: no, type: i64, effect: pop
+// offset1217 -- static: yes, type: i32, effect: read
+// val1207 -- static: no, type: i32, effect: pop
+// offset1210 -- static: yes, type: i64, effect: read
+// eff11841216 -- static: no, type: <bottom>, effect: memory
+// cond11951206 -- static: no, type: i32, effect: none
+// arg11941208 -- static: yes, type: i32, effect: none
+// arg11981204 -- static: yes, type: i32, effect: none
+// arg11991203 -- static: no, type: <bottom>, effect: none
+// arg11961205 -- static: no, type: i32, effect: none
+// arg11851215 -- static: yes, type: i32, effect: none
+// arg11861214 -- static: no, type: i64, effect: none
+// arg11871213 -- static: yes, type: i64, effect: none
+// arg11881212 -- static: no, type: i32, effect: none
+// arg11971202 -- static: yes, type: <bottom>, effect: none
+// memindex1201 -- static: yes, type: i32, effect: none
+// arg11901222 -- static: yes, type: i32, effect: none
+// arg11911221 -- static: no, type: i32, effect: none
+// arg11921220 -- static: yes, type: i32, effect: none
 
 	def flags = imm_readU8();
 	def val = pop_i32();
@@ -1256,30 +1272,32 @@ def I32_STORE8() {
 	}
 }
 def I32_STORE16() {
-	// index1238 -- static: no, type: i64, effect: pop
-// arg12261230 -- static: no, type: <bottom>, effect: none
-// arg12251231 -- static: yes, type: <bottom>, effect: none
-// arg12211235 -- static: yes, type: i32, effect: none
-// offset1244 -- static: yes, type: i32, effect: read
-// arg12231232 -- static: no, type: <bottom>, effect: none
-// arg12201246 -- static: no, type: i32, effect: none
-// val1234 -- static: no, type: i32, effect: pop
-// arg12141240 -- static: yes, type: i64, effect: none
-// arg12131241 -- static: no, type: i64, effect: none
-// arg12121242 -- static: yes, type: i32, effect: none
-// eff12161250 -- static: no, type: <bottom>, effect: memory
-// eff12111243 -- static: no, type: <bottom>, effect: memory
-// index1245 -- static: no, type: i32, effect: pop
-// arg12191247 -- static: yes, type: i32, effect: none
-// arg12181248 -- static: no, type: i32, effect: none
-// arg12171249 -- static: yes, type: i32, effect: none
-// arg12151239 -- static: no, type: i32, effect: none
-// arg12241229 -- static: yes, type: <bottom>, effect: none
-// flags1227 -- static: yes, type: <bottom>, effect: read
-// cond12101236 -- static: yes, type: <bottom>, effect: none
-// offset1237 -- static: yes, type: i64, effect: read
-// memindex1228 -- static: yes, type: i32, effect: none
-// cond12221233 -- static: no, type: <bottom>, effect: none
+	// flags1243 -- static: yes, type: i32, effect: read
+// rtcast1268 -- static: no, type: <bottom>, effect: none
+// arg12421246 -- static: no, type: <bottom>, effect: none
+// arg12411247 -- static: yes, type: i32, effect: none
+// arg12371251 -- static: yes, type: i32, effect: none
+// rtcast1267 -- static: no, type: i32, effect: none
+// offset1253 -- static: yes, type: i64, effect: read
+// arg12361262 -- static: no, type: i32, effect: none
+// arg12351263 -- static: yes, type: i32, effect: none
+// arg12341264 -- static: no, type: i32, effect: none
+// arg12331265 -- static: yes, type: i32, effect: none
+// arg12311255 -- static: no, type: i32, effect: none
+// arg12301256 -- static: yes, type: i64, effect: none
+// eff12321266 -- static: no, type: <bottom>, effect: memory
+// memindex1244 -- static: yes, type: i32, effect: none
+// arg12401245 -- static: yes, type: <bottom>, effect: none
+// cond12381249 -- static: no, type: i32, effect: none
+// index1254 -- static: no, type: i64, effect: pop
+// offset1260 -- static: yes, type: i32, effect: read
+// arg12391248 -- static: no, type: i32, effect: none
+// val1250 -- static: no, type: i32, effect: pop
+// arg12291257 -- static: no, type: i64, effect: none
+// arg12281258 -- static: yes, type: i32, effect: none
+// eff12271259 -- static: no, type: <bottom>, effect: memory
+// index1261 -- static: no, type: i32, effect: pop
+// cond12261252 -- static: yes, type: <bottom>, effect: none
 
 	def flags = imm_readU8();
 	def val = pop_i32();
@@ -1295,30 +1313,32 @@ def I32_STORE16() {
 	}
 }
 def I64_STORE() {
-	// offset1278 -- static: yes, type: i64, effect: read
-// memindex1269 -- static: yes, type: i32, effect: none
-// cond12511277 -- static: yes, type: <bottom>, effect: none
-// index1279 -- static: no, type: i64, effect: pop
-// offset1285 -- static: yes, type: i32, effect: read
-// cond12631274 -- static: no, type: <bottom>, effect: none
-// val1275 -- static: no, type: i64, effect: pop
-// arg12671271 -- static: no, type: <bottom>, effect: none
-// arg12661272 -- static: yes, type: <bottom>, effect: none
-// arg12621276 -- static: yes, type: i32, effect: none
-// index1286 -- static: no, type: i32, effect: pop
-// arg12641273 -- static: no, type: <bottom>, effect: none
-// arg12611287 -- static: no, type: i64, effect: none
-// arg12601288 -- static: yes, type: i32, effect: none
-// arg12581290 -- static: yes, type: i32, effect: none
-// arg12561280 -- static: no, type: i64, effect: none
-// arg12551281 -- static: yes, type: i64, effect: none
-// arg12541282 -- static: no, type: i64, effect: none
-// arg12531283 -- static: yes, type: i32, effect: none
-// eff12571291 -- static: no, type: <bottom>, effect: memory
-// arg12651270 -- static: yes, type: <bottom>, effect: none
-// eff12521284 -- static: no, type: <bottom>, effect: memory
-// arg12591289 -- static: no, type: i32, effect: none
-// flags1268 -- static: yes, type: <bottom>, effect: read
+	// arg12821291 -- static: no, type: i32, effect: none
+// cond12691295 -- static: yes, type: <bottom>, effect: none
+// index1304 -- static: no, type: i32, effect: pop
+// flags1286 -- static: yes, type: i32, effect: read
+// rtcast1311 -- static: no, type: <bottom>, effect: none
+// rtcast1310 -- static: no, type: i32, effect: none
+// arg12851289 -- static: no, type: <bottom>, effect: none
+// offset1296 -- static: yes, type: i64, effect: read
+// memindex1287 -- static: yes, type: i32, effect: none
+// arg12741298 -- static: no, type: i64, effect: none
+// arg12731299 -- static: yes, type: i64, effect: none
+// arg12721300 -- static: no, type: i64, effect: none
+// arg12711301 -- static: yes, type: i32, effect: none
+// arg12831288 -- static: yes, type: <bottom>, effect: none
+// index1297 -- static: no, type: i64, effect: pop
+// eff12701302 -- static: no, type: <bottom>, effect: memory
+// val1293 -- static: no, type: i64, effect: pop
+// arg12791305 -- static: no, type: i64, effect: none
+// arg12781306 -- static: yes, type: i32, effect: none
+// arg12771307 -- static: no, type: i32, effect: none
+// arg12761308 -- static: yes, type: i32, effect: none
+// eff12751309 -- static: no, type: <bottom>, effect: memory
+// cond12811292 -- static: no, type: i32, effect: none
+// offset1303 -- static: yes, type: i32, effect: read
+// arg12841290 -- static: yes, type: i32, effect: none
+// arg12801294 -- static: yes, type: i32, effect: none
 
 	def flags = imm_readU8();
 	def val = pop_i64();
@@ -1334,30 +1354,32 @@ def I64_STORE() {
 	}
 }
 def F32_STORE() {
-	// arg13001330 -- static: no, type: i32, effect: none
-// arg12991331 -- static: yes, type: i32, effect: none
-// arg12971321 -- static: no, type: f32, effect: none
-// arg12961322 -- static: yes, type: i64, effect: none
-// arg12951323 -- static: no, type: i64, effect: none
-// arg12941324 -- static: yes, type: i32, effect: none
-// eff12981332 -- static: no, type: <bottom>, effect: none
-// memindex1310 -- static: yes, type: i32, effect: none
-// cond13041315 -- static: no, type: <bottom>, effect: none
-// eff12931325 -- static: no, type: <bottom>, effect: none
-// flags1309 -- static: yes, type: <bottom>, effect: read
-// index1320 -- static: no, type: i64, effect: pop
-// arg13081312 -- static: no, type: <bottom>, effect: none
-// arg13071313 -- static: yes, type: <bottom>, effect: none
-// arg13031317 -- static: yes, type: i32, effect: none
-// arg13051314 -- static: no, type: <bottom>, effect: none
-// offset1319 -- static: yes, type: i64, effect: read
-// arg13021328 -- static: no, type: f32, effect: none
-// arg13011329 -- static: yes, type: i32, effect: none
-// arg13061311 -- static: yes, type: <bottom>, effect: none
-// offset1326 -- static: yes, type: i32, effect: read
-// val1316 -- static: no, type: f32, effect: pop
-// cond12921318 -- static: yes, type: <bottom>, effect: none
-// index1327 -- static: no, type: i32, effect: pop
+	// val1336 -- static: no, type: f32, effect: pop
+// index1347 -- static: no, type: i32, effect: pop
+// rtcast1354 -- static: no, type: <bottom>, effect: none
+// rtcast1353 -- static: no, type: i32, effect: none
+// memindex1330 -- static: yes, type: i32, effect: none
+// cond13121338 -- static: yes, type: <bottom>, effect: none
+// arg13201350 -- static: no, type: i32, effect: none
+// flags1329 -- static: yes, type: i32, effect: read
+// index1340 -- static: no, type: i64, effect: pop
+// cond13241335 -- static: no, type: i32, effect: none
+// offset1339 -- static: yes, type: i64, effect: read
+// arg13281332 -- static: no, type: <bottom>, effect: none
+// arg13271333 -- static: yes, type: i32, effect: none
+// arg13231337 -- static: yes, type: i32, effect: none
+// arg13251334 -- static: no, type: i32, effect: none
+// arg13221348 -- static: no, type: f32, effect: none
+// arg13211349 -- static: yes, type: i32, effect: none
+// arg13191351 -- static: yes, type: i32, effect: none
+// arg13171341 -- static: no, type: f32, effect: none
+// arg13161342 -- static: yes, type: i64, effect: none
+// arg13151343 -- static: no, type: i64, effect: none
+// arg13141344 -- static: yes, type: i32, effect: none
+// eff13181352 -- static: no, type: <bottom>, effect: none
+// arg13261331 -- static: yes, type: <bottom>, effect: none
+// eff13131345 -- static: no, type: <bottom>, effect: none
+// offset1346 -- static: yes, type: i32, effect: read
 
 	def flags = imm_readU8();
 	def val = pop_f32();
@@ -1371,30 +1393,32 @@ def F32_STORE() {
 	}
 }
 def F64_STORE() {
-	// val1357 -- static: no, type: f64, effect: pop
-// offset1360 -- static: yes, type: i64, effect: read
-// cond13331359 -- static: yes, type: <bottom>, effect: none
-// arg13431369 -- static: no, type: f64, effect: none
-// memindex1351 -- static: yes, type: i32, effect: none
-// eff13341366 -- static: no, type: <bottom>, effect: memory
-// flags1350 -- static: yes, type: <bottom>, effect: read
-// cond13451356 -- static: no, type: <bottom>, effect: none
-// arg13441358 -- static: yes, type: i32, effect: none
-// arg13481354 -- static: yes, type: <bottom>, effect: none
-// arg13491353 -- static: no, type: <bottom>, effect: none
-// arg13461355 -- static: no, type: <bottom>, effect: none
-// arg13351365 -- static: yes, type: i32, effect: none
-// arg13361364 -- static: no, type: i64, effect: none
-// arg13371363 -- static: yes, type: i64, effect: none
-// arg13381362 -- static: no, type: f64, effect: none
-// arg13471352 -- static: yes, type: <bottom>, effect: none
-// index1368 -- static: no, type: i32, effect: pop
-// arg13401372 -- static: yes, type: i32, effect: none
-// arg13411371 -- static: no, type: i32, effect: none
-// arg13421370 -- static: yes, type: i32, effect: none
-// index1361 -- static: no, type: i64, effect: pop
-// eff13391373 -- static: no, type: <bottom>, effect: memory
-// offset1367 -- static: yes, type: i32, effect: read
+	// arg13691374 -- static: yes, type: <bottom>, effect: none
+// eff13561388 -- static: no, type: <bottom>, effect: memory
+// val1379 -- static: no, type: f64, effect: pop
+// flags1372 -- static: yes, type: i32, effect: read
+// cond13551381 -- static: yes, type: <bottom>, effect: none
+// rtcast1397 -- static: no, type: <bottom>, effect: none
+// rtcast1396 -- static: no, type: i32, effect: none
+// offset1382 -- static: yes, type: i64, effect: read
+// memindex1373 -- static: yes, type: i32, effect: none
+// arg13711375 -- static: no, type: <bottom>, effect: none
+// arg13701376 -- static: yes, type: i32, effect: none
+// arg13661380 -- static: yes, type: i32, effect: none
+// index1383 -- static: no, type: i64, effect: pop
+// arg13651391 -- static: no, type: f64, effect: none
+// arg13641392 -- static: yes, type: i32, effect: none
+// arg13631393 -- static: no, type: i32, effect: none
+// arg13621394 -- static: yes, type: i32, effect: none
+// arg13601384 -- static: no, type: f64, effect: none
+// eff13611395 -- static: no, type: <bottom>, effect: memory
+// cond13671378 -- static: no, type: i32, effect: none
+// index1390 -- static: no, type: i32, effect: pop
+// arg13681377 -- static: no, type: i32, effect: none
+// arg13591385 -- static: yes, type: i64, effect: none
+// arg13581386 -- static: no, type: i64, effect: none
+// arg13571387 -- static: yes, type: i32, effect: none
+// offset1389 -- static: yes, type: i32, effect: read
 
 	def flags = imm_readU8();
 	def val = pop_f64();

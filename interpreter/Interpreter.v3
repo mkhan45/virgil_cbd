@@ -732,6 +732,7 @@ class Frame {
 }
 
 var module: Module;
+var instance: Instance;
 var memory: V3Memory;
 var functions: Vector<CBDFunction>;
 
@@ -1090,9 +1091,9 @@ component Interpreter {
         current_frame.codeptr.iterate_local_codes(push_locals);
         while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length) {
             def op = current_frame.codeptr.read_opcode();
-            // print_stack();
-            // System.puti(current_frame.codeptr.pos); System.puts(": "); System.puts(op.mnemonic);
-            // System.ln();
+            print_stack();
+            System.puti(current_frame.codeptr.pos); System.puts(": "); System.puts(op.mnemonic);
+            System.ln();
             DISPATCH_TABLE[op.tag]();
         }
     }

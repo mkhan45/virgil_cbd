@@ -44,8 +44,9 @@ def collectPushes(s: SSAD, pushBuf: Vector<(string, string)>, ctx: SSADCtx) -> S
         Final(_) => return s;
         Injected(inj, rest) => return SSAD.Injected(inj, collectPushes(rest, pushBuf, ctx));
         LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, collectPushes(rest, pushBuf, ctx));
-        // I we can defer this to recursion in transformSSA
+        // defer branch handling to recursion in transformSSA
         If(c, t, e, phis, rest) => return SSAD.If(c, t, e, phis, collectPushes(rest, pushBuf, ctx));
+        Match(s, branches, rest) => return SSAD.Match(s, branches, collectPushes(rest, pushBuf, ctx));
         LetApp(n, f, args, rest) => {
             if (ctx.effects[n] == CBDEffect.Push) {
                 if (args.length == 1) {
@@ -69,6 +70,13 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
         Final(_) => return ssa;
         Injected(inj, rest) => return SSAD.Injected(inj, transformSSA(rest, ctx));
         LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
+        Match(subj, branches, rest) => {
+            def new_branches = Array<(string, SSAD)>.new(branches.length);
+            for (i < branches.length) {
+                new_branches[i] = (branches[i].0, transformSSA(branches[i].1, ctx));
+            }
+            return SSAD.Match(subj, new_branches, transformSSA(rest, ctx));
+        }
         If(c, t, e, phis, rest) => {
             // TODO: could check for returns and choose not to execute a branch
             if (!ctx.static[c]) {
@@ -78,8 +86,8 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 def tp = ctx.types[c];
                 var tp_str = TypeUtil.toString(tp);
                 if (tp != ValueType.BOTTOM) tp_str = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
-                def fnTrue = Strings.format1("%s_maybeTrue", tp_str);
-                def fnFalse = Strings.format1("%s_maybeFalse", tp_str);
+                def fnTrue = Strings.format1("%s_maybeTrue", "I32");
+                def fnFalse = Strings.format1("%s_maybeFalse", "I32");
                 ctx.static[fvTrue] = false;
                 ctx.static[fvFalse] = false;
                 def t_transform = transformSSA(t, ctx);
@@ -102,15 +110,13 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
             }
         }
         LetApp(n, f, args, rest) => {
-            var op_tp_end = -1;
-            for (i < f.length) if (f[i] == '.') {
-                op_tp_end = i;
-                break;
-            }
-            def is_op = op_tp_end != -1;
+            var is_op = false;
+            for (c in f) if (c == '.') is_op = true;
             def is_rt = !ctx.static[n];
             if (is_op && is_rt) {
-                var tp = TypeUtil.fromString(Arrays.range(f, 0, op_tp_end));
+                def op_spl = IntrinsicTypes.split_op(f);
+                var tp = op_spl.0;
+                def op_fn = op_spl.1;
                 // infer type, applies to bools
                 if (tp == ValueType.BOTTOM && args.length > 0) tp = ctx.types[args[0]];
                 def tp_str = TypeUtil.toString(tp);
@@ -120,20 +126,8 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                     _ => prefix = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
                 }
 
-                var op: string = Strings.format1("UNHANDLED_OP_%s", f);
-                if (Strings.endsWith(f, "==")) op = "equals";
-                if (Strings.endsWith(f, "!=")) op = "not_equals";
-                if (Strings.endsWith(f, "/")) op = "div";
-                if (Strings.endsWith(f, "&&")) op = "and";
-                if (Strings.endsWith(f, "&")) op = "and";
-                if (Strings.endsWith(f, "+")) op = "plus";
-                if (Strings.endsWith(f, "-")) op = "minus";
-                if (Strings.endsWith(f, "<")) op = "lt";
-                if (Strings.endsWith(f, "<=")) op = "lte";
-                if (Strings.endsWith(f, ">")) op = "gt";
-                if (Strings.endsWith(f, "*")) op = "times";
-
-                def new_f = Strings.format2("%s_%s", prefix, op);
+                var new_f = Strings.format2("%s_%s", prefix, op_fn);
+                if (Strings.equal(op_fn, "view")) new_f = "id";
                 ctx.getTypes(SSAD.LetApp(n, new_f, args, rest));
                 return transformSSA(SSAD.LetApp(n, new_f, args, rest), ctx);
             }

@@ -125,7 +125,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
         LetApp(n, f, args, rest) => {
             var res = SSAD.LetApp(n, f, args, rest);
             var is_op = false;
-            if (!Strings.startsWith(f, "TypeVar")) for (c in f) if (c == '.') is_op = true;
+            for (c in f) if (c == '.') is_op = true;
             def is_rt = !ctx.static[n];
             if (is_op && is_rt) {
                 def op_spl = IntrinsicTypes.split_op(f);

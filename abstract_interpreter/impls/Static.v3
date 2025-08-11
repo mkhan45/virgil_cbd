@@ -30,59 +30,59 @@ class StaticnessEval extends AI<SV, SV.I32, SV.I64, SV.F32, SV.F64, SV.REF> {
         System.puts("]\n");
     }
 
-    def I32_equals(lhs: SV.I32, rhs: SV.I32) =>
+    def I32_equals(lhs: SV.I32, rhs: SV.I32) -> SV.I32 =>
 	SV.I32(lhs.static && rhs.static, if(lhs.val == rhs.val, 1, 0));
 
-    def I32_not_equals(lhs: SV.I32, rhs: SV.I32) =>
+    def I32_not_equals(lhs: SV.I32, rhs: SV.I32) -> SV.I32 =>
 	SV.I32(lhs.static && rhs.static, if(lhs.val != rhs.val, 1, 0));
 
-    def I32_plus(lhs: SV.I32, rhs: SV.I32) => 
+    def I32_plus(lhs: SV.I32, rhs: SV.I32) -> SV.I32 => 
 	SV.I32(lhs.static && rhs.static, lhs.val + rhs.val);
 
-    def I32_minus(lhs: SV.I32, rhs: SV.I32) =>
+    def I32_minus(lhs: SV.I32, rhs: SV.I32) -> SV.I32 =>
 	SV.I32(lhs.static && rhs.static, lhs.val - rhs.val);
 
-    def I32_div(lhs: SV.I32, rhs: SV.I32) =>
+    def I32_div(lhs: SV.I32, rhs: SV.I32) -> SV.I32 =>
 	SV.I32(lhs.static && rhs.static, lhs.val / rhs.val);
 
-    def I32_times(lhs: SV.I32, rhs: SV.I32) =>
+    def I32_times(lhs: SV.I32, rhs: SV.I32) -> SV.I32 =>
 	SV.I32(lhs.static && rhs.static, lhs.val * rhs.val);
 
-    def I32_lt(lhs: SV.I32, rhs: SV.I32) =>
+    def I32_lt(lhs: SV.I32, rhs: SV.I32) -> SV.I32 =>
 	SV.I32(lhs.static && rhs.static, if(lhs.val < rhs.val, 1, 0));
 
-    def I32_lte(lhs: SV.I32, rhs: SV.I32) =>
+    def I32_lte(lhs: SV.I32, rhs: SV.I32) -> SV.I32 =>
 	SV.I32(lhs.static && rhs.static, if(lhs.val <= rhs.val, 1, 0));
 
-    def I32_gt(lhs: SV.I32, rhs: SV.I32) =>
+    def I32_gt(lhs: SV.I32, rhs: SV.I32) -> SV.I32 =>
 	SV.I32(lhs.static && rhs.static, if(lhs.val > rhs.val, 1, 0));
 
-    def I32_and(lhs: SV.I32, rhs: SV.I32) =>
+    def I32_and(lhs: SV.I32, rhs: SV.I32) -> SV.I32 =>
 	SV.I32(lhs.static && rhs.static, lhs.val & rhs.val);
 
-    def I32_maybeTrue(i: SV.I32)  => (i.val == 1) || (!i.static);
-    def I32_maybeFalse(i: SV.I32) => (i.val == 0) || (!i.static);
+    def I32_maybeTrue(i: SV.I32)  -> bool => (i.val == 1) || (!i.static);
+    def I32_maybeFalse(i: SV.I32) -> bool => (i.val == 0) || (!i.static);
 
     def merge_i(lhs: SV.I32, rhs: SV.I32) -> SV.I32 {
         if (lhs.static && rhs.static && lhs.val == rhs.val) return lhs;
         else return SV.I32(false, 0);
     }
 
-    def unbox_i(v: SV) => SV.I32.!(v);
-    def unbox_l(v: SV) => SV.I64.!(v); 
-    def unbox_f(v: SV) => SV.F32.!(v); 
-    def unbox_d(v: SV) => SV.F64.!(v); 
-    def unbox_r(v: SV) => SV.REF.!(v); 
+    def unbox_i(v: SV) -> SV.I32 => SV.I32.!(v);
+    def unbox_l(v: SV) -> SV.I64 => SV.I64.!(v); 
+    def unbox_f(v: SV) -> SV.F32 => SV.F32.!(v); 
+    def unbox_d(v: SV) -> SV.F64 => SV.F64.!(v); 
+    def unbox_r(v: SV) -> SV.REF => SV.REF.!(v); 
 
-    def box_i(i: SV.I32) => SV.!(i);
+    def box_i(i: SV.I32) -> SV => SV.!(i);
 
     def I32_abs_eq(lhs: SV.I32, rhs: SV.I32) -> bool {
         return (lhs.static && rhs.static && lhs.val == rhs.val)
             || (!lhs.static && !rhs.static);
     }
 
-    def rtcast_i32(i: i32) => SV.I32(true, i);
-    def rtcast_f32(f: float) => SV.F32(true, f);
+    def rtcast_i32(i: i32) -> SV.I32 => SV.I32(true, i);
+    def rtcast_f32(f: float) -> SV.F32 => SV.F32(true, f);
 }
 
 component AIRunner {

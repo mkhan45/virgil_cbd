@@ -113,5 +113,5 @@ class CFGStateMgr<AST> extends StateManager<AST, AST, AST, AST, AST, AST> {
             ai.current_state().stack.elems[i] = localAST(i);
         }
     }
-    def shouldFinishCont() => shouldBreak;
+    def shouldFinishCont() -> bool => shouldBreak;
 }

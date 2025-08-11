@@ -22,7 +22,7 @@ AIS = $(foreach I,$(wildcard abstract_interpreter/impls/*.v3),$(basename $I)AI.v
 # Targets
 .PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler abstract_interpreter
 
-all: validator/Validator.v3 interpreter/Interpreter.v3 compiler/Compiler.v3 abstract_interpreter/AI.v3 InterpreterMain
+all: validator interpreter InterpreterMain
 
 $(DEFS).sexp: wizard-engine/src/bytecode/CanonicalDefs.v3
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
