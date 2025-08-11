@@ -452,6 +452,23 @@ def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     pushTypes(args);
     def ctl = pushControl(Opcode.IF.code, args, rets, stack.top);
     ctlxfer.refElse(ctl, codeptr.pos);
+    return ctl;
+}
+
+def doElse() -> ControlEntry {
+	if (ctl_top.start_opcode != Opcode.IF.code) invalid();
+    def p = ctl_top.results;
+    popTypes(p);
+    stack.top = ctl_top.val_stack_top;
+    pushTypes(p);
+    ctlxfer.ref0(ctl_top, codeptr.pos);
+    ctlxfer.bindElse(ctl_top, codeptr.pos);
+
+    ctl_top.start_opcode = opcode.code;
+    ctl_top.reachable = true;
+    stack.top = ctl_top.val_stack_top;
+    pushTypes(ctl_top.params);
+
     return ctl_top;
 }
 

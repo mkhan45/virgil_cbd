@@ -292,6 +292,10 @@ def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> SidetableBrEntry {
     return current_frame.sidetable.getBrEntry(current_frame.stp);
 }
 
+def doElse() -> SidetableBrEntry {
+    return current_frame.sidetable.getBrEntry(current_frame.stp);
+}
+
 def doEnd() {
     // CBD calls doReturn if at end
 }
@@ -374,9 +378,9 @@ component Interpreter {
         current_frame.codeptr.iterate_local_codes(push_locals);
         while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length) {
             def op = current_frame.codeptr.read_opcode();
-            print_stack();
-            System.puts(op.mnemonic);
-            System.ln();
+            // print_stack();
+            // System.puti(current_frame.codeptr.pos); System.puts(": "); System.puts(op.mnemonic);
+            // System.ln();
             DISPATCH_TABLE[op.tag]();
         }
     }
