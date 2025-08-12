@@ -132,6 +132,7 @@ component TierGen {
         def dispatch_builder = StringBuilder.new();
         dispatch_builder.puts("def build_dispatch_table() -> Array<void -> void> {\n");
         dispatch_builder.puts("  DISPATCH_TABLE = Array.new(0xE5 + 1);\n"); // 0xE5 = highest opcode (SWITCH)
+        dispatch_builder.puts("  for (i < 0xE5 + 1) DISPATCH_TABLE[i] = trapUnreachable;\n");
 
         for (d in defs) {
             def extracted_def = toDef(d);

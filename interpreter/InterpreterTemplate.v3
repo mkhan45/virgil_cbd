@@ -24,8 +24,19 @@ var instance: Instance;
 var memory: V3Memory;
 var functions: Vector<CBDFunction>;
 
+class DispatchPage(prefix: byte) {
+    var opcodes: Array<void -> void>;
+    var subpages: Array<DispatchPage>;
+}
+
 var current_frame: Frame;
 var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
+var DISPATCH_NO_PREFIX: Array<void -> void>;
+def PAGE_FB = DispatchPage.new(0xFB);
+def PAGE_FC = DispatchPage.new(0xFC);
+def PAGE_FD = DispatchPage.new(0xFD);
+def PAGE_FE = DispatchPage.new(0xFE);
+var DISPATCH_PAGES: Array<DispatchPage> = [PAGE_FB, PAGE_FC, PAGE_FD, PAGE_FE];
 var stack: ArrayStack<Value>;
 var globals: Vector<Value>;
 
@@ -185,7 +196,7 @@ def doBranch(label: SidetableBrEntry) {
     current_frame.stp += label.dstp;
     if (label.popcount > 0) {
         if (label.valcount > 0) copyVals(label.valcount, stack.top - int.!(label.popcount + label.valcount));
-        else stack.top -= label.popcount - 1;
+        else stack.top -= label.popcount;
     }
 }
 
@@ -373,16 +384,74 @@ component Interpreter {
                 _ => globals.put(Value.I32(0));
             }
         }
+
+        DISPATCH_NO_PREFIX = Array.new(256);
+        for (i < 256) DISPATCH_NO_PREFIX[i] = dispatch_prefix(u8.!(i));
+        for (op in Opcodes.opcodes_no_prefix) if (op.tag < DISPATCH_TABLE.length) {
+            DISPATCH_NO_PREFIX[u8.!(op.code)] = DISPATCH_TABLE[op.tag];
+        }
+        for (i < Opcodes.code_pages.length) {
+            def page = Opcodes.code_pages[i];
+            def subpages = Array<DispatchPage>.new(page.subpages.length);
+            for (i < page.subpages.length) {
+                def subpage = page.subpages[i];
+                if (subpage == null) continue;
+                def sub_ops = Array<void -> void>.new(subpage.opcodes.length);
+                for (i < subpage.opcodes.length) 
+                    if (subpage.opcodes[i].tag < DISPATCH_TABLE.length) 
+                        sub_ops[i] = DISPATCH_TABLE[subpage.opcodes[i].tag];
+                subpages[i] = DispatchPage.new(subpage.prefix);
+                subpages[i].opcodes = sub_ops;
+            }
+            def ops = Array<void -> void>.new(page.opcodes.length);
+            for (i < page.opcodes.length) {
+                if (page.opcodes[i].tag < DISPATCH_TABLE.length) ops[i] = DISPATCH_TABLE[page.opcodes[i].tag];
+            }
+            DISPATCH_PAGES[i].opcodes = ops;
+            DISPATCH_PAGES[i].subpages = subpages;
+        }
+    }
+
+    def dispatch_prefix(prefix: byte) -> (void -> void) {
+        var p: DispatchPage;
+        for (page in DISPATCH_PAGES) if (page.prefix == prefix) {
+            p = page;
+            break;
+        }
+        return fun {
+            def code = current_frame.codeptr.read_uleb32();
+            var upper = byte.view(code >> 8);
+            var lower = byte.view(code);
+            if (upper == 0) p.opcodes[lower]();
+            else p.subpages[lower].opcodes[upper]();
+        };
     }
 
     def dispatch() {
         current_frame.codeptr.iterate_local_codes(push_locals);
         while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length) {
-            def op = current_frame.codeptr.read_opcode();
-            print_stack();
-            System.puti(current_frame.codeptr.pos); System.puts(": "); System.puts(op.mnemonic);
-            System.ln();
-            DISPATCH_TABLE[op.tag]();
+            def b = current_frame.codeptr.read1();
+            var d_no_prefix = DISPATCH_NO_PREFIX[b];
+            d_no_prefix();
+            // if (d_no_prefix != null) {
+            //     d_no_prefix();
+            // } else {
+            //     def code = current_frame.codeptr.read_uleb32();
+            //     for (page in DISPATCH_PAGES) {
+            //         if (page.prefix == b) {
+            //             var upper = byte.view(code >> 8);
+            //             var lower = byte.view(code);
+            //             if (upper == 0) page.opcodes[lower]();
+            //             else page.subpages[lower].opcodes[upper]();
+            //             break;
+            //         }
+            //     }
+            // }
+            // def op = current_frame.codeptr.read_opcode();
+            // // print_stack();
+            // // System.puti(current_frame.codeptr.pos); System.puts(": "); System.puts(op.mnemonic);
+            // // System.ln();
+            // DISPATCH_TABLE[op.tag]();
         }
     }
 
