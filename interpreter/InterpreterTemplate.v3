@@ -24,6 +24,8 @@ var instance: Instance;
 var memory: V3Memory;
 var functions: Vector<CBDFunction>;
 
+var should_stop: bool;
+
 type DispatchPage(prefix: byte, opcodes: Array<void -> void>, subpages: Array<DispatchPage>) #unboxed {}
 // class DispatchPage(prefix: byte) {
 //     var opcodes: Array<void -> void>;
@@ -319,6 +321,7 @@ def doReturn() {
     def dest = current_frame.fp;
     copyVals(count, dest);
     current_frame = current_frame.parent;
+    should_stop = (current_frame == null || current_frame.codeptr.pos >= current_frame.codeptr.data.length);
 }
 
 def doTry(bt: (Array<ValueType>, Array<ValueType>)) {
@@ -437,7 +440,8 @@ component Interpreter {
 
     def dispatch() {
         current_frame.codeptr.iterate_local_codes(push_locals);
-        while (current_frame != null && current_frame.codeptr.pos < current_frame.codeptr.data.length) {
+        should_stop = false;
+        while (!should_stop) {
             def b = current_frame.codeptr.read1();
             var d_no_prefix = DISPATCH_NO_PREFIX[b];
             d_no_prefix();
