@@ -61,13 +61,13 @@ def gen_testop<C, R>(op: (C, C) -> bool) -> (R, R) -> R {
     return fun (lhs: R, rhs: R) => lhs; 
 }
 type TypeVar {
-    case I32 {
-        def binop(op: (i32, i32) -> i32) => gen_binop<i32, TypeVar.I32>(op);
-        def testop(op: (i32, i32) -> bool) => gen_testop<i32, TypeVar.I32>(op);
+    case U32 {
+        def binop(op: (u32, u32) -> u32) => gen_binop<u32, TypeVar.U32>(op);
+        def testop(op: (u32, u32) -> bool) => gen_testop<u32, TypeVar.U32>(op);
     }
-    case I64 {
-        def binop(op: (i64, i64) -> i64) => gen_binop<i64, TypeVar.I64>(op);
-        def testop(op: (i64, i64) -> bool) => gen_testop<i64, TypeVar.I64>(op);
+    case U64 {
+        def binop(op: (u64, u64) -> u64) => gen_binop<u64, TypeVar.U64>(op);
+        def testop(op: (u64, u64) -> bool) => gen_testop<u64, TypeVar.U64>(op);
     }
     case F32 {
         def binop(op: (float, float) -> float) => gen_binop<float, TypeVar.F32>(op);
@@ -88,14 +88,14 @@ type TypeVar {
     case Err;
     case Bot;
 
-    def unbox_i32() -> TypeVar.I32 {
-        if (TypeVar.I32.?(this)) return TypeVar.I32;
-        return invalid_t(TypeVar.I32);
+    def unbox_u32() -> TypeVar.U32 {
+        if (TypeVar.U32.?(this)) return TypeVar.U32;
+        return invalid_t(TypeVar.U32);
     }
 
-    def unbox_i64() -> TypeVar.I64 {
-        if (TypeVar.I64.?(this)) return TypeVar.I64;
-        return invalid_t(TypeVar.I64);
+    def unbox_u64() -> TypeVar.U64 {
+        if (TypeVar.U64.?(this)) return TypeVar.U64;
+        return invalid_t(TypeVar.U64);
     }
     
     def unbox_f32() -> TypeVar.F32 {
@@ -124,8 +124,8 @@ type TypeVar {
 
     def short_str() -> string {
         match (this) {
-            I32 => return "i";
-            I64 => return "l";
+            U32 => return "u";
+            U64 => return "l";
             F32 => return "f";
             F64 => return "d";
             V128 => return "v";
@@ -137,8 +137,8 @@ type TypeVar {
 
     def long_str() -> string {
         match (this) {
-            I32 => return "i32";
-            I64 => return "i64";
+            U32 => return "u32";
+            U64 => return "u64";
             F32 => return "f32";
             F64 => return "f64";
             V128 => return "v128";
@@ -149,16 +149,16 @@ type TypeVar {
     }
 }
 
-def I32_equals = TypeVar.I32.testop(i32.==);
-def I32_not_equals = TypeVar.I32.testop(i32.!=);
-def I32_plus = TypeVar.I32.binop(i32.+);
-def I32_minus = TypeVar.I32.binop(i32.-);
-def I32_div = TypeVar.I32.binop(i32./);
-def I32_lt = TypeVar.I32.testop(i32.<);
-def I32_lte = TypeVar.I32.testop(i32.<=);
-def I32_gt = TypeVar.I32.testop(i32.>);
-def I32_times = TypeVar.I32.binop(i32.*);
-def I32_and = TypeVar.I32.binop(i32.&);
+def U32_equals = TypeVar.U32.testop(u32.==);
+def U32_not_equals = TypeVar.U32.testop(u32.!=);
+def U32_plus = TypeVar.U32.binop(u32.+);
+def U32_minus = TypeVar.U32.binop(u32.-);
+def U32_div = TypeVar.U32.binop(u32./);
+def U32_lt = TypeVar.U32.testop(u32.<);
+def U32_lte = TypeVar.U32.testop(u32.<=);
+def U32_gt = TypeVar.U32.testop(u32.>);
+def U32_times = TypeVar.U32.binop(u32.*);
+def U32_and = TypeVar.U32.binop(u32.&);
 
 def F32_equals = TypeVar.F32.testop(float.==);
 def F32_not_equals = TypeVar.F32.testop(float.==);
@@ -177,8 +177,8 @@ def object_New(sig: HeapTypeDecl) -> TypeVar.Object => TypeVar.Object;
 
 def typeVarFromValType(vt: ValueType) -> TypeVar {
     match (vt) {
-        I32 => return TypeVar.I32;
-        I64 => return TypeVar.I64;
+        I32 => return TypeVar.U32;
+        I64 => return TypeVar.U64;
         F32 => return TypeVar.F32;
         F64 => return TypeVar.F64;
         V128 => return TypeVar.V128;
@@ -190,8 +190,8 @@ def typeVarFromValType(vt: ValueType) -> TypeVar {
 
 def valTypeFromTypeVar(tv: TypeVar) -> ValueType {
     match (tv) {
-        I32 => return ValueType.I32;
-        I64 => return ValueType.I64;
+        U32 => return ValueType.I32;
+        U64 => return ValueType.I64;
         F32 => return ValueType.F32;
         F64 => return ValueType.F64;
         V128 => return ValueType.V128;
@@ -206,25 +206,24 @@ def invalid_t<T>(t: T) -> T {
     return t;
 }
 
-def rtcast_i32(x: i32) -> TypeVar.I32 {
-    return TypeVar.I32;
+def rtcast_u32(x: u32) -> TypeVar.U32 {
+    return TypeVar.U32;
 }
+def rtcast_i32 = rtcast_u32;
 def rtcast_f32(x: float) -> TypeVar.F32 {
     return TypeVar.F32;
 }
 
 type FieldOffset(offset: u32);
 enum FieldKind {
-    U8, U16, I32, I64, F32, F64, V128, REF
+    U8, U16, U32, U64, F32, F64, V128, REF
 }
 
-def imm_readILEB32() -> i32 {
-    return codeptr.read_sleb32();
-}
+def imm_readULEB32() -> u32 => codeptr.read_uleb32();
+def imm_readULEB64() -> u64 => codeptr.read_uleb64();
 
-def imm_readILEB64() -> i64 {
-    return codeptr.read_sleb64();
-}
+def imm_readILEB32() -> u32 => u32.view(codeptr.read_sleb32());
+def imm_readILEB64() -> u64 => u32.view(codeptr.read_sleb64());
 
 def imm_readU8() -> u8 {
     return codeptr.read1();
@@ -235,11 +234,11 @@ def imm_readBlockType() -> (Array<ValueType>, Array<ValueType>) {
     return bt.toAbstractBlockType(module);
 }
 
-def pop_i32() -> TypeVar.I32 {
-    return stack.pop().unbox_i32();
+def pop_u32() -> TypeVar.U32 {
+    return stack.pop().unbox_u32();
 }
-def pop_i64() -> TypeVar.I64 {
-    return stack.pop().unbox_i64();
+def pop_u64() -> TypeVar.U64 {
+    return stack.pop().unbox_u64();
 }
 def pop_f32() -> TypeVar.F32 {
     return stack.pop().unbox_f32();
@@ -259,11 +258,11 @@ def pop_Value(tv: TypeVar) -> TypeVar {
     return invalid_t(tv);
 }
 
-def push_i32(v: TypeVar.I32) {
+def push_u32(v: TypeVar.U32) {
     stack.push(v);
 }
-def push_i64(v: TypeVar.I64) {
-    stack.push(TypeVar.I64);
+def push_u64(v: TypeVar.U64) {
+    stack.push(TypeVar.U64);
 }
 def push_f32(v: TypeVar.F32) {
     stack.push(TypeVar.F32);
@@ -283,30 +282,30 @@ def push_Value(tv: TypeVar, v: TypeVar) {
 }
 
 // Local variables.
-def getLocal(tv: TypeVar, index: i32) -> TypeVar {
+def getLocal(tv: TypeVar, index: u32) -> TypeVar {
     if (!tv.matches(stack.elems[index])) invalid();
     return tv;
 }
-def setLocal(tv: TypeVar, index: i32, v: TypeVar) {
+def setLocal(tv: TypeVar, index: u32, v: TypeVar) {
     if (!tv.matches(v)) invalid();
     stack.elems[index] = tv;
 }
 
 // Global variables.
-def getGlobal(tv: TypeVar, index: i32) -> TypeVar {
-    return globals[index];
+def getGlobal(tv: TypeVar, index: u32) -> TypeVar {
+    return globals[int.view(index)];
 }
-def setGlobal(tv: TypeVar, index: i32, v: TypeVar) {
-    globals[index] = v;
+def setGlobal(tv: TypeVar, index: u32, v: TypeVar) {
+    globals[int.view(index)] = v;
 }
 
 // Function context.
-def f_getLabel(depth: i32) -> ControlEntry {
-    return ctl_stack.elems[ctl_stack.top - depth - 1];
+def f_getLabel(depth: u32) -> ControlEntry {
+    return ctl_stack.elems[ctl_stack.top - int.view(depth) - 1];
 }
 
-def f_getLocalType(index: i32) -> TypeVar {
-    return local_types[index];
+def f_getLocalType(index: u32) -> TypeVar {
+    return local_types[int.view(index)];
 }
 
 def f_getTopOfStackType() -> TypeVar {
@@ -314,17 +313,17 @@ def f_getTopOfStackType() -> TypeVar {
 }
 
 // Module context.
-def m_getGlobalType(index: i32) -> TypeVar {
-    return globals[index];
+def m_getGlobalType(index: u32) -> TypeVar {
+    return globals[int.view(index)];
 }
-def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind {
-    def ht = module.heaptypes[struct_index];
+def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind {
+    def ht = module.heaptypes[int.view(struct_index)];
     def decl = StructDecl.!(ht);
     def st = decl.field_types[field_index];
     match (st.valtype) {
         BOTTOM => return FieldKind.REF;
-        I32 => return FieldKind.I32;
-        I64 => return FieldKind.I64;
+        I32 => return FieldKind.U32;
+        I64 => return FieldKind.U64;
         F32 => return FieldKind.F32;
         F64 => return FieldKind.F64;
         V128 => return FieldKind.V128;
@@ -332,22 +331,22 @@ def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind {
         Ref => return FieldKind.REF;
     }
 }
-def m_getFieldOffset(struct_index: i32, field_index: i32) -> FieldOffset {
+def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset {
     return FieldOffset(u32.!(field_index)); // TODO
 }
-def m_isMemory64(memory_index: i32) -> bool => false; // TODO mem64
-def m_isTable64(memory_index: i32) -> bool;
-def m_getFuncSignature(func_index: i32) -> SigDecl {
+def m_isMemory64(memory_index: u32) -> bool => false; // TODO mem64
+def m_isTable64(memory_index: u32) -> bool;
+def m_getFuncSignature(func_index: u32) -> SigDecl {
     return null;
 }
-def m_getSignature(sig_index: i32) -> HeapTypeDecl {
-    return module.heaptypes[sig_index];
+def m_getSignature(sig_index: u32) -> HeapTypeDecl {
+    return module.heaptypes[int.view(sig_index)];
 }
 
 // Instance context.
-def i_getTableFunction64(table_index: i32, sig: Decl, func_index: TypeVar.I64) -> CBDFunction;
-def i_getTableFunction32(table_index: i32, sig: Decl, func_index: TypeVar.I32) -> CBDFunction;
-def i_getFunction(func_index: i32) => CBDFunction.new(module.functions[func_index]);
+def i_getTableFunction64(table_index: u32, sig: Decl, func_index: TypeVar.U64) -> CBDFunction;
+def i_getTableFunction32(table_index: u32, sig: Decl, func_index: TypeVar.U32) -> CBDFunction;
+def i_getFunction(func_index: u32) => CBDFunction.new(module.functions[int.view(func_index)]);
 
 // Control flow.
 def doCall(sig: Decl, target: CBDFunction) {
@@ -368,53 +367,47 @@ def doFallthru() {
 }
 
 // Machine intrinsics.
-def mach_readStructField_i8(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
-def mach_readStructField_u8(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
-def mach_readStructField_i16(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
-def mach_readStructField_u16(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
-def mach_readStructField_i32(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
-def mach_readStructField_u32(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I32;
-def mach_readStructField_i64(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I64;
-def mach_readStructField_u64(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.I64;
+def mach_readStructField_u8(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.U32;
+def mach_readStructField_u16(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.U32;
+def mach_readStructField_u32(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.U32;
+def mach_readStructField_u64(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.U64;
 def mach_readStructField_f32(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.F32;
 def mach_readStructField_f64(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.F64;
 def mach_readStructField_v128(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.V128;
 def mach_readStructField_Object(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.Object;
 
 // TODO: validate read/write
-def mach_readMemory64_i8(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.I32;
-def mach_readMemory32_i8(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.I32;
-def mach_readMemory64_u8(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.I32;
-def mach_readMemory32_u8(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.I32;
-def mach_readMemory64_i16(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.I32;
-def mach_readMemory32_i16(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.I32;
-def mach_readMemory64_i32(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.I32;
-def mach_readMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.I32;
-def mach_readMemory64_i64(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.I64;
-def mach_readMemory32_i64(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.I64;
-def mach_readMemory64_f32(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.F32;
-def mach_readMemory32_f32(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.F32;
-def mach_readMemory64_f64(memory_index: i32, index: TypeVar.I64, offset: i64) => TypeVar.F64;
-def mach_readMemory32_f64(memory_index: i32, index: TypeVar.I32, offset: i32) => TypeVar.F64;
+def mach_readMemory64_u8(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U32;
+def mach_readMemory32_u8(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U32;
+def mach_readMemory64_u16(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U32;
+def mach_readMemory32_u16(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U32;
+def mach_readMemory64_u32(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U32;
+def mach_readMemory32_u32(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U32;
+def mach_readMemory64_u64(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U64;
+def mach_readMemory32_u64(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U64;
+def mach_readMemory64_f32(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.F32;
+def mach_readMemory32_f32(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.F32;
+def mach_readMemory64_f64(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.F64;
+def mach_readMemory32_f64(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.F64;
 
-def mach_writeMemory64_i8(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.I32) => void;
-def mach_writeMemory32_i8(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.I32) => void;
-def mach_writeMemory64_i16(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.I32) => void;
-def mach_writeMemory32_i16(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.I32) => void;
-def mach_writeMemory64_i32(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.I32) => void;
-def mach_writeMemory32_i32(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.I32) => void;
-def mach_writeMemory64_i64(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.I64) => void;
-def mach_writeMemory32_i64(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.I64) => void;
-def mach_writeMemory64_f32(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.F32) => void;
-def mach_writeMemory32_f32(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.F32) => void;
-def mach_writeMemory64_f64(memory_index: i32, index: TypeVar.I64, offset: i64, val: TypeVar.F64) => void;
-def mach_writeMemory32_f64(memory_index: i32, index: TypeVar.I32, offset: i32, val: TypeVar.F64) => void;
+def mach_writeMemory64_u8(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.U32) => void;
+def mach_writeMemory32_u8(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U32) => void;
+def mach_writeMemory64_u16(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.U32) => void;
+def mach_writeMemory32_u16(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U32) => void;
+def mach_writeMemory64_u32(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.U32) => void;
+def mach_writeMemory32_u32(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U32) => void;
+def mach_writeMemory64_u64(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.U64) => void;
+def mach_writeMemory32_u64(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U64) => void;
+def mach_writeMemory64_f32(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.F32) => void;
+def mach_writeMemory32_f32(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.F32) => void;
+def mach_writeMemory64_f64(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.F64) => void;
+def mach_writeMemory32_f64(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.F64) => void;
 
-def mach_readTable64(table_index: i32, index: TypeVar.I64) -> TypeVar.Object;
-def mach_readTable32(table_index: i32, index: TypeVar.I32) -> TypeVar.Object;
+def mach_readTable64(table_index: u32, index: TypeVar.U64) -> TypeVar.Object;
+def mach_readTable32(table_index: u32, index: TypeVar.U32) -> TypeVar.Object;
 
-def mach_writeTable64(table_index: i32, index: TypeVar.I64, val: TypeVar.Object);
-def mach_writeTable32(table_index: i32, index: TypeVar.I32, val: TypeVar.Object);
+def mach_writeTable64(table_index: u32, index: TypeVar.U64, val: TypeVar.Object);
+def mach_writeTable32(table_index: u32, index: TypeVar.U32, val: TypeVar.Object);
 
 // Traps.
 def invalid();
@@ -511,16 +504,20 @@ def f_isAtEnd() -> bool {
     return codeptr.pos >= codeptr.data.length;
 }
 
-def f32_reinterpret_i32(i: TypeVar.I32) -> TypeVar.F32;
-def f64_reinterpret_i64(i: TypeVar.I64) -> TypeVar.F64;
-def i32_reinterpret_f32(f: TypeVar.F32) -> TypeVar.I32;
-def i64_reinterpret_f64(f: TypeVar.F64) -> TypeVar.I64;
+def f32_reinterpret_u32(i: TypeVar.U32) -> TypeVar.F32;
+def f64_reinterpret_u64(i: TypeVar.U64) -> TypeVar.F64;
+def u32_reinterpret_f32(f: TypeVar.F32) -> TypeVar.U32;
+def u64_reinterpret_f64(f: TypeVar.F64) -> TypeVar.U64;
+
+def u32_div_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def u32_lt_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def u32_le_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 
 def push_locals(count: u32, vtc: ValueTypeCode) {
     var tv: TypeVar;
     match (vtc.code) {
-        BpTypeCode.I32.val => tv = TypeVar.I32;
-        BpTypeCode.I64.val => tv = TypeVar.I64;
+        BpTypeCode.I32.val => tv = TypeVar.U32;
+        BpTypeCode.I64.val => tv = TypeVar.U64;
         BpTypeCode.F32.val => tv = TypeVar.F32;
         BpTypeCode.F64.val => tv = TypeVar.F64;
         BpTypeCode.V128.val => tv = TypeVar.V128;

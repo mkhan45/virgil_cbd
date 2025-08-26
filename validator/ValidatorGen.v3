@@ -133,7 +133,7 @@ def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
                 def op_fn = op_spl.1;
                 // infer type, applies to bools
                 if (tp == ValueType.BOTTOM && args.length > 0) tp = ctx.types[args[0]];
-                def tp_str = TypeUtil.toString(tp);
+                def tp_str = TypeUtil.toStringRT(tp);
                 var prefix: string;
                 match (tp) {
                     BOTTOM => prefix = "V";

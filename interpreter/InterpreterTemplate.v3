@@ -56,13 +56,11 @@ def copyVals(count: int, dest: int) {
 
 def HAS_MEM_INDEX = 0x40u8;
 
-def imm_readILEB32() -> i32 {
-    return i32.!(current_frame.codeptr.read_uleb32());
-}
+def imm_readULEB32() -> u32 => current_frame.codeptr.read_uleb32();
+def imm_readULEB64() -> u64 => current_frame.codeptr.read_uleb64();
 
-def imm_readILEB64() -> i64 {
-    return i64.!(current_frame.codeptr.read_uleb64());
-}
+def imm_readILEB32() -> u32 => u32.view(current_frame.codeptr.read_sleb32());
+def imm_readILEB64() -> u64 => u32.view(current_frame.codeptr.read_sleb64());
 
 def imm_readU8() -> u8 {
     return current_frame.codeptr.read1();
@@ -73,11 +71,11 @@ def imm_readBlockType() -> (Array<ValueType>, Array<ValueType>) {
     return bt.toAbstractBlockType(module);
 }
 
-def pop_i32() -> i32 {
-    return Values.unbox_i(stack.pop());
+def pop_u32() -> u32 {
+    return Values.unbox_u(stack.pop());
 }
-def pop_i64() -> i64 {
-    return Values.unbox_l(stack.pop());
+def pop_u64() -> u64 {
+    return Values.unbox_w(stack.pop());
 }
 def pop_f32() -> float {
     return Values.unbox_f(stack.pop());
@@ -93,11 +91,11 @@ def pop_Value(tv: ()) -> Value {
     return stack.pop();
 }
 
-def push_i32(v: i32) {
-    stack.push(Values.box_i(v));
+def push_u32(v: u32) {
+    stack.push(Values.box_u(v));
 }
-def push_i64(v: i64) {
-    stack.push(Values.box_l(v));
+def push_u64(v: u64) {
+    stack.push(Values.box_w(v));
 }
 def push_f32(v: float) {
     stack.push(Values.box_f(v));
@@ -114,29 +112,29 @@ def push_Value(tv: (), v: Value) {
 }
 
 // Local variables.
-def getLocal(tv: (), index: i32) -> Value {
-    return stack.elems[current_frame.fp + index];
+def getLocal(tv: (), index: u32) -> Value {
+    return stack.elems[current_frame.fp + int.view(index)];
 }
-def setLocal(tv: (), index: i32, v: Value) {
-    stack.elems[current_frame.fp + index] = v;
+def setLocal(tv: (), index: u32, v: Value) {
+    stack.elems[current_frame.fp + int.view(index)] = v;
 }
 
 // Global variables.
-def getGlobal(tv: (), index: i32) -> Value {
-    return globals[index];
+def getGlobal(tv: (), index: u32) -> Value {
+    return globals[int.view(index)];
 }
-def setGlobal(tv: (), index: i32, v: Value) {
-    globals[index] = v;
+def setGlobal(tv: (), index: u32, v: Value) {
+    globals[int.view(index)] = v;
 }
 
 // CBDFunction context.
 
 // XXX: is a label always a SidetableBrEntry?
-def f_getLabel(depth: i32) -> SidetableBrEntry {
+def f_getLabel(depth: u32) -> SidetableBrEntry {
     return current_frame.sidetable.getBrEntry(current_frame.stp);
 }
 
-def f_getLocalType(index: i32) -> () {
+def f_getLocalType(index: u32) -> () {
     return ();
 }
 
@@ -145,17 +143,17 @@ def f_getTopOfStackType() -> () {
 }
 
 // Module context.
-def m_getGlobalType(index: i32) -> () {
+def m_getGlobalType(index: u32) -> () {
     return ();
 }
-def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind {
-    def ht = module.heaptypes[struct_index];
+def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind {
+    def ht = module.heaptypes[int.view(struct_index)];
     def decl = StructDecl.!(ht);
     def st = decl.field_types[field_index];
     match (st.valtype) {
         BOTTOM => return FieldKind.REF;
-        I32 => return FieldKind.I32;
-        I64 => return FieldKind.I64;
+        I32 => return FieldKind.U32;
+        I64 => return FieldKind.U64;
         F32 => return FieldKind.F32;
         F64 => return FieldKind.F64;
         V128 => return FieldKind.V128;
@@ -163,22 +161,22 @@ def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind {
         Ref => return FieldKind.REF;
     }
 }
-def m_getFieldOffset(struct_index: i32, field_index: i32) -> FieldOffset {
+def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset {
     return FieldOffset(u32.!(field_index)); // XXX?
 }
-def m_isMemory64(memory_index: i32) -> bool => false; // TODO mem64
-def m_isTable64(memory_index: i32) -> bool;
-def m_getFuncSignature(func_index: i32) -> SigDecl {
+def m_isMemory64(memory_index: u32) -> bool => false; // TODO mem64
+def m_isTable64(memory_index: u32) -> bool;
+def m_getFuncSignature(func_index: u32) -> SigDecl {
     return null; // already in CBDFunction, TODO: refactor
 }
-def m_getSignature(sig_index: i32) -> HeapTypeDecl {
-    return module.heaptypes[sig_index];
+def m_getSignature(sig_index: u32) -> HeapTypeDecl {
+    return module.heaptypes[int.view(sig_index)];
 }
 
 // Instance context.
-def i_getTableFunction64(table_index: i32, sig: HeapTypeDecl, func_index: i64) -> CBDFunction;
-def i_getTableFunction32(table_index: i32, sig: HeapTypeDecl, func_index: i32) -> CBDFunction;
-def i_getFunction(func_index: i32) -> CBDFunction {
+def i_getTableFunction64(table_index: u32, sig: HeapTypeDecl, func_index: u64) -> CBDFunction;
+def i_getTableFunction32(table_index: u32, sig: HeapTypeDecl, func_index: u32) -> CBDFunction;
+def i_getFunction(func_index: u32) -> CBDFunction {
     return functions[int.!(func_index)];
 }
 
@@ -209,17 +207,13 @@ def doFallthru() {
 }
 
 // Machine intrinsics.
-def mach_readStructField_i8(obj: Object, offset: FieldOffset) -> i8;
 def mach_readStructField_u8(obj: Object, offset: FieldOffset) -> u8;
-def mach_readStructField_i16(obj: Object, offset: FieldOffset) -> i16;
 def mach_readStructField_u16(obj: Object, offset: FieldOffset) -> u16;
-def mach_readStructField_i32(obj: Object, offset: FieldOffset) -> i32 {
+def mach_readStructField_u32(obj: Object, offset: FieldOffset) -> u32 {
     def s = HeapStruct.!(obj);
-    return Values.unbox_i(s.vals[offset.offset]);
+    return Values.unbox_u(s.vals[offset.offset]);
 }
-def mach_readStructField_u32(obj: Object, offset: FieldOffset) -> i32;
-def mach_readStructField_i64(obj: Object, offset: FieldOffset) -> i64;
-def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> i64;
+def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> u64;
 def mach_readStructField_f32(obj: Object, offset: FieldOffset) -> float;
 def mach_readStructField_f64(obj: Object, offset: FieldOffset) -> double;
 def mach_readStructField_v128(obj: Object, offset: FieldOffset) -> v128;
@@ -243,7 +237,7 @@ def object_New(sig: HeapTypeDecl) -> Object {
 }
 
 def doRead32<R, T>(
-    memory_index: i32, index: i32, offset: i32, read: (Memory, u32, u32) -> MaybeTrap<R>, view: R -> T
+    memory_index: u32, index: u32, offset: u32, read: (Memory, u32, u32) -> MaybeTrap<R>, view: R -> T
 ) -> T {
     def read_res = read(memory, u32.view(offset), u32.view(index));
     if (read_res.trapped()) trapMem();
@@ -251,44 +245,44 @@ def doRead32<R, T>(
 }
 
 
-def mach_readMemory64_u8(memory_index: i32, index: i64, offset: i64) -> i8;
-def mach_readMemory32_u8 = doRead32<u8, i8>(_, _, _, Memory.read_u8, i8.view);
-def mach_readMemory64_i16(memory_index: i32, index: i64, offset: i64) -> i16;
-def mach_readMemory32_i16 = doRead32<u16, i16>(_, _, _, Memory.read_u16, i16.view);
-def mach_readMemory64_i32(memory_index: i32, index: i64, offset: i64) -> i32;
-def mach_readMemory32_i32 = doRead32<u32, i32>(_, _, _, Memory.read_u32, i32.view);
-def mach_readMemory64_i64(memory_index: i32, index: i64, offset: i64) -> i64;
-def mach_readMemory32_i64 = doRead32<u64, i64>(_, _, _, Memory.read_u64, i64.view);
-def mach_readMemory64_f32(memory_index: i32, index: i64, offset: i64) -> float;
+def mach_readMemory64_u8(memory_index: u32, index: u64, offset: u64) -> u8;
+def mach_readMemory32_u8 = doRead32<u8, u8>(_, _, _, Memory.read_u8, u8.view);
+def mach_readMemory64_u16(memory_index: u32, index: u64, offset: u64) -> u16;
+def mach_readMemory32_u16 = doRead32<u16, u16>(_, _, _, Memory.read_u16, u16.view);
+def mach_readMemory64_u32(memory_index: u32, index: u64, offset: u64) -> u32;
+def mach_readMemory32_u32 = doRead32<u32, u32>(_, _, _, Memory.read_u32, u32.view);
+def mach_readMemory64_u64(memory_index: u32, index: u64, offset: u64) -> u64;
+def mach_readMemory32_u64 = doRead32<u64, u64>(_, _, _, Memory.read_u64, u64.view);
+def mach_readMemory64_f32(memory_index: u32, index: u64, offset: u64) -> float;
 def mach_readMemory32_f32 = doRead32<float, float>(_, _, _, Memory.read_float, fun x => x);
-def mach_readMemory64_f64(memory_index: i32, index: i64, offset: i64) -> double;
+def mach_readMemory64_f64(memory_index: u32, index: u64, offset: u64) -> double;
 def mach_readMemory32_f64 = doRead32<double, double>(_, _, _, Memory.read_double, fun x => x);
 
 def doWrite32<P, T>(
-    memory_index: i32, index: i32, offset: i32, val: P, write: (Memory, u32, u32, T) -> TrapReason, view: P -> T
+    memory_index: u32, index: u32, offset: u32, val: P, write: (Memory, u32, u32, T) -> TrapReason, view: P -> T
 ) {
     def t = write(memory, u32.view(offset), u32.view(index), view(val));
     if (t != TrapReason.NONE) trapMem();
 }
-def mach_writeMemory64_i8(memory_index: i32, index: i64, offset: i64, val: i32);
-def mach_writeMemory32_i8 = doWrite32<i32, u8>(_, _, _, _, Memory.write_u8, u8.view);
-def mach_writeMemory64_i16(memory_index: i32, index: i64, offset: i64, val: i32);
-def mach_writeMemory32_i16 = doWrite32<i32, u16>(_, _, _, _, Memory.write_u16, u16.view);
-def mach_writeMemory64_i32(memory_index: i32, index: i64, offset: i64, val: i32);
-def mach_writeMemory32_i32 = doWrite32<i32, u32>(_, _, _, _, Memory.write_u32, u32.view);
-def mach_writeMemory64_i64(memory_index: i32, index: i64, offset: i64, val: i64);
-def mach_writeMemory32_i64 = doWrite32<i64, u64>(_, _, _, _, Memory.write_u64, u64.view);
+def mach_writeMemory64_u8(memory_index: u32, index: u64, offset: u64, val: u32);
+def mach_writeMemory32_u8 = doWrite32<u32, u8>(_, _, _, _, Memory.write_u8, u8.view);
+def mach_writeMemory64_u16(memory_index: u32, index: u64, offset: u64, val: u32);
+def mach_writeMemory32_u16 = doWrite32<u32, u16>(_, _, _, _, Memory.write_u16, u16.view);
+def mach_writeMemory64_u32(memory_index: u32, index: u64, offset: u64, val: u32);
+def mach_writeMemory32_u32 = doWrite32<u32, u32>(_, _, _, _, Memory.write_u32, u32.view);
+def mach_writeMemory64_u64(memory_index: u32, index: u64, offset: u64, val: u64);
+def mach_writeMemory32_u64 = doWrite32<u64, u64>(_, _, _, _, Memory.write_u64, u64.view);
 
-def mach_writeMemory64_f32(memory_index: i32, index: i64, offset: i64, val: float);
+def mach_writeMemory64_f32(memory_index: u32, index: u64, offset: u64, val: float);
 def mach_writeMemory32_f32 = doWrite32<float, float>(_, _, _, _, Memory.write_float, fun x => x);
-def mach_writeMemory64_f64(memory_index: i32, index: i64, offset: i64, val: double);
+def mach_writeMemory64_f64(memory_index: u32, index: u64, offset: u64, val: double);
 def mach_writeMemory32_f64 = doWrite32<double, double>(_, _, _, _, Memory.write_double, fun x => x);
 
-def mach_readTable64(table_index: i32, index: i64) -> Object;
-def mach_readTable32(table_index: i32, index: i32) -> Object;
+def mach_readTable64(table_index: u32, index: u64) -> Object;
+def mach_readTable32(table_index: u32, index: u32) -> Object;
 
-def mach_writeTable64(table_index: i32, index: i64, val: Object);
-def mach_writeTable32(table_index: i32, index: i32, val: Object);
+def mach_writeTable64(table_index: u32, index: u64, val: Object);
+def mach_writeTable32(table_index: u32, index: u32, val: Object);
 
 // Traps.
 def invalid(); // should never occur
@@ -332,10 +326,14 @@ def f_isAtEnd() -> bool {
     return current_frame.codeptr.pos >= current_frame.codeptr.data.length;
 }
 
-def f32_reinterpret_i32(i: i32) -> float;
-def f64_reinterpret_i64(i: i64) -> double;
-def i32_reinterpret_f32(f: float) -> i32;
-def i64_reinterpret_f64(f: double) -> i64;
+def f32_reinterpret_u32(i: u32) -> float;
+def f64_reinterpret_u64(i: u64) -> double;
+def u32_reinterpret_f32(f: float) -> u32;
+def u64_reinterpret_f64(f: double) -> u64;
+
+def u32_div_s(lhs: u32, rhs: u32) -> u32 => u32.view(i32.view(lhs) / i32.view(rhs));
+def u32_lt_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) < i32.view(rhs);
+def u32_le_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) <= i32.view(rhs);
 
 def push_locals(count: u32, vtc: ValueTypeCode) {
     var val: Value;

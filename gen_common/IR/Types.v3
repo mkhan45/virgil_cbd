@@ -131,6 +131,12 @@ component TypeUtil {
     def toString(t: ValueType) -> string {
         return StringBuilder.new().putq(t.render).toString();
     }
+
+    def toStringRT(t: ValueType) -> string {
+        if (t == ValueType.I32) return "u32";
+        if (t == ValueType.I64) return "u64";
+        return StringBuilder.new().putq(t.render).toString();
+    }
 }
 
 component IntrinsicTypes {
