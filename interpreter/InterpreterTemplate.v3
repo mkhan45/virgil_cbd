@@ -1,466 +1,284 @@
-class Frame {
-    var parent: Frame;
-    var fp: int;
-    var sidetable: Sidetable;
-    var stp: int;
-    var codeptr: CodePtr;
-    var num_rets: int;
+class CBDV3Interpreter extends WasmStack {
+    var it: V3Interpreter; // can't extend V3Interpreter directly bc some intrinsics overlap with method names
 
-    new(parent: Frame, fn: CBDFunction) {
-        reset(fn);
+    def HAS_MEM_INDEX = 0x40u8;
+
+    def module() => it.frame.func.instance.module;
+    def functions() => it.frame.func.instance.module;
+
+    def imm_readULEB32() -> u32 => it.codeptr.read_uleb32();
+    def imm_readULEB64() -> u64 => it.codeptr.read_uleb64();
+
+    def imm_readILEB32() -> u32 => u32.view(it.codeptr.read_sleb32());
+    def imm_readILEB64() -> u64 => u32.view(it.codeptr.read_sleb64());
+
+    def imm_readU8() -> u8 => return it.codeptr.read1();
+
+    def imm_readBlockType() -> (Array<ValueType>, Array<ValueType>) {
+        def bt = it.codeptr.read_BlockTypeCode();
+        return bt.toAbstractBlockType(module());
     }
 
-    def reset(fn: CBDFunction) {
-        fp = stack.top - fn.args.length;
-        sidetable = fn.sidetable;
-        stp = 0;
-        codeptr = CodePtr.new(fn.code);
-        num_rets = fn.rets.length;
+    def pop_u32: void -> u32 = it.popu;
+    def pop_u64: void -> u64 = it.popw;
+    def pop_f32: void -> float = it.popf;
+    def pop_f64: void -> double = it.popd;
+    def pop_v128() -> v128;
+    def pop_Object: void -> Object = it.popObject;
+    def pop_Value(tv: ()) -> Value => it.pop();
+
+    def push_u32: u32 -> void = it.pushu;
+    def push_u64: u64 -> void = it.pushw;
+    def push_f32: float -> void = it.pushf;
+    def push_f64: double -> void = it.pushd;
+    def push_v128(v: v128);
+    def push_Object(v: Object) => it.values.push(Value.Ref(v));
+    def push_Value(tv: (), v: Value) => it.values.push(v);
+
+    // Local variables.
+    def getLocal(tv: (), index: u32) -> Value {
+        return stack.elems[it.frame.fp + int.view(index)];
     }
-}
-
-var module: Module;
-var instance: Instance;
-var memory: V3Memory;
-var functions: Vector<CBDFunction>;
-
-var should_stop: bool;
-
-type DispatchPage(prefix: byte, opcodes: Array<void -> void>, subpages: Array<DispatchPage>) #unboxed {}
-// class DispatchPage(prefix: byte) {
-//     var opcodes: Array<void -> void>;
-//     var subpages: Array<DispatchPage>;
-// }
-
-var current_frame: Frame;
-var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
-var DISPATCH_NO_PREFIX: Array<void -> void>;
-// def PAGE_FB = DispatchPage.new(0xFB);
-// def PAGE_FC = DispatchPage.new(0xFC);
-// def PAGE_FD = DispatchPage.new(0xFD);
-// def PAGE_FE = DispatchPage.new(0xFE);
-// var DISPATCH_PAGES: Array<DispatchPage> = [PAGE_FB, PAGE_FC, PAGE_FD, PAGE_FE];
-var DISPATCH_PAGES: Array<DispatchPage>;
-var stack: ArrayStack<Value>;
-var globals: Vector<Value>;
-
-def copyVals(count: int, dest: int) {
-    def sp = stack.top - count;
-    if (sp != dest) {
-        var e = stack.elems;
-        for (i < count) e[dest + i] = e[sp + i];
+    def setLocal(tv: (), index: u32, v: Value) {
+        stack.elems[it.frame.fp + int.view(index)] = v;
     }
-    stack.top = dest + count;
-}
 
-
-def HAS_MEM_INDEX = 0x40u8;
-
-def imm_readULEB32() -> u32 => current_frame.codeptr.read_uleb32();
-def imm_readULEB64() -> u64 => current_frame.codeptr.read_uleb64();
-
-def imm_readILEB32() -> u32 => u32.view(current_frame.codeptr.read_sleb32());
-def imm_readILEB64() -> u64 => u32.view(current_frame.codeptr.read_sleb64());
-
-def imm_readU8() -> u8 {
-    return current_frame.codeptr.read1();
-}
-
-def imm_readBlockType() -> (Array<ValueType>, Array<ValueType>) {
-    def bt = current_frame.codeptr.read_BlockTypeCode();
-    return bt.toAbstractBlockType(module);
-}
-
-def pop_u32() -> u32 {
-    return Values.unbox_u(stack.pop());
-}
-def pop_u64() -> u64 {
-    return Values.unbox_w(stack.pop());
-}
-def pop_f32() -> float {
-    return Values.unbox_f(stack.pop());
-}
-def pop_f64() -> double {
-    return Values.unbox_d(stack.pop());
-}
-def pop_v128() -> v128;
-def pop_Object() -> Object {
-    return Values.unbox<Object>(stack.pop());
-}
-def pop_Value(tv: ()) -> Value {
-    return stack.pop();
-}
-
-def push_u32(v: u32) {
-    stack.push(Values.box_u(v));
-}
-def push_u64(v: u64) {
-    stack.push(Values.box_w(v));
-}
-def push_f32(v: float) {
-    stack.push(Values.box_f(v));
-}
-def push_f64(v: double) {
-    stack.push(Values.box_d(v));
-}
-def push_v128(v: v128);
-def push_Object(v: Object) {
-    stack.push(Value.Ref(v));
-}
-def push_Value(tv: (), v: Value) {
-    stack.push(v);
-}
-
-// Local variables.
-def getLocal(tv: (), index: u32) -> Value {
-    return stack.elems[current_frame.fp + int.view(index)];
-}
-def setLocal(tv: (), index: u32, v: Value) {
-    stack.elems[current_frame.fp + int.view(index)] = v;
-}
-
-// Global variables.
-def getGlobal(tv: (), index: u32) -> Value {
-    return globals[int.view(index)];
-}
-def setGlobal(tv: (), index: u32, v: Value) {
-    globals[int.view(index)] = v;
-}
-
-// CBDFunction context.
-
-// XXX: is a label always a SidetableBrEntry?
-def f_getLabel(depth: u32) -> SidetableBrEntry {
-    return current_frame.sidetable.getBrEntry(current_frame.stp);
-}
-
-def f_getLocalType(index: u32) -> () {
-    return ();
-}
-
-def f_getTopOfStackType() -> () {
-    return ();
-}
-
-// Module context.
-def m_getGlobalType(index: u32) -> () {
-    return ();
-}
-def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind {
-    def ht = module.heaptypes[int.view(struct_index)];
-    def decl = StructDecl.!(ht);
-    def st = decl.field_types[field_index];
-    match (st.valtype) {
-        BOTTOM => return FieldKind.REF;
-        I32 => return FieldKind.U32;
-        I64 => return FieldKind.U64;
-        F32 => return FieldKind.F32;
-        F64 => return FieldKind.F64;
-        V128 => return FieldKind.V128;
-        Host => return FieldKind.REF;
-        Ref => return FieldKind.REF;
+    // Global variables.
+    def getGlobal(tv: (), index: u32) -> Value {
+        // XXX: should use Runtime.GLOBAL_GET?
+        return frame.func.instance.globals[int.view(index)].get();
     }
-}
-def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset {
-    return FieldOffset(u32.!(field_index)); // XXX?
-}
-def m_isMemory64(memory_index: u32) -> bool => false; // TODO mem64
-def m_isTable64(memory_index: u32) -> bool;
-def m_getFuncSignature(func_index: u32) -> SigDecl {
-    return null; // already in CBDFunction, TODO: refactor
-}
-def m_getSignature(sig_index: u32) -> HeapTypeDecl {
-    return module.heaptypes[int.view(sig_index)];
-}
-
-// Instance context.
-def i_getTableFunction64(table_index: u32, sig: HeapTypeDecl, func_index: u64) -> CBDFunction;
-def i_getTableFunction32(table_index: u32, sig: HeapTypeDecl, func_index: u32) -> CBDFunction;
-def i_getFunction(func_index: u32) -> CBDFunction {
-    return functions[int.!(func_index)];
-}
-
-// Control flow.
-def doCall(sig: Decl, target: CBDFunction) {
-    def new_frame = Frame.new(current_frame, target);
-    current_frame = new_frame;
-    current_frame.codeptr.iterate_local_codes(push_locals);
-}
-def doReturnCall(sig: Decl, target: CBDFunction) {
-    current_frame.reset(target);
-    copyVals(target.args.length, current_frame.fp);
-    current_frame.codeptr.iterate_local_codes(push_locals);
-}
-
-def doBranch(label: SidetableBrEntry) {
-    // doCtlXfer
-    current_frame.codeptr.at(current_frame.codeptr.pos + label.dpc);
-    current_frame.stp += label.dstp;
-    if (label.popcount > 0) {
-        if (label.valcount > 0) copyVals(label.valcount, stack.top - int.!(label.popcount + label.valcount));
-        else stack.top -= label.popcount;
+    def setGlobal(tv: (), index: u32, v: Value) {
+        frame.func.instance.globals[int.view(index)].set(v);
     }
-}
 
-def doFallthru() {
-    current_frame.stp += 4;
-}
-
-// Machine intrinsics.
-def mach_readStructField_u8(obj: Object, offset: FieldOffset) -> u8;
-def mach_readStructField_u16(obj: Object, offset: FieldOffset) -> u16;
-def mach_readStructField_u32(obj: Object, offset: FieldOffset) -> u32 {
-    def s = HeapStruct.!(obj);
-    return Values.unbox_u(s.vals[offset.offset]);
-}
-def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> u64;
-def mach_readStructField_f32(obj: Object, offset: FieldOffset) -> float;
-def mach_readStructField_f64(obj: Object, offset: FieldOffset) -> double;
-def mach_readStructField_v128(obj: Object, offset: FieldOffset) -> v128;
-def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> Object {
-    def s = HeapStruct.!(obj);
-    def r = Value.Ref.!(s.vals[offset.offset]);
-    return r.val;
-}
-
-// XXX: should Object always be HeapObject?
-def object_Null() -> Object => null;
-def object_isNull(o: Object) => o == null;
-// should see how much we can leverage Runtime.v3
-def object_New(sig: HeapTypeDecl) -> Object {
-    def decl = StructDecl.!(sig);
-    def fields = Array<Value>.new(decl.field_types.length);
-    for (i = fields.length - 1; i >= 0; i -= 1) {
-        fields[i] = pop_Value(());
+    // XXX: is a label always a SidetableBrEntry?
+    def f_getLabel(depth: u32) -> SidetableBrEntry {
+        def stp = it.frame.stp, sidetable = it.frame.func.decl.sidetable;
+        return sidetable.getBrEntry(stp);
     }
-    return HeapStruct.new(decl, fields);
-}
 
-def doRead32<R, T>(
-    memory_index: u32, index: u32, offset: u32, read: (Memory, u32, u32) -> MaybeTrap<R>, view: R -> T
-) -> T {
-    def read_res = read(memory, u32.view(offset), u32.view(index));
-    if (read_res.trapped()) trapMem();
-    return view(read_res.result);
-}
-
-
-def mach_readMemory64_u8(memory_index: u32, index: u64, offset: u64) -> u8;
-def mach_readMemory32_u8 = doRead32<u8, u8>(_, _, _, Memory.read_u8, u8.view);
-def mach_readMemory64_u16(memory_index: u32, index: u64, offset: u64) -> u16;
-def mach_readMemory32_u16 = doRead32<u16, u16>(_, _, _, Memory.read_u16, u16.view);
-def mach_readMemory64_u32(memory_index: u32, index: u64, offset: u64) -> u32;
-def mach_readMemory32_u32 = doRead32<u32, u32>(_, _, _, Memory.read_u32, u32.view);
-def mach_readMemory64_u64(memory_index: u32, index: u64, offset: u64) -> u64;
-def mach_readMemory32_u64 = doRead32<u64, u64>(_, _, _, Memory.read_u64, u64.view);
-def mach_readMemory64_f32(memory_index: u32, index: u64, offset: u64) -> float;
-def mach_readMemory32_f32 = doRead32<float, float>(_, _, _, Memory.read_float, fun x => x);
-def mach_readMemory64_f64(memory_index: u32, index: u64, offset: u64) -> double;
-def mach_readMemory32_f64 = doRead32<double, double>(_, _, _, Memory.read_double, fun x => x);
-
-def doWrite32<P, T>(
-    memory_index: u32, index: u32, offset: u32, val: P, write: (Memory, u32, u32, T) -> TrapReason, view: P -> T
-) {
-    def t = write(memory, u32.view(offset), u32.view(index), view(val));
-    if (t != TrapReason.NONE) trapMem();
-}
-def mach_writeMemory64_u8(memory_index: u32, index: u64, offset: u64, val: u32);
-def mach_writeMemory32_u8 = doWrite32<u32, u8>(_, _, _, _, Memory.write_u8, u8.view);
-def mach_writeMemory64_u16(memory_index: u32, index: u64, offset: u64, val: u32);
-def mach_writeMemory32_u16 = doWrite32<u32, u16>(_, _, _, _, Memory.write_u16, u16.view);
-def mach_writeMemory64_u32(memory_index: u32, index: u64, offset: u64, val: u32);
-def mach_writeMemory32_u32 = doWrite32<u32, u32>(_, _, _, _, Memory.write_u32, u32.view);
-def mach_writeMemory64_u64(memory_index: u32, index: u64, offset: u64, val: u64);
-def mach_writeMemory32_u64 = doWrite32<u64, u64>(_, _, _, _, Memory.write_u64, u64.view);
-
-def mach_writeMemory64_f32(memory_index: u32, index: u64, offset: u64, val: float);
-def mach_writeMemory32_f32 = doWrite32<float, float>(_, _, _, _, Memory.write_float, fun x => x);
-def mach_writeMemory64_f64(memory_index: u32, index: u64, offset: u64, val: double);
-def mach_writeMemory32_f64 = doWrite32<double, double>(_, _, _, _, Memory.write_double, fun x => x);
-
-def mach_readTable64(table_index: u32, index: u64) -> Object;
-def mach_readTable32(table_index: u32, index: u32) -> Object;
-
-def mach_writeTable64(table_index: u32, index: u64, val: Object);
-def mach_writeTable32(table_index: u32, index: u32, val: Object);
-
-// Traps.
-def invalid(); // should never occur
-def trapNull();
-def trapUnreachable();
-def trapDivideByZero();
-def trapDivideUnrepresentable();
-def trapMem();
-
-def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
-}
-
-def doLoop(bt: (Array<ValueType>, Array<ValueType>)) {
-}
-
-def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> SidetableBrEntry {
-    return current_frame.sidetable.getBrEntry(current_frame.stp);
-}
-
-def doElse() -> SidetableBrEntry {
-    return current_frame.sidetable.getBrEntry(current_frame.stp);
-}
-
-def doEnd() {
-    // CBD calls doReturn if at end
-}
-
-def doReturn() {
-    def count = current_frame.num_rets;
-    def dest = current_frame.fp;
-    copyVals(count, dest);
-    current_frame = current_frame.parent;
-    should_stop = (current_frame == null || current_frame.codeptr.pos >= current_frame.codeptr.data.length);
-}
-
-def doTry(bt: (Array<ValueType>, Array<ValueType>)) {
-    return;
-}
-
-def f_isAtEnd() -> bool {
-    return current_frame.codeptr.pos >= current_frame.codeptr.data.length;
-}
-
-def f32_reinterpret_u32(i: u32) -> float;
-def f64_reinterpret_u64(i: u64) -> double;
-def u32_reinterpret_f32(f: float) -> u32;
-def u64_reinterpret_f64(f: double) -> u64;
-
-def u32_div_s(lhs: u32, rhs: u32) -> u32 => u32.view(i32.view(lhs) / i32.view(rhs));
-def u32_lt_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) < i32.view(rhs);
-def u32_le_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) <= i32.view(rhs);
-
-def push_locals(count: u32, vtc: ValueTypeCode) {
-    var val: Value;
-    match (vtc.toConcreteValueKind(null)) {
-        I32 => val = Values.I32_0;
-        I64 => val = Values.I64_0;
-        F32 => val = Values.F32_0;
-        F64 => val = Values.F64_0;
-        V128 => val = Values.V128_0;
-        REF => val = Values.REF_NULL;
+    def f_getLocalType(index: u32) -> () {
+        return ();
     }
-    stack.pushn(val, int.!(count));
-}
 
-component Interpreter {
-    def init(new_module: Module, args: Array<int>) {
-        module = new_module;
-        memory = null;
-        if (module.memories.length > 0) memory = V3Memory.new(module.memories[0]);
+    def f_getTopOfStackType() -> () {
+        return ();
+    }
 
-        var main_idx = -1;
-        for (i < module.exports.length) {
-            if (Strings.equal(module.exports[i].0, "main")) main_idx = FuncDecl.!(module.exports[i].1).func_index;
+    // Module context.
+    def m_getGlobalType(index: u32) -> () {
+        return ();
+    }
+    def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind {
+        def ht = module().heaptypes[int.view(struct_index)];
+        def decl = StructDecl.!(ht);
+        def st = decl.field_types[field_index];
+        match (st.valtype) {
+            BOTTOM => return FieldKind.REF;
+            I32 => return FieldKind.U32;
+            I64 => return FieldKind.U64;
+            F32 => return FieldKind.F32;
+            F64 => return FieldKind.F64;
+            V128 => return FieldKind.V128;
+            Host => return FieldKind.REF;
+            Ref => return FieldKind.REF;
         }
+    }
+    def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset {
+        return FieldOffset(u32.!(field_index)); // XXX?
+    }
+    def m_isMemory64(memory_index: u32) -> bool => false; // TODO mem64
+    def m_isTable64(memory_index: u32) -> bool;
+    def m_getFuncSignature(func_index: u32) -> SigDecl {
+        return null; // already in CBDFunction, TODO: refactor
+    }
+    def m_getSignature(sig_index: u32) -> HeapTypeDecl {
+        return module().heaptypes[int.view(sig_index)];
+    }
 
-        functions = Vector<CBDFunction>.new();
-        for (i < module.functions.length) functions.put(CBDFunction.new(module.functions[i]));
+    // Instance context.
+    def i_getTableFunction64(table_index: u32, sig: HeapTypeDecl, func_index: u64) -> Function;
+    def i_getTableFunction32(table_index: u32, sig: HeapTypeDecl, func_index: u32) -> Function;
+    def i_getFunction(func_index: u32) -> Function {
+        return it.frame.func.instance.functions[int.view(func_index)];
+    }
 
-        Validator.init(module, args);
-        
-        for (i < functions.length) {
-            def fn = functions[i];
-            Validator.init_function(fn.code, fn.args.copy(), fn.locals.copy(), fn.rets.copy());
-            Validator.dispatch();
-            fn.sidetable = Validator.build_sidetable();
-            System.puts("validated ");
-            System.puti(i);
-            System.ln();
-        }
+    // Control flow.
+    def doCall(sig: Decl, target: Function) {
+        it.doCallFunction(target);
+    }
+    def doReturnCall(sig: Decl, target: Function) {
+        it.prepareReturnCall(sig);
+        it.doCallFunction(target);
+    }
 
-        stack = ArrayStack<Value>.new();
-        for (arg in args) stack.push(Value.I32(u32.view(arg)));
-        current_frame = Frame.new(null, functions[main_idx]);
-        
-        globals = Vector.new();
-        for (i < module.globals.length) {
-            def module_global = module.globals[i];
-            // TODO: full eval initexpr
-            match (module_global.init) {
-                I32(v) => globals.put(Values.box_i(v));
-                _ => globals.put(Value.I32(0));
-            }
-        }
-
-        DISPATCH_PAGES = Array.new(Opcodes.code_pages.length);
-        for (i < Opcodes.code_pages.length) {
-            def page = Opcodes.code_pages[i];
-            def subpages = Array<DispatchPage>.new(page.subpages.length);
-            for (i < page.subpages.length) {
-                def subpage = page.subpages[i];
-                if (subpage == null) continue;
-                def sub_ops = Array<void -> void>.new(subpage.opcodes.length);
-                for (i < subpage.opcodes.length) 
-                    if (subpage.opcodes[i].tag < DISPATCH_TABLE.length) 
-                        sub_ops[i] = DISPATCH_TABLE[subpage.opcodes[i].tag];
-                subpages[i] = DispatchPage(subpage.prefix, sub_ops, null);
-                // subpages[i] = DispatchPage.new(subpage.prefix);
-                // subpages[i].opcodes = sub_ops;
-            }
-            def ops = Array<void -> void>.new(page.opcodes.length);
-            for (i < page.opcodes.length) {
-                if (page.opcodes[i].tag < DISPATCH_TABLE.length) ops[i] = DISPATCH_TABLE[page.opcodes[i].tag];
-            }
-            DISPATCH_PAGES[i] = DispatchPage(page.prefix, ops, subpages);
-            // DISPATCH_PAGES[i].opcodes = ops;
-            // DISPATCH_PAGES[i].subpages = subpages;
-        }
-        DISPATCH_NO_PREFIX = Array.new(256);
-        for (i < 256) DISPATCH_NO_PREFIX[i] = dispatch_prefix(u8.!(i));
-        for (op in Opcodes.opcodes_no_prefix) if (op.tag < DISPATCH_TABLE.length) {
-            DISPATCH_NO_PREFIX[u8.!(op.code)] = DISPATCH_TABLE[op.tag];
+    def doBranch(label: SidetableBrEntry) {
+        // doCtlXfer
+        it.frame.codeptr.at(it.frame.codeptr.pos + label.dpc);
+        it.frame.stp += label.dstp;
+        if (label.popcount > 0) {
+            if (label.valcount > 0) it.copyVals(label.valcount, it.values.top - int.!(label.popcount + label.valcount));
+            else it.values.top -= label.popcount;
         }
     }
 
-    def dispatch_prefix(prefix: byte) -> (void -> void) {
-        var p: DispatchPage;
-        for (page in DISPATCH_PAGES) if (page.prefix == prefix) {
-            p = page;
-            break;
-        }
-        for (lower < 256) if (p.subpages != null && p.subpages[lower].opcodes != null) 
-            p.subpages[lower].opcodes[0] = p.opcodes[lower];
-        return fun {
-            def code = current_frame.codeptr.read_uleb32();
-            var upper = byte.view(code >> 8);
-            var lower = byte.view(code);
-            p.subpages[lower].opcodes[upper]();
-            // if (upper == 0) p.opcodes[lower]();
-            // else p.subpages[lower].opcodes[upper]();
-        };
+    def doFallthru() {
+        it.frame.stp += 4;
     }
 
-    def dispatch() {
-        current_frame.codeptr.iterate_local_codes(push_locals);
-        should_stop = false;
-        while (!should_stop) {
-            def b = current_frame.codeptr.read1();
-            var d_no_prefix = DISPATCH_NO_PREFIX[b];
-            d_no_prefix();
-            // def op = current_frame.codeptr.read_opcode();
-            // // print_stack();
-            // // System.puti(current_frame.codeptr.pos); System.puts(": "); System.puts(op.mnemonic);
-            // // System.ln();
-            // DISPATCH_TABLE[op.tag]();
-        }
+    // Machine intrinsics.
+    def mach_readStructField_u8(obj: Object, offset: FieldOffset) -> u8;
+    def mach_readStructField_u16(obj: Object, offset: FieldOffset) -> u16;
+    def mach_readStructField_u32(obj: Object, offset: FieldOffset) -> u32 {
+        def s = HeapStruct.!(obj);
+        return Values.unbox_u(s.vals[offset.offset]);
+    }
+    def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> u64;
+    def mach_readStructField_f32(obj: Object, offset: FieldOffset) -> float;
+    def mach_readStructField_f64(obj: Object, offset: FieldOffset) -> double;
+    def mach_readStructField_v128(obj: Object, offset: FieldOffset) -> v128;
+    def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> Object {
+        def s = HeapStruct.!(obj);
+        def r = Value.Ref.!(s.vals[offset.offset]);
+        return r.val;
     }
 
-    def get_stack() -> ArrayStack<Value> {
-        return stack;
+    // XXX: should Object always be HeapObject?
+    def object_Null() -> Object => null;
+    def object_isNull(o: Object) => o == null;
+    // should see how much we can leverage Runtime.v3
+    def object_New(sig: HeapTypeDecl) -> Object {
+        def decl = StructDecl.!(sig);
+        def fields = Array<Value>.new(decl.field_types.length);
+        for (i = fields.length - 1; i >= 0; i -= 1) {
+            fields[i] = pop_Value(());
+        }
+        return HeapStruct.new(decl, fields);
     }
 
-    def print_stack() {
-        System.puts("[");
-        for (i < stack.top) {
-            System.puts(StringBuilder.new().putq(Values.render(stack.elems[i], _)).toString());
-            if (i < stack.top - 1) System.puts(" ");
-        }
-        System.puts("]\n");
+    // XXX: should look more closely at what v3interpreter does
+    def doRead32<R, T>(
+        memory_index: u32, index: u32, offset: u32, read: (Memory, u32, u32) -> MaybeTrap<R>, view: R -> T
+    ) -> T {
+        def memory = it.frame.func.instance.memories[int.view(memory_index)];
+        def read_res = read(memory, u32.view(offset), u32.view(index));
+        if (read_res.trapped()) trapMem();
+        return view(read_res.result);
     }
+
+
+    def mach_readMemory64_u8(memory_index: u32, index: u64, offset: u64) -> u8;
+    def mach_readMemory32_u8 = doRead32<u8, u8>(_, _, _, Memory.read_u8, u8.view);
+    def mach_readMemory64_u16(memory_index: u32, index: u64, offset: u64) -> u16;
+    def mach_readMemory32_u16 = doRead32<u16, u16>(_, _, _, Memory.read_u16, u16.view);
+    def mach_readMemory64_u32(memory_index: u32, index: u64, offset: u64) -> u32;
+    def mach_readMemory32_u32 = doRead32<u32, u32>(_, _, _, Memory.read_u32, u32.view);
+    def mach_readMemory64_u64(memory_index: u32, index: u64, offset: u64) -> u64;
+    def mach_readMemory32_u64 = doRead32<u64, u64>(_, _, _, Memory.read_u64, u64.view);
+    def mach_readMemory64_f32(memory_index: u32, index: u64, offset: u64) -> float;
+    def mach_readMemory32_f32 = doRead32<float, float>(_, _, _, Memory.read_float, fun x => x);
+    def mach_readMemory64_f64(memory_index: u32, index: u64, offset: u64) -> double;
+    def mach_readMemory32_f64 = doRead32<double, double>(_, _, _, Memory.read_double, fun x => x);
+
+    // XXX: should look more closely at what v3interpreter does
+    def doWrite32<P, T>(
+        memory_index: u32, index: u32, offset: u32, val: P, write: (Memory, u32, u32, T) -> TrapReason, view: P -> T
+    ) {
+        def memory = it.frame.func.instance.memories[int.view(memory_index)];
+        def t = write(memory, u32.view(offset), u32.view(index), view(val));
+        if (t != TrapReason.NONE) trapMem();
+    }
+    def mach_writeMemory64_u8(memory_index: u32, index: u64, offset: u64, val: u32);
+    def mach_writeMemory32_u8 = doWrite32<u32, u8>(_, _, _, _, Memory.write_u8, u8.view);
+    def mach_writeMemory64_u16(memory_index: u32, index: u64, offset: u64, val: u32);
+    def mach_writeMemory32_u16 = doWrite32<u32, u16>(_, _, _, _, Memory.write_u16, u16.view);
+    def mach_writeMemory64_u32(memory_index: u32, index: u64, offset: u64, val: u32);
+    def mach_writeMemory32_u32 = doWrite32<u32, u32>(_, _, _, _, Memory.write_u32, u32.view);
+    def mach_writeMemory64_u64(memory_index: u32, index: u64, offset: u64, val: u64);
+    def mach_writeMemory32_u64 = doWrite32<u64, u64>(_, _, _, _, Memory.write_u64, u64.view);
+
+    def mach_writeMemory64_f32(memory_index: u32, index: u64, offset: u64, val: float);
+    def mach_writeMemory32_f32 = doWrite32<float, float>(_, _, _, _, Memory.write_float, fun x => x);
+    def mach_writeMemory64_f64(memory_index: u32, index: u64, offset: u64, val: double);
+    def mach_writeMemory32_f64 = doWrite32<double, double>(_, _, _, _, Memory.write_double, fun x => x);
+
+    def mach_readTable64(table_index: u32, index: u64) -> Object;
+    def mach_readTable32(table_index: u32, index: u32) -> Object;
+
+    def mach_writeTable64(table_index: u32, index: u64, val: Object);
+    def mach_writeTable32(table_index: u32, index: u32, val: Object);
+
+    // Traps.
+    def invalid(); // should never occur
+    def trapNull();
+    def trapUnreachable();
+    def trapDivideByZero();
+    def trapDivideUnrepresentable();
+    def trapMem();
+
+    def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
+    }
+
+    def doLoop(bt: (Array<ValueType>, Array<ValueType>)) {
+    }
+
+    def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> SidetableBrEntry {
+        return it.frame.sidetable.getBrEntry(current_frame.stp);
+    }
+
+    def doElse() -> SidetableBrEntry {
+        return it.frame.sidetable.getBrEntry(current_frame.stp);
+    }
+
+    def doEnd() {
+        // CBD calls doReturn if at end
+    }
+
+    def doReturn() {
+        def fp = it.frame.fp;
+        def sig = it.frame.func.sig;
+        it.doReturn(fp, sig);
+    }
+
+    def doTry(bt: (Array<ValueType>, Array<ValueType>)) {
+        return;
+    }
+
+    def f_isAtEnd() -> bool {
+        return it.codeptr.available() == 0;
+    }
+
+    def f32_reinterpret_u32(i: u32) -> float;
+    def f64_reinterpret_u64(i: u64) -> double;
+    def u32_reinterpret_f32(f: float) -> u32;
+    def u64_reinterpret_f64(f: double) -> u64;
+
+    def u32_div_s(lhs: u32, rhs: u32) -> u32 => u32.view(i32.view(lhs) / i32.view(rhs));
+    def u32_lt_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) < i32.view(rhs);
+    def u32_le_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) <= i32.view(rhs);
+
+    def push_locals(count: u32, vtc: ValueTypeCode) {
+        var val: Value;
+        match (vtc.toValueKind(null)) {
+            I32 => val = Values.I32_0;
+            I64 => val = Values.I64_0;
+            F32 => val = Values.F32_0;
+            F64 => val = Values.F64_0;
+            V128 => val = Values.V128_0;
+            REF => val = Values.REF_NULL;
+        }
+        stack.pushn(val, int.!(count));
+    }
+
+    // WasmStack stuff
+    def state = it.state;
+    def reset = it.reset;
+    def bind = it.bind;
+    def resume = it.resume;
+    def where = it.where;
+    def caller = it.caller;
+    def clear = it.clear;
+	def tryHandleSuspension = it.tryHandleSuspension;
+	def tryHandleSwitch = it.tryHandleSwitch;
 }
