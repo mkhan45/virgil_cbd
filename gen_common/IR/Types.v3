@@ -14,6 +14,7 @@ component CBDEffects {
         if (Strings.equal(s, "local")) return CBDEffect.Local;
         if (Strings.equal(s, "global")) return CBDEffect.Global;
         if (Strings.equal(s, "memory")) return CBDEffect.Memory;
+        if (Strings.equal(s, "table")) return CBDEffect.Table;
         if (Strings.equal(s, "ctl")) return CBDEffect.Ctl;
         if (Strings.equal(s, "emit")) return CBDEffect.Emit;
         if (Strings.equal(s, "trap")) return CBDEffect.Ctl; // trap is a control transfer
@@ -41,6 +42,7 @@ type CBDEffect {
     case Local;
     case Global;
     case Memory;
+    case Table;
     case Ctl;
     case Emit;
     case None;
@@ -69,6 +71,7 @@ type CBDEffect {
             Local => return "local";
             Global => return "global";
             Memory => return "memory";
+	    Table => return "table";
             Ctl => return "ctl";
             Emit => return "emit";
             None => return "none";

@@ -161,7 +161,7 @@ class CBDV3Interpreter(it: V3Interpreter) {
         return FieldOffset(u32.!(field_index)); // XXX?
     }
     def m_isMemory64(memory_index: u32) -> bool => false; // TODO mem64
-    def m_isTable64(memory_index: u32) -> bool;
+    def m_isTable64(memory_index: u32) -> bool => false;
     def m_getFuncSignature(func_index: u32) -> SigDecl {
         return null; // already in CBDFunction, TODO: refactor
     }
@@ -291,10 +291,24 @@ class CBDV3Interpreter(it: V3Interpreter) {
         doWrite32<double, double>(memory_index, index, offset, val, Memory.write_double, fun x => x);
 
     def mach_readTable64(table_index: u32, index: u64) -> Object;
-    def mach_readTable32(table_index: u32, index: u32) -> Object;
+    def mach_readTable32(table_index: u32, index: u32) -> Object {
+	def table = it.frame.func.instance.tables[int.view(table_index)];
+	def elems = table.elems;
+	if (index >= elems.length) {
+	    trapTableOOB();
+	}
+	return Values.unbox(elems[index]);
+    }
 
     def mach_writeTable64(table_index: u32, index: u64, val: Object);
-    def mach_writeTable32(table_index: u32, index: u32, val: Object);
+    def mach_writeTable32(table_index: u32, index: u32, val: Object) {
+	def table = it.frame.func.instance.tables[int.view(table_index)];
+	def elems = table.elems;
+	if (index >= elems.length) {
+	    trapTableOOB();
+	}
+	table[int.view(index)] = Value.Ref(val);
+    }
 
     // Traps.
     def invalid(); // should never occur
@@ -303,6 +317,7 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def trapDivideByZero();
     def trapDivideUnrepresentable();
     def trapMem();
+    def trapTableOOB();
 
     def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
     }
@@ -400,9 +415,11 @@ def TABLE_SET() {
 	if (cond) {
 		def val = pop_Object();
 		def index = pop_u64();
+		mach_writeTable64(table_index, index, val);
 	} else {
 		def val1 = pop_Object();
 		def index1 = pop_u32();
+		mach_writeTable32(table_index, index1, val1);
 	}
 }
 def CALL() {

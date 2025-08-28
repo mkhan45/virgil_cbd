@@ -335,7 +335,7 @@ def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset {
     return FieldOffset(u32.!(field_index)); // TODO
 }
 def m_isMemory64(memory_index: u32) -> bool => false; // TODO mem64
-def m_isTable64(memory_index: u32) -> bool;
+def m_isTable64(memory_index: u32) -> bool => false;
 def m_getFuncSignature(func_index: u32) -> SigDecl {
     return null;
 }
@@ -403,11 +403,11 @@ def mach_writeMemory32_f32(memory_index: u32, index: TypeVar.U32, offset: u32, v
 def mach_writeMemory64_f64(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.F64) => void;
 def mach_writeMemory32_f64(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.F64) => void;
 
-def mach_readTable64(table_index: u32, index: TypeVar.U64) -> TypeVar.Object;
-def mach_readTable32(table_index: u32, index: TypeVar.U32) -> TypeVar.Object;
+def mach_readTable64(table_index: u32, index: TypeVar.U64) => TypeVar.Object;
+def mach_readTable32(table_index: u32, index: TypeVar.U32) => TypeVar.Object;
 
-def mach_writeTable64(table_index: u32, index: TypeVar.U64, val: TypeVar.Object);
-def mach_writeTable32(table_index: u32, index: TypeVar.U32, val: TypeVar.Object);
+def mach_writeTable64(table_index: u32, index: TypeVar.U64, val: TypeVar.Object) => void;
+def mach_writeTable32(table_index: u32, index: TypeVar.U32, val: TypeVar.Object) => void;
 
 // Traps.
 def invalid();
@@ -418,6 +418,7 @@ def trapNull() {
 def trapUnreachable() {} // XXX: validator tries to validate unreachable code
 def trapDivideByZero();
 def trapDivideUnrepresentable();
+def trapTableOOB();
 
 def doBlock(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     def args = bt.0;
