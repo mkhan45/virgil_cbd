@@ -1,5 +1,3 @@
-# Virgil S-Expression Project Makefile
-
 # Paths and variables
 VIRGIL_STD = ../virgil/lib/util/*.v3
 WIZARD = ./wizard-engine
