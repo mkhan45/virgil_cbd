@@ -12,12 +12,15 @@ def main(args: Array<string>) {
     def bp = BinParser.new(extensions, limits, err, filename);
 
     def module = bp.push(file_bytes, 0, file_bytes.length).finish();
+    def instantiator = Instantiator.new(Extension.set.all, module, [], ErrorGen.new(""));
+    def instance = instantiator.run();
 
-    Interpreter.init(module, interpreter_args);
-    Interpreter.dispatch();
+    def interpreter = CBDV3Interpreter.new(V3Interpreter.new());
+    interpreter.init(instance, interpreter_args);
+    interpreter.dispatch();
 
     System.puts("stack top: ");
-    match (Interpreter.get_stack().peek()) {
+    match (interpreter.get_stack().peek()) {
         I32(i) => System.puti(i32.view(i));
         _ => {}
     }
