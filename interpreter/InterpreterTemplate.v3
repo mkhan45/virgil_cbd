@@ -355,7 +355,7 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def u32_reinterpret_f32(f: float) -> u32;
     def u64_reinterpret_f64(f: double) -> u64;
 
-    def u32_div_s(lhs: u32, rhs: u32) -> u32 => u32.view(i32.view(lhs) / i32.view(rhs));
-    def u32_lt_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) < i32.view(rhs);
-    def u32_le_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) <= i32.view(rhs);
+    def U32_div_s(lhs: u32, rhs: u32) -> u32 => u32.view(i32.view(lhs) / i32.view(rhs));
+    def U32_lt_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) < i32.view(rhs);
+    def U32_le_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) <= i32.view(rhs);
 }

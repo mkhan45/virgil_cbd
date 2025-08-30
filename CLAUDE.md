@@ -21,9 +21,9 @@ All three components are code-generated from shared template files using a meta-
 make all
 
 # Build individual components
-make validator          # Generate validator/Validator.v3
-make interpreter        # Generate interpreter/Interpreter.v3  
-make compiler          # Generate compiler/Compiler.v3
+make validator          # Generate generated/validator/Validator.v3
+make interpreter        # Generate generated/interpreter/Interpreter.v3  
+make compiler          # Generate generated/compiler/Compiler.v3
 
 # Run components with arguments
 make run_validator ARGS='file.wasm'
@@ -50,7 +50,7 @@ The project depends on the `wizard-engine` WebAssembly engine (included as submo
 
 1. **Templates** (`*Template.v3`) define the semantic behavior patterns for each WebAssembly instruction
 2. **Generators** (`*Gen.v3`) read Canonical Definitions and Templates to produce specialized implementations
-3. **Generated Code** (`Validator.v3`, `Interpreter.v3`, `Compiler.v3`) are the final runnable components
+3. **Generated Code** (`generated/validator/Validator.v3`, `generated/interpreter/Interpreter.v3`, `generated/compiler/Compiler.v3`) are the final runnable components
 
 ### Key Components
 
@@ -93,7 +93,7 @@ Instructions are annotated with effects that track:
 
 ## File Relationships
 
-- Generated files (`validator/Validator.v3`, etc.) are **never** edited directly
+- Generated files (`generated/validator/Validator.v3`, etc.) are **never** edited directly
 - Template files define the core logic of the intrinsics that are implemented per-tier
 - Generator files analyze and rewrite the definitions depending on the tier.
 - The build system automatically handles dependency tracking between templates and generated code

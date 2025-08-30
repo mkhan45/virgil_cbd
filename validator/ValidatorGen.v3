@@ -32,9 +32,7 @@ component STFieldMgr {
         for (i < 64) {
             def mask = 1L << byte.!(i);
             if ((bs & mask) != 0L) {
-                if (i < fields.length) {
-                    result.put(fields[i]);
-                }
+                if (i < fields.length) result.put(fields[i]);
             }
         }
         return result;

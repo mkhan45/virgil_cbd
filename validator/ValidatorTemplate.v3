@@ -10,8 +10,8 @@ var rets: Array<TypeVar>;
 
 // steal sidetable stuff from existing validator,
 // to support custom sidetable stuff I think we can keep ControlEntry but replace SidetableBuilder
-var ctl_stack: ArrayStack<ControlEntry>;
-var ctlxfer: SidetableBuilder;
+var ctl_stack: ArrayStack<ControlEntry>; 
+var ctlxfer: CBDSidetableBuilder;
 var ctl_top: ControlEntry;
 
 // stolen from CodeValidator.v3
@@ -510,9 +510,9 @@ def f64_reinterpret_u64(i: TypeVar.U64) -> TypeVar.F64;
 def u32_reinterpret_f32(f: TypeVar.F32) -> TypeVar.U32;
 def u64_reinterpret_f64(f: TypeVar.F64) -> TypeVar.U64;
 
-def u32_div_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def u32_lt_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def u32_le_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_div_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_lt_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_le_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 
 def push_locals(count: u32, vtc: ValueTypeCode) {
     var tv: TypeVar;
@@ -584,4 +584,5 @@ component Validator {
 }
 
 class CBDSidetableBuilder extends SidetableBuilder {
+
 }

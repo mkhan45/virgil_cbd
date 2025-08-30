@@ -356,9 +356,9 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def u32_reinterpret_f32(f: float) -> u32;
     def u64_reinterpret_f64(f: double) -> u64;
 
-    def u32_div_s(lhs: u32, rhs: u32) -> u32 => u32.view(i32.view(lhs) / i32.view(rhs));
-    def u32_lt_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) < i32.view(rhs);
-    def u32_le_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) <= i32.view(rhs);
+    def U32_div_s(lhs: u32, rhs: u32) -> u32 => u32.view(i32.view(lhs) / i32.view(rhs));
+    def U32_lt_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) < i32.view(rhs);
+    def U32_le_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) <= i32.view(rhs);
 
 def UNREACHABLE() {
 	trapUnreachable();
@@ -493,7 +493,7 @@ def I32_DIV_S() {
 	if (cond) {
 		trapDivideUnrepresentable();
 	}
-	push_u32(u32_div_s(a, b));
+	push_u32(U32_div_s(a, b));
 }
 def I32_DIV_U() {
 	def b = pop_u32();
@@ -541,7 +541,7 @@ def I32_LT_U() {
 def I32_LT_S() {
 	def b = pop_u32();
 	def a = pop_u32();
-	if (u32_lt_s(a, b)) {
+	if (U32_lt_s(a, b)) {
 		push_u32(1);
 	} else {
 		push_u32(0);
@@ -550,7 +550,7 @@ def I32_LT_S() {
 def I32_LE_S() {
 	def b = pop_u32();
 	def a = pop_u32();
-	if (u32_le_s(a, b)) {
+	if (U32_le_s(a, b)) {
 		push_u32(1);
 	} else {
 		push_u32(0);
