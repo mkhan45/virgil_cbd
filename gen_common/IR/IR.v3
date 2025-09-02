@@ -61,6 +61,72 @@ type SSAD {
             }
         }
     }
+
+}
+
+type TB<A, B>(f: (A, SSATransformer) -> B) {
+    def then<C>(r: (B, SSATransformer) -> C) => TB<A, C>(SSAT.then<A, B, C>(f, r));
+}
+
+component SSAT {
+    def then<A, B, C>(l: (A, SSATransformer) -> B, r: (B, SSATransformer) -> C) -> ((A, SSATransformer) -> C) {
+        return fun(node: A, transformer: SSATransformer) => r(l(node, transformer), transformer);
+    }
+    
+    def sequenced<T>(fns: Array<(T, SSATransformer) -> T>) -> ((T, SSATransformer) -> T) {
+        return fun(node: T, transformer: SSATransformer) -> T {
+            var result = node;
+            for (i = 0; i < fns.length; i++) {
+                result = fns[i](result, transformer);
+            }
+            return result;
+        };
+    }
+
+    def transformChildren(node: SSAD, transformer: SSATransformer) -> SSAD {
+        return transformer.transformChildren(node);
+    }
+}
+
+class SSATransformer(ctx: SSADCtx) {
+    var onLetApp: (SSAD.LetApp, SSATransformer) -> SSAD = fun (n, t) => t.transformChildren(n);
+    var onLetLit: (SSAD.LetLit, SSATransformer) -> SSAD = fun (n, t) => t.transformChildren(n);
+    var onIf: (SSAD.If, SSATransformer) -> SSAD = fun (n, t) => t.transformChildren(n);
+    var onMatch: (SSAD.Match, SSATransformer) -> SSAD = fun (n, t) => t.transformChildren(n);
+    var onVoid: (SSAD.Void, SSATransformer) -> SSAD = fun (n, t) => t.transformChildren(n);
+    var onInjected: (SSAD.Injected, SSATransformer) -> SSAD = fun (n, t) => t.transformChildren(n);
+    var onFinal: (SSAD.Final, SSATransformer) -> SSAD = fun (n, t) => t.transformChildren(n);
+    
+    def transform(ssa: SSAD) -> SSAD {
+        match (ssa) {
+            LetApp(_, _, _, _) => return onLetApp(SSAD.LetApp.!(ssa), this);
+            LetLit(_, _, _, _) => return onLetLit(SSAD.LetLit.!(ssa), this);
+            If(_, _, _, _, _) => return onIf(SSAD.If.!(ssa), this);
+            Match(_, _, _) => return onMatch(SSAD.Match.!(ssa), this);
+            Void => return onVoid(SSAD.Void .!(ssa), this);
+            Injected(_, _) => return onInjected(SSAD.Injected.!(ssa), this);
+            Final(_) => return onFinal(SSAD.Final.!(ssa), this);
+        }
+    }
+    
+    def transformChildren(ssa: SSAD) -> SSAD {
+        ctx.getTypes(ssa);
+        match (ssa) {
+            LetApp(n, f, args, rest) => return SSAD.LetApp(n, f, args, transform(rest));
+            LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, transform(rest));
+            If(cond, then, els, phis, rest) => return SSAD.If(cond, transform(then), transform(els), phis, transform(rest));
+            Match(subj, branches, rest) => {
+                def new_branches = Array<(string, SSAD)>.new(branches.length);
+                for (i < branches.length) {
+                    new_branches[i] = (branches[i].0, transform(branches[i].1));
+                }
+                return SSAD.Match(subj, new_branches, transform(rest));
+            }
+            Void => return ssa;
+            Injected(inj, rest) => return SSAD.Injected(inj, transform(rest));
+            Final(v) => return ssa;
+        }
+    }
 }
 
 component SSAD_IR {
@@ -242,5 +308,54 @@ component SSAD_IR {
                 buildString(r, buf, indent);
             }
         }
+    }
+
+    // Transformation functions with exact variant types
+    def removeViews(node: SSAD.LetApp, transformer: SSATransformer) -> SSAD.LetApp {
+        if (Strings.endsWith(node.f, ".view")) {
+            return SSAD.LetApp(node.n, "id", node.args, node.rest);
+        }
+        return node;
+    }
+
+    def overloadOps(node: SSAD.LetApp, transformer: SSATransformer) -> SSAD.LetApp {
+        def op_spl = IntrinsicTypes.split_op(node.f);
+        def op_fn = op_spl.1;
+        def is_rt = !transformer.ctx.static[node.n];
+        if (op_fn != null && is_rt) {
+            var tp = op_spl.0;
+            if (tp == ValueType.BOTTOM && node.args.length > 0) tp = transformer.ctx.types[node.args[0]];
+            def prefix = TypeUtil.getRuntimePrefix(tp);
+            def new_f = Strings.format2("%s_%s", prefix, op_fn);
+            return SSAD.LetApp(node.n, new_f, node.args, node.rest);
+        } else {
+            return node;
+        }
+    }
+
+    def addCasts(node: SSAD.LetApp, transformer: SSATransformer) -> SSAD {
+        def intrinsic_static = IntrinsicTypes.intrinsic_static(node.f);
+        def intrinsic_type = IntrinsicTypes.intrinsic_type(node.f);
+        def args_static = intrinsic_static.0;
+        def args_types = intrinsic_type.0;
+        var rtcasts: SSAD = SSAD.Void;
+        def new_args = Arrays.dup(node.args);
+        if (args_static != null) {
+            for (i < args_static.length) {
+                def is_runtime = !transformer.ctx.static[node.args[i]];
+                def should_be_runtime = !args_static[i];
+                if (!is_runtime && should_be_runtime) {
+                    def fv = SSAD_IR.uidl("rtcast");
+                    def tp = if(args_types[i] != ValueType.BOTTOM, args_types[i], transformer.ctx.types[node.args[i]]);
+                    def rtcast_f = Strings.format1("rtcast_%q", tp.render);
+                    transformer.ctx.static[fv] = false;
+                    transformer.ctx.types[fv] = transformer.ctx.types[node.args[i]];
+                    transformer.ctx.effects[fv] = CBDEffect.None;
+                    new_args[i] = fv;
+                    rtcasts = SSAD.LetApp(fv, rtcast_f, [node.args[i]], rtcasts);
+                }
+            }
+        }
+        return rtcasts.appended(SSAD.LetApp(node.n, node.f, new_args, node.rest));
     }
 }

@@ -238,7 +238,7 @@ def SELECT() {
 // cond204223 -- static: no, type: i32, effect: none
 // arg207224 -- static: no, type: <bottom>, effect: none
 // c215 -- static: no, type: i32, effect: pop
-// rtcast230 -- static: no, type: i32, effect: none
+// rtcast230 -- static: no, type: <bottom>, effect: none
 // arg213219 -- static: yes, type: <bottom>, effect: none
 // a220 -- static: no, type: <bottom>, effect: pop
 // arg210227 -- static: no, type: <bottom>, effect: none
@@ -254,7 +254,7 @@ def SELECT() {
 def I32_CONST() {
 	// arg232234 -- static: yes, type: i32, effect: none
 // x233 -- static: yes, type: i32, effect: read
-// rtcast236 -- static: no, type: i32, effect: none
+// rtcast236 -- static: no, type: <bottom>, effect: none
 // eff231235 -- static: yes, type: <bottom>, effect: push
 
 	def x = imm_readILEB32();
@@ -319,7 +319,7 @@ def I32_DIV_S() {
 // b288 -- static: no, type: i32, effect: pop
 // arg280298 -- static: yes, type: i32, effect: none
 // cond274302 -- static: no, type: i32, effect: none
-// rtcast309 -- static: no, type: i32, effect: none
+// rtcast309 -- static: no, type: <bottom>, effect: none
 // arg281296 -- static: no, type: i32, effect: none
 // arg276301 -- static: no, type: i32, effect: none
 
@@ -341,7 +341,7 @@ def I32_DIV_U() {
 // ret315323 -- static: yes, type: <bottom>, effect: ctl
 // eff310328 -- static: no, type: <bottom>, effect: push
 // arg311327 -- static: no, type: i32, effect: none
-// rtcast329 -- static: no, type: i32, effect: none
+// rtcast329 -- static: no, type: <bottom>, effect: none
 
 	def b = pop_u32();
 	def a = pop_u32();
@@ -355,9 +355,9 @@ def I32_EQZ() {
 // cond330340 -- static: no, type: i32, effect: none
 // arg332341 -- static: yes, type: i32, effect: none
 // arg334343 -- static: yes, type: i32, effect: none
-// rtcast346 -- static: no, type: i32, effect: none
+// rtcast346 -- static: no, type: <bottom>, effect: none
 // a337 -- static: no, type: i32, effect: pop
-// rtcast345 -- static: no, type: i32, effect: none
+// rtcast345 -- static: no, type: <bottom>, effect: none
 // arg335339 -- static: no, type: i32, effect: none
 
 	def a = pop_u32();
@@ -369,7 +369,7 @@ def I32_EQ() {
 // arg349359 -- static: yes, type: i32, effect: none
 // arg351361 -- static: yes, type: i32, effect: none
 // a355 -- static: no, type: i32, effect: pop
-// rtcast363 -- static: no, type: i32, effect: none
+// rtcast363 -- static: no, type: <bottom>, effect: none
 // b354 -- static: no, type: i32, effect: pop
 // arg352357 -- static: no, type: i32, effect: none
 // eff348360 -- static: yes, type: <bottom>, effect: push
@@ -388,7 +388,7 @@ def I32_NE() {
 // arg368378 -- static: yes, type: i32, effect: none
 // arg369374 -- static: no, type: i32, effect: none
 // a372 -- static: no, type: i32, effect: pop
-// rtcast380 -- static: no, type: i32, effect: none
+// rtcast380 -- static: no, type: <bottom>, effect: none
 // arg370373 -- static: no, type: i32, effect: none
 
 	def b = pop_u32();
@@ -403,7 +403,7 @@ def I32_LT_U() {
 // arg385395 -- static: yes, type: i32, effect: none
 // a389 -- static: no, type: i32, effect: pop
 // arg386391 -- static: no, type: i32, effect: none
-// rtcast397 -- static: no, type: i32, effect: none
+// rtcast397 -- static: no, type: <bottom>, effect: none
 // b388 -- static: no, type: i32, effect: pop
 // arg387390 -- static: no, type: i32, effect: none
 
@@ -415,7 +415,7 @@ def I32_LT_S() {
 	// a406 -- static: no, type: i32, effect: pop
 // eff399411 -- static: yes, type: <bottom>, effect: push
 // eff401413 -- static: yes, type: <bottom>, effect: push
-// rtcast414 -- static: no, type: i32, effect: none
+// rtcast414 -- static: no, type: <bottom>, effect: none
 // arg400410 -- static: yes, type: i32, effect: none
 // arg402412 -- static: yes, type: i32, effect: none
 // b405 -- static: no, type: i32, effect: pop
@@ -433,7 +433,7 @@ def I32_LE_S() {
 // arg417427 -- static: yes, type: i32, effect: none
 // arg419429 -- static: yes, type: i32, effect: none
 // a423 -- static: no, type: i32, effect: pop
-// rtcast431 -- static: no, type: i32, effect: none
+// rtcast431 -- static: no, type: <bottom>, effect: none
 // b422 -- static: no, type: i32, effect: pop
 // arg420425 -- static: no, type: i32, effect: none
 // eff418430 -- static: yes, type: <bottom>, effect: push
@@ -444,7 +444,7 @@ def I32_LE_S() {
 	push_u32(rtcast_i32(1));
 }
 def I32_GT_U() {
-	// rtcast448 -- static: no, type: i32, effect: none
+	// rtcast448 -- static: no, type: <bottom>, effect: none
 // eff433445 -- static: yes, type: <bottom>, effect: push
 // eff435447 -- static: yes, type: <bottom>, effect: push
 // b439 -- static: no, type: i32, effect: pop
@@ -475,7 +475,7 @@ def I32_AND() {
 def F32_CONST() {
 	// arg462464 -- static: yes, type: i32, effect: none
 // x463 -- static: yes, type: i32, effect: read
-// rtcast467 -- static: no, type: i32, effect: none
+// rtcast467 -- static: no, type: <bottom>, effect: none
 // eff460466 -- static: no, type: <bottom>, effect: push
 // arg461465 -- static: no, type: f32, effect: none
 
@@ -546,7 +546,7 @@ def F32_SQRT() {
 // r526 -- static: no, type: <bottom>, effect: none
 // a524 -- static: no, type: f32, effect: pop
 // eff521528 -- static: no, type: <bottom>, effect: push
-// arg522527 -- static: no, type: f32, effect: none
+// arg522527 -- static: no, type: <bottom>, effect: none
 
 	def a = pop_f32();
 	push_f32(F32_sqrt(a));
@@ -557,7 +557,7 @@ def F32_EQ() {
 // a537 -- static: no, type: f32, effect: pop
 // arg531541 -- static: yes, type: i32, effect: none
 // arg533543 -- static: yes, type: i32, effect: none
-// rtcast545 -- static: no, type: i32, effect: none
+// rtcast545 -- static: no, type: <bottom>, effect: none
 // b536 -- static: no, type: f32, effect: pop
 // arg534539 -- static: no, type: f32, effect: none
 // cond529540 -- static: no, type: i32, effect: none
@@ -573,7 +573,7 @@ def F32_NE() {
 // arg548558 -- static: yes, type: i32, effect: none
 // arg550560 -- static: yes, type: i32, effect: none
 // a554 -- static: no, type: f32, effect: pop
-// rtcast562 -- static: no, type: i32, effect: none
+// rtcast562 -- static: no, type: <bottom>, effect: none
 // b553 -- static: no, type: f32, effect: pop
 // arg551556 -- static: no, type: f32, effect: none
 // eff549561 -- static: yes, type: <bottom>, effect: push
@@ -586,7 +586,7 @@ def F32_NE() {
 def F32_LT() {
 	// eff564576 -- static: yes, type: <bottom>, effect: push
 // eff566578 -- static: yes, type: <bottom>, effect: push
-// rtcast579 -- static: no, type: i32, effect: none
+// rtcast579 -- static: no, type: <bottom>, effect: none
 // cond563574 -- static: no, type: i32, effect: none
 // arg565575 -- static: yes, type: i32, effect: none
 // arg567577 -- static: yes, type: i32, effect: none
@@ -606,7 +606,7 @@ def F32_LE() {
 // arg582592 -- static: yes, type: i32, effect: none
 // arg584594 -- static: yes, type: i32, effect: none
 // a588 -- static: no, type: f32, effect: pop
-// rtcast596 -- static: no, type: i32, effect: none
+// rtcast596 -- static: no, type: <bottom>, effect: none
 // arg585590 -- static: no, type: f32, effect: none
 // b587 -- static: no, type: f32, effect: pop
 // arg586589 -- static: no, type: f32, effect: none
@@ -617,7 +617,7 @@ def F32_LE() {
 }
 def F32_GT() {
 	// a605 -- static: no, type: f32, effect: pop
-// rtcast613 -- static: no, type: i32, effect: none
+// rtcast613 -- static: no, type: <bottom>, effect: none
 // eff598610 -- static: yes, type: <bottom>, effect: push
 // eff600612 -- static: yes, type: <bottom>, effect: push
 // b604 -- static: no, type: f32, effect: pop
@@ -653,7 +653,7 @@ def BR_IF() {
 // arg627633 -- static: yes, type: i32, effect: none
 // arg628630 -- static: yes, type: i32, effect: none
 // depth629 -- static: yes, type: i32, effect: read
-// rtcast639 -- static: no, type: i32, effect: none
+// rtcast639 -- static: no, type: <bottom>, effect: none
 
 	def depth = imm_readULEB32();
 	def label = f_getLabel(depth);
@@ -693,7 +693,7 @@ def IF() {
 // cond663 -- static: no, type: i32, effect: pop
 // arg659667 -- static: no, type: i32, effect: none
 // label665 -- static: yes, type: <bottom>, effect: ctl
-// rtcast672 -- static: no, type: i32, effect: none
+// rtcast672 -- static: no, type: <bottom>, effect: none
 // arg660666 -- static: yes, type: i32, effect: none
 // arg661664 -- static: yes, type: <bottom>, effect: none
 // ret656670 -- static: yes, type: <bottom>, effect: ctl
@@ -744,7 +744,7 @@ def REF_IS_NULL() {
 // arg693700 -- static: yes, type: i32, effect: none
 // arg695702 -- static: yes, type: i32, effect: none
 // obj697 -- static: no, type: <bottom>, effect: pop
-// rtcast704 -- static: no, type: i32, effect: none
+// rtcast704 -- static: no, type: <bottom>, effect: none
 
 	def obj = pop_Object();
 	push_u32(rtcast_i32(1));
@@ -881,11 +881,11 @@ def STRUCT_GET_S() {
 	match (kind) {
 		U8 => {
 			def arg = mach_readStructField_u8(obj, offset);
-			push_u32((arg));
+			push_u32(arg);
 		}
 		U16 => {
 			def arg1 = mach_readStructField_u16(obj, offset);
-			push_u32((arg1));
+			push_u32(arg1);
 		}
 		_ => trapUnreachable();
 	}
@@ -924,11 +924,11 @@ def STRUCT_GET_U() {
 	match (kind) {
 		U8 => {
 			def arg = mach_readStructField_u8(obj, offset);
-			push_u32((arg));
+			push_u32(arg);
 		}
 		U16 => {
 			def arg1 = mach_readStructField_u16(obj, offset);
-			push_u32((arg1));
+			push_u32(arg1);
 		}
 		_ => trapUnreachable();
 	}

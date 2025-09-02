@@ -50,10 +50,10 @@ def collectPushes(s: SSAD, pushBuf: Vector<(string, string)>, ctx: SSADCtx) -> S
         LetApp(n, f, args, rest) => {
             if (ctx.effects[n] == CBDEffect.Push) {
                 if (args.length == 1) {
-            // one arg, value being pushed
+                    // one arg, value being pushed
                     pushBuf.put(args[0], null);
                 } else {
-            // (typevar, value)
+                    // (typevar, value)
                     pushBuf.put(args[1], args[0]);
                 }
                 return collectPushes(rest, pushBuf, ctx);
@@ -64,99 +64,41 @@ def collectPushes(s: SSAD, pushBuf: Vector<(string, string)>, ctx: SSADCtx) -> S
     }
 }
 
-def transformSSA(ssa: SSAD, ctx: SSADCtx) -> SSAD {
-    match (ssa) {
-        Void => return ssa;
-        Final(_) => return ssa;
-        Injected(inj, rest) => return SSAD.Injected(inj, transformSSA(rest, ctx));
-        LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, transformSSA(rest, ctx));
-        Match(subj, branches, rest) => {
-            def new_branches = Array<(string, SSAD)>.new(branches.length);
-            for (i < branches.length) {
-                new_branches[i] = (branches[i].0, transformSSA(branches[i].1, ctx));
-            }
-            return SSAD.Match(subj, new_branches, transformSSA(rest, ctx));
-        }
-        If(c, t, e, phis, rest) => {
-            // TODO: could check for returns and choose not to execute a branch
-            if (!ctx.static[c]) {
-                def fvTrue = SSAD_IR.uidl("condTrue");
-                def fvFalse = SSAD_IR.uidl("condFalse");
-                def fvBoth = SSAD_IR.uidl("condBoth");
-                def tp = ctx.types[c];
-                var tp_str = TypeUtil.toString(tp);
-                if (tp != ValueType.BOTTOM) tp_str = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
-                def fnTrue = Strings.format1("%s_maybeTrue", "I32");
-                def fnFalse = Strings.format1("%s_maybeFalse", "I32");
-                ctx.static[fvTrue] = false;
-                ctx.static[fvFalse] = false;
-                def t_transform = transformSSA(t, ctx);
-                def e_transform = transformSSA(e, ctx);
-                return SSAD.LetApp(fvTrue, fnTrue, [c],
-                        SSAD.LetApp(fvFalse, fnFalse, [c],
-                            SSAD.LetApp(fvBoth, "bool.&&", [fvTrue, fvFalse],
-                                SSAD.If(fvBoth,
-                                    execBoth(t_transform, e_transform, ctx),
-                                    SSAD.If(fvTrue, 
-                                        t_transform,
-                                        e_transform, // else must be true (issue #11)
-                                        [],
-                                        SSAD.Void
-                                    ),
-                                    phis,
-                                    transformSSA(rest, ctx)))));
-            } else {
-                return SSAD.If(c, transformSSA(t, ctx), transformSSA(e, ctx), phis, rest);
-            }
-        }
-        LetApp(n, f, args, rest) => {
-            var is_op = false;
-            for (c in f) if (c == '.') is_op = true;
-            def is_rt = !ctx.static[n];
-            if (is_op && is_rt) {
-                def op_spl = IntrinsicTypes.split_op(f);
-                var tp = op_spl.0;
-                def op_fn = op_spl.1;
-                // infer type, applies to bools
-                if (tp == ValueType.BOTTOM && args.length > 0) tp = ctx.types[args[0]];
-                def tp_str = TypeUtil.toString(tp);
-                var prefix: string;
-                match (tp) {
-                    BOTTOM => prefix = "V";
-                    _ => prefix = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
-                }
+def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
+    def c = node.cond, t = node.then, e = node.els, rest = node.rest;
+    def phis = node.phis;
+    def ctx = transformer.ctx;
 
-                var new_f = Strings.format2("%s_%s", prefix, op_fn);
-                if (Strings.equal(op_fn, "view")) new_f = "id";
-                ctx.getTypes(SSAD.LetApp(n, new_f, args, rest));
-                return transformSSA(SSAD.LetApp(n, new_f, args, rest), ctx);
-            }
+    def t_transform = transformer.transformChildren(t);
+    def e_transform = transformer.transformChildren(e);
 
-            def intrinsic_static = IntrinsicTypes.intrinsic_static(f);
-            def intrinsic_type = IntrinsicTypes.intrinsic_type(f);
-            def args_static = intrinsic_static.0;
-            def args_types = intrinsic_type.0;
-            var rtcasts: SSAD = SSAD.Void;
-            def new_args = Arrays.dup(args);
-            if (args_static != null) {
-                for (i < args_static.length) {
-                    def is_runtime = !ctx.static[args[i]];
-                    def should_be_runtime = !args_static[i];
-                    if (!is_runtime && should_be_runtime) {
-                        def fv = SSAD_IR.uidl("rtcast");
-                        def tp = if(args_types[i] != ValueType.BOTTOM, args_types[i], ctx.types[args[i]]);
-                        def rtcast_f = Strings.format1("rtcast_%q", tp.render);
-                        ctx.static[fv] = false;
-                        ctx.types[fv] = ctx.types[args[i]];
-                        ctx.effects[fv] = CBDEffect.None;
-                        new_args[i] = fv;
-                        rtcasts = SSAD.LetApp(fv, rtcast_f, [args[i]], rtcasts);
-                    }
-                }
-            }
-
-            return rtcasts.appended(SSAD.LetApp(n, f, new_args, transformSSA(rest, ctx)));
-        }
+    // TODO: could check for returns and choose not to execute a branch
+    if (!ctx.static[c]) {
+        def fvTrue = SSAD_IR.uidl("condTrue");
+        def fvFalse = SSAD_IR.uidl("condFalse");
+        def fvBoth = SSAD_IR.uidl("condBoth");
+        def tp = ctx.types[c];
+        var tp_str = TypeUtil.toString(tp);
+        if (tp != ValueType.BOTTOM) tp_str = Arrays.replace<u8>(tp_str, 0, tp_str[0] - 32u8);
+        def fnTrue = Strings.format1("%s_maybeTrue", "I32");
+        def fnFalse = Strings.format1("%s_maybeFalse", "I32");
+        ctx.static[fvTrue] = false;
+        ctx.static[fvFalse] = false;
+        return SSAD.LetApp(fvTrue, fnTrue, [c],
+                SSAD.LetApp(fvFalse, fnFalse, [c],
+                    SSAD.LetApp(fvBoth, "bool.&&", [fvTrue, fvFalse],
+                        SSAD.If(fvBoth,
+                            execBoth(t_transform, e_transform, ctx),
+                            SSAD.If(fvTrue, 
+                                t_transform,
+                                e_transform, // else must be true (issue #11)
+                                [],
+                                SSAD.Void
+                            ),
+                            phis,
+                            transformer.transform(rest)))));
+    } else {
+        return SSAD.If(c, t_transform, e_transform, phis, transformer.transform(rest));
     }
 }
 
@@ -165,8 +107,12 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     SSAD_IR.counter = 0;
     def ssa = SSAD_IR.ssa(ir);
     def analysis = SSADCtx.new(ssa);
-    def transformed = transformSSA(ssa, analysis);
-    def processed = analysis.DCE(analysis.id_propagate(transformed, HashMap<string, string>.new(Strings.hash, Strings.equal)));
+
+    def transformer = SSATransformer.new(analysis);
+    transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
+    transformer.onIf = flatten_ifs;
+    def transformed = transformer.transform(ssa);
+    def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
     return CBDDef.new(opcode, processed);
 }
 

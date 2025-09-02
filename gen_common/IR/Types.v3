@@ -140,6 +140,19 @@ component TypeUtil {
         if (t == ValueType.I64) return "u64";
         return StringBuilder.new().putq(t.render).toString();
     }
+
+    def getRuntimePrefix(t: ValueType) -> string {
+        match (t) {
+            BOTTOM => return "V";
+            I32 => return "U32";
+            I64 => return "U64";
+            F32 => return "F32";
+            F64 => return "F64";
+            V128 => return "V128";
+            Host(_) => return "H";
+            Ref(_, _) => return "R";
+        }
+    }
 }
 
 component IntrinsicTypes {
@@ -269,6 +282,7 @@ component IntrinsicTypes {
 
     def split_op(op: string) -> (ValueType, string) {
         def sp = Strings.splitOnChar(op, byte.==(_, '.'), 1);
+        if (sp.length < 2) return (ValueType.BOTTOM, null);
         def tp_str = sp[0];
         def op_str = sp[1];
         var prose_op: string;
