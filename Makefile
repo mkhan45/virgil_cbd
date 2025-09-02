@@ -25,7 +25,7 @@ all: validator interpreter InterpreterMain
 $(DEFS).sexp: wizard-engine/src/bytecode/CanonicalDefs.v3
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
 
-generated/validator/Validator.v3: $(GENERATE_DEPS) validator/ValidatorGen.v3 validator/ValidatorTemplate.v3 validator/Intrinsics.v3
+generated/Validator.v3: $(GENERATE_DEPS) validator/ValidatorGen.v3 validator/ValidatorTemplate.v3 validator/Intrinsics.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		$(ENGINE)\
@@ -37,7 +37,7 @@ generated/validator/Validator.v3: $(GENERATE_DEPS) validator/ValidatorGen.v3 val
 		> $@~
 	mv --force $@~ $@
 
-generated/interpreter/Interpreter.v3: $(GENERATE_DEPS) interpreter/InterpreterGen.v3 interpreter/InterpreterTemplate.v3 generated/validator/Validator.v3
+generated/Interpreter.v3: $(GENERATE_DEPS) interpreter/InterpreterGen.v3 interpreter/InterpreterTemplate.v3 generated/Validator.v3
 	$(VIRGIL) $(VIRGIL_STD) \
 		$(GENERATE_LIB)\
 		$(ENGINE)\
@@ -48,7 +48,7 @@ generated/interpreter/Interpreter.v3: $(GENERATE_DEPS) interpreter/InterpreterGe
 		> $@~
 	mv --force $@~ $@
 
-generated/compiler/Compiler.v3: $(GENERATE_DEPS) compiler/CompilerGen.v3 compiler/CompilerTemplate.v3 generated/validator/Validator.v3 compiler/Intrinsics.v3
+generated/Compiler.v3: $(GENERATE_DEPS) compiler/CompilerGen.v3 compiler/CompilerTemplate.v3 generated/Validator.v3 compiler/Intrinsics.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		$(ENGINE)\
@@ -60,7 +60,7 @@ generated/compiler/Compiler.v3: $(GENERATE_DEPS) compiler/CompilerGen.v3 compile
 		> $@~
 	mv --force $@~ $@
 
-generated/v3compiler/V3Compiler.v3: $(GENERATE_DEPS) v3compiler/V3CompilerGen.v3 v3compiler/V3CompilerTemplate.v3 generated/validator/Validator.v3 v3compiler/Intrinsics.v3 abstract_interpreter/AITemplate.v3
+generated/V3Compiler.v3: $(GENERATE_DEPS) v3compiler/V3CompilerGen.v3 v3compiler/V3CompilerTemplate.v3 generated/Validator.v3 v3compiler/Intrinsics.v3 abstract_interpreter/AITemplate.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		$(ENGINE)\
@@ -72,7 +72,7 @@ generated/v3compiler/V3Compiler.v3: $(GENERATE_DEPS) v3compiler/V3CompilerGen.v3
 		> $@~
 	mv --force $@~ $@
 
-generated/abstract_interpreter/AI.v3: $(GENERATE_DEPS) abstract_interpreter/AIGen.v3 abstract_interpreter/AITemplate.v3 generated/validator/Validator.v3 abstract_interpreter/Intrinsics.v3
+generated/AI.v3: $(GENERATE_DEPS) abstract_interpreter/AIGen.v3 abstract_interpreter/AITemplate.v3 generated/Validator.v3 abstract_interpreter/Intrinsics.v3
 	$(VIRGIL) $(VIRGIL_STD) \
 		$(GENERATE_LIB)\
 		$(ENGINE)\
@@ -84,46 +84,46 @@ generated/abstract_interpreter/AI.v3: $(GENERATE_DEPS) abstract_interpreter/AIGe
 		> $@~
 	mv --force $@~ $@
 
-validator: generated/validator/Validator.v3
-interpreter: generated/interpreter/Interpreter.v3
-compiler: generated/compiler/Compiler.v3
-abstract_interpreter: generated/abstract_interpreter/AI.v3
+validator: generated/Validator.v3
+interpreter: generated/Interpreter.v3
+compiler: generated/Compiler.v3
+abstract_interpreter: generated/AI.v3
 
-run_interpreter: generated/interpreter/Interpreter.v3 generated/validator/Validator.v3
+run_interpreter: generated/Interpreter.v3 generated/Validator.v3
 	$(VIRGIL) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		runtime_common/*.v3 generated/validator/Validator.v3 generated/interpreter/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
+		runtime_common/*.v3 generated/Validator.v3 generated/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
 
-run_validator: generated/validator/Validator.v3
+run_validator: generated/Validator.v3
 	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		generated/validator/Validator.v3 validator/ValidatorMain.v3 $(ARGS)
+		generated/Validator.v3 validator/ValidatorMain.v3 $(ARGS)
 
-run_compiler: generated/compiler/Compiler.v3
+run_compiler: generated/Compiler.v3
 	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		runtime_common/*.v3 generated/validator/Validator.v3 generated/compiler/Compiler.v3 compiler/CompilerMain.v3 $(ARGS)
+		runtime_common/*.v3 generated/Validator.v3 generated/Compiler.v3 compiler/CompilerMain.v3 $(ARGS)
 
-InterpreterMain: generated/interpreter/Interpreter.v3
+InterpreterMain: generated/Interpreter.v3
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		runtime_common/*.v3 generated/validator/Validator.v3 generated/interpreter/Interpreter.v3 interpreter/InterpreterMain.v3
+		runtime_common/*.v3 generated/Validator.v3 generated/Interpreter.v3 interpreter/InterpreterMain.v3
 
 %AI: abstract_interpreter validator
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
 		gen_common/IR/Types.v3\
-		runtime_common/*.v3 generated/validator/Validator.v3 generated/abstract_interpreter/AI.v3\
+		runtime_common/*.v3 generated/Validator.v3 generated/AI.v3\
 		abstract_interpreter/state_mgrs/*.v3 abstract_interpreter/impls/$*.v3 abstract_interpreter/AIMain.v3
 	mv AIMain $@
 
-V3CompilerMain: generated/v3compiler/V3Compiler.v3 validator abstract_interpreter/state_mgrs/CFGStateMgr.v3 generated/compiler/Compiler.v3
+V3CompilerMain: generated/V3Compiler.v3 validator abstract_interpreter/state_mgrs/CFGStateMgr.v3 generated/Compiler.v3
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
 		runtime_common/*.v3\
-		generated/validator/Validator.v3\
+		generated/Validator.v3\
 		abstract_interpreter/state_mgrs/CFGStateMgr.v3\
-		generated/compiler/Compiler.v3\
-		generated/v3compiler/V3Compiler.v3\
+		generated/Compiler.v3\
+		generated/V3Compiler.v3\
 		v3compiler/V3CompilerMain.v3
 
 # Clean build artifacts
 clean:
-	rm -f generated/interpreter/Interpreter.v3 generated/compiler/Compiler.v3 generated/validator/Validator.v3 generated/abstract_interpreter/AI.v3 generated/v3compiler/V3Compiler.v3 $(DEFS).sexp *Main *AI
+	rm -f generated/Interpreter.v3 generated/Compiler.v3 generated/Validator.v3 generated/AI.v3 generated/V3Compiler.v3 $(DEFS).sexp *Main *AI
 
 # Usage instructions
 help:
