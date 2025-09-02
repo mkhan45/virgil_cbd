@@ -41,9 +41,9 @@ class State<V>(stack: ArrayStack<V>, globals: Vector<V>, stack_types: ArrayStack
         return State<V>.new(new_stack, new_globals, new_sts, new_gts);
     }
 }
-class StateManager<V, I32, I64, F32, F64, REF> {
+class StateManager<V, U32, U64, F32, F64, REF> {
     var current_frame: Frame;
-    var ai: AI<V, I32, I64, F32, F64, REF>;
+    var ai: AI<V, U32, U64, F32, F64, REF>;
 
     def init(frame: Frame, state: State<V>);
     def branch(state: State<V>);
@@ -59,8 +59,8 @@ class StateManager<V, I32, I64, F32, F64, REF> {
     def startNextCont();
     def shouldFinishCont() -> bool;
 }
-class AI<V, I32, I64, F32, F64, REF> {
-    var HAS_MEM_INDEX: I32; // XXX: i think this should be an intrinsic
+class AI<V, U32, U64, F32, F64, REF> {
+    var HAS_MEM_INDEX: U32; // XXX: i think this should be an intrinsic
     var module: Module;
     var functions: Vector<CBDFunctionI>;
 
@@ -80,7 +80,7 @@ class AI<V, I32, I64, F32, F64, REF> {
         global_types = s.global_types;
     }
 
-    var state_manager: StateManager<V, I32, I64, F32, F64, REF>;
+    var state_manager: StateManager<V, U32, U64, F32, F64, REF>;
     def current_frame() => state_manager.current_frame;
 
     new(module: Module, state_manager, args: Array<int>) {
@@ -102,12 +102,12 @@ class AI<V, I32, I64, F32, F64, REF> {
             System.ln();
         }
 
-        HAS_MEM_INDEX = rtcast_i32(0x40);
+        HAS_MEM_INDEX = rtcast_u32(0x40u);
 
         stack = ArrayStack<V>.new();
         stack_types = ArrayStack<TypeVar>.new();
-        for (arg in args) stack.push(box_i(rtcast_i32(arg)));
-        for (arg in args) stack_types.push(TypeVar.I32);
+        for (arg in args) stack.push(box_i(rtcast_u32(arg)));
+        for (arg in args) stack_types.push(TypeVar.U32);
 
         var main_idx = -1;
         for (i < module.exports.length) {
@@ -120,10 +120,10 @@ class AI<V, I32, I64, F32, F64, REF> {
             def module_global = module.globals[i];
             // TODO: full eval initexpr
             match (module_global.init) {
-                I32(v) => globals.put(box_i(rtcast_i32(v)));
-                _ => globals.put(box_i(rtcast_i32(0)));
+                I32(v) => globals.put(box_i(rtcast_u32(v)));
+                _ => globals.put(box_i(rtcast_u32(0)));
             }
-            global_types.put(TypeVar.I32);
+            global_types.put(TypeVar.U32);
         }
 
         state_manager.init(Frame.new(null, main_idx).init(functions[main_idx]), current_state());
@@ -154,46 +154,46 @@ class AI<V, I32, I64, F32, F64, REF> {
 
     def print_stack() {}
 
-    def I32_equals(lhs: I32, rhs: I32) -> I32;
-    def I32_not_equals(lhs: I32, rhs: I32) -> I32;
-    def I32_plus(lhs: I32, rhs: I32) -> I32;
-    def I32_minus(lhs: I32, rhs: I32) -> I32;
-    def I32_div(lhs: I32, rhs: I32) -> I32;
-    def I32_lt(lhs: I32, rhs: I32) -> I32;
-    def I32_lte(lhs: I32, rhs: I32) -> I32;
-    def I32_gt(lhs: I32, rhs: I32) -> I32;
-    def I32_times(lhs: I32, rhs: I32) -> I32;
-    def I32_and(lhs: I32, rhs: I32) -> I32;
+    def U32_equals(lhs: U32, rhs: U32) -> U32;
+    def U32_not_equals(lhs: U32, rhs: U32) -> U32;
+    def U32_plus(lhs: U32, rhs: U32) -> U32;
+    def U32_minus(lhs: U32, rhs: U32) -> U32;
+    def U32_div(lhs: U32, rhs: U32) -> U32;
+    def U32_lt(lhs: U32, rhs: U32) -> U32;
+    def U32_lte(lhs: U32, rhs: U32) -> U32;
+    def U32_gt(lhs: U32, rhs: U32) -> U32;
+    def U32_times(lhs: U32, rhs: U32) -> U32;
+    def U32_and(lhs: U32, rhs: U32) -> U32;
 
-    def I32_maybeTrue(i: I32) -> bool;
-    def I32_maybeFalse(i: I32) -> bool;
+    def U32_maybeTrue(i: U32) -> bool;
+    def U32_maybeFalse(i: U32) -> bool;
 
-    def F32_equals(lhs: F32, rhs: F32) -> I32;
-    def F32_not_equals(lhs: F32, rhs: F32) -> I32;
+    def F32_equals(lhs: F32, rhs: F32) -> U32;
+    def F32_not_equals(lhs: F32, rhs: F32) -> U32;
     def F32_plus(lhs: F32, rhs: F32) -> F32;
     def F32_minus(lhs: F32, rhs: F32) -> F32;
     def F32_div(lhs: F32, rhs: F32) -> F32;
-    def F32_lt(lhs: F32, rhs: F32) -> I32;
-    def F32_lte(lhs: F32, rhs: F32) -> I32;
-    def F32_gt(lhs: F32, rhs: F32) -> I32;
+    def F32_lt(lhs: F32, rhs: F32) -> U32;
+    def F32_lte(lhs: F32, rhs: F32) -> U32;
+    def F32_gt(lhs: F32, rhs: F32) -> U32;
     def F32_times(lhs: F32, rhs: F32) -> F32;
     def F32_sqrt(lhs: F32) -> F32;
 
-    def unbox_i(v: V) -> I32;
-    def unbox_l(v: V) -> I64;
+    def unbox_i(v: V) -> U32;
+    def unbox_l(v: V) -> U64;
     def unbox_f(v: V) -> F32;
     def unbox_d(v: V) -> F64;
     def unbox_r(v: V) -> REF;
 
-    def I32_abs_eq(lhs: I32, rhs: I32) -> bool;
-    def I64_abs_eq(lhs: I64, rhs: I64) -> bool;
+    def U32_abs_eq(lhs: U32, rhs: U32) -> bool;
+    def U64_abs_eq(lhs: U64, rhs: U64) -> bool;
     def F32_abs_eq(lhs: F32, rhs: F32) -> bool;
     def F64_abs_eq(lhs: F64, rhs: F64) -> bool;
     def REF_abs_eq(lhs: REF, rhs: REF) -> bool;
     def val_abs_eq(tv: TypeVar, lhs: V, rhs: V) -> bool {
         match (tv) {
-            I32 => return I32_abs_eq(unbox_i(lhs), unbox_i(rhs));
-            I64 => return I64_abs_eq(unbox_l(lhs), unbox_l(rhs));
+            U32 => return U32_abs_eq(unbox_i(lhs), unbox_i(rhs));
+            U64 => return U64_abs_eq(unbox_l(lhs), unbox_l(rhs));
             F32 => return F32_abs_eq(unbox_f(lhs), unbox_f(rhs));
             F64 => return F64_abs_eq(unbox_d(lhs), unbox_d(rhs));
             _ => {
@@ -214,15 +214,15 @@ class AI<V, I32, I64, F32, F64, REF> {
         return true;
     }
 
-    def merge_i(lhs: I32, rhs: I32) -> I32;
-    def merge_l(lhs: I64, rhs: I64) -> I64;
+    def merge_i(lhs: U32, rhs: U32) -> U32;
+    def merge_l(lhs: U64, rhs: U64) -> U64;
     def merge_f(lhs: F32, rhs: F32) -> F32;
     def merge_d(lhs: F64, rhs: F64) -> F64;
     def merge_r(lhs: REF, rhs: REF) -> REF;
     def merge_val(tv: TypeVar, lhs: V, rhs: V) -> V {
         match (tv) {
-            I32 => return box_i(merge_i(unbox_i(lhs), unbox_i(rhs)));
-            I64 => return box_l(merge_l(unbox_l(lhs), unbox_l(rhs)));
+            U32 => return box_i(merge_i(unbox_i(lhs), unbox_i(rhs)));
+            U64 => return box_l(merge_l(unbox_l(lhs), unbox_l(rhs)));
             F32 => return box_f(merge_f(unbox_f(lhs), unbox_f(rhs)));
             F64 => return box_d(merge_d(unbox_d(lhs), unbox_d(rhs)));
             _ => {
@@ -244,23 +244,25 @@ class AI<V, I32, I64, F32, F64, REF> {
         }
     }
 
-    def box_i(v: I32) -> V;
-    def box_l(v: I64) -> V;
+    def box_i(v: U32) -> V;
+    def box_l(v: U64) -> V;
     def box_f(v: F32) -> V;
     def box_d(v: F64) -> V;
     def box_ref(v: REF) -> V;
-    def rtcast_i32(i: i32) -> I32;
-    def rtcast_i64(i: i64) -> I64;
+    def rtcast_u32(i: u32) -> U32;
+    def rtcast_u64(i: u64) -> U64;
     def rtcast_f32(f: float) -> F32;
     def rtcast_f64(f: double) -> F64;
     def ref_null() -> REF;
 
-    def f32_reinterpret_i32(i: I32) -> F32;
-    def f64_reinterpret_i64(i: I64) -> F64;
+    def f32_reinterpret_u32(i: U32) -> F32;
+    def f64_reinterpret_u64(i: U64) -> F64;
+    def u32_reinterpret_f32(f: F32) -> U32;
+    def u64_reinterpret_f64(f: F64) -> U64;
 
     // only for V3Compiler
-    def emitFwdI32() -> I32;
-    def emitIf(c: I32);
+    def emitFwdU32() -> U32;
+    def emitIf(c: U32);
     def emitElse();
     def emitIfStatic(c: bool);
     def emitEnd();
@@ -274,12 +276,12 @@ class AI<V, I32, I64, F32, F64, REF> {
         stack.top = dest + count;
     }
 
-    def imm_readILEB32() -> i32 {
-        return i32.!(current_frame().codeptr.read_uleb32());
+    def imm_readILEB32() -> u32 {
+        return u32.!(current_frame().codeptr.read_uleb32());
     }
 
-    def imm_readILEB64() -> i64 {
-        return i64.!(current_frame().codeptr.read_uleb64());
+    def imm_readILEB64() -> u64 {
+        return u64.!(current_frame().codeptr.read_uleb64());
     }
 
     def imm_readU8() -> u8 {
@@ -291,10 +293,10 @@ class AI<V, I32, I64, F32, F64, REF> {
         return bt.toAbstractBlockType(module);
     }
 
-    def pop_i32() -> I32 {
+    def pop_u32() -> U32 {
         return unbox_i(stack.pop());
     }
-    def pop_i64() -> I64 {
+    def pop_u64() -> U64 {
         return unbox_l(stack.pop());
     }
     def pop_f32() -> F32 {
@@ -311,13 +313,13 @@ class AI<V, I32, I64, F32, F64, REF> {
         return stack.pop();
     }
 
-    def push_i32(v: I32) {
+    def push_u32(v: U32) {
         stack.push(box_i(v));
-        stack_types.push(TypeVar.I32);
+        stack_types.push(TypeVar.U32);
     }
-    def push_i64(v: I64) {
+    def push_u64(v: U64) {
         stack.push(box_l(v));
-        stack_types.push(TypeVar.I64);
+        stack_types.push(TypeVar.U64);
     }
     def push_f32(v: F32) {
         stack.push(box_f(v));
@@ -337,27 +339,27 @@ class AI<V, I32, I64, F32, F64, REF> {
     }
 
     // Local variables.
-    def getLocal(tv: TypeVar, index: i32) -> V {
+    def getLocal(tv: TypeVar, index: u32) -> V {
         return stack.elems[index];
     }
-    def setLocal(tv: TypeVar, index: i32, v: V) {
+    def setLocal(tv: TypeVar, index: u32, v: V) {
         stack.elems[index] = v;
     }
 
     // Global variables.
-    def getGlobal(tv: TypeVar, index: i32) -> V {
+    def getGlobal(tv: TypeVar, index: u32) -> V {
         return globals[index];
     }
-    def setGlobal(tv: TypeVar, index: i32, v: V) {
+    def setGlobal(tv: TypeVar, index: u32, v: V) {
         globals[index] = v;
     }
 
     // CBDFunction context.
-    def f_getLabel(depth: i32) -> () {
+    def f_getLabel(depth: u32) -> () {
         return ();
     }
 
-    def f_getLocalType(index: i32) -> TypeVar {
+    def f_getLocalType(index: u32) -> TypeVar {
         return stack_types.elems[index];
     }
 
@@ -366,23 +368,23 @@ class AI<V, I32, I64, F32, F64, REF> {
     }
 
     // Module context.
-    def m_getGlobalType(index: i32) -> TypeVar {
+    def m_getGlobalType(index: u32) -> TypeVar {
         return global_types[index];
     }
-    def m_getFieldKind(struct_index: i32, field_index: i32) -> FieldKind;
-    def m_getFieldOffset(struct_index: i32, field_index: i32) -> FieldOffset;
-    def m_isMemory64(memory_index: i32) -> bool;
-    def m_isTable64(memory_index: i32) -> bool;
-    def m_getFuncSignature(func_index: i32) -> SigDecl {
+    def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind;
+    def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset;
+    def m_isMemory64(memory_index: u32) -> bool;
+    def m_isTable64(memory_index: u32) -> bool;
+    def m_getFuncSignature(func_index: u32) -> SigDecl {
         return null; // already in CBDFunction, TODO: refactor
     }
-    def m_getSignature(sig_index: i32) -> SigDecl;
+    def m_getSignature(sig_index: u32) -> HeapTypeDecl;
 
     // Instance context.
-    def i_getTableFunction64(table_index: i32, sig: SigDecl, func_index: I64) -> CBDFunctionI;
-    def i_getTableFunction32(table_index: i32, sig: SigDecl, func_index: I32) -> CBDFunctionI;
-    def i_getFunction(func_index: i32) -> CBDFunctionI {
-        return functions[int.!(func_index)];
+    def i_getTableFunction64(table_index: u32, sig: HeapTypeDecl, func_index: U64) -> CBDFunctionI;
+    def i_getTableFunction32(table_index: u32, sig: HeapTypeDecl, func_index: U32) -> CBDFunctionI;
+    def i_getFunction(func_index: u32) -> CBDFunctionI {
+        return functions[int.view(func_index)];
     }
 
     // Control flow.
@@ -408,55 +410,49 @@ class AI<V, I32, I64, F32, F64, REF> {
     }
 
     // Machine intrinsics.
-    def mach_readStructField_i8(obj: REF, offset: FieldOffset) -> I32;
-    def mach_readStructField_u8(obj: REF, offset: FieldOffset) -> I32;
-    def mach_readStructField_i16(obj: REF, offset: FieldOffset) -> I32;
-    def mach_readStructField_u16(obj: REF, offset: FieldOffset) -> I32;
-    def mach_readStructField_i32(obj: REF, offset: FieldOffset) -> I32;
-    def mach_readStructField_u32(obj: REF, offset: FieldOffset) -> I32;
-    def mach_readStructField_i64(obj: REF, offset: FieldOffset) -> I64;
-    def mach_readStructField_u64(obj: REF, offset: FieldOffset) -> I64;
+    def mach_readStructField_u8(obj: REF, offset: FieldOffset) -> U32;
+    def mach_readStructField_u16(obj: REF, offset: FieldOffset) -> U32;
+    def mach_readStructField_u32(obj: REF, offset: FieldOffset) -> U32;
+    def mach_readStructField_u64(obj: REF, offset: FieldOffset) -> U64;
     def mach_readStructField_f32(obj: REF, offset: FieldOffset) -> F32;
     def mach_readStructField_f64(obj: REF, offset: FieldOffset) -> F64;
     def mach_readStructField_v128(obj: REF, offset: FieldOffset) -> ();
     def mach_readStructField_Object(obj: REF, offset: FieldOffset) -> REF;
 
-    def mach_readMemory64_i8(memory_index: i32, index: I64, offset: i64) -> I32;
-    def mach_readMemory32_i8(memory_index: i32, index: I32, offset: i32) -> I32;
-    def mach_readMemory64_u8(memory_index: i32, index: I64, offset: i64) -> I32;
-    def mach_readMemory32_u8(memory_index: i32, index: I32, offset: i32) -> I32;
-    def mach_readMemory64_i16(memory_index: i32, index: I64, offset: i64) -> I32;
-    def mach_readMemory32_i16(memory_index: i32, index: I32, offset: i32) -> I32;
-    def mach_readMemory64_i32(memory_index: i32, index: I64, offset: i64) -> I32;
-    def mach_readMemory32_i32(memory_index: i32, index: I32, offset: i32) -> I32;
-    def mach_readMemory64_i64(memory_index: i32, index: I64, offset: i64) -> I64;
-    def mach_readMemory32_i64(memory_index: i32, index: I32, offset: i32) -> I64;
-    def mach_readMemory64_f32(memory_index: i32, index: I64, offset: i64) -> F32;
-    def mach_readMemory32_f32(memory_index: i32, index: I32, offset: i32) -> F32;
-    def mach_readMemory64_f64(memory_index: i32, index: I64, offset: i64) -> F64;
-    def mach_readMemory32_f64(memory_index: i32, index: I32, offset: i32) -> F64;
+    def mach_readMemory64_u8(memory_index: u32, index: U64, offset: u64) -> U32;
+    def mach_readMemory32_u8(memory_index: u32, index: U32, offset: u32) -> U32;
+    def mach_readMemory64_u16(memory_index: u32, index: U64, offset: u64) -> U32;
+    def mach_readMemory32_u16(memory_index: u32, index: U32, offset: u32) -> U32;
+    def mach_readMemory64_u32(memory_index: u32, index: U64, offset: u64) -> U32;
+    def mach_readMemory32_u32(memory_index: u32, index: U32, offset: u32) -> U32;
+    def mach_readMemory64_u64(memory_index: u32, index: U64, offset: u64) -> U64;
+    def mach_readMemory32_u64(memory_index: u32, index: U32, offset: u32) -> U64;
+    def mach_readMemory64_f32(memory_index: u32, index: U64, offset: u64) -> F32;
+    def mach_readMemory32_f32(memory_index: u32, index: U32, offset: u32) -> F32;
+    def mach_readMemory64_f64(memory_index: u32, index: U64, offset: u64) -> F64;
+    def mach_readMemory32_f64(memory_index: u32, index: U32, offset: u32) -> F64;
 
-    def mach_writeMemory64_i8(memory_index: i32, index: I64, offset: i64, val: I32);
-    def mach_writeMemory32_i8(memory_index: i32, index: I32, offset: i32, val: I32);
-    def mach_writeMemory64_i16(memory_index: i32, index: I64, offset: i64, val: I32);
-    def mach_writeMemory32_i16(memory_index: i32, index: I32, offset: i32, val: I32);
-    def mach_writeMemory64_i32(memory_index: i32, index: I64, offset: i64, val: I32);
-    def mach_writeMemory32_i32(memory_index: i32, index: I32, offset: i32, val: I32);
-    def mach_writeMemory64_i64(memory_index: i32, index: I64, offset: i64, val: I64);
-    def mach_writeMemory32_i64(memory_index: i32, index: I32, offset: i32, val: I64);
-    def mach_writeMemory64_f32(memory_index: i32, index: I64, offset: i64, val: F32);
-    def mach_writeMemory32_f32(memory_index: i32, index: I32, offset: i32, val: F32);
-    def mach_writeMemory64_f64(memory_index: i32, index: I64, offset: i64, val: F64);
-    def mach_writeMemory32_f64(memory_index: i32, index: I32, offset: i32, val: F64);
+    def mach_writeMemory64_u8(memory_index: u32, index: U64, offset: u64, val: U32);
+    def mach_writeMemory32_u8(memory_index: u32, index: U32, offset: u32, val: U32);
+    def mach_writeMemory64_u16(memory_index: u32, index: U64, offset: u64, val: U32);
+    def mach_writeMemory32_u16(memory_index: u32, index: U32, offset: u32, val: U32);
+    def mach_writeMemory64_u32(memory_index: u32, index: U64, offset: u64, val: U32);
+    def mach_writeMemory32_u32(memory_index: u32, index: U32, offset: u32, val: U32);
+    def mach_writeMemory64_u64(memory_index: u32, index: U64, offset: u64, val: U64);
+    def mach_writeMemory32_u64(memory_index: u32, index: U32, offset: u32, val: U64);
+    def mach_writeMemory64_f32(memory_index: u32, index: U64, offset: u64, val: F32);
+    def mach_writeMemory32_f32(memory_index: u32, index: U32, offset: u32, val: F32);
+    def mach_writeMemory64_f64(memory_index: u32, index: U64, offset: u64, val: F64);
+    def mach_writeMemory32_f64(memory_index: u32, index: U32, offset: u32, val: F64);
 
-    def mach_readTable64(table_index: i32, index: I64) -> REF;
-    def mach_readTable32(table_index: i32, index: I32) -> REF;
+    def mach_readTable64(table_index: u32, index: U64) -> REF;
+    def mach_readTable32(table_index: u32, index: U32) -> REF;
 
-    def mach_writeTable64(table_index: i32, index: I64, val: REF);
-    def mach_writeTable32(table_index: i32, index: I32, val: REF);
+    def mach_writeTable64(table_index: u32, index: U64, val: REF);
+    def mach_writeTable32(table_index: u32, index: U32, val: REF);
 
     def object_Null() -> REF;
-    def object_isNull(o: REF) -> I32;
+    def object_isNull(o: REF) -> U32;
     def object_New(sig: HeapTypeDecl) -> REF;
 
     // Traps.
@@ -497,15 +493,19 @@ class AI<V, I32, I64, F32, F64, REF> {
         return current_frame().codeptr.pos >= current_frame().codeptr.data.length;
     }
 
+    def U32_div_s(lhs: U32, rhs: U32) -> U32;
+    def U32_lt_s(lhs: U32, rhs: U32) -> U32;
+    def U32_le_s(lhs: U32, rhs: U32) -> U32;
+
     def push_locals(count: u32, vtc: ValueTypeCode) {
         var val: V;
         match (vtc.toConcreteValueKind(null)) {
-            I32 => val = box_i(rtcast_i32(0));
-            I64 => val = box_l(rtcast_i64(0));
+            I32 => val = box_i(rtcast_u32(0));
+            I64 => val = box_l(rtcast_u64(0));
             F32 => val = box_f(rtcast_f32(0.0f));
             F64 => val = box_d(rtcast_f64(0.0));
             REF => val = box_ref(ref_null());
-            _ => val = box_i(rtcast_i32(0));
+            _ => val = box_i(rtcast_u32(0));
         }
         stack.pushn(val, int.!(count));
     } // remove last brace for easier templating
