@@ -30,6 +30,10 @@ class CBDWasmStack(cbd_interpreter: CBDV3Interpreter) extends WasmStack {
 	// def tryHandleSwitch = it.tryHandleSwitch;
 }
 
+type CallIndirectEntry(is64: bool) #unboxed;
+type LabelEntry(label: SidetableBrEntry) #unboxed;
+type StructGetEntry(kind: FieldKind, offset: FieldOffset) #unboxed;
+
 class CBDV3Interpreter(it: V3Interpreter) {
     // can't extend V3Interpreter directly bc some intrinsics overlap with method names
 
@@ -360,6 +364,27 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def U32_lt_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) < i32.view(rhs);
     def U32_le_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) <= i32.view(rhs);
 
+    def get_st_entry_BR() -> LabelEntry {
+        return LabelEntry(it.frame.func.decl.sidetable.getBrEntry(it.frame.stp));
+    }
+
+    def get_st_entry_BR_IF() => get_st_entry_BR();
+    def get_st_entry_IF() => get_st_entry_BR();
+    def get_st_entry_ELSE() => get_st_entry_BR();
+
+    def get_st_entry_CALL_INDIRECT() -> CallIndirectEntry {
+        return CallIndirectEntry(false);
+    }
+
+    def get_st_entry_STRUCT_GET() -> StructGetEntry {
+        def stp = it.frame.stp;
+        def st = it.frame.func.decl.sidetable.entries;
+        return StructGetEntry(FieldKinds.fromTag(st[stp]), FieldOffset(u32.view(st[stp+1])));
+    }
+
+    def get_st_entry_STRUCT_GET_S() => get_st_entry_STRUCT_GET();
+    def get_st_entry_STRUCT_GET_U() => get_st_entry_STRUCT_GET();
+
 def UNREACHABLE() {
 	trapUnreachable();
 }
@@ -429,11 +454,11 @@ def CALL() {
 	doCall(sig, target);
 }
 def CALL_INDIRECT() {
+	def sidetable_entry = get_st_entry_CALL_INDIRECT();
 	def sig_index = imm_readULEB32();
 	def table_index = imm_readULEB32();
 	def sig = m_getSignature(sig_index);
-	def is = m_isTable64(table_index);
-	if (is) {
+	if (sidetable_entry.is64) {
 		def func_index = pop_u64();
 		def target = i_getTableFunction64(table_index, sig, func_index);
 		doCall(sig, target);
@@ -648,16 +673,16 @@ def F32_GT() {
 	}
 }
 def BR() {
+	def sidetable_entry = get_st_entry_BR();
 	def depth = imm_readULEB32();
-	def label = f_getLabel(depth);
-	doBranch(label);
+	doBranch(sidetable_entry.label);
 }
 def BR_IF() {
+	def sidetable_entry = get_st_entry_BR_IF();
 	def depth = imm_readULEB32();
-	def label = f_getLabel(depth);
 	def cond = pop_u32();
 	if (u32.!=(cond, 0)) {
-		doBranch(label);
+		doBranch(sidetable_entry.label);
 	} else {
 		doFallthru();
 	}
@@ -675,18 +700,18 @@ def TRY() {
 	doTry(bt);
 }
 def IF() {
+	def sidetable_entry = get_st_entry_IF();
 	def bt = imm_readBlockType();
 	def cond = pop_u32();
-	def label = doIf(bt);
 	if (u32.==(cond, 0)) {
-		doBranch(label);
+		doBranch(sidetable_entry.label);
 	} else {
 		doFallthru();
 	}
 }
 def ELSE() {
-	def label = doElse();
-	doBranch(label);
+	def sidetable_entry = get_st_entry_ELSE();
+	doBranch(sidetable_entry.label);
 }
 def END() {
 	doEnd();
@@ -725,82 +750,79 @@ def STRUCT_NEW() {
 	push_Object(object_New(sig));
 }
 def STRUCT_GET() {
+	def sidetable_entry = get_st_entry_STRUCT_GET();
 	def struct_index = imm_readULEB32();
 	def field_index = imm_readULEB32();
-	def kind = m_getFieldKind(struct_index, field_index);
-	def offset = m_getFieldOffset(struct_index, field_index);
 	def obj = pop_Object();
 	def cond = object_isNull(obj);
 	if (cond) {
 		trapNull();
 	}
-	match (kind) {
+	match (sidetable_entry.kind) {
 		U32 => {
-			def arg = mach_readStructField_u32(obj, offset);
+			def arg = mach_readStructField_u32(obj, sidetable_entry.offset);
 			push_u32(arg);
 		}
 		U64 => {
-			def arg1 = mach_readStructField_u64(obj, offset);
+			def arg1 = mach_readStructField_u64(obj, sidetable_entry.offset);
 			push_u64(arg1);
 		}
 		F32 => {
-			def arg2 = mach_readStructField_f32(obj, offset);
+			def arg2 = mach_readStructField_f32(obj, sidetable_entry.offset);
 			push_f32(arg2);
 		}
 		F64 => {
-			def arg3 = mach_readStructField_f64(obj, offset);
+			def arg3 = mach_readStructField_f64(obj, sidetable_entry.offset);
 			push_f64(arg3);
 		}
 		V128 => {
-			def arg4 = mach_readStructField_v128(obj, offset);
+			def arg4 = mach_readStructField_v128(obj, sidetable_entry.offset);
 			push_v128(arg4);
 		}
 		REF => {
-			def arg5 = mach_readStructField_Object(obj, offset);
+			def arg5 = mach_readStructField_Object(obj, sidetable_entry.offset);
 			push_Object(arg5);
 		}
 		_ => trapUnreachable();
 	}
 }
 def STRUCT_GET_S() {
+	def sidetable_entry = get_st_entry_STRUCT_GET_S();
 	def struct_index = imm_readULEB32();
 	def field_index = imm_readULEB32();
-	def kind = m_getFieldKind(struct_index, field_index);
-	def offset = m_getFieldOffset(struct_index, field_index);
 	def obj = pop_Object();
 	def cond = object_isNull(obj);
 	if (cond) {
 		trapNull();
 	}
-	match (kind) {
+	match (sidetable_entry.kind) {
 		U8 => {
-			def arg = mach_readStructField_u8(obj, offset);
+			def arg = mach_readStructField_u8(obj, sidetable_entry.offset);
 			push_u32(u32.view(arg));
 		}
 		U16 => {
-			def arg1 = mach_readStructField_u16(obj, offset);
+			def arg1 = mach_readStructField_u16(obj, sidetable_entry.offset);
 			push_u32(u32.view(arg1));
 		}
 		_ => trapUnreachable();
 	}
 }
 def STRUCT_GET_U() {
+	def sidetable_entry = get_st_entry_STRUCT_GET_U();
 	def struct_index = imm_readULEB32();
 	def field_index = imm_readULEB32();
-	def kind = m_getFieldKind(struct_index, field_index);
-	def offset = m_getFieldOffset(struct_index, field_index);
 	def obj = pop_Object();
 	def cond = object_isNull(obj);
 	if (cond) {
 		trapNull();
 	}
-	match (kind) {
+	match (sidetable_entry.kind) {
 		U8 => {
-			def arg = mach_readStructField_u8(obj, offset);
+			def arg = mach_readStructField_u8(obj, sidetable_entry.offset);
 			push_u32(u32.view(arg));
 		}
 		U16 => {
-			def arg1 = mach_readStructField_u16(obj, offset);
+			def arg1 = mach_readStructField_u16(obj, sidetable_entry.offset);
 			push_u32(u32.view(arg1));
 		}
 		_ => trapUnreachable();

@@ -480,6 +480,28 @@ component VirgilStmts {
 
         return SExprRes.Success(VirgilStmt.Match(match_fin, case_vec.copy()));
     }
+
+    def pushSidetableFields(stmt: VirgilStmt, buf: Vector<(string, string)>) {
+        match (stmt) {
+            Expr(_) => return;
+            Return(_) => return;
+            Match(_, _) => return;
+            Injected(_) => return;
+            Assign(_, _) => return;
+            Block(ss) => for (s in ss) pushSidetableFields(s, buf);
+            If(_, t, e) => {
+                pushSidetableFields(t, buf);
+                pushSidetableFields(e, buf);
+            }
+            Local(name, _, sidetable, rtcast) => if (sidetable) buf.put((name, "int")); // TODO: tipe
+        }
+    }
+
+    def getSidetableFields(stmt: VirgilStmt) -> Vector<(string, string)> {
+        def st_field_buf = Vector<(string, string)>.new();
+        pushSidetableFields(stmt, st_field_buf);
+        return st_field_buf;
+    }
 }
 
 type VirgilExpr {

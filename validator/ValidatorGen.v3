@@ -61,22 +61,6 @@ component STFieldMgr {
     }
 }
 
-def getSidetableFields(stmt: VirgilStmt, buf: Vector<(string, string)>) {
-    match (stmt) {
-        Expr(_) => return;
-        Return(_) => return;
-        Match(_, _) => return;
-        Injected(_) => return;
-        Assign(_, _) => return;
-        Block(ss) => for (s in ss) getSidetableFields(s, buf);
-        If(_, t, e) => {
-            getSidetableFields(t, buf);
-            getSidetableFields(e, buf);
-        }
-        Local(name, _, sidetable, rtcast) => if (sidetable) buf.put((name, "int")); // TODO: tipe
-    }
-}
-
 class ValidatorCBDDef extends CBDDef {
     def field_bitset: long;
 
@@ -132,8 +116,7 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
 def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // (name, type) -- we should have that VirgilStmt names align w/ SSA names,
     // so we can use this the same
-    def st_field_buf = Vector<(string, string)>.new();
-    getSidetableFields(stmt, st_field_buf);
+    def st_field_buf = VirgilStmts.getSidetableFields(stmt);
 
     def bs = STFieldMgr.putEntry(st_field_buf);
 
@@ -153,12 +136,25 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     for (v = vars; v != null; v = v.tail) {
         sb.puts("// ").puts(v.head).puts(" -- ");
         sb.puts("static: ").puts(if(analysis.static[v.head], "yes", "no")).puts(", ");
-        sb.puts("type: ").puts(Strings.render(analysis.types[v.head].render)).puts(", ");
+        sb.puts("type: ").puts(analysis.types[v.head].long_str()).puts(", ");
         sb.puts("effect: ").puts(analysis.effects[v.head].toString());
         sb.ln();
     }
     def instSsa = SSAD.Injected(sb.toString(), processed);
-    return ValidatorCBDDef.new(opcode, instSsa, bs);
+
+    var stbuilder_call: SSAD = SSAD.Void;
+    if (bs != 0) {
+        // insert call to sidetable builder
+        // since the validator is straight line and always reaches the end, we can just
+        // stick the call at the end.
+        // the SSA translation preserves varnames from the Virgil AST so it's chill
+        def st_args = Array<string>.new(st_field_buf.length);
+        for (i < st_field_buf.length) st_args[i] = st_field_buf[i].0;
+        def stbuilder_fn = Strings.format1("ctlxfer.put_%s", opcode);
+        stbuilder_call = SSAD.LetApp(SSAD_IR.uidl("st_put"), stbuilder_fn, st_args, SSAD.Void);
+    }
+
+    return ValidatorCBDDef.new(opcode, instSsa.appended(stbuilder_call), bs);
 }
 
 def main(args: Array<string>) {

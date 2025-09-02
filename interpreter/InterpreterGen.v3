@@ -1,11 +1,48 @@
 def TYPE_DEF_FILE: string = "./wizard-engine/src/bytecode/Intrinsics.v3";
 
+def filterVars(vars: Range<string>) -> (SSAD -> bool) {
+    return fun (node: SSAD) -> bool {
+        match (node) {
+            LetApp(n, _, _, _) => {
+                for (v in vars) if (Strings.startsWith(n, v)) return false;
+                return true;
+            }
+            _ => return true;
+        }
+    };
+}
+
+def replace_st_vars(st_vars: Range<string>, node: SSAD.LetApp, transformer: SSATransformer) -> SSAD {
+    var field_idx = -1;
+    for (i < st_vars.length) if (Strings.startsWith(node.n, st_vars[i])) field_idx = i;
+    if (field_idx == -1) {
+        return node;
+    } else {
+        return SSAD.LetApp(node.n, "id", [Strings.format1("sidetable_entry.%s", st_vars[field_idx])], node.rest);
+    }
+}
+
 def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
+    def st_field_buf = VirgilStmts.getSidetableFields(stmt);
+    def st_field_vars = Array<string>.new(st_field_buf.length);
+    for (i < st_field_buf.length) {
+        def field = st_field_buf[i].0;
+        st_field_vars[i] = field;
+    }
+
     def ir = SSAD_IR.from_virgil(stmt);
     // SSAD_IR.counter = 0;
-    def ssa = SSAD_IR.ssa(ir);
+    var ssa = SSAD_IR.ssa(ir);
     def analysis = SSADCtx.new(ssa);
+    def transformer = SSATransformer.new(analysis);
+    transformer.onLetApp = TB(replace_st_vars(st_field_vars, _, _)).then(SSAT.transformChildren).f;
+    ssa = transformer.transform(ssa);
+    if (st_field_buf.length > 0) {
+        ssa = SSAD.LetApp("sidetable_entry", Strings.format1("get_st_entry_%s", opcode), [], ssa);
+    }
+    analysis.effects["sidetable_entry"] = CBDEffect.Ctl;
     def processed = analysis.DCE(analysis.id_propagate(ssa, HashMap<string, string>.new(Strings.hash, Strings.equal)));
+
     return CBDDef.new(opcode, processed);
 }
 

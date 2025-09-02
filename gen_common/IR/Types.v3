@@ -71,7 +71,7 @@ type CBDEffect {
             Local => return "local";
             Global => return "global";
             Memory => return "memory";
-	    Table => return "table";
+            Table => return "table";
             Ctl => return "ctl";
             Emit => return "emit";
             None => return "none";
@@ -79,7 +79,136 @@ type CBDEffect {
     }
 }
 
-class IntrinsicType(primitive: ValueType, stage: Stage) {
+type v128(low: u64, high: u64);
+def invalid(); // XXX: should be in validator
+def invalid_t<T>(t: T) -> T {
+    invalid();
+    return t;
+}
+
+// TODO: remove
+def gen_binop<C, R>(op: (C, C) -> C) -> (R, R) -> R { 
+    return fun (lhs: R, rhs: R) => lhs; 
+}
+def gen_testop<C, R>(op: (C, C) -> bool) -> (R, R) -> R { 
+    return fun (lhs: R, rhs: R) => lhs; 
+}
+
+type TypeVar {
+    case U8;
+    case U16;
+    case U32 {
+        def binop(op: (u32, u32) -> u32) => gen_binop<u32, TypeVar.U32>(op);
+        def testop(op: (u32, u32) -> bool) => gen_testop<u32, TypeVar.U32>(op);
+    }
+    case U64 {
+        def binop(op: (u64, u64) -> u64) => gen_binop<u64, TypeVar.U64>(op);
+        def testop(op: (u64, u64) -> bool) => gen_testop<u64, TypeVar.U64>(op);
+    }
+    case F32 {
+        def binop(op: (float, float) -> float) => gen_binop<float, TypeVar.F32>(op);
+        def testop(op: (float, float) -> bool) => gen_testop<float, TypeVar.F32>(op);
+    }
+    case F64 {
+        def binop(op: (double, double) -> double) => gen_binop<double, TypeVar.F64>(op);
+        def testop(op: (double, double) -> bool) => gen_testop<double, TypeVar.F64>(op);
+    }
+    case V128 {
+        def binop(op: (v128, v128) -> v128) => gen_binop<v128, TypeVar.V128>(op);
+        def testop(op: (v128, v128) -> bool) => gen_testop<v128, TypeVar.V128>(op);
+    }
+    case Object {
+        def binop(op: (Object, Object) -> Object) => gen_binop<Object, TypeVar.Object>(op);
+        def testop(op: (Object, Object) -> bool) => gen_testop<Object, TypeVar.Object>(op);
+    }
+    case Bot(typelit: string);
+
+    def is_bot() -> bool {
+        match (this) {
+            Bot(_) => return true;
+            _ => return false;
+        }
+    }
+
+    def unbox_u32() -> TypeVar.U32 {
+        if (TypeVar.U32.?(this)) return TypeVar.U32;
+        return invalid_t(TypeVar.U32);
+    }
+
+    def unbox_u64() -> TypeVar.U64 {
+        if (TypeVar.U64.?(this)) return TypeVar.U64;
+        return invalid_t(TypeVar.U64);
+    }
+    
+    def unbox_f32() -> TypeVar.F32 {
+        if (TypeVar.F32.?(this)) return TypeVar.F32;
+        return invalid_t(TypeVar.F32);
+    }
+    
+    def unbox_f64() -> TypeVar.F64 {
+        if (TypeVar.F64.?(this)) return TypeVar.F64;
+        return invalid_t(TypeVar.F64);
+    }
+    
+    def unbox_v128() -> TypeVar.V128 {
+        if (TypeVar.V128.?(this)) return TypeVar.V128;
+        return invalid_t(TypeVar.V128);
+    }
+    
+    def unbox_Object() -> TypeVar.Object {
+        if (TypeVar.Object.?(this)) return TypeVar.Object;
+        return invalid_t(TypeVar.Object);
+    }
+    
+    def matches(other: TypeVar) -> bool {
+        return this == other;
+    }
+
+    def short_str() -> string {
+        match (this) {
+            U8 => return "u8";
+            U16 => return "u16";
+            U32 => return "u";
+            U64 => return "l";
+            F32 => return "f";
+            F64 => return "d";
+            V128 => return "v";
+            Object => return "r";
+            Bot(_) => return "V";
+        }
+    }
+
+    def long_str() -> string {
+        match (this) {
+            U8 => return "u8";
+            U16 => return "u16";
+            U32 => return "u32";
+            U64 => return "u64";
+            F32 => return "f32";
+            F64 => return "f64";
+            V128 => return "v128";
+            Object => return "Ref";
+            Bot(typelit) => return if(typelit == null, "Value", typelit);
+        }
+    }
+
+    def rt_str() -> string {
+        match (this) {
+            U8 => return "U8";
+            U16 => return "U16";
+            U32 => return "U32";
+            U64 => return "U64";
+            F32 => return "F32";
+            F64 => return "F64";
+            V128 => return "V128";
+            Object => return "REF";
+            Bot(typelit) => return if(typelit == null, "Value", typelit);
+        }
+    }
+}
+
+
+class IntrinsicType(primitive: TypeVar, stage: Stage) {
     def isStatic() -> bool {
         return (stage == Stage.VALIDATE) || (stage == Stage.COMPILE);
     }
@@ -104,54 +233,18 @@ def processTypeString(s: string) -> IntrinsicType {
 }
 
 component TypeUtil {
-    def fromString(s: string) -> ValueType {
-        if (Strings.equal(s, "int")) return ValueType.I32;
-        if (Strings.equal(s, "i32")) return ValueType.I32;
-        if (Strings.equal(s, "u32")) return ValueType.I32;
-        if (Strings.equal(s, "i64")) return ValueType.I64;
-        if (Strings.equal(s, "u64")) return ValueType.I64;
-        if (Strings.equal(s, "float")) return ValueType.F32;
-        if (Strings.equal(s, "f32")) return ValueType.F32;
-        if (Strings.equal(s, "f64")) return ValueType.F64;
-        if (Strings.equal(s, "double")) return ValueType.F64;
+    def fromString(s: string) -> TypeVar {
+        if (Strings.equal(s, "int")) return TypeVar.U32;
+        if (Strings.equal(s, "i32")) return TypeVar.U32;
+        if (Strings.equal(s, "u32")) return TypeVar.U32;
+        if (Strings.equal(s, "i64")) return TypeVar.U64;
+        if (Strings.equal(s, "u64")) return TypeVar.U64;
+        if (Strings.equal(s, "float")) return TypeVar.F32;
+        if (Strings.equal(s, "f32")) return TypeVar.F32;
+        if (Strings.equal(s, "f64")) return TypeVar.F64;
+        if (Strings.equal(s, "double")) return TypeVar.F64;
 
-        return ValueType.BOTTOM;
-    }
-
-    def toStringShort(t: ValueType) -> string {
-        match (t) {
-            I32 => return "i";
-            I64 => return "l";
-            F32 => return "f";
-            F64 => return "d";
-            V128 => return "v";
-            Host(_) => return "H";
-            Ref(_, _) => return "r";
-            BOTTOM => return "V";
-        }
-    }
-
-    def toString(t: ValueType) -> string {
-        return StringBuilder.new().putq(t.render).toString();
-    }
-
-    def toStringRT(t: ValueType) -> string {
-        if (t == ValueType.I32) return "u32";
-        if (t == ValueType.I64) return "u64";
-        return StringBuilder.new().putq(t.render).toString();
-    }
-
-    def getRuntimePrefix(t: ValueType) -> string {
-        match (t) {
-            BOTTOM => return "V";
-            I32 => return "U32";
-            I64 => return "U64";
-            F32 => return "F32";
-            F64 => return "F64";
-            V128 => return "V128";
-            Host(_) => return "H";
-            Ref(_, _) => return "R";
-        }
+        return TypeVar.Bot(s);
     }
 }
 
@@ -244,12 +337,12 @@ component IntrinsicTypes {
         intrinsic_types[f] = d;
     }
 
-    def intrinsic_type(fn_name: string) -> (Array<ValueType>, ValueType) {
+    def intrinsic_type(fn_name: string) -> (Array<TypeVar>, TypeVar) {
         if (intrinsic_types.has(fn_name)) {
             def t = intrinsic_types[fn_name];
             return (Arrays.map(t.args, fun (a: IntrinsicType) => a.primitive), t.return_type.primitive);
         } else {
-            return (null, ValueType.BOTTOM);
+            return (null, TypeVar.Bot(null));
         }
     }
 
@@ -280,9 +373,9 @@ component IntrinsicTypes {
         }
     }
 
-    def split_op(op: string) -> (ValueType, string) {
+    def split_op(op: string) -> (TypeVar, string) {
         def sp = Strings.splitOnChar(op, byte.==(_, '.'), 1);
-        if (sp.length < 2) return (ValueType.BOTTOM, null);
+        if (sp.length < 2) return (TypeVar.Bot(null), null);
         def tp_str = sp[0];
         def op_str = sp[1];
         var prose_op: string;

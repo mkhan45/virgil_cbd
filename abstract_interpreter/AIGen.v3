@@ -21,12 +21,12 @@ def execBoth(a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
     for (i < a_pushes.length) {
         def stack_merge = SSAD_IR.uidl("stack_merge");
         def eff = SSAD_IR.uidl("eff");
-        def tp = ctx.types[a_pushes[i].0];
-        def merge_fn = Strings.format1("merge_%s", if (tp == ValueType.BOTTOM, "val", TypeUtil.toStringShort(tp)));
-        def push_fn = Strings.format1("push_%s", if (tp == ValueType.BOTTOM, "Value", TypeUtil.toString(tp)));
-        def tv = a_pushes[i].1;
-        def merge_args = if(tv == null, [a_pushes[i].0, b_pushes[i].0], [tv, a_pushes[i].0, b_pushes[i].0]); 
-        def push_args = if(tv == null, [stack_merge], [tv, stack_merge]); 
+        def tp = ctx.types[a_pushes[i].1];
+        def merge_fn = Strings.format1("merge_%s", if (tp.is_bot(), "val", tp.short_str()));
+        def push_fn = Strings.format1("push_%s", if (tp.is_bot(), "Value", tp.long_str()));
+        def tv = a_pushes[i].0;
+        def merge_args = if(!tp.is_bot(), [a_pushes[i].1, b_pushes[i].1], [tv, a_pushes[i].1, b_pushes[i].1]); 
+        def push_args = if(!tp.is_bot(), [stack_merge], [tv, stack_merge]); 
         res = res.appended(
                 SSAD.LetApp(stack_merge, merge_fn, merge_args,
                     SSAD.LetApp(eff, push_fn, push_args, SSAD.Void)));
@@ -51,7 +51,7 @@ def collectPushes(s: SSAD, pushBuf: Vector<(string, string)>, ctx: SSADCtx) -> S
             if (ctx.effects[n] == CBDEffect.Push) {
                 if (args.length == 1) {
                     // one arg, value being pushed
-                    pushBuf.put(args[0], null);
+                    pushBuf.put(null, args[0]);
                 } else {
                     // (typevar, value)
                     pushBuf.put(args[1], args[0]);

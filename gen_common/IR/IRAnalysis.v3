@@ -1,7 +1,7 @@
 class SSADCtx {
     var body: SSAD;
     var static: HashMap<string, bool>;
-    var types: HashMap<string, ValueType>;
+    var types: HashMap<string, TypeVar>;
     var effects: HashMap<string, CBDEffect>; // should it be a list?
 
     new(body) {
@@ -24,7 +24,10 @@ class SSADCtx {
                     def ret_static = f_static.1;
 
                     static[n] = ret_static;
-                    for (a in as) static[n] &= static[a];
+                    for (a in as) {
+                        if (a == null) System.puts(f);
+                        static[n] &= static[a];
+                    }
                 }
 
                 getStatic(rest);

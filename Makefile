@@ -91,18 +91,23 @@ abstract_interpreter: generated/AI.v3
 
 run_interpreter: generated/Interpreter.v3 generated/Validator.v3
 	$(VIRGIL) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		runtime_common/*.v3 generated/Validator.v3 generated/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
+		runtime_common/*.v3\
+		gen_common/IR/Types.v3\
+		generated/Validator.v3 generated/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
 
 run_validator: generated/Validator.v3
 	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
+		gen_common/IR/Types.v3\
 		generated/Validator.v3 validator/ValidatorMain.v3 $(ARGS)
 
 run_compiler: generated/Compiler.v3
 	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
+		gen_common/IR/Types.v3\
 		runtime_common/*.v3 generated/Validator.v3 generated/Compiler.v3 compiler/CompilerMain.v3 $(ARGS)
 
 InterpreterMain: generated/Interpreter.v3
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
+		gen_common/IR/Types.v3\
 		runtime_common/*.v3 generated/Validator.v3 generated/Interpreter.v3 interpreter/InterpreterMain.v3
 
 %AI: abstract_interpreter validator
@@ -114,6 +119,7 @@ InterpreterMain: generated/Interpreter.v3
 
 V3CompilerMain: generated/V3Compiler.v3 validator abstract_interpreter/state_mgrs/CFGStateMgr.v3 generated/Compiler.v3
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
+		gen_common/IR/Types.v3\
 		runtime_common/*.v3\
 		generated/Validator.v3\
 		abstract_interpreter/state_mgrs/CFGStateMgr.v3\

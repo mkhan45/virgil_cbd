@@ -143,7 +143,7 @@ component SSAD_IR {
         return res;
     }
     def uidl(l: string) -> string {
-        def res = Strings.format2("%s%d", l, counter);
+        def res = Strings.format2("%s__%d", l, counter);
         counter += 1;
         return res;
     }
@@ -324,8 +324,8 @@ component SSAD_IR {
         def is_rt = !transformer.ctx.static[node.n];
         if (op_fn != null && is_rt) {
             var tp = op_spl.0;
-            if (tp == ValueType.BOTTOM && node.args.length > 0) tp = transformer.ctx.types[node.args[0]];
-            def prefix = TypeUtil.getRuntimePrefix(tp);
+            if (tp.is_bot() && node.args.length > 0) tp = transformer.ctx.types[node.args[0]];
+            def prefix = tp.rt_str();
             def new_f = Strings.format2("%s_%s", prefix, op_fn);
             return SSAD.LetApp(node.n, new_f, node.args, node.rest);
         } else {
@@ -346,8 +346,8 @@ component SSAD_IR {
                 def should_be_runtime = !args_static[i];
                 if (!is_runtime && should_be_runtime) {
                     def fv = SSAD_IR.uidl("rtcast");
-                    def tp = if(args_types[i] != ValueType.BOTTOM, args_types[i], transformer.ctx.types[node.args[i]]);
-                    def rtcast_f = Strings.format1("rtcast_%q", tp.render);
+                    def tp = if(args_types[i].is_bot(), args_types[i], transformer.ctx.types[node.args[i]]);
+                    def rtcast_f = Strings.format1("rtcast_%s", tp.long_str());
                     transformer.ctx.static[fv] = false;
                     transformer.ctx.types[fv] = transformer.ctx.types[node.args[i]];
                     transformer.ctx.effects[fv] = CBDEffect.None;

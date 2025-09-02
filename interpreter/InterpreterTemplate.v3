@@ -29,6 +29,10 @@ class CBDWasmStack(cbd_interpreter: CBDV3Interpreter) extends WasmStack {
 	// def tryHandleSwitch = it.tryHandleSwitch;
 }
 
+type CallIndirectEntry(is64: bool) #unboxed;
+type LabelEntry(label: SidetableBrEntry) #unboxed;
+type StructGetEntry(kind: FieldKind, offset: FieldOffset) #unboxed;
+
 class CBDV3Interpreter(it: V3Interpreter) {
     // can't extend V3Interpreter directly bc some intrinsics overlap with method names
 
@@ -358,4 +362,25 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def U32_div_s(lhs: u32, rhs: u32) -> u32 => u32.view(i32.view(lhs) / i32.view(rhs));
     def U32_lt_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) < i32.view(rhs);
     def U32_le_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) <= i32.view(rhs);
+
+    def get_st_entry_BR() -> LabelEntry {
+        return LabelEntry(it.frame.func.decl.sidetable.getBrEntry(it.frame.stp));
+    }
+
+    def get_st_entry_BR_IF() => get_st_entry_BR();
+    def get_st_entry_IF() => get_st_entry_BR();
+    def get_st_entry_ELSE() => get_st_entry_BR();
+
+    def get_st_entry_CALL_INDIRECT() -> CallIndirectEntry {
+        return CallIndirectEntry(false);
+    }
+
+    def get_st_entry_STRUCT_GET() -> StructGetEntry {
+        def stp = it.frame.stp;
+        def st = it.frame.func.decl.sidetable.entries;
+        return StructGetEntry(FieldKinds.fromTag(st[stp]), FieldOffset(u32.view(st[stp+1])));
+    }
+
+    def get_st_entry_STRUCT_GET_S() => get_st_entry_STRUCT_GET();
+    def get_st_entry_STRUCT_GET_U() => get_st_entry_STRUCT_GET();
 }

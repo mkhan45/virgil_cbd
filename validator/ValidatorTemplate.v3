@@ -49,106 +49,6 @@ def pushTypes(ts: Array<ValueType>) {
 // Constants
 def HAS_MEM_INDEX = 0x40u8;
 
-// Types.
-type v128(low: u64, high: u64);
-
-// goofy way to avoid having to impl every operator
-// but still specialize type and show the called operator in the generated code
-def gen_binop<C, R>(op: (C, C) -> C) -> (R, R) -> R { 
-    return fun (lhs: R, rhs: R) => lhs; 
-}
-def gen_testop<C, R>(op: (C, C) -> bool) -> (R, R) -> R { 
-    return fun (lhs: R, rhs: R) => lhs; 
-}
-type TypeVar {
-    case U32 {
-        def binop(op: (u32, u32) -> u32) => gen_binop<u32, TypeVar.U32>(op);
-        def testop(op: (u32, u32) -> bool) => gen_testop<u32, TypeVar.U32>(op);
-    }
-    case U64 {
-        def binop(op: (u64, u64) -> u64) => gen_binop<u64, TypeVar.U64>(op);
-        def testop(op: (u64, u64) -> bool) => gen_testop<u64, TypeVar.U64>(op);
-    }
-    case F32 {
-        def binop(op: (float, float) -> float) => gen_binop<float, TypeVar.F32>(op);
-        def testop(op: (float, float) -> bool) => gen_testop<float, TypeVar.F32>(op);
-    }
-    case F64 {
-        def binop(op: (double, double) -> double) => gen_binop<double, TypeVar.F64>(op);
-        def testop(op: (double, double) -> bool) => gen_testop<double, TypeVar.F64>(op);
-    }
-    case V128 {
-        def binop(op: (v128, v128) -> v128) => gen_binop<v128, TypeVar.V128>(op);
-        def testop(op: (v128, v128) -> bool) => gen_testop<v128, TypeVar.V128>(op);
-    }
-    case Object {
-        def binop(op: (Object, Object) -> Object) => gen_binop<Object, TypeVar.Object>(op);
-        def testop(op: (Object, Object) -> bool) => gen_testop<Object, TypeVar.Object>(op);
-    }
-    case Err;
-    case Bot;
-
-    def unbox_u32() -> TypeVar.U32 {
-        if (TypeVar.U32.?(this)) return TypeVar.U32;
-        return invalid_t(TypeVar.U32);
-    }
-
-    def unbox_u64() -> TypeVar.U64 {
-        if (TypeVar.U64.?(this)) return TypeVar.U64;
-        return invalid_t(TypeVar.U64);
-    }
-    
-    def unbox_f32() -> TypeVar.F32 {
-        if (TypeVar.F32.?(this)) return TypeVar.F32;
-        return invalid_t(TypeVar.F32);
-    }
-    
-    def unbox_f64() -> TypeVar.F64 {
-        if (TypeVar.F64.?(this)) return TypeVar.F64;
-        return invalid_t(TypeVar.F64);
-    }
-    
-    def unbox_v128() -> TypeVar.V128 {
-        if (TypeVar.V128.?(this)) return TypeVar.V128;
-        return invalid_t(TypeVar.V128);
-    }
-    
-    def unbox_Object() -> TypeVar.Object {
-        if (TypeVar.Object.?(this)) return TypeVar.Object;
-        return invalid_t(TypeVar.Object);
-    }
-    
-    def matches(other: TypeVar) -> bool {
-        return this == other;
-    }
-
-    def short_str() -> string {
-        match (this) {
-            U32 => return "u";
-            U64 => return "l";
-            F32 => return "f";
-            F64 => return "d";
-            V128 => return "v";
-            Object => return "r";
-            Err => return "err";
-            Bot => return "V";
-        }
-    }
-
-    def long_str() -> string {
-        match (this) {
-            U32 => return "u32";
-            U64 => return "u64";
-            F32 => return "f32";
-            F64 => return "f64";
-            V128 => return "v128";
-            Object => return "Ref";
-            Err => return "Err";
-            Bot => return "Value";
-        }
-    }
-}
-
 def U32_equals = TypeVar.U32.testop(u32.==);
 def U32_not_equals = TypeVar.U32.testop(u32.!=);
 def U32_plus = TypeVar.U32.binop(u32.+);
@@ -184,7 +84,7 @@ def typeVarFromValType(vt: ValueType) -> TypeVar {
         V128 => return TypeVar.V128;
         Ref => return TypeVar.Object;
         Host => return TypeVar.Object;
-        BOTTOM => return TypeVar.Bot;
+        BOTTOM => return TypeVar.Bot(null);
     }
 }
 
@@ -196,14 +96,10 @@ def valTypeFromTypeVar(tv: TypeVar) -> ValueType {
         F64 => return ValueType.F64;
         V128 => return ValueType.V128;
         Object => return ValueTypes.ANYREF;
-        Err => return ValueType.BOTTOM;
-        Bot => return ValueType.BOTTOM;
+        Bot(_) => return ValueType.BOTTOM;
+        U8 => return ValueType.BOTTOM; // XXX ? could be i32
+        U16 => return ValueType.BOTTOM;
     }
-}
-
-def invalid_t<T>(t: T) -> T {
-    invalid();
-    return t;
 }
 
 def rtcast_u32(x: u32) -> TypeVar.U32 {
@@ -217,6 +113,12 @@ def rtcast_f32(x: float) -> TypeVar.F32 {
 type FieldOffset(offset: u32);
 enum FieldKind {
     U8, U16, U32, U64, F32, F64, V128, REF
+}
+component FieldKinds {
+    def fromTag(t: int) -> FieldKind {
+        for (fk in FieldKind.set.all) if (t == fk.tag) return fk;
+        return FieldKind.U8;
+    }
 }
 
 def imm_readULEB32() -> u32 => codeptr.read_uleb32();
@@ -357,7 +259,6 @@ def doCall(sig: Decl, target: CBDFunction) {
 def doReturnCall = doCall;
 
 def doBranch(label: ControlEntry) {
-    ctlxfer.refS(label, codeptr.pos, stack.top);
     def args = if(label.start_opcode == Opcode.LOOP.code, label.params, label.results);
     popTypes(args);
     pushTypes(args);
@@ -420,6 +321,11 @@ def trapDivideByZero();
 def trapDivideUnrepresentable();
 def trapTableOOB();
 
+def invalid_t<T>(t: T) -> T {
+    invalid();
+    return t;
+}
+
 def doBlock(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     def args = bt.0;
     def rets = bt.1;
@@ -445,7 +351,6 @@ def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     popTypes(args);
     pushTypes(args);
     def ctl = pushControl(Opcode.IF.code, args, rets, stack.top);
-    ctlxfer.refElse(ctl, codeptr.pos);
     return ctl;
 }
 
@@ -455,8 +360,6 @@ def doElse() -> ControlEntry {
     popTypes(p);
     stack.top = ctl_top.val_stack_top;
     pushTypes(p);
-    ctlxfer.ref0(ctl_top, codeptr.pos);
-    ctlxfer.bindElse(ctl_top, codeptr.pos);
 
     ctl_top.start_opcode = opcode.code;
     ctl_top.reachable = true;
@@ -584,5 +487,36 @@ component Validator {
 }
 
 class CBDSidetableBuilder extends SidetableBuilder {
+    def put_BR(label: ControlEntry) {
+        refS(label, codeptr.pos, stack.top);
+    }
 
+    def put_BR_IF(label: ControlEntry) {
+        refS(label, codeptr.pos, stack.top);
+    }
+
+    def put_IF(label: ControlEntry) {
+        refElse(label, codeptr.pos);
+    }
+
+    def put_ELSE(label: ControlEntry) {
+        ref0(label, codeptr.pos);
+        bindElse(label, codeptr.pos);
+    }
+
+    def put_CALL_INDIRECT(is64: bool) {
+        sidetable.put(if(is64, 1, 0));
+    }
+
+    def put_STRUCT_GET(kind: FieldKind, offset: FieldOffset) {
+        sidetable.put(kind.tag).put(int.view(offset.offset));
+    }
+
+    def put_STRUCT_GET_S(kind: FieldKind, offset: FieldOffset) {
+        sidetable.put(kind.tag).put(int.view(offset.offset));
+    }
+
+    def put_STRUCT_GET_U(kind: FieldKind, offset: FieldOffset) {
+        sidetable.put(kind.tag).put(int.view(offset.offset));
+    }
 }

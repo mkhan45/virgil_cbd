@@ -425,8 +425,9 @@ component Pretty_IR {
         var i = len - 1;
         
         while (i >= 0 && isDigit(varname[i])) i--;
-        if (i < 0 || i == len - 1) return varname;
-        
-        return Arrays.range(varname, 0, i + 1);
+        if (varname[i] == '_' && varname[i-1] == '_') 
+            return getBaseName(Arrays.range(varname, 0, i - 1));
+        else 
+            return varname;
     }
 }
