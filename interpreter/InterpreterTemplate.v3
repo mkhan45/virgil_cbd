@@ -207,6 +207,7 @@ class CBDV3Interpreter(it: V3Interpreter) {
 
     def doBranch(label: Ref<Sidetable_BrEntry>) {
         // doCtlXfer
+        def st_br_entry = it.frame.func.decl.sidetable.getBrEntry(it.frame.stp - 4);
         it.codeptr.at(it.frame.pc + label.pc_delta);
         it.frame.stp += label.stp_delta;
         if (label.popcount > 0) {
@@ -413,11 +414,13 @@ class CBDV3Interpreter(it: V3Interpreter) {
         def stp = it.frame.stp;
         def arr = Array<u8>.new(size);
         for (i = 0; i < size; i += 4) {
-            arr[i] = u8.view(st[stp + i] & 0xFF);
-            arr[i+1] = u8.view((st[stp + i] >> 8) & 0xFF);
-            arr[i+2] = u8.view((st[stp + i] >> 16) & 0xFF);
-            arr[i+3] = u8.view((st[stp + i] >> 24) & 0xFF);
+            def word = st[stp + i/4];
+            arr[i] = u8.view(word & 0xFF);
+            arr[i+1] = u8.view((word >> 8) & 0xFF);
+            arr[i+2] = u8.view((word >> 16) & 0xFF);
+            arr[i+3] = u8.view((word >> 24) & 0xFF);
         }
+        it.frame.stp += size / 4;
         return arr;
     }
 }
