@@ -380,35 +380,6 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def U32_lt_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) < i32.view(rhs);
     def U32_le_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) <= i32.view(rhs);
 
-    def get_st_entry_BR() -> LabelEntry {
-        def entry = it.frame.func.decl.sidetable.getBrEntry(it.frame.stp);
-        def res = LabelEntry(entry);
-        it.frame.stp += 4;
-        return res;
-    }
-
-    def get_st_entry_BR_IF() => get_st_entry_BR();
-    def get_st_entry_IF() => get_st_entry_BR();
-    def get_st_entry_ELSE() => get_st_entry_BR();
-
-    def get_st_entry_CALL_INDIRECT() -> CallIndirectEntry {
-        def st = it.frame.func.decl.sidetable.entries;
-        def res = CallIndirectEntry(st[it.frame.stp] == 1);
-        it.frame.stp += 1;
-        return res;
-    }
-
-    def get_st_entry_STRUCT_GET() -> StructGetEntry {
-        def st = it.frame.func.decl.sidetable.entries;
-        def stp = it.frame.stp;
-        def res = StructGetEntry(FieldKinds.fromTag(st[stp]), FieldOffset(u32.view(st[stp+1])));
-        it.frame.stp += 2;
-        return res;
-    }
-
-    def get_st_entry_STRUCT_GET_S() => get_st_entry_STRUCT_GET();
-    def get_st_entry_STRUCT_GET_U() => get_st_entry_STRUCT_GET();
-
     def get_st_entry(size: int) -> Array<u8> {
         def st = it.frame.func.decl.sidetable.entries;
         def stp = it.frame.stp;

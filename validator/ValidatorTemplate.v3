@@ -504,6 +504,7 @@ class CBDSidetableBuilder extends SidetableBuilder {
         bindElse(label, codeptr.pos);
     }
 
+    // TODO: make a Ref<layout> at end of sidetable, assign to it
     def put_CALL_INDIRECT(is64: bool) {
         sidetable.put(if(is64, 1, 0));
     }
