@@ -110,7 +110,6 @@ def rtcast_f32(x: float) -> TypeVar.F32 {
     return TypeVar.F32;
 }
 
-type FieldOffset(offset: u32) #unboxed;
 enum FieldKind {
     U8, U16, U32, U64, F32, F64, V128, REF
 }
@@ -233,8 +232,8 @@ def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind {
         Ref => return FieldKind.REF;
     }
 }
-def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset {
-    return FieldOffset(u32.!(field_index)); // TODO
+def m_getFieldOffset(struct_index: u32, field_index: u32) -> i32 {
+    return i32.!(field_index); // TODO
 }
 def m_isMemory64(memory_index: u32) -> bool => false; // TODO mem64
 def m_isTable64(memory_index: u32) -> bool => false;
@@ -268,14 +267,14 @@ def doFallthru() {
 }
 
 // Machine intrinsics.
-def mach_readStructField_u8(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.U32;
-def mach_readStructField_u16(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.U32;
-def mach_readStructField_u32(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.U32;
-def mach_readStructField_u64(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.U64;
-def mach_readStructField_f32(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.F32;
-def mach_readStructField_f64(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.F64;
-def mach_readStructField_v128(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.V128;
-def mach_readStructField_Object(obj: TypeVar.Object, offset: FieldOffset) => TypeVar.Object;
+def mach_readStructField_u8(obj: TypeVar.Object, offset: i32) => TypeVar.U32;
+def mach_readStructField_u16(obj: TypeVar.Object, offset: i32) => TypeVar.U32;
+def mach_readStructField_u32(obj: TypeVar.Object, offset: i32) => TypeVar.U32;
+def mach_readStructField_u64(obj: TypeVar.Object, offset: i32) => TypeVar.U64;
+def mach_readStructField_f32(obj: TypeVar.Object, offset: i32) => TypeVar.F32;
+def mach_readStructField_f64(obj: TypeVar.Object, offset: i32) => TypeVar.F64;
+def mach_readStructField_v128(obj: TypeVar.Object, offset: i32) => TypeVar.V128;
+def mach_readStructField_Object(obj: TypeVar.Object, offset: i32) => TypeVar.Object;
 
 // TODO: validate read/write
 def mach_readMemory64_u8(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U32;
@@ -481,12 +480,142 @@ component Validator {
         }
     }
 
-    def build_sidetable() -> Sidetable {
-        return ctlxfer.extract();
-    }
+    def build_sidetable() -> Array<u8> => ctlxfer.extract();
 }
 
-class CBDSidetableBuilder extends SidetableBuilder {
+layout STEntry_Is64 {
+    +0  is64: bool;
+    =4;
+}
+// I think we would have to add stuff to the sidetable
+// annotation to be able to generate this
+layout STEntry_Label {
+    +0  label: Sidetable_BrEntry;
+    =16;
+}
+layout STEntry_KindOffset {
+    +0  offset: int;
+    +4  kind: FieldKind;
+    =8;
+}
+
+class CBDSidetableBuilder {
+    def sidetable = Vector<u8>.new();
+    var start_pos: int;
+
+    def allocate(size: int) -> int {
+        def end = sidetable.length;
+        sidetable.resize(end + size);
+        return end;
+    }
+
+    def put_br_entry(dpc: int, valcount: int, popcount: int, dstp: int) {
+        def end = allocate(Sidetable_BrEntry.size);
+        def new_entry = Ref<Sidetable_BrEntry>.at(sidetable.array, end);
+        new_entry.pc_delta = dpc;
+        new_entry.valcount = valcount;
+        new_entry.popcount = popcount;
+        new_entry.stp_delta = dstp;
+    }
+
+    def reset(start_pos: int) {
+		this.start_pos = start_pos;
+		this.sidetable.resize(0);
+	}
+	// Emit a control entry that references {target} from the pc position {pc}.
+	def ref0(target: ControlEntry, pos: int) {
+		refV(target, pos, 0, 0);
+	}
+	// Emit a control entry for an else that references the else label of {target} from {pos}.
+	def refElse(target: ControlEntry, pos: int) {
+		var pc = rel(pos);
+		var stp = sidetable.length;
+		target.else_ref = stp;
+
+		put_br_entry(pc, 0, 0, -1);
+	}
+	// Bind the else label for {target} at {pos}, resolving references to it.
+	def bindElse(target: ControlEntry, pos: int) {
+		bind0(target, target.else_ref, pos, sidetable.length);
+		target.else_ref = -1;
+	}
+    def labelArgs(target: ControlEntry) -> Array<ValueType> {
+        if (target.start_opcode == Opcode.LOOP.code) return target.params;
+        else return target.results;
+    }
+	// Emit a sidetable entry for a branch to {target} from {pos} with stack top {val_stack_top}.
+	def refS(target: ControlEntry, pos: int, val_stack_top: int) {
+		var valcount = labelArgs(target).length;
+		var popcount = val_stack_top - valcount - target.val_stack_top;
+		refV(target, pos, valcount, u23.view(popcount));
+	}
+	def refV(target: ControlEntry, pos: int, valcount: int, popcount: int) {
+		var pc = rel(pos);
+		var stp = sidetable.length;
+		put_br_entry(pc, valcount, popcount, target.first_ref);
+		target.first_ref = stp;
+	}
+	// ext:typed-continuation
+	// Emit a sidetable entry for a resume operation.
+	// def refR(n_args: int, n_handlers: int) {
+	// 	Sidetables.putResumeEntry(sidetable, n_args, n_handlers);
+	// }
+	// Emit a sidetable entry for a catch entry or suspension handler.
+	// {target} is nullable and is {null} for a switch handler.
+	// def refC(target: ControlEntry, tag: TagDecl, exnref: bool, name: string) {
+	// 	var handler_pc = 0;
+	// 	var stp = sidetable.length;
+	// 	var val_stk_top = if(target != null, target.val_stack_top, 0);
+	// 	var first_ref = if(target != null, target.first_ref, -1);
+	// 	if (Trace.validation) {
+	// 		OUT.put1("    %s", name);
+	// 		OUT.put3("(@+pc tag=%d exnref=%z vsp=%d", if(tag != null, tag.tag_index, -1), exnref, val_stk_top);
+	// 		OUT.ln();
+	// 	}
+	// 	Sidetables.putCatchEntry(sidetable, handler_pc, val_stk_top, first_ref);
+	// 	if (target != null) target.first_ref = stp;
+	// }
+	// Bind the label for {target} at {pos} and {sidetable_pos} and resolve references to it.
+	def bind(target: ControlEntry, pos: int, sidetable_pos: int) {
+		bind0(target, target.first_ref, pos, sidetable_pos);
+		target.first_ref = -1;
+	}
+	def bind0(target: ControlEntry, stp: int, pos: int, sidetable_pos: int) {
+		target.sidetable_pos = sidetable_pos;
+		var pc = rel(pos);
+		while (stp >= 0) {
+            def br_entry = Ref<Sidetable_BrEntry>.at(sidetable.array, stp);
+			var ni = br_entry.stp_delta;
+			var pos = br_entry.pc_delta;
+			var pc_delta = pc - pos;
+            br_entry.pc_delta = pc_delta;
+            br_entry.stp_delta = sidetable_pos - stp;
+			stp = ni;
+		}
+	}
+	// def rethrow(ex_slot: int, popcount: int) {
+	// 	sidetable.put(ex_slot).put(0).put(popcount).put(0); // XXX: only need 1 entry for rethrow
+	// }
+	def rel(pos: int) -> int {
+		return pos - start_pos;
+	}
+	def extract() -> Array<u8> {
+		return sidetable.copy();
+	}
+
+    def put_Is64(is64: bool) {
+        def end = allocate(STEntry_Is64.size);
+        def entry = Ref<STEntry_Is64>.at(sidetable.array, end);
+        entry.is64 = is64;
+    }
+
+    def put_KindOffset(kind: FieldKind, offset: i32) {
+        def end = allocate(STEntry_KindOffset.size);
+        def entry = Ref<STEntry_KindOffset>.at(sidetable.array, end);
+        entry.kind = kind;
+        entry.offset = offset;
+    }
+
     def put_BR(label: ControlEntry) {
         refS(label, codeptr.pos, stack.top);
     }
@@ -504,20 +633,9 @@ class CBDSidetableBuilder extends SidetableBuilder {
         bindElse(label, codeptr.pos);
     }
 
-    // TODO: make a Ref<layout> at end of sidetable, assign to it
-    def put_CALL_INDIRECT(is64: bool) {
-        sidetable.put(if(is64, 1, 0));
-    }
+    def put_CALL_INDIRECT(is64: bool) => put_Is64(is64);
 
-    def put_STRUCT_GET(kind: FieldKind, offset: FieldOffset) {
-        sidetable.put(kind.tag).put(int.view(offset.offset));
-    }
-
-    def put_STRUCT_GET_S(kind: FieldKind, offset: FieldOffset) {
-        sidetable.put(kind.tag).put(int.view(offset.offset));
-    }
-
-    def put_STRUCT_GET_U(kind: FieldKind, offset: FieldOffset) {
-        sidetable.put(kind.tag).put(int.view(offset.offset));
-    }
+    def put_STRUCT_GET(kind: FieldKind, offset: i32) => put_KindOffset(kind, offset);
+    def put_STRUCT_GET_S(kind: FieldKind, offset: i32) => put_KindOffset(kind, offset);
+    def put_STRUCT_GET_U(kind: FieldKind, offset: i32) => put_KindOffset(kind, offset);
 }

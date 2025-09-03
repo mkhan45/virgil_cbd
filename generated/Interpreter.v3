@@ -30,29 +30,13 @@ class CBDWasmStack(cbd_interpreter: CBDV3Interpreter) extends WasmStack {
     // def tryHandleSwitch = it.tryHandleSwitch;
 }
 
-type CallIndirectEntry(is64: bool) #unboxed;
-type LabelEntry(label: SidetableBrEntry) #unboxed;
-type StructGetEntry(kind: FieldKind, offset: FieldOffset) #unboxed;
-
-layout STEntry_Is64 {
-    +0  is64: bool;
-    =4;
-}
-layout STEntry_Label {
-    +0  label: Sidetable_BrEntry;
-    =16;
-}
-layout STEntry_KindOffset {
-    +0  offset: int;
-    +4  kind: FieldKind;
-    =8;
-}
-
 class CBDV3Interpreter(it: V3Interpreter) {
     // can't extend V3Interpreter directly bc some intrinsics overlap with method names
 
     def HAS_MEM_INDEX = 0x40u8;
     var DISPATCH_TABLE: Array<void -> void>;
+
+    var sidetables: Array<Array<u8>>;
 
     // for InterpreterMain
     def init(instance: Instance, args: Array<int>) {
@@ -64,12 +48,13 @@ class CBDV3Interpreter(it: V3Interpreter) {
             if (Strings.equal(module.exports[i].0, "main")) main_idx = FuncDecl.!(module.exports[i].1).func_index;
         }
 
+	sidetables = Array.new(module.functions.length);
         Validator.init(module, args);
         for (i < module.functions.length) {
             def fn = CBDFunction.new(module.functions[i]);
             Validator.init_function(fn.code, fn.args.copy(), fn.locals.copy(), fn.rets.copy());
             Validator.dispatch();
-            fn.sidetable = Validator.build_sidetable();
+            sidetables[i] = Validator.build_sidetable();
             System.puts("validated ");
             System.puti(i);
             System.ln();
@@ -143,10 +128,10 @@ class CBDV3Interpreter(it: V3Interpreter) {
     }
 
     // XXX: is a label always a SidetableBrEntry?
-    def f_getLabel(depth: u32) -> SidetableBrEntry {
-        def stp = it.frame.stp, sidetable = it.frame.func.decl.sidetable;
-        return sidetable.getBrEntry(stp);
-    }
+    // def f_getLabel(depth: u32) -> SidetableBrEntry {
+    //     def stp = it.frame.stp, sidetable = it.frame.func.decl.sidetable;
+    //     return sidetable.getBrEntry(stp);
+    // }
 
     def f_getLocalType(index: u32) -> () {
         return ();
@@ -175,8 +160,8 @@ class CBDV3Interpreter(it: V3Interpreter) {
             Ref => return FieldKind.REF;
         }
     }
-    def m_getFieldOffset(struct_index: u32, field_index: u32) -> FieldOffset {
-        return FieldOffset(u32.!(field_index)); // XXX?
+    def m_getFieldOffset(struct_index: u32, field_index: u32) -> u32 {
+        return u32.!(field_index); // XXX?
     }
     def m_isMemory64(memory_index: u32) -> bool => false; // TODO mem64
     def m_isTable64(memory_index: u32) -> bool => false;
@@ -208,9 +193,8 @@ class CBDV3Interpreter(it: V3Interpreter) {
 
     def doBranch(label: Ref<Sidetable_BrEntry>) {
         // doCtlXfer
-        def st_br_entry = it.frame.func.decl.sidetable.getBrEntry(it.frame.stp - 4);
         it.codeptr.at(it.frame.pc + label.pc_delta);
-        it.frame.stp += label.stp_delta;
+        it.frame.stp += label.stp_delta - Sidetable_BrEntry.size;
         if (label.popcount > 0) {
             if (label.valcount > 0) it.copyVals(label.valcount, it.values.top - int.!(label.popcount + label.valcount));
             else it.values.top -= label.popcount;
@@ -381,48 +365,13 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def U32_lt_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) < i32.view(rhs);
     def U32_le_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) <= i32.view(rhs);
 
-    def get_st_entry_BR() -> LabelEntry {
-        def entry = it.frame.func.decl.sidetable.getBrEntry(it.frame.stp);
-        def res = LabelEntry(entry);
-        it.frame.stp += 4;
-        return res;
-    }
-
-    def get_st_entry_BR_IF() => get_st_entry_BR();
-    def get_st_entry_IF() => get_st_entry_BR();
-    def get_st_entry_ELSE() => get_st_entry_BR();
-
-    def get_st_entry_CALL_INDIRECT() -> CallIndirectEntry {
-        def st = it.frame.func.decl.sidetable.entries;
-        def res = CallIndirectEntry(st[it.frame.stp] == 1);
-        it.frame.stp += 1;
-        return res;
-    }
-
-    def get_st_entry_STRUCT_GET() -> StructGetEntry {
-        def st = it.frame.func.decl.sidetable.entries;
+    def get_st_entry(size: int) -> Range<u8> {
         def stp = it.frame.stp;
-        def res = StructGetEntry(FieldKinds.fromTag(st[stp]), FieldOffset(u32.view(st[stp+1])));
-        it.frame.stp += 2;
-        return res;
-    }
+        def fn_idx = it.frame.func.decl.func_index;
+        def sidetable = sidetables[fn_idx];
 
-    def get_st_entry_STRUCT_GET_S() => get_st_entry_STRUCT_GET();
-    def get_st_entry_STRUCT_GET_U() => get_st_entry_STRUCT_GET();
-
-    def get_st_entry(size: int) -> Array<u8> {
-        def st = it.frame.func.decl.sidetable.entries;
-        def stp = it.frame.stp;
-        def arr = Array<u8>.new(size);
-        for (i = 0; i < size; i += 4) {
-            def word = st[stp + i/4];
-            arr[i] = u8.view(word & 0xFF);
-            arr[i+1] = u8.view((word >> 8) & 0xFF);
-            arr[i+2] = u8.view((word >> 16) & 0xFF);
-            arr[i+3] = u8.view((word >> 24) & 0xFF);
-        }
-        it.frame.stp += size / 4;
-        return arr;
+        it.frame.stp += size;
+        return sidetable[stp ... stp + size];
     }
 
 def UNREACHABLE() {
