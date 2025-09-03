@@ -203,7 +203,9 @@ class CBDV3Interpreter(it: V3Interpreter) {
     }
 
     def doFallthru() {
-        it.frame.stp += 4;
+        // it seems intuitive that getting the sidetable entry increments the stp
+        // instead of falling through
+        // it.frame.stp += 4;
     }
 
     // Machine intrinsics.
@@ -365,7 +367,10 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def U32_le_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) <= i32.view(rhs);
 
     def get_st_entry_BR() -> LabelEntry {
-        return LabelEntry(it.frame.func.decl.sidetable.getBrEntry(it.frame.stp));
+        def entry = it.frame.func.decl.sidetable.getBrEntry(it.frame.stp);
+        def res = LabelEntry(entry);
+        it.frame.stp += 4;
+        return res;
     }
 
     def get_st_entry_BR_IF() => get_st_entry_BR();
@@ -373,13 +378,18 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def get_st_entry_ELSE() => get_st_entry_BR();
 
     def get_st_entry_CALL_INDIRECT() -> CallIndirectEntry {
-        return CallIndirectEntry(false);
+        def st = it.frame.func.decl.sidetable.entries;
+        def res = CallIndirectEntry(st[it.frame.stp] == 1);
+        it.frame.stp += 1;
+        return res;
     }
 
     def get_st_entry_STRUCT_GET() -> StructGetEntry {
-        def stp = it.frame.stp;
         def st = it.frame.func.decl.sidetable.entries;
-        return StructGetEntry(FieldKinds.fromTag(st[stp]), FieldOffset(u32.view(st[stp+1])));
+        def stp = it.frame.stp;
+        def res = StructGetEntry(FieldKinds.fromTag(st[stp]), FieldOffset(u32.view(st[stp+1])));
+        it.frame.stp += 2;
+        return res;
     }
 
     def get_st_entry_STRUCT_GET_S() => get_st_entry_STRUCT_GET();

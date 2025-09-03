@@ -110,7 +110,7 @@ def rtcast_f32(x: float) -> TypeVar.F32 {
     return TypeVar.F32;
 }
 
-type FieldOffset(offset: u32);
+type FieldOffset(offset: u32) #unboxed;
 enum FieldKind {
     U8, U16, U32, U64, F32, F64, V128, REF
 }

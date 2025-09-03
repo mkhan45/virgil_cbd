@@ -1491,18 +1491,6 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.F64_STORE.tag] = F64_STORE;
   return DISPATCH_TABLE;
 }
-type STEntry {
-    case Is64(
-        is64: int
-    );
-    case Label(
-        label: int
-    );
-    case KindOffset(
-        kind: int,
-        offset: int
-    );
-}
 var module: Module;
 var codeptr: CodePtr;
 var opcode: Opcode;
@@ -1615,7 +1603,7 @@ def rtcast_f32(x: float) -> TypeVar.F32 {
     return TypeVar.F32;
 }
 
-type FieldOffset(offset: u32);
+type FieldOffset(offset: u32) #unboxed;
 enum FieldKind {
     U8, U16, U32, U64, F32, F64, V128, REF
 }
