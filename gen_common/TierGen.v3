@@ -162,3 +162,67 @@ component TierGen {
         return codestr_builder.puts(dispatch_builder.toString()).toString();
     }       
 }
+
+component STFieldMgr {
+    var fields: Vector<(string, string)> = Vector.new(); // (name, type)
+    var entries: Vector<long> = Vector.new(); // keep track of which bitset insts are actually used
+
+    def fieldIdx(field_name: string, field_tipe: string) -> int {
+        for (i < fields.length) if (Strings.equal(fields[i].0, field_name)) {
+            // TODO: check field_tipe eq
+            return i;
+        }
+
+        fields.put((field_name, field_tipe));
+        return fields.length - 1;
+    }
+
+    def fieldToBitmask(field_name: string, field_tipe: string) -> long {
+        def idx = byte.!(fieldIdx(field_name, field_tipe));
+        return 1L << idx;
+    }
+
+    def fieldsToBitset(fields: Vector<(string, string)>) -> long {
+        var set = 0L;
+        for (i < fields.length) {
+            def mask = fieldToBitmask(fields[i]);
+            set |= mask;
+        }
+
+        return set;
+    }
+
+    def bitsetToFields(bs: long) -> Vector<(string, string)> {
+        var result = Vector<(string, string)>.new();
+        for (i < 64) {
+            def mask = 1L << byte.!(i);
+            if ((bs & mask) != 0L) {
+                if (i < fields.length) result.put(fields[i]);
+            }
+        }
+        return result;
+    }
+
+    def putEntry(fields: Vector<(string, string)>) -> long {
+        def bs = fieldsToBitset(fields);
+        if (bs == 0) return 0;
+
+        for (i < entries.length) if (entries[i] == bs) return bs;
+
+        entries.put(bs);
+        return bs;
+    }
+
+    def bitsetCaseName(bs: long) -> string {
+        def builder = StringBuilder.new();
+        def fields = bitsetToFields(bs);
+        for (i < fields.length) {
+            def n = fields[i].0;
+            n[0] -= 32; // uppercase first letter
+            builder.puts(n);
+            n[0] += 32;
+        }
+        return builder.toString();
+    }
+}
+

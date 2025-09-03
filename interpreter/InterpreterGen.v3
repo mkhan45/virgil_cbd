@@ -24,6 +24,8 @@ def replace_st_vars(st_vars: Range<string>, node: SSAD.LetApp, transformer: SSAT
 
 def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     def st_field_buf = VirgilStmts.getSidetableFields(stmt);
+    def bs = STFieldMgr.putEntry(st_field_buf);
+    def st_entry_name = STFieldMgr.bitsetCaseName(bs);
     def st_field_vars = Array<string>.new(st_field_buf.length);
     for (i < st_field_buf.length) {
         def field = st_field_buf[i].0;
@@ -38,9 +40,11 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     transformer.onLetApp = TB(replace_st_vars(st_field_vars, _, _)).then(SSAT.transformChildren).f;
     ssa = transformer.transform(ssa);
     if (st_field_buf.length > 0) {
-        ssa = SSAD.LetApp("sidetable_entry", Strings.format1("get_st_entry_%s", opcode), [], ssa);
+        def layout_name = Strings.format1("STEntry_%s", st_entry_name);
+        def layout_size = Strings.format1("%s.size", layout_name);
+        ssa = SSAD.LetApp("sidetable_entry", Strings.format1("Ref<%s>.of", layout_name), ["sidetable_entry_bytes"], ssa);
+        ssa = SSAD.LetApp("sidetable_entry_bytes", Strings.format1("get_st_entry", opcode), [layout_size], ssa);
     }
-    analysis.effects["sidetable_entry"] = CBDEffect.Ctl;
     def processed = analysis.DCE(analysis.id_propagate(ssa, HashMap<string, string>.new(Strings.hash, Strings.equal)));
 
     return CBDDef.new(opcode, processed);

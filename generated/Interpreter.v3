@@ -26,13 +26,27 @@ class CBDWasmStack(cbd_interpreter: CBDV3Interpreter) extends WasmStack {
     // def where = it.where;
     // def caller = it.caller;
     // def clear = it.clear;
-	// def tryHandleSuspension = it.tryHandleSuspension;
-	// def tryHandleSwitch = it.tryHandleSwitch;
+    // def tryHandleSuspension = it.tryHandleSuspension;
+    // def tryHandleSwitch = it.tryHandleSwitch;
 }
 
 type CallIndirectEntry(is64: bool) #unboxed;
 type LabelEntry(label: SidetableBrEntry) #unboxed;
 type StructGetEntry(kind: FieldKind, offset: FieldOffset) #unboxed;
+
+layout STEntry_Is64 {
+    +0  is64: bool;
+    =4;
+}
+layout STEntry_Label {
+    +0  label: Sidetable_BrEntry;
+    =16;
+}
+layout STEntry_KindOffset {
+    +0  offset: int;
+    +4  kind: FieldKind;
+    =8;
+}
 
 class CBDV3Interpreter(it: V3Interpreter) {
     // can't extend V3Interpreter directly bc some intrinsics overlap with method names
@@ -192,10 +206,10 @@ class CBDV3Interpreter(it: V3Interpreter) {
         it.doCallFunction(target);
     }
 
-    def doBranch(label: SidetableBrEntry) {
+    def doBranch(label: Ref<Sidetable_BrEntry>) {
         // doCtlXfer
-        it.codeptr.at(it.frame.pc + label.dpc);
-        it.frame.stp += label.dstp;
+        it.codeptr.at(it.frame.pc + label.pc_delta);
+        it.frame.stp += label.stp_delta;
         if (label.popcount > 0) {
             if (label.valcount > 0) it.copyVals(label.valcount, it.values.top - int.!(label.popcount + label.valcount));
             else it.values.top -= label.popcount;
@@ -209,19 +223,19 @@ class CBDV3Interpreter(it: V3Interpreter) {
     }
 
     // Machine intrinsics.
-    def mach_readStructField_u8(obj: Object, offset: FieldOffset) -> u8;
-    def mach_readStructField_u16(obj: Object, offset: FieldOffset) -> u16;
-    def mach_readStructField_u32(obj: Object, offset: FieldOffset) -> u32 {
+    def mach_readStructField_u8(obj: Object, offset: i32) -> u8;
+    def mach_readStructField_u16(obj: Object, offset: i32) -> u16;
+    def mach_readStructField_u32(obj: Object, offset: i32) -> u32 {
         def s = HeapStruct.!(obj);
-        return Values.unbox_u(s.vals[offset.offset]);
+        return Values.unbox_u(s.vals[offset]);
     }
-    def mach_readStructField_u64(obj: Object, offset: FieldOffset) -> u64;
-    def mach_readStructField_f32(obj: Object, offset: FieldOffset) -> float;
-    def mach_readStructField_f64(obj: Object, offset: FieldOffset) -> double;
-    def mach_readStructField_v128(obj: Object, offset: FieldOffset) -> v128;
-    def mach_readStructField_Object(obj: Object, offset: FieldOffset) -> Object {
+    def mach_readStructField_u64(obj: Object, offset: i32) -> u64;
+    def mach_readStructField_f32(obj: Object, offset: i32) -> float;
+    def mach_readStructField_f64(obj: Object, offset: i32) -> double;
+    def mach_readStructField_v128(obj: Object, offset: i32) -> v128;
+    def mach_readStructField_Object(obj: Object, offset: i32) -> Object {
         def s = HeapStruct.!(obj);
-        def r = Value.Ref.!(s.vals[offset.offset]);
+        def r = Value.Ref.!(s.vals[offset]);
         return r.val;
     }
 
@@ -298,22 +312,22 @@ class CBDV3Interpreter(it: V3Interpreter) {
 
     def mach_readTable64(table_index: u32, index: u64) -> Object;
     def mach_readTable32(table_index: u32, index: u32) -> Object {
-	def table = it.frame.func.instance.tables[int.view(table_index)];
-	def elems = table.elems;
-	if (index >= elems.length) {
-	    trapTableOOB();
-	}
-	return Values.unbox(elems[index]);
+        def table = it.frame.func.instance.tables[int.view(table_index)];
+        def elems = table.elems;
+        if (index >= elems.length) {
+            trapTableOOB();
+        }
+        return Values.unbox(elems[index]);
     }
 
     def mach_writeTable64(table_index: u32, index: u64, val: Object);
     def mach_writeTable32(table_index: u32, index: u32, val: Object) {
-	def table = it.frame.func.instance.tables[int.view(table_index)];
-	def elems = table.elems;
-	if (index >= elems.length) {
-	    trapTableOOB();
-	}
-	table[int.view(index)] = Value.Ref(val);
+        def table = it.frame.func.instance.tables[int.view(table_index)];
+        def elems = table.elems;
+        if (index >= elems.length) {
+            trapTableOOB();
+        }
+        table[int.view(index)] = Value.Ref(val);
     }
 
     // Traps.
@@ -331,13 +345,13 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def doLoop(bt: (Array<ValueType>, Array<ValueType>)) {
     }
 
-    def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> SidetableBrEntry {
-        return it.frame.func.decl.sidetable.getBrEntry(it.frame.stp);
-    }
+    // def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> SidetableBrEntry {
+    //     return it.frame.func.decl.sidetable.getBrEntry(it.frame.stp);
+    // }
 
-    def doElse() -> SidetableBrEntry {
-        return it.frame.func.decl.sidetable.getBrEntry(it.frame.stp);
-    }
+    // def doElse() -> SidetableBrEntry {
+    //     return it.frame.func.decl.sidetable.getBrEntry(it.frame.stp);
+    // }
 
     def doEnd() {
         // CBD calls doReturn if at end
@@ -394,6 +408,19 @@ class CBDV3Interpreter(it: V3Interpreter) {
 
     def get_st_entry_STRUCT_GET_S() => get_st_entry_STRUCT_GET();
     def get_st_entry_STRUCT_GET_U() => get_st_entry_STRUCT_GET();
+
+    def get_st_entry(size: int) -> Array<u8> {
+        def st = it.frame.func.decl.sidetable.entries;
+        def stp = it.frame.stp;
+        def arr = Array<u8>.new(size);
+        for (i = 0; i < size; i += 4) {
+            arr[i] = u8.view(st[stp + i] & 0xFF);
+            arr[i+1] = u8.view((st[stp + i] >> 8) & 0xFF);
+            arr[i+2] = u8.view((st[stp + i] >> 16) & 0xFF);
+            arr[i+3] = u8.view((st[stp + i] >> 24) & 0xFF);
+        }
+        return arr;
+    }
 
 def UNREACHABLE() {
 	trapUnreachable();
@@ -464,7 +491,8 @@ def CALL() {
 	doCall(sig, target);
 }
 def CALL_INDIRECT() {
-	def sidetable_entry = get_st_entry_CALL_INDIRECT();
+	def sidetable_entry_bytes = get_st_entry(STEntry_Is64.size);
+	def sidetable_entry = Ref<STEntry_Is64>.of(sidetable_entry_bytes);
 	def sig_index = imm_readULEB32();
 	def table_index = imm_readULEB32();
 	def sig = m_getSignature(sig_index);
@@ -683,12 +711,14 @@ def F32_GT() {
 	}
 }
 def BR() {
-	def sidetable_entry = get_st_entry_BR();
+	def sidetable_entry_bytes = get_st_entry(STEntry_Label.size);
+	def sidetable_entry = Ref<STEntry_Label>.of(sidetable_entry_bytes);
 	def depth = imm_readULEB32();
 	doBranch(sidetable_entry.label);
 }
 def BR_IF() {
-	def sidetable_entry = get_st_entry_BR_IF();
+	def sidetable_entry_bytes = get_st_entry(STEntry_Label.size);
+	def sidetable_entry = Ref<STEntry_Label>.of(sidetable_entry_bytes);
 	def depth = imm_readULEB32();
 	def cond = pop_u32();
 	if (u32.!=(cond, 0)) {
@@ -710,7 +740,8 @@ def TRY() {
 	doTry(bt);
 }
 def IF() {
-	def sidetable_entry = get_st_entry_IF();
+	def sidetable_entry_bytes = get_st_entry(STEntry_Label.size);
+	def sidetable_entry = Ref<STEntry_Label>.of(sidetable_entry_bytes);
 	def bt = imm_readBlockType();
 	def cond = pop_u32();
 	if (u32.==(cond, 0)) {
@@ -720,7 +751,8 @@ def IF() {
 	}
 }
 def ELSE() {
-	def sidetable_entry = get_st_entry_ELSE();
+	def sidetable_entry_bytes = get_st_entry(STEntry_Label.size);
+	def sidetable_entry = Ref<STEntry_Label>.of(sidetable_entry_bytes);
 	doBranch(sidetable_entry.label);
 }
 def END() {
@@ -760,7 +792,8 @@ def STRUCT_NEW() {
 	push_Object(object_New(sig));
 }
 def STRUCT_GET() {
-	def sidetable_entry = get_st_entry_STRUCT_GET();
+	def sidetable_entry_bytes = get_st_entry(STEntry_KindOffset.size);
+	def sidetable_entry = Ref<STEntry_KindOffset>.of(sidetable_entry_bytes);
 	def struct_index = imm_readULEB32();
 	def field_index = imm_readULEB32();
 	def obj = pop_Object();
@@ -797,7 +830,8 @@ def STRUCT_GET() {
 	}
 }
 def STRUCT_GET_S() {
-	def sidetable_entry = get_st_entry_STRUCT_GET_S();
+	def sidetable_entry_bytes = get_st_entry(STEntry_KindOffset.size);
+	def sidetable_entry = Ref<STEntry_KindOffset>.of(sidetable_entry_bytes);
 	def struct_index = imm_readULEB32();
 	def field_index = imm_readULEB32();
 	def obj = pop_Object();
@@ -818,7 +852,8 @@ def STRUCT_GET_S() {
 	}
 }
 def STRUCT_GET_U() {
-	def sidetable_entry = get_st_entry_STRUCT_GET_U();
+	def sidetable_entry_bytes = get_st_entry(STEntry_KindOffset.size);
+	def sidetable_entry = Ref<STEntry_KindOffset>.of(sidetable_entry_bytes);
 	def struct_index = imm_readULEB32();
 	def field_index = imm_readULEB32();
 	def obj = pop_Object();
