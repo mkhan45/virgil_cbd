@@ -616,13 +616,8 @@ class CBDSidetableBuilder {
         entry.offset = offset;
     }
 
-    def put_BR(label: ControlEntry) {
-        refS(label, opcode_pos, stack.top);
-    }
-
-    def put_BR_IF(label: ControlEntry) {
-        refS(label, opcode_pos, stack.top);
-    }
+    def put_BR(label: ControlEntry) => refS(label, opcode_pos, stack.top);
+    def put_BR_IF(label: ControlEntry) => refS(label, opcode_pos, stack.top);
 
     def put_IF(label: ControlEntry) {
         refElse(label, opcode_pos);

@@ -47,7 +47,7 @@ class CBDV3Interpreter(it: V3Interpreter) {
             if (Strings.equal(module.exports[i].0, "main")) main_idx = FuncDecl.!(module.exports[i].1).func_index;
         }
 
-	sidetables = Array.new(module.functions.length);
+        sidetables = Array.new(module.functions.length);
         Validator.init(module, args);
         for (i < module.functions.length) {
             def fn = CBDFunction.new(module.functions[i]);

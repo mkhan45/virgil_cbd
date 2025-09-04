@@ -76,7 +76,8 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
         sb.puts("effect: ").puts(analysis.effects[v.head].toString());
         sb.ln();
     }
-    def instSsa = SSAD.Injected(sb.toString(), processed);
+    def instSsa = processed;
+    // def instSsa = SSAD.Injected(sb.toString(), processed);
 
     var stbuilder_call: SSAD = SSAD.Void;
     if (bs != 0) {
