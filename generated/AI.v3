@@ -1111,11 +1111,6 @@ def I32_LOAD() {
 	def cond = Value_equals(u8_and(flags, HAS_MEM_INDEX), 0);
 	def condTrue = I32_maybeTrue(cond);
 	def condFalse = I32_maybeFalse(cond);
-	if (bool.&&(condTrue, condFalse)) {
-	} else {
-		if (condTrue) {
-		}
-	}
 	def cond1 = m_isMemory64(0u);
 	if (cond1) {
 		def offset = imm_readULEB64();
@@ -1134,11 +1129,6 @@ def I32_LOAD8_U() {
 	def cond = Value_equals(u8_and(flags, HAS_MEM_INDEX), 0);
 	def condTrue = I32_maybeTrue(cond);
 	def condFalse = I32_maybeFalse(cond);
-	if (bool.&&(condTrue, condFalse)) {
-	} else {
-		if (condTrue) {
-		}
-	}
 	def cond1 = m_isMemory64(0u);
 	if (cond1) {
 		def offset = imm_readULEB64();
@@ -1157,11 +1147,6 @@ def I32_LOAD16_S() {
 	def cond = Value_equals(u8_and(flags, HAS_MEM_INDEX), 0);
 	def condTrue = I32_maybeTrue(cond);
 	def condFalse = I32_maybeFalse(cond);
-	if (bool.&&(condTrue, condFalse)) {
-	} else {
-		if (condTrue) {
-		}
-	}
 	def cond1 = m_isMemory64(0u);
 	if (cond1) {
 		def offset = imm_readULEB64();
@@ -1180,11 +1165,6 @@ def I64_LOAD() {
 	def cond = Value_equals(u8_and(flags, HAS_MEM_INDEX), 0);
 	def condTrue = I32_maybeTrue(cond);
 	def condFalse = I32_maybeFalse(cond);
-	if (bool.&&(condTrue, condFalse)) {
-	} else {
-		if (condTrue) {
-		}
-	}
 	def cond1 = m_isMemory64(0u);
 	if (cond1) {
 		def offset = imm_readULEB64();
@@ -1203,11 +1183,6 @@ def F32_LOAD() {
 	def cond = Value_equals(u8_and(flags, HAS_MEM_INDEX), 0);
 	def condTrue = I32_maybeTrue(cond);
 	def condFalse = I32_maybeFalse(cond);
-	if (bool.&&(condTrue, condFalse)) {
-	} else {
-		if (condTrue) {
-		}
-	}
 	def cond1 = m_isMemory64(0u);
 	if (cond1) {
 		def offset = imm_readULEB64();
@@ -1226,11 +1201,6 @@ def F64_LOAD() {
 	def cond = Value_equals(u8_and(flags, HAS_MEM_INDEX), 0);
 	def condTrue = I32_maybeTrue(cond);
 	def condFalse = I32_maybeFalse(cond);
-	if (bool.&&(condTrue, condFalse)) {
-	} else {
-		if (condTrue) {
-		}
-	}
 	def cond1 = m_isMemory64(0u);
 	if (cond1) {
 		def offset = imm_readULEB64();
@@ -1249,11 +1219,6 @@ def I32_STORE() {
 	def cond = Value_equals(u8_and(flags, HAS_MEM_INDEX), 0);
 	def condTrue = I32_maybeTrue(cond);
 	def condFalse = I32_maybeFalse(cond);
-	if (bool.&&(condTrue, condFalse)) {
-	} else {
-		if (condTrue) {
-		}
-	}
 	def val = pop_u32();
 	def cond1 = m_isMemory64(0u);
 	if (cond1) {
@@ -1271,11 +1236,6 @@ def I32_STORE8() {
 	def cond = Value_equals(u8_and(flags, HAS_MEM_INDEX), 0);
 	def condTrue = I32_maybeTrue(cond);
 	def condFalse = I32_maybeFalse(cond);
-	if (bool.&&(condTrue, condFalse)) {
-	} else {
-		if (condTrue) {
-		}
-	}
 	def val = pop_u32();
 	def cond1 = m_isMemory64(0u);
 	if (cond1) {
@@ -1293,11 +1253,6 @@ def I32_STORE16() {
 	def cond = Value_equals(u8_and(flags, HAS_MEM_INDEX), 0);
 	def condTrue = I32_maybeTrue(cond);
 	def condFalse = I32_maybeFalse(cond);
-	if (bool.&&(condTrue, condFalse)) {
-	} else {
-		if (condTrue) {
-		}
-	}
 	def val = pop_u32();
 	def cond1 = m_isMemory64(0u);
 	if (cond1) {
@@ -1315,11 +1270,6 @@ def I64_STORE() {
 	def cond = Value_equals(u8_and(flags, HAS_MEM_INDEX), 0);
 	def condTrue = I32_maybeTrue(cond);
 	def condFalse = I32_maybeFalse(cond);
-	if (bool.&&(condTrue, condFalse)) {
-	} else {
-		if (condTrue) {
-		}
-	}
 	def val = pop_u64();
 	def cond1 = m_isMemory64(0u);
 	if (cond1) {
@@ -1337,11 +1287,6 @@ def F32_STORE() {
 	def cond = Value_equals(u8_and(flags, HAS_MEM_INDEX), 0);
 	def condTrue = I32_maybeTrue(cond);
 	def condFalse = I32_maybeFalse(cond);
-	if (bool.&&(condTrue, condFalse)) {
-	} else {
-		if (condTrue) {
-		}
-	}
 	def val = pop_f32();
 	def cond1 = m_isMemory64(0u);
 	if (cond1) {
@@ -1357,11 +1302,6 @@ def F64_STORE() {
 	def cond = Value_equals(u8_and(flags, HAS_MEM_INDEX), 0);
 	def condTrue = I32_maybeTrue(cond);
 	def condFalse = I32_maybeFalse(cond);
-	if (bool.&&(condTrue, condFalse)) {
-	} else {
-		if (condTrue) {
-		}
-	}
 	def val = pop_f64();
 	def cond1 = m_isMemory64(0u);
 	if (cond1) {

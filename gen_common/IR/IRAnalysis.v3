@@ -137,7 +137,13 @@ class SSADCtx {
             Void => return node;
             Final(_) => return node;
             Injected(inj, rest) => return SSAD.Injected(inj, DCE(rest));
-            If(c, t, e, phis, rest) => return SSAD.If(c, DCE(t), DCE(e), phis, DCE(rest));
+            If(c, t, e, phis, r) => {
+                def then = DCE(t);
+                def els = DCE(e);
+                def rest = DCE(r);
+                if (then == SSAD.Void && els == SSAD.Void) return rest;
+                else return SSAD.If(c, then, els, phis, rest);
+            }
             Match(subj, branches, rest) => {
                 def new_branches = Array<(string, SSAD)>.new(branches.length);
                 for (i < branches.length) {
