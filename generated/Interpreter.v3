@@ -48,7 +48,7 @@ class CBDV3Interpreter(it: V3Interpreter) {
             if (Strings.equal(module.exports[i].0, "main")) main_idx = FuncDecl.!(module.exports[i].1).func_index;
         }
 
-	sidetables = Array.new(module.functions.length);
+        sidetables = Array.new(module.functions.length);
         Validator.init(module, args);
         for (i < module.functions.length) {
             def fn = CBDFunction.new(module.functions[i]);
@@ -175,7 +175,17 @@ class CBDV3Interpreter(it: V3Interpreter) {
 
     // Instance context.
     def i_getTableFunction64(table_index: u32, sig: HeapTypeDecl, func_index: u64) -> Function;
-    def i_getTableFunction32(table_index: u32, sig: HeapTypeDecl, func_index: u32) -> Function;
+    def i_getTableFunction32(table_index: u32, sig: HeapTypeDecl, func_index: u32) -> Function {
+        // lookupIndirect
+        def instance = it.frame.func.instance;
+        def table = instance.tables[int.view(table_index)];
+        if (int.view(func_index) >= table.elems.length) trapTableOOB();
+        def expected = SigDecl.!(sig);
+        def f = table.funcs[int.view(func_index)];
+        if (f == null) trapNull();
+        if (!ValueTypes.isAssignableHeap(f.sig, expected)) trapFuncSigMismatch();
+        return f;
+    }
     def i_getFunction(func_index: u32) -> Function {
         return it.frame.func.instance.functions[int.view(func_index)];
     }
@@ -324,6 +334,7 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def trapDivideUnrepresentable();
     def trapMem();
     def trapTableOOB();
+    def trapFuncSigMismatch();
 
     def doBlock(bt: (Array<ValueType>, Array<ValueType>)) {
     }
