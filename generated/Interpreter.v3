@@ -71,7 +71,8 @@ class CBDV3Interpreter(it: V3Interpreter) {
         while (it.frame != null && it.codeptr.available() > 0) {
             it.frame.pc = it.codeptr.pos;
             def opcode = it.codeptr.read_opcode();
-            System.puts(opcode.mnemonic); System.ln();
+            // System.puti(it.frame.pc); System.puts(": "); printStack();
+            // System.puts(opcode.mnemonic); System.ln();
             DISPATCH_TABLE[opcode.tag]();
         }
     }
@@ -373,6 +374,18 @@ class CBDV3Interpreter(it: V3Interpreter) {
         it.frame.stp += size;
         return sidetable[stp ... stp + size];
     }
+
+    def printStack() {
+		var out = StringBuilder.new();
+        out.putc('[');
+        for (i < it.values.top) {
+            out.putq(Values.render(it.values.elems[i], _));
+            if (i + 1 < it.values.top) out.puts(", ");
+        }
+        out.putc(']');
+        out.ln();
+        System.puts(out.toString());
+	}
 
 def UNREACHABLE() {
 	trapUnreachable();

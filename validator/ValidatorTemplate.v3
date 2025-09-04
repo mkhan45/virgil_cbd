@@ -617,20 +617,20 @@ class CBDSidetableBuilder {
     }
 
     def put_BR(label: ControlEntry) {
-        refS(label, codeptr.pos, stack.top);
+        refS(label, opcode_pos, stack.top);
     }
 
     def put_BR_IF(label: ControlEntry) {
-        refS(label, codeptr.pos, stack.top);
+        refS(label, opcode_pos, stack.top);
     }
 
     def put_IF(label: ControlEntry) {
-        refElse(label, codeptr.pos);
+        refElse(label, opcode_pos);
     }
 
     def put_ELSE(label: ControlEntry) {
-        ref0(label, codeptr.pos);
-        bindElse(label, codeptr.pos);
+        ref0(label, opcode_pos);
+        bindElse(label, opcode_pos);
     }
 
     def put_CALL_INDIRECT(is64: bool) => put_Is64(is64);
