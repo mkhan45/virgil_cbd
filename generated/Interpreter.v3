@@ -504,8 +504,10 @@ def SELECT() {
 	}
 }
 def I32_CONST() {
-	def x = imm_readILEB32();
-	push_u32(x);
+	def sidetable_entry_bytes = get_st_entry(STEntry_Ileb32_decode.size);
+	def sidetable_entry = Ref<STEntry_Ileb32_decode>.of(sidetable_entry_bytes);
+	push_u32(sidetable_entry.ileb32_decode);
+    it.codeptr.at(it.codeptr.pos + sidetable_entry.pc_incr);
 }
 def I32_ADD() {
 	def b = pop_u32();

@@ -622,8 +622,8 @@ def SELECT() {
 	}
 }
 def I32_CONST() {
-	def x = imm_readILEB32();
-	push_u32(rtcast_u32(x));
+	def ileb32_decode = imm_readILEB32();
+	push_u32(rtcast_u32(ileb32_decode));
 }
 def I32_ADD() {
 	def b = pop_u32();
