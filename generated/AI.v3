@@ -925,6 +925,11 @@ def BR_IF() {
 		}
 	}
 }
+def BR_TABLE() {
+	def labels = imm_readLabels();
+	def key = pop_u32();
+	doSwitch(labels, key);
+}
 def BLOCK() {
 	def bt = imm_readBlockType();
 	doBlock(bt);
@@ -1358,6 +1363,7 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.F32_GT.tag] = F32_GT;
   DISPATCH_TABLE[Opcode.BR.tag] = BR;
   DISPATCH_TABLE[Opcode.BR_IF.tag] = BR_IF;
+  DISPATCH_TABLE[Opcode.BR_TABLE.tag] = BR_TABLE;
   DISPATCH_TABLE[Opcode.BLOCK.tag] = BLOCK;
   DISPATCH_TABLE[Opcode.LOOP.tag] = LOOP;
   DISPATCH_TABLE[Opcode.TRY.tag] = TRY;
