@@ -18,7 +18,13 @@ def main(args: Array<string>) {
     var skip = int.!(aligned_offset - elem0_offset);
 
     def w = DataWriter.new().reset(buffer, skip, skip);
-    CBDFastIntGen.new(ic, w).gen(range_);
+    def gen = CBDFastIntGen.new(ic, w);
+
+    def i32_const_pos = w.atEnd().pos;
+
+
+    gen.gen(range_);
+
     ic.header.codeEnd = w.atEnd().pos;
     ic.header.codeMarker = PREGEN_CODE_MARKER;
 

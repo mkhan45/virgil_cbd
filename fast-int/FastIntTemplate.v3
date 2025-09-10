@@ -39,6 +39,46 @@ class CBDFastIntGen extends X86_64InterpreterGen {
         op_sp = 0;
     }
 
+    // def genOpcodeHandlers() {
+    //     // X86_64InterpreterGen.!(this).genOpcodeHandlers(); // XXX: how to easily call the super method?
+    // }
+
+    def gen(range: MemoryRange) {
+        // copy pasted from superclass but added genCBDHandlers()
+
+		// Record code start
+		ic.header.codeStart = w.atEnd().pos; // XXX: don't make dispatch tables executable
+
+		// Reserve the type tag table.
+		genTypeTagTable();
+		// Reserve space for the dispatch tables.
+		reserveDispatchTables();
+		// Begin code generation
+		genHostCallStub();
+		genInterpreterEntry();
+		genOpcodeHandlers();
+        genCBDHandlers();
+		handlerEndOffset = w.atEnd().pos;
+		// Generate out-of-line code
+		genOutOfLineLEBs();
+		genTraps();
+    }
+
+    // this func should be generated
+    def genCBDHandlers() {
+        bindHandler(Opcode.I32_CONST);
+        reset();
+        I32_CONST();
+        adjustVsp(1); // stack delta
+        endHandler();
+
+        bindHandler(Opcode.I32_ADD);
+        reset();
+        I32_ADD();
+        adjustVsp(-1);
+        endHandler();
+    }
+    
     // puts in reg0 if not already in reg
     def ensureReg(val: X86Val) -> X86_64Gpr {
         match (val) {
@@ -51,13 +91,13 @@ class CBDFastIntGen extends X86_64InterpreterGen {
     }
 
     def imm_readULEB32() -> X86Val {
-        genReadUleb32(r_tmp0);
-        return X86Val.Reg(r_tmp0);
+        genReadUleb32(r_tmp1);
+        return X86Val.Reg(r_tmp1);
     }
 
     def imm_readILEB32() -> X86Val {
-        genReadUleb32(r_tmp0);
-        return X86Val.Reg(r_tmp0);
+        genReadSleb32_inline(r_tmp1);
+        return X86Val.Reg(r_tmp1);
     }
 
     def push_u32(val: X86Val) {
