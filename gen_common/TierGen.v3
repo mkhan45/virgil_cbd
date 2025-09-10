@@ -136,6 +136,7 @@ component TierGen {
 
         for (d in defs) {
             def extracted_def = toDef(d);
+            if (extracted_def == null) continue; // skip
             codestr_builder.puts("def ");
             codestr_builder.puts(extracted_def.opcode);
             codestr_builder.puts("() ").puts("{\n");

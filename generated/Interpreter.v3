@@ -215,9 +215,7 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def doSwitch(n_labels: u32, key: u32) {
         def fn_idx = it.frame.func.decl.func_index, sidetable = sidetables[fn_idx];
         def index = if(key >= n_labels, int.view(n_labels)-1, int.view(key));
-        System.puti(index); System.puts(", "); System.puti(int.view(n_labels)); System.ln();
         it.frame.stp += (index * Sidetable_BrEntry.size);
-        System.puts("new stp: "); System.puti(it.frame.stp); System.puts(", st len: "); System.puti(sidetable.length); System.ln();
         it.frame.pc += index;
 
         def br_entry = Ref<Sidetable_BrEntry>.at(sidetable, it.frame.stp);

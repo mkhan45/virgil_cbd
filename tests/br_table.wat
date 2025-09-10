@@ -1,6 +1,6 @@
 (module
   (func (export "main") (result i32)
-    (call $select (i32.const 0))
+    (call $select (i32.const 2))
   )
   (func $select (param i32) (result i32)
     (block

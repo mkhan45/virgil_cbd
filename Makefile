@@ -1,5 +1,6 @@
 # Paths and variables
 VIRGIL_STD = ../virgil/lib/util/*.v3
+VIRGIL_X86_STD = ../virgil/lib/asm/x86-64/*.v3
 WIZARD = ./wizard-engine
 ENGINE = $(WIZARD)/src/engine/*.v3
 WIZARD_UTIL = $(WIZARD)/src/util/*.v3
@@ -25,7 +26,7 @@ all: validator interpreter InterpreterMain abstract_interpreter
 $(DEFS).sexp: wizard-engine/src/bytecode/CanonicalDefs.v3
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
 
-generated/Validator.v3: $(GENERATE_DEPS) validator/ValidatorGen.v3 validator/ValidatorTemplate.v3 validator/Intrinsics.v3
+generated/Validator.v3: $(GENERATE_DEPS) validator/*.v3
 	$(VIRGIL) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		$(ENGINE)\
@@ -37,7 +38,7 @@ generated/Validator.v3: $(GENERATE_DEPS) validator/ValidatorGen.v3 validator/Val
 		> $@~
 	mv --force $@~ $@
 
-generated/Interpreter.v3: $(GENERATE_DEPS) interpreter/InterpreterGen.v3 interpreter/InterpreterTemplate.v3 generated/Validator.v3
+generated/Interpreter.v3: $(GENERATE_DEPS) interpreter/*.v3
 	$(VIRGIL) $(VIRGIL_STD) \
 		$(GENERATE_LIB)\
 		$(ENGINE)\
@@ -72,7 +73,7 @@ generated/V3Compiler.v3: $(GENERATE_DEPS) v3compiler/V3CompilerGen.v3 v3compiler
 		> $@~
 	mv --force $@~ $@
 
-generated/AI.v3: $(GENERATE_DEPS) abstract_interpreter/AIGen.v3 abstract_interpreter/AITemplate.v3 generated/Validator.v3 abstract_interpreter/Intrinsics.v3
+generated/AI.v3: $(GENERATE_DEPS) abstract_interpreter/*.v3 generated/Validator.v3
 	$(VIRGIL) $(VIRGIL_STD) \
 		$(GENERATE_LIB)\
 		$(ENGINE)\
@@ -81,6 +82,18 @@ generated/AI.v3: $(GENERATE_DEPS) abstract_interpreter/AIGen.v3 abstract_interpr
 		$(DEFS).sexp\
 		$(DEFS)\
 		abstract_interpreter/AITemplate.v3\
+		> $@~
+	mv --force $@~ $@
+
+generated/FastInt.v3: $(GENERATE_DEPS) fast-int/*.v3 generated/Validator.v3
+	$(VIRGIL) $(VIRGIL_STD) \
+		$(GENERATE_LIB)\
+		$(ENGINE)\
+		$(WIZARD_UTIL)\
+		fast-int/FastIntGen.v3\
+		$(DEFS).sexp\
+		$(DEFS)\
+		fast-int/FastIntTemplate.v3\
 		> $@~
 	mv --force $@~ $@
 
@@ -105,10 +118,20 @@ run_compiler: generated/Compiler.v3
 		gen_common/IR/Types.v3\
 		runtime_common/*.v3 generated/Validator.v3 generated/Compiler.v3 compiler/CompilerMain.v3 $(ARGS)
 
-InterpreterMain: generated/Interpreter.v3
+InterpreterMain: generated/Interpreter.v3 generated/Validator.v3
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		gen_common/IR/Types.v3\
-		runtime_common/*.v3 generated/Validator.v3 generated/Interpreter.v3 interpreter/InterpreterMain.v3
+		gen_common/IR/Types.v3 generated/Validator.v3\
+		runtime_common/*.v3\
+		generated/Interpreter.v3 interpreter/InterpreterMain.v3
+
+FastInterpreterMain: generated/FastInt.v3 generated/Validator.v3
+	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(UTIL)\
+		$(VIRGIL_X86_STD)\
+		$(WIZARD)/src/engine/compiler/*.v3\
+		$(WIZARD)/src/engine/x86-64/*.v3\
+		gen_common/IR/Types.v3 generated/Validator.v3\
+		runtime_common/*.v3\
+		generated/FastInt.v3 fast-int/FastIntMain.v3
 
 %AI: abstract_interpreter validator
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\

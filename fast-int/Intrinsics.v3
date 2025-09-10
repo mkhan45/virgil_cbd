@@ -1,0 +1,2 @@
+def imm_readULEB32() -> u32.I : read;
+def imm_readILEB32() -> u32.I : read;

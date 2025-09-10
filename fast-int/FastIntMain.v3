@@ -1,0 +1,106 @@
+def PREGEN_CODE_MARKER = 0x7FAACCEE;
+def pregen_header_size = X86_64PreGenHeader.size;
+
+def main(args: Array<string>) {
+    def buffer = Array<byte>.new(8192*500);
+    def pregen_header = Ref<X86_64PreGenHeader>.at(buffer, 0);
+
+    def start = Pointer.atContents(buffer);
+    def range_ = MemoryRange.new(start, start + buffer.length);
+    
+    def ic = X86_64InterpreterCode.new(Pointer.NULL, Pointer.NULL, pregen_header);
+    ic.start = range_.start;
+
+    var mask = 4095L;
+    var elem0_offset = (start - Pointer.NULL) & mask;
+    var alloc_offset = elem0_offset + 8 + pregen_header_size;
+    var aligned_offset = (alloc_offset + mask) & ~mask;
+    var skip = int.!(aligned_offset - elem0_offset);
+
+    def w = DataWriter.new().reset(buffer, skip, skip);
+    CBDFastIntGen.new(ic, w).gen(range_);
+    ic.header.codeEnd = w.atEnd().pos;
+    ic.header.codeMarker = PREGEN_CODE_MARKER;
+
+    ic.end = range_.start + ic.header.codeEnd;
+    ic.setV3Entry();
+    
+    System.puts("CBDFastIntGen code generation completed\n");
+    // Set up the global interpreter reference so it can be used
+    var I: X86_64Interpreter;
+    I.interpreterCode = ic;
+    I.dispatchTable = ic.start + ic.header.fastDispatchTableOffset;
+
+    Mmap.protect(range_.start + ic.header.codeStart, u64.!(ic.header.codeEnd - ic.header.codeStart), Mmap.PROT_READ | Mmap.PROT_EXEC);
+
+    RiRuntime.registerUserCode(ic);
+    
+    System.puts("Generated "); System.puti(w.pos); System.puts(" bytes of machine code\n");
+    System.puts("Fast interpreter ready\n");
+    
+    def filename = args[0];
+    def file_bytes = System.fileLoad(filename);
+    if (file_bytes == null) {
+        System.puts("Error: Could not load file ");
+        System.puts(filename);
+        System.ln();
+        return;
+    }
+    
+    // Parse and instantiate the WASM module
+    def extensions = Extension.set.all;
+    def limits = Limits.new().set(extensions);
+    def err = ErrorGen.new(filename);
+    def bp = BinParser.new(extensions, limits, err, filename);
+    def module = bp.push(file_bytes, 0, file_bytes.length).finish();
+    
+    if (err.error_code != WasmError.NONE) {
+        System.puts("Error parsing WASM file: "); System.puts(err.error_msg); System.ln();
+        return;
+    }
+    
+    def instantiator = Instantiator.new(Extension.set.all, module, [], ErrorGen.new(""));
+    def instance = instantiator.run();
+    
+    var main_func: WasmFunction = null;
+    for (i < module.exports.length) {
+        var export_name = module.exports[i].0;
+        var export_val = instance.exports[i];
+        if (Strings.equal(export_name, "main") && WasmFunction.?(export_val)) {
+            main_func = WasmFunction.!(export_val);
+            break;
+        }
+    }
+    
+    if (main_func == null) {
+        System.puts("Error: No 'main' function found in exports\n");
+        return;
+    }
+    
+    System.puts("Calling main function using fast interpreter\n");
+    
+    def stack_size = 1024;
+    def stack = Array<byte>.new(stack_size);
+
+    def sp = Pointer.atContents(stack);
+    def stack_bp = Pointer.atContents(stack);
+
+    for (i < 48) {
+        def x = (stack_bp + i).load<u8>();
+        System.puti(int.view(x)); System.puts(" ");
+    }
+    System.ln();
+    
+    var result = ic.intV3Entry(main_func, sp);
+    if (result != null) {
+        System.puts("Execution failed with exception\n");
+    } else {
+        for (i < 48) {
+            def x = (stack_bp + i).load<u8>();
+            System.puti(int.view(x)); System.puts(" ");
+        }
+        System.ln();
+        System.puts("Execution completed successfully\n");
+        // TODO: Extract and display result from stack
+    }
+}
