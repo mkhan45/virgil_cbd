@@ -2,6 +2,7 @@
 type X86Val {
     case Reg(r: X86_64Gpr);
     case Vsp(i: int);
+    case ImmU32(x: u32);
 
     def is_reg() -> bool {
         match (this) {
@@ -30,6 +31,7 @@ class CBDFastIntGen extends X86_64InterpreterGen {
     var op_sp: int;
 
     def trapUnreachable();
+    def trap();
 
     new(ic: X86_64InterpreterCode, w: DataWriter) super(ic, w) {
         DISPATCH_TABLE = build_dispatch_table();
@@ -45,6 +47,8 @@ class CBDFastIntGen extends X86_64InterpreterGen {
     // }
 
     def gen(range: MemoryRange) {
+        // copy pasted from superclass but added genCBDHandlers()
+
 		// Record code start
 		ic.header.codeStart = w.atEnd().pos; // XXX: don't make dispatch tables executable
 
@@ -63,17 +67,23 @@ class CBDFastIntGen extends X86_64InterpreterGen {
 		genTraps();
     }
 
+    // this func should be generated
     def genCBDHandlers() {
         bindHandler(Opcode.I32_CONST);
         reset();
         I32_CONST();
-        adjustVsp(1);
+        adjustVsp(1); // stack delta
         endHandler();
 
         bindHandler(Opcode.I32_ADD);
         reset();
         I32_ADD();
         adjustVsp(-1);
+        endHandler();
+
+        bindHandler(Opcode.I32_EQZ);
+        reset();
+        I32_EQZ();
         endHandler();
     }
     
@@ -84,6 +94,10 @@ class CBDFastIntGen extends X86_64InterpreterGen {
             Vsp(i) => {
                 asm.movd_r_m(r_tmp0, vsph[i].value);
                 return r_tmp0;
+            }
+            ImmU32(x) => {
+                asm.movd_r_i(r_tmp1, int.view(x));
+                return r_tmp1;
             }
         }
     }
@@ -127,6 +141,32 @@ class CBDFastIntGen extends X86_64InterpreterGen {
         }
     }
 
+    def rtcast_u32(x: u32) -> X86Val => X86Val.ImmU32(x);
+
+    def U32_equals(a: X86Val, b: X86Val) -> X86Val {
+        if (b == X86Val.ImmU32(0u)) {
+            asm.d.test_m_i(vsph[-1].value, -1);
+            asm.set_r(X86_64Conds.Z, r_tmp0);
+            return X86Val.Reg(r_tmp0);
+        } else {
+            trap();
+        }
+
+        return X86Val.ImmU32(0xdead);
+    }
+
+    def choose_u(cond: X86Val, left: X86Val, right: X86Val) -> X86Val {
+        if (left == X86Val.ImmU32(1u) && right == X86Val.ImmU32(0u)) {
+            def reg = ensureReg(cond);
+            asm.movbzx_r_r(reg, reg);
+            return X86Val.Reg(reg);
+        } else {
+            trap();
+        }
+
+        return X86Val.ImmU32(0xdead);
+    }
+
 def I32_CONST() {
 	def x = imm_readILEB32();
 	push_u32(x);
@@ -136,11 +176,17 @@ def I32_ADD() {
 	def a = pop_u32();
 	push_u32(U32_plus(a, b));
 }
+def I32_EQZ() {
+	def a = pop_u32();
+	def phi = choose_u(U32_equals(a, rtcast_u32(0)), rtcast_u32(1), rtcast_u32(0));
+	push_u32(phi);
+}
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
   for (i < 0xE5 + 1) DISPATCH_TABLE[i] = trapUnreachable;
   DISPATCH_TABLE[Opcode.I32_CONST.tag] = I32_CONST;
   DISPATCH_TABLE[Opcode.I32_ADD.tag] = I32_ADD;
+  DISPATCH_TABLE[Opcode.I32_EQZ.tag] = I32_EQZ;
   return DISPATCH_TABLE;
 }
 }

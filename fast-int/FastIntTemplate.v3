@@ -1,6 +1,7 @@
 type X86Val {
     case Reg(r: X86_64Gpr);
     case Vsp(i: int);
+    case ImmU32(x: u32);
 
     def is_reg() -> bool {
         match (this) {
@@ -29,6 +30,7 @@ class CBDFastIntGen extends X86_64InterpreterGen {
     var op_sp: int;
 
     def trapUnreachable();
+    def trap();
 
     new(ic: X86_64InterpreterCode, w: DataWriter) super(ic, w) {
         DISPATCH_TABLE = build_dispatch_table();
@@ -77,6 +79,11 @@ class CBDFastIntGen extends X86_64InterpreterGen {
         I32_ADD();
         adjustVsp(-1);
         endHandler();
+
+        bindHandler(Opcode.I32_EQZ);
+        reset();
+        I32_EQZ();
+        endHandler();
     }
     
     // puts in reg0 if not already in reg
@@ -86,6 +93,10 @@ class CBDFastIntGen extends X86_64InterpreterGen {
             Vsp(i) => {
                 asm.movd_r_m(r_tmp0, vsph[i].value);
                 return r_tmp0;
+            }
+            ImmU32(x) => {
+                asm.movd_r_i(r_tmp1, int.view(x));
+                return r_tmp1;
             }
         }
     }
@@ -127,5 +138,31 @@ class CBDFastIntGen extends X86_64InterpreterGen {
             asm.d.add_r_m(reg_val, stack_val.value);
             return X86Val.Reg(reg_val);
         }
+    }
+
+    def rtcast_u32(x: u32) -> X86Val => X86Val.ImmU32(x);
+
+    def U32_equals(a: X86Val, b: X86Val) -> X86Val {
+        if (b == X86Val.ImmU32(0u)) {
+            asm.d.test_m_i(vsph[-1].value, -1);
+            asm.set_r(X86_64Conds.Z, r_tmp0);
+            return X86Val.Reg(r_tmp0);
+        } else {
+            trap();
+        }
+
+        return X86Val.ImmU32(0xdead);
+    }
+
+    def choose_u(cond: X86Val, left: X86Val, right: X86Val) -> X86Val {
+        if (left == X86Val.ImmU32(1u) && right == X86Val.ImmU32(0u)) {
+            def reg = ensureReg(cond);
+            asm.movbzx_r_r(reg, reg);
+            return X86Val.Reg(reg);
+        } else {
+            trap();
+        }
+
+        return X86Val.ImmU32(0xdead);
     }
 }
