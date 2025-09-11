@@ -29,6 +29,8 @@ class CBDFastIntGen extends X86_64InterpreterGen {
     var DISPATCH_TABLE: Array<void -> void>;
     var op_sp: int;
 
+    var last_cond: X86_64Cond;
+
     def trapUnreachable();
     def trap();
 
@@ -39,6 +41,7 @@ class CBDFastIntGen extends X86_64InterpreterGen {
 
     def reset() {
         op_sp = 0;
+        last_cond = null;
     }
 
     // def genOpcodeHandlers() {
@@ -83,6 +86,12 @@ class CBDFastIntGen extends X86_64InterpreterGen {
         bindHandler(Opcode.I32_EQZ);
         reset();
         I32_EQZ();
+        endHandler();
+
+        bindHandler(Opcode.BR_IF);
+        reset();
+        BR_IF();
+        adjustVsp(-1);
         endHandler();
     }
     
@@ -142,11 +151,34 @@ class CBDFastIntGen extends X86_64InterpreterGen {
 
     def rtcast_u32(x: u32) -> X86Val => X86Val.ImmU32(x);
 
-    def U32_equals(a: X86Val, b: X86Val) -> X86Val {
+    def U32_equals(a: X86Val, b: X86Val) -> X86_64Cond {
         if (b == X86Val.ImmU32(0u)) {
             asm.d.test_m_i(vsph[-1].value, -1);
-            asm.set_r(X86_64Conds.Z, r_tmp0);
-            return X86Val.Reg(r_tmp0);
+            return X86_64Conds.Z;
+        } else {
+            trap();
+            return X86_64Conds.Z;
+        }
+    }
+
+    def U32_not_equals(a: X86Val, b: X86Val) -> X86_64Cond {
+        if (b == X86Val.ImmU32(0u)) {
+            asm.d.test_m_i(vsph[-1].value, -1);
+            return X86_64Conds.NZ;
+        } else {
+            trap();
+            return X86_64Conds.NZ;
+        }
+    }
+
+    def choose_u(cond: X86_64Cond, left: X86Val, right: X86Val) -> X86Val {
+        def cond_reg = r_tmp3;
+        asm.set_r(cond, cond_reg);
+        asm.movbzx_r_r(cond_reg, cond_reg);
+
+        // ugly
+        if (left == X86Val.ImmU32(1u) && right == X86Val.ImmU32(0u)) {
+            return X86Val.Reg(cond_reg);
         } else {
             trap();
         }
@@ -154,15 +186,36 @@ class CBDFastIntGen extends X86_64InterpreterGen {
         return X86Val.ImmU32(0xdead);
     }
 
-    def choose_u(cond: X86Val, left: X86Val, right: X86Val) -> X86Val {
-        if (left == X86Val.ImmU32(1u) && right == X86Val.ImmU32(0u)) {
-            def reg = ensureReg(cond);
-            asm.movbzx_r_r(reg, reg);
-            return X86Val.Reg(reg);
-        } else {
-            trap();
-        }
+    def f_getLabel(depth: X86Val) -> () {
+    }
 
-        return X86Val.ImmU32(0xdead);
+    def doFallthru() {
+        if (last_cond != null) {
+            asm.jc_rel_far(last_cond, controlFallThruLabel);
+            last_cond = null;
+        } else {
+            asm.jmp_rel_far(controlFallThruLabel);
+        }
+    }
+    
+    def doBranch(label: ()) {
+        if (last_cond != null) {
+            asm.jc_rel_far(last_cond, controlTransferLabel);
+            last_cond = null;
+        } else {
+            asm.jmp_rel_far(controlTransferLabel);
+        }
+    }
+
+    def startCond(cond: X86_64Cond) {
+        last_cond = cond;
+    }
+
+    def startElse() {
+        last_cond = null;
+    }
+
+    def endCond() {
+        last_cond = null;
     }
 }
