@@ -89,11 +89,11 @@ class CBDFastIntGen extends X86_64InterpreterGen {
         I32_EQZ();
         endHandler();
 
-//         bindHandler(Opcode.BR_IF);
-//         reset();
-//         BR_IF();
-//         adjustVsp(-1);
-//         endHandler();
+        bindHandler(Opcode.BR_IF);
+        reset();
+        BR_IF();
+        adjustVsp(-1);
+        endHandler();
     }
     
     // puts in reg0 if not already in reg

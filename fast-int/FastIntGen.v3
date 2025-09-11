@@ -89,7 +89,6 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
     }
 }
 
-
 def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     if (!(
                 Strings.equal(opcode, "BR_IF")   ||

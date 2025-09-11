@@ -22,6 +22,7 @@ def main(args: Array<string>) {
 
     def i32_const_pos = w.atEnd().pos;
 
+    // TODO: initialize stubs from X86_64Stack.v3
 
     gen.gen(range_);
 
@@ -84,12 +85,16 @@ def main(args: Array<string>) {
     }
     
     System.puts("Calling main function using fast interpreter\n");
-    
-    def stack_size = 1024;
-    def stack = Array<byte>.new(stack_size);
 
-    def sp = Pointer.atContents(stack);
-    def stack_bp = Pointer.atContents(stack);
+    def stack = X86_64StackManager.getFreshStack();
+    // def result = stack.reset(main_func).resume();
+    
+    // def stack_size = 1024;
+    // def stack = Array<byte>.new(stack_size);
+
+    // def sp = Pointer.atContents(stack);
+    def sp = stack.rsp;
+    def stack_bp = sp;
 
     for (i < 48) {
         def x = (stack_bp + i).load<u8>();
