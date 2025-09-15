@@ -1,91 +1,21 @@
-// TODO: properly handle pops
-def execBoth(cond: string, a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
-    def afx = Vector<CBDEffect>.new();
-    def bfx = Vector<CBDEffect>.new();
-    ctx.collectEffects(a, afx);
-    ctx.collectEffects(b, bfx);
-
-    def a_res = CBDEffects.run_fx(afx);
-    def b_res = CBDEffects.run_fx(bfx);
-    // assert fx equal
-
-    def a_pushes = Vector<(string, string)>.new();
-    def b_pushes = Vector<(string, string)>.new();
-    def a_nopush = collectPushes(a, a_pushes, ctx);
-    def b_nopush = collectPushes(b, b_pushes, ctx);
-    // assert a_pushes.length == b_pushes.length
-
-    // TODO: consider other effects to be filtered,
-    // e.g. locals, globals, memory
-    var res = a_nopush.appended(b_nopush);
-    for (i < a_pushes.length) {
-        def stack_merge = SSAD_IR.uidl("phi");
-        def eff = SSAD_IR.uidl("eff");
-        def tp = ctx.types[a_pushes[i].1];
-        def merge_fn = Strings.format1("choose_%s", if (tp.is_bot(), "val", tp.short_str()));
-        def push_fn = Strings.format1("push_%s", if (tp.is_bot(), "Value", tp.long_str()));
-        def tv = a_pushes[i].0;
-        def merge_args = if(!tp.is_bot(), [cond, a_pushes[i].1, b_pushes[i].1], [cond, tv, a_pushes[i].1, b_pushes[i].1]); 
-        def push_args = if(!tp.is_bot(), [stack_merge], [tv, stack_merge]); 
-        res = res.appended(
-                SSAD.LetApp(stack_merge, merge_fn, merge_args,
-                    SSAD.LetApp(eff, push_fn, push_args, SSAD.Void)));
-    }
-
-    ctx.getStatic(res);
-    ctx.getTypes(res);
-    return res;
+type FastIntLoc {
+    case Reg(r: X86_64Gpr);
+    case Vsp(i: int);
 }
 
-// pushBuf: (varname, typevar name | null)
-def collectPushes(s: SSAD, pushBuf: Vector<(string, string)>, ctx: SSADCtx) -> SSAD {
-    match (s) {
-        Void => return s;
-        Final(_) => return s;
-        Injected(inj, rest) => return SSAD.Injected(inj, collectPushes(rest, pushBuf, ctx));
-        LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, collectPushes(rest, pushBuf, ctx));
-        // defer branch handling to recursion in transformSSA
-        If(c, t, e, phis, rest) => return SSAD.If(c, t, e, phis, collectPushes(rest, pushBuf, ctx));
-        Match(s, branches, rest) => return SSAD.Match(s, branches, collectPushes(rest, pushBuf, ctx));
-        LetApp(n, f, args, rest) => {
-            if (ctx.effects[n] == CBDEffect.Push) {
-                if (args.length == 1) {
-                    // one arg, value being pushed
-                    pushBuf.put(null, args[0]);
-                } else {
-                    // (typevar, value)
-                    pushBuf.put(args[1], args[0]);
-                }
-                return collectPushes(rest, pushBuf, ctx);
-            } else {
-                return SSAD.LetApp(n, f, args, collectPushes(rest, pushBuf, ctx));
-            }
-        }
-    }
+class RegAlloc {
 }
 
-def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
-    def c = node.cond, t = node.then, e = node.els, rest = node.rest;
-    def phis = node.phis;
-    def ctx = transformer.ctx;
+class FastIntCtx {
+    var ctx: SSADCtx;
+    var var_locs: HashMap<string, FastIntLoc>;
+    var path_conds: List<X86_64Cond>;
+    var reg_alloc: RegAlloc;
+    var exec_env: IntExecEnv;
 
-    def t_transform = transformer.transform(t);
-    def e_transform = transformer.transform(e);
-    def r_transform = transformer.transform(rest);
+    new(ctx) {}
 
-    // TODO: could check for returns and choose not to execute a branch
-    if (!ctx.static[c]) {
-        // idk if we need both merges and the startCond + startElse
-        return execBoth(
-                    c, 
-                    SSAD.LetApp("effStartCond", "startCond", [c], t_transform), 
-                    SSAD.LetApp("effStartElse", "startElse", [], e_transform), 
-                    ctx
-                ).appended(
-                    SSAD.LetApp("effEndCond", "endCond", [], r_transform)
-                );
-    } else {
-        return SSAD.If(c, t_transform, e_transform, phis, r_transform);
+    def emit(w: DataWriter) {
     }
 }
 
