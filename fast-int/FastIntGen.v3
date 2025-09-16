@@ -1,242 +1,4 @@
-type FastIntLoc {
-    case Reg(r: X86_64Gpr);
-    case Vsp(i: int);
-
-    def rep() -> string {
-        match (this) {
-            Reg(r) => {
-                def G = X86_64MasmRegs.toGpr;
-                if (r == null) return "NULL_REG";
-                if (r.regnum == G(X86_64MasmRegs.INT_EXEC_ENV.tmp0).regnum) return "r_tmp0"; // TODO: this is dumb
-                if (r.regnum == G(X86_64MasmRegs.INT_EXEC_ENV.tmp1).regnum) return "r_tmp1"; // TODO: this is dumb
-                if (r.regnum == G(X86_64MasmRegs.INT_EXEC_ENV.tmp2).regnum) return "r_tmp2"; // TODO: this is dumb
-                return "r_tmp?";
-            }
-            Vsp(i) => return Strings.format1("vsph[%d].value", i);
-        }
-    }
-}
-
-def trap();
-
-class CBDRegAlloc(xenv: IntExecEnv) {
-    var n: int = 0;
-    def alloc() -> X86_64Gpr {
-        var res = xenv.tmp0;
-        if (n == 1) res = xenv.tmp1;
-        if (n == 2) res = xenv.tmp2;
-        if (n == 3) res = xenv.tmp3;
-        return X86_64MasmRegs.toGpr(res);
-    }
-}
-
-def uidl = SSAD_IR.uidl;
-
-type FastIntExpr {
-    case Loc(loc: FastIntLoc);
-    case Lit(lit: string);
-    case U32_ADD(lhs: string, rhs: string); // indirected so we can change later
-    case U32_EQ(lhs: string, rhs: string);
-    case U32_NEQ(lhs: string, rhs: string);
-    case Choice(cond: string, lhs: string, rhs: string);
-
-    def force_rep() -> string {
-        match (this) {
-            Loc(l) => return l.rep();
-            Lit(l) => return l;
-            _ => return null;
-        }
-    }
-
-    def is_lit(l: string) -> bool {
-        match (this) {
-            Lit(l1) => return Strings.equal(l, l1);
-            _ => return false;
-        }
-    }
-}
-
-class FastIntCtx {
-    // static to opcode (but filled out by this class)
-    var ctx: SSADCtx; // has variable name -> type, effect, stage
-    var reg_alloc: CBDRegAlloc;
-    var sp: int;
-    def xenv: IntExecEnv = X86_64MasmRegs.INT_EXEC_ENV;
-
-    var current_cond: string; // no nesting, null iff no cond
-
-    // changes w/ line
-    var path_conds: List<X86_64Cond>;
-    var var_exprs: HashMap<string, FastIntExpr>;
-
-    // var exec_env: IntExecEnv; // XXX
-
-    new(node: SSAD) {
-        ctx = SSADCtx.new(node);
-        var_exprs = Strings.newMap<FastIntExpr>();
-        path_conds = null;
-        reg_alloc = CBDRegAlloc.new(xenv);
-        sp = 0;
-        current_cond = null;
-    }
-
-    def compile(node: SSAD) -> SSAD {
-        match (node) {
-            LetApp(n, f, args, rest) => {
-                if (Strings.equal(f, "imm_readILEB32")) {
-                    def reg = reg_alloc.alloc();
-                    def loc = FastIntLoc.Reg(reg);
-                    var_exprs[n] = FastIntExpr.Loc(loc);
-                    return SSAD.LetApp(uidl("eff_read"), "genReadSleb32_inline", [loc.rep()], 
-                            SSAD.LetApp(n, "id", [loc.rep()], compile(rest)));
-                } else if (Strings.equal(f, "imm_readULEB32")) {
-                    def reg = reg_alloc.alloc();
-                    def loc = FastIntLoc.Reg(reg);
-                    var_exprs[n] = FastIntExpr.Loc(loc);
-                    return SSAD.LetApp(uidl("eff_read"), "genReadSleb32_inline", [loc.rep()], 
-                            SSAD.LetApp(n, "id", [loc.rep()], compile(rest)));
-                } else if (Strings.equal(f, "pop_u32")) {
-                    sp -= 1;
-                    var_exprs[n] = FastIntExpr.Loc(FastIntLoc.Vsp(sp));
-                    return compile(rest);
-                } else if (Strings.equal(f, "push_u32")) {
-                    def push = push_expr_u32(var_exprs[args[0]]);
-                    sp += 1;
-                    return push.appended(compile(rest));
-                } else if (Strings.equal(f, "u32.+")) {
-                    var_exprs[n] = FastIntExpr.U32_ADD(args[0], args[1]);
-                    return compile(rest);
-                } else if (Strings.equal(f, "u32.==")) {
-                    var_exprs[n] = FastIntExpr.U32_EQ(args[0], args[1]);
-                    return compile(rest);
-                } else if (Strings.equal(f, "u32.!=")) {
-                    var_exprs[n] = FastIntExpr.U32_NEQ(args[0], args[1]);
-                    return compile(rest);
-                } else if (Strings.equal(f, "merge_u")) {
-                    var_exprs[n] = FastIntExpr.Choice(args[0], args[1], args[2]);
-                    return compile(rest);
-                } else if (Strings.equal(f, "doBranch")) {
-                    if (current_cond == null) {
-                        return SSAD.LetApp(n, "jmp_rel_far", ["controlTransferLabel"], compile(rest));
-                    } else {
-                        def test = test_cond(var_exprs[current_cond]);
-                        return test.appended(SSAD.LetApp(n, "jc_rel_far", ["C.Z", "controlTransferLabel"], compile(rest)));
-                    }
-                } else if (Strings.equal(f, "doFallthru")) {
-                    if (current_cond == null) {
-                        return SSAD.LetApp(n, "jmp_rel_far", ["controlFallthruLabel"], compile(rest));
-                    } else {
-                        def test = test_cond(var_exprs[current_cond]);
-                        return test.appended(SSAD.LetApp(n, "jc_rel_far", ["C.Z", "controlFallthruLabel"], compile(rest)));
-                    }
-                } else {
-                    return SSAD.LetApp(n, f, args, compile(rest));
-                }
-            }
-            LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, compile(rest));
-            If(cond, then, els, phis, rest) => {
-                current_cond = cond;
-                def t = compile(then);
-                current_cond = null;
-                def e = compile(els);
-                return t.appended(e).appended(compile(rest));
-            }
-            Match(subj, branches, rest) => return SSAD.Match(subj, branches, compile(rest));
-            Injected(inj, rest) => return SSAD.Injected(inj, compile(rest));
-            Void => return node;
-            Final => return node;
-        }
-    }
-
-    def test_cond(expr: FastIntExpr) -> SSAD {
-        // XXX: assuming br_if test, not eq zero
-        match (expr) {
-            U32_EQ(lhs, rhs) => {
-                // XXX: assuming rhs = 0
-                return SSAD.LetApp(uidl("eff_test"), "test_m_i", [var_exprs[lhs].force_rep(), "-1"], SSAD.Void);
-            }
-            U32_NEQ(lhs, rhs) => {
-                // XXX: assuming rhs = 0
-                return SSAD.LetApp("eff_test", "cmp_m_i", [var_exprs[lhs].force_rep(), "0"], SSAD.Void);
-            }
-            _ => {
-                trap();
-                return SSAD.Void;
-            }
-        }
-    }
-
-    def push_expr_u32(expr: FastIntExpr) -> SSAD {
-        match (expr) {
-            U32_ADD(lhs, rhs) => {
-                if (var_exprs[lhs] == FastIntExpr.Loc(FastIntLoc.Vsp(sp))) {
-                    def reg = reg_alloc.alloc();
-                    def loc = FastIntLoc.Reg(reg);
-                    return 
-                        SSAD.LetApp(uidl("eff_set_reg"), "movd_r_m", [loc.rep(), var_exprs[rhs].force_rep()],
-                            SSAD.LetApp(uidl("eff_stackset"), "add_m_r", [var_exprs[lhs].force_rep(), loc.rep()], SSAD.Void));
-                } else {
-                    trap();
-                    return SSAD.Void; // should probably be unreachable?
-                }
-            }
-            U32_EQ(lhs, rhs) => {
-                return SSAD.Void; // TODO
-            }
-            U32_NEQ(lhs, rhs) => {
-                return SSAD.Void; // TODO
-            }
-            Loc(l) => {
-                def st_loc = FastIntLoc.Vsp(sp);
-                return SSAD.LetApp(uidl("eff_tagpush"), "genTagPush", ["BpTypeCode.I32.code"], 
-                        SSAD.LetApp(uidl("eff_stackset"), "movq_m_r", [st_loc.rep(), l.rep()], SSAD.Void));
-            }
-            Choice(cond, l, r) => {
-                // XXX: assuming eqz
-                def reg = reg_alloc.alloc();
-                def loc = FastIntLoc.Reg(reg);
-                def r = loc.rep();
-                def st_loc = FastIntLoc.Vsp(sp);
-                return 
-                  test_cond(var_exprs[cond]).appended(
-                    SSAD.LetApp(uidl("eff_set_reg"), "set_r", ["C.Z", r],
-                        SSAD.LetApp(uidl("eff_zero"), "movbzx_r_r", [r, r], 
-                            SSAD.LetApp("eff_stackset", "movq_m_r", [st_loc.rep(), r], SSAD.Void))));
-            }
-            Lit(_) => {
-                return SSAD.Void; // TODO
-            }
-        }
-    }
-}
-
-def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
-    if (!(
-                Strings.equal(opcode, "BR_IF")   ||
-                Strings.equal(opcode, "I32_CONST") || 
-                Strings.equal(opcode, "I32_ADD")   ||
-                Strings.equal(opcode, "I32_EQZ")
-        )) return null;
-
-    def ir = SSAD_IR.from_virgil(stmt);
-    def ssa = SSAD_IR.ssa(ir);
-    def analysis = SSADCtx.new(ssa);
-
-    def transformer = SSATransformer.new(analysis);
-    transformer.onIf = flatten_ifs;
-
-    // def transformed = transformer.transform(ssa);
-    var transformed = analysis.id_propagate(transformer.transform(ssa), Strings.newMap<string>());
-    System.puts("==="); System.puts(opcode); System.puts("===\n");
-    System.puts(transformed.toString(0));
-
-    def fast_int_ctx = FastIntCtx.new(transformed);
-    transformed = fast_int_ctx.compile(transformed);
-    def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
-
-    return CBDDef.new(opcode, processed);
-}
-
+// TODO: properly handle pops
 def execBoth(cond: string, a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
     def afx = Vector<CBDEffect>.new();
     def bfx = Vector<CBDEffect>.new();
@@ -255,15 +17,15 @@ def execBoth(cond: string, a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
 
     // TODO: consider other effects to be filtered,
     // e.g. locals, globals, memory
-    var res = a_nopush.appended(b_nopush).filter(runUnconditionally(_, ctx));
+    var res = a_nopush.appended(b_nopush);
     for (i < a_pushes.length) {
-        def stack_merge = SSAD_IR.uidl("stack_merge");
+        def stack_merge = SSAD_IR.uidl("phi");
         def eff = SSAD_IR.uidl("eff");
         def tp = ctx.types[a_pushes[i].1];
-        def merge_fn = Strings.format1("merge_%s", if (tp.is_bot(), "val", tp.short_str()));
+        def merge_fn = Strings.format1("choose_%s", if (tp.is_bot(), "val", tp.short_str()));
         def push_fn = Strings.format1("push_%s", if (tp.is_bot(), "Value", tp.long_str()));
         def tv = a_pushes[i].0;
-        def merge_args = if(!tp.is_bot(), [cond, a_pushes[i].1, b_pushes[i].1], [tv, a_pushes[i].1, b_pushes[i].1]); 
+        def merge_args = if(!tp.is_bot(), [cond, a_pushes[i].1, b_pushes[i].1], [cond, tv, a_pushes[i].1, b_pushes[i].1]); 
         def push_args = if(!tp.is_bot(), [stack_merge], [tv, stack_merge]); 
         res = res.appended(
                 SSAD.LetApp(stack_merge, merge_fn, merge_args,
@@ -302,43 +64,51 @@ def collectPushes(s: SSAD, pushBuf: Vector<(string, string)>, ctx: SSADCtx) -> S
     }
 }
 
-def runUnconditionally(node: SSAD, ctx: SSADCtx) -> bool {
-    return false;
-}
-
-def hasPush(node: SSAD, ctx: SSADCtx) -> bool {
-    match (node) {
-        Void => return false;
-        Final => return false;
-        Injected(inj, rest) => return hasPush(rest, ctx);
-        LetLit(n, l, t, rest) => return hasPush(rest, ctx);
-        If(c, t, e, phis, rest) => return hasPush(t, ctx) || hasPush(e, ctx) || hasPush(rest, ctx);
-        Match(s, branches, rest) => return hasPush(rest, ctx);
-        LetApp(n, f, args, rest) => return (ctx.effects[n] == CBDEffect.Push) || hasPush(rest, ctx);
-    }
-}
-
 def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
     def c = node.cond, t = node.then, e = node.els, rest = node.rest;
     def phis = node.phis;
     def ctx = transformer.ctx;
 
-    ctx.effects[c] = CBDEffect.Emit;
     def t_transform = transformer.transform(t);
     def e_transform = transformer.transform(e);
     def r_transform = transformer.transform(rest);
 
     // TODO: could check for returns and choose not to execute a branch
     if (!ctx.static[c]) {
-        return execBoth(c, t_transform, e_transform, ctx).appended(
-                SSAD.If(c, 
-                    t_transform.filter(fun n => !hasPush(n, ctx)),
-                    e_transform.filter(fun n => !hasPush(n, ctx)),
-                    phis, r_transform)
-        );
+        // idk if we need both merges and the startCond + startElse
+        return execBoth(
+                    c, 
+                    SSAD.LetApp("effStartCond", "startCond", [c], t_transform), 
+                    SSAD.LetApp("effStartElse", "startElse", [], e_transform), 
+                    ctx
+                ).appended(
+                    SSAD.LetApp("effEndCond", "endCond", [], r_transform)
+                );
     } else {
         return SSAD.If(c, t_transform, e_transform, phis, r_transform);
     }
+}
+
+def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
+    if (!(
+                Strings.equal(opcode, "BR_IF")   ||
+                Strings.equal(opcode, "I32_CONST") || 
+                Strings.equal(opcode, "I32_ADD")   ||
+                Strings.equal(opcode, "I32_EQZ")
+        )) return null;
+
+    def ir = SSAD_IR.from_virgil(stmt);
+    def ssa = SSAD_IR.ssa(ir);
+    def analysis = SSADCtx.new(ssa);
+
+    def transformer = SSATransformer.new(analysis);
+    transformer.onIf = flatten_ifs;
+    transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
+
+    def transformed = transformer.transform(ssa);
+    def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
+
+    return CBDDef.new(opcode, processed);
 }
 
 def main(args: Array<string>) {

@@ -1,12 +1,5 @@
-def genTagPush() : emit;
-def add_m_r() : emit;
-def movd_r_m() : emit;
-def movq_m_r() : emit;
-def movbzx_r_r() : emit;
-def set_r() : emit;
-def movq_m_r() : emit;
-def cmp_m_i() : emit;
-def test_m_i() : emit;
-def jmp_rel_far() : emit;
-def jc_rel_far() : emit;
-def u32.==(lhs: u32.V, rhs: u32.V) -> u32.V : emit;
+def imm_readULEB32() -> u32.I : read;
+def imm_readILEB32() -> u32.I : read;
+def startCond(cond: u32.I) : ctl;
+def startElse() : ctl;
+def endCond() : ctl;

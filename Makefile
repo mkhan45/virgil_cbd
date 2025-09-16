@@ -86,15 +86,15 @@ generated/AI.v3: $(GENERATE_DEPS) abstract_interpreter/*.v3 generated/Validator.
 	mv --force $@~ $@
 
 generated/FastInt.v3: $(GENERATE_DEPS) fast-int/*.v3 generated/Validator.v3
-	$(V3C) $(VIRGIL_STD) $(ENGINE) $(UTIL)\
-		$(VIRGIL_X86_STD)\
-		$(WIZARD)/src/engine/compiler/*.v3\
-		$(WIZARD)/src/engine/x86-64/*.v3\
-		gen_common/TierGen.v3 gen_common/VirgilSexpr.v3\
-		gen_common/IR/*.v3\
-		fast-int/FastIntGen.v3
-	./FastIntGen $(DEFS).sexp $(DEFS) fast-int/FastIntTemplate.v3 > $@~
-	rm FastIntGen
+	$(VIRGIL) $(VIRGIL_STD) \
+		$(GENERATE_LIB)\
+		$(ENGINE)\
+		$(WIZARD_UTIL)\
+		fast-int/FastIntGen.v3\
+		$(DEFS).sexp\
+		$(DEFS)\
+		fast-int/FastIntTemplate.v3\
+		> $@~
 	mv --force $@~ $@
 
 validator: generated/Validator.v3
@@ -152,7 +152,7 @@ V3CompilerMain: generated/V3Compiler.v3 validator abstract_interpreter/state_mgr
 
 # Clean build artifacts
 clean:
-	rm -f generated/Interpreter.v3 generated/Compiler.v3 generated/Validator.v3 generated/AI.v3 generated/V3Compiler.v3 $(DEFS).sexp *Main *AI FastIntGen
+	rm -f generated/Interpreter.v3 generated/Compiler.v3 generated/Validator.v3 generated/AI.v3 generated/V3Compiler.v3 $(DEFS).sexp *Main *AI
 
 # Usage instructions
 help:
