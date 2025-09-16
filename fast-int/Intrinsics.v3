@@ -3,3 +3,4 @@ def imm_readILEB32() -> u32.I : read;
 def startCond(cond: u32.I) : ctl;
 def startElse() : ctl;
 def endCond() : ctl;
+def U32_equals(left: u32.I, right: u32.I) -> u32.I : ctl;

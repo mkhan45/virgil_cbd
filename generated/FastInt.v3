@@ -17,13 +17,6 @@ type X86Val {
             _ => return null;
         }
     }
-
-    def forceVsp() -> int {
-        match (this) {
-            Vsp(i) => return i;
-            _ => return 0xdead;
-        }
-    }
 }
 
 class CBDFastIntGen extends X86_64InterpreterGen {
@@ -31,17 +24,31 @@ class CBDFastIntGen extends X86_64InterpreterGen {
     var op_sp: int;
 
     var last_cond: X86_64Cond;
+    var else_label: X86_64Label;
+    var end_label: X86_64Label;
 
     def trapUnreachable();
     def trap();
 
+    var reg_i: int;
+    def reg_alloc() -> X86_64Gpr {
+        reg_i += 1;
+        if (reg_i == 1) return r_tmp1;
+        if (reg_i == 2) return r_tmp2;
+        if (reg_i == 3) return r_tmp3;
+        if (reg_i == 4) return r_tmp4;
+        return null;
+    }
+
     new(ic: X86_64InterpreterCode, w: DataWriter) super(ic, w) {
         DISPATCH_TABLE = build_dispatch_table();
         op_sp = 0;
+        reg_i = 0;
     }
 
     def reset() {
         op_sp = 0;
+        reg_i = 0;
         last_cond = null;
     }
 
@@ -96,127 +103,84 @@ class CBDFastIntGen extends X86_64InterpreterGen {
         endHandler();
     }
     
-    // puts in reg0 if not already in reg
-    def ensureReg(val: X86Val) -> X86_64Gpr {
-        match (val) {
-            Reg(r) => return r;
-            Vsp(i) => {
-                asm.movd_r_m(r_tmp0, vsph[i].value);
-                return r_tmp0;
-            }
-            ImmU32(x) => {
-                asm.movd_r_i(r_tmp1, int.view(x));
-                return r_tmp1;
-            }
-        }
+    def imm_readULEB32() -> X86_64Gpr {
+        def reg = reg_alloc();
+        genReadUleb32(reg);
+        return reg;
     }
 
-    def imm_readULEB32() -> X86Val {
-        genReadUleb32(r_tmp1);
-        return X86Val.Reg(r_tmp1);
+    def imm_readILEB32() -> X86_64Gpr {
+        def reg = reg_alloc();
+        genReadSleb32_inline(reg);
+        return reg;
     }
 
-    def imm_readILEB32() -> X86Val {
-        genReadSleb32_inline(r_tmp1);
-        return X86Val.Reg(r_tmp1);
-    }
-
-    def push_u32(val: X86Val) {
+    def push_u32(reg: X86_64Gpr) {
         genTagPush(BpTypeCode.I32.code);
-        def reg = ensureReg(val);
-
         asm.movq_m_r(vsph[op_sp].value, reg);
         op_sp += 1;
     }
 
-    def pop_u32() -> X86Val {
+    def pop_u32() -> X86_64Gpr {
         op_sp -= 1;
-        return X86Val.Vsp(op_sp);
+        def reg = reg_alloc();
+        asm.movq_r_m(reg, vsph[op_sp].value);
+        return reg;
     }
 
-    def U32_plus(a: X86Val, b: X86Val) -> X86Val {
-        if (a.is_reg() && b.is_reg()) {
-            asm.d.add_r_r(a.forceReg(), b.forceReg());
-            return a;
-        } else if (!a.is_reg() && !b.is_reg()) {
-            def a_reg = ensureReg(a);
-            asm.d.add_r_m(a_reg, vsph[b.forceVsp()].value);
-            return X86Val.Reg(a_reg);
-        } else {
-            def stack_val = vsph[if(a.is_reg(), b, a).forceVsp()];
-            def reg_val = if(a.is_reg(), a, b).forceReg();
-            asm.d.add_r_m(reg_val, stack_val.value);
-            return X86Val.Reg(reg_val);
-        }
+    def U32_plus(a: X86_64Gpr, b: X86_64Gpr) -> X86_64Gpr {
+        asm.d.add_r_r(a, b);
+        return a;
     }
 
-    def rtcast_u32(x: u32) -> X86Val => X86Val.ImmU32(x);
-
-    def U32_equals(a: X86Val, b: X86Val) -> X86_64Cond {
-        if (b == X86Val.ImmU32(0u)) {
-            asm.d.test_m_i(vsph[-1].value, -1);
-            return X86_64Conds.Z;
-        } else {
-            trap();
-            return X86_64Conds.Z;
-        }
+    def rtcast_u32(x: u32) -> X86_64Gpr {
+        def reg = reg_alloc();
+        asm.d.movq_r_i(reg, int.view(x));
+        return reg;
     }
 
-    def U32_not_equals(a: X86Val, b: X86Val) -> X86_64Cond {
-        if (b == X86Val.ImmU32(0u)) {
-            asm.d.test_m_i(vsph[-1].value, -1);
-            return X86_64Conds.NZ;
-        } else {
-            trap();
-            return X86_64Conds.NZ;
-        }
+    def U32_equals(a: X86_64Gpr, b: X86_64Gpr) -> X86_64Cond {
+        asm.d.test_r_r(a, b);
+        return X86_64Conds.Z;
     }
 
-    def choose_u(cond: X86_64Cond, left: X86Val, right: X86Val) -> X86Val {
-        def cond_reg = r_tmp3;
-        asm.set_r(cond, cond_reg);
-        asm.movbzx_r_r(cond_reg, cond_reg);
-
-        // ugly
-        if (left == X86Val.ImmU32(1u) && right == X86Val.ImmU32(0u)) {
-            return X86Val.Reg(cond_reg);
-        } else {
-            trap();
-        }
-
-        return X86Val.ImmU32(0xdead);
+    def U32_not_equals(a: X86_64Gpr, b: X86_64Gpr) -> X86_64Cond {
+        asm.d.cmp_r_r(a, b);
+        return X86_64Conds.NZ;
     }
 
-    def f_getLabel(depth: X86Val) -> () {
+    def choose_u(cond: X86_64Cond, left: X86_64Gpr, right: X86_64Gpr) -> X86_64Gpr {
+        asm.d.cmov_r(cond, right, left);
+        return right;
+    }
+
+    def f_getLabel(depth: X86_64Gpr) -> () {
     }
 
     def doFallthru() {
-        if (last_cond != null) {
-            asm.jc_rel_far(last_cond, controlFallThruLabel);
-            last_cond = null;
-        } else {
-            asm.jmp_rel_far(controlFallThruLabel);
-        }
+        asm.jmp_rel_far(controlFallThruLabel);
     }
     
     def doBranch(label: ()) {
-        if (last_cond != null) {
-            asm.jc_rel_far(last_cond, controlTransferLabel);
-            last_cond = null;
-        } else {
-            asm.jmp_rel_far(controlTransferLabel);
-        }
+        asm.jmp_rel_far(controlTransferLabel);
     }
 
     def startCond(cond: X86_64Cond) {
+        else_label = X86_64Label.new();
+        end_label = X86_64Label.new();
         last_cond = cond;
+
+        asm.d.jc_rel_near(cond, else_label);
     }
 
     def startElse() {
+        asm.d.jmp_rel_near(end_label);
+        asm.bind(else_label);
         last_cond = null;
     }
 
     def endCond() {
+        asm.bind(end_label);
         last_cond = null;
     }
 
@@ -231,11 +195,11 @@ def I32_ADD() {
 }
 def I32_EQZ() {
 	def a = pop_u32();
-	startCond(U32_equals(a, rtcast_u32(0)));
+	def cond = U32_equals(a, rtcast_u32(0));
+	startCond(cond);
 	startElse();
-	def phi = choose_u(U32_equals(a, rtcast_u32(0)), rtcast_u32(1), rtcast_u32(0));
-	push_u32(phi);
 	endCond();
+	push_u32(choose_u(cond, rtcast_u32(1), rtcast_u32(0)));
 }
 def BR_IF() {
 	def depth = imm_readULEB32();

@@ -17,7 +17,9 @@ def execBoth(cond: string, a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
 
     // TODO: consider other effects to be filtered,
     // e.g. locals, globals, memory
-    var res = a_nopush.appended(b_nopush);
+    var res = SSAD.LetApp("effStartCond", "startCond", [cond], a_nopush)
+                .appended(SSAD.LetApp("effStartElse", "startElse", [], b_nopush))
+                .appended(SSAD.LetApp("effEndCond", "endCond", [], SSAD.Void));
     for (i < a_pushes.length) {
         def stack_merge = SSAD_IR.uidl("phi");
         def eff = SSAD_IR.uidl("eff");
@@ -78,12 +80,10 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
         // idk if we need both merges and the startCond + startElse
         return execBoth(
                     c, 
-                    SSAD.LetApp("effStartCond", "startCond", [c], t_transform), 
-                    SSAD.LetApp("effStartElse", "startElse", [], e_transform), 
+                    t_transform,
+                    e_transform,
                     ctx
-                ).appended(
-                    SSAD.LetApp("effEndCond", "endCond", [], r_transform)
-                );
+                ).appended(r_transform);
     } else {
         return SSAD.If(c, t_transform, e_transform, phis, r_transform);
     }
