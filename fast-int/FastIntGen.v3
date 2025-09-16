@@ -27,13 +27,23 @@ def uidl = SSAD_IR.uidl;
 
 type FastIntExpr {
     case Loc(loc: FastIntLoc);
+    case Lit(lit: string);
     case U32_ADD(lhs: string, rhs: string); // indirected so we can change later
+    case U32_EQ(lhs: string, rhs: string);
     case Choice(cond: string, lhs: string, rhs: string);
 
     def force_rep() -> string {
         match (this) {
             Loc(l) => return l.rep();
+            Lit(l) => return l;
             _ => return null;
+        }
+    }
+
+    def is_lit(l: string) -> bool {
+        match (this) {
+            Lit(l1) => return Strings.equal(l, l1);
+            _ => return false;
         }
     }
 }
@@ -42,7 +52,6 @@ class FastIntCtx {
     // static to opcode (but filled out by this class)
     var ctx: SSADCtx; // has variable name -> type, effect, stage
     var reg_alloc: CBDRegAlloc;
-    var stack: Vector<string>;
     var sp: int;
     def xenv: IntExecEnv = X86_64MasmRegs.INT_EXEC_ENV;
 
@@ -59,7 +68,6 @@ class FastIntCtx {
         var_exprs = Strings.newMap<FastIntExpr>();
         path_conds = null;
         reg_alloc = CBDRegAlloc.new(xenv);
-        stack = Vector.new();
         sp = 0;
     }
 
@@ -77,11 +85,9 @@ class FastIntCtx {
                     sp -= 1;
                     var_exprs[n] = FastIntExpr.Loc(FastIntLoc.Vsp(sp));
                     // var_locs[n] = FastIntLoc.Vsp(sp);
-                    stack = Vector<string>.new().put(n).putv(stack); // prepend
                     return compile(rest);
                 } else if (Strings.equal(f, "push_u32")) {
                     sp += 1;
-                    stack.put(args[0]);
                     match (var_exprs[args[0]]) {
                         U32_ADD(lhs, rhs) => {
                             if (var_exprs[lhs] == FastIntExpr.Loc(FastIntLoc.Vsp(sp-1))) {
@@ -95,23 +101,50 @@ class FastIntCtx {
                                 return SSAD.Void; // should probably be unreachable?
                             }
                         }
+                        U32_EQ(lhs, rhs) => {
+                            return SSAD.Void; // TODO
+                        }
                         Loc(l) => {
                             def st_loc = FastIntLoc.Vsp(sp-1);
                             return SSAD.LetApp(uidl("eff_tagpush"), "genTagPush", ["BpTypeCode.I32.code"], 
                                     SSAD.LetApp(uidl("eff_stackset"), "movq_m_r", [st_loc.rep(), l.rep()], compile(rest)));
                         }
                         Choice(cond, l, r) => {
+                            // XXX: assuming eqz
+                            def eqz_cond = FastIntExpr.U32_EQ.!(var_exprs[cond]);
+                            def reg = reg_alloc.alloc();
+                            def loc = FastIntLoc.Reg(reg);
+                            var_exprs[n] = FastIntExpr.Loc(loc);
+                            def r = loc.rep();
+                            def st_loc = FastIntLoc.Vsp(sp-1);
+                            return 
+                                SSAD.LetApp(uidl("eff_set_reg"), "set_r", ["C.Z", r],
+                                    SSAD.LetApp(uidl("eff_zero"), "movbzx_r_r", [r, r], 
+                                        SSAD.LetApp("eff_stackset", "movq_m_r", [st_loc.rep(), r], compile(rest))));
+                        }
+                        Lit(_) => {
                             return SSAD.Void; // TODO
                         }
                     }
                 } else if (Strings.equal(f, "u32.+")) {
                     var_exprs[n] = FastIntExpr.U32_ADD(args[0], args[1]);
                     return compile(rest);
+                } else if (Strings.equal(f, "u32.==")) {
+                    var_exprs[n] = FastIntExpr.U32_EQ(args[0], args[1]);
+                    return compile(rest);
+                } else if (Strings.equal(f, "merge_u")) {
+                    var_exprs[n] = FastIntExpr.Choice(args[0], args[1], args[2]);
+                    return compile(rest);
                 } else {
                     return SSAD.LetApp(n, f, args, compile(rest));
                 }
             }
-            _ => return node;
+            LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, compile(rest));
+            If(cond, then, els, phis, rest) => return SSAD.If(cond, then, els, phis, compile(rest));
+            Match(subj, branches, rest) => return SSAD.Match(subj, branches, compile(rest));
+            Injected(inj, rest) => return SSAD.Injected(inj, compile(rest));
+            Void => return node;
+            Final => return node;
         }
     }
 }
@@ -128,14 +161,111 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     def ssa = SSAD_IR.ssa(ir);
     def analysis = SSADCtx.new(ssa);
 
-    // def transformer = SSATransformer.new(analysis);
+    def transformer = SSATransformer.new(analysis);
+    transformer.onIf = flatten_ifs;
+
     // def transformed = transformer.transform(ssa);
-    var transformed = analysis.id_propagate(ssa, Strings.newMap<string>());
+    var transformed = analysis.id_propagate(transformer.transform(ssa), Strings.newMap<string>());
+    System.puts("==="); System.puts(opcode); System.puts("===\n");
+    System.puts(transformed.toString(0));
+
     def fast_int_ctx = FastIntCtx.new(transformed);
     transformed = fast_int_ctx.compile(transformed);
     def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
 
     return CBDDef.new(opcode, processed);
+}
+
+def execBoth(cond: string, a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
+    def afx = Vector<CBDEffect>.new();
+    def bfx = Vector<CBDEffect>.new();
+    ctx.collectEffects(a, afx);
+    ctx.collectEffects(b, bfx);
+
+    def a_res = CBDEffects.run_fx(afx);
+    def b_res = CBDEffects.run_fx(bfx);
+    // assert fx equal
+
+    def a_pushes = Vector<(string, string)>.new();
+    def b_pushes = Vector<(string, string)>.new();
+    def a_nopush = collectPushes(a, a_pushes, ctx);
+    def b_nopush = collectPushes(b, b_pushes, ctx);
+    // assert a_pushes.length == b_pushes.length
+
+    // TODO: consider other effects to be filtered,
+    // e.g. locals, globals, memory
+    var res = a_nopush.appended(b_nopush);
+    for (i < a_pushes.length) {
+        def stack_merge = SSAD_IR.uidl("stack_merge");
+        def eff = SSAD_IR.uidl("eff");
+        def tp = ctx.types[a_pushes[i].1];
+        def merge_fn = Strings.format1("merge_%s", if (tp.is_bot(), "val", tp.short_str()));
+        def push_fn = Strings.format1("push_%s", if (tp.is_bot(), "Value", tp.long_str()));
+        def tv = a_pushes[i].0;
+        def merge_args = if(!tp.is_bot(), [cond, a_pushes[i].1, b_pushes[i].1], [tv, a_pushes[i].1, b_pushes[i].1]); 
+        def push_args = if(!tp.is_bot(), [stack_merge], [tv, stack_merge]); 
+        res = res.appended(
+                SSAD.LetApp(stack_merge, merge_fn, merge_args,
+                    SSAD.LetApp(eff, push_fn, push_args, SSAD.Void)));
+    }
+
+    ctx.getStatic(res);
+    ctx.getTypes(res);
+    return res;
+}
+
+// pushBuf: (varname, typevar name | null)
+def collectPushes(s: SSAD, pushBuf: Vector<(string, string)>, ctx: SSADCtx) -> SSAD {
+    match (s) {
+        Void => return s;
+        Final(_) => return s;
+        Injected(inj, rest) => return SSAD.Injected(inj, collectPushes(rest, pushBuf, ctx));
+        LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, collectPushes(rest, pushBuf, ctx));
+        // defer branch handling to recursion in transformSSA
+        If(c, t, e, phis, rest) => return SSAD.If(c, t, e, phis, collectPushes(rest, pushBuf, ctx));
+        Match(s, branches, rest) => return SSAD.Match(s, branches, collectPushes(rest, pushBuf, ctx));
+        LetApp(n, f, args, rest) => {
+            if (ctx.effects[n] == CBDEffect.Push) {
+                if (args.length == 1) {
+                    // one arg, value being pushed
+                    pushBuf.put(null, args[0]);
+                } else {
+                    // (typevar, value)
+                    pushBuf.put(args[1], args[0]);
+                }
+                return collectPushes(rest, pushBuf, ctx);
+            } else {
+                return SSAD.LetApp(n, f, args, collectPushes(rest, pushBuf, ctx));
+            }
+        }
+    }
+}
+
+def runUnconditionally(node: SSAD, ctx: SSADCtx) -> bool {
+    return false;
+}
+
+def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
+    def c = node.cond, t = node.then, e = node.els, rest = node.rest;
+    def phis = node.phis;
+    def ctx = transformer.ctx;
+
+    ctx.effects[c] = CBDEffect.Emit;
+    def t_transform = transformer.transform(t);
+    def e_transform = transformer.transform(e);
+    def r_transform = transformer.transform(rest);
+
+    // TODO: could check for returns and choose not to execute a branch
+    if (!ctx.static[c]) {
+        return execBoth(c, t_transform, e_transform, ctx).appended(
+                SSAD.If(c, 
+                    t_transform.filter(runUnconditionally(_, ctx)),
+                    e_transform.filter(runUnconditionally(_, ctx)),
+                    phis, r_transform)
+        );
+    } else {
+        return SSAD.If(c, t_transform, e_transform, phis, r_transform);
+    }
 }
 
 def main(args: Array<string>) {
