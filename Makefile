@@ -94,6 +94,7 @@ generated/FastInt.v3: $(GENERATE_DEPS) fast-int/*.v3 generated/Validator.v3
 		gen_common/IR/*.v3\
 		fast-int/FastIntGen.v3
 	./FastIntGen $(DEFS).sexp $(DEFS) fast-int/FastIntTemplate.v3 > $@~
+	rm FastIntGen
 	mv --force $@~ $@
 
 validator: generated/Validator.v3
@@ -151,7 +152,7 @@ V3CompilerMain: generated/V3Compiler.v3 validator abstract_interpreter/state_mgr
 
 # Clean build artifacts
 clean:
-	rm -f generated/Interpreter.v3 generated/Compiler.v3 generated/Validator.v3 generated/AI.v3 generated/V3Compiler.v3 $(DEFS).sexp *Main *AI
+	rm -f generated/Interpreter.v3 generated/Compiler.v3 generated/Validator.v3 generated/AI.v3 generated/V3Compiler.v3 $(DEFS).sexp *Main *AI FastIntGen
 
 # Usage instructions
 help:
