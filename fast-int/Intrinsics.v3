@@ -1,5 +1,4 @@
-def imm_readULEB32() -> u32.I : read;
-def imm_readILEB32() -> u32.I : read;
-def startCond(cond: u32.I) : ctl;
-def startElse() : ctl;
-def endCond() : ctl;
+def genTagPush() : push;
+def add_m_r() : push;
+def movd_r_m() : push;
+def movq_m_r() : push;

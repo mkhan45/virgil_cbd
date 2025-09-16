@@ -35,7 +35,7 @@ class ASTEval extends AI<
         CFGStateMgr<CBDExpr>.!(state_manager).localAST = fun i => CBDExpr.Prim(Strings.format1("local_%d", i));
     }
 
-    def I32_equals(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("i32_equals", [lhs, rhs]);
+    def I32_equals(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_equals", [lhs, rhs]);
     def I32_not_equals(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_not_equals", [lhs, rhs]);
     def I32_plus(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_plus", [lhs, rhs]);
     def I32_minus(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.Call("I32_minus", [lhs, rhs]);

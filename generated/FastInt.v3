@@ -221,32 +221,29 @@ class CBDFastIntGen extends X86_64InterpreterGen {
     }
 
 def I32_CONST() {
-	def x = imm_readILEB32();
-	push_u32(x);
+	genReadSleb32_inline(r_tmp0);
+	genTagPush(BpTypeCode.I32.code);
+	movq_m_r(vsph[0].value, r_tmp0);
 }
 def I32_ADD() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_plus(a, b));
+	movd_r_m(r_tmp0, vsph[-1].value);
+	add_m_r(vsph[-2].value, r_tmp0);
 }
 def I32_EQZ() {
-	def a = pop_u32();
-	startCond(U32_equals(a, rtcast_u32(0)));
-	startElse();
-	def phi = choose_u(U32_equals(a, rtcast_u32(0)), rtcast_u32(1), rtcast_u32(0));
-	push_u32(phi);
-	endCond();
+	if (u32.==(a__28, 0)) {
+		push_u32(1);
+	} else {
+		push_u32(0);
+	}
 }
 def BR_IF() {
 	def depth = imm_readULEB32();
 	def label = f_getLabel(depth);
-	def cond = pop_u32();
-	def cond1 = U32_not_equals(cond, rtcast_u32(0));
-	startCond(cond1);
-	doBranch(label);
-	startElse();
-	doFallthru();
-	endCond();
+	if (u32.!=(cond__46, 0)) {
+		doBranch(label);
+	} else {
+		doFallthru();
+	}
 }
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);

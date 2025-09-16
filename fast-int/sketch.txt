@@ -5,7 +5,7 @@ def I32_CONST() {
 -->
 def I32_CONST() {
     // have: 
-    //      immReads = [x: i32]
+    //      immReads = [x: i32] // all imm reads need a reg, so we actually don't want this. Instead gen the read into reg
     //      pops     = []
     //      pushes   = [x]
     //      needsReg = [x]

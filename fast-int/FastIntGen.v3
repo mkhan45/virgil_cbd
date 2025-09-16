@@ -1,21 +1,118 @@
 type FastIntLoc {
     case Reg(r: X86_64Gpr);
     case Vsp(i: int);
+
+    def rep() -> string {
+        match (this) {
+            Reg(r) => return "r_tmp0"; // TODO
+            Vsp(i) => return Strings.format1("vsph[%d].value", i);
+        }
+    }
 }
 
-class RegAlloc {
+def trap();
+
+class CBDRegAlloc(xenv: IntExecEnv) {
+    var n: int = 0;
+    def alloc() -> X86_64Gpr {
+        var res = xenv.tmp0;
+        if (n == 1) res = xenv.tmp1;
+        if (n == 2) res = xenv.tmp2;
+        if (n == 3) res = xenv.tmp3;
+        return X86_64MasmRegs.toGpr(res);
+    }
+}
+
+def uidl = SSAD_IR.uidl;
+
+type FastIntExpr {
+    case Loc(loc: FastIntLoc);
+    case U32_ADD(lhs: string, rhs: string); // indirected so we can change later
+    case Choice(cond: string, lhs: string, rhs: string);
+
+    def force_rep() -> string {
+        match (this) {
+            Loc(l) => return l.rep();
+            _ => return null;
+        }
+    }
 }
 
 class FastIntCtx {
-    var ctx: SSADCtx;
-    var var_locs: HashMap<string, FastIntLoc>;
+    // static to opcode (but filled out by this class)
+    var ctx: SSADCtx; // has variable name -> type, effect, stage
+    var reg_alloc: CBDRegAlloc;
+    var stack: Vector<string>;
+    var sp: int;
+    def xenv: IntExecEnv = X86_64MasmRegs.INT_EXEC_ENV;
+
+    // changes w/ line
     var path_conds: List<X86_64Cond>;
-    var reg_alloc: RegAlloc;
-    var exec_env: IntExecEnv;
+    // var var_locs: HashMap<string, FastIntLoc>;
+    var var_exprs: HashMap<string, FastIntExpr>;
 
-    new(ctx) {}
+    // var exec_env: IntExecEnv; // XXX
 
-    def emit(w: DataWriter) {
+    new(node: SSAD) {
+        ctx = SSADCtx.new(node);
+        // var_locs = Strings.newMap<FastIntLoc>();
+        var_exprs = Strings.newMap<FastIntExpr>();
+        path_conds = null;
+        reg_alloc = CBDRegAlloc.new(xenv);
+        stack = Vector.new();
+        sp = 0;
+    }
+
+    def compile(node: SSAD) -> SSAD {
+        match (node) {
+            LetApp(n, f, args, rest) => {
+                if (Strings.equal(f, "imm_readILEB32")) {
+                    def reg = reg_alloc.alloc();
+                    def loc = FastIntLoc.Reg(reg);
+                    // var_locs[n] = loc;
+                    var_exprs[n] = FastIntExpr.Loc(loc);
+                    return SSAD.LetApp(uidl("eff_read"), "genReadSleb32_inline", [loc.rep()], 
+                            SSAD.LetApp(n, "id", [loc.rep()], compile(rest)));
+                } else if (Strings.equal(f, "pop_u32")) {
+                    sp -= 1;
+                    var_exprs[n] = FastIntExpr.Loc(FastIntLoc.Vsp(sp));
+                    // var_locs[n] = FastIntLoc.Vsp(sp);
+                    stack = Vector<string>.new().put(n).putv(stack); // prepend
+                    return compile(rest);
+                } else if (Strings.equal(f, "push_u32")) {
+                    sp += 1;
+                    stack.put(args[0]);
+                    match (var_exprs[args[0]]) {
+                        U32_ADD(lhs, rhs) => {
+                            if (var_exprs[lhs] == FastIntExpr.Loc(FastIntLoc.Vsp(sp-1))) {
+                                def reg = reg_alloc.alloc();
+                                def loc = FastIntLoc.Reg(reg);
+                                return 
+                                    SSAD.LetApp(uidl("eff_set_reg"), "movd_r_m", [loc.rep(), var_exprs[rhs].force_rep()],
+                                        SSAD.LetApp(uidl("eff_stackset"), "add_m_r", [var_exprs[lhs].force_rep(), loc.rep()], compile(rest)));
+                            } else {
+                                trap();
+                                return SSAD.Void; // should probably be unreachable?
+                            }
+                        }
+                        Loc(l) => {
+                            def st_loc = FastIntLoc.Vsp(sp-1);
+                            return SSAD.LetApp(uidl("eff_tagpush"), "genTagPush", ["BpTypeCode.I32.code"], 
+                                    SSAD.LetApp(uidl("eff_stackset"), "movq_m_r", [st_loc.rep(), l.rep()], compile(rest)));
+                        }
+                        Choice(cond, l, r) => {
+                            return SSAD.Void; // TODO
+                        }
+                    }
+                } else if (Strings.equal(f, "u32.+")) {
+                    var_exprs[n] = FastIntExpr.U32_ADD(args[0], args[1]);
+                    return compile(rest);
+                } else {
+                    return SSAD.LetApp(n, f, args, compile(rest));
+                }
+            }
+            _ => return node;
+        }
     }
 }
 
@@ -31,11 +128,11 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     def ssa = SSAD_IR.ssa(ir);
     def analysis = SSADCtx.new(ssa);
 
-    def transformer = SSATransformer.new(analysis);
-    transformer.onIf = flatten_ifs;
-    transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
-
-    def transformed = transformer.transform(ssa);
+    // def transformer = SSATransformer.new(analysis);
+    // def transformed = transformer.transform(ssa);
+    var transformed = analysis.id_propagate(ssa, Strings.newMap<string>());
+    def fast_int_ctx = FastIntCtx.new(transformed);
+    transformed = fast_int_ctx.compile(transformed);
     def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
 
     return CBDDef.new(opcode, processed);
