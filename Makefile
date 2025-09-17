@@ -19,9 +19,12 @@ GENERATE_DEPS = $(GENERATE_LIB) $(DEFS) $(DEFS).sexp $(TYPEDEFS)
 AIS = $(foreach I,$(wildcard abstract_interpreter/impls/*.v3),$(basename $I)AI.v3)
 
 # Targets
-.PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler abstract_interpreter
+.PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler abstract_interpreter wizeng
 
 all: validator interpreter InterpreterMain abstract_interpreter
+
+wizeng: generated/FastInt.v3
+	cd wizard-engine; make -j
 
 $(DEFS).sexp: wizard-engine/src/bytecode/CanonicalDefs.v3
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
