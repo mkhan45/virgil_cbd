@@ -107,6 +107,11 @@ class CBDFastIntGen extends X86_64InterpreterGen {
         return a;
     }
 
+    def U32_minus(a: X86_64Gpr, b: X86_64Gpr) -> X86_64Gpr {
+        asm.d.sub_r_r(a, b);
+        return a;
+    }
+
     def rtcast_u32(x: u32) -> X86_64Gpr {
         def reg = reg_alloc();
         asm.d.movq_r_i(reg, int.view(x));
@@ -123,20 +128,14 @@ class CBDFastIntGen extends X86_64InterpreterGen {
         return X86_64Conds.NZ;
     }
 
-    def choose_u(cond: X86_64Cond, left: X86_64Gpr, right: X86_64Gpr) -> X86_64Gpr {
-        asm.d.cmov_r(cond, left, right);
-        return left;
-    }
-
-    def f_getLabel(depth: X86_64Gpr) -> () {
-    }
+    def f_getLabel(depth: X86_64Gpr) -> () { }
 
     def doFallthru() {
         genSkipSidetableEntry();
     }
     
     def doBranch(label: ()) {
-        asm.jmp_rel_far(controlTransferLabel);
+        // asm.jmp_rel_far(controlTransferLabel);
     }
 
     def startCond(cond: X86_64Cond) {

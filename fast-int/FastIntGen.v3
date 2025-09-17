@@ -77,7 +77,7 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
 }
 
 def cbd_opcodes : Array<string> = [
-    "BR_IF", "I32_CONST", "I32_ADD", "I32_EQZ"
+    "BR_IF", "I32_CONST", "I32_ADD", "I32_SUB", "I32_EQZ"
 ];
 
 class FastIntCBDDef extends CBDDef {

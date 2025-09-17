@@ -70,8 +70,8 @@ class CBDV3Interpreter(it: V3Interpreter) {
         while (it.frame != null && it.codeptr.available() > 0) {
             it.frame.pc = it.codeptr.pos;
             def opcode = it.codeptr.read_opcode();
-            System.puti(it.frame.pc); System.puts(": "); printStack();
-            System.puts(opcode.mnemonic); System.ln();
+            // System.puti(it.frame.pc); System.puts(": "); printStack();
+            // System.puts(opcode.mnemonic); System.ln();
             DISPATCH_TABLE[opcode.tag]();
         }
     }
