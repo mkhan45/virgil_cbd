@@ -1,4 +1,3 @@
-// TODO: properly handle pops
 def execBoth(cond: string, a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
     def afx = Vector<CBDEffect>.new();
     def bfx = Vector<CBDEffect>.new();
@@ -9,14 +8,6 @@ def execBoth(cond: string, a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
     def b_res = CBDEffects.run_fx(bfx);
     // assert fx equal
 
-    def a_pushes = Vector<(string, string)>.new();
-    def b_pushes = Vector<(string, string)>.new();
-    def a_nopush = collectPushes(a, a_pushes, ctx);
-    def b_nopush = collectPushes(b, b_pushes, ctx);
-    // assert a_pushes.length == b_pushes.length
-
-    // TODO: consider other effects to be filtered,
-    // e.g. locals, globals, memory
     var res = SSAD.LetApp("effStartCond", "startCond", [cond], a)
                 .appended(SSAD.LetApp("effStartElse", "startElse", [], b))
                 .appended(SSAD.LetApp("effEndCond", "endCond", [], SSAD.Void));
@@ -24,33 +15,6 @@ def execBoth(cond: string, a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
     ctx.getStatic(res);
     ctx.getTypes(res);
     return res;
-}
-
-// pushBuf: (varname, typevar name | null)
-def collectPushes(s: SSAD, pushBuf: Vector<(string, string)>, ctx: SSADCtx) -> SSAD {
-    match (s) {
-        Void => return s;
-        Final(_) => return s;
-        Injected(inj, rest) => return SSAD.Injected(inj, collectPushes(rest, pushBuf, ctx));
-        LetLit(n, l, t, rest) => return SSAD.LetLit(n, l, t, collectPushes(rest, pushBuf, ctx));
-        // defer branch handling to recursion in transformSSA
-        If(c, t, e, phis, rest) => return SSAD.If(c, t, e, phis, collectPushes(rest, pushBuf, ctx));
-        Match(s, branches, rest) => return SSAD.Match(s, branches, collectPushes(rest, pushBuf, ctx));
-        LetApp(n, f, args, rest) => {
-            if (ctx.effects[n] == CBDEffect.Push) {
-                if (args.length == 1) {
-                    // one arg, value being pushed
-                    pushBuf.put(null, args[0]);
-                } else {
-                    // (typevar, value)
-                    pushBuf.put(args[1], args[0]);
-                }
-                return collectPushes(rest, pushBuf, ctx);
-            } else {
-                return SSAD.LetApp(n, f, args, collectPushes(rest, pushBuf, ctx));
-            }
-        }
-    }
 }
 
 def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
@@ -62,9 +26,7 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
     def e_transform = transformer.transform(e);
     def r_transform = transformer.transform(rest);
 
-    // TODO: could check for returns and choose not to execute a branch
     if (!ctx.static[c]) {
-        // idk if we need both merges and the startCond + startElse
         return execBoth(
                     c, 
                     t_transform,
