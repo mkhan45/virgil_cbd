@@ -17,22 +17,25 @@ def execBoth(cond: string, a: SSAD, b: SSAD, ctx: SSADCtx) -> SSAD {
 
     // TODO: consider other effects to be filtered,
     // e.g. locals, globals, memory
-    var res = SSAD.LetApp("effStartCond", "startCond", [cond], a_nopush)
-                .appended(SSAD.LetApp("effStartElse", "startElse", [], b_nopush))
+    var res = SSAD.LetApp("effStartCond", "startCond", [cond], a)
+                .appended(SSAD.LetApp("effStartElse", "startElse", [], b))
                 .appended(SSAD.LetApp("effEndCond", "endCond", [], SSAD.Void));
-    for (i < a_pushes.length) {
-        def stack_merge = SSAD_IR.uidl("phi");
-        def eff = SSAD_IR.uidl("eff");
-        def tp = ctx.types[a_pushes[i].1];
-        def merge_fn = Strings.format1("choose_%s", if (tp.is_bot(), "val", tp.short_str()));
-        def push_fn = Strings.format1("push_%s", if (tp.is_bot(), "Value", tp.long_str()));
-        def tv = a_pushes[i].0;
-        def merge_args = if(!tp.is_bot(), [cond, a_pushes[i].1, b_pushes[i].1], [cond, tv, a_pushes[i].1, b_pushes[i].1]); 
-        def push_args = if(!tp.is_bot(), [stack_merge], [tv, stack_merge]); 
-        res = res.appended(
-                SSAD.LetApp(stack_merge, merge_fn, merge_args,
-                    SSAD.LetApp(eff, push_fn, push_args, SSAD.Void)));
-    }
+    // var res = SSAD.LetApp("effStartCond", "startCond", [cond], a_nopush)
+    //             .appended(SSAD.LetApp("effStartElse", "startElse", [], b_nopush))
+    //             .appended(SSAD.LetApp("effEndCond", "endCond", [], SSAD.Void));
+    // for (i < a_pushes.length) {
+    //     def stack_merge = SSAD_IR.uidl("phi");
+    //     def eff = SSAD_IR.uidl("eff");
+    //     def tp = ctx.types[a_pushes[i].1];
+    //     def merge_fn = Strings.format1("choose_%s", if (tp.is_bot(), "val", tp.short_str()));
+    //     def push_fn = Strings.format1("push_%s", if (tp.is_bot(), "Value", tp.long_str()));
+    //     def tv = a_pushes[i].0;
+    //     def merge_args = if(!tp.is_bot(), [cond, a_pushes[i].1, b_pushes[i].1], [cond, tv, a_pushes[i].1, b_pushes[i].1]); 
+    //     def push_args = if(!tp.is_bot(), [stack_merge], [tv, stack_merge]); 
+    //     res = res.appended(
+    //             SSAD.LetApp(stack_merge, merge_fn, merge_args,
+    //                 SSAD.LetApp(eff, push_fn, push_args, SSAD.Void)));
+    // }
 
     ctx.getStatic(res);
     ctx.getTypes(res);

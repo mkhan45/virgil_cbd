@@ -20,22 +20,24 @@ type X86Val {
 
 class CBDFastIntGen extends X86_64InterpreterGen {
     var DISPATCH_TABLE: Array<void -> void>;
-    var op_sp: int;
+    // var op_sp: int;
 
-    var last_cond: X86_64Cond;
-    var else_label: X86_64Label;
-    var end_label: X86_64Label;
+    // var last_cond: X86_64Cond;
+    // var else_label: X86_64Label;
+    // var end_label: X86_64Label;
+
+    // var reg_i: int;
 
     def trapUnreachable();
     def trap();
 
-    var reg_i: int;
     def reg_alloc() -> X86_64Gpr {
         reg_i += 1;
-        if (reg_i == 1) return r_tmp1;
-        if (reg_i == 2) return r_tmp2;
-        if (reg_i == 3) return r_tmp3;
-        if (reg_i == 4) return r_tmp4;
+        if (reg_i == 1) return r_tmp0;
+        if (reg_i == 2) return r_tmp1;
+        if (reg_i == 3) return r_tmp2;
+        if (reg_i == 4) return r_tmp3;
+        if (reg_i == 5) return r_tmp4;
         return null;
     }
 
@@ -139,7 +141,7 @@ class CBDFastIntGen extends X86_64InterpreterGen {
     }
 
     def U32_equals(a: X86_64Gpr, b: X86_64Gpr) -> X86_64Cond {
-        asm.d.test_r_r(a, b);
+        asm.d.cmp_r_r(a, b);
         return X86_64Conds.Z;
     }
 
@@ -149,15 +151,15 @@ class CBDFastIntGen extends X86_64InterpreterGen {
     }
 
     def choose_u(cond: X86_64Cond, left: X86_64Gpr, right: X86_64Gpr) -> X86_64Gpr {
-        asm.d.cmov_r(cond, right, left);
-        return right;
+        asm.d.cmov_r(cond, left, right);
+        return left;
     }
 
     def f_getLabel(depth: X86_64Gpr) -> () {
     }
 
     def doFallthru() {
-        asm.jmp_rel_far(controlFallThruLabel);
+        genSkipSidetableEntry();
     }
     
     def doBranch(label: ()) {

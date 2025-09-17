@@ -1,5 +1,6 @@
-def imm_readULEB32() -> u32.I : read;
-def imm_readILEB32() -> u32.I : read;
+def imm_readULEB32() -> u32.I : none;
+def imm_readILEB32() -> u32.I : none;
+def f_getLabel(depth: void) -> Label.I : none;
 def startCond(cond: u32.I) : ctl;
 def startElse() : ctl;
 def endCond() : ctl;
