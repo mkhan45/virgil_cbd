@@ -132,6 +132,7 @@ class SSATransformer(ctx: SSADCtx) {
 component SSAD_IR {
     var counter = 0;
     var substs = HashMap<string, string>.new(Strings.hash, Strings.equal);
+    var assign_substs = HashMap<string, Vector<string>>.new(Strings.hash, Strings.equal);
 
     def subst(s: string) -> string {
         return if(substs[s] == null, s, substs[s]);
@@ -145,6 +146,13 @@ component SSAD_IR {
     def uidl(l: string) -> string {
         def res = Strings.format2("%s__%d", l, counter);
         counter += 1;
+        return res;
+    }
+    def assign_uid(l: string) -> string {
+        def res = Strings.format2("%s__%d", l, counter);
+        counter += 1;
+        if (!assign_substs.has(l)) assign_substs[l] = Vector.new();
+        assign_substs[l].put(res);
         return res;
     }
 
@@ -185,6 +193,9 @@ component SSAD_IR {
                 }
 
                 return from_virgil_expr(c_var, subj, SSAD.Match(c_var, ir_branches, rest));
+            }
+            Assign(v, e) => {
+                return from_virgil_expr(assign_uid(v), e, rest);
             }
             _ => return SSAD.Void; // TODO
         }

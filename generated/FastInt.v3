@@ -168,6 +168,25 @@ def BR_IF() {
 	doFallthru();
 	endCond();
 }
+def I32_LOAD() {
+	def flags = imm_readU8();
+	def cond = Value_equals(u8_and(flags, HAS_MEM_INDEX), 0);
+	startCond(cond);
+	startElse();
+	endCond();
+	def cond1 = m_isMemory64(0u);
+	if (cond1) {
+		def offset = imm_readULEB64();
+		def index = pop_u64();
+		def val = mach_readMemory64_u32(0u, index, offset);
+		push_u32(val);
+	} else {
+		def offset1 = imm_readULEB32();
+		def index1 = pop_u32();
+		def val1 = mach_readMemory32_u32(0u, index1, offset1);
+		push_u32(val1);
+	}
+}
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
   for (i < 0xE5 + 1) DISPATCH_TABLE[i] = trapUnreachable;
@@ -176,6 +195,7 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.I32_SUB.tag] = I32_SUB;
   DISPATCH_TABLE[Opcode.I32_EQZ.tag] = I32_EQZ;
   DISPATCH_TABLE[Opcode.BR_IF.tag] = BR_IF;
+  DISPATCH_TABLE[Opcode.I32_LOAD.tag] = I32_LOAD;
   return DISPATCH_TABLE;
 }
 def genCBDHandlers() {
@@ -207,6 +227,12 @@ def genCBDHandlers() {
 	reset();
 	BR_IF();
 	adjustVsp(-1);
+	endHandler();
+
+	bindHandler(Opcode.I32_LOAD);
+	reset();
+	I32_LOAD();
+	adjustVsp(0);
 	endHandler();
 
 }
