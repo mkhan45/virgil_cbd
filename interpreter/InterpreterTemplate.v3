@@ -37,10 +37,20 @@ class CBDV3Interpreter(it: V3Interpreter) {
 
     var sidetables: Array<Array<u8>>;
 
+    // for wizeng
+    def init_module(module: Module) {
+        DISPATCH_TABLE = build_dispatch_table();
+        Validator.init(module, []);
+    }
+
     // for InterpreterMain
     def init(instance: Instance, args: Array<int>) {
         def module = instance.module;
         DISPATCH_TABLE = build_dispatch_table();
+        for (op in Opcode) if (op.tag < DISPATCH_TABLE.length) { // XXX: why bounds check?
+            // if (DISPATCH_TABLE[op.tag] == null) DISPATCH_TABLE[op.tag] = fun => it.execOp(it.frame.pc, op);
+            if (DISPATCH_TABLE[op.tag] == null) DISPATCH_TABLE[op.tag] = trapUnreachable;
+        }
 
         var main_idx = -1;
         for (i < module.exports.length) {

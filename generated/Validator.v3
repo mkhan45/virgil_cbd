@@ -561,7 +561,7 @@ def F64_STORE() {
 }
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
-  for (i < 0xE5 + 1) DISPATCH_TABLE[i] = trapUnreachable;
+  for (i < 0xE5 + 1) DISPATCH_TABLE[i] = null;
   DISPATCH_TABLE[Opcode.UNREACHABLE.tag] = UNREACHABLE;
   DISPATCH_TABLE[Opcode.NOP.tag] = NOP;
   DISPATCH_TABLE[Opcode.LOCAL_GET.tag] = LOCAL_GET;

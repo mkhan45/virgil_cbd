@@ -189,7 +189,7 @@ def I32_LOAD() {
 }
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
-  for (i < 0xE5 + 1) DISPATCH_TABLE[i] = trapUnreachable;
+  for (i < 0xE5 + 1) DISPATCH_TABLE[i] = null;
   DISPATCH_TABLE[Opcode.I32_CONST.tag] = I32_CONST;
   DISPATCH_TABLE[Opcode.I32_ADD.tag] = I32_ADD;
   DISPATCH_TABLE[Opcode.I32_SUB.tag] = I32_SUB;

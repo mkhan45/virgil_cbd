@@ -38,10 +38,20 @@ class CBDV3Interpreter(it: V3Interpreter) {
 
     var sidetables: Array<Array<u8>>;
 
+    // for wizeng
+    def init_module(module: Module) {
+        DISPATCH_TABLE = build_dispatch_table();
+        Validator.init(module, []);
+    }
+
     // for InterpreterMain
     def init(instance: Instance, args: Array<int>) {
         def module = instance.module;
         DISPATCH_TABLE = build_dispatch_table();
+        for (op in Opcode) if (op.tag < DISPATCH_TABLE.length) { // XXX: why bounds check?
+            // if (DISPATCH_TABLE[op.tag] == null) DISPATCH_TABLE[op.tag] = fun => it.execOp(it.frame.pc, op);
+            if (DISPATCH_TABLE[op.tag] == null) DISPATCH_TABLE[op.tag] = trapUnreachable;
+        }
 
         var main_idx = -1;
         for (i < module.exports.length) {
@@ -867,6 +877,9 @@ def STRUCT_GET_U() {
 }
 def I32_LOAD() {
 	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+		def memindex = imm_readULEB32();
+	}
 	def cond = m_isMemory64(0u);
 	if (cond) {
 		def offset = imm_readULEB64();
@@ -882,6 +895,9 @@ def I32_LOAD() {
 }
 def I32_LOAD8_U() {
 	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+		def memindex = imm_readULEB32();
+	}
 	def cond = m_isMemory64(0u);
 	if (cond) {
 		def offset = imm_readULEB64();
@@ -897,6 +913,9 @@ def I32_LOAD8_U() {
 }
 def I32_LOAD16_S() {
 	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+		def memindex = imm_readULEB32();
+	}
 	def cond = m_isMemory64(0u);
 	if (cond) {
 		def offset = imm_readULEB64();
@@ -912,6 +931,9 @@ def I32_LOAD16_S() {
 }
 def I64_LOAD() {
 	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+		def memindex = imm_readULEB32();
+	}
 	def cond = m_isMemory64(0u);
 	if (cond) {
 		def offset = imm_readULEB64();
@@ -927,6 +949,9 @@ def I64_LOAD() {
 }
 def F32_LOAD() {
 	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+		def memindex = imm_readULEB32();
+	}
 	def cond = m_isMemory64(0u);
 	if (cond) {
 		def offset = imm_readULEB64();
@@ -942,6 +967,9 @@ def F32_LOAD() {
 }
 def F64_LOAD() {
 	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+		def memindex = imm_readULEB32();
+	}
 	def cond = m_isMemory64(0u);
 	if (cond) {
 		def offset = imm_readULEB64();
@@ -957,6 +985,9 @@ def F64_LOAD() {
 }
 def I32_STORE() {
 	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+		def memindex = imm_readULEB32();
+	}
 	def val = pop_u32();
 	def cond = m_isMemory64(0u);
 	if (cond) {
@@ -971,6 +1002,9 @@ def I32_STORE() {
 }
 def I32_STORE8() {
 	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+		def memindex = imm_readULEB32();
+	}
 	def val = pop_u32();
 	def cond = m_isMemory64(0u);
 	if (cond) {
@@ -985,6 +1019,9 @@ def I32_STORE8() {
 }
 def I32_STORE16() {
 	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+		def memindex = imm_readULEB32();
+	}
 	def val = pop_u32();
 	def cond = m_isMemory64(0u);
 	if (cond) {
@@ -999,6 +1036,9 @@ def I32_STORE16() {
 }
 def I64_STORE() {
 	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+		def memindex = imm_readULEB32();
+	}
 	def val = pop_u64();
 	def cond = m_isMemory64(0u);
 	if (cond) {
@@ -1013,6 +1053,9 @@ def I64_STORE() {
 }
 def F32_STORE() {
 	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+		def memindex = imm_readULEB32();
+	}
 	def val = pop_f32();
 	def cond = m_isMemory64(0u);
 	if (cond) {
@@ -1025,6 +1068,9 @@ def F32_STORE() {
 }
 def F64_STORE() {
 	def flags = imm_readU8();
+	if (u8.==(u8.&(flags, HAS_MEM_INDEX), 0)) {
+		def memindex = imm_readULEB32();
+	}
 	def val = pop_f64();
 	def cond = m_isMemory64(0u);
 	if (cond) {
@@ -1039,7 +1085,7 @@ def F64_STORE() {
 }
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
-  for (i < 0xE5 + 1) DISPATCH_TABLE[i] = trapUnreachable;
+  for (i < 0xE5 + 1) DISPATCH_TABLE[i] = null;
   DISPATCH_TABLE[Opcode.UNREACHABLE.tag] = UNREACHABLE;
   DISPATCH_TABLE[Opcode.NOP.tag] = NOP;
   DISPATCH_TABLE[Opcode.LOCAL_GET.tag] = LOCAL_GET;
