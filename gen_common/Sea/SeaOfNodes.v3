@@ -1,0 +1,105 @@
+class NodeSet {
+    var m: HashMap<IRNode, void>;
+    new() {
+        m = HashMap<IRNode, void>.new(n => n.id, (l, r) => l.id == r.id);
+    }
+
+    def has(node: IRNode) -> bool => m.has(node);
+    def put(node: IRNode) { m[node] = void; }
+    def remove(node: IRNode) { m.remove(node); }
+    def apply(f: IRNode -> void) { m.apply(fun (k, v) => f(k)); }
+}
+
+class Sea {
+    var roots: NodeSet;
+    var id_count: int;
+
+    new() {
+        roots = NodeSet.new();
+        id_count = 0;
+    }
+
+    def mkNode(op: IROp) -> IRNode {
+        def node = IRNode.new(op, id_count);
+        id_count += 1;
+
+        def args = node.args();
+        for (arg in args) roots.remove(arg);
+    }
+
+    def toSSAD(node: IRNode, res: SSAD, visited: NodeSet) -> SSAD {
+        if (visited.has(node)) return res;
+
+        var working_res = res;
+        for (arg in node.args()) {
+            working_res = toSSAD(arg, working_res, visited);
+        }
+
+        visited.put(node);
+        match (node.op) {
+            Intrinsic(defn, args) => {
+                // instantiate LetApp, append to working_res
+            }
+            Phi(cond, left, right) => {
+                // append If to working_res 
+            }
+            MatchPhi(subj, cases) => {
+                // append match to working_res
+            }
+        }
+
+        return working_res;
+    }
+}
+
+component Seas {
+    def ofSSAD(node: SSAD) -> Sea {
+    }
+}
+
+class IRNode {
+    var op: IROp;
+    def id: int;
+    var data: NodeData;
+
+    new(op, id) {
+    }
+
+    def args() -> Array<IRNode> => op.immediatePredecessors();
+
+    def pushPredecessors(buf: Vector<IRNode>) -> Vector<IRNode> {
+        // infinite loops if cyclic
+        for (a in args()) {
+            buf.put(a);
+            a.pushPredecessors(buf);
+        }
+
+        return buf;
+    }
+
+    def predecessors() -> Vector<IRNode> {
+        def buf = Vector<IRNode>.new();
+        return pushPredecessors(buf);
+    }
+}
+
+class NodeData {
+    var typ: TypeVar;
+    var eff: CBDEffect;
+    var stage: Stage;
+    var sourceName: string; // var name in source def, preserved for generating nice code
+}
+
+type IROp {
+    case Intrinsic(defn: IntrinsicTypedef, args: Array<IRNode>);
+    case Phi(cond: IRNode, left: IRNode, right: IRNode);
+    case MatchPhi(subj: IRNode, cases: Array<IRNode>);
+
+    def immediatePredecessors() -> Array<IRNode> {
+        match (this) {
+            Intrinsic(defn, args) => return args;
+            Phi(cond, left, right) => return [cond, left, right];
+            MatchPhi(subj, cases) => return Arrays.prepend(cases, subj);
+        }
+    }
+}
