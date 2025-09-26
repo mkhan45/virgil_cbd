@@ -166,10 +166,264 @@ def I32_GT_U() {
 	def a = pop_u32();
 	push_u32(rtcast_u32(1));
 }
+def I32_LE_U() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(rtcast_u32(1));
+}
+def I32_GT_S() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(rtcast_u32(1));
+}
+def I32_GE_U() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(rtcast_u32(1));
+}
+def I32_GE_S() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(rtcast_u32(1));
+}
 def I32_AND() {
 	def b = pop_u32();
 	def a = pop_u32();
 	push_u32(U32_and(a, b));
+}
+def I32_OR() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_or(a, b));
+}
+def I32_XOR() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_or(a, b));
+}
+def I32_SHL() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_shl(a, b));
+}
+def I32_SHR_U() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_shr_u(a, b));
+}
+def I32_SHR_S() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_shr_s(a, b));
+}
+def I32_ROTL() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_rotl(a, b));
+}
+def I32_ROTR() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_rotr(a, b));
+}
+def I32_CLZ() {
+	def a = pop_u32();
+	push_u32(U32_clz(a));
+}
+def I32_CTZ() {
+	def a = pop_u32();
+	push_u32(U32_ctz(a));
+}
+def I32_POPCNT() {
+	def a = pop_u32();
+	push_u32(U32_popcnt(a));
+}
+def I32_REM_S() {
+	def b = pop_u32();
+	def a = pop_u32();
+	trapDivideByZero();
+	push_u32(U32_rem_s(a, b));
+}
+def I32_REM_U() {
+	def b = pop_u32();
+	def a = pop_u32();
+	trapDivideByZero();
+	push_u32(U32_rem_u(a, b));
+}
+def I32_EXTEND8_S() {
+	def a = pop_u32();
+	def r = U32_extend8_s(a);
+	push_u32(r);
+}
+def I32_EXTEND16_S() {
+	def a = pop_u32();
+	def r = U32_extend16_s(a);
+	push_u32(r);
+}
+def I64_CONST() {
+	def x = imm_readILEB64();
+	push_u64(rtcast_u64(x));
+}
+def I64_ADD() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_plus(a, b));
+}
+def I64_SUB() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_minus(a, b));
+}
+def I64_MUL() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_times(a, b));
+}
+def I64_DIV_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	trapDivideByZero();
+	trapDivideUnrepresentable();
+	push_u64(U64_div_s(a, b));
+}
+def I64_DIV_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	trapDivideByZero();
+	push_u64(U64_div(a, b));
+}
+def I64_REM_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	trapDivideByZero();
+	push_u64(U64_rem_s(a, b));
+}
+def I64_REM_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	trapDivideByZero();
+	push_u64(U64_rem_u(a, b));
+}
+def I64_AND() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_and(a, b));
+}
+def I64_OR() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_or(a, b));
+}
+def I64_XOR() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_or(a, b));
+}
+def I64_SHL() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_shl(a, b));
+}
+def I64_SHR_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_shr_u(a, b));
+}
+def I64_SHR_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_shr_s(a, b));
+}
+def I64_ROTL() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_rotl(a, b));
+}
+def I64_ROTR() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_rotr(a, b));
+}
+def I64_CLZ() {
+	def a = pop_u64();
+	push_u64(U64_clz(a));
+}
+def I64_CTZ() {
+	def a = pop_u64();
+	push_u64(U64_ctz(a));
+}
+def I64_POPCNT() {
+	def a = pop_u64();
+	push_u64(U64_popcnt(a));
+}
+def I64_EQZ() {
+	def a = pop_u64();
+	push_u32(rtcast_u32(1));
+}
+def I64_EQ() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u32(rtcast_u32(1));
+}
+def I64_NE() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u32(rtcast_u32(1));
+}
+def I64_LT_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u32(rtcast_u32(1));
+}
+def I64_LT_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u32(rtcast_u32(1));
+}
+def I64_LE_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u32(rtcast_u32(1));
+}
+def I64_LE_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u32(rtcast_u32(1));
+}
+def I64_GT_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u32(rtcast_u32(1));
+}
+def I64_GT_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u32(rtcast_u32(1));
+}
+def I64_GE_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u32(rtcast_u32(1));
+}
+def I64_GE_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u32(rtcast_u32(1));
+}
+def I64_EXTEND8_S() {
+	def a = pop_u64();
+	def r = U64_extend8_s(a);
+	push_u64(r);
+}
+def I64_EXTEND16_S() {
+	def a = pop_u64();
+	def r = U64_extend16_s(a);
+	push_u64(r);
+}
+def I64_EXTEND32_S() {
+	def a = pop_u64();
+	def r = U64_extend32_s(a);
+	push_u64(r);
 }
 def F32_CONST() {
 	def x = imm_readULEB32();
@@ -589,7 +843,58 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.I32_LT_S.tag] = I32_LT_S;
   DISPATCH_TABLE[Opcode.I32_LE_S.tag] = I32_LE_S;
   DISPATCH_TABLE[Opcode.I32_GT_U.tag] = I32_GT_U;
+  DISPATCH_TABLE[Opcode.I32_LE_U.tag] = I32_LE_U;
+  DISPATCH_TABLE[Opcode.I32_GT_S.tag] = I32_GT_S;
+  DISPATCH_TABLE[Opcode.I32_GE_U.tag] = I32_GE_U;
+  DISPATCH_TABLE[Opcode.I32_GE_S.tag] = I32_GE_S;
   DISPATCH_TABLE[Opcode.I32_AND.tag] = I32_AND;
+  DISPATCH_TABLE[Opcode.I32_OR.tag] = I32_OR;
+  DISPATCH_TABLE[Opcode.I32_XOR.tag] = I32_XOR;
+  DISPATCH_TABLE[Opcode.I32_SHL.tag] = I32_SHL;
+  DISPATCH_TABLE[Opcode.I32_SHR_U.tag] = I32_SHR_U;
+  DISPATCH_TABLE[Opcode.I32_SHR_S.tag] = I32_SHR_S;
+  DISPATCH_TABLE[Opcode.I32_ROTL.tag] = I32_ROTL;
+  DISPATCH_TABLE[Opcode.I32_ROTR.tag] = I32_ROTR;
+  DISPATCH_TABLE[Opcode.I32_CLZ.tag] = I32_CLZ;
+  DISPATCH_TABLE[Opcode.I32_CTZ.tag] = I32_CTZ;
+  DISPATCH_TABLE[Opcode.I32_POPCNT.tag] = I32_POPCNT;
+  DISPATCH_TABLE[Opcode.I32_REM_S.tag] = I32_REM_S;
+  DISPATCH_TABLE[Opcode.I32_REM_U.tag] = I32_REM_U;
+  DISPATCH_TABLE[Opcode.I32_EXTEND8_S.tag] = I32_EXTEND8_S;
+  DISPATCH_TABLE[Opcode.I32_EXTEND16_S.tag] = I32_EXTEND16_S;
+  DISPATCH_TABLE[Opcode.I64_CONST.tag] = I64_CONST;
+  DISPATCH_TABLE[Opcode.I64_ADD.tag] = I64_ADD;
+  DISPATCH_TABLE[Opcode.I64_SUB.tag] = I64_SUB;
+  DISPATCH_TABLE[Opcode.I64_MUL.tag] = I64_MUL;
+  DISPATCH_TABLE[Opcode.I64_DIV_S.tag] = I64_DIV_S;
+  DISPATCH_TABLE[Opcode.I64_DIV_U.tag] = I64_DIV_U;
+  DISPATCH_TABLE[Opcode.I64_REM_S.tag] = I64_REM_S;
+  DISPATCH_TABLE[Opcode.I64_REM_U.tag] = I64_REM_U;
+  DISPATCH_TABLE[Opcode.I64_AND.tag] = I64_AND;
+  DISPATCH_TABLE[Opcode.I64_OR.tag] = I64_OR;
+  DISPATCH_TABLE[Opcode.I64_XOR.tag] = I64_XOR;
+  DISPATCH_TABLE[Opcode.I64_SHL.tag] = I64_SHL;
+  DISPATCH_TABLE[Opcode.I64_SHR_U.tag] = I64_SHR_U;
+  DISPATCH_TABLE[Opcode.I64_SHR_S.tag] = I64_SHR_S;
+  DISPATCH_TABLE[Opcode.I64_ROTL.tag] = I64_ROTL;
+  DISPATCH_TABLE[Opcode.I64_ROTR.tag] = I64_ROTR;
+  DISPATCH_TABLE[Opcode.I64_CLZ.tag] = I64_CLZ;
+  DISPATCH_TABLE[Opcode.I64_CTZ.tag] = I64_CTZ;
+  DISPATCH_TABLE[Opcode.I64_POPCNT.tag] = I64_POPCNT;
+  DISPATCH_TABLE[Opcode.I64_EQZ.tag] = I64_EQZ;
+  DISPATCH_TABLE[Opcode.I64_EQ.tag] = I64_EQ;
+  DISPATCH_TABLE[Opcode.I64_NE.tag] = I64_NE;
+  DISPATCH_TABLE[Opcode.I64_LT_S.tag] = I64_LT_S;
+  DISPATCH_TABLE[Opcode.I64_LT_U.tag] = I64_LT_U;
+  DISPATCH_TABLE[Opcode.I64_LE_S.tag] = I64_LE_S;
+  DISPATCH_TABLE[Opcode.I64_LE_U.tag] = I64_LE_U;
+  DISPATCH_TABLE[Opcode.I64_GT_S.tag] = I64_GT_S;
+  DISPATCH_TABLE[Opcode.I64_GT_U.tag] = I64_GT_U;
+  DISPATCH_TABLE[Opcode.I64_GE_S.tag] = I64_GE_S;
+  DISPATCH_TABLE[Opcode.I64_GE_U.tag] = I64_GE_U;
+  DISPATCH_TABLE[Opcode.I64_EXTEND8_S.tag] = I64_EXTEND8_S;
+  DISPATCH_TABLE[Opcode.I64_EXTEND16_S.tag] = I64_EXTEND16_S;
+  DISPATCH_TABLE[Opcode.I64_EXTEND32_S.tag] = I64_EXTEND32_S;
   DISPATCH_TABLE[Opcode.F32_CONST.tag] = F32_CONST;
   DISPATCH_TABLE[Opcode.F32_ADD.tag] = F32_ADD;
   DISPATCH_TABLE[Opcode.F32_SUB.tag] = F32_SUB;
@@ -683,17 +988,79 @@ def pushTypes(ts: Array<ValueType>) {
 // Constants
 def HAS_MEM_INDEX = 0x40u8;
 
-def U32_equals = TypeVar.U32.testop(u32.==);
-def U32_not_equals = TypeVar.U32.testop(u32.!=);
-def U32_plus = TypeVar.U32.binop(u32.+);
-def U32_minus = TypeVar.U32.binop(u32.-);
-def U32_div = TypeVar.U32.binop(u32./);
-def U32_lt = TypeVar.U32.testop(u32.<);
-def U32_lte = TypeVar.U32.testop(u32.<=);
-def U32_gt = TypeVar.U32.testop(u32.>);
-def U32_times = TypeVar.U32.binop(u32.*);
-def U32_and = TypeVar.U32.binop(u32.&);
+def f32_reinterpret_u32(i: TypeVar.U32) -> TypeVar.F32;
+def f64_reinterpret_u64(i: TypeVar.U64) -> TypeVar.F64;
+def u32_reinterpret_f32(f: TypeVar.F32) -> TypeVar.U32;
+def u64_reinterpret_f64(f: TypeVar.F64) -> TypeVar.U64;
 
+// U64
+def U32_plus(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_minus(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_times(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_div(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_div_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_rem_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_rem_u(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_lt(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_lte(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_lt_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_le_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_gt(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_gt_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_ge_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_ge_u(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_equals(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_not_equals(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_and(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_or(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+
+def U32_clz(x: TypeVar.U32) => TypeVar.U32;
+def U32_ctz(x: TypeVar.U32) => TypeVar.U32;
+def U32_popcnt(x: TypeVar.U32) => TypeVar.U32;
+def U32_shl(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_shr_u(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_shr_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_rotl(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_rotr(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+
+def U32_extend8_s(x: TypeVar.U32) -> TypeVar.U32;
+def U32_extend16_s(x: TypeVar.U32) -> TypeVar.U32;
+
+// U64
+def U64_plus(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_minus(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_times(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_div(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_div_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_rem_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_rem_u(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_lt(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_lte(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_lt_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_le_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_gt(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_gt_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_ge_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_ge_u(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_equals(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_not_equals(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_and(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_or(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+
+def U64_clz(x: TypeVar.U64) => TypeVar.U64;
+def U64_ctz(x: TypeVar.U64) => TypeVar.U64;
+def U64_popcnt(x: TypeVar.U64) => TypeVar.U64;
+def U64_shl(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_shr_u(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_shr_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_rotl(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_rotr(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+
+def U64_extend8_s(x: TypeVar.U64) -> TypeVar.U64;
+def U64_extend16_s(x: TypeVar.U64) -> TypeVar.U64;
+def U64_extend32_s(x: TypeVar.U64) -> TypeVar.U64;
+
+// F32
 def F32_equals = TypeVar.F32.testop(float.==);
 def F32_not_equals = TypeVar.F32.testop(float.==);
 def F32_lt = TypeVar.F32.testop(float.<);
@@ -736,13 +1103,10 @@ def valTypeFromTypeVar(tv: TypeVar) -> ValueType {
     }
 }
 
-def rtcast_u32(x: u32) -> TypeVar.U32 {
-    return TypeVar.U32;
-}
+def rtcast_u32(x: u32) => TypeVar.U32;
+def rtcast_u64(x: u64) => TypeVar.U64;
 def rtcast_i32 = rtcast_u32;
-def rtcast_f32(x: float) -> TypeVar.F32 {
-    return TypeVar.F32;
-}
+def rtcast_f32(x: float) => TypeVar.F32;
 
 enum FieldKind {
     U8, U16, U32, U64, F32, F64, V128, REF
@@ -1057,15 +1421,6 @@ def doTry(bt: (Array<ValueType>, Array<ValueType>)) {
 def f_isAtEnd() -> bool {
     return codeptr.pos >= codeptr.data.length;
 }
-
-def f32_reinterpret_u32(i: TypeVar.U32) -> TypeVar.F32;
-def f64_reinterpret_u64(i: TypeVar.U64) -> TypeVar.F64;
-def u32_reinterpret_f32(f: TypeVar.F32) -> TypeVar.U32;
-def u64_reinterpret_f64(f: TypeVar.F64) -> TypeVar.U64;
-
-def U32_div_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_lt_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_le_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 
 def push_locals(count: u32, vtc: ValueTypeCode) {
     var tv: TypeVar;

@@ -29,6 +29,12 @@ class CBDWasmStack(cbd_interpreter: CBDV3Interpreter) extends WasmStack {
     // def tryHandleSwitch = it.tryHandleSwitch;
 }
 
+def conv_i32_op(op: (i32, i32) -> i32) -> ((u32, u32) -> u32) => fun (x, y) => u32.view(op(i32.view(x), i32.view(y)));
+def conv_i32_testop(op: (i32, i32) -> bool) -> ((u32, u32) -> bool) => fun (x, y) => op(i32.view(x), i32.view(y));
+
+def conv_i64_op(op: (i64, i64) -> i64) -> ((u64, u64) -> u64) => fun (x, y) => u64.view(op(i64.view(x), i64.view(y)));
+def conv_i64_testop(op: (i64, i64) -> bool) -> ((u64, u64) -> bool) => fun (x, y) => op(i64.view(x), i64.view(y));
+
 class CBDV3Interpreter(it: V3Interpreter) {
     // can't extend V3Interpreter directly bc some intrinsics overlap with method names
 
@@ -392,9 +398,47 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def u32_reinterpret_f32(f: float) -> u32;
     def u64_reinterpret_f64(f: double) -> u64;
 
-    def U32_div_s(lhs: u32, rhs: u32) -> u32 => u32.view(i32.view(lhs) / i32.view(rhs));
-    def U32_lt_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) < i32.view(rhs);
-    def U32_le_s(lhs: u32, rhs: u32) -> bool => i32.view(lhs) <= i32.view(rhs);
+     // XXX: traps
+    def U32_div_s = conv_i32_op(i32./);
+    def U32_rem_s = conv_i32_op(i32.%);
+    def U32_rem_u(x: u32, y: u32) => x % y;
+    def U32_lt_s = conv_i32_testop(i32.<);
+    def U32_le_s = conv_i32_testop(i32.<=);
+    def U32_gt_s = conv_i32_testop(i32.>);
+    def U32_ge_s = conv_i32_testop(i32.>=);
+    def U32_ge_u(x: u32, y: u32) => x >= y;
+
+    def U32_clz = V3Eval.I32_CLZ;
+    def U32_ctz = V3Eval.I32_CTZ;
+    def U32_popcnt = V3Eval.I32_POPCNT;
+    def U32_shl = conv_i32_op(V3Eval.I32_SHL);
+    def U32_shr_u = conv_i32_op(V3Eval.I32_SHR_U);
+    def U32_shr_s = conv_i32_op(V3Eval.I32_SHR_S);
+    def U32_rotl = V3Eval.I32_ROTL;
+    def U32_rotr = V3Eval.I32_ROTR;
+    def U32_extend8_s(x: u32) => u32.view(V3Eval.I32_EXTEND8_S(int.view(x)));
+    def U32_extend16_s(x: u32) => u32.view(V3Eval.I32_EXTEND16_S(int.view(x)));
+
+    def U64_div_s = conv_i64_op(i64./);
+    def U64_rem_s = conv_i64_op(i64.%);
+    def U64_rem_u(x: u64, y: u64) => x % y;
+    def U64_lt_s = conv_i64_testop(i64.<);
+    def U64_le_s = conv_i64_testop(i64.<=);
+    def U64_gt_s = conv_i64_testop(i64.>);
+    def U64_ge_s = conv_i64_testop(i64.>=);
+    def U64_ge_u(x: u64, y: u64) => x >= y;
+
+    def U64_clz = V3Eval.I64_CLZ;
+    def U64_ctz = V3Eval.I64_CTZ;
+    def U64_popcnt = V3Eval.I64_POPCNT;
+    def U64_shl = V3Eval.I64_SHL;
+    def U64_shr_u = V3Eval.I64_SHR_U;
+    def U64_shr_s = conv_i64_op(V3Eval.I64_SHR_S);
+    def U64_rotl = V3Eval.I64_ROTL;
+    def U64_rotr = V3Eval.I64_ROTR;
+    def U64_extend8_s(x: u64) => u64.view(V3Eval.I64_EXTEND8_S(int.view(x)));
+    def U64_extend16_s(x: u64) => u64.view(V3Eval.I64_EXTEND16_S(int.view(x)));
+    def U64_extend32_s(x: u64) => u64.view(V3Eval.I64_EXTEND32_S(int.view(x)));
 
     def get_st_entry(size: int) -> Range<u8> {
         def stp = it.frame.stp;

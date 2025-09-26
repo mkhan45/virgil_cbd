@@ -23,8 +23,8 @@ AIS = $(foreach I,$(wildcard abstract_interpreter/impls/*.v3),$(basename $I)AI.v
 
 all: validator interpreter InterpreterMain abstract_interpreter
 
-wizeng: generated/FastInt.v3
-	cd wizard-engine; make -B -j x86-64-linux
+wizeng: generated/FastInt.v3 generated/Interpreter.v3
+	cd wizard-engine; make -B -j bin/wizeng.x86-64-linux bin/wizeng.x86-linux
 
 $(DEFS).sexp: wizard-engine/src/bytecode/CanonicalDefs.v3
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp

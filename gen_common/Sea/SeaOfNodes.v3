@@ -1,7 +1,7 @@
 class NodeSet {
     var m: HashMap<IRNode, void>;
     new() {
-        m = HashMap<IRNode, void>.new(n => n.id, (l, r) => l.id == r.id);
+        m = HashMap<IRNode, void>.new(fun n => n.id, fun (l, r) => l.id == r.id);
     }
 
     def has(node: IRNode) -> bool => m.has(node);
@@ -25,6 +25,8 @@ class Sea {
 
         def args = node.args();
         for (arg in args) roots.remove(arg);
+
+        return node;
     }
 
     def toSSAD(node: IRNode, res: SSAD, visited: NodeSet) -> SSAD {
@@ -54,6 +56,7 @@ class Sea {
 
 component Seas {
     def ofSSAD(node: SSAD) -> Sea {
+        return null;
     }
 }
 
@@ -99,7 +102,7 @@ type IROp {
         match (this) {
             Intrinsic(defn, args) => return args;
             Phi(cond, left, right) => return [cond, left, right];
-            MatchPhi(subj, cases) => return Arrays.prepend(cases, subj);
+            MatchPhi(subj, cases) => return Arrays.prepend(subj, cases);
         }
     }
 }

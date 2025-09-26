@@ -384,6 +384,8 @@ component IntrinsicTypes {
         if (Strings.endsWith(op_str, "/")) prose_op = "div";
         if (Strings.endsWith(op_str, "&&")) prose_op = "and";
         if (Strings.endsWith(op_str, "&")) prose_op = "and";
+        if (Strings.endsWith(op_str, "|")) prose_op = "or";
+        if (Strings.endsWith(op_str, "^")) prose_op = "or";
         if (Strings.endsWith(op_str, "+")) prose_op = "plus";
         if (Strings.endsWith(op_str, "-")) prose_op = "minus";
         if (Strings.endsWith(op_str, "<")) prose_op = "lt";

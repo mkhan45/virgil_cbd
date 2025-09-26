@@ -49,17 +49,79 @@ def pushTypes(ts: Array<ValueType>) {
 // Constants
 def HAS_MEM_INDEX = 0x40u8;
 
-def U32_equals = TypeVar.U32.testop(u32.==);
-def U32_not_equals = TypeVar.U32.testop(u32.!=);
-def U32_plus = TypeVar.U32.binop(u32.+);
-def U32_minus = TypeVar.U32.binop(u32.-);
-def U32_div = TypeVar.U32.binop(u32./);
-def U32_lt = TypeVar.U32.testop(u32.<);
-def U32_lte = TypeVar.U32.testop(u32.<=);
-def U32_gt = TypeVar.U32.testop(u32.>);
-def U32_times = TypeVar.U32.binop(u32.*);
-def U32_and = TypeVar.U32.binop(u32.&);
+def f32_reinterpret_u32(i: TypeVar.U32) -> TypeVar.F32;
+def f64_reinterpret_u64(i: TypeVar.U64) -> TypeVar.F64;
+def u32_reinterpret_f32(f: TypeVar.F32) -> TypeVar.U32;
+def u64_reinterpret_f64(f: TypeVar.F64) -> TypeVar.U64;
 
+// U64
+def U32_plus(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_minus(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_times(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_div(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_div_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_rem_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_rem_u(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_lt(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_lte(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_lt_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_le_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_gt(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_gt_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_ge_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_ge_u(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_equals(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_not_equals(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_and(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_or(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+
+def U32_clz(x: TypeVar.U32) => TypeVar.U32;
+def U32_ctz(x: TypeVar.U32) => TypeVar.U32;
+def U32_popcnt(x: TypeVar.U32) => TypeVar.U32;
+def U32_shl(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_shr_u(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_shr_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_rotl(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_rotr(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+
+def U32_extend8_s(x: TypeVar.U32) -> TypeVar.U32;
+def U32_extend16_s(x: TypeVar.U32) -> TypeVar.U32;
+
+// U64
+def U64_plus(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_minus(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_times(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_div(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_div_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_rem_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_rem_u(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_lt(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_lte(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_lt_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_le_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_gt(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_gt_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_ge_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_ge_u(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_equals(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_not_equals(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_and(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_or(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+
+def U64_clz(x: TypeVar.U64) => TypeVar.U64;
+def U64_ctz(x: TypeVar.U64) => TypeVar.U64;
+def U64_popcnt(x: TypeVar.U64) => TypeVar.U64;
+def U64_shl(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_shr_u(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_shr_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_rotl(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_rotr(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+
+def U64_extend8_s(x: TypeVar.U64) -> TypeVar.U64;
+def U64_extend16_s(x: TypeVar.U64) -> TypeVar.U64;
+def U64_extend32_s(x: TypeVar.U64) -> TypeVar.U64;
+
+// F32
 def F32_equals = TypeVar.F32.testop(float.==);
 def F32_not_equals = TypeVar.F32.testop(float.==);
 def F32_lt = TypeVar.F32.testop(float.<);
@@ -102,13 +164,10 @@ def valTypeFromTypeVar(tv: TypeVar) -> ValueType {
     }
 }
 
-def rtcast_u32(x: u32) -> TypeVar.U32 {
-    return TypeVar.U32;
-}
+def rtcast_u32(x: u32) => TypeVar.U32;
+def rtcast_u64(x: u64) => TypeVar.U64;
 def rtcast_i32 = rtcast_u32;
-def rtcast_f32(x: float) -> TypeVar.F32 {
-    return TypeVar.F32;
-}
+def rtcast_f32(x: float) => TypeVar.F32;
 
 enum FieldKind {
     U8, U16, U32, U64, F32, F64, V128, REF
@@ -423,15 +482,6 @@ def doTry(bt: (Array<ValueType>, Array<ValueType>)) {
 def f_isAtEnd() -> bool {
     return codeptr.pos >= codeptr.data.length;
 }
-
-def f32_reinterpret_u32(i: TypeVar.U32) -> TypeVar.F32;
-def f64_reinterpret_u64(i: TypeVar.U64) -> TypeVar.F64;
-def u32_reinterpret_f32(f: TypeVar.F32) -> TypeVar.U32;
-def u64_reinterpret_f64(f: TypeVar.F64) -> TypeVar.U64;
-
-def U32_div_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_lt_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_le_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 
 def push_locals(count: u32, vtc: ValueTypeCode) {
     var tv: TypeVar;
