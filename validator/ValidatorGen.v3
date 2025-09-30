@@ -33,7 +33,7 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
     def e_res = CBDEffects.run_fx(efx);
     // assert t_res.stack_delta == e_res.stack_delta
 
-    if (!ctx.static[node.cond]) {
+    if (!ctx.static[node.cond] && node.phis.length == 0) {
         // TODO: what to do with phis?
         // we should assume that the effects on each side are equivalent
         // by some notion
@@ -44,9 +44,17 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
         // more complex
         // TODO: this doesn't really account for if there are pops in each branch
         def ef = node.els.filter(runUnconditionally(_, ctx));
-        return node.then.appended(ef).appended(node.rest);
+        return transformer.transformChildren(node.then.appended(ef).appended(node.rest));
     } else {
-        return node;
+        // all typevar bools should be true
+        if (ctx.types[node.cond] == TypeVar.U32) {
+            def bool_cond = SSAD_IR.uidl("bool_cond");
+            return SSAD.LetApp(bool_cond, "to_true", [node.cond],
+                    transformer.transformChildren(SSAD.If(bool_cond, node.then, node.els, node.phis, node.rest)));
+        } else {
+            return transformer.transformChildren(node);
+        }
+        // return node;
     }
 }
 
@@ -62,7 +70,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
 
     def transformer = SSATransformer.new(analysis);
     transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
-    transformer.onIf = TB(flatten_ifs).then(SSAT.transformChildren).f;
+    transformer.onIf = TB(flatten_ifs).f;
     def transformed = transformer.transform(ssa);
     def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
     // def processed = transformed;

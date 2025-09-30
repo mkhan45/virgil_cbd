@@ -631,7 +631,11 @@ def STRUCT_GET_U() {
 }
 def I32_LOAD() {
 	def flags = imm_readU8();
-	def memindex = imm_readULEB32();
+	def rtcast = rtcast_byte(0u8);
+	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
+	if (bool_cond) {
+		var memindex = imm_readULEB32();
+	}
 	def cond = m_isMemory64(0u);
 	if (cond) {
 		def offset = imm_readULEB64();
@@ -647,7 +651,11 @@ def I32_LOAD() {
 }
 def I32_LOAD8_U() {
 	def flags = imm_readU8();
-	def memindex = imm_readULEB32();
+	def rtcast = rtcast_byte(0u8);
+	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
+	if (bool_cond) {
+		var memindex = imm_readULEB32();
+	}
 	def cond = m_isMemory64(0u);
 	if (cond) {
 		def offset = imm_readULEB64();
@@ -663,7 +671,11 @@ def I32_LOAD8_U() {
 }
 def I32_LOAD16_S() {
 	def flags = imm_readU8();
-	def memindex = imm_readULEB32();
+	def rtcast = rtcast_byte(0u8);
+	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
+	if (bool_cond) {
+		var memindex = imm_readULEB32();
+	}
 	def cond = m_isMemory64(0u);
 	if (cond) {
 		def offset = imm_readULEB64();
@@ -679,7 +691,11 @@ def I32_LOAD16_S() {
 }
 def I64_LOAD() {
 	def flags = imm_readU8();
-	def memindex = imm_readULEB32();
+	def rtcast = rtcast_byte(0u8);
+	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
+	if (bool_cond) {
+		var memindex = imm_readULEB32();
+	}
 	def cond = m_isMemory64(0u);
 	if (cond) {
 		def offset = imm_readULEB64();
@@ -695,7 +711,11 @@ def I64_LOAD() {
 }
 def F32_LOAD() {
 	def flags = imm_readU8();
-	def memindex = imm_readULEB32();
+	def rtcast = rtcast_byte(0u8);
+	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
+	if (bool_cond) {
+		var memindex = imm_readULEB32();
+	}
 	def cond = m_isMemory64(0u);
 	if (cond) {
 		def offset = imm_readULEB64();
@@ -711,7 +731,11 @@ def F32_LOAD() {
 }
 def F64_LOAD() {
 	def flags = imm_readU8();
-	def memindex = imm_readULEB32();
+	def rtcast = rtcast_byte(0u8);
+	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
+	if (bool_cond) {
+		var memindex = imm_readULEB32();
+	}
 	def cond = m_isMemory64(0u);
 	if (cond) {
 		def offset = imm_readULEB64();
@@ -727,7 +751,11 @@ def F64_LOAD() {
 }
 def I32_STORE() {
 	def flags = imm_readU8();
-	def memindex = imm_readULEB32();
+	def rtcast = rtcast_byte(0u8);
+	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
+	if (bool_cond) {
+		var memindex = imm_readULEB32();
+	}
 	def val = pop_u32();
 	def cond = m_isMemory64(0u);
 	if (cond) {
@@ -742,7 +770,11 @@ def I32_STORE() {
 }
 def I32_STORE8() {
 	def flags = imm_readU8();
-	def memindex = imm_readULEB32();
+	def rtcast = rtcast_byte(0u8);
+	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
+	if (bool_cond) {
+		var memindex = imm_readULEB32();
+	}
 	def val = pop_u32();
 	def cond = m_isMemory64(0u);
 	if (cond) {
@@ -757,7 +789,11 @@ def I32_STORE8() {
 }
 def I32_STORE16() {
 	def flags = imm_readU8();
-	def memindex = imm_readULEB32();
+	def rtcast = rtcast_byte(0u8);
+	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
+	if (bool_cond) {
+		var memindex = imm_readULEB32();
+	}
 	def val = pop_u32();
 	def cond = m_isMemory64(0u);
 	if (cond) {
@@ -772,7 +808,11 @@ def I32_STORE16() {
 }
 def I64_STORE() {
 	def flags = imm_readU8();
-	def memindex = imm_readULEB32();
+	def rtcast = rtcast_byte(0u8);
+	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
+	if (bool_cond) {
+		var memindex = imm_readULEB32();
+	}
 	def val = pop_u64();
 	def cond = m_isMemory64(0u);
 	if (cond) {
@@ -787,7 +827,11 @@ def I64_STORE() {
 }
 def F32_STORE() {
 	def flags = imm_readU8();
-	def memindex = imm_readULEB32();
+	def rtcast = rtcast_byte(0u8);
+	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
+	if (bool_cond) {
+		var memindex = imm_readULEB32();
+	}
 	def val = pop_f32();
 	def cond = m_isMemory64(0u);
 	if (cond) {
@@ -800,7 +844,11 @@ def F32_STORE() {
 }
 def F64_STORE() {
 	def flags = imm_readU8();
-	def memindex = imm_readULEB32();
+	def rtcast = rtcast_byte(0u8);
+	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
+	if (bool_cond) {
+		var memindex = imm_readULEB32();
+	}
 	def val = pop_f64();
 	def cond = m_isMemory64(0u);
 	if (cond) {
@@ -986,7 +1034,8 @@ def pushTypes(ts: Array<ValueType>) {
 }
 
 // Constants
-def HAS_MEM_INDEX = 0x40u8;
+// def HAS_MEM_INDEX = 0x40u;
+def HAS_MEM_INDEX = TypeVar.U32;
 
 def f32_reinterpret_u32(i: TypeVar.U32) -> TypeVar.F32;
 def f64_reinterpret_u64(i: TypeVar.U64) -> TypeVar.F64;
@@ -1103,6 +1152,8 @@ def valTypeFromTypeVar(tv: TypeVar) -> ValueType {
     }
 }
 
+def to_true(x: TypeVar.U32) => true;
+def rtcast_byte(x: u8) => TypeVar.U32;
 def rtcast_u32(x: u32) => TypeVar.U32;
 def rtcast_u64(x: u64) => TypeVar.U64;
 def rtcast_i32 = rtcast_u32;

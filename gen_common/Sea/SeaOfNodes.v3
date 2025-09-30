@@ -14,6 +14,9 @@ class Sea {
     var roots: NodeSet;
     var id_count: int;
 
+    var var_nodes: HashMap<string, IRNode>;
+    var lit_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>(); // assume that lits have unique rep across types
+
     new() {
         roots = NodeSet.new();
         id_count = 0;
@@ -39,8 +42,14 @@ class Sea {
 
         visited.put(node);
         match (node.op) {
-            Intrinsic(defn, args) => {
+            Intrinsic(defn, args, deps) => {
                 // instantiate LetApp, append to working_res
+            }
+            Lit => {
+            }
+            If => {
+            }
+            Else => {
             }
             Phi(cond, left, right) => {
                 // append If to working_res 
@@ -52,11 +61,48 @@ class Sea {
 
         return working_res;
     }
+
+    def addSSAD(ssad: SSAD, deps: List<IRNode>) -> IRNode {
+        match (ssad) {
+            LetApp(n, f, args, rest) => {
+                def arg_nodes: Array<IRNode> = Arrays.map(args, fun (a: string) => var_nodes[a]);
+                def op = IROp.Intrinsic(IntrinsicTypes.intrinsic_types[f], arg_nodes, Lists.toArray<IRNode>(deps));
+                def node = var_nodes[n] = mkNode(op);
+                return node;
+            }
+            LetLit(n, l, t, rest) => {
+                if (lit_nodes.has(l)) {
+                    def node = var_nodes[n] = lit_nodes[l];
+                    return node;
+                }
+                def tp = TypeUtil.fromString(t);
+                def op = IROp.Lit(tp, l);
+                def node = var_nodes[n] = mkNode(op);
+                return node;
+            }
+            If(cond, then, els, phis, rest) => {
+                def cond_node = var_nodes[cond];
+                def start_if = mkNode(IROp.If(cond_node));
+                def start_else = mkNode(IROp.Else(cond_node));
+                def t_node = addSSAD(then, List.new(start_if, deps));
+                def e_node = addSSAD(els, List.new(start_else, deps));
+                addSSAD(rest, deps); // TODO: phis
+                return start_if;
+            }
+            _ => return null;
+        }
+    }
 }
 
 component Seas {
     def ofSSAD(node: SSAD) -> Sea {
-        return null;
+        def sea = Sea.new();
+        def var_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>();
+        def lit_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>(); // assume that lits have unique rep across types
+
+        sea.addSSAD(node, null);
+
+        return sea;
     }
 }
 
@@ -94,13 +140,19 @@ class NodeData {
 }
 
 type IROp {
-    case Intrinsic(defn: IntrinsicTypedef, args: Array<IRNode>);
+    case Intrinsic(defn: IntrinsicTypedef, args: Array<IRNode>, deps: Array<IRNode>);
+    case Lit(tipe: TypeVar, rep: string);
+    case If(cond: IRNode);
+    case Else(cond: IRNode);
     case Phi(cond: IRNode, left: IRNode, right: IRNode);
     case MatchPhi(subj: IRNode, cases: Array<IRNode>);
 
     def immediatePredecessors() -> Array<IRNode> {
         match (this) {
-            Intrinsic(defn, args) => return args;
+            Intrinsic(defn, args, deps) => return Arrays.concat(args, deps);
+            Lit(tipe, rep) => return [];
+            If(c) => return [c];
+            Else(c) => return [c];
             Phi(cond, left, right) => return [cond, left, right];
             MatchPhi(subj, cases) => return Arrays.prepend(subj, cases);
         }

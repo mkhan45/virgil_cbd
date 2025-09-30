@@ -1,6 +1,6 @@
 type PrettyIR {
     case Let(n: string, rhs: PrettyExpr, stage: Stage, rest: PrettyIR);
-    case If(cond: PrettyExpr, then: PrettyIR, els: PrettyIR, stage: Stage, rest: PrettyIR);
+    case If(cond: PrettyExpr, then: PrettyIR, els: PrettyIR, phis: Array<(string, string)>, stage: Stage, rest: PrettyIR);
     case Match(subj: PrettyExpr, branches: Array<(string, PrettyIR)>, stage: Stage, rest: PrettyIR);
     case Exec(e: PrettyExpr, stage: Stage, effect: CBDEffect, rest: PrettyIR);
     case Void;
@@ -8,35 +8,42 @@ type PrettyIR {
 
     def toString(indent: int) -> string {
         def buf = StringBuilder.new();
-        this.buildString(buf, indent);
+        this.buildString(buf, [], indent);
         return buf.toString();
     }
 
-    def buildString(buf: StringBuilder, indent: int) {
+    def buildString(buf: StringBuilder, phis: Array<(string, string)>, indent: int) {
         match (this) {
             Let(n, rhs, stage, rest) => {
                 for (i < indent) buf.tab();
-                buf.puts("def ").puts(n).puts(" = ");
+                var has_phi = false;
+                var is_phi = false;
+                for (i < phis.length) {
+                    if (Strings.equal(phis[i].0, n)) has_phi = true;
+                    if (Strings.equal(phis[i].1, n)) is_phi = true;
+                }
+
+                buf.puts(if(has_phi, "var ", "def ")).puts(n).puts(" = ");
                 rhs.buildString(buf);
                 buf.puts(";\n");
-                rest.buildString(buf, indent);
+                rest.buildString(buf, phis, indent);
             }
-            If(cond, then, els, stage, rest) => {
+            If(cond, then, els, phis, stage, rest) => {
                 for (i < indent) buf.tab();
                 buf.puts("if (");
                 cond.buildString(buf);
                 buf.puts(") {\n");
-                then.buildString(buf, indent + 1);
+                then.buildString(buf, phis, indent + 1);
                 for (i < indent) buf.tab();
                 if (els != PrettyIR.Void) {
                     buf.puts("} else {\n");
-                    els.buildString(buf, indent + 1);
+                    els.buildString(buf, phis, indent + 1);
                     for (i < indent) buf.tab();
                     buf.puts("}\n");
                 } else {
                     buf.puts("}\n");
                 }
-                rest.buildString(buf, indent);
+                rest.buildString(buf, phis, indent);
             }
             Match(subj, branches, stage, rest) => {
                 for (i < indent) buf.tab();
@@ -46,7 +53,7 @@ type PrettyIR {
                 for (b in branches) {
                     for (i < indent + 1) buf.tab();
                     buf.puts(b.0).puts(" => {\n");
-                    b.1.buildString(buf, indent + 2);
+                    b.1.buildString(buf, phis, indent + 2);
                     for (i < indent + 1) buf.tab();
                     buf.puts("}\n");
                 }
@@ -54,7 +61,7 @@ type PrettyIR {
                 buf.puts("_ => trapUnreachable();\n");
                 for (i < indent) buf.tab();
                 buf.puts("}\n");
-                rest.buildString(buf, indent);
+                rest.buildString(buf, phis, indent);
             }
             Void => {
                 return;
@@ -64,12 +71,12 @@ type PrettyIR {
                 e.buildString(buf);
                 buf.puts(";\n");
                 // buf.puts("; // ").puts(effect.toString()).puts("\n");
-                rest.buildString(buf, indent);
+                rest.buildString(buf, phis, indent);
             }
             Injected(inj, stage, rest) => {
                 for (i < indent) buf.tab();
                 buf.puts(inj).ln();
-                rest.buildString(buf, indent);
+                rest.buildString(buf, phis, indent);
             }
         }
     }
@@ -90,7 +97,7 @@ type PrettyIR {
                 buf.puts(";\x1b[0m\n");
                 rest.buildStringCol(buf, indent);
             }
-            If(cond, then, els, stage, rest) => {
+            If(cond, then, els, phis, stage, rest) => {
                 for (i < indent) buf.tab();
                 buf.puts(getStageColor(stage));
                 buf.puts("if (");
@@ -202,7 +209,7 @@ component Pretty_IR {
                 def elsPretty = fromSSAD(els, ctx);
                 def restPretty = fromSSAD(rest, ctx);
                 def stage = if(ctx.static[cond], Stage.COMPILE, Stage.INTERPRET);
-                return PrettyIR.If(condExpr, thenPretty, elsPretty, stage, restPretty);
+                return PrettyIR.If(condExpr, thenPretty, elsPretty, phis, stage, restPretty);
             }
             Match(subj, branches, rest) => {
                 def subjExpr = PrettyExpr.Var(subj);
@@ -239,12 +246,12 @@ component Pretty_IR {
                     return PrettyIR.Let(name, inlined_rhs, stage, inlined_rest);
                 }
             }
-            If(cond, then, els, stage, rest) => {
+            If(cond, then, els, phis, stage, rest) => {
                 def inlined_cond = inlineExpr(cond, var_exprs);
                 def inlined_then = inlineLets(then, pred, ctx, var_exprs);
                 def inlined_els = inlineLets(els, pred, ctx, var_exprs);
                 def inlined_rest = inlineLets(rest, pred, ctx, var_exprs);
-                return PrettyIR.If(inlined_cond, inlined_then, inlined_els, stage, inlined_rest);
+                return PrettyIR.If(inlined_cond, inlined_then, inlined_els, phis, stage, inlined_rest);
             }
             Match(subj, branches, stage, rest) => {
                 def inlined_subj = inlineExpr(subj, var_exprs);
@@ -293,11 +300,12 @@ component Pretty_IR {
                     return PrettyIR.Let(name, rhs, stage, removeUselessAssigns(rest, ctx));
                 }
             }
-            If(cond, then, els, stage, rest) => {
+            If(cond, then, els, phis, stage, rest) => {
                 return PrettyIR.If(
                     cond, 
                     removeUselessAssigns(then, ctx),
                     removeUselessAssigns(els, ctx),
+                    phis,
                     stage,
                     removeUselessAssigns(rest, ctx)
                 );
@@ -371,12 +379,12 @@ component Pretty_IR {
                 def newRest = simplifyVarNums(rest, used_varnums, var_map);
                 return PrettyIR.Let(newName, newRhs, stage, newRest);
             }
-            If(cond, then, els, stage, rest) => {
+            If(cond, then, els, phis, stage, rest) => {
                 def newCond = substExprVars(cond, var_map);
                 def newThen = simplifyVarNums(then, used_varnums, var_map);
                 def newEls = simplifyVarNums(els, used_varnums, var_map);
                 def newRest = simplifyVarNums(rest, used_varnums, var_map);
-                return PrettyIR.If(newCond, newThen, newEls, stage, newRest);
+                return PrettyIR.If(newCond, newThen, newEls, phis, stage, newRest);
             }
             Match(subj, branches, stage, rest) => {
                 def newSubj = substExprVars(subj, var_map);

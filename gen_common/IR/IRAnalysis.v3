@@ -39,7 +39,7 @@ class SSADCtx {
             If(c, t, e, phis, rest) => {
                 getStatic(t);
                 getStatic(e);
-                for (p in phis) static[p] = static[c];
+                for (p in phis) static[p.0] = static[c];
                 getStatic(rest);
             }
             Match(subj, branches, rest) => {

@@ -234,6 +234,8 @@ def processTypeString(s: string) -> IntrinsicType {
 
 component TypeUtil {
     def fromString(s: string) -> TypeVar {
+        if (Strings.equal(s, "u8")) return TypeVar.U32;
+
         if (Strings.equal(s, "int")) return TypeVar.U32;
         if (Strings.equal(s, "i32")) return TypeVar.U32;
         if (Strings.equal(s, "u32")) return TypeVar.U32;

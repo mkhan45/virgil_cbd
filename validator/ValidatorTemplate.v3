@@ -47,7 +47,8 @@ def pushTypes(ts: Array<ValueType>) {
 }
 
 // Constants
-def HAS_MEM_INDEX = 0x40u8;
+// def HAS_MEM_INDEX = 0x40u;
+def HAS_MEM_INDEX = TypeVar.U32;
 
 def f32_reinterpret_u32(i: TypeVar.U32) -> TypeVar.F32;
 def f64_reinterpret_u64(i: TypeVar.U64) -> TypeVar.F64;
@@ -164,6 +165,8 @@ def valTypeFromTypeVar(tv: TypeVar) -> ValueType {
     }
 }
 
+def to_true(x: TypeVar.U32) => true;
+def rtcast_byte(x: u8) => TypeVar.U32;
 def rtcast_u32(x: u32) => TypeVar.U32;
 def rtcast_u64(x: u64) => TypeVar.U64;
 def rtcast_i32 = rtcast_u32;

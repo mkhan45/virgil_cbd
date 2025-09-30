@@ -1,7 +1,7 @@
 type SSAD {
     case LetApp(n: string, f: string, args: Array<string>, rest: SSAD);
     case LetLit(n: string, l: string, t: string, rest: SSAD);
-    case If(cond: string, then: SSAD, els: SSAD, phis: Array<string>, rest: SSAD);
+    case If(cond: string, then: SSAD, els: SSAD, phis: Array<(string, string)>, rest: SSAD);
     // treat each case match as a boolean var
     case Match(subj: string, branches: Array<(string, SSAD)>, rest: SSAD);
     case Void;
@@ -10,7 +10,7 @@ type SSAD {
 
     def toString(indent: int) -> string {
         def buf = StringBuilder.new();
-        SSAD_IR.buildString(this, buf, indent);
+        SSAD_IR.buildString(this, buf, [], indent);
         return buf.toString();
     }
 
@@ -180,9 +180,17 @@ component SSAD_IR {
             }
             If(c, t, e) => {
                 def c_var = uidl("cond");
+                def phis = Vector<(string, string)>.new();
+                assign_substs = Strings.newMap();
                 def t_ssa = from_virgil(t);
                 def e_ssa = from_virgil(e);
-                return from_virgil_expr(c_var, c, SSAD.If(c_var, t_ssa, e_ssa, [], rest));
+                def assigned_vars = Maps.keyList(assign_substs);
+                for (n = assigned_vars; n != null; n = n.tail) {
+                    def v = n.head;
+                    def asns = assign_substs[v];
+                    for (i < asns.length) phis.put((v, asns[i]));
+                }
+                return from_virgil_expr(c_var, c, SSAD.If(c_var, t_ssa, e_ssa, phis.copy(), rest));
             }
             Match(subj, branches) => {
                 def c_var = uidl("cond");
@@ -268,25 +276,31 @@ component SSAD_IR {
         }
     }
 
-    def buildString(ir: SSAD, buf: StringBuilder, indent: int) {
+    def buildString(ir: SSAD, buf: StringBuilder, phis: Array<(string, string)>, indent: int) {
         match (ir) {
             LetApp(n, f, a, r) => {
                 for (i < indent) buf.tab();
                 def fn = if(Strings.equal(f, "id"), "", f);
-                buf.puts("def ").puts(n).puts(" = ");
+                var has_phi = false;
+                var is_phi = false;
+                for (i < phis.length) {
+                    if (Strings.equal(phis[i].0, n)) has_phi = true;
+                    if (Strings.equal(phis[i].1, n)) is_phi = true;
+                }
+                buf.puts(if(has_phi, "var ", "def ")).puts(n).puts(" = ");
                 buf.puts(fn); buf.puts("(");
                 for (i < a.length) {
                     buf.puts(a[i]);
                     if (i != a.length - 1) buf.puts(", ");
                 }
                 buf.puts(");\n");
-                buildString(r, buf, indent);
+                buildString(r, buf, phis, indent);
             }
             LetLit(n, l, t, r) => {
                 for (i < indent) buf.tab();
                 buf.puts("def ").puts(n).puts(" : ").puts(t).puts(" = ");
                 buf.puts(l).puts(";\n");
-                buildString(r, buf, indent);
+                buildString(r, buf, phis, indent);
             }
             Void => {
                 return;
@@ -298,14 +312,14 @@ component SSAD_IR {
             If(c, t, e, ps, r) => {
                 for (i < indent) buf.tab();
                 buf.puts("if (").puts(c).puts(") {\n");
-                buildString(t, buf, indent + 1);
+                buildString(t, buf, ps, indent + 1);
                 for (i < indent) buf.tab();
                 if (e != SSAD.Void) {
                     buf.puts("} else {\n");
-                    buildString(e, buf, indent + 1);
+                    buildString(e, buf, ps, indent + 1);
                     for (i < indent) buf.tab();
                     buf.puts("}\n");
-                    buildString(r, buf, indent);
+                    buildString(r, buf, ps, indent);
                 } else {
                     buf.puts("}\n");
                 }
@@ -316,7 +330,7 @@ component SSAD_IR {
             Injected(inj, r) => {
                 for (i < indent) buf.tab();
                 buf.puts(inj).ln();
-                buildString(r, buf, indent);
+                buildString(r, buf, phis, indent);
             }
         }
     }
