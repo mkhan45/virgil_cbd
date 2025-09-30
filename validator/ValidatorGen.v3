@@ -68,6 +68,13 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def ssa = SSAD_IR.ssa(ir);
     def analysis = SSADCtx.new(ssa);
 
+    def sea = Sea.new();
+    sea.addSSAD(analysis.id_propagate(ir, Strings.newMap<string>()), null);
+    def mermaid = sea.toMermaid();
+    System.puts("===="); System.puts(opcode);  System.puts("====\n");
+    System.puts(mermaid);
+    System.puts("====\n");
+
     def transformer = SSATransformer.new(analysis);
     transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
     transformer.onIf = TB(flatten_ifs).f;

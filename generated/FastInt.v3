@@ -170,8 +170,13 @@ def BR_IF() {
 }
 def I32_LOAD() {
 	def flags = imm_readU8();
-	def cond = m_isMemory64(0u);
-	if (cond) {
+	def rtcast = rtcast_byte(0u8);
+	def cond = U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast);
+	startCond(cond);
+	startElse();
+	endCond();
+	def cond1 = m_isMemory64(0u);
+	if (cond1) {
 		def offset = imm_readULEB64();
 		def index = pop_u64();
 		def val = mach_readMemory64_u32(0u, index, offset);

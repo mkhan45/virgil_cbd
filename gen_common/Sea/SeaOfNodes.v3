@@ -1,11 +1,11 @@
 class NodeSet {
     var m: HashMap<IRNode, void>;
     new() {
-        m = HashMap<IRNode, void>.new(fun n => n.id, fun (l, r) => l.id == r.id);
+        m = HashMap<IRNode, void>.new(fun n => n.id, fun (l, r) => (l == null && r == null) || ((l != null && r != null) && l.id == r.id));
     }
 
     def has(node: IRNode) -> bool => m.has(node);
-    def put(node: IRNode) { m[node] = void; }
+    def put(node: IRNode) { if (node != null) m[node] = void; }
     def remove(node: IRNode) { m.remove(node); }
     def apply(f: IRNode -> void) { m.apply(fun (k, v) => f(k)); }
 }
@@ -14,7 +14,7 @@ class Sea {
     var roots: NodeSet;
     var id_count: int;
 
-    var var_nodes: HashMap<string, IRNode>;
+    var var_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>();
     var lit_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>(); // assume that lits have unique rep across types
 
     new() {
@@ -26,6 +26,7 @@ class Sea {
         def node = IRNode.new(op, id_count);
         id_count += 1;
 
+        roots.put(node);
         def args = node.args();
         for (arg in args) roots.remove(arg);
 
@@ -66,8 +67,14 @@ class Sea {
         match (ssad) {
             LetApp(n, f, args, rest) => {
                 def arg_nodes: Array<IRNode> = Arrays.map(args, fun (a: string) => var_nodes[a]);
-                def op = IROp.Intrinsic(IntrinsicTypes.intrinsic_types[f], arg_nodes, Lists.toArray<IRNode>(deps));
+                var intrinsic_def = IntrinsicTypes.intrinsic_types[f];
+                if (intrinsic_def == null) intrinsic_def = IntrinsicTypedef.new(f, null, null, CBDEffect.None);
+                def op = IROp.Intrinsic(intrinsic_def, arg_nodes, Lists.toArray<IRNode>(deps));
                 def node = var_nodes[n] = mkNode(op);
+                node.data = NodeData.new();
+                node.data.sourceName = n;
+
+                addSSAD(rest, deps);
                 return node;
             }
             LetLit(n, l, t, rest) => {
@@ -78,19 +85,73 @@ class Sea {
                 def tp = TypeUtil.fromString(t);
                 def op = IROp.Lit(tp, l);
                 def node = var_nodes[n] = mkNode(op);
+
+                addSSAD(rest, deps);
                 return node;
             }
             If(cond, then, els, phis, rest) => {
                 def cond_node = var_nodes[cond];
                 def start_if = mkNode(IROp.If(cond_node));
                 def start_else = mkNode(IROp.Else(cond_node));
-                def t_node = addSSAD(then, List.new(start_if, deps));
+
+                // which node to choose for var if cond is not taken,
+                // might be the starting node for var if the els doesn't assign it
+                def else_phis: HashMap<string, IRNode> = Strings.newMap();
                 def e_node = addSSAD(els, List.new(start_else, deps));
-                addSSAD(rest, deps); // TODO: phis
+                for (phi in phis) {
+                    if (var_nodes.has(phi.1)) 
+                        else_phis[phi.0] = var_nodes[phi.1]; // take node from els branch
+                    else
+                        else_phis[phi.0] = var_nodes[phi.0]; // take default starting node
+                }
+
+                def t_node = addSSAD(then, List.new(start_if, deps));
+
+                for (phi in phis) {
+                    def phi_op = IROp.Phi(cond_node, var_nodes[phi.1], else_phis[phi.0]);
+                    var_nodes[phi.0] = mkNode(phi_op);
+                }
+
+                addSSAD(rest, deps);
                 return start_if;
             }
-            _ => return null;
+            Match => return null;
+            Void => return null;
+            Injected => return null;
+            Final => return null;
         }
+    }
+
+    def toMermaid() -> string {
+        def buf = StringBuilder.new();
+        def wl = ArrayStack<IRNode>.new();
+        def visited = NodeSet.new();
+        roots.apply(wl.push);
+
+        buf.puts("graph TD").ln();
+        while (!wl.empty()) {
+            def n = wl.pop();
+            if (n == null || visited.has(n)) continue;
+            visited.put(n);
+            buf.tab().putd(n.id);
+            buf.puts("[").ln();
+            if (n.data != null && n.data.sourceName != null) buf.tab().puts(n.data.sourceName).ln();
+            match (n.op) {
+                Intrinsic(defn, _, _) => buf.tab().puts(defn.name).ln();
+                Lit(_, rep) => buf.tab().puts(rep).ln();
+                If(c) => buf.tab().puts("if").ln();
+                Else(c) => buf.tab().puts("else").ln();
+                Phi(c, l, r) => buf.tab().puts("phi").ln();
+                _ => {}
+            }
+            buf.tab().puts("]").ln();
+            for (arg in n.args()) if (arg != null) {
+                buf.tab().putd(arg.id).puts(" --> ").putd(n.id).ln();
+                wl.push(arg);
+            }
+        }
+
+        return buf.toString();
     }
 }
 
