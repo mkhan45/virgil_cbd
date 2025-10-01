@@ -370,7 +370,7 @@ component IntrinsicTypes {
                 _ => {}
             }
             intrinsics[name] = IntrinsicTypedef.new(name, args.copy(), return_type, effect);
-            intrinsics[name].reads = reads;
+            intrinsics[name].reads = reads | writes;
             intrinsics[name].writes = writes;
         }
 

@@ -1,0 +1,303 @@
+====UNREACHABLE====
+graph TD
+	0[
+	eff__0
+	trapUnreachable
+	]
+----IR----
+def eff__0 = trapUnreachable();
+----Scheduled----
+def eff__0 = trapUnreachable();
+----Pretty----
+def eff__0 = trapUnreachable();
+====
+====NOP====
+graph TD
+----IR----
+----Scheduled----
+----Pretty----
+====
+====LOCAL_GET====
+graph TD
+	3[
+	eff__4
+	push_Value
+	]
+	1 --> 3
+	2 --> 3
+	2 --> 3
+	2[
+	val
+	getLocal
+	]
+	1 --> 2
+	0 --> 2
+	0[
+	index
+	imm_readULEB32
+	]
+	1[
+	tv
+	f_getLocalType
+	]
+	0 --> 1
+----IR----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = getLocal(tv, index);
+def eff__4 = push_Value(tv, val);
+----Scheduled----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = getLocal(tv, index);
+def eff__4 = push_Value(tv, val);
+----Pretty----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = getLocal(tv, index);
+def eff__4 = push_Value(tv, val);
+====
+====LOCAL_SET====
+graph TD
+	3[
+	eff__19
+	setLocal
+	]
+	1 --> 3
+	0 --> 3
+	2 --> 3
+	2[
+	val
+	pop_Value
+	]
+	1 --> 2
+	1[
+	tv
+	f_getLocalType
+	]
+	0 --> 1
+	0[
+	index
+	imm_readULEB32
+	]
+----IR----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__19 = setLocal(tv, index, val);
+----Scheduled----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__19 = setLocal(tv, index, val);
+----Pretty----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__19 = setLocal(tv, index, val);
+====
+====LOCAL_TEE====
+graph TD
+	4[
+	eff__34
+	push_Value
+	]
+	1 --> 4
+	2 --> 4
+	2 --> 4
+	2[
+	val
+	pop_Value
+	]
+	1 --> 2
+	1[
+	tv
+	f_getLocalType
+	]
+	0 --> 1
+	0[
+	index
+	imm_readULEB32
+	]
+	3[
+	eff__37
+	setLocal
+	]
+	1 --> 3
+	0 --> 3
+	2 --> 3
+----IR----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__37 = setLocal(tv, index, val);
+def eff__34 = push_Value(tv, val);
+----Scheduled----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__37 = setLocal(tv, index, val);
+def eff__34 = push_Value(tv, val);
+----Pretty----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__37 = setLocal(tv, index, val);
+def eff__34 = push_Value(tv, val);
+====
+====GLOBAL_GET====
+graph TD
+	3[
+	eff__55
+	push_Value
+	]
+	1 --> 3
+	2 --> 3
+	2 --> 3
+	2[
+	val
+	getGlobal
+	]
+	1 --> 2
+	0 --> 2
+	0[
+	index
+	imm_readULEB32
+	]
+	1[
+	tv
+	m_getGlobalType
+	]
+	0 --> 1
+----IR----
+def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = getGlobal(tv, index);
+def eff__55 = push_Value(tv, val);
+----Scheduled----
+def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = getGlobal(tv, index);
+def eff__55 = push_Value(tv, val);
+----Pretty----
+def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = getGlobal(tv, index);
+def eff__55 = push_Value(tv, val);
+====
+====GLOBAL_SET====
+graph TD
+	3[
+	eff__70
+	setGlobal
+	]
+	1 --> 3
+	0 --> 3
+	2 --> 3
+	2[
+	val
+	pop_Value
+	]
+	1 --> 2
+	1[
+	tv
+	m_getGlobalType
+	]
+	0 --> 1
+	0[
+	index
+	imm_readULEB32
+	]
+----IR----
+def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = pop_Value(tv);
+def eff__70 = setGlobal(tv, index, val);
+----Scheduled----
+def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = pop_Value(tv);
+def eff__70 = setGlobal(tv, index, val);
+----Pretty----
+def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = pop_Value(tv);
+def eff__70 = setGlobal(tv, index, val);
+====
+====TABLE_GET====
+graph TD
+	10[
+	state phi Stack
+	]
+	1 --> 10
+	9 --> 10
+	6 --> 10
+	6[
+	eff__90
+	push_Object
+	]
+	5 --> 6
+	4 --> 6
+	3 --> 6
+	3[
+	else
+	]
+	1 --> 3
+	2 --> 3
+	2[
+	if
+	]
+	1 --> 2
+	1[
+	cond__85
+	m_isTable64
+	]
+	0 --> 1
+	0[
+	table_index
+	imm_readULEB32
+	]
+	4[
+	index
+	pop_u32
+	]
+	3 --> 4
+	5[
+	val
+	mach_readTable32
+	]
+	0 --> 5
+	4 --> 5
+	3 --> 5
+	9[
+	eff__86
+	push_Object
+	]
+	8 --> 9
+	7 --> 9
+	2 --> 9
+	7[
+	index
+	pop_u64
+	]
+	2 --> 7
+	8[
+	val
+	mach_readTable64
+	]
+	0 --> 8
+	7 --> 8
+	2 --> 8
+----IR----
+def table_index = imm_readULEB32();
+def cond__85 = m_isTable64(table_index);
+if (cond__85) {
+	def index = pop_u64();
+	def val = mach_readTable64(table_index, index);
+	def eff__86 = push_Object(val);
+} else {
+	def index = pop_u32();
+	def val = mach_readTable32(table_index, index);
+	def eff__90 = push_Object(val);
+}
+----Scheduled----

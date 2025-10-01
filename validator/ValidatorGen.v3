@@ -64,14 +64,26 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def st_field_buf = VirgilStmts.getSidetableFields(stmt);
     def bs = STFieldMgr.putEntry(st_field_buf);
 
-    def ir = SSAD_IR.from_virgil(stmt);
+    var ir = SSAD_IR.from_virgil(stmt);
     def ssa = SSAD_IR.ssa(ir);
     def analysis = SSADCtx.new(ssa);
+    ir = analysis.id_propagate(ir, Strings.newMap<string>());
 
-    def sea = Seas.ofSSAD(analysis.id_propagate(ir, Strings.newMap<string>()));
+    def sea = Seas.ofSSAD(ir);
     def mermaid = sea.toMermaid();
     System.puts("===="); System.puts(opcode);  System.puts("====\n");
     System.puts(mermaid);
+    System.puts("----IR----\n");
+    System.puts(ir.toString(0));
+    System.puts("----Scheduled----\n");
+    def sea_ssa = sea.mkSSAD();
+    System.puts(sea_ssa.toString(0));
+    System.puts("----Pretty----\n");
+    var pretty = Pretty_IR.fromSSAD(sea_ssa, analysis);
+    // pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, analysis, Strings.newMap<PrettyExpr>());
+    // pretty = Pretty_IR.removeUselessAssigns(pretty, analysis);
+    // pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>());
+    System.puts(pretty.toString(0));
     System.puts("====\n");
 
     def transformer = SSATransformer.new(analysis);

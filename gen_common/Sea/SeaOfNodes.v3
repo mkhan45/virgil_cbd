@@ -1,7 +1,7 @@
 class NodeSet {
     var m: HashMap<IRNode, void>;
     new() {
-        m = HashMap<IRNode, void>.new(fun n => n.id, fun (l, r) => (l == null && r == null) || ((l != null && r != null) && l.id == r.id));
+        m = HashMap<IRNode, void>.new(irnode_hash, irnode_eq);
     }
 
     def has(node: IRNode) -> bool => m.has(node);
@@ -9,7 +9,6 @@ class NodeSet {
     def remove(node: IRNode) { if (node != null && m.has(node)) m.remove(node); }
     def apply(f: IRNode -> void) { m.apply(fun (k, v) => f(k)); }
 }
-
 class Sea {
     var roots: NodeSet;
     var id_count: int;
@@ -33,37 +32,160 @@ class Sea {
         return node;
     }
 
-    def toSSAD(node: IRNode, res: SSAD, visited: NodeSet) -> SSAD {
-        if (visited.has(node)) return res;
+    def schedule() -> ScheduleTree {
+        def children = HashMap<IRNode, Vector<IRNode>>.new(irnode_hash, irnode_eq);
+        def root_buf = Vector<IRNode>.new();
+        roots.apply(fun n => void(root_buf.put(n)));
 
-        var working_res = res;
-        for (arg in node.args()) {
-            working_res = toSSAD(arg, working_res, visited);
+        def leaves = Vector<IRNode>.new();
+        def scheduled = HashMap<IRNode, SchedulePos>.new(irnode_hash, irnode_eq);
+        for (i < root_buf.length) {
+            def root = root_buf[i];
+            scheduleNode(root, leaves, children, scheduled);
         }
 
+        return ScheduleTree.new(leaves.copy(), children);
+    }
+
+    def scheduleNode(node: IRNode, leaves: Vector<IRNode>, children: HashMap<IRNode, Vector<IRNode>>, scheduled: HashMap<IRNode, SchedulePos>) -> SchedulePos {
+        if (node == null) return null;
+        if (scheduled.has(node)) return scheduled[node];
+
+        def args = node.args();
+        if (args.length == 0) {
+            def pos = SchedulePos.new([leaves.length]);
+            leaves.put(node);
+            scheduled[node] = pos;
+            return pos;
+        }
+
+        var last_pos: SchedulePos = null;
+        var last_parent: IRNode = null;
+        for (arg in node.args()) if (arg != null) {
+            def arg_sched = scheduleNode(arg, leaves, children, scheduled);
+            if (arg_sched.gte(last_pos)) {
+                last_pos = arg_sched;
+                last_parent = arg;
+            }
+        }
+        
+        if (!children.has(last_parent)) children[last_parent] = Vector.new();
+
+        scheduled[node] = SchedulePos.new(Arrays.append(children[last_parent].length, last_pos.idxs));
+        children[last_parent].put(node);
+
+        return scheduled[node];
+    }
+
+    def mkSSAD() -> SSAD {
+        def schedule = schedule();
+
+        var res: SSAD = SSAD.Void;
+        def node_set: NodeSet = NodeSet.new();
+        for (leaf in schedule.leaves) {
+            res = res.appended(toSSAD(leaf, node_set, schedule));
+        }
+
+        return res;
+    }
+
+    def toSSAD(node: IRNode, visited: NodeSet, schedule: ScheduleTree) -> SSAD {
+        def uidl = SSAD_IR.uidl;
+        if (node == null) return SSAD.Void;
+        if (visited.has(node)) return SSAD.Void;
         visited.put(node);
+
+        var working_res: SSAD = SSAD.Void;
         match (node.op) {
             Intrinsic(defn, args, deps) => {
-                // instantiate LetApp, append to working_res
+                def l = SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), SSAD.Void);
+                working_res = working_res.appended(l);
             }
-            Lit => {
+            Lit(tipe, rep) => {
+                if (node.data == null) node.data = NodeData.new();
+                if (node.data.sourceName == null) node.data.sourceName = uidl("lit");
+                def l = SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), SSAD.Void);
+                working_res = working_res.appended(l);
             }
-            If => {
+            If(cond) => {
             }
             Else => {
             }
             Phi(cond, left, right) => {
                 // append If to working_res 
+                def t = toSSAD(left, visited, schedule);
+                def e = toSSAD(right, visited, schedule);
+                working_res = working_res.appended(SSAD.If(cond.data.sourceName, t, e, [], SSAD.Void));
             }
             MatchPhi(subj, cases) => {
                 // append match to working_res
             }
-            StatePhi => {
+            StatePhi(cond, left, right, statecomp) => {
+                // append If to working_res 
+                def t = toSSAD(left, visited, schedule);
+                def e = toSSAD(right, visited, schedule);
+                working_res = working_res.appended(SSAD.If(cond.data.sourceName, t, e, [], SSAD.Void));
+            }
+        }
+
+        if (schedule.children.has(node)) {
+            def children = schedule.children[node];
+            for (i < children.length) {
+                working_res = working_res.appended(toSSAD(children[i], visited, schedule));
             }
         }
 
         return working_res;
     }
+
+    // def mkSSAD() -> SSAD {
+    //     var final_ssad: SSAD = SSAD.Void;
+    //     def visited = NodeSet.new();
+    //     def buf = Vector<IRNode>.new();
+    //     roots.apply(fun n => void(buf.put(n)));
+    //     for (i < buf.length) {
+    //         final_ssad = final_ssad.appended(toSSAD(buf[i], SSAD.Void, visited));
+    //     }
+    //     return final_ssad;
+    // }
+
+    // def toSSAD(node: IRNode, res: SSAD, visited: NodeSet) -> SSAD {
+    //     def uidl = SSAD_IR.uidl;
+    //     if (node == null || visited.has(node)) return res;
+    //     visited.put(node);
+
+    //     var working_res = res;
+    //     for (arg in node.args()) {
+    //         working_res = toSSAD(arg, working_res, visited);
+    //     }
+
+    //     match (node.op) {
+    //         Intrinsic(defn, args, deps) => {
+    //             def l = SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), SSAD.Void);
+    //             working_res = working_res.appended(l);
+    //         }
+    //         Lit(tipe, rep) => {
+    //             if (node.data == null) node.data = NodeData.new();
+    //             if (node.data.sourceName == null) node.data.sourceName = uidl("lit");
+    //             def l = SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), SSAD.Void);
+    //             working_res = working_res.appended(l);
+    //         }
+    //         If(cond) => {
+    //         }
+    //         Else => {
+    //         }
+    //         Phi(cond, left, right) => {
+    //             // append If to working_res 
+    //         }
+    //         MatchPhi(subj, cases) => {
+    //             // append match to working_res
+    //         }
+    //         StatePhi => {
+    //         }
+    //     }
+
+    //     return working_res;
+    // }
 
     def addSSAD(ssad: SSAD, state_vars: Array<IRNode>, deps: List<IRNode>) -> IRNode {
         match (ssad) {
@@ -102,7 +224,7 @@ class Sea {
             If(cond, then, els, phis, rest) => {
                 def cond_node = var_nodes[cond];
                 def start_if = mkNode(IROp.If(cond_node));
-                def start_else = mkNode(IROp.Else(cond_node));
+                def start_else = mkNode(IROp.Else(cond_node, start_if));
 
                 // which node to choose for var if cond is not taken,
                 // might be the starting node for var if the els doesn't assign it
@@ -166,7 +288,7 @@ class Sea {
                 Intrinsic(defn, _, _) => buf.tab().puts(defn.name).ln();
                 Lit(_, rep) => buf.tab().puts(rep).ln();
                 If(c) => buf.tab().puts("if").ln();
-                Else(c) => buf.tab().puts("else").ln();
+                Else(c, i) => buf.tab().puts("else").ln();
                 Phi(c, l, r) => buf.tab().puts("phi").ln();
                 StatePhi(c, l, r, sc) => buf.tab().puts("state phi ").puts(sc.name).ln();
                 _ => {}
@@ -197,6 +319,8 @@ component Seas {
     }
 }
 
+def irnode_hash(n: IRNode) -> int => n.id;
+def irnode_eq(l: IRNode, r: IRNode) -> bool => (l == null && r == null) || ((l != null && r != null) && l.id == r.id);
 class IRNode {
     var op: IROp;
     def id: int;
@@ -234,7 +358,7 @@ type IROp {
     case Intrinsic(defn: IntrinsicTypedef, args: Array<IRNode>, deps: Array<IRNode>);
     case Lit(tipe: TypeVar, rep: string);
     case If(cond: IRNode);
-    case Else(cond: IRNode);
+    case Else(cond: IRNode, if_node: IRNode);
     case Phi(cond: IRNode, left: IRNode, right: IRNode);
     case MatchPhi(subj: IRNode, cases: Array<IRNode>);
     case StatePhi(cond: IRNode, left: IRNode, right: IRNode, statecomp: StateComponent);
@@ -244,7 +368,7 @@ type IROp {
             Intrinsic(defn, args, deps) => return Arrays.concat(args, deps);
             Lit(tipe, rep) => return [];
             If(c) => return [c];
-            Else(c) => return [c];
+            Else(c, i) => return [c, i];
             Phi(cond, left, right) => return [cond, left, right];
             MatchPhi(subj, cases) => return Arrays.prepend(subj, cases);
             StatePhi(cond, left, right, sc) => return [cond, left, right];

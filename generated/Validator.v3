@@ -4,9 +4,18 @@ graph TD
 	eff__0
 	trapUnreachable
 	]
+----IR----
+def eff__0 = trapUnreachable();
+----Scheduled----
+def eff__0 = trapUnreachable();
+----Pretty----
+def eff__0 = trapUnreachable();
 ====
 ====NOP====
 graph TD
+----IR----
+----Scheduled----
+----Pretty----
 ====
 ====LOCAL_GET====
 graph TD
@@ -32,6 +41,21 @@ graph TD
 	f_getLocalType
 	]
 	0 --> 1
+----IR----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = getLocal(tv, index);
+def eff__4 = push_Value(tv, val);
+----Scheduled----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = getLocal(tv, index);
+def eff__4 = push_Value(tv, val);
+----Pretty----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = getLocal(tv, index);
+def eff__4 = push_Value(tv, val);
 ====
 ====LOCAL_SET====
 graph TD
@@ -56,6 +80,21 @@ graph TD
 	index
 	imm_readULEB32
 	]
+----IR----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__19 = setLocal(tv, index, val);
+----Scheduled----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__19 = setLocal(tv, index, val);
+----Pretty----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__19 = setLocal(tv, index, val);
 ====
 ====LOCAL_TEE====
 graph TD
@@ -87,6 +126,24 @@ graph TD
 	1 --> 3
 	0 --> 3
 	2 --> 3
+----IR----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__37 = setLocal(tv, index, val);
+def eff__34 = push_Value(tv, val);
+----Scheduled----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__37 = setLocal(tv, index, val);
+def eff__34 = push_Value(tv, val);
+----Pretty----
+def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__37 = setLocal(tv, index, val);
+def eff__34 = push_Value(tv, val);
 ====
 ====GLOBAL_GET====
 graph TD
@@ -112,6 +169,21 @@ graph TD
 	m_getGlobalType
 	]
 	0 --> 1
+----IR----
+def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = getGlobal(tv, index);
+def eff__55 = push_Value(tv, val);
+----Scheduled----
+def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = getGlobal(tv, index);
+def eff__55 = push_Value(tv, val);
+----Pretty----
+def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = getGlobal(tv, index);
+def eff__55 = push_Value(tv, val);
 ====
 ====GLOBAL_SET====
 graph TD
@@ -136,6 +208,21 @@ graph TD
 	index
 	imm_readULEB32
 	]
+----IR----
+def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = pop_Value(tv);
+def eff__70 = setGlobal(tv, index, val);
+----Scheduled----
+def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = pop_Value(tv);
+def eff__70 = setGlobal(tv, index, val);
+----Pretty----
+def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = pop_Value(tv);
+def eff__70 = setGlobal(tv, index, val);
 ====
 ====TABLE_GET====
 graph TD
@@ -156,6 +243,11 @@ graph TD
 	else
 	]
 	1 --> 3
+	2 --> 3
+	2[
+	if
+	]
+	1 --> 2
 	1[
 	cond__85
 	m_isTable64
@@ -184,10 +276,6 @@ graph TD
 	8 --> 9
 	7 --> 9
 	2 --> 9
-	2[
-	if
-	]
-	1 --> 2
 	7[
 	index
 	pop_u64
@@ -200,6 +288,40 @@ graph TD
 	0 --> 8
 	7 --> 8
 	2 --> 8
+----IR----
+def table_index = imm_readULEB32();
+def cond__85 = m_isTable64(table_index);
+if (cond__85) {
+	def index = pop_u64();
+	def val = mach_readTable64(table_index, index);
+	def eff__86 = push_Object(val);
+} else {
+	def index = pop_u32();
+	def val = mach_readTable32(table_index, index);
+	def eff__90 = push_Object(val);
+}
+----Scheduled----
+def table_index = imm_readULEB32();
+def cond__85 = m_isTable64(table_index);
+def index = pop_u64();
+def index = pop_u32();
+def val = mach_readTable64(table_index, index);
+def eff__86 = push_Object(val);
+def val = mach_readTable32(table_index, index);
+def eff__90 = push_Object(val);
+if (cond__85) {
+}
+----Pretty----
+def table_index = imm_readULEB32();
+def cond__85 = m_isTable64(table_index);
+def index = pop_u64();
+def index = pop_u32();
+def val = mach_readTable64(table_index, index);
+def eff__86 = push_Object(val);
+def val = mach_readTable32(table_index, index);
+def eff__90 = push_Object(val);
+if (cond__85) {
+}
 ====
 ====TABLE_SET====
 graph TD
@@ -219,6 +341,11 @@ graph TD
 	else
 	]
 	1 --> 3
+	2 --> 3
+	2[
+	if
+	]
+	1 --> 2
 	1[
 	cond__110
 	m_isTable64
@@ -239,10 +366,6 @@ graph TD
 	]
 	7 --> 8
 	2 --> 8
-	2[
-	if
-	]
-	1 --> 2
 	7[
 	val
 	pop_Object
@@ -264,6 +387,38 @@ graph TD
 	5 --> 6
 	4 --> 6
 	3 --> 6
+----IR----
+def table_index = imm_readULEB32();
+def cond__110 = m_isTable64(table_index);
+if (cond__110) {
+	def val = pop_Object();
+	def index = pop_u64();
+	def eff__111 = mach_writeTable64(table_index, index, val);
+} else {
+	def val = pop_Object();
+	def index = pop_u32();
+	def eff__115 = mach_writeTable32(table_index, index, val);
+}
+----Scheduled----
+def table_index = imm_readULEB32();
+def cond__110 = m_isTable64(table_index);
+def val = pop_Object();
+def index = pop_u64();
+def val = pop_Object();
+def index = pop_u32();
+if (cond__110) {
+}
+----Pretty----
+def table_index = imm_readULEB32();
+def cond__110 = m_isTable64(table_index);
+def val = pop_Object();
+def index = pop_u64();
+def val = pop_Object();
+def index = pop_u32();
+if (cond__110) {
+}
+def eff__115 = mach_writeTable32(table_index, index, val);
+def eff__111 = mach_writeTable64(table_index, index, val);
 ====
 ====CALL====
 graph TD
@@ -288,6 +443,21 @@ graph TD
 	m_getFuncSignature
 	]
 	0 --> 1
+----IR----
+def index = imm_readULEB32();
+def sig = m_getFuncSignature(index);
+def target = i_getFunction(index);
+def eff__135 = doCall(sig, target);
+----Scheduled----
+def index = imm_readULEB32();
+def sig = m_getFuncSignature(index);
+def target = i_getFunction(index);
+def eff__135 = doCall(sig, target);
+----Pretty----
+def index = imm_readULEB32();
+def sig = m_getFuncSignature(index);
+def target = i_getFunction(index);
+def eff__135 = doCall(sig, target);
 ====
 ====CALL_INDIRECT====
 graph TD
@@ -309,6 +479,11 @@ graph TD
 	else
 	]
 	3 --> 5
+	4 --> 5
+	4[
+	if
+	]
+	3 --> 4
 	3[
 	is64
 	m_isTable64
@@ -349,10 +524,6 @@ graph TD
 	10 --> 11
 	1 --> 11
 	4 --> 11
-	4[
-	if
-	]
-	3 --> 4
 	10[
 	target
 	i_getTableFunction64
@@ -378,6 +549,45 @@ graph TD
 	3 --> 12
 	11 --> 12
 	8 --> 12
+----IR----
+def sig_index = imm_readULEB32();
+def table_index = imm_readULEB32();
+def sig = m_getSignature(sig_index);
+def is64 = m_isTable64(table_index);
+if (is64) {
+	def func_index = pop_u64();
+	def target = i_getTableFunction64(table_index, sig, func_index);
+	def eff__149 = doCall(sig, target);
+} else {
+	def func_index = pop_u32();
+	def target = i_getTableFunction32(table_index, sig, func_index);
+	def eff__155 = doCall(sig, target);
+}
+----Scheduled----
+def sig_index = imm_readULEB32();
+def table_index = imm_readULEB32();
+def is64 = m_isTable64(table_index);
+def func_index = pop_u64();
+def func_index = pop_u32();
+if (is64) {
+}
+----Pretty----
+def sig_index = imm_readULEB32();
+def table_index = imm_readULEB32();
+def is64 = m_isTable64(table_index);
+def func_index = pop_u64();
+def func_index = pop_u32();
+if (is64) {
+}
+def sig = m_getSignature(sig_index);
+def target = i_getTableFunction64(table_index, sig, func_index);
+def eff__149 = doCall(sig, target);
+def target = i_getTableFunction32(table_index, sig, func_index);
+def eff__155 = doCall(sig, target);
+if (is64) {
+}
+if (is64) {
+}
 ====
 ====RETURN_CALL====
 graph TD
@@ -402,6 +612,21 @@ graph TD
 	m_getFuncSignature
 	]
 	0 --> 1
+----IR----
+def index = imm_readULEB32();
+def sig = m_getFuncSignature(index);
+def target = i_getFunction(index);
+def eff__187 = doReturnCall(sig, target);
+----Scheduled----
+def index = imm_readULEB32();
+def sig = m_getFuncSignature(index);
+def target = i_getFunction(index);
+def eff__187 = doReturnCall(sig, target);
+----Pretty----
+def index = imm_readULEB32();
+def sig = m_getFuncSignature(index);
+def target = i_getFunction(index);
+def eff__187 = doReturnCall(sig, target);
 ====
 ====DROP====
 graph TD
@@ -414,6 +639,15 @@ graph TD
 	tv
 	f_getTopOfStackType
 	]
+----IR----
+def tv = f_getTopOfStackType();
+def eff__200 = pop_Value(tv);
+----Scheduled----
+def tv = f_getTopOfStackType();
+def eff__200 = pop_Value(tv);
+----Pretty----
+def tv = f_getTopOfStackType();
+def eff__200 = pop_Value(tv);
 ====
 ====SELECT====
 graph TD
@@ -435,6 +669,11 @@ graph TD
 	else
 	]
 	5 --> 7
+	6 --> 7
+	6[
+	if
+	]
+	5 --> 6
 	5[
 	cond__205
 	u32.!=
@@ -472,15 +711,45 @@ graph TD
 	3 --> 9
 	3 --> 9
 	6 --> 9
-	6[
-	if
-	]
-	5 --> 6
+----IR----
+def c = pop_u32();
+def tv = f_getTopOfStackType();
+def b = pop_Value(tv);
+def a = pop_Value(tv);
+def arg__213 : u32 = 0;
+def cond__205 = u32.!=(c, arg__213);
+if (cond__205) {
+	def eff__206 = push_Value(tv, a);
+} else {
+	def eff__209 = push_Value(tv, b);
+}
+----Scheduled----
+def c = pop_u32();
+def lit__231 : u32 = 0;
+def cond__205 = u32.!=(c, lit__231);
+def tv = f_getTopOfStackType();
+def b = pop_Value(tv);
+def a = pop_Value(tv);
+def eff__206 = push_Value(tv, a);
+def eff__209 = push_Value(tv, b);
+if (cond__205) {
+}
+----Pretty----
+def c = pop_u32();
+def lit__231 = 0;
+def cond__205 = u32.!=(c, lit__231);
+def tv = f_getTopOfStackType();
+def b = pop_Value(tv);
+def a = pop_Value(tv);
+def eff__206 = push_Value(tv, a);
+def eff__209 = push_Value(tv, b);
+if (cond__205) {
+}
 ====
 ====I32_CONST====
 graph TD
 	1[
-	eff__232
+	eff__233
 	push_u32
 	]
 	0 --> 1
@@ -488,11 +757,20 @@ graph TD
 	x
 	imm_readILEB32
 	]
+----IR----
+def x = imm_readILEB32();
+def eff__233 = push_u32(x);
+----Scheduled----
+def x = imm_readILEB32();
+def eff__233 = push_u32(x);
+----Pretty----
+def x = imm_readILEB32();
+def eff__233 = push_u32(x);
 ====
 ====I32_ADD====
 graph TD
 	3[
-	eff__238
+	eff__239
 	push_u32
 	]
 	2 --> 3
@@ -512,11 +790,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.+(a, b);
+def eff__239 = push_u32(r);
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.+(a, b);
+def eff__239 = push_u32(r);
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.+(a, b);
+def eff__239 = push_u32(r);
 ====
 ====I32_SUB====
 graph TD
 	3[
-	eff__249
+	eff__250
 	push_u32
 	]
 	2 --> 3
@@ -536,11 +829,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.-(a, b);
+def eff__250 = push_u32(r);
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.-(a, b);
+def eff__250 = push_u32(r);
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.-(a, b);
+def eff__250 = push_u32(r);
 ====
 ====I32_MUL====
 graph TD
 	3[
-	eff__260
+	eff__261
 	push_u32
 	]
 	2 --> 3
@@ -560,11 +868,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.*(a, b);
+def eff__261 = push_u32(r);
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.*(a, b);
+def eff__261 = push_u32(r);
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.*(a, b);
+def eff__261 = push_u32(r);
 ====
 ====I32_DIV_S====
 graph TD
 	22[
-	eff__271
+	eff__272
 	push_u32
 	]
 	21 --> 22
@@ -588,8 +911,13 @@ graph TD
 	else
 	]
 	3 --> 5
+	4 --> 5
+	4[
+	if
+	]
+	3 --> 4
 	3[
-	cond__285
+	cond__286
 	u32.==
 	]
 	0 --> 3
@@ -609,16 +937,12 @@ graph TD
 	3 --> 8
 	6 --> 8
 	6[
-	ret__286
+	ret__287
 	trapDivideByZero
 	]
 	4 --> 6
-	4[
-	if
-	]
-	3 --> 4
 	18[
-	ret__276
+	ret__277
 	trapDivideUnrepresentable
 	]
 	8 --> 18
@@ -629,19 +953,19 @@ graph TD
 	]
 	15 --> 16
 	15[
-	cond__275
+	cond__276
 	bool.&&
 	]
 	14 --> 15
 	11 --> 15
 	11[
-	arg__278
+	arg__279
 	u32.==
 	]
 	1 --> 11
 	10 --> 11
 	10[
-	arg__283
+	arg__284
 	u32.view
 	]
 	9 --> 10
@@ -649,13 +973,13 @@ graph TD
 	-2_147_483_648
 	]
 	14[
-	arg__277
+	arg__278
 	u32.==
 	]
 	0 --> 14
 	13 --> 14
 	13[
-	arg__280
+	arg__281
 	u32.view
 	]
 	12 --> 13
@@ -677,11 +1001,61 @@ graph TD
 	else
 	]
 	15 --> 17
+	16 --> 17
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def arg__289 : u32 = 0;
+def cond__286 = u32.==(b, arg__289);
+if (cond__286) {
+	def ret__287 = trapDivideByZero();
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_div_s(a, b);
+def eff__272 = push_u32(r);
+def lit__311 : u32 = -1;
+def arg__281 = u32.view(lit__311);
+def arg__278 = u32.==(b, arg__281);
+def lit__312 : u32 = -2_147_483_648;
+def arg__284 = u32.view(lit__312);
+def arg__279 = u32.==(a, arg__284);
+def cond__276 = bool.&&(arg__278, arg__279);
+def lit__313 : u32 = 0;
+def cond__286 = u32.==(b, lit__313);
+def ret__287 = trapDivideByZero();
+if (cond__286) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_div_s(a, b);
+def eff__272 = push_u32(r);
+def lit__311 = -1;
+def arg__281 = u32.view(lit__311);
+def arg__278 = u32.==(b, arg__281);
+def lit__312 = -2_147_483_648;
+def arg__284 = u32.view(lit__312);
+def arg__279 = u32.==(a, arg__284);
+def cond__276 = bool.&&(arg__278, arg__279);
+def lit__313 = 0;
+def cond__286 = u32.==(b, lit__313);
+def ret__287 = trapDivideByZero();
+if (cond__286) {
+}
+if (cond__286) {
+}
+def ret__277 = trapDivideUnrepresentable();
+if (cond__276) {
+}
+if (cond__276) {
+}
 ====
 ====I32_DIV_U====
 graph TD
 	10[
-	eff__311
+	eff__315
 	push_u32
 	]
 	9 --> 10
@@ -707,7 +1081,7 @@ graph TD
 	3 --> 8
 	6 --> 8
 	6[
-	ret__316
+	ret__320
 	trapDivideByZero
 	]
 	4 --> 6
@@ -716,7 +1090,7 @@ graph TD
 	]
 	3 --> 4
 	3[
-	cond__315
+	cond__319
 	u32.==
 	]
 	0 --> 3
@@ -733,6 +1107,37 @@ graph TD
 	else
 	]
 	3 --> 5
+	4 --> 5
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def arg__322 : u32 = 0;
+def cond__319 = u32.==(b, arg__322);
+if (cond__319) {
+	def ret__320 = trapDivideByZero();
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32./(a, b);
+def eff__315 = push_u32(r);
+def lit__334 : u32 = 0;
+def cond__319 = u32.==(b, lit__334);
+def ret__320 = trapDivideByZero();
+if (cond__319) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32./(a, b);
+def eff__315 = push_u32(r);
+def lit__334 = 0;
+def cond__319 = u32.==(b, lit__334);
+def ret__320 = trapDivideByZero();
+if (cond__319) {
+}
+if (cond__319) {
+}
 ====
 ====I32_EQZ====
 graph TD
@@ -743,7 +1148,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__334
+	eff__339
 	push_u32
 	]
 	5 --> 6
@@ -753,8 +1158,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__331
+	cond__336
 	u32.==
 	]
 	0 --> 2
@@ -770,19 +1180,46 @@ graph TD
 	0
 	]
 	8[
-	eff__332
+	eff__337
 	push_u32
 	]
 	7 --> 8
 	0 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def a = pop_u32();
+def arg__342 : u32 = 0;
+def cond__336 = u32.==(a, arg__342);
+if (cond__336) {
+	def arg__338 : u32 = 1;
+	def eff__337 = push_u32(arg__338);
+} else {
+	def arg__340 : u32 = 0;
+	def eff__339 = push_u32(arg__340);
+}
+----Scheduled----
+def a = pop_u32();
+def lit__351 : u32 = 0;
+def cond__336 = u32.==(a, lit__351);
+def lit__352 : u32 = 1;
+def eff__337 = push_u32(lit__352);
+def lit__353 : u32 = 0;
+def eff__339 = push_u32(lit__353);
+if (cond__336) {
+}
+----Pretty----
+def a = pop_u32();
+def lit__351 = 0;
+def cond__336 = u32.==(a, lit__351);
+def lit__352 = 1;
+def eff__337 = push_u32(lit__352);
+def lit__353 = 0;
+def eff__339 = push_u32(lit__353);
+if (cond__336) {
+}
 ====
 ====I32_EQ====
 graph TD
@@ -793,7 +1230,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__351
+	eff__359
 	push_u32
 	]
 	5 --> 6
@@ -803,8 +1240,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__348
+	cond__356
 	u32.==
 	]
 	1 --> 2
@@ -822,19 +1264,46 @@ graph TD
 	0
 	]
 	8[
-	eff__349
+	eff__357
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def cond__356 = u32.==(a, b);
+if (cond__356) {
+	def arg__358 : u32 = 1;
+	def eff__357 = push_u32(arg__358);
+} else {
+	def arg__360 : u32 = 0;
+	def eff__359 = push_u32(arg__360);
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def cond__356 = u32.==(a, b);
+def lit__372 : u32 = 1;
+def eff__357 = push_u32(lit__372);
+def lit__373 : u32 = 0;
+def eff__359 = push_u32(lit__373);
+if (cond__356) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def cond__356 = u32.==(a, b);
+def lit__372 = 1;
+def eff__357 = push_u32(lit__372);
+def lit__373 = 0;
+def eff__359 = push_u32(lit__373);
+if (cond__356) {
+}
 ====
 ====I32_NE====
 graph TD
@@ -845,7 +1314,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__368
+	eff__378
 	push_u32
 	]
 	5 --> 6
@@ -855,8 +1324,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__365
+	cond__375
 	u32.!=
 	]
 	1 --> 2
@@ -874,19 +1348,46 @@ graph TD
 	0
 	]
 	8[
-	eff__366
+	eff__376
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def cond__375 = u32.!=(a, b);
+if (cond__375) {
+	def arg__377 : u32 = 1;
+	def eff__376 = push_u32(arg__377);
+} else {
+	def arg__379 : u32 = 0;
+	def eff__378 = push_u32(arg__379);
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def cond__375 = u32.!=(a, b);
+def lit__391 : u32 = 1;
+def eff__376 = push_u32(lit__391);
+def lit__392 : u32 = 0;
+def eff__378 = push_u32(lit__392);
+if (cond__375) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def cond__375 = u32.!=(a, b);
+def lit__391 = 1;
+def eff__376 = push_u32(lit__391);
+def lit__392 = 0;
+def eff__378 = push_u32(lit__392);
+if (cond__375) {
+}
 ====
 ====I32_LT_U====
 graph TD
@@ -897,7 +1398,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__385
+	eff__397
 	push_u32
 	]
 	5 --> 6
@@ -907,8 +1408,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__382
+	cond__394
 	u32.<
 	]
 	1 --> 2
@@ -926,19 +1432,46 @@ graph TD
 	0
 	]
 	8[
-	eff__383
+	eff__395
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def cond__394 = u32.<(a, b);
+if (cond__394) {
+	def arg__396 : u32 = 1;
+	def eff__395 = push_u32(arg__396);
+} else {
+	def arg__398 : u32 = 0;
+	def eff__397 = push_u32(arg__398);
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def cond__394 = u32.<(a, b);
+def lit__410 : u32 = 1;
+def eff__395 = push_u32(lit__410);
+def lit__411 : u32 = 0;
+def eff__397 = push_u32(lit__411);
+if (cond__394) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def cond__394 = u32.<(a, b);
+def lit__410 = 1;
+def eff__395 = push_u32(lit__410);
+def lit__411 = 0;
+def eff__397 = push_u32(lit__411);
+if (cond__394) {
+}
 ====
 ====I32_LT_S====
 graph TD
@@ -949,7 +1482,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__402
+	eff__416
 	push_u32
 	]
 	5 --> 6
@@ -959,8 +1492,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__399
+	cond__413
 	U32_lt_s
 	]
 	1 --> 2
@@ -978,19 +1516,46 @@ graph TD
 	0
 	]
 	8[
-	eff__400
+	eff__414
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def cond__413 = U32_lt_s(a, b);
+if (cond__413) {
+	def arg__415 : u32 = 1;
+	def eff__414 = push_u32(arg__415);
+} else {
+	def arg__417 : u32 = 0;
+	def eff__416 = push_u32(arg__417);
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def cond__413 = U32_lt_s(a, b);
+def lit__429 : u32 = 1;
+def eff__414 = push_u32(lit__429);
+def lit__430 : u32 = 0;
+def eff__416 = push_u32(lit__430);
+if (cond__413) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def cond__413 = U32_lt_s(a, b);
+def lit__429 = 1;
+def eff__414 = push_u32(lit__429);
+def lit__430 = 0;
+def eff__416 = push_u32(lit__430);
+if (cond__413) {
+}
 ====
 ====I32_LE_S====
 graph TD
@@ -1001,7 +1566,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__419
+	eff__435
 	push_u32
 	]
 	5 --> 6
@@ -1011,8 +1576,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__416
+	cond__432
 	U32_le_s
 	]
 	1 --> 2
@@ -1030,19 +1600,46 @@ graph TD
 	0
 	]
 	8[
-	eff__417
+	eff__433
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def cond__432 = U32_le_s(a, b);
+if (cond__432) {
+	def arg__434 : u32 = 1;
+	def eff__433 = push_u32(arg__434);
+} else {
+	def arg__436 : u32 = 0;
+	def eff__435 = push_u32(arg__436);
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def cond__432 = U32_le_s(a, b);
+def lit__448 : u32 = 1;
+def eff__433 = push_u32(lit__448);
+def lit__449 : u32 = 0;
+def eff__435 = push_u32(lit__449);
+if (cond__432) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def cond__432 = U32_le_s(a, b);
+def lit__448 = 1;
+def eff__433 = push_u32(lit__448);
+def lit__449 = 0;
+def eff__435 = push_u32(lit__449);
+if (cond__432) {
+}
 ====
 ====I32_GT_U====
 graph TD
@@ -1053,7 +1650,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__436
+	eff__454
 	push_u32
 	]
 	5 --> 6
@@ -1063,8 +1660,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__433
+	cond__451
 	u32.>
 	]
 	1 --> 2
@@ -1082,19 +1684,46 @@ graph TD
 	0
 	]
 	8[
-	eff__434
+	eff__452
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def cond__451 = u32.>(a, b);
+if (cond__451) {
+	def arg__453 : u32 = 1;
+	def eff__452 = push_u32(arg__453);
+} else {
+	def arg__455 : u32 = 0;
+	def eff__454 = push_u32(arg__455);
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def cond__451 = u32.>(a, b);
+def lit__467 : u32 = 1;
+def eff__452 = push_u32(lit__467);
+def lit__468 : u32 = 0;
+def eff__454 = push_u32(lit__468);
+if (cond__451) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def cond__451 = u32.>(a, b);
+def lit__467 = 1;
+def eff__452 = push_u32(lit__467);
+def lit__468 = 0;
+def eff__454 = push_u32(lit__468);
+if (cond__451) {
+}
 ====
 ====I32_LE_U====
 graph TD
@@ -1105,7 +1734,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__453
+	eff__473
 	push_u32
 	]
 	5 --> 6
@@ -1115,8 +1744,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__450
+	cond__470
 	u32.<=
 	]
 	1 --> 2
@@ -1134,19 +1768,46 @@ graph TD
 	0
 	]
 	8[
-	eff__451
+	eff__471
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def cond__470 = u32.<=(a, b);
+if (cond__470) {
+	def arg__472 : u32 = 1;
+	def eff__471 = push_u32(arg__472);
+} else {
+	def arg__474 : u32 = 0;
+	def eff__473 = push_u32(arg__474);
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def cond__470 = u32.<=(a, b);
+def lit__486 : u32 = 1;
+def eff__471 = push_u32(lit__486);
+def lit__487 : u32 = 0;
+def eff__473 = push_u32(lit__487);
+if (cond__470) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def cond__470 = u32.<=(a, b);
+def lit__486 = 1;
+def eff__471 = push_u32(lit__486);
+def lit__487 = 0;
+def eff__473 = push_u32(lit__487);
+if (cond__470) {
+}
 ====
 ====I32_GT_S====
 graph TD
@@ -1157,7 +1818,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__470
+	eff__492
 	push_u32
 	]
 	5 --> 6
@@ -1167,8 +1828,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__467
+	cond__489
 	U32_gt_s
 	]
 	1 --> 2
@@ -1186,19 +1852,46 @@ graph TD
 	0
 	]
 	8[
-	eff__468
+	eff__490
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def cond__489 = U32_gt_s(a, b);
+if (cond__489) {
+	def arg__491 : u32 = 1;
+	def eff__490 = push_u32(arg__491);
+} else {
+	def arg__493 : u32 = 0;
+	def eff__492 = push_u32(arg__493);
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def cond__489 = U32_gt_s(a, b);
+def lit__505 : u32 = 1;
+def eff__490 = push_u32(lit__505);
+def lit__506 : u32 = 0;
+def eff__492 = push_u32(lit__506);
+if (cond__489) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def cond__489 = U32_gt_s(a, b);
+def lit__505 = 1;
+def eff__490 = push_u32(lit__505);
+def lit__506 = 0;
+def eff__492 = push_u32(lit__506);
+if (cond__489) {
+}
 ====
 ====I32_GE_U====
 graph TD
@@ -1209,7 +1902,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__487
+	eff__511
 	push_u32
 	]
 	5 --> 6
@@ -1219,8 +1912,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__484
+	cond__508
 	U32_ge_u
 	]
 	1 --> 2
@@ -1238,19 +1936,46 @@ graph TD
 	0
 	]
 	8[
-	eff__485
+	eff__509
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def cond__508 = U32_ge_u(a, b);
+if (cond__508) {
+	def arg__510 : u32 = 1;
+	def eff__509 = push_u32(arg__510);
+} else {
+	def arg__512 : u32 = 0;
+	def eff__511 = push_u32(arg__512);
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def cond__508 = U32_ge_u(a, b);
+def lit__524 : u32 = 1;
+def eff__509 = push_u32(lit__524);
+def lit__525 : u32 = 0;
+def eff__511 = push_u32(lit__525);
+if (cond__508) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def cond__508 = U32_ge_u(a, b);
+def lit__524 = 1;
+def eff__509 = push_u32(lit__524);
+def lit__525 = 0;
+def eff__511 = push_u32(lit__525);
+if (cond__508) {
+}
 ====
 ====I32_GE_S====
 graph TD
@@ -1261,7 +1986,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__504
+	eff__530
 	push_u32
 	]
 	5 --> 6
@@ -1271,8 +1996,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__501
+	cond__527
 	U32_ge_s
 	]
 	1 --> 2
@@ -1290,24 +2020,51 @@ graph TD
 	0
 	]
 	8[
-	eff__502
+	eff__528
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def cond__527 = U32_ge_s(a, b);
+if (cond__527) {
+	def arg__529 : u32 = 1;
+	def eff__528 = push_u32(arg__529);
+} else {
+	def arg__531 : u32 = 0;
+	def eff__530 = push_u32(arg__531);
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def cond__527 = U32_ge_s(a, b);
+def lit__543 : u32 = 1;
+def eff__528 = push_u32(lit__543);
+def lit__544 : u32 = 0;
+def eff__530 = push_u32(lit__544);
+if (cond__527) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def cond__527 = U32_ge_s(a, b);
+def lit__543 = 1;
+def eff__528 = push_u32(lit__543);
+def lit__544 = 0;
+def eff__530 = push_u32(lit__544);
+if (cond__527) {
+}
 ====
 ====I32_AND====
 graph TD
 	3[
-	eff__518
+	eff__546
 	push_u32
 	]
 	2 --> 3
@@ -1327,11 +2084,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.&(a, b);
+def eff__546 = push_u32(r);
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.&(a, b);
+def eff__546 = push_u32(r);
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.&(a, b);
+def eff__546 = push_u32(r);
 ====
 ====I32_OR====
 graph TD
 	3[
-	eff__529
+	eff__557
 	push_u32
 	]
 	2 --> 3
@@ -1351,11 +2123,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.|(a, b);
+def eff__557 = push_u32(r);
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.|(a, b);
+def eff__557 = push_u32(r);
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.|(a, b);
+def eff__557 = push_u32(r);
 ====
 ====I32_XOR====
 graph TD
 	3[
-	eff__540
+	eff__568
 	push_u32
 	]
 	2 --> 3
@@ -1375,11 +2162,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.^(a, b);
+def eff__568 = push_u32(r);
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.^(a, b);
+def eff__568 = push_u32(r);
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = u32.^(a, b);
+def eff__568 = push_u32(r);
 ====
 ====I32_SHL====
 graph TD
 	3[
-	eff__551
+	eff__579
 	push_u32
 	]
 	2 --> 3
@@ -1399,11 +2201,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_shl(a, b);
+def eff__579 = push_u32(r);
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_shl(a, b);
+def eff__579 = push_u32(r);
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_shl(a, b);
+def eff__579 = push_u32(r);
 ====
 ====I32_SHR_U====
 graph TD
 	3[
-	eff__562
+	eff__590
 	push_u32
 	]
 	2 --> 3
@@ -1423,11 +2240,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_shr_u(a, b);
+def eff__590 = push_u32(r);
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_shr_u(a, b);
+def eff__590 = push_u32(r);
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_shr_u(a, b);
+def eff__590 = push_u32(r);
 ====
 ====I32_SHR_S====
 graph TD
 	3[
-	eff__573
+	eff__601
 	push_u32
 	]
 	2 --> 3
@@ -1447,11 +2279,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_shr_s(a, b);
+def eff__601 = push_u32(r);
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_shr_s(a, b);
+def eff__601 = push_u32(r);
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_shr_s(a, b);
+def eff__601 = push_u32(r);
 ====
 ====I32_ROTL====
 graph TD
 	3[
-	eff__584
+	eff__612
 	push_u32
 	]
 	2 --> 3
@@ -1471,11 +2318,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_rotl(a, b);
+def eff__612 = push_u32(r);
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_rotl(a, b);
+def eff__612 = push_u32(r);
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_rotl(a, b);
+def eff__612 = push_u32(r);
 ====
 ====I32_ROTR====
 graph TD
 	3[
-	eff__595
+	eff__623
 	push_u32
 	]
 	2 --> 3
@@ -1495,11 +2357,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_rotr(a, b);
+def eff__623 = push_u32(r);
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_rotr(a, b);
+def eff__623 = push_u32(r);
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_rotr(a, b);
+def eff__623 = push_u32(r);
 ====
 ====I32_CLZ====
 graph TD
 	2[
-	eff__606
+	eff__634
 	push_u32
 	]
 	1 --> 2
@@ -1513,11 +2390,23 @@ graph TD
 	U32_clz
 	]
 	0 --> 1
+----IR----
+def a = pop_u32();
+def r = U32_clz(a);
+def eff__634 = push_u32(r);
+----Scheduled----
+def a = pop_u32();
+def r = U32_clz(a);
+def eff__634 = push_u32(r);
+----Pretty----
+def a = pop_u32();
+def r = U32_clz(a);
+def eff__634 = push_u32(r);
 ====
 ====I32_CTZ====
 graph TD
 	2[
-	eff__614
+	eff__642
 	push_u32
 	]
 	1 --> 2
@@ -1531,11 +2420,23 @@ graph TD
 	U32_ctz
 	]
 	0 --> 1
+----IR----
+def a = pop_u32();
+def r = U32_ctz(a);
+def eff__642 = push_u32(r);
+----Scheduled----
+def a = pop_u32();
+def r = U32_ctz(a);
+def eff__642 = push_u32(r);
+----Pretty----
+def a = pop_u32();
+def r = U32_ctz(a);
+def eff__642 = push_u32(r);
 ====
 ====I32_POPCNT====
 graph TD
 	2[
-	eff__622
+	eff__650
 	push_u32
 	]
 	1 --> 2
@@ -1549,11 +2450,23 @@ graph TD
 	U32_popcnt
 	]
 	0 --> 1
+----IR----
+def a = pop_u32();
+def r = U32_popcnt(a);
+def eff__650 = push_u32(r);
+----Scheduled----
+def a = pop_u32();
+def r = U32_popcnt(a);
+def eff__650 = push_u32(r);
+----Pretty----
+def a = pop_u32();
+def r = U32_popcnt(a);
+def eff__650 = push_u32(r);
 ====
 ====I32_REM_S====
 graph TD
 	10[
-	eff__630
+	eff__658
 	push_u32
 	]
 	9 --> 10
@@ -1579,7 +2492,7 @@ graph TD
 	3 --> 8
 	6 --> 8
 	6[
-	ret__635
+	ret__663
 	trapDivideByZero
 	]
 	4 --> 6
@@ -1588,7 +2501,7 @@ graph TD
 	]
 	3 --> 4
 	3[
-	cond__634
+	cond__662
 	u32.==
 	]
 	0 --> 3
@@ -1605,11 +2518,42 @@ graph TD
 	else
 	]
 	3 --> 5
+	4 --> 5
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def arg__665 : u32 = 0;
+def cond__662 = u32.==(b, arg__665);
+if (cond__662) {
+	def ret__663 = trapDivideByZero();
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_rem_s(a, b);
+def eff__658 = push_u32(r);
+def lit__677 : u32 = 0;
+def cond__662 = u32.==(b, lit__677);
+def ret__663 = trapDivideByZero();
+if (cond__662) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_rem_s(a, b);
+def eff__658 = push_u32(r);
+def lit__677 = 0;
+def cond__662 = u32.==(b, lit__677);
+def ret__663 = trapDivideByZero();
+if (cond__662) {
+}
+if (cond__662) {
+}
 ====
 ====I32_REM_U====
 graph TD
 	10[
-	eff__650
+	eff__679
 	push_u32
 	]
 	9 --> 10
@@ -1635,7 +2579,7 @@ graph TD
 	3 --> 8
 	6 --> 8
 	6[
-	ret__655
+	ret__684
 	trapDivideByZero
 	]
 	4 --> 6
@@ -1644,7 +2588,7 @@ graph TD
 	]
 	3 --> 4
 	3[
-	cond__654
+	cond__683
 	u32.==
 	]
 	0 --> 3
@@ -1661,11 +2605,42 @@ graph TD
 	else
 	]
 	3 --> 5
+	4 --> 5
+----IR----
+def b = pop_u32();
+def a = pop_u32();
+def arg__686 : u32 = 0;
+def cond__683 = u32.==(b, arg__686);
+if (cond__683) {
+	def ret__684 = trapDivideByZero();
+}
+----Scheduled----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_rem_u(a, b);
+def eff__679 = push_u32(r);
+def lit__698 : u32 = 0;
+def cond__683 = u32.==(b, lit__698);
+def ret__684 = trapDivideByZero();
+if (cond__683) {
+}
+----Pretty----
+def b = pop_u32();
+def a = pop_u32();
+def r = U32_rem_u(a, b);
+def eff__679 = push_u32(r);
+def lit__698 = 0;
+def cond__683 = u32.==(b, lit__698);
+def ret__684 = trapDivideByZero();
+if (cond__683) {
+}
+if (cond__683) {
+}
 ====
 ====I32_EXTEND8_S====
 graph TD
 	2[
-	eff__670
+	eff__700
 	push_u32
 	]
 	1 --> 2
@@ -1679,11 +2654,23 @@ graph TD
 	U32_extend8_s
 	]
 	0 --> 1
+----IR----
+def a = pop_u32();
+def r = U32_extend8_s(a);
+def eff__700 = push_u32(r);
+----Scheduled----
+def a = pop_u32();
+def r = U32_extend8_s(a);
+def eff__700 = push_u32(r);
+----Pretty----
+def a = pop_u32();
+def r = U32_extend8_s(a);
+def eff__700 = push_u32(r);
 ====
 ====I32_EXTEND16_S====
 graph TD
 	2[
-	eff__678
+	eff__708
 	push_u32
 	]
 	1 --> 2
@@ -1697,11 +2684,23 @@ graph TD
 	U32_extend16_s
 	]
 	0 --> 1
+----IR----
+def a = pop_u32();
+def r = U32_extend16_s(a);
+def eff__708 = push_u32(r);
+----Scheduled----
+def a = pop_u32();
+def r = U32_extend16_s(a);
+def eff__708 = push_u32(r);
+----Pretty----
+def a = pop_u32();
+def r = U32_extend16_s(a);
+def eff__708 = push_u32(r);
 ====
 ====I64_CONST====
 graph TD
 	1[
-	eff__686
+	eff__716
 	push_u64
 	]
 	0 --> 1
@@ -1709,11 +2708,20 @@ graph TD
 	x
 	imm_readILEB64
 	]
+----IR----
+def x = imm_readILEB64();
+def eff__716 = push_u64(x);
+----Scheduled----
+def x = imm_readILEB64();
+def eff__716 = push_u64(x);
+----Pretty----
+def x = imm_readILEB64();
+def eff__716 = push_u64(x);
 ====
 ====I64_ADD====
 graph TD
 	3[
-	eff__692
+	eff__722
 	push_u64
 	]
 	2 --> 3
@@ -1733,11 +2741,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.+(a, b);
+def eff__722 = push_u64(r);
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.+(a, b);
+def eff__722 = push_u64(r);
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.+(a, b);
+def eff__722 = push_u64(r);
 ====
 ====I64_SUB====
 graph TD
 	3[
-	eff__703
+	eff__733
 	push_u64
 	]
 	2 --> 3
@@ -1757,11 +2780,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.-(a, b);
+def eff__733 = push_u64(r);
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.-(a, b);
+def eff__733 = push_u64(r);
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.-(a, b);
+def eff__733 = push_u64(r);
 ====
 ====I64_MUL====
 graph TD
 	3[
-	eff__714
+	eff__744
 	push_u64
 	]
 	2 --> 3
@@ -1781,11 +2819,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.*(a, b);
+def eff__744 = push_u64(r);
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.*(a, b);
+def eff__744 = push_u64(r);
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.*(a, b);
+def eff__744 = push_u64(r);
 ====
 ====I64_DIV_S====
 graph TD
 	22[
-	eff__725
+	eff__755
 	push_u64
 	]
 	21 --> 22
@@ -1809,8 +2862,13 @@ graph TD
 	else
 	]
 	3 --> 5
+	4 --> 5
+	4[
+	if
+	]
+	3 --> 4
 	3[
-	cond__739
+	cond__769
 	u64.==
 	]
 	0 --> 3
@@ -1830,16 +2888,12 @@ graph TD
 	3 --> 8
 	6 --> 8
 	6[
-	ret__740
+	ret__770
 	trapDivideByZero
 	]
 	4 --> 6
-	4[
-	if
-	]
-	3 --> 4
 	18[
-	ret__730
+	ret__760
 	trapDivideUnrepresentable
 	]
 	8 --> 18
@@ -1850,19 +2904,19 @@ graph TD
 	]
 	15 --> 16
 	15[
-	cond__729
+	cond__759
 	bool.&&
 	]
 	14 --> 15
 	11 --> 15
 	11[
-	arg__732
+	arg__762
 	u64.==
 	]
 	1 --> 11
 	10 --> 11
 	10[
-	arg__737
+	arg__767
 	u64.view
 	]
 	9 --> 10
@@ -1870,13 +2924,13 @@ graph TD
 	-9223372036854775808L
 	]
 	14[
-	arg__731
+	arg__761
 	u64.==
 	]
 	0 --> 14
 	13 --> 14
 	13[
-	arg__734
+	arg__764
 	u64.view
 	]
 	12 --> 13
@@ -1898,11 +2952,61 @@ graph TD
 	else
 	]
 	15 --> 17
+	16 --> 17
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def arg__772 : u64 = 0;
+def cond__769 = u64.==(b, arg__772);
+if (cond__769) {
+	def ret__770 = trapDivideByZero();
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_div_s(a, b);
+def eff__755 = push_u64(r);
+def lit__794 : u32 = -1;
+def arg__764 = u64.view(lit__794);
+def arg__761 = u64.==(b, arg__764);
+def lit__795 : long = -9223372036854775808L;
+def arg__767 = u64.view(lit__795);
+def arg__762 = u64.==(a, arg__767);
+def cond__759 = bool.&&(arg__761, arg__762);
+def lit__796 : u64 = 0;
+def cond__769 = u64.==(b, lit__796);
+def ret__770 = trapDivideByZero();
+if (cond__769) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_div_s(a, b);
+def eff__755 = push_u64(r);
+def lit__794 = -1;
+def arg__764 = u64.view(lit__794);
+def arg__761 = u64.==(b, arg__764);
+def lit__795 = -9223372036854775808L;
+def arg__767 = u64.view(lit__795);
+def arg__762 = u64.==(a, arg__767);
+def cond__759 = bool.&&(arg__761, arg__762);
+def lit__796 = 0;
+def cond__769 = u64.==(b, lit__796);
+def ret__770 = trapDivideByZero();
+if (cond__769) {
+}
+if (cond__769) {
+}
+def ret__760 = trapDivideUnrepresentable();
+if (cond__759) {
+}
+if (cond__759) {
+}
 ====
 ====I64_DIV_U====
 graph TD
 	10[
-	eff__764
+	eff__797
 	push_u64
 	]
 	9 --> 10
@@ -1928,7 +3032,7 @@ graph TD
 	3 --> 8
 	6 --> 8
 	6[
-	ret__769
+	ret__802
 	trapDivideByZero
 	]
 	4 --> 6
@@ -1937,7 +3041,7 @@ graph TD
 	]
 	3 --> 4
 	3[
-	cond__768
+	cond__801
 	u64.==
 	]
 	0 --> 3
@@ -1954,11 +3058,42 @@ graph TD
 	else
 	]
 	3 --> 5
+	4 --> 5
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def arg__804 : u64 = 0;
+def cond__801 = u64.==(b, arg__804);
+if (cond__801) {
+	def ret__802 = trapDivideByZero();
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64./(a, b);
+def eff__797 = push_u64(r);
+def lit__816 : u64 = 0;
+def cond__801 = u64.==(b, lit__816);
+def ret__802 = trapDivideByZero();
+if (cond__801) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64./(a, b);
+def eff__797 = push_u64(r);
+def lit__816 = 0;
+def cond__801 = u64.==(b, lit__816);
+def ret__802 = trapDivideByZero();
+if (cond__801) {
+}
+if (cond__801) {
+}
 ====
 ====I64_REM_S====
 graph TD
 	10[
-	eff__783
+	eff__817
 	push_u64
 	]
 	9 --> 10
@@ -1984,7 +3119,7 @@ graph TD
 	3 --> 8
 	6 --> 8
 	6[
-	ret__788
+	ret__822
 	trapDivideByZero
 	]
 	4 --> 6
@@ -1993,7 +3128,7 @@ graph TD
 	]
 	3 --> 4
 	3[
-	cond__787
+	cond__821
 	u64.==
 	]
 	0 --> 3
@@ -2010,11 +3145,42 @@ graph TD
 	else
 	]
 	3 --> 5
+	4 --> 5
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def arg__824 : u64 = 0;
+def cond__821 = u64.==(b, arg__824);
+if (cond__821) {
+	def ret__822 = trapDivideByZero();
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_rem_s(a, b);
+def eff__817 = push_u64(r);
+def lit__836 : u64 = 0;
+def cond__821 = u64.==(b, lit__836);
+def ret__822 = trapDivideByZero();
+if (cond__821) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_rem_s(a, b);
+def eff__817 = push_u64(r);
+def lit__836 = 0;
+def cond__821 = u64.==(b, lit__836);
+def ret__822 = trapDivideByZero();
+if (cond__821) {
+}
+if (cond__821) {
+}
 ====
 ====I64_REM_U====
 graph TD
 	10[
-	eff__802
+	eff__837
 	push_u64
 	]
 	9 --> 10
@@ -2040,7 +3206,7 @@ graph TD
 	3 --> 8
 	6 --> 8
 	6[
-	ret__807
+	ret__842
 	trapDivideByZero
 	]
 	4 --> 6
@@ -2049,7 +3215,7 @@ graph TD
 	]
 	3 --> 4
 	3[
-	cond__806
+	cond__841
 	u64.==
 	]
 	0 --> 3
@@ -2066,11 +3232,42 @@ graph TD
 	else
 	]
 	3 --> 5
+	4 --> 5
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def arg__844 : u64 = 0;
+def cond__841 = u64.==(b, arg__844);
+if (cond__841) {
+	def ret__842 = trapDivideByZero();
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_rem_u(a, b);
+def eff__837 = push_u64(r);
+def lit__856 : u64 = 0;
+def cond__841 = u64.==(b, lit__856);
+def ret__842 = trapDivideByZero();
+if (cond__841) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_rem_u(a, b);
+def eff__837 = push_u64(r);
+def lit__856 = 0;
+def cond__841 = u64.==(b, lit__856);
+def ret__842 = trapDivideByZero();
+if (cond__841) {
+}
+if (cond__841) {
+}
 ====
 ====I64_AND====
 graph TD
 	3[
-	eff__821
+	eff__857
 	push_u64
 	]
 	2 --> 3
@@ -2090,11 +3287,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.&(a, b);
+def eff__857 = push_u64(r);
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.&(a, b);
+def eff__857 = push_u64(r);
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.&(a, b);
+def eff__857 = push_u64(r);
 ====
 ====I64_OR====
 graph TD
 	3[
-	eff__832
+	eff__868
 	push_u64
 	]
 	2 --> 3
@@ -2114,11 +3326,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.|(a, b);
+def eff__868 = push_u64(r);
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.|(a, b);
+def eff__868 = push_u64(r);
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.|(a, b);
+def eff__868 = push_u64(r);
 ====
 ====I64_XOR====
 graph TD
 	3[
-	eff__843
+	eff__879
 	push_u64
 	]
 	2 --> 3
@@ -2138,11 +3365,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.^(a, b);
+def eff__879 = push_u64(r);
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.^(a, b);
+def eff__879 = push_u64(r);
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = u64.^(a, b);
+def eff__879 = push_u64(r);
 ====
 ====I64_SHL====
 graph TD
 	3[
-	eff__854
+	eff__890
 	push_u64
 	]
 	2 --> 3
@@ -2162,11 +3404,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_shl(a, b);
+def eff__890 = push_u64(r);
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_shl(a, b);
+def eff__890 = push_u64(r);
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_shl(a, b);
+def eff__890 = push_u64(r);
 ====
 ====I64_SHR_U====
 graph TD
 	3[
-	eff__865
+	eff__901
 	push_u64
 	]
 	2 --> 3
@@ -2186,11 +3443,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_shr_u(a, b);
+def eff__901 = push_u64(r);
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_shr_u(a, b);
+def eff__901 = push_u64(r);
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_shr_u(a, b);
+def eff__901 = push_u64(r);
 ====
 ====I64_SHR_S====
 graph TD
 	3[
-	eff__876
+	eff__912
 	push_u64
 	]
 	2 --> 3
@@ -2210,11 +3482,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_shr_s(a, b);
+def eff__912 = push_u64(r);
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_shr_s(a, b);
+def eff__912 = push_u64(r);
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_shr_s(a, b);
+def eff__912 = push_u64(r);
 ====
 ====I64_ROTL====
 graph TD
 	3[
-	eff__887
+	eff__923
 	push_u64
 	]
 	2 --> 3
@@ -2234,11 +3521,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_rotl(a, b);
+def eff__923 = push_u64(r);
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_rotl(a, b);
+def eff__923 = push_u64(r);
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_rotl(a, b);
+def eff__923 = push_u64(r);
 ====
 ====I64_ROTR====
 graph TD
 	3[
-	eff__898
+	eff__934
 	push_u64
 	]
 	2 --> 3
@@ -2258,11 +3560,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_rotr(a, b);
+def eff__934 = push_u64(r);
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_rotr(a, b);
+def eff__934 = push_u64(r);
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def r = U64_rotr(a, b);
+def eff__934 = push_u64(r);
 ====
 ====I64_CLZ====
 graph TD
 	2[
-	eff__909
+	eff__945
 	push_u64
 	]
 	1 --> 2
@@ -2276,11 +3593,23 @@ graph TD
 	U64_clz
 	]
 	0 --> 1
+----IR----
+def a = pop_u64();
+def r = U64_clz(a);
+def eff__945 = push_u64(r);
+----Scheduled----
+def a = pop_u64();
+def r = U64_clz(a);
+def eff__945 = push_u64(r);
+----Pretty----
+def a = pop_u64();
+def r = U64_clz(a);
+def eff__945 = push_u64(r);
 ====
 ====I64_CTZ====
 graph TD
 	2[
-	eff__917
+	eff__953
 	push_u64
 	]
 	1 --> 2
@@ -2294,11 +3623,23 @@ graph TD
 	U64_ctz
 	]
 	0 --> 1
+----IR----
+def a = pop_u64();
+def r = U64_ctz(a);
+def eff__953 = push_u64(r);
+----Scheduled----
+def a = pop_u64();
+def r = U64_ctz(a);
+def eff__953 = push_u64(r);
+----Pretty----
+def a = pop_u64();
+def r = U64_ctz(a);
+def eff__953 = push_u64(r);
 ====
 ====I64_POPCNT====
 graph TD
 	2[
-	eff__925
+	eff__961
 	push_u64
 	]
 	1 --> 2
@@ -2312,6 +3653,18 @@ graph TD
 	U64_popcnt
 	]
 	0 --> 1
+----IR----
+def a = pop_u64();
+def r = U64_popcnt(a);
+def eff__961 = push_u64(r);
+----Scheduled----
+def a = pop_u64();
+def r = U64_popcnt(a);
+def eff__961 = push_u64(r);
+----Pretty----
+def a = pop_u64();
+def r = U64_popcnt(a);
+def eff__961 = push_u64(r);
 ====
 ====I64_EQZ====
 graph TD
@@ -2322,7 +3675,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__936
+	eff__972
 	push_u32
 	]
 	5 --> 6
@@ -2332,8 +3685,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__933
+	cond__969
 	u64.==
 	]
 	0 --> 2
@@ -2349,19 +3707,46 @@ graph TD
 	0
 	]
 	8[
-	eff__934
+	eff__970
 	push_u32
 	]
 	7 --> 8
 	0 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def a = pop_u64();
+def arg__975 : u64 = 0;
+def cond__969 = u64.==(a, arg__975);
+if (cond__969) {
+	def arg__971 : u32 = 1;
+	def eff__970 = push_u32(arg__971);
+} else {
+	def arg__973 : u32 = 0;
+	def eff__972 = push_u32(arg__973);
+}
+----Scheduled----
+def a = pop_u64();
+def lit__984 : u64 = 0;
+def cond__969 = u64.==(a, lit__984);
+def lit__985 : u32 = 1;
+def eff__970 = push_u32(lit__985);
+def lit__986 : u32 = 0;
+def eff__972 = push_u32(lit__986);
+if (cond__969) {
+}
+----Pretty----
+def a = pop_u64();
+def lit__984 = 0;
+def cond__969 = u64.==(a, lit__984);
+def lit__985 = 1;
+def eff__970 = push_u32(lit__985);
+def lit__986 = 0;
+def eff__972 = push_u32(lit__986);
+if (cond__969) {
+}
 ====
 ====I64_EQ====
 graph TD
@@ -2372,7 +3757,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__952
+	eff__991
 	push_u32
 	]
 	5 --> 6
@@ -2382,8 +3767,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__949
+	cond__988
 	u64.==
 	]
 	1 --> 2
@@ -2401,19 +3791,46 @@ graph TD
 	0
 	]
 	8[
-	eff__950
+	eff__989
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def cond__988 = u64.==(a, b);
+if (cond__988) {
+	def arg__990 : u32 = 1;
+	def eff__989 = push_u32(arg__990);
+} else {
+	def arg__992 : u32 = 0;
+	def eff__991 = push_u32(arg__992);
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def cond__988 = u64.==(a, b);
+def lit__1004 : u32 = 1;
+def eff__989 = push_u32(lit__1004);
+def lit__1005 : u32 = 0;
+def eff__991 = push_u32(lit__1005);
+if (cond__988) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def cond__988 = u64.==(a, b);
+def lit__1004 = 1;
+def eff__989 = push_u32(lit__1004);
+def lit__1005 = 0;
+def eff__991 = push_u32(lit__1005);
+if (cond__988) {
+}
 ====
 ====I64_NE====
 graph TD
@@ -2424,7 +3841,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__969
+	eff__1010
 	push_u32
 	]
 	5 --> 6
@@ -2434,8 +3851,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__966
+	cond__1007
 	u64.!=
 	]
 	1 --> 2
@@ -2453,19 +3875,46 @@ graph TD
 	0
 	]
 	8[
-	eff__967
+	eff__1008
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1007 = u64.!=(a, b);
+if (cond__1007) {
+	def arg__1009 : u32 = 1;
+	def eff__1008 = push_u32(arg__1009);
+} else {
+	def arg__1011 : u32 = 0;
+	def eff__1010 = push_u32(arg__1011);
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1007 = u64.!=(a, b);
+def lit__1023 : u32 = 1;
+def eff__1008 = push_u32(lit__1023);
+def lit__1024 : u32 = 0;
+def eff__1010 = push_u32(lit__1024);
+if (cond__1007) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1007 = u64.!=(a, b);
+def lit__1023 = 1;
+def eff__1008 = push_u32(lit__1023);
+def lit__1024 = 0;
+def eff__1010 = push_u32(lit__1024);
+if (cond__1007) {
+}
 ====
 ====I64_LT_S====
 graph TD
@@ -2476,7 +3925,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__986
+	eff__1029
 	push_u32
 	]
 	5 --> 6
@@ -2486,8 +3935,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__983
+	cond__1026
 	U64_lt_s
 	]
 	1 --> 2
@@ -2505,19 +3959,46 @@ graph TD
 	0
 	]
 	8[
-	eff__984
+	eff__1027
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1026 = U64_lt_s(a, b);
+if (cond__1026) {
+	def arg__1028 : u32 = 1;
+	def eff__1027 = push_u32(arg__1028);
+} else {
+	def arg__1030 : u32 = 0;
+	def eff__1029 = push_u32(arg__1030);
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1026 = U64_lt_s(a, b);
+def lit__1042 : u32 = 1;
+def eff__1027 = push_u32(lit__1042);
+def lit__1043 : u32 = 0;
+def eff__1029 = push_u32(lit__1043);
+if (cond__1026) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1026 = U64_lt_s(a, b);
+def lit__1042 = 1;
+def eff__1027 = push_u32(lit__1042);
+def lit__1043 = 0;
+def eff__1029 = push_u32(lit__1043);
+if (cond__1026) {
+}
 ====
 ====I64_LT_U====
 graph TD
@@ -2528,7 +4009,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__1003
+	eff__1048
 	push_u32
 	]
 	5 --> 6
@@ -2538,8 +4019,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__1000
+	cond__1045
 	u64.<
 	]
 	1 --> 2
@@ -2557,19 +4043,46 @@ graph TD
 	0
 	]
 	8[
-	eff__1001
+	eff__1046
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1045 = u64.<(a, b);
+if (cond__1045) {
+	def arg__1047 : u32 = 1;
+	def eff__1046 = push_u32(arg__1047);
+} else {
+	def arg__1049 : u32 = 0;
+	def eff__1048 = push_u32(arg__1049);
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1045 = u64.<(a, b);
+def lit__1061 : u32 = 1;
+def eff__1046 = push_u32(lit__1061);
+def lit__1062 : u32 = 0;
+def eff__1048 = push_u32(lit__1062);
+if (cond__1045) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1045 = u64.<(a, b);
+def lit__1061 = 1;
+def eff__1046 = push_u32(lit__1061);
+def lit__1062 = 0;
+def eff__1048 = push_u32(lit__1062);
+if (cond__1045) {
+}
 ====
 ====I64_LE_S====
 graph TD
@@ -2580,7 +4093,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__1020
+	eff__1067
 	push_u32
 	]
 	5 --> 6
@@ -2590,8 +4103,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__1017
+	cond__1064
 	U64_le_s
 	]
 	1 --> 2
@@ -2609,19 +4127,46 @@ graph TD
 	0
 	]
 	8[
-	eff__1018
+	eff__1065
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1064 = U64_le_s(a, b);
+if (cond__1064) {
+	def arg__1066 : u32 = 1;
+	def eff__1065 = push_u32(arg__1066);
+} else {
+	def arg__1068 : u32 = 0;
+	def eff__1067 = push_u32(arg__1068);
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1064 = U64_le_s(a, b);
+def lit__1080 : u32 = 1;
+def eff__1065 = push_u32(lit__1080);
+def lit__1081 : u32 = 0;
+def eff__1067 = push_u32(lit__1081);
+if (cond__1064) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1064 = U64_le_s(a, b);
+def lit__1080 = 1;
+def eff__1065 = push_u32(lit__1080);
+def lit__1081 = 0;
+def eff__1067 = push_u32(lit__1081);
+if (cond__1064) {
+}
 ====
 ====I64_LE_U====
 graph TD
@@ -2632,7 +4177,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__1037
+	eff__1086
 	push_u32
 	]
 	5 --> 6
@@ -2642,8 +4187,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__1034
+	cond__1083
 	u64.<=
 	]
 	1 --> 2
@@ -2661,177 +4211,48 @@ graph TD
 	0
 	]
 	8[
-	eff__1035
+	eff__1084
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1083 = u64.<=(a, b);
+if (cond__1083) {
+	def arg__1085 : u32 = 1;
+	def eff__1084 = push_u32(arg__1085);
+} else {
+	def arg__1087 : u32 = 0;
+	def eff__1086 = push_u32(arg__1087);
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1083 = u64.<=(a, b);
+def lit__1099 : u32 = 1;
+def eff__1084 = push_u32(lit__1099);
+def lit__1100 : u32 = 0;
+def eff__1086 = push_u32(lit__1100);
+if (cond__1083) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1083 = u64.<=(a, b);
+def lit__1099 = 1;
+def eff__1084 = push_u32(lit__1099);
+def lit__1100 = 0;
+def eff__1086 = push_u32(lit__1100);
+if (cond__1083) {
+}
 ====
 ====I64_GT_S====
-graph TD
-	9[
-	state phi Stack
-	]
-	2 --> 9
-	8 --> 9
-	6 --> 9
-	6[
-	eff__1054
-	push_u32
-	]
-	5 --> 6
-	1 --> 6
-	4 --> 6
-	4[
-	else
-	]
-	2 --> 4
-	2[
-	cond__1051
-	U64_gt_s
-	]
-	1 --> 2
-	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
-	5[
-	0
-	]
-	8[
-	eff__1052
-	push_u32
-	]
-	7 --> 8
-	1 --> 8
-	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
-	7[
-	1
-	]
-====
-====I64_GT_U====
-graph TD
-	9[
-	state phi Stack
-	]
-	2 --> 9
-	8 --> 9
-	6 --> 9
-	6[
-	eff__1071
-	push_u32
-	]
-	5 --> 6
-	1 --> 6
-	4 --> 6
-	4[
-	else
-	]
-	2 --> 4
-	2[
-	cond__1068
-	u64.>
-	]
-	1 --> 2
-	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
-	5[
-	0
-	]
-	8[
-	eff__1069
-	push_u32
-	]
-	7 --> 8
-	1 --> 8
-	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
-	7[
-	1
-	]
-====
-====I64_GE_S====
-graph TD
-	9[
-	state phi Stack
-	]
-	2 --> 9
-	8 --> 9
-	6 --> 9
-	6[
-	eff__1088
-	push_u32
-	]
-	5 --> 6
-	1 --> 6
-	4 --> 6
-	4[
-	else
-	]
-	2 --> 4
-	2[
-	cond__1085
-	U64_ge_s
-	]
-	1 --> 2
-	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
-	5[
-	0
-	]
-	8[
-	eff__1086
-	push_u32
-	]
-	7 --> 8
-	1 --> 8
-	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
-	7[
-	1
-	]
-====
-====I64_GE_U====
 graph TD
 	9[
 	state phi Stack
@@ -2850,9 +4271,14 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
 	cond__1102
-	U64_ge_u
+	U64_gt_s
 	]
 	1 --> 2
 	0 --> 2
@@ -2875,18 +4301,297 @@ graph TD
 	7 --> 8
 	1 --> 8
 	3 --> 8
+	7[
+	1
+	]
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1102 = U64_gt_s(a, b);
+if (cond__1102) {
+	def arg__1104 : u32 = 1;
+	def eff__1103 = push_u32(arg__1104);
+} else {
+	def arg__1106 : u32 = 0;
+	def eff__1105 = push_u32(arg__1106);
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1102 = U64_gt_s(a, b);
+def lit__1118 : u32 = 1;
+def eff__1103 = push_u32(lit__1118);
+def lit__1119 : u32 = 0;
+def eff__1105 = push_u32(lit__1119);
+if (cond__1102) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1102 = U64_gt_s(a, b);
+def lit__1118 = 1;
+def eff__1103 = push_u32(lit__1118);
+def lit__1119 = 0;
+def eff__1105 = push_u32(lit__1119);
+if (cond__1102) {
+}
+====
+====I64_GT_U====
+graph TD
+	9[
+	state phi Stack
+	]
+	2 --> 9
+	8 --> 9
+	6 --> 9
+	6[
+	eff__1124
+	push_u32
+	]
+	5 --> 6
+	1 --> 6
+	4 --> 6
+	4[
+	else
+	]
+	2 --> 4
+	3 --> 4
 	3[
 	if
 	]
 	2 --> 3
+	2[
+	cond__1121
+	u64.>
+	]
+	1 --> 2
+	0 --> 2
+	0[
+	b
+	pop_u64
+	]
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	5[
+	0
+	]
+	8[
+	eff__1122
+	push_u32
+	]
+	7 --> 8
+	1 --> 8
+	3 --> 8
 	7[
 	1
 	]
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1121 = u64.>(a, b);
+if (cond__1121) {
+	def arg__1123 : u32 = 1;
+	def eff__1122 = push_u32(arg__1123);
+} else {
+	def arg__1125 : u32 = 0;
+	def eff__1124 = push_u32(arg__1125);
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1121 = u64.>(a, b);
+def lit__1137 : u32 = 1;
+def eff__1122 = push_u32(lit__1137);
+def lit__1138 : u32 = 0;
+def eff__1124 = push_u32(lit__1138);
+if (cond__1121) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1121 = u64.>(a, b);
+def lit__1137 = 1;
+def eff__1122 = push_u32(lit__1137);
+def lit__1138 = 0;
+def eff__1124 = push_u32(lit__1138);
+if (cond__1121) {
+}
+====
+====I64_GE_S====
+graph TD
+	9[
+	state phi Stack
+	]
+	2 --> 9
+	8 --> 9
+	6 --> 9
+	6[
+	eff__1143
+	push_u32
+	]
+	5 --> 6
+	1 --> 6
+	4 --> 6
+	4[
+	else
+	]
+	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
+	2[
+	cond__1140
+	U64_ge_s
+	]
+	1 --> 2
+	0 --> 2
+	0[
+	b
+	pop_u64
+	]
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	5[
+	0
+	]
+	8[
+	eff__1141
+	push_u32
+	]
+	7 --> 8
+	1 --> 8
+	3 --> 8
+	7[
+	1
+	]
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1140 = U64_ge_s(a, b);
+if (cond__1140) {
+	def arg__1142 : u32 = 1;
+	def eff__1141 = push_u32(arg__1142);
+} else {
+	def arg__1144 : u32 = 0;
+	def eff__1143 = push_u32(arg__1144);
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1140 = U64_ge_s(a, b);
+def lit__1156 : u32 = 1;
+def eff__1141 = push_u32(lit__1156);
+def lit__1157 : u32 = 0;
+def eff__1143 = push_u32(lit__1157);
+if (cond__1140) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1140 = U64_ge_s(a, b);
+def lit__1156 = 1;
+def eff__1141 = push_u32(lit__1156);
+def lit__1157 = 0;
+def eff__1143 = push_u32(lit__1157);
+if (cond__1140) {
+}
+====
+====I64_GE_U====
+graph TD
+	9[
+	state phi Stack
+	]
+	2 --> 9
+	8 --> 9
+	6 --> 9
+	6[
+	eff__1162
+	push_u32
+	]
+	5 --> 6
+	1 --> 6
+	4 --> 6
+	4[
+	else
+	]
+	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
+	2[
+	cond__1159
+	U64_ge_u
+	]
+	1 --> 2
+	0 --> 2
+	0[
+	b
+	pop_u64
+	]
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	5[
+	0
+	]
+	8[
+	eff__1160
+	push_u32
+	]
+	7 --> 8
+	1 --> 8
+	3 --> 8
+	7[
+	1
+	]
+----IR----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1159 = U64_ge_u(a, b);
+if (cond__1159) {
+	def arg__1161 : u32 = 1;
+	def eff__1160 = push_u32(arg__1161);
+} else {
+	def arg__1163 : u32 = 0;
+	def eff__1162 = push_u32(arg__1163);
+}
+----Scheduled----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1159 = U64_ge_u(a, b);
+def lit__1175 : u32 = 1;
+def eff__1160 = push_u32(lit__1175);
+def lit__1176 : u32 = 0;
+def eff__1162 = push_u32(lit__1176);
+if (cond__1159) {
+}
+----Pretty----
+def b = pop_u64();
+def a = pop_u64();
+def cond__1159 = U64_ge_u(a, b);
+def lit__1175 = 1;
+def eff__1160 = push_u32(lit__1175);
+def lit__1176 = 0;
+def eff__1162 = push_u32(lit__1176);
+if (cond__1159) {
+}
 ====
 ====I64_EXTEND8_S====
 graph TD
 	2[
-	eff__1119
+	eff__1178
 	push_u64
 	]
 	1 --> 2
@@ -2900,11 +4605,23 @@ graph TD
 	U64_extend8_s
 	]
 	0 --> 1
+----IR----
+def a = pop_u64();
+def r = U64_extend8_s(a);
+def eff__1178 = push_u64(r);
+----Scheduled----
+def a = pop_u64();
+def r = U64_extend8_s(a);
+def eff__1178 = push_u64(r);
+----Pretty----
+def a = pop_u64();
+def r = U64_extend8_s(a);
+def eff__1178 = push_u64(r);
 ====
 ====I64_EXTEND16_S====
 graph TD
 	2[
-	eff__1127
+	eff__1186
 	push_u64
 	]
 	1 --> 2
@@ -2918,11 +4635,23 @@ graph TD
 	U64_extend16_s
 	]
 	0 --> 1
+----IR----
+def a = pop_u64();
+def r = U64_extend16_s(a);
+def eff__1186 = push_u64(r);
+----Scheduled----
+def a = pop_u64();
+def r = U64_extend16_s(a);
+def eff__1186 = push_u64(r);
+----Pretty----
+def a = pop_u64();
+def r = U64_extend16_s(a);
+def eff__1186 = push_u64(r);
 ====
 ====I64_EXTEND32_S====
 graph TD
 	2[
-	eff__1135
+	eff__1194
 	push_u64
 	]
 	1 --> 2
@@ -2936,16 +4665,28 @@ graph TD
 	U64_extend32_s
 	]
 	0 --> 1
+----IR----
+def a = pop_u64();
+def r = U64_extend32_s(a);
+def eff__1194 = push_u64(r);
+----Scheduled----
+def a = pop_u64();
+def r = U64_extend32_s(a);
+def eff__1194 = push_u64(r);
+----Pretty----
+def a = pop_u64();
+def r = U64_extend32_s(a);
+def eff__1194 = push_u64(r);
 ====
 ====F32_CONST====
 graph TD
 	2[
-	eff__1143
+	eff__1202
 	push_f32
 	]
 	1 --> 2
 	1[
-	arg__1144
+	arg__1203
 	f32_reinterpret_u32
 	]
 	0 --> 1
@@ -2953,11 +4694,23 @@ graph TD
 	x
 	imm_readULEB32
 	]
+----IR----
+def x = imm_readULEB32();
+def arg__1203 = f32_reinterpret_u32(x);
+def eff__1202 = push_f32(arg__1203);
+----Scheduled----
+def x = imm_readULEB32();
+def arg__1203 = f32_reinterpret_u32(x);
+def eff__1202 = push_f32(arg__1203);
+----Pretty----
+def x = imm_readULEB32();
+def arg__1203 = f32_reinterpret_u32(x);
+def eff__1202 = push_f32(arg__1203);
 ====
 ====F32_ADD====
 graph TD
 	3[
-	eff__1151
+	eff__1210
 	push_f32
 	]
 	2 --> 3
@@ -2977,11 +4730,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_f32();
+def a = pop_f32();
+def r = float.+(a, b);
+def eff__1210 = push_f32(r);
+----Scheduled----
+def b = pop_f32();
+def a = pop_f32();
+def r = float.+(a, b);
+def eff__1210 = push_f32(r);
+----Pretty----
+def b = pop_f32();
+def a = pop_f32();
+def r = float.+(a, b);
+def eff__1210 = push_f32(r);
 ====
 ====F32_SUB====
 graph TD
 	3[
-	eff__1162
+	eff__1221
 	push_f32
 	]
 	2 --> 3
@@ -3001,11 +4769,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_f32();
+def a = pop_f32();
+def r = float.-(a, b);
+def eff__1221 = push_f32(r);
+----Scheduled----
+def b = pop_f32();
+def a = pop_f32();
+def r = float.-(a, b);
+def eff__1221 = push_f32(r);
+----Pretty----
+def b = pop_f32();
+def a = pop_f32();
+def r = float.-(a, b);
+def eff__1221 = push_f32(r);
 ====
 ====F32_MUL====
 graph TD
 	3[
-	eff__1173
+	eff__1232
 	push_f32
 	]
 	2 --> 3
@@ -3025,11 +4808,26 @@ graph TD
 	]
 	1 --> 2
 	0 --> 2
+----IR----
+def b = pop_f32();
+def a = pop_f32();
+def r = float.*(a, b);
+def eff__1232 = push_f32(r);
+----Scheduled----
+def b = pop_f32();
+def a = pop_f32();
+def r = float.*(a, b);
+def eff__1232 = push_f32(r);
+----Pretty----
+def b = pop_f32();
+def a = pop_f32();
+def r = float.*(a, b);
+def eff__1232 = push_f32(r);
 ====
 ====F32_DIV====
 graph TD
 	10[
-	eff__1184
+	eff__1243
 	push_f32
 	]
 	9 --> 10
@@ -3055,7 +4853,7 @@ graph TD
 	3 --> 8
 	6 --> 8
 	6[
-	ret__1189
+	ret__1248
 	trapDivideByZero
 	]
 	4 --> 6
@@ -3064,7 +4862,7 @@ graph TD
 	]
 	3 --> 4
 	3[
-	cond__1188
+	cond__1247
 	float.==
 	]
 	0 --> 3
@@ -3081,11 +4879,42 @@ graph TD
 	else
 	]
 	3 --> 5
+	4 --> 5
+----IR----
+def b = pop_f32();
+def a = pop_f32();
+def arg__1250 : float = 0.0f;
+def cond__1247 = float.==(b, arg__1250);
+if (cond__1247) {
+	def ret__1248 = trapDivideByZero();
+}
+----Scheduled----
+def b = pop_f32();
+def a = pop_f32();
+def r = float./(a, b);
+def eff__1243 = push_f32(r);
+def lit__1262 : f32 = 0.0f;
+def cond__1247 = float.==(b, lit__1262);
+def ret__1248 = trapDivideByZero();
+if (cond__1247) {
+}
+----Pretty----
+def b = pop_f32();
+def a = pop_f32();
+def r = float./(a, b);
+def eff__1243 = push_f32(r);
+def lit__1262 = 0.0f;
+def cond__1247 = float.==(b, lit__1262);
+def ret__1248 = trapDivideByZero();
+if (cond__1247) {
+}
+if (cond__1247) {
+}
 ====
 ====F32_SQRT====
 graph TD
 	2[
-	eff__1204
+	eff__1264
 	push_f32
 	]
 	1 --> 2
@@ -3099,6 +4928,18 @@ graph TD
 	float.sqrt
 	]
 	0 --> 1
+----IR----
+def a = pop_f32();
+def r = float.sqrt(a);
+def eff__1264 = push_f32(r);
+----Scheduled----
+def a = pop_f32();
+def r = float.sqrt(a);
+def eff__1264 = push_f32(r);
+----Pretty----
+def a = pop_f32();
+def r = float.sqrt(a);
+def eff__1264 = push_f32(r);
 ====
 ====F32_EQ====
 graph TD
@@ -3109,7 +4950,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__1215
+	eff__1275
 	push_u32
 	]
 	5 --> 6
@@ -3119,8 +4960,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__1212
+	cond__1272
 	float.==
 	]
 	1 --> 2
@@ -3138,19 +4984,46 @@ graph TD
 	0
 	]
 	8[
-	eff__1213
+	eff__1273
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1272 = float.==(a, b);
+if (cond__1272) {
+	def arg__1274 : u32 = 1;
+	def eff__1273 = push_u32(arg__1274);
+} else {
+	def arg__1276 : u32 = 0;
+	def eff__1275 = push_u32(arg__1276);
+}
+----Scheduled----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1272 = float.==(a, b);
+def lit__1288 : u32 = 1;
+def eff__1273 = push_u32(lit__1288);
+def lit__1289 : u32 = 0;
+def eff__1275 = push_u32(lit__1289);
+if (cond__1272) {
+}
+----Pretty----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1272 = float.==(a, b);
+def lit__1288 = 1;
+def eff__1273 = push_u32(lit__1288);
+def lit__1289 = 0;
+def eff__1275 = push_u32(lit__1289);
+if (cond__1272) {
+}
 ====
 ====F32_NE====
 graph TD
@@ -3161,7 +5034,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__1232
+	eff__1294
 	push_u32
 	]
 	5 --> 6
@@ -3171,8 +5044,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__1229
+	cond__1291
 	float.!=
 	]
 	1 --> 2
@@ -3190,19 +5068,46 @@ graph TD
 	0
 	]
 	8[
-	eff__1230
+	eff__1292
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1291 = float.!=(a, b);
+if (cond__1291) {
+	def arg__1293 : u32 = 1;
+	def eff__1292 = push_u32(arg__1293);
+} else {
+	def arg__1295 : u32 = 0;
+	def eff__1294 = push_u32(arg__1295);
+}
+----Scheduled----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1291 = float.!=(a, b);
+def lit__1307 : u32 = 1;
+def eff__1292 = push_u32(lit__1307);
+def lit__1308 : u32 = 0;
+def eff__1294 = push_u32(lit__1308);
+if (cond__1291) {
+}
+----Pretty----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1291 = float.!=(a, b);
+def lit__1307 = 1;
+def eff__1292 = push_u32(lit__1307);
+def lit__1308 = 0;
+def eff__1294 = push_u32(lit__1308);
+if (cond__1291) {
+}
 ====
 ====F32_LT====
 graph TD
@@ -3213,7 +5118,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__1249
+	eff__1313
 	push_u32
 	]
 	5 --> 6
@@ -3223,8 +5128,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__1246
+	cond__1310
 	float.<
 	]
 	1 --> 2
@@ -3242,19 +5152,46 @@ graph TD
 	0
 	]
 	8[
-	eff__1247
+	eff__1311
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1310 = float.<(a, b);
+if (cond__1310) {
+	def arg__1312 : u32 = 1;
+	def eff__1311 = push_u32(arg__1312);
+} else {
+	def arg__1314 : u32 = 0;
+	def eff__1313 = push_u32(arg__1314);
+}
+----Scheduled----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1310 = float.<(a, b);
+def lit__1326 : u32 = 1;
+def eff__1311 = push_u32(lit__1326);
+def lit__1327 : u32 = 0;
+def eff__1313 = push_u32(lit__1327);
+if (cond__1310) {
+}
+----Pretty----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1310 = float.<(a, b);
+def lit__1326 = 1;
+def eff__1311 = push_u32(lit__1326);
+def lit__1327 = 0;
+def eff__1313 = push_u32(lit__1327);
+if (cond__1310) {
+}
 ====
 ====F32_LE====
 graph TD
@@ -3265,7 +5202,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__1266
+	eff__1332
 	push_u32
 	]
 	5 --> 6
@@ -3275,8 +5212,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__1263
+	cond__1329
 	float.<=
 	]
 	1 --> 2
@@ -3294,19 +5236,46 @@ graph TD
 	0
 	]
 	8[
-	eff__1264
+	eff__1330
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1329 = float.<=(a, b);
+if (cond__1329) {
+	def arg__1331 : u32 = 1;
+	def eff__1330 = push_u32(arg__1331);
+} else {
+	def arg__1333 : u32 = 0;
+	def eff__1332 = push_u32(arg__1333);
+}
+----Scheduled----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1329 = float.<=(a, b);
+def lit__1345 : u32 = 1;
+def eff__1330 = push_u32(lit__1345);
+def lit__1346 : u32 = 0;
+def eff__1332 = push_u32(lit__1346);
+if (cond__1329) {
+}
+----Pretty----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1329 = float.<=(a, b);
+def lit__1345 = 1;
+def eff__1330 = push_u32(lit__1345);
+def lit__1346 = 0;
+def eff__1332 = push_u32(lit__1346);
+if (cond__1329) {
+}
 ====
 ====F32_GT====
 graph TD
@@ -3317,7 +5286,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6[
-	eff__1283
+	eff__1351
 	push_u32
 	]
 	5 --> 6
@@ -3327,8 +5296,13 @@ graph TD
 	else
 	]
 	2 --> 4
+	3 --> 4
+	3[
+	if
+	]
+	2 --> 3
 	2[
-	cond__1280
+	cond__1348
 	float.>
 	]
 	1 --> 2
@@ -3346,24 +5320,51 @@ graph TD
 	0
 	]
 	8[
-	eff__1281
+	eff__1349
 	push_u32
 	]
 	7 --> 8
 	1 --> 8
 	3 --> 8
-	3[
-	if
-	]
-	2 --> 3
 	7[
 	1
 	]
+----IR----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1348 = float.>(a, b);
+if (cond__1348) {
+	def arg__1350 : u32 = 1;
+	def eff__1349 = push_u32(arg__1350);
+} else {
+	def arg__1352 : u32 = 0;
+	def eff__1351 = push_u32(arg__1352);
+}
+----Scheduled----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1348 = float.>(a, b);
+def lit__1364 : u32 = 1;
+def eff__1349 = push_u32(lit__1364);
+def lit__1365 : u32 = 0;
+def eff__1351 = push_u32(lit__1365);
+if (cond__1348) {
+}
+----Pretty----
+def b = pop_f32();
+def a = pop_f32();
+def cond__1348 = float.>(a, b);
+def lit__1364 = 1;
+def eff__1349 = push_u32(lit__1364);
+def lit__1365 = 0;
+def eff__1351 = push_u32(lit__1365);
+if (cond__1348) {
+}
 ====
 ====BR====
 graph TD
 	2[
-	ret__1297
+	ret__1367
 	doBranch
 	]
 	1 --> 2
@@ -3377,6 +5378,18 @@ graph TD
 	f_getLabel
 	]
 	0 --> 1
+----IR----
+def depth = imm_readULEB32();
+def label = f_getLabel(depth);
+def ret__1367 = doBranch(label);
+----Scheduled----
+def depth = imm_readULEB32();
+def label = f_getLabel(depth);
+def ret__1367 = doBranch(label);
+----Pretty----
+def depth = imm_readULEB32();
+def label = f_getLabel(depth);
+def ret__1367 = doBranch(label);
 ====
 ====BR_IF====
 graph TD
@@ -3387,7 +5400,7 @@ graph TD
 	8 --> 10
 	7 --> 10
 	7[
-	ret__1309
+	ret__1379
 	doFallthru
 	]
 	0 --> 7
@@ -3396,8 +5409,13 @@ graph TD
 	else
 	]
 	4 --> 6
+	5 --> 6
+	5[
+	if
+	]
+	4 --> 5
 	4[
-	cond__1306
+	cond__1376
 	u32.!=
 	]
 	2 --> 4
@@ -3414,16 +5432,12 @@ graph TD
 	imm_readULEB32
 	]
 	8[
-	ret__1307
+	ret__1377
 	doBranch
 	]
 	1 --> 8
 	0 --> 8
 	5 --> 8
-	5[
-	if
-	]
-	4 --> 5
 	1[
 	label
 	f_getLabel
@@ -3435,11 +5449,44 @@ graph TD
 	4 --> 9
 	8 --> 9
 	7 --> 9
+----IR----
+def depth = imm_readULEB32();
+def label = f_getLabel(depth);
+def cond = pop_u32();
+def arg__1381 : u32 = 0;
+def cond__1376 = u32.!=(cond, arg__1381);
+if (cond__1376) {
+	def ret__1377 = doBranch(label);
+} else {
+	def ret__1379 = doFallthru();
+}
+----Scheduled----
+def cond = pop_u32();
+def lit__1393 : u32 = 0;
+def cond__1376 = u32.!=(cond, lit__1393);
+def depth = imm_readULEB32();
+def label = f_getLabel(depth);
+def ret__1377 = doBranch(label);
+def ret__1379 = doFallthru();
+if (cond__1376) {
+}
+----Pretty----
+def cond = pop_u32();
+def lit__1393 = 0;
+def cond__1376 = u32.!=(cond, lit__1393);
+def depth = imm_readULEB32();
+def label = f_getLabel(depth);
+def ret__1377 = doBranch(label);
+def ret__1379 = doFallthru();
+if (cond__1376) {
+}
+if (cond__1376) {
+}
 ====
 ====BR_TABLE====
 graph TD
 	2[
-	eff__1325
+	eff__1396
 	doSwitch
 	]
 	0 --> 2
@@ -3453,11 +5500,23 @@ graph TD
 	key
 	pop_u32
 	]
+----IR----
+def labels = imm_readLabels();
+def key = pop_u32();
+def eff__1396 = doSwitch(labels, key);
+----Scheduled----
+def labels = imm_readLabels();
+def key = pop_u32();
+def eff__1396 = doSwitch(labels, key);
+----Pretty----
+def labels = imm_readLabels();
+def key = pop_u32();
+def eff__1396 = doSwitch(labels, key);
 ====
 ====BLOCK====
 graph TD
 	1[
-	eff__1334
+	eff__1405
 	doBlock
 	]
 	0 --> 1
@@ -3466,11 +5525,20 @@ graph TD
 	bt
 	imm_readBlockType
 	]
+----IR----
+def bt = imm_readBlockType();
+def eff__1405 = doBlock(bt);
+----Scheduled----
+def bt = imm_readBlockType();
+def eff__1405 = doBlock(bt);
+----Pretty----
+def bt = imm_readBlockType();
+def eff__1405 = doBlock(bt);
 ====
 ====LOOP====
 graph TD
 	1[
-	eff__1339
+	eff__1410
 	doLoop
 	]
 	0 --> 1
@@ -3479,11 +5547,20 @@ graph TD
 	bt
 	imm_readBlockType
 	]
+----IR----
+def bt = imm_readBlockType();
+def eff__1410 = doLoop(bt);
+----Scheduled----
+def bt = imm_readBlockType();
+def eff__1410 = doLoop(bt);
+----Pretty----
+def bt = imm_readBlockType();
+def eff__1410 = doLoop(bt);
 ====
 ====TRY====
 graph TD
 	1[
-	eff__1344
+	eff__1415
 	doTry
 	]
 	0 --> 1
@@ -3492,6 +5569,15 @@ graph TD
 	bt
 	imm_readBlockType
 	]
+----IR----
+def bt = imm_readBlockType();
+def eff__1415 = doTry(bt);
+----Scheduled----
+def bt = imm_readBlockType();
+def eff__1415 = doTry(bt);
+----Pretty----
+def bt = imm_readBlockType();
+def eff__1415 = doTry(bt);
 ====
 ====IF====
 graph TD
@@ -3502,7 +5588,7 @@ graph TD
 	8 --> 10
 	7 --> 10
 	7[
-	ret__1352
+	ret__1423
 	doFallthru
 	]
 	2 --> 7
@@ -3512,8 +5598,13 @@ graph TD
 	else
 	]
 	4 --> 6
+	5 --> 6
+	5[
+	if
+	]
+	4 --> 5
 	4[
-	cond__1349
+	cond__1420
 	u32.==
 	]
 	1 --> 4
@@ -3536,28 +5627,57 @@ graph TD
 	imm_readBlockType
 	]
 	8[
-	ret__1350
+	ret__1421
 	doBranch
 	]
 	2 --> 8
 	2 --> 8
 	2 --> 8
 	5 --> 8
-	5[
-	if
-	]
-	4 --> 5
 	9[
 	state phi Codeptr
 	]
 	4 --> 9
 	8 --> 9
 	7 --> 9
+----IR----
+def bt = imm_readBlockType();
+def cond = pop_u32();
+def label = doIf(bt);
+def arg__1425 : u32 = 0;
+def cond__1420 = u32.==(cond, arg__1425);
+if (cond__1420) {
+	def ret__1421 = doBranch(label);
+} else {
+	def ret__1423 = doFallthru();
+}
+----Scheduled----
+def cond = pop_u32();
+def lit__1437 : u32 = 0;
+def cond__1420 = u32.==(cond, lit__1437);
+def bt = imm_readBlockType();
+def label = doIf(bt);
+def ret__1421 = doBranch(label);
+def ret__1423 = doFallthru();
+if (cond__1420) {
+}
+----Pretty----
+def cond = pop_u32();
+def lit__1437 = 0;
+def cond__1420 = u32.==(cond, lit__1437);
+def bt = imm_readBlockType();
+def label = doIf(bt);
+def ret__1421 = doBranch(label);
+def ret__1423 = doFallthru();
+if (cond__1420) {
+}
+if (cond__1420) {
+}
 ====
 ====ELSE====
 graph TD
 	1[
-	ret__1368
+	ret__1440
 	doBranch
 	]
 	0 --> 1
@@ -3567,6 +5687,15 @@ graph TD
 	label
 	doElse
 	]
+----IR----
+def label = doElse();
+def ret__1440 = doBranch(label);
+----Scheduled----
+def label = doElse();
+def ret__1440 = doBranch(label);
+----Pretty----
+def label = doElse();
+def ret__1440 = doBranch(label);
 ====
 ====END====
 graph TD
@@ -3577,11 +5706,11 @@ graph TD
 	4 --> 6
 	0 --> 6
 	0[
-	eff__1376
+	eff__1448
 	doEnd
 	]
 	4[
-	ret__1375
+	ret__1447
 	doReturn
 	]
 	0 --> 4
@@ -3592,7 +5721,7 @@ graph TD
 	]
 	1 --> 2
 	1[
-	cond__1374
+	cond__1446
 	f_isAtEnd
 	]
 	5[
@@ -3605,29 +5734,68 @@ graph TD
 	else
 	]
 	1 --> 3
+	2 --> 3
+----IR----
+def eff__1448 = doEnd();
+def cond__1446 = f_isAtEnd();
+if (cond__1446) {
+	def ret__1447 = doReturn();
+}
+----Scheduled----
+def cond__1446 = f_isAtEnd();
+def eff__1448 = doEnd();
+def ret__1447 = doReturn();
+if (cond__1446) {
+}
+----Pretty----
+def cond__1446 = f_isAtEnd();
+def eff__1448 = doEnd();
+def ret__1447 = doReturn();
+if (cond__1446) {
+}
+if (cond__1446) {
+}
 ====
 ====RETURN====
 graph TD
 	0[
-	ret__1380
+	ret__1452
 	doReturn
 	]
+----IR----
+def ret__1452 = doReturn();
+----Scheduled----
+def ret__1452 = doReturn();
+----Pretty----
+def ret__1452 = doReturn();
 ====
 ====REF_NULL====
 graph TD
 	2[
-	eff__1382
+	eff__1454
 	push_Object
 	]
 	1 --> 2
 	1[
-	arg__1383
+	arg__1455
 	object_Null
 	]
 	0[
 	idx
 	imm_readULEB32
 	]
+----IR----
+def idx = imm_readULEB32();
+def arg__1455 = object_Null();
+def eff__1454 = push_Object(arg__1455);
+----Scheduled----
+def idx = imm_readULEB32();
+def arg__1455 = object_Null();
+def eff__1454 = push_Object(arg__1455);
+----Pretty----
+def idx = imm_readULEB32();
+def arg__1455 = object_Null();
+def eff__1454 = push_Object(arg__1455);
 ====
 ====REF_IS_NULL====
 graph TD
@@ -3638,7 +5806,7 @@ graph TD
 	7 --> 8
 	5 --> 8
 	5[
-	eff__1390
+	eff__1462
 	push_u32
 	]
 	4 --> 5
@@ -3648,8 +5816,13 @@ graph TD
 	else
 	]
 	1 --> 3
+	2 --> 3
+	2[
+	if
+	]
+	1 --> 2
 	1[
-	cond__1387
+	cond__1459
 	object_isNull
 	]
 	0 --> 1
@@ -3661,24 +5834,48 @@ graph TD
 	0
 	]
 	7[
-	eff__1388
+	eff__1460
 	push_u32
 	]
 	6 --> 7
 	0 --> 7
 	2 --> 7
-	2[
-	if
-	]
-	1 --> 2
 	6[
 	1
 	]
+----IR----
+def obj = pop_Object();
+def cond__1459 = object_isNull(obj);
+if (cond__1459) {
+	def arg__1461 : u32 = 1;
+	def eff__1460 = push_u32(arg__1461);
+} else {
+	def arg__1463 : u32 = 0;
+	def eff__1462 = push_u32(arg__1463);
+}
+----Scheduled----
+def obj = pop_Object();
+def cond__1459 = object_isNull(obj);
+def lit__1472 : u32 = 1;
+def eff__1460 = push_u32(lit__1472);
+def lit__1473 : u32 = 0;
+def eff__1462 = push_u32(lit__1473);
+if (cond__1459) {
+}
+----Pretty----
+def obj = pop_Object();
+def cond__1459 = object_isNull(obj);
+def lit__1472 = 1;
+def eff__1460 = push_u32(lit__1472);
+def lit__1473 = 0;
+def eff__1462 = push_u32(lit__1473);
+if (cond__1459) {
+}
 ====
 ====REF_AS_NON_NULL====
 graph TD
 	7[
-	eff__1401
+	eff__1475
 	push_Object
 	]
 	0 --> 7
@@ -3693,7 +5890,7 @@ graph TD
 	1 --> 6
 	4 --> 6
 	4[
-	eff__1404
+	eff__1478
 	trapNull
 	]
 	2 --> 4
@@ -3702,7 +5899,7 @@ graph TD
 	]
 	1 --> 2
 	1[
-	cond__1403
+	cond__1477
 	object_isNull
 	]
 	0 --> 1
@@ -3715,11 +5912,33 @@ graph TD
 	else
 	]
 	1 --> 3
+	2 --> 3
+----IR----
+def obj = pop_Object();
+def cond__1477 = object_isNull(obj);
+if (cond__1477) {
+	def eff__1478 = trapNull();
+}
+----Scheduled----
+def obj = pop_Object();
+def cond__1477 = object_isNull(obj);
+def eff__1478 = trapNull();
+if (cond__1477) {
+}
+----Pretty----
+def obj = pop_Object();
+def cond__1477 = object_isNull(obj);
+def eff__1478 = trapNull();
+if (cond__1477) {
+}
+if (cond__1477) {
+}
+def eff__1475 = push_Object(obj);
 ====
 ====STRUCT_NEW====
 graph TD
 	3[
-	eff__1412
+	eff__1486
 	push_Object
 	]
 	2 --> 3
@@ -3737,6 +5956,21 @@ graph TD
 	struct_idx
 	imm_readULEB32
 	]
+----IR----
+def struct_idx = imm_readULEB32();
+def sig = m_getSignature(struct_idx);
+def obj = object_New(sig);
+def eff__1486 = push_Object(obj);
+----Scheduled----
+def struct_idx = imm_readULEB32();
+def sig = m_getSignature(struct_idx);
+def obj = object_New(sig);
+def eff__1486 = push_Object(obj);
+----Pretty----
+def struct_idx = imm_readULEB32();
+def sig = m_getSignature(struct_idx);
+def obj = object_New(sig);
+def eff__1486 = push_Object(obj);
 ====
 ====STRUCT_GET====
 graph TD
@@ -3746,7 +5980,7 @@ graph TD
 	5 --> 10
 	8 --> 10
 	8[
-	ret__1449
+	ret__1523
 	trapNull
 	]
 	1 --> 8
@@ -3756,7 +5990,7 @@ graph TD
 	]
 	5 --> 6
 	5[
-	cond__1448
+	cond__1522
 	object_isNull
 	]
 	4 --> 5
@@ -3783,6 +6017,7 @@ graph TD
 	else
 	]
 	5 --> 7
+	6 --> 7
 	3[
 	offset
 	m_getFieldOffset
@@ -3795,6 +6030,38 @@ graph TD
 	]
 	0 --> 2
 	1 --> 2
+----IR----
+def struct_index = imm_readULEB32();
+def field_index = imm_readULEB32();
+def kind = m_getFieldKind(struct_index, field_index);
+def offset = m_getFieldOffset(struct_index, field_index);
+def obj = pop_Object();
+def cond__1522 = object_isNull(obj);
+if (cond__1522) {
+	def ret__1523 = trapNull();
+}
+----Scheduled----
+def struct_index = imm_readULEB32();
+def field_index = imm_readULEB32();
+def kind = m_getFieldKind(struct_index, field_index);
+def offset = m_getFieldOffset(struct_index, field_index);
+def obj = pop_Object();
+def cond__1522 = object_isNull(obj);
+def ret__1523 = trapNull();
+if (cond__1522) {
+}
+----Pretty----
+def struct_index = imm_readULEB32();
+def field_index = imm_readULEB32();
+def kind = m_getFieldKind(struct_index, field_index);
+def offset = m_getFieldOffset(struct_index, field_index);
+def obj = pop_Object();
+def cond__1522 = object_isNull(obj);
+def ret__1523 = trapNull();
+if (cond__1522) {
+}
+if (cond__1522) {
+}
 ====
 ====STRUCT_GET_S====
 graph TD
@@ -3804,7 +6071,7 @@ graph TD
 	5 --> 10
 	8 --> 10
 	8[
-	ret__1505
+	ret__1579
 	trapNull
 	]
 	1 --> 8
@@ -3814,7 +6081,7 @@ graph TD
 	]
 	5 --> 6
 	5[
-	cond__1504
+	cond__1578
 	object_isNull
 	]
 	4 --> 5
@@ -3841,6 +6108,7 @@ graph TD
 	else
 	]
 	5 --> 7
+	6 --> 7
 	3[
 	offset
 	m_getFieldOffset
@@ -3853,6 +6121,38 @@ graph TD
 	]
 	0 --> 2
 	1 --> 2
+----IR----
+def struct_index = imm_readULEB32();
+def field_index = imm_readULEB32();
+def kind = m_getFieldKind(struct_index, field_index);
+def offset = m_getFieldOffset(struct_index, field_index);
+def obj = pop_Object();
+def cond__1578 = object_isNull(obj);
+if (cond__1578) {
+	def ret__1579 = trapNull();
+}
+----Scheduled----
+def struct_index = imm_readULEB32();
+def field_index = imm_readULEB32();
+def kind = m_getFieldKind(struct_index, field_index);
+def offset = m_getFieldOffset(struct_index, field_index);
+def obj = pop_Object();
+def cond__1578 = object_isNull(obj);
+def ret__1579 = trapNull();
+if (cond__1578) {
+}
+----Pretty----
+def struct_index = imm_readULEB32();
+def field_index = imm_readULEB32();
+def kind = m_getFieldKind(struct_index, field_index);
+def offset = m_getFieldOffset(struct_index, field_index);
+def obj = pop_Object();
+def cond__1578 = object_isNull(obj);
+def ret__1579 = trapNull();
+if (cond__1578) {
+}
+if (cond__1578) {
+}
 ====
 ====STRUCT_GET_U====
 graph TD
@@ -3862,7 +6162,7 @@ graph TD
 	5 --> 10
 	8 --> 10
 	8[
-	ret__1547
+	ret__1621
 	trapNull
 	]
 	1 --> 8
@@ -3872,7 +6172,7 @@ graph TD
 	]
 	5 --> 6
 	5[
-	cond__1546
+	cond__1620
 	object_isNull
 	]
 	4 --> 5
@@ -3899,6 +6199,7 @@ graph TD
 	else
 	]
 	5 --> 7
+	6 --> 7
 	3[
 	offset
 	m_getFieldOffset
@@ -3911,6 +6212,38 @@ graph TD
 	]
 	0 --> 2
 	1 --> 2
+----IR----
+def struct_index = imm_readULEB32();
+def field_index = imm_readULEB32();
+def kind = m_getFieldKind(struct_index, field_index);
+def offset = m_getFieldOffset(struct_index, field_index);
+def obj = pop_Object();
+def cond__1620 = object_isNull(obj);
+if (cond__1620) {
+	def ret__1621 = trapNull();
+}
+----Scheduled----
+def struct_index = imm_readULEB32();
+def field_index = imm_readULEB32();
+def kind = m_getFieldKind(struct_index, field_index);
+def offset = m_getFieldOffset(struct_index, field_index);
+def obj = pop_Object();
+def cond__1620 = object_isNull(obj);
+def ret__1621 = trapNull();
+if (cond__1620) {
+}
+----Pretty----
+def struct_index = imm_readULEB32();
+def field_index = imm_readULEB32();
+def kind = m_getFieldKind(struct_index, field_index);
+def offset = m_getFieldOffset(struct_index, field_index);
+def obj = pop_Object();
+def cond__1620 = object_isNull(obj);
+def ret__1621 = trapNull();
+if (cond__1620) {
+}
+if (cond__1620) {
+}
 ====
 ====I32_LOAD====
 graph TD
@@ -3918,8 +6251,13 @@ graph TD
 	else
 	]
 	4 --> 6
+	5 --> 6
+	5[
+	if
+	]
+	4 --> 5
 	4[
-	cond__1589
+	cond__1663
 	u8.==
 	]
 	3 --> 4
@@ -3928,7 +6266,7 @@ graph TD
 	0u8
 	]
 	3[
-	arg__1591
+	arg__1665
 	u8.&
 	]
 	0 --> 3
@@ -3943,7 +6281,7 @@ graph TD
 	20 --> 22
 	16 --> 22
 	16[
-	eff__1583
+	eff__1657
 	push_u32
 	]
 	15 --> 16
@@ -3953,8 +6291,13 @@ graph TD
 	else
 	]
 	10 --> 12
+	11 --> 12
+	11[
+	if
+	]
+	10 --> 11
 	10[
-	cond__1577
+	cond__1651
 	m_isMemory64
 	]
 	8 --> 10
@@ -3969,15 +6312,11 @@ graph TD
 	0u
 	]
 	7[
-	memindex__1590
+	memindex__1664
 	imm_readULEB32
 	]
 	0 --> 7
 	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
 	14[
 	index
 	pop_u32
@@ -4004,16 +6343,12 @@ graph TD
 	7 --> 9
 	0 --> 9
 	20[
-	eff__1578
+	eff__1652
 	push_u32
 	]
 	19 --> 20
 	18 --> 20
 	11 --> 20
-	11[
-	if
-	]
-	10 --> 11
 	18[
 	index
 	pop_u64
@@ -4039,3085 +6374,13 @@ graph TD
 	10 --> 21
 	17 --> 21
 	13 --> 21
-====
-====I32_LOAD8_U====
-graph TD
-	6[
-	else
-	]
-	4 --> 6
-	4[
-	cond__1636
-	u8.==
-	]
-	3 --> 4
-	2 --> 4
-	2[
-	0u8
-	]
-	3[
-	arg__1638
-	u8.&
-	]
-	0 --> 3
-	0[
-	flags
-	imm_readU8
-	]
-	22[
-	state phi Stack
-	]
-	10 --> 22
-	20 --> 22
-	16 --> 22
-	16[
-	eff__1630
-	push_u32
-	]
-	15 --> 16
-	14 --> 16
-	12 --> 16
-	12[
-	else
-	]
-	10 --> 12
-	10[
-	cond__1624
-	m_isMemory64
-	]
-	8 --> 10
-	8[
-	memindex
-	phi
-	]
-	4 --> 8
-	7 --> 8
-	1 --> 8
-	1[
-	0u
-	]
-	7[
-	memindex__1637
-	imm_readULEB32
-	]
-	0 --> 7
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
-	14[
-	index
-	pop_u32
-	]
-	12 --> 14
-	15[
-	val
-	mach_readMemory32_u8
-	]
-	8 --> 15
-	14 --> 15
-	13 --> 15
-	12 --> 15
-	13[
-	offset
-	imm_readULEB32
-	]
-	9 --> 13
-	12 --> 13
-	9[
-	state phi Codeptr
-	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	20[
-	eff__1625
-	push_u32
-	]
-	19 --> 20
-	18 --> 20
-	11 --> 20
-	11[
-	if
-	]
-	10 --> 11
-	18[
-	index
-	pop_u64
-	]
-	11 --> 18
-	19[
-	val
-	mach_readMemory64_u8
-	]
-	8 --> 19
-	18 --> 19
-	17 --> 19
-	11 --> 19
-	17[
-	offset
-	imm_readULEB64
-	]
-	9 --> 17
-	11 --> 17
-	21[
-	state phi Codeptr
-	]
-	10 --> 21
-	17 --> 21
-	13 --> 21
-====
-====I32_LOAD16_S====
-graph TD
-	6[
-	else
-	]
-	4 --> 6
-	4[
-	cond__1683
-	u8.==
-	]
-	3 --> 4
-	2 --> 4
-	2[
-	0u8
-	]
-	3[
-	arg__1685
-	u8.&
-	]
-	0 --> 3
-	0[
-	flags
-	imm_readU8
-	]
-	22[
-	state phi Stack
-	]
-	10 --> 22
-	20 --> 22
-	16 --> 22
-	16[
-	eff__1677
-	push_u32
-	]
-	15 --> 16
-	14 --> 16
-	12 --> 16
-	12[
-	else
-	]
-	10 --> 12
-	10[
-	cond__1671
-	m_isMemory64
-	]
-	8 --> 10
-	8[
-	memindex
-	phi
-	]
-	4 --> 8
-	7 --> 8
-	1 --> 8
-	1[
-	0u
-	]
-	7[
-	memindex__1684
-	imm_readULEB32
-	]
-	0 --> 7
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
-	14[
-	index
-	pop_u32
-	]
-	12 --> 14
-	15[
-	val
-	mach_readMemory32_u16
-	]
-	8 --> 15
-	14 --> 15
-	13 --> 15
-	12 --> 15
-	13[
-	offset
-	imm_readULEB32
-	]
-	9 --> 13
-	12 --> 13
-	9[
-	state phi Codeptr
-	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	20[
-	eff__1672
-	push_u32
-	]
-	19 --> 20
-	18 --> 20
-	11 --> 20
-	11[
-	if
-	]
-	10 --> 11
-	18[
-	index
-	pop_u64
-	]
-	11 --> 18
-	19[
-	val
-	mach_readMemory64_u16
-	]
-	8 --> 19
-	18 --> 19
-	17 --> 19
-	11 --> 19
-	17[
-	offset
-	imm_readULEB64
-	]
-	9 --> 17
-	11 --> 17
-	21[
-	state phi Codeptr
-	]
-	10 --> 21
-	17 --> 21
-	13 --> 21
-====
-====I64_LOAD====
-graph TD
-	6[
-	else
-	]
-	4 --> 6
-	4[
-	cond__1730
-	u8.==
-	]
-	3 --> 4
-	2 --> 4
-	2[
-	0u8
-	]
-	3[
-	arg__1732
-	u8.&
-	]
-	0 --> 3
-	0[
-	flags
-	imm_readU8
-	]
-	22[
-	state phi Stack
-	]
-	10 --> 22
-	20 --> 22
-	16 --> 22
-	16[
-	eff__1724
-	push_u64
-	]
-	15 --> 16
-	14 --> 16
-	12 --> 16
-	12[
-	else
-	]
-	10 --> 12
-	10[
-	cond__1718
-	m_isMemory64
-	]
-	8 --> 10
-	8[
-	memindex
-	phi
-	]
-	4 --> 8
-	7 --> 8
-	1 --> 8
-	1[
-	0u
-	]
-	7[
-	memindex__1731
-	imm_readULEB32
-	]
-	0 --> 7
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
-	14[
-	index
-	pop_u32
-	]
-	12 --> 14
-	15[
-	val
-	mach_readMemory32_u64
-	]
-	8 --> 15
-	14 --> 15
-	13 --> 15
-	12 --> 15
-	13[
-	offset
-	imm_readULEB32
-	]
-	9 --> 13
-	12 --> 13
-	9[
-	state phi Codeptr
-	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	20[
-	eff__1719
-	push_u64
-	]
-	19 --> 20
-	18 --> 20
-	11 --> 20
-	11[
-	if
-	]
-	10 --> 11
-	18[
-	index
-	pop_u64
-	]
-	11 --> 18
-	19[
-	val
-	mach_readMemory64_u64
-	]
-	8 --> 19
-	18 --> 19
-	17 --> 19
-	11 --> 19
-	17[
-	offset
-	imm_readULEB64
-	]
-	9 --> 17
-	11 --> 17
-	21[
-	state phi Codeptr
-	]
-	10 --> 21
-	17 --> 21
-	13 --> 21
-====
-====F32_LOAD====
-graph TD
-	6[
-	else
-	]
-	4 --> 6
-	4[
-	cond__1777
-	u8.==
-	]
-	3 --> 4
-	2 --> 4
-	2[
-	0u8
-	]
-	3[
-	arg__1779
-	u8.&
-	]
-	0 --> 3
-	0[
-	flags
-	imm_readU8
-	]
-	22[
-	state phi Stack
-	]
-	10 --> 22
-	20 --> 22
-	16 --> 22
-	16[
-	eff__1771
-	push_f32
-	]
-	15 --> 16
-	14 --> 16
-	12 --> 16
-	12[
-	else
-	]
-	10 --> 12
-	10[
-	cond__1765
-	m_isMemory64
-	]
-	8 --> 10
-	8[
-	memindex
-	phi
-	]
-	4 --> 8
-	7 --> 8
-	1 --> 8
-	1[
-	0u
-	]
-	7[
-	memindex__1778
-	imm_readULEB32
-	]
-	0 --> 7
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
-	14[
-	index
-	pop_u32
-	]
-	12 --> 14
-	15[
-	val
-	mach_readMemory32_f32
-	]
-	8 --> 15
-	14 --> 15
-	13 --> 15
-	12 --> 15
-	13[
-	offset
-	imm_readULEB32
-	]
-	9 --> 13
-	12 --> 13
-	9[
-	state phi Codeptr
-	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	20[
-	eff__1766
-	push_f32
-	]
-	19 --> 20
-	18 --> 20
-	11 --> 20
-	11[
-	if
-	]
-	10 --> 11
-	18[
-	index
-	pop_u64
-	]
-	11 --> 18
-	19[
-	val
-	mach_readMemory64_f32
-	]
-	8 --> 19
-	18 --> 19
-	17 --> 19
-	11 --> 19
-	17[
-	offset
-	imm_readULEB64
-	]
-	9 --> 17
-	11 --> 17
-	21[
-	state phi Codeptr
-	]
-	10 --> 21
-	17 --> 21
-	13 --> 21
-====
-====F64_LOAD====
-graph TD
-	6[
-	else
-	]
-	4 --> 6
-	4[
-	cond__1824
-	u8.==
-	]
-	3 --> 4
-	2 --> 4
-	2[
-	0u8
-	]
-	3[
-	arg__1826
-	u8.&
-	]
-	0 --> 3
-	0[
-	flags
-	imm_readU8
-	]
-	22[
-	state phi Stack
-	]
-	10 --> 22
-	20 --> 22
-	16 --> 22
-	16[
-	eff__1818
-	push_f64
-	]
-	15 --> 16
-	14 --> 16
-	12 --> 16
-	12[
-	else
-	]
-	10 --> 12
-	10[
-	cond__1812
-	m_isMemory64
-	]
-	8 --> 10
-	8[
-	memindex
-	phi
-	]
-	4 --> 8
-	7 --> 8
-	1 --> 8
-	1[
-	0u
-	]
-	7[
-	memindex__1825
-	imm_readULEB32
-	]
-	0 --> 7
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
-	14[
-	index
-	pop_u32
-	]
-	12 --> 14
-	15[
-	val
-	mach_readMemory32_f64
-	]
-	8 --> 15
-	14 --> 15
-	13 --> 15
-	12 --> 15
-	13[
-	offset
-	imm_readULEB32
-	]
-	9 --> 13
-	12 --> 13
-	9[
-	state phi Codeptr
-	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	20[
-	eff__1813
-	push_f64
-	]
-	19 --> 20
-	18 --> 20
-	11 --> 20
-	11[
-	if
-	]
-	10 --> 11
-	18[
-	index
-	pop_u64
-	]
-	11 --> 18
-	19[
-	val
-	mach_readMemory64_f64
-	]
-	8 --> 19
-	18 --> 19
-	17 --> 19
-	11 --> 19
-	17[
-	offset
-	imm_readULEB64
-	]
-	9 --> 17
-	11 --> 17
-	21[
-	state phi Codeptr
-	]
-	10 --> 21
-	17 --> 21
-	13 --> 21
-====
-====I32_STORE====
-graph TD
-	6[
-	else
-	]
-	4 --> 6
-	4[
-	cond__1871
-	u8.==
-	]
-	3 --> 4
-	2 --> 4
-	2[
-	0u8
-	]
-	3[
-	arg__1873
-	u8.&
-	]
-	0 --> 3
-	0[
-	flags
-	imm_readU8
-	]
-	21[
-	state phi Stack
-	]
-	11 --> 21
-	18 --> 21
-	15 --> 21
-	15[
-	index
-	pop_u32
-	]
-	10 --> 15
-	13 --> 15
-	13[
-	else
-	]
-	11 --> 13
-	11[
-	cond__1859
-	m_isMemory64
-	]
-	8 --> 11
-	8[
-	memindex
-	phi
-	]
-	4 --> 8
-	7 --> 8
-	1 --> 8
-	1[
-	0u
-	]
-	7[
-	memindex__1872
-	imm_readULEB32
-	]
-	0 --> 7
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
-	10[
-	val
-	pop_u32
-	]
-	18[
-	index
-	pop_u64
-	]
-	10 --> 18
-	12 --> 18
-	12[
-	if
-	]
-	11 --> 12
-	20[
-	state phi Codeptr
-	]
-	11 --> 20
-	17 --> 20
-	14 --> 20
-	14[
-	offset
-	imm_readULEB32
-	]
-	9 --> 14
-	13 --> 14
-	9[
-	state phi Codeptr
-	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	17[
-	offset
-	imm_readULEB64
-	]
-	9 --> 17
-	12 --> 17
-	19[
-	eff__1860
-	mach_writeMemory64_u32
-	]
-	8 --> 19
-	18 --> 19
-	17 --> 19
-	10 --> 19
-	12 --> 19
-	16[
-	eff__1865
-	mach_writeMemory32_u32
-	]
-	8 --> 16
-	15 --> 16
-	14 --> 16
-	10 --> 16
-	13 --> 16
-====
-====I32_STORE8====
-graph TD
-	6[
-	else
-	]
-	4 --> 6
-	4[
-	cond__1917
-	u8.==
-	]
-	3 --> 4
-	2 --> 4
-	2[
-	0u8
-	]
-	3[
-	arg__1919
-	u8.&
-	]
-	0 --> 3
-	0[
-	flags
-	imm_readU8
-	]
-	21[
-	state phi Stack
-	]
-	11 --> 21
-	18 --> 21
-	15 --> 21
-	15[
-	index
-	pop_u32
-	]
-	10 --> 15
-	13 --> 15
-	13[
-	else
-	]
-	11 --> 13
-	11[
-	cond__1905
-	m_isMemory64
-	]
-	8 --> 11
-	8[
-	memindex
-	phi
-	]
-	4 --> 8
-	7 --> 8
-	1 --> 8
-	1[
-	0u
-	]
-	7[
-	memindex__1918
-	imm_readULEB32
-	]
-	0 --> 7
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
-	10[
-	val
-	pop_u32
-	]
-	18[
-	index
-	pop_u64
-	]
-	10 --> 18
-	12 --> 18
-	12[
-	if
-	]
-	11 --> 12
-	20[
-	state phi Codeptr
-	]
-	11 --> 20
-	17 --> 20
-	14 --> 20
-	14[
-	offset
-	imm_readULEB32
-	]
-	9 --> 14
-	13 --> 14
-	9[
-	state phi Codeptr
-	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	17[
-	offset
-	imm_readULEB64
-	]
-	9 --> 17
-	12 --> 17
-	19[
-	eff__1906
-	mach_writeMemory64_u8
-	]
-	8 --> 19
-	18 --> 19
-	17 --> 19
-	10 --> 19
-	12 --> 19
-	16[
-	eff__1911
-	mach_writeMemory32_u8
-	]
-	8 --> 16
-	15 --> 16
-	14 --> 16
-	10 --> 16
-	13 --> 16
-====
-====I32_STORE16====
-graph TD
-	6[
-	else
-	]
-	4 --> 6
-	4[
-	cond__1963
-	u8.==
-	]
-	3 --> 4
-	2 --> 4
-	2[
-	0u8
-	]
-	3[
-	arg__1965
-	u8.&
-	]
-	0 --> 3
-	0[
-	flags
-	imm_readU8
-	]
-	21[
-	state phi Stack
-	]
-	11 --> 21
-	18 --> 21
-	15 --> 21
-	15[
-	index
-	pop_u32
-	]
-	10 --> 15
-	13 --> 15
-	13[
-	else
-	]
-	11 --> 13
-	11[
-	cond__1951
-	m_isMemory64
-	]
-	8 --> 11
-	8[
-	memindex
-	phi
-	]
-	4 --> 8
-	7 --> 8
-	1 --> 8
-	1[
-	0u
-	]
-	7[
-	memindex__1964
-	imm_readULEB32
-	]
-	0 --> 7
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
-	10[
-	val
-	pop_u32
-	]
-	18[
-	index
-	pop_u64
-	]
-	10 --> 18
-	12 --> 18
-	12[
-	if
-	]
-	11 --> 12
-	20[
-	state phi Codeptr
-	]
-	11 --> 20
-	17 --> 20
-	14 --> 20
-	14[
-	offset
-	imm_readULEB32
-	]
-	9 --> 14
-	13 --> 14
-	9[
-	state phi Codeptr
-	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	17[
-	offset
-	imm_readULEB64
-	]
-	9 --> 17
-	12 --> 17
-	19[
-	eff__1952
-	mach_writeMemory64_u16
-	]
-	8 --> 19
-	18 --> 19
-	17 --> 19
-	10 --> 19
-	12 --> 19
-	16[
-	eff__1957
-	mach_writeMemory32_u16
-	]
-	8 --> 16
-	15 --> 16
-	14 --> 16
-	10 --> 16
-	13 --> 16
-====
-====I64_STORE====
-graph TD
-	6[
-	else
-	]
-	4 --> 6
-	4[
-	cond__2009
-	u8.==
-	]
-	3 --> 4
-	2 --> 4
-	2[
-	0u8
-	]
-	3[
-	arg__2011
-	u8.&
-	]
-	0 --> 3
-	0[
-	flags
-	imm_readU8
-	]
-	21[
-	state phi Stack
-	]
-	11 --> 21
-	18 --> 21
-	15 --> 21
-	15[
-	index
-	pop_u32
-	]
-	10 --> 15
-	13 --> 15
-	13[
-	else
-	]
-	11 --> 13
-	11[
-	cond__1997
-	m_isMemory64
-	]
-	8 --> 11
-	8[
-	memindex
-	phi
-	]
-	4 --> 8
-	7 --> 8
-	1 --> 8
-	1[
-	0u
-	]
-	7[
-	memindex__2010
-	imm_readULEB32
-	]
-	0 --> 7
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
-	10[
-	val
-	pop_u64
-	]
-	18[
-	index
-	pop_u64
-	]
-	10 --> 18
-	12 --> 18
-	12[
-	if
-	]
-	11 --> 12
-	20[
-	state phi Codeptr
-	]
-	11 --> 20
-	17 --> 20
-	14 --> 20
-	14[
-	offset
-	imm_readULEB32
-	]
-	9 --> 14
-	13 --> 14
-	9[
-	state phi Codeptr
-	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	17[
-	offset
-	imm_readULEB64
-	]
-	9 --> 17
-	12 --> 17
-	19[
-	eff__1998
-	mach_writeMemory64_u64
-	]
-	8 --> 19
-	18 --> 19
-	17 --> 19
-	10 --> 19
-	12 --> 19
-	16[
-	eff__2003
-	mach_writeMemory32_u64
-	]
-	8 --> 16
-	15 --> 16
-	14 --> 16
-	10 --> 16
-	13 --> 16
-====
-====F32_STORE====
-graph TD
-	6[
-	else
-	]
-	4 --> 6
-	4[
-	cond__2055
-	u8.==
-	]
-	3 --> 4
-	2 --> 4
-	2[
-	0u8
-	]
-	3[
-	arg__2057
-	u8.&
-	]
-	0 --> 3
-	0[
-	flags
-	imm_readU8
-	]
-	21[
-	state phi Stack
-	]
-	11 --> 21
-	18 --> 21
-	15 --> 21
-	15[
-	index
-	pop_u32
-	]
-	10 --> 15
-	13 --> 15
-	13[
-	else
-	]
-	11 --> 13
-	11[
-	cond__2043
-	m_isMemory64
-	]
-	8 --> 11
-	8[
-	memindex
-	phi
-	]
-	4 --> 8
-	7 --> 8
-	1 --> 8
-	1[
-	0u
-	]
-	7[
-	memindex__2056
-	imm_readULEB32
-	]
-	0 --> 7
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
-	10[
-	val
-	pop_f32
-	]
-	18[
-	index
-	pop_u64
-	]
-	10 --> 18
-	12 --> 18
-	12[
-	if
-	]
-	11 --> 12
-	20[
-	state phi Codeptr
-	]
-	11 --> 20
-	17 --> 20
-	14 --> 20
-	14[
-	offset
-	imm_readULEB32
-	]
-	9 --> 14
-	13 --> 14
-	9[
-	state phi Codeptr
-	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	17[
-	offset
-	imm_readULEB64
-	]
-	9 --> 17
-	12 --> 17
-	19[
-	eff__2044
-	mach_writeMemory64_f32
-	]
-	8 --> 19
-	18 --> 19
-	17 --> 19
-	10 --> 19
-	12 --> 19
-	16[
-	eff__2049
-	mach_writeMemory32_f32
-	]
-	8 --> 16
-	15 --> 16
-	14 --> 16
-	10 --> 16
-	13 --> 16
-====
-====F64_STORE====
-graph TD
-	6[
-	else
-	]
-	4 --> 6
-	4[
-	cond__2101
-	u8.==
-	]
-	3 --> 4
-	2 --> 4
-	2[
-	0u8
-	]
-	3[
-	arg__2103
-	u8.&
-	]
-	0 --> 3
-	0[
-	flags
-	imm_readU8
-	]
-	21[
-	state phi Stack
-	]
-	11 --> 21
-	18 --> 21
-	15 --> 21
-	15[
-	index
-	pop_u32
-	]
-	10 --> 15
-	13 --> 15
-	13[
-	else
-	]
-	11 --> 13
-	11[
-	cond__2089
-	m_isMemory64
-	]
-	8 --> 11
-	8[
-	memindex
-	phi
-	]
-	4 --> 8
-	7 --> 8
-	1 --> 8
-	1[
-	0u
-	]
-	7[
-	memindex__2102
-	imm_readULEB32
-	]
-	0 --> 7
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
-	10[
-	val
-	pop_f64
-	]
-	18[
-	index
-	pop_u64
-	]
-	10 --> 18
-	12 --> 18
-	12[
-	if
-	]
-	11 --> 12
-	20[
-	state phi Codeptr
-	]
-	11 --> 20
-	17 --> 20
-	14 --> 20
-	14[
-	offset
-	imm_readULEB32
-	]
-	9 --> 14
-	13 --> 14
-	9[
-	state phi Codeptr
-	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	17[
-	offset
-	imm_readULEB64
-	]
-	9 --> 17
-	12 --> 17
-	19[
-	eff__2090
-	mach_writeMemory64_f64
-	]
-	8 --> 19
-	18 --> 19
-	17 --> 19
-	10 --> 19
-	12 --> 19
-	16[
-	eff__2095
-	mach_writeMemory32_f64
-	]
-	8 --> 16
-	15 --> 16
-	14 --> 16
-	10 --> 16
-	13 --> 16
-====
-// GENERATED BY ValidatorGen.v3
-def UNREACHABLE() {
-	trapUnreachable();
-}
-def NOP() {
-}
-def LOCAL_GET() {
-	def index = imm_readULEB32();
-	def tv = f_getLocalType(index);
-	def val = getLocal(tv, index);
-	push_Value(tv, val);
-}
-def LOCAL_SET() {
-	def index = imm_readULEB32();
-	def tv = f_getLocalType(index);
-	def val = pop_Value(tv);
-	setLocal(tv, index, val);
-}
-def LOCAL_TEE() {
-	def index = imm_readULEB32();
-	def tv = f_getLocalType(index);
-	def val = pop_Value(tv);
-	setLocal(tv, index, val);
-	push_Value(tv, val);
-}
-def GLOBAL_GET() {
-	def index = imm_readULEB32();
-	def tv = m_getGlobalType(index);
-	def val = getGlobal(tv, index);
-	push_Value(tv, val);
-}
-def GLOBAL_SET() {
-	def index = imm_readULEB32();
-	def tv = m_getGlobalType(index);
-	def val = pop_Value(tv);
-	setGlobal(tv, index, val);
-}
-def TABLE_GET() {
-	def table_index = imm_readULEB32();
-	def cond = m_isTable64(table_index);
-	if (cond) {
-		def index = pop_u64();
-		def val = mach_readTable64(table_index, index);
-		push_Object(val);
-	} else {
-		def index1 = pop_u32();
-		def val1 = mach_readTable32(table_index, index1);
-		push_Object(val1);
-	}
-}
-def TABLE_SET() {
-	def table_index = imm_readULEB32();
-	def cond = m_isTable64(table_index);
-	if (cond) {
-		def val = pop_Object();
-		def index = pop_u64();
-		mach_writeTable64(table_index, index, val);
-	} else {
-		def val1 = pop_Object();
-		def index1 = pop_u32();
-		mach_writeTable32(table_index, index1, val1);
-	}
-}
-def CALL() {
-	def index = imm_readULEB32();
-	def sig = m_getFuncSignature(index);
-	def target = i_getFunction(index);
-	doCall(sig, target);
-}
-def CALL_INDIRECT() {
-	def sig_index = imm_readULEB32();
-	def table_index = imm_readULEB32();
-	def sig = m_getSignature(sig_index);
-	def is64 = m_isTable64(table_index);
-	if (is64) {
-		def func_index = pop_u64();
-		def target = i_getTableFunction64(table_index, sig, func_index);
-		doCall(sig, target);
-	} else {
-		def func_index1 = pop_u32();
-		def target1 = i_getTableFunction32(table_index, sig, func_index1);
-		doCall(sig, target1);
-	}
-	def st_put = ctlxfer.put_CALL_INDIRECT(is64);
-}
-def RETURN_CALL() {
-	def index = imm_readULEB32();
-	def sig = m_getFuncSignature(index);
-	def target = i_getFunction(index);
-	doReturnCall(sig, target);
-}
-def DROP() {
-	def tv = f_getTopOfStackType();
-	pop_Value(tv);
-}
-def SELECT() {
-	def c = pop_u32();
-	def tv = f_getTopOfStackType();
-	def b = pop_Value(tv);
-	def a = pop_Value(tv);
-	push_Value(tv, a);
-}
-def I32_CONST() {
-	def x = imm_readILEB32();
-	push_u32(rtcast_u32(x));
-}
-def I32_ADD() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_plus(a, b));
-}
-def I32_SUB() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_minus(a, b));
-}
-def I32_MUL() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_times(a, b));
-}
-def I32_DIV_S() {
-	def b = pop_u32();
-	def a = pop_u32();
-	trapDivideByZero();
-	trapDivideUnrepresentable();
-	push_u32(U32_div_s(a, b));
-}
-def I32_DIV_U() {
-	def b = pop_u32();
-	def a = pop_u32();
-	trapDivideByZero();
-	push_u32(U32_div(a, b));
-}
-def I32_EQZ() {
-	def a = pop_u32();
-	push_u32(rtcast_u32(1));
-}
-def I32_EQ() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(rtcast_u32(1));
-}
-def I32_NE() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(rtcast_u32(1));
-}
-def I32_LT_U() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(rtcast_u32(1));
-}
-def I32_LT_S() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(rtcast_u32(1));
-}
-def I32_LE_S() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(rtcast_u32(1));
-}
-def I32_GT_U() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(rtcast_u32(1));
-}
-def I32_LE_U() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(rtcast_u32(1));
-}
-def I32_GT_S() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(rtcast_u32(1));
-}
-def I32_GE_U() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(rtcast_u32(1));
-}
-def I32_GE_S() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(rtcast_u32(1));
-}
-def I32_AND() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_and(a, b));
-}
-def I32_OR() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_or(a, b));
-}
-def I32_XOR() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_or(a, b));
-}
-def I32_SHL() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_shl(a, b));
-}
-def I32_SHR_U() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_shr_u(a, b));
-}
-def I32_SHR_S() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_shr_s(a, b));
-}
-def I32_ROTL() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_rotl(a, b));
-}
-def I32_ROTR() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_rotr(a, b));
-}
-def I32_CLZ() {
-	def a = pop_u32();
-	push_u32(U32_clz(a));
-}
-def I32_CTZ() {
-	def a = pop_u32();
-	push_u32(U32_ctz(a));
-}
-def I32_POPCNT() {
-	def a = pop_u32();
-	push_u32(U32_popcnt(a));
-}
-def I32_REM_S() {
-	def b = pop_u32();
-	def a = pop_u32();
-	trapDivideByZero();
-	push_u32(U32_rem_s(a, b));
-}
-def I32_REM_U() {
-	def b = pop_u32();
-	def a = pop_u32();
-	trapDivideByZero();
-	push_u32(U32_rem_u(a, b));
-}
-def I32_EXTEND8_S() {
-	def a = pop_u32();
-	def r = U32_extend8_s(a);
-	push_u32(r);
-}
-def I32_EXTEND16_S() {
-	def a = pop_u32();
-	def r = U32_extend16_s(a);
-	push_u32(r);
-}
-def I64_CONST() {
-	def x = imm_readILEB64();
-	push_u64(rtcast_u64(x));
-}
-def I64_ADD() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u64(U64_plus(a, b));
-}
-def I64_SUB() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u64(U64_minus(a, b));
-}
-def I64_MUL() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u64(U64_times(a, b));
-}
-def I64_DIV_S() {
-	def b = pop_u64();
-	def a = pop_u64();
-	trapDivideByZero();
-	trapDivideUnrepresentable();
-	push_u64(U64_div_s(a, b));
-}
-def I64_DIV_U() {
-	def b = pop_u64();
-	def a = pop_u64();
-	trapDivideByZero();
-	push_u64(U64_div(a, b));
-}
-def I64_REM_S() {
-	def b = pop_u64();
-	def a = pop_u64();
-	trapDivideByZero();
-	push_u64(U64_rem_s(a, b));
-}
-def I64_REM_U() {
-	def b = pop_u64();
-	def a = pop_u64();
-	trapDivideByZero();
-	push_u64(U64_rem_u(a, b));
-}
-def I64_AND() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u64(U64_and(a, b));
-}
-def I64_OR() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u64(U64_or(a, b));
-}
-def I64_XOR() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u64(U64_or(a, b));
-}
-def I64_SHL() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u64(U64_shl(a, b));
-}
-def I64_SHR_U() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u64(U64_shr_u(a, b));
-}
-def I64_SHR_S() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u64(U64_shr_s(a, b));
-}
-def I64_ROTL() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u64(U64_rotl(a, b));
-}
-def I64_ROTR() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u64(U64_rotr(a, b));
-}
-def I64_CLZ() {
-	def a = pop_u64();
-	push_u64(U64_clz(a));
-}
-def I64_CTZ() {
-	def a = pop_u64();
-	push_u64(U64_ctz(a));
-}
-def I64_POPCNT() {
-	def a = pop_u64();
-	push_u64(U64_popcnt(a));
-}
-def I64_EQZ() {
-	def a = pop_u64();
-	push_u32(rtcast_u32(1));
-}
-def I64_EQ() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u32(rtcast_u32(1));
-}
-def I64_NE() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u32(rtcast_u32(1));
-}
-def I64_LT_S() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u32(rtcast_u32(1));
-}
-def I64_LT_U() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u32(rtcast_u32(1));
-}
-def I64_LE_S() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u32(rtcast_u32(1));
-}
-def I64_LE_U() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u32(rtcast_u32(1));
-}
-def I64_GT_S() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u32(rtcast_u32(1));
-}
-def I64_GT_U() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u32(rtcast_u32(1));
-}
-def I64_GE_S() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u32(rtcast_u32(1));
-}
-def I64_GE_U() {
-	def b = pop_u64();
-	def a = pop_u64();
-	push_u32(rtcast_u32(1));
-}
-def I64_EXTEND8_S() {
-	def a = pop_u64();
-	def r = U64_extend8_s(a);
-	push_u64(r);
-}
-def I64_EXTEND16_S() {
-	def a = pop_u64();
-	def r = U64_extend16_s(a);
-	push_u64(r);
-}
-def I64_EXTEND32_S() {
-	def a = pop_u64();
-	def r = U64_extend32_s(a);
-	push_u64(r);
-}
-def F32_CONST() {
-	def x = imm_readULEB32();
-	def arg = f32_reinterpret_u32(rtcast_u32(x));
-	push_f32(arg);
-}
-def F32_ADD() {
-	def b = pop_f32();
-	def a = pop_f32();
-	push_f32(F32_plus(a, b));
-}
-def F32_SUB() {
-	def b = pop_f32();
-	def a = pop_f32();
-	push_f32(F32_minus(a, b));
-}
-def F32_MUL() {
-	def b = pop_f32();
-	def a = pop_f32();
-	push_f32(F32_times(a, b));
-}
-def F32_DIV() {
-	def b = pop_f32();
-	def a = pop_f32();
-	trapDivideByZero();
-	push_f32(F32_div(a, b));
-}
-def F32_SQRT() {
-	def a = pop_f32();
-	push_f32(F32_sqrt(a));
-}
-def F32_EQ() {
-	def b = pop_f32();
-	def a = pop_f32();
-	push_u32(rtcast_u32(1));
-}
-def F32_NE() {
-	def b = pop_f32();
-	def a = pop_f32();
-	push_u32(rtcast_u32(1));
-}
-def F32_LT() {
-	def b = pop_f32();
-	def a = pop_f32();
-	push_u32(rtcast_u32(1));
-}
-def F32_LE() {
-	def b = pop_f32();
-	def a = pop_f32();
-	push_u32(rtcast_u32(1));
-}
-def F32_GT() {
-	def b = pop_f32();
-	def a = pop_f32();
-	push_u32(rtcast_u32(1));
-}
-def BR() {
-	def depth = imm_readULEB32();
-	def label = f_getLabel(depth);
-	doBranch(label);
-	def st_put = ctlxfer.put_BR(label);
-}
-def BR_IF() {
-	def depth = imm_readULEB32();
-	def label = f_getLabel(depth);
-	def cond = pop_u32();
-	doBranch(label);
-	doFallthru();
-	def st_put = ctlxfer.put_BR_IF(label);
-}
-def BR_TABLE() {
-	def labels = imm_readLabels();
-	def key = pop_u32();
-	doSwitch(labels, key);
-	def st_put = ctlxfer.put_BR_TABLE(labels);
-}
-def BLOCK() {
-	def bt = imm_readBlockType();
-	doBlock(bt);
-}
-def LOOP() {
-	def bt = imm_readBlockType();
-	doLoop(bt);
-}
-def TRY() {
-	def bt = imm_readBlockType();
-	doTry(bt);
-}
-def IF() {
-	def bt = imm_readBlockType();
-	def cond = pop_u32();
-	def label = doIf(bt);
-	doBranch(label);
-	doFallthru();
-	def st_put = ctlxfer.put_IF(label);
-}
-def ELSE() {
-	def label = doElse();
-	doBranch(label);
-	def st_put = ctlxfer.put_ELSE(label);
-}
-def END() {
-	doEnd();
-	if (f_isAtEnd()) {
-		doReturn();
-	}
-}
-def RETURN() {
-	doReturn();
-}
-def REF_NULL() {
-	def idx = imm_readULEB32();
-	def arg = object_Null();
-	push_Object(arg);
-}
-def REF_IS_NULL() {
-	def obj = pop_Object();
-	push_u32(rtcast_u32(1));
-}
-def REF_AS_NON_NULL() {
-	def obj = pop_Object();
-	trapNull();
-	push_Object(obj);
-}
-def STRUCT_NEW() {
-	def struct_idx = imm_readULEB32();
-	def sig = m_getSignature(struct_idx);
-	push_Object(object_New(sig));
-}
-def STRUCT_GET() {
-	def struct_index = imm_readULEB32();
-	def field_index = imm_readULEB32();
-	def kind = m_getFieldKind(struct_index, field_index);
-	def offset = m_getFieldOffset(struct_index, field_index);
-	def obj = pop_Object();
-	trapNull();
-	match (kind) {
-		U32 => {
-			def arg = mach_readStructField_u32(obj, offset);
-			push_u32(arg);
-		}
-		U64 => {
-			def arg1 = mach_readStructField_u64(obj, offset);
-			push_u64(arg1);
-		}
-		F32 => {
-			def arg2 = mach_readStructField_f32(obj, offset);
-			push_f32(arg2);
-		}
-		F64 => {
-			def arg3 = mach_readStructField_f64(obj, offset);
-			push_f64(arg3);
-		}
-		V128 => {
-			def arg4 = mach_readStructField_v128(obj, offset);
-			push_v128(arg4);
-		}
-		REF => {
-			def arg5 = mach_readStructField_Object(obj, offset);
-			push_Object(arg5);
-		}
-		_ => trapUnreachable();
-	}
-	def st_put = ctlxfer.put_STRUCT_GET(kind, offset);
-}
-def STRUCT_GET_S() {
-	def struct_index = imm_readULEB32();
-	def field_index = imm_readULEB32();
-	def kind = m_getFieldKind(struct_index, field_index);
-	def offset = m_getFieldOffset(struct_index, field_index);
-	def obj = pop_Object();
-	trapNull();
-	match (kind) {
-		U8 => {
-			def arg = mach_readStructField_u8(obj, offset);
-			push_u32(arg);
-		}
-		U16 => {
-			def arg1 = mach_readStructField_u16(obj, offset);
-			push_u32(arg1);
-		}
-		_ => trapUnreachable();
-	}
-	def st_put = ctlxfer.put_STRUCT_GET_S(kind, offset);
-}
-def STRUCT_GET_U() {
-	def struct_index = imm_readULEB32();
-	def field_index = imm_readULEB32();
-	def kind = m_getFieldKind(struct_index, field_index);
-	def offset = m_getFieldOffset(struct_index, field_index);
-	def obj = pop_Object();
-	trapNull();
-	match (kind) {
-		U8 => {
-			def arg = mach_readStructField_u8(obj, offset);
-			push_u32(arg);
-		}
-		U16 => {
-			def arg1 = mach_readStructField_u16(obj, offset);
-			push_u32(arg1);
-		}
-		_ => trapUnreachable();
-	}
-	def st_put = ctlxfer.put_STRUCT_GET_U(kind, offset);
-}
-def I32_LOAD() {
-	def flags = imm_readU8();
-	def rtcast = rtcast_byte(0u8);
-	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
-	if (bool_cond) {
-		var memindex = imm_readULEB32();
-	}
-	def cond = m_isMemory64(0u);
-	if (cond) {
-		def offset = imm_readULEB64();
-		def index = pop_u64();
-		def val = mach_readMemory64_u32(0u, index, offset);
-		push_u32(val);
-	} else {
-		def offset1 = imm_readULEB32();
-		def index1 = pop_u32();
-		def val1 = mach_readMemory32_u32(0u, index1, offset1);
-		push_u32(val1);
-	}
-}
-def I32_LOAD8_U() {
-	def flags = imm_readU8();
-	def rtcast = rtcast_byte(0u8);
-	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
-	if (bool_cond) {
-		var memindex = imm_readULEB32();
-	}
-	def cond = m_isMemory64(0u);
-	if (cond) {
-		def offset = imm_readULEB64();
-		def index = pop_u64();
-		def val = mach_readMemory64_u8(0u, index, offset);
-		push_u32(val);
-	} else {
-		def offset1 = imm_readULEB32();
-		def index1 = pop_u32();
-		def val1 = mach_readMemory32_u8(0u, index1, offset1);
-		push_u32(val1);
-	}
-}
-def I32_LOAD16_S() {
-	def flags = imm_readU8();
-	def rtcast = rtcast_byte(0u8);
-	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
-	if (bool_cond) {
-		var memindex = imm_readULEB32();
-	}
-	def cond = m_isMemory64(0u);
-	if (cond) {
-		def offset = imm_readULEB64();
-		def index = pop_u64();
-		def val = mach_readMemory64_u16(0u, index, offset);
-		push_u32(val);
-	} else {
-		def offset1 = imm_readULEB32();
-		def index1 = pop_u32();
-		def val1 = mach_readMemory32_u16(0u, index1, offset1);
-		push_u32(val1);
-	}
-}
-def I64_LOAD() {
-	def flags = imm_readU8();
-	def rtcast = rtcast_byte(0u8);
-	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
-	if (bool_cond) {
-		var memindex = imm_readULEB32();
-	}
-	def cond = m_isMemory64(0u);
-	if (cond) {
-		def offset = imm_readULEB64();
-		def index = pop_u64();
-		def val = mach_readMemory64_u64(0u, index, offset);
-		push_u64(val);
-	} else {
-		def offset1 = imm_readULEB32();
-		def index1 = pop_u32();
-		def val1 = mach_readMemory32_u64(0u, index1, offset1);
-		push_u64(val1);
-	}
-}
-def F32_LOAD() {
-	def flags = imm_readU8();
-	def rtcast = rtcast_byte(0u8);
-	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
-	if (bool_cond) {
-		var memindex = imm_readULEB32();
-	}
-	def cond = m_isMemory64(0u);
-	if (cond) {
-		def offset = imm_readULEB64();
-		def index = pop_u64();
-		def val = mach_readMemory64_f32(0u, index, offset);
-		push_f32(val);
-	} else {
-		def offset1 = imm_readULEB32();
-		def index1 = pop_u32();
-		def val1 = mach_readMemory32_f32(0u, index1, offset1);
-		push_f32(val1);
-	}
-}
-def F64_LOAD() {
-	def flags = imm_readU8();
-	def rtcast = rtcast_byte(0u8);
-	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
-	if (bool_cond) {
-		var memindex = imm_readULEB32();
-	}
-	def cond = m_isMemory64(0u);
-	if (cond) {
-		def offset = imm_readULEB64();
-		def index = pop_u64();
-		def val = mach_readMemory64_f64(0u, index, offset);
-		push_f64(val);
-	} else {
-		def offset1 = imm_readULEB32();
-		def index1 = pop_u32();
-		def val1 = mach_readMemory32_f64(0u, index1, offset1);
-		push_f64(val1);
-	}
-}
-def I32_STORE() {
-	def flags = imm_readU8();
-	def rtcast = rtcast_byte(0u8);
-	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
-	if (bool_cond) {
-		var memindex = imm_readULEB32();
-	}
-	def val = pop_u32();
-	def cond = m_isMemory64(0u);
-	if (cond) {
-		def offset = imm_readULEB64();
-		def index = pop_u64();
-		mach_writeMemory64_u32(0u, index, offset, val);
-	} else {
-		def offset1 = imm_readULEB32();
-		def index1 = pop_u32();
-		mach_writeMemory32_u32(0u, index1, offset1, val);
-	}
-}
-def I32_STORE8() {
-	def flags = imm_readU8();
-	def rtcast = rtcast_byte(0u8);
-	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
-	if (bool_cond) {
-		var memindex = imm_readULEB32();
-	}
-	def val = pop_u32();
-	def cond = m_isMemory64(0u);
-	if (cond) {
-		def offset = imm_readULEB64();
-		def index = pop_u64();
-		mach_writeMemory64_u8(0u, index, offset, val);
-	} else {
-		def offset1 = imm_readULEB32();
-		def index1 = pop_u32();
-		mach_writeMemory32_u8(0u, index1, offset1, val);
-	}
-}
-def I32_STORE16() {
-	def flags = imm_readU8();
-	def rtcast = rtcast_byte(0u8);
-	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
-	if (bool_cond) {
-		var memindex = imm_readULEB32();
-	}
-	def val = pop_u32();
-	def cond = m_isMemory64(0u);
-	if (cond) {
-		def offset = imm_readULEB64();
-		def index = pop_u64();
-		mach_writeMemory64_u16(0u, index, offset, val);
-	} else {
-		def offset1 = imm_readULEB32();
-		def index1 = pop_u32();
-		mach_writeMemory32_u16(0u, index1, offset1, val);
-	}
-}
-def I64_STORE() {
-	def flags = imm_readU8();
-	def rtcast = rtcast_byte(0u8);
-	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
-	if (bool_cond) {
-		var memindex = imm_readULEB32();
-	}
-	def val = pop_u64();
-	def cond = m_isMemory64(0u);
-	if (cond) {
-		def offset = imm_readULEB64();
-		def index = pop_u64();
-		mach_writeMemory64_u64(0u, index, offset, val);
-	} else {
-		def offset1 = imm_readULEB32();
-		def index1 = pop_u32();
-		mach_writeMemory32_u64(0u, index1, offset1, val);
-	}
-}
-def F32_STORE() {
-	def flags = imm_readU8();
-	def rtcast = rtcast_byte(0u8);
-	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
-	if (bool_cond) {
-		var memindex = imm_readULEB32();
-	}
-	def val = pop_f32();
-	def cond = m_isMemory64(0u);
-	if (cond) {
-		def offset = imm_readULEB64();
-		def index = pop_u64();
-	} else {
-		def offset1 = imm_readULEB32();
-		def index1 = pop_u32();
-	}
-}
-def F64_STORE() {
-	def flags = imm_readU8();
-	def rtcast = rtcast_byte(0u8);
-	def bool_cond = to_true(U32_equals(U32_and(rtcast_u32(flags), HAS_MEM_INDEX), rtcast));
-	if (bool_cond) {
-		var memindex = imm_readULEB32();
-	}
-	def val = pop_f64();
-	def cond = m_isMemory64(0u);
-	if (cond) {
-		def offset = imm_readULEB64();
-		def index = pop_u64();
-		mach_writeMemory64_f64(0u, index, offset, val);
-	} else {
-		def offset1 = imm_readULEB32();
-		def index1 = pop_u32();
-		mach_writeMemory32_f64(0u, index1, offset1, val);
-	}
-}
-def build_dispatch_table() -> Array<void -> void> {
-  DISPATCH_TABLE = Array.new(0xE5 + 1);
-  for (i < 0xE5 + 1) DISPATCH_TABLE[i] = null;
-  DISPATCH_TABLE[Opcode.UNREACHABLE.tag] = UNREACHABLE;
-  DISPATCH_TABLE[Opcode.NOP.tag] = NOP;
-  DISPATCH_TABLE[Opcode.LOCAL_GET.tag] = LOCAL_GET;
-  DISPATCH_TABLE[Opcode.LOCAL_SET.tag] = LOCAL_SET;
-  DISPATCH_TABLE[Opcode.LOCAL_TEE.tag] = LOCAL_TEE;
-  DISPATCH_TABLE[Opcode.GLOBAL_GET.tag] = GLOBAL_GET;
-  DISPATCH_TABLE[Opcode.GLOBAL_SET.tag] = GLOBAL_SET;
-  DISPATCH_TABLE[Opcode.TABLE_GET.tag] = TABLE_GET;
-  DISPATCH_TABLE[Opcode.TABLE_SET.tag] = TABLE_SET;
-  DISPATCH_TABLE[Opcode.CALL.tag] = CALL;
-  DISPATCH_TABLE[Opcode.CALL_INDIRECT.tag] = CALL_INDIRECT;
-  DISPATCH_TABLE[Opcode.RETURN_CALL.tag] = RETURN_CALL;
-  DISPATCH_TABLE[Opcode.DROP.tag] = DROP;
-  DISPATCH_TABLE[Opcode.SELECT.tag] = SELECT;
-  DISPATCH_TABLE[Opcode.I32_CONST.tag] = I32_CONST;
-  DISPATCH_TABLE[Opcode.I32_ADD.tag] = I32_ADD;
-  DISPATCH_TABLE[Opcode.I32_SUB.tag] = I32_SUB;
-  DISPATCH_TABLE[Opcode.I32_MUL.tag] = I32_MUL;
-  DISPATCH_TABLE[Opcode.I32_DIV_S.tag] = I32_DIV_S;
-  DISPATCH_TABLE[Opcode.I32_DIV_U.tag] = I32_DIV_U;
-  DISPATCH_TABLE[Opcode.I32_EQZ.tag] = I32_EQZ;
-  DISPATCH_TABLE[Opcode.I32_EQ.tag] = I32_EQ;
-  DISPATCH_TABLE[Opcode.I32_NE.tag] = I32_NE;
-  DISPATCH_TABLE[Opcode.I32_LT_U.tag] = I32_LT_U;
-  DISPATCH_TABLE[Opcode.I32_LT_S.tag] = I32_LT_S;
-  DISPATCH_TABLE[Opcode.I32_LE_S.tag] = I32_LE_S;
-  DISPATCH_TABLE[Opcode.I32_GT_U.tag] = I32_GT_U;
-  DISPATCH_TABLE[Opcode.I32_LE_U.tag] = I32_LE_U;
-  DISPATCH_TABLE[Opcode.I32_GT_S.tag] = I32_GT_S;
-  DISPATCH_TABLE[Opcode.I32_GE_U.tag] = I32_GE_U;
-  DISPATCH_TABLE[Opcode.I32_GE_S.tag] = I32_GE_S;
-  DISPATCH_TABLE[Opcode.I32_AND.tag] = I32_AND;
-  DISPATCH_TABLE[Opcode.I32_OR.tag] = I32_OR;
-  DISPATCH_TABLE[Opcode.I32_XOR.tag] = I32_XOR;
-  DISPATCH_TABLE[Opcode.I32_SHL.tag] = I32_SHL;
-  DISPATCH_TABLE[Opcode.I32_SHR_U.tag] = I32_SHR_U;
-  DISPATCH_TABLE[Opcode.I32_SHR_S.tag] = I32_SHR_S;
-  DISPATCH_TABLE[Opcode.I32_ROTL.tag] = I32_ROTL;
-  DISPATCH_TABLE[Opcode.I32_ROTR.tag] = I32_ROTR;
-  DISPATCH_TABLE[Opcode.I32_CLZ.tag] = I32_CLZ;
-  DISPATCH_TABLE[Opcode.I32_CTZ.tag] = I32_CTZ;
-  DISPATCH_TABLE[Opcode.I32_POPCNT.tag] = I32_POPCNT;
-  DISPATCH_TABLE[Opcode.I32_REM_S.tag] = I32_REM_S;
-  DISPATCH_TABLE[Opcode.I32_REM_U.tag] = I32_REM_U;
-  DISPATCH_TABLE[Opcode.I32_EXTEND8_S.tag] = I32_EXTEND8_S;
-  DISPATCH_TABLE[Opcode.I32_EXTEND16_S.tag] = I32_EXTEND16_S;
-  DISPATCH_TABLE[Opcode.I64_CONST.tag] = I64_CONST;
-  DISPATCH_TABLE[Opcode.I64_ADD.tag] = I64_ADD;
-  DISPATCH_TABLE[Opcode.I64_SUB.tag] = I64_SUB;
-  DISPATCH_TABLE[Opcode.I64_MUL.tag] = I64_MUL;
-  DISPATCH_TABLE[Opcode.I64_DIV_S.tag] = I64_DIV_S;
-  DISPATCH_TABLE[Opcode.I64_DIV_U.tag] = I64_DIV_U;
-  DISPATCH_TABLE[Opcode.I64_REM_S.tag] = I64_REM_S;
-  DISPATCH_TABLE[Opcode.I64_REM_U.tag] = I64_REM_U;
-  DISPATCH_TABLE[Opcode.I64_AND.tag] = I64_AND;
-  DISPATCH_TABLE[Opcode.I64_OR.tag] = I64_OR;
-  DISPATCH_TABLE[Opcode.I64_XOR.tag] = I64_XOR;
-  DISPATCH_TABLE[Opcode.I64_SHL.tag] = I64_SHL;
-  DISPATCH_TABLE[Opcode.I64_SHR_U.tag] = I64_SHR_U;
-  DISPATCH_TABLE[Opcode.I64_SHR_S.tag] = I64_SHR_S;
-  DISPATCH_TABLE[Opcode.I64_ROTL.tag] = I64_ROTL;
-  DISPATCH_TABLE[Opcode.I64_ROTR.tag] = I64_ROTR;
-  DISPATCH_TABLE[Opcode.I64_CLZ.tag] = I64_CLZ;
-  DISPATCH_TABLE[Opcode.I64_CTZ.tag] = I64_CTZ;
-  DISPATCH_TABLE[Opcode.I64_POPCNT.tag] = I64_POPCNT;
-  DISPATCH_TABLE[Opcode.I64_EQZ.tag] = I64_EQZ;
-  DISPATCH_TABLE[Opcode.I64_EQ.tag] = I64_EQ;
-  DISPATCH_TABLE[Opcode.I64_NE.tag] = I64_NE;
-  DISPATCH_TABLE[Opcode.I64_LT_S.tag] = I64_LT_S;
-  DISPATCH_TABLE[Opcode.I64_LT_U.tag] = I64_LT_U;
-  DISPATCH_TABLE[Opcode.I64_LE_S.tag] = I64_LE_S;
-  DISPATCH_TABLE[Opcode.I64_LE_U.tag] = I64_LE_U;
-  DISPATCH_TABLE[Opcode.I64_GT_S.tag] = I64_GT_S;
-  DISPATCH_TABLE[Opcode.I64_GT_U.tag] = I64_GT_U;
-  DISPATCH_TABLE[Opcode.I64_GE_S.tag] = I64_GE_S;
-  DISPATCH_TABLE[Opcode.I64_GE_U.tag] = I64_GE_U;
-  DISPATCH_TABLE[Opcode.I64_EXTEND8_S.tag] = I64_EXTEND8_S;
-  DISPATCH_TABLE[Opcode.I64_EXTEND16_S.tag] = I64_EXTEND16_S;
-  DISPATCH_TABLE[Opcode.I64_EXTEND32_S.tag] = I64_EXTEND32_S;
-  DISPATCH_TABLE[Opcode.F32_CONST.tag] = F32_CONST;
-  DISPATCH_TABLE[Opcode.F32_ADD.tag] = F32_ADD;
-  DISPATCH_TABLE[Opcode.F32_SUB.tag] = F32_SUB;
-  DISPATCH_TABLE[Opcode.F32_MUL.tag] = F32_MUL;
-  DISPATCH_TABLE[Opcode.F32_DIV.tag] = F32_DIV;
-  DISPATCH_TABLE[Opcode.F32_SQRT.tag] = F32_SQRT;
-  DISPATCH_TABLE[Opcode.F32_EQ.tag] = F32_EQ;
-  DISPATCH_TABLE[Opcode.F32_NE.tag] = F32_NE;
-  DISPATCH_TABLE[Opcode.F32_LT.tag] = F32_LT;
-  DISPATCH_TABLE[Opcode.F32_LE.tag] = F32_LE;
-  DISPATCH_TABLE[Opcode.F32_GT.tag] = F32_GT;
-  DISPATCH_TABLE[Opcode.BR.tag] = BR;
-  DISPATCH_TABLE[Opcode.BR_IF.tag] = BR_IF;
-  DISPATCH_TABLE[Opcode.BR_TABLE.tag] = BR_TABLE;
-  DISPATCH_TABLE[Opcode.BLOCK.tag] = BLOCK;
-  DISPATCH_TABLE[Opcode.LOOP.tag] = LOOP;
-  DISPATCH_TABLE[Opcode.TRY.tag] = TRY;
-  DISPATCH_TABLE[Opcode.IF.tag] = IF;
-  DISPATCH_TABLE[Opcode.ELSE.tag] = ELSE;
-  DISPATCH_TABLE[Opcode.END.tag] = END;
-  DISPATCH_TABLE[Opcode.RETURN.tag] = RETURN;
-  DISPATCH_TABLE[Opcode.REF_NULL.tag] = REF_NULL;
-  DISPATCH_TABLE[Opcode.REF_IS_NULL.tag] = REF_IS_NULL;
-  DISPATCH_TABLE[Opcode.REF_AS_NON_NULL.tag] = REF_AS_NON_NULL;
-  DISPATCH_TABLE[Opcode.STRUCT_NEW.tag] = STRUCT_NEW;
-  DISPATCH_TABLE[Opcode.STRUCT_GET.tag] = STRUCT_GET;
-  DISPATCH_TABLE[Opcode.STRUCT_GET_S.tag] = STRUCT_GET_S;
-  DISPATCH_TABLE[Opcode.STRUCT_GET_U.tag] = STRUCT_GET_U;
-  DISPATCH_TABLE[Opcode.I32_LOAD.tag] = I32_LOAD;
-  DISPATCH_TABLE[Opcode.I32_LOAD8_U.tag] = I32_LOAD8_U;
-  DISPATCH_TABLE[Opcode.I32_LOAD16_S.tag] = I32_LOAD16_S;
-  DISPATCH_TABLE[Opcode.I64_LOAD.tag] = I64_LOAD;
-  DISPATCH_TABLE[Opcode.F32_LOAD.tag] = F32_LOAD;
-  DISPATCH_TABLE[Opcode.F64_LOAD.tag] = F64_LOAD;
-  DISPATCH_TABLE[Opcode.I32_STORE.tag] = I32_STORE;
-  DISPATCH_TABLE[Opcode.I32_STORE8.tag] = I32_STORE8;
-  DISPATCH_TABLE[Opcode.I32_STORE16.tag] = I32_STORE16;
-  DISPATCH_TABLE[Opcode.I64_STORE.tag] = I64_STORE;
-  DISPATCH_TABLE[Opcode.F32_STORE.tag] = F32_STORE;
-  DISPATCH_TABLE[Opcode.F64_STORE.tag] = F64_STORE;
-  return DISPATCH_TABLE;
-}
-var module: Module;
-var codeptr: CodePtr;
-var opcode: Opcode;
-var opcode_pos: int; // not used much, because interpreter uses codeptr.pos
-var DISPATCH_TABLE: Array<void -> void> = build_dispatch_table();
-var local_types: Vector<TypeVar>;
-var stack: ArrayStack<TypeVar>;
-var globals: Vector<TypeVar>;
-var rets: Array<TypeVar>;
-
-// steal sidetable stuff from existing validator,
-// to support custom sidetable stuff I think we can keep ControlEntry but replace SidetableBuilder
-var ctl_stack: ArrayStack<ControlEntry>; 
-var ctlxfer: CBDSidetableBuilder;
-var ctl_top: ControlEntry;
-
-// stolen from CodeValidator.v3
-def pushControl(opcode: u16, params: Array<ValueType>, results: Array<ValueType>, val_stack_top: int) -> ControlEntry {
-    var ctl = ctl_stack.next();
-    if (ctl != null) { // FAST: reuse previous ControlEntry object
-        ctl_stack.top++;
-    } else { // allocate and cache new ControlEntry object
-        ctl = ControlEntry.new();
-        ctl_stack.push(ctl);
-    }
-    ctl_top = ctl;
-    ctl.start_pos = codeptr.pos;
-    ctl.delegate_pos = codeptr.pos;
-    ctl.start_opcode = opcode;
-    ctl.sidetable_pos = -1;
-    ctl.params = params;
-    ctl.results = results;
-    ctl.val_stack_top = val_stack_top;
-    ctl.reachable = true;
-    ctl.first_ref = -1;
-    ctl.else_ref = -1;
-    ctl.undo_init_list = null;
-    return ctl;
-}
-
-def popTypes(ts: Array<ValueType>) {
-    for (i = ts.length - 1; i >= 0; i -= 1) pop_Value(typeVarFromValType(ts[i]));
-}
-
-def pushTypes(ts: Array<ValueType>) {
-    for (i < ts.length) push_Value(typeVarFromValType(ts[i]), typeVarFromValType(ts[i]));
-}
-
-// Constants
-// def HAS_MEM_INDEX = 0x40u;
-def HAS_MEM_INDEX = TypeVar.U32;
-
-def f32_reinterpret_u32(i: TypeVar.U32) -> TypeVar.F32;
-def f64_reinterpret_u64(i: TypeVar.U64) -> TypeVar.F64;
-def u32_reinterpret_f32(f: TypeVar.F32) -> TypeVar.U32;
-def u64_reinterpret_f64(f: TypeVar.F64) -> TypeVar.U64;
-
-// U64
-def U32_plus(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_minus(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_times(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_div(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_div_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_rem_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_rem_u(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_lt(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_lte(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_lt_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_le_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_gt(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_gt_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_ge_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_ge_u(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_equals(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_not_equals(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_and(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_or(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-
-def U32_clz(x: TypeVar.U32) => TypeVar.U32;
-def U32_ctz(x: TypeVar.U32) => TypeVar.U32;
-def U32_popcnt(x: TypeVar.U32) => TypeVar.U32;
-def U32_shl(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_shr_u(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_shr_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_rotl(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_rotr(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-
-def U32_extend8_s(x: TypeVar.U32) -> TypeVar.U32;
-def U32_extend16_s(x: TypeVar.U32) -> TypeVar.U32;
-
-// U64
-def U64_plus(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_minus(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_times(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_div(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_div_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_rem_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_rem_u(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_lt(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_lte(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_lt_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_le_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_gt(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_gt_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_ge_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_ge_u(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_equals(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_not_equals(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_and(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_or(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-
-def U64_clz(x: TypeVar.U64) => TypeVar.U64;
-def U64_ctz(x: TypeVar.U64) => TypeVar.U64;
-def U64_popcnt(x: TypeVar.U64) => TypeVar.U64;
-def U64_shl(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_shr_u(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_shr_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_rotl(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_rotr(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-
-def U64_extend8_s(x: TypeVar.U64) -> TypeVar.U64;
-def U64_extend16_s(x: TypeVar.U64) -> TypeVar.U64;
-def U64_extend32_s(x: TypeVar.U64) -> TypeVar.U64;
-
-// F32
-def F32_equals = TypeVar.F32.testop(float.==);
-def F32_not_equals = TypeVar.F32.testop(float.==);
-def F32_lt = TypeVar.F32.testop(float.<);
-def F32_lte = TypeVar.F32.testop(float.<=);
-def F32_gt = TypeVar.F32.testop(float.>);
-def F32_plus = TypeVar.F32.binop(float.+);
-def F32_minus = TypeVar.F32.binop(float.-);
-def F32_div = TypeVar.F32.binop(float./);
-def F32_times = TypeVar.F32.binop(float.*);
-def F32_sqrt = fun (x: TypeVar.F32) => x;
-
-def object_Null() -> TypeVar.Object => TypeVar.Object;
-def object_isNull(o: TypeVar.Object) => true;
-def object_New(sig: HeapTypeDecl) -> TypeVar.Object => TypeVar.Object;
-
-def typeVarFromValType(vt: ValueType) -> TypeVar {
-    match (vt) {
-        I32 => return TypeVar.U32;
-        I64 => return TypeVar.U64;
-        F32 => return TypeVar.F32;
-        F64 => return TypeVar.F64;
-        V128 => return TypeVar.V128;
-        Ref => return TypeVar.Object;
-        Host => return TypeVar.Object;
-        BOTTOM => return TypeVar.Bot(null);
-    }
-}
-
-def valTypeFromTypeVar(tv: TypeVar) -> ValueType {
-    match (tv) {
-        U32 => return ValueType.I32;
-        U64 => return ValueType.I64;
-        F32 => return ValueType.F32;
-        F64 => return ValueType.F64;
-        V128 => return ValueType.V128;
-        Object => return ValueTypes.ANYREF;
-        Bot(_) => return ValueType.BOTTOM;
-        U8 => return ValueType.BOTTOM; // XXX ? could be i32
-        U16 => return ValueType.BOTTOM;
-    }
-}
-
-def to_true(x: TypeVar.U32) => true;
-def rtcast_byte(x: u8) => TypeVar.U32;
-def rtcast_u32(x: u32) => TypeVar.U32;
-def rtcast_u64(x: u64) => TypeVar.U64;
-def rtcast_i32 = rtcast_u32;
-def rtcast_f32(x: float) => TypeVar.F32;
-
-enum FieldKind {
-    U8, U16, U32, U64, F32, F64, V128, REF
-}
-component FieldKinds {
-    def fromTag(t: int) -> FieldKind {
-        for (fk in FieldKind.set.all) if (t == fk.tag) return fk;
-        return FieldKind.U8;
-    }
-}
-
-def imm_readULEB32() -> u32 => codeptr.read_uleb32();
-def imm_readULEB64() -> u64 => codeptr.read_uleb64();
-
-def imm_readILEB32() -> u32 => u32.view(codeptr.read_sleb32());
-def imm_readILEB64() -> u64 => u32.view(codeptr.read_sleb64());
-
-def imm_readU8() -> u8 {
-    return codeptr.read1();
-}
-
-def imm_readBlockType() -> (Array<ValueType>, Array<ValueType>) {
-    def bt = codeptr.read_BlockTypeCode();
-    return bt.toAbstractBlockType(module);
-}
-
-def imm_readLabels() -> Array<u31> {
-    return codeptr.read_labels();
-}
-
-def pop_u32() -> TypeVar.U32 {
-    return stack.pop().unbox_u32();
-}
-def pop_u64() -> TypeVar.U64 {
-    return stack.pop().unbox_u64();
-}
-def pop_f32() -> TypeVar.F32 {
-    return stack.pop().unbox_f32();
-}
-def pop_f64() -> TypeVar.F64 {
-    return stack.pop().unbox_f64();
-}
-def pop_v128() -> TypeVar.V128 {
-    return stack.pop().unbox_v128();
-}
-def pop_Object() -> TypeVar.Object {
-    return stack.pop().unbox_Object();
-}
-def pop_Value(tv: TypeVar) -> TypeVar {
-    def actual = stack.pop();
-    if (tv.matches(actual)) return tv;
-    return invalid_t(tv);
-}
-
-def push_u32(v: TypeVar.U32) {
-    stack.push(v);
-}
-def push_u64(v: TypeVar.U64) {
-    stack.push(TypeVar.U64);
-}
-def push_f32(v: TypeVar.F32) {
-    stack.push(TypeVar.F32);
-}
-def push_f64(v: TypeVar.F64) {
-    stack.push(TypeVar.F64);
-}
-def push_v128(v: TypeVar.V128) {
-    stack.push(TypeVar.V128);
-}
-def push_Object(v: TypeVar.Object) {
-    stack.push(v);
-}
-def push_Value(tv: TypeVar, v: TypeVar) {
-    if (!tv.matches(v)) invalid();
-    stack.push(tv);
-}
-
-// Local variables.
-def getLocal(tv: TypeVar, index: u32) -> TypeVar {
-    if (!tv.matches(stack.elems[index])) invalid();
-    return tv;
-}
-def setLocal(tv: TypeVar, index: u32, v: TypeVar) {
-    if (!tv.matches(v)) invalid();
-    stack.elems[index] = tv;
-}
-
-// Global variables.
-def getGlobal(tv: TypeVar, index: u32) -> TypeVar {
-    return globals[int.view(index)];
-}
-def setGlobal(tv: TypeVar, index: u32, v: TypeVar) {
-    globals[int.view(index)] = v;
-}
-
-// Function context.
-def f_getLabel(depth: u32) -> ControlEntry {
-    return ctl_stack.elems[ctl_stack.top - int.view(depth) - 1];
-}
-
-def f_getLocalType(index: u32) -> TypeVar {
-    return local_types[int.view(index)];
-}
-
-def f_getTopOfStackType() -> TypeVar {
-    return stack.peek();
-}
-
-// Module context.
-def m_getGlobalType(index: u32) -> TypeVar {
-    return globals[int.view(index)];
-}
-def m_getFieldKind(struct_index: u32, field_index: u32) -> FieldKind {
-    def ht = module.heaptypes[int.view(struct_index)];
-    def decl = StructDecl.!(ht);
-    def st = decl.field_types[field_index];
-    match (st.valtype) {
-        BOTTOM => return FieldKind.REF;
-        I32 => return FieldKind.U32;
-        I64 => return FieldKind.U64;
-        F32 => return FieldKind.F32;
-        F64 => return FieldKind.F64;
-        V128 => return FieldKind.V128;
-        Host => return FieldKind.REF;
-        Ref => return FieldKind.REF;
-    }
-}
-def m_getFieldOffset(struct_index: u32, field_index: u32) -> i32 {
-    return i32.!(field_index); // TODO
-}
-def m_isMemory64(memory_index: u32) -> bool => false; // TODO mem64
-def m_isTable64(memory_index: u32) -> bool => false;
-def m_getFuncSignature(func_index: u32) -> SigDecl {
-    return null;
-}
-def m_getSignature(sig_index: u32) -> HeapTypeDecl {
-    return module.heaptypes[int.view(sig_index)];
-}
-
-// Instance context.
-def i_getTableFunction64(table_index: u32, sig: Decl, func_index: TypeVar.U64) -> CBDFunction;
-def i_getTableFunction32(table_index: u32, sig: Decl, func_index: TypeVar.U32) -> CBDFunction;
-def i_getFunction(func_index: u32) => CBDFunction.new(module.functions[int.view(func_index)]);
-
-// Control flow.
-def doCall(sig: Decl, target: CBDFunction) {
-    for (i = target.args.length - 1; i >= 0; i -= 1) pop_Value(target.args[i]);
-    for (i < target.rets.length) push_Value(target.rets[i], target.rets[i]);
-}
-
-def doReturnCall = doCall;
-
-def doBranch(label: ControlEntry) {
-    def args = if(label.start_opcode == Opcode.LOOP.code, label.params, label.results);
-    popTypes(args);
-    pushTypes(args);
-}
-
-def doSwitch(labels: Array<u31>, key: TypeVar.U32) {
-    var arity = -1;
-    for (i < labels.length) {
-        // copying from CodeValidator.v3
-        def target = f_getLabel(labels[i]);
-        if (target == null) return;
-        def args = labelArgs(target);
-        if (arity < 0) arity = args.length;
-        else if (arity != args.length) invalid();
-        // TODO: check args
-    }
-}
-
-def doFallthru() {
-}
-
-// Machine intrinsics.
-def mach_readStructField_u8(obj: TypeVar.Object, offset: i32) => TypeVar.U32;
-def mach_readStructField_u16(obj: TypeVar.Object, offset: i32) => TypeVar.U32;
-def mach_readStructField_u32(obj: TypeVar.Object, offset: i32) => TypeVar.U32;
-def mach_readStructField_u64(obj: TypeVar.Object, offset: i32) => TypeVar.U64;
-def mach_readStructField_f32(obj: TypeVar.Object, offset: i32) => TypeVar.F32;
-def mach_readStructField_f64(obj: TypeVar.Object, offset: i32) => TypeVar.F64;
-def mach_readStructField_v128(obj: TypeVar.Object, offset: i32) => TypeVar.V128;
-def mach_readStructField_Object(obj: TypeVar.Object, offset: i32) => TypeVar.Object;
-
-// TODO: validate read/write
-def mach_readMemory64_u8(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U32;
-def mach_readMemory32_u8(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U32;
-def mach_readMemory64_u16(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U32;
-def mach_readMemory32_u16(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U32;
-def mach_readMemory64_u32(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U32;
-def mach_readMemory32_u32(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U32;
-def mach_readMemory64_u64(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U64;
-def mach_readMemory32_u64(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U64;
-def mach_readMemory64_f32(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.F32;
-def mach_readMemory32_f32(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.F32;
-def mach_readMemory64_f64(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.F64;
-def mach_readMemory32_f64(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.F64;
-
-def mach_writeMemory64_u8(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.U32) => void;
-def mach_writeMemory32_u8(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U32) => void;
-def mach_writeMemory64_u16(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.U32) => void;
-def mach_writeMemory32_u16(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U32) => void;
-def mach_writeMemory64_u32(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.U32) => void;
-def mach_writeMemory32_u32(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U32) => void;
-def mach_writeMemory64_u64(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.U64) => void;
-def mach_writeMemory32_u64(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U64) => void;
-def mach_writeMemory64_f32(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.F32) => void;
-def mach_writeMemory32_f32(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.F32) => void;
-def mach_writeMemory64_f64(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.F64) => void;
-def mach_writeMemory32_f64(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.F64) => void;
-
-def mach_readTable64(table_index: u32, index: TypeVar.U64) => TypeVar.Object;
-def mach_readTable32(table_index: u32, index: TypeVar.U32) => TypeVar.Object;
-
-def mach_writeTable64(table_index: u32, index: TypeVar.U64, val: TypeVar.Object) => void;
-def mach_writeTable32(table_index: u32, index: TypeVar.U32, val: TypeVar.Object) => void;
-
-// Traps.
-def invalid();
-def trapNull() {
-    // since this is a runtime trap only, 
-    // we don't actually want to trap here
-}
-def trapUnreachable() {} // XXX: validator tries to validate unreachable code
-def trapDivideByZero();
-def trapDivideUnrepresentable();
-def trapTableOOB();
-
-def invalid_t<T>(t: T) -> T {
-    invalid();
-    return t;
-}
-
-def doBlock(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
-    def args = bt.0;
-    def rets = bt.1;
-    popTypes(args);
-    pushTypes(args);
-    pushControl(Opcode.BLOCK.code, args, rets, stack.top);
-    return ctl_top;
-}
-
-def doLoop(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
-    def args = bt.0;
-    def rets = bt.1;
-    popTypes(args);
-    pushTypes(args);
-    pushControl(Opcode.LOOP.code, args, rets, stack.top);
-    ctl_top.sidetable_pos = ctlxfer.sidetable.length;
-    return ctl_top;
-}
-
-def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
-    def args = bt.0;
-    def rets = bt.1;
-    popTypes(args);
-    pushTypes(args);
-    def ctl = pushControl(Opcode.IF.code, args, rets, stack.top);
-    return ctl;
-}
-
-def doElse() -> ControlEntry {
-	if (ctl_top.start_opcode != Opcode.IF.code) invalid();
-    def p = ctl_top.results;
-    popTypes(p);
-    stack.top = ctl_top.val_stack_top;
-    pushTypes(p);
-
-    ctl_top.start_opcode = opcode.code;
-    ctl_top.reachable = true;
-    stack.top = ctl_top.val_stack_top;
-    pushTypes(ctl_top.params);
-
-    return ctl_top;
-}
-
-def doEnd() {
-    def p = ctl_top.results;
-    popTypes(p);
-    stack.top = ctl_top.val_stack_top;
-    pushTypes(p);
-    match (ctl_top.start_opcode) {
-        Opcode.LOOP.code => {
-            ctlxfer.bind(ctl_top, ctl_top.start_pos, ctl_top.sidetable_pos);
-        }
-        Opcode.IF.code => {
-            // one-armed if; simulate an empty else clause
-            stack.top = ctl_top.val_stack_top;
-            ctl_top.reachable = true;
-            pushTypes(ctl_top.params);
-            popTypes(ctl_top.results);
-            ctlxfer.bindElse(ctl_top, codeptr.pos);
-            ctlxfer.bind(ctl_top, codeptr.pos, ctlxfer.sidetable.length);
-        }
-        _ => {
-            ctlxfer.bind(ctl_top, codeptr.pos, ctlxfer.sidetable.length);
-        }
-    }
-    ctl_stack.pop();
-    ctl_top = ctl_stack.peek();
-}
-
-def doReturn() {
-    for (i = rets.length - 1; i >= 0; i -= 1) pop_Value(rets[i]);
-    for (i < rets.length) push_Value(rets[i], rets[i]);
-}
-
-def doTry(bt: (Array<ValueType>, Array<ValueType>)) {
-    return;
-}
-
-def f_isAtEnd() -> bool {
-    return codeptr.pos >= codeptr.data.length;
-}
-
-def push_locals(count: u32, vtc: ValueTypeCode) {
-    var tv: TypeVar;
-    match (vtc.code) {
-        BpTypeCode.I32.val => tv = TypeVar.U32;
-        BpTypeCode.I64.val => tv = TypeVar.U64;
-        BpTypeCode.F32.val => tv = TypeVar.F32;
-        BpTypeCode.F64.val => tv = TypeVar.F64;
-        BpTypeCode.V128.val => tv = TypeVar.V128;
-        BpTypeCode.FUNCREF.val => tv = TypeVar.Object;
-        BpTypeCode.EXTERNREF.val => tv = TypeVar.Object;
-        BpTypeCode.ANYREF.val => tv = TypeVar.Object;
-        BpTypeCode.EQREF.val => tv = TypeVar.Object;
-        BpTypeCode.I31REF.val => tv = TypeVar.Object;
-        BpTypeCode.STRUCTREF.val => tv = TypeVar.Object;
-        BpTypeCode.ARRAYREF.val => tv = TypeVar.Object;
-        _ => tv = TypeVar.Object; // default to Object for unknown ref types
-    }
- 
-    for (i < count) local_types.put(tv);
-    for (i < count) stack.push(tv);
-}
-
-component Validator {
-    def init(new_module: Module, args: Array<int>) {
-        module = new_module;
-        
-        globals = Vector.new();
-        for (i < module.globals.length) {
-            def module_global = module.globals[i];
-            var global_type = typeVarFromValType(module_global.valtype);
-            globals.put(global_type);
-        }
-    }
-    
-    def init_function(code: Array<byte>, args: Array<TypeVar>, locals: Array<TypeVar>, ret: Array<TypeVar>) {
-        codeptr = CodePtr.new(code);
-        local_types = Vector.new();
-        stack = ArrayStack.new();
-
-        ctl_stack = ArrayStack.new();
-        ctlxfer = CBDSidetableBuilder.new();
-        ctl_top = null;
-
-        opcode_pos = codeptr.pos;
-        pushControl(Opcode.UNREACHABLE.code, Arrays.map(args, valTypeFromTypeVar), Arrays.map(ret, valTypeFromTypeVar), 0);
-
-        for (a in args) local_types.put(a);
-        for (a in args) stack.push(a);
-
-        rets = ret;
-    }
-
-    def dispatch() {
-        codeptr.iterate_local_codes(push_locals);
-        ctlxfer.reset(codeptr.pos);
-        while (codeptr.pos < codeptr.data.length) {
-            opcode_pos = codeptr.pos;
-            opcode = codeptr.read_opcode();
-            System.puts(opcode.mnemonic);
-            System.ln();
-            DISPATCH_TABLE[opcode.tag]();
-        }
-    }
-
-    def build_sidetable() -> Array<u8> => ctlxfer.extract();
-}
-
-def labelArgs(target: ControlEntry) -> Array<ValueType> {
-    if (target.start_opcode == Opcode.LOOP.code) return target.params;
-    else return target.results;
-}
-
-layout STEntry_Is64 {
-    +0  is64: bool;
-    =1;
-}
-// I think we would have to add stuff to the sidetable
-// annotation to be able to generate this
-layout STEntry_Label {
-    +0  label: Sidetable_BrEntry;
-    =16;
-}
-layout STEntry_KindOffset {
-    +0  offset: int;
-    +4  kind: FieldKind;
-    =5;
-}
-layout STEntry_Labels {
-    +0  labels: u32; // what's the max number of labels?
-    =4;
-}
-
-class CBDSidetableBuilder {
-    def sidetable = Vector<u8>.new();
-    var start_pos: int;
-
-    def allocate(size: int) -> int {
-        def end = sidetable.length;
-        sidetable.resize(end + size);
-        return end;
-    }
-
-    def put_br_entry(dpc: int, valcount: int, popcount: int, dstp: int) {
-        def end = allocate(Sidetable_BrEntry.size);
-        def new_entry = Ref<Sidetable_BrEntry>.at(sidetable.array, end);
-        new_entry.pc_delta = dpc;
-        new_entry.valcount = valcount;
-        new_entry.popcount = popcount;
-        new_entry.stp_delta = dstp;
-    }
-
-    def reset(start_pos: int) {
-		this.start_pos = start_pos;
-		this.sidetable.resize(0);
-	}
-	// Emit a control entry that references {target} from the pc position {pc}.
-	def ref0(target: ControlEntry, pos: int) {
-		refV(target, pos, 0, 0);
-	}
-	// Emit a control entry for an else that references the else label of {target} from {pos}.
-	def refElse(target: ControlEntry, pos: int) {
-		var pc = rel(pos);
-		var stp = sidetable.length;
-		target.else_ref = stp;
-
-		put_br_entry(pc, 0, 0, -1);
-	}
-	// Bind the else label for {target} at {pos}, resolving references to it.
-	def bindElse(target: ControlEntry, pos: int) {
-		bind0(target, target.else_ref, pos, sidetable.length);
-		target.else_ref = -1;
-	}
-	// Emit a sidetable entry for a branch to {target} from {pos} with stack top {val_stack_top}.
-	def refS(target: ControlEntry, pos: int, val_stack_top: int) {
-		var valcount = labelArgs(target).length;
-		var popcount = val_stack_top - valcount - target.val_stack_top;
-		refV(target, pos, valcount, u23.view(popcount));
-	}
-	def refV(target: ControlEntry, pos: int, valcount: int, popcount: int) {
-		var pc = rel(pos);
-		var stp = sidetable.length;
-		put_br_entry(pc, valcount, popcount, target.first_ref);
-		target.first_ref = stp;
-	}
-	// ext:typed-continuation
-	// Emit a sidetable entry for a resume operation.
-	// def refR(n_args: int, n_handlers: int) {
-	// 	Sidetables.putResumeEntry(sidetable, n_args, n_handlers);
-	// }
-	// Emit a sidetable entry for a catch entry or suspension handler.
-	// {target} is nullable and is {null} for a switch handler.
-	// def refC(target: ControlEntry, tag: TagDecl, exnref: bool, name: string) {
-	// 	var handler_pc = 0;
-	// 	var stp = sidetable.length;
-	// 	var val_stk_top = if(target != null, target.val_stack_top, 0);
-	// 	var first_ref = if(target != null, target.first_ref, -1);
-	// 	if (Trace.validation) {
-	// 		OUT.put1("    %s", name);
-	// 		OUT.put3("(@+pc tag=%d exnref=%z vsp=%d", if(tag != null, tag.tag_index, -1), exnref, val_stk_top);
-	// 		OUT.ln();
-	// 	}
-	// 	Sidetables.putCatchEntry(sidetable, handler_pc, val_stk_top, first_ref);
-	// 	if (target != null) target.first_ref = stp;
-	// }
-	// Bind the label for {target} at {pos} and {sidetable_pos} and resolve references to it.
-	def bind(target: ControlEntry, pos: int, sidetable_pos: int) {
-		bind0(target, target.first_ref, pos, sidetable_pos);
-		target.first_ref = -1;
-	}
-	def bind0(target: ControlEntry, stp: int, pos: int, sidetable_pos: int) {
-		target.sidetable_pos = sidetable_pos;
-		var pc = rel(pos);
-		while (stp >= 0) {
-            def br_entry = Ref<Sidetable_BrEntry>.at(sidetable.array, stp);
-			var ni = br_entry.stp_delta;
-			var pos = br_entry.pc_delta;
-			var pc_delta = pc - pos;
-            br_entry.pc_delta = pc_delta;
-            br_entry.stp_delta = sidetable_pos - stp;
-			stp = ni;
-		}
-	}
-	// def rethrow(ex_slot: int, popcount: int) {
-	// 	sidetable.put(ex_slot).put(0).put(popcount).put(0); // XXX: only need 1 entry for rethrow
-	// }
-	def rel(pos: int) -> int {
-		return pos - start_pos;
-	}
-	def extract() -> Array<u8> {
-		return sidetable.copy();
-	}
-
-    def put_Is64(is64: bool) {
-        def end = allocate(STEntry_Is64.size);
-        def entry = Ref<STEntry_Is64>.at(sidetable.array, end);
-        entry.is64 = is64;
-    }
-
-    def put_KindOffset(kind: FieldKind, offset: i32) {
-        def end = allocate(STEntry_KindOffset.size);
-        def entry = Ref<STEntry_KindOffset>.at(sidetable.array, end);
-        entry.kind = kind;
-        entry.offset = offset;
-    }
-
-    def put_BR(label: ControlEntry) => refS(label, opcode_pos, stack.top);
-    def put_BR_IF(label: ControlEntry) => refS(label, opcode_pos, stack.top);
-
-    def put_IF(label: ControlEntry) {
-        refElse(label, opcode_pos);
-    }
-
-    def put_ELSE(label: ControlEntry) {
-        ref0(label, opcode_pos);
-        bindElse(label, opcode_pos);
-    }
-
-    def put_BR_TABLE(labels: Array<u31>) {
-        def end = allocate(STEntry_Labels.size);
-        def start_entry = Ref<STEntry_Labels>.at(sidetable.array, end);
-        start_entry.labels = u32.view(labels.length);
-        
-        for (i < labels.length) {
-            def target = f_getLabel(labels[i]);
-            refS(target, opcode_pos + i + 1, stack.top);
-        }
-    }
-
-    def put_CALL_INDIRECT(is64: bool) => put_Is64(is64);
-
-    def put_STRUCT_GET(kind: FieldKind, offset: i32) => put_KindOffset(kind, offset);
-    def put_STRUCT_GET_S(kind: FieldKind, offset: i32) => put_KindOffset(kind, offset);
-    def put_STRUCT_GET_U(kind: FieldKind, offset: i32) => put_KindOffset(kind, offset);
-}
+----IR----
+def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__1666 : byte = 0u8;
+def arg__1665 = u8.&(flags, HAS_MEM_INDEX);
+def cond__1663 = u8.==(arg__1665, arg__1666);
+if (cond__1663) {
+	def memindex__1664 = imm_readULEB32();
+}
+----Scheduled----
