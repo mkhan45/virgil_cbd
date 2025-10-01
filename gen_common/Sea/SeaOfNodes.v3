@@ -5,8 +5,8 @@ class NodeSet {
     }
 
     def has(node: IRNode) -> bool => m.has(node);
-    def put(node: IRNode) { if (node != null) m[node] = void; }
-    def remove(node: IRNode) { m.remove(node); }
+    def put(node: IRNode) { m[node] = void; }
+    def remove(node: IRNode) { if (node != null && m.has(node)) m.remove(node); }
     def apply(f: IRNode -> void) { m.apply(fun (k, v) => f(k)); }
 }
 
@@ -63,18 +63,26 @@ class Sea {
         return working_res;
     }
 
-    def addSSAD(ssad: SSAD, deps: List<IRNode>) -> IRNode {
+    def addSSAD(ssad: SSAD, state_vars: Array<IRNode>, deps: List<IRNode>) -> IRNode {
         match (ssad) {
             LetApp(n, f, args, rest) => {
                 def arg_nodes: Array<IRNode> = Arrays.map(args, fun (a: string) => var_nodes[a]);
                 var intrinsic_def = IntrinsicTypes.intrinsic_types[f];
                 if (intrinsic_def == null) intrinsic_def = IntrinsicTypedef.new(f, null, null, CBDEffect.None);
-                def op = IROp.Intrinsic(intrinsic_def, arg_nodes, Lists.toArray<IRNode>(deps));
+
+                var node_deps = deps;
+                for (sc in intrinsic_def.reads) if (state_vars[sc.tag] != null) 
+                    node_deps = List.new(state_vars[sc.tag], node_deps);
+
+                def op = IROp.Intrinsic(intrinsic_def, arg_nodes, Lists.toArray<IRNode>(node_deps));
                 def node = var_nodes[n] = mkNode(op);
+
+                for (sc in intrinsic_def.writes) state_vars[sc.tag] = node;
+
                 node.data = NodeData.new();
                 node.data.sourceName = n;
 
-                addSSAD(rest, deps);
+                addSSAD(rest, state_vars, deps);
                 return node;
             }
             LetLit(n, l, t, rest) => {
@@ -86,7 +94,7 @@ class Sea {
                 def op = IROp.Lit(tp, l);
                 def node = var_nodes[n] = mkNode(op);
 
-                addSSAD(rest, deps);
+                addSSAD(rest, state_vars, deps);
                 return node;
             }
             If(cond, then, els, phis, rest) => {
@@ -97,7 +105,10 @@ class Sea {
                 // which node to choose for var if cond is not taken,
                 // might be the starting node for var if the els doesn't assign it
                 def else_phis: HashMap<string, IRNode> = Strings.newMap();
-                def e_node = addSSAD(els, List.new(start_else, deps));
+                def e_state_vars = Arrays.dup(state_vars);
+                def t_state_vars = Arrays.dup(state_vars);
+
+                def e_node = addSSAD(els, e_state_vars, List.new(start_else, deps));
                 for (phi in phis) {
                     if (var_nodes.has(phi.1)) 
                         else_phis[phi.0] = var_nodes[phi.1]; // take node from els branch
@@ -105,14 +116,15 @@ class Sea {
                         else_phis[phi.0] = var_nodes[phi.0]; // take default starting node
                 }
 
-                def t_node = addSSAD(then, List.new(start_if, deps));
+                def t_node = addSSAD(then, t_state_vars, List.new(start_if, deps));
+                // TODO: state phis
 
                 for (phi in phis) {
                     def phi_op = IROp.Phi(cond_node, var_nodes[phi.1], else_phis[phi.0]);
                     var_nodes[phi.0] = mkNode(phi_op);
                 }
 
-                addSSAD(rest, deps);
+                addSSAD(rest, state_vars, deps);
                 return start_if;
             }
             Match => return null;
@@ -161,7 +173,10 @@ component Seas {
         def var_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>();
         def lit_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>(); // assume that lits have unique rep across types
 
-        sea.addSSAD(node, null);
+        var max_state_tag = 0;
+        for (sc in StateComponent.set.all) max_state_tag = if(sc.tag > max_state_tag, sc.tag, max_state_tag);
+        def state_vars = Array<IRNode>.new(max_state_tag);
+        sea.addSSAD(node, state_vars, null);
 
         return sea;
     }

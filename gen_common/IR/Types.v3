@@ -214,8 +214,26 @@ class IntrinsicType(primitive: TypeVar, stage: Stage) {
     }
 }
 
+enum StateComponent {
+    Codeptr,
+    Stack,
+    Locals,
+    Tables,
+    Memory,
+    Sidetable,
+    Codebuilder,
+}
+
 // maybe a list of effects
-class IntrinsicTypedef(name: string, args: Array<IntrinsicType>, return_type: IntrinsicType, effect: CBDEffect) {}
+class IntrinsicTypedef(
+        name: string, args: Array<IntrinsicType>, return_type: IntrinsicType, 
+        effect: CBDEffect
+) {
+    var reads: StateComponent.set;
+    var writes: StateComponent.set;
+
+    new() {}
+}
 
 def processTypeString(s: string) -> IntrinsicType {
     def split = Strings.splitOnChar(s, u8.==(_, '.'), -1);
@@ -329,7 +347,28 @@ component IntrinsicTypes {
                 }
             }
 
+            // TODO: specify reads/writes in file instead of eff
+            var reads: StateComponent.set;
+            var writes: StateComponent.set;
+            match (effect) {
+                Read => {
+                    writes |= StateComponent.Codeptr;
+                }
+                Push => {
+                    writes |= StateComponent.Stack;
+                }
+                Pop => {
+                    reads |= StateComponent.Stack;
+                    writes |= StateComponent.Stack;
+                }
+                Ctl => {
+                    reads |= StateComponent.Codeptr;
+                }
+                _ => {}
+            }
             intrinsics[name] = IntrinsicTypedef.new(name, args.copy(), return_type, effect);
+            intrinsics[name].reads = reads;
+            intrinsics[name].writes = writes;
         }
 
         return intrinsics;
