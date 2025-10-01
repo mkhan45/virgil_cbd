@@ -73,7 +73,7 @@ class Sea {
                 if (intrinsic_def == null) intrinsic_def = IntrinsicTypedef.new(f, null, null, CBDEffect.None);
 
                 var node_deps = deps;
-                for (sc in intrinsic_def.reads) if (state_vars[sc.tag] != null) 
+                for (sc in intrinsic_def.reads | intrinsic_def.writes) if (state_vars[sc.tag] != null) 
                     node_deps = List.new(state_vars[sc.tag], node_deps);
 
                 def op = IROp.Intrinsic(intrinsic_def, arg_nodes, Lists.toArray<IRNode>(node_deps));
@@ -122,7 +122,10 @@ class Sea {
 
                 for (phi in phis) {
                     def phi_op = IROp.Phi(cond_node, var_nodes[phi.1], else_phis[phi.0]);
-                    var_nodes[phi.0] = mkNode(phi_op);
+                    def node = mkNode(phi_op);
+                    node.data = NodeData.new();
+                    node.data.sourceName = phi.0;
+                    var_nodes[phi.0] = node;
                 }
 
                 for (sc in StateComponent.set.all) {

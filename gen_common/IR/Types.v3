@@ -352,6 +352,7 @@ component IntrinsicTypes {
             var writes: StateComponent.set;
             match (effect) {
                 Read => {
+                    reads |= StateComponent.Codeptr;
                     writes |= StateComponent.Codeptr;
                 }
                 Push => {

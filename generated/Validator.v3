@@ -16,6 +16,7 @@ graph TD
 	]
 	1 --> 3
 	2 --> 3
+	2 --> 3
 	2[
 	val
 	getLocal
@@ -64,6 +65,7 @@ graph TD
 	]
 	1 --> 4
 	2 --> 4
+	2 --> 4
 	2[
 	val
 	pop_Value
@@ -93,6 +95,7 @@ graph TD
 	push_Value
 	]
 	1 --> 3
+	2 --> 3
 	2 --> 3
 	2[
 	val
@@ -147,6 +150,7 @@ graph TD
 	push_Object
 	]
 	5 --> 6
+	4 --> 6
 	3 --> 6
 	3[
 	else
@@ -161,6 +165,11 @@ graph TD
 	table_index
 	imm_readULEB32
 	]
+	4[
+	index
+	pop_u32
+	]
+	3 --> 4
 	5[
 	val
 	mach_readTable32
@@ -168,21 +177,22 @@ graph TD
 	0 --> 5
 	4 --> 5
 	3 --> 5
-	4[
-	index
-	pop_u32
-	]
-	3 --> 4
 	9[
 	eff__86
 	push_Object
 	]
 	8 --> 9
+	7 --> 9
 	2 --> 9
 	2[
 	if
 	]
 	1 --> 2
+	7[
+	index
+	pop_u64
+	]
+	2 --> 7
 	8[
 	val
 	mach_readTable64
@@ -190,11 +200,6 @@ graph TD
 	0 --> 8
 	7 --> 8
 	2 --> 8
-	7[
-	index
-	pop_u64
-	]
-	2 --> 7
 ====
 ====TABLE_SET====
 graph TD
@@ -313,6 +318,11 @@ graph TD
 	table_index
 	imm_readULEB32
 	]
+	0 --> 1
+	0[
+	sig_index
+	imm_readULEB32
+	]
 	7[
 	target
 	i_getTableFunction32
@@ -331,10 +341,6 @@ graph TD
 	m_getSignature
 	]
 	0 --> 2
-	0[
-	sig_index
-	imm_readULEB32
-	]
 	11[
 	eff__149
 	doCall
@@ -423,6 +429,7 @@ graph TD
 	]
 	1 --> 8
 	2 --> 8
+	3 --> 8
 	7 --> 8
 	7[
 	else
@@ -441,6 +448,12 @@ graph TD
 	c
 	pop_u32
 	]
+	3[
+	a
+	pop_Value
+	]
+	1 --> 3
+	2 --> 3
 	2[
 	b
 	pop_Value
@@ -457,17 +470,12 @@ graph TD
 	]
 	1 --> 9
 	3 --> 9
+	3 --> 9
 	6 --> 9
 	6[
 	if
 	]
 	5 --> 6
-	3[
-	a
-	pop_Value
-	]
-	1 --> 3
-	2 --> 3
 ====
 ====I32_CONST====
 graph TD
@@ -488,21 +496,22 @@ graph TD
 	push_u32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	2[
 	r
 	u32.+
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 ====
 ====I32_SUB====
 graph TD
@@ -511,21 +520,22 @@ graph TD
 	push_u32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	2[
 	r
 	u32.-
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 ====
 ====I32_MUL====
 graph TD
@@ -534,21 +544,22 @@ graph TD
 	push_u32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	2[
 	r
 	u32.*
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 ====
 ====I32_DIV_S====
 graph TD
@@ -557,21 +568,22 @@ graph TD
 	push_u32
 	]
 	21 --> 22
+	1 --> 22
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	21[
 	r
 	U32_div_s
 	]
 	1 --> 21
 	0 --> 21
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 	5[
 	else
 	]
@@ -609,6 +621,7 @@ graph TD
 	ret__276
 	trapDivideUnrepresentable
 	]
+	8 --> 18
 	7 --> 18
 	16 --> 18
 	16[
@@ -672,21 +685,22 @@ graph TD
 	push_u32
 	]
 	9 --> 10
+	1 --> 10
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	9[
 	r
 	u32./
 	]
 	1 --> 9
 	0 --> 9
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 	8[
 	state phi Sidetable
 	]
@@ -733,6 +747,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	0 --> 6
 	4 --> 6
 	4[
 	else
@@ -759,6 +774,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	0 --> 8
 	3 --> 8
 	3[
 	if
@@ -781,6 +797,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -809,6 +826,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -831,6 +849,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -859,6 +878,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -881,6 +901,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -909,6 +930,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -931,6 +953,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -959,6 +982,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -981,6 +1005,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -1009,6 +1034,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -1031,6 +1057,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -1059,6 +1086,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -1081,6 +1109,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -1109,6 +1138,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -1131,6 +1161,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -1159,6 +1190,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -1181,6 +1213,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -1209,6 +1242,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -1231,6 +1265,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -1259,6 +1294,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -1275,21 +1311,22 @@ graph TD
 	push_u32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	2[
 	r
 	u32.&
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 ====
 ====I32_OR====
 graph TD
@@ -1298,21 +1335,22 @@ graph TD
 	push_u32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	2[
 	r
 	u32.|
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 ====
 ====I32_XOR====
 graph TD
@@ -1321,21 +1359,22 @@ graph TD
 	push_u32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	2[
 	r
 	u32.^
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 ====
 ====I32_SHL====
 graph TD
@@ -1344,21 +1383,22 @@ graph TD
 	push_u32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	2[
 	r
 	U32_shl
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 ====
 ====I32_SHR_U====
 graph TD
@@ -1367,21 +1407,22 @@ graph TD
 	push_u32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	2[
 	r
 	U32_shr_u
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 ====
 ====I32_SHR_S====
 graph TD
@@ -1390,21 +1431,22 @@ graph TD
 	push_u32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	2[
 	r
 	U32_shr_s
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 ====
 ====I32_ROTL====
 graph TD
@@ -1413,21 +1455,22 @@ graph TD
 	push_u32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	2[
 	r
 	U32_rotl
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 ====
 ====I32_ROTR====
 graph TD
@@ -1436,21 +1479,22 @@ graph TD
 	push_u32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	2[
 	r
 	U32_rotr
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 ====
 ====I32_CLZ====
 graph TD
@@ -1459,15 +1503,16 @@ graph TD
 	push_u32
 	]
 	1 --> 2
+	0 --> 2
+	0[
+	a
+	pop_u32
+	]
 	1[
 	r
 	U32_clz
 	]
 	0 --> 1
-	0[
-	a
-	pop_u32
-	]
 ====
 ====I32_CTZ====
 graph TD
@@ -1476,15 +1521,16 @@ graph TD
 	push_u32
 	]
 	1 --> 2
+	0 --> 2
+	0[
+	a
+	pop_u32
+	]
 	1[
 	r
 	U32_ctz
 	]
 	0 --> 1
-	0[
-	a
-	pop_u32
-	]
 ====
 ====I32_POPCNT====
 graph TD
@@ -1493,15 +1539,16 @@ graph TD
 	push_u32
 	]
 	1 --> 2
+	0 --> 2
+	0[
+	a
+	pop_u32
+	]
 	1[
 	r
 	U32_popcnt
 	]
 	0 --> 1
-	0[
-	a
-	pop_u32
-	]
 ====
 ====I32_REM_S====
 graph TD
@@ -1510,21 +1557,22 @@ graph TD
 	push_u32
 	]
 	9 --> 10
+	1 --> 10
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	9[
 	r
 	U32_rem_s
 	]
 	1 --> 9
 	0 --> 9
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 	8[
 	state phi Sidetable
 	]
@@ -1565,21 +1613,22 @@ graph TD
 	push_u32
 	]
 	9 --> 10
+	1 --> 10
+	1[
+	a
+	pop_u32
+	]
+	0 --> 1
+	0[
+	b
+	pop_u32
+	]
 	9[
 	r
 	U32_rem_u
 	]
 	1 --> 9
 	0 --> 9
-	0[
-	b
-	pop_u32
-	]
-	1[
-	a
-	pop_u32
-	]
-	0 --> 1
 	8[
 	state phi Sidetable
 	]
@@ -1620,15 +1669,16 @@ graph TD
 	push_u32
 	]
 	1 --> 2
+	0 --> 2
+	0[
+	a
+	pop_u32
+	]
 	1[
 	r
 	U32_extend8_s
 	]
 	0 --> 1
-	0[
-	a
-	pop_u32
-	]
 ====
 ====I32_EXTEND16_S====
 graph TD
@@ -1637,15 +1687,16 @@ graph TD
 	push_u32
 	]
 	1 --> 2
+	0 --> 2
+	0[
+	a
+	pop_u32
+	]
 	1[
 	r
 	U32_extend16_s
 	]
 	0 --> 1
-	0[
-	a
-	pop_u32
-	]
 ====
 ====I64_CONST====
 graph TD
@@ -1666,21 +1717,22 @@ graph TD
 	push_u64
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	2[
 	r
 	u64.+
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 ====
 ====I64_SUB====
 graph TD
@@ -1689,21 +1741,22 @@ graph TD
 	push_u64
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	2[
 	r
 	u64.-
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 ====
 ====I64_MUL====
 graph TD
@@ -1712,21 +1765,22 @@ graph TD
 	push_u64
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	2[
 	r
 	u64.*
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 ====
 ====I64_DIV_S====
 graph TD
@@ -1735,21 +1789,22 @@ graph TD
 	push_u64
 	]
 	21 --> 22
+	1 --> 22
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	21[
 	r
 	U64_div_s
 	]
 	1 --> 21
 	0 --> 21
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 	5[
 	else
 	]
@@ -1787,6 +1842,7 @@ graph TD
 	ret__730
 	trapDivideUnrepresentable
 	]
+	8 --> 18
 	7 --> 18
 	16 --> 18
 	16[
@@ -1850,21 +1906,22 @@ graph TD
 	push_u64
 	]
 	9 --> 10
+	1 --> 10
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	9[
 	r
 	u64./
 	]
 	1 --> 9
 	0 --> 9
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 	8[
 	state phi Sidetable
 	]
@@ -1905,21 +1962,22 @@ graph TD
 	push_u64
 	]
 	9 --> 10
+	1 --> 10
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	9[
 	r
 	U64_rem_s
 	]
 	1 --> 9
 	0 --> 9
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 	8[
 	state phi Sidetable
 	]
@@ -1960,21 +2018,22 @@ graph TD
 	push_u64
 	]
 	9 --> 10
+	1 --> 10
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	9[
 	r
 	U64_rem_u
 	]
 	1 --> 9
 	0 --> 9
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 	8[
 	state phi Sidetable
 	]
@@ -2015,21 +2074,22 @@ graph TD
 	push_u64
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	2[
 	r
 	u64.&
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 ====
 ====I64_OR====
 graph TD
@@ -2038,21 +2098,22 @@ graph TD
 	push_u64
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	2[
 	r
 	u64.|
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 ====
 ====I64_XOR====
 graph TD
@@ -2061,21 +2122,22 @@ graph TD
 	push_u64
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	2[
 	r
 	u64.^
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 ====
 ====I64_SHL====
 graph TD
@@ -2084,21 +2146,22 @@ graph TD
 	push_u64
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	2[
 	r
 	U64_shl
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 ====
 ====I64_SHR_U====
 graph TD
@@ -2107,21 +2170,22 @@ graph TD
 	push_u64
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	2[
 	r
 	U64_shr_u
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 ====
 ====I64_SHR_S====
 graph TD
@@ -2130,21 +2194,22 @@ graph TD
 	push_u64
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	2[
 	r
 	U64_shr_s
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 ====
 ====I64_ROTL====
 graph TD
@@ -2153,21 +2218,22 @@ graph TD
 	push_u64
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	2[
 	r
 	U64_rotl
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 ====
 ====I64_ROTR====
 graph TD
@@ -2176,21 +2242,22 @@ graph TD
 	push_u64
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_u64
+	]
+	0 --> 1
+	0[
+	b
+	pop_u64
+	]
 	2[
 	r
 	U64_rotr
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_u64
-	]
-	1[
-	a
-	pop_u64
-	]
-	0 --> 1
 ====
 ====I64_CLZ====
 graph TD
@@ -2199,15 +2266,16 @@ graph TD
 	push_u64
 	]
 	1 --> 2
+	0 --> 2
+	0[
+	a
+	pop_u64
+	]
 	1[
 	r
 	U64_clz
 	]
 	0 --> 1
-	0[
-	a
-	pop_u64
-	]
 ====
 ====I64_CTZ====
 graph TD
@@ -2216,15 +2284,16 @@ graph TD
 	push_u64
 	]
 	1 --> 2
+	0 --> 2
+	0[
+	a
+	pop_u64
+	]
 	1[
 	r
 	U64_ctz
 	]
 	0 --> 1
-	0[
-	a
-	pop_u64
-	]
 ====
 ====I64_POPCNT====
 graph TD
@@ -2233,15 +2302,16 @@ graph TD
 	push_u64
 	]
 	1 --> 2
+	0 --> 2
+	0[
+	a
+	pop_u64
+	]
 	1[
 	r
 	U64_popcnt
 	]
 	0 --> 1
-	0[
-	a
-	pop_u64
-	]
 ====
 ====I64_EQZ====
 graph TD
@@ -2256,6 +2326,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	0 --> 6
 	4 --> 6
 	4[
 	else
@@ -2282,6 +2353,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	0 --> 8
 	3 --> 8
 	3[
 	if
@@ -2304,6 +2376,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -2332,6 +2405,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -2354,6 +2428,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -2382,6 +2457,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -2404,6 +2480,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -2432,6 +2509,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -2454,6 +2532,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -2482,6 +2561,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -2504,6 +2584,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -2532,6 +2613,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -2554,6 +2636,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -2582,6 +2665,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -2604,6 +2688,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -2632,6 +2717,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -2654,6 +2740,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -2682,6 +2769,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -2704,6 +2792,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -2732,6 +2821,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -2754,6 +2844,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -2782,6 +2873,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -2798,15 +2890,16 @@ graph TD
 	push_u64
 	]
 	1 --> 2
+	0 --> 2
+	0[
+	a
+	pop_u64
+	]
 	1[
 	r
 	U64_extend8_s
 	]
 	0 --> 1
-	0[
-	a
-	pop_u64
-	]
 ====
 ====I64_EXTEND16_S====
 graph TD
@@ -2815,15 +2908,16 @@ graph TD
 	push_u64
 	]
 	1 --> 2
+	0 --> 2
+	0[
+	a
+	pop_u64
+	]
 	1[
 	r
 	U64_extend16_s
 	]
 	0 --> 1
-	0[
-	a
-	pop_u64
-	]
 ====
 ====I64_EXTEND32_S====
 graph TD
@@ -2832,15 +2926,16 @@ graph TD
 	push_u64
 	]
 	1 --> 2
+	0 --> 2
+	0[
+	a
+	pop_u64
+	]
 	1[
 	r
 	U64_extend32_s
 	]
 	0 --> 1
-	0[
-	a
-	pop_u64
-	]
 ====
 ====F32_CONST====
 graph TD
@@ -2866,21 +2961,22 @@ graph TD
 	push_f32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_f32
+	]
+	0 --> 1
+	0[
+	b
+	pop_f32
+	]
 	2[
 	r
 	float.+
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_f32
-	]
-	1[
-	a
-	pop_f32
-	]
-	0 --> 1
 ====
 ====F32_SUB====
 graph TD
@@ -2889,21 +2985,22 @@ graph TD
 	push_f32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_f32
+	]
+	0 --> 1
+	0[
+	b
+	pop_f32
+	]
 	2[
 	r
 	float.-
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_f32
-	]
-	1[
-	a
-	pop_f32
-	]
-	0 --> 1
 ====
 ====F32_MUL====
 graph TD
@@ -2912,21 +3009,22 @@ graph TD
 	push_f32
 	]
 	2 --> 3
+	1 --> 3
+	1[
+	a
+	pop_f32
+	]
+	0 --> 1
+	0[
+	b
+	pop_f32
+	]
 	2[
 	r
 	float.*
 	]
 	1 --> 2
 	0 --> 2
-	0[
-	b
-	pop_f32
-	]
-	1[
-	a
-	pop_f32
-	]
-	0 --> 1
 ====
 ====F32_DIV====
 graph TD
@@ -2935,21 +3033,22 @@ graph TD
 	push_f32
 	]
 	9 --> 10
+	1 --> 10
+	1[
+	a
+	pop_f32
+	]
+	0 --> 1
+	0[
+	b
+	pop_f32
+	]
 	9[
 	r
 	float./
 	]
 	1 --> 9
 	0 --> 9
-	0[
-	b
-	pop_f32
-	]
-	1[
-	a
-	pop_f32
-	]
-	0 --> 1
 	8[
 	state phi Sidetable
 	]
@@ -2990,15 +3089,16 @@ graph TD
 	push_f32
 	]
 	1 --> 2
+	0 --> 2
+	0[
+	a
+	pop_f32
+	]
 	1[
 	r
 	float.sqrt
 	]
 	0 --> 1
-	0[
-	a
-	pop_f32
-	]
 ====
 ====F32_EQ====
 graph TD
@@ -3013,6 +3113,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -3041,6 +3142,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -3063,6 +3165,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -3091,6 +3194,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -3113,6 +3217,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -3141,6 +3246,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -3163,6 +3269,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -3191,6 +3298,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -3213,6 +3321,7 @@ graph TD
 	push_u32
 	]
 	5 --> 6
+	1 --> 6
 	4 --> 6
 	4[
 	else
@@ -3241,6 +3350,7 @@ graph TD
 	push_u32
 	]
 	7 --> 8
+	1 --> 8
 	3 --> 8
 	3[
 	if
@@ -3396,6 +3506,7 @@ graph TD
 	doFallthru
 	]
 	2 --> 7
+	2 --> 7
 	6 --> 7
 	6[
 	else
@@ -3430,6 +3541,7 @@ graph TD
 	]
 	2 --> 8
 	2 --> 8
+	2 --> 8
 	5 --> 8
 	5[
 	if
@@ -3448,6 +3560,7 @@ graph TD
 	ret__1368
 	doBranch
 	]
+	0 --> 1
 	0 --> 1
 	0 --> 1
 	0[
@@ -3471,6 +3584,7 @@ graph TD
 	ret__1375
 	doReturn
 	]
+	0 --> 4
 	0 --> 4
 	2 --> 4
 	2[
@@ -3528,6 +3642,7 @@ graph TD
 	push_u32
 	]
 	4 --> 5
+	0 --> 5
 	3 --> 5
 	3[
 	else
@@ -3550,6 +3665,7 @@ graph TD
 	push_u32
 	]
 	6 --> 7
+	0 --> 7
 	2 --> 7
 	2[
 	if
@@ -3565,6 +3681,7 @@ graph TD
 	eff__1401
 	push_Object
 	]
+	0 --> 7
 	0 --> 7
 	0[
 	obj
@@ -3651,6 +3768,11 @@ graph TD
 	field_index
 	imm_readULEB32
 	]
+	0 --> 1
+	0[
+	struct_index
+	imm_readULEB32
+	]
 	9[
 	state phi Codeptr
 	]
@@ -3667,10 +3789,6 @@ graph TD
 	]
 	0 --> 3
 	1 --> 3
-	0[
-	struct_index
-	imm_readULEB32
-	]
 	2[
 	kind
 	m_getFieldKind
@@ -3708,6 +3826,11 @@ graph TD
 	field_index
 	imm_readULEB32
 	]
+	0 --> 1
+	0[
+	struct_index
+	imm_readULEB32
+	]
 	9[
 	state phi Codeptr
 	]
@@ -3724,10 +3847,6 @@ graph TD
 	]
 	0 --> 3
 	1 --> 3
-	0[
-	struct_index
-	imm_readULEB32
-	]
 	2[
 	kind
 	m_getFieldKind
@@ -3765,6 +3884,11 @@ graph TD
 	field_index
 	imm_readULEB32
 	]
+	0 --> 1
+	0[
+	struct_index
+	imm_readULEB32
+	]
 	9[
 	state phi Codeptr
 	]
@@ -3781,10 +3905,6 @@ graph TD
 	]
 	0 --> 3
 	1 --> 3
-	0[
-	struct_index
-	imm_readULEB32
-	]
 	2[
 	kind
 	m_getFieldKind
@@ -3794,25 +3914,10 @@ graph TD
 ====
 ====I32_LOAD====
 graph TD
-	9[
-	state phi Codeptr
+	6[
+	else
 	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	0[
-	flags
-	imm_readU8
-	]
-	7[
-	memindex__1590
-	imm_readULEB32
-	]
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
+	4 --> 6
 	4[
 	cond__1589
 	u8.==
@@ -3827,10 +3932,10 @@ graph TD
 	u8.&
 	]
 	0 --> 3
-	6[
-	else
+	0[
+	flags
+	imm_readU8
 	]
-	4 --> 6
 	22[
 	state phi Stack
 	]
@@ -3842,6 +3947,7 @@ graph TD
 	push_u32
 	]
 	15 --> 16
+	14 --> 16
 	12 --> 16
 	12[
 	else
@@ -3853,6 +3959,7 @@ graph TD
 	]
 	8 --> 10
 	8[
+	memindex
 	phi
 	]
 	4 --> 8
@@ -3861,6 +3968,21 @@ graph TD
 	1[
 	0u
 	]
+	7[
+	memindex__1590
+	imm_readULEB32
+	]
+	0 --> 7
+	5 --> 7
+	5[
+	if
+	]
+	4 --> 5
+	14[
+	index
+	pop_u32
+	]
+	12 --> 14
 	15[
 	val
 	mach_readMemory32_u32
@@ -3873,22 +3995,30 @@ graph TD
 	offset
 	imm_readULEB32
 	]
+	9 --> 13
 	12 --> 13
-	14[
-	index
-	pop_u32
+	9[
+	state phi Codeptr
 	]
-	12 --> 14
+	4 --> 9
+	7 --> 9
+	0 --> 9
 	20[
 	eff__1578
 	push_u32
 	]
 	19 --> 20
+	18 --> 20
 	11 --> 20
 	11[
 	if
 	]
 	10 --> 11
+	18[
+	index
+	pop_u64
+	]
+	11 --> 18
 	19[
 	val
 	mach_readMemory64_u32
@@ -3901,12 +4031,8 @@ graph TD
 	offset
 	imm_readULEB64
 	]
+	9 --> 17
 	11 --> 17
-	18[
-	index
-	pop_u64
-	]
-	11 --> 18
 	21[
 	state phi Codeptr
 	]
@@ -3916,25 +4042,10 @@ graph TD
 ====
 ====I32_LOAD8_U====
 graph TD
-	9[
-	state phi Codeptr
+	6[
+	else
 	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	0[
-	flags
-	imm_readU8
-	]
-	7[
-	memindex__1637
-	imm_readULEB32
-	]
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
+	4 --> 6
 	4[
 	cond__1636
 	u8.==
@@ -3949,10 +4060,10 @@ graph TD
 	u8.&
 	]
 	0 --> 3
-	6[
-	else
+	0[
+	flags
+	imm_readU8
 	]
-	4 --> 6
 	22[
 	state phi Stack
 	]
@@ -3964,6 +4075,7 @@ graph TD
 	push_u32
 	]
 	15 --> 16
+	14 --> 16
 	12 --> 16
 	12[
 	else
@@ -3975,6 +4087,7 @@ graph TD
 	]
 	8 --> 10
 	8[
+	memindex
 	phi
 	]
 	4 --> 8
@@ -3983,6 +4096,21 @@ graph TD
 	1[
 	0u
 	]
+	7[
+	memindex__1637
+	imm_readULEB32
+	]
+	0 --> 7
+	5 --> 7
+	5[
+	if
+	]
+	4 --> 5
+	14[
+	index
+	pop_u32
+	]
+	12 --> 14
 	15[
 	val
 	mach_readMemory32_u8
@@ -3995,22 +4123,30 @@ graph TD
 	offset
 	imm_readULEB32
 	]
+	9 --> 13
 	12 --> 13
-	14[
-	index
-	pop_u32
+	9[
+	state phi Codeptr
 	]
-	12 --> 14
+	4 --> 9
+	7 --> 9
+	0 --> 9
 	20[
 	eff__1625
 	push_u32
 	]
 	19 --> 20
+	18 --> 20
 	11 --> 20
 	11[
 	if
 	]
 	10 --> 11
+	18[
+	index
+	pop_u64
+	]
+	11 --> 18
 	19[
 	val
 	mach_readMemory64_u8
@@ -4023,12 +4159,8 @@ graph TD
 	offset
 	imm_readULEB64
 	]
+	9 --> 17
 	11 --> 17
-	18[
-	index
-	pop_u64
-	]
-	11 --> 18
 	21[
 	state phi Codeptr
 	]
@@ -4038,25 +4170,10 @@ graph TD
 ====
 ====I32_LOAD16_S====
 graph TD
-	9[
-	state phi Codeptr
+	6[
+	else
 	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	0[
-	flags
-	imm_readU8
-	]
-	7[
-	memindex__1684
-	imm_readULEB32
-	]
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
+	4 --> 6
 	4[
 	cond__1683
 	u8.==
@@ -4071,10 +4188,10 @@ graph TD
 	u8.&
 	]
 	0 --> 3
-	6[
-	else
+	0[
+	flags
+	imm_readU8
 	]
-	4 --> 6
 	22[
 	state phi Stack
 	]
@@ -4086,6 +4203,7 @@ graph TD
 	push_u32
 	]
 	15 --> 16
+	14 --> 16
 	12 --> 16
 	12[
 	else
@@ -4097,6 +4215,7 @@ graph TD
 	]
 	8 --> 10
 	8[
+	memindex
 	phi
 	]
 	4 --> 8
@@ -4105,6 +4224,21 @@ graph TD
 	1[
 	0u
 	]
+	7[
+	memindex__1684
+	imm_readULEB32
+	]
+	0 --> 7
+	5 --> 7
+	5[
+	if
+	]
+	4 --> 5
+	14[
+	index
+	pop_u32
+	]
+	12 --> 14
 	15[
 	val
 	mach_readMemory32_u16
@@ -4117,22 +4251,30 @@ graph TD
 	offset
 	imm_readULEB32
 	]
+	9 --> 13
 	12 --> 13
-	14[
-	index
-	pop_u32
+	9[
+	state phi Codeptr
 	]
-	12 --> 14
+	4 --> 9
+	7 --> 9
+	0 --> 9
 	20[
 	eff__1672
 	push_u32
 	]
 	19 --> 20
+	18 --> 20
 	11 --> 20
 	11[
 	if
 	]
 	10 --> 11
+	18[
+	index
+	pop_u64
+	]
+	11 --> 18
 	19[
 	val
 	mach_readMemory64_u16
@@ -4145,12 +4287,8 @@ graph TD
 	offset
 	imm_readULEB64
 	]
+	9 --> 17
 	11 --> 17
-	18[
-	index
-	pop_u64
-	]
-	11 --> 18
 	21[
 	state phi Codeptr
 	]
@@ -4160,25 +4298,10 @@ graph TD
 ====
 ====I64_LOAD====
 graph TD
-	9[
-	state phi Codeptr
+	6[
+	else
 	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	0[
-	flags
-	imm_readU8
-	]
-	7[
-	memindex__1731
-	imm_readULEB32
-	]
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
+	4 --> 6
 	4[
 	cond__1730
 	u8.==
@@ -4193,10 +4316,10 @@ graph TD
 	u8.&
 	]
 	0 --> 3
-	6[
-	else
+	0[
+	flags
+	imm_readU8
 	]
-	4 --> 6
 	22[
 	state phi Stack
 	]
@@ -4208,6 +4331,7 @@ graph TD
 	push_u64
 	]
 	15 --> 16
+	14 --> 16
 	12 --> 16
 	12[
 	else
@@ -4219,6 +4343,7 @@ graph TD
 	]
 	8 --> 10
 	8[
+	memindex
 	phi
 	]
 	4 --> 8
@@ -4227,6 +4352,21 @@ graph TD
 	1[
 	0u
 	]
+	7[
+	memindex__1731
+	imm_readULEB32
+	]
+	0 --> 7
+	5 --> 7
+	5[
+	if
+	]
+	4 --> 5
+	14[
+	index
+	pop_u32
+	]
+	12 --> 14
 	15[
 	val
 	mach_readMemory32_u64
@@ -4239,22 +4379,30 @@ graph TD
 	offset
 	imm_readULEB32
 	]
+	9 --> 13
 	12 --> 13
-	14[
-	index
-	pop_u32
+	9[
+	state phi Codeptr
 	]
-	12 --> 14
+	4 --> 9
+	7 --> 9
+	0 --> 9
 	20[
 	eff__1719
 	push_u64
 	]
 	19 --> 20
+	18 --> 20
 	11 --> 20
 	11[
 	if
 	]
 	10 --> 11
+	18[
+	index
+	pop_u64
+	]
+	11 --> 18
 	19[
 	val
 	mach_readMemory64_u64
@@ -4267,12 +4415,8 @@ graph TD
 	offset
 	imm_readULEB64
 	]
+	9 --> 17
 	11 --> 17
-	18[
-	index
-	pop_u64
-	]
-	11 --> 18
 	21[
 	state phi Codeptr
 	]
@@ -4282,25 +4426,10 @@ graph TD
 ====
 ====F32_LOAD====
 graph TD
-	9[
-	state phi Codeptr
+	6[
+	else
 	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	0[
-	flags
-	imm_readU8
-	]
-	7[
-	memindex__1778
-	imm_readULEB32
-	]
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
+	4 --> 6
 	4[
 	cond__1777
 	u8.==
@@ -4315,10 +4444,10 @@ graph TD
 	u8.&
 	]
 	0 --> 3
-	6[
-	else
+	0[
+	flags
+	imm_readU8
 	]
-	4 --> 6
 	22[
 	state phi Stack
 	]
@@ -4330,6 +4459,7 @@ graph TD
 	push_f32
 	]
 	15 --> 16
+	14 --> 16
 	12 --> 16
 	12[
 	else
@@ -4341,6 +4471,7 @@ graph TD
 	]
 	8 --> 10
 	8[
+	memindex
 	phi
 	]
 	4 --> 8
@@ -4349,6 +4480,21 @@ graph TD
 	1[
 	0u
 	]
+	7[
+	memindex__1778
+	imm_readULEB32
+	]
+	0 --> 7
+	5 --> 7
+	5[
+	if
+	]
+	4 --> 5
+	14[
+	index
+	pop_u32
+	]
+	12 --> 14
 	15[
 	val
 	mach_readMemory32_f32
@@ -4361,22 +4507,30 @@ graph TD
 	offset
 	imm_readULEB32
 	]
+	9 --> 13
 	12 --> 13
-	14[
-	index
-	pop_u32
+	9[
+	state phi Codeptr
 	]
-	12 --> 14
+	4 --> 9
+	7 --> 9
+	0 --> 9
 	20[
 	eff__1766
 	push_f32
 	]
 	19 --> 20
+	18 --> 20
 	11 --> 20
 	11[
 	if
 	]
 	10 --> 11
+	18[
+	index
+	pop_u64
+	]
+	11 --> 18
 	19[
 	val
 	mach_readMemory64_f32
@@ -4389,12 +4543,8 @@ graph TD
 	offset
 	imm_readULEB64
 	]
+	9 --> 17
 	11 --> 17
-	18[
-	index
-	pop_u64
-	]
-	11 --> 18
 	21[
 	state phi Codeptr
 	]
@@ -4404,25 +4554,10 @@ graph TD
 ====
 ====F64_LOAD====
 graph TD
-	9[
-	state phi Codeptr
+	6[
+	else
 	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	0[
-	flags
-	imm_readU8
-	]
-	7[
-	memindex__1825
-	imm_readULEB32
-	]
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
+	4 --> 6
 	4[
 	cond__1824
 	u8.==
@@ -4437,10 +4572,10 @@ graph TD
 	u8.&
 	]
 	0 --> 3
-	6[
-	else
+	0[
+	flags
+	imm_readU8
 	]
-	4 --> 6
 	22[
 	state phi Stack
 	]
@@ -4452,6 +4587,7 @@ graph TD
 	push_f64
 	]
 	15 --> 16
+	14 --> 16
 	12 --> 16
 	12[
 	else
@@ -4463,6 +4599,7 @@ graph TD
 	]
 	8 --> 10
 	8[
+	memindex
 	phi
 	]
 	4 --> 8
@@ -4471,6 +4608,21 @@ graph TD
 	1[
 	0u
 	]
+	7[
+	memindex__1825
+	imm_readULEB32
+	]
+	0 --> 7
+	5 --> 7
+	5[
+	if
+	]
+	4 --> 5
+	14[
+	index
+	pop_u32
+	]
+	12 --> 14
 	15[
 	val
 	mach_readMemory32_f64
@@ -4483,22 +4635,30 @@ graph TD
 	offset
 	imm_readULEB32
 	]
+	9 --> 13
 	12 --> 13
-	14[
-	index
-	pop_u32
+	9[
+	state phi Codeptr
 	]
-	12 --> 14
+	4 --> 9
+	7 --> 9
+	0 --> 9
 	20[
 	eff__1813
 	push_f64
 	]
 	19 --> 20
+	18 --> 20
 	11 --> 20
 	11[
 	if
 	]
 	10 --> 11
+	18[
+	index
+	pop_u64
+	]
+	11 --> 18
 	19[
 	val
 	mach_readMemory64_f64
@@ -4511,12 +4671,8 @@ graph TD
 	offset
 	imm_readULEB64
 	]
+	9 --> 17
 	11 --> 17
-	18[
-	index
-	pop_u64
-	]
-	11 --> 18
 	21[
 	state phi Codeptr
 	]
@@ -4526,25 +4682,10 @@ graph TD
 ====
 ====I32_STORE====
 graph TD
-	9[
-	state phi Codeptr
+	6[
+	else
 	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	0[
-	flags
-	imm_readU8
-	]
-	7[
-	memindex__1872
-	imm_readULEB32
-	]
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
+	4 --> 6
 	4[
 	cond__1871
 	u8.==
@@ -4559,10 +4700,10 @@ graph TD
 	u8.&
 	]
 	0 --> 3
-	6[
-	else
+	0[
+	flags
+	imm_readU8
 	]
-	4 --> 6
 	21[
 	state phi Stack
 	]
@@ -4585,6 +4726,7 @@ graph TD
 	]
 	8 --> 11
 	8[
+	memindex
 	phi
 	]
 	4 --> 8
@@ -4593,6 +4735,16 @@ graph TD
 	1[
 	0u
 	]
+	7[
+	memindex__1872
+	imm_readULEB32
+	]
+	0 --> 7
+	5 --> 7
+	5[
+	if
+	]
+	4 --> 5
 	10[
 	val
 	pop_u32
@@ -4617,11 +4769,19 @@ graph TD
 	offset
 	imm_readULEB32
 	]
+	9 --> 14
 	13 --> 14
+	9[
+	state phi Codeptr
+	]
+	4 --> 9
+	7 --> 9
+	0 --> 9
 	17[
 	offset
 	imm_readULEB64
 	]
+	9 --> 17
 	12 --> 17
 	19[
 	eff__1860
@@ -4644,25 +4804,10 @@ graph TD
 ====
 ====I32_STORE8====
 graph TD
-	9[
-	state phi Codeptr
+	6[
+	else
 	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	0[
-	flags
-	imm_readU8
-	]
-	7[
-	memindex__1918
-	imm_readULEB32
-	]
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
+	4 --> 6
 	4[
 	cond__1917
 	u8.==
@@ -4677,10 +4822,10 @@ graph TD
 	u8.&
 	]
 	0 --> 3
-	6[
-	else
+	0[
+	flags
+	imm_readU8
 	]
-	4 --> 6
 	21[
 	state phi Stack
 	]
@@ -4703,6 +4848,7 @@ graph TD
 	]
 	8 --> 11
 	8[
+	memindex
 	phi
 	]
 	4 --> 8
@@ -4711,6 +4857,16 @@ graph TD
 	1[
 	0u
 	]
+	7[
+	memindex__1918
+	imm_readULEB32
+	]
+	0 --> 7
+	5 --> 7
+	5[
+	if
+	]
+	4 --> 5
 	10[
 	val
 	pop_u32
@@ -4735,11 +4891,19 @@ graph TD
 	offset
 	imm_readULEB32
 	]
+	9 --> 14
 	13 --> 14
+	9[
+	state phi Codeptr
+	]
+	4 --> 9
+	7 --> 9
+	0 --> 9
 	17[
 	offset
 	imm_readULEB64
 	]
+	9 --> 17
 	12 --> 17
 	19[
 	eff__1906
@@ -4762,25 +4926,10 @@ graph TD
 ====
 ====I32_STORE16====
 graph TD
-	9[
-	state phi Codeptr
+	6[
+	else
 	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	0[
-	flags
-	imm_readU8
-	]
-	7[
-	memindex__1964
-	imm_readULEB32
-	]
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
+	4 --> 6
 	4[
 	cond__1963
 	u8.==
@@ -4795,10 +4944,10 @@ graph TD
 	u8.&
 	]
 	0 --> 3
-	6[
-	else
+	0[
+	flags
+	imm_readU8
 	]
-	4 --> 6
 	21[
 	state phi Stack
 	]
@@ -4821,6 +4970,7 @@ graph TD
 	]
 	8 --> 11
 	8[
+	memindex
 	phi
 	]
 	4 --> 8
@@ -4829,6 +4979,16 @@ graph TD
 	1[
 	0u
 	]
+	7[
+	memindex__1964
+	imm_readULEB32
+	]
+	0 --> 7
+	5 --> 7
+	5[
+	if
+	]
+	4 --> 5
 	10[
 	val
 	pop_u32
@@ -4853,11 +5013,19 @@ graph TD
 	offset
 	imm_readULEB32
 	]
+	9 --> 14
 	13 --> 14
+	9[
+	state phi Codeptr
+	]
+	4 --> 9
+	7 --> 9
+	0 --> 9
 	17[
 	offset
 	imm_readULEB64
 	]
+	9 --> 17
 	12 --> 17
 	19[
 	eff__1952
@@ -4880,25 +5048,10 @@ graph TD
 ====
 ====I64_STORE====
 graph TD
-	9[
-	state phi Codeptr
+	6[
+	else
 	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	0[
-	flags
-	imm_readU8
-	]
-	7[
-	memindex__2010
-	imm_readULEB32
-	]
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
+	4 --> 6
 	4[
 	cond__2009
 	u8.==
@@ -4913,10 +5066,10 @@ graph TD
 	u8.&
 	]
 	0 --> 3
-	6[
-	else
+	0[
+	flags
+	imm_readU8
 	]
-	4 --> 6
 	21[
 	state phi Stack
 	]
@@ -4939,6 +5092,7 @@ graph TD
 	]
 	8 --> 11
 	8[
+	memindex
 	phi
 	]
 	4 --> 8
@@ -4947,6 +5101,16 @@ graph TD
 	1[
 	0u
 	]
+	7[
+	memindex__2010
+	imm_readULEB32
+	]
+	0 --> 7
+	5 --> 7
+	5[
+	if
+	]
+	4 --> 5
 	10[
 	val
 	pop_u64
@@ -4971,11 +5135,19 @@ graph TD
 	offset
 	imm_readULEB32
 	]
+	9 --> 14
 	13 --> 14
+	9[
+	state phi Codeptr
+	]
+	4 --> 9
+	7 --> 9
+	0 --> 9
 	17[
 	offset
 	imm_readULEB64
 	]
+	9 --> 17
 	12 --> 17
 	19[
 	eff__1998
@@ -4998,25 +5170,10 @@ graph TD
 ====
 ====F32_STORE====
 graph TD
-	9[
-	state phi Codeptr
+	6[
+	else
 	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	0[
-	flags
-	imm_readU8
-	]
-	7[
-	memindex__2056
-	imm_readULEB32
-	]
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
+	4 --> 6
 	4[
 	cond__2055
 	u8.==
@@ -5031,10 +5188,10 @@ graph TD
 	u8.&
 	]
 	0 --> 3
-	6[
-	else
+	0[
+	flags
+	imm_readU8
 	]
-	4 --> 6
 	21[
 	state phi Stack
 	]
@@ -5057,6 +5214,7 @@ graph TD
 	]
 	8 --> 11
 	8[
+	memindex
 	phi
 	]
 	4 --> 8
@@ -5065,6 +5223,16 @@ graph TD
 	1[
 	0u
 	]
+	7[
+	memindex__2056
+	imm_readULEB32
+	]
+	0 --> 7
+	5 --> 7
+	5[
+	if
+	]
+	4 --> 5
 	10[
 	val
 	pop_f32
@@ -5089,11 +5257,19 @@ graph TD
 	offset
 	imm_readULEB32
 	]
+	9 --> 14
 	13 --> 14
+	9[
+	state phi Codeptr
+	]
+	4 --> 9
+	7 --> 9
+	0 --> 9
 	17[
 	offset
 	imm_readULEB64
 	]
+	9 --> 17
 	12 --> 17
 	19[
 	eff__2044
@@ -5116,25 +5292,10 @@ graph TD
 ====
 ====F64_STORE====
 graph TD
-	9[
-	state phi Codeptr
+	6[
+	else
 	]
-	4 --> 9
-	7 --> 9
-	0 --> 9
-	0[
-	flags
-	imm_readU8
-	]
-	7[
-	memindex__2102
-	imm_readULEB32
-	]
-	5 --> 7
-	5[
-	if
-	]
-	4 --> 5
+	4 --> 6
 	4[
 	cond__2101
 	u8.==
@@ -5149,10 +5310,10 @@ graph TD
 	u8.&
 	]
 	0 --> 3
-	6[
-	else
+	0[
+	flags
+	imm_readU8
 	]
-	4 --> 6
 	21[
 	state phi Stack
 	]
@@ -5175,6 +5336,7 @@ graph TD
 	]
 	8 --> 11
 	8[
+	memindex
 	phi
 	]
 	4 --> 8
@@ -5183,6 +5345,16 @@ graph TD
 	1[
 	0u
 	]
+	7[
+	memindex__2102
+	imm_readULEB32
+	]
+	0 --> 7
+	5 --> 7
+	5[
+	if
+	]
+	4 --> 5
 	10[
 	val
 	pop_f64
@@ -5207,11 +5379,19 @@ graph TD
 	offset
 	imm_readULEB32
 	]
+	9 --> 14
 	13 --> 14
+	9[
+	state phi Codeptr
+	]
+	4 --> 9
+	7 --> 9
+	0 --> 9
 	17[
 	offset
 	imm_readULEB64
 	]
+	9 --> 17
 	12 --> 17
 	19[
 	eff__2090
