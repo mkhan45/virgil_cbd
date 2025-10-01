@@ -363,6 +363,8 @@ component IntrinsicTypes {
                 }
                 Ctl => {
                     reads |= StateComponent.Codeptr;
+                    writes |= StateComponent.Codeptr;
+                    writes |= StateComponent.Sidetable;
                 }
                 _ => {}
             }

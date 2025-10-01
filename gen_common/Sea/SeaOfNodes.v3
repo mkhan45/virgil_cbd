@@ -58,6 +58,8 @@ class Sea {
             MatchPhi(subj, cases) => {
                 // append match to working_res
             }
+            StatePhi => {
+            }
         }
 
         return working_res;
@@ -117,11 +119,20 @@ class Sea {
                 }
 
                 def t_node = addSSAD(then, t_state_vars, List.new(start_if, deps));
-                // TODO: state phis
 
                 for (phi in phis) {
                     def phi_op = IROp.Phi(cond_node, var_nodes[phi.1], else_phis[phi.0]);
                     var_nodes[phi.0] = mkNode(phi_op);
+                }
+
+                for (sc in StateComponent.set.all) {
+                    def esv = e_state_vars[sc.tag];
+                    def tsv = t_state_vars[sc.tag];
+                    if (esv != tsv) {
+                        def state_phi_op = IROp.StatePhi(cond_node, tsv, esv, sc);
+                        def state_phi = mkNode(state_phi_op);
+                        state_vars[sc.tag] = state_phi;
+                    }
                 }
 
                 addSSAD(rest, state_vars, deps);
@@ -154,6 +165,7 @@ class Sea {
                 If(c) => buf.tab().puts("if").ln();
                 Else(c) => buf.tab().puts("else").ln();
                 Phi(c, l, r) => buf.tab().puts("phi").ln();
+                StatePhi(c, l, r, sc) => buf.tab().puts("state phi ").puts(sc.name).ln();
                 _ => {}
             }
             buf.tab().puts("]").ln();
@@ -175,7 +187,7 @@ component Seas {
 
         var max_state_tag = 0;
         for (sc in StateComponent.set.all) max_state_tag = if(sc.tag > max_state_tag, sc.tag, max_state_tag);
-        def state_vars = Array<IRNode>.new(max_state_tag);
+        def state_vars = Array<IRNode>.new(max_state_tag + 1);
         sea.addSSAD(node, state_vars, null);
 
         return sea;
@@ -222,6 +234,7 @@ type IROp {
     case Else(cond: IRNode);
     case Phi(cond: IRNode, left: IRNode, right: IRNode);
     case MatchPhi(subj: IRNode, cases: Array<IRNode>);
+    case StatePhi(cond: IRNode, left: IRNode, right: IRNode, statecomp: StateComponent);
 
     def immediatePredecessors() -> Array<IRNode> {
         match (this) {
@@ -231,6 +244,7 @@ type IROp {
             Else(c) => return [c];
             Phi(cond, left, right) => return [cond, left, right];
             MatchPhi(subj, cases) => return Arrays.prepend(subj, cases);
+            StatePhi(cond, left, right, sc) => return [cond, left, right];
         }
     }
 }
