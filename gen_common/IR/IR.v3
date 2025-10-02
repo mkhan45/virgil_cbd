@@ -323,6 +323,12 @@ component SSAD_IR {
                 } else {
                     buf.puts("}\n");
                 }
+                buf.puts("// phis: ");
+                for (p in ps) {
+                    buf.puts(p.0).puts(" <- ").puts(p.1).puts("; ");
+                }
+                buf.puts("\n");
+                buildString(r, buf, ps, indent);
             }
             Match(subj, branches, rest) => {
                 // TODO

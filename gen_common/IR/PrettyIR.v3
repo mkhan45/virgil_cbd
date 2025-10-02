@@ -23,7 +23,11 @@ type PrettyIR {
                     if (Strings.equal(phis[i].1, n)) is_phi = true;
                 }
 
-                buf.puts(if(has_phi, "var ", "def ")).puts(n).puts(" = ");
+                if (is_phi) {
+                    buf.puts(n).puts(" = ");
+                } else {
+                    buf.puts(if(has_phi, "var ", "def ")).puts(n).puts(" = ");
+                }
                 rhs.buildString(buf);
                 buf.puts(";\n");
                 rest.buildString(buf, phis, indent);

@@ -1,17 +1,32 @@
 class NodeSet {
     var m: HashMap<IRNode, void>;
     new() {
-        m = HashMap<IRNode, void>.new(fun n => n.id, fun (l, r) => (l == null && r == null) || ((l != null && r != null) && l.id == r.id));
+        m = HashMap<IRNode, void>.new(IRNode.hash, IRNode.eq);
     }
 
     def has(node: IRNode) -> bool => m.has(node);
     def put(node: IRNode) { m[node] = void; }
     def remove(node: IRNode) { if (node != null && m.has(node)) m.remove(node); }
     def apply(f: IRNode -> void) { m.apply(fun (k, v) => f(k)); }
+
+    // immutable ops
+    def with(node: IRNode) -> NodeSet {
+        def new_set = NodeSet.new();
+        apply(new_set.put);
+        new_set.put(node);
+        return new_set;
+    }
+    def dup() -> NodeSet {
+        def new_set = NodeSet.new();
+        apply(new_set.put);
+        return new_set;
+    }
 }
 
+def uidl = SSAD_IR.uidl;
 class Sea {
     var roots: NodeSet;
+    var nodes: NodeSet;
     var id_count: int;
 
     var var_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>();
@@ -19,6 +34,7 @@ class Sea {
 
     new() {
         roots = NodeSet.new();
+        nodes = NodeSet.new();
         id_count = 0;
     }
 
@@ -27,45 +43,100 @@ class Sea {
         id_count += 1;
 
         roots.put(node);
+        nodes.put(node);
         def args = node.args();
         for (arg in args) roots.remove(arg);
 
         return node;
     }
 
-    def toSSAD(node: IRNode, res: SSAD, visited: NodeSet) -> SSAD {
-        if (visited.has(node)) return res;
+    def schedule() -> SSAD {
+        def wl: Vector<IRNode> = Vector.new();
+        var q_idx = 0;
 
-        var working_res = res;
-        for (arg in node.args()) {
-            working_res = toSSAD(arg, working_res, visited);
+        def conditionals: HashMap<IRNode, (SSAD, SSAD, NodeSet)> = HashMap.new(IRNode.hash, IRNode.eq);
+
+        roots.apply(fun r => void(wl.put(r)));
+
+        var completed = NodeSet.new();
+        var res: SSAD = SSAD.Void;
+        while (q_idx < wl.length) {
+            def node = wl[q_idx];
+            q_idx += 1;
+
+            if (completed.has(node)) continue;
+
+            var ready = true;
+            def deps = node.args();
+            for (i = deps.length - 1; i >= 0; i -= 1) {
+                // reversed just for consistency with original code
+                def dep = deps[i];
+                ready &= completed.has(dep);
+                if (!completed.has(dep)) wl.put(dep);
+            }
+
+            if (!ready) {
+                wl.put(node);
+                continue;
+            }
+
+            completed.put(node);
+            match (node.op) {
+                Intrinsic(defn, args, _) => {
+                    res = res.appended(SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), SSAD.Void));
+                }
+                Lit(tipe, rep) => {
+                    res = res.appended(SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), SSAD.Void));
+                }
+                If(c) => {
+                    conditionals[c] = (res, SSAD.Void, completed.dup());
+                    res = SSAD.Void;
+                }
+                Else(c, _) => {
+                    def ctl = conditionals[c];
+                    def prev = ctl.0;
+                    def then_ssa = res;
+                    def completed_before_if = ctl.2;
+                    completed = completed_before_if;
+                    conditionals[c] = (prev, then_ssa, completed_before_if);
+                    res = SSAD.Void;
+                }
+                End(c, _, phis) => {
+                    def ctl = conditionals[c];
+                    def prev = ctl.0;
+                    def then_ssa = ctl.1;
+                    def else_ssa = res;
+                    def completed_before_if = ctl.2;
+                    var phi_fwds: SSAD = SSAD.Void;
+                    def phi_vec = Vector<(string, string)>.new();
+                    for (i < phis.length) {
+                        // could also be a statephi, in which case do nothing
+                        def phi = phis[i];
+                        if (IROp.Phi.?(phi.op)) {
+                            def phi_op = IROp.Phi.!(phi.op);
+                            phi_fwds = SSAD.Injected(Strings.format2("var %s: %s;", phi.data.sourceName, phi.data.tipe.long_str()), phi_fwds);
+                            if (phi_op.left != null) phi_vec.put((phi.data.sourceName, phi_op.left.data.sourceName));
+                            if (phi_op.right != null)phi_vec.put((phi.data.sourceName, phi_op.right.data.sourceName));
+                        }
+                    }
+                    def if_ssa = phi_fwds.appended(SSAD.If(c.data.sourceName, then_ssa, else_ssa, phi_vec.copy(), SSAD.Void));
+                    res = prev.appended(if_ssa);
+                    conditionals[c] = (SSAD.Void, SSAD.Void, completed);
+                }
+                Phi(c, end, l, r) => {
+                    // let SSAD take care of the actual phi translation by populating the phis array in the SSAD.If node
+                    // res = res.appended(SSAD.LetApp(node.data.sourceName, "if", [c.data.sourceName, l.data.sourceName, r.data.sourceName], SSAD.Void));
+                }
+                StatePhi(c, end, l, r, sc) => {
+                }
+                _ => {}
+            }
         }
 
-        visited.put(node);
-        match (node.op) {
-            Intrinsic(defn, args, deps) => {
-                // instantiate LetApp, append to working_res
-            }
-            Lit => {
-            }
-            If => {
-            }
-            Else => {
-            }
-            Phi(cond, left, right) => {
-                // append If to working_res 
-            }
-            MatchPhi(subj, cases) => {
-                // append match to working_res
-            }
-            StatePhi => {
-            }
-        }
-
-        return working_res;
+        return res;
     }
 
-    def addSSAD(ssad: SSAD, state_vars: Array<IRNode>, deps: List<IRNode>) -> IRNode {
+    def addSSAD(ssad: SSAD, ctx: SSADCtx, state_vars: Array<IRNode>, deps: List<IRNode>) -> IRNode {
         match (ssad) {
             LetApp(n, f, args, rest) => {
                 def arg_nodes: Array<IRNode> = Arrays.map(args, fun (a: string) => var_nodes[a]);
@@ -83,8 +154,9 @@ class Sea {
 
                 node.data = NodeData.new();
                 node.data.sourceName = n;
+                node.data.tipe = ctx.types[n];
 
-                addSSAD(rest, state_vars, deps);
+                addSSAD(rest, ctx, state_vars, deps);
                 return node;
             }
             LetLit(n, l, t, rest) => {
@@ -96,13 +168,22 @@ class Sea {
                 def op = IROp.Lit(tp, l);
                 def node = var_nodes[n] = mkNode(op);
 
-                addSSAD(rest, state_vars, deps);
+                node.data = NodeData.new();
+                node.data.sourceName = n;
+                node.data.tipe = tp;
+
+                addSSAD(rest, ctx, state_vars, deps);
                 return node;
             }
             If(cond, then, els, phis, rest) => {
                 def cond_node = var_nodes[cond];
+                def then_region_ends = Vector<IRNode>.new();
                 def start_if = mkNode(IROp.If(cond_node));
-                def start_else = mkNode(IROp.Else(cond_node));
+                def start_else = mkNode(IROp.Else(cond_node, then_region_ends));
+
+                def else_region_ends = Vectors.of1<IRNode>(start_else);
+                def phi_vec = Vector<IRNode>.new();
+                def end_node = mkNode(IROp.End(cond_node, else_region_ends, phi_vec));
 
                 // which node to choose for var if cond is not taken,
                 // might be the starting node for var if the els doesn't assign it
@@ -110,7 +191,8 @@ class Sea {
                 def e_state_vars = Arrays.dup(state_vars);
                 def t_state_vars = Arrays.dup(state_vars);
 
-                def e_node = addSSAD(els, e_state_vars, List.new(start_else, deps));
+                // TODO: probably doesn't account for if there is a phi assign in the else but not if
+                def e_node = addSSAD(els, ctx, e_state_vars, List.new(start_else, deps));
                 for (phi in phis) {
                     if (var_nodes.has(phi.1)) 
                         else_phis[phi.0] = var_nodes[phi.1]; // take node from els branch
@@ -118,27 +200,35 @@ class Sea {
                         else_phis[phi.0] = var_nodes[phi.0]; // take default starting node
                 }
 
-                def t_node = addSSAD(then, t_state_vars, List.new(start_if, deps));
+                def t_node = addSSAD(then, ctx, t_state_vars, List.new(start_if, deps));
 
                 for (phi in phis) {
-                    def phi_op = IROp.Phi(cond_node, var_nodes[phi.1], else_phis[phi.0]);
+                    if (var_nodes[phi.1] != null) then_region_ends.put(var_nodes[phi.1]);
+                    if (else_phis[phi.0] != null) else_region_ends.put(else_phis[phi.0]);
+
+                    def phi_op = IROp.Phi(cond_node, end_node, var_nodes[phi.1], else_phis[phi.0]);
                     def node = mkNode(phi_op);
                     node.data = NodeData.new();
                     node.data.sourceName = phi.0;
+                    node.data.tipe = ctx.types[phi.0];
                     var_nodes[phi.0] = node;
+                    phi_vec.put(node);
                 }
 
                 for (sc in StateComponent.set.all) {
                     def esv = e_state_vars[sc.tag];
                     def tsv = t_state_vars[sc.tag];
+                    if (tsv != null) then_region_ends.put(tsv);
+                    if (esv != null) else_region_ends.put(esv);
                     if (esv != tsv) {
-                        def state_phi_op = IROp.StatePhi(cond_node, tsv, esv, sc);
+                        def state_phi_op = IROp.StatePhi(cond_node, end_node, tsv, esv, sc);
                         def state_phi = mkNode(state_phi_op);
                         state_vars[sc.tag] = state_phi;
+                        phi_vec.put(state_phi);
                     }
                 }
 
-                addSSAD(rest, state_vars, deps);
+                addSSAD(rest, ctx, state_vars, deps);
                 return start_if;
             }
             Match => return null;
@@ -166,9 +256,10 @@ class Sea {
                 Intrinsic(defn, _, _) => buf.tab().puts(defn.name).ln();
                 Lit(_, rep) => buf.tab().puts(rep).ln();
                 If(c) => buf.tab().puts("if").ln();
-                Else(c) => buf.tab().puts("else").ln();
-                Phi(c, l, r) => buf.tab().puts("phi").ln();
-                StatePhi(c, l, r, sc) => buf.tab().puts("state phi ").puts(sc.name).ln();
+                Else(c, region_ends) => buf.tab().puts("else").ln();
+                End(c, region_ends, _) => buf.tab().puts("end").ln();
+                Phi(c, end, l, r) => buf.tab().puts("phi").ln();
+                StatePhi(c, end, l, r, sc) => buf.tab().puts("state phi ").puts(sc.name).ln();
                 _ => {}
             }
             buf.tab().puts("]").ln();
@@ -183,7 +274,7 @@ class Sea {
 }
 
 component Seas {
-    def ofSSAD(node: SSAD) -> Sea {
+    def ofSSAD(node: SSAD, ctx: SSADCtx) -> Sea {
         def sea = Sea.new();
         def var_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>();
         def lit_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>(); // assume that lits have unique rep across types
@@ -191,7 +282,7 @@ component Seas {
         var max_state_tag = 0;
         for (sc in StateComponent.set.all) max_state_tag = if(sc.tag > max_state_tag, sc.tag, max_state_tag);
         def state_vars = Array<IRNode>.new(max_state_tag + 1);
-        sea.addSSAD(node, state_vars, null);
+        sea.addSSAD(node, ctx, state_vars, null);
 
         return sea;
     }
@@ -205,7 +296,22 @@ class IRNode {
     new(op, id) {
     }
 
-    def args() -> Array<IRNode> => op.immediatePredecessors();
+    def args() -> Array<IRNode> {
+        def res = op.immediatePredecessors();
+        for (dep in res) if (dep == null) {
+            match (op) {
+                Intrinsic => System.puts("intrinsic\n");
+                Lit => System.puts("lit\n");
+                If => System.puts("if\n");
+                Else => System.puts("else\n");
+                End => System.puts("end\n");
+                Phi => System.puts("phi\n");
+                MatchPhi => System.puts("matchphi\n");
+                StatePhi => System.puts("statephi\n");
+            }
+        }
+        return res;
+    }
 
     def pushPredecessors(buf: Vector<IRNode>) -> Vector<IRNode> {
         // infinite loops if cyclic
@@ -221,10 +327,13 @@ class IRNode {
         def buf = Vector<IRNode>.new();
         return pushPredecessors(buf);
     }
+
+    def hash() -> int => id;
+    def eq(rhs: IRNode) -> bool => id == rhs.id;
 }
 
 class NodeData {
-    var typ: TypeVar;
+    var tipe: TypeVar;
     var eff: CBDEffect;
     var stage: Stage;
     var sourceName: string; // var name in source def, preserved for generating nice code
@@ -234,20 +343,34 @@ type IROp {
     case Intrinsic(defn: IntrinsicTypedef, args: Array<IRNode>, deps: Array<IRNode>);
     case Lit(tipe: TypeVar, rep: string);
     case If(cond: IRNode);
-    case Else(cond: IRNode);
-    case Phi(cond: IRNode, left: IRNode, right: IRNode);
-    case MatchPhi(subj: IRNode, cases: Array<IRNode>);
-    case StatePhi(cond: IRNode, left: IRNode, right: IRNode, statecomp: StateComponent);
+    case Else(cond: IRNode, region_ends: Vector<IRNode>);
+    case End(cond: IRNode, region_ends: Vector<IRNode>, phis: Vector<IRNode>);
+    case Phi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode);
+    case MatchPhi(subj: IRNode, end: IRNode, cases: Array<IRNode>);
+    case StatePhi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode, statecomp: StateComponent);
 
     def immediatePredecessors() -> Array<IRNode> {
         match (this) {
             Intrinsic(defn, args, deps) => return Arrays.concat(args, deps);
             Lit(tipe, rep) => return [];
             If(c) => return [c];
-            Else(c) => return [c];
-            Phi(cond, left, right) => return [cond, left, right];
-            MatchPhi(subj, cases) => return Arrays.prepend(subj, cases);
-            StatePhi(cond, left, right, sc) => return [cond, left, right];
+            Else(c, region_ends) => return Arrays.prepend(c, region_ends.copy());
+            End(c, region_ends, phis) => return Arrays.prepend(c, region_ends.copy());
+            Phi(cond, end, left, right) => {
+                def buf = Vector<IRNode>.new();
+                for (dep in [cond, end, left, right]) if (dep != null) buf.put(dep);
+                return buf.copy();
+            }
+            MatchPhi(subj, end, cases) => {
+                def buf = Vector<IRNode>.new();
+                for (dep in Arrays.concat([subj, end], cases)) if (dep != null) buf.put(dep);
+                return buf.copy();
+            }
+            StatePhi(cond, end, left, right, sc) => {
+                def buf = Vector<IRNode>.new();
+                for (dep in [cond, end, left, right]) if (dep != null) buf.put(dep);
+                return buf.copy();
+            }
         }
     }
 }

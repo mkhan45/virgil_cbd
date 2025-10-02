@@ -68,16 +68,29 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def ssa = SSAD_IR.ssa(ir);
     def analysis = SSADCtx.new(ssa);
 
-    def sea = Seas.ofSSAD(analysis.id_propagate(ir, Strings.newMap<string>()));
+    def sea_ir = analysis.id_propagate(ir, Strings.newMap<string>());
+    def sea = Seas.ofSSAD(sea_ir, analysis);
     def mermaid = sea.toMermaid();
     System.puts("===="); System.puts(opcode);  System.puts("====\n");
     System.puts(mermaid);
+    System.puts("----SSAD----\n");
+    System.puts(sea_ir.toString(0));
+    System.puts("----Scheduled----\n");
+    def scheduled = sea.schedule();
+    System.puts(scheduled.toString(0));
+    System.puts("----Pretty----\n");
+    var pretty = Pretty_IR.fromSSAD(scheduled, analysis);
+    pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, analysis, Strings.newMap<PrettyExpr>());
+    pretty = Pretty_IR.removeUselessAssigns(pretty, analysis);
+    pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>());
+    System.puts(pretty.toString(0));
     System.puts("====\n");
 
     def transformer = SSATransformer.new(analysis);
     transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
     transformer.onIf = TB(flatten_ifs).f;
-    def transformed = transformer.transform(ssa);
+    // def transformed = transformer.transform(ssa);
+    def transformed = transformer.transform(scheduled);
     def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
     // def processed = transformed;
 
