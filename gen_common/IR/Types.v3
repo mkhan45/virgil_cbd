@@ -367,6 +367,9 @@ component IntrinsicTypes {
                     writes |= StateComponent.Codeptr;
                     writes |= StateComponent.Sidetable;
                 }
+                Memory => {
+                    writes |= StateComponent.Memory;
+                }
                 _ => {}
             }
             intrinsics[name] = IntrinsicTypedef.new(name, args.copy(), return_type, effect);

@@ -79,6 +79,10 @@ class SSADCtx {
                 getTypes(t);
                 getTypes(e);
                 getTypes(rest);
+                for (p in phis) {
+                    static[p.1] = static[p.0] && static[c];
+                    types[p.1] = types[p.0];
+                }
             }
             Match(subj, branches, rest) => {
                 for (b in branches) getTypes(b.1);

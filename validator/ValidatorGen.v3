@@ -44,17 +44,9 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
         // more complex
         // TODO: this doesn't really account for if there are pops in each branch
         def ef = node.els.filter(runUnconditionally(_, ctx));
-        return transformer.transformChildren(node.then.appended(ef).appended(node.rest));
+        return transformer.transform(node.then).appended(ef).appended(node.rest);
     } else {
-        // all typevar bools should be true
-        if (ctx.types[node.cond] == TypeVar.U32) {
-            def bool_cond = SSAD_IR.uidl("bool_cond");
-            return SSAD.LetApp(bool_cond, "to_true", [node.cond],
-                    transformer.transformChildren(SSAD.If(bool_cond, node.then, node.els, node.phis, node.rest)));
-        } else {
-            return transformer.transformChildren(node);
-        }
-        // return node;
+        return node;
     }
 }
 
@@ -63,49 +55,10 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // so we can use this the same
     def st_field_buf = VirgilStmts.getSidetableFields(stmt);
     def bs = STFieldMgr.putEntry(st_field_buf);
-
-    def ir = SSAD_IR.from_virgil(stmt);
-    def ssa = SSAD_IR.ssa(ir);
-    def analysis = SSADCtx.new(ssa);
-
-    def sea_ir = analysis.id_propagate(ir, Strings.newMap<string>());
-    def sea = Seas.ofSSAD(sea_ir, analysis);
-    def mermaid = sea.toMermaid();
-    System.puts("===="); System.puts(opcode);  System.puts("====\n");
-    System.puts(mermaid);
-    System.puts("----SSAD----\n");
-    System.puts(sea_ir.toString(0));
-    System.puts("----Scheduled----\n");
-    def scheduled = sea.schedule();
-    System.puts(scheduled.toString(0));
-    System.puts("----Pretty----\n");
-    var pretty = Pretty_IR.fromSSAD(scheduled, analysis);
-    pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, analysis, Strings.newMap<PrettyExpr>());
-    pretty = Pretty_IR.removeUselessAssigns(pretty, analysis);
-    pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>());
-    System.puts(pretty.toString(0));
-    System.puts("====\n");
-
-    def transformer = SSATransformer.new(analysis);
-    transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
-    transformer.onIf = TB(flatten_ifs).f;
-    // def transformed = transformer.transform(ssa);
-    def transformed = transformer.transform(scheduled);
-    def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
-    // def processed = transformed;
-
     def sb = StringBuilder.new();
-    def vars = Maps.keyList(analysis.static);
-    for (v = vars; v != null; v = v.tail) {
-        sb.puts("// ").puts(v.head).puts(" -- ");
-        sb.puts("static: ").puts(if(analysis.static[v.head], "yes", "no")).puts(", ");
-        sb.puts("type: ").puts(analysis.types[v.head].long_str()).puts(", ");
-        sb.puts("effect: ").puts(analysis.effects[v.head].toString());
-        sb.ln();
-    }
-    def instSsa = processed;
-    // def instSsa = SSAD.Injected(sb.toString(), processed);
 
+    var ir = SSAD_IR.from_virgil(stmt);
+    var analysis = SSADCtx.new(ir);
     var stbuilder_call: SSAD = SSAD.Void;
     if (bs != 0) {
         // insert call to sidetable builder
@@ -116,9 +69,70 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
         for (i < st_field_buf.length) st_args[i] = st_field_buf[i].0;
         def stbuilder_fn = Strings.format1("ctlxfer.put_%s", opcode);
         stbuilder_call = SSAD.LetApp(SSAD_IR.uidl("st_put"), stbuilder_fn, st_args, SSAD.Void);
+        for (arg in st_args) analysis.effects[arg] = CBDEffect.Table;
     }
+    ir = ir.appended(stbuilder_call);
 
-    return ValidatorCBDDef.new(opcode, instSsa.appended(stbuilder_call), bs);
+    def ctx = SSADCtx.new(ir);
+    def sea_ir = ctx.id_propagate(ir, Strings.newMap<string>());
+    // def sea_ir = ir;
+    def sea = Seas.ofSSAD(sea_ir, ctx);
+    def mermaid = sea.toMermaid();
+
+    // System.puts("===="); System.puts(opcode);  System.puts("====\n");
+    // System.puts("----SSAD----\n");
+    // System.puts(sea_ir.toString(0));
+    // System.puts("----MERMAID----\n");
+    // System.puts(mermaid);
+
+    def scheduled = sea.schedule();
+    var pretty = Pretty_IR.fromSSAD(scheduled, ctx);
+    // System.puts("----Scheduled----\n");
+    // System.puts(scheduled.toString(0));
+    // System.puts("----Pretty----\n");
+    // pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, ctx, Strings.newMap<PrettyExpr>());
+    // pretty = Pretty_IR.removeUselessAssigns(pretty, ctx);
+    // pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>());
+    // System.puts(pretty.toString(0));
+    // System.puts("====\n");
+
+    sb.puts("/**\n");
+    sb.puts("----input ir----\n");
+    sb.puts(sea_ir.toString(1));
+    sb.puts("\n----scheduled----\n");
+    sb.puts(scheduled.toString(1));
+    sb.puts("\n----mermaid----\n");
+    sb.puts(mermaid);
+    sb.puts("\t**/\n");
+
+    def transform_ctx = SSADCtx.new(scheduled);
+    analysis = transform_ctx;
+    // def transform_ctx = analysis;
+    def transformer = SSATransformer.new(transform_ctx);
+    transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
+    transformer.onIf = TB(flatten_ifs).then(SSAT.transformChildren).f;
+    var transformed = transformer.transform(scheduled);
+
+    // def transformer = SSATransformer.new(analysis);
+    // transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
+    // transformer.onIf = TB(flatten_ifs).f;
+    // var transformed = transformer.transform(ssa);
+
+    def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
+    // def processed = transformed;
+
+    def vars = Maps.keyList(analysis.static);
+    for (v = vars; v != null; v = v.tail) {
+        sb.puts("// ").puts(v.head).puts(" -- ");
+        sb.puts("static: ").puts(if(analysis.static[v.head], "yes", "no")).puts(", ");
+        sb.puts("type: ").puts(analysis.types[v.head].long_str()).puts(", ");
+        sb.puts("effect: ").puts(analysis.effects[v.head].toString());
+        sb.ln();
+    }
+    var instSsa = processed;
+    instSsa = SSAD.Injected(sb.toString(), processed);
+
+    return ValidatorCBDDef.new(opcode, instSsa, bs);
 }
 
 def main(args: Array<string>) {

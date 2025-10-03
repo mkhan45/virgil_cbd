@@ -36,6 +36,12 @@ class Sea {
         roots = NodeSet.new();
         nodes = NodeSet.new();
         id_count = 0;
+
+        def void_node = IRNode.new(IROp.Lit(TypeVar.Bot("void"), "(void)"), -1);
+        void_node.data = NodeData.new();
+        void_node.data.sourceName = "void";
+        void_node.data.tipe = TypeVar.Bot("void");
+        var_nodes["void"] = void_node;
     }
 
     def mkNode(op: IROp) -> IRNode {
@@ -121,7 +127,7 @@ class Sea {
                     }
                     def if_ssa = phi_fwds.appended(SSAD.If(c.data.sourceName, then_ssa, else_ssa, phi_vec.copy(), SSAD.Void));
                     res = prev.appended(if_ssa);
-                    conditionals[c] = (SSAD.Void, SSAD.Void, completed);
+                    completed = completed_before_if;
                 }
                 Phi(c, end, l, r) => {
                     // let SSAD take care of the actual phi translation by populating the phis array in the SSAD.If node
@@ -250,7 +256,7 @@ class Sea {
             if (n == null || visited.has(n)) continue;
             visited.put(n);
             buf.tab().putd(n.id);
-            buf.puts("[").ln();
+            buf.puts("[\"").ln();
             if (n.data != null && n.data.sourceName != null) buf.tab().puts(n.data.sourceName).ln();
             match (n.op) {
                 Intrinsic(defn, _, _) => buf.tab().puts(defn.name).ln();
@@ -262,7 +268,7 @@ class Sea {
                 StatePhi(c, end, l, r, sc) => buf.tab().puts("state phi ").puts(sc.name).ln();
                 _ => {}
             }
-            buf.tab().puts("]").ln();
+            buf.tab().puts("\"]").ln();
             for (arg in n.args()) if (arg != null) {
                 buf.tab().putd(arg.id).puts(" --> ").putd(n.id).ln();
                 wl.push(arg);
@@ -300,7 +306,7 @@ class IRNode {
         def res = op.immediatePredecessors();
         for (dep in res) if (dep == null) {
             match (op) {
-                Intrinsic => System.puts("intrinsic\n");
+                Intrinsic(defn, _, _) => System.puts(Strings.format1("intrinsic %s\n", defn.name));
                 Lit => System.puts("lit\n");
                 If => System.puts("if\n");
                 Else => System.puts("else\n");
