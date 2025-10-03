@@ -10,7 +10,7 @@ DEFS = $(WIZARD)/src/bytecode/CanonicalDefs.v3
 TYPEDEFS = $(WIZARD)/src/bytecode/Intrinsics.v3
 
 # Virgil compiler command (adjust as needed)
-VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -run -fun-exprs -simple-bodies
+VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -O1 -run -fun-exprs -simple-bodies
 V3C ?= ../virgil/bin/v3c-x86-64-linux -fun-exprs -simple-bodies
 
 GENERATE_LIB = $(wildcard gen_common/*.v3) $(wildcard gen_common/*/*.v3)

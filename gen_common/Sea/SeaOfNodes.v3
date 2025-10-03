@@ -24,6 +24,14 @@ class NodeSet {
 }
 
 def uidl = SSAD_IR.uidl;
+def intrinsic(name: string) -> IntrinsicTypedef {
+    def defn = IntrinsicTypes.intrinsic_types[name];
+    if (defn != null) 
+        return defn;
+    else
+        return IntrinsicTypedef.new(name, null, null, CBDEffect.None);
+}
+
 class Sea {
     var roots: NodeSet;
     var nodes: NodeSet;
@@ -124,7 +132,6 @@ class Sea {
                     }
                     def if_ssa = SSAD.If(c.data.sourceName, then_ssa, else_ssa, phi_vec.copy(), SSAD.Void);
                     res = prev.appended(if_ssa);
-                    completed = completed_before_if;
                 }
                 Phi(c, end, l, r) => {
                     // let SSAD take care of the actual phi translation by populating the phis array in the SSAD.If node
@@ -143,8 +150,7 @@ class Sea {
         match (ssad) {
             LetApp(n, f, args, rest) => {
                 def arg_nodes: Array<IRNode> = Arrays.map(args, fun (a: string) => var_nodes[a]);
-                var intrinsic_def = IntrinsicTypes.intrinsic_types[f];
-                if (intrinsic_def == null) intrinsic_def = IntrinsicTypedef.new(f, null, null, CBDEffect.None);
+                var intrinsic_def = intrinsic(f);
 
                 var node_deps = deps;
                 for (sc in intrinsic_def.reads | intrinsic_def.writes) if (state_vars[sc.tag] != null) 
@@ -157,7 +163,11 @@ class Sea {
 
                 def tipe = if(intrinsic_def.return_type != null, intrinsic_def.return_type.primitive, TypeVar.Bot("bot"));
                 def eff = intrinsic_def.effect;
-                def stage = if(intrinsic_def.return_type != null, intrinsic_def.return_type.stage, Stage.VALIDATE);
+                var stage = if(intrinsic_def.return_type != null, intrinsic_def.return_type.stage, Stage.VALIDATE);
+                for (arg in arg_nodes) {
+                    if (stage != Stage.INTERPRET && arg.data.stage == Stage.INTERPRET) stage = Stage.INTERPRET;
+                    if (stage == Stage.VALIDATE && arg.data.stage == Stage.COMPILE) stage = Stage.COMPILE;
+                }
                 node.data = NodeData.new(tipe, eff, stage);
                 node.data.sourceName = n;
 
@@ -276,7 +286,7 @@ class Sea {
         return buf.toString();
     }
 
-    def apply(f: IRNode -> void) {
+    def apply(f: (IRNode, Sea) -> Range<IRNode>) {
         def wl: Vector<IRNode> = Vector.new();
         var q_idx = 0;
         roots.apply(fun r => void(wl.put(r)));
@@ -288,9 +298,10 @@ class Sea {
             q_idx += 1;
 
             if (completed.has(node)) continue;
-            f(node);
+            completed.put(node);
 
-            for (arg in node.args()) {
+            def next = f(node, this);
+            for (arg in next) {
                 wl.put(arg);
             }
         }
@@ -322,24 +333,24 @@ class IRNode {
 
     def become(other: IRNode) {
         op = other.op;
-        id = other.id;
-        data = other.data;
+        // id = other.id;
+        // data = other.data;
     }
 
     def args() -> Array<IRNode> {
         def res = op.immediatePredecessors();
-        for (dep in res) if (dep == null) {
-            match (op) {
-                Intrinsic(defn, _, _) => System.puts(Strings.format1("intrinsic %s\n", defn.name));
-                Lit => System.puts("lit\n");
-                If => System.puts("if\n");
-                Else => System.puts("else\n");
-                End => System.puts("end\n");
-                Phi => System.puts("phi\n");
-                MatchPhi => System.puts("matchphi\n");
-                StatePhi => System.puts("statephi\n");
-            }
-        }
+        // for (dep in res) if (dep == null) {
+        //     match (op) {
+        //         Intrinsic(defn, _, _) => System.puts(Strings.format1("intrinsic %s\n", defn.name));
+        //         Lit => System.puts("lit\n");
+        //         If => System.puts("if\n");
+        //         Else => System.puts("else\n");
+        //         End => System.puts("end\n");
+        //         Phi => System.puts("phi\n");
+        //         MatchPhi => System.puts("matchphi\n");
+        //         StatePhi => System.puts("statephi\n");
+        //     }
+        // }
         return res;
     }
 
@@ -361,12 +372,74 @@ class IRNode {
     def hash() -> int => id;
     def eq(rhs: IRNode) -> bool => id == rhs.id;
 
-    def removeViews() {
+    def removeViews(sea: Sea) -> Range<IRNode> {
         match (op) {
             Intrinsic(defn, args, deps) => {
                 if (Strings.endsWith(defn.name, ".view")) become(args[0]);
             }
             _ => {}
+        }
+        return args();
+    }
+
+    def overloadOps(sea: Sea) -> Range<IRNode> {
+        match (op) {
+            Intrinsic(defn, args, deps) => {
+                def op_spl = IntrinsicTypes.split_op(defn.name);
+                def op_fn = op_spl.1;
+                def is_rt = data.stage != Stage.VALIDATE;
+                if (op_fn != null && is_rt) {
+                    var tp = data.tipe;
+                    if (tp.is_bot() && args.length > 0) tp = args[0].data.tipe;
+                    def prefix = tp.rt_str();
+                    def new_f = Strings.format2("%s_%s", prefix, op_fn);
+                    def intrinsic_def = intrinsic(new_f);
+                    op = IROp.Intrinsic(intrinsic_def, args, deps);
+                }
+            }
+            _ => {}
+        }
+        return args();
+    }
+
+    def addAbstractions(sea: Sea) -> Range<IRNode> {
+        match (op) {
+            Intrinsic(defn, args, deps) => {
+                if (defn.args == null) return this.args(); // unknown intrinsic
+                def new_args = Array<IRNode>.new(args.length);
+                def unchanged_args = Vector<IRNode>.new();
+                for (i < args.length) {
+                    if (i >= defn.args.length) {
+                        new_args[i] = args[i];
+                        unchanged_args.put(args[i]);
+                        continue;
+                    }
+                    def is_rt = args[i].data.stage != Stage.VALIDATE;
+                    def should_be_runtime = !defn.args[i].isStatic();
+                    if (!is_rt && should_be_runtime) {
+                        def tp = if(defn.args[i].primitive.is_bot(), args[i].data.tipe, defn.args[i].primitive);
+                        def abstract_fn = Strings.format1("rtcast_%s", tp.long_str());
+
+                        def it = IntrinsicType.new(tp, data.stage);
+                        def ot = IntrinsicType.new(tp, Stage.INTERPRET);
+                        def abstraction_op = IROp.Intrinsic(IntrinsicTypedef.new(abstract_fn, [it], ot, CBDEffect.None), [args[i]], []);
+
+                        def abstraction_node = sea.mkNode(abstraction_op);
+                        abstraction_node.data = NodeData.new(tp, CBDEffect.None, Stage.INTERPRET);
+                        abstraction_node.data.sourceName = uidl("abs");
+
+                        new_args[i] = abstraction_node;
+                    } else {
+                        new_args[i] = args[i];
+                        unchanged_args.put(args[i]);
+                    }
+                }
+                op = IROp.Intrinsic(defn, new_args, deps);
+                return Arrays.concat(unchanged_args.copy(), deps);
+            }
+            _ => {
+                return args();
+            }
         }
     }
 }

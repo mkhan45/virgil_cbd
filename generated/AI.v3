@@ -652,7 +652,7 @@ def I32_DIV_S() {
 			trapDivideByZero();
 		}
 	}
-	def cond = U32_and(U32_equals(b, U32_view(-1)), U32_equals(a, U32_view(-2_147_483_648)));
+	def cond = U32_and(U32_equals(b, -1), U32_equals(a, -2_147_483_648));
 	def condTrue1 = I32_maybeTrue(cond);
 	def condFalse1 = I32_maybeFalse(cond);
 	if (bool.&&(condTrue1, condFalse1)) {
@@ -783,10 +783,472 @@ def I32_GT_U() {
 		}
 	}
 }
+def I32_LE_U() {
+	def b = pop_u32();
+	def a = pop_u32();
+	def condTrue = I32_maybeTrue(U32_lte(a, b));
+	def condFalse = I32_maybeFalse(U32_lte(a, b));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I32_GT_S() {
+	def b = pop_u32();
+	def a = pop_u32();
+	def condTrue = I32_maybeTrue(U32_gt_s(a, b));
+	def condFalse = I32_maybeFalse(U32_gt_s(a, b));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I32_GE_U() {
+	def b = pop_u32();
+	def a = pop_u32();
+	def condTrue = I32_maybeTrue(U32_ge_u(a, b));
+	def condFalse = I32_maybeFalse(U32_ge_u(a, b));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I32_GE_S() {
+	def b = pop_u32();
+	def a = pop_u32();
+	def condTrue = I32_maybeTrue(U32_ge_s(a, b));
+	def condFalse = I32_maybeFalse(U32_ge_s(a, b));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
 def I32_AND() {
 	def b = pop_u32();
 	def a = pop_u32();
 	push_u32(U32_and(a, b));
+}
+def I32_OR() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_or(a, b));
+}
+def I32_XOR() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_or(a, b));
+}
+def I32_SHL() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_shl(a, b));
+}
+def I32_SHR_U() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_shr_u(a, b));
+}
+def I32_SHR_S() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_shr_s(a, b));
+}
+def I32_ROTL() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_rotl(a, b));
+}
+def I32_ROTR() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_rotr(a, b));
+}
+def I32_CLZ() {
+	def a = pop_u32();
+	push_u32(U32_clz(a));
+}
+def I32_CTZ() {
+	def a = pop_u32();
+	push_u32(U32_ctz(a));
+}
+def I32_POPCNT() {
+	def a = pop_u32();
+	push_u32(U32_popcnt(a));
+}
+def I32_REM_S() {
+	def b = pop_u32();
+	def a = pop_u32();
+	def condTrue = I32_maybeTrue(U32_equals(b, rtcast_u32(0)));
+	def condFalse = I32_maybeFalse(U32_equals(b, rtcast_u32(0)));
+	if (bool.&&(condTrue, condFalse)) {
+		trapDivideByZero();
+	} else {
+		if (condTrue) {
+			trapDivideByZero();
+		}
+	}
+	push_u32(U32_rem_s(a, b));
+}
+def I32_REM_U() {
+	def b = pop_u32();
+	def a = pop_u32();
+	def condTrue = I32_maybeTrue(U32_equals(b, rtcast_u32(0)));
+	def condFalse = I32_maybeFalse(U32_equals(b, rtcast_u32(0)));
+	if (bool.&&(condTrue, condFalse)) {
+		trapDivideByZero();
+	} else {
+		if (condTrue) {
+			trapDivideByZero();
+		}
+	}
+	push_u32(U32_rem_u(a, b));
+}
+def I32_EXTEND8_S() {
+	def a = pop_u32();
+	def r = U32_extend8_s(a);
+	push_u32(r);
+}
+def I32_EXTEND16_S() {
+	def a = pop_u32();
+	def r = U32_extend16_s(a);
+	push_u32(r);
+}
+def I64_CONST() {
+	def x = imm_readILEB64();
+	push_u64(rtcast_u64(x));
+}
+def I64_ADD() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_plus(a, b));
+}
+def I64_SUB() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_minus(a, b));
+}
+def I64_MUL() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_times(a, b));
+}
+def I64_DIV_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_equals(b, 0));
+	def condFalse = I32_maybeFalse(U64_equals(b, 0));
+	if (bool.&&(condTrue, condFalse)) {
+		trapDivideByZero();
+	} else {
+		if (condTrue) {
+			trapDivideByZero();
+		}
+	}
+	def cond = Value_and(U64_equals(b, -1), U64_equals(a, -9223372036854775808L));
+	def condTrue1 = I32_maybeTrue(cond);
+	def condFalse1 = I32_maybeFalse(cond);
+	if (bool.&&(condTrue1, condFalse1)) {
+		trapDivideUnrepresentable();
+	} else {
+		if (condTrue1) {
+			trapDivideUnrepresentable();
+		}
+	}
+	push_u64(U64_div_s(a, b));
+}
+def I64_DIV_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_equals(b, 0));
+	def condFalse = I32_maybeFalse(U64_equals(b, 0));
+	if (bool.&&(condTrue, condFalse)) {
+		trapDivideByZero();
+	} else {
+		if (condTrue) {
+			trapDivideByZero();
+		}
+	}
+	push_u64(U64_div(a, b));
+}
+def I64_REM_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_equals(b, 0));
+	def condFalse = I32_maybeFalse(U64_equals(b, 0));
+	if (bool.&&(condTrue, condFalse)) {
+		trapDivideByZero();
+	} else {
+		if (condTrue) {
+			trapDivideByZero();
+		}
+	}
+	push_u64(U64_rem_s(a, b));
+}
+def I64_REM_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_equals(b, 0));
+	def condFalse = I32_maybeFalse(U64_equals(b, 0));
+	if (bool.&&(condTrue, condFalse)) {
+		trapDivideByZero();
+	} else {
+		if (condTrue) {
+			trapDivideByZero();
+		}
+	}
+	push_u64(U64_rem_u(a, b));
+}
+def I64_AND() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_and(a, b));
+}
+def I64_OR() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_or(a, b));
+}
+def I64_XOR() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_or(a, b));
+}
+def I64_SHL() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_shl(a, b));
+}
+def I64_SHR_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_shr_u(a, b));
+}
+def I64_SHR_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_shr_s(a, b));
+}
+def I64_ROTL() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_rotl(a, b));
+}
+def I64_ROTR() {
+	def b = pop_u64();
+	def a = pop_u64();
+	push_u64(U64_rotr(a, b));
+}
+def I64_CLZ() {
+	def a = pop_u64();
+	push_u64(U64_clz(a));
+}
+def I64_CTZ() {
+	def a = pop_u64();
+	push_u64(U64_ctz(a));
+}
+def I64_POPCNT() {
+	def a = pop_u64();
+	push_u64(U64_popcnt(a));
+}
+def I64_EQZ() {
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_equals(a, 0));
+	def condFalse = I32_maybeFalse(U64_equals(a, 0));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I64_EQ() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_equals(a, b));
+	def condFalse = I32_maybeFalse(U64_equals(a, b));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I64_NE() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def cond = U64_not_equals(a, b);
+	def condTrue = I32_maybeTrue(cond);
+	def condFalse = I32_maybeFalse(cond);
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I64_LT_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_lt_s(a, b));
+	def condFalse = I32_maybeFalse(U64_lt_s(a, b));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I64_LT_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_lt(a, b));
+	def condFalse = I32_maybeFalse(U64_lt(a, b));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I64_LE_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_le_s(a, b));
+	def condFalse = I32_maybeFalse(U64_le_s(a, b));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I64_LE_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_lte(a, b));
+	def condFalse = I32_maybeFalse(U64_lte(a, b));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I64_GT_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_gt_s(a, b));
+	def condFalse = I32_maybeFalse(U64_gt_s(a, b));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I64_GT_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_gt(a, b));
+	def condFalse = I32_maybeFalse(U64_gt(a, b));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I64_GE_S() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_ge_s(a, b));
+	def condFalse = I32_maybeFalse(U64_ge_s(a, b));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I64_GE_U() {
+	def b = pop_u64();
+	def a = pop_u64();
+	def condTrue = I32_maybeTrue(U64_ge_u(a, b));
+	def condFalse = I32_maybeFalse(U64_ge_u(a, b));
+	if (bool.&&(condTrue, condFalse)) {
+		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (condTrue) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I64_EXTEND8_S() {
+	def a = pop_u64();
+	def r = U64_extend8_s(a);
+	push_u64(r);
+}
+def I64_EXTEND16_S() {
+	def a = pop_u64();
+	def r = U64_extend16_s(a);
+	push_u64(r);
+}
+def I64_EXTEND32_S() {
+	def a = pop_u64();
+	def r = U64_extend32_s(a);
+	push_u64(r);
 }
 def F32_CONST() {
 	def x = imm_readULEB32();
@@ -943,9 +1405,9 @@ def TRY() {
 	doTry(bt);
 }
 def IF() {
-	def bt = imm_readBlockType();
+	def btif = imm_readBlockType();
 	def cond = pop_u32();
-	def label = doIf(bt);
+	def label = doIf(btif);
 	def condTrue = I32_maybeTrue(U32_equals(cond, rtcast_u32(0)));
 	def condFalse = I32_maybeFalse(U32_equals(cond, rtcast_u32(0)));
 	if (bool.&&(condTrue, condFalse)) {
@@ -1074,11 +1536,11 @@ def STRUCT_GET_S() {
 	match (kind) {
 		U8 => {
 			def arg = mach_readStructField_u8(obj, offset);
-			push_u32(U32_view(arg));
+			push_u32(arg);
 		}
 		U16 => {
 			def arg1 = mach_readStructField_u16(obj, offset);
-			push_u32(U32_view(arg1));
+			push_u32(arg1);
 		}
 		_ => trapUnreachable();
 	}
@@ -1102,18 +1564,18 @@ def STRUCT_GET_U() {
 	match (kind) {
 		U8 => {
 			def arg = mach_readStructField_u8(obj, offset);
-			push_u32(U32_view(arg));
+			push_u32(arg);
 		}
 		U16 => {
 			def arg1 = mach_readStructField_u16(obj, offset);
-			push_u32(U32_view(arg1));
+			push_u32(arg1);
 		}
 		_ => trapUnreachable();
 	}
 }
 def I32_LOAD() {
 	def flags = imm_readU8();
-	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	if (u8.==(u8.&(flags, 0x40u8), 0)) {
 		var memindex = imm_readULEB32();
 	}
 	def cond = m_isMemory64(0u);
@@ -1131,7 +1593,7 @@ def I32_LOAD() {
 }
 def I32_LOAD8_U() {
 	def flags = imm_readU8();
-	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	if (u8.==(u8.&(flags, 0x40u8), 0)) {
 		var memindex = imm_readULEB32();
 	}
 	def cond = m_isMemory64(0u);
@@ -1149,7 +1611,7 @@ def I32_LOAD8_U() {
 }
 def I32_LOAD16_S() {
 	def flags = imm_readU8();
-	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	if (u8.==(u8.&(flags, 0x40u8), 0)) {
 		var memindex = imm_readULEB32();
 	}
 	def cond = m_isMemory64(0u);
@@ -1167,7 +1629,7 @@ def I32_LOAD16_S() {
 }
 def I64_LOAD() {
 	def flags = imm_readU8();
-	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	if (u8.==(u8.&(flags, 0x40u8), 0)) {
 		var memindex = imm_readULEB32();
 	}
 	def cond = m_isMemory64(0u);
@@ -1185,7 +1647,7 @@ def I64_LOAD() {
 }
 def F32_LOAD() {
 	def flags = imm_readU8();
-	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	if (u8.==(u8.&(flags, 0x40u8), 0)) {
 		var memindex = imm_readULEB32();
 	}
 	def cond = m_isMemory64(0u);
@@ -1203,7 +1665,7 @@ def F32_LOAD() {
 }
 def F64_LOAD() {
 	def flags = imm_readU8();
-	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	if (u8.==(u8.&(flags, 0x40u8), 0)) {
 		var memindex = imm_readULEB32();
 	}
 	def cond = m_isMemory64(0u);
@@ -1221,7 +1683,7 @@ def F64_LOAD() {
 }
 def I32_STORE() {
 	def flags = imm_readU8();
-	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	if (u8.==(u8.&(flags, 0x40u8), 0)) {
 		var memindex = imm_readULEB32();
 	}
 	def val = pop_u32();
@@ -1238,7 +1700,7 @@ def I32_STORE() {
 }
 def I32_STORE8() {
 	def flags = imm_readU8();
-	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	if (u8.==(u8.&(flags, 0x40u8), 0)) {
 		var memindex = imm_readULEB32();
 	}
 	def val = pop_u32();
@@ -1255,7 +1717,7 @@ def I32_STORE8() {
 }
 def I32_STORE16() {
 	def flags = imm_readU8();
-	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	if (u8.==(u8.&(flags, 0x40u8), 0)) {
 		var memindex = imm_readULEB32();
 	}
 	def val = pop_u32();
@@ -1272,7 +1734,7 @@ def I32_STORE16() {
 }
 def I64_STORE() {
 	def flags = imm_readU8();
-	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	if (u8.==(u8.&(flags, 0x40u8), 0)) {
 		var memindex = imm_readULEB32();
 	}
 	def val = pop_u64();
@@ -1289,7 +1751,7 @@ def I64_STORE() {
 }
 def F32_STORE() {
 	def flags = imm_readU8();
-	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	if (u8.==(u8.&(flags, 0x40u8), 0)) {
 		var memindex = imm_readULEB32();
 	}
 	def val = pop_f32();
@@ -1304,7 +1766,7 @@ def F32_STORE() {
 }
 def F64_STORE() {
 	def flags = imm_readU8();
-	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	if (u8.==(u8.&(flags, 0x40u8), 0)) {
 		var memindex = imm_readULEB32();
 	}
 	def val = pop_f64();
@@ -1349,7 +1811,58 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.I32_LT_S.tag] = I32_LT_S;
   DISPATCH_TABLE[Opcode.I32_LE_S.tag] = I32_LE_S;
   DISPATCH_TABLE[Opcode.I32_GT_U.tag] = I32_GT_U;
+  DISPATCH_TABLE[Opcode.I32_LE_U.tag] = I32_LE_U;
+  DISPATCH_TABLE[Opcode.I32_GT_S.tag] = I32_GT_S;
+  DISPATCH_TABLE[Opcode.I32_GE_U.tag] = I32_GE_U;
+  DISPATCH_TABLE[Opcode.I32_GE_S.tag] = I32_GE_S;
   DISPATCH_TABLE[Opcode.I32_AND.tag] = I32_AND;
+  DISPATCH_TABLE[Opcode.I32_OR.tag] = I32_OR;
+  DISPATCH_TABLE[Opcode.I32_XOR.tag] = I32_XOR;
+  DISPATCH_TABLE[Opcode.I32_SHL.tag] = I32_SHL;
+  DISPATCH_TABLE[Opcode.I32_SHR_U.tag] = I32_SHR_U;
+  DISPATCH_TABLE[Opcode.I32_SHR_S.tag] = I32_SHR_S;
+  DISPATCH_TABLE[Opcode.I32_ROTL.tag] = I32_ROTL;
+  DISPATCH_TABLE[Opcode.I32_ROTR.tag] = I32_ROTR;
+  DISPATCH_TABLE[Opcode.I32_CLZ.tag] = I32_CLZ;
+  DISPATCH_TABLE[Opcode.I32_CTZ.tag] = I32_CTZ;
+  DISPATCH_TABLE[Opcode.I32_POPCNT.tag] = I32_POPCNT;
+  DISPATCH_TABLE[Opcode.I32_REM_S.tag] = I32_REM_S;
+  DISPATCH_TABLE[Opcode.I32_REM_U.tag] = I32_REM_U;
+  DISPATCH_TABLE[Opcode.I32_EXTEND8_S.tag] = I32_EXTEND8_S;
+  DISPATCH_TABLE[Opcode.I32_EXTEND16_S.tag] = I32_EXTEND16_S;
+  DISPATCH_TABLE[Opcode.I64_CONST.tag] = I64_CONST;
+  DISPATCH_TABLE[Opcode.I64_ADD.tag] = I64_ADD;
+  DISPATCH_TABLE[Opcode.I64_SUB.tag] = I64_SUB;
+  DISPATCH_TABLE[Opcode.I64_MUL.tag] = I64_MUL;
+  DISPATCH_TABLE[Opcode.I64_DIV_S.tag] = I64_DIV_S;
+  DISPATCH_TABLE[Opcode.I64_DIV_U.tag] = I64_DIV_U;
+  DISPATCH_TABLE[Opcode.I64_REM_S.tag] = I64_REM_S;
+  DISPATCH_TABLE[Opcode.I64_REM_U.tag] = I64_REM_U;
+  DISPATCH_TABLE[Opcode.I64_AND.tag] = I64_AND;
+  DISPATCH_TABLE[Opcode.I64_OR.tag] = I64_OR;
+  DISPATCH_TABLE[Opcode.I64_XOR.tag] = I64_XOR;
+  DISPATCH_TABLE[Opcode.I64_SHL.tag] = I64_SHL;
+  DISPATCH_TABLE[Opcode.I64_SHR_U.tag] = I64_SHR_U;
+  DISPATCH_TABLE[Opcode.I64_SHR_S.tag] = I64_SHR_S;
+  DISPATCH_TABLE[Opcode.I64_ROTL.tag] = I64_ROTL;
+  DISPATCH_TABLE[Opcode.I64_ROTR.tag] = I64_ROTR;
+  DISPATCH_TABLE[Opcode.I64_CLZ.tag] = I64_CLZ;
+  DISPATCH_TABLE[Opcode.I64_CTZ.tag] = I64_CTZ;
+  DISPATCH_TABLE[Opcode.I64_POPCNT.tag] = I64_POPCNT;
+  DISPATCH_TABLE[Opcode.I64_EQZ.tag] = I64_EQZ;
+  DISPATCH_TABLE[Opcode.I64_EQ.tag] = I64_EQ;
+  DISPATCH_TABLE[Opcode.I64_NE.tag] = I64_NE;
+  DISPATCH_TABLE[Opcode.I64_LT_S.tag] = I64_LT_S;
+  DISPATCH_TABLE[Opcode.I64_LT_U.tag] = I64_LT_U;
+  DISPATCH_TABLE[Opcode.I64_LE_S.tag] = I64_LE_S;
+  DISPATCH_TABLE[Opcode.I64_LE_U.tag] = I64_LE_U;
+  DISPATCH_TABLE[Opcode.I64_GT_S.tag] = I64_GT_S;
+  DISPATCH_TABLE[Opcode.I64_GT_U.tag] = I64_GT_U;
+  DISPATCH_TABLE[Opcode.I64_GE_S.tag] = I64_GE_S;
+  DISPATCH_TABLE[Opcode.I64_GE_U.tag] = I64_GE_U;
+  DISPATCH_TABLE[Opcode.I64_EXTEND8_S.tag] = I64_EXTEND8_S;
+  DISPATCH_TABLE[Opcode.I64_EXTEND16_S.tag] = I64_EXTEND16_S;
+  DISPATCH_TABLE[Opcode.I64_EXTEND32_S.tag] = I64_EXTEND32_S;
   DISPATCH_TABLE[Opcode.F32_CONST.tag] = F32_CONST;
   DISPATCH_TABLE[Opcode.F32_ADD.tag] = F32_ADD;
   DISPATCH_TABLE[Opcode.F32_SUB.tag] = F32_SUB;
