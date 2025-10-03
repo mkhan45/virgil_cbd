@@ -103,6 +103,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     def analysis = SSADCtx.new(ssa);
 
     def transformer = SSATransformer.new(analysis);
+    // transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
     transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
     transformer.onIf = flatten_ifs;
     def transformed = transformer.transform(ssa);

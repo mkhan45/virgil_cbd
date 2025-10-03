@@ -275,6 +275,26 @@ class Sea {
 
         return buf.toString();
     }
+
+    def apply(f: IRNode -> void) {
+        def wl: Vector<IRNode> = Vector.new();
+        var q_idx = 0;
+        roots.apply(fun r => void(wl.put(r)));
+
+        var completed = NodeSet.new();
+
+        while (q_idx < wl.length) {
+            def node = wl[q_idx];
+            q_idx += 1;
+
+            if (completed.has(node)) continue;
+            f(node);
+
+            for (arg in node.args()) {
+                wl.put(arg);
+            }
+        }
+    }
 }
 
 component Seas {
@@ -294,10 +314,16 @@ component Seas {
 
 class IRNode {
     var op: IROp;
-    def id: int;
+    var id: int;
     var data: NodeData;
 
     new(op, id) {
+    }
+
+    def become(other: IRNode) {
+        op = other.op;
+        id = other.id;
+        data = other.data;
     }
 
     def args() -> Array<IRNode> {
@@ -334,6 +360,15 @@ class IRNode {
 
     def hash() -> int => id;
     def eq(rhs: IRNode) -> bool => id == rhs.id;
+
+    def removeViews() {
+        match (op) {
+            Intrinsic(defn, args, deps) => {
+                if (Strings.endsWith(defn.name, ".view")) become(args[0]);
+            }
+            _ => {}
+        }
+    }
 }
 
 class NodeData {

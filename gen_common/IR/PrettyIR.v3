@@ -418,7 +418,7 @@ component Pretty_IR {
                 def newCond = substExprVars(cond, var_map);
                 def new_phis: Array<(string, string)> = Array.new(phis.length);
                 for (i < phis.length) {
-                    def new_dest = var_map[phis[i].0];
+                    def new_dest = if(var_map.has(phis[i].0), var_map[phis[i].0], phis[i].0);
                     def new_src = Strings.format2("%s!phi%d", new_dest, i);
                     if (!Strings.equal(phis[i].1, phis[i].0)) var_map[phis[i].1] = new_src;
                     new_phis[i] = (new_dest, new_src);

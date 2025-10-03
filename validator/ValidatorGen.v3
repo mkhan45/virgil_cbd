@@ -114,7 +114,8 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     analysis = transform_ctx;
     // def transform_ctx = analysis;
     def transformer = SSATransformer.new(transform_ctx);
-    transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
+    // transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
+    transformer.onLetApp = TB(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
     transformer.onIf = TB(flatten_ifs).then(SSAT.transformChildren).f;
     var transformed = transformer.transform(scheduled);
 
