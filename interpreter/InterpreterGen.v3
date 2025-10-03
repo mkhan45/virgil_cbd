@@ -33,9 +33,8 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     }
 
     def ir = SSAD_IR.from_virgil(stmt);
-    // SSAD_IR.counter = 0;
-    var ssa = SSAD_IR.ssa(ir);
-    def analysis = SSADCtx.new(ssa);
+    def analysis = SSADCtx.new(ir);
+    var ssa = ir;
     def transformer = SSATransformer.new(analysis);
     transformer.onLetApp = TB(replace_st_vars(st_field_vars, _, _)).then(SSAT.transformChildren).f;
     ssa = transformer.transform(ssa);

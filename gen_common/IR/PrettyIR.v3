@@ -6,48 +6,66 @@ type PrettyIR {
     case Void;
     case Injected(inj: string, stage: Stage, rest: PrettyIR);
 
-    def toString(indent: int) -> string {
+    def toString(indent: int, ctx: SSADCtx) -> string {
         def buf = StringBuilder.new();
-        this.buildString(buf, [], indent);
+        this.buildString(buf, [], indent, ctx);
         return buf.toString();
     }
 
-    def buildString(buf: StringBuilder, phis: Array<(string, string)>, indent: int) {
+    def buildString(buf: StringBuilder, phis: Array<(string, string)>, indent: int, ctx: SSADCtx) {
         match (this) {
             Let(n, rhs, stage, rest) => {
                 for (i < indent) buf.tab();
                 var has_phi = false;
-                var is_phi = false;
+                for (p in ctx.phis) {
+                    if (Strings.equal(p, n)) {
+                        has_phi = true;
+                        break;
+                    }
+                }
+                var is_phi_for: string = null;
                 for (i < phis.length) {
-                    if (Strings.equal(phis[i].0, n)) has_phi = true;
-                    if (Strings.equal(phis[i].1, n)) is_phi = true;
+                    if (Strings.equal(phis[i].1, n)) is_phi_for = phis[i].0;
                 }
 
-                if (is_phi) {
-                    buf.puts(n).puts(" = ");
+                if (has_phi) {
+                    buf.puts("var ").puts(n).puts(" = ");
+                } else if (is_phi_for != null) {
+                    buf.puts(is_phi_for).puts(" = ");
                 } else {
-                    buf.puts(if(has_phi, "var ", "def ")).puts(n).puts(" = ");
+                    buf.puts("def ").puts(n).puts(" = ");
                 }
                 rhs.buildString(buf);
                 buf.puts(";\n");
-                rest.buildString(buf, phis, indent);
+                rest.buildString(buf, phis, indent, ctx);
             }
             If(cond, then, els, phis, stage, rest) => {
+                // def declared_phis = Vector<string>.new();
+                // for (p in phis) {
+                //     var declared = false;
+                //     for (i < declared_phis.length) declared |= Strings.equal(declared_phis[i], p.0);
+
+                //     if (!declared) {
+                //         declared_phis.put(p.0);
+                //         for (i < indent) buf.tab();
+                //         buf.puts("var ").puts(p.0).puts(": ").puts(ctx.types[p.0].long_str()).puts(";\n");
+                //     }
+                // }
                 for (i < indent) buf.tab();
                 buf.puts("if (");
                 cond.buildString(buf);
                 buf.puts(") {\n");
-                then.buildString(buf, phis, indent + 1);
+                then.buildString(buf, phis, indent + 1, ctx);
                 for (i < indent) buf.tab();
                 if (els != PrettyIR.Void) {
                     buf.puts("} else {\n");
-                    els.buildString(buf, phis, indent + 1);
+                    els.buildString(buf, phis, indent + 1, ctx);
                     for (i < indent) buf.tab();
                     buf.puts("}\n");
                 } else {
                     buf.puts("}\n");
                 }
-                rest.buildString(buf, phis, indent);
+                rest.buildString(buf, phis, indent, ctx);
             }
             Match(subj, branches, stage, rest) => {
                 for (i < indent) buf.tab();
@@ -57,7 +75,7 @@ type PrettyIR {
                 for (b in branches) {
                     for (i < indent + 1) buf.tab();
                     buf.puts(b.0).puts(" => {\n");
-                    b.1.buildString(buf, phis, indent + 2);
+                    b.1.buildString(buf, phis, indent + 2, ctx);
                     for (i < indent + 1) buf.tab();
                     buf.puts("}\n");
                 }
@@ -65,7 +83,7 @@ type PrettyIR {
                 buf.puts("_ => trapUnreachable();\n");
                 for (i < indent) buf.tab();
                 buf.puts("}\n");
-                rest.buildString(buf, phis, indent);
+                rest.buildString(buf, phis, indent, ctx);
             }
             Void => {
                 return;
@@ -75,12 +93,12 @@ type PrettyIR {
                 e.buildString(buf);
                 buf.puts(";\n");
                 // buf.puts("; // ").puts(effect.toString()).puts("\n");
-                rest.buildString(buf, phis, indent);
+                rest.buildString(buf, phis, indent, ctx);
             }
             Injected(inj, stage, rest) => {
                 for (i < indent) buf.tab();
                 buf.puts(inj).ln();
-                rest.buildString(buf, phis, indent);
+                rest.buildString(buf, phis, indent, ctx);
             }
         }
     }
@@ -241,7 +259,14 @@ component Pretty_IR {
         match (n) {
             Let(name, rhs, stage, rest) => {
                 def inlined_rhs = inlineExpr(rhs, var_exprs);
-                if (pred(n, ctx) && exprSize(inlined_rhs) < 7) {
+                var has_phi = false;
+                for (p in ctx.phis) {
+                    if (Strings.equal(p, name)) {
+                        has_phi = true;
+                        break;
+                    }
+                }
+                if (!has_phi && pred(n, ctx) && exprSize(inlined_rhs) < 7) {
                     var_exprs[name] = inlineExpr(rhs, var_exprs);
                     return inlineLets(rest, pred, ctx, var_exprs);
                 } else {
@@ -252,6 +277,9 @@ component Pretty_IR {
             }
             If(cond, then, els, phis, stage, rest) => {
                 def inlined_cond = inlineExpr(cond, var_exprs);
+                for (p in phis) {
+                    var_exprs[p.0] = PrettyExpr.Var(p.0);
+                }
                 def inlined_then = inlineLets(then, pred, ctx, var_exprs);
                 def inlined_els = inlineLets(els, pred, ctx, var_exprs);
                 def inlined_rest = inlineLets(rest, pred, ctx, var_exprs);
@@ -370,42 +398,52 @@ component Pretty_IR {
         }
     }
 
-    def simplifyVarNums(n: PrettyIR, used_varnums: HashMap<string, int>, var_map: HashMap<string, string>) -> PrettyIR {
+    def simplifyVarNums(n: PrettyIR, used_varnums: HashMap<string, int>, var_map: HashMap<string, string>, ctx: SSADCtx) -> PrettyIR {
         match (n) {
             Let(name, rhs, stage, rest) => {
-                def baseName = getBaseName(name);
-                def nextNum = if(used_varnums.has(baseName), used_varnums[baseName], 0);
-                def newName = if(nextNum == 0, baseName, Strings.format2("%s%d", baseName, nextNum));
-                used_varnums[baseName] = nextNum + 1;
-                var_map[name] = newName;
+                if (!var_map.has(name)) {
+                    def baseName = getBaseName(name);
+                    def nextNum = if(used_varnums.has(baseName), used_varnums[baseName], 0);
+                    def newName = if(nextNum == 0, baseName, Strings.format2("%s%d", baseName, nextNum));
+                    used_varnums[baseName] = nextNum + 1;
+                    var_map[name] = newName;
+                }
+                def newName = var_map[name];
                 
                 def newRhs = substExprVars(rhs, var_map);
-                def newRest = simplifyVarNums(rest, used_varnums, var_map);
+                def newRest = simplifyVarNums(rest, used_varnums, var_map, ctx);
                 return PrettyIR.Let(newName, newRhs, stage, newRest);
             }
             If(cond, then, els, phis, stage, rest) => {
                 def newCond = substExprVars(cond, var_map);
-                def newThen = simplifyVarNums(then, used_varnums, var_map);
-                def newEls = simplifyVarNums(els, used_varnums, var_map);
-                def newRest = simplifyVarNums(rest, used_varnums, var_map);
-                return PrettyIR.If(newCond, newThen, newEls, phis, stage, newRest);
+                def new_phis: Array<(string, string)> = Array.new(phis.length);
+                for (i < phis.length) {
+                    def new_dest = var_map[phis[i].0];
+                    def new_src = Strings.format2("%s!phi%d", new_dest, i);
+                    if (!Strings.equal(phis[i].1, phis[i].0)) var_map[phis[i].1] = new_src;
+                    new_phis[i] = (new_dest, new_src);
+                }
+                def newThen = simplifyVarNums(then, used_varnums, var_map, ctx);
+                def newEls = simplifyVarNums(els, used_varnums, var_map, ctx);
+                def newRest = simplifyVarNums(rest, used_varnums, var_map, ctx);
+                return PrettyIR.If(newCond, newThen, newEls, new_phis, stage, newRest);
             }
             Match(subj, branches, stage, rest) => {
                 def newSubj = substExprVars(subj, var_map);
                 def newBranches = Array<(string, PrettyIR)>.new(branches.length);
                 for (i < branches.length) {
-                    newBranches[i] = (branches[i].0, simplifyVarNums(branches[i].1, used_varnums, var_map));
+                    newBranches[i] = (branches[i].0, simplifyVarNums(branches[i].1, used_varnums, var_map, ctx));
                 }
-                def newRest = simplifyVarNums(rest, used_varnums, var_map);
+                def newRest = simplifyVarNums(rest, used_varnums, var_map, ctx);
                 return PrettyIR.Match(newSubj, newBranches, stage, newRest);
             }
             Exec(e, stage, effect, rest) => {
                 def newE = substExprVars(e, var_map);
-                def newRest = simplifyVarNums(rest, used_varnums, var_map);
+                def newRest = simplifyVarNums(rest, used_varnums, var_map, ctx);
                 return PrettyIR.Exec(newE, stage, effect, newRest);
             }
             Injected(inj, stage, rest) => {
-                def newRest = simplifyVarNums(rest, used_varnums, var_map);
+                def newRest = simplifyVarNums(rest, used_varnums, var_map, ctx);
                 return PrettyIR.Injected(inj, stage, newRest);
             }
             Void => return PrettyIR.Void;

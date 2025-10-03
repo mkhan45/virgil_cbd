@@ -76,7 +76,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def ctx = SSADCtx.new(ir);
     def sea_ir = ctx.id_propagate(ir, Strings.newMap<string>());
     // def sea_ir = ir;
-    def sea = Seas.ofSSAD(sea_ir, ctx);
+    def sea = Seas.ofSSAD(sea_ir);
     def mermaid = sea.toMermaid();
 
     // System.puts("===="); System.puts(opcode);  System.puts("====\n");
@@ -86,13 +86,15 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // System.puts(mermaid);
 
     def scheduled = sea.schedule();
+    ctx.getPhis();
+    // System.puts("======\n");
     var pretty = Pretty_IR.fromSSAD(scheduled, ctx);
     // System.puts("----Scheduled----\n");
     // System.puts(scheduled.toString(0));
     // System.puts("----Pretty----\n");
-    // pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, ctx, Strings.newMap<PrettyExpr>());
-    // pretty = Pretty_IR.removeUselessAssigns(pretty, ctx);
-    // pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>());
+    pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, ctx, Strings.newMap<PrettyExpr>());
+    pretty = Pretty_IR.removeUselessAssigns(pretty, ctx);
+    pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>(), ctx);
     // System.puts(pretty.toString(0));
     // System.puts("====\n");
 
@@ -101,8 +103,11 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     sb.puts(sea_ir.toString(1));
     sb.puts("\n----scheduled----\n");
     sb.puts(scheduled.toString(1));
-    sb.puts("\n----mermaid----\n");
+    sb.puts("\n----pretty scheduled----\n");
+    sb.puts(pretty.toString(0, ctx));
+    sb.puts("\n----mermaid---- {\n");
     sb.puts(mermaid);
+    sb.puts("\n}\n");
     sb.puts("\t**/\n");
 
     def transform_ctx = SSADCtx.new(scheduled);
@@ -130,7 +135,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
         sb.ln();
     }
     var instSsa = processed;
-    instSsa = SSAD.Injected(sb.toString(), processed);
+    // instSsa = SSAD.Injected(sb.toString(), processed);
 
     return ValidatorCBDDef.new(opcode, instSsa, bs);
 }

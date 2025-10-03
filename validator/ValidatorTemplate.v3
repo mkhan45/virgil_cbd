@@ -544,6 +544,11 @@ component Validator {
         while (codeptr.pos < codeptr.data.length) {
             opcode_pos = codeptr.pos;
             opcode = codeptr.read_opcode();
+            // System.puti(opcode_pos); System.puts(": ");
+            // for (i < stack.top) {
+            //     System.puts(stack.elems[i].long_str()); System.puts(", ");
+            // }
+            // System.ln();
             System.puts(opcode.mnemonic);
             System.ln();
             DISPATCH_TABLE[opcode.tag]();

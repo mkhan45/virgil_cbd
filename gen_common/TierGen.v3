@@ -142,11 +142,12 @@ component TierGen {
             codestr_builder.puts("() ").puts("{\n");
             // codestr_builder.puts(extracted_def.body.toString(1));
             def ctx = SSADCtx.new(extracted_def.body);
+            ctx.getPhis();
             var pretty = Pretty_IR.fromSSAD(extracted_def.body, ctx);
             pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, ctx, Strings.newMap<PrettyExpr>());
             pretty = Pretty_IR.removeUselessAssigns(pretty, ctx);
-            pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>());
-            codestr_builder.puts(pretty.toString(1));
+            pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>(), ctx);
+            codestr_builder.puts(pretty.toString(1, ctx));
             // codestr_builder.puts(pretty.toStringCol(1));
             codestr_builder.puts("}\n");
 

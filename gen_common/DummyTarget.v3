@@ -1,5 +1,7 @@
 component Target {
 	def limit_memory_pages = 30000u;
+    def limit_memory_size_64 = 30000u;
+    def limit_memory_size = 30000u;
 	def newMemory(decl: MemoryDecl) -> Memory {
         return null;
     }

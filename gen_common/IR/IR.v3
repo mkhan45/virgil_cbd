@@ -287,6 +287,7 @@ component SSAD_IR {
                     if (Strings.equal(phis[i].0, n)) has_phi = true;
                     if (Strings.equal(phis[i].1, n)) is_phi = true;
                 }
+
                 buf.puts(if(has_phi, "var ", "def ")).puts(n).puts(" = ");
                 buf.puts(fn); buf.puts("(");
                 for (i < a.length) {
@@ -388,5 +389,25 @@ component SSAD_IR {
             }
         }
         return rtcasts.appended(SSAD.LetApp(node.n, node.f, new_args, node.rest));
+    }
+
+    def pushPhis(node: SSAD, buf: Vector<string>) -> Vector<string> {
+        match (node) {
+            LetApp(_, _, _, rest) => return pushPhis(rest, buf);
+            LetLit(_, _, _, rest) => return pushPhis(rest, buf);
+            If(_, t, e, phis, rest) => {
+                for (p in phis) buf.put(p.0);
+                pushPhis(t, buf);
+                pushPhis(e, buf);
+                return pushPhis(rest, buf);
+            }
+            Match(_, branches, rest) => {
+                for (b in branches) pushPhis(b.1, buf);
+                return pushPhis(rest, buf);
+            }
+            Injected(_, rest) => return pushPhis(rest, buf);
+            Void => return buf;
+            Final => return buf;
+        }
     }
 }

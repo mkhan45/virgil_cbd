@@ -26,16 +26,16 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
     def e_transform = transformer.transform(e);
     def r_transform = transformer.transform(rest);
 
-    if (!ctx.static[c]) {
+    // if (!ctx.static[c]) {
         return execBoth(
                     c, 
                     t_transform,
                     e_transform,
                     ctx
                 ).appended(r_transform);
-    } else {
-        return SSAD.If(c, t_transform, e_transform, phis, r_transform);
-    }
+    // } else {
+    //     return SSAD.If(c, t_transform, e_transform, phis, r_transform);
+    // }
 }
 
 def cbd_opcodes : Array<string> = [
