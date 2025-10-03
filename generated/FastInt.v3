@@ -170,7 +170,7 @@ def BR_IF() {
 }
 def I32_LOAD() {
 	def flags = imm_readU8();
-	startCond(u8.==(u8.&(flags, 0x40u8), 0));
+	startCond(u8.!=(u8.&(flags, 0x40u8), 0));
 	startElse();
 	endCond();
 	def cond = m_isMemory64(0u);

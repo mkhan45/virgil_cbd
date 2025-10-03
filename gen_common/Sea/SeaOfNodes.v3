@@ -258,6 +258,10 @@ class Sea {
         def visited = NodeSet.new();
         roots.apply(wl.push);
 
+        buf.puts("---").ln();
+        buf.puts("config:").ln();
+        buf.puts("  layout: elk").ln();
+        buf.puts("---").ln();
         buf.puts("graph TD").ln();
         while (!wl.empty()) {
             def n = wl.pop();
@@ -334,39 +338,12 @@ class IRNode {
     def become(other: IRNode) {
         op = other.op;
         // id = other.id;
-        // data = other.data;
+        data = other.data;
     }
 
     def args() -> Array<IRNode> {
         def res = op.immediatePredecessors();
-        // for (dep in res) if (dep == null) {
-        //     match (op) {
-        //         Intrinsic(defn, _, _) => System.puts(Strings.format1("intrinsic %s\n", defn.name));
-        //         Lit => System.puts("lit\n");
-        //         If => System.puts("if\n");
-        //         Else => System.puts("else\n");
-        //         End => System.puts("end\n");
-        //         Phi => System.puts("phi\n");
-        //         MatchPhi => System.puts("matchphi\n");
-        //         StatePhi => System.puts("statephi\n");
-        //     }
-        // }
         return res;
-    }
-
-    def pushPredecessors(buf: Vector<IRNode>) -> Vector<IRNode> {
-        // infinite loops if cyclic
-        for (a in args()) {
-            buf.put(a);
-            a.pushPredecessors(buf);
-        }
-
-        return buf;
-    }
-
-    def predecessors() -> Vector<IRNode> {
-        def buf = Vector<IRNode>.new();
-        return pushPredecessors(buf);
     }
 
     def hash() -> int => id;

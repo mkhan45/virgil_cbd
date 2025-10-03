@@ -395,9 +395,9 @@ def trapNull() {
     // we don't actually want to trap here
 }
 def trapUnreachable() {} // XXX: validator tries to validate unreachable code
-def trapDivideByZero();
-def trapDivideUnrepresentable();
-def trapTableOOB();
+def trapDivideByZero() {}
+def trapDivideUnrepresentable() {}
+def trapTableOOB() {}
 
 def invalid_t<T>(t: T) -> T {
     invalid();

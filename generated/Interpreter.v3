@@ -1117,7 +1117,7 @@ def TRY() {
 def IF() {
 	def sidetable_entry_bytes = get_st_entry(STEntry_Label.size);
 	def sidetable_entry = Ref<STEntry_Label>.of(sidetable_entry_bytes);
-	def btif = imm_readBlockType();
+	def bt = imm_readBlockType();
 	def cond = pop_u32();
 	if (u32.==(cond, 0)) {
 		doBranch(sidetable_entry.label);
@@ -1251,7 +1251,7 @@ def STRUCT_GET_U() {
 def I32_LOAD() {
 	def flags = imm_readU8();
 	var memindex = 0u;
-	if (u8.==(u8.&(flags, 0x40u8), 0)) {
+	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
 	def cond = m_isMemory64(memindex);
@@ -1270,7 +1270,7 @@ def I32_LOAD() {
 def I32_LOAD8_U() {
 	def flags = imm_readU8();
 	var memindex = 0u;
-	if (u8.==(u8.&(flags, 0x40u8), 0)) {
+	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
 	def cond = m_isMemory64(memindex);
@@ -1289,7 +1289,7 @@ def I32_LOAD8_U() {
 def I32_LOAD16_S() {
 	def flags = imm_readU8();
 	var memindex = 0u;
-	if (u8.==(u8.&(flags, 0x40u8), 0)) {
+	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
 	def cond = m_isMemory64(memindex);
@@ -1308,7 +1308,7 @@ def I32_LOAD16_S() {
 def I64_LOAD() {
 	def flags = imm_readU8();
 	var memindex = 0u;
-	if (u8.==(u8.&(flags, 0x40u8), 0)) {
+	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
 	def cond = m_isMemory64(memindex);
@@ -1327,7 +1327,7 @@ def I64_LOAD() {
 def F32_LOAD() {
 	def flags = imm_readU8();
 	var memindex = 0u;
-	if (u8.==(u8.&(flags, 0x40u8), 0)) {
+	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
 	def cond = m_isMemory64(memindex);
@@ -1346,7 +1346,7 @@ def F32_LOAD() {
 def F64_LOAD() {
 	def flags = imm_readU8();
 	var memindex = 0u;
-	if (u8.==(u8.&(flags, 0x40u8), 0)) {
+	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
 	def cond = m_isMemory64(memindex);
@@ -1365,7 +1365,7 @@ def F64_LOAD() {
 def I32_STORE() {
 	def flags = imm_readU8();
 	var memindex = 0u;
-	if (u8.==(u8.&(flags, 0x40u8), 0)) {
+	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
 	def val = pop_u32();
@@ -1383,7 +1383,7 @@ def I32_STORE() {
 def I32_STORE8() {
 	def flags = imm_readU8();
 	var memindex = 0u;
-	if (u8.==(u8.&(flags, 0x40u8), 0)) {
+	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
 	def val = pop_u32();
@@ -1401,7 +1401,7 @@ def I32_STORE8() {
 def I32_STORE16() {
 	def flags = imm_readU8();
 	var memindex = 0u;
-	if (u8.==(u8.&(flags, 0x40u8), 0)) {
+	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
 	def val = pop_u32();
@@ -1419,7 +1419,7 @@ def I32_STORE16() {
 def I64_STORE() {
 	def flags = imm_readU8();
 	var memindex = 0u;
-	if (u8.==(u8.&(flags, 0x40u8), 0)) {
+	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
 	def val = pop_u64();
@@ -1437,7 +1437,7 @@ def I64_STORE() {
 def F32_STORE() {
 	def flags = imm_readU8();
 	var memindex = 0u;
-	if (u8.==(u8.&(flags, 0x40u8), 0)) {
+	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
 	def val = pop_f32();
@@ -1453,7 +1453,7 @@ def F32_STORE() {
 def F64_STORE() {
 	def flags = imm_readU8();
 	var memindex = 0u;
-	if (u8.==(u8.&(flags, 0x40u8), 0)) {
+	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
 	def val = pop_f64();
