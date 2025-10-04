@@ -78,6 +78,12 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def sea_ir = ctx.id_propagate(ir, Strings.newMap<string>());
     // def sea_ir = ir;
     def sea = Seas.ofSSAD(sea_ir);
+    def raw_mermaid = sea.toMermaid();
+    graph_output_buf.put1("## %s", opcode).ln();
+    graph_output_buf.puts("```mermaid\n");
+    graph_output_buf.puts(raw_mermaid);
+    graph_output_buf.puts("```\n");
+
     sea.apply(IRNode.removeViews);
     sea.apply(IRNode.overloadOps);
     sea.apply(IRNode.addAbstractions);
@@ -113,11 +119,6 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     sb.puts(mermaid);
     sb.puts("\n}\n");
     sb.puts("\t**/\n");
-
-    graph_output_buf.put1("## %s", opcode).ln();
-    graph_output_buf.puts("```mermaid\n");
-    graph_output_buf.puts(mermaid);
-    graph_output_buf.puts("```\n");
 
     def transform_ctx = SSADCtx.new(scheduled);
     analysis = transform_ctx;
