@@ -87,6 +87,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     sea.apply(IRNode.removeViews);
     sea.apply(IRNode.overloadOps);
     sea.apply(IRNode.addAbstractions);
+    // sea.apply(IRNode.unLEM);
     def mermaid = sea.toMermaid();
 
     // System.puts("===="); System.puts(opcode);  System.puts("====\n");
@@ -146,7 +147,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
         sb.ln();
     }
     var instSsa = processed;
-    instSsa = SSAD.Injected(sb.toString(), processed);
+    // instSsa = SSAD.Injected(sb.toString(), processed);
 
     return ValidatorCBDDef.new(opcode, instSsa, bs);
 }

@@ -1,10 +1,6 @@
 ## UNREACHABLE
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	0["
 	eff__0
 	trapUnreachable
@@ -12,19 +8,11 @@ graph TD
 ```
 ## NOP
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 ```
 ## LOCAL_GET
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__2
 	push_Value
@@ -50,11 +38,7 @@ graph TD
 ```
 ## LOCAL_SET
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__8
 	setLocal
@@ -79,11 +63,7 @@ graph TD
 ```
 ## LOCAL_TEE
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	4["
 	eff__14
 	push_Value
@@ -115,11 +95,7 @@ graph TD
 ```
 ## GLOBAL_GET
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__23
 	push_Value
@@ -145,11 +121,7 @@ graph TD
 ```
 ## GLOBAL_SET
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__29
 	setGlobal
@@ -174,11 +146,7 @@ graph TD
 ```
 ## TABLE_GET
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	11["
 	state phi Stack
 	"]
@@ -253,11 +221,7 @@ graph TD
 ```
 ## TABLE_SET
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	11["
 	state phi Stack
 	"]
@@ -332,11 +296,7 @@ graph TD
 ```
 ## CALL
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__55
 	doCall
@@ -361,11 +321,7 @@ graph TD
 ```
 ## CALL_INDIRECT
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	15["
 	state phi Locals
 	"]
@@ -513,11 +469,7 @@ graph TD
 ```
 ## RETURN_CALL
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__76
 	doReturnCall
@@ -542,11 +494,7 @@ graph TD
 ```
 ## DROP
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	1["
 	eff__81
 	pop_Value
@@ -559,11 +507,7 @@ graph TD
 ```
 ## SELECT
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	11["
 	state phi Stack
 	"]
@@ -635,11 +579,7 @@ graph TD
 ```
 ## I32_CONST
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	1["
 	eff__95
 	push_u32
@@ -652,11 +592,7 @@ graph TD
 ```
 ## I32_ADD
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__98
 	push_u32
@@ -681,11 +617,7 @@ graph TD
 ```
 ## I32_SUB
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__102
 	push_u32
@@ -710,11 +642,7 @@ graph TD
 ```
 ## I32_MUL
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__106
 	push_u32
@@ -739,11 +667,7 @@ graph TD
 ```
 ## I32_DIV_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	31["
 	state phi Sidetable
 	"]
@@ -972,11 +896,7 @@ graph TD
 ```
 ## I32_DIV_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	14["
 	state phi Codebuilder
 	"]
@@ -1081,11 +1001,7 @@ graph TD
 ```
 ## I32_EQZ
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -1147,11 +1063,7 @@ graph TD
 ```
 ## I32_EQ
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -1214,11 +1126,7 @@ graph TD
 ```
 ## I32_NE
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -1281,11 +1189,7 @@ graph TD
 ```
 ## I32_LT_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -1348,11 +1252,7 @@ graph TD
 ```
 ## I32_LT_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -1415,11 +1315,7 @@ graph TD
 ```
 ## I32_LE_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -1482,11 +1378,7 @@ graph TD
 ```
 ## I32_GT_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -1549,11 +1441,7 @@ graph TD
 ```
 ## I32_LE_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -1616,11 +1504,7 @@ graph TD
 ```
 ## I32_GT_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -1683,11 +1567,7 @@ graph TD
 ```
 ## I32_GE_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -1750,11 +1630,7 @@ graph TD
 ```
 ## I32_GE_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -1817,11 +1693,7 @@ graph TD
 ```
 ## I32_AND
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__240
 	push_u32
@@ -1846,11 +1718,7 @@ graph TD
 ```
 ## I32_OR
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__244
 	push_u32
@@ -1875,11 +1743,7 @@ graph TD
 ```
 ## I32_XOR
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__248
 	push_u32
@@ -1904,11 +1768,7 @@ graph TD
 ```
 ## I32_SHL
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__252
 	push_u32
@@ -1933,11 +1793,7 @@ graph TD
 ```
 ## I32_SHR_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__256
 	push_u32
@@ -1962,11 +1818,7 @@ graph TD
 ```
 ## I32_SHR_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__260
 	push_u32
@@ -1991,11 +1843,7 @@ graph TD
 ```
 ## I32_ROTL
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__264
 	push_u32
@@ -2020,11 +1868,7 @@ graph TD
 ```
 ## I32_ROTR
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__268
 	push_u32
@@ -2049,11 +1893,7 @@ graph TD
 ```
 ## I32_CLZ
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__272
 	push_u32
@@ -2072,11 +1912,7 @@ graph TD
 ```
 ## I32_CTZ
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__275
 	push_u32
@@ -2095,11 +1931,7 @@ graph TD
 ```
 ## I32_POPCNT
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__278
 	push_u32
@@ -2118,11 +1950,7 @@ graph TD
 ```
 ## I32_REM_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	14["
 	state phi Codebuilder
 	"]
@@ -2227,11 +2055,7 @@ graph TD
 ```
 ## I32_REM_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	14["
 	state phi Codebuilder
 	"]
@@ -2336,11 +2160,7 @@ graph TD
 ```
 ## I32_EXTEND8_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__299
 	push_u32
@@ -2359,11 +2179,7 @@ graph TD
 ```
 ## I32_EXTEND16_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__302
 	push_u32
@@ -2382,11 +2198,7 @@ graph TD
 ```
 ## I64_CONST
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	1["
 	eff__305
 	push_u64
@@ -2399,11 +2211,7 @@ graph TD
 ```
 ## I64_ADD
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__308
 	push_u64
@@ -2428,11 +2236,7 @@ graph TD
 ```
 ## I64_SUB
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__312
 	push_u64
@@ -2457,11 +2261,7 @@ graph TD
 ```
 ## I64_MUL
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__316
 	push_u64
@@ -2486,11 +2286,7 @@ graph TD
 ```
 ## I64_DIV_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	31["
 	state phi Sidetable
 	"]
@@ -2719,11 +2515,7 @@ graph TD
 ```
 ## I64_DIV_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	14["
 	state phi Codebuilder
 	"]
@@ -2828,11 +2620,7 @@ graph TD
 ```
 ## I64_REM_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	14["
 	state phi Codebuilder
 	"]
@@ -2937,11 +2725,7 @@ graph TD
 ```
 ## I64_REM_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	14["
 	state phi Codebuilder
 	"]
@@ -3046,11 +2830,7 @@ graph TD
 ```
 ## I64_AND
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__362
 	push_u64
@@ -3075,11 +2855,7 @@ graph TD
 ```
 ## I64_OR
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__366
 	push_u64
@@ -3104,11 +2880,7 @@ graph TD
 ```
 ## I64_XOR
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__370
 	push_u64
@@ -3133,11 +2905,7 @@ graph TD
 ```
 ## I64_SHL
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__374
 	push_u64
@@ -3162,11 +2930,7 @@ graph TD
 ```
 ## I64_SHR_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__378
 	push_u64
@@ -3191,11 +2955,7 @@ graph TD
 ```
 ## I64_SHR_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__382
 	push_u64
@@ -3220,11 +2980,7 @@ graph TD
 ```
 ## I64_ROTL
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__386
 	push_u64
@@ -3249,11 +3005,7 @@ graph TD
 ```
 ## I64_ROTR
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__390
 	push_u64
@@ -3278,11 +3030,7 @@ graph TD
 ```
 ## I64_CLZ
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__394
 	push_u64
@@ -3301,11 +3049,7 @@ graph TD
 ```
 ## I64_CTZ
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__397
 	push_u64
@@ -3324,11 +3068,7 @@ graph TD
 ```
 ## I64_POPCNT
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__400
 	push_u64
@@ -3347,11 +3087,7 @@ graph TD
 ```
 ## I64_EQZ
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -3413,11 +3149,7 @@ graph TD
 ```
 ## I64_EQ
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -3480,11 +3212,7 @@ graph TD
 ```
 ## I64_NE
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -3547,11 +3275,7 @@ graph TD
 ```
 ## I64_LT_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -3614,11 +3338,7 @@ graph TD
 ```
 ## I64_LT_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -3681,11 +3401,7 @@ graph TD
 ```
 ## I64_LE_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -3748,11 +3464,7 @@ graph TD
 ```
 ## I64_LE_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -3815,11 +3527,7 @@ graph TD
 ```
 ## I64_GT_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -3882,11 +3590,7 @@ graph TD
 ```
 ## I64_GT_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -3949,11 +3653,7 @@ graph TD
 ```
 ## I64_GE_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -4016,11 +3716,7 @@ graph TD
 ```
 ## I64_GE_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -4083,11 +3779,7 @@ graph TD
 ```
 ## I64_EXTEND8_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__502
 	push_u64
@@ -4106,11 +3798,7 @@ graph TD
 ```
 ## I64_EXTEND16_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__505
 	push_u64
@@ -4129,11 +3817,7 @@ graph TD
 ```
 ## I64_EXTEND32_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__508
 	push_u64
@@ -4152,11 +3836,7 @@ graph TD
 ```
 ## F32_CONST
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__511
 	push_f32
@@ -4174,11 +3854,7 @@ graph TD
 ```
 ## F32_ADD
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__515
 	push_f32
@@ -4203,11 +3879,7 @@ graph TD
 ```
 ## F32_SUB
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__519
 	push_f32
@@ -4232,11 +3904,7 @@ graph TD
 ```
 ## F32_MUL
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__523
 	push_f32
@@ -4261,11 +3929,7 @@ graph TD
 ```
 ## F32_DIV
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	14["
 	state phi Codebuilder
 	"]
@@ -4370,11 +4034,7 @@ graph TD
 ```
 ## F32_SQRT
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__536
 	push_f32
@@ -4393,11 +4053,7 @@ graph TD
 ```
 ## F32_EQ
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -4460,11 +4116,7 @@ graph TD
 ```
 ## F32_NE
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -4527,11 +4179,7 @@ graph TD
 ```
 ## F32_LT
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -4594,11 +4242,7 @@ graph TD
 ```
 ## F32_LE
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -4661,11 +4305,7 @@ graph TD
 ```
 ## F32_GT
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	10["
 	state phi Stack
 	"]
@@ -4728,11 +4368,7 @@ graph TD
 ```
 ## BR
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	st_put__587
 	ctlxfer.put_BR
@@ -4756,11 +4392,7 @@ graph TD
 ```
 ## BR_IF
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	15["
 	state phi Sidetable
 	"]
@@ -4883,11 +4515,7 @@ graph TD
 ```
 ## BR_TABLE
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	st_put__600
 	ctlxfer.put_BR_TABLE
@@ -4912,11 +4540,7 @@ graph TD
 ```
 ## BLOCK
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	1["
 	eff__601
 	doBlock
@@ -4930,11 +4554,7 @@ graph TD
 ```
 ## LOOP
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	1["
 	eff__603
 	doLoop
@@ -4948,11 +4568,7 @@ graph TD
 ```
 ## TRY
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	1["
 	eff__605
 	doTry
@@ -4966,11 +4582,7 @@ graph TD
 ```
 ## IF
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	15["
 	state phi Sidetable
 	"]
@@ -5105,11 +4717,7 @@ graph TD
 ```
 ## ELSE
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	st_put__618
 	ctlxfer.put_ELSE
@@ -5134,11 +4742,7 @@ graph TD
 ```
 ## END
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	12["
 	state phi Codebuilder
 	"]
@@ -5238,11 +4842,7 @@ graph TD
 ```
 ## RETURN
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	0["
 	ret__622
 	doReturn
@@ -5250,11 +4850,7 @@ graph TD
 ```
 ## REF_NULL
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	2["
 	eff__623
 	push_Object
@@ -5271,11 +4867,7 @@ graph TD
 ```
 ## REF_IS_NULL
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	9["
 	state phi Stack
 	"]
@@ -5332,11 +4924,7 @@ graph TD
 ```
 ## REF_AS_NON_NULL
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	13["
 	eff__633
 	push_Object
@@ -5425,11 +5013,7 @@ graph TD
 ```
 ## STRUCT_NEW
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	3["
 	eff__638
 	push_Object
@@ -5452,11 +5036,7 @@ graph TD
 ```
 ## STRUCT_GET
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	15["
 	state phi Sidetable
 	"]
@@ -5563,11 +5143,7 @@ graph TD
 ```
 ## STRUCT_GET_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	15["
 	state phi Sidetable
 	"]
@@ -5674,11 +5250,7 @@ graph TD
 ```
 ## STRUCT_GET_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	15["
 	state phi Sidetable
 	"]
@@ -5785,11 +5357,7 @@ graph TD
 ```
 ## I32_LOAD
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	25["
 	state phi Stack
 	"]
@@ -5877,7 +5445,6 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
-	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -5947,11 +5514,7 @@ graph TD
 ```
 ## I32_LOAD8_U
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	25["
 	state phi Stack
 	"]
@@ -6039,7 +5602,6 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
-	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -6109,11 +5671,7 @@ graph TD
 ```
 ## I32_LOAD16_S
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	25["
 	state phi Stack
 	"]
@@ -6201,7 +5759,6 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
-	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -6271,11 +5828,7 @@ graph TD
 ```
 ## I64_LOAD
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	25["
 	state phi Stack
 	"]
@@ -6363,7 +5916,6 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
-	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -6433,11 +5985,7 @@ graph TD
 ```
 ## F32_LOAD
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	25["
 	state phi Stack
 	"]
@@ -6525,7 +6073,6 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
-	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -6595,11 +6142,7 @@ graph TD
 ```
 ## F64_LOAD
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	25["
 	state phi Stack
 	"]
@@ -6687,7 +6230,6 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
-	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -6757,11 +6299,7 @@ graph TD
 ```
 ## I32_STORE
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	25["
 	state phi Memory
 	"]
@@ -6854,7 +6392,6 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
-	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -6922,11 +6459,7 @@ graph TD
 ```
 ## I32_STORE8
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	25["
 	state phi Memory
 	"]
@@ -7019,7 +6552,6 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
-	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -7087,11 +6619,7 @@ graph TD
 ```
 ## I32_STORE16
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	25["
 	state phi Memory
 	"]
@@ -7184,7 +6712,6 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
-	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -7252,11 +6779,7 @@ graph TD
 ```
 ## I64_STORE
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	25["
 	state phi Memory
 	"]
@@ -7349,7 +6872,6 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
-	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -7417,11 +6939,7 @@ graph TD
 ```
 ## F32_STORE
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	24["
 	state phi Stack
 	"]
@@ -7507,7 +7025,6 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
-	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -7573,11 +7090,7 @@ graph TD
 ```
 ## F64_STORE
 ```mermaid
----
-config:
-  layout: elk
----
-graph TD
+%%{ init: { "flowchart": { "defaultRenderer": "elk" } } }%%graph TD
 	25["
 	state phi Memory
 	"]
@@ -7670,7 +7183,6 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
-	1 --> 8
 	0 --> 8
 	7["
 	else
