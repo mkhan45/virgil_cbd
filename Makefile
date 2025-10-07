@@ -10,8 +10,8 @@ DEFS = $(WIZARD)/src/bytecode/CanonicalDefs.v3
 TYPEDEFS = $(WIZARD)/src/bytecode/Intrinsics.v3
 
 # Virgil compiler command (adjust as needed)
-VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -O1 -run -fun-exprs -simple-bodies
-V3C ?= ../virgil/bin/v3c-x86-64-linux -fun-exprs -simple-bodies
+VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -O2 -run -fun-exprs -simple-bodies
+V3C ?= ../virgil/bin/v3c-x86-64-linux -O2 -fun-exprs -simple-bodies
 
 GENERATE_LIB = $(wildcard gen_common/*.v3) $(wildcard gen_common/*/*.v3)
 GENERATE_DEPS = $(GENERATE_LIB) $(DEFS) $(DEFS).sexp $(TYPEDEFS)
@@ -30,15 +30,13 @@ $(DEFS).sexp: wizard-engine/src/bytecode/CanonicalDefs.v3
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
 
 generated/Validator.v3: $(GENERATE_DEPS) validator/*.v3
-	$(VIRGIL) $(VIRGIL_STD)\
+	$(V3C) $(VIRGIL_STD)\
 		$(GENERATE_LIB)\
 		$(ENGINE)\
 		$(WIZARD_UTIL)\
-		validator/ValidatorGen.v3\
-		$(DEFS).sexp\
-		$(DEFS)\
-		validator/ValidatorTemplate.v3\
-		> $@~
+		validator/ValidatorGen.v3
+	./ValidatorGen $(DEFS).sexp $(DEFS) validator/ValidatorTemplate.v3 > $@~
+	rm ./ValidatorGen
 	mv --force $@~ $@
 
 generated/Interpreter.v3: $(GENERATE_DEPS) interpreter/*.v3
