@@ -87,7 +87,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     sea.apply(IRNode.removeViews);
     sea.apply(IRNode.overloadOps);
     sea.apply(IRNode.addAbstractions);
-    // sea.apply(IRNode.unLEM);
+    if (Strings.equal(opcode, "I32_EQZ")) sea.apply(IRNode.unLEM);
     def mermaid = sea.toMermaid();
 
     // System.puts("===="); System.puts(opcode);  System.puts("====\n");
@@ -96,7 +96,9 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // System.puts("----MERMAID----\n");
     // System.puts(mermaid);
 
+    // System.puts("scheduling\n");
     def scheduled = sea.schedule();
+    // System.puts("done scheduling\n");
     ctx.getPhis();
     // System.puts("======\n");
     var pretty = Pretty_IR.fromSSAD(scheduled, ctx);
@@ -127,7 +129,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def transformer = SSATransformer.new(transform_ctx);
     // transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
     // transformer.onLetApp = TB(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
-    transformer.onIf = TB(flatten_ifs).then(SSAT.transformChildren).f;
+    // transformer.onIf = TB(flatten_ifs).then(SSAT.transformChildren).f;
     var transformed = transformer.transform(scheduled);
 
     // def transformer = SSATransformer.new(analysis);

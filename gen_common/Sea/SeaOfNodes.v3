@@ -34,6 +34,7 @@ def intrinsic(name: string) -> IntrinsicTypedef {
 
 class Sea {
     var roots: NodeSet;
+    var leaves: NodeSet;
     var nodes: NodeSet;
     var id_count: int;
 
@@ -42,6 +43,7 @@ class Sea {
 
     new() {
         roots = NodeSet.new();
+        leaves = NodeSet.new();
         nodes = NodeSet.new();
         id_count = 0;
 
@@ -58,7 +60,11 @@ class Sea {
         roots.put(node);
         nodes.put(node);
         def args = node.args();
-        for (arg in args) roots.remove(arg);
+        for (arg in args) {
+            roots.remove(arg);
+            arg.children.put(node);
+        }
+        if (args.length == 0) leaves.put(node);
 
         return node;
     }
@@ -95,13 +101,17 @@ class Sea {
 
             completed.put(node);
             match (node.op) {
-                Intrinsic(defn, args, _) => {
+                Intrinsic(defn, args) => {
+                    if (node.data == null) {
+                        node.data = NodeData.new(TypeVar.Bot("void"), CBDEffect.None, Stage.INTERPRET);
+                        node.data.sourceName = uidl("eff");
+                    }
                     res = res.appended(SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), SSAD.Void));
                 }
                 Lit(tipe, rep) => {
                     res = res.appended(SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), SSAD.Void));
                 }
-                If(c) => {
+                If(c, regions) => {
                     conditionals[c] = (res, SSAD.Void, completed.dup());
                     res = SSAD.Void;
                 }
@@ -134,6 +144,7 @@ class Sea {
                     res = prev.appended(if_ssa);
                 }
                 Phi(c, end, l, r) => {
+                    node.data = l.data;
                     // let SSAD take care of the actual phi translation by populating the phis array in the SSAD.If node
                     // res = res.appended(SSAD.LetApp(node.data.sourceName, "if", [c.data.sourceName, l.data.sourceName, r.data.sourceName], SSAD.Void));
                 }
@@ -156,8 +167,9 @@ class Sea {
                 for (sc in intrinsic_def.reads | intrinsic_def.writes) if (state_vars[sc.tag] != null) 
                     node_deps = List.new(state_vars[sc.tag], node_deps);
 
-                def op = IROp.Intrinsic(intrinsic_def, arg_nodes, Lists.toArray<IRNode>(node_deps));
+                def op = IROp.Intrinsic(intrinsic_def, arg_nodes);
                 def node = var_nodes[n] = mkNode(op);
+                node.pathDeps = deps;
 
                 for (sc in intrinsic_def.writes) state_vars[sc.tag] = node;
 
@@ -175,16 +187,17 @@ class Sea {
                 return node;
             }
             LetLit(n, l, t, rest) => {
+                var node: IRNode;
                 if (lit_nodes.has(l)) {
-                    def node = var_nodes[n] = lit_nodes[l];
-                    return node;
+                    node = var_nodes[n] = lit_nodes[l];
+                } else {
+                    def tp = TypeUtil.fromString(t);
+                    def op = IROp.Lit(tp, l);
+                    def node = var_nodes[n] = mkNode(op);
+                    lit_nodes[l] = node;
+                    node.data = NodeData.new(tp, CBDEffect.None, Stage.VALIDATE);
+                    node.data.sourceName = n;
                 }
-                def tp = TypeUtil.fromString(t);
-                def op = IROp.Lit(tp, l);
-                def node = var_nodes[n] = mkNode(op);
-
-                node.data = NodeData.new(tp, CBDEffect.None, Stage.VALIDATE);
-                node.data.sourceName = n;
 
                 addSSAD(rest, state_vars, deps);
                 return node;
@@ -192,12 +205,16 @@ class Sea {
             If(cond, then, els, phis, rest) => {
                 def cond_node = var_nodes[cond];
                 def then_region_ends = Vector<IRNode>.new();
-                def start_if = mkNode(IROp.If(cond_node));
+                def if_regions = IfRegions.new();
+                def start_if = mkNode(IROp.If(cond_node, if_regions));
                 def start_else = mkNode(IROp.Else(cond_node, then_region_ends));
 
                 def else_region_ends = Vectors.of1<IRNode>(start_else);
                 def phi_vec = Vector<IRNode>.new();
                 def end_node = mkNode(IROp.End(cond_node, else_region_ends, phi_vec));
+
+                if_regions.els = start_else;
+                if_regions.end = end_node;
 
                 // which node to choose for var if cond is not taken,
                 // might be the starting node for var if the els doesn't assign it
@@ -258,11 +275,11 @@ class Sea {
         def visited = NodeSet.new();
         roots.apply(wl.push);
 
-        // buf.puts("---").ln();
-        // buf.puts("config:").ln();
-        // buf.puts("  layout: elk").ln();
-        // buf.puts("---").ln();
-        buf.puts("%%{ init: { \"flowchart\": { \"defaultRenderer\": \"elk\" } } }%%");
+        buf.puts("---").ln();
+        buf.puts("config:").ln();
+        buf.puts("  layout: elk").ln();
+        buf.puts("---").ln();
+        // buf.puts("%%{ init: { \"flowchart\": { \"defaultRenderer\": \"elk\" } } }%%");
         buf.puts("graph TD").ln();
         while (!wl.empty()) {
             def n = wl.pop();
@@ -272,9 +289,9 @@ class Sea {
             buf.puts("[\"").ln();
             if (n.data != null && n.data.sourceName != null) buf.tab().puts(n.data.sourceName).ln();
             match (n.op) {
-                Intrinsic(defn, _, _) => buf.tab().puts(defn.name).ln();
+                Intrinsic(defn, _) => buf.tab().puts(defn.name).ln();
                 Lit(_, rep) => buf.tab().puts(rep).ln();
-                If(c) => buf.tab().puts("if").ln();
+                If(c, _) => buf.tab().puts("if").ln();
                 Else(c, region_ends) => buf.tab().puts("else").ln();
                 End(c, region_ends, _) => buf.tab().puts("end").ln();
                 Phi(c, end, l, r) => buf.tab().puts("phi").ln();
@@ -332,19 +349,24 @@ class IRNode {
     var op: IROp;
     var id: int;
     var data: NodeData;
+    var pathDeps: List<IRNode>;
+    var children: Vector<IRNode>;
 
     new(op, id) {
+        children = Vector.new();
     }
 
     def become(other: IRNode) {
         op = other.op;
         // id = other.id;
         data = other.data;
+        children = other.children;
+        pathDeps = other.pathDeps;
     }
 
     def args() -> Array<IRNode> {
         def res = op.immediatePredecessors();
-        return res;
+        return Arrays.concat(res, Lists.toArray(pathDeps));
     }
 
     def hash() -> int => id;
@@ -352,7 +374,7 @@ class IRNode {
 
     def removeViews(sea: Sea) -> Range<IRNode> {
         match (op) {
-            Intrinsic(defn, args, deps) => {
+            Intrinsic(defn, args) => {
                 if (Strings.endsWith(defn.name, ".view")) become(args[0]);
             }
             _ => {}
@@ -362,7 +384,7 @@ class IRNode {
 
     def overloadOps(sea: Sea) -> Range<IRNode> {
         match (op) {
-            Intrinsic(defn, args, deps) => {
+            Intrinsic(defn, args) => {
                 def op_spl = IntrinsicTypes.split_op(defn.name);
                 def op_fn = op_spl.1;
                 def is_rt = data.stage != Stage.VALIDATE;
@@ -372,7 +394,7 @@ class IRNode {
                     def prefix = tp.rt_str();
                     def new_f = Strings.format2("%s_%s", prefix, op_fn);
                     def intrinsic_def = intrinsic(new_f);
-                    op = IROp.Intrinsic(intrinsic_def, args, deps);
+                    op = IROp.Intrinsic(intrinsic_def, args);
                 }
             }
             _ => {}
@@ -382,7 +404,7 @@ class IRNode {
 
     def addAbstractions(sea: Sea) -> Range<IRNode> {
         match (op) {
-            Intrinsic(defn, args, deps) => {
+            Intrinsic(defn, args) => {
                 if (defn.args == null) return this.args(); // unknown intrinsic
                 def new_args = Array<IRNode>.new(args.length);
                 def unchanged_args = Vector<IRNode>.new();
@@ -400,7 +422,7 @@ class IRNode {
 
                         def it = IntrinsicType.new(tp, data.stage);
                         def ot = IntrinsicType.new(tp, Stage.INTERPRET);
-                        def abstraction_op = IROp.Intrinsic(IntrinsicTypedef.new(abstract_fn, [it], ot, CBDEffect.None), [args[i]], []);
+                        def abstraction_op = IROp.Intrinsic(IntrinsicTypedef.new(abstract_fn, [it], ot, CBDEffect.None), [args[i]]);
 
                         def abstraction_node = sea.mkNode(abstraction_op);
                         abstraction_node.data = NodeData.new(tp, CBDEffect.None, Stage.INTERPRET);
@@ -412,8 +434,8 @@ class IRNode {
                         unchanged_args.put(args[i]);
                     }
                 }
-                op = IROp.Intrinsic(defn, new_args, deps);
-                return Arrays.concat(unchanged_args.copy(), deps);
+                op = IROp.Intrinsic(defn, new_args);
+                return Arrays.concat(unchanged_args.copy(), Lists.toArray(pathDeps));
             }
             _ => {
                 return args();
@@ -423,16 +445,17 @@ class IRNode {
 
     def unLEM(sea: Sea) -> Range<IRNode> {
         match (op) {
-            Phi(cond, end, left, right) => {
+            If(cond, regions) => {
+                if (cond.data.stage == Stage.VALIDATE) return [];
+
                 def it = IntrinsicType.new(cond.data.tipe, cond.data.stage);
                 def ifTrue = intrinsic("maybeTrue");
                 def ifFalse = intrinsic("maybeFalse");
                 def and = intrinsic("bool.&&");
-                def merge = intrinsic("merge");
+                def merge = intrinsic("nop");
 
-                def ifTrueOp = IROp.Intrinsic(ifTrue, [cond], []);
-                def ifFalseOp = IROp.Intrinsic(ifFalse, [cond], []);
-                def mergeOp = IROp.Intrinsic(merge, [left, right], []);
+                def ifTrueOp = IROp.Intrinsic(ifTrue, [cond]);
+                def ifFalseOp = IROp.Intrinsic(ifFalse, [cond]);
 
                 def ifTrueNode = sea.mkNode(ifTrueOp);
                 ifTrueNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
@@ -440,31 +463,151 @@ class IRNode {
 
                 def ifFalseNode = sea.mkNode(ifFalseOp);
                 ifFalseNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-                ifTrueNode.data.sourceName = uidl("iff");
+                ifFalseNode.data.sourceName = uidl("iff");
 
-                def mergeNode = sea.mkNode(mergeOp);
-                mergeNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-                mergeNode.data.sourceName = uidl("merge");
-
-                def andOp = IROp.Intrinsic(and, [ifTrueNode, ifFalseNode], []);
+                def andOp = IROp.Intrinsic(and, [ifTrueNode, ifFalseNode]);
                 def andNode = sea.mkNode(andOp);
                 andNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
                 andNode.data.sourceName = uidl("and");
 
-                def ifBothNode = sea.mkNode(IROp.If(andNode));
-                def elseBothNode = sea.mkNode(IROp.If(andNode));
-                def end_phis = Vector<IRNode>.new();
-                def endNode = sea.mkNode(IROp.End(andNode, Vector.new(), end_phis));
-                def newPhi = sea.mkNode(IROp.Phi(andNode, endNode, mergeNode, this));
-                newPhi.data = NodeData.new(data.tipe, data.eff, data.stage);
-                newPhi.data.sourceName = uidl("triPhi");
-                end_phis.put(newPhi);
+                def right_phis = IROp.End.!(regions.end.op).phis;
+                def else_region_ends = Vector<IRNode>.new();
 
-                become(newPhi);
+                def newRegions = IfRegions.new();
+                def newIf = sea.mkNode(IROp.If(andNode, newRegions));
+                newIf.pathDeps = pathDeps;
+                newIf.children = children;
+
+                def newElse = newRegions.els = sea.mkNode(IROp.Else(andNode, Vector.new()));
+
+                def newRight = this;
+                else_region_ends.put(newRight);
+                newRight.pathDeps = List.new(newElse, null);
+
+                def newPhis = Vector<IRNode>.new();
+                def newEnd = newRegions.end = sea.mkNode(IROp.End(andNode, right_phis, else_region_ends));
+                newEnd.pathDeps = List.new(newRight, null);
+                for (i < right_phis.length) {
+                    def inner_phi = right_phis[i];
+                    match (inner_phi.op) {
+                        Phi => {}
+                        StatePhi(_, _, left, right, statecomp) => {
+                            def mergeNode = sea.mkNode(IROp.Intrinsic(merge, []));
+                            newElse.pathDeps = List.new(mergeNode, newElse.pathDeps);
+
+                            def newLeft = sea.mkNode(left.op);
+                            def newRight = sea.mkNode(right.op);
+                            newLeft.pathDeps = List.new(newIf, null);
+                            newRight.pathDeps = List.new(newIf, null);
+                            mergeNode.pathDeps = List.new(newLeft, List.new(newRight, null));
+                        }
+                        _ => {}
+                    }
+                }
+
                 return [];
             }
+            // Phi(cond, end, left, right) => {
+            //     def it = IntrinsicType.new(cond.data.tipe, cond.data.stage);
+            //     def ifTrue = intrinsic("maybeTrue");
+            //     def ifFalse = intrinsic("maybeFalse");
+            //     def and = intrinsic("bool.&&");
+            //     def merge = intrinsic("merge");
+
+            //     def ifTrueOp = IROp.Intrinsic(ifTrue, [cond], []);
+            //     def ifFalseOp = IROp.Intrinsic(ifFalse, [cond], []);
+            //     def mergeOp = IROp.Intrinsic(merge, [left, right], []);
+
+            //     def ifTrueNode = sea.mkNode(ifTrueOp);
+            //     ifTrueNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
+            //     ifTrueNode.data.sourceName = uidl("ift");
+
+            //     def ifFalseNode = sea.mkNode(ifFalseOp);
+            //     ifFalseNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
+            //     ifTrueNode.data.sourceName = uidl("iff");
+
+            //     def mergeNode = sea.mkNode(mergeOp);
+            //     mergeNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
+            //     mergeNode.data.sourceName = uidl("merge");
+
+            //     def andOp = IROp.Intrinsic(and, [ifTrueNode, ifFalseNode], []);
+            //     def andNode = sea.mkNode(andOp);
+            //     andNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
+            //     andNode.data.sourceName = uidl("and");
+
+            //     def ifBothNode = sea.mkNode(IROp.If(andNode));
+            //     def elseBothNode = sea.mkNode(IROp.If(andNode));
+            //     def end_phis = Vector<IRNode>.new();
+            //     def endNode = sea.mkNode(IROp.End(andNode, Vector.new(), end_phis));
+            //     def newPhi = sea.mkNode(IROp.Phi(andNode, endNode, mergeNode, this));
+            //     newPhi.data = NodeData.new(data.tipe, data.eff, data.stage);
+            //     newPhi.data.sourceName = uidl("triPhi");
+            //     // end_phis.put(newPhi);
+
+            //     become(newPhi);
+            //     return [];
+            // }
+            // StatePhi(cond, end, left, right, statecomp) => {
+            //     if (cond.data.stage == Stage.VALIDATE) return args();
+            //     def it = IntrinsicType.new(cond.data.tipe, cond.data.stage);
+            //     def ifTrue = intrinsic("maybeTrue");
+            //     def ifFalse = intrinsic("maybeFalse");
+            //     def and = intrinsic("bool.&&");
+            //     def merge = intrinsic("nop");
+
+            //     def ifTrueOp = IROp.Intrinsic(ifTrue, [cond]);
+            //     def ifFalseOp = IROp.Intrinsic(ifFalse, [cond]);
+
+            //     def ifTrueNode = sea.mkNode(ifTrueOp);
+            //     ifTrueNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
+            //     ifTrueNode.data.sourceName = uidl("ift");
+
+            //     def ifFalseNode = sea.mkNode(ifFalseOp);
+            //     ifFalseNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
+            //     ifFalseNode.data.sourceName = uidl("iff");
+
+            //     def andOp = IROp.Intrinsic(and, [ifTrueNode, ifFalseNode]);
+            //     def andNode = sea.mkNode(andOp);
+            //     andNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
+            //     andNode.data.sourceName = uidl("and");
+
+            //     def mergeNode = sea.mkNode(IROp.Intrinsic(merge, []));
+            //     if (left != null) mergeNode.pathDeps = List.new(left, mergeNode.pathDeps);
+            //     if (right != null) mergeNode.pathDeps = List.new(right, mergeNode.pathDeps);
+
+            //     def if_ends = Vector<IRNode>.new();
+            //     def else_ends = Vector<IRNode>.new();
+
+            //     def ifBothNode = sea.mkNode(IROp.If(andNode));
+            //     def elseBothNode = sea.mkNode(IROp.Else(andNode, if_ends));
+
+            //     if (left != null) {
+            //         if_ends.put(left);
+            //         // left.pathDeps = List.new(ifBothNode, left.pathDeps);
+            //         left.pathDeps = List.new(ifBothNode, null);
+            //     }
+            //     if (right != null) {
+            //         else_ends.put(right);
+            //         // right.pathDeps = List.new(elseBothNode, right.pathDeps);
+            //         right.pathDeps = List.new(elseBothNode, null);
+            //     }
+
+            //     def oldPhi = sea.mkNode(this.op);
+
+            //     def end_phis = Vector<IRNode>.new();
+            //     def endNode = sea.mkNode(IROp.End(andNode, else_ends, end_phis));
+            //     def newPhi = sea.mkNode(IROp.StatePhi(andNode, endNode, mergeNode, oldPhi, statecomp));
+            //     end_phis.put(newPhi);
+
+            //     sea.roots.remove(oldPhi);
+            //     sea.nodes.remove(oldPhi);
+
+            //     become(newPhi);
+            //     return [];
+            // }
             _ => {
-                return args();
+                // return args();
+                return [];
             }
         }
     }
@@ -479,10 +622,15 @@ class NodeData {
     new(tipe, eff, stage) {}
 }
 
+class IfRegions {
+    var els: IRNode;
+    var end: IRNode;
+}
+
 type IROp {
-    case Intrinsic(defn: IntrinsicTypedef, args: Array<IRNode>, deps: Array<IRNode>);
+    case Intrinsic(defn: IntrinsicTypedef, args: Array<IRNode>);
     case Lit(tipe: TypeVar, rep: string);
-    case If(cond: IRNode);
+    case If(cond: IRNode, regions: IfRegions);
     case Else(cond: IRNode, region_ends: Vector<IRNode>);
     case End(cond: IRNode, region_ends: Vector<IRNode>, phis: Vector<IRNode>);
     case Phi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode);
@@ -491,9 +639,9 @@ type IROp {
 
     def immediatePredecessors() -> Array<IRNode> {
         match (this) {
-            Intrinsic(defn, args, deps) => return Arrays.concat(args, deps);
+            Intrinsic(defn, args) => return args;
             Lit(tipe, rep) => return [];
-            If(c) => return [c];
+            If(c, regions) => return [c];
             Else(c, region_ends) => return Arrays.prepend(c, region_ends.copy());
             End(c, region_ends, phis) => return Arrays.prepend(c, region_ends.copy());
             Phi(cond, end, left, right) => {
