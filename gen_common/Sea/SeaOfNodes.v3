@@ -148,7 +148,7 @@ class Sea {
                     // let SSAD take care of the actual phi translation by populating the phis array in the SSAD.If node
                     // res = res.appended(SSAD.LetApp(node.data.sourceName, "if", [c.data.sourceName, l.data.sourceName, r.data.sourceName], SSAD.Void));
                 }
-                StatePhi(c, end, l, r, sc) => {
+                StatePhi(c, end, l, r, scs) => {
                 }
                 _ => {}
             }
@@ -246,16 +246,33 @@ class Sea {
                     phi_vec.put(node);
                 }
 
+                // (then, else, statephi)
+                def existing_phis = Vector<(IRNode, IRNode, IRNode)>.new();
                 for (sc in StateComponent.set.all) {
-                    def esv = e_state_vars[sc.tag];
                     def tsv = t_state_vars[sc.tag];
-                    if (tsv != null) then_region_ends.put(tsv);
-                    if (esv != null) else_region_ends.put(esv);
-                    if (esv != tsv) {
-                        def state_phi_op = IROp.StatePhi(cond_node, end_node, tsv, esv, sc);
-                        def state_phi = mkNode(state_phi_op);
-                        state_vars[sc.tag] = state_phi;
-                        phi_vec.put(state_phi);
+                    def esv = e_state_vars[sc.tag];
+                    var inserted = false;
+                    for (i < existing_phis.length) {
+                        def p = existing_phis[i];
+                        if (tsv != null && esv != null && p.0.id == tsv.id && p.1.id == esv.id) {
+                            def sp_op = IROp.StatePhi.!(p.2.op);
+                            state_vars[sc.tag] = p.2;
+                            p.2.op = IROp.StatePhi(cond_node, end_node, tsv, esv, sp_op.statecomps | sc);
+                            inserted = true;
+                            break;
+                        }
+                    }
+
+                    if (!inserted) {
+                        if (tsv != null) then_region_ends.put(tsv);
+                        if (esv != null) else_region_ends.put(esv);
+                        if (esv != tsv) {
+                            def state_phi_op = IROp.StatePhi(cond_node, end_node, tsv, esv, sc);
+                            def state_phi = mkNode(state_phi_op);
+                            state_vars[sc.tag] = state_phi;
+                            phi_vec.put(state_phi);
+                            if (tsv != null && esv != null) existing_phis.put((tsv, esv, state_phi));
+                        }
                     }
                 }
 
@@ -295,7 +312,12 @@ class Sea {
                 Else(c, region_ends) => buf.tab().puts("else").ln();
                 End(c, region_ends, _) => buf.tab().puts("end").ln();
                 Phi(c, end, l, r) => buf.tab().puts("phi").ln();
-                StatePhi(c, end, l, r, sc) => buf.tab().puts("state phi ").puts(sc.name).ln();
+                StatePhi(c, end, l, r, scs) => {
+                    buf.tab().puts("state phi ");
+                    for (sc in scs) {
+                        buf.puts(sc.name).puts(" ");
+                    }
+                }
                 _ => {}
             }
             buf.tab().puts("\"]").ln();
@@ -492,7 +514,7 @@ class IRNode {
                     def inner_phi = right_phis[i];
                     match (inner_phi.op) {
                         Phi => {}
-                        StatePhi(_, _, left, right, statecomp) => {
+                        StatePhi(_, _, left, right, statecomps) => {
                             if (left != null && !effPool.has(left)) {
                                 effPool.put(left);
                                 def newLeft = sea.mkNode(left.op);
@@ -543,7 +565,7 @@ type IROp {
     case End(cond: IRNode, region_ends: Vector<IRNode>, phis: Vector<IRNode>);
     case Phi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode);
     case MatchPhi(subj: IRNode, end: IRNode, cases: Array<IRNode>);
-    case StatePhi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode, statecomp: StateComponent);
+    case StatePhi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode, statecomps: StateComponent.set);
 
     def immediatePredecessors() -> Array<IRNode> {
         match (this) {

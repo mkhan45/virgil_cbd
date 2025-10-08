@@ -180,8 +180,7 @@ config:
 ---
 graph TD
 	11["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	1 --> 11
 	4 --> 11
 	10 --> 11
@@ -259,8 +258,7 @@ config:
 ---
 graph TD
 	11["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	1 --> 11
 	4 --> 11
 	9 --> 11
@@ -366,46 +364,11 @@ config:
   layout: elk
 ---
 graph TD
-	15["
-	state phi Locals
+	14["
+	st_put__75
+	ctlxfer.put_CALL_INDIRECT
 	"]
-	3 --> 15
-	6 --> 15
-	12 --> 15
-	9 --> 15
-	9["
-	eff__67
-	doCall
-	"]
-	2 --> 9
-	8 --> 9
-	7 --> 9
-	1 --> 9
-	5 --> 9
-	5["
-	else
-	"]
-	3 --> 5
-	12 --> 5
-	12 --> 5
-	12 --> 5
-	12 --> 5
-	12 --> 5
-	12 --> 5
-	12 --> 5
-	12["
-	eff__61
-	doCall
-	"]
-	2 --> 12
-	11 --> 12
-	10 --> 12
-	1 --> 12
-	4 --> 12
-	4["
-	if
-	"]
-	3 --> 4
+	3 --> 14
 	3["
 	is64
 	m_isTable64
@@ -420,6 +383,39 @@ graph TD
 	sig_index
 	imm_readULEB32
 	"]
+	13["
+	state phi Codeptr Stack Locals Tables Memory Sidetable Codebuilder 	"]
+	3 --> 13
+	6 --> 13
+	12 --> 13
+	9 --> 13
+	9["
+	eff__67
+	doCall
+	"]
+	2 --> 9
+	8 --> 9
+	7 --> 9
+	1 --> 9
+	5 --> 9
+	5["
+	else
+	"]
+	3 --> 5
+	12 --> 5
+	12["
+	eff__61
+	doCall
+	"]
+	2 --> 12
+	11 --> 12
+	10 --> 12
+	1 --> 12
+	4 --> 12
+	4["
+	if
+	"]
+	3 --> 4
 	10["
 	func_index
 	pop_u64
@@ -457,59 +453,6 @@ graph TD
 	3 --> 6
 	5 --> 6
 	9 --> 6
-	9 --> 6
-	9 --> 6
-	9 --> 6
-	9 --> 6
-	9 --> 6
-	9 --> 6
-	14["
-	state phi Stack
-	"]
-	3 --> 14
-	6 --> 14
-	12 --> 14
-	9 --> 14
-	13["
-	state phi Codeptr
-	"]
-	3 --> 13
-	6 --> 13
-	12 --> 13
-	9 --> 13
-	20["
-	st_put__75
-	ctlxfer.put_CALL_INDIRECT
-	"]
-	3 --> 20
-	19["
-	state phi Codebuilder
-	"]
-	3 --> 19
-	6 --> 19
-	12 --> 19
-	9 --> 19
-	18["
-	state phi Sidetable
-	"]
-	3 --> 18
-	6 --> 18
-	12 --> 18
-	9 --> 18
-	17["
-	state phi Memory
-	"]
-	3 --> 17
-	6 --> 17
-	12 --> 17
-	9 --> 17
-	16["
-	state phi Tables
-	"]
-	3 --> 16
-	6 --> 16
-	12 --> 16
-	9 --> 16
 ```
 ## RETURN_CALL
 ```mermaid
@@ -565,8 +508,7 @@ config:
 ---
 graph TD
 	11["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	5 --> 11
 	8 --> 11
 	10 --> 11
@@ -745,15 +687,13 @@ config:
 ---
 graph TD
 	31["
-	state phi Sidetable
-	"]
+	state phi Sidetable 	"]
 	21 --> 31
 	24 --> 31
 	25 --> 31
 	13 --> 31
 	13["
-	state phi Sidetable
-	"]
+	state phi Sidetable 	"]
 	3 --> 13
 	6 --> 13
 	7 --> 13
@@ -856,39 +796,33 @@ graph TD
 	-1
 	"]
 	8["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	3 --> 8
 	6 --> 8
 	7 --> 8
 	9["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	3 --> 9
 	6 --> 9
 	7 --> 9
 	1 --> 9
 	10["
-	state phi Locals
-	"]
+	state phi Locals 	"]
 	3 --> 10
 	6 --> 10
 	7 --> 10
 	11["
-	state phi Tables
-	"]
+	state phi Tables 	"]
 	3 --> 11
 	6 --> 11
 	7 --> 11
 	12["
-	state phi Memory
-	"]
+	state phi Memory 	"]
 	3 --> 12
 	6 --> 12
 	7 --> 12
 	14["
-	state phi Codebuilder
-	"]
+	state phi Codebuilder 	"]
 	3 --> 14
 	6 --> 14
 	7 --> 14
@@ -916,36 +850,31 @@ graph TD
 	25 --> 23
 	25 --> 23
 	30["
-	state phi Memory
-	"]
+	state phi Memory 	"]
 	21 --> 30
 	24 --> 30
 	25 --> 30
 	12 --> 30
 	29["
-	state phi Tables
-	"]
+	state phi Tables 	"]
 	21 --> 29
 	24 --> 29
 	25 --> 29
 	11 --> 29
 	28["
-	state phi Locals
-	"]
+	state phi Locals 	"]
 	21 --> 28
 	24 --> 28
 	25 --> 28
 	10 --> 28
 	27["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	21 --> 27
 	24 --> 27
 	25 --> 27
 	9 --> 27
 	26["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	21 --> 26
 	24 --> 26
 	25 --> 26
@@ -963,8 +892,7 @@ graph TD
 	1 --> 33
 	0 --> 33
 	32["
-	state phi Codebuilder
-	"]
+	state phi Codebuilder 	"]
 	21 --> 32
 	24 --> 32
 	25 --> 32
@@ -978,8 +906,7 @@ config:
 ---
 graph TD
 	14["
-	state phi Codebuilder
-	"]
+	state phi Codebuilder 	"]
 	3 --> 14
 	6 --> 14
 	7 --> 14
@@ -1030,39 +957,33 @@ graph TD
 	7 --> 5
 	7 --> 5
 	13["
-	state phi Sidetable
-	"]
+	state phi Sidetable 	"]
 	3 --> 13
 	6 --> 13
 	7 --> 13
 	12["
-	state phi Memory
-	"]
+	state phi Memory 	"]
 	3 --> 12
 	6 --> 12
 	7 --> 12
 	11["
-	state phi Tables
-	"]
+	state phi Tables 	"]
 	3 --> 11
 	6 --> 11
 	7 --> 11
 	10["
-	state phi Locals
-	"]
+	state phi Locals 	"]
 	3 --> 10
 	6 --> 10
 	7 --> 10
 	9["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	3 --> 9
 	6 --> 9
 	7 --> 9
 	1 --> 9
 	8["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	3 --> 8
 	6 --> 8
 	7 --> 8
@@ -1087,8 +1008,7 @@ config:
 ---
 graph TD
 	9["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	2 --> 9
 	5 --> 9
 	8 --> 9
@@ -1149,8 +1069,7 @@ config:
 ---
 graph TD
 	10["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	2 --> 10
 	5 --> 10
 	9 --> 10
@@ -1216,8 +1135,7 @@ config:
 ---
 graph TD
 	10["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	2 --> 10
 	5 --> 10
 	9 --> 10
@@ -1283,8 +1201,7 @@ config:
 ---
 graph TD
 	10["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	2 --> 10
 	5 --> 10
 	9 --> 10
@@ -1350,8 +1267,7 @@ config:
 ---
 graph TD
 	10["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	2 --> 10
 	5 --> 10
 	9 --> 10
@@ -1417,8 +1333,7 @@ config:
 ---
 graph TD
 	10["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	2 --> 10
 	5 --> 10
 	9 --> 10
@@ -1484,8 +1399,7 @@ config:
 ---
 graph TD
 	10["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	2 --> 10
 	5 --> 10
 	9 --> 10
@@ -1689,8 +1603,7 @@ config:
 ---
 graph TD
 	14["
-	state phi Codebuilder
-	"]
+	state phi Codebuilder 	"]
 	3 --> 14
 	6 --> 14
 	7 --> 14
@@ -1741,39 +1654,33 @@ graph TD
 	7 --> 5
 	7 --> 5
 	13["
-	state phi Sidetable
-	"]
+	state phi Sidetable 	"]
 	3 --> 13
 	6 --> 13
 	7 --> 13
 	12["
-	state phi Memory
-	"]
+	state phi Memory 	"]
 	3 --> 12
 	6 --> 12
 	7 --> 12
 	11["
-	state phi Tables
-	"]
+	state phi Tables 	"]
 	3 --> 11
 	6 --> 11
 	7 --> 11
 	10["
-	state phi Locals
-	"]
+	state phi Locals 	"]
 	3 --> 10
 	6 --> 10
 	7 --> 10
 	9["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	3 --> 9
 	6 --> 9
 	7 --> 9
 	1 --> 9
 	8["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	3 --> 8
 	6 --> 8
 	7 --> 8
@@ -1821,8 +1728,7 @@ config:
 ---
 graph TD
 	10["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	2 --> 10
 	5 --> 10
 	9 --> 10
@@ -1888,8 +1794,7 @@ config:
 ---
 graph TD
 	10["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	2 --> 10
 	5 --> 10
 	9 --> 10
@@ -1955,8 +1860,7 @@ config:
 ---
 graph TD
 	10["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	2 --> 10
 	5 --> 10
 	9 --> 10
@@ -2022,8 +1926,7 @@ config:
 ---
 graph TD
 	10["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	2 --> 10
 	5 --> 10
 	9 --> 10
@@ -2089,8 +1992,7 @@ config:
 ---
 graph TD
 	10["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	2 --> 10
 	5 --> 10
 	9 --> 10
@@ -2183,13 +2085,26 @@ config:
   layout: elk
 ---
 graph TD
-	15["
-	state phi Sidetable
+	11["
+	st_put__376
+	ctlxfer.put_BR_IF
 	"]
-	4 --> 15
-	7 --> 15
-	9 --> 15
-	8 --> 15
+	1 --> 11
+	1["
+	label
+	f_getLabel
+	"]
+	0 --> 1
+	0["
+	depth
+	imm_readULEB32
+	"]
+	10["
+	state phi Codeptr Stack Locals Tables Memory Sidetable Codebuilder 	"]
+	4 --> 10
+	7 --> 10
+	9 --> 10
+	8 --> 10
 	8["
 	ret__372
 	doFallthru
@@ -2201,12 +2116,6 @@ graph TD
 	else
 	"]
 	4 --> 6
-	9 --> 6
-	9 --> 6
-	9 --> 6
-	9 --> 6
-	9 --> 6
-	9 --> 6
 	9 --> 6
 	9["
 	ret__370
@@ -2234,74 +2143,12 @@ graph TD
 	cond
 	pop_u32
 	"]
-	0["
-	depth
-	imm_readULEB32
-	"]
-	1["
-	label
-	f_getLabel
-	"]
-	0 --> 1
 	7["
 	end
 	"]
 	4 --> 7
 	6 --> 7
 	8 --> 7
-	8 --> 7
-	8 --> 7
-	8 --> 7
-	8 --> 7
-	8 --> 7
-	8 --> 7
-	14["
-	state phi Memory
-	"]
-	4 --> 14
-	7 --> 14
-	9 --> 14
-	8 --> 14
-	13["
-	state phi Tables
-	"]
-	4 --> 13
-	7 --> 13
-	9 --> 13
-	8 --> 13
-	12["
-	state phi Locals
-	"]
-	4 --> 12
-	7 --> 12
-	9 --> 12
-	8 --> 12
-	11["
-	state phi Stack
-	"]
-	4 --> 11
-	7 --> 11
-	9 --> 11
-	8 --> 11
-	10["
-	state phi Codeptr
-	"]
-	4 --> 10
-	7 --> 10
-	9 --> 10
-	8 --> 10
-	17["
-	st_put__376
-	ctlxfer.put_BR_IF
-	"]
-	1 --> 17
-	16["
-	state phi Codebuilder
-	"]
-	4 --> 16
-	7 --> 16
-	9 --> 16
-	8 --> 16
 ```
 ## BR_TABLE
 ```mermaid
@@ -2393,13 +2240,32 @@ config:
   layout: elk
 ---
 graph TD
-	15["
-	state phi Sidetable
+	11["
+	st_put__400
+	ctlxfer.put_IF
 	"]
-	4 --> 15
-	7 --> 15
-	9 --> 15
-	8 --> 15
+	2 --> 11
+	2["
+	label
+	doIf
+	"]
+	0 --> 2
+	1 --> 2
+	0 --> 2
+	0["
+	bt
+	imm_readBlockType
+	"]
+	1["
+	cond
+	pop_u32
+	"]
+	10["
+	state phi Codeptr Stack Locals Tables Memory Sidetable Codebuilder 	"]
+	4 --> 10
+	7 --> 10
+	9 --> 10
+	8 --> 10
 	8["
 	ret__396
 	doFallthru
@@ -2416,12 +2282,6 @@ graph TD
 	else
 	"]
 	4 --> 6
-	9 --> 6
-	9 --> 6
-	9 --> 6
-	9 --> 6
-	9 --> 6
-	9 --> 6
 	9 --> 6
 	9["
 	ret__394
@@ -2450,80 +2310,12 @@ graph TD
 	arg__398
 	0
 	"]
-	1["
-	cond
-	pop_u32
-	"]
-	2["
-	label
-	doIf
-	"]
-	0 --> 2
-	1 --> 2
-	0 --> 2
-	0["
-	bt
-	imm_readBlockType
-	"]
 	7["
 	end
 	"]
 	4 --> 7
 	6 --> 7
 	8 --> 7
-	8 --> 7
-	8 --> 7
-	8 --> 7
-	8 --> 7
-	8 --> 7
-	8 --> 7
-	14["
-	state phi Memory
-	"]
-	4 --> 14
-	7 --> 14
-	9 --> 14
-	8 --> 14
-	13["
-	state phi Tables
-	"]
-	4 --> 13
-	7 --> 13
-	9 --> 13
-	8 --> 13
-	12["
-	state phi Locals
-	"]
-	4 --> 12
-	7 --> 12
-	9 --> 12
-	8 --> 12
-	11["
-	state phi Stack
-	"]
-	4 --> 11
-	7 --> 11
-	9 --> 11
-	8 --> 11
-	10["
-	state phi Codeptr
-	"]
-	4 --> 10
-	7 --> 10
-	9 --> 10
-	8 --> 10
-	17["
-	st_put__400
-	ctlxfer.put_IF
-	"]
-	2 --> 17
-	16["
-	state phi Codebuilder
-	"]
-	4 --> 16
-	7 --> 16
-	9 --> 16
-	8 --> 16
 ```
 ## ELSE
 ```mermaid
@@ -2561,13 +2353,12 @@ config:
   layout: elk
 ---
 graph TD
-	12["
-	state phi Codebuilder
-	"]
-	1 --> 12
-	4 --> 12
-	5 --> 12
-	0 --> 12
+	6["
+	state phi Codeptr Stack Locals Tables Memory Sidetable Codebuilder 	"]
+	1 --> 6
+	4 --> 6
+	5 --> 6
+	0 --> 6
 	0["
 	eff__412
 	doEnd
@@ -2598,65 +2389,11 @@ graph TD
 	1 --> 4
 	3 --> 4
 	0 --> 4
-	0 --> 4
-	0 --> 4
-	0 --> 4
-	0 --> 4
-	0 --> 4
-	0 --> 4
 	3["
 	else
 	"]
 	1 --> 3
 	5 --> 3
-	5 --> 3
-	5 --> 3
-	5 --> 3
-	5 --> 3
-	5 --> 3
-	5 --> 3
-	11["
-	state phi Sidetable
-	"]
-	1 --> 11
-	4 --> 11
-	5 --> 11
-	0 --> 11
-	10["
-	state phi Memory
-	"]
-	1 --> 10
-	4 --> 10
-	5 --> 10
-	0 --> 10
-	9["
-	state phi Tables
-	"]
-	1 --> 9
-	4 --> 9
-	5 --> 9
-	0 --> 9
-	8["
-	state phi Locals
-	"]
-	1 --> 8
-	4 --> 8
-	5 --> 8
-	0 --> 8
-	7["
-	state phi Stack
-	"]
-	1 --> 7
-	4 --> 7
-	5 --> 7
-	0 --> 7
-	6["
-	state phi Codeptr
-	"]
-	1 --> 6
-	4 --> 6
-	5 --> 6
-	0 --> 6
 ```
 ## RETURN
 ```mermaid
@@ -2699,8 +2436,7 @@ config:
 ---
 graph TD
 	9["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	1 --> 9
 	4 --> 9
 	8 --> 9
@@ -2766,8 +2502,7 @@ graph TD
 	0 --> 13
 	7 --> 13
 	7["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	1 --> 7
 	4 --> 7
 	5 --> 7
@@ -2809,38 +2544,32 @@ graph TD
 	5 --> 3
 	5 --> 3
 	12["
-	state phi Codebuilder
-	"]
+	state phi Codebuilder 	"]
 	1 --> 12
 	4 --> 12
 	5 --> 12
 	11["
-	state phi Sidetable
-	"]
+	state phi Sidetable 	"]
 	1 --> 11
 	4 --> 11
 	5 --> 11
 	10["
-	state phi Memory
-	"]
+	state phi Memory 	"]
 	1 --> 10
 	4 --> 10
 	5 --> 10
 	9["
-	state phi Tables
-	"]
+	state phi Tables 	"]
 	1 --> 9
 	4 --> 9
 	5 --> 9
 	8["
-	state phi Locals
-	"]
+	state phi Locals 	"]
 	1 --> 8
 	4 --> 8
 	5 --> 8
 	6["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	1 --> 6
 	4 --> 6
 	5 --> 6
@@ -2880,8 +2609,7 @@ config:
 ---
 graph TD
 	15["
-	state phi Sidetable
-	"]
+	state phi Sidetable 	"]
 	5 --> 15
 	8 --> 15
 	9 --> 15
@@ -2933,33 +2661,28 @@ graph TD
 	9 --> 7
 	9 --> 7
 	14["
-	state phi Memory
-	"]
+	state phi Memory 	"]
 	5 --> 14
 	8 --> 14
 	9 --> 14
 	13["
-	state phi Tables
-	"]
+	state phi Tables 	"]
 	5 --> 13
 	8 --> 13
 	9 --> 13
 	12["
-	state phi Locals
-	"]
+	state phi Locals 	"]
 	5 --> 12
 	8 --> 12
 	9 --> 12
 	11["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	4 --> 11
 	10["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 10
 	8 --> 10
 	9 --> 10
@@ -2977,8 +2700,7 @@ graph TD
 	0 --> 2
 	1 --> 2
 	16["
-	state phi Codebuilder
-	"]
+	state phi Codebuilder 	"]
 	5 --> 16
 	8 --> 16
 	9 --> 16
@@ -2991,8 +2713,7 @@ config:
 ---
 graph TD
 	15["
-	state phi Sidetable
-	"]
+	state phi Sidetable 	"]
 	5 --> 15
 	8 --> 15
 	9 --> 15
@@ -3044,33 +2765,28 @@ graph TD
 	9 --> 7
 	9 --> 7
 	14["
-	state phi Memory
-	"]
+	state phi Memory 	"]
 	5 --> 14
 	8 --> 14
 	9 --> 14
 	13["
-	state phi Tables
-	"]
+	state phi Tables 	"]
 	5 --> 13
 	8 --> 13
 	9 --> 13
 	12["
-	state phi Locals
-	"]
+	state phi Locals 	"]
 	5 --> 12
 	8 --> 12
 	9 --> 12
 	11["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	4 --> 11
 	10["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 10
 	8 --> 10
 	9 --> 10
@@ -3088,8 +2804,7 @@ graph TD
 	0 --> 2
 	1 --> 2
 	16["
-	state phi Codebuilder
-	"]
+	state phi Codebuilder 	"]
 	5 --> 16
 	8 --> 16
 	9 --> 16
@@ -3102,8 +2817,7 @@ config:
 ---
 graph TD
 	15["
-	state phi Sidetable
-	"]
+	state phi Sidetable 	"]
 	5 --> 15
 	8 --> 15
 	9 --> 15
@@ -3155,33 +2869,28 @@ graph TD
 	9 --> 7
 	9 --> 7
 	14["
-	state phi Memory
-	"]
+	state phi Memory 	"]
 	5 --> 14
 	8 --> 14
 	9 --> 14
 	13["
-	state phi Tables
-	"]
+	state phi Tables 	"]
 	5 --> 13
 	8 --> 13
 	9 --> 13
 	12["
-	state phi Locals
-	"]
+	state phi Locals 	"]
 	5 --> 12
 	8 --> 12
 	9 --> 12
 	11["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	4 --> 11
 	10["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 10
 	8 --> 10
 	9 --> 10
@@ -3199,8 +2908,7 @@ graph TD
 	0 --> 2
 	1 --> 2
 	16["
-	state phi Codebuilder
-	"]
+	state phi Codebuilder 	"]
 	5 --> 16
 	8 --> 16
 	9 --> 16
@@ -3281,15 +2989,13 @@ graph TD
 	9 --> 7
 	9 --> 7
 	11["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	0 --> 11
 	25["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	12 --> 25
 	15 --> 25
 	23 --> 25
@@ -3360,8 +3066,7 @@ graph TD
 	16 --> 15
 	19 --> 15
 	24["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	12 --> 24
 	15 --> 24
 	20 --> 24
@@ -3443,15 +3148,13 @@ graph TD
 	9 --> 7
 	9 --> 7
 	11["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	0 --> 11
 	25["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	12 --> 25
 	15 --> 25
 	23 --> 25
@@ -3522,8 +3225,7 @@ graph TD
 	16 --> 15
 	19 --> 15
 	24["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	12 --> 24
 	15 --> 24
 	20 --> 24
@@ -3605,15 +3307,13 @@ graph TD
 	9 --> 7
 	9 --> 7
 	11["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	0 --> 11
 	25["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	12 --> 25
 	15 --> 25
 	23 --> 25
@@ -3684,8 +3384,7 @@ graph TD
 	16 --> 15
 	19 --> 15
 	24["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	12 --> 24
 	15 --> 24
 	20 --> 24
@@ -3767,15 +3466,13 @@ graph TD
 	9 --> 7
 	9 --> 7
 	11["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	0 --> 11
 	25["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	12 --> 25
 	15 --> 25
 	23 --> 25
@@ -3846,8 +3543,7 @@ graph TD
 	16 --> 15
 	19 --> 15
 	24["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	12 --> 24
 	15 --> 24
 	20 --> 24
@@ -3929,15 +3625,13 @@ graph TD
 	9 --> 7
 	9 --> 7
 	11["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	0 --> 11
 	25["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	12 --> 25
 	15 --> 25
 	23 --> 25
@@ -4008,8 +3702,7 @@ graph TD
 	16 --> 15
 	19 --> 15
 	24["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	12 --> 24
 	15 --> 24
 	20 --> 24
@@ -4091,15 +3784,13 @@ graph TD
 	9 --> 7
 	9 --> 7
 	11["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	0 --> 11
 	25["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	12 --> 25
 	15 --> 25
 	23 --> 25
@@ -4170,8 +3861,7 @@ graph TD
 	16 --> 15
 	19 --> 15
 	24["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	12 --> 24
 	15 --> 24
 	20 --> 24
@@ -4253,15 +3943,13 @@ graph TD
 	9 --> 7
 	9 --> 7
 	11["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	0 --> 11
 	25["
-	state phi Memory
-	"]
+	state phi Memory 	"]
 	13 --> 25
 	16 --> 25
 	22 --> 25
@@ -4328,15 +4016,13 @@ graph TD
 	18 --> 16
 	19 --> 16
 	24["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	13 --> 24
 	16 --> 24
 	21 --> 24
 	18 --> 24
 	23["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	13 --> 23
 	16 --> 23
 	20 --> 23
@@ -4418,15 +4104,13 @@ graph TD
 	9 --> 7
 	9 --> 7
 	11["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	0 --> 11
 	25["
-	state phi Memory
-	"]
+	state phi Memory 	"]
 	13 --> 25
 	16 --> 25
 	22 --> 25
@@ -4493,15 +4177,13 @@ graph TD
 	18 --> 16
 	19 --> 16
 	24["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	13 --> 24
 	16 --> 24
 	21 --> 24
 	18 --> 24
 	23["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	13 --> 23
 	16 --> 23
 	20 --> 23
@@ -4583,15 +4265,13 @@ graph TD
 	9 --> 7
 	9 --> 7
 	11["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	0 --> 11
 	25["
-	state phi Memory
-	"]
+	state phi Memory 	"]
 	13 --> 25
 	16 --> 25
 	22 --> 25
@@ -4658,15 +4338,13 @@ graph TD
 	18 --> 16
 	19 --> 16
 	24["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	13 --> 24
 	16 --> 24
 	21 --> 24
 	18 --> 24
 	23["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	13 --> 23
 	16 --> 23
 	20 --> 23
@@ -4748,15 +4426,13 @@ graph TD
 	9 --> 7
 	9 --> 7
 	11["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	0 --> 11
 	25["
-	state phi Memory
-	"]
+	state phi Memory 	"]
 	13 --> 25
 	16 --> 25
 	22 --> 25
@@ -4823,15 +4499,13 @@ graph TD
 	18 --> 16
 	19 --> 16
 	24["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	13 --> 24
 	16 --> 24
 	21 --> 24
 	18 --> 24
 	23["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	13 --> 23
 	16 --> 23
 	20 --> 23
@@ -4913,15 +4587,13 @@ graph TD
 	9 --> 7
 	9 --> 7
 	11["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	0 --> 11
 	24["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	13 --> 24
 	16 --> 24
 	21 --> 24
@@ -4968,8 +4640,7 @@ graph TD
 	11 --> 17
 	15 --> 17
 	23["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	13 --> 23
 	16 --> 23
 	20 --> 23
@@ -5069,15 +4740,13 @@ graph TD
 	9 --> 7
 	9 --> 7
 	11["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	5 --> 11
 	8 --> 11
 	9 --> 11
 	0 --> 11
 	25["
-	state phi Memory
-	"]
+	state phi Memory 	"]
 	13 --> 25
 	16 --> 25
 	22 --> 25
@@ -5144,15 +4813,13 @@ graph TD
 	18 --> 16
 	19 --> 16
 	24["
-	state phi Stack
-	"]
+	state phi Stack 	"]
 	13 --> 24
 	16 --> 24
 	21 --> 24
 	18 --> 24
 	23["
-	state phi Codeptr
-	"]
+	state phi Codeptr 	"]
 	13 --> 23
 	16 --> 23
 	20 --> 23
