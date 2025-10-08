@@ -144,7 +144,7 @@ class Sea {
                     res = prev.appended(if_ssa);
                 }
                 Phi(c, end, l, r) => {
-                    node.data = l.data;
+                    // node.data = l.data;
                     // let SSAD take care of the actual phi translation by populating the phis array in the SSAD.If node
                     // res = res.appended(SSAD.LetApp(node.data.sourceName, "if", [c.data.sourceName, l.data.sourceName, r.data.sourceName], SSAD.Void));
                 }
@@ -169,7 +169,7 @@ class Sea {
 
                 def op = IROp.Intrinsic(intrinsic_def, arg_nodes);
                 def node = var_nodes[n] = mkNode(op);
-                node.pathDeps = deps;
+                node.pathDeps = node_deps;
 
                 for (sc in intrinsic_def.writes) state_vars[sc.tag] = node;
 
@@ -235,7 +235,7 @@ class Sea {
 
                 for (phi in phis) {
                     if (var_nodes[phi.1] != null) then_region_ends.put(var_nodes[phi.1]);
-                    // if (else_phis[phi.0] != null) else_region_ends.put(else_phis[phi.0]);
+                    if (else_phis[phi.0] != null) else_region_ends.put(else_phis[phi.0]);
 
                     def phi_op = IROp.Phi(cond_node, end_node, var_nodes[phi.1], else_phis[phi.0]);
                     def node = mkNode(phi_op);
@@ -495,11 +495,17 @@ class IRNode {
                             def mergeNode = sea.mkNode(IROp.Intrinsic(merge, []));
                             newElse.pathDeps = List.new(mergeNode, newElse.pathDeps);
 
-                            def newLeft = sea.mkNode(left.op);
-                            def newRight = sea.mkNode(right.op);
-                            newLeft.pathDeps = List.new(newIf, null);
-                            newRight.pathDeps = List.new(newIf, null);
-                            mergeNode.pathDeps = List.new(newLeft, List.new(newRight, null));
+                            if (left != null) {
+                                def newLeft = sea.mkNode(left.op);
+                                newLeft.pathDeps = List.new(newIf, null);
+                                mergeNode.pathDeps = List.new(newLeft, mergeNode.pathDeps);
+                            }
+
+                            if (right != null) {
+                                def newRight = sea.mkNode(right.op);
+                                newRight.pathDeps = List.new(newIf, null);
+                                mergeNode.pathDeps = List.new(newRight, mergeNode.pathDeps);
+                            }
                         }
                         _ => {}
                     }

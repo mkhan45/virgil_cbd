@@ -87,7 +87,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     sea.apply(IRNode.removeViews);
     sea.apply(IRNode.overloadOps);
     sea.apply(IRNode.addAbstractions);
-    if (Strings.equal(opcode, "I32_EQZ")) sea.apply(IRNode.unLEM);
+    sea.apply(IRNode.unLEM);
     def mermaid = sea.toMermaid();
 
     // System.puts("===="); System.puts(opcode);  System.puts("====\n");

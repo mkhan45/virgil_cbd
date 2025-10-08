@@ -31,6 +31,7 @@ graph TD
 	"]
 	1 --> 3
 	2 --> 3
+	2 --> 3
 	2["
 	val
 	getLocal
@@ -89,6 +90,7 @@ graph TD
 	"]
 	1 --> 4
 	2 --> 4
+	2 --> 4
 	2["
 	val
 	pop_Value
@@ -123,6 +125,7 @@ graph TD
 	push_Value
 	"]
 	1 --> 3
+	2 --> 3
 	2 --> 3
 	2["
 	val
@@ -188,6 +191,7 @@ graph TD
 	push_Object
 	"]
 	6 --> 7
+	5 --> 7
 	3 --> 7
 	3["
 	else
@@ -200,6 +204,7 @@ graph TD
 	push_Object
 	"]
 	9 --> 10
+	8 --> 10
 	2 --> 10
 	2["
 	if
@@ -214,6 +219,11 @@ graph TD
 	table_index
 	imm_readULEB32
 	"]
+	8["
+	index
+	pop_u64
+	"]
+	2 --> 8
 	9["
 	val
 	mach_readTable64
@@ -221,11 +231,11 @@ graph TD
 	0 --> 9
 	8 --> 9
 	2 --> 9
-	8["
+	5["
 	index
-	pop_u64
+	pop_u32
 	"]
-	2 --> 8
+	3 --> 5
 	6["
 	val
 	mach_readTable32
@@ -233,11 +243,6 @@ graph TD
 	0 --> 6
 	5 --> 6
 	3 --> 6
-	5["
-	index
-	pop_u32
-	"]
-	3 --> 5
 	4["
 	end
 	"]
@@ -264,6 +269,7 @@ graph TD
 	index
 	pop_u32
 	"]
+	5 --> 6
 	3 --> 6
 	3["
 	else
@@ -275,6 +281,7 @@ graph TD
 	index
 	pop_u64
 	"]
+	8 --> 9
 	2 --> 9
 	2["
 	if
@@ -289,6 +296,16 @@ graph TD
 	table_index
 	imm_readULEB32
 	"]
+	8["
+	val
+	pop_Object
+	"]
+	2 --> 8
+	5["
+	val
+	pop_Object
+	"]
+	3 --> 5
 	4["
 	end
 	"]
@@ -304,11 +321,6 @@ graph TD
 	9 --> 10
 	8 --> 10
 	2 --> 10
-	8["
-	val
-	pop_Object
-	"]
-	2 --> 8
 	7["
 	eff__50
 	mach_writeTable32
@@ -317,11 +329,6 @@ graph TD
 	6 --> 7
 	5 --> 7
 	3 --> 7
-	5["
-	val
-	pop_Object
-	"]
-	3 --> 5
 ```
 ## CALL
 ```mermaid
@@ -336,15 +343,16 @@ graph TD
 	"]
 	1 --> 3
 	2 --> 3
+	0 --> 3
+	0["
+	index
+	imm_readULEB32
+	"]
 	2["
 	target
 	i_getFunction
 	"]
 	0 --> 2
-	0["
-	index
-	imm_readULEB32
-	"]
 	1["
 	sig
 	m_getFuncSignature
@@ -371,6 +379,8 @@ graph TD
 	"]
 	2 --> 9
 	8 --> 9
+	7 --> 9
+	1 --> 9
 	5 --> 9
 	5["
 	else
@@ -389,6 +399,8 @@ graph TD
 	"]
 	2 --> 12
 	11 --> 12
+	10 --> 12
+	1 --> 12
 	4 --> 12
 	4["
 	if
@@ -403,6 +415,16 @@ graph TD
 	table_index
 	imm_readULEB32
 	"]
+	0 --> 1
+	0["
+	sig_index
+	imm_readULEB32
+	"]
+	10["
+	func_index
+	pop_u64
+	"]
+	4 --> 10
 	11["
 	target
 	i_getTableFunction64
@@ -411,20 +433,16 @@ graph TD
 	2 --> 11
 	10 --> 11
 	4 --> 11
-	10["
-	func_index
-	pop_u64
-	"]
-	4 --> 10
 	2["
 	sig
 	m_getSignature
 	"]
 	0 --> 2
-	0["
-	sig_index
-	imm_readULEB32
+	7["
+	func_index
+	pop_u32
 	"]
+	5 --> 7
 	8["
 	target
 	i_getTableFunction32
@@ -433,11 +451,6 @@ graph TD
 	2 --> 8
 	7 --> 8
 	5 --> 8
-	7["
-	func_index
-	pop_u32
-	"]
-	5 --> 7
 	6["
 	end
 	"]
@@ -511,15 +524,16 @@ graph TD
 	"]
 	1 --> 3
 	2 --> 3
+	0 --> 3
+	0["
+	index
+	imm_readULEB32
+	"]
 	2["
 	target
 	i_getFunction
 	"]
 	0 --> 2
-	0["
-	index
-	imm_readULEB32
-	"]
 	1["
 	sig
 	m_getFuncSignature
@@ -563,6 +577,7 @@ graph TD
 	"]
 	1 --> 9
 	2 --> 9
+	3 --> 9
 	7 --> 9
 	7["
 	else
@@ -574,6 +589,7 @@ graph TD
 	push_Value
 	"]
 	1 --> 10
+	3 --> 10
 	3 --> 10
 	6 --> 10
 	6["
@@ -599,15 +615,17 @@ graph TD
 	pop_Value
 	"]
 	1 --> 3
-	1["
-	tv
-	f_getTopOfStackType
-	"]
+	2 --> 3
 	2["
 	b
 	pop_Value
 	"]
 	1 --> 2
+	0 --> 2
+	1["
+	tv
+	f_getTopOfStackType
+	"]
 	8["
 	end
 	"]
@@ -623,7 +641,7 @@ config:
 ---
 graph TD
 	1["
-	eff__95
+	eff__101
 	push_u32
 	"]
 	0 --> 1
@@ -640,24 +658,26 @@ config:
 ---
 graph TD
 	3["
-	eff__98
+	eff__104
 	push_u32
 	"]
 	2 --> 3
+	1 --> 3
+	1["
+	a
+	pop_u32
+	"]
+	0 --> 1
+	0["
+	b
+	pop_u32
+	"]
 	2["
 	r
 	u32.+
 	"]
 	1 --> 2
 	0 --> 2
-	0["
-	b
-	pop_u32
-	"]
-	1["
-	a
-	pop_u32
-	"]
 ```
 ## I32_SUB
 ```mermaid
@@ -667,24 +687,26 @@ config:
 ---
 graph TD
 	3["
-	eff__102
+	eff__108
 	push_u32
 	"]
 	2 --> 3
+	1 --> 3
+	1["
+	a
+	pop_u32
+	"]
+	0 --> 1
+	0["
+	b
+	pop_u32
+	"]
 	2["
 	r
 	u32.-
 	"]
 	1 --> 2
 	0 --> 2
-	0["
-	b
-	pop_u32
-	"]
-	1["
-	a
-	pop_u32
-	"]
 ```
 ## I32_MUL
 ```mermaid
@@ -694,24 +716,26 @@ config:
 ---
 graph TD
 	3["
-	eff__106
+	eff__112
 	push_u32
 	"]
 	2 --> 3
+	1 --> 3
+	1["
+	a
+	pop_u32
+	"]
+	0 --> 1
+	0["
+	b
+	pop_u32
+	"]
 	2["
 	r
 	u32.*
 	"]
 	1 --> 2
 	0 --> 2
-	0["
-	b
-	pop_u32
-	"]
-	1["
-	a
-	pop_u32
-	"]
 ```
 ## I32_DIV_S
 ```mermaid
@@ -734,38 +758,40 @@ graph TD
 	6 --> 13
 	7 --> 13
 	7["
-	ret__125
+	ret__131
 	trapDivideByZero
 	"]
+	1 --> 7
 	4 --> 7
 	4["
 	if
 	"]
 	3 --> 4
 	3["
-	cond__124
+	cond__130
 	u32.==
 	"]
 	0 --> 3
 	2 --> 3
 	2["
-	arg__127
+	arg__133
 	0
 	"]
 	0["
 	b
 	pop_u32
 	"]
+	1["
+	a
+	pop_u32
+	"]
+	0 --> 1
 	6["
 	end
 	"]
 	3 --> 6
 	5 --> 6
 	1 --> 6
-	1["
-	a
-	pop_u32
-	"]
 	5["
 	else
 	"]
@@ -778,50 +804,94 @@ graph TD
 	7 --> 5
 	7 --> 5
 	25["
-	ret__115
+	ret__121
 	trapDivideUnrepresentable
 	"]
+	14 --> 25
+	13 --> 25
+	12 --> 25
+	11 --> 25
+	10 --> 25
+	9 --> 25
+	8 --> 25
 	22 --> 25
 	22["
 	if
 	"]
 	21 --> 22
 	21["
-	cond__114
+	cond__120
 	bool.&&
 	"]
 	20 --> 21
 	17 --> 21
 	17["
-	arg__117
+	arg__123
 	u32.==
 	"]
 	1 --> 17
 	16 --> 17
 	16["
-	arg__122
+	arg__128
 	u32.view
 	"]
 	15 --> 16
 	15["
-	arg__123
+	arg__129
 	-2_147_483_648
 	"]
 	20["
-	arg__116
+	arg__122
 	u32.==
 	"]
 	0 --> 20
 	19 --> 20
 	19["
-	arg__119
+	arg__125
 	u32.view
 	"]
 	18 --> 19
 	18["
-	arg__120
+	arg__126
 	-1
 	"]
+	8["
+	state phi Codeptr
+	"]
+	3 --> 8
+	6 --> 8
+	7 --> 8
+	9["
+	state phi Stack
+	"]
+	3 --> 9
+	6 --> 9
+	7 --> 9
+	1 --> 9
+	10["
+	state phi Locals
+	"]
+	3 --> 10
+	6 --> 10
+	7 --> 10
+	11["
+	state phi Tables
+	"]
+	3 --> 11
+	6 --> 11
+	7 --> 11
+	12["
+	state phi Memory
+	"]
+	3 --> 12
+	6 --> 12
+	7 --> 12
+	14["
+	state phi Codebuilder
+	"]
+	3 --> 14
+	6 --> 14
+	7 --> 14
 	24["
 	end
 	"]
@@ -834,43 +904,6 @@ graph TD
 	12 --> 24
 	13 --> 24
 	14 --> 24
-	14["
-	state phi Codebuilder
-	"]
-	3 --> 14
-	6 --> 14
-	7 --> 14
-	12["
-	state phi Memory
-	"]
-	3 --> 12
-	6 --> 12
-	7 --> 12
-	11["
-	state phi Tables
-	"]
-	3 --> 11
-	6 --> 11
-	7 --> 11
-	10["
-	state phi Locals
-	"]
-	3 --> 10
-	6 --> 10
-	7 --> 10
-	9["
-	state phi Stack
-	"]
-	3 --> 9
-	6 --> 9
-	7 --> 9
-	1 --> 9
-	8["
-	state phi Codeptr
-	"]
-	3 --> 8
-	6 --> 8
-	7 --> 8
 	23["
 	else
 	"]
@@ -918,10 +951,11 @@ graph TD
 	25 --> 26
 	8 --> 26
 	34["
-	eff__110
+	eff__116
 	push_u32
 	"]
 	33 --> 34
+	27 --> 34
 	33["
 	r
 	U32_div_s
@@ -950,38 +984,40 @@ graph TD
 	6 --> 14
 	7 --> 14
 	7["
-	ret__136
+	ret__177
 	trapDivideByZero
 	"]
+	1 --> 7
 	4 --> 7
 	4["
 	if
 	"]
 	3 --> 4
 	3["
-	cond__135
+	cond__176
 	u32.==
 	"]
 	0 --> 3
 	2 --> 3
 	2["
-	arg__138
+	arg__179
 	0
 	"]
 	0["
 	b
 	pop_u32
 	"]
+	1["
+	a
+	pop_u32
+	"]
+	0 --> 1
 	6["
 	end
 	"]
 	3 --> 6
 	5 --> 6
 	1 --> 6
-	1["
-	a
-	pop_u32
-	"]
 	5["
 	else
 	"]
@@ -1031,10 +1067,11 @@ graph TD
 	6 --> 8
 	7 --> 8
 	16["
-	eff__131
+	eff__172
 	push_u32
 	"]
 	15 --> 16
+	9 --> 16
 	15["
 	r
 	u32./
@@ -1057,10 +1094,11 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6["
-	eff__143
+	eff__202
 	push_u32
 	"]
 	1 --> 6
+	0 --> 6
 	4 --> 6
 	4["
 	else
@@ -1068,23 +1106,24 @@ graph TD
 	2 --> 4
 	8 --> 4
 	8["
-	eff__141
+	eff__200
 	push_u32
 	"]
 	7 --> 8
+	0 --> 8
 	3 --> 8
 	3["
 	if
 	"]
 	2 --> 3
 	2["
-	cond__140
+	cond__199
 	u32.==
 	"]
 	0 --> 2
 	1 --> 2
 	1["
-	arg__146
+	arg__205
 	0
 	"]
 	0["
@@ -1092,7 +1131,7 @@ graph TD
 	pop_u32
 	"]
 	7["
-	arg__142
+	arg__201
 	1
 	"]
 	5["
@@ -1117,10 +1156,11 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__159
+	eff__218
 	push_u32
 	"]
 	6 --> 7
+	1 --> 7
 	4 --> 7
 	4["
 	else
@@ -1128,17 +1168,18 @@ graph TD
 	2 --> 4
 	9 --> 4
 	9["
-	eff__157
+	eff__216
 	push_u32
 	"]
 	8 --> 9
+	1 --> 9
 	3 --> 9
 	3["
 	if
 	"]
 	2 --> 3
 	2["
-	cond__156
+	cond__215
 	u32.==
 	"]
 	1 --> 2
@@ -1151,12 +1192,13 @@ graph TD
 	a
 	pop_u32
 	"]
+	0 --> 1
 	8["
-	arg__158
+	arg__217
 	1
 	"]
 	6["
-	arg__160
+	arg__219
 	0
 	"]
 	5["
@@ -1181,10 +1223,11 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__168
+	eff__233
 	push_u32
 	"]
 	6 --> 7
+	1 --> 7
 	4 --> 7
 	4["
 	else
@@ -1192,17 +1235,18 @@ graph TD
 	2 --> 4
 	9 --> 4
 	9["
-	eff__166
+	eff__231
 	push_u32
 	"]
 	8 --> 9
+	1 --> 9
 	3 --> 9
 	3["
 	if
 	"]
 	2 --> 3
 	2["
-	cond__165
+	cond__230
 	u32.!=
 	"]
 	1 --> 2
@@ -1215,12 +1259,13 @@ graph TD
 	a
 	pop_u32
 	"]
+	0 --> 1
 	8["
-	arg__167
+	arg__232
 	1
 	"]
 	6["
-	arg__169
+	arg__234
 	0
 	"]
 	5["
@@ -1245,10 +1290,11 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__177
+	eff__248
 	push_u32
 	"]
 	6 --> 7
+	1 --> 7
 	4 --> 7
 	4["
 	else
@@ -1256,17 +1302,18 @@ graph TD
 	2 --> 4
 	9 --> 4
 	9["
-	eff__175
+	eff__246
 	push_u32
 	"]
 	8 --> 9
+	1 --> 9
 	3 --> 9
 	3["
 	if
 	"]
 	2 --> 3
 	2["
-	cond__174
+	cond__245
 	u32.<
 	"]
 	1 --> 2
@@ -1279,12 +1326,13 @@ graph TD
 	a
 	pop_u32
 	"]
+	0 --> 1
 	8["
-	arg__176
+	arg__247
 	1
 	"]
 	6["
-	arg__178
+	arg__249
 	0
 	"]
 	5["
@@ -1309,10 +1357,11 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__186
+	eff__263
 	push_u32
 	"]
 	6 --> 7
+	1 --> 7
 	4 --> 7
 	4["
 	else
@@ -1320,17 +1369,18 @@ graph TD
 	2 --> 4
 	9 --> 4
 	9["
-	eff__184
+	eff__261
 	push_u32
 	"]
 	8 --> 9
+	1 --> 9
 	3 --> 9
 	3["
 	if
 	"]
 	2 --> 3
 	2["
-	cond__183
+	cond__260
 	U32_lt_s
 	"]
 	1 --> 2
@@ -1343,12 +1393,13 @@ graph TD
 	a
 	pop_u32
 	"]
+	0 --> 1
 	8["
-	arg__185
+	arg__262
 	1
 	"]
 	6["
-	arg__187
+	arg__264
 	0
 	"]
 	5["
@@ -1373,10 +1424,11 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__195
+	eff__278
 	push_u32
 	"]
 	6 --> 7
+	1 --> 7
 	4 --> 7
 	4["
 	else
@@ -1384,17 +1436,18 @@ graph TD
 	2 --> 4
 	9 --> 4
 	9["
-	eff__193
+	eff__276
 	push_u32
 	"]
 	8 --> 9
+	1 --> 9
 	3 --> 9
 	3["
 	if
 	"]
 	2 --> 3
 	2["
-	cond__192
+	cond__275
 	U32_le_s
 	"]
 	1 --> 2
@@ -1407,12 +1460,13 @@ graph TD
 	a
 	pop_u32
 	"]
+	0 --> 1
 	8["
-	arg__194
+	arg__277
 	1
 	"]
 	6["
-	arg__196
+	arg__279
 	0
 	"]
 	5["
@@ -1437,10 +1491,11 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__204
+	eff__293
 	push_u32
 	"]
 	6 --> 7
+	1 --> 7
 	4 --> 7
 	4["
 	else
@@ -1448,17 +1503,18 @@ graph TD
 	2 --> 4
 	9 --> 4
 	9["
-	eff__202
+	eff__291
 	push_u32
 	"]
 	8 --> 9
+	1 --> 9
 	3 --> 9
 	3["
 	if
 	"]
 	2 --> 3
 	2["
-	cond__201
+	cond__290
 	u32.>
 	"]
 	1 --> 2
@@ -1471,12 +1527,13 @@ graph TD
 	a
 	pop_u32
 	"]
+	0 --> 1
 	8["
-	arg__203
+	arg__292
 	1
 	"]
 	6["
-	arg__205
+	arg__294
 	0
 	"]
 	5["
@@ -1494,24 +1551,26 @@ config:
 ---
 graph TD
 	3["
-	eff__210
+	eff__305
 	push_u32
 	"]
 	2 --> 3
+	1 --> 3
+	1["
+	a
+	pop_u32
+	"]
+	0 --> 1
+	0["
+	b
+	pop_u32
+	"]
 	2["
 	r
 	u32.&
 	"]
 	1 --> 2
 	0 --> 2
-	0["
-	b
-	pop_u32
-	"]
-	1["
-	a
-	pop_u32
-	"]
 ```
 ## F32_CONST
 ```mermaid
@@ -1521,12 +1580,12 @@ config:
 ---
 graph TD
 	2["
-	eff__214
+	eff__309
 	push_f32
 	"]
 	1 --> 2
 	1["
-	arg__215
+	arg__310
 	f32_reinterpret_u32
 	"]
 	0 --> 1
@@ -1543,24 +1602,26 @@ config:
 ---
 graph TD
 	3["
-	eff__218
+	eff__313
 	push_f32
 	"]
 	2 --> 3
+	1 --> 3
+	1["
+	a
+	pop_f32
+	"]
+	0 --> 1
+	0["
+	b
+	pop_f32
+	"]
 	2["
 	r
 	float.+
 	"]
 	1 --> 2
 	0 --> 2
-	0["
-	b
-	pop_f32
-	"]
-	1["
-	a
-	pop_f32
-	"]
 ```
 ## F32_SUB
 ```mermaid
@@ -1570,24 +1631,26 @@ config:
 ---
 graph TD
 	3["
-	eff__222
+	eff__317
 	push_f32
 	"]
 	2 --> 3
+	1 --> 3
+	1["
+	a
+	pop_f32
+	"]
+	0 --> 1
+	0["
+	b
+	pop_f32
+	"]
 	2["
 	r
 	float.-
 	"]
 	1 --> 2
 	0 --> 2
-	0["
-	b
-	pop_f32
-	"]
-	1["
-	a
-	pop_f32
-	"]
 ```
 ## F32_MUL
 ```mermaid
@@ -1597,24 +1660,26 @@ config:
 ---
 graph TD
 	3["
-	eff__226
+	eff__321
 	push_f32
 	"]
 	2 --> 3
+	1 --> 3
+	1["
+	a
+	pop_f32
+	"]
+	0 --> 1
+	0["
+	b
+	pop_f32
+	"]
 	2["
 	r
 	float.*
 	"]
 	1 --> 2
 	0 --> 2
-	0["
-	b
-	pop_f32
-	"]
-	1["
-	a
-	pop_f32
-	"]
 ```
 ## F32_DIV
 ```mermaid
@@ -1630,38 +1695,40 @@ graph TD
 	6 --> 14
 	7 --> 14
 	7["
-	ret__235
+	ret__330
 	trapDivideByZero
 	"]
+	1 --> 7
 	4 --> 7
 	4["
 	if
 	"]
 	3 --> 4
 	3["
-	cond__234
+	cond__329
 	float.==
 	"]
 	0 --> 3
 	2 --> 3
 	2["
-	arg__237
+	arg__332
 	0.0f
 	"]
 	0["
 	b
 	pop_f32
 	"]
+	1["
+	a
+	pop_f32
+	"]
+	0 --> 1
 	6["
 	end
 	"]
 	3 --> 6
 	5 --> 6
 	1 --> 6
-	1["
-	a
-	pop_f32
-	"]
 	5["
 	else
 	"]
@@ -1711,10 +1778,11 @@ graph TD
 	6 --> 8
 	7 --> 8
 	16["
-	eff__230
+	eff__325
 	push_f32
 	"]
 	15 --> 16
+	9 --> 16
 	15["
 	r
 	float./
@@ -1730,19 +1798,20 @@ config:
 ---
 graph TD
 	2["
-	eff__239
+	eff__352
 	push_f32
 	"]
 	1 --> 2
+	0 --> 2
+	0["
+	a
+	pop_f32
+	"]
 	1["
 	r
 	float.sqrt
 	"]
 	0 --> 1
-	0["
-	a
-	pop_f32
-	"]
 ```
 ## F32_EQ
 ```mermaid
@@ -1759,10 +1828,11 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__245
+	eff__358
 	push_u32
 	"]
 	6 --> 7
+	1 --> 7
 	4 --> 7
 	4["
 	else
@@ -1770,17 +1840,18 @@ graph TD
 	2 --> 4
 	9 --> 4
 	9["
-	eff__243
+	eff__356
 	push_u32
 	"]
 	8 --> 9
+	1 --> 9
 	3 --> 9
 	3["
 	if
 	"]
 	2 --> 3
 	2["
-	cond__242
+	cond__355
 	float.==
 	"]
 	1 --> 2
@@ -1793,12 +1864,13 @@ graph TD
 	a
 	pop_f32
 	"]
+	0 --> 1
 	8["
-	arg__244
+	arg__357
 	1
 	"]
 	6["
-	arg__246
+	arg__359
 	0
 	"]
 	5["
@@ -1823,10 +1895,11 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__254
+	eff__373
 	push_u32
 	"]
 	6 --> 7
+	1 --> 7
 	4 --> 7
 	4["
 	else
@@ -1834,17 +1907,18 @@ graph TD
 	2 --> 4
 	9 --> 4
 	9["
-	eff__252
+	eff__371
 	push_u32
 	"]
 	8 --> 9
+	1 --> 9
 	3 --> 9
 	3["
 	if
 	"]
 	2 --> 3
 	2["
-	cond__251
+	cond__370
 	float.!=
 	"]
 	1 --> 2
@@ -1857,12 +1931,13 @@ graph TD
 	a
 	pop_f32
 	"]
+	0 --> 1
 	8["
-	arg__253
+	arg__372
 	1
 	"]
 	6["
-	arg__255
+	arg__374
 	0
 	"]
 	5["
@@ -1887,10 +1962,11 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__263
+	eff__388
 	push_u32
 	"]
 	6 --> 7
+	1 --> 7
 	4 --> 7
 	4["
 	else
@@ -1898,17 +1974,18 @@ graph TD
 	2 --> 4
 	9 --> 4
 	9["
-	eff__261
+	eff__386
 	push_u32
 	"]
 	8 --> 9
+	1 --> 9
 	3 --> 9
 	3["
 	if
 	"]
 	2 --> 3
 	2["
-	cond__260
+	cond__385
 	float.<
 	"]
 	1 --> 2
@@ -1921,12 +1998,13 @@ graph TD
 	a
 	pop_f32
 	"]
+	0 --> 1
 	8["
-	arg__262
+	arg__387
 	1
 	"]
 	6["
-	arg__264
+	arg__389
 	0
 	"]
 	5["
@@ -1951,10 +2029,11 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__272
+	eff__403
 	push_u32
 	"]
 	6 --> 7
+	1 --> 7
 	4 --> 7
 	4["
 	else
@@ -1962,17 +2041,18 @@ graph TD
 	2 --> 4
 	9 --> 4
 	9["
-	eff__270
+	eff__401
 	push_u32
 	"]
 	8 --> 9
+	1 --> 9
 	3 --> 9
 	3["
 	if
 	"]
 	2 --> 3
 	2["
-	cond__269
+	cond__400
 	float.<=
 	"]
 	1 --> 2
@@ -1985,12 +2065,13 @@ graph TD
 	a
 	pop_f32
 	"]
+	0 --> 1
 	8["
-	arg__271
+	arg__402
 	1
 	"]
 	6["
-	arg__273
+	arg__404
 	0
 	"]
 	5["
@@ -2015,10 +2096,11 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__281
+	eff__418
 	push_u32
 	"]
 	6 --> 7
+	1 --> 7
 	4 --> 7
 	4["
 	else
@@ -2026,17 +2108,18 @@ graph TD
 	2 --> 4
 	9 --> 4
 	9["
-	eff__279
+	eff__416
 	push_u32
 	"]
 	8 --> 9
+	1 --> 9
 	3 --> 9
 	3["
 	if
 	"]
 	2 --> 3
 	2["
-	cond__278
+	cond__415
 	float.>
 	"]
 	1 --> 2
@@ -2049,12 +2132,13 @@ graph TD
 	a
 	pop_f32
 	"]
+	0 --> 1
 	8["
-	arg__280
+	arg__417
 	1
 	"]
 	6["
-	arg__282
+	arg__419
 	0
 	"]
 	5["
@@ -2072,7 +2156,7 @@ config:
 ---
 graph TD
 	3["
-	st_put__290
+	st_put__433
 	ctlxfer.put_BR
 	"]
 	1 --> 3
@@ -2086,10 +2170,11 @@ graph TD
 	imm_readULEB32
 	"]
 	2["
-	ret__287
+	ret__430
 	doBranch
 	"]
 	1 --> 2
+	0 --> 2
 ```
 ## BR_IF
 ```mermaid
@@ -2106,9 +2191,11 @@ graph TD
 	9 --> 15
 	8 --> 15
 	8["
-	ret__294
+	ret__437
 	doFallthru
 	"]
+	2 --> 8
+	0 --> 8
 	6 --> 8
 	6["
 	else
@@ -2122,38 +2209,40 @@ graph TD
 	9 --> 6
 	9 --> 6
 	9["
-	ret__292
+	ret__435
 	doBranch
 	"]
 	1 --> 9
+	2 --> 9
+	0 --> 9
 	5 --> 9
 	5["
 	if
 	"]
 	4 --> 5
 	4["
-	cond__291
+	cond__434
 	u32.!=
 	"]
 	2 --> 4
 	3 --> 4
 	3["
-	arg__296
+	arg__439
 	0
 	"]
 	2["
 	cond
 	pop_u32
 	"]
+	0["
+	depth
+	imm_readULEB32
+	"]
 	1["
 	label
 	f_getLabel
 	"]
 	0 --> 1
-	0["
-	depth
-	imm_readULEB32
-	"]
 	7["
 	end
 	"]
@@ -2202,7 +2291,7 @@ graph TD
 	9 --> 10
 	8 --> 10
 	17["
-	st_put__298
+	st_put__441
 	ctlxfer.put_BR_IF
 	"]
 	1 --> 17
@@ -2222,7 +2311,7 @@ config:
 ---
 graph TD
 	3["
-	st_put__303
+	st_put__470
 	ctlxfer.put_BR_TABLE
 	"]
 	0 --> 3
@@ -2231,11 +2320,13 @@ graph TD
 	imm_readLabels
 	"]
 	2["
-	eff__300
+	eff__467
 	doSwitch
 	"]
 	0 --> 2
 	1 --> 2
+	1 --> 2
+	0 --> 2
 	1["
 	key
 	pop_u32
@@ -2249,9 +2340,10 @@ config:
 ---
 graph TD
 	1["
-	eff__304
+	eff__471
 	doBlock
 	"]
+	0 --> 1
 	0 --> 1
 	0["
 	bt
@@ -2266,9 +2358,10 @@ config:
 ---
 graph TD
 	1["
-	eff__306
+	eff__473
 	doLoop
 	"]
+	0 --> 1
 	0 --> 1
 	0["
 	bt
@@ -2283,9 +2376,10 @@ config:
 ---
 graph TD
 	1["
-	eff__308
+	eff__475
 	doTry
 	"]
+	0 --> 1
 	0 --> 1
 	0["
 	bt
@@ -2307,9 +2401,16 @@ graph TD
 	9 --> 15
 	8 --> 15
 	8["
-	ret__313
+	ret__480
 	doFallthru
 	"]
+	2 --> 8
+	2 --> 8
+	2 --> 8
+	2 --> 8
+	2 --> 8
+	2 --> 8
+	2 --> 8
 	6 --> 8
 	6["
 	else
@@ -2323,9 +2424,16 @@ graph TD
 	9 --> 6
 	9 --> 6
 	9["
-	ret__311
+	ret__478
 	doBranch
 	"]
+	2 --> 9
+	2 --> 9
+	2 --> 9
+	2 --> 9
+	2 --> 9
+	2 --> 9
+	2 --> 9
 	2 --> 9
 	5 --> 9
 	5["
@@ -2333,13 +2441,13 @@ graph TD
 	"]
 	4 --> 5
 	4["
-	cond__310
+	cond__477
 	u32.==
 	"]
 	1 --> 4
 	3 --> 4
 	3["
-	arg__315
+	arg__482
 	0
 	"]
 	1["
@@ -2350,6 +2458,8 @@ graph TD
 	label
 	doIf
 	"]
+	0 --> 2
+	1 --> 2
 	0 --> 2
 	0["
 	bt
@@ -2403,7 +2513,7 @@ graph TD
 	9 --> 10
 	8 --> 10
 	17["
-	st_put__317
+	st_put__484
 	ctlxfer.put_IF
 	"]
 	2 --> 17
@@ -2423,7 +2533,7 @@ config:
 ---
 graph TD
 	2["
-	st_put__321
+	st_put__512
 	ctlxfer.put_ELSE
 	"]
 	0 --> 2
@@ -2432,9 +2542,16 @@ graph TD
 	doElse
 	"]
 	1["
-	ret__319
+	ret__510
 	doBranch
 	"]
+	0 --> 1
+	0 --> 1
+	0 --> 1
+	0 --> 1
+	0 --> 1
+	0 --> 1
+	0 --> 1
 	0 --> 1
 ```
 ## END
@@ -2452,20 +2569,27 @@ graph TD
 	5 --> 12
 	0 --> 12
 	0["
-	eff__324
+	eff__515
 	doEnd
 	"]
 	5["
-	ret__323
+	ret__514
 	doReturn
 	"]
+	0 --> 5
+	0 --> 5
+	0 --> 5
+	0 --> 5
+	0 --> 5
+	0 --> 5
+	0 --> 5
 	2 --> 5
 	2["
 	if
 	"]
 	1 --> 2
 	1["
-	cond__322
+	cond__513
 	f_isAtEnd
 	"]
 	4["
@@ -2542,7 +2666,7 @@ config:
 ---
 graph TD
 	0["
-	ret__325
+	ret__516
 	doReturn
 	"]
 ```
@@ -2554,12 +2678,12 @@ config:
 ---
 graph TD
 	2["
-	eff__326
+	eff__517
 	push_Object
 	"]
 	1 --> 2
 	1["
-	arg__327
+	arg__518
 	object_Null
 	"]
 	0["
@@ -2582,10 +2706,11 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6["
-	eff__331
+	eff__522
 	push_u32
 	"]
 	5 --> 6
+	0 --> 6
 	3 --> 6
 	3["
 	else
@@ -2593,17 +2718,18 @@ graph TD
 	1 --> 3
 	8 --> 3
 	8["
-	eff__329
+	eff__520
 	push_u32
 	"]
 	7 --> 8
+	0 --> 8
 	2 --> 8
 	2["
 	if
 	"]
 	1 --> 2
 	1["
-	cond__328
+	cond__519
 	object_isNull
 	"]
 	0 --> 1
@@ -2612,11 +2738,11 @@ graph TD
 	pop_Object
 	"]
 	7["
-	arg__330
+	arg__521
 	1
 	"]
 	5["
-	arg__332
+	arg__523
 	0
 	"]
 	4["
@@ -2634,31 +2760,34 @@ config:
 ---
 graph TD
 	13["
-	eff__336
+	eff__533
 	push_Object
 	"]
 	0 --> 13
+	7 --> 13
+	7["
+	state phi Stack
+	"]
+	1 --> 7
+	4 --> 7
+	5 --> 7
+	0 --> 7
 	0["
 	obj
 	pop_Object
 	"]
-	12["
-	state phi Codebuilder
-	"]
-	1 --> 12
-	4 --> 12
-	5 --> 12
 	5["
-	eff__339
+	eff__536
 	trapNull
 	"]
+	0 --> 5
 	2 --> 5
 	2["
 	if
 	"]
 	1 --> 2
 	1["
-	cond__338
+	cond__535
 	object_isNull
 	"]
 	0 --> 1
@@ -2679,6 +2808,12 @@ graph TD
 	5 --> 3
 	5 --> 3
 	5 --> 3
+	12["
+	state phi Codebuilder
+	"]
+	1 --> 12
+	4 --> 12
+	5 --> 12
 	11["
 	state phi Sidetable
 	"]
@@ -2703,13 +2838,6 @@ graph TD
 	1 --> 8
 	4 --> 8
 	5 --> 8
-	7["
-	state phi Stack
-	"]
-	1 --> 7
-	4 --> 7
-	5 --> 7
-	0 --> 7
 	6["
 	state phi Codeptr
 	"]
@@ -2725,7 +2853,7 @@ config:
 ---
 graph TD
 	3["
-	eff__341
+	eff__556
 	push_Object
 	"]
 	2 --> 3
@@ -2758,22 +2886,33 @@ graph TD
 	8 --> 15
 	9 --> 15
 	9["
-	ret__371
+	ret__586
 	trapNull
 	"]
+	4 --> 9
+	1 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__370
+	cond__585
 	object_isNull
 	"]
 	4 --> 5
 	4["
 	obj
 	pop_Object
+	"]
+	1["
+	field_index
+	imm_readULEB32
+	"]
+	0 --> 1
+	0["
+	struct_index
+	imm_readULEB32
 	"]
 	8["
 	end
@@ -2782,10 +2921,6 @@ graph TD
 	7 --> 8
 	1 --> 8
 	4 --> 8
-	1["
-	field_index
-	imm_readULEB32
-	"]
 	7["
 	else
 	"]
@@ -2835,10 +2970,6 @@ graph TD
 	"]
 	0 --> 3
 	1 --> 3
-	0["
-	struct_index
-	imm_readULEB32
-	"]
 	2["
 	kind
 	m_getFieldKind
@@ -2866,22 +2997,33 @@ graph TD
 	8 --> 15
 	9 --> 15
 	9["
-	ret__390
+	ret__624
 	trapNull
 	"]
+	4 --> 9
+	1 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__389
+	cond__623
 	object_isNull
 	"]
 	4 --> 5
 	4["
 	obj
 	pop_Object
+	"]
+	1["
+	field_index
+	imm_readULEB32
+	"]
+	0 --> 1
+	0["
+	struct_index
+	imm_readULEB32
 	"]
 	8["
 	end
@@ -2890,10 +3032,6 @@ graph TD
 	7 --> 8
 	1 --> 8
 	4 --> 8
-	1["
-	field_index
-	imm_readULEB32
-	"]
 	7["
 	else
 	"]
@@ -2943,10 +3081,6 @@ graph TD
 	"]
 	0 --> 3
 	1 --> 3
-	0["
-	struct_index
-	imm_readULEB32
-	"]
 	2["
 	kind
 	m_getFieldKind
@@ -2974,22 +3108,33 @@ graph TD
 	8 --> 15
 	9 --> 15
 	9["
-	ret__409
+	ret__662
 	trapNull
 	"]
+	4 --> 9
+	1 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__408
+	cond__661
 	object_isNull
 	"]
 	4 --> 5
 	4["
 	obj
 	pop_Object
+	"]
+	1["
+	field_index
+	imm_readULEB32
+	"]
+	0 --> 1
+	0["
+	struct_index
+	imm_readULEB32
 	"]
 	8["
 	end
@@ -2998,10 +3143,6 @@ graph TD
 	7 --> 8
 	1 --> 8
 	4 --> 8
-	1["
-	field_index
-	imm_readULEB32
-	"]
 	7["
 	else
 	"]
@@ -3051,10 +3192,6 @@ graph TD
 	"]
 	0 --> 3
 	1 --> 3
-	0["
-	struct_index
-	imm_readULEB32
-	"]
 	2["
 	kind
 	m_getFieldKind
@@ -3080,7 +3217,7 @@ graph TD
 	"]
 	12 --> 13
 	12["
-	cond__416
+	cond__688
 	m_isMemory64
 	"]
 	10 --> 12
@@ -3097,32 +3234,33 @@ graph TD
 	0u
 	"]
 	9["
-	memindex__429
+	memindex__701
 	imm_readULEB32
 	"]
+	0 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__428
+	cond__700
 	u8.!=
 	"]
 	4 --> 5
 	2 --> 5
 	2["
-	arg__431
+	arg__703
 	0
 	"]
 	4["
-	arg__430
+	arg__702
 	u8.&
 	"]
 	0 --> 4
 	3 --> 4
 	3["
-	arg__433
+	arg__705
 	0x40u8
 	"]
 	0["
@@ -3134,6 +3272,7 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
+	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -3156,10 +3295,11 @@ graph TD
 	23 --> 25
 	19 --> 25
 	19["
-	eff__422
+	eff__694
 	push_u32
 	"]
 	18 --> 19
+	17 --> 19
 	14 --> 19
 	14["
 	else
@@ -3168,11 +3308,17 @@ graph TD
 	20 --> 14
 	23 --> 14
 	23["
-	eff__417
+	eff__689
 	push_u32
 	"]
 	22 --> 23
+	21 --> 23
 	13 --> 23
+	21["
+	index
+	pop_u64
+	"]
+	13 --> 21
 	22["
 	val
 	mach_readMemory64_u32
@@ -3185,12 +3331,13 @@ graph TD
 	offset
 	imm_readULEB64
 	"]
+	11 --> 20
 	13 --> 20
-	21["
+	17["
 	index
-	pop_u64
+	pop_u32
 	"]
-	13 --> 21
+	14 --> 17
 	18["
 	val
 	mach_readMemory32_u32
@@ -3203,12 +3350,8 @@ graph TD
 	offset
 	imm_readULEB32
 	"]
+	11 --> 16
 	14 --> 16
-	17["
-	index
-	pop_u32
-	"]
-	14 --> 17
 	15["
 	end
 	"]
@@ -3236,7 +3379,7 @@ graph TD
 	"]
 	12 --> 13
 	12["
-	cond__434
+	cond__706
 	m_isMemory64
 	"]
 	10 --> 12
@@ -3253,32 +3396,33 @@ graph TD
 	0u
 	"]
 	9["
-	memindex__447
+	memindex__719
 	imm_readULEB32
 	"]
+	0 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__446
+	cond__718
 	u8.!=
 	"]
 	4 --> 5
 	2 --> 5
 	2["
-	arg__449
+	arg__721
 	0
 	"]
 	4["
-	arg__448
+	arg__720
 	u8.&
 	"]
 	0 --> 4
 	3 --> 4
 	3["
-	arg__451
+	arg__723
 	0x40u8
 	"]
 	0["
@@ -3290,6 +3434,7 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
+	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -3312,10 +3457,11 @@ graph TD
 	23 --> 25
 	19 --> 25
 	19["
-	eff__440
+	eff__712
 	push_u32
 	"]
 	18 --> 19
+	17 --> 19
 	14 --> 19
 	14["
 	else
@@ -3324,11 +3470,17 @@ graph TD
 	20 --> 14
 	23 --> 14
 	23["
-	eff__435
+	eff__707
 	push_u32
 	"]
 	22 --> 23
+	21 --> 23
 	13 --> 23
+	21["
+	index
+	pop_u64
+	"]
+	13 --> 21
 	22["
 	val
 	mach_readMemory64_u8
@@ -3341,12 +3493,13 @@ graph TD
 	offset
 	imm_readULEB64
 	"]
+	11 --> 20
 	13 --> 20
-	21["
+	17["
 	index
-	pop_u64
+	pop_u32
 	"]
-	13 --> 21
+	14 --> 17
 	18["
 	val
 	mach_readMemory32_u8
@@ -3359,12 +3512,8 @@ graph TD
 	offset
 	imm_readULEB32
 	"]
+	11 --> 16
 	14 --> 16
-	17["
-	index
-	pop_u32
-	"]
-	14 --> 17
 	15["
 	end
 	"]
@@ -3392,7 +3541,7 @@ graph TD
 	"]
 	12 --> 13
 	12["
-	cond__452
+	cond__724
 	m_isMemory64
 	"]
 	10 --> 12
@@ -3409,32 +3558,33 @@ graph TD
 	0u
 	"]
 	9["
-	memindex__465
+	memindex__737
 	imm_readULEB32
 	"]
+	0 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__464
+	cond__736
 	u8.!=
 	"]
 	4 --> 5
 	2 --> 5
 	2["
-	arg__467
+	arg__739
 	0
 	"]
 	4["
-	arg__466
+	arg__738
 	u8.&
 	"]
 	0 --> 4
 	3 --> 4
 	3["
-	arg__469
+	arg__741
 	0x40u8
 	"]
 	0["
@@ -3446,6 +3596,7 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
+	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -3468,10 +3619,11 @@ graph TD
 	23 --> 25
 	19 --> 25
 	19["
-	eff__458
+	eff__730
 	push_u32
 	"]
 	18 --> 19
+	17 --> 19
 	14 --> 19
 	14["
 	else
@@ -3480,11 +3632,17 @@ graph TD
 	20 --> 14
 	23 --> 14
 	23["
-	eff__453
+	eff__725
 	push_u32
 	"]
 	22 --> 23
+	21 --> 23
 	13 --> 23
+	21["
+	index
+	pop_u64
+	"]
+	13 --> 21
 	22["
 	val
 	mach_readMemory64_u16
@@ -3497,12 +3655,13 @@ graph TD
 	offset
 	imm_readULEB64
 	"]
+	11 --> 20
 	13 --> 20
-	21["
+	17["
 	index
-	pop_u64
+	pop_u32
 	"]
-	13 --> 21
+	14 --> 17
 	18["
 	val
 	mach_readMemory32_u16
@@ -3515,12 +3674,8 @@ graph TD
 	offset
 	imm_readULEB32
 	"]
+	11 --> 16
 	14 --> 16
-	17["
-	index
-	pop_u32
-	"]
-	14 --> 17
 	15["
 	end
 	"]
@@ -3548,7 +3703,7 @@ graph TD
 	"]
 	12 --> 13
 	12["
-	cond__470
+	cond__742
 	m_isMemory64
 	"]
 	10 --> 12
@@ -3565,32 +3720,33 @@ graph TD
 	0u
 	"]
 	9["
-	memindex__483
+	memindex__755
 	imm_readULEB32
 	"]
+	0 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__482
+	cond__754
 	u8.!=
 	"]
 	4 --> 5
 	2 --> 5
 	2["
-	arg__485
+	arg__757
 	0
 	"]
 	4["
-	arg__484
+	arg__756
 	u8.&
 	"]
 	0 --> 4
 	3 --> 4
 	3["
-	arg__487
+	arg__759
 	0x40u8
 	"]
 	0["
@@ -3602,6 +3758,7 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
+	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -3624,10 +3781,11 @@ graph TD
 	23 --> 25
 	19 --> 25
 	19["
-	eff__476
+	eff__748
 	push_u64
 	"]
 	18 --> 19
+	17 --> 19
 	14 --> 19
 	14["
 	else
@@ -3636,11 +3794,17 @@ graph TD
 	20 --> 14
 	23 --> 14
 	23["
-	eff__471
+	eff__743
 	push_u64
 	"]
 	22 --> 23
+	21 --> 23
 	13 --> 23
+	21["
+	index
+	pop_u64
+	"]
+	13 --> 21
 	22["
 	val
 	mach_readMemory64_u64
@@ -3653,12 +3817,13 @@ graph TD
 	offset
 	imm_readULEB64
 	"]
+	11 --> 20
 	13 --> 20
-	21["
+	17["
 	index
-	pop_u64
+	pop_u32
 	"]
-	13 --> 21
+	14 --> 17
 	18["
 	val
 	mach_readMemory32_u64
@@ -3671,12 +3836,8 @@ graph TD
 	offset
 	imm_readULEB32
 	"]
+	11 --> 16
 	14 --> 16
-	17["
-	index
-	pop_u32
-	"]
-	14 --> 17
 	15["
 	end
 	"]
@@ -3704,7 +3865,7 @@ graph TD
 	"]
 	12 --> 13
 	12["
-	cond__488
+	cond__760
 	m_isMemory64
 	"]
 	10 --> 12
@@ -3721,32 +3882,33 @@ graph TD
 	0u
 	"]
 	9["
-	memindex__501
+	memindex__773
 	imm_readULEB32
 	"]
+	0 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__500
+	cond__772
 	u8.!=
 	"]
 	4 --> 5
 	2 --> 5
 	2["
-	arg__503
+	arg__775
 	0
 	"]
 	4["
-	arg__502
+	arg__774
 	u8.&
 	"]
 	0 --> 4
 	3 --> 4
 	3["
-	arg__505
+	arg__777
 	0x40u8
 	"]
 	0["
@@ -3758,6 +3920,7 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
+	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -3780,10 +3943,11 @@ graph TD
 	23 --> 25
 	19 --> 25
 	19["
-	eff__494
+	eff__766
 	push_f32
 	"]
 	18 --> 19
+	17 --> 19
 	14 --> 19
 	14["
 	else
@@ -3792,11 +3956,17 @@ graph TD
 	20 --> 14
 	23 --> 14
 	23["
-	eff__489
+	eff__761
 	push_f32
 	"]
 	22 --> 23
+	21 --> 23
 	13 --> 23
+	21["
+	index
+	pop_u64
+	"]
+	13 --> 21
 	22["
 	val
 	mach_readMemory64_f32
@@ -3809,12 +3979,13 @@ graph TD
 	offset
 	imm_readULEB64
 	"]
+	11 --> 20
 	13 --> 20
-	21["
+	17["
 	index
-	pop_u64
+	pop_u32
 	"]
-	13 --> 21
+	14 --> 17
 	18["
 	val
 	mach_readMemory32_f32
@@ -3827,12 +3998,8 @@ graph TD
 	offset
 	imm_readULEB32
 	"]
+	11 --> 16
 	14 --> 16
-	17["
-	index
-	pop_u32
-	"]
-	14 --> 17
 	15["
 	end
 	"]
@@ -3860,7 +4027,7 @@ graph TD
 	"]
 	12 --> 13
 	12["
-	cond__506
+	cond__778
 	m_isMemory64
 	"]
 	10 --> 12
@@ -3877,32 +4044,33 @@ graph TD
 	0u
 	"]
 	9["
-	memindex__519
+	memindex__791
 	imm_readULEB32
 	"]
+	0 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__518
+	cond__790
 	u8.!=
 	"]
 	4 --> 5
 	2 --> 5
 	2["
-	arg__521
+	arg__793
 	0
 	"]
 	4["
-	arg__520
+	arg__792
 	u8.&
 	"]
 	0 --> 4
 	3 --> 4
 	3["
-	arg__523
+	arg__795
 	0x40u8
 	"]
 	0["
@@ -3914,6 +4082,7 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
+	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -3936,10 +4105,11 @@ graph TD
 	23 --> 25
 	19 --> 25
 	19["
-	eff__512
+	eff__784
 	push_f64
 	"]
 	18 --> 19
+	17 --> 19
 	14 --> 19
 	14["
 	else
@@ -3948,11 +4118,17 @@ graph TD
 	20 --> 14
 	23 --> 14
 	23["
-	eff__507
+	eff__779
 	push_f64
 	"]
 	22 --> 23
+	21 --> 23
 	13 --> 23
+	21["
+	index
+	pop_u64
+	"]
+	13 --> 21
 	22["
 	val
 	mach_readMemory64_f64
@@ -3965,12 +4141,13 @@ graph TD
 	offset
 	imm_readULEB64
 	"]
+	11 --> 20
 	13 --> 20
-	21["
+	17["
 	index
-	pop_u64
+	pop_u32
 	"]
-	13 --> 21
+	14 --> 17
 	18["
 	val
 	mach_readMemory32_f64
@@ -3983,12 +4160,8 @@ graph TD
 	offset
 	imm_readULEB32
 	"]
+	11 --> 16
 	14 --> 16
-	17["
-	index
-	pop_u32
-	"]
-	14 --> 17
 	15["
 	end
 	"]
@@ -4016,7 +4189,7 @@ graph TD
 	"]
 	13 --> 14
 	13["
-	cond__524
+	cond__796
 	m_isMemory64
 	"]
 	10 --> 13
@@ -4033,32 +4206,33 @@ graph TD
 	0u
 	"]
 	9["
-	memindex__537
+	memindex__809
 	imm_readULEB32
 	"]
+	0 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__536
+	cond__808
 	u8.!=
 	"]
 	4 --> 5
 	2 --> 5
 	2["
-	arg__539
+	arg__811
 	0
 	"]
 	4["
-	arg__538
+	arg__810
 	u8.&
 	"]
 	0 --> 4
 	3 --> 4
 	3["
-	arg__541
+	arg__813
 	0x40u8
 	"]
 	0["
@@ -4070,6 +4244,7 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
+	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -4092,7 +4267,7 @@ graph TD
 	22 --> 25
 	19 --> 25
 	19["
-	eff__530
+	eff__802
 	mach_writeMemory32_u32
 	"]
 	10 --> 19
@@ -4108,7 +4283,7 @@ graph TD
 	21 --> 15
 	22 --> 15
 	22["
-	eff__525
+	eff__797
 	mach_writeMemory64_u32
 	"]
 	10 --> 22
@@ -4124,21 +4299,25 @@ graph TD
 	offset
 	imm_readULEB64
 	"]
+	11 --> 20
 	14 --> 20
 	21["
 	index
 	pop_u64
 	"]
+	12 --> 21
 	14 --> 21
 	17["
 	offset
 	imm_readULEB32
 	"]
+	11 --> 17
 	15 --> 17
 	18["
 	index
 	pop_u32
 	"]
+	12 --> 18
 	15 --> 18
 	16["
 	end
@@ -4175,7 +4354,7 @@ graph TD
 	"]
 	13 --> 14
 	13["
-	cond__542
+	cond__814
 	m_isMemory64
 	"]
 	10 --> 13
@@ -4192,32 +4371,33 @@ graph TD
 	0u
 	"]
 	9["
-	memindex__555
+	memindex__827
 	imm_readULEB32
 	"]
+	0 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__554
+	cond__826
 	u8.!=
 	"]
 	4 --> 5
 	2 --> 5
 	2["
-	arg__557
+	arg__829
 	0
 	"]
 	4["
-	arg__556
+	arg__828
 	u8.&
 	"]
 	0 --> 4
 	3 --> 4
 	3["
-	arg__559
+	arg__831
 	0x40u8
 	"]
 	0["
@@ -4229,6 +4409,7 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
+	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -4251,7 +4432,7 @@ graph TD
 	22 --> 25
 	19 --> 25
 	19["
-	eff__548
+	eff__820
 	mach_writeMemory32_u8
 	"]
 	10 --> 19
@@ -4267,7 +4448,7 @@ graph TD
 	21 --> 15
 	22 --> 15
 	22["
-	eff__543
+	eff__815
 	mach_writeMemory64_u8
 	"]
 	10 --> 22
@@ -4283,21 +4464,25 @@ graph TD
 	offset
 	imm_readULEB64
 	"]
+	11 --> 20
 	14 --> 20
 	21["
 	index
 	pop_u64
 	"]
+	12 --> 21
 	14 --> 21
 	17["
 	offset
 	imm_readULEB32
 	"]
+	11 --> 17
 	15 --> 17
 	18["
 	index
 	pop_u32
 	"]
+	12 --> 18
 	15 --> 18
 	16["
 	end
@@ -4334,7 +4519,7 @@ graph TD
 	"]
 	13 --> 14
 	13["
-	cond__560
+	cond__832
 	m_isMemory64
 	"]
 	10 --> 13
@@ -4351,32 +4536,33 @@ graph TD
 	0u
 	"]
 	9["
-	memindex__573
+	memindex__845
 	imm_readULEB32
 	"]
+	0 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__572
+	cond__844
 	u8.!=
 	"]
 	4 --> 5
 	2 --> 5
 	2["
-	arg__575
+	arg__847
 	0
 	"]
 	4["
-	arg__574
+	arg__846
 	u8.&
 	"]
 	0 --> 4
 	3 --> 4
 	3["
-	arg__577
+	arg__849
 	0x40u8
 	"]
 	0["
@@ -4388,6 +4574,7 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
+	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -4410,7 +4597,7 @@ graph TD
 	22 --> 25
 	19 --> 25
 	19["
-	eff__566
+	eff__838
 	mach_writeMemory32_u16
 	"]
 	10 --> 19
@@ -4426,7 +4613,7 @@ graph TD
 	21 --> 15
 	22 --> 15
 	22["
-	eff__561
+	eff__833
 	mach_writeMemory64_u16
 	"]
 	10 --> 22
@@ -4442,21 +4629,25 @@ graph TD
 	offset
 	imm_readULEB64
 	"]
+	11 --> 20
 	14 --> 20
 	21["
 	index
 	pop_u64
 	"]
+	12 --> 21
 	14 --> 21
 	17["
 	offset
 	imm_readULEB32
 	"]
+	11 --> 17
 	15 --> 17
 	18["
 	index
 	pop_u32
 	"]
+	12 --> 18
 	15 --> 18
 	16["
 	end
@@ -4493,7 +4684,7 @@ graph TD
 	"]
 	13 --> 14
 	13["
-	cond__578
+	cond__850
 	m_isMemory64
 	"]
 	10 --> 13
@@ -4510,32 +4701,33 @@ graph TD
 	0u
 	"]
 	9["
-	memindex__591
+	memindex__863
 	imm_readULEB32
 	"]
+	0 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__590
+	cond__862
 	u8.!=
 	"]
 	4 --> 5
 	2 --> 5
 	2["
-	arg__593
+	arg__865
 	0
 	"]
 	4["
-	arg__592
+	arg__864
 	u8.&
 	"]
 	0 --> 4
 	3 --> 4
 	3["
-	arg__595
+	arg__867
 	0x40u8
 	"]
 	0["
@@ -4547,6 +4739,7 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
+	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -4569,7 +4762,7 @@ graph TD
 	22 --> 25
 	19 --> 25
 	19["
-	eff__584
+	eff__856
 	mach_writeMemory32_u64
 	"]
 	10 --> 19
@@ -4585,7 +4778,7 @@ graph TD
 	21 --> 15
 	22 --> 15
 	22["
-	eff__579
+	eff__851
 	mach_writeMemory64_u64
 	"]
 	10 --> 22
@@ -4601,21 +4794,25 @@ graph TD
 	offset
 	imm_readULEB64
 	"]
+	11 --> 20
 	14 --> 20
 	21["
 	index
 	pop_u64
 	"]
+	12 --> 21
 	14 --> 21
 	17["
 	offset
 	imm_readULEB32
 	"]
+	11 --> 17
 	15 --> 17
 	18["
 	index
 	pop_u32
 	"]
+	12 --> 18
 	15 --> 18
 	16["
 	end
@@ -4652,7 +4849,7 @@ graph TD
 	"]
 	13 --> 14
 	13["
-	cond__596
+	cond__868
 	m_isMemory64
 	"]
 	10 --> 13
@@ -4669,32 +4866,33 @@ graph TD
 	0u
 	"]
 	9["
-	memindex__609
+	memindex__881
 	imm_readULEB32
 	"]
+	0 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__608
+	cond__880
 	u8.!=
 	"]
 	4 --> 5
 	2 --> 5
 	2["
-	arg__611
+	arg__883
 	0
 	"]
 	4["
-	arg__610
+	arg__882
 	u8.&
 	"]
 	0 --> 4
 	3 --> 4
 	3["
-	arg__613
+	arg__885
 	0x40u8
 	"]
 	0["
@@ -4706,6 +4904,7 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
+	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -4731,6 +4930,7 @@ graph TD
 	index
 	pop_u32
 	"]
+	12 --> 18
 	15 --> 18
 	15["
 	else
@@ -4742,11 +4942,17 @@ graph TD
 	index
 	pop_u64
 	"]
+	12 --> 21
 	14 --> 21
+	12["
+	val
+	pop_f32
+	"]
 	20["
 	offset
 	imm_readULEB64
 	"]
+	11 --> 20
 	14 --> 20
 	16["
 	end
@@ -4759,6 +4965,7 @@ graph TD
 	offset
 	imm_readULEB32
 	"]
+	11 --> 17
 	15 --> 17
 	23["
 	state phi Codeptr
@@ -4768,7 +4975,7 @@ graph TD
 	20 --> 23
 	17 --> 23
 	22["
-	eff__597
+	eff__869
 	mach_writeMemory64_f32
 	"]
 	10 --> 22
@@ -4776,12 +4983,8 @@ graph TD
 	20 --> 22
 	12 --> 22
 	14 --> 22
-	12["
-	val
-	pop_f32
-	"]
 	19["
-	eff__602
+	eff__874
 	mach_writeMemory32_f32
 	"]
 	10 --> 19
@@ -4802,7 +5005,7 @@ graph TD
 	"]
 	13 --> 14
 	13["
-	cond__614
+	cond__886
 	m_isMemory64
 	"]
 	10 --> 13
@@ -4819,32 +5022,33 @@ graph TD
 	0u
 	"]
 	9["
-	memindex__627
+	memindex__899
 	imm_readULEB32
 	"]
+	0 --> 9
 	6 --> 9
 	6["
 	if
 	"]
 	5 --> 6
 	5["
-	cond__626
+	cond__898
 	u8.!=
 	"]
 	4 --> 5
 	2 --> 5
 	2["
-	arg__629
+	arg__901
 	0
 	"]
 	4["
-	arg__628
+	arg__900
 	u8.&
 	"]
 	0 --> 4
 	3 --> 4
 	3["
-	arg__631
+	arg__903
 	0x40u8
 	"]
 	0["
@@ -4856,6 +5060,7 @@ graph TD
 	"]
 	5 --> 8
 	7 --> 8
+	1 --> 8
 	0 --> 8
 	7["
 	else
@@ -4878,7 +5083,7 @@ graph TD
 	22 --> 25
 	19 --> 25
 	19["
-	eff__620
+	eff__892
 	mach_writeMemory32_f64
 	"]
 	10 --> 19
@@ -4894,7 +5099,7 @@ graph TD
 	21 --> 15
 	22 --> 15
 	22["
-	eff__615
+	eff__887
 	mach_writeMemory64_f64
 	"]
 	10 --> 22
@@ -4910,21 +5115,25 @@ graph TD
 	offset
 	imm_readULEB64
 	"]
+	11 --> 20
 	14 --> 20
 	21["
 	index
 	pop_u64
 	"]
+	12 --> 21
 	14 --> 21
 	17["
 	offset
 	imm_readULEB32
 	"]
+	11 --> 17
 	15 --> 17
 	18["
 	index
 	pop_u32
 	"]
+	12 --> 18
 	15 --> 18
 	16["
 	end
