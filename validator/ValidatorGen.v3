@@ -149,7 +149,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
         sb.ln();
     }
     var instSsa = processed;
-    // instSsa = SSAD.Injected(sb.toString(), processed);
+    instSsa = SSAD.Injected(sb.toString(), processed);
 
     return ValidatorCBDDef.new(opcode, instSsa, bs);
 }

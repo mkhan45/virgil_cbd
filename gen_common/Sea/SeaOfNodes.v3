@@ -452,7 +452,6 @@ class IRNode {
                 def ifTrue = intrinsic("maybeTrue");
                 def ifFalse = intrinsic("maybeFalse");
                 def and = intrinsic("bool.&&");
-                def merge = intrinsic("nop");
 
                 def ifTrueOp = IROp.Intrinsic(ifTrue, [cond]);
                 def ifFalseOp = IROp.Intrinsic(ifFalse, [cond]);
@@ -487,24 +486,25 @@ class IRNode {
                 def newPhis = Vector<IRNode>.new();
                 def newEnd = newRegions.end = sea.mkNode(IROp.End(andNode, right_phis, else_region_ends));
                 newEnd.pathDeps = List.new(newRight, null);
+
+                def effPool = NodeSet.new();
                 for (i < right_phis.length) {
                     def inner_phi = right_phis[i];
                     match (inner_phi.op) {
                         Phi => {}
                         StatePhi(_, _, left, right, statecomp) => {
-                            def mergeNode = sea.mkNode(IROp.Intrinsic(merge, []));
-                            newElse.pathDeps = List.new(mergeNode, newElse.pathDeps);
-
-                            if (left != null) {
+                            if (left != null && !effPool.has(left)) {
+                                effPool.put(left);
                                 def newLeft = sea.mkNode(left.op);
                                 newLeft.pathDeps = List.new(newIf, null);
-                                mergeNode.pathDeps = List.new(newLeft, mergeNode.pathDeps);
+                                newElse.pathDeps = List.new(newLeft, newElse.pathDeps);
                             }
 
-                            if (right != null) {
+                            if (right != null && !effPool.has(right)) {
+                                effPool.put(right);
                                 def newRight = sea.mkNode(right.op);
                                 newRight.pathDeps = List.new(newIf, null);
-                                mergeNode.pathDeps = List.new(newRight, mergeNode.pathDeps);
+                                newElse.pathDeps = List.new(newRight, newElse.pathDeps);
                             }
                         }
                         _ => {}
@@ -543,7 +543,7 @@ type IROp {
     case End(cond: IRNode, region_ends: Vector<IRNode>, phis: Vector<IRNode>);
     case Phi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode);
     case MatchPhi(subj: IRNode, end: IRNode, cases: Array<IRNode>);
-    case StatePhi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode, statecomp: StateComponent.set);
+    case StatePhi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode, statecomp: StateComponent);
 
     def immediatePredecessors() -> Array<IRNode> {
         match (this) {
