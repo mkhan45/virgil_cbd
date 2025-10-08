@@ -513,104 +513,6 @@ class IRNode {
 
                 return [];
             }
-            // Phi(cond, end, left, right) => {
-            //     def it = IntrinsicType.new(cond.data.tipe, cond.data.stage);
-            //     def ifTrue = intrinsic("maybeTrue");
-            //     def ifFalse = intrinsic("maybeFalse");
-            //     def and = intrinsic("bool.&&");
-            //     def merge = intrinsic("merge");
-
-            //     def ifTrueOp = IROp.Intrinsic(ifTrue, [cond], []);
-            //     def ifFalseOp = IROp.Intrinsic(ifFalse, [cond], []);
-            //     def mergeOp = IROp.Intrinsic(merge, [left, right], []);
-
-            //     def ifTrueNode = sea.mkNode(ifTrueOp);
-            //     ifTrueNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-            //     ifTrueNode.data.sourceName = uidl("ift");
-
-            //     def ifFalseNode = sea.mkNode(ifFalseOp);
-            //     ifFalseNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-            //     ifTrueNode.data.sourceName = uidl("iff");
-
-            //     def mergeNode = sea.mkNode(mergeOp);
-            //     mergeNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-            //     mergeNode.data.sourceName = uidl("merge");
-
-            //     def andOp = IROp.Intrinsic(and, [ifTrueNode, ifFalseNode], []);
-            //     def andNode = sea.mkNode(andOp);
-            //     andNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-            //     andNode.data.sourceName = uidl("and");
-
-            //     def ifBothNode = sea.mkNode(IROp.If(andNode));
-            //     def elseBothNode = sea.mkNode(IROp.If(andNode));
-            //     def end_phis = Vector<IRNode>.new();
-            //     def endNode = sea.mkNode(IROp.End(andNode, Vector.new(), end_phis));
-            //     def newPhi = sea.mkNode(IROp.Phi(andNode, endNode, mergeNode, this));
-            //     newPhi.data = NodeData.new(data.tipe, data.eff, data.stage);
-            //     newPhi.data.sourceName = uidl("triPhi");
-            //     // end_phis.put(newPhi);
-
-            //     become(newPhi);
-            //     return [];
-            // }
-            // StatePhi(cond, end, left, right, statecomp) => {
-            //     if (cond.data.stage == Stage.VALIDATE) return args();
-            //     def it = IntrinsicType.new(cond.data.tipe, cond.data.stage);
-            //     def ifTrue = intrinsic("maybeTrue");
-            //     def ifFalse = intrinsic("maybeFalse");
-            //     def and = intrinsic("bool.&&");
-            //     def merge = intrinsic("nop");
-
-            //     def ifTrueOp = IROp.Intrinsic(ifTrue, [cond]);
-            //     def ifFalseOp = IROp.Intrinsic(ifFalse, [cond]);
-
-            //     def ifTrueNode = sea.mkNode(ifTrueOp);
-            //     ifTrueNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-            //     ifTrueNode.data.sourceName = uidl("ift");
-
-            //     def ifFalseNode = sea.mkNode(ifFalseOp);
-            //     ifFalseNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-            //     ifFalseNode.data.sourceName = uidl("iff");
-
-            //     def andOp = IROp.Intrinsic(and, [ifTrueNode, ifFalseNode]);
-            //     def andNode = sea.mkNode(andOp);
-            //     andNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-            //     andNode.data.sourceName = uidl("and");
-
-            //     def mergeNode = sea.mkNode(IROp.Intrinsic(merge, []));
-            //     if (left != null) mergeNode.pathDeps = List.new(left, mergeNode.pathDeps);
-            //     if (right != null) mergeNode.pathDeps = List.new(right, mergeNode.pathDeps);
-
-            //     def if_ends = Vector<IRNode>.new();
-            //     def else_ends = Vector<IRNode>.new();
-
-            //     def ifBothNode = sea.mkNode(IROp.If(andNode));
-            //     def elseBothNode = sea.mkNode(IROp.Else(andNode, if_ends));
-
-            //     if (left != null) {
-            //         if_ends.put(left);
-            //         // left.pathDeps = List.new(ifBothNode, left.pathDeps);
-            //         left.pathDeps = List.new(ifBothNode, null);
-            //     }
-            //     if (right != null) {
-            //         else_ends.put(right);
-            //         // right.pathDeps = List.new(elseBothNode, right.pathDeps);
-            //         right.pathDeps = List.new(elseBothNode, null);
-            //     }
-
-            //     def oldPhi = sea.mkNode(this.op);
-
-            //     def end_phis = Vector<IRNode>.new();
-            //     def endNode = sea.mkNode(IROp.End(andNode, else_ends, end_phis));
-            //     def newPhi = sea.mkNode(IROp.StatePhi(andNode, endNode, mergeNode, oldPhi, statecomp));
-            //     end_phis.put(newPhi);
-
-            //     sea.roots.remove(oldPhi);
-            //     sea.nodes.remove(oldPhi);
-
-            //     become(newPhi);
-            //     return [];
-            // }
             _ => {
                 // return args();
                 return [];
@@ -641,7 +543,7 @@ type IROp {
     case End(cond: IRNode, region_ends: Vector<IRNode>, phis: Vector<IRNode>);
     case Phi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode);
     case MatchPhi(subj: IRNode, end: IRNode, cases: Array<IRNode>);
-    case StatePhi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode, statecomp: StateComponent);
+    case StatePhi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode, statecomp: StateComponent.set);
 
     def immediatePredecessors() -> Array<IRNode> {
         match (this) {
