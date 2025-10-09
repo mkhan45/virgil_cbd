@@ -199,11 +199,14 @@ class Sea {
 
         var res: SSAD = SSAD.Void;
         var available: ImmNodeSet = ImmNodeSets.empty();
-        for (i < root_buf.length) {
-            def sched = scheduleNode(root_buf[i], res, available);
-            res = sched.0;
-            available = sched.1;
-        }
+        def sched = scheduleNode(root_buf.copy(), SSAD.Void, available);
+        res = sched.0;
+        // for (i < root_buf.length) {
+        //     def sched = scheduleNode(root_buf[i], res, available);
+        //     res = sched.0;
+        //     available = sched.1;
+        //     System.puts("===\n");
+        // }
 
         return res;
     }
@@ -226,16 +229,21 @@ class Sea {
 
     // TODO:
     // combine this strat with below, use List<IRNode> path and construct ssa at the end
-    def scheduleNode(node: IRNode, path: SSAD, available: ImmNodeSet) -> (SSAD, ImmNodeSet) {
+    def scheduleNode(nodes: Array<IRNode>, path: SSAD, available: ImmNodeSet) -> (SSAD, ImmNodeSet) {
         def wl: Vector<IRNode> = Vector.new();
 
-        wl.put(node);
+        // wl.put(node);
+        for (n in nodes) wl.put(n);
 
         var sched = Vector<IRNode>.new();
-        var availableNow = available;
+
+        def availStack = ArrayStack<ImmNodeSet>.new();
+        availStack.push(available);
+        // var availableNow = available;
 
         var q_idx = 0;
         while (q_idx < wl.length) {
+            def availableNow = availStack.peek();
             def node = wl[q_idx];
             q_idx += 1;
 
@@ -253,8 +261,49 @@ class Sea {
             }
 
             if (ready) {
+                // if (IROp.If.?(node.op)) {
+                //     var skip = false;
+                //     for (i = q_idx; i < wl.length; i += 1) {
+                //         if (availableNow.has(wl[i])) {
+                //             wl.put(node);
+                //             skip = true;
+                //             continue;
+                //         }
+                //     }
+                //     if (skip) continue;
+                // }
+                System.puts(Strings.format3("ready: %q, q_idx: %d, wl.length: %d\n", node.render, q_idx, wl.length));
+
                 sched.put(node);
-                availableNow = availableNow.with(node);
+
+                match (node.op) {
+                    If => {
+                        def p = availStack.pop();
+                        availStack.push(p);
+                        availStack.push(p.with(node));
+                    }
+                    Else => {
+                        def avail_then = availStack.pop();
+                        def avail_before = availStack.pop();
+                        availStack.push(avail_before);
+                        availStack.push(avail_then);
+                        availStack.push(avail_before.with(node));
+                    }
+                    End(cond, region_ends, phis) => {
+                        def avail_else = availStack.pop();
+                        def avail_then  = availStack.pop();
+                        def avail_before = availStack.pop();
+                        var avail_after = avail_before.with(node);
+                        for (p in phis.copy()) {
+                            avail_after = avail_after.with(p);
+                        }
+                        availStack.push(avail_after);
+                    }
+                    _ => {
+                        def p = availStack.pop();
+                        availStack.push(p.with(node));
+                    }
+                }
             }
         }
         for (i < sched.length) {
@@ -266,7 +315,7 @@ class Sea {
         ctl_stack.push(path);
         for (i < sched.length) {
             def node = sched[i];
-            System.puts(Strings.format1("ctl_stack.top: %d\n", ctl_stack.top));
+            // System.puts(Strings.format1("ctl_stack.top: %d\n", ctl_stack.top));
             match (node.op) {
                 Intrinsic, Lit => {
                     def cur = ctl_stack.pop();
@@ -283,13 +332,13 @@ class Sea {
                     def els = ctl_stack.pop();
                     def then = ctl_stack.pop();
                     def prev = ctl_stack.pop();
-                    ctl_stack.push(SSAD.If(c.data.sourceName, then, els, [], SSAD.Void));
+                    ctl_stack.push(prev.appended(SSAD.If(c.data.sourceName, then, els, [], SSAD.Void)));
                 }
                 _ => {}
             }
         }
 
-        return (ctl_stack.pop(), availableNow);
+        return (ctl_stack.pop(), availStack.pop());
     }
 
     // def scheduleNode(node: IRNode, path: SSAD, available: ImmNodeSet) -> (bool, SSAD, ImmNodeSet) {
