@@ -52,6 +52,7 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
 
 var graph_output_buf: StringBuilder;
 def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
+    if (!Strings.equal(opcode, "BR_IF")) return null;
     // (name, type) -- we should have that VirgilStmt names align w/ SSA names,
     // so we can use this the same
     def st_field_buf = VirgilStmts.getSidetableFields(stmt);
@@ -84,10 +85,10 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     graph_output_buf.puts(raw_mermaid);
     graph_output_buf.puts("```\n");
 
-    sea.apply(IRNode.removeViews);
-    sea.apply(IRNode.overloadOps);
-    sea.apply(IRNode.addAbstractions);
-    sea.apply(IRNode.unLEM);
+    // sea.apply(IRNode.removeViews);
+    // sea.apply(IRNode.overloadOps);
+    // sea.apply(IRNode.addAbstractions);
+    // sea.apply(IRNode.unLEM);
     def mermaid = sea.toMermaid();
 
     // System.puts("===="); System.puts(opcode);  System.puts("====\n");
@@ -96,9 +97,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // System.puts("----MERMAID----\n");
     // System.puts(mermaid);
 
-    // System.puts("scheduling\n");
     def scheduled = sea.schedule();
-    // System.puts("done scheduling\n");
     ctx.getPhis();
     // System.puts("======\n");
     var pretty = Pretty_IR.fromSSAD(scheduled, ctx);
