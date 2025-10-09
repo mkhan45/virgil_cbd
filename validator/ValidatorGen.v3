@@ -52,7 +52,7 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
 
 var graph_output_buf: StringBuilder;
 def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
-    // if (!Strings.equal(opcode, "I32_EQZ")) return null;
+    if (!Strings.equal(opcode, "I32_EQZ")) return null;
     // (name, type) -- we should have that VirgilStmt names align w/ SSA names,
     // so we can use this the same
     def st_field_buf = VirgilStmts.getSidetableFields(stmt);
@@ -85,27 +85,24 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     graph_output_buf.puts(raw_mermaid);
     graph_output_buf.puts("```\n");
 
-    // sea.apply(IRNode.removeViews);
-    // sea.apply(IRNode.overloadOps);
-    // sea.apply(IRNode.addAbstractions);
-    // sea.apply(IRNode.unLEM);
+    sea.apply(IRNode.removeViews);
+    sea.apply(IRNode.overloadOps);
+    sea.apply(IRNode.addAbstractions);
+    sea.apply(IRNode.unLEM);
     def mermaid = sea.toMermaid();
 
-    // System.puts("===="); System.puts(opcode);  System.puts("====\n");
-    // System.puts("----SSAD----\n");
-    // System.puts(sea_ir.toString(0));
-    // System.puts("----MERMAID----\n");
-    // System.puts(mermaid);
+    System.puts("===="); System.puts(opcode);  System.puts("====\n");
+    System.puts("----SSAD----\n");
+    System.puts(sea_ir.toString(0));
+    System.puts("----MERMAID----\n");
+    System.puts(mermaid);
 
-    System.puts("======");
-    System.puts(opcode);
-    System.puts("======"); System.ln();
     def scheduled = sea.schedule();
     ctx.getPhis();
-    // System.puts("======\n");
+    System.puts("======\n");
     var pretty = Pretty_IR.fromSSAD(scheduled, ctx);
-    // System.puts("----Scheduled----\n");
-    // System.puts(scheduled.toString(0));
+    System.puts("----Scheduled----\n");
+    System.puts(scheduled.toString(0));
     // System.puts("----Pretty----\n");
     pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, ctx, Strings.newMap<PrettyExpr>());
     pretty = Pretty_IR.removeUselessAssigns(pretty, ctx);
@@ -116,10 +113,10 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     sb.puts("/**\n");
     sb.puts("----input ir----\n");
     sb.puts(sea_ir.toString(1));
-    sb.puts("\n----scheduled----\n");
-    sb.puts(scheduled.toString(1));
-    sb.puts("\n----pretty scheduled----\n");
-    sb.puts(pretty.toString(0, ctx));
+    // sb.puts("\n----scheduled----\n");
+    // sb.puts(scheduled.toString(1));
+    // sb.puts("\n----pretty scheduled----\n");
+    // sb.puts(pretty.toString(0, ctx));
     sb.puts("\n----mermaid---- {\n");
     sb.puts(mermaid);
     sb.puts("\n}\n");
@@ -151,7 +148,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
         sb.ln();
     }
     var instSsa = processed;
-    instSsa = SSAD.Injected(sb.toString(), processed);
+    // instSsa = SSAD.Injected(sb.toString(), processed);
 
     return ValidatorCBDDef.new(opcode, instSsa, bs);
 }

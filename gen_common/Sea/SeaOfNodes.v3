@@ -83,9 +83,11 @@ def intrinsic(name: string) -> IntrinsicTypedef {
         return IntrinsicTypedef.new(name, null, null, CBDEffect.None);
 }
 
+type SearchNode(remaining: ImmNodeSet, path: SSAD, available: ImmNodeSet);
+
 class Sea {
-    var roots: NodeSet;
-    var leaves: NodeSet;
+    var start: IRNode;
+    var finish: IRNode;
     var nodes: NodeSet;
     var id_count: int;
 
@@ -93,10 +95,15 @@ class Sea {
     var lit_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>(); // assume that lits have unique rep across types
 
     new() {
-        roots = NodeSet.new();
-        leaves = NodeSet.new();
         nodes = NodeSet.new();
         id_count = 0;
+
+        start = mkNode(IROp.Start);
+        var max_state_tag = 0;
+        for (sc in StateComponent.set.all) max_state_tag = if(sc.tag > max_state_tag, sc.tag, max_state_tag);
+        def state_vars = Array<IRNode>.new(max_state_tag + 1);
+        for (i < state_vars.length) state_vars[i] = start;
+        finish = mkNode(IROp.Finish(state_vars));
 
         def void_node = IRNode.new(IROp.Lit(TypeVar.Bot("void"), "(void)"), -1);
         void_node.data = NodeData.new(TypeVar.Bot("void"), CBDEffect.None, Stage.VALIDATE);
@@ -108,44 +115,233 @@ class Sea {
         def node = IRNode.new(op, id_count);
         id_count += 1;
 
-        roots.put(node);
-        nodes.put(node);
-        def args = node.args();
-        for (arg in args) {
-            roots.remove(arg);
-            arg.children.put(node);
+        for (dep in node.args()) {
+            dep.children.put(node);
         }
-        if (args.length == 0) leaves.put(node);
 
         return node;
     }
 
-    // def schedule() -> SSAD {
-    //     def root_buf: Vector<IRNode> = Vector.new();
-    //     roots.apply(fun r => void(root_buf.put(r)));
+    def schedule() -> SSAD {
+        var remaining = ImmNodeSets.empty().with(finish);
+        var available = ImmNodeSets.empty().with(start);
+        var path: SSAD = SSAD.Void;
+        def startPoint = SearchNode(remaining, path, available);
+        def res = scheduleNodes(startPoint);
+        return res.1;
+    }
 
+    def scheduleNodes(point: SearchNode) -> (bool, SSAD) {
+        def remaining = point.remaining;
+        def path = point.path;
+        def available = point.available;
+
+        System.puts("====\n");
+        System.puts("remaining: ");
+        for (cur = remaining.ls; cur != null; cur = cur.tail) {
+            System.puts(Strings.format1("%q ", cur.head.render));
+        }
+        System.ln();
+        System.puts("available: ");
+        for (cur = available.ls; cur != null; cur = cur.tail) {
+            System.puts(Strings.format1("%q ", cur.head.render));
+        }
+        System.ln();
+        System.puts("path:\n");
+        System.puts(path.toString(1));
+        System.ln();
+     
+        if (remaining.ls == null) return (true, path);
+
+        for (cur = remaining.ls; cur != null; cur = cur.tail) {
+            def node = cur.head;
+
+            if (available.has(node)) {
+                continue;
+            }
+
+            var ready = true;
+            var remainingArgs: List<IRNode> = null;
+            for (arg in node.args()) if (!available.has(arg)) {
+                ready = false;
+                remainingArgs = List.new(arg, remainingArgs);
+            }
+
+            if (remainingArgs != null) {
+                for (arg = remainingArgs; arg != null; arg = arg.tail) {
+                    def nextPoint = SearchNode(remaining.with(arg.head), path, available);
+                    def res = scheduleNodes(nextPoint);
+                    if (res.0) return res;
+                }
+            } else {
+                var remainingAfter = remaining.without(node);
+                var newPath = path;
+                var availableAfter = available;
+                match (node.op) {
+                    Intrinsic(defn, args) => {
+                        if (node.data == null) {
+                            node.data = NodeData.new(TypeVar.Bot("void"), CBDEffect.None, Stage.INTERPRET);
+                            node.data.sourceName = uidl("eff");
+                        }
+                        newPath = path.appended(SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), SSAD.Void));
+                        availableAfter = available.with(node);
+                    }
+                    Lit(tipe, rep) => {
+                        newPath = path.appended(SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), SSAD.Void));
+                        availableAfter = available.with(node);
+                    }
+                    If(c, regions) => {
+                        def els = regions.els;
+                        def end = regions.end;
+
+                        def then_search = SearchNode(ImmNodeSets.empty().with(els), SSAD.Void, available.with(node));
+                        def then_sched = scheduleNodes(then_search);
+                        def else_search = SearchNode(ImmNodeSets.empty().with(end), SSAD.Void, available.with(els));
+                        def else_sched = scheduleNodes(else_search);
+
+                        if (!then_sched.0 || !else_sched.0) return (false, path);
+
+                        def phi_vec = Vector<(string, string)>.new();
+                        for (phi in IROp.End.!(end.op).phis.copy()) {
+                            availableAfter = availableAfter.with(phi);
+                            // could also be a statephi, in which case do nothing
+                            if (IROp.Phi.?(phi.op)) {
+                                def phi_op = IROp.Phi.!(phi.op);
+                                if (phi_op.left != null) phi_vec.put((phi.data.sourceName, phi_op.left.data.sourceName));
+                                if (phi_op.right != null) phi_vec.put((phi.data.sourceName, phi_op.right.data.sourceName));
+                            }
+                        }
+
+                        remainingAfter = remainingAfter.without(els).without(end);
+                        for (r in IROp.Else.!(els.op).region_ends.copy()) remainingAfter = remainingAfter.without(r);
+                        for (r in IROp.End.!(end.op).region_ends.copy()) remainingAfter = remainingAfter.without(r);
+                        availableAfter = availableAfter.with(end);
+                        newPath = path.appended(SSAD.If(c.data.sourceName, then_sched.1, else_sched.1, phi_vec.copy(), SSAD.Void));
+                    }
+                    _ => {
+                        availableAfter = available.with(node);
+                    }
+                }
+                def nextPoint = SearchNode(remainingAfter, newPath, availableAfter);
+                def res = scheduleNodes(nextPoint);
+                if (res.0) return res;
+            }
+        }
+
+        return (true, path);
+    }
+
+    // def schedule() -> SSAD {
     //     var res: SSAD = SSAD.Void;
-    //     var available: ImmNodeSet = ImmNodeSets.empty();
-    //     for (i < root_buf.length) {
-    //         def sched = scheduleNode(root_buf[i], res, available);
-    //         res = sched.0;
-    //         available = sched.1;
-    //     }
+    //     var available: ImmNodeSet = ImmNodeSets.empty().with(start);
+    //     def sched = scheduleNode(start, res, available);
+    //     res = sched.1;
+    //     available = sched.2;
 
     //     return res;
     // }
 
-    // def scheduleNode(node: IRNode, path: SSAD, available: ImmNodeSet) -> (SSAD, ImmNodeSet) {
-    //     if (available.has(node)) return (path, available);
+    // def scheduleNode(node: IRNode, path: SSAD, available: ImmNodeSet) -> (bool, SSAD, ImmNodeSet) {
+    //     System.puts(Strings.format1("node: %q\n", node.render));
+    //     var res: SSAD = path;
+    //     var availableNow = available;
+    //     var children: Vector<IRNode> = null;
+
+    //     if (available.has(node)) {
+    //         children = node.children;
+    //     } else {
+    //         for (arg in node.args()) {
+    //             if (!available.has(arg)) return (false, path, available);
+    //         }
+
+    //         match (node.op) {
+    //             Intrinsic(defn, args) => {
+    //                 if (node.data == null) {
+    //                     node.data = NodeData.new(TypeVar.Bot("void"), CBDEffect.None, Stage.INTERPRET);
+    //                     node.data.sourceName = uidl("eff");
+    //                 }
+    //                 res = res.appended(SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), SSAD.Void));
+    //                 availableNow = availableNow.with(node);
+    //                 children = node.children;
+    //             }
+    //             Lit(tipe, rep) => {
+    //                 res = res.appended(SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), SSAD.Void));
+    //                 availableNow = availableNow.with(node);
+    //                 children = node.children;
+    //             }
+    //             If(c, regions) => {
+    //                 def els = regions.els;
+    //                 def end = regions.end;
+
+    //                 def then_sched = scheduleNode(els, SSAD.Void, availableNow.with(node));
+    //                 def else_sched = scheduleNode(end, SSAD.Void, availableNow.with(els));
+
+    //                 var availableAfter = availableNow;
+    //                 def phi_vec = Vector<(string, string)>.new();
+    //                 for (phi in IROp.End.!(end.op).phis.copy()) {
+    //                     availableAfter = availableAfter.with(phi);
+    //                     // could also be a statephi, in which case do nothing
+    //                     if (IROp.Phi.?(phi.op)) {
+    //                         def phi_op = IROp.Phi.!(phi.op);
+    //                         if (phi_op.left != null) phi_vec.put((phi.data.sourceName, phi_op.left.data.sourceName));
+    //                         if (phi_op.right != null) phi_vec.put((phi.data.sourceName, phi_op.right.data.sourceName));
+    //                     }
+    //                 }
+
+    //                 res = res.appended(SSAD.If(c.data.sourceName, then_sched.1, else_sched.1, phi_vec.copy(), SSAD.Void));
+    //                 children = end.children;
+    //             }
+    //             _ => {
+    //                 availableNow = availableNow.with(node);
+    //                 children = node.children;
+    //             }
+    //         }
+    //     }
+
+    //     // for (i < children.length) {
+    //     //     def child = children[i];
+    //     //     System.puts(Strings.format1("child: %q\n", child.render));
+    //     //     def child_sched = scheduleNode(child, res, availableNow);
+    //     //     if (child_sched.0) return child_sched;
+    //     // }
+
+    //     // return (false, res, availableNow);
+
+    //     for (i < children.length) {
+    //         def child = children[i];
+    //         def child_sched = scheduleNode(child, res, availableNow);
+    //         if (!child_sched.0) return (false, res, availableNow);
+    //         res = child_sched.1;
+    //         availableNow = child_sched.2;
+    //     }
+
+    //     return (true, res, availableNow);
+    // }
+
+    // def schedule() -> SSAD {
+    //     var res: SSAD = SSAD.Void;
+    //     var available: ImmNodeSet = ImmNodeSets.empty();
+    //     def sched = scheduleNode(finish, res, available, ImmNodeSets.empty());
+    //     res = sched.0;
+    //     available = sched.1;
+
+    //     return res;
+    // }
+
+    // def scheduleNode(node: IRNode, path: SSAD, available: ImmNodeSet, finished: ImmNodeSet) -> (SSAD, ImmNodeSet, ImmNodeSet) {
+    //     if (available.has(node)) return (path, available, finished);
+    //     if (finished.has(node)) return (path, available, finished);
 
     //     var res: SSAD = path;
     //     var availableNow = available;
+    //     var finishedNow = finished;
 
     //     def deps = node.args();
     //     for (i = deps.length - 1; i >= 0; i -= 1) {
-    //         def sched = scheduleNode(deps[i], res, availableNow);
+    //         def sched = scheduleNode(deps[i], res, availableNow, finishedNow);
     //         res = sched.0;
     //         availableNow = sched.1;
+    //         finishedNow = sched.2;
     //     }
 
     //     match (node.op) {
@@ -156,25 +352,34 @@ class Sea {
     //             }
     //             return 
     //                 (res.appended(SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), SSAD.Void)),
-    //                  availableNow.with(node));
+    //                  availableNow.with(node),
+    //                  finishedNow);
     //         }
     //         Lit(tipe, rep) => {
-    //             return (res.appended(SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), SSAD.Void)), availableNow.with(node));
+    //             return (res.appended(SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), SSAD.Void)), availableNow.with(node), finishedNow);
     //         }
     //         If(c, regions) => {
     //             def els = regions.els;
     //             def end = regions.end;
 
-    //             def then_sched = scheduleNode(els, SSAD.Void, availableNow.with(node));
-    //             def else_sched = scheduleNode(end, SSAD.Void, availableNow.with(els));
+    //             def then_sched = scheduleNode(els, SSAD.Void, availableNow.with(node), finishedNow.with(node));
+    //             def else_sched = scheduleNode(end, SSAD.Void, availableNow.with(els), finishedNow.with(node));
 
     //             var availableAfter = availableNow;
-    //             for (p in IROp.End.!(end.op).phis.copy()) {
-    //                 availableAfter = availableAfter.with(p);
+    //             def phi_vec = Vector<(string, string)>.new();
+    //             for (phi in IROp.End.!(end.op).phis.copy()) {
+    //                 availableAfter = availableAfter.with(phi);
+    //                 // could also be a statephi, in which case do nothing
+    //                 if (IROp.Phi.?(phi.op)) {
+    //                     def phi_op = IROp.Phi.!(phi.op);
+    //                     if (phi_op.left != null) phi_vec.put((phi.data.sourceName, phi_op.left.data.sourceName));
+    //                     if (phi_op.right != null) phi_vec.put((phi.data.sourceName, phi_op.right.data.sourceName));
+    //                 }
     //             }
-    //             return (res.appended(SSAD.If(c.data.sourceName, then_sched.0, else_sched.0, [], SSAD.Void)), availableAfter);
+
+    //             return (res.appended(SSAD.If(c.data.sourceName, then_sched.0, else_sched.0, phi_vec.copy(), SSAD.Void)), availableAfter, finishedNow.with(node));
     //         }
-    //         _ => return (res, availableNow.with(node));
+    //         _ => return (res, availableNow.with(node), finishedNow.with(node));
     //     }
     // }
 
@@ -193,153 +398,153 @@ class Sea {
     //     return res;
     // }
 
-    def schedule() -> SSAD {
-        def root_buf: Vector<IRNode> = Vector.new();
-        roots.apply(fun r => void(root_buf.put(r)));
+    // def schedule() -> SSAD {
+    //     def root_buf: Vector<IRNode> = Vector.new();
+    //     roots.apply(fun r => void(root_buf.put(r)));
 
-        var res: SSAD = SSAD.Void;
-        var available: ImmNodeSet = ImmNodeSets.empty();
-        def sched = scheduleNode(root_buf.copy(), SSAD.Void, available);
-        res = sched.0;
-        // for (i < root_buf.length) {
-        //     def sched = scheduleNode(root_buf[i], res, available);
-        //     res = sched.0;
-        //     available = sched.1;
-        //     System.puts("===\n");
-        // }
+    //     var res: SSAD = SSAD.Void;
+    //     var available: ImmNodeSet = ImmNodeSets.empty();
+    //     def sched = scheduleNode(root_buf.copy(), SSAD.Void, available);
+    //     res = sched.0;
+    //     // for (i < root_buf.length) {
+    //     //     def sched = scheduleNode(root_buf[i], res, available);
+    //     //     res = sched.0;
+    //     //     available = sched.1;
+    //     //     System.puts("===\n");
+    //     // }
 
-        return res;
-    }
+    //     return res;
+    // }
 
-    def schedulePrim(node: IRNode, rest: SSAD) -> SSAD {
-        match (node.op) {
-            Intrinsic(defn, args) => {
-                if (node.data == null) {
-                    node.data = NodeData.new(TypeVar.Bot("void"), CBDEffect.None, Stage.INTERPRET);
-                    node.data.sourceName = uidl("eff");
-                }
-                return SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), rest);
-            }
-            Lit(tipe, rep) => {
-                return SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), rest);
-            }
-            _ => return rest;
-        }
-    }
+    // def schedulePrim(node: IRNode, rest: SSAD) -> SSAD {
+    //     match (node.op) {
+    //         Intrinsic(defn, args) => {
+    //             if (node.data == null) {
+    //                 node.data = NodeData.new(TypeVar.Bot("void"), CBDEffect.None, Stage.INTERPRET);
+    //                 node.data.sourceName = uidl("eff");
+    //             }
+    //             return SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), rest);
+    //         }
+    //         Lit(tipe, rep) => {
+    //             return SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), rest);
+    //         }
+    //         _ => return rest;
+    //     }
+    // }
 
-    // TODO:
-    // combine this strat with below, use List<IRNode> path and construct ssa at the end
-    def scheduleNode(nodes: Array<IRNode>, path: SSAD, available: ImmNodeSet) -> (SSAD, ImmNodeSet) {
-        def wl: Vector<IRNode> = Vector.new();
+    // // TODO:
+    // // combine this strat with below, use List<IRNode> path and construct ssa at the end
+    // def scheduleNode(nodes: Array<IRNode>, path: SSAD, available: ImmNodeSet) -> (SSAD, ImmNodeSet) {
+    //     def wl: Vector<IRNode> = Vector.new();
 
-        // wl.put(node);
-        for (n in nodes) wl.put(n);
+    //     // wl.put(node);
+    //     for (n in nodes) wl.put(n);
 
-        var sched = Vector<IRNode>.new();
+    //     var sched = Vector<IRNode>.new();
 
-        def availStack = ArrayStack<ImmNodeSet>.new();
-        availStack.push(available);
-        // var availableNow = available;
+    //     def availStack = ArrayStack<ImmNodeSet>.new();
+    //     availStack.push(available);
+    //     // var availableNow = available;
 
-        var q_idx = 0;
-        while (q_idx < wl.length) {
-            def availableNow = availStack.peek();
-            def node = wl[q_idx];
-            q_idx += 1;
+    //     var q_idx = 0;
+    //     while (q_idx < wl.length) {
+    //         def availableNow = availStack.peek();
+    //         def node = wl[q_idx];
+    //         q_idx += 1;
 
-            if (availableNow.has(node)) continue;
+    //         if (availableNow.has(node)) continue;
 
-            def deps = node.args();
-            var ready = true;
-            for (dep in deps) {
-                if (!availableNow.has(dep)) {
-                    wl.put(dep);
-                    wl.put(node);
-                    ready = false;
-                    break;
-                }
-            }
+    //         def deps = node.args();
+    //         var ready = true;
+    //         for (dep in deps) {
+    //             if (!availableNow.has(dep)) {
+    //                 wl.put(dep);
+    //                 wl.put(node);
+    //                 ready = false;
+    //                 break;
+    //             }
+    //         }
 
-            if (ready) {
-                // if (IROp.If.?(node.op)) {
-                //     var skip = false;
-                //     for (i = q_idx; i < wl.length; i += 1) {
-                //         if (availableNow.has(wl[i])) {
-                //             wl.put(node);
-                //             skip = true;
-                //             continue;
-                //         }
-                //     }
-                //     if (skip) continue;
-                // }
-                System.puts(Strings.format3("ready: %q, q_idx: %d, wl.length: %d\n", node.render, q_idx, wl.length));
+    //         if (ready) {
+    //             // if (IROp.If.?(node.op)) {
+    //             //     var skip = false;
+    //             //     for (i = q_idx; i < wl.length; i += 1) {
+    //             //         if (availableNow.has(wl[i])) {
+    //             //             wl.put(node);
+    //             //             skip = true;
+    //             //             continue;
+    //             //         }
+    //             //     }
+    //             //     if (skip) continue;
+    //             // }
+    //             System.puts(Strings.format3("ready: %q, q_idx: %d, wl.length: %d\n", node.render, q_idx, wl.length));
 
-                sched.put(node);
+    //             sched.put(node);
 
-                match (node.op) {
-                    If => {
-                        def p = availStack.pop();
-                        availStack.push(p);
-                        availStack.push(p.with(node));
-                    }
-                    Else => {
-                        def avail_then = availStack.pop();
-                        def avail_before = availStack.pop();
-                        availStack.push(avail_before);
-                        availStack.push(avail_then);
-                        availStack.push(avail_before.with(node));
-                    }
-                    End(cond, region_ends, phis) => {
-                        def avail_else = availStack.pop();
-                        def avail_then  = availStack.pop();
-                        def avail_before = availStack.pop();
-                        var avail_after = avail_before.with(node);
-                        for (p in phis.copy()) {
-                            avail_after = avail_after.with(p);
-                        }
-                        availStack.push(avail_after);
-                    }
-                    _ => {
-                        def p = availStack.pop();
-                        availStack.push(p.with(node));
-                    }
-                }
-            }
-        }
-        for (i < sched.length) {
-            def node = sched[i];
-            System.puts(Strings.format1("node: %q\n", node.render));
-        }
+    //             match (node.op) {
+    //                 If => {
+    //                     def p = availStack.pop();
+    //                     availStack.push(p);
+    //                     availStack.push(p.with(node));
+    //                 }
+    //                 Else => {
+    //                     def avail_then = availStack.pop();
+    //                     def avail_before = availStack.pop();
+    //                     availStack.push(avail_before);
+    //                     availStack.push(avail_then);
+    //                     availStack.push(avail_before.with(node));
+    //                 }
+    //                 End(cond, region_ends, phis) => {
+    //                     def avail_else = availStack.pop();
+    //                     def avail_then  = availStack.pop();
+    //                     def avail_before = availStack.pop();
+    //                     var avail_after = avail_before.with(node);
+    //                     for (p in phis.copy()) {
+    //                         avail_after = avail_after.with(p);
+    //                     }
+    //                     availStack.push(avail_after);
+    //                 }
+    //                 _ => {
+    //                     def p = availStack.pop();
+    //                     availStack.push(p.with(node));
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     for (i < sched.length) {
+    //         def node = sched[i];
+    //         System.puts(Strings.format1("node: %q\n", node.render));
+    //     }
 
-        var ctl_stack: ArrayStack<SSAD> = ArrayStack.new();
-        ctl_stack.push(path);
-        for (i < sched.length) {
-            def node = sched[i];
-            // System.puts(Strings.format1("ctl_stack.top: %d\n", ctl_stack.top));
-            match (node.op) {
-                Intrinsic, Lit => {
-                    def cur = ctl_stack.pop();
-                    def next = schedulePrim(node, SSAD.Void);
-                    ctl_stack.push(cur.appended(next));
-                }
-                If => {
-                    ctl_stack.push(SSAD.Void);
-                }
-                Else => {
-                    ctl_stack.push(SSAD.Void);
-                }
-                End(c, regions, phis) => {
-                    def els = ctl_stack.pop();
-                    def then = ctl_stack.pop();
-                    def prev = ctl_stack.pop();
-                    ctl_stack.push(prev.appended(SSAD.If(c.data.sourceName, then, els, [], SSAD.Void)));
-                }
-                _ => {}
-            }
-        }
+    //     var ctl_stack: ArrayStack<SSAD> = ArrayStack.new();
+    //     ctl_stack.push(path);
+    //     for (i < sched.length) {
+    //         def node = sched[i];
+    //         // System.puts(Strings.format1("ctl_stack.top: %d\n", ctl_stack.top));
+    //         match (node.op) {
+    //             Intrinsic, Lit => {
+    //                 def cur = ctl_stack.pop();
+    //                 def next = schedulePrim(node, SSAD.Void);
+    //                 ctl_stack.push(cur.appended(next));
+    //             }
+    //             If => {
+    //                 ctl_stack.push(SSAD.Void);
+    //             }
+    //             Else => {
+    //                 ctl_stack.push(SSAD.Void);
+    //             }
+    //             End(c, regions, phis) => {
+    //                 def els = ctl_stack.pop();
+    //                 def then = ctl_stack.pop();
+    //                 def prev = ctl_stack.pop();
+    //                 ctl_stack.push(prev.appended(SSAD.If(c.data.sourceName, then, els, [], SSAD.Void)));
+    //             }
+    //             _ => {}
+    //         }
+    //     }
 
-        return (ctl_stack.pop(), availStack.pop());
-    }
+    //     return (ctl_stack.pop(), availStack.pop());
+    // }
 
     // def scheduleNode(node: IRNode, path: SSAD, available: ImmNodeSet) -> (bool, SSAD, ImmNodeSet) {
     //     def wl: Vector<(List<IRNode>, SSAD, ImmNodeSet)> = Vector.new();
@@ -523,6 +728,7 @@ class Sea {
                 }
                 node.data = NodeData.new(tipe, eff, stage);
                 node.data.sourceName = n;
+                if (eff != CBDEffect.None) node.pathDeps = deps;
 
                 addSSAD(rest, state_vars, deps);
                 return node;
@@ -538,6 +744,7 @@ class Sea {
                     lit_nodes[l] = node;
                     node.data = NodeData.new(tp, CBDEffect.None, Stage.VALIDATE);
                     node.data.sourceName = n;
+                    node.pathDeps = List.new(this.start, null);
                 }
 
                 addSSAD(rest, state_vars, deps);
@@ -553,6 +760,7 @@ class Sea {
                 def else_region_ends = Vectors.of1<IRNode>(start_else);
                 def phi_vec = Vector<IRNode>.new();
                 def end_node = mkNode(IROp.End(cond_node, else_region_ends, phi_vec));
+                end_node.pathDeps = List.new(start_else, deps);
 
                 if_regions.els = start_else;
                 if_regions.end = end_node;
@@ -617,6 +825,7 @@ class Sea {
                     }
                 }
 
+                start_if.pathDeps = deps;
                 addSSAD(rest, state_vars, deps);
                 return start_if;
             }
@@ -631,7 +840,7 @@ class Sea {
         def buf = StringBuilder.new();
         def wl = ArrayStack<IRNode>.new();
         def visited = NodeSet.new();
-        roots.apply(wl.push);
+        wl.push(finish);
 
         buf.puts("---").ln();
         buf.puts("config:").ln();
@@ -647,6 +856,8 @@ class Sea {
             buf.puts("[\"").ln();
             if (n.data != null && n.data.sourceName != null) buf.tab().puts(n.data.sourceName).ln();
             match (n.op) {
+                Start => buf.tab().puts("Start").ln();
+                Finish(_) => buf.tab().puts("Finish").ln();
                 Intrinsic(defn, _) => buf.tab().puts(defn.name).ln();
                 Lit(_, rep) => buf.tab().puts(rep).ln();
                 If(c, _) => buf.tab().puts("if").ln();
@@ -674,7 +885,7 @@ class Sea {
     def apply(f: (IRNode, Sea) -> Range<IRNode>) {
         def wl: Vector<IRNode> = Vector.new();
         var q_idx = 0;
-        roots.apply(fun r => void(wl.put(r)));
+        wl.put(finish);
 
         var completed = NodeSet.new();
 
@@ -696,14 +907,9 @@ class Sea {
 component Seas {
     def ofSSAD(node: SSAD) -> Sea {
         def sea = Sea.new();
-        def var_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>();
-        def lit_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>(); // assume that lits have unique rep across types
 
-        var max_state_tag = 0;
-        for (sc in StateComponent.set.all) max_state_tag = if(sc.tag > max_state_tag, sc.tag, max_state_tag);
-        def state_vars = Array<IRNode>.new(max_state_tag + 1);
-        sea.addSSAD(node, state_vars, null);
-
+        def state_vars = IROp.Finish.!(sea.finish.op).state_vars;
+        sea.addSSAD(node, state_vars, List.new(sea.start, null));
         return sea;
     }
 }
@@ -729,7 +935,8 @@ class IRNode {
 
     def args() -> Array<IRNode> {
         def res = op.immediatePredecessors();
-        return Arrays.concat(res, Lists.toArray(pathDeps));
+        if (pathDeps != null) return Arrays.append(pathDeps.head, res);
+        else return res;
     }
 
     def hash() -> int => id;
@@ -747,7 +954,11 @@ class IRNode {
             If => sb.puts("if");
             Else => sb.puts("else");
             End => sb.puts("end");
-            _ => {}
+            Start => sb.puts("Start");
+            Finish => sb.puts("Finish");
+            Phi => sb.puts("Phi");
+            StatePhi => sb.puts("StatePhi");
+            MatchPhi => sb.puts("MatchPhi");
         }
 
         return sb;
@@ -816,7 +1027,7 @@ class IRNode {
                     }
                 }
                 op = IROp.Intrinsic(defn, new_args);
-                return Arrays.concat(unchanged_args.copy(), Lists.toArray(pathDeps));
+                return Arrays.append(pathDeps.head, unchanged_args.copy());
             }
             _ => {
                 return args();
@@ -830,63 +1041,82 @@ class IRNode {
                 if (cond.data.stage == Stage.VALIDATE) return [];
 
                 def it = IntrinsicType.new(cond.data.tipe, cond.data.stage);
-                def ifTrue = intrinsic("maybeTrue");
-                def ifFalse = intrinsic("maybeFalse");
+                def maybeTrue = intrinsic("maybeTrue");
+                def maybeFalse = intrinsic("maybeFalse");
                 def and = intrinsic("bool.&&");
 
-                def ifTrueOp = IROp.Intrinsic(ifTrue, [cond]);
-                def ifFalseOp = IROp.Intrinsic(ifFalse, [cond]);
+                def maybeTrueOp = IROp.Intrinsic(maybeTrue, [cond]);
+                def maybeFalseOp = IROp.Intrinsic(maybeFalse, [cond]);
 
-                def ifTrueNode = sea.mkNode(ifTrueOp);
-                ifTrueNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-                ifTrueNode.data.sourceName = uidl("ift");
+                def maybeTrueNode = sea.mkNode(maybeTrueOp);
+                maybeTrueNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
+                maybeTrueNode.data.sourceName = uidl("ift");
 
-                def ifFalseNode = sea.mkNode(ifFalseOp);
-                ifFalseNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-                ifFalseNode.data.sourceName = uidl("iff");
+                def maybeFalseNode = sea.mkNode(maybeFalseOp);
+                maybeFalseNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
+                maybeFalseNode.data.sourceName = uidl("iff");
 
-                def andOp = IROp.Intrinsic(and, [ifTrueNode, ifFalseNode]);
+                def andOp = IROp.Intrinsic(and, [maybeTrueNode, maybeFalseNode]);
                 def andNode = sea.mkNode(andOp);
                 andNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
                 andNode.data.sourceName = uidl("and");
 
-                def right_phis = IROp.End.!(regions.end.op).phis;
-                def else_region_ends = Vector<IRNode>.new();
+                def oldElseNode = regions.els, oldEndNode = regions.end;
+                def oldElseOp = IROp.Else.!(oldElseNode.op), oldEndOp = IROp.End.!(oldEndNode.op);
+                def oldPhis = oldEndOp.phis;
 
                 def newRegions = IfRegions.new();
                 def newIf = sea.mkNode(IROp.If(andNode, newRegions));
                 newIf.pathDeps = pathDeps;
                 newIf.children = children;
 
-                def newElse = newRegions.els = sea.mkNode(IROp.Else(andNode, Vector.new()));
+                // def newThen = ...
 
+                def thenRegionEnds = Vector<IRNode>.new();
+                // def thenRegionEnds = oldElseOp.region_ends;
+                // for (i < thenRegionEnds.length) {
+                //     thenRegionEnds[i] = sea.mkNode(thenRegionEnds[i].op);
+                //     thenRegionEnds[i].pathDeps = List.new(newIf, pathDeps);
+                // }
+                def newElse = newRegions.els = sea.mkNode(IROp.Else(andNode, thenRegionEnds));
+
+                def rightRegions = IfRegions.new();
+                rightRegions.els = oldElseNode;
+                rightRegions.els.op = IROp.Else(andNode, oldElseOp.region_ends);
+                rightRegions.end = oldEndNode;
+                rightRegions.end.op = IROp.End(andNode, oldEndOp.region_ends, oldEndOp.phis);
+                // def newRight = sea.mkNode(IROp.If(maybeTrueNode, rightRegions));
                 def newRight = this;
-                else_region_ends.put(newRight);
-                newRight.pathDeps = List.new(newElse, null);
+                newRight.op = IROp.If(maybeTrueNode, rightRegions);
+                newRight.pathDeps = List.new(newElse, pathDeps);
 
                 def newPhis = Vector<IRNode>.new();
-                def newEnd = newRegions.end = sea.mkNode(IROp.End(andNode, right_phis, else_region_ends));
-                newEnd.pathDeps = List.new(newRight, null);
+                def elseRegionEnds = Vectors.of1<IRNode>(rightRegions.end);
+                def newEnd = newRegions.end = sea.mkNode(IROp.End(andNode, newPhis, elseRegionEnds));
 
                 def effPool = NodeSet.new();
-                for (i < right_phis.length) {
-                    def inner_phi = right_phis[i];
-                    match (inner_phi.op) {
+                for (i < oldPhis.length) {
+                    def innerPhi = oldPhis[i];
+                    match (innerPhi.op) {
                         Phi => {}
                         StatePhi(_, _, left, right, statecomps) => {
-                            if (left != null && !effPool.has(left)) {
+                            var newLeft = left;
+                            if (left != null && !effPool.has(left) && !IROp.Start.?(left.op)) {
                                 effPool.put(left);
-                                def newLeft = sea.mkNode(left.op);
+                                newLeft = sea.mkNode(left.op);
                                 newLeft.pathDeps = List.new(newIf, null);
-                                newElse.pathDeps = List.new(newLeft, newElse.pathDeps);
+                                thenRegionEnds.put(newLeft);
                             }
 
-                            if (right != null && !effPool.has(right)) {
+                            var newRight = right;
+                            if (right != null && !effPool.has(right) && !IROp.Start.?(left.op)) {
                                 effPool.put(right);
-                                def newRight = sea.mkNode(right.op);
+                                newRight = sea.mkNode(right.op);
                                 newRight.pathDeps = List.new(newIf, null);
-                                newElse.pathDeps = List.new(newRight, newElse.pathDeps);
+                                thenRegionEnds.put(newRight);
                             }
+
+                            innerPhi.op = IROp.StatePhi(maybeTrueNode, oldEndNode, newLeft, newRight, statecomps);
                         }
                         _ => {}
                     }
@@ -895,8 +1125,8 @@ class IRNode {
                 return [];
             }
             _ => {
-                // return args();
-                return [];
+                return args();
+                // return [];
             }
         }
     }
@@ -916,7 +1146,19 @@ class IfRegions {
     var end: IRNode;
 }
 
+def dedup(arr: Array<IRNode>) -> Array<IRNode> {
+    def res_vec = Vector<IRNode>.new();
+    for (v in arr) {
+        var dup = false;
+        for (i < res_vec.length) dup |= res_vec[i].id == v.id;
+        if (!dup) res_vec.put(v);
+    }
+    return res_vec.copy();
+}
+
 type IROp {
+    case Start;
+    case Finish(state_vars: Array<IRNode>);
     case Intrinsic(defn: IntrinsicTypedef, args: Array<IRNode>);
     case Lit(tipe: TypeVar, rep: string);
     case If(cond: IRNode, regions: IfRegions);
@@ -928,11 +1170,13 @@ type IROp {
 
     def immediatePredecessors() -> Array<IRNode> {
         match (this) {
+            Start => return [];
+            Finish(state_vars) => return dedup(state_vars);
             Intrinsic(defn, args) => return args;
             Lit(tipe, rep) => return [];
             If(c, regions) => return [c];
-            Else(c, region_ends) => return Arrays.prepend(c, region_ends.copy());
-            End(c, region_ends, phis) => return Arrays.prepend(c, region_ends.copy());
+            Else(c, region_ends) => return dedup(Arrays.prepend(c, region_ends.copy()));
+            End(c, region_ends, phis) => return dedup(Arrays.prepend(c, region_ends.copy()));
             Phi(cond, end, left, right) => {
                 def buf = Vector<IRNode>.new();
                 for (dep in [cond, end, left, right]) if (dep != null) buf.put(dep);

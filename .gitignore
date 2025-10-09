@@ -2,5 +2,8 @@
 *.notwasm
 
 InterpreterMain
+ValidatorGen
 *Main
 *AI
+
+generated/*.v3~
