@@ -204,6 +204,7 @@ class Sea {
                         def phi_vec = Vector<(string, string)>.new();
                         for (phi in IROp.End.!(end.op).phis.copy()) {
                             availableAfter = availableAfter.with(phi);
+                            remainingAfter = remainingAfter.without(phi);
                             // could also be a statephi, in which case do nothing
                             if (IROp.Phi.?(phi.op)) {
                                 def phi_op = IROp.Phi.!(phi.op);
@@ -1082,9 +1083,9 @@ class IRNode {
 
                 def rightRegions = IfRegions.new();
                 rightRegions.els = oldElseNode;
-                rightRegions.els.op = IROp.Else(andNode, oldElseOp.region_ends);
+                rightRegions.els.op = IROp.Else(maybeTrueNode, oldElseOp.region_ends);
                 rightRegions.end = oldEndNode;
-                rightRegions.end.op = IROp.End(andNode, oldEndOp.region_ends, oldEndOp.phis);
+                rightRegions.end.op = IROp.End(maybeTrueNode, oldEndOp.region_ends, oldEndOp.phis);
                 // def newRight = sea.mkNode(IROp.If(maybeTrueNode, rightRegions));
                 def newRight = this;
                 newRight.op = IROp.If(maybeTrueNode, rightRegions);
@@ -1092,7 +1093,10 @@ class IRNode {
 
                 def newPhis = Vector<IRNode>.new();
                 def elseRegionEnds = Vectors.of1<IRNode>(rightRegions.end);
-                def newEnd = newRegions.end = sea.mkNode(IROp.End(andNode, newPhis, elseRegionEnds));
+                rightRegions.end = oldEndNode;
+                oldEndNode.op = IROp.End(andNode, oldPhis, oldEndOp.region_ends);
+                // rightRegions.end = sea.mkNode(IROp.End(andNode, oldPhis, elseRegionEnds));
+                def newEnd = newRegions.end = sea.mkNode(IROp.End(andNode, newPhis, Vectors.of1(rightRegions.end)));
 
                 def effPool = NodeSet.new();
                 for (i < oldPhis.length) {
@@ -1112,11 +1116,13 @@ class IRNode {
                             if (right != null && !effPool.has(right) && !IROp.Start.?(left.op)) {
                                 effPool.put(right);
                                 newRight = sea.mkNode(right.op);
-                                newRight.pathDeps = List.new(newIf, null);
-                                thenRegionEnds.put(newRight);
+                                newRight.pathDeps = List.new(newElse, null);
+                                elseRegionEnds.put(newRight);
                             }
 
-                            innerPhi.op = IROp.StatePhi(maybeTrueNode, oldEndNode, newLeft, newRight, statecomps);
+                            innerPhi.op = IROp.StatePhi(maybeTrueNode, rightRegions.end, newLeft, newRight, statecomps);
+                            def newPhi = sea.mkNode(IROp.StatePhi(andNode, newEnd, newRight, innerPhi, statecomps));
+                            newPhis.put(newPhi);
                         }
                         _ => {}
                     }
