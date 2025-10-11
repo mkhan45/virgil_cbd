@@ -633,7 +633,7 @@ graph TD
 	Start
 	"]
 	4["
-	eff__94
+	eff__95
 	push_u32
 	"]
 	3 --> 4
@@ -657,7 +657,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__96
+	eff__98
 	push_u32
 	"]
 	5 --> 6
@@ -695,7 +695,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__100
+	eff__102
 	push_u32
 	"]
 	5 --> 6
@@ -733,7 +733,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__104
+	eff__106
 	push_u32
 	"]
 	5 --> 6
@@ -771,7 +771,7 @@ graph TD
 	18 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	21 -. Stack .-> 1
 	21["
-	eff__108
+	eff__110
 	push_u32
 	"]
 	20 --> 21
@@ -800,23 +800,23 @@ graph TD
 	Start
 	"]
 	7["
-	ret__123
+	ret__125
 	trapDivideByZero
 	"]
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
-	cond__122
+	cond__124
 	u32.==
 	"]
 	3 --> 6
 	5 --> 6
 	5["
-	arg__125
+	arg__127
 	0
 	"]
 	17["
-	ret__113
+	ret__115
 	trapDivideUnrepresentable
 	"]
 	8 -. Codeptr Locals Globals Tables Memory Extra .-> 17
@@ -827,39 +827,39 @@ graph TD
 	7 --> 8
 	0 --> 8
 	16["
-	cond__112
+	cond__114
 	bool.&&
 	"]
 	15 --> 16
 	12 --> 16
 	12["
-	arg__115
+	arg__117
 	u32.==
 	"]
 	4 --> 12
 	11 --> 12
 	11["
-	arg__120
+	arg__122
 	u32.view
 	"]
 	10 --> 11
 	10["
-	arg__121
+	arg__123
 	-2_147_483_648
 	"]
 	15["
-	arg__114
+	arg__116
 	u32.==
 	"]
 	3 --> 15
 	14 --> 15
 	14["
-	arg__117
+	arg__119
 	u32.view
 	"]
 	13 --> 14
 	13["
-	arg__118
+	arg__120
 	-1
 	"]
 	20["
@@ -887,7 +887,7 @@ graph TD
 	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
-	eff__126
+	eff__131
 	push_u32
 	"]
 	10 --> 11
@@ -911,19 +911,19 @@ graph TD
 	Start
 	"]
 	7["
-	ret__131
+	ret__136
 	trapDivideByZero
 	"]
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
-	cond__130
+	cond__135
 	u32.==
 	"]
 	3 --> 6
 	5 --> 6
 	5["
-	arg__133
+	arg__138
 	0
 	"]
 	10["
@@ -956,7 +956,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6["
-	eff__137
+	eff__143
 	push_u32
 	"]
 	4 --> 6
@@ -970,21 +970,21 @@ graph TD
 	Start
 	"]
 	4["
-	arg__140
+	arg__146
 	0
 	"]
 	8["
-	eff__135
+	eff__141
 	push_u32
 	"]
 	7 --> 8
 	3 -. Stack .-> 8
 	7["
-	arg__136
+	arg__142
 	1
 	"]
 	5["
-	cond__134
+	cond__140
 	u32.==
 	"]
 	3 --> 5
@@ -1008,7 +1008,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__144
+	eff__153
 	push_u32
 	"]
 	6 --> 7
@@ -1027,21 +1027,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__145
+	arg__154
 	0
 	"]
 	9["
-	eff__142
+	eff__151
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__143
+	arg__152
 	1
 	"]
 	5["
-	cond__141
+	cond__150
 	u32.==
 	"]
 	4 --> 5
@@ -1065,7 +1065,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__151
+	eff__162
 	push_u32
 	"]
 	6 --> 7
@@ -1084,21 +1084,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__152
+	arg__163
 	0
 	"]
 	9["
-	eff__149
+	eff__160
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__150
+	arg__161
 	1
 	"]
 	5["
-	cond__148
+	cond__159
 	u32.!=
 	"]
 	4 --> 5
@@ -1122,7 +1122,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__158
+	eff__171
 	push_u32
 	"]
 	6 --> 7
@@ -1141,21 +1141,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__159
+	arg__172
 	0
 	"]
 	9["
-	eff__156
+	eff__169
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__157
+	arg__170
 	1
 	"]
 	5["
-	cond__155
+	cond__168
 	u32.<
 	"]
 	4 --> 5
@@ -1179,7 +1179,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__165
+	eff__180
 	push_u32
 	"]
 	6 --> 7
@@ -1198,21 +1198,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__166
+	arg__181
 	0
 	"]
 	9["
-	eff__163
+	eff__178
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__164
+	arg__179
 	1
 	"]
 	5["
-	cond__162
+	cond__177
 	U32_lt_s
 	"]
 	4 --> 5
@@ -1236,7 +1236,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__172
+	eff__189
 	push_u32
 	"]
 	6 --> 7
@@ -1255,21 +1255,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__173
+	arg__190
 	0
 	"]
 	9["
-	eff__170
+	eff__187
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__171
+	arg__188
 	1
 	"]
 	5["
-	cond__169
+	cond__186
 	U32_le_s
 	"]
 	4 --> 5
@@ -1293,7 +1293,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__179
+	eff__198
 	push_u32
 	"]
 	6 --> 7
@@ -1312,198 +1312,27 @@ graph TD
 	Start
 	"]
 	6["
-	arg__180
+	arg__199
 	0
 	"]
 	9["
-	eff__177
+	eff__196
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__178
+	arg__197
 	1
 	"]
 	5["
-	cond__176
+	cond__195
 	u32.>
 	"]
 	4 --> 5
 	3 --> 5
 ```
 ## I32_LE_U
-```mermaid
----
-config:
-  layout: elk
----
-graph TD
-	1["
-	Finish
-	"]
-	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
-	10 -. Stack .-> 1
-	10["
-	state phi Stack 	"]
-	5 --> 10
-	9 --> 10
-	7 --> 10
-	7["
-	eff__186
-	push_u32
-	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	4["
-	a
-	pop_u32
-	"]
-	3 -. Stack .-> 4
-	3["
-	b
-	pop_u32
-	"]
-	0 -. Stack .-> 3
-	0["
-	Start
-	"]
-	6["
-	arg__187
-	0
-	"]
-	9["
-	eff__184
-	push_u32
-	"]
-	8 --> 9
-	4 -. Stack .-> 9
-	8["
-	arg__185
-	1
-	"]
-	5["
-	cond__183
-	u32.<=
-	"]
-	4 --> 5
-	3 --> 5
-```
-## I32_GT_S
-```mermaid
----
-config:
-  layout: elk
----
-graph TD
-	1["
-	Finish
-	"]
-	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
-	10 -. Stack .-> 1
-	10["
-	state phi Stack 	"]
-	5 --> 10
-	9 --> 10
-	7 --> 10
-	7["
-	eff__193
-	push_u32
-	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	4["
-	a
-	pop_u32
-	"]
-	3 -. Stack .-> 4
-	3["
-	b
-	pop_u32
-	"]
-	0 -. Stack .-> 3
-	0["
-	Start
-	"]
-	6["
-	arg__194
-	0
-	"]
-	9["
-	eff__191
-	push_u32
-	"]
-	8 --> 9
-	4 -. Stack .-> 9
-	8["
-	arg__192
-	1
-	"]
-	5["
-	cond__190
-	U32_gt_s
-	"]
-	4 --> 5
-	3 --> 5
-```
-## I32_GE_U
-```mermaid
----
-config:
-  layout: elk
----
-graph TD
-	1["
-	Finish
-	"]
-	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
-	10 -. Stack .-> 1
-	10["
-	state phi Stack 	"]
-	5 --> 10
-	9 --> 10
-	7 --> 10
-	7["
-	eff__200
-	push_u32
-	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	4["
-	a
-	pop_u32
-	"]
-	3 -. Stack .-> 4
-	3["
-	b
-	pop_u32
-	"]
-	0 -. Stack .-> 3
-	0["
-	Start
-	"]
-	6["
-	arg__201
-	0
-	"]
-	9["
-	eff__198
-	push_u32
-	"]
-	8 --> 9
-	4 -. Stack .-> 9
-	8["
-	arg__199
-	1
-	"]
-	5["
-	cond__197
-	U32_ge_u
-	"]
-	4 --> 5
-	3 --> 5
-```
-## I32_GE_S
 ```mermaid
 ---
 config:
@@ -1555,6 +1384,177 @@ graph TD
 	"]
 	5["
 	cond__204
+	u32.<=
+	"]
+	4 --> 5
+	3 --> 5
+```
+## I32_GT_S
+```mermaid
+---
+config:
+  layout: elk
+---
+graph TD
+	1["
+	Finish
+	"]
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10["
+	state phi Stack 	"]
+	5 --> 10
+	9 --> 10
+	7 --> 10
+	7["
+	eff__216
+	push_u32
+	"]
+	6 --> 7
+	4 -. Stack .-> 7
+	4["
+	a
+	pop_u32
+	"]
+	3 -. Stack .-> 4
+	3["
+	b
+	pop_u32
+	"]
+	0 -. Stack .-> 3
+	0["
+	Start
+	"]
+	6["
+	arg__217
+	0
+	"]
+	9["
+	eff__214
+	push_u32
+	"]
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
+	arg__215
+	1
+	"]
+	5["
+	cond__213
+	U32_gt_s
+	"]
+	4 --> 5
+	3 --> 5
+```
+## I32_GE_U
+```mermaid
+---
+config:
+  layout: elk
+---
+graph TD
+	1["
+	Finish
+	"]
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10["
+	state phi Stack 	"]
+	5 --> 10
+	9 --> 10
+	7 --> 10
+	7["
+	eff__225
+	push_u32
+	"]
+	6 --> 7
+	4 -. Stack .-> 7
+	4["
+	a
+	pop_u32
+	"]
+	3 -. Stack .-> 4
+	3["
+	b
+	pop_u32
+	"]
+	0 -. Stack .-> 3
+	0["
+	Start
+	"]
+	6["
+	arg__226
+	0
+	"]
+	9["
+	eff__223
+	push_u32
+	"]
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
+	arg__224
+	1
+	"]
+	5["
+	cond__222
+	U32_ge_u
+	"]
+	4 --> 5
+	3 --> 5
+```
+## I32_GE_S
+```mermaid
+---
+config:
+  layout: elk
+---
+graph TD
+	1["
+	Finish
+	"]
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10["
+	state phi Stack 	"]
+	5 --> 10
+	9 --> 10
+	7 --> 10
+	7["
+	eff__234
+	push_u32
+	"]
+	6 --> 7
+	4 -. Stack .-> 7
+	4["
+	a
+	pop_u32
+	"]
+	3 -. Stack .-> 4
+	3["
+	b
+	pop_u32
+	"]
+	0 -. Stack .-> 3
+	0["
+	Start
+	"]
+	6["
+	arg__235
+	0
+	"]
+	9["
+	eff__232
+	push_u32
+	"]
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
+	arg__233
+	1
+	"]
+	5["
+	cond__231
 	U32_ge_s
 	"]
 	4 --> 5
@@ -1573,7 +1573,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__211
+	eff__240
 	push_u32
 	"]
 	5 --> 6
@@ -1611,7 +1611,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__215
+	eff__244
 	push_u32
 	"]
 	5 --> 6
@@ -1649,7 +1649,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__219
+	eff__248
 	push_u32
 	"]
 	5 --> 6
@@ -1687,7 +1687,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__223
+	eff__252
 	push_u32
 	"]
 	5 --> 6
@@ -1725,7 +1725,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__227
+	eff__256
 	push_u32
 	"]
 	5 --> 6
@@ -1763,7 +1763,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__231
+	eff__260
 	push_u32
 	"]
 	5 --> 6
@@ -1801,7 +1801,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__235
+	eff__264
 	push_u32
 	"]
 	5 --> 6
@@ -1839,7 +1839,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__239
+	eff__268
 	push_u32
 	"]
 	5 --> 6
@@ -1877,7 +1877,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
-	eff__243
+	eff__272
 	push_u32
 	"]
 	4 --> 5
@@ -1909,7 +1909,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
-	eff__246
+	eff__275
 	push_u32
 	"]
 	4 --> 5
@@ -1941,7 +1941,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
-	eff__249
+	eff__278
 	push_u32
 	"]
 	4 --> 5
@@ -1973,7 +1973,7 @@ graph TD
 	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
-	eff__252
+	eff__281
 	push_u32
 	"]
 	10 --> 11
@@ -1997,19 +1997,19 @@ graph TD
 	Start
 	"]
 	7["
-	ret__257
+	ret__286
 	trapDivideByZero
 	"]
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
-	cond__256
+	cond__285
 	u32.==
 	"]
 	3 --> 6
 	5 --> 6
 	5["
-	arg__259
+	arg__288
 	0
 	"]
 	10["
@@ -2037,7 +2037,7 @@ graph TD
 	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
-	eff__260
+	eff__290
 	push_u32
 	"]
 	10 --> 11
@@ -2061,19 +2061,19 @@ graph TD
 	Start
 	"]
 	7["
-	ret__265
+	ret__295
 	trapDivideByZero
 	"]
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
-	cond__264
+	cond__294
 	u32.==
 	"]
 	3 --> 6
 	5 --> 6
 	5["
-	arg__267
+	arg__297
 	0
 	"]
 	10["
@@ -2101,7 +2101,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
-	eff__268
+	eff__299
 	push_u32
 	"]
 	4 --> 5
@@ -2133,7 +2133,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
-	eff__271
+	eff__302
 	push_u32
 	"]
 	4 --> 5
@@ -2169,7 +2169,7 @@ graph TD
 	Start
 	"]
 	4["
-	eff__274
+	eff__305
 	push_u64
 	"]
 	3 --> 4
@@ -2193,7 +2193,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__276
+	eff__308
 	push_u64
 	"]
 	5 --> 6
@@ -2231,7 +2231,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__280
+	eff__312
 	push_u64
 	"]
 	5 --> 6
@@ -2269,7 +2269,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__284
+	eff__316
 	push_u64
 	"]
 	5 --> 6
@@ -2307,7 +2307,7 @@ graph TD
 	18 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	21 -. Stack .-> 1
 	21["
-	eff__288
+	eff__320
 	push_u64
 	"]
 	20 --> 21
@@ -2336,23 +2336,23 @@ graph TD
 	Start
 	"]
 	7["
-	ret__303
+	ret__335
 	trapDivideByZero
 	"]
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
-	cond__302
+	cond__334
 	u64.==
 	"]
 	3 --> 6
 	5 --> 6
 	5["
-	arg__305
+	arg__337
 	0
 	"]
 	17["
-	ret__293
+	ret__325
 	trapDivideUnrepresentable
 	"]
 	8 -. Codeptr Locals Globals Tables Memory Extra .-> 17
@@ -2363,39 +2363,39 @@ graph TD
 	7 --> 8
 	0 --> 8
 	16["
-	cond__292
+	cond__324
 	bool.&&
 	"]
 	15 --> 16
 	12 --> 16
 	12["
-	arg__295
+	arg__327
 	u64.==
 	"]
 	4 --> 12
 	11 --> 12
 	11["
-	arg__300
+	arg__332
 	u64.view
 	"]
 	10 --> 11
 	10["
-	arg__301
+	arg__333
 	-9223372036854775808L
 	"]
 	15["
-	arg__294
+	arg__326
 	u64.==
 	"]
 	3 --> 15
 	14 --> 15
 	14["
-	arg__297
+	arg__329
 	u64.view
 	"]
 	13 --> 14
 	13["
-	arg__298
+	arg__330
 	-1
 	"]
 	20["
@@ -2423,7 +2423,7 @@ graph TD
 	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
-	eff__306
+	eff__338
 	push_u64
 	"]
 	10 --> 11
@@ -2447,19 +2447,19 @@ graph TD
 	Start
 	"]
 	7["
-	ret__311
+	ret__343
 	trapDivideByZero
 	"]
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
-	cond__310
+	cond__342
 	u64.==
 	"]
 	3 --> 6
 	5 --> 6
 	5["
-	arg__313
+	arg__345
 	0
 	"]
 	10["
@@ -2487,7 +2487,7 @@ graph TD
 	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
-	eff__314
+	eff__346
 	push_u64
 	"]
 	10 --> 11
@@ -2511,19 +2511,19 @@ graph TD
 	Start
 	"]
 	7["
-	ret__319
+	ret__351
 	trapDivideByZero
 	"]
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
-	cond__318
+	cond__350
 	u64.==
 	"]
 	3 --> 6
 	5 --> 6
 	5["
-	arg__321
+	arg__353
 	0
 	"]
 	10["
@@ -2551,7 +2551,7 @@ graph TD
 	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
-	eff__322
+	eff__354
 	push_u64
 	"]
 	10 --> 11
@@ -2575,19 +2575,19 @@ graph TD
 	Start
 	"]
 	7["
-	ret__327
+	ret__359
 	trapDivideByZero
 	"]
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
-	cond__326
+	cond__358
 	u64.==
 	"]
 	3 --> 6
 	5 --> 6
 	5["
-	arg__329
+	arg__361
 	0
 	"]
 	10["
@@ -2615,7 +2615,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__330
+	eff__362
 	push_u64
 	"]
 	5 --> 6
@@ -2653,7 +2653,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__334
+	eff__366
 	push_u64
 	"]
 	5 --> 6
@@ -2691,7 +2691,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__338
+	eff__370
 	push_u64
 	"]
 	5 --> 6
@@ -2729,7 +2729,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__342
+	eff__374
 	push_u64
 	"]
 	5 --> 6
@@ -2767,7 +2767,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__346
+	eff__378
 	push_u64
 	"]
 	5 --> 6
@@ -2805,7 +2805,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__350
+	eff__382
 	push_u64
 	"]
 	5 --> 6
@@ -2843,7 +2843,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__354
+	eff__386
 	push_u64
 	"]
 	5 --> 6
@@ -2881,7 +2881,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__358
+	eff__390
 	push_u64
 	"]
 	5 --> 6
@@ -2919,7 +2919,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
-	eff__362
+	eff__394
 	push_u64
 	"]
 	4 --> 5
@@ -2951,7 +2951,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
-	eff__365
+	eff__397
 	push_u64
 	"]
 	4 --> 5
@@ -2983,7 +2983,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
-	eff__368
+	eff__400
 	push_u64
 	"]
 	4 --> 5
@@ -3020,7 +3020,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6["
-	eff__374
+	eff__406
 	push_u32
 	"]
 	4 --> 6
@@ -3034,21 +3034,21 @@ graph TD
 	Start
 	"]
 	4["
-	arg__377
+	arg__409
 	0
 	"]
 	8["
-	eff__372
+	eff__404
 	push_u32
 	"]
 	7 --> 8
 	3 -. Stack .-> 8
 	7["
-	arg__373
+	arg__405
 	1
 	"]
 	5["
-	cond__371
+	cond__403
 	u64.==
 	"]
 	3 --> 5
@@ -3072,7 +3072,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__381
+	eff__415
 	push_u32
 	"]
 	6 --> 7
@@ -3091,21 +3091,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__382
+	arg__416
 	0
 	"]
 	9["
-	eff__379
+	eff__413
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__380
+	arg__414
 	1
 	"]
 	5["
-	cond__378
+	cond__412
 	u64.==
 	"]
 	4 --> 5
@@ -3129,7 +3129,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__388
+	eff__424
 	push_u32
 	"]
 	6 --> 7
@@ -3148,21 +3148,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__389
+	arg__425
 	0
 	"]
 	9["
-	eff__386
+	eff__422
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__387
+	arg__423
 	1
 	"]
 	5["
-	cond__385
+	cond__421
 	u64.!=
 	"]
 	4 --> 5
@@ -3186,7 +3186,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__395
+	eff__433
 	push_u32
 	"]
 	6 --> 7
@@ -3205,21 +3205,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__396
+	arg__434
 	0
 	"]
 	9["
-	eff__393
+	eff__431
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__394
+	arg__432
 	1
 	"]
 	5["
-	cond__392
+	cond__430
 	U64_lt_s
 	"]
 	4 --> 5
@@ -3243,7 +3243,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__402
+	eff__442
 	push_u32
 	"]
 	6 --> 7
@@ -3262,21 +3262,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__403
+	arg__443
 	0
 	"]
 	9["
-	eff__400
+	eff__440
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__401
+	arg__441
 	1
 	"]
 	5["
-	cond__399
+	cond__439
 	u64.<
 	"]
 	4 --> 5
@@ -3300,7 +3300,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__409
+	eff__451
 	push_u32
 	"]
 	6 --> 7
@@ -3319,21 +3319,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__410
+	arg__452
 	0
 	"]
 	9["
-	eff__407
+	eff__449
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__408
+	arg__450
 	1
 	"]
 	5["
-	cond__406
+	cond__448
 	U64_le_s
 	"]
 	4 --> 5
@@ -3357,7 +3357,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__416
+	eff__460
 	push_u32
 	"]
 	6 --> 7
@@ -3376,21 +3376,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__417
+	arg__461
 	0
 	"]
 	9["
-	eff__414
+	eff__458
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__415
+	arg__459
 	1
 	"]
 	5["
-	cond__413
+	cond__457
 	u64.<=
 	"]
 	4 --> 5
@@ -3414,7 +3414,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__423
+	eff__469
 	push_u32
 	"]
 	6 --> 7
@@ -3433,21 +3433,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__424
+	arg__470
 	0
 	"]
 	9["
-	eff__421
+	eff__467
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__422
+	arg__468
 	1
 	"]
 	5["
-	cond__420
+	cond__466
 	U64_gt_s
 	"]
 	4 --> 5
@@ -3471,7 +3471,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__430
+	eff__478
 	push_u32
 	"]
 	6 --> 7
@@ -3490,21 +3490,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__431
+	arg__479
 	0
 	"]
 	9["
-	eff__428
+	eff__476
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__429
+	arg__477
 	1
 	"]
 	5["
-	cond__427
+	cond__475
 	u64.>
 	"]
 	4 --> 5
@@ -3528,7 +3528,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__437
+	eff__487
 	push_u32
 	"]
 	6 --> 7
@@ -3547,21 +3547,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__438
+	arg__488
 	0
 	"]
 	9["
-	eff__435
+	eff__485
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__436
+	arg__486
 	1
 	"]
 	5["
-	cond__434
+	cond__484
 	U64_ge_s
 	"]
 	4 --> 5
@@ -3585,7 +3585,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__444
+	eff__496
 	push_u32
 	"]
 	6 --> 7
@@ -3604,21 +3604,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__445
+	arg__497
 	0
 	"]
 	9["
-	eff__442
+	eff__494
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__443
+	arg__495
 	1
 	"]
 	5["
-	cond__441
+	cond__493
 	U64_ge_u
 	"]
 	4 --> 5
@@ -3637,7 +3637,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
-	eff__448
+	eff__502
 	push_u64
 	"]
 	4 --> 5
@@ -3669,7 +3669,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
-	eff__451
+	eff__505
 	push_u64
 	"]
 	4 --> 5
@@ -3701,7 +3701,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
-	eff__454
+	eff__508
 	push_u64
 	"]
 	4 --> 5
@@ -3737,13 +3737,13 @@ graph TD
 	Start
 	"]
 	5["
-	eff__457
+	eff__511
 	push_f32
 	"]
 	4 --> 5
 	0 -. Stack .-> 5
 	4["
-	arg__458
+	arg__512
 	f32_reinterpret_u32
 	"]
 	3 --> 4
@@ -3766,7 +3766,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__460
+	eff__515
 	push_f32
 	"]
 	5 --> 6
@@ -3804,7 +3804,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__464
+	eff__519
 	push_f32
 	"]
 	5 --> 6
@@ -3842,7 +3842,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
-	eff__468
+	eff__523
 	push_f32
 	"]
 	5 --> 6
@@ -3880,7 +3880,7 @@ graph TD
 	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
-	eff__472
+	eff__527
 	push_f32
 	"]
 	10 --> 11
@@ -3904,19 +3904,19 @@ graph TD
 	Start
 	"]
 	7["
-	ret__477
+	ret__532
 	trapDivideByZero
 	"]
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
-	cond__476
+	cond__531
 	float.==
 	"]
 	3 --> 6
 	5 --> 6
 	5["
-	arg__479
+	arg__534
 	0.0f
 	"]
 	10["
@@ -3944,7 +3944,7 @@ graph TD
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
-	eff__480
+	eff__536
 	push_f32
 	"]
 	4 --> 5
@@ -3981,7 +3981,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__486
+	eff__542
 	push_u32
 	"]
 	6 --> 7
@@ -4000,21 +4000,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__487
+	arg__543
 	0
 	"]
 	9["
-	eff__484
+	eff__540
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__485
+	arg__541
 	1
 	"]
 	5["
-	cond__483
+	cond__539
 	float.==
 	"]
 	4 --> 5
@@ -4038,7 +4038,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__493
+	eff__551
 	push_u32
 	"]
 	6 --> 7
@@ -4057,21 +4057,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__494
+	arg__552
 	0
 	"]
 	9["
-	eff__491
+	eff__549
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__492
+	arg__550
 	1
 	"]
 	5["
-	cond__490
+	cond__548
 	float.!=
 	"]
 	4 --> 5
@@ -4095,7 +4095,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__500
+	eff__560
 	push_u32
 	"]
 	6 --> 7
@@ -4114,21 +4114,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__501
+	arg__561
 	0
 	"]
 	9["
-	eff__498
+	eff__558
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__499
+	arg__559
 	1
 	"]
 	5["
-	cond__497
+	cond__557
 	float.<
 	"]
 	4 --> 5
@@ -4152,7 +4152,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__507
+	eff__569
 	push_u32
 	"]
 	6 --> 7
@@ -4171,21 +4171,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__508
+	arg__570
 	0
 	"]
 	9["
-	eff__505
+	eff__567
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__506
+	arg__568
 	1
 	"]
 	5["
-	cond__504
+	cond__566
 	float.<=
 	"]
 	4 --> 5
@@ -4209,7 +4209,7 @@ graph TD
 	9 --> 10
 	7 --> 10
 	7["
-	eff__514
+	eff__578
 	push_u32
 	"]
 	6 --> 7
@@ -4228,21 +4228,21 @@ graph TD
 	Start
 	"]
 	6["
-	arg__515
+	arg__579
 	0
 	"]
 	9["
-	eff__512
+	eff__576
 	push_u32
 	"]
 	8 --> 9
 	4 -. Stack .-> 9
 	8["
-	arg__513
+	arg__577
 	1
 	"]
 	5["
-	cond__511
+	cond__575
 	float.>
 	"]
 	4 --> 5
@@ -4260,7 +4260,7 @@ graph TD
 	"]
 	5 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	5["
-	ret__518
+	ret__584
 	doBranch
 	"]
 	4 --> 5
@@ -4297,7 +4297,7 @@ graph TD
 	9 --> 10
 	8 --> 10
 	8["
-	ret__525
+	ret__591
 	doFallthru
 	"]
 	3 -. Codeptr .-> 8
@@ -4317,7 +4317,7 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	ret__523
+	ret__589
 	doBranch
 	"]
 	4 --> 9
@@ -4330,13 +4330,13 @@ graph TD
 	"]
 	3 --> 4
 	7["
-	cond__522
+	cond__588
 	u32.!=
 	"]
 	5 --> 7
 	6 --> 7
 	6["
-	arg__527
+	arg__593
 	0
 	"]
 ```
@@ -4352,7 +4352,7 @@ graph TD
 	"]
 	5 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	5["
-	eff__530
+	eff__597
 	doSwitch
 	"]
 	3 --> 5
@@ -4386,7 +4386,7 @@ graph TD
 	"]
 	4 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	4["
-	eff__534
+	eff__601
 	doBlock
 	"]
 	3 --> 4
@@ -4413,7 +4413,7 @@ graph TD
 	"]
 	4 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	4["
-	eff__536
+	eff__603
 	doLoop
 	"]
 	3 --> 4
@@ -4440,7 +4440,7 @@ graph TD
 	"]
 	4 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	4["
-	eff__538
+	eff__605
 	doTry
 	"]
 	3 --> 4
@@ -4472,7 +4472,7 @@ graph TD
 	9 --> 10
 	8 --> 10
 	8["
-	ret__543
+	ret__610
 	doFallthru
 	"]
 	5 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 8
@@ -4498,19 +4498,19 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	ret__541
+	ret__608
 	doBranch
 	"]
 	5 --> 9
 	5 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 9
 	7["
-	cond__540
+	cond__607
 	u32.==
 	"]
 	4 --> 7
 	6 --> 7
 	6["
-	arg__545
+	arg__612
 	0
 	"]
 ```
@@ -4526,7 +4526,7 @@ graph TD
 	"]
 	4 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	4["
-	ret__548
+	ret__616
 	doBranch
 	"]
 	3 --> 4
@@ -4557,7 +4557,7 @@ graph TD
 	5 --> 6
 	3 --> 6
 	3["
-	eff__553
+	eff__621
 	doEnd
 	"]
 	0 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 3
@@ -4565,12 +4565,12 @@ graph TD
 	Start
 	"]
 	5["
-	ret__552
+	ret__620
 	doReturn
 	"]
 	3 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 5
 	4["
-	cond__551
+	cond__619
 	f_isAtEnd
 	"]
 ```
@@ -4586,7 +4586,7 @@ graph TD
 	"]
 	3 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	3["
-	ret__554
+	ret__622
 	doReturn
 	"]
 	0 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 3
@@ -4611,13 +4611,13 @@ graph TD
 	Start
 	"]
 	5["
-	eff__555
+	eff__623
 	push_Object
 	"]
 	4 --> 5
 	0 -. Stack .-> 5
 	4["
-	arg__556
+	arg__624
 	object_Null
 	"]
 	3["
@@ -4644,7 +4644,7 @@ graph TD
 	8 --> 9
 	6 --> 9
 	6["
-	eff__560
+	eff__628
 	push_u32
 	"]
 	5 --> 6
@@ -4658,21 +4658,21 @@ graph TD
 	Start
 	"]
 	5["
-	arg__561
+	arg__629
 	0
 	"]
 	8["
-	eff__558
+	eff__626
 	push_u32
 	"]
 	7 --> 8
 	3 -. Stack .-> 8
 	7["
-	arg__559
+	arg__627
 	1
 	"]
 	4["
-	cond__557
+	cond__625
 	object_isNull
 	"]
 	3 --> 4
@@ -4690,7 +4690,7 @@ graph TD
 	6 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	8 -. Stack .-> 1
 	8["
-	eff__563
+	eff__633
 	push_Object
 	"]
 	3 --> 8
@@ -4709,13 +4709,13 @@ graph TD
 	Start
 	"]
 	5["
-	eff__566
+	eff__636
 	trapNull
 	"]
 	0 -. Codeptr Locals Globals Tables Memory Extra .-> 5
 	3 -. Stack .-> 5
 	4["
-	cond__565
+	cond__635
 	object_isNull
 	"]
 	3 --> 4
@@ -4742,7 +4742,7 @@ graph TD
 	Start
 	"]
 	6["
-	eff__568
+	eff__638
 	push_Object
 	"]
 	5 --> 6
@@ -4785,7 +4785,7 @@ graph TD
 	Start
 	"]
 	9["
-	ret__598
+	ret__668
 	trapNull
 	"]
 	4 -. Codeptr .-> 9
@@ -4807,7 +4807,7 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	8["
-	cond__597
+	cond__667
 	object_isNull
 	"]
 	7 --> 8
@@ -4844,7 +4844,7 @@ graph TD
 	Start
 	"]
 	9["
-	ret__617
+	ret__687
 	trapNull
 	"]
 	4 -. Codeptr .-> 9
@@ -4866,7 +4866,7 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	8["
-	cond__616
+	cond__686
 	object_isNull
 	"]
 	7 --> 8
@@ -4903,7 +4903,7 @@ graph TD
 	Start
 	"]
 	9["
-	ret__636
+	ret__706
 	trapNull
 	"]
 	4 -. Codeptr .-> 9
@@ -4925,7 +4925,7 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	8["
-	cond__635
+	cond__705
 	object_isNull
 	"]
 	7 --> 8
@@ -4962,7 +4962,7 @@ graph TD
 	20 --> 22
 	16 --> 22
 	16["
-	eff__649
+	eff__719
 	push_u32
 	"]
 	15 --> 16
@@ -4995,28 +4995,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__656
+	memindex__726
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__655
+	cond__725
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__658
+	arg__728
 	0
 	"]
 	7["
-	arg__657
+	arg__727
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__660
+	arg__730
 	0x40u8
 	"]
 	10["
@@ -5027,11 +5027,11 @@ graph TD
 	9 --> 10
 	4 --> 10
 	4["
-	memindex__661
+	memindex__731
 	0u
 	"]
 	20["
-	eff__644
+	eff__714
 	push_u32
 	"]
 	19 --> 20
@@ -5054,7 +5054,7 @@ graph TD
 	"]
 	11 -. Codeptr .-> 17
 	12["
-	cond__643
+	cond__713
 	m_isMemory64
 	"]
 	10 --> 12
@@ -5086,7 +5086,7 @@ graph TD
 	20 --> 22
 	16 --> 22
 	16["
-	eff__668
+	eff__738
 	push_u32
 	"]
 	15 --> 16
@@ -5119,28 +5119,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__675
+	memindex__745
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__674
+	cond__744
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__677
+	arg__747
 	0
 	"]
 	7["
-	arg__676
+	arg__746
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__679
+	arg__749
 	0x40u8
 	"]
 	10["
@@ -5151,11 +5151,11 @@ graph TD
 	9 --> 10
 	4 --> 10
 	4["
-	memindex__680
+	memindex__750
 	0u
 	"]
 	20["
-	eff__663
+	eff__733
 	push_u32
 	"]
 	19 --> 20
@@ -5178,7 +5178,7 @@ graph TD
 	"]
 	11 -. Codeptr .-> 17
 	12["
-	cond__662
+	cond__732
 	m_isMemory64
 	"]
 	10 --> 12
@@ -5210,7 +5210,7 @@ graph TD
 	20 --> 22
 	16 --> 22
 	16["
-	eff__687
+	eff__757
 	push_u32
 	"]
 	15 --> 16
@@ -5243,28 +5243,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__694
+	memindex__764
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__693
+	cond__763
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__696
+	arg__766
 	0
 	"]
 	7["
-	arg__695
+	arg__765
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__698
+	arg__768
 	0x40u8
 	"]
 	10["
@@ -5275,11 +5275,11 @@ graph TD
 	9 --> 10
 	4 --> 10
 	4["
-	memindex__699
+	memindex__769
 	0u
 	"]
 	20["
-	eff__682
+	eff__752
 	push_u32
 	"]
 	19 --> 20
@@ -5302,7 +5302,7 @@ graph TD
 	"]
 	11 -. Codeptr .-> 17
 	12["
-	cond__681
+	cond__751
 	m_isMemory64
 	"]
 	10 --> 12
@@ -5334,7 +5334,7 @@ graph TD
 	20 --> 22
 	16 --> 22
 	16["
-	eff__706
+	eff__776
 	push_u64
 	"]
 	15 --> 16
@@ -5367,28 +5367,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__713
+	memindex__783
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__712
+	cond__782
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__715
+	arg__785
 	0
 	"]
 	7["
-	arg__714
+	arg__784
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__717
+	arg__787
 	0x40u8
 	"]
 	10["
@@ -5399,11 +5399,11 @@ graph TD
 	9 --> 10
 	4 --> 10
 	4["
-	memindex__718
+	memindex__788
 	0u
 	"]
 	20["
-	eff__701
+	eff__771
 	push_u64
 	"]
 	19 --> 20
@@ -5426,7 +5426,7 @@ graph TD
 	"]
 	11 -. Codeptr .-> 17
 	12["
-	cond__700
+	cond__770
 	m_isMemory64
 	"]
 	10 --> 12
@@ -5458,7 +5458,7 @@ graph TD
 	20 --> 22
 	16 --> 22
 	16["
-	eff__725
+	eff__795
 	push_f32
 	"]
 	15 --> 16
@@ -5491,28 +5491,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__732
+	memindex__802
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__731
+	cond__801
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__734
+	arg__804
 	0
 	"]
 	7["
-	arg__733
+	arg__803
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__736
+	arg__806
 	0x40u8
 	"]
 	10["
@@ -5523,11 +5523,11 @@ graph TD
 	9 --> 10
 	4 --> 10
 	4["
-	memindex__737
+	memindex__807
 	0u
 	"]
 	20["
-	eff__720
+	eff__790
 	push_f32
 	"]
 	19 --> 20
@@ -5550,7 +5550,7 @@ graph TD
 	"]
 	11 -. Codeptr .-> 17
 	12["
-	cond__719
+	cond__789
 	m_isMemory64
 	"]
 	10 --> 12
@@ -5582,7 +5582,7 @@ graph TD
 	20 --> 22
 	16 --> 22
 	16["
-	eff__744
+	eff__814
 	push_f64
 	"]
 	15 --> 16
@@ -5615,28 +5615,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__751
+	memindex__821
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__750
+	cond__820
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__753
+	arg__823
 	0
 	"]
 	7["
-	arg__752
+	arg__822
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__755
+	arg__825
 	0x40u8
 	"]
 	10["
@@ -5647,11 +5647,11 @@ graph TD
 	9 --> 10
 	4 --> 10
 	4["
-	memindex__756
+	memindex__826
 	0u
 	"]
 	20["
-	eff__739
+	eff__809
 	push_f64
 	"]
 	19 --> 20
@@ -5674,7 +5674,7 @@ graph TD
 	"]
 	11 -. Codeptr .-> 17
 	12["
-	cond__738
+	cond__808
 	m_isMemory64
 	"]
 	10 --> 12
@@ -5704,7 +5704,7 @@ graph TD
 	19 --> 22
 	16 --> 22
 	16["
-	eff__763
+	eff__833
 	mach_writeMemory32_u32
 	"]
 	10 --> 16
@@ -5736,28 +5736,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__770
+	memindex__840
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__769
+	cond__839
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__772
+	arg__842
 	0
 	"]
 	7["
-	arg__771
+	arg__841
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__774
+	arg__844
 	0x40u8
 	"]
 	15["
@@ -5773,11 +5773,11 @@ graph TD
 	9 --> 10
 	4 --> 10
 	4["
-	memindex__775
+	memindex__845
 	0u
 	"]
 	19["
-	eff__758
+	eff__828
 	mach_writeMemory64_u32
 	"]
 	10 --> 19
@@ -5796,7 +5796,7 @@ graph TD
 	"]
 	12 -. Stack .-> 18
 	13["
-	cond__757
+	cond__827
 	m_isMemory64
 	"]
 	10 --> 13
@@ -5831,7 +5831,7 @@ graph TD
 	19 --> 22
 	16 --> 22
 	16["
-	eff__782
+	eff__852
 	mach_writeMemory32_u8
 	"]
 	10 --> 16
@@ -5863,28 +5863,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__789
+	memindex__859
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__788
+	cond__858
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__791
+	arg__861
 	0
 	"]
 	7["
-	arg__790
+	arg__860
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__793
+	arg__863
 	0x40u8
 	"]
 	15["
@@ -5900,11 +5900,11 @@ graph TD
 	9 --> 10
 	4 --> 10
 	4["
-	memindex__794
+	memindex__864
 	0u
 	"]
 	19["
-	eff__777
+	eff__847
 	mach_writeMemory64_u8
 	"]
 	10 --> 19
@@ -5923,7 +5923,7 @@ graph TD
 	"]
 	12 -. Stack .-> 18
 	13["
-	cond__776
+	cond__846
 	m_isMemory64
 	"]
 	10 --> 13
@@ -5958,7 +5958,7 @@ graph TD
 	19 --> 22
 	16 --> 22
 	16["
-	eff__801
+	eff__871
 	mach_writeMemory32_u16
 	"]
 	10 --> 16
@@ -5990,28 +5990,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__808
+	memindex__878
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__807
+	cond__877
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__810
+	arg__880
 	0
 	"]
 	7["
-	arg__809
+	arg__879
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__812
+	arg__882
 	0x40u8
 	"]
 	15["
@@ -6027,11 +6027,11 @@ graph TD
 	9 --> 10
 	4 --> 10
 	4["
-	memindex__813
+	memindex__883
 	0u
 	"]
 	19["
-	eff__796
+	eff__866
 	mach_writeMemory64_u16
 	"]
 	10 --> 19
@@ -6050,7 +6050,7 @@ graph TD
 	"]
 	12 -. Stack .-> 18
 	13["
-	cond__795
+	cond__865
 	m_isMemory64
 	"]
 	10 --> 13
@@ -6085,7 +6085,7 @@ graph TD
 	19 --> 22
 	16 --> 22
 	16["
-	eff__820
+	eff__890
 	mach_writeMemory32_u64
 	"]
 	10 --> 16
@@ -6117,28 +6117,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__827
+	memindex__897
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__826
+	cond__896
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__829
+	arg__899
 	0
 	"]
 	7["
-	arg__828
+	arg__898
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__831
+	arg__901
 	0x40u8
 	"]
 	15["
@@ -6154,11 +6154,11 @@ graph TD
 	9 --> 10
 	4 --> 10
 	4["
-	memindex__832
+	memindex__902
 	0u
 	"]
 	19["
-	eff__815
+	eff__885
 	mach_writeMemory64_u64
 	"]
 	10 --> 19
@@ -6177,7 +6177,7 @@ graph TD
 	"]
 	12 -. Stack .-> 18
 	13["
-	cond__814
+	cond__884
 	m_isMemory64
 	"]
 	10 --> 13
@@ -6229,7 +6229,7 @@ graph TD
 	"]
 	12 -. Stack .-> 18
 	13["
-	cond__833
+	cond__903
 	m_isMemory64
 	"]
 	10 --> 13
@@ -6241,11 +6241,11 @@ graph TD
 	9 --> 10
 	4 --> 10
 	4["
-	memindex__851
+	memindex__921
 	0u
 	"]
 	9["
-	memindex__846
+	memindex__916
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
@@ -6255,23 +6255,23 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	8["
-	cond__845
+	cond__915
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__848
+	arg__918
 	0
 	"]
 	7["
-	arg__847
+	arg__917
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__850
+	arg__920
 	0x40u8
 	"]
 	20["
@@ -6315,7 +6315,7 @@ graph TD
 	19 --> 22
 	16 --> 22
 	16["
-	eff__858
+	eff__928
 	mach_writeMemory32_f64
 	"]
 	10 --> 16
@@ -6347,28 +6347,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__865
+	memindex__935
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__864
+	cond__934
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__867
+	arg__937
 	0
 	"]
 	7["
-	arg__866
+	arg__936
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__869
+	arg__939
 	0x40u8
 	"]
 	15["
@@ -6384,11 +6384,11 @@ graph TD
 	9 --> 10
 	4 --> 10
 	4["
-	memindex__870
+	memindex__940
 	0u
 	"]
 	19["
-	eff__853
+	eff__923
 	mach_writeMemory64_f64
 	"]
 	10 --> 19
@@ -6407,7 +6407,7 @@ graph TD
 	"]
 	12 -. Stack .-> 18
 	13["
-	cond__852
+	cond__922
 	m_isMemory64
 	"]
 	10 --> 13

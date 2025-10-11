@@ -557,6 +557,83 @@ class IRNode {
 
         return sb;
     }
+
+    def become(other: IRNode) -> this {
+        op = other.op;
+        var_data = other.var_data;
+        value_deps = other.value_deps;
+        state_deps = other.state_deps;
+        children = other.children;
+    }
+
+    def removeViews(sea: Sea) -> Range<IRNode> {
+        match (op) {
+            Intrinsic(defn) => {
+                if (Strings.endsWith(defn.name, ".view")) become(value_deps[0]);
+            }
+            _ => {}
+        }
+        return deps();
+    }
+
+    
+    def overloadOps(sea: Sea) -> Range<IRNode> {
+        match (op) {
+            Intrinsic(defn) => {
+                def op_spl = IntrinsicTypes.split_op(defn.name);
+                def op_fn = op_spl.1;
+                def is_rt = var_data.stage != Stage.VALIDATE;
+                if (op_fn != null && is_rt) {
+                    var tp = var_data.tipe;
+                    if (tp.is_bot() && value_deps.length > 0) tp = value_deps[0].var_data.tipe;
+                    def prefix = tp.rt_str();
+                    def new_f = Strings.format2("%s_%s", prefix, op_fn);
+                    def intrinsic_def = intrinsic(new_f);
+                    op = IROp.Intrinsic(intrinsic_def);
+                }
+            }
+            _ => {}
+        }
+        return deps();
+    }
+
+    def addAbstractions(sea: Sea) -> Range<IRNode> {
+        match (op) {
+            Intrinsic(defn) => {
+                if (defn.args == null) return deps(); // unknown intrinsic
+                def args = value_deps;
+                def unchanged_args = Vector<IRNode>.new();
+                for (i < args.length) {
+                    if (i >= defn.args.length) {
+                        unchanged_args.put(args[i]);
+                        continue;
+                    }
+                    def is_rt = args[i].var_data.stage != Stage.VALIDATE;
+                    def should_be_runtime = !defn.args[i].isStatic();
+                    if (!is_rt && should_be_runtime) {
+                        def tp = if(defn.args[i].primitive.is_bot(), args[i].var_data.tipe, defn.args[i].primitive);
+                        def abstract_fn = Strings.format1("rtcast_%s", tp.long_str());
+
+                        def it = IntrinsicType.new(tp, var_data.stage);
+                        def ot = IntrinsicType.new(tp, Stage.INTERPRET);
+                        def abstraction_op = IROp.Intrinsic(IntrinsicTypedef.new(abstract_fn, [it], ot, CBDEffect.None));
+
+                        def abstraction_node = sea.mkNode(abstraction_op, Array.new(state_deps.length), [args[i]]);
+                        abstraction_node.var_data = VarData.new(uidl("abs"), tp, Stage.INTERPRET);
+
+                        value_deps[i] = abstraction_node;
+                    } else {
+                        unchanged_args.put(args[i]);
+                    }
+                }
+                // return Arrays.append(pathDeps.head, unchanged_args.copy());
+                return unchanged_args.copy();
+            }
+            _ => {
+                return deps();
+            }
+        }
+    }
 }
 
 class VarData {

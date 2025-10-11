@@ -9,3 +9,4 @@ def ctlxfer.put_CALL_INDIRECT(is64: bool) : table;
 def ctlxfer.put_STRUCT_GET(kind: FieldKind, offset: i32) : table;
 def ctlxfer.put_STRUCT_GET_S(kind: FieldKind, offset: i32) : table;
 def ctlxfer.put_STRUCT_GET_U(kind: FieldKind, offset: i32) : table;
+def u64.view(x: i64) -> u64;

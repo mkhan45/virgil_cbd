@@ -95,7 +95,8 @@ def SELECT() {
 	def c = pop_u32();
 	def b = pop_Value(tv);
 	def a = pop_Value(tv);
-	if (u32.!=(c, 0)) {
+	def cond = U32_not_equals(c, rtcast_u32(0));
+	if (cond) {
 		push_Value(tv, a);
 	} else {
 		push_Value(tv, b);
@@ -103,26 +104,26 @@ def SELECT() {
 }
 def I32_CONST() {
 	def x = imm_readILEB32();
-	push_u32(x);
+	push_u32(rtcast_u32(x));
 }
 def I32_ADD() {
 	def b = pop_u32();
 	def a = pop_u32();
-	push_u32(u32.+(a, b));
+	push_u32(U32_plus(a, b));
 }
 def I32_SUB() {
 	def b = pop_u32();
 	def a = pop_u32();
-	push_u32(u32.-(a, b));
+	push_u32(U32_minus(a, b));
 }
 def I32_MUL() {
 	def b = pop_u32();
 	def a = pop_u32();
-	push_u32(u32.*(a, b));
+	push_u32(U32_times(a, b));
 }
 def I32_DIV_S() {
 	def b = pop_u32();
-	if (u32.==(b, 0)) {
+	if (U32_equals(b, rtcast_u32(0))) {
 		def a = pop_u32();
 		trapDivideByZero();
 	} else {
@@ -130,7 +131,7 @@ def I32_DIV_S() {
 	}
 	def a = pop_u32();
 	trapDivideByZero();
-	def cond = bool.&&(u32.==(b, u32.view(-1)), u32.==(a, u32.view(-2_147_483_648)));
+	def cond = U32_and(U32_equals(b, rtcast_u32(u32.view(-1))), U32_equals(a, rtcast_u32(u32.view(-2_147_483_648))));
 	if (cond) {
 		trapDivideUnrepresentable();
 	}
@@ -138,127 +139,128 @@ def I32_DIV_S() {
 }
 def I32_DIV_U() {
 	def b = pop_u32();
-	if (u32.==(b, 0)) {
+	if (U32_equals(b, rtcast_u32(0))) {
 		def a = pop_u32();
 		trapDivideByZero();
 	} else {
 		def a = pop_u32();
 	}
 	def a = pop_u32();
-	push_u32(u32./(a, b));
+	push_u32(U32_div(a, b));
 }
 def I32_EQZ() {
 	def a = pop_u32();
-	if (u32.==(a, 0)) {
-		push_u32(1);
+	if (U32_equals(a, rtcast_u32(0))) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I32_EQ() {
 	def b = pop_u32();
 	def a = pop_u32();
-	if (u32.==(a, b)) {
-		push_u32(1);
+	if (U32_equals(a, b)) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I32_NE() {
 	def b = pop_u32();
 	def a = pop_u32();
-	if (u32.!=(a, b)) {
-		push_u32(1);
+	def cond = U32_not_equals(a, b);
+	if (cond) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I32_LT_U() {
 	def b = pop_u32();
 	def a = pop_u32();
-	if (u32.<(a, b)) {
-		push_u32(1);
+	if (U32_lt(a, b)) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I32_LT_S() {
 	def b = pop_u32();
 	def a = pop_u32();
 	if (U32_lt_s(a, b)) {
-		push_u32(1);
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I32_LE_S() {
 	def b = pop_u32();
 	def a = pop_u32();
 	if (U32_le_s(a, b)) {
-		push_u32(1);
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I32_GT_U() {
 	def b = pop_u32();
 	def a = pop_u32();
-	if (u32.>(a, b)) {
-		push_u32(1);
+	if (U32_gt(a, b)) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I32_LE_U() {
 	def b = pop_u32();
 	def a = pop_u32();
-	if (u32.<=(a, b)) {
-		push_u32(1);
+	if (U32_lte(a, b)) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I32_GT_S() {
 	def b = pop_u32();
 	def a = pop_u32();
 	if (U32_gt_s(a, b)) {
-		push_u32(1);
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I32_GE_U() {
 	def b = pop_u32();
 	def a = pop_u32();
 	if (U32_ge_u(a, b)) {
-		push_u32(1);
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I32_GE_S() {
 	def b = pop_u32();
 	def a = pop_u32();
 	if (U32_ge_s(a, b)) {
-		push_u32(1);
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I32_AND() {
 	def b = pop_u32();
 	def a = pop_u32();
-	push_u32(u32.&(a, b));
+	push_u32(U32_and(a, b));
 }
 def I32_OR() {
 	def b = pop_u32();
 	def a = pop_u32();
-	push_u32(u32.|(a, b));
+	push_u32(U32_or(a, b));
 }
 def I32_XOR() {
 	def b = pop_u32();
 	def a = pop_u32();
-	push_u32(u32.^(a, b));
+	push_u32(U32_or(a, b));
 }
 def I32_SHL() {
 	def b = pop_u32();
@@ -299,7 +301,7 @@ def I32_POPCNT() {
 }
 def I32_REM_S() {
 	def b = pop_u32();
-	if (u32.==(b, 0)) {
+	if (U32_equals(b, rtcast_u32(0))) {
 		def a = pop_u32();
 		trapDivideByZero();
 	} else {
@@ -310,7 +312,7 @@ def I32_REM_S() {
 }
 def I32_REM_U() {
 	def b = pop_u32();
-	if (u32.==(b, 0)) {
+	if (U32_equals(b, rtcast_u32(0))) {
 		def a = pop_u32();
 		trapDivideByZero();
 	} else {
@@ -331,26 +333,26 @@ def I32_EXTEND16_S() {
 }
 def I64_CONST() {
 	def x = imm_readILEB64();
-	push_u64(x);
+	push_u64(rtcast_u64(x));
 }
 def I64_ADD() {
 	def b = pop_u64();
 	def a = pop_u64();
-	push_u64(u64.+(a, b));
+	push_u64(U64_plus(a, b));
 }
 def I64_SUB() {
 	def b = pop_u64();
 	def a = pop_u64();
-	push_u64(u64.-(a, b));
+	push_u64(U64_minus(a, b));
 }
 def I64_MUL() {
 	def b = pop_u64();
 	def a = pop_u64();
-	push_u64(u64.*(a, b));
+	push_u64(U64_times(a, b));
 }
 def I64_DIV_S() {
 	def b = pop_u64();
-	if (u64.==(b, 0)) {
+	if (U64_equals(b, 0)) {
 		def a = pop_u64();
 		trapDivideByZero();
 	} else {
@@ -358,7 +360,7 @@ def I64_DIV_S() {
 	}
 	def a = pop_u64();
 	trapDivideByZero();
-	def cond = bool.&&(u64.==(b, u64.view(-1)), u64.==(a, u64.view(-9223372036854775808L)));
+	def cond = bot_and(U64_equals(b, u64.view(-1)), U64_equals(a, u64.view(-9223372036854775808L)));
 	if (cond) {
 		trapDivideUnrepresentable();
 	}
@@ -366,18 +368,18 @@ def I64_DIV_S() {
 }
 def I64_DIV_U() {
 	def b = pop_u64();
-	if (u64.==(b, 0)) {
+	if (U64_equals(b, 0)) {
 		def a = pop_u64();
 		trapDivideByZero();
 	} else {
 		def a = pop_u64();
 	}
 	def a = pop_u64();
-	push_u64(u64./(a, b));
+	push_u64(U64_div(a, b));
 }
 def I64_REM_S() {
 	def b = pop_u64();
-	if (u64.==(b, 0)) {
+	if (U64_equals(b, 0)) {
 		def a = pop_u64();
 		trapDivideByZero();
 	} else {
@@ -388,7 +390,7 @@ def I64_REM_S() {
 }
 def I64_REM_U() {
 	def b = pop_u64();
-	if (u64.==(b, 0)) {
+	if (U64_equals(b, 0)) {
 		def a = pop_u64();
 		trapDivideByZero();
 	} else {
@@ -400,17 +402,17 @@ def I64_REM_U() {
 def I64_AND() {
 	def b = pop_u64();
 	def a = pop_u64();
-	push_u64(u64.&(a, b));
+	push_u64(U64_and(a, b));
 }
 def I64_OR() {
 	def b = pop_u64();
 	def a = pop_u64();
-	push_u64(u64.|(a, b));
+	push_u64(U64_or(a, b));
 }
 def I64_XOR() {
 	def b = pop_u64();
 	def a = pop_u64();
-	push_u64(u64.^(a, b));
+	push_u64(U64_or(a, b));
 }
 def I64_SHL() {
 	def b = pop_u64();
@@ -451,100 +453,101 @@ def I64_POPCNT() {
 }
 def I64_EQZ() {
 	def a = pop_u64();
-	if (u64.==(a, 0)) {
-		push_u32(1);
+	if (U64_equals(a, 0)) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I64_EQ() {
 	def b = pop_u64();
 	def a = pop_u64();
-	if (u64.==(a, b)) {
-		push_u32(1);
+	if (U64_equals(a, b)) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I64_NE() {
 	def b = pop_u64();
 	def a = pop_u64();
-	if (u64.!=(a, b)) {
-		push_u32(1);
+	def cond = U64_not_equals(a, b);
+	if (cond) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I64_LT_S() {
 	def b = pop_u64();
 	def a = pop_u64();
 	if (U64_lt_s(a, b)) {
-		push_u32(1);
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I64_LT_U() {
 	def b = pop_u64();
 	def a = pop_u64();
-	if (u64.<(a, b)) {
-		push_u32(1);
+	if (U64_lt(a, b)) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I64_LE_S() {
 	def b = pop_u64();
 	def a = pop_u64();
 	if (U64_le_s(a, b)) {
-		push_u32(1);
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I64_LE_U() {
 	def b = pop_u64();
 	def a = pop_u64();
-	if (u64.<=(a, b)) {
-		push_u32(1);
+	if (U64_lte(a, b)) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I64_GT_S() {
 	def b = pop_u64();
 	def a = pop_u64();
 	if (U64_gt_s(a, b)) {
-		push_u32(1);
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I64_GT_U() {
 	def b = pop_u64();
 	def a = pop_u64();
-	if (u64.>(a, b)) {
-		push_u32(1);
+	if (U64_gt(a, b)) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I64_GE_S() {
 	def b = pop_u64();
 	def a = pop_u64();
 	if (U64_ge_s(a, b)) {
-		push_u32(1);
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I64_GE_U() {
 	def b = pop_u64();
 	def a = pop_u64();
 	if (U64_ge_u(a, b)) {
-		push_u32(1);
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def I64_EXTEND8_S() {
@@ -564,82 +567,83 @@ def I64_EXTEND32_S() {
 }
 def F32_CONST() {
 	def x = imm_readULEB32();
-	def arg = f32_reinterpret_u32(x);
+	def arg = f32_reinterpret_u32(rtcast_u32(x));
 	push_f32(arg);
 }
 def F32_ADD() {
 	def b = pop_f32();
 	def a = pop_f32();
-	push_f32(float.+(a, b));
+	push_f32(F32_plus(a, b));
 }
 def F32_SUB() {
 	def b = pop_f32();
 	def a = pop_f32();
-	push_f32(float.-(a, b));
+	push_f32(F32_minus(a, b));
 }
 def F32_MUL() {
 	def b = pop_f32();
 	def a = pop_f32();
-	push_f32(float.*(a, b));
+	push_f32(F32_times(a, b));
 }
 def F32_DIV() {
 	def b = pop_f32();
-	if (float.==(b, 0.0f)) {
+	if (U32_equals(b, rtcast_u32(0.0f))) {
 		def a = pop_f32();
 		trapDivideByZero();
 	} else {
 		def a = pop_f32();
 	}
 	def a = pop_f32();
-	push_f32(float./(a, b));
+	push_f32(F32_div(a, b));
 }
 def F32_SQRT() {
 	def a = pop_f32();
-	push_f32(float.sqrt(a));
+	push_f32(F32_sqrt(a));
 }
 def F32_EQ() {
 	def b = pop_f32();
 	def a = pop_f32();
-	if (float.==(a, b)) {
-		push_u32(1);
+	if (U32_equals(a, b)) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def F32_NE() {
 	def b = pop_f32();
 	def a = pop_f32();
-	if (float.!=(a, b)) {
-		push_u32(1);
+	def cond = U32_not_equals(a, b);
+	if (cond) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def F32_LT() {
 	def b = pop_f32();
 	def a = pop_f32();
-	if (float.<(a, b)) {
-		push_u32(1);
+	if (U32_lt(a, b)) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def F32_LE() {
 	def b = pop_f32();
 	def a = pop_f32();
-	if (float.<=(a, b)) {
-		push_u32(1);
+	if (U32_lte(a, b)) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def F32_GT() {
 	def b = pop_f32();
 	def a = pop_f32();
-	if (float.>(a, b)) {
-		push_u32(1);
+	if (U32_gt(a, b)) {
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def BR() {
@@ -650,7 +654,8 @@ def BR() {
 def BR_IF() {
 	def depth = imm_readULEB32();
 	def cond = pop_u32();
-	if (u32.!=(cond, 0)) {
+	def cond1 = U32_not_equals(cond, rtcast_u32(0));
+	if (cond1) {
 		def label = f_getLabel(depth);
 		doBranch(label);
 	} else {
@@ -678,7 +683,7 @@ def IF() {
 	def bt = imm_readBlockType();
 	def cond = pop_u32();
 	def label = doIf(bt);
-	if (u32.==(cond, 0)) {
+	if (U32_equals(cond, rtcast_u32(0))) {
 		doBranch(label);
 	} else {
 		doFallthru();
@@ -708,9 +713,9 @@ def REF_IS_NULL() {
 	def obj = pop_Object();
 	def cond = object_isNull(obj);
 	if (cond) {
-		push_u32(1);
+		push_u32(rtcast_u32(1));
 	} else {
-		push_u32(0);
+		push_u32(rtcast_u32(0));
 	}
 }
 def REF_AS_NON_NULL() {

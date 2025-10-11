@@ -86,8 +86,8 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     graph_output_buf.puts("```\n");
 
     // sea.apply(IRNode.removeViews);
-    // sea.apply(IRNode.overloadOps);
-    // sea.apply(IRNode.addAbstractions);
+    sea.apply(IRNode.overloadOps);
+    sea.apply(IRNode.addAbstractions);
     // sea.apply(IRNode.unLEM);
     def mermaid = sea.toMermaid();
 
