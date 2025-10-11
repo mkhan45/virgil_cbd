@@ -75,7 +75,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     }
     ir = ir.appended(stbuilder_call);
 
-    def ctx = SSADCtx.new(ir);
+    var ctx = SSADCtx.new(ir);
     def sea_ir = ctx.id_propagate(ir, Strings.newMap<string>());
     // def sea_ir = ir;
     def sea = Seas.ofSSAD(sea_ir);
@@ -115,21 +115,22 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // System.puts("------");
 
     def scheduled = sea.schedule();
+    ctx = SSADCtx.new(scheduled);
     ctx.getPhis();
     // System.puts("======\n");
     var pretty = Pretty_IR.fromSSAD(scheduled, ctx);
     // System.puts("----Scheduled----\n");
     // System.puts(scheduled.toString(0));
     // System.puts("----Pretty----\n");
-    pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, ctx, Strings.newMap<PrettyExpr>());
-    pretty = Pretty_IR.removeUselessAssigns(pretty, ctx);
-    pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>(), ctx);
-    // System.puts(pretty.toString(0));
+    // pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, ctx, Strings.newMap<PrettyExpr>());
+    // pretty = Pretty_IR.removeUselessAssigns(pretty, ctx);
+    // pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>(), ctx);
+    // System.puts(pretty.toString(0, ctx));
     // System.puts("====\n");
 
-    sb.puts("/**\n");
-    sb.puts("----input ir----\n");
-    sb.puts(sea_ir.toString(1));
+    // sb.puts("/**\n");
+    // sb.puts("----input ir----\n");
+    // sb.puts(sea_ir.toString(1));
     // sb.puts("\n----scheduled----\n");
     // sb.puts(scheduled.toString(1));
     // sb.puts("\n----pretty scheduled----\n");
@@ -153,8 +154,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // transformer.onIf = TB(flatten_ifs).f;
     // var transformed = transformer.transform(ssa);
 
-    def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
-    // def processed = transformed;
+    def processed = transformed;
 
     def vars = Maps.keyList(analysis.static);
     for (v = vars; v != null; v = v.tail) {

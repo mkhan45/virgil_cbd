@@ -3,7 +3,7 @@ class SSADCtx {
     var static: HashMap<string, bool>;
     var types: HashMap<string, TypeVar>;
     var effects: HashMap<string, CBDEffect>; // should it be a list?
-    var phis: Array<string>;
+    var phis: Array<(string, string)>;
 
     new(body) {
         static = HashMap.new(Strings.hash, Strings.equal);
@@ -15,7 +15,7 @@ class SSADCtx {
     }
 
     def getPhis() {
-        def buf = Vector<string>.new();
+        def buf = Vector<(string, string)>.new();
         SSAD_IR.pushPhis(body, buf);
         phis = buf.copy();
     }
@@ -82,7 +82,6 @@ class SSADCtx {
                 getTypes(rest);
             }
             If(c, t, e, phis, rest) => {
-                // TODO: give phis types
                 getTypes(t);
                 getTypes(e);
                 getTypes(rest);

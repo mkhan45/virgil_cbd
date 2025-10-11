@@ -391,12 +391,12 @@ component SSAD_IR {
         return rtcasts.appended(SSAD.LetApp(node.n, node.f, new_args, node.rest));
     }
 
-    def pushPhis(node: SSAD, buf: Vector<string>) -> Vector<string> {
+    def pushPhis(node: SSAD, buf: Vector<(string, string)>) -> Vector<(string, string)> {
         match (node) {
             LetApp(_, _, _, rest) => return pushPhis(rest, buf);
             LetLit(_, _, _, rest) => return pushPhis(rest, buf);
             If(_, t, e, phis, rest) => {
-                for (p in phis) buf.put(p.0);
+                for (p in phis) buf.put(p);
                 pushPhis(t, buf);
                 pushPhis(e, buf);
                 return pushPhis(rest, buf);

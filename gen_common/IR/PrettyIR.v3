@@ -18,7 +18,7 @@ type PrettyIR {
                 for (i < indent) buf.tab();
                 var has_phi = false;
                 for (p in ctx.phis) {
-                    if (Strings.equal(p, n)) {
+                    if (Strings.equal(p.0, n)) {
                         has_phi = true;
                         break;
                     }
@@ -28,7 +28,7 @@ type PrettyIR {
                     if (Strings.equal(phis[i].1, n)) is_phi_for = phis[i].0;
                 }
 
-                if (has_phi) {
+                if (is_phi_for == null && has_phi) {
                     buf.puts("var ").puts(n).puts(" = ");
                 } else if (is_phi_for != null) {
                     buf.puts(is_phi_for).puts(" = ");
@@ -260,13 +260,18 @@ component Pretty_IR {
             Let(name, rhs, stage, rest) => {
                 def inlined_rhs = inlineExpr(rhs, var_exprs);
                 var has_phi = false;
+                var is_phi = false;
                 for (p in ctx.phis) {
-                    if (Strings.equal(p, name)) {
+                    if (Strings.equal(p.0, name)) {
                         has_phi = true;
                         break;
                     }
+                    if (Strings.equal(p.1, name)) {
+                        is_phi = true;
+                        break;
+                    }
                 }
-                if (!has_phi && pred(n, ctx) && exprSize(inlined_rhs) < 7) {
+                if (!is_phi && !has_phi && pred(n, ctx) && exprSize(inlined_rhs) < 7) {
                     var_exprs[name] = inlineExpr(rhs, var_exprs);
                     return inlineLets(rest, pred, ctx, var_exprs);
                 } else {

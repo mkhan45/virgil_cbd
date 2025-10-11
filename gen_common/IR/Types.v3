@@ -218,6 +218,7 @@ enum StateComponent {
     Codeptr,
     Stack,
     Locals,
+    Globals,
     Tables,
     Memory,
     Extra,
@@ -364,11 +365,15 @@ component IntrinsicTypes {
                 Ctl => {
                     reads |= StateComponent.Codeptr;
                     writes |= StateComponent.set.all;
-                    // writes |= StateComponent.Codeptr;
-                    // writes |= StateComponent.Sidetable;
                 }
                 Memory => {
                     writes |= StateComponent.Memory;
+                }
+                Local => {
+                    writes |= StateComponent.Locals;
+                }
+                Global => {
+                    writes |= StateComponent.Globals;
                 }
                 _ => {}
             }

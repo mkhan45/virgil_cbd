@@ -8,12 +8,12 @@ graph TD
 	1["
 	Finish
 	"]
-	3 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	3 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	3["
 	eff__0
 	trapUnreachable
 	"]
-	0 -. Codeptr Stack Locals Tables Memory Extra .-> 3
+	0 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 3
 	0["
 	Start
 	"]
@@ -28,7 +28,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
@@ -45,7 +45,7 @@ graph TD
 	"]
 	3 -. Codeptr .-> 1
 	6 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
@@ -86,10 +86,19 @@ graph TD
 	"]
 	3 -. Codeptr .-> 1
 	5 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	6 -. Locals .-> 1
+	0 -. Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
+	6["
+	eff__8
+	setLocal
+	"]
+	4 --> 6
+	3 --> 6
+	5 --> 6
+	0 -. Locals .-> 6
 	5["
 	val
 	pop_Value
@@ -119,17 +128,19 @@ graph TD
 	"]
 	3 -. Codeptr .-> 1
 	7 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	6 -. Locals .-> 1
+	0 -. Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
-	7["
-	eff__14
-	push_Value
+	6["
+	eff__17
+	setLocal
 	"]
-	4 --> 7
-	5 --> 7
-	5 -. Stack .-> 7
+	4 --> 6
+	3 --> 6
+	5 --> 6
+	0 -. Locals .-> 6
 	5["
 	val
 	pop_Value
@@ -146,6 +157,13 @@ graph TD
 	imm_readULEB32
 	"]
 	0 -. Codeptr .-> 3
+	7["
+	eff__14
+	push_Value
+	"]
+	4 --> 7
+	5 --> 7
+	5 -. Stack .-> 7
 ```
 ## GLOBAL_GET
 ```mermaid
@@ -159,7 +177,7 @@ graph TD
 	"]
 	3 -. Codeptr .-> 1
 	6 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
@@ -201,6 +219,15 @@ graph TD
 	3 -. Codeptr .-> 1
 	5 -. Stack .-> 1
 	0 -. Locals Tables Memory Extra .-> 1
+	6 -. Globals .-> 1
+	6["
+	eff__29
+	setGlobal
+	"]
+	4 --> 6
+	3 --> 6
+	5 --> 6
+	0 -. Globals .-> 6
 	0["
 	Start
 	"]
@@ -233,54 +260,54 @@ graph TD
 	"]
 	3 -. Codeptr .-> 1
 	11 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
 	11["
 	state phi Stack 	"]
 	4 --> 11
-	7 --> 11
 	10 --> 11
-	10["
-	eff__40
-	push_Object
-	"]
-	9 --> 10
-	8 -. Stack .-> 10
-	8["
-	index
-	pop_u32
-	"]
-	0 -. Stack .-> 8
-	9["
-	val
-	mach_readTable32
-	"]
-	3 --> 9
-	8 --> 9
-	3["
-	table_index
-	imm_readULEB32
-	"]
-	0 -. Codeptr .-> 3
+	7 --> 11
 	7["
-	eff__36
+	eff__40
 	push_Object
 	"]
 	6 --> 7
 	5 -. Stack .-> 7
 	5["
 	index
-	pop_u64
+	pop_u32
 	"]
 	0 -. Stack .-> 5
 	6["
 	val
-	mach_readTable64
+	mach_readTable32
 	"]
 	3 --> 6
 	5 --> 6
+	3["
+	table_index
+	imm_readULEB32
+	"]
+	0 -. Codeptr .-> 3
+	10["
+	eff__36
+	push_Object
+	"]
+	9 --> 10
+	8 -. Stack .-> 10
+	8["
+	index
+	pop_u64
+	"]
+	0 -. Stack .-> 8
+	9["
+	val
+	mach_readTable64
+	"]
+	3 --> 9
+	8 --> 9
 	4["
 	cond__35
 	m_isTable64
@@ -299,28 +326,18 @@ graph TD
 	"]
 	3 -. Codeptr .-> 1
 	11 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
 	11["
 	state phi Stack 	"]
 	4 --> 11
-	6 --> 11
 	9 --> 11
-	9["
-	index
-	pop_u32
-	"]
-	8 -. Stack .-> 9
-	8["
-	val
-	pop_Object
-	"]
-	0 -. Stack .-> 8
+	6 --> 11
 	6["
 	index
-	pop_u64
+	pop_u32
 	"]
 	5 -. Stack .-> 6
 	5["
@@ -328,6 +345,16 @@ graph TD
 	pop_Object
 	"]
 	0 -. Stack .-> 5
+	9["
+	index
+	pop_u64
+	"]
+	8 -. Stack .-> 9
+	8["
+	val
+	pop_Object
+	"]
+	0 -. Stack .-> 8
 	4["
 	cond__45
 	m_isTable64
@@ -349,7 +376,7 @@ graph TD
 	1["
 	Finish
 	"]
-	6 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	6 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	6["
 	eff__55
 	doCall
@@ -357,7 +384,7 @@ graph TD
 	4 --> 6
 	5 --> 6
 	3 -. Codeptr .-> 6
-	0 -. Stack Locals Tables Memory Extra .-> 6
+	0 -. Stack Locals Globals Tables Memory Extra .-> 6
 	0["
 	Start
 	"]
@@ -387,29 +414,29 @@ graph TD
 	1["
 	Finish
 	"]
-	13 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	13 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	13["
-	state phi Codeptr Stack Locals Tables Memory Extra 	"]
+	state phi Codeptr Stack Locals Globals Tables Memory Extra 	"]
 	6 --> 13
-	9 --> 13
 	12 --> 13
-	12["
+	9 --> 13
+	9["
 	eff__67
 	doCall
 	"]
-	5 --> 12
-	11 --> 12
-	4 -. Codeptr .-> 12
-	10 -. Stack .-> 12
-	0 -. Locals Tables Memory Extra .-> 12
+	5 --> 9
+	8 --> 9
+	4 -. Codeptr .-> 9
+	7 -. Stack .-> 9
+	0 -. Locals Globals Tables Memory Extra .-> 9
 	0["
 	Start
 	"]
-	10["
+	7["
 	func_index
 	pop_u32
 	"]
-	0 -. Stack .-> 10
+	0 -. Stack .-> 7
 	4["
 	table_index
 	imm_readULEB32
@@ -420,39 +447,39 @@ graph TD
 	imm_readULEB32
 	"]
 	0 -. Codeptr .-> 3
-	11["
+	8["
 	target
 	i_getTableFunction32
 	"]
-	4 --> 11
-	5 --> 11
-	10 --> 11
+	4 --> 8
+	5 --> 8
+	7 --> 8
 	5["
 	sig
 	m_getSignature
 	"]
 	3 --> 5
-	9["
+	12["
 	eff__61
 	doCall
 	"]
-	5 --> 9
-	8 --> 9
-	4 -. Codeptr .-> 9
-	7 -. Stack .-> 9
-	0 -. Locals Tables Memory Extra .-> 9
-	7["
+	5 --> 12
+	11 --> 12
+	4 -. Codeptr .-> 12
+	10 -. Stack .-> 12
+	0 -. Locals Globals Tables Memory Extra .-> 12
+	10["
 	func_index
 	pop_u64
 	"]
-	0 -. Stack .-> 7
-	8["
+	0 -. Stack .-> 10
+	11["
 	target
 	i_getTableFunction64
 	"]
-	4 --> 8
-	5 --> 8
-	7 --> 8
+	4 --> 11
+	5 --> 11
+	10 --> 11
 	6["
 	is64
 	m_isTable64
@@ -469,7 +496,7 @@ graph TD
 	1["
 	Finish
 	"]
-	6 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	6 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	6["
 	eff__76
 	doReturnCall
@@ -477,7 +504,7 @@ graph TD
 	4 --> 6
 	5 --> 6
 	3 -. Codeptr .-> 6
-	0 -. Stack Locals Tables Memory Extra .-> 6
+	0 -. Stack Locals Globals Tables Memory Extra .-> 6
 	0["
 	Start
 	"]
@@ -507,7 +534,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	4 -. Stack .-> 1
 	4["
 	eff__81
@@ -533,20 +560,20 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
 	state phi Stack 	"]
 	8 --> 11
-	9 --> 11
 	10 --> 11
-	10["
+	9 --> 11
+	9["
 	eff__87
 	push_Value
 	"]
-	4 --> 10
-	5 --> 10
-	6 -. Stack .-> 10
+	4 --> 9
+	5 --> 9
+	6 -. Stack .-> 9
 	6["
 	a
 	pop_Value
@@ -571,13 +598,13 @@ graph TD
 	tv
 	f_getTopOfStackType
 	"]
-	9["
+	10["
 	eff__84
 	push_Value
 	"]
-	4 --> 9
-	6 --> 9
-	6 -. Stack .-> 9
+	4 --> 10
+	6 --> 10
+	6 -. Stack .-> 10
 	8["
 	cond__83
 	u32.!=
@@ -601,7 +628,7 @@ graph TD
 	"]
 	3 -. Codeptr .-> 1
 	4 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
@@ -627,7 +654,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__96
@@ -665,7 +692,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__100
@@ -703,7 +730,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__104
@@ -741,7 +768,7 @@ graph TD
 	1["
 	Finish
 	"]
-	18 -. Codeptr Locals Tables Memory Extra .-> 1
+	18 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	21 -. Stack .-> 1
 	21["
 	eff__108
@@ -776,7 +803,7 @@ graph TD
 	ret__123
 	trapDivideByZero
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 7
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
 	cond__122
@@ -792,10 +819,10 @@ graph TD
 	ret__113
 	trapDivideUnrepresentable
 	"]
-	8 -. Codeptr Locals Tables Memory Extra .-> 17
+	8 -. Codeptr Locals Globals Tables Memory Extra .-> 17
 	9 -. Stack .-> 17
 	8["
-	state phi Codeptr Locals Tables Memory Extra 	"]
+	state phi Codeptr Locals Globals Tables Memory Extra 	"]
 	6 --> 8
 	7 --> 8
 	0 --> 8
@@ -842,7 +869,7 @@ graph TD
 	4 --> 20
 	3 --> 20
 	18["
-	state phi Codeptr Locals Tables Memory Extra 	"]
+	state phi Codeptr Locals Globals Tables Memory Extra 	"]
 	16 --> 18
 	17 --> 18
 	8 --> 18
@@ -857,7 +884,7 @@ graph TD
 	1["
 	Finish
 	"]
-	8 -. Codeptr Locals Tables Memory Extra .-> 1
+	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
 	eff__126
@@ -887,7 +914,7 @@ graph TD
 	ret__131
 	trapDivideByZero
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 7
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
 	cond__130
@@ -906,7 +933,7 @@ graph TD
 	4 --> 10
 	3 --> 10
 	8["
-	state phi Codeptr Locals Tables Memory Extra 	"]
+	state phi Codeptr Locals Globals Tables Memory Extra 	"]
 	6 --> 8
 	7 --> 8
 	0 --> 8
@@ -921,19 +948,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	9 -. Stack .-> 1
 	9["
 	state phi Stack 	"]
 	5 --> 9
-	7 --> 9
 	8 --> 9
-	8["
+	6 --> 9
+	6["
 	eff__137
 	push_u32
 	"]
-	4 --> 8
-	3 -. Stack .-> 8
+	4 --> 6
+	3 -. Stack .-> 6
 	3["
 	a
 	pop_u32
@@ -946,13 +973,13 @@ graph TD
 	arg__140
 	0
 	"]
-	7["
+	8["
 	eff__135
 	push_u32
 	"]
-	6 --> 7
-	3 -. Stack .-> 7
-	6["
+	7 --> 8
+	3 -. Stack .-> 8
+	7["
 	arg__136
 	1
 	"]
@@ -973,19 +1000,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__144
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u32
@@ -999,17 +1026,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__145
 	0
 	"]
-	7["
+	9["
 	eff__142
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__143
 	1
 	"]
@@ -1030,19 +1057,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__151
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u32
@@ -1056,17 +1083,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__152
 	0
 	"]
-	7["
+	9["
 	eff__149
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__150
 	1
 	"]
@@ -1087,19 +1114,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__158
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u32
@@ -1113,17 +1140,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__159
 	0
 	"]
-	7["
+	9["
 	eff__156
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__157
 	1
 	"]
@@ -1144,19 +1171,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__165
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u32
@@ -1170,17 +1197,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__166
 	0
 	"]
-	7["
+	9["
 	eff__163
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__164
 	1
 	"]
@@ -1201,19 +1228,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__172
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u32
@@ -1227,17 +1254,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__173
 	0
 	"]
-	7["
+	9["
 	eff__170
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__171
 	1
 	"]
@@ -1258,19 +1285,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__179
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u32
@@ -1284,17 +1311,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__180
 	0
 	"]
-	7["
+	9["
 	eff__177
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__178
 	1
 	"]
@@ -1315,19 +1342,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__186
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u32
@@ -1341,17 +1368,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__187
 	0
 	"]
-	7["
+	9["
 	eff__184
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__185
 	1
 	"]
@@ -1372,19 +1399,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__193
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u32
@@ -1398,17 +1425,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__194
 	0
 	"]
-	7["
+	9["
 	eff__191
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__192
 	1
 	"]
@@ -1429,19 +1456,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__200
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u32
@@ -1455,17 +1482,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__201
 	0
 	"]
-	7["
+	9["
 	eff__198
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__199
 	1
 	"]
@@ -1486,19 +1513,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__207
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u32
@@ -1512,17 +1539,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__208
 	0
 	"]
-	7["
+	9["
 	eff__205
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__206
 	1
 	"]
@@ -1543,7 +1570,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__211
@@ -1581,7 +1608,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__215
@@ -1619,7 +1646,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__219
@@ -1657,7 +1684,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__223
@@ -1695,7 +1722,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__227
@@ -1733,7 +1760,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__231
@@ -1771,7 +1798,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__235
@@ -1809,7 +1836,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__239
@@ -1847,7 +1874,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
 	eff__243
@@ -1879,7 +1906,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
 	eff__246
@@ -1911,7 +1938,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
 	eff__249
@@ -1943,7 +1970,7 @@ graph TD
 	1["
 	Finish
 	"]
-	8 -. Codeptr Locals Tables Memory Extra .-> 1
+	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
 	eff__252
@@ -1973,7 +2000,7 @@ graph TD
 	ret__257
 	trapDivideByZero
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 7
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
 	cond__256
@@ -1992,7 +2019,7 @@ graph TD
 	4 --> 10
 	3 --> 10
 	8["
-	state phi Codeptr Locals Tables Memory Extra 	"]
+	state phi Codeptr Locals Globals Tables Memory Extra 	"]
 	6 --> 8
 	7 --> 8
 	0 --> 8
@@ -2007,7 +2034,7 @@ graph TD
 	1["
 	Finish
 	"]
-	8 -. Codeptr Locals Tables Memory Extra .-> 1
+	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
 	eff__260
@@ -2037,7 +2064,7 @@ graph TD
 	ret__265
 	trapDivideByZero
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 7
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
 	cond__264
@@ -2056,7 +2083,7 @@ graph TD
 	4 --> 10
 	3 --> 10
 	8["
-	state phi Codeptr Locals Tables Memory Extra 	"]
+	state phi Codeptr Locals Globals Tables Memory Extra 	"]
 	6 --> 8
 	7 --> 8
 	0 --> 8
@@ -2071,7 +2098,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
 	eff__268
@@ -2103,7 +2130,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
 	eff__271
@@ -2137,7 +2164,7 @@ graph TD
 	"]
 	3 -. Codeptr .-> 1
 	4 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
@@ -2163,7 +2190,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__276
@@ -2201,7 +2228,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__280
@@ -2239,7 +2266,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__284
@@ -2277,7 +2304,7 @@ graph TD
 	1["
 	Finish
 	"]
-	18 -. Codeptr Locals Tables Memory Extra .-> 1
+	18 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	21 -. Stack .-> 1
 	21["
 	eff__288
@@ -2312,7 +2339,7 @@ graph TD
 	ret__303
 	trapDivideByZero
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 7
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
 	cond__302
@@ -2328,10 +2355,10 @@ graph TD
 	ret__293
 	trapDivideUnrepresentable
 	"]
-	8 -. Codeptr Locals Tables Memory Extra .-> 17
+	8 -. Codeptr Locals Globals Tables Memory Extra .-> 17
 	9 -. Stack .-> 17
 	8["
-	state phi Codeptr Locals Tables Memory Extra 	"]
+	state phi Codeptr Locals Globals Tables Memory Extra 	"]
 	6 --> 8
 	7 --> 8
 	0 --> 8
@@ -2378,7 +2405,7 @@ graph TD
 	4 --> 20
 	3 --> 20
 	18["
-	state phi Codeptr Locals Tables Memory Extra 	"]
+	state phi Codeptr Locals Globals Tables Memory Extra 	"]
 	16 --> 18
 	17 --> 18
 	8 --> 18
@@ -2393,7 +2420,7 @@ graph TD
 	1["
 	Finish
 	"]
-	8 -. Codeptr Locals Tables Memory Extra .-> 1
+	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
 	eff__306
@@ -2423,7 +2450,7 @@ graph TD
 	ret__311
 	trapDivideByZero
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 7
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
 	cond__310
@@ -2442,7 +2469,7 @@ graph TD
 	4 --> 10
 	3 --> 10
 	8["
-	state phi Codeptr Locals Tables Memory Extra 	"]
+	state phi Codeptr Locals Globals Tables Memory Extra 	"]
 	6 --> 8
 	7 --> 8
 	0 --> 8
@@ -2457,7 +2484,7 @@ graph TD
 	1["
 	Finish
 	"]
-	8 -. Codeptr Locals Tables Memory Extra .-> 1
+	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
 	eff__314
@@ -2487,7 +2514,7 @@ graph TD
 	ret__319
 	trapDivideByZero
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 7
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
 	cond__318
@@ -2506,7 +2533,7 @@ graph TD
 	4 --> 10
 	3 --> 10
 	8["
-	state phi Codeptr Locals Tables Memory Extra 	"]
+	state phi Codeptr Locals Globals Tables Memory Extra 	"]
 	6 --> 8
 	7 --> 8
 	0 --> 8
@@ -2521,7 +2548,7 @@ graph TD
 	1["
 	Finish
 	"]
-	8 -. Codeptr Locals Tables Memory Extra .-> 1
+	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
 	eff__322
@@ -2551,7 +2578,7 @@ graph TD
 	ret__327
 	trapDivideByZero
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 7
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
 	cond__326
@@ -2570,7 +2597,7 @@ graph TD
 	4 --> 10
 	3 --> 10
 	8["
-	state phi Codeptr Locals Tables Memory Extra 	"]
+	state phi Codeptr Locals Globals Tables Memory Extra 	"]
 	6 --> 8
 	7 --> 8
 	0 --> 8
@@ -2585,7 +2612,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__330
@@ -2623,7 +2650,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__334
@@ -2661,7 +2688,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__338
@@ -2699,7 +2726,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__342
@@ -2737,7 +2764,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__346
@@ -2775,7 +2802,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__350
@@ -2813,7 +2840,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__354
@@ -2851,7 +2878,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__358
@@ -2889,7 +2916,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
 	eff__362
@@ -2921,7 +2948,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
 	eff__365
@@ -2953,7 +2980,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
 	eff__368
@@ -2985,19 +3012,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	9 -. Stack .-> 1
 	9["
 	state phi Stack 	"]
 	5 --> 9
-	7 --> 9
 	8 --> 9
-	8["
+	6 --> 9
+	6["
 	eff__374
 	push_u32
 	"]
-	4 --> 8
-	3 -. Stack .-> 8
+	4 --> 6
+	3 -. Stack .-> 6
 	3["
 	a
 	pop_u64
@@ -3010,13 +3037,13 @@ graph TD
 	arg__377
 	0
 	"]
-	7["
+	8["
 	eff__372
 	push_u32
 	"]
-	6 --> 7
-	3 -. Stack .-> 7
-	6["
+	7 --> 8
+	3 -. Stack .-> 8
+	7["
 	arg__373
 	1
 	"]
@@ -3037,19 +3064,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__381
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u64
@@ -3063,17 +3090,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__382
 	0
 	"]
-	7["
+	9["
 	eff__379
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__380
 	1
 	"]
@@ -3094,19 +3121,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__388
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u64
@@ -3120,17 +3147,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__389
 	0
 	"]
-	7["
+	9["
 	eff__386
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__387
 	1
 	"]
@@ -3151,19 +3178,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__395
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u64
@@ -3177,17 +3204,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__396
 	0
 	"]
-	7["
+	9["
 	eff__393
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__394
 	1
 	"]
@@ -3208,19 +3235,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__402
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u64
@@ -3234,17 +3261,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__403
 	0
 	"]
-	7["
+	9["
 	eff__400
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__401
 	1
 	"]
@@ -3265,19 +3292,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__409
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u64
@@ -3291,17 +3318,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__410
 	0
 	"]
-	7["
+	9["
 	eff__407
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__408
 	1
 	"]
@@ -3322,19 +3349,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__416
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u64
@@ -3348,17 +3375,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__417
 	0
 	"]
-	7["
+	9["
 	eff__414
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__415
 	1
 	"]
@@ -3379,19 +3406,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__423
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u64
@@ -3405,17 +3432,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__424
 	0
 	"]
-	7["
+	9["
 	eff__421
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__422
 	1
 	"]
@@ -3436,19 +3463,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__430
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u64
@@ -3462,17 +3489,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__431
 	0
 	"]
-	7["
+	9["
 	eff__428
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__429
 	1
 	"]
@@ -3493,19 +3520,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__437
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u64
@@ -3519,17 +3546,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__438
 	0
 	"]
-	7["
+	9["
 	eff__435
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__436
 	1
 	"]
@@ -3550,19 +3577,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__444
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_u64
@@ -3576,17 +3603,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__445
 	0
 	"]
-	7["
+	9["
 	eff__442
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__443
 	1
 	"]
@@ -3607,7 +3634,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
 	eff__448
@@ -3639,7 +3666,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
 	eff__451
@@ -3671,7 +3698,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
 	eff__454
@@ -3705,7 +3732,7 @@ graph TD
 	"]
 	3 -. Codeptr .-> 1
 	5 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
@@ -3736,7 +3763,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__460
@@ -3774,7 +3801,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__464
@@ -3812,7 +3839,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	6 -. Stack .-> 1
 	6["
 	eff__468
@@ -3850,7 +3877,7 @@ graph TD
 	1["
 	Finish
 	"]
-	8 -. Codeptr Locals Tables Memory Extra .-> 1
+	8 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	11 -. Stack .-> 1
 	11["
 	eff__472
@@ -3880,7 +3907,7 @@ graph TD
 	ret__477
 	trapDivideByZero
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 7
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 7
 	4 -. Stack .-> 7
 	6["
 	cond__476
@@ -3899,7 +3926,7 @@ graph TD
 	4 --> 10
 	3 --> 10
 	8["
-	state phi Codeptr Locals Tables Memory Extra 	"]
+	state phi Codeptr Locals Globals Tables Memory Extra 	"]
 	6 --> 8
 	7 --> 8
 	0 --> 8
@@ -3914,7 +3941,7 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
 	5["
 	eff__480
@@ -3946,19 +3973,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__486
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_f32
@@ -3972,17 +3999,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__487
 	0
 	"]
-	7["
+	9["
 	eff__484
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__485
 	1
 	"]
@@ -4003,19 +4030,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__493
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_f32
@@ -4029,17 +4056,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__494
 	0
 	"]
-	7["
+	9["
 	eff__491
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__492
 	1
 	"]
@@ -4060,19 +4087,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__500
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_f32
@@ -4086,17 +4113,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__501
 	0
 	"]
-	7["
+	9["
 	eff__498
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__499
 	1
 	"]
@@ -4117,19 +4144,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__507
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_f32
@@ -4143,17 +4170,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__508
 	0
 	"]
-	7["
+	9["
 	eff__505
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__506
 	1
 	"]
@@ -4174,19 +4201,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
 	10["
 	state phi Stack 	"]
 	5 --> 10
-	7 --> 10
 	9 --> 10
-	9["
+	7 --> 10
+	7["
 	eff__514
 	push_u32
 	"]
-	8 --> 9
-	4 -. Stack .-> 9
+	6 --> 7
+	4 -. Stack .-> 7
 	4["
 	a
 	pop_f32
@@ -4200,17 +4227,17 @@ graph TD
 	0["
 	Start
 	"]
-	8["
+	6["
 	arg__515
 	0
 	"]
-	7["
+	9["
 	eff__512
 	push_u32
 	"]
-	6 --> 7
-	4 -. Stack .-> 7
-	6["
+	8 --> 9
+	4 -. Stack .-> 9
+	8["
 	arg__513
 	1
 	"]
@@ -4231,14 +4258,14 @@ graph TD
 	1["
 	Finish
 	"]
-	5 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	5 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	5["
 	ret__518
 	doBranch
 	"]
 	4 --> 5
 	3 -. Codeptr .-> 5
-	0 -. Stack Locals Tables Memory Extra .-> 5
+	0 -. Stack Locals Globals Tables Memory Extra .-> 5
 	0["
 	Start
 	"]
@@ -4263,19 +4290,19 @@ graph TD
 	1["
 	Finish
 	"]
-	10 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	10 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	10["
-	state phi Codeptr Stack Locals Tables Memory Extra 	"]
+	state phi Codeptr Stack Locals Globals Tables Memory Extra 	"]
 	7 --> 10
-	8 --> 10
 	9 --> 10
-	9["
+	8 --> 10
+	8["
 	ret__525
 	doFallthru
 	"]
-	3 -. Codeptr .-> 9
-	5 -. Stack .-> 9
-	0 -. Locals Tables Memory Extra .-> 9
+	3 -. Codeptr .-> 8
+	5 -. Stack .-> 8
+	0 -. Locals Globals Tables Memory Extra .-> 8
 	0["
 	Start
 	"]
@@ -4289,14 +4316,14 @@ graph TD
 	imm_readULEB32
 	"]
 	0 -. Codeptr .-> 3
-	8["
+	9["
 	ret__523
 	doBranch
 	"]
-	4 --> 8
-	3 -. Codeptr .-> 8
-	5 -. Stack .-> 8
-	0 -. Locals Tables Memory Extra .-> 8
+	4 --> 9
+	3 -. Codeptr .-> 9
+	5 -. Stack .-> 9
+	0 -. Locals Globals Tables Memory Extra .-> 9
 	4["
 	label
 	f_getLabel
@@ -4323,7 +4350,7 @@ graph TD
 	1["
 	Finish
 	"]
-	5 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	5 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	5["
 	eff__530
 	doSwitch
@@ -4332,7 +4359,7 @@ graph TD
 	4 --> 5
 	3 -. Codeptr .-> 5
 	4 -. Stack .-> 5
-	0 -. Locals Tables Memory Extra .-> 5
+	0 -. Locals Globals Tables Memory Extra .-> 5
 	0["
 	Start
 	"]
@@ -4357,14 +4384,14 @@ graph TD
 	1["
 	Finish
 	"]
-	4 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	4 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	4["
 	eff__534
 	doBlock
 	"]
 	3 --> 4
 	3 -. Codeptr .-> 4
-	0 -. Stack Locals Tables Memory Extra .-> 4
+	0 -. Stack Locals Globals Tables Memory Extra .-> 4
 	0["
 	Start
 	"]
@@ -4384,14 +4411,14 @@ graph TD
 	1["
 	Finish
 	"]
-	4 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	4 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	4["
 	eff__536
 	doLoop
 	"]
 	3 --> 4
 	3 -. Codeptr .-> 4
-	0 -. Stack Locals Tables Memory Extra .-> 4
+	0 -. Stack Locals Globals Tables Memory Extra .-> 4
 	0["
 	Start
 	"]
@@ -4411,14 +4438,14 @@ graph TD
 	1["
 	Finish
 	"]
-	4 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	4 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	4["
 	eff__538
 	doTry
 	"]
 	3 --> 4
 	3 -. Codeptr .-> 4
-	0 -. Stack Locals Tables Memory Extra .-> 4
+	0 -. Stack Locals Globals Tables Memory Extra .-> 4
 	0["
 	Start
 	"]
@@ -4438,17 +4465,17 @@ graph TD
 	1["
 	Finish
 	"]
-	10 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	10 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	10["
-	state phi Codeptr Stack Locals Tables Memory Extra 	"]
+	state phi Codeptr Stack Locals Globals Tables Memory Extra 	"]
 	7 --> 10
-	8 --> 10
 	9 --> 10
-	9["
+	8 --> 10
+	8["
 	ret__543
 	doFallthru
 	"]
-	5 -. Codeptr Stack Locals Tables Memory Extra .-> 9
+	5 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 8
 	5["
 	label
 	doIf
@@ -4456,7 +4483,7 @@ graph TD
 	3 --> 5
 	3 -. Codeptr .-> 5
 	4 -. Stack .-> 5
-	0 -. Locals Tables Memory Extra .-> 5
+	0 -. Locals Globals Tables Memory Extra .-> 5
 	0["
 	Start
 	"]
@@ -4470,12 +4497,12 @@ graph TD
 	imm_readBlockType
 	"]
 	0 -. Codeptr .-> 3
-	8["
+	9["
 	ret__541
 	doBranch
 	"]
-	5 --> 8
-	5 -. Codeptr Stack Locals Tables Memory Extra .-> 8
+	5 --> 9
+	5 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 9
 	7["
 	cond__540
 	u32.==
@@ -4497,18 +4524,18 @@ graph TD
 	1["
 	Finish
 	"]
-	4 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	4 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	4["
 	ret__548
 	doBranch
 	"]
 	3 --> 4
-	3 -. Codeptr Stack Locals Tables Memory Extra .-> 4
+	3 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 4
 	3["
 	label
 	doElse
 	"]
-	0 -. Codeptr Stack Locals Tables Memory Extra .-> 3
+	0 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 3
 	0["
 	Start
 	"]
@@ -4523,9 +4550,9 @@ graph TD
 	1["
 	Finish
 	"]
-	6 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	6 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	6["
-	state phi Codeptr Stack Locals Tables Memory Extra 	"]
+	state phi Codeptr Stack Locals Globals Tables Memory Extra 	"]
 	4 --> 6
 	5 --> 6
 	3 --> 6
@@ -4533,7 +4560,7 @@ graph TD
 	eff__553
 	doEnd
 	"]
-	0 -. Codeptr Stack Locals Tables Memory Extra .-> 3
+	0 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 3
 	0["
 	Start
 	"]
@@ -4541,7 +4568,7 @@ graph TD
 	ret__552
 	doReturn
 	"]
-	3 -. Codeptr Stack Locals Tables Memory Extra .-> 5
+	3 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 5
 	4["
 	cond__551
 	f_isAtEnd
@@ -4557,12 +4584,12 @@ graph TD
 	1["
 	Finish
 	"]
-	3 -. Codeptr Stack Locals Tables Memory Extra .-> 1
+	3 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 1
 	3["
 	ret__554
 	doReturn
 	"]
-	0 -. Codeptr Stack Locals Tables Memory Extra .-> 3
+	0 -. Codeptr Stack Locals Globals Tables Memory Extra .-> 3
 	0["
 	Start
 	"]
@@ -4579,7 +4606,7 @@ graph TD
 	"]
 	3 -. Codeptr .-> 1
 	5 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
@@ -4609,19 +4636,19 @@ graph TD
 	1["
 	Finish
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 1
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	9 -. Stack .-> 1
 	9["
 	state phi Stack 	"]
 	4 --> 9
-	6 --> 9
 	8 --> 9
-	8["
+	6 --> 9
+	6["
 	eff__560
 	push_u32
 	"]
-	7 --> 8
-	3 -. Stack .-> 8
+	5 --> 6
+	3 -. Stack .-> 6
 	3["
 	obj
 	pop_Object
@@ -4630,17 +4657,17 @@ graph TD
 	0["
 	Start
 	"]
-	7["
+	5["
 	arg__561
 	0
 	"]
-	6["
+	8["
 	eff__558
 	push_u32
 	"]
-	5 --> 6
-	3 -. Stack .-> 6
-	5["
+	7 --> 8
+	3 -. Stack .-> 8
+	7["
 	arg__559
 	1
 	"]
@@ -4660,7 +4687,7 @@ graph TD
 	1["
 	Finish
 	"]
-	6 -. Codeptr Locals Tables Memory Extra .-> 1
+	6 -. Codeptr Locals Globals Tables Memory Extra .-> 1
 	8 -. Stack .-> 1
 	8["
 	eff__563
@@ -4685,7 +4712,7 @@ graph TD
 	eff__566
 	trapNull
 	"]
-	0 -. Codeptr Locals Tables Memory Extra .-> 5
+	0 -. Codeptr Locals Globals Tables Memory Extra .-> 5
 	3 -. Stack .-> 5
 	4["
 	cond__565
@@ -4693,7 +4720,7 @@ graph TD
 	"]
 	3 --> 4
 	6["
-	state phi Codeptr Locals Tables Memory Extra 	"]
+	state phi Codeptr Locals Globals Tables Memory Extra 	"]
 	4 --> 6
 	5 --> 6
 	0 --> 6
@@ -4710,7 +4737,7 @@ graph TD
 	"]
 	3 -. Codeptr .-> 1
 	6 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
@@ -4748,9 +4775,9 @@ graph TD
 	"]
 	10 -. Codeptr .-> 1
 	11 -. Stack .-> 1
-	12 -. Locals Tables Memory Extra .-> 1
+	12 -. Locals Globals Tables Memory Extra .-> 1
 	12["
-	state phi Locals Tables Memory Extra 	"]
+	state phi Locals Globals Tables Memory Extra 	"]
 	8 --> 12
 	9 --> 12
 	0 --> 12
@@ -4763,7 +4790,7 @@ graph TD
 	"]
 	4 -. Codeptr .-> 9
 	7 -. Stack .-> 9
-	0 -. Locals Tables Memory Extra .-> 9
+	0 -. Locals Globals Tables Memory Extra .-> 9
 	7["
 	obj
 	pop_Object
@@ -4807,9 +4834,9 @@ graph TD
 	"]
 	10 -. Codeptr .-> 1
 	11 -. Stack .-> 1
-	12 -. Locals Tables Memory Extra .-> 1
+	12 -. Locals Globals Tables Memory Extra .-> 1
 	12["
-	state phi Locals Tables Memory Extra 	"]
+	state phi Locals Globals Tables Memory Extra 	"]
 	8 --> 12
 	9 --> 12
 	0 --> 12
@@ -4822,7 +4849,7 @@ graph TD
 	"]
 	4 -. Codeptr .-> 9
 	7 -. Stack .-> 9
-	0 -. Locals Tables Memory Extra .-> 9
+	0 -. Locals Globals Tables Memory Extra .-> 9
 	7["
 	obj
 	pop_Object
@@ -4866,9 +4893,9 @@ graph TD
 	"]
 	10 -. Codeptr .-> 1
 	11 -. Stack .-> 1
-	12 -. Locals Tables Memory Extra .-> 1
+	12 -. Locals Globals Tables Memory Extra .-> 1
 	12["
-	state phi Locals Tables Memory Extra 	"]
+	state phi Locals Globals Tables Memory Extra 	"]
 	8 --> 12
 	9 --> 12
 	0 --> 12
@@ -4881,7 +4908,7 @@ graph TD
 	"]
 	4 -. Codeptr .-> 9
 	7 -. Stack .-> 9
-	0 -. Locals Tables Memory Extra .-> 9
+	0 -. Locals Globals Tables Memory Extra .-> 9
 	7["
 	obj
 	pop_Object
@@ -4925,38 +4952,38 @@ graph TD
 	"]
 	21 -. Codeptr .-> 1
 	22 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
 	22["
 	state phi Stack 	"]
 	12 --> 22
-	16 --> 22
 	20 --> 22
-	20["
+	16 --> 22
+	16["
 	eff__649
 	push_u32
 	"]
-	19 --> 20
-	18 -. Stack .-> 20
-	18["
+	15 --> 16
+	14 -. Stack .-> 16
+	14["
 	index
 	pop_u32
 	"]
-	0 -. Stack .-> 18
-	19["
+	0 -. Stack .-> 14
+	15["
 	val
 	mach_readMemory32_u32
 	"]
-	10 --> 19
-	18 --> 19
-	17 --> 19
-	17["
+	10 --> 15
+	14 --> 15
+	13 --> 15
+	13["
 	offset
 	imm_readULEB32
 	"]
-	11 -. Codeptr .-> 17
+	11 -. Codeptr .-> 13
 	11["
 	state phi Codeptr 	"]
 	8 --> 11
@@ -4997,35 +5024,35 @@ graph TD
 	phi
 	"]
 	8 --> 10
-	4 --> 10
 	9 --> 10
+	4 --> 10
 	4["
-	memindex
+	memindex__661
 	0u
 	"]
-	16["
+	20["
 	eff__644
 	push_u32
 	"]
-	15 --> 16
-	14 -. Stack .-> 16
-	14["
+	19 --> 20
+	18 -. Stack .-> 20
+	18["
 	index
 	pop_u64
 	"]
-	0 -. Stack .-> 14
-	15["
+	0 -. Stack .-> 18
+	19["
 	val
 	mach_readMemory64_u32
 	"]
-	10 --> 15
-	14 --> 15
-	13 --> 15
-	13["
+	10 --> 19
+	18 --> 19
+	17 --> 19
+	17["
 	offset
 	imm_readULEB64
 	"]
-	11 -. Codeptr .-> 13
+	11 -. Codeptr .-> 17
 	12["
 	cond__643
 	m_isMemory64
@@ -5034,8 +5061,8 @@ graph TD
 	21["
 	state phi Codeptr 	"]
 	12 --> 21
-	13 --> 21
 	17 --> 21
+	13 --> 21
 ```
 ## I32_LOAD8_U
 ```mermaid
@@ -5049,38 +5076,38 @@ graph TD
 	"]
 	21 -. Codeptr .-> 1
 	22 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
 	22["
 	state phi Stack 	"]
 	12 --> 22
-	16 --> 22
 	20 --> 22
-	20["
-	eff__667
+	16 --> 22
+	16["
+	eff__668
 	push_u32
 	"]
-	19 --> 20
-	18 -. Stack .-> 20
-	18["
+	15 --> 16
+	14 -. Stack .-> 16
+	14["
 	index
 	pop_u32
 	"]
-	0 -. Stack .-> 18
-	19["
+	0 -. Stack .-> 14
+	15["
 	val
 	mach_readMemory32_u8
 	"]
-	10 --> 19
-	18 --> 19
-	17 --> 19
-	17["
+	10 --> 15
+	14 --> 15
+	13 --> 15
+	13["
 	offset
 	imm_readULEB32
 	"]
-	11 -. Codeptr .-> 17
+	11 -. Codeptr .-> 13
 	11["
 	state phi Codeptr 	"]
 	8 --> 11
@@ -5092,28 +5119,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__674
+	memindex__675
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__673
+	cond__674
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__676
+	arg__677
 	0
 	"]
 	7["
-	arg__675
+	arg__676
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__678
+	arg__679
 	0x40u8
 	"]
 	10["
@@ -5121,45 +5148,45 @@ graph TD
 	phi
 	"]
 	8 --> 10
-	4 --> 10
 	9 --> 10
+	4 --> 10
 	4["
-	memindex
+	memindex__680
 	0u
 	"]
-	16["
-	eff__662
+	20["
+	eff__663
 	push_u32
 	"]
-	15 --> 16
-	14 -. Stack .-> 16
-	14["
+	19 --> 20
+	18 -. Stack .-> 20
+	18["
 	index
 	pop_u64
 	"]
-	0 -. Stack .-> 14
-	15["
+	0 -. Stack .-> 18
+	19["
 	val
 	mach_readMemory64_u8
 	"]
-	10 --> 15
-	14 --> 15
-	13 --> 15
-	13["
+	10 --> 19
+	18 --> 19
+	17 --> 19
+	17["
 	offset
 	imm_readULEB64
 	"]
-	11 -. Codeptr .-> 13
+	11 -. Codeptr .-> 17
 	12["
-	cond__661
+	cond__662
 	m_isMemory64
 	"]
 	10 --> 12
 	21["
 	state phi Codeptr 	"]
 	12 --> 21
-	13 --> 21
 	17 --> 21
+	13 --> 21
 ```
 ## I32_LOAD16_S
 ```mermaid
@@ -5173,38 +5200,38 @@ graph TD
 	"]
 	21 -. Codeptr .-> 1
 	22 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
 	22["
 	state phi Stack 	"]
 	12 --> 22
-	16 --> 22
 	20 --> 22
-	20["
-	eff__685
+	16 --> 22
+	16["
+	eff__687
 	push_u32
 	"]
-	19 --> 20
-	18 -. Stack .-> 20
-	18["
+	15 --> 16
+	14 -. Stack .-> 16
+	14["
 	index
 	pop_u32
 	"]
-	0 -. Stack .-> 18
-	19["
+	0 -. Stack .-> 14
+	15["
 	val
 	mach_readMemory32_u16
 	"]
-	10 --> 19
-	18 --> 19
-	17 --> 19
-	17["
+	10 --> 15
+	14 --> 15
+	13 --> 15
+	13["
 	offset
 	imm_readULEB32
 	"]
-	11 -. Codeptr .-> 17
+	11 -. Codeptr .-> 13
 	11["
 	state phi Codeptr 	"]
 	8 --> 11
@@ -5216,28 +5243,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__692
+	memindex__694
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__691
+	cond__693
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__694
+	arg__696
 	0
 	"]
 	7["
-	arg__693
+	arg__695
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__696
+	arg__698
 	0x40u8
 	"]
 	10["
@@ -5245,45 +5272,45 @@ graph TD
 	phi
 	"]
 	8 --> 10
-	4 --> 10
 	9 --> 10
+	4 --> 10
 	4["
-	memindex
+	memindex__699
 	0u
 	"]
-	16["
-	eff__680
+	20["
+	eff__682
 	push_u32
 	"]
-	15 --> 16
-	14 -. Stack .-> 16
-	14["
+	19 --> 20
+	18 -. Stack .-> 20
+	18["
 	index
 	pop_u64
 	"]
-	0 -. Stack .-> 14
-	15["
+	0 -. Stack .-> 18
+	19["
 	val
 	mach_readMemory64_u16
 	"]
-	10 --> 15
-	14 --> 15
-	13 --> 15
-	13["
+	10 --> 19
+	18 --> 19
+	17 --> 19
+	17["
 	offset
 	imm_readULEB64
 	"]
-	11 -. Codeptr .-> 13
+	11 -. Codeptr .-> 17
 	12["
-	cond__679
+	cond__681
 	m_isMemory64
 	"]
 	10 --> 12
 	21["
 	state phi Codeptr 	"]
 	12 --> 21
-	13 --> 21
 	17 --> 21
+	13 --> 21
 ```
 ## I64_LOAD
 ```mermaid
@@ -5297,38 +5324,38 @@ graph TD
 	"]
 	21 -. Codeptr .-> 1
 	22 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
 	22["
 	state phi Stack 	"]
 	12 --> 22
-	16 --> 22
 	20 --> 22
-	20["
-	eff__703
+	16 --> 22
+	16["
+	eff__706
 	push_u64
 	"]
-	19 --> 20
-	18 -. Stack .-> 20
-	18["
+	15 --> 16
+	14 -. Stack .-> 16
+	14["
 	index
 	pop_u32
 	"]
-	0 -. Stack .-> 18
-	19["
+	0 -. Stack .-> 14
+	15["
 	val
 	mach_readMemory32_u64
 	"]
-	10 --> 19
-	18 --> 19
-	17 --> 19
-	17["
+	10 --> 15
+	14 --> 15
+	13 --> 15
+	13["
 	offset
 	imm_readULEB32
 	"]
-	11 -. Codeptr .-> 17
+	11 -. Codeptr .-> 13
 	11["
 	state phi Codeptr 	"]
 	8 --> 11
@@ -5340,28 +5367,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__710
+	memindex__713
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__709
+	cond__712
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__712
+	arg__715
 	0
 	"]
 	7["
-	arg__711
+	arg__714
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__714
+	arg__717
 	0x40u8
 	"]
 	10["
@@ -5369,45 +5396,45 @@ graph TD
 	phi
 	"]
 	8 --> 10
-	4 --> 10
 	9 --> 10
+	4 --> 10
 	4["
-	memindex
+	memindex__718
 	0u
 	"]
-	16["
-	eff__698
+	20["
+	eff__701
 	push_u64
 	"]
-	15 --> 16
-	14 -. Stack .-> 16
-	14["
+	19 --> 20
+	18 -. Stack .-> 20
+	18["
 	index
 	pop_u64
 	"]
-	0 -. Stack .-> 14
-	15["
+	0 -. Stack .-> 18
+	19["
 	val
 	mach_readMemory64_u64
 	"]
-	10 --> 15
-	14 --> 15
-	13 --> 15
-	13["
+	10 --> 19
+	18 --> 19
+	17 --> 19
+	17["
 	offset
 	imm_readULEB64
 	"]
-	11 -. Codeptr .-> 13
+	11 -. Codeptr .-> 17
 	12["
-	cond__697
+	cond__700
 	m_isMemory64
 	"]
 	10 --> 12
 	21["
 	state phi Codeptr 	"]
 	12 --> 21
-	13 --> 21
 	17 --> 21
+	13 --> 21
 ```
 ## F32_LOAD
 ```mermaid
@@ -5421,38 +5448,38 @@ graph TD
 	"]
 	21 -. Codeptr .-> 1
 	22 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
 	22["
 	state phi Stack 	"]
 	12 --> 22
-	16 --> 22
 	20 --> 22
-	20["
-	eff__721
+	16 --> 22
+	16["
+	eff__725
 	push_f32
 	"]
-	19 --> 20
-	18 -. Stack .-> 20
-	18["
+	15 --> 16
+	14 -. Stack .-> 16
+	14["
 	index
 	pop_u32
 	"]
-	0 -. Stack .-> 18
-	19["
+	0 -. Stack .-> 14
+	15["
 	val
 	mach_readMemory32_f32
 	"]
-	10 --> 19
-	18 --> 19
-	17 --> 19
-	17["
+	10 --> 15
+	14 --> 15
+	13 --> 15
+	13["
 	offset
 	imm_readULEB32
 	"]
-	11 -. Codeptr .-> 17
+	11 -. Codeptr .-> 13
 	11["
 	state phi Codeptr 	"]
 	8 --> 11
@@ -5464,28 +5491,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__728
+	memindex__732
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__727
+	cond__731
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__730
+	arg__734
 	0
 	"]
 	7["
-	arg__729
+	arg__733
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__732
+	arg__736
 	0x40u8
 	"]
 	10["
@@ -5493,45 +5520,45 @@ graph TD
 	phi
 	"]
 	8 --> 10
-	4 --> 10
 	9 --> 10
+	4 --> 10
 	4["
-	memindex
+	memindex__737
 	0u
 	"]
-	16["
-	eff__716
+	20["
+	eff__720
 	push_f32
 	"]
-	15 --> 16
-	14 -. Stack .-> 16
-	14["
+	19 --> 20
+	18 -. Stack .-> 20
+	18["
 	index
 	pop_u64
 	"]
-	0 -. Stack .-> 14
-	15["
+	0 -. Stack .-> 18
+	19["
 	val
 	mach_readMemory64_f32
 	"]
-	10 --> 15
-	14 --> 15
-	13 --> 15
-	13["
+	10 --> 19
+	18 --> 19
+	17 --> 19
+	17["
 	offset
 	imm_readULEB64
 	"]
-	11 -. Codeptr .-> 13
+	11 -. Codeptr .-> 17
 	12["
-	cond__715
+	cond__719
 	m_isMemory64
 	"]
 	10 --> 12
 	21["
 	state phi Codeptr 	"]
 	12 --> 21
-	13 --> 21
 	17 --> 21
+	13 --> 21
 ```
 ## F64_LOAD
 ```mermaid
@@ -5545,38 +5572,38 @@ graph TD
 	"]
 	21 -. Codeptr .-> 1
 	22 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
 	22["
 	state phi Stack 	"]
 	12 --> 22
-	16 --> 22
 	20 --> 22
-	20["
-	eff__739
+	16 --> 22
+	16["
+	eff__744
 	push_f64
 	"]
-	19 --> 20
-	18 -. Stack .-> 20
-	18["
+	15 --> 16
+	14 -. Stack .-> 16
+	14["
 	index
 	pop_u32
 	"]
-	0 -. Stack .-> 18
-	19["
+	0 -. Stack .-> 14
+	15["
 	val
 	mach_readMemory32_f64
 	"]
-	10 --> 19
-	18 --> 19
-	17 --> 19
-	17["
+	10 --> 15
+	14 --> 15
+	13 --> 15
+	13["
 	offset
 	imm_readULEB32
 	"]
-	11 -. Codeptr .-> 17
+	11 -. Codeptr .-> 13
 	11["
 	state phi Codeptr 	"]
 	8 --> 11
@@ -5588,28 +5615,28 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__746
+	memindex__751
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__745
+	cond__750
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__748
+	arg__753
 	0
 	"]
 	7["
-	arg__747
+	arg__752
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__750
+	arg__755
 	0x40u8
 	"]
 	10["
@@ -5617,45 +5644,45 @@ graph TD
 	phi
 	"]
 	8 --> 10
-	4 --> 10
 	9 --> 10
+	4 --> 10
 	4["
-	memindex
+	memindex__756
 	0u
 	"]
-	16["
-	eff__734
+	20["
+	eff__739
 	push_f64
 	"]
-	15 --> 16
-	14 -. Stack .-> 16
-	14["
+	19 --> 20
+	18 -. Stack .-> 20
+	18["
 	index
 	pop_u64
 	"]
-	0 -. Stack .-> 14
-	15["
+	0 -. Stack .-> 18
+	19["
 	val
 	mach_readMemory64_f64
 	"]
-	10 --> 15
-	14 --> 15
-	13 --> 15
-	13["
+	10 --> 19
+	18 --> 19
+	17 --> 19
+	17["
 	offset
 	imm_readULEB64
 	"]
-	11 -. Codeptr .-> 13
+	11 -. Codeptr .-> 17
 	12["
-	cond__733
+	cond__738
 	m_isMemory64
 	"]
 	10 --> 12
 	21["
 	state phi Codeptr 	"]
 	12 --> 21
-	13 --> 21
 	17 --> 21
+	13 --> 21
 ```
 ## I32_STORE
 ```mermaid
@@ -5669,22 +5696,22 @@ graph TD
 	"]
 	20 -. Codeptr .-> 1
 	21 -. Stack .-> 1
-	0 -. Locals Tables Extra .-> 1
+	0 -. Locals Globals Tables Extra .-> 1
 	22 -. Memory .-> 1
 	22["
 	state phi Memory 	"]
 	13 --> 22
-	16 --> 22
 	19 --> 22
-	19["
-	eff__757
+	16 --> 22
+	16["
+	eff__763
 	mach_writeMemory32_u32
 	"]
-	10 --> 19
-	18 --> 19
-	17 --> 19
-	12 --> 19
-	0 -. Memory .-> 19
+	10 --> 16
+	15 --> 16
+	14 --> 16
+	12 --> 16
+	0 -. Memory .-> 16
 	0["
 	Start
 	"]
@@ -5693,11 +5720,11 @@ graph TD
 	pop_u32
 	"]
 	0 -. Stack .-> 12
-	17["
+	14["
 	offset
 	imm_readULEB32
 	"]
-	11 -. Codeptr .-> 17
+	11 -. Codeptr .-> 14
 	11["
 	state phi Codeptr 	"]
 	8 --> 11
@@ -5709,80 +5736,80 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__764
+	memindex__770
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__763
+	cond__769
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__766
+	arg__772
 	0
 	"]
 	7["
-	arg__765
+	arg__771
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__768
+	arg__774
 	0x40u8
 	"]
-	18["
+	15["
 	index
 	pop_u32
 	"]
-	12 -. Stack .-> 18
+	12 -. Stack .-> 15
 	10["
 	memindex
 	phi
 	"]
 	8 --> 10
-	4 --> 10
 	9 --> 10
+	4 --> 10
 	4["
-	memindex
+	memindex__775
 	0u
 	"]
-	16["
-	eff__752
+	19["
+	eff__758
 	mach_writeMemory64_u32
 	"]
-	10 --> 16
-	15 --> 16
-	14 --> 16
-	12 --> 16
-	0 -. Memory .-> 16
-	14["
+	10 --> 19
+	18 --> 19
+	17 --> 19
+	12 --> 19
+	0 -. Memory .-> 19
+	17["
 	offset
 	imm_readULEB64
 	"]
-	11 -. Codeptr .-> 14
-	15["
+	11 -. Codeptr .-> 17
+	18["
 	index
 	pop_u64
 	"]
-	12 -. Stack .-> 15
+	12 -. Stack .-> 18
 	13["
-	cond__751
+	cond__757
 	m_isMemory64
 	"]
 	10 --> 13
 	21["
 	state phi Stack 	"]
 	13 --> 21
-	15 --> 21
 	18 --> 21
+	15 --> 21
 	20["
 	state phi Codeptr 	"]
 	13 --> 20
-	14 --> 20
 	17 --> 20
+	14 --> 20
 ```
 ## I32_STORE8
 ```mermaid
@@ -5796,22 +5823,22 @@ graph TD
 	"]
 	20 -. Codeptr .-> 1
 	21 -. Stack .-> 1
-	0 -. Locals Tables Extra .-> 1
+	0 -. Locals Globals Tables Extra .-> 1
 	22 -. Memory .-> 1
 	22["
 	state phi Memory 	"]
 	13 --> 22
-	16 --> 22
 	19 --> 22
-	19["
-	eff__775
+	16 --> 22
+	16["
+	eff__782
 	mach_writeMemory32_u8
 	"]
-	10 --> 19
-	18 --> 19
-	17 --> 19
-	12 --> 19
-	0 -. Memory .-> 19
+	10 --> 16
+	15 --> 16
+	14 --> 16
+	12 --> 16
+	0 -. Memory .-> 16
 	0["
 	Start
 	"]
@@ -5820,11 +5847,11 @@ graph TD
 	pop_u32
 	"]
 	0 -. Stack .-> 12
-	17["
+	14["
 	offset
 	imm_readULEB32
 	"]
-	11 -. Codeptr .-> 17
+	11 -. Codeptr .-> 14
 	11["
 	state phi Codeptr 	"]
 	8 --> 11
@@ -5836,80 +5863,80 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__782
+	memindex__789
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__781
+	cond__788
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__784
+	arg__791
 	0
 	"]
 	7["
-	arg__783
+	arg__790
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__786
+	arg__793
 	0x40u8
 	"]
-	18["
+	15["
 	index
 	pop_u32
 	"]
-	12 -. Stack .-> 18
+	12 -. Stack .-> 15
 	10["
 	memindex
 	phi
 	"]
 	8 --> 10
-	4 --> 10
 	9 --> 10
+	4 --> 10
 	4["
-	memindex
+	memindex__794
 	0u
 	"]
-	16["
-	eff__770
+	19["
+	eff__777
 	mach_writeMemory64_u8
 	"]
-	10 --> 16
-	15 --> 16
-	14 --> 16
-	12 --> 16
-	0 -. Memory .-> 16
-	14["
+	10 --> 19
+	18 --> 19
+	17 --> 19
+	12 --> 19
+	0 -. Memory .-> 19
+	17["
 	offset
 	imm_readULEB64
 	"]
-	11 -. Codeptr .-> 14
-	15["
+	11 -. Codeptr .-> 17
+	18["
 	index
 	pop_u64
 	"]
-	12 -. Stack .-> 15
+	12 -. Stack .-> 18
 	13["
-	cond__769
+	cond__776
 	m_isMemory64
 	"]
 	10 --> 13
 	21["
 	state phi Stack 	"]
 	13 --> 21
-	15 --> 21
 	18 --> 21
+	15 --> 21
 	20["
 	state phi Codeptr 	"]
 	13 --> 20
-	14 --> 20
 	17 --> 20
+	14 --> 20
 ```
 ## I32_STORE16
 ```mermaid
@@ -5923,22 +5950,22 @@ graph TD
 	"]
 	20 -. Codeptr .-> 1
 	21 -. Stack .-> 1
-	0 -. Locals Tables Extra .-> 1
+	0 -. Locals Globals Tables Extra .-> 1
 	22 -. Memory .-> 1
 	22["
 	state phi Memory 	"]
 	13 --> 22
-	16 --> 22
 	19 --> 22
-	19["
-	eff__793
+	16 --> 22
+	16["
+	eff__801
 	mach_writeMemory32_u16
 	"]
-	10 --> 19
-	18 --> 19
-	17 --> 19
-	12 --> 19
-	0 -. Memory .-> 19
+	10 --> 16
+	15 --> 16
+	14 --> 16
+	12 --> 16
+	0 -. Memory .-> 16
 	0["
 	Start
 	"]
@@ -5947,11 +5974,11 @@ graph TD
 	pop_u32
 	"]
 	0 -. Stack .-> 12
-	17["
+	14["
 	offset
 	imm_readULEB32
 	"]
-	11 -. Codeptr .-> 17
+	11 -. Codeptr .-> 14
 	11["
 	state phi Codeptr 	"]
 	8 --> 11
@@ -5963,80 +5990,80 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__800
+	memindex__808
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__799
+	cond__807
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__802
+	arg__810
 	0
 	"]
 	7["
-	arg__801
+	arg__809
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__804
+	arg__812
 	0x40u8
 	"]
-	18["
+	15["
 	index
 	pop_u32
 	"]
-	12 -. Stack .-> 18
+	12 -. Stack .-> 15
 	10["
 	memindex
 	phi
 	"]
 	8 --> 10
-	4 --> 10
 	9 --> 10
+	4 --> 10
 	4["
-	memindex
+	memindex__813
 	0u
 	"]
-	16["
-	eff__788
+	19["
+	eff__796
 	mach_writeMemory64_u16
 	"]
-	10 --> 16
-	15 --> 16
-	14 --> 16
-	12 --> 16
-	0 -. Memory .-> 16
-	14["
+	10 --> 19
+	18 --> 19
+	17 --> 19
+	12 --> 19
+	0 -. Memory .-> 19
+	17["
 	offset
 	imm_readULEB64
 	"]
-	11 -. Codeptr .-> 14
-	15["
+	11 -. Codeptr .-> 17
+	18["
 	index
 	pop_u64
 	"]
-	12 -. Stack .-> 15
+	12 -. Stack .-> 18
 	13["
-	cond__787
+	cond__795
 	m_isMemory64
 	"]
 	10 --> 13
 	21["
 	state phi Stack 	"]
 	13 --> 21
-	15 --> 21
 	18 --> 21
+	15 --> 21
 	20["
 	state phi Codeptr 	"]
 	13 --> 20
-	14 --> 20
 	17 --> 20
+	14 --> 20
 ```
 ## I64_STORE
 ```mermaid
@@ -6050,22 +6077,22 @@ graph TD
 	"]
 	20 -. Codeptr .-> 1
 	21 -. Stack .-> 1
-	0 -. Locals Tables Extra .-> 1
+	0 -. Locals Globals Tables Extra .-> 1
 	22 -. Memory .-> 1
 	22["
 	state phi Memory 	"]
 	13 --> 22
-	16 --> 22
 	19 --> 22
-	19["
-	eff__811
+	16 --> 22
+	16["
+	eff__820
 	mach_writeMemory32_u64
 	"]
-	10 --> 19
-	18 --> 19
-	17 --> 19
-	12 --> 19
-	0 -. Memory .-> 19
+	10 --> 16
+	15 --> 16
+	14 --> 16
+	12 --> 16
+	0 -. Memory .-> 16
 	0["
 	Start
 	"]
@@ -6074,11 +6101,11 @@ graph TD
 	pop_u64
 	"]
 	0 -. Stack .-> 12
-	17["
+	14["
 	offset
 	imm_readULEB32
 	"]
-	11 -. Codeptr .-> 17
+	11 -. Codeptr .-> 14
 	11["
 	state phi Codeptr 	"]
 	8 --> 11
@@ -6090,80 +6117,80 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__818
+	memindex__827
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__817
+	cond__826
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__820
+	arg__829
 	0
 	"]
 	7["
-	arg__819
+	arg__828
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__822
+	arg__831
 	0x40u8
 	"]
-	18["
+	15["
 	index
 	pop_u32
 	"]
-	12 -. Stack .-> 18
+	12 -. Stack .-> 15
 	10["
 	memindex
 	phi
 	"]
 	8 --> 10
-	4 --> 10
 	9 --> 10
+	4 --> 10
 	4["
-	memindex
+	memindex__832
 	0u
 	"]
-	16["
-	eff__806
+	19["
+	eff__815
 	mach_writeMemory64_u64
 	"]
-	10 --> 16
-	15 --> 16
-	14 --> 16
-	12 --> 16
-	0 -. Memory .-> 16
-	14["
+	10 --> 19
+	18 --> 19
+	17 --> 19
+	12 --> 19
+	0 -. Memory .-> 19
+	17["
 	offset
 	imm_readULEB64
 	"]
-	11 -. Codeptr .-> 14
-	15["
+	11 -. Codeptr .-> 17
+	18["
 	index
 	pop_u64
 	"]
-	12 -. Stack .-> 15
+	12 -. Stack .-> 18
 	13["
-	cond__805
+	cond__814
 	m_isMemory64
 	"]
 	10 --> 13
 	21["
 	state phi Stack 	"]
 	13 --> 21
-	15 --> 21
 	18 --> 21
+	15 --> 21
 	20["
 	state phi Codeptr 	"]
 	13 --> 20
-	14 --> 20
 	17 --> 20
+	14 --> 20
 ```
 ## F32_STORE
 ```mermaid
@@ -6177,32 +6204,32 @@ graph TD
 	"]
 	20 -. Codeptr .-> 1
 	21 -. Stack .-> 1
-	0 -. Locals Tables Memory Extra .-> 1
+	0 -. Locals Globals Tables Memory Extra .-> 1
 	0["
 	Start
 	"]
 	21["
 	state phi Stack 	"]
 	13 --> 21
-	15 --> 21
 	18 --> 21
-	18["
+	15 --> 21
+	15["
 	index
 	pop_u32
 	"]
-	12 -. Stack .-> 18
+	12 -. Stack .-> 15
 	12["
 	val
 	pop_f32
 	"]
 	0 -. Stack .-> 12
-	15["
+	18["
 	index
 	pop_u64
 	"]
-	12 -. Stack .-> 15
+	12 -. Stack .-> 18
 	13["
-	cond__823
+	cond__833
 	m_isMemory64
 	"]
 	10 --> 13
@@ -6211,10 +6238,14 @@ graph TD
 	phi
 	"]
 	8 --> 10
-	4 --> 10
 	9 --> 10
+	4 --> 10
+	4["
+	memindex__851
+	0u
+	"]
 	9["
-	memindex__836
+	memindex__846
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
@@ -6223,50 +6254,46 @@ graph TD
 	imm_readU8
 	"]
 	0 -. Codeptr .-> 3
-	4["
-	memindex
-	0u
-	"]
 	8["
-	cond__835
+	cond__845
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__838
+	arg__848
 	0
 	"]
 	7["
-	arg__837
+	arg__847
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__840
+	arg__850
 	0x40u8
 	"]
 	20["
 	state phi Codeptr 	"]
 	13 --> 20
-	14 --> 20
 	17 --> 20
-	17["
+	14 --> 20
+	14["
 	offset
 	imm_readULEB32
 	"]
-	11 -. Codeptr .-> 17
+	11 -. Codeptr .-> 14
 	11["
 	state phi Codeptr 	"]
 	8 --> 11
 	9 --> 11
 	3 --> 11
-	14["
+	17["
 	offset
 	imm_readULEB64
 	"]
-	11 -. Codeptr .-> 14
+	11 -. Codeptr .-> 17
 ```
 ## F64_STORE
 ```mermaid
@@ -6280,22 +6307,22 @@ graph TD
 	"]
 	20 -. Codeptr .-> 1
 	21 -. Stack .-> 1
-	0 -. Locals Tables Extra .-> 1
+	0 -. Locals Globals Tables Extra .-> 1
 	22 -. Memory .-> 1
 	22["
 	state phi Memory 	"]
 	13 --> 22
-	16 --> 22
 	19 --> 22
-	19["
-	eff__847
+	16 --> 22
+	16["
+	eff__858
 	mach_writeMemory32_f64
 	"]
-	10 --> 19
-	18 --> 19
-	17 --> 19
-	12 --> 19
-	0 -. Memory .-> 19
+	10 --> 16
+	15 --> 16
+	14 --> 16
+	12 --> 16
+	0 -. Memory .-> 16
 	0["
 	Start
 	"]
@@ -6304,11 +6331,11 @@ graph TD
 	pop_f64
 	"]
 	0 -. Stack .-> 12
-	17["
+	14["
 	offset
 	imm_readULEB32
 	"]
-	11 -. Codeptr .-> 17
+	11 -. Codeptr .-> 14
 	11["
 	state phi Codeptr 	"]
 	8 --> 11
@@ -6320,78 +6347,78 @@ graph TD
 	"]
 	0 -. Codeptr .-> 3
 	9["
-	memindex__854
+	memindex__865
 	imm_readULEB32
 	"]
 	3 -. Codeptr .-> 9
 	8["
-	cond__853
+	cond__864
 	u8.!=
 	"]
 	7 --> 8
 	5 --> 8
 	5["
-	arg__856
+	arg__867
 	0
 	"]
 	7["
-	arg__855
+	arg__866
 	u8.&
 	"]
 	3 --> 7
 	6 --> 7
 	6["
-	arg__858
+	arg__869
 	0x40u8
 	"]
-	18["
+	15["
 	index
 	pop_u32
 	"]
-	12 -. Stack .-> 18
+	12 -. Stack .-> 15
 	10["
 	memindex
 	phi
 	"]
 	8 --> 10
-	4 --> 10
 	9 --> 10
+	4 --> 10
 	4["
-	memindex
+	memindex__870
 	0u
 	"]
-	16["
-	eff__842
+	19["
+	eff__853
 	mach_writeMemory64_f64
 	"]
-	10 --> 16
-	15 --> 16
-	14 --> 16
-	12 --> 16
-	0 -. Memory .-> 16
-	14["
+	10 --> 19
+	18 --> 19
+	17 --> 19
+	12 --> 19
+	0 -. Memory .-> 19
+	17["
 	offset
 	imm_readULEB64
 	"]
-	11 -. Codeptr .-> 14
-	15["
+	11 -. Codeptr .-> 17
+	18["
 	index
 	pop_u64
 	"]
-	12 -. Stack .-> 15
+	12 -. Stack .-> 18
 	13["
-	cond__841
+	cond__852
 	m_isMemory64
 	"]
 	10 --> 13
 	21["
 	state phi Stack 	"]
 	13 --> 21
-	15 --> 21
 	18 --> 21
+	15 --> 21
 	20["
 	state phi Codeptr 	"]
 	13 --> 20
-	14 --> 20
 	17 --> 20
+	14 --> 20
 ```
