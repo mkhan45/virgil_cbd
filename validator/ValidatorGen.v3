@@ -52,7 +52,7 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
 
 var graph_output_buf: StringBuilder;
 def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
-    if (!Strings.equal(opcode, "I32_EQZ")) return null;
+    // if (!Strings.equal(opcode, "I32_LOAD")) return null;
     // (name, type) -- we should have that VirgilStmt names align w/ SSA names,
     // so we can use this the same
     def st_field_buf = VirgilStmts.getSidetableFields(stmt);
@@ -85,24 +85,41 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     graph_output_buf.puts(raw_mermaid);
     graph_output_buf.puts("```\n");
 
-    sea.apply(IRNode.removeViews);
-    sea.apply(IRNode.overloadOps);
-    sea.apply(IRNode.addAbstractions);
-    sea.apply(IRNode.unLEM);
+    // sea.apply(IRNode.removeViews);
+    // sea.apply(IRNode.overloadOps);
+    // sea.apply(IRNode.addAbstractions);
+    // sea.apply(IRNode.unLEM);
     def mermaid = sea.toMermaid();
 
-    System.puts("===="); System.puts(opcode);  System.puts("====\n");
-    System.puts("----SSAD----\n");
-    System.puts(sea_ir.toString(0));
-    System.puts("----MERMAID----\n");
-    System.puts(mermaid);
+    // System.puts("===="); System.puts(opcode);  System.puts("====\n");
+    // System.puts("----SSAD----\n");
+    // System.puts(sea_ir.toString(0));
+    // System.puts("----MERMAID----\n");
+    // System.puts(mermaid);
+    // System.puts("------SPLIT MERMAID------\n");
+    // def mbuf = StringBuilder.new();
+    // mbuf.puts("---").ln();
+    // mbuf.puts("config:").ln();
+    // mbuf.puts("  layout: elk").ln();
+    // mbuf.puts("---").ln();
+    // mbuf.puts("graph TD").ln();
+    // mbuf.puts("subgraph CODEPTR").ln();
+    // def codeptr_sea = sea.subgraph(sea.finish.state_deps[StateComponent.Codeptr.tag]);
+    // mbuf.putq(codeptr_sea.toMermaidExt("c", _));
+    // mbuf.puts("end").ln();
+    // mbuf.puts("subgraph STACK").ln();
+    // def stack_sea = sea.subgraph(sea.finish.state_deps[StateComponent.Stack.tag]);
+    // mbuf.putq(stack_sea.toMermaidExt("s", _));
+    // mbuf.puts("end").ln();
+    // System.puts(mbuf.toString());
+    // System.puts("------");
 
     def scheduled = sea.schedule();
     ctx.getPhis();
-    System.puts("======\n");
+    // System.puts("======\n");
     var pretty = Pretty_IR.fromSSAD(scheduled, ctx);
-    System.puts("----Scheduled----\n");
-    System.puts(scheduled.toString(0));
+    // System.puts("----Scheduled----\n");
+    // System.puts(scheduled.toString(0));
     // System.puts("----Pretty----\n");
     pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, ctx, Strings.newMap<PrettyExpr>());
     pretty = Pretty_IR.removeUselessAssigns(pretty, ctx);

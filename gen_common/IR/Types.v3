@@ -220,8 +220,7 @@ enum StateComponent {
     Locals,
     Tables,
     Memory,
-    Sidetable,
-    Codebuilder,
+    Extra,
 }
 
 // maybe a list of effects

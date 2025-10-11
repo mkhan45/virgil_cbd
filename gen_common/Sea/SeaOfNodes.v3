@@ -24,7 +24,7 @@ class NodeSet {
 }
 
 type ImmNodeSet(ls: List<IRNode>) {
-    def with(n: IRNode) => ImmNodeSet(List.new(n, ls));
+    def with(n: IRNode) => if(has(n), this, ImmNodeSet(List.new(n, ls)));
     def without(n: IRNode) -> ImmNodeSet {
         var new_ls: List<IRNode> = null;
         for (cur = ls; cur != null; cur = cur.tail) {
@@ -72,6 +72,7 @@ type ImmNodeSet(ls: List<IRNode>) {
 
 component ImmNodeSets {
     def empty() => ImmNodeSet(null);
+    def single(n: IRNode) => ImmNodeSet(List.new(n, null));
 }
 
 def uidl = SSAD_IR.uidl;
@@ -83,60 +84,10 @@ def intrinsic(name: string) -> IntrinsicTypedef {
         return IntrinsicTypedef.new(name, null, null, CBDEffect.None);
 }
 
-type SearchNode(remaining: ImmNodeSet, path: SSAD, available: ImmNodeSet);
+type SearchNode(remaining: ImmNodeSet, path: SSAD, available: ImmNodeSet, depth: int) {
+    def dbg() {
+        if (true) return;
 
-class Sea {
-    var start: IRNode;
-    var finish: IRNode;
-    var nodes: NodeSet;
-    var id_count: int;
-
-    var var_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>();
-    var lit_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>(); // assume that lits have unique rep across types
-
-    new() {
-        nodes = NodeSet.new();
-        id_count = 0;
-
-        start = mkNode(IROp.Start);
-        var max_state_tag = 0;
-        for (sc in StateComponent.set.all) max_state_tag = if(sc.tag > max_state_tag, sc.tag, max_state_tag);
-        def state_vars = Array<IRNode>.new(max_state_tag + 1);
-        for (i < state_vars.length) state_vars[i] = start;
-        finish = mkNode(IROp.Finish(state_vars));
-
-        def void_node = IRNode.new(IROp.Lit(TypeVar.Bot("void"), "(void)"), -1);
-        void_node.data = NodeData.new(TypeVar.Bot("void"), CBDEffect.None, Stage.VALIDATE);
-        void_node.data.sourceName = "void";
-        var_nodes["void"] = void_node;
-    }
-
-    def mkNode(op: IROp) -> IRNode {
-        def node = IRNode.new(op, id_count);
-        id_count += 1;
-
-        for (dep in node.args()) {
-            dep.children.put(node);
-        }
-
-        return node;
-    }
-
-    def schedule() -> SSAD {
-        var remaining = ImmNodeSets.empty().with(finish);
-        var available = ImmNodeSets.empty().with(start);
-        var path: SSAD = SSAD.Void;
-        def startPoint = SearchNode(remaining, path, available);
-        def res = scheduleNodes(startPoint);
-        return res.1;
-    }
-
-    def scheduleNodes(point: SearchNode) -> (bool, SSAD) {
-        def remaining = point.remaining;
-        def path = point.path;
-        def available = point.available;
-
-        System.puts("====\n");
         System.puts("remaining: ");
         for (cur = remaining.ls; cur != null; cur = cur.tail) {
             System.puts(Strings.format1("%q ", cur.head.render));
@@ -150,589 +101,75 @@ class Sea {
         System.puts("path:\n");
         System.puts(path.toString(1));
         System.ln();
-     
-        if (remaining.ls == null) return (true, path);
+    }
+}
+type SearchRes(success: bool, point: SearchNode);
 
-        for (cur = remaining.ls; cur != null; cur = cur.tail) {
-            def node = cur.head;
+class Sea {
+    var start: IRNode;
+    var finish: IRNode;
+    var void_node: IRNode;
+    var nodes: NodeSet;
+    var id_count: int;
 
-            if (available.has(node)) {
-                continue;
-            }
+    var var_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>();
+    var lit_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>(); // assume that lits have unique rep across types
 
-            var ready = true;
-            var remainingArgs: List<IRNode> = null;
-            for (arg in node.args()) if (!available.has(arg)) {
-                ready = false;
-                remainingArgs = List.new(arg, remainingArgs);
-            }
+    new() {
+        nodes = NodeSet.new();
+        id_count = 0;
 
-            if (remainingArgs != null) {
-                for (arg = remainingArgs; arg != null; arg = arg.tail) {
-                    def nextPoint = SearchNode(remaining.with(arg.head), path, available);
-                    def res = scheduleNodes(nextPoint);
-                    if (res.0) return res;
-                }
-            } else {
-                var remainingAfter = remaining.without(node);
-                var newPath = path;
-                var availableAfter = available;
-                match (node.op) {
-                    Intrinsic(defn, args) => {
-                        if (node.data == null) {
-                            node.data = NodeData.new(TypeVar.Bot("void"), CBDEffect.None, Stage.INTERPRET);
-                            node.data.sourceName = uidl("eff");
-                        }
-                        newPath = path.appended(SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), SSAD.Void));
-                        availableAfter = available.with(node);
-                    }
-                    Lit(tipe, rep) => {
-                        newPath = path.appended(SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), SSAD.Void));
-                        availableAfter = available.with(node);
-                    }
-                    If(c, regions) => {
-                        def els = regions.els;
-                        def end = regions.end;
+        var max_state_tag = 0;
+        for (sc in StateComponent.set.all) max_state_tag = if(sc.tag > max_state_tag, sc.tag, max_state_tag);
+        def state_vars = Array<IRNode>.new(max_state_tag + 1);
 
-                        def then_search = SearchNode(ImmNodeSets.empty().with(els), SSAD.Void, available.with(node));
-                        def then_sched = scheduleNodes(then_search);
-                        def else_search = SearchNode(ImmNodeSets.empty().with(end), SSAD.Void, available.with(els));
-                        def else_sched = scheduleNodes(else_search);
+        start = mkNode(IROp.Start, Array.new(state_vars.length), []);
 
-                        if (!then_sched.0 || !else_sched.0) return (false, path);
+        for (i < state_vars.length) state_vars[i] = start;
+        finish = mkNode(IROp.Finish, Arrays.dup(state_vars), []);
 
-                        def phi_vec = Vector<(string, string)>.new();
-                        for (phi in IROp.End.!(end.op).phis.copy()) {
-                            availableAfter = availableAfter.with(phi);
-                            remainingAfter = remainingAfter.without(phi);
-                            // could also be a statephi, in which case do nothing
-                            if (IROp.Phi.?(phi.op)) {
-                                def phi_op = IROp.Phi.!(phi.op);
-                                if (phi_op.left != null) phi_vec.put((phi.data.sourceName, phi_op.left.data.sourceName));
-                                if (phi_op.right != null) phi_vec.put((phi.data.sourceName, phi_op.right.data.sourceName));
-                            }
-                        }
-
-                        remainingAfter = remainingAfter.without(els).without(end);
-                        for (r in IROp.Else.!(els.op).region_ends.copy()) remainingAfter = remainingAfter.without(r);
-                        for (r in IROp.End.!(end.op).region_ends.copy()) remainingAfter = remainingAfter.without(r);
-                        availableAfter = availableAfter.with(end);
-                        newPath = path.appended(SSAD.If(c.data.sourceName, then_sched.1, else_sched.1, phi_vec.copy(), SSAD.Void));
-                    }
-                    _ => {
-                        availableAfter = available.with(node);
-                    }
-                }
-                def nextPoint = SearchNode(remainingAfter, newPath, availableAfter);
-                def res = scheduleNodes(nextPoint);
-                if (res.0) return res;
-            }
-        }
-
-        return (true, path);
+        def void_node = mkNode(IROp.Lit(TypeVar.Bot("void"), "(void)"), Arrays.dup(state_vars), []);
+        void_node.var_data = VarData.new("void", TypeVar.Bot("void"), Stage.VALIDATE);
+        var_nodes["void"] = void_node;
     }
 
-    // def schedule() -> SSAD {
-    //     var res: SSAD = SSAD.Void;
-    //     var available: ImmNodeSet = ImmNodeSets.empty().with(start);
-    //     def sched = scheduleNode(start, res, available);
-    //     res = sched.1;
-    //     available = sched.2;
+    def mkNode(op: IROp, state_deps: Array<IRNode>, value_deps: Array<IRNode>) -> IRNode {
+        def node = IRNode.new(op, id_count);
+        node.state_deps = state_deps;
+        node.value_deps = value_deps;
+        id_count += 1;
 
-    //     return res;
-    // }
+        for (dep in node.deps()) {
+            dep.children.put(node);
+        }
 
-    // def scheduleNode(node: IRNode, path: SSAD, available: ImmNodeSet) -> (bool, SSAD, ImmNodeSet) {
-    //     System.puts(Strings.format1("node: %q\n", node.render));
-    //     var res: SSAD = path;
-    //     var availableNow = available;
-    //     var children: Vector<IRNode> = null;
+        return node;
+    }
 
-    //     if (available.has(node)) {
-    //         children = node.children;
-    //     } else {
-    //         for (arg in node.args()) {
-    //             if (!available.has(arg)) return (false, path, available);
-    //         }
-
-    //         match (node.op) {
-    //             Intrinsic(defn, args) => {
-    //                 if (node.data == null) {
-    //                     node.data = NodeData.new(TypeVar.Bot("void"), CBDEffect.None, Stage.INTERPRET);
-    //                     node.data.sourceName = uidl("eff");
-    //                 }
-    //                 res = res.appended(SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), SSAD.Void));
-    //                 availableNow = availableNow.with(node);
-    //                 children = node.children;
-    //             }
-    //             Lit(tipe, rep) => {
-    //                 res = res.appended(SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), SSAD.Void));
-    //                 availableNow = availableNow.with(node);
-    //                 children = node.children;
-    //             }
-    //             If(c, regions) => {
-    //                 def els = regions.els;
-    //                 def end = regions.end;
-
-    //                 def then_sched = scheduleNode(els, SSAD.Void, availableNow.with(node));
-    //                 def else_sched = scheduleNode(end, SSAD.Void, availableNow.with(els));
-
-    //                 var availableAfter = availableNow;
-    //                 def phi_vec = Vector<(string, string)>.new();
-    //                 for (phi in IROp.End.!(end.op).phis.copy()) {
-    //                     availableAfter = availableAfter.with(phi);
-    //                     // could also be a statephi, in which case do nothing
-    //                     if (IROp.Phi.?(phi.op)) {
-    //                         def phi_op = IROp.Phi.!(phi.op);
-    //                         if (phi_op.left != null) phi_vec.put((phi.data.sourceName, phi_op.left.data.sourceName));
-    //                         if (phi_op.right != null) phi_vec.put((phi.data.sourceName, phi_op.right.data.sourceName));
-    //                     }
-    //                 }
-
-    //                 res = res.appended(SSAD.If(c.data.sourceName, then_sched.1, else_sched.1, phi_vec.copy(), SSAD.Void));
-    //                 children = end.children;
-    //             }
-    //             _ => {
-    //                 availableNow = availableNow.with(node);
-    //                 children = node.children;
-    //             }
-    //         }
-    //     }
-
-    //     // for (i < children.length) {
-    //     //     def child = children[i];
-    //     //     System.puts(Strings.format1("child: %q\n", child.render));
-    //     //     def child_sched = scheduleNode(child, res, availableNow);
-    //     //     if (child_sched.0) return child_sched;
-    //     // }
-
-    //     // return (false, res, availableNow);
-
-    //     for (i < children.length) {
-    //         def child = children[i];
-    //         def child_sched = scheduleNode(child, res, availableNow);
-    //         if (!child_sched.0) return (false, res, availableNow);
-    //         res = child_sched.1;
-    //         availableNow = child_sched.2;
-    //     }
-
-    //     return (true, res, availableNow);
-    // }
-
-    // def schedule() -> SSAD {
-    //     var res: SSAD = SSAD.Void;
-    //     var available: ImmNodeSet = ImmNodeSets.empty();
-    //     def sched = scheduleNode(finish, res, available, ImmNodeSets.empty());
-    //     res = sched.0;
-    //     available = sched.1;
-
-    //     return res;
-    // }
-
-    // def scheduleNode(node: IRNode, path: SSAD, available: ImmNodeSet, finished: ImmNodeSet) -> (SSAD, ImmNodeSet, ImmNodeSet) {
-    //     if (available.has(node)) return (path, available, finished);
-    //     if (finished.has(node)) return (path, available, finished);
-
-    //     var res: SSAD = path;
-    //     var availableNow = available;
-    //     var finishedNow = finished;
-
-    //     def deps = node.args();
-    //     for (i = deps.length - 1; i >= 0; i -= 1) {
-    //         def sched = scheduleNode(deps[i], res, availableNow, finishedNow);
-    //         res = sched.0;
-    //         availableNow = sched.1;
-    //         finishedNow = sched.2;
-    //     }
-
-    //     match (node.op) {
-    //         Intrinsic(defn, args) => {
-    //             if (node.data == null) {
-    //                 node.data = NodeData.new(TypeVar.Bot("void"), CBDEffect.None, Stage.INTERPRET);
-    //                 node.data.sourceName = uidl("eff");
-    //             }
-    //             return 
-    //                 (res.appended(SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), SSAD.Void)),
-    //                  availableNow.with(node),
-    //                  finishedNow);
-    //         }
-    //         Lit(tipe, rep) => {
-    //             return (res.appended(SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), SSAD.Void)), availableNow.with(node), finishedNow);
-    //         }
-    //         If(c, regions) => {
-    //             def els = regions.els;
-    //             def end = regions.end;
-
-    //             def then_sched = scheduleNode(els, SSAD.Void, availableNow.with(node), finishedNow.with(node));
-    //             def else_sched = scheduleNode(end, SSAD.Void, availableNow.with(els), finishedNow.with(node));
-
-    //             var availableAfter = availableNow;
-    //             def phi_vec = Vector<(string, string)>.new();
-    //             for (phi in IROp.End.!(end.op).phis.copy()) {
-    //                 availableAfter = availableAfter.with(phi);
-    //                 // could also be a statephi, in which case do nothing
-    //                 if (IROp.Phi.?(phi.op)) {
-    //                     def phi_op = IROp.Phi.!(phi.op);
-    //                     if (phi_op.left != null) phi_vec.put((phi.data.sourceName, phi_op.left.data.sourceName));
-    //                     if (phi_op.right != null) phi_vec.put((phi.data.sourceName, phi_op.right.data.sourceName));
-    //                 }
-    //             }
-
-    //             return (res.appended(SSAD.If(c.data.sourceName, then_sched.0, else_sched.0, phi_vec.copy(), SSAD.Void)), availableAfter, finishedNow.with(node));
-    //         }
-    //         _ => return (res, availableNow.with(node), finishedNow.with(node));
-    //     }
-    // }
-
-    // def schedule() -> SSAD {
-    //     def root_buf: Vector<IRNode> = Vector.new();
-    //     roots.apply(fun r => void(root_buf.put(r)));
-
-    //     var res: SSAD = SSAD.Void;
-    //     var available: ImmNodeSet = ImmNodeSets.empty();
-    //     for (i < root_buf.length) {
-    //         def sched = scheduleNode(root_buf[i], res, available);
-    //         res = sched.1;
-    //         available = sched.2;
-    //     }
-
-    //     return res;
-    // }
-
-    // def schedule() -> SSAD {
-    //     def root_buf: Vector<IRNode> = Vector.new();
-    //     roots.apply(fun r => void(root_buf.put(r)));
-
-    //     var res: SSAD = SSAD.Void;
-    //     var available: ImmNodeSet = ImmNodeSets.empty();
-    //     def sched = scheduleNode(root_buf.copy(), SSAD.Void, available);
-    //     res = sched.0;
-    //     // for (i < root_buf.length) {
-    //     //     def sched = scheduleNode(root_buf[i], res, available);
-    //     //     res = sched.0;
-    //     //     available = sched.1;
-    //     //     System.puts("===\n");
-    //     // }
-
-    //     return res;
-    // }
-
-    // def schedulePrim(node: IRNode, rest: SSAD) -> SSAD {
-    //     match (node.op) {
-    //         Intrinsic(defn, args) => {
-    //             if (node.data == null) {
-    //                 node.data = NodeData.new(TypeVar.Bot("void"), CBDEffect.None, Stage.INTERPRET);
-    //                 node.data.sourceName = uidl("eff");
-    //             }
-    //             return SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), rest);
-    //         }
-    //         Lit(tipe, rep) => {
-    //             return SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), rest);
-    //         }
-    //         _ => return rest;
-    //     }
-    // }
-
-    // // TODO:
-    // // combine this strat with below, use List<IRNode> path and construct ssa at the end
-    // def scheduleNode(nodes: Array<IRNode>, path: SSAD, available: ImmNodeSet) -> (SSAD, ImmNodeSet) {
-    //     def wl: Vector<IRNode> = Vector.new();
-
-    //     // wl.put(node);
-    //     for (n in nodes) wl.put(n);
-
-    //     var sched = Vector<IRNode>.new();
-
-    //     def availStack = ArrayStack<ImmNodeSet>.new();
-    //     availStack.push(available);
-    //     // var availableNow = available;
-
-    //     var q_idx = 0;
-    //     while (q_idx < wl.length) {
-    //         def availableNow = availStack.peek();
-    //         def node = wl[q_idx];
-    //         q_idx += 1;
-
-    //         if (availableNow.has(node)) continue;
-
-    //         def deps = node.args();
-    //         var ready = true;
-    //         for (dep in deps) {
-    //             if (!availableNow.has(dep)) {
-    //                 wl.put(dep);
-    //                 wl.put(node);
-    //                 ready = false;
-    //                 break;
-    //             }
-    //         }
-
-    //         if (ready) {
-    //             // if (IROp.If.?(node.op)) {
-    //             //     var skip = false;
-    //             //     for (i = q_idx; i < wl.length; i += 1) {
-    //             //         if (availableNow.has(wl[i])) {
-    //             //             wl.put(node);
-    //             //             skip = true;
-    //             //             continue;
-    //             //         }
-    //             //     }
-    //             //     if (skip) continue;
-    //             // }
-    //             System.puts(Strings.format3("ready: %q, q_idx: %d, wl.length: %d\n", node.render, q_idx, wl.length));
-
-    //             sched.put(node);
-
-    //             match (node.op) {
-    //                 If => {
-    //                     def p = availStack.pop();
-    //                     availStack.push(p);
-    //                     availStack.push(p.with(node));
-    //                 }
-    //                 Else => {
-    //                     def avail_then = availStack.pop();
-    //                     def avail_before = availStack.pop();
-    //                     availStack.push(avail_before);
-    //                     availStack.push(avail_then);
-    //                     availStack.push(avail_before.with(node));
-    //                 }
-    //                 End(cond, region_ends, phis) => {
-    //                     def avail_else = availStack.pop();
-    //                     def avail_then  = availStack.pop();
-    //                     def avail_before = availStack.pop();
-    //                     var avail_after = avail_before.with(node);
-    //                     for (p in phis.copy()) {
-    //                         avail_after = avail_after.with(p);
-    //                     }
-    //                     availStack.push(avail_after);
-    //                 }
-    //                 _ => {
-    //                     def p = availStack.pop();
-    //                     availStack.push(p.with(node));
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     for (i < sched.length) {
-    //         def node = sched[i];
-    //         System.puts(Strings.format1("node: %q\n", node.render));
-    //     }
-
-    //     var ctl_stack: ArrayStack<SSAD> = ArrayStack.new();
-    //     ctl_stack.push(path);
-    //     for (i < sched.length) {
-    //         def node = sched[i];
-    //         // System.puts(Strings.format1("ctl_stack.top: %d\n", ctl_stack.top));
-    //         match (node.op) {
-    //             Intrinsic, Lit => {
-    //                 def cur = ctl_stack.pop();
-    //                 def next = schedulePrim(node, SSAD.Void);
-    //                 ctl_stack.push(cur.appended(next));
-    //             }
-    //             If => {
-    //                 ctl_stack.push(SSAD.Void);
-    //             }
-    //             Else => {
-    //                 ctl_stack.push(SSAD.Void);
-    //             }
-    //             End(c, regions, phis) => {
-    //                 def els = ctl_stack.pop();
-    //                 def then = ctl_stack.pop();
-    //                 def prev = ctl_stack.pop();
-    //                 ctl_stack.push(prev.appended(SSAD.If(c.data.sourceName, then, els, [], SSAD.Void)));
-    //             }
-    //             _ => {}
-    //         }
-    //     }
-
-    //     return (ctl_stack.pop(), availStack.pop());
-    // }
-
-    // def scheduleNode(node: IRNode, path: SSAD, available: ImmNodeSet) -> (bool, SSAD, ImmNodeSet) {
-    //     def wl: Vector<(List<IRNode>, SSAD, ImmNodeSet)> = Vector.new();
-
-    //     // System.puts(Strings.format1("node: %q\n", node.render));
-    //     wl.put((List.new(node, null), path, available));
-
-    //     var q_idx = 0;
-    //     while (q_idx < wl.length) {
-    //         def entry = wl[q_idx];
-    //         q_idx += 1;
-
-    //         def reqs = entry.0;
-    //         def path = entry.1;
-    //         def available = entry.2;
-
-    //         if (reqs == null) {
-    //             return (true, path, available);
-    //         } else {
-    //             def node = reqs.head;
-    //             def remaining = reqs.tail;
-
-    //             if (available.has(node)) {
-    //                 wl.put((remaining, path, available));
-    //                 continue;
-    //             }
-
-    //             def deps = node.args();
-    //             var blockingNode: IRNode = null;
-    //             var ready = true;
-    //             for (dep in deps) {
-    //                 if (!available.has(dep)) {
-    //                     wl.put((List.new(dep, reqs), path, available));
-    //                     ready = false;
-    //                     // break;
-    //                 }
-    //             }
-
-    //             if (ready) {
-    //                 match (node.op) {
-    //                     Intrinsic, Lit => {
-    //                         def cur_ssa = schedulePrim(node, SSAD.Void);
-    //                         wl.put((remaining, path.appended(cur_ssa), available.with(node)));
-    //                     }
-    //                     If(cond, regions) => {
-    //                         def els = regions.els, end = regions.end;
-
-    //                         def then_sched = scheduleNode(els, SSAD.Void, available.with(node));
-    //                         def else_sched = scheduleNode(end, SSAD.Void, available.with(node).with(els));
-
-    //                         def then_ssa = then_sched.1, else_ssa = else_sched.1;
-    //                         def then_avail = then_sched.2, else_avail = else_sched.2;
-                            
-    //                         if (!then_sched.0 || !else_sched.0) return (false, SSAD.Void, available);
-
-    //                         def cur_ssa = SSAD.If(cond.data.sourceName, then_ssa, else_ssa, [], SSAD.Void);
-    //                         wl.put((remaining, path.appended(cur_ssa), available.with(node).with(end).union(then_avail).union(else_avail)));
-    //                     }
-    //                     _ => {
-    //                         wl.put((remaining, path, available.with(node)));
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     System.puts("ret false\n");
-    //     return (false, SSAD.Void, available);
-    // }
-
-    // def schedule() -> SSAD {
-    //     def wl: Vector<IRNode> = Vector.new();
-    //     var q_idx = 0;
-
-    //     def conditionals: HashMap<IRNode, (SSAD, SSAD, NodeSet)> = HashMap.new(IRNode.hash, IRNode.eq);
-
-    //     roots.apply(fun r => void(wl.put(r)));
-
-    //     var completed = NodeSet.new();
-    //     var res: SSAD = SSAD.Void;
-    //     while (q_idx < wl.length) {
-    //         def node = wl[q_idx];
-    //         q_idx += 1;
-
-    //         if (completed.has(node)) continue;
-
-    //         var ready = true;
-    //         def deps = node.args();
-    //         for (i = deps.length - 1; i >= 0; i -= 1) {
-    //             // reversed just for consistency with original code
-    //             def dep = deps[i];
-    //             ready &= completed.has(dep);
-    //             if (!completed.has(dep)) wl.put(dep);
-    //         }
-
-    //         if (!ready) {
-    //             wl.put(node);
-    //             continue;
-    //         }
-
-    //         completed.put(node);
-    //         match (node.op) {
-    //             Intrinsic(defn, args) => {
-    //                 if (node.data == null) {
-    //                     node.data = NodeData.new(TypeVar.Bot("void"), CBDEffect.None, Stage.INTERPRET);
-    //                     node.data.sourceName = uidl("eff");
-    //                 }
-    //                 res = res.appended(SSAD.LetApp(node.data.sourceName, defn.name, Arrays.map(args, fun (n: IRNode) => n.data.sourceName), SSAD.Void));
-    //             }
-    //             Lit(tipe, rep) => {
-    //                 res = res.appended(SSAD.LetLit(node.data.sourceName, rep, tipe.long_str(), SSAD.Void));
-    //             }
-    //             If(c, regions) => {
-    //                 conditionals[c] = (res, SSAD.Void, completed.dup());
-    //                 res = SSAD.Void;
-    //             }
-    //             Else(c, _) => {
-    //                 def ctl = conditionals[c];
-    //                 def prev = ctl.0;
-    //                 def then_ssa = res;
-    //                 def completed_before_if = ctl.2;
-    //                 completed = completed_before_if;
-    //                 conditionals[c] = (prev, then_ssa, completed_before_if);
-    //                 res = SSAD.Void;
-    //             }
-    //             End(c, _, phis) => {
-    //                 def ctl = conditionals[c];
-    //                 def prev = ctl.0;
-    //                 def then_ssa = ctl.1;
-    //                 def else_ssa = res;
-    //                 def completed_before_if = ctl.2;
-    //                 def phi_vec = Vector<(string, string)>.new();
-    //                 for (i < phis.length) {
-    //                     // could also be a statephi, in which case do nothing
-    //                     def phi = phis[i];
-    //                     if (IROp.Phi.?(phi.op)) {
-    //                         def phi_op = IROp.Phi.!(phi.op);
-    //                         if (phi_op.left != null) phi_vec.put((phi.data.sourceName, phi_op.left.data.sourceName));
-    //                         if (phi_op.right != null) phi_vec.put((phi.data.sourceName, phi_op.right.data.sourceName));
-    //                     }
-    //                 }
-    //                 def if_ssa = SSAD.If(c.data.sourceName, then_ssa, else_ssa, phi_vec.copy(), SSAD.Void);
-    //                 res = prev.appended(if_ssa);
-    //             }
-    //             Phi(c, end, l, r) => {
-    //                 // node.data = l.data;
-    //                 // let SSAD take care of the actual phi translation by populating the phis array in the SSAD.If node
-    //                 // res = res.appended(SSAD.LetApp(node.data.sourceName, "if", [c.data.sourceName, l.data.sourceName, r.data.sourceName], SSAD.Void));
-    //             }
-    //             StatePhi(c, end, l, r, scs) => {
-    //             }
-    //             _ => {}
-    //         }
-    //     }
-
-    //     return res;
-    // }
-
-    def addSSAD(ssad: SSAD, state_vars: Array<IRNode>, deps: List<IRNode>) -> IRNode {
+    def addSSAD(ssad: SSAD, state_vars: Array<IRNode>, deps: List<IRNode>) {
         match (ssad) {
             LetApp(n, f, args, rest) => {
                 def arg_nodes: Array<IRNode> = Arrays.map(args, fun (a: string) => var_nodes[a]);
                 var intrinsic_def = intrinsic(f);
 
-                var node_deps = deps;
-                for (sc in intrinsic_def.reads | intrinsic_def.writes) if (state_vars[sc.tag] != null) 
-                    node_deps = List.new(state_vars[sc.tag], node_deps);
+                def state_deps = Array<IRNode>.new(state_vars.length);
+                for (sc in intrinsic_def.reads | intrinsic_def.writes)
+                    state_deps[sc.tag] = state_vars[sc.tag];
 
-                def op = IROp.Intrinsic(intrinsic_def, arg_nodes);
-                def node = var_nodes[n] = mkNode(op);
-                node.pathDeps = node_deps;
+                def op = IROp.Intrinsic(intrinsic_def);
+                def node = var_nodes[n] = mkNode(op, state_deps, arg_nodes);
 
                 for (sc in intrinsic_def.writes) state_vars[sc.tag] = node;
 
                 def tipe = if(intrinsic_def.return_type != null, intrinsic_def.return_type.primitive, TypeVar.Bot("bot"));
-                def eff = intrinsic_def.effect;
                 var stage = if(intrinsic_def.return_type != null, intrinsic_def.return_type.stage, Stage.VALIDATE);
                 for (arg in arg_nodes) {
-                    if (stage != Stage.INTERPRET && arg.data.stage == Stage.INTERPRET) stage = Stage.INTERPRET;
-                    if (stage == Stage.VALIDATE && arg.data.stage == Stage.COMPILE) stage = Stage.COMPILE;
+                    if (stage != Stage.INTERPRET && arg.var_data.stage == Stage.INTERPRET) stage = Stage.INTERPRET;
+                    if (stage == Stage.VALIDATE && arg.var_data.stage == Stage.COMPILE) stage = Stage.COMPILE;
                 }
-                node.data = NodeData.new(tipe, eff, stage);
-                node.data.sourceName = n;
-                if (eff != CBDEffect.None) node.pathDeps = deps;
+                node.var_data = VarData.new(n, tipe, stage);
 
                 addSSAD(rest, state_vars, deps);
-                return node;
             }
             LetLit(n, l, t, rest) => {
                 var node: IRNode;
@@ -741,146 +178,136 @@ class Sea {
                 } else {
                     def tp = TypeUtil.fromString(t);
                     def op = IROp.Lit(tp, l);
-                    def node = var_nodes[n] = mkNode(op);
+                    def node = var_nodes[n] = mkNode(op, start.state_deps, []);
                     lit_nodes[l] = node;
-                    node.data = NodeData.new(tp, CBDEffect.None, Stage.VALIDATE);
-                    node.data.sourceName = n;
-                    node.pathDeps = List.new(this.start, null);
+                    node.var_data = VarData.new(n, tp, Stage.VALIDATE);
                 }
 
                 addSSAD(rest, state_vars, deps);
-                return node;
             }
             If(cond, then, els, phis, rest) => {
+                def then_state = Arrays.dup(state_vars);
+                addSSAD(then, then_state, deps);
+                def else_state = Arrays.dup(state_vars);
+                addSSAD(els, else_state, deps);
+
                 def cond_node = var_nodes[cond];
-                def then_region_ends = Vector<IRNode>.new();
-                def if_regions = IfRegions.new();
-                def start_if = mkNode(IROp.If(cond_node, if_regions));
-                def start_else = mkNode(IROp.Else(cond_node, then_region_ends));
 
-                def else_region_ends = Vectors.of1<IRNode>(start_else);
-                def phi_vec = Vector<IRNode>.new();
-                def end_node = mkNode(IROp.End(cond_node, else_region_ends, phi_vec));
-                end_node.pathDeps = List.new(start_else, deps);
-
-                if_regions.els = start_else;
-                if_regions.end = end_node;
-
-                // which node to choose for var if cond is not taken,
-                // might be the starting node for var if the els doesn't assign it
-                def else_phis: HashMap<string, IRNode> = Strings.newMap();
-                def e_state_vars = Arrays.dup(state_vars);
-                def t_state_vars = Arrays.dup(state_vars);
-
-                // TODO: probably doesn't account for if there is a phi assign in the else but not if
-                def e_node = addSSAD(els, e_state_vars, List.new(start_else, deps));
-                for (phi in phis) {
-                    if (var_nodes.has(phi.1)) 
-                        else_phis[phi.0] = var_nodes[phi.1]; // take node from els branch
-                    else
-                        else_phis[phi.0] = var_nodes[phi.0]; // take default starting node
+                // var phis
+                for (p in phis) {
+                    def left = var_nodes[p.0], right = var_nodes[p.1];
+                    def node = mkNode(IROp.Phi, Array.new(state_vars.length), [cond_node, left, right]);
+                    var_nodes[p.0] = node;
+                    var stage = cond_node.var_data.stage;
+                    if (left.var_data.stage == Stage.INTERPRET) stage = Stage.INTERPRET;
+                    if (right.var_data.stage == Stage.INTERPRET) stage = Stage.INTERPRET;
+                    node.var_data = VarData.new(p.0, left.var_data.tipe, stage);
                 }
 
-                def t_node = addSSAD(then, t_state_vars, List.new(start_if, deps));
-
-                for (phi in phis) {
-                    if (var_nodes[phi.1] != null) then_region_ends.put(var_nodes[phi.1]);
-                    if (else_phis[phi.0] != null) else_region_ends.put(else_phis[phi.0]);
-
-                    def phi_op = IROp.Phi(cond_node, end_node, var_nodes[phi.1], else_phis[phi.0]);
-                    def node = mkNode(phi_op);
-                    def tipe = var_nodes[phi.0].data.tipe;
-                    node.data = NodeData.new(tipe, CBDEffect.None, cond_node.data.stage);
-                    node.data.sourceName = phi.0;
-                    var_nodes[phi.0] = node;
-                    phi_vec.put(node);
-                }
-
-                // (then, else, statephi)
-                def existing_phis = Vector<(IRNode, IRNode, IRNode)>.new();
+                // state phis
+                def state_phis = Vector<(IRNode, IRNode, StateComponent.set)>.new();
                 for (sc in StateComponent.set.all) {
-                    def tsv = t_state_vars[sc.tag];
-                    def esv = e_state_vars[sc.tag];
-                    var inserted = false;
-                    for (i < existing_phis.length) {
-                        def p = existing_phis[i];
-                        if (tsv != null && esv != null && p.0.id == tsv.id && p.1.id == esv.id) {
-                            def sp_op = IROp.StatePhi.!(p.2.op);
-                            state_vars[sc.tag] = p.2;
-                            p.2.op = IROp.StatePhi(cond_node, end_node, tsv, esv, sp_op.statecomps | sc);
-                            inserted = true;
-                            break;
+                    def left_sv = then_state[sc.tag], right_sv = else_state[sc.tag];
+                    if (left_sv.id != right_sv.id) {
+                        var idx = -1;
+                        for (i < state_phis.length) {
+                            def sp = state_phis[i];
+                            if (sp.0.id == left_sv.id && sp.1.id == right_sv.id) {
+                                idx = i;
+                                break;
+                            }
                         }
-                    }
-
-                    if (!inserted) {
-                        if (tsv != null) then_region_ends.put(tsv);
-                        if (esv != null) else_region_ends.put(esv);
-                        if (esv != tsv) {
-                            def state_phi_op = IROp.StatePhi(cond_node, end_node, tsv, esv, sc);
-                            def state_phi = mkNode(state_phi_op);
-                            state_vars[sc.tag] = state_phi;
-                            phi_vec.put(state_phi);
-                            if (tsv != null && esv != null) existing_phis.put((tsv, esv, state_phi));
-                        }
+                        if (idx == -1) state_phis.put((left_sv, right_sv, sc));
+                        else state_phis[idx] = (left_sv, right_sv, state_phis[idx].2 | sc);
                     }
                 }
 
-                start_if.pathDeps = deps;
+                for (i < state_phis.length) {
+                    def left = state_phis[i].0, right = state_phis[i].1, scs = state_phis[i].2;
+                    def phi_state_deps = Array<IRNode>.new(state_vars.length);
+                    def node = mkNode(IROp.StatePhi(scs), phi_state_deps, [cond_node, left, right]);
+
+                    for (sc in scs) state_vars[sc.tag] = node;
+                }
+
                 addSSAD(rest, state_vars, deps);
-                return start_if;
             }
-            Match => return null;
-            Void => return null;
-            Injected => return null;
-            Final => return null;
+            Match => {}
+            Void => {}
+            Injected => {}
+            Final => {}
         }
     }
 
     def toMermaid() -> string {
         def buf = StringBuilder.new();
-        def wl = ArrayStack<IRNode>.new();
-        def visited = NodeSet.new();
-        wl.push(finish);
-
         buf.puts("---").ln();
         buf.puts("config:").ln();
         buf.puts("  layout: elk").ln();
         buf.puts("---").ln();
-        // buf.puts("%%{ init: { \"flowchart\": { \"defaultRenderer\": \"elk\" } } }%%");
         buf.puts("graph TD").ln();
+
+        return toMermaidExt("", buf).toString();
+    }
+
+    def toMermaidExt(tag: string, buf: StringBuilder) -> StringBuilder {
+        def wl = ArrayStack<IRNode>.new();
+        def visited = NodeSet.new();
+        wl.push(finish);
+
         while (!wl.empty()) {
             def n = wl.pop();
             if (n == null || visited.has(n)) continue;
             visited.put(n);
-            buf.tab().putd(n.id);
+            buf.tab().puts(tag).putd(n.id);
             buf.puts("[\"").ln();
-            if (n.data != null && n.data.sourceName != null) buf.tab().puts(n.data.sourceName).ln();
+            if (n.var_data != null && n.var_data.sourceName != null) buf.tab().puts(n.var_data.sourceName).ln();
             match (n.op) {
                 Start => buf.tab().puts("Start").ln();
-                Finish(_) => buf.tab().puts("Finish").ln();
-                Intrinsic(defn, _) => buf.tab().puts(defn.name).ln();
+                Finish => buf.tab().puts("Finish").ln();
+                Intrinsic(defn) => buf.tab().puts(defn.name).ln();
                 Lit(_, rep) => buf.tab().puts(rep).ln();
-                If(c, _) => buf.tab().puts("if").ln();
-                Else(c, region_ends) => buf.tab().puts("else").ln();
-                End(c, region_ends, _) => buf.tab().puts("end").ln();
-                Phi(c, end, l, r) => buf.tab().puts("phi").ln();
-                StatePhi(c, end, l, r, scs) => {
+                Phi => buf.tab().puts("phi").ln();
+                StatePhi(scs) => {
                     buf.tab().puts("state phi ");
                     for (sc in scs) {
                         buf.puts(sc.name).puts(" ");
                     }
                 }
-                _ => {}
             }
             buf.tab().puts("\"]").ln();
-            for (arg in n.args()) if (arg != null) {
-                buf.tab().putd(arg.id).puts(" --> ").putd(n.id).ln();
-                wl.push(arg);
+
+            for (arg in n.value_deps) {
+                buf.tab().puts(tag).putd(arg.id).puts(" --> ").puts(tag).putd(n.id).ln();
+            }
+            def state_set = Vector<(IRNode, StateComponent.set)>.new();
+            for (sc in StateComponent.set.all) if (n.state_deps[sc.tag] != null) {
+                def dep = n.state_deps[sc.tag];
+                var idx = -1;
+                for (i < state_set.length) {
+                    if (state_set[i].0.id == dep.id) {
+                        idx = i;
+                        break;
+                    }
+                }
+                if (idx == -1) state_set.put((dep, sc));
+                else state_set[idx] = (dep, state_set[idx].1 | sc);
+            }
+            for (i < state_set.length) {
+                def dep = state_set[i].0, scs = state_set[i].1;
+                buf.tab().puts(tag).putd(dep.id).puts(" -. ");
+                for (sc in scs) {
+                    buf.puts(sc.name).puts(" ");
+                }
+                buf.puts(".-> ").puts(tag).putd(n.id).ln();
+            }
+
+            for (dep in n.deps()) {
+                wl.push(dep);
             }
         }
 
-        return buf.toString();
+        return buf;
     }
 
     def apply(f: (IRNode, Sea) -> Range<IRNode>) {
@@ -903,41 +330,166 @@ class Sea {
             }
         }
     }
+
+    def subgraph(node: IRNode) -> Sea {
+        def sub_sea = Sea.new();
+        sub_sea.finish = node;
+        return sub_sea;
+    }
+
+    def schedule() -> SSAD {
+        var remaining = ImmNodeSets.empty().with(finish);
+        var available = ImmNodeSets.empty().with(start);
+        var path: SSAD = SSAD.Void;
+        def startPoint = SearchNode(remaining, path, available, 0);
+        def res = scheduleNodes(startPoint);
+        return res.point.path;
+    }
+
+    def scheduleNodes(point: SearchNode) -> SearchRes {
+        var remaining = point.remaining;
+        var path = point.path;
+        var available = point.available;
+        var depth = point.depth;
+
+        // point.dbg();
+
+        if (remaining.ls == null) return SearchRes(true, point);
+
+        def node = remaining.ls.head;
+        if (available.has(node)) return SearchRes(true, point);
+        if (depth > 10) return SearchRes(false, point);
+
+
+        var deps: Array<IRNode>;
+        match (node.op) {
+            StatePhi(scs) => deps = [node.value_deps[0]];
+            Phi => deps = [node.value_deps[0]];
+            _ => deps = node.deps();
+        }
+
+        var curPoint = point;
+        for (dep in deps) {
+            def depPoint = SearchNode(ImmNodeSets.single(dep), curPoint.path, curPoint.available, curPoint.depth);
+            def depRes = scheduleNodes(depPoint);
+            if (!depRes.success) return depRes;
+
+            curPoint = depRes.point;
+        }
+        remaining = curPoint.remaining;
+        path = curPoint.path;
+        available = curPoint.available;
+
+        var newPath = path;
+
+        var phis: List<IRNode> = null;
+        var state_phis: List<IRNode> = null;
+        if (node.var_data != null) for (i < node.children.length) {
+            def child = node.children[i];
+            if (IROp.Phi.?(child.op) && child.value_deps[0].id == node.id) phis = List.new(child, phis);
+            if (IROp.StatePhi.?(child.op) && child.value_deps[0].id == node.id) state_phis = List.new(child, state_phis);
+        }
+
+        match (node.op) {
+            Intrinsic(defn) => {
+                def args = Arrays.map(node.value_deps, fun (n: IRNode) => n.var_data.sourceName);
+                newPath = newPath.appended(SSAD.LetApp(node.var_data.sourceName, defn.name, args, SSAD.Void));
+            }
+            Lit(tipe, rep) => {
+                newPath = newPath.appended(SSAD.LetLit(node.var_data.sourceName, rep, tipe.long_str(), SSAD.Void));
+            }
+            _ => {}
+        }
+        var availableAfter = available.with(node);
+
+        if (phis == null && state_phis == null) {
+            def nextPoint = SearchNode(ImmNodeSets.empty(), newPath, availableAfter, depth);
+            return SearchRes(true, nextPoint);
+        } else {
+            var needed_left = ImmNodeSets.empty();
+            var needed_right = ImmNodeSets.empty();
+            for (cur = phis; cur != null; cur = cur.tail) {
+                def left = cur.head.value_deps[2];
+                def right = cur.head.value_deps[1];
+                if (!available.has(left)) needed_left = needed_left.with(left);
+                if (!available.has(right)) needed_right = needed_right.with(right);
+                availableAfter = availableAfter.with(cur.head);
+            }
+            for (cur = state_phis; cur != null; cur = cur.tail) {
+                needed_left = needed_left.with(cur.head.value_deps[1]);
+                needed_right = needed_right.with(cur.head.value_deps[2]);
+                availableAfter = availableAfter.with(cur.head);
+            }
+
+            var leftPoint = SearchNode(ImmNodeSets.empty(), SSAD.Void, availableAfter, depth + 1);
+            for (l = needed_left.ls; l != null; l = l.tail) {
+                def phi_point = SearchNode(ImmNodeSets.single(l.head), SSAD.Void, leftPoint.available, depth + 1);
+                def phi_search = scheduleNodes(phi_point);
+                if (!phi_search.success) return phi_search;
+                leftPoint = phi_search.point;
+            }
+            var rightPoint = SearchNode(ImmNodeSets.empty(), SSAD.Void, availableAfter, depth + 1);
+            for (r = needed_right.ls; r != null; r = r.tail) {
+                def phi_point = SearchNode(ImmNodeSets.single(r.head), SSAD.Void, rightPoint.available, depth + 1);
+                def phi_search = scheduleNodes(phi_point);
+                if (!phi_search.success) return phi_search;
+                rightPoint = phi_search.point;
+            }
+
+            def phi_vec = Vector<(string, string)>.new();
+            for (cur = phis; cur != null; cur = cur.tail) {
+                def phi = cur.head;
+                def left = phi.value_deps[1];
+                def right = phi.value_deps[2];
+                if (left != null) phi_vec.put((phi.var_data.sourceName, left.var_data.sourceName));
+                if (right != null) phi_vec.put((phi.var_data.sourceName, right.var_data.sourceName));
+                newPath = newPath.appended(SSAD.Injected(Strings.format2("var %s: %s;", phi.var_data.sourceName, phi.var_data.tipe.long_str()), SSAD.Void));
+            }
+
+            newPath = newPath.appended(SSAD.If(node.var_data.sourceName, leftPoint.path, rightPoint.path, phi_vec.copy(), SSAD.Void));
+
+            def nextPoint = SearchNode(ImmNodeSets.empty(), newPath, availableAfter, depth);
+            return SearchRes(true, nextPoint);
+        }
+    }
 }
 
 component Seas {
     def ofSSAD(node: SSAD) -> Sea {
         def sea = Sea.new();
 
-        def state_vars = IROp.Finish.!(sea.finish.op).state_vars;
+        def state_vars = sea.finish.state_deps;
         sea.addSSAD(node, state_vars, List.new(sea.start, null));
         return sea;
     }
 }
 
+def dedup(arr: Array<IRNode>) -> Array<IRNode> {
+    def res = Vector<IRNode>.new();
+    for (n in arr) {
+        if (n == null) continue;
+        var dup = false;
+        for (i < res.length) dup |= res[i].id == n.id;
+        if (!dup) res.put(n);
+    }
+    return res.copy();
+}
+
 class IRNode {
     var op: IROp;
     var id: int;
-    var data: NodeData;
-    var pathDeps: List<IRNode>;
+    var var_data: VarData;
+
+    var value_deps: Array<IRNode>;
+    var state_deps: Array<IRNode>; // idx = statecomp.tag
     var children: Vector<IRNode>;
 
     new(op, id) {
         children = Vector.new();
     }
 
-    def become(other: IRNode) {
-        op = other.op;
-        // id = other.id;
-        data = other.data;
-        children = other.children;
-        pathDeps = other.pathDeps;
-    }
-
-    def args() -> Array<IRNode> {
-        def res = op.immediatePredecessors();
-        if (pathDeps != null) return Arrays.append(pathDeps.head, res);
-        else return res;
+    def deps() -> Array<IRNode> {
+        return dedup(Arrays.concat(value_deps, state_deps));
     }
 
     def hash() -> int => id;
@@ -945,259 +497,38 @@ class IRNode {
 
     def render(sb: StringBuilder) -> StringBuilder {
         match (op) {
-            Intrinsic(defn, args) => {
+            Intrinsic(defn) => {
                 sb.puts(defn.name);
-                if (data != null && data.sourceName != null) {
-                    sb.sp().putc('[').puts(data.sourceName).putc(']');
+                if (var_data != null && var_data.sourceName != null) {
+                    sb.sp().putc('[').puts(var_data.sourceName).putc(']');
                 }
             }
             Lit(tipe, rep) => sb.puts(rep);
-            If => sb.puts("if");
-            Else => sb.puts("else");
-            End => sb.puts("end");
             Start => sb.puts("Start");
             Finish => sb.puts("Finish");
             Phi => sb.puts("Phi");
             StatePhi => sb.puts("StatePhi");
-            MatchPhi => sb.puts("MatchPhi");
+            // MatchPhi => sb.puts("MatchPhi");
         }
 
         return sb;
     }
-
-    def removeViews(sea: Sea) -> Range<IRNode> {
-        match (op) {
-            Intrinsic(defn, args) => {
-                if (Strings.endsWith(defn.name, ".view")) become(args[0]);
-            }
-            _ => {}
-        }
-        return args();
-    }
-
-    def overloadOps(sea: Sea) -> Range<IRNode> {
-        match (op) {
-            Intrinsic(defn, args) => {
-                def op_spl = IntrinsicTypes.split_op(defn.name);
-                def op_fn = op_spl.1;
-                def is_rt = data.stage != Stage.VALIDATE;
-                if (op_fn != null && is_rt) {
-                    var tp = data.tipe;
-                    if (tp.is_bot() && args.length > 0) tp = args[0].data.tipe;
-                    def prefix = tp.rt_str();
-                    def new_f = Strings.format2("%s_%s", prefix, op_fn);
-                    def intrinsic_def = intrinsic(new_f);
-                    op = IROp.Intrinsic(intrinsic_def, args);
-                }
-            }
-            _ => {}
-        }
-        return args();
-    }
-
-    def addAbstractions(sea: Sea) -> Range<IRNode> {
-        match (op) {
-            Intrinsic(defn, args) => {
-                if (defn.args == null) return this.args(); // unknown intrinsic
-                def new_args = Array<IRNode>.new(args.length);
-                def unchanged_args = Vector<IRNode>.new();
-                for (i < args.length) {
-                    if (i >= defn.args.length) {
-                        new_args[i] = args[i];
-                        unchanged_args.put(args[i]);
-                        continue;
-                    }
-                    def is_rt = args[i].data.stage != Stage.VALIDATE;
-                    def should_be_runtime = !defn.args[i].isStatic();
-                    if (!is_rt && should_be_runtime) {
-                        def tp = if(defn.args[i].primitive.is_bot(), args[i].data.tipe, defn.args[i].primitive);
-                        def abstract_fn = Strings.format1("rtcast_%s", tp.long_str());
-
-                        def it = IntrinsicType.new(tp, data.stage);
-                        def ot = IntrinsicType.new(tp, Stage.INTERPRET);
-                        def abstraction_op = IROp.Intrinsic(IntrinsicTypedef.new(abstract_fn, [it], ot, CBDEffect.None), [args[i]]);
-
-                        def abstraction_node = sea.mkNode(abstraction_op);
-                        abstraction_node.data = NodeData.new(tp, CBDEffect.None, Stage.INTERPRET);
-                        abstraction_node.data.sourceName = uidl("abs");
-
-                        new_args[i] = abstraction_node;
-                    } else {
-                        new_args[i] = args[i];
-                        unchanged_args.put(args[i]);
-                    }
-                }
-                op = IROp.Intrinsic(defn, new_args);
-                return Arrays.append(pathDeps.head, unchanged_args.copy());
-            }
-            _ => {
-                return args();
-            }
-        }
-    }
-
-    def unLEM(sea: Sea) -> Range<IRNode> {
-        match (op) {
-            If(cond, regions) => {
-                if (cond.data.stage == Stage.VALIDATE) return [];
-
-                def it = IntrinsicType.new(cond.data.tipe, cond.data.stage);
-                def maybeTrue = intrinsic("maybeTrue");
-                def maybeFalse = intrinsic("maybeFalse");
-                def and = intrinsic("bool.&&");
-
-                def maybeTrueOp = IROp.Intrinsic(maybeTrue, [cond]);
-                def maybeFalseOp = IROp.Intrinsic(maybeFalse, [cond]);
-
-                def maybeTrueNode = sea.mkNode(maybeTrueOp);
-                maybeTrueNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-                maybeTrueNode.data.sourceName = uidl("ift");
-
-                def maybeFalseNode = sea.mkNode(maybeFalseOp);
-                maybeFalseNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-                maybeFalseNode.data.sourceName = uidl("iff");
-
-                def andOp = IROp.Intrinsic(and, [maybeTrueNode, maybeFalseNode]);
-                def andNode = sea.mkNode(andOp);
-                andNode.data = NodeData.new(it.primitive, CBDEffect.None, Stage.INTERPRET);
-                andNode.data.sourceName = uidl("and");
-
-                def oldElseNode = regions.els, oldEndNode = regions.end;
-                def oldElseOp = IROp.Else.!(oldElseNode.op), oldEndOp = IROp.End.!(oldEndNode.op);
-                def oldPhis = oldEndOp.phis;
-
-                def newRegions = IfRegions.new();
-                def newIf = sea.mkNode(IROp.If(andNode, newRegions));
-                newIf.pathDeps = pathDeps;
-                newIf.children = children;
-
-                // def newThen = ...
-
-                def thenRegionEnds = Vector<IRNode>.new();
-                // def thenRegionEnds = oldElseOp.region_ends;
-                // for (i < thenRegionEnds.length) {
-                //     thenRegionEnds[i] = sea.mkNode(thenRegionEnds[i].op);
-                //     thenRegionEnds[i].pathDeps = List.new(newIf, pathDeps);
-                // }
-                def newElse = newRegions.els = sea.mkNode(IROp.Else(andNode, thenRegionEnds));
-
-                def rightRegions = IfRegions.new();
-                rightRegions.els = oldElseNode;
-                rightRegions.els.op = IROp.Else(maybeTrueNode, oldElseOp.region_ends);
-                rightRegions.end = oldEndNode;
-                rightRegions.end.op = IROp.End(maybeTrueNode, oldEndOp.region_ends, oldEndOp.phis);
-                // def newRight = sea.mkNode(IROp.If(maybeTrueNode, rightRegions));
-                def newRight = this;
-                newRight.op = IROp.If(maybeTrueNode, rightRegions);
-                newRight.pathDeps = List.new(newElse, pathDeps);
-
-                def newPhis = Vector<IRNode>.new();
-                def elseRegionEnds = Vectors.of1<IRNode>(rightRegions.end);
-                rightRegions.end = oldEndNode;
-                oldEndNode.op = IROp.End(andNode, oldPhis, oldEndOp.region_ends);
-                // rightRegions.end = sea.mkNode(IROp.End(andNode, oldPhis, elseRegionEnds));
-                def newEnd = newRegions.end = sea.mkNode(IROp.End(andNode, newPhis, Vectors.of1(rightRegions.end)));
-
-                def effPool = NodeSet.new();
-                for (i < oldPhis.length) {
-                    def innerPhi = oldPhis[i];
-                    match (innerPhi.op) {
-                        Phi => {}
-                        StatePhi(_, _, left, right, statecomps) => {
-                            var newLeft = left;
-                            if (left != null && !effPool.has(left) && !IROp.Start.?(left.op)) {
-                                effPool.put(left);
-                                newLeft = sea.mkNode(left.op);
-                                newLeft.pathDeps = List.new(newIf, null);
-                                thenRegionEnds.put(newLeft);
-                            }
-
-                            var newRight = right;
-                            if (right != null && !effPool.has(right) && !IROp.Start.?(left.op)) {
-                                effPool.put(right);
-                                newRight = sea.mkNode(right.op);
-                                newRight.pathDeps = List.new(newElse, null);
-                                elseRegionEnds.put(newRight);
-                            }
-
-                            innerPhi.op = IROp.StatePhi(maybeTrueNode, rightRegions.end, newLeft, newRight, statecomps);
-                            def newPhi = sea.mkNode(IROp.StatePhi(andNode, newEnd, newRight, innerPhi, statecomps));
-                            newPhis.put(newPhi);
-                        }
-                        _ => {}
-                    }
-                }
-
-                return [];
-            }
-            _ => {
-                return args();
-                // return [];
-            }
-        }
-    }
 }
 
-class NodeData {
+class VarData {
     var tipe: TypeVar;
-    var eff: CBDEffect;
     var stage: Stage;
     var sourceName: string; // var name in source def, preserved for generating nice code
 
-    new(tipe, eff, stage) {}
-}
-
-class IfRegions {
-    var els: IRNode;
-    var end: IRNode;
-}
-
-def dedup(arr: Array<IRNode>) -> Array<IRNode> {
-    def res_vec = Vector<IRNode>.new();
-    for (v in arr) {
-        var dup = false;
-        for (i < res_vec.length) dup |= res_vec[i].id == v.id;
-        if (!dup) res_vec.put(v);
-    }
-    return res_vec.copy();
+    new(sourceName, tipe, stage) {}
 }
 
 type IROp {
     case Start;
-    case Finish(state_vars: Array<IRNode>);
-    case Intrinsic(defn: IntrinsicTypedef, args: Array<IRNode>);
+    case Finish;
+    case Intrinsic(defn: IntrinsicTypedef);
     case Lit(tipe: TypeVar, rep: string);
-    case If(cond: IRNode, regions: IfRegions);
-    case Else(cond: IRNode, region_ends: Vector<IRNode>);
-    case End(cond: IRNode, region_ends: Vector<IRNode>, phis: Vector<IRNode>);
-    case Phi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode);
-    case MatchPhi(subj: IRNode, end: IRNode, cases: Array<IRNode>);
-    case StatePhi(cond: IRNode, end: IRNode, left: IRNode, right: IRNode, statecomps: StateComponent.set);
-
-    def immediatePredecessors() -> Array<IRNode> {
-        match (this) {
-            Start => return [];
-            Finish(state_vars) => return dedup(state_vars);
-            Intrinsic(defn, args) => return args;
-            Lit(tipe, rep) => return [];
-            If(c, regions) => return [c];
-            Else(c, region_ends) => return dedup(Arrays.prepend(c, region_ends.copy()));
-            End(c, region_ends, phis) => return dedup(Arrays.prepend(c, region_ends.copy()));
-            Phi(cond, end, left, right) => {
-                def buf = Vector<IRNode>.new();
-                for (dep in [cond, end, left, right]) if (dep != null) buf.put(dep);
-                return buf.copy();
-            }
-            MatchPhi(subj, end, cases) => {
-                def buf = Vector<IRNode>.new();
-                for (dep in Arrays.concat([subj, end], cases)) if (dep != null) buf.put(dep);
-                return buf.copy();
-            }
-            StatePhi(cond, end, left, right, sc) => {
-                def buf = Vector<IRNode>.new();
-                for (dep in [cond, end, left, right]) if (dep != null) buf.put(dep);
-                return buf.copy();
-            }
-        }
-    }
+    case Phi;
+    case StatePhi(statecomps: StateComponent.set);
+    // case MatchPhi(subj: IRNode, end: IRNode, cases: Array<IRNode>);
 }
