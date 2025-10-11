@@ -65,14 +65,13 @@ def CALL() {
 def CALL_INDIRECT() {
 	def sig_index = imm_readULEB32();
 	def table_index = imm_readULEB32();
+	def sig = m_getSignature(sig_index);
 	def is64 = m_isTable64(table_index);
 	if (is64) {
-		def sig = m_getSignature(sig_index);
 		def func_index = pop_u64();
 		def target = i_getTableFunction64(table_index, sig, func_index);
 		doCall(sig, target);
 	} else {
-		def sig = m_getSignature(sig_index);
 		def func_index = pop_u32();
 		def target = i_getTableFunction32(table_index, sig, func_index);
 		doCall(sig, target);
@@ -90,15 +89,12 @@ def DROP() {
 }
 def SELECT() {
 	def c = pop_u32();
+	def tv = f_getTopOfStackType();
+	def b = pop_Value(tv);
+	def a = pop_Value(tv);
 	if (u32.!=(c, 0)) {
-		def tv = f_getTopOfStackType();
-		def b = pop_Value(tv);
-		def a = pop_Value(tv);
 		push_Value(tv, a);
 	} else {
-		def tv = f_getTopOfStackType();
-		def b = pop_Value(tv);
-		def a = pop_Value(tv);
 		push_Value(tv, b);
 	}
 }
@@ -124,11 +120,12 @@ def I32_MUL() {
 def I32_DIV_S() {
 	def b = pop_u32();
 	def a = pop_u32();
+	if (u32.==(b, 0)) {
+		trapDivideByZero();
+	}
+	trapDivideByZero();
 	def cond = bool.&&(u32.==(b, u32.view(-1)), u32.==(a, u32.view(-2_147_483_648)));
 	if (cond) {
-		if (u32.==(b, 0)) {
-			trapDivideByZero();
-		}
 		trapDivideUnrepresentable();
 	}
 	push_u32(U32_div_s(a, b));
@@ -348,11 +345,12 @@ def I64_MUL() {
 def I64_DIV_S() {
 	def b = pop_u64();
 	def a = pop_u64();
+	if (u64.==(b, 0)) {
+		trapDivideByZero();
+	}
+	trapDivideByZero();
 	def cond = bool.&&(u64.==(b, u64.view(-1)), u64.==(a, u64.view(-9223372036854775808L)));
 	if (cond) {
-		if (u64.==(b, 0)) {
-			trapDivideByZero();
-		}
 		trapDivideUnrepresentable();
 	}
 	push_u64(U64_div_s(a, b));
@@ -642,12 +640,11 @@ def BR() {
 }
 def BR_IF() {
 	def cond = pop_u32();
+	def depth = imm_readULEB32();
 	if (u32.!=(cond, 0)) {
-		def depth = imm_readULEB32();
 		def label = f_getLabel(depth);
 		doBranch(label);
 	} else {
-		def depth = imm_readULEB32();
 		doFallthru();
 	}
 }
@@ -670,13 +667,11 @@ def TRY() {
 }
 def IF() {
 	def cond = pop_u32();
+	def bt = imm_readBlockType();
+	def label = doIf(bt);
 	if (u32.==(cond, 0)) {
-		def bt = imm_readBlockType();
-		def label = doIf(bt);
 		doBranch(label);
 	} else {
-		def bt = imm_readBlockType();
-		def label = doIf(bt);
 		doFallthru();
 	}
 }
@@ -724,27 +719,27 @@ def STRUCT_NEW() {
 }
 def STRUCT_GET() {
 	def obj = pop_Object();
+	def struct_index = imm_readULEB32();
 	def cond = object_isNull(obj);
 	if (cond) {
-		def struct_index = imm_readULEB32();
 		def field_index = imm_readULEB32();
 		trapNull();
 	}
 }
 def STRUCT_GET_S() {
 	def obj = pop_Object();
+	def struct_index = imm_readULEB32();
 	def cond = object_isNull(obj);
 	if (cond) {
-		def struct_index = imm_readULEB32();
 		def field_index = imm_readULEB32();
 		trapNull();
 	}
 }
 def STRUCT_GET_U() {
 	def obj = pop_Object();
+	def struct_index = imm_readULEB32();
 	def cond = object_isNull(obj);
 	if (cond) {
-		def struct_index = imm_readULEB32();
 		def field_index = imm_readULEB32();
 		trapNull();
 	}
@@ -755,6 +750,8 @@ def I32_LOAD() {
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
+	var memindex = 0u;
+	memindex = imm_readULEB32();
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		def index = pop_u64();
@@ -772,6 +769,8 @@ def I32_LOAD8_U() {
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
+	var memindex = 0u;
+	memindex = imm_readULEB32();
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		def index = pop_u64();
@@ -789,6 +788,8 @@ def I32_LOAD16_S() {
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
+	var memindex = 0u;
+	memindex = imm_readULEB32();
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		def index = pop_u64();
@@ -806,6 +807,8 @@ def I64_LOAD() {
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
+	var memindex = 0u;
+	memindex = imm_readULEB32();
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		def index = pop_u64();
@@ -823,6 +826,8 @@ def F32_LOAD() {
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
+	var memindex = 0u;
+	memindex = imm_readULEB32();
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		def index = pop_u64();
@@ -840,6 +845,8 @@ def F64_LOAD() {
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
+	var memindex = 0u;
+	memindex = imm_readULEB32();
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		def index = pop_u64();
@@ -857,6 +864,9 @@ def I32_STORE() {
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
+	var memindex = 0u;
+	memindex = imm_readULEB32();
+	def val = pop_u32();
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		mach_writeMemory64_u32(memindex, index, offset, val);
@@ -870,6 +880,9 @@ def I32_STORE8() {
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
+	var memindex = 0u;
+	memindex = imm_readULEB32();
+	def val = pop_u32();
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		mach_writeMemory64_u8(memindex, index, offset, val);
@@ -883,6 +896,9 @@ def I32_STORE16() {
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
+	var memindex = 0u;
+	memindex = imm_readULEB32();
+	def val = pop_u32();
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		mach_writeMemory64_u16(memindex, index, offset, val);
@@ -896,6 +912,9 @@ def I64_STORE() {
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
+	var memindex = 0u;
+	memindex = imm_readULEB32();
+	def val = pop_u64();
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		mach_writeMemory64_u64(memindex, index, offset, val);
@@ -909,12 +928,12 @@ def F32_STORE() {
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
+	def val = pop_f32();
+	memindex = imm_readULEB32();
 	def cond = m_isMemory64(memindex);
 	if (cond) {
-		def val = pop_f32();
 		def index = pop_u64();
 	} else {
-		def val = pop_f32();
 		def index = pop_u32();
 	}
 }
@@ -924,6 +943,9 @@ def F64_STORE() {
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 		memindex = imm_readULEB32();
 	}
+	var memindex = 0u;
+	memindex = imm_readULEB32();
+	def val = pop_f64();
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		mach_writeMemory64_f64(memindex, index, offset, val);

@@ -84,14 +84,15 @@ def intrinsic(name: string) -> IntrinsicTypedef {
         return IntrinsicTypedef.new(name, null, null, CBDEffect.None);
 }
 
-type SearchNode(remaining: ImmNodeSet, path: SSAD, available: ImmNodeSet, depth: int) {
+type SearchNode(node: IRNode, path: SSAD, available: ImmNodeSet, depth: int) {
     def dbg() {
-        if (true) return;
+        // if (true) return;
 
-        System.puts("remaining: ");
-        for (cur = remaining.ls; cur != null; cur = cur.tail) {
-            System.puts(Strings.format1("%q ", cur.head.render));
-        }
+        System.puts(Strings.format1("Node: %q", node.render));
+        // System.puts("remaining: ");
+        // for (cur = remaining.ls; cur != null; cur = cur.tail) {
+        //     System.puts(Strings.format1("%q ", cur.head.render));
+        // }
         System.ln();
         System.puts("available: ");
         for (cur = available.ls; cur != null; cur = cur.tail) {
@@ -193,6 +194,7 @@ class Sea {
 
                 def cond_node = var_nodes[cond];
 
+                // TODO: redo this, have to extract previous var_node
                 // var phis
                 for (p in phis) {
                     def left = var_nodes[p.0], right = var_nodes[p.1];
@@ -338,50 +340,31 @@ class Sea {
     }
 
     def schedule() -> SSAD {
-        var remaining = ImmNodeSets.empty().with(finish);
-        var available = ImmNodeSets.empty().with(start);
+        var available = ImmNodeSets.single(start);
         var path: SSAD = SSAD.Void;
-        def startPoint = SearchNode(remaining, path, available, 0);
-        // def res = scheduleNodes(startPoint);
-        def res = scheduleNodesBFS(startPoint);
+        def startPoint = SearchNode(finish, path, available, 0);
+        def res = scheduleNodes(startPoint);
         return res.point.path;
     }
 
+    // def schedule() -> SSAD {
+    //     var available = ImmNodeSets.empty();
+    //     var path: SSAD = SSAD.Void;
+    //     def startPoint = SearchNode(start, path, available, 0);
+    //     def res = scheduleNodesTD(startPoint);
+    //     return res.point.path;
+    // }
+
     def scheduleNodes(point: SearchNode) -> SearchRes {
-        var remaining = point.remaining;
+        def node = point.node;
         var path = point.path;
         var available = point.available;
         var depth = point.depth;
 
         // point.dbg();
 
-        if (remaining.ls == null) return SearchRes(true, point);
-
-        def node = remaining.ls.head;
         if (available.has(node)) return SearchRes(true, point);
         if (depth > 10) return SearchRes(false, point);
-
-
-        var deps: Array<IRNode>;
-        match (node.op) {
-            StatePhi(scs) => deps = [node.value_deps[0]];
-            Phi => deps = [node.value_deps[0]];
-            _ => deps = node.deps();
-        }
-
-        var curPoint = point;
-        for (dep in deps) {
-            def depPoint = SearchNode(ImmNodeSets.single(dep), curPoint.path, curPoint.available, curPoint.depth);
-            def depRes = scheduleNodes(depPoint);
-            if (!depRes.success) return depRes;
-
-            curPoint = depRes.point;
-        }
-        remaining = curPoint.remaining;
-        path = curPoint.path;
-        available = curPoint.available;
-
-        var newPath = path;
 
         var phis: List<IRNode> = null;
         var state_phis: List<IRNode> = null;
@@ -390,6 +373,44 @@ class Sea {
             if (IROp.Phi.?(child.op) && child.value_deps[0].id == node.id) phis = List.new(child, phis);
             if (IROp.StatePhi.?(child.op) && child.value_deps[0].id == node.id) state_phis = List.new(child, state_phis);
         }
+
+        var deps: Array<IRNode>;
+        match (node.op) {
+            StatePhi(scs) => deps = [node.value_deps[0]];
+            Phi => deps = [node.value_deps[0]];
+            _ => {
+                if (phis == null && state_phis == null) {
+                    deps = node.deps();
+                } else {
+                    def res = Vector<IRNode>.new();
+                    res.puta(node.deps());
+                    for (phi = phis; phi != null; phi = phi.tail) {
+                        def left = phi.head.value_deps[1], right = phi.head.value_deps[2];
+                        def leftDeps = left.transitiveDeps(), rightDeps = right.transitiveDeps();
+                        for (l in leftDeps) for (r in rightDeps) if (l.id == r.id) res.put(l);
+                    }
+                    for (phi = state_phis; phi != null; phi = phi.tail) {
+                        def left = phi.head.value_deps[1], right = phi.head.value_deps[2];
+                        def leftDeps = left.transitiveDeps(), rightDeps = right.transitiveDeps();
+                        for (l in leftDeps) for (r in rightDeps) if (l.id == r.id) res.put(l);
+                    }
+                    deps = dedup(res.copy());
+                }
+            }
+        }
+
+        var curPoint = point;
+        for (dep in deps) {
+            def depPoint = SearchNode(dep, curPoint.path, curPoint.available, curPoint.depth);
+            def depRes = scheduleNodes(depPoint);
+            if (!depRes.success) return depRes;
+
+            curPoint = depRes.point;
+        }
+        path = curPoint.path;
+        available = curPoint.available;
+
+        var newPath = path;
 
         match (node.op) {
             Intrinsic(defn) => {
@@ -404,7 +425,7 @@ class Sea {
         var availableAfter = available.with(node);
 
         if (phis == null && state_phis == null) {
-            def nextPoint = SearchNode(ImmNodeSets.empty(), newPath, availableAfter, depth);
+            def nextPoint = SearchNode(node, newPath, availableAfter, depth);
             return SearchRes(true, nextPoint);
         } else {
             var needed_left = ImmNodeSets.empty();
@@ -422,16 +443,16 @@ class Sea {
                 availableAfter = availableAfter.with(cur.head);
             }
 
-            var leftPoint = SearchNode(ImmNodeSets.empty(), SSAD.Void, availableAfter, depth + 1);
+            var leftPoint = SearchNode(node, SSAD.Void, availableAfter, depth + 1);
             for (l = needed_left.ls; l != null; l = l.tail) {
-                def phi_point = SearchNode(ImmNodeSets.single(l.head), SSAD.Void, leftPoint.available, depth + 1);
+                def phi_point = SearchNode(l.head, SSAD.Void, leftPoint.available, depth + 1);
                 def phi_search = scheduleNodes(phi_point);
                 if (!phi_search.success) return phi_search;
                 leftPoint = phi_search.point;
             }
-            var rightPoint = SearchNode(ImmNodeSets.empty(), SSAD.Void, availableAfter, depth + 1);
+            var rightPoint = SearchNode(node, SSAD.Void, availableAfter, depth + 1);
             for (r = needed_right.ls; r != null; r = r.tail) {
-                def phi_point = SearchNode(ImmNodeSets.single(r.head), SSAD.Void, rightPoint.available, depth + 1);
+                def phi_point = SearchNode(r.head, SSAD.Void, rightPoint.available, depth + 1);
                 def phi_search = scheduleNodes(phi_point);
                 if (!phi_search.success) return phi_search;
                 rightPoint = phi_search.point;
@@ -449,123 +470,114 @@ class Sea {
 
             newPath = newPath.appended(SSAD.If(node.var_data.sourceName, leftPoint.path, rightPoint.path, phi_vec.copy(), SSAD.Void));
 
-            def nextPoint = SearchNode(ImmNodeSets.empty(), newPath, availableAfter, depth);
+            def nextPoint = SearchNode(node, newPath, availableAfter, depth);
             return SearchRes(true, nextPoint);
         }
     }
 
-    def scheduleNodesBFS(point: SearchNode) -> SearchRes {
-        def wl = Vector<SearchNode>.new();
-        wl.put(point);
+    // def scheduleNodesTD(point: SearchNode) -> SearchRes {
+    //     def node = point.node;
+    //     var path = point.path;
+    //     var available = point.available;
+    //     var depth = point.depth;
 
-        var q_idx = 0;
-        while (q_idx < wl.length) {
-            def point = wl[q_idx];
-            q_idx += 1;
+    //     // point.dbg();
 
-            var remaining = point.remaining;
-            var path = point.path;
-            var available = point.available;
-            var depth = point.depth;
-            // if (remaining.ls == null) return SearchRes(true, point);
-            if (remaining.ls == null) return SearchRes(false, point);
+    //     if (available.has(node)) return SearchRes(true, point);
 
-            def node = remaining.ls.head;
-            if (available.has(node)) continue;
+    //     var deps: Array<IRNode>;
+    //     match (node.op) {
+    //         StatePhi(scs) => deps = [node.value_deps[0]];
+    //         Phi => deps = [node.value_deps[0]];
+    //         _ => deps = node.deps();
+    //     }
+    //     for (dep in deps) {
+    //         if (!available.has(dep)) return SearchRes(false, point);
+    //     }
 
-            var deps: Array<IRNode>;
-            match (node.op) {
-                StatePhi(scs) => deps = [node.value_deps[0]];
-                Phi => deps = [node.value_deps[0]];
-                _ => deps = node.deps();
-            }
+    //     var newPath = path;
+    //     var phis: List<IRNode> = null;
+    //     var state_phis: List<IRNode> = null;
+    //     if (node.var_data != null) for (i < node.children.length) {
+    //         def child = node.children[i];
+    //         if (IROp.Phi.?(child.op) && child.value_deps[0].id == node.id) phis = List.new(child, phis);
+    //         if (IROp.StatePhi.?(child.op) && child.value_deps[0].id == node.id) state_phis = List.new(child, state_phis);
+    //     }
 
-            var ready = true;
-            for (dep in deps) if (!available.has(dep)) {
-                def depPoint = SearchNode(ImmNodeSets.single(dep), path, available, depth);
-                wl.put(depPoint);
-                ready = false;
-            }
-            if (!ready) continue;
+    //     match (node.op) {
+    //         Intrinsic(defn) => {
+    //             def args = Arrays.map(node.value_deps, fun (n: IRNode) => n.var_data.sourceName);
+    //             newPath = newPath.appended(SSAD.LetApp(node.var_data.sourceName, defn.name, args, SSAD.Void));
+    //         }
+    //         Lit(tipe, rep) => {
+    //             newPath = newPath.appended(SSAD.LetLit(node.var_data.sourceName, rep, tipe.long_str(), SSAD.Void));
+    //         }
+    //         _ => {}
+    //     }
+    //     var availableAfter = available.with(node);
 
-            var phis: List<IRNode> = null;
-            var state_phis: List<IRNode> = null;
-            if (node.var_data != null) for (i < node.children.length) {
-                def child = node.children[i];
-                if (IROp.Phi.?(child.op) && child.value_deps[0].id == node.id) phis = List.new(child, phis);
-                if (IROp.StatePhi.?(child.op) && child.value_deps[0].id == node.id) state_phis = List.new(child, state_phis);
-            }
+    //     if (phis == null && state_phis == null) {
+    //         def nextPoint = SearchNode(node, newPath, availableAfter, depth);
+    //         // return SearchRes(true, nextPoint);
+    //     } else {
+    //         var needed_left = ImmNodeSets.empty();
+    //         var needed_right = ImmNodeSets.empty();
+    //         for (cur = phis; cur != null; cur = cur.tail) {
+    //             def left = cur.head.value_deps[2];
+    //             def right = cur.head.value_deps[1];
+    //             if (!available.has(left)) needed_left = needed_left.with(left);
+    //             if (!available.has(right)) needed_right = needed_right.with(right);
+    //             availableAfter = availableAfter.with(cur.head);
+    //         }
+    //         for (cur = state_phis; cur != null; cur = cur.tail) {
+    //             needed_left = needed_left.with(cur.head.value_deps[1]);
+    //             needed_right = needed_right.with(cur.head.value_deps[2]);
+    //             availableAfter = availableAfter.with(cur.head);
+    //         }
 
-            var newPath = path;
-            match (node.op) {
-                Intrinsic(defn) => {
-                    def args = Arrays.map(node.value_deps, fun (n: IRNode) => n.var_data.sourceName);
-                    newPath = newPath.appended(SSAD.LetApp(node.var_data.sourceName, defn.name, args, SSAD.Void));
-                }
-                Lit(tipe, rep) => {
-                    newPath = newPath.appended(SSAD.LetLit(node.var_data.sourceName, rep, tipe.long_str(), SSAD.Void));
-                }
-                _ => {}
-            }
-            var availableAfter = available.with(node);
+    //         var leftPoint = SearchNode(node, SSAD.Void, availableAfter, depth + 1);
+    //         for (l = needed_left.ls; l != null; l = l.tail) {
+    //             def phi_point = SearchNode(l.head, SSAD.Void, leftPoint.available, depth + 1);
+    //             def phi_search = scheduleNodesTD(phi_point);
+    //             if (!phi_search.success) return phi_search;
+    //             leftPoint = phi_search.point;
+    //         }
+    //         var rightPoint = SearchNode(node, SSAD.Void, availableAfter, depth + 1);
+    //         for (r = needed_right.ls; r != null; r = r.tail) {
+    //             def phi_point = SearchNode(r.head, SSAD.Void, rightPoint.available, depth + 1);
+    //             def phi_search = scheduleNodesTD(phi_point);
+    //             if (!phi_search.success) return phi_search;
+    //             rightPoint = phi_search.point;
+    //         }
 
-            if (phis == null && state_phis == null) {
-                // what do here
-                def nextPoint = SearchNode(ImmNodeSets.empty(), newPath, availableAfter, depth);
-                wl.put(nextPoint);
-            } else {
-                var needed_left = ImmNodeSets.empty();
-                var needed_right = ImmNodeSets.empty();
-                for (cur = phis; cur != null; cur = cur.tail) {
-                    def left = cur.head.value_deps[2];
-                    def right = cur.head.value_deps[1];
-                    if (!available.has(left)) needed_left = needed_left.with(left);
-                    if (!available.has(right)) needed_right = needed_right.with(right);
-                    availableAfter = availableAfter.with(cur.head);
-                }
-                for (cur = state_phis; cur != null; cur = cur.tail) {
-                    needed_left = needed_left.with(cur.head.value_deps[1]);
-                    needed_right = needed_right.with(cur.head.value_deps[2]);
-                    availableAfter = availableAfter.with(cur.head);
-                }
+    //         def phi_vec = Vector<(string, string)>.new();
+    //         for (cur = phis; cur != null; cur = cur.tail) {
+    //             def phi = cur.head;
+    //             def left = phi.value_deps[1];
+    //             def right = phi.value_deps[2];
+    //             if (left != null) phi_vec.put((phi.var_data.sourceName, left.var_data.sourceName));
+    //             if (right != null) phi_vec.put((phi.var_data.sourceName, right.var_data.sourceName));
+    //             newPath = newPath.appended(SSAD.Injected(Strings.format2("var %s: %s;", phi.var_data.sourceName, phi.var_data.tipe.long_str()), SSAD.Void));
+    //         }
 
-                var leftPoint = SearchNode(ImmNodeSets.empty(), SSAD.Void, availableAfter, depth + 1);
-                var success = true;
-                for (l = needed_left.ls; l != null; l = l.tail) {
-                    def phi_point = SearchNode(ImmNodeSets.single(l.head), SSAD.Void, leftPoint.available, depth + 1);
-                    def phi_search = scheduleNodesBFS(phi_point);
-                    success &= phi_search.success;
-                    leftPoint = phi_search.point;
-                }
-                var rightPoint = SearchNode(ImmNodeSets.empty(), SSAD.Void, availableAfter, depth + 1);
-                for (r = needed_right.ls; r != null; r = r.tail) {
-                    def phi_point = SearchNode(ImmNodeSets.single(r.head), SSAD.Void, rightPoint.available, depth + 1);
-                    def phi_search = scheduleNodesBFS(phi_point);
-                    success &= phi_search.success;
-                    rightPoint = phi_search.point;
-                }
+    //         newPath = newPath.appended(SSAD.If(node.var_data.sourceName, leftPoint.path, rightPoint.path, phi_vec.copy(), SSAD.Void));
 
-                if (!success) continue;
+    //         def nextPoint = SearchNode(node, newPath, availableAfter, depth);
+    //         // return SearchRes(true, nextPoint);
+    //     }
 
-                def phi_vec = Vector<(string, string)>.new();
-                for (cur = phis; cur != null; cur = cur.tail) {
-                    def phi = cur.head;
-                    def left = phi.value_deps[1];
-                    def right = phi.value_deps[2];
-                    if (left != null) phi_vec.put((phi.var_data.sourceName, left.var_data.sourceName));
-                    if (right != null) phi_vec.put((phi.var_data.sourceName, right.var_data.sourceName));
-                    newPath = newPath.appended(SSAD.Injected(Strings.format2("var %s: %s;", phi.var_data.sourceName, phi.var_data.tipe.long_str()), SSAD.Void));
-                }
+    //     var curPoint = SearchNode(node, newPath, availableAfter, depth + 1);
+    //     for (i < node.children.length) {
+    //         def child = node.children[i];
+    //         def childPoint = SearchNode(child, curPoint.path, curPoint.available, curPoint.depth);
+    //         def childRes = scheduleNodesTD(childPoint);
+    //         if (!childRes.success) return childRes;
 
-                newPath = newPath.appended(SSAD.If(node.var_data.sourceName, leftPoint.path, rightPoint.path, phi_vec.copy(), SSAD.Void));
+    //         curPoint = childRes.point;
+    //     }
 
-                def nextPoint = SearchNode(ImmNodeSets.empty(), newPath, availableAfter, depth);
-                wl.put(nextPoint);
-            }
-        }
-
-        return SearchRes(false, point);
-    }
+    //     return SearchRes(true, curPoint);
+    // }
 }
 
 component Seas {
@@ -604,6 +616,15 @@ class IRNode {
 
     def deps() -> Array<IRNode> {
         return dedup(Arrays.concat(value_deps, state_deps));
+    }
+
+    def transitiveDeps() -> Array<IRNode> {
+        def res = Vector<IRNode>.new();
+        for (d in deps()) {
+            res.put(d);
+            res.puta(d.transitiveDeps());
+        }
+        return dedup(res.copy());
     }
 
     def hash() -> int => id;
