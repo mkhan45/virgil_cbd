@@ -67,15 +67,14 @@ def CALL() {
 }
 def CALL_INDIRECT() {
 	def sig_index = imm_readULEB32();
+	def sig = m_getSignature(sig_index);
 	def table_index = imm_readULEB32();
 	def is64 = m_isTable64(table_index);
 	if (is64) {
-		def sig = m_getSignature(sig_index);
 		def func_index = pop_u64();
 		def target = i_getTableFunction64(table_index, sig, func_index);
 		doCall(sig, target);
 	} else {
-		def sig = m_getSignature(sig_index);
 		def func_index = pop_u32();
 		def target = i_getTableFunction32(table_index, sig, func_index);
 		doCall(sig, target);
@@ -92,16 +91,13 @@ def DROP() {
 	pop_Value(tv);
 }
 def SELECT() {
+	def tv = f_getTopOfStackType();
 	def c = pop_u32();
+	def b = pop_Value(tv);
+	def a = pop_Value(tv);
 	if (u32.!=(c, 0)) {
-		def tv = f_getTopOfStackType();
-		def b = pop_Value(tv);
-		def a = pop_Value(tv);
 		push_Value(tv, a);
 	} else {
-		def tv = f_getTopOfStackType();
-		def b = pop_Value(tv);
-		def a = pop_Value(tv);
 		push_Value(tv, b);
 	}
 }
@@ -126,17 +122,17 @@ def I32_MUL() {
 }
 def I32_DIV_S() {
 	def b = pop_u32();
+	if (u32.==(b, 0)) {
+		def a = pop_u32();
+		trapDivideByZero();
+	} else {
+		def a = pop_u32();
+	}
 	def a = pop_u32();
+	trapDivideByZero();
 	def cond = bool.&&(u32.==(b, u32.view(-1)), u32.==(a, u32.view(-2_147_483_648)));
 	if (cond) {
-		if (u32.==(b, 0)) {
-			trapDivideByZero();
-		}
 		trapDivideUnrepresentable();
-	} else {
-		if (u32.==(b, 0)) {
-			trapDivideByZero();
-		}
 	}
 	push_u32(U32_div_s(a, b));
 }
@@ -354,17 +350,17 @@ def I64_MUL() {
 }
 def I64_DIV_S() {
 	def b = pop_u64();
+	if (u64.==(b, 0)) {
+		def a = pop_u64();
+		trapDivideByZero();
+	} else {
+		def a = pop_u64();
+	}
 	def a = pop_u64();
+	trapDivideByZero();
 	def cond = bool.&&(u64.==(b, u64.view(-1)), u64.==(a, u64.view(-9223372036854775808L)));
 	if (cond) {
-		if (u64.==(b, 0)) {
-			trapDivideByZero();
-		}
 		trapDivideUnrepresentable();
-	} else {
-		if (u64.==(b, 0)) {
-			trapDivideByZero();
-		}
 	}
 	push_u64(U64_div_s(a, b));
 }
@@ -652,13 +648,12 @@ def BR() {
 	doBranch(label);
 }
 def BR_IF() {
+	def depth = imm_readULEB32();
 	def cond = pop_u32();
 	if (u32.!=(cond, 0)) {
-		def depth = imm_readULEB32();
 		def label = f_getLabel(depth);
 		doBranch(label);
 	} else {
-		def depth = imm_readULEB32();
 		doFallthru();
 	}
 }
@@ -680,14 +675,12 @@ def TRY() {
 	doTry(bt);
 }
 def IF() {
+	def bt = imm_readBlockType();
 	def cond = pop_u32();
+	def label = doIf(bt);
 	if (u32.==(cond, 0)) {
-		def bt = imm_readBlockType();
-		def label = doIf(bt);
 		doBranch(label);
 	} else {
-		def bt = imm_readBlockType();
-		def label = doIf(bt);
 		doFallthru();
 	}
 }
@@ -734,38 +727,35 @@ def STRUCT_NEW() {
 	push_Object(object_New(sig));
 }
 def STRUCT_GET() {
+	def struct_index = imm_readULEB32();
 	def obj = pop_Object();
 	def cond = object_isNull(obj);
 	if (cond) {
-		def struct_index = imm_readULEB32();
 		def field_index = imm_readULEB32();
 		trapNull();
 	} else {
-		def struct_index = imm_readULEB32();
 		def field_index = imm_readULEB32();
 	}
 }
 def STRUCT_GET_S() {
+	def struct_index = imm_readULEB32();
 	def obj = pop_Object();
 	def cond = object_isNull(obj);
 	if (cond) {
-		def struct_index = imm_readULEB32();
 		def field_index = imm_readULEB32();
 		trapNull();
 	} else {
-		def struct_index = imm_readULEB32();
 		def field_index = imm_readULEB32();
 	}
 }
 def STRUCT_GET_U() {
+	def struct_index = imm_readULEB32();
 	def obj = pop_Object();
 	def cond = object_isNull(obj);
 	if (cond) {
-		def struct_index = imm_readULEB32();
 		def field_index = imm_readULEB32();
 		trapNull();
 	} else {
-		def struct_index = imm_readULEB32();
 		def field_index = imm_readULEB32();
 	}
 }
@@ -896,6 +886,7 @@ def F64_LOAD() {
 	}
 }
 def I32_STORE() {
+	def val = pop_u32();
 	def flags = imm_readU8();
 	var memindex: u32;
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
@@ -906,17 +897,16 @@ def I32_STORE() {
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		def offset = imm_readULEB64();
-		def val = pop_u32();
 		def index = pop_u64();
 		mach_writeMemory64_u32(memindex, index, offset, val);
 	} else {
 		def offset = imm_readULEB32();
-		def val = pop_u32();
 		def index = pop_u32();
 		mach_writeMemory32_u32(memindex, index, offset, val);
 	}
 }
 def I32_STORE8() {
+	def val = pop_u32();
 	def flags = imm_readU8();
 	var memindex: u32;
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
@@ -927,17 +917,16 @@ def I32_STORE8() {
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		def offset = imm_readULEB64();
-		def val = pop_u32();
 		def index = pop_u64();
 		mach_writeMemory64_u8(memindex, index, offset, val);
 	} else {
 		def offset = imm_readULEB32();
-		def val = pop_u32();
 		def index = pop_u32();
 		mach_writeMemory32_u8(memindex, index, offset, val);
 	}
 }
 def I32_STORE16() {
+	def val = pop_u32();
 	def flags = imm_readU8();
 	var memindex: u32;
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
@@ -948,17 +937,16 @@ def I32_STORE16() {
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		def offset = imm_readULEB64();
-		def val = pop_u32();
 		def index = pop_u64();
 		mach_writeMemory64_u16(memindex, index, offset, val);
 	} else {
 		def offset = imm_readULEB32();
-		def val = pop_u32();
 		def index = pop_u32();
 		mach_writeMemory32_u16(memindex, index, offset, val);
 	}
 }
 def I64_STORE() {
+	def val = pop_u64();
 	def flags = imm_readU8();
 	var memindex: u32;
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
@@ -969,17 +957,16 @@ def I64_STORE() {
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		def offset = imm_readULEB64();
-		def val = pop_u64();
 		def index = pop_u64();
 		mach_writeMemory64_u64(memindex, index, offset, val);
 	} else {
 		def offset = imm_readULEB32();
-		def val = pop_u64();
 		def index = pop_u32();
 		mach_writeMemory32_u64(memindex, index, offset, val);
 	}
 }
 def F32_STORE() {
+	def val = pop_f32();
 	def flags = imm_readU8();
 	var memindex: u32;
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
@@ -990,15 +977,14 @@ def F32_STORE() {
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		def offset = imm_readULEB64();
-		def val = pop_f32();
 		def index = pop_u64();
 	} else {
 		def offset = imm_readULEB32();
-		def val = pop_f32();
 		def index = pop_u32();
 	}
 }
 def F64_STORE() {
+	def val = pop_f64();
 	def flags = imm_readU8();
 	var memindex: u32;
 	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
@@ -1009,12 +995,10 @@ def F64_STORE() {
 	def cond = m_isMemory64(memindex);
 	if (cond) {
 		def offset = imm_readULEB64();
-		def val = pop_f64();
 		def index = pop_u64();
 		mach_writeMemory64_f64(memindex, index, offset, val);
 	} else {
 		def offset = imm_readULEB32();
-		def val = pop_f64();
 		def index = pop_u32();
 		mach_writeMemory32_f64(memindex, index, offset, val);
 	}

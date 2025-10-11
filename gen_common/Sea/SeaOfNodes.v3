@@ -89,10 +89,6 @@ type SearchNode(node: IRNode, path: SSAD, available: ImmNodeSet, depth: int) {
         // if (true) return;
 
         System.puts(Strings.format1("Node: %q", node.render));
-        // System.puts("remaining: ");
-        // for (cur = remaining.ls; cur != null; cur = cur.tail) {
-        //     System.puts(Strings.format1("%q ", cur.head.render));
-        // }
         System.ln();
         System.puts("available: ");
         for (cur = available.ls; cur != null; cur = cur.tail) {
@@ -389,35 +385,30 @@ class Sea {
             StatePhi(scs) => deps = [node.value_deps[0]];
             Phi => deps = [node.value_deps[0]];
             _ => {
-                // if (phis == null && state_phis == null) {
+                if (phis == null && state_phis == null) {
                     deps = node.deps();
-                // } else {
-                //     def res = Vector<IRNode>.new();
-                //     for (phi = phis; phi != null; phi = phi.tail) {
-                //         def left = phi.head.value_deps[1], right = phi.head.value_deps[2];
-                //         def leftDeps = left.transitiveDeps(node), rightDeps = right.transitiveDeps(node);
-                //         for (l in leftDeps) for (r in rightDeps) if (l.id == r.id) res.put(l);
-                //     }
-                //     for (phi = state_phis; phi != null; phi = phi.tail) {
-                //         def left = phi.head.value_deps[1], right = phi.head.value_deps[2];
-                //         def leftDeps = left.transitiveDeps(node), rightDeps = right.transitiveDeps(node);
-                //         for (l in leftDeps) for (r in rightDeps) if (l.id == r.id) res.put(l);
-                //     }
-                //     def filter_res = Vector<IRNode>.new();
-                //     def cond_transdeps = node.transitiveDeps(start);
-                //     for (i < res.length) {
-                //         var high = false;
-                //         for (j < cond_transdeps.length) high |= (cond_transdeps[j].id == res[i].id);
-                //         if (!high) filter_res.put(res[i]);
-                //     }
-                //     filter_res.puta(node.deps());
-                //     deps = dedup(filter_res.copy());
-                //     System.puts(Strings.format1("deps for %s: \n", node.var_data.sourceName));
-                //     for (dep in deps) {
-                //         System.puts(Strings.format1("%q, ", dep.render));
-                //     }
-                //     System.ln();
-                // }
+                } else {
+                    def res = Vector<IRNode>.new();
+                    for (phi = phis; phi != null; phi = phi.tail) {
+                        def left = phi.head.value_deps[1], right = phi.head.value_deps[2];
+                        def leftDeps = left.transitiveDeps(node), rightDeps = right.transitiveDeps(node);
+                        for (l in leftDeps) for (r in rightDeps) if (l.id == r.id) res.put(l);
+                    }
+                    for (phi = state_phis; phi != null; phi = phi.tail) {
+                        def left = phi.head.value_deps[1], right = phi.head.value_deps[2];
+                        def leftDeps = left.transitiveDeps(node), rightDeps = right.transitiveDeps(node);
+                        for (l in leftDeps) for (r in rightDeps) if (l.id == r.id) res.put(l);
+                    }
+                    def filter_res = Vector<IRNode>.new();
+                    def cond_transdeps = node.transitiveDeps(start);
+                    for (i < res.length) {
+                        var high = false;
+                        for (j < cond_transdeps.length) high |= (cond_transdeps[j].id == res[i].id);
+                        if (!high) filter_res.put(res[i]);
+                    }
+                    filter_res.puta(node.deps());
+                    deps = dedup(filter_res.copy());
+                }
             }
         }
 
