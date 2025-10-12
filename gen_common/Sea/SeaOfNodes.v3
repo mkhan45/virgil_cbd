@@ -318,6 +318,10 @@ class Sea {
                 buf.puts(".-> ").puts(tag).putd(n.id).ln();
             }
 
+            for (dep in n.ctl_deps()) {
+                buf.tab().puts(tag).putd(dep.id).puts(".-> ").puts(tag).putd(n.id).ln();
+            }
+
             for (dep in n.deps()) {
                 wl.push(dep);
             }
@@ -326,7 +330,7 @@ class Sea {
         return buf;
     }
 
-    def apply(f: (IRNode, Sea) -> Range<IRNode>) {
+    def apply<T>(init: T, f: (IRNode, Sea, T) -> Range<IRNode>) {
         def wl: Vector<IRNode> = Vector.new();
         var q_idx = 0;
         wl.put(finish);
@@ -340,7 +344,7 @@ class Sea {
             if (completed.has(node)) continue;
             completed.put(node);
 
-            def next = f(node, this);
+            def next = f(node, this, init);
             for (arg in next) {
                 wl.put(arg);
             }
@@ -369,16 +373,19 @@ class Sea {
 
         // point.dbg();
 
-        if (available.has(node)) return SearchRes(true, point);
-        if (depth > 10) return SearchRes(false, point);
 
         var phis: List<IRNode> = null;
         var state_phis: List<IRNode> = null;
         if (node.var_data != null) for (i < node.children.length) {
             def child = node.children[i];
+            def child_deps = child.ctl_deps();
+            var child_ready = true;
+            for (dep in child_deps) child_ready &= available.has(dep.value_deps[0]);
+            if (!child_ready) continue;
             if (IROp.Phi.?(child.op) && child.value_deps[0].id == node.id) phis = List.new(child, phis);
             if (IROp.StatePhi.?(child.op) && child.value_deps[0].id == node.id) state_phis = List.new(child, state_phis);
         }
+        if (available.has(node) && phis == null && state_phis == null) return SearchRes(true, point);
 
         var deps: Array<IRNode>;
         match (node.op) {
@@ -425,15 +432,17 @@ class Sea {
 
         var newPath = path;
 
-        match (node.op) {
-            Intrinsic(defn) => {
-                def args = Arrays.map(node.value_deps, fun (n: IRNode) => n.var_data.sourceName);
-                newPath = newPath.appended(SSAD.LetApp(node.var_data.sourceName, defn.name, args, SSAD.Void));
+        if (!available.has(node)) {
+            match (node.op) {
+                Intrinsic(defn) => {
+                    def args = Arrays.map(node.value_deps, fun (n: IRNode) => n.var_data.sourceName);
+                    newPath = newPath.appended(SSAD.LetApp(node.var_data.sourceName, defn.name, args, SSAD.Void));
+                }
+                Lit(tipe, rep) => {
+                    newPath = newPath.appended(SSAD.LetLit(node.var_data.sourceName, rep, tipe.long_str(), SSAD.Void));
+                }
+                _ => {}
             }
-            Lit(tipe, rep) => {
-                newPath = newPath.appended(SSAD.LetLit(node.var_data.sourceName, rep, tipe.long_str(), SSAD.Void));
-            }
-            _ => {}
         }
         var availableAfter = available.with(node);
 
@@ -470,6 +479,7 @@ class Sea {
                 if (!phi_search.success) return phi_search;
                 rightPoint = phi_search.point;
             }
+            availableAfter = availableAfter.union(leftPoint.available.intersection(rightPoint.available));
 
             def phi_vec = Vector<(string, string)>.new();
             for (cur = phis; cur != null; cur = cur.tail) {
@@ -525,6 +535,18 @@ class IRNode {
 
     def deps() -> Array<IRNode> {
         return dedup(Arrays.concat(value_deps, state_deps));
+    }
+
+    def ctl_deps() -> Array<IRNode> {
+        def res = Vector<IRNode>.new();
+        for (i < children.length) {
+            def child = children[i];
+            if (IROp.StatePhi.?(child.op) || IROp.Phi.?(child.op)) {
+                def left = child.value_deps[1], right = child.value_deps[2];
+                if (id == left.id || id == right.id) res.put(child);
+            }
+        }
+        return res.copy();
     }
 
     def transitiveDeps(limit: IRNode) -> Array<IRNode> {
@@ -628,6 +650,78 @@ class IRNode {
                 }
                 // return Arrays.append(pathDeps.head, unchanged_args.copy());
                 return unchanged_args.copy();
+            }
+            _ => {
+                return deps();
+            }
+        }
+    }
+
+    def unLEM(sea: Sea, state: HashMap<IRNode, (IRNode, Vector<IRNode>)>) -> Range<IRNode> {
+        match (op) {
+            Phi, StatePhi => {
+                def nstates = sea.start.state_deps.length;
+                def cond = value_deps[0], left = value_deps[1], right = value_deps[2];
+
+                if (cond.var_data.stage == Stage.VALIDATE) return deps();
+
+                var new_cond: IRNode;
+                var merged_effs: Vector<IRNode>;
+                if (state.has(cond)) {
+                    new_cond = state[cond].0;
+                    merged_effs = state[cond].1;
+                    if (new_cond.id == cond.id) return [];
+                } else {
+                    def maybeTrueI = intrinsic("maybeTrue");
+                    def maybeFalseI = intrinsic("maybeFalse");
+                    def andI = intrinsic("bool.&&");
+                    
+                    def maybeTrue = sea.mkNode(IROp.Intrinsic(maybeTrueI), Array.new(nstates), [cond]);
+                    maybeTrue.var_data = VarData.new(uidl("mt"), TypeVar.Bot("bool"), Stage.INTERPRET);
+                    def maybeFalse = sea.mkNode(IROp.Intrinsic(maybeFalseI), Array.new(nstates), [cond]);
+                    maybeFalse.var_data = VarData.new(uidl("mf"), TypeVar.Bot("bool"), Stage.INTERPRET);
+                    def and = sea.mkNode(IROp.Intrinsic(andI), Array.new(nstates), [maybeTrue, maybeFalse]);
+                    and.var_data = VarData.new(uidl("mb"), TypeVar.Bot("bool"), Stage.INTERPRET);
+
+                    state[cond] = (and, Vector.new());
+                    new_cond = state[cond].0;
+                    merged_effs = state[cond].1;
+                }
+
+                def maybeTrue = new_cond.value_deps[0];
+                def innerPhi = sea.mkNode(op, Array.new(nstates), [maybeTrue, left, right]);
+
+                value_deps[0] = new_cond;
+                new_cond.children.put(this);
+
+                var new_left: IRNode;
+                match (op) {
+                    Phi => {
+                        new_left = sea.mkNode(IROp.Intrinsic(intrinsic("merge")), Array.new(nstates), [left, right]);
+                        new_left.var_data = VarData.new(uidl("merge"), left.var_data.tipe, Stage.INTERPRET);
+                    }
+                    StatePhi => {
+                        var dup = false;
+                        for (i < merged_effs.length) dup |= merged_effs[i].id == left.id;
+                        if (!dup) {
+                            // new_left = sea.mkNode(IROp.Intrinsic(intrinsic("merge")), Array.new(nstates), [left, right]);
+                            new_left = sea.mkNode(left.op, Array.new(nstates), Arrays.dup(left.value_deps));
+                            new_left.var_data = VarData.new(uidl("eff_chosen"), left.var_data.tipe, Stage.INTERPRET);
+                            merged_effs.put(left);
+                        } else {
+                            new_left = sea.mkNode(IROp.Intrinsic(intrinsic("nop")), Array.new(nstates), []);
+                            new_left.var_data = VarData.new(uidl("eff_nop"), TypeVar.Bot("void"), Stage.INTERPRET);
+                        }
+                    }
+                    _ => {}
+                }
+                var new_right = innerPhi;
+
+                value_deps[1] = new_left;
+                new_left.children.put(this);
+                value_deps[2] = new_right;
+                new_right.children.put(this);
+                return [];
             }
             _ => {
                 return deps();

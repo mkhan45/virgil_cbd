@@ -86,9 +86,10 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     graph_output_buf.puts("```\n");
 
     // sea.apply(IRNode.removeViews);
-    sea.apply(IRNode.overloadOps);
-    sea.apply(IRNode.addAbstractions);
-    // sea.apply(IRNode.unLEM);
+    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.overloadOps(sea));
+    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.addAbstractions(sea));
+    def state = HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq);
+    sea.apply(state, IRNode.unLEM);
     def mermaid = sea.toMermaid();
 
     // System.puts("===="); System.puts(opcode);  System.puts("====\n");
