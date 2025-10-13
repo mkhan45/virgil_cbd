@@ -687,8 +687,9 @@ class IRNode {
                     merged_effs = state[cond].1;
                     if (new_cond.id == cond.id) return [];
                 } else {
-                    def maybeTrueI = intrinsic("maybeTrue");
-                    def maybeFalseI = intrinsic("maybeFalse");
+                    def tp = cond.var_data.tipe;
+                    def maybeTrueI = intrinsic(Strings.format1("%s_maybeTrue", tp.rt_str()));
+                    def maybeFalseI = intrinsic(Strings.format1("%s_maybeFalse", tp.rt_str()));
                     def andI = intrinsic("bool.&&");
                     
                     def maybeTrue = sea.mkNode(IROp.Intrinsic(maybeTrueI), Array.new(nstates), [cond]);
