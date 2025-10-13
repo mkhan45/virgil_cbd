@@ -605,8 +605,9 @@ def I32_DIV_U() {
 	def a = pop_u32();
 	if (u32.==(b, 0)) {
 		trapDivideByZero();
+	} else {
+		push_u32(u32./(a, b));
 	}
-	push_u32(u32./(a, b));
 }
 def I32_EQZ() {
 	def a = pop_u32();
@@ -763,16 +764,18 @@ def I32_REM_S() {
 	def a = pop_u32();
 	if (u32.==(b, 0)) {
 		trapDivideByZero();
+	} else {
+		push_u32(U32_rem_s(a, b));
 	}
-	push_u32(U32_rem_s(a, b));
 }
 def I32_REM_U() {
 	def b = pop_u32();
 	def a = pop_u32();
 	if (u32.==(b, 0)) {
 		trapDivideByZero();
+	} else {
+		push_u32(U32_rem_u(a, b));
 	}
-	push_u32(U32_rem_u(a, b));
 }
 def I32_EXTEND8_S() {
 	def a = pop_u32();
@@ -808,36 +811,41 @@ def I64_DIV_S() {
 	def a = pop_u64();
 	if (u64.==(b, 0)) {
 		trapDivideByZero();
+	} else {
+		def cond = bool.&&(u64.==(b, u64.view(-1)), u64.==(a, u64.view(-9223372036854775808L)));
+		if (cond) {
+			trapDivideUnrepresentable();
+		} else {
+			push_u64(U64_div_s(a, b));
+		}
 	}
-	def cond = bool.&&(u64.==(b, u64.view(-1)), u64.==(a, u64.view(-9223372036854775808L)));
-	if (cond) {
-		trapDivideUnrepresentable();
-	}
-	push_u64(U64_div_s(a, b));
 }
 def I64_DIV_U() {
 	def b = pop_u64();
 	def a = pop_u64();
 	if (u64.==(b, 0)) {
 		trapDivideByZero();
+	} else {
+		push_u64(u64./(a, b));
 	}
-	push_u64(u64./(a, b));
 }
 def I64_REM_S() {
 	def b = pop_u64();
 	def a = pop_u64();
 	if (u64.==(b, 0)) {
 		trapDivideByZero();
+	} else {
+		push_u64(U64_rem_s(a, b));
 	}
-	push_u64(U64_rem_s(a, b));
 }
 def I64_REM_U() {
 	def b = pop_u64();
 	def a = pop_u64();
 	if (u64.==(b, 0)) {
 		trapDivideByZero();
+	} else {
+		push_u64(U64_rem_u(a, b));
 	}
-	push_u64(U64_rem_u(a, b));
 }
 def I64_AND() {
 	def b = pop_u64();
@@ -1029,8 +1037,9 @@ def F32_DIV() {
 	def a = pop_f32();
 	if (float.==(b, 0.0f)) {
 		trapDivideByZero();
+	} else {
+		push_f32(float./(a, b));
 	}
-	push_f32(float./(a, b));
 }
 def F32_SQRT() {
 	def a = pop_f32();

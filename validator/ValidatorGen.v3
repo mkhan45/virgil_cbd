@@ -52,7 +52,7 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
 
 var graph_output_buf: StringBuilder;
 def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
-    if (!Strings.equal(opcode, "I32_DIV_S")) return null;
+    // if (!Strings.equal(opcode, "I32_DIV_S")) return null;
     // (name, type) -- we should have that VirgilStmt names align w/ SSA names,
     // so we can use this the same
     def st_field_buf = VirgilStmts.getSidetableFields(stmt);
@@ -92,11 +92,11 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     sea.apply(state, IRNode.unLEM);
     def mermaid = sea.toMermaid();
 
-    System.puts("===="); System.puts(opcode);  System.puts("====\n");
+    // System.puts("===="); System.puts(opcode);  System.puts("====\n");
     // System.puts("----SSAD----\n");
     // System.puts(sea_ir.toString(0));
     // System.puts("----MERMAID----\n");
-    System.puts(mermaid);
+    // System.puts(mermaid);
     // System.puts("------SPLIT MERMAID------\n");
     // def mbuf = StringBuilder.new();
     // mbuf.puts("---").ln();

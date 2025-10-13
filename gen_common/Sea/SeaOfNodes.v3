@@ -736,7 +736,7 @@ class IRNode {
                 new_left.children.put(this);
                 value_deps[2] = new_right;
                 new_right.children.put(this);
-                return [];
+                return [left, right];
             }
             _ => {
                 return deps();
