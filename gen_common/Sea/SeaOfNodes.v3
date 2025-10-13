@@ -318,9 +318,9 @@ class Sea {
                 buf.puts(".-> ").puts(tag).putd(n.id).ln();
             }
 
-            for (dep in n.ctl_deps()) {
-                buf.tab().puts(tag).putd(dep.id).puts(".-> ").puts(tag).putd(n.id).ln();
-            }
+            // for (dep in n.ctl_deps()) {
+            //     buf.tab().puts(tag).putd(dep.id).puts(".-> ").puts(tag).putd(n.id).ln();
+            // }
 
             for (dep in n.deps()) {
                 wl.push(dep);
@@ -378,9 +378,24 @@ class Sea {
         var state_phis: List<IRNode> = null;
         if (node.var_data != null) for (i < node.children.length) {
             def child = node.children[i];
-            def child_deps = child.ctl_deps();
+            def ctl_deps = child.ctl_deps();
             var child_ready = true;
-            for (dep in child_deps) child_ready &= available.has(dep.value_deps[0]);
+            for (dep in ctl_deps) {
+                child_ready &= available.has(dep.value_deps[0]);
+                def branch_deps = Vector<IRNode>.new();
+                for (td in dep.value_deps[0].transitiveDeps(start)) child_ready &= available.has(td);
+                def left = dep.value_deps[1], right = dep.value_deps[2];
+                def leftDeps = left.transitiveDeps(node), rightDeps = right.transitiveDeps(node);
+                for (l in leftDeps) for (r in rightDeps) if (l.id == r.id) branch_deps.put(l);
+                def filter_res = Vector<IRNode>.new();
+                def cond_transdeps = dep.value_deps[0].transitiveDeps(start);
+                for (i < branch_deps.length) {
+                    var high = false;
+                    // for (j < cond_transdeps.length) high |= (cond_transdeps[j].id == branch_deps[i].id);
+                    if (!high) filter_res.put(branch_deps[i]);
+                }
+                for (i < filter_res.length) child_ready &= available.has(filter_res[i]);
+            }
             if (!child_ready) continue;
             if (IROp.Phi.?(child.op) && child.value_deps[0].id == node.id) phis = List.new(child, phis);
             if (IROp.StatePhi.?(child.op) && child.value_deps[0].id == node.id) state_phis = List.new(child, state_phis);
@@ -546,7 +561,7 @@ class IRNode {
                 if (id == left.id || id == right.id) res.put(child);
             }
         }
-        return res.copy();
+        return dedup(res.copy());
     }
 
     def transitiveDeps(limit: IRNode) -> Array<IRNode> {

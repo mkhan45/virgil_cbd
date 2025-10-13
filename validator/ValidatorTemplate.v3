@@ -172,6 +172,9 @@ def rtcast_u64(x: u64) => TypeVar.U64;
 def rtcast_i32 = rtcast_u32;
 def rtcast_f32(x: float) => TypeVar.F32;
 
+def maybeTrue(x: TypeVar.U32) -> bool => true;
+def maybeFalse(x: TypeVar.U32) -> bool => true;
+
 enum FieldKind {
     U8, U16, U32, U64, F32, F64, V128, REF
 }

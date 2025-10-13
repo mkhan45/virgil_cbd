@@ -17,7 +17,7 @@ component CBDEffects {
         if (Strings.equal(s, "table")) return CBDEffect.Table;
         if (Strings.equal(s, "ctl")) return CBDEffect.Ctl;
         if (Strings.equal(s, "emit")) return CBDEffect.Emit;
-        if (Strings.equal(s, "trap")) return CBDEffect.Ctl; // trap is a control transfer
+        if (Strings.equal(s, "trap")) return CBDEffect.Trap;
         if (Strings.equal(s, "none")) return CBDEffect.None;
         return CBDEffect.None; // default case
     }
@@ -44,6 +44,7 @@ type CBDEffect {
     case Memory;
     case Table;
     case Ctl;
+    case Trap;
     case Emit;
     case None;
 
@@ -73,6 +74,7 @@ type CBDEffect {
             Memory => return "memory";
             Table => return "table";
             Ctl => return "ctl";
+            Trap => return "trap";
             Emit => return "emit";
             None => return "none";
         }
@@ -217,6 +219,7 @@ class IntrinsicType(primitive: TypeVar, stage: Stage) {
 enum StateComponent {
     Codeptr,
     Stack,
+    Trap,
     Locals,
     Globals,
     Tables,
@@ -364,6 +367,9 @@ component IntrinsicTypes {
                 }
                 Ctl => {
                     reads |= StateComponent.Codeptr;
+                    writes |= StateComponent.set.all;
+                }
+                Trap => {
                     writes |= StateComponent.set.all;
                 }
                 Memory => {

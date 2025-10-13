@@ -591,12 +591,14 @@ def I32_DIV_S() {
 	def a = pop_u32();
 	if (u32.==(b, 0)) {
 		trapDivideByZero();
+	} else {
+		def cond = bool.&&(u32.==(b, u32.view(-1)), u32.==(a, u32.view(-2_147_483_648)));
+		if (cond) {
+			trapDivideUnrepresentable();
+		} else {
+			push_u32(U32_div_s(a, b));
+		}
 	}
-	def cond = bool.&&(u32.==(b, u32.view(-1)), u32.==(a, u32.view(-2_147_483_648)));
-	if (cond) {
-		trapDivideUnrepresentable();
-	}
-	push_u32(U32_div_s(a, b));
 }
 def I32_DIV_U() {
 	def b = pop_u32();
