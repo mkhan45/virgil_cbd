@@ -671,6 +671,46 @@ class IRNode {
         }
     }
 
+    def mergeEffsAI(sea: Sea, left: IRNode, right: IRNode) -> IRNode {
+        def nstates = sea.start.state_deps.length;
+        if (IROp.Intrinsic.?(left.op) && IROp.Intrinsic.?(right.op)) {
+            def l_defn = IROp.Intrinsic.!(left.op).defn, r_defn = IROp.Intrinsic.!(right.op).defn;
+            if (Strings.startsWith(l_defn.name, "push") && Strings.startsWith(r_defn.name, "push")) {
+                // TODO: should recursively merge effs from state deps
+                if (left.value_deps.length == 1) {
+                    // no typevar
+                    def l_push = left.value_deps[0], r_push = right.value_deps[0];
+                    def merge_fn = Strings.format1("merge_%s", l_push.var_data.tipe.short_str());
+                    def merge = sea.mkNode(IROp.Intrinsic(intrinsic(merge_fn)), Arrays.dup(l_push.state_deps), [l_push, r_push]);
+                    merge.var_data = VarData.new(uidl("merge"), l_push.var_data.tipe, Stage.INTERPRET);
+                    def push = sea.mkNode(left.op, left.state_deps, [merge]);
+                    push.var_data = VarData.new(uidl("push"), TypeVar.Bot("void"), Stage.INTERPRET);
+                    return push;
+                } else {
+                    // has typevar
+                    def l_push = left.value_deps[1], r_push = right.value_deps[1], tv = left.value_deps[0];
+                    def merge = sea.mkNode(IROp.Intrinsic(intrinsic("merge_Val")), Arrays.dup(l_push.state_deps), [tv, l_push, r_push]);
+                    merge.var_data = VarData.new(uidl("merge"), l_push.var_data.tipe, Stage.INTERPRET);
+                    def push = sea.mkNode(left.op, left.state_deps, [tv, merge]);
+                    push.var_data = VarData.new(uidl("push"), TypeVar.Bot("void"), Stage.INTERPRET);
+                    return push;
+                }
+            }
+        }
+
+        // default case, run both
+        return mergeEffsValidator(sea, left, right);
+    }
+
+    def mergeEffsValidator(sea: Sea, left: IRNode, right: IRNode) -> IRNode {
+        def nstates = sea.start.state_deps.length;
+        if (left.var_data == null) left.var_data = VarData.new(uidl("l_state"), TypeVar.Bot("void"), Stage.INTERPRET);
+        if (right.var_data == null) right.var_data = VarData.new(uidl("r_state"), TypeVar.Bot("void"), Stage.INTERPRET);
+        def new_left = sea.mkNode(IROp.Intrinsic(intrinsic("merge")), Array.new(nstates), [left, right]);
+        new_left.var_data = VarData.new(uidl("eff_chosen"), left.var_data.tipe, Stage.INTERPRET);
+        return new_left;
+    }
+
     def unLEM(sea: Sea, state: HashMap<IRNode, (IRNode, Vector<IRNode>)>) -> Range<IRNode> {
         match (op) {
             Phi, StatePhi => {
@@ -719,10 +759,8 @@ class IRNode {
                         var dup = false;
                         for (i < merged_effs.length) dup |= merged_effs[i].id == left.id;
                         if (!dup) {
-                            // new_left = sea.mkNode(IROp.Intrinsic(intrinsic("merge")), Array.new(nstates), [left, right]);
-                            new_left = sea.mkNode(left.op, Array.new(nstates), Arrays.dup(left.value_deps));
-                            new_left.var_data = VarData.new(uidl("eff_chosen"), left.var_data.tipe, Stage.INTERPRET);
-                            merged_effs.put(left);
+                            new_left = mergeEffsValidator(sea, left, right);
+                            merged_effs.put(new_left);
                         } else {
                             new_left = sea.mkNode(IROp.Intrinsic(intrinsic("nop")), Array.new(nstates), []);
                             new_left.var_data = VarData.new(uidl("eff_nop"), TypeVar.Bot("void"), Stage.INTERPRET);
@@ -741,6 +779,30 @@ class IRNode {
             _ => {
                 return deps();
             }
+        }
+    }
+
+    def constUnLEM(sea: Sea) -> Range<IRNode> {
+        match (op) {
+            Phi, StatePhi => {
+                def cond = value_deps[0], then = value_deps[1], els = value_deps[2];
+
+                if (IROp.Intrinsic.?(cond.op)) {
+                    def intrinsic = IROp.Intrinsic.!(cond.op);
+                    if (Strings.equal(intrinsic.defn.name, "bool.&&")) {
+                        def left = cond.value_deps[0], right = cond.value_deps[1];
+                        if (IROp.Intrinsic.?(left.op) && IROp.Intrinsic.?(right.op)) {
+                            def l_defn = IROp.Intrinsic.!(left.op).defn, r_defn = IROp.Intrinsic.!(right.op).defn;
+                            if (Strings.endsWith(l_defn.name, "maybeTrue") && Strings.endsWith(r_defn.name, "maybeFalse")) {
+                                become(then);
+                            }
+                        }
+                    }
+                }
+
+                return deps();
+            }
+            _ => return deps();
         }
     }
 }
