@@ -306,8 +306,8 @@ def I32_GT_S() {
 def I32_GE_U() {
 	def b = pop_u32();
 	def a = pop_u32();
-	def mt = bot_maybeTrue(U32_ge_u(a, b));
-	def mf = bot_maybeFalse(U32_ge_u(a, b));
+	def mt = U32_maybeTrue(U32_ge(a, b));
+	def mf = U32_maybeFalse(U32_ge(a, b));
 	if (bool.&&(mt, mf)) {
 		push_u32(rtcast_u32(1));
 	} else {
@@ -321,8 +321,8 @@ def I32_GE_U() {
 def I32_GE_S() {
 	def b = pop_u32();
 	def a = pop_u32();
-	def mt = bot_maybeTrue(U32_ge_s(a, b));
-	def mf = bot_maybeFalse(U32_ge_s(a, b));
+	def mt = U32_maybeTrue(U32_ge_s(a, b));
+	def mf = U32_maybeFalse(U32_ge_s(a, b));
 	if (bool.&&(mt, mf)) {
 		push_u32(rtcast_u32(1));
 	} else {
@@ -705,8 +705,8 @@ def I64_GT_U() {
 def I64_GE_S() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def mt = bot_maybeTrue(U64_ge_s(a, b));
-	def mf = bot_maybeFalse(U64_ge_s(a, b));
+	def mt = U64_maybeTrue(U64_ge_s(a, b));
+	def mf = U64_maybeFalse(U64_ge_s(a, b));
 	if (bool.&&(mt, mf)) {
 		push_u32(rtcast_u32(1));
 	} else {
@@ -720,8 +720,8 @@ def I64_GE_S() {
 def I64_GE_U() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def mt = bot_maybeTrue(U64_ge_u(a, b));
-	def mf = bot_maybeFalse(U64_ge_u(a, b));
+	def mt = U64_maybeTrue(U64_ge(a, b));
+	def mf = U64_maybeFalse(U64_ge(a, b));
 	if (bool.&&(mt, mf)) {
 		push_u32(rtcast_u32(1));
 	} else {
@@ -769,8 +769,8 @@ def F32_MUL() {
 }
 def F32_DIV() {
 	def b = pop_f32();
-	def mt = U32_maybeTrue(U32_equals(b, rtcast_u32(0.0f)));
-	def mf = U32_maybeFalse(U32_equals(b, rtcast_u32(0.0f)));
+	def mt = U32_maybeTrue(F32_equals(b, rtcast_f32(0.0f)));
+	def mf = U32_maybeFalse(F32_equals(b, rtcast_f32(0.0f)));
 	if (bool.&&(mt, mf)) {
 		trapDivideByZero();
 	} else {
@@ -789,8 +789,8 @@ def F32_SQRT() {
 def F32_EQ() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def mt = U32_maybeTrue(U32_equals(a, b));
-	def mf = U32_maybeFalse(U32_equals(a, b));
+	def mt = U32_maybeTrue(F32_equals(a, b));
+	def mf = U32_maybeFalse(F32_equals(a, b));
 	if (bool.&&(mt, mf)) {
 		push_u32(rtcast_u32(1));
 	} else {
@@ -804,7 +804,7 @@ def F32_EQ() {
 def F32_NE() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def cond = U32_not_equals(a, b);
+	def cond = F32_not_equals(a, b);
 	def mt = U32_maybeTrue(cond);
 	def mf = U32_maybeFalse(cond);
 	if (bool.&&(mt, mf)) {
@@ -820,8 +820,8 @@ def F32_NE() {
 def F32_LT() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def mt = U32_maybeTrue(U32_lt(a, b));
-	def mf = U32_maybeFalse(U32_lt(a, b));
+	def mt = U32_maybeTrue(F32_lt(a, b));
+	def mf = U32_maybeFalse(F32_lt(a, b));
 	if (bool.&&(mt, mf)) {
 		push_u32(rtcast_u32(1));
 	} else {
@@ -835,8 +835,8 @@ def F32_LT() {
 def F32_LE() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def mt = U32_maybeTrue(U32_lte(a, b));
-	def mf = U32_maybeFalse(U32_lte(a, b));
+	def mt = U32_maybeTrue(F32_lte(a, b));
+	def mf = U32_maybeFalse(F32_lte(a, b));
 	if (bool.&&(mt, mf)) {
 		push_u32(rtcast_u32(1));
 	} else {
@@ -850,8 +850,8 @@ def F32_LE() {
 def F32_GT() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def mt = U32_maybeTrue(U32_gt(a, b));
-	def mf = U32_maybeFalse(U32_gt(a, b));
+	def mt = U32_maybeTrue(F32_gt(a, b));
+	def mf = U32_maybeFalse(F32_gt(a, b));
 	if (bool.&&(mt, mf)) {
 		push_u32(rtcast_u32(1));
 	} else {
@@ -1462,7 +1462,7 @@ def U32_le_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_gt(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_gt_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_ge_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_ge_u(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_ge(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_equals(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_not_equals(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_and(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
@@ -1495,7 +1495,7 @@ def U64_le_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_gt(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_gt_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_ge_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_ge_u(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_ge(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_equals(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_not_equals(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_and(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
@@ -1527,7 +1527,7 @@ def F32_times = TypeVar.F32.binop(float.*);
 def F32_sqrt = fun (x: TypeVar.F32) => x;
 
 def object_Null() -> TypeVar.Object => TypeVar.Object;
-def object_isNull(o: TypeVar.Object) => true;
+def object_isNull(o: TypeVar.Object) => TypeVar.U32;
 def object_New(sig: HeapTypeDecl) -> TypeVar.Object => TypeVar.Object;
 
 def typeVarFromValType(vt: ValueType) -> TypeVar {
@@ -1568,6 +1568,8 @@ def U32_maybeTrue(x: TypeVar.U32) -> bool => true;
 def U32_maybeFalse(x: TypeVar.U32) -> bool => true;
 def U64_maybeTrue(x: TypeVar.U64) -> bool => true;
 def U64_maybeFalse(x: TypeVar.U64) -> bool => true;
+def bool_maybeTrue(x: bool) -> bool => true;
+def bool_maybeFalse(x: bool) -> bool => true;
 
 enum FieldKind {
     U8, U16, U32, U64, F32, F64, V128, REF

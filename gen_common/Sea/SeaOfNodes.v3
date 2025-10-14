@@ -621,8 +621,7 @@ class IRNode {
                 def op_fn = op_spl.1;
                 def is_rt = var_data.stage != Stage.VALIDATE;
                 if (op_fn != null && is_rt) {
-                    var tp = var_data.tipe;
-                    if (tp.is_bot() && value_deps.length > 0) tp = value_deps[0].var_data.tipe;
+                    def tp = value_deps[0].var_data.tipe;
                     def prefix = tp.rt_str();
                     def new_f = Strings.format2("%s_%s", prefix, op_fn);
                     def intrinsic_def = intrinsic(new_f);

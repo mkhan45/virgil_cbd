@@ -692,7 +692,7 @@ def I32_GT_S() {
 def I32_GE_U() {
 	def b = pop_u32();
 	def a = pop_u32();
-	if (U32_ge_u(a, b)) {
+	if (U32_ge(a, b)) {
 		push_u32(1);
 	} else {
 		push_u32(0);
@@ -991,7 +991,7 @@ def I64_GE_S() {
 def I64_GE_U() {
 	def b = pop_u64();
 	def a = pop_u64();
-	if (U64_ge_u(a, b)) {
+	if (U64_ge(a, b)) {
 		push_u32(1);
 	} else {
 		push_u32(0);

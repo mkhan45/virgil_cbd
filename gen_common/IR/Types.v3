@@ -109,11 +109,11 @@ type TypeVar {
     }
     case F32 {
         def binop(op: (float, float) -> float) => gen_binop<float, TypeVar.F32>(op);
-        def testop(op: (float, float) -> bool) => gen_testop<float, TypeVar.F32>(op);
+        def testop(op: (float, float) -> bool) => fun (x: TypeVar.F32, y: TypeVar.F32) => TypeVar.U32;
     }
     case F64 {
         def binop(op: (double, double) -> double) => gen_binop<double, TypeVar.F64>(op);
-        def testop(op: (double, double) -> bool) => gen_testop<double, TypeVar.F64>(op);
+        def testop(op: (double, double) -> bool) => fun (x: TypeVar.F64, y: TypeVar.F64) => TypeVar.U32;
     }
     case V128 {
         def binop(op: (v128, v128) -> v128) => gen_binop<v128, TypeVar.V128>(op);

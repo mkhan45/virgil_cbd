@@ -70,7 +70,7 @@ def U32_le_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_gt(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_gt_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_ge_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
-def U32_ge_u(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
+def U32_ge(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_equals(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_not_equals(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_and(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
@@ -103,7 +103,7 @@ def U64_le_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_gt(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_gt_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_ge_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
-def U64_ge_u(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
+def U64_ge(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_equals(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_not_equals(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_and(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
@@ -135,7 +135,7 @@ def F32_times = TypeVar.F32.binop(float.*);
 def F32_sqrt = fun (x: TypeVar.F32) => x;
 
 def object_Null() -> TypeVar.Object => TypeVar.Object;
-def object_isNull(o: TypeVar.Object) => true;
+def object_isNull(o: TypeVar.Object) => TypeVar.U32;
 def object_New(sig: HeapTypeDecl) -> TypeVar.Object => TypeVar.Object;
 
 def typeVarFromValType(vt: ValueType) -> TypeVar {
@@ -176,6 +176,8 @@ def U32_maybeTrue(x: TypeVar.U32) -> bool => true;
 def U32_maybeFalse(x: TypeVar.U32) -> bool => true;
 def U64_maybeTrue(x: TypeVar.U64) -> bool => true;
 def U64_maybeFalse(x: TypeVar.U64) -> bool => true;
+def bool_maybeTrue(x: bool) -> bool => true;
+def bool_maybeFalse(x: bool) -> bool => true;
 
 enum FieldKind {
     U8, U16, U32, U64, F32, F64, V128, REF
