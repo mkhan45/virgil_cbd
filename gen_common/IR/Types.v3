@@ -381,6 +381,9 @@ component IntrinsicTypes {
                 Global => {
                     writes |= StateComponent.Globals;
                 }
+                Emit => {
+                    writes |= StateComponent.Extra;
+                }
                 _ => {}
             }
             intrinsics[name] = IntrinsicTypedef.new(name, args.copy(), return_type, effect);

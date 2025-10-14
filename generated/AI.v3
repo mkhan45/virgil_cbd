@@ -831,8 +831,8 @@ def I32_GT_S() {
 def I32_GE_U() {
 	def b = pop_u32();
 	def a = pop_u32();
-	def condTrue = I32_maybeTrue(U32_ge_u(a, b));
-	def condFalse = I32_maybeFalse(U32_ge_u(a, b));
+	def condTrue = I32_maybeTrue(U32_>=(a, b));
+	def condFalse = I32_maybeFalse(U32_>=(a, b));
 	if (bool.&&(condTrue, condFalse)) {
 		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 	} else {
@@ -972,11 +972,11 @@ def I64_MUL() {
 def I64_DIV_S() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def condTrue = I32_maybeTrue(U64_equals(b, 0));
-	def condFalse = I32_maybeFalse(U64_equals(b, 0));
+	def condTrue = I32_maybeTrue(U64_equals(b, rtcast_u64(0)));
+	def condFalse = I32_maybeFalse(U64_equals(b, rtcast_u64(0)));
 	if (bool.&&(condTrue, condFalse)) {
 		trapDivideByZero();
-		def cond = Value_and(U64_equals(b, -1), U64_equals(a, -9223372036854775808L));
+		def cond = U64_and(U64_equals(b, -1), U64_equals(a, -9223372036854775808L));
 		def condTrue1 = I32_maybeTrue(cond);
 		def condFalse1 = I32_maybeFalse(cond);
 		if (bool.&&(condTrue1, condFalse1)) {
@@ -992,7 +992,7 @@ def I64_DIV_S() {
 		if (condTrue) {
 			trapDivideByZero();
 		} else {
-			def cond = Value_and(U64_equals(b, -1), U64_equals(a, -9223372036854775808L));
+			def cond = U64_and(U64_equals(b, -1), U64_equals(a, -9223372036854775808L));
 			def condTrue1 = I32_maybeTrue(cond);
 			def condFalse1 = I32_maybeFalse(cond);
 			if (bool.&&(condTrue1, condFalse1)) {
@@ -1010,8 +1010,8 @@ def I64_DIV_S() {
 def I64_DIV_U() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def condTrue = I32_maybeTrue(U64_equals(b, 0));
-	def condFalse = I32_maybeFalse(U64_equals(b, 0));
+	def condTrue = I32_maybeTrue(U64_equals(b, rtcast_u64(0)));
+	def condFalse = I32_maybeFalse(U64_equals(b, rtcast_u64(0)));
 	if (bool.&&(condTrue, condFalse)) {
 		trapDivideByZero();
 	} else {
@@ -1025,8 +1025,8 @@ def I64_DIV_U() {
 def I64_REM_S() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def condTrue = I32_maybeTrue(U64_equals(b, 0));
-	def condFalse = I32_maybeFalse(U64_equals(b, 0));
+	def condTrue = I32_maybeTrue(U64_equals(b, rtcast_u64(0)));
+	def condFalse = I32_maybeFalse(U64_equals(b, rtcast_u64(0)));
 	if (bool.&&(condTrue, condFalse)) {
 		trapDivideByZero();
 	} else {
@@ -1040,8 +1040,8 @@ def I64_REM_S() {
 def I64_REM_U() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def condTrue = I32_maybeTrue(U64_equals(b, 0));
-	def condFalse = I32_maybeFalse(U64_equals(b, 0));
+	def condTrue = I32_maybeTrue(U64_equals(b, rtcast_u64(0)));
+	def condFalse = I32_maybeFalse(U64_equals(b, rtcast_u64(0)));
 	if (bool.&&(condTrue, condFalse)) {
 		trapDivideByZero();
 	} else {
@@ -1106,8 +1106,8 @@ def I64_POPCNT() {
 }
 def I64_EQZ() {
 	def a = pop_u64();
-	def condTrue = I32_maybeTrue(U64_equals(a, 0));
-	def condFalse = I32_maybeFalse(U64_equals(a, 0));
+	def condTrue = I32_maybeTrue(U64_equals(a, rtcast_u64(0)));
+	def condFalse = I32_maybeFalse(U64_equals(a, rtcast_u64(0)));
 	if (bool.&&(condTrue, condFalse)) {
 		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 	} else {
@@ -1257,8 +1257,8 @@ def I64_GE_S() {
 def I64_GE_U() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def condTrue = I32_maybeTrue(U64_ge_u(a, b));
-	def condFalse = I32_maybeFalse(U64_ge_u(a, b));
+	def condTrue = I32_maybeTrue(U64_>=(a, b));
+	def condFalse = I32_maybeFalse(U64_>=(a, b));
 	if (bool.&&(condTrue, condFalse)) {
 		push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 	} else {

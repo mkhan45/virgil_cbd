@@ -79,6 +79,16 @@ def CALL_INDIRECT() {
 		def target = i_getTableFunction32(table_index, sig, func_index);
 		doCall(sig, target);
 	}
+	if (is64) {
+		def func_index = pop_u64();
+		def target = i_getTableFunction64(table_index, sig, func_index);
+		doCall(sig, target);
+	} else {
+		def func_index = pop_u32();
+		def target = i_getTableFunction32(table_index, sig, func_index);
+		doCall(sig, target);
+	}
+	ctlxfer.put_CALL_INDIRECT(is64);
 }
 def RETURN_CALL() {
 	def index = imm_readULEB32();
@@ -509,6 +519,7 @@ def BR() {
 	def depth = imm_readULEB32();
 	def label = f_getLabel(depth);
 	doBranch(label);
+	ctlxfer.put_BR(label);
 }
 def BR_IF() {
 	def depth = imm_readULEB32();
@@ -516,11 +527,13 @@ def BR_IF() {
 	def cond = pop_u32();
 	doBranch(label);
 	doFallthru();
+	ctlxfer.put_BR_IF(label);
 }
 def BR_TABLE() {
 	def labels = imm_readLabels();
 	def key = pop_u32();
 	doSwitch(labels, key);
+	ctlxfer.put_BR_TABLE(labels);
 }
 def BLOCK() {
 	def bt = imm_readBlockType();
@@ -540,10 +553,12 @@ def IF() {
 	def label = doIf(bt);
 	doBranch(label);
 	doFallthru();
+	ctlxfer.put_IF(label);
 }
 def ELSE() {
 	def label = doElse();
 	doBranch(label);
+	ctlxfer.put_ELSE(label);
 }
 def END() {
 	if (f_isAtEnd()) {

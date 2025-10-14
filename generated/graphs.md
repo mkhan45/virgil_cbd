@@ -414,7 +414,14 @@ graph TD
 	1["
 	Finish
 	"]
-	13 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
+	13 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	14 -. Extra .-> 1
+	14["
+	eff_st_put__75
+	ctlxfer.put_CALL_INDIRECT
+	"]
+	6 --> 14
+	13 -. Extra .-> 14
 	13["
 	state phi Codeptr Stack Trap Locals Globals Tables Memory Extra 	"]
 	6 --> 13
@@ -1498,7 +1505,7 @@ graph TD
 	"]
 	5["
 	cond__281
-	U32_ge
+	u32.>=
 	"]
 	4 --> 5
 	3 --> 5
@@ -3619,7 +3626,7 @@ graph TD
 	"]
 	5["
 	cond__650
-	U64_ge
+	u64.>=
 	"]
 	4 --> 5
 	3 --> 5
@@ -4258,7 +4265,14 @@ graph TD
 	1["
 	Finish
 	"]
-	5 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
+	5 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	6 -. Extra .-> 1
+	6["
+	eff_st_put__774
+	ctlxfer.put_BR
+	"]
+	4 --> 6
+	5 -. Extra .-> 6
 	5["
 	eff__771
 	doBranch
@@ -4290,7 +4304,14 @@ graph TD
 	1["
 	Finish
 	"]
-	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	11 -. Extra .-> 1
+	11["
+	eff_st_put__782
+	ctlxfer.put_BR_IF
+	"]
+	4 --> 11
+	10 -. Extra .-> 11
 	10["
 	state phi Codeptr Stack Trap Locals Globals Tables Memory Extra 	"]
 	7 --> 10
@@ -4350,7 +4371,14 @@ graph TD
 	1["
 	Finish
 	"]
-	5 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
+	5 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	6 -. Extra .-> 1
+	6["
+	eff_st_put__791
+	ctlxfer.put_BR_TABLE
+	"]
+	3 --> 6
+	5 -. Extra .-> 6
 	5["
 	eff__788
 	doSwitch
@@ -4465,7 +4493,14 @@ graph TD
 	1["
 	Finish
 	"]
-	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	11 -. Extra .-> 1
+	11["
+	eff_st_put__805
+	ctlxfer.put_IF
+	"]
+	5 --> 11
+	10 -. Extra .-> 11
 	10["
 	state phi Codeptr Stack Trap Locals Globals Tables Memory Extra 	"]
 	7 --> 10
@@ -4524,7 +4559,14 @@ graph TD
 	1["
 	Finish
 	"]
-	4 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
+	4 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	5 -. Extra .-> 1
+	5["
+	eff_st_put__813
+	ctlxfer.put_ELSE
+	"]
+	3 --> 5
+	4 -. Extra .-> 5
 	4["
 	eff__811
 	doBranch

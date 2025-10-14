@@ -70,7 +70,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
         def st_args = Array<string>.new(st_field_buf.length);
         for (i < st_field_buf.length) st_args[i] = st_field_buf[i].0;
         def stbuilder_fn = Strings.format1("ctlxfer.put_%s", opcode);
-        stbuilder_call = SSAD.LetApp(SSAD_IR.uidl("st_put"), stbuilder_fn, st_args, SSAD.Void);
+        stbuilder_call = SSAD.LetApp(SSAD_IR.uidl("eff_st_put"), stbuilder_fn, st_args, SSAD.Void);
         for (arg in st_args) analysis.effects[arg] = CBDEffect.Table;
     }
     ir = ir.appended(stbuilder_call);
