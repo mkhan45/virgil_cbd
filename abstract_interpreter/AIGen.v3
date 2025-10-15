@@ -78,8 +78,8 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
         def fvTrue = SSAD_IR.uidl("condTrue");
         def fvFalse = SSAD_IR.uidl("condFalse");
         def fvBoth = SSAD_IR.uidl("condBoth");
-        def fnTrue = Strings.format1("%s_maybeTrue", "I32");
-        def fnFalse = Strings.format1("%s_maybeFalse", "I32");
+        def fnTrue = Strings.format1("%s_maybeTrue", "U32");
+        def fnFalse = Strings.format1("%s_maybeFalse", "U32");
         return SSAD.LetApp(fvTrue, fnTrue, [c],
                 SSAD.LetApp(fvFalse, fnFalse, [c],
                     SSAD.LetApp(fvBoth, "bool.&&", [fvTrue, fvFalse],
