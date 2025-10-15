@@ -39,7 +39,7 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
 }
 
 def cbd_opcodes : Array<string> = [
-    "BR_IF", "I32_CONST", "I32_ADD", "I32_SUB", "I32_EQZ", "I32_LOAD"
+    "BR_IF", "I32_CONST", "I32_ADD", "I32_SUB", "I32_EQZ" //, "I32_LOAD"
 ];
 
 class FastIntCBDDef extends CBDDef {
@@ -53,19 +53,26 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     if (!is_cbd_op) return null;
 
     def ir = SSAD_IR.from_virgil(stmt);
-    def ssa = SSAD_IR.ssa(ir);
-    def analysis = SSADCtx.new(ssa);
+    def sea_ir = SSADCtx.new(ir).id_propagate(ir, Strings.newMap<string>());
+    def sea = Seas.ofSSAD(sea_ir);
 
     def fx = Vector<CBDEffect>.new();
-    analysis.collectEffects(ssa, fx);
+    def analysis = SSADCtx.new(ir);
+    analysis.collectEffects(ir, fx);
     def eff_ctx = CBDEffects.run_fx(fx);
 
-    def transformer = SSATransformer.new(analysis);
-    transformer.onIf = flatten_ifs;
-    transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
+    
+    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.overloadOps(sea));
+    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.addAbstractions(sea));
+    sea.apply(HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq), IRNode.unLEM);
+    // def transformer = SSATransformer.new(analysis);
+    // transformer.onIf = flatten_ifs;
+    // transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
 
-    def transformed = transformer.transform(ssa);
-    def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
+    def scheduled = sea.schedule();
+    def processed = scheduled;
+    // def transformed = transformer.transform(ssa);
+    // def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
 
     return FastIntCBDDef.new(opcode, processed, eff_ctx.stack_delta);
 }

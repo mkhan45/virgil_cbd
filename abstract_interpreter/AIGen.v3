@@ -98,16 +98,27 @@ def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
 
 def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     def ir = SSAD_IR.from_virgil(stmt);
-    SSAD_IR.counter = 0;
-    def ssa = SSAD_IR.ssa(ir);
-    def analysis = SSADCtx.new(ssa);
+    var ctx = SSADCtx.new(ir);
+    var sea_ir = ctx.id_propagate(ir, Strings.newMap<string>());
+    var sea = Seas.ofSSAD(sea_ir);
+    def state = HashMap<IRNode, (IRNode, IRNode, IRNode)>.new(IRNode.hash, IRNode.eq);
+    sea.apply(state, IRNode.reifyConds);
+    System.puts("mermaid: "); System.puts(opcode); System.ln();
+    System.puts(sea.toMermaid());
+    System.ln();
+    def scheduled = sea.schedule();
+    def processed = scheduled;
 
-    def transformer = SSATransformer.new(analysis);
+    // SSAD_IR.counter = 0;
+    // def ssa = SSAD_IR.ssa(ir);
+    // def analysis = SSADCtx.new(ssa);
+
+    // def transformer = SSATransformer.new(analysis);
     // transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
-    transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
-    transformer.onIf = flatten_ifs;
-    def transformed = transformer.transform(ssa);
-    def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
+    // transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
+    // transformer.onIf = flatten_ifs;
+    // def transformed = transformer.transform(ssa);
+    // def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
     return CBDDef.new(opcode, processed);
 }
 

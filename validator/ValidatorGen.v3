@@ -10,46 +10,6 @@ class SidetableEntry(fields: Array<(string, string)>) {
     }
 }
 
-def runUnconditionally(node: SSAD, ctx: SSADCtx) -> bool {
-    match (node) {
-        LetApp(n, _, _, _) => return ctx.effects[n].is_sidetable();
-        LetLit(n, _, _, _) => return ctx.effects[n].is_sidetable();
-        If(_, _, _, _, _) => return true; // TODO: check phis?
-        Match(_, _, _) => return true; // TODO: check branches?
-        Void => return true;
-        Injected(_, _) => return true;
-        Final(_) => return true;
-    }
-}
-
-def flatten_ifs(node: SSAD.If, transformer: SSATransformer) -> SSAD {
-    def ctx = transformer.ctx;
-    def tfx = Vector<CBDEffect>.new();
-    def efx = Vector<CBDEffect>.new();
-    ctx.collectEffects(node.then, tfx);
-    ctx.collectEffects(node.els, efx);
-
-    def t_res = CBDEffects.run_fx(tfx);
-    def e_res = CBDEffects.run_fx(efx);
-    // assert t_res.stack_delta == e_res.stack_delta
-
-    if (!ctx.static[node.cond] && node.phis.length == 0) {
-        // TODO: what to do with phis?
-        // we should assume that the effects on each side are equivalent
-        // by some notion
-        // so we run all the effects from the first branch, and then only
-        // some effects on the second branch, which is tier dependent.
-        // for the validator, either branch may modify the sidetable.
-        // for an abstract interpreter, effects tracking may need to be
-        // more complex
-        // TODO: this doesn't really account for if there are pops in each branch
-        def ef = node.els.filter(runUnconditionally(_, ctx));
-        return transformer.transform(node.then).appended(ef).appended(node.rest);
-    } else {
-        return node;
-    }
-}
-
 var graph_output_buf: StringBuilder;
 def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // if (!Strings.equal(opcode, "I32_DIV_S")) return null;
@@ -73,18 +33,20 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
         stbuilder_call = SSAD.LetApp(SSAD_IR.uidl("eff_st_put"), stbuilder_fn, st_args, SSAD.Void);
         for (arg in st_args) analysis.effects[arg] = CBDEffect.Table;
     }
-    ir = ir.appended(stbuilder_call);
 
     var ctx = SSADCtx.new(ir);
-    def sea_ir = ctx.id_propagate(ir, Strings.newMap<string>());
+    var sea_ir = ctx.id_propagate(ir, Strings.newMap<string>());
     // def sea_ir = ir;
-    def sea = Seas.ofSSAD(sea_ir);
+    var sea = Seas.ofSSAD(sea_ir);
     def raw_mermaid = sea.toMermaid();
     graph_output_buf.put1("## %s", opcode).ln();
     graph_output_buf.puts("```mermaid\n");
     graph_output_buf.puts(raw_mermaid);
     graph_output_buf.puts("```\n");
 
+    ir = ir.appended(stbuilder_call);
+    sea_ir = ctx.id_propagate(ir, Strings.newMap<string>());
+    sea = Seas.ofSSAD(sea_ir);
     // sea.apply(IRNode.removeViews);
     sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.overloadOps(sea));
     sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.addAbstractions(sea));

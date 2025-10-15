@@ -53,6 +53,13 @@ class CBDFastIntGen extends X86_64InterpreterGen {
 		genTraps();
     }
 
+    def imm_readU8() -> X86_64Gpr {
+        def reg = reg_alloc();
+        asm.movbzx_r_m(reg, ip_ptr);
+        asm.q.inc_r(r_ip);
+        return reg;
+    }
+
     def imm_readULEB32() -> X86_64Gpr {
         def reg = reg_alloc();
         genReadUleb32(reg);

@@ -371,8 +371,7 @@ class Sea {
         var available = point.available;
         var depth = point.depth;
 
-        // point.dbg();
-
+        point.dbg();
 
         var phis: List<IRNode> = null;
         var state_phis: List<IRNode> = null;
@@ -801,6 +800,37 @@ class IRNode {
                 }
 
                 return deps();
+            }
+            _ => return deps();
+        }
+    }
+
+    def reifyConds(sea: Sea, state: HashMap<IRNode, (IRNode, IRNode, IRNode)>) -> Range<IRNode> {
+        def nstates = sea.start.state_deps.length;
+        match (op) {
+            Phi, StatePhi => {
+                def cond = value_deps[0], then = value_deps[1], els = value_deps[2];
+                if (cond.var_data.stage == Stage.VALIDATE) return deps();
+
+                var start_if: IRNode, start_else: IRNode, end: IRNode;
+                if (state.has(cond)) {
+                    start_if = state[cond].0;
+                    start_else = state[cond].1;
+                    end = state[cond].2;
+                } else {
+                    start_if = sea.mkNode(IROp.Intrinsic(intrinsic("startIf")), Array.new(nstates), [cond]);
+                    start_else = sea.mkNode(IROp.Intrinsic(intrinsic("startElse")), Array.new(nstates), [cond]);
+                    end = sea.mkNode(IROp.Intrinsic(intrinsic("end")), Array.new(nstates), [cond]);
+                    state[cond] = (start_if, start_else, end);
+                }
+
+                then.state_deps[StateComponent.Extra.tag] = start_if;
+                els.state_deps[StateComponent.Extra.tag] = start_else;
+                end.state_deps[StateComponent.Extra.tag] = this;
+
+                return deps();
+                // return [cond, then, els];
+                // return [then, els];
             }
             _ => return deps();
         }

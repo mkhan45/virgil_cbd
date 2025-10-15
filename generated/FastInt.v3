@@ -54,6 +54,13 @@ class CBDFastIntGen extends X86_64InterpreterGen {
 		genTraps();
     }
 
+    def imm_readU8() -> X86_64Gpr {
+        def reg = reg_alloc();
+        asm.movbzx_r_m(reg, ip_ptr);
+        asm.q.inc_r(r_ip);
+        return reg;
+    }
+
     def imm_readULEB32() -> X86_64Gpr {
         def reg = reg_alloc();
         genReadUleb32(reg);
@@ -150,41 +157,31 @@ def I32_SUB() {
 }
 def I32_EQZ() {
 	def a = pop_u32();
-	def cond = U32_equals(a, rtcast_u32(0));
-	startCond(cond);
 	push_u32(rtcast_u32(1));
-	startElse();
 	push_u32(rtcast_u32(0));
-	endCond();
+	def cond = U32_equals(a, rtcast_u32(0));
+	def mt = U32_maybeTrue(cond);
+	def mf = U32_maybeFalse(cond);
+	if (bool.&&(mt, mf)) {
+	} else {
+		if (mt) {
+		}
+	}
 }
 def BR_IF() {
+	def cond = pop_u32();
 	def depth = imm_readULEB32();
 	def label = f_getLabel(depth);
-	def cond = pop_u32();
-	def cond1 = U32_not_equals(cond, rtcast_u32(0));
-	startCond(cond1);
 	doBranch(label);
-	startElse();
 	doFallthru();
-	endCond();
-}
-def I32_LOAD() {
-	def flags = imm_readU8();
-	startCond(u8.!=(u8.&(flags, 0x40u8), 0));
-	startElse();
-	endCond();
-	def cond = m_isMemory64(0u);
-	startCond(cond);
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32(0u, index, offset);
-	push_u32(val);
-	startElse();
-	def offset1 = imm_readULEB32();
-	def index1 = pop_u32();
-	def val1 = mach_readMemory32_u32(0u, index1, offset1);
-	push_u32(val1);
-	endCond();
+	def cond1 = U32_not_equals(cond, rtcast_u32(0));
+	def mt = U32_maybeTrue(cond1);
+	def mf = U32_maybeFalse(cond1);
+	if (bool.&&(mt, mf)) {
+	} else {
+		if (mt) {
+		}
+	}
 }
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
@@ -194,7 +191,6 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.I32_SUB.tag] = I32_SUB;
   DISPATCH_TABLE[Opcode.I32_EQZ.tag] = I32_EQZ;
   DISPATCH_TABLE[Opcode.BR_IF.tag] = BR_IF;
-  DISPATCH_TABLE[Opcode.I32_LOAD.tag] = I32_LOAD;
   return DISPATCH_TABLE;
 }
 def genCBDHandlers() {
@@ -226,12 +222,6 @@ def genCBDHandlers() {
 	reset();
 	BR_IF();
 	adjustVsp(-1);
-	endHandler();
-
-	bindHandler(Opcode.I32_LOAD);
-	reset();
-	I32_LOAD();
-	adjustVsp(0);
 	endHandler();
 
 }
