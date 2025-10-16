@@ -1297,6 +1297,27 @@ def I32_LOAD8_U() {
 		push_u32(val);
 	}
 }
+def I32_LOAD8_S() {
+	def flags = imm_readU8();
+	var memindex = 0u;
+	if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+		memindex = imm_readULEB32();
+	}
+	def cond = m_isMemory64(memindex);
+	if (cond) {
+		def offset = imm_readULEB64();
+		def index = pop_u64();
+		def arg = mach_readMemory64_u8(memindex, index, offset);
+		def val = U32_extend8_s(arg);
+		push_u32(val);
+	} else {
+		def offset = imm_readULEB32();
+		def index = pop_u32();
+		def arg1 = mach_readMemory32_u8(memindex, index, offset);
+		def val = U32_extend8_s(arg1);
+		push_u32(val);
+	}
+}
 def I32_LOAD16_S() {
 	def flags = imm_readU8();
 	var memindex = 0u;
@@ -1591,6 +1612,7 @@ def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE[Opcode.STRUCT_GET_U.tag] = STRUCT_GET_U;
   DISPATCH_TABLE[Opcode.I32_LOAD.tag] = I32_LOAD;
   DISPATCH_TABLE[Opcode.I32_LOAD8_U.tag] = I32_LOAD8_U;
+  DISPATCH_TABLE[Opcode.I32_LOAD8_S.tag] = I32_LOAD8_S;
   DISPATCH_TABLE[Opcode.I32_LOAD16_S.tag] = I32_LOAD16_S;
   DISPATCH_TABLE[Opcode.I64_LOAD.tag] = I64_LOAD;
   DISPATCH_TABLE[Opcode.F32_LOAD.tag] = F32_LOAD;

@@ -371,7 +371,7 @@ class Sea {
         var available = point.available;
         var depth = point.depth;
 
-        point.dbg();
+        // point.dbg();
 
         var phis: List<IRNode> = null;
         var state_phis: List<IRNode> = null;
@@ -619,6 +619,7 @@ class IRNode {
         value_deps = other.value_deps;
         state_deps = other.state_deps;
         children = other.children;
+        id = other.id;
     }
 
     def removeViews(sea: Sea) -> Range<IRNode> {
@@ -818,6 +819,18 @@ class IRNode {
                     }
                 }
 
+                return deps();
+            }
+            _ => return deps();
+        }
+    }
+
+    def id_propagate(sea: Sea) -> Range<IRNode> {
+        match (op) {
+            Intrinsic(defn) => {
+                if (Strings.equal(defn.name, "id")) {
+                    become(value_deps[0]);
+                }
                 return deps();
             }
             _ => return deps();
