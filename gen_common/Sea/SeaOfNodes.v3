@@ -511,6 +511,22 @@ class Sea {
             return SearchRes(true, nextPoint);
         }
     }
+
+    def scheduleExp() {
+        def wl = Vector<IRNode>.new();
+        wl.put(finish);
+
+        var q_idx = 0;
+        while (q_idx < wl.length) {
+            def node = wl[q_idx];
+            q_idx += 1;
+
+        }
+    }
+
+    def scheduleIntoTree(node: IRNode, tree: IRNode) {
+
+    }
 }
 
 component Seas {
@@ -542,6 +558,9 @@ class IRNode {
     var value_deps: Array<IRNode>;
     var state_deps: Array<IRNode>; // idx = statecomp.tag
     var children: Vector<IRNode>;
+
+    // var schedule_parent: IRNode;
+    var schedule_children: Vector<IRNode>;
 
     new(op, id) {
         children = Vector.new();
