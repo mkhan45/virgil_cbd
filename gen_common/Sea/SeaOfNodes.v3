@@ -318,6 +318,11 @@ class Sea {
                 buf.puts(".-> ").puts(tag).putd(n.id).ln();
             }
 
+            for (i < n.schedule_children.length) {
+                def child = n.schedule_children[i];
+                buf.tab().puts(tag).putd(n.id).puts(" ==> ").puts(tag).putd(child.id).ln();
+            }
+
             // for (dep in n.ctl_deps()) {
             //     buf.tab().puts(tag).putd(dep.id).puts(".-> ").puts(tag).putd(n.id).ln();
             // }
@@ -520,12 +525,39 @@ class Sea {
         while (q_idx < wl.length) {
             def node = wl[q_idx];
             q_idx += 1;
+            if (node.schedule_parent != null) continue;
 
+            def parent = scheduleIntoTree(node, start, ImmNodeSets.single(start));
+            if (parent == null) {
+                for (d in node.deps()) if (d.schedule_parent == null) wl.put(d);
+                wl.put(node);
+            }
         }
     }
 
-    def scheduleIntoTree(node: IRNode, tree: IRNode) {
+    def scheduleIntoTree(node: IRNode, tree: IRNode, available: ImmNodeSet) -> IRNode {
+        if (node.schedule_parent != null) return node.schedule_parent;
+        if (node.id == start.id) return start;
+        if (node.id == tree.id) return node.schedule_parent;
 
+        var ready = true;
+        for (d in node.deps()) ready &= available.has(d);
+
+        System.puts(Strings.format3("node: %q, tree: %q, ready: %s\n", node.render, tree.render, if(ready, "yes", "no")));
+
+        if (ready) {
+            System.puts(Strings.format2("putting %q into %q schedule_children\n", node.render, tree.render));
+            tree.schedule_children.put(node);
+            node.schedule_parent = tree;
+            return tree;
+        } else {
+            for (i < tree.schedule_children.length) {
+                def child = tree.schedule_children[i];
+                def res = scheduleIntoTree(node, child, available.with(child));
+                if (res != null) return res;
+            }
+            return null;
+        }
     }
 }
 
@@ -561,9 +593,11 @@ class IRNode {
 
     // var schedule_parent: IRNode;
     var schedule_children: Vector<IRNode>;
+    var schedule_parent: IRNode;
 
     new(op, id) {
         children = Vector.new();
+        schedule_children = Vector.new();
     }
 
     def deps() -> Array<IRNode> {
@@ -619,6 +653,7 @@ class IRNode {
         value_deps = other.value_deps;
         state_deps = other.state_deps;
         children = other.children;
+        schedule_children = other.schedule_children;
         id = other.id;
     }
 
