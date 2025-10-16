@@ -50,10 +50,20 @@ def pushTypes(ts: Array<ValueType>) {
 // def HAS_MEM_INDEX = 0x40u;
 def HAS_MEM_INDEX = TypeVar.U32;
 
-def f32_reinterpret_u32(i: TypeVar.U32) -> TypeVar.F32;
-def f64_reinterpret_u64(i: TypeVar.U64) -> TypeVar.F64;
-def u32_reinterpret_f32(f: TypeVar.F32) -> TypeVar.U32;
-def u64_reinterpret_f64(f: TypeVar.F64) -> TypeVar.U64;
+def f32_reinterpret_u32(i: TypeVar.U32) => TypeVar.F32;
+def f64_reinterpret_u64(i: TypeVar.U64) => TypeVar.F64;
+def u32_reinterpret_f32(f: TypeVar.F32) => TypeVar.U32;
+def u64_reinterpret_f64(f: TypeVar.F64) => TypeVar.U64;
+def U32_wrap_u64(f: TypeVar.U64) => TypeVar.U32;
+
+def F32_convert_i32_s(v: TypeVar.U32) => TypeVar.F32;
+def F32_convert_i32_u(v: TypeVar.U32) => TypeVar.F32;
+def F32_convert_i64_s(v: TypeVar.U64) => TypeVar.F32;
+def F32_convert_i64_u(v: TypeVar.U64) => TypeVar.F32;
+def F64_convert_i32_s(v: TypeVar.U32) => TypeVar.F64;
+def F64_convert_i32_u(v: TypeVar.U32) => TypeVar.F64;
+def F64_convert_i64_s(v: TypeVar.U64) => TypeVar.F64;
+def F64_convert_i64_u(v: TypeVar.U64) => TypeVar.F64;
 
 // U64
 def U32_plus(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
@@ -85,8 +95,8 @@ def U32_shr_s(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_rotl(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 def U32_rotr(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
 
-def U32_extend8_s(x: TypeVar.U32) -> TypeVar.U32;
-def U32_extend16_s(x: TypeVar.U32) -> TypeVar.U32;
+def U32_extend8_s(x: TypeVar.U32) => TypeVar.U32;
+def U32_extend16_s(x: TypeVar.U32) => TypeVar.U32;
 
 // U64
 def U64_plus(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
@@ -133,6 +143,12 @@ def F32_minus = TypeVar.F32.binop(float.-);
 def F32_div = TypeVar.F32.binop(float./);
 def F32_times = TypeVar.F32.binop(float.*);
 def F32_sqrt = fun (x: TypeVar.F32) => x;
+
+// F64
+def F64_plus = TypeVar.F64.binop(double.+);
+def F64_minus = TypeVar.F64.binop(double.-);
+def F64_times = TypeVar.F64.binop(double.*);
+def F64_div = TypeVar.F64.binop(double./);
 
 def object_Null() -> TypeVar.Object => TypeVar.Object;
 def object_isNull(o: TypeVar.Object) => TypeVar.U32;
@@ -195,9 +211,9 @@ def imm_readULEB64() -> u64 => codeptr.read_uleb64();
 def imm_readILEB32() -> u32 => u32.view(codeptr.read_sleb32());
 def imm_readILEB64() -> u64 => u32.view(codeptr.read_sleb64());
 
-def imm_readU8() -> u8 {
-    return codeptr.read1();
-}
+def imm_readU8() -> u8 => codeptr.read1();
+def imm_readU32() -> u32 => codeptr.read_u32();
+def imm_readU64() -> u64 => codeptr.read_u64();
 
 def imm_readBlockType() -> (Array<ValueType>, Array<ValueType>) {
     def bt = codeptr.read_BlockTypeCode();

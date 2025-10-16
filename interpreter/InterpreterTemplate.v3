@@ -101,9 +101,11 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def imm_readULEB64() -> u64 => it.codeptr.read_uleb64();
 
     def imm_readILEB32() -> u32 => u32.view(it.codeptr.read_sleb32());
-    def imm_readILEB64() -> u64 => u32.view(it.codeptr.read_sleb64());
+    def imm_readILEB64() -> u64 => u64.view(it.codeptr.read_sleb64());
 
     def imm_readU8() -> u8 => it.codeptr.read1();
+    def imm_readU32() -> u32 => it.codeptr.read_u32();
+    def imm_readU64() -> u64 => it.codeptr.read_u64();
 
     def imm_readBlockType() -> (Array<ValueType>, Array<ValueType>) {
         def bt = it.codeptr.read_BlockTypeCode();
@@ -395,8 +397,18 @@ class CBDV3Interpreter(it: V3Interpreter) {
 
     def f32_reinterpret_u32(i: u32) -> float;
     def f64_reinterpret_u64(i: u64) -> double;
-    def u32_reinterpret_f32(f: float) -> u32;
-    def u64_reinterpret_f64(f: double) -> u64;
+    def f32_reinterpret_f32(f: float) -> u32;
+    def f64_reinterpret_f64(f: double) -> u64;
+    def U32_wrap_u64(i: u64) -> u32;
+
+    def F32_convert_i32_s(v: u32) -> float;
+    def F32_convert_i32_u(v: u32) -> float;
+    def F32_convert_i64_s(v: u64) -> float;
+    def F32_convert_i64_u(v: u64) -> float;
+    def F64_convert_i32_s(v: u32) -> double;
+    def F64_convert_i32_u(v: u32) -> double;
+    def F64_convert_i64_s(v: u64) -> double;
+    def F64_convert_i64_u(v: u64) -> double;
 
      // XXX: traps
     def U32_div_s = conv_i32_op(i32./);
