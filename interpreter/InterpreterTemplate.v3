@@ -90,9 +90,9 @@ class CBDV3Interpreter(it: V3Interpreter) {
                 def prev_stack = renderStack(StringBuilder.new()).toString();
                 def opcode = it.codeptr.read_opcode();
                 def intro_str = Strings.format2("+%d: %s", it.frame.pc, opcode.mnemonic);
-                System.puts(intro_str);
-                for (i < 20 - intro_str.length) System.puts(" ");
-                System.puts(prev_stack); 
+                // System.puts(intro_str);
+                // for (i < 20 - intro_str.length) System.puts(" ");
+                // System.puts(prev_stack); 
                 DISPATCH_TABLE[opcode.tag]();
             }
 

@@ -910,7 +910,7 @@ class IRNode {
     def chooseMerge(sea: Sea) -> Range<IRNode> {
         match (op) {
             Intrinsic(defn) => {
-                if (Strings.startsWith(defn.name, "merge")) {
+                if (Strings.startsWith(defn.name, "merge_")) {
                     become(value_deps[0]);
                 }
                 return deps();
