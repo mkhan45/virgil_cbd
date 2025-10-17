@@ -776,7 +776,7 @@ class CBDSidetableBuilder {
 
     def put_ELSE(label: ControlEntry) {
         ref0(label, opcode_pos);
-        bindElse(label, opcode_pos);
+        bindElse(label, opcode_pos+1);
     }
 
     def put_BR_TABLE(labels: Array<u31>) {

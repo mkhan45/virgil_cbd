@@ -83,12 +83,19 @@ class CBDV3Interpreter(it: V3Interpreter) {
         def tags = it.frame.func.decl.frame_var_tags;
         if (tags != null) for (t in tags) it.values.push(it.tagToValue(t));
 
-        while (it.frame != null && it.codeptr.available() > 0) {
-            it.frame.pc = it.codeptr.pos;
-            def opcode = it.codeptr.read_opcode();
-            // System.puti(it.frame.pc); System.puts(": "); printStack();
-            // System.puts(opcode.mnemonic); System.ln();
-            DISPATCH_TABLE[opcode.tag]();
+        it.state_ = StackState.RUNNING;
+        while (it.state_ == StackState.RUNNING) {
+            while (it.frame != null && it.codeptr.available() > 0 && it.host_outcall == null) {
+                it.frame.pc = it.codeptr.pos;
+                def opcode = it.codeptr.read_opcode();
+                // System.puti(it.frame.pc); System.puts(": "); printStack();
+                // System.puts(opcode.mnemonic); System.ln();
+                DISPATCH_TABLE[opcode.tag]();
+            }
+
+            if (it.frame == null) it.state_ = StackState.RETURNING;
+
+            it.runHostCall();
         }
     }
 
