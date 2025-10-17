@@ -17,7 +17,7 @@ def IF() {
 	def cond = pop_u32();
 	def label = doIf(bt);
 	doBranch(label);
-	doBranch(label);
+	doFallthru();
 	ctlxfer.put_IF(label);
 }
 def ELSE() {
@@ -48,7 +48,7 @@ def BR_IF() {
 	def label = f_getLabel(depth);
 	def cond = pop_u32();
 	doBranch(label);
-	doBranch(label);
+	doFallthru();
 	ctlxfer.put_BR_IF(label);
 }
 def BR_TABLE() {
@@ -879,25 +879,26 @@ def I32_DIV_S() {
 	def b = pop_u32();
 	def a = pop_u32();
 	trapDivideByZero();
-	trapDivideByZero();
+	trapDivideUnrepresentable();
+	push_u32(U32_div_s(a, b));
 }
 def I32_DIV_U() {
 	def b = pop_u32();
 	def a = pop_u32();
 	trapDivideByZero();
-	trapDivideByZero();
+	push_u32(U32_div(a, b));
 }
 def I32_REM_S() {
 	def b = pop_u32();
 	def a = pop_u32();
 	trapDivideByZero();
-	trapDivideByZero();
+	push_u32(U32_rem_s(a, b));
 }
 def I32_REM_U() {
 	def b = pop_u32();
 	def a = pop_u32();
 	trapDivideByZero();
-	trapDivideByZero();
+	push_u32(U32_rem_u(a, b));
 }
 def I32_AND() {
 	def b = pop_u32();
@@ -970,25 +971,26 @@ def I64_DIV_S() {
 	def b = pop_u64();
 	def a = pop_u64();
 	trapDivideByZero();
-	trapDivideByZero();
+	trapDivideUnrepresentable();
+	push_u64(U64_div_s(a, b));
 }
 def I64_DIV_U() {
 	def b = pop_u64();
 	def a = pop_u64();
 	trapDivideByZero();
-	trapDivideByZero();
+	push_u64(U64_div(a, b));
 }
 def I64_REM_S() {
 	def b = pop_u64();
 	def a = pop_u64();
 	trapDivideByZero();
-	trapDivideByZero();
+	push_u64(U64_rem_s(a, b));
 }
 def I64_REM_U() {
 	def b = pop_u64();
 	def a = pop_u64();
 	trapDivideByZero();
-	trapDivideByZero();
+	push_u64(U64_rem_u(a, b));
 }
 def I64_AND() {
 	def b = pop_u64();
@@ -1077,7 +1079,7 @@ def F32_DIV() {
 	def b = pop_f32();
 	def a = pop_f32();
 	trapDivideByZero();
-	trapDivideByZero();
+	push_f32(F32_div(a, b));
 }
 def F64_ABS() {
 	def a = pop_f64();
@@ -1126,7 +1128,7 @@ def F64_DIV() {
 	def b = pop_f64();
 	def a = pop_f64();
 	trapDivideByZero();
-	trapDivideByZero();
+	push_f64(F64_div(a, b));
 }
 def I32_WRAP_I64() {
 	def a = pop_u64();
@@ -1280,7 +1282,6 @@ def REF_IS_NULL() {
 def REF_AS_NON_NULL() {
 	def obj = pop_Object();
 	trapNull();
-	trapNull();
 	push_Object(obj);
 }
 def STRUCT_NEW() {
@@ -1293,23 +1294,17 @@ def STRUCT_GET() {
 	def field_index = imm_readULEB32();
 	def obj = pop_Object();
 	trapNull();
-	trapNull();
-	trapNull();
 }
 def STRUCT_GET_S() {
 	def struct_index = imm_readULEB32();
 	def field_index = imm_readULEB32();
 	def obj = pop_Object();
 	trapNull();
-	trapNull();
-	trapNull();
 }
 def STRUCT_GET_U() {
 	def struct_index = imm_readULEB32();
 	def field_index = imm_readULEB32();
 	def obj = pop_Object();
-	trapNull();
-	trapNull();
 	trapNull();
 }
 def build_dispatch_table() -> Array<void -> void> {

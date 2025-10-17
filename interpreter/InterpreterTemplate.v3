@@ -87,9 +87,9 @@ class CBDV3Interpreter(it: V3Interpreter) {
         while (it.state_ == StackState.RUNNING) {
             while (it.frame != null && it.codeptr.available() > 0 && it.host_outcall == null) {
                 it.frame.pc = it.codeptr.pos;
-                def prev_stack = renderStack(StringBuilder.new()).toString();
                 def opcode = it.codeptr.read_opcode();
-                def intro_str = Strings.format2("+%d: %s", it.frame.pc, opcode.mnemonic);
+                // def prev_stack = renderStack(StringBuilder.new()).toString();
+                // def intro_str = Strings.format2("+%d: %s", it.frame.pc, opcode.mnemonic);
                 // System.puts(intro_str);
                 // for (i < 20 - intro_str.length) System.puts(" ");
                 // System.puts(prev_stack); 
@@ -430,20 +430,20 @@ class CBDV3Interpreter(it: V3Interpreter) {
         return it.codeptr.available() == 0;
     }
 
-    def f32_reinterpret_u32(i: u32) -> float;
-    def f64_reinterpret_u64(i: u64) -> double;
-    def u32_reinterpret_f32(f: float) -> u32;
-    def u64_reinterpret_f64(f: double) -> u64;
+    def f32_reinterpret_u32(i: u32) -> float => V3Eval.F32_REINTERPRET_I32(i);
+    def f64_reinterpret_u64(i: u64) -> double => V3Eval.F64_REINTERPRET_I64(i);
+    def u32_reinterpret_f32(f: float) -> u32 => V3Eval.I32_REINTERPRET_F32(f);
+    def u64_reinterpret_f64(f: double) -> u64 => V3Eval.I64_REINTERPRET_F64(f);
     def U32_wrap_u64(i: u64) -> u32 => u32.view(V3Eval.I32_WRAP_I64(i));
 
-    def F32_convert_i32_s(v: u32) -> float;
-    def F32_convert_i32_u(v: u32) -> float;
-    def F32_convert_i64_s(v: u64) -> float;
-    def F32_convert_i64_u(v: u64) -> float;
-    def F64_convert_i32_s(v: u32) -> double;
-    def F64_convert_i32_u(v: u32) -> double;
-    def F64_convert_i64_s(v: u64) -> double;
-    def F64_convert_i64_u(v: u64) -> double;
+    def F32_convert_i32_s(v: u32) -> float => V3Eval.F32_CONVERT_I32_S(i32.view(v));
+    def F32_convert_i32_u(v: u32) -> float => V3Eval.F32_CONVERT_I32_U(v);
+    def F32_convert_i64_s(v: u64) -> float => V3Eval.F32_CONVERT_I64_S(i64.view(v));
+    def F32_convert_i64_u(v: u64) -> float => V3Eval.F32_CONVERT_I64_U(v);
+    def F64_convert_i32_s(v: u32) -> double => V3Eval.F64_CONVERT_I32_S(i32.view(v));
+    def F64_convert_i32_u(v: u32) -> double => V3Eval.F64_CONVERT_I32_U(v);
+    def F64_convert_i64_s(v: u64) -> double => V3Eval.F64_CONVERT_I64_S(i64.view(v));
+    def F64_convert_i64_u(v: u64) -> double => V3Eval.F64_CONVERT_I64_U(v);
 
     def doTrunc<T, U>(trunc: T -> (U, TrapReason), fl: T) -> U {
         def p = trunc(fl);

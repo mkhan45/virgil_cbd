@@ -1,6 +1,6 @@
 (module
   (func (export "main") (result i32)
-    (call $ack (i32.const 3) (i32.const 9))
+    (call $ack (i32.const 3) (i32.const 8))
   )
   (func $ack (param $m i32) (param $n i32) (result i32)
     (block

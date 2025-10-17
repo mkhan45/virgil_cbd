@@ -141,33 +141,6 @@ class CBDFastIntGen extends X86_64InterpreterGen {
         last_cond = null;
     }
 
-def I32_CONST() {
-	def x = imm_readILEB32();
-	push_u32(x);
-}
-def I32_ADD() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_plus(a, b));
-}
-def I32_SUB() {
-	def b = pop_u32();
-	def a = pop_u32();
-	push_u32(U32_minus(a, b));
-}
-def I32_EQZ() {
-	def a = pop_u32();
-	push_u32(rtcast_u32(1));
-	push_u32(rtcast_u32(0));
-	def cond = U32_equals(a, rtcast_u32(0));
-	def mt = U32_maybeTrue(cond);
-	def mf = U32_maybeFalse(cond);
-	if (bool.&&(mt, mf)) {
-	} else {
-		if (mt) {
-		}
-	}
-}
 def BR_IF() {
 	def cond = pop_u32();
 	def depth = imm_readULEB32();
@@ -183,21 +156,62 @@ def BR_IF() {
 		}
 	}
 }
+def I32_CONST() {
+	def x = imm_readILEB32();
+	push_u32(x);
+}
+def I32_EQZ() {
+	def a = pop_u32();
+	def cond = U32_equals(a, rtcast_u32(0));
+	def mt = U32_maybeTrue(cond);
+	def mf = U32_maybeFalse(cond);
+	if (bool.&&(mt, mf)) {
+		def push = push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
+	} else {
+		if (mt) {
+			push_u32(rtcast_u32(1));
+		} else {
+			push_u32(rtcast_u32(0));
+		}
+	}
+}
+def I32_ADD() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_plus(a, b));
+}
+def I32_SUB() {
+	def b = pop_u32();
+	def a = pop_u32();
+	push_u32(U32_minus(a, b));
+}
 def build_dispatch_table() -> Array<void -> void> {
   DISPATCH_TABLE = Array.new(0xE5 + 1);
   for (i < 0xE5 + 1) DISPATCH_TABLE[i] = null;
+  DISPATCH_TABLE[Opcode.BR_IF.tag] = BR_IF;
   DISPATCH_TABLE[Opcode.I32_CONST.tag] = I32_CONST;
+  DISPATCH_TABLE[Opcode.I32_EQZ.tag] = I32_EQZ;
   DISPATCH_TABLE[Opcode.I32_ADD.tag] = I32_ADD;
   DISPATCH_TABLE[Opcode.I32_SUB.tag] = I32_SUB;
-  DISPATCH_TABLE[Opcode.I32_EQZ.tag] = I32_EQZ;
-  DISPATCH_TABLE[Opcode.BR_IF.tag] = BR_IF;
   return DISPATCH_TABLE;
 }
 def genCBDHandlers() {
+	bindHandler(Opcode.BR_IF);
+	reset();
+	BR_IF();
+	adjustVsp(-1);
+	endHandler();
+
 	bindHandler(Opcode.I32_CONST);
 	reset();
 	I32_CONST();
 	adjustVsp(1);
+	endHandler();
+
+	bindHandler(Opcode.I32_EQZ);
+	reset();
+	I32_EQZ();
+	adjustVsp(0);
 	endHandler();
 
 	bindHandler(Opcode.I32_ADD);
@@ -209,18 +223,6 @@ def genCBDHandlers() {
 	bindHandler(Opcode.I32_SUB);
 	reset();
 	I32_SUB();
-	adjustVsp(-1);
-	endHandler();
-
-	bindHandler(Opcode.I32_EQZ);
-	reset();
-	I32_EQZ();
-	adjustVsp(0);
-	endHandler();
-
-	bindHandler(Opcode.BR_IF);
-	reset();
-	BR_IF();
 	adjustVsp(-1);
 	endHandler();
 
