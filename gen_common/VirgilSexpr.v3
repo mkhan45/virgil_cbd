@@ -604,7 +604,18 @@ component VirgilExprs {
         match (elems.tail.head) {
             Atom(func) => {
                 func_name = cleanIdent(func);
-                args = elems.tail.tail.tail.tail.tail; // seems like AppExprs get passed the func twice for resolution or smth
+                args = elems // AppExpr
+                        .tail // func_name
+                        .tail; // type
+                // could have implicitType
+                match (args.tail.head) {
+                    List(ls) => if (ls.head.matchesAtom("implicitType")) args = args.tail;
+                    _ => {}
+                }
+                args = args // implicitType | type
+                        .tail // ComponentMethod
+                        .tail // local method
+                        .tail; // first arg
             }
             List(hlist) => {
                 if (!isTypeStrF(hlist.head.matchesAtom)) return SExprRes.Malformed(sexpr);

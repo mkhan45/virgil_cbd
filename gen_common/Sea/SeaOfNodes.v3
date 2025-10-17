@@ -318,6 +318,11 @@ class Sea {
                 buf.puts(".-> ").puts(tag).putd(n.id).ln();
             }
 
+            for (i < n.schedule_children.length) {
+                def child = n.schedule_children[i];
+                buf.tab().puts(tag).putd(n.id).puts(" ==> ").puts(tag).putd(child.id).ln();
+            }
+
             // for (dep in n.ctl_deps()) {
             //     buf.tab().puts(tag).putd(dep.id).puts(".-> ").puts(tag).putd(n.id).ln();
             // }
@@ -371,7 +376,7 @@ class Sea {
         var available = point.available;
         var depth = point.depth;
 
-        //point.dbg();
+        // point.dbg();
 
         var phis: List<IRNode> = null;
         var state_phis: List<IRNode> = null;
@@ -516,16 +521,42 @@ class Sea {
         def wl = Vector<IRNode>.new();
         wl.put(finish);
 
+        def completed = Vector<IRNode>.new();
+
         var q_idx = 0;
         while (q_idx < wl.length) {
             def node = wl[q_idx];
             q_idx += 1;
+            if (node.schedule_parent != null) continue;
 
+            def parent = scheduleIntoTree(node, start, ImmNodeSets.single(start));
+            if (parent == null) {
+                for (d in node.deps()) if (d.schedule_parent == null && d.id != start.id) wl.put(d);
+                wl.put(node);
+            } else {
+                completed.put(node);
+            }
         }
     }
 
-    def scheduleIntoTree(node: IRNode, tree: IRNode) {
+    def scheduleIntoTree(node: IRNode, tree: IRNode, available: ImmNodeSet) -> IRNode {
+        if (node.schedule_parent != null) return node.schedule_parent;
 
+        var ready = true;
+        for (d in node.deps()) ready &= available.has(d);
+
+        if (ready) {
+            tree.schedule_children.put(node);
+            node.schedule_parent = tree;
+            return tree;
+        } else {
+            for (i < tree.schedule_children.length) {
+                def child = tree.schedule_children[i];
+                def res = scheduleIntoTree(node, child, available.with(child));
+                if (res != null) return res;
+            }
+            return null;
+        }
     }
 }
 
@@ -561,9 +592,11 @@ class IRNode {
 
     // var schedule_parent: IRNode;
     var schedule_children: Vector<IRNode>;
+    var schedule_parent: IRNode;
 
     new(op, id) {
         children = Vector.new();
+        schedule_children = Vector.new();
     }
 
     def deps() -> Array<IRNode> {
@@ -618,8 +651,14 @@ class IRNode {
         var_data = other.var_data;
         value_deps = other.value_deps;
         state_deps = other.state_deps;
+        for (i < children.length) {
+            def child = children[i];
+            for (j < child.value_deps.length) if (child.value_deps[j] == this) child.value_deps[j] = other;
+            for (j < child.state_deps.length) if (child.state_deps[j] == this) child.state_deps[j] = other;
+        }
         children = other.children;
-	id = other.id;
+        schedule_children = other.schedule_children;
+        schedule_parent = other.schedule_parent;
     }
 
     def id_propagate(sea: Sea) -> Range<IRNode> {
@@ -790,7 +829,7 @@ class IRNode {
                         var dup = false;
                         for (i < merged_effs.length) dup |= merged_effs[i].id == left.id;
                         if (!dup) {
-                            new_left = mergeEffsValidator(sea, left, right);
+                            new_left = mergeEffsAI(sea, left, right);
                             merged_effs.put(new_left);
                         } else {
                             new_left = sea.mkNode(IROp.Intrinsic(intrinsic("nop")), Array.new(nstates), []);
@@ -863,6 +902,18 @@ class IRNode {
                 return deps();
                 // return [cond, then, els];
                 // return [then, els];
+            }
+            _ => return deps();
+        }
+    }
+
+    def chooseMerge(sea: Sea) -> Range<IRNode> {
+        match (op) {
+            Intrinsic(defn) => {
+                if (Strings.startsWith(defn.name, "merge")) {
+                    become(value_deps[0]);
+                }
+                return deps();
             }
             _ => return deps();
         }
