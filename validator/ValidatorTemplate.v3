@@ -24,8 +24,8 @@ def pushControl(opcode: u16, params: Array<ValueType>, results: Array<ValueType>
         ctl_stack.push(ctl);
     }
     ctl_top = ctl;
-    ctl.start_pos = codeptr.pos;
-    ctl.delegate_pos = codeptr.pos;
+    ctl.start_pos = opcode_pos;
+    ctl.delegate_pos = opcode_pos;
     ctl.start_opcode = opcode;
     ctl.sidetable_pos = -1;
     ctl.params = params;
@@ -480,7 +480,7 @@ def doBlock(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     def rets = bt.1;
     popTypes(args);
     pushTypes(args);
-    pushControl(Opcode.BLOCK.code, args, rets, stack.top);
+    pushControl(Opcode.BLOCK.code, args, rets, stack.top - args.length);
     return ctl_top;
 }
 
@@ -489,7 +489,7 @@ def doLoop(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     def rets = bt.1;
     popTypes(args);
     pushTypes(args);
-    pushControl(Opcode.LOOP.code, args, rets, stack.top);
+    pushControl(Opcode.LOOP.code, args, rets, stack.top - args.length);
     ctl_top.sidetable_pos = ctlxfer.sidetable.length;
     return ctl_top;
 }
@@ -504,7 +504,7 @@ def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
 }
 
 def doElse() -> ControlEntry {
-	if (ctl_top.start_opcode != Opcode.IF.code) invalid();
+    if (ctl_top.start_opcode != Opcode.IF.code) invalid();
     def p = ctl_top.results;
     popTypes(p);
     stack.top = ctl_top.val_stack_top;
@@ -521,7 +521,6 @@ def doElse() -> ControlEntry {
 def doEnd() {
     def p = ctl_top.results;
     popTypes(p);
-    stack.top = ctl_top.val_stack_top;
     pushTypes(p);
     match (ctl_top.start_opcode) {
         Opcode.LOOP.code => {
@@ -674,85 +673,85 @@ class CBDSidetableBuilder {
     }
 
     def reset(start_pos: int) {
-		this.start_pos = start_pos;
-		this.sidetable.resize(0);
-	}
-	// Emit a control entry that references {target} from the pc position {pc}.
-	def ref0(target: ControlEntry, pos: int) {
-		refV(target, pos, 0, 0);
-	}
-	// Emit a control entry for an else that references the else label of {target} from {pos}.
-	def refElse(target: ControlEntry, pos: int) {
-		var pc = rel(pos);
-		var stp = sidetable.length;
-		target.else_ref = stp;
+        this.start_pos = start_pos;
+        this.sidetable.resize(0);
+    }
+    // Emit a control entry that references {target} from the pc position {pc}.
+    def ref0(target: ControlEntry, pos: int) {
+        refV(target, pos, 0, 0);
+    }
+    // Emit a control entry for an else that references the else label of {target} from {pos}.
+    def refElse(target: ControlEntry, pos: int) {
+        var pc = rel(pos);
+        var stp = sidetable.length;
+        target.else_ref = stp;
 
-		put_br_entry(pc, 0, 0, -1);
-	}
-	// Bind the else label for {target} at {pos}, resolving references to it.
-	def bindElse(target: ControlEntry, pos: int) {
-		bind0(target, target.else_ref, pos, sidetable.length);
-		target.else_ref = -1;
-	}
-	// Emit a sidetable entry for a branch to {target} from {pos} with stack top {val_stack_top}.
-	def refS(target: ControlEntry, pos: int, val_stack_top: int) {
-		var valcount = labelArgs(target).length;
-		var popcount = val_stack_top - valcount - target.val_stack_top;
-		refV(target, pos, valcount, u23.view(popcount));
-	}
-	def refV(target: ControlEntry, pos: int, valcount: int, popcount: int) {
-		var pc = rel(pos);
-		var stp = sidetable.length;
-		put_br_entry(pc, valcount, popcount, target.first_ref);
-		target.first_ref = stp;
-	}
-	// ext:typed-continuation
-	// Emit a sidetable entry for a resume operation.
-	// def refR(n_args: int, n_handlers: int) {
-	// 	Sidetables.putResumeEntry(sidetable, n_args, n_handlers);
-	// }
-	// Emit a sidetable entry for a catch entry or suspension handler.
-	// {target} is nullable and is {null} for a switch handler.
-	// def refC(target: ControlEntry, tag: TagDecl, exnref: bool, name: string) {
-	// 	var handler_pc = 0;
-	// 	var stp = sidetable.length;
-	// 	var val_stk_top = if(target != null, target.val_stack_top, 0);
-	// 	var first_ref = if(target != null, target.first_ref, -1);
-	// 	if (Trace.validation) {
-	// 		OUT.put1("    %s", name);
-	// 		OUT.put3("(@+pc tag=%d exnref=%z vsp=%d", if(tag != null, tag.tag_index, -1), exnref, val_stk_top);
-	// 		OUT.ln();
-	// 	}
-	// 	Sidetables.putCatchEntry(sidetable, handler_pc, val_stk_top, first_ref);
-	// 	if (target != null) target.first_ref = stp;
-	// }
-	// Bind the label for {target} at {pos} and {sidetable_pos} and resolve references to it.
-	def bind(target: ControlEntry, pos: int, sidetable_pos: int) {
-		bind0(target, target.first_ref, pos, sidetable_pos);
-		target.first_ref = -1;
-	}
-	def bind0(target: ControlEntry, stp: int, pos: int, sidetable_pos: int) {
-		target.sidetable_pos = sidetable_pos;
-		var pc = rel(pos);
-		while (stp >= 0) {
+        put_br_entry(pc, 0, 0, -1);
+    }
+    // Bind the else label for {target} at {pos}, resolving references to it.
+    def bindElse(target: ControlEntry, pos: int) {
+        bind0(target, target.else_ref, pos, sidetable.length);
+        target.else_ref = -1;
+    }
+    // Emit a sidetable entry for a branch to {target} from {pos} with stack top {val_stack_top}.
+    def refS(target: ControlEntry, pos: int, val_stack_top: int) {
+        var valcount = labelArgs(target).length;
+        var popcount = val_stack_top - valcount - target.val_stack_top;
+        refV(target, pos, valcount, u23.view(popcount));
+    }
+    def refV(target: ControlEntry, pos: int, valcount: int, popcount: int) {
+        var pc = rel(pos);
+        var stp = sidetable.length;
+        put_br_entry(pc, valcount, popcount, target.first_ref);
+        target.first_ref = stp;
+    }
+    // ext:typed-continuation
+    // Emit a sidetable entry for a resume operation.
+    // def refR(n_args: int, n_handlers: int) {
+    //     Sidetables.putResumeEntry(sidetable, n_args, n_handlers);
+    // }
+    // Emit a sidetable entry for a catch entry or suspension handler.
+    // {target} is nullable and is {null} for a switch handler.
+    // def refC(target: ControlEntry, tag: TagDecl, exnref: bool, name: string) {
+    //     var handler_pc = 0;
+    //     var stp = sidetable.length;
+    //     var val_stk_top = if(target != null, target.val_stack_top, 0);
+    //     var first_ref = if(target != null, target.first_ref, -1);
+    //     if (Trace.validation) {
+    //         OUT.put1("    %s", name);
+    //         OUT.put3("(@+pc tag=%d exnref=%z vsp=%d", if(tag != null, tag.tag_index, -1), exnref, val_stk_top);
+    //         OUT.ln();
+    //     }
+    //     Sidetables.putCatchEntry(sidetable, handler_pc, val_stk_top, first_ref);
+    //     if (target != null) target.first_ref = stp;
+    // }
+    // Bind the label for {target} at {pos} and {sidetable_pos} and resolve references to it.
+    def bind(target: ControlEntry, pos: int, sidetable_pos: int) {
+        bind0(target, target.first_ref, pos, sidetable_pos);
+        target.first_ref = -1;
+    }
+    def bind0(target: ControlEntry, stp: int, pos: int, sidetable_pos: int) {
+        target.sidetable_pos = sidetable_pos;
+        var pc = rel(pos);
+        while (stp >= 0) {
             def br_entry = Ref<Sidetable_BrEntry>.at(sidetable.array, stp);
-			var ni = br_entry.stp_delta;
-			var pos = br_entry.pc_delta;
-			var pc_delta = pc - pos;
+            var ni = br_entry.stp_delta;
+            var pos = br_entry.pc_delta;
+            var pc_delta = pc - pos;
             br_entry.pc_delta = pc_delta;
             br_entry.stp_delta = sidetable_pos - stp;
-			stp = ni;
-		}
-	}
-	// def rethrow(ex_slot: int, popcount: int) {
-	// 	sidetable.put(ex_slot).put(0).put(popcount).put(0); // XXX: only need 1 entry for rethrow
-	// }
-	def rel(pos: int) -> int {
-		return pos - start_pos;
-	}
-	def extract() -> Array<u8> {
-		return sidetable.copy();
-	}
+            stp = ni;
+        }
+    }
+    // def rethrow(ex_slot: int, popcount: int) {
+    //     sidetable.put(ex_slot).put(0).put(popcount).put(0); // XXX: only need 1 entry for rethrow
+    // }
+    def rel(pos: int) -> int {
+        return pos - start_pos;
+    }
+    def extract() -> Array<u8> {
+        return sidetable.copy();
+    }
 
     def put_Is64(is64: bool) {
         def end = allocate(STEntry_Is64.size);

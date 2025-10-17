@@ -87,9 +87,12 @@ class CBDV3Interpreter(it: V3Interpreter) {
         while (it.state_ == StackState.RUNNING) {
             while (it.frame != null && it.codeptr.available() > 0 && it.host_outcall == null) {
                 it.frame.pc = it.codeptr.pos;
+                def prev_stack = renderStack(StringBuilder.new()).toString();
                 def opcode = it.codeptr.read_opcode();
-                // System.puti(it.frame.pc); System.puts(": "); printStack();
-                // System.puts(opcode.mnemonic); System.ln();
+                def intro_str = Strings.format2("+%d: %s", it.frame.pc, opcode.mnemonic);
+                System.puts(intro_str);
+                for (i < 20 - intro_str.length) System.puts(" ");
+                System.puts(prev_stack); 
                 DISPATCH_TABLE[opcode.tag]();
             }
 
@@ -360,7 +363,7 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def mach_writeMemory32_f64(memory_index: u32, index: u32, offset: u32, val: double) =>
         doWrite32<double, double>(memory_index, index, offset, val, Memory.write_double, fun x => x);
 
-    def mach_memorySize32(memory_index: u32) -> u32;
+    def mach_memorySize32(memory_index: u32) -> u32 => u32.view(it.frame.func.instance.memories[int.view(memory_index)].num_pages);
     def mach_memoryGrow32(memory_index: u32, size: u32) -> u32;
     def mach_memorySize64(memory_index: u32) -> u64;
     def mach_memoryGrow64(memory_index: u32, size: u64) -> u64;
@@ -431,7 +434,7 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def f64_reinterpret_u64(i: u64) -> double;
     def u32_reinterpret_f32(f: float) -> u32;
     def u64_reinterpret_f64(f: double) -> u64;
-    def U32_wrap_u64(i: u64) -> u32;
+    def U32_wrap_u64(i: u64) -> u32 => u32.view(V3Eval.I32_WRAP_I64(i));
 
     def F32_convert_i32_s(v: u32) -> float;
     def F32_convert_i32_u(v: u32) -> float;
@@ -443,12 +446,12 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def F64_convert_i64_u(v: u64) -> double;
 
     def doTrunc<T, U>(trunc: T -> (U, TrapReason), fl: T) -> U {
-	def p = trunc(fl);
-	match (p.1) {
-		FLOAT_UNREPRESENTABLE => trapDivideUnrepresentable();
-		_ => ;
-	}
-	return p.0;
+        def p = trunc(fl);
+        match (p.1) {
+            FLOAT_UNREPRESENTABLE => trapDivideUnrepresentable();
+            _ => ;
+        }
+        return p.0;
     }
     def U32_trunc_f32_s(f: float) -> u32 => u32.view(doTrunc(V3Eval.I32_TRUNC_F32_S, f));
     def U32_trunc_f32_u(f: float) -> u32 => doTrunc(V3Eval.I32_TRUNC_F32_U, f);
@@ -523,15 +526,13 @@ class CBDV3Interpreter(it: V3Interpreter) {
         return sidetable[stp ... stp + size];
     }
 
-    def printStack() {
-		var out = StringBuilder.new();
-        out.putc('[');
+    def renderStack(out: StringBuilder) -> StringBuilder {
+        out.putc('|').sp();
         for (i < it.values.top) {
             out.putq(Values.render(it.values.elems[i], _));
-            if (i + 1 < it.values.top) out.puts(", ");
+            if (i + 1 < it.values.top) out.puts(" ");
         }
-        out.putc(']');
         out.ln();
-        System.puts(out.toString());
-	}
+        return out;
+    }
 }
