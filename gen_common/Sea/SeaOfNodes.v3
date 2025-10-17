@@ -521,6 +521,8 @@ class Sea {
         def wl = Vector<IRNode>.new();
         wl.put(finish);
 
+        def completed = Vector<IRNode>.new();
+
         var q_idx = 0;
         while (q_idx < wl.length) {
             def node = wl[q_idx];
@@ -529,24 +531,21 @@ class Sea {
 
             def parent = scheduleIntoTree(node, start, ImmNodeSets.single(start));
             if (parent == null) {
-                for (d in node.deps()) if (d.schedule_parent == null) wl.put(d);
+                for (d in node.deps()) if (d.schedule_parent == null && d.id != start.id) wl.put(d);
                 wl.put(node);
+            } else {
+                completed.put(node);
             }
         }
     }
 
     def scheduleIntoTree(node: IRNode, tree: IRNode, available: ImmNodeSet) -> IRNode {
         if (node.schedule_parent != null) return node.schedule_parent;
-        if (node.id == start.id) return start;
-        if (node.id == tree.id) return node.schedule_parent;
 
         var ready = true;
         for (d in node.deps()) ready &= available.has(d);
 
-        System.puts(Strings.format3("node: %q, tree: %q, ready: %s\n", node.render, tree.render, if(ready, "yes", "no")));
-
         if (ready) {
-            System.puts(Strings.format2("putting %q into %q schedule_children\n", node.render, tree.render));
             tree.schedule_children.put(node);
             node.schedule_parent = tree;
             return tree;
@@ -652,9 +651,15 @@ class IRNode {
         var_data = other.var_data;
         value_deps = other.value_deps;
         state_deps = other.state_deps;
+        for (i < children.length) {
+            def child = children[i];
+            for (j < child.value_deps.length) if (child.value_deps[j] == this) child.value_deps[j] = other;
+            for (j < child.state_deps.length) if (child.state_deps[j] == this) child.state_deps[j] = other;
+        }
         children = other.children;
         schedule_children = other.schedule_children;
-        id = other.id;
+        schedule_parent = other.schedule_parent;
+        // id = other.id;
     }
 
     def removeViews(sea: Sea) -> Range<IRNode> {

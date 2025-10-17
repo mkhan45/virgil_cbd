@@ -1,4 +1,4 @@
-## LOCAL_GET
+## LOCAL_SET
 ```mermaid
 ---
 config:
@@ -9,38 +9,39 @@ graph TD
 	Finish
 	"]
 	3 -. Codeptr .-> 1
-	11 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	7 -. Stack .-> 1
+	0 -. Trap Globals Tables Memory Extra .-> 1
+	11 -. Locals .-> 1
+	11["
+	eff__0
+	setLocal
+	"]
+	5 --> 11
+	3 --> 11
+	7 --> 11
+	0 -. Locals .-> 11
+	11 ==> 1
 	0["
 	Start
 	"]
 	0 ==> 3
-	11["
-	eff__0
-	push_Value
-	"]
-	5 --> 11
-	8 --> 11
-	8 -. Stack .-> 11
-	11 ==> 1
-	8["
+	7["
 	val
-	getLocal
+	pop_Value
 	"]
-	5 --> 8
-	3 --> 8
-	0 -. Stack .-> 8
-	8 ==> 11
+	5 --> 7
+	0 -. Stack .-> 7
+	7 ==> 11
+	5["
+	tv
+	f_getLocalType
+	"]
+	3 --> 5
+	5 ==> 7
 	3["
 	index
 	imm_readULEB32
 	"]
 	0 -. Codeptr .-> 3
 	3 ==> 5
-	5["
-	tv
-	f_getLocalType
-	"]
-	3 --> 5
-	5 ==> 8
 ```
