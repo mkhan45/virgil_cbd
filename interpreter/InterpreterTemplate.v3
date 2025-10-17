@@ -210,9 +210,11 @@ class CBDV3Interpreter(it: V3Interpreter) {
     // Control flow.
     def doCall(sig: Decl, target: Function) {
         it.doCallFunction(target);
-        it.codeptr.iterate_local_codes(it.pushLocals);
-        def tags = it.frame.func.decl.frame_var_tags;
-        if (tags != null) for (t in tags) it.values.push(it.tagToValue(t));
+        if (it.frame.pc == 0) {
+            it.codeptr.iterate_local_codes(it.pushLocals);
+            def tags = it.frame.func.decl.frame_var_tags;
+            if (tags != null) for (t in tags) it.values.push(it.tagToValue(t));
+        }
     }
     def doReturnCall(sig: Decl, target: Function) {
         it.prepareReturnCall(SigDecl.!(sig));
