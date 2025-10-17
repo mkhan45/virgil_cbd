@@ -64,6 +64,14 @@ def F64_convert_i32_s(v: TypeVar.U32) => TypeVar.F64;
 def F64_convert_i32_u(v: TypeVar.U32) => TypeVar.F64;
 def F64_convert_i64_s(v: TypeVar.U64) => TypeVar.F64;
 def F64_convert_i64_u(v: TypeVar.U64) => TypeVar.F64;
+def U32_trunc_f32_s(v: TypeVar.F32) => TypeVar.U32;
+def U32_trunc_f32_u(v: TypeVar.F32) => TypeVar.U32;
+def U32_trunc_f64_s(v: TypeVar.F64) => TypeVar.U32;
+def U32_trunc_f64_u(v: TypeVar.F64) => TypeVar.U32;
+def U64_trunc_f32_s(v: TypeVar.F32) => TypeVar.U64;
+def U64_trunc_f32_u(v: TypeVar.F32) => TypeVar.U64;
+def U64_trunc_f64_s(v: TypeVar.F64) => TypeVar.U64;
+def U64_trunc_f64_u(v: TypeVar.F64) => TypeVar.U64;
 
 // U64
 def U32_plus(lhs: TypeVar.U32, rhs: TypeVar.U32) => TypeVar.U32;
@@ -128,9 +136,12 @@ def U64_shr_s(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_rotl(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 def U64_rotr(lhs: TypeVar.U64, rhs: TypeVar.U64) => TypeVar.U64;
 
-def U64_extend8_s(x: TypeVar.U64) -> TypeVar.U64;
-def U64_extend16_s(x: TypeVar.U64) -> TypeVar.U64;
-def U64_extend32_s(x: TypeVar.U64) -> TypeVar.U64;
+def U64_extend8_s(x: TypeVar.U64) => TypeVar.U64;
+def U64_extend16_s(x: TypeVar.U64) => TypeVar.U64;
+def U64_extend32_s(x: TypeVar.U64) => TypeVar.U64;
+
+def U64_extend_i32_s(x: TypeVar.U32) => TypeVar.U64;
+def U64_extend_i32_u(x: TypeVar.U32) => TypeVar.U64;
 
 // F32
 def F32_equals = TypeVar.F32.testop(float.==);
@@ -138,17 +149,37 @@ def F32_not_equals = TypeVar.F32.testop(float.==);
 def F32_lt = TypeVar.F32.testop(float.<);
 def F32_lte = TypeVar.F32.testop(float.<=);
 def F32_gt = TypeVar.F32.testop(float.>);
+def F32_gte = TypeVar.F32.testop(float.>=);
 def F32_plus = TypeVar.F32.binop(float.+);
 def F32_minus = TypeVar.F32.binop(float.-);
 def F32_div = TypeVar.F32.binop(float./);
 def F32_times = TypeVar.F32.binop(float.*);
+def F32_abs = fun (x: TypeVar.F32) => x;
+def F32_neg = fun (x: TypeVar.F32) => x;
+def F32_ceil = fun (x: TypeVar.F32) => x;
+def F32_floor = fun (x: TypeVar.F32) => x;
+def F32_trunc = fun (x: TypeVar.F32) => x;
+def F32_round = fun (x: TypeVar.F32) => x;
 def F32_sqrt = fun (x: TypeVar.F32) => x;
 
 // F64
+def F64_equals = TypeVar.F64.testop(double.==);
+def F64_not_equals = TypeVar.F64.testop(double.==);
+def F64_lt = TypeVar.F64.testop(double.<);
+def F64_lte = TypeVar.F64.testop(double.<=);
+def F64_gt = TypeVar.F64.testop(double.>);
+def F64_gte = TypeVar.F64.testop(double.>=);
 def F64_plus = TypeVar.F64.binop(double.+);
 def F64_minus = TypeVar.F64.binop(double.-);
 def F64_times = TypeVar.F64.binop(double.*);
 def F64_div = TypeVar.F64.binop(double./);
+def F64_abs = fun (x: TypeVar.F64) => x;
+def F64_neg = fun (x: TypeVar.F64) => x;
+def F64_ceil = fun (x: TypeVar.F64) => x;
+def F64_floor = fun (x: TypeVar.F64) => x;
+def F64_trunc = fun (x: TypeVar.F64) => x;
+def F64_round = fun (x: TypeVar.F64) => x;
+def F64_sqrt = fun (x: TypeVar.F64) => x;
 
 def object_Null() -> TypeVar.Object => TypeVar.Object;
 def object_isNull(o: TypeVar.Object) => TypeVar.U32;
@@ -385,6 +416,12 @@ def mach_readMemory64_u16(memory_index: u32, index: TypeVar.U64, offset: u64) =>
 def mach_readMemory32_u16(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U32;
 def mach_readMemory64_u32(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U32;
 def mach_readMemory32_u32(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U32;
+def mach_readMemory64_u8_64(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U64;
+def mach_readMemory32_u8_64(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U64;
+def mach_readMemory64_u16_64(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U64;
+def mach_readMemory32_u16_64(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U64;
+def mach_readMemory64_u32_64(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U64;
+def mach_readMemory32_u32_64(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U64;
 def mach_readMemory64_u64(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.U64;
 def mach_readMemory32_u64(memory_index: u32, index: TypeVar.U32, offset: u32) => TypeVar.U64;
 def mach_readMemory64_f32(memory_index: u32, index: TypeVar.U64, offset: u64) => TypeVar.F32;
@@ -398,6 +435,12 @@ def mach_writeMemory64_u16(memory_index: u32, index: TypeVar.U64, offset: u64, v
 def mach_writeMemory32_u16(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U32) => void;
 def mach_writeMemory64_u32(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.U32) => void;
 def mach_writeMemory32_u32(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U32) => void;
+def mach_writeMemory64_u8_64(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.U64) => void;
+def mach_writeMemory32_u8_64(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U64) => void;
+def mach_writeMemory64_u16_64(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.U64) => void;
+def mach_writeMemory32_u16_64(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U64) => void;
+def mach_writeMemory64_u32_64(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.U64) => void;
+def mach_writeMemory32_u32_64(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U64) => void;
 def mach_writeMemory64_u64(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.U64) => void;
 def mach_writeMemory32_u64(memory_index: u32, index: TypeVar.U32, offset: u32, val: TypeVar.U64) => void;
 def mach_writeMemory64_f32(memory_index: u32, index: TypeVar.U64, offset: u64, val: TypeVar.F32) => void;
@@ -411,8 +454,13 @@ def mach_readTable32(table_index: u32, index: TypeVar.U32) => TypeVar.Object;
 def mach_writeTable64(table_index: u32, index: TypeVar.U64, val: TypeVar.Object) => void;
 def mach_writeTable32(table_index: u32, index: TypeVar.U32, val: TypeVar.Object) => void;
 
+def mach_memorySize32(memory_index: u32) => TypeVar.U32;
+def mach_memoryGrow32(memory_index: u32, size: TypeVar.U32) => TypeVar.U32;
+def mach_memorySize64(memory_index: u32) => TypeVar.U64;
+def mach_memoryGrow64(memory_index: u32, size: TypeVar.U64) => TypeVar.U64;
+
 // Traps.
-def invalid();
+def invalid() {}
 def trapNull() {
     // since this is a runtime trap only, 
     // we don't actually want to trap here

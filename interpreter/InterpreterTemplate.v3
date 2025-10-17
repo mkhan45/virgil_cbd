@@ -295,6 +295,15 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def mach_readMemory64_u32(memory_index: u32, index: u64, offset: u64) -> u32;
     def mach_readMemory32_u32(memory_index: u32, index: u32, offset: u32) =>
         doRead32<u32, u32>(memory_index, index, offset, Memory.read_u32, u32.view);
+    def mach_readMemory64_u8_64(memory_index: u32, index: u64, offset: u64) -> u8;
+    def mach_readMemory32_u8_64(memory_index: u32, index: u32, offset: u32) =>
+        doRead32<u8, u8>(memory_index, index, offset, Memory.read_u8, u8.view);
+    def mach_readMemory64_u16_64(memory_index: u32, index: u64, offset: u64) -> u16;
+    def mach_readMemory32_u16_64(memory_index: u32, index: u32, offset: u32) =>
+        doRead32<u16, u16>(memory_index, index, offset, Memory.read_u16, u16.view);
+    def mach_readMemory64_u32_64(memory_index: u32, index: u64, offset: u64) -> u32;
+    def mach_readMemory32_u32_64(memory_index: u32, index: u32, offset: u32) =>
+        doRead32<u32, u32>(memory_index, index, offset, Memory.read_u32, u32.view);
     def mach_readMemory64_u64(memory_index: u32, index: u64, offset: u64) -> u64;
     def mach_readMemory32_u64(memory_index: u32, index: u32, offset: u32) =>
         doRead32<u64, u64>(memory_index, index, offset, Memory.read_u64, u64.view);
@@ -322,6 +331,15 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def mach_writeMemory64_u32(memory_index: u32, index: u64, offset: u64, val: u32);
     def mach_writeMemory32_u32(memory_index: u32, index: u32, offset: u32, val: u32) =>
         doWrite32<u32, u32>(memory_index, index, offset, val, Memory.write_u32, u32.view);
+    def mach_writeMemory64_u8_64(memory_index: u32, index: u64, offset: u64, val: u64);
+    def mach_writeMemory32_u8_64(memory_index: u32, index: u32, offset: u32, val: u64) =>
+        doWrite32<u64, u8>(memory_index, index, offset, val, Memory.write_u8, u8.view);
+    def mach_writeMemory64_u16_64(memory_index: u32, index: u64, offset: u64, val: u64);
+    def mach_writeMemory32_u16_64(memory_index: u32, index: u32, offset: u32, val: u64) =>
+        doWrite32<u64, u16>(memory_index, index, offset, val, Memory.write_u16, u16.view);
+    def mach_writeMemory64_u32_64(memory_index: u32, index: u64, offset: u64, val: u64);
+    def mach_writeMemory32_u32_64(memory_index: u32, index: u32, offset: u32, val: u64) =>
+        doWrite32<u64, u32>(memory_index, index, offset, val, Memory.write_u32, u32.view);
     def mach_writeMemory64_u64(memory_index: u32, index: u64, offset: u64, val: u64);
     def mach_writeMemory32_u64(memory_index: u32, index: u32, offset: u32, val: u64) =>
         doWrite32<u64, u64>(memory_index, index, offset, val, Memory.write_u64, u64.view);
@@ -332,6 +350,11 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def mach_writeMemory64_f64(memory_index: u32, index: u64, offset: u64, val: double);
     def mach_writeMemory32_f64(memory_index: u32, index: u32, offset: u32, val: double) =>
         doWrite32<double, double>(memory_index, index, offset, val, Memory.write_double, fun x => x);
+
+    def mach_memorySize32(memory_index: u32) -> u32;
+    def mach_memoryGrow32(memory_index: u32, size: u32) -> u32;
+    def mach_memorySize64(memory_index: u32) -> u64;
+    def mach_memoryGrow64(memory_index: u32, size: u64) -> u64;
 
     def mach_readTable64(table_index: u32, index: u64) -> Object;
     def mach_readTable32(table_index: u32, index: u32) -> Object {
@@ -397,8 +420,8 @@ class CBDV3Interpreter(it: V3Interpreter) {
 
     def f32_reinterpret_u32(i: u32) -> float;
     def f64_reinterpret_u64(i: u64) -> double;
-    def f32_reinterpret_f32(f: float) -> u32;
-    def f64_reinterpret_f64(f: double) -> u64;
+    def u32_reinterpret_f32(f: float) -> u32;
+    def u64_reinterpret_f64(f: double) -> u64;
     def U32_wrap_u64(i: u64) -> u32;
 
     def F32_convert_i32_s(v: u32) -> float;
@@ -409,6 +432,24 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def F64_convert_i32_u(v: u32) -> double;
     def F64_convert_i64_s(v: u64) -> double;
     def F64_convert_i64_u(v: u64) -> double;
+
+    def doTrunc<T, U>(trunc: T -> (U, TrapReason), fl: T) -> U {
+	def p = trunc(fl);
+	match (p.1) {
+		FLOAT_UNREPRESENTABLE => trapDivideUnrepresentable();
+		_ => ;
+	}
+	return p.0;
+    }
+    def U32_trunc_f32_s(f: float) -> u32 => u32.view(doTrunc(V3Eval.I32_TRUNC_F32_S, f));
+    def U32_trunc_f32_u(f: float) -> u32 => doTrunc(V3Eval.I32_TRUNC_F32_U, f);
+    def U32_trunc_f64_s(f: double) -> u32 => u32.view(doTrunc(V3Eval.I32_TRUNC_F64_S, f));
+    def U32_trunc_f64_u(f: double) -> u32 => doTrunc(V3Eval.I32_TRUNC_F64_U, f);
+    def U64_trunc_f32_s(f: float) -> u64 => u64.view(doTrunc(V3Eval.I64_TRUNC_F32_S, f));
+    def U64_trunc_f32_u(f: float) -> u64 => doTrunc(V3Eval.I64_TRUNC_F32_U, f);
+    def U64_trunc_f64_s(f: double) -> u64 => u64.view(doTrunc(V3Eval.I64_TRUNC_F64_S, f));
+    def U64_trunc_f64_u(f: double) -> u64 => doTrunc(V3Eval.I64_TRUNC_F64_U, f);
+
 
      // XXX: traps
     def U32_div_s = conv_i32_op(i32./);
@@ -451,6 +492,18 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def U64_extend8_s(x: u64) => u64.view(V3Eval.I64_EXTEND8_S(int.view(x)));
     def U64_extend16_s(x: u64) => u64.view(V3Eval.I64_EXTEND16_S(int.view(x)));
     def U64_extend32_s(x: u64) => u64.view(V3Eval.I64_EXTEND32_S(int.view(x)));
+
+    def U64_extend_i32_s(x: u32) => u64.view(V3Eval.I64_EXTEND_I32_S(int.view(x)));
+    def U64_extend_i32_u(x: u32) => u64.view(V3Eval.I64_EXTEND_I32_U(x));
+
+    def F32_neg = V3Eval.F32_NEG;
+    def F32_ceil = V3Eval.F32_CEIL;
+    def F32_floor = V3Eval.F32_FLOOR;
+    def F32_trunc = V3Eval.F32_TRUNC;
+    def F64_neg = V3Eval.F64_NEG;
+    def F64_ceil = V3Eval.F64_CEIL;
+    def F64_floor = V3Eval.F64_FLOOR;
+    def F64_trunc = V3Eval.F64_TRUNC;
 
     def get_st_entry(size: int) -> Range<u8> {
         def stp = it.frame.stp;
