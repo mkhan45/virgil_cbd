@@ -543,7 +543,13 @@ class Sea {
         if (node.schedule_parent != null) return node.schedule_parent;
 
         var ready = true;
-        for (d in node.deps()) ready &= available.has(d);
+        var deps: Array<IRNode>;
+        match (node.op) {
+            StatePhi(scs) => deps = [node.value_deps[0]];
+            Phi => deps = [node.value_deps[0]];
+            _ => deps = node.deps();
+        }
+        for (d in deps) ready &= available.has(d);
 
         if (ready) {
             tree.schedule_children.put(node);
