@@ -499,7 +499,7 @@ def doIf(bt: (Array<ValueType>, Array<ValueType>)) -> ControlEntry {
     def rets = bt.1;
     popTypes(args);
     pushTypes(args);
-    def ctl = pushControl(Opcode.IF.code, args, rets, stack.top);
+    def ctl = pushControl(Opcode.IF.code, args, rets, stack.top - args.length);
     return ctl;
 }
 
@@ -521,6 +521,7 @@ def doElse() -> ControlEntry {
 def doEnd() {
     def p = ctl_top.results;
     popTypes(p);
+    stack.top = ctl_top.val_stack_top;
     pushTypes(p);
     match (ctl_top.start_opcode) {
         Opcode.LOOP.code => {
@@ -532,11 +533,11 @@ def doEnd() {
             ctl_top.reachable = true;
             pushTypes(ctl_top.params);
             popTypes(ctl_top.results);
-            ctlxfer.bindElse(ctl_top, codeptr.pos);
-            ctlxfer.bind(ctl_top, codeptr.pos, ctlxfer.sidetable.length);
+            ctlxfer.bindElse(ctl_top, opcode_pos);
+            ctlxfer.bind(ctl_top, opcode_pos, ctlxfer.sidetable.length);
         }
         _ => {
-            ctlxfer.bind(ctl_top, codeptr.pos, ctlxfer.sidetable.length);
+            ctlxfer.bind(ctl_top, opcode_pos, ctlxfer.sidetable.length);
         }
     }
     ctl_stack.pop();

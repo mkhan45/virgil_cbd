@@ -88,11 +88,14 @@ class CBDV3Interpreter(it: V3Interpreter) {
             while (it.frame != null && it.codeptr.available() > 0 && it.host_outcall == null) {
                 it.frame.pc = it.codeptr.pos;
                 def opcode = it.codeptr.read_opcode();
-                // def prev_stack = renderStack(StringBuilder.new()).toString();
-                // def intro_str = Strings.format2("+%d: %s", it.frame.pc, opcode.mnemonic);
-                // System.puts(intro_str);
-                // for (i < 20 - intro_str.length) System.puts(" ");
-                // System.puts(prev_stack); 
+                // def prev_stack = renderStackOps(StringBuilder.new());
+                // System.puts("+"); System.puti(it.frame.pc); System.puts(": "); 
+                // var l = 0;
+                // for (x = 1; x <= it.frame.pc; x *= 10) l += 1;
+                // for (i < 3 - l) System.putc(' ');
+                // System.puts(opcode.mnemonic);
+                // for (i < 20 - 1 - opcode.mnemonic.length) System.putc(' ');
+                // prev_stack.send(System.write(LinuxConst.STDOUT, _));
                 DISPATCH_TABLE[opcode.tag]();
             }
 
@@ -526,11 +529,26 @@ class CBDV3Interpreter(it: V3Interpreter) {
         return sidetable[stp ... stp + size];
     }
 
-    def renderStack(out: StringBuilder) -> StringBuilder {
+    def renderStackOps(out: StringBuilder) -> StringBuilder {
+        def numOperands = it.values.top - (it.frame.fp + it.frame.func.decl.num_locals);
         out.putc('|').sp();
-        for (i < it.values.top) {
+        for (i < it.frame.func.decl.num_locals) {
+            out.putq(Values.render(it.values.elems[it.frame.fp + i], _)).sp();
+        }
+        out.putc('|').sp();
+        for (i = it.values.top - numOperands; i < it.values.top; i += 1) {
+            out.putq(Values.render(it.values.elems[i], _)).sp();
+        }
+        out.ln();
+        return out;
+    }
+
+    def renderStackWhole(out: StringBuilder) -> StringBuilder {
+        out.putc('|').sp();
+        for (i = it.frame.fp; i < it.values.top; i += 1) {
             out.putq(Values.render(it.values.elems[i], _));
-            if (i + 1 < it.values.top) out.puts(" ");
+            if (i - it.frame.fp == it.frame.func.decl.num_locals - it.frame.func.decl.sig.params.length) out.puts(" | ");
+            else if (i + 1 < it.values.top) out.puts(" ");
         }
         out.ln();
         return out;
