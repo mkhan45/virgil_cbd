@@ -8,64 +8,49 @@ class NodeSet {
     def put(node: IRNode) { m[node] = void; }
     def remove(node: IRNode) { if (node != null && m.has(node)) m.remove(node); }
     def apply(f: IRNode -> void) { m.apply(fun (k, v) => f(k)); }
-
-    // immutable ops
-    def with(node: IRNode) -> NodeSet {
-        def new_set = NodeSet.new();
-        apply(new_set.put);
-        new_set.put(node);
-        return new_set;
-    }
-    def dup() -> NodeSet {
-        def new_set = NodeSet.new();
-        apply(new_set.put);
-        return new_set;
-    }
 }
 
 type ImmNodeSet(ls: List<IRNode>) {
     def with(n: IRNode) => if(has(n), this, ImmNodeSet(List.new(n, ls)));
+
     def without(n: IRNode) -> ImmNodeSet {
         var new_ls: List<IRNode> = null;
-        for (cur = ls; cur != null; cur = cur.tail) {
+        for (cur = ls; cur != null; cur = cur.tail) 
             if (cur.head.id != n.id) new_ls = List.new(cur.head, new_ls);
-        }
+
         return ImmNodeSet(new_ls);
     }
 
     def has(n: IRNode) -> bool {
-        for (cur = ls; cur != null; cur = cur.tail) {
+        for (cur = ls; cur != null; cur = cur.tail) 
             if (cur.head.id == n.id) return true;
-        }
 
         return false;
     }
 
     def intersection(other: ImmNodeSet) -> ImmNodeSet {
         var res = ImmNodeSet(null);
-        for (cur = ls; cur != null; cur = cur.tail) if (other.has(cur.head)) {
-            res = res.with(cur.head);
-        }
+        for (cur = ls; cur != null; cur = cur.tail) 
+            if (other.has(cur.head)) res = res.with(cur.head);
 
         return res;
     }
 
     def union(other: ImmNodeSet) -> ImmNodeSet {
         var res = ImmNodeSet(null);
-        for (cur = ls; cur != null; cur = cur.tail) if (!res.has(cur.head)) {
-            res = res.with(cur.head);
-        }
-        for (cur = other.ls; cur != null; cur = cur.tail) if (!res.has(cur.head)) {
-            res = res.with(cur.head);
-        }
+
+        for (cur = ls; cur != null; cur = cur.tail) 
+            if (!res.has(cur.head)) res = res.with(cur.head);
+
+        for (cur = other.ls; cur != null; cur = cur.tail) 
+            if (!res.has(cur.head)) res = res.with(cur.head);
 
         return res;
     }
 
     def render(sb: StringBuilder) -> StringBuilder {
-        for (cur = ls; cur != null; cur = cur.tail) {
-            sb.putd(cur.head.id).puts(" ");
-        }
+        for (cur = ls; cur != null; cur = cur.tail) sb.putd(cur.head.id).puts(" ");
+
         return sb;
     }
 }
@@ -86,8 +71,6 @@ def intrinsic(name: string) -> IntrinsicTypedef {
 
 type SearchNode(node: IRNode, path: SSAD, available: ImmNodeSet, depth: int) {
     def dbg() {
-        // if (true) return;
-
         System.puts(Strings.format1("Node: %q", node.render));
         System.ln();
         System.puts("available: ");
@@ -397,14 +380,6 @@ class Sea {
                 def left = dep.value_deps[1], right = dep.value_deps[2];
                 def leftDeps = left.transitiveDeps(node), rightDeps = right.transitiveDeps(node);
                 for (l in leftDeps) for (r in rightDeps) if (l.id == r.id) branch_deps.put(l);
-                def filter_res = Vector<IRNode>.new();
-                def cond_transdeps = dep.value_deps[0].transitiveDeps(start);
-                for (i < branch_deps.length) {
-                    var high = false;
-                    // for (j < cond_transdeps.length) high |= (cond_transdeps[j].id == branch_deps[i].id);
-                    if (!high) filter_res.put(branch_deps[i]);
-                }
-                for (i < filter_res.length) child_ready &= available.has(filter_res[i]);
             }
             if (!child_ready) continue;
             if (IROp.Phi.?(child.op) && child.value_deps[0].id == node.id) phis = List.new(child, phis);
@@ -602,7 +577,6 @@ class IRNode {
     var state_deps: Array<IRNode>; // idx = statecomp.tag
     var children: Vector<IRNode>;
 
-    // var schedule_parent: IRNode;
     var schedule_children: Vector<IRNode>;
     var schedule_parent: IRNode;
 
@@ -744,12 +718,9 @@ class IRNode {
                         unchanged_args.put(args[i]);
                     }
                 }
-                // return Arrays.append(pathDeps.head, unchanged_args.copy());
                 return unchanged_args.copy();
             }
-            _ => {
-                return deps();
-            }
+            _ => return deps();
         }
     }
 
@@ -883,11 +854,10 @@ class IRNode {
                         }
                     }
                 }
-
-                return deps();
             }
-            _ => return deps();
+            _ => {}
         }
+        return deps();
     }
 
     def reifyConds(sea: Sea, state: HashMap<IRNode, (IRNode, IRNode, IRNode)>) -> Range<IRNode> {
@@ -912,13 +882,10 @@ class IRNode {
                 then.state_deps[StateComponent.Extra.tag] = start_if;
                 els.state_deps[StateComponent.Extra.tag] = start_else;
                 end.state_deps[StateComponent.Extra.tag] = this;
-
-                return deps();
-                // return [cond, then, els];
-                // return [then, els];
             }
-            _ => return deps();
+            _ => {}
         }
+        return deps();
     }
 
     def chooseMerge(sea: Sea) -> Range<IRNode> {
@@ -927,10 +894,10 @@ class IRNode {
                 if (Strings.startsWith(defn.name, "merge_")) {
                     become(value_deps[0]);
                 }
-                return deps();
             }
-            _ => return deps();
+            _ => {}
         }
+        return deps();
     }
 }
 
