@@ -62,17 +62,17 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     def eff_ctx = CBDEffects.run_fx(fx);
 
     
-    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.overloadOps(sea));
-    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.addAbstractions(sea));
-    sea.apply(HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq), IRNode.unLEM);
-    // def transformer = SSATransformer.new(analysis);
-    // transformer.onIf = flatten_ifs;
-    // transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
+    // sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.overloadOps(sea));
+    // sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.addAbstractions(sea));
+    // sea.apply(HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq), IRNode.unLEM);
+    def transformer = SSATransformer.new(analysis);
+    transformer.onIf = flatten_ifs;
+    transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
 
-    def scheduled = sea.schedule();
-    def processed = scheduled;
-    // def transformed = transformer.transform(ssa);
-    // def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
+    // def scheduled = sea.schedule();
+    // def processed = scheduled;
+    def transformed = transformer.transform(ir);
+    def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
 
     return FastIntCBDDef.new(opcode, processed, eff_ctx.stack_delta);
 }

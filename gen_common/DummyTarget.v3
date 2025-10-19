@@ -5,7 +5,7 @@ component Target {
 	def newMemory(decl: MemoryDecl) -> Memory {
         return null;
     }
-	def newWasmStack() => null;
+	def newWasmStack() -> WasmStack => null;
 
 	def forceGC();
 	def ticksNs() -> u64;

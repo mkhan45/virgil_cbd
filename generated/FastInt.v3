@@ -142,19 +142,15 @@ class CBDFastIntGen extends X86_64InterpreterGen {
     }
 
 def BR_IF() {
-	def cond = pop_u32();
 	def depth = imm_readULEB32();
 	def label = f_getLabel(depth);
-	doBranch(label);
-	doFallthru();
+	def cond = pop_u32();
 	def cond1 = U32_not_equals(cond, rtcast_u32(0));
-	def mt = U32_maybeTrue(cond1);
-	def mf = U32_maybeFalse(cond1);
-	if (bool.&&(mt, mf)) {
-	} else {
-		if (mt) {
-		}
-	}
+	startCond(cond1);
+	doBranch(label);
+	startElse();
+	doFallthru();
+	endCond();
 }
 def I32_CONST() {
 	def x = imm_readILEB32();
@@ -163,17 +159,11 @@ def I32_CONST() {
 def I32_EQZ() {
 	def a = pop_u32();
 	def cond = U32_equals(a, rtcast_u32(0));
-	def mt = U32_maybeTrue(cond);
-	def mf = U32_maybeFalse(cond);
-	if (bool.&&(mt, mf)) {
-		def push = push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
-	} else {
-		if (mt) {
-			push_u32(rtcast_u32(1));
-		} else {
-			push_u32(rtcast_u32(0));
-		}
-	}
+	startCond(cond);
+	push_u32(rtcast_u32(1));
+	startElse();
+	push_u32(rtcast_u32(0));
+	endCond();
 }
 def I32_ADD() {
 	def b = pop_u32();

@@ -19,12 +19,9 @@ GENERATE_DEPS = $(GENERATE_LIB) $(DEFS) $(DEFS).sexp $(TYPEDEFS)
 AIS = $(foreach I,$(wildcard abstract_interpreter/impls/*.v3),$(basename $I)AI.v3)
 
 # Targets
-.PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler abstract_interpreter wizeng
+.PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler abstract_interpreter wizeng-slow
 
-all: validator interpreter InterpreterMain abstract_interpreter
-
-wizeng: generated/FastInt.v3 generated/Interpreter.v3
-	cd wizard-engine; make -B -j bin/wizeng.x86-64-linux bin/wizeng.x86-linux
+all: validator interpreter InterpreterMain
 
 $(DEFS).sexp: wizard-engine/src/bytecode/CanonicalDefs.v3
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
@@ -98,10 +95,18 @@ generated/FastInt.v3: $(GENERATE_DEPS) fast-int/*.v3 generated/Validator.v3
 		> $@~
 	mv --force $@~ $@
 
+./wizard-engine/bin/wizeng.x86-64-linux-cbd-slow: validator interpreter
+	cp gen_common/IR/Types.v3 wizard-engine/src/engine/cbd/CBDTypes.v3
+	cat runtime_common/Types.v3 >> wizard-engine/src/engine/cbd/CBDTypes.v3
+	cp generated/Interpreter.v3 wizard-engine/src/engine/cbd/CBDInterpreter.v3
+	cp generated/Validator.v3 wizard-engine/src/engine/cbd/CBDValidator.v3
+	cd wizard-engine; ./build.sh wizeng x86-64-linux-cbd-slow
+
 validator: generated/Validator.v3
 interpreter: generated/Interpreter.v3
 compiler: generated/Compiler.v3
 abstract_interpreter: generated/AI.v3
+wizeng-slow: ./wizard-engine/bin/wizeng.x86-64-linux-cbd-slow
 
 run_interpreter: generated/Interpreter.v3 generated/Validator.v3
 	$(VIRGIL) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
