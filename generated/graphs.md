@@ -562,6 +562,7 @@ graph TD
 	tv
 	f_getTopOfStackType
 	"]
+	0 -. Stack .-> 3
 ```
 ## SELECT
 ```mermaid
@@ -611,6 +612,7 @@ graph TD
 	tv
 	f_getTopOfStackType
 	"]
+	3 -. Stack .-> 4
 	17["
 	eff__78
 	push_Value

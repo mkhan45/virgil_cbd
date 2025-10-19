@@ -391,6 +391,10 @@ component IntrinsicTypes {
             intrinsics[name].writes = writes;
         }
 
+        if (intrinsics.has("f_getTopOfStackType")) {
+            // XXX: stopgap until we properly parse read/write effects separately
+            intrinsics["f_getTopOfStackType"].reads |= StateComponent.Stack;
+        }
         return intrinsics;
     }
 

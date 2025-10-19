@@ -620,8 +620,8 @@ component Validator {
             //     System.puts(stack.elems[i].long_str()); System.puts(", ");
             // }
             // System.ln();
-            System.puts(opcode.mnemonic);
-            System.ln();
+            // System.puts(opcode.mnemonic);
+            // System.ln();
             DISPATCH_TABLE[opcode.tag]();
         }
     }

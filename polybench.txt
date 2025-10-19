@@ -1,0 +1,87 @@
+../wish-you-were-fast/wasm/suites/polybench/2mm.wasm
+4.58user 0.03system 0:04.62elapsed 99%CPU (0avgtext+0avgdata 717700maxresident)k
+0inputs+0outputs (0major+1421minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/3mm.wasm
+7.87user 0.03system 0:07.91elapsed 99%CPU (0avgtext+0avgdata 717700maxresident)k
+48inputs+0outputs (0major+1420minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/adi.wasm
+8.69user 0.03system 0:08.73elapsed 99%CPU (0avgtext+0avgdata 717624maxresident)k
+40inputs+0outputs (0major+1951minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/atax.wasm
+0.13user 0.00system 0:00.13elapsed 99%CPU (0avgtext+0avgdata 69252maxresident)k
+0inputs+0outputs (0major+291minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/bicg.wasm
+0.13user 0.00system 0:00.13elapsed 99%CPU (0avgtext+0avgdata 69252maxresident)k
+0inputs+0outputs (0major+291minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/cholesky.wasm
+26.44user 0.03system 0:26.49elapsed 99%CPU (0avgtext+0avgdata 717476maxresident)k
+40inputs+0outputs (0major+1949minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/correlation.wasm
+2.34user 0.02system 0:02.37elapsed 99%CPU (0avgtext+0avgdata 717700maxresident)k
+0inputs+0outputs (0major+1932minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/covariance.wasm
+2.40user 0.03system 0:02.44elapsed 99%CPU (0avgtext+0avgdata 717700maxresident)k
+48inputs+0outputs (0major+1931minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/doitgen.wasm
+1.87user 0.02system 0:01.93elapsed 98%CPU (0avgtext+0avgdata 717592maxresident)k
+48inputs+0outputs (0major+1420minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/durbin.wasm
+0.06user 0.00system 0:00.07elapsed 95%CPU (0avgtext+0avgdata 34264maxresident)k
+40inputs+0outputs (0major+253minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/fdtd-2d.wasm
+7.58user 0.03system 0:07.61elapsed 99%CPU (0avgtext+0avgdata 717700maxresident)k
+0inputs+0outputs (0major+1420minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/floyd-warshall.wasm
+48.76user 0.03system 0:48.81elapsed 99%CPU (0avgtext+0avgdata 717704maxresident)k
+32inputs+0outputs (0major+1420minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/gemm.wasm
+3.67user 0.03system 0:03.72elapsed 99%CPU (0avgtext+0avgdata 717548maxresident)k
+48inputs+0outputs (0major+1420minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/gemver.wasm
+0.20user 0.00system 0:00.24elapsed 86%CPU (0avgtext+0avgdata 114264maxresident)k
+48inputs+0outputs (0major+313minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/gesummv.wasm
+0.06user 0.00system 0:00.07elapsed 95%CPU (0avgtext+0avgdata 40468maxresident)k
+48inputs+0outputs (0major+278minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/gramschmidt.wasm
+3.89user 0.02system 0:03.92elapsed 99%CPU (0avgtext+0avgdata 717660maxresident)k
+48inputs+0outputs (0major+1420minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/heat-3d.wasm
+14.22user 0.02system 0:14.28elapsed 99%CPU (0avgtext+0avgdata 717600maxresident)k
+40inputs+0outputs (0major+1944minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/jacobi-1d.wasm
+0.02user 0.00system 0:00.03elapsed 90%CPU (0avgtext+0avgdata 19892maxresident)k
+40inputs+0outputs (0major+245minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/jacobi-2d.wasm
+9.05user 0.03system 0:09.09elapsed 99%CPU (0avgtext+0avgdata 717568maxresident)k
+40inputs+0outputs (0major+1952minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/lu.wasm
+30.19user 0.02system 0:30.23elapsed 99%CPU (0avgtext+0avgdata 717628maxresident)k
+40inputs+0outputs (0major+1949minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/ludcmp.wasm
+28.48user 0.02system 0:28.52elapsed 99%CPU (0avgtext+0avgdata 717700maxresident)k
+48inputs+0outputs (0major+1419minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/mvt.wasm
+0.13user 0.00system 0:00.14elapsed 97%CPU (0avgtext+0avgdata 71340maxresident)k
+48inputs+0outputs (0major+294minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/nussinov.wasm
+6.75user 0.03system 0:06.79elapsed 99%CPU (0avgtext+0avgdata 717544maxresident)k
+40inputs+0outputs (0major+1940minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/seidel-2d.wasm
+12.39user 0.03system 0:12.46elapsed 99%CPU (0avgtext+0avgdata 717764maxresident)k
+40inputs+0outputs (0major+1420minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/symm.wasm
+2.90user 0.03system 0:02.94elapsed 99%CPU (0avgtext+0avgdata 717688maxresident)k
+48inputs+0outputs (0major+1420minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/syr2k.wasm
+3.47user 0.03system 0:03.54elapsed 98%CPU (0avgtext+0avgdata 717676maxresident)k
+48inputs+0outputs (0major+1420minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/syrk.wasm
+2.36user 0.03system 0:02.39elapsed 99%CPU (0avgtext+0avgdata 717704maxresident)k
+48inputs+0outputs (0major+1932minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/trisolv.wasm
+0.04user 0.00system 0:00.05elapsed 92%CPU (0avgtext+0avgdata 28292maxresident)k
+48inputs+0outputs (0major+272minor)pagefaults 0swaps
+../wish-you-were-fast/wasm/suites/polybench/trmm.wasm
+1.55user 0.02system 0:01.58elapsed 99%CPU (0avgtext+0avgdata 702276maxresident)k
+48inputs+0outputs (0major+605minor)pagefaults 0swaps

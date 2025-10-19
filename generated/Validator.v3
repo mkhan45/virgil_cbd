@@ -83,8 +83,8 @@ def DROP() {
 	pop_Value(tv);
 }
 def SELECT() {
-	def tv = f_getTopOfStackType();
 	def c = pop_u32();
+	def tv = f_getTopOfStackType();
 	def b = pop_Value(tv);
 	def a = pop_Value(tv);
 	def push = push_Value(tv, tv);
@@ -2114,8 +2114,8 @@ component Validator {
             //     System.puts(stack.elems[i].long_str()); System.puts(", ");
             // }
             // System.ln();
-            System.puts(opcode.mnemonic);
-            System.ln();
+            // System.puts(opcode.mnemonic);
+            // System.ln();
             DISPATCH_TABLE[opcode.tag]();
         }
     }
