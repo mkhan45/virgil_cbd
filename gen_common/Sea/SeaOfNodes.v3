@@ -38,19 +38,13 @@ type ImmNodeSet(ls: List<IRNode>) {
 
     def union(other: ImmNodeSet) -> ImmNodeSet {
         var res = ImmNodeSet(null);
-
-        for (cur = ls; cur != null; cur = cur.tail) 
-            if (!res.has(cur.head)) res = res.with(cur.head);
-
-        for (cur = other.ls; cur != null; cur = cur.tail) 
-            if (!res.has(cur.head)) res = res.with(cur.head);
-
+        for (cur = ls; cur != null; cur = cur.tail) res = res.with(cur.head);
+        for (cur = other.ls; cur != null; cur = cur.tail) res = res.with(cur.head);
         return res;
     }
 
     def render(sb: StringBuilder) -> StringBuilder {
         for (cur = ls; cur != null; cur = cur.tail) sb.putd(cur.head.id).puts(" ");
-
         return sb;
     }
 }
@@ -119,9 +113,7 @@ class Sea {
         node.value_deps = value_deps;
         id_count += 1;
 
-        for (dep in node.deps()) {
-            dep.children.put(node);
-        }
+        for (dep in node.deps()) dep.children.put(node);
 
         return node;
     }
@@ -209,7 +201,7 @@ class Sea {
                     }
                 }
 
-                // state phis
+                // we merge state phis if they have the same left/right sources
                 def state_phis = Vector<(IRNode, IRNode, StateComponent.set)>.new();
                 for (sc in StateComponent.set.all) {
                     def left_sv = then_state[sc.tag], right_sv = else_state[sc.tag];
@@ -359,6 +351,8 @@ class Sea {
         return res.point.path;
     }
 
+    // DFS scheduler, but it has to figure out control
+    // dependencies from StatePhis
     def scheduleNodes(point: SearchNode) -> SearchRes {
         def node = point.node;
         var path = point.path;
@@ -367,6 +361,16 @@ class Sea {
 
         // point.dbg();
 
+        // If a node is used as a condition for any phis, we
+        // use it to also schedule a branch.
+        // So first we schedule the actual bool condition evaluation,
+        // and then create an If for any branch children that are ready.
+        // Bool conditions are potentially visited more than once until
+        // all of the branches are scheduled, but its actual evaluation
+        // is only scheduled once.
+
+        // record if the current node is a conditional for any phis
+        // that have not already been scheduled
         var phis: List<IRNode> = null;
         var state_phis: List<IRNode> = null;
         if (node.var_data != null) for (i < node.children.length) {
@@ -757,12 +761,10 @@ class IRNode {
 
     def mergeEffsValidator(sea: Sea, left: IRNode, right: IRNode) -> IRNode {
         def nstates = sea.start.state_deps.length;
-        def left_dup = sea.dupNode(left);
-        def right_dup = sea.dupNode(right);
-        if (left_dup.var_data == null) left_dup.var_data = VarData.new(uidl("l_state"), TypeVar.Bot("void"), Stage.INTERPRET);
-        if (right_dup.var_data == null) right_dup.var_data = VarData.new(uidl("r_state"), TypeVar.Bot("void"), Stage.INTERPRET);
-        def new_left = sea.mkNode(IROp.Intrinsic(intrinsic("merge")), Array.new(nstates), [left_dup, right_dup]);
-        new_left.var_data = VarData.new(uidl("eff_chosen"), left.var_data.tipe, Stage.INTERPRET);
+        if (left.var_data == null) left.var_data = VarData.new(uidl("l_state"), TypeVar.Bot("void"), Stage.INTERPRET);
+        if (right.var_data == null) right.var_data = VarData.new(uidl("r_state"), TypeVar.Bot("void"), Stage.INTERPRET);
+        def new_left = sea.mkNode(IROp.Intrinsic(intrinsic("merge")), Array.new(nstates), [left, right]);
+        new_left.var_data = VarData.new(uidl("eff_merge"), left.var_data.tipe, Stage.INTERPRET);
         return new_left;
     }
 
@@ -809,17 +811,25 @@ class IRNode {
                     Phi => {
                         new_left = sea.mkNode(IROp.Intrinsic(intrinsic("merge")), Array.new(nstates), [left, right]);
                         new_left.var_data = VarData.new(uidl("merge"), left.var_data.tipe, Stage.INTERPRET);
+                        merged_effs.put(left).put(right);
                     }
                     StatePhi => {
-                        var dup = false;
-                        for (i < merged_effs.length) dup |= merged_effs[i].id == left.id;
-                        if (!dup) {
-                            new_left = mergeEffsAI(sea, left, right);
-                            merged_effs.put(new_left);
-                        } else {
-                            new_left = sea.mkNode(IROp.Intrinsic(intrinsic("nop")), Array.new(nstates), []);
-                            new_left.var_data = VarData.new(uidl("eff_nop"), TypeVar.Bot("void"), Stage.INTERPRET);
+                        var left_dup = false, right_dup = false;
+                        for (i < merged_effs.length) {
+                            left_dup |= merged_effs[i].id == left.id;
+                            right_dup |= merged_effs[i].id == right.id;
                         }
+                        var merge_left = left, merge_right = right;
+                        if (left_dup) {
+                            merge_left = sea.mkNode(IROp.Intrinsic(intrinsic("nop")), Array.new(nstates), []);
+                            merge_left.var_data = VarData.new(uidl("eff_nop"), TypeVar.Bot("void"), Stage.INTERPRET);
+                        }
+                        if (right_dup) {
+                            merge_right = sea.mkNode(IROp.Intrinsic(intrinsic("nop")), Array.new(nstates), []);
+                            merge_right.var_data = VarData.new(uidl("eff_nop"), TypeVar.Bot("void"), Stage.INTERPRET);
+                        }
+                        merged_effs.put(left).put(right);
+                        new_left = mergeEffsAI(sea, merge_left, merge_right);
                     }
                     _ => {}
                 }
