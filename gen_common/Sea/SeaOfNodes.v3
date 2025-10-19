@@ -143,6 +143,12 @@ class Sea {
         return node;
     }
 
+    def dupNode(node: IRNode) -> IRNode {
+        def n = mkNode(node.op, node.state_deps, node.value_deps);
+        if(node.var_data != null) n.var_data = VarData.new(uidl(node.var_data.sourceName), node.var_data.tipe, node.var_data.stage);
+        return n;
+    }
+
     def addSSAD(ssad: SSAD, state_vars: Array<IRNode>, deps: List<IRNode>) {
         match (ssad) {
             LetApp(n, f, args, rest) => {
@@ -760,7 +766,7 @@ class IRNode {
                     def merge = sea.mkNode(IROp.Intrinsic(intrinsic(merge_fn)), Arrays.dup(l_push.state_deps), [l_push, r_push]);
                     merge.var_data = VarData.new(uidl("merge"), l_push.var_data.tipe, Stage.INTERPRET);
                     def push = sea.mkNode(left.op, left.state_deps, [merge]);
-                    push.var_data = VarData.new(uidl("push"), TypeVar.Bot("void"), Stage.INTERPRET);
+                    push.var_data = VarData.new(uidl("eff_push"), TypeVar.Bot("void"), Stage.INTERPRET);
                     return push;
                 } else {
                     // has typevar
@@ -780,9 +786,11 @@ class IRNode {
 
     def mergeEffsValidator(sea: Sea, left: IRNode, right: IRNode) -> IRNode {
         def nstates = sea.start.state_deps.length;
-        if (left.var_data == null) left.var_data = VarData.new(uidl("l_state"), TypeVar.Bot("void"), Stage.INTERPRET);
-        if (right.var_data == null) right.var_data = VarData.new(uidl("r_state"), TypeVar.Bot("void"), Stage.INTERPRET);
-        def new_left = sea.mkNode(IROp.Intrinsic(intrinsic("merge")), Array.new(nstates), [left, right]);
+        def left_dup = sea.dupNode(left);
+        def right_dup = sea.dupNode(right);
+        if (left_dup.var_data == null) left_dup.var_data = VarData.new(uidl("l_state"), TypeVar.Bot("void"), Stage.INTERPRET);
+        if (right_dup.var_data == null) right_dup.var_data = VarData.new(uidl("r_state"), TypeVar.Bot("void"), Stage.INTERPRET);
+        def new_left = sea.mkNode(IROp.Intrinsic(intrinsic("merge")), Array.new(nstates), [left_dup, right_dup]);
         new_left.var_data = VarData.new(uidl("eff_chosen"), left.var_data.tipe, Stage.INTERPRET);
         return new_left;
     }

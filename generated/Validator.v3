@@ -682,171 +682,171 @@ def F64_CONST() {
 }
 def I32_EQZ() {
 	def a = pop_u32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I32_EQ() {
 	def b = pop_u32();
 	def a = pop_u32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I32_NE() {
 	def b = pop_u32();
 	def a = pop_u32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I32_LT_S() {
 	def b = pop_u32();
 	def a = pop_u32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I32_LT_U() {
 	def b = pop_u32();
 	def a = pop_u32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I32_GT_S() {
 	def b = pop_u32();
 	def a = pop_u32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I32_GT_U() {
 	def b = pop_u32();
 	def a = pop_u32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I32_LE_S() {
 	def b = pop_u32();
 	def a = pop_u32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I32_LE_U() {
 	def b = pop_u32();
 	def a = pop_u32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I32_GE_S() {
 	def b = pop_u32();
 	def a = pop_u32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I32_GE_U() {
 	def b = pop_u32();
 	def a = pop_u32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I64_EQZ() {
 	def a = pop_u64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I64_EQ() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I64_NE() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I64_LT_S() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I64_LT_U() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I64_GT_S() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I64_GT_U() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I64_LE_S() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I64_LE_U() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I64_GE_S() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I64_GE_U() {
 	def b = pop_u64();
 	def a = pop_u64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def F32_EQ() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def F32_NE() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def F32_LT() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def F32_GT() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def F32_LE() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def F32_GE() {
 	def b = pop_f32();
 	def a = pop_f32();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def F64_EQ() {
 	def b = pop_f64();
 	def a = pop_f64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def F64_NE() {
 	def b = pop_f64();
 	def a = pop_f64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def F64_LT() {
 	def b = pop_f64();
 	def a = pop_f64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def F64_GT() {
 	def b = pop_f64();
 	def a = pop_f64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def F64_LE() {
 	def b = pop_f64();
 	def a = pop_f64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def F64_GE() {
 	def b = pop_f64();
 	def a = pop_f64();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def I32_CLZ() {
 	def a = pop_u32();
@@ -880,11 +880,14 @@ def I32_DIV_S() {
 	def a = pop_u32();
 	trapDivideByZero();
 	trapDivideUnrepresentable();
+	trapDivideByZero();
+	trapDivideUnrepresentable();
 	push_u32(U32_div_s(a, b));
 }
 def I32_DIV_U() {
 	def b = pop_u32();
 	def a = pop_u32();
+	trapDivideByZero();
 	trapDivideByZero();
 	push_u32(U32_div(a, b));
 }
@@ -892,11 +895,13 @@ def I32_REM_S() {
 	def b = pop_u32();
 	def a = pop_u32();
 	trapDivideByZero();
+	trapDivideByZero();
 	push_u32(U32_rem_s(a, b));
 }
 def I32_REM_U() {
 	def b = pop_u32();
 	def a = pop_u32();
+	trapDivideByZero();
 	trapDivideByZero();
 	push_u32(U32_rem_u(a, b));
 }
@@ -972,11 +977,14 @@ def I64_DIV_S() {
 	def a = pop_u64();
 	trapDivideByZero();
 	trapDivideUnrepresentable();
+	trapDivideByZero();
+	trapDivideUnrepresentable();
 	push_u64(U64_div_s(a, b));
 }
 def I64_DIV_U() {
 	def b = pop_u64();
 	def a = pop_u64();
+	trapDivideByZero();
 	trapDivideByZero();
 	push_u64(U64_div(a, b));
 }
@@ -984,11 +992,13 @@ def I64_REM_S() {
 	def b = pop_u64();
 	def a = pop_u64();
 	trapDivideByZero();
+	trapDivideByZero();
 	push_u64(U64_rem_s(a, b));
 }
 def I64_REM_U() {
 	def b = pop_u64();
 	def a = pop_u64();
+	trapDivideByZero();
 	trapDivideByZero();
 	push_u64(U64_rem_u(a, b));
 }
@@ -1079,6 +1089,7 @@ def F32_DIV() {
 	def b = pop_f32();
 	def a = pop_f32();
 	trapDivideByZero();
+	trapDivideByZero();
 	push_f32(F32_div(a, b));
 }
 def F64_ABS() {
@@ -1127,6 +1138,7 @@ def F64_MUL() {
 def F64_DIV() {
 	def b = pop_f64();
 	def a = pop_f64();
+	trapDivideByZero();
 	trapDivideByZero();
 	push_f64(F64_div(a, b));
 }
@@ -1277,11 +1289,13 @@ def REF_NULL() {
 }
 def REF_IS_NULL() {
 	def obj = pop_Object();
-	def push = push_u32(rtcast_u32(1));
+	push_u32(rtcast_u32(1));
 }
 def REF_AS_NON_NULL() {
 	def obj = pop_Object();
 	trapNull();
+	trapNull();
+	def obj1 = pop_Object();
 	push_Object(obj);
 }
 def STRUCT_NEW() {
@@ -1294,17 +1308,29 @@ def STRUCT_GET() {
 	def field_index = imm_readULEB32();
 	def obj = pop_Object();
 	trapNull();
+	def field_index1 = imm_readULEB32();
+	trapNull();
+	def obj1 = pop_Object();
+	trapNull();
 }
 def STRUCT_GET_S() {
 	def struct_index = imm_readULEB32();
 	def field_index = imm_readULEB32();
 	def obj = pop_Object();
 	trapNull();
+	def field_index1 = imm_readULEB32();
+	trapNull();
+	def obj1 = pop_Object();
+	trapNull();
 }
 def STRUCT_GET_U() {
 	def struct_index = imm_readULEB32();
 	def field_index = imm_readULEB32();
 	def obj = pop_Object();
+	trapNull();
+	def field_index1 = imm_readULEB32();
+	trapNull();
+	def obj1 = pop_Object();
 	trapNull();
 }
 def build_dispatch_table() -> Array<void -> void> {
