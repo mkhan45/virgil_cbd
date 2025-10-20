@@ -107,9 +107,9 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.addAbstractions(sea));
     def state = HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq);
     sea.apply(state, IRNode.unLEM);
-    System.puts("mermaid: "); System.puts(opcode); System.ln();
-    System.puts(sea.toMermaid());
-    System.ln();
+    // System.puts("mermaid: "); System.puts(opcode); System.ln();
+    // System.puts(sea.toMermaid());
+    // System.ln();
     def scheduled = sea.schedule();
     def processed = scheduled;
 
