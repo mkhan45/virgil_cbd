@@ -1,6 +1,5 @@
-## UNREACHABLE
-```mermaid
----
+window.graphs = {
+	UNREACHABLE:`---
 config:
   layout: elk
 ---
@@ -17,10 +16,8 @@ graph TD
 	0["
 	Start
 	"]
-```
-## NOP
-```mermaid
----
+	`,
+	NOP:`---
 config:
   layout: elk
 ---
@@ -32,10 +29,8 @@ graph TD
 	0["
 	Start
 	"]
-```
-## BLOCK
-```mermaid
----
+	`,
+	BLOCK:`---
 config:
   layout: elk
 ---
@@ -59,10 +54,8 @@ graph TD
 	imm_readBlockType
 	"]
 	0 -. Codeptr .-> 3
-```
-## LOOP
-```mermaid
----
+	`,
+	LOOP:`---
 config:
   layout: elk
 ---
@@ -86,10 +79,8 @@ graph TD
 	imm_readBlockType
 	"]
 	0 -. Codeptr .-> 3
-```
-## IF
-```mermaid
----
+	`,
+	IF:`---
 config:
   layout: elk
 ---
@@ -145,10 +136,8 @@ graph TD
 	arg__11
 	0
 	"]
-```
-## ELSE
-```mermaid
----
+	`,
+	ELSE:`---
 config:
   layout: elk
 ---
@@ -171,10 +160,8 @@ graph TD
 	0["
 	Start
 	"]
-```
-## TRY
-```mermaid
----
+	`,
+	TRY:`---
 config:
   layout: elk
 ---
@@ -198,10 +185,8 @@ graph TD
 	imm_readBlockType
 	"]
 	0 -. Codeptr .-> 3
-```
-## END
-```mermaid
----
+	`,
+	END:`---
 config:
   layout: elk
 ---
@@ -232,10 +217,8 @@ graph TD
 	cond__24
 	f_isAtEnd
 	"]
-```
-## BR
-```mermaid
----
+	`,
+	BR:`---
 config:
   layout: elk
 ---
@@ -264,10 +247,8 @@ graph TD
 	f_getLabel
 	"]
 	3 --> 5
-```
-## BR_IF
-```mermaid
----
+	`,
+	BR_IF:`---
 config:
   layout: elk
 ---
@@ -324,10 +305,8 @@ graph TD
 	arg__36
 	0
 	"]
-```
-## BR_TABLE
-```mermaid
----
+	`,
+	BR_TABLE:`---
 config:
   layout: elk
 ---
@@ -358,10 +337,8 @@ graph TD
 	imm_readLabels
 	"]
 	0 -. Codeptr .-> 3
-```
-## RETURN
-```mermaid
----
+	`,
+	RETURN:`---
 config:
   layout: elk
 ---
@@ -378,10 +355,8 @@ graph TD
 	0["
 	Start
 	"]
-```
-## CALL
-```mermaid
----
+	`,
+	CALL:`---
 config:
   layout: elk
 ---
@@ -416,10 +391,8 @@ graph TD
 	m_getFuncSignature
 	"]
 	3 --> 5
-```
-## CALL_INDIRECT
-```mermaid
----
+	`,
+	CALL_INDIRECT:`---
 config:
   layout: elk
 ---
@@ -498,10 +471,8 @@ graph TD
 	m_isTable64
 	"]
 	4 --> 8
-```
-## RETURN_CALL
-```mermaid
----
+	`,
+	RETURN_CALL:`---
 config:
   layout: elk
 ---
@@ -536,10 +507,8 @@ graph TD
 	m_getFuncSignature
 	"]
 	3 --> 5
-```
-## DROP
-```mermaid
----
+	`,
+	DROP:`---
 config:
   layout: elk
 ---
@@ -563,10 +532,8 @@ graph TD
 	f_getTopOfStackType
 	"]
 	0 -. Stack .-> 3
-```
-## SELECT
-```mermaid
----
+	`,
+	SELECT:`---
 config:
   layout: elk
 ---
@@ -630,10 +597,8 @@ graph TD
 	arg__85
 	0
 	"]
-```
-## LOCAL_GET
-```mermaid
----
+	`,
+	LOCAL_GET:`---
 config:
   layout: elk
 ---
@@ -671,10 +636,8 @@ graph TD
 	f_getLocalType
 	"]
 	3 --> 5
-```
-## LOCAL_SET
-```mermaid
----
+	`,
+	LOCAL_SET:`---
 config:
   layout: elk
 ---
@@ -713,10 +676,8 @@ graph TD
 	imm_readULEB32
 	"]
 	0 -. Codeptr .-> 3
-```
-## LOCAL_TEE
-```mermaid
----
+	`,
+	LOCAL_TEE:`---
 config:
   layout: elk
 ---
@@ -762,10 +723,8 @@ graph TD
 	5 --> 14
 	7 --> 14
 	7 -. Stack .-> 14
-```
-## GLOBAL_GET
-```mermaid
----
+	`,
+	GLOBAL_GET:`---
 config:
   layout: elk
 ---
@@ -803,10 +762,8 @@ graph TD
 	m_getGlobalType
 	"]
 	3 --> 5
-```
-## GLOBAL_SET
-```mermaid
----
+	`,
+	GLOBAL_SET:`---
 config:
   layout: elk
 ---
@@ -845,10 +802,8 @@ graph TD
 	imm_readULEB32
 	"]
 	0 -. Codeptr .-> 3
-```
-## TABLE_GET
-```mermaid
----
+	`,
+	TABLE_GET:`---
 config:
   layout: elk
 ---
@@ -911,10 +866,8 @@ graph TD
 	m_isTable64
 	"]
 	3 --> 5
-```
-## TABLE_SET
-```mermaid
----
+	`,
+	TABLE_SET:`---
 config:
   layout: elk
 ---
@@ -963,10 +916,8 @@ graph TD
 	imm_readULEB32
 	"]
 	0 -. Codeptr .-> 3
-```
-## I32_LOAD
-```mermaid
----
+	`,
+	I32_LOAD:`---
 config:
   layout: elk
 ---
@@ -1087,10 +1038,8 @@ graph TD
 	14 --> 31
 	23 --> 31
 	15 --> 31
-```
-## I64_LOAD
-```mermaid
----
+	`,
+	I64_LOAD:`---
 config:
   layout: elk
 ---
@@ -1211,10 +1160,8 @@ graph TD
 	14 --> 31
 	23 --> 31
 	15 --> 31
-```
-## F32_LOAD
-```mermaid
----
+	`,
+	F32_LOAD:`---
 config:
   layout: elk
 ---
@@ -1335,10 +1282,8 @@ graph TD
 	14 --> 31
 	23 --> 31
 	15 --> 31
-```
-## F64_LOAD
-```mermaid
----
+	`,
+	F64_LOAD:`---
 config:
   layout: elk
 ---
@@ -1459,10 +1404,8 @@ graph TD
 	14 --> 31
 	23 --> 31
 	15 --> 31
-```
-## I32_LOAD8_S
-```mermaid
----
+	`,
+	I32_LOAD8_S:`---
 config:
   layout: elk
 ---
@@ -1593,10 +1536,8 @@ graph TD
 	14 --> 35
 	25 --> 35
 	15 --> 35
-```
-## I32_LOAD8_U
-```mermaid
----
+	`,
+	I32_LOAD8_U:`---
 config:
   layout: elk
 ---
@@ -1717,10 +1658,8 @@ graph TD
 	14 --> 31
 	23 --> 31
 	15 --> 31
-```
-## I32_LOAD16_S
-```mermaid
----
+	`,
+	I32_LOAD16_S:`---
 config:
   layout: elk
 ---
@@ -1851,10 +1790,8 @@ graph TD
 	14 --> 35
 	25 --> 35
 	15 --> 35
-```
-## I32_LOAD16_U
-```mermaid
----
+	`,
+	I32_LOAD16_U:`---
 config:
   layout: elk
 ---
@@ -1975,10 +1912,8 @@ graph TD
 	14 --> 31
 	23 --> 31
 	15 --> 31
-```
-## I64_LOAD8_S
-```mermaid
----
+	`,
+	I64_LOAD8_S:`---
 config:
   layout: elk
 ---
@@ -2109,10 +2044,8 @@ graph TD
 	14 --> 35
 	25 --> 35
 	15 --> 35
-```
-## I64_LOAD8_U
-```mermaid
----
+	`,
+	I64_LOAD8_U:`---
 config:
   layout: elk
 ---
@@ -2233,10 +2166,8 @@ graph TD
 	14 --> 31
 	23 --> 31
 	15 --> 31
-```
-## I64_LOAD16_S
-```mermaid
----
+	`,
+	I64_LOAD16_S:`---
 config:
   layout: elk
 ---
@@ -2367,10 +2298,8 @@ graph TD
 	14 --> 35
 	25 --> 35
 	15 --> 35
-```
-## I64_LOAD16_U
-```mermaid
----
+	`,
+	I64_LOAD16_U:`---
 config:
   layout: elk
 ---
@@ -2491,10 +2420,8 @@ graph TD
 	14 --> 31
 	23 --> 31
 	15 --> 31
-```
-## I64_LOAD32_S
-```mermaid
----
+	`,
+	I64_LOAD32_S:`---
 config:
   layout: elk
 ---
@@ -2625,10 +2552,8 @@ graph TD
 	14 --> 35
 	25 --> 35
 	15 --> 35
-```
-## I64_LOAD32_U
-```mermaid
----
+	`,
+	I64_LOAD32_U:`---
 config:
   layout: elk
 ---
@@ -2749,10 +2674,8 @@ graph TD
 	14 --> 31
 	23 --> 31
 	15 --> 31
-```
-## I32_STORE
-```mermaid
----
+	`,
+	I32_STORE:`---
 config:
   layout: elk
 ---
@@ -2876,10 +2799,8 @@ graph TD
 	15 --> 30
 	23 --> 30
 	16 --> 30
-```
-## I64_STORE
-```mermaid
----
+	`,
+	I64_STORE:`---
 config:
   layout: elk
 ---
@@ -3003,10 +2924,8 @@ graph TD
 	15 --> 30
 	23 --> 30
 	16 --> 30
-```
-## F32_STORE
-```mermaid
----
+	`,
+	F32_STORE:`---
 config:
   layout: elk
 ---
@@ -3106,10 +3025,8 @@ graph TD
 	imm_readULEB64
 	"]
 	12 -. Codeptr .-> 23
-```
-## F64_STORE
-```mermaid
----
+	`,
+	F64_STORE:`---
 config:
   layout: elk
 ---
@@ -3233,10 +3150,8 @@ graph TD
 	15 --> 30
 	23 --> 30
 	16 --> 30
-```
-## I32_STORE8
-```mermaid
----
+	`,
+	I32_STORE8:`---
 config:
   layout: elk
 ---
@@ -3360,10 +3275,8 @@ graph TD
 	15 --> 30
 	23 --> 30
 	16 --> 30
-```
-## I32_STORE16
-```mermaid
----
+	`,
+	I32_STORE16:`---
 config:
   layout: elk
 ---
@@ -3487,10 +3400,8 @@ graph TD
 	15 --> 30
 	23 --> 30
 	16 --> 30
-```
-## I64_STORE8
-```mermaid
----
+	`,
+	I64_STORE8:`---
 config:
   layout: elk
 ---
@@ -3614,10 +3525,8 @@ graph TD
 	15 --> 30
 	23 --> 30
 	16 --> 30
-```
-## I64_STORE16
-```mermaid
----
+	`,
+	I64_STORE16:`---
 config:
   layout: elk
 ---
@@ -3741,10 +3650,8 @@ graph TD
 	15 --> 30
 	23 --> 30
 	16 --> 30
-```
-## I64_STORE32
-```mermaid
----
+	`,
+	I64_STORE32:`---
 config:
   layout: elk
 ---
@@ -3868,10 +3775,8 @@ graph TD
 	15 --> 30
 	23 --> 30
 	16 --> 30
-```
-## MEMORY_SIZE
-```mermaid
----
+	`,
+	MEMORY_SIZE:`---
 config:
   layout: elk
 ---
@@ -3963,10 +3868,8 @@ graph TD
 	9 --> 12
 	10 --> 12
 	3 --> 12
-```
-## MEMORY_GROW
-```mermaid
----
+	`,
+	MEMORY_GROW:`---
 config:
   layout: elk
 ---
@@ -4070,10 +3973,8 @@ graph TD
 	9 --> 12
 	10 --> 12
 	3 --> 12
-```
-## I32_CONST
-```mermaid
----
+	`,
+	I32_CONST:`---
 config:
   layout: elk
 ---
@@ -4098,10 +3999,8 @@ graph TD
 	imm_readILEB32
 	"]
 	0 -. Codeptr .-> 3
-```
-## I64_CONST
-```mermaid
----
+	`,
+	I64_CONST:`---
 config:
   layout: elk
 ---
@@ -4126,10 +4025,8 @@ graph TD
 	imm_readILEB64
 	"]
 	0 -. Codeptr .-> 3
-```
-## F32_CONST
-```mermaid
----
+	`,
+	F32_CONST:`---
 config:
   layout: elk
 ---
@@ -4157,10 +4054,8 @@ graph TD
 	x
 	imm_readU32
 	"]
-```
-## F64_CONST
-```mermaid
----
+	`,
+	F64_CONST:`---
 config:
   layout: elk
 ---
@@ -4188,10 +4083,8 @@ graph TD
 	x
 	imm_readU64
 	"]
-```
-## I32_EQZ
-```mermaid
----
+	`,
+	I32_EQZ:`---
 config:
   layout: elk
 ---
@@ -4240,10 +4133,8 @@ graph TD
 	"]
 	3 --> 6
 	4 --> 6
-```
-## I32_EQ
-```mermaid
----
+	`,
+	I32_EQ:`---
 config:
   layout: elk
 ---
@@ -4297,10 +4188,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_NE
-```mermaid
----
+	`,
+	I32_NE:`---
 config:
   layout: elk
 ---
@@ -4354,10 +4243,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_LT_S
-```mermaid
----
+	`,
+	I32_LT_S:`---
 config:
   layout: elk
 ---
@@ -4411,10 +4298,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_LT_U
-```mermaid
----
+	`,
+	I32_LT_U:`---
 config:
   layout: elk
 ---
@@ -4468,10 +4353,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_GT_S
-```mermaid
----
+	`,
+	I32_GT_S:`---
 config:
   layout: elk
 ---
@@ -4525,10 +4408,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_GT_U
-```mermaid
----
+	`,
+	I32_GT_U:`---
 config:
   layout: elk
 ---
@@ -4582,10 +4463,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_LE_S
-```mermaid
----
+	`,
+	I32_LE_S:`---
 config:
   layout: elk
 ---
@@ -4639,10 +4518,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_LE_U
-```mermaid
----
+	`,
+	I32_LE_U:`---
 config:
   layout: elk
 ---
@@ -4696,10 +4573,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_GE_S
-```mermaid
----
+	`,
+	I32_GE_S:`---
 config:
   layout: elk
 ---
@@ -4753,10 +4628,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_GE_U
-```mermaid
----
+	`,
+	I32_GE_U:`---
 config:
   layout: elk
 ---
@@ -4810,10 +4683,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_EQZ
-```mermaid
----
+	`,
+	I64_EQZ:`---
 config:
   layout: elk
 ---
@@ -4862,10 +4733,8 @@ graph TD
 	"]
 	3 --> 6
 	4 --> 6
-```
-## I64_EQ
-```mermaid
----
+	`,
+	I64_EQ:`---
 config:
   layout: elk
 ---
@@ -4919,10 +4788,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_NE
-```mermaid
----
+	`,
+	I64_NE:`---
 config:
   layout: elk
 ---
@@ -4976,10 +4843,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_LT_S
-```mermaid
----
+	`,
+	I64_LT_S:`---
 config:
   layout: elk
 ---
@@ -5033,10 +4898,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_LT_U
-```mermaid
----
+	`,
+	I64_LT_U:`---
 config:
   layout: elk
 ---
@@ -5090,10 +4953,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_GT_S
-```mermaid
----
+	`,
+	I64_GT_S:`---
 config:
   layout: elk
 ---
@@ -5147,10 +5008,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_GT_U
-```mermaid
----
+	`,
+	I64_GT_U:`---
 config:
   layout: elk
 ---
@@ -5204,10 +5063,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_LE_S
-```mermaid
----
+	`,
+	I64_LE_S:`---
 config:
   layout: elk
 ---
@@ -5261,10 +5118,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_LE_U
-```mermaid
----
+	`,
+	I64_LE_U:`---
 config:
   layout: elk
 ---
@@ -5318,10 +5173,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_GE_S
-```mermaid
----
+	`,
+	I64_GE_S:`---
 config:
   layout: elk
 ---
@@ -5375,10 +5228,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_GE_U
-```mermaid
----
+	`,
+	I64_GE_U:`---
 config:
   layout: elk
 ---
@@ -5432,10 +5283,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F32_EQ
-```mermaid
----
+	`,
+	F32_EQ:`---
 config:
   layout: elk
 ---
@@ -5489,10 +5338,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F32_NE
-```mermaid
----
+	`,
+	F32_NE:`---
 config:
   layout: elk
 ---
@@ -5546,10 +5393,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F32_LT
-```mermaid
----
+	`,
+	F32_LT:`---
 config:
   layout: elk
 ---
@@ -5603,10 +5448,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F32_GT
-```mermaid
----
+	`,
+	F32_GT:`---
 config:
   layout: elk
 ---
@@ -5660,10 +5503,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F32_LE
-```mermaid
----
+	`,
+	F32_LE:`---
 config:
   layout: elk
 ---
@@ -5717,10 +5558,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F32_GE
-```mermaid
----
+	`,
+	F32_GE:`---
 config:
   layout: elk
 ---
@@ -5774,10 +5613,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F64_EQ
-```mermaid
----
+	`,
+	F64_EQ:`---
 config:
   layout: elk
 ---
@@ -5831,10 +5668,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F64_NE
-```mermaid
----
+	`,
+	F64_NE:`---
 config:
   layout: elk
 ---
@@ -5888,10 +5723,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F64_LT
-```mermaid
----
+	`,
+	F64_LT:`---
 config:
   layout: elk
 ---
@@ -5945,10 +5778,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F64_GT
-```mermaid
----
+	`,
+	F64_GT:`---
 config:
   layout: elk
 ---
@@ -6002,10 +5833,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F64_LE
-```mermaid
----
+	`,
+	F64_LE:`---
 config:
   layout: elk
 ---
@@ -6059,10 +5888,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F64_GE
-```mermaid
----
+	`,
+	F64_GE:`---
 config:
   layout: elk
 ---
@@ -6116,10 +5943,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_CLZ
-```mermaid
----
+	`,
+	I32_CLZ:`---
 config:
   layout: elk
 ---
@@ -6148,10 +5973,8 @@ graph TD
 	U32_clz
 	"]
 	3 --> 5
-```
-## I32_CTZ
-```mermaid
----
+	`,
+	I32_CTZ:`---
 config:
   layout: elk
 ---
@@ -6180,10 +6003,8 @@ graph TD
 	U32_ctz
 	"]
 	3 --> 5
-```
-## I32_POPCNT
-```mermaid
----
+	`,
+	I32_POPCNT:`---
 config:
   layout: elk
 ---
@@ -6212,10 +6033,8 @@ graph TD
 	U32_popcnt
 	"]
 	3 --> 5
-```
-## I32_ADD
-```mermaid
----
+	`,
+	I32_ADD:`---
 config:
   layout: elk
 ---
@@ -6250,10 +6069,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_SUB
-```mermaid
----
+	`,
+	I32_SUB:`---
 config:
   layout: elk
 ---
@@ -6288,10 +6105,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_MUL
-```mermaid
----
+	`,
+	I32_MUL:`---
 config:
   layout: elk
 ---
@@ -6326,10 +6141,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_DIV_S
-```mermaid
----
+	`,
+	I32_DIV_S:`---
 config:
   layout: elk
 ---
@@ -6442,10 +6255,8 @@ graph TD
 	19 --> 23
 	22 --> 23
 	0 --> 23
-```
-## I32_DIV_U
-```mermaid
----
+	`,
+	I32_DIV_U:`---
 config:
   layout: elk
 ---
@@ -6506,10 +6317,8 @@ graph TD
 	10 --> 14
 	13 --> 14
 	0 --> 14
-```
-## I32_REM_S
-```mermaid
----
+	`,
+	I32_REM_S:`---
 config:
   layout: elk
 ---
@@ -6570,10 +6379,8 @@ graph TD
 	10 --> 14
 	13 --> 14
 	0 --> 14
-```
-## I32_REM_U
-```mermaid
----
+	`,
+	I32_REM_U:`---
 config:
   layout: elk
 ---
@@ -6634,10 +6441,8 @@ graph TD
 	10 --> 14
 	13 --> 14
 	0 --> 14
-```
-## I32_AND
-```mermaid
----
+	`,
+	I32_AND:`---
 config:
   layout: elk
 ---
@@ -6672,10 +6477,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_OR
-```mermaid
----
+	`,
+	I32_OR:`---
 config:
   layout: elk
 ---
@@ -6710,10 +6513,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_XOR
-```mermaid
----
+	`,
+	I32_XOR:`---
 config:
   layout: elk
 ---
@@ -6748,10 +6549,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_SHL
-```mermaid
----
+	`,
+	I32_SHL:`---
 config:
   layout: elk
 ---
@@ -6786,10 +6585,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_SHR_S
-```mermaid
----
+	`,
+	I32_SHR_S:`---
 config:
   layout: elk
 ---
@@ -6824,10 +6621,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_SHR_U
-```mermaid
----
+	`,
+	I32_SHR_U:`---
 config:
   layout: elk
 ---
@@ -6862,10 +6657,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_ROTL
-```mermaid
----
+	`,
+	I32_ROTL:`---
 config:
   layout: elk
 ---
@@ -6900,10 +6693,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I32_ROTR
-```mermaid
----
+	`,
+	I32_ROTR:`---
 config:
   layout: elk
 ---
@@ -6938,10 +6729,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_CLZ
-```mermaid
----
+	`,
+	I64_CLZ:`---
 config:
   layout: elk
 ---
@@ -6970,10 +6759,8 @@ graph TD
 	U64_clz
 	"]
 	3 --> 5
-```
-## I64_CTZ
-```mermaid
----
+	`,
+	I64_CTZ:`---
 config:
   layout: elk
 ---
@@ -7002,10 +6789,8 @@ graph TD
 	U64_ctz
 	"]
 	3 --> 5
-```
-## I64_POPCNT
-```mermaid
----
+	`,
+	I64_POPCNT:`---
 config:
   layout: elk
 ---
@@ -7034,10 +6819,8 @@ graph TD
 	U64_popcnt
 	"]
 	3 --> 5
-```
-## I64_ADD
-```mermaid
----
+	`,
+	I64_ADD:`---
 config:
   layout: elk
 ---
@@ -7072,10 +6855,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_SUB
-```mermaid
----
+	`,
+	I64_SUB:`---
 config:
   layout: elk
 ---
@@ -7110,10 +6891,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_MUL
-```mermaid
----
+	`,
+	I64_MUL:`---
 config:
   layout: elk
 ---
@@ -7148,10 +6927,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_DIV_S
-```mermaid
----
+	`,
+	I64_DIV_S:`---
 config:
   layout: elk
 ---
@@ -7264,10 +7041,8 @@ graph TD
 	19 --> 23
 	22 --> 23
 	0 --> 23
-```
-## I64_DIV_U
-```mermaid
----
+	`,
+	I64_DIV_U:`---
 config:
   layout: elk
 ---
@@ -7328,10 +7103,8 @@ graph TD
 	10 --> 14
 	13 --> 14
 	0 --> 14
-```
-## I64_REM_S
-```mermaid
----
+	`,
+	I64_REM_S:`---
 config:
   layout: elk
 ---
@@ -7392,10 +7165,8 @@ graph TD
 	10 --> 14
 	13 --> 14
 	0 --> 14
-```
-## I64_REM_U
-```mermaid
----
+	`,
+	I64_REM_U:`---
 config:
   layout: elk
 ---
@@ -7456,10 +7227,8 @@ graph TD
 	10 --> 14
 	13 --> 14
 	0 --> 14
-```
-## I64_AND
-```mermaid
----
+	`,
+	I64_AND:`---
 config:
   layout: elk
 ---
@@ -7494,10 +7263,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_OR
-```mermaid
----
+	`,
+	I64_OR:`---
 config:
   layout: elk
 ---
@@ -7532,10 +7299,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_XOR
-```mermaid
----
+	`,
+	I64_XOR:`---
 config:
   layout: elk
 ---
@@ -7570,10 +7335,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_SHL
-```mermaid
----
+	`,
+	I64_SHL:`---
 config:
   layout: elk
 ---
@@ -7608,10 +7371,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_SHR_S
-```mermaid
----
+	`,
+	I64_SHR_S:`---
 config:
   layout: elk
 ---
@@ -7646,10 +7407,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_SHR_U
-```mermaid
----
+	`,
+	I64_SHR_U:`---
 config:
   layout: elk
 ---
@@ -7684,10 +7443,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_ROTL
-```mermaid
----
+	`,
+	I64_ROTL:`---
 config:
   layout: elk
 ---
@@ -7722,10 +7479,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## I64_ROTR
-```mermaid
----
+	`,
+	I64_ROTR:`---
 config:
   layout: elk
 ---
@@ -7760,10 +7515,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F32_ABS
-```mermaid
----
+	`,
+	F32_ABS:`---
 config:
   layout: elk
 ---
@@ -7792,10 +7545,8 @@ graph TD
 	float.abs
 	"]
 	3 --> 5
-```
-## F32_NEG
-```mermaid
----
+	`,
+	F32_NEG:`---
 config:
   layout: elk
 ---
@@ -7824,10 +7575,8 @@ graph TD
 	F32_neg
 	"]
 	3 --> 5
-```
-## F32_CEIL
-```mermaid
----
+	`,
+	F32_CEIL:`---
 config:
   layout: elk
 ---
@@ -7856,10 +7605,8 @@ graph TD
 	F32_ceil
 	"]
 	3 --> 5
-```
-## F32_FLOOR
-```mermaid
----
+	`,
+	F32_FLOOR:`---
 config:
   layout: elk
 ---
@@ -7888,10 +7635,8 @@ graph TD
 	F32_floor
 	"]
 	3 --> 5
-```
-## F32_TRUNC
-```mermaid
----
+	`,
+	F32_TRUNC:`---
 config:
   layout: elk
 ---
@@ -7920,10 +7665,8 @@ graph TD
 	F32_trunc
 	"]
 	3 --> 5
-```
-## F32_NEAREST
-```mermaid
----
+	`,
+	F32_NEAREST:`---
 config:
   layout: elk
 ---
@@ -7952,10 +7695,8 @@ graph TD
 	float.round
 	"]
 	3 --> 5
-```
-## F32_SQRT
-```mermaid
----
+	`,
+	F32_SQRT:`---
 config:
   layout: elk
 ---
@@ -7984,10 +7725,8 @@ graph TD
 	float.sqrt
 	"]
 	3 --> 5
-```
-## F32_ADD
-```mermaid
----
+	`,
+	F32_ADD:`---
 config:
   layout: elk
 ---
@@ -8022,10 +7761,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F32_SUB
-```mermaid
----
+	`,
+	F32_SUB:`---
 config:
   layout: elk
 ---
@@ -8060,10 +7797,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F32_MUL
-```mermaid
----
+	`,
+	F32_MUL:`---
 config:
   layout: elk
 ---
@@ -8098,10 +7833,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F32_DIV
-```mermaid
----
+	`,
+	F32_DIV:`---
 config:
   layout: elk
 ---
@@ -8162,10 +7895,8 @@ graph TD
 	10 --> 14
 	13 --> 14
 	0 --> 14
-```
-## F64_ABS
-```mermaid
----
+	`,
+	F64_ABS:`---
 config:
   layout: elk
 ---
@@ -8194,10 +7925,8 @@ graph TD
 	double.abs
 	"]
 	3 --> 5
-```
-## F64_NEG
-```mermaid
----
+	`,
+	F64_NEG:`---
 config:
   layout: elk
 ---
@@ -8226,10 +7955,8 @@ graph TD
 	F64_neg
 	"]
 	3 --> 5
-```
-## F64_CEIL
-```mermaid
----
+	`,
+	F64_CEIL:`---
 config:
   layout: elk
 ---
@@ -8258,10 +7985,8 @@ graph TD
 	F64_ceil
 	"]
 	3 --> 5
-```
-## F64_FLOOR
-```mermaid
----
+	`,
+	F64_FLOOR:`---
 config:
   layout: elk
 ---
@@ -8290,10 +8015,8 @@ graph TD
 	F64_floor
 	"]
 	3 --> 5
-```
-## F64_TRUNC
-```mermaid
----
+	`,
+	F64_TRUNC:`---
 config:
   layout: elk
 ---
@@ -8322,10 +8045,8 @@ graph TD
 	F64_trunc
 	"]
 	3 --> 5
-```
-## F64_NEAREST
-```mermaid
----
+	`,
+	F64_NEAREST:`---
 config:
   layout: elk
 ---
@@ -8354,10 +8075,8 @@ graph TD
 	double.round
 	"]
 	3 --> 5
-```
-## F64_SQRT
-```mermaid
----
+	`,
+	F64_SQRT:`---
 config:
   layout: elk
 ---
@@ -8386,10 +8105,8 @@ graph TD
 	double.sqrt
 	"]
 	3 --> 5
-```
-## F64_ADD
-```mermaid
----
+	`,
+	F64_ADD:`---
 config:
   layout: elk
 ---
@@ -8424,10 +8141,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F64_SUB
-```mermaid
----
+	`,
+	F64_SUB:`---
 config:
   layout: elk
 ---
@@ -8462,10 +8177,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F64_MUL
-```mermaid
----
+	`,
+	F64_MUL:`---
 config:
   layout: elk
 ---
@@ -8500,10 +8213,8 @@ graph TD
 	"]
 	4 --> 7
 	3 --> 7
-```
-## F64_DIV
-```mermaid
----
+	`,
+	F64_DIV:`---
 config:
   layout: elk
 ---
@@ -8564,10 +8275,8 @@ graph TD
 	10 --> 14
 	13 --> 14
 	0 --> 14
-```
-## I32_WRAP_I64
-```mermaid
----
+	`,
+	I32_WRAP_I64:`---
 config:
   layout: elk
 ---
@@ -8596,10 +8305,8 @@ graph TD
 	U32_wrap_u64
 	"]
 	3 --> 5
-```
-## I32_TRUNC_F32_S
-```mermaid
----
+	`,
+	I32_TRUNC_F32_S:`---
 config:
   layout: elk
 ---
@@ -8628,10 +8335,8 @@ graph TD
 	U32_trunc_f32_s
 	"]
 	3 --> 5
-```
-## I32_TRUNC_F32_U
-```mermaid
----
+	`,
+	I32_TRUNC_F32_U:`---
 config:
   layout: elk
 ---
@@ -8660,10 +8365,8 @@ graph TD
 	U32_trunc_f32_u
 	"]
 	3 --> 5
-```
-## I32_TRUNC_F64_S
-```mermaid
----
+	`,
+	I32_TRUNC_F64_S:`---
 config:
   layout: elk
 ---
@@ -8692,10 +8395,8 @@ graph TD
 	U32_trunc_f64_s
 	"]
 	3 --> 5
-```
-## I32_TRUNC_F64_U
-```mermaid
----
+	`,
+	I32_TRUNC_F64_U:`---
 config:
   layout: elk
 ---
@@ -8724,10 +8425,8 @@ graph TD
 	U32_trunc_f64_u
 	"]
 	3 --> 5
-```
-## I64_EXTEND_I32_S
-```mermaid
----
+	`,
+	I64_EXTEND_I32_S:`---
 config:
   layout: elk
 ---
@@ -8756,10 +8455,8 @@ graph TD
 	U64_extend_i32_s
 	"]
 	3 --> 5
-```
-## I64_EXTEND_I32_U
-```mermaid
----
+	`,
+	I64_EXTEND_I32_U:`---
 config:
   layout: elk
 ---
@@ -8788,10 +8485,8 @@ graph TD
 	U64_extend_i32_u
 	"]
 	3 --> 5
-```
-## I64_TRUNC_F32_S
-```mermaid
----
+	`,
+	I64_TRUNC_F32_S:`---
 config:
   layout: elk
 ---
@@ -8820,10 +8515,8 @@ graph TD
 	U64_trunc_f32_s
 	"]
 	3 --> 5
-```
-## I64_TRUNC_F32_U
-```mermaid
----
+	`,
+	I64_TRUNC_F32_U:`---
 config:
   layout: elk
 ---
@@ -8852,10 +8545,8 @@ graph TD
 	U64_trunc_f32_u
 	"]
 	3 --> 5
-```
-## I64_TRUNC_F64_S
-```mermaid
----
+	`,
+	I64_TRUNC_F64_S:`---
 config:
   layout: elk
 ---
@@ -8884,10 +8575,8 @@ graph TD
 	U64_trunc_f64_s
 	"]
 	3 --> 5
-```
-## I64_TRUNC_F64_U
-```mermaid
----
+	`,
+	I64_TRUNC_F64_U:`---
 config:
   layout: elk
 ---
@@ -8916,10 +8605,8 @@ graph TD
 	U64_trunc_f64_u
 	"]
 	3 --> 5
-```
-## F32_CONVERT_I32_S
-```mermaid
----
+	`,
+	F32_CONVERT_I32_S:`---
 config:
   layout: elk
 ---
@@ -8948,10 +8635,8 @@ graph TD
 	F32_convert_i32_s
 	"]
 	3 --> 5
-```
-## F32_CONVERT_I32_U
-```mermaid
----
+	`,
+	F32_CONVERT_I32_U:`---
 config:
   layout: elk
 ---
@@ -8980,10 +8665,8 @@ graph TD
 	F32_convert_i32_u
 	"]
 	3 --> 5
-```
-## F32_CONVERT_I64_S
-```mermaid
----
+	`,
+	F32_CONVERT_I64_S:`---
 config:
   layout: elk
 ---
@@ -9012,10 +8695,8 @@ graph TD
 	F32_convert_i64_s
 	"]
 	3 --> 5
-```
-## F32_CONVERT_I64_U
-```mermaid
----
+	`,
+	F32_CONVERT_I64_U:`---
 config:
   layout: elk
 ---
@@ -9044,10 +8725,8 @@ graph TD
 	F32_convert_i64_u
 	"]
 	3 --> 5
-```
-## F64_CONVERT_I32_S
-```mermaid
----
+	`,
+	F64_CONVERT_I32_S:`---
 config:
   layout: elk
 ---
@@ -9076,10 +8755,8 @@ graph TD
 	F64_convert_i32_s
 	"]
 	3 --> 5
-```
-## F64_CONVERT_I32_U
-```mermaid
----
+	`,
+	F64_CONVERT_I32_U:`---
 config:
   layout: elk
 ---
@@ -9108,10 +8785,8 @@ graph TD
 	F64_convert_i32_u
 	"]
 	3 --> 5
-```
-## F64_CONVERT_I64_S
-```mermaid
----
+	`,
+	F64_CONVERT_I64_S:`---
 config:
   layout: elk
 ---
@@ -9140,10 +8815,8 @@ graph TD
 	F64_convert_i64_s
 	"]
 	3 --> 5
-```
-## F64_CONVERT_I64_U
-```mermaid
----
+	`,
+	F64_CONVERT_I64_U:`---
 config:
   layout: elk
 ---
@@ -9172,10 +8845,8 @@ graph TD
 	F64_convert_i64_u
 	"]
 	3 --> 5
-```
-## I32_REINTERPRET_F32
-```mermaid
----
+	`,
+	I32_REINTERPRET_F32:`---
 config:
   layout: elk
 ---
@@ -9204,10 +8875,8 @@ graph TD
 	u32_reinterpret_f32
 	"]
 	3 --> 5
-```
-## I64_REINTERPRET_F64
-```mermaid
----
+	`,
+	I64_REINTERPRET_F64:`---
 config:
   layout: elk
 ---
@@ -9236,10 +8905,8 @@ graph TD
 	u64_reinterpret_f64
 	"]
 	3 --> 5
-```
-## F32_REINTERPRET_I32
-```mermaid
----
+	`,
+	F32_REINTERPRET_I32:`---
 config:
   layout: elk
 ---
@@ -9268,10 +8935,8 @@ graph TD
 	f32_reinterpret_u32
 	"]
 	3 --> 5
-```
-## F64_REINTERPRET_I64
-```mermaid
----
+	`,
+	F64_REINTERPRET_I64:`---
 config:
   layout: elk
 ---
@@ -9300,10 +8965,8 @@ graph TD
 	f64_reinterpret_u64
 	"]
 	3 --> 5
-```
-## I32_EXTEND8_S
-```mermaid
----
+	`,
+	I32_EXTEND8_S:`---
 config:
   layout: elk
 ---
@@ -9332,10 +8995,8 @@ graph TD
 	U32_extend8_s
 	"]
 	3 --> 5
-```
-## I32_EXTEND16_S
-```mermaid
----
+	`,
+	I32_EXTEND16_S:`---
 config:
   layout: elk
 ---
@@ -9364,10 +9025,8 @@ graph TD
 	U32_extend16_s
 	"]
 	3 --> 5
-```
-## I64_EXTEND8_S
-```mermaid
----
+	`,
+	I64_EXTEND8_S:`---
 config:
   layout: elk
 ---
@@ -9396,10 +9055,8 @@ graph TD
 	U64_extend8_s
 	"]
 	3 --> 5
-```
-## I64_EXTEND16_S
-```mermaid
----
+	`,
+	I64_EXTEND16_S:`---
 config:
   layout: elk
 ---
@@ -9428,10 +9085,8 @@ graph TD
 	U64_extend16_s
 	"]
 	3 --> 5
-```
-## I64_EXTEND32_S
-```mermaid
----
+	`,
+	I64_EXTEND32_S:`---
 config:
   layout: elk
 ---
@@ -9460,10 +9115,8 @@ graph TD
 	U64_extend32_s
 	"]
 	3 --> 5
-```
-## REF_NULL
-```mermaid
----
+	`,
+	REF_NULL:`---
 config:
   layout: elk
 ---
@@ -9492,10 +9145,8 @@ graph TD
 	imm_readULEB32
 	"]
 	0 -. Codeptr .-> 3
-```
-## REF_IS_NULL
-```mermaid
----
+	`,
+	REF_IS_NULL:`---
 config:
   layout: elk
 ---
@@ -9543,10 +9194,8 @@ graph TD
 	object_isNull
 	"]
 	3 --> 5
-```
-## REF_AS_NON_NULL
-```mermaid
----
+	`,
+	REF_AS_NON_NULL:`---
 config:
   layout: elk
 ---
@@ -9591,10 +9240,8 @@ graph TD
 	5 --> 7
 	6 --> 7
 	0 --> 7
-```
-## STRUCT_NEW
-```mermaid
----
+	`,
+	STRUCT_NEW:`---
 config:
   layout: elk
 ---
@@ -9629,10 +9276,8 @@ graph TD
 	imm_readULEB32
 	"]
 	0 -. Codeptr .-> 3
-```
-## STRUCT_GET
-```mermaid
----
+	`,
+	STRUCT_GET:`---
 config:
   layout: elk
 ---
@@ -9688,10 +9333,8 @@ graph TD
 	13 --> 15
 	14 --> 15
 	4 --> 15
-```
-## STRUCT_GET_S
-```mermaid
----
+	`,
+	STRUCT_GET_S:`---
 config:
   layout: elk
 ---
@@ -9747,10 +9390,8 @@ graph TD
 	13 --> 15
 	14 --> 15
 	4 --> 15
-```
-## STRUCT_GET_U
-```mermaid
----
+	`,
+	STRUCT_GET_U:`---
 config:
   layout: elk
 ---
@@ -9806,4 +9447,5 @@ graph TD
 	13 --> 15
 	14 --> 15
 	4 --> 15
-```
+	`,
+}

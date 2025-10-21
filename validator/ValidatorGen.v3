@@ -46,10 +46,13 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // sea.scheduleExp();
 
     def raw_mermaid = sea.toMermaid();
-    graph_output_buf.put1("## %s", opcode).ln();
-    graph_output_buf.puts("```mermaid\n");
+    graph_output_buf.tab().put1("%s:`", opcode);
     graph_output_buf.puts(raw_mermaid);
-    graph_output_buf.puts("```\n");
+    graph_output_buf.tab().puts("`,").ln();
+    // graph_output_buf.put1("## %s", opcode).ln();
+    // graph_output_buf.puts("```mermaid\n");
+    // graph_output_buf.puts(raw_mermaid);
+    // graph_output_buf.puts("```\n");
 
     ir = ir.appended(stbuilder_call);
     sea_ir = ir;
@@ -153,8 +156,11 @@ def main(args: Array<string>) {
     IntrinsicTypes.intrinsic_types["doFallthru"].reads |= StateComponent.Codeptr;
 
     graph_output_buf = StringBuilder.new();
+    graph_output_buf.puts("window.graphs = {").ln();
+
     def defs: Array<ValidatorCBDDef> = TierGen.extractDefsFromFile(v3file, sexpr_file, transformDef);
     def dispatch_table = TierGen.buildDispatch(defs, CBDDef.!<ValidatorCBDDef>(_));
+    graph_output_buf.puts("}").ln();
 
     def template_filename = args[2];
     def template_code = System.fileLoad(template_filename);
@@ -169,7 +175,7 @@ def main(args: Array<string>) {
     final_code_builder.puts(dispatch_table);
     final_code_builder.puts(template_code);
 
-    def graphs_file = System.fileOpen("generated/graphs.md", false);
+    def graphs_file = System.fileOpen("docs/graphs.js", false);
     System.write(graphs_file, graph_output_buf.toString());
 
     System.puts(final_code_builder.toString());
