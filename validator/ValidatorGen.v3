@@ -49,6 +49,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     graph_output_buf.tab().put1("%s:`", opcode);
     graph_output_buf.puts(raw_mermaid);
     graph_output_buf.tab().puts("`,").ln();
+    CBDTrace.addGraph(opcode, "raw", sea);
     // graph_output_buf.put1("## %s", opcode).ln();
     // graph_output_buf.puts("```mermaid\n");
     // graph_output_buf.puts(raw_mermaid);
@@ -60,11 +61,16 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.id_propagate(sea));
     // sea.apply(IRNode.removeViews);
     sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.overloadOps(sea));
+    CBDTrace.addGraph(opcode, "overloadOps", sea);
     sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.addAbstractions(sea));
+    CBDTrace.addGraph(opcode, "addAbstractions", sea);
     def state = HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq);
     sea.apply(state, IRNode.unLEM);
+    CBDTrace.addGraph(opcode, "unLEM", sea);
     sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.constUnLEM(sea));
+    CBDTrace.addGraph(opcode, "constUnLEM", sea);
     sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.chooseMerge(sea));
+    CBDTrace.addGraph(opcode, "chooseMerge", sea);
     def mermaid = sea.toMermaid();
 
     // System.puts("----SSAD----\n");
@@ -148,6 +154,8 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
 def main(args: Array<string>) {
     def sexpr_file = args[0];
     def v3file = args[1];
+
+    CBDTrace.init("docs/traces.js");
 
     IntrinsicTypes.init(IntrinsicTypes.TYPE_DEF_FILE);
     def v_intrinsics = IntrinsicTypes.getIntrinsicTypes("validator/Intrinsics.v3");

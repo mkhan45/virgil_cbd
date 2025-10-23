@@ -1,0 +1,50 @@
+component CBDTrace {
+    var traces: HashMap<string, HashMap<string, string>> = Strings.newMap<HashMap<string, string>>();
+    var out_file: int = -1;
+
+    def init(filename: string) {
+        out_file = System.fileOpen(filename, false);
+        System.write(out_file, "window.traces = {};\n");
+    }
+
+    def addGraph(opcode: string, tag: string, sea: Sea) {
+        addString(opcode, tag, "graph", sea.toMermaid());
+    }
+
+    def addCode(opcode: string, tag: string, str: string) => addString(opcode, tag, "", str);
+
+    def addString(opcode: string, tag: string, cssClass: string, str: string) {
+        def html = Strings.format2("<pre class='%s'>%s</pre>", cssClass, str);
+        if (out_file != -1) {
+            if (!traces.has(opcode)) {
+                def init_js = Strings.format1("window.traces.%s = {}\n", opcode);
+                System.write(out_file, init_js);
+            }
+            def set_js = Strings.format3("window.traces.%s.%s = `%s`;\n", opcode, tag, html);
+            System.write(out_file, set_js);
+        }
+
+        if (!traces.has(opcode)) traces[opcode] = Strings.newMap<string>();
+        traces[opcode][tag] = html;
+    }
+
+    def serialize() -> string {
+        def sb = StringBuilder.new();
+        def codes = Maps.keyList(traces);
+
+        sb.puts("window.traces = {").ln();
+        for (cur = codes; cur != null; cur = cur.tail) {
+            def code = cur.head;
+            def tags = Maps.keyList(traces[code]);
+            sb.tab().put1("%s: {\n", code);
+            for (curTag = tags; curTag != null; curTag = curTag.tail) {
+                def tag = curTag.head;
+                sb.tab().tab().put2("%s: `%s`,\n", tag, traces[code][tag]);
+            }
+            sb.tab().puts("}\n");
+        }
+        sb.puts("}").ln();
+
+        return sb.toString();
+    }
+}

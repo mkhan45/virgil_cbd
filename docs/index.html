@@ -1,11 +1,18 @@
 <html>
     <body>
         <h2 id="label"> </h2>
-        <pre id="graph">
-        </pre>
-        <div class="codes" id="codes" style="max-width: 1200px">
+        <div style="display: flex; gap: 20px;">
+            <div class="btns">
+                <div class="tags" id="tags" style="max-height: 10vh; overflow-y: scroll"> </div>
+                <hr>
+                <div style="max-height: 80vh; overflow-y: scroll">
+                    <div class="codes" id="codes"> </div>
+                </div>
+            </div>
+            <pre id="graph">
+            </pre>
         </div>
-        <script src="graphs.js"></script>
+        <script src="traces.js"></script>
         <script type="module">
             import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
             import elkLayouts from 'https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0/dist/mermaid-layout-elk.esm.min.mjs';
@@ -17,25 +24,49 @@
 
             const graph = document.getElementById('graph');
             const label = document.getElementById('label');
-            async function setGraph(code) {
+            async function setGraph(code, tag) {
                 graph.setAttribute("data-processed", "");
-                graph.innerHTML = graphs[code];
+                graph.innerHTML = traces[code][tag];
                 label.innerText = "Rendering...";
-                await mermaid.run({ querySelector: '#graph' });
-                label.innerText = code;
+                await mermaid.run({ querySelector: '.graph' });
+                label.innerText = code + ", " + tag;
+
+                tags.replaceChildren([]);
+                for (const tag in traces[code]) {
+                    const btn = document.createElement('button');
+                    btn.textContent = tag;
+                    btn.onclick = async () => {
+                        await setGraph(code, tag);
+                    };
+                    tags.appendChild(btn);
+                    graph.querySelector('svg').setAttribute('width', '');
+                    graph.querySelector('svg').setAttribute('height', '80vh');
+                }
             }
-            await setGraph("BR_IF");
+            await setGraph("BR_IF", "raw");
 
             const codes = document.getElementById('codes');
-            for (const op in graphs) {
+            for (const op in traces) {
                 const btn = document.createElement('button');
                 btn.textContent = op;
                 btn.onclick = async () => {
-                    await setGraph(op);
+                    await setGraph(op, "raw");
                 };
 
                 codes.appendChild(btn);
             }
         </script>
+        <style>
+            button {
+                min-width: 20ch;
+            }
+            .graph > * {
+                max-height: 90vh;
+            }
+
+            .btns {
+                max-width: 800px;
+            }
+        </style>
     </body>
 </html>
