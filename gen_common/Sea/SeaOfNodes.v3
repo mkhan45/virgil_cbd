@@ -264,9 +264,9 @@ class Sea {
                 Finish => buf.tab().puts("Finish").ln();
                 Intrinsic(defn) => buf.tab().puts(defn.name).ln();
                 Lit(_, rep) => buf.tab().puts(rep).ln();
-                Phi => buf.tab().puts("phi").ln();
+                Phi => buf.tab().puts("ϕ").ln();
                 StatePhi(scs) => {
-                    buf.tab().puts("state phi ");
+                    buf.tab().puts("Sϕ ");
                     for (sc in scs) {
                         buf.puts(sc.name).puts(" ");
                     }
