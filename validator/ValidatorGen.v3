@@ -49,6 +49,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     graph_output_buf.tab().put1("%s:`", opcode);
     graph_output_buf.puts(raw_mermaid);
     graph_output_buf.tab().puts("`,").ln();
+    CBDTrace.addCode(opcode, "parsed", sea_ir.toString(0));
     CBDTrace.addGraph(opcode, "raw", sea);
     // graph_output_buf.put1("## %s", opcode).ln();
     // graph_output_buf.puts("```mermaid\n");
@@ -98,16 +99,18 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def scheduled = sea.schedule();
     ctx = SSADCtx.new(scheduled);
     ctx.getPhis();
+    CBDTrace.addCode(opcode, "scheduled", scheduled.toString(0));
     // System.puts("======\n");
     var pretty = Pretty_IR.fromSSAD(scheduled, ctx);
     // System.puts("----Scheduled----\n");
     // System.puts(scheduled.toString(0));
     // System.puts("----Pretty----\n");
-    // pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, ctx, Strings.newMap<PrettyExpr>());
-    // pretty = Pretty_IR.removeUselessAssigns(pretty, ctx);
-    // pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>(), ctx);
+    pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, ctx, Strings.newMap<PrettyExpr>());
+    pretty = Pretty_IR.removeUselessAssigns(pretty, ctx);
+    pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>(), ctx);
     // System.puts(pretty.toString(0, ctx));
     // System.puts("====\n");
+    CBDTrace.addCode(opcode, "pretty", pretty.toString(0, ctx));
 
     // sb.puts("/**\n");
     // sb.puts("----input ir----\n");

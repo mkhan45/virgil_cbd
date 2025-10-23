@@ -39,8 +39,10 @@
                         await setGraph(code, tag);
                     };
                     tags.appendChild(btn);
-                    graph.querySelector('svg').setAttribute('width', '');
-                    graph.querySelector('svg').setAttribute('height', '80vh');
+                    if (graph.querySelector('svg') != null) {
+                        graph.querySelector('svg').setAttribute('width', '');
+                        graph.querySelector('svg').setAttribute('height', '80vh');
+                    }
                 }
             }
             await setGraph("BR_IF", "raw");
