@@ -1,16 +1,15 @@
 <html>
     <body>
         <h2 id="label"> </h2>
-        <div style="display: flex; gap: 20px;">
-            <div class="btns">
+        <div style="display: flex">
+            <div style="max-width: 800px; width: fit-content;">
                 <div class="tags" id="tags" style="max-height: 10vh; overflow-y: scroll"> </div>
                 <hr>
-                <div style="max-height: 80vh; overflow-y: scroll">
-                    <div class="codes" id="codes"> </div>
-                </div>
+                <div style="max-height: 80vh; overflow-y: scroll" class="codes" id="codes"> </div>
             </div>
-            <pre id="graph">
-            </pre>
+            <div style="flex-grow: 2; display: flex; justify-content: center;">
+                <pre id="graph"></pre>
+            </div>
         </div>
         <script src="traces.js" charset="utf-8"></script>
         <script type="module">
@@ -67,14 +66,12 @@
         </script>
         <style>
             button {
-                min-width: 20ch;
-            }
-            .graph > * {
-                max-height: 90vh;
+                min-width: 24ch;
+                font-family: monospace;
             }
 
-            .btns {
-                max-width: 800px;
+            .graph > * {
+                max-height: 90vh;
             }
 
             .flowchart-link {
@@ -83,6 +80,10 @@
 
             .basic {
                 stroke-width: 2.5px !important;
+            }
+
+            #graph > pre {
+                font-size: 1.2em;
             }
         </style>
     </body>
