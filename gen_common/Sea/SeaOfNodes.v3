@@ -711,6 +711,7 @@ class IRNode {
                     def new_f = Strings.format2("%s_%s", prefix, op_fn);
                     def intrinsic_def = intrinsic(new_f);
                     op = IROp.Intrinsic(intrinsic_def);
+                    if (intrinsic_def.return_type != null) var_data.tipe = intrinsic_def.return_type.primitive;
                 }
             }
             _ => {}

@@ -456,6 +456,7 @@ component IntrinsicTypes {
         if (Strings.endsWith(op_str, "<")) prose_op = "lt";
         if (Strings.endsWith(op_str, "<=")) prose_op = "lte";
         if (Strings.endsWith(op_str, ">")) prose_op = "gt";
+        if (Strings.endsWith(op_str, ">=")) prose_op = "gte";
         if (Strings.endsWith(op_str, "*")) prose_op = "times";
         if (prose_op == null) prose_op = op_str;
 

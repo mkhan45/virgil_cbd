@@ -33360,7 +33360,7 @@ graph TD
 	"]
 	7["
 	cond__806
-	U32_>=
+	U32_gte
 	"]
 	4 --> 7
 	3 --> 7
@@ -33425,7 +33425,7 @@ graph TD
 	"]
 	7["
 	cond__806
-	U32_>=
+	U32_gte
 	"]
 	4 --> 7
 	3 --> 7
@@ -33500,7 +33500,7 @@ graph TD
 	7 --> 15
 	7["
 	cond__806
-	U32_>=
+	U32_gte
 	"]
 	4 --> 7
 	3 --> 7
@@ -33530,7 +33530,7 @@ graph TD
 </pre>`;
 window.traces.I32_GE_U.unlem_schedule = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
-def cond__806 = U32_>=(a, b);
+def cond__806 = U32_gte(a, b);
 def mt__815 = bot_maybeTrue(cond__806);
 def mf__816 = bot_maybeFalse(cond__806);
 def mb__817 = bool.&&(mt__815, mf__816);
@@ -33557,8 +33557,8 @@ if (mb__817) {
 </pre>`;
 window.traces.I32_GE_U.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
-def mt = bot_maybeTrue(U32_>=(a, b));
-def mf = bot_maybeFalse(U32_>=(a, b));
+def mt = bot_maybeTrue(U32_gte(a, b));
+def mf = bot_maybeFalse(U32_gte(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -33911,7 +33911,7 @@ graph TD
 	"]
 	14["
 	mt__830
-	bot_maybeTrue
+	U64_maybeTrue
 	"]
 	6 --> 14
 	6["
@@ -33945,7 +33945,7 @@ graph TD
 	15 --> 16
 	15["
 	mf__831
-	bot_maybeFalse
+	U64_maybeFalse
 	"]
 	6 --> 15
 </pre>`;
@@ -33953,8 +33953,8 @@ window.traces.I64_EQZ.unlem_schedule = `<pre class=''>def a = pop_u64();
 def arg__826 : u64 = 0;
 def abs__827 = rtcast_u64(arg__826);
 def cond__820 = U64_equals(a, abs__827);
-def mt__830 = bot_maybeTrue(cond__820);
-def mf__831 = bot_maybeFalse(cond__820);
+def mt__830 = U64_maybeTrue(cond__820);
+def mf__831 = U64_maybeFalse(cond__820);
 def mb__832 = bool.&&(mt__830, mf__831);
 if (mb__832) {
 	def arg__822 : u32 = 1;
@@ -33976,8 +33976,8 @@ if (mb__832) {
 // phis: 
 </pre>`;
 window.traces.I64_EQZ.unlem_pretty = `<pre class=''>def a = pop_u64();
-def mt = bot_maybeTrue(U64_equals(a, rtcast_u64(0)));
-def mf = bot_maybeFalse(U64_equals(a, rtcast_u64(0)));
+def mt = U64_maybeTrue(U64_equals(a, rtcast_u64(0)));
+def mf = U64_maybeFalse(U64_equals(a, rtcast_u64(0)));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -34334,7 +34334,7 @@ graph TD
 	"]
 	15["
 	mt__844
-	bot_maybeTrue
+	U64_maybeTrue
 	"]
 	7 --> 15
 	7["
@@ -34363,15 +34363,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__845
-	bot_maybeFalse
+	U64_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.I64_EQ.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def cond__835 = U64_equals(a, b);
-def mt__844 = bot_maybeTrue(cond__835);
-def mf__845 = bot_maybeFalse(cond__835);
+def mt__844 = U64_maybeTrue(cond__835);
+def mf__845 = U64_maybeFalse(cond__835);
 def mb__846 = bool.&&(mt__844, mf__845);
 if (mb__846) {
 	def arg__837 : u32 = 1;
@@ -34396,8 +34396,8 @@ if (mb__846) {
 </pre>`;
 window.traces.I64_EQ.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
-def mt = bot_maybeTrue(U64_equals(a, b));
-def mf = bot_maybeFalse(U64_equals(a, b));
+def mt = U64_maybeTrue(U64_equals(a, b));
+def mf = U64_maybeFalse(U64_equals(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -34766,7 +34766,7 @@ graph TD
 	"]
 	15["
 	mt__858
-	bot_maybeTrue
+	U64_maybeTrue
 	"]
 	7 --> 15
 	7["
@@ -34795,15 +34795,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__859
-	bot_maybeFalse
+	U64_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.I64_NE.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def cond__849 = U64_not_equals(a, b);
-def mt__858 = bot_maybeTrue(cond__849);
-def mf__859 = bot_maybeFalse(cond__849);
+def mt__858 = U64_maybeTrue(cond__849);
+def mf__859 = U64_maybeFalse(cond__849);
 def mb__860 = bool.&&(mt__858, mf__859);
 if (mb__860) {
 	def arg__851 : u32 = 1;
@@ -34829,8 +34829,8 @@ if (mb__860) {
 window.traces.I64_NE.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def cond = U64_not_equals(a, b);
-def mt = bot_maybeTrue(cond);
-def mf = bot_maybeFalse(cond);
+def mt = U64_maybeTrue(cond);
+def mf = U64_maybeFalse(cond);
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -35199,7 +35199,7 @@ graph TD
 	"]
 	15["
 	mt__872
-	bot_maybeTrue
+	U64_maybeTrue
 	"]
 	7 --> 15
 	7["
@@ -35228,15 +35228,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__873
-	bot_maybeFalse
+	U64_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.I64_LT_S.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def cond__863 = U64_lt_s(a, b);
-def mt__872 = bot_maybeTrue(cond__863);
-def mf__873 = bot_maybeFalse(cond__863);
+def mt__872 = U64_maybeTrue(cond__863);
+def mf__873 = U64_maybeFalse(cond__863);
 def mb__874 = bool.&&(mt__872, mf__873);
 if (mb__874) {
 	def arg__865 : u32 = 1;
@@ -35261,8 +35261,8 @@ if (mb__874) {
 </pre>`;
 window.traces.I64_LT_S.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
-def mt = bot_maybeTrue(U64_lt_s(a, b));
-def mf = bot_maybeFalse(U64_lt_s(a, b));
+def mt = U64_maybeTrue(U64_lt_s(a, b));
+def mf = U64_maybeFalse(U64_lt_s(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -35631,7 +35631,7 @@ graph TD
 	"]
 	15["
 	mt__886
-	bot_maybeTrue
+	U64_maybeTrue
 	"]
 	7 --> 15
 	7["
@@ -35660,15 +35660,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__887
-	bot_maybeFalse
+	U64_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.I64_LT_U.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def cond__877 = U64_lt(a, b);
-def mt__886 = bot_maybeTrue(cond__877);
-def mf__887 = bot_maybeFalse(cond__877);
+def mt__886 = U64_maybeTrue(cond__877);
+def mf__887 = U64_maybeFalse(cond__877);
 def mb__888 = bool.&&(mt__886, mf__887);
 if (mb__888) {
 	def arg__879 : u32 = 1;
@@ -35693,8 +35693,8 @@ if (mb__888) {
 </pre>`;
 window.traces.I64_LT_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
-def mt = bot_maybeTrue(U64_lt(a, b));
-def mf = bot_maybeFalse(U64_lt(a, b));
+def mt = U64_maybeTrue(U64_lt(a, b));
+def mf = U64_maybeFalse(U64_lt(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -36495,7 +36495,7 @@ graph TD
 	"]
 	15["
 	mt__914
-	bot_maybeTrue
+	U64_maybeTrue
 	"]
 	7 --> 15
 	7["
@@ -36524,15 +36524,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__915
-	bot_maybeFalse
+	U64_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.I64_GT_U.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def cond__905 = U64_gt(a, b);
-def mt__914 = bot_maybeTrue(cond__905);
-def mf__915 = bot_maybeFalse(cond__905);
+def mt__914 = U64_maybeTrue(cond__905);
+def mf__915 = U64_maybeFalse(cond__905);
 def mb__916 = bool.&&(mt__914, mf__915);
 if (mb__916) {
 	def arg__907 : u32 = 1;
@@ -36557,8 +36557,8 @@ if (mb__916) {
 </pre>`;
 window.traces.I64_GT_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
-def mt = bot_maybeTrue(U64_gt(a, b));
-def mf = bot_maybeFalse(U64_gt(a, b));
+def mt = U64_maybeTrue(U64_gt(a, b));
+def mf = U64_maybeFalse(U64_gt(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -36927,7 +36927,7 @@ graph TD
 	"]
 	15["
 	mt__928
-	bot_maybeTrue
+	U64_maybeTrue
 	"]
 	7 --> 15
 	7["
@@ -36956,15 +36956,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__929
-	bot_maybeFalse
+	U64_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.I64_LE_S.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def cond__919 = U64_le_s(a, b);
-def mt__928 = bot_maybeTrue(cond__919);
-def mf__929 = bot_maybeFalse(cond__919);
+def mt__928 = U64_maybeTrue(cond__919);
+def mf__929 = U64_maybeFalse(cond__919);
 def mb__930 = bool.&&(mt__928, mf__929);
 if (mb__930) {
 	def arg__921 : u32 = 1;
@@ -36989,8 +36989,8 @@ if (mb__930) {
 </pre>`;
 window.traces.I64_LE_S.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
-def mt = bot_maybeTrue(U64_le_s(a, b));
-def mf = bot_maybeFalse(U64_le_s(a, b));
+def mt = U64_maybeTrue(U64_le_s(a, b));
+def mf = U64_maybeFalse(U64_le_s(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -37359,7 +37359,7 @@ graph TD
 	"]
 	15["
 	mt__942
-	bot_maybeTrue
+	U64_maybeTrue
 	"]
 	7 --> 15
 	7["
@@ -37388,15 +37388,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__943
-	bot_maybeFalse
+	U64_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.I64_LE_U.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def cond__933 = U64_lte(a, b);
-def mt__942 = bot_maybeTrue(cond__933);
-def mf__943 = bot_maybeFalse(cond__933);
+def mt__942 = U64_maybeTrue(cond__933);
+def mf__943 = U64_maybeFalse(cond__933);
 def mb__944 = bool.&&(mt__942, mf__943);
 if (mb__944) {
 	def arg__935 : u32 = 1;
@@ -37421,8 +37421,8 @@ if (mb__944) {
 </pre>`;
 window.traces.I64_LE_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
-def mt = bot_maybeTrue(U64_lte(a, b));
-def mf = bot_maybeFalse(U64_lte(a, b));
+def mt = U64_maybeTrue(U64_lte(a, b));
+def mf = U64_maybeFalse(U64_lte(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -38088,7 +38088,7 @@ graph TD
 	"]
 	7["
 	cond__961
-	U64_>=
+	U64_gte
 	"]
 	4 --> 7
 	3 --> 7
@@ -38153,7 +38153,7 @@ graph TD
 	"]
 	7["
 	cond__961
-	U64_>=
+	U64_gte
 	"]
 	4 --> 7
 	3 --> 7
@@ -38228,7 +38228,7 @@ graph TD
 	7 --> 15
 	7["
 	cond__961
-	U64_>=
+	U64_gte
 	"]
 	4 --> 7
 	3 --> 7
@@ -38258,7 +38258,7 @@ graph TD
 </pre>`;
 window.traces.I64_GE_U.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
-def cond__961 = U64_>=(a, b);
+def cond__961 = U64_gte(a, b);
 def mt__970 = bot_maybeTrue(cond__961);
 def mf__971 = bot_maybeFalse(cond__961);
 def mb__972 = bool.&&(mt__970, mf__971);
@@ -38285,8 +38285,8 @@ if (mb__972) {
 </pre>`;
 window.traces.I64_GE_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
-def mt = bot_maybeTrue(U64_>=(a, b));
-def mf = bot_maybeFalse(U64_>=(a, b));
+def mt = bot_maybeTrue(U64_gte(a, b));
+def mf = bot_maybeFalse(U64_gte(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -40681,7 +40681,7 @@ graph TD
 	"]
 	7["
 	cond__1045
-	F32_>=
+	F32_gte
 	"]
 	4 --> 7
 	3 --> 7
@@ -40746,7 +40746,7 @@ graph TD
 	"]
 	7["
 	cond__1045
-	F32_>=
+	F32_gte
 	"]
 	4 --> 7
 	3 --> 7
@@ -40816,12 +40816,12 @@ graph TD
 	"]
 	15["
 	mt__1054
-	bot_maybeTrue
+	U32_maybeTrue
 	"]
 	7 --> 15
 	7["
 	cond__1045
-	F32_>=
+	F32_gte
 	"]
 	4 --> 7
 	3 --> 7
@@ -40845,15 +40845,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__1055
-	bot_maybeFalse
+	U32_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.F32_GE.unlem_schedule = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
-def cond__1045 = F32_>=(a, b);
-def mt__1054 = bot_maybeTrue(cond__1045);
-def mf__1055 = bot_maybeFalse(cond__1045);
+def cond__1045 = F32_gte(a, b);
+def mt__1054 = U32_maybeTrue(cond__1045);
+def mf__1055 = U32_maybeFalse(cond__1045);
 def mb__1056 = bool.&&(mt__1054, mf__1055);
 if (mb__1056) {
 	def arg__1047 : u32 = 1;
@@ -40878,8 +40878,8 @@ if (mb__1056) {
 </pre>`;
 window.traces.F32_GE.unlem_pretty = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
-def mt = bot_maybeTrue(F32_>=(a, b));
-def mf = bot_maybeFalse(F32_>=(a, b));
+def mt = U32_maybeTrue(F32_gte(a, b));
+def mf = U32_maybeFalse(F32_gte(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -41248,7 +41248,7 @@ graph TD
 	"]
 	15["
 	mt__1068
-	bot_maybeTrue
+	U32_maybeTrue
 	"]
 	7 --> 15
 	7["
@@ -41277,15 +41277,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__1069
-	bot_maybeFalse
+	U32_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.F64_EQ.unlem_schedule = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
 def cond__1059 = F64_equals(a, b);
-def mt__1068 = bot_maybeTrue(cond__1059);
-def mf__1069 = bot_maybeFalse(cond__1059);
+def mt__1068 = U32_maybeTrue(cond__1059);
+def mf__1069 = U32_maybeFalse(cond__1059);
 def mb__1070 = bool.&&(mt__1068, mf__1069);
 if (mb__1070) {
 	def arg__1061 : u32 = 1;
@@ -41310,8 +41310,8 @@ if (mb__1070) {
 </pre>`;
 window.traces.F64_EQ.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
-def mt = bot_maybeTrue(F64_equals(a, b));
-def mf = bot_maybeFalse(F64_equals(a, b));
+def mt = U32_maybeTrue(F64_equals(a, b));
+def mf = U32_maybeFalse(F64_equals(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -41680,7 +41680,7 @@ graph TD
 	"]
 	15["
 	mt__1082
-	bot_maybeTrue
+	U32_maybeTrue
 	"]
 	7 --> 15
 	7["
@@ -41709,15 +41709,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__1083
-	bot_maybeFalse
+	U32_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.F64_NE.unlem_schedule = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
 def cond__1073 = F64_not_equals(a, b);
-def mt__1082 = bot_maybeTrue(cond__1073);
-def mf__1083 = bot_maybeFalse(cond__1073);
+def mt__1082 = U32_maybeTrue(cond__1073);
+def mf__1083 = U32_maybeFalse(cond__1073);
 def mb__1084 = bool.&&(mt__1082, mf__1083);
 if (mb__1084) {
 	def arg__1075 : u32 = 1;
@@ -41743,8 +41743,8 @@ if (mb__1084) {
 window.traces.F64_NE.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
 def cond = F64_not_equals(a, b);
-def mt = bot_maybeTrue(cond);
-def mf = bot_maybeFalse(cond);
+def mt = U32_maybeTrue(cond);
+def mf = U32_maybeFalse(cond);
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -42113,7 +42113,7 @@ graph TD
 	"]
 	15["
 	mt__1096
-	bot_maybeTrue
+	U32_maybeTrue
 	"]
 	7 --> 15
 	7["
@@ -42142,15 +42142,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__1097
-	bot_maybeFalse
+	U32_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.F64_LT.unlem_schedule = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
 def cond__1087 = F64_lt(a, b);
-def mt__1096 = bot_maybeTrue(cond__1087);
-def mf__1097 = bot_maybeFalse(cond__1087);
+def mt__1096 = U32_maybeTrue(cond__1087);
+def mf__1097 = U32_maybeFalse(cond__1087);
 def mb__1098 = bool.&&(mt__1096, mf__1097);
 if (mb__1098) {
 	def arg__1089 : u32 = 1;
@@ -42175,8 +42175,8 @@ if (mb__1098) {
 </pre>`;
 window.traces.F64_LT.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
-def mt = bot_maybeTrue(F64_lt(a, b));
-def mf = bot_maybeFalse(F64_lt(a, b));
+def mt = U32_maybeTrue(F64_lt(a, b));
+def mf = U32_maybeFalse(F64_lt(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -42545,7 +42545,7 @@ graph TD
 	"]
 	15["
 	mt__1110
-	bot_maybeTrue
+	U32_maybeTrue
 	"]
 	7 --> 15
 	7["
@@ -42574,15 +42574,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__1111
-	bot_maybeFalse
+	U32_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.F64_GT.unlem_schedule = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
 def cond__1101 = F64_gt(a, b);
-def mt__1110 = bot_maybeTrue(cond__1101);
-def mf__1111 = bot_maybeFalse(cond__1101);
+def mt__1110 = U32_maybeTrue(cond__1101);
+def mf__1111 = U32_maybeFalse(cond__1101);
 def mb__1112 = bool.&&(mt__1110, mf__1111);
 if (mb__1112) {
 	def arg__1103 : u32 = 1;
@@ -42607,8 +42607,8 @@ if (mb__1112) {
 </pre>`;
 window.traces.F64_GT.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
-def mt = bot_maybeTrue(F64_gt(a, b));
-def mf = bot_maybeFalse(F64_gt(a, b));
+def mt = U32_maybeTrue(F64_gt(a, b));
+def mf = U32_maybeFalse(F64_gt(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -42977,7 +42977,7 @@ graph TD
 	"]
 	15["
 	mt__1124
-	bot_maybeTrue
+	U32_maybeTrue
 	"]
 	7 --> 15
 	7["
@@ -43006,15 +43006,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__1125
-	bot_maybeFalse
+	U32_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.F64_LE.unlem_schedule = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
 def cond__1115 = F64_lte(a, b);
-def mt__1124 = bot_maybeTrue(cond__1115);
-def mf__1125 = bot_maybeFalse(cond__1115);
+def mt__1124 = U32_maybeTrue(cond__1115);
+def mf__1125 = U32_maybeFalse(cond__1115);
 def mb__1126 = bool.&&(mt__1124, mf__1125);
 if (mb__1126) {
 	def arg__1117 : u32 = 1;
@@ -43039,8 +43039,8 @@ if (mb__1126) {
 </pre>`;
 window.traces.F64_LE.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
-def mt = bot_maybeTrue(F64_lte(a, b));
-def mf = bot_maybeFalse(F64_lte(a, b));
+def mt = U32_maybeTrue(F64_lte(a, b));
+def mf = U32_maybeFalse(F64_lte(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -43274,7 +43274,7 @@ graph TD
 	"]
 	7["
 	cond__1129
-	F64_>=
+	F64_gte
 	"]
 	4 --> 7
 	3 --> 7
@@ -43339,7 +43339,7 @@ graph TD
 	"]
 	7["
 	cond__1129
-	F64_>=
+	F64_gte
 	"]
 	4 --> 7
 	3 --> 7
@@ -43409,12 +43409,12 @@ graph TD
 	"]
 	15["
 	mt__1138
-	bot_maybeTrue
+	U32_maybeTrue
 	"]
 	7 --> 15
 	7["
 	cond__1129
-	F64_>=
+	F64_gte
 	"]
 	4 --> 7
 	3 --> 7
@@ -43438,15 +43438,15 @@ graph TD
 	16 --> 17
 	16["
 	mf__1139
-	bot_maybeFalse
+	U32_maybeFalse
 	"]
 	7 --> 16
 </pre>`;
 window.traces.F64_GE.unlem_schedule = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
-def cond__1129 = F64_>=(a, b);
-def mt__1138 = bot_maybeTrue(cond__1129);
-def mf__1139 = bot_maybeFalse(cond__1129);
+def cond__1129 = F64_gte(a, b);
+def mt__1138 = U32_maybeTrue(cond__1129);
+def mf__1139 = U32_maybeFalse(cond__1129);
 def mb__1140 = bool.&&(mt__1138, mf__1139);
 if (mb__1140) {
 	def arg__1131 : u32 = 1;
@@ -43471,8 +43471,8 @@ if (mb__1140) {
 </pre>`;
 window.traces.F64_GE.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
-def mt = bot_maybeTrue(F64_>=(a, b));
-def mf = bot_maybeFalse(F64_>=(a, b));
+def mt = U32_maybeTrue(F64_gte(a, b));
+def mf = U32_maybeFalse(F64_gte(a, b));
 if (bool.&&(mt, mf)) {
 	push_u32(merge_u(rtcast_u32(1), rtcast_u32(0)));
 } else {
@@ -45371,7 +45371,7 @@ graph TD
 	4 -. Stack .-> 22
 	39["
 	mt__1193
-	bot_maybeTrue
+	U32_maybeTrue
 	"]
 	19 --> 39
 	19["
@@ -45438,7 +45438,7 @@ graph TD
 	40 --> 41
 	40["
 	mf__1194
-	bot_maybeFalse
+	U32_maybeFalse
 	"]
 	19 --> 40
 	25["
@@ -45541,8 +45541,8 @@ if (mb__1187) {
 	def abs__1184 = rtcast_u32(arg__1176);
 	def arg__1171 = U32_equals(a, abs__1184);
 	def cond__1166 = U32_and(arg__1170, arg__1171);
-	def mt__1193 = bot_maybeTrue(cond__1166);
-	def mf__1194 = bot_maybeFalse(cond__1166);
+	def mt__1193 = U32_maybeTrue(cond__1166);
+	def mf__1194 = U32_maybeFalse(cond__1166);
 	def mb__1195 = bool.&&(mt__1193, mf__1194);
 	if (mb__1195) {
 		def eff__1167 = trapDivideUnrepresentable();
@@ -45577,8 +45577,8 @@ if (mb__1187) {
 		def abs__1184 = rtcast_u32(arg__1176);
 		def arg__1171 = U32_equals(a, abs__1184);
 		def cond__1166 = U32_and(arg__1170, arg__1171);
-		def mt__1193 = bot_maybeTrue(cond__1166);
-		def mf__1194 = bot_maybeFalse(cond__1166);
+		def mt__1193 = U32_maybeTrue(cond__1166);
+		def mf__1194 = U32_maybeFalse(cond__1166);
 		def mb__1195 = bool.&&(mt__1193, mf__1194);
 		if (mb__1195) {
 			def eff__1167 = trapDivideUnrepresentable();
@@ -45609,8 +45609,8 @@ def mf = U32_maybeFalse(U32_equals(b, rtcast_u32(0)));
 if (bool.&&(mt, mf)) {
 	trapDivideByZero();
 	def cond = U32_and(U32_equals(b, rtcast_u32(u32.view(-1))), U32_equals(a, rtcast_u32(u32.view(-2_147_483_648))));
-	def mt1 = bot_maybeTrue(cond);
-	def mf1 = bot_maybeFalse(cond);
+	def mt1 = U32_maybeTrue(cond);
+	def mf1 = U32_maybeFalse(cond);
 	if (bool.&&(mt1, mf1)) {
 		trapDivideUnrepresentable();
 		push_u32(U32_div_s(a, b));
@@ -45626,8 +45626,8 @@ if (bool.&&(mt, mf)) {
 		trapDivideByZero();
 	} else {
 		def cond = U32_and(U32_equals(b, rtcast_u32(u32.view(-1))), U32_equals(a, rtcast_u32(u32.view(-2_147_483_648))));
-		def mt1 = bot_maybeTrue(cond);
-		def mf1 = bot_maybeFalse(cond);
+		def mt1 = U32_maybeTrue(cond);
+		def mf1 = U32_maybeFalse(cond);
 		if (bool.&&(mt1, mf1)) {
 			trapDivideUnrepresentable();
 			push_u32(U32_div_s(a, b));
@@ -51102,7 +51102,7 @@ graph TD
 	4 -. Stack .-> 25
 	31["
 	mt__1322
-	bot_maybeTrue
+	U64_maybeTrue
 	"]
 	10 --> 31
 	10["
@@ -51138,7 +51138,7 @@ graph TD
 	32 --> 33
 	32["
 	mf__1323
-	bot_maybeFalse
+	U64_maybeFalse
 	"]
 	10 --> 32
 	26{{"
@@ -51180,8 +51180,8 @@ def a = pop_u64();
 def arg__1316 : u64 = 0;
 def abs__1319 = rtcast_u64(arg__1316);
 def cond__1301 = U64_equals(b, abs__1319);
-def mt__1322 = bot_maybeTrue(cond__1301);
-def mf__1323 = bot_maybeFalse(cond__1301);
+def mt__1322 = U64_maybeTrue(cond__1301);
+def mf__1323 = U64_maybeFalse(cond__1301);
 def mb__1324 = bool.&&(mt__1322, mf__1323);
 if (mb__1324) {
 	def eff__1302 = trapDivideByZero();
@@ -51257,8 +51257,8 @@ if (mb__1324) {
 </pre>`;
 window.traces.I64_DIV_S.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
-def mt = bot_maybeTrue(U64_equals(b, rtcast_u64(0)));
-def mf = bot_maybeFalse(U64_equals(b, rtcast_u64(0)));
+def mt = U64_maybeTrue(U64_equals(b, rtcast_u64(0)));
+def mf = U64_maybeFalse(U64_equals(b, rtcast_u64(0)));
 if (bool.&&(mt, mf)) {
 	trapDivideByZero();
 	def cond = bot_and(U64_equals(b, rtcast_u64(u64.view(-1))), U64_equals(a, rtcast_u64(u64.view(-9223372036854775808L))));
@@ -51737,7 +51737,7 @@ graph TD
 	4 -. Stack .-> 13
 	17["
 	mt__1346
-	bot_maybeTrue
+	U64_maybeTrue
 	"]
 	10 --> 17
 	10["
@@ -51773,7 +51773,7 @@ graph TD
 	18 --> 19
 	18["
 	mf__1347
-	bot_maybeFalse
+	U64_maybeFalse
 	"]
 	10 --> 18
 	14{{"
@@ -51798,8 +51798,8 @@ def a = pop_u64();
 def arg__1342 : u64 = 0;
 def abs__1345 = rtcast_u64(arg__1342);
 def cond__1337 = U64_equals(b, abs__1345);
-def mt__1346 = bot_maybeTrue(cond__1337);
-def mf__1347 = bot_maybeFalse(cond__1337);
+def mt__1346 = U64_maybeTrue(cond__1337);
+def mf__1347 = U64_maybeFalse(cond__1337);
 def mb__1348 = bool.&&(mt__1346, mf__1347);
 if (mb__1348) {
 	def eff__1338 = trapDivideByZero();
@@ -51821,8 +51821,8 @@ if (mb__1348) {
 </pre>`;
 window.traces.I64_DIV_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
-def mt = bot_maybeTrue(U64_equals(b, rtcast_u64(0)));
-def mf = bot_maybeFalse(U64_equals(b, rtcast_u64(0)));
+def mt = U64_maybeTrue(U64_equals(b, rtcast_u64(0)));
+def mf = U64_maybeFalse(U64_equals(b, rtcast_u64(0)));
 if (bool.&&(mt, mf)) {
 	trapDivideByZero();
 	push_u64(U64_div(a, b));
@@ -52228,7 +52228,7 @@ graph TD
 	4 -. Stack .-> 13
 	17["
 	mt__1362
-	bot_maybeTrue
+	U64_maybeTrue
 	"]
 	10 --> 17
 	10["
@@ -52264,7 +52264,7 @@ graph TD
 	18 --> 19
 	18["
 	mf__1363
-	bot_maybeFalse
+	U64_maybeFalse
 	"]
 	10 --> 18
 	14{{"
@@ -52289,8 +52289,8 @@ def a = pop_u64();
 def arg__1358 : u64 = 0;
 def abs__1361 = rtcast_u64(arg__1358);
 def cond__1353 = U64_equals(b, abs__1361);
-def mt__1362 = bot_maybeTrue(cond__1353);
-def mf__1363 = bot_maybeFalse(cond__1353);
+def mt__1362 = U64_maybeTrue(cond__1353);
+def mf__1363 = U64_maybeFalse(cond__1353);
 def mb__1364 = bool.&&(mt__1362, mf__1363);
 if (mb__1364) {
 	def eff__1354 = trapDivideByZero();
@@ -52312,8 +52312,8 @@ if (mb__1364) {
 </pre>`;
 window.traces.I64_REM_S.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
-def mt = bot_maybeTrue(U64_equals(b, rtcast_u64(0)));
-def mf = bot_maybeFalse(U64_equals(b, rtcast_u64(0)));
+def mt = U64_maybeTrue(U64_equals(b, rtcast_u64(0)));
+def mf = U64_maybeFalse(U64_equals(b, rtcast_u64(0)));
 if (bool.&&(mt, mf)) {
 	trapDivideByZero();
 	push_u64(U64_rem_s(a, b));
@@ -52719,7 +52719,7 @@ graph TD
 	4 -. Stack .-> 13
 	17["
 	mt__1378
-	bot_maybeTrue
+	U64_maybeTrue
 	"]
 	10 --> 17
 	10["
@@ -52755,7 +52755,7 @@ graph TD
 	18 --> 19
 	18["
 	mf__1379
-	bot_maybeFalse
+	U64_maybeFalse
 	"]
 	10 --> 18
 	14{{"
@@ -52780,8 +52780,8 @@ def a = pop_u64();
 def arg__1374 : u64 = 0;
 def abs__1377 = rtcast_u64(arg__1374);
 def cond__1369 = U64_equals(b, abs__1377);
-def mt__1378 = bot_maybeTrue(cond__1369);
-def mf__1379 = bot_maybeFalse(cond__1369);
+def mt__1378 = U64_maybeTrue(cond__1369);
+def mf__1379 = U64_maybeFalse(cond__1369);
 def mb__1380 = bool.&&(mt__1378, mf__1379);
 if (mb__1380) {
 	def eff__1370 = trapDivideByZero();
@@ -52803,8 +52803,8 @@ if (mb__1380) {
 </pre>`;
 window.traces.I64_REM_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
-def mt = bot_maybeTrue(U64_equals(b, rtcast_u64(0)));
-def mf = bot_maybeFalse(U64_equals(b, rtcast_u64(0)));
+def mt = U64_maybeTrue(U64_equals(b, rtcast_u64(0)));
+def mf = U64_maybeFalse(U64_equals(b, rtcast_u64(0)));
 if (bool.&&(mt, mf)) {
 	trapDivideByZero();
 	push_u64(U64_rem_u(a, b));
@@ -59917,7 +59917,7 @@ graph TD
 	4 -. Stack .-> 13
 	17["
 	mt__1508
-	bot_maybeTrue
+	U32_maybeTrue
 	"]
 	10 --> 17
 	10["
@@ -59953,7 +59953,7 @@ graph TD
 	18 --> 19
 	18["
 	mf__1509
-	bot_maybeFalse
+	U32_maybeFalse
 	"]
 	10 --> 18
 	14{{"
@@ -59978,8 +59978,8 @@ def a = pop_f64();
 def arg__1504 : f32 = 0.0f;
 def abs__1507 = rtcast_f64(arg__1504);
 def cond__1499 = F64_equals(b, abs__1507);
-def mt__1508 = bot_maybeTrue(cond__1499);
-def mf__1509 = bot_maybeFalse(cond__1499);
+def mt__1508 = U32_maybeTrue(cond__1499);
+def mf__1509 = U32_maybeFalse(cond__1499);
 def mb__1510 = bool.&&(mt__1508, mf__1509);
 if (mb__1510) {
 	def eff__1500 = trapDivideByZero();
@@ -60001,8 +60001,8 @@ if (mb__1510) {
 </pre>`;
 window.traces.F64_DIV.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
-def mt = bot_maybeTrue(F64_equals(b, rtcast_f64(0.0f)));
-def mf = bot_maybeFalse(F64_equals(b, rtcast_f64(0.0f)));
+def mt = U32_maybeTrue(F64_equals(b, rtcast_f64(0.0f)));
+def mf = U32_maybeFalse(F64_equals(b, rtcast_f64(0.0f)));
 if (bool.&&(mt, mf)) {
 	trapDivideByZero();
 	push_f64(F64_div(a, b));
