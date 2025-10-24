@@ -19,7 +19,7 @@ GENERATE_DEPS = $(GENERATE_LIB) $(DEFS) $(DEFS).sexp $(TYPEDEFS)
 AIS = $(foreach I,$(wildcard abstract_interpreter/impls/*.v3),$(basename $I)AI.v3)
 
 # Targets
-.PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler abstract_interpreter wizeng-slow
+.PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler abstract_interpreter wizeng-slow site
 
 all: validator interpreter InterpreterMain
 
@@ -35,6 +35,9 @@ generated/Validator.v3: $(GENERATE_DEPS) validator/*.v3
 	./ValidatorGen $(DEFS).sexp $(DEFS) validator/ValidatorTemplate.v3 > $@~
 	rm ./ValidatorGen
 	mv --force $@~ $@
+
+docs/traces.js: validator
+site: docs/traces.js
 
 generated/Interpreter.v3: $(GENERATE_DEPS) interpreter/*.v3
 	$(VIRGIL) $(VIRGIL_STD) \
@@ -158,7 +161,7 @@ V3CompilerMain: generated/V3Compiler.v3 validator abstract_interpreter/state_mgr
 
 # Clean build artifacts
 clean:
-	rm -f generated/Interpreter.v3 generated/Compiler.v3 generated/Validator.v3 generated/AI.v3 generated/V3Compiler.v3 $(DEFS).sexp *Main *AI
+	rm -f generated/Interpreter.v3 generated/Compiler.v3 generated/Validator.v3 generated/AI.v3 generated/V3Compiler.v3 $(DEFS).sexp *Main *AI docs/traces.js
 
 # Usage instructions
 help:

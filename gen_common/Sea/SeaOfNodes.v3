@@ -257,7 +257,13 @@ class Sea {
             if (n == null || visited.has(n)) continue;
             visited.put(n);
             buf.tab().puts(tag).putd(n.id);
-            buf.puts("[\"").ln();
+            match (n.op) {
+                Start => buf.puts("[/\"").ln();
+                Finish => buf.puts("[\\\\\"").ln();
+                Phi => buf.puts("{\"").ln();
+                StatePhi => buf.puts("{{\"").ln();
+                _ => buf.puts("[\"").ln();
+            }
             if (n.var_data != null && n.var_data.sourceName != null) buf.tab().puts(n.var_data.sourceName).ln();
             match (n.op) {
                 Start => buf.tab().puts("Start").ln();
@@ -272,7 +278,13 @@ class Sea {
                     }
                 }
             }
-            buf.tab().puts("\"]").ln();
+            match (n.op) {
+                Start => buf.tab().puts("\"\\\\]").ln();
+                Finish => buf.puts("\"/]").ln();
+                Phi => buf.puts("\"}").ln();
+                StatePhi => buf.puts("\"}}").ln();
+                _ => buf.tab().puts("\"]").ln();
+            }
 
             for (arg in n.value_deps) {
                 buf.tab().puts(tag).putd(arg.id).puts(" --> ").puts(tag).putd(n.id).ln();
