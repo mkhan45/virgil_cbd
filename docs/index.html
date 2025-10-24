@@ -31,6 +31,19 @@
             const graph = document.getElementById('graph');
             const label = document.getElementById('label');
             async function setGraph(code, tag) {
+                const rect = graph.getBoundingClientRect();
+                const barrierDiv = graph.cloneNode(true);
+                barrierDiv.style.position = 'absolute';
+                barrierDiv.style.zIndex = '5';
+                barrierDiv.style.background = 'white';
+
+                barrierDiv.style.left = rect.left;
+                barrierDiv.style.top = rect.top - 12;
+                barrierDiv.style.width = rect.width;
+                barrierDiv.style.height = rect.height;
+
+                graph.parentNode.appendChild(barrierDiv);
+
                 graph.setAttribute("data-processed", "");
                 graph.innerHTML = traces[code][tag];
                 label.innerText = "Rendering...";
@@ -50,6 +63,8 @@
                         graph.querySelector('svg').setAttribute('height', '80vh');
                     }
                 }
+
+                barrierDiv.remove();
             }
             await setGraph("BR_IF", "raw");
 
