@@ -375,6 +375,8 @@ class Sea {
         var state_phis: List<IRNode> = null;
         if (node.var_data != null) for (i < node.children.length) {
             def child = node.children[i];
+            if (!(IROp.Phi.?(child.op) || IROp.StatePhi.?(child.op))) continue; 
+            if (available.has(child)) continue;
             def ctl_deps = child.ctl_deps();
             var child_ready = true;
             for (dep in ctl_deps) {

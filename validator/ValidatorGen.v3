@@ -68,6 +68,9 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def state = HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq);
     sea.apply(state, IRNode.unLEM);
     CBDTrace.addGraph(opcode, "unLEM", sea);
+    def unlem_ssa = sea.schedule();
+    CBDTrace.addCode(opcode, "unlem_schedule", unlem_ssa.toString(0));
+    CBDTrace.addCode(opcode, "unlem_pretty", unlem_ssa.toStringPretty(0));
     sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.constUnLEM(sea));
     CBDTrace.addGraph(opcode, "constUnLEM", sea);
     sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.chooseMerge(sea));

@@ -14,6 +14,16 @@ type SSAD {
         return buf.toString();
     }
 
+    def toStringPretty(indent: int) -> string {
+        def ctx = SSADCtx.new(this);
+        ctx.getPhis();
+        var pretty = Pretty_IR.fromSSAD(this, ctx);
+        pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, ctx, Strings.newMap<PrettyExpr>());
+        pretty = Pretty_IR.removeUselessAssigns(pretty, ctx);
+        pretty = Pretty_IR.simplifyVarNums(pretty, Strings.newMap<int>(), Strings.newMap<string>(), ctx);
+        return pretty.toString(indent, ctx);
+    }
+
     def appended(rhs: SSAD) -> SSAD {
         match (this) {
             LetApp(n, f, args, rest) => return SSAD.LetApp(n, f, args, rest.appended(rhs));
@@ -320,7 +330,6 @@ component SSAD_IR {
                     buildString(e, buf, ps, indent + 1);
                     for (i < indent) buf.tab();
                     buf.puts("}\n");
-                    buildString(r, buf, ps, indent);
                 } else {
                     buf.puts("}\n");
                 }
