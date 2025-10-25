@@ -1,14 +1,14 @@
 <html>
-    <body>
-        <h2 id="label"> </h2>
-        <div style="display: flex">
-            <div style="max-width: 800px; width: fit-content;">
-                <div class="tags" id="tags" style="max-height: 10vh; overflow-y: scroll"> </div>
-                <hr>
-                <div style="max-height: 80vh; overflow-y: scroll" class="codes" id="codes"> </div>
+    <body style="margin-top: 0px; margin-bottom: 0px; font-family: monospace">
+        <div style="display: flex; margin-top: none; padding-top: none;">
+            <div style="max-width: 45ch; height: 100vh">
+                <h2 id="label" style="font-size: 1.5em; line-height: 1; margin-bottom: 10px; margin-top: 10px"> </h2>
+                <div class="tags" id="tags" style="max-height: 15vh; overflow-y: scroll"> </div>
+                <hr style="margin-top: 5px; margin-bottom: 5px">
+                <div style="max-height: calc(100vh - 15vh - 1.5em - 20px - 10px - 1px); overflow-y: scroll" class="codes" id="codes"> </div>
             </div>
             <div style="flex-grow: 2; display: flex; justify-content: center;">
-                <pre id="graph"></pre>
+                <pre id="graph" style="margin-top: 0px; margin-bottom: 0px"></pre>
             </div>
         </div>
         <script src="traces.js" charset="utf-8"></script>
@@ -38,7 +38,7 @@
                 barrierDiv.style.background = 'white';
 
                 barrierDiv.style.left = rect.left;
-                barrierDiv.style.top = rect.top - 12;
+                barrierDiv.style.top = rect.top;
                 barrierDiv.style.width = rect.width;
                 barrierDiv.style.height = rect.height;
 
@@ -60,7 +60,7 @@
                     tags.appendChild(btn);
                     if (graph.querySelector('svg') != null) {
                         graph.querySelector('svg').setAttribute('width', '');
-                        graph.querySelector('svg').setAttribute('height', '80vh');
+                        graph.querySelector('svg').setAttribute('height', '90vh');
                     }
                 }
 
@@ -81,12 +81,9 @@
         </script>
         <style>
             button {
-                min-width: 24ch;
+                min-width: 20ch;
+                padding: 0;
                 font-family: monospace;
-            }
-
-            .graph > * {
-                max-height: 90vh;
             }
 
             .flowchart-link {
@@ -99,6 +96,7 @@
 
             #graph > pre {
                 font-size: 1.2em;
+                margin-top: 5vh;
             }
         </style>
     </body>
