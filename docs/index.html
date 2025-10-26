@@ -7,7 +7,7 @@
                 <hr style="margin-top: 5px; margin-bottom: 5px">
                 <div style="max-height: calc(100vh - 15vh - 1.5em - 20px - 10px - 1px); overflow-y: scroll" class="codes" id="codes"> </div>
             </div>
-            <div style="flex-grow: 2; display: flex; justify-content: center;">
+            <div style="flex-grow: 2; display: flex; justify-content: center; z-index: 1; background-color: white;">
                 <pre id="graph" style="margin-top: 0px; margin-bottom: 0px"></pre>
             </div>
         </div>
@@ -33,16 +33,16 @@
             async function setGraph(code, tag) {
                 const rect = graph.getBoundingClientRect();
                 const barrierDiv = graph.cloneNode(true);
+
                 barrierDiv.style.position = 'absolute';
                 barrierDiv.style.zIndex = '5';
                 barrierDiv.style.background = 'white';
-
                 barrierDiv.style.left = rect.left;
                 barrierDiv.style.top = rect.top;
                 barrierDiv.style.width = rect.width;
                 barrierDiv.style.height = rect.height;
-
                 graph.parentNode.appendChild(barrierDiv);
+                graph.style.opacity = 0;
 
                 graph.setAttribute("data-processed", "");
                 graph.innerHTML = traces[code][tag];
@@ -65,6 +65,7 @@
                 }
 
                 barrierDiv.remove();
+                graph.style.opacity = 1;
             }
             await setGraph("BR_IF", "raw");
 
