@@ -734,7 +734,7 @@ class IRNode {
                     def should_be_runtime = !defn.args[i].isStatic();
                     if (!is_rt && should_be_runtime) {
                         def tp = if(defn.args[i].primitive.is_bot(), args[i].var_data.tipe, defn.args[i].primitive);
-                        def abstract_fn = Strings.format1("rtcast_%s", tp.long_str());
+                        def abstract_fn = Strings.format1("lift_%s", tp.long_str());
 
                         def it = IntrinsicType.new(tp, var_data.stage);
                         def ot = IntrinsicType.new(tp, Stage.INTERPRET);

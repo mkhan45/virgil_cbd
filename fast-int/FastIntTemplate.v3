@@ -95,7 +95,7 @@ class CBDFastIntGen extends X86_64InterpreterGen {
         return a;
     }
 
-    def rtcast_u32(x: u32) -> X86_64Gpr {
+    def lift_u32(x: u32) -> X86_64Gpr {
         def reg = reg_alloc();
         asm.d.movq_r_i(reg, int.view(x));
         return reg;

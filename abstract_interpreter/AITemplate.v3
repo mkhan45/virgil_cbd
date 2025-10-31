@@ -102,11 +102,11 @@ class AI<V, U32, U64, F32, F64, REF> {
             System.ln();
         }
 
-        HAS_MEM_INDEX = rtcast_u32(0x40);
+        HAS_MEM_INDEX = lift_u32(0x40);
 
         stack = ArrayStack<V>.new();
         stack_types = ArrayStack<TypeVar>.new();
-        for (arg in args) stack.push(box_u(rtcast_u32(arg)));
+        for (arg in args) stack.push(box_u(lift_u32(arg)));
         for (arg in args) stack_types.push(TypeVar.U32);
 
         var main_idx = -1;
@@ -120,8 +120,8 @@ class AI<V, U32, U64, F32, F64, REF> {
             def module_global = module.globals[i];
             // TODO: full eval initexpr
             match (module_global.init) {
-                U32(v) => globals.put(box_u(rtcast_u32(v)));
-                _ => globals.put(box_u(rtcast_u32(0)));
+                U32(v) => globals.put(box_u(lift_u32(v)));
+                _ => globals.put(box_u(lift_u32(0)));
             }
             global_types.put(TypeVar.U32);
         }
@@ -249,10 +249,10 @@ class AI<V, U32, U64, F32, F64, REF> {
     def box_f(v: F32) -> V;
     def box_d(v: F64) -> V;
     def box_ref(v: REF) -> V;
-    def rtcast_u32(i: u32) -> U32;
-    def rtcast_u64(i: u64) -> U64;
-    def rtcast_f32(f: float) -> F32;
-    def rtcast_f64(f: double) -> F64;
+    def lift_u32(i: u32) -> U32;
+    def lift_u64(i: u64) -> U64;
+    def lift_f32(f: float) -> F32;
+    def lift_f64(f: double) -> F64;
     def ref_null() -> REF;
 
     def f32_reinterpret_u32(i: U32) -> F32;
@@ -495,12 +495,12 @@ class AI<V, U32, U64, F32, F64, REF> {
     def push_locals(count: u32, vtc: ValueTypeCode) {
         var val: V;
         match (vtc.toConcreteValueKind(null)) {
-            U32 => val = box_i(rtcast_u32(0));
-            U64 => val = box_l(rtcast_u64(0));
-            F32 => val = box_f(rtcast_f32(0.0f));
-            F64 => val = box_d(rtcast_f64(0.0));
+            U32 => val = box_i(lift_u32(0));
+            U64 => val = box_l(lift_u64(0));
+            F32 => val = box_f(lift_f32(0.0f));
+            F64 => val = box_d(lift_f64(0.0));
             REF => val = box_ref(ref_null());
-            _ => val = box_i(rtcast_u32(0));
+            _ => val = box_i(lift_u32(0));
         }
         stack.pushn(val, int.!(count));
     } // remove last brace for easier templating

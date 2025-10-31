@@ -73,8 +73,8 @@ class ASTEval extends AI<
 
     def merge_i(lhs: CBDExpr, rhs: CBDExpr) -> CBDExpr => CBDExpr.If(merge_cond, lhs, rhs);
 
-    def rtcast_i32(i: i32) -> CBDExpr => CBDExpr.Prim(StringBuilder.new().putd_i32(i).toString());
-    def rtcast_f32(f: float) -> CBDExpr => CBDExpr.Prim("0.0"); // TODO
+    def lift_i32(i: i32) -> CBDExpr => CBDExpr.Prim(StringBuilder.new().putd_i32(i).toString());
+    def lift_f32(f: float) -> CBDExpr => CBDExpr.Prim("0.0"); // TODO
 
     def print_stack() {
         def sb = StringBuilder.new();

@@ -81,8 +81,8 @@ class StaticnessEval extends AI<SV, SV.I32, SV.I64, SV.F32, SV.F64, SV.REF> {
             || (!lhs.static && !rhs.static);
     }
 
-    def rtcast_i32(i: i32) -> SV.I32 => SV.I32(true, i);
-    def rtcast_f32(f: float) -> SV.F32 => SV.F32(true, f);
+    def lift_i32(i: i32) -> SV.I32 => SV.I32(true, i);
+    def lift_f32(f: float) -> SV.F32 => SV.F32(true, f);
 }
 
 component AIRunner {

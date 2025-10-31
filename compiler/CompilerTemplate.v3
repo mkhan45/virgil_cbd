@@ -71,13 +71,13 @@ component EmitOpF32 {
 component EmitOpV {
     // def and = binop<TypeVar>("and", "&&", TypeVar.Bot);
 }
-def rtcast_i32(x: i32) -> (string, TypeVar.I32) {
-    def var_name = uidl("rtcast");
+def lift_i32(x: i32) -> (string, TypeVar.I32) {
+    def var_name = uidl("lift");
     code_builder.puts(Strings.format2("int %s = %d;\n", var_name, x));
     return (var_name, TypeVar.I32);
 }
-def rtcast_f32(x: float) -> (string, TypeVar.F32) {
-    def var_name = uidl("rtcast");
+def lift_f32(x: float) -> (string, TypeVar.F32) {
+    def var_name = uidl("lift");
     code_builder.puts(Strings.format2("float %s = %d;\n", var_name, x));
     return (var_name, TypeVar.F32);
 }

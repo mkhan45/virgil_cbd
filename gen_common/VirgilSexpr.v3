@@ -86,7 +86,7 @@ type VirgilStmt {
     case Block(stmts: Array<VirgilStmt>);
     case Expr(expr: VirgilExpr);
     case Return(expr: VirgilExpr);
-    case Local(var_name: string, expr: VirgilExpr, sidetable: bool, rtcast: string); // TODO: add type
+    case Local(var_name: string, expr: VirgilExpr, sidetable: bool, lift: string); // TODO: add type
     case Assign(var_name: string, expr: VirgilExpr);
     case Match(subj: VirgilExpr, branches: Array<MatchCase>);
     case If(cond: VirgilExpr, then_stmt: VirgilStmt, else_stmt: VirgilStmt);
@@ -119,7 +119,7 @@ type VirgilStmt {
                 expr.buildString(buf);
                 buf.putc(';');
             }
-            Local(var_name, expr, sidetable, rtcast) => {
+            Local(var_name, expr, sidetable, lift) => {
                 buf.puts("var ");
                 buf.puts(var_name);
                 buf.puts(" = ");
@@ -390,7 +390,7 @@ component VirgilStmts {
             if (decl.tail.tail == null) return SExprRes.Malformed(sexpr);
 
             var sidetable = false;
-            var rtcast: string = null;
+            var lift: string = null;
             var expr_res: SExprRes<VirgilExpr> = SExprRes.ParserBug;
 
             def rephint_ls = decl.tail.tail.head.forceList();
@@ -398,8 +398,8 @@ component VirgilStmts {
                 for (ls = rephint_ls.tail; ls != null; ls = ls.tail) {
                     var atom = ls.head.forceAtom();
                     sidetable |= atom != null && Strings.equal(atom, "#sidetable");
-                    if (atom != null && Strings.startsWith(atom, "#rtcast_")) {
-                        rtcast = Arrays.range(atom, 1, atom.length);
+                    if (atom != null && Strings.startsWith(atom, "#lift_")) {
+                        lift = Arrays.range(atom, 1, atom.length);
                     }
                 }
                 if (decl.tail.tail.tail == null) return SExprRes.Malformed(sexpr);
@@ -409,7 +409,7 @@ component VirgilStmts {
             }
             
             match (expr_res) {
-                Success(expr) => declList.put(VirgilStmt.Local(cleanIdent(var_name), expr, sidetable, rtcast));
+                Success(expr) => declList.put(VirgilStmt.Local(cleanIdent(var_name), expr, sidetable, lift));
                 _ => return expr_res.castError();
             }
 
@@ -493,7 +493,7 @@ component VirgilStmts {
                 pushSidetableFields(t, buf);
                 pushSidetableFields(e, buf);
             }
-            Local(name, _, sidetable, rtcast) => if (sidetable) buf.put((name, "int")); // TODO: tipe
+            Local(name, _, sidetable, lift) => if (sidetable) buf.put((name, "int")); // TODO: tipe
         }
     }
 

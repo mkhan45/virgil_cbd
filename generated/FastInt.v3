@@ -96,7 +96,7 @@ class CBDFastIntGen extends X86_64InterpreterGen {
         return a;
     }
 
-    def rtcast_u32(x: u32) -> X86_64Gpr {
+    def lift_u32(x: u32) -> X86_64Gpr {
         def reg = reg_alloc();
         asm.d.movq_r_i(reg, int.view(x));
         return reg;
@@ -145,7 +145,7 @@ def BR_IF() {
 	def depth = imm_readULEB32();
 	def label = f_getLabel(depth);
 	def cond = pop_u32();
-	def cond1 = U32_not_equals(cond, rtcast_u32(0));
+	def cond1 = U32_not_equals(cond, lift_u32(0));
 	startCond(cond1);
 	doBranch(label);
 	startElse();
@@ -158,11 +158,11 @@ def I32_CONST() {
 }
 def I32_EQZ() {
 	def a = pop_u32();
-	def cond = U32_equals(a, rtcast_u32(0));
+	def cond = U32_equals(a, lift_u32(0));
 	startCond(cond);
-	push_u32(rtcast_u32(1));
+	push_u32(lift_u32(1));
 	startElse();
-	push_u32(rtcast_u32(0));
+	push_u32(lift_u32(0));
 	endCond();
 }
 def I32_ADD() {

@@ -378,25 +378,25 @@ component SSAD_IR {
         def intrinsic_type = IntrinsicTypes.intrinsic_type(node.f);
         def args_static = intrinsic_static.0;
         def args_types = intrinsic_type.0;
-        var rtcasts: SSAD = SSAD.Void;
+        var lifts: SSAD = SSAD.Void;
         def new_args = Arrays.dup(node.args);
         if (args_static != null) {
             for (i < args_static.length) {
                 def is_runtime = !transformer.ctx.static[node.args[i]];
                 def should_be_runtime = !args_static[i];
                 if (!is_runtime && should_be_runtime) {
-                    def fv = SSAD_IR.uidl("rtcast");
+                    def fv = SSAD_IR.uidl("lift");
                     def tp = if(args_types[i].is_bot(), args_types[i], transformer.ctx.types[node.args[i]]);
-                    def rtcast_f = Strings.format1("rtcast_%s", tp.long_str());
+                    def lift_f = Strings.format1("lift_%s", tp.long_str());
                     transformer.ctx.static[fv] = false;
                     transformer.ctx.types[fv] = transformer.ctx.types[node.args[i]];
                     transformer.ctx.effects[fv] = CBDEffect.None;
                     new_args[i] = fv;
-                    rtcasts = SSAD.LetApp(fv, rtcast_f, [node.args[i]], rtcasts);
+                    lifts = SSAD.LetApp(fv, lift_f, [node.args[i]], lifts);
                 }
             }
         }
-        return rtcasts.appended(SSAD.LetApp(node.n, node.f, new_args, node.rest));
+        return lifts.appended(SSAD.LetApp(node.n, node.f, new_args, node.rest));
     }
 
     def pushPhis(node: SSAD, buf: Vector<(string, string)>) -> Vector<(string, string)> {
