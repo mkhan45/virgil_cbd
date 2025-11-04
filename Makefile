@@ -98,18 +98,21 @@ generated/FastInt.v3: $(GENERATE_DEPS) fast-int/*.v3 generated/Validator.v3
 		> $@~
 	mv --force $@~ $@
 
-./wizard-engine/bin/wizeng.x86-64-linux-cbd-slow: validator interpreter
-	cp gen_common/IR/Types.v3 wizard-engine/src/engine/cbd/CBDTypes.v3
-	cat runtime_common/Types.v3 >> wizard-engine/src/engine/cbd/CBDTypes.v3
-	cp generated/Interpreter.v3 wizard-engine/src/engine/cbd/CBDInterpreter.v3
-	cp generated/Validator.v3 wizard-engine/src/engine/cbd/CBDValidator.v3
-	cd wizard-engine; ./build.sh wizeng x86-64-linux-cbd-slow
 
 validator: generated/Validator.v3
 interpreter: generated/Interpreter.v3
 compiler: generated/Compiler.v3
 abstract_interpreter: generated/AI.v3
-wizeng-slow: ./wizard-engine/bin/wizeng.x86-64-linux-cbd-slow
+wizeng-slow: validator interpreter
+	cp gen_common/IR/Types.v3 wizard-engine/src/engine/cbd/slow/CBDTypes.v3
+	cat runtime_common/Types.v3 >> wizard-engine/src/engine/cbd/slow/CBDTypes.v3
+	cp generated/Interpreter.v3 wizard-engine/src/engine/cbd/slow/CBDInterpreter.v3
+	cp generated/Validator.v3 wizard-engine/src/engine/cbd/slow/CBDValidator.v3
+	cd wizard-engine; ./build.sh wizeng x86-linux --cbd
+
+wizeng-fast: generated/FastInt.v3
+	cp generated/FastInt.v3 wizard-engine/src/engine/cbd/fast/CBDFastInt.v3
+	cd wizard-engine; ./build.sh wizeng x86-64-linux --cbd
 
 run_interpreter: generated/Interpreter.v3 generated/Validator.v3
 	$(VIRGIL) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
