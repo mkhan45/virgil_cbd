@@ -1,5 +1,8 @@
 # Wasm Canonical Bytecode Definitions
 
+<https://mkhan45.github.io/wasm-cbd>
+
+## Canonical Definition (Concrete Interpreter)
 ```scala
 def I32_EQZ() {
 	var x = pop_i32();
@@ -11,82 +14,214 @@ def I32_EQZ() {
 }
 ```
 
-## Interpreter
+## Sea of Variables
+```mermaid
+---
+config:
+  layout: elk
+---
+graph TD
+	1["
+	Finish
+"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"
+	Sϕ Stack "}}
+	6 --> 10
+	9 --> 10
+	7 --> 10
+	7["
+	eff__668
+	push_u32
+	"]
+	4 --> 7
+	3 -. Stack .-> 7
+	3["
+	a
+	pop_u32
+	"]
+	0 -. Stack .-> 3
+	0["
+	Start
+	"]
+	4["
+	arg__671
+	0
+	"]
+	9["
+	eff__666
+	push_u32
+	"]
+	8 --> 9
+	3 -. Stack .-> 9
+	8["
+	arg__667
+	1
+	"]
+	6["
+	cond__665
+	u32.==
+	"]
+	3 --> 6
+```
+
+## Abstract Interpreter Transform
+
+```mermaid
+---
+config:
+  layout: elk
+---
+graph TD
+	1["
+	Finish
+"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"
+	Sϕ Stack "}}
+	16 --> 10
+	19 --> 10
+	17 --> 10
+	17{{"
+	Sϕ Stack "}}
+	14 --> 17
+	9 --> 17
+	7 --> 17
+	7["
+	eff__668
+	push_u32
+	"]
+	13 --> 7
+	3 -. Stack .-> 7
+	3["
+	a
+	pop_u32
+	"]
+	0 -. Stack .-> 3
+	0["
+	Start
+	"]
+	13["
+	abs__674
+	lift_u32
+	"]
+	4 --> 13
+	4["
+	arg__671
+	0
+	"]
+	9["
+	eff__666
+	push_u32
+	"]
+	12 --> 9
+	3 -. Stack .-> 9
+	12["
+	abs__673
+	lift_u32
+	"]
+	8 --> 12
+	8["
+	arg__667
+	1
+	"]
+	14["
+	mt__675
+	U32_maybeTrue
+	"]
+	6 --> 14
+	6["
+	cond__665
+	U32_equals
+	"]
+	3 --> 6
+	11 --> 6
+	11["
+	abs__672
+	lift_u32
+	"]
+	4 --> 11
+	19["
+	eff_push__679
+	push_u32
+	"]
+	18 --> 19
+	3 -. Stack .-> 19
+	18["
+	merge__678
+	merge_u
+	"]
+	12 --> 18
+	13 --> 18
+	16["
+	mb__677
+	bool.&&
+	"]
+	14 --> 16
+	15 --> 16
+	15["
+	mf__676
+	U32_maybeFalse
+	"]
+	6 --> 15
+```
 ```scala
 def I32_EQZ() {
-	def x0 = pop_i32();
-	def right132 : int = 0;
-	def cond73 = i32.==(x0, right132);
-	if (cond73) {
-		def arg94 : int = 1;
-		def eff85 = push_i32(arg94);
+	def a = pop_u32();
+	def mt = U32_maybeTrue(U32_equals(a, lift_u32(0)));
+	def mf = U32_maybeFalse(U32_equals(a, lift_u32(0)));
+	if (bool.&&(mt, mf)) {
+		push_u32(merge_u(lift_u32(1), lift_u32(0)));
 	} else {
-		def arg116 : int = 0;
-		def eff107 = push_i32(arg116);
-	}
-}
-```
-
-## Validator
-```scala
-def I32_EQZ() {
-	def x0 = pop_i32();
-	def lit8 : int = 1;
-	def arg94 = rtcast_i32(lit8);
-	def eff85 = push_i32(arg94);
-}
-```
-
-## Compiler
-```scala
-def I32_EQZ() {
-	def x0 = pop_i32();
-	def right132 : int = 0;
-	def rtcast17 = rtcast_i32(right132);
-	def cond73 = EmitOpI32.equals(x0, rtcast17);
-	def stack_phi8 = emitFwdI32();
-	def if12 = emitIf(cond73);
-	def lit13 : int = 1;
-	def arg94 = rtcast_i32(lit13);
-	def eff85 = push_i32(arg94);
-	def phi_pop9 = emitPopAssign(stack_phi8);
-	def else14 = emitElse();
-	def lit15 : int = 0;
-	def arg116 = rtcast_i32(lit15);
-	def eff107 = push_i32(arg116);
-	def phi_pop10 = emitPopAssign(stack_phi8);
-	def endBrace16 = emitEnd();
-	def phi_push11 = push_i32(stack_phi8);
-}
-```
-
-## Abstract Interpreter
-```scala
-def I32_EQZ() {
-	def a0 = pop_i32();
-	def arg211 : int = 0;
-	def rtcast8 = rtcast_i32(arg211);
-	def cond153 = I32_equals(a0, rtcast8);
-	def condTrue9 = I32_maybeTrue(cond153);
-	def condFalse10 = I32_maybeFalse(cond153);
-	def condBoth11 = bool.&&(condTrue9, condFalse10);
-	if (condBoth11) {
-		def arg174 : int = 1;
-		def rtcast12 = rtcast_i32(arg174);
-		def arg196 : int = 0;
-		def rtcast13 = rtcast_i32(arg196);
-		def stack_merge14 = merge_i(rtcast12, rtcast13);
-		def eff15 = push_i32(stack_merge14);
-	} else {
-		if (condTrue9) {
-			def arg174 : int = 1;
-			def rtcast12 = rtcast_i32(arg174);
-			def eff165 = push_i32(rtcast12);
+		if (mt) {
+			push_u32(lift_u32(1));
 		} else {
-			def arg196 : int = 0;
-			def rtcast13 = rtcast_i32(arg196);
-			def eff187 = push_i32(rtcast13);
+			push_u32(lift_u32(0));
 		}
 	}
+}
+```
+
+## Validator Specialization
+```mermaid
+---
+config:
+  layout: elk
+---
+graph TD
+	1["
+	Finish
+"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10["
+	eff_push__679
+	push_u32
+	"]
+	12 --> 10
+	3 -. Stack .-> 10
+	3["
+	a
+	pop_u32
+	"]
+	0 -. Stack .-> 3
+	0["
+	Start
+	"]
+	12["
+	abs__673
+	lift_u32
+	"]
+	8 --> 12
+	8["
+	arg__667
+	1"]
+```
+```scala
+def I32_EQZ() {
+	def a = pop_u32();
+	push_u32(lift_u32(1));
 }
 ```
