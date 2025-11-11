@@ -50,22 +50,50 @@ The project depends on the `wizard-engine` WebAssembly engine (included as submo
 
 1. **Templates** (`*Template.v3`) define the semantic behavior patterns for each WebAssembly instruction
 2. **Generators** (`*Gen.v3`) read Canonical Definitions and Templates to produce specialized implementations
-3. **Generated Code** (`generated/validator/Validator.v3`, `generated/interpreter/Interpreter.v3`, `generated/compiler/Compiler.v3`) are the final runnable components
+3. **Generated Code** (`generated/Validator.v3`, `generated/Interpreter.v3`, `generated/Compiler.v3`) are the final runnable components
+
+### Directory Structure
+
+```
+tiers/                          # All tier implementations
+├── validator/                  # Validator tier
+├── interpreter/                # Interpreter tier
+├── compiler/                   # Compiler tier (prototype)
+├── abstract_interpreter/       # Abstract interpretation tier
+├── fast_int/                   # Fast interpreter tier
+└── v3compiler/                 # Virgil compiler tier
+
+common/                         # Shared code
+├── ir/                         # IR data structures and analysis
+│   ├── Types.v3               # Core type system (CBDType, CBDEffect)
+│   ├── IR.v3                  # SSAD representation
+│   ├── IRAnalysis.v3          # Static analysis and optimizations
+│   └── PrettyIR.v3            # IR pretty printing
+├── sea/                        # Sea of nodes representation
+│   ├── SeaOfNodes.v3
+│   └── Trace.v3
+├── runtime/                    # Shared runtime types
+│   └── Types.v3               # Runtime type definitions
+└── codegen/                    # Code generation utilities
+    ├── TierGen.v3             # Common tier generation utilities
+    ├── VirgilSexpr.v3         # S-expression parsing for meta-programming
+    └── DummyTarget.v3         # Stub runtime implementations for generators
+```
 
 ### Key Components
 
 #### IR (Intermediate Representation)
-- `IR/Types.v3` - Core type system including `CBDType`, `CBDEffect`, and intrinsic type management
-- `IR/IRAnalysis.v3` - Static analysis, dead code elimination, and optimization passes for SSAD representation
+- `common/ir/Types.v3` - Core type system including `CBDType`, `CBDEffect`, and intrinsic type management
+- `common/ir/IRAnalysis.v3` - Static analysis, dead code elimination, and optimization passes for SSAD representation
 
 #### Template System
-- `validator/ValidatorTemplate.v3` - Type checking semantics with TypeVar system and stack validation
-- `interpreter/InterpreterTemplate.v3` - Runtime execution with Value boxing/unboxing and Frame management
-- `compiler/CompilerTemplate.v3` - Code generation with string-based IR and control flow handling
+- `tiers/validator/ValidatorTemplate.v3` - Type checking semantics with TypeVar system and stack validation
+- `tiers/interpreter/InterpreterTemplate.v3` - Runtime execution with Value boxing/unboxing and Frame management
+- `tiers/compiler/CompilerTemplate.v3` - Code generation with string-based IR and control flow handling
 
-#### Parser Infrastructure  
-- `parser/VirgilSexpr.v3` - S-expression parsing for meta-programming
-- `gen_common/TierGen.v3` - Common code generation utilities
+#### Parser Infrastructure
+- `common/codegen/VirgilSexpr.v3` - S-expression parsing for meta-programming
+- `common/codegen/TierGen.v3` - Common code generation utilities
 
 ### Type System
 
@@ -86,16 +114,16 @@ Instructions are annotated with effects that track:
 
 ## Development Workflow
 
-1. **Modify Templates**: Edit `*Template.v3` files to change semantic behavior
+1. **Modify Templates**: Edit `tiers/*/Template.v3` files to change semantic behavior
 2. **Regenerate**: Run `make all` to regenerate implementation files
 3. **Test**: Use `make run_*` commands to test generated components
 4. **Iterate**: The generated `.v3` files should not be edited directly
 
 ## File Relationships
 
-- Generated files (`generated/validator/Validator.v3`, etc.) are **never** edited directly
-- Template files define the core logic of the intrinsics that are implemented per-tier
-- Generator files analyze and rewrite the definitions depending on the tier.
+- Generated files (`generated/Validator.v3`, etc.) are **never** edited directly
+- Template files (`tiers/*/Template.v3`) define the core logic of the intrinsics that are implemented per-tier
+- Generator files (`tiers/*/Gen.v3`) analyze and rewrite the definitions depending on the tier
 - The build system automatically handles dependency tracking between templates and generated code
 - Any changes to Wizard Engine canonical definitions trigger regeneration
 
@@ -123,8 +151,8 @@ rewriting conditionals based off of effects.
 - **Effect-Based Rewriting**: Transforms conditionals based on `CBDEffect` analysis - if condition is not statically known, executes both branches
 
 ### Template Structure:
-- `validator/ValidatorTemplate.v3` - Core validation logic with TypeVar operations
-- `validator/ValidatorGen.v3` - Meta-programming that analyzes effects and generates side table instrumentation
+- `tiers/validator/ValidatorTemplate.v3` - Core validation logic with TypeVar operations
+- `tiers/validator/ValidatorGen.v3` - Meta-programming that analyzes effects and generates side table instrumentation
 
 ## Interpreter
 
@@ -139,8 +167,8 @@ It attempts to leverage wizard's existing interpreter through its intrinsics.
 - **Direct Execution**: Executes one path through conditionals using side table for branch resolution
 
 ### Template Structure:
-- `interpreter/InterpreterTemplate.v3` - Runtime execution with Frame and Value management
-- `interpreter/InterpreterGen.v3` - Simple SSA transformations without effect-based rewriting
+- `tiers/interpreter/InterpreterTemplate.v3` - Runtime execution with Frame and Value management
+- `tiers/interpreter/InterpreterGen.v3` - Simple SSA transformations without effect-based rewriting
 
 ## Compiler
 
@@ -156,8 +184,8 @@ It also rewrites conditionals to generate code for every branch in a single pass
 - **Static/Runtime Hybrid**: Handles both compile-time constants and runtime values with `rtcast_*` functions
 
 ### Template Structure:
-- `compiler/CompilerTemplate.v3` - Code generation with string building and goto-based control flow
-- `compiler/CompilerGen.v3` - Complex SSA transformations including phi node handling and static/runtime transitions
+- `tiers/compiler/CompilerTemplate.v3` - Code generation with string building and goto-based control flow
+- `tiers/compiler/CompilerGen.v3` - Complex SSA transformations including phi node handling and static/runtime transitions
 
 ## Cross-Tier Architecture
 

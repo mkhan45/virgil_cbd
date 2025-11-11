@@ -78,11 +78,12 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
 }
 
 def main(args: Array<string>) {
-    def sexpr_file = args[0];
-    def v3file = args[1];
+    def sexpr_file = "./wizard-engine/src/bytecode/CanonicalDefs.v3.sexp";
+    def v3file = "./wizard-engine/src/bytecode/CanonicalDefs.v3";
+    def template_filename = "./tiers/fast_int/FastIntTemplate.v3";
 
     IntrinsicTypes.init(IntrinsicTypes.TYPE_DEF_FILE);
-    def fi_intrinsics = IntrinsicTypes.getIntrinsicTypes("fast-int/Intrinsics.v3");
+    def fi_intrinsics = IntrinsicTypes.getIntrinsicTypes("./tiers/fast_int/Intrinsics.v3");
     fi_intrinsics.apply(IntrinsicTypes.add_def);
 
     def defs: Array<CBDDef> = TierGen.extractDefsFromFile(v3file, sexpr_file, transformDef);
@@ -103,7 +104,6 @@ def main(args: Array<string>) {
 
     def dispatch_table = TierGen.buildDispatch(defs, CBDDef.!<CBDDef>(_));
 
-    def template_filename = args[2];
     def template_code = System.fileLoad(template_filename);
     if (template_code == null) {
         System.puts("Error reading ");

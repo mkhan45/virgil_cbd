@@ -1,9 +1,0 @@
-- redo sidetable generator generator
-- wizard target / execution tier
-    - spectests
-- polybench
-- fast interpreter generator
-- spc generator
-- more interesting abstract interpreter
-    - have to update with new intrinsics
-- virgil compiler?

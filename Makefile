@@ -13,88 +13,87 @@ TYPEDEFS = $(WIZARD)/src/bytecode/Intrinsics.v3
 VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -O2 -run -fun-exprs -simple-bodies
 V3C ?= ../virgil/bin/v3c-x86-64-linux -O2 -fun-exprs -simple-bodies
 
-GENERATE_LIB = $(wildcard gen_common/*.v3) $(wildcard gen_common/*/*.v3)
-GENERATE_DEPS = $(GENERATE_LIB) $(DEFS) $(DEFS).sexp $(TYPEDEFS)
+# Common libraries
+COMMON_LIB = $(wildcard common/*/*.v3)
+CBD_IR_TYPES = common/ir/Types.v3
+CBD_RUNTIME = common/runtime/*.v3
 
-AIS = $(foreach I,$(wildcard abstract_interpreter/impls/*.v3),$(basename $I)AI.v3)
+# Dependencies
+GENERATE_DEPS = $(COMMON_LIB) $(DEFS) $(DEFS).sexp $(TYPEDEFS)
+
+# Tier directories
+VALIDATOR = tiers/validator
+INTERPRETER = tiers/interpreter
+COMPILER = tiers/compiler
+AI = tiers/abstract_interpreter
+FAST_INT = tiers/fast_int
+V3COMPILER = tiers/v3compiler
+
+AI_IMPLS = $(foreach I,$(wildcard $(AI)/impls/*.v3),$(basename $I)AI.v3)
 
 # Targets
 .PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler abstract_interpreter wizeng-slow site
 
-all: validator interpreter InterpreterMain
+all: validator interpreter wizeng-slow site
 
 $(DEFS).sexp: wizard-engine/src/bytecode/CanonicalDefs.v3
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
 
-generated/Validator.v3: $(GENERATE_DEPS) validator/*.v3
+generated/Validator.v3: $(GENERATE_DEPS) $(VALIDATOR)/*.v3
 	$(V3C) $(VIRGIL_STD)\
-		$(GENERATE_LIB)\
+		$(COMMON_LIB)\
 		$(ENGINE)\
 		$(WIZARD_UTIL)\
-		validator/ValidatorGen.v3
-	./ValidatorGen $(DEFS).sexp $(DEFS) validator/ValidatorTemplate.v3 > $@~
+		$(VALIDATOR)/ValidatorGen.v3
+	./ValidatorGen > $@~
 	rm ./ValidatorGen
 	mv --force $@~ $@
 
 docs/traces.js: validator
 site: docs/traces.js
 
-generated/Interpreter.v3: $(GENERATE_DEPS) interpreter/*.v3
+generated/Interpreter.v3: $(GENERATE_DEPS) $(INTERPRETER)/*.v3
 	$(VIRGIL) $(VIRGIL_STD) \
-		$(GENERATE_LIB)\
+		$(COMMON_LIB)\
 		$(ENGINE)\
 		$(WIZARD_UTIL)\
-		interpreter/InterpreterGen.v3\
-		$(DEFS).sexp $(DEFS)\
-		interpreter/InterpreterTemplate.v3\
+		$(INTERPRETER)/InterpreterGen.v3\
 		> $@~
 	mv --force $@~ $@
 
-generated/Compiler.v3: $(GENERATE_DEPS) compiler/CompilerGen.v3 compiler/CompilerTemplate.v3 generated/Validator.v3 compiler/Intrinsics.v3
+generated/Compiler.v3: $(GENERATE_DEPS) $(COMPILER)/CompilerGen.v3 $(COMPILER)/CompilerTemplate.v3 generated/Validator.v3 $(COMPILER)/Intrinsics.v3
 	$(VIRGIL) $(VIRGIL_STD)\
-		$(GENERATE_LIB)\
+		$(COMMON_LIB)\
 		$(ENGINE)\
 		$(WIZARD_UTIL)\
-		compiler/CompilerGen.v3\
-		$(DEFS).sexp\
-		$(DEFS)\
-		compiler/CompilerTemplate.v3\
+		$(COMPILER)/CompilerGen.v3\
 		> $@~
 	mv --force $@~ $@
 
-generated/V3Compiler.v3: $(GENERATE_DEPS) v3compiler/V3CompilerGen.v3 v3compiler/V3CompilerTemplate.v3 generated/Validator.v3 v3compiler/Intrinsics.v3 abstract_interpreter/AITemplate.v3
+generated/V3Compiler.v3: $(GENERATE_DEPS) $(V3COMPILER)/V3CompilerGen.v3 $(V3COMPILER)/V3CompilerTemplate.v3 generated/Validator.v3 $(V3COMPILER)/Intrinsics.v3 $(AI)/AITemplate.v3
 	$(VIRGIL) $(VIRGIL_STD)\
-		$(GENERATE_LIB)\
+		$(COMMON_LIB)\
 		$(ENGINE)\
 		$(WIZARD_UTIL)\
-		v3compiler/V3CompilerGen.v3\
-		$(DEFS).sexp\
-		$(DEFS)\
-		abstract_interpreter/AITemplate.v3\
+		$(V3COMPILER)/V3CompilerGen.v3\
 		> $@~
 	mv --force $@~ $@
 
-generated/AI.v3: $(GENERATE_DEPS) abstract_interpreter/*.v3 generated/Validator.v3
+generated/AI.v3: $(GENERATE_DEPS) $(AI)/*.v3 generated/Validator.v3
 	$(VIRGIL) $(VIRGIL_STD) \
-		$(GENERATE_LIB)\
+		$(COMMON_LIB)\
 		$(ENGINE)\
 		$(WIZARD_UTIL)\
-		abstract_interpreter/AIGen.v3\
-		$(DEFS).sexp\
-		$(DEFS)\
-		abstract_interpreter/AITemplate.v3\
+		$(AI)/AIGen.v3\
 		> $@~
 	mv --force $@~ $@
 
-generated/FastInt.v3: $(GENERATE_DEPS) fast-int/*.v3 generated/Validator.v3
+generated/FastInt.v3: $(GENERATE_DEPS) $(FAST_INT)/*.v3 generated/Validator.v3
 	$(VIRGIL) $(VIRGIL_STD) \
-		$(GENERATE_LIB)\
+		$(COMMON_LIB)\
 		$(ENGINE)\
 		$(WIZARD_UTIL)\
-		fast-int/FastIntGen.v3\
-		$(DEFS).sexp\
-		$(DEFS)\
-		fast-int/FastIntTemplate.v3\
+		$(FAST_INT)/FastIntGen.v3\
 		> $@~
 	mv --force $@~ $@
 
@@ -104,66 +103,67 @@ interpreter: generated/Interpreter.v3
 compiler: generated/Compiler.v3
 abstract_interpreter: generated/AI.v3
 wizeng-slow: validator interpreter
-	cp gen_common/IR/Types.v3 wizard-engine/src/engine/cbd/slow/CBDTypes.v3
-	cat runtime_common/Types.v3 >> wizard-engine/src/engine/cbd/slow/CBDTypes.v3
+	cp $(CBD_IR_TYPES) wizard-engine/src/engine/cbd/slow/CBDTypes.v3
+	cat common/runtime/Types.v3 >> wizard-engine/src/engine/cbd/slow/CBDTypes.v3
 	cp generated/Interpreter.v3 wizard-engine/src/engine/cbd/slow/CBDInterpreter.v3
 	cp generated/Validator.v3 wizard-engine/src/engine/cbd/slow/CBDValidator.v3
-	cd wizard-engine; ./build.sh wizeng x86-linux --cbd
+	cd wizard-engine; ./build.sh --cbd wizeng x86-linux
 
 wizeng-fast: generated/FastInt.v3
 	cp generated/FastInt.v3 wizard-engine/src/engine/cbd/fast/CBDFastInt.v3
-	cd wizard-engine; ./build.sh wizeng x86-64-linux --cbd
+	cd wizard-engine; ./build.sh --cbd wizeng x86-64-linux
 
 run_interpreter: generated/Interpreter.v3 generated/Validator.v3
 	$(VIRGIL) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		runtime_common/*.v3\
-		gen_common/IR/Types.v3\
-		generated/Validator.v3 generated/Interpreter.v3 interpreter/InterpreterMain.v3 $(ARGS)
+		$(CBD_RUNTIME)\
+		$(CBD_IR_TYPES)\
+		generated/Validator.v3 generated/Interpreter.v3 $(INTERPRETER)/InterpreterMain.v3 $(ARGS)
 
 run_validator: generated/Validator.v3
 	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		gen_common/IR/Types.v3\
-		generated/Validator.v3 validator/ValidatorMain.v3 $(ARGS)
+		$(CBD_IR_TYPES)\
+		generated/Validator.v3 $(VALIDATOR)/ValidatorMain.v3 $(ARGS)
 
 run_compiler: generated/Compiler.v3
 	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		gen_common/IR/Types.v3\
-		runtime_common/*.v3 generated/Validator.v3 generated/Compiler.v3 compiler/CompilerMain.v3 $(ARGS)
+		$(CBD_IR_TYPES)\
+		$(CBD_RUNTIME) generated/Validator.v3 generated/Compiler.v3 $(COMPILER)/CompilerMain.v3 $(ARGS)
 
 InterpreterMain: generated/Interpreter.v3 generated/Validator.v3
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		gen_common/IR/Types.v3 generated/Validator.v3\
-		runtime_common/*.v3\
-		generated/Interpreter.v3 interpreter/InterpreterMain.v3
+		$(CBD_IR_TYPES) generated/Validator.v3\
+		$(CBD_RUNTIME)\
+		generated/Interpreter.v3 $(INTERPRETER)/InterpreterMain.v3
 
 FastInterpreterMain: generated/FastInt.v3 generated/Validator.v3
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(UTIL)\
 		$(VIRGIL_X86_STD)\
 		$(WIZARD)/src/engine/compiler/*.v3\
 		$(WIZARD)/src/engine/x86-64/*.v3\
-		gen_common/IR/Types.v3 generated/Validator.v3\
-		runtime_common/*.v3\
-		generated/FastInt.v3 fast-int/FastIntMain.v3
+		$(CBD_IR_TYPES) generated/Validator.v3\
+		$(CBD_RUNTIME)\
+		generated/FastInt.v3 $(FAST_INT)/FastIntMain.v3
 
 %AI: abstract_interpreter validator
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		gen_common/IR/Types.v3\
-		runtime_common/*.v3 generated/Validator.v3 generated/AI.v3\
-		abstract_interpreter/state_mgrs/*.v3 abstract_interpreter/impls/$*.v3 abstract_interpreter/AIMain.v3
+		$(CBD_IR_TYPES)\
+		$(CBD_RUNTIME) generated/Validator.v3 generated/AI.v3\
+		$(AI)/state_mgrs/*.v3 $(AI)/impls/$*.v3 $(AI)/AIMain.v3
 	mv AIMain $@
 
-V3CompilerMain: generated/V3Compiler.v3 validator abstract_interpreter/state_mgrs/CFGStateMgr.v3 generated/Compiler.v3
+V3CompilerMain: generated/V3Compiler.v3 validator $(AI)/state_mgrs/CFGStateMgr.v3 generated/Compiler.v3
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		gen_common/IR/Types.v3\
-		runtime_common/*.v3\
+		$(CBD_IR_TYPES)\
+		$(CBD_RUNTIME)\
 		generated/Validator.v3\
-		abstract_interpreter/state_mgrs/CFGStateMgr.v3\
+		$(AI)/state_mgrs/CFGStateMgr.v3\
 		generated/Compiler.v3\
 		generated/V3Compiler.v3\
-		v3compiler/V3CompilerMain.v3
+		$(V3COMPILER)/V3CompilerMain.v3
 
 # Clean build artifacts
 clean:
+	cd wizard-engine; make clean
 	rm -f generated/Interpreter.v3 generated/Compiler.v3 generated/Validator.v3 generated/AI.v3 generated/V3Compiler.v3 $(DEFS).sexp *Main *AI docs/traces.js
 
 # Usage instructions
