@@ -1,6 +1,6 @@
 benchmark	mean_s	stddev_s
 atax.wasm	0.148	0.002
-bicg.wasm	0.144	0.001
+bicg.wasm	0.145	0.001
 correlation.wasm	2.291	N/A
 2mm.wasm	4.595	N/A
 3mm.wasm	7.757	N/A

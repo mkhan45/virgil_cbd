@@ -10,6 +10,9 @@ OPTIONS:
     --help              Show this help message
     --list              List all available benchmarks
     --fast              Use optimized wizeng binary (x86-64-linux)
+    --cbd=(true|false)  Run in CBD mode (default: true)
+                        true: uses CBD interpreter, saves to benches-{slow,fast}.tsv
+                        false: uses base wizard interpreter, saves to benches-{slow,fast}-base.tsv
     --verbose, -v       Show full command being executed
     --max-runs N        Set hyperfine max runs (default: 10)
     --time=CMD          Use specific timing command: 'time' or 'hyperfine'
@@ -68,6 +71,7 @@ POLYBENCH="${POLYBENCH_DIR:-../wish-you-were-fast/wasm/suites/polybench}"
 # Default settings
 WIZENG="./wizard-engine/bin/wizeng.x86-linux"
 FAST=false
+CBD=true
 VERBOSE=0
 MAX_RUNS=10
 TIME_CMD=""
@@ -92,6 +96,18 @@ while [ $# -gt 0 ]; do
         --fast)
             WIZENG="./wizard-engine/bin/wizeng.x86-64-linux"
             FAST=true
+            shift
+            ;;
+        --cbd=*)
+            CBD_ARG="${1#*=}"
+            if [ "$CBD_ARG" = "true" ]; then
+                CBD=true
+            elif [ "$CBD_ARG" = "false" ]; then
+                CBD=false
+            else
+                echo "Error: --cbd must be 'true' or 'false'"
+                exit 1
+            fi
             shift
             ;;
         --verbose|-v)
@@ -154,18 +170,28 @@ fi
 
 echo "Running $POLYBENCH/$BENCH"
 
-# Determine output TSV file
-if [ "$FAST" = true ]; then
-    TSV_FILE="generated/benches-fast.tsv"
+# Determine output TSV file based on fast/cbd flags
+if [ "$CBD" = true ]; then
+    if [ "$FAST" = true ]; then
+        TSV_FILE="generated/benches-fast.tsv"
+    else
+        TSV_FILE="generated/benches-slow.tsv"
+    fi
+    MODE_ARG="--mode=cbd-int"
 else
-    TSV_FILE="generated/benches-slow.tsv"
+    if [ "$FAST" = true ]; then
+        TSV_FILE="generated/benches-fast-base.tsv"
+    else
+        TSV_FILE="generated/benches-slow-base.tsv"
+    fi
+    MODE_ARG=""
 fi
 
 # Create generated directory if it doesn't exist
 mkdir -p generated
 
 # Build the command
-CMD="$WIZENG --mode=cbd-int $POLYBENCH/$BENCH $WIZENG_ARGS"
+CMD="$WIZENG $MODE_ARG $POLYBENCH/$BENCH $WIZENG_ARGS"
 
 if [ $VERBOSE -eq 1 ]; then
     echo "Command: $CMD"
