@@ -11,12 +11,12 @@ doitgen.wasm	1.910	N/A
 durbin.wasm	0.077	0.005
 fdtd-2d.wasm	7.142	N/A
 floyd-warshall.wasm	46.681	N/A
-gemm.wasm	3.721	N/A
+gemm.wasm	3.639	N/A
 gemver.wasm	0.230	0.003
 gesummv.wasm	0.079	0.004
 gramschmidt.wasm	3.837	N/A
 heat-3d.wasm	13.876	N/A
-jacobi-1d.wasm	0.035	0.004
+jacobi-1d.wasm	0.032	0.001
 jacobi-2d.wasm	8.856	N/A
 lu.wasm	28.953	N/A
 ludcmp.wasm	27.441	N/A

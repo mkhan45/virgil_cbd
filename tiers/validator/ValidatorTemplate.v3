@@ -631,14 +631,17 @@ component Validator {
     def toCBDSidetable(sidetable: Sidetable) -> Array<u8> {
         if (sidetable.entries.length == 0) return [];
         var result = Array<u8>.new(sidetable.entries.length * 4);
-        for (i < sidetable.entries.length) {
-            var val = sidetable.entries[i];
-            var base = i * 4;
-            result[base + 0] = u8.view(val);
-            result[base + 1] = u8.view(val >> 8);
-            result[base + 2] = u8.view(val >> 16);
-            result[base + 3] = u8.view(val >> 24);
+        
+        // Each entry in the sidetable is 4 ints (16 bytes)
+        for (stp = 0; stp < sidetable.entries.length; stp += 4) {
+            var br_entry = sidetable.getBrEntry(stp);
+            var entry = Ref<Sidetable_BrEntry>.at(result, stp * 4);
+            entry.pc_delta = br_entry.dpc;
+            entry.valcount = br_entry.valcount;
+            entry.popcount = br_entry.popcount;
+            entry.stp_delta = br_entry.dstp;
         }
+        
         return result;
     }
 }
