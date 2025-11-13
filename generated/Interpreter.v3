@@ -42,8 +42,6 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def HAS_MEM_INDEX = 0x40u8;
     var DISPATCH_TABLE: Array<void -> void>;
 
-    var sidetables: Array<Array<u8>>;
-
     // for wizeng
     def init_module(module: Module) {
         DISPATCH_TABLE = build_dispatch_table();
@@ -64,13 +62,12 @@ class CBDV3Interpreter(it: V3Interpreter) {
             if (Strings.equal(module.exports[i].0, "main")) main_idx = FuncDecl.!(module.exports[i].1).func_index;
         }
 
-        sidetables = Array.new(module.functions.length);
         Validator.init(module, args);
         for (i < module.functions.length) {
             def fn = CBDFunction.new(module.functions[i]);
             Validator.init_function(fn.code, fn.args.copy(), fn.locals.copy(), fn.rets.copy());
             Validator.dispatch();
-            sidetables[i] = Validator.build_sidetable();
+            module.functions[i].cbd_sidetable = Validator.build_sidetable();
             System.puts("validated ");
             System.puti(i);
             System.ln();
@@ -192,8 +189,8 @@ class CBDV3Interpreter(it: V3Interpreter) {
             Ref => return FieldKind.REF;
         }
     }
-    def m_getFieldOffset(struct_index: u32, field_index: u32) -> u32 {
-        return u32.!(field_index); // XXX?
+    def m_getFieldOffset(struct_index: u32, field_index: u32) -> i32 {
+        return i32.!(field_index); // XXX?
     }
     def m_isMemory64(memory_index: u32) -> bool => false; // TODO mem64
     def m_isTable64(memory_index: u32) -> bool => false;
@@ -246,7 +243,7 @@ class CBDV3Interpreter(it: V3Interpreter) {
     }
 
     def doSwitch(n_labels: u32, key: u32) {
-        def fn_idx = it.frame.func.decl.func_index, sidetable = sidetables[fn_idx];
+        def sidetable = it.frame.func.decl.cbd_sidetable;
         def index = if(key >= n_labels, int.view(n_labels)-1, int.view(key));
         it.frame.stp += (index * Sidetable_BrEntry.size);
         it.frame.pc += index;
@@ -523,8 +520,7 @@ class CBDV3Interpreter(it: V3Interpreter) {
 
     def get_st_entry(size: int) -> Range<u8> {
         def stp = it.frame.stp;
-        def fn_idx = it.frame.func.decl.func_index;
-        def sidetable = sidetables[fn_idx];
+        def sidetable = it.frame.func.decl.cbd_sidetable;
 
         it.frame.stp += size;
         return sidetable[stp ... stp + size];
