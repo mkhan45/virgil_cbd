@@ -132,7 +132,10 @@ Instructions are annotated with effects that track:
 The project includes WebAssembly test files:
 - `test.wasm`, `test.wat` - Basic test cases
 - `tests/` directory contains additional test cases
-- Use `run_benchmark.sh` for performance testing
+- Use `scripts/run_polybench.sh` for performance testing with polybench suite
+  - Example: `bash scripts/run_polybench.sh jacobi-1d.wasm`
+  - Use `--list` to see all available benchmarks
+  - Use `--show-output` to debug failures
 
 # Tiers
 

@@ -627,6 +627,20 @@ component Validator {
     }
 
     def build_sidetable() -> Array<u8> => ctlxfer.extract();
+
+    def toCBDSidetable(sidetable: Sidetable) -> Array<u8> {
+        if (sidetable.entries.length == 0) return [];
+        var result = Array<u8>.new(sidetable.entries.length * 4);
+        for (i < sidetable.entries.length) {
+            var val = sidetable.entries[i];
+            var base = i * 4;
+            result[base + 0] = u8.view(val);
+            result[base + 1] = u8.view(val >> 8);
+            result[base + 2] = u8.view(val >> 16);
+            result[base + 3] = u8.view(val >> 24);
+        }
+        return result;
+    }
 }
 
 def labelArgs(target: ControlEntry) -> Array<ValueType> {
