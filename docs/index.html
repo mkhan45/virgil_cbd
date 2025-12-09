@@ -67,7 +67,11 @@
                 barrierDiv.remove();
                 graph.style.opacity = 1;
             }
-            await setGraph("BR_IF", "raw");
+            if (traces["BR_IF"] != undefined) {
+                await setGraph("BR_IF", "raw");
+            } else {
+                await setGraph("UNREACHABLE", "raw");
+            }
 
             const codes = document.getElementById('codes');
             for (const op in traces) {
