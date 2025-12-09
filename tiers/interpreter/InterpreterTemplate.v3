@@ -63,10 +63,10 @@ class CBDV3Interpreter(it: V3Interpreter) {
 
         Validator.init(module, args);
         for (i < module.functions.length) {
-            def fn = CBDFunction.new(module.functions[i]);
-            Validator.init_function(fn.code, fn.args.copy(), fn.locals.copy(), fn.rets.copy());
+            def decl = module.functions[i];
+            Validator.init_function(decl.orig_bytecode, TypeVars.args_from_decl(decl), TypeVars.locals_from_decl(decl), TypeVars.rets_from_decl(decl));
             Validator.dispatch();
-            module.functions[i].cbd_sidetable = Validator.build_sidetable();
+            decl.cbd_sidetable = Validator.build_sidetable();
             System.puts("validated ");
             System.puti(i);
             System.ln();
@@ -194,7 +194,7 @@ class CBDV3Interpreter(it: V3Interpreter) {
     def m_isMemory64(memory_index: u32) -> bool => false; // TODO mem64
     def m_isTable64(memory_index: u32) -> bool => false;
     def m_getFuncSignature(func_index: u32) -> SigDecl {
-        return null; // already in CBDFunction, TODO: refactor
+        return module().functions[int.view(func_index)].sig;
     }
     def m_getSignature(sig_index: u32) -> HeapTypeDecl {
         return module().heaptypes[int.view(sig_index)];

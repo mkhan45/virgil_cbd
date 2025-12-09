@@ -1,19 +1,5 @@
-// TODO: we should probably use wizard's rep
-class CBDFunction {
-    var code: Array<byte>;
-    def args: Vector<TypeVar> = Vector.new();
-    def rets: Vector<TypeVar> = Vector.new();
-    def locals: Vector<TypeVar> = Vector.new();
-    var sidetable: Sidetable;
-
-    new(decl: FuncDecl) {
-        for (param in decl.sig.params) args.put(value_type_to_type_var(param));
-        for (result in decl.sig.results) rets.put(value_type_to_type_var(result));
-        for (i < decl.num_locals) locals.put(TypeVar.U32); // TODO: no type, gotta parse from body
-        code = decl.orig_bytecode;
-    }
-
-    def value_type_to_type_var(vt: ValueType) -> TypeVar {
+component TypeVars {
+    def from_value_type(vt: ValueType) -> TypeVar {
         match (vt) {
             I32 => return TypeVar.U32;
             I64 => return TypeVar.U64;
@@ -25,10 +11,22 @@ class CBDFunction {
             BOTTOM => return TypeVar.Bot(null);
         }
     }
-}
 
-class CBDFunctionI extends CBDFunction {
-    var fn_idx: int;
+    def args_from_decl(decl: FuncDecl) -> Array<TypeVar> {
+        def v = Vector<TypeVar>.new();
+        for (param in decl.sig.params) v.put(from_value_type(param));
+        return v.copy();
+    }
 
-    new(decl: FuncDecl, fn_idx: int) super(decl) {}
+    def rets_from_decl(decl: FuncDecl) -> Array<TypeVar> {
+        def v = Vector<TypeVar>.new();
+        for (result in decl.sig.results) v.put(from_value_type(result));
+        return v.copy();
+    }
+
+    def locals_from_decl(decl: FuncDecl) -> Array<TypeVar> {
+        def v = Vector<TypeVar>.new();
+        for (i < decl.num_locals) v.put(TypeVar.U32); // TODO: no type, gotta parse from body
+        return v.copy();
+    }
 }
