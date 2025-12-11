@@ -57,6 +57,12 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     CBDTrace.addGraph(opcode, "overloadOps", sea);
     sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.addAbstractions(sea));
     CBDTrace.addGraph(opcode, "addAbstractions", sea);
+
+    def scheduler = SeaScheduler.new(sea);
+    scheduler.schedule();
+    def scheduler_mermaid = scheduler.toMermaid();
+    CBDTrace.addString(opcode, "schedulerMermaid", "graph", scheduler_mermaid);
+
     def state = HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq);
     sea.apply(state, IRNode.unLEM);
     CBDTrace.addGraph(opcode, "unLEM", sea);
