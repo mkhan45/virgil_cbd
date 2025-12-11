@@ -1,0 +1,108 @@
+class SeaScheduler {
+    var sea: Sea;
+    var top_block: ScheduleBlock;
+
+    new(sea) {
+        top_block = ScheduleBlock.new();
+    }
+
+    def toMermaid() -> string {
+        def buf = StringBuilder.new();
+        buf.puts("---").ln();
+        buf.puts("config:").ln();
+        buf.puts("  layout: elk").ln();
+        buf.puts("---").ln();
+        buf.puts("graph TD").ln();
+
+        top_block.toMermaid(buf, 0);
+        return buf.toString();
+    }
+
+    def schedule() {
+        def q = Vector<IRNode>.new();
+        q.put(sea.finish);
+
+        var q_idx = 0;
+        while (q_idx < q.length) {
+            def node = q[q_idx];
+            q_idx += 1;
+
+            var deps: Array<IRNode>;
+            match (node.op) {
+                StatePhi(scs) => deps = [node.value_deps[0]];
+                Phi => deps = [node.value_deps[0]];
+                _ => {
+                    if (phis == null && state_phis == null) {
+                        deps = node.deps();
+                    } else {
+                        def res = Vector<IRNode>.new();
+                        for (phi = phis; phi != null; phi = phi.tail) {
+                            def left = phi.head.value_deps[1], right = phi.head.value_deps[2];
+                            def leftDeps = left.transitiveDeps(node), rightDeps = right.transitiveDeps(node);
+                            for (l in leftDeps) for (r in rightDeps) if (l.id == r.id) res.put(l);
+                        }
+                        for (phi = state_phis; phi != null; phi = phi.tail) {
+                            def left = phi.head.value_deps[1], right = phi.head.value_deps[2];
+                            def leftDeps = left.transitiveDeps(node), rightDeps = right.transitiveDeps(node);
+                            for (l in leftDeps) for (r in rightDeps) if (l.id == r.id) res.put(l);
+                        }
+                        def filter_res = Vector<IRNode>.new();
+                        def cond_transdeps = node.transitiveDeps(start);
+                        for (i < res.length) {
+                            var high = false;
+                            for (j < cond_transdeps.length) high |= (cond_transdeps[j].id == res[i].id);
+                            if (!high) filter_res.put(res[i]);
+                        }
+                        filter_res.puta(node.deps());
+                        deps = dedup(filter_res.copy());
+                    }
+                }
+            }
+
+            var ready = true;
+            for (dep in deps) ready |= top_block.available.has(dep);
+
+            // traverse existing schedule, put node in first available spot
+            // we need to update ScheduleBlock to be an actual AST with conditionals
+        }
+    }
+}
+
+class ScheduleBlock {
+    var available: ImmNodeSet;
+    var nodes: Vector<IRNode>;
+    var children: Vector<ScheduleBlock>;
+
+    new() {
+        nodes = Vector.new();
+        children = Vector.new();
+        available = ImmNodeSet(null);
+    }
+
+    def toMermaid(buf: StringBuilder, id: int) -> int {
+        buf.puts("subgraph block_").putd(id).ln();
+
+        for (i < nodes.length) {
+            def n = nodes[i];
+            n.toMermaidNode(buf, "");
+
+            if (i > 0) {
+                def prev = nodes[i - 1];
+                buf.tab().putd(prev.id).puts(" --> ").putd(n.id).ln();
+            }
+        }
+
+        buf.puts("end").ln();
+
+        var next_id = id + 1;
+        for (i < children.length) {
+            next_id = children[i].toMermaid(buf, next_id);
+            if (nodes.length > 0) {
+                def last = nodes[nodes.length - 1];
+                buf.tab().putd(last.id).puts(" --> ").putd(children[i].nodes[0].id).ln();
+            }
+        }
+
+        return next_id;
+    }
+}

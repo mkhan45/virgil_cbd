@@ -256,35 +256,7 @@ class Sea {
             def n = wl.pop();
             if (n == null || visited.has(n)) continue;
             visited.put(n);
-            buf.tab().puts(tag).putd(n.id);
-            match (n.op) {
-                Start => buf.puts("[/\"").ln();
-                Finish => buf.puts("[\\\\\"").ln();
-                Phi => buf.puts("{\"").ln();
-                StatePhi => buf.puts("{{\"").ln();
-                _ => buf.puts("[\"").ln();
-            }
-            if (n.var_data != null && n.var_data.sourceName != null) buf.tab().puts(n.var_data.sourceName).ln();
-            match (n.op) {
-                Start => buf.tab().puts("Start").ln();
-                Finish => buf.tab().puts("Finish").ln();
-                Intrinsic(defn) => buf.tab().puts(defn.name).ln();
-                Lit(_, rep) => buf.tab().puts(rep).ln();
-                Phi => buf.tab().puts("ϕ").ln();
-                StatePhi(scs) => {
-                    buf.tab().puts("Sϕ ");
-                    for (sc in scs) {
-                        buf.puts(sc.name).puts(" ");
-                    }
-                }
-            }
-            match (n.op) {
-                Start => buf.tab().puts("\"\\\\]").ln();
-                Finish => buf.puts("\"/]").ln();
-                Phi => buf.puts("\"}").ln();
-                StatePhi => buf.puts("\"}}").ln();
-                _ => buf.tab().puts("\"]").ln();
-            }
+            n.toMermaidNode(buf, tag);
 
             for (arg in n.value_deps) {
                 buf.tab().puts(tag).putd(arg.id).puts(" --> ").puts(tag).putd(n.id).ln();
@@ -659,6 +631,37 @@ class IRNode {
         }
 
         return sb;
+    }
+
+    def toMermaidNode(buf: StringBuilder, tag: string) -> StringBuilder {
+        buf.tab().puts(tag).putd(id);
+        match (op) {
+            Start => buf.puts("[/\"");
+            Finish => buf.puts("[\\\\\"");
+            Phi => buf.puts("{\"");
+            StatePhi => buf.puts("{{\"");
+            _ => buf.puts("[\"");
+        }
+        if (var_data != null && var_data.sourceName != null) buf.puts(var_data.sourceName).puts(" ");
+        match (op) {
+            Start => buf.puts("Start");
+            Finish => buf.puts("Finish");
+            Intrinsic(defn) => buf.puts(defn.name);
+            Lit(_, rep) => buf.puts(rep);
+            Phi => buf.puts("ϕ");
+            StatePhi(scs) => {
+                buf.puts("Sϕ ");
+                for (sc in scs) buf.puts(sc.name).puts(" ");
+            }
+        }
+        match (op) {
+            Start => buf.puts("\"\\\\]").ln();
+            Finish => buf.puts("\"/]").ln();
+            Phi => buf.puts("\"}").ln();
+            StatePhi => buf.puts("\"}}").ln();
+            _ => buf.puts("\"]").ln();
+        }
+        return buf;
     }
 
     def become(other: IRNode) -> this {
