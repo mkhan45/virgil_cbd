@@ -118,6 +118,16 @@ class Sea {
         return node;
     }
 
+    def project(parent: IRNode, val: bool) -> IRNode {
+        def node = IRNode.new(IROp.Proj(val), 0);
+        node.state_deps = Array<IRNode>.new(finish.state_deps.length);
+        node.value_deps = [parent];
+
+        for (dep in node.deps()) dep.children.put(node);
+
+        return node;
+    }
+
     def dupNode(node: IRNode) -> IRNode {
         def n = mkNode(node.op, node.state_deps, node.value_deps);
         if(node.var_data != null) n.var_data = VarData.new(uidl(node.var_data.sourceName), node.var_data.tipe, node.var_data.stage);
@@ -570,9 +580,12 @@ class IRNode {
     var schedule_children: Vector<IRNode>;
     var schedule_parent: IRNode;
 
+    var ctl_dep: IRNode;
+
     new(op, id) {
         children = Vector.new();
         schedule_children = Vector.new();
+        ctl_dep = null;
     }
 
     def deps() -> Array<IRNode> {
@@ -628,6 +641,7 @@ class IRNode {
             Phi => sb.puts("Phi");
             StatePhi => sb.puts("StatePhi");
             // MatchPhi => sb.puts("MatchPhi");
+            Proj(val) => sb.puts(if(val, "|True|", "|False|"));
         }
 
         return sb;
@@ -653,6 +667,7 @@ class IRNode {
                 buf.puts("Sϕ ");
                 for (sc in scs) buf.puts(sc.name).puts(" ");
             }
+            Proj(val) => buf.puts(if(val, "|True|", "|False|"));
         }
         match (op) {
             Start => buf.puts("\"\\\\]").ln();
@@ -956,4 +971,6 @@ type IROp {
     case Phi;
     case StatePhi(statecomps: StateComponent.set);
     // case MatchPhi(subj: IRNode, end: IRNode, cases: Array<IRNode>);
+
+    case Proj(val: bool);
 }
