@@ -26,27 +26,7 @@ class SeaScheduler {
     def schedule() {
         sched_id = 0;
 
-        def q = Vector<IRNode>.new();
-        q.put(sea.finish);
-
-        var q_idx = 0;
-        while (q_idx < q.length) {
-            def node = q[q_idx];
-            q_idx += 1;
-            
-            if (IROp.Phi.?(node.op) || IROp.StatePhi.?(node.op)) {
-                def cond = node.value_deps[0];
-                def cond_blk = top_block.scheduleInto(cond, sea);
-            }
-
-            // traverse existing schedule, put node in first available spot
-            if (top_block.scheduleInto(node, sea) != null) {
-                continue;
-            } else {
-                for (d in node.deps()) q.put(d);
-                q.put(node);
-            }
-        }
+        top_block.schedule(sea.finish, sea);
     }
 }
 
@@ -120,59 +100,36 @@ class ScheduleNode(id: int) {
     var next: ScheduleNode = null;
 
     def toMermaid(buf: StringBuilder) -> StringBuilder;
+    def prev() -> Range<ScheduleNode>;
 
-    def scheduleInto(node: IRNode, sea: Sea) -> ScheduleNode {
-        def all_deps = NodeDeps.new(available, node, sea);
-        def phis = all_deps.phis, state_phis = all_deps.state_phis;
-        def deps = all_deps.plain_deps;
-
-        if (available.has(node) && phis == null && state_phis == null) return this;
+    def schedule(node: IRNode, sea: Sea) -> ScheduleNode {
+        if (available.has(node)) return this;
 
         var ready = true;
-        for (dep in deps) ready &= available.has(dep);
+        for (i < node.children.length) ready &= available.has(node.children[i]);
 
         var dest_block: ScheduleNode = null;
         if (ready) {
-            // nothing more is available in conditional, so
-            // it shouldn't be the first point something is ready
             def block = ScheduleBlock.!(this);
             block.nodes.put(node);
             block.available = block.available.with(node);
             dest_block = block;
         } else {
-            match (this) {
-                block: ScheduleBlock => {
-                    dest_block = if(block.next != null, block.next.scheduleInto(node, sea));
-                }
-                cond: ConditionalScheduleBlock => {
-                    dest_block = if(cond.next != null, cond.next.scheduleInto(node, sea));
-
-                    if (dest_block == null)
-                        dest_block = if(cond.left != null, cond.left.scheduleInto(node, sea));
-
-                    if (dest_block == null)
-                        dest_block = if(cond.right != null, cond.right.scheduleInto(node, sea));
-                }
-            }
+            // TODO:
+            // I think that actually keeping the combined cond/phi structure is cleaner,
+            // we could just iterate prev() here but left and right would have the same prev,
+            // so mental model seems lossy.
         }
 
-        if (dest_block != null && (state_phis != null || phis != null)) {
-            // TODO: add control deps in Sea creation by looking at
-            // state phis and foreach sφ, add ctl dep to all left state deps
-            // which are not incl. in right state dep chain and vice versa.
-
-            // Then, we want to make outer schedule function recursive and attempt
-            // to greedily schedule phis until they are done.
-            // So there might be a scheduleTransitive and scheduleOne.
-            return null;
-        } else {
-            return dest_block;
-        }
+        return null; // TODO
     }
 }
 
 class ScheduleBlock(uid: int) extends ScheduleNode(uid) {
-    var nodes: Vector<IRNode> = Vector.new();
+    var nodes: Vector<IRNode> = Vector.new(); // we build these backwards, so they have to be reversed.
+    var forward: bool = false;
+
+    var prev_node: ScheduleNode = null;
 
     def toMermaid(buf: StringBuilder) -> StringBuilder {
         buf.puts("subgraph block_").putd(id).ln();
@@ -196,15 +153,25 @@ class ScheduleBlock(uid: int) extends ScheduleNode(uid) {
 
         return buf;
     }
+    
+    def prev() -> Range<ScheduleNode> => [prev_node];
+
+    def reverse() {
+        forward = !forward;
+        nodes.reverse();
+    }
 }
 
 class ConditionalScheduleBlock(uid: int) extends ScheduleNode(uid) {
     var condition: IRNode;
 
+    var prev_node: ScheduleNode = null;
     var left: ScheduleNode = null;
     var right: ScheduleNode = null;
 
-    var phis: List<IRNode> = null;
+    var phi_block: PhiScheduleBlock = null;
+
+    def prev() -> Range<ScheduleNode> => [prev_node];
 
     def toMermaid(buf: StringBuilder) -> StringBuilder {
         buf.puts("subgraph cond_").putd(id).ln();
@@ -219,8 +186,38 @@ class ConditionalScheduleBlock(uid: int) extends ScheduleNode(uid) {
         if (left != null) buf.tab().putd(condition.id).puts(" -->|true| ").putd(left.id).ln();
         if (right != null) buf.tab().putd(condition.id).puts(" -->|false| ").putd(right.id).ln();
 
-        for (phi = phis; phi != null; phi = phi.tail) {
+        if (phi_block != null) phi_block.toMermaid(buf);
+
+        if (next != null) {
+            next.toMermaid(buf);
+            buf.tab().putd(id).puts(" --> ").putd(next.id).ln();
+        }
+
+        return buf;
+    }
+}
+
+class PhiScheduleBlock(uid: int) extends ScheduleNode(uid) {
+    var condition: ConditionalScheduleBlock;
+
+    // should these always be type ScheduleBlock?
+    var left: ScheduleNode = null;
+    var right: ScheduleNode = null;
+
+    def prev() -> Range<ScheduleNode> => [left, right];
+
+    var ir_phis: List<IRNode> = null;
+
+    def toMermaid(buf: StringBuilder) -> StringBuilder {
+        buf.puts("subgraph phi_").putd(id).ln();
+
+        for (phi = ir_phis; phi != null; phi = phi.tail) {
             phi.head.toMermaidNode(buf, "");
+        }
+
+        buf.puts("end").ln();
+
+        for (phi = ir_phis; phi != null; phi = phi.tail) {
             if (left != null) buf.tab().putd(left.id).puts(" --> ").putd(phi.head.id).ln();
             if (right != null) buf.tab().putd(right.id).puts(" --> ").putd(phi.head.id).ln();
         }

@@ -41,11 +41,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["eff__0 trapUnreachable"]
-	0 --> 3
 	1[\\"Finish"/]
-	3 --> 1
 end
 </pre>`;
 window.traces.UNREACHABLE.unLEM = `<pre class='graph'>---
@@ -125,9 +121,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
 	1[\\"Finish"/]
-	0 --> 1
 end
 </pre>`;
 window.traces.NOP.unLEM = `<pre class='graph'>---
@@ -217,13 +211,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["bt imm_readBlockType"]
-	0 --> 3
-	5["eff__2 doBlock"]
-	3 --> 5
 	1[\\"Finish"/]
-	5 --> 1
 end
 </pre>`;
 window.traces.BLOCK.unLEM = `<pre class='graph'>---
@@ -339,13 +327,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["bt imm_readBlockType"]
-	0 --> 3
-	5["eff__4 doLoop"]
-	3 --> 5
 	1[\\"Finish"/]
-	5 --> 1
 end
 </pre>`;
 window.traces.LOOP.unLEM = `<pre class='graph'>---
@@ -530,33 +512,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	4["cond pop_u32"]
-	0 --> 4
-	7["arg__11 0"]
-	4 --> 7
-	15["abs__14 lift_u32"]
-	7 --> 15
-	3["bt imm_readBlockType"]
-	15 --> 3
-	6["label doIf"]
-	3 --> 6
-	12["eff__7 doBranch"]
-	6 --> 12
-	10["eff__9 doFallthru"]
-	12 --> 10
-	9["cond__6 U32_equals"]
-	10 --> 9
-	9["cond__6 U32_equals"]
-	9 --> 9
-	9["cond__6 U32_equals"]
-	9 --> 9
-	13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	9 --> 13
-	14["eff_st_put__13 ctlxfer.put_IF"]
-	13 --> 14
 	1[\\"Finish"/]
-	14 --> 1
 end
 </pre>`;
 window.traces.IF.unLEM = `<pre class='graph'>---
@@ -794,15 +750,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["label doElse"]
-	0 --> 3
-	5["eff__19 doBranch"]
-	3 --> 5
-	6["eff_st_put__21 ctlxfer.put_ELSE"]
-	5 --> 6
 	1[\\"Finish"/]
-	6 --> 1
 end
 </pre>`;
 window.traces.ELSE.unLEM = `<pre class='graph'>---
@@ -931,13 +879,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["bt imm_readBlockType"]
-	0 --> 3
-	5["eff__22 doTry"]
-	3 --> 5
 	1[\\"Finish"/]
-	5 --> 1
 end
 </pre>`;
 window.traces.TRY.unLEM = `<pre class='graph'>---
@@ -1065,19 +1007,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["eff__26 doEnd"]
-	0 --> 3
-	4["cond__24 f_isAtEnd"]
-	3 --> 4
-	5["eff__25 doReturn"]
-	4 --> 5
-	4["cond__24 f_isAtEnd"]
-	5 --> 4
-	6{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	4 --> 6
 	1[\\"Finish"/]
-	6 --> 1
 end
 </pre>`;
 window.traces.END.unLEM = `<pre class='graph'>---
@@ -1238,17 +1168,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["depth imm_readULEB32"]
-	0 --> 3
-	5["label f_getLabel"]
-	3 --> 5
-	7["eff__27 doBranch"]
-	5 --> 7
-	8["eff_st_put__30 ctlxfer.put_BR"]
-	7 --> 8
 	1[\\"Finish"/]
-	8 --> 1
 end
 </pre>`;
 window.traces.BR.unLEM = `<pre class='graph'>---
@@ -1462,35 +1382,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["depth imm_readULEB32"]
-	0 --> 3
-	6["cond pop_u32"]
-	3 --> 6
-	10["eff__34 doFallthru"]
-	6 --> 10
-	5["label f_getLabel"]
-	10 --> 5
-	12["eff__32 doBranch"]
-	5 --> 12
-	7["arg__36 0"]
-	12 --> 7
-	15["abs__39 lift_u32"]
-	7 --> 15
-	9["cond__31 U32_not_equals"]
-	15 --> 9
-	9["cond__31 U32_not_equals"]
-	9 --> 9
-	9["cond__31 U32_not_equals"]
-	9 --> 9
-	9["cond__31 U32_not_equals"]
-	9 --> 9
-	13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	9 --> 13
-	14["eff_st_put__38 ctlxfer.put_BR_IF"]
-	13 --> 14
 	1[\\"Finish"/]
-	14 --> 1
 end
 </pre>`;
 window.traces.BR_IF.unLEM = `<pre class='graph'>---
@@ -1753,17 +1645,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["labels imm_readLabels"]
-	0 --> 3
-	4["key pop_u32"]
-	3 --> 4
-	7["eff__44 doSwitch"]
-	4 --> 7
-	8["eff_st_put__47 ctlxfer.put_BR_TABLE"]
-	7 --> 8
 	1[\\"Finish"/]
-	8 --> 1
 end
 </pre>`;
 window.traces.BR_TABLE.unLEM = `<pre class='graph'>---
@@ -1897,11 +1779,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["eff__48 doReturn"]
-	0 --> 3
 	1[\\"Finish"/]
-	3 --> 1
 end
 </pre>`;
 window.traces.RETURN.unLEM = `<pre class='graph'>---
@@ -2021,17 +1899,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["index imm_readULEB32"]
-	0 --> 3
-	5["sig m_getFuncSignature"]
-	3 --> 5
-	7["target i_getFunction"]
-	5 --> 7
-	10["eff__49 doCall"]
-	7 --> 10
 	1[\\"Finish"/]
-	10 --> 1
 end
 </pre>`;
 window.traces.CALL.unLEM = `<pre class='graph'>---
@@ -2292,33 +2160,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	10["func_index pop_u32"]
-	0 --> 10
-	3["sig_index imm_readULEB32"]
-	10 --> 3
-	4["table_index imm_readULEB32"]
-	3 --> 4
-	8["is64 m_isTable64"]
-	4 --> 8
-	6["sig m_getSignature"]
-	8 --> 6
-	18["func_index pop_u64"]
-	6 --> 18
-	22["target i_getTableFunction64"]
-	18 --> 22
-	25["eff__55 doCall"]
-	22 --> 25
-	14["target i_getTableFunction32"]
-	25 --> 14
-	17["eff__61 doCall"]
-	14 --> 17
-	26{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	17 --> 26
-	27["eff_st_put__69 ctlxfer.put_CALL_INDIRECT"]
-	26 --> 27
 	1[\\"Finish"/]
-	27 --> 1
 end
 </pre>`;
 window.traces.CALL_INDIRECT.unLEM = `<pre class='graph'>---
@@ -2564,17 +2406,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["index imm_readULEB32"]
-	0 --> 3
-	5["sig m_getFuncSignature"]
-	3 --> 5
-	7["target i_getFunction"]
-	5 --> 7
-	10["eff__70 doReturnCall"]
-	7 --> 10
 	1[\\"Finish"/]
-	10 --> 1
 end
 </pre>`;
 window.traces.RETURN_CALL.unLEM = `<pre class='graph'>---
@@ -2713,13 +2545,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["tv f_getTopOfStackType"]
-	0 --> 3
-	5["eff__75 pop_Value"]
-	3 --> 5
 	1[\\"Finish"/]
-	5 --> 1
 end
 </pre>`;
 window.traces.DROP.unLEM = `<pre class='graph'>---
@@ -2916,35 +2742,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["c pop_u32"]
-	0 --> 3
-	4["tv f_getTopOfStackType"]
-	3 --> 4
-	6["b pop_Value"]
-	4 --> 6
-	8["a pop_Value"]
-	6 --> 8
-	14["eff__81 push_Value"]
-	8 --> 14
-	17["eff__78 push_Value"]
-	14 --> 17
-	9["arg__85 0"]
-	17 --> 9
-	19["abs__88 lift_u32"]
-	9 --> 19
-	11["cond__77 U32_not_equals"]
-	19 --> 11
-	11["cond__77 U32_not_equals"]
-	11 --> 11
-	11["cond__77 U32_not_equals"]
-	11 --> 11
-	11["cond__77 U32_not_equals"]
-	11 --> 11
-	18{{"Sϕ Stack "}}
-	11 --> 18
 	1[\\"Finish"/]
-	18 --> 1
 end
 </pre>`;
 window.traces.SELECT.unLEM = `<pre class='graph'>---
@@ -3196,17 +2994,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["index imm_readULEB32"]
-	0 --> 3
-	5["tv f_getLocalType"]
-	3 --> 5
-	8["val getLocal"]
-	5 --> 8
-	11["eff__94 push_Value"]
-	8 --> 11
 	1[\\"Finish"/]
-	11 --> 1
 end
 </pre>`;
 window.traces.LOCAL_GET.unLEM = `<pre class='graph'>---
@@ -3387,17 +3175,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["index imm_readULEB32"]
-	0 --> 3
-	5["tv f_getLocalType"]
-	3 --> 5
-	7["val pop_Value"]
-	5 --> 7
-	11["eff__100 setLocal"]
-	7 --> 11
 	1[\\"Finish"/]
-	11 --> 1
 end
 </pre>`;
 window.traces.LOCAL_SET.unLEM = `<pre class='graph'>---
@@ -3596,19 +3374,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["index imm_readULEB32"]
-	0 --> 3
-	5["tv f_getLocalType"]
-	3 --> 5
-	7["val pop_Value"]
-	5 --> 7
-	14["eff__106 push_Value"]
-	7 --> 14
-	11["eff__109 setLocal"]
-	14 --> 11
 	1[\\"Finish"/]
-	11 --> 1
 end
 </pre>`;
 window.traces.LOCAL_TEE.unLEM = `<pre class='graph'>---
@@ -3805,17 +3571,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["index imm_readULEB32"]
-	0 --> 3
-	5["tv m_getGlobalType"]
-	3 --> 5
-	8["val getGlobal"]
-	5 --> 8
-	11["eff__115 push_Value"]
-	8 --> 11
 	1[\\"Finish"/]
-	11 --> 1
 end
 </pre>`;
 window.traces.GLOBAL_GET.unLEM = `<pre class='graph'>---
@@ -3996,17 +3752,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["index imm_readULEB32"]
-	0 --> 3
-	5["tv m_getGlobalType"]
-	3 --> 5
-	7["val pop_Value"]
-	5 --> 7
-	11["eff__121 setGlobal"]
-	7 --> 11
 	1[\\"Finish"/]
-	11 --> 1
 end
 </pre>`;
 window.traces.GLOBAL_SET.unLEM = `<pre class='graph'>---
@@ -4233,29 +3979,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["table_index imm_readULEB32"]
-	0 --> 3
-	5["cond__127 m_isTable64"]
-	3 --> 5
-	5["cond__127 m_isTable64"]
-	5 --> 5
-	18{{"Sϕ Stack "}}
-	5 --> 18
 	1[\\"Finish"/]
-	18 --> 1
-	12["index pop_u64"]
-	1 --> 12
-	6["index pop_u32"]
-	12 --> 6
-	15["val mach_readTable64"]
-	6 --> 15
-	17["eff__128 push_Object"]
-	15 --> 17
-	9["val mach_readTable32"]
-	17 --> 9
-	11["eff__132 push_Object"]
-	9 --> 11
 end
 </pre>`;
 window.traces.TABLE_GET.unLEM = `<pre class='graph'>---
@@ -4521,25 +4245,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["table_index imm_readULEB32"]
-	0 --> 3
-	5["cond__137 m_isTable64"]
-	3 --> 5
-	5["cond__137 m_isTable64"]
-	5 --> 5
-	18{{"Sϕ Stack "}}
-	5 --> 18
 	1[\\"Finish"/]
-	18 --> 1
-	12["val pop_Object"]
-	1 --> 12
-	13["index pop_u64"]
-	12 --> 13
-	6["val pop_Object"]
-	13 --> 6
-	7["index pop_u32"]
-	6 --> 7
 end
 </pre>`;
 window.traces.TABLE_SET.unLEM = `<pre class='graph'>---
@@ -4898,95 +4604,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	24["index pop_u64"]
-	0 --> 24
-	16["index pop_u32"]
-	24 --> 16
-	4["memindex__166 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__160 imm_readULEB32"]
-	3 --> 10
-	5["arg__162 0"]
-	10 --> 5
-	6["arg__164 0x40u8"]
-	5 --> 6
-	8["arg__161 u8.&"]
-	6 --> 8
-	9["cond__159 u8.!="]
-	8 --> 9
-	9["cond__159 u8.!="]
-	9 --> 9
-	9["cond__159 u8.!="]
-	9 --> 9
-	9["cond__159 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__159 u8.!="]
-	11 --> 9
-	9["cond__159 u8.!="]
-	9 --> 9
-	9["cond__159 u8.!="]
-	9 --> 9
-	9["cond__159 u8.!="]
-	9 --> 9
-	9["cond__159 u8.!="]
-	9 --> 9
-	9["cond__159 u8.!="]
-	9 --> 9
-	9["cond__159 u8.!="]
-	9 --> 9
-	9["cond__159 u8.!="]
-	9 --> 9
-	9["cond__159 u8.!="]
-	9 --> 9
-	9["cond__159 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	15["offset imm_readULEB32"]
-	23 --> 15
-	14["cond__147 m_isMemory64"]
-	15 --> 14
-	14["cond__147 m_isMemory64"]
-	14 --> 14
-	14["cond__147 m_isMemory64"]
-	14 --> 14
-	14["cond__147 m_isMemory64"]
-	14 --> 14
-	14["cond__147 m_isMemory64"]
-	14 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	14["cond__147 m_isMemory64"]
-	31 --> 14
-	28["val mach_readMemory64_u32"]
-	14 --> 28
-	30["eff__148 push_u32"]
-	28 --> 30
-	20["val mach_readMemory32_u32"]
-	30 --> 20
-	22["eff__153 push_u32"]
-	20 --> 22
-	14["cond__147 m_isMemory64"]
-	22 --> 14
-	14["cond__147 m_isMemory64"]
-	14 --> 14
-	14["cond__147 m_isMemory64"]
-	14 --> 14
-	14["cond__147 m_isMemory64"]
-	14 --> 14
-	14["cond__147 m_isMemory64"]
-	14 --> 14
-	32{{"Sϕ Stack "}}
-	14 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I32_LOAD.unLEM = `<pre class='graph'>---
@@ -5506,95 +5124,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	24["index pop_u64"]
-	0 --> 24
-	16["index pop_u32"]
-	24 --> 16
-	4["memindex__186 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__180 imm_readULEB32"]
-	3 --> 10
-	5["arg__182 0"]
-	10 --> 5
-	6["arg__184 0x40u8"]
-	5 --> 6
-	8["arg__181 u8.&"]
-	6 --> 8
-	9["cond__179 u8.!="]
-	8 --> 9
-	9["cond__179 u8.!="]
-	9 --> 9
-	9["cond__179 u8.!="]
-	9 --> 9
-	9["cond__179 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__179 u8.!="]
-	11 --> 9
-	9["cond__179 u8.!="]
-	9 --> 9
-	9["cond__179 u8.!="]
-	9 --> 9
-	9["cond__179 u8.!="]
-	9 --> 9
-	9["cond__179 u8.!="]
-	9 --> 9
-	9["cond__179 u8.!="]
-	9 --> 9
-	9["cond__179 u8.!="]
-	9 --> 9
-	9["cond__179 u8.!="]
-	9 --> 9
-	9["cond__179 u8.!="]
-	9 --> 9
-	9["cond__179 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	15["offset imm_readULEB32"]
-	23 --> 15
-	14["cond__167 m_isMemory64"]
-	15 --> 14
-	14["cond__167 m_isMemory64"]
-	14 --> 14
-	14["cond__167 m_isMemory64"]
-	14 --> 14
-	14["cond__167 m_isMemory64"]
-	14 --> 14
-	14["cond__167 m_isMemory64"]
-	14 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	14["cond__167 m_isMemory64"]
-	31 --> 14
-	28["val mach_readMemory64_u64"]
-	14 --> 28
-	30["eff__168 push_u64"]
-	28 --> 30
-	20["val mach_readMemory32_u64"]
-	30 --> 20
-	22["eff__173 push_u64"]
-	20 --> 22
-	14["cond__167 m_isMemory64"]
-	22 --> 14
-	14["cond__167 m_isMemory64"]
-	14 --> 14
-	14["cond__167 m_isMemory64"]
-	14 --> 14
-	14["cond__167 m_isMemory64"]
-	14 --> 14
-	14["cond__167 m_isMemory64"]
-	14 --> 14
-	32{{"Sϕ Stack "}}
-	14 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I64_LOAD.unLEM = `<pre class='graph'>---
@@ -6114,95 +5644,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	24["index pop_u64"]
-	0 --> 24
-	16["index pop_u32"]
-	24 --> 16
-	4["memindex__206 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__200 imm_readULEB32"]
-	3 --> 10
-	5["arg__202 0"]
-	10 --> 5
-	6["arg__204 0x40u8"]
-	5 --> 6
-	8["arg__201 u8.&"]
-	6 --> 8
-	9["cond__199 u8.!="]
-	8 --> 9
-	9["cond__199 u8.!="]
-	9 --> 9
-	9["cond__199 u8.!="]
-	9 --> 9
-	9["cond__199 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__199 u8.!="]
-	11 --> 9
-	9["cond__199 u8.!="]
-	9 --> 9
-	9["cond__199 u8.!="]
-	9 --> 9
-	9["cond__199 u8.!="]
-	9 --> 9
-	9["cond__199 u8.!="]
-	9 --> 9
-	9["cond__199 u8.!="]
-	9 --> 9
-	9["cond__199 u8.!="]
-	9 --> 9
-	9["cond__199 u8.!="]
-	9 --> 9
-	9["cond__199 u8.!="]
-	9 --> 9
-	9["cond__199 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	15["offset imm_readULEB32"]
-	23 --> 15
-	14["cond__187 m_isMemory64"]
-	15 --> 14
-	14["cond__187 m_isMemory64"]
-	14 --> 14
-	14["cond__187 m_isMemory64"]
-	14 --> 14
-	14["cond__187 m_isMemory64"]
-	14 --> 14
-	14["cond__187 m_isMemory64"]
-	14 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	14["cond__187 m_isMemory64"]
-	31 --> 14
-	28["val mach_readMemory64_f32"]
-	14 --> 28
-	30["eff__188 push_f32"]
-	28 --> 30
-	20["val mach_readMemory32_f32"]
-	30 --> 20
-	22["eff__193 push_f32"]
-	20 --> 22
-	14["cond__187 m_isMemory64"]
-	22 --> 14
-	14["cond__187 m_isMemory64"]
-	14 --> 14
-	14["cond__187 m_isMemory64"]
-	14 --> 14
-	14["cond__187 m_isMemory64"]
-	14 --> 14
-	14["cond__187 m_isMemory64"]
-	14 --> 14
-	32{{"Sϕ Stack "}}
-	14 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.F32_LOAD.unLEM = `<pre class='graph'>---
@@ -6722,95 +6164,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	24["index pop_u64"]
-	0 --> 24
-	16["index pop_u32"]
-	24 --> 16
-	4["memindex__226 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__220 imm_readULEB32"]
-	3 --> 10
-	5["arg__222 0"]
-	10 --> 5
-	6["arg__224 0x40u8"]
-	5 --> 6
-	8["arg__221 u8.&"]
-	6 --> 8
-	9["cond__219 u8.!="]
-	8 --> 9
-	9["cond__219 u8.!="]
-	9 --> 9
-	9["cond__219 u8.!="]
-	9 --> 9
-	9["cond__219 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__219 u8.!="]
-	11 --> 9
-	9["cond__219 u8.!="]
-	9 --> 9
-	9["cond__219 u8.!="]
-	9 --> 9
-	9["cond__219 u8.!="]
-	9 --> 9
-	9["cond__219 u8.!="]
-	9 --> 9
-	9["cond__219 u8.!="]
-	9 --> 9
-	9["cond__219 u8.!="]
-	9 --> 9
-	9["cond__219 u8.!="]
-	9 --> 9
-	9["cond__219 u8.!="]
-	9 --> 9
-	9["cond__219 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	15["offset imm_readULEB32"]
-	23 --> 15
-	14["cond__207 m_isMemory64"]
-	15 --> 14
-	14["cond__207 m_isMemory64"]
-	14 --> 14
-	14["cond__207 m_isMemory64"]
-	14 --> 14
-	14["cond__207 m_isMemory64"]
-	14 --> 14
-	14["cond__207 m_isMemory64"]
-	14 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	14["cond__207 m_isMemory64"]
-	31 --> 14
-	28["val mach_readMemory64_f64"]
-	14 --> 28
-	30["eff__208 push_f64"]
-	28 --> 30
-	20["val mach_readMemory32_f64"]
-	30 --> 20
-	22["eff__213 push_f64"]
-	20 --> 22
-	14["cond__207 m_isMemory64"]
-	22 --> 14
-	14["cond__207 m_isMemory64"]
-	14 --> 14
-	14["cond__207 m_isMemory64"]
-	14 --> 14
-	14["cond__207 m_isMemory64"]
-	14 --> 14
-	14["cond__207 m_isMemory64"]
-	14 --> 14
-	32{{"Sϕ Stack "}}
-	14 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.F64_LOAD.unLEM = `<pre class='graph'>---
@@ -7346,99 +6700,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	26["index pop_u64"]
-	0 --> 26
-	16["index pop_u32"]
-	26 --> 16
-	4["memindex__248 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__242 imm_readULEB32"]
-	3 --> 10
-	5["arg__244 0"]
-	10 --> 5
-	6["arg__246 0x40u8"]
-	5 --> 6
-	8["arg__243 u8.&"]
-	6 --> 8
-	9["cond__241 u8.!="]
-	8 --> 9
-	9["cond__241 u8.!="]
-	9 --> 9
-	9["cond__241 u8.!="]
-	9 --> 9
-	9["cond__241 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__241 u8.!="]
-	11 --> 9
-	9["cond__241 u8.!="]
-	9 --> 9
-	9["cond__241 u8.!="]
-	9 --> 9
-	9["cond__241 u8.!="]
-	9 --> 9
-	9["cond__241 u8.!="]
-	9 --> 9
-	9["cond__241 u8.!="]
-	9 --> 9
-	9["cond__241 u8.!="]
-	9 --> 9
-	9["cond__241 u8.!="]
-	9 --> 9
-	9["cond__241 u8.!="]
-	9 --> 9
-	9["cond__241 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	25["offset imm_readULEB64"]
-	12 --> 25
-	15["offset imm_readULEB32"]
-	25 --> 15
-	14["cond__227 m_isMemory64"]
-	15 --> 14
-	14["cond__227 m_isMemory64"]
-	14 --> 14
-	14["cond__227 m_isMemory64"]
-	14 --> 14
-	14["cond__227 m_isMemory64"]
-	14 --> 14
-	14["cond__227 m_isMemory64"]
-	14 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	14["cond__227 m_isMemory64"]
-	35 --> 14
-	30["val mach_readMemory64_u8"]
-	14 --> 30
-	32["extend U32_extend8_s"]
-	30 --> 32
-	34["eff__228 push_u32"]
-	32 --> 34
-	20["val mach_readMemory32_u8"]
-	34 --> 20
-	22["extend U32_extend8_s"]
-	20 --> 22
-	24["eff__234 push_u32"]
-	22 --> 24
-	14["cond__227 m_isMemory64"]
-	24 --> 14
-	14["cond__227 m_isMemory64"]
-	14 --> 14
-	14["cond__227 m_isMemory64"]
-	14 --> 14
-	14["cond__227 m_isMemory64"]
-	14 --> 14
-	14["cond__227 m_isMemory64"]
-	14 --> 14
-	36{{"Sϕ Stack "}}
-	14 --> 36
 	1[\\"Finish"/]
-	36 --> 1
 end
 </pre>`;
 window.traces.I32_LOAD8_S.unLEM = `<pre class='graph'>---
@@ -7978,95 +7240,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	24["index pop_u64"]
-	0 --> 24
-	16["index pop_u32"]
-	24 --> 16
-	4["memindex__268 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__262 imm_readULEB32"]
-	3 --> 10
-	5["arg__264 0"]
-	10 --> 5
-	6["arg__266 0x40u8"]
-	5 --> 6
-	8["arg__263 u8.&"]
-	6 --> 8
-	9["cond__261 u8.!="]
-	8 --> 9
-	9["cond__261 u8.!="]
-	9 --> 9
-	9["cond__261 u8.!="]
-	9 --> 9
-	9["cond__261 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__261 u8.!="]
-	11 --> 9
-	9["cond__261 u8.!="]
-	9 --> 9
-	9["cond__261 u8.!="]
-	9 --> 9
-	9["cond__261 u8.!="]
-	9 --> 9
-	9["cond__261 u8.!="]
-	9 --> 9
-	9["cond__261 u8.!="]
-	9 --> 9
-	9["cond__261 u8.!="]
-	9 --> 9
-	9["cond__261 u8.!="]
-	9 --> 9
-	9["cond__261 u8.!="]
-	9 --> 9
-	9["cond__261 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	15["offset imm_readULEB32"]
-	23 --> 15
-	14["cond__249 m_isMemory64"]
-	15 --> 14
-	14["cond__249 m_isMemory64"]
-	14 --> 14
-	14["cond__249 m_isMemory64"]
-	14 --> 14
-	14["cond__249 m_isMemory64"]
-	14 --> 14
-	14["cond__249 m_isMemory64"]
-	14 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	14["cond__249 m_isMemory64"]
-	31 --> 14
-	28["val mach_readMemory64_u8"]
-	14 --> 28
-	30["eff__250 push_u32"]
-	28 --> 30
-	20["val mach_readMemory32_u8"]
-	30 --> 20
-	22["eff__255 push_u32"]
-	20 --> 22
-	14["cond__249 m_isMemory64"]
-	22 --> 14
-	14["cond__249 m_isMemory64"]
-	14 --> 14
-	14["cond__249 m_isMemory64"]
-	14 --> 14
-	14["cond__249 m_isMemory64"]
-	14 --> 14
-	14["cond__249 m_isMemory64"]
-	14 --> 14
-	32{{"Sϕ Stack "}}
-	14 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I32_LOAD8_U.unLEM = `<pre class='graph'>---
@@ -8602,99 +7776,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	26["index pop_u64"]
-	0 --> 26
-	16["index pop_u32"]
-	26 --> 16
-	4["memindex__290 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__284 imm_readULEB32"]
-	3 --> 10
-	5["arg__286 0"]
-	10 --> 5
-	6["arg__288 0x40u8"]
-	5 --> 6
-	8["arg__285 u8.&"]
-	6 --> 8
-	9["cond__283 u8.!="]
-	8 --> 9
-	9["cond__283 u8.!="]
-	9 --> 9
-	9["cond__283 u8.!="]
-	9 --> 9
-	9["cond__283 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__283 u8.!="]
-	11 --> 9
-	9["cond__283 u8.!="]
-	9 --> 9
-	9["cond__283 u8.!="]
-	9 --> 9
-	9["cond__283 u8.!="]
-	9 --> 9
-	9["cond__283 u8.!="]
-	9 --> 9
-	9["cond__283 u8.!="]
-	9 --> 9
-	9["cond__283 u8.!="]
-	9 --> 9
-	9["cond__283 u8.!="]
-	9 --> 9
-	9["cond__283 u8.!="]
-	9 --> 9
-	9["cond__283 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	25["offset imm_readULEB64"]
-	12 --> 25
-	15["offset imm_readULEB32"]
-	25 --> 15
-	14["cond__269 m_isMemory64"]
-	15 --> 14
-	14["cond__269 m_isMemory64"]
-	14 --> 14
-	14["cond__269 m_isMemory64"]
-	14 --> 14
-	14["cond__269 m_isMemory64"]
-	14 --> 14
-	14["cond__269 m_isMemory64"]
-	14 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	14["cond__269 m_isMemory64"]
-	35 --> 14
-	30["val mach_readMemory64_u16"]
-	14 --> 30
-	32["extend U32_extend16_s"]
-	30 --> 32
-	34["eff__270 push_u32"]
-	32 --> 34
-	20["val mach_readMemory32_u16"]
-	34 --> 20
-	22["extend U32_extend16_s"]
-	20 --> 22
-	24["eff__276 push_u32"]
-	22 --> 24
-	14["cond__269 m_isMemory64"]
-	24 --> 14
-	14["cond__269 m_isMemory64"]
-	14 --> 14
-	14["cond__269 m_isMemory64"]
-	14 --> 14
-	14["cond__269 m_isMemory64"]
-	14 --> 14
-	14["cond__269 m_isMemory64"]
-	14 --> 14
-	36{{"Sϕ Stack "}}
-	14 --> 36
 	1[\\"Finish"/]
-	36 --> 1
 end
 </pre>`;
 window.traces.I32_LOAD16_S.unLEM = `<pre class='graph'>---
@@ -9234,95 +8316,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	24["index pop_u64"]
-	0 --> 24
-	16["index pop_u32"]
-	24 --> 16
-	4["memindex__310 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__304 imm_readULEB32"]
-	3 --> 10
-	5["arg__306 0"]
-	10 --> 5
-	6["arg__308 0x40u8"]
-	5 --> 6
-	8["arg__305 u8.&"]
-	6 --> 8
-	9["cond__303 u8.!="]
-	8 --> 9
-	9["cond__303 u8.!="]
-	9 --> 9
-	9["cond__303 u8.!="]
-	9 --> 9
-	9["cond__303 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__303 u8.!="]
-	11 --> 9
-	9["cond__303 u8.!="]
-	9 --> 9
-	9["cond__303 u8.!="]
-	9 --> 9
-	9["cond__303 u8.!="]
-	9 --> 9
-	9["cond__303 u8.!="]
-	9 --> 9
-	9["cond__303 u8.!="]
-	9 --> 9
-	9["cond__303 u8.!="]
-	9 --> 9
-	9["cond__303 u8.!="]
-	9 --> 9
-	9["cond__303 u8.!="]
-	9 --> 9
-	9["cond__303 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	15["offset imm_readULEB32"]
-	23 --> 15
-	14["cond__291 m_isMemory64"]
-	15 --> 14
-	14["cond__291 m_isMemory64"]
-	14 --> 14
-	14["cond__291 m_isMemory64"]
-	14 --> 14
-	14["cond__291 m_isMemory64"]
-	14 --> 14
-	14["cond__291 m_isMemory64"]
-	14 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	14["cond__291 m_isMemory64"]
-	31 --> 14
-	28["val mach_readMemory64_u16"]
-	14 --> 28
-	30["eff__292 push_u32"]
-	28 --> 30
-	20["val mach_readMemory32_u16"]
-	30 --> 20
-	22["eff__297 push_u32"]
-	20 --> 22
-	14["cond__291 m_isMemory64"]
-	22 --> 14
-	14["cond__291 m_isMemory64"]
-	14 --> 14
-	14["cond__291 m_isMemory64"]
-	14 --> 14
-	14["cond__291 m_isMemory64"]
-	14 --> 14
-	14["cond__291 m_isMemory64"]
-	14 --> 14
-	32{{"Sϕ Stack "}}
-	14 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I32_LOAD16_U.unLEM = `<pre class='graph'>---
@@ -9858,99 +8852,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	26["index pop_u64"]
-	0 --> 26
-	16["index pop_u32"]
-	26 --> 16
-	4["memindex__332 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__326 imm_readULEB32"]
-	3 --> 10
-	5["arg__328 0"]
-	10 --> 5
-	6["arg__330 0x40u8"]
-	5 --> 6
-	8["arg__327 u8.&"]
-	6 --> 8
-	9["cond__325 u8.!="]
-	8 --> 9
-	9["cond__325 u8.!="]
-	9 --> 9
-	9["cond__325 u8.!="]
-	9 --> 9
-	9["cond__325 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__325 u8.!="]
-	11 --> 9
-	9["cond__325 u8.!="]
-	9 --> 9
-	9["cond__325 u8.!="]
-	9 --> 9
-	9["cond__325 u8.!="]
-	9 --> 9
-	9["cond__325 u8.!="]
-	9 --> 9
-	9["cond__325 u8.!="]
-	9 --> 9
-	9["cond__325 u8.!="]
-	9 --> 9
-	9["cond__325 u8.!="]
-	9 --> 9
-	9["cond__325 u8.!="]
-	9 --> 9
-	9["cond__325 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	25["offset imm_readULEB64"]
-	12 --> 25
-	15["offset imm_readULEB32"]
-	25 --> 15
-	14["cond__311 m_isMemory64"]
-	15 --> 14
-	14["cond__311 m_isMemory64"]
-	14 --> 14
-	14["cond__311 m_isMemory64"]
-	14 --> 14
-	14["cond__311 m_isMemory64"]
-	14 --> 14
-	14["cond__311 m_isMemory64"]
-	14 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	14["cond__311 m_isMemory64"]
-	35 --> 14
-	30["val mach_readMemory64_u8_64"]
-	14 --> 30
-	32["extend U64_extend8_s"]
-	30 --> 32
-	34["eff__312 push_u64"]
-	32 --> 34
-	20["val mach_readMemory32_u8_64"]
-	34 --> 20
-	22["extend U64_extend8_s"]
-	20 --> 22
-	24["eff__318 push_u64"]
-	22 --> 24
-	14["cond__311 m_isMemory64"]
-	24 --> 14
-	14["cond__311 m_isMemory64"]
-	14 --> 14
-	14["cond__311 m_isMemory64"]
-	14 --> 14
-	14["cond__311 m_isMemory64"]
-	14 --> 14
-	14["cond__311 m_isMemory64"]
-	14 --> 14
-	36{{"Sϕ Stack "}}
-	14 --> 36
 	1[\\"Finish"/]
-	36 --> 1
 end
 </pre>`;
 window.traces.I64_LOAD8_S.unLEM = `<pre class='graph'>---
@@ -10490,95 +9392,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	24["index pop_u64"]
-	0 --> 24
-	16["index pop_u32"]
-	24 --> 16
-	4["memindex__352 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__346 imm_readULEB32"]
-	3 --> 10
-	5["arg__348 0"]
-	10 --> 5
-	6["arg__350 0x40u8"]
-	5 --> 6
-	8["arg__347 u8.&"]
-	6 --> 8
-	9["cond__345 u8.!="]
-	8 --> 9
-	9["cond__345 u8.!="]
-	9 --> 9
-	9["cond__345 u8.!="]
-	9 --> 9
-	9["cond__345 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__345 u8.!="]
-	11 --> 9
-	9["cond__345 u8.!="]
-	9 --> 9
-	9["cond__345 u8.!="]
-	9 --> 9
-	9["cond__345 u8.!="]
-	9 --> 9
-	9["cond__345 u8.!="]
-	9 --> 9
-	9["cond__345 u8.!="]
-	9 --> 9
-	9["cond__345 u8.!="]
-	9 --> 9
-	9["cond__345 u8.!="]
-	9 --> 9
-	9["cond__345 u8.!="]
-	9 --> 9
-	9["cond__345 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	15["offset imm_readULEB32"]
-	23 --> 15
-	14["cond__333 m_isMemory64"]
-	15 --> 14
-	14["cond__333 m_isMemory64"]
-	14 --> 14
-	14["cond__333 m_isMemory64"]
-	14 --> 14
-	14["cond__333 m_isMemory64"]
-	14 --> 14
-	14["cond__333 m_isMemory64"]
-	14 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	14["cond__333 m_isMemory64"]
-	31 --> 14
-	28["val mach_readMemory64_u8_64"]
-	14 --> 28
-	30["eff__334 push_u64"]
-	28 --> 30
-	20["val mach_readMemory32_u8_64"]
-	30 --> 20
-	22["eff__339 push_u64"]
-	20 --> 22
-	14["cond__333 m_isMemory64"]
-	22 --> 14
-	14["cond__333 m_isMemory64"]
-	14 --> 14
-	14["cond__333 m_isMemory64"]
-	14 --> 14
-	14["cond__333 m_isMemory64"]
-	14 --> 14
-	14["cond__333 m_isMemory64"]
-	14 --> 14
-	32{{"Sϕ Stack "}}
-	14 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I64_LOAD8_U.unLEM = `<pre class='graph'>---
@@ -11114,99 +9928,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	26["index pop_u64"]
-	0 --> 26
-	16["index pop_u32"]
-	26 --> 16
-	4["memindex__374 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__368 imm_readULEB32"]
-	3 --> 10
-	5["arg__370 0"]
-	10 --> 5
-	6["arg__372 0x40u8"]
-	5 --> 6
-	8["arg__369 u8.&"]
-	6 --> 8
-	9["cond__367 u8.!="]
-	8 --> 9
-	9["cond__367 u8.!="]
-	9 --> 9
-	9["cond__367 u8.!="]
-	9 --> 9
-	9["cond__367 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__367 u8.!="]
-	11 --> 9
-	9["cond__367 u8.!="]
-	9 --> 9
-	9["cond__367 u8.!="]
-	9 --> 9
-	9["cond__367 u8.!="]
-	9 --> 9
-	9["cond__367 u8.!="]
-	9 --> 9
-	9["cond__367 u8.!="]
-	9 --> 9
-	9["cond__367 u8.!="]
-	9 --> 9
-	9["cond__367 u8.!="]
-	9 --> 9
-	9["cond__367 u8.!="]
-	9 --> 9
-	9["cond__367 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	25["offset imm_readULEB64"]
-	12 --> 25
-	15["offset imm_readULEB32"]
-	25 --> 15
-	14["cond__353 m_isMemory64"]
-	15 --> 14
-	14["cond__353 m_isMemory64"]
-	14 --> 14
-	14["cond__353 m_isMemory64"]
-	14 --> 14
-	14["cond__353 m_isMemory64"]
-	14 --> 14
-	14["cond__353 m_isMemory64"]
-	14 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	14["cond__353 m_isMemory64"]
-	35 --> 14
-	30["val mach_readMemory64_u16_64"]
-	14 --> 30
-	32["extend U64_extend16_s"]
-	30 --> 32
-	34["eff__354 push_u64"]
-	32 --> 34
-	20["val mach_readMemory32_u16_64"]
-	34 --> 20
-	22["extend U64_extend16_s"]
-	20 --> 22
-	24["eff__360 push_u64"]
-	22 --> 24
-	14["cond__353 m_isMemory64"]
-	24 --> 14
-	14["cond__353 m_isMemory64"]
-	14 --> 14
-	14["cond__353 m_isMemory64"]
-	14 --> 14
-	14["cond__353 m_isMemory64"]
-	14 --> 14
-	14["cond__353 m_isMemory64"]
-	14 --> 14
-	36{{"Sϕ Stack "}}
-	14 --> 36
 	1[\\"Finish"/]
-	36 --> 1
 end
 </pre>`;
 window.traces.I64_LOAD16_S.unLEM = `<pre class='graph'>---
@@ -11746,95 +10468,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	24["index pop_u64"]
-	0 --> 24
-	16["index pop_u32"]
-	24 --> 16
-	4["memindex__394 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__388 imm_readULEB32"]
-	3 --> 10
-	5["arg__390 0"]
-	10 --> 5
-	6["arg__392 0x40u8"]
-	5 --> 6
-	8["arg__389 u8.&"]
-	6 --> 8
-	9["cond__387 u8.!="]
-	8 --> 9
-	9["cond__387 u8.!="]
-	9 --> 9
-	9["cond__387 u8.!="]
-	9 --> 9
-	9["cond__387 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__387 u8.!="]
-	11 --> 9
-	9["cond__387 u8.!="]
-	9 --> 9
-	9["cond__387 u8.!="]
-	9 --> 9
-	9["cond__387 u8.!="]
-	9 --> 9
-	9["cond__387 u8.!="]
-	9 --> 9
-	9["cond__387 u8.!="]
-	9 --> 9
-	9["cond__387 u8.!="]
-	9 --> 9
-	9["cond__387 u8.!="]
-	9 --> 9
-	9["cond__387 u8.!="]
-	9 --> 9
-	9["cond__387 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	15["offset imm_readULEB32"]
-	23 --> 15
-	14["cond__375 m_isMemory64"]
-	15 --> 14
-	14["cond__375 m_isMemory64"]
-	14 --> 14
-	14["cond__375 m_isMemory64"]
-	14 --> 14
-	14["cond__375 m_isMemory64"]
-	14 --> 14
-	14["cond__375 m_isMemory64"]
-	14 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	14["cond__375 m_isMemory64"]
-	31 --> 14
-	28["val mach_readMemory64_u16_64"]
-	14 --> 28
-	30["eff__376 push_u64"]
-	28 --> 30
-	20["val mach_readMemory32_u16_64"]
-	30 --> 20
-	22["eff__381 push_u64"]
-	20 --> 22
-	14["cond__375 m_isMemory64"]
-	22 --> 14
-	14["cond__375 m_isMemory64"]
-	14 --> 14
-	14["cond__375 m_isMemory64"]
-	14 --> 14
-	14["cond__375 m_isMemory64"]
-	14 --> 14
-	14["cond__375 m_isMemory64"]
-	14 --> 14
-	32{{"Sϕ Stack "}}
-	14 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I64_LOAD16_U.unLEM = `<pre class='graph'>---
@@ -12370,99 +11004,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	26["index pop_u64"]
-	0 --> 26
-	16["index pop_u32"]
-	26 --> 16
-	4["memindex__416 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__410 imm_readULEB32"]
-	3 --> 10
-	5["arg__412 0"]
-	10 --> 5
-	6["arg__414 0x40u8"]
-	5 --> 6
-	8["arg__411 u8.&"]
-	6 --> 8
-	9["cond__409 u8.!="]
-	8 --> 9
-	9["cond__409 u8.!="]
-	9 --> 9
-	9["cond__409 u8.!="]
-	9 --> 9
-	9["cond__409 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__409 u8.!="]
-	11 --> 9
-	9["cond__409 u8.!="]
-	9 --> 9
-	9["cond__409 u8.!="]
-	9 --> 9
-	9["cond__409 u8.!="]
-	9 --> 9
-	9["cond__409 u8.!="]
-	9 --> 9
-	9["cond__409 u8.!="]
-	9 --> 9
-	9["cond__409 u8.!="]
-	9 --> 9
-	9["cond__409 u8.!="]
-	9 --> 9
-	9["cond__409 u8.!="]
-	9 --> 9
-	9["cond__409 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	25["offset imm_readULEB64"]
-	12 --> 25
-	15["offset imm_readULEB32"]
-	25 --> 15
-	14["cond__395 m_isMemory64"]
-	15 --> 14
-	14["cond__395 m_isMemory64"]
-	14 --> 14
-	14["cond__395 m_isMemory64"]
-	14 --> 14
-	14["cond__395 m_isMemory64"]
-	14 --> 14
-	14["cond__395 m_isMemory64"]
-	14 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	14["cond__395 m_isMemory64"]
-	35 --> 14
-	30["val mach_readMemory64_u32_64"]
-	14 --> 30
-	32["extend U64_extend32_s"]
-	30 --> 32
-	34["eff__396 push_u64"]
-	32 --> 34
-	20["val mach_readMemory32_u32_64"]
-	34 --> 20
-	22["extend U64_extend32_s"]
-	20 --> 22
-	24["eff__402 push_u64"]
-	22 --> 24
-	14["cond__395 m_isMemory64"]
-	24 --> 14
-	14["cond__395 m_isMemory64"]
-	14 --> 14
-	14["cond__395 m_isMemory64"]
-	14 --> 14
-	14["cond__395 m_isMemory64"]
-	14 --> 14
-	14["cond__395 m_isMemory64"]
-	14 --> 14
-	36{{"Sϕ Stack "}}
-	14 --> 36
 	1[\\"Finish"/]
-	36 --> 1
 end
 </pre>`;
 window.traces.I64_LOAD32_S.unLEM = `<pre class='graph'>---
@@ -13002,95 +11544,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	24["index pop_u64"]
-	0 --> 24
-	16["index pop_u32"]
-	24 --> 16
-	4["memindex__436 0u"]
-	16 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__430 imm_readULEB32"]
-	3 --> 10
-	5["arg__432 0"]
-	10 --> 5
-	6["arg__434 0x40u8"]
-	5 --> 6
-	8["arg__431 u8.&"]
-	6 --> 8
-	9["cond__429 u8.!="]
-	8 --> 9
-	9["cond__429 u8.!="]
-	9 --> 9
-	9["cond__429 u8.!="]
-	9 --> 9
-	9["cond__429 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__429 u8.!="]
-	11 --> 9
-	9["cond__429 u8.!="]
-	9 --> 9
-	9["cond__429 u8.!="]
-	9 --> 9
-	9["cond__429 u8.!="]
-	9 --> 9
-	9["cond__429 u8.!="]
-	9 --> 9
-	9["cond__429 u8.!="]
-	9 --> 9
-	9["cond__429 u8.!="]
-	9 --> 9
-	9["cond__429 u8.!="]
-	9 --> 9
-	9["cond__429 u8.!="]
-	9 --> 9
-	9["cond__429 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	15["offset imm_readULEB32"]
-	23 --> 15
-	14["cond__417 m_isMemory64"]
-	15 --> 14
-	14["cond__417 m_isMemory64"]
-	14 --> 14
-	14["cond__417 m_isMemory64"]
-	14 --> 14
-	14["cond__417 m_isMemory64"]
-	14 --> 14
-	14["cond__417 m_isMemory64"]
-	14 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	14["cond__417 m_isMemory64"]
-	31 --> 14
-	28["val mach_readMemory64_u32_64"]
-	14 --> 28
-	30["eff__418 push_u64"]
-	28 --> 30
-	20["val mach_readMemory32_u32_64"]
-	30 --> 20
-	22["eff__423 push_u64"]
-	20 --> 22
-	14["cond__417 m_isMemory64"]
-	22 --> 14
-	14["cond__417 m_isMemory64"]
-	14 --> 14
-	14["cond__417 m_isMemory64"]
-	14 --> 14
-	14["cond__417 m_isMemory64"]
-	14 --> 14
-	14["cond__417 m_isMemory64"]
-	14 --> 14
-	32{{"Sϕ Stack "}}
-	14 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I64_LOAD32_U.unLEM = `<pre class='graph'>---
@@ -13624,107 +12078,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	13["val pop_u32"]
-	0 --> 13
-	24["index pop_u64"]
-	13 --> 24
-	17["index pop_u32"]
-	24 --> 17
-	4["memindex__456 0u"]
-	17 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__450 imm_readULEB32"]
-	3 --> 10
-	5["arg__452 0"]
-	10 --> 5
-	6["arg__454 0x40u8"]
-	5 --> 6
-	8["arg__451 u8.&"]
-	6 --> 8
-	9["cond__449 u8.!="]
-	8 --> 9
-	9["cond__449 u8.!="]
-	9 --> 9
-	9["cond__449 u8.!="]
-	9 --> 9
-	9["cond__449 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__449 u8.!="]
-	11 --> 9
-	9["cond__449 u8.!="]
-	9 --> 9
-	9["cond__449 u8.!="]
-	9 --> 9
-	9["cond__449 u8.!="]
-	9 --> 9
-	9["cond__449 u8.!="]
-	9 --> 9
-	9["cond__449 u8.!="]
-	9 --> 9
-	9["cond__449 u8.!="]
-	9 --> 9
-	9["cond__449 u8.!="]
-	9 --> 9
-	9["cond__449 u8.!="]
-	9 --> 9
-	9["cond__449 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	16["offset imm_readULEB32"]
-	23 --> 16
-	15["cond__437 m_isMemory64"]
-	16 --> 15
-	15["cond__437 m_isMemory64"]
-	15 --> 15
-	15["cond__437 m_isMemory64"]
-	15 --> 15
-	15["cond__437 m_isMemory64"]
-	15 --> 15
-	15["cond__437 m_isMemory64"]
-	15 --> 15
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	15["cond__437 m_isMemory64"]
-	30 --> 15
-	15["cond__437 m_isMemory64"]
-	15 --> 15
-	15["cond__437 m_isMemory64"]
-	15 --> 15
-	15["cond__437 m_isMemory64"]
-	15 --> 15
-	15["cond__437 m_isMemory64"]
-	15 --> 15
-	15["cond__437 m_isMemory64"]
-	15 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	15["cond__437 m_isMemory64"]
-	31 --> 15
-	29["eff__438 mach_writeMemory64_u32"]
-	15 --> 29
-	22["eff__443 mach_writeMemory32_u32"]
-	29 --> 22
-	15["cond__437 m_isMemory64"]
-	22 --> 15
-	15["cond__437 m_isMemory64"]
-	15 --> 15
-	15["cond__437 m_isMemory64"]
-	15 --> 15
-	15["cond__437 m_isMemory64"]
-	15 --> 15
-	15["cond__437 m_isMemory64"]
-	15 --> 15
-	32{{"Sϕ Memory "}}
-	15 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I32_STORE.unLEM = `<pre class='graph'>---
@@ -14269,107 +12623,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	13["val pop_u64"]
-	0 --> 13
-	24["index pop_u64"]
-	13 --> 24
-	17["index pop_u32"]
-	24 --> 17
-	4["memindex__476 0u"]
-	17 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__470 imm_readULEB32"]
-	3 --> 10
-	5["arg__472 0"]
-	10 --> 5
-	6["arg__474 0x40u8"]
-	5 --> 6
-	8["arg__471 u8.&"]
-	6 --> 8
-	9["cond__469 u8.!="]
-	8 --> 9
-	9["cond__469 u8.!="]
-	9 --> 9
-	9["cond__469 u8.!="]
-	9 --> 9
-	9["cond__469 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__469 u8.!="]
-	11 --> 9
-	9["cond__469 u8.!="]
-	9 --> 9
-	9["cond__469 u8.!="]
-	9 --> 9
-	9["cond__469 u8.!="]
-	9 --> 9
-	9["cond__469 u8.!="]
-	9 --> 9
-	9["cond__469 u8.!="]
-	9 --> 9
-	9["cond__469 u8.!="]
-	9 --> 9
-	9["cond__469 u8.!="]
-	9 --> 9
-	9["cond__469 u8.!="]
-	9 --> 9
-	9["cond__469 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	16["offset imm_readULEB32"]
-	23 --> 16
-	15["cond__457 m_isMemory64"]
-	16 --> 15
-	15["cond__457 m_isMemory64"]
-	15 --> 15
-	15["cond__457 m_isMemory64"]
-	15 --> 15
-	15["cond__457 m_isMemory64"]
-	15 --> 15
-	15["cond__457 m_isMemory64"]
-	15 --> 15
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	15["cond__457 m_isMemory64"]
-	30 --> 15
-	15["cond__457 m_isMemory64"]
-	15 --> 15
-	15["cond__457 m_isMemory64"]
-	15 --> 15
-	15["cond__457 m_isMemory64"]
-	15 --> 15
-	15["cond__457 m_isMemory64"]
-	15 --> 15
-	15["cond__457 m_isMemory64"]
-	15 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	15["cond__457 m_isMemory64"]
-	31 --> 15
-	29["eff__458 mach_writeMemory64_u64"]
-	15 --> 29
-	22["eff__463 mach_writeMemory32_u64"]
-	29 --> 22
-	15["cond__457 m_isMemory64"]
-	22 --> 15
-	15["cond__457 m_isMemory64"]
-	15 --> 15
-	15["cond__457 m_isMemory64"]
-	15 --> 15
-	15["cond__457 m_isMemory64"]
-	15 --> 15
-	15["cond__457 m_isMemory64"]
-	15 --> 15
-	32{{"Sϕ Memory "}}
-	15 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I64_STORE.unLEM = `<pre class='graph'>---
@@ -14863,89 +13117,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	13["val pop_f32"]
-	0 --> 13
-	24["index pop_u64"]
-	13 --> 24
-	17["index pop_u32"]
-	24 --> 17
-	4["memindex__496 0u"]
-	17 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__490 imm_readULEB32"]
-	3 --> 10
-	5["arg__492 0"]
-	10 --> 5
-	6["arg__494 0x40u8"]
-	5 --> 6
-	8["arg__491 u8.&"]
-	6 --> 8
-	9["cond__489 u8.!="]
-	8 --> 9
-	9["cond__489 u8.!="]
-	9 --> 9
-	9["cond__489 u8.!="]
-	9 --> 9
-	9["cond__489 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__489 u8.!="]
-	11 --> 9
-	9["cond__489 u8.!="]
-	9 --> 9
-	9["cond__489 u8.!="]
-	9 --> 9
-	9["cond__489 u8.!="]
-	9 --> 9
-	9["cond__489 u8.!="]
-	9 --> 9
-	9["cond__489 u8.!="]
-	9 --> 9
-	9["cond__489 u8.!="]
-	9 --> 9
-	9["cond__489 u8.!="]
-	9 --> 9
-	9["cond__489 u8.!="]
-	9 --> 9
-	9["cond__489 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	16["offset imm_readULEB32"]
-	23 --> 16
-	15["cond__477 m_isMemory64"]
-	16 --> 15
-	15["cond__477 m_isMemory64"]
-	15 --> 15
-	15["cond__477 m_isMemory64"]
-	15 --> 15
-	15["cond__477 m_isMemory64"]
-	15 --> 15
-	15["cond__477 m_isMemory64"]
-	15 --> 15
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	15["cond__477 m_isMemory64"]
-	30 --> 15
-	15["cond__477 m_isMemory64"]
-	15 --> 15
-	15["cond__477 m_isMemory64"]
-	15 --> 15
-	15["cond__477 m_isMemory64"]
-	15 --> 15
-	15["cond__477 m_isMemory64"]
-	15 --> 15
-	15["cond__477 m_isMemory64"]
-	15 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
 	1[\\"Finish"/]
-	31 --> 1
 end
 </pre>`;
 window.traces.F32_STORE.unLEM = `<pre class='graph'>---
@@ -15431,107 +13603,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	13["val pop_f64"]
-	0 --> 13
-	24["index pop_u64"]
-	13 --> 24
-	17["index pop_u32"]
-	24 --> 17
-	4["memindex__516 0u"]
-	17 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__510 imm_readULEB32"]
-	3 --> 10
-	5["arg__512 0"]
-	10 --> 5
-	6["arg__514 0x40u8"]
-	5 --> 6
-	8["arg__511 u8.&"]
-	6 --> 8
-	9["cond__509 u8.!="]
-	8 --> 9
-	9["cond__509 u8.!="]
-	9 --> 9
-	9["cond__509 u8.!="]
-	9 --> 9
-	9["cond__509 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__509 u8.!="]
-	11 --> 9
-	9["cond__509 u8.!="]
-	9 --> 9
-	9["cond__509 u8.!="]
-	9 --> 9
-	9["cond__509 u8.!="]
-	9 --> 9
-	9["cond__509 u8.!="]
-	9 --> 9
-	9["cond__509 u8.!="]
-	9 --> 9
-	9["cond__509 u8.!="]
-	9 --> 9
-	9["cond__509 u8.!="]
-	9 --> 9
-	9["cond__509 u8.!="]
-	9 --> 9
-	9["cond__509 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	16["offset imm_readULEB32"]
-	23 --> 16
-	15["cond__497 m_isMemory64"]
-	16 --> 15
-	15["cond__497 m_isMemory64"]
-	15 --> 15
-	15["cond__497 m_isMemory64"]
-	15 --> 15
-	15["cond__497 m_isMemory64"]
-	15 --> 15
-	15["cond__497 m_isMemory64"]
-	15 --> 15
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	15["cond__497 m_isMemory64"]
-	30 --> 15
-	15["cond__497 m_isMemory64"]
-	15 --> 15
-	15["cond__497 m_isMemory64"]
-	15 --> 15
-	15["cond__497 m_isMemory64"]
-	15 --> 15
-	15["cond__497 m_isMemory64"]
-	15 --> 15
-	15["cond__497 m_isMemory64"]
-	15 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	15["cond__497 m_isMemory64"]
-	31 --> 15
-	29["eff__498 mach_writeMemory64_f64"]
-	15 --> 29
-	22["eff__503 mach_writeMemory32_f64"]
-	29 --> 22
-	15["cond__497 m_isMemory64"]
-	22 --> 15
-	15["cond__497 m_isMemory64"]
-	15 --> 15
-	15["cond__497 m_isMemory64"]
-	15 --> 15
-	15["cond__497 m_isMemory64"]
-	15 --> 15
-	15["cond__497 m_isMemory64"]
-	15 --> 15
-	32{{"Sϕ Memory "}}
-	15 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.F64_STORE.unLEM = `<pre class='graph'>---
@@ -16076,107 +14148,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	13["val pop_u32"]
-	0 --> 13
-	24["index pop_u64"]
-	13 --> 24
-	17["index pop_u32"]
-	24 --> 17
-	4["memindex__536 0u"]
-	17 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__530 imm_readULEB32"]
-	3 --> 10
-	5["arg__532 0"]
-	10 --> 5
-	6["arg__534 0x40u8"]
-	5 --> 6
-	8["arg__531 u8.&"]
-	6 --> 8
-	9["cond__529 u8.!="]
-	8 --> 9
-	9["cond__529 u8.!="]
-	9 --> 9
-	9["cond__529 u8.!="]
-	9 --> 9
-	9["cond__529 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__529 u8.!="]
-	11 --> 9
-	9["cond__529 u8.!="]
-	9 --> 9
-	9["cond__529 u8.!="]
-	9 --> 9
-	9["cond__529 u8.!="]
-	9 --> 9
-	9["cond__529 u8.!="]
-	9 --> 9
-	9["cond__529 u8.!="]
-	9 --> 9
-	9["cond__529 u8.!="]
-	9 --> 9
-	9["cond__529 u8.!="]
-	9 --> 9
-	9["cond__529 u8.!="]
-	9 --> 9
-	9["cond__529 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	16["offset imm_readULEB32"]
-	23 --> 16
-	15["cond__517 m_isMemory64"]
-	16 --> 15
-	15["cond__517 m_isMemory64"]
-	15 --> 15
-	15["cond__517 m_isMemory64"]
-	15 --> 15
-	15["cond__517 m_isMemory64"]
-	15 --> 15
-	15["cond__517 m_isMemory64"]
-	15 --> 15
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	15["cond__517 m_isMemory64"]
-	30 --> 15
-	15["cond__517 m_isMemory64"]
-	15 --> 15
-	15["cond__517 m_isMemory64"]
-	15 --> 15
-	15["cond__517 m_isMemory64"]
-	15 --> 15
-	15["cond__517 m_isMemory64"]
-	15 --> 15
-	15["cond__517 m_isMemory64"]
-	15 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	15["cond__517 m_isMemory64"]
-	31 --> 15
-	29["eff__518 mach_writeMemory64_u8"]
-	15 --> 29
-	22["eff__523 mach_writeMemory32_u8"]
-	29 --> 22
-	15["cond__517 m_isMemory64"]
-	22 --> 15
-	15["cond__517 m_isMemory64"]
-	15 --> 15
-	15["cond__517 m_isMemory64"]
-	15 --> 15
-	15["cond__517 m_isMemory64"]
-	15 --> 15
-	15["cond__517 m_isMemory64"]
-	15 --> 15
-	32{{"Sϕ Memory "}}
-	15 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I32_STORE8.unLEM = `<pre class='graph'>---
@@ -16721,107 +14693,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	13["val pop_u32"]
-	0 --> 13
-	24["index pop_u64"]
-	13 --> 24
-	17["index pop_u32"]
-	24 --> 17
-	4["memindex__556 0u"]
-	17 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__550 imm_readULEB32"]
-	3 --> 10
-	5["arg__552 0"]
-	10 --> 5
-	6["arg__554 0x40u8"]
-	5 --> 6
-	8["arg__551 u8.&"]
-	6 --> 8
-	9["cond__549 u8.!="]
-	8 --> 9
-	9["cond__549 u8.!="]
-	9 --> 9
-	9["cond__549 u8.!="]
-	9 --> 9
-	9["cond__549 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__549 u8.!="]
-	11 --> 9
-	9["cond__549 u8.!="]
-	9 --> 9
-	9["cond__549 u8.!="]
-	9 --> 9
-	9["cond__549 u8.!="]
-	9 --> 9
-	9["cond__549 u8.!="]
-	9 --> 9
-	9["cond__549 u8.!="]
-	9 --> 9
-	9["cond__549 u8.!="]
-	9 --> 9
-	9["cond__549 u8.!="]
-	9 --> 9
-	9["cond__549 u8.!="]
-	9 --> 9
-	9["cond__549 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	16["offset imm_readULEB32"]
-	23 --> 16
-	15["cond__537 m_isMemory64"]
-	16 --> 15
-	15["cond__537 m_isMemory64"]
-	15 --> 15
-	15["cond__537 m_isMemory64"]
-	15 --> 15
-	15["cond__537 m_isMemory64"]
-	15 --> 15
-	15["cond__537 m_isMemory64"]
-	15 --> 15
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	15["cond__537 m_isMemory64"]
-	30 --> 15
-	15["cond__537 m_isMemory64"]
-	15 --> 15
-	15["cond__537 m_isMemory64"]
-	15 --> 15
-	15["cond__537 m_isMemory64"]
-	15 --> 15
-	15["cond__537 m_isMemory64"]
-	15 --> 15
-	15["cond__537 m_isMemory64"]
-	15 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	15["cond__537 m_isMemory64"]
-	31 --> 15
-	29["eff__538 mach_writeMemory64_u16"]
-	15 --> 29
-	22["eff__543 mach_writeMemory32_u16"]
-	29 --> 22
-	15["cond__537 m_isMemory64"]
-	22 --> 15
-	15["cond__537 m_isMemory64"]
-	15 --> 15
-	15["cond__537 m_isMemory64"]
-	15 --> 15
-	15["cond__537 m_isMemory64"]
-	15 --> 15
-	15["cond__537 m_isMemory64"]
-	15 --> 15
-	32{{"Sϕ Memory "}}
-	15 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I32_STORE16.unLEM = `<pre class='graph'>---
@@ -17366,107 +15238,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	13["val pop_u64"]
-	0 --> 13
-	24["index pop_u64"]
-	13 --> 24
-	17["index pop_u32"]
-	24 --> 17
-	4["memindex__576 0u"]
-	17 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__570 imm_readULEB32"]
-	3 --> 10
-	5["arg__572 0"]
-	10 --> 5
-	6["arg__574 0x40u8"]
-	5 --> 6
-	8["arg__571 u8.&"]
-	6 --> 8
-	9["cond__569 u8.!="]
-	8 --> 9
-	9["cond__569 u8.!="]
-	9 --> 9
-	9["cond__569 u8.!="]
-	9 --> 9
-	9["cond__569 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__569 u8.!="]
-	11 --> 9
-	9["cond__569 u8.!="]
-	9 --> 9
-	9["cond__569 u8.!="]
-	9 --> 9
-	9["cond__569 u8.!="]
-	9 --> 9
-	9["cond__569 u8.!="]
-	9 --> 9
-	9["cond__569 u8.!="]
-	9 --> 9
-	9["cond__569 u8.!="]
-	9 --> 9
-	9["cond__569 u8.!="]
-	9 --> 9
-	9["cond__569 u8.!="]
-	9 --> 9
-	9["cond__569 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	16["offset imm_readULEB32"]
-	23 --> 16
-	15["cond__557 m_isMemory64"]
-	16 --> 15
-	15["cond__557 m_isMemory64"]
-	15 --> 15
-	15["cond__557 m_isMemory64"]
-	15 --> 15
-	15["cond__557 m_isMemory64"]
-	15 --> 15
-	15["cond__557 m_isMemory64"]
-	15 --> 15
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	15["cond__557 m_isMemory64"]
-	30 --> 15
-	15["cond__557 m_isMemory64"]
-	15 --> 15
-	15["cond__557 m_isMemory64"]
-	15 --> 15
-	15["cond__557 m_isMemory64"]
-	15 --> 15
-	15["cond__557 m_isMemory64"]
-	15 --> 15
-	15["cond__557 m_isMemory64"]
-	15 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	15["cond__557 m_isMemory64"]
-	31 --> 15
-	29["eff__558 mach_writeMemory64_u8_64"]
-	15 --> 29
-	22["eff__563 mach_writeMemory32_u8_64"]
-	29 --> 22
-	15["cond__557 m_isMemory64"]
-	22 --> 15
-	15["cond__557 m_isMemory64"]
-	15 --> 15
-	15["cond__557 m_isMemory64"]
-	15 --> 15
-	15["cond__557 m_isMemory64"]
-	15 --> 15
-	15["cond__557 m_isMemory64"]
-	15 --> 15
-	32{{"Sϕ Memory "}}
-	15 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I64_STORE8.unLEM = `<pre class='graph'>---
@@ -18011,107 +15783,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	13["val pop_u64"]
-	0 --> 13
-	24["index pop_u64"]
-	13 --> 24
-	17["index pop_u32"]
-	24 --> 17
-	4["memindex__596 0u"]
-	17 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__590 imm_readULEB32"]
-	3 --> 10
-	5["arg__592 0"]
-	10 --> 5
-	6["arg__594 0x40u8"]
-	5 --> 6
-	8["arg__591 u8.&"]
-	6 --> 8
-	9["cond__589 u8.!="]
-	8 --> 9
-	9["cond__589 u8.!="]
-	9 --> 9
-	9["cond__589 u8.!="]
-	9 --> 9
-	9["cond__589 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__589 u8.!="]
-	11 --> 9
-	9["cond__589 u8.!="]
-	9 --> 9
-	9["cond__589 u8.!="]
-	9 --> 9
-	9["cond__589 u8.!="]
-	9 --> 9
-	9["cond__589 u8.!="]
-	9 --> 9
-	9["cond__589 u8.!="]
-	9 --> 9
-	9["cond__589 u8.!="]
-	9 --> 9
-	9["cond__589 u8.!="]
-	9 --> 9
-	9["cond__589 u8.!="]
-	9 --> 9
-	9["cond__589 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	16["offset imm_readULEB32"]
-	23 --> 16
-	15["cond__577 m_isMemory64"]
-	16 --> 15
-	15["cond__577 m_isMemory64"]
-	15 --> 15
-	15["cond__577 m_isMemory64"]
-	15 --> 15
-	15["cond__577 m_isMemory64"]
-	15 --> 15
-	15["cond__577 m_isMemory64"]
-	15 --> 15
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	15["cond__577 m_isMemory64"]
-	30 --> 15
-	15["cond__577 m_isMemory64"]
-	15 --> 15
-	15["cond__577 m_isMemory64"]
-	15 --> 15
-	15["cond__577 m_isMemory64"]
-	15 --> 15
-	15["cond__577 m_isMemory64"]
-	15 --> 15
-	15["cond__577 m_isMemory64"]
-	15 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	15["cond__577 m_isMemory64"]
-	31 --> 15
-	29["eff__578 mach_writeMemory64_u16_64"]
-	15 --> 29
-	22["eff__583 mach_writeMemory32_u16_64"]
-	29 --> 22
-	15["cond__577 m_isMemory64"]
-	22 --> 15
-	15["cond__577 m_isMemory64"]
-	15 --> 15
-	15["cond__577 m_isMemory64"]
-	15 --> 15
-	15["cond__577 m_isMemory64"]
-	15 --> 15
-	15["cond__577 m_isMemory64"]
-	15 --> 15
-	32{{"Sϕ Memory "}}
-	15 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I64_STORE16.unLEM = `<pre class='graph'>---
@@ -18656,107 +16328,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	13["val pop_u64"]
-	0 --> 13
-	24["index pop_u64"]
-	13 --> 24
-	17["index pop_u32"]
-	24 --> 17
-	4["memindex__616 0u"]
-	17 --> 4
-	3["flags imm_readU8"]
-	4 --> 3
-	10["memindex__610 imm_readULEB32"]
-	3 --> 10
-	5["arg__612 0"]
-	10 --> 5
-	6["arg__614 0x40u8"]
-	5 --> 6
-	8["arg__611 u8.&"]
-	6 --> 8
-	9["cond__609 u8.!="]
-	8 --> 9
-	9["cond__609 u8.!="]
-	9 --> 9
-	9["cond__609 u8.!="]
-	9 --> 9
-	9["cond__609 u8.!="]
-	9 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	9["cond__609 u8.!="]
-	11 --> 9
-	9["cond__609 u8.!="]
-	9 --> 9
-	9["cond__609 u8.!="]
-	9 --> 9
-	9["cond__609 u8.!="]
-	9 --> 9
-	9["cond__609 u8.!="]
-	9 --> 9
-	9["cond__609 u8.!="]
-	9 --> 9
-	9["cond__609 u8.!="]
-	9 --> 9
-	9["cond__609 u8.!="]
-	9 --> 9
-	9["cond__609 u8.!="]
-	9 --> 9
-	9["cond__609 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	23["offset imm_readULEB64"]
-	12 --> 23
-	16["offset imm_readULEB32"]
-	23 --> 16
-	15["cond__597 m_isMemory64"]
-	16 --> 15
-	15["cond__597 m_isMemory64"]
-	15 --> 15
-	15["cond__597 m_isMemory64"]
-	15 --> 15
-	15["cond__597 m_isMemory64"]
-	15 --> 15
-	15["cond__597 m_isMemory64"]
-	15 --> 15
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	15["cond__597 m_isMemory64"]
-	30 --> 15
-	15["cond__597 m_isMemory64"]
-	15 --> 15
-	15["cond__597 m_isMemory64"]
-	15 --> 15
-	15["cond__597 m_isMemory64"]
-	15 --> 15
-	15["cond__597 m_isMemory64"]
-	15 --> 15
-	15["cond__597 m_isMemory64"]
-	15 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	15["cond__597 m_isMemory64"]
-	31 --> 15
-	29["eff__598 mach_writeMemory64_u32_64"]
-	15 --> 29
-	22["eff__603 mach_writeMemory32_u32_64"]
-	29 --> 22
-	15["cond__597 m_isMemory64"]
-	22 --> 15
-	15["cond__597 m_isMemory64"]
-	15 --> 15
-	15["cond__597 m_isMemory64"]
-	15 --> 15
-	15["cond__597 m_isMemory64"]
-	15 --> 15
-	15["cond__597 m_isMemory64"]
-	15 --> 15
-	32{{"Sϕ Memory "}}
-	15 --> 32
 	1[\\"Finish"/]
-	32 --> 1
 end
 </pre>`;
 window.traces.I64_STORE32.unLEM = `<pre class='graph'>---
@@ -19231,55 +16803,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["flags imm_readU8"]
-	0 --> 3
-	5["arg__628 0"]
-	3 --> 5
-	10["memindex__626 imm_readULEB32"]
-	5 --> 10
-	6["arg__630 0x40u8"]
-	10 --> 6
-	8["arg__627 u8.&"]
-	6 --> 8
-	9["cond__625 u8.!="]
-	8 --> 9
-	9["cond__625 u8.!="]
-	9 --> 9
-	9["cond__625 u8.!="]
-	9 --> 9
-	9["cond__625 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	9["cond__625 u8.!="]
-	12 --> 9
-	4["memindex__632 0u"]
-	9 --> 4
-	9["cond__625 u8.!="]
-	4 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	14["cond__617 m_isMemory64"]
-	11 --> 14
-	20["r mach_memorySize64"]
-	14 --> 20
-	22["eff__618 push_u64"]
-	20 --> 22
-	16["r mach_memorySize32"]
-	22 --> 16
-	18["eff__621 push_u32"]
-	16 --> 18
-	14["cond__617 m_isMemory64"]
-	18 --> 14
-	14["cond__617 m_isMemory64"]
-	14 --> 14
-	14["cond__617 m_isMemory64"]
-	14 --> 14
-	23{{"Sϕ Stack "}}
-	14 --> 23
 	1[\\"Finish"/]
-	23 --> 1
 end
 </pre>`;
 window.traces.MEMORY_SIZE.unLEM = `<pre class='graph'>---
@@ -19701,59 +17225,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["flags imm_readU8"]
-	0 --> 3
-	5["arg__646 0"]
-	3 --> 5
-	10["memindex__644 imm_readULEB32"]
-	5 --> 10
-	21["val pop_u64"]
-	10 --> 21
-	15["val pop_u32"]
-	21 --> 15
-	6["arg__648 0x40u8"]
-	15 --> 6
-	8["arg__645 u8.&"]
-	6 --> 8
-	9["cond__643 u8.!="]
-	8 --> 9
-	9["cond__643 u8.!="]
-	9 --> 9
-	9["cond__643 u8.!="]
-	9 --> 9
-	9["cond__643 u8.!="]
-	9 --> 9
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	9["cond__643 u8.!="]
-	12 --> 9
-	4["memindex__650 0u"]
-	9 --> 4
-	9["cond__643 u8.!="]
-	4 --> 9
-	11{"memindex ϕ"}
-	9 --> 11
-	14["cond__633 m_isMemory64"]
-	11 --> 14
-	24["r mach_memoryGrow64"]
-	14 --> 24
-	26["eff__634 push_u64"]
-	24 --> 26
-	18["r mach_memoryGrow32"]
-	26 --> 18
-	20["eff__638 push_u32"]
-	18 --> 20
-	14["cond__633 m_isMemory64"]
-	20 --> 14
-	14["cond__633 m_isMemory64"]
-	14 --> 14
-	14["cond__633 m_isMemory64"]
-	14 --> 14
-	27{{"Sϕ Stack "}}
-	14 --> 27
 	1[\\"Finish"/]
-	27 --> 1
 end
 </pre>`;
 window.traces.MEMORY_GROW.unLEM = `<pre class='graph'>---
@@ -20063,15 +17535,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["x imm_readILEB32"]
-	0 --> 3
-	6["abs__653 lift_u32"]
-	3 --> 6
-	5["eff__651 push_u32"]
-	6 --> 5
 	1[\\"Finish"/]
-	5 --> 1
 end
 </pre>`;
 window.traces.I32_CONST.unLEM = `<pre class='graph'>---
@@ -20203,15 +17667,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["x imm_readILEB64"]
-	0 --> 3
-	6["abs__656 lift_u64"]
-	3 --> 6
-	5["eff__654 push_u64"]
-	6 --> 5
 	1[\\"Finish"/]
-	5 --> 1
 end
 </pre>`;
 window.traces.I64_CONST.unLEM = `<pre class='graph'>---
@@ -20344,17 +17800,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["x imm_readU32"]
-	0 --> 3
-	7["abs__660 lift_u32"]
-	3 --> 7
-	5["arg__658 f32_reinterpret_u32"]
-	7 --> 5
-	6["eff__657 push_f32"]
-	5 --> 6
 	1[\\"Finish"/]
-	6 --> 1
 end
 </pre>`;
 window.traces.F32_CONST.unLEM = `<pre class='graph'>---
@@ -20491,17 +17937,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["x imm_readU64"]
-	0 --> 3
-	7["abs__664 lift_u64"]
-	3 --> 7
-	5["arg__662 f64_reinterpret_u64"]
-	7 --> 5
-	6["eff__661 push_f64"]
-	5 --> 6
 	1[\\"Finish"/]
-	6 --> 1
 end
 </pre>`;
 window.traces.F64_CONST.unLEM = `<pre class='graph'>---
@@ -20683,35 +18119,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u32"]
-	0 --> 3
-	4["arg__671 0"]
-	3 --> 4
-	11["abs__672 lift_u32"]
-	4 --> 11
-	6["cond__665 U32_equals"]
-	11 --> 6
-	8["arg__667 1"]
-	6 --> 8
-	12["abs__673 lift_u32"]
-	8 --> 12
-	9["eff__666 push_u32"]
-	12 --> 9
-	13["abs__674 lift_u32"]
-	9 --> 13
-	7["eff__668 push_u32"]
-	13 --> 7
-	6["cond__665 U32_equals"]
-	7 --> 6
-	6["cond__665 U32_equals"]
-	6 --> 6
-	6["cond__665 U32_equals"]
-	6 --> 6
-	10{{"Sϕ Stack "}}
-	6 --> 10
 	1[\\"Finish"/]
-	10 --> 1
 end
 </pre>`;
 window.traces.I32_EQZ.unLEM = `<pre class='graph'>---
@@ -20965,31 +18373,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["cond__680 U32_equals"]
-	4 --> 7
-	7["cond__680 U32_equals"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__682 1"]
-	1 --> 10
-	13["abs__687 lift_u32"]
-	10 --> 13
-	11["eff__681 push_u32"]
-	13 --> 11
-	8["arg__684 0"]
-	11 --> 8
-	14["abs__688 lift_u32"]
-	8 --> 14
-	9["eff__683 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I32_EQ.unLEM = `<pre class='graph'>---
@@ -21251,31 +18635,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["cond__694 U32_not_equals"]
-	4 --> 7
-	7["cond__694 U32_not_equals"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__696 1"]
-	1 --> 10
-	13["abs__701 lift_u32"]
-	10 --> 13
-	11["eff__695 push_u32"]
-	13 --> 11
-	8["arg__698 0"]
-	11 --> 8
-	14["abs__702 lift_u32"]
-	8 --> 14
-	9["eff__697 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I32_NE.unLEM = `<pre class='graph'>---
@@ -21538,31 +18898,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["cond__708 U32_lt_s"]
-	4 --> 7
-	7["cond__708 U32_lt_s"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__710 1"]
-	1 --> 10
-	13["abs__715 lift_u32"]
-	10 --> 13
-	11["eff__709 push_u32"]
-	13 --> 11
-	8["arg__712 0"]
-	11 --> 8
-	14["abs__716 lift_u32"]
-	8 --> 14
-	9["eff__711 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I32_LT_S.unLEM = `<pre class='graph'>---
@@ -21824,31 +19160,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["cond__722 U32_lt"]
-	4 --> 7
-	7["cond__722 U32_lt"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__724 1"]
-	1 --> 10
-	13["abs__729 lift_u32"]
-	10 --> 13
-	11["eff__723 push_u32"]
-	13 --> 11
-	8["arg__726 0"]
-	11 --> 8
-	14["abs__730 lift_u32"]
-	8 --> 14
-	9["eff__725 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I32_LT_U.unLEM = `<pre class='graph'>---
@@ -22110,31 +19422,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["cond__736 U32_gt_s"]
-	4 --> 7
-	7["cond__736 U32_gt_s"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__738 1"]
-	1 --> 10
-	13["abs__743 lift_u32"]
-	10 --> 13
-	11["eff__737 push_u32"]
-	13 --> 11
-	8["arg__740 0"]
-	11 --> 8
-	14["abs__744 lift_u32"]
-	8 --> 14
-	9["eff__739 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I32_GT_S.unLEM = `<pre class='graph'>---
@@ -22396,31 +19684,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["cond__750 U32_gt"]
-	4 --> 7
-	7["cond__750 U32_gt"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__752 1"]
-	1 --> 10
-	13["abs__757 lift_u32"]
-	10 --> 13
-	11["eff__751 push_u32"]
-	13 --> 11
-	8["arg__754 0"]
-	11 --> 8
-	14["abs__758 lift_u32"]
-	8 --> 14
-	9["eff__753 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I32_GT_U.unLEM = `<pre class='graph'>---
@@ -22682,31 +19946,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["cond__764 U32_le_s"]
-	4 --> 7
-	7["cond__764 U32_le_s"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__766 1"]
-	1 --> 10
-	13["abs__771 lift_u32"]
-	10 --> 13
-	11["eff__765 push_u32"]
-	13 --> 11
-	8["arg__768 0"]
-	11 --> 8
-	14["abs__772 lift_u32"]
-	8 --> 14
-	9["eff__767 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I32_LE_S.unLEM = `<pre class='graph'>---
@@ -22968,31 +20208,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["cond__778 U32_lte"]
-	4 --> 7
-	7["cond__778 U32_lte"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__780 1"]
-	1 --> 10
-	13["abs__785 lift_u32"]
-	10 --> 13
-	11["eff__779 push_u32"]
-	13 --> 11
-	8["arg__782 0"]
-	11 --> 8
-	14["abs__786 lift_u32"]
-	8 --> 14
-	9["eff__781 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I32_LE_U.unLEM = `<pre class='graph'>---
@@ -23254,31 +20470,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["cond__792 U32_ge_s"]
-	4 --> 7
-	7["cond__792 U32_ge_s"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__794 1"]
-	1 --> 10
-	13["abs__799 lift_u32"]
-	10 --> 13
-	11["eff__793 push_u32"]
-	13 --> 11
-	8["arg__796 0"]
-	11 --> 8
-	14["abs__800 lift_u32"]
-	8 --> 14
-	9["eff__795 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I32_GE_S.unLEM = `<pre class='graph'>---
@@ -23540,31 +20732,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["cond__806 U32_gte"]
-	4 --> 7
-	7["cond__806 U32_gte"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__808 1"]
-	1 --> 10
-	13["abs__813 lift_u32"]
-	10 --> 13
-	11["eff__807 push_u32"]
-	13 --> 11
-	8["arg__810 0"]
-	11 --> 8
-	14["abs__814 lift_u32"]
-	8 --> 14
-	9["eff__809 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I32_GE_U.unLEM = `<pre class='graph'>---
@@ -23821,35 +20989,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u64"]
-	0 --> 3
-	4["arg__826 0"]
-	3 --> 4
-	11["abs__827 lift_u64"]
-	4 --> 11
-	6["cond__820 U64_equals"]
-	11 --> 6
-	8["arg__822 1"]
-	6 --> 8
-	12["abs__828 lift_u32"]
-	8 --> 12
-	9["eff__821 push_u32"]
-	12 --> 9
-	13["abs__829 lift_u32"]
-	9 --> 13
-	7["eff__823 push_u32"]
-	13 --> 7
-	6["cond__820 U64_equals"]
-	7 --> 6
-	6["cond__820 U64_equals"]
-	6 --> 6
-	6["cond__820 U64_equals"]
-	6 --> 6
-	10{{"Sϕ Stack "}}
-	6 --> 10
 	1[\\"Finish"/]
-	10 --> 1
 end
 </pre>`;
 window.traces.I64_EQZ.unLEM = `<pre class='graph'>---
@@ -24103,31 +21243,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["cond__835 U64_equals"]
-	4 --> 7
-	7["cond__835 U64_equals"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__837 1"]
-	1 --> 10
-	13["abs__842 lift_u32"]
-	10 --> 13
-	11["eff__836 push_u32"]
-	13 --> 11
-	8["arg__839 0"]
-	11 --> 8
-	14["abs__843 lift_u32"]
-	8 --> 14
-	9["eff__838 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I64_EQ.unLEM = `<pre class='graph'>---
@@ -24389,31 +21505,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["cond__849 U64_not_equals"]
-	4 --> 7
-	7["cond__849 U64_not_equals"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__851 1"]
-	1 --> 10
-	13["abs__856 lift_u32"]
-	10 --> 13
-	11["eff__850 push_u32"]
-	13 --> 11
-	8["arg__853 0"]
-	11 --> 8
-	14["abs__857 lift_u32"]
-	8 --> 14
-	9["eff__852 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I64_NE.unLEM = `<pre class='graph'>---
@@ -24676,31 +21768,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["cond__863 U64_lt_s"]
-	4 --> 7
-	7["cond__863 U64_lt_s"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__865 1"]
-	1 --> 10
-	13["abs__870 lift_u32"]
-	10 --> 13
-	11["eff__864 push_u32"]
-	13 --> 11
-	8["arg__867 0"]
-	11 --> 8
-	14["abs__871 lift_u32"]
-	8 --> 14
-	9["eff__866 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I64_LT_S.unLEM = `<pre class='graph'>---
@@ -24962,31 +22030,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["cond__877 U64_lt"]
-	4 --> 7
-	7["cond__877 U64_lt"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__879 1"]
-	1 --> 10
-	13["abs__884 lift_u32"]
-	10 --> 13
-	11["eff__878 push_u32"]
-	13 --> 11
-	8["arg__881 0"]
-	11 --> 8
-	14["abs__885 lift_u32"]
-	8 --> 14
-	9["eff__880 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I64_LT_U.unLEM = `<pre class='graph'>---
@@ -25248,31 +22292,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["cond__891 U64_gt_s"]
-	4 --> 7
-	7["cond__891 U64_gt_s"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__893 1"]
-	1 --> 10
-	13["abs__898 lift_u32"]
-	10 --> 13
-	11["eff__892 push_u32"]
-	13 --> 11
-	8["arg__895 0"]
-	11 --> 8
-	14["abs__899 lift_u32"]
-	8 --> 14
-	9["eff__894 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I64_GT_S.unLEM = `<pre class='graph'>---
@@ -25534,31 +22554,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["cond__905 U64_gt"]
-	4 --> 7
-	7["cond__905 U64_gt"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__907 1"]
-	1 --> 10
-	13["abs__912 lift_u32"]
-	10 --> 13
-	11["eff__906 push_u32"]
-	13 --> 11
-	8["arg__909 0"]
-	11 --> 8
-	14["abs__913 lift_u32"]
-	8 --> 14
-	9["eff__908 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I64_GT_U.unLEM = `<pre class='graph'>---
@@ -25820,31 +22816,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["cond__919 U64_le_s"]
-	4 --> 7
-	7["cond__919 U64_le_s"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__921 1"]
-	1 --> 10
-	13["abs__926 lift_u32"]
-	10 --> 13
-	11["eff__920 push_u32"]
-	13 --> 11
-	8["arg__923 0"]
-	11 --> 8
-	14["abs__927 lift_u32"]
-	8 --> 14
-	9["eff__922 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I64_LE_S.unLEM = `<pre class='graph'>---
@@ -26106,31 +23078,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["cond__933 U64_lte"]
-	4 --> 7
-	7["cond__933 U64_lte"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__935 1"]
-	1 --> 10
-	13["abs__940 lift_u32"]
-	10 --> 13
-	11["eff__934 push_u32"]
-	13 --> 11
-	8["arg__937 0"]
-	11 --> 8
-	14["abs__941 lift_u32"]
-	8 --> 14
-	9["eff__936 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I64_LE_U.unLEM = `<pre class='graph'>---
@@ -26392,31 +23340,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["cond__947 U64_ge_s"]
-	4 --> 7
-	7["cond__947 U64_ge_s"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__949 1"]
-	1 --> 10
-	13["abs__954 lift_u32"]
-	10 --> 13
-	11["eff__948 push_u32"]
-	13 --> 11
-	8["arg__951 0"]
-	11 --> 8
-	14["abs__955 lift_u32"]
-	8 --> 14
-	9["eff__950 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I64_GE_S.unLEM = `<pre class='graph'>---
@@ -26678,31 +23602,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["cond__961 U64_gte"]
-	4 --> 7
-	7["cond__961 U64_gte"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__963 1"]
-	1 --> 10
-	13["abs__968 lift_u32"]
-	10 --> 13
-	11["eff__962 push_u32"]
-	13 --> 11
-	8["arg__965 0"]
-	11 --> 8
-	14["abs__969 lift_u32"]
-	8 --> 14
-	9["eff__964 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.I64_GE_U.unLEM = `<pre class='graph'>---
@@ -26964,31 +23864,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f32"]
-	0 --> 3
-	4["a pop_f32"]
-	3 --> 4
-	7["cond__975 F32_equals"]
-	4 --> 7
-	7["cond__975 F32_equals"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__977 1"]
-	1 --> 10
-	13["abs__982 lift_u32"]
-	10 --> 13
-	11["eff__976 push_u32"]
-	13 --> 11
-	8["arg__979 0"]
-	11 --> 8
-	14["abs__983 lift_u32"]
-	8 --> 14
-	9["eff__978 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.F32_EQ.unLEM = `<pre class='graph'>---
@@ -27250,31 +24126,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f32"]
-	0 --> 3
-	4["a pop_f32"]
-	3 --> 4
-	7["cond__989 F32_not_equals"]
-	4 --> 7
-	7["cond__989 F32_not_equals"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__991 1"]
-	1 --> 10
-	13["abs__996 lift_u32"]
-	10 --> 13
-	11["eff__990 push_u32"]
-	13 --> 11
-	8["arg__993 0"]
-	11 --> 8
-	14["abs__997 lift_u32"]
-	8 --> 14
-	9["eff__992 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.F32_NE.unLEM = `<pre class='graph'>---
@@ -27537,31 +24389,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f32"]
-	0 --> 3
-	4["a pop_f32"]
-	3 --> 4
-	7["cond__1003 F32_lt"]
-	4 --> 7
-	7["cond__1003 F32_lt"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__1005 1"]
-	1 --> 10
-	13["abs__1010 lift_u32"]
-	10 --> 13
-	11["eff__1004 push_u32"]
-	13 --> 11
-	8["arg__1007 0"]
-	11 --> 8
-	14["abs__1011 lift_u32"]
-	8 --> 14
-	9["eff__1006 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.F32_LT.unLEM = `<pre class='graph'>---
@@ -27823,31 +24651,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f32"]
-	0 --> 3
-	4["a pop_f32"]
-	3 --> 4
-	7["cond__1017 F32_gt"]
-	4 --> 7
-	7["cond__1017 F32_gt"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__1019 1"]
-	1 --> 10
-	13["abs__1024 lift_u32"]
-	10 --> 13
-	11["eff__1018 push_u32"]
-	13 --> 11
-	8["arg__1021 0"]
-	11 --> 8
-	14["abs__1025 lift_u32"]
-	8 --> 14
-	9["eff__1020 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.F32_GT.unLEM = `<pre class='graph'>---
@@ -28109,31 +24913,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f32"]
-	0 --> 3
-	4["a pop_f32"]
-	3 --> 4
-	7["cond__1031 F32_lte"]
-	4 --> 7
-	7["cond__1031 F32_lte"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__1033 1"]
-	1 --> 10
-	13["abs__1038 lift_u32"]
-	10 --> 13
-	11["eff__1032 push_u32"]
-	13 --> 11
-	8["arg__1035 0"]
-	11 --> 8
-	14["abs__1039 lift_u32"]
-	8 --> 14
-	9["eff__1034 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.F32_LE.unLEM = `<pre class='graph'>---
@@ -28395,31 +25175,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f32"]
-	0 --> 3
-	4["a pop_f32"]
-	3 --> 4
-	7["cond__1045 F32_gte"]
-	4 --> 7
-	7["cond__1045 F32_gte"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__1047 1"]
-	1 --> 10
-	13["abs__1052 lift_u32"]
-	10 --> 13
-	11["eff__1046 push_u32"]
-	13 --> 11
-	8["arg__1049 0"]
-	11 --> 8
-	14["abs__1053 lift_u32"]
-	8 --> 14
-	9["eff__1048 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.F32_GE.unLEM = `<pre class='graph'>---
@@ -28681,31 +25437,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f64"]
-	0 --> 3
-	4["a pop_f64"]
-	3 --> 4
-	7["cond__1059 F64_equals"]
-	4 --> 7
-	7["cond__1059 F64_equals"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__1061 1"]
-	1 --> 10
-	13["abs__1066 lift_u32"]
-	10 --> 13
-	11["eff__1060 push_u32"]
-	13 --> 11
-	8["arg__1063 0"]
-	11 --> 8
-	14["abs__1067 lift_u32"]
-	8 --> 14
-	9["eff__1062 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.F64_EQ.unLEM = `<pre class='graph'>---
@@ -28967,31 +25699,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f64"]
-	0 --> 3
-	4["a pop_f64"]
-	3 --> 4
-	7["cond__1073 F64_not_equals"]
-	4 --> 7
-	7["cond__1073 F64_not_equals"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__1075 1"]
-	1 --> 10
-	13["abs__1080 lift_u32"]
-	10 --> 13
-	11["eff__1074 push_u32"]
-	13 --> 11
-	8["arg__1077 0"]
-	11 --> 8
-	14["abs__1081 lift_u32"]
-	8 --> 14
-	9["eff__1076 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.F64_NE.unLEM = `<pre class='graph'>---
@@ -29254,31 +25962,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f64"]
-	0 --> 3
-	4["a pop_f64"]
-	3 --> 4
-	7["cond__1087 F64_lt"]
-	4 --> 7
-	7["cond__1087 F64_lt"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__1089 1"]
-	1 --> 10
-	13["abs__1094 lift_u32"]
-	10 --> 13
-	11["eff__1088 push_u32"]
-	13 --> 11
-	8["arg__1091 0"]
-	11 --> 8
-	14["abs__1095 lift_u32"]
-	8 --> 14
-	9["eff__1090 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.F64_LT.unLEM = `<pre class='graph'>---
@@ -29540,31 +26224,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f64"]
-	0 --> 3
-	4["a pop_f64"]
-	3 --> 4
-	7["cond__1101 F64_gt"]
-	4 --> 7
-	7["cond__1101 F64_gt"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__1103 1"]
-	1 --> 10
-	13["abs__1108 lift_u32"]
-	10 --> 13
-	11["eff__1102 push_u32"]
-	13 --> 11
-	8["arg__1105 0"]
-	11 --> 8
-	14["abs__1109 lift_u32"]
-	8 --> 14
-	9["eff__1104 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.F64_GT.unLEM = `<pre class='graph'>---
@@ -29826,31 +26486,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f64"]
-	0 --> 3
-	4["a pop_f64"]
-	3 --> 4
-	7["cond__1115 F64_lte"]
-	4 --> 7
-	7["cond__1115 F64_lte"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__1117 1"]
-	1 --> 10
-	13["abs__1122 lift_u32"]
-	10 --> 13
-	11["eff__1116 push_u32"]
-	13 --> 11
-	8["arg__1119 0"]
-	11 --> 8
-	14["abs__1123 lift_u32"]
-	8 --> 14
-	9["eff__1118 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.F64_LE.unLEM = `<pre class='graph'>---
@@ -30112,31 +26748,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f64"]
-	0 --> 3
-	4["a pop_f64"]
-	3 --> 4
-	7["cond__1129 F64_gte"]
-	4 --> 7
-	7["cond__1129 F64_gte"]
-	7 --> 7
-	12{{"Sϕ Stack "}}
-	7 --> 12
 	1[\\"Finish"/]
-	12 --> 1
-	10["arg__1131 1"]
-	1 --> 10
-	13["abs__1136 lift_u32"]
-	10 --> 13
-	11["eff__1130 push_u32"]
-	13 --> 11
-	8["arg__1133 0"]
-	11 --> 8
-	14["abs__1137 lift_u32"]
-	8 --> 14
-	9["eff__1132 push_u32"]
-	14 --> 9
 end
 </pre>`;
 window.traces.F64_GE.unLEM = `<pre class='graph'>---
@@ -30350,15 +26962,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u32"]
-	0 --> 3
-	5["r U32_clz"]
-	3 --> 5
-	7["eff__1143 push_u32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I32_CLZ.unLEM = `<pre class='graph'>---
@@ -30490,15 +27094,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u32"]
-	0 --> 3
-	5["r U32_ctz"]
-	3 --> 5
-	7["eff__1146 push_u32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I32_CTZ.unLEM = `<pre class='graph'>---
@@ -30630,15 +27226,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u32"]
-	0 --> 3
-	5["r U32_popcnt"]
-	3 --> 5
-	7["eff__1149 push_u32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I32_POPCNT.unLEM = `<pre class='graph'>---
@@ -30781,17 +27369,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["r U32_plus"]
-	4 --> 7
-	9["eff__1152 push_u32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I32_ADD.unLEM = `<pre class='graph'>---
@@ -30947,17 +27525,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["r U32_minus"]
-	4 --> 7
-	9["eff__1156 push_u32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I32_SUB.unLEM = `<pre class='graph'>---
@@ -31113,17 +27681,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["r U32_times"]
-	4 --> 7
-	9["eff__1160 push_u32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I32_MUL.unLEM = `<pre class='graph'>---
@@ -31430,107 +27988,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	25["eff__1165 trapDivideByZero"]
-	4 --> 25
-	22["eff__1167 trapDivideUnrepresentable"]
-	25 --> 22
-	8["arg__1179 0"]
-	22 --> 8
-	28["abs__1182 lift_u32"]
-	8 --> 28
-	10["cond__1164 U32_equals"]
-	28 --> 10
-	10["cond__1164 U32_equals"]
-	10 --> 10
-	10["cond__1164 U32_equals"]
-	10 --> 10
-	10["cond__1164 U32_equals"]
-	10 --> 10
-	26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	10 --> 26
-	10["cond__1164 U32_equals"]
-	26 --> 10
-	7["r U32_div_s"]
-	10 --> 7
-	21["eff__1168 push_u32"]
-	7 --> 21
-	10["cond__1164 U32_equals"]
-	21 --> 10
-	10["cond__1164 U32_equals"]
-	10 --> 10
-	10["cond__1164 U32_equals"]
-	10 --> 10
-	27{{"Sϕ Stack "}}
-	10 --> 27
 	1[\\"Finish"/]
-	27 --> 1
-	15["arg__1174 -1"]
-	1 --> 15
-	16["arg__1173 u32.view"]
-	15 --> 16
-	29["abs__1183 lift_u32"]
-	16 --> 29
-	18["arg__1170 U32_equals"]
-	29 --> 18
-	11["arg__1177 -2_147_483_648"]
-	18 --> 11
-	12["arg__1176 u32.view"]
-	11 --> 12
-	30["abs__1184 lift_u32"]
-	12 --> 30
-	14["arg__1171 U32_equals"]
-	30 --> 14
-	19["cond__1166 U32_and"]
-	14 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	23{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	19 --> 23
-	19["cond__1166 U32_and"]
-	23 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	19["cond__1166 U32_and"]
-	19 --> 19
-	24{{"Sϕ Stack "}}
-	19 --> 24
 end
 </pre>`;
 window.traces.I32_DIV_S.unLEM = `<pre class='graph'>---
@@ -31992,43 +28450,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	13["eff__1201 trapDivideByZero"]
-	4 --> 13
-	7["r U32_div"]
-	13 --> 7
-	12["eff__1202 push_u32"]
-	7 --> 12
-	8["arg__1205 0"]
-	12 --> 8
-	16["abs__1208 lift_u32"]
-	8 --> 16
-	10["cond__1200 U32_equals"]
-	16 --> 10
-	10["cond__1200 U32_equals"]
-	10 --> 10
-	10["cond__1200 U32_equals"]
-	10 --> 10
-	10["cond__1200 U32_equals"]
-	10 --> 10
-	14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	10 --> 14
-	10["cond__1200 U32_equals"]
-	14 --> 10
-	10["cond__1200 U32_equals"]
-	10 --> 10
-	10["cond__1200 U32_equals"]
-	10 --> 10
-	10["cond__1200 U32_equals"]
-	10 --> 10
-	15{{"Sϕ Stack "}}
-	10 --> 15
 	1[\\"Finish"/]
-	15 --> 1
 end
 </pre>`;
 window.traces.I32_DIV_U.unLEM = `<pre class='graph'>---
@@ -32335,43 +28757,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	13["eff__1217 trapDivideByZero"]
-	4 --> 13
-	7["r U32_rem_s"]
-	13 --> 7
-	12["eff__1218 push_u32"]
-	7 --> 12
-	8["arg__1221 0"]
-	12 --> 8
-	16["abs__1224 lift_u32"]
-	8 --> 16
-	10["cond__1216 U32_equals"]
-	16 --> 10
-	10["cond__1216 U32_equals"]
-	10 --> 10
-	10["cond__1216 U32_equals"]
-	10 --> 10
-	10["cond__1216 U32_equals"]
-	10 --> 10
-	14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	10 --> 14
-	10["cond__1216 U32_equals"]
-	14 --> 10
-	10["cond__1216 U32_equals"]
-	10 --> 10
-	10["cond__1216 U32_equals"]
-	10 --> 10
-	10["cond__1216 U32_equals"]
-	10 --> 10
-	15{{"Sϕ Stack "}}
-	10 --> 15
 	1[\\"Finish"/]
-	15 --> 1
 end
 </pre>`;
 window.traces.I32_REM_S.unLEM = `<pre class='graph'>---
@@ -32678,43 +29064,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	13["eff__1233 trapDivideByZero"]
-	4 --> 13
-	7["r U32_rem_u"]
-	13 --> 7
-	12["eff__1234 push_u32"]
-	7 --> 12
-	8["arg__1237 0"]
-	12 --> 8
-	16["abs__1240 lift_u32"]
-	8 --> 16
-	10["cond__1232 U32_equals"]
-	16 --> 10
-	10["cond__1232 U32_equals"]
-	10 --> 10
-	10["cond__1232 U32_equals"]
-	10 --> 10
-	10["cond__1232 U32_equals"]
-	10 --> 10
-	14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	10 --> 14
-	10["cond__1232 U32_equals"]
-	14 --> 10
-	10["cond__1232 U32_equals"]
-	10 --> 10
-	10["cond__1232 U32_equals"]
-	10 --> 10
-	10["cond__1232 U32_equals"]
-	10 --> 10
-	15{{"Sϕ Stack "}}
-	10 --> 15
 	1[\\"Finish"/]
-	15 --> 1
 end
 </pre>`;
 window.traces.I32_REM_U.unLEM = `<pre class='graph'>---
@@ -32966,17 +29316,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["r U32_and"]
-	4 --> 7
-	9["eff__1248 push_u32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I32_AND.unLEM = `<pre class='graph'>---
@@ -33132,17 +29472,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["r U32_or"]
-	4 --> 7
-	9["eff__1252 push_u32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I32_OR.unLEM = `<pre class='graph'>---
@@ -33298,17 +29628,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["r U32_or"]
-	4 --> 7
-	9["eff__1256 push_u32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I32_XOR.unLEM = `<pre class='graph'>---
@@ -33464,17 +29784,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["r U32_shl"]
-	4 --> 7
-	9["eff__1260 push_u32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I32_SHL.unLEM = `<pre class='graph'>---
@@ -33630,17 +29940,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["r U32_shr_s"]
-	4 --> 7
-	9["eff__1264 push_u32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I32_SHR_S.unLEM = `<pre class='graph'>---
@@ -33796,17 +30096,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["r U32_shr_u"]
-	4 --> 7
-	9["eff__1268 push_u32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I32_SHR_U.unLEM = `<pre class='graph'>---
@@ -33962,17 +30252,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["r U32_rotl"]
-	4 --> 7
-	9["eff__1272 push_u32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I32_ROTL.unLEM = `<pre class='graph'>---
@@ -34128,17 +30408,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	4["a pop_u32"]
-	3 --> 4
-	7["r U32_rotr"]
-	4 --> 7
-	9["eff__1276 push_u32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I32_ROTR.unLEM = `<pre class='graph'>---
@@ -34283,15 +30553,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u64"]
-	0 --> 3
-	5["r U64_clz"]
-	3 --> 5
-	7["eff__1280 push_u64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I64_CLZ.unLEM = `<pre class='graph'>---
@@ -34423,15 +30685,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u64"]
-	0 --> 3
-	5["r U64_ctz"]
-	3 --> 5
-	7["eff__1283 push_u64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I64_CTZ.unLEM = `<pre class='graph'>---
@@ -34563,15 +30817,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u64"]
-	0 --> 3
-	5["r U64_popcnt"]
-	3 --> 5
-	7["eff__1286 push_u64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I64_POPCNT.unLEM = `<pre class='graph'>---
@@ -34714,17 +30960,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["r U64_plus"]
-	4 --> 7
-	9["eff__1289 push_u64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I64_ADD.unLEM = `<pre class='graph'>---
@@ -34880,17 +31116,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["r U64_minus"]
-	4 --> 7
-	9["eff__1293 push_u64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I64_SUB.unLEM = `<pre class='graph'>---
@@ -35046,17 +31272,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["r U64_times"]
-	4 --> 7
-	9["eff__1297 push_u64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I64_MUL.unLEM = `<pre class='graph'>---
@@ -35363,107 +31579,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	25["eff__1302 trapDivideByZero"]
-	4 --> 25
-	22["eff__1304 trapDivideUnrepresentable"]
-	25 --> 22
-	8["arg__1316 0"]
-	22 --> 8
-	28["abs__1319 lift_u64"]
-	8 --> 28
-	10["cond__1301 U64_equals"]
-	28 --> 10
-	10["cond__1301 U64_equals"]
-	10 --> 10
-	10["cond__1301 U64_equals"]
-	10 --> 10
-	10["cond__1301 U64_equals"]
-	10 --> 10
-	26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	10 --> 26
-	10["cond__1301 U64_equals"]
-	26 --> 10
-	7["r U64_div_s"]
-	10 --> 7
-	21["eff__1305 push_u64"]
-	7 --> 21
-	10["cond__1301 U64_equals"]
-	21 --> 10
-	10["cond__1301 U64_equals"]
-	10 --> 10
-	10["cond__1301 U64_equals"]
-	10 --> 10
-	27{{"Sϕ Stack "}}
-	10 --> 27
 	1[\\"Finish"/]
-	27 --> 1
-	15["arg__1311 -1"]
-	1 --> 15
-	16["arg__1310 u64.view"]
-	15 --> 16
-	29["abs__1320 lift_u64"]
-	16 --> 29
-	18["arg__1307 U64_equals"]
-	29 --> 18
-	11["arg__1314 -9223372036854775808L"]
-	18 --> 11
-	12["arg__1313 u64.view"]
-	11 --> 12
-	30["abs__1321 lift_u64"]
-	12 --> 30
-	14["arg__1308 U64_equals"]
-	30 --> 14
-	19["cond__1303 bot_and"]
-	14 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	23{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	19 --> 23
-	19["cond__1303 bot_and"]
-	23 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	19["cond__1303 bot_and"]
-	19 --> 19
-	24{{"Sϕ Stack "}}
-	19 --> 24
 end
 </pre>`;
 window.traces.I64_DIV_S.unLEM = `<pre class='graph'>---
@@ -35925,43 +32041,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	13["eff__1338 trapDivideByZero"]
-	4 --> 13
-	7["r U64_div"]
-	13 --> 7
-	12["eff__1339 push_u64"]
-	7 --> 12
-	8["arg__1342 0"]
-	12 --> 8
-	16["abs__1345 lift_u64"]
-	8 --> 16
-	10["cond__1337 U64_equals"]
-	16 --> 10
-	10["cond__1337 U64_equals"]
-	10 --> 10
-	10["cond__1337 U64_equals"]
-	10 --> 10
-	10["cond__1337 U64_equals"]
-	10 --> 10
-	14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	10 --> 14
-	10["cond__1337 U64_equals"]
-	14 --> 10
-	10["cond__1337 U64_equals"]
-	10 --> 10
-	10["cond__1337 U64_equals"]
-	10 --> 10
-	10["cond__1337 U64_equals"]
-	10 --> 10
-	15{{"Sϕ Stack "}}
-	10 --> 15
 	1[\\"Finish"/]
-	15 --> 1
 end
 </pre>`;
 window.traces.I64_DIV_U.unLEM = `<pre class='graph'>---
@@ -36268,43 +32348,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	13["eff__1354 trapDivideByZero"]
-	4 --> 13
-	7["r U64_rem_s"]
-	13 --> 7
-	12["eff__1355 push_u64"]
-	7 --> 12
-	8["arg__1358 0"]
-	12 --> 8
-	16["abs__1361 lift_u64"]
-	8 --> 16
-	10["cond__1353 U64_equals"]
-	16 --> 10
-	10["cond__1353 U64_equals"]
-	10 --> 10
-	10["cond__1353 U64_equals"]
-	10 --> 10
-	10["cond__1353 U64_equals"]
-	10 --> 10
-	14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	10 --> 14
-	10["cond__1353 U64_equals"]
-	14 --> 10
-	10["cond__1353 U64_equals"]
-	10 --> 10
-	10["cond__1353 U64_equals"]
-	10 --> 10
-	10["cond__1353 U64_equals"]
-	10 --> 10
-	15{{"Sϕ Stack "}}
-	10 --> 15
 	1[\\"Finish"/]
-	15 --> 1
 end
 </pre>`;
 window.traces.I64_REM_S.unLEM = `<pre class='graph'>---
@@ -36611,43 +32655,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	13["eff__1370 trapDivideByZero"]
-	4 --> 13
-	7["r U64_rem_u"]
-	13 --> 7
-	12["eff__1371 push_u64"]
-	7 --> 12
-	8["arg__1374 0"]
-	12 --> 8
-	16["abs__1377 lift_u64"]
-	8 --> 16
-	10["cond__1369 U64_equals"]
-	16 --> 10
-	10["cond__1369 U64_equals"]
-	10 --> 10
-	10["cond__1369 U64_equals"]
-	10 --> 10
-	10["cond__1369 U64_equals"]
-	10 --> 10
-	14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	10 --> 14
-	10["cond__1369 U64_equals"]
-	14 --> 10
-	10["cond__1369 U64_equals"]
-	10 --> 10
-	10["cond__1369 U64_equals"]
-	10 --> 10
-	10["cond__1369 U64_equals"]
-	10 --> 10
-	15{{"Sϕ Stack "}}
-	10 --> 15
 	1[\\"Finish"/]
-	15 --> 1
 end
 </pre>`;
 window.traces.I64_REM_U.unLEM = `<pre class='graph'>---
@@ -36899,17 +32907,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["r U64_and"]
-	4 --> 7
-	9["eff__1385 push_u64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I64_AND.unLEM = `<pre class='graph'>---
@@ -37065,17 +33063,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["r U64_or"]
-	4 --> 7
-	9["eff__1389 push_u64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I64_OR.unLEM = `<pre class='graph'>---
@@ -37231,17 +33219,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["r U64_or"]
-	4 --> 7
-	9["eff__1393 push_u64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I64_XOR.unLEM = `<pre class='graph'>---
@@ -37397,17 +33375,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["r U64_shl"]
-	4 --> 7
-	9["eff__1397 push_u64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I64_SHL.unLEM = `<pre class='graph'>---
@@ -37563,17 +33531,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["r U64_shr_s"]
-	4 --> 7
-	9["eff__1401 push_u64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I64_SHR_S.unLEM = `<pre class='graph'>---
@@ -37729,17 +33687,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["r U64_shr_u"]
-	4 --> 7
-	9["eff__1405 push_u64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I64_SHR_U.unLEM = `<pre class='graph'>---
@@ -37895,17 +33843,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["r U64_rotl"]
-	4 --> 7
-	9["eff__1409 push_u64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I64_ROTL.unLEM = `<pre class='graph'>---
@@ -38061,17 +33999,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	4["a pop_u64"]
-	3 --> 4
-	7["r U64_rotr"]
-	4 --> 7
-	9["eff__1413 push_u64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.I64_ROTR.unLEM = `<pre class='graph'>---
@@ -38216,15 +34144,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f32"]
-	0 --> 3
-	5["r F32_abs"]
-	3 --> 5
-	7["eff__1417 push_f32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F32_ABS.unLEM = `<pre class='graph'>---
@@ -38356,15 +34276,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f32"]
-	0 --> 3
-	5["r F32_neg"]
-	3 --> 5
-	7["eff__1420 push_f32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F32_NEG.unLEM = `<pre class='graph'>---
@@ -38496,15 +34408,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f32"]
-	0 --> 3
-	5["r F32_ceil"]
-	3 --> 5
-	7["eff__1423 push_f32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F32_CEIL.unLEM = `<pre class='graph'>---
@@ -38636,15 +34540,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f32"]
-	0 --> 3
-	5["r F32_floor"]
-	3 --> 5
-	7["eff__1426 push_f32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F32_FLOOR.unLEM = `<pre class='graph'>---
@@ -38776,15 +34672,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f32"]
-	0 --> 3
-	5["r F32_trunc"]
-	3 --> 5
-	7["eff__1429 push_f32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F32_TRUNC.unLEM = `<pre class='graph'>---
@@ -38916,15 +34804,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f32"]
-	0 --> 3
-	5["r F32_round"]
-	3 --> 5
-	7["eff__1432 push_f32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F32_NEAREST.unLEM = `<pre class='graph'>---
@@ -39056,15 +34936,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f32"]
-	0 --> 3
-	5["r F32_sqrt"]
-	3 --> 5
-	7["eff__1435 push_f32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F32_SQRT.unLEM = `<pre class='graph'>---
@@ -39207,17 +35079,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f32"]
-	0 --> 3
-	4["a pop_f32"]
-	3 --> 4
-	7["r F32_plus"]
-	4 --> 7
-	9["eff__1438 push_f32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.F32_ADD.unLEM = `<pre class='graph'>---
@@ -39373,17 +35235,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f32"]
-	0 --> 3
-	4["a pop_f32"]
-	3 --> 4
-	7["r F32_minus"]
-	4 --> 7
-	9["eff__1442 push_f32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.F32_SUB.unLEM = `<pre class='graph'>---
@@ -39539,17 +35391,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f32"]
-	0 --> 3
-	4["a pop_f32"]
-	3 --> 4
-	7["r F32_times"]
-	4 --> 7
-	9["eff__1446 push_f32"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.F32_MUL.unLEM = `<pre class='graph'>---
@@ -39760,43 +35602,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f32"]
-	0 --> 3
-	4["a pop_f32"]
-	3 --> 4
-	13["eff__1451 trapDivideByZero"]
-	4 --> 13
-	7["r F32_div"]
-	13 --> 7
-	12["eff__1452 push_f32"]
-	7 --> 12
-	8["arg__1455 0.0f"]
-	12 --> 8
-	16["abs__1458 lift_f32"]
-	8 --> 16
-	10["cond__1450 F32_equals"]
-	16 --> 10
-	10["cond__1450 F32_equals"]
-	10 --> 10
-	10["cond__1450 F32_equals"]
-	10 --> 10
-	10["cond__1450 F32_equals"]
-	10 --> 10
-	14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	10 --> 14
-	10["cond__1450 F32_equals"]
-	14 --> 10
-	10["cond__1450 F32_equals"]
-	10 --> 10
-	10["cond__1450 F32_equals"]
-	10 --> 10
-	10["cond__1450 F32_equals"]
-	10 --> 10
-	15{{"Sϕ Stack "}}
-	10 --> 15
 	1[\\"Finish"/]
-	15 --> 1
 end
 </pre>`;
 window.traces.F32_DIV.unLEM = `<pre class='graph'>---
@@ -40037,15 +35843,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f64"]
-	0 --> 3
-	5["r F64_abs"]
-	3 --> 5
-	7["eff__1466 push_f64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F64_ABS.unLEM = `<pre class='graph'>---
@@ -40177,15 +35975,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f64"]
-	0 --> 3
-	5["r F64_neg"]
-	3 --> 5
-	7["eff__1469 push_f64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F64_NEG.unLEM = `<pre class='graph'>---
@@ -40317,15 +36107,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f64"]
-	0 --> 3
-	5["r F64_ceil"]
-	3 --> 5
-	7["eff__1472 push_f64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F64_CEIL.unLEM = `<pre class='graph'>---
@@ -40457,15 +36239,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f64"]
-	0 --> 3
-	5["r F64_floor"]
-	3 --> 5
-	7["eff__1475 push_f64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F64_FLOOR.unLEM = `<pre class='graph'>---
@@ -40597,15 +36371,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f64"]
-	0 --> 3
-	5["r F64_trunc"]
-	3 --> 5
-	7["eff__1478 push_f64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F64_TRUNC.unLEM = `<pre class='graph'>---
@@ -40737,15 +36503,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f64"]
-	0 --> 3
-	5["r F64_round"]
-	3 --> 5
-	7["eff__1481 push_f64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F64_NEAREST.unLEM = `<pre class='graph'>---
@@ -40877,15 +36635,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f64"]
-	0 --> 3
-	5["r F64_sqrt"]
-	3 --> 5
-	7["eff__1484 push_f64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F64_SQRT.unLEM = `<pre class='graph'>---
@@ -41028,17 +36778,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f64"]
-	0 --> 3
-	4["a pop_f64"]
-	3 --> 4
-	7["r F64_plus"]
-	4 --> 7
-	9["eff__1487 push_f64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.F64_ADD.unLEM = `<pre class='graph'>---
@@ -41194,17 +36934,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f64"]
-	0 --> 3
-	4["a pop_f64"]
-	3 --> 4
-	7["r F64_minus"]
-	4 --> 7
-	9["eff__1491 push_f64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.F64_SUB.unLEM = `<pre class='graph'>---
@@ -41360,17 +37090,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f64"]
-	0 --> 3
-	4["a pop_f64"]
-	3 --> 4
-	7["r F64_times"]
-	4 --> 7
-	9["eff__1495 push_f64"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.F64_MUL.unLEM = `<pre class='graph'>---
@@ -41581,43 +37301,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_f64"]
-	0 --> 3
-	4["a pop_f64"]
-	3 --> 4
-	13["eff__1500 trapDivideByZero"]
-	4 --> 13
-	7["r F64_div"]
-	13 --> 7
-	12["eff__1501 push_f64"]
-	7 --> 12
-	8["arg__1504 0.0f"]
-	12 --> 8
-	16["abs__1507 lift_f64"]
-	8 --> 16
-	10["cond__1499 F64_equals"]
-	16 --> 10
-	10["cond__1499 F64_equals"]
-	10 --> 10
-	10["cond__1499 F64_equals"]
-	10 --> 10
-	10["cond__1499 F64_equals"]
-	10 --> 10
-	14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	10 --> 14
-	10["cond__1499 F64_equals"]
-	14 --> 10
-	10["cond__1499 F64_equals"]
-	10 --> 10
-	10["cond__1499 F64_equals"]
-	10 --> 10
-	10["cond__1499 F64_equals"]
-	10 --> 10
-	15{{"Sϕ Stack "}}
-	10 --> 15
 	1[\\"Finish"/]
-	15 --> 1
 end
 </pre>`;
 window.traces.F64_DIV.unLEM = `<pre class='graph'>---
@@ -41858,15 +37542,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u64"]
-	0 --> 3
-	5["r U32_wrap_u64"]
-	3 --> 5
-	7["eff__1515 push_u32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I32_WRAP_I64.unLEM = `<pre class='graph'>---
@@ -42000,15 +37676,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f32"]
-	0 --> 3
-	5["r U32_trunc_f32_s"]
-	3 --> 5
-	7["eff__1518 push_u32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I32_TRUNC_F32_S.unLEM = `<pre class='graph'>---
@@ -42142,15 +37810,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f32"]
-	0 --> 3
-	5["r U32_trunc_f32_u"]
-	3 --> 5
-	7["eff__1521 push_u32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I32_TRUNC_F32_U.unLEM = `<pre class='graph'>---
@@ -42284,15 +37944,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f64"]
-	0 --> 3
-	5["r U32_trunc_f64_s"]
-	3 --> 5
-	7["eff__1524 push_u32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I32_TRUNC_F64_S.unLEM = `<pre class='graph'>---
@@ -42426,15 +38078,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f64"]
-	0 --> 3
-	5["r U32_trunc_f64_u"]
-	3 --> 5
-	7["eff__1527 push_u32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I32_TRUNC_F64_U.unLEM = `<pre class='graph'>---
@@ -42568,15 +38212,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u32"]
-	0 --> 3
-	5["r U64_extend_i32_s"]
-	3 --> 5
-	7["eff__1530 push_u64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I64_EXTEND_I32_S.unLEM = `<pre class='graph'>---
@@ -42710,15 +38346,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u32"]
-	0 --> 3
-	5["r U64_extend_i32_u"]
-	3 --> 5
-	7["eff__1533 push_u64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I64_EXTEND_I32_U.unLEM = `<pre class='graph'>---
@@ -42852,15 +38480,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f32"]
-	0 --> 3
-	5["r U64_trunc_f32_s"]
-	3 --> 5
-	7["eff__1536 push_u64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I64_TRUNC_F32_S.unLEM = `<pre class='graph'>---
@@ -42994,15 +38614,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f32"]
-	0 --> 3
-	5["r U64_trunc_f32_u"]
-	3 --> 5
-	7["eff__1539 push_u64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I64_TRUNC_F32_U.unLEM = `<pre class='graph'>---
@@ -43136,15 +38748,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f64"]
-	0 --> 3
-	5["r U64_trunc_f64_s"]
-	3 --> 5
-	7["eff__1542 push_u64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I64_TRUNC_F64_S.unLEM = `<pre class='graph'>---
@@ -43278,15 +38882,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f64"]
-	0 --> 3
-	5["r U64_trunc_f64_u"]
-	3 --> 5
-	7["eff__1545 push_u64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I64_TRUNC_F64_U.unLEM = `<pre class='graph'>---
@@ -43420,15 +39016,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	5["r F32_convert_i32_s"]
-	3 --> 5
-	7["eff__1548 push_f32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F32_CONVERT_I32_S.unLEM = `<pre class='graph'>---
@@ -43562,15 +39150,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	5["r F32_convert_i32_u"]
-	3 --> 5
-	7["eff__1551 push_f32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F32_CONVERT_I32_U.unLEM = `<pre class='graph'>---
@@ -43704,15 +39284,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	5["r F32_convert_i64_s"]
-	3 --> 5
-	7["eff__1554 push_f32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F32_CONVERT_I64_S.unLEM = `<pre class='graph'>---
@@ -43846,15 +39418,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	5["r F32_convert_i64_u"]
-	3 --> 5
-	7["eff__1557 push_f32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F32_CONVERT_I64_U.unLEM = `<pre class='graph'>---
@@ -43988,15 +39552,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	5["r F64_convert_i32_s"]
-	3 --> 5
-	7["eff__1560 push_f64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F64_CONVERT_I32_S.unLEM = `<pre class='graph'>---
@@ -44130,15 +39686,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u32"]
-	0 --> 3
-	5["r F64_convert_i32_u"]
-	3 --> 5
-	7["eff__1563 push_f64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F64_CONVERT_I32_U.unLEM = `<pre class='graph'>---
@@ -44272,15 +39820,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	5["r F64_convert_i64_s"]
-	3 --> 5
-	7["eff__1566 push_f64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F64_CONVERT_I64_S.unLEM = `<pre class='graph'>---
@@ -44414,15 +39954,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["b pop_u64"]
-	0 --> 3
-	5["r F64_convert_i64_u"]
-	3 --> 5
-	7["eff__1569 push_f64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F64_CONVERT_I64_U.unLEM = `<pre class='graph'>---
@@ -44556,15 +40088,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f32"]
-	0 --> 3
-	5["r u32_reinterpret_f32"]
-	3 --> 5
-	7["eff__1572 push_u32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I32_REINTERPRET_F32.unLEM = `<pre class='graph'>---
@@ -44698,15 +40222,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_f64"]
-	0 --> 3
-	5["r u64_reinterpret_f64"]
-	3 --> 5
-	7["eff__1575 push_u64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I64_REINTERPRET_F64.unLEM = `<pre class='graph'>---
@@ -44840,15 +40356,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u32"]
-	0 --> 3
-	5["r f32_reinterpret_u32"]
-	3 --> 5
-	7["eff__1578 push_f32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F32_REINTERPRET_I32.unLEM = `<pre class='graph'>---
@@ -44982,15 +40490,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u64"]
-	0 --> 3
-	5["r f64_reinterpret_u64"]
-	3 --> 5
-	7["eff__1581 push_f64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.F64_REINTERPRET_I64.unLEM = `<pre class='graph'>---
@@ -45124,15 +40624,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u32"]
-	0 --> 3
-	5["r U32_extend8_s"]
-	3 --> 5
-	7["eff__1584 push_u32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I32_EXTEND8_S.unLEM = `<pre class='graph'>---
@@ -45266,15 +40758,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u32"]
-	0 --> 3
-	5["r U32_extend16_s"]
-	3 --> 5
-	7["eff__1587 push_u32"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I32_EXTEND16_S.unLEM = `<pre class='graph'>---
@@ -45408,15 +40892,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u64"]
-	0 --> 3
-	5["r U64_extend8_s"]
-	3 --> 5
-	7["eff__1590 push_u64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I64_EXTEND8_S.unLEM = `<pre class='graph'>---
@@ -45550,15 +41026,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u64"]
-	0 --> 3
-	5["r U64_extend16_s"]
-	3 --> 5
-	7["eff__1593 push_u64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I64_EXTEND16_S.unLEM = `<pre class='graph'>---
@@ -45692,15 +41160,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["a pop_u64"]
-	0 --> 3
-	5["r U64_extend32_s"]
-	3 --> 5
-	7["eff__1596 push_u64"]
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
 end
 </pre>`;
 window.traces.I64_EXTEND32_S.unLEM = `<pre class='graph'>---
@@ -45832,15 +41292,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["idx imm_readULEB32"]
-	0 --> 3
-	4["arg__1600 object_Null"]
-	3 --> 4
-	5["eff__1599 push_Object"]
-	4 --> 5
 	1[\\"Finish"/]
-	5 --> 1
 end
 </pre>`;
 window.traces.REF_NULL.unLEM = `<pre class='graph'>---
@@ -46011,31 +41463,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["obj pop_Object"]
-	0 --> 3
-	5["cond__1601 object_isNull"]
-	3 --> 5
-	5["cond__1601 object_isNull"]
-	5 --> 5
-	5["cond__1601 object_isNull"]
-	5 --> 5
-	10{{"Sϕ Stack "}}
-	5 --> 10
 	1[\\"Finish"/]
-	10 --> 1
-	8["arg__1603 1"]
-	1 --> 8
-	11["abs__1607 lift_u32"]
-	8 --> 11
-	9["eff__1602 push_u32"]
-	11 --> 9
-	6["arg__1605 0"]
-	9 --> 6
-	12["abs__1608 lift_u32"]
-	6 --> 12
-	7["eff__1604 push_u32"]
-	12 --> 7
 end
 </pre>`;
 window.traces.REF_IS_NULL.unLEM = `<pre class='graph'>---
@@ -46276,23 +41704,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["obj pop_Object"]
-	0 --> 3
-	5["cond__1616 object_isNull"]
-	3 --> 5
-	8{{"Sϕ Stack "}}
-	5 --> 8
-	10["eff__1614 push_Object"]
-	8 --> 10
-	5["cond__1616 object_isNull"]
-	10 --> 5
-	7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	5 --> 7
 	1[\\"Finish"/]
-	7 --> 1
-	6["eff__1617 trapNull"]
-	1 --> 6
 end
 </pre>`;
 window.traces.REF_AS_NON_NULL.unLEM = `<pre class='graph'>---
@@ -46513,17 +41925,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	3["struct_idx imm_readULEB32"]
-	0 --> 3
-	5["sig m_getSignature"]
-	3 --> 5
-	7["obj object_New"]
-	5 --> 7
-	9["eff__1626 push_Object"]
-	7 --> 9
 	1[\\"Finish"/]
-	9 --> 1
 end
 </pre>`;
 window.traces.STRUCT_NEW.unLEM = `<pre class='graph'>---
@@ -46733,39 +42135,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	11["obj pop_Object"]
-	0 --> 11
-	3["struct_index imm_readULEB32"]
-	11 --> 3
-	4["field_index imm_readULEB32"]
-	3 --> 4
-	13["cond__1655 object_isNull"]
-	4 --> 13
-	14["ret__1656 trapNull"]
-	13 --> 14
-	13["cond__1655 object_isNull"]
-	14 --> 13
-	15{{"Sϕ Codeptr "}}
-	13 --> 15
-	13["cond__1655 object_isNull"]
-	15 --> 13
-	13["cond__1655 object_isNull"]
-	13 --> 13
-	13["cond__1655 object_isNull"]
-	13 --> 13
-	16{{"Sϕ Stack "}}
-	13 --> 16
-	13["cond__1655 object_isNull"]
-	16 --> 13
-	13["cond__1655 object_isNull"]
-	13 --> 13
-	13["cond__1655 object_isNull"]
-	13 --> 13
-	17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	13 --> 17
 	1[\\"Finish"/]
-	17 --> 1
 end
 </pre>`;
 window.traces.STRUCT_GET.unLEM = `<pre class='graph'>---
@@ -47083,39 +42453,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	11["obj pop_Object"]
-	0 --> 11
-	3["struct_index imm_readULEB32"]
-	11 --> 3
-	4["field_index imm_readULEB32"]
-	3 --> 4
-	13["cond__1683 object_isNull"]
-	4 --> 13
-	14["ret__1684 trapNull"]
-	13 --> 14
-	13["cond__1683 object_isNull"]
-	14 --> 13
-	15{{"Sϕ Codeptr "}}
-	13 --> 15
-	13["cond__1683 object_isNull"]
-	15 --> 13
-	13["cond__1683 object_isNull"]
-	13 --> 13
-	13["cond__1683 object_isNull"]
-	13 --> 13
-	16{{"Sϕ Stack "}}
-	13 --> 16
-	13["cond__1683 object_isNull"]
-	16 --> 13
-	13["cond__1683 object_isNull"]
-	13 --> 13
-	13["cond__1683 object_isNull"]
-	13 --> 13
-	17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	13 --> 17
 	1[\\"Finish"/]
-	17 --> 1
 end
 </pre>`;
 window.traces.STRUCT_GET_S.unLEM = `<pre class='graph'>---
@@ -47433,39 +42771,7 @@ config:
 ---
 graph TD
 subgraph block_0
-	0[/"Start"\\]
-	11["obj pop_Object"]
-	0 --> 11
-	3["struct_index imm_readULEB32"]
-	11 --> 3
-	4["field_index imm_readULEB32"]
-	3 --> 4
-	13["cond__1711 object_isNull"]
-	4 --> 13
-	14["ret__1712 trapNull"]
-	13 --> 14
-	13["cond__1711 object_isNull"]
-	14 --> 13
-	15{{"Sϕ Codeptr "}}
-	13 --> 15
-	13["cond__1711 object_isNull"]
-	15 --> 13
-	13["cond__1711 object_isNull"]
-	13 --> 13
-	13["cond__1711 object_isNull"]
-	13 --> 13
-	16{{"Sϕ Stack "}}
-	13 --> 16
-	13["cond__1711 object_isNull"]
-	16 --> 13
-	13["cond__1711 object_isNull"]
-	13 --> 13
-	13["cond__1711 object_isNull"]
-	13 --> 13
-	17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	13 --> 17
 	1[\\"Finish"/]
-	17 --> 1
 end
 </pre>`;
 window.traces.STRUCT_GET_U.unLEM = `<pre class='graph'>---
