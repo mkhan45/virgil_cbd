@@ -13,8 +13,8 @@
         </div>
         <script src="traces.js" charset="utf-8"></script>
         <script type="module">
-            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-            import elkLayouts from 'https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0/dist/mermaid-layout-elk.esm.min.mjs';
+              import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.esm.min.mjs';
+              import elkLayouts from 'https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0/dist/mermaid-layout-elk.esm.min.mjs';
 
             mermaid.registerLayoutLoaders(elkLayouts);
 
@@ -25,7 +25,8 @@
                 'primaryBorderColor': '#000000',
                 'fontFamily': 'monospace',
             };
-            mermaid.initialize({ startOnLoad: false, theme: 'base', themeVariables: theme, layout: 'elk' });
+            // mermaid.initialize({ startOnLoad: false, theme: 'base', themeVariables: theme, layout: 'elk' });
+            mermaid.initialize({ startOnLoad: false, theme: 'base', themeVariables: theme });
             window.mermaid = mermaid;
 
             const graph = document.getElementById('graph');

@@ -1,235 +1,425 @@
 var sched_id: int = 0;
-def uid() -> int {
+def fresh_id() -> int {
     return sched_id++;
 }
 
+def trap();
+
 class SeaScheduler {
     var sea: Sea;
-    var top_block: ScheduleBlock;
+    var bottom_block: ScheduleNode;
+    var live = NodeSet.new();
+    var done: NodeSet;
+    var q: Vector<IRNode>;
+    var q_idx: int;
 
     new(sea) {
-        top_block = ScheduleBlock.new(uid());
+        bottom_block = ScheduleBlock.new(fresh_id(), this);
+        sea.apply(live, this.collectLiveAux);
     }
 
     def toMermaid() -> string {
         def buf = StringBuilder.new();
-        buf.puts("---").ln();
-        buf.puts("config:").ln();
-        buf.puts("  layout: elk").ln();
-        buf.puts("---").ln();
+        def visited = HashMap<int, void>.new(int.!<int>, int.==);
         buf.puts("graph TD").ln();
-
-        top_block.toMermaid(buf);
+        bottom_block.toMermaid(buf, visited);
+        buf.ln();
         return buf.toString();
     }
 
+    def collectLiveAux(node: IRNode, sea: Sea, state: NodeSet) -> Range<IRNode> {
+        state.put(node);
+        return node.deps();
+    }
+
     def schedule() {
+        q = Vector<IRNode>.new();
+        q.put(sea.finish);
+
+        done = NodeSet.new();
         sched_id = 0;
 
-        top_block.schedule(sea.finish, sea);
+        q_idx = 0;
+        while (q_idx < q.length) {
+            def node = q[q_idx];
+            q_idx += 1;
+
+            // traverse existing schedule, put node in first available spot
+            if (bottom_block.schedule(node) != null) {
+                for (d in node.deps()) q.put(d);
+            } else {
+                q.put(node);
+            }
+        }
+
+        bottom_block.finalize();
     }
 }
 
-class NodeDeps {
-    var phis: List<IRNode>;
-    var state_phis: List<IRNode>;
-    var plain_deps: Array<IRNode>;
+class ScheduleNode(id: int, scheduler: SeaScheduler) {
+    var dominants: DomGraph = DomGraph.new(); // set of the IRNodes dominated by this node
 
-    new(available: ImmNodeSet, node: IRNode, sea: Sea) {
-        // record if the current node is a conditional for any phis
-        // that have not already been scheduled
-        phis = null;
-        state_phis = null;
-        if (node.var_data != null) for (i < node.children.length) {
+    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder;
+    def linkPrependedBlock(block: ScheduleBlock);
+
+    def subgraphName(buf: StringBuilder) -> StringBuilder {
+        match (this) {
+            block: ScheduleBlock => buf.puts("block_").putd(id);
+            branch: ScheduleBranch => buf.puts("branch_").putd(id);
+            phi: SchedulePhi => buf.puts("phi_").putd(id);
+        }
+        return buf;
+    }
+
+    def schedule(node: IRNode) -> ScheduleNode {
+        if (dominants.has(node)) return this;
+        if (scheduler.done.has(node)) return scheduler.bottom_block;
+
+        var ready = true;
+        for (i < node.children.length) {
             def child = node.children[i];
-            if (!(IROp.Phi.?(child.op) || IROp.StatePhi.?(child.op))) continue; 
-            if (available.has(child)) continue;
-            def ctl_deps = child.ctl_deps();
-            var child_ready = true;
-            for (dep in ctl_deps) {
-                child_ready &= available.has(dep.value_deps[0]);
-                def branch_deps = Vector<IRNode>.new();
-                for (td in dep.value_deps[0].transitiveDeps(sea.start)) child_ready &= available.has(td);
-                def left = dep.value_deps[1], right = dep.value_deps[2];
-                def leftDeps = left.transitiveDeps(node), rightDeps = right.transitiveDeps(node);
-                for (l in leftDeps) for (r in rightDeps) if (l.id == r.id) branch_deps.put(l);
-            }
-            if (!child_ready) continue;
-            if (IROp.Phi.?(child.op) && child.value_deps[0].id == node.id) phis = List.new(child, phis);
-            if (IROp.StatePhi.?(child.op) && child.value_deps[0].id == node.id) state_phis = List.new(child, state_phis);
+            def live = scheduler.live.has(child);
+            if (!live) continue;
+
+            ready &= dominants.has(node.children[i]);
         }
 
-        var deps: Array<IRNode>;
-        match (node.op) {
-            StatePhi(scs) => deps = [node.value_deps[0]];
-            Phi => deps = [node.value_deps[0]];
-            _ => {
-                if (phis == null && state_phis == null) {
-                    deps = node.deps();
+        if (ready) {
+            if (IROp.Phi.?(node.op) || IROp.StatePhi.?(node.op)) {
+                return scheduleReadyPhi(node);
+            } else {
+                match (this) {
+                    block: ScheduleBlock => {
+                        block.nodes.put(node);
+                        block.dominants.addLocal(node);
+                        scheduler.done.put(node);
+                        return block;
+                    }
+                    cond: ScheduleBranch => {
+                        def dest_block = if(cond.prev != null, cond.prev.schedule(node), cond.prependScheduleBlock(node));
+                        return dest_block;
+                    }
+                    phi: SchedulePhi => {
+                        // we can only schedule phis into phis, so
+                        // try to schedule before the branch.
+                        var dest_block = phi.l_source.schedule(node);
+                        if (dest_block == null) dest_block = phi.r_source.schedule(node);
+                        return phi.source_branch.schedule(node);
+                    }
+                    _ => return null; // unreachable
+                }
+            }
+        } else {
+            match (this) {
+                block: ScheduleBlock => {
+                    return if(block.prev != null, block.prev.schedule(node));
+                }
+                cond: ScheduleBranch => {
+                    // dest_block remains null if schedules fail
+                    return if(cond.prev != null, cond.prev.schedule(node));
+                }
+                phi: SchedulePhi => {
+                    // not sure if we would ever have to schedule into branches from here
+                    var dest_block = phi.source_branch.schedule(node);
+                    if (dest_block == null) dest_block = phi.l_source.schedule(node);
+                    if (dest_block == null) dest_block = phi.r_source.schedule(node);
+                    return dest_block;
+                }
+                _ => return null; // unreachable
+            }
+        }
+    }
+
+    def scheduleReadyPhi(phi: IRNode) -> ScheduleNode {
+        match (this) {
+            block: ScheduleBlock => return if(block.prev == null, block.prependScheduleBranch(phi), block.prev.scheduleReadyPhi(phi));
+            cond: ScheduleBranch => {
+                return if (cond.prev == null, cond.prependScheduleBranch(phi), cond.prev.scheduleReadyPhi(phi));
+            }
+            phi_node: SchedulePhi => {
+                def phi_cond = phi.value_deps[0];
+                if (phi_node.source_branch.condition.id == phi_cond.id) {
+                    return phi_node.fuseReadyPhi(phi);
                 } else {
-                    def res = Vector<IRNode>.new();
-                    for (phi = phis; phi != null; phi = phi.tail) {
-                        def left = phi.head.value_deps[1], right = phi.head.value_deps[2];
-                        def leftDeps = left.transitiveDeps(node), rightDeps = right.transitiveDeps(node);
-                        for (l in leftDeps) for (r in rightDeps) if (l.id == r.id) res.put(l);
-                    }
-                    for (phi = state_phis; phi != null; phi = phi.tail) {
-                        def left = phi.head.value_deps[1], right = phi.head.value_deps[2];
-                        def leftDeps = left.transitiveDeps(node), rightDeps = right.transitiveDeps(node);
-                        for (l in leftDeps) for (r in rightDeps) if (l.id == r.id) res.put(l);
-                    }
-                    def filter_res = Vector<IRNode>.new();
-                    def cond_transdeps = node.transitiveDeps(sea.start);
-                    for (i < res.length) {
-                        var high = false;
-                        for (j < cond_transdeps.length) high |= (cond_transdeps[j].id == res[i].id);
-                        if (!high) filter_res.put(res[i]);
-                    }
-                    filter_res.puta(node.deps());
-                    deps = dedup(filter_res.copy());
+                    // not sure if we would ever have to schedule into branches from here
+                    var dest_block = phi_node.source_branch.schedule(phi);
+                    if (dest_block == null) dest_block = phi_node.l_source.schedule(phi);
+                    if (dest_block == null) dest_block = phi_node.r_source.schedule(phi);
+                    return dest_block;
+                }
+            }
+            _ => return null; // unreachable
+        }
+    }
+
+    def prependScheduleBlock(node: IRNode) -> ScheduleBlock {
+        def block = ScheduleBlock.new(fresh_id(), scheduler);
+
+        var prev: ScheduleNode;
+        match (this) {
+            b: ScheduleBlock => prev = b.prev;
+            b: ScheduleBranch => prev = b.prev;
+            _ => {}
+        }
+        match (prev) {
+            prev_block: ScheduleBlock => prev_block.next = block;
+            prev_phi: SchedulePhi => prev_phi.next = block;
+            prev_branch: ScheduleBranch => {
+                if (prev_branch.l_branch.id == this.id) prev_branch.l_branch = block;
+                if (prev_branch.r_branch.id == this.id) prev_branch.r_branch = block;
+            }
+        }
+
+        linkPrependedBlock(block);
+
+        block.dominants = dominants.newChild();
+        block.dominants.addLocal(node);
+
+        block.nodes.put(node);
+        scheduler.done.put(node);
+
+        return block;
+    }
+
+    // traverses schedule graph and reverses all blocks
+    def finalize() {
+        match (this) {
+            block: ScheduleBlock => {
+                if (!block.forward) block.reverse();
+                if (block.prev != null) block.prev.finalize();
+            }
+            branch: ScheduleBranch => if (branch.prev != null) branch.prev.finalize();
+            phi: SchedulePhi => {
+                phi.source_branch.finalize();
+                phi.l_source.finalize();
+                phi.r_source.finalize();
+            }
+        }
+    }
+
+    def getSinglePrev() -> ScheduleNode {
+        match (this) {
+            block: ScheduleBlock => return block.prev;
+            branch: ScheduleBranch => return branch.prev;
+            _ => trap();
+        }
+        return null;
+    }
+
+    def setSinglePrev(newPrev: ScheduleNode) -> this {
+        match (this) {
+            block: ScheduleBlock => block.prev = newPrev;
+            branch: ScheduleBranch => branch.prev = newPrev;
+            _ => trap();
+        }
+    }
+
+    def prependScheduleBranch(phi: IRNode) -> SchedulePhi {
+        //               prev
+        //                |
+        //              branch     (dominants all below)
+        //             /      \
+        //           left    right (dominants = this.dominants + phi + nodes in each branch)
+        //             \      /
+        //             phi_node (dominants = this.dominants)
+        //                |
+        //               this
+        def cond = phi.value_deps[0], l_branch = phi.value_deps[1], r_branch = phi.value_deps[2];
+        def branch = ScheduleBranch.new(fresh_id(), scheduler);
+        def phi_node = SchedulePhi.new(fresh_id(), scheduler);
+
+        phi_node.next = this;
+        phi_node.source_branch = branch;
+
+        def prev = getSinglePrev();
+        if (prev != null) {
+            match (prev) {
+                block: ScheduleBlock => block.next = branch;
+                phi: SchedulePhi => phi.next = branch;
+                branch: ScheduleBranch => {
+                    if (branch.l_branch.id == this.id) branch.l_branch = branch;
+                    if (branch.r_branch.id == this.id) branch.r_branch = branch;
                 }
             }
         }
 
-        plain_deps = deps;
+        branch.prev = prev;
+        branch.condition = cond;
+
+        setSinglePrev(phi_node);
+
+        phi_node.dominants = dominants.newChild();
+
+        def left = ScheduleBlock.new(fresh_id(), scheduler);
+        def right = ScheduleBlock.new(fresh_id(), scheduler);
+
+        left.prev = right.prev = branch;
+        phi_node.l_source = branch.l_branch = left;
+        phi_node.r_source = branch.r_branch = right;
+
+        left.dominants = phi_node.dominants.newChild();
+        right.dominants = phi_node.dominants.newChild();
+
+        left.dominants.addLocal(phi);
+        right.dominants.addLocal(phi);
+
+        branch.dominants = DomGraph.new().withParent(left.dominants).withParent(right.dominants);
+
+        branch.schedule(cond);
+        left.schedule(l_branch);
+        right.schedule(r_branch);
+
+        phi_node.phis = List.new(phi, null);
+
+        scheduler.done.put(phi);
+        return phi_node;
     }
 }
 
-class ScheduleNode(id: int) {
-    var available: ImmNodeSet;
-    var next: ScheduleNode = null;
-
-    def toMermaid(buf: StringBuilder) -> StringBuilder;
-    def prev() -> Range<ScheduleNode>;
-
-    def schedule(node: IRNode, sea: Sea) -> ScheduleNode {
-        if (available.has(node)) return this;
-
-        var ready = true;
-        for (i < node.children.length) ready &= available.has(node.children[i]);
-
-        var dest_block: ScheduleNode = null;
-        if (ready) {
-            def block = ScheduleBlock.!(this);
-            block.nodes.put(node);
-            block.available = block.available.with(node);
-            dest_block = block;
-        } else {
-            // TODO:
-            // I think that actually keeping the combined cond/phi structure is cleaner,
-            // we could just iterate prev() here but left and right would have the same prev,
-            // so mental model seems lossy.
-        }
-
-        return null; // TODO
-    }
-}
-
-class ScheduleBlock(uid: int) extends ScheduleNode(uid) {
+class ScheduleBlock(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, scheduler_) {
     var nodes: Vector<IRNode> = Vector.new(); // we build these backwards, so they have to be reversed.
     var forward: bool = false;
+    var prev: ScheduleNode = null;
+    var next: ScheduleNode = null;
 
-    var prev_node: ScheduleNode = null;
-
-    def toMermaid(buf: StringBuilder) -> StringBuilder {
-        buf.puts("subgraph block_").putd(id).ln();
-
+    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
+        if (visited.has(id)) return buf;
+        visited[id] = void;
+        buf.puts("subgraph block_").putd(id).puts("[\"Block ").putd(id).puts("\"]").ln();
+        buf.tab().puts("direction TB").ln(); // works in interactive but not with cdn
+        // Render IRNodes linearly within this block
         for (i < nodes.length) {
-            def n = nodes[i];
-            n.toMermaidNode(buf, "");
-
-            if (i > 0) {
-                def prev = nodes[i - 1];
-                buf.tab().putd(prev.id).puts(" --> ").putd(n.id).ln();
+            def node = nodes[i];
+            node.toMermaidNode(buf, Strings.format1("b%d_", id));
+        }
+        // Connect nodes linearly
+        for (i < nodes.length) {
+            if (i + 1 < nodes.length) {
+                buf.tab();
+                if (!forward) {
+                    buf.puts("b").putd(id).puts("_").putd(nodes[i + 1].id);
+                    buf.puts(" --> ");
+                    buf.puts("b").putd(id).puts("_").putd(nodes[i].id).ln();
+                } else {
+                    buf.puts("b").putd(id).puts("_").putd(nodes[i].id);
+                    buf.puts(" --> ");
+                    buf.puts("b").putd(id).puts("_").putd(nodes[i + 1].id).ln();
+                }
             }
         }
-
         buf.puts("end").ln();
-
-        if (next != null) {
-            next.toMermaid(buf);
-            buf.tab().putd(id).puts(" --> ").putd(next.id).ln();
+        // Edge to prev
+        if (prev != null) {
+            prev.subgraphName(buf);
+            buf.puts(" --> ");
+            this.subgraphName(buf);
+            buf.ln();
         }
-
+        // Recurse backwards via prev
+        if (prev != null) prev.toMermaid(buf, visited);
         return buf;
     }
-    
-    def prev() -> Range<ScheduleNode> => [prev_node];
 
     def reverse() {
-        forward = !forward;
-        nodes.reverse();
+         forward = !forward;
+         nodes.reverse();
+    }
+
+    def linkPrependedBlock(block: ScheduleBlock) {
+        block.prev = prev;
+        block.next = this;
+        prev = block;
     }
 }
 
-class ConditionalScheduleBlock(uid: int) extends ScheduleNode(uid) {
+class ScheduleBranch(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, scheduler_) {
     var condition: IRNode;
+    var l_branch: ScheduleNode = null;
+    var r_branch: ScheduleNode = null;
+    var prev: ScheduleNode = null;
 
-    var prev_node: ScheduleNode = null;
-    var left: ScheduleNode = null;
-    var right: ScheduleNode = null;
-
-    var phi_block: PhiScheduleBlock = null;
-
-    def prev() -> Range<ScheduleNode> => [prev_node];
-
-    def toMermaid(buf: StringBuilder) -> StringBuilder {
-        buf.puts("subgraph cond_").putd(id).ln();
-
-        condition.toMermaidNode(buf, "");
-
-        if (left != null) left.toMermaid(buf);
-        if (right != null) right.toMermaid(buf);
-
-        buf.puts("end").ln();
-
-        if (left != null) buf.tab().putd(condition.id).puts(" -->|true| ").putd(left.id).ln();
-        if (right != null) buf.tab().putd(condition.id).puts(" -->|false| ").putd(right.id).ln();
-
-        if (phi_block != null) phi_block.toMermaid(buf);
-
-        if (next != null) {
-            next.toMermaid(buf);
-            buf.tab().putd(id).puts(" --> ").putd(next.id).ln();
+    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
+        if (visited.has(id)) return buf;
+        visited[id] = void;
+        buf.puts("subgraph branch_").putd(id).puts("[\"Branch ").putd(id).puts("\"]").ln();
+        // Render the condition node
+        if (condition != null) {
+            condition.toMermaidNode(buf, Strings.format1("br%d_", id));
         }
-
+        buf.ln().puts("end").ln();
+        // Edge to prev
+        if (prev != null) {
+            prev.subgraphName(buf);
+            buf.puts(" --> ");
+            this.subgraphName(buf);
+            buf.ln();
+        }
+        // Recurse backwards via prev
+        if (prev != null) prev.toMermaid(buf, visited);
         return buf;
     }
-}
 
-class PhiScheduleBlock(uid: int) extends ScheduleNode(uid) {
-    var condition: ConditionalScheduleBlock;
+    def linkPrependedBlock(block: ScheduleBlock) {
+        block.prev = prev;
+        block.next = this;
+        prev = block;
+    }
+ }
 
-    // should these always be type ScheduleBlock?
-    var left: ScheduleNode = null;
-    var right: ScheduleNode = null;
+class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, scheduler_) {
+    var source_branch: ScheduleBranch;
+    var l_source: ScheduleNode = null;
+    var r_source: ScheduleNode = null;
+    var next: ScheduleNode = null;
+    var phis: List<IRNode> = null;
 
-    def prev() -> Range<ScheduleNode> => [left, right];
-
-    var ir_phis: List<IRNode> = null;
-
-    def toMermaid(buf: StringBuilder) -> StringBuilder {
-        buf.puts("subgraph phi_").putd(id).ln();
-
-        for (phi = ir_phis; phi != null; phi = phi.tail) {
-            phi.head.toMermaidNode(buf, "");
+    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
+        if (visited.has(id)) return buf;
+        visited[id] = void;
+        buf.puts("subgraph phi_").putd(id).puts("[\"Phi ").putd(id).puts("\"]").ln();
+        // Render phi nodes
+        for (cur = phis; cur != null; cur = cur.tail) {
+            def phi = cur.head;
+            phi.toMermaidNode(buf, Strings.format1("p%d_", id));
         }
-
         buf.puts("end").ln();
-
-        for (phi = ir_phis; phi != null; phi = phi.tail) {
-            if (left != null) buf.tab().putd(left.id).puts(" --> ").putd(phi.head.id).ln();
-            if (right != null) buf.tab().putd(right.id).puts(" --> ").putd(phi.head.id).ln();
+        // Edges from l_source and r_source to this phi
+        if (l_source != null) {
+            l_source.subgraphName(buf);
+            buf.puts(" --> ");
+            this.subgraphName(buf);
+            buf.ln();
         }
-
-        if (next != null) {
-            next.toMermaid(buf);
-            buf.tab().putd(id).puts(" --> ").putd(next.id).ln();
+        if (r_source != null) {
+            r_source.subgraphName(buf);
+            buf.puts(" --> ");
+            this.subgraphName(buf);
+            buf.ln();
         }
-
+        // Recurse backwards via l_source and r_source
+        if (l_source != null) l_source.toMermaid(buf, visited);
+        if (r_source != null) r_source.toMermaid(buf, visited);
+        // Also recurse via source_branch
+        // if (source_branch != null) source_branch.toMermaid(buf, visited);
         return buf;
     }
-}
+
+    def fuseReadyPhi(phi: IRNode) -> this {
+        def cond = phi.value_deps[0], l_branch = phi.value_deps[1], r_branch = phi.value_deps[2];
+
+        source_branch.l_branch.dominants.addLocal(phi);
+        source_branch.r_branch.dominants.addLocal(phi);
+
+        l_source.dominants.addLocal(phi);
+        r_source.dominants.addLocal(phi);
+
+        l_source.schedule(l_branch);
+        r_source.schedule(r_branch);
+
+        phis = List.new(phi, phis);
+        scheduler.done.put(phi);
+    }
+ }
 
 def dedup(arr: Array<IRNode>) -> Array<IRNode> {
     def res = Vector<IRNode>.new();
@@ -242,3 +432,40 @@ def dedup(arr: Array<IRNode>) -> Array<IRNode> {
     return res.copy();
 }
 
+// Dom graph with mutable set nodes
+class DomGraph {
+    var parents: Vector<DomGraph> = Vector.new();
+    var local_nodes: NodeSet = NodeSet.new();
+
+    def has(node: IRNode) -> bool {
+        if (local_nodes.has(node)) return true;
+        for (i < parents.length) if (parents[i].has(node)) return true;
+        return false;
+    }
+    def addLocal(node: IRNode) => local_nodes.put(node);
+
+    def newChild() -> DomGraph => DomGraph.new().withParent(this);
+    def withParent(parent: DomGraph) -> this {
+        parents.put(parent);
+    }
+
+    def render(buf: StringBuilder) -> StringBuilder {
+        buf.puts("[");
+        def nodes = Vector<IRNode>.new();
+        local_nodes.apply(fun n => void(nodes.put(n)));
+        for (i < nodes.length) {
+            def node = nodes[i];
+            if (i > 0) buf.puts(", ");
+            buf.putq(node.render).put1(" (%d)", node.id);
+        }
+
+        for (i < parents.length) {
+            buf.puts("; ");
+            parents[i].render(buf);
+        }
+
+        buf.puts("]");
+
+        return buf;
+    }
+}

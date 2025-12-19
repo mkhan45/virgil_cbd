@@ -35,14 +35,16 @@ graph TD
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
 </pre>`;
-window.traces.UNREACHABLE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.UNREACHABLE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["eff__0 trapUnreachable"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_1
 end
+
 </pre>`;
 window.traces.UNREACHABLE.unLEM = `<pre class='graph'>---
 config:
@@ -56,6 +58,17 @@ graph TD
 	0[/"Start"\\]
 </pre>`;
 window.traces.UNREACHABLE.unlem_schedule = `<pre class=''>def eff__0 = trapUnreachable();
+</pre>`;
+window.traces.UNREACHABLE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["eff__0 trapUnreachable"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_1
+end
+
 </pre>`;
 window.traces.UNREACHABLE.unlem_pretty = `<pre class=''>trapUnreachable();
 </pre>`;
@@ -115,14 +128,14 @@ graph TD
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
 </pre>`;
-window.traces.NOP.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.NOP.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_1
 end
+
 </pre>`;
 window.traces.NOP.unLEM = `<pre class='graph'>---
 config:
@@ -134,6 +147,15 @@ graph TD
 	0[/"Start"\\]
 </pre>`;
 window.traces.NOP.unlem_schedule = `<pre class=''></pre>`;
+window.traces.NOP.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_1
+end
+
+</pre>`;
 window.traces.NOP.unlem_pretty = `<pre class=''></pre>`;
 window.traces.NOP.constUnLEM = `<pre class='graph'>---
 config:
@@ -205,14 +227,18 @@ graph TD
 	3["bt imm_readBlockType"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces.BLOCK.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.BLOCK.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["bt imm_readBlockType"]
+	b0_5["eff__2 doBlock"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_1
 end
+
 </pre>`;
 window.traces.BLOCK.unLEM = `<pre class='graph'>---
 config:
@@ -231,6 +257,19 @@ graph TD
 </pre>`;
 window.traces.BLOCK.unlem_schedule = `<pre class=''>def bt = imm_readBlockType();
 def eff__2 = doBlock(bt);
+</pre>`;
+window.traces.BLOCK.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["bt imm_readBlockType"]
+	b0_5["eff__2 doBlock"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_1
+end
+
 </pre>`;
 window.traces.BLOCK.unlem_pretty = `<pre class=''>def bt = imm_readBlockType();
 doBlock(bt);
@@ -321,14 +360,18 @@ graph TD
 	3["bt imm_readBlockType"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces.LOOP.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.LOOP.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["bt imm_readBlockType"]
+	b0_5["eff__4 doLoop"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_1
 end
+
 </pre>`;
 window.traces.LOOP.unLEM = `<pre class='graph'>---
 config:
@@ -347,6 +390,19 @@ graph TD
 </pre>`;
 window.traces.LOOP.unlem_schedule = `<pre class=''>def bt = imm_readBlockType();
 def eff__4 = doLoop(bt);
+</pre>`;
+window.traces.LOOP.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["bt imm_readBlockType"]
+	b0_5["eff__4 doLoop"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_1
+end
+
 </pre>`;
 window.traces.LOOP.unlem_pretty = `<pre class=''>def bt = imm_readBlockType();
 doLoop(bt);
@@ -506,14 +562,32 @@ graph TD
 	7 --> 15
 	7["arg__11 0"]
 </pre>`;
-window.traces.IF.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.IF.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_15["abs__14 lift_u32"]
+	b0_14["eff_st_put__13 ctlxfer.put_IF"]
+	b0_1[\\"Finish"/]
+	b0_15 --> b0_14
+	b0_14 --> b0_1
 end
+phi_1 --> block_0
+subgraph phi_1["Phi 1"]
+	p1_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_12["eff__7 doBranch"]
+end
+branch_0 --> block_2
+subgraph block_3["Block 3"]
+	direction TB
+	b3_10["eff__9 doFallthru"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.IF.unLEM = `<pre class='graph'>---
 config:
@@ -589,6 +663,59 @@ if (mb__17) {
 }
 // phis: 
 def eff_st_put__13 = ctlxfer.put_IF(label);
+</pre>`;
+window.traces.IF.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_15["abs__14 lift_u32"]
+	b5_14["eff_st_put__13 ctlxfer.put_IF"]
+	b5_1[\\"Finish"/]
+	b5_15 --> b5_14
+	b5_14 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_merge__18 merge"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_18["mb__17 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_17["mf__16 U32_maybeFalse"]
+	b4_18["mb__17 bool.&&"]
+	b4_17 --> b4_18
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_12["eff__7 doBranch"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_10["eff__9 doFallthru"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.IF.unlem_pretty = `<pre class=''>def bt = imm_readBlockType();
 def cond = pop_u32();
@@ -744,14 +871,20 @@ graph TD
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
 </pre>`;
-window.traces.ELSE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.ELSE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_0[/"Start"\\]
+	b10_3["label doElse"]
+	b10_5["eff__19 doBranch"]
+	b10_6["eff_st_put__21 ctlxfer.put_ELSE"]
+	b10_1[\\"Finish"/]
+	b10_0 --> b10_3
+	b10_3 --> b10_5
+	b10_5 --> b10_6
+	b10_6 --> b10_1
 end
+
 </pre>`;
 window.traces.ELSE.unLEM = `<pre class='graph'>---
 config:
@@ -774,6 +907,21 @@ graph TD
 window.traces.ELSE.unlem_schedule = `<pre class=''>def label = doElse();
 def eff__19 = doBranch(label);
 def eff_st_put__21 = ctlxfer.put_ELSE(label);
+</pre>`;
+window.traces.ELSE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["label doElse"]
+	b0_5["eff__19 doBranch"]
+	b0_6["eff_st_put__21 ctlxfer.put_ELSE"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_6
+	b0_6 --> b0_1
+end
+
 </pre>`;
 window.traces.ELSE.unlem_pretty = `<pre class=''>def label = doElse();
 doBranch(label);
@@ -873,14 +1021,18 @@ graph TD
 	3["bt imm_readBlockType"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces.TRY.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.TRY.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["bt imm_readBlockType"]
+	b0_5["eff__22 doTry"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_1
 end
+
 </pre>`;
 window.traces.TRY.unLEM = `<pre class='graph'>---
 config:
@@ -899,6 +1051,19 @@ graph TD
 </pre>`;
 window.traces.TRY.unlem_schedule = `<pre class=''>def bt = imm_readBlockType();
 def eff__22 = doTry(bt);
+</pre>`;
+window.traces.TRY.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["bt imm_readBlockType"]
+	b0_5["eff__22 doTry"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_1
+end
+
 </pre>`;
 window.traces.TRY.unlem_pretty = `<pre class=''>def bt = imm_readBlockType();
 doTry(bt);
@@ -1001,14 +1166,27 @@ graph TD
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 5
 	4["cond__24 f_isAtEnd"]
 </pre>`;
-window.traces.END.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.END.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_1[\\"Finish"/]
 end
+phi_1 --> block_0
+subgraph phi_1["Phi 1"]
+	p1_6{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_5["eff__25 doReturn"]
+end
+branch_0 --> block_2
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.END.unLEM = `<pre class='graph'>---
 config:
@@ -1036,6 +1214,41 @@ if (cond__24) {
 	def eff__26 = doEnd();
 }
 // phis: 
+</pre>`;
+window.traces.END.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_6{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_5["eff__25 doReturn"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_4["cond__24 f_isAtEnd"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_0[/"Start"\\]
+	b4_3["eff__26 doEnd"]
+	b4_4["cond__24 f_isAtEnd"]
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+end
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.END.unlem_pretty = `<pre class=''>if (f_isAtEnd()) {
 	doEnd();
@@ -1162,14 +1375,22 @@ graph TD
 	5["label f_getLabel"]
 	3 --> 5
 </pre>`;
-window.traces.BR.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.BR.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_0[/"Start"\\]
+	b5_3["depth imm_readULEB32"]
+	b5_5["label f_getLabel"]
+	b5_7["eff__27 doBranch"]
+	b5_8["eff_st_put__30 ctlxfer.put_BR"]
+	b5_1[\\"Finish"/]
+	b5_0 --> b5_3
+	b5_3 --> b5_5
+	b5_5 --> b5_7
+	b5_7 --> b5_8
+	b5_8 --> b5_1
 end
+
 </pre>`;
 window.traces.BR.unLEM = `<pre class='graph'>---
 config:
@@ -1196,6 +1417,23 @@ window.traces.BR.unlem_schedule = `<pre class=''>def depth = imm_readULEB32();
 def label = f_getLabel(depth);
 def eff__27 = doBranch(label);
 def eff_st_put__30 = ctlxfer.put_BR(label);
+</pre>`;
+window.traces.BR.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["depth imm_readULEB32"]
+	b0_5["label f_getLabel"]
+	b0_7["eff__27 doBranch"]
+	b0_8["eff_st_put__30 ctlxfer.put_BR"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_8
+	b0_8 --> b0_1
+end
+
 </pre>`;
 window.traces.BR.unlem_pretty = `<pre class=''>def depth = imm_readULEB32();
 def label = f_getLabel(depth);
@@ -1376,14 +1614,34 @@ graph TD
 	7 --> 15
 	7["arg__36 0"]
 </pre>`;
-window.traces.BR_IF.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.BR_IF.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_15["abs__39 lift_u32"]
+	b0_5["label f_getLabel"]
+	b0_14["eff_st_put__38 ctlxfer.put_BR_IF"]
+	b0_1[\\"Finish"/]
+	b0_15 --> b0_5
+	b0_5 --> b0_14
+	b0_14 --> b0_1
 end
+phi_1 --> block_0
+subgraph phi_1["Phi 1"]
+	p1_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_12["eff__32 doBranch"]
+end
+branch_0 --> block_2
+subgraph block_3["Block 3"]
+	direction TB
+	b3_10["eff__34 doFallthru"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.BR_IF.unLEM = `<pre class='graph'>---
 config:
@@ -1462,6 +1720,61 @@ if (mb__42) {
 // phis: 
 def label = f_getLabel(depth);
 def eff_st_put__38 = ctlxfer.put_BR_IF(label);
+</pre>`;
+window.traces.BR_IF.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_15["abs__39 lift_u32"]
+	b5_5["label f_getLabel"]
+	b5_14["eff_st_put__38 ctlxfer.put_BR_IF"]
+	b5_1[\\"Finish"/]
+	b5_15 --> b5_5
+	b5_5 --> b5_14
+	b5_14 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_merge__43 merge"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_18["mb__42 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_17["mf__41 U32_maybeFalse"]
+	b4_18["mb__42 bool.&&"]
+	b4_17 --> b4_18
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_12["eff__32 doBranch"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_10["eff__34 doFallthru"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.BR_IF.unlem_pretty = `<pre class=''>def depth = imm_readULEB32();
 def cond = pop_u32();
@@ -1639,14 +1952,22 @@ graph TD
 	3["labels imm_readLabels"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces.BR_TABLE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.BR_TABLE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_0[/"Start"\\]
+	b10_4["key pop_u32"]
+	b10_3["labels imm_readLabels"]
+	b10_7["eff__44 doSwitch"]
+	b10_8["eff_st_put__47 ctlxfer.put_BR_TABLE"]
+	b10_1[\\"Finish"/]
+	b10_0 --> b10_4
+	b10_4 --> b10_3
+	b10_3 --> b10_7
+	b10_7 --> b10_8
+	b10_8 --> b10_1
 end
+
 </pre>`;
 window.traces.BR_TABLE.unLEM = `<pre class='graph'>---
 config:
@@ -1675,6 +1996,23 @@ window.traces.BR_TABLE.unlem_schedule = `<pre class=''>def labels = imm_readLabe
 def key = pop_u32();
 def eff__44 = doSwitch(labels, key);
 def eff_st_put__47 = ctlxfer.put_BR_TABLE(labels);
+</pre>`;
+window.traces.BR_TABLE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_4["key pop_u32"]
+	b0_3["labels imm_readLabels"]
+	b0_7["eff__44 doSwitch"]
+	b0_8["eff_st_put__47 ctlxfer.put_BR_TABLE"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_4
+	b0_4 --> b0_3
+	b0_3 --> b0_7
+	b0_7 --> b0_8
+	b0_8 --> b0_1
+end
+
 </pre>`;
 window.traces.BR_TABLE.unlem_pretty = `<pre class=''>def labels = imm_readLabels();
 def key = pop_u32();
@@ -1773,14 +2111,16 @@ graph TD
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
 </pre>`;
-window.traces.RETURN.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.RETURN.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["eff__48 doReturn"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_1
 end
+
 </pre>`;
 window.traces.RETURN.unLEM = `<pre class='graph'>---
 config:
@@ -1794,6 +2134,17 @@ graph TD
 	0[/"Start"\\]
 </pre>`;
 window.traces.RETURN.unlem_schedule = `<pre class=''>def eff__48 = doReturn();
+</pre>`;
+window.traces.RETURN.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["eff__48 doReturn"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_1
+end
+
 </pre>`;
 window.traces.RETURN.unlem_pretty = `<pre class=''>doReturn();
 </pre>`;
@@ -1893,14 +2244,22 @@ graph TD
 	5["sig m_getFuncSignature"]
 	3 --> 5
 </pre>`;
-window.traces.CALL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.CALL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["index imm_readULEB32"]
+	b0_7["target i_getFunction"]
+	b0_5["sig m_getFuncSignature"]
+	b0_10["eff__49 doCall"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_7
+	b0_7 --> b0_5
+	b0_5 --> b0_10
+	b0_10 --> b0_1
 end
+
 </pre>`;
 window.traces.CALL.unLEM = `<pre class='graph'>---
 config:
@@ -1926,6 +2285,23 @@ window.traces.CALL.unlem_schedule = `<pre class=''>def index = imm_readULEB32();
 def sig = m_getFuncSignature(index);
 def target = i_getFunction(index);
 def eff__49 = doCall(sig, target);
+</pre>`;
+window.traces.CALL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["index imm_readULEB32"]
+	b0_7["target i_getFunction"]
+	b0_5["sig m_getFuncSignature"]
+	b0_10["eff__49 doCall"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_7
+	b0_7 --> b0_5
+	b0_5 --> b0_10
+	b0_10 --> b0_1
+end
+
 </pre>`;
 window.traces.CALL.unlem_pretty = `<pre class=''>def index = imm_readULEB32();
 def sig = m_getFuncSignature(index);
@@ -2154,14 +2530,36 @@ graph TD
 	8["is64 m_isTable64"]
 	4 --> 8
 </pre>`;
-window.traces.CALL_INDIRECT.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.CALL_INDIRECT.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_14["target i_getTableFunction32"]
+	b0_22["target i_getTableFunction64"]
+	b0_6["sig m_getSignature"]
+	b0_27["eff_st_put__69 ctlxfer.put_CALL_INDIRECT"]
+	b0_1[\\"Finish"/]
+	b0_14 --> b0_22
+	b0_22 --> b0_6
+	b0_6 --> b0_27
+	b0_27 --> b0_1
 end
+phi_1 --> block_0
+subgraph phi_1["Phi 1"]
+	p1_26{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_25["eff__55 doCall"]
+end
+branch_0 --> block_2
+subgraph block_3["Block 3"]
+	direction TB
+	b3_17["eff__61 doCall"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.CALL_INDIRECT.unLEM = `<pre class='graph'>---
 config:
@@ -2216,6 +2614,56 @@ window.traces.CALL_INDIRECT.unlem_schedule = `<pre class=''>def sig_index = imm_
 def table_index = imm_readULEB32();
 def is64 = m_isTable64(table_index);
 def eff_st_put__69 = ctlxfer.put_CALL_INDIRECT(is64);
+</pre>`;
+window.traces.CALL_INDIRECT.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_14["target i_getTableFunction32"]
+	b5_22["target i_getTableFunction64"]
+	b5_6["sig m_getSignature"]
+	b5_27["eff_st_put__69 ctlxfer.put_CALL_INDIRECT"]
+	b5_1[\\"Finish"/]
+	b5_14 --> b5_22
+	b5_22 --> b5_6
+	b5_6 --> b5_27
+	b5_27 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_26{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_25["eff__55 doCall"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_8["is64 m_isTable64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_0[/"Start"\\]
+	b4_3["sig_index imm_readULEB32"]
+	b4_10["func_index pop_u32"]
+	b4_18["func_index pop_u64"]
+	b4_4["table_index imm_readULEB32"]
+	b4_8["is64 m_isTable64"]
+	b4_0 --> b4_3
+	b4_3 --> b4_10
+	b4_10 --> b4_18
+	b4_18 --> b4_4
+	b4_4 --> b4_8
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_17["eff__61 doCall"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.CALL_INDIRECT.unlem_pretty = `<pre class=''>def sig_index = imm_readULEB32();
 def table_index = imm_readULEB32();
@@ -2400,14 +2848,22 @@ graph TD
 	5["sig m_getFuncSignature"]
 	3 --> 5
 </pre>`;
-window.traces.RETURN_CALL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.RETURN_CALL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_0[/"Start"\\]
+	b5_3["index imm_readULEB32"]
+	b5_7["target i_getFunction"]
+	b5_5["sig m_getFuncSignature"]
+	b5_10["eff__70 doReturnCall"]
+	b5_1[\\"Finish"/]
+	b5_0 --> b5_3
+	b5_3 --> b5_7
+	b5_7 --> b5_5
+	b5_5 --> b5_10
+	b5_10 --> b5_1
 end
+
 </pre>`;
 window.traces.RETURN_CALL.unLEM = `<pre class='graph'>---
 config:
@@ -2433,6 +2889,23 @@ window.traces.RETURN_CALL.unlem_schedule = `<pre class=''>def index = imm_readUL
 def sig = m_getFuncSignature(index);
 def target = i_getFunction(index);
 def eff__70 = doReturnCall(sig, target);
+</pre>`;
+window.traces.RETURN_CALL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["index imm_readULEB32"]
+	b0_7["target i_getFunction"]
+	b0_5["sig m_getFuncSignature"]
+	b0_10["eff__70 doReturnCall"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_7
+	b0_7 --> b0_5
+	b0_5 --> b0_10
+	b0_10 --> b0_1
+end
+
 </pre>`;
 window.traces.RETURN_CALL.unlem_pretty = `<pre class=''>def index = imm_readULEB32();
 def sig = m_getFuncSignature(index);
@@ -2539,14 +3012,18 @@ graph TD
 	3["tv f_getTopOfStackType"]
 	0 -. Stack .-> 3
 </pre>`;
-window.traces.DROP.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.DROP.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["tv f_getTopOfStackType"]
+	b0_5["eff__75 pop_Value"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_1
 end
+
 </pre>`;
 window.traces.DROP.unLEM = `<pre class='graph'>---
 config:
@@ -2565,6 +3042,19 @@ graph TD
 </pre>`;
 window.traces.DROP.unlem_schedule = `<pre class=''>def tv = f_getTopOfStackType();
 def eff__75 = pop_Value(tv);
+</pre>`;
+window.traces.DROP.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["tv f_getTopOfStackType"]
+	b0_5["eff__75 pop_Value"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_1
+end
+
 </pre>`;
 window.traces.DROP.unlem_pretty = `<pre class=''>def tv = f_getTopOfStackType();
 pop_Value(tv);
@@ -2736,14 +3226,32 @@ graph TD
 	9 --> 19
 	9["arg__85 0"]
 </pre>`;
-window.traces.SELECT.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.SELECT.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_4["tv f_getTopOfStackType"]
+	b0_19["abs__88 lift_u32"]
+	b0_1[\\"Finish"/]
+	b0_4 --> b0_19
+	b0_19 --> b0_1
 end
+phi_1 --> block_0
+subgraph phi_1["Phi 1"]
+	p1_18{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_17["eff__78 push_Value"]
+end
+branch_0 --> block_2
+subgraph block_3["Block 3"]
+	direction TB
+	b3_14["eff__81 push_Value"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.SELECT.unLEM = `<pre class='graph'>---
 config:
@@ -2825,6 +3333,61 @@ if (mb__91) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.SELECT.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_19["abs__88 lift_u32"]
+	b5_1[\\"Finish"/]
+	b5_19 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_18{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_25["push__93 push_Value"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_22["mb__91 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_4["tv f_getTopOfStackType"]
+	b4_24["merge__92 merge_Val"]
+	b4_21["mf__90 U32_maybeFalse"]
+	b4_22["mb__91 bool.&&"]
+	b4_4 --> b4_24
+	b4_24 --> b4_21
+	b4_21 --> b4_22
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_23{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_17["eff__78 push_Value"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_14["eff__81 push_Value"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.SELECT.unlem_pretty = `<pre class=''>def c = pop_u32();
 def tv = f_getTopOfStackType();
@@ -2988,14 +3551,22 @@ graph TD
 	5["tv f_getLocalType"]
 	3 --> 5
 </pre>`;
-window.traces.LOCAL_GET.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.LOCAL_GET.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_0[/"Start"\\]
+	b10_8["val getLocal"]
+	b10_5["tv f_getLocalType"]
+	b10_11["eff__94 push_Value"]
+	b10_3["index imm_readULEB32"]
+	b10_1[\\"Finish"/]
+	b10_0 --> b10_8
+	b10_8 --> b10_5
+	b10_5 --> b10_11
+	b10_11 --> b10_3
+	b10_3 --> b10_1
 end
+
 </pre>`;
 window.traces.LOCAL_GET.unLEM = `<pre class='graph'>---
 config:
@@ -3024,6 +3595,23 @@ window.traces.LOCAL_GET.unlem_schedule = `<pre class=''>def index = imm_readULEB
 def tv = f_getLocalType(index);
 def val = getLocal(tv, index);
 def eff__94 = push_Value(tv, val);
+</pre>`;
+window.traces.LOCAL_GET.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_8["val getLocal"]
+	b0_5["tv f_getLocalType"]
+	b0_11["eff__94 push_Value"]
+	b0_3["index imm_readULEB32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_8
+	b0_8 --> b0_5
+	b0_5 --> b0_11
+	b0_11 --> b0_3
+	b0_3 --> b0_1
+end
+
 </pre>`;
 window.traces.LOCAL_GET.unlem_pretty = `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
@@ -3169,14 +3757,22 @@ graph TD
 	3["index imm_readULEB32"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces.LOCAL_SET.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.LOCAL_SET.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_5["tv f_getLocalType"]
+	b0_0[/"Start"\\]
+	b0_11["eff__100 setLocal"]
+	b0_7["val pop_Value"]
+	b0_3["index imm_readULEB32"]
+	b0_1[\\"Finish"/]
+	b0_5 --> b0_0
+	b0_0 --> b0_11
+	b0_11 --> b0_7
+	b0_7 --> b0_3
+	b0_3 --> b0_1
 end
+
 </pre>`;
 window.traces.LOCAL_SET.unLEM = `<pre class='graph'>---
 config:
@@ -3206,6 +3802,23 @@ window.traces.LOCAL_SET.unlem_schedule = `<pre class=''>def index = imm_readULEB
 def tv = f_getLocalType(index);
 def val = pop_Value(tv);
 def eff__100 = setLocal(tv, index, val);
+</pre>`;
+window.traces.LOCAL_SET.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_5["tv f_getLocalType"]
+	b0_0[/"Start"\\]
+	b0_11["eff__100 setLocal"]
+	b0_7["val pop_Value"]
+	b0_3["index imm_readULEB32"]
+	b0_1[\\"Finish"/]
+	b0_5 --> b0_0
+	b0_0 --> b0_11
+	b0_11 --> b0_7
+	b0_7 --> b0_3
+	b0_3 --> b0_1
+end
+
 </pre>`;
 window.traces.LOCAL_SET.unlem_pretty = `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
@@ -3368,14 +3981,24 @@ graph TD
 	7 --> 14
 	7 -. Stack .-> 14
 </pre>`;
-window.traces.LOCAL_TEE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.LOCAL_TEE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_7["val pop_Value"]
+	b0_5["tv f_getLocalType"]
+	b0_11["eff__109 setLocal"]
+	b0_14["eff__106 push_Value"]
+	b0_3["index imm_readULEB32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_7
+	b0_7 --> b0_5
+	b0_5 --> b0_11
+	b0_11 --> b0_14
+	b0_14 --> b0_3
+	b0_3 --> b0_1
 end
+
 </pre>`;
 window.traces.LOCAL_TEE.unLEM = `<pre class='graph'>---
 config:
@@ -3410,6 +4033,25 @@ def tv = f_getLocalType(index);
 def val = pop_Value(tv);
 def eff__106 = push_Value(tv, val);
 def eff__109 = setLocal(tv, index, val);
+</pre>`;
+window.traces.LOCAL_TEE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_7["val pop_Value"]
+	b0_5["tv f_getLocalType"]
+	b0_11["eff__109 setLocal"]
+	b0_14["eff__106 push_Value"]
+	b0_3["index imm_readULEB32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_7
+	b0_7 --> b0_5
+	b0_5 --> b0_11
+	b0_11 --> b0_14
+	b0_14 --> b0_3
+	b0_3 --> b0_1
+end
+
 </pre>`;
 window.traces.LOCAL_TEE.unlem_pretty = `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
@@ -3565,14 +4207,22 @@ graph TD
 	5["tv m_getGlobalType"]
 	3 --> 5
 </pre>`;
-window.traces.GLOBAL_GET.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.GLOBAL_GET.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_8["val getGlobal"]
+	b0_5["tv m_getGlobalType"]
+	b0_11["eff__115 push_Value"]
+	b0_3["index imm_readULEB32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_8
+	b0_8 --> b0_5
+	b0_5 --> b0_11
+	b0_11 --> b0_3
+	b0_3 --> b0_1
 end
+
 </pre>`;
 window.traces.GLOBAL_GET.unLEM = `<pre class='graph'>---
 config:
@@ -3601,6 +4251,23 @@ window.traces.GLOBAL_GET.unlem_schedule = `<pre class=''>def index = imm_readULE
 def tv = m_getGlobalType(index);
 def val = getGlobal(tv, index);
 def eff__115 = push_Value(tv, val);
+</pre>`;
+window.traces.GLOBAL_GET.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_8["val getGlobal"]
+	b0_5["tv m_getGlobalType"]
+	b0_11["eff__115 push_Value"]
+	b0_3["index imm_readULEB32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_8
+	b0_8 --> b0_5
+	b0_5 --> b0_11
+	b0_11 --> b0_3
+	b0_3 --> b0_1
+end
+
 </pre>`;
 window.traces.GLOBAL_GET.unlem_pretty = `<pre class=''>def index = imm_readULEB32();
 def tv = m_getGlobalType(index);
@@ -3746,14 +4413,22 @@ graph TD
 	3["index imm_readULEB32"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces.GLOBAL_SET.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.GLOBAL_SET.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_5["tv m_getGlobalType"]
+	b0_0[/"Start"\\]
+	b0_11["eff__121 setGlobal"]
+	b0_7["val pop_Value"]
+	b0_3["index imm_readULEB32"]
+	b0_1[\\"Finish"/]
+	b0_5 --> b0_0
+	b0_0 --> b0_11
+	b0_11 --> b0_7
+	b0_7 --> b0_3
+	b0_3 --> b0_1
 end
+
 </pre>`;
 window.traces.GLOBAL_SET.unLEM = `<pre class='graph'>---
 config:
@@ -3783,6 +4458,23 @@ window.traces.GLOBAL_SET.unlem_schedule = `<pre class=''>def index = imm_readULE
 def tv = m_getGlobalType(index);
 def val = pop_Value(tv);
 def eff__121 = setGlobal(tv, index, val);
+</pre>`;
+window.traces.GLOBAL_SET.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_5["tv m_getGlobalType"]
+	b0_0[/"Start"\\]
+	b0_11["eff__121 setGlobal"]
+	b0_7["val pop_Value"]
+	b0_3["index imm_readULEB32"]
+	b0_1[\\"Finish"/]
+	b0_5 --> b0_0
+	b0_0 --> b0_11
+	b0_11 --> b0_7
+	b0_7 --> b0_3
+	b0_3 --> b0_1
+end
+
 </pre>`;
 window.traces.GLOBAL_SET.unlem_pretty = `<pre class=''>def index = imm_readULEB32();
 def tv = m_getGlobalType(index);
@@ -3973,14 +4665,34 @@ graph TD
 	5["cond__127 m_isTable64"]
 	3 --> 5
 </pre>`;
-window.traces.TABLE_GET.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.TABLE_GET.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_9["val mach_readTable32"]
+	b0_15["val mach_readTable64"]
+	b0_3["table_index imm_readULEB32"]
+	b0_1[\\"Finish"/]
+	b0_9 --> b0_15
+	b0_15 --> b0_3
+	b0_3 --> b0_1
 end
+phi_1 --> block_0
+subgraph phi_1["Phi 1"]
+	p1_18{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_17["eff__128 push_Object"]
+end
+branch_0 --> block_2
+subgraph block_3["Block 3"]
+	direction TB
+	b3_11["eff__132 push_Object"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.TABLE_GET.unLEM = `<pre class='graph'>---
 config:
@@ -4029,6 +4741,50 @@ if (cond__127) {
 	def eff__132 = push_Object(val);
 }
 // phis: 
+</pre>`;
+window.traces.TABLE_GET.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_9["val mach_readTable32"]
+	b5_15["val mach_readTable64"]
+	b5_3["table_index imm_readULEB32"]
+	b5_1[\\"Finish"/]
+	b5_9 --> b5_15
+	b5_15 --> b5_3
+	b5_3 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_18{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_17["eff__128 push_Object"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_5["cond__127 m_isTable64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_0[/"Start"\\]
+	b4_6["index pop_u32"]
+	b4_12["index pop_u64"]
+	b4_5["cond__127 m_isTable64"]
+	b4_0 --> b4_6
+	b4_6 --> b4_12
+	b4_12 --> b4_5
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_11["eff__132 push_Object"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.TABLE_GET.unlem_pretty = `<pre class=''>def table_index = imm_readULEB32();
 def cond = m_isTable64(table_index);
@@ -4239,14 +4995,45 @@ graph TD
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces.TABLE_SET.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.TABLE_SET.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_3["table_index imm_readULEB32"]
+	b5_1[\\"Finish"/]
+	b5_3 --> b5_1
 end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_18{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_13["index pop_u64"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_5["cond__137 m_isTable64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_0[/"Start"\\]
+	b4_6["val pop_Object"]
+	b4_12["val pop_Object"]
+	b4_5["cond__137 m_isTable64"]
+	b4_0 --> b4_6
+	b4_6 --> b4_12
+	b4_12 --> b4_5
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_7["index pop_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.TABLE_SET.unLEM = `<pre class='graph'>---
 config:
@@ -4285,6 +5072,46 @@ if (cond__137) {
 	def index = pop_u32();
 }
 // phis: 
+</pre>`;
+window.traces.TABLE_SET.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_3["table_index imm_readULEB32"]
+	b5_1[\\"Finish"/]
+	b5_3 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_18{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_13["index pop_u64"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_5["cond__137 m_isTable64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_0[/"Start"\\]
+	b4_6["val pop_Object"]
+	b4_12["val pop_Object"]
+	b4_5["cond__137 m_isTable64"]
+	b4_0 --> b4_6
+	b4_6 --> b4_12
+	b4_12 --> b4_5
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_7["index pop_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.TABLE_SET.unlem_pretty = `<pre class=''>def table_index = imm_readULEB32();
 def cond = m_isTable64(table_index);
@@ -4598,14 +5425,67 @@ graph TD
 	23 --> 31
 	15 --> 31
 </pre>`;
-window.traces.I32_LOAD.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_LOAD.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_20["val mach_readMemory32_u32"]
+	b5_28["val mach_readMemory64_u32"]
+	b5_1[\\"Finish"/]
+	b5_20 --> b5_28
+	b5_28 --> b5_1
 end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__148 push_u32"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__147 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__147 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__160 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__166 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__153 push_u32"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LOAD.unLEM = `<pre class='graph'>---
 config:
@@ -4696,6 +5576,87 @@ if (cond__147) {
 	def eff__153 = push_u32(val);
 }
 // phis: 
+</pre>`;
+window.traces.I32_LOAD.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u32"]
+	b10_28["val mach_readMemory64_u32"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__148 push_u32"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__147 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__147 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__160 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__159 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__164 0x40u8"]
+	b9_5["arg__162 0"]
+	b9_8["arg__161 u8.&"]
+	b9_9["cond__159 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__166 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__153 push_u32"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LOAD.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -5118,14 +6079,86 @@ graph TD
 	23 --> 31
 	15 --> 31
 </pre>`;
-window.traces.I64_LOAD.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_LOAD.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u64"]
+	b10_28["val mach_readMemory64_u64"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__168 push_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__167 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__167 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__180 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__179 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__184 0x40u8"]
+	b9_5["arg__182 0"]
+	b9_8["arg__181 u8.&"]
+	b9_9["cond__179 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__186 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__173 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD.unLEM = `<pre class='graph'>---
 config:
@@ -5216,6 +6249,87 @@ if (cond__167) {
 	def eff__173 = push_u64(val);
 }
 // phis: 
+</pre>`;
+window.traces.I64_LOAD.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u64"]
+	b10_28["val mach_readMemory64_u64"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__168 push_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__167 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__167 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__180 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__179 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__184 0x40u8"]
+	b9_5["arg__182 0"]
+	b9_8["arg__181 u8.&"]
+	b9_9["cond__179 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__186 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__173 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -5638,14 +6752,86 @@ graph TD
 	23 --> 31
 	15 --> 31
 </pre>`;
-window.traces.F32_LOAD.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_LOAD.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_f32"]
+	b10_28["val mach_readMemory64_f32"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__188 push_f32"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__187 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__187 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__200 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__199 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__204 0x40u8"]
+	b9_5["arg__202 0"]
+	b9_8["arg__201 u8.&"]
+	b9_9["cond__199 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__206 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__193 push_f32"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_LOAD.unLEM = `<pre class='graph'>---
 config:
@@ -5736,6 +6922,87 @@ if (cond__187) {
 	def eff__193 = push_f32(val);
 }
 // phis: 
+</pre>`;
+window.traces.F32_LOAD.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_f32"]
+	b10_28["val mach_readMemory64_f32"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__188 push_f32"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__187 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__187 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__200 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__199 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__204 0x40u8"]
+	b9_5["arg__202 0"]
+	b9_8["arg__201 u8.&"]
+	b9_9["cond__199 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__206 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__193 push_f32"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_LOAD.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -6158,14 +7425,86 @@ graph TD
 	23 --> 31
 	15 --> 31
 </pre>`;
-window.traces.F64_LOAD.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_LOAD.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_f64"]
+	b10_28["val mach_readMemory64_f64"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__208 push_f64"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__207 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__207 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__220 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__219 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__224 0x40u8"]
+	b9_5["arg__222 0"]
+	b9_8["arg__221 u8.&"]
+	b9_9["cond__219 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__226 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__213 push_f64"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_LOAD.unLEM = `<pre class='graph'>---
 config:
@@ -6256,6 +7595,87 @@ if (cond__207) {
 	def eff__213 = push_f64(val);
 }
 // phis: 
+</pre>`;
+window.traces.F64_LOAD.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_f64"]
+	b10_28["val mach_readMemory64_f64"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__208 push_f64"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__207 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__207 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__220 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__219 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__224 0x40u8"]
+	b9_5["arg__222 0"]
+	b9_8["arg__221 u8.&"]
+	b9_9["cond__219 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__226 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__213 push_f64"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_LOAD.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -6694,14 +8114,90 @@ graph TD
 	25 --> 35
 	15 --> 35
 </pre>`;
-window.traces.I32_LOAD8_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_LOAD8_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u8"]
+	b10_30["val mach_readMemory64_u8"]
+	b10_22["extend U32_extend8_s"]
+	b10_32["extend U32_extend8_s"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_30
+	b10_30 --> b10_22
+	b10_22 --> b10_32
+	b10_32 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_36{{"Sϕ Stack "}}
+	p1_35{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_34["eff__228 push_u32"]
+	b2_25["offset imm_readULEB64"]
+	b2_34 --> b2_25
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__227 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_26["index pop_u64"]
+	b4_14["cond__227 m_isMemory64"]
+	b4_16 --> b4_26
+	b4_26 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__242 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__241 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__246 0x40u8"]
+	b9_5["arg__244 0"]
+	b9_8["arg__243 u8.&"]
+	b9_9["cond__241 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__248 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_24["eff__234 push_u32"]
+	b3_15["offset imm_readULEB32"]
+	b3_24 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LOAD8_S.unLEM = `<pre class='graph'>---
 config:
@@ -6798,6 +8294,91 @@ if (cond__227) {
 	def eff__234 = push_u32(extend);
 }
 // phis: 
+</pre>`;
+window.traces.I32_LOAD8_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u8"]
+	b10_30["val mach_readMemory64_u8"]
+	b10_22["extend U32_extend8_s"]
+	b10_32["extend U32_extend8_s"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_30
+	b10_30 --> b10_22
+	b10_22 --> b10_32
+	b10_32 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_36{{"Sϕ Stack "}}
+	p1_35{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_34["eff__228 push_u32"]
+	b2_25["offset imm_readULEB64"]
+	b2_34 --> b2_25
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__227 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_26["index pop_u64"]
+	b4_14["cond__227 m_isMemory64"]
+	b4_16 --> b4_26
+	b4_26 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__242 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__241 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__246 0x40u8"]
+	b9_5["arg__244 0"]
+	b9_8["arg__243 u8.&"]
+	b9_9["cond__241 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__248 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_24["eff__234 push_u32"]
+	b3_15["offset imm_readULEB32"]
+	b3_24 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LOAD8_S.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -7234,14 +8815,86 @@ graph TD
 	23 --> 31
 	15 --> 31
 </pre>`;
-window.traces.I32_LOAD8_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_LOAD8_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u8"]
+	b10_28["val mach_readMemory64_u8"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__250 push_u32"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__249 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__249 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__262 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__261 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__266 0x40u8"]
+	b9_5["arg__264 0"]
+	b9_8["arg__263 u8.&"]
+	b9_9["cond__261 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__268 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__255 push_u32"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LOAD8_U.unLEM = `<pre class='graph'>---
 config:
@@ -7332,6 +8985,87 @@ if (cond__249) {
 	def eff__255 = push_u32(val);
 }
 // phis: 
+</pre>`;
+window.traces.I32_LOAD8_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u8"]
+	b10_28["val mach_readMemory64_u8"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__250 push_u32"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__249 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__249 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__262 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__261 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__266 0x40u8"]
+	b9_5["arg__264 0"]
+	b9_8["arg__263 u8.&"]
+	b9_9["cond__261 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__268 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__255 push_u32"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LOAD8_U.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -7770,14 +9504,90 @@ graph TD
 	25 --> 35
 	15 --> 35
 </pre>`;
-window.traces.I32_LOAD16_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_LOAD16_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u16"]
+	b10_30["val mach_readMemory64_u16"]
+	b10_22["extend U32_extend16_s"]
+	b10_32["extend U32_extend16_s"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_30
+	b10_30 --> b10_22
+	b10_22 --> b10_32
+	b10_32 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_36{{"Sϕ Stack "}}
+	p1_35{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_34["eff__270 push_u32"]
+	b2_25["offset imm_readULEB64"]
+	b2_34 --> b2_25
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__269 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_26["index pop_u64"]
+	b4_14["cond__269 m_isMemory64"]
+	b4_16 --> b4_26
+	b4_26 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__284 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__283 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__288 0x40u8"]
+	b9_5["arg__286 0"]
+	b9_8["arg__285 u8.&"]
+	b9_9["cond__283 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__290 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_24["eff__276 push_u32"]
+	b3_15["offset imm_readULEB32"]
+	b3_24 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LOAD16_S.unLEM = `<pre class='graph'>---
 config:
@@ -7874,6 +9684,91 @@ if (cond__269) {
 	def eff__276 = push_u32(extend);
 }
 // phis: 
+</pre>`;
+window.traces.I32_LOAD16_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u16"]
+	b10_30["val mach_readMemory64_u16"]
+	b10_22["extend U32_extend16_s"]
+	b10_32["extend U32_extend16_s"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_30
+	b10_30 --> b10_22
+	b10_22 --> b10_32
+	b10_32 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_36{{"Sϕ Stack "}}
+	p1_35{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_34["eff__270 push_u32"]
+	b2_25["offset imm_readULEB64"]
+	b2_34 --> b2_25
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__269 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_26["index pop_u64"]
+	b4_14["cond__269 m_isMemory64"]
+	b4_16 --> b4_26
+	b4_26 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__284 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__283 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__288 0x40u8"]
+	b9_5["arg__286 0"]
+	b9_8["arg__285 u8.&"]
+	b9_9["cond__283 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__290 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_24["eff__276 push_u32"]
+	b3_15["offset imm_readULEB32"]
+	b3_24 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LOAD16_S.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -8310,14 +10205,86 @@ graph TD
 	23 --> 31
 	15 --> 31
 </pre>`;
-window.traces.I32_LOAD16_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_LOAD16_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u16"]
+	b10_28["val mach_readMemory64_u16"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__292 push_u32"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__291 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__291 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__304 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__303 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__308 0x40u8"]
+	b9_5["arg__306 0"]
+	b9_8["arg__305 u8.&"]
+	b9_9["cond__303 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__310 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__297 push_u32"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LOAD16_U.unLEM = `<pre class='graph'>---
 config:
@@ -8408,6 +10375,87 @@ if (cond__291) {
 	def eff__297 = push_u32(val);
 }
 // phis: 
+</pre>`;
+window.traces.I32_LOAD16_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u16"]
+	b10_28["val mach_readMemory64_u16"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__292 push_u32"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__291 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__291 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__304 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__303 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__308 0x40u8"]
+	b9_5["arg__306 0"]
+	b9_8["arg__305 u8.&"]
+	b9_9["cond__303 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__310 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__297 push_u32"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LOAD16_U.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -8846,14 +10894,90 @@ graph TD
 	25 --> 35
 	15 --> 35
 </pre>`;
-window.traces.I64_LOAD8_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_LOAD8_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u8_64"]
+	b10_30["val mach_readMemory64_u8_64"]
+	b10_22["extend U64_extend8_s"]
+	b10_32["extend U64_extend8_s"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_30
+	b10_30 --> b10_22
+	b10_22 --> b10_32
+	b10_32 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_36{{"Sϕ Stack "}}
+	p1_35{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_34["eff__312 push_u64"]
+	b2_25["offset imm_readULEB64"]
+	b2_34 --> b2_25
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__311 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_26["index pop_u64"]
+	b4_14["cond__311 m_isMemory64"]
+	b4_16 --> b4_26
+	b4_26 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__326 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__325 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__330 0x40u8"]
+	b9_5["arg__328 0"]
+	b9_8["arg__327 u8.&"]
+	b9_9["cond__325 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__332 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_24["eff__318 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_24 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD8_S.unLEM = `<pre class='graph'>---
 config:
@@ -8950,6 +11074,91 @@ if (cond__311) {
 	def eff__318 = push_u64(extend);
 }
 // phis: 
+</pre>`;
+window.traces.I64_LOAD8_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u8_64"]
+	b10_30["val mach_readMemory64_u8_64"]
+	b10_22["extend U64_extend8_s"]
+	b10_32["extend U64_extend8_s"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_30
+	b10_30 --> b10_22
+	b10_22 --> b10_32
+	b10_32 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_36{{"Sϕ Stack "}}
+	p1_35{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_34["eff__312 push_u64"]
+	b2_25["offset imm_readULEB64"]
+	b2_34 --> b2_25
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__311 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_26["index pop_u64"]
+	b4_14["cond__311 m_isMemory64"]
+	b4_16 --> b4_26
+	b4_26 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__326 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__325 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__330 0x40u8"]
+	b9_5["arg__328 0"]
+	b9_8["arg__327 u8.&"]
+	b9_9["cond__325 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__332 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_24["eff__318 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_24 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD8_S.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -9386,14 +11595,86 @@ graph TD
 	23 --> 31
 	15 --> 31
 </pre>`;
-window.traces.I64_LOAD8_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_LOAD8_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u8_64"]
+	b10_28["val mach_readMemory64_u8_64"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__334 push_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__333 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__333 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__346 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__345 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__350 0x40u8"]
+	b9_5["arg__348 0"]
+	b9_8["arg__347 u8.&"]
+	b9_9["cond__345 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__352 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__339 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD8_U.unLEM = `<pre class='graph'>---
 config:
@@ -9484,6 +11765,87 @@ if (cond__333) {
 	def eff__339 = push_u64(val);
 }
 // phis: 
+</pre>`;
+window.traces.I64_LOAD8_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u8_64"]
+	b10_28["val mach_readMemory64_u8_64"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__334 push_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__333 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__333 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__346 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__345 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__350 0x40u8"]
+	b9_5["arg__348 0"]
+	b9_8["arg__347 u8.&"]
+	b9_9["cond__345 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__352 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__339 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD8_U.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -9922,14 +12284,90 @@ graph TD
 	25 --> 35
 	15 --> 35
 </pre>`;
-window.traces.I64_LOAD16_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_LOAD16_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u16_64"]
+	b10_30["val mach_readMemory64_u16_64"]
+	b10_22["extend U64_extend16_s"]
+	b10_32["extend U64_extend16_s"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_30
+	b10_30 --> b10_22
+	b10_22 --> b10_32
+	b10_32 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_36{{"Sϕ Stack "}}
+	p1_35{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_34["eff__354 push_u64"]
+	b2_25["offset imm_readULEB64"]
+	b2_34 --> b2_25
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__353 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_26["index pop_u64"]
+	b4_14["cond__353 m_isMemory64"]
+	b4_16 --> b4_26
+	b4_26 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__368 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__367 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__372 0x40u8"]
+	b9_5["arg__370 0"]
+	b9_8["arg__369 u8.&"]
+	b9_9["cond__367 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__374 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_24["eff__360 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_24 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD16_S.unLEM = `<pre class='graph'>---
 config:
@@ -10026,6 +12464,91 @@ if (cond__353) {
 	def eff__360 = push_u64(extend);
 }
 // phis: 
+</pre>`;
+window.traces.I64_LOAD16_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u16_64"]
+	b10_30["val mach_readMemory64_u16_64"]
+	b10_22["extend U64_extend16_s"]
+	b10_32["extend U64_extend16_s"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_30
+	b10_30 --> b10_22
+	b10_22 --> b10_32
+	b10_32 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_36{{"Sϕ Stack "}}
+	p1_35{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_34["eff__354 push_u64"]
+	b2_25["offset imm_readULEB64"]
+	b2_34 --> b2_25
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__353 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_26["index pop_u64"]
+	b4_14["cond__353 m_isMemory64"]
+	b4_16 --> b4_26
+	b4_26 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__368 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__367 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__372 0x40u8"]
+	b9_5["arg__370 0"]
+	b9_8["arg__369 u8.&"]
+	b9_9["cond__367 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__374 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_24["eff__360 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_24 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD16_S.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -10462,14 +12985,86 @@ graph TD
 	23 --> 31
 	15 --> 31
 </pre>`;
-window.traces.I64_LOAD16_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_LOAD16_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u16_64"]
+	b10_28["val mach_readMemory64_u16_64"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__376 push_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__375 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__375 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__388 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__387 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__392 0x40u8"]
+	b9_5["arg__390 0"]
+	b9_8["arg__389 u8.&"]
+	b9_9["cond__387 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__394 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__381 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD16_U.unLEM = `<pre class='graph'>---
 config:
@@ -10560,6 +13155,87 @@ if (cond__375) {
 	def eff__381 = push_u64(val);
 }
 // phis: 
+</pre>`;
+window.traces.I64_LOAD16_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u16_64"]
+	b10_28["val mach_readMemory64_u16_64"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__376 push_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__375 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__375 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__388 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__387 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__392 0x40u8"]
+	b9_5["arg__390 0"]
+	b9_8["arg__389 u8.&"]
+	b9_9["cond__387 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__394 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__381 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD16_U.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -10998,14 +13674,90 @@ graph TD
 	25 --> 35
 	15 --> 35
 </pre>`;
-window.traces.I64_LOAD32_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_LOAD32_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u32_64"]
+	b10_30["val mach_readMemory64_u32_64"]
+	b10_22["extend U64_extend32_s"]
+	b10_32["extend U64_extend32_s"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_30
+	b10_30 --> b10_22
+	b10_22 --> b10_32
+	b10_32 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_36{{"Sϕ Stack "}}
+	p1_35{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_34["eff__396 push_u64"]
+	b2_25["offset imm_readULEB64"]
+	b2_34 --> b2_25
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__395 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_26["index pop_u64"]
+	b4_14["cond__395 m_isMemory64"]
+	b4_16 --> b4_26
+	b4_26 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__410 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__409 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__414 0x40u8"]
+	b9_5["arg__412 0"]
+	b9_8["arg__411 u8.&"]
+	b9_9["cond__409 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__416 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_24["eff__402 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_24 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD32_S.unLEM = `<pre class='graph'>---
 config:
@@ -11102,6 +13854,91 @@ if (cond__395) {
 	def eff__402 = push_u64(extend);
 }
 // phis: 
+</pre>`;
+window.traces.I64_LOAD32_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u32_64"]
+	b10_30["val mach_readMemory64_u32_64"]
+	b10_22["extend U64_extend32_s"]
+	b10_32["extend U64_extend32_s"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_30
+	b10_30 --> b10_22
+	b10_22 --> b10_32
+	b10_32 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_36{{"Sϕ Stack "}}
+	p1_35{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_34["eff__396 push_u64"]
+	b2_25["offset imm_readULEB64"]
+	b2_34 --> b2_25
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__395 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_26["index pop_u64"]
+	b4_14["cond__395 m_isMemory64"]
+	b4_16 --> b4_26
+	b4_26 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__410 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__409 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__414 0x40u8"]
+	b9_5["arg__412 0"]
+	b9_8["arg__411 u8.&"]
+	b9_9["cond__409 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__416 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_24["eff__402 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_24 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD32_S.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -11538,14 +14375,86 @@ graph TD
 	23 --> 31
 	15 --> 31
 </pre>`;
-window.traces.I64_LOAD32_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_LOAD32_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u32_64"]
+	b10_28["val mach_readMemory64_u32_64"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__418 push_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__417 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__417 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__430 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__429 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__434 0x40u8"]
+	b9_5["arg__432 0"]
+	b9_8["arg__431 u8.&"]
+	b9_9["cond__429 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__436 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__423 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD32_U.unLEM = `<pre class='graph'>---
 config:
@@ -11636,6 +14545,87 @@ if (cond__417) {
 	def eff__423 = push_u64(val);
 }
 // phis: 
+</pre>`;
+window.traces.I64_LOAD32_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_20["val mach_readMemory32_u32_64"]
+	b10_28["val mach_readMemory64_u32_64"]
+	b10_1[\\"Finish"/]
+	b10_20 --> b10_28
+	b10_28 --> b10_1
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Stack "}}
+	p1_31{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_30["eff__418 push_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_30 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_14["cond__417 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_16["index pop_u32"]
+	b4_24["index pop_u64"]
+	b4_14["cond__417 m_isMemory64"]
+	b4_16 --> b4_24
+	b4_24 --> b4_14
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__430 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__429 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__434 0x40u8"]
+	b9_5["arg__432 0"]
+	b9_8["arg__431 u8.&"]
+	b9_9["cond__429 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__436 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__423 push_u64"]
+	b3_15["offset imm_readULEB32"]
+	b3_22 --> b3_15
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LOAD32_U.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -12072,14 +15062,85 @@ graph TD
 	23 --> 30
 	16 --> 30
 </pre>`;
-window.traces.I32_STORE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_STORE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__438 mach_writeMemory64_u32"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__437 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u32"]
+	b4_15["cond__437 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__450 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__449 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__454 0x40u8"]
+	b9_5["arg__452 0"]
+	b9_8["arg__451 u8.&"]
+	b9_9["cond__449 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__456 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__443 mach_writeMemory32_u32"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_STORE.unLEM = `<pre class='graph'>---
 config:
@@ -12174,6 +15235,86 @@ if (cond__437) {
 	def eff__443 = mach_writeMemory32_u32(memindex, index, offset, val);
 }
 // phis: 
+</pre>`;
+window.traces.I32_STORE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__438 mach_writeMemory64_u32"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__437 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u32"]
+	b4_15["cond__437 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__450 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__449 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__454 0x40u8"]
+	b9_5["arg__452 0"]
+	b9_8["arg__451 u8.&"]
+	b9_9["cond__449 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__456 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__443 mach_writeMemory32_u32"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_STORE.unlem_pretty = `<pre class=''>def val = pop_u32();
 def flags = imm_readU8();
@@ -12617,14 +15758,85 @@ graph TD
 	23 --> 30
 	16 --> 30
 </pre>`;
-window.traces.I64_STORE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_STORE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__458 mach_writeMemory64_u64"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__457 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u64"]
+	b4_15["cond__457 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__470 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__469 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__474 0x40u8"]
+	b9_5["arg__472 0"]
+	b9_8["arg__471 u8.&"]
+	b9_9["cond__469 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__476 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__463 mach_writeMemory32_u64"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_STORE.unLEM = `<pre class='graph'>---
 config:
@@ -12719,6 +15931,86 @@ if (cond__457) {
 	def eff__463 = mach_writeMemory32_u64(memindex, index, offset, val);
 }
 // phis: 
+</pre>`;
+window.traces.I64_STORE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__458 mach_writeMemory64_u64"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__457 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u64"]
+	b4_15["cond__457 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__470 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__469 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__474 0x40u8"]
+	b9_5["arg__472 0"]
+	b9_8["arg__471 u8.&"]
+	b9_9["cond__469 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__476 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__463 mach_writeMemory32_u64"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_STORE.unlem_pretty = `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
@@ -13111,14 +16403,80 @@ graph TD
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
 </pre>`;
-window.traces.F32_STORE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_STORE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__477 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_f32"]
+	b4_15["cond__477 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__490 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__489 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__494 0x40u8"]
+	b9_5["arg__492 0"]
+	b9_8["arg__491 u8.&"]
+	b9_9["cond__489 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__496 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_STORE.unLEM = `<pre class='graph'>---
 config:
@@ -13194,6 +16552,81 @@ if (cond__477) {
 	def index = pop_u32();
 }
 // phis: 
+</pre>`;
+window.traces.F32_STORE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__477 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_f32"]
+	b4_15["cond__477 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__490 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__489 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__494 0x40u8"]
+	b9_5["arg__492 0"]
+	b9_8["arg__491 u8.&"]
+	b9_9["cond__489 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__496 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_STORE.unlem_pretty = `<pre class=''>def val = pop_f32();
 def flags = imm_readU8();
@@ -13597,14 +17030,85 @@ graph TD
 	23 --> 30
 	16 --> 30
 </pre>`;
-window.traces.F64_STORE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_STORE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__498 mach_writeMemory64_f64"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__497 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_f64"]
+	b4_15["cond__497 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__510 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__509 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__514 0x40u8"]
+	b9_5["arg__512 0"]
+	b9_8["arg__511 u8.&"]
+	b9_9["cond__509 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__516 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__503 mach_writeMemory32_f64"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_STORE.unLEM = `<pre class='graph'>---
 config:
@@ -13699,6 +17203,86 @@ if (cond__497) {
 	def eff__503 = mach_writeMemory32_f64(memindex, index, offset, val);
 }
 // phis: 
+</pre>`;
+window.traces.F64_STORE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__498 mach_writeMemory64_f64"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__497 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_f64"]
+	b4_15["cond__497 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__510 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__509 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__514 0x40u8"]
+	b9_5["arg__512 0"]
+	b9_8["arg__511 u8.&"]
+	b9_9["cond__509 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__516 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__503 mach_writeMemory32_f64"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_STORE.unlem_pretty = `<pre class=''>def val = pop_f64();
 def flags = imm_readU8();
@@ -14142,14 +17726,85 @@ graph TD
 	23 --> 30
 	16 --> 30
 </pre>`;
-window.traces.I32_STORE8.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_STORE8.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__518 mach_writeMemory64_u8"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__517 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u32"]
+	b4_15["cond__517 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__530 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__529 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__534 0x40u8"]
+	b9_5["arg__532 0"]
+	b9_8["arg__531 u8.&"]
+	b9_9["cond__529 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__536 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__523 mach_writeMemory32_u8"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_STORE8.unLEM = `<pre class='graph'>---
 config:
@@ -14244,6 +17899,86 @@ if (cond__517) {
 	def eff__523 = mach_writeMemory32_u8(memindex, index, offset, val);
 }
 // phis: 
+</pre>`;
+window.traces.I32_STORE8.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__518 mach_writeMemory64_u8"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__517 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u32"]
+	b4_15["cond__517 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__530 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__529 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__534 0x40u8"]
+	b9_5["arg__532 0"]
+	b9_8["arg__531 u8.&"]
+	b9_9["cond__529 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__536 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__523 mach_writeMemory32_u8"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_STORE8.unlem_pretty = `<pre class=''>def val = pop_u32();
 def flags = imm_readU8();
@@ -14687,14 +18422,85 @@ graph TD
 	23 --> 30
 	16 --> 30
 </pre>`;
-window.traces.I32_STORE16.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_STORE16.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__538 mach_writeMemory64_u16"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__537 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u32"]
+	b4_15["cond__537 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__550 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__549 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__554 0x40u8"]
+	b9_5["arg__552 0"]
+	b9_8["arg__551 u8.&"]
+	b9_9["cond__549 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__556 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__543 mach_writeMemory32_u16"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_STORE16.unLEM = `<pre class='graph'>---
 config:
@@ -14789,6 +18595,86 @@ if (cond__537) {
 	def eff__543 = mach_writeMemory32_u16(memindex, index, offset, val);
 }
 // phis: 
+</pre>`;
+window.traces.I32_STORE16.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__538 mach_writeMemory64_u16"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__537 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u32"]
+	b4_15["cond__537 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__550 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__549 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__554 0x40u8"]
+	b9_5["arg__552 0"]
+	b9_8["arg__551 u8.&"]
+	b9_9["cond__549 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__556 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__543 mach_writeMemory32_u16"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_STORE16.unlem_pretty = `<pre class=''>def val = pop_u32();
 def flags = imm_readU8();
@@ -15232,14 +19118,85 @@ graph TD
 	23 --> 30
 	16 --> 30
 </pre>`;
-window.traces.I64_STORE8.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_STORE8.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__558 mach_writeMemory64_u8_64"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__557 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u64"]
+	b4_15["cond__557 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__570 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__569 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__574 0x40u8"]
+	b9_5["arg__572 0"]
+	b9_8["arg__571 u8.&"]
+	b9_9["cond__569 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__576 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__563 mach_writeMemory32_u8_64"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_STORE8.unLEM = `<pre class='graph'>---
 config:
@@ -15334,6 +19291,86 @@ if (cond__557) {
 	def eff__563 = mach_writeMemory32_u8_64(memindex, index, offset, val);
 }
 // phis: 
+</pre>`;
+window.traces.I64_STORE8.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__558 mach_writeMemory64_u8_64"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__557 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u64"]
+	b4_15["cond__557 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__570 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__569 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__574 0x40u8"]
+	b9_5["arg__572 0"]
+	b9_8["arg__571 u8.&"]
+	b9_9["cond__569 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__576 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__563 mach_writeMemory32_u8_64"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_STORE8.unlem_pretty = `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
@@ -15777,14 +19814,85 @@ graph TD
 	23 --> 30
 	16 --> 30
 </pre>`;
-window.traces.I64_STORE16.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_STORE16.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__578 mach_writeMemory64_u16_64"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__577 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u64"]
+	b4_15["cond__577 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__590 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__589 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__594 0x40u8"]
+	b9_5["arg__592 0"]
+	b9_8["arg__591 u8.&"]
+	b9_9["cond__589 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__596 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__583 mach_writeMemory32_u16_64"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_STORE16.unLEM = `<pre class='graph'>---
 config:
@@ -15879,6 +19987,86 @@ if (cond__577) {
 	def eff__583 = mach_writeMemory32_u16_64(memindex, index, offset, val);
 }
 // phis: 
+</pre>`;
+window.traces.I64_STORE16.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__578 mach_writeMemory64_u16_64"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__577 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u64"]
+	b4_15["cond__577 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__590 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__589 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__594 0x40u8"]
+	b9_5["arg__592 0"]
+	b9_8["arg__591 u8.&"]
+	b9_9["cond__589 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__596 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__583 mach_writeMemory32_u16_64"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_STORE16.unlem_pretty = `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
@@ -16322,14 +20510,85 @@ graph TD
 	23 --> 30
 	16 --> 30
 </pre>`;
-window.traces.I64_STORE32.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_STORE32.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__598 mach_writeMemory64_u32_64"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__597 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u64"]
+	b4_15["cond__597 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__610 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__609 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__614 0x40u8"]
+	b9_5["arg__612 0"]
+	b9_8["arg__611 u8.&"]
+	b9_9["cond__609 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__616 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__603 mach_writeMemory32_u32_64"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_STORE32.unLEM = `<pre class='graph'>---
 config:
@@ -16424,6 +20683,86 @@ if (cond__597) {
 	def eff__603 = mach_writeMemory32_u32_64(memindex, index, offset, val);
 }
 // phis: 
+</pre>`;
+window.traces.I64_STORE32.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_1[\\"Finish"/]
+end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_32{{"Sϕ Memory "}}
+	p1_31{{"Sϕ Stack "}}
+	p1_30{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff__598 mach_writeMemory64_u32_64"]
+	b2_24["index pop_u64"]
+	b2_23["offset imm_readULEB64"]
+	b2_29 --> b2_24
+	b2_24 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["cond__597 m_isMemory64"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["val pop_u64"]
+	b4_15["cond__597 m_isMemory64"]
+	b4_13 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_12{{"Sϕ Codeptr "}}
+	p6_11{"memindex ϕ"}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_10["memindex__610 imm_readULEB32"]
+end
+branch_5 --> block_7
+subgraph branch_5["Branch 5"]
+	br5_9["cond__609 u8.!="]
+
+end
+block_9 --> branch_5
+subgraph block_9["Block 9"]
+	direction TB
+	b9_6["arg__614 0x40u8"]
+	b9_5["arg__612 0"]
+	b9_8["arg__611 u8.&"]
+	b9_9["cond__609 u8.!="]
+	b9_0[/"Start"\\]
+	b9_3["flags imm_readU8"]
+	b9_6 --> b9_5
+	b9_5 --> b9_8
+	b9_8 --> b9_9
+	b9_9 --> b9_0
+	b9_0 --> b9_3
+end
+subgraph block_8["Block 8"]
+	direction TB
+	b8_4["memindex__616 0u"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+	b3_22["eff__603 mach_writeMemory32_u32_64"]
+	b3_17["index pop_u32"]
+	b3_16["offset imm_readULEB32"]
+	b3_22 --> b3_17
+	b3_17 --> b3_16
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_STORE32.unlem_pretty = `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
@@ -16797,14 +21136,74 @@ graph TD
 	10 --> 12
 	3 --> 12
 </pre>`;
-window.traces.MEMORY_SIZE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.MEMORY_SIZE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_16["r mach_memorySize32"]
+	b10_20["r mach_memorySize64"]
+	b10_1[\\"Finish"/]
+	b10_16 --> b10_20
+	b10_20 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_11{"memindex ϕ"}
+	p1_12{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_10["memindex__626 imm_readULEB32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_9["cond__625 u8.!="]
+
+end
+phi_5 --> branch_0
+subgraph phi_5["Phi 5"]
+	p5_23{{"Sϕ Stack "}}
+end
+block_6 --> phi_5
+block_7 --> phi_5
+subgraph block_6["Block 6"]
+	direction TB
+	b6_3["flags imm_readU8"]
+	b6_9["cond__625 u8.!="]
+	b6_22["eff__618 push_u64"]
+	b6_3 --> b6_9
+	b6_9 --> b6_22
+end
+branch_4 --> block_6
+subgraph branch_4["Branch 4"]
+	br4_14["cond__617 m_isMemory64"]
+
+end
+block_8 --> branch_4
+subgraph block_8["Block 8"]
+	direction TB
+	b8_6["arg__630 0x40u8"]
+	b8_5["arg__628 0"]
+	b8_8["arg__627 u8.&"]
+	b8_0[/"Start"\\]
+	b8_14["cond__617 m_isMemory64"]
+	b8_6 --> b8_5
+	b8_5 --> b8_8
+	b8_8 --> b8_0
+	b8_0 --> b8_14
+end
+subgraph block_7["Block 7"]
+	direction TB
+	b7_18["eff__621 push_u32"]
+end
+branch_4 --> block_7
+subgraph block_3["Block 3"]
+	direction TB
+	b3_4["memindex__632 0u"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.MEMORY_SIZE.unLEM = `<pre class='graph'>---
 config:
@@ -16875,6 +21274,75 @@ if (cond__617) {
 	def eff__621 = push_u32(r);
 }
 // phis: 
+</pre>`;
+window.traces.MEMORY_SIZE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_16["r mach_memorySize32"]
+	b9_20["r mach_memorySize64"]
+	b9_1[\\"Finish"/]
+	b9_16 --> b9_20
+	b9_20 --> b9_1
+end
+phi_1 --> block_9
+subgraph phi_1["Phi 1"]
+	p1_11{"memindex ϕ"}
+	p1_12{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_10["memindex__626 imm_readULEB32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_9["cond__625 u8.!="]
+
+end
+phi_5 --> branch_0
+subgraph phi_5["Phi 5"]
+	p5_23{{"Sϕ Stack "}}
+end
+block_6 --> phi_5
+block_7 --> phi_5
+subgraph block_6["Block 6"]
+	direction TB
+	b6_3["flags imm_readU8"]
+	b6_9["cond__625 u8.!="]
+	b6_22["eff__618 push_u64"]
+	b6_3 --> b6_9
+	b6_9 --> b6_22
+end
+branch_4 --> block_6
+subgraph branch_4["Branch 4"]
+	br4_14["cond__617 m_isMemory64"]
+
+end
+block_8 --> branch_4
+subgraph block_8["Block 8"]
+	direction TB
+	b8_6["arg__630 0x40u8"]
+	b8_5["arg__628 0"]
+	b8_8["arg__627 u8.&"]
+	b8_0[/"Start"\\]
+	b8_14["cond__617 m_isMemory64"]
+	b8_6 --> b8_5
+	b8_5 --> b8_8
+	b8_8 --> b8_0
+	b8_0 --> b8_14
+end
+subgraph block_7["Block 7"]
+	direction TB
+	b7_18["eff__621 push_u32"]
+end
+branch_4 --> block_7
+subgraph block_3["Block 3"]
+	direction TB
+	b3_4["memindex__632 0u"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.MEMORY_SIZE.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -17219,14 +21687,78 @@ graph TD
 	10 --> 12
 	3 --> 12
 </pre>`;
-window.traces.MEMORY_GROW.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.MEMORY_GROW.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_18["r mach_memoryGrow32"]
+	b9_24["r mach_memoryGrow64"]
+	b9_1[\\"Finish"/]
+	b9_18 --> b9_24
+	b9_24 --> b9_1
 end
+phi_1 --> block_9
+subgraph phi_1["Phi 1"]
+	p1_11{"memindex ϕ"}
+	p1_12{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_10["memindex__644 imm_readULEB32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_9["cond__643 u8.!="]
+
+end
+phi_5 --> branch_0
+subgraph phi_5["Phi 5"]
+	p5_27{{"Sϕ Stack "}}
+end
+block_6 --> phi_5
+block_7 --> phi_5
+subgraph block_6["Block 6"]
+	direction TB
+	b6_3["flags imm_readU8"]
+	b6_9["cond__643 u8.!="]
+	b6_26["eff__634 push_u64"]
+	b6_3 --> b6_9
+	b6_9 --> b6_26
+end
+branch_4 --> block_6
+subgraph branch_4["Branch 4"]
+	br4_14["cond__633 m_isMemory64"]
+
+end
+block_8 --> branch_4
+subgraph block_8["Block 8"]
+	direction TB
+	b8_6["arg__648 0x40u8"]
+	b8_5["arg__646 0"]
+	b8_8["arg__645 u8.&"]
+	b8_0[/"Start"\\]
+	b8_15["val pop_u32"]
+	b8_21["val pop_u64"]
+	b8_14["cond__633 m_isMemory64"]
+	b8_6 --> b8_5
+	b8_5 --> b8_8
+	b8_8 --> b8_0
+	b8_0 --> b8_15
+	b8_15 --> b8_21
+	b8_21 --> b8_14
+end
+subgraph block_7["Block 7"]
+	direction TB
+	b7_20["eff__638 push_u32"]
+end
+branch_4 --> block_7
+subgraph block_3["Block 3"]
+	direction TB
+	b3_4["memindex__650 0u"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.MEMORY_GROW.unLEM = `<pre class='graph'>---
 config:
@@ -17305,6 +21837,79 @@ if (cond__633) {
 	def eff__638 = push_u32(r);
 }
 // phis: 
+</pre>`;
+window.traces.MEMORY_GROW.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_18["r mach_memoryGrow32"]
+	b9_24["r mach_memoryGrow64"]
+	b9_1[\\"Finish"/]
+	b9_18 --> b9_24
+	b9_24 --> b9_1
+end
+phi_1 --> block_9
+subgraph phi_1["Phi 1"]
+	p1_11{"memindex ϕ"}
+	p1_12{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_10["memindex__644 imm_readULEB32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_9["cond__643 u8.!="]
+
+end
+phi_5 --> branch_0
+subgraph phi_5["Phi 5"]
+	p5_27{{"Sϕ Stack "}}
+end
+block_6 --> phi_5
+block_7 --> phi_5
+subgraph block_6["Block 6"]
+	direction TB
+	b6_3["flags imm_readU8"]
+	b6_9["cond__643 u8.!="]
+	b6_26["eff__634 push_u64"]
+	b6_3 --> b6_9
+	b6_9 --> b6_26
+end
+branch_4 --> block_6
+subgraph branch_4["Branch 4"]
+	br4_14["cond__633 m_isMemory64"]
+
+end
+block_8 --> branch_4
+subgraph block_8["Block 8"]
+	direction TB
+	b8_6["arg__648 0x40u8"]
+	b8_5["arg__646 0"]
+	b8_8["arg__645 u8.&"]
+	b8_0[/"Start"\\]
+	b8_15["val pop_u32"]
+	b8_21["val pop_u64"]
+	b8_14["cond__633 m_isMemory64"]
+	b8_6 --> b8_5
+	b8_5 --> b8_8
+	b8_8 --> b8_0
+	b8_0 --> b8_15
+	b8_15 --> b8_21
+	b8_21 --> b8_14
+end
+subgraph block_7["Block 7"]
+	direction TB
+	b7_20["eff__638 push_u32"]
+end
+branch_4 --> block_7
+subgraph block_3["Block 3"]
+	direction TB
+	b3_4["memindex__650 0u"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.MEMORY_GROW.unlem_pretty = `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -17529,14 +22134,20 @@ graph TD
 	3["x imm_readILEB32"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces.I32_CONST.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_CONST.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_0[/"Start"\\]
+	b9_3["x imm_readILEB32"]
+	b9_6["abs__653 lift_u32"]
+	b9_5["eff__651 push_u32"]
+	b9_1[\\"Finish"/]
+	b9_0 --> b9_3
+	b9_3 --> b9_6
+	b9_6 --> b9_5
+	b9_5 --> b9_1
 end
+
 </pre>`;
 window.traces.I32_CONST.unLEM = `<pre class='graph'>---
 config:
@@ -17559,6 +22170,21 @@ graph TD
 window.traces.I32_CONST.unlem_schedule = `<pre class=''>def x = imm_readILEB32();
 def abs__653 = lift_u32(x);
 def eff__651 = push_u32(abs__653);
+</pre>`;
+window.traces.I32_CONST.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["x imm_readILEB32"]
+	b0_6["abs__653 lift_u32"]
+	b0_5["eff__651 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_6
+	b0_6 --> b0_5
+	b0_5 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_CONST.unlem_pretty = `<pre class=''>def x = imm_readILEB32();
 push_u32(lift_u32(x));
@@ -17661,14 +22287,20 @@ graph TD
 	3["x imm_readILEB64"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces.I64_CONST.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_CONST.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["x imm_readILEB64"]
+	b0_6["abs__656 lift_u64"]
+	b0_5["eff__654 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_6
+	b0_6 --> b0_5
+	b0_5 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_CONST.unLEM = `<pre class='graph'>---
 config:
@@ -17691,6 +22323,21 @@ graph TD
 window.traces.I64_CONST.unlem_schedule = `<pre class=''>def x = imm_readILEB64();
 def abs__656 = lift_u64(x);
 def eff__654 = push_u64(abs__656);
+</pre>`;
+window.traces.I64_CONST.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["x imm_readILEB64"]
+	b0_6["abs__656 lift_u64"]
+	b0_5["eff__654 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_6
+	b0_6 --> b0_5
+	b0_5 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_CONST.unlem_pretty = `<pre class=''>def x = imm_readILEB64();
 push_u64(lift_u64(x));
@@ -17794,14 +22441,22 @@ graph TD
 	3 --> 7
 	3["x imm_readU32"]
 </pre>`;
-window.traces.F32_CONST.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_CONST.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_3["x imm_readU32"]
+	b0_7["abs__660 lift_u32"]
+	b0_5["arg__658 f32_reinterpret_u32"]
+	b0_0[/"Start"\\]
+	b0_6["eff__657 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_3 --> b0_7
+	b0_7 --> b0_5
+	b0_5 --> b0_0
+	b0_0 --> b0_6
+	b0_6 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_CONST.unLEM = `<pre class='graph'>---
 config:
@@ -17825,6 +22480,23 @@ window.traces.F32_CONST.unlem_schedule = `<pre class=''>def x = imm_readU32();
 def abs__660 = lift_u32(x);
 def arg__658 = f32_reinterpret_u32(abs__660);
 def eff__657 = push_f32(arg__658);
+</pre>`;
+window.traces.F32_CONST.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_3["x imm_readU32"]
+	b0_7["abs__660 lift_u32"]
+	b0_5["arg__658 f32_reinterpret_u32"]
+	b0_0[/"Start"\\]
+	b0_6["eff__657 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_3 --> b0_7
+	b0_7 --> b0_5
+	b0_5 --> b0_0
+	b0_0 --> b0_6
+	b0_6 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_CONST.unlem_pretty = `<pre class=''>def x = imm_readU32();
 def arg = f32_reinterpret_u32(lift_u32(x));
@@ -17931,14 +22603,22 @@ graph TD
 	3 --> 7
 	3["x imm_readU64"]
 </pre>`;
-window.traces.F64_CONST.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_CONST.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_3["x imm_readU64"]
+	b0_7["abs__664 lift_u64"]
+	b0_5["arg__662 f64_reinterpret_u64"]
+	b0_0[/"Start"\\]
+	b0_6["eff__661 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_3 --> b0_7
+	b0_7 --> b0_5
+	b0_5 --> b0_0
+	b0_0 --> b0_6
+	b0_6 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_CONST.unLEM = `<pre class='graph'>---
 config:
@@ -17962,6 +22642,23 @@ window.traces.F64_CONST.unlem_schedule = `<pre class=''>def x = imm_readU64();
 def abs__664 = lift_u64(x);
 def arg__662 = f64_reinterpret_u64(abs__664);
 def eff__661 = push_f64(arg__662);
+</pre>`;
+window.traces.F64_CONST.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_3["x imm_readU64"]
+	b0_7["abs__664 lift_u64"]
+	b0_5["arg__662 f64_reinterpret_u64"]
+	b0_0[/"Start"\\]
+	b0_6["eff__661 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_3 --> b0_7
+	b0_7 --> b0_5
+	b0_5 --> b0_0
+	b0_0 --> b0_6
+	b0_6 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_CONST.unlem_pretty = `<pre class=''>def x = imm_readU64();
 def arg = f64_reinterpret_u64(lift_u64(x));
@@ -18113,14 +22810,34 @@ graph TD
 	11["abs__672 lift_u32"]
 	4 --> 11
 </pre>`;
-window.traces.I32_EQZ.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_EQZ.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_13["abs__674 lift_u32"]
+	b0_12["abs__673 lift_u32"]
+	b0_11["abs__672 lift_u32"]
+	b0_1[\\"Finish"/]
+	b0_13 --> b0_12
+	b0_12 --> b0_11
+	b0_11 --> b0_1
 end
+phi_1 --> block_0
+subgraph phi_1["Phi 1"]
+	p1_10{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_9["eff__666 push_u32"]
+end
+branch_0 --> block_2
+subgraph block_3["Block 3"]
+	direction TB
+	b3_7["eff__668 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_EQZ.unLEM = `<pre class='graph'>---
 config:
@@ -18197,6 +22914,63 @@ if (mb__677) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_EQZ.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_11["abs__672 lift_u32"]
+	b5_1[\\"Finish"/]
+	b5_11 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_10{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_19["eff_push__679 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_16["mb__677 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["abs__674 lift_u32"]
+	b4_12["abs__673 lift_u32"]
+	b4_18["merge__678 merge_u"]
+	b4_15["mf__676 U32_maybeFalse"]
+	b4_16["mb__677 bool.&&"]
+	b4_13 --> b4_12
+	b4_12 --> b4_18
+	b4_18 --> b4_15
+	b4_15 --> b4_16
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_17{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_9["eff__666 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_7["eff__668 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_EQZ.unlem_pretty = `<pre class=''>def a = pop_u32();
 def mt = U32_maybeTrue(U32_equals(a, lift_u32(0)));
@@ -18367,14 +23141,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_EQ.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_EQ.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__688 lift_u32"]
+	b10_13["abs__687 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__681 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__680 U32_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__684 0"]
+	b4_10["arg__682 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u32"]
+	b4_4["a pop_u32"]
+	b4_7["cond__680 U32_equals"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__683 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_EQ.unLEM = `<pre class='graph'>---
 config:
@@ -18452,6 +23263,61 @@ if (mb__691) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_EQ.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__693 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__691 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__688 lift_u32"]
+	b4_13["abs__687 lift_u32"]
+	b4_19["merge__692 merge_u"]
+	b4_16["mf__690 U32_maybeFalse"]
+	b4_17["mb__691 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__681 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__683 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_EQ.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -18629,14 +23495,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_NE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_NE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__702 lift_u32"]
+	b10_13["abs__701 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__695 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__694 U32_not_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__698 0"]
+	b4_10["arg__696 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u32"]
+	b4_4["a pop_u32"]
+	b4_7["cond__694 U32_not_equals"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__697 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_NE.unLEM = `<pre class='graph'>---
 config:
@@ -18714,6 +23617,61 @@ if (mb__705) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_NE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__707 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__705 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__702 lift_u32"]
+	b4_13["abs__701 lift_u32"]
+	b4_19["merge__706 merge_u"]
+	b4_16["mf__704 U32_maybeFalse"]
+	b4_17["mb__705 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__695 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__697 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_NE.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -18892,14 +23850,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_LT_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_LT_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__716 lift_u32"]
+	b10_13["abs__715 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__709 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__708 U32_lt_s"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__712 0"]
+	b4_10["arg__710 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u32"]
+	b4_4["a pop_u32"]
+	b4_7["cond__708 U32_lt_s"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__711 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LT_S.unLEM = `<pre class='graph'>---
 config:
@@ -18977,6 +23972,61 @@ if (mb__719) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_LT_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__721 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__719 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__716 lift_u32"]
+	b4_13["abs__715 lift_u32"]
+	b4_19["merge__720 merge_u"]
+	b4_16["mf__718 U32_maybeFalse"]
+	b4_17["mb__719 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__709 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__711 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LT_S.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -19154,14 +24204,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_LT_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_LT_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__730 lift_u32"]
+	b10_13["abs__729 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__723 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__722 U32_lt"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__726 0"]
+	b4_10["arg__724 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u32"]
+	b4_4["a pop_u32"]
+	b4_7["cond__722 U32_lt"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__725 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LT_U.unLEM = `<pre class='graph'>---
 config:
@@ -19239,6 +24326,61 @@ if (mb__733) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_LT_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__735 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__733 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__730 lift_u32"]
+	b4_13["abs__729 lift_u32"]
+	b4_19["merge__734 merge_u"]
+	b4_16["mf__732 U32_maybeFalse"]
+	b4_17["mb__733 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__723 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__725 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LT_U.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -19416,14 +24558,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_GT_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_GT_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__744 lift_u32"]
+	b10_13["abs__743 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__737 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__736 U32_gt_s"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__740 0"]
+	b4_10["arg__738 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u32"]
+	b4_4["a pop_u32"]
+	b4_7["cond__736 U32_gt_s"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__739 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_GT_S.unLEM = `<pre class='graph'>---
 config:
@@ -19501,6 +24680,61 @@ if (mb__747) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_GT_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__749 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__747 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__744 lift_u32"]
+	b4_13["abs__743 lift_u32"]
+	b4_19["merge__748 merge_u"]
+	b4_16["mf__746 U32_maybeFalse"]
+	b4_17["mb__747 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__737 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__739 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_GT_S.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -19678,14 +24912,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_GT_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_GT_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__758 lift_u32"]
+	b10_13["abs__757 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__751 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__750 U32_gt"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__754 0"]
+	b4_10["arg__752 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u32"]
+	b4_4["a pop_u32"]
+	b4_7["cond__750 U32_gt"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__753 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_GT_U.unLEM = `<pre class='graph'>---
 config:
@@ -19763,6 +25034,61 @@ if (mb__761) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_GT_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__763 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__761 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__758 lift_u32"]
+	b4_13["abs__757 lift_u32"]
+	b4_19["merge__762 merge_u"]
+	b4_16["mf__760 U32_maybeFalse"]
+	b4_17["mb__761 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__751 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__753 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_GT_U.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -19940,14 +25266,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_LE_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_LE_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__772 lift_u32"]
+	b10_13["abs__771 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__765 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__764 U32_le_s"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__768 0"]
+	b4_10["arg__766 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u32"]
+	b4_4["a pop_u32"]
+	b4_7["cond__764 U32_le_s"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__767 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LE_S.unLEM = `<pre class='graph'>---
 config:
@@ -20025,6 +25388,61 @@ if (mb__775) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_LE_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__777 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__775 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__772 lift_u32"]
+	b4_13["abs__771 lift_u32"]
+	b4_19["merge__776 merge_u"]
+	b4_16["mf__774 U32_maybeFalse"]
+	b4_17["mb__775 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__765 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__767 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LE_S.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -20202,14 +25620,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_LE_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_LE_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__786 lift_u32"]
+	b10_13["abs__785 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__779 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__778 U32_lte"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__782 0"]
+	b4_10["arg__780 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u32"]
+	b4_4["a pop_u32"]
+	b4_7["cond__778 U32_lte"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__781 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LE_U.unLEM = `<pre class='graph'>---
 config:
@@ -20287,6 +25742,61 @@ if (mb__789) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_LE_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__791 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__789 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__786 lift_u32"]
+	b4_13["abs__785 lift_u32"]
+	b4_19["merge__790 merge_u"]
+	b4_16["mf__788 U32_maybeFalse"]
+	b4_17["mb__789 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__779 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__781 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_LE_U.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -20464,14 +25974,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_GE_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_GE_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__800 lift_u32"]
+	b10_13["abs__799 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__793 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__792 U32_ge_s"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__796 0"]
+	b4_10["arg__794 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u32"]
+	b4_4["a pop_u32"]
+	b4_7["cond__792 U32_ge_s"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__795 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_GE_S.unLEM = `<pre class='graph'>---
 config:
@@ -20549,6 +26096,61 @@ if (mb__803) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_GE_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__805 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__803 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__800 lift_u32"]
+	b4_13["abs__799 lift_u32"]
+	b4_19["merge__804 merge_u"]
+	b4_16["mf__802 U32_maybeFalse"]
+	b4_17["mb__803 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__793 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__795 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_GE_S.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -20726,14 +26328,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_GE_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_GE_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__814 lift_u32"]
+	b10_13["abs__813 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__807 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__806 U32_gte"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__810 0"]
+	b4_10["arg__808 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u32"]
+	b4_4["a pop_u32"]
+	b4_7["cond__806 U32_gte"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__809 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_GE_U.unLEM = `<pre class='graph'>---
 config:
@@ -20811,6 +26450,61 @@ if (mb__817) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_GE_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__819 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__817 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__814 lift_u32"]
+	b4_13["abs__813 lift_u32"]
+	b4_19["merge__818 merge_u"]
+	b4_16["mf__816 bot_maybeFalse"]
+	b4_17["mb__817 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__807 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__809 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_GE_U.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -20983,14 +26677,51 @@ graph TD
 	11["abs__827 lift_u64"]
 	4 --> 11
 </pre>`;
-window.traces.I64_EQZ.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_EQZ.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_13["abs__829 lift_u32"]
+	b10_12["abs__828 lift_u32"]
+	b10_11["abs__827 lift_u64"]
+	b10_1[\\"Finish"/]
+	b10_13 --> b10_12
+	b10_12 --> b10_11
+	b10_11 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_10{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_9["eff__821 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_6["cond__820 U64_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__822 1"]
+	b4_4["arg__826 0"]
+	b4_0[/"Start"\\]
+	b4_3["a pop_u64"]
+	b4_6["cond__820 U64_equals"]
+	b4_8 --> b4_4
+	b4_4 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_6
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_7["eff__823 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_EQZ.unLEM = `<pre class='graph'>---
 config:
@@ -21067,6 +26798,63 @@ if (mb__832) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_EQZ.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_11["abs__827 lift_u64"]
+	b5_1[\\"Finish"/]
+	b5_11 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_10{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_19["eff_push__834 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_16["mb__832 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_13["abs__829 lift_u32"]
+	b4_12["abs__828 lift_u32"]
+	b4_18["merge__833 merge_u"]
+	b4_15["mf__831 U64_maybeFalse"]
+	b4_16["mb__832 bool.&&"]
+	b4_13 --> b4_12
+	b4_12 --> b4_18
+	b4_18 --> b4_15
+	b4_15 --> b4_16
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_17{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_9["eff__821 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_7["eff__823 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_EQZ.unlem_pretty = `<pre class=''>def a = pop_u64();
 def mt = U64_maybeTrue(U64_equals(a, lift_u64(0)));
@@ -21237,14 +27025,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_EQ.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_EQ.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__843 lift_u32"]
+	b10_13["abs__842 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__836 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__835 U64_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__839 0"]
+	b4_10["arg__837 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u64"]
+	b4_4["a pop_u64"]
+	b4_7["cond__835 U64_equals"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__838 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_EQ.unLEM = `<pre class='graph'>---
 config:
@@ -21322,6 +27147,61 @@ if (mb__846) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_EQ.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__848 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__846 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__843 lift_u32"]
+	b4_13["abs__842 lift_u32"]
+	b4_19["merge__847 merge_u"]
+	b4_16["mf__845 U64_maybeFalse"]
+	b4_17["mb__846 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__836 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__838 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_EQ.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -21499,14 +27379,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_NE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_NE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__857 lift_u32"]
+	b10_13["abs__856 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__850 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__849 U64_not_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__853 0"]
+	b4_10["arg__851 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u64"]
+	b4_4["a pop_u64"]
+	b4_7["cond__849 U64_not_equals"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__852 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_NE.unLEM = `<pre class='graph'>---
 config:
@@ -21584,6 +27501,61 @@ if (mb__860) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_NE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__862 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__860 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__857 lift_u32"]
+	b4_13["abs__856 lift_u32"]
+	b4_19["merge__861 merge_u"]
+	b4_16["mf__859 U64_maybeFalse"]
+	b4_17["mb__860 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__850 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__852 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_NE.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -21762,14 +27734,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_LT_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_LT_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__871 lift_u32"]
+	b10_13["abs__870 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__864 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__863 U64_lt_s"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__867 0"]
+	b4_10["arg__865 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u64"]
+	b4_4["a pop_u64"]
+	b4_7["cond__863 U64_lt_s"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__866 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LT_S.unLEM = `<pre class='graph'>---
 config:
@@ -21847,6 +27856,61 @@ if (mb__874) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_LT_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__876 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__874 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__871 lift_u32"]
+	b4_13["abs__870 lift_u32"]
+	b4_19["merge__875 merge_u"]
+	b4_16["mf__873 U64_maybeFalse"]
+	b4_17["mb__874 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__864 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__866 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LT_S.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -22024,14 +28088,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_LT_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_LT_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__885 lift_u32"]
+	b10_13["abs__884 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__878 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__877 U64_lt"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__881 0"]
+	b4_10["arg__879 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u64"]
+	b4_4["a pop_u64"]
+	b4_7["cond__877 U64_lt"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__880 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LT_U.unLEM = `<pre class='graph'>---
 config:
@@ -22109,6 +28210,61 @@ if (mb__888) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_LT_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__890 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__888 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__885 lift_u32"]
+	b4_13["abs__884 lift_u32"]
+	b4_19["merge__889 merge_u"]
+	b4_16["mf__887 U64_maybeFalse"]
+	b4_17["mb__888 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__878 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__880 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LT_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -22286,14 +28442,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_GT_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_GT_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__899 lift_u32"]
+	b10_13["abs__898 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__892 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__891 U64_gt_s"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__895 0"]
+	b4_10["arg__893 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u64"]
+	b4_4["a pop_u64"]
+	b4_7["cond__891 U64_gt_s"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__894 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_GT_S.unLEM = `<pre class='graph'>---
 config:
@@ -22371,6 +28564,61 @@ if (mb__902) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_GT_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__904 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__902 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__899 lift_u32"]
+	b4_13["abs__898 lift_u32"]
+	b4_19["merge__903 merge_u"]
+	b4_16["mf__901 U64_maybeFalse"]
+	b4_17["mb__902 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__892 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__894 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_GT_S.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -22548,14 +28796,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_GT_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_GT_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__913 lift_u32"]
+	b10_13["abs__912 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__906 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__905 U64_gt"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__909 0"]
+	b4_10["arg__907 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u64"]
+	b4_4["a pop_u64"]
+	b4_7["cond__905 U64_gt"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__908 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_GT_U.unLEM = `<pre class='graph'>---
 config:
@@ -22633,6 +28918,61 @@ if (mb__916) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_GT_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__918 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__916 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__913 lift_u32"]
+	b4_13["abs__912 lift_u32"]
+	b4_19["merge__917 merge_u"]
+	b4_16["mf__915 U64_maybeFalse"]
+	b4_17["mb__916 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__906 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__908 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_GT_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -22810,14 +29150,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_LE_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_LE_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__927 lift_u32"]
+	b10_13["abs__926 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__920 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__919 U64_le_s"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__923 0"]
+	b4_10["arg__921 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u64"]
+	b4_4["a pop_u64"]
+	b4_7["cond__919 U64_le_s"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__922 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LE_S.unLEM = `<pre class='graph'>---
 config:
@@ -22895,6 +29272,61 @@ if (mb__930) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_LE_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__932 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__930 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__927 lift_u32"]
+	b4_13["abs__926 lift_u32"]
+	b4_19["merge__931 merge_u"]
+	b4_16["mf__929 U64_maybeFalse"]
+	b4_17["mb__930 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__920 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__922 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LE_S.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -23072,14 +29504,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_LE_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_LE_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__941 lift_u32"]
+	b10_13["abs__940 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__934 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__933 U64_lte"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__937 0"]
+	b4_10["arg__935 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u64"]
+	b4_4["a pop_u64"]
+	b4_7["cond__933 U64_lte"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__936 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LE_U.unLEM = `<pre class='graph'>---
 config:
@@ -23157,6 +29626,61 @@ if (mb__944) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_LE_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__946 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__944 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__941 lift_u32"]
+	b4_13["abs__940 lift_u32"]
+	b4_19["merge__945 merge_u"]
+	b4_16["mf__943 U64_maybeFalse"]
+	b4_17["mb__944 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__934 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__936 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_LE_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -23334,14 +29858,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_GE_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_GE_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__955 lift_u32"]
+	b10_13["abs__954 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__948 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__947 U64_ge_s"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__951 0"]
+	b4_10["arg__949 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u64"]
+	b4_4["a pop_u64"]
+	b4_7["cond__947 U64_ge_s"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__950 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_GE_S.unLEM = `<pre class='graph'>---
 config:
@@ -23419,6 +29980,61 @@ if (mb__958) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_GE_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__960 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__958 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__955 lift_u32"]
+	b4_13["abs__954 lift_u32"]
+	b4_19["merge__959 merge_u"]
+	b4_16["mf__957 U64_maybeFalse"]
+	b4_17["mb__958 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__948 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__950 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_GE_S.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -23596,14 +30212,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_GE_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_GE_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__969 lift_u32"]
+	b10_13["abs__968 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__962 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__961 U64_gte"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__965 0"]
+	b4_10["arg__963 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u64"]
+	b4_4["a pop_u64"]
+	b4_7["cond__961 U64_gte"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__964 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_GE_U.unLEM = `<pre class='graph'>---
 config:
@@ -23681,6 +30334,61 @@ if (mb__972) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_GE_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__974 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__972 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__969 lift_u32"]
+	b4_13["abs__968 lift_u32"]
+	b4_19["merge__973 merge_u"]
+	b4_16["mf__971 bot_maybeFalse"]
+	b4_17["mb__972 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__962 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__964 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_GE_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -23858,14 +30566,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F32_EQ.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_EQ.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__983 lift_u32"]
+	b10_13["abs__982 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__976 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__975 F32_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__979 0"]
+	b4_10["arg__977 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_f32"]
+	b4_4["a pop_f32"]
+	b4_7["cond__975 F32_equals"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__978 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_EQ.unLEM = `<pre class='graph'>---
 config:
@@ -23943,6 +30688,61 @@ if (mb__986) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F32_EQ.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__988 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__986 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__983 lift_u32"]
+	b4_13["abs__982 lift_u32"]
+	b4_19["merge__987 merge_u"]
+	b4_16["mf__985 U32_maybeFalse"]
+	b4_17["mb__986 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__976 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__978 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_EQ.unlem_pretty = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -24120,14 +30920,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F32_NE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_NE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__997 lift_u32"]
+	b10_13["abs__996 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__990 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__989 F32_not_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__993 0"]
+	b4_10["arg__991 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_f32"]
+	b4_4["a pop_f32"]
+	b4_7["cond__989 F32_not_equals"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__992 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_NE.unLEM = `<pre class='graph'>---
 config:
@@ -24205,6 +31042,61 @@ if (mb__1000) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F32_NE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__1002 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__1000 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__997 lift_u32"]
+	b4_13["abs__996 lift_u32"]
+	b4_19["merge__1001 merge_u"]
+	b4_16["mf__999 U32_maybeFalse"]
+	b4_17["mb__1000 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__990 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__992 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_NE.unlem_pretty = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -24383,14 +31275,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F32_LT.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_LT.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__1011 lift_u32"]
+	b10_13["abs__1010 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__1004 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__1003 F32_lt"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1007 0"]
+	b4_10["arg__1005 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_f32"]
+	b4_4["a pop_f32"]
+	b4_7["cond__1003 F32_lt"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__1006 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_LT.unLEM = `<pre class='graph'>---
 config:
@@ -24468,6 +31397,61 @@ if (mb__1014) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F32_LT.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__1016 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__1014 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__1011 lift_u32"]
+	b4_13["abs__1010 lift_u32"]
+	b4_19["merge__1015 merge_u"]
+	b4_16["mf__1013 U32_maybeFalse"]
+	b4_17["mb__1014 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__1004 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__1006 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_LT.unlem_pretty = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -24645,14 +31629,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F32_GT.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_GT.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__1025 lift_u32"]
+	b10_13["abs__1024 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__1018 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__1017 F32_gt"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1021 0"]
+	b4_10["arg__1019 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_f32"]
+	b4_4["a pop_f32"]
+	b4_7["cond__1017 F32_gt"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__1020 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_GT.unLEM = `<pre class='graph'>---
 config:
@@ -24730,6 +31751,61 @@ if (mb__1028) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F32_GT.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__1030 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__1028 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__1025 lift_u32"]
+	b4_13["abs__1024 lift_u32"]
+	b4_19["merge__1029 merge_u"]
+	b4_16["mf__1027 U32_maybeFalse"]
+	b4_17["mb__1028 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__1018 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__1020 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_GT.unlem_pretty = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -24907,14 +31983,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F32_LE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_LE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__1039 lift_u32"]
+	b10_13["abs__1038 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__1032 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__1031 F32_lte"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1035 0"]
+	b4_10["arg__1033 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_f32"]
+	b4_4["a pop_f32"]
+	b4_7["cond__1031 F32_lte"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__1034 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_LE.unLEM = `<pre class='graph'>---
 config:
@@ -24992,6 +32105,61 @@ if (mb__1042) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F32_LE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__1044 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__1042 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__1039 lift_u32"]
+	b4_13["abs__1038 lift_u32"]
+	b4_19["merge__1043 merge_u"]
+	b4_16["mf__1041 U32_maybeFalse"]
+	b4_17["mb__1042 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__1032 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__1034 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_LE.unlem_pretty = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -25169,14 +32337,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F32_GE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_GE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__1053 lift_u32"]
+	b10_13["abs__1052 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__1046 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__1045 F32_gte"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1049 0"]
+	b4_10["arg__1047 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_f32"]
+	b4_4["a pop_f32"]
+	b4_7["cond__1045 F32_gte"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__1048 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_GE.unLEM = `<pre class='graph'>---
 config:
@@ -25254,6 +32459,61 @@ if (mb__1056) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F32_GE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__1058 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__1056 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__1053 lift_u32"]
+	b4_13["abs__1052 lift_u32"]
+	b4_19["merge__1057 merge_u"]
+	b4_16["mf__1055 U32_maybeFalse"]
+	b4_17["mb__1056 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__1046 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__1048 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_GE.unlem_pretty = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -25431,14 +32691,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F64_EQ.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_EQ.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__1067 lift_u32"]
+	b10_13["abs__1066 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__1060 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__1059 F64_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1063 0"]
+	b4_10["arg__1061 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_f64"]
+	b4_4["a pop_f64"]
+	b4_7["cond__1059 F64_equals"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__1062 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_EQ.unLEM = `<pre class='graph'>---
 config:
@@ -25516,6 +32813,61 @@ if (mb__1070) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F64_EQ.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__1072 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__1070 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__1067 lift_u32"]
+	b4_13["abs__1066 lift_u32"]
+	b4_19["merge__1071 merge_u"]
+	b4_16["mf__1069 U32_maybeFalse"]
+	b4_17["mb__1070 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__1060 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__1062 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_EQ.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -25693,14 +33045,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F64_NE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_NE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__1081 lift_u32"]
+	b10_13["abs__1080 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__1074 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__1073 F64_not_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1077 0"]
+	b4_10["arg__1075 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_f64"]
+	b4_4["a pop_f64"]
+	b4_7["cond__1073 F64_not_equals"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__1076 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_NE.unLEM = `<pre class='graph'>---
 config:
@@ -25778,6 +33167,61 @@ if (mb__1084) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F64_NE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__1086 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__1084 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__1081 lift_u32"]
+	b4_13["abs__1080 lift_u32"]
+	b4_19["merge__1085 merge_u"]
+	b4_16["mf__1083 U32_maybeFalse"]
+	b4_17["mb__1084 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__1074 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__1076 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_NE.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -25956,14 +33400,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F64_LT.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_LT.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__1095 lift_u32"]
+	b10_13["abs__1094 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__1088 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__1087 F64_lt"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1091 0"]
+	b4_10["arg__1089 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_f64"]
+	b4_4["a pop_f64"]
+	b4_7["cond__1087 F64_lt"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__1090 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_LT.unLEM = `<pre class='graph'>---
 config:
@@ -26041,6 +33522,61 @@ if (mb__1098) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F64_LT.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__1100 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__1098 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__1095 lift_u32"]
+	b4_13["abs__1094 lift_u32"]
+	b4_19["merge__1099 merge_u"]
+	b4_16["mf__1097 U32_maybeFalse"]
+	b4_17["mb__1098 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__1088 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__1090 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_LT.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -26218,14 +33754,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F64_GT.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_GT.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__1109 lift_u32"]
+	b10_13["abs__1108 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__1102 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__1101 F64_gt"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1105 0"]
+	b4_10["arg__1103 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_f64"]
+	b4_4["a pop_f64"]
+	b4_7["cond__1101 F64_gt"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__1104 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_GT.unLEM = `<pre class='graph'>---
 config:
@@ -26303,6 +33876,61 @@ if (mb__1112) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F64_GT.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__1114 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__1112 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__1109 lift_u32"]
+	b4_13["abs__1108 lift_u32"]
+	b4_19["merge__1113 merge_u"]
+	b4_16["mf__1111 U32_maybeFalse"]
+	b4_17["mb__1112 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__1102 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__1104 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_GT.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -26480,14 +34108,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F64_LE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_LE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__1123 lift_u32"]
+	b10_13["abs__1122 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__1116 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__1115 F64_lte"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1119 0"]
+	b4_10["arg__1117 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_f64"]
+	b4_4["a pop_f64"]
+	b4_7["cond__1115 F64_lte"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__1118 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_LE.unLEM = `<pre class='graph'>---
 config:
@@ -26565,6 +34230,61 @@ if (mb__1126) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F64_LE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__1128 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__1126 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__1123 lift_u32"]
+	b4_13["abs__1122 lift_u32"]
+	b4_19["merge__1127 merge_u"]
+	b4_16["mf__1125 U32_maybeFalse"]
+	b4_17["mb__1126 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__1116 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__1118 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_LE.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -26742,14 +34462,51 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F64_GE.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_GE.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_14["abs__1137 lift_u32"]
+	b10_13["abs__1136 lift_u32"]
+	b10_1[\\"Finish"/]
+	b10_14 --> b10_13
+	b10_13 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_11["eff__1130 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_7["cond__1129 F64_gte"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1133 0"]
+	b4_10["arg__1131 1"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_f64"]
+	b4_4["a pop_f64"]
+	b4_7["cond__1129 F64_gte"]
+	b4_8 --> b4_10
+	b4_10 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_7
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_9["eff__1132 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_GE.unLEM = `<pre class='graph'>---
 config:
@@ -26827,6 +34584,61 @@ if (mb__1140) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F64_GE.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_12{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_20["eff_push__1142 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_17["mb__1140 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_14["abs__1137 lift_u32"]
+	b4_13["abs__1136 lift_u32"]
+	b4_19["merge__1141 merge_u"]
+	b4_16["mf__1139 U32_maybeFalse"]
+	b4_17["mb__1140 bool.&&"]
+	b4_14 --> b4_13
+	b4_13 --> b4_19
+	b4_19 --> b4_16
+	b4_16 --> b4_17
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_18{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_11["eff__1130 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_9["eff__1132 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_GE.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -26956,14 +34768,20 @@ graph TD
 	5["r U32_clz"]
 	3 --> 5
 </pre>`;
-window.traces.I32_CLZ.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_CLZ.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_0[/"Start"\\]
+	b10_3["a pop_u32"]
+	b10_5["r U32_clz"]
+	b10_7["eff__1143 push_u32"]
+	b10_1[\\"Finish"/]
+	b10_0 --> b10_3
+	b10_3 --> b10_5
+	b10_5 --> b10_7
+	b10_7 --> b10_1
 end
+
 </pre>`;
 window.traces.I32_CLZ.unLEM = `<pre class='graph'>---
 config:
@@ -26985,6 +34803,21 @@ graph TD
 window.traces.I32_CLZ.unlem_schedule = `<pre class=''>def a = pop_u32();
 def r = U32_clz(a);
 def eff__1143 = push_u32(r);
+</pre>`;
+window.traces.I32_CLZ.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r U32_clz"]
+	b0_7["eff__1143 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_CLZ.unlem_pretty = `<pre class=''>def a = pop_u32();
 push_u32(U32_clz(a));
@@ -27088,14 +34921,20 @@ graph TD
 	5["r U32_ctz"]
 	3 --> 5
 </pre>`;
-window.traces.I32_CTZ.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_CTZ.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r U32_ctz"]
+	b0_7["eff__1146 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_CTZ.unLEM = `<pre class='graph'>---
 config:
@@ -27117,6 +34956,21 @@ graph TD
 window.traces.I32_CTZ.unlem_schedule = `<pre class=''>def a = pop_u32();
 def r = U32_ctz(a);
 def eff__1146 = push_u32(r);
+</pre>`;
+window.traces.I32_CTZ.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r U32_ctz"]
+	b0_7["eff__1146 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_CTZ.unlem_pretty = `<pre class=''>def a = pop_u32();
 push_u32(U32_ctz(a));
@@ -27220,14 +35074,20 @@ graph TD
 	5["r U32_popcnt"]
 	3 --> 5
 </pre>`;
-window.traces.I32_POPCNT.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_POPCNT.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r U32_popcnt"]
+	b0_7["eff__1149 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_POPCNT.unLEM = `<pre class='graph'>---
 config:
@@ -27249,6 +35109,21 @@ graph TD
 window.traces.I32_POPCNT.unlem_schedule = `<pre class=''>def a = pop_u32();
 def r = U32_popcnt(a);
 def eff__1149 = push_u32(r);
+</pre>`;
+window.traces.I32_POPCNT.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r U32_popcnt"]
+	b0_7["eff__1149 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_POPCNT.unlem_pretty = `<pre class=''>def a = pop_u32();
 push_u32(U32_popcnt(a));
@@ -27363,14 +35238,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_ADD.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_ADD.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_plus"]
+	b0_9["eff__1152 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_ADD.unLEM = `<pre class='graph'>---
 config:
@@ -27396,6 +35279,23 @@ window.traces.I32_ADD.unlem_schedule = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
 def r = U32_plus(a, b);
 def eff__1152 = push_u32(r);
+</pre>`;
+window.traces.I32_ADD.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_plus"]
+	b0_9["eff__1152 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_ADD.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -27519,14 +35419,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_SUB.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_SUB.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_minus"]
+	b0_9["eff__1156 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_SUB.unLEM = `<pre class='graph'>---
 config:
@@ -27552,6 +35460,23 @@ window.traces.I32_SUB.unlem_schedule = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
 def r = U32_minus(a, b);
 def eff__1156 = push_u32(r);
+</pre>`;
+window.traces.I32_SUB.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_minus"]
+	b0_9["eff__1156 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_SUB.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -27675,14 +35600,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_MUL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_MUL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_times"]
+	b0_9["eff__1160 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_MUL.unLEM = `<pre class='graph'>---
 config:
@@ -27708,6 +35641,23 @@ window.traces.I32_MUL.unlem_schedule = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
 def r = U32_times(a, b);
 def eff__1160 = push_u32(r);
+</pre>`;
+window.traces.I32_MUL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_times"]
+	b0_9["eff__1160 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_MUL.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -27982,14 +35932,36 @@ graph TD
 	22 --> 23
 	0 --> 23
 </pre>`;
-window.traces.I32_DIV_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_DIV_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_30["abs__1184 lift_u32"]
+	b0_29["abs__1183 lift_u32"]
+	b0_7["r U32_div_s"]
+	b0_28["abs__1182 lift_u32"]
+	b0_1[\\"Finish"/]
+	b0_30 --> b0_29
+	b0_29 --> b0_7
+	b0_7 --> b0_28
+	b0_28 --> b0_1
 end
+phi_1 --> block_0
+subgraph phi_1["Phi 1"]
+	p1_27{{"Sϕ Stack "}}
+	p1_26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_25["eff__1165 trapDivideByZero"]
+end
+branch_0 --> block_2
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_DIV_S.unLEM = `<pre class='graph'>---
 config:
@@ -28181,6 +36153,68 @@ if (mb__1187) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_DIV_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_30["abs__1184 lift_u32"]
+	b9_29["abs__1183 lift_u32"]
+	b9_7["r U32_div_s"]
+	b9_28["abs__1182 lift_u32"]
+	b9_1[\\"Finish"/]
+	b9_30 --> b9_29
+	b9_29 --> b9_7
+	b9_7 --> b9_28
+	b9_28 --> b9_1
+end
+phi_1 --> block_9
+subgraph phi_1["Phi 1"]
+	p1_27{{"Sϕ Stack "}}
+	p1_26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_38["eff_merge__1192 merge"]
+	b2_35["eff_merge__1189 merge"]
+	b2_38 --> b2_35
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_33["mb__1187 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph phi_5["Phi 5"]
+	p5_36{{"Sϕ Stack "}}
+	p5_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_6 --> phi_5
+block_7 --> phi_5
+subgraph block_6["Block 6"]
+	direction TB
+	b6_37["eff_nop__1190 nop"]
+	b6_33["mb__1187 bool.&&"]
+	b6_25["eff__1165 trapDivideByZero"]
+	b6_37 --> b6_33
+	b6_33 --> b6_25
+end
+branch_4 --> block_6
+subgraph branch_4["Branch 4"]
+	br4_31["mt__1185 U32_maybeTrue"]
+
+end
+phi_9 --> branch_4
+subgraph block_7["Block 7"]
+	direction TB
+end
+branch_4 --> block_7
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_DIV_S.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -28444,14 +36478,50 @@ graph TD
 	13 --> 14
 	0 --> 14
 </pre>`;
-window.traces.I32_DIV_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_DIV_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_17["Block 17"]
+	direction TB
+	b17_7["r U32_div"]
+	b17_16["abs__1208 lift_u32"]
+	b17_1[\\"Finish"/]
+	b17_7 --> b17_16
+	b17_16 --> b17_1
 end
+phi_1 --> block_17
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_13["eff__1201 trapDivideByZero"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_10["cond__1200 U32_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1205 0"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u32"]
+	b4_4["a pop_u32"]
+	b4_10["cond__1200 U32_equals"]
+	b4_8 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_10
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_12["eff__1202 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_DIV_U.unLEM = `<pre class='graph'>---
 config:
@@ -28537,6 +36607,40 @@ if (mb__1211) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_DIV_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_16["abs__1208 lift_u32"]
+	b5_7["r U32_div"]
+	b5_1[\\"Finish"/]
+	b5_16 --> b5_7
+	b5_7 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_24["eff_merge__1215 merge"]
+	b2_21["eff_merge__1213 merge"]
+	b2_24 --> b2_21
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_19["mb__1211 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_DIV_U.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -28751,14 +36855,50 @@ graph TD
 	13 --> 14
 	0 --> 14
 </pre>`;
-window.traces.I32_REM_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_REM_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_7["r U32_rem_s"]
+	b9_16["abs__1224 lift_u32"]
+	b9_1[\\"Finish"/]
+	b9_7 --> b9_16
+	b9_16 --> b9_1
 end
+phi_1 --> block_9
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_13["eff__1217 trapDivideByZero"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_10["cond__1216 U32_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1221 0"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u32"]
+	b4_4["a pop_u32"]
+	b4_10["cond__1216 U32_equals"]
+	b4_8 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_10
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_12["eff__1218 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_REM_S.unLEM = `<pre class='graph'>---
 config:
@@ -28844,6 +36984,40 @@ if (mb__1227) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_REM_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_16["abs__1224 lift_u32"]
+	b5_7["r U32_rem_s"]
+	b5_1[\\"Finish"/]
+	b5_16 --> b5_7
+	b5_7 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_24["eff_merge__1231 merge"]
+	b2_21["eff_merge__1229 merge"]
+	b2_24 --> b2_21
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_19["mb__1227 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_REM_S.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -29058,14 +37232,50 @@ graph TD
 	13 --> 14
 	0 --> 14
 </pre>`;
-window.traces.I32_REM_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_REM_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_7["r U32_rem_u"]
+	b9_16["abs__1240 lift_u32"]
+	b9_1[\\"Finish"/]
+	b9_7 --> b9_16
+	b9_16 --> b9_1
 end
+phi_1 --> block_9
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_13["eff__1233 trapDivideByZero"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_10["cond__1232 U32_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1237 0"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u32"]
+	b4_4["a pop_u32"]
+	b4_10["cond__1232 U32_equals"]
+	b4_8 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_10
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_12["eff__1234 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_REM_U.unLEM = `<pre class='graph'>---
 config:
@@ -29151,6 +37361,40 @@ if (mb__1243) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I32_REM_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_16["abs__1240 lift_u32"]
+	b5_7["r U32_rem_u"]
+	b5_1[\\"Finish"/]
+	b5_16 --> b5_7
+	b5_7 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_24["eff_merge__1247 merge"]
+	b2_21["eff_merge__1245 merge"]
+	b2_24 --> b2_21
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_19["mb__1243 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I32_REM_U.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -29310,14 +37554,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_AND.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_AND.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_0[/"Start"\\]
+	b9_3["b pop_u32"]
+	b9_4["a pop_u32"]
+	b9_7["r U32_and"]
+	b9_9["eff__1248 push_u32"]
+	b9_1[\\"Finish"/]
+	b9_0 --> b9_3
+	b9_3 --> b9_4
+	b9_4 --> b9_7
+	b9_7 --> b9_9
+	b9_9 --> b9_1
 end
+
 </pre>`;
 window.traces.I32_AND.unLEM = `<pre class='graph'>---
 config:
@@ -29343,6 +37595,23 @@ window.traces.I32_AND.unlem_schedule = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
 def r = U32_and(a, b);
 def eff__1248 = push_u32(r);
+</pre>`;
+window.traces.I32_AND.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_and"]
+	b0_9["eff__1248 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_AND.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -29466,14 +37735,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_OR.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_OR.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_or"]
+	b0_9["eff__1252 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_OR.unLEM = `<pre class='graph'>---
 config:
@@ -29499,6 +37776,23 @@ window.traces.I32_OR.unlem_schedule = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
 def r = U32_or(a, b);
 def eff__1252 = push_u32(r);
+</pre>`;
+window.traces.I32_OR.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_or"]
+	b0_9["eff__1252 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_OR.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -29622,14 +37916,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_XOR.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_XOR.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_or"]
+	b0_9["eff__1256 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_XOR.unLEM = `<pre class='graph'>---
 config:
@@ -29655,6 +37957,23 @@ window.traces.I32_XOR.unlem_schedule = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
 def r = U32_or(a, b);
 def eff__1256 = push_u32(r);
+</pre>`;
+window.traces.I32_XOR.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_or"]
+	b0_9["eff__1256 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_XOR.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -29778,14 +38097,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_SHL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_SHL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_shl"]
+	b0_9["eff__1260 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_SHL.unLEM = `<pre class='graph'>---
 config:
@@ -29811,6 +38138,23 @@ window.traces.I32_SHL.unlem_schedule = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
 def r = U32_shl(a, b);
 def eff__1260 = push_u32(r);
+</pre>`;
+window.traces.I32_SHL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_shl"]
+	b0_9["eff__1260 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_SHL.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -29934,14 +38278,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_SHR_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_SHR_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_shr_s"]
+	b0_9["eff__1264 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_SHR_S.unLEM = `<pre class='graph'>---
 config:
@@ -29967,6 +38319,23 @@ window.traces.I32_SHR_S.unlem_schedule = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
 def r = U32_shr_s(a, b);
 def eff__1264 = push_u32(r);
+</pre>`;
+window.traces.I32_SHR_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_shr_s"]
+	b0_9["eff__1264 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_SHR_S.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -30090,14 +38459,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_SHR_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_SHR_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_shr_u"]
+	b0_9["eff__1268 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_SHR_U.unLEM = `<pre class='graph'>---
 config:
@@ -30123,6 +38500,23 @@ window.traces.I32_SHR_U.unlem_schedule = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
 def r = U32_shr_u(a, b);
 def eff__1268 = push_u32(r);
+</pre>`;
+window.traces.I32_SHR_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_shr_u"]
+	b0_9["eff__1268 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_SHR_U.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -30246,14 +38640,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_ROTL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_ROTL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_rotl"]
+	b0_9["eff__1272 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_ROTL.unLEM = `<pre class='graph'>---
 config:
@@ -30279,6 +38681,23 @@ window.traces.I32_ROTL.unlem_schedule = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
 def r = U32_rotl(a, b);
 def eff__1272 = push_u32(r);
+</pre>`;
+window.traces.I32_ROTL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_rotl"]
+	b0_9["eff__1272 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_ROTL.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -30402,14 +38821,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I32_ROTR.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_ROTR.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_rotr"]
+	b0_9["eff__1276 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_ROTR.unLEM = `<pre class='graph'>---
 config:
@@ -30435,6 +38862,23 @@ window.traces.I32_ROTR.unlem_schedule = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
 def r = U32_rotr(a, b);
 def eff__1276 = push_u32(r);
+</pre>`;
+window.traces.I32_ROTR.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_4["a pop_u32"]
+	b0_7["r U32_rotr"]
+	b0_9["eff__1276 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_ROTR.unlem_pretty = `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -30547,14 +38991,20 @@ graph TD
 	5["r U64_clz"]
 	3 --> 5
 </pre>`;
-window.traces.I64_CLZ.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_CLZ.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r U64_clz"]
+	b0_7["eff__1280 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_CLZ.unLEM = `<pre class='graph'>---
 config:
@@ -30576,6 +39026,21 @@ graph TD
 window.traces.I64_CLZ.unlem_schedule = `<pre class=''>def a = pop_u64();
 def r = U64_clz(a);
 def eff__1280 = push_u64(r);
+</pre>`;
+window.traces.I64_CLZ.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r U64_clz"]
+	b0_7["eff__1280 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_CLZ.unlem_pretty = `<pre class=''>def a = pop_u64();
 push_u64(U64_clz(a));
@@ -30679,14 +39144,20 @@ graph TD
 	5["r U64_ctz"]
 	3 --> 5
 </pre>`;
-window.traces.I64_CTZ.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_CTZ.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r U64_ctz"]
+	b0_7["eff__1283 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_CTZ.unLEM = `<pre class='graph'>---
 config:
@@ -30708,6 +39179,21 @@ graph TD
 window.traces.I64_CTZ.unlem_schedule = `<pre class=''>def a = pop_u64();
 def r = U64_ctz(a);
 def eff__1283 = push_u64(r);
+</pre>`;
+window.traces.I64_CTZ.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r U64_ctz"]
+	b0_7["eff__1283 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_CTZ.unlem_pretty = `<pre class=''>def a = pop_u64();
 push_u64(U64_ctz(a));
@@ -30811,14 +39297,20 @@ graph TD
 	5["r U64_popcnt"]
 	3 --> 5
 </pre>`;
-window.traces.I64_POPCNT.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_POPCNT.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r U64_popcnt"]
+	b0_7["eff__1286 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_POPCNT.unLEM = `<pre class='graph'>---
 config:
@@ -30840,6 +39332,21 @@ graph TD
 window.traces.I64_POPCNT.unlem_schedule = `<pre class=''>def a = pop_u64();
 def r = U64_popcnt(a);
 def eff__1286 = push_u64(r);
+</pre>`;
+window.traces.I64_POPCNT.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r U64_popcnt"]
+	b0_7["eff__1286 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_POPCNT.unlem_pretty = `<pre class=''>def a = pop_u64();
 push_u64(U64_popcnt(a));
@@ -30954,14 +39461,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_ADD.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_ADD.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_plus"]
+	b0_9["eff__1289 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_ADD.unLEM = `<pre class='graph'>---
 config:
@@ -30987,6 +39502,23 @@ window.traces.I64_ADD.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def r = U64_plus(a, b);
 def eff__1289 = push_u64(r);
+</pre>`;
+window.traces.I64_ADD.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_plus"]
+	b0_9["eff__1289 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_ADD.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -31110,14 +39642,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_SUB.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_SUB.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_minus"]
+	b0_9["eff__1293 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_SUB.unLEM = `<pre class='graph'>---
 config:
@@ -31143,6 +39683,23 @@ window.traces.I64_SUB.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def r = U64_minus(a, b);
 def eff__1293 = push_u64(r);
+</pre>`;
+window.traces.I64_SUB.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_minus"]
+	b0_9["eff__1293 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_SUB.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -31266,14 +39823,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_MUL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_MUL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_times"]
+	b0_9["eff__1297 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_MUL.unLEM = `<pre class='graph'>---
 config:
@@ -31299,6 +39864,23 @@ window.traces.I64_MUL.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def r = U64_times(a, b);
 def eff__1297 = push_u64(r);
+</pre>`;
+window.traces.I64_MUL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_times"]
+	b0_9["eff__1297 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_MUL.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -31573,14 +40155,36 @@ graph TD
 	22 --> 23
 	0 --> 23
 </pre>`;
-window.traces.I64_DIV_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_DIV_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_30["abs__1321 lift_u64"]
+	b0_29["abs__1320 lift_u64"]
+	b0_7["r U64_div_s"]
+	b0_28["abs__1319 lift_u64"]
+	b0_1[\\"Finish"/]
+	b0_30 --> b0_29
+	b0_29 --> b0_7
+	b0_7 --> b0_28
+	b0_28 --> b0_1
 end
+phi_1 --> block_0
+subgraph phi_1["Phi 1"]
+	p1_27{{"Sϕ Stack "}}
+	p1_26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_25["eff__1302 trapDivideByZero"]
+end
+branch_0 --> block_2
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_DIV_S.unLEM = `<pre class='graph'>---
 config:
@@ -31772,6 +40376,68 @@ if (mb__1324) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_DIV_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_30["abs__1321 lift_u64"]
+	b9_29["abs__1320 lift_u64"]
+	b9_7["r U64_div_s"]
+	b9_28["abs__1319 lift_u64"]
+	b9_1[\\"Finish"/]
+	b9_30 --> b9_29
+	b9_29 --> b9_7
+	b9_7 --> b9_28
+	b9_28 --> b9_1
+end
+phi_1 --> block_9
+subgraph phi_1["Phi 1"]
+	p1_27{{"Sϕ Stack "}}
+	p1_26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_38["eff_merge__1329 merge"]
+	b2_35["eff_merge__1326 merge"]
+	b2_38 --> b2_35
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_33["mb__1324 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph phi_5["Phi 5"]
+	p5_36{{"Sϕ Stack "}}
+	p5_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_6 --> phi_5
+block_7 --> phi_5
+subgraph block_6["Block 6"]
+	direction TB
+	b6_37["eff_nop__1327 nop"]
+	b6_33["mb__1324 bool.&&"]
+	b6_25["eff__1302 trapDivideByZero"]
+	b6_37 --> b6_33
+	b6_33 --> b6_25
+end
+branch_4 --> block_6
+subgraph branch_4["Branch 4"]
+	br4_31["mt__1322 U64_maybeTrue"]
+
+end
+phi_9 --> branch_4
+subgraph block_7["Block 7"]
+	direction TB
+end
+branch_4 --> block_7
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_DIV_S.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -32035,14 +40701,50 @@ graph TD
 	13 --> 14
 	0 --> 14
 </pre>`;
-window.traces.I64_DIV_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_DIV_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_17["Block 17"]
+	direction TB
+	b17_7["r U64_div"]
+	b17_16["abs__1345 lift_u64"]
+	b17_1[\\"Finish"/]
+	b17_7 --> b17_16
+	b17_16 --> b17_1
 end
+phi_1 --> block_17
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_13["eff__1338 trapDivideByZero"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_10["cond__1337 U64_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1342 0"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u64"]
+	b4_4["a pop_u64"]
+	b4_10["cond__1337 U64_equals"]
+	b4_8 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_10
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_12["eff__1339 push_u64"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_DIV_U.unLEM = `<pre class='graph'>---
 config:
@@ -32128,6 +40830,40 @@ if (mb__1348) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_DIV_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_16["abs__1345 lift_u64"]
+	b5_7["r U64_div"]
+	b5_1[\\"Finish"/]
+	b5_16 --> b5_7
+	b5_7 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_24["eff_merge__1352 merge"]
+	b2_21["eff_merge__1350 merge"]
+	b2_24 --> b2_21
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_19["mb__1348 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_DIV_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -32342,14 +41078,50 @@ graph TD
 	13 --> 14
 	0 --> 14
 </pre>`;
-window.traces.I64_REM_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_REM_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_7["r U64_rem_s"]
+	b9_16["abs__1361 lift_u64"]
+	b9_1[\\"Finish"/]
+	b9_7 --> b9_16
+	b9_16 --> b9_1
 end
+phi_1 --> block_9
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_13["eff__1354 trapDivideByZero"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_10["cond__1353 U64_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1358 0"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u64"]
+	b4_4["a pop_u64"]
+	b4_10["cond__1353 U64_equals"]
+	b4_8 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_10
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_12["eff__1355 push_u64"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_REM_S.unLEM = `<pre class='graph'>---
 config:
@@ -32435,6 +41207,40 @@ if (mb__1364) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_REM_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_16["abs__1361 lift_u64"]
+	b5_7["r U64_rem_s"]
+	b5_1[\\"Finish"/]
+	b5_16 --> b5_7
+	b5_7 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_24["eff_merge__1368 merge"]
+	b2_21["eff_merge__1366 merge"]
+	b2_24 --> b2_21
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_19["mb__1364 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_REM_S.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -32649,14 +41455,50 @@ graph TD
 	13 --> 14
 	0 --> 14
 </pre>`;
-window.traces.I64_REM_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_REM_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_7["r U64_rem_u"]
+	b9_16["abs__1377 lift_u64"]
+	b9_1[\\"Finish"/]
+	b9_7 --> b9_16
+	b9_16 --> b9_1
 end
+phi_1 --> block_9
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_13["eff__1370 trapDivideByZero"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_10["cond__1369 U64_equals"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_8["arg__1374 0"]
+	b4_0[/"Start"\\]
+	b4_3["b pop_u64"]
+	b4_4["a pop_u64"]
+	b4_10["cond__1369 U64_equals"]
+	b4_8 --> b4_0
+	b4_0 --> b4_3
+	b4_3 --> b4_4
+	b4_4 --> b4_10
+end
+subgraph block_3["Block 3"]
+	direction TB
+	b3_12["eff__1371 push_u64"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_REM_U.unLEM = `<pre class='graph'>---
 config:
@@ -32742,6 +41584,40 @@ if (mb__1380) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.I64_REM_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_16["abs__1377 lift_u64"]
+	b5_7["r U64_rem_u"]
+	b5_1[\\"Finish"/]
+	b5_16 --> b5_7
+	b5_7 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_24["eff_merge__1384 merge"]
+	b2_21["eff_merge__1382 merge"]
+	b2_24 --> b2_21
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_19["mb__1380 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.I64_REM_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -32901,14 +41777,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_AND.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_AND.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_0[/"Start"\\]
+	b9_3["b pop_u64"]
+	b9_4["a pop_u64"]
+	b9_7["r U64_and"]
+	b9_9["eff__1385 push_u64"]
+	b9_1[\\"Finish"/]
+	b9_0 --> b9_3
+	b9_3 --> b9_4
+	b9_4 --> b9_7
+	b9_7 --> b9_9
+	b9_9 --> b9_1
 end
+
 </pre>`;
 window.traces.I64_AND.unLEM = `<pre class='graph'>---
 config:
@@ -32934,6 +41818,23 @@ window.traces.I64_AND.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def r = U64_and(a, b);
 def eff__1385 = push_u64(r);
+</pre>`;
+window.traces.I64_AND.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_and"]
+	b0_9["eff__1385 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_AND.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -33057,14 +41958,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_OR.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_OR.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_or"]
+	b0_9["eff__1389 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_OR.unLEM = `<pre class='graph'>---
 config:
@@ -33090,6 +41999,23 @@ window.traces.I64_OR.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def r = U64_or(a, b);
 def eff__1389 = push_u64(r);
+</pre>`;
+window.traces.I64_OR.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_or"]
+	b0_9["eff__1389 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_OR.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -33213,14 +42139,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_XOR.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_XOR.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_or"]
+	b0_9["eff__1393 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_XOR.unLEM = `<pre class='graph'>---
 config:
@@ -33246,6 +42180,23 @@ window.traces.I64_XOR.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def r = U64_or(a, b);
 def eff__1393 = push_u64(r);
+</pre>`;
+window.traces.I64_XOR.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_or"]
+	b0_9["eff__1393 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_XOR.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -33369,14 +42320,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_SHL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_SHL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_shl"]
+	b0_9["eff__1397 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_SHL.unLEM = `<pre class='graph'>---
 config:
@@ -33402,6 +42361,23 @@ window.traces.I64_SHL.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def r = U64_shl(a, b);
 def eff__1397 = push_u64(r);
+</pre>`;
+window.traces.I64_SHL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_shl"]
+	b0_9["eff__1397 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_SHL.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -33525,14 +42501,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_SHR_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_SHR_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_shr_s"]
+	b0_9["eff__1401 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_SHR_S.unLEM = `<pre class='graph'>---
 config:
@@ -33558,6 +42542,23 @@ window.traces.I64_SHR_S.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def r = U64_shr_s(a, b);
 def eff__1401 = push_u64(r);
+</pre>`;
+window.traces.I64_SHR_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_shr_s"]
+	b0_9["eff__1401 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_SHR_S.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -33681,14 +42682,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_SHR_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_SHR_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_shr_u"]
+	b0_9["eff__1405 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_SHR_U.unLEM = `<pre class='graph'>---
 config:
@@ -33714,6 +42723,23 @@ window.traces.I64_SHR_U.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def r = U64_shr_u(a, b);
 def eff__1405 = push_u64(r);
+</pre>`;
+window.traces.I64_SHR_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_shr_u"]
+	b0_9["eff__1405 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_SHR_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -33837,14 +42863,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_ROTL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_ROTL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_rotl"]
+	b0_9["eff__1409 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_ROTL.unLEM = `<pre class='graph'>---
 config:
@@ -33870,6 +42904,23 @@ window.traces.I64_ROTL.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def r = U64_rotl(a, b);
 def eff__1409 = push_u64(r);
+</pre>`;
+window.traces.I64_ROTL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_rotl"]
+	b0_9["eff__1409 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_ROTL.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -33993,14 +43044,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.I64_ROTR.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_ROTR.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_rotr"]
+	b0_9["eff__1413 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_ROTR.unLEM = `<pre class='graph'>---
 config:
@@ -34026,6 +43085,23 @@ window.traces.I64_ROTR.unlem_schedule = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def r = U64_rotr(a, b);
 def eff__1413 = push_u64(r);
+</pre>`;
+window.traces.I64_ROTR.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_4["a pop_u64"]
+	b0_7["r U64_rotr"]
+	b0_9["eff__1413 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_ROTR.unlem_pretty = `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -34138,14 +43214,20 @@ graph TD
 	5["r F32_abs"]
 	3 --> 5
 </pre>`;
-window.traces.F32_ABS.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_ABS.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_abs"]
+	b0_7["eff__1417 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_ABS.unLEM = `<pre class='graph'>---
 config:
@@ -34167,6 +43249,21 @@ graph TD
 window.traces.F32_ABS.unlem_schedule = `<pre class=''>def a = pop_f32();
 def r = F32_abs(a);
 def eff__1417 = push_f32(r);
+</pre>`;
+window.traces.F32_ABS.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_abs"]
+	b0_7["eff__1417 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_ABS.unlem_pretty = `<pre class=''>def a = pop_f32();
 push_f32(F32_abs(a));
@@ -34270,14 +43367,20 @@ graph TD
 	5["r F32_neg"]
 	3 --> 5
 </pre>`;
-window.traces.F32_NEG.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_NEG.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_neg"]
+	b0_7["eff__1420 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_NEG.unLEM = `<pre class='graph'>---
 config:
@@ -34299,6 +43402,21 @@ graph TD
 window.traces.F32_NEG.unlem_schedule = `<pre class=''>def a = pop_f32();
 def r = F32_neg(a);
 def eff__1420 = push_f32(r);
+</pre>`;
+window.traces.F32_NEG.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_neg"]
+	b0_7["eff__1420 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_NEG.unlem_pretty = `<pre class=''>def a = pop_f32();
 push_f32(F32_neg(a));
@@ -34402,14 +43520,20 @@ graph TD
 	5["r F32_ceil"]
 	3 --> 5
 </pre>`;
-window.traces.F32_CEIL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_CEIL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_ceil"]
+	b0_7["eff__1423 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_CEIL.unLEM = `<pre class='graph'>---
 config:
@@ -34431,6 +43555,21 @@ graph TD
 window.traces.F32_CEIL.unlem_schedule = `<pre class=''>def a = pop_f32();
 def r = F32_ceil(a);
 def eff__1423 = push_f32(r);
+</pre>`;
+window.traces.F32_CEIL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_ceil"]
+	b0_7["eff__1423 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_CEIL.unlem_pretty = `<pre class=''>def a = pop_f32();
 push_f32(F32_ceil(a));
@@ -34534,14 +43673,20 @@ graph TD
 	5["r F32_floor"]
 	3 --> 5
 </pre>`;
-window.traces.F32_FLOOR.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_FLOOR.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_floor"]
+	b0_7["eff__1426 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_FLOOR.unLEM = `<pre class='graph'>---
 config:
@@ -34563,6 +43708,21 @@ graph TD
 window.traces.F32_FLOOR.unlem_schedule = `<pre class=''>def a = pop_f32();
 def r = F32_floor(a);
 def eff__1426 = push_f32(r);
+</pre>`;
+window.traces.F32_FLOOR.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_floor"]
+	b0_7["eff__1426 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_FLOOR.unlem_pretty = `<pre class=''>def a = pop_f32();
 push_f32(F32_floor(a));
@@ -34666,14 +43826,20 @@ graph TD
 	5["r F32_trunc"]
 	3 --> 5
 </pre>`;
-window.traces.F32_TRUNC.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_TRUNC.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_trunc"]
+	b0_7["eff__1429 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_TRUNC.unLEM = `<pre class='graph'>---
 config:
@@ -34695,6 +43861,21 @@ graph TD
 window.traces.F32_TRUNC.unlem_schedule = `<pre class=''>def a = pop_f32();
 def r = F32_trunc(a);
 def eff__1429 = push_f32(r);
+</pre>`;
+window.traces.F32_TRUNC.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_trunc"]
+	b0_7["eff__1429 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_TRUNC.unlem_pretty = `<pre class=''>def a = pop_f32();
 push_f32(F32_trunc(a));
@@ -34798,14 +43979,20 @@ graph TD
 	5["r F32_round"]
 	3 --> 5
 </pre>`;
-window.traces.F32_NEAREST.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_NEAREST.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_round"]
+	b0_7["eff__1432 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_NEAREST.unLEM = `<pre class='graph'>---
 config:
@@ -34827,6 +44014,21 @@ graph TD
 window.traces.F32_NEAREST.unlem_schedule = `<pre class=''>def a = pop_f32();
 def r = F32_round(a);
 def eff__1432 = push_f32(r);
+</pre>`;
+window.traces.F32_NEAREST.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_round"]
+	b0_7["eff__1432 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_NEAREST.unlem_pretty = `<pre class=''>def a = pop_f32();
 push_f32(F32_round(a));
@@ -34930,14 +44132,20 @@ graph TD
 	5["r F32_sqrt"]
 	3 --> 5
 </pre>`;
-window.traces.F32_SQRT.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_SQRT.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_sqrt"]
+	b0_7["eff__1435 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_SQRT.unLEM = `<pre class='graph'>---
 config:
@@ -34959,6 +44167,21 @@ graph TD
 window.traces.F32_SQRT.unlem_schedule = `<pre class=''>def a = pop_f32();
 def r = F32_sqrt(a);
 def eff__1435 = push_f32(r);
+</pre>`;
+window.traces.F32_SQRT.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r F32_sqrt"]
+	b0_7["eff__1435 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_SQRT.unlem_pretty = `<pre class=''>def a = pop_f32();
 push_f32(F32_sqrt(a));
@@ -35073,14 +44296,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F32_ADD.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_ADD.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_f32"]
+	b0_4["a pop_f32"]
+	b0_7["r F32_plus"]
+	b0_9["eff__1438 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_ADD.unLEM = `<pre class='graph'>---
 config:
@@ -35106,6 +44337,23 @@ window.traces.F32_ADD.unlem_schedule = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
 def r = F32_plus(a, b);
 def eff__1438 = push_f32(r);
+</pre>`;
+window.traces.F32_ADD.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_f32"]
+	b0_4["a pop_f32"]
+	b0_7["r F32_plus"]
+	b0_9["eff__1438 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_ADD.unlem_pretty = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -35229,14 +44477,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F32_SUB.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_SUB.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_f32"]
+	b0_4["a pop_f32"]
+	b0_7["r F32_minus"]
+	b0_9["eff__1442 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_SUB.unLEM = `<pre class='graph'>---
 config:
@@ -35262,6 +44518,23 @@ window.traces.F32_SUB.unlem_schedule = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
 def r = F32_minus(a, b);
 def eff__1442 = push_f32(r);
+</pre>`;
+window.traces.F32_SUB.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_f32"]
+	b0_4["a pop_f32"]
+	b0_7["r F32_minus"]
+	b0_9["eff__1442 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_SUB.unlem_pretty = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -35385,14 +44658,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F32_MUL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_MUL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_f32"]
+	b0_4["a pop_f32"]
+	b0_7["r F32_times"]
+	b0_9["eff__1446 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_MUL.unLEM = `<pre class='graph'>---
 config:
@@ -35418,6 +44699,23 @@ window.traces.F32_MUL.unlem_schedule = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
 def r = F32_times(a, b);
 def eff__1446 = push_f32(r);
+</pre>`;
+window.traces.F32_MUL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_f32"]
+	b0_4["a pop_f32"]
+	b0_7["r F32_times"]
+	b0_9["eff__1446 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_MUL.unlem_pretty = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -35596,14 +44894,33 @@ graph TD
 	13 --> 14
 	0 --> 14
 </pre>`;
-window.traces.F32_DIV.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_DIV.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_7["r F32_div"]
+	b0_16["abs__1458 lift_f32"]
+	b0_1[\\"Finish"/]
+	b0_7 --> b0_16
+	b0_16 --> b0_1
 end
+phi_1 --> block_0
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_13["eff__1451 trapDivideByZero"]
+end
+branch_0 --> block_2
+subgraph block_3["Block 3"]
+	direction TB
+	b3_12["eff__1452 push_f32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_DIV.unLEM = `<pre class='graph'>---
 config:
@@ -35689,6 +45006,40 @@ if (mb__1461) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F32_DIV.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_16["abs__1458 lift_f32"]
+	b5_7["r F32_div"]
+	b5_1[\\"Finish"/]
+	b5_16 --> b5_7
+	b5_7 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_24["eff_merge__1465 merge"]
+	b2_21["eff_merge__1463 merge"]
+	b2_24 --> b2_21
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_19["mb__1461 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F32_DIV.unlem_pretty = `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -35837,14 +45188,20 @@ graph TD
 	5["r F64_abs"]
 	3 --> 5
 </pre>`;
-window.traces.F64_ABS.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_ABS.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_0[/"Start"\\]
+	b9_3["a pop_f64"]
+	b9_5["r F64_abs"]
+	b9_7["eff__1466 push_f64"]
+	b9_1[\\"Finish"/]
+	b9_0 --> b9_3
+	b9_3 --> b9_5
+	b9_5 --> b9_7
+	b9_7 --> b9_1
 end
+
 </pre>`;
 window.traces.F64_ABS.unLEM = `<pre class='graph'>---
 config:
@@ -35866,6 +45223,21 @@ graph TD
 window.traces.F64_ABS.unlem_schedule = `<pre class=''>def a = pop_f64();
 def r = F64_abs(a);
 def eff__1466 = push_f64(r);
+</pre>`;
+window.traces.F64_ABS.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r F64_abs"]
+	b0_7["eff__1466 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_ABS.unlem_pretty = `<pre class=''>def a = pop_f64();
 push_f64(F64_abs(a));
@@ -35969,14 +45341,20 @@ graph TD
 	5["r F64_neg"]
 	3 --> 5
 </pre>`;
-window.traces.F64_NEG.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_NEG.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r F64_neg"]
+	b0_7["eff__1469 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_NEG.unLEM = `<pre class='graph'>---
 config:
@@ -35998,6 +45376,21 @@ graph TD
 window.traces.F64_NEG.unlem_schedule = `<pre class=''>def a = pop_f64();
 def r = F64_neg(a);
 def eff__1469 = push_f64(r);
+</pre>`;
+window.traces.F64_NEG.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r F64_neg"]
+	b0_7["eff__1469 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_NEG.unlem_pretty = `<pre class=''>def a = pop_f64();
 push_f64(F64_neg(a));
@@ -36101,14 +45494,20 @@ graph TD
 	5["r F64_ceil"]
 	3 --> 5
 </pre>`;
-window.traces.F64_CEIL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_CEIL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r F64_ceil"]
+	b0_7["eff__1472 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_CEIL.unLEM = `<pre class='graph'>---
 config:
@@ -36130,6 +45529,21 @@ graph TD
 window.traces.F64_CEIL.unlem_schedule = `<pre class=''>def a = pop_f64();
 def r = F64_ceil(a);
 def eff__1472 = push_f64(r);
+</pre>`;
+window.traces.F64_CEIL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r F64_ceil"]
+	b0_7["eff__1472 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_CEIL.unlem_pretty = `<pre class=''>def a = pop_f64();
 push_f64(F64_ceil(a));
@@ -36233,14 +45647,20 @@ graph TD
 	5["r F64_floor"]
 	3 --> 5
 </pre>`;
-window.traces.F64_FLOOR.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_FLOOR.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r F64_floor"]
+	b0_7["eff__1475 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_FLOOR.unLEM = `<pre class='graph'>---
 config:
@@ -36262,6 +45682,21 @@ graph TD
 window.traces.F64_FLOOR.unlem_schedule = `<pre class=''>def a = pop_f64();
 def r = F64_floor(a);
 def eff__1475 = push_f64(r);
+</pre>`;
+window.traces.F64_FLOOR.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r F64_floor"]
+	b0_7["eff__1475 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_FLOOR.unlem_pretty = `<pre class=''>def a = pop_f64();
 push_f64(F64_floor(a));
@@ -36365,14 +45800,20 @@ graph TD
 	5["r F64_trunc"]
 	3 --> 5
 </pre>`;
-window.traces.F64_TRUNC.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_TRUNC.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r F64_trunc"]
+	b0_7["eff__1478 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_TRUNC.unLEM = `<pre class='graph'>---
 config:
@@ -36394,6 +45835,21 @@ graph TD
 window.traces.F64_TRUNC.unlem_schedule = `<pre class=''>def a = pop_f64();
 def r = F64_trunc(a);
 def eff__1478 = push_f64(r);
+</pre>`;
+window.traces.F64_TRUNC.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r F64_trunc"]
+	b0_7["eff__1478 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_TRUNC.unlem_pretty = `<pre class=''>def a = pop_f64();
 push_f64(F64_trunc(a));
@@ -36497,14 +45953,20 @@ graph TD
 	5["r F64_round"]
 	3 --> 5
 </pre>`;
-window.traces.F64_NEAREST.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_NEAREST.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r F64_round"]
+	b0_7["eff__1481 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_NEAREST.unLEM = `<pre class='graph'>---
 config:
@@ -36526,6 +45988,21 @@ graph TD
 window.traces.F64_NEAREST.unlem_schedule = `<pre class=''>def a = pop_f64();
 def r = F64_round(a);
 def eff__1481 = push_f64(r);
+</pre>`;
+window.traces.F64_NEAREST.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r F64_round"]
+	b0_7["eff__1481 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_NEAREST.unlem_pretty = `<pre class=''>def a = pop_f64();
 push_f64(F64_round(a));
@@ -36629,14 +46106,20 @@ graph TD
 	5["r F64_sqrt"]
 	3 --> 5
 </pre>`;
-window.traces.F64_SQRT.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_SQRT.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r F64_sqrt"]
+	b0_7["eff__1484 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_SQRT.unLEM = `<pre class='graph'>---
 config:
@@ -36658,6 +46141,21 @@ graph TD
 window.traces.F64_SQRT.unlem_schedule = `<pre class=''>def a = pop_f64();
 def r = F64_sqrt(a);
 def eff__1484 = push_f64(r);
+</pre>`;
+window.traces.F64_SQRT.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r F64_sqrt"]
+	b0_7["eff__1484 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_SQRT.unlem_pretty = `<pre class=''>def a = pop_f64();
 push_f64(F64_sqrt(a));
@@ -36772,14 +46270,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F64_ADD.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_ADD.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_f64"]
+	b0_4["a pop_f64"]
+	b0_7["r F64_plus"]
+	b0_9["eff__1487 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_ADD.unLEM = `<pre class='graph'>---
 config:
@@ -36805,6 +46311,23 @@ window.traces.F64_ADD.unlem_schedule = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
 def r = F64_plus(a, b);
 def eff__1487 = push_f64(r);
+</pre>`;
+window.traces.F64_ADD.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_f64"]
+	b0_4["a pop_f64"]
+	b0_7["r F64_plus"]
+	b0_9["eff__1487 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_ADD.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -36928,14 +46451,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F64_SUB.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_SUB.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_f64"]
+	b0_4["a pop_f64"]
+	b0_7["r F64_minus"]
+	b0_9["eff__1491 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_SUB.unLEM = `<pre class='graph'>---
 config:
@@ -36961,6 +46492,23 @@ window.traces.F64_SUB.unlem_schedule = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
 def r = F64_minus(a, b);
 def eff__1491 = push_f64(r);
+</pre>`;
+window.traces.F64_SUB.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_f64"]
+	b0_4["a pop_f64"]
+	b0_7["r F64_minus"]
+	b0_9["eff__1491 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_SUB.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -37084,14 +46632,22 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces.F64_MUL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_MUL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_f64"]
+	b0_4["a pop_f64"]
+	b0_7["r F64_times"]
+	b0_9["eff__1495 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_MUL.unLEM = `<pre class='graph'>---
 config:
@@ -37117,6 +46673,23 @@ window.traces.F64_MUL.unlem_schedule = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
 def r = F64_times(a, b);
 def eff__1495 = push_f64(r);
+</pre>`;
+window.traces.F64_MUL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_f64"]
+	b0_4["a pop_f64"]
+	b0_7["r F64_times"]
+	b0_9["eff__1495 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_4
+	b0_4 --> b0_7
+	b0_7 --> b0_9
+	b0_9 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_MUL.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -37295,14 +46868,33 @@ graph TD
 	13 --> 14
 	0 --> 14
 </pre>`;
-window.traces.F64_DIV.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_DIV.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_7["r F64_div"]
+	b0_16["abs__1507 lift_f64"]
+	b0_1[\\"Finish"/]
+	b0_7 --> b0_16
+	b0_16 --> b0_1
 end
+phi_1 --> block_0
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_13["eff__1500 trapDivideByZero"]
+end
+branch_0 --> block_2
+subgraph block_3["Block 3"]
+	direction TB
+	b3_12["eff__1501 push_f64"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_DIV.unLEM = `<pre class='graph'>---
 config:
@@ -37388,6 +46980,40 @@ if (mb__1510) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.F64_DIV.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_16["abs__1507 lift_f64"]
+	b5_7["r F64_div"]
+	b5_1[\\"Finish"/]
+	b5_16 --> b5_7
+	b5_7 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_15{{"Sϕ Stack "}}
+	p1_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_24["eff_merge__1514 merge"]
+	b2_21["eff_merge__1512 merge"]
+	b2_24 --> b2_21
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_19["mb__1510 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.F64_DIV.unlem_pretty = `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -37536,14 +47162,20 @@ graph TD
 	5["r U32_wrap_u64"]
 	3 --> 5
 </pre>`;
-window.traces.I32_WRAP_I64.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_WRAP_I64.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_0[/"Start"\\]
+	b9_3["a pop_u64"]
+	b9_5["r U32_wrap_u64"]
+	b9_7["eff__1515 push_u32"]
+	b9_1[\\"Finish"/]
+	b9_0 --> b9_3
+	b9_3 --> b9_5
+	b9_5 --> b9_7
+	b9_7 --> b9_1
 end
+
 </pre>`;
 window.traces.I32_WRAP_I64.unLEM = `<pre class='graph'>---
 config:
@@ -37565,6 +47197,21 @@ graph TD
 window.traces.I32_WRAP_I64.unlem_schedule = `<pre class=''>def a = pop_u64();
 def r = U32_wrap_u64(a);
 def eff__1515 = push_u32(r);
+</pre>`;
+window.traces.I32_WRAP_I64.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r U32_wrap_u64"]
+	b0_7["eff__1515 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_WRAP_I64.unlem_pretty = `<pre class=''>def a = pop_u64();
 def r = U32_wrap_u64(a);
@@ -37670,14 +47317,20 @@ graph TD
 	5["r U32_trunc_f32_s"]
 	3 --> 5
 </pre>`;
-window.traces.I32_TRUNC_F32_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_TRUNC_F32_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r U32_trunc_f32_s"]
+	b0_7["eff__1518 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_TRUNC_F32_S.unLEM = `<pre class='graph'>---
 config:
@@ -37699,6 +47352,21 @@ graph TD
 window.traces.I32_TRUNC_F32_S.unlem_schedule = `<pre class=''>def a = pop_f32();
 def r = U32_trunc_f32_s(a);
 def eff__1518 = push_u32(r);
+</pre>`;
+window.traces.I32_TRUNC_F32_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r U32_trunc_f32_s"]
+	b0_7["eff__1518 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_TRUNC_F32_S.unlem_pretty = `<pre class=''>def a = pop_f32();
 def r = U32_trunc_f32_s(a);
@@ -37804,14 +47472,20 @@ graph TD
 	5["r U32_trunc_f32_u"]
 	3 --> 5
 </pre>`;
-window.traces.I32_TRUNC_F32_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_TRUNC_F32_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r U32_trunc_f32_u"]
+	b0_7["eff__1521 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_TRUNC_F32_U.unLEM = `<pre class='graph'>---
 config:
@@ -37833,6 +47507,21 @@ graph TD
 window.traces.I32_TRUNC_F32_U.unlem_schedule = `<pre class=''>def a = pop_f32();
 def r = U32_trunc_f32_u(a);
 def eff__1521 = push_u32(r);
+</pre>`;
+window.traces.I32_TRUNC_F32_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r U32_trunc_f32_u"]
+	b0_7["eff__1521 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_TRUNC_F32_U.unlem_pretty = `<pre class=''>def a = pop_f32();
 def r = U32_trunc_f32_u(a);
@@ -37938,14 +47627,20 @@ graph TD
 	5["r U32_trunc_f64_s"]
 	3 --> 5
 </pre>`;
-window.traces.I32_TRUNC_F64_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_TRUNC_F64_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r U32_trunc_f64_s"]
+	b0_7["eff__1524 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_TRUNC_F64_S.unLEM = `<pre class='graph'>---
 config:
@@ -37967,6 +47662,21 @@ graph TD
 window.traces.I32_TRUNC_F64_S.unlem_schedule = `<pre class=''>def a = pop_f64();
 def r = U32_trunc_f64_s(a);
 def eff__1524 = push_u32(r);
+</pre>`;
+window.traces.I32_TRUNC_F64_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r U32_trunc_f64_s"]
+	b0_7["eff__1524 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_TRUNC_F64_S.unlem_pretty = `<pre class=''>def a = pop_f64();
 def r = U32_trunc_f64_s(a);
@@ -38072,14 +47782,20 @@ graph TD
 	5["r U32_trunc_f64_u"]
 	3 --> 5
 </pre>`;
-window.traces.I32_TRUNC_F64_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_TRUNC_F64_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r U32_trunc_f64_u"]
+	b0_7["eff__1527 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_TRUNC_F64_U.unLEM = `<pre class='graph'>---
 config:
@@ -38101,6 +47817,21 @@ graph TD
 window.traces.I32_TRUNC_F64_U.unlem_schedule = `<pre class=''>def a = pop_f64();
 def r = U32_trunc_f64_u(a);
 def eff__1527 = push_u32(r);
+</pre>`;
+window.traces.I32_TRUNC_F64_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r U32_trunc_f64_u"]
+	b0_7["eff__1527 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_TRUNC_F64_U.unlem_pretty = `<pre class=''>def a = pop_f64();
 def r = U32_trunc_f64_u(a);
@@ -38206,14 +47937,20 @@ graph TD
 	5["r U64_extend_i32_s"]
 	3 --> 5
 </pre>`;
-window.traces.I64_EXTEND_I32_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_EXTEND_I32_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r U64_extend_i32_s"]
+	b0_7["eff__1530 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_EXTEND_I32_S.unLEM = `<pre class='graph'>---
 config:
@@ -38235,6 +47972,21 @@ graph TD
 window.traces.I64_EXTEND_I32_S.unlem_schedule = `<pre class=''>def a = pop_u32();
 def r = U64_extend_i32_s(a);
 def eff__1530 = push_u64(r);
+</pre>`;
+window.traces.I64_EXTEND_I32_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r U64_extend_i32_s"]
+	b0_7["eff__1530 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_EXTEND_I32_S.unlem_pretty = `<pre class=''>def a = pop_u32();
 def r = U64_extend_i32_s(a);
@@ -38340,14 +48092,20 @@ graph TD
 	5["r U64_extend_i32_u"]
 	3 --> 5
 </pre>`;
-window.traces.I64_EXTEND_I32_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_EXTEND_I32_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r U64_extend_i32_u"]
+	b0_7["eff__1533 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_EXTEND_I32_U.unLEM = `<pre class='graph'>---
 config:
@@ -38369,6 +48127,21 @@ graph TD
 window.traces.I64_EXTEND_I32_U.unlem_schedule = `<pre class=''>def a = pop_u32();
 def r = U64_extend_i32_u(a);
 def eff__1533 = push_u64(r);
+</pre>`;
+window.traces.I64_EXTEND_I32_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r U64_extend_i32_u"]
+	b0_7["eff__1533 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_EXTEND_I32_U.unlem_pretty = `<pre class=''>def a = pop_u32();
 def r = U64_extend_i32_u(a);
@@ -38474,14 +48247,20 @@ graph TD
 	5["r U64_trunc_f32_s"]
 	3 --> 5
 </pre>`;
-window.traces.I64_TRUNC_F32_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_TRUNC_F32_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r U64_trunc_f32_s"]
+	b0_7["eff__1536 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_TRUNC_F32_S.unLEM = `<pre class='graph'>---
 config:
@@ -38503,6 +48282,21 @@ graph TD
 window.traces.I64_TRUNC_F32_S.unlem_schedule = `<pre class=''>def a = pop_f32();
 def r = U64_trunc_f32_s(a);
 def eff__1536 = push_u64(r);
+</pre>`;
+window.traces.I64_TRUNC_F32_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r U64_trunc_f32_s"]
+	b0_7["eff__1536 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_TRUNC_F32_S.unlem_pretty = `<pre class=''>def a = pop_f32();
 def r = U64_trunc_f32_s(a);
@@ -38608,14 +48402,20 @@ graph TD
 	5["r U64_trunc_f32_u"]
 	3 --> 5
 </pre>`;
-window.traces.I64_TRUNC_F32_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_TRUNC_F32_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r U64_trunc_f32_u"]
+	b0_7["eff__1539 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_TRUNC_F32_U.unLEM = `<pre class='graph'>---
 config:
@@ -38637,6 +48437,21 @@ graph TD
 window.traces.I64_TRUNC_F32_U.unlem_schedule = `<pre class=''>def a = pop_f32();
 def r = U64_trunc_f32_u(a);
 def eff__1539 = push_u64(r);
+</pre>`;
+window.traces.I64_TRUNC_F32_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r U64_trunc_f32_u"]
+	b0_7["eff__1539 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_TRUNC_F32_U.unlem_pretty = `<pre class=''>def a = pop_f32();
 def r = U64_trunc_f32_u(a);
@@ -38742,14 +48557,20 @@ graph TD
 	5["r U64_trunc_f64_s"]
 	3 --> 5
 </pre>`;
-window.traces.I64_TRUNC_F64_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_TRUNC_F64_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r U64_trunc_f64_s"]
+	b0_7["eff__1542 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_TRUNC_F64_S.unLEM = `<pre class='graph'>---
 config:
@@ -38771,6 +48592,21 @@ graph TD
 window.traces.I64_TRUNC_F64_S.unlem_schedule = `<pre class=''>def a = pop_f64();
 def r = U64_trunc_f64_s(a);
 def eff__1542 = push_u64(r);
+</pre>`;
+window.traces.I64_TRUNC_F64_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r U64_trunc_f64_s"]
+	b0_7["eff__1542 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_TRUNC_F64_S.unlem_pretty = `<pre class=''>def a = pop_f64();
 def r = U64_trunc_f64_s(a);
@@ -38876,14 +48712,20 @@ graph TD
 	5["r U64_trunc_f64_u"]
 	3 --> 5
 </pre>`;
-window.traces.I64_TRUNC_F64_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_TRUNC_F64_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r U64_trunc_f64_u"]
+	b0_7["eff__1545 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_TRUNC_F64_U.unLEM = `<pre class='graph'>---
 config:
@@ -38905,6 +48747,21 @@ graph TD
 window.traces.I64_TRUNC_F64_U.unlem_schedule = `<pre class=''>def a = pop_f64();
 def r = U64_trunc_f64_u(a);
 def eff__1545 = push_u64(r);
+</pre>`;
+window.traces.I64_TRUNC_F64_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r U64_trunc_f64_u"]
+	b0_7["eff__1545 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_TRUNC_F64_U.unlem_pretty = `<pre class=''>def a = pop_f64();
 def r = U64_trunc_f64_u(a);
@@ -39010,14 +48867,20 @@ graph TD
 	5["r F32_convert_i32_s"]
 	3 --> 5
 </pre>`;
-window.traces.F32_CONVERT_I32_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_CONVERT_I32_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_5["r F32_convert_i32_s"]
+	b0_7["eff__1548 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_CONVERT_I32_S.unLEM = `<pre class='graph'>---
 config:
@@ -39039,6 +48902,21 @@ graph TD
 window.traces.F32_CONVERT_I32_S.unlem_schedule = `<pre class=''>def b = pop_u32();
 def r = F32_convert_i32_s(b);
 def eff__1548 = push_f32(r);
+</pre>`;
+window.traces.F32_CONVERT_I32_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_5["r F32_convert_i32_s"]
+	b0_7["eff__1548 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_CONVERT_I32_S.unlem_pretty = `<pre class=''>def b = pop_u32();
 def r = F32_convert_i32_s(b);
@@ -39144,14 +49022,20 @@ graph TD
 	5["r F32_convert_i32_u"]
 	3 --> 5
 </pre>`;
-window.traces.F32_CONVERT_I32_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_CONVERT_I32_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_5["r F32_convert_i32_u"]
+	b0_7["eff__1551 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_CONVERT_I32_U.unLEM = `<pre class='graph'>---
 config:
@@ -39173,6 +49057,21 @@ graph TD
 window.traces.F32_CONVERT_I32_U.unlem_schedule = `<pre class=''>def b = pop_u32();
 def r = F32_convert_i32_u(b);
 def eff__1551 = push_f32(r);
+</pre>`;
+window.traces.F32_CONVERT_I32_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_5["r F32_convert_i32_u"]
+	b0_7["eff__1551 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_CONVERT_I32_U.unlem_pretty = `<pre class=''>def b = pop_u32();
 def r = F32_convert_i32_u(b);
@@ -39278,14 +49177,20 @@ graph TD
 	5["r F32_convert_i64_s"]
 	3 --> 5
 </pre>`;
-window.traces.F32_CONVERT_I64_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_CONVERT_I64_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_5["r F32_convert_i64_s"]
+	b0_7["eff__1554 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_CONVERT_I64_S.unLEM = `<pre class='graph'>---
 config:
@@ -39307,6 +49212,21 @@ graph TD
 window.traces.F32_CONVERT_I64_S.unlem_schedule = `<pre class=''>def b = pop_u64();
 def r = F32_convert_i64_s(b);
 def eff__1554 = push_f32(r);
+</pre>`;
+window.traces.F32_CONVERT_I64_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_5["r F32_convert_i64_s"]
+	b0_7["eff__1554 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_CONVERT_I64_S.unlem_pretty = `<pre class=''>def b = pop_u64();
 def r = F32_convert_i64_s(b);
@@ -39412,14 +49332,20 @@ graph TD
 	5["r F32_convert_i64_u"]
 	3 --> 5
 </pre>`;
-window.traces.F32_CONVERT_I64_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_CONVERT_I64_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_5["r F32_convert_i64_u"]
+	b0_7["eff__1557 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_CONVERT_I64_U.unLEM = `<pre class='graph'>---
 config:
@@ -39441,6 +49367,21 @@ graph TD
 window.traces.F32_CONVERT_I64_U.unlem_schedule = `<pre class=''>def b = pop_u64();
 def r = F32_convert_i64_u(b);
 def eff__1557 = push_f32(r);
+</pre>`;
+window.traces.F32_CONVERT_I64_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_5["r F32_convert_i64_u"]
+	b0_7["eff__1557 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_CONVERT_I64_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def r = F32_convert_i64_u(b);
@@ -39546,14 +49487,20 @@ graph TD
 	5["r F64_convert_i32_s"]
 	3 --> 5
 </pre>`;
-window.traces.F64_CONVERT_I32_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_CONVERT_I32_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_5["r F64_convert_i32_s"]
+	b0_7["eff__1560 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_CONVERT_I32_S.unLEM = `<pre class='graph'>---
 config:
@@ -39575,6 +49522,21 @@ graph TD
 window.traces.F64_CONVERT_I32_S.unlem_schedule = `<pre class=''>def b = pop_u32();
 def r = F64_convert_i32_s(b);
 def eff__1560 = push_f64(r);
+</pre>`;
+window.traces.F64_CONVERT_I32_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_5["r F64_convert_i32_s"]
+	b0_7["eff__1560 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_CONVERT_I32_S.unlem_pretty = `<pre class=''>def b = pop_u32();
 def r = F64_convert_i32_s(b);
@@ -39680,14 +49642,20 @@ graph TD
 	5["r F64_convert_i32_u"]
 	3 --> 5
 </pre>`;
-window.traces.F64_CONVERT_I32_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_CONVERT_I32_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_5["r F64_convert_i32_u"]
+	b0_7["eff__1563 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_CONVERT_I32_U.unLEM = `<pre class='graph'>---
 config:
@@ -39709,6 +49677,21 @@ graph TD
 window.traces.F64_CONVERT_I32_U.unlem_schedule = `<pre class=''>def b = pop_u32();
 def r = F64_convert_i32_u(b);
 def eff__1563 = push_f64(r);
+</pre>`;
+window.traces.F64_CONVERT_I32_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u32"]
+	b0_5["r F64_convert_i32_u"]
+	b0_7["eff__1563 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_CONVERT_I32_U.unlem_pretty = `<pre class=''>def b = pop_u32();
 def r = F64_convert_i32_u(b);
@@ -39814,14 +49797,20 @@ graph TD
 	5["r F64_convert_i64_s"]
 	3 --> 5
 </pre>`;
-window.traces.F64_CONVERT_I64_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_CONVERT_I64_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_5["r F64_convert_i64_s"]
+	b0_7["eff__1566 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_CONVERT_I64_S.unLEM = `<pre class='graph'>---
 config:
@@ -39843,6 +49832,21 @@ graph TD
 window.traces.F64_CONVERT_I64_S.unlem_schedule = `<pre class=''>def b = pop_u64();
 def r = F64_convert_i64_s(b);
 def eff__1566 = push_f64(r);
+</pre>`;
+window.traces.F64_CONVERT_I64_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_5["r F64_convert_i64_s"]
+	b0_7["eff__1566 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_CONVERT_I64_S.unlem_pretty = `<pre class=''>def b = pop_u64();
 def r = F64_convert_i64_s(b);
@@ -39948,14 +49952,20 @@ graph TD
 	5["r F64_convert_i64_u"]
 	3 --> 5
 </pre>`;
-window.traces.F64_CONVERT_I64_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_CONVERT_I64_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_5["r F64_convert_i64_u"]
+	b0_7["eff__1569 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_CONVERT_I64_U.unLEM = `<pre class='graph'>---
 config:
@@ -39977,6 +49987,21 @@ graph TD
 window.traces.F64_CONVERT_I64_U.unlem_schedule = `<pre class=''>def b = pop_u64();
 def r = F64_convert_i64_u(b);
 def eff__1569 = push_f64(r);
+</pre>`;
+window.traces.F64_CONVERT_I64_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["b pop_u64"]
+	b0_5["r F64_convert_i64_u"]
+	b0_7["eff__1569 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_CONVERT_I64_U.unlem_pretty = `<pre class=''>def b = pop_u64();
 def r = F64_convert_i64_u(b);
@@ -40082,14 +50107,20 @@ graph TD
 	5["r u32_reinterpret_f32"]
 	3 --> 5
 </pre>`;
-window.traces.I32_REINTERPRET_F32.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_REINTERPRET_F32.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r u32_reinterpret_f32"]
+	b0_7["eff__1572 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_REINTERPRET_F32.unLEM = `<pre class='graph'>---
 config:
@@ -40111,6 +50142,21 @@ graph TD
 window.traces.I32_REINTERPRET_F32.unlem_schedule = `<pre class=''>def a = pop_f32();
 def r = u32_reinterpret_f32(a);
 def eff__1572 = push_u32(r);
+</pre>`;
+window.traces.I32_REINTERPRET_F32.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f32"]
+	b0_5["r u32_reinterpret_f32"]
+	b0_7["eff__1572 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_REINTERPRET_F32.unlem_pretty = `<pre class=''>def a = pop_f32();
 def r = u32_reinterpret_f32(a);
@@ -40216,14 +50262,20 @@ graph TD
 	5["r u64_reinterpret_f64"]
 	3 --> 5
 </pre>`;
-window.traces.I64_REINTERPRET_F64.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_REINTERPRET_F64.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r u64_reinterpret_f64"]
+	b0_7["eff__1575 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_REINTERPRET_F64.unLEM = `<pre class='graph'>---
 config:
@@ -40245,6 +50297,21 @@ graph TD
 window.traces.I64_REINTERPRET_F64.unlem_schedule = `<pre class=''>def a = pop_f64();
 def r = u64_reinterpret_f64(a);
 def eff__1575 = push_u64(r);
+</pre>`;
+window.traces.I64_REINTERPRET_F64.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_f64"]
+	b0_5["r u64_reinterpret_f64"]
+	b0_7["eff__1575 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_REINTERPRET_F64.unlem_pretty = `<pre class=''>def a = pop_f64();
 def r = u64_reinterpret_f64(a);
@@ -40350,14 +50417,20 @@ graph TD
 	5["r f32_reinterpret_u32"]
 	3 --> 5
 </pre>`;
-window.traces.F32_REINTERPRET_I32.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F32_REINTERPRET_I32.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r f32_reinterpret_u32"]
+	b0_7["eff__1578 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F32_REINTERPRET_I32.unLEM = `<pre class='graph'>---
 config:
@@ -40379,6 +50452,21 @@ graph TD
 window.traces.F32_REINTERPRET_I32.unlem_schedule = `<pre class=''>def a = pop_u32();
 def r = f32_reinterpret_u32(a);
 def eff__1578 = push_f32(r);
+</pre>`;
+window.traces.F32_REINTERPRET_I32.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r f32_reinterpret_u32"]
+	b0_7["eff__1578 push_f32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F32_REINTERPRET_I32.unlem_pretty = `<pre class=''>def a = pop_u32();
 def r = f32_reinterpret_u32(a);
@@ -40484,14 +50572,20 @@ graph TD
 	5["r f64_reinterpret_u64"]
 	3 --> 5
 </pre>`;
-window.traces.F64_REINTERPRET_I64.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.F64_REINTERPRET_I64.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r f64_reinterpret_u64"]
+	b0_7["eff__1581 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.F64_REINTERPRET_I64.unLEM = `<pre class='graph'>---
 config:
@@ -40513,6 +50607,21 @@ graph TD
 window.traces.F64_REINTERPRET_I64.unlem_schedule = `<pre class=''>def a = pop_u64();
 def r = f64_reinterpret_u64(a);
 def eff__1581 = push_f64(r);
+</pre>`;
+window.traces.F64_REINTERPRET_I64.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r f64_reinterpret_u64"]
+	b0_7["eff__1581 push_f64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.F64_REINTERPRET_I64.unlem_pretty = `<pre class=''>def a = pop_u64();
 def r = f64_reinterpret_u64(a);
@@ -40618,14 +50727,20 @@ graph TD
 	5["r U32_extend8_s"]
 	3 --> 5
 </pre>`;
-window.traces.I32_EXTEND8_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_EXTEND8_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r U32_extend8_s"]
+	b0_7["eff__1584 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_EXTEND8_S.unLEM = `<pre class='graph'>---
 config:
@@ -40647,6 +50762,21 @@ graph TD
 window.traces.I32_EXTEND8_S.unlem_schedule = `<pre class=''>def a = pop_u32();
 def r = U32_extend8_s(a);
 def eff__1584 = push_u32(r);
+</pre>`;
+window.traces.I32_EXTEND8_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r U32_extend8_s"]
+	b0_7["eff__1584 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_EXTEND8_S.unlem_pretty = `<pre class=''>def a = pop_u32();
 def r = U32_extend8_s(a);
@@ -40752,14 +50882,20 @@ graph TD
 	5["r U32_extend16_s"]
 	3 --> 5
 </pre>`;
-window.traces.I32_EXTEND16_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I32_EXTEND16_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r U32_extend16_s"]
+	b0_7["eff__1587 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I32_EXTEND16_S.unLEM = `<pre class='graph'>---
 config:
@@ -40781,6 +50917,21 @@ graph TD
 window.traces.I32_EXTEND16_S.unlem_schedule = `<pre class=''>def a = pop_u32();
 def r = U32_extend16_s(a);
 def eff__1587 = push_u32(r);
+</pre>`;
+window.traces.I32_EXTEND16_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u32"]
+	b0_5["r U32_extend16_s"]
+	b0_7["eff__1587 push_u32"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I32_EXTEND16_S.unlem_pretty = `<pre class=''>def a = pop_u32();
 def r = U32_extend16_s(a);
@@ -40886,14 +51037,20 @@ graph TD
 	5["r U64_extend8_s"]
 	3 --> 5
 </pre>`;
-window.traces.I64_EXTEND8_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_EXTEND8_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r U64_extend8_s"]
+	b0_7["eff__1590 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_EXTEND8_S.unLEM = `<pre class='graph'>---
 config:
@@ -40915,6 +51072,21 @@ graph TD
 window.traces.I64_EXTEND8_S.unlem_schedule = `<pre class=''>def a = pop_u64();
 def r = U64_extend8_s(a);
 def eff__1590 = push_u64(r);
+</pre>`;
+window.traces.I64_EXTEND8_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r U64_extend8_s"]
+	b0_7["eff__1590 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_EXTEND8_S.unlem_pretty = `<pre class=''>def a = pop_u64();
 def r = U64_extend8_s(a);
@@ -41020,14 +51192,20 @@ graph TD
 	5["r U64_extend16_s"]
 	3 --> 5
 </pre>`;
-window.traces.I64_EXTEND16_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_EXTEND16_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r U64_extend16_s"]
+	b0_7["eff__1593 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_EXTEND16_S.unLEM = `<pre class='graph'>---
 config:
@@ -41049,6 +51227,21 @@ graph TD
 window.traces.I64_EXTEND16_S.unlem_schedule = `<pre class=''>def a = pop_u64();
 def r = U64_extend16_s(a);
 def eff__1593 = push_u64(r);
+</pre>`;
+window.traces.I64_EXTEND16_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r U64_extend16_s"]
+	b0_7["eff__1593 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_EXTEND16_S.unlem_pretty = `<pre class=''>def a = pop_u64();
 def r = U64_extend16_s(a);
@@ -41154,14 +51347,20 @@ graph TD
 	5["r U64_extend32_s"]
 	3 --> 5
 </pre>`;
-window.traces.I64_EXTEND32_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.I64_EXTEND32_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r U64_extend32_s"]
+	b0_7["eff__1596 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
 end
+
 </pre>`;
 window.traces.I64_EXTEND32_S.unLEM = `<pre class='graph'>---
 config:
@@ -41183,6 +51382,21 @@ graph TD
 window.traces.I64_EXTEND32_S.unlem_schedule = `<pre class=''>def a = pop_u64();
 def r = U64_extend32_s(a);
 def eff__1596 = push_u64(r);
+</pre>`;
+window.traces.I64_EXTEND32_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_0[/"Start"\\]
+	b0_3["a pop_u64"]
+	b0_5["r U64_extend32_s"]
+	b0_7["eff__1596 push_u64"]
+	b0_1[\\"Finish"/]
+	b0_0 --> b0_3
+	b0_3 --> b0_5
+	b0_5 --> b0_7
+	b0_7 --> b0_1
+end
+
 </pre>`;
 window.traces.I64_EXTEND32_S.unlem_pretty = `<pre class=''>def a = pop_u64();
 def r = U64_extend32_s(a);
@@ -41286,14 +51500,20 @@ graph TD
 	3["idx imm_readULEB32"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces.REF_NULL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.REF_NULL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_4["arg__1600 object_Null"]
+	b0_0[/"Start"\\]
+	b0_5["eff__1599 push_Object"]
+	b0_3["idx imm_readULEB32"]
+	b0_1[\\"Finish"/]
+	b0_4 --> b0_0
+	b0_0 --> b0_5
+	b0_5 --> b0_3
+	b0_3 --> b0_1
 end
+
 </pre>`;
 window.traces.REF_NULL.unLEM = `<pre class='graph'>---
 config:
@@ -41315,6 +51535,21 @@ graph TD
 window.traces.REF_NULL.unlem_schedule = `<pre class=''>def idx = imm_readULEB32();
 def arg__1600 = object_Null();
 def eff__1599 = push_Object(arg__1600);
+</pre>`;
+window.traces.REF_NULL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_4["arg__1600 object_Null"]
+	b0_0[/"Start"\\]
+	b0_5["eff__1599 push_Object"]
+	b0_3["idx imm_readULEB32"]
+	b0_1[\\"Finish"/]
+	b0_4 --> b0_0
+	b0_0 --> b0_5
+	b0_5 --> b0_3
+	b0_3 --> b0_1
+end
+
 </pre>`;
 window.traces.REF_NULL.unlem_pretty = `<pre class=''>def idx = imm_readULEB32();
 def arg = object_Null();
@@ -41457,14 +51692,32 @@ graph TD
 	5["cond__1601 object_isNull"]
 	3 --> 5
 </pre>`;
-window.traces.REF_IS_NULL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.REF_IS_NULL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_12["abs__1608 lift_u32"]
+	b0_11["abs__1607 lift_u32"]
+	b0_1[\\"Finish"/]
+	b0_12 --> b0_11
+	b0_11 --> b0_1
 end
+phi_1 --> block_0
+subgraph phi_1["Phi 1"]
+	p1_10{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_9["eff__1602 push_u32"]
+end
+branch_0 --> block_2
+subgraph block_3["Block 3"]
+	direction TB
+	b3_7["eff__1604 push_u32"]
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.REF_IS_NULL.unLEM = `<pre class='graph'>---
 config:
@@ -41538,6 +51791,61 @@ if (mb__1611) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.REF_IS_NULL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_10{{"Sϕ Stack "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_18["eff_push__1613 push_u32"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_15["mb__1611 bool.&&"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_12["abs__1608 lift_u32"]
+	b4_11["abs__1607 lift_u32"]
+	b4_17["merge__1612 merge_u"]
+	b4_14["mf__1610 U32_maybeFalse"]
+	b4_15["mb__1611 bool.&&"]
+	b4_12 --> b4_11
+	b4_11 --> b4_17
+	b4_17 --> b4_14
+	b4_14 --> b4_15
+end
+phi_6 --> block_4
+subgraph phi_6["Phi 6"]
+	p6_16{{"Sϕ Stack "}}
+end
+block_7 --> phi_6
+block_8 --> phi_6
+subgraph block_7["Block 7"]
+	direction TB
+	b7_9["eff__1602 push_u32"]
+end
+branch_5 --> block_7
+subgraph block_8["Block 8"]
+	direction TB
+	b8_7["eff__1604 push_u32"]
+end
+branch_5 --> block_8
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.REF_IS_NULL.unlem_pretty = `<pre class=''>def obj = pop_Object();
 def cond = object_isNull(obj);
@@ -41698,14 +52006,43 @@ graph TD
 	6 --> 7
 	0 --> 7
 </pre>`;
-window.traces.REF_AS_NON_NULL.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.REF_AS_NON_NULL.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_10["Block 10"]
+	direction TB
+	b10_10["eff__1614 push_Object"]
+	b10_1[\\"Finish"/]
+	b10_10 --> b10_1
 end
+phi_1 --> block_10
+subgraph phi_1["Phi 1"]
+	p1_8{{"Sϕ Stack "}}
+	p1_7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_6["eff__1617 trapNull"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_5["cond__1616 object_isNull"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_0[/"Start"\\]
+	b4_5["cond__1616 object_isNull"]
+	b4_3["obj pop_Object"]
+	b4_0 --> b4_5
+	b4_5 --> b4_3
+end
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.REF_AS_NON_NULL.unLEM = `<pre class='graph'>---
 config:
@@ -41775,6 +52112,38 @@ if (mb__1621) {
 }
 // phis: 
 def eff__1614 = push_Object(obj);
+</pre>`;
+window.traces.REF_AS_NON_NULL.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_10["eff__1614 push_Object"]
+	b5_1[\\"Finish"/]
+	b5_10 --> b5_1
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_8{{"Sϕ Stack "}}
+	p1_7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_18["eff_merge__1625 merge"]
+	b2_15["eff_merge__1623 merge"]
+	b2_18 --> b2_15
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_13["mb__1621 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.REF_AS_NON_NULL.unlem_pretty = `<pre class=''>def obj = pop_Object();
 def cond = object_isNull(obj);
@@ -41919,14 +52288,22 @@ graph TD
 	3["struct_idx imm_readULEB32"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces.STRUCT_NEW.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.STRUCT_NEW.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_5["sig m_getSignature"]
+	b9_7["obj object_New"]
+	b9_0[/"Start"\\]
+	b9_9["eff__1626 push_Object"]
+	b9_3["struct_idx imm_readULEB32"]
+	b9_1[\\"Finish"/]
+	b9_5 --> b9_7
+	b9_7 --> b9_0
+	b9_0 --> b9_9
+	b9_9 --> b9_3
+	b9_3 --> b9_1
 end
+
 </pre>`;
 window.traces.STRUCT_NEW.unLEM = `<pre class='graph'>---
 config:
@@ -41952,6 +52329,23 @@ window.traces.STRUCT_NEW.unlem_schedule = `<pre class=''>def struct_idx = imm_re
 def sig = m_getSignature(struct_idx);
 def obj = object_New(sig);
 def eff__1626 = push_Object(obj);
+</pre>`;
+window.traces.STRUCT_NEW.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_5["sig m_getSignature"]
+	b0_7["obj object_New"]
+	b0_0[/"Start"\\]
+	b0_9["eff__1626 push_Object"]
+	b0_3["struct_idx imm_readULEB32"]
+	b0_1[\\"Finish"/]
+	b0_5 --> b0_7
+	b0_7 --> b0_0
+	b0_0 --> b0_9
+	b0_9 --> b0_3
+	b0_3 --> b0_1
+end
+
 </pre>`;
 window.traces.STRUCT_NEW.unlem_pretty = `<pre class=''>def struct_idx = imm_readULEB32();
 def sig = m_getSignature(struct_idx);
@@ -42129,14 +52523,29 @@ graph TD
 	14 --> 15
 	4 --> 15
 </pre>`;
-window.traces.STRUCT_GET.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.STRUCT_GET.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_0["Block 0"]
+	direction TB
+	b0_1[\\"Finish"/]
 end
+phi_1 --> block_0
+subgraph phi_1["Phi 1"]
+	p1_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1_16{{"Sϕ Stack "}}
+	p1_15{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_14["ret__1656 trapNull"]
+end
+branch_0 --> block_2
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.STRUCT_GET.unLEM = `<pre class='graph'>---
 config:
@@ -42227,6 +52636,39 @@ if (mb__1665) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.STRUCT_GET.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1_16{{"Sϕ Stack "}}
+	p1_15{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff_merge__1671 merge"]
+	b2_26["eff_merge__1668 merge"]
+	b2_23["eff_merge__1666 merge"]
+	b2_29 --> b2_26
+	b2_26 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_21["mb__1665 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.STRUCT_GET.unlem_pretty = `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
@@ -42447,14 +52889,46 @@ graph TD
 	14 --> 15
 	4 --> 15
 </pre>`;
-window.traces.STRUCT_GET_S.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.STRUCT_GET_S.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_1[\\"Finish"/]
 end
+phi_1 --> block_9
+subgraph phi_1["Phi 1"]
+	p1_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1_16{{"Sϕ Stack "}}
+	p1_15{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_14["ret__1684 trapNull"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_13["cond__1683 object_isNull"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_0[/"Start"\\]
+	b4_3["struct_index imm_readULEB32"]
+	b4_11["obj pop_Object"]
+	b4_4["field_index imm_readULEB32"]
+	b4_13["cond__1683 object_isNull"]
+	b4_0 --> b4_3
+	b4_3 --> b4_11
+	b4_11 --> b4_4
+	b4_4 --> b4_13
+end
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.STRUCT_GET_S.unLEM = `<pre class='graph'>---
 config:
@@ -42545,6 +53019,39 @@ if (mb__1693) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.STRUCT_GET_S.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1_16{{"Sϕ Stack "}}
+	p1_15{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff_merge__1699 merge"]
+	b2_26["eff_merge__1696 merge"]
+	b2_23["eff_merge__1694 merge"]
+	b2_29 --> b2_26
+	b2_26 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_21["mb__1693 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.STRUCT_GET_S.unlem_pretty = `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
@@ -42765,14 +53272,46 @@ graph TD
 	14 --> 15
 	4 --> 15
 </pre>`;
-window.traces.STRUCT_GET_U.schedulerMermaid = `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-subgraph block_0
-	1[\\"Finish"/]
+window.traces.STRUCT_GET_U.schedulerMermaid = `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_1[\\"Finish"/]
 end
+phi_1 --> block_9
+subgraph phi_1["Phi 1"]
+	p1_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1_16{{"Sϕ Stack "}}
+	p1_15{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_14["ret__1712 trapNull"]
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_13["cond__1711 object_isNull"]
+
+end
+block_4 --> branch_0
+subgraph block_4["Block 4"]
+	direction TB
+	b4_0[/"Start"\\]
+	b4_3["struct_index imm_readULEB32"]
+	b4_11["obj pop_Object"]
+	b4_4["field_index imm_readULEB32"]
+	b4_13["cond__1711 object_isNull"]
+	b4_0 --> b4_3
+	b4_3 --> b4_11
+	b4_11 --> b4_4
+	b4_4 --> b4_13
+end
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.STRUCT_GET_U.unLEM = `<pre class='graph'>---
 config:
@@ -42863,6 +53402,39 @@ if (mb__1721) {
 // phis: 
 }
 // phis: 
+</pre>`;
+window.traces.STRUCT_GET_U.unlem_scheduler = `<pre class='graph'>graph TD
+subgraph block_5["Block 5"]
+	direction TB
+	b5_1[\\"Finish"/]
+end
+phi_1 --> block_5
+subgraph phi_1["Phi 1"]
+	p1_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1_16{{"Sϕ Stack "}}
+	p1_15{{"Sϕ Codeptr "}}
+end
+block_2 --> phi_1
+block_3 --> phi_1
+subgraph block_2["Block 2"]
+	direction TB
+	b2_29["eff_merge__1727 merge"]
+	b2_26["eff_merge__1724 merge"]
+	b2_23["eff_merge__1722 merge"]
+	b2_29 --> b2_26
+	b2_26 --> b2_23
+end
+branch_0 --> block_2
+subgraph branch_0["Branch 0"]
+	br0_21["mb__1721 bool.&&"]
+
+end
+phi_5 --> branch_0
+subgraph block_3["Block 3"]
+	direction TB
+end
+branch_0 --> block_3
+
 </pre>`;
 window.traces.STRUCT_GET_U.unlem_pretty = `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();

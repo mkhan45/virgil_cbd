@@ -113,7 +113,8 @@ class Sea {
         node.value_deps = value_deps;
         id_count += 1;
 
-        for (dep in node.deps()) dep.children.put(node);
+        if (!IROp.Lit.?(op))
+            for (dep in node.deps()) dep.children.put(node);
 
         return node;
     }

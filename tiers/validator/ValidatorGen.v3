@@ -68,6 +68,12 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     CBDTrace.addGraph(opcode, "unLEM", sea);
     def unlem_ssa = sea.schedule();
     CBDTrace.addCode(opcode, "unlem_schedule", unlem_ssa.toString(0));
+
+    def ulscheduler = SeaScheduler.new(sea);
+    ulscheduler.schedule();
+    def ulscheduler_mermaid = ulscheduler.toMermaid();
+    CBDTrace.addString(opcode, "unlem_scheduler", "graph", ulscheduler_mermaid);
+
     CBDTrace.addCode(opcode, "unlem_pretty", unlem_ssa.toStringPretty(0));
     sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.constUnLEM(sea));
     CBDTrace.addGraph(opcode, "constUnLEM", sea);
