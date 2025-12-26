@@ -2,7 +2,7 @@
 VIRGIL_STD = ../virgil/lib/util/*.v3
 VIRGIL_X86_STD = ../virgil/lib/asm/x86-64/*.v3
 WIZARD = ./wizard-engine
-ENGINE = $(WIZARD)/src/engine/*.v3
+ENGINE = $(WIZARD)/src/engine/*.v3 $(WIZARD)/src/engine/continuation/BoxedContinuation.v3
 WIZARD_UTIL = $(WIZARD)/src/util/*.v3
 V3TARGET = $(WIZARD)/src/engine/v3/*.v3
 UTIL = $(WIZARD)/src/util/*.v3
