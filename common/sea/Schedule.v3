@@ -7,6 +7,7 @@ def trap();
 
 class SeaScheduler {
     var sea: Sea;
+    var opcode: string = "";
     var bottom_block: ScheduleNode;
     var live = NodeSet.new();
     var done: NodeSet;
@@ -45,7 +46,12 @@ class SeaScheduler {
             q_idx += 1;
 
             // traverse existing schedule, put node in first available spot
-            if (bottom_block.schedule(node) != null) {
+	    def dest_block = bottom_block.schedule(node);
+            if (dest_block != null) {
+		if (Strings.equal(opcode, "IF")) {
+		    System.puts(Strings.format2("Scheduled %q into %d\n", node.render, dest_block.id));
+		    CBDTrace.addString(opcode, Strings.format1("sched %q", node.render), "graph", toMermaid());
+		}
                 for (d in node.deps()) q.put(d);
             } else {
                 q.put(node);
@@ -75,6 +81,9 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         if (dominants.has(node)) return this;
         if (scheduler.done.has(node)) return scheduler.bottom_block;
 
+	System.puts("attempting to schedule ");
+	System.puts(Strings.format2("%q into %d\n", node.render, id));
+
         var ready = true;
         for (i < node.children.length) {
             def child = node.children[i];
@@ -85,6 +94,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         }
 
         if (ready) {
+            System.puts(Strings.format3("%q ready in %d, doms: %q\n", node.render, id, dominants.render));
             if (IROp.Phi.?(node.op) || IROp.StatePhi.?(node.op)) {
                 return scheduleReadyPhi(node);
             } else {
@@ -92,6 +102,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                     block: ScheduleBlock => {
                         block.nodes.put(node);
                         block.dominants.addLocal(node);
+			System.puts(Strings.format2("adding %q to %d doms\n", node.render, block.id));
                         scheduler.done.put(node);
                         return block;
                     }
@@ -110,6 +121,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                 }
             }
         } else {
+            System.puts(Strings.format2("%q NOT ready in %d\n", node.render, id));
             match (this) {
                 block: ScheduleBlock => {
                     return if(block.prev != null, block.prev.schedule(node));
@@ -174,6 +186,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         block.dominants = dominants.newChild();
         block.dominants.addLocal(node);
+	System.puts(Strings.format2("adding %q to %d doms\n", node.render, block.id));
 
         block.nodes.put(node);
         scheduler.done.put(node);
@@ -263,15 +276,19 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         left.dominants.addLocal(phi);
         right.dominants.addLocal(phi);
 
-        branch.dominants = DomGraph.new().withParent(left.dominants).withParent(right.dominants);
+	System.puts(Strings.format2("adding %q to %d doms\n", phi.render, left.id));
+	System.puts(Strings.format2("adding %q to %d doms\n", phi.render, right.id));
 
-        branch.schedule(cond);
-        left.schedule(l_branch);
-        right.schedule(r_branch);
+	l_branch.children.put(scheduler.sea.mkNode(IROp.Move(true), Array.new(10), [cond]));
+	r_branch.children.put(scheduler.sea.mkNode(IROp.Move(false), Array.new(10), [cond]));
+
+        branch.dominants = DomGraph.new().withParent(left.dominants).withParent(right.dominants);
 
         phi_node.phis = List.new(phi, null);
 
-        scheduler.done.put(phi);
+	scheduler.q.put(l_branch);
+	scheduler.q.put(r_branch);
+
         return phi_node;
     }
 }
@@ -400,21 +417,21 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         if (l_source != null) l_source.toMermaid(buf, visited);
         if (r_source != null) r_source.toMermaid(buf, visited);
         // Also recurse via source_branch
-        // if (source_branch != null) source_branch.toMermaid(buf, visited);
+        if (source_branch != null) source_branch.toMermaid(buf, visited);
         return buf;
     }
 
     def fuseReadyPhi(phi: IRNode) -> this {
         def cond = phi.value_deps[0], l_branch = phi.value_deps[1], r_branch = phi.value_deps[2];
 
-        source_branch.l_branch.dominants.addLocal(phi);
-        source_branch.r_branch.dominants.addLocal(phi);
+        // source_branch.l_branch.dominants.addLocal(phi);
+        // source_branch.r_branch.dominants.addLocal(phi);
 
-        l_source.dominants.addLocal(phi);
-        r_source.dominants.addLocal(phi);
+        // l_source.dominants.addLocal(phi);
+        // r_source.dominants.addLocal(phi);
 
-        l_source.schedule(l_branch);
-        r_source.schedule(r_branch);
+        // l_source.schedule(l_branch);
+        // r_source.schedule(r_branch);
 
         phis = List.new(phi, phis);
         scheduler.done.put(phi);

@@ -643,7 +643,7 @@ class IRNode {
             StatePhi => sb.puts("StatePhi");
             // MatchPhi => sb.puts("MatchPhi");
             Proj(val) => sb.puts(if(val, "|True|", "|False|"));
-            Move => sb.puts("Move");
+            Move(val) => sb.puts(if(val, "|True|", "|False|"));
         }
 
         return sb;
@@ -670,7 +670,7 @@ class IRNode {
                 for (sc in scs) buf.puts(sc.name).puts(" ");
             }
             Proj(val) => buf.puts(if(val, "|True|", "|False|"));
-            Move => buf.puts("Move");
+            Move(val) => buf.puts(if(val, "|True|", "|False|"));
         }
         match (op) {
             Start => buf.puts("\"\\\\]").ln();
@@ -976,5 +976,5 @@ type IROp {
     // case MatchPhi(subj: IRNode, end: IRNode, cases: Array<IRNode>);
 
     case Proj(val: bool);
-    case Move; // child should be statephi?
+    case Move(val: bool); // child should be statephi?
 }

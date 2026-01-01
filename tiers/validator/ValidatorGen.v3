@@ -33,7 +33,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
         for (arg in st_args) analysis.effects[arg] = CBDEffect.Table;
     }
 
-    // System.puts("===="); System.puts(opcode);  System.puts("====\n");
+    System.puts("===="); System.puts(opcode);  System.puts("====\n");
     // System.puts(ir.toString(0));
 
     var ctx = SSADCtx.new(ir);
@@ -59,6 +59,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     CBDTrace.addGraph(opcode, "addAbstractions", sea);
 
     def scheduler = SeaScheduler.new(sea);
+    scheduler.opcode = opcode;
     scheduler.schedule();
     def scheduler_mermaid = scheduler.toMermaid();
     CBDTrace.addString(opcode, "schedulerMermaid", "graph", scheduler_mermaid);
