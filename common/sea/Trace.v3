@@ -17,10 +17,10 @@ component CBDTrace {
         def html = Strings.format2("<pre class='%s'>%s</pre>", cssClass, str);
         if (out_file != -1) {
             if (!traces.has(opcode)) {
-                def init_js = Strings.format1("window.traces.%s = {}\n", opcode);
+                def init_js = Strings.format1("window.traces[\"%s\"] = {}\n", opcode);
                 System.write(out_file, init_js);
             }
-            def set_js = Strings.format3("window.traces.%s.%s = `%s`;\n", opcode, tag, html);
+            def set_js = Strings.format3("window.traces.%s[\"%s\"] = `%s`;\n", opcode, tag, html);
             System.write(out_file, set_js);
         }
 
