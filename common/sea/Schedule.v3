@@ -49,8 +49,8 @@ class SeaScheduler {
 	    def dest_block = bottom_block.schedule(node);
             if (dest_block != null) {
 		if (Strings.equal(opcode, "IF")) {
-		    // System.puts(Strings.format2("Scheduled %q into %d\n", node.render, dest_block.id));
-		    // CBDTrace.addString(opcode, Strings.format1("sched %q", node.render), "graph", toMermaid());
+		    System.puts(Strings.format2("Scheduled %q into %d\n", node.render, dest_block.id));
+		    CBDTrace.addString(opcode, Strings.format1("sched %q", node.render), "graph", toMermaid());
 		}
                 for (d in node.deps()) q.put(d);
             } else {
@@ -81,8 +81,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         if (dominants.has(node)) return this;
         // if (scheduler.done.has(node)) return scheduler.bottom_block;
 
-	// System.puts("attempting to schedule ");
-	// System.puts(Strings.format3("%q into %d\n\tdoms: %q\n", node.render, id, dominants.render));
+	System.puts("attempting to schedule ");
+	System.puts(Strings.format3("%q into %d\n\tdoms: %q\n", node.render, id, dominants.render));
 
         var ready = true;
         for (i < node.children.length) {
@@ -91,12 +91,12 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
             if (!live) continue;
 	    if (child.id == node.id) continue; // XXX: why does this happen?
 
-	    // if(!dominants.has(child)) System.puts(Strings.format1("Missing: %q\n", child.render));
+	    if(!dominants.has(child)) System.puts(Strings.format1("Missing: %q\n", child.render));
             ready &= dominants.has(child);
         }
 
         if (ready) {
-            // System.puts(Strings.format3("%q ready in %d\n\tdoms: %q\n", node.render, id, dominants.render));
+            System.puts(Strings.format3("%q ready in %d\n\tdoms: %q\n", node.render, id, dominants.render));
             if (IROp.Phi.?(node.op) || IROp.StatePhi.?(node.op)) {
                 return scheduleReadyPhi(node);
             } else {
@@ -123,7 +123,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                 }
             }
         } else {
-            // System.puts(Strings.format2("%q NOT ready in %d\n", node.render, id));
+            System.puts(Strings.format2("%q NOT ready in %d\n", node.render, id));
             match (this) {
                 block: ScheduleBlock => {
                     return if(block.prev != null, block.prev.schedule(node));
@@ -281,8 +281,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 	r_branch.children.put(move_false);
 	scheduler.live.put(move_true);
 	scheduler.live.put(move_false);
-	left.dominants.addLocal(move_true);
-	right.dominants.addLocal(move_false);
+	left.dominants.addPrivate(move_true);
+	right.dominants.addPrivate(move_false);
 
         phi_node.phis = List.new(phi, null);
 
@@ -435,8 +435,8 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
 	l_branch.children.put(move_true);
 	r_branch.children.put(move_false);
 
-	l_source.dominants.addLocal(move_true);
-	r_source.dominants.addLocal(move_false);
+	l_source.dominants.addPrivate(move_true);
+	r_source.dominants.addPrivate(move_false);
 
         phis = List.new(phi, phis);
         scheduler.done.put(phi);
@@ -461,13 +461,19 @@ def dedup(arr: Array<IRNode>) -> Array<IRNode> {
 class DomGraph {
     var parents: Vector<DomGraph> = Vector.new();
     var local_nodes: NodeSet = NodeSet.new();
+    var private_nodes: NodeSet = NodeSet.new();
 
     def has(node: IRNode) -> bool {
+	if (private_nodes.has(node)) return true;
+	return has_public(node);
+    }
+    def has_public(node: IRNode) -> bool {
         if (local_nodes.has(node)) return true;
         for (i < parents.length) if (parents[i].has(node)) return true;
         return false;
     }
     def addLocal(node: IRNode) => local_nodes.put(node);
+    def addPrivate(node: IRNode) => private_nodes.put(node);
 
     def newChild() -> DomGraph => DomGraph.new().withParent(this);
     def withParent(parent: DomGraph) -> this {
