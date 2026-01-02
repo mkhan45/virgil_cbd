@@ -7,8 +7,8 @@
                 <hr style="margin-top: 5px; margin-bottom: 5px">
                 <div style="max-height: calc(100vh - 15vh - 1.5em - 20px - 10px - 1px); overflow-y: scroll" class="codes" id="codes"> </div>
             </div>
-            <div style="flex-grow: 2; display: flex; justify-content: center; z-index: 1; background-color: white;">
-                <pre id="graph" style="margin-top: 0px; margin-bottom: 0px"></pre>
+            <div style="flex-grow: 2; overflow-y: auto; overflow-x: hidden; height: 100vh; z-index: 1; background-color: white;">
+                <pre id="graph" style="margin-top: 0px; margin-bottom: 0px; display: flex; justify-content: center;"></pre>
             </div>
         </div>
         <script src="traces.js" charset="utf-8"></script>
@@ -60,8 +60,26 @@
                     };
                     tags.appendChild(btn);
                     if (graph.querySelector('svg') != null) {
-                        graph.querySelector('svg').setAttribute('width', '');
-                        graph.querySelector('svg').setAttribute('height', '90vh');
+                        const svg = graph.querySelector('svg');
+                        const viewBox = svg.getAttribute('viewBox');
+                        if (viewBox) {
+                            const [, , vbWidth, vbHeight] = viewBox.split(' ').map(Number);
+                            const aspectRatio = vbWidth / vbHeight;
+                            // Get container width for max width constraint
+                            const containerWidth = graph.parentNode.clientWidth * 0.95;
+                            // Calculate 70vh in pixels (slightly smaller default)
+                            const minHeightPx = window.innerHeight * 0.7;
+                            // Use natural height from viewBox, but at least 70vh
+                            let finalHeight = Math.max(vbHeight, minHeightPx);
+                            let finalWidth = aspectRatio * finalHeight;
+                            // If too wide, constrain by width and recalculate height
+                            if (finalWidth > containerWidth) {
+                                finalWidth = containerWidth;
+                                finalHeight = finalWidth / aspectRatio;
+                            }
+                            svg.setAttribute('height', finalHeight + 'px');
+                            svg.setAttribute('width', finalWidth + 'px');
+                        }
                     }
                 }
 
