@@ -79,8 +79,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         if (dominants.has(node)) return this;
         // if (scheduler.done.has(node)) return scheduler.bottom_block;
 
-	// System.puts("attempting to schedule ");
-	// System.puts(Strings.format3("%q into %d\n\tdoms: %q\n", node.render, id, dominants.render));
+	System.puts("attempting to schedule ");
+	System.puts(Strings.format3("%q into %d\n\tdoms: %q\n", node.render, id, dominants.render));
 
         var ready = true;
         for (i < node.children.length) {
@@ -89,13 +89,13 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
             if (!live) continue;
 	    if (child.id == node.id) continue; // XXX: why does this happen?
 
-	    // if(!dominants.has(child)) System.puts(Strings.format1("Missing: %q\n", child.render));
-	    // else System.puts(Strings.format1("Have: %q\n", child.render));
+	    if(!dominants.has(child)) System.puts(Strings.format1("Missing: %q\n", child.render));
+	    else System.puts(Strings.format1("Have: %q\n", child.render));
             ready &= dominants.has(child);
         }
 
         if (ready) {
-            // System.puts(Strings.format3("%q ready in %d\n\tdoms: %q\n", node.render, id, dominants.render));
+            System.puts(Strings.format3("%q ready in %d\n\tdoms: %q\n", node.render, id, dominants.render));
             if (IROp.Phi.?(node.op) || IROp.StatePhi.?(node.op)) {
                 return scheduleReadyPhi(node, upper_limit);
             } else {
@@ -103,11 +103,11 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                     block: ScheduleBlock => {
                         block.nodes.put(node);
                         block.dominants.addLocal(node);
-			// if (Strings.equal(scheduler.opcode, "IF")) {
-			    // System.puts(Strings.format2("Scheduled %q into %d\n", node.render, block.id));
-			    // CBDTrace.addString(scheduler.opcode, 
-					    // Strings.format1("sched %q", node.render), "graph", scheduler.toMermaid());
-			// }
+			if (Strings.equal(scheduler.opcode, "IF")) {
+			    System.puts(Strings.format2("Scheduled %q into %d\n", node.render, block.id));
+			    CBDTrace.addString(scheduler.opcode, 
+					    Strings.format1("sched %q", node.render), "graph", scheduler.toMermaid());
+			}
                         scheduler.done.put(node);
                         return block;
                     }
@@ -127,7 +127,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                 }
             }
         } else {
-            // System.puts(Strings.format2("%q NOT ready in %d\n", node.render, id));
+            System.puts(Strings.format2("%q NOT ready in %d\n", node.render, id));
             match (this) {
                 block: ScheduleBlock => {
                     return if(block.prev != null, block.prev.schedule(node, upper_limit));
@@ -308,8 +308,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         phi_node.r_source = branch.r_branch = right;
 	phi_node.dominants.addLocal(phi);
 
-        left.dominants = phi_node.dominants.newChild();
-        right.dominants = phi_node.dominants.newChild();
+        left.dominants = DomGraph.new();
+        right.dominants = DomGraph.new();
         branch.dominants = phi_node.dominants.newChild().withParent(left.dominants).withParent(right.dominants);
 
 	def move_true = scheduler.sea.mkNode(IROp.Move(true), Array.new(10), [cond]);
@@ -318,6 +318,12 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 	r_branch.children.put(move_false);
 	scheduler.live.put(move_true);
 	scheduler.live.put(move_false);
+
+	// TODO: need private dominants to propagate
+	// upwards until the branch, right now
+	// it is only kept locally which breaks
+	// down if there are multiple nodes in sequence
+	// before reaching branch
 	left.dominants.addPrivate(move_true);
 	right.dominants.addPrivate(move_false);
 
@@ -506,7 +512,7 @@ class DomGraph {
     }
     def has_public(node: IRNode) -> bool {
         if (local_nodes.has(node)) return true;
-        for (i < parents.length) if (parents[i].has(node)) return true;
+        for (i < parents.length) if (parents[i].has_public(node)) return true;
         return false;
     }
     def addLocal(node: IRNode) => local_nodes.put(node);
