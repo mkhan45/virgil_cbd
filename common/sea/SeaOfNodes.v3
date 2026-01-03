@@ -763,6 +763,7 @@ class IRNode {
 
                         def abstraction_node = sea.mkNode(abstraction_op, Array.new(state_deps.length), [args[i]]);
                         abstraction_node.var_data = VarData.new(uidl("abs"), tp, Stage.INTERPRET);
+			abstraction_node.children = Vectors.of1(this);
 
                         value_deps[i] = abstraction_node;
                     } else {
