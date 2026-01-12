@@ -22,3 +22,25 @@ they need to dominate.
 But then we still need antideps to prevent stuff just being scheduled above the branch,
 or we need to schedule the branch separately from its phi. Can we just queue a new branch to
 schedule whenever we schedule a non-fused phi?
+
+We also might need to prevent duplicating nodes in unlem. Or we can remove the done dict and requeue sometimes?  
+
+
+=============
+
+Idea 1:
+
+Prepending a phi should generate the schedule phi and left/right sources, and then queue the left/right nodes
+as well as the branch node.
+
+Idea 2:
+
+Greedily schedule into left/right branches up to top branch.
+
+Idea 3:
+
+Schedule most things bottom up, but phis top-down.
+
+Idea 4:
+
+excalidraw file
