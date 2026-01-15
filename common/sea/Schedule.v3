@@ -36,6 +36,7 @@ class SeaScheduler {
     }
 
     def schedule() {
+        if (opcode != null) System.puts(Strings.format1("==============%s=============\n", opcode));
         q = Vector<IRNode>.new();
         q.put(sea.finish);
 
@@ -77,7 +78,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
     def schedule(node: IRNode, upper_limit: ScheduleNode) -> ScheduleNode {
         if (upper_limit != null && this.id == upper_limit.id) return null;
         if (dominants.has(node)) return this;
-        if (scheduler.done.has(node)) return scheduler.bottom_block;
+        // if (scheduler.done.has(node)) return scheduler.bottom_block;
 
 	System.puts("attempting to schedule ");
 	System.puts(Strings.format3("%q into %d\n\tdoms: %q\n", node.render, id, dominants.render));
@@ -92,6 +93,12 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
             if ((IROp.StatePhi.?(child.op) || IROp.Phi.?(child.op))
                 && (node.id == child.value_deps[1].id || node.id == child.value_deps[2].id))
                 continue;
+
+            // this kind of partitions branches by subgraph,
+            // this is kind of equivalent to if we'd made an entirely
+            // new scheduler for branch subgraph. But it doesn't schedule
+            // ancestors, which we need (TODO XXX)
+            if (upper_limit != null && !upper_limit.dominants.has(child)) continue;
 
 	    if(!dominants.has(child)) System.puts(Strings.format1("Missing: %q\n", child.render));
 	    else System.puts(Strings.format1("Have: %q\n", child.render));
@@ -141,10 +148,11 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                     return if(cond.prev != null, cond.prev.schedule(node, upper_limit));
                 }
                 phi: SchedulePhi => {
-                    var dest_block = phi.l_source.schedule(node, phi.source_branch);
-                    if (dest_block == null) dest_block = phi.r_source.schedule(node, phi.source_branch);
-                    if (dest_block == null) dest_block = phi.source_branch.schedule(node, upper_limit);
-                    return dest_block;
+                    return phi.source_branch.schedule(node, upper_limit);
+                    // var dest_block = phi.l_source.schedule(node, phi.source_branch);
+                    // if (dest_block == null) dest_block = phi.r_source.schedule(node, phi.source_branch);
+                    // if (dest_block == null) dest_block = phi.source_branch.schedule(node, upper_limit);
+                    // return dest_block;
                 }
                 _ => return null; // unreachable
             }
@@ -152,6 +160,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
     }
 
     def scheduleReadyPhi(phi: IRNode, upper_limit: ScheduleNode) -> ScheduleNode {
+        if (upper_limit != null && this.id == upper_limit.id) return null;
         match (this) {
             block: ScheduleBlock => return if(block.prev == null || ScheduleBranch.?(block.prev), block.prependScheduleBranch(phi), block.prev.scheduleReadyPhi(phi, upper_limit));
             cond: ScheduleBranch => {
@@ -162,10 +171,11 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                 if (phi_node.source_branch.condition.id == phi_cond.id) {
                     return phi_node.fuseReadyPhi(phi);
                 } else {
-                    var dest_block = phi_node.l_source.schedule(phi, upper_limit);
-                    if (dest_block == null) dest_block = phi_node.r_source.schedule(phi, upper_limit);
-                    if (dest_block == null) dest_block = phi_node.source_branch.schedule(phi, upper_limit);
-                    return dest_block;
+                    return phi_node.source_branch.schedule(phi, upper_limit);
+                    // var dest_block = phi_node.l_source.schedule(phi, upper_limit);
+                    // if (dest_block == null) dest_block = phi_node.r_source.schedule(phi, upper_limit);
+                    // if (dest_block == null) dest_block = phi_node.source_branch.schedule(phi, upper_limit);
+                    // return dest_block;
                 }
             }
             _ => return null; // unreachable
@@ -317,10 +327,12 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         right.dominants = DomGraph.new();
         branch.dominants = phi_node.dominants.newPrivChild().withParent(left.dominants).withParent(right.dominants);
 
+        if (prev != null) prev.dominants = prev.dominants.withPrivParent(branch.dominants);
+
 	def move_true = scheduler.sea.mkNode(IROp.Move(true), Array.new(10), []);
 	def move_false = scheduler.sea.mkNode(IROp.Move(false), Array.new(10), []);
-	l_branch.children.put(move_true);
-	r_branch.children.put(move_false);
+	// l_branch.children.put(move_true);
+	// r_branch.children.put(move_false);
 	scheduler.live.put(move_true);
 	scheduler.live.put(move_false);
 
@@ -329,10 +341,10 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         phi_node.phis = List.new(phi, phi_node.phis);
 
-        // left.schedule(l_branch, branch);
-        // right.schedule(r_branch, branch);
-	scheduler.q.put(l_branch);
-	scheduler.q.put(r_branch);
+        left.schedule(l_branch, branch);
+        right.schedule(r_branch, branch);
+	// scheduler.q.put(l_branch);
+	// scheduler.q.put(r_branch);
 
 	if (Strings.equal(scheduler.opcode, "IF") || Strings.equal(scheduler.opcode, "IF_ul")) {
             System.puts(Strings.format3("Scheduled phi %q (%d) before %d\n\n", phi.render, phi_node.id, id));
@@ -483,8 +495,8 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
 	scheduler.live.put(move_true);
 	scheduler.live.put(move_false);
 
-	l_branch.children.put(move_true);
-	r_branch.children.put(move_false);
+	// l_branch.children.put(move_true);
+	// r_branch.children.put(move_false);
 
 	l_source.dominants.addPrivate(move_true);
 	r_source.dominants.addPrivate(move_false);
@@ -492,10 +504,10 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         phis = List.new(phi, phis);
         scheduler.done.put(phi);
 
-        // l_source.schedule(l_branch, source_branch);
-        // r_source.schedule(r_branch, source_branch);
-        scheduler.q.put(l_branch);
-        scheduler.q.put(r_branch);
+        l_source.schedule(l_branch, source_branch);
+        r_source.schedule(r_branch, source_branch);
+        // scheduler.q.put(l_branch);
+        // scheduler.q.put(r_branch);
     }
  }
 
@@ -522,7 +534,7 @@ class DomGraph {
 	return has_public(node);
     }
     def has_public(node: IRNode) -> bool {
-	if (private_nodes.has(node)) return true;
+	// if (private_nodes.has(node)) return true;
         if (local_nodes.has(node)) return true;
         for (i < parents.length) if (parents[i].has_public(node)) return true;
         for (i < priv_parents.length) if (priv_parents[i].has(node)) return true;
