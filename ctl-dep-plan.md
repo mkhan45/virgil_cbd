@@ -35,7 +35,7 @@ as well as the branch node.
 
 Idea 2:
 
-Greedily schedule into left/right branches up to top branch.
+Greedily schedule into left/right branches up to top branch (with an explicit ScheduleNode::schedule call)
 
 Idea 3:
 
@@ -43,4 +43,4 @@ Schedule most things bottom up, but phis top-down.
 
 Idea 4:
 
-excalidraw file
+excalidraw file (maybe later)

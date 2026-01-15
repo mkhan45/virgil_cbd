@@ -107,7 +107,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                     block: ScheduleBlock => {
                         block.nodes.put(node);
                         block.dominants.addLocal(node);
-			if (Strings.equal(scheduler.opcode, "IF")) {
+			if (Strings.equal(scheduler.opcode, "IF") || Strings.equal(scheduler.opcode, "IF_ul")) {
 			    System.puts(Strings.format2("Scheduled %q into %d\n\n", node.render, block.id));
 			    CBDTrace.addString(scheduler.opcode, 
 					    Strings.format1("sched %q", node.render), "graph", scheduler.toMermaid());
@@ -153,7 +153,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
     def scheduleReadyPhi(phi: IRNode, upper_limit: ScheduleNode) -> ScheduleNode {
         match (this) {
-            block: ScheduleBlock => return if(block.prev == null, block.prependScheduleBranch(phi), block.prev.scheduleReadyPhi(phi, upper_limit));
+            block: ScheduleBlock => return if(block.prev == null || ScheduleBranch.?(block.prev), block.prependScheduleBranch(phi), block.prev.scheduleReadyPhi(phi, upper_limit));
             cond: ScheduleBranch => {
                 return if (cond.prev == null, cond.prependScheduleBranch(phi), cond.prev.scheduleReadyPhi(phi, upper_limit));
             }
@@ -292,8 +292,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                 block: ScheduleBlock => block.next = branch;
                 phi: SchedulePhi => phi.next = branch;
                 prev_branch: ScheduleBranch => {
-                    if (branch.l_branch.id == this.id) prev_branch.l_branch = branch;
-                    if (branch.r_branch.id == this.id) prev_branch.r_branch = branch;
+                    if (prev_branch.l_branch.id == this.id) prev_branch.l_branch = branch;
+                    if (prev_branch.r_branch.id == this.id) prev_branch.r_branch = branch;
                 }
             }
         }
@@ -329,10 +329,12 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         phi_node.phis = List.new(phi, phi_node.phis);
 
+        // left.schedule(l_branch, branch);
+        // right.schedule(r_branch, branch);
 	scheduler.q.put(l_branch);
 	scheduler.q.put(r_branch);
 
-        if (Strings.equal(scheduler.opcode, "IF")) {
+	if (Strings.equal(scheduler.opcode, "IF") || Strings.equal(scheduler.opcode, "IF_ul")) {
             System.puts(Strings.format3("Scheduled phi %q (%d) before %d\n\n", phi.render, phi_node.id, id));
             CBDTrace.addString(scheduler.opcode, 
                             Strings.format1("sched %q", phi.render), "graph", scheduler.toMermaid());
@@ -490,6 +492,8 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         phis = List.new(phi, phis);
         scheduler.done.put(phi);
 
+        // l_source.schedule(l_branch, source_branch);
+        // r_source.schedule(r_branch, source_branch);
         scheduler.q.put(l_branch);
         scheduler.q.put(r_branch);
     }

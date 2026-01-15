@@ -71,6 +71,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     CBDTrace.addCode(opcode, "unlem_schedule", unlem_ssa.toString(0));
 
     def ulscheduler = SeaScheduler.new(sea);
+    ulscheduler.opcode = Strings.format1("%s_ul", opcode);
     ulscheduler.schedule();
     def ulscheduler_mermaid = ulscheduler.toMermaid();
     CBDTrace.addString(opcode, "unlem_scheduler", "graph", ulscheduler_mermaid);
