@@ -33,9 +33,13 @@ Idea 1:
 Prepending a phi should generate the schedule phi and left/right sources, and then queue the left/right nodes
 as well as the branch node.
 
+We can use the min cap (earliest node that dominates both sources of phi) as the upper limit for the branch.
+(i.e. it needs to dominate the branch node). And then the branch node needs to dominate the last nodes in each chain.
+
 Idea 2:
 
-Greedily schedule into left/right branches up to top branch (with an explicit ScheduleNode::schedule call)
+Greedily schedule into left/right branches up to top branch (with an explicit ScheduleNode::schedule call).
+This could be done pretty cleanly by letting a SeaScheduler handle a more generic subgraph of the Sea.
 
 Idea 3:
 
