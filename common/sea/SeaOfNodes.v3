@@ -135,6 +135,68 @@ class Sea {
         return n;
     }
 
+    def lowestCommonAncestor(a: IRNode, b: IRNode) -> IRNode {
+        // BFS from 'a' to collect ancestors
+        def a_ancestors = NodeSet.new();
+        def wl = Vector<IRNode>.new();
+        wl.put(a);
+        var idx = 0;
+        while (idx < wl.length) {
+            def node = wl[idx];
+            idx += 1;
+            if (node == null || a_ancestors.has(node)) continue;
+            a_ancestors.put(node);
+            for (dep in node.deps()) wl.put(dep);
+        }
+
+        // BFS from 'b' to find first intersection
+        def b_wl = Vector<IRNode>.new();
+        def b_visited = NodeSet.new();
+        b_wl.put(b);
+        idx = 0;
+        while (idx < b_wl.length) {
+            def node = b_wl[idx];
+            idx += 1;
+            if (node == null || b_visited.has(node)) continue;
+            if (a_ancestors.has(node)) return node;
+            b_visited.put(node);
+            for (dep in node.deps()) b_wl.put(dep);
+        }
+
+        return start;
+    }
+
+    def highestCommonDescendant(a: IRNode, b: IRNode) -> IRNode {
+        // BFS from 'a' to collect descendants
+        def a_descendants = NodeSet.new();
+        def wl = Vector<IRNode>.new();
+        wl.put(a);
+        var idx = 0;
+        while (idx < wl.length) {
+            def node = wl[idx];
+            idx += 1;
+            if (node == null || a_descendants.has(node)) continue;
+            a_descendants.put(node);
+            for (i < node.children.length) wl.put(node.children[i]);
+        }
+
+        // BFS from 'b' to find first intersection
+        def b_wl = Vector<IRNode>.new();
+        def b_visited = NodeSet.new();
+        b_wl.put(b);
+        idx = 0;
+        while (idx < b_wl.length) {
+            def node = b_wl[idx];
+            idx += 1;
+            if (node == null || b_visited.has(node)) continue;
+            if (a_descendants.has(node)) return node;
+            b_visited.put(node);
+            for (i < node.children.length) b_wl.put(node.children[i]);
+        }
+
+        return finish;
+    }
+
     def addSSAD(ssad: SSAD, state_vars: Array<IRNode>, deps: List<IRNode>) {
         match (ssad) {
             LetApp(n, f, args, rest) => {

@@ -55,7 +55,7 @@ excalidraw file (maybe later)
 Idea 5:
 
 For each node to be scheduled, check if its children can be dominated with
-just one placement. By checking if the nearest mutual dominant is a phi.
+just one placement. By checking if the nearest (highest common descendant) is a phi.
 
 Working backwards from the phi: the nearest common dominator of both sources
 should dominate the branch. I think this inspires the greedy approach.
