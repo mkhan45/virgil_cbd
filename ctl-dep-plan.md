@@ -36,6 +36,8 @@ as well as the branch node.
 We can use the min cap (earliest node that dominates both sources of phi) as the upper limit for the branch.
 (i.e. it needs to dominate the branch node). And then the branch node needs to dominate the last nodes in each chain.
 
+Still have to figure out when to clone nodes that are shared between disjoint branches.
+
 Idea 2:
 
 Greedily schedule into left/right branches up to top branch (with an explicit ScheduleNode::schedule call).
@@ -48,3 +50,13 @@ Schedule most things bottom up, but phis top-down.
 Idea 4:
 
 excalidraw file (maybe later)
+
+Idea 5:
+
+For each node to be scheduled, check if its children can be dominated with
+just one placement. By checking if the nearest mutual dominant is a phi.
+
+Working backwards from the phi: the nearest common dominator of both sources
+should dominate the branch. I think this inspires the greedy approach.
+
+use Queue<(IRNode, Required Dominant (lower limit), Upper Limit)>

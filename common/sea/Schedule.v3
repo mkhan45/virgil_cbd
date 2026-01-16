@@ -11,7 +11,6 @@ class SeaScheduler {
     var opcode: string = "";
     var bottom_block: ScheduleNode;
     var live = NodeSet.new();
-    var done: NodeSet;
     var q: Vector<IRNode>;
     var q_idx: int;
 
@@ -40,8 +39,6 @@ class SeaScheduler {
         q = Vector<IRNode>.new();
         q.put(sea.finish);
 
-        done = NodeSet.new();
-
         q_idx = 0;
         while (q_idx < q.length) {
             def node = q[q_idx];
@@ -50,7 +47,8 @@ class SeaScheduler {
             // traverse existing schedule, put node in first available spot
 	    def dest_block = bottom_block.schedule(node, null);
             if (dest_block != null) {
-                for (d in node.deps()) if (!done.has(d) && live.has(d)) q.put(d);
+                if (node.id == sea.start.id) return;
+                for (d in node.deps()) if (live.has(d)) q.put(d);
             } else {
                 q.put(node);
             }
@@ -75,10 +73,34 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         return buf;
     }
 
+    def scheduleTrans(node: IRNode, upper_limit: ScheduleNode) -> ScheduleNode {
+        def q = Vector<IRNode>.new();
+        q.put(node);
+
+        var q_idx = 0;
+        var res: ScheduleNode;
+        while (q_idx < q.length) {
+            def curr = q[q_idx];
+            q_idx += 1;
+
+            def dest_block = schedule(curr, upper_limit);
+            if (curr.id == node.id) res = dest_block;
+            if (dest_block != null) {
+                for (d in curr.deps()) {
+                    if (upper_limit != null && !upper_limit.dominants.has(d)) continue;
+                    if (scheduler.live.has(d)) q.put(d);
+                }
+            } else {
+                q.put(curr);
+            }
+        }
+
+        return res;
+    }
+
     def schedule(node: IRNode, upper_limit: ScheduleNode) -> ScheduleNode {
         if (upper_limit != null && this.id == upper_limit.id) return null;
         if (dominants.has(node)) return this;
-        // if (scheduler.done.has(node)) return scheduler.bottom_block;
 
 	System.puts("attempting to schedule ");
 	System.puts(Strings.format3("%q into %d\n\tdoms: %q\n", node.render, id, dominants.render));
@@ -98,7 +120,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
             // this is kind of equivalent to if we'd made an entirely
             // new scheduler for branch subgraph. But it doesn't schedule
             // ancestors, which we need (TODO XXX)
-            if (upper_limit != null && !upper_limit.dominants.has(child)) continue;
+            // if (upper_limit != null && !upper_limit.dominants.has(child)) continue;
 
 	    if(!dominants.has(child)) System.puts(Strings.format1("Missing: %q\n", child.render));
 	    else System.puts(Strings.format1("Have: %q\n", child.render));
@@ -119,7 +141,6 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 			    CBDTrace.addString(scheduler.opcode, 
 					    Strings.format1("sched %q", node.render), "graph", scheduler.toMermaid());
 			}
-                        scheduler.done.put(node);
                         return block;
                     }
                     cond: ScheduleBranch => {
@@ -148,11 +169,11 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                     return if(cond.prev != null, cond.prev.schedule(node, upper_limit));
                 }
                 phi: SchedulePhi => {
-                    return phi.source_branch.schedule(node, upper_limit);
-                    // var dest_block = phi.l_source.schedule(node, phi.source_branch);
-                    // if (dest_block == null) dest_block = phi.r_source.schedule(node, phi.source_branch);
-                    // if (dest_block == null) dest_block = phi.source_branch.schedule(node, upper_limit);
-                    // return dest_block;
+                    // return phi.source_branch.schedule(node, upper_limit);
+                    var dest_block = phi.l_source.schedule(node, phi.source_branch);
+                    if (dest_block == null) dest_block = phi.r_source.schedule(node, phi.source_branch);
+                    if (dest_block == null) dest_block = phi.source_branch.schedule(node, upper_limit);
+                    return dest_block;
                 }
                 _ => return null; // unreachable
             }
@@ -171,11 +192,11 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                 if (phi_node.source_branch.condition.id == phi_cond.id) {
                     return phi_node.fuseReadyPhi(phi);
                 } else {
-                    return phi_node.source_branch.schedule(phi, upper_limit);
-                    // var dest_block = phi_node.l_source.schedule(phi, upper_limit);
-                    // if (dest_block == null) dest_block = phi_node.r_source.schedule(phi, upper_limit);
-                    // if (dest_block == null) dest_block = phi_node.source_branch.schedule(phi, upper_limit);
-                    // return dest_block;
+                    // return phi_node.source_branch.schedule(phi, upper_limit);
+                    var dest_block = phi_node.l_source.schedule(phi, upper_limit);
+                    if (dest_block == null) dest_block = phi_node.r_source.schedule(phi, upper_limit);
+                    if (dest_block == null) dest_block = phi_node.source_branch.schedule(phi, upper_limit);
+                    return dest_block;
                 }
             }
             _ => return null; // unreachable
@@ -206,7 +227,6 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         block.dominants.addLocal(node);
 
         block.nodes.put(node);
-        scheduler.done.put(node);
 
         return block;
     }
@@ -343,8 +363,6 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         left.schedule(l_branch, branch);
         right.schedule(r_branch, branch);
-	// scheduler.q.put(l_branch);
-	// scheduler.q.put(r_branch);
 
 	if (Strings.equal(scheduler.opcode, "IF") || Strings.equal(scheduler.opcode, "IF_ul")) {
             System.puts(Strings.format3("Scheduled phi %q (%d) before %d\n\n", phi.render, phi_node.id, id));
@@ -502,12 +520,9 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
 	r_source.dominants.addPrivate(move_false);
 
         phis = List.new(phi, phis);
-        scheduler.done.put(phi);
 
         l_source.schedule(l_branch, source_branch);
         r_source.schedule(r_branch, source_branch);
-        // scheduler.q.put(l_branch);
-        // scheduler.q.put(r_branch);
     }
  }
 
