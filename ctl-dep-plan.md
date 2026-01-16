@@ -35,6 +35,7 @@ as well as the branch node.
 
 We can use the min cap (earliest node that dominates both sources of phi) as the upper limit for the branch.
 (i.e. it needs to dominate the branch node). And then the branch node needs to dominate the last nodes in each chain.
+XXX: The merge node is kind of ill-formed?
 
 Still have to figure out when to clone nodes that are shared between disjoint branches?
 I think we can check if closest mutual dominant of all children is a phi

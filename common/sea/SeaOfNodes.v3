@@ -44,7 +44,7 @@ type ImmNodeSet(ls: List<IRNode>) {
     }
 
     def render(sb: StringBuilder) -> StringBuilder {
-        for (cur = ls; cur != null; cur = cur.tail) sb.putd(cur.head.id).puts(" ");
+        for (cur = ls; cur != null; cur = cur.tail) sb.putq(cur.head.render).puts(", ");
         return sb;
     }
 }
@@ -134,6 +134,31 @@ class Sea {
         if(node.var_data != null) n.var_data = VarData.new(uidl(node.var_data.sourceName), node.var_data.tipe, node.var_data.stage);
         return n;
     }
+
+    def isAncestor(high: IRNode, low: IRNode) -> bool {
+        if (high == low) return true;
+        if (high == null || low == null) return false;
+        
+        def visited = NodeSet.new();
+        def wl = Vector<IRNode>.new();
+        wl.put(low);
+        var idx = 0;
+        
+        while (idx < wl.length) {
+            def node = wl[idx];
+            idx += 1;
+            if (node == null || visited.has(node)) continue;
+            visited.put(node);
+            
+            if (node.id == high.id) return true;
+            
+            for (dep in node.deps()) wl.put(dep);
+        }
+        
+        return false;
+    }
+
+    def isDescendant(low: IRNode, high: IRNode) => isAncestor(high, low);
 
     def lowestCommonAncestor(a: IRNode, b: IRNode) -> IRNode {
         // BFS from 'a' to collect ancestors
@@ -398,6 +423,36 @@ class Sea {
         def sub_sea = Sea.new();
         sub_sea.finish = node;
         return sub_sea;
+    }
+
+    def subgraph2(top: IRNode, bot: IRNode) -> ImmNodeSet {
+        if (top == null || bot == null) return ImmNodeSets.empty();
+        if (top.id == bot.id) return ImmNodeSets.single(top);
+        
+        def visited = NodeSet.new();
+        return collectPaths(top, bot, top, visited);
+    }
+
+    def collectPaths(top: IRNode, bot: IRNode, node: IRNode, visited: NodeSet) -> ImmNodeSet {
+        if (visited.has(node)) return ImmNodeSets.empty();
+        
+        visited.put(node);
+        
+        if (node.id == bot.id) {
+            visited.remove(node);
+            return ImmNodeSets.single(node);
+        }
+        
+        var result = ImmNodeSets.empty();
+        for (i < node.children.length) {
+            def child = node.children[i];
+            def childPaths = collectPaths(top, bot, child, visited);
+            if (childPaths.ls != null) {
+                result = result.with(node).union(childPaths);
+            }
+        }
+        
+        return result;
     }
 
     def schedule() -> SSAD {

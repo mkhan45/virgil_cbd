@@ -6,18 +6,26 @@ def fresh_id() -> int {
 
 def trap();
 
+def collectLiveAux(node: IRNode, sea: Sea, state: NodeSet) -> Range<IRNode> {
+    state.put(node);
+    return node.deps();
+}
+
 class SeaScheduler {
     var sea: Sea;
     var opcode: string = "";
-    var bottom_block: ScheduleNode;
     var live = NodeSet.new();
     var q: Vector<IRNode>;
     var q_idx: int;
 
-    new(sea) {
-        bottom_block = ScheduleBlock.new(fresh_id(), this);
-        sea.apply(live, this.collectLiveAux);
-	live.apply(fun (n: IRNode) => void(sea.start.children.put(n)));
+    var top_node: IRNode;
+    var bottom_node: IRNode;
+
+    var bottom_block: ScheduleNode;
+
+    new(sea, top_node, bottom_node) {
+        sea.apply(live, collectLiveAux);
+	live.apply(fun (n: IRNode) => void(top_node.children.put(n)));
     }
 
     def toMermaid() -> string {
@@ -29,15 +37,10 @@ class SeaScheduler {
         return buf.toString();
     }
 
-    def collectLiveAux(node: IRNode, sea: Sea, state: NodeSet) -> Range<IRNode> {
-        state.put(node);
-        return node.deps();
-    }
-
     def schedule() {
         if (opcode != null) System.puts(Strings.format1("==============%s=============\n", opcode));
         q = Vector<IRNode>.new();
-        q.put(sea.finish);
+        q.put(bottom_node);
 
         q_idx = 0;
         while (q_idx < q.length) {
@@ -47,14 +50,25 @@ class SeaScheduler {
             // traverse existing schedule, put node in first available spot
 	    def dest_block = bottom_block.schedule(node, null);
             if (dest_block != null) {
-                if (node.id == sea.start.id) return;
-                for (d in node.deps()) if (live.has(d)) q.put(d);
+                if (node.id == top_node.id) return;
+                if (!IROp.Phi.?(node.op) && !IROp.StatePhi.?(node.op)) for (d in node.deps()) if (live.has(d)) q.put(d);
             } else {
+                if (IROp.Start.?(node.op))
+                    for (i < node.children.length) q.put(node.children[i]);
                 q.put(node);
             }
         }
 
         bottom_block.finalize();
+    }
+}
+
+component Scheduler {
+    def of_full_sea(sea: Sea) -> SeaScheduler {
+        def s = SeaScheduler.new(sea, sea.start, sea.finish);
+        def b = ScheduleBlock.new(fresh_id(), s);
+        s.bottom_block = b;
+        return s;
     }
 }
 
@@ -361,8 +375,16 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         phi_node.phis = List.new(phi, phi_node.phis);
 
-        left.schedule(l_branch, branch);
-        right.schedule(r_branch, branch);
+        def lca = scheduler.sea.lowestCommonAncestor(l_branch, r_branch);
+        def lsg = scheduler.sea.subgraph2(lca, l_branch).without(lca);
+        def rsg = scheduler.sea.subgraph2(lca, r_branch).without(lca);
+
+        System.puts(Strings.format3("left: %q\nright: %q\nlca: %q\n", l_branch.render, r_branch.render, lca.render));
+        System.puts(Strings.format2("lsg: %q\nrsg: %q\n", lsg.render, rsg.render));
+        for (n = lsg.ls; n != null; n = n.tail) left.schedule(n.head, branch);
+        for (n = rsg.ls; n != null; n = n.tail) right.schedule(n.head, branch);
+        // left.schedule(l_branch, branch);
+        // right.schedule(r_branch, branch);
 
 	if (Strings.equal(scheduler.opcode, "IF") || Strings.equal(scheduler.opcode, "IF_ul")) {
             System.puts(Strings.format3("Scheduled phi %q (%d) before %d\n\n", phi.render, phi_node.id, id));
@@ -521,8 +543,14 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
 
         phis = List.new(phi, phis);
 
-        l_source.schedule(l_branch, source_branch);
-        r_source.schedule(r_branch, source_branch);
+        def lca = scheduler.sea.lowestCommonAncestor(l_branch, r_branch);
+        def lsg = scheduler.sea.subgraph2(lca, l_branch).without(lca);
+        def rsg = scheduler.sea.subgraph2(lca, r_branch).without(lca);
+
+        for (n = lsg.ls; n != null; n = n.tail) l_source.schedule(n.head, source_branch);
+        for (n = rsg.ls; n != null; n = n.tail) l_source.schedule(n.head, source_branch);
+        // l_source.schedule(l_branch, source_branch);
+        // r_source.schedule(r_branch, source_branch);
     }
  }
 
