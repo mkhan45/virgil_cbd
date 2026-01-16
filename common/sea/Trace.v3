@@ -20,7 +20,11 @@ component CBDTrace {
                 def init_js = Strings.format1("window.traces[\"%s\"] = {}\n", opcode);
                 System.write(out_file, init_js);
             }
-            def set_js = Strings.format3("window.traces.%s[\"%s\"] = `%s`;\n", opcode, tag, html);
+            if (!traces.has(opcode) || !traces[opcode].has(tag)) {
+                def init_js = Strings.format2("window.traces[\"%s\"][\"%s\"] = ''\n", opcode, tag);
+                System.write(out_file, init_js);
+            }
+            def set_js = Strings.format3("window.traces[\"%s\"][\"%s\"] += `%s`;\n", opcode, tag, html);
             System.write(out_file, set_js);
         }
 
