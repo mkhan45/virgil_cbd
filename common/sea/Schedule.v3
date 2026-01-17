@@ -51,10 +51,8 @@ class SeaScheduler {
 	    def dest_block = bottom_block.schedule(node, null);
             if (dest_block != null) {
                 if (node.id == top_node.id) return;
-                if (!IROp.Phi.?(node.op) && !IROp.StatePhi.?(node.op)) for (d in node.deps()) if (live.has(d)) q.put(d);
+                for (d in node.deps()) if (live.has(d)) q.put(d);
             } else {
-                if (IROp.Start.?(node.op))
-                    for (i < node.children.length) q.put(node.children[i]);
                 q.put(node);
             }
         }
@@ -548,7 +546,7 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         def rsg = scheduler.sea.subgraph2(lca, r_branch).without(lca);
 
         for (n = lsg.ls; n != null; n = n.tail) l_source.schedule(n.head, source_branch);
-        for (n = rsg.ls; n != null; n = n.tail) l_source.schedule(n.head, source_branch);
+        for (n = rsg.ls; n != null; n = n.tail) r_source.schedule(n.head, source_branch);
         // l_source.schedule(l_branch, source_branch);
         // r_source.schedule(r_branch, source_branch);
     }

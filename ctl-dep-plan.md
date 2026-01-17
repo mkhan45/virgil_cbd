@@ -62,3 +62,13 @@ Working backwards from the phi: the nearest common dominator of both sources
 should dominate the branch. I think this inspires the greedy approach.
 
 use Queue<(IRNode, Required Dominant (lower limit), Upper Limit)>
+
+Idea 6:
+
+Just add control dependencies and antideps.
+
+Idea 7:
+
+The children vec is ambiguous wrt. phis and their children. Also, would be nice to separate
+this from the Sea. So we should make an addtl class SchedulePrim which contains an IRNode,
+and stores constraints. Then, it feels like LCA subgraph strategy should work (ref bottom of excalidraw)
