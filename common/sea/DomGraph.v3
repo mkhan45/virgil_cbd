@@ -1,0 +1,50 @@
+// Dom graph with mutable set nodes
+class DomGraph {
+    var parents: Vector<DomGraph> = Vector.new();
+    var priv_parents: Vector<DomGraph> = Vector.new();
+    var local_nodes: NodeSet = NodeSet.new();
+    var private_nodes: NodeSet = NodeSet.new();
+
+    def has(node: IRNode) -> bool {
+	if (private_nodes.has(node)) return true;
+	return has_public(node);
+    }
+    def has_public(node: IRNode) -> bool {
+	// if (private_nodes.has(node)) return true;
+        if (local_nodes.has(node)) return true;
+        for (i < parents.length) if (parents[i].has_public(node)) return true;
+        for (i < priv_parents.length) if (priv_parents[i].has(node)) return true;
+        return false;
+    }
+    def addLocal(node: IRNode) => local_nodes.put(node);
+    def addPrivate(node: IRNode) => private_nodes.put(node);
+
+    def newChild() -> DomGraph => DomGraph.new().withParent(this);
+    def newPrivChild() -> DomGraph => DomGraph.new().withPrivParent(this);
+    def withParent(parent: DomGraph) -> this {
+        parents.put(parent);
+    }
+    def withPrivParent(parent: DomGraph) -> this {
+        priv_parents.put(parent);
+    }
+
+    def render(buf: StringBuilder) -> StringBuilder {
+        buf.puts("[");
+        def nodes = Vector<IRNode>.new();
+        local_nodes.apply(fun n => void(nodes.put(n)));
+        for (i < nodes.length) {
+            def node = nodes[i];
+            if (i > 0) buf.puts(", ");
+            buf.putq(node.render).put1(" (%d)", node.id);
+        }
+
+        for (i < parents.length) {
+            buf.puts("; ");
+            parents[i].render(buf);
+        }
+
+        buf.puts("]");
+
+        return buf;
+    }
+}

@@ -699,6 +699,8 @@ class IRNode {
     var schedule_parent: IRNode;
 
     var ctl_dep: IRNode;
+    var move_true: IRNode;
+    var move_false: IRNode;
 
     new(op, id) {
         children = Vector.new();
@@ -740,6 +742,15 @@ class IRNode {
             }
         }
         return dedup(res.copy());
+    }
+
+    def init_move() -> bool {
+        if (move_true == null) {
+            move_true = IRNode.new(IROp.Move(true), -id*2);
+            move_false = IRNode.new(IROp.Move(false), -id*2-1);
+            return false;
+        }
+        return true;
     }
 
     def hash() -> int => id;

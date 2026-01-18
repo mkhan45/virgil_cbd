@@ -39,12 +39,14 @@ all: validator interpreter wizeng-slow site
 $(DEFS).sexp: wizard-engine/src/bytecode/CanonicalDefs.v3
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
 
-generated/Validator.v3: $(GENERATE_DEPS) $(VALIDATOR)/*.v3
+ValidatorGen: $(GENERATE_DEPS) $(VALIDATOR)/*.v3
 	$(V3C) $(VIRGIL_STD)\
 		$(COMMON_LIB)\
 		$(ENGINE)\
 		$(WIZARD_UTIL)\
 		$(VALIDATOR)/ValidatorGen.v3
+
+generated/Validator.v3: ValidatorGen
 	./ValidatorGen > $@~
 	rm ./ValidatorGen
 	mv --force $@~ $@
