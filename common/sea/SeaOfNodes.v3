@@ -445,15 +445,16 @@ class Sea {
         return sub_sea;
     }
 
-    def subgraph2(top: IRNode, bot: IRNode) -> ImmNodeSet {
+    def subgraph2(top: IRNode, bot: IRNode, stop_at_phis: bool) -> ImmNodeSet {
         if (top == null || bot == null) return ImmNodeSets.empty();
         if (top.id == bot.id) return ImmNodeSets.single(top);
         
         def visited = NodeSet.new();
-        return collectPaths(top, bot, top, visited);
+        return collectPaths(top, bot, top, visited, stop_at_phis);
     }
 
-    def collectPaths(top: IRNode, bot: IRNode, node: IRNode, visited: NodeSet) -> ImmNodeSet {
+    // TODO: stopping at phis here is not completely good
+    def collectPaths(top: IRNode, bot: IRNode, node: IRNode, visited: NodeSet, stop_at_phis: bool) -> ImmNodeSet {
         if (visited.has(node)) return ImmNodeSets.empty();
         
         visited.put(node);
@@ -466,7 +467,8 @@ class Sea {
         var result = ImmNodeSets.empty();
         for (i < node.children.length) {
             def child = node.children[i];
-            def childPaths = collectPaths(top, bot, child, visited);
+            if (stop_at_phis && (IROp.Phi.?(child.op) || IROp.StatePhi.?(child.op))) continue;
+            def childPaths = collectPaths(top, bot, child, visited, stop_at_phis);
             if (childPaths.ls != null) {
                 result = result.with(node).union(childPaths);
             }

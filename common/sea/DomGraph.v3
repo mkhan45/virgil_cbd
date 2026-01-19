@@ -10,7 +10,7 @@ class DomGraph {
         return has_public(node);
     }
     def has_public(node: IRNode) -> bool {
-        if (private_nodes.has(node)) return true;
+        // if (private_nodes.has(node)) return true;
         if (local_nodes.has(node)) return true;
         for (i < parents.length) if (parents[i].has_public(node)) return true;
         for (i < priv_parents.length) if (priv_parents[i].has(node)) return true;
