@@ -1,18 +1,18 @@
 <html>
-    <body style="margin-top: 0px; margin-bottom: 0px; font-family: monospace">
-        <div style="display: flex; margin-top: none; padding-top: none;">
-            <div style="max-width: 45ch; height: 100vh">
-                <h2 id="label" style="font-size: 1.5em; line-height: 1; margin-bottom: 10px; margin-top: 10px; height: 2em"> </h2>
-                <div class="tags" id="tags">
+    <body>
+        <div id="container">
+            <div id="sidebar">
+                <h2 id="label"> </h2>
+                <div id="tags">
                     <button id="prev-tag">&lt;</button>
                     <select id="tag-select"></select>
                     <button id="next-tag">&gt;</button>
                 </div>
-                <hr style="margin-top: 5px; margin-bottom: 5px">
-                <div style="max-height: calc(100vh - 3em - 1.5em - 20px - 10px - 1px); overflow-y: scroll" class="codes" id="codes"> </div>
+                <hr>
+                <div id="codes"> </div>
             </div>
-            <div style="flex-grow: 2; overflow-y: auto; overflow-x: hidden; height: 100vh; z-index: 1; background-color: white;">
-                <pre id="graph" style="margin-top: 0px; margin-bottom: 0px; display: flex; flex-direction: column; align-items: center;"></pre>
+            <div id="graph-container">
+                <pre id="graph"></pre>
             </div>
         </div>
         <script src="traces.js" charset="utf-8"></script>
@@ -130,25 +130,86 @@
             }
         </script>
         <style>
+            body {
+                margin: 0;
+                font-family: monospace;
+            }
+
+            #container {
+                display: flex;
+            }
+
+            #sidebar {
+                height: 100vh;
+                min-width: 21ch;
+                max-width: 48ch;
+                width: 48ch;
+                resize: horizontal;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+
+            #label {
+                font-size: 1.5em;
+                line-height: 1;
+                margin: 10px 0;
+                height: 2em;
+            }
+
+            #tags {
+                display: flex;
+                gap: 2px;
+            }
+
+            #sidebar hr {
+                margin: 5px 0;
+                width: 100%;
+            }
+
+            #codes {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
+                flex: 1;
+                min-height: 0;
+                overflow-y: auto;
+            }
+
             button {
-                min-width: 20ch;
                 padding: 0;
                 font-family: monospace;
             }
 
+            #codes button {
+                min-width: 0;
+            }
+
             #prev-tag, #next-tag {
                 min-width: 3ch;
+                flex-shrink: 0;
             }
 
             #tag-select {
                 font-family: monospace;
                 flex-grow: 1;
-                max-width: calc(45ch - 6ch - 42px);
+                min-width: 0;
             }
 
-            .tags {
+            #graph-container {
+                flex: 1;
+                overflow-y: auto;
+                overflow-x: hidden;
+                height: 100vh;
+                background-color: white;
+            }
+
+            #graph {
+                margin: 0;
                 display: flex;
-                gap: 2px;
+                flex-direction: column;
+                align-items: center;
+                font-size: 1.2em;
+                padding-top: 5vh;
             }
 
             .flowchart-link {
@@ -157,11 +218,6 @@
 
             .label-container, .label-container path {
                 stroke-width: 2.5px !important;
-            }
-
-            #graph > pre {
-                font-size: 1.2em;
-                margin-top: 5vh;
             }
         </style>
     </body>
