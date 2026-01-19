@@ -2,13 +2,17 @@
     <body style="margin-top: 0px; margin-bottom: 0px; font-family: monospace">
         <div style="display: flex; margin-top: none; padding-top: none;">
             <div style="max-width: 45ch; height: 100vh">
-                <h2 id="label" style="font-size: 1.5em; line-height: 1; margin-bottom: 10px; margin-top: 10px"> </h2>
-                <div class="tags" id="tags" style="max-height: 15vh; overflow-y: scroll"> </div>
+                <h2 id="label" style="font-size: 1.5em; line-height: 1; margin-bottom: 10px; margin-top: 10px; height: 2em"> </h2>
+                <div class="tags" id="tags">
+                    <button id="prev-tag">&lt;</button>
+                    <select id="tag-select"></select>
+                    <button id="next-tag">&gt;</button>
+                </div>
                 <hr style="margin-top: 5px; margin-bottom: 5px">
-                <div style="max-height: calc(100vh - 15vh - 1.5em - 20px - 10px - 1px); overflow-y: scroll" class="codes" id="codes"> </div>
+                <div style="max-height: calc(100vh - 3em - 1.5em - 20px - 10px - 1px); overflow-y: scroll" class="codes" id="codes"> </div>
             </div>
             <div style="flex-grow: 2; overflow-y: auto; overflow-x: hidden; height: 100vh; z-index: 1; background-color: white;">
-                <pre id="graph" style="margin-top: 0px; margin-bottom: 0px; display: flex; justify-content: center;"></pre>
+                <pre id="graph" style="margin-top: 0px; margin-bottom: 0px; display: flex; flex-direction: column; align-items: center;"></pre>
             </div>
         </div>
         <script src="traces.js" charset="utf-8"></script>
@@ -31,6 +35,34 @@
 
             const graph = document.getElementById('graph');
             const label = document.getElementById('label');
+            const tagSelect = document.getElementById('tag-select');
+            const prevBtn = document.getElementById('prev-tag');
+            const nextBtn = document.getElementById('next-tag');
+
+            let currentCode = null;
+            let currentTagList = [];
+
+            function getDefaultTag(code) {
+                const tags = Object.keys(traces[code]);
+                return tags.includes('raw') ? 'raw' : tags[0];
+            }
+
+            prevBtn.onclick = async () => {
+                const idx = currentTagList.indexOf(tagSelect.value);
+                const newIdx = idx <= 0 ? currentTagList.length - 1 : idx - 1;
+                await setGraph(currentCode, currentTagList[newIdx]);
+            };
+
+            nextBtn.onclick = async () => {
+                const idx = currentTagList.indexOf(tagSelect.value);
+                const newIdx = idx >= currentTagList.length - 1 ? 0 : idx + 1;
+                await setGraph(currentCode, currentTagList[newIdx]);
+            };
+
+            tagSelect.onchange = async () => {
+                await setGraph(currentCode, tagSelect.value);
+            };
+
             async function setGraph(code, tag) {
                 const rect = graph.getBoundingClientRect();
                 const barrierDiv = graph.cloneNode(true);
@@ -51,55 +83,49 @@
                 await mermaid.run({ querySelector: '.graph' });
                 label.innerText = code + ", " + tag;
 
-                tags.replaceChildren([]);
-                for (const tag in traces[code]) {
-                    const btn = document.createElement('button');
-                    btn.textContent = tag;
-                    btn.onclick = async () => {
-                        await setGraph(code, tag);
-                    };
-                    tags.appendChild(btn);
-                    if (graph.querySelector('svg') != null) {
-                        const svg = graph.querySelector('svg');
-                        const viewBox = svg.getAttribute('viewBox');
-                        if (viewBox) {
-                            const [, , vbWidth, vbHeight] = viewBox.split(' ').map(Number);
-                            const aspectRatio = vbWidth / vbHeight;
-                            // Get container width for max width constraint
-                            const containerWidth = graph.parentNode.clientWidth * 0.95;
-                            // Calculate 70vh in pixels (slightly smaller default)
-                            const minHeightPx = window.innerHeight * 0.7;
-                            // Use natural height from viewBox, but at least 70vh
-                            let finalHeight = Math.max(vbHeight, minHeightPx);
-                            let finalWidth = aspectRatio * finalHeight;
-                            // If too wide, constrain by width and recalculate height
-                            if (finalWidth > containerWidth) {
-                                finalWidth = containerWidth;
-                                finalHeight = finalWidth / aspectRatio;
-                            }
-                            svg.setAttribute('height', finalHeight + 'px');
-                            svg.setAttribute('width', finalWidth + 'px');
-                        }
-                    }
+                currentCode = code;
+                currentTagList = Object.keys(traces[code]);
+
+                tagSelect.innerHTML = '';
+                for (const t of currentTagList) {
+                    const opt = document.createElement('option');
+                    opt.value = t;
+                    opt.textContent = t;
+                    if (t === tag) opt.selected = true;
+                    tagSelect.appendChild(opt);
                 }
+
+                graph.querySelectorAll('svg').forEach(svg => {
+                    const viewBox = svg.getAttribute('viewBox');
+                    if (viewBox) {
+                        const [, , vbWidth, vbHeight] = viewBox.split(' ').map(Number);
+                        const aspectRatio = vbWidth / vbHeight;
+                        const containerWidth = graph.parentNode.clientWidth * 0.95;
+                        const minHeightPx = window.innerHeight * 0.7;
+                        let finalHeight = Math.max(vbHeight, minHeightPx);
+                        let finalWidth = aspectRatio * finalHeight;
+                        if (finalWidth > containerWidth) {
+                            finalWidth = containerWidth;
+                            finalHeight = finalWidth / aspectRatio;
+                        }
+                        svg.setAttribute('height', finalHeight + 'px');
+                        svg.setAttribute('width', finalWidth + 'px');
+                    }
+                });
 
                 barrierDiv.remove();
                 graph.style.opacity = 1;
             }
-            if (traces["BR_IF"] != undefined) {
-                await setGraph("BR_IF", "raw");
-            } else {
-                await setGraph("UNREACHABLE", "raw");
-            }
+            const initialCode = traces["BR_IF"] != undefined ? "BR_IF" : "UNREACHABLE";
+            await setGraph(initialCode, getDefaultTag(initialCode));
 
             const codes = document.getElementById('codes');
             for (const op in traces) {
                 const btn = document.createElement('button');
                 btn.textContent = op;
                 btn.onclick = async () => {
-                    await setGraph(op, "raw");
+                    await setGraph(op, getDefaultTag(op));
                 };
-
                 codes.appendChild(btn);
             }
         </script>
@@ -108,6 +134,21 @@
                 min-width: 20ch;
                 padding: 0;
                 font-family: monospace;
+            }
+
+            #prev-tag, #next-tag {
+                min-width: 3ch;
+            }
+
+            #tag-select {
+                font-family: monospace;
+                flex-grow: 1;
+                max-width: calc(45ch - 6ch - 42px);
+            }
+
+            .tags {
+                display: flex;
+                gap: 2px;
             }
 
             .flowchart-link {

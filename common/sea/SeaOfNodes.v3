@@ -8,6 +8,13 @@ class NodeSet {
     def put(node: IRNode) { m[node] = void; }
     def remove(node: IRNode) { if (node != null && m.has(node)) m.remove(node); }
     def apply(f: IRNode -> void) { m.apply(fun (k, v) => f(k)); }
+    def intersection(other: NodeSet) -> NodeSet {
+        def result = NodeSet.new();
+        m.apply(fun (k: IRNode, v: void) {
+            if (other.has(k)) result.put(k);
+        });
+        return result;
+    }
 }
 
 type ImmNodeSet(ls: List<IRNode>) {
@@ -138,61 +145,74 @@ class Sea {
     def isAncestor(high: IRNode, low: IRNode) -> bool {
         if (high == low) return true;
         if (high == null || low == null) return false;
-        
-        def visited = NodeSet.new();
-        def wl = Vector<IRNode>.new();
-        wl.put(low);
-        var idx = 0;
-        
-        while (idx < wl.length) {
-            def node = wl[idx];
-            idx += 1;
-            if (node == null || visited.has(node)) continue;
-            visited.put(node);
-            
-            if (node.id == high.id) return true;
-            
-            for (dep in node.deps()) wl.put(dep);
-        }
-        
-        return false;
+        return low.transitiveDepsSet().has(high);
     }
 
     def isDescendant(low: IRNode, high: IRNode) => isAncestor(high, low);
 
     def lowestCommonAncestor(a: IRNode, b: IRNode) -> IRNode {
-        // BFS from 'a' to collect ancestors
-        def a_ancestors = NodeSet.new();
+        // Collect ancestors of a
+        def a_ancestors = a.transitiveDepsSet();
+        a_ancestors.put(a);
+
+        // BFS from b to find first intersection
         def wl = Vector<IRNode>.new();
-        wl.put(a);
+        def visited = NodeSet.new();
+        wl.put(b);
         var idx = 0;
         while (idx < wl.length) {
             def node = wl[idx];
             idx += 1;
-            if (node == null || a_ancestors.has(node)) continue;
-            a_ancestors.put(node);
-            for (dep in node.deps()) wl.put(dep);
-        }
-
-        // BFS from 'b' to find first intersection
-        def b_wl = Vector<IRNode>.new();
-        def b_visited = NodeSet.new();
-        b_wl.put(b);
-        idx = 0;
-        while (idx < b_wl.length) {
-            def node = b_wl[idx];
-            idx += 1;
-            if (node == null || b_visited.has(node)) continue;
+            if (node == null || visited.has(node)) continue;
             if (a_ancestors.has(node)) return node;
-            b_visited.put(node);
-            for (dep in node.deps()) b_wl.put(dep);
+            visited.put(node);
+            for (dep in node.deps()) wl.put(dep);
         }
 
         return start;
     }
 
+    def lca2(a: IRNode, b: IRNode) -> IRNode {
+        var a_lca: IRNode = a;
+        if (IROp.Phi.?(a.op) || IROp.StatePhi.?(a.op)) a_lca = lca2(a.value_deps[1], a.value_deps[2]);
+
+        var b_lca: IRNode = b;
+        if (IROp.Phi.?(b.op) || IROp.StatePhi.?(b.op)) b_lca = lca2(b.value_deps[1], b.value_deps[2]);
+
+        return lowestCommonAncestor(a_lca, b_lca);
+    }
+
+    def findTop(left: IRNode, right: IRNode) -> Vector<IRNode> {
+        def leftDeps = left.transitiveDepsSet();
+        def rightDeps = right.transitiveDepsSet();
+
+        def common = leftDeps.intersection(rightDeps);
+        common.remove(start);
+        def commonVec = Vector<IRNode>.new();
+        common.apply(fun (n: IRNode) { commonVec.put(n); });
+
+        System.puts("common: ");
+        for (i < commonVec.length) System.puts(Strings.format1("%q, ", commonVec[i].render));
+        System.puts("\n");
+
+        def results = Vector<IRNode>.new();
+        for (i < commonVec.length) {
+            def candidate = commonVec[i];
+            var isRoot = true;
+            for (dep in candidate.deps()) {
+                if (!IROp.Start.?(dep.op) && common.has(dep)) {
+                    isRoot = false;
+                    break;
+                }
+            }
+            if (isRoot) return results.put(candidate);
+        }
+
+        return results;
+    }
+
     def highestCommonDescendant(a: IRNode, b: IRNode) -> IRNode {
-        // BFS from 'a' to collect descendants
+        // BFS from a to collect descendants
         def a_descendants = NodeSet.new();
         def wl = Vector<IRNode>.new();
         wl.put(a);
@@ -205,7 +225,7 @@ class Sea {
             for (i < node.children.length) wl.put(node.children[i]);
         }
 
-        // BFS from 'b' to find first intersection
+        // BFS from b to find first intersection
         def b_wl = Vector<IRNode>.new();
         def b_visited = NodeSet.new();
         b_wl.put(b);
@@ -453,6 +473,30 @@ class Sea {
         }
         
         return result;
+    }
+
+    def rebuildChildren() {
+        def allNodes = Vector<IRNode>.new();
+        def visited = NodeSet.new();
+        def wl = Vector<IRNode>.new();
+        wl.put(finish);
+        var idx = 0;
+
+        while (idx < wl.length) {
+            def node = wl[idx];
+            idx += 1;
+            if (node == null || visited.has(node)) continue;
+            visited.put(node);
+            allNodes.put(node);
+            node.children = Vector.new();
+            for (dep in node.deps()) wl.put(dep);
+        }
+
+        for (i < allNodes.length) {
+            def node = allNodes[i];
+            if (IROp.Lit.?(node.op)) continue;
+            for (dep in node.deps()) dep.children.put(node);
+        }
     }
 
     def schedule() -> SSAD {
@@ -744,6 +788,21 @@ class IRNode {
         return dedup(res.copy());
     }
 
+    def transitiveDepsAux(buf: NodeSet) {
+        for (dep in deps()) {
+            if (dep != null && !buf.has(dep)) {
+                buf.put(dep);
+                dep.transitiveDepsAux(buf);
+            }
+        }
+    }
+
+    def transitiveDepsSet() -> NodeSet {
+        def buf = NodeSet.new();
+        transitiveDepsAux(buf);
+        return buf;
+    }
+
     def init_move() -> bool {
         if (move_true == null) {
             move_true = IRNode.new(IROp.Move(true), -id*2);
@@ -768,7 +827,7 @@ class IRNode {
             Start => sb.puts("Start");
             Finish => sb.puts("Finish");
             Phi => sb.puts("Phi");
-            StatePhi => sb.puts("StatePhi");
+            StatePhi => sb.puts("StatePhi [").putq(value_deps[0].render).putc(']');
             // MatchPhi => sb.puts("MatchPhi");
             Proj(val) => sb.puts(if(val, "|True|", "|False|"));
             Move(val) => sb.puts(if(val, "|True|", "|False|"));
@@ -891,7 +950,7 @@ class IRNode {
 
                         def abstraction_node = sea.mkNode(abstraction_op, Array.new(state_deps.length), [args[i]]);
                         abstraction_node.var_data = VarData.new(uidl("abs"), tp, Stage.INTERPRET);
-			abstraction_node.children = Vectors.of1(this);
+                        abstraction_node.children = Vectors.of1(this);
 
                         value_deps[i] = abstraction_node;
                     } else {
