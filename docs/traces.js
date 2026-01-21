@@ -43,11 +43,11 @@ window.traces["UNREACHABLE"]["schedulerMermaid"] = ''
 window.traces["UNREACHABLE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1["Block 1"]
 	direction TB
-	b1_1[\\"Finish"/]
-	b1_3["eff__0 trapUnreachable"]
 	b1_0[/"Start"\\]
-	b1_3 --> b1_1
+	b1_3["eff__0 trapUnreachable"]
+	b1_1[\\"Finish"/]
 	b1_0 --> b1_3
+	b1_3 --> b1_1
 end
 
 </pre>`;
@@ -70,11 +70,11 @@ window.traces["UNREACHABLE"]["unlem_scheduler"] = ''
 window.traces["UNREACHABLE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2["Block 2"]
 	direction TB
-	b2_1[\\"Finish"/]
-	b2_3["eff__0 trapUnreachable"]
 	b2_0[/"Start"\\]
-	b2_3 --> b2_1
+	b2_3["eff__0 trapUnreachable"]
+	b2_1[\\"Finish"/]
 	b2_0 --> b2_3
+	b2_3 --> b2_1
 end
 
 </pre>`;
@@ -149,8 +149,8 @@ window.traces["NOP"]["schedulerMermaid"] = ''
 window.traces["NOP"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_3["Block 3"]
 	direction TB
-	b3_1[\\"Finish"/]
 	b3_0[/"Start"\\]
+	b3_1[\\"Finish"/]
 	b3_0 --> b3_1
 end
 
@@ -171,8 +171,8 @@ window.traces["NOP"]["unlem_scheduler"] = ''
 window.traces["NOP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4["Block 4"]
 	direction TB
-	b4_1[\\"Finish"/]
 	b4_0[/"Start"\\]
+	b4_1[\\"Finish"/]
 	b4_0 --> b4_1
 end
 
@@ -261,13 +261,13 @@ window.traces["BLOCK"]["schedulerMermaid"] = ''
 window.traces["BLOCK"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_5["Block 5"]
 	direction TB
-	b5_1[\\"Finish"/]
-	b5_5["eff__2 doBlock"]
-	b5_3["bt imm_readBlockType"]
 	b5_0[/"Start"\\]
-	b5_5 --> b5_1
-	b5_3 --> b5_5
+	b5_3["bt imm_readBlockType"]
+	b5_5["eff__2 doBlock"]
+	b5_1[\\"Finish"/]
 	b5_0 --> b5_3
+	b5_3 --> b5_5
+	b5_5 --> b5_1
 end
 
 </pre>`;
@@ -295,13 +295,13 @@ window.traces["BLOCK"]["unlem_scheduler"] = ''
 window.traces["BLOCK"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_6["Block 6"]
 	direction TB
-	b6_1[\\"Finish"/]
-	b6_5["eff__2 doBlock"]
-	b6_3["bt imm_readBlockType"]
 	b6_0[/"Start"\\]
-	b6_5 --> b6_1
-	b6_3 --> b6_5
+	b6_3["bt imm_readBlockType"]
+	b6_5["eff__2 doBlock"]
+	b6_1[\\"Finish"/]
 	b6_0 --> b6_3
+	b6_3 --> b6_5
+	b6_5 --> b6_1
 end
 
 </pre>`;
@@ -407,13 +407,13 @@ window.traces["LOOP"]["schedulerMermaid"] = ''
 window.traces["LOOP"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_7["Block 7"]
 	direction TB
-	b7_1[\\"Finish"/]
-	b7_5["eff__4 doLoop"]
-	b7_3["bt imm_readBlockType"]
 	b7_0[/"Start"\\]
-	b7_5 --> b7_1
-	b7_3 --> b7_5
+	b7_3["bt imm_readBlockType"]
+	b7_5["eff__4 doLoop"]
+	b7_1[\\"Finish"/]
 	b7_0 --> b7_3
+	b7_3 --> b7_5
+	b7_5 --> b7_1
 end
 
 </pre>`;
@@ -441,13 +441,13 @@ window.traces["LOOP"]["unlem_scheduler"] = ''
 window.traces["LOOP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_8["Block 8"]
 	direction TB
-	b8_1[\\"Finish"/]
-	b8_5["eff__4 doLoop"]
-	b8_3["bt imm_readBlockType"]
 	b8_0[/"Start"\\]
-	b8_5 --> b8_1
-	b8_3 --> b8_5
+	b8_3["bt imm_readBlockType"]
+	b8_5["eff__4 doLoop"]
+	b8_1[\\"Finish"/]
 	b8_0 --> b8_3
+	b8_3 --> b8_5
+	b8_5 --> b8_1
 end
 
 </pre>`;
@@ -636,6 +636,34 @@ subgraph block_9["Block 9"]
 end
 
 </pre>`;
+window.traces["IF"]["sched StatePhi [U32_equals [cond__6]]"] = ''
+window.traces["IF"]["sched StatePhi [U32_equals [cond__6]]"] += `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_1[\\"Finish"/]
+	b9_14["eff_st_put__13 ctlxfer.put_IF"]
+	b9_14 --> b9_1
+end
+phi_11 --> block_9
+subgraph phi_11["Phi 11"]
+	p11_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+end
+block_12 --> phi_11
+block_13 --> phi_11
+subgraph block_12["Block 12"]
+	direction TB
+end
+branch_10 --> block_12
+subgraph branch_10["Branch 10"]
+	br10_9["cond__6 U32_equals"]
+
+end
+subgraph block_13["Block 13"]
+	direction TB
+end
+branch_10 --> block_13
+
+</pre>`;
 window.traces["IF"]["sched doBranch [eff__7]"] = ''
 window.traces["IF"]["sched doBranch [eff__7]"] += `<pre class='graph'>graph TD
 subgraph block_9["Block 9"]
@@ -646,6 +674,7 @@ subgraph block_9["Block 9"]
 end
 phi_11 --> block_9
 subgraph phi_11["Phi 11"]
+	p11_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	p11_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 end
 block_12 --> phi_11
@@ -676,35 +705,6 @@ end
 phi_11 --> block_9
 subgraph phi_11["Phi 11"]
 	p11_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_12 --> phi_11
-block_13 --> phi_11
-subgraph block_12["Block 12"]
-	direction TB
-	b12_12["eff__7 doBranch"]
-end
-branch_10 --> block_12
-subgraph branch_10["Branch 10"]
-	br10_9["cond__6 U32_equals"]
-
-end
-subgraph block_13["Block 13"]
-	direction TB
-	b13_10["eff__9 doFallthru"]
-end
-branch_10 --> block_13
-
-</pre>`;
-window.traces["IF"]["sched StatePhi [U32_equals [cond__6]]"] = ''
-window.traces["IF"]["sched StatePhi [U32_equals [cond__6]]"] += `<pre class='graph'>graph TD
-subgraph block_9["Block 9"]
-	direction TB
-	b9_1[\\"Finish"/]
-	b9_14["eff_st_put__13 ctlxfer.put_IF"]
-	b9_14 --> b9_1
-end
-phi_11 --> block_9
-subgraph phi_11["Phi 11"]
 	p11_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 end
 block_12 --> phi_11
@@ -725,8 +725,8 @@ end
 branch_10 --> block_13
 
 </pre>`;
-window.traces["IF"]["sched U32_equals [cond__6]"] = ''
-window.traces["IF"]["sched U32_equals [cond__6]"] += `<pre class='graph'>graph TD
+window.traces["IF"]["sched doIf [label]"] = ''
+window.traces["IF"]["sched doIf [label]"] += `<pre class='graph'>graph TD
 subgraph block_9["Block 9"]
 	direction TB
 	b9_1[\\"Finish"/]
@@ -752,49 +752,9 @@ end
 block_14 --> branch_10
 subgraph block_14["Block 14"]
 	direction TB
-	b14_6["label doIf"]
 	b14_9["cond__6 U32_equals"]
-	b14_9 --> b14_6
-end
-subgraph block_13["Block 13"]
-	direction TB
-	b13_10["eff__9 doFallthru"]
-end
-branch_10 --> block_13
-
-</pre>`;
-window.traces["IF"]["sched imm_readBlockType [bt]"] = ''
-window.traces["IF"]["sched imm_readBlockType [bt]"] += `<pre class='graph'>graph TD
-subgraph block_9["Block 9"]
-	direction TB
-	b9_1[\\"Finish"/]
-	b9_14["eff_st_put__13 ctlxfer.put_IF"]
-	b9_14 --> b9_1
-end
-phi_11 --> block_9
-subgraph phi_11["Phi 11"]
-	p11_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p11_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_12 --> phi_11
-block_13 --> phi_11
-subgraph block_12["Block 12"]
-	direction TB
-	b12_12["eff__7 doBranch"]
-end
-branch_10 --> block_12
-subgraph branch_10["Branch 10"]
-	br10_9["cond__6 U32_equals"]
-
-end
-block_14 --> branch_10
-subgraph block_14["Block 14"]
-	direction TB
 	b14_6["label doIf"]
-	b14_9["cond__6 U32_equals"]
-	b14_3["bt imm_readBlockType"]
-	b14_9 --> b14_6
-	b14_3 --> b14_9
+	b14_6 --> b14_9
 end
 subgraph block_13["Block 13"]
 	direction TB
@@ -830,13 +790,11 @@ end
 block_14 --> branch_10
 subgraph block_14["Block 14"]
 	direction TB
-	b14_6["label doIf"]
 	b14_9["cond__6 U32_equals"]
-	b14_3["bt imm_readBlockType"]
+	b14_6["label doIf"]
 	b14_4["cond pop_u32"]
-	b14_9 --> b14_6
-	b14_3 --> b14_9
-	b14_4 --> b14_3
+	b14_6 --> b14_9
+	b14_4 --> b14_6
 end
 subgraph block_13["Block 13"]
 	direction TB
@@ -872,15 +830,57 @@ end
 block_14 --> branch_10
 subgraph block_14["Block 14"]
 	direction TB
-	b14_6["label doIf"]
 	b14_9["cond__6 U32_equals"]
-	b14_3["bt imm_readBlockType"]
+	b14_6["label doIf"]
 	b14_4["cond pop_u32"]
 	b14_15["abs__14 lift_u32"]
-	b14_9 --> b14_6
-	b14_3 --> b14_9
-	b14_4 --> b14_3
+	b14_6 --> b14_9
+	b14_4 --> b14_6
 	b14_15 --> b14_4
+end
+subgraph block_13["Block 13"]
+	direction TB
+	b13_10["eff__9 doFallthru"]
+end
+branch_10 --> block_13
+
+</pre>`;
+window.traces["IF"]["sched imm_readBlockType [bt]"] = ''
+window.traces["IF"]["sched imm_readBlockType [bt]"] += `<pre class='graph'>graph TD
+subgraph block_9["Block 9"]
+	direction TB
+	b9_1[\\"Finish"/]
+	b9_14["eff_st_put__13 ctlxfer.put_IF"]
+	b9_14 --> b9_1
+end
+phi_11 --> block_9
+subgraph phi_11["Phi 11"]
+	p11_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p11_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+end
+block_12 --> phi_11
+block_13 --> phi_11
+subgraph block_12["Block 12"]
+	direction TB
+	b12_12["eff__7 doBranch"]
+end
+branch_10 --> block_12
+subgraph branch_10["Branch 10"]
+	br10_9["cond__6 U32_equals"]
+
+end
+block_14 --> branch_10
+subgraph block_14["Block 14"]
+	direction TB
+	b14_9["cond__6 U32_equals"]
+	b14_6["label doIf"]
+	b14_4["cond pop_u32"]
+	b14_15["abs__14 lift_u32"]
+	b14_3["bt imm_readBlockType"]
+	b14_6 --> b14_9
+	b14_4 --> b14_6
+	b14_15 --> b14_4
+	b14_3 --> b14_15
 end
 subgraph block_13["Block 13"]
 	direction TB
@@ -916,17 +916,17 @@ end
 block_14 --> branch_10
 subgraph block_14["Block 14"]
 	direction TB
-	b14_6["label doIf"]
 	b14_9["cond__6 U32_equals"]
-	b14_3["bt imm_readBlockType"]
+	b14_6["label doIf"]
 	b14_4["cond pop_u32"]
 	b14_15["abs__14 lift_u32"]
+	b14_3["bt imm_readBlockType"]
 	b14_7["arg__11 0"]
-	b14_9 --> b14_6
-	b14_3 --> b14_9
-	b14_4 --> b14_3
+	b14_6 --> b14_9
+	b14_4 --> b14_6
 	b14_15 --> b14_4
-	b14_7 --> b14_15
+	b14_3 --> b14_15
+	b14_7 --> b14_3
 end
 subgraph block_13["Block 13"]
 	direction TB
@@ -962,18 +962,18 @@ end
 block_14 --> branch_10
 subgraph block_14["Block 14"]
 	direction TB
-	b14_6["label doIf"]
 	b14_9["cond__6 U32_equals"]
-	b14_3["bt imm_readBlockType"]
+	b14_6["label doIf"]
 	b14_4["cond pop_u32"]
 	b14_15["abs__14 lift_u32"]
+	b14_3["bt imm_readBlockType"]
 	b14_7["arg__11 0"]
 	b14_0[/"Start"\\]
-	b14_9 --> b14_6
-	b14_3 --> b14_9
-	b14_4 --> b14_3
+	b14_6 --> b14_9
+	b14_4 --> b14_6
 	b14_15 --> b14_4
-	b14_7 --> b14_15
+	b14_3 --> b14_15
+	b14_7 --> b14_3
 	b14_0 --> b14_7
 end
 subgraph block_13["Block 13"]
@@ -987,8 +987,8 @@ window.traces["IF"]["schedulerMermaid"] = ''
 window.traces["IF"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_9["Block 9"]
 	direction TB
-	b9_1[\\"Finish"/]
 	b9_14["eff_st_put__13 ctlxfer.put_IF"]
+	b9_1[\\"Finish"/]
 	b9_14 --> b9_1
 end
 phi_11 --> block_9
@@ -1010,19 +1010,19 @@ end
 block_14 --> branch_10
 subgraph block_14["Block 14"]
 	direction TB
+	b14_0[/"Start"\\]
+	b14_7["arg__11 0"]
+	b14_3["bt imm_readBlockType"]
+	b14_15["abs__14 lift_u32"]
+	b14_4["cond pop_u32"]
 	b14_6["label doIf"]
 	b14_9["cond__6 U32_equals"]
-	b14_3["bt imm_readBlockType"]
-	b14_4["cond pop_u32"]
-	b14_15["abs__14 lift_u32"]
-	b14_7["arg__11 0"]
-	b14_0[/"Start"\\]
-	b14_9 --> b14_6
-	b14_3 --> b14_9
-	b14_4 --> b14_3
-	b14_15 --> b14_4
-	b14_7 --> b14_15
 	b14_0 --> b14_7
+	b14_7 --> b14_3
+	b14_3 --> b14_15
+	b14_15 --> b14_4
+	b14_4 --> b14_6
+	b14_6 --> b14_9
 end
 subgraph block_13["Block 13"]
 	direction TB
@@ -1108,1006 +1108,12 @@ if (mb__17) {
 // phis: 
 def eff_st_put__13 = ctlxfer.put_IF(label);
 </pre>`;
-window.traces["IF_ul"] = {}
-window.traces["IF_ul"]["sched Finish"] = ''
-window.traces["IF_ul"]["sched Finish"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-end
-
-</pre>`;
-window.traces["IF_ul"]["sched ctlxfer.put_IF [eff_st_put__13]"] = ''
-window.traces["IF_ul"]["sched ctlxfer.put_IF [eff_st_put__13]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-
-</pre>`;
-window.traces["IF_ul"]["sched merge [eff_merge__18]"] = ''
-window.traces["IF_ul"]["sched merge [eff_merge__18]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-branch_16 --> block_19
-
-</pre>`;
-window.traces["IF_ul"]["sched doBranch [eff__7]"] = ''
-window.traces["IF_ul"]["sched doBranch [eff__7]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched doFallthru [eff__9]"] = ''
-window.traces["IF_ul"]["sched doFallthru [eff__9]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched StatePhi [U32_maybeTrue [mt__15]]"] = ''
-window.traces["IF_ul"]["sched StatePhi [U32_maybeTrue [mt__15]]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched doBranch [eff__7]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-	b18_12["eff__7 doBranch"]
-	b18_12 --> b18_20
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched doFallthru [eff__9]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-	b18_12["eff__7 doBranch"]
-	b18_10["eff__9 doFallthru"]
-	b18_12 --> b18_20
-	b18_10 --> b18_12
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched StatePhi [bool.&& [mb__17]]"] = ''
-window.traces["IF_ul"]["sched StatePhi [bool.&& [mb__17]]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-	b18_12["eff__7 doBranch"]
-	b18_10["eff__9 doFallthru"]
-	b18_12 --> b18_20
-	b18_10 --> b18_12
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched bool.&& [mb__17]"] = ''
-window.traces["IF_ul"]["sched bool.&& [mb__17]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-	b18_12["eff__7 doBranch"]
-	b18_10["eff__9 doFallthru"]
-	b18_12 --> b18_20
-	b18_10 --> b18_12
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-block_24 --> branch_16
-subgraph block_24["Block 24"]
-	direction TB
-	b24_6["label doIf"]
-	b24_18["mb__17 bool.&&"]
-	b24_18 --> b24_6
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched imm_readBlockType [bt]"] = ''
-window.traces["IF_ul"]["sched imm_readBlockType [bt]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-	b18_12["eff__7 doBranch"]
-	b18_10["eff__9 doFallthru"]
-	b18_12 --> b18_20
-	b18_10 --> b18_12
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-block_24 --> branch_16
-subgraph block_24["Block 24"]
-	direction TB
-	b24_6["label doIf"]
-	b24_18["mb__17 bool.&&"]
-	b24_3["bt imm_readBlockType"]
-	b24_18 --> b24_6
-	b24_3 --> b24_18
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched U32_maybeTrue [mt__15]"] = ''
-window.traces["IF_ul"]["sched U32_maybeTrue [mt__15]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-	b18_12["eff__7 doBranch"]
-	b18_10["eff__9 doFallthru"]
-	b18_12 --> b18_20
-	b18_10 --> b18_12
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-block_24 --> branch_16
-subgraph block_24["Block 24"]
-	direction TB
-	b24_6["label doIf"]
-	b24_18["mb__17 bool.&&"]
-	b24_3["bt imm_readBlockType"]
-	b24_16["mt__15 U32_maybeTrue"]
-	b24_18 --> b24_6
-	b24_3 --> b24_18
-	b24_16 --> b24_3
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched U32_maybeFalse [mf__16]"] = ''
-window.traces["IF_ul"]["sched U32_maybeFalse [mf__16]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-	b18_12["eff__7 doBranch"]
-	b18_10["eff__9 doFallthru"]
-	b18_12 --> b18_20
-	b18_10 --> b18_12
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-block_24 --> branch_16
-subgraph block_24["Block 24"]
-	direction TB
-	b24_6["label doIf"]
-	b24_18["mb__17 bool.&&"]
-	b24_3["bt imm_readBlockType"]
-	b24_16["mt__15 U32_maybeTrue"]
-	b24_17["mf__16 U32_maybeFalse"]
-	b24_18 --> b24_6
-	b24_3 --> b24_18
-	b24_16 --> b24_3
-	b24_17 --> b24_16
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched U32_equals [cond__6]"] = ''
-window.traces["IF_ul"]["sched U32_equals [cond__6]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-	b18_12["eff__7 doBranch"]
-	b18_10["eff__9 doFallthru"]
-	b18_12 --> b18_20
-	b18_10 --> b18_12
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-block_24 --> branch_16
-subgraph block_24["Block 24"]
-	direction TB
-	b24_6["label doIf"]
-	b24_18["mb__17 bool.&&"]
-	b24_3["bt imm_readBlockType"]
-	b24_16["mt__15 U32_maybeTrue"]
-	b24_17["mf__16 U32_maybeFalse"]
-	b24_9["cond__6 U32_equals"]
-	b24_18 --> b24_6
-	b24_3 --> b24_18
-	b24_16 --> b24_3
-	b24_17 --> b24_16
-	b24_9 --> b24_17
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched pop_u32 [cond]"] = ''
-window.traces["IF_ul"]["sched pop_u32 [cond]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-	b18_12["eff__7 doBranch"]
-	b18_10["eff__9 doFallthru"]
-	b18_12 --> b18_20
-	b18_10 --> b18_12
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-block_24 --> branch_16
-subgraph block_24["Block 24"]
-	direction TB
-	b24_6["label doIf"]
-	b24_18["mb__17 bool.&&"]
-	b24_3["bt imm_readBlockType"]
-	b24_16["mt__15 U32_maybeTrue"]
-	b24_17["mf__16 U32_maybeFalse"]
-	b24_9["cond__6 U32_equals"]
-	b24_4["cond pop_u32"]
-	b24_18 --> b24_6
-	b24_3 --> b24_18
-	b24_16 --> b24_3
-	b24_17 --> b24_16
-	b24_9 --> b24_17
-	b24_4 --> b24_9
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched lift_u32 [abs__14]"] = ''
-window.traces["IF_ul"]["sched lift_u32 [abs__14]"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-	b18_12["eff__7 doBranch"]
-	b18_10["eff__9 doFallthru"]
-	b18_12 --> b18_20
-	b18_10 --> b18_12
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-block_24 --> branch_16
-subgraph block_24["Block 24"]
-	direction TB
-	b24_6["label doIf"]
-	b24_18["mb__17 bool.&&"]
-	b24_3["bt imm_readBlockType"]
-	b24_16["mt__15 U32_maybeTrue"]
-	b24_17["mf__16 U32_maybeFalse"]
-	b24_9["cond__6 U32_equals"]
-	b24_4["cond pop_u32"]
-	b24_15["abs__14 lift_u32"]
-	b24_18 --> b24_6
-	b24_3 --> b24_18
-	b24_16 --> b24_3
-	b24_17 --> b24_16
-	b24_9 --> b24_17
-	b24_4 --> b24_9
-	b24_15 --> b24_4
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched 0"] = ''
-window.traces["IF_ul"]["sched 0"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-	b18_12["eff__7 doBranch"]
-	b18_10["eff__9 doFallthru"]
-	b18_12 --> b18_20
-	b18_10 --> b18_12
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-block_24 --> branch_16
-subgraph block_24["Block 24"]
-	direction TB
-	b24_6["label doIf"]
-	b24_18["mb__17 bool.&&"]
-	b24_3["bt imm_readBlockType"]
-	b24_16["mt__15 U32_maybeTrue"]
-	b24_17["mf__16 U32_maybeFalse"]
-	b24_9["cond__6 U32_equals"]
-	b24_4["cond pop_u32"]
-	b24_15["abs__14 lift_u32"]
-	b24_7["arg__11 0"]
-	b24_18 --> b24_6
-	b24_3 --> b24_18
-	b24_16 --> b24_3
-	b24_17 --> b24_16
-	b24_9 --> b24_17
-	b24_4 --> b24_9
-	b24_15 --> b24_4
-	b24_7 --> b24_15
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
-window.traces["IF_ul"]["sched Start"] = ''
-window.traces["IF_ul"]["sched Start"] += `<pre class='graph'>graph TD
-subgraph block_15["Block 15"]
-	direction TB
-	b15_1[\\"Finish"/]
-	b15_14["eff_st_put__13 ctlxfer.put_IF"]
-	b15_14 --> b15_1
-end
-phi_17 --> block_15
-subgraph phi_17["Phi 17"]
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p17_13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_18 --> phi_17
-block_19 --> phi_17
-subgraph block_18["Block 18"]
-	direction TB
-	b18_20["eff_merge__18 merge"]
-	b18_12["eff__7 doBranch"]
-	b18_10["eff__9 doFallthru"]
-	b18_12 --> b18_20
-	b18_10 --> b18_12
-end
-branch_16 --> block_18
-subgraph branch_16["Branch 16"]
-	br16_18["mb__17 bool.&&"]
-
-end
-block_24 --> branch_16
-subgraph block_24["Block 24"]
-	direction TB
-	b24_6["label doIf"]
-	b24_18["mb__17 bool.&&"]
-	b24_3["bt imm_readBlockType"]
-	b24_16["mt__15 U32_maybeTrue"]
-	b24_17["mf__16 U32_maybeFalse"]
-	b24_9["cond__6 U32_equals"]
-	b24_4["cond pop_u32"]
-	b24_15["abs__14 lift_u32"]
-	b24_7["arg__11 0"]
-	b24_0[/"Start"\\]
-	b24_18 --> b24_6
-	b24_3 --> b24_18
-	b24_16 --> b24_3
-	b24_17 --> b24_16
-	b24_9 --> b24_17
-	b24_4 --> b24_9
-	b24_15 --> b24_4
-	b24_7 --> b24_15
-	b24_0 --> b24_7
-end
-subgraph block_19["Block 19"]
-	direction TB
-end
-phi_21 --> block_19
-subgraph phi_21["Phi 21"]
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_19{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_22 --> phi_21
-block_23 --> phi_21
-subgraph block_22["Block 22"]
-	direction TB
-	b22_12["eff__7 doBranch"]
-end
-branch_20 --> block_22
-subgraph branch_20["Branch 20"]
-	br20_16["mt__15 U32_maybeTrue"]
-
-end
-branch_16 --> branch_20
-subgraph block_23["Block 23"]
-	direction TB
-	b23_10["eff__9 doFallthru"]
-end
-branch_20 --> block_23
-
-</pre>`;
 window.traces["IF"]["unlem_scheduler"] = ''
 window.traces["IF"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_15["Block 15"]
 	direction TB
-	b15_1[\\"Finish"/]
 	b15_14["eff_st_put__13 ctlxfer.put_IF"]
+	b15_1[\\"Finish"/]
 	b15_14 --> b15_1
 end
 phi_17 --> block_15
@@ -2120,10 +1126,6 @@ block_19 --> phi_17
 subgraph block_18["Block 18"]
 	direction TB
 	b18_20["eff_merge__18 merge"]
-	b18_12["eff__7 doBranch"]
-	b18_10["eff__9 doFallthru"]
-	b18_12 --> b18_20
-	b18_10 --> b18_12
 end
 branch_16 --> block_18
 subgraph branch_16["Branch 16"]
@@ -2133,25 +1135,25 @@ end
 block_24 --> branch_16
 subgraph block_24["Block 24"]
 	direction TB
-	b24_6["label doIf"]
-	b24_18["mb__17 bool.&&"]
-	b24_3["bt imm_readBlockType"]
-	b24_16["mt__15 U32_maybeTrue"]
-	b24_17["mf__16 U32_maybeFalse"]
-	b24_9["cond__6 U32_equals"]
-	b24_4["cond pop_u32"]
-	b24_15["abs__14 lift_u32"]
-	b24_7["arg__11 0"]
 	b24_0[/"Start"\\]
-	b24_18 --> b24_6
-	b24_3 --> b24_18
-	b24_16 --> b24_3
-	b24_17 --> b24_16
-	b24_9 --> b24_17
-	b24_4 --> b24_9
-	b24_15 --> b24_4
-	b24_7 --> b24_15
+	b24_7["arg__11 0"]
+	b24_15["abs__14 lift_u32"]
+	b24_4["cond pop_u32"]
+	b24_3["bt imm_readBlockType"]
+	b24_9["cond__6 U32_equals"]
+	b24_6["label doIf"]
+	b24_17["mf__16 U32_maybeFalse"]
+	b24_16["mt__15 U32_maybeTrue"]
+	b24_18["mb__17 bool.&&"]
 	b24_0 --> b24_7
+	b24_7 --> b24_15
+	b24_15 --> b24_4
+	b24_4 --> b24_3
+	b24_3 --> b24_9
+	b24_9 --> b24_6
+	b24_6 --> b24_17
+	b24_17 --> b24_16
+	b24_16 --> b24_18
 end
 subgraph block_19["Block 19"]
 	direction TB
@@ -2342,15 +1344,15 @@ window.traces["ELSE"]["schedulerMermaid"] = ''
 window.traces["ELSE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_25["Block 25"]
 	direction TB
-	b25_1[\\"Finish"/]
-	b25_6["eff_st_put__21 ctlxfer.put_ELSE"]
-	b25_5["eff__19 doBranch"]
-	b25_3["label doElse"]
 	b25_0[/"Start"\\]
-	b25_6 --> b25_1
-	b25_5 --> b25_6
-	b25_3 --> b25_5
+	b25_3["label doElse"]
+	b25_5["eff__19 doBranch"]
+	b25_6["eff_st_put__21 ctlxfer.put_ELSE"]
+	b25_1[\\"Finish"/]
 	b25_0 --> b25_3
+	b25_3 --> b25_5
+	b25_5 --> b25_6
+	b25_6 --> b25_1
 end
 
 </pre>`;
@@ -2382,15 +1384,15 @@ window.traces["ELSE"]["unlem_scheduler"] = ''
 window.traces["ELSE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_26["Block 26"]
 	direction TB
-	b26_1[\\"Finish"/]
-	b26_6["eff_st_put__21 ctlxfer.put_ELSE"]
-	b26_5["eff__19 doBranch"]
-	b26_3["label doElse"]
 	b26_0[/"Start"\\]
-	b26_6 --> b26_1
-	b26_5 --> b26_6
-	b26_3 --> b26_5
+	b26_3["label doElse"]
+	b26_5["eff__19 doBranch"]
+	b26_6["eff_st_put__21 ctlxfer.put_ELSE"]
+	b26_1[\\"Finish"/]
 	b26_0 --> b26_3
+	b26_3 --> b26_5
+	b26_5 --> b26_6
+	b26_6 --> b26_1
 end
 
 </pre>`;
@@ -2505,13 +1507,13 @@ window.traces["TRY"]["schedulerMermaid"] = ''
 window.traces["TRY"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_27["Block 27"]
 	direction TB
-	b27_1[\\"Finish"/]
-	b27_5["eff__22 doTry"]
-	b27_3["bt imm_readBlockType"]
 	b27_0[/"Start"\\]
-	b27_5 --> b27_1
-	b27_3 --> b27_5
+	b27_3["bt imm_readBlockType"]
+	b27_5["eff__22 doTry"]
+	b27_1[\\"Finish"/]
 	b27_0 --> b27_3
+	b27_3 --> b27_5
+	b27_5 --> b27_1
 end
 
 </pre>`;
@@ -2539,13 +1541,13 @@ window.traces["TRY"]["unlem_scheduler"] = ''
 window.traces["TRY"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_28["Block 28"]
 	direction TB
-	b28_1[\\"Finish"/]
-	b28_5["eff__22 doTry"]
-	b28_3["bt imm_readBlockType"]
 	b28_0[/"Start"\\]
-	b28_5 --> b28_1
-	b28_3 --> b28_5
+	b28_3["bt imm_readBlockType"]
+	b28_5["eff__22 doTry"]
+	b28_1[\\"Finish"/]
 	b28_0 --> b28_3
+	b28_3 --> b28_5
+	b28_5 --> b28_1
 end
 
 </pre>`;
@@ -2683,8 +1685,8 @@ end
 block_34 --> branch_30
 subgraph block_34["Block 34"]
 	direction TB
-	b34_4["cond__24 f_isAtEnd"]
 	b34_0[/"Start"\\]
+	b34_4["cond__24 f_isAtEnd"]
 	b34_0 --> b34_4
 end
 subgraph block_33["Block 33"]
@@ -2747,8 +1749,8 @@ end
 block_40 --> branch_36
 subgraph block_40["Block 40"]
 	direction TB
-	b40_4["cond__24 f_isAtEnd"]
 	b40_0[/"Start"\\]
+	b40_4["cond__24 f_isAtEnd"]
 	b40_0 --> b40_4
 end
 subgraph block_39["Block 39"]
@@ -2896,17 +1898,17 @@ window.traces["BR"]["schedulerMermaid"] = ''
 window.traces["BR"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_41["Block 41"]
 	direction TB
-	b41_1[\\"Finish"/]
-	b41_8["eff_st_put__30 ctlxfer.put_BR"]
-	b41_7["eff__27 doBranch"]
-	b41_5["label f_getLabel"]
-	b41_3["depth imm_readULEB32"]
 	b41_0[/"Start"\\]
-	b41_8 --> b41_1
-	b41_7 --> b41_8
-	b41_5 --> b41_7
-	b41_3 --> b41_5
+	b41_3["depth imm_readULEB32"]
+	b41_5["label f_getLabel"]
+	b41_7["eff__27 doBranch"]
+	b41_8["eff_st_put__30 ctlxfer.put_BR"]
+	b41_1[\\"Finish"/]
 	b41_0 --> b41_3
+	b41_3 --> b41_5
+	b41_5 --> b41_7
+	b41_7 --> b41_8
+	b41_8 --> b41_1
 end
 
 </pre>`;
@@ -2942,17 +1944,17 @@ window.traces["BR"]["unlem_scheduler"] = ''
 window.traces["BR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_42["Block 42"]
 	direction TB
-	b42_1[\\"Finish"/]
-	b42_8["eff_st_put__30 ctlxfer.put_BR"]
-	b42_7["eff__27 doBranch"]
-	b42_5["label f_getLabel"]
-	b42_3["depth imm_readULEB32"]
 	b42_0[/"Start"\\]
-	b42_8 --> b42_1
-	b42_7 --> b42_8
-	b42_5 --> b42_7
-	b42_3 --> b42_5
+	b42_3["depth imm_readULEB32"]
+	b42_5["label f_getLabel"]
+	b42_7["eff__27 doBranch"]
+	b42_8["eff_st_put__30 ctlxfer.put_BR"]
+	b42_1[\\"Finish"/]
 	b42_0 --> b42_3
+	b42_3 --> b42_5
+	b42_5 --> b42_7
+	b42_7 --> b42_8
+	b42_8 --> b42_1
 end
 
 </pre>`;
@@ -3148,8 +2150,8 @@ window.traces["BR_IF"]["schedulerMermaid"] = ''
 window.traces["BR_IF"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_43["Block 43"]
 	direction TB
-	b43_1[\\"Finish"/]
 	b43_14["eff_st_put__38 ctlxfer.put_BR_IF"]
+	b43_1[\\"Finish"/]
 	b43_14 --> b43_1
 end
 phi_45 --> block_43
@@ -3162,8 +2164,6 @@ block_47 --> phi_45
 subgraph block_46["Block 46"]
 	direction TB
 	b46_12["eff__32 doBranch"]
-	b46_5["label f_getLabel"]
-	b46_5 --> b46_12
 end
 branch_44 --> block_46
 subgraph branch_44["Branch 44"]
@@ -3173,17 +2173,19 @@ end
 block_48 --> branch_44
 subgraph block_48["Block 48"]
 	direction TB
-	b48_9["cond__31 U32_not_equals"]
-	b48_3["depth imm_readULEB32"]
-	b48_6["cond pop_u32"]
-	b48_15["abs__39 lift_u32"]
-	b48_7["arg__36 0"]
 	b48_0[/"Start"\\]
-	b48_3 --> b48_9
-	b48_6 --> b48_3
-	b48_15 --> b48_6
-	b48_7 --> b48_15
+	b48_7["arg__36 0"]
+	b48_15["abs__39 lift_u32"]
+	b48_6["cond pop_u32"]
+	b48_3["depth imm_readULEB32"]
+	b48_5["label f_getLabel"]
+	b48_9["cond__31 U32_not_equals"]
 	b48_0 --> b48_7
+	b48_7 --> b48_15
+	b48_15 --> b48_6
+	b48_6 --> b48_3
+	b48_3 --> b48_5
+	b48_5 --> b48_9
 end
 subgraph block_47["Block 47"]
 	direction TB
@@ -3276,8 +2278,8 @@ window.traces["BR_IF"]["unlem_scheduler"] = ''
 window.traces["BR_IF"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_49["Block 49"]
 	direction TB
-	b49_1[\\"Finish"/]
 	b49_14["eff_st_put__38 ctlxfer.put_BR_IF"]
+	b49_1[\\"Finish"/]
 	b49_14 --> b49_1
 end
 phi_51 --> block_49
@@ -3290,14 +2292,6 @@ block_53 --> phi_51
 subgraph block_52["Block 52"]
 	direction TB
 	b52_20["eff_merge__43 merge"]
-	b52_12["eff__32 doBranch"]
-	b52_10["eff__34 doFallthru"]
-	b52_5["label f_getLabel"]
-	b52_3["depth imm_readULEB32"]
-	b52_12 --> b52_20
-	b52_10 --> b52_12
-	b52_5 --> b52_10
-	b52_3 --> b52_5
 end
 branch_50 --> block_52
 subgraph branch_50["Branch 50"]
@@ -3307,21 +2301,25 @@ end
 block_58 --> branch_50
 subgraph block_58["Block 58"]
 	direction TB
-	b58_18["mb__42 bool.&&"]
-	b58_16["mt__40 U32_maybeTrue"]
-	b58_17["mf__41 U32_maybeFalse"]
-	b58_9["cond__31 U32_not_equals"]
-	b58_6["cond pop_u32"]
-	b58_15["abs__39 lift_u32"]
-	b58_7["arg__36 0"]
 	b58_0[/"Start"\\]
-	b58_16 --> b58_18
-	b58_17 --> b58_16
-	b58_9 --> b58_17
-	b58_6 --> b58_9
-	b58_15 --> b58_6
-	b58_7 --> b58_15
+	b58_7["arg__36 0"]
+	b58_15["abs__39 lift_u32"]
+	b58_6["cond pop_u32"]
+	b58_9["cond__31 U32_not_equals"]
+	b58_3["depth imm_readULEB32"]
+	b58_5["label f_getLabel"]
+	b58_17["mf__41 U32_maybeFalse"]
+	b58_16["mt__40 U32_maybeTrue"]
+	b58_18["mb__42 bool.&&"]
 	b58_0 --> b58_7
+	b58_7 --> b58_15
+	b58_15 --> b58_6
+	b58_6 --> b58_9
+	b58_9 --> b58_3
+	b58_3 --> b58_5
+	b58_5 --> b58_17
+	b58_17 --> b58_16
+	b58_16 --> b58_18
 end
 subgraph block_53["Block 53"]
 	direction TB
@@ -3338,8 +2336,6 @@ block_57 --> phi_55
 subgraph block_56["Block 56"]
 	direction TB
 	b56_12["eff__32 doBranch"]
-	b56_5["label f_getLabel"]
-	b56_5 --> b56_12
 end
 branch_54 --> block_56
 subgraph branch_54["Branch 54"]
@@ -3536,17 +2532,17 @@ window.traces["BR_TABLE"]["schedulerMermaid"] = ''
 window.traces["BR_TABLE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_59["Block 59"]
 	direction TB
-	b59_1[\\"Finish"/]
-	b59_8["eff_st_put__47 ctlxfer.put_BR_TABLE"]
-	b59_7["eff__44 doSwitch"]
-	b59_3["labels imm_readLabels"]
-	b59_4["key pop_u32"]
 	b59_0[/"Start"\\]
-	b59_8 --> b59_1
-	b59_7 --> b59_8
-	b59_3 --> b59_7
-	b59_4 --> b59_3
+	b59_4["key pop_u32"]
+	b59_3["labels imm_readLabels"]
+	b59_7["eff__44 doSwitch"]
+	b59_8["eff_st_put__47 ctlxfer.put_BR_TABLE"]
+	b59_1[\\"Finish"/]
 	b59_0 --> b59_4
+	b59_4 --> b59_3
+	b59_3 --> b59_7
+	b59_7 --> b59_8
+	b59_8 --> b59_1
 end
 
 </pre>`;
@@ -3584,17 +2580,17 @@ window.traces["BR_TABLE"]["unlem_scheduler"] = ''
 window.traces["BR_TABLE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_60["Block 60"]
 	direction TB
-	b60_1[\\"Finish"/]
-	b60_8["eff_st_put__47 ctlxfer.put_BR_TABLE"]
-	b60_7["eff__44 doSwitch"]
-	b60_3["labels imm_readLabels"]
-	b60_4["key pop_u32"]
 	b60_0[/"Start"\\]
-	b60_8 --> b60_1
-	b60_7 --> b60_8
-	b60_3 --> b60_7
-	b60_4 --> b60_3
+	b60_4["key pop_u32"]
+	b60_3["labels imm_readLabels"]
+	b60_7["eff__44 doSwitch"]
+	b60_8["eff_st_put__47 ctlxfer.put_BR_TABLE"]
+	b60_1[\\"Finish"/]
 	b60_0 --> b60_4
+	b60_4 --> b60_3
+	b60_3 --> b60_7
+	b60_7 --> b60_8
+	b60_8 --> b60_1
 end
 
 </pre>`;
@@ -3708,11 +2704,11 @@ window.traces["RETURN"]["schedulerMermaid"] = ''
 window.traces["RETURN"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_61["Block 61"]
 	direction TB
-	b61_1[\\"Finish"/]
-	b61_3["eff__48 doReturn"]
 	b61_0[/"Start"\\]
-	b61_3 --> b61_1
+	b61_3["eff__48 doReturn"]
+	b61_1[\\"Finish"/]
 	b61_0 --> b61_3
+	b61_3 --> b61_1
 end
 
 </pre>`;
@@ -3735,11 +2731,11 @@ window.traces["RETURN"]["unlem_scheduler"] = ''
 window.traces["RETURN"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_62["Block 62"]
 	direction TB
-	b62_1[\\"Finish"/]
-	b62_3["eff__48 doReturn"]
 	b62_0[/"Start"\\]
-	b62_3 --> b62_1
+	b62_3["eff__48 doReturn"]
+	b62_1[\\"Finish"/]
 	b62_0 --> b62_3
+	b62_3 --> b62_1
 end
 
 </pre>`;
@@ -3854,17 +2850,17 @@ window.traces["CALL"]["schedulerMermaid"] = ''
 window.traces["CALL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_63["Block 63"]
 	direction TB
-	b63_1[\\"Finish"/]
-	b63_10["eff__49 doCall"]
-	b63_5["sig m_getFuncSignature"]
-	b63_7["target i_getFunction"]
-	b63_3["index imm_readULEB32"]
 	b63_0[/"Start"\\]
-	b63_10 --> b63_1
-	b63_5 --> b63_10
-	b63_7 --> b63_5
-	b63_3 --> b63_7
+	b63_3["index imm_readULEB32"]
+	b63_7["target i_getFunction"]
+	b63_5["sig m_getFuncSignature"]
+	b63_10["eff__49 doCall"]
+	b63_1[\\"Finish"/]
 	b63_0 --> b63_3
+	b63_3 --> b63_7
+	b63_7 --> b63_5
+	b63_5 --> b63_10
+	b63_10 --> b63_1
 end
 
 </pre>`;
@@ -3899,17 +2895,17 @@ window.traces["CALL"]["unlem_scheduler"] = ''
 window.traces["CALL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_64["Block 64"]
 	direction TB
-	b64_1[\\"Finish"/]
-	b64_10["eff__49 doCall"]
-	b64_5["sig m_getFuncSignature"]
-	b64_7["target i_getFunction"]
-	b64_3["index imm_readULEB32"]
 	b64_0[/"Start"\\]
-	b64_10 --> b64_1
-	b64_5 --> b64_10
-	b64_7 --> b64_5
-	b64_3 --> b64_7
+	b64_3["index imm_readULEB32"]
+	b64_7["target i_getFunction"]
+	b64_5["sig m_getFuncSignature"]
+	b64_10["eff__49 doCall"]
+	b64_1[\\"Finish"/]
 	b64_0 --> b64_3
+	b64_3 --> b64_7
+	b64_7 --> b64_5
+	b64_5 --> b64_10
+	b64_10 --> b64_1
 end
 
 </pre>`;
@@ -4153,8 +3149,8 @@ window.traces["CALL_INDIRECT"]["schedulerMermaid"] = ''
 window.traces["CALL_INDIRECT"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_65["Block 65"]
 	direction TB
-	b65_1[\\"Finish"/]
 	b65_27["eff_st_put__69 ctlxfer.put_CALL_INDIRECT"]
+	b65_1[\\"Finish"/]
 	b65_27 --> b65_1
 end
 phi_67 --> block_65
@@ -4166,11 +3162,11 @@ block_68 --> phi_67
 block_69 --> phi_67
 subgraph block_68["Block 68"]
 	direction TB
-	b68_25["eff__55 doCall"]
-	b68_22["target i_getTableFunction64"]
 	b68_18["func_index pop_u64"]
-	b68_22 --> b68_25
+	b68_22["target i_getTableFunction64"]
+	b68_25["eff__55 doCall"]
 	b68_18 --> b68_22
+	b68_22 --> b68_25
 end
 branch_66 --> block_68
 subgraph branch_66["Branch 66"]
@@ -4180,23 +3176,23 @@ end
 block_70 --> branch_66
 subgraph block_70["Block 70"]
 	direction TB
-	b70_8["is64 m_isTable64"]
-	b70_4["table_index imm_readULEB32"]
-	b70_6["sig m_getSignature"]
-	b70_3["sig_index imm_readULEB32"]
 	b70_0[/"Start"\\]
-	b70_4 --> b70_8
-	b70_6 --> b70_4
-	b70_3 --> b70_6
+	b70_3["sig_index imm_readULEB32"]
+	b70_6["sig m_getSignature"]
+	b70_4["table_index imm_readULEB32"]
+	b70_8["is64 m_isTable64"]
 	b70_0 --> b70_3
+	b70_3 --> b70_6
+	b70_6 --> b70_4
+	b70_4 --> b70_8
 end
 subgraph block_69["Block 69"]
 	direction TB
-	b69_17["eff__61 doCall"]
-	b69_14["target i_getTableFunction32"]
 	b69_10["func_index pop_u32"]
-	b69_14 --> b69_17
+	b69_14["target i_getTableFunction32"]
+	b69_17["eff__61 doCall"]
 	b69_10 --> b69_14
+	b69_14 --> b69_17
 end
 branch_66 --> block_69
 
@@ -4272,8 +3268,8 @@ window.traces["CALL_INDIRECT"]["unlem_scheduler"] = ''
 window.traces["CALL_INDIRECT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_71["Block 71"]
 	direction TB
-	b71_1[\\"Finish"/]
 	b71_27["eff_st_put__69 ctlxfer.put_CALL_INDIRECT"]
+	b71_1[\\"Finish"/]
 	b71_27 --> b71_1
 end
 phi_73 --> block_71
@@ -4285,11 +3281,11 @@ block_74 --> phi_73
 block_75 --> phi_73
 subgraph block_74["Block 74"]
 	direction TB
-	b74_25["eff__55 doCall"]
-	b74_22["target i_getTableFunction64"]
 	b74_18["func_index pop_u64"]
-	b74_22 --> b74_25
+	b74_22["target i_getTableFunction64"]
+	b74_25["eff__55 doCall"]
 	b74_18 --> b74_22
+	b74_22 --> b74_25
 end
 branch_72 --> block_74
 subgraph branch_72["Branch 72"]
@@ -4299,23 +3295,23 @@ end
 block_76 --> branch_72
 subgraph block_76["Block 76"]
 	direction TB
-	b76_8["is64 m_isTable64"]
-	b76_4["table_index imm_readULEB32"]
-	b76_6["sig m_getSignature"]
-	b76_3["sig_index imm_readULEB32"]
 	b76_0[/"Start"\\]
-	b76_4 --> b76_8
-	b76_6 --> b76_4
-	b76_3 --> b76_6
+	b76_3["sig_index imm_readULEB32"]
+	b76_6["sig m_getSignature"]
+	b76_4["table_index imm_readULEB32"]
+	b76_8["is64 m_isTable64"]
 	b76_0 --> b76_3
+	b76_3 --> b76_6
+	b76_6 --> b76_4
+	b76_4 --> b76_8
 end
 subgraph block_75["Block 75"]
 	direction TB
-	b75_17["eff__61 doCall"]
-	b75_14["target i_getTableFunction32"]
 	b75_10["func_index pop_u32"]
-	b75_14 --> b75_17
+	b75_14["target i_getTableFunction32"]
+	b75_17["eff__61 doCall"]
 	b75_10 --> b75_14
+	b75_14 --> b75_17
 end
 branch_72 --> block_75
 
@@ -4547,17 +3543,17 @@ window.traces["RETURN_CALL"]["schedulerMermaid"] = ''
 window.traces["RETURN_CALL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_77["Block 77"]
 	direction TB
-	b77_1[\\"Finish"/]
-	b77_10["eff__70 doReturnCall"]
-	b77_5["sig m_getFuncSignature"]
-	b77_7["target i_getFunction"]
-	b77_3["index imm_readULEB32"]
 	b77_0[/"Start"\\]
-	b77_10 --> b77_1
-	b77_5 --> b77_10
-	b77_7 --> b77_5
-	b77_3 --> b77_7
+	b77_3["index imm_readULEB32"]
+	b77_7["target i_getFunction"]
+	b77_5["sig m_getFuncSignature"]
+	b77_10["eff__70 doReturnCall"]
+	b77_1[\\"Finish"/]
 	b77_0 --> b77_3
+	b77_3 --> b77_7
+	b77_7 --> b77_5
+	b77_5 --> b77_10
+	b77_10 --> b77_1
 end
 
 </pre>`;
@@ -4592,17 +3588,17 @@ window.traces["RETURN_CALL"]["unlem_scheduler"] = ''
 window.traces["RETURN_CALL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_78["Block 78"]
 	direction TB
-	b78_1[\\"Finish"/]
-	b78_10["eff__70 doReturnCall"]
-	b78_5["sig m_getFuncSignature"]
-	b78_7["target i_getFunction"]
-	b78_3["index imm_readULEB32"]
 	b78_0[/"Start"\\]
-	b78_10 --> b78_1
-	b78_5 --> b78_10
-	b78_7 --> b78_5
-	b78_3 --> b78_7
+	b78_3["index imm_readULEB32"]
+	b78_7["target i_getFunction"]
+	b78_5["sig m_getFuncSignature"]
+	b78_10["eff__70 doReturnCall"]
+	b78_1[\\"Finish"/]
 	b78_0 --> b78_3
+	b78_3 --> b78_7
+	b78_7 --> b78_5
+	b78_5 --> b78_10
+	b78_10 --> b78_1
 end
 
 </pre>`;
@@ -4724,13 +3720,13 @@ window.traces["DROP"]["schedulerMermaid"] = ''
 window.traces["DROP"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_79["Block 79"]
 	direction TB
-	b79_1[\\"Finish"/]
-	b79_5["eff__75 pop_Value"]
-	b79_3["tv f_getTopOfStackType"]
 	b79_0[/"Start"\\]
-	b79_5 --> b79_1
-	b79_3 --> b79_5
+	b79_3["tv f_getTopOfStackType"]
+	b79_5["eff__75 pop_Value"]
+	b79_1[\\"Finish"/]
 	b79_0 --> b79_3
+	b79_3 --> b79_5
+	b79_5 --> b79_1
 end
 
 </pre>`;
@@ -4758,13 +3754,13 @@ window.traces["DROP"]["unlem_scheduler"] = ''
 window.traces["DROP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_80["Block 80"]
 	direction TB
-	b80_1[\\"Finish"/]
-	b80_5["eff__75 pop_Value"]
-	b80_3["tv f_getTopOfStackType"]
 	b80_0[/"Start"\\]
-	b80_5 --> b80_1
-	b80_3 --> b80_5
+	b80_3["tv f_getTopOfStackType"]
+	b80_5["eff__75 pop_Value"]
+	b80_1[\\"Finish"/]
 	b80_0 --> b80_3
+	b80_3 --> b80_5
+	b80_5 --> b80_1
 end
 
 </pre>`;
@@ -4962,8 +3958,6 @@ block_85 --> phi_83
 subgraph block_84["Block 84"]
 	direction TB
 	b84_17["eff__78 push_Value"]
-	b84_8["a pop_Value"]
-	b84_8 --> b84_17
 end
 branch_82 --> block_84
 subgraph branch_82["Branch 82"]
@@ -4973,25 +3967,25 @@ end
 block_86 --> branch_82
 subgraph block_86["Block 86"]
 	direction TB
-	b86_11["cond__77 U32_not_equals"]
-	b86_19["abs__88 lift_u32"]
-	b86_4["tv f_getTopOfStackType"]
-	b86_3["c pop_u32"]
-	b86_9["arg__85 0"]
 	b86_0[/"Start"\\]
-	b86_19 --> b86_11
-	b86_4 --> b86_19
-	b86_3 --> b86_4
-	b86_9 --> b86_3
+	b86_9["arg__85 0"]
+	b86_3["c pop_u32"]
+	b86_4["tv f_getTopOfStackType"]
+	b86_19["abs__88 lift_u32"]
+	b86_6["b pop_Value"]
+	b86_8["a pop_Value"]
+	b86_11["cond__77 U32_not_equals"]
 	b86_0 --> b86_9
+	b86_9 --> b86_3
+	b86_3 --> b86_4
+	b86_4 --> b86_19
+	b86_19 --> b86_6
+	b86_6 --> b86_8
+	b86_8 --> b86_11
 end
 subgraph block_85["Block 85"]
 	direction TB
 	b85_14["eff__81 push_Value"]
-	b85_8["a pop_Value"]
-	b85_6["b pop_Value"]
-	b85_8 --> b85_14
-	b85_6 --> b85_8
 end
 branch_82 --> block_85
 
@@ -5093,11 +4087,9 @@ block_90 --> phi_89
 block_91 --> phi_89
 subgraph block_90["Block 90"]
 	direction TB
-	b90_25["push__93 push_Value"]
 	b90_24["merge__92 merge_Val"]
-	b90_8["a pop_Value"]
+	b90_25["push__93 push_Value"]
 	b90_24 --> b90_25
-	b90_8 --> b90_24
 end
 branch_88 --> block_90
 subgraph branch_88["Branch 88"]
@@ -5107,23 +4099,27 @@ end
 block_96 --> branch_88
 subgraph block_96["Block 96"]
 	direction TB
-	b96_22["mb__91 bool.&&"]
-	b96_20["mt__89 U32_maybeTrue"]
-	b96_21["mf__90 U32_maybeFalse"]
-	b96_4["tv f_getTopOfStackType"]
-	b96_11["cond__77 U32_not_equals"]
-	b96_3["c pop_u32"]
-	b96_19["abs__88 lift_u32"]
-	b96_9["arg__85 0"]
 	b96_0[/"Start"\\]
-	b96_20 --> b96_22
-	b96_21 --> b96_20
-	b96_4 --> b96_21
-	b96_11 --> b96_4
-	b96_3 --> b96_11
-	b96_19 --> b96_3
-	b96_9 --> b96_19
+	b96_9["arg__85 0"]
+	b96_19["abs__88 lift_u32"]
+	b96_3["c pop_u32"]
+	b96_11["cond__77 U32_not_equals"]
+	b96_4["tv f_getTopOfStackType"]
+	b96_6["b pop_Value"]
+	b96_8["a pop_Value"]
+	b96_21["mf__90 U32_maybeFalse"]
+	b96_20["mt__89 U32_maybeTrue"]
+	b96_22["mb__91 bool.&&"]
 	b96_0 --> b96_9
+	b96_9 --> b96_19
+	b96_19 --> b96_3
+	b96_3 --> b96_11
+	b96_11 --> b96_4
+	b96_4 --> b96_6
+	b96_6 --> b96_8
+	b96_8 --> b96_21
+	b96_21 --> b96_20
+	b96_20 --> b96_22
 end
 subgraph block_91["Block 91"]
 	direction TB
@@ -5138,8 +4134,6 @@ block_95 --> phi_93
 subgraph block_94["Block 94"]
 	direction TB
 	b94_17["eff__78 push_Value"]
-	b94_8["a pop_Value"]
-	b94_8 --> b94_17
 end
 branch_92 --> block_94
 subgraph branch_92["Branch 92"]
@@ -5150,10 +4144,6 @@ branch_88 --> branch_92
 subgraph block_95["Block 95"]
 	direction TB
 	b95_14["eff__81 push_Value"]
-	b95_8["a pop_Value"]
-	b95_6["b pop_Value"]
-	b95_8 --> b95_14
-	b95_6 --> b95_8
 end
 branch_92 --> block_95
 
@@ -5333,17 +4323,17 @@ window.traces["LOCAL_GET"]["schedulerMermaid"] = ''
 window.traces["LOCAL_GET"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_97["Block 97"]
 	direction TB
-	b97_1[\\"Finish"/]
-	b97_11["eff__94 push_Value"]
-	b97_8["val getLocal"]
-	b97_5["tv f_getLocalType"]
-	b97_3["index imm_readULEB32"]
 	b97_0[/"Start"\\]
-	b97_11 --> b97_1
-	b97_8 --> b97_11
-	b97_5 --> b97_8
-	b97_3 --> b97_5
+	b97_3["index imm_readULEB32"]
+	b97_5["tv f_getLocalType"]
+	b97_8["val getLocal"]
+	b97_11["eff__94 push_Value"]
+	b97_1[\\"Finish"/]
 	b97_0 --> b97_3
+	b97_3 --> b97_5
+	b97_5 --> b97_8
+	b97_8 --> b97_11
+	b97_11 --> b97_1
 end
 
 </pre>`;
@@ -5381,17 +4371,17 @@ window.traces["LOCAL_GET"]["unlem_scheduler"] = ''
 window.traces["LOCAL_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_98["Block 98"]
 	direction TB
-	b98_1[\\"Finish"/]
-	b98_11["eff__94 push_Value"]
-	b98_8["val getLocal"]
-	b98_5["tv f_getLocalType"]
-	b98_3["index imm_readULEB32"]
 	b98_0[/"Start"\\]
-	b98_11 --> b98_1
-	b98_8 --> b98_11
-	b98_5 --> b98_8
-	b98_3 --> b98_5
+	b98_3["index imm_readULEB32"]
+	b98_5["tv f_getLocalType"]
+	b98_8["val getLocal"]
+	b98_11["eff__94 push_Value"]
+	b98_1[\\"Finish"/]
 	b98_0 --> b98_3
+	b98_3 --> b98_5
+	b98_5 --> b98_8
+	b98_8 --> b98_11
+	b98_11 --> b98_1
 end
 
 </pre>`;
@@ -5552,17 +4542,17 @@ window.traces["LOCAL_SET"]["schedulerMermaid"] = ''
 window.traces["LOCAL_SET"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_99["Block 99"]
 	direction TB
-	b99_1[\\"Finish"/]
-	b99_11["eff__100 setLocal"]
-	b99_7["val pop_Value"]
-	b99_5["tv f_getLocalType"]
-	b99_3["index imm_readULEB32"]
 	b99_0[/"Start"\\]
-	b99_11 --> b99_1
-	b99_7 --> b99_11
-	b99_5 --> b99_7
-	b99_3 --> b99_5
+	b99_3["index imm_readULEB32"]
+	b99_5["tv f_getLocalType"]
+	b99_7["val pop_Value"]
+	b99_11["eff__100 setLocal"]
+	b99_1[\\"Finish"/]
 	b99_0 --> b99_3
+	b99_3 --> b99_5
+	b99_5 --> b99_7
+	b99_7 --> b99_11
+	b99_11 --> b99_1
 end
 
 </pre>`;
@@ -5601,17 +4591,17 @@ window.traces["LOCAL_SET"]["unlem_scheduler"] = ''
 window.traces["LOCAL_SET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_100["Block 100"]
 	direction TB
-	b100_1[\\"Finish"/]
-	b100_11["eff__100 setLocal"]
-	b100_7["val pop_Value"]
-	b100_5["tv f_getLocalType"]
-	b100_3["index imm_readULEB32"]
 	b100_0[/"Start"\\]
-	b100_11 --> b100_1
-	b100_7 --> b100_11
-	b100_5 --> b100_7
-	b100_3 --> b100_5
+	b100_3["index imm_readULEB32"]
+	b100_5["tv f_getLocalType"]
+	b100_7["val pop_Value"]
+	b100_11["eff__100 setLocal"]
+	b100_1[\\"Finish"/]
 	b100_0 --> b100_3
+	b100_3 --> b100_5
+	b100_5 --> b100_7
+	b100_7 --> b100_11
+	b100_11 --> b100_1
 end
 
 </pre>`;
@@ -5789,19 +4779,19 @@ window.traces["LOCAL_TEE"]["schedulerMermaid"] = ''
 window.traces["LOCAL_TEE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_101["Block 101"]
 	direction TB
-	b101_1[\\"Finish"/]
-	b101_14["eff__106 push_Value"]
-	b101_11["eff__109 setLocal"]
-	b101_7["val pop_Value"]
-	b101_5["tv f_getLocalType"]
-	b101_3["index imm_readULEB32"]
 	b101_0[/"Start"\\]
-	b101_14 --> b101_1
-	b101_11 --> b101_14
-	b101_7 --> b101_11
-	b101_5 --> b101_7
-	b101_3 --> b101_5
+	b101_3["index imm_readULEB32"]
+	b101_5["tv f_getLocalType"]
+	b101_7["val pop_Value"]
+	b101_11["eff__109 setLocal"]
+	b101_14["eff__106 push_Value"]
+	b101_1[\\"Finish"/]
 	b101_0 --> b101_3
+	b101_3 --> b101_5
+	b101_5 --> b101_7
+	b101_7 --> b101_11
+	b101_11 --> b101_14
+	b101_14 --> b101_1
 end
 
 </pre>`;
@@ -5845,19 +4835,19 @@ window.traces["LOCAL_TEE"]["unlem_scheduler"] = ''
 window.traces["LOCAL_TEE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_102["Block 102"]
 	direction TB
-	b102_1[\\"Finish"/]
-	b102_14["eff__106 push_Value"]
-	b102_11["eff__109 setLocal"]
-	b102_7["val pop_Value"]
-	b102_5["tv f_getLocalType"]
-	b102_3["index imm_readULEB32"]
 	b102_0[/"Start"\\]
-	b102_14 --> b102_1
-	b102_11 --> b102_14
-	b102_7 --> b102_11
-	b102_5 --> b102_7
-	b102_3 --> b102_5
+	b102_3["index imm_readULEB32"]
+	b102_5["tv f_getLocalType"]
+	b102_7["val pop_Value"]
+	b102_11["eff__109 setLocal"]
+	b102_14["eff__106 push_Value"]
+	b102_1[\\"Finish"/]
 	b102_0 --> b102_3
+	b102_3 --> b102_5
+	b102_5 --> b102_7
+	b102_7 --> b102_11
+	b102_11 --> b102_14
+	b102_14 --> b102_1
 end
 
 </pre>`;
@@ -6028,17 +5018,17 @@ window.traces["GLOBAL_GET"]["schedulerMermaid"] = ''
 window.traces["GLOBAL_GET"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_103["Block 103"]
 	direction TB
-	b103_1[\\"Finish"/]
-	b103_11["eff__115 push_Value"]
-	b103_8["val getGlobal"]
-	b103_5["tv m_getGlobalType"]
-	b103_3["index imm_readULEB32"]
 	b103_0[/"Start"\\]
-	b103_11 --> b103_1
-	b103_8 --> b103_11
-	b103_5 --> b103_8
-	b103_3 --> b103_5
+	b103_3["index imm_readULEB32"]
+	b103_5["tv m_getGlobalType"]
+	b103_8["val getGlobal"]
+	b103_11["eff__115 push_Value"]
+	b103_1[\\"Finish"/]
 	b103_0 --> b103_3
+	b103_3 --> b103_5
+	b103_5 --> b103_8
+	b103_8 --> b103_11
+	b103_11 --> b103_1
 end
 
 </pre>`;
@@ -6076,17 +5066,17 @@ window.traces["GLOBAL_GET"]["unlem_scheduler"] = ''
 window.traces["GLOBAL_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_104["Block 104"]
 	direction TB
-	b104_1[\\"Finish"/]
-	b104_11["eff__115 push_Value"]
-	b104_8["val getGlobal"]
-	b104_5["tv m_getGlobalType"]
-	b104_3["index imm_readULEB32"]
 	b104_0[/"Start"\\]
-	b104_11 --> b104_1
-	b104_8 --> b104_11
-	b104_5 --> b104_8
-	b104_3 --> b104_5
+	b104_3["index imm_readULEB32"]
+	b104_5["tv m_getGlobalType"]
+	b104_8["val getGlobal"]
+	b104_11["eff__115 push_Value"]
+	b104_1[\\"Finish"/]
 	b104_0 --> b104_3
+	b104_3 --> b104_5
+	b104_5 --> b104_8
+	b104_8 --> b104_11
+	b104_11 --> b104_1
 end
 
 </pre>`;
@@ -6247,17 +5237,17 @@ window.traces["GLOBAL_SET"]["schedulerMermaid"] = ''
 window.traces["GLOBAL_SET"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_105["Block 105"]
 	direction TB
-	b105_1[\\"Finish"/]
-	b105_11["eff__121 setGlobal"]
-	b105_7["val pop_Value"]
-	b105_5["tv m_getGlobalType"]
-	b105_3["index imm_readULEB32"]
 	b105_0[/"Start"\\]
-	b105_11 --> b105_1
-	b105_7 --> b105_11
-	b105_5 --> b105_7
-	b105_3 --> b105_5
+	b105_3["index imm_readULEB32"]
+	b105_5["tv m_getGlobalType"]
+	b105_7["val pop_Value"]
+	b105_11["eff__121 setGlobal"]
+	b105_1[\\"Finish"/]
 	b105_0 --> b105_3
+	b105_3 --> b105_5
+	b105_5 --> b105_7
+	b105_7 --> b105_11
+	b105_11 --> b105_1
 end
 
 </pre>`;
@@ -6296,17 +5286,17 @@ window.traces["GLOBAL_SET"]["unlem_scheduler"] = ''
 window.traces["GLOBAL_SET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_106["Block 106"]
 	direction TB
-	b106_1[\\"Finish"/]
-	b106_11["eff__121 setGlobal"]
-	b106_7["val pop_Value"]
-	b106_5["tv m_getGlobalType"]
-	b106_3["index imm_readULEB32"]
 	b106_0[/"Start"\\]
-	b106_11 --> b106_1
-	b106_7 --> b106_11
-	b106_5 --> b106_7
-	b106_3 --> b106_5
+	b106_3["index imm_readULEB32"]
+	b106_5["tv m_getGlobalType"]
+	b106_7["val pop_Value"]
+	b106_11["eff__121 setGlobal"]
+	b106_1[\\"Finish"/]
 	b106_0 --> b106_3
+	b106_3 --> b106_5
+	b106_5 --> b106_7
+	b106_7 --> b106_11
+	b106_11 --> b106_1
 end
 
 </pre>`;
@@ -6522,11 +5512,11 @@ block_110 --> phi_109
 block_111 --> phi_109
 subgraph block_110["Block 110"]
 	direction TB
-	b110_17["eff__128 push_Object"]
-	b110_15["val mach_readTable64"]
 	b110_12["index pop_u64"]
-	b110_15 --> b110_17
+	b110_15["val mach_readTable64"]
+	b110_17["eff__128 push_Object"]
 	b110_12 --> b110_15
+	b110_15 --> b110_17
 end
 branch_108 --> block_110
 subgraph branch_108["Branch 108"]
@@ -6536,19 +5526,19 @@ end
 block_112 --> branch_108
 subgraph block_112["Block 112"]
 	direction TB
-	b112_5["cond__127 m_isTable64"]
-	b112_3["table_index imm_readULEB32"]
 	b112_0[/"Start"\\]
-	b112_3 --> b112_5
+	b112_3["table_index imm_readULEB32"]
+	b112_5["cond__127 m_isTable64"]
 	b112_0 --> b112_3
+	b112_3 --> b112_5
 end
 subgraph block_111["Block 111"]
 	direction TB
-	b111_11["eff__132 push_Object"]
-	b111_9["val mach_readTable32"]
 	b111_6["index pop_u32"]
-	b111_9 --> b111_11
+	b111_9["val mach_readTable32"]
+	b111_11["eff__132 push_Object"]
 	b111_6 --> b111_9
+	b111_9 --> b111_11
 end
 branch_108 --> block_111
 
@@ -6617,11 +5607,11 @@ block_116 --> phi_115
 block_117 --> phi_115
 subgraph block_116["Block 116"]
 	direction TB
-	b116_17["eff__128 push_Object"]
-	b116_15["val mach_readTable64"]
 	b116_12["index pop_u64"]
-	b116_15 --> b116_17
+	b116_15["val mach_readTable64"]
+	b116_17["eff__128 push_Object"]
 	b116_12 --> b116_15
+	b116_15 --> b116_17
 end
 branch_114 --> block_116
 subgraph branch_114["Branch 114"]
@@ -6631,19 +5621,19 @@ end
 block_118 --> branch_114
 subgraph block_118["Block 118"]
 	direction TB
-	b118_5["cond__127 m_isTable64"]
-	b118_3["table_index imm_readULEB32"]
 	b118_0[/"Start"\\]
-	b118_3 --> b118_5
+	b118_3["table_index imm_readULEB32"]
+	b118_5["cond__127 m_isTable64"]
 	b118_0 --> b118_3
+	b118_3 --> b118_5
 end
 subgraph block_117["Block 117"]
 	direction TB
-	b117_11["eff__132 push_Object"]
-	b117_9["val mach_readTable32"]
 	b117_6["index pop_u32"]
-	b117_9 --> b117_11
+	b117_9["val mach_readTable32"]
+	b117_11["eff__132 push_Object"]
 	b117_6 --> b117_9
+	b117_9 --> b117_11
 end
 branch_114 --> block_117
 
@@ -6880,8 +5870,8 @@ block_122 --> phi_121
 block_123 --> phi_121
 subgraph block_122["Block 122"]
 	direction TB
-	b122_13["index pop_u64"]
 	b122_12["val pop_Object"]
+	b122_13["index pop_u64"]
 	b122_12 --> b122_13
 end
 branch_120 --> block_122
@@ -6892,16 +5882,16 @@ end
 block_124 --> branch_120
 subgraph block_124["Block 124"]
 	direction TB
-	b124_5["cond__137 m_isTable64"]
-	b124_3["table_index imm_readULEB32"]
 	b124_0[/"Start"\\]
-	b124_3 --> b124_5
+	b124_3["table_index imm_readULEB32"]
+	b124_5["cond__137 m_isTable64"]
 	b124_0 --> b124_3
+	b124_3 --> b124_5
 end
 subgraph block_123["Block 123"]
 	direction TB
-	b123_7["index pop_u32"]
 	b123_6["val pop_Object"]
+	b123_7["index pop_u32"]
 	b123_6 --> b123_7
 end
 branch_120 --> block_123
@@ -6961,8 +5951,8 @@ block_128 --> phi_127
 block_129 --> phi_127
 subgraph block_128["Block 128"]
 	direction TB
-	b128_13["index pop_u64"]
 	b128_12["val pop_Object"]
+	b128_13["index pop_u64"]
 	b128_12 --> b128_13
 end
 branch_126 --> block_128
@@ -6973,16 +5963,16 @@ end
 block_130 --> branch_126
 subgraph block_130["Block 130"]
 	direction TB
-	b130_5["cond__137 m_isTable64"]
-	b130_3["table_index imm_readULEB32"]
 	b130_0[/"Start"\\]
-	b130_3 --> b130_5
+	b130_3["table_index imm_readULEB32"]
+	b130_5["cond__137 m_isTable64"]
 	b130_0 --> b130_3
+	b130_3 --> b130_5
 end
 subgraph block_129["Block 129"]
 	direction TB
-	b129_7["index pop_u32"]
 	b129_6["val pop_Object"]
+	b129_7["index pop_u32"]
 	b129_6 --> b129_7
 end
 branch_126 --> block_129
@@ -7324,13 +6314,13 @@ block_134 --> phi_133
 block_135 --> phi_133
 subgraph block_134["Block 134"]
 	direction TB
-	b134_23["offset imm_readULEB64"]
-	b134_30["eff__148 push_u32"]
-	b134_28["val mach_readMemory64_u32"]
 	b134_24["index pop_u64"]
-	b134_30 --> b134_23
-	b134_28 --> b134_30
+	b134_28["val mach_readMemory64_u32"]
+	b134_30["eff__148 push_u32"]
+	b134_23["offset imm_readULEB64"]
 	b134_24 --> b134_28
+	b134_28 --> b134_30
+	b134_30 --> b134_23
 end
 branch_132 --> block_134
 subgraph branch_132["Branch 132"]
@@ -7346,20 +6336,24 @@ phi_138 --> block_136
 subgraph phi_138["Phi 138"]
 	p138_12{{"Sϕ Codeptr "}}
 	p138_12{{"Sϕ Codeptr "}}
+	p138_12{{"Sϕ Codeptr "}}
+	p138_12{{"Sϕ Codeptr "}}
+	p138_11{"memindex ϕ"}
+	p138_11{"memindex ϕ"}
+	p138_11{"memindex ϕ"}
 	p138_11{"memindex ϕ"}
 	p138_11{"memindex ϕ"}
 	p138_11{"memindex ϕ"}
 	p138_12{{"Sϕ Codeptr "}}
 	p138_12{{"Sϕ Codeptr "}}
-	p138_11{"memindex ϕ"}
+	p138_12{{"Sϕ Codeptr "}}
+	p138_12{{"Sϕ Codeptr "}}
 end
 block_139 --> phi_138
 block_140 --> phi_138
 subgraph block_139["Block 139"]
 	direction TB
 	b139_10["memindex__160 imm_readULEB32"]
-	b139_3["flags imm_readU8"]
-	b139_3 --> b139_10
 end
 branch_137 --> block_139
 subgraph branch_137["Branch 137"]
@@ -7369,32 +6363,32 @@ end
 block_141 --> branch_137
 subgraph block_141["Block 141"]
 	direction TB
-	b141_9["cond__159 u8.!="]
-	b141_8["arg__161 u8.&"]
-	b141_5["arg__162 0"]
-	b141_6["arg__164 0x40u8"]
 	b141_0[/"Start"\\]
-	b141_8 --> b141_9
-	b141_5 --> b141_8
-	b141_6 --> b141_5
+	b141_6["arg__164 0x40u8"]
+	b141_5["arg__162 0"]
+	b141_8["arg__161 u8.&"]
+	b141_9["cond__159 u8.!="]
 	b141_0 --> b141_6
+	b141_6 --> b141_5
+	b141_5 --> b141_8
+	b141_8 --> b141_9
 end
 subgraph block_140["Block 140"]
 	direction TB
 	b140_4["memindex__166 0u"]
 	b140_3["flags imm_readU8"]
-	b140_3 --> b140_4
+	b140_4 --> b140_3
 end
 branch_137 --> block_140
 subgraph block_135["Block 135"]
 	direction TB
-	b135_15["offset imm_readULEB32"]
-	b135_22["eff__153 push_u32"]
-	b135_20["val mach_readMemory32_u32"]
 	b135_16["index pop_u32"]
-	b135_22 --> b135_15
-	b135_20 --> b135_22
+	b135_20["val mach_readMemory32_u32"]
+	b135_22["eff__153 push_u32"]
+	b135_15["offset imm_readULEB32"]
 	b135_16 --> b135_20
+	b135_20 --> b135_22
+	b135_22 --> b135_15
 end
 branch_132 --> block_135
 
@@ -7506,13 +6500,13 @@ block_145 --> phi_144
 block_146 --> phi_144
 subgraph block_145["Block 145"]
 	direction TB
-	b145_23["offset imm_readULEB64"]
-	b145_30["eff__148 push_u32"]
-	b145_28["val mach_readMemory64_u32"]
 	b145_24["index pop_u64"]
-	b145_30 --> b145_23
-	b145_28 --> b145_30
+	b145_28["val mach_readMemory64_u32"]
+	b145_30["eff__148 push_u32"]
+	b145_23["offset imm_readULEB64"]
 	b145_24 --> b145_28
+	b145_28 --> b145_30
+	b145_30 --> b145_23
 end
 branch_143 --> block_145
 subgraph branch_143["Branch 143"]
@@ -7528,20 +6522,24 @@ phi_149 --> block_147
 subgraph phi_149["Phi 149"]
 	p149_12{{"Sϕ Codeptr "}}
 	p149_12{{"Sϕ Codeptr "}}
+	p149_12{{"Sϕ Codeptr "}}
+	p149_12{{"Sϕ Codeptr "}}
+	p149_11{"memindex ϕ"}
+	p149_11{"memindex ϕ"}
+	p149_11{"memindex ϕ"}
 	p149_11{"memindex ϕ"}
 	p149_11{"memindex ϕ"}
 	p149_11{"memindex ϕ"}
 	p149_12{{"Sϕ Codeptr "}}
 	p149_12{{"Sϕ Codeptr "}}
-	p149_11{"memindex ϕ"}
+	p149_12{{"Sϕ Codeptr "}}
+	p149_12{{"Sϕ Codeptr "}}
 end
 block_150 --> phi_149
 block_151 --> phi_149
 subgraph block_150["Block 150"]
 	direction TB
 	b150_10["memindex__160 imm_readULEB32"]
-	b150_3["flags imm_readU8"]
-	b150_3 --> b150_10
 end
 branch_148 --> block_150
 subgraph branch_148["Branch 148"]
@@ -7551,32 +6549,32 @@ end
 block_152 --> branch_148
 subgraph block_152["Block 152"]
 	direction TB
-	b152_9["cond__159 u8.!="]
-	b152_8["arg__161 u8.&"]
-	b152_5["arg__162 0"]
-	b152_6["arg__164 0x40u8"]
 	b152_0[/"Start"\\]
-	b152_8 --> b152_9
-	b152_5 --> b152_8
-	b152_6 --> b152_5
+	b152_6["arg__164 0x40u8"]
+	b152_5["arg__162 0"]
+	b152_8["arg__161 u8.&"]
+	b152_9["cond__159 u8.!="]
 	b152_0 --> b152_6
+	b152_6 --> b152_5
+	b152_5 --> b152_8
+	b152_8 --> b152_9
 end
 subgraph block_151["Block 151"]
 	direction TB
 	b151_4["memindex__166 0u"]
 	b151_3["flags imm_readU8"]
-	b151_3 --> b151_4
+	b151_4 --> b151_3
 end
 branch_148 --> block_151
 subgraph block_146["Block 146"]
 	direction TB
-	b146_15["offset imm_readULEB32"]
-	b146_22["eff__153 push_u32"]
-	b146_20["val mach_readMemory32_u32"]
 	b146_16["index pop_u32"]
-	b146_22 --> b146_15
-	b146_20 --> b146_22
+	b146_20["val mach_readMemory32_u32"]
+	b146_22["eff__153 push_u32"]
+	b146_15["offset imm_readULEB32"]
 	b146_16 --> b146_20
+	b146_20 --> b146_22
+	b146_22 --> b146_15
 end
 branch_143 --> block_146
 
@@ -8026,13 +7024,13 @@ block_156 --> phi_155
 block_157 --> phi_155
 subgraph block_156["Block 156"]
 	direction TB
-	b156_23["offset imm_readULEB64"]
-	b156_30["eff__168 push_u64"]
-	b156_28["val mach_readMemory64_u64"]
 	b156_24["index pop_u64"]
-	b156_30 --> b156_23
-	b156_28 --> b156_30
+	b156_28["val mach_readMemory64_u64"]
+	b156_30["eff__168 push_u64"]
+	b156_23["offset imm_readULEB64"]
 	b156_24 --> b156_28
+	b156_28 --> b156_30
+	b156_30 --> b156_23
 end
 branch_154 --> block_156
 subgraph branch_154["Branch 154"]
@@ -8048,20 +7046,24 @@ phi_160 --> block_158
 subgraph phi_160["Phi 160"]
 	p160_12{{"Sϕ Codeptr "}}
 	p160_12{{"Sϕ Codeptr "}}
+	p160_12{{"Sϕ Codeptr "}}
+	p160_12{{"Sϕ Codeptr "}}
+	p160_11{"memindex ϕ"}
+	p160_11{"memindex ϕ"}
+	p160_11{"memindex ϕ"}
 	p160_11{"memindex ϕ"}
 	p160_11{"memindex ϕ"}
 	p160_11{"memindex ϕ"}
 	p160_12{{"Sϕ Codeptr "}}
 	p160_12{{"Sϕ Codeptr "}}
-	p160_11{"memindex ϕ"}
+	p160_12{{"Sϕ Codeptr "}}
+	p160_12{{"Sϕ Codeptr "}}
 end
 block_161 --> phi_160
 block_162 --> phi_160
 subgraph block_161["Block 161"]
 	direction TB
 	b161_10["memindex__180 imm_readULEB32"]
-	b161_3["flags imm_readU8"]
-	b161_3 --> b161_10
 end
 branch_159 --> block_161
 subgraph branch_159["Branch 159"]
@@ -8071,32 +7073,32 @@ end
 block_163 --> branch_159
 subgraph block_163["Block 163"]
 	direction TB
-	b163_9["cond__179 u8.!="]
-	b163_8["arg__181 u8.&"]
-	b163_5["arg__182 0"]
-	b163_6["arg__184 0x40u8"]
 	b163_0[/"Start"\\]
-	b163_8 --> b163_9
-	b163_5 --> b163_8
-	b163_6 --> b163_5
+	b163_6["arg__184 0x40u8"]
+	b163_5["arg__182 0"]
+	b163_8["arg__181 u8.&"]
+	b163_9["cond__179 u8.!="]
 	b163_0 --> b163_6
+	b163_6 --> b163_5
+	b163_5 --> b163_8
+	b163_8 --> b163_9
 end
 subgraph block_162["Block 162"]
 	direction TB
 	b162_4["memindex__186 0u"]
 	b162_3["flags imm_readU8"]
-	b162_3 --> b162_4
+	b162_4 --> b162_3
 end
 branch_159 --> block_162
 subgraph block_157["Block 157"]
 	direction TB
-	b157_15["offset imm_readULEB32"]
-	b157_22["eff__173 push_u64"]
-	b157_20["val mach_readMemory32_u64"]
 	b157_16["index pop_u32"]
-	b157_22 --> b157_15
-	b157_20 --> b157_22
+	b157_20["val mach_readMemory32_u64"]
+	b157_22["eff__173 push_u64"]
+	b157_15["offset imm_readULEB32"]
 	b157_16 --> b157_20
+	b157_20 --> b157_22
+	b157_22 --> b157_15
 end
 branch_154 --> block_157
 
@@ -8208,13 +7210,13 @@ block_167 --> phi_166
 block_168 --> phi_166
 subgraph block_167["Block 167"]
 	direction TB
-	b167_23["offset imm_readULEB64"]
-	b167_30["eff__168 push_u64"]
-	b167_28["val mach_readMemory64_u64"]
 	b167_24["index pop_u64"]
-	b167_30 --> b167_23
-	b167_28 --> b167_30
+	b167_28["val mach_readMemory64_u64"]
+	b167_30["eff__168 push_u64"]
+	b167_23["offset imm_readULEB64"]
 	b167_24 --> b167_28
+	b167_28 --> b167_30
+	b167_30 --> b167_23
 end
 branch_165 --> block_167
 subgraph branch_165["Branch 165"]
@@ -8230,20 +7232,24 @@ phi_171 --> block_169
 subgraph phi_171["Phi 171"]
 	p171_12{{"Sϕ Codeptr "}}
 	p171_12{{"Sϕ Codeptr "}}
+	p171_12{{"Sϕ Codeptr "}}
+	p171_12{{"Sϕ Codeptr "}}
+	p171_11{"memindex ϕ"}
+	p171_11{"memindex ϕ"}
+	p171_11{"memindex ϕ"}
 	p171_11{"memindex ϕ"}
 	p171_11{"memindex ϕ"}
 	p171_11{"memindex ϕ"}
 	p171_12{{"Sϕ Codeptr "}}
 	p171_12{{"Sϕ Codeptr "}}
-	p171_11{"memindex ϕ"}
+	p171_12{{"Sϕ Codeptr "}}
+	p171_12{{"Sϕ Codeptr "}}
 end
 block_172 --> phi_171
 block_173 --> phi_171
 subgraph block_172["Block 172"]
 	direction TB
 	b172_10["memindex__180 imm_readULEB32"]
-	b172_3["flags imm_readU8"]
-	b172_3 --> b172_10
 end
 branch_170 --> block_172
 subgraph branch_170["Branch 170"]
@@ -8253,32 +7259,32 @@ end
 block_174 --> branch_170
 subgraph block_174["Block 174"]
 	direction TB
-	b174_9["cond__179 u8.!="]
-	b174_8["arg__181 u8.&"]
-	b174_5["arg__182 0"]
-	b174_6["arg__184 0x40u8"]
 	b174_0[/"Start"\\]
-	b174_8 --> b174_9
-	b174_5 --> b174_8
-	b174_6 --> b174_5
+	b174_6["arg__184 0x40u8"]
+	b174_5["arg__182 0"]
+	b174_8["arg__181 u8.&"]
+	b174_9["cond__179 u8.!="]
 	b174_0 --> b174_6
+	b174_6 --> b174_5
+	b174_5 --> b174_8
+	b174_8 --> b174_9
 end
 subgraph block_173["Block 173"]
 	direction TB
 	b173_4["memindex__186 0u"]
 	b173_3["flags imm_readU8"]
-	b173_3 --> b173_4
+	b173_4 --> b173_3
 end
 branch_170 --> block_173
 subgraph block_168["Block 168"]
 	direction TB
-	b168_15["offset imm_readULEB32"]
-	b168_22["eff__173 push_u64"]
-	b168_20["val mach_readMemory32_u64"]
 	b168_16["index pop_u32"]
-	b168_22 --> b168_15
-	b168_20 --> b168_22
+	b168_20["val mach_readMemory32_u64"]
+	b168_22["eff__173 push_u64"]
+	b168_15["offset imm_readULEB32"]
 	b168_16 --> b168_20
+	b168_20 --> b168_22
+	b168_22 --> b168_15
 end
 branch_165 --> block_168
 
@@ -8728,13 +7734,13 @@ block_178 --> phi_177
 block_179 --> phi_177
 subgraph block_178["Block 178"]
 	direction TB
-	b178_23["offset imm_readULEB64"]
-	b178_30["eff__188 push_f32"]
-	b178_28["val mach_readMemory64_f32"]
 	b178_24["index pop_u64"]
-	b178_30 --> b178_23
-	b178_28 --> b178_30
+	b178_28["val mach_readMemory64_f32"]
+	b178_30["eff__188 push_f32"]
+	b178_23["offset imm_readULEB64"]
 	b178_24 --> b178_28
+	b178_28 --> b178_30
+	b178_30 --> b178_23
 end
 branch_176 --> block_178
 subgraph branch_176["Branch 176"]
@@ -8750,20 +7756,24 @@ phi_182 --> block_180
 subgraph phi_182["Phi 182"]
 	p182_12{{"Sϕ Codeptr "}}
 	p182_12{{"Sϕ Codeptr "}}
+	p182_12{{"Sϕ Codeptr "}}
+	p182_12{{"Sϕ Codeptr "}}
+	p182_11{"memindex ϕ"}
+	p182_11{"memindex ϕ"}
+	p182_11{"memindex ϕ"}
 	p182_11{"memindex ϕ"}
 	p182_11{"memindex ϕ"}
 	p182_11{"memindex ϕ"}
 	p182_12{{"Sϕ Codeptr "}}
 	p182_12{{"Sϕ Codeptr "}}
-	p182_11{"memindex ϕ"}
+	p182_12{{"Sϕ Codeptr "}}
+	p182_12{{"Sϕ Codeptr "}}
 end
 block_183 --> phi_182
 block_184 --> phi_182
 subgraph block_183["Block 183"]
 	direction TB
 	b183_10["memindex__200 imm_readULEB32"]
-	b183_3["flags imm_readU8"]
-	b183_3 --> b183_10
 end
 branch_181 --> block_183
 subgraph branch_181["Branch 181"]
@@ -8773,32 +7783,32 @@ end
 block_185 --> branch_181
 subgraph block_185["Block 185"]
 	direction TB
-	b185_9["cond__199 u8.!="]
-	b185_8["arg__201 u8.&"]
-	b185_5["arg__202 0"]
-	b185_6["arg__204 0x40u8"]
 	b185_0[/"Start"\\]
-	b185_8 --> b185_9
-	b185_5 --> b185_8
-	b185_6 --> b185_5
+	b185_6["arg__204 0x40u8"]
+	b185_5["arg__202 0"]
+	b185_8["arg__201 u8.&"]
+	b185_9["cond__199 u8.!="]
 	b185_0 --> b185_6
+	b185_6 --> b185_5
+	b185_5 --> b185_8
+	b185_8 --> b185_9
 end
 subgraph block_184["Block 184"]
 	direction TB
 	b184_4["memindex__206 0u"]
 	b184_3["flags imm_readU8"]
-	b184_3 --> b184_4
+	b184_4 --> b184_3
 end
 branch_181 --> block_184
 subgraph block_179["Block 179"]
 	direction TB
-	b179_15["offset imm_readULEB32"]
-	b179_22["eff__193 push_f32"]
-	b179_20["val mach_readMemory32_f32"]
 	b179_16["index pop_u32"]
-	b179_22 --> b179_15
-	b179_20 --> b179_22
+	b179_20["val mach_readMemory32_f32"]
+	b179_22["eff__193 push_f32"]
+	b179_15["offset imm_readULEB32"]
 	b179_16 --> b179_20
+	b179_20 --> b179_22
+	b179_22 --> b179_15
 end
 branch_176 --> block_179
 
@@ -8910,13 +7920,13 @@ block_189 --> phi_188
 block_190 --> phi_188
 subgraph block_189["Block 189"]
 	direction TB
-	b189_23["offset imm_readULEB64"]
-	b189_30["eff__188 push_f32"]
-	b189_28["val mach_readMemory64_f32"]
 	b189_24["index pop_u64"]
-	b189_30 --> b189_23
-	b189_28 --> b189_30
+	b189_28["val mach_readMemory64_f32"]
+	b189_30["eff__188 push_f32"]
+	b189_23["offset imm_readULEB64"]
 	b189_24 --> b189_28
+	b189_28 --> b189_30
+	b189_30 --> b189_23
 end
 branch_187 --> block_189
 subgraph branch_187["Branch 187"]
@@ -8932,20 +7942,24 @@ phi_193 --> block_191
 subgraph phi_193["Phi 193"]
 	p193_12{{"Sϕ Codeptr "}}
 	p193_12{{"Sϕ Codeptr "}}
+	p193_12{{"Sϕ Codeptr "}}
+	p193_12{{"Sϕ Codeptr "}}
+	p193_11{"memindex ϕ"}
+	p193_11{"memindex ϕ"}
+	p193_11{"memindex ϕ"}
 	p193_11{"memindex ϕ"}
 	p193_11{"memindex ϕ"}
 	p193_11{"memindex ϕ"}
 	p193_12{{"Sϕ Codeptr "}}
 	p193_12{{"Sϕ Codeptr "}}
-	p193_11{"memindex ϕ"}
+	p193_12{{"Sϕ Codeptr "}}
+	p193_12{{"Sϕ Codeptr "}}
 end
 block_194 --> phi_193
 block_195 --> phi_193
 subgraph block_194["Block 194"]
 	direction TB
 	b194_10["memindex__200 imm_readULEB32"]
-	b194_3["flags imm_readU8"]
-	b194_3 --> b194_10
 end
 branch_192 --> block_194
 subgraph branch_192["Branch 192"]
@@ -8955,32 +7969,32 @@ end
 block_196 --> branch_192
 subgraph block_196["Block 196"]
 	direction TB
-	b196_9["cond__199 u8.!="]
-	b196_8["arg__201 u8.&"]
-	b196_5["arg__202 0"]
-	b196_6["arg__204 0x40u8"]
 	b196_0[/"Start"\\]
-	b196_8 --> b196_9
-	b196_5 --> b196_8
-	b196_6 --> b196_5
+	b196_6["arg__204 0x40u8"]
+	b196_5["arg__202 0"]
+	b196_8["arg__201 u8.&"]
+	b196_9["cond__199 u8.!="]
 	b196_0 --> b196_6
+	b196_6 --> b196_5
+	b196_5 --> b196_8
+	b196_8 --> b196_9
 end
 subgraph block_195["Block 195"]
 	direction TB
 	b195_4["memindex__206 0u"]
 	b195_3["flags imm_readU8"]
-	b195_3 --> b195_4
+	b195_4 --> b195_3
 end
 branch_192 --> block_195
 subgraph block_190["Block 190"]
 	direction TB
-	b190_15["offset imm_readULEB32"]
-	b190_22["eff__193 push_f32"]
-	b190_20["val mach_readMemory32_f32"]
 	b190_16["index pop_u32"]
-	b190_22 --> b190_15
-	b190_20 --> b190_22
+	b190_20["val mach_readMemory32_f32"]
+	b190_22["eff__193 push_f32"]
+	b190_15["offset imm_readULEB32"]
 	b190_16 --> b190_20
+	b190_20 --> b190_22
+	b190_22 --> b190_15
 end
 branch_187 --> block_190
 
@@ -9430,13 +8444,13 @@ block_200 --> phi_199
 block_201 --> phi_199
 subgraph block_200["Block 200"]
 	direction TB
-	b200_23["offset imm_readULEB64"]
-	b200_30["eff__208 push_f64"]
-	b200_28["val mach_readMemory64_f64"]
 	b200_24["index pop_u64"]
-	b200_30 --> b200_23
-	b200_28 --> b200_30
+	b200_28["val mach_readMemory64_f64"]
+	b200_30["eff__208 push_f64"]
+	b200_23["offset imm_readULEB64"]
 	b200_24 --> b200_28
+	b200_28 --> b200_30
+	b200_30 --> b200_23
 end
 branch_198 --> block_200
 subgraph branch_198["Branch 198"]
@@ -9452,20 +8466,24 @@ phi_204 --> block_202
 subgraph phi_204["Phi 204"]
 	p204_12{{"Sϕ Codeptr "}}
 	p204_12{{"Sϕ Codeptr "}}
+	p204_12{{"Sϕ Codeptr "}}
+	p204_12{{"Sϕ Codeptr "}}
+	p204_11{"memindex ϕ"}
+	p204_11{"memindex ϕ"}
+	p204_11{"memindex ϕ"}
 	p204_11{"memindex ϕ"}
 	p204_11{"memindex ϕ"}
 	p204_11{"memindex ϕ"}
 	p204_12{{"Sϕ Codeptr "}}
 	p204_12{{"Sϕ Codeptr "}}
-	p204_11{"memindex ϕ"}
+	p204_12{{"Sϕ Codeptr "}}
+	p204_12{{"Sϕ Codeptr "}}
 end
 block_205 --> phi_204
 block_206 --> phi_204
 subgraph block_205["Block 205"]
 	direction TB
 	b205_10["memindex__220 imm_readULEB32"]
-	b205_3["flags imm_readU8"]
-	b205_3 --> b205_10
 end
 branch_203 --> block_205
 subgraph branch_203["Branch 203"]
@@ -9475,32 +8493,32 @@ end
 block_207 --> branch_203
 subgraph block_207["Block 207"]
 	direction TB
-	b207_9["cond__219 u8.!="]
-	b207_8["arg__221 u8.&"]
-	b207_5["arg__222 0"]
-	b207_6["arg__224 0x40u8"]
 	b207_0[/"Start"\\]
-	b207_8 --> b207_9
-	b207_5 --> b207_8
-	b207_6 --> b207_5
+	b207_6["arg__224 0x40u8"]
+	b207_5["arg__222 0"]
+	b207_8["arg__221 u8.&"]
+	b207_9["cond__219 u8.!="]
 	b207_0 --> b207_6
+	b207_6 --> b207_5
+	b207_5 --> b207_8
+	b207_8 --> b207_9
 end
 subgraph block_206["Block 206"]
 	direction TB
 	b206_4["memindex__226 0u"]
 	b206_3["flags imm_readU8"]
-	b206_3 --> b206_4
+	b206_4 --> b206_3
 end
 branch_203 --> block_206
 subgraph block_201["Block 201"]
 	direction TB
-	b201_15["offset imm_readULEB32"]
-	b201_22["eff__213 push_f64"]
-	b201_20["val mach_readMemory32_f64"]
 	b201_16["index pop_u32"]
-	b201_22 --> b201_15
-	b201_20 --> b201_22
+	b201_20["val mach_readMemory32_f64"]
+	b201_22["eff__213 push_f64"]
+	b201_15["offset imm_readULEB32"]
 	b201_16 --> b201_20
+	b201_20 --> b201_22
+	b201_22 --> b201_15
 end
 branch_198 --> block_201
 
@@ -9612,13 +8630,13 @@ block_211 --> phi_210
 block_212 --> phi_210
 subgraph block_211["Block 211"]
 	direction TB
-	b211_23["offset imm_readULEB64"]
-	b211_30["eff__208 push_f64"]
-	b211_28["val mach_readMemory64_f64"]
 	b211_24["index pop_u64"]
-	b211_30 --> b211_23
-	b211_28 --> b211_30
+	b211_28["val mach_readMemory64_f64"]
+	b211_30["eff__208 push_f64"]
+	b211_23["offset imm_readULEB64"]
 	b211_24 --> b211_28
+	b211_28 --> b211_30
+	b211_30 --> b211_23
 end
 branch_209 --> block_211
 subgraph branch_209["Branch 209"]
@@ -9634,20 +8652,24 @@ phi_215 --> block_213
 subgraph phi_215["Phi 215"]
 	p215_12{{"Sϕ Codeptr "}}
 	p215_12{{"Sϕ Codeptr "}}
+	p215_12{{"Sϕ Codeptr "}}
+	p215_12{{"Sϕ Codeptr "}}
+	p215_11{"memindex ϕ"}
+	p215_11{"memindex ϕ"}
+	p215_11{"memindex ϕ"}
 	p215_11{"memindex ϕ"}
 	p215_11{"memindex ϕ"}
 	p215_11{"memindex ϕ"}
 	p215_12{{"Sϕ Codeptr "}}
 	p215_12{{"Sϕ Codeptr "}}
-	p215_11{"memindex ϕ"}
+	p215_12{{"Sϕ Codeptr "}}
+	p215_12{{"Sϕ Codeptr "}}
 end
 block_216 --> phi_215
 block_217 --> phi_215
 subgraph block_216["Block 216"]
 	direction TB
 	b216_10["memindex__220 imm_readULEB32"]
-	b216_3["flags imm_readU8"]
-	b216_3 --> b216_10
 end
 branch_214 --> block_216
 subgraph branch_214["Branch 214"]
@@ -9657,32 +8679,32 @@ end
 block_218 --> branch_214
 subgraph block_218["Block 218"]
 	direction TB
-	b218_9["cond__219 u8.!="]
-	b218_8["arg__221 u8.&"]
-	b218_5["arg__222 0"]
-	b218_6["arg__224 0x40u8"]
 	b218_0[/"Start"\\]
-	b218_8 --> b218_9
-	b218_5 --> b218_8
-	b218_6 --> b218_5
+	b218_6["arg__224 0x40u8"]
+	b218_5["arg__222 0"]
+	b218_8["arg__221 u8.&"]
+	b218_9["cond__219 u8.!="]
 	b218_0 --> b218_6
+	b218_6 --> b218_5
+	b218_5 --> b218_8
+	b218_8 --> b218_9
 end
 subgraph block_217["Block 217"]
 	direction TB
 	b217_4["memindex__226 0u"]
 	b217_3["flags imm_readU8"]
-	b217_3 --> b217_4
+	b217_4 --> b217_3
 end
 branch_214 --> block_217
 subgraph block_212["Block 212"]
 	direction TB
-	b212_15["offset imm_readULEB32"]
-	b212_22["eff__213 push_f64"]
-	b212_20["val mach_readMemory32_f64"]
 	b212_16["index pop_u32"]
-	b212_22 --> b212_15
-	b212_20 --> b212_22
+	b212_20["val mach_readMemory32_f64"]
+	b212_22["eff__213 push_f64"]
+	b212_15["offset imm_readULEB32"]
 	b212_16 --> b212_20
+	b212_20 --> b212_22
+	b212_22 --> b212_15
 end
 branch_209 --> block_212
 
@@ -10148,15 +9170,15 @@ block_222 --> phi_221
 block_223 --> phi_221
 subgraph block_222["Block 222"]
 	direction TB
-	b222_25["offset imm_readULEB64"]
-	b222_34["eff__228 push_u32"]
-	b222_32["extend U32_extend8_s"]
-	b222_30["val mach_readMemory64_u8"]
 	b222_26["index pop_u64"]
-	b222_34 --> b222_25
-	b222_32 --> b222_34
-	b222_30 --> b222_32
+	b222_30["val mach_readMemory64_u8"]
+	b222_32["extend U32_extend8_s"]
+	b222_34["eff__228 push_u32"]
+	b222_25["offset imm_readULEB64"]
 	b222_26 --> b222_30
+	b222_30 --> b222_32
+	b222_32 --> b222_34
+	b222_34 --> b222_25
 end
 branch_220 --> block_222
 subgraph branch_220["Branch 220"]
@@ -10170,20 +9192,26 @@ subgraph block_224["Block 224"]
 end
 phi_226 --> block_224
 subgraph phi_226["Phi 226"]
+	p226_12{{"Sϕ Codeptr "}}
+	p226_12{{"Sϕ Codeptr "}}
+	p226_12{{"Sϕ Codeptr "}}
+	p226_12{{"Sϕ Codeptr "}}
+	p226_11{"memindex ϕ"}
+	p226_11{"memindex ϕ"}
+	p226_11{"memindex ϕ"}
 	p226_11{"memindex ϕ"}
 	p226_11{"memindex ϕ"}
 	p226_11{"memindex ϕ"}
 	p226_12{{"Sϕ Codeptr "}}
 	p226_12{{"Sϕ Codeptr "}}
-	p226_11{"memindex ϕ"}
+	p226_12{{"Sϕ Codeptr "}}
+	p226_12{{"Sϕ Codeptr "}}
 end
 block_227 --> phi_226
 block_228 --> phi_226
 subgraph block_227["Block 227"]
 	direction TB
 	b227_10["memindex__242 imm_readULEB32"]
-	b227_3["flags imm_readU8"]
-	b227_3 --> b227_10
 end
 branch_225 --> block_227
 subgraph branch_225["Branch 225"]
@@ -10193,34 +9221,34 @@ end
 block_229 --> branch_225
 subgraph block_229["Block 229"]
 	direction TB
-	b229_9["cond__241 u8.!="]
-	b229_8["arg__243 u8.&"]
-	b229_5["arg__244 0"]
-	b229_6["arg__246 0x40u8"]
 	b229_0[/"Start"\\]
-	b229_8 --> b229_9
-	b229_5 --> b229_8
-	b229_6 --> b229_5
+	b229_6["arg__246 0x40u8"]
+	b229_5["arg__244 0"]
+	b229_8["arg__243 u8.&"]
+	b229_9["cond__241 u8.!="]
 	b229_0 --> b229_6
+	b229_6 --> b229_5
+	b229_5 --> b229_8
+	b229_8 --> b229_9
 end
 subgraph block_228["Block 228"]
 	direction TB
 	b228_4["memindex__248 0u"]
 	b228_3["flags imm_readU8"]
-	b228_3 --> b228_4
+	b228_4 --> b228_3
 end
 branch_225 --> block_228
 subgraph block_223["Block 223"]
 	direction TB
-	b223_15["offset imm_readULEB32"]
-	b223_24["eff__234 push_u32"]
-	b223_22["extend U32_extend8_s"]
-	b223_20["val mach_readMemory32_u8"]
 	b223_16["index pop_u32"]
-	b223_24 --> b223_15
-	b223_22 --> b223_24
-	b223_20 --> b223_22
+	b223_20["val mach_readMemory32_u8"]
+	b223_22["extend U32_extend8_s"]
+	b223_24["eff__234 push_u32"]
+	b223_15["offset imm_readULEB32"]
 	b223_16 --> b223_20
+	b223_20 --> b223_22
+	b223_22 --> b223_24
+	b223_24 --> b223_15
 end
 branch_220 --> block_223
 
@@ -10338,15 +9366,15 @@ block_233 --> phi_232
 block_234 --> phi_232
 subgraph block_233["Block 233"]
 	direction TB
-	b233_25["offset imm_readULEB64"]
-	b233_34["eff__228 push_u32"]
-	b233_32["extend U32_extend8_s"]
-	b233_30["val mach_readMemory64_u8"]
 	b233_26["index pop_u64"]
-	b233_34 --> b233_25
-	b233_32 --> b233_34
-	b233_30 --> b233_32
+	b233_30["val mach_readMemory64_u8"]
+	b233_32["extend U32_extend8_s"]
+	b233_34["eff__228 push_u32"]
+	b233_25["offset imm_readULEB64"]
 	b233_26 --> b233_30
+	b233_30 --> b233_32
+	b233_32 --> b233_34
+	b233_34 --> b233_25
 end
 branch_231 --> block_233
 subgraph branch_231["Branch 231"]
@@ -10360,20 +9388,26 @@ subgraph block_235["Block 235"]
 end
 phi_237 --> block_235
 subgraph phi_237["Phi 237"]
+	p237_12{{"Sϕ Codeptr "}}
+	p237_12{{"Sϕ Codeptr "}}
+	p237_12{{"Sϕ Codeptr "}}
+	p237_12{{"Sϕ Codeptr "}}
+	p237_11{"memindex ϕ"}
+	p237_11{"memindex ϕ"}
+	p237_11{"memindex ϕ"}
 	p237_11{"memindex ϕ"}
 	p237_11{"memindex ϕ"}
 	p237_11{"memindex ϕ"}
 	p237_12{{"Sϕ Codeptr "}}
 	p237_12{{"Sϕ Codeptr "}}
-	p237_11{"memindex ϕ"}
+	p237_12{{"Sϕ Codeptr "}}
+	p237_12{{"Sϕ Codeptr "}}
 end
 block_238 --> phi_237
 block_239 --> phi_237
 subgraph block_238["Block 238"]
 	direction TB
 	b238_10["memindex__242 imm_readULEB32"]
-	b238_3["flags imm_readU8"]
-	b238_3 --> b238_10
 end
 branch_236 --> block_238
 subgraph branch_236["Branch 236"]
@@ -10383,34 +9417,34 @@ end
 block_240 --> branch_236
 subgraph block_240["Block 240"]
 	direction TB
-	b240_9["cond__241 u8.!="]
-	b240_8["arg__243 u8.&"]
-	b240_5["arg__244 0"]
-	b240_6["arg__246 0x40u8"]
 	b240_0[/"Start"\\]
-	b240_8 --> b240_9
-	b240_5 --> b240_8
-	b240_6 --> b240_5
+	b240_6["arg__246 0x40u8"]
+	b240_5["arg__244 0"]
+	b240_8["arg__243 u8.&"]
+	b240_9["cond__241 u8.!="]
 	b240_0 --> b240_6
+	b240_6 --> b240_5
+	b240_5 --> b240_8
+	b240_8 --> b240_9
 end
 subgraph block_239["Block 239"]
 	direction TB
 	b239_4["memindex__248 0u"]
 	b239_3["flags imm_readU8"]
-	b239_3 --> b239_4
+	b239_4 --> b239_3
 end
 branch_236 --> block_239
 subgraph block_234["Block 234"]
 	direction TB
-	b234_15["offset imm_readULEB32"]
-	b234_24["eff__234 push_u32"]
-	b234_22["extend U32_extend8_s"]
-	b234_20["val mach_readMemory32_u8"]
 	b234_16["index pop_u32"]
-	b234_24 --> b234_15
-	b234_22 --> b234_24
-	b234_20 --> b234_22
+	b234_20["val mach_readMemory32_u8"]
+	b234_22["extend U32_extend8_s"]
+	b234_24["eff__234 push_u32"]
+	b234_15["offset imm_readULEB32"]
 	b234_16 --> b234_20
+	b234_20 --> b234_22
+	b234_22 --> b234_24
+	b234_24 --> b234_15
 end
 branch_231 --> block_234
 
@@ -10874,13 +9908,13 @@ block_244 --> phi_243
 block_245 --> phi_243
 subgraph block_244["Block 244"]
 	direction TB
-	b244_23["offset imm_readULEB64"]
-	b244_30["eff__250 push_u32"]
-	b244_28["val mach_readMemory64_u8"]
 	b244_24["index pop_u64"]
-	b244_30 --> b244_23
-	b244_28 --> b244_30
+	b244_28["val mach_readMemory64_u8"]
+	b244_30["eff__250 push_u32"]
+	b244_23["offset imm_readULEB64"]
 	b244_24 --> b244_28
+	b244_28 --> b244_30
+	b244_30 --> b244_23
 end
 branch_242 --> block_244
 subgraph branch_242["Branch 242"]
@@ -10896,20 +9930,24 @@ phi_248 --> block_246
 subgraph phi_248["Phi 248"]
 	p248_12{{"Sϕ Codeptr "}}
 	p248_12{{"Sϕ Codeptr "}}
+	p248_12{{"Sϕ Codeptr "}}
+	p248_12{{"Sϕ Codeptr "}}
+	p248_11{"memindex ϕ"}
+	p248_11{"memindex ϕ"}
+	p248_11{"memindex ϕ"}
 	p248_11{"memindex ϕ"}
 	p248_11{"memindex ϕ"}
 	p248_11{"memindex ϕ"}
 	p248_12{{"Sϕ Codeptr "}}
 	p248_12{{"Sϕ Codeptr "}}
-	p248_11{"memindex ϕ"}
+	p248_12{{"Sϕ Codeptr "}}
+	p248_12{{"Sϕ Codeptr "}}
 end
 block_249 --> phi_248
 block_250 --> phi_248
 subgraph block_249["Block 249"]
 	direction TB
 	b249_10["memindex__262 imm_readULEB32"]
-	b249_3["flags imm_readU8"]
-	b249_3 --> b249_10
 end
 branch_247 --> block_249
 subgraph branch_247["Branch 247"]
@@ -10919,32 +9957,32 @@ end
 block_251 --> branch_247
 subgraph block_251["Block 251"]
 	direction TB
-	b251_9["cond__261 u8.!="]
-	b251_8["arg__263 u8.&"]
-	b251_5["arg__264 0"]
-	b251_6["arg__266 0x40u8"]
 	b251_0[/"Start"\\]
-	b251_8 --> b251_9
-	b251_5 --> b251_8
-	b251_6 --> b251_5
+	b251_6["arg__266 0x40u8"]
+	b251_5["arg__264 0"]
+	b251_8["arg__263 u8.&"]
+	b251_9["cond__261 u8.!="]
 	b251_0 --> b251_6
+	b251_6 --> b251_5
+	b251_5 --> b251_8
+	b251_8 --> b251_9
 end
 subgraph block_250["Block 250"]
 	direction TB
 	b250_4["memindex__268 0u"]
 	b250_3["flags imm_readU8"]
-	b250_3 --> b250_4
+	b250_4 --> b250_3
 end
 branch_247 --> block_250
 subgraph block_245["Block 245"]
 	direction TB
-	b245_15["offset imm_readULEB32"]
-	b245_22["eff__255 push_u32"]
-	b245_20["val mach_readMemory32_u8"]
 	b245_16["index pop_u32"]
-	b245_22 --> b245_15
-	b245_20 --> b245_22
+	b245_20["val mach_readMemory32_u8"]
+	b245_22["eff__255 push_u32"]
+	b245_15["offset imm_readULEB32"]
 	b245_16 --> b245_20
+	b245_20 --> b245_22
+	b245_22 --> b245_15
 end
 branch_242 --> block_245
 
@@ -11056,13 +10094,13 @@ block_255 --> phi_254
 block_256 --> phi_254
 subgraph block_255["Block 255"]
 	direction TB
-	b255_23["offset imm_readULEB64"]
-	b255_30["eff__250 push_u32"]
-	b255_28["val mach_readMemory64_u8"]
 	b255_24["index pop_u64"]
-	b255_30 --> b255_23
-	b255_28 --> b255_30
+	b255_28["val mach_readMemory64_u8"]
+	b255_30["eff__250 push_u32"]
+	b255_23["offset imm_readULEB64"]
 	b255_24 --> b255_28
+	b255_28 --> b255_30
+	b255_30 --> b255_23
 end
 branch_253 --> block_255
 subgraph branch_253["Branch 253"]
@@ -11078,20 +10116,24 @@ phi_259 --> block_257
 subgraph phi_259["Phi 259"]
 	p259_12{{"Sϕ Codeptr "}}
 	p259_12{{"Sϕ Codeptr "}}
+	p259_12{{"Sϕ Codeptr "}}
+	p259_12{{"Sϕ Codeptr "}}
+	p259_11{"memindex ϕ"}
+	p259_11{"memindex ϕ"}
+	p259_11{"memindex ϕ"}
 	p259_11{"memindex ϕ"}
 	p259_11{"memindex ϕ"}
 	p259_11{"memindex ϕ"}
 	p259_12{{"Sϕ Codeptr "}}
 	p259_12{{"Sϕ Codeptr "}}
-	p259_11{"memindex ϕ"}
+	p259_12{{"Sϕ Codeptr "}}
+	p259_12{{"Sϕ Codeptr "}}
 end
 block_260 --> phi_259
 block_261 --> phi_259
 subgraph block_260["Block 260"]
 	direction TB
 	b260_10["memindex__262 imm_readULEB32"]
-	b260_3["flags imm_readU8"]
-	b260_3 --> b260_10
 end
 branch_258 --> block_260
 subgraph branch_258["Branch 258"]
@@ -11101,32 +10143,32 @@ end
 block_262 --> branch_258
 subgraph block_262["Block 262"]
 	direction TB
-	b262_9["cond__261 u8.!="]
-	b262_8["arg__263 u8.&"]
-	b262_5["arg__264 0"]
-	b262_6["arg__266 0x40u8"]
 	b262_0[/"Start"\\]
-	b262_8 --> b262_9
-	b262_5 --> b262_8
-	b262_6 --> b262_5
+	b262_6["arg__266 0x40u8"]
+	b262_5["arg__264 0"]
+	b262_8["arg__263 u8.&"]
+	b262_9["cond__261 u8.!="]
 	b262_0 --> b262_6
+	b262_6 --> b262_5
+	b262_5 --> b262_8
+	b262_8 --> b262_9
 end
 subgraph block_261["Block 261"]
 	direction TB
 	b261_4["memindex__268 0u"]
 	b261_3["flags imm_readU8"]
-	b261_3 --> b261_4
+	b261_4 --> b261_3
 end
 branch_258 --> block_261
 subgraph block_256["Block 256"]
 	direction TB
-	b256_15["offset imm_readULEB32"]
-	b256_22["eff__255 push_u32"]
-	b256_20["val mach_readMemory32_u8"]
 	b256_16["index pop_u32"]
-	b256_22 --> b256_15
-	b256_20 --> b256_22
+	b256_20["val mach_readMemory32_u8"]
+	b256_22["eff__255 push_u32"]
+	b256_15["offset imm_readULEB32"]
 	b256_16 --> b256_20
+	b256_20 --> b256_22
+	b256_22 --> b256_15
 end
 branch_253 --> block_256
 
@@ -11592,15 +10634,15 @@ block_266 --> phi_265
 block_267 --> phi_265
 subgraph block_266["Block 266"]
 	direction TB
-	b266_25["offset imm_readULEB64"]
-	b266_34["eff__270 push_u32"]
-	b266_32["extend U32_extend16_s"]
-	b266_30["val mach_readMemory64_u16"]
 	b266_26["index pop_u64"]
-	b266_34 --> b266_25
-	b266_32 --> b266_34
-	b266_30 --> b266_32
+	b266_30["val mach_readMemory64_u16"]
+	b266_32["extend U32_extend16_s"]
+	b266_34["eff__270 push_u32"]
+	b266_25["offset imm_readULEB64"]
 	b266_26 --> b266_30
+	b266_30 --> b266_32
+	b266_32 --> b266_34
+	b266_34 --> b266_25
 end
 branch_264 --> block_266
 subgraph branch_264["Branch 264"]
@@ -11614,20 +10656,26 @@ subgraph block_268["Block 268"]
 end
 phi_270 --> block_268
 subgraph phi_270["Phi 270"]
+	p270_12{{"Sϕ Codeptr "}}
+	p270_12{{"Sϕ Codeptr "}}
+	p270_12{{"Sϕ Codeptr "}}
+	p270_12{{"Sϕ Codeptr "}}
+	p270_11{"memindex ϕ"}
+	p270_11{"memindex ϕ"}
+	p270_11{"memindex ϕ"}
 	p270_11{"memindex ϕ"}
 	p270_11{"memindex ϕ"}
 	p270_11{"memindex ϕ"}
 	p270_12{{"Sϕ Codeptr "}}
 	p270_12{{"Sϕ Codeptr "}}
-	p270_11{"memindex ϕ"}
+	p270_12{{"Sϕ Codeptr "}}
+	p270_12{{"Sϕ Codeptr "}}
 end
 block_271 --> phi_270
 block_272 --> phi_270
 subgraph block_271["Block 271"]
 	direction TB
 	b271_10["memindex__284 imm_readULEB32"]
-	b271_3["flags imm_readU8"]
-	b271_3 --> b271_10
 end
 branch_269 --> block_271
 subgraph branch_269["Branch 269"]
@@ -11637,34 +10685,34 @@ end
 block_273 --> branch_269
 subgraph block_273["Block 273"]
 	direction TB
-	b273_9["cond__283 u8.!="]
-	b273_8["arg__285 u8.&"]
-	b273_5["arg__286 0"]
-	b273_6["arg__288 0x40u8"]
 	b273_0[/"Start"\\]
-	b273_8 --> b273_9
-	b273_5 --> b273_8
-	b273_6 --> b273_5
+	b273_6["arg__288 0x40u8"]
+	b273_5["arg__286 0"]
+	b273_8["arg__285 u8.&"]
+	b273_9["cond__283 u8.!="]
 	b273_0 --> b273_6
+	b273_6 --> b273_5
+	b273_5 --> b273_8
+	b273_8 --> b273_9
 end
 subgraph block_272["Block 272"]
 	direction TB
 	b272_4["memindex__290 0u"]
 	b272_3["flags imm_readU8"]
-	b272_3 --> b272_4
+	b272_4 --> b272_3
 end
 branch_269 --> block_272
 subgraph block_267["Block 267"]
 	direction TB
-	b267_15["offset imm_readULEB32"]
-	b267_24["eff__276 push_u32"]
-	b267_22["extend U32_extend16_s"]
-	b267_20["val mach_readMemory32_u16"]
 	b267_16["index pop_u32"]
-	b267_24 --> b267_15
-	b267_22 --> b267_24
-	b267_20 --> b267_22
+	b267_20["val mach_readMemory32_u16"]
+	b267_22["extend U32_extend16_s"]
+	b267_24["eff__276 push_u32"]
+	b267_15["offset imm_readULEB32"]
 	b267_16 --> b267_20
+	b267_20 --> b267_22
+	b267_22 --> b267_24
+	b267_24 --> b267_15
 end
 branch_264 --> block_267
 
@@ -11782,15 +10830,15 @@ block_277 --> phi_276
 block_278 --> phi_276
 subgraph block_277["Block 277"]
 	direction TB
-	b277_25["offset imm_readULEB64"]
-	b277_34["eff__270 push_u32"]
-	b277_32["extend U32_extend16_s"]
-	b277_30["val mach_readMemory64_u16"]
 	b277_26["index pop_u64"]
-	b277_34 --> b277_25
-	b277_32 --> b277_34
-	b277_30 --> b277_32
+	b277_30["val mach_readMemory64_u16"]
+	b277_32["extend U32_extend16_s"]
+	b277_34["eff__270 push_u32"]
+	b277_25["offset imm_readULEB64"]
 	b277_26 --> b277_30
+	b277_30 --> b277_32
+	b277_32 --> b277_34
+	b277_34 --> b277_25
 end
 branch_275 --> block_277
 subgraph branch_275["Branch 275"]
@@ -11804,20 +10852,26 @@ subgraph block_279["Block 279"]
 end
 phi_281 --> block_279
 subgraph phi_281["Phi 281"]
+	p281_12{{"Sϕ Codeptr "}}
+	p281_12{{"Sϕ Codeptr "}}
+	p281_12{{"Sϕ Codeptr "}}
+	p281_12{{"Sϕ Codeptr "}}
+	p281_11{"memindex ϕ"}
+	p281_11{"memindex ϕ"}
+	p281_11{"memindex ϕ"}
 	p281_11{"memindex ϕ"}
 	p281_11{"memindex ϕ"}
 	p281_11{"memindex ϕ"}
 	p281_12{{"Sϕ Codeptr "}}
 	p281_12{{"Sϕ Codeptr "}}
-	p281_11{"memindex ϕ"}
+	p281_12{{"Sϕ Codeptr "}}
+	p281_12{{"Sϕ Codeptr "}}
 end
 block_282 --> phi_281
 block_283 --> phi_281
 subgraph block_282["Block 282"]
 	direction TB
 	b282_10["memindex__284 imm_readULEB32"]
-	b282_3["flags imm_readU8"]
-	b282_3 --> b282_10
 end
 branch_280 --> block_282
 subgraph branch_280["Branch 280"]
@@ -11827,34 +10881,34 @@ end
 block_284 --> branch_280
 subgraph block_284["Block 284"]
 	direction TB
-	b284_9["cond__283 u8.!="]
-	b284_8["arg__285 u8.&"]
-	b284_5["arg__286 0"]
-	b284_6["arg__288 0x40u8"]
 	b284_0[/"Start"\\]
-	b284_8 --> b284_9
-	b284_5 --> b284_8
-	b284_6 --> b284_5
+	b284_6["arg__288 0x40u8"]
+	b284_5["arg__286 0"]
+	b284_8["arg__285 u8.&"]
+	b284_9["cond__283 u8.!="]
 	b284_0 --> b284_6
+	b284_6 --> b284_5
+	b284_5 --> b284_8
+	b284_8 --> b284_9
 end
 subgraph block_283["Block 283"]
 	direction TB
 	b283_4["memindex__290 0u"]
 	b283_3["flags imm_readU8"]
-	b283_3 --> b283_4
+	b283_4 --> b283_3
 end
 branch_280 --> block_283
 subgraph block_278["Block 278"]
 	direction TB
-	b278_15["offset imm_readULEB32"]
-	b278_24["eff__276 push_u32"]
-	b278_22["extend U32_extend16_s"]
-	b278_20["val mach_readMemory32_u16"]
 	b278_16["index pop_u32"]
-	b278_24 --> b278_15
-	b278_22 --> b278_24
-	b278_20 --> b278_22
+	b278_20["val mach_readMemory32_u16"]
+	b278_22["extend U32_extend16_s"]
+	b278_24["eff__276 push_u32"]
+	b278_15["offset imm_readULEB32"]
 	b278_16 --> b278_20
+	b278_20 --> b278_22
+	b278_22 --> b278_24
+	b278_24 --> b278_15
 end
 branch_275 --> block_278
 
@@ -12318,13 +11372,13 @@ block_288 --> phi_287
 block_289 --> phi_287
 subgraph block_288["Block 288"]
 	direction TB
-	b288_23["offset imm_readULEB64"]
-	b288_30["eff__292 push_u32"]
-	b288_28["val mach_readMemory64_u16"]
 	b288_24["index pop_u64"]
-	b288_30 --> b288_23
-	b288_28 --> b288_30
+	b288_28["val mach_readMemory64_u16"]
+	b288_30["eff__292 push_u32"]
+	b288_23["offset imm_readULEB64"]
 	b288_24 --> b288_28
+	b288_28 --> b288_30
+	b288_30 --> b288_23
 end
 branch_286 --> block_288
 subgraph branch_286["Branch 286"]
@@ -12340,20 +11394,24 @@ phi_292 --> block_290
 subgraph phi_292["Phi 292"]
 	p292_12{{"Sϕ Codeptr "}}
 	p292_12{{"Sϕ Codeptr "}}
+	p292_12{{"Sϕ Codeptr "}}
+	p292_12{{"Sϕ Codeptr "}}
+	p292_11{"memindex ϕ"}
+	p292_11{"memindex ϕ"}
+	p292_11{"memindex ϕ"}
 	p292_11{"memindex ϕ"}
 	p292_11{"memindex ϕ"}
 	p292_11{"memindex ϕ"}
 	p292_12{{"Sϕ Codeptr "}}
 	p292_12{{"Sϕ Codeptr "}}
-	p292_11{"memindex ϕ"}
+	p292_12{{"Sϕ Codeptr "}}
+	p292_12{{"Sϕ Codeptr "}}
 end
 block_293 --> phi_292
 block_294 --> phi_292
 subgraph block_293["Block 293"]
 	direction TB
 	b293_10["memindex__304 imm_readULEB32"]
-	b293_3["flags imm_readU8"]
-	b293_3 --> b293_10
 end
 branch_291 --> block_293
 subgraph branch_291["Branch 291"]
@@ -12363,32 +11421,32 @@ end
 block_295 --> branch_291
 subgraph block_295["Block 295"]
 	direction TB
-	b295_9["cond__303 u8.!="]
-	b295_8["arg__305 u8.&"]
-	b295_5["arg__306 0"]
-	b295_6["arg__308 0x40u8"]
 	b295_0[/"Start"\\]
-	b295_8 --> b295_9
-	b295_5 --> b295_8
-	b295_6 --> b295_5
+	b295_6["arg__308 0x40u8"]
+	b295_5["arg__306 0"]
+	b295_8["arg__305 u8.&"]
+	b295_9["cond__303 u8.!="]
 	b295_0 --> b295_6
+	b295_6 --> b295_5
+	b295_5 --> b295_8
+	b295_8 --> b295_9
 end
 subgraph block_294["Block 294"]
 	direction TB
 	b294_4["memindex__310 0u"]
 	b294_3["flags imm_readU8"]
-	b294_3 --> b294_4
+	b294_4 --> b294_3
 end
 branch_291 --> block_294
 subgraph block_289["Block 289"]
 	direction TB
-	b289_15["offset imm_readULEB32"]
-	b289_22["eff__297 push_u32"]
-	b289_20["val mach_readMemory32_u16"]
 	b289_16["index pop_u32"]
-	b289_22 --> b289_15
-	b289_20 --> b289_22
+	b289_20["val mach_readMemory32_u16"]
+	b289_22["eff__297 push_u32"]
+	b289_15["offset imm_readULEB32"]
 	b289_16 --> b289_20
+	b289_20 --> b289_22
+	b289_22 --> b289_15
 end
 branch_286 --> block_289
 
@@ -12500,13 +11558,13 @@ block_299 --> phi_298
 block_300 --> phi_298
 subgraph block_299["Block 299"]
 	direction TB
-	b299_23["offset imm_readULEB64"]
-	b299_30["eff__292 push_u32"]
-	b299_28["val mach_readMemory64_u16"]
 	b299_24["index pop_u64"]
-	b299_30 --> b299_23
-	b299_28 --> b299_30
+	b299_28["val mach_readMemory64_u16"]
+	b299_30["eff__292 push_u32"]
+	b299_23["offset imm_readULEB64"]
 	b299_24 --> b299_28
+	b299_28 --> b299_30
+	b299_30 --> b299_23
 end
 branch_297 --> block_299
 subgraph branch_297["Branch 297"]
@@ -12522,20 +11580,24 @@ phi_303 --> block_301
 subgraph phi_303["Phi 303"]
 	p303_12{{"Sϕ Codeptr "}}
 	p303_12{{"Sϕ Codeptr "}}
+	p303_12{{"Sϕ Codeptr "}}
+	p303_12{{"Sϕ Codeptr "}}
+	p303_11{"memindex ϕ"}
+	p303_11{"memindex ϕ"}
+	p303_11{"memindex ϕ"}
 	p303_11{"memindex ϕ"}
 	p303_11{"memindex ϕ"}
 	p303_11{"memindex ϕ"}
 	p303_12{{"Sϕ Codeptr "}}
 	p303_12{{"Sϕ Codeptr "}}
-	p303_11{"memindex ϕ"}
+	p303_12{{"Sϕ Codeptr "}}
+	p303_12{{"Sϕ Codeptr "}}
 end
 block_304 --> phi_303
 block_305 --> phi_303
 subgraph block_304["Block 304"]
 	direction TB
 	b304_10["memindex__304 imm_readULEB32"]
-	b304_3["flags imm_readU8"]
-	b304_3 --> b304_10
 end
 branch_302 --> block_304
 subgraph branch_302["Branch 302"]
@@ -12545,32 +11607,32 @@ end
 block_306 --> branch_302
 subgraph block_306["Block 306"]
 	direction TB
-	b306_9["cond__303 u8.!="]
-	b306_8["arg__305 u8.&"]
-	b306_5["arg__306 0"]
-	b306_6["arg__308 0x40u8"]
 	b306_0[/"Start"\\]
-	b306_8 --> b306_9
-	b306_5 --> b306_8
-	b306_6 --> b306_5
+	b306_6["arg__308 0x40u8"]
+	b306_5["arg__306 0"]
+	b306_8["arg__305 u8.&"]
+	b306_9["cond__303 u8.!="]
 	b306_0 --> b306_6
+	b306_6 --> b306_5
+	b306_5 --> b306_8
+	b306_8 --> b306_9
 end
 subgraph block_305["Block 305"]
 	direction TB
 	b305_4["memindex__310 0u"]
 	b305_3["flags imm_readU8"]
-	b305_3 --> b305_4
+	b305_4 --> b305_3
 end
 branch_302 --> block_305
 subgraph block_300["Block 300"]
 	direction TB
-	b300_15["offset imm_readULEB32"]
-	b300_22["eff__297 push_u32"]
-	b300_20["val mach_readMemory32_u16"]
 	b300_16["index pop_u32"]
-	b300_22 --> b300_15
-	b300_20 --> b300_22
+	b300_20["val mach_readMemory32_u16"]
+	b300_22["eff__297 push_u32"]
+	b300_15["offset imm_readULEB32"]
 	b300_16 --> b300_20
+	b300_20 --> b300_22
+	b300_22 --> b300_15
 end
 branch_297 --> block_300
 
@@ -13036,15 +12098,15 @@ block_310 --> phi_309
 block_311 --> phi_309
 subgraph block_310["Block 310"]
 	direction TB
-	b310_25["offset imm_readULEB64"]
-	b310_34["eff__312 push_u64"]
-	b310_32["extend U64_extend8_s"]
-	b310_30["val mach_readMemory64_u8_64"]
 	b310_26["index pop_u64"]
-	b310_34 --> b310_25
-	b310_32 --> b310_34
-	b310_30 --> b310_32
+	b310_30["val mach_readMemory64_u8_64"]
+	b310_32["extend U64_extend8_s"]
+	b310_34["eff__312 push_u64"]
+	b310_25["offset imm_readULEB64"]
 	b310_26 --> b310_30
+	b310_30 --> b310_32
+	b310_32 --> b310_34
+	b310_34 --> b310_25
 end
 branch_308 --> block_310
 subgraph branch_308["Branch 308"]
@@ -13058,20 +12120,26 @@ subgraph block_312["Block 312"]
 end
 phi_314 --> block_312
 subgraph phi_314["Phi 314"]
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_11{"memindex ϕ"}
+	p314_11{"memindex ϕ"}
+	p314_11{"memindex ϕ"}
 	p314_11{"memindex ϕ"}
 	p314_11{"memindex ϕ"}
 	p314_11{"memindex ϕ"}
 	p314_12{{"Sϕ Codeptr "}}
 	p314_12{{"Sϕ Codeptr "}}
-	p314_11{"memindex ϕ"}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
 end
 block_315 --> phi_314
 block_316 --> phi_314
 subgraph block_315["Block 315"]
 	direction TB
 	b315_10["memindex__326 imm_readULEB32"]
-	b315_3["flags imm_readU8"]
-	b315_3 --> b315_10
 end
 branch_313 --> block_315
 subgraph branch_313["Branch 313"]
@@ -13081,34 +12149,34 @@ end
 block_317 --> branch_313
 subgraph block_317["Block 317"]
 	direction TB
-	b317_9["cond__325 u8.!="]
-	b317_8["arg__327 u8.&"]
-	b317_5["arg__328 0"]
-	b317_6["arg__330 0x40u8"]
 	b317_0[/"Start"\\]
-	b317_8 --> b317_9
-	b317_5 --> b317_8
-	b317_6 --> b317_5
+	b317_6["arg__330 0x40u8"]
+	b317_5["arg__328 0"]
+	b317_8["arg__327 u8.&"]
+	b317_9["cond__325 u8.!="]
 	b317_0 --> b317_6
+	b317_6 --> b317_5
+	b317_5 --> b317_8
+	b317_8 --> b317_9
 end
 subgraph block_316["Block 316"]
 	direction TB
 	b316_4["memindex__332 0u"]
 	b316_3["flags imm_readU8"]
-	b316_3 --> b316_4
+	b316_4 --> b316_3
 end
 branch_313 --> block_316
 subgraph block_311["Block 311"]
 	direction TB
-	b311_15["offset imm_readULEB32"]
-	b311_24["eff__318 push_u64"]
-	b311_22["extend U64_extend8_s"]
-	b311_20["val mach_readMemory32_u8_64"]
 	b311_16["index pop_u32"]
-	b311_24 --> b311_15
-	b311_22 --> b311_24
-	b311_20 --> b311_22
+	b311_20["val mach_readMemory32_u8_64"]
+	b311_22["extend U64_extend8_s"]
+	b311_24["eff__318 push_u64"]
+	b311_15["offset imm_readULEB32"]
 	b311_16 --> b311_20
+	b311_20 --> b311_22
+	b311_22 --> b311_24
+	b311_24 --> b311_15
 end
 branch_308 --> block_311
 
@@ -13226,15 +12294,15 @@ block_321 --> phi_320
 block_322 --> phi_320
 subgraph block_321["Block 321"]
 	direction TB
-	b321_25["offset imm_readULEB64"]
-	b321_34["eff__312 push_u64"]
-	b321_32["extend U64_extend8_s"]
-	b321_30["val mach_readMemory64_u8_64"]
 	b321_26["index pop_u64"]
-	b321_34 --> b321_25
-	b321_32 --> b321_34
-	b321_30 --> b321_32
+	b321_30["val mach_readMemory64_u8_64"]
+	b321_32["extend U64_extend8_s"]
+	b321_34["eff__312 push_u64"]
+	b321_25["offset imm_readULEB64"]
 	b321_26 --> b321_30
+	b321_30 --> b321_32
+	b321_32 --> b321_34
+	b321_34 --> b321_25
 end
 branch_319 --> block_321
 subgraph branch_319["Branch 319"]
@@ -13248,20 +12316,26 @@ subgraph block_323["Block 323"]
 end
 phi_325 --> block_323
 subgraph phi_325["Phi 325"]
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_11{"memindex ϕ"}
+	p325_11{"memindex ϕ"}
+	p325_11{"memindex ϕ"}
 	p325_11{"memindex ϕ"}
 	p325_11{"memindex ϕ"}
 	p325_11{"memindex ϕ"}
 	p325_12{{"Sϕ Codeptr "}}
 	p325_12{{"Sϕ Codeptr "}}
-	p325_11{"memindex ϕ"}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
 end
 block_326 --> phi_325
 block_327 --> phi_325
 subgraph block_326["Block 326"]
 	direction TB
 	b326_10["memindex__326 imm_readULEB32"]
-	b326_3["flags imm_readU8"]
-	b326_3 --> b326_10
 end
 branch_324 --> block_326
 subgraph branch_324["Branch 324"]
@@ -13271,34 +12345,34 @@ end
 block_328 --> branch_324
 subgraph block_328["Block 328"]
 	direction TB
-	b328_9["cond__325 u8.!="]
-	b328_8["arg__327 u8.&"]
-	b328_5["arg__328 0"]
-	b328_6["arg__330 0x40u8"]
 	b328_0[/"Start"\\]
-	b328_8 --> b328_9
-	b328_5 --> b328_8
-	b328_6 --> b328_5
+	b328_6["arg__330 0x40u8"]
+	b328_5["arg__328 0"]
+	b328_8["arg__327 u8.&"]
+	b328_9["cond__325 u8.!="]
 	b328_0 --> b328_6
+	b328_6 --> b328_5
+	b328_5 --> b328_8
+	b328_8 --> b328_9
 end
 subgraph block_327["Block 327"]
 	direction TB
 	b327_4["memindex__332 0u"]
 	b327_3["flags imm_readU8"]
-	b327_3 --> b327_4
+	b327_4 --> b327_3
 end
 branch_324 --> block_327
 subgraph block_322["Block 322"]
 	direction TB
-	b322_15["offset imm_readULEB32"]
-	b322_24["eff__318 push_u64"]
-	b322_22["extend U64_extend8_s"]
-	b322_20["val mach_readMemory32_u8_64"]
 	b322_16["index pop_u32"]
-	b322_24 --> b322_15
-	b322_22 --> b322_24
-	b322_20 --> b322_22
+	b322_20["val mach_readMemory32_u8_64"]
+	b322_22["extend U64_extend8_s"]
+	b322_24["eff__318 push_u64"]
+	b322_15["offset imm_readULEB32"]
 	b322_16 --> b322_20
+	b322_20 --> b322_22
+	b322_22 --> b322_24
+	b322_24 --> b322_15
 end
 branch_319 --> block_322
 
@@ -13762,13 +12836,13 @@ block_332 --> phi_331
 block_333 --> phi_331
 subgraph block_332["Block 332"]
 	direction TB
-	b332_23["offset imm_readULEB64"]
-	b332_30["eff__334 push_u64"]
-	b332_28["val mach_readMemory64_u8_64"]
 	b332_24["index pop_u64"]
-	b332_30 --> b332_23
-	b332_28 --> b332_30
+	b332_28["val mach_readMemory64_u8_64"]
+	b332_30["eff__334 push_u64"]
+	b332_23["offset imm_readULEB64"]
 	b332_24 --> b332_28
+	b332_28 --> b332_30
+	b332_30 --> b332_23
 end
 branch_330 --> block_332
 subgraph branch_330["Branch 330"]
@@ -13784,20 +12858,24 @@ phi_336 --> block_334
 subgraph phi_336["Phi 336"]
 	p336_12{{"Sϕ Codeptr "}}
 	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_11{"memindex ϕ"}
+	p336_11{"memindex ϕ"}
+	p336_11{"memindex ϕ"}
 	p336_11{"memindex ϕ"}
 	p336_11{"memindex ϕ"}
 	p336_11{"memindex ϕ"}
 	p336_12{{"Sϕ Codeptr "}}
 	p336_12{{"Sϕ Codeptr "}}
-	p336_11{"memindex ϕ"}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
 end
 block_337 --> phi_336
 block_338 --> phi_336
 subgraph block_337["Block 337"]
 	direction TB
 	b337_10["memindex__346 imm_readULEB32"]
-	b337_3["flags imm_readU8"]
-	b337_3 --> b337_10
 end
 branch_335 --> block_337
 subgraph branch_335["Branch 335"]
@@ -13807,32 +12885,32 @@ end
 block_339 --> branch_335
 subgraph block_339["Block 339"]
 	direction TB
-	b339_9["cond__345 u8.!="]
-	b339_8["arg__347 u8.&"]
-	b339_5["arg__348 0"]
-	b339_6["arg__350 0x40u8"]
 	b339_0[/"Start"\\]
-	b339_8 --> b339_9
-	b339_5 --> b339_8
-	b339_6 --> b339_5
+	b339_6["arg__350 0x40u8"]
+	b339_5["arg__348 0"]
+	b339_8["arg__347 u8.&"]
+	b339_9["cond__345 u8.!="]
 	b339_0 --> b339_6
+	b339_6 --> b339_5
+	b339_5 --> b339_8
+	b339_8 --> b339_9
 end
 subgraph block_338["Block 338"]
 	direction TB
 	b338_4["memindex__352 0u"]
 	b338_3["flags imm_readU8"]
-	b338_3 --> b338_4
+	b338_4 --> b338_3
 end
 branch_335 --> block_338
 subgraph block_333["Block 333"]
 	direction TB
-	b333_15["offset imm_readULEB32"]
-	b333_22["eff__339 push_u64"]
-	b333_20["val mach_readMemory32_u8_64"]
 	b333_16["index pop_u32"]
-	b333_22 --> b333_15
-	b333_20 --> b333_22
+	b333_20["val mach_readMemory32_u8_64"]
+	b333_22["eff__339 push_u64"]
+	b333_15["offset imm_readULEB32"]
 	b333_16 --> b333_20
+	b333_20 --> b333_22
+	b333_22 --> b333_15
 end
 branch_330 --> block_333
 
@@ -13944,13 +13022,13 @@ block_343 --> phi_342
 block_344 --> phi_342
 subgraph block_343["Block 343"]
 	direction TB
-	b343_23["offset imm_readULEB64"]
-	b343_30["eff__334 push_u64"]
-	b343_28["val mach_readMemory64_u8_64"]
 	b343_24["index pop_u64"]
-	b343_30 --> b343_23
-	b343_28 --> b343_30
+	b343_28["val mach_readMemory64_u8_64"]
+	b343_30["eff__334 push_u64"]
+	b343_23["offset imm_readULEB64"]
 	b343_24 --> b343_28
+	b343_28 --> b343_30
+	b343_30 --> b343_23
 end
 branch_341 --> block_343
 subgraph branch_341["Branch 341"]
@@ -13966,20 +13044,24 @@ phi_347 --> block_345
 subgraph phi_347["Phi 347"]
 	p347_12{{"Sϕ Codeptr "}}
 	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_11{"memindex ϕ"}
+	p347_11{"memindex ϕ"}
+	p347_11{"memindex ϕ"}
 	p347_11{"memindex ϕ"}
 	p347_11{"memindex ϕ"}
 	p347_11{"memindex ϕ"}
 	p347_12{{"Sϕ Codeptr "}}
 	p347_12{{"Sϕ Codeptr "}}
-	p347_11{"memindex ϕ"}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
 end
 block_348 --> phi_347
 block_349 --> phi_347
 subgraph block_348["Block 348"]
 	direction TB
 	b348_10["memindex__346 imm_readULEB32"]
-	b348_3["flags imm_readU8"]
-	b348_3 --> b348_10
 end
 branch_346 --> block_348
 subgraph branch_346["Branch 346"]
@@ -13989,32 +13071,32 @@ end
 block_350 --> branch_346
 subgraph block_350["Block 350"]
 	direction TB
-	b350_9["cond__345 u8.!="]
-	b350_8["arg__347 u8.&"]
-	b350_5["arg__348 0"]
-	b350_6["arg__350 0x40u8"]
 	b350_0[/"Start"\\]
-	b350_8 --> b350_9
-	b350_5 --> b350_8
-	b350_6 --> b350_5
+	b350_6["arg__350 0x40u8"]
+	b350_5["arg__348 0"]
+	b350_8["arg__347 u8.&"]
+	b350_9["cond__345 u8.!="]
 	b350_0 --> b350_6
+	b350_6 --> b350_5
+	b350_5 --> b350_8
+	b350_8 --> b350_9
 end
 subgraph block_349["Block 349"]
 	direction TB
 	b349_4["memindex__352 0u"]
 	b349_3["flags imm_readU8"]
-	b349_3 --> b349_4
+	b349_4 --> b349_3
 end
 branch_346 --> block_349
 subgraph block_344["Block 344"]
 	direction TB
-	b344_15["offset imm_readULEB32"]
-	b344_22["eff__339 push_u64"]
-	b344_20["val mach_readMemory32_u8_64"]
 	b344_16["index pop_u32"]
-	b344_22 --> b344_15
-	b344_20 --> b344_22
+	b344_20["val mach_readMemory32_u8_64"]
+	b344_22["eff__339 push_u64"]
+	b344_15["offset imm_readULEB32"]
 	b344_16 --> b344_20
+	b344_20 --> b344_22
+	b344_22 --> b344_15
 end
 branch_341 --> block_344
 
@@ -14480,15 +13562,15 @@ block_354 --> phi_353
 block_355 --> phi_353
 subgraph block_354["Block 354"]
 	direction TB
-	b354_25["offset imm_readULEB64"]
-	b354_34["eff__354 push_u64"]
-	b354_32["extend U64_extend16_s"]
-	b354_30["val mach_readMemory64_u16_64"]
 	b354_26["index pop_u64"]
-	b354_34 --> b354_25
-	b354_32 --> b354_34
-	b354_30 --> b354_32
+	b354_30["val mach_readMemory64_u16_64"]
+	b354_32["extend U64_extend16_s"]
+	b354_34["eff__354 push_u64"]
+	b354_25["offset imm_readULEB64"]
 	b354_26 --> b354_30
+	b354_30 --> b354_32
+	b354_32 --> b354_34
+	b354_34 --> b354_25
 end
 branch_352 --> block_354
 subgraph branch_352["Branch 352"]
@@ -14502,20 +13584,26 @@ subgraph block_356["Block 356"]
 end
 phi_358 --> block_356
 subgraph phi_358["Phi 358"]
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_11{"memindex ϕ"}
+	p358_11{"memindex ϕ"}
+	p358_11{"memindex ϕ"}
 	p358_11{"memindex ϕ"}
 	p358_11{"memindex ϕ"}
 	p358_11{"memindex ϕ"}
 	p358_12{{"Sϕ Codeptr "}}
 	p358_12{{"Sϕ Codeptr "}}
-	p358_11{"memindex ϕ"}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
 end
 block_359 --> phi_358
 block_360 --> phi_358
 subgraph block_359["Block 359"]
 	direction TB
 	b359_10["memindex__368 imm_readULEB32"]
-	b359_3["flags imm_readU8"]
-	b359_3 --> b359_10
 end
 branch_357 --> block_359
 subgraph branch_357["Branch 357"]
@@ -14525,34 +13613,34 @@ end
 block_361 --> branch_357
 subgraph block_361["Block 361"]
 	direction TB
-	b361_9["cond__367 u8.!="]
-	b361_8["arg__369 u8.&"]
-	b361_5["arg__370 0"]
-	b361_6["arg__372 0x40u8"]
 	b361_0[/"Start"\\]
-	b361_8 --> b361_9
-	b361_5 --> b361_8
-	b361_6 --> b361_5
+	b361_6["arg__372 0x40u8"]
+	b361_5["arg__370 0"]
+	b361_8["arg__369 u8.&"]
+	b361_9["cond__367 u8.!="]
 	b361_0 --> b361_6
+	b361_6 --> b361_5
+	b361_5 --> b361_8
+	b361_8 --> b361_9
 end
 subgraph block_360["Block 360"]
 	direction TB
 	b360_4["memindex__374 0u"]
 	b360_3["flags imm_readU8"]
-	b360_3 --> b360_4
+	b360_4 --> b360_3
 end
 branch_357 --> block_360
 subgraph block_355["Block 355"]
 	direction TB
-	b355_15["offset imm_readULEB32"]
-	b355_24["eff__360 push_u64"]
-	b355_22["extend U64_extend16_s"]
-	b355_20["val mach_readMemory32_u16_64"]
 	b355_16["index pop_u32"]
-	b355_24 --> b355_15
-	b355_22 --> b355_24
-	b355_20 --> b355_22
+	b355_20["val mach_readMemory32_u16_64"]
+	b355_22["extend U64_extend16_s"]
+	b355_24["eff__360 push_u64"]
+	b355_15["offset imm_readULEB32"]
 	b355_16 --> b355_20
+	b355_20 --> b355_22
+	b355_22 --> b355_24
+	b355_24 --> b355_15
 end
 branch_352 --> block_355
 
@@ -14670,15 +13758,15 @@ block_365 --> phi_364
 block_366 --> phi_364
 subgraph block_365["Block 365"]
 	direction TB
-	b365_25["offset imm_readULEB64"]
-	b365_34["eff__354 push_u64"]
-	b365_32["extend U64_extend16_s"]
-	b365_30["val mach_readMemory64_u16_64"]
 	b365_26["index pop_u64"]
-	b365_34 --> b365_25
-	b365_32 --> b365_34
-	b365_30 --> b365_32
+	b365_30["val mach_readMemory64_u16_64"]
+	b365_32["extend U64_extend16_s"]
+	b365_34["eff__354 push_u64"]
+	b365_25["offset imm_readULEB64"]
 	b365_26 --> b365_30
+	b365_30 --> b365_32
+	b365_32 --> b365_34
+	b365_34 --> b365_25
 end
 branch_363 --> block_365
 subgraph branch_363["Branch 363"]
@@ -14692,20 +13780,26 @@ subgraph block_367["Block 367"]
 end
 phi_369 --> block_367
 subgraph phi_369["Phi 369"]
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_11{"memindex ϕ"}
+	p369_11{"memindex ϕ"}
+	p369_11{"memindex ϕ"}
 	p369_11{"memindex ϕ"}
 	p369_11{"memindex ϕ"}
 	p369_11{"memindex ϕ"}
 	p369_12{{"Sϕ Codeptr "}}
 	p369_12{{"Sϕ Codeptr "}}
-	p369_11{"memindex ϕ"}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
 end
 block_370 --> phi_369
 block_371 --> phi_369
 subgraph block_370["Block 370"]
 	direction TB
 	b370_10["memindex__368 imm_readULEB32"]
-	b370_3["flags imm_readU8"]
-	b370_3 --> b370_10
 end
 branch_368 --> block_370
 subgraph branch_368["Branch 368"]
@@ -14715,34 +13809,34 @@ end
 block_372 --> branch_368
 subgraph block_372["Block 372"]
 	direction TB
-	b372_9["cond__367 u8.!="]
-	b372_8["arg__369 u8.&"]
-	b372_5["arg__370 0"]
-	b372_6["arg__372 0x40u8"]
 	b372_0[/"Start"\\]
-	b372_8 --> b372_9
-	b372_5 --> b372_8
-	b372_6 --> b372_5
+	b372_6["arg__372 0x40u8"]
+	b372_5["arg__370 0"]
+	b372_8["arg__369 u8.&"]
+	b372_9["cond__367 u8.!="]
 	b372_0 --> b372_6
+	b372_6 --> b372_5
+	b372_5 --> b372_8
+	b372_8 --> b372_9
 end
 subgraph block_371["Block 371"]
 	direction TB
 	b371_4["memindex__374 0u"]
 	b371_3["flags imm_readU8"]
-	b371_3 --> b371_4
+	b371_4 --> b371_3
 end
 branch_368 --> block_371
 subgraph block_366["Block 366"]
 	direction TB
-	b366_15["offset imm_readULEB32"]
-	b366_24["eff__360 push_u64"]
-	b366_22["extend U64_extend16_s"]
-	b366_20["val mach_readMemory32_u16_64"]
 	b366_16["index pop_u32"]
-	b366_24 --> b366_15
-	b366_22 --> b366_24
-	b366_20 --> b366_22
+	b366_20["val mach_readMemory32_u16_64"]
+	b366_22["extend U64_extend16_s"]
+	b366_24["eff__360 push_u64"]
+	b366_15["offset imm_readULEB32"]
 	b366_16 --> b366_20
+	b366_20 --> b366_22
+	b366_22 --> b366_24
+	b366_24 --> b366_15
 end
 branch_363 --> block_366
 
@@ -15206,13 +14300,13 @@ block_376 --> phi_375
 block_377 --> phi_375
 subgraph block_376["Block 376"]
 	direction TB
-	b376_23["offset imm_readULEB64"]
-	b376_30["eff__376 push_u64"]
-	b376_28["val mach_readMemory64_u16_64"]
 	b376_24["index pop_u64"]
-	b376_30 --> b376_23
-	b376_28 --> b376_30
+	b376_28["val mach_readMemory64_u16_64"]
+	b376_30["eff__376 push_u64"]
+	b376_23["offset imm_readULEB64"]
 	b376_24 --> b376_28
+	b376_28 --> b376_30
+	b376_30 --> b376_23
 end
 branch_374 --> block_376
 subgraph branch_374["Branch 374"]
@@ -15228,20 +14322,24 @@ phi_380 --> block_378
 subgraph phi_380["Phi 380"]
 	p380_12{{"Sϕ Codeptr "}}
 	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_11{"memindex ϕ"}
+	p380_11{"memindex ϕ"}
+	p380_11{"memindex ϕ"}
 	p380_11{"memindex ϕ"}
 	p380_11{"memindex ϕ"}
 	p380_11{"memindex ϕ"}
 	p380_12{{"Sϕ Codeptr "}}
 	p380_12{{"Sϕ Codeptr "}}
-	p380_11{"memindex ϕ"}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
 end
 block_381 --> phi_380
 block_382 --> phi_380
 subgraph block_381["Block 381"]
 	direction TB
 	b381_10["memindex__388 imm_readULEB32"]
-	b381_3["flags imm_readU8"]
-	b381_3 --> b381_10
 end
 branch_379 --> block_381
 subgraph branch_379["Branch 379"]
@@ -15251,32 +14349,32 @@ end
 block_383 --> branch_379
 subgraph block_383["Block 383"]
 	direction TB
-	b383_9["cond__387 u8.!="]
-	b383_8["arg__389 u8.&"]
-	b383_5["arg__390 0"]
-	b383_6["arg__392 0x40u8"]
 	b383_0[/"Start"\\]
-	b383_8 --> b383_9
-	b383_5 --> b383_8
-	b383_6 --> b383_5
+	b383_6["arg__392 0x40u8"]
+	b383_5["arg__390 0"]
+	b383_8["arg__389 u8.&"]
+	b383_9["cond__387 u8.!="]
 	b383_0 --> b383_6
+	b383_6 --> b383_5
+	b383_5 --> b383_8
+	b383_8 --> b383_9
 end
 subgraph block_382["Block 382"]
 	direction TB
 	b382_4["memindex__394 0u"]
 	b382_3["flags imm_readU8"]
-	b382_3 --> b382_4
+	b382_4 --> b382_3
 end
 branch_379 --> block_382
 subgraph block_377["Block 377"]
 	direction TB
-	b377_15["offset imm_readULEB32"]
-	b377_22["eff__381 push_u64"]
-	b377_20["val mach_readMemory32_u16_64"]
 	b377_16["index pop_u32"]
-	b377_22 --> b377_15
-	b377_20 --> b377_22
+	b377_20["val mach_readMemory32_u16_64"]
+	b377_22["eff__381 push_u64"]
+	b377_15["offset imm_readULEB32"]
 	b377_16 --> b377_20
+	b377_20 --> b377_22
+	b377_22 --> b377_15
 end
 branch_374 --> block_377
 
@@ -15388,13 +14486,13 @@ block_387 --> phi_386
 block_388 --> phi_386
 subgraph block_387["Block 387"]
 	direction TB
-	b387_23["offset imm_readULEB64"]
-	b387_30["eff__376 push_u64"]
-	b387_28["val mach_readMemory64_u16_64"]
 	b387_24["index pop_u64"]
-	b387_30 --> b387_23
-	b387_28 --> b387_30
+	b387_28["val mach_readMemory64_u16_64"]
+	b387_30["eff__376 push_u64"]
+	b387_23["offset imm_readULEB64"]
 	b387_24 --> b387_28
+	b387_28 --> b387_30
+	b387_30 --> b387_23
 end
 branch_385 --> block_387
 subgraph branch_385["Branch 385"]
@@ -15410,20 +14508,24 @@ phi_391 --> block_389
 subgraph phi_391["Phi 391"]
 	p391_12{{"Sϕ Codeptr "}}
 	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_11{"memindex ϕ"}
+	p391_11{"memindex ϕ"}
+	p391_11{"memindex ϕ"}
 	p391_11{"memindex ϕ"}
 	p391_11{"memindex ϕ"}
 	p391_11{"memindex ϕ"}
 	p391_12{{"Sϕ Codeptr "}}
 	p391_12{{"Sϕ Codeptr "}}
-	p391_11{"memindex ϕ"}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
 end
 block_392 --> phi_391
 block_393 --> phi_391
 subgraph block_392["Block 392"]
 	direction TB
 	b392_10["memindex__388 imm_readULEB32"]
-	b392_3["flags imm_readU8"]
-	b392_3 --> b392_10
 end
 branch_390 --> block_392
 subgraph branch_390["Branch 390"]
@@ -15433,32 +14535,32 @@ end
 block_394 --> branch_390
 subgraph block_394["Block 394"]
 	direction TB
-	b394_9["cond__387 u8.!="]
-	b394_8["arg__389 u8.&"]
-	b394_5["arg__390 0"]
-	b394_6["arg__392 0x40u8"]
 	b394_0[/"Start"\\]
-	b394_8 --> b394_9
-	b394_5 --> b394_8
-	b394_6 --> b394_5
+	b394_6["arg__392 0x40u8"]
+	b394_5["arg__390 0"]
+	b394_8["arg__389 u8.&"]
+	b394_9["cond__387 u8.!="]
 	b394_0 --> b394_6
+	b394_6 --> b394_5
+	b394_5 --> b394_8
+	b394_8 --> b394_9
 end
 subgraph block_393["Block 393"]
 	direction TB
 	b393_4["memindex__394 0u"]
 	b393_3["flags imm_readU8"]
-	b393_3 --> b393_4
+	b393_4 --> b393_3
 end
 branch_390 --> block_393
 subgraph block_388["Block 388"]
 	direction TB
-	b388_15["offset imm_readULEB32"]
-	b388_22["eff__381 push_u64"]
-	b388_20["val mach_readMemory32_u16_64"]
 	b388_16["index pop_u32"]
-	b388_22 --> b388_15
-	b388_20 --> b388_22
+	b388_20["val mach_readMemory32_u16_64"]
+	b388_22["eff__381 push_u64"]
+	b388_15["offset imm_readULEB32"]
 	b388_16 --> b388_20
+	b388_20 --> b388_22
+	b388_22 --> b388_15
 end
 branch_385 --> block_388
 
@@ -15924,15 +15026,15 @@ block_398 --> phi_397
 block_399 --> phi_397
 subgraph block_398["Block 398"]
 	direction TB
-	b398_25["offset imm_readULEB64"]
-	b398_34["eff__396 push_u64"]
-	b398_32["extend U64_extend32_s"]
-	b398_30["val mach_readMemory64_u32_64"]
 	b398_26["index pop_u64"]
-	b398_34 --> b398_25
-	b398_32 --> b398_34
-	b398_30 --> b398_32
+	b398_30["val mach_readMemory64_u32_64"]
+	b398_32["extend U64_extend32_s"]
+	b398_34["eff__396 push_u64"]
+	b398_25["offset imm_readULEB64"]
 	b398_26 --> b398_30
+	b398_30 --> b398_32
+	b398_32 --> b398_34
+	b398_34 --> b398_25
 end
 branch_396 --> block_398
 subgraph branch_396["Branch 396"]
@@ -15946,20 +15048,26 @@ subgraph block_400["Block 400"]
 end
 phi_402 --> block_400
 subgraph phi_402["Phi 402"]
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_11{"memindex ϕ"}
+	p402_11{"memindex ϕ"}
+	p402_11{"memindex ϕ"}
 	p402_11{"memindex ϕ"}
 	p402_11{"memindex ϕ"}
 	p402_11{"memindex ϕ"}
 	p402_12{{"Sϕ Codeptr "}}
 	p402_12{{"Sϕ Codeptr "}}
-	p402_11{"memindex ϕ"}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
 end
 block_403 --> phi_402
 block_404 --> phi_402
 subgraph block_403["Block 403"]
 	direction TB
 	b403_10["memindex__410 imm_readULEB32"]
-	b403_3["flags imm_readU8"]
-	b403_3 --> b403_10
 end
 branch_401 --> block_403
 subgraph branch_401["Branch 401"]
@@ -15969,34 +15077,34 @@ end
 block_405 --> branch_401
 subgraph block_405["Block 405"]
 	direction TB
-	b405_9["cond__409 u8.!="]
-	b405_8["arg__411 u8.&"]
-	b405_5["arg__412 0"]
-	b405_6["arg__414 0x40u8"]
 	b405_0[/"Start"\\]
-	b405_8 --> b405_9
-	b405_5 --> b405_8
-	b405_6 --> b405_5
+	b405_6["arg__414 0x40u8"]
+	b405_5["arg__412 0"]
+	b405_8["arg__411 u8.&"]
+	b405_9["cond__409 u8.!="]
 	b405_0 --> b405_6
+	b405_6 --> b405_5
+	b405_5 --> b405_8
+	b405_8 --> b405_9
 end
 subgraph block_404["Block 404"]
 	direction TB
 	b404_4["memindex__416 0u"]
 	b404_3["flags imm_readU8"]
-	b404_3 --> b404_4
+	b404_4 --> b404_3
 end
 branch_401 --> block_404
 subgraph block_399["Block 399"]
 	direction TB
-	b399_15["offset imm_readULEB32"]
-	b399_24["eff__402 push_u64"]
-	b399_22["extend U64_extend32_s"]
-	b399_20["val mach_readMemory32_u32_64"]
 	b399_16["index pop_u32"]
-	b399_24 --> b399_15
-	b399_22 --> b399_24
-	b399_20 --> b399_22
+	b399_20["val mach_readMemory32_u32_64"]
+	b399_22["extend U64_extend32_s"]
+	b399_24["eff__402 push_u64"]
+	b399_15["offset imm_readULEB32"]
 	b399_16 --> b399_20
+	b399_20 --> b399_22
+	b399_22 --> b399_24
+	b399_24 --> b399_15
 end
 branch_396 --> block_399
 
@@ -16114,15 +15222,15 @@ block_409 --> phi_408
 block_410 --> phi_408
 subgraph block_409["Block 409"]
 	direction TB
-	b409_25["offset imm_readULEB64"]
-	b409_34["eff__396 push_u64"]
-	b409_32["extend U64_extend32_s"]
-	b409_30["val mach_readMemory64_u32_64"]
 	b409_26["index pop_u64"]
-	b409_34 --> b409_25
-	b409_32 --> b409_34
-	b409_30 --> b409_32
+	b409_30["val mach_readMemory64_u32_64"]
+	b409_32["extend U64_extend32_s"]
+	b409_34["eff__396 push_u64"]
+	b409_25["offset imm_readULEB64"]
 	b409_26 --> b409_30
+	b409_30 --> b409_32
+	b409_32 --> b409_34
+	b409_34 --> b409_25
 end
 branch_407 --> block_409
 subgraph branch_407["Branch 407"]
@@ -16136,20 +15244,26 @@ subgraph block_411["Block 411"]
 end
 phi_413 --> block_411
 subgraph phi_413["Phi 413"]
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_11{"memindex ϕ"}
+	p413_11{"memindex ϕ"}
+	p413_11{"memindex ϕ"}
 	p413_11{"memindex ϕ"}
 	p413_11{"memindex ϕ"}
 	p413_11{"memindex ϕ"}
 	p413_12{{"Sϕ Codeptr "}}
 	p413_12{{"Sϕ Codeptr "}}
-	p413_11{"memindex ϕ"}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
 end
 block_414 --> phi_413
 block_415 --> phi_413
 subgraph block_414["Block 414"]
 	direction TB
 	b414_10["memindex__410 imm_readULEB32"]
-	b414_3["flags imm_readU8"]
-	b414_3 --> b414_10
 end
 branch_412 --> block_414
 subgraph branch_412["Branch 412"]
@@ -16159,34 +15273,34 @@ end
 block_416 --> branch_412
 subgraph block_416["Block 416"]
 	direction TB
-	b416_9["cond__409 u8.!="]
-	b416_8["arg__411 u8.&"]
-	b416_5["arg__412 0"]
-	b416_6["arg__414 0x40u8"]
 	b416_0[/"Start"\\]
-	b416_8 --> b416_9
-	b416_5 --> b416_8
-	b416_6 --> b416_5
+	b416_6["arg__414 0x40u8"]
+	b416_5["arg__412 0"]
+	b416_8["arg__411 u8.&"]
+	b416_9["cond__409 u8.!="]
 	b416_0 --> b416_6
+	b416_6 --> b416_5
+	b416_5 --> b416_8
+	b416_8 --> b416_9
 end
 subgraph block_415["Block 415"]
 	direction TB
 	b415_4["memindex__416 0u"]
 	b415_3["flags imm_readU8"]
-	b415_3 --> b415_4
+	b415_4 --> b415_3
 end
 branch_412 --> block_415
 subgraph block_410["Block 410"]
 	direction TB
-	b410_15["offset imm_readULEB32"]
-	b410_24["eff__402 push_u64"]
-	b410_22["extend U64_extend32_s"]
-	b410_20["val mach_readMemory32_u32_64"]
 	b410_16["index pop_u32"]
-	b410_24 --> b410_15
-	b410_22 --> b410_24
-	b410_20 --> b410_22
+	b410_20["val mach_readMemory32_u32_64"]
+	b410_22["extend U64_extend32_s"]
+	b410_24["eff__402 push_u64"]
+	b410_15["offset imm_readULEB32"]
 	b410_16 --> b410_20
+	b410_20 --> b410_22
+	b410_22 --> b410_24
+	b410_24 --> b410_15
 end
 branch_407 --> block_410
 
@@ -16650,13 +15764,13 @@ block_420 --> phi_419
 block_421 --> phi_419
 subgraph block_420["Block 420"]
 	direction TB
-	b420_23["offset imm_readULEB64"]
-	b420_30["eff__418 push_u64"]
-	b420_28["val mach_readMemory64_u32_64"]
 	b420_24["index pop_u64"]
-	b420_30 --> b420_23
-	b420_28 --> b420_30
+	b420_28["val mach_readMemory64_u32_64"]
+	b420_30["eff__418 push_u64"]
+	b420_23["offset imm_readULEB64"]
 	b420_24 --> b420_28
+	b420_28 --> b420_30
+	b420_30 --> b420_23
 end
 branch_418 --> block_420
 subgraph branch_418["Branch 418"]
@@ -16672,20 +15786,24 @@ phi_424 --> block_422
 subgraph phi_424["Phi 424"]
 	p424_12{{"Sϕ Codeptr "}}
 	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_11{"memindex ϕ"}
+	p424_11{"memindex ϕ"}
+	p424_11{"memindex ϕ"}
 	p424_11{"memindex ϕ"}
 	p424_11{"memindex ϕ"}
 	p424_11{"memindex ϕ"}
 	p424_12{{"Sϕ Codeptr "}}
 	p424_12{{"Sϕ Codeptr "}}
-	p424_11{"memindex ϕ"}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
 end
 block_425 --> phi_424
 block_426 --> phi_424
 subgraph block_425["Block 425"]
 	direction TB
 	b425_10["memindex__430 imm_readULEB32"]
-	b425_3["flags imm_readU8"]
-	b425_3 --> b425_10
 end
 branch_423 --> block_425
 subgraph branch_423["Branch 423"]
@@ -16695,32 +15813,32 @@ end
 block_427 --> branch_423
 subgraph block_427["Block 427"]
 	direction TB
-	b427_9["cond__429 u8.!="]
-	b427_8["arg__431 u8.&"]
-	b427_5["arg__432 0"]
-	b427_6["arg__434 0x40u8"]
 	b427_0[/"Start"\\]
-	b427_8 --> b427_9
-	b427_5 --> b427_8
-	b427_6 --> b427_5
+	b427_6["arg__434 0x40u8"]
+	b427_5["arg__432 0"]
+	b427_8["arg__431 u8.&"]
+	b427_9["cond__429 u8.!="]
 	b427_0 --> b427_6
+	b427_6 --> b427_5
+	b427_5 --> b427_8
+	b427_8 --> b427_9
 end
 subgraph block_426["Block 426"]
 	direction TB
 	b426_4["memindex__436 0u"]
 	b426_3["flags imm_readU8"]
-	b426_3 --> b426_4
+	b426_4 --> b426_3
 end
 branch_423 --> block_426
 subgraph block_421["Block 421"]
 	direction TB
-	b421_15["offset imm_readULEB32"]
-	b421_22["eff__423 push_u64"]
-	b421_20["val mach_readMemory32_u32_64"]
 	b421_16["index pop_u32"]
-	b421_22 --> b421_15
-	b421_20 --> b421_22
+	b421_20["val mach_readMemory32_u32_64"]
+	b421_22["eff__423 push_u64"]
+	b421_15["offset imm_readULEB32"]
 	b421_16 --> b421_20
+	b421_20 --> b421_22
+	b421_22 --> b421_15
 end
 branch_418 --> block_421
 
@@ -16832,13 +15950,13 @@ block_431 --> phi_430
 block_432 --> phi_430
 subgraph block_431["Block 431"]
 	direction TB
-	b431_23["offset imm_readULEB64"]
-	b431_30["eff__418 push_u64"]
-	b431_28["val mach_readMemory64_u32_64"]
 	b431_24["index pop_u64"]
-	b431_30 --> b431_23
-	b431_28 --> b431_30
+	b431_28["val mach_readMemory64_u32_64"]
+	b431_30["eff__418 push_u64"]
+	b431_23["offset imm_readULEB64"]
 	b431_24 --> b431_28
+	b431_28 --> b431_30
+	b431_30 --> b431_23
 end
 branch_429 --> block_431
 subgraph branch_429["Branch 429"]
@@ -16854,20 +15972,24 @@ phi_435 --> block_433
 subgraph phi_435["Phi 435"]
 	p435_12{{"Sϕ Codeptr "}}
 	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_11{"memindex ϕ"}
+	p435_11{"memindex ϕ"}
+	p435_11{"memindex ϕ"}
 	p435_11{"memindex ϕ"}
 	p435_11{"memindex ϕ"}
 	p435_11{"memindex ϕ"}
 	p435_12{{"Sϕ Codeptr "}}
 	p435_12{{"Sϕ Codeptr "}}
-	p435_11{"memindex ϕ"}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
 end
 block_436 --> phi_435
 block_437 --> phi_435
 subgraph block_436["Block 436"]
 	direction TB
 	b436_10["memindex__430 imm_readULEB32"]
-	b436_3["flags imm_readU8"]
-	b436_3 --> b436_10
 end
 branch_434 --> block_436
 subgraph branch_434["Branch 434"]
@@ -16877,32 +15999,32 @@ end
 block_438 --> branch_434
 subgraph block_438["Block 438"]
 	direction TB
-	b438_9["cond__429 u8.!="]
-	b438_8["arg__431 u8.&"]
-	b438_5["arg__432 0"]
-	b438_6["arg__434 0x40u8"]
 	b438_0[/"Start"\\]
-	b438_8 --> b438_9
-	b438_5 --> b438_8
-	b438_6 --> b438_5
+	b438_6["arg__434 0x40u8"]
+	b438_5["arg__432 0"]
+	b438_8["arg__431 u8.&"]
+	b438_9["cond__429 u8.!="]
 	b438_0 --> b438_6
+	b438_6 --> b438_5
+	b438_5 --> b438_8
+	b438_8 --> b438_9
 end
 subgraph block_437["Block 437"]
 	direction TB
 	b437_4["memindex__436 0u"]
 	b437_3["flags imm_readU8"]
-	b437_3 --> b437_4
+	b437_4 --> b437_3
 end
 branch_434 --> block_437
 subgraph block_432["Block 432"]
 	direction TB
-	b432_15["offset imm_readULEB32"]
-	b432_22["eff__423 push_u64"]
-	b432_20["val mach_readMemory32_u32_64"]
 	b432_16["index pop_u32"]
-	b432_22 --> b432_15
-	b432_20 --> b432_22
+	b432_20["val mach_readMemory32_u32_64"]
+	b432_22["eff__423 push_u64"]
+	b432_15["offset imm_readULEB32"]
 	b432_16 --> b432_20
+	b432_20 --> b432_22
+	b432_22 --> b432_15
 end
 branch_429 --> block_432
 
@@ -17367,11 +16489,11 @@ block_442 --> phi_441
 block_443 --> phi_441
 subgraph block_442["Block 442"]
 	direction TB
-	b442_23["offset imm_readULEB64"]
-	b442_24["index pop_u64"]
 	b442_29["eff__438 mach_writeMemory64_u32"]
-	b442_24 --> b442_23
+	b442_24["index pop_u64"]
+	b442_23["offset imm_readULEB64"]
 	b442_29 --> b442_24
+	b442_24 --> b442_23
 end
 branch_440 --> block_442
 subgraph branch_440["Branch 440"]
@@ -17381,14 +16503,18 @@ end
 block_444 --> branch_440
 subgraph block_444["Block 444"]
 	direction TB
-	b444_15["cond__437 m_isMemory64"]
 	b444_13["val pop_u32"]
+	b444_15["cond__437 m_isMemory64"]
 	b444_13 --> b444_15
 end
 phi_446 --> block_444
 subgraph phi_446["Phi 446"]
 	p446_12{{"Sϕ Codeptr "}}
 	p446_12{{"Sϕ Codeptr "}}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_11{"memindex ϕ"}
+	p446_11{"memindex ϕ"}
 	p446_11{"memindex ϕ"}
 	p446_11{"memindex ϕ"}
 	p446_11{"memindex ϕ"}
@@ -17396,14 +16522,14 @@ subgraph phi_446["Phi 446"]
 	p446_12{{"Sϕ Codeptr "}}
 	p446_12{{"Sϕ Codeptr "}}
 	p446_11{"memindex ϕ"}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_12{{"Sϕ Codeptr "}}
 end
 block_447 --> phi_446
 block_448 --> phi_446
 subgraph block_447["Block 447"]
 	direction TB
 	b447_10["memindex__450 imm_readULEB32"]
-	b447_3["flags imm_readU8"]
-	b447_3 --> b447_10
 end
 branch_445 --> block_447
 subgraph branch_445["Branch 445"]
@@ -17413,30 +16539,30 @@ end
 block_449 --> branch_445
 subgraph block_449["Block 449"]
 	direction TB
-	b449_9["cond__449 u8.!="]
-	b449_8["arg__451 u8.&"]
-	b449_5["arg__452 0"]
-	b449_6["arg__454 0x40u8"]
 	b449_0[/"Start"\\]
-	b449_8 --> b449_9
-	b449_5 --> b449_8
-	b449_6 --> b449_5
+	b449_6["arg__454 0x40u8"]
+	b449_5["arg__452 0"]
+	b449_8["arg__451 u8.&"]
+	b449_9["cond__449 u8.!="]
 	b449_0 --> b449_6
+	b449_6 --> b449_5
+	b449_5 --> b449_8
+	b449_8 --> b449_9
 end
 subgraph block_448["Block 448"]
 	direction TB
 	b448_4["memindex__456 0u"]
 	b448_3["flags imm_readU8"]
-	b448_3 --> b448_4
+	b448_4 --> b448_3
 end
 branch_445 --> block_448
 subgraph block_443["Block 443"]
 	direction TB
-	b443_16["offset imm_readULEB32"]
-	b443_17["index pop_u32"]
 	b443_22["eff__443 mach_writeMemory32_u32"]
-	b443_17 --> b443_16
+	b443_17["index pop_u32"]
+	b443_16["offset imm_readULEB32"]
 	b443_22 --> b443_17
+	b443_17 --> b443_16
 end
 branch_440 --> block_443
 
@@ -17553,11 +16679,11 @@ block_453 --> phi_452
 block_454 --> phi_452
 subgraph block_453["Block 453"]
 	direction TB
-	b453_23["offset imm_readULEB64"]
-	b453_24["index pop_u64"]
 	b453_29["eff__438 mach_writeMemory64_u32"]
-	b453_24 --> b453_23
+	b453_24["index pop_u64"]
+	b453_23["offset imm_readULEB64"]
 	b453_29 --> b453_24
+	b453_24 --> b453_23
 end
 branch_451 --> block_453
 subgraph branch_451["Branch 451"]
@@ -17567,14 +16693,18 @@ end
 block_455 --> branch_451
 subgraph block_455["Block 455"]
 	direction TB
-	b455_15["cond__437 m_isMemory64"]
 	b455_13["val pop_u32"]
+	b455_15["cond__437 m_isMemory64"]
 	b455_13 --> b455_15
 end
 phi_457 --> block_455
 subgraph phi_457["Phi 457"]
 	p457_12{{"Sϕ Codeptr "}}
 	p457_12{{"Sϕ Codeptr "}}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_11{"memindex ϕ"}
+	p457_11{"memindex ϕ"}
 	p457_11{"memindex ϕ"}
 	p457_11{"memindex ϕ"}
 	p457_11{"memindex ϕ"}
@@ -17582,14 +16712,14 @@ subgraph phi_457["Phi 457"]
 	p457_12{{"Sϕ Codeptr "}}
 	p457_12{{"Sϕ Codeptr "}}
 	p457_11{"memindex ϕ"}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_12{{"Sϕ Codeptr "}}
 end
 block_458 --> phi_457
 block_459 --> phi_457
 subgraph block_458["Block 458"]
 	direction TB
 	b458_10["memindex__450 imm_readULEB32"]
-	b458_3["flags imm_readU8"]
-	b458_3 --> b458_10
 end
 branch_456 --> block_458
 subgraph branch_456["Branch 456"]
@@ -17599,30 +16729,30 @@ end
 block_460 --> branch_456
 subgraph block_460["Block 460"]
 	direction TB
-	b460_9["cond__449 u8.!="]
-	b460_8["arg__451 u8.&"]
-	b460_5["arg__452 0"]
-	b460_6["arg__454 0x40u8"]
 	b460_0[/"Start"\\]
-	b460_8 --> b460_9
-	b460_5 --> b460_8
-	b460_6 --> b460_5
+	b460_6["arg__454 0x40u8"]
+	b460_5["arg__452 0"]
+	b460_8["arg__451 u8.&"]
+	b460_9["cond__449 u8.!="]
 	b460_0 --> b460_6
+	b460_6 --> b460_5
+	b460_5 --> b460_8
+	b460_8 --> b460_9
 end
 subgraph block_459["Block 459"]
 	direction TB
 	b459_4["memindex__456 0u"]
 	b459_3["flags imm_readU8"]
-	b459_3 --> b459_4
+	b459_4 --> b459_3
 end
 branch_456 --> block_459
 subgraph block_454["Block 454"]
 	direction TB
-	b454_16["offset imm_readULEB32"]
-	b454_17["index pop_u32"]
 	b454_22["eff__443 mach_writeMemory32_u32"]
-	b454_17 --> b454_16
+	b454_17["index pop_u32"]
+	b454_16["offset imm_readULEB32"]
 	b454_22 --> b454_17
+	b454_17 --> b454_16
 end
 branch_451 --> block_454
 
@@ -18094,11 +17224,11 @@ block_464 --> phi_463
 block_465 --> phi_463
 subgraph block_464["Block 464"]
 	direction TB
-	b464_23["offset imm_readULEB64"]
-	b464_24["index pop_u64"]
 	b464_29["eff__458 mach_writeMemory64_u64"]
-	b464_24 --> b464_23
+	b464_24["index pop_u64"]
+	b464_23["offset imm_readULEB64"]
 	b464_29 --> b464_24
+	b464_24 --> b464_23
 end
 branch_462 --> block_464
 subgraph branch_462["Branch 462"]
@@ -18108,14 +17238,18 @@ end
 block_466 --> branch_462
 subgraph block_466["Block 466"]
 	direction TB
-	b466_15["cond__457 m_isMemory64"]
 	b466_13["val pop_u64"]
+	b466_15["cond__457 m_isMemory64"]
 	b466_13 --> b466_15
 end
 phi_468 --> block_466
 subgraph phi_468["Phi 468"]
 	p468_12{{"Sϕ Codeptr "}}
 	p468_12{{"Sϕ Codeptr "}}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_11{"memindex ϕ"}
+	p468_11{"memindex ϕ"}
 	p468_11{"memindex ϕ"}
 	p468_11{"memindex ϕ"}
 	p468_11{"memindex ϕ"}
@@ -18123,14 +17257,14 @@ subgraph phi_468["Phi 468"]
 	p468_12{{"Sϕ Codeptr "}}
 	p468_12{{"Sϕ Codeptr "}}
 	p468_11{"memindex ϕ"}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_12{{"Sϕ Codeptr "}}
 end
 block_469 --> phi_468
 block_470 --> phi_468
 subgraph block_469["Block 469"]
 	direction TB
 	b469_10["memindex__470 imm_readULEB32"]
-	b469_3["flags imm_readU8"]
-	b469_3 --> b469_10
 end
 branch_467 --> block_469
 subgraph branch_467["Branch 467"]
@@ -18140,30 +17274,30 @@ end
 block_471 --> branch_467
 subgraph block_471["Block 471"]
 	direction TB
-	b471_9["cond__469 u8.!="]
-	b471_8["arg__471 u8.&"]
-	b471_5["arg__472 0"]
-	b471_6["arg__474 0x40u8"]
 	b471_0[/"Start"\\]
-	b471_8 --> b471_9
-	b471_5 --> b471_8
-	b471_6 --> b471_5
+	b471_6["arg__474 0x40u8"]
+	b471_5["arg__472 0"]
+	b471_8["arg__471 u8.&"]
+	b471_9["cond__469 u8.!="]
 	b471_0 --> b471_6
+	b471_6 --> b471_5
+	b471_5 --> b471_8
+	b471_8 --> b471_9
 end
 subgraph block_470["Block 470"]
 	direction TB
 	b470_4["memindex__476 0u"]
 	b470_3["flags imm_readU8"]
-	b470_3 --> b470_4
+	b470_4 --> b470_3
 end
 branch_467 --> block_470
 subgraph block_465["Block 465"]
 	direction TB
-	b465_16["offset imm_readULEB32"]
-	b465_17["index pop_u32"]
 	b465_22["eff__463 mach_writeMemory32_u64"]
-	b465_17 --> b465_16
+	b465_17["index pop_u32"]
+	b465_16["offset imm_readULEB32"]
 	b465_22 --> b465_17
+	b465_17 --> b465_16
 end
 branch_462 --> block_465
 
@@ -18280,11 +17414,11 @@ block_475 --> phi_474
 block_476 --> phi_474
 subgraph block_475["Block 475"]
 	direction TB
-	b475_23["offset imm_readULEB64"]
-	b475_24["index pop_u64"]
 	b475_29["eff__458 mach_writeMemory64_u64"]
-	b475_24 --> b475_23
+	b475_24["index pop_u64"]
+	b475_23["offset imm_readULEB64"]
 	b475_29 --> b475_24
+	b475_24 --> b475_23
 end
 branch_473 --> block_475
 subgraph branch_473["Branch 473"]
@@ -18294,14 +17428,18 @@ end
 block_477 --> branch_473
 subgraph block_477["Block 477"]
 	direction TB
-	b477_15["cond__457 m_isMemory64"]
 	b477_13["val pop_u64"]
+	b477_15["cond__457 m_isMemory64"]
 	b477_13 --> b477_15
 end
 phi_479 --> block_477
 subgraph phi_479["Phi 479"]
 	p479_12{{"Sϕ Codeptr "}}
 	p479_12{{"Sϕ Codeptr "}}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_11{"memindex ϕ"}
+	p479_11{"memindex ϕ"}
 	p479_11{"memindex ϕ"}
 	p479_11{"memindex ϕ"}
 	p479_11{"memindex ϕ"}
@@ -18309,14 +17447,14 @@ subgraph phi_479["Phi 479"]
 	p479_12{{"Sϕ Codeptr "}}
 	p479_12{{"Sϕ Codeptr "}}
 	p479_11{"memindex ϕ"}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_12{{"Sϕ Codeptr "}}
 end
 block_480 --> phi_479
 block_481 --> phi_479
 subgraph block_480["Block 480"]
 	direction TB
 	b480_10["memindex__470 imm_readULEB32"]
-	b480_3["flags imm_readU8"]
-	b480_3 --> b480_10
 end
 branch_478 --> block_480
 subgraph branch_478["Branch 478"]
@@ -18326,30 +17464,30 @@ end
 block_482 --> branch_478
 subgraph block_482["Block 482"]
 	direction TB
-	b482_9["cond__469 u8.!="]
-	b482_8["arg__471 u8.&"]
-	b482_5["arg__472 0"]
-	b482_6["arg__474 0x40u8"]
 	b482_0[/"Start"\\]
-	b482_8 --> b482_9
-	b482_5 --> b482_8
-	b482_6 --> b482_5
+	b482_6["arg__474 0x40u8"]
+	b482_5["arg__472 0"]
+	b482_8["arg__471 u8.&"]
+	b482_9["cond__469 u8.!="]
 	b482_0 --> b482_6
+	b482_6 --> b482_5
+	b482_5 --> b482_8
+	b482_8 --> b482_9
 end
 subgraph block_481["Block 481"]
 	direction TB
 	b481_4["memindex__476 0u"]
 	b481_3["flags imm_readU8"]
-	b481_3 --> b481_4
+	b481_4 --> b481_3
 end
 branch_478 --> block_481
 subgraph block_476["Block 476"]
 	direction TB
-	b476_16["offset imm_readULEB32"]
-	b476_17["index pop_u32"]
 	b476_22["eff__463 mach_writeMemory32_u64"]
-	b476_17 --> b476_16
+	b476_17["index pop_u32"]
+	b476_16["offset imm_readULEB32"]
 	b476_22 --> b476_17
+	b476_17 --> b476_16
 end
 branch_473 --> block_476
 
@@ -18769,8 +17907,8 @@ block_486 --> phi_485
 block_487 --> phi_485
 subgraph block_486["Block 486"]
 	direction TB
-	b486_23["offset imm_readULEB64"]
 	b486_24["index pop_u64"]
+	b486_23["offset imm_readULEB64"]
 	b486_24 --> b486_23
 end
 branch_484 --> block_486
@@ -18781,8 +17919,8 @@ end
 block_488 --> branch_484
 subgraph block_488["Block 488"]
 	direction TB
-	b488_15["cond__477 m_isMemory64"]
 	b488_13["val pop_f32"]
+	b488_15["cond__477 m_isMemory64"]
 	b488_13 --> b488_15
 end
 phi_490 --> block_488
@@ -18791,14 +17929,14 @@ subgraph phi_490["Phi 490"]
 	p490_12{{"Sϕ Codeptr "}}
 	p490_12{{"Sϕ Codeptr "}}
 	p490_11{"memindex ϕ"}
+	p490_12{{"Sϕ Codeptr "}}
+	p490_12{{"Sϕ Codeptr "}}
 end
 block_491 --> phi_490
 block_492 --> phi_490
 subgraph block_491["Block 491"]
 	direction TB
 	b491_10["memindex__490 imm_readULEB32"]
-	b491_3["flags imm_readU8"]
-	b491_3 --> b491_10
 end
 branch_489 --> block_491
 subgraph branch_489["Branch 489"]
@@ -18808,27 +17946,27 @@ end
 block_493 --> branch_489
 subgraph block_493["Block 493"]
 	direction TB
-	b493_9["cond__489 u8.!="]
-	b493_8["arg__491 u8.&"]
-	b493_5["arg__492 0"]
-	b493_6["arg__494 0x40u8"]
 	b493_0[/"Start"\\]
-	b493_8 --> b493_9
-	b493_5 --> b493_8
-	b493_6 --> b493_5
+	b493_6["arg__494 0x40u8"]
+	b493_5["arg__492 0"]
+	b493_8["arg__491 u8.&"]
+	b493_9["cond__489 u8.!="]
 	b493_0 --> b493_6
+	b493_6 --> b493_5
+	b493_5 --> b493_8
+	b493_8 --> b493_9
 end
 subgraph block_492["Block 492"]
 	direction TB
 	b492_4["memindex__496 0u"]
 	b492_3["flags imm_readU8"]
-	b492_3 --> b492_4
+	b492_4 --> b492_3
 end
 branch_489 --> block_492
 subgraph block_487["Block 487"]
 	direction TB
-	b487_16["offset imm_readULEB32"]
 	b487_17["index pop_u32"]
+	b487_16["offset imm_readULEB32"]
 	b487_17 --> b487_16
 end
 branch_484 --> block_487
@@ -18926,8 +18064,8 @@ block_497 --> phi_496
 block_498 --> phi_496
 subgraph block_497["Block 497"]
 	direction TB
-	b497_23["offset imm_readULEB64"]
 	b497_24["index pop_u64"]
+	b497_23["offset imm_readULEB64"]
 	b497_24 --> b497_23
 end
 branch_495 --> block_497
@@ -18938,8 +18076,8 @@ end
 block_499 --> branch_495
 subgraph block_499["Block 499"]
 	direction TB
-	b499_15["cond__477 m_isMemory64"]
 	b499_13["val pop_f32"]
+	b499_15["cond__477 m_isMemory64"]
 	b499_13 --> b499_15
 end
 phi_501 --> block_499
@@ -18948,14 +18086,14 @@ subgraph phi_501["Phi 501"]
 	p501_12{{"Sϕ Codeptr "}}
 	p501_12{{"Sϕ Codeptr "}}
 	p501_11{"memindex ϕ"}
+	p501_12{{"Sϕ Codeptr "}}
+	p501_12{{"Sϕ Codeptr "}}
 end
 block_502 --> phi_501
 block_503 --> phi_501
 subgraph block_502["Block 502"]
 	direction TB
 	b502_10["memindex__490 imm_readULEB32"]
-	b502_3["flags imm_readU8"]
-	b502_3 --> b502_10
 end
 branch_500 --> block_502
 subgraph branch_500["Branch 500"]
@@ -18965,27 +18103,27 @@ end
 block_504 --> branch_500
 subgraph block_504["Block 504"]
 	direction TB
-	b504_9["cond__489 u8.!="]
-	b504_8["arg__491 u8.&"]
-	b504_5["arg__492 0"]
-	b504_6["arg__494 0x40u8"]
 	b504_0[/"Start"\\]
-	b504_8 --> b504_9
-	b504_5 --> b504_8
-	b504_6 --> b504_5
+	b504_6["arg__494 0x40u8"]
+	b504_5["arg__492 0"]
+	b504_8["arg__491 u8.&"]
+	b504_9["cond__489 u8.!="]
 	b504_0 --> b504_6
+	b504_6 --> b504_5
+	b504_5 --> b504_8
+	b504_8 --> b504_9
 end
 subgraph block_503["Block 503"]
 	direction TB
 	b503_4["memindex__496 0u"]
 	b503_3["flags imm_readU8"]
-	b503_3 --> b503_4
+	b503_4 --> b503_3
 end
 branch_500 --> block_503
 subgraph block_498["Block 498"]
 	direction TB
-	b498_16["offset imm_readULEB32"]
 	b498_17["index pop_u32"]
+	b498_16["offset imm_readULEB32"]
 	b498_17 --> b498_16
 end
 branch_495 --> block_498
@@ -19418,11 +18556,11 @@ block_508 --> phi_507
 block_509 --> phi_507
 subgraph block_508["Block 508"]
 	direction TB
-	b508_23["offset imm_readULEB64"]
-	b508_24["index pop_u64"]
 	b508_29["eff__498 mach_writeMemory64_f64"]
-	b508_24 --> b508_23
+	b508_24["index pop_u64"]
+	b508_23["offset imm_readULEB64"]
 	b508_29 --> b508_24
+	b508_24 --> b508_23
 end
 branch_506 --> block_508
 subgraph branch_506["Branch 506"]
@@ -19432,14 +18570,18 @@ end
 block_510 --> branch_506
 subgraph block_510["Block 510"]
 	direction TB
-	b510_15["cond__497 m_isMemory64"]
 	b510_13["val pop_f64"]
+	b510_15["cond__497 m_isMemory64"]
 	b510_13 --> b510_15
 end
 phi_512 --> block_510
 subgraph phi_512["Phi 512"]
 	p512_12{{"Sϕ Codeptr "}}
 	p512_12{{"Sϕ Codeptr "}}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_11{"memindex ϕ"}
+	p512_11{"memindex ϕ"}
 	p512_11{"memindex ϕ"}
 	p512_11{"memindex ϕ"}
 	p512_11{"memindex ϕ"}
@@ -19447,14 +18589,14 @@ subgraph phi_512["Phi 512"]
 	p512_12{{"Sϕ Codeptr "}}
 	p512_12{{"Sϕ Codeptr "}}
 	p512_11{"memindex ϕ"}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_12{{"Sϕ Codeptr "}}
 end
 block_513 --> phi_512
 block_514 --> phi_512
 subgraph block_513["Block 513"]
 	direction TB
 	b513_10["memindex__510 imm_readULEB32"]
-	b513_3["flags imm_readU8"]
-	b513_3 --> b513_10
 end
 branch_511 --> block_513
 subgraph branch_511["Branch 511"]
@@ -19464,30 +18606,30 @@ end
 block_515 --> branch_511
 subgraph block_515["Block 515"]
 	direction TB
-	b515_9["cond__509 u8.!="]
-	b515_8["arg__511 u8.&"]
-	b515_5["arg__512 0"]
-	b515_6["arg__514 0x40u8"]
 	b515_0[/"Start"\\]
-	b515_8 --> b515_9
-	b515_5 --> b515_8
-	b515_6 --> b515_5
+	b515_6["arg__514 0x40u8"]
+	b515_5["arg__512 0"]
+	b515_8["arg__511 u8.&"]
+	b515_9["cond__509 u8.!="]
 	b515_0 --> b515_6
+	b515_6 --> b515_5
+	b515_5 --> b515_8
+	b515_8 --> b515_9
 end
 subgraph block_514["Block 514"]
 	direction TB
 	b514_4["memindex__516 0u"]
 	b514_3["flags imm_readU8"]
-	b514_3 --> b514_4
+	b514_4 --> b514_3
 end
 branch_511 --> block_514
 subgraph block_509["Block 509"]
 	direction TB
-	b509_16["offset imm_readULEB32"]
-	b509_17["index pop_u32"]
 	b509_22["eff__503 mach_writeMemory32_f64"]
-	b509_17 --> b509_16
+	b509_17["index pop_u32"]
+	b509_16["offset imm_readULEB32"]
 	b509_22 --> b509_17
+	b509_17 --> b509_16
 end
 branch_506 --> block_509
 
@@ -19604,11 +18746,11 @@ block_519 --> phi_518
 block_520 --> phi_518
 subgraph block_519["Block 519"]
 	direction TB
-	b519_23["offset imm_readULEB64"]
-	b519_24["index pop_u64"]
 	b519_29["eff__498 mach_writeMemory64_f64"]
-	b519_24 --> b519_23
+	b519_24["index pop_u64"]
+	b519_23["offset imm_readULEB64"]
 	b519_29 --> b519_24
+	b519_24 --> b519_23
 end
 branch_517 --> block_519
 subgraph branch_517["Branch 517"]
@@ -19618,14 +18760,18 @@ end
 block_521 --> branch_517
 subgraph block_521["Block 521"]
 	direction TB
-	b521_15["cond__497 m_isMemory64"]
 	b521_13["val pop_f64"]
+	b521_15["cond__497 m_isMemory64"]
 	b521_13 --> b521_15
 end
 phi_523 --> block_521
 subgraph phi_523["Phi 523"]
 	p523_12{{"Sϕ Codeptr "}}
 	p523_12{{"Sϕ Codeptr "}}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_11{"memindex ϕ"}
+	p523_11{"memindex ϕ"}
 	p523_11{"memindex ϕ"}
 	p523_11{"memindex ϕ"}
 	p523_11{"memindex ϕ"}
@@ -19633,14 +18779,14 @@ subgraph phi_523["Phi 523"]
 	p523_12{{"Sϕ Codeptr "}}
 	p523_12{{"Sϕ Codeptr "}}
 	p523_11{"memindex ϕ"}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_12{{"Sϕ Codeptr "}}
 end
 block_524 --> phi_523
 block_525 --> phi_523
 subgraph block_524["Block 524"]
 	direction TB
 	b524_10["memindex__510 imm_readULEB32"]
-	b524_3["flags imm_readU8"]
-	b524_3 --> b524_10
 end
 branch_522 --> block_524
 subgraph branch_522["Branch 522"]
@@ -19650,30 +18796,30 @@ end
 block_526 --> branch_522
 subgraph block_526["Block 526"]
 	direction TB
-	b526_9["cond__509 u8.!="]
-	b526_8["arg__511 u8.&"]
-	b526_5["arg__512 0"]
-	b526_6["arg__514 0x40u8"]
 	b526_0[/"Start"\\]
-	b526_8 --> b526_9
-	b526_5 --> b526_8
-	b526_6 --> b526_5
+	b526_6["arg__514 0x40u8"]
+	b526_5["arg__512 0"]
+	b526_8["arg__511 u8.&"]
+	b526_9["cond__509 u8.!="]
 	b526_0 --> b526_6
+	b526_6 --> b526_5
+	b526_5 --> b526_8
+	b526_8 --> b526_9
 end
 subgraph block_525["Block 525"]
 	direction TB
 	b525_4["memindex__516 0u"]
 	b525_3["flags imm_readU8"]
-	b525_3 --> b525_4
+	b525_4 --> b525_3
 end
 branch_522 --> block_525
 subgraph block_520["Block 520"]
 	direction TB
-	b520_16["offset imm_readULEB32"]
-	b520_17["index pop_u32"]
 	b520_22["eff__503 mach_writeMemory32_f64"]
-	b520_17 --> b520_16
+	b520_17["index pop_u32"]
+	b520_16["offset imm_readULEB32"]
 	b520_22 --> b520_17
+	b520_17 --> b520_16
 end
 branch_517 --> block_520
 
@@ -20145,11 +19291,11 @@ block_530 --> phi_529
 block_531 --> phi_529
 subgraph block_530["Block 530"]
 	direction TB
-	b530_23["offset imm_readULEB64"]
-	b530_24["index pop_u64"]
 	b530_29["eff__518 mach_writeMemory64_u8"]
-	b530_24 --> b530_23
+	b530_24["index pop_u64"]
+	b530_23["offset imm_readULEB64"]
 	b530_29 --> b530_24
+	b530_24 --> b530_23
 end
 branch_528 --> block_530
 subgraph branch_528["Branch 528"]
@@ -20159,14 +19305,18 @@ end
 block_532 --> branch_528
 subgraph block_532["Block 532"]
 	direction TB
-	b532_15["cond__517 m_isMemory64"]
 	b532_13["val pop_u32"]
+	b532_15["cond__517 m_isMemory64"]
 	b532_13 --> b532_15
 end
 phi_534 --> block_532
 subgraph phi_534["Phi 534"]
 	p534_12{{"Sϕ Codeptr "}}
 	p534_12{{"Sϕ Codeptr "}}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_11{"memindex ϕ"}
+	p534_11{"memindex ϕ"}
 	p534_11{"memindex ϕ"}
 	p534_11{"memindex ϕ"}
 	p534_11{"memindex ϕ"}
@@ -20174,14 +19324,14 @@ subgraph phi_534["Phi 534"]
 	p534_12{{"Sϕ Codeptr "}}
 	p534_12{{"Sϕ Codeptr "}}
 	p534_11{"memindex ϕ"}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_12{{"Sϕ Codeptr "}}
 end
 block_535 --> phi_534
 block_536 --> phi_534
 subgraph block_535["Block 535"]
 	direction TB
 	b535_10["memindex__530 imm_readULEB32"]
-	b535_3["flags imm_readU8"]
-	b535_3 --> b535_10
 end
 branch_533 --> block_535
 subgraph branch_533["Branch 533"]
@@ -20191,30 +19341,30 @@ end
 block_537 --> branch_533
 subgraph block_537["Block 537"]
 	direction TB
-	b537_9["cond__529 u8.!="]
-	b537_8["arg__531 u8.&"]
-	b537_5["arg__532 0"]
-	b537_6["arg__534 0x40u8"]
 	b537_0[/"Start"\\]
-	b537_8 --> b537_9
-	b537_5 --> b537_8
-	b537_6 --> b537_5
+	b537_6["arg__534 0x40u8"]
+	b537_5["arg__532 0"]
+	b537_8["arg__531 u8.&"]
+	b537_9["cond__529 u8.!="]
 	b537_0 --> b537_6
+	b537_6 --> b537_5
+	b537_5 --> b537_8
+	b537_8 --> b537_9
 end
 subgraph block_536["Block 536"]
 	direction TB
 	b536_4["memindex__536 0u"]
 	b536_3["flags imm_readU8"]
-	b536_3 --> b536_4
+	b536_4 --> b536_3
 end
 branch_533 --> block_536
 subgraph block_531["Block 531"]
 	direction TB
-	b531_16["offset imm_readULEB32"]
-	b531_17["index pop_u32"]
 	b531_22["eff__523 mach_writeMemory32_u8"]
-	b531_17 --> b531_16
+	b531_17["index pop_u32"]
+	b531_16["offset imm_readULEB32"]
 	b531_22 --> b531_17
+	b531_17 --> b531_16
 end
 branch_528 --> block_531
 
@@ -20331,11 +19481,11 @@ block_541 --> phi_540
 block_542 --> phi_540
 subgraph block_541["Block 541"]
 	direction TB
-	b541_23["offset imm_readULEB64"]
-	b541_24["index pop_u64"]
 	b541_29["eff__518 mach_writeMemory64_u8"]
-	b541_24 --> b541_23
+	b541_24["index pop_u64"]
+	b541_23["offset imm_readULEB64"]
 	b541_29 --> b541_24
+	b541_24 --> b541_23
 end
 branch_539 --> block_541
 subgraph branch_539["Branch 539"]
@@ -20345,14 +19495,18 @@ end
 block_543 --> branch_539
 subgraph block_543["Block 543"]
 	direction TB
-	b543_15["cond__517 m_isMemory64"]
 	b543_13["val pop_u32"]
+	b543_15["cond__517 m_isMemory64"]
 	b543_13 --> b543_15
 end
 phi_545 --> block_543
 subgraph phi_545["Phi 545"]
 	p545_12{{"Sϕ Codeptr "}}
 	p545_12{{"Sϕ Codeptr "}}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_11{"memindex ϕ"}
+	p545_11{"memindex ϕ"}
 	p545_11{"memindex ϕ"}
 	p545_11{"memindex ϕ"}
 	p545_11{"memindex ϕ"}
@@ -20360,14 +19514,14 @@ subgraph phi_545["Phi 545"]
 	p545_12{{"Sϕ Codeptr "}}
 	p545_12{{"Sϕ Codeptr "}}
 	p545_11{"memindex ϕ"}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_12{{"Sϕ Codeptr "}}
 end
 block_546 --> phi_545
 block_547 --> phi_545
 subgraph block_546["Block 546"]
 	direction TB
 	b546_10["memindex__530 imm_readULEB32"]
-	b546_3["flags imm_readU8"]
-	b546_3 --> b546_10
 end
 branch_544 --> block_546
 subgraph branch_544["Branch 544"]
@@ -20377,30 +19531,30 @@ end
 block_548 --> branch_544
 subgraph block_548["Block 548"]
 	direction TB
-	b548_9["cond__529 u8.!="]
-	b548_8["arg__531 u8.&"]
-	b548_5["arg__532 0"]
-	b548_6["arg__534 0x40u8"]
 	b548_0[/"Start"\\]
-	b548_8 --> b548_9
-	b548_5 --> b548_8
-	b548_6 --> b548_5
+	b548_6["arg__534 0x40u8"]
+	b548_5["arg__532 0"]
+	b548_8["arg__531 u8.&"]
+	b548_9["cond__529 u8.!="]
 	b548_0 --> b548_6
+	b548_6 --> b548_5
+	b548_5 --> b548_8
+	b548_8 --> b548_9
 end
 subgraph block_547["Block 547"]
 	direction TB
 	b547_4["memindex__536 0u"]
 	b547_3["flags imm_readU8"]
-	b547_3 --> b547_4
+	b547_4 --> b547_3
 end
 branch_544 --> block_547
 subgraph block_542["Block 542"]
 	direction TB
-	b542_16["offset imm_readULEB32"]
-	b542_17["index pop_u32"]
 	b542_22["eff__523 mach_writeMemory32_u8"]
-	b542_17 --> b542_16
+	b542_17["index pop_u32"]
+	b542_16["offset imm_readULEB32"]
 	b542_22 --> b542_17
+	b542_17 --> b542_16
 end
 branch_539 --> block_542
 
@@ -20872,11 +20026,11 @@ block_552 --> phi_551
 block_553 --> phi_551
 subgraph block_552["Block 552"]
 	direction TB
-	b552_23["offset imm_readULEB64"]
-	b552_24["index pop_u64"]
 	b552_29["eff__538 mach_writeMemory64_u16"]
-	b552_24 --> b552_23
+	b552_24["index pop_u64"]
+	b552_23["offset imm_readULEB64"]
 	b552_29 --> b552_24
+	b552_24 --> b552_23
 end
 branch_550 --> block_552
 subgraph branch_550["Branch 550"]
@@ -20886,14 +20040,18 @@ end
 block_554 --> branch_550
 subgraph block_554["Block 554"]
 	direction TB
-	b554_15["cond__537 m_isMemory64"]
 	b554_13["val pop_u32"]
+	b554_15["cond__537 m_isMemory64"]
 	b554_13 --> b554_15
 end
 phi_556 --> block_554
 subgraph phi_556["Phi 556"]
 	p556_12{{"Sϕ Codeptr "}}
 	p556_12{{"Sϕ Codeptr "}}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_11{"memindex ϕ"}
+	p556_11{"memindex ϕ"}
 	p556_11{"memindex ϕ"}
 	p556_11{"memindex ϕ"}
 	p556_11{"memindex ϕ"}
@@ -20901,14 +20059,14 @@ subgraph phi_556["Phi 556"]
 	p556_12{{"Sϕ Codeptr "}}
 	p556_12{{"Sϕ Codeptr "}}
 	p556_11{"memindex ϕ"}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_12{{"Sϕ Codeptr "}}
 end
 block_557 --> phi_556
 block_558 --> phi_556
 subgraph block_557["Block 557"]
 	direction TB
 	b557_10["memindex__550 imm_readULEB32"]
-	b557_3["flags imm_readU8"]
-	b557_3 --> b557_10
 end
 branch_555 --> block_557
 subgraph branch_555["Branch 555"]
@@ -20918,30 +20076,30 @@ end
 block_559 --> branch_555
 subgraph block_559["Block 559"]
 	direction TB
-	b559_9["cond__549 u8.!="]
-	b559_8["arg__551 u8.&"]
-	b559_5["arg__552 0"]
-	b559_6["arg__554 0x40u8"]
 	b559_0[/"Start"\\]
-	b559_8 --> b559_9
-	b559_5 --> b559_8
-	b559_6 --> b559_5
+	b559_6["arg__554 0x40u8"]
+	b559_5["arg__552 0"]
+	b559_8["arg__551 u8.&"]
+	b559_9["cond__549 u8.!="]
 	b559_0 --> b559_6
+	b559_6 --> b559_5
+	b559_5 --> b559_8
+	b559_8 --> b559_9
 end
 subgraph block_558["Block 558"]
 	direction TB
 	b558_4["memindex__556 0u"]
 	b558_3["flags imm_readU8"]
-	b558_3 --> b558_4
+	b558_4 --> b558_3
 end
 branch_555 --> block_558
 subgraph block_553["Block 553"]
 	direction TB
-	b553_16["offset imm_readULEB32"]
-	b553_17["index pop_u32"]
 	b553_22["eff__543 mach_writeMemory32_u16"]
-	b553_17 --> b553_16
+	b553_17["index pop_u32"]
+	b553_16["offset imm_readULEB32"]
 	b553_22 --> b553_17
+	b553_17 --> b553_16
 end
 branch_550 --> block_553
 
@@ -21058,11 +20216,11 @@ block_563 --> phi_562
 block_564 --> phi_562
 subgraph block_563["Block 563"]
 	direction TB
-	b563_23["offset imm_readULEB64"]
-	b563_24["index pop_u64"]
 	b563_29["eff__538 mach_writeMemory64_u16"]
-	b563_24 --> b563_23
+	b563_24["index pop_u64"]
+	b563_23["offset imm_readULEB64"]
 	b563_29 --> b563_24
+	b563_24 --> b563_23
 end
 branch_561 --> block_563
 subgraph branch_561["Branch 561"]
@@ -21072,14 +20230,18 @@ end
 block_565 --> branch_561
 subgraph block_565["Block 565"]
 	direction TB
-	b565_15["cond__537 m_isMemory64"]
 	b565_13["val pop_u32"]
+	b565_15["cond__537 m_isMemory64"]
 	b565_13 --> b565_15
 end
 phi_567 --> block_565
 subgraph phi_567["Phi 567"]
 	p567_12{{"Sϕ Codeptr "}}
 	p567_12{{"Sϕ Codeptr "}}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_11{"memindex ϕ"}
+	p567_11{"memindex ϕ"}
 	p567_11{"memindex ϕ"}
 	p567_11{"memindex ϕ"}
 	p567_11{"memindex ϕ"}
@@ -21087,14 +20249,14 @@ subgraph phi_567["Phi 567"]
 	p567_12{{"Sϕ Codeptr "}}
 	p567_12{{"Sϕ Codeptr "}}
 	p567_11{"memindex ϕ"}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_12{{"Sϕ Codeptr "}}
 end
 block_568 --> phi_567
 block_569 --> phi_567
 subgraph block_568["Block 568"]
 	direction TB
 	b568_10["memindex__550 imm_readULEB32"]
-	b568_3["flags imm_readU8"]
-	b568_3 --> b568_10
 end
 branch_566 --> block_568
 subgraph branch_566["Branch 566"]
@@ -21104,30 +20266,30 @@ end
 block_570 --> branch_566
 subgraph block_570["Block 570"]
 	direction TB
-	b570_9["cond__549 u8.!="]
-	b570_8["arg__551 u8.&"]
-	b570_5["arg__552 0"]
-	b570_6["arg__554 0x40u8"]
 	b570_0[/"Start"\\]
-	b570_8 --> b570_9
-	b570_5 --> b570_8
-	b570_6 --> b570_5
+	b570_6["arg__554 0x40u8"]
+	b570_5["arg__552 0"]
+	b570_8["arg__551 u8.&"]
+	b570_9["cond__549 u8.!="]
 	b570_0 --> b570_6
+	b570_6 --> b570_5
+	b570_5 --> b570_8
+	b570_8 --> b570_9
 end
 subgraph block_569["Block 569"]
 	direction TB
 	b569_4["memindex__556 0u"]
 	b569_3["flags imm_readU8"]
-	b569_3 --> b569_4
+	b569_4 --> b569_3
 end
 branch_566 --> block_569
 subgraph block_564["Block 564"]
 	direction TB
-	b564_16["offset imm_readULEB32"]
-	b564_17["index pop_u32"]
 	b564_22["eff__543 mach_writeMemory32_u16"]
-	b564_17 --> b564_16
+	b564_17["index pop_u32"]
+	b564_16["offset imm_readULEB32"]
 	b564_22 --> b564_17
+	b564_17 --> b564_16
 end
 branch_561 --> block_564
 
@@ -21599,11 +20761,11 @@ block_574 --> phi_573
 block_575 --> phi_573
 subgraph block_574["Block 574"]
 	direction TB
-	b574_23["offset imm_readULEB64"]
-	b574_24["index pop_u64"]
 	b574_29["eff__558 mach_writeMemory64_u8_64"]
-	b574_24 --> b574_23
+	b574_24["index pop_u64"]
+	b574_23["offset imm_readULEB64"]
 	b574_29 --> b574_24
+	b574_24 --> b574_23
 end
 branch_572 --> block_574
 subgraph branch_572["Branch 572"]
@@ -21613,14 +20775,18 @@ end
 block_576 --> branch_572
 subgraph block_576["Block 576"]
 	direction TB
-	b576_15["cond__557 m_isMemory64"]
 	b576_13["val pop_u64"]
+	b576_15["cond__557 m_isMemory64"]
 	b576_13 --> b576_15
 end
 phi_578 --> block_576
 subgraph phi_578["Phi 578"]
 	p578_12{{"Sϕ Codeptr "}}
 	p578_12{{"Sϕ Codeptr "}}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_11{"memindex ϕ"}
+	p578_11{"memindex ϕ"}
 	p578_11{"memindex ϕ"}
 	p578_11{"memindex ϕ"}
 	p578_11{"memindex ϕ"}
@@ -21628,14 +20794,14 @@ subgraph phi_578["Phi 578"]
 	p578_12{{"Sϕ Codeptr "}}
 	p578_12{{"Sϕ Codeptr "}}
 	p578_11{"memindex ϕ"}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_12{{"Sϕ Codeptr "}}
 end
 block_579 --> phi_578
 block_580 --> phi_578
 subgraph block_579["Block 579"]
 	direction TB
 	b579_10["memindex__570 imm_readULEB32"]
-	b579_3["flags imm_readU8"]
-	b579_3 --> b579_10
 end
 branch_577 --> block_579
 subgraph branch_577["Branch 577"]
@@ -21645,30 +20811,30 @@ end
 block_581 --> branch_577
 subgraph block_581["Block 581"]
 	direction TB
-	b581_9["cond__569 u8.!="]
-	b581_8["arg__571 u8.&"]
-	b581_5["arg__572 0"]
-	b581_6["arg__574 0x40u8"]
 	b581_0[/"Start"\\]
-	b581_8 --> b581_9
-	b581_5 --> b581_8
-	b581_6 --> b581_5
+	b581_6["arg__574 0x40u8"]
+	b581_5["arg__572 0"]
+	b581_8["arg__571 u8.&"]
+	b581_9["cond__569 u8.!="]
 	b581_0 --> b581_6
+	b581_6 --> b581_5
+	b581_5 --> b581_8
+	b581_8 --> b581_9
 end
 subgraph block_580["Block 580"]
 	direction TB
 	b580_4["memindex__576 0u"]
 	b580_3["flags imm_readU8"]
-	b580_3 --> b580_4
+	b580_4 --> b580_3
 end
 branch_577 --> block_580
 subgraph block_575["Block 575"]
 	direction TB
-	b575_16["offset imm_readULEB32"]
-	b575_17["index pop_u32"]
 	b575_22["eff__563 mach_writeMemory32_u8_64"]
-	b575_17 --> b575_16
+	b575_17["index pop_u32"]
+	b575_16["offset imm_readULEB32"]
 	b575_22 --> b575_17
+	b575_17 --> b575_16
 end
 branch_572 --> block_575
 
@@ -21785,11 +20951,11 @@ block_585 --> phi_584
 block_586 --> phi_584
 subgraph block_585["Block 585"]
 	direction TB
-	b585_23["offset imm_readULEB64"]
-	b585_24["index pop_u64"]
 	b585_29["eff__558 mach_writeMemory64_u8_64"]
-	b585_24 --> b585_23
+	b585_24["index pop_u64"]
+	b585_23["offset imm_readULEB64"]
 	b585_29 --> b585_24
+	b585_24 --> b585_23
 end
 branch_583 --> block_585
 subgraph branch_583["Branch 583"]
@@ -21799,14 +20965,18 @@ end
 block_587 --> branch_583
 subgraph block_587["Block 587"]
 	direction TB
-	b587_15["cond__557 m_isMemory64"]
 	b587_13["val pop_u64"]
+	b587_15["cond__557 m_isMemory64"]
 	b587_13 --> b587_15
 end
 phi_589 --> block_587
 subgraph phi_589["Phi 589"]
 	p589_12{{"Sϕ Codeptr "}}
 	p589_12{{"Sϕ Codeptr "}}
+	p589_12{{"Sϕ Codeptr "}}
+	p589_12{{"Sϕ Codeptr "}}
+	p589_11{"memindex ϕ"}
+	p589_11{"memindex ϕ"}
 	p589_11{"memindex ϕ"}
 	p589_11{"memindex ϕ"}
 	p589_11{"memindex ϕ"}
@@ -21814,14 +20984,14 @@ subgraph phi_589["Phi 589"]
 	p589_12{{"Sϕ Codeptr "}}
 	p589_12{{"Sϕ Codeptr "}}
 	p589_11{"memindex ϕ"}
+	p589_12{{"Sϕ Codeptr "}}
+	p589_12{{"Sϕ Codeptr "}}
 end
 block_590 --> phi_589
 block_591 --> phi_589
 subgraph block_590["Block 590"]
 	direction TB
 	b590_10["memindex__570 imm_readULEB32"]
-	b590_3["flags imm_readU8"]
-	b590_3 --> b590_10
 end
 branch_588 --> block_590
 subgraph branch_588["Branch 588"]
@@ -21831,30 +21001,30 @@ end
 block_592 --> branch_588
 subgraph block_592["Block 592"]
 	direction TB
-	b592_9["cond__569 u8.!="]
-	b592_8["arg__571 u8.&"]
-	b592_5["arg__572 0"]
-	b592_6["arg__574 0x40u8"]
 	b592_0[/"Start"\\]
-	b592_8 --> b592_9
-	b592_5 --> b592_8
-	b592_6 --> b592_5
+	b592_6["arg__574 0x40u8"]
+	b592_5["arg__572 0"]
+	b592_8["arg__571 u8.&"]
+	b592_9["cond__569 u8.!="]
 	b592_0 --> b592_6
+	b592_6 --> b592_5
+	b592_5 --> b592_8
+	b592_8 --> b592_9
 end
 subgraph block_591["Block 591"]
 	direction TB
 	b591_4["memindex__576 0u"]
 	b591_3["flags imm_readU8"]
-	b591_3 --> b591_4
+	b591_4 --> b591_3
 end
 branch_588 --> block_591
 subgraph block_586["Block 586"]
 	direction TB
-	b586_16["offset imm_readULEB32"]
-	b586_17["index pop_u32"]
 	b586_22["eff__563 mach_writeMemory32_u8_64"]
-	b586_17 --> b586_16
+	b586_17["index pop_u32"]
+	b586_16["offset imm_readULEB32"]
 	b586_22 --> b586_17
+	b586_17 --> b586_16
 end
 branch_583 --> block_586
 
@@ -22326,11 +21496,11 @@ block_596 --> phi_595
 block_597 --> phi_595
 subgraph block_596["Block 596"]
 	direction TB
-	b596_23["offset imm_readULEB64"]
-	b596_24["index pop_u64"]
 	b596_29["eff__578 mach_writeMemory64_u16_64"]
-	b596_24 --> b596_23
+	b596_24["index pop_u64"]
+	b596_23["offset imm_readULEB64"]
 	b596_29 --> b596_24
+	b596_24 --> b596_23
 end
 branch_594 --> block_596
 subgraph branch_594["Branch 594"]
@@ -22340,14 +21510,18 @@ end
 block_598 --> branch_594
 subgraph block_598["Block 598"]
 	direction TB
-	b598_15["cond__577 m_isMemory64"]
 	b598_13["val pop_u64"]
+	b598_15["cond__577 m_isMemory64"]
 	b598_13 --> b598_15
 end
 phi_600 --> block_598
 subgraph phi_600["Phi 600"]
 	p600_12{{"Sϕ Codeptr "}}
 	p600_12{{"Sϕ Codeptr "}}
+	p600_12{{"Sϕ Codeptr "}}
+	p600_12{{"Sϕ Codeptr "}}
+	p600_11{"memindex ϕ"}
+	p600_11{"memindex ϕ"}
 	p600_11{"memindex ϕ"}
 	p600_11{"memindex ϕ"}
 	p600_11{"memindex ϕ"}
@@ -22355,14 +21529,14 @@ subgraph phi_600["Phi 600"]
 	p600_12{{"Sϕ Codeptr "}}
 	p600_12{{"Sϕ Codeptr "}}
 	p600_11{"memindex ϕ"}
+	p600_12{{"Sϕ Codeptr "}}
+	p600_12{{"Sϕ Codeptr "}}
 end
 block_601 --> phi_600
 block_602 --> phi_600
 subgraph block_601["Block 601"]
 	direction TB
 	b601_10["memindex__590 imm_readULEB32"]
-	b601_3["flags imm_readU8"]
-	b601_3 --> b601_10
 end
 branch_599 --> block_601
 subgraph branch_599["Branch 599"]
@@ -22372,30 +21546,30 @@ end
 block_603 --> branch_599
 subgraph block_603["Block 603"]
 	direction TB
-	b603_9["cond__589 u8.!="]
-	b603_8["arg__591 u8.&"]
-	b603_5["arg__592 0"]
-	b603_6["arg__594 0x40u8"]
 	b603_0[/"Start"\\]
-	b603_8 --> b603_9
-	b603_5 --> b603_8
-	b603_6 --> b603_5
+	b603_6["arg__594 0x40u8"]
+	b603_5["arg__592 0"]
+	b603_8["arg__591 u8.&"]
+	b603_9["cond__589 u8.!="]
 	b603_0 --> b603_6
+	b603_6 --> b603_5
+	b603_5 --> b603_8
+	b603_8 --> b603_9
 end
 subgraph block_602["Block 602"]
 	direction TB
 	b602_4["memindex__596 0u"]
 	b602_3["flags imm_readU8"]
-	b602_3 --> b602_4
+	b602_4 --> b602_3
 end
 branch_599 --> block_602
 subgraph block_597["Block 597"]
 	direction TB
-	b597_16["offset imm_readULEB32"]
-	b597_17["index pop_u32"]
 	b597_22["eff__583 mach_writeMemory32_u16_64"]
-	b597_17 --> b597_16
+	b597_17["index pop_u32"]
+	b597_16["offset imm_readULEB32"]
 	b597_22 --> b597_17
+	b597_17 --> b597_16
 end
 branch_594 --> block_597
 
@@ -22512,11 +21686,11 @@ block_607 --> phi_606
 block_608 --> phi_606
 subgraph block_607["Block 607"]
 	direction TB
-	b607_23["offset imm_readULEB64"]
-	b607_24["index pop_u64"]
 	b607_29["eff__578 mach_writeMemory64_u16_64"]
-	b607_24 --> b607_23
+	b607_24["index pop_u64"]
+	b607_23["offset imm_readULEB64"]
 	b607_29 --> b607_24
+	b607_24 --> b607_23
 end
 branch_605 --> block_607
 subgraph branch_605["Branch 605"]
@@ -22526,14 +21700,18 @@ end
 block_609 --> branch_605
 subgraph block_609["Block 609"]
 	direction TB
-	b609_15["cond__577 m_isMemory64"]
 	b609_13["val pop_u64"]
+	b609_15["cond__577 m_isMemory64"]
 	b609_13 --> b609_15
 end
 phi_611 --> block_609
 subgraph phi_611["Phi 611"]
 	p611_12{{"Sϕ Codeptr "}}
 	p611_12{{"Sϕ Codeptr "}}
+	p611_12{{"Sϕ Codeptr "}}
+	p611_12{{"Sϕ Codeptr "}}
+	p611_11{"memindex ϕ"}
+	p611_11{"memindex ϕ"}
 	p611_11{"memindex ϕ"}
 	p611_11{"memindex ϕ"}
 	p611_11{"memindex ϕ"}
@@ -22541,14 +21719,14 @@ subgraph phi_611["Phi 611"]
 	p611_12{{"Sϕ Codeptr "}}
 	p611_12{{"Sϕ Codeptr "}}
 	p611_11{"memindex ϕ"}
+	p611_12{{"Sϕ Codeptr "}}
+	p611_12{{"Sϕ Codeptr "}}
 end
 block_612 --> phi_611
 block_613 --> phi_611
 subgraph block_612["Block 612"]
 	direction TB
 	b612_10["memindex__590 imm_readULEB32"]
-	b612_3["flags imm_readU8"]
-	b612_3 --> b612_10
 end
 branch_610 --> block_612
 subgraph branch_610["Branch 610"]
@@ -22558,30 +21736,30 @@ end
 block_614 --> branch_610
 subgraph block_614["Block 614"]
 	direction TB
-	b614_9["cond__589 u8.!="]
-	b614_8["arg__591 u8.&"]
-	b614_5["arg__592 0"]
-	b614_6["arg__594 0x40u8"]
 	b614_0[/"Start"\\]
-	b614_8 --> b614_9
-	b614_5 --> b614_8
-	b614_6 --> b614_5
+	b614_6["arg__594 0x40u8"]
+	b614_5["arg__592 0"]
+	b614_8["arg__591 u8.&"]
+	b614_9["cond__589 u8.!="]
 	b614_0 --> b614_6
+	b614_6 --> b614_5
+	b614_5 --> b614_8
+	b614_8 --> b614_9
 end
 subgraph block_613["Block 613"]
 	direction TB
 	b613_4["memindex__596 0u"]
 	b613_3["flags imm_readU8"]
-	b613_3 --> b613_4
+	b613_4 --> b613_3
 end
 branch_610 --> block_613
 subgraph block_608["Block 608"]
 	direction TB
-	b608_16["offset imm_readULEB32"]
-	b608_17["index pop_u32"]
 	b608_22["eff__583 mach_writeMemory32_u16_64"]
-	b608_17 --> b608_16
+	b608_17["index pop_u32"]
+	b608_16["offset imm_readULEB32"]
 	b608_22 --> b608_17
+	b608_17 --> b608_16
 end
 branch_605 --> block_608
 
@@ -23053,11 +22231,11 @@ block_618 --> phi_617
 block_619 --> phi_617
 subgraph block_618["Block 618"]
 	direction TB
-	b618_23["offset imm_readULEB64"]
-	b618_24["index pop_u64"]
 	b618_29["eff__598 mach_writeMemory64_u32_64"]
-	b618_24 --> b618_23
+	b618_24["index pop_u64"]
+	b618_23["offset imm_readULEB64"]
 	b618_29 --> b618_24
+	b618_24 --> b618_23
 end
 branch_616 --> block_618
 subgraph branch_616["Branch 616"]
@@ -23067,14 +22245,18 @@ end
 block_620 --> branch_616
 subgraph block_620["Block 620"]
 	direction TB
-	b620_15["cond__597 m_isMemory64"]
 	b620_13["val pop_u64"]
+	b620_15["cond__597 m_isMemory64"]
 	b620_13 --> b620_15
 end
 phi_622 --> block_620
 subgraph phi_622["Phi 622"]
 	p622_12{{"Sϕ Codeptr "}}
 	p622_12{{"Sϕ Codeptr "}}
+	p622_12{{"Sϕ Codeptr "}}
+	p622_12{{"Sϕ Codeptr "}}
+	p622_11{"memindex ϕ"}
+	p622_11{"memindex ϕ"}
 	p622_11{"memindex ϕ"}
 	p622_11{"memindex ϕ"}
 	p622_11{"memindex ϕ"}
@@ -23082,14 +22264,14 @@ subgraph phi_622["Phi 622"]
 	p622_12{{"Sϕ Codeptr "}}
 	p622_12{{"Sϕ Codeptr "}}
 	p622_11{"memindex ϕ"}
+	p622_12{{"Sϕ Codeptr "}}
+	p622_12{{"Sϕ Codeptr "}}
 end
 block_623 --> phi_622
 block_624 --> phi_622
 subgraph block_623["Block 623"]
 	direction TB
 	b623_10["memindex__610 imm_readULEB32"]
-	b623_3["flags imm_readU8"]
-	b623_3 --> b623_10
 end
 branch_621 --> block_623
 subgraph branch_621["Branch 621"]
@@ -23099,30 +22281,30 @@ end
 block_625 --> branch_621
 subgraph block_625["Block 625"]
 	direction TB
-	b625_9["cond__609 u8.!="]
-	b625_8["arg__611 u8.&"]
-	b625_5["arg__612 0"]
-	b625_6["arg__614 0x40u8"]
 	b625_0[/"Start"\\]
-	b625_8 --> b625_9
-	b625_5 --> b625_8
-	b625_6 --> b625_5
+	b625_6["arg__614 0x40u8"]
+	b625_5["arg__612 0"]
+	b625_8["arg__611 u8.&"]
+	b625_9["cond__609 u8.!="]
 	b625_0 --> b625_6
+	b625_6 --> b625_5
+	b625_5 --> b625_8
+	b625_8 --> b625_9
 end
 subgraph block_624["Block 624"]
 	direction TB
 	b624_4["memindex__616 0u"]
 	b624_3["flags imm_readU8"]
-	b624_3 --> b624_4
+	b624_4 --> b624_3
 end
 branch_621 --> block_624
 subgraph block_619["Block 619"]
 	direction TB
-	b619_16["offset imm_readULEB32"]
-	b619_17["index pop_u32"]
 	b619_22["eff__603 mach_writeMemory32_u32_64"]
-	b619_17 --> b619_16
+	b619_17["index pop_u32"]
+	b619_16["offset imm_readULEB32"]
 	b619_22 --> b619_17
+	b619_17 --> b619_16
 end
 branch_616 --> block_619
 
@@ -23239,11 +22421,11 @@ block_629 --> phi_628
 block_630 --> phi_628
 subgraph block_629["Block 629"]
 	direction TB
-	b629_23["offset imm_readULEB64"]
-	b629_24["index pop_u64"]
 	b629_29["eff__598 mach_writeMemory64_u32_64"]
-	b629_24 --> b629_23
+	b629_24["index pop_u64"]
+	b629_23["offset imm_readULEB64"]
 	b629_29 --> b629_24
+	b629_24 --> b629_23
 end
 branch_627 --> block_629
 subgraph branch_627["Branch 627"]
@@ -23253,14 +22435,18 @@ end
 block_631 --> branch_627
 subgraph block_631["Block 631"]
 	direction TB
-	b631_15["cond__597 m_isMemory64"]
 	b631_13["val pop_u64"]
+	b631_15["cond__597 m_isMemory64"]
 	b631_13 --> b631_15
 end
 phi_633 --> block_631
 subgraph phi_633["Phi 633"]
 	p633_12{{"Sϕ Codeptr "}}
 	p633_12{{"Sϕ Codeptr "}}
+	p633_12{{"Sϕ Codeptr "}}
+	p633_12{{"Sϕ Codeptr "}}
+	p633_11{"memindex ϕ"}
+	p633_11{"memindex ϕ"}
 	p633_11{"memindex ϕ"}
 	p633_11{"memindex ϕ"}
 	p633_11{"memindex ϕ"}
@@ -23268,14 +22454,14 @@ subgraph phi_633["Phi 633"]
 	p633_12{{"Sϕ Codeptr "}}
 	p633_12{{"Sϕ Codeptr "}}
 	p633_11{"memindex ϕ"}
+	p633_12{{"Sϕ Codeptr "}}
+	p633_12{{"Sϕ Codeptr "}}
 end
 block_634 --> phi_633
 block_635 --> phi_633
 subgraph block_634["Block 634"]
 	direction TB
 	b634_10["memindex__610 imm_readULEB32"]
-	b634_3["flags imm_readU8"]
-	b634_3 --> b634_10
 end
 branch_632 --> block_634
 subgraph branch_632["Branch 632"]
@@ -23285,30 +22471,30 @@ end
 block_636 --> branch_632
 subgraph block_636["Block 636"]
 	direction TB
-	b636_9["cond__609 u8.!="]
-	b636_8["arg__611 u8.&"]
-	b636_5["arg__612 0"]
-	b636_6["arg__614 0x40u8"]
 	b636_0[/"Start"\\]
-	b636_8 --> b636_9
-	b636_5 --> b636_8
-	b636_6 --> b636_5
+	b636_6["arg__614 0x40u8"]
+	b636_5["arg__612 0"]
+	b636_8["arg__611 u8.&"]
+	b636_9["cond__609 u8.!="]
 	b636_0 --> b636_6
+	b636_6 --> b636_5
+	b636_5 --> b636_8
+	b636_8 --> b636_9
 end
 subgraph block_635["Block 635"]
 	direction TB
 	b635_4["memindex__616 0u"]
 	b635_3["flags imm_readU8"]
-	b635_3 --> b635_4
+	b635_4 --> b635_3
 end
 branch_632 --> block_635
 subgraph block_630["Block 630"]
 	direction TB
-	b630_16["offset imm_readULEB32"]
-	b630_17["index pop_u32"]
 	b630_22["eff__603 mach_writeMemory32_u32_64"]
-	b630_17 --> b630_16
+	b630_17["index pop_u32"]
+	b630_16["offset imm_readULEB32"]
 	b630_22 --> b630_17
+	b630_17 --> b630_16
 end
 branch_627 --> block_630
 
@@ -23723,8 +22909,8 @@ block_644 --> phi_643
 block_645 --> phi_643
 subgraph block_644["Block 644"]
 	direction TB
-	b644_22["eff__618 push_u64"]
 	b644_20["r mach_memorySize64"]
+	b644_22["eff__618 push_u64"]
 	b644_20 --> b644_22
 end
 branch_642 --> block_644
@@ -23742,14 +22928,14 @@ subgraph phi_648["Phi 648"]
 	p648_11{"memindex ϕ"}
 	p648_11{"memindex ϕ"}
 	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
 end
 block_649 --> phi_648
 block_650 --> phi_648
 subgraph block_649["Block 649"]
 	direction TB
 	b649_10["memindex__626 imm_readULEB32"]
-	b649_3["flags imm_readU8"]
-	b649_3 --> b649_10
 end
 branch_647 --> block_649
 subgraph branch_647["Branch 647"]
@@ -23759,15 +22945,15 @@ end
 block_651 --> branch_647
 subgraph block_651["Block 651"]
 	direction TB
-	b651_9["cond__625 u8.!="]
-	b651_8["arg__627 u8.&"]
-	b651_5["arg__628 0"]
-	b651_6["arg__630 0x40u8"]
 	b651_0[/"Start"\\]
-	b651_8 --> b651_9
-	b651_5 --> b651_8
-	b651_6 --> b651_5
+	b651_6["arg__630 0x40u8"]
+	b651_5["arg__628 0"]
+	b651_8["arg__627 u8.&"]
+	b651_9["cond__625 u8.!="]
 	b651_0 --> b651_6
+	b651_6 --> b651_5
+	b651_5 --> b651_8
+	b651_8 --> b651_9
 end
 subgraph block_650["Block 650"]
 	direction TB
@@ -23776,15 +22962,15 @@ end
 branch_647 --> block_650
 subgraph block_645["Block 645"]
 	direction TB
-	b645_18["eff__621 push_u32"]
 	b645_16["r mach_memorySize32"]
+	b645_18["eff__621 push_u32"]
 	b645_16 --> b645_18
 end
 branch_642 --> block_645
 subgraph block_641["Block 641"]
 	direction TB
-	b641_3["flags imm_readU8"]
 	b641_4["memindex__632 0u"]
+	b641_3["flags imm_readU8"]
 	b641_4 --> b641_3
 end
 branch_638 --> block_641
@@ -23891,8 +23077,8 @@ block_659 --> phi_658
 block_660 --> phi_658
 subgraph block_659["Block 659"]
 	direction TB
-	b659_22["eff__618 push_u64"]
 	b659_20["r mach_memorySize64"]
+	b659_22["eff__618 push_u64"]
 	b659_20 --> b659_22
 end
 branch_657 --> block_659
@@ -23910,14 +23096,14 @@ subgraph phi_663["Phi 663"]
 	p663_11{"memindex ϕ"}
 	p663_11{"memindex ϕ"}
 	p663_11{"memindex ϕ"}
+	p663_11{"memindex ϕ"}
+	p663_11{"memindex ϕ"}
 end
 block_664 --> phi_663
 block_665 --> phi_663
 subgraph block_664["Block 664"]
 	direction TB
 	b664_10["memindex__626 imm_readULEB32"]
-	b664_3["flags imm_readU8"]
-	b664_3 --> b664_10
 end
 branch_662 --> block_664
 subgraph branch_662["Branch 662"]
@@ -23927,15 +23113,15 @@ end
 block_666 --> branch_662
 subgraph block_666["Block 666"]
 	direction TB
-	b666_9["cond__625 u8.!="]
-	b666_8["arg__627 u8.&"]
-	b666_5["arg__628 0"]
-	b666_6["arg__630 0x40u8"]
 	b666_0[/"Start"\\]
-	b666_8 --> b666_9
-	b666_5 --> b666_8
-	b666_6 --> b666_5
+	b666_6["arg__630 0x40u8"]
+	b666_5["arg__628 0"]
+	b666_8["arg__627 u8.&"]
+	b666_9["cond__625 u8.!="]
 	b666_0 --> b666_6
+	b666_6 --> b666_5
+	b666_5 --> b666_8
+	b666_8 --> b666_9
 end
 subgraph block_665["Block 665"]
 	direction TB
@@ -23944,15 +23130,15 @@ end
 branch_662 --> block_665
 subgraph block_660["Block 660"]
 	direction TB
-	b660_18["eff__621 push_u32"]
 	b660_16["r mach_memorySize32"]
+	b660_18["eff__621 push_u32"]
 	b660_16 --> b660_18
 end
 branch_657 --> block_660
 subgraph block_656["Block 656"]
 	direction TB
-	b656_3["flags imm_readU8"]
 	b656_4["memindex__632 0u"]
+	b656_3["flags imm_readU8"]
 	b656_4 --> b656_3
 end
 branch_653 --> block_656
@@ -24339,11 +23525,11 @@ block_674 --> phi_673
 block_675 --> phi_673
 subgraph block_674["Block 674"]
 	direction TB
-	b674_26["eff__634 push_u64"]
-	b674_24["r mach_memoryGrow64"]
 	b674_21["val pop_u64"]
-	b674_24 --> b674_26
+	b674_24["r mach_memoryGrow64"]
+	b674_26["eff__634 push_u64"]
 	b674_21 --> b674_24
+	b674_24 --> b674_26
 end
 branch_672 --> block_674
 subgraph branch_672["Branch 672"]
@@ -24360,14 +23546,14 @@ subgraph phi_678["Phi 678"]
 	p678_11{"memindex ϕ"}
 	p678_11{"memindex ϕ"}
 	p678_11{"memindex ϕ"}
+	p678_11{"memindex ϕ"}
+	p678_11{"memindex ϕ"}
 end
 block_679 --> phi_678
 block_680 --> phi_678
 subgraph block_679["Block 679"]
 	direction TB
 	b679_10["memindex__644 imm_readULEB32"]
-	b679_3["flags imm_readU8"]
-	b679_3 --> b679_10
 end
 branch_677 --> block_679
 subgraph branch_677["Branch 677"]
@@ -24377,15 +23563,15 @@ end
 block_681 --> branch_677
 subgraph block_681["Block 681"]
 	direction TB
-	b681_9["cond__643 u8.!="]
-	b681_8["arg__645 u8.&"]
-	b681_5["arg__646 0"]
-	b681_6["arg__648 0x40u8"]
 	b681_0[/"Start"\\]
-	b681_8 --> b681_9
-	b681_5 --> b681_8
-	b681_6 --> b681_5
+	b681_6["arg__648 0x40u8"]
+	b681_5["arg__646 0"]
+	b681_8["arg__645 u8.&"]
+	b681_9["cond__643 u8.!="]
 	b681_0 --> b681_6
+	b681_6 --> b681_5
+	b681_5 --> b681_8
+	b681_8 --> b681_9
 end
 subgraph block_680["Block 680"]
 	direction TB
@@ -24394,17 +23580,17 @@ end
 branch_677 --> block_680
 subgraph block_675["Block 675"]
 	direction TB
-	b675_20["eff__638 push_u32"]
-	b675_18["r mach_memoryGrow32"]
 	b675_15["val pop_u32"]
-	b675_18 --> b675_20
+	b675_18["r mach_memoryGrow32"]
+	b675_20["eff__638 push_u32"]
 	b675_15 --> b675_18
+	b675_18 --> b675_20
 end
 branch_672 --> block_675
 subgraph block_671["Block 671"]
 	direction TB
-	b671_3["flags imm_readU8"]
 	b671_4["memindex__650 0u"]
+	b671_3["flags imm_readU8"]
 	b671_4 --> b671_3
 end
 branch_668 --> block_671
@@ -24519,11 +23705,11 @@ block_689 --> phi_688
 block_690 --> phi_688
 subgraph block_689["Block 689"]
 	direction TB
-	b689_26["eff__634 push_u64"]
-	b689_24["r mach_memoryGrow64"]
 	b689_21["val pop_u64"]
-	b689_24 --> b689_26
+	b689_24["r mach_memoryGrow64"]
+	b689_26["eff__634 push_u64"]
 	b689_21 --> b689_24
+	b689_24 --> b689_26
 end
 branch_687 --> block_689
 subgraph branch_687["Branch 687"]
@@ -24540,14 +23726,14 @@ subgraph phi_693["Phi 693"]
 	p693_11{"memindex ϕ"}
 	p693_11{"memindex ϕ"}
 	p693_11{"memindex ϕ"}
+	p693_11{"memindex ϕ"}
+	p693_11{"memindex ϕ"}
 end
 block_694 --> phi_693
 block_695 --> phi_693
 subgraph block_694["Block 694"]
 	direction TB
 	b694_10["memindex__644 imm_readULEB32"]
-	b694_3["flags imm_readU8"]
-	b694_3 --> b694_10
 end
 branch_692 --> block_694
 subgraph branch_692["Branch 692"]
@@ -24557,15 +23743,15 @@ end
 block_696 --> branch_692
 subgraph block_696["Block 696"]
 	direction TB
-	b696_9["cond__643 u8.!="]
-	b696_8["arg__645 u8.&"]
-	b696_5["arg__646 0"]
-	b696_6["arg__648 0x40u8"]
 	b696_0[/"Start"\\]
-	b696_8 --> b696_9
-	b696_5 --> b696_8
-	b696_6 --> b696_5
+	b696_6["arg__648 0x40u8"]
+	b696_5["arg__646 0"]
+	b696_8["arg__645 u8.&"]
+	b696_9["cond__643 u8.!="]
 	b696_0 --> b696_6
+	b696_6 --> b696_5
+	b696_5 --> b696_8
+	b696_8 --> b696_9
 end
 subgraph block_695["Block 695"]
 	direction TB
@@ -24574,17 +23760,17 @@ end
 branch_692 --> block_695
 subgraph block_690["Block 690"]
 	direction TB
-	b690_20["eff__638 push_u32"]
-	b690_18["r mach_memoryGrow32"]
 	b690_15["val pop_u32"]
-	b690_18 --> b690_20
+	b690_18["r mach_memoryGrow32"]
+	b690_20["eff__638 push_u32"]
 	b690_15 --> b690_18
+	b690_18 --> b690_20
 end
 branch_687 --> block_690
 subgraph block_686["Block 686"]
 	direction TB
-	b686_3["flags imm_readU8"]
 	b686_4["memindex__650 0u"]
+	b686_3["flags imm_readU8"]
 	b686_4 --> b686_3
 end
 branch_683 --> block_686
@@ -24826,15 +24012,15 @@ window.traces["I32_CONST"]["schedulerMermaid"] = ''
 window.traces["I32_CONST"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_697["Block 697"]
 	direction TB
-	b697_1[\\"Finish"/]
-	b697_5["eff__651 push_u32"]
-	b697_6["abs__653 lift_u32"]
-	b697_3["x imm_readILEB32"]
 	b697_0[/"Start"\\]
-	b697_5 --> b697_1
-	b697_6 --> b697_5
-	b697_3 --> b697_6
+	b697_3["x imm_readILEB32"]
+	b697_6["abs__653 lift_u32"]
+	b697_5["eff__651 push_u32"]
+	b697_1[\\"Finish"/]
 	b697_0 --> b697_3
+	b697_3 --> b697_6
+	b697_6 --> b697_5
+	b697_5 --> b697_1
 end
 
 </pre>`;
@@ -24866,15 +24052,15 @@ window.traces["I32_CONST"]["unlem_scheduler"] = ''
 window.traces["I32_CONST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_698["Block 698"]
 	direction TB
-	b698_1[\\"Finish"/]
-	b698_5["eff__651 push_u32"]
-	b698_6["abs__653 lift_u32"]
-	b698_3["x imm_readILEB32"]
 	b698_0[/"Start"\\]
-	b698_5 --> b698_1
-	b698_6 --> b698_5
-	b698_3 --> b698_6
+	b698_3["x imm_readILEB32"]
+	b698_6["abs__653 lift_u32"]
+	b698_5["eff__651 push_u32"]
+	b698_1[\\"Finish"/]
 	b698_0 --> b698_3
+	b698_3 --> b698_6
+	b698_6 --> b698_5
+	b698_5 --> b698_1
 end
 
 </pre>`;
@@ -24992,15 +24178,15 @@ window.traces["I64_CONST"]["schedulerMermaid"] = ''
 window.traces["I64_CONST"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_699["Block 699"]
 	direction TB
-	b699_1[\\"Finish"/]
-	b699_5["eff__654 push_u64"]
-	b699_6["abs__656 lift_u64"]
-	b699_3["x imm_readILEB64"]
 	b699_0[/"Start"\\]
-	b699_5 --> b699_1
-	b699_6 --> b699_5
-	b699_3 --> b699_6
+	b699_3["x imm_readILEB64"]
+	b699_6["abs__656 lift_u64"]
+	b699_5["eff__654 push_u64"]
+	b699_1[\\"Finish"/]
 	b699_0 --> b699_3
+	b699_3 --> b699_6
+	b699_6 --> b699_5
+	b699_5 --> b699_1
 end
 
 </pre>`;
@@ -25032,15 +24218,15 @@ window.traces["I64_CONST"]["unlem_scheduler"] = ''
 window.traces["I64_CONST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_700["Block 700"]
 	direction TB
-	b700_1[\\"Finish"/]
-	b700_5["eff__654 push_u64"]
-	b700_6["abs__656 lift_u64"]
-	b700_3["x imm_readILEB64"]
 	b700_0[/"Start"\\]
-	b700_5 --> b700_1
-	b700_6 --> b700_5
-	b700_3 --> b700_6
+	b700_3["x imm_readILEB64"]
+	b700_6["abs__656 lift_u64"]
+	b700_5["eff__654 push_u64"]
+	b700_1[\\"Finish"/]
 	b700_0 --> b700_3
+	b700_3 --> b700_6
+	b700_6 --> b700_5
+	b700_5 --> b700_1
 end
 
 </pre>`;
@@ -25159,17 +24345,17 @@ window.traces["F32_CONST"]["schedulerMermaid"] = ''
 window.traces["F32_CONST"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_701["Block 701"]
 	direction TB
-	b701_1[\\"Finish"/]
-	b701_6["eff__657 push_f32"]
-	b701_5["arg__658 f32_reinterpret_u32"]
-	b701_7["abs__660 lift_u32"]
-	b701_3["x imm_readU32"]
 	b701_0[/"Start"\\]
-	b701_6 --> b701_1
-	b701_5 --> b701_6
-	b701_7 --> b701_5
-	b701_3 --> b701_7
+	b701_3["x imm_readU32"]
+	b701_7["abs__660 lift_u32"]
+	b701_5["arg__658 f32_reinterpret_u32"]
+	b701_6["eff__657 push_f32"]
+	b701_1[\\"Finish"/]
 	b701_0 --> b701_3
+	b701_3 --> b701_7
+	b701_7 --> b701_5
+	b701_5 --> b701_6
+	b701_6 --> b701_1
 end
 
 </pre>`;
@@ -25202,17 +24388,17 @@ window.traces["F32_CONST"]["unlem_scheduler"] = ''
 window.traces["F32_CONST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_702["Block 702"]
 	direction TB
-	b702_1[\\"Finish"/]
-	b702_6["eff__657 push_f32"]
-	b702_5["arg__658 f32_reinterpret_u32"]
-	b702_7["abs__660 lift_u32"]
-	b702_3["x imm_readU32"]
 	b702_0[/"Start"\\]
-	b702_6 --> b702_1
-	b702_5 --> b702_6
-	b702_7 --> b702_5
-	b702_3 --> b702_7
+	b702_3["x imm_readU32"]
+	b702_7["abs__660 lift_u32"]
+	b702_5["arg__658 f32_reinterpret_u32"]
+	b702_6["eff__657 push_f32"]
+	b702_1[\\"Finish"/]
 	b702_0 --> b702_3
+	b702_3 --> b702_7
+	b702_7 --> b702_5
+	b702_5 --> b702_6
+	b702_6 --> b702_1
 end
 
 </pre>`;
@@ -25334,17 +24520,17 @@ window.traces["F64_CONST"]["schedulerMermaid"] = ''
 window.traces["F64_CONST"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_703["Block 703"]
 	direction TB
-	b703_1[\\"Finish"/]
-	b703_6["eff__661 push_f64"]
-	b703_5["arg__662 f64_reinterpret_u64"]
-	b703_7["abs__664 lift_u64"]
-	b703_3["x imm_readU64"]
 	b703_0[/"Start"\\]
-	b703_6 --> b703_1
-	b703_5 --> b703_6
-	b703_7 --> b703_5
-	b703_3 --> b703_7
+	b703_3["x imm_readU64"]
+	b703_7["abs__664 lift_u64"]
+	b703_5["arg__662 f64_reinterpret_u64"]
+	b703_6["eff__661 push_f64"]
+	b703_1[\\"Finish"/]
 	b703_0 --> b703_3
+	b703_3 --> b703_7
+	b703_7 --> b703_5
+	b703_5 --> b703_6
+	b703_6 --> b703_1
 end
 
 </pre>`;
@@ -25377,17 +24563,17 @@ window.traces["F64_CONST"]["unlem_scheduler"] = ''
 window.traces["F64_CONST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_704["Block 704"]
 	direction TB
-	b704_1[\\"Finish"/]
-	b704_6["eff__661 push_f64"]
-	b704_5["arg__662 f64_reinterpret_u64"]
-	b704_7["abs__664 lift_u64"]
-	b704_3["x imm_readU64"]
 	b704_0[/"Start"\\]
-	b704_6 --> b704_1
-	b704_5 --> b704_6
-	b704_7 --> b704_5
-	b704_3 --> b704_7
+	b704_3["x imm_readU64"]
+	b704_7["abs__664 lift_u64"]
+	b704_5["arg__662 f64_reinterpret_u64"]
+	b704_6["eff__661 push_f64"]
+	b704_1[\\"Finish"/]
 	b704_0 --> b704_3
+	b704_3 --> b704_7
+	b704_7 --> b704_5
+	b704_5 --> b704_6
+	b704_6 --> b704_1
 end
 
 </pre>`;
@@ -25564,11 +24750,11 @@ block_708 --> phi_707
 block_709 --> phi_707
 subgraph block_708["Block 708"]
 	direction TB
-	b708_9["eff__666 push_u32"]
-	b708_12["abs__673 lift_u32"]
 	b708_8["arg__667 1"]
-	b708_12 --> b708_9
+	b708_12["abs__673 lift_u32"]
+	b708_9["eff__666 push_u32"]
 	b708_8 --> b708_12
+	b708_12 --> b708_9
 end
 branch_706 --> block_708
 subgraph branch_706["Branch 706"]
@@ -25578,20 +24764,20 @@ end
 block_710 --> branch_706
 subgraph block_710["Block 710"]
 	direction TB
-	b710_6["cond__665 U32_equals"]
-	b710_3["a pop_u32"]
-	b710_11["abs__672 lift_u32"]
-	b710_4["arg__671 0"]
 	b710_0[/"Start"\\]
-	b710_3 --> b710_6
-	b710_11 --> b710_3
-	b710_4 --> b710_11
+	b710_4["arg__671 0"]
+	b710_11["abs__672 lift_u32"]
+	b710_3["a pop_u32"]
+	b710_6["cond__665 U32_equals"]
 	b710_0 --> b710_4
+	b710_4 --> b710_11
+	b710_11 --> b710_3
+	b710_3 --> b710_6
 end
 subgraph block_709["Block 709"]
 	direction TB
-	b709_7["eff__668 push_u32"]
 	b709_13["abs__674 lift_u32"]
+	b709_7["eff__668 push_u32"]
 	b709_13 --> b709_7
 end
 branch_706 --> block_709
@@ -25689,8 +24875,8 @@ block_714 --> phi_713
 block_715 --> phi_713
 subgraph block_714["Block 714"]
 	direction TB
-	b714_19["eff_push__679 push_u32"]
 	b714_18["merge__678 merge_u"]
+	b714_19["eff_push__679 push_u32"]
 	b714_18 --> b714_19
 end
 branch_712 --> block_714
@@ -25701,27 +24887,27 @@ end
 block_720 --> branch_712
 subgraph block_720["Block 720"]
 	direction TB
-	b720_16["mb__677 bool.&&"]
-	b720_14["mt__675 U32_maybeTrue"]
-	b720_15["mf__676 U32_maybeFalse"]
-	b720_6["cond__665 U32_equals"]
-	b720_12["abs__673 lift_u32"]
-	b720_13["abs__674 lift_u32"]
-	b720_3["a pop_u32"]
+	b720_0[/"Start"\\]
+	b720_4["arg__671 0"]
 	b720_11["abs__672 lift_u32"]
 	b720_8["arg__667 1"]
-	b720_4["arg__671 0"]
-	b720_0[/"Start"\\]
-	b720_14 --> b720_16
-	b720_15 --> b720_14
-	b720_6 --> b720_15
-	b720_12 --> b720_6
-	b720_13 --> b720_12
-	b720_3 --> b720_13
-	b720_11 --> b720_3
-	b720_8 --> b720_11
-	b720_4 --> b720_8
+	b720_3["a pop_u32"]
+	b720_6["cond__665 U32_equals"]
+	b720_13["abs__674 lift_u32"]
+	b720_12["abs__673 lift_u32"]
+	b720_15["mf__676 U32_maybeFalse"]
+	b720_14["mt__675 U32_maybeTrue"]
+	b720_16["mb__677 bool.&&"]
 	b720_0 --> b720_4
+	b720_4 --> b720_11
+	b720_11 --> b720_8
+	b720_8 --> b720_3
+	b720_3 --> b720_6
+	b720_6 --> b720_13
+	b720_13 --> b720_12
+	b720_12 --> b720_15
+	b720_15 --> b720_14
+	b720_14 --> b720_16
 end
 subgraph block_715["Block 715"]
 	direction TB
@@ -25942,11 +25128,11 @@ block_724 --> phi_723
 block_725 --> phi_723
 subgraph block_724["Block 724"]
 	direction TB
-	b724_11["eff__681 push_u32"]
-	b724_13["abs__687 lift_u32"]
 	b724_10["arg__682 1"]
-	b724_13 --> b724_11
+	b724_13["abs__687 lift_u32"]
+	b724_11["eff__681 push_u32"]
 	b724_10 --> b724_13
+	b724_13 --> b724_11
 end
 branch_722 --> block_724
 subgraph branch_722["Branch 722"]
@@ -25956,21 +25142,21 @@ end
 block_726 --> branch_722
 subgraph block_726["Block 726"]
 	direction TB
-	b726_7["cond__680 U32_equals"]
-	b726_4["a pop_u32"]
-	b726_3["b pop_u32"]
 	b726_0[/"Start"\\]
-	b726_4 --> b726_7
-	b726_3 --> b726_4
+	b726_3["b pop_u32"]
+	b726_4["a pop_u32"]
+	b726_7["cond__680 U32_equals"]
 	b726_0 --> b726_3
+	b726_3 --> b726_4
+	b726_4 --> b726_7
 end
 subgraph block_725["Block 725"]
 	direction TB
-	b725_9["eff__683 push_u32"]
-	b725_14["abs__688 lift_u32"]
 	b725_8["arg__684 0"]
-	b725_14 --> b725_9
+	b725_14["abs__688 lift_u32"]
+	b725_9["eff__683 push_u32"]
 	b725_8 --> b725_14
+	b725_14 --> b725_9
 end
 branch_722 --> block_725
 
@@ -26068,8 +25254,8 @@ block_730 --> phi_729
 block_731 --> phi_729
 subgraph block_730["Block 730"]
 	direction TB
-	b730_20["eff_push__693 push_u32"]
 	b730_19["merge__692 merge_u"]
+	b730_20["eff_push__693 push_u32"]
 	b730_19 --> b730_20
 end
 branch_728 --> block_730
@@ -26080,27 +25266,27 @@ end
 block_736 --> branch_728
 subgraph block_736["Block 736"]
 	direction TB
-	b736_17["mb__691 bool.&&"]
-	b736_15["mt__689 U32_maybeTrue"]
-	b736_16["mf__690 U32_maybeFalse"]
-	b736_7["cond__680 U32_equals"]
-	b736_13["abs__687 lift_u32"]
-	b736_14["abs__688 lift_u32"]
-	b736_4["a pop_u32"]
-	b736_3["b pop_u32"]
-	b736_10["arg__682 1"]
-	b736_8["arg__684 0"]
 	b736_0[/"Start"\\]
-	b736_15 --> b736_17
-	b736_16 --> b736_15
-	b736_7 --> b736_16
-	b736_13 --> b736_7
-	b736_14 --> b736_13
-	b736_4 --> b736_14
-	b736_3 --> b736_4
-	b736_10 --> b736_3
+	b736_3["b pop_u32"]
+	b736_8["arg__684 0"]
+	b736_10["arg__682 1"]
+	b736_4["a pop_u32"]
+	b736_7["cond__680 U32_equals"]
+	b736_14["abs__688 lift_u32"]
+	b736_13["abs__687 lift_u32"]
+	b736_16["mf__690 U32_maybeFalse"]
+	b736_15["mt__689 U32_maybeTrue"]
+	b736_17["mb__691 bool.&&"]
+	b736_0 --> b736_3
+	b736_3 --> b736_8
 	b736_8 --> b736_10
-	b736_0 --> b736_8
+	b736_10 --> b736_4
+	b736_4 --> b736_7
+	b736_7 --> b736_14
+	b736_14 --> b736_13
+	b736_13 --> b736_16
+	b736_16 --> b736_15
+	b736_15 --> b736_17
 end
 subgraph block_731["Block 731"]
 	direction TB
@@ -26328,11 +25514,11 @@ block_740 --> phi_739
 block_741 --> phi_739
 subgraph block_740["Block 740"]
 	direction TB
-	b740_11["eff__695 push_u32"]
-	b740_13["abs__701 lift_u32"]
 	b740_10["arg__696 1"]
-	b740_13 --> b740_11
+	b740_13["abs__701 lift_u32"]
+	b740_11["eff__695 push_u32"]
 	b740_10 --> b740_13
+	b740_13 --> b740_11
 end
 branch_738 --> block_740
 subgraph branch_738["Branch 738"]
@@ -26342,21 +25528,21 @@ end
 block_742 --> branch_738
 subgraph block_742["Block 742"]
 	direction TB
-	b742_7["cond__694 U32_not_equals"]
-	b742_4["a pop_u32"]
-	b742_3["b pop_u32"]
 	b742_0[/"Start"\\]
-	b742_4 --> b742_7
-	b742_3 --> b742_4
+	b742_3["b pop_u32"]
+	b742_4["a pop_u32"]
+	b742_7["cond__694 U32_not_equals"]
 	b742_0 --> b742_3
+	b742_3 --> b742_4
+	b742_4 --> b742_7
 end
 subgraph block_741["Block 741"]
 	direction TB
-	b741_9["eff__697 push_u32"]
-	b741_14["abs__702 lift_u32"]
 	b741_8["arg__698 0"]
-	b741_14 --> b741_9
+	b741_14["abs__702 lift_u32"]
+	b741_9["eff__697 push_u32"]
 	b741_8 --> b741_14
+	b741_14 --> b741_9
 end
 branch_738 --> block_741
 
@@ -26454,8 +25640,8 @@ block_746 --> phi_745
 block_747 --> phi_745
 subgraph block_746["Block 746"]
 	direction TB
-	b746_20["eff_push__707 push_u32"]
 	b746_19["merge__706 merge_u"]
+	b746_20["eff_push__707 push_u32"]
 	b746_19 --> b746_20
 end
 branch_744 --> block_746
@@ -26466,27 +25652,27 @@ end
 block_752 --> branch_744
 subgraph block_752["Block 752"]
 	direction TB
-	b752_17["mb__705 bool.&&"]
-	b752_15["mt__703 U32_maybeTrue"]
-	b752_16["mf__704 U32_maybeFalse"]
-	b752_7["cond__694 U32_not_equals"]
-	b752_13["abs__701 lift_u32"]
-	b752_14["abs__702 lift_u32"]
-	b752_4["a pop_u32"]
-	b752_3["b pop_u32"]
-	b752_10["arg__696 1"]
-	b752_8["arg__698 0"]
 	b752_0[/"Start"\\]
-	b752_15 --> b752_17
-	b752_16 --> b752_15
-	b752_7 --> b752_16
-	b752_13 --> b752_7
-	b752_14 --> b752_13
-	b752_4 --> b752_14
-	b752_3 --> b752_4
-	b752_10 --> b752_3
+	b752_3["b pop_u32"]
+	b752_8["arg__698 0"]
+	b752_10["arg__696 1"]
+	b752_4["a pop_u32"]
+	b752_7["cond__694 U32_not_equals"]
+	b752_14["abs__702 lift_u32"]
+	b752_13["abs__701 lift_u32"]
+	b752_16["mf__704 U32_maybeFalse"]
+	b752_15["mt__703 U32_maybeTrue"]
+	b752_17["mb__705 bool.&&"]
+	b752_0 --> b752_3
+	b752_3 --> b752_8
 	b752_8 --> b752_10
-	b752_0 --> b752_8
+	b752_10 --> b752_4
+	b752_4 --> b752_7
+	b752_7 --> b752_14
+	b752_14 --> b752_13
+	b752_13 --> b752_16
+	b752_16 --> b752_15
+	b752_15 --> b752_17
 end
 subgraph block_747["Block 747"]
 	direction TB
@@ -26715,11 +25901,11 @@ block_756 --> phi_755
 block_757 --> phi_755
 subgraph block_756["Block 756"]
 	direction TB
-	b756_11["eff__709 push_u32"]
-	b756_13["abs__715 lift_u32"]
 	b756_10["arg__710 1"]
-	b756_13 --> b756_11
+	b756_13["abs__715 lift_u32"]
+	b756_11["eff__709 push_u32"]
 	b756_10 --> b756_13
+	b756_13 --> b756_11
 end
 branch_754 --> block_756
 subgraph branch_754["Branch 754"]
@@ -26729,21 +25915,21 @@ end
 block_758 --> branch_754
 subgraph block_758["Block 758"]
 	direction TB
-	b758_7["cond__708 U32_lt_s"]
-	b758_4["a pop_u32"]
-	b758_3["b pop_u32"]
 	b758_0[/"Start"\\]
-	b758_4 --> b758_7
-	b758_3 --> b758_4
+	b758_3["b pop_u32"]
+	b758_4["a pop_u32"]
+	b758_7["cond__708 U32_lt_s"]
 	b758_0 --> b758_3
+	b758_3 --> b758_4
+	b758_4 --> b758_7
 end
 subgraph block_757["Block 757"]
 	direction TB
-	b757_9["eff__711 push_u32"]
-	b757_14["abs__716 lift_u32"]
 	b757_8["arg__712 0"]
-	b757_14 --> b757_9
+	b757_14["abs__716 lift_u32"]
+	b757_9["eff__711 push_u32"]
 	b757_8 --> b757_14
+	b757_14 --> b757_9
 end
 branch_754 --> block_757
 
@@ -26841,8 +26027,8 @@ block_762 --> phi_761
 block_763 --> phi_761
 subgraph block_762["Block 762"]
 	direction TB
-	b762_20["eff_push__721 push_u32"]
 	b762_19["merge__720 merge_u"]
+	b762_20["eff_push__721 push_u32"]
 	b762_19 --> b762_20
 end
 branch_760 --> block_762
@@ -26853,27 +26039,27 @@ end
 block_768 --> branch_760
 subgraph block_768["Block 768"]
 	direction TB
-	b768_17["mb__719 bool.&&"]
-	b768_15["mt__717 U32_maybeTrue"]
-	b768_16["mf__718 U32_maybeFalse"]
-	b768_7["cond__708 U32_lt_s"]
-	b768_13["abs__715 lift_u32"]
-	b768_14["abs__716 lift_u32"]
-	b768_4["a pop_u32"]
-	b768_3["b pop_u32"]
-	b768_10["arg__710 1"]
-	b768_8["arg__712 0"]
 	b768_0[/"Start"\\]
-	b768_15 --> b768_17
-	b768_16 --> b768_15
-	b768_7 --> b768_16
-	b768_13 --> b768_7
-	b768_14 --> b768_13
-	b768_4 --> b768_14
-	b768_3 --> b768_4
-	b768_10 --> b768_3
+	b768_3["b pop_u32"]
+	b768_8["arg__712 0"]
+	b768_10["arg__710 1"]
+	b768_4["a pop_u32"]
+	b768_7["cond__708 U32_lt_s"]
+	b768_14["abs__716 lift_u32"]
+	b768_13["abs__715 lift_u32"]
+	b768_16["mf__718 U32_maybeFalse"]
+	b768_15["mt__717 U32_maybeTrue"]
+	b768_17["mb__719 bool.&&"]
+	b768_0 --> b768_3
+	b768_3 --> b768_8
 	b768_8 --> b768_10
-	b768_0 --> b768_8
+	b768_10 --> b768_4
+	b768_4 --> b768_7
+	b768_7 --> b768_14
+	b768_14 --> b768_13
+	b768_13 --> b768_16
+	b768_16 --> b768_15
+	b768_15 --> b768_17
 end
 subgraph block_763["Block 763"]
 	direction TB
@@ -27101,11 +26287,11 @@ block_772 --> phi_771
 block_773 --> phi_771
 subgraph block_772["Block 772"]
 	direction TB
-	b772_11["eff__723 push_u32"]
-	b772_13["abs__729 lift_u32"]
 	b772_10["arg__724 1"]
-	b772_13 --> b772_11
+	b772_13["abs__729 lift_u32"]
+	b772_11["eff__723 push_u32"]
 	b772_10 --> b772_13
+	b772_13 --> b772_11
 end
 branch_770 --> block_772
 subgraph branch_770["Branch 770"]
@@ -27115,21 +26301,21 @@ end
 block_774 --> branch_770
 subgraph block_774["Block 774"]
 	direction TB
-	b774_7["cond__722 U32_lt"]
-	b774_4["a pop_u32"]
-	b774_3["b pop_u32"]
 	b774_0[/"Start"\\]
-	b774_4 --> b774_7
-	b774_3 --> b774_4
+	b774_3["b pop_u32"]
+	b774_4["a pop_u32"]
+	b774_7["cond__722 U32_lt"]
 	b774_0 --> b774_3
+	b774_3 --> b774_4
+	b774_4 --> b774_7
 end
 subgraph block_773["Block 773"]
 	direction TB
-	b773_9["eff__725 push_u32"]
-	b773_14["abs__730 lift_u32"]
 	b773_8["arg__726 0"]
-	b773_14 --> b773_9
+	b773_14["abs__730 lift_u32"]
+	b773_9["eff__725 push_u32"]
 	b773_8 --> b773_14
+	b773_14 --> b773_9
 end
 branch_770 --> block_773
 
@@ -27227,8 +26413,8 @@ block_778 --> phi_777
 block_779 --> phi_777
 subgraph block_778["Block 778"]
 	direction TB
-	b778_20["eff_push__735 push_u32"]
 	b778_19["merge__734 merge_u"]
+	b778_20["eff_push__735 push_u32"]
 	b778_19 --> b778_20
 end
 branch_776 --> block_778
@@ -27239,27 +26425,27 @@ end
 block_784 --> branch_776
 subgraph block_784["Block 784"]
 	direction TB
-	b784_17["mb__733 bool.&&"]
-	b784_15["mt__731 U32_maybeTrue"]
-	b784_16["mf__732 U32_maybeFalse"]
-	b784_7["cond__722 U32_lt"]
-	b784_13["abs__729 lift_u32"]
-	b784_14["abs__730 lift_u32"]
-	b784_4["a pop_u32"]
-	b784_3["b pop_u32"]
-	b784_10["arg__724 1"]
-	b784_8["arg__726 0"]
 	b784_0[/"Start"\\]
-	b784_15 --> b784_17
-	b784_16 --> b784_15
-	b784_7 --> b784_16
-	b784_13 --> b784_7
-	b784_14 --> b784_13
-	b784_4 --> b784_14
-	b784_3 --> b784_4
-	b784_10 --> b784_3
+	b784_3["b pop_u32"]
+	b784_8["arg__726 0"]
+	b784_10["arg__724 1"]
+	b784_4["a pop_u32"]
+	b784_7["cond__722 U32_lt"]
+	b784_14["abs__730 lift_u32"]
+	b784_13["abs__729 lift_u32"]
+	b784_16["mf__732 U32_maybeFalse"]
+	b784_15["mt__731 U32_maybeTrue"]
+	b784_17["mb__733 bool.&&"]
+	b784_0 --> b784_3
+	b784_3 --> b784_8
 	b784_8 --> b784_10
-	b784_0 --> b784_8
+	b784_10 --> b784_4
+	b784_4 --> b784_7
+	b784_7 --> b784_14
+	b784_14 --> b784_13
+	b784_13 --> b784_16
+	b784_16 --> b784_15
+	b784_15 --> b784_17
 end
 subgraph block_779["Block 779"]
 	direction TB
@@ -27487,11 +26673,11 @@ block_788 --> phi_787
 block_789 --> phi_787
 subgraph block_788["Block 788"]
 	direction TB
-	b788_11["eff__737 push_u32"]
-	b788_13["abs__743 lift_u32"]
 	b788_10["arg__738 1"]
-	b788_13 --> b788_11
+	b788_13["abs__743 lift_u32"]
+	b788_11["eff__737 push_u32"]
 	b788_10 --> b788_13
+	b788_13 --> b788_11
 end
 branch_786 --> block_788
 subgraph branch_786["Branch 786"]
@@ -27501,21 +26687,21 @@ end
 block_790 --> branch_786
 subgraph block_790["Block 790"]
 	direction TB
-	b790_7["cond__736 U32_gt_s"]
-	b790_4["a pop_u32"]
-	b790_3["b pop_u32"]
 	b790_0[/"Start"\\]
-	b790_4 --> b790_7
-	b790_3 --> b790_4
+	b790_3["b pop_u32"]
+	b790_4["a pop_u32"]
+	b790_7["cond__736 U32_gt_s"]
 	b790_0 --> b790_3
+	b790_3 --> b790_4
+	b790_4 --> b790_7
 end
 subgraph block_789["Block 789"]
 	direction TB
-	b789_9["eff__739 push_u32"]
-	b789_14["abs__744 lift_u32"]
 	b789_8["arg__740 0"]
-	b789_14 --> b789_9
+	b789_14["abs__744 lift_u32"]
+	b789_9["eff__739 push_u32"]
 	b789_8 --> b789_14
+	b789_14 --> b789_9
 end
 branch_786 --> block_789
 
@@ -27613,8 +26799,8 @@ block_794 --> phi_793
 block_795 --> phi_793
 subgraph block_794["Block 794"]
 	direction TB
-	b794_20["eff_push__749 push_u32"]
 	b794_19["merge__748 merge_u"]
+	b794_20["eff_push__749 push_u32"]
 	b794_19 --> b794_20
 end
 branch_792 --> block_794
@@ -27625,27 +26811,27 @@ end
 block_800 --> branch_792
 subgraph block_800["Block 800"]
 	direction TB
-	b800_17["mb__747 bool.&&"]
-	b800_15["mt__745 U32_maybeTrue"]
-	b800_16["mf__746 U32_maybeFalse"]
-	b800_7["cond__736 U32_gt_s"]
-	b800_13["abs__743 lift_u32"]
-	b800_14["abs__744 lift_u32"]
-	b800_4["a pop_u32"]
-	b800_3["b pop_u32"]
-	b800_10["arg__738 1"]
-	b800_8["arg__740 0"]
 	b800_0[/"Start"\\]
-	b800_15 --> b800_17
-	b800_16 --> b800_15
-	b800_7 --> b800_16
-	b800_13 --> b800_7
-	b800_14 --> b800_13
-	b800_4 --> b800_14
-	b800_3 --> b800_4
-	b800_10 --> b800_3
+	b800_3["b pop_u32"]
+	b800_8["arg__740 0"]
+	b800_10["arg__738 1"]
+	b800_4["a pop_u32"]
+	b800_7["cond__736 U32_gt_s"]
+	b800_14["abs__744 lift_u32"]
+	b800_13["abs__743 lift_u32"]
+	b800_16["mf__746 U32_maybeFalse"]
+	b800_15["mt__745 U32_maybeTrue"]
+	b800_17["mb__747 bool.&&"]
+	b800_0 --> b800_3
+	b800_3 --> b800_8
 	b800_8 --> b800_10
-	b800_0 --> b800_8
+	b800_10 --> b800_4
+	b800_4 --> b800_7
+	b800_7 --> b800_14
+	b800_14 --> b800_13
+	b800_13 --> b800_16
+	b800_16 --> b800_15
+	b800_15 --> b800_17
 end
 subgraph block_795["Block 795"]
 	direction TB
@@ -27873,11 +27059,11 @@ block_804 --> phi_803
 block_805 --> phi_803
 subgraph block_804["Block 804"]
 	direction TB
-	b804_11["eff__751 push_u32"]
-	b804_13["abs__757 lift_u32"]
 	b804_10["arg__752 1"]
-	b804_13 --> b804_11
+	b804_13["abs__757 lift_u32"]
+	b804_11["eff__751 push_u32"]
 	b804_10 --> b804_13
+	b804_13 --> b804_11
 end
 branch_802 --> block_804
 subgraph branch_802["Branch 802"]
@@ -27887,21 +27073,21 @@ end
 block_806 --> branch_802
 subgraph block_806["Block 806"]
 	direction TB
-	b806_7["cond__750 U32_gt"]
-	b806_4["a pop_u32"]
-	b806_3["b pop_u32"]
 	b806_0[/"Start"\\]
-	b806_4 --> b806_7
-	b806_3 --> b806_4
+	b806_3["b pop_u32"]
+	b806_4["a pop_u32"]
+	b806_7["cond__750 U32_gt"]
 	b806_0 --> b806_3
+	b806_3 --> b806_4
+	b806_4 --> b806_7
 end
 subgraph block_805["Block 805"]
 	direction TB
-	b805_9["eff__753 push_u32"]
-	b805_14["abs__758 lift_u32"]
 	b805_8["arg__754 0"]
-	b805_14 --> b805_9
+	b805_14["abs__758 lift_u32"]
+	b805_9["eff__753 push_u32"]
 	b805_8 --> b805_14
+	b805_14 --> b805_9
 end
 branch_802 --> block_805
 
@@ -27999,8 +27185,8 @@ block_810 --> phi_809
 block_811 --> phi_809
 subgraph block_810["Block 810"]
 	direction TB
-	b810_20["eff_push__763 push_u32"]
 	b810_19["merge__762 merge_u"]
+	b810_20["eff_push__763 push_u32"]
 	b810_19 --> b810_20
 end
 branch_808 --> block_810
@@ -28011,27 +27197,27 @@ end
 block_816 --> branch_808
 subgraph block_816["Block 816"]
 	direction TB
-	b816_17["mb__761 bool.&&"]
-	b816_15["mt__759 U32_maybeTrue"]
-	b816_16["mf__760 U32_maybeFalse"]
-	b816_7["cond__750 U32_gt"]
-	b816_13["abs__757 lift_u32"]
-	b816_14["abs__758 lift_u32"]
-	b816_4["a pop_u32"]
-	b816_3["b pop_u32"]
-	b816_10["arg__752 1"]
-	b816_8["arg__754 0"]
 	b816_0[/"Start"\\]
-	b816_15 --> b816_17
-	b816_16 --> b816_15
-	b816_7 --> b816_16
-	b816_13 --> b816_7
-	b816_14 --> b816_13
-	b816_4 --> b816_14
-	b816_3 --> b816_4
-	b816_10 --> b816_3
+	b816_3["b pop_u32"]
+	b816_8["arg__754 0"]
+	b816_10["arg__752 1"]
+	b816_4["a pop_u32"]
+	b816_7["cond__750 U32_gt"]
+	b816_14["abs__758 lift_u32"]
+	b816_13["abs__757 lift_u32"]
+	b816_16["mf__760 U32_maybeFalse"]
+	b816_15["mt__759 U32_maybeTrue"]
+	b816_17["mb__761 bool.&&"]
+	b816_0 --> b816_3
+	b816_3 --> b816_8
 	b816_8 --> b816_10
-	b816_0 --> b816_8
+	b816_10 --> b816_4
+	b816_4 --> b816_7
+	b816_7 --> b816_14
+	b816_14 --> b816_13
+	b816_13 --> b816_16
+	b816_16 --> b816_15
+	b816_15 --> b816_17
 end
 subgraph block_811["Block 811"]
 	direction TB
@@ -28259,11 +27445,11 @@ block_820 --> phi_819
 block_821 --> phi_819
 subgraph block_820["Block 820"]
 	direction TB
-	b820_11["eff__765 push_u32"]
-	b820_13["abs__771 lift_u32"]
 	b820_10["arg__766 1"]
-	b820_13 --> b820_11
+	b820_13["abs__771 lift_u32"]
+	b820_11["eff__765 push_u32"]
 	b820_10 --> b820_13
+	b820_13 --> b820_11
 end
 branch_818 --> block_820
 subgraph branch_818["Branch 818"]
@@ -28273,21 +27459,21 @@ end
 block_822 --> branch_818
 subgraph block_822["Block 822"]
 	direction TB
-	b822_7["cond__764 U32_le_s"]
-	b822_4["a pop_u32"]
-	b822_3["b pop_u32"]
 	b822_0[/"Start"\\]
-	b822_4 --> b822_7
-	b822_3 --> b822_4
+	b822_3["b pop_u32"]
+	b822_4["a pop_u32"]
+	b822_7["cond__764 U32_le_s"]
 	b822_0 --> b822_3
+	b822_3 --> b822_4
+	b822_4 --> b822_7
 end
 subgraph block_821["Block 821"]
 	direction TB
-	b821_9["eff__767 push_u32"]
-	b821_14["abs__772 lift_u32"]
 	b821_8["arg__768 0"]
-	b821_14 --> b821_9
+	b821_14["abs__772 lift_u32"]
+	b821_9["eff__767 push_u32"]
 	b821_8 --> b821_14
+	b821_14 --> b821_9
 end
 branch_818 --> block_821
 
@@ -28385,8 +27571,8 @@ block_826 --> phi_825
 block_827 --> phi_825
 subgraph block_826["Block 826"]
 	direction TB
-	b826_20["eff_push__777 push_u32"]
 	b826_19["merge__776 merge_u"]
+	b826_20["eff_push__777 push_u32"]
 	b826_19 --> b826_20
 end
 branch_824 --> block_826
@@ -28397,27 +27583,27 @@ end
 block_832 --> branch_824
 subgraph block_832["Block 832"]
 	direction TB
-	b832_17["mb__775 bool.&&"]
-	b832_15["mt__773 U32_maybeTrue"]
-	b832_16["mf__774 U32_maybeFalse"]
-	b832_7["cond__764 U32_le_s"]
-	b832_13["abs__771 lift_u32"]
-	b832_14["abs__772 lift_u32"]
-	b832_4["a pop_u32"]
-	b832_3["b pop_u32"]
-	b832_10["arg__766 1"]
-	b832_8["arg__768 0"]
 	b832_0[/"Start"\\]
-	b832_15 --> b832_17
-	b832_16 --> b832_15
-	b832_7 --> b832_16
-	b832_13 --> b832_7
-	b832_14 --> b832_13
-	b832_4 --> b832_14
-	b832_3 --> b832_4
-	b832_10 --> b832_3
+	b832_3["b pop_u32"]
+	b832_8["arg__768 0"]
+	b832_10["arg__766 1"]
+	b832_4["a pop_u32"]
+	b832_7["cond__764 U32_le_s"]
+	b832_14["abs__772 lift_u32"]
+	b832_13["abs__771 lift_u32"]
+	b832_16["mf__774 U32_maybeFalse"]
+	b832_15["mt__773 U32_maybeTrue"]
+	b832_17["mb__775 bool.&&"]
+	b832_0 --> b832_3
+	b832_3 --> b832_8
 	b832_8 --> b832_10
-	b832_0 --> b832_8
+	b832_10 --> b832_4
+	b832_4 --> b832_7
+	b832_7 --> b832_14
+	b832_14 --> b832_13
+	b832_13 --> b832_16
+	b832_16 --> b832_15
+	b832_15 --> b832_17
 end
 subgraph block_827["Block 827"]
 	direction TB
@@ -28645,11 +27831,11 @@ block_836 --> phi_835
 block_837 --> phi_835
 subgraph block_836["Block 836"]
 	direction TB
-	b836_11["eff__779 push_u32"]
-	b836_13["abs__785 lift_u32"]
 	b836_10["arg__780 1"]
-	b836_13 --> b836_11
+	b836_13["abs__785 lift_u32"]
+	b836_11["eff__779 push_u32"]
 	b836_10 --> b836_13
+	b836_13 --> b836_11
 end
 branch_834 --> block_836
 subgraph branch_834["Branch 834"]
@@ -28659,21 +27845,21 @@ end
 block_838 --> branch_834
 subgraph block_838["Block 838"]
 	direction TB
-	b838_7["cond__778 U32_lte"]
-	b838_4["a pop_u32"]
-	b838_3["b pop_u32"]
 	b838_0[/"Start"\\]
-	b838_4 --> b838_7
-	b838_3 --> b838_4
+	b838_3["b pop_u32"]
+	b838_4["a pop_u32"]
+	b838_7["cond__778 U32_lte"]
 	b838_0 --> b838_3
+	b838_3 --> b838_4
+	b838_4 --> b838_7
 end
 subgraph block_837["Block 837"]
 	direction TB
-	b837_9["eff__781 push_u32"]
-	b837_14["abs__786 lift_u32"]
 	b837_8["arg__782 0"]
-	b837_14 --> b837_9
+	b837_14["abs__786 lift_u32"]
+	b837_9["eff__781 push_u32"]
 	b837_8 --> b837_14
+	b837_14 --> b837_9
 end
 branch_834 --> block_837
 
@@ -28771,8 +27957,8 @@ block_842 --> phi_841
 block_843 --> phi_841
 subgraph block_842["Block 842"]
 	direction TB
-	b842_20["eff_push__791 push_u32"]
 	b842_19["merge__790 merge_u"]
+	b842_20["eff_push__791 push_u32"]
 	b842_19 --> b842_20
 end
 branch_840 --> block_842
@@ -28783,27 +27969,27 @@ end
 block_848 --> branch_840
 subgraph block_848["Block 848"]
 	direction TB
-	b848_17["mb__789 bool.&&"]
-	b848_15["mt__787 U32_maybeTrue"]
-	b848_16["mf__788 U32_maybeFalse"]
-	b848_7["cond__778 U32_lte"]
-	b848_13["abs__785 lift_u32"]
-	b848_14["abs__786 lift_u32"]
-	b848_4["a pop_u32"]
-	b848_3["b pop_u32"]
-	b848_10["arg__780 1"]
-	b848_8["arg__782 0"]
 	b848_0[/"Start"\\]
-	b848_15 --> b848_17
-	b848_16 --> b848_15
-	b848_7 --> b848_16
-	b848_13 --> b848_7
-	b848_14 --> b848_13
-	b848_4 --> b848_14
-	b848_3 --> b848_4
-	b848_10 --> b848_3
+	b848_3["b pop_u32"]
+	b848_8["arg__782 0"]
+	b848_10["arg__780 1"]
+	b848_4["a pop_u32"]
+	b848_7["cond__778 U32_lte"]
+	b848_14["abs__786 lift_u32"]
+	b848_13["abs__785 lift_u32"]
+	b848_16["mf__788 U32_maybeFalse"]
+	b848_15["mt__787 U32_maybeTrue"]
+	b848_17["mb__789 bool.&&"]
+	b848_0 --> b848_3
+	b848_3 --> b848_8
 	b848_8 --> b848_10
-	b848_0 --> b848_8
+	b848_10 --> b848_4
+	b848_4 --> b848_7
+	b848_7 --> b848_14
+	b848_14 --> b848_13
+	b848_13 --> b848_16
+	b848_16 --> b848_15
+	b848_15 --> b848_17
 end
 subgraph block_843["Block 843"]
 	direction TB
@@ -29031,11 +28217,11 @@ block_852 --> phi_851
 block_853 --> phi_851
 subgraph block_852["Block 852"]
 	direction TB
-	b852_11["eff__793 push_u32"]
-	b852_13["abs__799 lift_u32"]
 	b852_10["arg__794 1"]
-	b852_13 --> b852_11
+	b852_13["abs__799 lift_u32"]
+	b852_11["eff__793 push_u32"]
 	b852_10 --> b852_13
+	b852_13 --> b852_11
 end
 branch_850 --> block_852
 subgraph branch_850["Branch 850"]
@@ -29045,21 +28231,21 @@ end
 block_854 --> branch_850
 subgraph block_854["Block 854"]
 	direction TB
-	b854_7["cond__792 U32_ge_s"]
-	b854_4["a pop_u32"]
-	b854_3["b pop_u32"]
 	b854_0[/"Start"\\]
-	b854_4 --> b854_7
-	b854_3 --> b854_4
+	b854_3["b pop_u32"]
+	b854_4["a pop_u32"]
+	b854_7["cond__792 U32_ge_s"]
 	b854_0 --> b854_3
+	b854_3 --> b854_4
+	b854_4 --> b854_7
 end
 subgraph block_853["Block 853"]
 	direction TB
-	b853_9["eff__795 push_u32"]
-	b853_14["abs__800 lift_u32"]
 	b853_8["arg__796 0"]
-	b853_14 --> b853_9
+	b853_14["abs__800 lift_u32"]
+	b853_9["eff__795 push_u32"]
 	b853_8 --> b853_14
+	b853_14 --> b853_9
 end
 branch_850 --> block_853
 
@@ -29157,8 +28343,8 @@ block_858 --> phi_857
 block_859 --> phi_857
 subgraph block_858["Block 858"]
 	direction TB
-	b858_20["eff_push__805 push_u32"]
 	b858_19["merge__804 merge_u"]
+	b858_20["eff_push__805 push_u32"]
 	b858_19 --> b858_20
 end
 branch_856 --> block_858
@@ -29169,27 +28355,27 @@ end
 block_864 --> branch_856
 subgraph block_864["Block 864"]
 	direction TB
-	b864_17["mb__803 bool.&&"]
-	b864_15["mt__801 U32_maybeTrue"]
-	b864_16["mf__802 U32_maybeFalse"]
-	b864_7["cond__792 U32_ge_s"]
-	b864_13["abs__799 lift_u32"]
-	b864_14["abs__800 lift_u32"]
-	b864_4["a pop_u32"]
-	b864_3["b pop_u32"]
-	b864_10["arg__794 1"]
-	b864_8["arg__796 0"]
 	b864_0[/"Start"\\]
-	b864_15 --> b864_17
-	b864_16 --> b864_15
-	b864_7 --> b864_16
-	b864_13 --> b864_7
-	b864_14 --> b864_13
-	b864_4 --> b864_14
-	b864_3 --> b864_4
-	b864_10 --> b864_3
+	b864_3["b pop_u32"]
+	b864_8["arg__796 0"]
+	b864_10["arg__794 1"]
+	b864_4["a pop_u32"]
+	b864_7["cond__792 U32_ge_s"]
+	b864_14["abs__800 lift_u32"]
+	b864_13["abs__799 lift_u32"]
+	b864_16["mf__802 U32_maybeFalse"]
+	b864_15["mt__801 U32_maybeTrue"]
+	b864_17["mb__803 bool.&&"]
+	b864_0 --> b864_3
+	b864_3 --> b864_8
 	b864_8 --> b864_10
-	b864_0 --> b864_8
+	b864_10 --> b864_4
+	b864_4 --> b864_7
+	b864_7 --> b864_14
+	b864_14 --> b864_13
+	b864_13 --> b864_16
+	b864_16 --> b864_15
+	b864_15 --> b864_17
 end
 subgraph block_859["Block 859"]
 	direction TB
@@ -29417,11 +28603,11 @@ block_868 --> phi_867
 block_869 --> phi_867
 subgraph block_868["Block 868"]
 	direction TB
-	b868_11["eff__807 push_u32"]
-	b868_13["abs__813 lift_u32"]
 	b868_10["arg__808 1"]
-	b868_13 --> b868_11
+	b868_13["abs__813 lift_u32"]
+	b868_11["eff__807 push_u32"]
 	b868_10 --> b868_13
+	b868_13 --> b868_11
 end
 branch_866 --> block_868
 subgraph branch_866["Branch 866"]
@@ -29431,21 +28617,21 @@ end
 block_870 --> branch_866
 subgraph block_870["Block 870"]
 	direction TB
-	b870_7["cond__806 U32_gte"]
-	b870_4["a pop_u32"]
-	b870_3["b pop_u32"]
 	b870_0[/"Start"\\]
-	b870_4 --> b870_7
-	b870_3 --> b870_4
+	b870_3["b pop_u32"]
+	b870_4["a pop_u32"]
+	b870_7["cond__806 U32_gte"]
 	b870_0 --> b870_3
+	b870_3 --> b870_4
+	b870_4 --> b870_7
 end
 subgraph block_869["Block 869"]
 	direction TB
-	b869_9["eff__809 push_u32"]
-	b869_14["abs__814 lift_u32"]
 	b869_8["arg__810 0"]
-	b869_14 --> b869_9
+	b869_14["abs__814 lift_u32"]
+	b869_9["eff__809 push_u32"]
 	b869_8 --> b869_14
+	b869_14 --> b869_9
 end
 branch_866 --> block_869
 
@@ -29543,8 +28729,8 @@ block_874 --> phi_873
 block_875 --> phi_873
 subgraph block_874["Block 874"]
 	direction TB
-	b874_20["eff_push__819 push_u32"]
 	b874_19["merge__818 merge_u"]
+	b874_20["eff_push__819 push_u32"]
 	b874_19 --> b874_20
 end
 branch_872 --> block_874
@@ -29555,27 +28741,27 @@ end
 block_880 --> branch_872
 subgraph block_880["Block 880"]
 	direction TB
-	b880_17["mb__817 bool.&&"]
-	b880_15["mt__815 bot_maybeTrue"]
-	b880_16["mf__816 bot_maybeFalse"]
-	b880_7["cond__806 U32_gte"]
-	b880_13["abs__813 lift_u32"]
-	b880_14["abs__814 lift_u32"]
-	b880_4["a pop_u32"]
-	b880_3["b pop_u32"]
-	b880_10["arg__808 1"]
-	b880_8["arg__810 0"]
 	b880_0[/"Start"\\]
-	b880_15 --> b880_17
-	b880_16 --> b880_15
-	b880_7 --> b880_16
-	b880_13 --> b880_7
-	b880_14 --> b880_13
-	b880_4 --> b880_14
-	b880_3 --> b880_4
-	b880_10 --> b880_3
+	b880_3["b pop_u32"]
+	b880_8["arg__810 0"]
+	b880_10["arg__808 1"]
+	b880_4["a pop_u32"]
+	b880_7["cond__806 U32_gte"]
+	b880_14["abs__814 lift_u32"]
+	b880_13["abs__813 lift_u32"]
+	b880_16["mf__816 bot_maybeFalse"]
+	b880_15["mt__815 bot_maybeTrue"]
+	b880_17["mb__817 bool.&&"]
+	b880_0 --> b880_3
+	b880_3 --> b880_8
 	b880_8 --> b880_10
-	b880_0 --> b880_8
+	b880_10 --> b880_4
+	b880_4 --> b880_7
+	b880_7 --> b880_14
+	b880_14 --> b880_13
+	b880_13 --> b880_16
+	b880_16 --> b880_15
+	b880_15 --> b880_17
 end
 subgraph block_875["Block 875"]
 	direction TB
@@ -29798,11 +28984,11 @@ block_884 --> phi_883
 block_885 --> phi_883
 subgraph block_884["Block 884"]
 	direction TB
-	b884_9["eff__821 push_u32"]
-	b884_12["abs__828 lift_u32"]
 	b884_8["arg__822 1"]
-	b884_12 --> b884_9
+	b884_12["abs__828 lift_u32"]
+	b884_9["eff__821 push_u32"]
 	b884_8 --> b884_12
+	b884_12 --> b884_9
 end
 branch_882 --> block_884
 subgraph branch_882["Branch 882"]
@@ -29812,20 +28998,20 @@ end
 block_886 --> branch_882
 subgraph block_886["Block 886"]
 	direction TB
-	b886_6["cond__820 U64_equals"]
-	b886_3["a pop_u64"]
-	b886_11["abs__827 lift_u64"]
-	b886_4["arg__826 0"]
 	b886_0[/"Start"\\]
-	b886_3 --> b886_6
-	b886_11 --> b886_3
-	b886_4 --> b886_11
+	b886_4["arg__826 0"]
+	b886_11["abs__827 lift_u64"]
+	b886_3["a pop_u64"]
+	b886_6["cond__820 U64_equals"]
 	b886_0 --> b886_4
+	b886_4 --> b886_11
+	b886_11 --> b886_3
+	b886_3 --> b886_6
 end
 subgraph block_885["Block 885"]
 	direction TB
-	b885_7["eff__823 push_u32"]
 	b885_13["abs__829 lift_u32"]
+	b885_7["eff__823 push_u32"]
 	b885_13 --> b885_7
 end
 branch_882 --> block_885
@@ -29923,8 +29109,8 @@ block_890 --> phi_889
 block_891 --> phi_889
 subgraph block_890["Block 890"]
 	direction TB
-	b890_19["eff_push__834 push_u32"]
 	b890_18["merge__833 merge_u"]
+	b890_19["eff_push__834 push_u32"]
 	b890_18 --> b890_19
 end
 branch_888 --> block_890
@@ -29935,27 +29121,27 @@ end
 block_896 --> branch_888
 subgraph block_896["Block 896"]
 	direction TB
-	b896_16["mb__832 bool.&&"]
-	b896_14["mt__830 U64_maybeTrue"]
-	b896_15["mf__831 U64_maybeFalse"]
-	b896_6["cond__820 U64_equals"]
-	b896_12["abs__828 lift_u32"]
-	b896_13["abs__829 lift_u32"]
-	b896_3["a pop_u64"]
+	b896_0[/"Start"\\]
+	b896_4["arg__826 0"]
 	b896_11["abs__827 lift_u64"]
 	b896_8["arg__822 1"]
-	b896_4["arg__826 0"]
-	b896_0[/"Start"\\]
-	b896_14 --> b896_16
-	b896_15 --> b896_14
-	b896_6 --> b896_15
-	b896_12 --> b896_6
-	b896_13 --> b896_12
-	b896_3 --> b896_13
-	b896_11 --> b896_3
-	b896_8 --> b896_11
-	b896_4 --> b896_8
+	b896_3["a pop_u64"]
+	b896_6["cond__820 U64_equals"]
+	b896_13["abs__829 lift_u32"]
+	b896_12["abs__828 lift_u32"]
+	b896_15["mf__831 U64_maybeFalse"]
+	b896_14["mt__830 U64_maybeTrue"]
+	b896_16["mb__832 bool.&&"]
 	b896_0 --> b896_4
+	b896_4 --> b896_11
+	b896_11 --> b896_8
+	b896_8 --> b896_3
+	b896_3 --> b896_6
+	b896_6 --> b896_13
+	b896_13 --> b896_12
+	b896_12 --> b896_15
+	b896_15 --> b896_14
+	b896_14 --> b896_16
 end
 subgraph block_891["Block 891"]
 	direction TB
@@ -30176,11 +29362,11 @@ block_900 --> phi_899
 block_901 --> phi_899
 subgraph block_900["Block 900"]
 	direction TB
-	b900_11["eff__836 push_u32"]
-	b900_13["abs__842 lift_u32"]
 	b900_10["arg__837 1"]
-	b900_13 --> b900_11
+	b900_13["abs__842 lift_u32"]
+	b900_11["eff__836 push_u32"]
 	b900_10 --> b900_13
+	b900_13 --> b900_11
 end
 branch_898 --> block_900
 subgraph branch_898["Branch 898"]
@@ -30190,21 +29376,21 @@ end
 block_902 --> branch_898
 subgraph block_902["Block 902"]
 	direction TB
-	b902_7["cond__835 U64_equals"]
-	b902_4["a pop_u64"]
-	b902_3["b pop_u64"]
 	b902_0[/"Start"\\]
-	b902_4 --> b902_7
-	b902_3 --> b902_4
+	b902_3["b pop_u64"]
+	b902_4["a pop_u64"]
+	b902_7["cond__835 U64_equals"]
 	b902_0 --> b902_3
+	b902_3 --> b902_4
+	b902_4 --> b902_7
 end
 subgraph block_901["Block 901"]
 	direction TB
-	b901_9["eff__838 push_u32"]
-	b901_14["abs__843 lift_u32"]
 	b901_8["arg__839 0"]
-	b901_14 --> b901_9
+	b901_14["abs__843 lift_u32"]
+	b901_9["eff__838 push_u32"]
 	b901_8 --> b901_14
+	b901_14 --> b901_9
 end
 branch_898 --> block_901
 
@@ -30302,8 +29488,8 @@ block_906 --> phi_905
 block_907 --> phi_905
 subgraph block_906["Block 906"]
 	direction TB
-	b906_20["eff_push__848 push_u32"]
 	b906_19["merge__847 merge_u"]
+	b906_20["eff_push__848 push_u32"]
 	b906_19 --> b906_20
 end
 branch_904 --> block_906
@@ -30314,27 +29500,27 @@ end
 block_912 --> branch_904
 subgraph block_912["Block 912"]
 	direction TB
-	b912_17["mb__846 bool.&&"]
-	b912_15["mt__844 U64_maybeTrue"]
-	b912_16["mf__845 U64_maybeFalse"]
-	b912_7["cond__835 U64_equals"]
-	b912_13["abs__842 lift_u32"]
-	b912_14["abs__843 lift_u32"]
-	b912_4["a pop_u64"]
-	b912_3["b pop_u64"]
-	b912_10["arg__837 1"]
-	b912_8["arg__839 0"]
 	b912_0[/"Start"\\]
-	b912_15 --> b912_17
-	b912_16 --> b912_15
-	b912_7 --> b912_16
-	b912_13 --> b912_7
-	b912_14 --> b912_13
-	b912_4 --> b912_14
-	b912_3 --> b912_4
-	b912_10 --> b912_3
+	b912_3["b pop_u64"]
+	b912_8["arg__839 0"]
+	b912_10["arg__837 1"]
+	b912_4["a pop_u64"]
+	b912_7["cond__835 U64_equals"]
+	b912_14["abs__843 lift_u32"]
+	b912_13["abs__842 lift_u32"]
+	b912_16["mf__845 U64_maybeFalse"]
+	b912_15["mt__844 U64_maybeTrue"]
+	b912_17["mb__846 bool.&&"]
+	b912_0 --> b912_3
+	b912_3 --> b912_8
 	b912_8 --> b912_10
-	b912_0 --> b912_8
+	b912_10 --> b912_4
+	b912_4 --> b912_7
+	b912_7 --> b912_14
+	b912_14 --> b912_13
+	b912_13 --> b912_16
+	b912_16 --> b912_15
+	b912_15 --> b912_17
 end
 subgraph block_907["Block 907"]
 	direction TB
@@ -30562,11 +29748,11 @@ block_916 --> phi_915
 block_917 --> phi_915
 subgraph block_916["Block 916"]
 	direction TB
-	b916_11["eff__850 push_u32"]
-	b916_13["abs__856 lift_u32"]
 	b916_10["arg__851 1"]
-	b916_13 --> b916_11
+	b916_13["abs__856 lift_u32"]
+	b916_11["eff__850 push_u32"]
 	b916_10 --> b916_13
+	b916_13 --> b916_11
 end
 branch_914 --> block_916
 subgraph branch_914["Branch 914"]
@@ -30576,21 +29762,21 @@ end
 block_918 --> branch_914
 subgraph block_918["Block 918"]
 	direction TB
-	b918_7["cond__849 U64_not_equals"]
-	b918_4["a pop_u64"]
-	b918_3["b pop_u64"]
 	b918_0[/"Start"\\]
-	b918_4 --> b918_7
-	b918_3 --> b918_4
+	b918_3["b pop_u64"]
+	b918_4["a pop_u64"]
+	b918_7["cond__849 U64_not_equals"]
 	b918_0 --> b918_3
+	b918_3 --> b918_4
+	b918_4 --> b918_7
 end
 subgraph block_917["Block 917"]
 	direction TB
-	b917_9["eff__852 push_u32"]
-	b917_14["abs__857 lift_u32"]
 	b917_8["arg__853 0"]
-	b917_14 --> b917_9
+	b917_14["abs__857 lift_u32"]
+	b917_9["eff__852 push_u32"]
 	b917_8 --> b917_14
+	b917_14 --> b917_9
 end
 branch_914 --> block_917
 
@@ -30688,8 +29874,8 @@ block_922 --> phi_921
 block_923 --> phi_921
 subgraph block_922["Block 922"]
 	direction TB
-	b922_20["eff_push__862 push_u32"]
 	b922_19["merge__861 merge_u"]
+	b922_20["eff_push__862 push_u32"]
 	b922_19 --> b922_20
 end
 branch_920 --> block_922
@@ -30700,27 +29886,27 @@ end
 block_928 --> branch_920
 subgraph block_928["Block 928"]
 	direction TB
-	b928_17["mb__860 bool.&&"]
-	b928_15["mt__858 U64_maybeTrue"]
-	b928_16["mf__859 U64_maybeFalse"]
-	b928_7["cond__849 U64_not_equals"]
-	b928_13["abs__856 lift_u32"]
-	b928_14["abs__857 lift_u32"]
-	b928_4["a pop_u64"]
-	b928_3["b pop_u64"]
-	b928_10["arg__851 1"]
-	b928_8["arg__853 0"]
 	b928_0[/"Start"\\]
-	b928_15 --> b928_17
-	b928_16 --> b928_15
-	b928_7 --> b928_16
-	b928_13 --> b928_7
-	b928_14 --> b928_13
-	b928_4 --> b928_14
-	b928_3 --> b928_4
-	b928_10 --> b928_3
+	b928_3["b pop_u64"]
+	b928_8["arg__853 0"]
+	b928_10["arg__851 1"]
+	b928_4["a pop_u64"]
+	b928_7["cond__849 U64_not_equals"]
+	b928_14["abs__857 lift_u32"]
+	b928_13["abs__856 lift_u32"]
+	b928_16["mf__859 U64_maybeFalse"]
+	b928_15["mt__858 U64_maybeTrue"]
+	b928_17["mb__860 bool.&&"]
+	b928_0 --> b928_3
+	b928_3 --> b928_8
 	b928_8 --> b928_10
-	b928_0 --> b928_8
+	b928_10 --> b928_4
+	b928_4 --> b928_7
+	b928_7 --> b928_14
+	b928_14 --> b928_13
+	b928_13 --> b928_16
+	b928_16 --> b928_15
+	b928_15 --> b928_17
 end
 subgraph block_923["Block 923"]
 	direction TB
@@ -30949,11 +30135,11 @@ block_932 --> phi_931
 block_933 --> phi_931
 subgraph block_932["Block 932"]
 	direction TB
-	b932_11["eff__864 push_u32"]
-	b932_13["abs__870 lift_u32"]
 	b932_10["arg__865 1"]
-	b932_13 --> b932_11
+	b932_13["abs__870 lift_u32"]
+	b932_11["eff__864 push_u32"]
 	b932_10 --> b932_13
+	b932_13 --> b932_11
 end
 branch_930 --> block_932
 subgraph branch_930["Branch 930"]
@@ -30963,21 +30149,21 @@ end
 block_934 --> branch_930
 subgraph block_934["Block 934"]
 	direction TB
-	b934_7["cond__863 U64_lt_s"]
-	b934_4["a pop_u64"]
-	b934_3["b pop_u64"]
 	b934_0[/"Start"\\]
-	b934_4 --> b934_7
-	b934_3 --> b934_4
+	b934_3["b pop_u64"]
+	b934_4["a pop_u64"]
+	b934_7["cond__863 U64_lt_s"]
 	b934_0 --> b934_3
+	b934_3 --> b934_4
+	b934_4 --> b934_7
 end
 subgraph block_933["Block 933"]
 	direction TB
-	b933_9["eff__866 push_u32"]
-	b933_14["abs__871 lift_u32"]
 	b933_8["arg__867 0"]
-	b933_14 --> b933_9
+	b933_14["abs__871 lift_u32"]
+	b933_9["eff__866 push_u32"]
 	b933_8 --> b933_14
+	b933_14 --> b933_9
 end
 branch_930 --> block_933
 
@@ -31075,8 +30261,8 @@ block_938 --> phi_937
 block_939 --> phi_937
 subgraph block_938["Block 938"]
 	direction TB
-	b938_20["eff_push__876 push_u32"]
 	b938_19["merge__875 merge_u"]
+	b938_20["eff_push__876 push_u32"]
 	b938_19 --> b938_20
 end
 branch_936 --> block_938
@@ -31087,27 +30273,27 @@ end
 block_944 --> branch_936
 subgraph block_944["Block 944"]
 	direction TB
-	b944_17["mb__874 bool.&&"]
-	b944_15["mt__872 U64_maybeTrue"]
-	b944_16["mf__873 U64_maybeFalse"]
-	b944_7["cond__863 U64_lt_s"]
-	b944_13["abs__870 lift_u32"]
-	b944_14["abs__871 lift_u32"]
-	b944_4["a pop_u64"]
-	b944_3["b pop_u64"]
-	b944_10["arg__865 1"]
-	b944_8["arg__867 0"]
 	b944_0[/"Start"\\]
-	b944_15 --> b944_17
-	b944_16 --> b944_15
-	b944_7 --> b944_16
-	b944_13 --> b944_7
-	b944_14 --> b944_13
-	b944_4 --> b944_14
-	b944_3 --> b944_4
-	b944_10 --> b944_3
+	b944_3["b pop_u64"]
+	b944_8["arg__867 0"]
+	b944_10["arg__865 1"]
+	b944_4["a pop_u64"]
+	b944_7["cond__863 U64_lt_s"]
+	b944_14["abs__871 lift_u32"]
+	b944_13["abs__870 lift_u32"]
+	b944_16["mf__873 U64_maybeFalse"]
+	b944_15["mt__872 U64_maybeTrue"]
+	b944_17["mb__874 bool.&&"]
+	b944_0 --> b944_3
+	b944_3 --> b944_8
 	b944_8 --> b944_10
-	b944_0 --> b944_8
+	b944_10 --> b944_4
+	b944_4 --> b944_7
+	b944_7 --> b944_14
+	b944_14 --> b944_13
+	b944_13 --> b944_16
+	b944_16 --> b944_15
+	b944_15 --> b944_17
 end
 subgraph block_939["Block 939"]
 	direction TB
@@ -31335,11 +30521,11 @@ block_948 --> phi_947
 block_949 --> phi_947
 subgraph block_948["Block 948"]
 	direction TB
-	b948_11["eff__878 push_u32"]
-	b948_13["abs__884 lift_u32"]
 	b948_10["arg__879 1"]
-	b948_13 --> b948_11
+	b948_13["abs__884 lift_u32"]
+	b948_11["eff__878 push_u32"]
 	b948_10 --> b948_13
+	b948_13 --> b948_11
 end
 branch_946 --> block_948
 subgraph branch_946["Branch 946"]
@@ -31349,21 +30535,21 @@ end
 block_950 --> branch_946
 subgraph block_950["Block 950"]
 	direction TB
-	b950_7["cond__877 U64_lt"]
-	b950_4["a pop_u64"]
-	b950_3["b pop_u64"]
 	b950_0[/"Start"\\]
-	b950_4 --> b950_7
-	b950_3 --> b950_4
+	b950_3["b pop_u64"]
+	b950_4["a pop_u64"]
+	b950_7["cond__877 U64_lt"]
 	b950_0 --> b950_3
+	b950_3 --> b950_4
+	b950_4 --> b950_7
 end
 subgraph block_949["Block 949"]
 	direction TB
-	b949_9["eff__880 push_u32"]
-	b949_14["abs__885 lift_u32"]
 	b949_8["arg__881 0"]
-	b949_14 --> b949_9
+	b949_14["abs__885 lift_u32"]
+	b949_9["eff__880 push_u32"]
 	b949_8 --> b949_14
+	b949_14 --> b949_9
 end
 branch_946 --> block_949
 
@@ -31461,8 +30647,8 @@ block_954 --> phi_953
 block_955 --> phi_953
 subgraph block_954["Block 954"]
 	direction TB
-	b954_20["eff_push__890 push_u32"]
 	b954_19["merge__889 merge_u"]
+	b954_20["eff_push__890 push_u32"]
 	b954_19 --> b954_20
 end
 branch_952 --> block_954
@@ -31473,27 +30659,27 @@ end
 block_960 --> branch_952
 subgraph block_960["Block 960"]
 	direction TB
-	b960_17["mb__888 bool.&&"]
-	b960_15["mt__886 U64_maybeTrue"]
-	b960_16["mf__887 U64_maybeFalse"]
-	b960_7["cond__877 U64_lt"]
-	b960_13["abs__884 lift_u32"]
-	b960_14["abs__885 lift_u32"]
-	b960_4["a pop_u64"]
-	b960_3["b pop_u64"]
-	b960_10["arg__879 1"]
-	b960_8["arg__881 0"]
 	b960_0[/"Start"\\]
-	b960_15 --> b960_17
-	b960_16 --> b960_15
-	b960_7 --> b960_16
-	b960_13 --> b960_7
-	b960_14 --> b960_13
-	b960_4 --> b960_14
-	b960_3 --> b960_4
-	b960_10 --> b960_3
+	b960_3["b pop_u64"]
+	b960_8["arg__881 0"]
+	b960_10["arg__879 1"]
+	b960_4["a pop_u64"]
+	b960_7["cond__877 U64_lt"]
+	b960_14["abs__885 lift_u32"]
+	b960_13["abs__884 lift_u32"]
+	b960_16["mf__887 U64_maybeFalse"]
+	b960_15["mt__886 U64_maybeTrue"]
+	b960_17["mb__888 bool.&&"]
+	b960_0 --> b960_3
+	b960_3 --> b960_8
 	b960_8 --> b960_10
-	b960_0 --> b960_8
+	b960_10 --> b960_4
+	b960_4 --> b960_7
+	b960_7 --> b960_14
+	b960_14 --> b960_13
+	b960_13 --> b960_16
+	b960_16 --> b960_15
+	b960_15 --> b960_17
 end
 subgraph block_955["Block 955"]
 	direction TB
@@ -31721,11 +30907,11 @@ block_964 --> phi_963
 block_965 --> phi_963
 subgraph block_964["Block 964"]
 	direction TB
-	b964_11["eff__892 push_u32"]
-	b964_13["abs__898 lift_u32"]
 	b964_10["arg__893 1"]
-	b964_13 --> b964_11
+	b964_13["abs__898 lift_u32"]
+	b964_11["eff__892 push_u32"]
 	b964_10 --> b964_13
+	b964_13 --> b964_11
 end
 branch_962 --> block_964
 subgraph branch_962["Branch 962"]
@@ -31735,21 +30921,21 @@ end
 block_966 --> branch_962
 subgraph block_966["Block 966"]
 	direction TB
-	b966_7["cond__891 U64_gt_s"]
-	b966_4["a pop_u64"]
-	b966_3["b pop_u64"]
 	b966_0[/"Start"\\]
-	b966_4 --> b966_7
-	b966_3 --> b966_4
+	b966_3["b pop_u64"]
+	b966_4["a pop_u64"]
+	b966_7["cond__891 U64_gt_s"]
 	b966_0 --> b966_3
+	b966_3 --> b966_4
+	b966_4 --> b966_7
 end
 subgraph block_965["Block 965"]
 	direction TB
-	b965_9["eff__894 push_u32"]
-	b965_14["abs__899 lift_u32"]
 	b965_8["arg__895 0"]
-	b965_14 --> b965_9
+	b965_14["abs__899 lift_u32"]
+	b965_9["eff__894 push_u32"]
 	b965_8 --> b965_14
+	b965_14 --> b965_9
 end
 branch_962 --> block_965
 
@@ -31847,8 +31033,8 @@ block_970 --> phi_969
 block_971 --> phi_969
 subgraph block_970["Block 970"]
 	direction TB
-	b970_20["eff_push__904 push_u32"]
 	b970_19["merge__903 merge_u"]
+	b970_20["eff_push__904 push_u32"]
 	b970_19 --> b970_20
 end
 branch_968 --> block_970
@@ -31859,27 +31045,27 @@ end
 block_976 --> branch_968
 subgraph block_976["Block 976"]
 	direction TB
-	b976_17["mb__902 bool.&&"]
-	b976_15["mt__900 U64_maybeTrue"]
-	b976_16["mf__901 U64_maybeFalse"]
-	b976_7["cond__891 U64_gt_s"]
-	b976_13["abs__898 lift_u32"]
-	b976_14["abs__899 lift_u32"]
-	b976_4["a pop_u64"]
-	b976_3["b pop_u64"]
-	b976_10["arg__893 1"]
-	b976_8["arg__895 0"]
 	b976_0[/"Start"\\]
-	b976_15 --> b976_17
-	b976_16 --> b976_15
-	b976_7 --> b976_16
-	b976_13 --> b976_7
-	b976_14 --> b976_13
-	b976_4 --> b976_14
-	b976_3 --> b976_4
-	b976_10 --> b976_3
+	b976_3["b pop_u64"]
+	b976_8["arg__895 0"]
+	b976_10["arg__893 1"]
+	b976_4["a pop_u64"]
+	b976_7["cond__891 U64_gt_s"]
+	b976_14["abs__899 lift_u32"]
+	b976_13["abs__898 lift_u32"]
+	b976_16["mf__901 U64_maybeFalse"]
+	b976_15["mt__900 U64_maybeTrue"]
+	b976_17["mb__902 bool.&&"]
+	b976_0 --> b976_3
+	b976_3 --> b976_8
 	b976_8 --> b976_10
-	b976_0 --> b976_8
+	b976_10 --> b976_4
+	b976_4 --> b976_7
+	b976_7 --> b976_14
+	b976_14 --> b976_13
+	b976_13 --> b976_16
+	b976_16 --> b976_15
+	b976_15 --> b976_17
 end
 subgraph block_971["Block 971"]
 	direction TB
@@ -32107,11 +31293,11 @@ block_980 --> phi_979
 block_981 --> phi_979
 subgraph block_980["Block 980"]
 	direction TB
-	b980_11["eff__906 push_u32"]
-	b980_13["abs__912 lift_u32"]
 	b980_10["arg__907 1"]
-	b980_13 --> b980_11
+	b980_13["abs__912 lift_u32"]
+	b980_11["eff__906 push_u32"]
 	b980_10 --> b980_13
+	b980_13 --> b980_11
 end
 branch_978 --> block_980
 subgraph branch_978["Branch 978"]
@@ -32121,21 +31307,21 @@ end
 block_982 --> branch_978
 subgraph block_982["Block 982"]
 	direction TB
-	b982_7["cond__905 U64_gt"]
-	b982_4["a pop_u64"]
-	b982_3["b pop_u64"]
 	b982_0[/"Start"\\]
-	b982_4 --> b982_7
-	b982_3 --> b982_4
+	b982_3["b pop_u64"]
+	b982_4["a pop_u64"]
+	b982_7["cond__905 U64_gt"]
 	b982_0 --> b982_3
+	b982_3 --> b982_4
+	b982_4 --> b982_7
 end
 subgraph block_981["Block 981"]
 	direction TB
-	b981_9["eff__908 push_u32"]
-	b981_14["abs__913 lift_u32"]
 	b981_8["arg__909 0"]
-	b981_14 --> b981_9
+	b981_14["abs__913 lift_u32"]
+	b981_9["eff__908 push_u32"]
 	b981_8 --> b981_14
+	b981_14 --> b981_9
 end
 branch_978 --> block_981
 
@@ -32233,8 +31419,8 @@ block_986 --> phi_985
 block_987 --> phi_985
 subgraph block_986["Block 986"]
 	direction TB
-	b986_20["eff_push__918 push_u32"]
 	b986_19["merge__917 merge_u"]
+	b986_20["eff_push__918 push_u32"]
 	b986_19 --> b986_20
 end
 branch_984 --> block_986
@@ -32245,27 +31431,27 @@ end
 block_992 --> branch_984
 subgraph block_992["Block 992"]
 	direction TB
-	b992_17["mb__916 bool.&&"]
-	b992_15["mt__914 U64_maybeTrue"]
-	b992_16["mf__915 U64_maybeFalse"]
-	b992_7["cond__905 U64_gt"]
-	b992_13["abs__912 lift_u32"]
-	b992_14["abs__913 lift_u32"]
-	b992_4["a pop_u64"]
-	b992_3["b pop_u64"]
-	b992_10["arg__907 1"]
-	b992_8["arg__909 0"]
 	b992_0[/"Start"\\]
-	b992_15 --> b992_17
-	b992_16 --> b992_15
-	b992_7 --> b992_16
-	b992_13 --> b992_7
-	b992_14 --> b992_13
-	b992_4 --> b992_14
-	b992_3 --> b992_4
-	b992_10 --> b992_3
+	b992_3["b pop_u64"]
+	b992_8["arg__909 0"]
+	b992_10["arg__907 1"]
+	b992_4["a pop_u64"]
+	b992_7["cond__905 U64_gt"]
+	b992_14["abs__913 lift_u32"]
+	b992_13["abs__912 lift_u32"]
+	b992_16["mf__915 U64_maybeFalse"]
+	b992_15["mt__914 U64_maybeTrue"]
+	b992_17["mb__916 bool.&&"]
+	b992_0 --> b992_3
+	b992_3 --> b992_8
 	b992_8 --> b992_10
-	b992_0 --> b992_8
+	b992_10 --> b992_4
+	b992_4 --> b992_7
+	b992_7 --> b992_14
+	b992_14 --> b992_13
+	b992_13 --> b992_16
+	b992_16 --> b992_15
+	b992_15 --> b992_17
 end
 subgraph block_987["Block 987"]
 	direction TB
@@ -32493,11 +31679,11 @@ block_996 --> phi_995
 block_997 --> phi_995
 subgraph block_996["Block 996"]
 	direction TB
-	b996_11["eff__920 push_u32"]
-	b996_13["abs__926 lift_u32"]
 	b996_10["arg__921 1"]
-	b996_13 --> b996_11
+	b996_13["abs__926 lift_u32"]
+	b996_11["eff__920 push_u32"]
 	b996_10 --> b996_13
+	b996_13 --> b996_11
 end
 branch_994 --> block_996
 subgraph branch_994["Branch 994"]
@@ -32507,21 +31693,21 @@ end
 block_998 --> branch_994
 subgraph block_998["Block 998"]
 	direction TB
-	b998_7["cond__919 U64_le_s"]
-	b998_4["a pop_u64"]
-	b998_3["b pop_u64"]
 	b998_0[/"Start"\\]
-	b998_4 --> b998_7
-	b998_3 --> b998_4
+	b998_3["b pop_u64"]
+	b998_4["a pop_u64"]
+	b998_7["cond__919 U64_le_s"]
 	b998_0 --> b998_3
+	b998_3 --> b998_4
+	b998_4 --> b998_7
 end
 subgraph block_997["Block 997"]
 	direction TB
-	b997_9["eff__922 push_u32"]
-	b997_14["abs__927 lift_u32"]
 	b997_8["arg__923 0"]
-	b997_14 --> b997_9
+	b997_14["abs__927 lift_u32"]
+	b997_9["eff__922 push_u32"]
 	b997_8 --> b997_14
+	b997_14 --> b997_9
 end
 branch_994 --> block_997
 
@@ -32619,8 +31805,8 @@ block_1002 --> phi_1001
 block_1003 --> phi_1001
 subgraph block_1002["Block 1002"]
 	direction TB
-	b1002_20["eff_push__932 push_u32"]
 	b1002_19["merge__931 merge_u"]
+	b1002_20["eff_push__932 push_u32"]
 	b1002_19 --> b1002_20
 end
 branch_1000 --> block_1002
@@ -32631,27 +31817,27 @@ end
 block_1008 --> branch_1000
 subgraph block_1008["Block 1008"]
 	direction TB
-	b1008_17["mb__930 bool.&&"]
-	b1008_15["mt__928 U64_maybeTrue"]
-	b1008_16["mf__929 U64_maybeFalse"]
-	b1008_7["cond__919 U64_le_s"]
-	b1008_13["abs__926 lift_u32"]
-	b1008_14["abs__927 lift_u32"]
-	b1008_4["a pop_u64"]
-	b1008_3["b pop_u64"]
-	b1008_10["arg__921 1"]
-	b1008_8["arg__923 0"]
 	b1008_0[/"Start"\\]
-	b1008_15 --> b1008_17
-	b1008_16 --> b1008_15
-	b1008_7 --> b1008_16
-	b1008_13 --> b1008_7
-	b1008_14 --> b1008_13
-	b1008_4 --> b1008_14
-	b1008_3 --> b1008_4
-	b1008_10 --> b1008_3
+	b1008_3["b pop_u64"]
+	b1008_8["arg__923 0"]
+	b1008_10["arg__921 1"]
+	b1008_4["a pop_u64"]
+	b1008_7["cond__919 U64_le_s"]
+	b1008_14["abs__927 lift_u32"]
+	b1008_13["abs__926 lift_u32"]
+	b1008_16["mf__929 U64_maybeFalse"]
+	b1008_15["mt__928 U64_maybeTrue"]
+	b1008_17["mb__930 bool.&&"]
+	b1008_0 --> b1008_3
+	b1008_3 --> b1008_8
 	b1008_8 --> b1008_10
-	b1008_0 --> b1008_8
+	b1008_10 --> b1008_4
+	b1008_4 --> b1008_7
+	b1008_7 --> b1008_14
+	b1008_14 --> b1008_13
+	b1008_13 --> b1008_16
+	b1008_16 --> b1008_15
+	b1008_15 --> b1008_17
 end
 subgraph block_1003["Block 1003"]
 	direction TB
@@ -32879,11 +32065,11 @@ block_1012 --> phi_1011
 block_1013 --> phi_1011
 subgraph block_1012["Block 1012"]
 	direction TB
-	b1012_11["eff__934 push_u32"]
-	b1012_13["abs__940 lift_u32"]
 	b1012_10["arg__935 1"]
-	b1012_13 --> b1012_11
+	b1012_13["abs__940 lift_u32"]
+	b1012_11["eff__934 push_u32"]
 	b1012_10 --> b1012_13
+	b1012_13 --> b1012_11
 end
 branch_1010 --> block_1012
 subgraph branch_1010["Branch 1010"]
@@ -32893,21 +32079,21 @@ end
 block_1014 --> branch_1010
 subgraph block_1014["Block 1014"]
 	direction TB
-	b1014_7["cond__933 U64_lte"]
-	b1014_4["a pop_u64"]
-	b1014_3["b pop_u64"]
 	b1014_0[/"Start"\\]
-	b1014_4 --> b1014_7
-	b1014_3 --> b1014_4
+	b1014_3["b pop_u64"]
+	b1014_4["a pop_u64"]
+	b1014_7["cond__933 U64_lte"]
 	b1014_0 --> b1014_3
+	b1014_3 --> b1014_4
+	b1014_4 --> b1014_7
 end
 subgraph block_1013["Block 1013"]
 	direction TB
-	b1013_9["eff__936 push_u32"]
-	b1013_14["abs__941 lift_u32"]
 	b1013_8["arg__937 0"]
-	b1013_14 --> b1013_9
+	b1013_14["abs__941 lift_u32"]
+	b1013_9["eff__936 push_u32"]
 	b1013_8 --> b1013_14
+	b1013_14 --> b1013_9
 end
 branch_1010 --> block_1013
 
@@ -33005,8 +32191,8 @@ block_1018 --> phi_1017
 block_1019 --> phi_1017
 subgraph block_1018["Block 1018"]
 	direction TB
-	b1018_20["eff_push__946 push_u32"]
 	b1018_19["merge__945 merge_u"]
+	b1018_20["eff_push__946 push_u32"]
 	b1018_19 --> b1018_20
 end
 branch_1016 --> block_1018
@@ -33017,27 +32203,27 @@ end
 block_1024 --> branch_1016
 subgraph block_1024["Block 1024"]
 	direction TB
-	b1024_17["mb__944 bool.&&"]
-	b1024_15["mt__942 U64_maybeTrue"]
-	b1024_16["mf__943 U64_maybeFalse"]
-	b1024_7["cond__933 U64_lte"]
-	b1024_13["abs__940 lift_u32"]
-	b1024_14["abs__941 lift_u32"]
-	b1024_4["a pop_u64"]
-	b1024_3["b pop_u64"]
-	b1024_10["arg__935 1"]
-	b1024_8["arg__937 0"]
 	b1024_0[/"Start"\\]
-	b1024_15 --> b1024_17
-	b1024_16 --> b1024_15
-	b1024_7 --> b1024_16
-	b1024_13 --> b1024_7
-	b1024_14 --> b1024_13
-	b1024_4 --> b1024_14
-	b1024_3 --> b1024_4
-	b1024_10 --> b1024_3
+	b1024_3["b pop_u64"]
+	b1024_8["arg__937 0"]
+	b1024_10["arg__935 1"]
+	b1024_4["a pop_u64"]
+	b1024_7["cond__933 U64_lte"]
+	b1024_14["abs__941 lift_u32"]
+	b1024_13["abs__940 lift_u32"]
+	b1024_16["mf__943 U64_maybeFalse"]
+	b1024_15["mt__942 U64_maybeTrue"]
+	b1024_17["mb__944 bool.&&"]
+	b1024_0 --> b1024_3
+	b1024_3 --> b1024_8
 	b1024_8 --> b1024_10
-	b1024_0 --> b1024_8
+	b1024_10 --> b1024_4
+	b1024_4 --> b1024_7
+	b1024_7 --> b1024_14
+	b1024_14 --> b1024_13
+	b1024_13 --> b1024_16
+	b1024_16 --> b1024_15
+	b1024_15 --> b1024_17
 end
 subgraph block_1019["Block 1019"]
 	direction TB
@@ -33265,11 +32451,11 @@ block_1028 --> phi_1027
 block_1029 --> phi_1027
 subgraph block_1028["Block 1028"]
 	direction TB
-	b1028_11["eff__948 push_u32"]
-	b1028_13["abs__954 lift_u32"]
 	b1028_10["arg__949 1"]
-	b1028_13 --> b1028_11
+	b1028_13["abs__954 lift_u32"]
+	b1028_11["eff__948 push_u32"]
 	b1028_10 --> b1028_13
+	b1028_13 --> b1028_11
 end
 branch_1026 --> block_1028
 subgraph branch_1026["Branch 1026"]
@@ -33279,21 +32465,21 @@ end
 block_1030 --> branch_1026
 subgraph block_1030["Block 1030"]
 	direction TB
-	b1030_7["cond__947 U64_ge_s"]
-	b1030_4["a pop_u64"]
-	b1030_3["b pop_u64"]
 	b1030_0[/"Start"\\]
-	b1030_4 --> b1030_7
-	b1030_3 --> b1030_4
+	b1030_3["b pop_u64"]
+	b1030_4["a pop_u64"]
+	b1030_7["cond__947 U64_ge_s"]
 	b1030_0 --> b1030_3
+	b1030_3 --> b1030_4
+	b1030_4 --> b1030_7
 end
 subgraph block_1029["Block 1029"]
 	direction TB
-	b1029_9["eff__950 push_u32"]
-	b1029_14["abs__955 lift_u32"]
 	b1029_8["arg__951 0"]
-	b1029_14 --> b1029_9
+	b1029_14["abs__955 lift_u32"]
+	b1029_9["eff__950 push_u32"]
 	b1029_8 --> b1029_14
+	b1029_14 --> b1029_9
 end
 branch_1026 --> block_1029
 
@@ -33391,8 +32577,8 @@ block_1034 --> phi_1033
 block_1035 --> phi_1033
 subgraph block_1034["Block 1034"]
 	direction TB
-	b1034_20["eff_push__960 push_u32"]
 	b1034_19["merge__959 merge_u"]
+	b1034_20["eff_push__960 push_u32"]
 	b1034_19 --> b1034_20
 end
 branch_1032 --> block_1034
@@ -33403,27 +32589,27 @@ end
 block_1040 --> branch_1032
 subgraph block_1040["Block 1040"]
 	direction TB
-	b1040_17["mb__958 bool.&&"]
-	b1040_15["mt__956 U64_maybeTrue"]
-	b1040_16["mf__957 U64_maybeFalse"]
-	b1040_7["cond__947 U64_ge_s"]
-	b1040_13["abs__954 lift_u32"]
-	b1040_14["abs__955 lift_u32"]
-	b1040_4["a pop_u64"]
-	b1040_3["b pop_u64"]
-	b1040_10["arg__949 1"]
-	b1040_8["arg__951 0"]
 	b1040_0[/"Start"\\]
-	b1040_15 --> b1040_17
-	b1040_16 --> b1040_15
-	b1040_7 --> b1040_16
-	b1040_13 --> b1040_7
-	b1040_14 --> b1040_13
-	b1040_4 --> b1040_14
-	b1040_3 --> b1040_4
-	b1040_10 --> b1040_3
+	b1040_3["b pop_u64"]
+	b1040_8["arg__951 0"]
+	b1040_10["arg__949 1"]
+	b1040_4["a pop_u64"]
+	b1040_7["cond__947 U64_ge_s"]
+	b1040_14["abs__955 lift_u32"]
+	b1040_13["abs__954 lift_u32"]
+	b1040_16["mf__957 U64_maybeFalse"]
+	b1040_15["mt__956 U64_maybeTrue"]
+	b1040_17["mb__958 bool.&&"]
+	b1040_0 --> b1040_3
+	b1040_3 --> b1040_8
 	b1040_8 --> b1040_10
-	b1040_0 --> b1040_8
+	b1040_10 --> b1040_4
+	b1040_4 --> b1040_7
+	b1040_7 --> b1040_14
+	b1040_14 --> b1040_13
+	b1040_13 --> b1040_16
+	b1040_16 --> b1040_15
+	b1040_15 --> b1040_17
 end
 subgraph block_1035["Block 1035"]
 	direction TB
@@ -33651,11 +32837,11 @@ block_1044 --> phi_1043
 block_1045 --> phi_1043
 subgraph block_1044["Block 1044"]
 	direction TB
-	b1044_11["eff__962 push_u32"]
-	b1044_13["abs__968 lift_u32"]
 	b1044_10["arg__963 1"]
-	b1044_13 --> b1044_11
+	b1044_13["abs__968 lift_u32"]
+	b1044_11["eff__962 push_u32"]
 	b1044_10 --> b1044_13
+	b1044_13 --> b1044_11
 end
 branch_1042 --> block_1044
 subgraph branch_1042["Branch 1042"]
@@ -33665,21 +32851,21 @@ end
 block_1046 --> branch_1042
 subgraph block_1046["Block 1046"]
 	direction TB
-	b1046_7["cond__961 U64_gte"]
-	b1046_4["a pop_u64"]
-	b1046_3["b pop_u64"]
 	b1046_0[/"Start"\\]
-	b1046_4 --> b1046_7
-	b1046_3 --> b1046_4
+	b1046_3["b pop_u64"]
+	b1046_4["a pop_u64"]
+	b1046_7["cond__961 U64_gte"]
 	b1046_0 --> b1046_3
+	b1046_3 --> b1046_4
+	b1046_4 --> b1046_7
 end
 subgraph block_1045["Block 1045"]
 	direction TB
-	b1045_9["eff__964 push_u32"]
-	b1045_14["abs__969 lift_u32"]
 	b1045_8["arg__965 0"]
-	b1045_14 --> b1045_9
+	b1045_14["abs__969 lift_u32"]
+	b1045_9["eff__964 push_u32"]
 	b1045_8 --> b1045_14
+	b1045_14 --> b1045_9
 end
 branch_1042 --> block_1045
 
@@ -33777,8 +32963,8 @@ block_1050 --> phi_1049
 block_1051 --> phi_1049
 subgraph block_1050["Block 1050"]
 	direction TB
-	b1050_20["eff_push__974 push_u32"]
 	b1050_19["merge__973 merge_u"]
+	b1050_20["eff_push__974 push_u32"]
 	b1050_19 --> b1050_20
 end
 branch_1048 --> block_1050
@@ -33789,27 +32975,27 @@ end
 block_1056 --> branch_1048
 subgraph block_1056["Block 1056"]
 	direction TB
-	b1056_17["mb__972 bool.&&"]
-	b1056_15["mt__970 bot_maybeTrue"]
-	b1056_16["mf__971 bot_maybeFalse"]
-	b1056_7["cond__961 U64_gte"]
-	b1056_13["abs__968 lift_u32"]
-	b1056_14["abs__969 lift_u32"]
-	b1056_4["a pop_u64"]
-	b1056_3["b pop_u64"]
-	b1056_10["arg__963 1"]
-	b1056_8["arg__965 0"]
 	b1056_0[/"Start"\\]
-	b1056_15 --> b1056_17
-	b1056_16 --> b1056_15
-	b1056_7 --> b1056_16
-	b1056_13 --> b1056_7
-	b1056_14 --> b1056_13
-	b1056_4 --> b1056_14
-	b1056_3 --> b1056_4
-	b1056_10 --> b1056_3
+	b1056_3["b pop_u64"]
+	b1056_8["arg__965 0"]
+	b1056_10["arg__963 1"]
+	b1056_4["a pop_u64"]
+	b1056_7["cond__961 U64_gte"]
+	b1056_14["abs__969 lift_u32"]
+	b1056_13["abs__968 lift_u32"]
+	b1056_16["mf__971 bot_maybeFalse"]
+	b1056_15["mt__970 bot_maybeTrue"]
+	b1056_17["mb__972 bool.&&"]
+	b1056_0 --> b1056_3
+	b1056_3 --> b1056_8
 	b1056_8 --> b1056_10
-	b1056_0 --> b1056_8
+	b1056_10 --> b1056_4
+	b1056_4 --> b1056_7
+	b1056_7 --> b1056_14
+	b1056_14 --> b1056_13
+	b1056_13 --> b1056_16
+	b1056_16 --> b1056_15
+	b1056_15 --> b1056_17
 end
 subgraph block_1051["Block 1051"]
 	direction TB
@@ -34037,11 +33223,11 @@ block_1060 --> phi_1059
 block_1061 --> phi_1059
 subgraph block_1060["Block 1060"]
 	direction TB
-	b1060_11["eff__976 push_u32"]
-	b1060_13["abs__982 lift_u32"]
 	b1060_10["arg__977 1"]
-	b1060_13 --> b1060_11
+	b1060_13["abs__982 lift_u32"]
+	b1060_11["eff__976 push_u32"]
 	b1060_10 --> b1060_13
+	b1060_13 --> b1060_11
 end
 branch_1058 --> block_1060
 subgraph branch_1058["Branch 1058"]
@@ -34051,21 +33237,21 @@ end
 block_1062 --> branch_1058
 subgraph block_1062["Block 1062"]
 	direction TB
-	b1062_7["cond__975 F32_equals"]
-	b1062_4["a pop_f32"]
-	b1062_3["b pop_f32"]
 	b1062_0[/"Start"\\]
-	b1062_4 --> b1062_7
-	b1062_3 --> b1062_4
+	b1062_3["b pop_f32"]
+	b1062_4["a pop_f32"]
+	b1062_7["cond__975 F32_equals"]
 	b1062_0 --> b1062_3
+	b1062_3 --> b1062_4
+	b1062_4 --> b1062_7
 end
 subgraph block_1061["Block 1061"]
 	direction TB
-	b1061_9["eff__978 push_u32"]
-	b1061_14["abs__983 lift_u32"]
 	b1061_8["arg__979 0"]
-	b1061_14 --> b1061_9
+	b1061_14["abs__983 lift_u32"]
+	b1061_9["eff__978 push_u32"]
 	b1061_8 --> b1061_14
+	b1061_14 --> b1061_9
 end
 branch_1058 --> block_1061
 
@@ -34163,8 +33349,8 @@ block_1066 --> phi_1065
 block_1067 --> phi_1065
 subgraph block_1066["Block 1066"]
 	direction TB
-	b1066_20["eff_push__988 push_u32"]
 	b1066_19["merge__987 merge_u"]
+	b1066_20["eff_push__988 push_u32"]
 	b1066_19 --> b1066_20
 end
 branch_1064 --> block_1066
@@ -34175,27 +33361,27 @@ end
 block_1072 --> branch_1064
 subgraph block_1072["Block 1072"]
 	direction TB
-	b1072_17["mb__986 bool.&&"]
-	b1072_15["mt__984 U32_maybeTrue"]
-	b1072_16["mf__985 U32_maybeFalse"]
-	b1072_7["cond__975 F32_equals"]
-	b1072_13["abs__982 lift_u32"]
-	b1072_14["abs__983 lift_u32"]
-	b1072_4["a pop_f32"]
-	b1072_3["b pop_f32"]
-	b1072_10["arg__977 1"]
-	b1072_8["arg__979 0"]
 	b1072_0[/"Start"\\]
-	b1072_15 --> b1072_17
-	b1072_16 --> b1072_15
-	b1072_7 --> b1072_16
-	b1072_13 --> b1072_7
-	b1072_14 --> b1072_13
-	b1072_4 --> b1072_14
-	b1072_3 --> b1072_4
-	b1072_10 --> b1072_3
+	b1072_3["b pop_f32"]
+	b1072_8["arg__979 0"]
+	b1072_10["arg__977 1"]
+	b1072_4["a pop_f32"]
+	b1072_7["cond__975 F32_equals"]
+	b1072_14["abs__983 lift_u32"]
+	b1072_13["abs__982 lift_u32"]
+	b1072_16["mf__985 U32_maybeFalse"]
+	b1072_15["mt__984 U32_maybeTrue"]
+	b1072_17["mb__986 bool.&&"]
+	b1072_0 --> b1072_3
+	b1072_3 --> b1072_8
 	b1072_8 --> b1072_10
-	b1072_0 --> b1072_8
+	b1072_10 --> b1072_4
+	b1072_4 --> b1072_7
+	b1072_7 --> b1072_14
+	b1072_14 --> b1072_13
+	b1072_13 --> b1072_16
+	b1072_16 --> b1072_15
+	b1072_15 --> b1072_17
 end
 subgraph block_1067["Block 1067"]
 	direction TB
@@ -34423,11 +33609,11 @@ block_1076 --> phi_1075
 block_1077 --> phi_1075
 subgraph block_1076["Block 1076"]
 	direction TB
-	b1076_11["eff__990 push_u32"]
-	b1076_13["abs__996 lift_u32"]
 	b1076_10["arg__991 1"]
-	b1076_13 --> b1076_11
+	b1076_13["abs__996 lift_u32"]
+	b1076_11["eff__990 push_u32"]
 	b1076_10 --> b1076_13
+	b1076_13 --> b1076_11
 end
 branch_1074 --> block_1076
 subgraph branch_1074["Branch 1074"]
@@ -34437,21 +33623,21 @@ end
 block_1078 --> branch_1074
 subgraph block_1078["Block 1078"]
 	direction TB
-	b1078_7["cond__989 F32_not_equals"]
-	b1078_4["a pop_f32"]
-	b1078_3["b pop_f32"]
 	b1078_0[/"Start"\\]
-	b1078_4 --> b1078_7
-	b1078_3 --> b1078_4
+	b1078_3["b pop_f32"]
+	b1078_4["a pop_f32"]
+	b1078_7["cond__989 F32_not_equals"]
 	b1078_0 --> b1078_3
+	b1078_3 --> b1078_4
+	b1078_4 --> b1078_7
 end
 subgraph block_1077["Block 1077"]
 	direction TB
-	b1077_9["eff__992 push_u32"]
-	b1077_14["abs__997 lift_u32"]
 	b1077_8["arg__993 0"]
-	b1077_14 --> b1077_9
+	b1077_14["abs__997 lift_u32"]
+	b1077_9["eff__992 push_u32"]
 	b1077_8 --> b1077_14
+	b1077_14 --> b1077_9
 end
 branch_1074 --> block_1077
 
@@ -34549,8 +33735,8 @@ block_1082 --> phi_1081
 block_1083 --> phi_1081
 subgraph block_1082["Block 1082"]
 	direction TB
-	b1082_20["eff_push__1002 push_u32"]
 	b1082_19["merge__1001 merge_u"]
+	b1082_20["eff_push__1002 push_u32"]
 	b1082_19 --> b1082_20
 end
 branch_1080 --> block_1082
@@ -34561,27 +33747,27 @@ end
 block_1088 --> branch_1080
 subgraph block_1088["Block 1088"]
 	direction TB
-	b1088_17["mb__1000 bool.&&"]
-	b1088_15["mt__998 U32_maybeTrue"]
-	b1088_16["mf__999 U32_maybeFalse"]
-	b1088_7["cond__989 F32_not_equals"]
-	b1088_13["abs__996 lift_u32"]
-	b1088_14["abs__997 lift_u32"]
-	b1088_4["a pop_f32"]
-	b1088_3["b pop_f32"]
-	b1088_10["arg__991 1"]
-	b1088_8["arg__993 0"]
 	b1088_0[/"Start"\\]
-	b1088_15 --> b1088_17
-	b1088_16 --> b1088_15
-	b1088_7 --> b1088_16
-	b1088_13 --> b1088_7
-	b1088_14 --> b1088_13
-	b1088_4 --> b1088_14
-	b1088_3 --> b1088_4
-	b1088_10 --> b1088_3
+	b1088_3["b pop_f32"]
+	b1088_8["arg__993 0"]
+	b1088_10["arg__991 1"]
+	b1088_4["a pop_f32"]
+	b1088_7["cond__989 F32_not_equals"]
+	b1088_14["abs__997 lift_u32"]
+	b1088_13["abs__996 lift_u32"]
+	b1088_16["mf__999 U32_maybeFalse"]
+	b1088_15["mt__998 U32_maybeTrue"]
+	b1088_17["mb__1000 bool.&&"]
+	b1088_0 --> b1088_3
+	b1088_3 --> b1088_8
 	b1088_8 --> b1088_10
-	b1088_0 --> b1088_8
+	b1088_10 --> b1088_4
+	b1088_4 --> b1088_7
+	b1088_7 --> b1088_14
+	b1088_14 --> b1088_13
+	b1088_13 --> b1088_16
+	b1088_16 --> b1088_15
+	b1088_15 --> b1088_17
 end
 subgraph block_1083["Block 1083"]
 	direction TB
@@ -34810,11 +33996,11 @@ block_1092 --> phi_1091
 block_1093 --> phi_1091
 subgraph block_1092["Block 1092"]
 	direction TB
-	b1092_11["eff__1004 push_u32"]
-	b1092_13["abs__1010 lift_u32"]
 	b1092_10["arg__1005 1"]
-	b1092_13 --> b1092_11
+	b1092_13["abs__1010 lift_u32"]
+	b1092_11["eff__1004 push_u32"]
 	b1092_10 --> b1092_13
+	b1092_13 --> b1092_11
 end
 branch_1090 --> block_1092
 subgraph branch_1090["Branch 1090"]
@@ -34824,21 +34010,21 @@ end
 block_1094 --> branch_1090
 subgraph block_1094["Block 1094"]
 	direction TB
-	b1094_7["cond__1003 F32_lt"]
-	b1094_4["a pop_f32"]
-	b1094_3["b pop_f32"]
 	b1094_0[/"Start"\\]
-	b1094_4 --> b1094_7
-	b1094_3 --> b1094_4
+	b1094_3["b pop_f32"]
+	b1094_4["a pop_f32"]
+	b1094_7["cond__1003 F32_lt"]
 	b1094_0 --> b1094_3
+	b1094_3 --> b1094_4
+	b1094_4 --> b1094_7
 end
 subgraph block_1093["Block 1093"]
 	direction TB
-	b1093_9["eff__1006 push_u32"]
-	b1093_14["abs__1011 lift_u32"]
 	b1093_8["arg__1007 0"]
-	b1093_14 --> b1093_9
+	b1093_14["abs__1011 lift_u32"]
+	b1093_9["eff__1006 push_u32"]
 	b1093_8 --> b1093_14
+	b1093_14 --> b1093_9
 end
 branch_1090 --> block_1093
 
@@ -34936,8 +34122,8 @@ block_1098 --> phi_1097
 block_1099 --> phi_1097
 subgraph block_1098["Block 1098"]
 	direction TB
-	b1098_20["eff_push__1016 push_u32"]
 	b1098_19["merge__1015 merge_u"]
+	b1098_20["eff_push__1016 push_u32"]
 	b1098_19 --> b1098_20
 end
 branch_1096 --> block_1098
@@ -34948,27 +34134,27 @@ end
 block_1104 --> branch_1096
 subgraph block_1104["Block 1104"]
 	direction TB
-	b1104_17["mb__1014 bool.&&"]
-	b1104_15["mt__1012 U32_maybeTrue"]
-	b1104_16["mf__1013 U32_maybeFalse"]
-	b1104_7["cond__1003 F32_lt"]
-	b1104_13["abs__1010 lift_u32"]
-	b1104_14["abs__1011 lift_u32"]
-	b1104_4["a pop_f32"]
-	b1104_3["b pop_f32"]
-	b1104_10["arg__1005 1"]
-	b1104_8["arg__1007 0"]
 	b1104_0[/"Start"\\]
-	b1104_15 --> b1104_17
-	b1104_16 --> b1104_15
-	b1104_7 --> b1104_16
-	b1104_13 --> b1104_7
-	b1104_14 --> b1104_13
-	b1104_4 --> b1104_14
-	b1104_3 --> b1104_4
-	b1104_10 --> b1104_3
+	b1104_3["b pop_f32"]
+	b1104_8["arg__1007 0"]
+	b1104_10["arg__1005 1"]
+	b1104_4["a pop_f32"]
+	b1104_7["cond__1003 F32_lt"]
+	b1104_14["abs__1011 lift_u32"]
+	b1104_13["abs__1010 lift_u32"]
+	b1104_16["mf__1013 U32_maybeFalse"]
+	b1104_15["mt__1012 U32_maybeTrue"]
+	b1104_17["mb__1014 bool.&&"]
+	b1104_0 --> b1104_3
+	b1104_3 --> b1104_8
 	b1104_8 --> b1104_10
-	b1104_0 --> b1104_8
+	b1104_10 --> b1104_4
+	b1104_4 --> b1104_7
+	b1104_7 --> b1104_14
+	b1104_14 --> b1104_13
+	b1104_13 --> b1104_16
+	b1104_16 --> b1104_15
+	b1104_15 --> b1104_17
 end
 subgraph block_1099["Block 1099"]
 	direction TB
@@ -35196,11 +34382,11 @@ block_1108 --> phi_1107
 block_1109 --> phi_1107
 subgraph block_1108["Block 1108"]
 	direction TB
-	b1108_11["eff__1018 push_u32"]
-	b1108_13["abs__1024 lift_u32"]
 	b1108_10["arg__1019 1"]
-	b1108_13 --> b1108_11
+	b1108_13["abs__1024 lift_u32"]
+	b1108_11["eff__1018 push_u32"]
 	b1108_10 --> b1108_13
+	b1108_13 --> b1108_11
 end
 branch_1106 --> block_1108
 subgraph branch_1106["Branch 1106"]
@@ -35210,21 +34396,21 @@ end
 block_1110 --> branch_1106
 subgraph block_1110["Block 1110"]
 	direction TB
-	b1110_7["cond__1017 F32_gt"]
-	b1110_4["a pop_f32"]
-	b1110_3["b pop_f32"]
 	b1110_0[/"Start"\\]
-	b1110_4 --> b1110_7
-	b1110_3 --> b1110_4
+	b1110_3["b pop_f32"]
+	b1110_4["a pop_f32"]
+	b1110_7["cond__1017 F32_gt"]
 	b1110_0 --> b1110_3
+	b1110_3 --> b1110_4
+	b1110_4 --> b1110_7
 end
 subgraph block_1109["Block 1109"]
 	direction TB
-	b1109_9["eff__1020 push_u32"]
-	b1109_14["abs__1025 lift_u32"]
 	b1109_8["arg__1021 0"]
-	b1109_14 --> b1109_9
+	b1109_14["abs__1025 lift_u32"]
+	b1109_9["eff__1020 push_u32"]
 	b1109_8 --> b1109_14
+	b1109_14 --> b1109_9
 end
 branch_1106 --> block_1109
 
@@ -35322,8 +34508,8 @@ block_1114 --> phi_1113
 block_1115 --> phi_1113
 subgraph block_1114["Block 1114"]
 	direction TB
-	b1114_20["eff_push__1030 push_u32"]
 	b1114_19["merge__1029 merge_u"]
+	b1114_20["eff_push__1030 push_u32"]
 	b1114_19 --> b1114_20
 end
 branch_1112 --> block_1114
@@ -35334,27 +34520,27 @@ end
 block_1120 --> branch_1112
 subgraph block_1120["Block 1120"]
 	direction TB
-	b1120_17["mb__1028 bool.&&"]
-	b1120_15["mt__1026 U32_maybeTrue"]
-	b1120_16["mf__1027 U32_maybeFalse"]
-	b1120_7["cond__1017 F32_gt"]
-	b1120_13["abs__1024 lift_u32"]
-	b1120_14["abs__1025 lift_u32"]
-	b1120_4["a pop_f32"]
-	b1120_3["b pop_f32"]
-	b1120_10["arg__1019 1"]
-	b1120_8["arg__1021 0"]
 	b1120_0[/"Start"\\]
-	b1120_15 --> b1120_17
-	b1120_16 --> b1120_15
-	b1120_7 --> b1120_16
-	b1120_13 --> b1120_7
-	b1120_14 --> b1120_13
-	b1120_4 --> b1120_14
-	b1120_3 --> b1120_4
-	b1120_10 --> b1120_3
+	b1120_3["b pop_f32"]
+	b1120_8["arg__1021 0"]
+	b1120_10["arg__1019 1"]
+	b1120_4["a pop_f32"]
+	b1120_7["cond__1017 F32_gt"]
+	b1120_14["abs__1025 lift_u32"]
+	b1120_13["abs__1024 lift_u32"]
+	b1120_16["mf__1027 U32_maybeFalse"]
+	b1120_15["mt__1026 U32_maybeTrue"]
+	b1120_17["mb__1028 bool.&&"]
+	b1120_0 --> b1120_3
+	b1120_3 --> b1120_8
 	b1120_8 --> b1120_10
-	b1120_0 --> b1120_8
+	b1120_10 --> b1120_4
+	b1120_4 --> b1120_7
+	b1120_7 --> b1120_14
+	b1120_14 --> b1120_13
+	b1120_13 --> b1120_16
+	b1120_16 --> b1120_15
+	b1120_15 --> b1120_17
 end
 subgraph block_1115["Block 1115"]
 	direction TB
@@ -35582,11 +34768,11 @@ block_1124 --> phi_1123
 block_1125 --> phi_1123
 subgraph block_1124["Block 1124"]
 	direction TB
-	b1124_11["eff__1032 push_u32"]
-	b1124_13["abs__1038 lift_u32"]
 	b1124_10["arg__1033 1"]
-	b1124_13 --> b1124_11
+	b1124_13["abs__1038 lift_u32"]
+	b1124_11["eff__1032 push_u32"]
 	b1124_10 --> b1124_13
+	b1124_13 --> b1124_11
 end
 branch_1122 --> block_1124
 subgraph branch_1122["Branch 1122"]
@@ -35596,21 +34782,21 @@ end
 block_1126 --> branch_1122
 subgraph block_1126["Block 1126"]
 	direction TB
-	b1126_7["cond__1031 F32_lte"]
-	b1126_4["a pop_f32"]
-	b1126_3["b pop_f32"]
 	b1126_0[/"Start"\\]
-	b1126_4 --> b1126_7
-	b1126_3 --> b1126_4
+	b1126_3["b pop_f32"]
+	b1126_4["a pop_f32"]
+	b1126_7["cond__1031 F32_lte"]
 	b1126_0 --> b1126_3
+	b1126_3 --> b1126_4
+	b1126_4 --> b1126_7
 end
 subgraph block_1125["Block 1125"]
 	direction TB
-	b1125_9["eff__1034 push_u32"]
-	b1125_14["abs__1039 lift_u32"]
 	b1125_8["arg__1035 0"]
-	b1125_14 --> b1125_9
+	b1125_14["abs__1039 lift_u32"]
+	b1125_9["eff__1034 push_u32"]
 	b1125_8 --> b1125_14
+	b1125_14 --> b1125_9
 end
 branch_1122 --> block_1125
 
@@ -35708,8 +34894,8 @@ block_1130 --> phi_1129
 block_1131 --> phi_1129
 subgraph block_1130["Block 1130"]
 	direction TB
-	b1130_20["eff_push__1044 push_u32"]
 	b1130_19["merge__1043 merge_u"]
+	b1130_20["eff_push__1044 push_u32"]
 	b1130_19 --> b1130_20
 end
 branch_1128 --> block_1130
@@ -35720,27 +34906,27 @@ end
 block_1136 --> branch_1128
 subgraph block_1136["Block 1136"]
 	direction TB
-	b1136_17["mb__1042 bool.&&"]
-	b1136_15["mt__1040 U32_maybeTrue"]
-	b1136_16["mf__1041 U32_maybeFalse"]
-	b1136_7["cond__1031 F32_lte"]
-	b1136_13["abs__1038 lift_u32"]
-	b1136_14["abs__1039 lift_u32"]
-	b1136_4["a pop_f32"]
-	b1136_3["b pop_f32"]
-	b1136_10["arg__1033 1"]
-	b1136_8["arg__1035 0"]
 	b1136_0[/"Start"\\]
-	b1136_15 --> b1136_17
-	b1136_16 --> b1136_15
-	b1136_7 --> b1136_16
-	b1136_13 --> b1136_7
-	b1136_14 --> b1136_13
-	b1136_4 --> b1136_14
-	b1136_3 --> b1136_4
-	b1136_10 --> b1136_3
+	b1136_3["b pop_f32"]
+	b1136_8["arg__1035 0"]
+	b1136_10["arg__1033 1"]
+	b1136_4["a pop_f32"]
+	b1136_7["cond__1031 F32_lte"]
+	b1136_14["abs__1039 lift_u32"]
+	b1136_13["abs__1038 lift_u32"]
+	b1136_16["mf__1041 U32_maybeFalse"]
+	b1136_15["mt__1040 U32_maybeTrue"]
+	b1136_17["mb__1042 bool.&&"]
+	b1136_0 --> b1136_3
+	b1136_3 --> b1136_8
 	b1136_8 --> b1136_10
-	b1136_0 --> b1136_8
+	b1136_10 --> b1136_4
+	b1136_4 --> b1136_7
+	b1136_7 --> b1136_14
+	b1136_14 --> b1136_13
+	b1136_13 --> b1136_16
+	b1136_16 --> b1136_15
+	b1136_15 --> b1136_17
 end
 subgraph block_1131["Block 1131"]
 	direction TB
@@ -35968,11 +35154,11 @@ block_1140 --> phi_1139
 block_1141 --> phi_1139
 subgraph block_1140["Block 1140"]
 	direction TB
-	b1140_11["eff__1046 push_u32"]
-	b1140_13["abs__1052 lift_u32"]
 	b1140_10["arg__1047 1"]
-	b1140_13 --> b1140_11
+	b1140_13["abs__1052 lift_u32"]
+	b1140_11["eff__1046 push_u32"]
 	b1140_10 --> b1140_13
+	b1140_13 --> b1140_11
 end
 branch_1138 --> block_1140
 subgraph branch_1138["Branch 1138"]
@@ -35982,21 +35168,21 @@ end
 block_1142 --> branch_1138
 subgraph block_1142["Block 1142"]
 	direction TB
-	b1142_7["cond__1045 F32_gte"]
-	b1142_4["a pop_f32"]
-	b1142_3["b pop_f32"]
 	b1142_0[/"Start"\\]
-	b1142_4 --> b1142_7
-	b1142_3 --> b1142_4
+	b1142_3["b pop_f32"]
+	b1142_4["a pop_f32"]
+	b1142_7["cond__1045 F32_gte"]
 	b1142_0 --> b1142_3
+	b1142_3 --> b1142_4
+	b1142_4 --> b1142_7
 end
 subgraph block_1141["Block 1141"]
 	direction TB
-	b1141_9["eff__1048 push_u32"]
-	b1141_14["abs__1053 lift_u32"]
 	b1141_8["arg__1049 0"]
-	b1141_14 --> b1141_9
+	b1141_14["abs__1053 lift_u32"]
+	b1141_9["eff__1048 push_u32"]
 	b1141_8 --> b1141_14
+	b1141_14 --> b1141_9
 end
 branch_1138 --> block_1141
 
@@ -36094,8 +35280,8 @@ block_1146 --> phi_1145
 block_1147 --> phi_1145
 subgraph block_1146["Block 1146"]
 	direction TB
-	b1146_20["eff_push__1058 push_u32"]
 	b1146_19["merge__1057 merge_u"]
+	b1146_20["eff_push__1058 push_u32"]
 	b1146_19 --> b1146_20
 end
 branch_1144 --> block_1146
@@ -36106,27 +35292,27 @@ end
 block_1152 --> branch_1144
 subgraph block_1152["Block 1152"]
 	direction TB
-	b1152_17["mb__1056 bool.&&"]
-	b1152_15["mt__1054 U32_maybeTrue"]
-	b1152_16["mf__1055 U32_maybeFalse"]
-	b1152_7["cond__1045 F32_gte"]
-	b1152_13["abs__1052 lift_u32"]
-	b1152_14["abs__1053 lift_u32"]
-	b1152_4["a pop_f32"]
-	b1152_3["b pop_f32"]
-	b1152_10["arg__1047 1"]
-	b1152_8["arg__1049 0"]
 	b1152_0[/"Start"\\]
-	b1152_15 --> b1152_17
-	b1152_16 --> b1152_15
-	b1152_7 --> b1152_16
-	b1152_13 --> b1152_7
-	b1152_14 --> b1152_13
-	b1152_4 --> b1152_14
-	b1152_3 --> b1152_4
-	b1152_10 --> b1152_3
+	b1152_3["b pop_f32"]
+	b1152_8["arg__1049 0"]
+	b1152_10["arg__1047 1"]
+	b1152_4["a pop_f32"]
+	b1152_7["cond__1045 F32_gte"]
+	b1152_14["abs__1053 lift_u32"]
+	b1152_13["abs__1052 lift_u32"]
+	b1152_16["mf__1055 U32_maybeFalse"]
+	b1152_15["mt__1054 U32_maybeTrue"]
+	b1152_17["mb__1056 bool.&&"]
+	b1152_0 --> b1152_3
+	b1152_3 --> b1152_8
 	b1152_8 --> b1152_10
-	b1152_0 --> b1152_8
+	b1152_10 --> b1152_4
+	b1152_4 --> b1152_7
+	b1152_7 --> b1152_14
+	b1152_14 --> b1152_13
+	b1152_13 --> b1152_16
+	b1152_16 --> b1152_15
+	b1152_15 --> b1152_17
 end
 subgraph block_1147["Block 1147"]
 	direction TB
@@ -36354,11 +35540,11 @@ block_1156 --> phi_1155
 block_1157 --> phi_1155
 subgraph block_1156["Block 1156"]
 	direction TB
-	b1156_11["eff__1060 push_u32"]
-	b1156_13["abs__1066 lift_u32"]
 	b1156_10["arg__1061 1"]
-	b1156_13 --> b1156_11
+	b1156_13["abs__1066 lift_u32"]
+	b1156_11["eff__1060 push_u32"]
 	b1156_10 --> b1156_13
+	b1156_13 --> b1156_11
 end
 branch_1154 --> block_1156
 subgraph branch_1154["Branch 1154"]
@@ -36368,21 +35554,21 @@ end
 block_1158 --> branch_1154
 subgraph block_1158["Block 1158"]
 	direction TB
-	b1158_7["cond__1059 F64_equals"]
-	b1158_4["a pop_f64"]
-	b1158_3["b pop_f64"]
 	b1158_0[/"Start"\\]
-	b1158_4 --> b1158_7
-	b1158_3 --> b1158_4
+	b1158_3["b pop_f64"]
+	b1158_4["a pop_f64"]
+	b1158_7["cond__1059 F64_equals"]
 	b1158_0 --> b1158_3
+	b1158_3 --> b1158_4
+	b1158_4 --> b1158_7
 end
 subgraph block_1157["Block 1157"]
 	direction TB
-	b1157_9["eff__1062 push_u32"]
-	b1157_14["abs__1067 lift_u32"]
 	b1157_8["arg__1063 0"]
-	b1157_14 --> b1157_9
+	b1157_14["abs__1067 lift_u32"]
+	b1157_9["eff__1062 push_u32"]
 	b1157_8 --> b1157_14
+	b1157_14 --> b1157_9
 end
 branch_1154 --> block_1157
 
@@ -36480,8 +35666,8 @@ block_1162 --> phi_1161
 block_1163 --> phi_1161
 subgraph block_1162["Block 1162"]
 	direction TB
-	b1162_20["eff_push__1072 push_u32"]
 	b1162_19["merge__1071 merge_u"]
+	b1162_20["eff_push__1072 push_u32"]
 	b1162_19 --> b1162_20
 end
 branch_1160 --> block_1162
@@ -36492,27 +35678,27 @@ end
 block_1168 --> branch_1160
 subgraph block_1168["Block 1168"]
 	direction TB
-	b1168_17["mb__1070 bool.&&"]
-	b1168_15["mt__1068 U32_maybeTrue"]
-	b1168_16["mf__1069 U32_maybeFalse"]
-	b1168_7["cond__1059 F64_equals"]
-	b1168_13["abs__1066 lift_u32"]
-	b1168_14["abs__1067 lift_u32"]
-	b1168_4["a pop_f64"]
-	b1168_3["b pop_f64"]
-	b1168_10["arg__1061 1"]
-	b1168_8["arg__1063 0"]
 	b1168_0[/"Start"\\]
-	b1168_15 --> b1168_17
-	b1168_16 --> b1168_15
-	b1168_7 --> b1168_16
-	b1168_13 --> b1168_7
-	b1168_14 --> b1168_13
-	b1168_4 --> b1168_14
-	b1168_3 --> b1168_4
-	b1168_10 --> b1168_3
+	b1168_3["b pop_f64"]
+	b1168_8["arg__1063 0"]
+	b1168_10["arg__1061 1"]
+	b1168_4["a pop_f64"]
+	b1168_7["cond__1059 F64_equals"]
+	b1168_14["abs__1067 lift_u32"]
+	b1168_13["abs__1066 lift_u32"]
+	b1168_16["mf__1069 U32_maybeFalse"]
+	b1168_15["mt__1068 U32_maybeTrue"]
+	b1168_17["mb__1070 bool.&&"]
+	b1168_0 --> b1168_3
+	b1168_3 --> b1168_8
 	b1168_8 --> b1168_10
-	b1168_0 --> b1168_8
+	b1168_10 --> b1168_4
+	b1168_4 --> b1168_7
+	b1168_7 --> b1168_14
+	b1168_14 --> b1168_13
+	b1168_13 --> b1168_16
+	b1168_16 --> b1168_15
+	b1168_15 --> b1168_17
 end
 subgraph block_1163["Block 1163"]
 	direction TB
@@ -36740,11 +35926,11 @@ block_1172 --> phi_1171
 block_1173 --> phi_1171
 subgraph block_1172["Block 1172"]
 	direction TB
-	b1172_11["eff__1074 push_u32"]
-	b1172_13["abs__1080 lift_u32"]
 	b1172_10["arg__1075 1"]
-	b1172_13 --> b1172_11
+	b1172_13["abs__1080 lift_u32"]
+	b1172_11["eff__1074 push_u32"]
 	b1172_10 --> b1172_13
+	b1172_13 --> b1172_11
 end
 branch_1170 --> block_1172
 subgraph branch_1170["Branch 1170"]
@@ -36754,21 +35940,21 @@ end
 block_1174 --> branch_1170
 subgraph block_1174["Block 1174"]
 	direction TB
-	b1174_7["cond__1073 F64_not_equals"]
-	b1174_4["a pop_f64"]
-	b1174_3["b pop_f64"]
 	b1174_0[/"Start"\\]
-	b1174_4 --> b1174_7
-	b1174_3 --> b1174_4
+	b1174_3["b pop_f64"]
+	b1174_4["a pop_f64"]
+	b1174_7["cond__1073 F64_not_equals"]
 	b1174_0 --> b1174_3
+	b1174_3 --> b1174_4
+	b1174_4 --> b1174_7
 end
 subgraph block_1173["Block 1173"]
 	direction TB
-	b1173_9["eff__1076 push_u32"]
-	b1173_14["abs__1081 lift_u32"]
 	b1173_8["arg__1077 0"]
-	b1173_14 --> b1173_9
+	b1173_14["abs__1081 lift_u32"]
+	b1173_9["eff__1076 push_u32"]
 	b1173_8 --> b1173_14
+	b1173_14 --> b1173_9
 end
 branch_1170 --> block_1173
 
@@ -36866,8 +36052,8 @@ block_1178 --> phi_1177
 block_1179 --> phi_1177
 subgraph block_1178["Block 1178"]
 	direction TB
-	b1178_20["eff_push__1086 push_u32"]
 	b1178_19["merge__1085 merge_u"]
+	b1178_20["eff_push__1086 push_u32"]
 	b1178_19 --> b1178_20
 end
 branch_1176 --> block_1178
@@ -36878,27 +36064,27 @@ end
 block_1184 --> branch_1176
 subgraph block_1184["Block 1184"]
 	direction TB
-	b1184_17["mb__1084 bool.&&"]
-	b1184_15["mt__1082 U32_maybeTrue"]
-	b1184_16["mf__1083 U32_maybeFalse"]
-	b1184_7["cond__1073 F64_not_equals"]
-	b1184_13["abs__1080 lift_u32"]
-	b1184_14["abs__1081 lift_u32"]
-	b1184_4["a pop_f64"]
-	b1184_3["b pop_f64"]
-	b1184_10["arg__1075 1"]
-	b1184_8["arg__1077 0"]
 	b1184_0[/"Start"\\]
-	b1184_15 --> b1184_17
-	b1184_16 --> b1184_15
-	b1184_7 --> b1184_16
-	b1184_13 --> b1184_7
-	b1184_14 --> b1184_13
-	b1184_4 --> b1184_14
-	b1184_3 --> b1184_4
-	b1184_10 --> b1184_3
+	b1184_3["b pop_f64"]
+	b1184_8["arg__1077 0"]
+	b1184_10["arg__1075 1"]
+	b1184_4["a pop_f64"]
+	b1184_7["cond__1073 F64_not_equals"]
+	b1184_14["abs__1081 lift_u32"]
+	b1184_13["abs__1080 lift_u32"]
+	b1184_16["mf__1083 U32_maybeFalse"]
+	b1184_15["mt__1082 U32_maybeTrue"]
+	b1184_17["mb__1084 bool.&&"]
+	b1184_0 --> b1184_3
+	b1184_3 --> b1184_8
 	b1184_8 --> b1184_10
-	b1184_0 --> b1184_8
+	b1184_10 --> b1184_4
+	b1184_4 --> b1184_7
+	b1184_7 --> b1184_14
+	b1184_14 --> b1184_13
+	b1184_13 --> b1184_16
+	b1184_16 --> b1184_15
+	b1184_15 --> b1184_17
 end
 subgraph block_1179["Block 1179"]
 	direction TB
@@ -37127,11 +36313,11 @@ block_1188 --> phi_1187
 block_1189 --> phi_1187
 subgraph block_1188["Block 1188"]
 	direction TB
-	b1188_11["eff__1088 push_u32"]
-	b1188_13["abs__1094 lift_u32"]
 	b1188_10["arg__1089 1"]
-	b1188_13 --> b1188_11
+	b1188_13["abs__1094 lift_u32"]
+	b1188_11["eff__1088 push_u32"]
 	b1188_10 --> b1188_13
+	b1188_13 --> b1188_11
 end
 branch_1186 --> block_1188
 subgraph branch_1186["Branch 1186"]
@@ -37141,21 +36327,21 @@ end
 block_1190 --> branch_1186
 subgraph block_1190["Block 1190"]
 	direction TB
-	b1190_7["cond__1087 F64_lt"]
-	b1190_4["a pop_f64"]
-	b1190_3["b pop_f64"]
 	b1190_0[/"Start"\\]
-	b1190_4 --> b1190_7
-	b1190_3 --> b1190_4
+	b1190_3["b pop_f64"]
+	b1190_4["a pop_f64"]
+	b1190_7["cond__1087 F64_lt"]
 	b1190_0 --> b1190_3
+	b1190_3 --> b1190_4
+	b1190_4 --> b1190_7
 end
 subgraph block_1189["Block 1189"]
 	direction TB
-	b1189_9["eff__1090 push_u32"]
-	b1189_14["abs__1095 lift_u32"]
 	b1189_8["arg__1091 0"]
-	b1189_14 --> b1189_9
+	b1189_14["abs__1095 lift_u32"]
+	b1189_9["eff__1090 push_u32"]
 	b1189_8 --> b1189_14
+	b1189_14 --> b1189_9
 end
 branch_1186 --> block_1189
 
@@ -37253,8 +36439,8 @@ block_1194 --> phi_1193
 block_1195 --> phi_1193
 subgraph block_1194["Block 1194"]
 	direction TB
-	b1194_20["eff_push__1100 push_u32"]
 	b1194_19["merge__1099 merge_u"]
+	b1194_20["eff_push__1100 push_u32"]
 	b1194_19 --> b1194_20
 end
 branch_1192 --> block_1194
@@ -37265,27 +36451,27 @@ end
 block_1200 --> branch_1192
 subgraph block_1200["Block 1200"]
 	direction TB
-	b1200_17["mb__1098 bool.&&"]
-	b1200_15["mt__1096 U32_maybeTrue"]
-	b1200_16["mf__1097 U32_maybeFalse"]
-	b1200_7["cond__1087 F64_lt"]
-	b1200_13["abs__1094 lift_u32"]
-	b1200_14["abs__1095 lift_u32"]
-	b1200_4["a pop_f64"]
-	b1200_3["b pop_f64"]
-	b1200_10["arg__1089 1"]
-	b1200_8["arg__1091 0"]
 	b1200_0[/"Start"\\]
-	b1200_15 --> b1200_17
-	b1200_16 --> b1200_15
-	b1200_7 --> b1200_16
-	b1200_13 --> b1200_7
-	b1200_14 --> b1200_13
-	b1200_4 --> b1200_14
-	b1200_3 --> b1200_4
-	b1200_10 --> b1200_3
+	b1200_3["b pop_f64"]
+	b1200_8["arg__1091 0"]
+	b1200_10["arg__1089 1"]
+	b1200_4["a pop_f64"]
+	b1200_7["cond__1087 F64_lt"]
+	b1200_14["abs__1095 lift_u32"]
+	b1200_13["abs__1094 lift_u32"]
+	b1200_16["mf__1097 U32_maybeFalse"]
+	b1200_15["mt__1096 U32_maybeTrue"]
+	b1200_17["mb__1098 bool.&&"]
+	b1200_0 --> b1200_3
+	b1200_3 --> b1200_8
 	b1200_8 --> b1200_10
-	b1200_0 --> b1200_8
+	b1200_10 --> b1200_4
+	b1200_4 --> b1200_7
+	b1200_7 --> b1200_14
+	b1200_14 --> b1200_13
+	b1200_13 --> b1200_16
+	b1200_16 --> b1200_15
+	b1200_15 --> b1200_17
 end
 subgraph block_1195["Block 1195"]
 	direction TB
@@ -37513,11 +36699,11 @@ block_1204 --> phi_1203
 block_1205 --> phi_1203
 subgraph block_1204["Block 1204"]
 	direction TB
-	b1204_11["eff__1102 push_u32"]
-	b1204_13["abs__1108 lift_u32"]
 	b1204_10["arg__1103 1"]
-	b1204_13 --> b1204_11
+	b1204_13["abs__1108 lift_u32"]
+	b1204_11["eff__1102 push_u32"]
 	b1204_10 --> b1204_13
+	b1204_13 --> b1204_11
 end
 branch_1202 --> block_1204
 subgraph branch_1202["Branch 1202"]
@@ -37527,21 +36713,21 @@ end
 block_1206 --> branch_1202
 subgraph block_1206["Block 1206"]
 	direction TB
-	b1206_7["cond__1101 F64_gt"]
-	b1206_4["a pop_f64"]
-	b1206_3["b pop_f64"]
 	b1206_0[/"Start"\\]
-	b1206_4 --> b1206_7
-	b1206_3 --> b1206_4
+	b1206_3["b pop_f64"]
+	b1206_4["a pop_f64"]
+	b1206_7["cond__1101 F64_gt"]
 	b1206_0 --> b1206_3
+	b1206_3 --> b1206_4
+	b1206_4 --> b1206_7
 end
 subgraph block_1205["Block 1205"]
 	direction TB
-	b1205_9["eff__1104 push_u32"]
-	b1205_14["abs__1109 lift_u32"]
 	b1205_8["arg__1105 0"]
-	b1205_14 --> b1205_9
+	b1205_14["abs__1109 lift_u32"]
+	b1205_9["eff__1104 push_u32"]
 	b1205_8 --> b1205_14
+	b1205_14 --> b1205_9
 end
 branch_1202 --> block_1205
 
@@ -37639,8 +36825,8 @@ block_1210 --> phi_1209
 block_1211 --> phi_1209
 subgraph block_1210["Block 1210"]
 	direction TB
-	b1210_20["eff_push__1114 push_u32"]
 	b1210_19["merge__1113 merge_u"]
+	b1210_20["eff_push__1114 push_u32"]
 	b1210_19 --> b1210_20
 end
 branch_1208 --> block_1210
@@ -37651,27 +36837,27 @@ end
 block_1216 --> branch_1208
 subgraph block_1216["Block 1216"]
 	direction TB
-	b1216_17["mb__1112 bool.&&"]
-	b1216_15["mt__1110 U32_maybeTrue"]
-	b1216_16["mf__1111 U32_maybeFalse"]
-	b1216_7["cond__1101 F64_gt"]
-	b1216_13["abs__1108 lift_u32"]
-	b1216_14["abs__1109 lift_u32"]
-	b1216_4["a pop_f64"]
-	b1216_3["b pop_f64"]
-	b1216_10["arg__1103 1"]
-	b1216_8["arg__1105 0"]
 	b1216_0[/"Start"\\]
-	b1216_15 --> b1216_17
-	b1216_16 --> b1216_15
-	b1216_7 --> b1216_16
-	b1216_13 --> b1216_7
-	b1216_14 --> b1216_13
-	b1216_4 --> b1216_14
-	b1216_3 --> b1216_4
-	b1216_10 --> b1216_3
+	b1216_3["b pop_f64"]
+	b1216_8["arg__1105 0"]
+	b1216_10["arg__1103 1"]
+	b1216_4["a pop_f64"]
+	b1216_7["cond__1101 F64_gt"]
+	b1216_14["abs__1109 lift_u32"]
+	b1216_13["abs__1108 lift_u32"]
+	b1216_16["mf__1111 U32_maybeFalse"]
+	b1216_15["mt__1110 U32_maybeTrue"]
+	b1216_17["mb__1112 bool.&&"]
+	b1216_0 --> b1216_3
+	b1216_3 --> b1216_8
 	b1216_8 --> b1216_10
-	b1216_0 --> b1216_8
+	b1216_10 --> b1216_4
+	b1216_4 --> b1216_7
+	b1216_7 --> b1216_14
+	b1216_14 --> b1216_13
+	b1216_13 --> b1216_16
+	b1216_16 --> b1216_15
+	b1216_15 --> b1216_17
 end
 subgraph block_1211["Block 1211"]
 	direction TB
@@ -37899,11 +37085,11 @@ block_1220 --> phi_1219
 block_1221 --> phi_1219
 subgraph block_1220["Block 1220"]
 	direction TB
-	b1220_11["eff__1116 push_u32"]
-	b1220_13["abs__1122 lift_u32"]
 	b1220_10["arg__1117 1"]
-	b1220_13 --> b1220_11
+	b1220_13["abs__1122 lift_u32"]
+	b1220_11["eff__1116 push_u32"]
 	b1220_10 --> b1220_13
+	b1220_13 --> b1220_11
 end
 branch_1218 --> block_1220
 subgraph branch_1218["Branch 1218"]
@@ -37913,21 +37099,21 @@ end
 block_1222 --> branch_1218
 subgraph block_1222["Block 1222"]
 	direction TB
-	b1222_7["cond__1115 F64_lte"]
-	b1222_4["a pop_f64"]
-	b1222_3["b pop_f64"]
 	b1222_0[/"Start"\\]
-	b1222_4 --> b1222_7
-	b1222_3 --> b1222_4
+	b1222_3["b pop_f64"]
+	b1222_4["a pop_f64"]
+	b1222_7["cond__1115 F64_lte"]
 	b1222_0 --> b1222_3
+	b1222_3 --> b1222_4
+	b1222_4 --> b1222_7
 end
 subgraph block_1221["Block 1221"]
 	direction TB
-	b1221_9["eff__1118 push_u32"]
-	b1221_14["abs__1123 lift_u32"]
 	b1221_8["arg__1119 0"]
-	b1221_14 --> b1221_9
+	b1221_14["abs__1123 lift_u32"]
+	b1221_9["eff__1118 push_u32"]
 	b1221_8 --> b1221_14
+	b1221_14 --> b1221_9
 end
 branch_1218 --> block_1221
 
@@ -38025,8 +37211,8 @@ block_1226 --> phi_1225
 block_1227 --> phi_1225
 subgraph block_1226["Block 1226"]
 	direction TB
-	b1226_20["eff_push__1128 push_u32"]
 	b1226_19["merge__1127 merge_u"]
+	b1226_20["eff_push__1128 push_u32"]
 	b1226_19 --> b1226_20
 end
 branch_1224 --> block_1226
@@ -38037,27 +37223,27 @@ end
 block_1232 --> branch_1224
 subgraph block_1232["Block 1232"]
 	direction TB
-	b1232_17["mb__1126 bool.&&"]
-	b1232_15["mt__1124 U32_maybeTrue"]
-	b1232_16["mf__1125 U32_maybeFalse"]
-	b1232_7["cond__1115 F64_lte"]
-	b1232_13["abs__1122 lift_u32"]
-	b1232_14["abs__1123 lift_u32"]
-	b1232_4["a pop_f64"]
-	b1232_3["b pop_f64"]
-	b1232_10["arg__1117 1"]
-	b1232_8["arg__1119 0"]
 	b1232_0[/"Start"\\]
-	b1232_15 --> b1232_17
-	b1232_16 --> b1232_15
-	b1232_7 --> b1232_16
-	b1232_13 --> b1232_7
-	b1232_14 --> b1232_13
-	b1232_4 --> b1232_14
-	b1232_3 --> b1232_4
-	b1232_10 --> b1232_3
+	b1232_3["b pop_f64"]
+	b1232_8["arg__1119 0"]
+	b1232_10["arg__1117 1"]
+	b1232_4["a pop_f64"]
+	b1232_7["cond__1115 F64_lte"]
+	b1232_14["abs__1123 lift_u32"]
+	b1232_13["abs__1122 lift_u32"]
+	b1232_16["mf__1125 U32_maybeFalse"]
+	b1232_15["mt__1124 U32_maybeTrue"]
+	b1232_17["mb__1126 bool.&&"]
+	b1232_0 --> b1232_3
+	b1232_3 --> b1232_8
 	b1232_8 --> b1232_10
-	b1232_0 --> b1232_8
+	b1232_10 --> b1232_4
+	b1232_4 --> b1232_7
+	b1232_7 --> b1232_14
+	b1232_14 --> b1232_13
+	b1232_13 --> b1232_16
+	b1232_16 --> b1232_15
+	b1232_15 --> b1232_17
 end
 subgraph block_1227["Block 1227"]
 	direction TB
@@ -38285,11 +37471,11 @@ block_1236 --> phi_1235
 block_1237 --> phi_1235
 subgraph block_1236["Block 1236"]
 	direction TB
-	b1236_11["eff__1130 push_u32"]
-	b1236_13["abs__1136 lift_u32"]
 	b1236_10["arg__1131 1"]
-	b1236_13 --> b1236_11
+	b1236_13["abs__1136 lift_u32"]
+	b1236_11["eff__1130 push_u32"]
 	b1236_10 --> b1236_13
+	b1236_13 --> b1236_11
 end
 branch_1234 --> block_1236
 subgraph branch_1234["Branch 1234"]
@@ -38299,21 +37485,21 @@ end
 block_1238 --> branch_1234
 subgraph block_1238["Block 1238"]
 	direction TB
-	b1238_7["cond__1129 F64_gte"]
-	b1238_4["a pop_f64"]
-	b1238_3["b pop_f64"]
 	b1238_0[/"Start"\\]
-	b1238_4 --> b1238_7
-	b1238_3 --> b1238_4
+	b1238_3["b pop_f64"]
+	b1238_4["a pop_f64"]
+	b1238_7["cond__1129 F64_gte"]
 	b1238_0 --> b1238_3
+	b1238_3 --> b1238_4
+	b1238_4 --> b1238_7
 end
 subgraph block_1237["Block 1237"]
 	direction TB
-	b1237_9["eff__1132 push_u32"]
-	b1237_14["abs__1137 lift_u32"]
 	b1237_8["arg__1133 0"]
-	b1237_14 --> b1237_9
+	b1237_14["abs__1137 lift_u32"]
+	b1237_9["eff__1132 push_u32"]
 	b1237_8 --> b1237_14
+	b1237_14 --> b1237_9
 end
 branch_1234 --> block_1237
 
@@ -38411,8 +37597,8 @@ block_1242 --> phi_1241
 block_1243 --> phi_1241
 subgraph block_1242["Block 1242"]
 	direction TB
-	b1242_20["eff_push__1142 push_u32"]
 	b1242_19["merge__1141 merge_u"]
+	b1242_20["eff_push__1142 push_u32"]
 	b1242_19 --> b1242_20
 end
 branch_1240 --> block_1242
@@ -38423,27 +37609,27 @@ end
 block_1248 --> branch_1240
 subgraph block_1248["Block 1248"]
 	direction TB
-	b1248_17["mb__1140 bool.&&"]
-	b1248_15["mt__1138 U32_maybeTrue"]
-	b1248_16["mf__1139 U32_maybeFalse"]
-	b1248_7["cond__1129 F64_gte"]
-	b1248_13["abs__1136 lift_u32"]
-	b1248_14["abs__1137 lift_u32"]
-	b1248_4["a pop_f64"]
-	b1248_3["b pop_f64"]
-	b1248_10["arg__1131 1"]
-	b1248_8["arg__1133 0"]
 	b1248_0[/"Start"\\]
-	b1248_15 --> b1248_17
-	b1248_16 --> b1248_15
-	b1248_7 --> b1248_16
-	b1248_13 --> b1248_7
-	b1248_14 --> b1248_13
-	b1248_4 --> b1248_14
-	b1248_3 --> b1248_4
-	b1248_10 --> b1248_3
+	b1248_3["b pop_f64"]
+	b1248_8["arg__1133 0"]
+	b1248_10["arg__1131 1"]
+	b1248_4["a pop_f64"]
+	b1248_7["cond__1129 F64_gte"]
+	b1248_14["abs__1137 lift_u32"]
+	b1248_13["abs__1136 lift_u32"]
+	b1248_16["mf__1139 U32_maybeFalse"]
+	b1248_15["mt__1138 U32_maybeTrue"]
+	b1248_17["mb__1140 bool.&&"]
+	b1248_0 --> b1248_3
+	b1248_3 --> b1248_8
 	b1248_8 --> b1248_10
-	b1248_0 --> b1248_8
+	b1248_10 --> b1248_4
+	b1248_4 --> b1248_7
+	b1248_7 --> b1248_14
+	b1248_14 --> b1248_13
+	b1248_13 --> b1248_16
+	b1248_16 --> b1248_15
+	b1248_15 --> b1248_17
 end
 subgraph block_1243["Block 1243"]
 	direction TB
@@ -38613,15 +37799,15 @@ window.traces["I32_CLZ"]["schedulerMermaid"] = ''
 window.traces["I32_CLZ"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1249["Block 1249"]
 	direction TB
-	b1249_1[\\"Finish"/]
-	b1249_7["eff__1143 push_u32"]
-	b1249_5["r U32_clz"]
-	b1249_3["a pop_u32"]
 	b1249_0[/"Start"\\]
-	b1249_7 --> b1249_1
-	b1249_5 --> b1249_7
-	b1249_3 --> b1249_5
+	b1249_3["a pop_u32"]
+	b1249_5["r U32_clz"]
+	b1249_7["eff__1143 push_u32"]
+	b1249_1[\\"Finish"/]
 	b1249_0 --> b1249_3
+	b1249_3 --> b1249_5
+	b1249_5 --> b1249_7
+	b1249_7 --> b1249_1
 end
 
 </pre>`;
@@ -38652,15 +37838,15 @@ window.traces["I32_CLZ"]["unlem_scheduler"] = ''
 window.traces["I32_CLZ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1250["Block 1250"]
 	direction TB
-	b1250_1[\\"Finish"/]
-	b1250_7["eff__1143 push_u32"]
-	b1250_5["r U32_clz"]
-	b1250_3["a pop_u32"]
 	b1250_0[/"Start"\\]
-	b1250_7 --> b1250_1
-	b1250_5 --> b1250_7
-	b1250_3 --> b1250_5
+	b1250_3["a pop_u32"]
+	b1250_5["r U32_clz"]
+	b1250_7["eff__1143 push_u32"]
+	b1250_1[\\"Finish"/]
 	b1250_0 --> b1250_3
+	b1250_3 --> b1250_5
+	b1250_5 --> b1250_7
+	b1250_7 --> b1250_1
 end
 
 </pre>`;
@@ -38779,15 +37965,15 @@ window.traces["I32_CTZ"]["schedulerMermaid"] = ''
 window.traces["I32_CTZ"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1251["Block 1251"]
 	direction TB
-	b1251_1[\\"Finish"/]
-	b1251_7["eff__1146 push_u32"]
-	b1251_5["r U32_ctz"]
-	b1251_3["a pop_u32"]
 	b1251_0[/"Start"\\]
-	b1251_7 --> b1251_1
-	b1251_5 --> b1251_7
-	b1251_3 --> b1251_5
+	b1251_3["a pop_u32"]
+	b1251_5["r U32_ctz"]
+	b1251_7["eff__1146 push_u32"]
+	b1251_1[\\"Finish"/]
 	b1251_0 --> b1251_3
+	b1251_3 --> b1251_5
+	b1251_5 --> b1251_7
+	b1251_7 --> b1251_1
 end
 
 </pre>`;
@@ -38818,15 +38004,15 @@ window.traces["I32_CTZ"]["unlem_scheduler"] = ''
 window.traces["I32_CTZ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1252["Block 1252"]
 	direction TB
-	b1252_1[\\"Finish"/]
-	b1252_7["eff__1146 push_u32"]
-	b1252_5["r U32_ctz"]
-	b1252_3["a pop_u32"]
 	b1252_0[/"Start"\\]
-	b1252_7 --> b1252_1
-	b1252_5 --> b1252_7
-	b1252_3 --> b1252_5
+	b1252_3["a pop_u32"]
+	b1252_5["r U32_ctz"]
+	b1252_7["eff__1146 push_u32"]
+	b1252_1[\\"Finish"/]
 	b1252_0 --> b1252_3
+	b1252_3 --> b1252_5
+	b1252_5 --> b1252_7
+	b1252_7 --> b1252_1
 end
 
 </pre>`;
@@ -38945,15 +38131,15 @@ window.traces["I32_POPCNT"]["schedulerMermaid"] = ''
 window.traces["I32_POPCNT"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1253["Block 1253"]
 	direction TB
-	b1253_1[\\"Finish"/]
-	b1253_7["eff__1149 push_u32"]
-	b1253_5["r U32_popcnt"]
-	b1253_3["a pop_u32"]
 	b1253_0[/"Start"\\]
-	b1253_7 --> b1253_1
-	b1253_5 --> b1253_7
-	b1253_3 --> b1253_5
+	b1253_3["a pop_u32"]
+	b1253_5["r U32_popcnt"]
+	b1253_7["eff__1149 push_u32"]
+	b1253_1[\\"Finish"/]
 	b1253_0 --> b1253_3
+	b1253_3 --> b1253_5
+	b1253_5 --> b1253_7
+	b1253_7 --> b1253_1
 end
 
 </pre>`;
@@ -38984,15 +38170,15 @@ window.traces["I32_POPCNT"]["unlem_scheduler"] = ''
 window.traces["I32_POPCNT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1254["Block 1254"]
 	direction TB
-	b1254_1[\\"Finish"/]
-	b1254_7["eff__1149 push_u32"]
-	b1254_5["r U32_popcnt"]
-	b1254_3["a pop_u32"]
 	b1254_0[/"Start"\\]
-	b1254_7 --> b1254_1
-	b1254_5 --> b1254_7
-	b1254_3 --> b1254_5
+	b1254_3["a pop_u32"]
+	b1254_5["r U32_popcnt"]
+	b1254_7["eff__1149 push_u32"]
+	b1254_1[\\"Finish"/]
 	b1254_0 --> b1254_3
+	b1254_3 --> b1254_5
+	b1254_5 --> b1254_7
+	b1254_7 --> b1254_1
 end
 
 </pre>`;
@@ -39122,17 +38308,17 @@ window.traces["I32_ADD"]["schedulerMermaid"] = ''
 window.traces["I32_ADD"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1255["Block 1255"]
 	direction TB
-	b1255_1[\\"Finish"/]
-	b1255_9["eff__1152 push_u32"]
-	b1255_7["r U32_plus"]
-	b1255_4["a pop_u32"]
-	b1255_3["b pop_u32"]
 	b1255_0[/"Start"\\]
-	b1255_9 --> b1255_1
-	b1255_7 --> b1255_9
-	b1255_4 --> b1255_7
-	b1255_3 --> b1255_4
+	b1255_3["b pop_u32"]
+	b1255_4["a pop_u32"]
+	b1255_7["r U32_plus"]
+	b1255_9["eff__1152 push_u32"]
+	b1255_1[\\"Finish"/]
 	b1255_0 --> b1255_3
+	b1255_3 --> b1255_4
+	b1255_4 --> b1255_7
+	b1255_7 --> b1255_9
+	b1255_9 --> b1255_1
 end
 
 </pre>`;
@@ -39167,17 +38353,17 @@ window.traces["I32_ADD"]["unlem_scheduler"] = ''
 window.traces["I32_ADD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1256["Block 1256"]
 	direction TB
-	b1256_1[\\"Finish"/]
-	b1256_9["eff__1152 push_u32"]
-	b1256_7["r U32_plus"]
-	b1256_4["a pop_u32"]
-	b1256_3["b pop_u32"]
 	b1256_0[/"Start"\\]
-	b1256_9 --> b1256_1
-	b1256_7 --> b1256_9
-	b1256_4 --> b1256_7
-	b1256_3 --> b1256_4
+	b1256_3["b pop_u32"]
+	b1256_4["a pop_u32"]
+	b1256_7["r U32_plus"]
+	b1256_9["eff__1152 push_u32"]
+	b1256_1[\\"Finish"/]
 	b1256_0 --> b1256_3
+	b1256_3 --> b1256_4
+	b1256_4 --> b1256_7
+	b1256_7 --> b1256_9
+	b1256_9 --> b1256_1
 end
 
 </pre>`;
@@ -39316,17 +38502,17 @@ window.traces["I32_SUB"]["schedulerMermaid"] = ''
 window.traces["I32_SUB"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1257["Block 1257"]
 	direction TB
-	b1257_1[\\"Finish"/]
-	b1257_9["eff__1156 push_u32"]
-	b1257_7["r U32_minus"]
-	b1257_4["a pop_u32"]
-	b1257_3["b pop_u32"]
 	b1257_0[/"Start"\\]
-	b1257_9 --> b1257_1
-	b1257_7 --> b1257_9
-	b1257_4 --> b1257_7
-	b1257_3 --> b1257_4
+	b1257_3["b pop_u32"]
+	b1257_4["a pop_u32"]
+	b1257_7["r U32_minus"]
+	b1257_9["eff__1156 push_u32"]
+	b1257_1[\\"Finish"/]
 	b1257_0 --> b1257_3
+	b1257_3 --> b1257_4
+	b1257_4 --> b1257_7
+	b1257_7 --> b1257_9
+	b1257_9 --> b1257_1
 end
 
 </pre>`;
@@ -39361,17 +38547,17 @@ window.traces["I32_SUB"]["unlem_scheduler"] = ''
 window.traces["I32_SUB"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1258["Block 1258"]
 	direction TB
-	b1258_1[\\"Finish"/]
-	b1258_9["eff__1156 push_u32"]
-	b1258_7["r U32_minus"]
-	b1258_4["a pop_u32"]
-	b1258_3["b pop_u32"]
 	b1258_0[/"Start"\\]
-	b1258_9 --> b1258_1
-	b1258_7 --> b1258_9
-	b1258_4 --> b1258_7
-	b1258_3 --> b1258_4
+	b1258_3["b pop_u32"]
+	b1258_4["a pop_u32"]
+	b1258_7["r U32_minus"]
+	b1258_9["eff__1156 push_u32"]
+	b1258_1[\\"Finish"/]
 	b1258_0 --> b1258_3
+	b1258_3 --> b1258_4
+	b1258_4 --> b1258_7
+	b1258_7 --> b1258_9
+	b1258_9 --> b1258_1
 end
 
 </pre>`;
@@ -39510,17 +38696,17 @@ window.traces["I32_MUL"]["schedulerMermaid"] = ''
 window.traces["I32_MUL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1259["Block 1259"]
 	direction TB
-	b1259_1[\\"Finish"/]
-	b1259_9["eff__1160 push_u32"]
-	b1259_7["r U32_times"]
-	b1259_4["a pop_u32"]
-	b1259_3["b pop_u32"]
 	b1259_0[/"Start"\\]
-	b1259_9 --> b1259_1
-	b1259_7 --> b1259_9
-	b1259_4 --> b1259_7
-	b1259_3 --> b1259_4
+	b1259_3["b pop_u32"]
+	b1259_4["a pop_u32"]
+	b1259_7["r U32_times"]
+	b1259_9["eff__1160 push_u32"]
+	b1259_1[\\"Finish"/]
 	b1259_0 --> b1259_3
+	b1259_3 --> b1259_4
+	b1259_4 --> b1259_7
+	b1259_7 --> b1259_9
+	b1259_9 --> b1259_1
 end
 
 </pre>`;
@@ -39555,17 +38741,17 @@ window.traces["I32_MUL"]["unlem_scheduler"] = ''
 window.traces["I32_MUL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1260["Block 1260"]
 	direction TB
-	b1260_1[\\"Finish"/]
-	b1260_9["eff__1160 push_u32"]
-	b1260_7["r U32_times"]
-	b1260_4["a pop_u32"]
-	b1260_3["b pop_u32"]
 	b1260_0[/"Start"\\]
-	b1260_9 --> b1260_1
-	b1260_7 --> b1260_9
-	b1260_4 --> b1260_7
-	b1260_3 --> b1260_4
+	b1260_3["b pop_u32"]
+	b1260_4["a pop_u32"]
+	b1260_7["r U32_times"]
+	b1260_9["eff__1160 push_u32"]
+	b1260_1[\\"Finish"/]
 	b1260_0 --> b1260_3
+	b1260_3 --> b1260_4
+	b1260_4 --> b1260_7
+	b1260_7 --> b1260_9
+	b1260_9 --> b1260_1
 end
 
 </pre>`;
@@ -39867,8 +39053,6 @@ block_1265 --> phi_1263
 subgraph block_1264["Block 1264"]
 	direction TB
 	b1264_25["eff__1165 trapDivideByZero"]
-	b1264_4["a pop_u32"]
-	b1264_4 --> b1264_25
 end
 branch_1262 --> block_1264
 subgraph branch_1262["Branch 1262"]
@@ -39878,9 +39062,33 @@ end
 block_1270 --> branch_1262
 subgraph block_1270["Block 1270"]
 	direction TB
-	b1270_10["cond__1164 U32_equals"]
+	b1270_11["arg__1177 -2_147_483_648"]
+	b1270_15["arg__1174 -1"]
+	b1270_12["arg__1176 u32.view"]
+	b1270_16["arg__1173 u32.view"]
+	b1270_30["abs__1184 lift_u32"]
+	b1270_29["abs__1183 lift_u32"]
+	b1270_3["b pop_u32"]
+	b1270_4["a pop_u32"]
+	b1270_8["arg__1179 0"]
+	b1270_14["arg__1171 U32_equals"]
+	b1270_18["arg__1170 U32_equals"]
 	b1270_28["abs__1182 lift_u32"]
-	b1270_28 --> b1270_10
+	b1270_19["cond__1166 U32_and"]
+	b1270_10["cond__1164 U32_equals"]
+	b1270_11 --> b1270_15
+	b1270_15 --> b1270_12
+	b1270_12 --> b1270_16
+	b1270_16 --> b1270_30
+	b1270_30 --> b1270_29
+	b1270_29 --> b1270_3
+	b1270_3 --> b1270_4
+	b1270_4 --> b1270_8
+	b1270_8 --> b1270_14
+	b1270_14 --> b1270_18
+	b1270_18 --> b1270_28
+	b1270_28 --> b1270_19
+	b1270_19 --> b1270_10
 end
 subgraph block_1265["Block 1265"]
 	direction TB
@@ -39888,8 +39096,8 @@ end
 phi_1267 --> block_1265
 subgraph phi_1267["Phi 1267"]
 	p1267_24{{"Sϕ Stack "}}
-	p1267_23{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	p1267_24{{"Sϕ Stack "}}
+	p1267_23{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	p1267_23{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1268 --> phi_1267
@@ -39897,10 +39105,6 @@ block_1269 --> phi_1267
 subgraph block_1268["Block 1268"]
 	direction TB
 	b1268_22["eff__1167 trapDivideUnrepresentable"]
-	b1268_4["a pop_u32"]
-	b1268_3["b pop_u32"]
-	b1268_4 --> b1268_22
-	b1268_3 --> b1268_4
 end
 branch_1266 --> block_1268
 subgraph branch_1266["Branch 1266"]
@@ -39910,11 +39114,11 @@ end
 branch_1262 --> branch_1266
 subgraph block_1269["Block 1269"]
 	direction TB
-	b1269_0[/"Start"\\]
-	b1269_21["eff__1168 push_u32"]
 	b1269_7["r U32_div_s"]
-	b1269_21 --> b1269_0
+	b1269_21["eff__1168 push_u32"]
+	b1269_0[/"Start"\\]
 	b1269_7 --> b1269_21
+	b1269_21 --> b1269_0
 end
 branch_1266 --> block_1269
 
@@ -40127,38 +39331,115 @@ block_1274 --> phi_1273
 block_1275 --> phi_1273
 subgraph block_1274["Block 1274"]
 	direction TB
-	b1274_35["eff_merge__1189 merge"]
-	b1274_25["eff__1165 trapDivideByZero"]
-	b1274_38["eff_merge__1192 merge"]
 	b1274_37["eff_nop__1190 nop"]
-	b1274_25 --> b1274_35
-	b1274_38 --> b1274_25
+	b1274_38["eff_merge__1192 merge"]
+	b1274_35["eff_merge__1189 merge"]
 	b1274_37 --> b1274_38
+	b1274_38 --> b1274_35
 end
 branch_1272 --> block_1274
 subgraph branch_1272["Branch 1272"]
 	br1272_33["mb__1187 bool.&&"]
 
 end
-block_1288 --> branch_1272
+block_1280 --> branch_1272
+subgraph block_1280["Block 1280"]
+	direction TB
+	b1280_11["arg__1177 -2_147_483_648"]
+	b1280_15["arg__1174 -1"]
+	b1280_12["arg__1176 u32.view"]
+	b1280_16["arg__1173 u32.view"]
+	b1280_30["abs__1184 lift_u32"]
+	b1280_29["abs__1183 lift_u32"]
+	b1280_3["b pop_u32"]
+	b1280_4["a pop_u32"]
+	b1280_14["arg__1171 U32_equals"]
+	b1280_18["arg__1170 U32_equals"]
+	b1280_7["r U32_div_s"]
+	b1280_8["arg__1179 0"]
+	b1280_19["cond__1166 U32_and"]
+	b1280_45["eff_nop__1198 nop"]
+	b1280_28["abs__1182 lift_u32"]
+	b1280_40["mf__1194 U32_maybeFalse"]
+	b1280_39["mt__1193 U32_maybeTrue"]
+	b1280_10["cond__1164 U32_equals"]
+	b1280_41["mb__1195 bool.&&"]
+	b1280_32["mf__1186 U32_maybeFalse"]
+	b1280_31["mt__1185 U32_maybeTrue"]
+	b1280_33["mb__1187 bool.&&"]
+	b1280_11 --> b1280_15
+	b1280_15 --> b1280_12
+	b1280_12 --> b1280_16
+	b1280_16 --> b1280_30
+	b1280_30 --> b1280_29
+	b1280_29 --> b1280_3
+	b1280_3 --> b1280_4
+	b1280_4 --> b1280_14
+	b1280_14 --> b1280_18
+	b1280_18 --> b1280_7
+	b1280_7 --> b1280_8
+	b1280_8 --> b1280_19
+	b1280_19 --> b1280_45
+	b1280_45 --> b1280_28
+	b1280_28 --> b1280_40
+	b1280_40 --> b1280_39
+	b1280_39 --> b1280_10
+	b1280_10 --> b1280_41
+	b1280_41 --> b1280_32
+	b1280_32 --> b1280_31
+	b1280_31 --> b1280_33
+end
+phi_1286 --> block_1280
+subgraph phi_1286["Phi 1286"]
+	p1286_24{{"r_state__1191 Sϕ Stack "}}
+end
+block_1287 --> phi_1286
+block_1288 --> phi_1286
+subgraph block_1287["Block 1287"]
+	direction TB
+	b1287_45["eff_nop__1198 nop"]
+	b1287_46["eff_merge__1199 merge"]
+	b1287_45 --> b1287_46
+end
+branch_1285 --> block_1287
+subgraph branch_1285["Branch 1285"]
+	br1285_41["mb__1195 bool.&&"]
+
+end
 subgraph block_1288["Block 1288"]
 	direction TB
-	b1288_33["mb__1187 bool.&&"]
-	b1288_31["mt__1185 U32_maybeTrue"]
-	b1288_32["mf__1186 U32_maybeFalse"]
-	b1288_10["cond__1164 U32_equals"]
-	b1288_31 --> b1288_33
-	b1288_32 --> b1288_31
-	b1288_10 --> b1288_32
 end
+phi_1294 --> block_1288
+subgraph phi_1294["Phi 1294"]
+	p1294_44{{"Sϕ Stack "}}
+end
+block_1295 --> phi_1294
+block_1296 --> phi_1294
+subgraph block_1295["Block 1295"]
+	direction TB
+	b1295_22["eff__1167 trapDivideUnrepresentable"]
+end
+branch_1293 --> block_1295
+subgraph branch_1293["Branch 1293"]
+	br1293_39["mt__1193 U32_maybeTrue"]
+
+end
+branch_1285 --> branch_1293
+subgraph block_1296["Block 1296"]
+	direction TB
+	b1296_7["r U32_div_s"]
+	b1296_21["eff__1168 push_u32"]
+	b1296_7 --> b1296_21
+end
+branch_1293 --> block_1296
 subgraph block_1275["Block 1275"]
 	direction TB
 end
 phi_1277 --> block_1275
 subgraph phi_1277["Phi 1277"]
 	p1277_36{{"Sϕ Stack "}}
-	p1277_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	p1277_36{{"Sϕ Stack "}}
+	p1277_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	p1277_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1278 --> phi_1277
@@ -40166,10 +39447,6 @@ block_1279 --> phi_1277
 subgraph block_1278["Block 1278"]
 	direction TB
 	b1278_25["eff__1165 trapDivideByZero"]
-	b1278_4["a pop_u32"]
-	b1278_3["b pop_u32"]
-	b1278_4 --> b1278_25
-	b1278_3 --> b1278_4
 end
 branch_1276 --> block_1278
 subgraph branch_1276["Branch 1276"]
@@ -40180,70 +39457,70 @@ branch_1272 --> branch_1276
 subgraph block_1279["Block 1279"]
 	direction TB
 end
-phi_1281 --> block_1279
-subgraph phi_1281["Phi 1281"]
-	p1281_24{{"r_state__1191 Sϕ Stack "}}
-	p1281_23{{"r_state__1188 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1281_24{{"r_state__1191 Sϕ Stack "}}
-	p1281_23{{"r_state__1188 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1282 --> block_1279
+subgraph phi_1282["Phi 1282"]
+	p1282_24{{"r_state__1191 Sϕ Stack "}}
+	p1282_24{{"r_state__1191 Sϕ Stack "}}
+	p1282_23{{"r_state__1188 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1282_23{{"r_state__1188 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1282 --> phi_1281
-block_1283 --> phi_1281
-subgraph block_1282["Block 1282"]
-	direction TB
-	b1282_43["eff_merge__1197 merge"]
-	b1282_22["eff__1167 trapDivideUnrepresentable"]
-	b1282_4["a pop_u32"]
-	b1282_46["eff_merge__1199 merge"]
-	b1282_21["eff__1168 push_u32"]
-	b1282_3["b pop_u32"]
-	b1282_22 --> b1282_43
-	b1282_4 --> b1282_22
-	b1282_46 --> b1282_4
-	b1282_21 --> b1282_46
-	b1282_3 --> b1282_21
-end
-branch_1280 --> block_1282
-subgraph branch_1280["Branch 1280"]
-	br1280_41["mb__1195 bool.&&"]
-
-end
-branch_1276 --> branch_1280
+block_1283 --> phi_1282
+block_1284 --> phi_1282
 subgraph block_1283["Block 1283"]
 	direction TB
+	b1283_45["eff_nop__1198 nop"]
+	b1283_46["eff_merge__1199 merge"]
+	b1283_43["eff_merge__1197 merge"]
+	b1283_45 --> b1283_46
+	b1283_46 --> b1283_43
 end
-phi_1285 --> block_1283
-subgraph phi_1285["Phi 1285"]
-	p1285_44{{"Sϕ Stack "}}
-	p1285_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1285_44{{"Sϕ Stack "}}
-	p1285_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-end
-block_1286 --> phi_1285
-block_1287 --> phi_1285
-subgraph block_1286["Block 1286"]
-	direction TB
-	b1286_22["eff__1167 trapDivideUnrepresentable"]
-	b1286_4["a pop_u32"]
-	b1286_3["b pop_u32"]
-	b1286_4 --> b1286_22
-	b1286_3 --> b1286_4
-end
-branch_1284 --> block_1286
-subgraph branch_1284["Branch 1284"]
-	br1284_39["mt__1193 U32_maybeTrue"]
+branch_1281 --> block_1283
+subgraph branch_1281["Branch 1281"]
+	br1281_41["mb__1195 bool.&&"]
 
 end
-branch_1280 --> branch_1284
-subgraph block_1287["Block 1287"]
+branch_1276 --> branch_1281
+subgraph block_1284["Block 1284"]
 	direction TB
-	b1287_0[/"r_state__1196 Start"\\]
-	b1287_21["eff__1168 push_u32"]
-	b1287_7["r U32_div_s"]
-	b1287_21 --> b1287_0
-	b1287_7 --> b1287_21
 end
-branch_1284 --> block_1287
+phi_1290 --> block_1284
+subgraph phi_1290["Phi 1290"]
+	p1290_44{{"Sϕ Stack "}}
+	p1290_44{{"Sϕ Stack "}}
+	p1290_44{{"Sϕ Stack "}}
+	p1290_44{{"Sϕ Stack "}}
+	p1290_44{{"Sϕ Stack "}}
+	p1290_44{{"Sϕ Stack "}}
+	p1290_44{{"Sϕ Stack "}}
+	p1290_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1290_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1290_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1290_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1290_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1290_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1290_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_1291 --> phi_1290
+block_1292 --> phi_1290
+subgraph block_1291["Block 1291"]
+	direction TB
+	b1291_22["eff__1167 trapDivideUnrepresentable"]
+end
+branch_1289 --> block_1291
+subgraph branch_1289["Branch 1289"]
+	br1289_39["mt__1193 U32_maybeTrue"]
+
+end
+branch_1281 --> branch_1289
+subgraph block_1292["Block 1292"]
+	direction TB
+	b1292_7["r U32_div_s"]
+	b1292_21["eff__1168 push_u32"]
+	b1292_0[/"r_state__1196 Start"\\]
+	b1292_7 --> b1292_21
+	b1292_21 --> b1292_0
+end
+branch_1289 --> block_1292
 
 </pre>`;
 window.traces["I32_DIV_S"]["unlem_pretty"] = ''
@@ -40519,42 +39796,48 @@ graph TD
 </pre>`;
 window.traces["I32_DIV_U"]["schedulerMermaid"] = ''
 window.traces["I32_DIV_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1289["Block 1289"]
+subgraph block_1297["Block 1297"]
 	direction TB
-	b1289_1[\\"Finish"/]
+	b1297_1[\\"Finish"/]
 end
-phi_1291 --> block_1289
-subgraph phi_1291["Phi 1291"]
-	p1291_15{{"Sϕ Stack "}}
-	p1291_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1299 --> block_1297
+subgraph phi_1299["Phi 1299"]
+	p1299_15{{"Sϕ Stack "}}
+	p1299_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1292 --> phi_1291
-block_1293 --> phi_1291
-subgraph block_1292["Block 1292"]
+block_1300 --> phi_1299
+block_1301 --> phi_1299
+subgraph block_1300["Block 1300"]
 	direction TB
-	b1292_13["eff__1201 trapDivideByZero"]
-	b1292_4["a pop_u32"]
-	b1292_4 --> b1292_13
+	b1300_13["eff__1201 trapDivideByZero"]
 end
-branch_1290 --> block_1292
-subgraph branch_1290["Branch 1290"]
-	br1290_10["cond__1200 U32_equals"]
+branch_1298 --> block_1300
+subgraph branch_1298["Branch 1298"]
+	br1298_10["cond__1200 U32_equals"]
 
 end
-block_1294 --> branch_1290
-subgraph block_1294["Block 1294"]
+block_1302 --> branch_1298
+subgraph block_1302["Block 1302"]
 	direction TB
-	b1294_10["cond__1200 U32_equals"]
+	b1302_8["arg__1205 0"]
+	b1302_3["b pop_u32"]
+	b1302_4["a pop_u32"]
+	b1302_16["abs__1208 lift_u32"]
+	b1302_10["cond__1200 U32_equals"]
+	b1302_8 --> b1302_3
+	b1302_3 --> b1302_4
+	b1302_4 --> b1302_16
+	b1302_16 --> b1302_10
 end
-subgraph block_1293["Block 1293"]
+subgraph block_1301["Block 1301"]
 	direction TB
-	b1293_0[/"Start"\\]
-	b1293_12["eff__1202 push_u32"]
-	b1293_7["r U32_div"]
-	b1293_12 --> b1293_0
-	b1293_7 --> b1293_12
+	b1301_7["r U32_div"]
+	b1301_12["eff__1202 push_u32"]
+	b1301_0[/"Start"\\]
+	b1301_7 --> b1301_12
+	b1301_12 --> b1301_0
 end
-branch_1290 --> block_1293
+branch_1298 --> block_1301
 
 </pre>`;
 window.traces["I32_DIV_U"]["unLEM"] = ''
@@ -40646,76 +39929,80 @@ if (mb__1211) {
 </pre>`;
 window.traces["I32_DIV_U"]["unlem_scheduler"] = ''
 window.traces["I32_DIV_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1295["Block 1295"]
-	direction TB
-	b1295_1[\\"Finish"/]
-end
-phi_1297 --> block_1295
-subgraph phi_1297["Phi 1297"]
-	p1297_15{{"Sϕ Stack "}}
-	p1297_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-end
-block_1298 --> phi_1297
-block_1299 --> phi_1297
-subgraph block_1298["Block 1298"]
-	direction TB
-	b1298_21["eff_merge__1213 merge"]
-	b1298_13["eff__1201 trapDivideByZero"]
-	b1298_24["eff_merge__1215 merge"]
-	b1298_12["eff__1202 push_u32"]
-	b1298_13 --> b1298_21
-	b1298_24 --> b1298_13
-	b1298_12 --> b1298_24
-end
-branch_1296 --> block_1298
-subgraph branch_1296["Branch 1296"]
-	br1296_19["mb__1211 bool.&&"]
-
-end
-block_1304 --> branch_1296
-subgraph block_1304["Block 1304"]
-	direction TB
-	b1304_19["mb__1211 bool.&&"]
-	b1304_17["mt__1209 U32_maybeTrue"]
-	b1304_18["mf__1210 U32_maybeFalse"]
-	b1304_17 --> b1304_19
-	b1304_18 --> b1304_17
-end
-subgraph block_1299["Block 1299"]
-	direction TB
-end
-phi_1301 --> block_1299
-subgraph phi_1301["Phi 1301"]
-	p1301_22{{"Sϕ Stack "}}
-	p1301_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1301_22{{"Sϕ Stack "}}
-	p1301_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-end
-block_1302 --> phi_1301
-block_1303 --> phi_1301
-subgraph block_1302["Block 1302"]
-	direction TB
-	b1302_13["eff__1201 trapDivideByZero"]
-	b1302_4["a pop_u32"]
-	b1302_3["b pop_u32"]
-	b1302_4 --> b1302_13
-	b1302_3 --> b1302_4
-end
-branch_1300 --> block_1302
-subgraph branch_1300["Branch 1300"]
-	br1300_17["mt__1209 U32_maybeTrue"]
-
-end
-branch_1296 --> branch_1300
 subgraph block_1303["Block 1303"]
 	direction TB
-	b1303_0[/"r_state__1212 Start"\\]
-	b1303_12["eff__1202 push_u32"]
-	b1303_7["r U32_div"]
-	b1303_12 --> b1303_0
-	b1303_7 --> b1303_12
+	b1303_1[\\"Finish"/]
 end
-branch_1300 --> block_1303
+phi_1305 --> block_1303
+subgraph phi_1305["Phi 1305"]
+	p1305_15{{"Sϕ Stack "}}
+	p1305_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_1306 --> phi_1305
+block_1307 --> phi_1305
+subgraph block_1306["Block 1306"]
+	direction TB
+	b1306_23["eff_nop__1214 nop"]
+	b1306_24["eff_merge__1215 merge"]
+	b1306_21["eff_merge__1213 merge"]
+	b1306_23 --> b1306_24
+	b1306_24 --> b1306_21
+end
+branch_1304 --> block_1306
+subgraph branch_1304["Branch 1304"]
+	br1304_19["mb__1211 bool.&&"]
+
+end
+block_1312 --> branch_1304
+subgraph block_1312["Block 1312"]
+	direction TB
+	b1312_8["arg__1205 0"]
+	b1312_16["abs__1208 lift_u32"]
+	b1312_3["b pop_u32"]
+	b1312_4["a pop_u32"]
+	b1312_10["cond__1200 U32_equals"]
+	b1312_18["mf__1210 U32_maybeFalse"]
+	b1312_17["mt__1209 U32_maybeTrue"]
+	b1312_19["mb__1211 bool.&&"]
+	b1312_8 --> b1312_16
+	b1312_16 --> b1312_3
+	b1312_3 --> b1312_4
+	b1312_4 --> b1312_10
+	b1312_10 --> b1312_18
+	b1312_18 --> b1312_17
+	b1312_17 --> b1312_19
+end
+subgraph block_1307["Block 1307"]
+	direction TB
+end
+phi_1309 --> block_1307
+subgraph phi_1309["Phi 1309"]
+	p1309_22{{"Sϕ Stack "}}
+	p1309_22{{"Sϕ Stack "}}
+	p1309_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1309_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_1310 --> phi_1309
+block_1311 --> phi_1309
+subgraph block_1310["Block 1310"]
+	direction TB
+	b1310_13["eff__1201 trapDivideByZero"]
+end
+branch_1308 --> block_1310
+subgraph branch_1308["Branch 1308"]
+	br1308_17["mt__1209 U32_maybeTrue"]
+
+end
+branch_1304 --> branch_1308
+subgraph block_1311["Block 1311"]
+	direction TB
+	b1311_7["r U32_div"]
+	b1311_12["eff__1202 push_u32"]
+	b1311_0[/"r_state__1212 Start"\\]
+	b1311_7 --> b1311_12
+	b1311_12 --> b1311_0
+end
+branch_1308 --> block_1311
 
 </pre>`;
 window.traces["I32_DIV_U"]["unlem_pretty"] = ''
@@ -40942,42 +40229,48 @@ graph TD
 </pre>`;
 window.traces["I32_REM_S"]["schedulerMermaid"] = ''
 window.traces["I32_REM_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1305["Block 1305"]
+subgraph block_1313["Block 1313"]
 	direction TB
-	b1305_1[\\"Finish"/]
+	b1313_1[\\"Finish"/]
 end
-phi_1307 --> block_1305
-subgraph phi_1307["Phi 1307"]
-	p1307_15{{"Sϕ Stack "}}
-	p1307_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1315 --> block_1313
+subgraph phi_1315["Phi 1315"]
+	p1315_15{{"Sϕ Stack "}}
+	p1315_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1308 --> phi_1307
-block_1309 --> phi_1307
-subgraph block_1308["Block 1308"]
+block_1316 --> phi_1315
+block_1317 --> phi_1315
+subgraph block_1316["Block 1316"]
 	direction TB
-	b1308_13["eff__1217 trapDivideByZero"]
-	b1308_4["a pop_u32"]
-	b1308_4 --> b1308_13
+	b1316_13["eff__1217 trapDivideByZero"]
 end
-branch_1306 --> block_1308
-subgraph branch_1306["Branch 1306"]
-	br1306_10["cond__1216 U32_equals"]
+branch_1314 --> block_1316
+subgraph branch_1314["Branch 1314"]
+	br1314_10["cond__1216 U32_equals"]
 
 end
-block_1310 --> branch_1306
-subgraph block_1310["Block 1310"]
+block_1318 --> branch_1314
+subgraph block_1318["Block 1318"]
 	direction TB
-	b1310_10["cond__1216 U32_equals"]
+	b1318_8["arg__1221 0"]
+	b1318_3["b pop_u32"]
+	b1318_4["a pop_u32"]
+	b1318_16["abs__1224 lift_u32"]
+	b1318_10["cond__1216 U32_equals"]
+	b1318_8 --> b1318_3
+	b1318_3 --> b1318_4
+	b1318_4 --> b1318_16
+	b1318_16 --> b1318_10
 end
-subgraph block_1309["Block 1309"]
+subgraph block_1317["Block 1317"]
 	direction TB
-	b1309_0[/"Start"\\]
-	b1309_12["eff__1218 push_u32"]
-	b1309_7["r U32_rem_s"]
-	b1309_12 --> b1309_0
-	b1309_7 --> b1309_12
+	b1317_7["r U32_rem_s"]
+	b1317_12["eff__1218 push_u32"]
+	b1317_0[/"Start"\\]
+	b1317_7 --> b1317_12
+	b1317_12 --> b1317_0
 end
-branch_1306 --> block_1309
+branch_1314 --> block_1317
 
 </pre>`;
 window.traces["I32_REM_S"]["unLEM"] = ''
@@ -41069,76 +40362,80 @@ if (mb__1227) {
 </pre>`;
 window.traces["I32_REM_S"]["unlem_scheduler"] = ''
 window.traces["I32_REM_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1311["Block 1311"]
-	direction TB
-	b1311_1[\\"Finish"/]
-end
-phi_1313 --> block_1311
-subgraph phi_1313["Phi 1313"]
-	p1313_15{{"Sϕ Stack "}}
-	p1313_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-end
-block_1314 --> phi_1313
-block_1315 --> phi_1313
-subgraph block_1314["Block 1314"]
-	direction TB
-	b1314_21["eff_merge__1229 merge"]
-	b1314_13["eff__1217 trapDivideByZero"]
-	b1314_24["eff_merge__1231 merge"]
-	b1314_12["eff__1218 push_u32"]
-	b1314_13 --> b1314_21
-	b1314_24 --> b1314_13
-	b1314_12 --> b1314_24
-end
-branch_1312 --> block_1314
-subgraph branch_1312["Branch 1312"]
-	br1312_19["mb__1227 bool.&&"]
-
-end
-block_1320 --> branch_1312
-subgraph block_1320["Block 1320"]
-	direction TB
-	b1320_19["mb__1227 bool.&&"]
-	b1320_17["mt__1225 U32_maybeTrue"]
-	b1320_18["mf__1226 U32_maybeFalse"]
-	b1320_17 --> b1320_19
-	b1320_18 --> b1320_17
-end
-subgraph block_1315["Block 1315"]
-	direction TB
-end
-phi_1317 --> block_1315
-subgraph phi_1317["Phi 1317"]
-	p1317_22{{"Sϕ Stack "}}
-	p1317_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1317_22{{"Sϕ Stack "}}
-	p1317_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-end
-block_1318 --> phi_1317
-block_1319 --> phi_1317
-subgraph block_1318["Block 1318"]
-	direction TB
-	b1318_13["eff__1217 trapDivideByZero"]
-	b1318_4["a pop_u32"]
-	b1318_3["b pop_u32"]
-	b1318_4 --> b1318_13
-	b1318_3 --> b1318_4
-end
-branch_1316 --> block_1318
-subgraph branch_1316["Branch 1316"]
-	br1316_17["mt__1225 U32_maybeTrue"]
-
-end
-branch_1312 --> branch_1316
 subgraph block_1319["Block 1319"]
 	direction TB
-	b1319_0[/"r_state__1228 Start"\\]
-	b1319_12["eff__1218 push_u32"]
-	b1319_7["r U32_rem_s"]
-	b1319_12 --> b1319_0
-	b1319_7 --> b1319_12
+	b1319_1[\\"Finish"/]
 end
-branch_1316 --> block_1319
+phi_1321 --> block_1319
+subgraph phi_1321["Phi 1321"]
+	p1321_15{{"Sϕ Stack "}}
+	p1321_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_1322 --> phi_1321
+block_1323 --> phi_1321
+subgraph block_1322["Block 1322"]
+	direction TB
+	b1322_23["eff_nop__1230 nop"]
+	b1322_24["eff_merge__1231 merge"]
+	b1322_21["eff_merge__1229 merge"]
+	b1322_23 --> b1322_24
+	b1322_24 --> b1322_21
+end
+branch_1320 --> block_1322
+subgraph branch_1320["Branch 1320"]
+	br1320_19["mb__1227 bool.&&"]
+
+end
+block_1328 --> branch_1320
+subgraph block_1328["Block 1328"]
+	direction TB
+	b1328_8["arg__1221 0"]
+	b1328_16["abs__1224 lift_u32"]
+	b1328_3["b pop_u32"]
+	b1328_4["a pop_u32"]
+	b1328_10["cond__1216 U32_equals"]
+	b1328_18["mf__1226 U32_maybeFalse"]
+	b1328_17["mt__1225 U32_maybeTrue"]
+	b1328_19["mb__1227 bool.&&"]
+	b1328_8 --> b1328_16
+	b1328_16 --> b1328_3
+	b1328_3 --> b1328_4
+	b1328_4 --> b1328_10
+	b1328_10 --> b1328_18
+	b1328_18 --> b1328_17
+	b1328_17 --> b1328_19
+end
+subgraph block_1323["Block 1323"]
+	direction TB
+end
+phi_1325 --> block_1323
+subgraph phi_1325["Phi 1325"]
+	p1325_22{{"Sϕ Stack "}}
+	p1325_22{{"Sϕ Stack "}}
+	p1325_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1325_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_1326 --> phi_1325
+block_1327 --> phi_1325
+subgraph block_1326["Block 1326"]
+	direction TB
+	b1326_13["eff__1217 trapDivideByZero"]
+end
+branch_1324 --> block_1326
+subgraph branch_1324["Branch 1324"]
+	br1324_17["mt__1225 U32_maybeTrue"]
+
+end
+branch_1320 --> branch_1324
+subgraph block_1327["Block 1327"]
+	direction TB
+	b1327_7["r U32_rem_s"]
+	b1327_12["eff__1218 push_u32"]
+	b1327_0[/"r_state__1228 Start"\\]
+	b1327_7 --> b1327_12
+	b1327_12 --> b1327_0
+end
+branch_1324 --> block_1327
 
 </pre>`;
 window.traces["I32_REM_S"]["unlem_pretty"] = ''
@@ -41365,42 +40662,48 @@ graph TD
 </pre>`;
 window.traces["I32_REM_U"]["schedulerMermaid"] = ''
 window.traces["I32_REM_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1321["Block 1321"]
+subgraph block_1329["Block 1329"]
 	direction TB
-	b1321_1[\\"Finish"/]
+	b1329_1[\\"Finish"/]
 end
-phi_1323 --> block_1321
-subgraph phi_1323["Phi 1323"]
-	p1323_15{{"Sϕ Stack "}}
-	p1323_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1331 --> block_1329
+subgraph phi_1331["Phi 1331"]
+	p1331_15{{"Sϕ Stack "}}
+	p1331_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1324 --> phi_1323
-block_1325 --> phi_1323
-subgraph block_1324["Block 1324"]
+block_1332 --> phi_1331
+block_1333 --> phi_1331
+subgraph block_1332["Block 1332"]
 	direction TB
-	b1324_13["eff__1233 trapDivideByZero"]
-	b1324_4["a pop_u32"]
-	b1324_4 --> b1324_13
+	b1332_13["eff__1233 trapDivideByZero"]
 end
-branch_1322 --> block_1324
-subgraph branch_1322["Branch 1322"]
-	br1322_10["cond__1232 U32_equals"]
+branch_1330 --> block_1332
+subgraph branch_1330["Branch 1330"]
+	br1330_10["cond__1232 U32_equals"]
 
 end
-block_1326 --> branch_1322
-subgraph block_1326["Block 1326"]
+block_1334 --> branch_1330
+subgraph block_1334["Block 1334"]
 	direction TB
-	b1326_10["cond__1232 U32_equals"]
+	b1334_8["arg__1237 0"]
+	b1334_3["b pop_u32"]
+	b1334_4["a pop_u32"]
+	b1334_16["abs__1240 lift_u32"]
+	b1334_10["cond__1232 U32_equals"]
+	b1334_8 --> b1334_3
+	b1334_3 --> b1334_4
+	b1334_4 --> b1334_16
+	b1334_16 --> b1334_10
 end
-subgraph block_1325["Block 1325"]
+subgraph block_1333["Block 1333"]
 	direction TB
-	b1325_0[/"Start"\\]
-	b1325_12["eff__1234 push_u32"]
-	b1325_7["r U32_rem_u"]
-	b1325_12 --> b1325_0
-	b1325_7 --> b1325_12
+	b1333_7["r U32_rem_u"]
+	b1333_12["eff__1234 push_u32"]
+	b1333_0[/"Start"\\]
+	b1333_7 --> b1333_12
+	b1333_12 --> b1333_0
 end
-branch_1322 --> block_1325
+branch_1330 --> block_1333
 
 </pre>`;
 window.traces["I32_REM_U"]["unLEM"] = ''
@@ -41492,76 +40795,80 @@ if (mb__1243) {
 </pre>`;
 window.traces["I32_REM_U"]["unlem_scheduler"] = ''
 window.traces["I32_REM_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1327["Block 1327"]
-	direction TB
-	b1327_1[\\"Finish"/]
-end
-phi_1329 --> block_1327
-subgraph phi_1329["Phi 1329"]
-	p1329_15{{"Sϕ Stack "}}
-	p1329_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-end
-block_1330 --> phi_1329
-block_1331 --> phi_1329
-subgraph block_1330["Block 1330"]
-	direction TB
-	b1330_21["eff_merge__1245 merge"]
-	b1330_13["eff__1233 trapDivideByZero"]
-	b1330_24["eff_merge__1247 merge"]
-	b1330_12["eff__1234 push_u32"]
-	b1330_13 --> b1330_21
-	b1330_24 --> b1330_13
-	b1330_12 --> b1330_24
-end
-branch_1328 --> block_1330
-subgraph branch_1328["Branch 1328"]
-	br1328_19["mb__1243 bool.&&"]
-
-end
-block_1336 --> branch_1328
-subgraph block_1336["Block 1336"]
-	direction TB
-	b1336_19["mb__1243 bool.&&"]
-	b1336_17["mt__1241 U32_maybeTrue"]
-	b1336_18["mf__1242 U32_maybeFalse"]
-	b1336_17 --> b1336_19
-	b1336_18 --> b1336_17
-end
-subgraph block_1331["Block 1331"]
-	direction TB
-end
-phi_1333 --> block_1331
-subgraph phi_1333["Phi 1333"]
-	p1333_22{{"Sϕ Stack "}}
-	p1333_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1333_22{{"Sϕ Stack "}}
-	p1333_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-end
-block_1334 --> phi_1333
-block_1335 --> phi_1333
-subgraph block_1334["Block 1334"]
-	direction TB
-	b1334_13["eff__1233 trapDivideByZero"]
-	b1334_4["a pop_u32"]
-	b1334_3["b pop_u32"]
-	b1334_4 --> b1334_13
-	b1334_3 --> b1334_4
-end
-branch_1332 --> block_1334
-subgraph branch_1332["Branch 1332"]
-	br1332_17["mt__1241 U32_maybeTrue"]
-
-end
-branch_1328 --> branch_1332
 subgraph block_1335["Block 1335"]
 	direction TB
-	b1335_0[/"r_state__1244 Start"\\]
-	b1335_12["eff__1234 push_u32"]
-	b1335_7["r U32_rem_u"]
-	b1335_12 --> b1335_0
-	b1335_7 --> b1335_12
+	b1335_1[\\"Finish"/]
 end
-branch_1332 --> block_1335
+phi_1337 --> block_1335
+subgraph phi_1337["Phi 1337"]
+	p1337_15{{"Sϕ Stack "}}
+	p1337_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_1338 --> phi_1337
+block_1339 --> phi_1337
+subgraph block_1338["Block 1338"]
+	direction TB
+	b1338_23["eff_nop__1246 nop"]
+	b1338_24["eff_merge__1247 merge"]
+	b1338_21["eff_merge__1245 merge"]
+	b1338_23 --> b1338_24
+	b1338_24 --> b1338_21
+end
+branch_1336 --> block_1338
+subgraph branch_1336["Branch 1336"]
+	br1336_19["mb__1243 bool.&&"]
+
+end
+block_1344 --> branch_1336
+subgraph block_1344["Block 1344"]
+	direction TB
+	b1344_8["arg__1237 0"]
+	b1344_16["abs__1240 lift_u32"]
+	b1344_3["b pop_u32"]
+	b1344_4["a pop_u32"]
+	b1344_10["cond__1232 U32_equals"]
+	b1344_18["mf__1242 U32_maybeFalse"]
+	b1344_17["mt__1241 U32_maybeTrue"]
+	b1344_19["mb__1243 bool.&&"]
+	b1344_8 --> b1344_16
+	b1344_16 --> b1344_3
+	b1344_3 --> b1344_4
+	b1344_4 --> b1344_10
+	b1344_10 --> b1344_18
+	b1344_18 --> b1344_17
+	b1344_17 --> b1344_19
+end
+subgraph block_1339["Block 1339"]
+	direction TB
+end
+phi_1341 --> block_1339
+subgraph phi_1341["Phi 1341"]
+	p1341_22{{"Sϕ Stack "}}
+	p1341_22{{"Sϕ Stack "}}
+	p1341_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1341_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_1342 --> phi_1341
+block_1343 --> phi_1341
+subgraph block_1342["Block 1342"]
+	direction TB
+	b1342_13["eff__1233 trapDivideByZero"]
+end
+branch_1340 --> block_1342
+subgraph branch_1340["Branch 1340"]
+	br1340_17["mt__1241 U32_maybeTrue"]
+
+end
+branch_1336 --> branch_1340
+subgraph block_1343["Block 1343"]
+	direction TB
+	b1343_7["r U32_rem_u"]
+	b1343_12["eff__1234 push_u32"]
+	b1343_0[/"r_state__1244 Start"\\]
+	b1343_7 --> b1343_12
+	b1343_12 --> b1343_0
+end
+branch_1340 --> block_1343
 
 </pre>`;
 window.traces["I32_REM_U"]["unlem_pretty"] = ''
@@ -41733,19 +41040,19 @@ graph TD
 </pre>`;
 window.traces["I32_AND"]["schedulerMermaid"] = ''
 window.traces["I32_AND"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1337["Block 1337"]
+subgraph block_1345["Block 1345"]
 	direction TB
-	b1337_1[\\"Finish"/]
-	b1337_9["eff__1248 push_u32"]
-	b1337_7["r U32_and"]
-	b1337_4["a pop_u32"]
-	b1337_3["b pop_u32"]
-	b1337_0[/"Start"\\]
-	b1337_9 --> b1337_1
-	b1337_7 --> b1337_9
-	b1337_4 --> b1337_7
-	b1337_3 --> b1337_4
-	b1337_0 --> b1337_3
+	b1345_0[/"Start"\\]
+	b1345_3["b pop_u32"]
+	b1345_4["a pop_u32"]
+	b1345_7["r U32_and"]
+	b1345_9["eff__1248 push_u32"]
+	b1345_1[\\"Finish"/]
+	b1345_0 --> b1345_3
+	b1345_3 --> b1345_4
+	b1345_4 --> b1345_7
+	b1345_7 --> b1345_9
+	b1345_9 --> b1345_1
 end
 
 </pre>`;
@@ -41778,19 +41085,19 @@ def eff__1248 = push_u32(r);
 </pre>`;
 window.traces["I32_AND"]["unlem_scheduler"] = ''
 window.traces["I32_AND"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1338["Block 1338"]
+subgraph block_1346["Block 1346"]
 	direction TB
-	b1338_1[\\"Finish"/]
-	b1338_9["eff__1248 push_u32"]
-	b1338_7["r U32_and"]
-	b1338_4["a pop_u32"]
-	b1338_3["b pop_u32"]
-	b1338_0[/"Start"\\]
-	b1338_9 --> b1338_1
-	b1338_7 --> b1338_9
-	b1338_4 --> b1338_7
-	b1338_3 --> b1338_4
-	b1338_0 --> b1338_3
+	b1346_0[/"Start"\\]
+	b1346_3["b pop_u32"]
+	b1346_4["a pop_u32"]
+	b1346_7["r U32_and"]
+	b1346_9["eff__1248 push_u32"]
+	b1346_1[\\"Finish"/]
+	b1346_0 --> b1346_3
+	b1346_3 --> b1346_4
+	b1346_4 --> b1346_7
+	b1346_7 --> b1346_9
+	b1346_9 --> b1346_1
 end
 
 </pre>`;
@@ -41927,19 +41234,19 @@ graph TD
 </pre>`;
 window.traces["I32_OR"]["schedulerMermaid"] = ''
 window.traces["I32_OR"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1339["Block 1339"]
+subgraph block_1347["Block 1347"]
 	direction TB
-	b1339_1[\\"Finish"/]
-	b1339_9["eff__1252 push_u32"]
-	b1339_7["r U32_or"]
-	b1339_4["a pop_u32"]
-	b1339_3["b pop_u32"]
-	b1339_0[/"Start"\\]
-	b1339_9 --> b1339_1
-	b1339_7 --> b1339_9
-	b1339_4 --> b1339_7
-	b1339_3 --> b1339_4
-	b1339_0 --> b1339_3
+	b1347_0[/"Start"\\]
+	b1347_3["b pop_u32"]
+	b1347_4["a pop_u32"]
+	b1347_7["r U32_or"]
+	b1347_9["eff__1252 push_u32"]
+	b1347_1[\\"Finish"/]
+	b1347_0 --> b1347_3
+	b1347_3 --> b1347_4
+	b1347_4 --> b1347_7
+	b1347_7 --> b1347_9
+	b1347_9 --> b1347_1
 end
 
 </pre>`;
@@ -41972,19 +41279,19 @@ def eff__1252 = push_u32(r);
 </pre>`;
 window.traces["I32_OR"]["unlem_scheduler"] = ''
 window.traces["I32_OR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1340["Block 1340"]
+subgraph block_1348["Block 1348"]
 	direction TB
-	b1340_1[\\"Finish"/]
-	b1340_9["eff__1252 push_u32"]
-	b1340_7["r U32_or"]
-	b1340_4["a pop_u32"]
-	b1340_3["b pop_u32"]
-	b1340_0[/"Start"\\]
-	b1340_9 --> b1340_1
-	b1340_7 --> b1340_9
-	b1340_4 --> b1340_7
-	b1340_3 --> b1340_4
-	b1340_0 --> b1340_3
+	b1348_0[/"Start"\\]
+	b1348_3["b pop_u32"]
+	b1348_4["a pop_u32"]
+	b1348_7["r U32_or"]
+	b1348_9["eff__1252 push_u32"]
+	b1348_1[\\"Finish"/]
+	b1348_0 --> b1348_3
+	b1348_3 --> b1348_4
+	b1348_4 --> b1348_7
+	b1348_7 --> b1348_9
+	b1348_9 --> b1348_1
 end
 
 </pre>`;
@@ -42121,19 +41428,19 @@ graph TD
 </pre>`;
 window.traces["I32_XOR"]["schedulerMermaid"] = ''
 window.traces["I32_XOR"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1341["Block 1341"]
+subgraph block_1349["Block 1349"]
 	direction TB
-	b1341_1[\\"Finish"/]
-	b1341_9["eff__1256 push_u32"]
-	b1341_7["r U32_or"]
-	b1341_4["a pop_u32"]
-	b1341_3["b pop_u32"]
-	b1341_0[/"Start"\\]
-	b1341_9 --> b1341_1
-	b1341_7 --> b1341_9
-	b1341_4 --> b1341_7
-	b1341_3 --> b1341_4
-	b1341_0 --> b1341_3
+	b1349_0[/"Start"\\]
+	b1349_3["b pop_u32"]
+	b1349_4["a pop_u32"]
+	b1349_7["r U32_or"]
+	b1349_9["eff__1256 push_u32"]
+	b1349_1[\\"Finish"/]
+	b1349_0 --> b1349_3
+	b1349_3 --> b1349_4
+	b1349_4 --> b1349_7
+	b1349_7 --> b1349_9
+	b1349_9 --> b1349_1
 end
 
 </pre>`;
@@ -42166,19 +41473,19 @@ def eff__1256 = push_u32(r);
 </pre>`;
 window.traces["I32_XOR"]["unlem_scheduler"] = ''
 window.traces["I32_XOR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1342["Block 1342"]
+subgraph block_1350["Block 1350"]
 	direction TB
-	b1342_1[\\"Finish"/]
-	b1342_9["eff__1256 push_u32"]
-	b1342_7["r U32_or"]
-	b1342_4["a pop_u32"]
-	b1342_3["b pop_u32"]
-	b1342_0[/"Start"\\]
-	b1342_9 --> b1342_1
-	b1342_7 --> b1342_9
-	b1342_4 --> b1342_7
-	b1342_3 --> b1342_4
-	b1342_0 --> b1342_3
+	b1350_0[/"Start"\\]
+	b1350_3["b pop_u32"]
+	b1350_4["a pop_u32"]
+	b1350_7["r U32_or"]
+	b1350_9["eff__1256 push_u32"]
+	b1350_1[\\"Finish"/]
+	b1350_0 --> b1350_3
+	b1350_3 --> b1350_4
+	b1350_4 --> b1350_7
+	b1350_7 --> b1350_9
+	b1350_9 --> b1350_1
 end
 
 </pre>`;
@@ -42315,19 +41622,19 @@ graph TD
 </pre>`;
 window.traces["I32_SHL"]["schedulerMermaid"] = ''
 window.traces["I32_SHL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1343["Block 1343"]
+subgraph block_1351["Block 1351"]
 	direction TB
-	b1343_1[\\"Finish"/]
-	b1343_9["eff__1260 push_u32"]
-	b1343_7["r U32_shl"]
-	b1343_4["a pop_u32"]
-	b1343_3["b pop_u32"]
-	b1343_0[/"Start"\\]
-	b1343_9 --> b1343_1
-	b1343_7 --> b1343_9
-	b1343_4 --> b1343_7
-	b1343_3 --> b1343_4
-	b1343_0 --> b1343_3
+	b1351_0[/"Start"\\]
+	b1351_3["b pop_u32"]
+	b1351_4["a pop_u32"]
+	b1351_7["r U32_shl"]
+	b1351_9["eff__1260 push_u32"]
+	b1351_1[\\"Finish"/]
+	b1351_0 --> b1351_3
+	b1351_3 --> b1351_4
+	b1351_4 --> b1351_7
+	b1351_7 --> b1351_9
+	b1351_9 --> b1351_1
 end
 
 </pre>`;
@@ -42360,19 +41667,19 @@ def eff__1260 = push_u32(r);
 </pre>`;
 window.traces["I32_SHL"]["unlem_scheduler"] = ''
 window.traces["I32_SHL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1344["Block 1344"]
+subgraph block_1352["Block 1352"]
 	direction TB
-	b1344_1[\\"Finish"/]
-	b1344_9["eff__1260 push_u32"]
-	b1344_7["r U32_shl"]
-	b1344_4["a pop_u32"]
-	b1344_3["b pop_u32"]
-	b1344_0[/"Start"\\]
-	b1344_9 --> b1344_1
-	b1344_7 --> b1344_9
-	b1344_4 --> b1344_7
-	b1344_3 --> b1344_4
-	b1344_0 --> b1344_3
+	b1352_0[/"Start"\\]
+	b1352_3["b pop_u32"]
+	b1352_4["a pop_u32"]
+	b1352_7["r U32_shl"]
+	b1352_9["eff__1260 push_u32"]
+	b1352_1[\\"Finish"/]
+	b1352_0 --> b1352_3
+	b1352_3 --> b1352_4
+	b1352_4 --> b1352_7
+	b1352_7 --> b1352_9
+	b1352_9 --> b1352_1
 end
 
 </pre>`;
@@ -42509,19 +41816,19 @@ graph TD
 </pre>`;
 window.traces["I32_SHR_S"]["schedulerMermaid"] = ''
 window.traces["I32_SHR_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1345["Block 1345"]
+subgraph block_1353["Block 1353"]
 	direction TB
-	b1345_1[\\"Finish"/]
-	b1345_9["eff__1264 push_u32"]
-	b1345_7["r U32_shr_s"]
-	b1345_4["a pop_u32"]
-	b1345_3["b pop_u32"]
-	b1345_0[/"Start"\\]
-	b1345_9 --> b1345_1
-	b1345_7 --> b1345_9
-	b1345_4 --> b1345_7
-	b1345_3 --> b1345_4
-	b1345_0 --> b1345_3
+	b1353_0[/"Start"\\]
+	b1353_3["b pop_u32"]
+	b1353_4["a pop_u32"]
+	b1353_7["r U32_shr_s"]
+	b1353_9["eff__1264 push_u32"]
+	b1353_1[\\"Finish"/]
+	b1353_0 --> b1353_3
+	b1353_3 --> b1353_4
+	b1353_4 --> b1353_7
+	b1353_7 --> b1353_9
+	b1353_9 --> b1353_1
 end
 
 </pre>`;
@@ -42554,19 +41861,19 @@ def eff__1264 = push_u32(r);
 </pre>`;
 window.traces["I32_SHR_S"]["unlem_scheduler"] = ''
 window.traces["I32_SHR_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1346["Block 1346"]
+subgraph block_1354["Block 1354"]
 	direction TB
-	b1346_1[\\"Finish"/]
-	b1346_9["eff__1264 push_u32"]
-	b1346_7["r U32_shr_s"]
-	b1346_4["a pop_u32"]
-	b1346_3["b pop_u32"]
-	b1346_0[/"Start"\\]
-	b1346_9 --> b1346_1
-	b1346_7 --> b1346_9
-	b1346_4 --> b1346_7
-	b1346_3 --> b1346_4
-	b1346_0 --> b1346_3
+	b1354_0[/"Start"\\]
+	b1354_3["b pop_u32"]
+	b1354_4["a pop_u32"]
+	b1354_7["r U32_shr_s"]
+	b1354_9["eff__1264 push_u32"]
+	b1354_1[\\"Finish"/]
+	b1354_0 --> b1354_3
+	b1354_3 --> b1354_4
+	b1354_4 --> b1354_7
+	b1354_7 --> b1354_9
+	b1354_9 --> b1354_1
 end
 
 </pre>`;
@@ -42703,19 +42010,19 @@ graph TD
 </pre>`;
 window.traces["I32_SHR_U"]["schedulerMermaid"] = ''
 window.traces["I32_SHR_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1347["Block 1347"]
+subgraph block_1355["Block 1355"]
 	direction TB
-	b1347_1[\\"Finish"/]
-	b1347_9["eff__1268 push_u32"]
-	b1347_7["r U32_shr_u"]
-	b1347_4["a pop_u32"]
-	b1347_3["b pop_u32"]
-	b1347_0[/"Start"\\]
-	b1347_9 --> b1347_1
-	b1347_7 --> b1347_9
-	b1347_4 --> b1347_7
-	b1347_3 --> b1347_4
-	b1347_0 --> b1347_3
+	b1355_0[/"Start"\\]
+	b1355_3["b pop_u32"]
+	b1355_4["a pop_u32"]
+	b1355_7["r U32_shr_u"]
+	b1355_9["eff__1268 push_u32"]
+	b1355_1[\\"Finish"/]
+	b1355_0 --> b1355_3
+	b1355_3 --> b1355_4
+	b1355_4 --> b1355_7
+	b1355_7 --> b1355_9
+	b1355_9 --> b1355_1
 end
 
 </pre>`;
@@ -42748,19 +42055,19 @@ def eff__1268 = push_u32(r);
 </pre>`;
 window.traces["I32_SHR_U"]["unlem_scheduler"] = ''
 window.traces["I32_SHR_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1348["Block 1348"]
+subgraph block_1356["Block 1356"]
 	direction TB
-	b1348_1[\\"Finish"/]
-	b1348_9["eff__1268 push_u32"]
-	b1348_7["r U32_shr_u"]
-	b1348_4["a pop_u32"]
-	b1348_3["b pop_u32"]
-	b1348_0[/"Start"\\]
-	b1348_9 --> b1348_1
-	b1348_7 --> b1348_9
-	b1348_4 --> b1348_7
-	b1348_3 --> b1348_4
-	b1348_0 --> b1348_3
+	b1356_0[/"Start"\\]
+	b1356_3["b pop_u32"]
+	b1356_4["a pop_u32"]
+	b1356_7["r U32_shr_u"]
+	b1356_9["eff__1268 push_u32"]
+	b1356_1[\\"Finish"/]
+	b1356_0 --> b1356_3
+	b1356_3 --> b1356_4
+	b1356_4 --> b1356_7
+	b1356_7 --> b1356_9
+	b1356_9 --> b1356_1
 end
 
 </pre>`;
@@ -42897,19 +42204,19 @@ graph TD
 </pre>`;
 window.traces["I32_ROTL"]["schedulerMermaid"] = ''
 window.traces["I32_ROTL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1349["Block 1349"]
+subgraph block_1357["Block 1357"]
 	direction TB
-	b1349_1[\\"Finish"/]
-	b1349_9["eff__1272 push_u32"]
-	b1349_7["r U32_rotl"]
-	b1349_4["a pop_u32"]
-	b1349_3["b pop_u32"]
-	b1349_0[/"Start"\\]
-	b1349_9 --> b1349_1
-	b1349_7 --> b1349_9
-	b1349_4 --> b1349_7
-	b1349_3 --> b1349_4
-	b1349_0 --> b1349_3
+	b1357_0[/"Start"\\]
+	b1357_3["b pop_u32"]
+	b1357_4["a pop_u32"]
+	b1357_7["r U32_rotl"]
+	b1357_9["eff__1272 push_u32"]
+	b1357_1[\\"Finish"/]
+	b1357_0 --> b1357_3
+	b1357_3 --> b1357_4
+	b1357_4 --> b1357_7
+	b1357_7 --> b1357_9
+	b1357_9 --> b1357_1
 end
 
 </pre>`;
@@ -42942,19 +42249,19 @@ def eff__1272 = push_u32(r);
 </pre>`;
 window.traces["I32_ROTL"]["unlem_scheduler"] = ''
 window.traces["I32_ROTL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1350["Block 1350"]
+subgraph block_1358["Block 1358"]
 	direction TB
-	b1350_1[\\"Finish"/]
-	b1350_9["eff__1272 push_u32"]
-	b1350_7["r U32_rotl"]
-	b1350_4["a pop_u32"]
-	b1350_3["b pop_u32"]
-	b1350_0[/"Start"\\]
-	b1350_9 --> b1350_1
-	b1350_7 --> b1350_9
-	b1350_4 --> b1350_7
-	b1350_3 --> b1350_4
-	b1350_0 --> b1350_3
+	b1358_0[/"Start"\\]
+	b1358_3["b pop_u32"]
+	b1358_4["a pop_u32"]
+	b1358_7["r U32_rotl"]
+	b1358_9["eff__1272 push_u32"]
+	b1358_1[\\"Finish"/]
+	b1358_0 --> b1358_3
+	b1358_3 --> b1358_4
+	b1358_4 --> b1358_7
+	b1358_7 --> b1358_9
+	b1358_9 --> b1358_1
 end
 
 </pre>`;
@@ -43091,19 +42398,19 @@ graph TD
 </pre>`;
 window.traces["I32_ROTR"]["schedulerMermaid"] = ''
 window.traces["I32_ROTR"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1351["Block 1351"]
+subgraph block_1359["Block 1359"]
 	direction TB
-	b1351_1[\\"Finish"/]
-	b1351_9["eff__1276 push_u32"]
-	b1351_7["r U32_rotr"]
-	b1351_4["a pop_u32"]
-	b1351_3["b pop_u32"]
-	b1351_0[/"Start"\\]
-	b1351_9 --> b1351_1
-	b1351_7 --> b1351_9
-	b1351_4 --> b1351_7
-	b1351_3 --> b1351_4
-	b1351_0 --> b1351_3
+	b1359_0[/"Start"\\]
+	b1359_3["b pop_u32"]
+	b1359_4["a pop_u32"]
+	b1359_7["r U32_rotr"]
+	b1359_9["eff__1276 push_u32"]
+	b1359_1[\\"Finish"/]
+	b1359_0 --> b1359_3
+	b1359_3 --> b1359_4
+	b1359_4 --> b1359_7
+	b1359_7 --> b1359_9
+	b1359_9 --> b1359_1
 end
 
 </pre>`;
@@ -43136,19 +42443,19 @@ def eff__1276 = push_u32(r);
 </pre>`;
 window.traces["I32_ROTR"]["unlem_scheduler"] = ''
 window.traces["I32_ROTR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1352["Block 1352"]
+subgraph block_1360["Block 1360"]
 	direction TB
-	b1352_1[\\"Finish"/]
-	b1352_9["eff__1276 push_u32"]
-	b1352_7["r U32_rotr"]
-	b1352_4["a pop_u32"]
-	b1352_3["b pop_u32"]
-	b1352_0[/"Start"\\]
-	b1352_9 --> b1352_1
-	b1352_7 --> b1352_9
-	b1352_4 --> b1352_7
-	b1352_3 --> b1352_4
-	b1352_0 --> b1352_3
+	b1360_0[/"Start"\\]
+	b1360_3["b pop_u32"]
+	b1360_4["a pop_u32"]
+	b1360_7["r U32_rotr"]
+	b1360_9["eff__1276 push_u32"]
+	b1360_1[\\"Finish"/]
+	b1360_0 --> b1360_3
+	b1360_3 --> b1360_4
+	b1360_4 --> b1360_7
+	b1360_7 --> b1360_9
+	b1360_9 --> b1360_1
 end
 
 </pre>`;
@@ -43274,17 +42581,17 @@ graph TD
 </pre>`;
 window.traces["I64_CLZ"]["schedulerMermaid"] = ''
 window.traces["I64_CLZ"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1353["Block 1353"]
+subgraph block_1361["Block 1361"]
 	direction TB
-	b1353_1[\\"Finish"/]
-	b1353_7["eff__1280 push_u64"]
-	b1353_5["r U64_clz"]
-	b1353_3["a pop_u64"]
-	b1353_0[/"Start"\\]
-	b1353_7 --> b1353_1
-	b1353_5 --> b1353_7
-	b1353_3 --> b1353_5
-	b1353_0 --> b1353_3
+	b1361_0[/"Start"\\]
+	b1361_3["a pop_u64"]
+	b1361_5["r U64_clz"]
+	b1361_7["eff__1280 push_u64"]
+	b1361_1[\\"Finish"/]
+	b1361_0 --> b1361_3
+	b1361_3 --> b1361_5
+	b1361_5 --> b1361_7
+	b1361_7 --> b1361_1
 end
 
 </pre>`;
@@ -43313,17 +42620,17 @@ def eff__1280 = push_u64(r);
 </pre>`;
 window.traces["I64_CLZ"]["unlem_scheduler"] = ''
 window.traces["I64_CLZ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1354["Block 1354"]
+subgraph block_1362["Block 1362"]
 	direction TB
-	b1354_1[\\"Finish"/]
-	b1354_7["eff__1280 push_u64"]
-	b1354_5["r U64_clz"]
-	b1354_3["a pop_u64"]
-	b1354_0[/"Start"\\]
-	b1354_7 --> b1354_1
-	b1354_5 --> b1354_7
-	b1354_3 --> b1354_5
-	b1354_0 --> b1354_3
+	b1362_0[/"Start"\\]
+	b1362_3["a pop_u64"]
+	b1362_5["r U64_clz"]
+	b1362_7["eff__1280 push_u64"]
+	b1362_1[\\"Finish"/]
+	b1362_0 --> b1362_3
+	b1362_3 --> b1362_5
+	b1362_5 --> b1362_7
+	b1362_7 --> b1362_1
 end
 
 </pre>`;
@@ -43440,17 +42747,17 @@ graph TD
 </pre>`;
 window.traces["I64_CTZ"]["schedulerMermaid"] = ''
 window.traces["I64_CTZ"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1355["Block 1355"]
+subgraph block_1363["Block 1363"]
 	direction TB
-	b1355_1[\\"Finish"/]
-	b1355_7["eff__1283 push_u64"]
-	b1355_5["r U64_ctz"]
-	b1355_3["a pop_u64"]
-	b1355_0[/"Start"\\]
-	b1355_7 --> b1355_1
-	b1355_5 --> b1355_7
-	b1355_3 --> b1355_5
-	b1355_0 --> b1355_3
+	b1363_0[/"Start"\\]
+	b1363_3["a pop_u64"]
+	b1363_5["r U64_ctz"]
+	b1363_7["eff__1283 push_u64"]
+	b1363_1[\\"Finish"/]
+	b1363_0 --> b1363_3
+	b1363_3 --> b1363_5
+	b1363_5 --> b1363_7
+	b1363_7 --> b1363_1
 end
 
 </pre>`;
@@ -43479,17 +42786,17 @@ def eff__1283 = push_u64(r);
 </pre>`;
 window.traces["I64_CTZ"]["unlem_scheduler"] = ''
 window.traces["I64_CTZ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1356["Block 1356"]
+subgraph block_1364["Block 1364"]
 	direction TB
-	b1356_1[\\"Finish"/]
-	b1356_7["eff__1283 push_u64"]
-	b1356_5["r U64_ctz"]
-	b1356_3["a pop_u64"]
-	b1356_0[/"Start"\\]
-	b1356_7 --> b1356_1
-	b1356_5 --> b1356_7
-	b1356_3 --> b1356_5
-	b1356_0 --> b1356_3
+	b1364_0[/"Start"\\]
+	b1364_3["a pop_u64"]
+	b1364_5["r U64_ctz"]
+	b1364_7["eff__1283 push_u64"]
+	b1364_1[\\"Finish"/]
+	b1364_0 --> b1364_3
+	b1364_3 --> b1364_5
+	b1364_5 --> b1364_7
+	b1364_7 --> b1364_1
 end
 
 </pre>`;
@@ -43606,17 +42913,17 @@ graph TD
 </pre>`;
 window.traces["I64_POPCNT"]["schedulerMermaid"] = ''
 window.traces["I64_POPCNT"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1357["Block 1357"]
+subgraph block_1365["Block 1365"]
 	direction TB
-	b1357_1[\\"Finish"/]
-	b1357_7["eff__1286 push_u64"]
-	b1357_5["r U64_popcnt"]
-	b1357_3["a pop_u64"]
-	b1357_0[/"Start"\\]
-	b1357_7 --> b1357_1
-	b1357_5 --> b1357_7
-	b1357_3 --> b1357_5
-	b1357_0 --> b1357_3
+	b1365_0[/"Start"\\]
+	b1365_3["a pop_u64"]
+	b1365_5["r U64_popcnt"]
+	b1365_7["eff__1286 push_u64"]
+	b1365_1[\\"Finish"/]
+	b1365_0 --> b1365_3
+	b1365_3 --> b1365_5
+	b1365_5 --> b1365_7
+	b1365_7 --> b1365_1
 end
 
 </pre>`;
@@ -43645,17 +42952,17 @@ def eff__1286 = push_u64(r);
 </pre>`;
 window.traces["I64_POPCNT"]["unlem_scheduler"] = ''
 window.traces["I64_POPCNT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1358["Block 1358"]
+subgraph block_1366["Block 1366"]
 	direction TB
-	b1358_1[\\"Finish"/]
-	b1358_7["eff__1286 push_u64"]
-	b1358_5["r U64_popcnt"]
-	b1358_3["a pop_u64"]
-	b1358_0[/"Start"\\]
-	b1358_7 --> b1358_1
-	b1358_5 --> b1358_7
-	b1358_3 --> b1358_5
-	b1358_0 --> b1358_3
+	b1366_0[/"Start"\\]
+	b1366_3["a pop_u64"]
+	b1366_5["r U64_popcnt"]
+	b1366_7["eff__1286 push_u64"]
+	b1366_1[\\"Finish"/]
+	b1366_0 --> b1366_3
+	b1366_3 --> b1366_5
+	b1366_5 --> b1366_7
+	b1366_7 --> b1366_1
 end
 
 </pre>`;
@@ -43783,19 +43090,19 @@ graph TD
 </pre>`;
 window.traces["I64_ADD"]["schedulerMermaid"] = ''
 window.traces["I64_ADD"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1359["Block 1359"]
+subgraph block_1367["Block 1367"]
 	direction TB
-	b1359_1[\\"Finish"/]
-	b1359_9["eff__1289 push_u64"]
-	b1359_7["r U64_plus"]
-	b1359_4["a pop_u64"]
-	b1359_3["b pop_u64"]
-	b1359_0[/"Start"\\]
-	b1359_9 --> b1359_1
-	b1359_7 --> b1359_9
-	b1359_4 --> b1359_7
-	b1359_3 --> b1359_4
-	b1359_0 --> b1359_3
+	b1367_0[/"Start"\\]
+	b1367_3["b pop_u64"]
+	b1367_4["a pop_u64"]
+	b1367_7["r U64_plus"]
+	b1367_9["eff__1289 push_u64"]
+	b1367_1[\\"Finish"/]
+	b1367_0 --> b1367_3
+	b1367_3 --> b1367_4
+	b1367_4 --> b1367_7
+	b1367_7 --> b1367_9
+	b1367_9 --> b1367_1
 end
 
 </pre>`;
@@ -43828,19 +43135,19 @@ def eff__1289 = push_u64(r);
 </pre>`;
 window.traces["I64_ADD"]["unlem_scheduler"] = ''
 window.traces["I64_ADD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1360["Block 1360"]
+subgraph block_1368["Block 1368"]
 	direction TB
-	b1360_1[\\"Finish"/]
-	b1360_9["eff__1289 push_u64"]
-	b1360_7["r U64_plus"]
-	b1360_4["a pop_u64"]
-	b1360_3["b pop_u64"]
-	b1360_0[/"Start"\\]
-	b1360_9 --> b1360_1
-	b1360_7 --> b1360_9
-	b1360_4 --> b1360_7
-	b1360_3 --> b1360_4
-	b1360_0 --> b1360_3
+	b1368_0[/"Start"\\]
+	b1368_3["b pop_u64"]
+	b1368_4["a pop_u64"]
+	b1368_7["r U64_plus"]
+	b1368_9["eff__1289 push_u64"]
+	b1368_1[\\"Finish"/]
+	b1368_0 --> b1368_3
+	b1368_3 --> b1368_4
+	b1368_4 --> b1368_7
+	b1368_7 --> b1368_9
+	b1368_9 --> b1368_1
 end
 
 </pre>`;
@@ -43977,19 +43284,19 @@ graph TD
 </pre>`;
 window.traces["I64_SUB"]["schedulerMermaid"] = ''
 window.traces["I64_SUB"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1361["Block 1361"]
+subgraph block_1369["Block 1369"]
 	direction TB
-	b1361_1[\\"Finish"/]
-	b1361_9["eff__1293 push_u64"]
-	b1361_7["r U64_minus"]
-	b1361_4["a pop_u64"]
-	b1361_3["b pop_u64"]
-	b1361_0[/"Start"\\]
-	b1361_9 --> b1361_1
-	b1361_7 --> b1361_9
-	b1361_4 --> b1361_7
-	b1361_3 --> b1361_4
-	b1361_0 --> b1361_3
+	b1369_0[/"Start"\\]
+	b1369_3["b pop_u64"]
+	b1369_4["a pop_u64"]
+	b1369_7["r U64_minus"]
+	b1369_9["eff__1293 push_u64"]
+	b1369_1[\\"Finish"/]
+	b1369_0 --> b1369_3
+	b1369_3 --> b1369_4
+	b1369_4 --> b1369_7
+	b1369_7 --> b1369_9
+	b1369_9 --> b1369_1
 end
 
 </pre>`;
@@ -44022,19 +43329,19 @@ def eff__1293 = push_u64(r);
 </pre>`;
 window.traces["I64_SUB"]["unlem_scheduler"] = ''
 window.traces["I64_SUB"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1362["Block 1362"]
+subgraph block_1370["Block 1370"]
 	direction TB
-	b1362_1[\\"Finish"/]
-	b1362_9["eff__1293 push_u64"]
-	b1362_7["r U64_minus"]
-	b1362_4["a pop_u64"]
-	b1362_3["b pop_u64"]
-	b1362_0[/"Start"\\]
-	b1362_9 --> b1362_1
-	b1362_7 --> b1362_9
-	b1362_4 --> b1362_7
-	b1362_3 --> b1362_4
-	b1362_0 --> b1362_3
+	b1370_0[/"Start"\\]
+	b1370_3["b pop_u64"]
+	b1370_4["a pop_u64"]
+	b1370_7["r U64_minus"]
+	b1370_9["eff__1293 push_u64"]
+	b1370_1[\\"Finish"/]
+	b1370_0 --> b1370_3
+	b1370_3 --> b1370_4
+	b1370_4 --> b1370_7
+	b1370_7 --> b1370_9
+	b1370_9 --> b1370_1
 end
 
 </pre>`;
@@ -44171,19 +43478,19 @@ graph TD
 </pre>`;
 window.traces["I64_MUL"]["schedulerMermaid"] = ''
 window.traces["I64_MUL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1363["Block 1363"]
+subgraph block_1371["Block 1371"]
 	direction TB
-	b1363_1[\\"Finish"/]
-	b1363_9["eff__1297 push_u64"]
-	b1363_7["r U64_times"]
-	b1363_4["a pop_u64"]
-	b1363_3["b pop_u64"]
-	b1363_0[/"Start"\\]
-	b1363_9 --> b1363_1
-	b1363_7 --> b1363_9
-	b1363_4 --> b1363_7
-	b1363_3 --> b1363_4
-	b1363_0 --> b1363_3
+	b1371_0[/"Start"\\]
+	b1371_3["b pop_u64"]
+	b1371_4["a pop_u64"]
+	b1371_7["r U64_times"]
+	b1371_9["eff__1297 push_u64"]
+	b1371_1[\\"Finish"/]
+	b1371_0 --> b1371_3
+	b1371_3 --> b1371_4
+	b1371_4 --> b1371_7
+	b1371_7 --> b1371_9
+	b1371_9 --> b1371_1
 end
 
 </pre>`;
@@ -44216,19 +43523,19 @@ def eff__1297 = push_u64(r);
 </pre>`;
 window.traces["I64_MUL"]["unlem_scheduler"] = ''
 window.traces["I64_MUL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1364["Block 1364"]
+subgraph block_1372["Block 1372"]
 	direction TB
-	b1364_1[\\"Finish"/]
-	b1364_9["eff__1297 push_u64"]
-	b1364_7["r U64_times"]
-	b1364_4["a pop_u64"]
-	b1364_3["b pop_u64"]
-	b1364_0[/"Start"\\]
-	b1364_9 --> b1364_1
-	b1364_7 --> b1364_9
-	b1364_4 --> b1364_7
-	b1364_3 --> b1364_4
-	b1364_0 --> b1364_3
+	b1372_0[/"Start"\\]
+	b1372_3["b pop_u64"]
+	b1372_4["a pop_u64"]
+	b1372_7["r U64_times"]
+	b1372_9["eff__1297 push_u64"]
+	b1372_1[\\"Finish"/]
+	b1372_0 --> b1372_3
+	b1372_3 --> b1372_4
+	b1372_4 --> b1372_7
+	b1372_7 --> b1372_9
+	b1372_9 --> b1372_1
 end
 
 </pre>`;
@@ -44516,70 +43823,88 @@ graph TD
 </pre>`;
 window.traces["I64_DIV_S"]["schedulerMermaid"] = ''
 window.traces["I64_DIV_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1365["Block 1365"]
-	direction TB
-	b1365_1[\\"Finish"/]
-end
-phi_1367 --> block_1365
-subgraph phi_1367["Phi 1367"]
-	p1367_27{{"Sϕ Stack "}}
-	p1367_26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-end
-block_1368 --> phi_1367
-block_1369 --> phi_1367
-subgraph block_1368["Block 1368"]
-	direction TB
-	b1368_25["eff__1302 trapDivideByZero"]
-	b1368_4["a pop_u64"]
-	b1368_4 --> b1368_25
-end
-branch_1366 --> block_1368
-subgraph branch_1366["Branch 1366"]
-	br1366_10["cond__1301 U64_equals"]
-
-end
-block_1374 --> branch_1366
-subgraph block_1374["Block 1374"]
-	direction TB
-	b1374_10["cond__1301 U64_equals"]
-	b1374_28["abs__1319 lift_u64"]
-	b1374_28 --> b1374_10
-end
-subgraph block_1369["Block 1369"]
-	direction TB
-end
-phi_1371 --> block_1369
-subgraph phi_1371["Phi 1371"]
-	p1371_24{{"Sϕ Stack "}}
-	p1371_23{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1371_24{{"Sϕ Stack "}}
-	p1371_23{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-end
-block_1372 --> phi_1371
-block_1373 --> phi_1371
-subgraph block_1372["Block 1372"]
-	direction TB
-	b1372_22["eff__1304 trapDivideUnrepresentable"]
-	b1372_4["a pop_u64"]
-	b1372_3["b pop_u64"]
-	b1372_4 --> b1372_22
-	b1372_3 --> b1372_4
-end
-branch_1370 --> block_1372
-subgraph branch_1370["Branch 1370"]
-	br1370_19["cond__1303 bot_and"]
-
-end
-branch_1366 --> branch_1370
 subgraph block_1373["Block 1373"]
 	direction TB
-	b1373_0[/"Start"\\]
-	b1373_21["eff__1305 push_u64"]
-	b1373_7["r U64_div_s"]
-	b1373_21 --> b1373_0
-	b1373_7 --> b1373_21
+	b1373_1[\\"Finish"/]
 end
-branch_1370 --> block_1373
+phi_1375 --> block_1373
+subgraph phi_1375["Phi 1375"]
+	p1375_27{{"Sϕ Stack "}}
+	p1375_26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_1376 --> phi_1375
+block_1377 --> phi_1375
+subgraph block_1376["Block 1376"]
+	direction TB
+	b1376_25["eff__1302 trapDivideByZero"]
+end
+branch_1374 --> block_1376
+subgraph branch_1374["Branch 1374"]
+	br1374_10["cond__1301 U64_equals"]
+
+end
+block_1382 --> branch_1374
+subgraph block_1382["Block 1382"]
+	direction TB
+	b1382_11["arg__1314 -9223372036854775808L"]
+	b1382_15["arg__1311 -1"]
+	b1382_12["arg__1313 u64.view"]
+	b1382_16["arg__1310 u64.view"]
+	b1382_30["abs__1321 lift_u64"]
+	b1382_29["abs__1320 lift_u64"]
+	b1382_3["b pop_u64"]
+	b1382_4["a pop_u64"]
+	b1382_8["arg__1316 0"]
+	b1382_14["arg__1308 U64_equals"]
+	b1382_18["arg__1307 U64_equals"]
+	b1382_28["abs__1319 lift_u64"]
+	b1382_19["cond__1303 bot_and"]
+	b1382_10["cond__1301 U64_equals"]
+	b1382_11 --> b1382_15
+	b1382_15 --> b1382_12
+	b1382_12 --> b1382_16
+	b1382_16 --> b1382_30
+	b1382_30 --> b1382_29
+	b1382_29 --> b1382_3
+	b1382_3 --> b1382_4
+	b1382_4 --> b1382_8
+	b1382_8 --> b1382_14
+	b1382_14 --> b1382_18
+	b1382_18 --> b1382_28
+	b1382_28 --> b1382_19
+	b1382_19 --> b1382_10
+end
+subgraph block_1377["Block 1377"]
+	direction TB
+end
+phi_1379 --> block_1377
+subgraph phi_1379["Phi 1379"]
+	p1379_24{{"Sϕ Stack "}}
+	p1379_24{{"Sϕ Stack "}}
+	p1379_23{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1379_23{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_1380 --> phi_1379
+block_1381 --> phi_1379
+subgraph block_1380["Block 1380"]
+	direction TB
+	b1380_22["eff__1304 trapDivideUnrepresentable"]
+end
+branch_1378 --> block_1380
+subgraph branch_1378["Branch 1378"]
+	br1378_19["cond__1303 bot_and"]
+
+end
+branch_1374 --> branch_1378
+subgraph block_1381["Block 1381"]
+	direction TB
+	b1381_7["r U64_div_s"]
+	b1381_21["eff__1305 push_u64"]
+	b1381_0[/"Start"\\]
+	b1381_7 --> b1381_21
+	b1381_21 --> b1381_0
+end
+branch_1378 --> block_1381
 
 </pre>`;
 window.traces["I64_DIV_S"]["unLEM"] = ''
@@ -44777,136 +44102,209 @@ if (mb__1324) {
 </pre>`;
 window.traces["I64_DIV_S"]["unlem_scheduler"] = ''
 window.traces["I64_DIV_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1375["Block 1375"]
-	direction TB
-	b1375_1[\\"Finish"/]
-end
-phi_1377 --> block_1375
-subgraph phi_1377["Phi 1377"]
-	p1377_27{{"Sϕ Stack "}}
-	p1377_26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-end
-block_1378 --> phi_1377
-block_1379 --> phi_1377
-subgraph block_1378["Block 1378"]
-	direction TB
-	b1378_35["eff_merge__1326 merge"]
-	b1378_25["eff__1302 trapDivideByZero"]
-	b1378_38["eff_merge__1329 merge"]
-	b1378_37["eff_nop__1327 nop"]
-	b1378_25 --> b1378_35
-	b1378_38 --> b1378_25
-	b1378_37 --> b1378_38
-end
-branch_1376 --> block_1378
-subgraph branch_1376["Branch 1376"]
-	br1376_33["mb__1324 bool.&&"]
-
-end
-block_1392 --> branch_1376
-subgraph block_1392["Block 1392"]
-	direction TB
-	b1392_33["mb__1324 bool.&&"]
-	b1392_31["mt__1322 U64_maybeTrue"]
-	b1392_32["mf__1323 U64_maybeFalse"]
-	b1392_10["cond__1301 U64_equals"]
-	b1392_31 --> b1392_33
-	b1392_32 --> b1392_31
-	b1392_10 --> b1392_32
-end
-subgraph block_1379["Block 1379"]
-	direction TB
-end
-phi_1381 --> block_1379
-subgraph phi_1381["Phi 1381"]
-	p1381_36{{"Sϕ Stack "}}
-	p1381_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1381_36{{"Sϕ Stack "}}
-	p1381_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-end
-block_1382 --> phi_1381
-block_1383 --> phi_1381
-subgraph block_1382["Block 1382"]
-	direction TB
-	b1382_25["eff__1302 trapDivideByZero"]
-	b1382_4["a pop_u64"]
-	b1382_3["b pop_u64"]
-	b1382_4 --> b1382_25
-	b1382_3 --> b1382_4
-end
-branch_1380 --> block_1382
-subgraph branch_1380["Branch 1380"]
-	br1380_31["mt__1322 U64_maybeTrue"]
-
-end
-branch_1376 --> branch_1380
 subgraph block_1383["Block 1383"]
 	direction TB
+	b1383_1[\\"Finish"/]
 end
 phi_1385 --> block_1383
 subgraph phi_1385["Phi 1385"]
-	p1385_24{{"r_state__1328 Sϕ Stack "}}
-	p1385_23{{"r_state__1325 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1385_24{{"r_state__1328 Sϕ Stack "}}
-	p1385_23{{"r_state__1325 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1385_27{{"Sϕ Stack "}}
+	p1385_26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1386 --> phi_1385
 block_1387 --> phi_1385
 subgraph block_1386["Block 1386"]
 	direction TB
-	b1386_43["eff_merge__1334 merge"]
-	b1386_22["eff__1304 trapDivideUnrepresentable"]
-	b1386_4["a pop_u64"]
-	b1386_46["eff_merge__1336 merge"]
-	b1386_21["eff__1305 push_u64"]
-	b1386_3["b pop_u64"]
-	b1386_22 --> b1386_43
-	b1386_4 --> b1386_22
-	b1386_46 --> b1386_4
-	b1386_21 --> b1386_46
-	b1386_3 --> b1386_21
+	b1386_37["eff_nop__1327 nop"]
+	b1386_38["eff_merge__1329 merge"]
+	b1386_35["eff_merge__1326 merge"]
+	b1386_37 --> b1386_38
+	b1386_38 --> b1386_35
 end
 branch_1384 --> block_1386
 subgraph branch_1384["Branch 1384"]
-	br1384_41["mb__1332 bool.&&"]
+	br1384_33["mb__1324 bool.&&"]
 
 end
-branch_1380 --> branch_1384
+block_1392 --> branch_1384
+subgraph block_1392["Block 1392"]
+	direction TB
+	b1392_11["arg__1314 -9223372036854775808L"]
+	b1392_15["arg__1311 -1"]
+	b1392_12["arg__1313 u64.view"]
+	b1392_16["arg__1310 u64.view"]
+	b1392_30["abs__1321 lift_u64"]
+	b1392_29["abs__1320 lift_u64"]
+	b1392_3["b pop_u64"]
+	b1392_4["a pop_u64"]
+	b1392_14["arg__1308 U64_equals"]
+	b1392_18["arg__1307 U64_equals"]
+	b1392_7["r U64_div_s"]
+	b1392_8["arg__1316 0"]
+	b1392_19["cond__1303 bot_and"]
+	b1392_45["eff_nop__1335 nop"]
+	b1392_28["abs__1319 lift_u64"]
+	b1392_40["mf__1331 bot_maybeFalse"]
+	b1392_39["mt__1330 bot_maybeTrue"]
+	b1392_10["cond__1301 U64_equals"]
+	b1392_41["mb__1332 bool.&&"]
+	b1392_32["mf__1323 U64_maybeFalse"]
+	b1392_31["mt__1322 U64_maybeTrue"]
+	b1392_33["mb__1324 bool.&&"]
+	b1392_11 --> b1392_15
+	b1392_15 --> b1392_12
+	b1392_12 --> b1392_16
+	b1392_16 --> b1392_30
+	b1392_30 --> b1392_29
+	b1392_29 --> b1392_3
+	b1392_3 --> b1392_4
+	b1392_4 --> b1392_14
+	b1392_14 --> b1392_18
+	b1392_18 --> b1392_7
+	b1392_7 --> b1392_8
+	b1392_8 --> b1392_19
+	b1392_19 --> b1392_45
+	b1392_45 --> b1392_28
+	b1392_28 --> b1392_40
+	b1392_40 --> b1392_39
+	b1392_39 --> b1392_10
+	b1392_10 --> b1392_41
+	b1392_41 --> b1392_32
+	b1392_32 --> b1392_31
+	b1392_31 --> b1392_33
+end
+phi_1398 --> block_1392
+subgraph phi_1398["Phi 1398"]
+	p1398_24{{"r_state__1328 Sϕ Stack "}}
+end
+block_1399 --> phi_1398
+block_1400 --> phi_1398
+subgraph block_1399["Block 1399"]
+	direction TB
+	b1399_45["eff_nop__1335 nop"]
+	b1399_46["eff_merge__1336 merge"]
+	b1399_45 --> b1399_46
+end
+branch_1397 --> block_1399
+subgraph branch_1397["Branch 1397"]
+	br1397_41["mb__1332 bool.&&"]
+
+end
+subgraph block_1400["Block 1400"]
+	direction TB
+end
+phi_1406 --> block_1400
+subgraph phi_1406["Phi 1406"]
+	p1406_44{{"Sϕ Stack "}}
+end
+block_1407 --> phi_1406
+block_1408 --> phi_1406
+subgraph block_1407["Block 1407"]
+	direction TB
+	b1407_22["eff__1304 trapDivideUnrepresentable"]
+end
+branch_1405 --> block_1407
+subgraph branch_1405["Branch 1405"]
+	br1405_39["mt__1330 bot_maybeTrue"]
+
+end
+branch_1397 --> branch_1405
+subgraph block_1408["Block 1408"]
+	direction TB
+	b1408_7["r U64_div_s"]
+	b1408_21["eff__1305 push_u64"]
+	b1408_7 --> b1408_21
+end
+branch_1405 --> block_1408
 subgraph block_1387["Block 1387"]
 	direction TB
 end
 phi_1389 --> block_1387
 subgraph phi_1389["Phi 1389"]
-	p1389_44{{"Sϕ Stack "}}
-	p1389_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1389_44{{"Sϕ Stack "}}
-	p1389_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1389_36{{"Sϕ Stack "}}
+	p1389_36{{"Sϕ Stack "}}
+	p1389_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1389_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1390 --> phi_1389
 block_1391 --> phi_1389
 subgraph block_1390["Block 1390"]
 	direction TB
-	b1390_22["eff__1304 trapDivideUnrepresentable"]
-	b1390_4["a pop_u64"]
-	b1390_3["b pop_u64"]
-	b1390_4 --> b1390_22
-	b1390_3 --> b1390_4
+	b1390_25["eff__1302 trapDivideByZero"]
 end
 branch_1388 --> block_1390
 subgraph branch_1388["Branch 1388"]
-	br1388_39["mt__1330 bot_maybeTrue"]
+	br1388_31["mt__1322 U64_maybeTrue"]
 
 end
 branch_1384 --> branch_1388
 subgraph block_1391["Block 1391"]
 	direction TB
-	b1391_0[/"r_state__1333 Start"\\]
-	b1391_21["eff__1305 push_u64"]
-	b1391_7["r U64_div_s"]
-	b1391_21 --> b1391_0
-	b1391_7 --> b1391_21
 end
-branch_1388 --> block_1391
+phi_1394 --> block_1391
+subgraph phi_1394["Phi 1394"]
+	p1394_24{{"r_state__1328 Sϕ Stack "}}
+	p1394_24{{"r_state__1328 Sϕ Stack "}}
+	p1394_23{{"r_state__1325 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1394_23{{"r_state__1325 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_1395 --> phi_1394
+block_1396 --> phi_1394
+subgraph block_1395["Block 1395"]
+	direction TB
+	b1395_45["eff_nop__1335 nop"]
+	b1395_46["eff_merge__1336 merge"]
+	b1395_43["eff_merge__1334 merge"]
+	b1395_45 --> b1395_46
+	b1395_46 --> b1395_43
+end
+branch_1393 --> block_1395
+subgraph branch_1393["Branch 1393"]
+	br1393_41["mb__1332 bool.&&"]
+
+end
+branch_1388 --> branch_1393
+subgraph block_1396["Block 1396"]
+	direction TB
+end
+phi_1402 --> block_1396
+subgraph phi_1402["Phi 1402"]
+	p1402_44{{"Sϕ Stack "}}
+	p1402_44{{"Sϕ Stack "}}
+	p1402_44{{"Sϕ Stack "}}
+	p1402_44{{"Sϕ Stack "}}
+	p1402_44{{"Sϕ Stack "}}
+	p1402_44{{"Sϕ Stack "}}
+	p1402_44{{"Sϕ Stack "}}
+	p1402_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1402_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1402_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1402_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1402_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1402_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1402_42{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+end
+block_1403 --> phi_1402
+block_1404 --> phi_1402
+subgraph block_1403["Block 1403"]
+	direction TB
+	b1403_22["eff__1304 trapDivideUnrepresentable"]
+end
+branch_1401 --> block_1403
+subgraph branch_1401["Branch 1401"]
+	br1401_39["mt__1330 bot_maybeTrue"]
+
+end
+branch_1393 --> branch_1401
+subgraph block_1404["Block 1404"]
+	direction TB
+	b1404_7["r U64_div_s"]
+	b1404_21["eff__1305 push_u64"]
+	b1404_0[/"r_state__1333 Start"\\]
+	b1404_7 --> b1404_21
+	b1404_21 --> b1404_0
+end
+branch_1401 --> block_1404
 
 </pre>`;
 window.traces["I64_DIV_S"]["unlem_pretty"] = ''
@@ -45182,42 +44580,48 @@ graph TD
 </pre>`;
 window.traces["I64_DIV_U"]["schedulerMermaid"] = ''
 window.traces["I64_DIV_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1393["Block 1393"]
+subgraph block_1409["Block 1409"]
 	direction TB
-	b1393_1[\\"Finish"/]
+	b1409_1[\\"Finish"/]
 end
-phi_1395 --> block_1393
-subgraph phi_1395["Phi 1395"]
-	p1395_15{{"Sϕ Stack "}}
-	p1395_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1411 --> block_1409
+subgraph phi_1411["Phi 1411"]
+	p1411_15{{"Sϕ Stack "}}
+	p1411_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1396 --> phi_1395
-block_1397 --> phi_1395
-subgraph block_1396["Block 1396"]
+block_1412 --> phi_1411
+block_1413 --> phi_1411
+subgraph block_1412["Block 1412"]
 	direction TB
-	b1396_13["eff__1338 trapDivideByZero"]
-	b1396_4["a pop_u64"]
-	b1396_4 --> b1396_13
+	b1412_13["eff__1338 trapDivideByZero"]
 end
-branch_1394 --> block_1396
-subgraph branch_1394["Branch 1394"]
-	br1394_10["cond__1337 U64_equals"]
+branch_1410 --> block_1412
+subgraph branch_1410["Branch 1410"]
+	br1410_10["cond__1337 U64_equals"]
 
 end
-block_1398 --> branch_1394
-subgraph block_1398["Block 1398"]
+block_1414 --> branch_1410
+subgraph block_1414["Block 1414"]
 	direction TB
-	b1398_10["cond__1337 U64_equals"]
+	b1414_8["arg__1342 0"]
+	b1414_3["b pop_u64"]
+	b1414_4["a pop_u64"]
+	b1414_16["abs__1345 lift_u64"]
+	b1414_10["cond__1337 U64_equals"]
+	b1414_8 --> b1414_3
+	b1414_3 --> b1414_4
+	b1414_4 --> b1414_16
+	b1414_16 --> b1414_10
 end
-subgraph block_1397["Block 1397"]
+subgraph block_1413["Block 1413"]
 	direction TB
-	b1397_0[/"Start"\\]
-	b1397_12["eff__1339 push_u64"]
-	b1397_7["r U64_div"]
-	b1397_12 --> b1397_0
-	b1397_7 --> b1397_12
+	b1413_7["r U64_div"]
+	b1413_12["eff__1339 push_u64"]
+	b1413_0[/"Start"\\]
+	b1413_7 --> b1413_12
+	b1413_12 --> b1413_0
 end
-branch_1394 --> block_1397
+branch_1410 --> block_1413
 
 </pre>`;
 window.traces["I64_DIV_U"]["unLEM"] = ''
@@ -45309,76 +44713,80 @@ if (mb__1348) {
 </pre>`;
 window.traces["I64_DIV_U"]["unlem_scheduler"] = ''
 window.traces["I64_DIV_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1399["Block 1399"]
+subgraph block_1415["Block 1415"]
 	direction TB
-	b1399_1[\\"Finish"/]
+	b1415_1[\\"Finish"/]
 end
-phi_1401 --> block_1399
-subgraph phi_1401["Phi 1401"]
-	p1401_15{{"Sϕ Stack "}}
-	p1401_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1417 --> block_1415
+subgraph phi_1417["Phi 1417"]
+	p1417_15{{"Sϕ Stack "}}
+	p1417_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1402 --> phi_1401
-block_1403 --> phi_1401
-subgraph block_1402["Block 1402"]
+block_1418 --> phi_1417
+block_1419 --> phi_1417
+subgraph block_1418["Block 1418"]
 	direction TB
-	b1402_21["eff_merge__1350 merge"]
-	b1402_13["eff__1338 trapDivideByZero"]
-	b1402_24["eff_merge__1352 merge"]
-	b1402_12["eff__1339 push_u64"]
-	b1402_13 --> b1402_21
-	b1402_24 --> b1402_13
-	b1402_12 --> b1402_24
+	b1418_23["eff_nop__1351 nop"]
+	b1418_24["eff_merge__1352 merge"]
+	b1418_21["eff_merge__1350 merge"]
+	b1418_23 --> b1418_24
+	b1418_24 --> b1418_21
 end
-branch_1400 --> block_1402
-subgraph branch_1400["Branch 1400"]
-	br1400_19["mb__1348 bool.&&"]
+branch_1416 --> block_1418
+subgraph branch_1416["Branch 1416"]
+	br1416_19["mb__1348 bool.&&"]
 
 end
-block_1408 --> branch_1400
-subgraph block_1408["Block 1408"]
+block_1424 --> branch_1416
+subgraph block_1424["Block 1424"]
 	direction TB
-	b1408_19["mb__1348 bool.&&"]
-	b1408_17["mt__1346 U64_maybeTrue"]
-	b1408_18["mf__1347 U64_maybeFalse"]
-	b1408_17 --> b1408_19
-	b1408_18 --> b1408_17
+	b1424_8["arg__1342 0"]
+	b1424_16["abs__1345 lift_u64"]
+	b1424_3["b pop_u64"]
+	b1424_4["a pop_u64"]
+	b1424_10["cond__1337 U64_equals"]
+	b1424_18["mf__1347 U64_maybeFalse"]
+	b1424_17["mt__1346 U64_maybeTrue"]
+	b1424_19["mb__1348 bool.&&"]
+	b1424_8 --> b1424_16
+	b1424_16 --> b1424_3
+	b1424_3 --> b1424_4
+	b1424_4 --> b1424_10
+	b1424_10 --> b1424_18
+	b1424_18 --> b1424_17
+	b1424_17 --> b1424_19
 end
-subgraph block_1403["Block 1403"]
+subgraph block_1419["Block 1419"]
 	direction TB
 end
-phi_1405 --> block_1403
-subgraph phi_1405["Phi 1405"]
-	p1405_22{{"Sϕ Stack "}}
-	p1405_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1405_22{{"Sϕ Stack "}}
-	p1405_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1421 --> block_1419
+subgraph phi_1421["Phi 1421"]
+	p1421_22{{"Sϕ Stack "}}
+	p1421_22{{"Sϕ Stack "}}
+	p1421_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1421_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1406 --> phi_1405
-block_1407 --> phi_1405
-subgraph block_1406["Block 1406"]
+block_1422 --> phi_1421
+block_1423 --> phi_1421
+subgraph block_1422["Block 1422"]
 	direction TB
-	b1406_13["eff__1338 trapDivideByZero"]
-	b1406_4["a pop_u64"]
-	b1406_3["b pop_u64"]
-	b1406_4 --> b1406_13
-	b1406_3 --> b1406_4
+	b1422_13["eff__1338 trapDivideByZero"]
 end
-branch_1404 --> block_1406
-subgraph branch_1404["Branch 1404"]
-	br1404_17["mt__1346 U64_maybeTrue"]
+branch_1420 --> block_1422
+subgraph branch_1420["Branch 1420"]
+	br1420_17["mt__1346 U64_maybeTrue"]
 
 end
-branch_1400 --> branch_1404
-subgraph block_1407["Block 1407"]
+branch_1416 --> branch_1420
+subgraph block_1423["Block 1423"]
 	direction TB
-	b1407_0[/"r_state__1349 Start"\\]
-	b1407_12["eff__1339 push_u64"]
-	b1407_7["r U64_div"]
-	b1407_12 --> b1407_0
-	b1407_7 --> b1407_12
+	b1423_7["r U64_div"]
+	b1423_12["eff__1339 push_u64"]
+	b1423_0[/"r_state__1349 Start"\\]
+	b1423_7 --> b1423_12
+	b1423_12 --> b1423_0
 end
-branch_1404 --> block_1407
+branch_1420 --> block_1423
 
 </pre>`;
 window.traces["I64_DIV_U"]["unlem_pretty"] = ''
@@ -45605,42 +45013,48 @@ graph TD
 </pre>`;
 window.traces["I64_REM_S"]["schedulerMermaid"] = ''
 window.traces["I64_REM_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1409["Block 1409"]
+subgraph block_1425["Block 1425"]
 	direction TB
-	b1409_1[\\"Finish"/]
+	b1425_1[\\"Finish"/]
 end
-phi_1411 --> block_1409
-subgraph phi_1411["Phi 1411"]
-	p1411_15{{"Sϕ Stack "}}
-	p1411_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1427 --> block_1425
+subgraph phi_1427["Phi 1427"]
+	p1427_15{{"Sϕ Stack "}}
+	p1427_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1412 --> phi_1411
-block_1413 --> phi_1411
-subgraph block_1412["Block 1412"]
+block_1428 --> phi_1427
+block_1429 --> phi_1427
+subgraph block_1428["Block 1428"]
 	direction TB
-	b1412_13["eff__1354 trapDivideByZero"]
-	b1412_4["a pop_u64"]
-	b1412_4 --> b1412_13
+	b1428_13["eff__1354 trapDivideByZero"]
 end
-branch_1410 --> block_1412
-subgraph branch_1410["Branch 1410"]
-	br1410_10["cond__1353 U64_equals"]
+branch_1426 --> block_1428
+subgraph branch_1426["Branch 1426"]
+	br1426_10["cond__1353 U64_equals"]
 
 end
-block_1414 --> branch_1410
-subgraph block_1414["Block 1414"]
+block_1430 --> branch_1426
+subgraph block_1430["Block 1430"]
 	direction TB
-	b1414_10["cond__1353 U64_equals"]
+	b1430_8["arg__1358 0"]
+	b1430_3["b pop_u64"]
+	b1430_4["a pop_u64"]
+	b1430_16["abs__1361 lift_u64"]
+	b1430_10["cond__1353 U64_equals"]
+	b1430_8 --> b1430_3
+	b1430_3 --> b1430_4
+	b1430_4 --> b1430_16
+	b1430_16 --> b1430_10
 end
-subgraph block_1413["Block 1413"]
+subgraph block_1429["Block 1429"]
 	direction TB
-	b1413_0[/"Start"\\]
-	b1413_12["eff__1355 push_u64"]
-	b1413_7["r U64_rem_s"]
-	b1413_12 --> b1413_0
-	b1413_7 --> b1413_12
+	b1429_7["r U64_rem_s"]
+	b1429_12["eff__1355 push_u64"]
+	b1429_0[/"Start"\\]
+	b1429_7 --> b1429_12
+	b1429_12 --> b1429_0
 end
-branch_1410 --> block_1413
+branch_1426 --> block_1429
 
 </pre>`;
 window.traces["I64_REM_S"]["unLEM"] = ''
@@ -45732,76 +45146,80 @@ if (mb__1364) {
 </pre>`;
 window.traces["I64_REM_S"]["unlem_scheduler"] = ''
 window.traces["I64_REM_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1415["Block 1415"]
+subgraph block_1431["Block 1431"]
 	direction TB
-	b1415_1[\\"Finish"/]
+	b1431_1[\\"Finish"/]
 end
-phi_1417 --> block_1415
-subgraph phi_1417["Phi 1417"]
-	p1417_15{{"Sϕ Stack "}}
-	p1417_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1433 --> block_1431
+subgraph phi_1433["Phi 1433"]
+	p1433_15{{"Sϕ Stack "}}
+	p1433_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1418 --> phi_1417
-block_1419 --> phi_1417
-subgraph block_1418["Block 1418"]
+block_1434 --> phi_1433
+block_1435 --> phi_1433
+subgraph block_1434["Block 1434"]
 	direction TB
-	b1418_21["eff_merge__1366 merge"]
-	b1418_13["eff__1354 trapDivideByZero"]
-	b1418_24["eff_merge__1368 merge"]
-	b1418_12["eff__1355 push_u64"]
-	b1418_13 --> b1418_21
-	b1418_24 --> b1418_13
-	b1418_12 --> b1418_24
+	b1434_23["eff_nop__1367 nop"]
+	b1434_24["eff_merge__1368 merge"]
+	b1434_21["eff_merge__1366 merge"]
+	b1434_23 --> b1434_24
+	b1434_24 --> b1434_21
 end
-branch_1416 --> block_1418
-subgraph branch_1416["Branch 1416"]
-	br1416_19["mb__1364 bool.&&"]
+branch_1432 --> block_1434
+subgraph branch_1432["Branch 1432"]
+	br1432_19["mb__1364 bool.&&"]
 
 end
-block_1424 --> branch_1416
-subgraph block_1424["Block 1424"]
+block_1440 --> branch_1432
+subgraph block_1440["Block 1440"]
 	direction TB
-	b1424_19["mb__1364 bool.&&"]
-	b1424_17["mt__1362 U64_maybeTrue"]
-	b1424_18["mf__1363 U64_maybeFalse"]
-	b1424_17 --> b1424_19
-	b1424_18 --> b1424_17
+	b1440_8["arg__1358 0"]
+	b1440_16["abs__1361 lift_u64"]
+	b1440_3["b pop_u64"]
+	b1440_4["a pop_u64"]
+	b1440_10["cond__1353 U64_equals"]
+	b1440_18["mf__1363 U64_maybeFalse"]
+	b1440_17["mt__1362 U64_maybeTrue"]
+	b1440_19["mb__1364 bool.&&"]
+	b1440_8 --> b1440_16
+	b1440_16 --> b1440_3
+	b1440_3 --> b1440_4
+	b1440_4 --> b1440_10
+	b1440_10 --> b1440_18
+	b1440_18 --> b1440_17
+	b1440_17 --> b1440_19
 end
-subgraph block_1419["Block 1419"]
+subgraph block_1435["Block 1435"]
 	direction TB
 end
-phi_1421 --> block_1419
-subgraph phi_1421["Phi 1421"]
-	p1421_22{{"Sϕ Stack "}}
-	p1421_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1421_22{{"Sϕ Stack "}}
-	p1421_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1437 --> block_1435
+subgraph phi_1437["Phi 1437"]
+	p1437_22{{"Sϕ Stack "}}
+	p1437_22{{"Sϕ Stack "}}
+	p1437_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1437_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1422 --> phi_1421
-block_1423 --> phi_1421
-subgraph block_1422["Block 1422"]
+block_1438 --> phi_1437
+block_1439 --> phi_1437
+subgraph block_1438["Block 1438"]
 	direction TB
-	b1422_13["eff__1354 trapDivideByZero"]
-	b1422_4["a pop_u64"]
-	b1422_3["b pop_u64"]
-	b1422_4 --> b1422_13
-	b1422_3 --> b1422_4
+	b1438_13["eff__1354 trapDivideByZero"]
 end
-branch_1420 --> block_1422
-subgraph branch_1420["Branch 1420"]
-	br1420_17["mt__1362 U64_maybeTrue"]
+branch_1436 --> block_1438
+subgraph branch_1436["Branch 1436"]
+	br1436_17["mt__1362 U64_maybeTrue"]
 
 end
-branch_1416 --> branch_1420
-subgraph block_1423["Block 1423"]
+branch_1432 --> branch_1436
+subgraph block_1439["Block 1439"]
 	direction TB
-	b1423_0[/"r_state__1365 Start"\\]
-	b1423_12["eff__1355 push_u64"]
-	b1423_7["r U64_rem_s"]
-	b1423_12 --> b1423_0
-	b1423_7 --> b1423_12
+	b1439_7["r U64_rem_s"]
+	b1439_12["eff__1355 push_u64"]
+	b1439_0[/"r_state__1365 Start"\\]
+	b1439_7 --> b1439_12
+	b1439_12 --> b1439_0
 end
-branch_1420 --> block_1423
+branch_1436 --> block_1439
 
 </pre>`;
 window.traces["I64_REM_S"]["unlem_pretty"] = ''
@@ -46028,42 +45446,48 @@ graph TD
 </pre>`;
 window.traces["I64_REM_U"]["schedulerMermaid"] = ''
 window.traces["I64_REM_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1425["Block 1425"]
+subgraph block_1441["Block 1441"]
 	direction TB
-	b1425_1[\\"Finish"/]
+	b1441_1[\\"Finish"/]
 end
-phi_1427 --> block_1425
-subgraph phi_1427["Phi 1427"]
-	p1427_15{{"Sϕ Stack "}}
-	p1427_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1443 --> block_1441
+subgraph phi_1443["Phi 1443"]
+	p1443_15{{"Sϕ Stack "}}
+	p1443_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1428 --> phi_1427
-block_1429 --> phi_1427
-subgraph block_1428["Block 1428"]
+block_1444 --> phi_1443
+block_1445 --> phi_1443
+subgraph block_1444["Block 1444"]
 	direction TB
-	b1428_13["eff__1370 trapDivideByZero"]
-	b1428_4["a pop_u64"]
-	b1428_4 --> b1428_13
+	b1444_13["eff__1370 trapDivideByZero"]
 end
-branch_1426 --> block_1428
-subgraph branch_1426["Branch 1426"]
-	br1426_10["cond__1369 U64_equals"]
+branch_1442 --> block_1444
+subgraph branch_1442["Branch 1442"]
+	br1442_10["cond__1369 U64_equals"]
 
 end
-block_1430 --> branch_1426
-subgraph block_1430["Block 1430"]
+block_1446 --> branch_1442
+subgraph block_1446["Block 1446"]
 	direction TB
-	b1430_10["cond__1369 U64_equals"]
+	b1446_8["arg__1374 0"]
+	b1446_3["b pop_u64"]
+	b1446_4["a pop_u64"]
+	b1446_16["abs__1377 lift_u64"]
+	b1446_10["cond__1369 U64_equals"]
+	b1446_8 --> b1446_3
+	b1446_3 --> b1446_4
+	b1446_4 --> b1446_16
+	b1446_16 --> b1446_10
 end
-subgraph block_1429["Block 1429"]
+subgraph block_1445["Block 1445"]
 	direction TB
-	b1429_0[/"Start"\\]
-	b1429_12["eff__1371 push_u64"]
-	b1429_7["r U64_rem_u"]
-	b1429_12 --> b1429_0
-	b1429_7 --> b1429_12
+	b1445_7["r U64_rem_u"]
+	b1445_12["eff__1371 push_u64"]
+	b1445_0[/"Start"\\]
+	b1445_7 --> b1445_12
+	b1445_12 --> b1445_0
 end
-branch_1426 --> block_1429
+branch_1442 --> block_1445
 
 </pre>`;
 window.traces["I64_REM_U"]["unLEM"] = ''
@@ -46155,76 +45579,80 @@ if (mb__1380) {
 </pre>`;
 window.traces["I64_REM_U"]["unlem_scheduler"] = ''
 window.traces["I64_REM_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1431["Block 1431"]
+subgraph block_1447["Block 1447"]
 	direction TB
-	b1431_1[\\"Finish"/]
+	b1447_1[\\"Finish"/]
 end
-phi_1433 --> block_1431
-subgraph phi_1433["Phi 1433"]
-	p1433_15{{"Sϕ Stack "}}
-	p1433_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1449 --> block_1447
+subgraph phi_1449["Phi 1449"]
+	p1449_15{{"Sϕ Stack "}}
+	p1449_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1434 --> phi_1433
-block_1435 --> phi_1433
-subgraph block_1434["Block 1434"]
+block_1450 --> phi_1449
+block_1451 --> phi_1449
+subgraph block_1450["Block 1450"]
 	direction TB
-	b1434_21["eff_merge__1382 merge"]
-	b1434_13["eff__1370 trapDivideByZero"]
-	b1434_24["eff_merge__1384 merge"]
-	b1434_12["eff__1371 push_u64"]
-	b1434_13 --> b1434_21
-	b1434_24 --> b1434_13
-	b1434_12 --> b1434_24
+	b1450_23["eff_nop__1383 nop"]
+	b1450_24["eff_merge__1384 merge"]
+	b1450_21["eff_merge__1382 merge"]
+	b1450_23 --> b1450_24
+	b1450_24 --> b1450_21
 end
-branch_1432 --> block_1434
-subgraph branch_1432["Branch 1432"]
-	br1432_19["mb__1380 bool.&&"]
+branch_1448 --> block_1450
+subgraph branch_1448["Branch 1448"]
+	br1448_19["mb__1380 bool.&&"]
 
 end
-block_1440 --> branch_1432
-subgraph block_1440["Block 1440"]
+block_1456 --> branch_1448
+subgraph block_1456["Block 1456"]
 	direction TB
-	b1440_19["mb__1380 bool.&&"]
-	b1440_17["mt__1378 U64_maybeTrue"]
-	b1440_18["mf__1379 U64_maybeFalse"]
-	b1440_17 --> b1440_19
-	b1440_18 --> b1440_17
+	b1456_8["arg__1374 0"]
+	b1456_16["abs__1377 lift_u64"]
+	b1456_3["b pop_u64"]
+	b1456_4["a pop_u64"]
+	b1456_10["cond__1369 U64_equals"]
+	b1456_18["mf__1379 U64_maybeFalse"]
+	b1456_17["mt__1378 U64_maybeTrue"]
+	b1456_19["mb__1380 bool.&&"]
+	b1456_8 --> b1456_16
+	b1456_16 --> b1456_3
+	b1456_3 --> b1456_4
+	b1456_4 --> b1456_10
+	b1456_10 --> b1456_18
+	b1456_18 --> b1456_17
+	b1456_17 --> b1456_19
 end
-subgraph block_1435["Block 1435"]
+subgraph block_1451["Block 1451"]
 	direction TB
 end
-phi_1437 --> block_1435
-subgraph phi_1437["Phi 1437"]
-	p1437_22{{"Sϕ Stack "}}
-	p1437_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1437_22{{"Sϕ Stack "}}
-	p1437_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1453 --> block_1451
+subgraph phi_1453["Phi 1453"]
+	p1453_22{{"Sϕ Stack "}}
+	p1453_22{{"Sϕ Stack "}}
+	p1453_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1453_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1438 --> phi_1437
-block_1439 --> phi_1437
-subgraph block_1438["Block 1438"]
+block_1454 --> phi_1453
+block_1455 --> phi_1453
+subgraph block_1454["Block 1454"]
 	direction TB
-	b1438_13["eff__1370 trapDivideByZero"]
-	b1438_4["a pop_u64"]
-	b1438_3["b pop_u64"]
-	b1438_4 --> b1438_13
-	b1438_3 --> b1438_4
+	b1454_13["eff__1370 trapDivideByZero"]
 end
-branch_1436 --> block_1438
-subgraph branch_1436["Branch 1436"]
-	br1436_17["mt__1378 U64_maybeTrue"]
+branch_1452 --> block_1454
+subgraph branch_1452["Branch 1452"]
+	br1452_17["mt__1378 U64_maybeTrue"]
 
 end
-branch_1432 --> branch_1436
-subgraph block_1439["Block 1439"]
+branch_1448 --> branch_1452
+subgraph block_1455["Block 1455"]
 	direction TB
-	b1439_0[/"r_state__1381 Start"\\]
-	b1439_12["eff__1371 push_u64"]
-	b1439_7["r U64_rem_u"]
-	b1439_12 --> b1439_0
-	b1439_7 --> b1439_12
+	b1455_7["r U64_rem_u"]
+	b1455_12["eff__1371 push_u64"]
+	b1455_0[/"r_state__1381 Start"\\]
+	b1455_7 --> b1455_12
+	b1455_12 --> b1455_0
 end
-branch_1436 --> block_1439
+branch_1452 --> block_1455
 
 </pre>`;
 window.traces["I64_REM_U"]["unlem_pretty"] = ''
@@ -46396,19 +45824,19 @@ graph TD
 </pre>`;
 window.traces["I64_AND"]["schedulerMermaid"] = ''
 window.traces["I64_AND"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1441["Block 1441"]
+subgraph block_1457["Block 1457"]
 	direction TB
-	b1441_1[\\"Finish"/]
-	b1441_9["eff__1385 push_u64"]
-	b1441_7["r U64_and"]
-	b1441_4["a pop_u64"]
-	b1441_3["b pop_u64"]
-	b1441_0[/"Start"\\]
-	b1441_9 --> b1441_1
-	b1441_7 --> b1441_9
-	b1441_4 --> b1441_7
-	b1441_3 --> b1441_4
-	b1441_0 --> b1441_3
+	b1457_0[/"Start"\\]
+	b1457_3["b pop_u64"]
+	b1457_4["a pop_u64"]
+	b1457_7["r U64_and"]
+	b1457_9["eff__1385 push_u64"]
+	b1457_1[\\"Finish"/]
+	b1457_0 --> b1457_3
+	b1457_3 --> b1457_4
+	b1457_4 --> b1457_7
+	b1457_7 --> b1457_9
+	b1457_9 --> b1457_1
 end
 
 </pre>`;
@@ -46441,19 +45869,19 @@ def eff__1385 = push_u64(r);
 </pre>`;
 window.traces["I64_AND"]["unlem_scheduler"] = ''
 window.traces["I64_AND"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1442["Block 1442"]
+subgraph block_1458["Block 1458"]
 	direction TB
-	b1442_1[\\"Finish"/]
-	b1442_9["eff__1385 push_u64"]
-	b1442_7["r U64_and"]
-	b1442_4["a pop_u64"]
-	b1442_3["b pop_u64"]
-	b1442_0[/"Start"\\]
-	b1442_9 --> b1442_1
-	b1442_7 --> b1442_9
-	b1442_4 --> b1442_7
-	b1442_3 --> b1442_4
-	b1442_0 --> b1442_3
+	b1458_0[/"Start"\\]
+	b1458_3["b pop_u64"]
+	b1458_4["a pop_u64"]
+	b1458_7["r U64_and"]
+	b1458_9["eff__1385 push_u64"]
+	b1458_1[\\"Finish"/]
+	b1458_0 --> b1458_3
+	b1458_3 --> b1458_4
+	b1458_4 --> b1458_7
+	b1458_7 --> b1458_9
+	b1458_9 --> b1458_1
 end
 
 </pre>`;
@@ -46590,19 +46018,19 @@ graph TD
 </pre>`;
 window.traces["I64_OR"]["schedulerMermaid"] = ''
 window.traces["I64_OR"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1443["Block 1443"]
+subgraph block_1459["Block 1459"]
 	direction TB
-	b1443_1[\\"Finish"/]
-	b1443_9["eff__1389 push_u64"]
-	b1443_7["r U64_or"]
-	b1443_4["a pop_u64"]
-	b1443_3["b pop_u64"]
-	b1443_0[/"Start"\\]
-	b1443_9 --> b1443_1
-	b1443_7 --> b1443_9
-	b1443_4 --> b1443_7
-	b1443_3 --> b1443_4
-	b1443_0 --> b1443_3
+	b1459_0[/"Start"\\]
+	b1459_3["b pop_u64"]
+	b1459_4["a pop_u64"]
+	b1459_7["r U64_or"]
+	b1459_9["eff__1389 push_u64"]
+	b1459_1[\\"Finish"/]
+	b1459_0 --> b1459_3
+	b1459_3 --> b1459_4
+	b1459_4 --> b1459_7
+	b1459_7 --> b1459_9
+	b1459_9 --> b1459_1
 end
 
 </pre>`;
@@ -46635,19 +46063,19 @@ def eff__1389 = push_u64(r);
 </pre>`;
 window.traces["I64_OR"]["unlem_scheduler"] = ''
 window.traces["I64_OR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1444["Block 1444"]
+subgraph block_1460["Block 1460"]
 	direction TB
-	b1444_1[\\"Finish"/]
-	b1444_9["eff__1389 push_u64"]
-	b1444_7["r U64_or"]
-	b1444_4["a pop_u64"]
-	b1444_3["b pop_u64"]
-	b1444_0[/"Start"\\]
-	b1444_9 --> b1444_1
-	b1444_7 --> b1444_9
-	b1444_4 --> b1444_7
-	b1444_3 --> b1444_4
-	b1444_0 --> b1444_3
+	b1460_0[/"Start"\\]
+	b1460_3["b pop_u64"]
+	b1460_4["a pop_u64"]
+	b1460_7["r U64_or"]
+	b1460_9["eff__1389 push_u64"]
+	b1460_1[\\"Finish"/]
+	b1460_0 --> b1460_3
+	b1460_3 --> b1460_4
+	b1460_4 --> b1460_7
+	b1460_7 --> b1460_9
+	b1460_9 --> b1460_1
 end
 
 </pre>`;
@@ -46784,19 +46212,19 @@ graph TD
 </pre>`;
 window.traces["I64_XOR"]["schedulerMermaid"] = ''
 window.traces["I64_XOR"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1445["Block 1445"]
+subgraph block_1461["Block 1461"]
 	direction TB
-	b1445_1[\\"Finish"/]
-	b1445_9["eff__1393 push_u64"]
-	b1445_7["r U64_or"]
-	b1445_4["a pop_u64"]
-	b1445_3["b pop_u64"]
-	b1445_0[/"Start"\\]
-	b1445_9 --> b1445_1
-	b1445_7 --> b1445_9
-	b1445_4 --> b1445_7
-	b1445_3 --> b1445_4
-	b1445_0 --> b1445_3
+	b1461_0[/"Start"\\]
+	b1461_3["b pop_u64"]
+	b1461_4["a pop_u64"]
+	b1461_7["r U64_or"]
+	b1461_9["eff__1393 push_u64"]
+	b1461_1[\\"Finish"/]
+	b1461_0 --> b1461_3
+	b1461_3 --> b1461_4
+	b1461_4 --> b1461_7
+	b1461_7 --> b1461_9
+	b1461_9 --> b1461_1
 end
 
 </pre>`;
@@ -46829,19 +46257,19 @@ def eff__1393 = push_u64(r);
 </pre>`;
 window.traces["I64_XOR"]["unlem_scheduler"] = ''
 window.traces["I64_XOR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1446["Block 1446"]
+subgraph block_1462["Block 1462"]
 	direction TB
-	b1446_1[\\"Finish"/]
-	b1446_9["eff__1393 push_u64"]
-	b1446_7["r U64_or"]
-	b1446_4["a pop_u64"]
-	b1446_3["b pop_u64"]
-	b1446_0[/"Start"\\]
-	b1446_9 --> b1446_1
-	b1446_7 --> b1446_9
-	b1446_4 --> b1446_7
-	b1446_3 --> b1446_4
-	b1446_0 --> b1446_3
+	b1462_0[/"Start"\\]
+	b1462_3["b pop_u64"]
+	b1462_4["a pop_u64"]
+	b1462_7["r U64_or"]
+	b1462_9["eff__1393 push_u64"]
+	b1462_1[\\"Finish"/]
+	b1462_0 --> b1462_3
+	b1462_3 --> b1462_4
+	b1462_4 --> b1462_7
+	b1462_7 --> b1462_9
+	b1462_9 --> b1462_1
 end
 
 </pre>`;
@@ -46978,19 +46406,19 @@ graph TD
 </pre>`;
 window.traces["I64_SHL"]["schedulerMermaid"] = ''
 window.traces["I64_SHL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1447["Block 1447"]
+subgraph block_1463["Block 1463"]
 	direction TB
-	b1447_1[\\"Finish"/]
-	b1447_9["eff__1397 push_u64"]
-	b1447_7["r U64_shl"]
-	b1447_4["a pop_u64"]
-	b1447_3["b pop_u64"]
-	b1447_0[/"Start"\\]
-	b1447_9 --> b1447_1
-	b1447_7 --> b1447_9
-	b1447_4 --> b1447_7
-	b1447_3 --> b1447_4
-	b1447_0 --> b1447_3
+	b1463_0[/"Start"\\]
+	b1463_3["b pop_u64"]
+	b1463_4["a pop_u64"]
+	b1463_7["r U64_shl"]
+	b1463_9["eff__1397 push_u64"]
+	b1463_1[\\"Finish"/]
+	b1463_0 --> b1463_3
+	b1463_3 --> b1463_4
+	b1463_4 --> b1463_7
+	b1463_7 --> b1463_9
+	b1463_9 --> b1463_1
 end
 
 </pre>`;
@@ -47023,19 +46451,19 @@ def eff__1397 = push_u64(r);
 </pre>`;
 window.traces["I64_SHL"]["unlem_scheduler"] = ''
 window.traces["I64_SHL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1448["Block 1448"]
+subgraph block_1464["Block 1464"]
 	direction TB
-	b1448_1[\\"Finish"/]
-	b1448_9["eff__1397 push_u64"]
-	b1448_7["r U64_shl"]
-	b1448_4["a pop_u64"]
-	b1448_3["b pop_u64"]
-	b1448_0[/"Start"\\]
-	b1448_9 --> b1448_1
-	b1448_7 --> b1448_9
-	b1448_4 --> b1448_7
-	b1448_3 --> b1448_4
-	b1448_0 --> b1448_3
+	b1464_0[/"Start"\\]
+	b1464_3["b pop_u64"]
+	b1464_4["a pop_u64"]
+	b1464_7["r U64_shl"]
+	b1464_9["eff__1397 push_u64"]
+	b1464_1[\\"Finish"/]
+	b1464_0 --> b1464_3
+	b1464_3 --> b1464_4
+	b1464_4 --> b1464_7
+	b1464_7 --> b1464_9
+	b1464_9 --> b1464_1
 end
 
 </pre>`;
@@ -47172,19 +46600,19 @@ graph TD
 </pre>`;
 window.traces["I64_SHR_S"]["schedulerMermaid"] = ''
 window.traces["I64_SHR_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1449["Block 1449"]
+subgraph block_1465["Block 1465"]
 	direction TB
-	b1449_1[\\"Finish"/]
-	b1449_9["eff__1401 push_u64"]
-	b1449_7["r U64_shr_s"]
-	b1449_4["a pop_u64"]
-	b1449_3["b pop_u64"]
-	b1449_0[/"Start"\\]
-	b1449_9 --> b1449_1
-	b1449_7 --> b1449_9
-	b1449_4 --> b1449_7
-	b1449_3 --> b1449_4
-	b1449_0 --> b1449_3
+	b1465_0[/"Start"\\]
+	b1465_3["b pop_u64"]
+	b1465_4["a pop_u64"]
+	b1465_7["r U64_shr_s"]
+	b1465_9["eff__1401 push_u64"]
+	b1465_1[\\"Finish"/]
+	b1465_0 --> b1465_3
+	b1465_3 --> b1465_4
+	b1465_4 --> b1465_7
+	b1465_7 --> b1465_9
+	b1465_9 --> b1465_1
 end
 
 </pre>`;
@@ -47217,19 +46645,19 @@ def eff__1401 = push_u64(r);
 </pre>`;
 window.traces["I64_SHR_S"]["unlem_scheduler"] = ''
 window.traces["I64_SHR_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1450["Block 1450"]
+subgraph block_1466["Block 1466"]
 	direction TB
-	b1450_1[\\"Finish"/]
-	b1450_9["eff__1401 push_u64"]
-	b1450_7["r U64_shr_s"]
-	b1450_4["a pop_u64"]
-	b1450_3["b pop_u64"]
-	b1450_0[/"Start"\\]
-	b1450_9 --> b1450_1
-	b1450_7 --> b1450_9
-	b1450_4 --> b1450_7
-	b1450_3 --> b1450_4
-	b1450_0 --> b1450_3
+	b1466_0[/"Start"\\]
+	b1466_3["b pop_u64"]
+	b1466_4["a pop_u64"]
+	b1466_7["r U64_shr_s"]
+	b1466_9["eff__1401 push_u64"]
+	b1466_1[\\"Finish"/]
+	b1466_0 --> b1466_3
+	b1466_3 --> b1466_4
+	b1466_4 --> b1466_7
+	b1466_7 --> b1466_9
+	b1466_9 --> b1466_1
 end
 
 </pre>`;
@@ -47366,19 +46794,19 @@ graph TD
 </pre>`;
 window.traces["I64_SHR_U"]["schedulerMermaid"] = ''
 window.traces["I64_SHR_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1451["Block 1451"]
+subgraph block_1467["Block 1467"]
 	direction TB
-	b1451_1[\\"Finish"/]
-	b1451_9["eff__1405 push_u64"]
-	b1451_7["r U64_shr_u"]
-	b1451_4["a pop_u64"]
-	b1451_3["b pop_u64"]
-	b1451_0[/"Start"\\]
-	b1451_9 --> b1451_1
-	b1451_7 --> b1451_9
-	b1451_4 --> b1451_7
-	b1451_3 --> b1451_4
-	b1451_0 --> b1451_3
+	b1467_0[/"Start"\\]
+	b1467_3["b pop_u64"]
+	b1467_4["a pop_u64"]
+	b1467_7["r U64_shr_u"]
+	b1467_9["eff__1405 push_u64"]
+	b1467_1[\\"Finish"/]
+	b1467_0 --> b1467_3
+	b1467_3 --> b1467_4
+	b1467_4 --> b1467_7
+	b1467_7 --> b1467_9
+	b1467_9 --> b1467_1
 end
 
 </pre>`;
@@ -47411,19 +46839,19 @@ def eff__1405 = push_u64(r);
 </pre>`;
 window.traces["I64_SHR_U"]["unlem_scheduler"] = ''
 window.traces["I64_SHR_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1452["Block 1452"]
+subgraph block_1468["Block 1468"]
 	direction TB
-	b1452_1[\\"Finish"/]
-	b1452_9["eff__1405 push_u64"]
-	b1452_7["r U64_shr_u"]
-	b1452_4["a pop_u64"]
-	b1452_3["b pop_u64"]
-	b1452_0[/"Start"\\]
-	b1452_9 --> b1452_1
-	b1452_7 --> b1452_9
-	b1452_4 --> b1452_7
-	b1452_3 --> b1452_4
-	b1452_0 --> b1452_3
+	b1468_0[/"Start"\\]
+	b1468_3["b pop_u64"]
+	b1468_4["a pop_u64"]
+	b1468_7["r U64_shr_u"]
+	b1468_9["eff__1405 push_u64"]
+	b1468_1[\\"Finish"/]
+	b1468_0 --> b1468_3
+	b1468_3 --> b1468_4
+	b1468_4 --> b1468_7
+	b1468_7 --> b1468_9
+	b1468_9 --> b1468_1
 end
 
 </pre>`;
@@ -47560,19 +46988,19 @@ graph TD
 </pre>`;
 window.traces["I64_ROTL"]["schedulerMermaid"] = ''
 window.traces["I64_ROTL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1453["Block 1453"]
+subgraph block_1469["Block 1469"]
 	direction TB
-	b1453_1[\\"Finish"/]
-	b1453_9["eff__1409 push_u64"]
-	b1453_7["r U64_rotl"]
-	b1453_4["a pop_u64"]
-	b1453_3["b pop_u64"]
-	b1453_0[/"Start"\\]
-	b1453_9 --> b1453_1
-	b1453_7 --> b1453_9
-	b1453_4 --> b1453_7
-	b1453_3 --> b1453_4
-	b1453_0 --> b1453_3
+	b1469_0[/"Start"\\]
+	b1469_3["b pop_u64"]
+	b1469_4["a pop_u64"]
+	b1469_7["r U64_rotl"]
+	b1469_9["eff__1409 push_u64"]
+	b1469_1[\\"Finish"/]
+	b1469_0 --> b1469_3
+	b1469_3 --> b1469_4
+	b1469_4 --> b1469_7
+	b1469_7 --> b1469_9
+	b1469_9 --> b1469_1
 end
 
 </pre>`;
@@ -47605,19 +47033,19 @@ def eff__1409 = push_u64(r);
 </pre>`;
 window.traces["I64_ROTL"]["unlem_scheduler"] = ''
 window.traces["I64_ROTL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1454["Block 1454"]
+subgraph block_1470["Block 1470"]
 	direction TB
-	b1454_1[\\"Finish"/]
-	b1454_9["eff__1409 push_u64"]
-	b1454_7["r U64_rotl"]
-	b1454_4["a pop_u64"]
-	b1454_3["b pop_u64"]
-	b1454_0[/"Start"\\]
-	b1454_9 --> b1454_1
-	b1454_7 --> b1454_9
-	b1454_4 --> b1454_7
-	b1454_3 --> b1454_4
-	b1454_0 --> b1454_3
+	b1470_0[/"Start"\\]
+	b1470_3["b pop_u64"]
+	b1470_4["a pop_u64"]
+	b1470_7["r U64_rotl"]
+	b1470_9["eff__1409 push_u64"]
+	b1470_1[\\"Finish"/]
+	b1470_0 --> b1470_3
+	b1470_3 --> b1470_4
+	b1470_4 --> b1470_7
+	b1470_7 --> b1470_9
+	b1470_9 --> b1470_1
 end
 
 </pre>`;
@@ -47754,19 +47182,19 @@ graph TD
 </pre>`;
 window.traces["I64_ROTR"]["schedulerMermaid"] = ''
 window.traces["I64_ROTR"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1455["Block 1455"]
+subgraph block_1471["Block 1471"]
 	direction TB
-	b1455_1[\\"Finish"/]
-	b1455_9["eff__1413 push_u64"]
-	b1455_7["r U64_rotr"]
-	b1455_4["a pop_u64"]
-	b1455_3["b pop_u64"]
-	b1455_0[/"Start"\\]
-	b1455_9 --> b1455_1
-	b1455_7 --> b1455_9
-	b1455_4 --> b1455_7
-	b1455_3 --> b1455_4
-	b1455_0 --> b1455_3
+	b1471_0[/"Start"\\]
+	b1471_3["b pop_u64"]
+	b1471_4["a pop_u64"]
+	b1471_7["r U64_rotr"]
+	b1471_9["eff__1413 push_u64"]
+	b1471_1[\\"Finish"/]
+	b1471_0 --> b1471_3
+	b1471_3 --> b1471_4
+	b1471_4 --> b1471_7
+	b1471_7 --> b1471_9
+	b1471_9 --> b1471_1
 end
 
 </pre>`;
@@ -47799,19 +47227,19 @@ def eff__1413 = push_u64(r);
 </pre>`;
 window.traces["I64_ROTR"]["unlem_scheduler"] = ''
 window.traces["I64_ROTR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1456["Block 1456"]
+subgraph block_1472["Block 1472"]
 	direction TB
-	b1456_1[\\"Finish"/]
-	b1456_9["eff__1413 push_u64"]
-	b1456_7["r U64_rotr"]
-	b1456_4["a pop_u64"]
-	b1456_3["b pop_u64"]
-	b1456_0[/"Start"\\]
-	b1456_9 --> b1456_1
-	b1456_7 --> b1456_9
-	b1456_4 --> b1456_7
-	b1456_3 --> b1456_4
-	b1456_0 --> b1456_3
+	b1472_0[/"Start"\\]
+	b1472_3["b pop_u64"]
+	b1472_4["a pop_u64"]
+	b1472_7["r U64_rotr"]
+	b1472_9["eff__1413 push_u64"]
+	b1472_1[\\"Finish"/]
+	b1472_0 --> b1472_3
+	b1472_3 --> b1472_4
+	b1472_4 --> b1472_7
+	b1472_7 --> b1472_9
+	b1472_9 --> b1472_1
 end
 
 </pre>`;
@@ -47937,17 +47365,17 @@ graph TD
 </pre>`;
 window.traces["F32_ABS"]["schedulerMermaid"] = ''
 window.traces["F32_ABS"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1457["Block 1457"]
+subgraph block_1473["Block 1473"]
 	direction TB
-	b1457_1[\\"Finish"/]
-	b1457_7["eff__1417 push_f32"]
-	b1457_5["r F32_abs"]
-	b1457_3["a pop_f32"]
-	b1457_0[/"Start"\\]
-	b1457_7 --> b1457_1
-	b1457_5 --> b1457_7
-	b1457_3 --> b1457_5
-	b1457_0 --> b1457_3
+	b1473_0[/"Start"\\]
+	b1473_3["a pop_f32"]
+	b1473_5["r F32_abs"]
+	b1473_7["eff__1417 push_f32"]
+	b1473_1[\\"Finish"/]
+	b1473_0 --> b1473_3
+	b1473_3 --> b1473_5
+	b1473_5 --> b1473_7
+	b1473_7 --> b1473_1
 end
 
 </pre>`;
@@ -47976,17 +47404,17 @@ def eff__1417 = push_f32(r);
 </pre>`;
 window.traces["F32_ABS"]["unlem_scheduler"] = ''
 window.traces["F32_ABS"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1458["Block 1458"]
+subgraph block_1474["Block 1474"]
 	direction TB
-	b1458_1[\\"Finish"/]
-	b1458_7["eff__1417 push_f32"]
-	b1458_5["r F32_abs"]
-	b1458_3["a pop_f32"]
-	b1458_0[/"Start"\\]
-	b1458_7 --> b1458_1
-	b1458_5 --> b1458_7
-	b1458_3 --> b1458_5
-	b1458_0 --> b1458_3
+	b1474_0[/"Start"\\]
+	b1474_3["a pop_f32"]
+	b1474_5["r F32_abs"]
+	b1474_7["eff__1417 push_f32"]
+	b1474_1[\\"Finish"/]
+	b1474_0 --> b1474_3
+	b1474_3 --> b1474_5
+	b1474_5 --> b1474_7
+	b1474_7 --> b1474_1
 end
 
 </pre>`;
@@ -48103,17 +47531,17 @@ graph TD
 </pre>`;
 window.traces["F32_NEG"]["schedulerMermaid"] = ''
 window.traces["F32_NEG"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1459["Block 1459"]
+subgraph block_1475["Block 1475"]
 	direction TB
-	b1459_1[\\"Finish"/]
-	b1459_7["eff__1420 push_f32"]
-	b1459_5["r F32_neg"]
-	b1459_3["a pop_f32"]
-	b1459_0[/"Start"\\]
-	b1459_7 --> b1459_1
-	b1459_5 --> b1459_7
-	b1459_3 --> b1459_5
-	b1459_0 --> b1459_3
+	b1475_0[/"Start"\\]
+	b1475_3["a pop_f32"]
+	b1475_5["r F32_neg"]
+	b1475_7["eff__1420 push_f32"]
+	b1475_1[\\"Finish"/]
+	b1475_0 --> b1475_3
+	b1475_3 --> b1475_5
+	b1475_5 --> b1475_7
+	b1475_7 --> b1475_1
 end
 
 </pre>`;
@@ -48142,17 +47570,17 @@ def eff__1420 = push_f32(r);
 </pre>`;
 window.traces["F32_NEG"]["unlem_scheduler"] = ''
 window.traces["F32_NEG"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1460["Block 1460"]
+subgraph block_1476["Block 1476"]
 	direction TB
-	b1460_1[\\"Finish"/]
-	b1460_7["eff__1420 push_f32"]
-	b1460_5["r F32_neg"]
-	b1460_3["a pop_f32"]
-	b1460_0[/"Start"\\]
-	b1460_7 --> b1460_1
-	b1460_5 --> b1460_7
-	b1460_3 --> b1460_5
-	b1460_0 --> b1460_3
+	b1476_0[/"Start"\\]
+	b1476_3["a pop_f32"]
+	b1476_5["r F32_neg"]
+	b1476_7["eff__1420 push_f32"]
+	b1476_1[\\"Finish"/]
+	b1476_0 --> b1476_3
+	b1476_3 --> b1476_5
+	b1476_5 --> b1476_7
+	b1476_7 --> b1476_1
 end
 
 </pre>`;
@@ -48269,17 +47697,17 @@ graph TD
 </pre>`;
 window.traces["F32_CEIL"]["schedulerMermaid"] = ''
 window.traces["F32_CEIL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1461["Block 1461"]
+subgraph block_1477["Block 1477"]
 	direction TB
-	b1461_1[\\"Finish"/]
-	b1461_7["eff__1423 push_f32"]
-	b1461_5["r F32_ceil"]
-	b1461_3["a pop_f32"]
-	b1461_0[/"Start"\\]
-	b1461_7 --> b1461_1
-	b1461_5 --> b1461_7
-	b1461_3 --> b1461_5
-	b1461_0 --> b1461_3
+	b1477_0[/"Start"\\]
+	b1477_3["a pop_f32"]
+	b1477_5["r F32_ceil"]
+	b1477_7["eff__1423 push_f32"]
+	b1477_1[\\"Finish"/]
+	b1477_0 --> b1477_3
+	b1477_3 --> b1477_5
+	b1477_5 --> b1477_7
+	b1477_7 --> b1477_1
 end
 
 </pre>`;
@@ -48308,17 +47736,17 @@ def eff__1423 = push_f32(r);
 </pre>`;
 window.traces["F32_CEIL"]["unlem_scheduler"] = ''
 window.traces["F32_CEIL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1462["Block 1462"]
+subgraph block_1478["Block 1478"]
 	direction TB
-	b1462_1[\\"Finish"/]
-	b1462_7["eff__1423 push_f32"]
-	b1462_5["r F32_ceil"]
-	b1462_3["a pop_f32"]
-	b1462_0[/"Start"\\]
-	b1462_7 --> b1462_1
-	b1462_5 --> b1462_7
-	b1462_3 --> b1462_5
-	b1462_0 --> b1462_3
+	b1478_0[/"Start"\\]
+	b1478_3["a pop_f32"]
+	b1478_5["r F32_ceil"]
+	b1478_7["eff__1423 push_f32"]
+	b1478_1[\\"Finish"/]
+	b1478_0 --> b1478_3
+	b1478_3 --> b1478_5
+	b1478_5 --> b1478_7
+	b1478_7 --> b1478_1
 end
 
 </pre>`;
@@ -48435,17 +47863,17 @@ graph TD
 </pre>`;
 window.traces["F32_FLOOR"]["schedulerMermaid"] = ''
 window.traces["F32_FLOOR"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1463["Block 1463"]
+subgraph block_1479["Block 1479"]
 	direction TB
-	b1463_1[\\"Finish"/]
-	b1463_7["eff__1426 push_f32"]
-	b1463_5["r F32_floor"]
-	b1463_3["a pop_f32"]
-	b1463_0[/"Start"\\]
-	b1463_7 --> b1463_1
-	b1463_5 --> b1463_7
-	b1463_3 --> b1463_5
-	b1463_0 --> b1463_3
+	b1479_0[/"Start"\\]
+	b1479_3["a pop_f32"]
+	b1479_5["r F32_floor"]
+	b1479_7["eff__1426 push_f32"]
+	b1479_1[\\"Finish"/]
+	b1479_0 --> b1479_3
+	b1479_3 --> b1479_5
+	b1479_5 --> b1479_7
+	b1479_7 --> b1479_1
 end
 
 </pre>`;
@@ -48474,17 +47902,17 @@ def eff__1426 = push_f32(r);
 </pre>`;
 window.traces["F32_FLOOR"]["unlem_scheduler"] = ''
 window.traces["F32_FLOOR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1464["Block 1464"]
+subgraph block_1480["Block 1480"]
 	direction TB
-	b1464_1[\\"Finish"/]
-	b1464_7["eff__1426 push_f32"]
-	b1464_5["r F32_floor"]
-	b1464_3["a pop_f32"]
-	b1464_0[/"Start"\\]
-	b1464_7 --> b1464_1
-	b1464_5 --> b1464_7
-	b1464_3 --> b1464_5
-	b1464_0 --> b1464_3
+	b1480_0[/"Start"\\]
+	b1480_3["a pop_f32"]
+	b1480_5["r F32_floor"]
+	b1480_7["eff__1426 push_f32"]
+	b1480_1[\\"Finish"/]
+	b1480_0 --> b1480_3
+	b1480_3 --> b1480_5
+	b1480_5 --> b1480_7
+	b1480_7 --> b1480_1
 end
 
 </pre>`;
@@ -48601,17 +48029,17 @@ graph TD
 </pre>`;
 window.traces["F32_TRUNC"]["schedulerMermaid"] = ''
 window.traces["F32_TRUNC"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1465["Block 1465"]
+subgraph block_1481["Block 1481"]
 	direction TB
-	b1465_1[\\"Finish"/]
-	b1465_7["eff__1429 push_f32"]
-	b1465_5["r F32_trunc"]
-	b1465_3["a pop_f32"]
-	b1465_0[/"Start"\\]
-	b1465_7 --> b1465_1
-	b1465_5 --> b1465_7
-	b1465_3 --> b1465_5
-	b1465_0 --> b1465_3
+	b1481_0[/"Start"\\]
+	b1481_3["a pop_f32"]
+	b1481_5["r F32_trunc"]
+	b1481_7["eff__1429 push_f32"]
+	b1481_1[\\"Finish"/]
+	b1481_0 --> b1481_3
+	b1481_3 --> b1481_5
+	b1481_5 --> b1481_7
+	b1481_7 --> b1481_1
 end
 
 </pre>`;
@@ -48640,17 +48068,17 @@ def eff__1429 = push_f32(r);
 </pre>`;
 window.traces["F32_TRUNC"]["unlem_scheduler"] = ''
 window.traces["F32_TRUNC"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1466["Block 1466"]
+subgraph block_1482["Block 1482"]
 	direction TB
-	b1466_1[\\"Finish"/]
-	b1466_7["eff__1429 push_f32"]
-	b1466_5["r F32_trunc"]
-	b1466_3["a pop_f32"]
-	b1466_0[/"Start"\\]
-	b1466_7 --> b1466_1
-	b1466_5 --> b1466_7
-	b1466_3 --> b1466_5
-	b1466_0 --> b1466_3
+	b1482_0[/"Start"\\]
+	b1482_3["a pop_f32"]
+	b1482_5["r F32_trunc"]
+	b1482_7["eff__1429 push_f32"]
+	b1482_1[\\"Finish"/]
+	b1482_0 --> b1482_3
+	b1482_3 --> b1482_5
+	b1482_5 --> b1482_7
+	b1482_7 --> b1482_1
 end
 
 </pre>`;
@@ -48767,17 +48195,17 @@ graph TD
 </pre>`;
 window.traces["F32_NEAREST"]["schedulerMermaid"] = ''
 window.traces["F32_NEAREST"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1467["Block 1467"]
+subgraph block_1483["Block 1483"]
 	direction TB
-	b1467_1[\\"Finish"/]
-	b1467_7["eff__1432 push_f32"]
-	b1467_5["r F32_round"]
-	b1467_3["a pop_f32"]
-	b1467_0[/"Start"\\]
-	b1467_7 --> b1467_1
-	b1467_5 --> b1467_7
-	b1467_3 --> b1467_5
-	b1467_0 --> b1467_3
+	b1483_0[/"Start"\\]
+	b1483_3["a pop_f32"]
+	b1483_5["r F32_round"]
+	b1483_7["eff__1432 push_f32"]
+	b1483_1[\\"Finish"/]
+	b1483_0 --> b1483_3
+	b1483_3 --> b1483_5
+	b1483_5 --> b1483_7
+	b1483_7 --> b1483_1
 end
 
 </pre>`;
@@ -48806,17 +48234,17 @@ def eff__1432 = push_f32(r);
 </pre>`;
 window.traces["F32_NEAREST"]["unlem_scheduler"] = ''
 window.traces["F32_NEAREST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1468["Block 1468"]
+subgraph block_1484["Block 1484"]
 	direction TB
-	b1468_1[\\"Finish"/]
-	b1468_7["eff__1432 push_f32"]
-	b1468_5["r F32_round"]
-	b1468_3["a pop_f32"]
-	b1468_0[/"Start"\\]
-	b1468_7 --> b1468_1
-	b1468_5 --> b1468_7
-	b1468_3 --> b1468_5
-	b1468_0 --> b1468_3
+	b1484_0[/"Start"\\]
+	b1484_3["a pop_f32"]
+	b1484_5["r F32_round"]
+	b1484_7["eff__1432 push_f32"]
+	b1484_1[\\"Finish"/]
+	b1484_0 --> b1484_3
+	b1484_3 --> b1484_5
+	b1484_5 --> b1484_7
+	b1484_7 --> b1484_1
 end
 
 </pre>`;
@@ -48933,17 +48361,17 @@ graph TD
 </pre>`;
 window.traces["F32_SQRT"]["schedulerMermaid"] = ''
 window.traces["F32_SQRT"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1469["Block 1469"]
+subgraph block_1485["Block 1485"]
 	direction TB
-	b1469_1[\\"Finish"/]
-	b1469_7["eff__1435 push_f32"]
-	b1469_5["r F32_sqrt"]
-	b1469_3["a pop_f32"]
-	b1469_0[/"Start"\\]
-	b1469_7 --> b1469_1
-	b1469_5 --> b1469_7
-	b1469_3 --> b1469_5
-	b1469_0 --> b1469_3
+	b1485_0[/"Start"\\]
+	b1485_3["a pop_f32"]
+	b1485_5["r F32_sqrt"]
+	b1485_7["eff__1435 push_f32"]
+	b1485_1[\\"Finish"/]
+	b1485_0 --> b1485_3
+	b1485_3 --> b1485_5
+	b1485_5 --> b1485_7
+	b1485_7 --> b1485_1
 end
 
 </pre>`;
@@ -48972,17 +48400,17 @@ def eff__1435 = push_f32(r);
 </pre>`;
 window.traces["F32_SQRT"]["unlem_scheduler"] = ''
 window.traces["F32_SQRT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1470["Block 1470"]
+subgraph block_1486["Block 1486"]
 	direction TB
-	b1470_1[\\"Finish"/]
-	b1470_7["eff__1435 push_f32"]
-	b1470_5["r F32_sqrt"]
-	b1470_3["a pop_f32"]
-	b1470_0[/"Start"\\]
-	b1470_7 --> b1470_1
-	b1470_5 --> b1470_7
-	b1470_3 --> b1470_5
-	b1470_0 --> b1470_3
+	b1486_0[/"Start"\\]
+	b1486_3["a pop_f32"]
+	b1486_5["r F32_sqrt"]
+	b1486_7["eff__1435 push_f32"]
+	b1486_1[\\"Finish"/]
+	b1486_0 --> b1486_3
+	b1486_3 --> b1486_5
+	b1486_5 --> b1486_7
+	b1486_7 --> b1486_1
 end
 
 </pre>`;
@@ -49110,19 +48538,19 @@ graph TD
 </pre>`;
 window.traces["F32_ADD"]["schedulerMermaid"] = ''
 window.traces["F32_ADD"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1471["Block 1471"]
+subgraph block_1487["Block 1487"]
 	direction TB
-	b1471_1[\\"Finish"/]
-	b1471_9["eff__1438 push_f32"]
-	b1471_7["r F32_plus"]
-	b1471_4["a pop_f32"]
-	b1471_3["b pop_f32"]
-	b1471_0[/"Start"\\]
-	b1471_9 --> b1471_1
-	b1471_7 --> b1471_9
-	b1471_4 --> b1471_7
-	b1471_3 --> b1471_4
-	b1471_0 --> b1471_3
+	b1487_0[/"Start"\\]
+	b1487_3["b pop_f32"]
+	b1487_4["a pop_f32"]
+	b1487_7["r F32_plus"]
+	b1487_9["eff__1438 push_f32"]
+	b1487_1[\\"Finish"/]
+	b1487_0 --> b1487_3
+	b1487_3 --> b1487_4
+	b1487_4 --> b1487_7
+	b1487_7 --> b1487_9
+	b1487_9 --> b1487_1
 end
 
 </pre>`;
@@ -49155,19 +48583,19 @@ def eff__1438 = push_f32(r);
 </pre>`;
 window.traces["F32_ADD"]["unlem_scheduler"] = ''
 window.traces["F32_ADD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1472["Block 1472"]
+subgraph block_1488["Block 1488"]
 	direction TB
-	b1472_1[\\"Finish"/]
-	b1472_9["eff__1438 push_f32"]
-	b1472_7["r F32_plus"]
-	b1472_4["a pop_f32"]
-	b1472_3["b pop_f32"]
-	b1472_0[/"Start"\\]
-	b1472_9 --> b1472_1
-	b1472_7 --> b1472_9
-	b1472_4 --> b1472_7
-	b1472_3 --> b1472_4
-	b1472_0 --> b1472_3
+	b1488_0[/"Start"\\]
+	b1488_3["b pop_f32"]
+	b1488_4["a pop_f32"]
+	b1488_7["r F32_plus"]
+	b1488_9["eff__1438 push_f32"]
+	b1488_1[\\"Finish"/]
+	b1488_0 --> b1488_3
+	b1488_3 --> b1488_4
+	b1488_4 --> b1488_7
+	b1488_7 --> b1488_9
+	b1488_9 --> b1488_1
 end
 
 </pre>`;
@@ -49304,19 +48732,19 @@ graph TD
 </pre>`;
 window.traces["F32_SUB"]["schedulerMermaid"] = ''
 window.traces["F32_SUB"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1473["Block 1473"]
+subgraph block_1489["Block 1489"]
 	direction TB
-	b1473_1[\\"Finish"/]
-	b1473_9["eff__1442 push_f32"]
-	b1473_7["r F32_minus"]
-	b1473_4["a pop_f32"]
-	b1473_3["b pop_f32"]
-	b1473_0[/"Start"\\]
-	b1473_9 --> b1473_1
-	b1473_7 --> b1473_9
-	b1473_4 --> b1473_7
-	b1473_3 --> b1473_4
-	b1473_0 --> b1473_3
+	b1489_0[/"Start"\\]
+	b1489_3["b pop_f32"]
+	b1489_4["a pop_f32"]
+	b1489_7["r F32_minus"]
+	b1489_9["eff__1442 push_f32"]
+	b1489_1[\\"Finish"/]
+	b1489_0 --> b1489_3
+	b1489_3 --> b1489_4
+	b1489_4 --> b1489_7
+	b1489_7 --> b1489_9
+	b1489_9 --> b1489_1
 end
 
 </pre>`;
@@ -49349,19 +48777,19 @@ def eff__1442 = push_f32(r);
 </pre>`;
 window.traces["F32_SUB"]["unlem_scheduler"] = ''
 window.traces["F32_SUB"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1474["Block 1474"]
+subgraph block_1490["Block 1490"]
 	direction TB
-	b1474_1[\\"Finish"/]
-	b1474_9["eff__1442 push_f32"]
-	b1474_7["r F32_minus"]
-	b1474_4["a pop_f32"]
-	b1474_3["b pop_f32"]
-	b1474_0[/"Start"\\]
-	b1474_9 --> b1474_1
-	b1474_7 --> b1474_9
-	b1474_4 --> b1474_7
-	b1474_3 --> b1474_4
-	b1474_0 --> b1474_3
+	b1490_0[/"Start"\\]
+	b1490_3["b pop_f32"]
+	b1490_4["a pop_f32"]
+	b1490_7["r F32_minus"]
+	b1490_9["eff__1442 push_f32"]
+	b1490_1[\\"Finish"/]
+	b1490_0 --> b1490_3
+	b1490_3 --> b1490_4
+	b1490_4 --> b1490_7
+	b1490_7 --> b1490_9
+	b1490_9 --> b1490_1
 end
 
 </pre>`;
@@ -49498,19 +48926,19 @@ graph TD
 </pre>`;
 window.traces["F32_MUL"]["schedulerMermaid"] = ''
 window.traces["F32_MUL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1475["Block 1475"]
+subgraph block_1491["Block 1491"]
 	direction TB
-	b1475_1[\\"Finish"/]
-	b1475_9["eff__1446 push_f32"]
-	b1475_7["r F32_times"]
-	b1475_4["a pop_f32"]
-	b1475_3["b pop_f32"]
-	b1475_0[/"Start"\\]
-	b1475_9 --> b1475_1
-	b1475_7 --> b1475_9
-	b1475_4 --> b1475_7
-	b1475_3 --> b1475_4
-	b1475_0 --> b1475_3
+	b1491_0[/"Start"\\]
+	b1491_3["b pop_f32"]
+	b1491_4["a pop_f32"]
+	b1491_7["r F32_times"]
+	b1491_9["eff__1446 push_f32"]
+	b1491_1[\\"Finish"/]
+	b1491_0 --> b1491_3
+	b1491_3 --> b1491_4
+	b1491_4 --> b1491_7
+	b1491_7 --> b1491_9
+	b1491_9 --> b1491_1
 end
 
 </pre>`;
@@ -49543,19 +48971,19 @@ def eff__1446 = push_f32(r);
 </pre>`;
 window.traces["F32_MUL"]["unlem_scheduler"] = ''
 window.traces["F32_MUL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1476["Block 1476"]
+subgraph block_1492["Block 1492"]
 	direction TB
-	b1476_1[\\"Finish"/]
-	b1476_9["eff__1446 push_f32"]
-	b1476_7["r F32_times"]
-	b1476_4["a pop_f32"]
-	b1476_3["b pop_f32"]
-	b1476_0[/"Start"\\]
-	b1476_9 --> b1476_1
-	b1476_7 --> b1476_9
-	b1476_4 --> b1476_7
-	b1476_3 --> b1476_4
-	b1476_0 --> b1476_3
+	b1492_0[/"Start"\\]
+	b1492_3["b pop_f32"]
+	b1492_4["a pop_f32"]
+	b1492_7["r F32_times"]
+	b1492_9["eff__1446 push_f32"]
+	b1492_1[\\"Finish"/]
+	b1492_0 --> b1492_3
+	b1492_3 --> b1492_4
+	b1492_4 --> b1492_7
+	b1492_7 --> b1492_9
+	b1492_9 --> b1492_1
 end
 
 </pre>`;
@@ -49747,42 +49175,48 @@ graph TD
 </pre>`;
 window.traces["F32_DIV"]["schedulerMermaid"] = ''
 window.traces["F32_DIV"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1477["Block 1477"]
+subgraph block_1493["Block 1493"]
 	direction TB
-	b1477_1[\\"Finish"/]
+	b1493_1[\\"Finish"/]
 end
-phi_1479 --> block_1477
-subgraph phi_1479["Phi 1479"]
-	p1479_15{{"Sϕ Stack "}}
-	p1479_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1495 --> block_1493
+subgraph phi_1495["Phi 1495"]
+	p1495_15{{"Sϕ Stack "}}
+	p1495_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1480 --> phi_1479
-block_1481 --> phi_1479
-subgraph block_1480["Block 1480"]
+block_1496 --> phi_1495
+block_1497 --> phi_1495
+subgraph block_1496["Block 1496"]
 	direction TB
-	b1480_13["eff__1451 trapDivideByZero"]
-	b1480_4["a pop_f32"]
-	b1480_4 --> b1480_13
+	b1496_13["eff__1451 trapDivideByZero"]
 end
-branch_1478 --> block_1480
-subgraph branch_1478["Branch 1478"]
-	br1478_10["cond__1450 F32_equals"]
+branch_1494 --> block_1496
+subgraph branch_1494["Branch 1494"]
+	br1494_10["cond__1450 F32_equals"]
 
 end
-block_1482 --> branch_1478
-subgraph block_1482["Block 1482"]
+block_1498 --> branch_1494
+subgraph block_1498["Block 1498"]
 	direction TB
-	b1482_10["cond__1450 F32_equals"]
+	b1498_8["arg__1455 0.0f"]
+	b1498_3["b pop_f32"]
+	b1498_4["a pop_f32"]
+	b1498_16["abs__1458 lift_f32"]
+	b1498_10["cond__1450 F32_equals"]
+	b1498_8 --> b1498_3
+	b1498_3 --> b1498_4
+	b1498_4 --> b1498_16
+	b1498_16 --> b1498_10
 end
-subgraph block_1481["Block 1481"]
+subgraph block_1497["Block 1497"]
 	direction TB
-	b1481_0[/"Start"\\]
-	b1481_12["eff__1452 push_f32"]
-	b1481_7["r F32_div"]
-	b1481_12 --> b1481_0
-	b1481_7 --> b1481_12
+	b1497_7["r F32_div"]
+	b1497_12["eff__1452 push_f32"]
+	b1497_0[/"Start"\\]
+	b1497_7 --> b1497_12
+	b1497_12 --> b1497_0
 end
-branch_1478 --> block_1481
+branch_1494 --> block_1497
 
 </pre>`;
 window.traces["F32_DIV"]["unLEM"] = ''
@@ -49874,76 +49308,80 @@ if (mb__1461) {
 </pre>`;
 window.traces["F32_DIV"]["unlem_scheduler"] = ''
 window.traces["F32_DIV"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1483["Block 1483"]
+subgraph block_1499["Block 1499"]
 	direction TB
-	b1483_1[\\"Finish"/]
+	b1499_1[\\"Finish"/]
 end
-phi_1485 --> block_1483
-subgraph phi_1485["Phi 1485"]
-	p1485_15{{"Sϕ Stack "}}
-	p1485_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1501 --> block_1499
+subgraph phi_1501["Phi 1501"]
+	p1501_15{{"Sϕ Stack "}}
+	p1501_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1486 --> phi_1485
-block_1487 --> phi_1485
-subgraph block_1486["Block 1486"]
+block_1502 --> phi_1501
+block_1503 --> phi_1501
+subgraph block_1502["Block 1502"]
 	direction TB
-	b1486_21["eff_merge__1463 merge"]
-	b1486_13["eff__1451 trapDivideByZero"]
-	b1486_24["eff_merge__1465 merge"]
-	b1486_12["eff__1452 push_f32"]
-	b1486_13 --> b1486_21
-	b1486_24 --> b1486_13
-	b1486_12 --> b1486_24
+	b1502_23["eff_nop__1464 nop"]
+	b1502_24["eff_merge__1465 merge"]
+	b1502_21["eff_merge__1463 merge"]
+	b1502_23 --> b1502_24
+	b1502_24 --> b1502_21
 end
-branch_1484 --> block_1486
-subgraph branch_1484["Branch 1484"]
-	br1484_19["mb__1461 bool.&&"]
+branch_1500 --> block_1502
+subgraph branch_1500["Branch 1500"]
+	br1500_19["mb__1461 bool.&&"]
 
 end
-block_1492 --> branch_1484
-subgraph block_1492["Block 1492"]
+block_1508 --> branch_1500
+subgraph block_1508["Block 1508"]
 	direction TB
-	b1492_19["mb__1461 bool.&&"]
-	b1492_17["mt__1459 U32_maybeTrue"]
-	b1492_18["mf__1460 U32_maybeFalse"]
-	b1492_17 --> b1492_19
-	b1492_18 --> b1492_17
+	b1508_8["arg__1455 0.0f"]
+	b1508_16["abs__1458 lift_f32"]
+	b1508_3["b pop_f32"]
+	b1508_4["a pop_f32"]
+	b1508_10["cond__1450 F32_equals"]
+	b1508_18["mf__1460 U32_maybeFalse"]
+	b1508_17["mt__1459 U32_maybeTrue"]
+	b1508_19["mb__1461 bool.&&"]
+	b1508_8 --> b1508_16
+	b1508_16 --> b1508_3
+	b1508_3 --> b1508_4
+	b1508_4 --> b1508_10
+	b1508_10 --> b1508_18
+	b1508_18 --> b1508_17
+	b1508_17 --> b1508_19
 end
-subgraph block_1487["Block 1487"]
+subgraph block_1503["Block 1503"]
 	direction TB
 end
-phi_1489 --> block_1487
-subgraph phi_1489["Phi 1489"]
-	p1489_22{{"Sϕ Stack "}}
-	p1489_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1489_22{{"Sϕ Stack "}}
-	p1489_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1505 --> block_1503
+subgraph phi_1505["Phi 1505"]
+	p1505_22{{"Sϕ Stack "}}
+	p1505_22{{"Sϕ Stack "}}
+	p1505_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1505_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1490 --> phi_1489
-block_1491 --> phi_1489
-subgraph block_1490["Block 1490"]
+block_1506 --> phi_1505
+block_1507 --> phi_1505
+subgraph block_1506["Block 1506"]
 	direction TB
-	b1490_13["eff__1451 trapDivideByZero"]
-	b1490_4["a pop_f32"]
-	b1490_3["b pop_f32"]
-	b1490_4 --> b1490_13
-	b1490_3 --> b1490_4
+	b1506_13["eff__1451 trapDivideByZero"]
 end
-branch_1488 --> block_1490
-subgraph branch_1488["Branch 1488"]
-	br1488_17["mt__1459 U32_maybeTrue"]
+branch_1504 --> block_1506
+subgraph branch_1504["Branch 1504"]
+	br1504_17["mt__1459 U32_maybeTrue"]
 
 end
-branch_1484 --> branch_1488
-subgraph block_1491["Block 1491"]
+branch_1500 --> branch_1504
+subgraph block_1507["Block 1507"]
 	direction TB
-	b1491_0[/"r_state__1462 Start"\\]
-	b1491_12["eff__1452 push_f32"]
-	b1491_7["r F32_div"]
-	b1491_12 --> b1491_0
-	b1491_7 --> b1491_12
+	b1507_7["r F32_div"]
+	b1507_12["eff__1452 push_f32"]
+	b1507_0[/"r_state__1462 Start"\\]
+	b1507_7 --> b1507_12
+	b1507_12 --> b1507_0
 end
-branch_1488 --> block_1491
+branch_1504 --> block_1507
 
 </pre>`;
 window.traces["F32_DIV"]["unlem_pretty"] = ''
@@ -50104,17 +49542,17 @@ graph TD
 </pre>`;
 window.traces["F64_ABS"]["schedulerMermaid"] = ''
 window.traces["F64_ABS"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1493["Block 1493"]
+subgraph block_1509["Block 1509"]
 	direction TB
-	b1493_1[\\"Finish"/]
-	b1493_7["eff__1466 push_f64"]
-	b1493_5["r F64_abs"]
-	b1493_3["a pop_f64"]
-	b1493_0[/"Start"\\]
-	b1493_7 --> b1493_1
-	b1493_5 --> b1493_7
-	b1493_3 --> b1493_5
-	b1493_0 --> b1493_3
+	b1509_0[/"Start"\\]
+	b1509_3["a pop_f64"]
+	b1509_5["r F64_abs"]
+	b1509_7["eff__1466 push_f64"]
+	b1509_1[\\"Finish"/]
+	b1509_0 --> b1509_3
+	b1509_3 --> b1509_5
+	b1509_5 --> b1509_7
+	b1509_7 --> b1509_1
 end
 
 </pre>`;
@@ -50143,17 +49581,17 @@ def eff__1466 = push_f64(r);
 </pre>`;
 window.traces["F64_ABS"]["unlem_scheduler"] = ''
 window.traces["F64_ABS"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1494["Block 1494"]
+subgraph block_1510["Block 1510"]
 	direction TB
-	b1494_1[\\"Finish"/]
-	b1494_7["eff__1466 push_f64"]
-	b1494_5["r F64_abs"]
-	b1494_3["a pop_f64"]
-	b1494_0[/"Start"\\]
-	b1494_7 --> b1494_1
-	b1494_5 --> b1494_7
-	b1494_3 --> b1494_5
-	b1494_0 --> b1494_3
+	b1510_0[/"Start"\\]
+	b1510_3["a pop_f64"]
+	b1510_5["r F64_abs"]
+	b1510_7["eff__1466 push_f64"]
+	b1510_1[\\"Finish"/]
+	b1510_0 --> b1510_3
+	b1510_3 --> b1510_5
+	b1510_5 --> b1510_7
+	b1510_7 --> b1510_1
 end
 
 </pre>`;
@@ -50270,17 +49708,17 @@ graph TD
 </pre>`;
 window.traces["F64_NEG"]["schedulerMermaid"] = ''
 window.traces["F64_NEG"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1495["Block 1495"]
+subgraph block_1511["Block 1511"]
 	direction TB
-	b1495_1[\\"Finish"/]
-	b1495_7["eff__1469 push_f64"]
-	b1495_5["r F64_neg"]
-	b1495_3["a pop_f64"]
-	b1495_0[/"Start"\\]
-	b1495_7 --> b1495_1
-	b1495_5 --> b1495_7
-	b1495_3 --> b1495_5
-	b1495_0 --> b1495_3
+	b1511_0[/"Start"\\]
+	b1511_3["a pop_f64"]
+	b1511_5["r F64_neg"]
+	b1511_7["eff__1469 push_f64"]
+	b1511_1[\\"Finish"/]
+	b1511_0 --> b1511_3
+	b1511_3 --> b1511_5
+	b1511_5 --> b1511_7
+	b1511_7 --> b1511_1
 end
 
 </pre>`;
@@ -50309,17 +49747,17 @@ def eff__1469 = push_f64(r);
 </pre>`;
 window.traces["F64_NEG"]["unlem_scheduler"] = ''
 window.traces["F64_NEG"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1496["Block 1496"]
+subgraph block_1512["Block 1512"]
 	direction TB
-	b1496_1[\\"Finish"/]
-	b1496_7["eff__1469 push_f64"]
-	b1496_5["r F64_neg"]
-	b1496_3["a pop_f64"]
-	b1496_0[/"Start"\\]
-	b1496_7 --> b1496_1
-	b1496_5 --> b1496_7
-	b1496_3 --> b1496_5
-	b1496_0 --> b1496_3
+	b1512_0[/"Start"\\]
+	b1512_3["a pop_f64"]
+	b1512_5["r F64_neg"]
+	b1512_7["eff__1469 push_f64"]
+	b1512_1[\\"Finish"/]
+	b1512_0 --> b1512_3
+	b1512_3 --> b1512_5
+	b1512_5 --> b1512_7
+	b1512_7 --> b1512_1
 end
 
 </pre>`;
@@ -50436,17 +49874,17 @@ graph TD
 </pre>`;
 window.traces["F64_CEIL"]["schedulerMermaid"] = ''
 window.traces["F64_CEIL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1497["Block 1497"]
+subgraph block_1513["Block 1513"]
 	direction TB
-	b1497_1[\\"Finish"/]
-	b1497_7["eff__1472 push_f64"]
-	b1497_5["r F64_ceil"]
-	b1497_3["a pop_f64"]
-	b1497_0[/"Start"\\]
-	b1497_7 --> b1497_1
-	b1497_5 --> b1497_7
-	b1497_3 --> b1497_5
-	b1497_0 --> b1497_3
+	b1513_0[/"Start"\\]
+	b1513_3["a pop_f64"]
+	b1513_5["r F64_ceil"]
+	b1513_7["eff__1472 push_f64"]
+	b1513_1[\\"Finish"/]
+	b1513_0 --> b1513_3
+	b1513_3 --> b1513_5
+	b1513_5 --> b1513_7
+	b1513_7 --> b1513_1
 end
 
 </pre>`;
@@ -50475,17 +49913,17 @@ def eff__1472 = push_f64(r);
 </pre>`;
 window.traces["F64_CEIL"]["unlem_scheduler"] = ''
 window.traces["F64_CEIL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1498["Block 1498"]
+subgraph block_1514["Block 1514"]
 	direction TB
-	b1498_1[\\"Finish"/]
-	b1498_7["eff__1472 push_f64"]
-	b1498_5["r F64_ceil"]
-	b1498_3["a pop_f64"]
-	b1498_0[/"Start"\\]
-	b1498_7 --> b1498_1
-	b1498_5 --> b1498_7
-	b1498_3 --> b1498_5
-	b1498_0 --> b1498_3
+	b1514_0[/"Start"\\]
+	b1514_3["a pop_f64"]
+	b1514_5["r F64_ceil"]
+	b1514_7["eff__1472 push_f64"]
+	b1514_1[\\"Finish"/]
+	b1514_0 --> b1514_3
+	b1514_3 --> b1514_5
+	b1514_5 --> b1514_7
+	b1514_7 --> b1514_1
 end
 
 </pre>`;
@@ -50602,17 +50040,17 @@ graph TD
 </pre>`;
 window.traces["F64_FLOOR"]["schedulerMermaid"] = ''
 window.traces["F64_FLOOR"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1499["Block 1499"]
+subgraph block_1515["Block 1515"]
 	direction TB
-	b1499_1[\\"Finish"/]
-	b1499_7["eff__1475 push_f64"]
-	b1499_5["r F64_floor"]
-	b1499_3["a pop_f64"]
-	b1499_0[/"Start"\\]
-	b1499_7 --> b1499_1
-	b1499_5 --> b1499_7
-	b1499_3 --> b1499_5
-	b1499_0 --> b1499_3
+	b1515_0[/"Start"\\]
+	b1515_3["a pop_f64"]
+	b1515_5["r F64_floor"]
+	b1515_7["eff__1475 push_f64"]
+	b1515_1[\\"Finish"/]
+	b1515_0 --> b1515_3
+	b1515_3 --> b1515_5
+	b1515_5 --> b1515_7
+	b1515_7 --> b1515_1
 end
 
 </pre>`;
@@ -50641,17 +50079,17 @@ def eff__1475 = push_f64(r);
 </pre>`;
 window.traces["F64_FLOOR"]["unlem_scheduler"] = ''
 window.traces["F64_FLOOR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1500["Block 1500"]
+subgraph block_1516["Block 1516"]
 	direction TB
-	b1500_1[\\"Finish"/]
-	b1500_7["eff__1475 push_f64"]
-	b1500_5["r F64_floor"]
-	b1500_3["a pop_f64"]
-	b1500_0[/"Start"\\]
-	b1500_7 --> b1500_1
-	b1500_5 --> b1500_7
-	b1500_3 --> b1500_5
-	b1500_0 --> b1500_3
+	b1516_0[/"Start"\\]
+	b1516_3["a pop_f64"]
+	b1516_5["r F64_floor"]
+	b1516_7["eff__1475 push_f64"]
+	b1516_1[\\"Finish"/]
+	b1516_0 --> b1516_3
+	b1516_3 --> b1516_5
+	b1516_5 --> b1516_7
+	b1516_7 --> b1516_1
 end
 
 </pre>`;
@@ -50768,17 +50206,17 @@ graph TD
 </pre>`;
 window.traces["F64_TRUNC"]["schedulerMermaid"] = ''
 window.traces["F64_TRUNC"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1501["Block 1501"]
+subgraph block_1517["Block 1517"]
 	direction TB
-	b1501_1[\\"Finish"/]
-	b1501_7["eff__1478 push_f64"]
-	b1501_5["r F64_trunc"]
-	b1501_3["a pop_f64"]
-	b1501_0[/"Start"\\]
-	b1501_7 --> b1501_1
-	b1501_5 --> b1501_7
-	b1501_3 --> b1501_5
-	b1501_0 --> b1501_3
+	b1517_0[/"Start"\\]
+	b1517_3["a pop_f64"]
+	b1517_5["r F64_trunc"]
+	b1517_7["eff__1478 push_f64"]
+	b1517_1[\\"Finish"/]
+	b1517_0 --> b1517_3
+	b1517_3 --> b1517_5
+	b1517_5 --> b1517_7
+	b1517_7 --> b1517_1
 end
 
 </pre>`;
@@ -50807,17 +50245,17 @@ def eff__1478 = push_f64(r);
 </pre>`;
 window.traces["F64_TRUNC"]["unlem_scheduler"] = ''
 window.traces["F64_TRUNC"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1502["Block 1502"]
+subgraph block_1518["Block 1518"]
 	direction TB
-	b1502_1[\\"Finish"/]
-	b1502_7["eff__1478 push_f64"]
-	b1502_5["r F64_trunc"]
-	b1502_3["a pop_f64"]
-	b1502_0[/"Start"\\]
-	b1502_7 --> b1502_1
-	b1502_5 --> b1502_7
-	b1502_3 --> b1502_5
-	b1502_0 --> b1502_3
+	b1518_0[/"Start"\\]
+	b1518_3["a pop_f64"]
+	b1518_5["r F64_trunc"]
+	b1518_7["eff__1478 push_f64"]
+	b1518_1[\\"Finish"/]
+	b1518_0 --> b1518_3
+	b1518_3 --> b1518_5
+	b1518_5 --> b1518_7
+	b1518_7 --> b1518_1
 end
 
 </pre>`;
@@ -50934,17 +50372,17 @@ graph TD
 </pre>`;
 window.traces["F64_NEAREST"]["schedulerMermaid"] = ''
 window.traces["F64_NEAREST"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1503["Block 1503"]
+subgraph block_1519["Block 1519"]
 	direction TB
-	b1503_1[\\"Finish"/]
-	b1503_7["eff__1481 push_f64"]
-	b1503_5["r F64_round"]
-	b1503_3["a pop_f64"]
-	b1503_0[/"Start"\\]
-	b1503_7 --> b1503_1
-	b1503_5 --> b1503_7
-	b1503_3 --> b1503_5
-	b1503_0 --> b1503_3
+	b1519_0[/"Start"\\]
+	b1519_3["a pop_f64"]
+	b1519_5["r F64_round"]
+	b1519_7["eff__1481 push_f64"]
+	b1519_1[\\"Finish"/]
+	b1519_0 --> b1519_3
+	b1519_3 --> b1519_5
+	b1519_5 --> b1519_7
+	b1519_7 --> b1519_1
 end
 
 </pre>`;
@@ -50973,17 +50411,17 @@ def eff__1481 = push_f64(r);
 </pre>`;
 window.traces["F64_NEAREST"]["unlem_scheduler"] = ''
 window.traces["F64_NEAREST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1504["Block 1504"]
+subgraph block_1520["Block 1520"]
 	direction TB
-	b1504_1[\\"Finish"/]
-	b1504_7["eff__1481 push_f64"]
-	b1504_5["r F64_round"]
-	b1504_3["a pop_f64"]
-	b1504_0[/"Start"\\]
-	b1504_7 --> b1504_1
-	b1504_5 --> b1504_7
-	b1504_3 --> b1504_5
-	b1504_0 --> b1504_3
+	b1520_0[/"Start"\\]
+	b1520_3["a pop_f64"]
+	b1520_5["r F64_round"]
+	b1520_7["eff__1481 push_f64"]
+	b1520_1[\\"Finish"/]
+	b1520_0 --> b1520_3
+	b1520_3 --> b1520_5
+	b1520_5 --> b1520_7
+	b1520_7 --> b1520_1
 end
 
 </pre>`;
@@ -51100,17 +50538,17 @@ graph TD
 </pre>`;
 window.traces["F64_SQRT"]["schedulerMermaid"] = ''
 window.traces["F64_SQRT"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1505["Block 1505"]
+subgraph block_1521["Block 1521"]
 	direction TB
-	b1505_1[\\"Finish"/]
-	b1505_7["eff__1484 push_f64"]
-	b1505_5["r F64_sqrt"]
-	b1505_3["a pop_f64"]
-	b1505_0[/"Start"\\]
-	b1505_7 --> b1505_1
-	b1505_5 --> b1505_7
-	b1505_3 --> b1505_5
-	b1505_0 --> b1505_3
+	b1521_0[/"Start"\\]
+	b1521_3["a pop_f64"]
+	b1521_5["r F64_sqrt"]
+	b1521_7["eff__1484 push_f64"]
+	b1521_1[\\"Finish"/]
+	b1521_0 --> b1521_3
+	b1521_3 --> b1521_5
+	b1521_5 --> b1521_7
+	b1521_7 --> b1521_1
 end
 
 </pre>`;
@@ -51139,17 +50577,17 @@ def eff__1484 = push_f64(r);
 </pre>`;
 window.traces["F64_SQRT"]["unlem_scheduler"] = ''
 window.traces["F64_SQRT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1506["Block 1506"]
+subgraph block_1522["Block 1522"]
 	direction TB
-	b1506_1[\\"Finish"/]
-	b1506_7["eff__1484 push_f64"]
-	b1506_5["r F64_sqrt"]
-	b1506_3["a pop_f64"]
-	b1506_0[/"Start"\\]
-	b1506_7 --> b1506_1
-	b1506_5 --> b1506_7
-	b1506_3 --> b1506_5
-	b1506_0 --> b1506_3
+	b1522_0[/"Start"\\]
+	b1522_3["a pop_f64"]
+	b1522_5["r F64_sqrt"]
+	b1522_7["eff__1484 push_f64"]
+	b1522_1[\\"Finish"/]
+	b1522_0 --> b1522_3
+	b1522_3 --> b1522_5
+	b1522_5 --> b1522_7
+	b1522_7 --> b1522_1
 end
 
 </pre>`;
@@ -51277,19 +50715,19 @@ graph TD
 </pre>`;
 window.traces["F64_ADD"]["schedulerMermaid"] = ''
 window.traces["F64_ADD"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1507["Block 1507"]
+subgraph block_1523["Block 1523"]
 	direction TB
-	b1507_1[\\"Finish"/]
-	b1507_9["eff__1487 push_f64"]
-	b1507_7["r F64_plus"]
-	b1507_4["a pop_f64"]
-	b1507_3["b pop_f64"]
-	b1507_0[/"Start"\\]
-	b1507_9 --> b1507_1
-	b1507_7 --> b1507_9
-	b1507_4 --> b1507_7
-	b1507_3 --> b1507_4
-	b1507_0 --> b1507_3
+	b1523_0[/"Start"\\]
+	b1523_3["b pop_f64"]
+	b1523_4["a pop_f64"]
+	b1523_7["r F64_plus"]
+	b1523_9["eff__1487 push_f64"]
+	b1523_1[\\"Finish"/]
+	b1523_0 --> b1523_3
+	b1523_3 --> b1523_4
+	b1523_4 --> b1523_7
+	b1523_7 --> b1523_9
+	b1523_9 --> b1523_1
 end
 
 </pre>`;
@@ -51322,19 +50760,19 @@ def eff__1487 = push_f64(r);
 </pre>`;
 window.traces["F64_ADD"]["unlem_scheduler"] = ''
 window.traces["F64_ADD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1508["Block 1508"]
+subgraph block_1524["Block 1524"]
 	direction TB
-	b1508_1[\\"Finish"/]
-	b1508_9["eff__1487 push_f64"]
-	b1508_7["r F64_plus"]
-	b1508_4["a pop_f64"]
-	b1508_3["b pop_f64"]
-	b1508_0[/"Start"\\]
-	b1508_9 --> b1508_1
-	b1508_7 --> b1508_9
-	b1508_4 --> b1508_7
-	b1508_3 --> b1508_4
-	b1508_0 --> b1508_3
+	b1524_0[/"Start"\\]
+	b1524_3["b pop_f64"]
+	b1524_4["a pop_f64"]
+	b1524_7["r F64_plus"]
+	b1524_9["eff__1487 push_f64"]
+	b1524_1[\\"Finish"/]
+	b1524_0 --> b1524_3
+	b1524_3 --> b1524_4
+	b1524_4 --> b1524_7
+	b1524_7 --> b1524_9
+	b1524_9 --> b1524_1
 end
 
 </pre>`;
@@ -51471,19 +50909,19 @@ graph TD
 </pre>`;
 window.traces["F64_SUB"]["schedulerMermaid"] = ''
 window.traces["F64_SUB"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1509["Block 1509"]
+subgraph block_1525["Block 1525"]
 	direction TB
-	b1509_1[\\"Finish"/]
-	b1509_9["eff__1491 push_f64"]
-	b1509_7["r F64_minus"]
-	b1509_4["a pop_f64"]
-	b1509_3["b pop_f64"]
-	b1509_0[/"Start"\\]
-	b1509_9 --> b1509_1
-	b1509_7 --> b1509_9
-	b1509_4 --> b1509_7
-	b1509_3 --> b1509_4
-	b1509_0 --> b1509_3
+	b1525_0[/"Start"\\]
+	b1525_3["b pop_f64"]
+	b1525_4["a pop_f64"]
+	b1525_7["r F64_minus"]
+	b1525_9["eff__1491 push_f64"]
+	b1525_1[\\"Finish"/]
+	b1525_0 --> b1525_3
+	b1525_3 --> b1525_4
+	b1525_4 --> b1525_7
+	b1525_7 --> b1525_9
+	b1525_9 --> b1525_1
 end
 
 </pre>`;
@@ -51516,19 +50954,19 @@ def eff__1491 = push_f64(r);
 </pre>`;
 window.traces["F64_SUB"]["unlem_scheduler"] = ''
 window.traces["F64_SUB"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1510["Block 1510"]
+subgraph block_1526["Block 1526"]
 	direction TB
-	b1510_1[\\"Finish"/]
-	b1510_9["eff__1491 push_f64"]
-	b1510_7["r F64_minus"]
-	b1510_4["a pop_f64"]
-	b1510_3["b pop_f64"]
-	b1510_0[/"Start"\\]
-	b1510_9 --> b1510_1
-	b1510_7 --> b1510_9
-	b1510_4 --> b1510_7
-	b1510_3 --> b1510_4
-	b1510_0 --> b1510_3
+	b1526_0[/"Start"\\]
+	b1526_3["b pop_f64"]
+	b1526_4["a pop_f64"]
+	b1526_7["r F64_minus"]
+	b1526_9["eff__1491 push_f64"]
+	b1526_1[\\"Finish"/]
+	b1526_0 --> b1526_3
+	b1526_3 --> b1526_4
+	b1526_4 --> b1526_7
+	b1526_7 --> b1526_9
+	b1526_9 --> b1526_1
 end
 
 </pre>`;
@@ -51665,19 +51103,19 @@ graph TD
 </pre>`;
 window.traces["F64_MUL"]["schedulerMermaid"] = ''
 window.traces["F64_MUL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1511["Block 1511"]
+subgraph block_1527["Block 1527"]
 	direction TB
-	b1511_1[\\"Finish"/]
-	b1511_9["eff__1495 push_f64"]
-	b1511_7["r F64_times"]
-	b1511_4["a pop_f64"]
-	b1511_3["b pop_f64"]
-	b1511_0[/"Start"\\]
-	b1511_9 --> b1511_1
-	b1511_7 --> b1511_9
-	b1511_4 --> b1511_7
-	b1511_3 --> b1511_4
-	b1511_0 --> b1511_3
+	b1527_0[/"Start"\\]
+	b1527_3["b pop_f64"]
+	b1527_4["a pop_f64"]
+	b1527_7["r F64_times"]
+	b1527_9["eff__1495 push_f64"]
+	b1527_1[\\"Finish"/]
+	b1527_0 --> b1527_3
+	b1527_3 --> b1527_4
+	b1527_4 --> b1527_7
+	b1527_7 --> b1527_9
+	b1527_9 --> b1527_1
 end
 
 </pre>`;
@@ -51710,19 +51148,19 @@ def eff__1495 = push_f64(r);
 </pre>`;
 window.traces["F64_MUL"]["unlem_scheduler"] = ''
 window.traces["F64_MUL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1512["Block 1512"]
+subgraph block_1528["Block 1528"]
 	direction TB
-	b1512_1[\\"Finish"/]
-	b1512_9["eff__1495 push_f64"]
-	b1512_7["r F64_times"]
-	b1512_4["a pop_f64"]
-	b1512_3["b pop_f64"]
-	b1512_0[/"Start"\\]
-	b1512_9 --> b1512_1
-	b1512_7 --> b1512_9
-	b1512_4 --> b1512_7
-	b1512_3 --> b1512_4
-	b1512_0 --> b1512_3
+	b1528_0[/"Start"\\]
+	b1528_3["b pop_f64"]
+	b1528_4["a pop_f64"]
+	b1528_7["r F64_times"]
+	b1528_9["eff__1495 push_f64"]
+	b1528_1[\\"Finish"/]
+	b1528_0 --> b1528_3
+	b1528_3 --> b1528_4
+	b1528_4 --> b1528_7
+	b1528_7 --> b1528_9
+	b1528_9 --> b1528_1
 end
 
 </pre>`;
@@ -51914,42 +51352,48 @@ graph TD
 </pre>`;
 window.traces["F64_DIV"]["schedulerMermaid"] = ''
 window.traces["F64_DIV"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1513["Block 1513"]
+subgraph block_1529["Block 1529"]
 	direction TB
-	b1513_1[\\"Finish"/]
+	b1529_1[\\"Finish"/]
 end
-phi_1515 --> block_1513
-subgraph phi_1515["Phi 1515"]
-	p1515_15{{"Sϕ Stack "}}
-	p1515_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1531 --> block_1529
+subgraph phi_1531["Phi 1531"]
+	p1531_15{{"Sϕ Stack "}}
+	p1531_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1516 --> phi_1515
-block_1517 --> phi_1515
-subgraph block_1516["Block 1516"]
+block_1532 --> phi_1531
+block_1533 --> phi_1531
+subgraph block_1532["Block 1532"]
 	direction TB
-	b1516_13["eff__1500 trapDivideByZero"]
-	b1516_4["a pop_f64"]
-	b1516_4 --> b1516_13
+	b1532_13["eff__1500 trapDivideByZero"]
 end
-branch_1514 --> block_1516
-subgraph branch_1514["Branch 1514"]
-	br1514_10["cond__1499 F64_equals"]
+branch_1530 --> block_1532
+subgraph branch_1530["Branch 1530"]
+	br1530_10["cond__1499 F64_equals"]
 
 end
-block_1518 --> branch_1514
-subgraph block_1518["Block 1518"]
+block_1534 --> branch_1530
+subgraph block_1534["Block 1534"]
 	direction TB
-	b1518_10["cond__1499 F64_equals"]
+	b1534_8["arg__1504 0.0f"]
+	b1534_3["b pop_f64"]
+	b1534_4["a pop_f64"]
+	b1534_16["abs__1507 lift_f64"]
+	b1534_10["cond__1499 F64_equals"]
+	b1534_8 --> b1534_3
+	b1534_3 --> b1534_4
+	b1534_4 --> b1534_16
+	b1534_16 --> b1534_10
 end
-subgraph block_1517["Block 1517"]
+subgraph block_1533["Block 1533"]
 	direction TB
-	b1517_0[/"Start"\\]
-	b1517_12["eff__1501 push_f64"]
-	b1517_7["r F64_div"]
-	b1517_12 --> b1517_0
-	b1517_7 --> b1517_12
+	b1533_7["r F64_div"]
+	b1533_12["eff__1501 push_f64"]
+	b1533_0[/"Start"\\]
+	b1533_7 --> b1533_12
+	b1533_12 --> b1533_0
 end
-branch_1514 --> block_1517
+branch_1530 --> block_1533
 
 </pre>`;
 window.traces["F64_DIV"]["unLEM"] = ''
@@ -52041,76 +51485,80 @@ if (mb__1510) {
 </pre>`;
 window.traces["F64_DIV"]["unlem_scheduler"] = ''
 window.traces["F64_DIV"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1519["Block 1519"]
+subgraph block_1535["Block 1535"]
 	direction TB
-	b1519_1[\\"Finish"/]
+	b1535_1[\\"Finish"/]
 end
-phi_1521 --> block_1519
-subgraph phi_1521["Phi 1521"]
-	p1521_15{{"Sϕ Stack "}}
-	p1521_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1537 --> block_1535
+subgraph phi_1537["Phi 1537"]
+	p1537_15{{"Sϕ Stack "}}
+	p1537_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1522 --> phi_1521
-block_1523 --> phi_1521
-subgraph block_1522["Block 1522"]
+block_1538 --> phi_1537
+block_1539 --> phi_1537
+subgraph block_1538["Block 1538"]
 	direction TB
-	b1522_21["eff_merge__1512 merge"]
-	b1522_13["eff__1500 trapDivideByZero"]
-	b1522_24["eff_merge__1514 merge"]
-	b1522_12["eff__1501 push_f64"]
-	b1522_13 --> b1522_21
-	b1522_24 --> b1522_13
-	b1522_12 --> b1522_24
+	b1538_23["eff_nop__1513 nop"]
+	b1538_24["eff_merge__1514 merge"]
+	b1538_21["eff_merge__1512 merge"]
+	b1538_23 --> b1538_24
+	b1538_24 --> b1538_21
 end
-branch_1520 --> block_1522
-subgraph branch_1520["Branch 1520"]
-	br1520_19["mb__1510 bool.&&"]
+branch_1536 --> block_1538
+subgraph branch_1536["Branch 1536"]
+	br1536_19["mb__1510 bool.&&"]
 
 end
-block_1528 --> branch_1520
-subgraph block_1528["Block 1528"]
+block_1544 --> branch_1536
+subgraph block_1544["Block 1544"]
 	direction TB
-	b1528_19["mb__1510 bool.&&"]
-	b1528_17["mt__1508 U32_maybeTrue"]
-	b1528_18["mf__1509 U32_maybeFalse"]
-	b1528_17 --> b1528_19
-	b1528_18 --> b1528_17
+	b1544_8["arg__1504 0.0f"]
+	b1544_16["abs__1507 lift_f64"]
+	b1544_3["b pop_f64"]
+	b1544_4["a pop_f64"]
+	b1544_10["cond__1499 F64_equals"]
+	b1544_18["mf__1509 U32_maybeFalse"]
+	b1544_17["mt__1508 U32_maybeTrue"]
+	b1544_19["mb__1510 bool.&&"]
+	b1544_8 --> b1544_16
+	b1544_16 --> b1544_3
+	b1544_3 --> b1544_4
+	b1544_4 --> b1544_10
+	b1544_10 --> b1544_18
+	b1544_18 --> b1544_17
+	b1544_17 --> b1544_19
 end
-subgraph block_1523["Block 1523"]
+subgraph block_1539["Block 1539"]
 	direction TB
 end
-phi_1525 --> block_1523
-subgraph phi_1525["Phi 1525"]
-	p1525_22{{"Sϕ Stack "}}
-	p1525_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1525_22{{"Sϕ Stack "}}
-	p1525_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1541 --> block_1539
+subgraph phi_1541["Phi 1541"]
+	p1541_22{{"Sϕ Stack "}}
+	p1541_22{{"Sϕ Stack "}}
+	p1541_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1541_20{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1526 --> phi_1525
-block_1527 --> phi_1525
-subgraph block_1526["Block 1526"]
+block_1542 --> phi_1541
+block_1543 --> phi_1541
+subgraph block_1542["Block 1542"]
 	direction TB
-	b1526_13["eff__1500 trapDivideByZero"]
-	b1526_4["a pop_f64"]
-	b1526_3["b pop_f64"]
-	b1526_4 --> b1526_13
-	b1526_3 --> b1526_4
+	b1542_13["eff__1500 trapDivideByZero"]
 end
-branch_1524 --> block_1526
-subgraph branch_1524["Branch 1524"]
-	br1524_17["mt__1508 U32_maybeTrue"]
+branch_1540 --> block_1542
+subgraph branch_1540["Branch 1540"]
+	br1540_17["mt__1508 U32_maybeTrue"]
 
 end
-branch_1520 --> branch_1524
-subgraph block_1527["Block 1527"]
+branch_1536 --> branch_1540
+subgraph block_1543["Block 1543"]
 	direction TB
-	b1527_0[/"r_state__1511 Start"\\]
-	b1527_12["eff__1501 push_f64"]
-	b1527_7["r F64_div"]
-	b1527_12 --> b1527_0
-	b1527_7 --> b1527_12
+	b1543_7["r F64_div"]
+	b1543_12["eff__1501 push_f64"]
+	b1543_0[/"r_state__1511 Start"\\]
+	b1543_7 --> b1543_12
+	b1543_12 --> b1543_0
 end
-branch_1524 --> block_1527
+branch_1540 --> block_1543
 
 </pre>`;
 window.traces["F64_DIV"]["unlem_pretty"] = ''
@@ -52271,17 +51719,17 @@ graph TD
 </pre>`;
 window.traces["I32_WRAP_I64"]["schedulerMermaid"] = ''
 window.traces["I32_WRAP_I64"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1529["Block 1529"]
+subgraph block_1545["Block 1545"]
 	direction TB
-	b1529_1[\\"Finish"/]
-	b1529_7["eff__1515 push_u32"]
-	b1529_5["r U32_wrap_u64"]
-	b1529_3["a pop_u64"]
-	b1529_0[/"Start"\\]
-	b1529_7 --> b1529_1
-	b1529_5 --> b1529_7
-	b1529_3 --> b1529_5
-	b1529_0 --> b1529_3
+	b1545_0[/"Start"\\]
+	b1545_3["a pop_u64"]
+	b1545_5["r U32_wrap_u64"]
+	b1545_7["eff__1515 push_u32"]
+	b1545_1[\\"Finish"/]
+	b1545_0 --> b1545_3
+	b1545_3 --> b1545_5
+	b1545_5 --> b1545_7
+	b1545_7 --> b1545_1
 end
 
 </pre>`;
@@ -52310,17 +51758,17 @@ def eff__1515 = push_u32(r);
 </pre>`;
 window.traces["I32_WRAP_I64"]["unlem_scheduler"] = ''
 window.traces["I32_WRAP_I64"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1530["Block 1530"]
+subgraph block_1546["Block 1546"]
 	direction TB
-	b1530_1[\\"Finish"/]
-	b1530_7["eff__1515 push_u32"]
-	b1530_5["r U32_wrap_u64"]
-	b1530_3["a pop_u64"]
-	b1530_0[/"Start"\\]
-	b1530_7 --> b1530_1
-	b1530_5 --> b1530_7
-	b1530_3 --> b1530_5
-	b1530_0 --> b1530_3
+	b1546_0[/"Start"\\]
+	b1546_3["a pop_u64"]
+	b1546_5["r U32_wrap_u64"]
+	b1546_7["eff__1515 push_u32"]
+	b1546_1[\\"Finish"/]
+	b1546_0 --> b1546_3
+	b1546_3 --> b1546_5
+	b1546_5 --> b1546_7
+	b1546_7 --> b1546_1
 end
 
 </pre>`;
@@ -52439,17 +51887,17 @@ graph TD
 </pre>`;
 window.traces["I32_TRUNC_F32_S"]["schedulerMermaid"] = ''
 window.traces["I32_TRUNC_F32_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1531["Block 1531"]
+subgraph block_1547["Block 1547"]
 	direction TB
-	b1531_1[\\"Finish"/]
-	b1531_7["eff__1518 push_u32"]
-	b1531_5["r U32_trunc_f32_s"]
-	b1531_3["a pop_f32"]
-	b1531_0[/"Start"\\]
-	b1531_7 --> b1531_1
-	b1531_5 --> b1531_7
-	b1531_3 --> b1531_5
-	b1531_0 --> b1531_3
+	b1547_0[/"Start"\\]
+	b1547_3["a pop_f32"]
+	b1547_5["r U32_trunc_f32_s"]
+	b1547_7["eff__1518 push_u32"]
+	b1547_1[\\"Finish"/]
+	b1547_0 --> b1547_3
+	b1547_3 --> b1547_5
+	b1547_5 --> b1547_7
+	b1547_7 --> b1547_1
 end
 
 </pre>`;
@@ -52478,17 +51926,17 @@ def eff__1518 = push_u32(r);
 </pre>`;
 window.traces["I32_TRUNC_F32_S"]["unlem_scheduler"] = ''
 window.traces["I32_TRUNC_F32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1532["Block 1532"]
+subgraph block_1548["Block 1548"]
 	direction TB
-	b1532_1[\\"Finish"/]
-	b1532_7["eff__1518 push_u32"]
-	b1532_5["r U32_trunc_f32_s"]
-	b1532_3["a pop_f32"]
-	b1532_0[/"Start"\\]
-	b1532_7 --> b1532_1
-	b1532_5 --> b1532_7
-	b1532_3 --> b1532_5
-	b1532_0 --> b1532_3
+	b1548_0[/"Start"\\]
+	b1548_3["a pop_f32"]
+	b1548_5["r U32_trunc_f32_s"]
+	b1548_7["eff__1518 push_u32"]
+	b1548_1[\\"Finish"/]
+	b1548_0 --> b1548_3
+	b1548_3 --> b1548_5
+	b1548_5 --> b1548_7
+	b1548_7 --> b1548_1
 end
 
 </pre>`;
@@ -52607,17 +52055,17 @@ graph TD
 </pre>`;
 window.traces["I32_TRUNC_F32_U"]["schedulerMermaid"] = ''
 window.traces["I32_TRUNC_F32_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1533["Block 1533"]
+subgraph block_1549["Block 1549"]
 	direction TB
-	b1533_1[\\"Finish"/]
-	b1533_7["eff__1521 push_u32"]
-	b1533_5["r U32_trunc_f32_u"]
-	b1533_3["a pop_f32"]
-	b1533_0[/"Start"\\]
-	b1533_7 --> b1533_1
-	b1533_5 --> b1533_7
-	b1533_3 --> b1533_5
-	b1533_0 --> b1533_3
+	b1549_0[/"Start"\\]
+	b1549_3["a pop_f32"]
+	b1549_5["r U32_trunc_f32_u"]
+	b1549_7["eff__1521 push_u32"]
+	b1549_1[\\"Finish"/]
+	b1549_0 --> b1549_3
+	b1549_3 --> b1549_5
+	b1549_5 --> b1549_7
+	b1549_7 --> b1549_1
 end
 
 </pre>`;
@@ -52646,17 +52094,17 @@ def eff__1521 = push_u32(r);
 </pre>`;
 window.traces["I32_TRUNC_F32_U"]["unlem_scheduler"] = ''
 window.traces["I32_TRUNC_F32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1534["Block 1534"]
+subgraph block_1550["Block 1550"]
 	direction TB
-	b1534_1[\\"Finish"/]
-	b1534_7["eff__1521 push_u32"]
-	b1534_5["r U32_trunc_f32_u"]
-	b1534_3["a pop_f32"]
-	b1534_0[/"Start"\\]
-	b1534_7 --> b1534_1
-	b1534_5 --> b1534_7
-	b1534_3 --> b1534_5
-	b1534_0 --> b1534_3
+	b1550_0[/"Start"\\]
+	b1550_3["a pop_f32"]
+	b1550_5["r U32_trunc_f32_u"]
+	b1550_7["eff__1521 push_u32"]
+	b1550_1[\\"Finish"/]
+	b1550_0 --> b1550_3
+	b1550_3 --> b1550_5
+	b1550_5 --> b1550_7
+	b1550_7 --> b1550_1
 end
 
 </pre>`;
@@ -52775,17 +52223,17 @@ graph TD
 </pre>`;
 window.traces["I32_TRUNC_F64_S"]["schedulerMermaid"] = ''
 window.traces["I32_TRUNC_F64_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1535["Block 1535"]
+subgraph block_1551["Block 1551"]
 	direction TB
-	b1535_1[\\"Finish"/]
-	b1535_7["eff__1524 push_u32"]
-	b1535_5["r U32_trunc_f64_s"]
-	b1535_3["a pop_f64"]
-	b1535_0[/"Start"\\]
-	b1535_7 --> b1535_1
-	b1535_5 --> b1535_7
-	b1535_3 --> b1535_5
-	b1535_0 --> b1535_3
+	b1551_0[/"Start"\\]
+	b1551_3["a pop_f64"]
+	b1551_5["r U32_trunc_f64_s"]
+	b1551_7["eff__1524 push_u32"]
+	b1551_1[\\"Finish"/]
+	b1551_0 --> b1551_3
+	b1551_3 --> b1551_5
+	b1551_5 --> b1551_7
+	b1551_7 --> b1551_1
 end
 
 </pre>`;
@@ -52814,17 +52262,17 @@ def eff__1524 = push_u32(r);
 </pre>`;
 window.traces["I32_TRUNC_F64_S"]["unlem_scheduler"] = ''
 window.traces["I32_TRUNC_F64_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1536["Block 1536"]
+subgraph block_1552["Block 1552"]
 	direction TB
-	b1536_1[\\"Finish"/]
-	b1536_7["eff__1524 push_u32"]
-	b1536_5["r U32_trunc_f64_s"]
-	b1536_3["a pop_f64"]
-	b1536_0[/"Start"\\]
-	b1536_7 --> b1536_1
-	b1536_5 --> b1536_7
-	b1536_3 --> b1536_5
-	b1536_0 --> b1536_3
+	b1552_0[/"Start"\\]
+	b1552_3["a pop_f64"]
+	b1552_5["r U32_trunc_f64_s"]
+	b1552_7["eff__1524 push_u32"]
+	b1552_1[\\"Finish"/]
+	b1552_0 --> b1552_3
+	b1552_3 --> b1552_5
+	b1552_5 --> b1552_7
+	b1552_7 --> b1552_1
 end
 
 </pre>`;
@@ -52943,17 +52391,17 @@ graph TD
 </pre>`;
 window.traces["I32_TRUNC_F64_U"]["schedulerMermaid"] = ''
 window.traces["I32_TRUNC_F64_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1537["Block 1537"]
+subgraph block_1553["Block 1553"]
 	direction TB
-	b1537_1[\\"Finish"/]
-	b1537_7["eff__1527 push_u32"]
-	b1537_5["r U32_trunc_f64_u"]
-	b1537_3["a pop_f64"]
-	b1537_0[/"Start"\\]
-	b1537_7 --> b1537_1
-	b1537_5 --> b1537_7
-	b1537_3 --> b1537_5
-	b1537_0 --> b1537_3
+	b1553_0[/"Start"\\]
+	b1553_3["a pop_f64"]
+	b1553_5["r U32_trunc_f64_u"]
+	b1553_7["eff__1527 push_u32"]
+	b1553_1[\\"Finish"/]
+	b1553_0 --> b1553_3
+	b1553_3 --> b1553_5
+	b1553_5 --> b1553_7
+	b1553_7 --> b1553_1
 end
 
 </pre>`;
@@ -52982,17 +52430,17 @@ def eff__1527 = push_u32(r);
 </pre>`;
 window.traces["I32_TRUNC_F64_U"]["unlem_scheduler"] = ''
 window.traces["I32_TRUNC_F64_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1538["Block 1538"]
+subgraph block_1554["Block 1554"]
 	direction TB
-	b1538_1[\\"Finish"/]
-	b1538_7["eff__1527 push_u32"]
-	b1538_5["r U32_trunc_f64_u"]
-	b1538_3["a pop_f64"]
-	b1538_0[/"Start"\\]
-	b1538_7 --> b1538_1
-	b1538_5 --> b1538_7
-	b1538_3 --> b1538_5
-	b1538_0 --> b1538_3
+	b1554_0[/"Start"\\]
+	b1554_3["a pop_f64"]
+	b1554_5["r U32_trunc_f64_u"]
+	b1554_7["eff__1527 push_u32"]
+	b1554_1[\\"Finish"/]
+	b1554_0 --> b1554_3
+	b1554_3 --> b1554_5
+	b1554_5 --> b1554_7
+	b1554_7 --> b1554_1
 end
 
 </pre>`;
@@ -53111,17 +52559,17 @@ graph TD
 </pre>`;
 window.traces["I64_EXTEND_I32_S"]["schedulerMermaid"] = ''
 window.traces["I64_EXTEND_I32_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1539["Block 1539"]
+subgraph block_1555["Block 1555"]
 	direction TB
-	b1539_1[\\"Finish"/]
-	b1539_7["eff__1530 push_u64"]
-	b1539_5["r U64_extend_i32_s"]
-	b1539_3["a pop_u32"]
-	b1539_0[/"Start"\\]
-	b1539_7 --> b1539_1
-	b1539_5 --> b1539_7
-	b1539_3 --> b1539_5
-	b1539_0 --> b1539_3
+	b1555_0[/"Start"\\]
+	b1555_3["a pop_u32"]
+	b1555_5["r U64_extend_i32_s"]
+	b1555_7["eff__1530 push_u64"]
+	b1555_1[\\"Finish"/]
+	b1555_0 --> b1555_3
+	b1555_3 --> b1555_5
+	b1555_5 --> b1555_7
+	b1555_7 --> b1555_1
 end
 
 </pre>`;
@@ -53150,17 +52598,17 @@ def eff__1530 = push_u64(r);
 </pre>`;
 window.traces["I64_EXTEND_I32_S"]["unlem_scheduler"] = ''
 window.traces["I64_EXTEND_I32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1540["Block 1540"]
+subgraph block_1556["Block 1556"]
 	direction TB
-	b1540_1[\\"Finish"/]
-	b1540_7["eff__1530 push_u64"]
-	b1540_5["r U64_extend_i32_s"]
-	b1540_3["a pop_u32"]
-	b1540_0[/"Start"\\]
-	b1540_7 --> b1540_1
-	b1540_5 --> b1540_7
-	b1540_3 --> b1540_5
-	b1540_0 --> b1540_3
+	b1556_0[/"Start"\\]
+	b1556_3["a pop_u32"]
+	b1556_5["r U64_extend_i32_s"]
+	b1556_7["eff__1530 push_u64"]
+	b1556_1[\\"Finish"/]
+	b1556_0 --> b1556_3
+	b1556_3 --> b1556_5
+	b1556_5 --> b1556_7
+	b1556_7 --> b1556_1
 end
 
 </pre>`;
@@ -53279,17 +52727,17 @@ graph TD
 </pre>`;
 window.traces["I64_EXTEND_I32_U"]["schedulerMermaid"] = ''
 window.traces["I64_EXTEND_I32_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1541["Block 1541"]
+subgraph block_1557["Block 1557"]
 	direction TB
-	b1541_1[\\"Finish"/]
-	b1541_7["eff__1533 push_u64"]
-	b1541_5["r U64_extend_i32_u"]
-	b1541_3["a pop_u32"]
-	b1541_0[/"Start"\\]
-	b1541_7 --> b1541_1
-	b1541_5 --> b1541_7
-	b1541_3 --> b1541_5
-	b1541_0 --> b1541_3
+	b1557_0[/"Start"\\]
+	b1557_3["a pop_u32"]
+	b1557_5["r U64_extend_i32_u"]
+	b1557_7["eff__1533 push_u64"]
+	b1557_1[\\"Finish"/]
+	b1557_0 --> b1557_3
+	b1557_3 --> b1557_5
+	b1557_5 --> b1557_7
+	b1557_7 --> b1557_1
 end
 
 </pre>`;
@@ -53318,17 +52766,17 @@ def eff__1533 = push_u64(r);
 </pre>`;
 window.traces["I64_EXTEND_I32_U"]["unlem_scheduler"] = ''
 window.traces["I64_EXTEND_I32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1542["Block 1542"]
+subgraph block_1558["Block 1558"]
 	direction TB
-	b1542_1[\\"Finish"/]
-	b1542_7["eff__1533 push_u64"]
-	b1542_5["r U64_extend_i32_u"]
-	b1542_3["a pop_u32"]
-	b1542_0[/"Start"\\]
-	b1542_7 --> b1542_1
-	b1542_5 --> b1542_7
-	b1542_3 --> b1542_5
-	b1542_0 --> b1542_3
+	b1558_0[/"Start"\\]
+	b1558_3["a pop_u32"]
+	b1558_5["r U64_extend_i32_u"]
+	b1558_7["eff__1533 push_u64"]
+	b1558_1[\\"Finish"/]
+	b1558_0 --> b1558_3
+	b1558_3 --> b1558_5
+	b1558_5 --> b1558_7
+	b1558_7 --> b1558_1
 end
 
 </pre>`;
@@ -53447,17 +52895,17 @@ graph TD
 </pre>`;
 window.traces["I64_TRUNC_F32_S"]["schedulerMermaid"] = ''
 window.traces["I64_TRUNC_F32_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1543["Block 1543"]
+subgraph block_1559["Block 1559"]
 	direction TB
-	b1543_1[\\"Finish"/]
-	b1543_7["eff__1536 push_u64"]
-	b1543_5["r U64_trunc_f32_s"]
-	b1543_3["a pop_f32"]
-	b1543_0[/"Start"\\]
-	b1543_7 --> b1543_1
-	b1543_5 --> b1543_7
-	b1543_3 --> b1543_5
-	b1543_0 --> b1543_3
+	b1559_0[/"Start"\\]
+	b1559_3["a pop_f32"]
+	b1559_5["r U64_trunc_f32_s"]
+	b1559_7["eff__1536 push_u64"]
+	b1559_1[\\"Finish"/]
+	b1559_0 --> b1559_3
+	b1559_3 --> b1559_5
+	b1559_5 --> b1559_7
+	b1559_7 --> b1559_1
 end
 
 </pre>`;
@@ -53486,17 +52934,17 @@ def eff__1536 = push_u64(r);
 </pre>`;
 window.traces["I64_TRUNC_F32_S"]["unlem_scheduler"] = ''
 window.traces["I64_TRUNC_F32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1544["Block 1544"]
+subgraph block_1560["Block 1560"]
 	direction TB
-	b1544_1[\\"Finish"/]
-	b1544_7["eff__1536 push_u64"]
-	b1544_5["r U64_trunc_f32_s"]
-	b1544_3["a pop_f32"]
-	b1544_0[/"Start"\\]
-	b1544_7 --> b1544_1
-	b1544_5 --> b1544_7
-	b1544_3 --> b1544_5
-	b1544_0 --> b1544_3
+	b1560_0[/"Start"\\]
+	b1560_3["a pop_f32"]
+	b1560_5["r U64_trunc_f32_s"]
+	b1560_7["eff__1536 push_u64"]
+	b1560_1[\\"Finish"/]
+	b1560_0 --> b1560_3
+	b1560_3 --> b1560_5
+	b1560_5 --> b1560_7
+	b1560_7 --> b1560_1
 end
 
 </pre>`;
@@ -53615,17 +53063,17 @@ graph TD
 </pre>`;
 window.traces["I64_TRUNC_F32_U"]["schedulerMermaid"] = ''
 window.traces["I64_TRUNC_F32_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1545["Block 1545"]
+subgraph block_1561["Block 1561"]
 	direction TB
-	b1545_1[\\"Finish"/]
-	b1545_7["eff__1539 push_u64"]
-	b1545_5["r U64_trunc_f32_u"]
-	b1545_3["a pop_f32"]
-	b1545_0[/"Start"\\]
-	b1545_7 --> b1545_1
-	b1545_5 --> b1545_7
-	b1545_3 --> b1545_5
-	b1545_0 --> b1545_3
+	b1561_0[/"Start"\\]
+	b1561_3["a pop_f32"]
+	b1561_5["r U64_trunc_f32_u"]
+	b1561_7["eff__1539 push_u64"]
+	b1561_1[\\"Finish"/]
+	b1561_0 --> b1561_3
+	b1561_3 --> b1561_5
+	b1561_5 --> b1561_7
+	b1561_7 --> b1561_1
 end
 
 </pre>`;
@@ -53654,17 +53102,17 @@ def eff__1539 = push_u64(r);
 </pre>`;
 window.traces["I64_TRUNC_F32_U"]["unlem_scheduler"] = ''
 window.traces["I64_TRUNC_F32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1546["Block 1546"]
+subgraph block_1562["Block 1562"]
 	direction TB
-	b1546_1[\\"Finish"/]
-	b1546_7["eff__1539 push_u64"]
-	b1546_5["r U64_trunc_f32_u"]
-	b1546_3["a pop_f32"]
-	b1546_0[/"Start"\\]
-	b1546_7 --> b1546_1
-	b1546_5 --> b1546_7
-	b1546_3 --> b1546_5
-	b1546_0 --> b1546_3
+	b1562_0[/"Start"\\]
+	b1562_3["a pop_f32"]
+	b1562_5["r U64_trunc_f32_u"]
+	b1562_7["eff__1539 push_u64"]
+	b1562_1[\\"Finish"/]
+	b1562_0 --> b1562_3
+	b1562_3 --> b1562_5
+	b1562_5 --> b1562_7
+	b1562_7 --> b1562_1
 end
 
 </pre>`;
@@ -53783,17 +53231,17 @@ graph TD
 </pre>`;
 window.traces["I64_TRUNC_F64_S"]["schedulerMermaid"] = ''
 window.traces["I64_TRUNC_F64_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1547["Block 1547"]
+subgraph block_1563["Block 1563"]
 	direction TB
-	b1547_1[\\"Finish"/]
-	b1547_7["eff__1542 push_u64"]
-	b1547_5["r U64_trunc_f64_s"]
-	b1547_3["a pop_f64"]
-	b1547_0[/"Start"\\]
-	b1547_7 --> b1547_1
-	b1547_5 --> b1547_7
-	b1547_3 --> b1547_5
-	b1547_0 --> b1547_3
+	b1563_0[/"Start"\\]
+	b1563_3["a pop_f64"]
+	b1563_5["r U64_trunc_f64_s"]
+	b1563_7["eff__1542 push_u64"]
+	b1563_1[\\"Finish"/]
+	b1563_0 --> b1563_3
+	b1563_3 --> b1563_5
+	b1563_5 --> b1563_7
+	b1563_7 --> b1563_1
 end
 
 </pre>`;
@@ -53822,17 +53270,17 @@ def eff__1542 = push_u64(r);
 </pre>`;
 window.traces["I64_TRUNC_F64_S"]["unlem_scheduler"] = ''
 window.traces["I64_TRUNC_F64_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1548["Block 1548"]
+subgraph block_1564["Block 1564"]
 	direction TB
-	b1548_1[\\"Finish"/]
-	b1548_7["eff__1542 push_u64"]
-	b1548_5["r U64_trunc_f64_s"]
-	b1548_3["a pop_f64"]
-	b1548_0[/"Start"\\]
-	b1548_7 --> b1548_1
-	b1548_5 --> b1548_7
-	b1548_3 --> b1548_5
-	b1548_0 --> b1548_3
+	b1564_0[/"Start"\\]
+	b1564_3["a pop_f64"]
+	b1564_5["r U64_trunc_f64_s"]
+	b1564_7["eff__1542 push_u64"]
+	b1564_1[\\"Finish"/]
+	b1564_0 --> b1564_3
+	b1564_3 --> b1564_5
+	b1564_5 --> b1564_7
+	b1564_7 --> b1564_1
 end
 
 </pre>`;
@@ -53951,17 +53399,17 @@ graph TD
 </pre>`;
 window.traces["I64_TRUNC_F64_U"]["schedulerMermaid"] = ''
 window.traces["I64_TRUNC_F64_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1549["Block 1549"]
+subgraph block_1565["Block 1565"]
 	direction TB
-	b1549_1[\\"Finish"/]
-	b1549_7["eff__1545 push_u64"]
-	b1549_5["r U64_trunc_f64_u"]
-	b1549_3["a pop_f64"]
-	b1549_0[/"Start"\\]
-	b1549_7 --> b1549_1
-	b1549_5 --> b1549_7
-	b1549_3 --> b1549_5
-	b1549_0 --> b1549_3
+	b1565_0[/"Start"\\]
+	b1565_3["a pop_f64"]
+	b1565_5["r U64_trunc_f64_u"]
+	b1565_7["eff__1545 push_u64"]
+	b1565_1[\\"Finish"/]
+	b1565_0 --> b1565_3
+	b1565_3 --> b1565_5
+	b1565_5 --> b1565_7
+	b1565_7 --> b1565_1
 end
 
 </pre>`;
@@ -53990,17 +53438,17 @@ def eff__1545 = push_u64(r);
 </pre>`;
 window.traces["I64_TRUNC_F64_U"]["unlem_scheduler"] = ''
 window.traces["I64_TRUNC_F64_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1550["Block 1550"]
+subgraph block_1566["Block 1566"]
 	direction TB
-	b1550_1[\\"Finish"/]
-	b1550_7["eff__1545 push_u64"]
-	b1550_5["r U64_trunc_f64_u"]
-	b1550_3["a pop_f64"]
-	b1550_0[/"Start"\\]
-	b1550_7 --> b1550_1
-	b1550_5 --> b1550_7
-	b1550_3 --> b1550_5
-	b1550_0 --> b1550_3
+	b1566_0[/"Start"\\]
+	b1566_3["a pop_f64"]
+	b1566_5["r U64_trunc_f64_u"]
+	b1566_7["eff__1545 push_u64"]
+	b1566_1[\\"Finish"/]
+	b1566_0 --> b1566_3
+	b1566_3 --> b1566_5
+	b1566_5 --> b1566_7
+	b1566_7 --> b1566_1
 end
 
 </pre>`;
@@ -54119,17 +53567,17 @@ graph TD
 </pre>`;
 window.traces["F32_CONVERT_I32_S"]["schedulerMermaid"] = ''
 window.traces["F32_CONVERT_I32_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1551["Block 1551"]
+subgraph block_1567["Block 1567"]
 	direction TB
-	b1551_1[\\"Finish"/]
-	b1551_7["eff__1548 push_f32"]
-	b1551_5["r F32_convert_i32_s"]
-	b1551_3["b pop_u32"]
-	b1551_0[/"Start"\\]
-	b1551_7 --> b1551_1
-	b1551_5 --> b1551_7
-	b1551_3 --> b1551_5
-	b1551_0 --> b1551_3
+	b1567_0[/"Start"\\]
+	b1567_3["b pop_u32"]
+	b1567_5["r F32_convert_i32_s"]
+	b1567_7["eff__1548 push_f32"]
+	b1567_1[\\"Finish"/]
+	b1567_0 --> b1567_3
+	b1567_3 --> b1567_5
+	b1567_5 --> b1567_7
+	b1567_7 --> b1567_1
 end
 
 </pre>`;
@@ -54158,17 +53606,17 @@ def eff__1548 = push_f32(r);
 </pre>`;
 window.traces["F32_CONVERT_I32_S"]["unlem_scheduler"] = ''
 window.traces["F32_CONVERT_I32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1552["Block 1552"]
+subgraph block_1568["Block 1568"]
 	direction TB
-	b1552_1[\\"Finish"/]
-	b1552_7["eff__1548 push_f32"]
-	b1552_5["r F32_convert_i32_s"]
-	b1552_3["b pop_u32"]
-	b1552_0[/"Start"\\]
-	b1552_7 --> b1552_1
-	b1552_5 --> b1552_7
-	b1552_3 --> b1552_5
-	b1552_0 --> b1552_3
+	b1568_0[/"Start"\\]
+	b1568_3["b pop_u32"]
+	b1568_5["r F32_convert_i32_s"]
+	b1568_7["eff__1548 push_f32"]
+	b1568_1[\\"Finish"/]
+	b1568_0 --> b1568_3
+	b1568_3 --> b1568_5
+	b1568_5 --> b1568_7
+	b1568_7 --> b1568_1
 end
 
 </pre>`;
@@ -54287,17 +53735,17 @@ graph TD
 </pre>`;
 window.traces["F32_CONVERT_I32_U"]["schedulerMermaid"] = ''
 window.traces["F32_CONVERT_I32_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1553["Block 1553"]
+subgraph block_1569["Block 1569"]
 	direction TB
-	b1553_1[\\"Finish"/]
-	b1553_7["eff__1551 push_f32"]
-	b1553_5["r F32_convert_i32_u"]
-	b1553_3["b pop_u32"]
-	b1553_0[/"Start"\\]
-	b1553_7 --> b1553_1
-	b1553_5 --> b1553_7
-	b1553_3 --> b1553_5
-	b1553_0 --> b1553_3
+	b1569_0[/"Start"\\]
+	b1569_3["b pop_u32"]
+	b1569_5["r F32_convert_i32_u"]
+	b1569_7["eff__1551 push_f32"]
+	b1569_1[\\"Finish"/]
+	b1569_0 --> b1569_3
+	b1569_3 --> b1569_5
+	b1569_5 --> b1569_7
+	b1569_7 --> b1569_1
 end
 
 </pre>`;
@@ -54326,17 +53774,17 @@ def eff__1551 = push_f32(r);
 </pre>`;
 window.traces["F32_CONVERT_I32_U"]["unlem_scheduler"] = ''
 window.traces["F32_CONVERT_I32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1554["Block 1554"]
+subgraph block_1570["Block 1570"]
 	direction TB
-	b1554_1[\\"Finish"/]
-	b1554_7["eff__1551 push_f32"]
-	b1554_5["r F32_convert_i32_u"]
-	b1554_3["b pop_u32"]
-	b1554_0[/"Start"\\]
-	b1554_7 --> b1554_1
-	b1554_5 --> b1554_7
-	b1554_3 --> b1554_5
-	b1554_0 --> b1554_3
+	b1570_0[/"Start"\\]
+	b1570_3["b pop_u32"]
+	b1570_5["r F32_convert_i32_u"]
+	b1570_7["eff__1551 push_f32"]
+	b1570_1[\\"Finish"/]
+	b1570_0 --> b1570_3
+	b1570_3 --> b1570_5
+	b1570_5 --> b1570_7
+	b1570_7 --> b1570_1
 end
 
 </pre>`;
@@ -54455,17 +53903,17 @@ graph TD
 </pre>`;
 window.traces["F32_CONVERT_I64_S"]["schedulerMermaid"] = ''
 window.traces["F32_CONVERT_I64_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1555["Block 1555"]
+subgraph block_1571["Block 1571"]
 	direction TB
-	b1555_1[\\"Finish"/]
-	b1555_7["eff__1554 push_f32"]
-	b1555_5["r F32_convert_i64_s"]
-	b1555_3["b pop_u64"]
-	b1555_0[/"Start"\\]
-	b1555_7 --> b1555_1
-	b1555_5 --> b1555_7
-	b1555_3 --> b1555_5
-	b1555_0 --> b1555_3
+	b1571_0[/"Start"\\]
+	b1571_3["b pop_u64"]
+	b1571_5["r F32_convert_i64_s"]
+	b1571_7["eff__1554 push_f32"]
+	b1571_1[\\"Finish"/]
+	b1571_0 --> b1571_3
+	b1571_3 --> b1571_5
+	b1571_5 --> b1571_7
+	b1571_7 --> b1571_1
 end
 
 </pre>`;
@@ -54494,17 +53942,17 @@ def eff__1554 = push_f32(r);
 </pre>`;
 window.traces["F32_CONVERT_I64_S"]["unlem_scheduler"] = ''
 window.traces["F32_CONVERT_I64_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1556["Block 1556"]
+subgraph block_1572["Block 1572"]
 	direction TB
-	b1556_1[\\"Finish"/]
-	b1556_7["eff__1554 push_f32"]
-	b1556_5["r F32_convert_i64_s"]
-	b1556_3["b pop_u64"]
-	b1556_0[/"Start"\\]
-	b1556_7 --> b1556_1
-	b1556_5 --> b1556_7
-	b1556_3 --> b1556_5
-	b1556_0 --> b1556_3
+	b1572_0[/"Start"\\]
+	b1572_3["b pop_u64"]
+	b1572_5["r F32_convert_i64_s"]
+	b1572_7["eff__1554 push_f32"]
+	b1572_1[\\"Finish"/]
+	b1572_0 --> b1572_3
+	b1572_3 --> b1572_5
+	b1572_5 --> b1572_7
+	b1572_7 --> b1572_1
 end
 
 </pre>`;
@@ -54623,17 +54071,17 @@ graph TD
 </pre>`;
 window.traces["F32_CONVERT_I64_U"]["schedulerMermaid"] = ''
 window.traces["F32_CONVERT_I64_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1557["Block 1557"]
+subgraph block_1573["Block 1573"]
 	direction TB
-	b1557_1[\\"Finish"/]
-	b1557_7["eff__1557 push_f32"]
-	b1557_5["r F32_convert_i64_u"]
-	b1557_3["b pop_u64"]
-	b1557_0[/"Start"\\]
-	b1557_7 --> b1557_1
-	b1557_5 --> b1557_7
-	b1557_3 --> b1557_5
-	b1557_0 --> b1557_3
+	b1573_0[/"Start"\\]
+	b1573_3["b pop_u64"]
+	b1573_5["r F32_convert_i64_u"]
+	b1573_7["eff__1557 push_f32"]
+	b1573_1[\\"Finish"/]
+	b1573_0 --> b1573_3
+	b1573_3 --> b1573_5
+	b1573_5 --> b1573_7
+	b1573_7 --> b1573_1
 end
 
 </pre>`;
@@ -54662,17 +54110,17 @@ def eff__1557 = push_f32(r);
 </pre>`;
 window.traces["F32_CONVERT_I64_U"]["unlem_scheduler"] = ''
 window.traces["F32_CONVERT_I64_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1558["Block 1558"]
+subgraph block_1574["Block 1574"]
 	direction TB
-	b1558_1[\\"Finish"/]
-	b1558_7["eff__1557 push_f32"]
-	b1558_5["r F32_convert_i64_u"]
-	b1558_3["b pop_u64"]
-	b1558_0[/"Start"\\]
-	b1558_7 --> b1558_1
-	b1558_5 --> b1558_7
-	b1558_3 --> b1558_5
-	b1558_0 --> b1558_3
+	b1574_0[/"Start"\\]
+	b1574_3["b pop_u64"]
+	b1574_5["r F32_convert_i64_u"]
+	b1574_7["eff__1557 push_f32"]
+	b1574_1[\\"Finish"/]
+	b1574_0 --> b1574_3
+	b1574_3 --> b1574_5
+	b1574_5 --> b1574_7
+	b1574_7 --> b1574_1
 end
 
 </pre>`;
@@ -54791,17 +54239,17 @@ graph TD
 </pre>`;
 window.traces["F64_CONVERT_I32_S"]["schedulerMermaid"] = ''
 window.traces["F64_CONVERT_I32_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1559["Block 1559"]
+subgraph block_1575["Block 1575"]
 	direction TB
-	b1559_1[\\"Finish"/]
-	b1559_7["eff__1560 push_f64"]
-	b1559_5["r F64_convert_i32_s"]
-	b1559_3["b pop_u32"]
-	b1559_0[/"Start"\\]
-	b1559_7 --> b1559_1
-	b1559_5 --> b1559_7
-	b1559_3 --> b1559_5
-	b1559_0 --> b1559_3
+	b1575_0[/"Start"\\]
+	b1575_3["b pop_u32"]
+	b1575_5["r F64_convert_i32_s"]
+	b1575_7["eff__1560 push_f64"]
+	b1575_1[\\"Finish"/]
+	b1575_0 --> b1575_3
+	b1575_3 --> b1575_5
+	b1575_5 --> b1575_7
+	b1575_7 --> b1575_1
 end
 
 </pre>`;
@@ -54830,17 +54278,17 @@ def eff__1560 = push_f64(r);
 </pre>`;
 window.traces["F64_CONVERT_I32_S"]["unlem_scheduler"] = ''
 window.traces["F64_CONVERT_I32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1560["Block 1560"]
+subgraph block_1576["Block 1576"]
 	direction TB
-	b1560_1[\\"Finish"/]
-	b1560_7["eff__1560 push_f64"]
-	b1560_5["r F64_convert_i32_s"]
-	b1560_3["b pop_u32"]
-	b1560_0[/"Start"\\]
-	b1560_7 --> b1560_1
-	b1560_5 --> b1560_7
-	b1560_3 --> b1560_5
-	b1560_0 --> b1560_3
+	b1576_0[/"Start"\\]
+	b1576_3["b pop_u32"]
+	b1576_5["r F64_convert_i32_s"]
+	b1576_7["eff__1560 push_f64"]
+	b1576_1[\\"Finish"/]
+	b1576_0 --> b1576_3
+	b1576_3 --> b1576_5
+	b1576_5 --> b1576_7
+	b1576_7 --> b1576_1
 end
 
 </pre>`;
@@ -54959,17 +54407,17 @@ graph TD
 </pre>`;
 window.traces["F64_CONVERT_I32_U"]["schedulerMermaid"] = ''
 window.traces["F64_CONVERT_I32_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1561["Block 1561"]
+subgraph block_1577["Block 1577"]
 	direction TB
-	b1561_1[\\"Finish"/]
-	b1561_7["eff__1563 push_f64"]
-	b1561_5["r F64_convert_i32_u"]
-	b1561_3["b pop_u32"]
-	b1561_0[/"Start"\\]
-	b1561_7 --> b1561_1
-	b1561_5 --> b1561_7
-	b1561_3 --> b1561_5
-	b1561_0 --> b1561_3
+	b1577_0[/"Start"\\]
+	b1577_3["b pop_u32"]
+	b1577_5["r F64_convert_i32_u"]
+	b1577_7["eff__1563 push_f64"]
+	b1577_1[\\"Finish"/]
+	b1577_0 --> b1577_3
+	b1577_3 --> b1577_5
+	b1577_5 --> b1577_7
+	b1577_7 --> b1577_1
 end
 
 </pre>`;
@@ -54998,17 +54446,17 @@ def eff__1563 = push_f64(r);
 </pre>`;
 window.traces["F64_CONVERT_I32_U"]["unlem_scheduler"] = ''
 window.traces["F64_CONVERT_I32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1562["Block 1562"]
+subgraph block_1578["Block 1578"]
 	direction TB
-	b1562_1[\\"Finish"/]
-	b1562_7["eff__1563 push_f64"]
-	b1562_5["r F64_convert_i32_u"]
-	b1562_3["b pop_u32"]
-	b1562_0[/"Start"\\]
-	b1562_7 --> b1562_1
-	b1562_5 --> b1562_7
-	b1562_3 --> b1562_5
-	b1562_0 --> b1562_3
+	b1578_0[/"Start"\\]
+	b1578_3["b pop_u32"]
+	b1578_5["r F64_convert_i32_u"]
+	b1578_7["eff__1563 push_f64"]
+	b1578_1[\\"Finish"/]
+	b1578_0 --> b1578_3
+	b1578_3 --> b1578_5
+	b1578_5 --> b1578_7
+	b1578_7 --> b1578_1
 end
 
 </pre>`;
@@ -55127,17 +54575,17 @@ graph TD
 </pre>`;
 window.traces["F64_CONVERT_I64_S"]["schedulerMermaid"] = ''
 window.traces["F64_CONVERT_I64_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1563["Block 1563"]
+subgraph block_1579["Block 1579"]
 	direction TB
-	b1563_1[\\"Finish"/]
-	b1563_7["eff__1566 push_f64"]
-	b1563_5["r F64_convert_i64_s"]
-	b1563_3["b pop_u64"]
-	b1563_0[/"Start"\\]
-	b1563_7 --> b1563_1
-	b1563_5 --> b1563_7
-	b1563_3 --> b1563_5
-	b1563_0 --> b1563_3
+	b1579_0[/"Start"\\]
+	b1579_3["b pop_u64"]
+	b1579_5["r F64_convert_i64_s"]
+	b1579_7["eff__1566 push_f64"]
+	b1579_1[\\"Finish"/]
+	b1579_0 --> b1579_3
+	b1579_3 --> b1579_5
+	b1579_5 --> b1579_7
+	b1579_7 --> b1579_1
 end
 
 </pre>`;
@@ -55166,17 +54614,17 @@ def eff__1566 = push_f64(r);
 </pre>`;
 window.traces["F64_CONVERT_I64_S"]["unlem_scheduler"] = ''
 window.traces["F64_CONVERT_I64_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1564["Block 1564"]
+subgraph block_1580["Block 1580"]
 	direction TB
-	b1564_1[\\"Finish"/]
-	b1564_7["eff__1566 push_f64"]
-	b1564_5["r F64_convert_i64_s"]
-	b1564_3["b pop_u64"]
-	b1564_0[/"Start"\\]
-	b1564_7 --> b1564_1
-	b1564_5 --> b1564_7
-	b1564_3 --> b1564_5
-	b1564_0 --> b1564_3
+	b1580_0[/"Start"\\]
+	b1580_3["b pop_u64"]
+	b1580_5["r F64_convert_i64_s"]
+	b1580_7["eff__1566 push_f64"]
+	b1580_1[\\"Finish"/]
+	b1580_0 --> b1580_3
+	b1580_3 --> b1580_5
+	b1580_5 --> b1580_7
+	b1580_7 --> b1580_1
 end
 
 </pre>`;
@@ -55295,17 +54743,17 @@ graph TD
 </pre>`;
 window.traces["F64_CONVERT_I64_U"]["schedulerMermaid"] = ''
 window.traces["F64_CONVERT_I64_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1565["Block 1565"]
+subgraph block_1581["Block 1581"]
 	direction TB
-	b1565_1[\\"Finish"/]
-	b1565_7["eff__1569 push_f64"]
-	b1565_5["r F64_convert_i64_u"]
-	b1565_3["b pop_u64"]
-	b1565_0[/"Start"\\]
-	b1565_7 --> b1565_1
-	b1565_5 --> b1565_7
-	b1565_3 --> b1565_5
-	b1565_0 --> b1565_3
+	b1581_0[/"Start"\\]
+	b1581_3["b pop_u64"]
+	b1581_5["r F64_convert_i64_u"]
+	b1581_7["eff__1569 push_f64"]
+	b1581_1[\\"Finish"/]
+	b1581_0 --> b1581_3
+	b1581_3 --> b1581_5
+	b1581_5 --> b1581_7
+	b1581_7 --> b1581_1
 end
 
 </pre>`;
@@ -55334,17 +54782,17 @@ def eff__1569 = push_f64(r);
 </pre>`;
 window.traces["F64_CONVERT_I64_U"]["unlem_scheduler"] = ''
 window.traces["F64_CONVERT_I64_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1566["Block 1566"]
+subgraph block_1582["Block 1582"]
 	direction TB
-	b1566_1[\\"Finish"/]
-	b1566_7["eff__1569 push_f64"]
-	b1566_5["r F64_convert_i64_u"]
-	b1566_3["b pop_u64"]
-	b1566_0[/"Start"\\]
-	b1566_7 --> b1566_1
-	b1566_5 --> b1566_7
-	b1566_3 --> b1566_5
-	b1566_0 --> b1566_3
+	b1582_0[/"Start"\\]
+	b1582_3["b pop_u64"]
+	b1582_5["r F64_convert_i64_u"]
+	b1582_7["eff__1569 push_f64"]
+	b1582_1[\\"Finish"/]
+	b1582_0 --> b1582_3
+	b1582_3 --> b1582_5
+	b1582_5 --> b1582_7
+	b1582_7 --> b1582_1
 end
 
 </pre>`;
@@ -55463,17 +54911,17 @@ graph TD
 </pre>`;
 window.traces["I32_REINTERPRET_F32"]["schedulerMermaid"] = ''
 window.traces["I32_REINTERPRET_F32"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1567["Block 1567"]
+subgraph block_1583["Block 1583"]
 	direction TB
-	b1567_1[\\"Finish"/]
-	b1567_7["eff__1572 push_u32"]
-	b1567_5["r u32_reinterpret_f32"]
-	b1567_3["a pop_f32"]
-	b1567_0[/"Start"\\]
-	b1567_7 --> b1567_1
-	b1567_5 --> b1567_7
-	b1567_3 --> b1567_5
-	b1567_0 --> b1567_3
+	b1583_0[/"Start"\\]
+	b1583_3["a pop_f32"]
+	b1583_5["r u32_reinterpret_f32"]
+	b1583_7["eff__1572 push_u32"]
+	b1583_1[\\"Finish"/]
+	b1583_0 --> b1583_3
+	b1583_3 --> b1583_5
+	b1583_5 --> b1583_7
+	b1583_7 --> b1583_1
 end
 
 </pre>`;
@@ -55502,17 +54950,17 @@ def eff__1572 = push_u32(r);
 </pre>`;
 window.traces["I32_REINTERPRET_F32"]["unlem_scheduler"] = ''
 window.traces["I32_REINTERPRET_F32"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1568["Block 1568"]
+subgraph block_1584["Block 1584"]
 	direction TB
-	b1568_1[\\"Finish"/]
-	b1568_7["eff__1572 push_u32"]
-	b1568_5["r u32_reinterpret_f32"]
-	b1568_3["a pop_f32"]
-	b1568_0[/"Start"\\]
-	b1568_7 --> b1568_1
-	b1568_5 --> b1568_7
-	b1568_3 --> b1568_5
-	b1568_0 --> b1568_3
+	b1584_0[/"Start"\\]
+	b1584_3["a pop_f32"]
+	b1584_5["r u32_reinterpret_f32"]
+	b1584_7["eff__1572 push_u32"]
+	b1584_1[\\"Finish"/]
+	b1584_0 --> b1584_3
+	b1584_3 --> b1584_5
+	b1584_5 --> b1584_7
+	b1584_7 --> b1584_1
 end
 
 </pre>`;
@@ -55631,17 +55079,17 @@ graph TD
 </pre>`;
 window.traces["I64_REINTERPRET_F64"]["schedulerMermaid"] = ''
 window.traces["I64_REINTERPRET_F64"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1569["Block 1569"]
+subgraph block_1585["Block 1585"]
 	direction TB
-	b1569_1[\\"Finish"/]
-	b1569_7["eff__1575 push_u64"]
-	b1569_5["r u64_reinterpret_f64"]
-	b1569_3["a pop_f64"]
-	b1569_0[/"Start"\\]
-	b1569_7 --> b1569_1
-	b1569_5 --> b1569_7
-	b1569_3 --> b1569_5
-	b1569_0 --> b1569_3
+	b1585_0[/"Start"\\]
+	b1585_3["a pop_f64"]
+	b1585_5["r u64_reinterpret_f64"]
+	b1585_7["eff__1575 push_u64"]
+	b1585_1[\\"Finish"/]
+	b1585_0 --> b1585_3
+	b1585_3 --> b1585_5
+	b1585_5 --> b1585_7
+	b1585_7 --> b1585_1
 end
 
 </pre>`;
@@ -55670,17 +55118,17 @@ def eff__1575 = push_u64(r);
 </pre>`;
 window.traces["I64_REINTERPRET_F64"]["unlem_scheduler"] = ''
 window.traces["I64_REINTERPRET_F64"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1570["Block 1570"]
+subgraph block_1586["Block 1586"]
 	direction TB
-	b1570_1[\\"Finish"/]
-	b1570_7["eff__1575 push_u64"]
-	b1570_5["r u64_reinterpret_f64"]
-	b1570_3["a pop_f64"]
-	b1570_0[/"Start"\\]
-	b1570_7 --> b1570_1
-	b1570_5 --> b1570_7
-	b1570_3 --> b1570_5
-	b1570_0 --> b1570_3
+	b1586_0[/"Start"\\]
+	b1586_3["a pop_f64"]
+	b1586_5["r u64_reinterpret_f64"]
+	b1586_7["eff__1575 push_u64"]
+	b1586_1[\\"Finish"/]
+	b1586_0 --> b1586_3
+	b1586_3 --> b1586_5
+	b1586_5 --> b1586_7
+	b1586_7 --> b1586_1
 end
 
 </pre>`;
@@ -55799,17 +55247,17 @@ graph TD
 </pre>`;
 window.traces["F32_REINTERPRET_I32"]["schedulerMermaid"] = ''
 window.traces["F32_REINTERPRET_I32"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1571["Block 1571"]
+subgraph block_1587["Block 1587"]
 	direction TB
-	b1571_1[\\"Finish"/]
-	b1571_7["eff__1578 push_f32"]
-	b1571_5["r f32_reinterpret_u32"]
-	b1571_3["a pop_u32"]
-	b1571_0[/"Start"\\]
-	b1571_7 --> b1571_1
-	b1571_5 --> b1571_7
-	b1571_3 --> b1571_5
-	b1571_0 --> b1571_3
+	b1587_0[/"Start"\\]
+	b1587_3["a pop_u32"]
+	b1587_5["r f32_reinterpret_u32"]
+	b1587_7["eff__1578 push_f32"]
+	b1587_1[\\"Finish"/]
+	b1587_0 --> b1587_3
+	b1587_3 --> b1587_5
+	b1587_5 --> b1587_7
+	b1587_7 --> b1587_1
 end
 
 </pre>`;
@@ -55838,17 +55286,17 @@ def eff__1578 = push_f32(r);
 </pre>`;
 window.traces["F32_REINTERPRET_I32"]["unlem_scheduler"] = ''
 window.traces["F32_REINTERPRET_I32"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1572["Block 1572"]
+subgraph block_1588["Block 1588"]
 	direction TB
-	b1572_1[\\"Finish"/]
-	b1572_7["eff__1578 push_f32"]
-	b1572_5["r f32_reinterpret_u32"]
-	b1572_3["a pop_u32"]
-	b1572_0[/"Start"\\]
-	b1572_7 --> b1572_1
-	b1572_5 --> b1572_7
-	b1572_3 --> b1572_5
-	b1572_0 --> b1572_3
+	b1588_0[/"Start"\\]
+	b1588_3["a pop_u32"]
+	b1588_5["r f32_reinterpret_u32"]
+	b1588_7["eff__1578 push_f32"]
+	b1588_1[\\"Finish"/]
+	b1588_0 --> b1588_3
+	b1588_3 --> b1588_5
+	b1588_5 --> b1588_7
+	b1588_7 --> b1588_1
 end
 
 </pre>`;
@@ -55967,17 +55415,17 @@ graph TD
 </pre>`;
 window.traces["F64_REINTERPRET_I64"]["schedulerMermaid"] = ''
 window.traces["F64_REINTERPRET_I64"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1573["Block 1573"]
+subgraph block_1589["Block 1589"]
 	direction TB
-	b1573_1[\\"Finish"/]
-	b1573_7["eff__1581 push_f64"]
-	b1573_5["r f64_reinterpret_u64"]
-	b1573_3["a pop_u64"]
-	b1573_0[/"Start"\\]
-	b1573_7 --> b1573_1
-	b1573_5 --> b1573_7
-	b1573_3 --> b1573_5
-	b1573_0 --> b1573_3
+	b1589_0[/"Start"\\]
+	b1589_3["a pop_u64"]
+	b1589_5["r f64_reinterpret_u64"]
+	b1589_7["eff__1581 push_f64"]
+	b1589_1[\\"Finish"/]
+	b1589_0 --> b1589_3
+	b1589_3 --> b1589_5
+	b1589_5 --> b1589_7
+	b1589_7 --> b1589_1
 end
 
 </pre>`;
@@ -56006,17 +55454,17 @@ def eff__1581 = push_f64(r);
 </pre>`;
 window.traces["F64_REINTERPRET_I64"]["unlem_scheduler"] = ''
 window.traces["F64_REINTERPRET_I64"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1574["Block 1574"]
+subgraph block_1590["Block 1590"]
 	direction TB
-	b1574_1[\\"Finish"/]
-	b1574_7["eff__1581 push_f64"]
-	b1574_5["r f64_reinterpret_u64"]
-	b1574_3["a pop_u64"]
-	b1574_0[/"Start"\\]
-	b1574_7 --> b1574_1
-	b1574_5 --> b1574_7
-	b1574_3 --> b1574_5
-	b1574_0 --> b1574_3
+	b1590_0[/"Start"\\]
+	b1590_3["a pop_u64"]
+	b1590_5["r f64_reinterpret_u64"]
+	b1590_7["eff__1581 push_f64"]
+	b1590_1[\\"Finish"/]
+	b1590_0 --> b1590_3
+	b1590_3 --> b1590_5
+	b1590_5 --> b1590_7
+	b1590_7 --> b1590_1
 end
 
 </pre>`;
@@ -56135,17 +55583,17 @@ graph TD
 </pre>`;
 window.traces["I32_EXTEND8_S"]["schedulerMermaid"] = ''
 window.traces["I32_EXTEND8_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1575["Block 1575"]
+subgraph block_1591["Block 1591"]
 	direction TB
-	b1575_1[\\"Finish"/]
-	b1575_7["eff__1584 push_u32"]
-	b1575_5["r U32_extend8_s"]
-	b1575_3["a pop_u32"]
-	b1575_0[/"Start"\\]
-	b1575_7 --> b1575_1
-	b1575_5 --> b1575_7
-	b1575_3 --> b1575_5
-	b1575_0 --> b1575_3
+	b1591_0[/"Start"\\]
+	b1591_3["a pop_u32"]
+	b1591_5["r U32_extend8_s"]
+	b1591_7["eff__1584 push_u32"]
+	b1591_1[\\"Finish"/]
+	b1591_0 --> b1591_3
+	b1591_3 --> b1591_5
+	b1591_5 --> b1591_7
+	b1591_7 --> b1591_1
 end
 
 </pre>`;
@@ -56174,17 +55622,17 @@ def eff__1584 = push_u32(r);
 </pre>`;
 window.traces["I32_EXTEND8_S"]["unlem_scheduler"] = ''
 window.traces["I32_EXTEND8_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1576["Block 1576"]
+subgraph block_1592["Block 1592"]
 	direction TB
-	b1576_1[\\"Finish"/]
-	b1576_7["eff__1584 push_u32"]
-	b1576_5["r U32_extend8_s"]
-	b1576_3["a pop_u32"]
-	b1576_0[/"Start"\\]
-	b1576_7 --> b1576_1
-	b1576_5 --> b1576_7
-	b1576_3 --> b1576_5
-	b1576_0 --> b1576_3
+	b1592_0[/"Start"\\]
+	b1592_3["a pop_u32"]
+	b1592_5["r U32_extend8_s"]
+	b1592_7["eff__1584 push_u32"]
+	b1592_1[\\"Finish"/]
+	b1592_0 --> b1592_3
+	b1592_3 --> b1592_5
+	b1592_5 --> b1592_7
+	b1592_7 --> b1592_1
 end
 
 </pre>`;
@@ -56303,17 +55751,17 @@ graph TD
 </pre>`;
 window.traces["I32_EXTEND16_S"]["schedulerMermaid"] = ''
 window.traces["I32_EXTEND16_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1577["Block 1577"]
+subgraph block_1593["Block 1593"]
 	direction TB
-	b1577_1[\\"Finish"/]
-	b1577_7["eff__1587 push_u32"]
-	b1577_5["r U32_extend16_s"]
-	b1577_3["a pop_u32"]
-	b1577_0[/"Start"\\]
-	b1577_7 --> b1577_1
-	b1577_5 --> b1577_7
-	b1577_3 --> b1577_5
-	b1577_0 --> b1577_3
+	b1593_0[/"Start"\\]
+	b1593_3["a pop_u32"]
+	b1593_5["r U32_extend16_s"]
+	b1593_7["eff__1587 push_u32"]
+	b1593_1[\\"Finish"/]
+	b1593_0 --> b1593_3
+	b1593_3 --> b1593_5
+	b1593_5 --> b1593_7
+	b1593_7 --> b1593_1
 end
 
 </pre>`;
@@ -56342,17 +55790,17 @@ def eff__1587 = push_u32(r);
 </pre>`;
 window.traces["I32_EXTEND16_S"]["unlem_scheduler"] = ''
 window.traces["I32_EXTEND16_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1578["Block 1578"]
+subgraph block_1594["Block 1594"]
 	direction TB
-	b1578_1[\\"Finish"/]
-	b1578_7["eff__1587 push_u32"]
-	b1578_5["r U32_extend16_s"]
-	b1578_3["a pop_u32"]
-	b1578_0[/"Start"\\]
-	b1578_7 --> b1578_1
-	b1578_5 --> b1578_7
-	b1578_3 --> b1578_5
-	b1578_0 --> b1578_3
+	b1594_0[/"Start"\\]
+	b1594_3["a pop_u32"]
+	b1594_5["r U32_extend16_s"]
+	b1594_7["eff__1587 push_u32"]
+	b1594_1[\\"Finish"/]
+	b1594_0 --> b1594_3
+	b1594_3 --> b1594_5
+	b1594_5 --> b1594_7
+	b1594_7 --> b1594_1
 end
 
 </pre>`;
@@ -56471,17 +55919,17 @@ graph TD
 </pre>`;
 window.traces["I64_EXTEND8_S"]["schedulerMermaid"] = ''
 window.traces["I64_EXTEND8_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1579["Block 1579"]
+subgraph block_1595["Block 1595"]
 	direction TB
-	b1579_1[\\"Finish"/]
-	b1579_7["eff__1590 push_u64"]
-	b1579_5["r U64_extend8_s"]
-	b1579_3["a pop_u64"]
-	b1579_0[/"Start"\\]
-	b1579_7 --> b1579_1
-	b1579_5 --> b1579_7
-	b1579_3 --> b1579_5
-	b1579_0 --> b1579_3
+	b1595_0[/"Start"\\]
+	b1595_3["a pop_u64"]
+	b1595_5["r U64_extend8_s"]
+	b1595_7["eff__1590 push_u64"]
+	b1595_1[\\"Finish"/]
+	b1595_0 --> b1595_3
+	b1595_3 --> b1595_5
+	b1595_5 --> b1595_7
+	b1595_7 --> b1595_1
 end
 
 </pre>`;
@@ -56510,17 +55958,17 @@ def eff__1590 = push_u64(r);
 </pre>`;
 window.traces["I64_EXTEND8_S"]["unlem_scheduler"] = ''
 window.traces["I64_EXTEND8_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1580["Block 1580"]
+subgraph block_1596["Block 1596"]
 	direction TB
-	b1580_1[\\"Finish"/]
-	b1580_7["eff__1590 push_u64"]
-	b1580_5["r U64_extend8_s"]
-	b1580_3["a pop_u64"]
-	b1580_0[/"Start"\\]
-	b1580_7 --> b1580_1
-	b1580_5 --> b1580_7
-	b1580_3 --> b1580_5
-	b1580_0 --> b1580_3
+	b1596_0[/"Start"\\]
+	b1596_3["a pop_u64"]
+	b1596_5["r U64_extend8_s"]
+	b1596_7["eff__1590 push_u64"]
+	b1596_1[\\"Finish"/]
+	b1596_0 --> b1596_3
+	b1596_3 --> b1596_5
+	b1596_5 --> b1596_7
+	b1596_7 --> b1596_1
 end
 
 </pre>`;
@@ -56639,17 +56087,17 @@ graph TD
 </pre>`;
 window.traces["I64_EXTEND16_S"]["schedulerMermaid"] = ''
 window.traces["I64_EXTEND16_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1581["Block 1581"]
+subgraph block_1597["Block 1597"]
 	direction TB
-	b1581_1[\\"Finish"/]
-	b1581_7["eff__1593 push_u64"]
-	b1581_5["r U64_extend16_s"]
-	b1581_3["a pop_u64"]
-	b1581_0[/"Start"\\]
-	b1581_7 --> b1581_1
-	b1581_5 --> b1581_7
-	b1581_3 --> b1581_5
-	b1581_0 --> b1581_3
+	b1597_0[/"Start"\\]
+	b1597_3["a pop_u64"]
+	b1597_5["r U64_extend16_s"]
+	b1597_7["eff__1593 push_u64"]
+	b1597_1[\\"Finish"/]
+	b1597_0 --> b1597_3
+	b1597_3 --> b1597_5
+	b1597_5 --> b1597_7
+	b1597_7 --> b1597_1
 end
 
 </pre>`;
@@ -56678,17 +56126,17 @@ def eff__1593 = push_u64(r);
 </pre>`;
 window.traces["I64_EXTEND16_S"]["unlem_scheduler"] = ''
 window.traces["I64_EXTEND16_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1582["Block 1582"]
+subgraph block_1598["Block 1598"]
 	direction TB
-	b1582_1[\\"Finish"/]
-	b1582_7["eff__1593 push_u64"]
-	b1582_5["r U64_extend16_s"]
-	b1582_3["a pop_u64"]
-	b1582_0[/"Start"\\]
-	b1582_7 --> b1582_1
-	b1582_5 --> b1582_7
-	b1582_3 --> b1582_5
-	b1582_0 --> b1582_3
+	b1598_0[/"Start"\\]
+	b1598_3["a pop_u64"]
+	b1598_5["r U64_extend16_s"]
+	b1598_7["eff__1593 push_u64"]
+	b1598_1[\\"Finish"/]
+	b1598_0 --> b1598_3
+	b1598_3 --> b1598_5
+	b1598_5 --> b1598_7
+	b1598_7 --> b1598_1
 end
 
 </pre>`;
@@ -56807,17 +56255,17 @@ graph TD
 </pre>`;
 window.traces["I64_EXTEND32_S"]["schedulerMermaid"] = ''
 window.traces["I64_EXTEND32_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1583["Block 1583"]
+subgraph block_1599["Block 1599"]
 	direction TB
-	b1583_1[\\"Finish"/]
-	b1583_7["eff__1596 push_u64"]
-	b1583_5["r U64_extend32_s"]
-	b1583_3["a pop_u64"]
-	b1583_0[/"Start"\\]
-	b1583_7 --> b1583_1
-	b1583_5 --> b1583_7
-	b1583_3 --> b1583_5
-	b1583_0 --> b1583_3
+	b1599_0[/"Start"\\]
+	b1599_3["a pop_u64"]
+	b1599_5["r U64_extend32_s"]
+	b1599_7["eff__1596 push_u64"]
+	b1599_1[\\"Finish"/]
+	b1599_0 --> b1599_3
+	b1599_3 --> b1599_5
+	b1599_5 --> b1599_7
+	b1599_7 --> b1599_1
 end
 
 </pre>`;
@@ -56846,17 +56294,17 @@ def eff__1596 = push_u64(r);
 </pre>`;
 window.traces["I64_EXTEND32_S"]["unlem_scheduler"] = ''
 window.traces["I64_EXTEND32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1584["Block 1584"]
+subgraph block_1600["Block 1600"]
 	direction TB
-	b1584_1[\\"Finish"/]
-	b1584_7["eff__1596 push_u64"]
-	b1584_5["r U64_extend32_s"]
-	b1584_3["a pop_u64"]
-	b1584_0[/"Start"\\]
-	b1584_7 --> b1584_1
-	b1584_5 --> b1584_7
-	b1584_3 --> b1584_5
-	b1584_0 --> b1584_3
+	b1600_0[/"Start"\\]
+	b1600_3["a pop_u64"]
+	b1600_5["r U64_extend32_s"]
+	b1600_7["eff__1596 push_u64"]
+	b1600_1[\\"Finish"/]
+	b1600_0 --> b1600_3
+	b1600_3 --> b1600_5
+	b1600_5 --> b1600_7
+	b1600_7 --> b1600_1
 end
 
 </pre>`;
@@ -56973,17 +56421,17 @@ graph TD
 </pre>`;
 window.traces["REF_NULL"]["schedulerMermaid"] = ''
 window.traces["REF_NULL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1585["Block 1585"]
+subgraph block_1601["Block 1601"]
 	direction TB
-	b1585_1[\\"Finish"/]
-	b1585_3["idx imm_readULEB32"]
-	b1585_5["eff__1599 push_Object"]
-	b1585_4["arg__1600 object_Null"]
-	b1585_0[/"Start"\\]
-	b1585_3 --> b1585_1
-	b1585_5 --> b1585_3
-	b1585_4 --> b1585_5
-	b1585_0 --> b1585_4
+	b1601_0[/"Start"\\]
+	b1601_4["arg__1600 object_Null"]
+	b1601_5["eff__1599 push_Object"]
+	b1601_3["idx imm_readULEB32"]
+	b1601_1[\\"Finish"/]
+	b1601_0 --> b1601_4
+	b1601_4 --> b1601_5
+	b1601_5 --> b1601_3
+	b1601_3 --> b1601_1
 end
 
 </pre>`;
@@ -57012,17 +56460,17 @@ def eff__1599 = push_Object(arg__1600);
 </pre>`;
 window.traces["REF_NULL"]["unlem_scheduler"] = ''
 window.traces["REF_NULL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1586["Block 1586"]
+subgraph block_1602["Block 1602"]
 	direction TB
-	b1586_1[\\"Finish"/]
-	b1586_3["idx imm_readULEB32"]
-	b1586_5["eff__1599 push_Object"]
-	b1586_4["arg__1600 object_Null"]
-	b1586_0[/"Start"\\]
-	b1586_3 --> b1586_1
-	b1586_5 --> b1586_3
-	b1586_4 --> b1586_5
-	b1586_0 --> b1586_4
+	b1602_0[/"Start"\\]
+	b1602_4["arg__1600 object_Null"]
+	b1602_5["eff__1599 push_Object"]
+	b1602_3["idx imm_readULEB32"]
+	b1602_1[\\"Finish"/]
+	b1602_0 --> b1602_4
+	b1602_4 --> b1602_5
+	b1602_5 --> b1602_3
+	b1602_3 --> b1602_1
 end
 
 </pre>`;
@@ -57178,47 +56626,47 @@ graph TD
 </pre>`;
 window.traces["REF_IS_NULL"]["schedulerMermaid"] = ''
 window.traces["REF_IS_NULL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1587["Block 1587"]
+subgraph block_1603["Block 1603"]
 	direction TB
-	b1587_1[\\"Finish"/]
+	b1603_1[\\"Finish"/]
 end
-phi_1589 --> block_1587
-subgraph phi_1589["Phi 1589"]
-	p1589_10{{"Sϕ Stack "}}
+phi_1605 --> block_1603
+subgraph phi_1605["Phi 1605"]
+	p1605_10{{"Sϕ Stack "}}
 end
-block_1590 --> phi_1589
-block_1591 --> phi_1589
-subgraph block_1590["Block 1590"]
+block_1606 --> phi_1605
+block_1607 --> phi_1605
+subgraph block_1606["Block 1606"]
 	direction TB
-	b1590_9["eff__1602 push_u32"]
-	b1590_11["abs__1607 lift_u32"]
-	b1590_8["arg__1603 1"]
-	b1590_11 --> b1590_9
-	b1590_8 --> b1590_11
+	b1606_8["arg__1603 1"]
+	b1606_11["abs__1607 lift_u32"]
+	b1606_9["eff__1602 push_u32"]
+	b1606_8 --> b1606_11
+	b1606_11 --> b1606_9
 end
-branch_1588 --> block_1590
-subgraph branch_1588["Branch 1588"]
-	br1588_5["cond__1601 object_isNull"]
+branch_1604 --> block_1606
+subgraph branch_1604["Branch 1604"]
+	br1604_5["cond__1601 object_isNull"]
 
 end
-block_1592 --> branch_1588
-subgraph block_1592["Block 1592"]
+block_1608 --> branch_1604
+subgraph block_1608["Block 1608"]
 	direction TB
-	b1592_5["cond__1601 object_isNull"]
-	b1592_3["obj pop_Object"]
-	b1592_0[/"Start"\\]
-	b1592_3 --> b1592_5
-	b1592_0 --> b1592_3
+	b1608_0[/"Start"\\]
+	b1608_3["obj pop_Object"]
+	b1608_5["cond__1601 object_isNull"]
+	b1608_0 --> b1608_3
+	b1608_3 --> b1608_5
 end
-subgraph block_1591["Block 1591"]
+subgraph block_1607["Block 1607"]
 	direction TB
-	b1591_7["eff__1604 push_u32"]
-	b1591_12["abs__1608 lift_u32"]
-	b1591_6["arg__1605 0"]
-	b1591_12 --> b1591_7
-	b1591_6 --> b1591_12
+	b1607_6["arg__1605 0"]
+	b1607_12["abs__1608 lift_u32"]
+	b1607_7["eff__1604 push_u32"]
+	b1607_6 --> b1607_12
+	b1607_12 --> b1607_7
 end
-branch_1588 --> block_1591
+branch_1604 --> block_1607
 
 </pre>`;
 window.traces["REF_IS_NULL"]["unLEM"] = ''
@@ -57298,75 +56746,75 @@ if (mb__1611) {
 </pre>`;
 window.traces["REF_IS_NULL"]["unlem_scheduler"] = ''
 window.traces["REF_IS_NULL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1593["Block 1593"]
+subgraph block_1609["Block 1609"]
 	direction TB
-	b1593_1[\\"Finish"/]
+	b1609_1[\\"Finish"/]
 end
-phi_1595 --> block_1593
-subgraph phi_1595["Phi 1595"]
-	p1595_10{{"Sϕ Stack "}}
+phi_1611 --> block_1609
+subgraph phi_1611["Phi 1611"]
+	p1611_10{{"Sϕ Stack "}}
 end
-block_1596 --> phi_1595
-block_1597 --> phi_1595
-subgraph block_1596["Block 1596"]
+block_1612 --> phi_1611
+block_1613 --> phi_1611
+subgraph block_1612["Block 1612"]
 	direction TB
-	b1596_18["eff_push__1613 push_u32"]
-	b1596_17["merge__1612 merge_u"]
-	b1596_17 --> b1596_18
+	b1612_17["merge__1612 merge_u"]
+	b1612_18["eff_push__1613 push_u32"]
+	b1612_17 --> b1612_18
 end
-branch_1594 --> block_1596
-subgraph branch_1594["Branch 1594"]
-	br1594_15["mb__1611 bool.&&"]
+branch_1610 --> block_1612
+subgraph branch_1610["Branch 1610"]
+	br1610_15["mb__1611 bool.&&"]
 
 end
-block_1602 --> branch_1594
-subgraph block_1602["Block 1602"]
+block_1618 --> branch_1610
+subgraph block_1618["Block 1618"]
 	direction TB
-	b1602_15["mb__1611 bool.&&"]
-	b1602_13["mt__1609 U32_maybeTrue"]
-	b1602_14["mf__1610 U32_maybeFalse"]
-	b1602_5["cond__1601 object_isNull"]
-	b1602_11["abs__1607 lift_u32"]
-	b1602_12["abs__1608 lift_u32"]
-	b1602_3["obj pop_Object"]
-	b1602_8["arg__1603 1"]
-	b1602_6["arg__1605 0"]
-	b1602_0[/"Start"\\]
-	b1602_13 --> b1602_15
-	b1602_14 --> b1602_13
-	b1602_5 --> b1602_14
-	b1602_11 --> b1602_5
-	b1602_12 --> b1602_11
-	b1602_3 --> b1602_12
-	b1602_8 --> b1602_3
-	b1602_6 --> b1602_8
-	b1602_0 --> b1602_6
+	b1618_0[/"Start"\\]
+	b1618_6["arg__1605 0"]
+	b1618_8["arg__1603 1"]
+	b1618_3["obj pop_Object"]
+	b1618_5["cond__1601 object_isNull"]
+	b1618_12["abs__1608 lift_u32"]
+	b1618_11["abs__1607 lift_u32"]
+	b1618_14["mf__1610 U32_maybeFalse"]
+	b1618_13["mt__1609 U32_maybeTrue"]
+	b1618_15["mb__1611 bool.&&"]
+	b1618_0 --> b1618_6
+	b1618_6 --> b1618_8
+	b1618_8 --> b1618_3
+	b1618_3 --> b1618_5
+	b1618_5 --> b1618_12
+	b1618_12 --> b1618_11
+	b1618_11 --> b1618_14
+	b1618_14 --> b1618_13
+	b1618_13 --> b1618_15
 end
-subgraph block_1597["Block 1597"]
+subgraph block_1613["Block 1613"]
 	direction TB
 end
-phi_1599 --> block_1597
-subgraph phi_1599["Phi 1599"]
-	p1599_16{{"Sϕ Stack "}}
-	p1599_16{{"Sϕ Stack "}}
+phi_1615 --> block_1613
+subgraph phi_1615["Phi 1615"]
+	p1615_16{{"Sϕ Stack "}}
+	p1615_16{{"Sϕ Stack "}}
 end
-block_1600 --> phi_1599
-block_1601 --> phi_1599
-subgraph block_1600["Block 1600"]
+block_1616 --> phi_1615
+block_1617 --> phi_1615
+subgraph block_1616["Block 1616"]
 	direction TB
-	b1600_9["eff__1602 push_u32"]
+	b1616_9["eff__1602 push_u32"]
 end
-branch_1598 --> block_1600
-subgraph branch_1598["Branch 1598"]
-	br1598_13["mt__1609 U32_maybeTrue"]
+branch_1614 --> block_1616
+subgraph branch_1614["Branch 1614"]
+	br1614_13["mt__1609 U32_maybeTrue"]
 
 end
-branch_1594 --> branch_1598
-subgraph block_1601["Block 1601"]
+branch_1610 --> branch_1614
+subgraph block_1617["Block 1617"]
 	direction TB
-	b1601_7["eff__1604 push_u32"]
+	b1617_7["eff__1604 push_u32"]
 end
-branch_1598 --> block_1601
+branch_1614 --> block_1617
 
 </pre>`;
 window.traces["REF_IS_NULL"]["unlem_pretty"] = ''
@@ -57539,34 +56987,40 @@ graph TD
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["schedulerMermaid"] = ''
 window.traces["REF_AS_NON_NULL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1603["Block 1603"]
+subgraph block_1619["Block 1619"]
 	direction TB
-	b1603_1[\\"Finish"/]
-	b1603_10["eff__1614 push_Object"]
-	b1603_10 --> b1603_1
+	b1619_10["eff__1614 push_Object"]
+	b1619_1[\\"Finish"/]
+	b1619_10 --> b1619_1
 end
-phi_1605 --> block_1603
-subgraph phi_1605["Phi 1605"]
-	p1605_7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1621 --> block_1619
+subgraph phi_1621["Phi 1621"]
+	p1621_8{{"Sϕ Stack "}}
+	p1621_7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1606 --> phi_1605
-block_1607 --> phi_1605
-subgraph block_1606["Block 1606"]
+block_1622 --> phi_1621
+block_1623 --> phi_1621
+subgraph block_1622["Block 1622"]
 	direction TB
-	b1606_6["eff__1617 trapNull"]
-	b1606_3["obj pop_Object"]
-	b1606_3 --> b1606_6
+	b1622_6["eff__1617 trapNull"]
 end
-branch_1604 --> block_1606
-subgraph branch_1604["Branch 1604"]
-	br1604_5["cond__1616 object_isNull"]
+branch_1620 --> block_1622
+subgraph branch_1620["Branch 1620"]
+	br1620_5["cond__1616 object_isNull"]
 
 end
-subgraph block_1607["Block 1607"]
+block_1624 --> branch_1620
+subgraph block_1624["Block 1624"]
 	direction TB
-	b1607_0[/"Start"\\]
+	b1624_5["cond__1616 object_isNull"]
 end
-branch_1604 --> block_1607
+subgraph block_1623["Block 1623"]
+	direction TB
+	b1623_3["obj pop_Object"]
+	b1623_0[/"Start"\\]
+	b1623_3 --> b1623_0
+end
+branch_1620 --> block_1623
 
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unLEM"] = ''
@@ -57642,67 +57096,72 @@ def eff__1614 = push_Object(obj);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler"] = ''
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1608["Block 1608"]
+subgraph block_1625["Block 1625"]
 	direction TB
-	b1608_1[\\"Finish"/]
-	b1608_10["eff__1614 push_Object"]
-	b1608_10 --> b1608_1
+	b1625_10["eff__1614 push_Object"]
+	b1625_1[\\"Finish"/]
+	b1625_10 --> b1625_1
 end
-phi_1610 --> block_1608
-subgraph phi_1610["Phi 1610"]
-	p1610_8{{"Sϕ Stack "}}
-	p1610_7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1627 --> block_1625
+subgraph phi_1627["Phi 1627"]
+	p1627_8{{"Sϕ Stack "}}
+	p1627_7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1611 --> phi_1610
-block_1612 --> phi_1610
-subgraph block_1611["Block 1611"]
+block_1628 --> phi_1627
+block_1629 --> phi_1627
+subgraph block_1628["Block 1628"]
 	direction TB
-	b1611_15["eff_merge__1623 merge"]
-	b1611_6["eff__1617 trapNull"]
-	b1611_18["eff_merge__1625 merge"]
-	b1611_6 --> b1611_15
-	b1611_18 --> b1611_6
+	b1628_17["eff_nop__1624 nop"]
+	b1628_18["eff_merge__1625 merge"]
+	b1628_15["eff_merge__1623 merge"]
+	b1628_17 --> b1628_18
+	b1628_18 --> b1628_15
 end
-branch_1609 --> block_1611
-subgraph branch_1609["Branch 1609"]
-	br1609_13["mb__1621 bool.&&"]
+branch_1626 --> block_1628
+subgraph branch_1626["Branch 1626"]
+	br1626_13["mb__1621 bool.&&"]
 
 end
-block_1617 --> branch_1609
-subgraph block_1617["Block 1617"]
+block_1634 --> branch_1626
+subgraph block_1634["Block 1634"]
 	direction TB
-	b1617_13["mb__1621 bool.&&"]
+	b1634_5["cond__1616 object_isNull"]
+	b1634_12["mf__1620 U32_maybeFalse"]
+	b1634_11["mt__1619 U32_maybeTrue"]
+	b1634_13["mb__1621 bool.&&"]
+	b1634_5 --> b1634_12
+	b1634_12 --> b1634_11
+	b1634_11 --> b1634_13
 end
-subgraph block_1612["Block 1612"]
+subgraph block_1629["Block 1629"]
 	direction TB
 end
-phi_1614 --> block_1612
-subgraph phi_1614["Phi 1614"]
-	p1614_16{{"Sϕ Stack "}}
-	p1614_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1614_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+phi_1631 --> block_1629
+subgraph phi_1631["Phi 1631"]
+	p1631_16{{"Sϕ Stack "}}
+	p1631_16{{"Sϕ Stack "}}
+	p1631_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1631_14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
-block_1615 --> phi_1614
-block_1616 --> phi_1614
-subgraph block_1615["Block 1615"]
+block_1632 --> phi_1631
+block_1633 --> phi_1631
+subgraph block_1632["Block 1632"]
 	direction TB
-	b1615_6["eff__1617 trapNull"]
-	b1615_3["obj pop_Object"]
-	b1615_3 --> b1615_6
+	b1632_6["eff__1617 trapNull"]
 end
-branch_1613 --> block_1615
-subgraph branch_1613["Branch 1613"]
-	br1613_11["mt__1619 U32_maybeTrue"]
+branch_1630 --> block_1632
+subgraph branch_1630["Branch 1630"]
+	br1630_11["mt__1619 U32_maybeTrue"]
 
 end
-branch_1609 --> branch_1613
-subgraph block_1616["Block 1616"]
+branch_1626 --> branch_1630
+subgraph block_1633["Block 1633"]
 	direction TB
-	b1616_0[/"r_state__1622 Start"\\]
-	b1616_3["obj pop_Object"]
-	b1616_3 --> b1616_0
+	b1633_3["obj pop_Object"]
+	b1633_0[/"r_state__1622 Start"\\]
+	b1633_3 --> b1633_0
 end
-branch_1613 --> block_1616
+branch_1630 --> block_1633
 
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_pretty"] = ''
@@ -57859,19 +57318,19 @@ graph TD
 </pre>`;
 window.traces["STRUCT_NEW"]["schedulerMermaid"] = ''
 window.traces["STRUCT_NEW"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1618["Block 1618"]
+subgraph block_1635["Block 1635"]
 	direction TB
-	b1618_1[\\"Finish"/]
-	b1618_9["eff__1626 push_Object"]
-	b1618_7["obj object_New"]
-	b1618_5["sig m_getSignature"]
-	b1618_3["struct_idx imm_readULEB32"]
-	b1618_0[/"Start"\\]
-	b1618_9 --> b1618_1
-	b1618_7 --> b1618_9
-	b1618_5 --> b1618_7
-	b1618_3 --> b1618_5
-	b1618_0 --> b1618_3
+	b1635_0[/"Start"\\]
+	b1635_3["struct_idx imm_readULEB32"]
+	b1635_5["sig m_getSignature"]
+	b1635_7["obj object_New"]
+	b1635_9["eff__1626 push_Object"]
+	b1635_1[\\"Finish"/]
+	b1635_0 --> b1635_3
+	b1635_3 --> b1635_5
+	b1635_5 --> b1635_7
+	b1635_7 --> b1635_9
+	b1635_9 --> b1635_1
 end
 
 </pre>`;
@@ -57904,19 +57363,19 @@ def eff__1626 = push_Object(obj);
 </pre>`;
 window.traces["STRUCT_NEW"]["unlem_scheduler"] = ''
 window.traces["STRUCT_NEW"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1619["Block 1619"]
+subgraph block_1636["Block 1636"]
 	direction TB
-	b1619_1[\\"Finish"/]
-	b1619_9["eff__1626 push_Object"]
-	b1619_7["obj object_New"]
-	b1619_5["sig m_getSignature"]
-	b1619_3["struct_idx imm_readULEB32"]
-	b1619_0[/"Start"\\]
-	b1619_9 --> b1619_1
-	b1619_7 --> b1619_9
-	b1619_5 --> b1619_7
-	b1619_3 --> b1619_5
-	b1619_0 --> b1619_3
+	b1636_0[/"Start"\\]
+	b1636_3["struct_idx imm_readULEB32"]
+	b1636_5["sig m_getSignature"]
+	b1636_7["obj object_New"]
+	b1636_9["eff__1626 push_Object"]
+	b1636_1[\\"Finish"/]
+	b1636_0 --> b1636_3
+	b1636_3 --> b1636_5
+	b1636_5 --> b1636_7
+	b1636_7 --> b1636_9
+	b1636_9 --> b1636_1
 end
 
 </pre>`;
@@ -58107,45 +57566,43 @@ graph TD
 </pre>`;
 window.traces["STRUCT_GET"]["schedulerMermaid"] = ''
 window.traces["STRUCT_GET"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1620["Block 1620"]
+subgraph block_1637["Block 1637"]
 	direction TB
-	b1620_1[\\"Finish"/]
+	b1637_1[\\"Finish"/]
 end
-phi_1622 --> block_1620
-subgraph phi_1622["Phi 1622"]
-	p1622_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1622_16{{"Sϕ Stack "}}
-	p1622_15{{"Sϕ Codeptr "}}
+phi_1639 --> block_1637
+subgraph phi_1639["Phi 1639"]
+	p1639_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1639_16{{"Sϕ Stack "}}
+	p1639_15{{"Sϕ Codeptr "}}
 end
-block_1623 --> phi_1622
-block_1624 --> phi_1622
-subgraph block_1623["Block 1623"]
+block_1640 --> phi_1639
+block_1641 --> phi_1639
+subgraph block_1640["Block 1640"]
 	direction TB
-	b1623_14["ret__1656 trapNull"]
-	b1623_4["field_index imm_readULEB32"]
-	b1623_11["obj pop_Object"]
-	b1623_4 --> b1623_14
-	b1623_11 --> b1623_4
+	b1640_14["ret__1656 trapNull"]
 end
-branch_1621 --> block_1623
-subgraph branch_1621["Branch 1621"]
-	br1621_13["cond__1655 object_isNull"]
+branch_1638 --> block_1640
+subgraph branch_1638["Branch 1638"]
+	br1638_13["cond__1655 object_isNull"]
 
 end
-block_1625 --> branch_1621
-subgraph block_1625["Block 1625"]
+block_1642 --> branch_1638
+subgraph block_1642["Block 1642"]
 	direction TB
-	b1625_13["cond__1655 object_isNull"]
+	b1642_13["cond__1655 object_isNull"]
 end
-subgraph block_1624["Block 1624"]
+subgraph block_1641["Block 1641"]
 	direction TB
-	b1624_4["field_index imm_readULEB32"]
-	b1624_11["obj pop_Object"]
-	b1624_0[/"Start"\\]
-	b1624_11 --> b1624_4
-	b1624_0 --> b1624_11
+	b1641_3["struct_index imm_readULEB32"]
+	b1641_0[/"Start"\\]
+	b1641_11["obj pop_Object"]
+	b1641_4["field_index imm_readULEB32"]
+	b1641_3 --> b1641_0
+	b1641_0 --> b1641_11
+	b1641_11 --> b1641_4
 end
-branch_1621 --> block_1624
+branch_1638 --> block_1641
 
 </pre>`;
 window.traces["STRUCT_GET"]["unLEM"] = ''
@@ -58242,85 +57699,81 @@ if (mb__1665) {
 </pre>`;
 window.traces["STRUCT_GET"]["unlem_scheduler"] = ''
 window.traces["STRUCT_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1626["Block 1626"]
+subgraph block_1643["Block 1643"]
 	direction TB
-	b1626_1[\\"Finish"/]
+	b1643_1[\\"Finish"/]
 end
-phi_1628 --> block_1626
-subgraph phi_1628["Phi 1628"]
-	p1628_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1628_16{{"Sϕ Stack "}}
-	p1628_15{{"Sϕ Codeptr "}}
+phi_1645 --> block_1643
+subgraph phi_1645["Phi 1645"]
+	p1645_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1645_16{{"Sϕ Stack "}}
+	p1645_15{{"Sϕ Codeptr "}}
 end
-block_1629 --> phi_1628
-block_1630 --> phi_1628
-subgraph block_1629["Block 1629"]
+block_1646 --> phi_1645
+block_1647 --> phi_1645
+subgraph block_1646["Block 1646"]
 	direction TB
-	b1629_23["eff_merge__1666 merge"]
-	b1629_14["ret__1656 trapNull"]
-	b1629_26["eff_merge__1668 merge"]
-	b1629_29["eff_merge__1671 merge"]
-	b1629_28["eff_nop__1669 nop"]
-	b1629_25["eff_nop__1667 nop"]
-	b1629_14 --> b1629_23
-	b1629_26 --> b1629_14
-	b1629_29 --> b1629_26
-	b1629_28 --> b1629_29
-	b1629_25 --> b1629_28
+	b1646_28["eff_nop__1669 nop"]
+	b1646_25["eff_nop__1667 nop"]
+	b1646_29["eff_merge__1671 merge"]
+	b1646_26["eff_merge__1668 merge"]
+	b1646_23["eff_merge__1666 merge"]
+	b1646_28 --> b1646_25
+	b1646_25 --> b1646_29
+	b1646_29 --> b1646_26
+	b1646_26 --> b1646_23
 end
-branch_1627 --> block_1629
-subgraph branch_1627["Branch 1627"]
-	br1627_21["mb__1665 bool.&&"]
+branch_1644 --> block_1646
+subgraph branch_1644["Branch 1644"]
+	br1644_21["mb__1665 bool.&&"]
 
 end
-block_1635 --> branch_1627
-subgraph block_1635["Block 1635"]
+block_1652 --> branch_1644
+subgraph block_1652["Block 1652"]
 	direction TB
-	b1635_21["mb__1665 bool.&&"]
-	b1635_19["mt__1663 U32_maybeTrue"]
-	b1635_20["mf__1664 U32_maybeFalse"]
-	b1635_19 --> b1635_21
-	b1635_20 --> b1635_19
+	b1652_13["cond__1655 object_isNull"]
+	b1652_20["mf__1664 U32_maybeFalse"]
+	b1652_19["mt__1663 U32_maybeTrue"]
+	b1652_21["mb__1665 bool.&&"]
+	b1652_13 --> b1652_20
+	b1652_20 --> b1652_19
+	b1652_19 --> b1652_21
 end
-subgraph block_1630["Block 1630"]
+subgraph block_1647["Block 1647"]
 	direction TB
 end
-phi_1632 --> block_1630
-subgraph phi_1632["Phi 1632"]
-	p1632_27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1632_24{{"Sϕ Stack "}}
-	p1632_22{{"Sϕ Codeptr "}}
-	p1632_27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1632_24{{"Sϕ Stack "}}
-	p1632_22{{"Sϕ Codeptr "}}
+phi_1649 --> block_1647
+subgraph phi_1649["Phi 1649"]
+	p1649_27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1649_27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1649_24{{"Sϕ Stack "}}
+	p1649_24{{"Sϕ Stack "}}
+	p1649_22{{"Sϕ Codeptr "}}
+	p1649_22{{"Sϕ Codeptr "}}
 end
-block_1633 --> phi_1632
-block_1634 --> phi_1632
-subgraph block_1633["Block 1633"]
+block_1650 --> phi_1649
+block_1651 --> phi_1649
+subgraph block_1650["Block 1650"]
 	direction TB
-	b1633_14["ret__1656 trapNull"]
-	b1633_4["field_index imm_readULEB32"]
-	b1633_11["obj pop_Object"]
-	b1633_3["struct_index imm_readULEB32"]
-	b1633_4 --> b1633_14
-	b1633_11 --> b1633_4
-	b1633_3 --> b1633_11
+	b1650_14["ret__1656 trapNull"]
 end
-branch_1631 --> block_1633
-subgraph branch_1631["Branch 1631"]
-	br1631_19["mt__1663 U32_maybeTrue"]
+branch_1648 --> block_1650
+subgraph branch_1648["Branch 1648"]
+	br1648_19["mt__1663 U32_maybeTrue"]
 
 end
-branch_1627 --> branch_1631
-subgraph block_1634["Block 1634"]
+branch_1644 --> branch_1648
+subgraph block_1651["Block 1651"]
 	direction TB
-	b1634_4["field_index imm_readULEB32"]
-	b1634_11["obj pop_Object"]
-	b1634_0[/"r_state__1670 Start"\\]
-	b1634_11 --> b1634_4
-	b1634_0 --> b1634_11
+	b1651_3["struct_index imm_readULEB32"]
+	b1651_0[/"r_state__1670 Start"\\]
+	b1651_11["obj pop_Object"]
+	b1651_4["field_index imm_readULEB32"]
+	b1651_3 --> b1651_0
+	b1651_0 --> b1651_11
+	b1651_11 --> b1651_4
 end
-branch_1631 --> block_1634
+branch_1648 --> block_1651
 
 </pre>`;
 window.traces["STRUCT_GET"]["unlem_pretty"] = ''
@@ -58553,45 +58006,43 @@ graph TD
 </pre>`;
 window.traces["STRUCT_GET_S"]["schedulerMermaid"] = ''
 window.traces["STRUCT_GET_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1636["Block 1636"]
+subgraph block_1653["Block 1653"]
 	direction TB
-	b1636_1[\\"Finish"/]
+	b1653_1[\\"Finish"/]
 end
-phi_1638 --> block_1636
-subgraph phi_1638["Phi 1638"]
-	p1638_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1638_16{{"Sϕ Stack "}}
-	p1638_15{{"Sϕ Codeptr "}}
+phi_1655 --> block_1653
+subgraph phi_1655["Phi 1655"]
+	p1655_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1655_16{{"Sϕ Stack "}}
+	p1655_15{{"Sϕ Codeptr "}}
 end
-block_1639 --> phi_1638
-block_1640 --> phi_1638
-subgraph block_1639["Block 1639"]
+block_1656 --> phi_1655
+block_1657 --> phi_1655
+subgraph block_1656["Block 1656"]
 	direction TB
-	b1639_14["ret__1684 trapNull"]
-	b1639_4["field_index imm_readULEB32"]
-	b1639_11["obj pop_Object"]
-	b1639_4 --> b1639_14
-	b1639_11 --> b1639_4
+	b1656_14["ret__1684 trapNull"]
 end
-branch_1637 --> block_1639
-subgraph branch_1637["Branch 1637"]
-	br1637_13["cond__1683 object_isNull"]
+branch_1654 --> block_1656
+subgraph branch_1654["Branch 1654"]
+	br1654_13["cond__1683 object_isNull"]
 
 end
-block_1641 --> branch_1637
-subgraph block_1641["Block 1641"]
+block_1658 --> branch_1654
+subgraph block_1658["Block 1658"]
 	direction TB
-	b1641_13["cond__1683 object_isNull"]
+	b1658_13["cond__1683 object_isNull"]
 end
-subgraph block_1640["Block 1640"]
+subgraph block_1657["Block 1657"]
 	direction TB
-	b1640_4["field_index imm_readULEB32"]
-	b1640_11["obj pop_Object"]
-	b1640_0[/"Start"\\]
-	b1640_11 --> b1640_4
-	b1640_0 --> b1640_11
+	b1657_3["struct_index imm_readULEB32"]
+	b1657_0[/"Start"\\]
+	b1657_11["obj pop_Object"]
+	b1657_4["field_index imm_readULEB32"]
+	b1657_3 --> b1657_0
+	b1657_0 --> b1657_11
+	b1657_11 --> b1657_4
 end
-branch_1637 --> block_1640
+branch_1654 --> block_1657
 
 </pre>`;
 window.traces["STRUCT_GET_S"]["unLEM"] = ''
@@ -58688,85 +58139,81 @@ if (mb__1693) {
 </pre>`;
 window.traces["STRUCT_GET_S"]["unlem_scheduler"] = ''
 window.traces["STRUCT_GET_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1642["Block 1642"]
+subgraph block_1659["Block 1659"]
 	direction TB
-	b1642_1[\\"Finish"/]
+	b1659_1[\\"Finish"/]
 end
-phi_1644 --> block_1642
-subgraph phi_1644["Phi 1644"]
-	p1644_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1644_16{{"Sϕ Stack "}}
-	p1644_15{{"Sϕ Codeptr "}}
+phi_1661 --> block_1659
+subgraph phi_1661["Phi 1661"]
+	p1661_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1661_16{{"Sϕ Stack "}}
+	p1661_15{{"Sϕ Codeptr "}}
 end
-block_1645 --> phi_1644
-block_1646 --> phi_1644
-subgraph block_1645["Block 1645"]
+block_1662 --> phi_1661
+block_1663 --> phi_1661
+subgraph block_1662["Block 1662"]
 	direction TB
-	b1645_23["eff_merge__1694 merge"]
-	b1645_14["ret__1684 trapNull"]
-	b1645_26["eff_merge__1696 merge"]
-	b1645_29["eff_merge__1699 merge"]
-	b1645_28["eff_nop__1697 nop"]
-	b1645_25["eff_nop__1695 nop"]
-	b1645_14 --> b1645_23
-	b1645_26 --> b1645_14
-	b1645_29 --> b1645_26
-	b1645_28 --> b1645_29
-	b1645_25 --> b1645_28
+	b1662_28["eff_nop__1697 nop"]
+	b1662_25["eff_nop__1695 nop"]
+	b1662_29["eff_merge__1699 merge"]
+	b1662_26["eff_merge__1696 merge"]
+	b1662_23["eff_merge__1694 merge"]
+	b1662_28 --> b1662_25
+	b1662_25 --> b1662_29
+	b1662_29 --> b1662_26
+	b1662_26 --> b1662_23
 end
-branch_1643 --> block_1645
-subgraph branch_1643["Branch 1643"]
-	br1643_21["mb__1693 bool.&&"]
+branch_1660 --> block_1662
+subgraph branch_1660["Branch 1660"]
+	br1660_21["mb__1693 bool.&&"]
 
 end
-block_1651 --> branch_1643
-subgraph block_1651["Block 1651"]
+block_1668 --> branch_1660
+subgraph block_1668["Block 1668"]
 	direction TB
-	b1651_21["mb__1693 bool.&&"]
-	b1651_19["mt__1691 U32_maybeTrue"]
-	b1651_20["mf__1692 U32_maybeFalse"]
-	b1651_19 --> b1651_21
-	b1651_20 --> b1651_19
+	b1668_13["cond__1683 object_isNull"]
+	b1668_20["mf__1692 U32_maybeFalse"]
+	b1668_19["mt__1691 U32_maybeTrue"]
+	b1668_21["mb__1693 bool.&&"]
+	b1668_13 --> b1668_20
+	b1668_20 --> b1668_19
+	b1668_19 --> b1668_21
 end
-subgraph block_1646["Block 1646"]
+subgraph block_1663["Block 1663"]
 	direction TB
 end
-phi_1648 --> block_1646
-subgraph phi_1648["Phi 1648"]
-	p1648_27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1648_24{{"Sϕ Stack "}}
-	p1648_22{{"Sϕ Codeptr "}}
-	p1648_27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1648_24{{"Sϕ Stack "}}
-	p1648_22{{"Sϕ Codeptr "}}
+phi_1665 --> block_1663
+subgraph phi_1665["Phi 1665"]
+	p1665_27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1665_27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1665_24{{"Sϕ Stack "}}
+	p1665_24{{"Sϕ Stack "}}
+	p1665_22{{"Sϕ Codeptr "}}
+	p1665_22{{"Sϕ Codeptr "}}
 end
-block_1649 --> phi_1648
-block_1650 --> phi_1648
-subgraph block_1649["Block 1649"]
+block_1666 --> phi_1665
+block_1667 --> phi_1665
+subgraph block_1666["Block 1666"]
 	direction TB
-	b1649_14["ret__1684 trapNull"]
-	b1649_4["field_index imm_readULEB32"]
-	b1649_11["obj pop_Object"]
-	b1649_3["struct_index imm_readULEB32"]
-	b1649_4 --> b1649_14
-	b1649_11 --> b1649_4
-	b1649_3 --> b1649_11
+	b1666_14["ret__1684 trapNull"]
 end
-branch_1647 --> block_1649
-subgraph branch_1647["Branch 1647"]
-	br1647_19["mt__1691 U32_maybeTrue"]
+branch_1664 --> block_1666
+subgraph branch_1664["Branch 1664"]
+	br1664_19["mt__1691 U32_maybeTrue"]
 
 end
-branch_1643 --> branch_1647
-subgraph block_1650["Block 1650"]
+branch_1660 --> branch_1664
+subgraph block_1667["Block 1667"]
 	direction TB
-	b1650_4["field_index imm_readULEB32"]
-	b1650_11["obj pop_Object"]
-	b1650_0[/"r_state__1698 Start"\\]
-	b1650_11 --> b1650_4
-	b1650_0 --> b1650_11
+	b1667_3["struct_index imm_readULEB32"]
+	b1667_0[/"r_state__1698 Start"\\]
+	b1667_11["obj pop_Object"]
+	b1667_4["field_index imm_readULEB32"]
+	b1667_3 --> b1667_0
+	b1667_0 --> b1667_11
+	b1667_11 --> b1667_4
 end
-branch_1647 --> block_1650
+branch_1664 --> block_1667
 
 </pre>`;
 window.traces["STRUCT_GET_S"]["unlem_pretty"] = ''
@@ -58999,45 +58446,43 @@ graph TD
 </pre>`;
 window.traces["STRUCT_GET_U"]["schedulerMermaid"] = ''
 window.traces["STRUCT_GET_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_1652["Block 1652"]
+subgraph block_1669["Block 1669"]
 	direction TB
-	b1652_1[\\"Finish"/]
+	b1669_1[\\"Finish"/]
 end
-phi_1654 --> block_1652
-subgraph phi_1654["Phi 1654"]
-	p1654_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1654_16{{"Sϕ Stack "}}
-	p1654_15{{"Sϕ Codeptr "}}
+phi_1671 --> block_1669
+subgraph phi_1671["Phi 1671"]
+	p1671_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1671_16{{"Sϕ Stack "}}
+	p1671_15{{"Sϕ Codeptr "}}
 end
-block_1655 --> phi_1654
-block_1656 --> phi_1654
-subgraph block_1655["Block 1655"]
+block_1672 --> phi_1671
+block_1673 --> phi_1671
+subgraph block_1672["Block 1672"]
 	direction TB
-	b1655_14["ret__1712 trapNull"]
-	b1655_4["field_index imm_readULEB32"]
-	b1655_11["obj pop_Object"]
-	b1655_4 --> b1655_14
-	b1655_11 --> b1655_4
+	b1672_14["ret__1712 trapNull"]
 end
-branch_1653 --> block_1655
-subgraph branch_1653["Branch 1653"]
-	br1653_13["cond__1711 object_isNull"]
+branch_1670 --> block_1672
+subgraph branch_1670["Branch 1670"]
+	br1670_13["cond__1711 object_isNull"]
 
 end
-block_1657 --> branch_1653
-subgraph block_1657["Block 1657"]
+block_1674 --> branch_1670
+subgraph block_1674["Block 1674"]
 	direction TB
-	b1657_13["cond__1711 object_isNull"]
+	b1674_13["cond__1711 object_isNull"]
 end
-subgraph block_1656["Block 1656"]
+subgraph block_1673["Block 1673"]
 	direction TB
-	b1656_4["field_index imm_readULEB32"]
-	b1656_11["obj pop_Object"]
-	b1656_0[/"Start"\\]
-	b1656_11 --> b1656_4
-	b1656_0 --> b1656_11
+	b1673_3["struct_index imm_readULEB32"]
+	b1673_0[/"Start"\\]
+	b1673_11["obj pop_Object"]
+	b1673_4["field_index imm_readULEB32"]
+	b1673_3 --> b1673_0
+	b1673_0 --> b1673_11
+	b1673_11 --> b1673_4
 end
-branch_1653 --> block_1656
+branch_1670 --> block_1673
 
 </pre>`;
 window.traces["STRUCT_GET_U"]["unLEM"] = ''
@@ -59134,85 +58579,81 @@ if (mb__1721) {
 </pre>`;
 window.traces["STRUCT_GET_U"]["unlem_scheduler"] = ''
 window.traces["STRUCT_GET_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_1658["Block 1658"]
+subgraph block_1675["Block 1675"]
 	direction TB
-	b1658_1[\\"Finish"/]
+	b1675_1[\\"Finish"/]
 end
-phi_1660 --> block_1658
-subgraph phi_1660["Phi 1660"]
-	p1660_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1660_16{{"Sϕ Stack "}}
-	p1660_15{{"Sϕ Codeptr "}}
+phi_1677 --> block_1675
+subgraph phi_1677["Phi 1677"]
+	p1677_17{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1677_16{{"Sϕ Stack "}}
+	p1677_15{{"Sϕ Codeptr "}}
 end
-block_1661 --> phi_1660
-block_1662 --> phi_1660
-subgraph block_1661["Block 1661"]
+block_1678 --> phi_1677
+block_1679 --> phi_1677
+subgraph block_1678["Block 1678"]
 	direction TB
-	b1661_23["eff_merge__1722 merge"]
-	b1661_14["ret__1712 trapNull"]
-	b1661_26["eff_merge__1724 merge"]
-	b1661_29["eff_merge__1727 merge"]
-	b1661_28["eff_nop__1725 nop"]
-	b1661_25["eff_nop__1723 nop"]
-	b1661_14 --> b1661_23
-	b1661_26 --> b1661_14
-	b1661_29 --> b1661_26
-	b1661_28 --> b1661_29
-	b1661_25 --> b1661_28
+	b1678_28["eff_nop__1725 nop"]
+	b1678_25["eff_nop__1723 nop"]
+	b1678_29["eff_merge__1727 merge"]
+	b1678_26["eff_merge__1724 merge"]
+	b1678_23["eff_merge__1722 merge"]
+	b1678_28 --> b1678_25
+	b1678_25 --> b1678_29
+	b1678_29 --> b1678_26
+	b1678_26 --> b1678_23
 end
-branch_1659 --> block_1661
-subgraph branch_1659["Branch 1659"]
-	br1659_21["mb__1721 bool.&&"]
+branch_1676 --> block_1678
+subgraph branch_1676["Branch 1676"]
+	br1676_21["mb__1721 bool.&&"]
 
 end
-block_1667 --> branch_1659
-subgraph block_1667["Block 1667"]
+block_1684 --> branch_1676
+subgraph block_1684["Block 1684"]
 	direction TB
-	b1667_21["mb__1721 bool.&&"]
-	b1667_19["mt__1719 U32_maybeTrue"]
-	b1667_20["mf__1720 U32_maybeFalse"]
-	b1667_19 --> b1667_21
-	b1667_20 --> b1667_19
+	b1684_13["cond__1711 object_isNull"]
+	b1684_20["mf__1720 U32_maybeFalse"]
+	b1684_19["mt__1719 U32_maybeTrue"]
+	b1684_21["mb__1721 bool.&&"]
+	b1684_13 --> b1684_20
+	b1684_20 --> b1684_19
+	b1684_19 --> b1684_21
 end
-subgraph block_1662["Block 1662"]
+subgraph block_1679["Block 1679"]
 	direction TB
 end
-phi_1664 --> block_1662
-subgraph phi_1664["Phi 1664"]
-	p1664_27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1664_24{{"Sϕ Stack "}}
-	p1664_22{{"Sϕ Codeptr "}}
-	p1664_27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1664_24{{"Sϕ Stack "}}
-	p1664_22{{"Sϕ Codeptr "}}
+phi_1681 --> block_1679
+subgraph phi_1681["Phi 1681"]
+	p1681_27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1681_27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1681_24{{"Sϕ Stack "}}
+	p1681_24{{"Sϕ Stack "}}
+	p1681_22{{"Sϕ Codeptr "}}
+	p1681_22{{"Sϕ Codeptr "}}
 end
-block_1665 --> phi_1664
-block_1666 --> phi_1664
-subgraph block_1665["Block 1665"]
+block_1682 --> phi_1681
+block_1683 --> phi_1681
+subgraph block_1682["Block 1682"]
 	direction TB
-	b1665_14["ret__1712 trapNull"]
-	b1665_4["field_index imm_readULEB32"]
-	b1665_11["obj pop_Object"]
-	b1665_3["struct_index imm_readULEB32"]
-	b1665_4 --> b1665_14
-	b1665_11 --> b1665_4
-	b1665_3 --> b1665_11
+	b1682_14["ret__1712 trapNull"]
 end
-branch_1663 --> block_1665
-subgraph branch_1663["Branch 1663"]
-	br1663_19["mt__1719 U32_maybeTrue"]
+branch_1680 --> block_1682
+subgraph branch_1680["Branch 1680"]
+	br1680_19["mt__1719 U32_maybeTrue"]
 
 end
-branch_1659 --> branch_1663
-subgraph block_1666["Block 1666"]
+branch_1676 --> branch_1680
+subgraph block_1683["Block 1683"]
 	direction TB
-	b1666_4["field_index imm_readULEB32"]
-	b1666_11["obj pop_Object"]
-	b1666_0[/"r_state__1726 Start"\\]
-	b1666_11 --> b1666_4
-	b1666_0 --> b1666_11
+	b1683_3["struct_index imm_readULEB32"]
+	b1683_0[/"r_state__1726 Start"\\]
+	b1683_11["obj pop_Object"]
+	b1683_4["field_index imm_readULEB32"]
+	b1683_3 --> b1683_0
+	b1683_0 --> b1683_11
+	b1683_11 --> b1683_4
 end
-branch_1663 --> block_1666
+branch_1680 --> block_1683
 
 </pre>`;
 window.traces["STRUCT_GET_U"]["unlem_pretty"] = ''

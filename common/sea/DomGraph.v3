@@ -32,6 +32,7 @@ class DomGraph {
         buf.puts("[");
         def nodes = Vector<IRNode>.new();
         local_nodes.apply(fun n => void(nodes.put(n)));
+        private_nodes.apply(fun n => void(nodes.put(n)));
         for (i < nodes.length) {
             def node = nodes[i];
             if (i > 0) buf.puts(", ");

@@ -5,9 +5,14 @@ class NodeSet {
     }
 
     def has(node: IRNode) -> bool => m.has(node);
-    def put(node: IRNode) { m[node] = void; }
-    def remove(node: IRNode) { if (node != null && m.has(node)) m.remove(node); }
-    def apply(f: IRNode -> void) { m.apply(fun (k, v) => f(k)); }
+    def put(node: IRNode) -> this { m[node] = void; }
+    def remove(node: IRNode) -> this { if (node != null && m.has(node)) m.remove(node); }
+    def apply(f: IRNode -> void) => void(m.apply(fun (k, v) => f(k)));
+    def toVector() -> Vector<IRNode> {
+        def buf = Vector<IRNode>.new();
+        apply(fun (n: IRNode) => void(buf.put(n)));
+        return buf;
+    }
     def intersection(other: NodeSet) -> NodeSet {
         def result = NodeSet.new();
         m.apply(fun (k: IRNode, v: void) {
@@ -183,32 +188,36 @@ class Sea {
     }
 
     def findTop(left: IRNode, right: IRNode) -> Vector<IRNode> {
-        def leftDeps = left.transitiveDepsSet();
-        def rightDeps = right.transitiveDepsSet();
+        def leftDeps = left.transitiveDepsSet().put(left);
+        def rightDeps = right.transitiveDepsSet().put(right);
 
         def common = leftDeps.intersection(rightDeps);
-        common.remove(start);
-        def commonVec = Vector<IRNode>.new();
-        common.apply(fun (n: IRNode) { commonVec.put(n); });
-
-        System.puts("common: ");
-        for (i < commonVec.length) System.puts(Strings.format1("%q, ", commonVec[i].render));
-        System.puts("\n");
+        def commonVec = common.toVector();
 
         def results = Vector<IRNode>.new();
         for (i < commonVec.length) {
-            def candidate = commonVec[i];
+            def cn = commonVec[i];
             var isRoot = true;
-            for (dep in candidate.deps()) {
-                if (!IROp.Start.?(dep.op) && common.has(dep)) {
+            for (i < cn.children.length) {
+                if (common.has(cn.children[i])) {
                     isRoot = false;
                     break;
                 }
             }
-            if (isRoot) return results.put(candidate);
+            if (isRoot) return results.put(cn);
         }
 
         return results;
+    }
+
+    def findTop2(a: IRNode, b: IRNode) -> Vector<IRNode> {
+        var a_lca: IRNode = a;
+        if (IROp.Phi.?(a.op) || IROp.StatePhi.?(a.op)) a_lca = lca2(a.value_deps[1], a.value_deps[2]);
+
+        var b_lca: IRNode = b;
+        if (IROp.Phi.?(b.op) || IROp.StatePhi.?(b.op)) b_lca = lca2(b.value_deps[1], b.value_deps[2]);
+
+        return findTop(a_lca, b_lca);
     }
 
     def highestCommonDescendant(a: IRNode, b: IRNode) -> IRNode {
@@ -791,11 +800,9 @@ class IRNode {
     }
 
     def transitiveDepsAux(buf: NodeSet) {
-        for (dep in deps()) {
-            if (dep != null && !buf.has(dep)) {
-                buf.put(dep);
-                dep.transitiveDepsAux(buf);
-            }
+        for (dep in deps()) if (dep != null) {
+            buf.put(dep);
+            dep.transitiveDepsAux(buf);
         }
     }
 
