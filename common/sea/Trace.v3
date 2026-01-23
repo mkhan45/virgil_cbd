@@ -22,10 +22,14 @@ component CBDTrace {
             }
             if (!traces.has(opcode) || !traces[opcode].has(tag)) {
                 def init_js = Strings.format2("window.traces[\"%s\"][\"%s\"] = ''\n", opcode, tag);
+                def init_js_raw = Strings.format2("window.traces[\"%s\"][\"%s__raw\"] = ''\n", opcode, tag);
                 System.write(out_file, init_js);
+                System.write(out_file, init_js_raw);
             }
             def set_js = Strings.format3("window.traces[\"%s\"][\"%s\"] += `%s`;\n", opcode, tag, html);
+            def set_js_raw = Strings.format3("window.traces[\"%s\"][\"%s__raw\"] += `%s`;\n", opcode, tag, str);
             System.write(out_file, set_js);
+            System.write(out_file, set_js_raw);
         }
 
         if (!traces.has(opcode)) traces[opcode] = Strings.newMap<string>();

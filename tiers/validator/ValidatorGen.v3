@@ -48,6 +48,10 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     CBDTrace.addCode(opcode, "parsed", sea_ir.toString(0));
     CBDTrace.addGraph(opcode, "raw", sea);
 
+    def raw_spytial = Spytial.to_spytial_json(sea);
+    CBDTrace.addCode(opcode, "spytial", raw_spytial);
+    System.puts(raw_spytial); System.ln();
+
     ir = ir.appended(stbuilder_call);
     sea_ir = ir;
     sea = Seas.ofSSAD(sea_ir);

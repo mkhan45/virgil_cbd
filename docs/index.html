@@ -13,12 +13,23 @@
             </div>
             <div id="graph-container">
                 <pre id="graph"></pre>
+                <webcola-cnd-graph
+                    id="webcola-graph-container"
+                    width="800"
+                    height="600"
+                    layoutFormat="default"
+                    aria-label="Interactive graph visualization">
+                </webcola-cnd-graph>
             </div>
         </div>
         <script src="traces.js" charset="utf-8"></script>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/spytial-core/dist/browser/spytial-core-complete.global.js"></script>
         <script type="module">
-              import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.esm.min.mjs';
-              import elkLayouts from 'https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0/dist/mermaid-layout-elk.esm.min.mjs';
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.esm.min.mjs';
+            import elkLayouts from 'https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0/dist/mermaid-layout-elk.esm.min.mjs';
+
+            const spytial = CndCore;
 
             mermaid.registerLayoutLoaders(elkLayouts);
 
@@ -115,7 +126,32 @@
 
                 barrierDiv.remove();
                 graph.style.opacity = 1;
+
+                const data_instance = new CndCore.JSONDataInstance(traces[code]["spytial__raw"]);
+                const { LayoutInstance, parseLayoutSpec, SGraphQueryEvaluator } = CndCore
+                const layoutSpec = parseLayoutSpec(`
+                    constraints:
+                        - orientation:
+                            selector: Uses
+                            directions: [above]
+                        - orientation:
+                            selector: StateUses
+                            directions: [above]
+                        - orientation:
+                            selector: PhiCond
+                            directions: [above]
+                `);
+                console.log(data_instance);
+                console.log(layoutSpec);
+                const evaluator = new SGraphQueryEvaluator()
+                evaluator.initialize({ sourceData: data_instance })
+                const layoutInstance = new LayoutInstance(layoutSpec, evaluator);
+                const result = layoutInstance.generateLayout(data_instance, {});
+
+                window.graphElement = document.querySelector('#webcola-graph-container');
+                await graphElement.renderLayout(result.layout);
             }
+
             const initialCode = traces["BR_IF"] != undefined ? "BR_IF" : "UNREACHABLE";
             await setGraph(initialCode, getDefaultTag(initialCode));
 

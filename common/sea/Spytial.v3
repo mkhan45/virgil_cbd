@@ -1,0 +1,162 @@
+component Spytial {
+    // Makes a JSON rep of the graph for Spytial, of format:
+    // ```
+    // {
+    //      atoms: [ { id: $node_id, type: $node_type, label: $node_label }* ],
+    //      relations: [ { id: $rel_id, name: $rel_name, types: [$start_ty, $end_ty],
+    //                     tuples: [ {atoms: [$start_id, $end_id], types: [$start_ty, $end_ty]}* ] } ]
+    // }
+    //
+    // Atom (node) types: Start, Finish, Lit, Intrinsic, Phi
+    // Relation (edge) types: Uses, StateUses, PhiTrue, PhiFalse, PhiCond
+    def to_spytial_json(sea: Sea) -> string {
+        def buf = StringBuilder.new();
+        def nodes = collect_nodes(sea);
+
+        def uses_edges = Vector<(IRNode, IRNode)>.new();
+        def state_uses_edges = Vector<(IRNode, IRNode)>.new();
+        def phi_true_edges = Vector<(IRNode, IRNode)>.new();
+        def phi_false_edges = Vector<(IRNode, IRNode)>.new();
+        def phi_cond_edges = Vector<(IRNode, IRNode)>.new();
+
+        for (i < nodes.length) {
+            def node = nodes[i];
+            match (node.op) {
+                Phi, StatePhi => {
+                    if (node.value_deps.length >= 3) {
+                        if (node.value_deps[0] != null) phi_cond_edges.put((node, node.value_deps[0]));
+                        if (node.value_deps[1] != null) phi_true_edges.put((node, node.value_deps[1]));
+                        if (node.value_deps[2] != null) phi_false_edges.put((node, node.value_deps[2]));
+                    }
+                }
+                _ => {
+                    for (dep in node.value_deps) if (dep != null) uses_edges.put((node, dep));
+                    def deduped_state_deps = Vector<IRNode>.new();
+                    for (dep in node.state_deps) if (dep != null) {
+                        var dup = false;
+                        for (j < deduped_state_deps.length) dup |= (deduped_state_deps[j].id == dep.id);
+                        if (!dup) deduped_state_deps.put(dep);
+                    }
+                    for (j < deduped_state_deps.length) state_uses_edges.put((node, deduped_state_deps[j]));
+                }
+            }
+        }
+
+        buf.puts("{\n");
+
+        buf.puts("\"atoms\": [\n");
+        for (i < nodes.length) {
+            if (i > 0) buf.puts(",\n");
+            node_atom_json(nodes[i], buf);
+        }
+        buf.puts("\n],\n");
+
+        buf.puts("\"relations\": [\n");
+        var first_rel = true;
+        if (uses_edges.length > 0) {
+            if (!first_rel) buf.puts(",\n");
+            first_rel = false;
+            relation_json("uses", "Uses", uses_edges, buf);
+        }
+        if (state_uses_edges.length > 0) {
+            if (!first_rel) buf.puts(",\n");
+            first_rel = false;
+            relation_json("state_uses", "StateUses", state_uses_edges, buf);
+        }
+        if (phi_cond_edges.length > 0) {
+            if (!first_rel) buf.puts(",\n");
+            first_rel = false;
+            relation_json("phi_cond", "PhiCond", phi_cond_edges, buf);
+        }
+        if (phi_true_edges.length > 0) {
+            if (!first_rel) buf.puts(",\n");
+            first_rel = false;
+            relation_json("phi_true", "PhiTrue", phi_true_edges, buf);
+        }
+        if (phi_false_edges.length > 0) {
+            if (!first_rel) buf.puts(",\n");
+            first_rel = false;
+            relation_json("phi_false", "PhiFalse", phi_false_edges, buf);
+        }
+        buf.puts("\n]\n");
+
+        buf.puts("}");
+        return buf.toString();
+    }
+
+    def node_atom_json(node: IRNode, buf: StringBuilder) -> StringBuilder {
+        // { 
+        //      id: "node_{node.id}",
+        //      type: "start" | "finish" | "lit" | "intrinsic" | "phi"
+        //      label: node.render
+        // }
+
+        buf.puts("{\n");
+        buf.puts("\"id\": \"node_").putd(node.id).puts("\",\n");
+        buf.puts("\"type\": \"").putq(node_type(node, _)).puts("\",\n");
+        buf.puts("\"label\": \"").putq(node.render).puts("\"\n");
+        buf.puts("}");
+        return buf;
+    }
+
+    def tuple_json(start: IRNode, end: IRNode, buf: StringBuilder) -> StringBuilder {
+        // {
+        //     atoms: ["node_{start.id}", "node_{end.id}"],
+        //     types: [start.type, end.type]
+        // }
+
+        buf.puts("{\n");
+        buf.puts("\"atoms\": [\"node_").putd(start.id).puts("\", \"node_").putd(end.id).puts("\"],\n");
+        buf.puts("\"types\": [\"").putq(node_type(start, _)).puts("\", \"").putq(node_type(end, _)).puts("\"]\n");
+        buf.puts("}");
+        return buf;
+    }
+
+    def node_type(node: IRNode, buf: StringBuilder) -> StringBuilder {
+        // "start" | "finish" | "lit" | "intrinsic" | "phi"
+        match (node.op) {
+            Start => buf.puts("start");
+            Finish => buf.puts("finish");
+            Lit => buf.puts("lit");
+            Intrinsic => buf.puts("intrinsic");
+            Phi, StatePhi => buf.puts("phi");
+            Proj, Move => buf.puts("proj");
+        }
+        return buf;
+    }
+
+    def relation_json(id: string, name: string, edges: Vector<(IRNode, IRNode)>,
+                      buf: StringBuilder) -> StringBuilder {
+        // {
+        //     id: $id,
+        //     name: $name,
+        //     types: ["sea_node", "sea_node"],
+        //     tuples: [ <tuple_json for each edge> ]
+        // }
+
+        buf.puts("{\n");
+        buf.puts("\"id\": \"").puts(id).puts("\",\n");
+        buf.puts("\"name\": \"").puts(name).puts("\",\n");
+        buf.puts("\"types\": [\"sea_node\", \"sea_node\"],\n");
+        buf.puts("\"tuples\": [\n");
+        for (i < edges.length) {
+            if (i > 0) buf.puts(",\n");
+            tuple_json(edges[i].0, edges[i].1, buf);
+        }
+        buf.puts("\n]");
+        buf.puts("\n}");
+        return buf;
+    }
+
+    def collect_nodes_aux(node: IRNode, sea: Sea, nodes: Vector<IRNode>) -> Range<IRNode> {
+        nodes.put(node);
+        return node.deps();
+    }
+
+    def collect_nodes(sea: Sea) -> Vector<IRNode> {
+        def nodes = Vector<IRNode>.new();
+        sea.apply(nodes, collect_nodes_aux);
+        return nodes;
+    }
+
+}
