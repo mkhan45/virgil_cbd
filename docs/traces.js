@@ -52,6 +52,14 @@ window.traces["UNREACHABLE"]["spytial"] += `<pre class=''>{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -64,6 +72,30 @@ window.traces["UNREACHABLE"]["spytial"] += `<pre class=''>{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -88,6 +120,14 @@ window.traces["UNREACHABLE"]["spytial__raw"] += `{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -100,6 +140,30 @@ window.traces["UNREACHABLE"]["spytial__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -228,6 +292,14 @@ window.traces["UNREACHABLE"]["spytial_ul"] += `<pre class=''>{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -240,6 +312,30 @@ window.traces["UNREACHABLE"]["spytial_ul"] += `<pre class=''>{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -264,6 +360,14 @@ window.traces["UNREACHABLE"]["spytial_ul__raw"] += `{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -276,6 +380,30 @@ window.traces["UNREACHABLE"]["spytial_ul__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -414,6 +542,14 @@ window.traces["NOP"]["spytial"] += `<pre class=''>{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -422,6 +558,30 @@ window.traces["NOP"]["spytial"] += `<pre class=''>{
 "atoms": ["node_1", "node_0"],
 "types": ["finish", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -441,6 +601,14 @@ window.traces["NOP"]["spytial__raw"] += `{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -449,6 +617,30 @@ window.traces["NOP"]["spytial__raw"] += `{
 "atoms": ["node_1", "node_0"],
 "types": ["finish", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -554,6 +746,14 @@ window.traces["NOP"]["spytial_ul"] += `<pre class=''>{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -562,6 +762,30 @@ window.traces["NOP"]["spytial_ul"] += `<pre class=''>{
 "atoms": ["node_1", "node_0"],
 "types": ["finish", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -581,6 +805,14 @@ window.traces["NOP"]["spytial_ul__raw"] += `{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -589,6 +821,30 @@ window.traces["NOP"]["spytial_ul__raw"] += `{
 "atoms": ["node_1", "node_0"],
 "types": ["finish", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -767,6 +1023,30 @@ window.traces["BLOCK"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -826,6 +1106,30 @@ window.traces["BLOCK"]["spytial__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -1021,6 +1325,30 @@ window.traces["BLOCK"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -1080,6 +1408,30 @@ window.traces["BLOCK"]["spytial_ul__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -1302,6 +1654,30 @@ window.traces["LOOP"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -1361,6 +1737,30 @@ window.traces["LOOP"]["spytial__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -1556,6 +1956,30 @@ window.traces["LOOP"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -1615,6 +2039,30 @@ window.traces["LOOP"]["spytial_ul__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -4184,6 +4632,30 @@ window.traces["ELSE"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -4239,6 +4711,30 @@ window.traces["ELSE"]["spytial__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -4471,6 +4967,30 @@ window.traces["ELSE"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -4543,6 +5063,30 @@ window.traces["ELSE"]["spytial_ul__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -4787,6 +5331,30 @@ window.traces["TRY"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -4846,6 +5414,30 @@ window.traces["TRY"]["spytial__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -5041,6 +5633,30 @@ window.traces["TRY"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -5100,6 +5716,30 @@ window.traces["TRY"]["spytial_ul__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -5312,6 +5952,14 @@ window.traces["END"]["spytial"] += `<pre class=''>{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -5399,6 +6047,14 @@ window.traces["END"]["spytial__raw"] += `{
 }
 ],
 "relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
 {
 "id": "state_uses",
 "name": "StateUses",
@@ -5694,6 +6350,14 @@ window.traces["END"]["spytial_ul"] += `<pre class=''>{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -5781,6 +6445,14 @@ window.traces["END"]["spytial_ul__raw"] += `{
 }
 ],
 "relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
 {
 "id": "state_uses",
 "name": "StateUses",
@@ -6152,6 +6824,30 @@ window.traces["BR"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -6220,6 +6916,30 @@ window.traces["BR"]["spytial__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -6489,6 +7209,30 @@ window.traces["BR"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -6574,6 +7318,30 @@ window.traces["BR"]["spytial_ul__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -8530,6 +9298,30 @@ window.traces["BR_TABLE"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -8606,6 +9398,30 @@ window.traces["BR_TABLE"]["spytial__raw"] += `{
 "atoms": ["node_4", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -8895,6 +9711,30 @@ window.traces["BR_TABLE"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -8988,6 +9828,30 @@ window.traces["BR_TABLE"]["spytial_ul__raw"] += `{
 "atoms": ["node_4", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -9213,6 +10077,14 @@ window.traces["RETURN"]["spytial"] += `<pre class=''>{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -9225,6 +10097,30 @@ window.traces["RETURN"]["spytial"] += `<pre class=''>{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -9249,6 +10145,14 @@ window.traces["RETURN"]["spytial__raw"] += `{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -9261,6 +10165,30 @@ window.traces["RETURN"]["spytial__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -9389,6 +10317,14 @@ window.traces["RETURN"]["spytial_ul"] += `<pre class=''>{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -9401,6 +10337,30 @@ window.traces["RETURN"]["spytial_ul"] += `<pre class=''>{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -9425,6 +10385,14 @@ window.traces["RETURN"]["spytial_ul__raw"] += `{
 ],
 "relations": [
 {
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
 "id": "state_uses",
 "name": "StateUses",
 "types": ["sea_node", "sea_node"],
@@ -9437,6 +10405,30 @@ window.traces["RETURN"]["spytial_ul__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -9675,6 +10667,30 @@ window.traces["CALL"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -9756,6 +10772,30 @@ window.traces["CALL"]["spytial__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -10015,6 +11055,30 @@ window.traces["CALL"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -10096,6 +11160,30 @@ window.traces["CALL"]["spytial_ul__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -12269,6 +13357,30 @@ window.traces["RETURN_CALL"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -12350,6 +13462,30 @@ window.traces["RETURN_CALL"]["spytial__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -12609,6 +13745,30 @@ window.traces["RETURN_CALL"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -12690,6 +13850,30 @@ window.traces["RETURN_CALL"]["spytial_ul__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -12952,6 +14136,30 @@ window.traces["DROP"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -13011,6 +14219,30 @@ window.traces["DROP"]["spytial__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -13206,6 +14438,30 @@ window.traces["DROP"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -13265,6 +14521,30 @@ window.traces["DROP"]["spytial_ul__raw"] += `{
 "atoms": ["node_3", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -15284,6 +16564,30 @@ window.traces["LOCAL_GET"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -15377,6 +16681,30 @@ window.traces["LOCAL_GET"]["spytial__raw"] += `{
 "atoms": ["node_8", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -15666,6 +16994,30 @@ window.traces["LOCAL_GET"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -15759,6 +17111,30 @@ window.traces["LOCAL_GET"]["spytial_ul__raw"] += `{
 "atoms": ["node_8", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -16101,6 +17477,30 @@ window.traces["LOCAL_SET"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -16198,6 +17598,30 @@ window.traces["LOCAL_SET"]["spytial__raw"] += `{
 "atoms": ["node_11", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -16497,6 +17921,30 @@ window.traces["LOCAL_SET"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -16594,6 +18042,30 @@ window.traces["LOCAL_SET"]["spytial_ul__raw"] += `{
 "atoms": ["node_11", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -16971,6 +18443,30 @@ window.traces["LOCAL_TEE"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -17085,6 +18581,30 @@ window.traces["LOCAL_TEE"]["spytial__raw"] += `{
 "atoms": ["node_7", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -17431,6 +18951,30 @@ window.traces["LOCAL_TEE"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -17545,6 +19089,30 @@ window.traces["LOCAL_TEE"]["spytial_ul__raw"] += `{
 "atoms": ["node_7", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -17911,6 +19479,30 @@ window.traces["GLOBAL_GET"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -18004,6 +19596,30 @@ window.traces["GLOBAL_GET"]["spytial__raw"] += `{
 "atoms": ["node_8", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -18293,6 +19909,30 @@ window.traces["GLOBAL_GET"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -18386,6 +20026,30 @@ window.traces["GLOBAL_GET"]["spytial_ul__raw"] += `{
 "atoms": ["node_8", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -18728,6 +20392,30 @@ window.traces["GLOBAL_SET"]["spytial"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -18825,6 +20513,30 @@ window.traces["GLOBAL_SET"]["spytial__raw"] += `{
 "atoms": ["node_11", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -19124,6 +20836,30 @@ window.traces["GLOBAL_SET"]["spytial_ul"] += `<pre class=''>{
 "types": ["intrinsic", "start"]
 }
 ]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
 }
 ]
 }</pre>`;
@@ -19221,6 +20957,30 @@ window.traces["GLOBAL_SET"]["spytial_ul__raw"] += `{
 "atoms": ["node_11", "node_0"],
 "types": ["intrinsic", "start"]
 }
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+
 ]
 }
 ]
@@ -44276,3 +46036,32951 @@ graph TD
 	25 --> 35
 	15 --> 35
 `;
+window.traces["I64_LOAD8_S"]["schedulerMermaid"] = ''
+window.traces["I64_LOAD8_S"]["schedulerMermaid__raw"] = ''
+window.traces["I64_LOAD8_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
+subgraph block_307["Block 307"]
+	direction TB
+	b307_1[\\"Finish"/]
+end
+phi_309 --> block_307
+subgraph phi_309["Phi 309"]
+	p309_36{{"Sϕ Stack "}}
+	p309_35{{"Sϕ Codeptr "}}
+end
+block_310 --> phi_309
+block_311 --> phi_309
+subgraph block_310["Block 310"]
+	direction TB
+	b310_26["index pop_u64"]
+	b310_30["val mach_readMemory64_u8_64"]
+	b310_32["extend U64_extend8_s"]
+	b310_34["eff__312 push_u64"]
+	b310_25["offset imm_readULEB64"]
+	b310_26 --> b310_30
+	b310_30 --> b310_32
+	b310_32 --> b310_34
+	b310_34 --> b310_25
+end
+branch_308 --> block_310
+subgraph branch_308["Branch 308"]
+	br308_14["cond__311 m_isMemory64"]
+
+end
+block_312 --> branch_308
+subgraph block_312["Block 312"]
+	direction TB
+	b312_14["cond__311 m_isMemory64"]
+end
+phi_314 --> block_312
+subgraph phi_314["Phi 314"]
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_11{"memindex ϕ"}
+	p314_11{"memindex ϕ"}
+	p314_11{"memindex ϕ"}
+	p314_11{"memindex ϕ"}
+	p314_11{"memindex ϕ"}
+	p314_11{"memindex ϕ"}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+end
+block_315 --> phi_314
+block_316 --> phi_314
+subgraph block_315["Block 315"]
+	direction TB
+	b315_10["memindex__326 imm_readULEB32"]
+end
+branch_313 --> block_315
+subgraph branch_313["Branch 313"]
+	br313_9["cond__325 u8.!="]
+
+end
+block_317 --> branch_313
+subgraph block_317["Block 317"]
+	direction TB
+	b317_0[/"Start"\\]
+	b317_6["arg__330 0x40u8"]
+	b317_5["arg__328 0"]
+	b317_8["arg__327 u8.&"]
+	b317_9["cond__325 u8.!="]
+	b317_0 --> b317_6
+	b317_6 --> b317_5
+	b317_5 --> b317_8
+	b317_8 --> b317_9
+end
+subgraph block_316["Block 316"]
+	direction TB
+	b316_4["memindex__332 0u"]
+	b316_3["flags imm_readU8"]
+	b316_4 --> b316_3
+end
+branch_313 --> block_316
+subgraph block_311["Block 311"]
+	direction TB
+	b311_16["index pop_u32"]
+	b311_20["val mach_readMemory32_u8_64"]
+	b311_22["extend U64_extend8_s"]
+	b311_24["eff__318 push_u64"]
+	b311_15["offset imm_readULEB32"]
+	b311_16 --> b311_20
+	b311_20 --> b311_22
+	b311_22 --> b311_24
+	b311_24 --> b311_15
+end
+branch_308 --> block_311
+
+</pre>`;
+window.traces["I64_LOAD8_S"]["schedulerMermaid__raw"] += `graph TD
+subgraph block_307["Block 307"]
+	direction TB
+	b307_1[\\"Finish"/]
+end
+phi_309 --> block_307
+subgraph phi_309["Phi 309"]
+	p309_36{{"Sϕ Stack "}}
+	p309_35{{"Sϕ Codeptr "}}
+end
+block_310 --> phi_309
+block_311 --> phi_309
+subgraph block_310["Block 310"]
+	direction TB
+	b310_26["index pop_u64"]
+	b310_30["val mach_readMemory64_u8_64"]
+	b310_32["extend U64_extend8_s"]
+	b310_34["eff__312 push_u64"]
+	b310_25["offset imm_readULEB64"]
+	b310_26 --> b310_30
+	b310_30 --> b310_32
+	b310_32 --> b310_34
+	b310_34 --> b310_25
+end
+branch_308 --> block_310
+subgraph branch_308["Branch 308"]
+	br308_14["cond__311 m_isMemory64"]
+
+end
+block_312 --> branch_308
+subgraph block_312["Block 312"]
+	direction TB
+	b312_14["cond__311 m_isMemory64"]
+end
+phi_314 --> block_312
+subgraph phi_314["Phi 314"]
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_11{"memindex ϕ"}
+	p314_11{"memindex ϕ"}
+	p314_11{"memindex ϕ"}
+	p314_11{"memindex ϕ"}
+	p314_11{"memindex ϕ"}
+	p314_11{"memindex ϕ"}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+	p314_12{{"Sϕ Codeptr "}}
+end
+block_315 --> phi_314
+block_316 --> phi_314
+subgraph block_315["Block 315"]
+	direction TB
+	b315_10["memindex__326 imm_readULEB32"]
+end
+branch_313 --> block_315
+subgraph branch_313["Branch 313"]
+	br313_9["cond__325 u8.!="]
+
+end
+block_317 --> branch_313
+subgraph block_317["Block 317"]
+	direction TB
+	b317_0[/"Start"\\]
+	b317_6["arg__330 0x40u8"]
+	b317_5["arg__328 0"]
+	b317_8["arg__327 u8.&"]
+	b317_9["cond__325 u8.!="]
+	b317_0 --> b317_6
+	b317_6 --> b317_5
+	b317_5 --> b317_8
+	b317_8 --> b317_9
+end
+subgraph block_316["Block 316"]
+	direction TB
+	b316_4["memindex__332 0u"]
+	b316_3["flags imm_readU8"]
+	b316_4 --> b316_3
+end
+branch_313 --> block_316
+subgraph block_311["Block 311"]
+	direction TB
+	b311_16["index pop_u32"]
+	b311_20["val mach_readMemory32_u8_64"]
+	b311_22["extend U64_extend8_s"]
+	b311_24["eff__318 push_u64"]
+	b311_15["offset imm_readULEB32"]
+	b311_16 --> b311_20
+	b311_20 --> b311_22
+	b311_22 --> b311_24
+	b311_24 --> b311_15
+end
+branch_308 --> block_311
+
+`;
+window.traces["I64_LOAD8_S"]["unLEM"] = ''
+window.traces["I64_LOAD8_S"]["unLEM__raw"] = ''
+window.traces["I64_LOAD8_S"]["unLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__318 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend8_s"]
+	20 --> 22
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__326 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__325 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__328 0"]
+	8["arg__327 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__330 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__332 0u"]
+	34["eff__312 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend8_s"]
+	30 --> 32
+	30["val mach_readMemory64_u8_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__311 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD8_S"]["unLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__318 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend8_s"]
+	20 --> 22
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__326 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__325 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__328 0"]
+	8["arg__327 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__330 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__332 0u"]
+	34["eff__312 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend8_s"]
+	30 --> 32
+	30["val mach_readMemory64_u8_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__311 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD8_S"]["unlem_schedule"] = ''
+window.traces["I64_LOAD8_S"]["unlem_schedule__raw"] = ''
+window.traces["I64_LOAD8_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__330 : byte = 0x40u8;
+def arg__327 = u8.&(flags, arg__330);
+def arg__328 : byte = 0;
+def cond__325 = u8.!=(arg__327, arg__328);
+var memindex: u32;
+if (cond__325) {
+	def memindex__326 = imm_readULEB32();
+} else {
+	def memindex__332 : u32 = 0u;
+}
+// phis: memindex <- memindex__326; memindex <- memindex__332; 
+def cond__311 = m_isMemory64(memindex);
+if (cond__311) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	def eff__312 = push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	def eff__318 = push_u64(extend);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD8_S"]["unlem_schedule__raw"] += `def flags = imm_readU8();
+def arg__330 : byte = 0x40u8;
+def arg__327 = u8.&(flags, arg__330);
+def arg__328 : byte = 0;
+def cond__325 = u8.!=(arg__327, arg__328);
+var memindex: u32;
+if (cond__325) {
+	def memindex__326 = imm_readULEB32();
+} else {
+	def memindex__332 : u32 = 0u;
+}
+// phis: memindex <- memindex__326; memindex <- memindex__332; 
+def cond__311 = m_isMemory64(memindex);
+if (cond__311) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	def eff__312 = push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	def eff__318 = push_u64(extend);
+}
+// phis: 
+`;
+window.traces["I64_LOAD8_S"]["spytial_ul"] = ''
+window.traces["I64_LOAD8_S"]["spytial_ul__raw"] = ''
+window.traces["I64_LOAD8_S"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__311]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__311]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__311]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u64 [eff__312]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u64 [eff__318]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__325]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U64_extend8_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U64_extend8_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__325]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__326]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u8_64 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u8_64 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__327]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_LOAD8_S"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__311]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__311]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__311]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u64 [eff__312]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u64 [eff__318]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__325]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U64_extend8_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U64_extend8_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__325]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__326]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u8_64 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u8_64 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__327]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_LOAD8_S"]["unlem_scheduler"] = ''
+window.traces["I64_LOAD8_S"]["unlem_scheduler__raw"] = ''
+window.traces["I64_LOAD8_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
+subgraph block_318["Block 318"]
+	direction TB
+	b318_1[\\"Finish"/]
+end
+phi_320 --> block_318
+subgraph phi_320["Phi 320"]
+	p320_36{{"Sϕ Stack "}}
+	p320_35{{"Sϕ Codeptr "}}
+end
+block_321 --> phi_320
+block_322 --> phi_320
+subgraph block_321["Block 321"]
+	direction TB
+	b321_26["index pop_u64"]
+	b321_30["val mach_readMemory64_u8_64"]
+	b321_32["extend U64_extend8_s"]
+	b321_34["eff__312 push_u64"]
+	b321_25["offset imm_readULEB64"]
+	b321_26 --> b321_30
+	b321_30 --> b321_32
+	b321_32 --> b321_34
+	b321_34 --> b321_25
+end
+branch_319 --> block_321
+subgraph branch_319["Branch 319"]
+	br319_14["cond__311 m_isMemory64"]
+
+end
+block_323 --> branch_319
+subgraph block_323["Block 323"]
+	direction TB
+	b323_14["cond__311 m_isMemory64"]
+end
+phi_325 --> block_323
+subgraph phi_325["Phi 325"]
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_11{"memindex ϕ"}
+	p325_11{"memindex ϕ"}
+	p325_11{"memindex ϕ"}
+	p325_11{"memindex ϕ"}
+	p325_11{"memindex ϕ"}
+	p325_11{"memindex ϕ"}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+end
+block_326 --> phi_325
+block_327 --> phi_325
+subgraph block_326["Block 326"]
+	direction TB
+	b326_10["memindex__326 imm_readULEB32"]
+end
+branch_324 --> block_326
+subgraph branch_324["Branch 324"]
+	br324_9["cond__325 u8.!="]
+
+end
+block_328 --> branch_324
+subgraph block_328["Block 328"]
+	direction TB
+	b328_0[/"Start"\\]
+	b328_6["arg__330 0x40u8"]
+	b328_5["arg__328 0"]
+	b328_8["arg__327 u8.&"]
+	b328_9["cond__325 u8.!="]
+	b328_0 --> b328_6
+	b328_6 --> b328_5
+	b328_5 --> b328_8
+	b328_8 --> b328_9
+end
+subgraph block_327["Block 327"]
+	direction TB
+	b327_4["memindex__332 0u"]
+	b327_3["flags imm_readU8"]
+	b327_4 --> b327_3
+end
+branch_324 --> block_327
+subgraph block_322["Block 322"]
+	direction TB
+	b322_16["index pop_u32"]
+	b322_20["val mach_readMemory32_u8_64"]
+	b322_22["extend U64_extend8_s"]
+	b322_24["eff__318 push_u64"]
+	b322_15["offset imm_readULEB32"]
+	b322_16 --> b322_20
+	b322_20 --> b322_22
+	b322_22 --> b322_24
+	b322_24 --> b322_15
+end
+branch_319 --> block_322
+
+</pre>`;
+window.traces["I64_LOAD8_S"]["unlem_scheduler__raw"] += `graph TD
+subgraph block_318["Block 318"]
+	direction TB
+	b318_1[\\"Finish"/]
+end
+phi_320 --> block_318
+subgraph phi_320["Phi 320"]
+	p320_36{{"Sϕ Stack "}}
+	p320_35{{"Sϕ Codeptr "}}
+end
+block_321 --> phi_320
+block_322 --> phi_320
+subgraph block_321["Block 321"]
+	direction TB
+	b321_26["index pop_u64"]
+	b321_30["val mach_readMemory64_u8_64"]
+	b321_32["extend U64_extend8_s"]
+	b321_34["eff__312 push_u64"]
+	b321_25["offset imm_readULEB64"]
+	b321_26 --> b321_30
+	b321_30 --> b321_32
+	b321_32 --> b321_34
+	b321_34 --> b321_25
+end
+branch_319 --> block_321
+subgraph branch_319["Branch 319"]
+	br319_14["cond__311 m_isMemory64"]
+
+end
+block_323 --> branch_319
+subgraph block_323["Block 323"]
+	direction TB
+	b323_14["cond__311 m_isMemory64"]
+end
+phi_325 --> block_323
+subgraph phi_325["Phi 325"]
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_11{"memindex ϕ"}
+	p325_11{"memindex ϕ"}
+	p325_11{"memindex ϕ"}
+	p325_11{"memindex ϕ"}
+	p325_11{"memindex ϕ"}
+	p325_11{"memindex ϕ"}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+	p325_12{{"Sϕ Codeptr "}}
+end
+block_326 --> phi_325
+block_327 --> phi_325
+subgraph block_326["Block 326"]
+	direction TB
+	b326_10["memindex__326 imm_readULEB32"]
+end
+branch_324 --> block_326
+subgraph branch_324["Branch 324"]
+	br324_9["cond__325 u8.!="]
+
+end
+block_328 --> branch_324
+subgraph block_328["Block 328"]
+	direction TB
+	b328_0[/"Start"\\]
+	b328_6["arg__330 0x40u8"]
+	b328_5["arg__328 0"]
+	b328_8["arg__327 u8.&"]
+	b328_9["cond__325 u8.!="]
+	b328_0 --> b328_6
+	b328_6 --> b328_5
+	b328_5 --> b328_8
+	b328_8 --> b328_9
+end
+subgraph block_327["Block 327"]
+	direction TB
+	b327_4["memindex__332 0u"]
+	b327_3["flags imm_readU8"]
+	b327_4 --> b327_3
+end
+branch_324 --> block_327
+subgraph block_322["Block 322"]
+	direction TB
+	b322_16["index pop_u32"]
+	b322_20["val mach_readMemory32_u8_64"]
+	b322_22["extend U64_extend8_s"]
+	b322_24["eff__318 push_u64"]
+	b322_15["offset imm_readULEB32"]
+	b322_16 --> b322_20
+	b322_20 --> b322_22
+	b322_22 --> b322_24
+	b322_24 --> b322_15
+end
+branch_319 --> block_322
+
+`;
+window.traces["I64_LOAD8_S"]["unlem_pretty"] = ''
+window.traces["I64_LOAD8_S"]["unlem_pretty__raw"] = ''
+window.traces["I64_LOAD8_S"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	push_u64(extend);
+}
+</pre>`;
+window.traces["I64_LOAD8_S"]["unlem_pretty__raw"] += `def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	push_u64(extend);
+}
+`;
+window.traces["I64_LOAD8_S"]["constUnLEM"] = ''
+window.traces["I64_LOAD8_S"]["constUnLEM__raw"] = ''
+window.traces["I64_LOAD8_S"]["constUnLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__318 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend8_s"]
+	20 --> 22
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__326 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__325 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__328 0"]
+	8["arg__327 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__330 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__332 0u"]
+	34["eff__312 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend8_s"]
+	30 --> 32
+	30["val mach_readMemory64_u8_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__311 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD8_S"]["constUnLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__318 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend8_s"]
+	20 --> 22
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__326 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__325 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__328 0"]
+	8["arg__327 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__330 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__332 0u"]
+	34["eff__312 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend8_s"]
+	30 --> 32
+	30["val mach_readMemory64_u8_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__311 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD8_S"]["chooseMerge"] = ''
+window.traces["I64_LOAD8_S"]["chooseMerge__raw"] = ''
+window.traces["I64_LOAD8_S"]["chooseMerge"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__318 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend8_s"]
+	20 --> 22
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__326 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__325 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__328 0"]
+	8["arg__327 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__330 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__332 0u"]
+	34["eff__312 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend8_s"]
+	30 --> 32
+	30["val mach_readMemory64_u8_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__311 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD8_S"]["chooseMerge__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__318 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend8_s"]
+	20 --> 22
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__326 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__325 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__328 0"]
+	8["arg__327 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__330 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__332 0u"]
+	34["eff__312 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend8_s"]
+	30 --> 32
+	30["val mach_readMemory64_u8_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__311 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD8_S"]["scheduled"] = ''
+window.traces["I64_LOAD8_S"]["scheduled__raw"] = ''
+window.traces["I64_LOAD8_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__330 : byte = 0x40u8;
+def arg__327 = u8.&(flags, arg__330);
+def arg__328 : byte = 0;
+def cond__325 = u8.!=(arg__327, arg__328);
+var memindex: u32;
+if (cond__325) {
+	def memindex__326 = imm_readULEB32();
+} else {
+	def memindex__332 : u32 = 0u;
+}
+// phis: memindex <- memindex__326; memindex <- memindex__332; 
+def cond__311 = m_isMemory64(memindex);
+if (cond__311) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	def eff__312 = push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	def eff__318 = push_u64(extend);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD8_S"]["scheduled__raw"] += `def flags = imm_readU8();
+def arg__330 : byte = 0x40u8;
+def arg__327 = u8.&(flags, arg__330);
+def arg__328 : byte = 0;
+def cond__325 = u8.!=(arg__327, arg__328);
+var memindex: u32;
+if (cond__325) {
+	def memindex__326 = imm_readULEB32();
+} else {
+	def memindex__332 : u32 = 0u;
+}
+// phis: memindex <- memindex__326; memindex <- memindex__332; 
+def cond__311 = m_isMemory64(memindex);
+if (cond__311) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	def eff__312 = push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	def eff__318 = push_u64(extend);
+}
+// phis: 
+`;
+window.traces["I64_LOAD8_S"]["pretty"] = ''
+window.traces["I64_LOAD8_S"]["pretty__raw"] = ''
+window.traces["I64_LOAD8_S"]["pretty"] += `<pre class=''>def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	push_u64(extend);
+}
+</pre>`;
+window.traces["I64_LOAD8_S"]["pretty__raw"] += `def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	def extend = U64_extend8_s(val);
+	push_u64(extend);
+}
+`;
+window.traces["I64_LOAD8_U"] = {}
+window.traces["I64_LOAD8_U"]["parsed"] = ''
+window.traces["I64_LOAD8_U"]["parsed__raw"] = ''
+window.traces["I64_LOAD8_U"]["parsed"] += `<pre class=''>def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__348 : byte = 0;
+def arg__350 : byte = 0x40u8;
+def arg__349 = (flags);
+def arg__347 = u8.&(arg__349, arg__350);
+def cond__345 = u8.!=(arg__347, arg__348);
+if (cond__345) {
+	def memindex__346 = imm_readULEB32();
+}
+// phis: memindex <- memindex__346; 
+def arg__344 = (memindex);
+def cond__333 = m_isMemory64(arg__344);
+if (cond__333) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__338 = (offset);
+	def arg__337 = (index);
+	def arg__336 = (memindex);
+	def val = mach_readMemory64_u8_64(arg__336, arg__337, arg__338);
+	def arg__335 = (val);
+	def eff__334 = push_u64(arg__335);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__343 = (offset);
+	def arg__342 = (index);
+	def arg__341 = (memindex);
+	def val = mach_readMemory32_u8_64(arg__341, arg__342, arg__343);
+	def arg__340 = (val);
+	def eff__339 = push_u64(arg__340);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD8_U"]["parsed__raw"] += `def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__348 : byte = 0;
+def arg__350 : byte = 0x40u8;
+def arg__349 = (flags);
+def arg__347 = u8.&(arg__349, arg__350);
+def cond__345 = u8.!=(arg__347, arg__348);
+if (cond__345) {
+	def memindex__346 = imm_readULEB32();
+}
+// phis: memindex <- memindex__346; 
+def arg__344 = (memindex);
+def cond__333 = m_isMemory64(arg__344);
+if (cond__333) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__338 = (offset);
+	def arg__337 = (index);
+	def arg__336 = (memindex);
+	def val = mach_readMemory64_u8_64(arg__336, arg__337, arg__338);
+	def arg__335 = (val);
+	def eff__334 = push_u64(arg__335);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__343 = (offset);
+	def arg__342 = (index);
+	def arg__341 = (memindex);
+	def val = mach_readMemory32_u8_64(arg__341, arg__342, arg__343);
+	def arg__340 = (val);
+	def eff__339 = push_u64(arg__340);
+}
+// phis: 
+`;
+window.traces["I64_LOAD8_U"]["raw"] = ''
+window.traces["I64_LOAD8_U"]["raw__raw"] = ''
+window.traces["I64_LOAD8_U"]["raw"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__339 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__346 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__345 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__348 0"]
+	8["arg__347 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__350 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__351 0u"]
+	30["eff__334 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u8_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__333 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD8_U"]["raw__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__339 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__346 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__345 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__348 0"]
+	8["arg__347 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__350 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__351 0u"]
+	30["eff__334 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u8_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__333 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD8_U"]["spytial"] = ''
+window.traces["I64_LOAD8_U"]["spytial__raw"] = ''
+window.traces["I64_LOAD8_U"]["spytial"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__333]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__333]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__333]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__334]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__339]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__345]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u8_64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u8_64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__345]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__346]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__347]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_LOAD8_U"]["spytial__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__333]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__333]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__333]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__334]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__339]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__345]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u8_64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u8_64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__345]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__346]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__347]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_LOAD8_U"]["overloadOps"] = ''
+window.traces["I64_LOAD8_U"]["overloadOps__raw"] = ''
+window.traces["I64_LOAD8_U"]["overloadOps"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__339 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__346 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__345 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__348 0"]
+	8["arg__347 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__350 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__352 0u"]
+	30["eff__334 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u8_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__333 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD8_U"]["overloadOps__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__339 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__346 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__345 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__348 0"]
+	8["arg__347 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__350 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__352 0u"]
+	30["eff__334 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u8_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__333 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD8_U"]["addAbstractions"] = ''
+window.traces["I64_LOAD8_U"]["addAbstractions__raw"] = ''
+window.traces["I64_LOAD8_U"]["addAbstractions"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__339 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__346 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__345 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__348 0"]
+	8["arg__347 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__350 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__352 0u"]
+	30["eff__334 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u8_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__333 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD8_U"]["addAbstractions__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__339 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__346 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__345 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__348 0"]
+	8["arg__347 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__350 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__352 0u"]
+	30["eff__334 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u8_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__333 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD8_U"]["schedulerMermaid"] = ''
+window.traces["I64_LOAD8_U"]["schedulerMermaid__raw"] = ''
+window.traces["I64_LOAD8_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
+subgraph block_329["Block 329"]
+	direction TB
+	b329_1[\\"Finish"/]
+end
+phi_331 --> block_329
+subgraph phi_331["Phi 331"]
+	p331_32{{"Sϕ Stack "}}
+	p331_31{{"Sϕ Codeptr "}}
+end
+block_332 --> phi_331
+block_333 --> phi_331
+subgraph block_332["Block 332"]
+	direction TB
+	b332_24["index pop_u64"]
+	b332_28["val mach_readMemory64_u8_64"]
+	b332_30["eff__334 push_u64"]
+	b332_23["offset imm_readULEB64"]
+	b332_24 --> b332_28
+	b332_28 --> b332_30
+	b332_30 --> b332_23
+end
+branch_330 --> block_332
+subgraph branch_330["Branch 330"]
+	br330_14["cond__333 m_isMemory64"]
+
+end
+block_334 --> branch_330
+subgraph block_334["Block 334"]
+	direction TB
+	b334_14["cond__333 m_isMemory64"]
+end
+phi_336 --> block_334
+subgraph phi_336["Phi 336"]
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_11{"memindex ϕ"}
+	p336_11{"memindex ϕ"}
+	p336_11{"memindex ϕ"}
+	p336_11{"memindex ϕ"}
+	p336_11{"memindex ϕ"}
+	p336_11{"memindex ϕ"}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+end
+block_337 --> phi_336
+block_338 --> phi_336
+subgraph block_337["Block 337"]
+	direction TB
+	b337_10["memindex__346 imm_readULEB32"]
+end
+branch_335 --> block_337
+subgraph branch_335["Branch 335"]
+	br335_9["cond__345 u8.!="]
+
+end
+block_339 --> branch_335
+subgraph block_339["Block 339"]
+	direction TB
+	b339_0[/"Start"\\]
+	b339_6["arg__350 0x40u8"]
+	b339_5["arg__348 0"]
+	b339_8["arg__347 u8.&"]
+	b339_9["cond__345 u8.!="]
+	b339_0 --> b339_6
+	b339_6 --> b339_5
+	b339_5 --> b339_8
+	b339_8 --> b339_9
+end
+subgraph block_338["Block 338"]
+	direction TB
+	b338_4["memindex__352 0u"]
+	b338_3["flags imm_readU8"]
+	b338_4 --> b338_3
+end
+branch_335 --> block_338
+subgraph block_333["Block 333"]
+	direction TB
+	b333_16["index pop_u32"]
+	b333_20["val mach_readMemory32_u8_64"]
+	b333_22["eff__339 push_u64"]
+	b333_15["offset imm_readULEB32"]
+	b333_16 --> b333_20
+	b333_20 --> b333_22
+	b333_22 --> b333_15
+end
+branch_330 --> block_333
+
+</pre>`;
+window.traces["I64_LOAD8_U"]["schedulerMermaid__raw"] += `graph TD
+subgraph block_329["Block 329"]
+	direction TB
+	b329_1[\\"Finish"/]
+end
+phi_331 --> block_329
+subgraph phi_331["Phi 331"]
+	p331_32{{"Sϕ Stack "}}
+	p331_31{{"Sϕ Codeptr "}}
+end
+block_332 --> phi_331
+block_333 --> phi_331
+subgraph block_332["Block 332"]
+	direction TB
+	b332_24["index pop_u64"]
+	b332_28["val mach_readMemory64_u8_64"]
+	b332_30["eff__334 push_u64"]
+	b332_23["offset imm_readULEB64"]
+	b332_24 --> b332_28
+	b332_28 --> b332_30
+	b332_30 --> b332_23
+end
+branch_330 --> block_332
+subgraph branch_330["Branch 330"]
+	br330_14["cond__333 m_isMemory64"]
+
+end
+block_334 --> branch_330
+subgraph block_334["Block 334"]
+	direction TB
+	b334_14["cond__333 m_isMemory64"]
+end
+phi_336 --> block_334
+subgraph phi_336["Phi 336"]
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_11{"memindex ϕ"}
+	p336_11{"memindex ϕ"}
+	p336_11{"memindex ϕ"}
+	p336_11{"memindex ϕ"}
+	p336_11{"memindex ϕ"}
+	p336_11{"memindex ϕ"}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+	p336_12{{"Sϕ Codeptr "}}
+end
+block_337 --> phi_336
+block_338 --> phi_336
+subgraph block_337["Block 337"]
+	direction TB
+	b337_10["memindex__346 imm_readULEB32"]
+end
+branch_335 --> block_337
+subgraph branch_335["Branch 335"]
+	br335_9["cond__345 u8.!="]
+
+end
+block_339 --> branch_335
+subgraph block_339["Block 339"]
+	direction TB
+	b339_0[/"Start"\\]
+	b339_6["arg__350 0x40u8"]
+	b339_5["arg__348 0"]
+	b339_8["arg__347 u8.&"]
+	b339_9["cond__345 u8.!="]
+	b339_0 --> b339_6
+	b339_6 --> b339_5
+	b339_5 --> b339_8
+	b339_8 --> b339_9
+end
+subgraph block_338["Block 338"]
+	direction TB
+	b338_4["memindex__352 0u"]
+	b338_3["flags imm_readU8"]
+	b338_4 --> b338_3
+end
+branch_335 --> block_338
+subgraph block_333["Block 333"]
+	direction TB
+	b333_16["index pop_u32"]
+	b333_20["val mach_readMemory32_u8_64"]
+	b333_22["eff__339 push_u64"]
+	b333_15["offset imm_readULEB32"]
+	b333_16 --> b333_20
+	b333_20 --> b333_22
+	b333_22 --> b333_15
+end
+branch_330 --> block_333
+
+`;
+window.traces["I64_LOAD8_U"]["unLEM"] = ''
+window.traces["I64_LOAD8_U"]["unLEM__raw"] = ''
+window.traces["I64_LOAD8_U"]["unLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__339 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__346 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__345 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__348 0"]
+	8["arg__347 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__350 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__352 0u"]
+	30["eff__334 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u8_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__333 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD8_U"]["unLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__339 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__346 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__345 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__348 0"]
+	8["arg__347 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__350 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__352 0u"]
+	30["eff__334 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u8_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__333 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD8_U"]["unlem_schedule"] = ''
+window.traces["I64_LOAD8_U"]["unlem_schedule__raw"] = ''
+window.traces["I64_LOAD8_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__350 : byte = 0x40u8;
+def arg__347 = u8.&(flags, arg__350);
+def arg__348 : byte = 0;
+def cond__345 = u8.!=(arg__347, arg__348);
+var memindex: u32;
+if (cond__345) {
+	def memindex__346 = imm_readULEB32();
+} else {
+	def memindex__352 : u32 = 0u;
+}
+// phis: memindex <- memindex__346; memindex <- memindex__352; 
+def cond__333 = m_isMemory64(memindex);
+if (cond__333) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	def eff__334 = push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	def eff__339 = push_u64(val);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD8_U"]["unlem_schedule__raw"] += `def flags = imm_readU8();
+def arg__350 : byte = 0x40u8;
+def arg__347 = u8.&(flags, arg__350);
+def arg__348 : byte = 0;
+def cond__345 = u8.!=(arg__347, arg__348);
+var memindex: u32;
+if (cond__345) {
+	def memindex__346 = imm_readULEB32();
+} else {
+	def memindex__352 : u32 = 0u;
+}
+// phis: memindex <- memindex__346; memindex <- memindex__352; 
+def cond__333 = m_isMemory64(memindex);
+if (cond__333) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	def eff__334 = push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	def eff__339 = push_u64(val);
+}
+// phis: 
+`;
+window.traces["I64_LOAD8_U"]["spytial_ul"] = ''
+window.traces["I64_LOAD8_U"]["spytial_ul__raw"] = ''
+window.traces["I64_LOAD8_U"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__333]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__333]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__333]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__334]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__339]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__345]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u8_64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u8_64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__345]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__346]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__347]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_LOAD8_U"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__333]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__333]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__333]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__334]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__339]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__345]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u8_64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u8_64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__345]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__346]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__347]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_LOAD8_U"]["unlem_scheduler"] = ''
+window.traces["I64_LOAD8_U"]["unlem_scheduler__raw"] = ''
+window.traces["I64_LOAD8_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
+subgraph block_340["Block 340"]
+	direction TB
+	b340_1[\\"Finish"/]
+end
+phi_342 --> block_340
+subgraph phi_342["Phi 342"]
+	p342_32{{"Sϕ Stack "}}
+	p342_31{{"Sϕ Codeptr "}}
+end
+block_343 --> phi_342
+block_344 --> phi_342
+subgraph block_343["Block 343"]
+	direction TB
+	b343_24["index pop_u64"]
+	b343_28["val mach_readMemory64_u8_64"]
+	b343_30["eff__334 push_u64"]
+	b343_23["offset imm_readULEB64"]
+	b343_24 --> b343_28
+	b343_28 --> b343_30
+	b343_30 --> b343_23
+end
+branch_341 --> block_343
+subgraph branch_341["Branch 341"]
+	br341_14["cond__333 m_isMemory64"]
+
+end
+block_345 --> branch_341
+subgraph block_345["Block 345"]
+	direction TB
+	b345_14["cond__333 m_isMemory64"]
+end
+phi_347 --> block_345
+subgraph phi_347["Phi 347"]
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_11{"memindex ϕ"}
+	p347_11{"memindex ϕ"}
+	p347_11{"memindex ϕ"}
+	p347_11{"memindex ϕ"}
+	p347_11{"memindex ϕ"}
+	p347_11{"memindex ϕ"}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+end
+block_348 --> phi_347
+block_349 --> phi_347
+subgraph block_348["Block 348"]
+	direction TB
+	b348_10["memindex__346 imm_readULEB32"]
+end
+branch_346 --> block_348
+subgraph branch_346["Branch 346"]
+	br346_9["cond__345 u8.!="]
+
+end
+block_350 --> branch_346
+subgraph block_350["Block 350"]
+	direction TB
+	b350_0[/"Start"\\]
+	b350_6["arg__350 0x40u8"]
+	b350_5["arg__348 0"]
+	b350_8["arg__347 u8.&"]
+	b350_9["cond__345 u8.!="]
+	b350_0 --> b350_6
+	b350_6 --> b350_5
+	b350_5 --> b350_8
+	b350_8 --> b350_9
+end
+subgraph block_349["Block 349"]
+	direction TB
+	b349_4["memindex__352 0u"]
+	b349_3["flags imm_readU8"]
+	b349_4 --> b349_3
+end
+branch_346 --> block_349
+subgraph block_344["Block 344"]
+	direction TB
+	b344_16["index pop_u32"]
+	b344_20["val mach_readMemory32_u8_64"]
+	b344_22["eff__339 push_u64"]
+	b344_15["offset imm_readULEB32"]
+	b344_16 --> b344_20
+	b344_20 --> b344_22
+	b344_22 --> b344_15
+end
+branch_341 --> block_344
+
+</pre>`;
+window.traces["I64_LOAD8_U"]["unlem_scheduler__raw"] += `graph TD
+subgraph block_340["Block 340"]
+	direction TB
+	b340_1[\\"Finish"/]
+end
+phi_342 --> block_340
+subgraph phi_342["Phi 342"]
+	p342_32{{"Sϕ Stack "}}
+	p342_31{{"Sϕ Codeptr "}}
+end
+block_343 --> phi_342
+block_344 --> phi_342
+subgraph block_343["Block 343"]
+	direction TB
+	b343_24["index pop_u64"]
+	b343_28["val mach_readMemory64_u8_64"]
+	b343_30["eff__334 push_u64"]
+	b343_23["offset imm_readULEB64"]
+	b343_24 --> b343_28
+	b343_28 --> b343_30
+	b343_30 --> b343_23
+end
+branch_341 --> block_343
+subgraph branch_341["Branch 341"]
+	br341_14["cond__333 m_isMemory64"]
+
+end
+block_345 --> branch_341
+subgraph block_345["Block 345"]
+	direction TB
+	b345_14["cond__333 m_isMemory64"]
+end
+phi_347 --> block_345
+subgraph phi_347["Phi 347"]
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_11{"memindex ϕ"}
+	p347_11{"memindex ϕ"}
+	p347_11{"memindex ϕ"}
+	p347_11{"memindex ϕ"}
+	p347_11{"memindex ϕ"}
+	p347_11{"memindex ϕ"}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+	p347_12{{"Sϕ Codeptr "}}
+end
+block_348 --> phi_347
+block_349 --> phi_347
+subgraph block_348["Block 348"]
+	direction TB
+	b348_10["memindex__346 imm_readULEB32"]
+end
+branch_346 --> block_348
+subgraph branch_346["Branch 346"]
+	br346_9["cond__345 u8.!="]
+
+end
+block_350 --> branch_346
+subgraph block_350["Block 350"]
+	direction TB
+	b350_0[/"Start"\\]
+	b350_6["arg__350 0x40u8"]
+	b350_5["arg__348 0"]
+	b350_8["arg__347 u8.&"]
+	b350_9["cond__345 u8.!="]
+	b350_0 --> b350_6
+	b350_6 --> b350_5
+	b350_5 --> b350_8
+	b350_8 --> b350_9
+end
+subgraph block_349["Block 349"]
+	direction TB
+	b349_4["memindex__352 0u"]
+	b349_3["flags imm_readU8"]
+	b349_4 --> b349_3
+end
+branch_346 --> block_349
+subgraph block_344["Block 344"]
+	direction TB
+	b344_16["index pop_u32"]
+	b344_20["val mach_readMemory32_u8_64"]
+	b344_22["eff__339 push_u64"]
+	b344_15["offset imm_readULEB32"]
+	b344_16 --> b344_20
+	b344_20 --> b344_22
+	b344_22 --> b344_15
+end
+branch_341 --> block_344
+
+`;
+window.traces["I64_LOAD8_U"]["unlem_pretty"] = ''
+window.traces["I64_LOAD8_U"]["unlem_pretty__raw"] = ''
+window.traces["I64_LOAD8_U"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	push_u64(val);
+}
+</pre>`;
+window.traces["I64_LOAD8_U"]["unlem_pretty__raw"] += `def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	push_u64(val);
+}
+`;
+window.traces["I64_LOAD8_U"]["constUnLEM"] = ''
+window.traces["I64_LOAD8_U"]["constUnLEM__raw"] = ''
+window.traces["I64_LOAD8_U"]["constUnLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__339 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__346 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__345 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__348 0"]
+	8["arg__347 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__350 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__352 0u"]
+	30["eff__334 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u8_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__333 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD8_U"]["constUnLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__339 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__346 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__345 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__348 0"]
+	8["arg__347 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__350 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__352 0u"]
+	30["eff__334 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u8_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__333 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD8_U"]["chooseMerge"] = ''
+window.traces["I64_LOAD8_U"]["chooseMerge__raw"] = ''
+window.traces["I64_LOAD8_U"]["chooseMerge"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__339 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__346 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__345 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__348 0"]
+	8["arg__347 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__350 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__352 0u"]
+	30["eff__334 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u8_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__333 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD8_U"]["chooseMerge__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__339 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u8_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__346 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__345 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__348 0"]
+	8["arg__347 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__350 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__352 0u"]
+	30["eff__334 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u8_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__333 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD8_U"]["scheduled"] = ''
+window.traces["I64_LOAD8_U"]["scheduled__raw"] = ''
+window.traces["I64_LOAD8_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__350 : byte = 0x40u8;
+def arg__347 = u8.&(flags, arg__350);
+def arg__348 : byte = 0;
+def cond__345 = u8.!=(arg__347, arg__348);
+var memindex: u32;
+if (cond__345) {
+	def memindex__346 = imm_readULEB32();
+} else {
+	def memindex__352 : u32 = 0u;
+}
+// phis: memindex <- memindex__346; memindex <- memindex__352; 
+def cond__333 = m_isMemory64(memindex);
+if (cond__333) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	def eff__334 = push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	def eff__339 = push_u64(val);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD8_U"]["scheduled__raw"] += `def flags = imm_readU8();
+def arg__350 : byte = 0x40u8;
+def arg__347 = u8.&(flags, arg__350);
+def arg__348 : byte = 0;
+def cond__345 = u8.!=(arg__347, arg__348);
+var memindex: u32;
+if (cond__345) {
+	def memindex__346 = imm_readULEB32();
+} else {
+	def memindex__352 : u32 = 0u;
+}
+// phis: memindex <- memindex__346; memindex <- memindex__352; 
+def cond__333 = m_isMemory64(memindex);
+if (cond__333) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	def eff__334 = push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	def eff__339 = push_u64(val);
+}
+// phis: 
+`;
+window.traces["I64_LOAD8_U"]["pretty"] = ''
+window.traces["I64_LOAD8_U"]["pretty__raw"] = ''
+window.traces["I64_LOAD8_U"]["pretty"] += `<pre class=''>def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	push_u64(val);
+}
+</pre>`;
+window.traces["I64_LOAD8_U"]["pretty__raw"] += `def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset);
+	push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset);
+	push_u64(val);
+}
+`;
+window.traces["I64_LOAD16_S"] = {}
+window.traces["I64_LOAD16_S"]["parsed"] = ''
+window.traces["I64_LOAD16_S"]["parsed__raw"] = ''
+window.traces["I64_LOAD16_S"]["parsed"] += `<pre class=''>def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__370 : byte = 0;
+def arg__372 : byte = 0x40u8;
+def arg__371 = (flags);
+def arg__369 = u8.&(arg__371, arg__372);
+def cond__367 = u8.!=(arg__369, arg__370);
+if (cond__367) {
+	def memindex__368 = imm_readULEB32();
+}
+// phis: memindex <- memindex__368; 
+def arg__366 = (memindex);
+def cond__353 = m_isMemory64(arg__366);
+if (cond__353) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__359 = (offset);
+	def arg__358 = (index);
+	def arg__357 = (memindex);
+	def val = mach_readMemory64_u16_64(arg__357, arg__358, arg__359);
+	def arg__356 = (val);
+	def extend = U64_extend16_s(arg__356);
+	def arg__355 = (extend);
+	def eff__354 = push_u64(arg__355);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__365 = (offset);
+	def arg__364 = (index);
+	def arg__363 = (memindex);
+	def val = mach_readMemory32_u16_64(arg__363, arg__364, arg__365);
+	def arg__362 = (val);
+	def extend = U64_extend16_s(arg__362);
+	def arg__361 = (extend);
+	def eff__360 = push_u64(arg__361);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD16_S"]["parsed__raw"] += `def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__370 : byte = 0;
+def arg__372 : byte = 0x40u8;
+def arg__371 = (flags);
+def arg__369 = u8.&(arg__371, arg__372);
+def cond__367 = u8.!=(arg__369, arg__370);
+if (cond__367) {
+	def memindex__368 = imm_readULEB32();
+}
+// phis: memindex <- memindex__368; 
+def arg__366 = (memindex);
+def cond__353 = m_isMemory64(arg__366);
+if (cond__353) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__359 = (offset);
+	def arg__358 = (index);
+	def arg__357 = (memindex);
+	def val = mach_readMemory64_u16_64(arg__357, arg__358, arg__359);
+	def arg__356 = (val);
+	def extend = U64_extend16_s(arg__356);
+	def arg__355 = (extend);
+	def eff__354 = push_u64(arg__355);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__365 = (offset);
+	def arg__364 = (index);
+	def arg__363 = (memindex);
+	def val = mach_readMemory32_u16_64(arg__363, arg__364, arg__365);
+	def arg__362 = (val);
+	def extend = U64_extend16_s(arg__362);
+	def arg__361 = (extend);
+	def eff__360 = push_u64(arg__361);
+}
+// phis: 
+`;
+window.traces["I64_LOAD16_S"]["raw"] = ''
+window.traces["I64_LOAD16_S"]["raw__raw"] = ''
+window.traces["I64_LOAD16_S"]["raw"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__360 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend16_s"]
+	20 --> 22
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__368 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__367 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__370 0"]
+	8["arg__369 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__372 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__373 0u"]
+	34["eff__354 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend16_s"]
+	30 --> 32
+	30["val mach_readMemory64_u16_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__353 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD16_S"]["raw__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__360 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend16_s"]
+	20 --> 22
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__368 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__367 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__370 0"]
+	8["arg__369 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__372 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__373 0u"]
+	34["eff__354 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend16_s"]
+	30 --> 32
+	30["val mach_readMemory64_u16_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__353 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD16_S"]["spytial"] = ''
+window.traces["I64_LOAD16_S"]["spytial__raw"] = ''
+window.traces["I64_LOAD16_S"]["spytial"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__353]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__353]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__353]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u64 [eff__354]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u64 [eff__360]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__367]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U64_extend16_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U64_extend16_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__367]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__368]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u16_64 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u16_64 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__369]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_LOAD16_S"]["spytial__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__353]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__353]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__353]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u64 [eff__354]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u64 [eff__360]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__367]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U64_extend16_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U64_extend16_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__367]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__368]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u16_64 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u16_64 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__369]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_LOAD16_S"]["overloadOps"] = ''
+window.traces["I64_LOAD16_S"]["overloadOps__raw"] = ''
+window.traces["I64_LOAD16_S"]["overloadOps"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__360 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend16_s"]
+	20 --> 22
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__368 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__367 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__370 0"]
+	8["arg__369 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__372 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__374 0u"]
+	34["eff__354 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend16_s"]
+	30 --> 32
+	30["val mach_readMemory64_u16_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__353 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD16_S"]["overloadOps__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__360 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend16_s"]
+	20 --> 22
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__368 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__367 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__370 0"]
+	8["arg__369 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__372 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__374 0u"]
+	34["eff__354 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend16_s"]
+	30 --> 32
+	30["val mach_readMemory64_u16_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__353 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD16_S"]["addAbstractions"] = ''
+window.traces["I64_LOAD16_S"]["addAbstractions__raw"] = ''
+window.traces["I64_LOAD16_S"]["addAbstractions"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__360 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend16_s"]
+	20 --> 22
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__368 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__367 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__370 0"]
+	8["arg__369 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__372 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__374 0u"]
+	34["eff__354 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend16_s"]
+	30 --> 32
+	30["val mach_readMemory64_u16_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__353 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD16_S"]["addAbstractions__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__360 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend16_s"]
+	20 --> 22
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__368 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__367 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__370 0"]
+	8["arg__369 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__372 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__374 0u"]
+	34["eff__354 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend16_s"]
+	30 --> 32
+	30["val mach_readMemory64_u16_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__353 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD16_S"]["schedulerMermaid"] = ''
+window.traces["I64_LOAD16_S"]["schedulerMermaid__raw"] = ''
+window.traces["I64_LOAD16_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
+subgraph block_351["Block 351"]
+	direction TB
+	b351_1[\\"Finish"/]
+end
+phi_353 --> block_351
+subgraph phi_353["Phi 353"]
+	p353_36{{"Sϕ Stack "}}
+	p353_35{{"Sϕ Codeptr "}}
+end
+block_354 --> phi_353
+block_355 --> phi_353
+subgraph block_354["Block 354"]
+	direction TB
+	b354_26["index pop_u64"]
+	b354_30["val mach_readMemory64_u16_64"]
+	b354_32["extend U64_extend16_s"]
+	b354_34["eff__354 push_u64"]
+	b354_25["offset imm_readULEB64"]
+	b354_26 --> b354_30
+	b354_30 --> b354_32
+	b354_32 --> b354_34
+	b354_34 --> b354_25
+end
+branch_352 --> block_354
+subgraph branch_352["Branch 352"]
+	br352_14["cond__353 m_isMemory64"]
+
+end
+block_356 --> branch_352
+subgraph block_356["Block 356"]
+	direction TB
+	b356_14["cond__353 m_isMemory64"]
+end
+phi_358 --> block_356
+subgraph phi_358["Phi 358"]
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_11{"memindex ϕ"}
+	p358_11{"memindex ϕ"}
+	p358_11{"memindex ϕ"}
+	p358_11{"memindex ϕ"}
+	p358_11{"memindex ϕ"}
+	p358_11{"memindex ϕ"}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+end
+block_359 --> phi_358
+block_360 --> phi_358
+subgraph block_359["Block 359"]
+	direction TB
+	b359_10["memindex__368 imm_readULEB32"]
+end
+branch_357 --> block_359
+subgraph branch_357["Branch 357"]
+	br357_9["cond__367 u8.!="]
+
+end
+block_361 --> branch_357
+subgraph block_361["Block 361"]
+	direction TB
+	b361_0[/"Start"\\]
+	b361_6["arg__372 0x40u8"]
+	b361_5["arg__370 0"]
+	b361_8["arg__369 u8.&"]
+	b361_9["cond__367 u8.!="]
+	b361_0 --> b361_6
+	b361_6 --> b361_5
+	b361_5 --> b361_8
+	b361_8 --> b361_9
+end
+subgraph block_360["Block 360"]
+	direction TB
+	b360_4["memindex__374 0u"]
+	b360_3["flags imm_readU8"]
+	b360_4 --> b360_3
+end
+branch_357 --> block_360
+subgraph block_355["Block 355"]
+	direction TB
+	b355_16["index pop_u32"]
+	b355_20["val mach_readMemory32_u16_64"]
+	b355_22["extend U64_extend16_s"]
+	b355_24["eff__360 push_u64"]
+	b355_15["offset imm_readULEB32"]
+	b355_16 --> b355_20
+	b355_20 --> b355_22
+	b355_22 --> b355_24
+	b355_24 --> b355_15
+end
+branch_352 --> block_355
+
+</pre>`;
+window.traces["I64_LOAD16_S"]["schedulerMermaid__raw"] += `graph TD
+subgraph block_351["Block 351"]
+	direction TB
+	b351_1[\\"Finish"/]
+end
+phi_353 --> block_351
+subgraph phi_353["Phi 353"]
+	p353_36{{"Sϕ Stack "}}
+	p353_35{{"Sϕ Codeptr "}}
+end
+block_354 --> phi_353
+block_355 --> phi_353
+subgraph block_354["Block 354"]
+	direction TB
+	b354_26["index pop_u64"]
+	b354_30["val mach_readMemory64_u16_64"]
+	b354_32["extend U64_extend16_s"]
+	b354_34["eff__354 push_u64"]
+	b354_25["offset imm_readULEB64"]
+	b354_26 --> b354_30
+	b354_30 --> b354_32
+	b354_32 --> b354_34
+	b354_34 --> b354_25
+end
+branch_352 --> block_354
+subgraph branch_352["Branch 352"]
+	br352_14["cond__353 m_isMemory64"]
+
+end
+block_356 --> branch_352
+subgraph block_356["Block 356"]
+	direction TB
+	b356_14["cond__353 m_isMemory64"]
+end
+phi_358 --> block_356
+subgraph phi_358["Phi 358"]
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_11{"memindex ϕ"}
+	p358_11{"memindex ϕ"}
+	p358_11{"memindex ϕ"}
+	p358_11{"memindex ϕ"}
+	p358_11{"memindex ϕ"}
+	p358_11{"memindex ϕ"}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+	p358_12{{"Sϕ Codeptr "}}
+end
+block_359 --> phi_358
+block_360 --> phi_358
+subgraph block_359["Block 359"]
+	direction TB
+	b359_10["memindex__368 imm_readULEB32"]
+end
+branch_357 --> block_359
+subgraph branch_357["Branch 357"]
+	br357_9["cond__367 u8.!="]
+
+end
+block_361 --> branch_357
+subgraph block_361["Block 361"]
+	direction TB
+	b361_0[/"Start"\\]
+	b361_6["arg__372 0x40u8"]
+	b361_5["arg__370 0"]
+	b361_8["arg__369 u8.&"]
+	b361_9["cond__367 u8.!="]
+	b361_0 --> b361_6
+	b361_6 --> b361_5
+	b361_5 --> b361_8
+	b361_8 --> b361_9
+end
+subgraph block_360["Block 360"]
+	direction TB
+	b360_4["memindex__374 0u"]
+	b360_3["flags imm_readU8"]
+	b360_4 --> b360_3
+end
+branch_357 --> block_360
+subgraph block_355["Block 355"]
+	direction TB
+	b355_16["index pop_u32"]
+	b355_20["val mach_readMemory32_u16_64"]
+	b355_22["extend U64_extend16_s"]
+	b355_24["eff__360 push_u64"]
+	b355_15["offset imm_readULEB32"]
+	b355_16 --> b355_20
+	b355_20 --> b355_22
+	b355_22 --> b355_24
+	b355_24 --> b355_15
+end
+branch_352 --> block_355
+
+`;
+window.traces["I64_LOAD16_S"]["unLEM"] = ''
+window.traces["I64_LOAD16_S"]["unLEM__raw"] = ''
+window.traces["I64_LOAD16_S"]["unLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__360 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend16_s"]
+	20 --> 22
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__368 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__367 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__370 0"]
+	8["arg__369 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__372 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__374 0u"]
+	34["eff__354 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend16_s"]
+	30 --> 32
+	30["val mach_readMemory64_u16_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__353 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD16_S"]["unLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__360 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend16_s"]
+	20 --> 22
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__368 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__367 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__370 0"]
+	8["arg__369 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__372 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__374 0u"]
+	34["eff__354 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend16_s"]
+	30 --> 32
+	30["val mach_readMemory64_u16_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__353 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD16_S"]["unlem_schedule"] = ''
+window.traces["I64_LOAD16_S"]["unlem_schedule__raw"] = ''
+window.traces["I64_LOAD16_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__372 : byte = 0x40u8;
+def arg__369 = u8.&(flags, arg__372);
+def arg__370 : byte = 0;
+def cond__367 = u8.!=(arg__369, arg__370);
+var memindex: u32;
+if (cond__367) {
+	def memindex__368 = imm_readULEB32();
+} else {
+	def memindex__374 : u32 = 0u;
+}
+// phis: memindex <- memindex__368; memindex <- memindex__374; 
+def cond__353 = m_isMemory64(memindex);
+if (cond__353) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	def eff__354 = push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	def eff__360 = push_u64(extend);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD16_S"]["unlem_schedule__raw"] += `def flags = imm_readU8();
+def arg__372 : byte = 0x40u8;
+def arg__369 = u8.&(flags, arg__372);
+def arg__370 : byte = 0;
+def cond__367 = u8.!=(arg__369, arg__370);
+var memindex: u32;
+if (cond__367) {
+	def memindex__368 = imm_readULEB32();
+} else {
+	def memindex__374 : u32 = 0u;
+}
+// phis: memindex <- memindex__368; memindex <- memindex__374; 
+def cond__353 = m_isMemory64(memindex);
+if (cond__353) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	def eff__354 = push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	def eff__360 = push_u64(extend);
+}
+// phis: 
+`;
+window.traces["I64_LOAD16_S"]["spytial_ul"] = ''
+window.traces["I64_LOAD16_S"]["spytial_ul__raw"] = ''
+window.traces["I64_LOAD16_S"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__353]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__353]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__353]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u64 [eff__354]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u64 [eff__360]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__367]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U64_extend16_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U64_extend16_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__367]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__368]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u16_64 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u16_64 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__369]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_LOAD16_S"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__353]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__353]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__353]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u64 [eff__354]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u64 [eff__360]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__367]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U64_extend16_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U64_extend16_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__367]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__368]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u16_64 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u16_64 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__369]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_LOAD16_S"]["unlem_scheduler"] = ''
+window.traces["I64_LOAD16_S"]["unlem_scheduler__raw"] = ''
+window.traces["I64_LOAD16_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
+subgraph block_362["Block 362"]
+	direction TB
+	b362_1[\\"Finish"/]
+end
+phi_364 --> block_362
+subgraph phi_364["Phi 364"]
+	p364_36{{"Sϕ Stack "}}
+	p364_35{{"Sϕ Codeptr "}}
+end
+block_365 --> phi_364
+block_366 --> phi_364
+subgraph block_365["Block 365"]
+	direction TB
+	b365_26["index pop_u64"]
+	b365_30["val mach_readMemory64_u16_64"]
+	b365_32["extend U64_extend16_s"]
+	b365_34["eff__354 push_u64"]
+	b365_25["offset imm_readULEB64"]
+	b365_26 --> b365_30
+	b365_30 --> b365_32
+	b365_32 --> b365_34
+	b365_34 --> b365_25
+end
+branch_363 --> block_365
+subgraph branch_363["Branch 363"]
+	br363_14["cond__353 m_isMemory64"]
+
+end
+block_367 --> branch_363
+subgraph block_367["Block 367"]
+	direction TB
+	b367_14["cond__353 m_isMemory64"]
+end
+phi_369 --> block_367
+subgraph phi_369["Phi 369"]
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_11{"memindex ϕ"}
+	p369_11{"memindex ϕ"}
+	p369_11{"memindex ϕ"}
+	p369_11{"memindex ϕ"}
+	p369_11{"memindex ϕ"}
+	p369_11{"memindex ϕ"}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+end
+block_370 --> phi_369
+block_371 --> phi_369
+subgraph block_370["Block 370"]
+	direction TB
+	b370_10["memindex__368 imm_readULEB32"]
+end
+branch_368 --> block_370
+subgraph branch_368["Branch 368"]
+	br368_9["cond__367 u8.!="]
+
+end
+block_372 --> branch_368
+subgraph block_372["Block 372"]
+	direction TB
+	b372_0[/"Start"\\]
+	b372_6["arg__372 0x40u8"]
+	b372_5["arg__370 0"]
+	b372_8["arg__369 u8.&"]
+	b372_9["cond__367 u8.!="]
+	b372_0 --> b372_6
+	b372_6 --> b372_5
+	b372_5 --> b372_8
+	b372_8 --> b372_9
+end
+subgraph block_371["Block 371"]
+	direction TB
+	b371_4["memindex__374 0u"]
+	b371_3["flags imm_readU8"]
+	b371_4 --> b371_3
+end
+branch_368 --> block_371
+subgraph block_366["Block 366"]
+	direction TB
+	b366_16["index pop_u32"]
+	b366_20["val mach_readMemory32_u16_64"]
+	b366_22["extend U64_extend16_s"]
+	b366_24["eff__360 push_u64"]
+	b366_15["offset imm_readULEB32"]
+	b366_16 --> b366_20
+	b366_20 --> b366_22
+	b366_22 --> b366_24
+	b366_24 --> b366_15
+end
+branch_363 --> block_366
+
+</pre>`;
+window.traces["I64_LOAD16_S"]["unlem_scheduler__raw"] += `graph TD
+subgraph block_362["Block 362"]
+	direction TB
+	b362_1[\\"Finish"/]
+end
+phi_364 --> block_362
+subgraph phi_364["Phi 364"]
+	p364_36{{"Sϕ Stack "}}
+	p364_35{{"Sϕ Codeptr "}}
+end
+block_365 --> phi_364
+block_366 --> phi_364
+subgraph block_365["Block 365"]
+	direction TB
+	b365_26["index pop_u64"]
+	b365_30["val mach_readMemory64_u16_64"]
+	b365_32["extend U64_extend16_s"]
+	b365_34["eff__354 push_u64"]
+	b365_25["offset imm_readULEB64"]
+	b365_26 --> b365_30
+	b365_30 --> b365_32
+	b365_32 --> b365_34
+	b365_34 --> b365_25
+end
+branch_363 --> block_365
+subgraph branch_363["Branch 363"]
+	br363_14["cond__353 m_isMemory64"]
+
+end
+block_367 --> branch_363
+subgraph block_367["Block 367"]
+	direction TB
+	b367_14["cond__353 m_isMemory64"]
+end
+phi_369 --> block_367
+subgraph phi_369["Phi 369"]
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_11{"memindex ϕ"}
+	p369_11{"memindex ϕ"}
+	p369_11{"memindex ϕ"}
+	p369_11{"memindex ϕ"}
+	p369_11{"memindex ϕ"}
+	p369_11{"memindex ϕ"}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+	p369_12{{"Sϕ Codeptr "}}
+end
+block_370 --> phi_369
+block_371 --> phi_369
+subgraph block_370["Block 370"]
+	direction TB
+	b370_10["memindex__368 imm_readULEB32"]
+end
+branch_368 --> block_370
+subgraph branch_368["Branch 368"]
+	br368_9["cond__367 u8.!="]
+
+end
+block_372 --> branch_368
+subgraph block_372["Block 372"]
+	direction TB
+	b372_0[/"Start"\\]
+	b372_6["arg__372 0x40u8"]
+	b372_5["arg__370 0"]
+	b372_8["arg__369 u8.&"]
+	b372_9["cond__367 u8.!="]
+	b372_0 --> b372_6
+	b372_6 --> b372_5
+	b372_5 --> b372_8
+	b372_8 --> b372_9
+end
+subgraph block_371["Block 371"]
+	direction TB
+	b371_4["memindex__374 0u"]
+	b371_3["flags imm_readU8"]
+	b371_4 --> b371_3
+end
+branch_368 --> block_371
+subgraph block_366["Block 366"]
+	direction TB
+	b366_16["index pop_u32"]
+	b366_20["val mach_readMemory32_u16_64"]
+	b366_22["extend U64_extend16_s"]
+	b366_24["eff__360 push_u64"]
+	b366_15["offset imm_readULEB32"]
+	b366_16 --> b366_20
+	b366_20 --> b366_22
+	b366_22 --> b366_24
+	b366_24 --> b366_15
+end
+branch_363 --> block_366
+
+`;
+window.traces["I64_LOAD16_S"]["unlem_pretty"] = ''
+window.traces["I64_LOAD16_S"]["unlem_pretty__raw"] = ''
+window.traces["I64_LOAD16_S"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	push_u64(extend);
+}
+</pre>`;
+window.traces["I64_LOAD16_S"]["unlem_pretty__raw"] += `def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	push_u64(extend);
+}
+`;
+window.traces["I64_LOAD16_S"]["constUnLEM"] = ''
+window.traces["I64_LOAD16_S"]["constUnLEM__raw"] = ''
+window.traces["I64_LOAD16_S"]["constUnLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__360 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend16_s"]
+	20 --> 22
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__368 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__367 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__370 0"]
+	8["arg__369 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__372 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__374 0u"]
+	34["eff__354 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend16_s"]
+	30 --> 32
+	30["val mach_readMemory64_u16_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__353 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD16_S"]["constUnLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__360 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend16_s"]
+	20 --> 22
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__368 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__367 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__370 0"]
+	8["arg__369 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__372 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__374 0u"]
+	34["eff__354 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend16_s"]
+	30 --> 32
+	30["val mach_readMemory64_u16_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__353 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD16_S"]["chooseMerge"] = ''
+window.traces["I64_LOAD16_S"]["chooseMerge__raw"] = ''
+window.traces["I64_LOAD16_S"]["chooseMerge"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__360 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend16_s"]
+	20 --> 22
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__368 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__367 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__370 0"]
+	8["arg__369 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__372 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__374 0u"]
+	34["eff__354 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend16_s"]
+	30 --> 32
+	30["val mach_readMemory64_u16_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__353 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD16_S"]["chooseMerge__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__360 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend16_s"]
+	20 --> 22
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__368 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__367 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__370 0"]
+	8["arg__369 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__372 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__374 0u"]
+	34["eff__354 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend16_s"]
+	30 --> 32
+	30["val mach_readMemory64_u16_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__353 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD16_S"]["scheduled"] = ''
+window.traces["I64_LOAD16_S"]["scheduled__raw"] = ''
+window.traces["I64_LOAD16_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__372 : byte = 0x40u8;
+def arg__369 = u8.&(flags, arg__372);
+def arg__370 : byte = 0;
+def cond__367 = u8.!=(arg__369, arg__370);
+var memindex: u32;
+if (cond__367) {
+	def memindex__368 = imm_readULEB32();
+} else {
+	def memindex__374 : u32 = 0u;
+}
+// phis: memindex <- memindex__368; memindex <- memindex__374; 
+def cond__353 = m_isMemory64(memindex);
+if (cond__353) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	def eff__354 = push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	def eff__360 = push_u64(extend);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD16_S"]["scheduled__raw"] += `def flags = imm_readU8();
+def arg__372 : byte = 0x40u8;
+def arg__369 = u8.&(flags, arg__372);
+def arg__370 : byte = 0;
+def cond__367 = u8.!=(arg__369, arg__370);
+var memindex: u32;
+if (cond__367) {
+	def memindex__368 = imm_readULEB32();
+} else {
+	def memindex__374 : u32 = 0u;
+}
+// phis: memindex <- memindex__368; memindex <- memindex__374; 
+def cond__353 = m_isMemory64(memindex);
+if (cond__353) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	def eff__354 = push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	def eff__360 = push_u64(extend);
+}
+// phis: 
+`;
+window.traces["I64_LOAD16_S"]["pretty"] = ''
+window.traces["I64_LOAD16_S"]["pretty__raw"] = ''
+window.traces["I64_LOAD16_S"]["pretty"] += `<pre class=''>def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	push_u64(extend);
+}
+</pre>`;
+window.traces["I64_LOAD16_S"]["pretty__raw"] += `def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	def extend = U64_extend16_s(val);
+	push_u64(extend);
+}
+`;
+window.traces["I64_LOAD16_U"] = {}
+window.traces["I64_LOAD16_U"]["parsed"] = ''
+window.traces["I64_LOAD16_U"]["parsed__raw"] = ''
+window.traces["I64_LOAD16_U"]["parsed"] += `<pre class=''>def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__390 : byte = 0;
+def arg__392 : byte = 0x40u8;
+def arg__391 = (flags);
+def arg__389 = u8.&(arg__391, arg__392);
+def cond__387 = u8.!=(arg__389, arg__390);
+if (cond__387) {
+	def memindex__388 = imm_readULEB32();
+}
+// phis: memindex <- memindex__388; 
+def arg__386 = (memindex);
+def cond__375 = m_isMemory64(arg__386);
+if (cond__375) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__380 = (offset);
+	def arg__379 = (index);
+	def arg__378 = (memindex);
+	def val = mach_readMemory64_u16_64(arg__378, arg__379, arg__380);
+	def arg__377 = (val);
+	def eff__376 = push_u64(arg__377);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__385 = (offset);
+	def arg__384 = (index);
+	def arg__383 = (memindex);
+	def val = mach_readMemory32_u16_64(arg__383, arg__384, arg__385);
+	def arg__382 = (val);
+	def eff__381 = push_u64(arg__382);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD16_U"]["parsed__raw"] += `def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__390 : byte = 0;
+def arg__392 : byte = 0x40u8;
+def arg__391 = (flags);
+def arg__389 = u8.&(arg__391, arg__392);
+def cond__387 = u8.!=(arg__389, arg__390);
+if (cond__387) {
+	def memindex__388 = imm_readULEB32();
+}
+// phis: memindex <- memindex__388; 
+def arg__386 = (memindex);
+def cond__375 = m_isMemory64(arg__386);
+if (cond__375) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__380 = (offset);
+	def arg__379 = (index);
+	def arg__378 = (memindex);
+	def val = mach_readMemory64_u16_64(arg__378, arg__379, arg__380);
+	def arg__377 = (val);
+	def eff__376 = push_u64(arg__377);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__385 = (offset);
+	def arg__384 = (index);
+	def arg__383 = (memindex);
+	def val = mach_readMemory32_u16_64(arg__383, arg__384, arg__385);
+	def arg__382 = (val);
+	def eff__381 = push_u64(arg__382);
+}
+// phis: 
+`;
+window.traces["I64_LOAD16_U"]["raw"] = ''
+window.traces["I64_LOAD16_U"]["raw__raw"] = ''
+window.traces["I64_LOAD16_U"]["raw"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__381 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__388 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__387 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__390 0"]
+	8["arg__389 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__392 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__393 0u"]
+	30["eff__376 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u16_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__375 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD16_U"]["raw__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__381 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__388 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__387 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__390 0"]
+	8["arg__389 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__392 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__393 0u"]
+	30["eff__376 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u16_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__375 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD16_U"]["spytial"] = ''
+window.traces["I64_LOAD16_U"]["spytial__raw"] = ''
+window.traces["I64_LOAD16_U"]["spytial"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__375]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__375]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__375]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__376]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__381]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__387]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u16_64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u16_64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__387]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__388]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__389]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_LOAD16_U"]["spytial__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__375]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__375]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__375]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__376]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__381]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__387]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u16_64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u16_64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__387]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__388]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__389]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_LOAD16_U"]["overloadOps"] = ''
+window.traces["I64_LOAD16_U"]["overloadOps__raw"] = ''
+window.traces["I64_LOAD16_U"]["overloadOps"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__381 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__388 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__387 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__390 0"]
+	8["arg__389 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__392 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__394 0u"]
+	30["eff__376 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u16_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__375 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD16_U"]["overloadOps__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__381 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__388 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__387 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__390 0"]
+	8["arg__389 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__392 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__394 0u"]
+	30["eff__376 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u16_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__375 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD16_U"]["addAbstractions"] = ''
+window.traces["I64_LOAD16_U"]["addAbstractions__raw"] = ''
+window.traces["I64_LOAD16_U"]["addAbstractions"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__381 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__388 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__387 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__390 0"]
+	8["arg__389 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__392 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__394 0u"]
+	30["eff__376 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u16_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__375 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD16_U"]["addAbstractions__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__381 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__388 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__387 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__390 0"]
+	8["arg__389 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__392 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__394 0u"]
+	30["eff__376 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u16_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__375 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD16_U"]["schedulerMermaid"] = ''
+window.traces["I64_LOAD16_U"]["schedulerMermaid__raw"] = ''
+window.traces["I64_LOAD16_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
+subgraph block_373["Block 373"]
+	direction TB
+	b373_1[\\"Finish"/]
+end
+phi_375 --> block_373
+subgraph phi_375["Phi 375"]
+	p375_32{{"Sϕ Stack "}}
+	p375_31{{"Sϕ Codeptr "}}
+end
+block_376 --> phi_375
+block_377 --> phi_375
+subgraph block_376["Block 376"]
+	direction TB
+	b376_24["index pop_u64"]
+	b376_28["val mach_readMemory64_u16_64"]
+	b376_30["eff__376 push_u64"]
+	b376_23["offset imm_readULEB64"]
+	b376_24 --> b376_28
+	b376_28 --> b376_30
+	b376_30 --> b376_23
+end
+branch_374 --> block_376
+subgraph branch_374["Branch 374"]
+	br374_14["cond__375 m_isMemory64"]
+
+end
+block_378 --> branch_374
+subgraph block_378["Block 378"]
+	direction TB
+	b378_14["cond__375 m_isMemory64"]
+end
+phi_380 --> block_378
+subgraph phi_380["Phi 380"]
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_11{"memindex ϕ"}
+	p380_11{"memindex ϕ"}
+	p380_11{"memindex ϕ"}
+	p380_11{"memindex ϕ"}
+	p380_11{"memindex ϕ"}
+	p380_11{"memindex ϕ"}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+end
+block_381 --> phi_380
+block_382 --> phi_380
+subgraph block_381["Block 381"]
+	direction TB
+	b381_10["memindex__388 imm_readULEB32"]
+end
+branch_379 --> block_381
+subgraph branch_379["Branch 379"]
+	br379_9["cond__387 u8.!="]
+
+end
+block_383 --> branch_379
+subgraph block_383["Block 383"]
+	direction TB
+	b383_0[/"Start"\\]
+	b383_6["arg__392 0x40u8"]
+	b383_5["arg__390 0"]
+	b383_8["arg__389 u8.&"]
+	b383_9["cond__387 u8.!="]
+	b383_0 --> b383_6
+	b383_6 --> b383_5
+	b383_5 --> b383_8
+	b383_8 --> b383_9
+end
+subgraph block_382["Block 382"]
+	direction TB
+	b382_4["memindex__394 0u"]
+	b382_3["flags imm_readU8"]
+	b382_4 --> b382_3
+end
+branch_379 --> block_382
+subgraph block_377["Block 377"]
+	direction TB
+	b377_16["index pop_u32"]
+	b377_20["val mach_readMemory32_u16_64"]
+	b377_22["eff__381 push_u64"]
+	b377_15["offset imm_readULEB32"]
+	b377_16 --> b377_20
+	b377_20 --> b377_22
+	b377_22 --> b377_15
+end
+branch_374 --> block_377
+
+</pre>`;
+window.traces["I64_LOAD16_U"]["schedulerMermaid__raw"] += `graph TD
+subgraph block_373["Block 373"]
+	direction TB
+	b373_1[\\"Finish"/]
+end
+phi_375 --> block_373
+subgraph phi_375["Phi 375"]
+	p375_32{{"Sϕ Stack "}}
+	p375_31{{"Sϕ Codeptr "}}
+end
+block_376 --> phi_375
+block_377 --> phi_375
+subgraph block_376["Block 376"]
+	direction TB
+	b376_24["index pop_u64"]
+	b376_28["val mach_readMemory64_u16_64"]
+	b376_30["eff__376 push_u64"]
+	b376_23["offset imm_readULEB64"]
+	b376_24 --> b376_28
+	b376_28 --> b376_30
+	b376_30 --> b376_23
+end
+branch_374 --> block_376
+subgraph branch_374["Branch 374"]
+	br374_14["cond__375 m_isMemory64"]
+
+end
+block_378 --> branch_374
+subgraph block_378["Block 378"]
+	direction TB
+	b378_14["cond__375 m_isMemory64"]
+end
+phi_380 --> block_378
+subgraph phi_380["Phi 380"]
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_11{"memindex ϕ"}
+	p380_11{"memindex ϕ"}
+	p380_11{"memindex ϕ"}
+	p380_11{"memindex ϕ"}
+	p380_11{"memindex ϕ"}
+	p380_11{"memindex ϕ"}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+	p380_12{{"Sϕ Codeptr "}}
+end
+block_381 --> phi_380
+block_382 --> phi_380
+subgraph block_381["Block 381"]
+	direction TB
+	b381_10["memindex__388 imm_readULEB32"]
+end
+branch_379 --> block_381
+subgraph branch_379["Branch 379"]
+	br379_9["cond__387 u8.!="]
+
+end
+block_383 --> branch_379
+subgraph block_383["Block 383"]
+	direction TB
+	b383_0[/"Start"\\]
+	b383_6["arg__392 0x40u8"]
+	b383_5["arg__390 0"]
+	b383_8["arg__389 u8.&"]
+	b383_9["cond__387 u8.!="]
+	b383_0 --> b383_6
+	b383_6 --> b383_5
+	b383_5 --> b383_8
+	b383_8 --> b383_9
+end
+subgraph block_382["Block 382"]
+	direction TB
+	b382_4["memindex__394 0u"]
+	b382_3["flags imm_readU8"]
+	b382_4 --> b382_3
+end
+branch_379 --> block_382
+subgraph block_377["Block 377"]
+	direction TB
+	b377_16["index pop_u32"]
+	b377_20["val mach_readMemory32_u16_64"]
+	b377_22["eff__381 push_u64"]
+	b377_15["offset imm_readULEB32"]
+	b377_16 --> b377_20
+	b377_20 --> b377_22
+	b377_22 --> b377_15
+end
+branch_374 --> block_377
+
+`;
+window.traces["I64_LOAD16_U"]["unLEM"] = ''
+window.traces["I64_LOAD16_U"]["unLEM__raw"] = ''
+window.traces["I64_LOAD16_U"]["unLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__381 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__388 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__387 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__390 0"]
+	8["arg__389 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__392 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__394 0u"]
+	30["eff__376 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u16_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__375 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD16_U"]["unLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__381 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__388 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__387 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__390 0"]
+	8["arg__389 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__392 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__394 0u"]
+	30["eff__376 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u16_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__375 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD16_U"]["unlem_schedule"] = ''
+window.traces["I64_LOAD16_U"]["unlem_schedule__raw"] = ''
+window.traces["I64_LOAD16_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__392 : byte = 0x40u8;
+def arg__389 = u8.&(flags, arg__392);
+def arg__390 : byte = 0;
+def cond__387 = u8.!=(arg__389, arg__390);
+var memindex: u32;
+if (cond__387) {
+	def memindex__388 = imm_readULEB32();
+} else {
+	def memindex__394 : u32 = 0u;
+}
+// phis: memindex <- memindex__388; memindex <- memindex__394; 
+def cond__375 = m_isMemory64(memindex);
+if (cond__375) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	def eff__376 = push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	def eff__381 = push_u64(val);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD16_U"]["unlem_schedule__raw"] += `def flags = imm_readU8();
+def arg__392 : byte = 0x40u8;
+def arg__389 = u8.&(flags, arg__392);
+def arg__390 : byte = 0;
+def cond__387 = u8.!=(arg__389, arg__390);
+var memindex: u32;
+if (cond__387) {
+	def memindex__388 = imm_readULEB32();
+} else {
+	def memindex__394 : u32 = 0u;
+}
+// phis: memindex <- memindex__388; memindex <- memindex__394; 
+def cond__375 = m_isMemory64(memindex);
+if (cond__375) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	def eff__376 = push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	def eff__381 = push_u64(val);
+}
+// phis: 
+`;
+window.traces["I64_LOAD16_U"]["spytial_ul"] = ''
+window.traces["I64_LOAD16_U"]["spytial_ul__raw"] = ''
+window.traces["I64_LOAD16_U"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__375]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__375]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__375]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__376]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__381]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__387]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u16_64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u16_64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__387]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__388]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__389]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_LOAD16_U"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__375]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__375]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__375]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__376]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__381]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__387]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u16_64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u16_64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__387]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__388]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__389]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_LOAD16_U"]["unlem_scheduler"] = ''
+window.traces["I64_LOAD16_U"]["unlem_scheduler__raw"] = ''
+window.traces["I64_LOAD16_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
+subgraph block_384["Block 384"]
+	direction TB
+	b384_1[\\"Finish"/]
+end
+phi_386 --> block_384
+subgraph phi_386["Phi 386"]
+	p386_32{{"Sϕ Stack "}}
+	p386_31{{"Sϕ Codeptr "}}
+end
+block_387 --> phi_386
+block_388 --> phi_386
+subgraph block_387["Block 387"]
+	direction TB
+	b387_24["index pop_u64"]
+	b387_28["val mach_readMemory64_u16_64"]
+	b387_30["eff__376 push_u64"]
+	b387_23["offset imm_readULEB64"]
+	b387_24 --> b387_28
+	b387_28 --> b387_30
+	b387_30 --> b387_23
+end
+branch_385 --> block_387
+subgraph branch_385["Branch 385"]
+	br385_14["cond__375 m_isMemory64"]
+
+end
+block_389 --> branch_385
+subgraph block_389["Block 389"]
+	direction TB
+	b389_14["cond__375 m_isMemory64"]
+end
+phi_391 --> block_389
+subgraph phi_391["Phi 391"]
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_11{"memindex ϕ"}
+	p391_11{"memindex ϕ"}
+	p391_11{"memindex ϕ"}
+	p391_11{"memindex ϕ"}
+	p391_11{"memindex ϕ"}
+	p391_11{"memindex ϕ"}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+end
+block_392 --> phi_391
+block_393 --> phi_391
+subgraph block_392["Block 392"]
+	direction TB
+	b392_10["memindex__388 imm_readULEB32"]
+end
+branch_390 --> block_392
+subgraph branch_390["Branch 390"]
+	br390_9["cond__387 u8.!="]
+
+end
+block_394 --> branch_390
+subgraph block_394["Block 394"]
+	direction TB
+	b394_0[/"Start"\\]
+	b394_6["arg__392 0x40u8"]
+	b394_5["arg__390 0"]
+	b394_8["arg__389 u8.&"]
+	b394_9["cond__387 u8.!="]
+	b394_0 --> b394_6
+	b394_6 --> b394_5
+	b394_5 --> b394_8
+	b394_8 --> b394_9
+end
+subgraph block_393["Block 393"]
+	direction TB
+	b393_4["memindex__394 0u"]
+	b393_3["flags imm_readU8"]
+	b393_4 --> b393_3
+end
+branch_390 --> block_393
+subgraph block_388["Block 388"]
+	direction TB
+	b388_16["index pop_u32"]
+	b388_20["val mach_readMemory32_u16_64"]
+	b388_22["eff__381 push_u64"]
+	b388_15["offset imm_readULEB32"]
+	b388_16 --> b388_20
+	b388_20 --> b388_22
+	b388_22 --> b388_15
+end
+branch_385 --> block_388
+
+</pre>`;
+window.traces["I64_LOAD16_U"]["unlem_scheduler__raw"] += `graph TD
+subgraph block_384["Block 384"]
+	direction TB
+	b384_1[\\"Finish"/]
+end
+phi_386 --> block_384
+subgraph phi_386["Phi 386"]
+	p386_32{{"Sϕ Stack "}}
+	p386_31{{"Sϕ Codeptr "}}
+end
+block_387 --> phi_386
+block_388 --> phi_386
+subgraph block_387["Block 387"]
+	direction TB
+	b387_24["index pop_u64"]
+	b387_28["val mach_readMemory64_u16_64"]
+	b387_30["eff__376 push_u64"]
+	b387_23["offset imm_readULEB64"]
+	b387_24 --> b387_28
+	b387_28 --> b387_30
+	b387_30 --> b387_23
+end
+branch_385 --> block_387
+subgraph branch_385["Branch 385"]
+	br385_14["cond__375 m_isMemory64"]
+
+end
+block_389 --> branch_385
+subgraph block_389["Block 389"]
+	direction TB
+	b389_14["cond__375 m_isMemory64"]
+end
+phi_391 --> block_389
+subgraph phi_391["Phi 391"]
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_11{"memindex ϕ"}
+	p391_11{"memindex ϕ"}
+	p391_11{"memindex ϕ"}
+	p391_11{"memindex ϕ"}
+	p391_11{"memindex ϕ"}
+	p391_11{"memindex ϕ"}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+	p391_12{{"Sϕ Codeptr "}}
+end
+block_392 --> phi_391
+block_393 --> phi_391
+subgraph block_392["Block 392"]
+	direction TB
+	b392_10["memindex__388 imm_readULEB32"]
+end
+branch_390 --> block_392
+subgraph branch_390["Branch 390"]
+	br390_9["cond__387 u8.!="]
+
+end
+block_394 --> branch_390
+subgraph block_394["Block 394"]
+	direction TB
+	b394_0[/"Start"\\]
+	b394_6["arg__392 0x40u8"]
+	b394_5["arg__390 0"]
+	b394_8["arg__389 u8.&"]
+	b394_9["cond__387 u8.!="]
+	b394_0 --> b394_6
+	b394_6 --> b394_5
+	b394_5 --> b394_8
+	b394_8 --> b394_9
+end
+subgraph block_393["Block 393"]
+	direction TB
+	b393_4["memindex__394 0u"]
+	b393_3["flags imm_readU8"]
+	b393_4 --> b393_3
+end
+branch_390 --> block_393
+subgraph block_388["Block 388"]
+	direction TB
+	b388_16["index pop_u32"]
+	b388_20["val mach_readMemory32_u16_64"]
+	b388_22["eff__381 push_u64"]
+	b388_15["offset imm_readULEB32"]
+	b388_16 --> b388_20
+	b388_20 --> b388_22
+	b388_22 --> b388_15
+end
+branch_385 --> block_388
+
+`;
+window.traces["I64_LOAD16_U"]["unlem_pretty"] = ''
+window.traces["I64_LOAD16_U"]["unlem_pretty__raw"] = ''
+window.traces["I64_LOAD16_U"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	push_u64(val);
+}
+</pre>`;
+window.traces["I64_LOAD16_U"]["unlem_pretty__raw"] += `def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	push_u64(val);
+}
+`;
+window.traces["I64_LOAD16_U"]["constUnLEM"] = ''
+window.traces["I64_LOAD16_U"]["constUnLEM__raw"] = ''
+window.traces["I64_LOAD16_U"]["constUnLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__381 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__388 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__387 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__390 0"]
+	8["arg__389 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__392 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__394 0u"]
+	30["eff__376 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u16_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__375 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD16_U"]["constUnLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__381 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__388 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__387 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__390 0"]
+	8["arg__389 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__392 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__394 0u"]
+	30["eff__376 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u16_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__375 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD16_U"]["chooseMerge"] = ''
+window.traces["I64_LOAD16_U"]["chooseMerge__raw"] = ''
+window.traces["I64_LOAD16_U"]["chooseMerge"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__381 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__388 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__387 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__390 0"]
+	8["arg__389 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__392 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__394 0u"]
+	30["eff__376 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u16_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__375 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD16_U"]["chooseMerge__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__381 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u16_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__388 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__387 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__390 0"]
+	8["arg__389 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__392 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__394 0u"]
+	30["eff__376 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u16_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__375 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD16_U"]["scheduled"] = ''
+window.traces["I64_LOAD16_U"]["scheduled__raw"] = ''
+window.traces["I64_LOAD16_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__392 : byte = 0x40u8;
+def arg__389 = u8.&(flags, arg__392);
+def arg__390 : byte = 0;
+def cond__387 = u8.!=(arg__389, arg__390);
+var memindex: u32;
+if (cond__387) {
+	def memindex__388 = imm_readULEB32();
+} else {
+	def memindex__394 : u32 = 0u;
+}
+// phis: memindex <- memindex__388; memindex <- memindex__394; 
+def cond__375 = m_isMemory64(memindex);
+if (cond__375) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	def eff__376 = push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	def eff__381 = push_u64(val);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD16_U"]["scheduled__raw"] += `def flags = imm_readU8();
+def arg__392 : byte = 0x40u8;
+def arg__389 = u8.&(flags, arg__392);
+def arg__390 : byte = 0;
+def cond__387 = u8.!=(arg__389, arg__390);
+var memindex: u32;
+if (cond__387) {
+	def memindex__388 = imm_readULEB32();
+} else {
+	def memindex__394 : u32 = 0u;
+}
+// phis: memindex <- memindex__388; memindex <- memindex__394; 
+def cond__375 = m_isMemory64(memindex);
+if (cond__375) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	def eff__376 = push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	def eff__381 = push_u64(val);
+}
+// phis: 
+`;
+window.traces["I64_LOAD16_U"]["pretty"] = ''
+window.traces["I64_LOAD16_U"]["pretty__raw"] = ''
+window.traces["I64_LOAD16_U"]["pretty"] += `<pre class=''>def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	push_u64(val);
+}
+</pre>`;
+window.traces["I64_LOAD16_U"]["pretty__raw"] += `def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset);
+	push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset);
+	push_u64(val);
+}
+`;
+window.traces["I64_LOAD32_S"] = {}
+window.traces["I64_LOAD32_S"]["parsed"] = ''
+window.traces["I64_LOAD32_S"]["parsed__raw"] = ''
+window.traces["I64_LOAD32_S"]["parsed"] += `<pre class=''>def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__412 : byte = 0;
+def arg__414 : byte = 0x40u8;
+def arg__413 = (flags);
+def arg__411 = u8.&(arg__413, arg__414);
+def cond__409 = u8.!=(arg__411, arg__412);
+if (cond__409) {
+	def memindex__410 = imm_readULEB32();
+}
+// phis: memindex <- memindex__410; 
+def arg__408 = (memindex);
+def cond__395 = m_isMemory64(arg__408);
+if (cond__395) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__401 = (offset);
+	def arg__400 = (index);
+	def arg__399 = (memindex);
+	def val = mach_readMemory64_u32_64(arg__399, arg__400, arg__401);
+	def arg__398 = (val);
+	def extend = U64_extend32_s(arg__398);
+	def arg__397 = (extend);
+	def eff__396 = push_u64(arg__397);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__407 = (offset);
+	def arg__406 = (index);
+	def arg__405 = (memindex);
+	def val = mach_readMemory32_u32_64(arg__405, arg__406, arg__407);
+	def arg__404 = (val);
+	def extend = U64_extend32_s(arg__404);
+	def arg__403 = (extend);
+	def eff__402 = push_u64(arg__403);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD32_S"]["parsed__raw"] += `def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__412 : byte = 0;
+def arg__414 : byte = 0x40u8;
+def arg__413 = (flags);
+def arg__411 = u8.&(arg__413, arg__414);
+def cond__409 = u8.!=(arg__411, arg__412);
+if (cond__409) {
+	def memindex__410 = imm_readULEB32();
+}
+// phis: memindex <- memindex__410; 
+def arg__408 = (memindex);
+def cond__395 = m_isMemory64(arg__408);
+if (cond__395) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__401 = (offset);
+	def arg__400 = (index);
+	def arg__399 = (memindex);
+	def val = mach_readMemory64_u32_64(arg__399, arg__400, arg__401);
+	def arg__398 = (val);
+	def extend = U64_extend32_s(arg__398);
+	def arg__397 = (extend);
+	def eff__396 = push_u64(arg__397);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__407 = (offset);
+	def arg__406 = (index);
+	def arg__405 = (memindex);
+	def val = mach_readMemory32_u32_64(arg__405, arg__406, arg__407);
+	def arg__404 = (val);
+	def extend = U64_extend32_s(arg__404);
+	def arg__403 = (extend);
+	def eff__402 = push_u64(arg__403);
+}
+// phis: 
+`;
+window.traces["I64_LOAD32_S"]["raw"] = ''
+window.traces["I64_LOAD32_S"]["raw__raw"] = ''
+window.traces["I64_LOAD32_S"]["raw"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__402 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend32_s"]
+	20 --> 22
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__410 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__409 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__412 0"]
+	8["arg__411 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__414 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__415 0u"]
+	34["eff__396 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend32_s"]
+	30 --> 32
+	30["val mach_readMemory64_u32_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__395 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD32_S"]["raw__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__402 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend32_s"]
+	20 --> 22
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__410 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__409 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__412 0"]
+	8["arg__411 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__414 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__415 0u"]
+	34["eff__396 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend32_s"]
+	30 --> 32
+	30["val mach_readMemory64_u32_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__395 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD32_S"]["spytial"] = ''
+window.traces["I64_LOAD32_S"]["spytial__raw"] = ''
+window.traces["I64_LOAD32_S"]["spytial"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__395]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__395]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__395]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u64 [eff__396]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u64 [eff__402]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__409]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U64_extend32_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U64_extend32_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__409]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__410]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u32_64 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u32_64 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__411]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_LOAD32_S"]["spytial__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__395]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__395]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__395]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u64 [eff__396]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u64 [eff__402]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__409]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U64_extend32_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U64_extend32_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__409]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__410]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u32_64 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u32_64 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__411]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_LOAD32_S"]["overloadOps"] = ''
+window.traces["I64_LOAD32_S"]["overloadOps__raw"] = ''
+window.traces["I64_LOAD32_S"]["overloadOps"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__402 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend32_s"]
+	20 --> 22
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__410 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__409 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__412 0"]
+	8["arg__411 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__414 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__416 0u"]
+	34["eff__396 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend32_s"]
+	30 --> 32
+	30["val mach_readMemory64_u32_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__395 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD32_S"]["overloadOps__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__402 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend32_s"]
+	20 --> 22
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__410 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__409 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__412 0"]
+	8["arg__411 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__414 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__416 0u"]
+	34["eff__396 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend32_s"]
+	30 --> 32
+	30["val mach_readMemory64_u32_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__395 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD32_S"]["addAbstractions"] = ''
+window.traces["I64_LOAD32_S"]["addAbstractions__raw"] = ''
+window.traces["I64_LOAD32_S"]["addAbstractions"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__402 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend32_s"]
+	20 --> 22
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__410 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__409 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__412 0"]
+	8["arg__411 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__414 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__416 0u"]
+	34["eff__396 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend32_s"]
+	30 --> 32
+	30["val mach_readMemory64_u32_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__395 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD32_S"]["addAbstractions__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__402 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend32_s"]
+	20 --> 22
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__410 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__409 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__412 0"]
+	8["arg__411 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__414 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__416 0u"]
+	34["eff__396 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend32_s"]
+	30 --> 32
+	30["val mach_readMemory64_u32_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__395 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD32_S"]["schedulerMermaid"] = ''
+window.traces["I64_LOAD32_S"]["schedulerMermaid__raw"] = ''
+window.traces["I64_LOAD32_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
+subgraph block_395["Block 395"]
+	direction TB
+	b395_1[\\"Finish"/]
+end
+phi_397 --> block_395
+subgraph phi_397["Phi 397"]
+	p397_36{{"Sϕ Stack "}}
+	p397_35{{"Sϕ Codeptr "}}
+end
+block_398 --> phi_397
+block_399 --> phi_397
+subgraph block_398["Block 398"]
+	direction TB
+	b398_26["index pop_u64"]
+	b398_30["val mach_readMemory64_u32_64"]
+	b398_32["extend U64_extend32_s"]
+	b398_34["eff__396 push_u64"]
+	b398_25["offset imm_readULEB64"]
+	b398_26 --> b398_30
+	b398_30 --> b398_32
+	b398_32 --> b398_34
+	b398_34 --> b398_25
+end
+branch_396 --> block_398
+subgraph branch_396["Branch 396"]
+	br396_14["cond__395 m_isMemory64"]
+
+end
+block_400 --> branch_396
+subgraph block_400["Block 400"]
+	direction TB
+	b400_14["cond__395 m_isMemory64"]
+end
+phi_402 --> block_400
+subgraph phi_402["Phi 402"]
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_11{"memindex ϕ"}
+	p402_11{"memindex ϕ"}
+	p402_11{"memindex ϕ"}
+	p402_11{"memindex ϕ"}
+	p402_11{"memindex ϕ"}
+	p402_11{"memindex ϕ"}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+end
+block_403 --> phi_402
+block_404 --> phi_402
+subgraph block_403["Block 403"]
+	direction TB
+	b403_10["memindex__410 imm_readULEB32"]
+end
+branch_401 --> block_403
+subgraph branch_401["Branch 401"]
+	br401_9["cond__409 u8.!="]
+
+end
+block_405 --> branch_401
+subgraph block_405["Block 405"]
+	direction TB
+	b405_0[/"Start"\\]
+	b405_6["arg__414 0x40u8"]
+	b405_5["arg__412 0"]
+	b405_8["arg__411 u8.&"]
+	b405_9["cond__409 u8.!="]
+	b405_0 --> b405_6
+	b405_6 --> b405_5
+	b405_5 --> b405_8
+	b405_8 --> b405_9
+end
+subgraph block_404["Block 404"]
+	direction TB
+	b404_4["memindex__416 0u"]
+	b404_3["flags imm_readU8"]
+	b404_4 --> b404_3
+end
+branch_401 --> block_404
+subgraph block_399["Block 399"]
+	direction TB
+	b399_16["index pop_u32"]
+	b399_20["val mach_readMemory32_u32_64"]
+	b399_22["extend U64_extend32_s"]
+	b399_24["eff__402 push_u64"]
+	b399_15["offset imm_readULEB32"]
+	b399_16 --> b399_20
+	b399_20 --> b399_22
+	b399_22 --> b399_24
+	b399_24 --> b399_15
+end
+branch_396 --> block_399
+
+</pre>`;
+window.traces["I64_LOAD32_S"]["schedulerMermaid__raw"] += `graph TD
+subgraph block_395["Block 395"]
+	direction TB
+	b395_1[\\"Finish"/]
+end
+phi_397 --> block_395
+subgraph phi_397["Phi 397"]
+	p397_36{{"Sϕ Stack "}}
+	p397_35{{"Sϕ Codeptr "}}
+end
+block_398 --> phi_397
+block_399 --> phi_397
+subgraph block_398["Block 398"]
+	direction TB
+	b398_26["index pop_u64"]
+	b398_30["val mach_readMemory64_u32_64"]
+	b398_32["extend U64_extend32_s"]
+	b398_34["eff__396 push_u64"]
+	b398_25["offset imm_readULEB64"]
+	b398_26 --> b398_30
+	b398_30 --> b398_32
+	b398_32 --> b398_34
+	b398_34 --> b398_25
+end
+branch_396 --> block_398
+subgraph branch_396["Branch 396"]
+	br396_14["cond__395 m_isMemory64"]
+
+end
+block_400 --> branch_396
+subgraph block_400["Block 400"]
+	direction TB
+	b400_14["cond__395 m_isMemory64"]
+end
+phi_402 --> block_400
+subgraph phi_402["Phi 402"]
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_11{"memindex ϕ"}
+	p402_11{"memindex ϕ"}
+	p402_11{"memindex ϕ"}
+	p402_11{"memindex ϕ"}
+	p402_11{"memindex ϕ"}
+	p402_11{"memindex ϕ"}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+	p402_12{{"Sϕ Codeptr "}}
+end
+block_403 --> phi_402
+block_404 --> phi_402
+subgraph block_403["Block 403"]
+	direction TB
+	b403_10["memindex__410 imm_readULEB32"]
+end
+branch_401 --> block_403
+subgraph branch_401["Branch 401"]
+	br401_9["cond__409 u8.!="]
+
+end
+block_405 --> branch_401
+subgraph block_405["Block 405"]
+	direction TB
+	b405_0[/"Start"\\]
+	b405_6["arg__414 0x40u8"]
+	b405_5["arg__412 0"]
+	b405_8["arg__411 u8.&"]
+	b405_9["cond__409 u8.!="]
+	b405_0 --> b405_6
+	b405_6 --> b405_5
+	b405_5 --> b405_8
+	b405_8 --> b405_9
+end
+subgraph block_404["Block 404"]
+	direction TB
+	b404_4["memindex__416 0u"]
+	b404_3["flags imm_readU8"]
+	b404_4 --> b404_3
+end
+branch_401 --> block_404
+subgraph block_399["Block 399"]
+	direction TB
+	b399_16["index pop_u32"]
+	b399_20["val mach_readMemory32_u32_64"]
+	b399_22["extend U64_extend32_s"]
+	b399_24["eff__402 push_u64"]
+	b399_15["offset imm_readULEB32"]
+	b399_16 --> b399_20
+	b399_20 --> b399_22
+	b399_22 --> b399_24
+	b399_24 --> b399_15
+end
+branch_396 --> block_399
+
+`;
+window.traces["I64_LOAD32_S"]["unLEM"] = ''
+window.traces["I64_LOAD32_S"]["unLEM__raw"] = ''
+window.traces["I64_LOAD32_S"]["unLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__402 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend32_s"]
+	20 --> 22
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__410 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__409 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__412 0"]
+	8["arg__411 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__414 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__416 0u"]
+	34["eff__396 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend32_s"]
+	30 --> 32
+	30["val mach_readMemory64_u32_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__395 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD32_S"]["unLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__402 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend32_s"]
+	20 --> 22
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__410 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__409 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__412 0"]
+	8["arg__411 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__414 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__416 0u"]
+	34["eff__396 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend32_s"]
+	30 --> 32
+	30["val mach_readMemory64_u32_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__395 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD32_S"]["unlem_schedule"] = ''
+window.traces["I64_LOAD32_S"]["unlem_schedule__raw"] = ''
+window.traces["I64_LOAD32_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__414 : byte = 0x40u8;
+def arg__411 = u8.&(flags, arg__414);
+def arg__412 : byte = 0;
+def cond__409 = u8.!=(arg__411, arg__412);
+var memindex: u32;
+if (cond__409) {
+	def memindex__410 = imm_readULEB32();
+} else {
+	def memindex__416 : u32 = 0u;
+}
+// phis: memindex <- memindex__410; memindex <- memindex__416; 
+def cond__395 = m_isMemory64(memindex);
+if (cond__395) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	def eff__396 = push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	def eff__402 = push_u64(extend);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD32_S"]["unlem_schedule__raw"] += `def flags = imm_readU8();
+def arg__414 : byte = 0x40u8;
+def arg__411 = u8.&(flags, arg__414);
+def arg__412 : byte = 0;
+def cond__409 = u8.!=(arg__411, arg__412);
+var memindex: u32;
+if (cond__409) {
+	def memindex__410 = imm_readULEB32();
+} else {
+	def memindex__416 : u32 = 0u;
+}
+// phis: memindex <- memindex__410; memindex <- memindex__416; 
+def cond__395 = m_isMemory64(memindex);
+if (cond__395) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	def eff__396 = push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	def eff__402 = push_u64(extend);
+}
+// phis: 
+`;
+window.traces["I64_LOAD32_S"]["spytial_ul"] = ''
+window.traces["I64_LOAD32_S"]["spytial_ul__raw"] = ''
+window.traces["I64_LOAD32_S"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__395]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__395]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__395]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u64 [eff__396]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u64 [eff__402]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__409]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U64_extend32_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U64_extend32_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__409]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__410]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u32_64 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u32_64 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__411]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_LOAD32_S"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__395]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__395]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__395]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u64 [eff__396]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u64 [eff__402]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__409]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U64_extend32_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U64_extend32_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__409]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__410]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u32_64 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u32_64 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__411]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_LOAD32_S"]["unlem_scheduler"] = ''
+window.traces["I64_LOAD32_S"]["unlem_scheduler__raw"] = ''
+window.traces["I64_LOAD32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
+subgraph block_406["Block 406"]
+	direction TB
+	b406_1[\\"Finish"/]
+end
+phi_408 --> block_406
+subgraph phi_408["Phi 408"]
+	p408_36{{"Sϕ Stack "}}
+	p408_35{{"Sϕ Codeptr "}}
+end
+block_409 --> phi_408
+block_410 --> phi_408
+subgraph block_409["Block 409"]
+	direction TB
+	b409_26["index pop_u64"]
+	b409_30["val mach_readMemory64_u32_64"]
+	b409_32["extend U64_extend32_s"]
+	b409_34["eff__396 push_u64"]
+	b409_25["offset imm_readULEB64"]
+	b409_26 --> b409_30
+	b409_30 --> b409_32
+	b409_32 --> b409_34
+	b409_34 --> b409_25
+end
+branch_407 --> block_409
+subgraph branch_407["Branch 407"]
+	br407_14["cond__395 m_isMemory64"]
+
+end
+block_411 --> branch_407
+subgraph block_411["Block 411"]
+	direction TB
+	b411_14["cond__395 m_isMemory64"]
+end
+phi_413 --> block_411
+subgraph phi_413["Phi 413"]
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_11{"memindex ϕ"}
+	p413_11{"memindex ϕ"}
+	p413_11{"memindex ϕ"}
+	p413_11{"memindex ϕ"}
+	p413_11{"memindex ϕ"}
+	p413_11{"memindex ϕ"}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+end
+block_414 --> phi_413
+block_415 --> phi_413
+subgraph block_414["Block 414"]
+	direction TB
+	b414_10["memindex__410 imm_readULEB32"]
+end
+branch_412 --> block_414
+subgraph branch_412["Branch 412"]
+	br412_9["cond__409 u8.!="]
+
+end
+block_416 --> branch_412
+subgraph block_416["Block 416"]
+	direction TB
+	b416_0[/"Start"\\]
+	b416_6["arg__414 0x40u8"]
+	b416_5["arg__412 0"]
+	b416_8["arg__411 u8.&"]
+	b416_9["cond__409 u8.!="]
+	b416_0 --> b416_6
+	b416_6 --> b416_5
+	b416_5 --> b416_8
+	b416_8 --> b416_9
+end
+subgraph block_415["Block 415"]
+	direction TB
+	b415_4["memindex__416 0u"]
+	b415_3["flags imm_readU8"]
+	b415_4 --> b415_3
+end
+branch_412 --> block_415
+subgraph block_410["Block 410"]
+	direction TB
+	b410_16["index pop_u32"]
+	b410_20["val mach_readMemory32_u32_64"]
+	b410_22["extend U64_extend32_s"]
+	b410_24["eff__402 push_u64"]
+	b410_15["offset imm_readULEB32"]
+	b410_16 --> b410_20
+	b410_20 --> b410_22
+	b410_22 --> b410_24
+	b410_24 --> b410_15
+end
+branch_407 --> block_410
+
+</pre>`;
+window.traces["I64_LOAD32_S"]["unlem_scheduler__raw"] += `graph TD
+subgraph block_406["Block 406"]
+	direction TB
+	b406_1[\\"Finish"/]
+end
+phi_408 --> block_406
+subgraph phi_408["Phi 408"]
+	p408_36{{"Sϕ Stack "}}
+	p408_35{{"Sϕ Codeptr "}}
+end
+block_409 --> phi_408
+block_410 --> phi_408
+subgraph block_409["Block 409"]
+	direction TB
+	b409_26["index pop_u64"]
+	b409_30["val mach_readMemory64_u32_64"]
+	b409_32["extend U64_extend32_s"]
+	b409_34["eff__396 push_u64"]
+	b409_25["offset imm_readULEB64"]
+	b409_26 --> b409_30
+	b409_30 --> b409_32
+	b409_32 --> b409_34
+	b409_34 --> b409_25
+end
+branch_407 --> block_409
+subgraph branch_407["Branch 407"]
+	br407_14["cond__395 m_isMemory64"]
+
+end
+block_411 --> branch_407
+subgraph block_411["Block 411"]
+	direction TB
+	b411_14["cond__395 m_isMemory64"]
+end
+phi_413 --> block_411
+subgraph phi_413["Phi 413"]
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_11{"memindex ϕ"}
+	p413_11{"memindex ϕ"}
+	p413_11{"memindex ϕ"}
+	p413_11{"memindex ϕ"}
+	p413_11{"memindex ϕ"}
+	p413_11{"memindex ϕ"}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+	p413_12{{"Sϕ Codeptr "}}
+end
+block_414 --> phi_413
+block_415 --> phi_413
+subgraph block_414["Block 414"]
+	direction TB
+	b414_10["memindex__410 imm_readULEB32"]
+end
+branch_412 --> block_414
+subgraph branch_412["Branch 412"]
+	br412_9["cond__409 u8.!="]
+
+end
+block_416 --> branch_412
+subgraph block_416["Block 416"]
+	direction TB
+	b416_0[/"Start"\\]
+	b416_6["arg__414 0x40u8"]
+	b416_5["arg__412 0"]
+	b416_8["arg__411 u8.&"]
+	b416_9["cond__409 u8.!="]
+	b416_0 --> b416_6
+	b416_6 --> b416_5
+	b416_5 --> b416_8
+	b416_8 --> b416_9
+end
+subgraph block_415["Block 415"]
+	direction TB
+	b415_4["memindex__416 0u"]
+	b415_3["flags imm_readU8"]
+	b415_4 --> b415_3
+end
+branch_412 --> block_415
+subgraph block_410["Block 410"]
+	direction TB
+	b410_16["index pop_u32"]
+	b410_20["val mach_readMemory32_u32_64"]
+	b410_22["extend U64_extend32_s"]
+	b410_24["eff__402 push_u64"]
+	b410_15["offset imm_readULEB32"]
+	b410_16 --> b410_20
+	b410_20 --> b410_22
+	b410_22 --> b410_24
+	b410_24 --> b410_15
+end
+branch_407 --> block_410
+
+`;
+window.traces["I64_LOAD32_S"]["unlem_pretty"] = ''
+window.traces["I64_LOAD32_S"]["unlem_pretty__raw"] = ''
+window.traces["I64_LOAD32_S"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	push_u64(extend);
+}
+</pre>`;
+window.traces["I64_LOAD32_S"]["unlem_pretty__raw"] += `def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	push_u64(extend);
+}
+`;
+window.traces["I64_LOAD32_S"]["constUnLEM"] = ''
+window.traces["I64_LOAD32_S"]["constUnLEM__raw"] = ''
+window.traces["I64_LOAD32_S"]["constUnLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__402 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend32_s"]
+	20 --> 22
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__410 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__409 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__412 0"]
+	8["arg__411 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__414 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__416 0u"]
+	34["eff__396 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend32_s"]
+	30 --> 32
+	30["val mach_readMemory64_u32_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__395 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD32_S"]["constUnLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__402 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend32_s"]
+	20 --> 22
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__410 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__409 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__412 0"]
+	8["arg__411 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__414 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__416 0u"]
+	34["eff__396 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend32_s"]
+	30 --> 32
+	30["val mach_readMemory64_u32_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__395 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD32_S"]["chooseMerge"] = ''
+window.traces["I64_LOAD32_S"]["chooseMerge__raw"] = ''
+window.traces["I64_LOAD32_S"]["chooseMerge"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__402 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend32_s"]
+	20 --> 22
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__410 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__409 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__412 0"]
+	8["arg__411 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__414 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__416 0u"]
+	34["eff__396 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend32_s"]
+	30 --> 32
+	30["val mach_readMemory64_u32_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__395 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+</pre>`;
+window.traces["I64_LOAD32_S"]["chooseMerge__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	35 -. Codeptr .-> 1
+	36 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	36{{"Sϕ Stack "}}
+	14 --> 36
+	34 --> 36
+	24 --> 36
+	24["eff__402 push_u64"]
+	22 --> 24
+	16 -. Stack .-> 24
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	22["extend U64_extend32_s"]
+	20 --> 22
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__410 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__409 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__412 0"]
+	8["arg__411 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__414 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__416 0u"]
+	34["eff__396 push_u64"]
+	32 --> 34
+	26 -. Stack .-> 34
+	26["index pop_u64"]
+	0 -. Stack .-> 26
+	32["extend U64_extend32_s"]
+	30 --> 32
+	30["val mach_readMemory64_u32_64"]
+	11 --> 30
+	26 --> 30
+	25 --> 30
+	25["offset imm_readULEB64"]
+	12 -. Codeptr .-> 25
+	14["cond__395 m_isMemory64"]
+	11 --> 14
+	35{{"Sϕ Codeptr "}}
+	14 --> 35
+	25 --> 35
+	15 --> 35
+`;
+window.traces["I64_LOAD32_S"]["scheduled"] = ''
+window.traces["I64_LOAD32_S"]["scheduled__raw"] = ''
+window.traces["I64_LOAD32_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__414 : byte = 0x40u8;
+def arg__411 = u8.&(flags, arg__414);
+def arg__412 : byte = 0;
+def cond__409 = u8.!=(arg__411, arg__412);
+var memindex: u32;
+if (cond__409) {
+	def memindex__410 = imm_readULEB32();
+} else {
+	def memindex__416 : u32 = 0u;
+}
+// phis: memindex <- memindex__410; memindex <- memindex__416; 
+def cond__395 = m_isMemory64(memindex);
+if (cond__395) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	def eff__396 = push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	def eff__402 = push_u64(extend);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD32_S"]["scheduled__raw"] += `def flags = imm_readU8();
+def arg__414 : byte = 0x40u8;
+def arg__411 = u8.&(flags, arg__414);
+def arg__412 : byte = 0;
+def cond__409 = u8.!=(arg__411, arg__412);
+var memindex: u32;
+if (cond__409) {
+	def memindex__410 = imm_readULEB32();
+} else {
+	def memindex__416 : u32 = 0u;
+}
+// phis: memindex <- memindex__410; memindex <- memindex__416; 
+def cond__395 = m_isMemory64(memindex);
+if (cond__395) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	def eff__396 = push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	def eff__402 = push_u64(extend);
+}
+// phis: 
+`;
+window.traces["I64_LOAD32_S"]["pretty"] = ''
+window.traces["I64_LOAD32_S"]["pretty__raw"] = ''
+window.traces["I64_LOAD32_S"]["pretty"] += `<pre class=''>def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	push_u64(extend);
+}
+</pre>`;
+window.traces["I64_LOAD32_S"]["pretty__raw"] += `def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	push_u64(extend);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	def extend = U64_extend32_s(val);
+	push_u64(extend);
+}
+`;
+window.traces["I64_LOAD32_U"] = {}
+window.traces["I64_LOAD32_U"]["parsed"] = ''
+window.traces["I64_LOAD32_U"]["parsed__raw"] = ''
+window.traces["I64_LOAD32_U"]["parsed"] += `<pre class=''>def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__432 : byte = 0;
+def arg__434 : byte = 0x40u8;
+def arg__433 = (flags);
+def arg__431 = u8.&(arg__433, arg__434);
+def cond__429 = u8.!=(arg__431, arg__432);
+if (cond__429) {
+	def memindex__430 = imm_readULEB32();
+}
+// phis: memindex <- memindex__430; 
+def arg__428 = (memindex);
+def cond__417 = m_isMemory64(arg__428);
+if (cond__417) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__422 = (offset);
+	def arg__421 = (index);
+	def arg__420 = (memindex);
+	def val = mach_readMemory64_u32_64(arg__420, arg__421, arg__422);
+	def arg__419 = (val);
+	def eff__418 = push_u64(arg__419);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__427 = (offset);
+	def arg__426 = (index);
+	def arg__425 = (memindex);
+	def val = mach_readMemory32_u32_64(arg__425, arg__426, arg__427);
+	def arg__424 = (val);
+	def eff__423 = push_u64(arg__424);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD32_U"]["parsed__raw"] += `def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__432 : byte = 0;
+def arg__434 : byte = 0x40u8;
+def arg__433 = (flags);
+def arg__431 = u8.&(arg__433, arg__434);
+def cond__429 = u8.!=(arg__431, arg__432);
+if (cond__429) {
+	def memindex__430 = imm_readULEB32();
+}
+// phis: memindex <- memindex__430; 
+def arg__428 = (memindex);
+def cond__417 = m_isMemory64(arg__428);
+if (cond__417) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__422 = (offset);
+	def arg__421 = (index);
+	def arg__420 = (memindex);
+	def val = mach_readMemory64_u32_64(arg__420, arg__421, arg__422);
+	def arg__419 = (val);
+	def eff__418 = push_u64(arg__419);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__427 = (offset);
+	def arg__426 = (index);
+	def arg__425 = (memindex);
+	def val = mach_readMemory32_u32_64(arg__425, arg__426, arg__427);
+	def arg__424 = (val);
+	def eff__423 = push_u64(arg__424);
+}
+// phis: 
+`;
+window.traces["I64_LOAD32_U"]["raw"] = ''
+window.traces["I64_LOAD32_U"]["raw__raw"] = ''
+window.traces["I64_LOAD32_U"]["raw"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__423 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__430 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__429 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__432 0"]
+	8["arg__431 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__434 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__435 0u"]
+	30["eff__418 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u32_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__417 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD32_U"]["raw__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__423 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__430 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__429 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__432 0"]
+	8["arg__431 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__434 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__435 0u"]
+	30["eff__418 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u32_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__417 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD32_U"]["spytial"] = ''
+window.traces["I64_LOAD32_U"]["spytial__raw"] = ''
+window.traces["I64_LOAD32_U"]["spytial"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__417]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__417]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__417]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__418]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__423]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__429]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u32_64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u32_64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__429]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__430]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__431]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_LOAD32_U"]["spytial__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__417]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__417]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__417]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__418]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__423]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__429]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u32_64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u32_64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__429]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__430]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__431]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_LOAD32_U"]["overloadOps"] = ''
+window.traces["I64_LOAD32_U"]["overloadOps__raw"] = ''
+window.traces["I64_LOAD32_U"]["overloadOps"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__423 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__430 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__429 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__432 0"]
+	8["arg__431 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__434 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__436 0u"]
+	30["eff__418 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u32_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__417 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD32_U"]["overloadOps__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__423 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__430 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__429 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__432 0"]
+	8["arg__431 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__434 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__436 0u"]
+	30["eff__418 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u32_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__417 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD32_U"]["addAbstractions"] = ''
+window.traces["I64_LOAD32_U"]["addAbstractions__raw"] = ''
+window.traces["I64_LOAD32_U"]["addAbstractions"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__423 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__430 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__429 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__432 0"]
+	8["arg__431 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__434 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__436 0u"]
+	30["eff__418 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u32_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__417 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD32_U"]["addAbstractions__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__423 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__430 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__429 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__432 0"]
+	8["arg__431 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__434 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__436 0u"]
+	30["eff__418 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u32_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__417 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD32_U"]["schedulerMermaid"] = ''
+window.traces["I64_LOAD32_U"]["schedulerMermaid__raw"] = ''
+window.traces["I64_LOAD32_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
+subgraph block_417["Block 417"]
+	direction TB
+	b417_1[\\"Finish"/]
+end
+phi_419 --> block_417
+subgraph phi_419["Phi 419"]
+	p419_32{{"Sϕ Stack "}}
+	p419_31{{"Sϕ Codeptr "}}
+end
+block_420 --> phi_419
+block_421 --> phi_419
+subgraph block_420["Block 420"]
+	direction TB
+	b420_24["index pop_u64"]
+	b420_28["val mach_readMemory64_u32_64"]
+	b420_30["eff__418 push_u64"]
+	b420_23["offset imm_readULEB64"]
+	b420_24 --> b420_28
+	b420_28 --> b420_30
+	b420_30 --> b420_23
+end
+branch_418 --> block_420
+subgraph branch_418["Branch 418"]
+	br418_14["cond__417 m_isMemory64"]
+
+end
+block_422 --> branch_418
+subgraph block_422["Block 422"]
+	direction TB
+	b422_14["cond__417 m_isMemory64"]
+end
+phi_424 --> block_422
+subgraph phi_424["Phi 424"]
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_11{"memindex ϕ"}
+	p424_11{"memindex ϕ"}
+	p424_11{"memindex ϕ"}
+	p424_11{"memindex ϕ"}
+	p424_11{"memindex ϕ"}
+	p424_11{"memindex ϕ"}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+end
+block_425 --> phi_424
+block_426 --> phi_424
+subgraph block_425["Block 425"]
+	direction TB
+	b425_10["memindex__430 imm_readULEB32"]
+end
+branch_423 --> block_425
+subgraph branch_423["Branch 423"]
+	br423_9["cond__429 u8.!="]
+
+end
+block_427 --> branch_423
+subgraph block_427["Block 427"]
+	direction TB
+	b427_0[/"Start"\\]
+	b427_6["arg__434 0x40u8"]
+	b427_5["arg__432 0"]
+	b427_8["arg__431 u8.&"]
+	b427_9["cond__429 u8.!="]
+	b427_0 --> b427_6
+	b427_6 --> b427_5
+	b427_5 --> b427_8
+	b427_8 --> b427_9
+end
+subgraph block_426["Block 426"]
+	direction TB
+	b426_4["memindex__436 0u"]
+	b426_3["flags imm_readU8"]
+	b426_4 --> b426_3
+end
+branch_423 --> block_426
+subgraph block_421["Block 421"]
+	direction TB
+	b421_16["index pop_u32"]
+	b421_20["val mach_readMemory32_u32_64"]
+	b421_22["eff__423 push_u64"]
+	b421_15["offset imm_readULEB32"]
+	b421_16 --> b421_20
+	b421_20 --> b421_22
+	b421_22 --> b421_15
+end
+branch_418 --> block_421
+
+</pre>`;
+window.traces["I64_LOAD32_U"]["schedulerMermaid__raw"] += `graph TD
+subgraph block_417["Block 417"]
+	direction TB
+	b417_1[\\"Finish"/]
+end
+phi_419 --> block_417
+subgraph phi_419["Phi 419"]
+	p419_32{{"Sϕ Stack "}}
+	p419_31{{"Sϕ Codeptr "}}
+end
+block_420 --> phi_419
+block_421 --> phi_419
+subgraph block_420["Block 420"]
+	direction TB
+	b420_24["index pop_u64"]
+	b420_28["val mach_readMemory64_u32_64"]
+	b420_30["eff__418 push_u64"]
+	b420_23["offset imm_readULEB64"]
+	b420_24 --> b420_28
+	b420_28 --> b420_30
+	b420_30 --> b420_23
+end
+branch_418 --> block_420
+subgraph branch_418["Branch 418"]
+	br418_14["cond__417 m_isMemory64"]
+
+end
+block_422 --> branch_418
+subgraph block_422["Block 422"]
+	direction TB
+	b422_14["cond__417 m_isMemory64"]
+end
+phi_424 --> block_422
+subgraph phi_424["Phi 424"]
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_11{"memindex ϕ"}
+	p424_11{"memindex ϕ"}
+	p424_11{"memindex ϕ"}
+	p424_11{"memindex ϕ"}
+	p424_11{"memindex ϕ"}
+	p424_11{"memindex ϕ"}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+	p424_12{{"Sϕ Codeptr "}}
+end
+block_425 --> phi_424
+block_426 --> phi_424
+subgraph block_425["Block 425"]
+	direction TB
+	b425_10["memindex__430 imm_readULEB32"]
+end
+branch_423 --> block_425
+subgraph branch_423["Branch 423"]
+	br423_9["cond__429 u8.!="]
+
+end
+block_427 --> branch_423
+subgraph block_427["Block 427"]
+	direction TB
+	b427_0[/"Start"\\]
+	b427_6["arg__434 0x40u8"]
+	b427_5["arg__432 0"]
+	b427_8["arg__431 u8.&"]
+	b427_9["cond__429 u8.!="]
+	b427_0 --> b427_6
+	b427_6 --> b427_5
+	b427_5 --> b427_8
+	b427_8 --> b427_9
+end
+subgraph block_426["Block 426"]
+	direction TB
+	b426_4["memindex__436 0u"]
+	b426_3["flags imm_readU8"]
+	b426_4 --> b426_3
+end
+branch_423 --> block_426
+subgraph block_421["Block 421"]
+	direction TB
+	b421_16["index pop_u32"]
+	b421_20["val mach_readMemory32_u32_64"]
+	b421_22["eff__423 push_u64"]
+	b421_15["offset imm_readULEB32"]
+	b421_16 --> b421_20
+	b421_20 --> b421_22
+	b421_22 --> b421_15
+end
+branch_418 --> block_421
+
+`;
+window.traces["I64_LOAD32_U"]["unLEM"] = ''
+window.traces["I64_LOAD32_U"]["unLEM__raw"] = ''
+window.traces["I64_LOAD32_U"]["unLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__423 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__430 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__429 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__432 0"]
+	8["arg__431 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__434 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__436 0u"]
+	30["eff__418 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u32_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__417 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD32_U"]["unLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__423 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__430 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__429 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__432 0"]
+	8["arg__431 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__434 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__436 0u"]
+	30["eff__418 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u32_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__417 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD32_U"]["unlem_schedule"] = ''
+window.traces["I64_LOAD32_U"]["unlem_schedule__raw"] = ''
+window.traces["I64_LOAD32_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__434 : byte = 0x40u8;
+def arg__431 = u8.&(flags, arg__434);
+def arg__432 : byte = 0;
+def cond__429 = u8.!=(arg__431, arg__432);
+var memindex: u32;
+if (cond__429) {
+	def memindex__430 = imm_readULEB32();
+} else {
+	def memindex__436 : u32 = 0u;
+}
+// phis: memindex <- memindex__430; memindex <- memindex__436; 
+def cond__417 = m_isMemory64(memindex);
+if (cond__417) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	def eff__418 = push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	def eff__423 = push_u64(val);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD32_U"]["unlem_schedule__raw"] += `def flags = imm_readU8();
+def arg__434 : byte = 0x40u8;
+def arg__431 = u8.&(flags, arg__434);
+def arg__432 : byte = 0;
+def cond__429 = u8.!=(arg__431, arg__432);
+var memindex: u32;
+if (cond__429) {
+	def memindex__430 = imm_readULEB32();
+} else {
+	def memindex__436 : u32 = 0u;
+}
+// phis: memindex <- memindex__430; memindex <- memindex__436; 
+def cond__417 = m_isMemory64(memindex);
+if (cond__417) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	def eff__418 = push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	def eff__423 = push_u64(val);
+}
+// phis: 
+`;
+window.traces["I64_LOAD32_U"]["spytial_ul"] = ''
+window.traces["I64_LOAD32_U"]["spytial_ul__raw"] = ''
+window.traces["I64_LOAD32_U"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__417]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__417]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__417]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__418]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__423]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__429]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u32_64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u32_64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__429]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__430]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__431]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_LOAD32_U"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__417]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__417]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__417]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__418]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__423]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__429]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u32_64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u32_64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__429]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__430]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__431]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_LOAD32_U"]["unlem_scheduler"] = ''
+window.traces["I64_LOAD32_U"]["unlem_scheduler__raw"] = ''
+window.traces["I64_LOAD32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
+subgraph block_428["Block 428"]
+	direction TB
+	b428_1[\\"Finish"/]
+end
+phi_430 --> block_428
+subgraph phi_430["Phi 430"]
+	p430_32{{"Sϕ Stack "}}
+	p430_31{{"Sϕ Codeptr "}}
+end
+block_431 --> phi_430
+block_432 --> phi_430
+subgraph block_431["Block 431"]
+	direction TB
+	b431_24["index pop_u64"]
+	b431_28["val mach_readMemory64_u32_64"]
+	b431_30["eff__418 push_u64"]
+	b431_23["offset imm_readULEB64"]
+	b431_24 --> b431_28
+	b431_28 --> b431_30
+	b431_30 --> b431_23
+end
+branch_429 --> block_431
+subgraph branch_429["Branch 429"]
+	br429_14["cond__417 m_isMemory64"]
+
+end
+block_433 --> branch_429
+subgraph block_433["Block 433"]
+	direction TB
+	b433_14["cond__417 m_isMemory64"]
+end
+phi_435 --> block_433
+subgraph phi_435["Phi 435"]
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_11{"memindex ϕ"}
+	p435_11{"memindex ϕ"}
+	p435_11{"memindex ϕ"}
+	p435_11{"memindex ϕ"}
+	p435_11{"memindex ϕ"}
+	p435_11{"memindex ϕ"}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+end
+block_436 --> phi_435
+block_437 --> phi_435
+subgraph block_436["Block 436"]
+	direction TB
+	b436_10["memindex__430 imm_readULEB32"]
+end
+branch_434 --> block_436
+subgraph branch_434["Branch 434"]
+	br434_9["cond__429 u8.!="]
+
+end
+block_438 --> branch_434
+subgraph block_438["Block 438"]
+	direction TB
+	b438_0[/"Start"\\]
+	b438_6["arg__434 0x40u8"]
+	b438_5["arg__432 0"]
+	b438_8["arg__431 u8.&"]
+	b438_9["cond__429 u8.!="]
+	b438_0 --> b438_6
+	b438_6 --> b438_5
+	b438_5 --> b438_8
+	b438_8 --> b438_9
+end
+subgraph block_437["Block 437"]
+	direction TB
+	b437_4["memindex__436 0u"]
+	b437_3["flags imm_readU8"]
+	b437_4 --> b437_3
+end
+branch_434 --> block_437
+subgraph block_432["Block 432"]
+	direction TB
+	b432_16["index pop_u32"]
+	b432_20["val mach_readMemory32_u32_64"]
+	b432_22["eff__423 push_u64"]
+	b432_15["offset imm_readULEB32"]
+	b432_16 --> b432_20
+	b432_20 --> b432_22
+	b432_22 --> b432_15
+end
+branch_429 --> block_432
+
+</pre>`;
+window.traces["I64_LOAD32_U"]["unlem_scheduler__raw"] += `graph TD
+subgraph block_428["Block 428"]
+	direction TB
+	b428_1[\\"Finish"/]
+end
+phi_430 --> block_428
+subgraph phi_430["Phi 430"]
+	p430_32{{"Sϕ Stack "}}
+	p430_31{{"Sϕ Codeptr "}}
+end
+block_431 --> phi_430
+block_432 --> phi_430
+subgraph block_431["Block 431"]
+	direction TB
+	b431_24["index pop_u64"]
+	b431_28["val mach_readMemory64_u32_64"]
+	b431_30["eff__418 push_u64"]
+	b431_23["offset imm_readULEB64"]
+	b431_24 --> b431_28
+	b431_28 --> b431_30
+	b431_30 --> b431_23
+end
+branch_429 --> block_431
+subgraph branch_429["Branch 429"]
+	br429_14["cond__417 m_isMemory64"]
+
+end
+block_433 --> branch_429
+subgraph block_433["Block 433"]
+	direction TB
+	b433_14["cond__417 m_isMemory64"]
+end
+phi_435 --> block_433
+subgraph phi_435["Phi 435"]
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_11{"memindex ϕ"}
+	p435_11{"memindex ϕ"}
+	p435_11{"memindex ϕ"}
+	p435_11{"memindex ϕ"}
+	p435_11{"memindex ϕ"}
+	p435_11{"memindex ϕ"}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+	p435_12{{"Sϕ Codeptr "}}
+end
+block_436 --> phi_435
+block_437 --> phi_435
+subgraph block_436["Block 436"]
+	direction TB
+	b436_10["memindex__430 imm_readULEB32"]
+end
+branch_434 --> block_436
+subgraph branch_434["Branch 434"]
+	br434_9["cond__429 u8.!="]
+
+end
+block_438 --> branch_434
+subgraph block_438["Block 438"]
+	direction TB
+	b438_0[/"Start"\\]
+	b438_6["arg__434 0x40u8"]
+	b438_5["arg__432 0"]
+	b438_8["arg__431 u8.&"]
+	b438_9["cond__429 u8.!="]
+	b438_0 --> b438_6
+	b438_6 --> b438_5
+	b438_5 --> b438_8
+	b438_8 --> b438_9
+end
+subgraph block_437["Block 437"]
+	direction TB
+	b437_4["memindex__436 0u"]
+	b437_3["flags imm_readU8"]
+	b437_4 --> b437_3
+end
+branch_434 --> block_437
+subgraph block_432["Block 432"]
+	direction TB
+	b432_16["index pop_u32"]
+	b432_20["val mach_readMemory32_u32_64"]
+	b432_22["eff__423 push_u64"]
+	b432_15["offset imm_readULEB32"]
+	b432_16 --> b432_20
+	b432_20 --> b432_22
+	b432_22 --> b432_15
+end
+branch_429 --> block_432
+
+`;
+window.traces["I64_LOAD32_U"]["unlem_pretty"] = ''
+window.traces["I64_LOAD32_U"]["unlem_pretty__raw"] = ''
+window.traces["I64_LOAD32_U"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	push_u64(val);
+}
+</pre>`;
+window.traces["I64_LOAD32_U"]["unlem_pretty__raw"] += `def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	push_u64(val);
+}
+`;
+window.traces["I64_LOAD32_U"]["constUnLEM"] = ''
+window.traces["I64_LOAD32_U"]["constUnLEM__raw"] = ''
+window.traces["I64_LOAD32_U"]["constUnLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__423 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__430 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__429 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__432 0"]
+	8["arg__431 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__434 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__436 0u"]
+	30["eff__418 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u32_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__417 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD32_U"]["constUnLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__423 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__430 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__429 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__432 0"]
+	8["arg__431 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__434 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__436 0u"]
+	30["eff__418 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u32_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__417 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD32_U"]["chooseMerge"] = ''
+window.traces["I64_LOAD32_U"]["chooseMerge__raw"] = ''
+window.traces["I64_LOAD32_U"]["chooseMerge"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__423 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__430 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__429 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__432 0"]
+	8["arg__431 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__434 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__436 0u"]
+	30["eff__418 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u32_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__417 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+</pre>`;
+window.traces["I64_LOAD32_U"]["chooseMerge__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	31 -. Codeptr .-> 1
+	32 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	32{{"Sϕ Stack "}}
+	14 --> 32
+	30 --> 32
+	22 --> 32
+	22["eff__423 push_u64"]
+	20 --> 22
+	16 -. Stack .-> 22
+	16["index pop_u32"]
+	0 -. Stack .-> 16
+	20["val mach_readMemory32_u32_64"]
+	11 --> 20
+	16 --> 20
+	15 --> 20
+	15["offset imm_readULEB32"]
+	12 -. Codeptr .-> 15
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__430 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__429 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__432 0"]
+	8["arg__431 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__434 0x40u8"]
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__436 0u"]
+	30["eff__418 push_u64"]
+	28 --> 30
+	24 -. Stack .-> 30
+	24["index pop_u64"]
+	0 -. Stack .-> 24
+	28["val mach_readMemory64_u32_64"]
+	11 --> 28
+	24 --> 28
+	23 --> 28
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	14["cond__417 m_isMemory64"]
+	11 --> 14
+	31{{"Sϕ Codeptr "}}
+	14 --> 31
+	23 --> 31
+	15 --> 31
+`;
+window.traces["I64_LOAD32_U"]["scheduled"] = ''
+window.traces["I64_LOAD32_U"]["scheduled__raw"] = ''
+window.traces["I64_LOAD32_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__434 : byte = 0x40u8;
+def arg__431 = u8.&(flags, arg__434);
+def arg__432 : byte = 0;
+def cond__429 = u8.!=(arg__431, arg__432);
+var memindex: u32;
+if (cond__429) {
+	def memindex__430 = imm_readULEB32();
+} else {
+	def memindex__436 : u32 = 0u;
+}
+// phis: memindex <- memindex__430; memindex <- memindex__436; 
+def cond__417 = m_isMemory64(memindex);
+if (cond__417) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	def eff__418 = push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	def eff__423 = push_u64(val);
+}
+// phis: 
+</pre>`;
+window.traces["I64_LOAD32_U"]["scheduled__raw"] += `def flags = imm_readU8();
+def arg__434 : byte = 0x40u8;
+def arg__431 = u8.&(flags, arg__434);
+def arg__432 : byte = 0;
+def cond__429 = u8.!=(arg__431, arg__432);
+var memindex: u32;
+if (cond__429) {
+	def memindex__430 = imm_readULEB32();
+} else {
+	def memindex__436 : u32 = 0u;
+}
+// phis: memindex <- memindex__430; memindex <- memindex__436; 
+def cond__417 = m_isMemory64(memindex);
+if (cond__417) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	def eff__418 = push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	def eff__423 = push_u64(val);
+}
+// phis: 
+`;
+window.traces["I64_LOAD32_U"]["pretty"] = ''
+window.traces["I64_LOAD32_U"]["pretty__raw"] = ''
+window.traces["I64_LOAD32_U"]["pretty"] += `<pre class=''>def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	push_u64(val);
+}
+</pre>`;
+window.traces["I64_LOAD32_U"]["pretty__raw"] += `def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset);
+	push_u64(val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset);
+	push_u64(val);
+}
+`;
+window.traces["I32_STORE"] = {}
+window.traces["I32_STORE"]["parsed"] = ''
+window.traces["I32_STORE"]["parsed__raw"] = ''
+window.traces["I32_STORE"]["parsed"] += `<pre class=''>def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__452 : byte = 0;
+def arg__454 : byte = 0x40u8;
+def arg__453 = (flags);
+def arg__451 = u8.&(arg__453, arg__454);
+def cond__449 = u8.!=(arg__451, arg__452);
+if (cond__449) {
+	def memindex__450 = imm_readULEB32();
+}
+// phis: memindex <- memindex__450; 
+def val = pop_u32();
+def arg__448 = (memindex);
+def cond__437 = m_isMemory64(arg__448);
+if (cond__437) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__442 = (val);
+	def arg__441 = (offset);
+	def arg__440 = (index);
+	def arg__439 = (memindex);
+	def eff__438 = mach_writeMemory64_u32(arg__439, arg__440, arg__441, arg__442);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__447 = (val);
+	def arg__446 = (offset);
+	def arg__445 = (index);
+	def arg__444 = (memindex);
+	def eff__443 = mach_writeMemory32_u32(arg__444, arg__445, arg__446, arg__447);
+}
+// phis: 
+</pre>`;
+window.traces["I32_STORE"]["parsed__raw"] += `def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__452 : byte = 0;
+def arg__454 : byte = 0x40u8;
+def arg__453 = (flags);
+def arg__451 = u8.&(arg__453, arg__454);
+def cond__449 = u8.!=(arg__451, arg__452);
+if (cond__449) {
+	def memindex__450 = imm_readULEB32();
+}
+// phis: memindex <- memindex__450; 
+def val = pop_u32();
+def arg__448 = (memindex);
+def cond__437 = m_isMemory64(arg__448);
+if (cond__437) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__442 = (val);
+	def arg__441 = (offset);
+	def arg__440 = (index);
+	def arg__439 = (memindex);
+	def eff__438 = mach_writeMemory64_u32(arg__439, arg__440, arg__441, arg__442);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__447 = (val);
+	def arg__446 = (offset);
+	def arg__445 = (index);
+	def arg__444 = (memindex);
+	def eff__443 = mach_writeMemory32_u32(arg__444, arg__445, arg__446, arg__447);
+}
+// phis: 
+`;
+window.traces["I32_STORE"]["raw"] = ''
+window.traces["I32_STORE"]["raw__raw"] = ''
+window.traces["I32_STORE"]["raw"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__443 mach_writeMemory32_u32"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__450 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__449 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__452 0"]
+	8["arg__451 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__454 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__455 0u"]
+	29["eff__438 mach_writeMemory64_u32"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__437 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE"]["raw__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__443 mach_writeMemory32_u32"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__450 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__449 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__452 0"]
+	8["arg__451 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__454 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__455 0u"]
+	29["eff__438 mach_writeMemory64_u32"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__437 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE"]["spytial"] = ''
+window.traces["I32_STORE"]["spytial__raw"] = ''
+window.traces["I32_STORE"]["spytial"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__437]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__437]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__437]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__437]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u32 [eff__438]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u32 [eff__443]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__449]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__449]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__450]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__451]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I32_STORE"]["spytial__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__437]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__437]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__437]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__437]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u32 [eff__438]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u32 [eff__443]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__449]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__449]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__450]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__451]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I32_STORE"]["overloadOps"] = ''
+window.traces["I32_STORE"]["overloadOps__raw"] = ''
+window.traces["I32_STORE"]["overloadOps"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__443 mach_writeMemory32_u32"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__450 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__449 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__452 0"]
+	8["arg__451 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__454 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__456 0u"]
+	29["eff__438 mach_writeMemory64_u32"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__437 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE"]["overloadOps__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__443 mach_writeMemory32_u32"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__450 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__449 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__452 0"]
+	8["arg__451 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__454 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__456 0u"]
+	29["eff__438 mach_writeMemory64_u32"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__437 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE"]["addAbstractions"] = ''
+window.traces["I32_STORE"]["addAbstractions__raw"] = ''
+window.traces["I32_STORE"]["addAbstractions"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__443 mach_writeMemory32_u32"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__450 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__449 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__452 0"]
+	8["arg__451 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__454 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__456 0u"]
+	29["eff__438 mach_writeMemory64_u32"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__437 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE"]["addAbstractions__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__443 mach_writeMemory32_u32"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__450 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__449 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__452 0"]
+	8["arg__451 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__454 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__456 0u"]
+	29["eff__438 mach_writeMemory64_u32"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__437 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE"]["schedulerMermaid"] = ''
+window.traces["I32_STORE"]["schedulerMermaid__raw"] = ''
+window.traces["I32_STORE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
+subgraph block_439["Block 439"]
+	direction TB
+	b439_1[\\"Finish"/]
+end
+phi_441 --> block_439
+subgraph phi_441["Phi 441"]
+	p441_32{{"Sϕ Memory "}}
+	p441_31{{"Sϕ Stack "}}
+	p441_30{{"Sϕ Codeptr "}}
+end
+block_442 --> phi_441
+block_443 --> phi_441
+subgraph block_442["Block 442"]
+	direction TB
+	b442_29["eff__438 mach_writeMemory64_u32"]
+	b442_24["index pop_u64"]
+	b442_23["offset imm_readULEB64"]
+	b442_29 --> b442_24
+	b442_24 --> b442_23
+end
+branch_440 --> block_442
+subgraph branch_440["Branch 440"]
+	br440_15["cond__437 m_isMemory64"]
+
+end
+block_444 --> branch_440
+subgraph block_444["Block 444"]
+	direction TB
+	b444_13["val pop_u32"]
+	b444_15["cond__437 m_isMemory64"]
+	b444_13 --> b444_15
+end
+phi_446 --> block_444
+subgraph phi_446["Phi 446"]
+	p446_12{{"Sϕ Codeptr "}}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_11{"memindex ϕ"}
+	p446_11{"memindex ϕ"}
+	p446_11{"memindex ϕ"}
+	p446_11{"memindex ϕ"}
+	p446_11{"memindex ϕ"}
+	p446_11{"memindex ϕ"}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_11{"memindex ϕ"}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_12{{"Sϕ Codeptr "}}
+end
+block_447 --> phi_446
+block_448 --> phi_446
+subgraph block_447["Block 447"]
+	direction TB
+	b447_10["memindex__450 imm_readULEB32"]
+end
+branch_445 --> block_447
+subgraph branch_445["Branch 445"]
+	br445_9["cond__449 u8.!="]
+
+end
+block_449 --> branch_445
+subgraph block_449["Block 449"]
+	direction TB
+	b449_0[/"Start"\\]
+	b449_6["arg__454 0x40u8"]
+	b449_5["arg__452 0"]
+	b449_8["arg__451 u8.&"]
+	b449_9["cond__449 u8.!="]
+	b449_0 --> b449_6
+	b449_6 --> b449_5
+	b449_5 --> b449_8
+	b449_8 --> b449_9
+end
+subgraph block_448["Block 448"]
+	direction TB
+	b448_4["memindex__456 0u"]
+	b448_3["flags imm_readU8"]
+	b448_4 --> b448_3
+end
+branch_445 --> block_448
+subgraph block_443["Block 443"]
+	direction TB
+	b443_22["eff__443 mach_writeMemory32_u32"]
+	b443_17["index pop_u32"]
+	b443_16["offset imm_readULEB32"]
+	b443_22 --> b443_17
+	b443_17 --> b443_16
+end
+branch_440 --> block_443
+
+</pre>`;
+window.traces["I32_STORE"]["schedulerMermaid__raw"] += `graph TD
+subgraph block_439["Block 439"]
+	direction TB
+	b439_1[\\"Finish"/]
+end
+phi_441 --> block_439
+subgraph phi_441["Phi 441"]
+	p441_32{{"Sϕ Memory "}}
+	p441_31{{"Sϕ Stack "}}
+	p441_30{{"Sϕ Codeptr "}}
+end
+block_442 --> phi_441
+block_443 --> phi_441
+subgraph block_442["Block 442"]
+	direction TB
+	b442_29["eff__438 mach_writeMemory64_u32"]
+	b442_24["index pop_u64"]
+	b442_23["offset imm_readULEB64"]
+	b442_29 --> b442_24
+	b442_24 --> b442_23
+end
+branch_440 --> block_442
+subgraph branch_440["Branch 440"]
+	br440_15["cond__437 m_isMemory64"]
+
+end
+block_444 --> branch_440
+subgraph block_444["Block 444"]
+	direction TB
+	b444_13["val pop_u32"]
+	b444_15["cond__437 m_isMemory64"]
+	b444_13 --> b444_15
+end
+phi_446 --> block_444
+subgraph phi_446["Phi 446"]
+	p446_12{{"Sϕ Codeptr "}}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_11{"memindex ϕ"}
+	p446_11{"memindex ϕ"}
+	p446_11{"memindex ϕ"}
+	p446_11{"memindex ϕ"}
+	p446_11{"memindex ϕ"}
+	p446_11{"memindex ϕ"}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_11{"memindex ϕ"}
+	p446_12{{"Sϕ Codeptr "}}
+	p446_12{{"Sϕ Codeptr "}}
+end
+block_447 --> phi_446
+block_448 --> phi_446
+subgraph block_447["Block 447"]
+	direction TB
+	b447_10["memindex__450 imm_readULEB32"]
+end
+branch_445 --> block_447
+subgraph branch_445["Branch 445"]
+	br445_9["cond__449 u8.!="]
+
+end
+block_449 --> branch_445
+subgraph block_449["Block 449"]
+	direction TB
+	b449_0[/"Start"\\]
+	b449_6["arg__454 0x40u8"]
+	b449_5["arg__452 0"]
+	b449_8["arg__451 u8.&"]
+	b449_9["cond__449 u8.!="]
+	b449_0 --> b449_6
+	b449_6 --> b449_5
+	b449_5 --> b449_8
+	b449_8 --> b449_9
+end
+subgraph block_448["Block 448"]
+	direction TB
+	b448_4["memindex__456 0u"]
+	b448_3["flags imm_readU8"]
+	b448_4 --> b448_3
+end
+branch_445 --> block_448
+subgraph block_443["Block 443"]
+	direction TB
+	b443_22["eff__443 mach_writeMemory32_u32"]
+	b443_17["index pop_u32"]
+	b443_16["offset imm_readULEB32"]
+	b443_22 --> b443_17
+	b443_17 --> b443_16
+end
+branch_440 --> block_443
+
+`;
+window.traces["I32_STORE"]["unLEM"] = ''
+window.traces["I32_STORE"]["unLEM__raw"] = ''
+window.traces["I32_STORE"]["unLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__443 mach_writeMemory32_u32"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__450 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__449 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__452 0"]
+	8["arg__451 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__454 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__456 0u"]
+	29["eff__438 mach_writeMemory64_u32"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__437 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE"]["unLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__443 mach_writeMemory32_u32"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__450 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__449 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__452 0"]
+	8["arg__451 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__454 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__456 0u"]
+	29["eff__438 mach_writeMemory64_u32"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__437 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE"]["unlem_schedule"] = ''
+window.traces["I32_STORE"]["unlem_schedule__raw"] = ''
+window.traces["I32_STORE"]["unlem_schedule"] += `<pre class=''>def val = pop_u32();
+def flags = imm_readU8();
+def arg__454 : byte = 0x40u8;
+def arg__451 = u8.&(flags, arg__454);
+def arg__452 : byte = 0;
+def cond__449 = u8.!=(arg__451, arg__452);
+var memindex: u32;
+if (cond__449) {
+	def memindex__450 = imm_readULEB32();
+} else {
+	def memindex__456 : u32 = 0u;
+}
+// phis: memindex <- memindex__450; memindex <- memindex__456; 
+def cond__437 = m_isMemory64(memindex);
+if (cond__437) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__438 = mach_writeMemory64_u32(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__443 = mach_writeMemory32_u32(memindex, index, offset, val);
+}
+// phis: 
+</pre>`;
+window.traces["I32_STORE"]["unlem_schedule__raw"] += `def val = pop_u32();
+def flags = imm_readU8();
+def arg__454 : byte = 0x40u8;
+def arg__451 = u8.&(flags, arg__454);
+def arg__452 : byte = 0;
+def cond__449 = u8.!=(arg__451, arg__452);
+var memindex: u32;
+if (cond__449) {
+	def memindex__450 = imm_readULEB32();
+} else {
+	def memindex__456 : u32 = 0u;
+}
+// phis: memindex <- memindex__450; memindex <- memindex__456; 
+def cond__437 = m_isMemory64(memindex);
+if (cond__437) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__438 = mach_writeMemory64_u32(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__443 = mach_writeMemory32_u32(memindex, index, offset, val);
+}
+// phis: 
+`;
+window.traces["I32_STORE"]["spytial_ul"] = ''
+window.traces["I32_STORE"]["spytial_ul__raw"] = ''
+window.traces["I32_STORE"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__437]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__437]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__437]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__437]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u32 [eff__438]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u32 [eff__443]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__449]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__449]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__450]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__451]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I32_STORE"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__437]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__437]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__437]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__437]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u32 [eff__438]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u32 [eff__443]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__449]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__449]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__450]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__451]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I32_STORE"]["unlem_scheduler"] = ''
+window.traces["I32_STORE"]["unlem_scheduler__raw"] = ''
+window.traces["I32_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
+subgraph block_450["Block 450"]
+	direction TB
+	b450_1[\\"Finish"/]
+end
+phi_452 --> block_450
+subgraph phi_452["Phi 452"]
+	p452_32{{"Sϕ Memory "}}
+	p452_31{{"Sϕ Stack "}}
+	p452_30{{"Sϕ Codeptr "}}
+end
+block_453 --> phi_452
+block_454 --> phi_452
+subgraph block_453["Block 453"]
+	direction TB
+	b453_29["eff__438 mach_writeMemory64_u32"]
+	b453_24["index pop_u64"]
+	b453_23["offset imm_readULEB64"]
+	b453_29 --> b453_24
+	b453_24 --> b453_23
+end
+branch_451 --> block_453
+subgraph branch_451["Branch 451"]
+	br451_15["cond__437 m_isMemory64"]
+
+end
+block_455 --> branch_451
+subgraph block_455["Block 455"]
+	direction TB
+	b455_13["val pop_u32"]
+	b455_15["cond__437 m_isMemory64"]
+	b455_13 --> b455_15
+end
+phi_457 --> block_455
+subgraph phi_457["Phi 457"]
+	p457_12{{"Sϕ Codeptr "}}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_11{"memindex ϕ"}
+	p457_11{"memindex ϕ"}
+	p457_11{"memindex ϕ"}
+	p457_11{"memindex ϕ"}
+	p457_11{"memindex ϕ"}
+	p457_11{"memindex ϕ"}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_11{"memindex ϕ"}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_12{{"Sϕ Codeptr "}}
+end
+block_458 --> phi_457
+block_459 --> phi_457
+subgraph block_458["Block 458"]
+	direction TB
+	b458_10["memindex__450 imm_readULEB32"]
+end
+branch_456 --> block_458
+subgraph branch_456["Branch 456"]
+	br456_9["cond__449 u8.!="]
+
+end
+block_460 --> branch_456
+subgraph block_460["Block 460"]
+	direction TB
+	b460_0[/"Start"\\]
+	b460_6["arg__454 0x40u8"]
+	b460_5["arg__452 0"]
+	b460_8["arg__451 u8.&"]
+	b460_9["cond__449 u8.!="]
+	b460_0 --> b460_6
+	b460_6 --> b460_5
+	b460_5 --> b460_8
+	b460_8 --> b460_9
+end
+subgraph block_459["Block 459"]
+	direction TB
+	b459_4["memindex__456 0u"]
+	b459_3["flags imm_readU8"]
+	b459_4 --> b459_3
+end
+branch_456 --> block_459
+subgraph block_454["Block 454"]
+	direction TB
+	b454_22["eff__443 mach_writeMemory32_u32"]
+	b454_17["index pop_u32"]
+	b454_16["offset imm_readULEB32"]
+	b454_22 --> b454_17
+	b454_17 --> b454_16
+end
+branch_451 --> block_454
+
+</pre>`;
+window.traces["I32_STORE"]["unlem_scheduler__raw"] += `graph TD
+subgraph block_450["Block 450"]
+	direction TB
+	b450_1[\\"Finish"/]
+end
+phi_452 --> block_450
+subgraph phi_452["Phi 452"]
+	p452_32{{"Sϕ Memory "}}
+	p452_31{{"Sϕ Stack "}}
+	p452_30{{"Sϕ Codeptr "}}
+end
+block_453 --> phi_452
+block_454 --> phi_452
+subgraph block_453["Block 453"]
+	direction TB
+	b453_29["eff__438 mach_writeMemory64_u32"]
+	b453_24["index pop_u64"]
+	b453_23["offset imm_readULEB64"]
+	b453_29 --> b453_24
+	b453_24 --> b453_23
+end
+branch_451 --> block_453
+subgraph branch_451["Branch 451"]
+	br451_15["cond__437 m_isMemory64"]
+
+end
+block_455 --> branch_451
+subgraph block_455["Block 455"]
+	direction TB
+	b455_13["val pop_u32"]
+	b455_15["cond__437 m_isMemory64"]
+	b455_13 --> b455_15
+end
+phi_457 --> block_455
+subgraph phi_457["Phi 457"]
+	p457_12{{"Sϕ Codeptr "}}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_11{"memindex ϕ"}
+	p457_11{"memindex ϕ"}
+	p457_11{"memindex ϕ"}
+	p457_11{"memindex ϕ"}
+	p457_11{"memindex ϕ"}
+	p457_11{"memindex ϕ"}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_11{"memindex ϕ"}
+	p457_12{{"Sϕ Codeptr "}}
+	p457_12{{"Sϕ Codeptr "}}
+end
+block_458 --> phi_457
+block_459 --> phi_457
+subgraph block_458["Block 458"]
+	direction TB
+	b458_10["memindex__450 imm_readULEB32"]
+end
+branch_456 --> block_458
+subgraph branch_456["Branch 456"]
+	br456_9["cond__449 u8.!="]
+
+end
+block_460 --> branch_456
+subgraph block_460["Block 460"]
+	direction TB
+	b460_0[/"Start"\\]
+	b460_6["arg__454 0x40u8"]
+	b460_5["arg__452 0"]
+	b460_8["arg__451 u8.&"]
+	b460_9["cond__449 u8.!="]
+	b460_0 --> b460_6
+	b460_6 --> b460_5
+	b460_5 --> b460_8
+	b460_8 --> b460_9
+end
+subgraph block_459["Block 459"]
+	direction TB
+	b459_4["memindex__456 0u"]
+	b459_3["flags imm_readU8"]
+	b459_4 --> b459_3
+end
+branch_456 --> block_459
+subgraph block_454["Block 454"]
+	direction TB
+	b454_22["eff__443 mach_writeMemory32_u32"]
+	b454_17["index pop_u32"]
+	b454_16["offset imm_readULEB32"]
+	b454_22 --> b454_17
+	b454_17 --> b454_16
+end
+branch_451 --> block_454
+
+`;
+window.traces["I32_STORE"]["unlem_pretty"] = ''
+window.traces["I32_STORE"]["unlem_pretty__raw"] = ''
+window.traces["I32_STORE"]["unlem_pretty"] += `<pre class=''>def val = pop_u32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u32(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u32(memindex, index, offset, val);
+}
+</pre>`;
+window.traces["I32_STORE"]["unlem_pretty__raw"] += `def val = pop_u32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u32(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u32(memindex, index, offset, val);
+}
+`;
+window.traces["I32_STORE"]["constUnLEM"] = ''
+window.traces["I32_STORE"]["constUnLEM__raw"] = ''
+window.traces["I32_STORE"]["constUnLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__443 mach_writeMemory32_u32"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__450 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__449 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__452 0"]
+	8["arg__451 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__454 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__456 0u"]
+	29["eff__438 mach_writeMemory64_u32"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__437 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE"]["constUnLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__443 mach_writeMemory32_u32"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__450 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__449 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__452 0"]
+	8["arg__451 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__454 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__456 0u"]
+	29["eff__438 mach_writeMemory64_u32"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__437 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE"]["chooseMerge"] = ''
+window.traces["I32_STORE"]["chooseMerge__raw"] = ''
+window.traces["I32_STORE"]["chooseMerge"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__443 mach_writeMemory32_u32"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__450 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__449 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__452 0"]
+	8["arg__451 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__454 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__456 0u"]
+	29["eff__438 mach_writeMemory64_u32"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__437 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE"]["chooseMerge__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__443 mach_writeMemory32_u32"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__450 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__449 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__452 0"]
+	8["arg__451 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__454 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__456 0u"]
+	29["eff__438 mach_writeMemory64_u32"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__437 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE"]["scheduled"] = ''
+window.traces["I32_STORE"]["scheduled__raw"] = ''
+window.traces["I32_STORE"]["scheduled"] += `<pre class=''>def val = pop_u32();
+def flags = imm_readU8();
+def arg__454 : byte = 0x40u8;
+def arg__451 = u8.&(flags, arg__454);
+def arg__452 : byte = 0;
+def cond__449 = u8.!=(arg__451, arg__452);
+var memindex: u32;
+if (cond__449) {
+	def memindex__450 = imm_readULEB32();
+} else {
+	def memindex__456 : u32 = 0u;
+}
+// phis: memindex <- memindex__450; memindex <- memindex__456; 
+def cond__437 = m_isMemory64(memindex);
+if (cond__437) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__438 = mach_writeMemory64_u32(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__443 = mach_writeMemory32_u32(memindex, index, offset, val);
+}
+// phis: 
+</pre>`;
+window.traces["I32_STORE"]["scheduled__raw"] += `def val = pop_u32();
+def flags = imm_readU8();
+def arg__454 : byte = 0x40u8;
+def arg__451 = u8.&(flags, arg__454);
+def arg__452 : byte = 0;
+def cond__449 = u8.!=(arg__451, arg__452);
+var memindex: u32;
+if (cond__449) {
+	def memindex__450 = imm_readULEB32();
+} else {
+	def memindex__456 : u32 = 0u;
+}
+// phis: memindex <- memindex__450; memindex <- memindex__456; 
+def cond__437 = m_isMemory64(memindex);
+if (cond__437) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__438 = mach_writeMemory64_u32(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__443 = mach_writeMemory32_u32(memindex, index, offset, val);
+}
+// phis: 
+`;
+window.traces["I32_STORE"]["pretty"] = ''
+window.traces["I32_STORE"]["pretty__raw"] = ''
+window.traces["I32_STORE"]["pretty"] += `<pre class=''>def val = pop_u32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u32(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u32(memindex, index, offset, val);
+}
+</pre>`;
+window.traces["I32_STORE"]["pretty__raw"] += `def val = pop_u32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u32(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u32(memindex, index, offset, val);
+}
+`;
+window.traces["I64_STORE"] = {}
+window.traces["I64_STORE"]["parsed"] = ''
+window.traces["I64_STORE"]["parsed__raw"] = ''
+window.traces["I64_STORE"]["parsed"] += `<pre class=''>def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__472 : byte = 0;
+def arg__474 : byte = 0x40u8;
+def arg__473 = (flags);
+def arg__471 = u8.&(arg__473, arg__474);
+def cond__469 = u8.!=(arg__471, arg__472);
+if (cond__469) {
+	def memindex__470 = imm_readULEB32();
+}
+// phis: memindex <- memindex__470; 
+def val = pop_u64();
+def arg__468 = (memindex);
+def cond__457 = m_isMemory64(arg__468);
+if (cond__457) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__462 = (val);
+	def arg__461 = (offset);
+	def arg__460 = (index);
+	def arg__459 = (memindex);
+	def eff__458 = mach_writeMemory64_u64(arg__459, arg__460, arg__461, arg__462);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__467 = (val);
+	def arg__466 = (offset);
+	def arg__465 = (index);
+	def arg__464 = (memindex);
+	def eff__463 = mach_writeMemory32_u64(arg__464, arg__465, arg__466, arg__467);
+}
+// phis: 
+</pre>`;
+window.traces["I64_STORE"]["parsed__raw"] += `def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__472 : byte = 0;
+def arg__474 : byte = 0x40u8;
+def arg__473 = (flags);
+def arg__471 = u8.&(arg__473, arg__474);
+def cond__469 = u8.!=(arg__471, arg__472);
+if (cond__469) {
+	def memindex__470 = imm_readULEB32();
+}
+// phis: memindex <- memindex__470; 
+def val = pop_u64();
+def arg__468 = (memindex);
+def cond__457 = m_isMemory64(arg__468);
+if (cond__457) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__462 = (val);
+	def arg__461 = (offset);
+	def arg__460 = (index);
+	def arg__459 = (memindex);
+	def eff__458 = mach_writeMemory64_u64(arg__459, arg__460, arg__461, arg__462);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__467 = (val);
+	def arg__466 = (offset);
+	def arg__465 = (index);
+	def arg__464 = (memindex);
+	def eff__463 = mach_writeMemory32_u64(arg__464, arg__465, arg__466, arg__467);
+}
+// phis: 
+`;
+window.traces["I64_STORE"]["raw"] = ''
+window.traces["I64_STORE"]["raw__raw"] = ''
+window.traces["I64_STORE"]["raw"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__463 mach_writeMemory32_u64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__470 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__469 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__472 0"]
+	8["arg__471 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__474 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__475 0u"]
+	29["eff__458 mach_writeMemory64_u64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__457 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I64_STORE"]["raw__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__463 mach_writeMemory32_u64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__470 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__469 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__472 0"]
+	8["arg__471 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__474 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__475 0u"]
+	29["eff__458 mach_writeMemory64_u64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__457 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I64_STORE"]["spytial"] = ''
+window.traces["I64_STORE"]["spytial__raw"] = ''
+window.traces["I64_STORE"]["spytial"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__457]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__457]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__457]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__457]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u64 [eff__458]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u64 [eff__463]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__469]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u64 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__469]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__470]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__471]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_STORE"]["spytial__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__457]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__457]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__457]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__457]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u64 [eff__458]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u64 [eff__463]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__469]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u64 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__469]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__470]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__471]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_STORE"]["overloadOps"] = ''
+window.traces["I64_STORE"]["overloadOps__raw"] = ''
+window.traces["I64_STORE"]["overloadOps"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__463 mach_writeMemory32_u64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__470 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__469 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__472 0"]
+	8["arg__471 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__474 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__476 0u"]
+	29["eff__458 mach_writeMemory64_u64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__457 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I64_STORE"]["overloadOps__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__463 mach_writeMemory32_u64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__470 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__469 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__472 0"]
+	8["arg__471 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__474 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__476 0u"]
+	29["eff__458 mach_writeMemory64_u64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__457 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I64_STORE"]["addAbstractions"] = ''
+window.traces["I64_STORE"]["addAbstractions__raw"] = ''
+window.traces["I64_STORE"]["addAbstractions"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__463 mach_writeMemory32_u64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__470 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__469 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__472 0"]
+	8["arg__471 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__474 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__476 0u"]
+	29["eff__458 mach_writeMemory64_u64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__457 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I64_STORE"]["addAbstractions__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__463 mach_writeMemory32_u64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__470 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__469 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__472 0"]
+	8["arg__471 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__474 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__476 0u"]
+	29["eff__458 mach_writeMemory64_u64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__457 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I64_STORE"]["schedulerMermaid"] = ''
+window.traces["I64_STORE"]["schedulerMermaid__raw"] = ''
+window.traces["I64_STORE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
+subgraph block_461["Block 461"]
+	direction TB
+	b461_1[\\"Finish"/]
+end
+phi_463 --> block_461
+subgraph phi_463["Phi 463"]
+	p463_32{{"Sϕ Memory "}}
+	p463_31{{"Sϕ Stack "}}
+	p463_30{{"Sϕ Codeptr "}}
+end
+block_464 --> phi_463
+block_465 --> phi_463
+subgraph block_464["Block 464"]
+	direction TB
+	b464_29["eff__458 mach_writeMemory64_u64"]
+	b464_24["index pop_u64"]
+	b464_23["offset imm_readULEB64"]
+	b464_29 --> b464_24
+	b464_24 --> b464_23
+end
+branch_462 --> block_464
+subgraph branch_462["Branch 462"]
+	br462_15["cond__457 m_isMemory64"]
+
+end
+block_466 --> branch_462
+subgraph block_466["Block 466"]
+	direction TB
+	b466_13["val pop_u64"]
+	b466_15["cond__457 m_isMemory64"]
+	b466_13 --> b466_15
+end
+phi_468 --> block_466
+subgraph phi_468["Phi 468"]
+	p468_12{{"Sϕ Codeptr "}}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_11{"memindex ϕ"}
+	p468_11{"memindex ϕ"}
+	p468_11{"memindex ϕ"}
+	p468_11{"memindex ϕ"}
+	p468_11{"memindex ϕ"}
+	p468_11{"memindex ϕ"}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_11{"memindex ϕ"}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_12{{"Sϕ Codeptr "}}
+end
+block_469 --> phi_468
+block_470 --> phi_468
+subgraph block_469["Block 469"]
+	direction TB
+	b469_10["memindex__470 imm_readULEB32"]
+end
+branch_467 --> block_469
+subgraph branch_467["Branch 467"]
+	br467_9["cond__469 u8.!="]
+
+end
+block_471 --> branch_467
+subgraph block_471["Block 471"]
+	direction TB
+	b471_0[/"Start"\\]
+	b471_6["arg__474 0x40u8"]
+	b471_5["arg__472 0"]
+	b471_8["arg__471 u8.&"]
+	b471_9["cond__469 u8.!="]
+	b471_0 --> b471_6
+	b471_6 --> b471_5
+	b471_5 --> b471_8
+	b471_8 --> b471_9
+end
+subgraph block_470["Block 470"]
+	direction TB
+	b470_4["memindex__476 0u"]
+	b470_3["flags imm_readU8"]
+	b470_4 --> b470_3
+end
+branch_467 --> block_470
+subgraph block_465["Block 465"]
+	direction TB
+	b465_22["eff__463 mach_writeMemory32_u64"]
+	b465_17["index pop_u32"]
+	b465_16["offset imm_readULEB32"]
+	b465_22 --> b465_17
+	b465_17 --> b465_16
+end
+branch_462 --> block_465
+
+</pre>`;
+window.traces["I64_STORE"]["schedulerMermaid__raw"] += `graph TD
+subgraph block_461["Block 461"]
+	direction TB
+	b461_1[\\"Finish"/]
+end
+phi_463 --> block_461
+subgraph phi_463["Phi 463"]
+	p463_32{{"Sϕ Memory "}}
+	p463_31{{"Sϕ Stack "}}
+	p463_30{{"Sϕ Codeptr "}}
+end
+block_464 --> phi_463
+block_465 --> phi_463
+subgraph block_464["Block 464"]
+	direction TB
+	b464_29["eff__458 mach_writeMemory64_u64"]
+	b464_24["index pop_u64"]
+	b464_23["offset imm_readULEB64"]
+	b464_29 --> b464_24
+	b464_24 --> b464_23
+end
+branch_462 --> block_464
+subgraph branch_462["Branch 462"]
+	br462_15["cond__457 m_isMemory64"]
+
+end
+block_466 --> branch_462
+subgraph block_466["Block 466"]
+	direction TB
+	b466_13["val pop_u64"]
+	b466_15["cond__457 m_isMemory64"]
+	b466_13 --> b466_15
+end
+phi_468 --> block_466
+subgraph phi_468["Phi 468"]
+	p468_12{{"Sϕ Codeptr "}}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_11{"memindex ϕ"}
+	p468_11{"memindex ϕ"}
+	p468_11{"memindex ϕ"}
+	p468_11{"memindex ϕ"}
+	p468_11{"memindex ϕ"}
+	p468_11{"memindex ϕ"}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_11{"memindex ϕ"}
+	p468_12{{"Sϕ Codeptr "}}
+	p468_12{{"Sϕ Codeptr "}}
+end
+block_469 --> phi_468
+block_470 --> phi_468
+subgraph block_469["Block 469"]
+	direction TB
+	b469_10["memindex__470 imm_readULEB32"]
+end
+branch_467 --> block_469
+subgraph branch_467["Branch 467"]
+	br467_9["cond__469 u8.!="]
+
+end
+block_471 --> branch_467
+subgraph block_471["Block 471"]
+	direction TB
+	b471_0[/"Start"\\]
+	b471_6["arg__474 0x40u8"]
+	b471_5["arg__472 0"]
+	b471_8["arg__471 u8.&"]
+	b471_9["cond__469 u8.!="]
+	b471_0 --> b471_6
+	b471_6 --> b471_5
+	b471_5 --> b471_8
+	b471_8 --> b471_9
+end
+subgraph block_470["Block 470"]
+	direction TB
+	b470_4["memindex__476 0u"]
+	b470_3["flags imm_readU8"]
+	b470_4 --> b470_3
+end
+branch_467 --> block_470
+subgraph block_465["Block 465"]
+	direction TB
+	b465_22["eff__463 mach_writeMemory32_u64"]
+	b465_17["index pop_u32"]
+	b465_16["offset imm_readULEB32"]
+	b465_22 --> b465_17
+	b465_17 --> b465_16
+end
+branch_462 --> block_465
+
+`;
+window.traces["I64_STORE"]["unLEM"] = ''
+window.traces["I64_STORE"]["unLEM__raw"] = ''
+window.traces["I64_STORE"]["unLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__463 mach_writeMemory32_u64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__470 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__469 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__472 0"]
+	8["arg__471 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__474 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__476 0u"]
+	29["eff__458 mach_writeMemory64_u64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__457 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I64_STORE"]["unLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__463 mach_writeMemory32_u64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__470 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__469 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__472 0"]
+	8["arg__471 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__474 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__476 0u"]
+	29["eff__458 mach_writeMemory64_u64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__457 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I64_STORE"]["unlem_schedule"] = ''
+window.traces["I64_STORE"]["unlem_schedule__raw"] = ''
+window.traces["I64_STORE"]["unlem_schedule"] += `<pre class=''>def val = pop_u64();
+def flags = imm_readU8();
+def arg__474 : byte = 0x40u8;
+def arg__471 = u8.&(flags, arg__474);
+def arg__472 : byte = 0;
+def cond__469 = u8.!=(arg__471, arg__472);
+var memindex: u32;
+if (cond__469) {
+	def memindex__470 = imm_readULEB32();
+} else {
+	def memindex__476 : u32 = 0u;
+}
+// phis: memindex <- memindex__470; memindex <- memindex__476; 
+def cond__457 = m_isMemory64(memindex);
+if (cond__457) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__458 = mach_writeMemory64_u64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__463 = mach_writeMemory32_u64(memindex, index, offset, val);
+}
+// phis: 
+</pre>`;
+window.traces["I64_STORE"]["unlem_schedule__raw"] += `def val = pop_u64();
+def flags = imm_readU8();
+def arg__474 : byte = 0x40u8;
+def arg__471 = u8.&(flags, arg__474);
+def arg__472 : byte = 0;
+def cond__469 = u8.!=(arg__471, arg__472);
+var memindex: u32;
+if (cond__469) {
+	def memindex__470 = imm_readULEB32();
+} else {
+	def memindex__476 : u32 = 0u;
+}
+// phis: memindex <- memindex__470; memindex <- memindex__476; 
+def cond__457 = m_isMemory64(memindex);
+if (cond__457) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__458 = mach_writeMemory64_u64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__463 = mach_writeMemory32_u64(memindex, index, offset, val);
+}
+// phis: 
+`;
+window.traces["I64_STORE"]["spytial_ul"] = ''
+window.traces["I64_STORE"]["spytial_ul__raw"] = ''
+window.traces["I64_STORE"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__457]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__457]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__457]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__457]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u64 [eff__458]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u64 [eff__463]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__469]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u64 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__469]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__470]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__471]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_STORE"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__457]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__457]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__457]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__457]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u64 [eff__458]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u64 [eff__463]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__469]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u64 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__469]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__470]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__471]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_STORE"]["unlem_scheduler"] = ''
+window.traces["I64_STORE"]["unlem_scheduler__raw"] = ''
+window.traces["I64_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
+subgraph block_472["Block 472"]
+	direction TB
+	b472_1[\\"Finish"/]
+end
+phi_474 --> block_472
+subgraph phi_474["Phi 474"]
+	p474_32{{"Sϕ Memory "}}
+	p474_31{{"Sϕ Stack "}}
+	p474_30{{"Sϕ Codeptr "}}
+end
+block_475 --> phi_474
+block_476 --> phi_474
+subgraph block_475["Block 475"]
+	direction TB
+	b475_29["eff__458 mach_writeMemory64_u64"]
+	b475_24["index pop_u64"]
+	b475_23["offset imm_readULEB64"]
+	b475_29 --> b475_24
+	b475_24 --> b475_23
+end
+branch_473 --> block_475
+subgraph branch_473["Branch 473"]
+	br473_15["cond__457 m_isMemory64"]
+
+end
+block_477 --> branch_473
+subgraph block_477["Block 477"]
+	direction TB
+	b477_13["val pop_u64"]
+	b477_15["cond__457 m_isMemory64"]
+	b477_13 --> b477_15
+end
+phi_479 --> block_477
+subgraph phi_479["Phi 479"]
+	p479_12{{"Sϕ Codeptr "}}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_11{"memindex ϕ"}
+	p479_11{"memindex ϕ"}
+	p479_11{"memindex ϕ"}
+	p479_11{"memindex ϕ"}
+	p479_11{"memindex ϕ"}
+	p479_11{"memindex ϕ"}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_11{"memindex ϕ"}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_12{{"Sϕ Codeptr "}}
+end
+block_480 --> phi_479
+block_481 --> phi_479
+subgraph block_480["Block 480"]
+	direction TB
+	b480_10["memindex__470 imm_readULEB32"]
+end
+branch_478 --> block_480
+subgraph branch_478["Branch 478"]
+	br478_9["cond__469 u8.!="]
+
+end
+block_482 --> branch_478
+subgraph block_482["Block 482"]
+	direction TB
+	b482_0[/"Start"\\]
+	b482_6["arg__474 0x40u8"]
+	b482_5["arg__472 0"]
+	b482_8["arg__471 u8.&"]
+	b482_9["cond__469 u8.!="]
+	b482_0 --> b482_6
+	b482_6 --> b482_5
+	b482_5 --> b482_8
+	b482_8 --> b482_9
+end
+subgraph block_481["Block 481"]
+	direction TB
+	b481_4["memindex__476 0u"]
+	b481_3["flags imm_readU8"]
+	b481_4 --> b481_3
+end
+branch_478 --> block_481
+subgraph block_476["Block 476"]
+	direction TB
+	b476_22["eff__463 mach_writeMemory32_u64"]
+	b476_17["index pop_u32"]
+	b476_16["offset imm_readULEB32"]
+	b476_22 --> b476_17
+	b476_17 --> b476_16
+end
+branch_473 --> block_476
+
+</pre>`;
+window.traces["I64_STORE"]["unlem_scheduler__raw"] += `graph TD
+subgraph block_472["Block 472"]
+	direction TB
+	b472_1[\\"Finish"/]
+end
+phi_474 --> block_472
+subgraph phi_474["Phi 474"]
+	p474_32{{"Sϕ Memory "}}
+	p474_31{{"Sϕ Stack "}}
+	p474_30{{"Sϕ Codeptr "}}
+end
+block_475 --> phi_474
+block_476 --> phi_474
+subgraph block_475["Block 475"]
+	direction TB
+	b475_29["eff__458 mach_writeMemory64_u64"]
+	b475_24["index pop_u64"]
+	b475_23["offset imm_readULEB64"]
+	b475_29 --> b475_24
+	b475_24 --> b475_23
+end
+branch_473 --> block_475
+subgraph branch_473["Branch 473"]
+	br473_15["cond__457 m_isMemory64"]
+
+end
+block_477 --> branch_473
+subgraph block_477["Block 477"]
+	direction TB
+	b477_13["val pop_u64"]
+	b477_15["cond__457 m_isMemory64"]
+	b477_13 --> b477_15
+end
+phi_479 --> block_477
+subgraph phi_479["Phi 479"]
+	p479_12{{"Sϕ Codeptr "}}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_11{"memindex ϕ"}
+	p479_11{"memindex ϕ"}
+	p479_11{"memindex ϕ"}
+	p479_11{"memindex ϕ"}
+	p479_11{"memindex ϕ"}
+	p479_11{"memindex ϕ"}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_11{"memindex ϕ"}
+	p479_12{{"Sϕ Codeptr "}}
+	p479_12{{"Sϕ Codeptr "}}
+end
+block_480 --> phi_479
+block_481 --> phi_479
+subgraph block_480["Block 480"]
+	direction TB
+	b480_10["memindex__470 imm_readULEB32"]
+end
+branch_478 --> block_480
+subgraph branch_478["Branch 478"]
+	br478_9["cond__469 u8.!="]
+
+end
+block_482 --> branch_478
+subgraph block_482["Block 482"]
+	direction TB
+	b482_0[/"Start"\\]
+	b482_6["arg__474 0x40u8"]
+	b482_5["arg__472 0"]
+	b482_8["arg__471 u8.&"]
+	b482_9["cond__469 u8.!="]
+	b482_0 --> b482_6
+	b482_6 --> b482_5
+	b482_5 --> b482_8
+	b482_8 --> b482_9
+end
+subgraph block_481["Block 481"]
+	direction TB
+	b481_4["memindex__476 0u"]
+	b481_3["flags imm_readU8"]
+	b481_4 --> b481_3
+end
+branch_478 --> block_481
+subgraph block_476["Block 476"]
+	direction TB
+	b476_22["eff__463 mach_writeMemory32_u64"]
+	b476_17["index pop_u32"]
+	b476_16["offset imm_readULEB32"]
+	b476_22 --> b476_17
+	b476_17 --> b476_16
+end
+branch_473 --> block_476
+
+`;
+window.traces["I64_STORE"]["unlem_pretty"] = ''
+window.traces["I64_STORE"]["unlem_pretty__raw"] = ''
+window.traces["I64_STORE"]["unlem_pretty"] += `<pre class=''>def val = pop_u64();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u64(memindex, index, offset, val);
+}
+</pre>`;
+window.traces["I64_STORE"]["unlem_pretty__raw"] += `def val = pop_u64();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u64(memindex, index, offset, val);
+}
+`;
+window.traces["I64_STORE"]["constUnLEM"] = ''
+window.traces["I64_STORE"]["constUnLEM__raw"] = ''
+window.traces["I64_STORE"]["constUnLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__463 mach_writeMemory32_u64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__470 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__469 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__472 0"]
+	8["arg__471 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__474 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__476 0u"]
+	29["eff__458 mach_writeMemory64_u64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__457 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I64_STORE"]["constUnLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__463 mach_writeMemory32_u64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__470 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__469 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__472 0"]
+	8["arg__471 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__474 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__476 0u"]
+	29["eff__458 mach_writeMemory64_u64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__457 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I64_STORE"]["chooseMerge"] = ''
+window.traces["I64_STORE"]["chooseMerge__raw"] = ''
+window.traces["I64_STORE"]["chooseMerge"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__463 mach_writeMemory32_u64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__470 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__469 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__472 0"]
+	8["arg__471 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__474 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__476 0u"]
+	29["eff__458 mach_writeMemory64_u64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__457 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I64_STORE"]["chooseMerge__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__463 mach_writeMemory32_u64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__470 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__469 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__472 0"]
+	8["arg__471 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__474 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__476 0u"]
+	29["eff__458 mach_writeMemory64_u64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__457 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I64_STORE"]["scheduled"] = ''
+window.traces["I64_STORE"]["scheduled__raw"] = ''
+window.traces["I64_STORE"]["scheduled"] += `<pre class=''>def val = pop_u64();
+def flags = imm_readU8();
+def arg__474 : byte = 0x40u8;
+def arg__471 = u8.&(flags, arg__474);
+def arg__472 : byte = 0;
+def cond__469 = u8.!=(arg__471, arg__472);
+var memindex: u32;
+if (cond__469) {
+	def memindex__470 = imm_readULEB32();
+} else {
+	def memindex__476 : u32 = 0u;
+}
+// phis: memindex <- memindex__470; memindex <- memindex__476; 
+def cond__457 = m_isMemory64(memindex);
+if (cond__457) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__458 = mach_writeMemory64_u64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__463 = mach_writeMemory32_u64(memindex, index, offset, val);
+}
+// phis: 
+</pre>`;
+window.traces["I64_STORE"]["scheduled__raw"] += `def val = pop_u64();
+def flags = imm_readU8();
+def arg__474 : byte = 0x40u8;
+def arg__471 = u8.&(flags, arg__474);
+def arg__472 : byte = 0;
+def cond__469 = u8.!=(arg__471, arg__472);
+var memindex: u32;
+if (cond__469) {
+	def memindex__470 = imm_readULEB32();
+} else {
+	def memindex__476 : u32 = 0u;
+}
+// phis: memindex <- memindex__470; memindex <- memindex__476; 
+def cond__457 = m_isMemory64(memindex);
+if (cond__457) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__458 = mach_writeMemory64_u64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__463 = mach_writeMemory32_u64(memindex, index, offset, val);
+}
+// phis: 
+`;
+window.traces["I64_STORE"]["pretty"] = ''
+window.traces["I64_STORE"]["pretty__raw"] = ''
+window.traces["I64_STORE"]["pretty"] += `<pre class=''>def val = pop_u64();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u64(memindex, index, offset, val);
+}
+</pre>`;
+window.traces["I64_STORE"]["pretty__raw"] += `def val = pop_u64();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u64(memindex, index, offset, val);
+}
+`;
+window.traces["F32_STORE"] = {}
+window.traces["F32_STORE"]["parsed"] = ''
+window.traces["F32_STORE"]["parsed__raw"] = ''
+window.traces["F32_STORE"]["parsed"] += `<pre class=''>def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__492 : byte = 0;
+def arg__494 : byte = 0x40u8;
+def arg__493 = (flags);
+def arg__491 = u8.&(arg__493, arg__494);
+def cond__489 = u8.!=(arg__491, arg__492);
+if (cond__489) {
+	def memindex__490 = imm_readULEB32();
+}
+// phis: memindex <- memindex__490; 
+def val = pop_f32();
+def arg__488 = (memindex);
+def cond__477 = m_isMemory64(arg__488);
+if (cond__477) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__482 = (val);
+	def arg__481 = (offset);
+	def arg__480 = (index);
+	def arg__479 = (memindex);
+	def eff__478 = mach_writeMemory64_f32(arg__479, arg__480, arg__481, arg__482);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__487 = (val);
+	def arg__486 = (offset);
+	def arg__485 = (index);
+	def arg__484 = (memindex);
+	def eff__483 = mach_writeMemory32_f32(arg__484, arg__485, arg__486, arg__487);
+}
+// phis: 
+</pre>`;
+window.traces["F32_STORE"]["parsed__raw"] += `def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__492 : byte = 0;
+def arg__494 : byte = 0x40u8;
+def arg__493 = (flags);
+def arg__491 = u8.&(arg__493, arg__494);
+def cond__489 = u8.!=(arg__491, arg__492);
+if (cond__489) {
+	def memindex__490 = imm_readULEB32();
+}
+// phis: memindex <- memindex__490; 
+def val = pop_f32();
+def arg__488 = (memindex);
+def cond__477 = m_isMemory64(arg__488);
+if (cond__477) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__482 = (val);
+	def arg__481 = (offset);
+	def arg__480 = (index);
+	def arg__479 = (memindex);
+	def eff__478 = mach_writeMemory64_f32(arg__479, arg__480, arg__481, arg__482);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__487 = (val);
+	def arg__486 = (offset);
+	def arg__485 = (index);
+	def arg__484 = (memindex);
+	def eff__483 = mach_writeMemory32_f32(arg__484, arg__485, arg__486, arg__487);
+}
+// phis: 
+`;
+window.traces["F32_STORE"]["raw"] = ''
+window.traces["F32_STORE"]["raw__raw"] = ''
+window.traces["F32_STORE"]["raw"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	13["val pop_f32"]
+	0 -. Stack .-> 13
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__477 m_isMemory64"]
+	11 --> 15
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__495 0u"]
+	10["memindex__490 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	9["cond__489 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__492 0"]
+	8["arg__491 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__494 0x40u8"]
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+</pre>`;
+window.traces["F32_STORE"]["raw__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	13["val pop_f32"]
+	0 -. Stack .-> 13
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__477 m_isMemory64"]
+	11 --> 15
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__495 0u"]
+	10["memindex__490 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	9["cond__489 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__492 0"]
+	8["arg__491 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__494 0x40u8"]
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+`;
+window.traces["F32_STORE"]["spytial"] = ''
+window.traces["F32_STORE"]["spytial__raw"] = ''
+window.traces["F32_STORE"]["spytial"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__477]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__477]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__477]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__489]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_f32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__489]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__490]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__491]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["F32_STORE"]["spytial__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__477]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__477]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__477]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__489]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_f32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__489]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__490]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__491]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["F32_STORE"]["overloadOps"] = ''
+window.traces["F32_STORE"]["overloadOps__raw"] = ''
+window.traces["F32_STORE"]["overloadOps"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	13["val pop_f32"]
+	0 -. Stack .-> 13
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__477 m_isMemory64"]
+	11 --> 15
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__496 0u"]
+	10["memindex__490 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	9["cond__489 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__492 0"]
+	8["arg__491 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__494 0x40u8"]
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+</pre>`;
+window.traces["F32_STORE"]["overloadOps__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	13["val pop_f32"]
+	0 -. Stack .-> 13
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__477 m_isMemory64"]
+	11 --> 15
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__496 0u"]
+	10["memindex__490 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	9["cond__489 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__492 0"]
+	8["arg__491 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__494 0x40u8"]
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+`;
+window.traces["F32_STORE"]["addAbstractions"] = ''
+window.traces["F32_STORE"]["addAbstractions__raw"] = ''
+window.traces["F32_STORE"]["addAbstractions"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	13["val pop_f32"]
+	0 -. Stack .-> 13
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__477 m_isMemory64"]
+	11 --> 15
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__496 0u"]
+	10["memindex__490 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	9["cond__489 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__492 0"]
+	8["arg__491 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__494 0x40u8"]
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+</pre>`;
+window.traces["F32_STORE"]["addAbstractions__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	13["val pop_f32"]
+	0 -. Stack .-> 13
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__477 m_isMemory64"]
+	11 --> 15
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__496 0u"]
+	10["memindex__490 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	9["cond__489 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__492 0"]
+	8["arg__491 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__494 0x40u8"]
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+`;
+window.traces["F32_STORE"]["schedulerMermaid"] = ''
+window.traces["F32_STORE"]["schedulerMermaid__raw"] = ''
+window.traces["F32_STORE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
+subgraph block_483["Block 483"]
+	direction TB
+	b483_1[\\"Finish"/]
+end
+phi_485 --> block_483
+subgraph phi_485["Phi 485"]
+	p485_31{{"Sϕ Stack "}}
+	p485_30{{"Sϕ Codeptr "}}
+end
+block_486 --> phi_485
+block_487 --> phi_485
+subgraph block_486["Block 486"]
+	direction TB
+	b486_24["index pop_u64"]
+	b486_23["offset imm_readULEB64"]
+	b486_24 --> b486_23
+end
+branch_484 --> block_486
+subgraph branch_484["Branch 484"]
+	br484_15["cond__477 m_isMemory64"]
+
+end
+block_488 --> branch_484
+subgraph block_488["Block 488"]
+	direction TB
+	b488_13["val pop_f32"]
+	b488_15["cond__477 m_isMemory64"]
+	b488_13 --> b488_15
+end
+phi_490 --> block_488
+subgraph phi_490["Phi 490"]
+	p490_11{"memindex ϕ"}
+	p490_12{{"Sϕ Codeptr "}}
+	p490_12{{"Sϕ Codeptr "}}
+	p490_11{"memindex ϕ"}
+	p490_12{{"Sϕ Codeptr "}}
+	p490_12{{"Sϕ Codeptr "}}
+end
+block_491 --> phi_490
+block_492 --> phi_490
+subgraph block_491["Block 491"]
+	direction TB
+	b491_10["memindex__490 imm_readULEB32"]
+end
+branch_489 --> block_491
+subgraph branch_489["Branch 489"]
+	br489_9["cond__489 u8.!="]
+
+end
+block_493 --> branch_489
+subgraph block_493["Block 493"]
+	direction TB
+	b493_0[/"Start"\\]
+	b493_6["arg__494 0x40u8"]
+	b493_5["arg__492 0"]
+	b493_8["arg__491 u8.&"]
+	b493_9["cond__489 u8.!="]
+	b493_0 --> b493_6
+	b493_6 --> b493_5
+	b493_5 --> b493_8
+	b493_8 --> b493_9
+end
+subgraph block_492["Block 492"]
+	direction TB
+	b492_4["memindex__496 0u"]
+	b492_3["flags imm_readU8"]
+	b492_4 --> b492_3
+end
+branch_489 --> block_492
+subgraph block_487["Block 487"]
+	direction TB
+	b487_17["index pop_u32"]
+	b487_16["offset imm_readULEB32"]
+	b487_17 --> b487_16
+end
+branch_484 --> block_487
+
+</pre>`;
+window.traces["F32_STORE"]["schedulerMermaid__raw"] += `graph TD
+subgraph block_483["Block 483"]
+	direction TB
+	b483_1[\\"Finish"/]
+end
+phi_485 --> block_483
+subgraph phi_485["Phi 485"]
+	p485_31{{"Sϕ Stack "}}
+	p485_30{{"Sϕ Codeptr "}}
+end
+block_486 --> phi_485
+block_487 --> phi_485
+subgraph block_486["Block 486"]
+	direction TB
+	b486_24["index pop_u64"]
+	b486_23["offset imm_readULEB64"]
+	b486_24 --> b486_23
+end
+branch_484 --> block_486
+subgraph branch_484["Branch 484"]
+	br484_15["cond__477 m_isMemory64"]
+
+end
+block_488 --> branch_484
+subgraph block_488["Block 488"]
+	direction TB
+	b488_13["val pop_f32"]
+	b488_15["cond__477 m_isMemory64"]
+	b488_13 --> b488_15
+end
+phi_490 --> block_488
+subgraph phi_490["Phi 490"]
+	p490_11{"memindex ϕ"}
+	p490_12{{"Sϕ Codeptr "}}
+	p490_12{{"Sϕ Codeptr "}}
+	p490_11{"memindex ϕ"}
+	p490_12{{"Sϕ Codeptr "}}
+	p490_12{{"Sϕ Codeptr "}}
+end
+block_491 --> phi_490
+block_492 --> phi_490
+subgraph block_491["Block 491"]
+	direction TB
+	b491_10["memindex__490 imm_readULEB32"]
+end
+branch_489 --> block_491
+subgraph branch_489["Branch 489"]
+	br489_9["cond__489 u8.!="]
+
+end
+block_493 --> branch_489
+subgraph block_493["Block 493"]
+	direction TB
+	b493_0[/"Start"\\]
+	b493_6["arg__494 0x40u8"]
+	b493_5["arg__492 0"]
+	b493_8["arg__491 u8.&"]
+	b493_9["cond__489 u8.!="]
+	b493_0 --> b493_6
+	b493_6 --> b493_5
+	b493_5 --> b493_8
+	b493_8 --> b493_9
+end
+subgraph block_492["Block 492"]
+	direction TB
+	b492_4["memindex__496 0u"]
+	b492_3["flags imm_readU8"]
+	b492_4 --> b492_3
+end
+branch_489 --> block_492
+subgraph block_487["Block 487"]
+	direction TB
+	b487_17["index pop_u32"]
+	b487_16["offset imm_readULEB32"]
+	b487_17 --> b487_16
+end
+branch_484 --> block_487
+
+`;
+window.traces["F32_STORE"]["unLEM"] = ''
+window.traces["F32_STORE"]["unLEM__raw"] = ''
+window.traces["F32_STORE"]["unLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	13["val pop_f32"]
+	0 -. Stack .-> 13
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__477 m_isMemory64"]
+	11 --> 15
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__496 0u"]
+	10["memindex__490 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	9["cond__489 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__492 0"]
+	8["arg__491 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__494 0x40u8"]
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+</pre>`;
+window.traces["F32_STORE"]["unLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	13["val pop_f32"]
+	0 -. Stack .-> 13
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__477 m_isMemory64"]
+	11 --> 15
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__496 0u"]
+	10["memindex__490 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	9["cond__489 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__492 0"]
+	8["arg__491 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__494 0x40u8"]
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+`;
+window.traces["F32_STORE"]["unlem_schedule"] = ''
+window.traces["F32_STORE"]["unlem_schedule__raw"] = ''
+window.traces["F32_STORE"]["unlem_schedule"] += `<pre class=''>def val = pop_f32();
+def flags = imm_readU8();
+def arg__494 : byte = 0x40u8;
+def arg__491 = u8.&(flags, arg__494);
+def arg__492 : byte = 0;
+def cond__489 = u8.!=(arg__491, arg__492);
+var memindex: u32;
+if (cond__489) {
+	def memindex__490 = imm_readULEB32();
+} else {
+	def memindex__496 : u32 = 0u;
+}
+// phis: memindex <- memindex__490; memindex <- memindex__496; 
+def cond__477 = m_isMemory64(memindex);
+if (cond__477) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+}
+// phis: 
+</pre>`;
+window.traces["F32_STORE"]["unlem_schedule__raw"] += `def val = pop_f32();
+def flags = imm_readU8();
+def arg__494 : byte = 0x40u8;
+def arg__491 = u8.&(flags, arg__494);
+def arg__492 : byte = 0;
+def cond__489 = u8.!=(arg__491, arg__492);
+var memindex: u32;
+if (cond__489) {
+	def memindex__490 = imm_readULEB32();
+} else {
+	def memindex__496 : u32 = 0u;
+}
+// phis: memindex <- memindex__490; memindex <- memindex__496; 
+def cond__477 = m_isMemory64(memindex);
+if (cond__477) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+}
+// phis: 
+`;
+window.traces["F32_STORE"]["spytial_ul"] = ''
+window.traces["F32_STORE"]["spytial_ul__raw"] = ''
+window.traces["F32_STORE"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__477]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__477]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__477]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__489]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_f32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__489]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__490]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__491]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["F32_STORE"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__477]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__477]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__477]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__489]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_f32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__489]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__490]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__491]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["F32_STORE"]["unlem_scheduler"] = ''
+window.traces["F32_STORE"]["unlem_scheduler__raw"] = ''
+window.traces["F32_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
+subgraph block_494["Block 494"]
+	direction TB
+	b494_1[\\"Finish"/]
+end
+phi_496 --> block_494
+subgraph phi_496["Phi 496"]
+	p496_31{{"Sϕ Stack "}}
+	p496_30{{"Sϕ Codeptr "}}
+end
+block_497 --> phi_496
+block_498 --> phi_496
+subgraph block_497["Block 497"]
+	direction TB
+	b497_24["index pop_u64"]
+	b497_23["offset imm_readULEB64"]
+	b497_24 --> b497_23
+end
+branch_495 --> block_497
+subgraph branch_495["Branch 495"]
+	br495_15["cond__477 m_isMemory64"]
+
+end
+block_499 --> branch_495
+subgraph block_499["Block 499"]
+	direction TB
+	b499_13["val pop_f32"]
+	b499_15["cond__477 m_isMemory64"]
+	b499_13 --> b499_15
+end
+phi_501 --> block_499
+subgraph phi_501["Phi 501"]
+	p501_11{"memindex ϕ"}
+	p501_12{{"Sϕ Codeptr "}}
+	p501_12{{"Sϕ Codeptr "}}
+	p501_11{"memindex ϕ"}
+	p501_12{{"Sϕ Codeptr "}}
+	p501_12{{"Sϕ Codeptr "}}
+end
+block_502 --> phi_501
+block_503 --> phi_501
+subgraph block_502["Block 502"]
+	direction TB
+	b502_10["memindex__490 imm_readULEB32"]
+end
+branch_500 --> block_502
+subgraph branch_500["Branch 500"]
+	br500_9["cond__489 u8.!="]
+
+end
+block_504 --> branch_500
+subgraph block_504["Block 504"]
+	direction TB
+	b504_0[/"Start"\\]
+	b504_6["arg__494 0x40u8"]
+	b504_5["arg__492 0"]
+	b504_8["arg__491 u8.&"]
+	b504_9["cond__489 u8.!="]
+	b504_0 --> b504_6
+	b504_6 --> b504_5
+	b504_5 --> b504_8
+	b504_8 --> b504_9
+end
+subgraph block_503["Block 503"]
+	direction TB
+	b503_4["memindex__496 0u"]
+	b503_3["flags imm_readU8"]
+	b503_4 --> b503_3
+end
+branch_500 --> block_503
+subgraph block_498["Block 498"]
+	direction TB
+	b498_17["index pop_u32"]
+	b498_16["offset imm_readULEB32"]
+	b498_17 --> b498_16
+end
+branch_495 --> block_498
+
+</pre>`;
+window.traces["F32_STORE"]["unlem_scheduler__raw"] += `graph TD
+subgraph block_494["Block 494"]
+	direction TB
+	b494_1[\\"Finish"/]
+end
+phi_496 --> block_494
+subgraph phi_496["Phi 496"]
+	p496_31{{"Sϕ Stack "}}
+	p496_30{{"Sϕ Codeptr "}}
+end
+block_497 --> phi_496
+block_498 --> phi_496
+subgraph block_497["Block 497"]
+	direction TB
+	b497_24["index pop_u64"]
+	b497_23["offset imm_readULEB64"]
+	b497_24 --> b497_23
+end
+branch_495 --> block_497
+subgraph branch_495["Branch 495"]
+	br495_15["cond__477 m_isMemory64"]
+
+end
+block_499 --> branch_495
+subgraph block_499["Block 499"]
+	direction TB
+	b499_13["val pop_f32"]
+	b499_15["cond__477 m_isMemory64"]
+	b499_13 --> b499_15
+end
+phi_501 --> block_499
+subgraph phi_501["Phi 501"]
+	p501_11{"memindex ϕ"}
+	p501_12{{"Sϕ Codeptr "}}
+	p501_12{{"Sϕ Codeptr "}}
+	p501_11{"memindex ϕ"}
+	p501_12{{"Sϕ Codeptr "}}
+	p501_12{{"Sϕ Codeptr "}}
+end
+block_502 --> phi_501
+block_503 --> phi_501
+subgraph block_502["Block 502"]
+	direction TB
+	b502_10["memindex__490 imm_readULEB32"]
+end
+branch_500 --> block_502
+subgraph branch_500["Branch 500"]
+	br500_9["cond__489 u8.!="]
+
+end
+block_504 --> branch_500
+subgraph block_504["Block 504"]
+	direction TB
+	b504_0[/"Start"\\]
+	b504_6["arg__494 0x40u8"]
+	b504_5["arg__492 0"]
+	b504_8["arg__491 u8.&"]
+	b504_9["cond__489 u8.!="]
+	b504_0 --> b504_6
+	b504_6 --> b504_5
+	b504_5 --> b504_8
+	b504_8 --> b504_9
+end
+subgraph block_503["Block 503"]
+	direction TB
+	b503_4["memindex__496 0u"]
+	b503_3["flags imm_readU8"]
+	b503_4 --> b503_3
+end
+branch_500 --> block_503
+subgraph block_498["Block 498"]
+	direction TB
+	b498_17["index pop_u32"]
+	b498_16["offset imm_readULEB32"]
+	b498_17 --> b498_16
+end
+branch_495 --> block_498
+
+`;
+window.traces["F32_STORE"]["unlem_pretty"] = ''
+window.traces["F32_STORE"]["unlem_pretty__raw"] = ''
+window.traces["F32_STORE"]["unlem_pretty"] += `<pre class=''>def val = pop_f32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+}
+</pre>`;
+window.traces["F32_STORE"]["unlem_pretty__raw"] += `def val = pop_f32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+}
+`;
+window.traces["F32_STORE"]["constUnLEM"] = ''
+window.traces["F32_STORE"]["constUnLEM__raw"] = ''
+window.traces["F32_STORE"]["constUnLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	13["val pop_f32"]
+	0 -. Stack .-> 13
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__477 m_isMemory64"]
+	11 --> 15
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__496 0u"]
+	10["memindex__490 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	9["cond__489 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__492 0"]
+	8["arg__491 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__494 0x40u8"]
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+</pre>`;
+window.traces["F32_STORE"]["constUnLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	13["val pop_f32"]
+	0 -. Stack .-> 13
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__477 m_isMemory64"]
+	11 --> 15
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__496 0u"]
+	10["memindex__490 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	9["cond__489 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__492 0"]
+	8["arg__491 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__494 0x40u8"]
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+`;
+window.traces["F32_STORE"]["chooseMerge"] = ''
+window.traces["F32_STORE"]["chooseMerge__raw"] = ''
+window.traces["F32_STORE"]["chooseMerge"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	13["val pop_f32"]
+	0 -. Stack .-> 13
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__477 m_isMemory64"]
+	11 --> 15
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__496 0u"]
+	10["memindex__490 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	9["cond__489 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__492 0"]
+	8["arg__491 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__494 0x40u8"]
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+</pre>`;
+window.traces["F32_STORE"]["chooseMerge__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	13["val pop_f32"]
+	0 -. Stack .-> 13
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__477 m_isMemory64"]
+	11 --> 15
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__496 0u"]
+	10["memindex__490 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	9["cond__489 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__492 0"]
+	8["arg__491 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__494 0x40u8"]
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+`;
+window.traces["F32_STORE"]["scheduled"] = ''
+window.traces["F32_STORE"]["scheduled__raw"] = ''
+window.traces["F32_STORE"]["scheduled"] += `<pre class=''>def val = pop_f32();
+def flags = imm_readU8();
+def arg__494 : byte = 0x40u8;
+def arg__491 = u8.&(flags, arg__494);
+def arg__492 : byte = 0;
+def cond__489 = u8.!=(arg__491, arg__492);
+var memindex: u32;
+if (cond__489) {
+	def memindex__490 = imm_readULEB32();
+} else {
+	def memindex__496 : u32 = 0u;
+}
+// phis: memindex <- memindex__490; memindex <- memindex__496; 
+def cond__477 = m_isMemory64(memindex);
+if (cond__477) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+}
+// phis: 
+</pre>`;
+window.traces["F32_STORE"]["scheduled__raw"] += `def val = pop_f32();
+def flags = imm_readU8();
+def arg__494 : byte = 0x40u8;
+def arg__491 = u8.&(flags, arg__494);
+def arg__492 : byte = 0;
+def cond__489 = u8.!=(arg__491, arg__492);
+var memindex: u32;
+if (cond__489) {
+	def memindex__490 = imm_readULEB32();
+} else {
+	def memindex__496 : u32 = 0u;
+}
+// phis: memindex <- memindex__490; memindex <- memindex__496; 
+def cond__477 = m_isMemory64(memindex);
+if (cond__477) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+}
+// phis: 
+`;
+window.traces["F32_STORE"]["pretty"] = ''
+window.traces["F32_STORE"]["pretty__raw"] = ''
+window.traces["F32_STORE"]["pretty"] += `<pre class=''>def val = pop_f32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+}
+</pre>`;
+window.traces["F32_STORE"]["pretty__raw"] += `def val = pop_f32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+}
+`;
+window.traces["F64_STORE"] = {}
+window.traces["F64_STORE"]["parsed"] = ''
+window.traces["F64_STORE"]["parsed__raw"] = ''
+window.traces["F64_STORE"]["parsed"] += `<pre class=''>def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__512 : byte = 0;
+def arg__514 : byte = 0x40u8;
+def arg__513 = (flags);
+def arg__511 = u8.&(arg__513, arg__514);
+def cond__509 = u8.!=(arg__511, arg__512);
+if (cond__509) {
+	def memindex__510 = imm_readULEB32();
+}
+// phis: memindex <- memindex__510; 
+def val = pop_f64();
+def arg__508 = (memindex);
+def cond__497 = m_isMemory64(arg__508);
+if (cond__497) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__502 = (val);
+	def arg__501 = (offset);
+	def arg__500 = (index);
+	def arg__499 = (memindex);
+	def eff__498 = mach_writeMemory64_f64(arg__499, arg__500, arg__501, arg__502);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__507 = (val);
+	def arg__506 = (offset);
+	def arg__505 = (index);
+	def arg__504 = (memindex);
+	def eff__503 = mach_writeMemory32_f64(arg__504, arg__505, arg__506, arg__507);
+}
+// phis: 
+</pre>`;
+window.traces["F64_STORE"]["parsed__raw"] += `def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__512 : byte = 0;
+def arg__514 : byte = 0x40u8;
+def arg__513 = (flags);
+def arg__511 = u8.&(arg__513, arg__514);
+def cond__509 = u8.!=(arg__511, arg__512);
+if (cond__509) {
+	def memindex__510 = imm_readULEB32();
+}
+// phis: memindex <- memindex__510; 
+def val = pop_f64();
+def arg__508 = (memindex);
+def cond__497 = m_isMemory64(arg__508);
+if (cond__497) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__502 = (val);
+	def arg__501 = (offset);
+	def arg__500 = (index);
+	def arg__499 = (memindex);
+	def eff__498 = mach_writeMemory64_f64(arg__499, arg__500, arg__501, arg__502);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__507 = (val);
+	def arg__506 = (offset);
+	def arg__505 = (index);
+	def arg__504 = (memindex);
+	def eff__503 = mach_writeMemory32_f64(arg__504, arg__505, arg__506, arg__507);
+}
+// phis: 
+`;
+window.traces["F64_STORE"]["raw"] = ''
+window.traces["F64_STORE"]["raw__raw"] = ''
+window.traces["F64_STORE"]["raw"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__503 mach_writeMemory32_f64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_f64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__510 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__509 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__512 0"]
+	8["arg__511 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__514 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__515 0u"]
+	29["eff__498 mach_writeMemory64_f64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__497 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["F64_STORE"]["raw__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__503 mach_writeMemory32_f64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_f64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__510 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__509 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__512 0"]
+	8["arg__511 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__514 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__515 0u"]
+	29["eff__498 mach_writeMemory64_f64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__497 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["F64_STORE"]["spytial"] = ''
+window.traces["F64_STORE"]["spytial__raw"] = ''
+window.traces["F64_STORE"]["spytial"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__497]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__497]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__497]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__497]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_f64 [eff__498]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_f64 [eff__503]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__509]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_f64 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__509]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__510]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__511]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["F64_STORE"]["spytial__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__497]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__497]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__497]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__497]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_f64 [eff__498]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_f64 [eff__503]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__509]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_f64 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__509]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__510]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__511]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["F64_STORE"]["overloadOps"] = ''
+window.traces["F64_STORE"]["overloadOps__raw"] = ''
+window.traces["F64_STORE"]["overloadOps"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__503 mach_writeMemory32_f64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_f64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__510 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__509 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__512 0"]
+	8["arg__511 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__514 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__516 0u"]
+	29["eff__498 mach_writeMemory64_f64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__497 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["F64_STORE"]["overloadOps__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__503 mach_writeMemory32_f64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_f64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__510 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__509 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__512 0"]
+	8["arg__511 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__514 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__516 0u"]
+	29["eff__498 mach_writeMemory64_f64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__497 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["F64_STORE"]["addAbstractions"] = ''
+window.traces["F64_STORE"]["addAbstractions__raw"] = ''
+window.traces["F64_STORE"]["addAbstractions"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__503 mach_writeMemory32_f64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_f64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__510 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__509 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__512 0"]
+	8["arg__511 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__514 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__516 0u"]
+	29["eff__498 mach_writeMemory64_f64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__497 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["F64_STORE"]["addAbstractions__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__503 mach_writeMemory32_f64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_f64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__510 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__509 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__512 0"]
+	8["arg__511 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__514 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__516 0u"]
+	29["eff__498 mach_writeMemory64_f64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__497 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["F64_STORE"]["schedulerMermaid"] = ''
+window.traces["F64_STORE"]["schedulerMermaid__raw"] = ''
+window.traces["F64_STORE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
+subgraph block_505["Block 505"]
+	direction TB
+	b505_1[\\"Finish"/]
+end
+phi_507 --> block_505
+subgraph phi_507["Phi 507"]
+	p507_32{{"Sϕ Memory "}}
+	p507_31{{"Sϕ Stack "}}
+	p507_30{{"Sϕ Codeptr "}}
+end
+block_508 --> phi_507
+block_509 --> phi_507
+subgraph block_508["Block 508"]
+	direction TB
+	b508_29["eff__498 mach_writeMemory64_f64"]
+	b508_24["index pop_u64"]
+	b508_23["offset imm_readULEB64"]
+	b508_29 --> b508_24
+	b508_24 --> b508_23
+end
+branch_506 --> block_508
+subgraph branch_506["Branch 506"]
+	br506_15["cond__497 m_isMemory64"]
+
+end
+block_510 --> branch_506
+subgraph block_510["Block 510"]
+	direction TB
+	b510_13["val pop_f64"]
+	b510_15["cond__497 m_isMemory64"]
+	b510_13 --> b510_15
+end
+phi_512 --> block_510
+subgraph phi_512["Phi 512"]
+	p512_12{{"Sϕ Codeptr "}}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_11{"memindex ϕ"}
+	p512_11{"memindex ϕ"}
+	p512_11{"memindex ϕ"}
+	p512_11{"memindex ϕ"}
+	p512_11{"memindex ϕ"}
+	p512_11{"memindex ϕ"}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_11{"memindex ϕ"}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_12{{"Sϕ Codeptr "}}
+end
+block_513 --> phi_512
+block_514 --> phi_512
+subgraph block_513["Block 513"]
+	direction TB
+	b513_10["memindex__510 imm_readULEB32"]
+end
+branch_511 --> block_513
+subgraph branch_511["Branch 511"]
+	br511_9["cond__509 u8.!="]
+
+end
+block_515 --> branch_511
+subgraph block_515["Block 515"]
+	direction TB
+	b515_0[/"Start"\\]
+	b515_6["arg__514 0x40u8"]
+	b515_5["arg__512 0"]
+	b515_8["arg__511 u8.&"]
+	b515_9["cond__509 u8.!="]
+	b515_0 --> b515_6
+	b515_6 --> b515_5
+	b515_5 --> b515_8
+	b515_8 --> b515_9
+end
+subgraph block_514["Block 514"]
+	direction TB
+	b514_4["memindex__516 0u"]
+	b514_3["flags imm_readU8"]
+	b514_4 --> b514_3
+end
+branch_511 --> block_514
+subgraph block_509["Block 509"]
+	direction TB
+	b509_22["eff__503 mach_writeMemory32_f64"]
+	b509_17["index pop_u32"]
+	b509_16["offset imm_readULEB32"]
+	b509_22 --> b509_17
+	b509_17 --> b509_16
+end
+branch_506 --> block_509
+
+</pre>`;
+window.traces["F64_STORE"]["schedulerMermaid__raw"] += `graph TD
+subgraph block_505["Block 505"]
+	direction TB
+	b505_1[\\"Finish"/]
+end
+phi_507 --> block_505
+subgraph phi_507["Phi 507"]
+	p507_32{{"Sϕ Memory "}}
+	p507_31{{"Sϕ Stack "}}
+	p507_30{{"Sϕ Codeptr "}}
+end
+block_508 --> phi_507
+block_509 --> phi_507
+subgraph block_508["Block 508"]
+	direction TB
+	b508_29["eff__498 mach_writeMemory64_f64"]
+	b508_24["index pop_u64"]
+	b508_23["offset imm_readULEB64"]
+	b508_29 --> b508_24
+	b508_24 --> b508_23
+end
+branch_506 --> block_508
+subgraph branch_506["Branch 506"]
+	br506_15["cond__497 m_isMemory64"]
+
+end
+block_510 --> branch_506
+subgraph block_510["Block 510"]
+	direction TB
+	b510_13["val pop_f64"]
+	b510_15["cond__497 m_isMemory64"]
+	b510_13 --> b510_15
+end
+phi_512 --> block_510
+subgraph phi_512["Phi 512"]
+	p512_12{{"Sϕ Codeptr "}}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_11{"memindex ϕ"}
+	p512_11{"memindex ϕ"}
+	p512_11{"memindex ϕ"}
+	p512_11{"memindex ϕ"}
+	p512_11{"memindex ϕ"}
+	p512_11{"memindex ϕ"}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_11{"memindex ϕ"}
+	p512_12{{"Sϕ Codeptr "}}
+	p512_12{{"Sϕ Codeptr "}}
+end
+block_513 --> phi_512
+block_514 --> phi_512
+subgraph block_513["Block 513"]
+	direction TB
+	b513_10["memindex__510 imm_readULEB32"]
+end
+branch_511 --> block_513
+subgraph branch_511["Branch 511"]
+	br511_9["cond__509 u8.!="]
+
+end
+block_515 --> branch_511
+subgraph block_515["Block 515"]
+	direction TB
+	b515_0[/"Start"\\]
+	b515_6["arg__514 0x40u8"]
+	b515_5["arg__512 0"]
+	b515_8["arg__511 u8.&"]
+	b515_9["cond__509 u8.!="]
+	b515_0 --> b515_6
+	b515_6 --> b515_5
+	b515_5 --> b515_8
+	b515_8 --> b515_9
+end
+subgraph block_514["Block 514"]
+	direction TB
+	b514_4["memindex__516 0u"]
+	b514_3["flags imm_readU8"]
+	b514_4 --> b514_3
+end
+branch_511 --> block_514
+subgraph block_509["Block 509"]
+	direction TB
+	b509_22["eff__503 mach_writeMemory32_f64"]
+	b509_17["index pop_u32"]
+	b509_16["offset imm_readULEB32"]
+	b509_22 --> b509_17
+	b509_17 --> b509_16
+end
+branch_506 --> block_509
+
+`;
+window.traces["F64_STORE"]["unLEM"] = ''
+window.traces["F64_STORE"]["unLEM__raw"] = ''
+window.traces["F64_STORE"]["unLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__503 mach_writeMemory32_f64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_f64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__510 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__509 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__512 0"]
+	8["arg__511 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__514 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__516 0u"]
+	29["eff__498 mach_writeMemory64_f64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__497 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["F64_STORE"]["unLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__503 mach_writeMemory32_f64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_f64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__510 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__509 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__512 0"]
+	8["arg__511 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__514 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__516 0u"]
+	29["eff__498 mach_writeMemory64_f64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__497 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["F64_STORE"]["unlem_schedule"] = ''
+window.traces["F64_STORE"]["unlem_schedule__raw"] = ''
+window.traces["F64_STORE"]["unlem_schedule"] += `<pre class=''>def val = pop_f64();
+def flags = imm_readU8();
+def arg__514 : byte = 0x40u8;
+def arg__511 = u8.&(flags, arg__514);
+def arg__512 : byte = 0;
+def cond__509 = u8.!=(arg__511, arg__512);
+var memindex: u32;
+if (cond__509) {
+	def memindex__510 = imm_readULEB32();
+} else {
+	def memindex__516 : u32 = 0u;
+}
+// phis: memindex <- memindex__510; memindex <- memindex__516; 
+def cond__497 = m_isMemory64(memindex);
+if (cond__497) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__498 = mach_writeMemory64_f64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__503 = mach_writeMemory32_f64(memindex, index, offset, val);
+}
+// phis: 
+</pre>`;
+window.traces["F64_STORE"]["unlem_schedule__raw"] += `def val = pop_f64();
+def flags = imm_readU8();
+def arg__514 : byte = 0x40u8;
+def arg__511 = u8.&(flags, arg__514);
+def arg__512 : byte = 0;
+def cond__509 = u8.!=(arg__511, arg__512);
+var memindex: u32;
+if (cond__509) {
+	def memindex__510 = imm_readULEB32();
+} else {
+	def memindex__516 : u32 = 0u;
+}
+// phis: memindex <- memindex__510; memindex <- memindex__516; 
+def cond__497 = m_isMemory64(memindex);
+if (cond__497) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__498 = mach_writeMemory64_f64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__503 = mach_writeMemory32_f64(memindex, index, offset, val);
+}
+// phis: 
+`;
+window.traces["F64_STORE"]["spytial_ul"] = ''
+window.traces["F64_STORE"]["spytial_ul__raw"] = ''
+window.traces["F64_STORE"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__497]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__497]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__497]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__497]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_f64 [eff__498]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_f64 [eff__503]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__509]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_f64 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__509]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__510]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__511]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["F64_STORE"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__497]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__497]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__497]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__497]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_f64 [eff__498]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_f64 [eff__503]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__509]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_f64 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__509]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__510]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__511]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["F64_STORE"]["unlem_scheduler"] = ''
+window.traces["F64_STORE"]["unlem_scheduler__raw"] = ''
+window.traces["F64_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
+subgraph block_516["Block 516"]
+	direction TB
+	b516_1[\\"Finish"/]
+end
+phi_518 --> block_516
+subgraph phi_518["Phi 518"]
+	p518_32{{"Sϕ Memory "}}
+	p518_31{{"Sϕ Stack "}}
+	p518_30{{"Sϕ Codeptr "}}
+end
+block_519 --> phi_518
+block_520 --> phi_518
+subgraph block_519["Block 519"]
+	direction TB
+	b519_29["eff__498 mach_writeMemory64_f64"]
+	b519_24["index pop_u64"]
+	b519_23["offset imm_readULEB64"]
+	b519_29 --> b519_24
+	b519_24 --> b519_23
+end
+branch_517 --> block_519
+subgraph branch_517["Branch 517"]
+	br517_15["cond__497 m_isMemory64"]
+
+end
+block_521 --> branch_517
+subgraph block_521["Block 521"]
+	direction TB
+	b521_13["val pop_f64"]
+	b521_15["cond__497 m_isMemory64"]
+	b521_13 --> b521_15
+end
+phi_523 --> block_521
+subgraph phi_523["Phi 523"]
+	p523_12{{"Sϕ Codeptr "}}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_11{"memindex ϕ"}
+	p523_11{"memindex ϕ"}
+	p523_11{"memindex ϕ"}
+	p523_11{"memindex ϕ"}
+	p523_11{"memindex ϕ"}
+	p523_11{"memindex ϕ"}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_11{"memindex ϕ"}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_12{{"Sϕ Codeptr "}}
+end
+block_524 --> phi_523
+block_525 --> phi_523
+subgraph block_524["Block 524"]
+	direction TB
+	b524_10["memindex__510 imm_readULEB32"]
+end
+branch_522 --> block_524
+subgraph branch_522["Branch 522"]
+	br522_9["cond__509 u8.!="]
+
+end
+block_526 --> branch_522
+subgraph block_526["Block 526"]
+	direction TB
+	b526_0[/"Start"\\]
+	b526_6["arg__514 0x40u8"]
+	b526_5["arg__512 0"]
+	b526_8["arg__511 u8.&"]
+	b526_9["cond__509 u8.!="]
+	b526_0 --> b526_6
+	b526_6 --> b526_5
+	b526_5 --> b526_8
+	b526_8 --> b526_9
+end
+subgraph block_525["Block 525"]
+	direction TB
+	b525_4["memindex__516 0u"]
+	b525_3["flags imm_readU8"]
+	b525_4 --> b525_3
+end
+branch_522 --> block_525
+subgraph block_520["Block 520"]
+	direction TB
+	b520_22["eff__503 mach_writeMemory32_f64"]
+	b520_17["index pop_u32"]
+	b520_16["offset imm_readULEB32"]
+	b520_22 --> b520_17
+	b520_17 --> b520_16
+end
+branch_517 --> block_520
+
+</pre>`;
+window.traces["F64_STORE"]["unlem_scheduler__raw"] += `graph TD
+subgraph block_516["Block 516"]
+	direction TB
+	b516_1[\\"Finish"/]
+end
+phi_518 --> block_516
+subgraph phi_518["Phi 518"]
+	p518_32{{"Sϕ Memory "}}
+	p518_31{{"Sϕ Stack "}}
+	p518_30{{"Sϕ Codeptr "}}
+end
+block_519 --> phi_518
+block_520 --> phi_518
+subgraph block_519["Block 519"]
+	direction TB
+	b519_29["eff__498 mach_writeMemory64_f64"]
+	b519_24["index pop_u64"]
+	b519_23["offset imm_readULEB64"]
+	b519_29 --> b519_24
+	b519_24 --> b519_23
+end
+branch_517 --> block_519
+subgraph branch_517["Branch 517"]
+	br517_15["cond__497 m_isMemory64"]
+
+end
+block_521 --> branch_517
+subgraph block_521["Block 521"]
+	direction TB
+	b521_13["val pop_f64"]
+	b521_15["cond__497 m_isMemory64"]
+	b521_13 --> b521_15
+end
+phi_523 --> block_521
+subgraph phi_523["Phi 523"]
+	p523_12{{"Sϕ Codeptr "}}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_11{"memindex ϕ"}
+	p523_11{"memindex ϕ"}
+	p523_11{"memindex ϕ"}
+	p523_11{"memindex ϕ"}
+	p523_11{"memindex ϕ"}
+	p523_11{"memindex ϕ"}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_11{"memindex ϕ"}
+	p523_12{{"Sϕ Codeptr "}}
+	p523_12{{"Sϕ Codeptr "}}
+end
+block_524 --> phi_523
+block_525 --> phi_523
+subgraph block_524["Block 524"]
+	direction TB
+	b524_10["memindex__510 imm_readULEB32"]
+end
+branch_522 --> block_524
+subgraph branch_522["Branch 522"]
+	br522_9["cond__509 u8.!="]
+
+end
+block_526 --> branch_522
+subgraph block_526["Block 526"]
+	direction TB
+	b526_0[/"Start"\\]
+	b526_6["arg__514 0x40u8"]
+	b526_5["arg__512 0"]
+	b526_8["arg__511 u8.&"]
+	b526_9["cond__509 u8.!="]
+	b526_0 --> b526_6
+	b526_6 --> b526_5
+	b526_5 --> b526_8
+	b526_8 --> b526_9
+end
+subgraph block_525["Block 525"]
+	direction TB
+	b525_4["memindex__516 0u"]
+	b525_3["flags imm_readU8"]
+	b525_4 --> b525_3
+end
+branch_522 --> block_525
+subgraph block_520["Block 520"]
+	direction TB
+	b520_22["eff__503 mach_writeMemory32_f64"]
+	b520_17["index pop_u32"]
+	b520_16["offset imm_readULEB32"]
+	b520_22 --> b520_17
+	b520_17 --> b520_16
+end
+branch_517 --> block_520
+
+`;
+window.traces["F64_STORE"]["unlem_pretty"] = ''
+window.traces["F64_STORE"]["unlem_pretty__raw"] = ''
+window.traces["F64_STORE"]["unlem_pretty"] += `<pre class=''>def val = pop_f64();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_f64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_f64(memindex, index, offset, val);
+}
+</pre>`;
+window.traces["F64_STORE"]["unlem_pretty__raw"] += `def val = pop_f64();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_f64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_f64(memindex, index, offset, val);
+}
+`;
+window.traces["F64_STORE"]["constUnLEM"] = ''
+window.traces["F64_STORE"]["constUnLEM__raw"] = ''
+window.traces["F64_STORE"]["constUnLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__503 mach_writeMemory32_f64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_f64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__510 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__509 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__512 0"]
+	8["arg__511 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__514 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__516 0u"]
+	29["eff__498 mach_writeMemory64_f64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__497 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["F64_STORE"]["constUnLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__503 mach_writeMemory32_f64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_f64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__510 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__509 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__512 0"]
+	8["arg__511 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__514 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__516 0u"]
+	29["eff__498 mach_writeMemory64_f64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__497 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["F64_STORE"]["chooseMerge"] = ''
+window.traces["F64_STORE"]["chooseMerge__raw"] = ''
+window.traces["F64_STORE"]["chooseMerge"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__503 mach_writeMemory32_f64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_f64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__510 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__509 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__512 0"]
+	8["arg__511 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__514 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__516 0u"]
+	29["eff__498 mach_writeMemory64_f64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__497 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["F64_STORE"]["chooseMerge__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__503 mach_writeMemory32_f64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_f64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__510 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__509 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__512 0"]
+	8["arg__511 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__514 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__516 0u"]
+	29["eff__498 mach_writeMemory64_f64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__497 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["F64_STORE"]["scheduled"] = ''
+window.traces["F64_STORE"]["scheduled__raw"] = ''
+window.traces["F64_STORE"]["scheduled"] += `<pre class=''>def val = pop_f64();
+def flags = imm_readU8();
+def arg__514 : byte = 0x40u8;
+def arg__511 = u8.&(flags, arg__514);
+def arg__512 : byte = 0;
+def cond__509 = u8.!=(arg__511, arg__512);
+var memindex: u32;
+if (cond__509) {
+	def memindex__510 = imm_readULEB32();
+} else {
+	def memindex__516 : u32 = 0u;
+}
+// phis: memindex <- memindex__510; memindex <- memindex__516; 
+def cond__497 = m_isMemory64(memindex);
+if (cond__497) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__498 = mach_writeMemory64_f64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__503 = mach_writeMemory32_f64(memindex, index, offset, val);
+}
+// phis: 
+</pre>`;
+window.traces["F64_STORE"]["scheduled__raw"] += `def val = pop_f64();
+def flags = imm_readU8();
+def arg__514 : byte = 0x40u8;
+def arg__511 = u8.&(flags, arg__514);
+def arg__512 : byte = 0;
+def cond__509 = u8.!=(arg__511, arg__512);
+var memindex: u32;
+if (cond__509) {
+	def memindex__510 = imm_readULEB32();
+} else {
+	def memindex__516 : u32 = 0u;
+}
+// phis: memindex <- memindex__510; memindex <- memindex__516; 
+def cond__497 = m_isMemory64(memindex);
+if (cond__497) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__498 = mach_writeMemory64_f64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__503 = mach_writeMemory32_f64(memindex, index, offset, val);
+}
+// phis: 
+`;
+window.traces["F64_STORE"]["pretty"] = ''
+window.traces["F64_STORE"]["pretty__raw"] = ''
+window.traces["F64_STORE"]["pretty"] += `<pre class=''>def val = pop_f64();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_f64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_f64(memindex, index, offset, val);
+}
+</pre>`;
+window.traces["F64_STORE"]["pretty__raw"] += `def val = pop_f64();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_f64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_f64(memindex, index, offset, val);
+}
+`;
+window.traces["I32_STORE8"] = {}
+window.traces["I32_STORE8"]["parsed"] = ''
+window.traces["I32_STORE8"]["parsed__raw"] = ''
+window.traces["I32_STORE8"]["parsed"] += `<pre class=''>def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__532 : byte = 0;
+def arg__534 : byte = 0x40u8;
+def arg__533 = (flags);
+def arg__531 = u8.&(arg__533, arg__534);
+def cond__529 = u8.!=(arg__531, arg__532);
+if (cond__529) {
+	def memindex__530 = imm_readULEB32();
+}
+// phis: memindex <- memindex__530; 
+def val = pop_u32();
+def arg__528 = (memindex);
+def cond__517 = m_isMemory64(arg__528);
+if (cond__517) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__522 = (val);
+	def arg__521 = (offset);
+	def arg__520 = (index);
+	def arg__519 = (memindex);
+	def eff__518 = mach_writeMemory64_u8(arg__519, arg__520, arg__521, arg__522);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__527 = (val);
+	def arg__526 = (offset);
+	def arg__525 = (index);
+	def arg__524 = (memindex);
+	def eff__523 = mach_writeMemory32_u8(arg__524, arg__525, arg__526, arg__527);
+}
+// phis: 
+</pre>`;
+window.traces["I32_STORE8"]["parsed__raw"] += `def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__532 : byte = 0;
+def arg__534 : byte = 0x40u8;
+def arg__533 = (flags);
+def arg__531 = u8.&(arg__533, arg__534);
+def cond__529 = u8.!=(arg__531, arg__532);
+if (cond__529) {
+	def memindex__530 = imm_readULEB32();
+}
+// phis: memindex <- memindex__530; 
+def val = pop_u32();
+def arg__528 = (memindex);
+def cond__517 = m_isMemory64(arg__528);
+if (cond__517) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__522 = (val);
+	def arg__521 = (offset);
+	def arg__520 = (index);
+	def arg__519 = (memindex);
+	def eff__518 = mach_writeMemory64_u8(arg__519, arg__520, arg__521, arg__522);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__527 = (val);
+	def arg__526 = (offset);
+	def arg__525 = (index);
+	def arg__524 = (memindex);
+	def eff__523 = mach_writeMemory32_u8(arg__524, arg__525, arg__526, arg__527);
+}
+// phis: 
+`;
+window.traces["I32_STORE8"]["raw"] = ''
+window.traces["I32_STORE8"]["raw__raw"] = ''
+window.traces["I32_STORE8"]["raw"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__523 mach_writeMemory32_u8"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__530 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__529 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__532 0"]
+	8["arg__531 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__534 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__535 0u"]
+	29["eff__518 mach_writeMemory64_u8"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__517 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE8"]["raw__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__523 mach_writeMemory32_u8"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__530 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__529 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__532 0"]
+	8["arg__531 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__534 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__535 0u"]
+	29["eff__518 mach_writeMemory64_u8"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__517 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE8"]["spytial"] = ''
+window.traces["I32_STORE8"]["spytial__raw"] = ''
+window.traces["I32_STORE8"]["spytial"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__517]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__517]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__517]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__517]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u8 [eff__518]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u8 [eff__523]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__529]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__529]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__530]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__531]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I32_STORE8"]["spytial__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__517]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__517]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__517]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__517]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u8 [eff__518]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u8 [eff__523]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__529]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__529]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__530]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__531]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I32_STORE8"]["overloadOps"] = ''
+window.traces["I32_STORE8"]["overloadOps__raw"] = ''
+window.traces["I32_STORE8"]["overloadOps"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__523 mach_writeMemory32_u8"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__530 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__529 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__532 0"]
+	8["arg__531 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__534 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__536 0u"]
+	29["eff__518 mach_writeMemory64_u8"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__517 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE8"]["overloadOps__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__523 mach_writeMemory32_u8"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__530 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__529 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__532 0"]
+	8["arg__531 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__534 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__536 0u"]
+	29["eff__518 mach_writeMemory64_u8"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__517 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE8"]["addAbstractions"] = ''
+window.traces["I32_STORE8"]["addAbstractions__raw"] = ''
+window.traces["I32_STORE8"]["addAbstractions"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__523 mach_writeMemory32_u8"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__530 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__529 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__532 0"]
+	8["arg__531 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__534 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__536 0u"]
+	29["eff__518 mach_writeMemory64_u8"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__517 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE8"]["addAbstractions__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__523 mach_writeMemory32_u8"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__530 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__529 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__532 0"]
+	8["arg__531 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__534 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__536 0u"]
+	29["eff__518 mach_writeMemory64_u8"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__517 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE8"]["schedulerMermaid"] = ''
+window.traces["I32_STORE8"]["schedulerMermaid__raw"] = ''
+window.traces["I32_STORE8"]["schedulerMermaid"] += `<pre class='graph'>graph TD
+subgraph block_527["Block 527"]
+	direction TB
+	b527_1[\\"Finish"/]
+end
+phi_529 --> block_527
+subgraph phi_529["Phi 529"]
+	p529_32{{"Sϕ Memory "}}
+	p529_31{{"Sϕ Stack "}}
+	p529_30{{"Sϕ Codeptr "}}
+end
+block_530 --> phi_529
+block_531 --> phi_529
+subgraph block_530["Block 530"]
+	direction TB
+	b530_29["eff__518 mach_writeMemory64_u8"]
+	b530_24["index pop_u64"]
+	b530_23["offset imm_readULEB64"]
+	b530_29 --> b530_24
+	b530_24 --> b530_23
+end
+branch_528 --> block_530
+subgraph branch_528["Branch 528"]
+	br528_15["cond__517 m_isMemory64"]
+
+end
+block_532 --> branch_528
+subgraph block_532["Block 532"]
+	direction TB
+	b532_13["val pop_u32"]
+	b532_15["cond__517 m_isMemory64"]
+	b532_13 --> b532_15
+end
+phi_534 --> block_532
+subgraph phi_534["Phi 534"]
+	p534_12{{"Sϕ Codeptr "}}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_11{"memindex ϕ"}
+	p534_11{"memindex ϕ"}
+	p534_11{"memindex ϕ"}
+	p534_11{"memindex ϕ"}
+	p534_11{"memindex ϕ"}
+	p534_11{"memindex ϕ"}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_11{"memindex ϕ"}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_12{{"Sϕ Codeptr "}}
+end
+block_535 --> phi_534
+block_536 --> phi_534
+subgraph block_535["Block 535"]
+	direction TB
+	b535_10["memindex__530 imm_readULEB32"]
+end
+branch_533 --> block_535
+subgraph branch_533["Branch 533"]
+	br533_9["cond__529 u8.!="]
+
+end
+block_537 --> branch_533
+subgraph block_537["Block 537"]
+	direction TB
+	b537_0[/"Start"\\]
+	b537_6["arg__534 0x40u8"]
+	b537_5["arg__532 0"]
+	b537_8["arg__531 u8.&"]
+	b537_9["cond__529 u8.!="]
+	b537_0 --> b537_6
+	b537_6 --> b537_5
+	b537_5 --> b537_8
+	b537_8 --> b537_9
+end
+subgraph block_536["Block 536"]
+	direction TB
+	b536_4["memindex__536 0u"]
+	b536_3["flags imm_readU8"]
+	b536_4 --> b536_3
+end
+branch_533 --> block_536
+subgraph block_531["Block 531"]
+	direction TB
+	b531_22["eff__523 mach_writeMemory32_u8"]
+	b531_17["index pop_u32"]
+	b531_16["offset imm_readULEB32"]
+	b531_22 --> b531_17
+	b531_17 --> b531_16
+end
+branch_528 --> block_531
+
+</pre>`;
+window.traces["I32_STORE8"]["schedulerMermaid__raw"] += `graph TD
+subgraph block_527["Block 527"]
+	direction TB
+	b527_1[\\"Finish"/]
+end
+phi_529 --> block_527
+subgraph phi_529["Phi 529"]
+	p529_32{{"Sϕ Memory "}}
+	p529_31{{"Sϕ Stack "}}
+	p529_30{{"Sϕ Codeptr "}}
+end
+block_530 --> phi_529
+block_531 --> phi_529
+subgraph block_530["Block 530"]
+	direction TB
+	b530_29["eff__518 mach_writeMemory64_u8"]
+	b530_24["index pop_u64"]
+	b530_23["offset imm_readULEB64"]
+	b530_29 --> b530_24
+	b530_24 --> b530_23
+end
+branch_528 --> block_530
+subgraph branch_528["Branch 528"]
+	br528_15["cond__517 m_isMemory64"]
+
+end
+block_532 --> branch_528
+subgraph block_532["Block 532"]
+	direction TB
+	b532_13["val pop_u32"]
+	b532_15["cond__517 m_isMemory64"]
+	b532_13 --> b532_15
+end
+phi_534 --> block_532
+subgraph phi_534["Phi 534"]
+	p534_12{{"Sϕ Codeptr "}}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_11{"memindex ϕ"}
+	p534_11{"memindex ϕ"}
+	p534_11{"memindex ϕ"}
+	p534_11{"memindex ϕ"}
+	p534_11{"memindex ϕ"}
+	p534_11{"memindex ϕ"}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_11{"memindex ϕ"}
+	p534_12{{"Sϕ Codeptr "}}
+	p534_12{{"Sϕ Codeptr "}}
+end
+block_535 --> phi_534
+block_536 --> phi_534
+subgraph block_535["Block 535"]
+	direction TB
+	b535_10["memindex__530 imm_readULEB32"]
+end
+branch_533 --> block_535
+subgraph branch_533["Branch 533"]
+	br533_9["cond__529 u8.!="]
+
+end
+block_537 --> branch_533
+subgraph block_537["Block 537"]
+	direction TB
+	b537_0[/"Start"\\]
+	b537_6["arg__534 0x40u8"]
+	b537_5["arg__532 0"]
+	b537_8["arg__531 u8.&"]
+	b537_9["cond__529 u8.!="]
+	b537_0 --> b537_6
+	b537_6 --> b537_5
+	b537_5 --> b537_8
+	b537_8 --> b537_9
+end
+subgraph block_536["Block 536"]
+	direction TB
+	b536_4["memindex__536 0u"]
+	b536_3["flags imm_readU8"]
+	b536_4 --> b536_3
+end
+branch_533 --> block_536
+subgraph block_531["Block 531"]
+	direction TB
+	b531_22["eff__523 mach_writeMemory32_u8"]
+	b531_17["index pop_u32"]
+	b531_16["offset imm_readULEB32"]
+	b531_22 --> b531_17
+	b531_17 --> b531_16
+end
+branch_528 --> block_531
+
+`;
+window.traces["I32_STORE8"]["unLEM"] = ''
+window.traces["I32_STORE8"]["unLEM__raw"] = ''
+window.traces["I32_STORE8"]["unLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__523 mach_writeMemory32_u8"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__530 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__529 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__532 0"]
+	8["arg__531 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__534 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__536 0u"]
+	29["eff__518 mach_writeMemory64_u8"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__517 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE8"]["unLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__523 mach_writeMemory32_u8"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__530 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__529 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__532 0"]
+	8["arg__531 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__534 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__536 0u"]
+	29["eff__518 mach_writeMemory64_u8"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__517 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE8"]["unlem_schedule"] = ''
+window.traces["I32_STORE8"]["unlem_schedule__raw"] = ''
+window.traces["I32_STORE8"]["unlem_schedule"] += `<pre class=''>def val = pop_u32();
+def flags = imm_readU8();
+def arg__534 : byte = 0x40u8;
+def arg__531 = u8.&(flags, arg__534);
+def arg__532 : byte = 0;
+def cond__529 = u8.!=(arg__531, arg__532);
+var memindex: u32;
+if (cond__529) {
+	def memindex__530 = imm_readULEB32();
+} else {
+	def memindex__536 : u32 = 0u;
+}
+// phis: memindex <- memindex__530; memindex <- memindex__536; 
+def cond__517 = m_isMemory64(memindex);
+if (cond__517) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__518 = mach_writeMemory64_u8(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__523 = mach_writeMemory32_u8(memindex, index, offset, val);
+}
+// phis: 
+</pre>`;
+window.traces["I32_STORE8"]["unlem_schedule__raw"] += `def val = pop_u32();
+def flags = imm_readU8();
+def arg__534 : byte = 0x40u8;
+def arg__531 = u8.&(flags, arg__534);
+def arg__532 : byte = 0;
+def cond__529 = u8.!=(arg__531, arg__532);
+var memindex: u32;
+if (cond__529) {
+	def memindex__530 = imm_readULEB32();
+} else {
+	def memindex__536 : u32 = 0u;
+}
+// phis: memindex <- memindex__530; memindex <- memindex__536; 
+def cond__517 = m_isMemory64(memindex);
+if (cond__517) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__518 = mach_writeMemory64_u8(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__523 = mach_writeMemory32_u8(memindex, index, offset, val);
+}
+// phis: 
+`;
+window.traces["I32_STORE8"]["spytial_ul"] = ''
+window.traces["I32_STORE8"]["spytial_ul__raw"] = ''
+window.traces["I32_STORE8"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__517]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__517]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__517]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__517]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u8 [eff__518]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u8 [eff__523]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__529]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__529]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__530]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__531]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I32_STORE8"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__517]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__517]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__517]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__517]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u8 [eff__518]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u8 [eff__523]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__529]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__529]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__530]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__531]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I32_STORE8"]["unlem_scheduler"] = ''
+window.traces["I32_STORE8"]["unlem_scheduler__raw"] = ''
+window.traces["I32_STORE8"]["unlem_scheduler"] += `<pre class='graph'>graph TD
+subgraph block_538["Block 538"]
+	direction TB
+	b538_1[\\"Finish"/]
+end
+phi_540 --> block_538
+subgraph phi_540["Phi 540"]
+	p540_32{{"Sϕ Memory "}}
+	p540_31{{"Sϕ Stack "}}
+	p540_30{{"Sϕ Codeptr "}}
+end
+block_541 --> phi_540
+block_542 --> phi_540
+subgraph block_541["Block 541"]
+	direction TB
+	b541_29["eff__518 mach_writeMemory64_u8"]
+	b541_24["index pop_u64"]
+	b541_23["offset imm_readULEB64"]
+	b541_29 --> b541_24
+	b541_24 --> b541_23
+end
+branch_539 --> block_541
+subgraph branch_539["Branch 539"]
+	br539_15["cond__517 m_isMemory64"]
+
+end
+block_543 --> branch_539
+subgraph block_543["Block 543"]
+	direction TB
+	b543_13["val pop_u32"]
+	b543_15["cond__517 m_isMemory64"]
+	b543_13 --> b543_15
+end
+phi_545 --> block_543
+subgraph phi_545["Phi 545"]
+	p545_12{{"Sϕ Codeptr "}}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_11{"memindex ϕ"}
+	p545_11{"memindex ϕ"}
+	p545_11{"memindex ϕ"}
+	p545_11{"memindex ϕ"}
+	p545_11{"memindex ϕ"}
+	p545_11{"memindex ϕ"}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_11{"memindex ϕ"}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_12{{"Sϕ Codeptr "}}
+end
+block_546 --> phi_545
+block_547 --> phi_545
+subgraph block_546["Block 546"]
+	direction TB
+	b546_10["memindex__530 imm_readULEB32"]
+end
+branch_544 --> block_546
+subgraph branch_544["Branch 544"]
+	br544_9["cond__529 u8.!="]
+
+end
+block_548 --> branch_544
+subgraph block_548["Block 548"]
+	direction TB
+	b548_0[/"Start"\\]
+	b548_6["arg__534 0x40u8"]
+	b548_5["arg__532 0"]
+	b548_8["arg__531 u8.&"]
+	b548_9["cond__529 u8.!="]
+	b548_0 --> b548_6
+	b548_6 --> b548_5
+	b548_5 --> b548_8
+	b548_8 --> b548_9
+end
+subgraph block_547["Block 547"]
+	direction TB
+	b547_4["memindex__536 0u"]
+	b547_3["flags imm_readU8"]
+	b547_4 --> b547_3
+end
+branch_544 --> block_547
+subgraph block_542["Block 542"]
+	direction TB
+	b542_22["eff__523 mach_writeMemory32_u8"]
+	b542_17["index pop_u32"]
+	b542_16["offset imm_readULEB32"]
+	b542_22 --> b542_17
+	b542_17 --> b542_16
+end
+branch_539 --> block_542
+
+</pre>`;
+window.traces["I32_STORE8"]["unlem_scheduler__raw"] += `graph TD
+subgraph block_538["Block 538"]
+	direction TB
+	b538_1[\\"Finish"/]
+end
+phi_540 --> block_538
+subgraph phi_540["Phi 540"]
+	p540_32{{"Sϕ Memory "}}
+	p540_31{{"Sϕ Stack "}}
+	p540_30{{"Sϕ Codeptr "}}
+end
+block_541 --> phi_540
+block_542 --> phi_540
+subgraph block_541["Block 541"]
+	direction TB
+	b541_29["eff__518 mach_writeMemory64_u8"]
+	b541_24["index pop_u64"]
+	b541_23["offset imm_readULEB64"]
+	b541_29 --> b541_24
+	b541_24 --> b541_23
+end
+branch_539 --> block_541
+subgraph branch_539["Branch 539"]
+	br539_15["cond__517 m_isMemory64"]
+
+end
+block_543 --> branch_539
+subgraph block_543["Block 543"]
+	direction TB
+	b543_13["val pop_u32"]
+	b543_15["cond__517 m_isMemory64"]
+	b543_13 --> b543_15
+end
+phi_545 --> block_543
+subgraph phi_545["Phi 545"]
+	p545_12{{"Sϕ Codeptr "}}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_11{"memindex ϕ"}
+	p545_11{"memindex ϕ"}
+	p545_11{"memindex ϕ"}
+	p545_11{"memindex ϕ"}
+	p545_11{"memindex ϕ"}
+	p545_11{"memindex ϕ"}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_11{"memindex ϕ"}
+	p545_12{{"Sϕ Codeptr "}}
+	p545_12{{"Sϕ Codeptr "}}
+end
+block_546 --> phi_545
+block_547 --> phi_545
+subgraph block_546["Block 546"]
+	direction TB
+	b546_10["memindex__530 imm_readULEB32"]
+end
+branch_544 --> block_546
+subgraph branch_544["Branch 544"]
+	br544_9["cond__529 u8.!="]
+
+end
+block_548 --> branch_544
+subgraph block_548["Block 548"]
+	direction TB
+	b548_0[/"Start"\\]
+	b548_6["arg__534 0x40u8"]
+	b548_5["arg__532 0"]
+	b548_8["arg__531 u8.&"]
+	b548_9["cond__529 u8.!="]
+	b548_0 --> b548_6
+	b548_6 --> b548_5
+	b548_5 --> b548_8
+	b548_8 --> b548_9
+end
+subgraph block_547["Block 547"]
+	direction TB
+	b547_4["memindex__536 0u"]
+	b547_3["flags imm_readU8"]
+	b547_4 --> b547_3
+end
+branch_544 --> block_547
+subgraph block_542["Block 542"]
+	direction TB
+	b542_22["eff__523 mach_writeMemory32_u8"]
+	b542_17["index pop_u32"]
+	b542_16["offset imm_readULEB32"]
+	b542_22 --> b542_17
+	b542_17 --> b542_16
+end
+branch_539 --> block_542
+
+`;
+window.traces["I32_STORE8"]["unlem_pretty"] = ''
+window.traces["I32_STORE8"]["unlem_pretty__raw"] = ''
+window.traces["I32_STORE8"]["unlem_pretty"] += `<pre class=''>def val = pop_u32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u8(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u8(memindex, index, offset, val);
+}
+</pre>`;
+window.traces["I32_STORE8"]["unlem_pretty__raw"] += `def val = pop_u32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u8(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u8(memindex, index, offset, val);
+}
+`;
+window.traces["I32_STORE8"]["constUnLEM"] = ''
+window.traces["I32_STORE8"]["constUnLEM__raw"] = ''
+window.traces["I32_STORE8"]["constUnLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__523 mach_writeMemory32_u8"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__530 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__529 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__532 0"]
+	8["arg__531 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__534 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__536 0u"]
+	29["eff__518 mach_writeMemory64_u8"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__517 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE8"]["constUnLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__523 mach_writeMemory32_u8"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__530 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__529 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__532 0"]
+	8["arg__531 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__534 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__536 0u"]
+	29["eff__518 mach_writeMemory64_u8"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__517 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE8"]["chooseMerge"] = ''
+window.traces["I32_STORE8"]["chooseMerge__raw"] = ''
+window.traces["I32_STORE8"]["chooseMerge"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__523 mach_writeMemory32_u8"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__530 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__529 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__532 0"]
+	8["arg__531 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__534 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__536 0u"]
+	29["eff__518 mach_writeMemory64_u8"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__517 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE8"]["chooseMerge__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__523 mach_writeMemory32_u8"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__530 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__529 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__532 0"]
+	8["arg__531 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__534 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__536 0u"]
+	29["eff__518 mach_writeMemory64_u8"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__517 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE8"]["scheduled"] = ''
+window.traces["I32_STORE8"]["scheduled__raw"] = ''
+window.traces["I32_STORE8"]["scheduled"] += `<pre class=''>def val = pop_u32();
+def flags = imm_readU8();
+def arg__534 : byte = 0x40u8;
+def arg__531 = u8.&(flags, arg__534);
+def arg__532 : byte = 0;
+def cond__529 = u8.!=(arg__531, arg__532);
+var memindex: u32;
+if (cond__529) {
+	def memindex__530 = imm_readULEB32();
+} else {
+	def memindex__536 : u32 = 0u;
+}
+// phis: memindex <- memindex__530; memindex <- memindex__536; 
+def cond__517 = m_isMemory64(memindex);
+if (cond__517) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__518 = mach_writeMemory64_u8(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__523 = mach_writeMemory32_u8(memindex, index, offset, val);
+}
+// phis: 
+</pre>`;
+window.traces["I32_STORE8"]["scheduled__raw"] += `def val = pop_u32();
+def flags = imm_readU8();
+def arg__534 : byte = 0x40u8;
+def arg__531 = u8.&(flags, arg__534);
+def arg__532 : byte = 0;
+def cond__529 = u8.!=(arg__531, arg__532);
+var memindex: u32;
+if (cond__529) {
+	def memindex__530 = imm_readULEB32();
+} else {
+	def memindex__536 : u32 = 0u;
+}
+// phis: memindex <- memindex__530; memindex <- memindex__536; 
+def cond__517 = m_isMemory64(memindex);
+if (cond__517) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__518 = mach_writeMemory64_u8(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__523 = mach_writeMemory32_u8(memindex, index, offset, val);
+}
+// phis: 
+`;
+window.traces["I32_STORE8"]["pretty"] = ''
+window.traces["I32_STORE8"]["pretty__raw"] = ''
+window.traces["I32_STORE8"]["pretty"] += `<pre class=''>def val = pop_u32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u8(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u8(memindex, index, offset, val);
+}
+</pre>`;
+window.traces["I32_STORE8"]["pretty__raw"] += `def val = pop_u32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u8(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u8(memindex, index, offset, val);
+}
+`;
+window.traces["I32_STORE16"] = {}
+window.traces["I32_STORE16"]["parsed"] = ''
+window.traces["I32_STORE16"]["parsed__raw"] = ''
+window.traces["I32_STORE16"]["parsed"] += `<pre class=''>def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__552 : byte = 0;
+def arg__554 : byte = 0x40u8;
+def arg__553 = (flags);
+def arg__551 = u8.&(arg__553, arg__554);
+def cond__549 = u8.!=(arg__551, arg__552);
+if (cond__549) {
+	def memindex__550 = imm_readULEB32();
+}
+// phis: memindex <- memindex__550; 
+def val = pop_u32();
+def arg__548 = (memindex);
+def cond__537 = m_isMemory64(arg__548);
+if (cond__537) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__542 = (val);
+	def arg__541 = (offset);
+	def arg__540 = (index);
+	def arg__539 = (memindex);
+	def eff__538 = mach_writeMemory64_u16(arg__539, arg__540, arg__541, arg__542);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__547 = (val);
+	def arg__546 = (offset);
+	def arg__545 = (index);
+	def arg__544 = (memindex);
+	def eff__543 = mach_writeMemory32_u16(arg__544, arg__545, arg__546, arg__547);
+}
+// phis: 
+</pre>`;
+window.traces["I32_STORE16"]["parsed__raw"] += `def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__552 : byte = 0;
+def arg__554 : byte = 0x40u8;
+def arg__553 = (flags);
+def arg__551 = u8.&(arg__553, arg__554);
+def cond__549 = u8.!=(arg__551, arg__552);
+if (cond__549) {
+	def memindex__550 = imm_readULEB32();
+}
+// phis: memindex <- memindex__550; 
+def val = pop_u32();
+def arg__548 = (memindex);
+def cond__537 = m_isMemory64(arg__548);
+if (cond__537) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__542 = (val);
+	def arg__541 = (offset);
+	def arg__540 = (index);
+	def arg__539 = (memindex);
+	def eff__538 = mach_writeMemory64_u16(arg__539, arg__540, arg__541, arg__542);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__547 = (val);
+	def arg__546 = (offset);
+	def arg__545 = (index);
+	def arg__544 = (memindex);
+	def eff__543 = mach_writeMemory32_u16(arg__544, arg__545, arg__546, arg__547);
+}
+// phis: 
+`;
+window.traces["I32_STORE16"]["raw"] = ''
+window.traces["I32_STORE16"]["raw__raw"] = ''
+window.traces["I32_STORE16"]["raw"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__543 mach_writeMemory32_u16"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__550 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__549 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__552 0"]
+	8["arg__551 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__554 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__555 0u"]
+	29["eff__538 mach_writeMemory64_u16"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__537 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE16"]["raw__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__543 mach_writeMemory32_u16"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__550 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__549 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__552 0"]
+	8["arg__551 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__554 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__555 0u"]
+	29["eff__538 mach_writeMemory64_u16"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__537 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE16"]["spytial"] = ''
+window.traces["I32_STORE16"]["spytial__raw"] = ''
+window.traces["I32_STORE16"]["spytial"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__537]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__537]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__537]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__537]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u16 [eff__538]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u16 [eff__543]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__549]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__549]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__550]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__551]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I32_STORE16"]["spytial__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__537]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__537]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__537]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__537]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u16 [eff__538]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u16 [eff__543]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__549]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__549]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__550]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__551]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I32_STORE16"]["overloadOps"] = ''
+window.traces["I32_STORE16"]["overloadOps__raw"] = ''
+window.traces["I32_STORE16"]["overloadOps"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__543 mach_writeMemory32_u16"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__550 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__549 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__552 0"]
+	8["arg__551 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__554 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__556 0u"]
+	29["eff__538 mach_writeMemory64_u16"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__537 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE16"]["overloadOps__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__543 mach_writeMemory32_u16"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__550 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__549 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__552 0"]
+	8["arg__551 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__554 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__556 0u"]
+	29["eff__538 mach_writeMemory64_u16"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__537 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE16"]["addAbstractions"] = ''
+window.traces["I32_STORE16"]["addAbstractions__raw"] = ''
+window.traces["I32_STORE16"]["addAbstractions"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__543 mach_writeMemory32_u16"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__550 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__549 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__552 0"]
+	8["arg__551 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__554 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__556 0u"]
+	29["eff__538 mach_writeMemory64_u16"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__537 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE16"]["addAbstractions__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__543 mach_writeMemory32_u16"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__550 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__549 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__552 0"]
+	8["arg__551 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__554 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__556 0u"]
+	29["eff__538 mach_writeMemory64_u16"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__537 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE16"]["schedulerMermaid"] = ''
+window.traces["I32_STORE16"]["schedulerMermaid__raw"] = ''
+window.traces["I32_STORE16"]["schedulerMermaid"] += `<pre class='graph'>graph TD
+subgraph block_549["Block 549"]
+	direction TB
+	b549_1[\\"Finish"/]
+end
+phi_551 --> block_549
+subgraph phi_551["Phi 551"]
+	p551_32{{"Sϕ Memory "}}
+	p551_31{{"Sϕ Stack "}}
+	p551_30{{"Sϕ Codeptr "}}
+end
+block_552 --> phi_551
+block_553 --> phi_551
+subgraph block_552["Block 552"]
+	direction TB
+	b552_29["eff__538 mach_writeMemory64_u16"]
+	b552_24["index pop_u64"]
+	b552_23["offset imm_readULEB64"]
+	b552_29 --> b552_24
+	b552_24 --> b552_23
+end
+branch_550 --> block_552
+subgraph branch_550["Branch 550"]
+	br550_15["cond__537 m_isMemory64"]
+
+end
+block_554 --> branch_550
+subgraph block_554["Block 554"]
+	direction TB
+	b554_13["val pop_u32"]
+	b554_15["cond__537 m_isMemory64"]
+	b554_13 --> b554_15
+end
+phi_556 --> block_554
+subgraph phi_556["Phi 556"]
+	p556_12{{"Sϕ Codeptr "}}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_11{"memindex ϕ"}
+	p556_11{"memindex ϕ"}
+	p556_11{"memindex ϕ"}
+	p556_11{"memindex ϕ"}
+	p556_11{"memindex ϕ"}
+	p556_11{"memindex ϕ"}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_11{"memindex ϕ"}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_12{{"Sϕ Codeptr "}}
+end
+block_557 --> phi_556
+block_558 --> phi_556
+subgraph block_557["Block 557"]
+	direction TB
+	b557_10["memindex__550 imm_readULEB32"]
+end
+branch_555 --> block_557
+subgraph branch_555["Branch 555"]
+	br555_9["cond__549 u8.!="]
+
+end
+block_559 --> branch_555
+subgraph block_559["Block 559"]
+	direction TB
+	b559_0[/"Start"\\]
+	b559_6["arg__554 0x40u8"]
+	b559_5["arg__552 0"]
+	b559_8["arg__551 u8.&"]
+	b559_9["cond__549 u8.!="]
+	b559_0 --> b559_6
+	b559_6 --> b559_5
+	b559_5 --> b559_8
+	b559_8 --> b559_9
+end
+subgraph block_558["Block 558"]
+	direction TB
+	b558_4["memindex__556 0u"]
+	b558_3["flags imm_readU8"]
+	b558_4 --> b558_3
+end
+branch_555 --> block_558
+subgraph block_553["Block 553"]
+	direction TB
+	b553_22["eff__543 mach_writeMemory32_u16"]
+	b553_17["index pop_u32"]
+	b553_16["offset imm_readULEB32"]
+	b553_22 --> b553_17
+	b553_17 --> b553_16
+end
+branch_550 --> block_553
+
+</pre>`;
+window.traces["I32_STORE16"]["schedulerMermaid__raw"] += `graph TD
+subgraph block_549["Block 549"]
+	direction TB
+	b549_1[\\"Finish"/]
+end
+phi_551 --> block_549
+subgraph phi_551["Phi 551"]
+	p551_32{{"Sϕ Memory "}}
+	p551_31{{"Sϕ Stack "}}
+	p551_30{{"Sϕ Codeptr "}}
+end
+block_552 --> phi_551
+block_553 --> phi_551
+subgraph block_552["Block 552"]
+	direction TB
+	b552_29["eff__538 mach_writeMemory64_u16"]
+	b552_24["index pop_u64"]
+	b552_23["offset imm_readULEB64"]
+	b552_29 --> b552_24
+	b552_24 --> b552_23
+end
+branch_550 --> block_552
+subgraph branch_550["Branch 550"]
+	br550_15["cond__537 m_isMemory64"]
+
+end
+block_554 --> branch_550
+subgraph block_554["Block 554"]
+	direction TB
+	b554_13["val pop_u32"]
+	b554_15["cond__537 m_isMemory64"]
+	b554_13 --> b554_15
+end
+phi_556 --> block_554
+subgraph phi_556["Phi 556"]
+	p556_12{{"Sϕ Codeptr "}}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_11{"memindex ϕ"}
+	p556_11{"memindex ϕ"}
+	p556_11{"memindex ϕ"}
+	p556_11{"memindex ϕ"}
+	p556_11{"memindex ϕ"}
+	p556_11{"memindex ϕ"}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_11{"memindex ϕ"}
+	p556_12{{"Sϕ Codeptr "}}
+	p556_12{{"Sϕ Codeptr "}}
+end
+block_557 --> phi_556
+block_558 --> phi_556
+subgraph block_557["Block 557"]
+	direction TB
+	b557_10["memindex__550 imm_readULEB32"]
+end
+branch_555 --> block_557
+subgraph branch_555["Branch 555"]
+	br555_9["cond__549 u8.!="]
+
+end
+block_559 --> branch_555
+subgraph block_559["Block 559"]
+	direction TB
+	b559_0[/"Start"\\]
+	b559_6["arg__554 0x40u8"]
+	b559_5["arg__552 0"]
+	b559_8["arg__551 u8.&"]
+	b559_9["cond__549 u8.!="]
+	b559_0 --> b559_6
+	b559_6 --> b559_5
+	b559_5 --> b559_8
+	b559_8 --> b559_9
+end
+subgraph block_558["Block 558"]
+	direction TB
+	b558_4["memindex__556 0u"]
+	b558_3["flags imm_readU8"]
+	b558_4 --> b558_3
+end
+branch_555 --> block_558
+subgraph block_553["Block 553"]
+	direction TB
+	b553_22["eff__543 mach_writeMemory32_u16"]
+	b553_17["index pop_u32"]
+	b553_16["offset imm_readULEB32"]
+	b553_22 --> b553_17
+	b553_17 --> b553_16
+end
+branch_550 --> block_553
+
+`;
+window.traces["I32_STORE16"]["unLEM"] = ''
+window.traces["I32_STORE16"]["unLEM__raw"] = ''
+window.traces["I32_STORE16"]["unLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__543 mach_writeMemory32_u16"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__550 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__549 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__552 0"]
+	8["arg__551 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__554 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__556 0u"]
+	29["eff__538 mach_writeMemory64_u16"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__537 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE16"]["unLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__543 mach_writeMemory32_u16"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__550 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__549 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__552 0"]
+	8["arg__551 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__554 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__556 0u"]
+	29["eff__538 mach_writeMemory64_u16"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__537 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE16"]["unlem_schedule"] = ''
+window.traces["I32_STORE16"]["unlem_schedule__raw"] = ''
+window.traces["I32_STORE16"]["unlem_schedule"] += `<pre class=''>def val = pop_u32();
+def flags = imm_readU8();
+def arg__554 : byte = 0x40u8;
+def arg__551 = u8.&(flags, arg__554);
+def arg__552 : byte = 0;
+def cond__549 = u8.!=(arg__551, arg__552);
+var memindex: u32;
+if (cond__549) {
+	def memindex__550 = imm_readULEB32();
+} else {
+	def memindex__556 : u32 = 0u;
+}
+// phis: memindex <- memindex__550; memindex <- memindex__556; 
+def cond__537 = m_isMemory64(memindex);
+if (cond__537) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__538 = mach_writeMemory64_u16(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__543 = mach_writeMemory32_u16(memindex, index, offset, val);
+}
+// phis: 
+</pre>`;
+window.traces["I32_STORE16"]["unlem_schedule__raw"] += `def val = pop_u32();
+def flags = imm_readU8();
+def arg__554 : byte = 0x40u8;
+def arg__551 = u8.&(flags, arg__554);
+def arg__552 : byte = 0;
+def cond__549 = u8.!=(arg__551, arg__552);
+var memindex: u32;
+if (cond__549) {
+	def memindex__550 = imm_readULEB32();
+} else {
+	def memindex__556 : u32 = 0u;
+}
+// phis: memindex <- memindex__550; memindex <- memindex__556; 
+def cond__537 = m_isMemory64(memindex);
+if (cond__537) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__538 = mach_writeMemory64_u16(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__543 = mach_writeMemory32_u16(memindex, index, offset, val);
+}
+// phis: 
+`;
+window.traces["I32_STORE16"]["spytial_ul"] = ''
+window.traces["I32_STORE16"]["spytial_ul__raw"] = ''
+window.traces["I32_STORE16"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__537]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__537]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__537]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__537]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u16 [eff__538]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u16 [eff__543]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__549]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__549]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__550]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__551]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I32_STORE16"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__537]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__537]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__537]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__537]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u16 [eff__538]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u16 [eff__543]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__549]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u32 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__549]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__550]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__551]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I32_STORE16"]["unlem_scheduler"] = ''
+window.traces["I32_STORE16"]["unlem_scheduler__raw"] = ''
+window.traces["I32_STORE16"]["unlem_scheduler"] += `<pre class='graph'>graph TD
+subgraph block_560["Block 560"]
+	direction TB
+	b560_1[\\"Finish"/]
+end
+phi_562 --> block_560
+subgraph phi_562["Phi 562"]
+	p562_32{{"Sϕ Memory "}}
+	p562_31{{"Sϕ Stack "}}
+	p562_30{{"Sϕ Codeptr "}}
+end
+block_563 --> phi_562
+block_564 --> phi_562
+subgraph block_563["Block 563"]
+	direction TB
+	b563_29["eff__538 mach_writeMemory64_u16"]
+	b563_24["index pop_u64"]
+	b563_23["offset imm_readULEB64"]
+	b563_29 --> b563_24
+	b563_24 --> b563_23
+end
+branch_561 --> block_563
+subgraph branch_561["Branch 561"]
+	br561_15["cond__537 m_isMemory64"]
+
+end
+block_565 --> branch_561
+subgraph block_565["Block 565"]
+	direction TB
+	b565_13["val pop_u32"]
+	b565_15["cond__537 m_isMemory64"]
+	b565_13 --> b565_15
+end
+phi_567 --> block_565
+subgraph phi_567["Phi 567"]
+	p567_12{{"Sϕ Codeptr "}}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_11{"memindex ϕ"}
+	p567_11{"memindex ϕ"}
+	p567_11{"memindex ϕ"}
+	p567_11{"memindex ϕ"}
+	p567_11{"memindex ϕ"}
+	p567_11{"memindex ϕ"}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_11{"memindex ϕ"}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_12{{"Sϕ Codeptr "}}
+end
+block_568 --> phi_567
+block_569 --> phi_567
+subgraph block_568["Block 568"]
+	direction TB
+	b568_10["memindex__550 imm_readULEB32"]
+end
+branch_566 --> block_568
+subgraph branch_566["Branch 566"]
+	br566_9["cond__549 u8.!="]
+
+end
+block_570 --> branch_566
+subgraph block_570["Block 570"]
+	direction TB
+	b570_0[/"Start"\\]
+	b570_6["arg__554 0x40u8"]
+	b570_5["arg__552 0"]
+	b570_8["arg__551 u8.&"]
+	b570_9["cond__549 u8.!="]
+	b570_0 --> b570_6
+	b570_6 --> b570_5
+	b570_5 --> b570_8
+	b570_8 --> b570_9
+end
+subgraph block_569["Block 569"]
+	direction TB
+	b569_4["memindex__556 0u"]
+	b569_3["flags imm_readU8"]
+	b569_4 --> b569_3
+end
+branch_566 --> block_569
+subgraph block_564["Block 564"]
+	direction TB
+	b564_22["eff__543 mach_writeMemory32_u16"]
+	b564_17["index pop_u32"]
+	b564_16["offset imm_readULEB32"]
+	b564_22 --> b564_17
+	b564_17 --> b564_16
+end
+branch_561 --> block_564
+
+</pre>`;
+window.traces["I32_STORE16"]["unlem_scheduler__raw"] += `graph TD
+subgraph block_560["Block 560"]
+	direction TB
+	b560_1[\\"Finish"/]
+end
+phi_562 --> block_560
+subgraph phi_562["Phi 562"]
+	p562_32{{"Sϕ Memory "}}
+	p562_31{{"Sϕ Stack "}}
+	p562_30{{"Sϕ Codeptr "}}
+end
+block_563 --> phi_562
+block_564 --> phi_562
+subgraph block_563["Block 563"]
+	direction TB
+	b563_29["eff__538 mach_writeMemory64_u16"]
+	b563_24["index pop_u64"]
+	b563_23["offset imm_readULEB64"]
+	b563_29 --> b563_24
+	b563_24 --> b563_23
+end
+branch_561 --> block_563
+subgraph branch_561["Branch 561"]
+	br561_15["cond__537 m_isMemory64"]
+
+end
+block_565 --> branch_561
+subgraph block_565["Block 565"]
+	direction TB
+	b565_13["val pop_u32"]
+	b565_15["cond__537 m_isMemory64"]
+	b565_13 --> b565_15
+end
+phi_567 --> block_565
+subgraph phi_567["Phi 567"]
+	p567_12{{"Sϕ Codeptr "}}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_11{"memindex ϕ"}
+	p567_11{"memindex ϕ"}
+	p567_11{"memindex ϕ"}
+	p567_11{"memindex ϕ"}
+	p567_11{"memindex ϕ"}
+	p567_11{"memindex ϕ"}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_11{"memindex ϕ"}
+	p567_12{{"Sϕ Codeptr "}}
+	p567_12{{"Sϕ Codeptr "}}
+end
+block_568 --> phi_567
+block_569 --> phi_567
+subgraph block_568["Block 568"]
+	direction TB
+	b568_10["memindex__550 imm_readULEB32"]
+end
+branch_566 --> block_568
+subgraph branch_566["Branch 566"]
+	br566_9["cond__549 u8.!="]
+
+end
+block_570 --> branch_566
+subgraph block_570["Block 570"]
+	direction TB
+	b570_0[/"Start"\\]
+	b570_6["arg__554 0x40u8"]
+	b570_5["arg__552 0"]
+	b570_8["arg__551 u8.&"]
+	b570_9["cond__549 u8.!="]
+	b570_0 --> b570_6
+	b570_6 --> b570_5
+	b570_5 --> b570_8
+	b570_8 --> b570_9
+end
+subgraph block_569["Block 569"]
+	direction TB
+	b569_4["memindex__556 0u"]
+	b569_3["flags imm_readU8"]
+	b569_4 --> b569_3
+end
+branch_566 --> block_569
+subgraph block_564["Block 564"]
+	direction TB
+	b564_22["eff__543 mach_writeMemory32_u16"]
+	b564_17["index pop_u32"]
+	b564_16["offset imm_readULEB32"]
+	b564_22 --> b564_17
+	b564_17 --> b564_16
+end
+branch_561 --> block_564
+
+`;
+window.traces["I32_STORE16"]["unlem_pretty"] = ''
+window.traces["I32_STORE16"]["unlem_pretty__raw"] = ''
+window.traces["I32_STORE16"]["unlem_pretty"] += `<pre class=''>def val = pop_u32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u16(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u16(memindex, index, offset, val);
+}
+</pre>`;
+window.traces["I32_STORE16"]["unlem_pretty__raw"] += `def val = pop_u32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u16(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u16(memindex, index, offset, val);
+}
+`;
+window.traces["I32_STORE16"]["constUnLEM"] = ''
+window.traces["I32_STORE16"]["constUnLEM__raw"] = ''
+window.traces["I32_STORE16"]["constUnLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__543 mach_writeMemory32_u16"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__550 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__549 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__552 0"]
+	8["arg__551 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__554 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__556 0u"]
+	29["eff__538 mach_writeMemory64_u16"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__537 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE16"]["constUnLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__543 mach_writeMemory32_u16"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__550 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__549 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__552 0"]
+	8["arg__551 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__554 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__556 0u"]
+	29["eff__538 mach_writeMemory64_u16"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__537 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE16"]["chooseMerge"] = ''
+window.traces["I32_STORE16"]["chooseMerge__raw"] = ''
+window.traces["I32_STORE16"]["chooseMerge"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__543 mach_writeMemory32_u16"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__550 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__549 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__552 0"]
+	8["arg__551 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__554 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__556 0u"]
+	29["eff__538 mach_writeMemory64_u16"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__537 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I32_STORE16"]["chooseMerge__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__543 mach_writeMemory32_u16"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u32"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__550 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__549 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__552 0"]
+	8["arg__551 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__554 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__556 0u"]
+	29["eff__538 mach_writeMemory64_u16"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__537 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I32_STORE16"]["scheduled"] = ''
+window.traces["I32_STORE16"]["scheduled__raw"] = ''
+window.traces["I32_STORE16"]["scheduled"] += `<pre class=''>def val = pop_u32();
+def flags = imm_readU8();
+def arg__554 : byte = 0x40u8;
+def arg__551 = u8.&(flags, arg__554);
+def arg__552 : byte = 0;
+def cond__549 = u8.!=(arg__551, arg__552);
+var memindex: u32;
+if (cond__549) {
+	def memindex__550 = imm_readULEB32();
+} else {
+	def memindex__556 : u32 = 0u;
+}
+// phis: memindex <- memindex__550; memindex <- memindex__556; 
+def cond__537 = m_isMemory64(memindex);
+if (cond__537) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__538 = mach_writeMemory64_u16(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__543 = mach_writeMemory32_u16(memindex, index, offset, val);
+}
+// phis: 
+</pre>`;
+window.traces["I32_STORE16"]["scheduled__raw"] += `def val = pop_u32();
+def flags = imm_readU8();
+def arg__554 : byte = 0x40u8;
+def arg__551 = u8.&(flags, arg__554);
+def arg__552 : byte = 0;
+def cond__549 = u8.!=(arg__551, arg__552);
+var memindex: u32;
+if (cond__549) {
+	def memindex__550 = imm_readULEB32();
+} else {
+	def memindex__556 : u32 = 0u;
+}
+// phis: memindex <- memindex__550; memindex <- memindex__556; 
+def cond__537 = m_isMemory64(memindex);
+if (cond__537) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__538 = mach_writeMemory64_u16(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__543 = mach_writeMemory32_u16(memindex, index, offset, val);
+}
+// phis: 
+`;
+window.traces["I32_STORE16"]["pretty"] = ''
+window.traces["I32_STORE16"]["pretty__raw"] = ''
+window.traces["I32_STORE16"]["pretty"] += `<pre class=''>def val = pop_u32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u16(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u16(memindex, index, offset, val);
+}
+</pre>`;
+window.traces["I32_STORE16"]["pretty__raw"] += `def val = pop_u32();
+def flags = imm_readU8();
+var memindex: u32;
+if (u8.!=(u8.&(flags, 0x40u8), 0)) {
+	memindex = imm_readULEB32();
+} else {
+	memindex = 0u;
+}
+def cond = m_isMemory64(memindex);
+if (cond) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	mach_writeMemory64_u16(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	mach_writeMemory32_u16(memindex, index, offset, val);
+}
+`;
+window.traces["I64_STORE8"] = {}
+window.traces["I64_STORE8"]["parsed"] = ''
+window.traces["I64_STORE8"]["parsed__raw"] = ''
+window.traces["I64_STORE8"]["parsed"] += `<pre class=''>def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__572 : byte = 0;
+def arg__574 : byte = 0x40u8;
+def arg__573 = (flags);
+def arg__571 = u8.&(arg__573, arg__574);
+def cond__569 = u8.!=(arg__571, arg__572);
+if (cond__569) {
+	def memindex__570 = imm_readULEB32();
+}
+// phis: memindex <- memindex__570; 
+def val = pop_u64();
+def arg__568 = (memindex);
+def cond__557 = m_isMemory64(arg__568);
+if (cond__557) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__562 = (val);
+	def arg__561 = (offset);
+	def arg__560 = (index);
+	def arg__559 = (memindex);
+	def eff__558 = mach_writeMemory64_u8_64(arg__559, arg__560, arg__561, arg__562);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__567 = (val);
+	def arg__566 = (offset);
+	def arg__565 = (index);
+	def arg__564 = (memindex);
+	def eff__563 = mach_writeMemory32_u8_64(arg__564, arg__565, arg__566, arg__567);
+}
+// phis: 
+</pre>`;
+window.traces["I64_STORE8"]["parsed__raw"] += `def flags = imm_readU8();
+def memindex : u32 = 0u;
+def arg__572 : byte = 0;
+def arg__574 : byte = 0x40u8;
+def arg__573 = (flags);
+def arg__571 = u8.&(arg__573, arg__574);
+def cond__569 = u8.!=(arg__571, arg__572);
+if (cond__569) {
+	def memindex__570 = imm_readULEB32();
+}
+// phis: memindex <- memindex__570; 
+def val = pop_u64();
+def arg__568 = (memindex);
+def cond__557 = m_isMemory64(arg__568);
+if (cond__557) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def arg__562 = (val);
+	def arg__561 = (offset);
+	def arg__560 = (index);
+	def arg__559 = (memindex);
+	def eff__558 = mach_writeMemory64_u8_64(arg__559, arg__560, arg__561, arg__562);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def arg__567 = (val);
+	def arg__566 = (offset);
+	def arg__565 = (index);
+	def arg__564 = (memindex);
+	def eff__563 = mach_writeMemory32_u8_64(arg__564, arg__565, arg__566, arg__567);
+}
+// phis: 
+`;
+window.traces["I64_STORE8"]["raw"] = ''
+window.traces["I64_STORE8"]["raw__raw"] = ''
+window.traces["I64_STORE8"]["raw"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__563 mach_writeMemory32_u8_64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__570 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__569 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__572 0"]
+	8["arg__571 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__574 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__575 0u"]
+	29["eff__558 mach_writeMemory64_u8_64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__557 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I64_STORE8"]["raw__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__563 mach_writeMemory32_u8_64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__570 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__569 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__572 0"]
+	8["arg__571 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__574 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__575 0u"]
+	29["eff__558 mach_writeMemory64_u8_64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__557 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I64_STORE8"]["spytial"] = ''
+window.traces["I64_STORE8"]["spytial__raw"] = ''
+window.traces["I64_STORE8"]["spytial"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__557]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__557]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__557]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__557]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u8_64 [eff__558]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u8_64 [eff__563]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__569]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u64 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__569]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__570]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__571]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_STORE8"]["spytial__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__557]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__557]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__557]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__557]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u8_64 [eff__558]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u8_64 [eff__563]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__569]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u64 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__569]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__570]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__571]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
+window.traces["I64_STORE8"]["overloadOps"] = ''
+window.traces["I64_STORE8"]["overloadOps__raw"] = ''
+window.traces["I64_STORE8"]["overloadOps"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__563 mach_writeMemory32_u8_64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__570 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__569 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__572 0"]
+	8["arg__571 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__574 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__576 0u"]
+	29["eff__558 mach_writeMemory64_u8_64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__557 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I64_STORE8"]["overloadOps__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__563 mach_writeMemory32_u8_64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__570 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__569 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__572 0"]
+	8["arg__571 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__574 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__576 0u"]
+	29["eff__558 mach_writeMemory64_u8_64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__557 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I64_STORE8"]["addAbstractions"] = ''
+window.traces["I64_STORE8"]["addAbstractions__raw"] = ''
+window.traces["I64_STORE8"]["addAbstractions"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__563 mach_writeMemory32_u8_64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__570 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__569 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__572 0"]
+	8["arg__571 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__574 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__576 0u"]
+	29["eff__558 mach_writeMemory64_u8_64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__557 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I64_STORE8"]["addAbstractions__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__563 mach_writeMemory32_u8_64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__570 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__569 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__572 0"]
+	8["arg__571 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__574 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__576 0u"]
+	29["eff__558 mach_writeMemory64_u8_64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__557 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I64_STORE8"]["schedulerMermaid"] = ''
+window.traces["I64_STORE8"]["schedulerMermaid__raw"] = ''
+window.traces["I64_STORE8"]["schedulerMermaid"] += `<pre class='graph'>graph TD
+subgraph block_571["Block 571"]
+	direction TB
+	b571_1[\\"Finish"/]
+end
+phi_573 --> block_571
+subgraph phi_573["Phi 573"]
+	p573_32{{"Sϕ Memory "}}
+	p573_31{{"Sϕ Stack "}}
+	p573_30{{"Sϕ Codeptr "}}
+end
+block_574 --> phi_573
+block_575 --> phi_573
+subgraph block_574["Block 574"]
+	direction TB
+	b574_29["eff__558 mach_writeMemory64_u8_64"]
+	b574_24["index pop_u64"]
+	b574_23["offset imm_readULEB64"]
+	b574_29 --> b574_24
+	b574_24 --> b574_23
+end
+branch_572 --> block_574
+subgraph branch_572["Branch 572"]
+	br572_15["cond__557 m_isMemory64"]
+
+end
+block_576 --> branch_572
+subgraph block_576["Block 576"]
+	direction TB
+	b576_13["val pop_u64"]
+	b576_15["cond__557 m_isMemory64"]
+	b576_13 --> b576_15
+end
+phi_578 --> block_576
+subgraph phi_578["Phi 578"]
+	p578_12{{"Sϕ Codeptr "}}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_11{"memindex ϕ"}
+	p578_11{"memindex ϕ"}
+	p578_11{"memindex ϕ"}
+	p578_11{"memindex ϕ"}
+	p578_11{"memindex ϕ"}
+	p578_11{"memindex ϕ"}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_11{"memindex ϕ"}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_12{{"Sϕ Codeptr "}}
+end
+block_579 --> phi_578
+block_580 --> phi_578
+subgraph block_579["Block 579"]
+	direction TB
+	b579_10["memindex__570 imm_readULEB32"]
+end
+branch_577 --> block_579
+subgraph branch_577["Branch 577"]
+	br577_9["cond__569 u8.!="]
+
+end
+block_581 --> branch_577
+subgraph block_581["Block 581"]
+	direction TB
+	b581_0[/"Start"\\]
+	b581_6["arg__574 0x40u8"]
+	b581_5["arg__572 0"]
+	b581_8["arg__571 u8.&"]
+	b581_9["cond__569 u8.!="]
+	b581_0 --> b581_6
+	b581_6 --> b581_5
+	b581_5 --> b581_8
+	b581_8 --> b581_9
+end
+subgraph block_580["Block 580"]
+	direction TB
+	b580_4["memindex__576 0u"]
+	b580_3["flags imm_readU8"]
+	b580_4 --> b580_3
+end
+branch_577 --> block_580
+subgraph block_575["Block 575"]
+	direction TB
+	b575_22["eff__563 mach_writeMemory32_u8_64"]
+	b575_17["index pop_u32"]
+	b575_16["offset imm_readULEB32"]
+	b575_22 --> b575_17
+	b575_17 --> b575_16
+end
+branch_572 --> block_575
+
+</pre>`;
+window.traces["I64_STORE8"]["schedulerMermaid__raw"] += `graph TD
+subgraph block_571["Block 571"]
+	direction TB
+	b571_1[\\"Finish"/]
+end
+phi_573 --> block_571
+subgraph phi_573["Phi 573"]
+	p573_32{{"Sϕ Memory "}}
+	p573_31{{"Sϕ Stack "}}
+	p573_30{{"Sϕ Codeptr "}}
+end
+block_574 --> phi_573
+block_575 --> phi_573
+subgraph block_574["Block 574"]
+	direction TB
+	b574_29["eff__558 mach_writeMemory64_u8_64"]
+	b574_24["index pop_u64"]
+	b574_23["offset imm_readULEB64"]
+	b574_29 --> b574_24
+	b574_24 --> b574_23
+end
+branch_572 --> block_574
+subgraph branch_572["Branch 572"]
+	br572_15["cond__557 m_isMemory64"]
+
+end
+block_576 --> branch_572
+subgraph block_576["Block 576"]
+	direction TB
+	b576_13["val pop_u64"]
+	b576_15["cond__557 m_isMemory64"]
+	b576_13 --> b576_15
+end
+phi_578 --> block_576
+subgraph phi_578["Phi 578"]
+	p578_12{{"Sϕ Codeptr "}}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_11{"memindex ϕ"}
+	p578_11{"memindex ϕ"}
+	p578_11{"memindex ϕ"}
+	p578_11{"memindex ϕ"}
+	p578_11{"memindex ϕ"}
+	p578_11{"memindex ϕ"}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_11{"memindex ϕ"}
+	p578_12{{"Sϕ Codeptr "}}
+	p578_12{{"Sϕ Codeptr "}}
+end
+block_579 --> phi_578
+block_580 --> phi_578
+subgraph block_579["Block 579"]
+	direction TB
+	b579_10["memindex__570 imm_readULEB32"]
+end
+branch_577 --> block_579
+subgraph branch_577["Branch 577"]
+	br577_9["cond__569 u8.!="]
+
+end
+block_581 --> branch_577
+subgraph block_581["Block 581"]
+	direction TB
+	b581_0[/"Start"\\]
+	b581_6["arg__574 0x40u8"]
+	b581_5["arg__572 0"]
+	b581_8["arg__571 u8.&"]
+	b581_9["cond__569 u8.!="]
+	b581_0 --> b581_6
+	b581_6 --> b581_5
+	b581_5 --> b581_8
+	b581_8 --> b581_9
+end
+subgraph block_580["Block 580"]
+	direction TB
+	b580_4["memindex__576 0u"]
+	b580_3["flags imm_readU8"]
+	b580_4 --> b580_3
+end
+branch_577 --> block_580
+subgraph block_575["Block 575"]
+	direction TB
+	b575_22["eff__563 mach_writeMemory32_u8_64"]
+	b575_17["index pop_u32"]
+	b575_16["offset imm_readULEB32"]
+	b575_22 --> b575_17
+	b575_17 --> b575_16
+end
+branch_572 --> block_575
+
+`;
+window.traces["I64_STORE8"]["unLEM"] = ''
+window.traces["I64_STORE8"]["unLEM__raw"] = ''
+window.traces["I64_STORE8"]["unLEM"] += `<pre class='graph'>---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__563 mach_writeMemory32_u8_64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__570 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__569 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__572 0"]
+	8["arg__571 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__574 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__576 0u"]
+	29["eff__558 mach_writeMemory64_u8_64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__557 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+</pre>`;
+window.traces["I64_STORE8"]["unLEM__raw"] += `---
+config:
+  layout: elk
+---
+graph TD
+	1[\\"Finish"/]
+	30 -. Codeptr .-> 1
+	31 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	32 -. Memory .-> 1
+	32{{"Sϕ Memory "}}
+	15 --> 32
+	29 --> 32
+	22 --> 32
+	22["eff__563 mach_writeMemory32_u8_64"]
+	11 --> 22
+	17 --> 22
+	16 --> 22
+	13 --> 22
+	0 -. Memory .-> 22
+	0[/"Start"\\]
+	13["val pop_u64"]
+	0 -. Stack .-> 13
+	16["offset imm_readULEB32"]
+	12 -. Codeptr .-> 16
+	12{{"Sϕ Codeptr "}}
+	9 --> 12
+	10 --> 12
+	3 --> 12
+	3["flags imm_readU8"]
+	0 -. Codeptr .-> 3
+	10["memindex__570 imm_readULEB32"]
+	3 -. Codeptr .-> 10
+	9["cond__569 u8.!="]
+	8 --> 9
+	5 --> 9
+	5["arg__572 0"]
+	8["arg__571 u8.&"]
+	3 --> 8
+	6 --> 8
+	6["arg__574 0x40u8"]
+	17["index pop_u32"]
+	13 -. Stack .-> 17
+	11{"memindex ϕ"}
+	9 --> 11
+	10 --> 11
+	4 --> 11
+	4["memindex__576 0u"]
+	29["eff__558 mach_writeMemory64_u8_64"]
+	11 --> 29
+	24 --> 29
+	23 --> 29
+	13 --> 29
+	0 -. Memory .-> 29
+	23["offset imm_readULEB64"]
+	12 -. Codeptr .-> 23
+	24["index pop_u64"]
+	13 -. Stack .-> 24
+	15["cond__557 m_isMemory64"]
+	11 --> 15
+	31{{"Sϕ Stack "}}
+	15 --> 31
+	24 --> 31
+	17 --> 31
+	30{{"Sϕ Codeptr "}}
+	15 --> 30
+	23 --> 30
+	16 --> 30
+`;
+window.traces["I64_STORE8"]["unlem_schedule"] = ''
+window.traces["I64_STORE8"]["unlem_schedule__raw"] = ''
+window.traces["I64_STORE8"]["unlem_schedule"] += `<pre class=''>def val = pop_u64();
+def flags = imm_readU8();
+def arg__574 : byte = 0x40u8;
+def arg__571 = u8.&(flags, arg__574);
+def arg__572 : byte = 0;
+def cond__569 = u8.!=(arg__571, arg__572);
+var memindex: u32;
+if (cond__569) {
+	def memindex__570 = imm_readULEB32();
+} else {
+	def memindex__576 : u32 = 0u;
+}
+// phis: memindex <- memindex__570; memindex <- memindex__576; 
+def cond__557 = m_isMemory64(memindex);
+if (cond__557) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__558 = mach_writeMemory64_u8_64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__563 = mach_writeMemory32_u8_64(memindex, index, offset, val);
+}
+// phis: 
+</pre>`;
+window.traces["I64_STORE8"]["unlem_schedule__raw"] += `def val = pop_u64();
+def flags = imm_readU8();
+def arg__574 : byte = 0x40u8;
+def arg__571 = u8.&(flags, arg__574);
+def arg__572 : byte = 0;
+def cond__569 = u8.!=(arg__571, arg__572);
+var memindex: u32;
+if (cond__569) {
+	def memindex__570 = imm_readULEB32();
+} else {
+	def memindex__576 : u32 = 0u;
+}
+// phis: memindex <- memindex__570; memindex <- memindex__576; 
+def cond__557 = m_isMemory64(memindex);
+if (cond__557) {
+	def offset = imm_readULEB64();
+	def index = pop_u64();
+	def eff__558 = mach_writeMemory64_u8_64(memindex, index, offset, val);
+} else {
+	def offset = imm_readULEB32();
+	def index = pop_u32();
+	def eff__563 = mach_writeMemory32_u8_64(memindex, index, offset, val);
+}
+// phis: 
+`;
+window.traces["I64_STORE8"]["spytial_ul"] = ''
+window.traces["I64_STORE8"]["spytial_ul__raw"] = ''
+window.traces["I64_STORE8"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__557]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__557]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__557]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__557]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u8_64 [eff__558]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u8_64 [eff__563]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__569]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u64 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__569]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__570]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__571]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_STORE8"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_30",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__557]]"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__557]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__557]]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__557]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_29",
+"type": "intrinsic",
+"label": "mach_writeMemory64_u8_64 [eff__558]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "mach_writeMemory32_u8_64 [eff__563]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__569]]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u64 [val]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__569]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__570]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__571]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_15", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_29", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_22", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_30"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_16", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_24", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_13"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_29", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_22", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_29"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_30", "node_16"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_31", "node_17"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;

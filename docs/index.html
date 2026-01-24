@@ -17,7 +17,7 @@
                     id="webcola-graph-container"
                     width="800"
                     height="600"
-                    layoutFormat="default"
+                    layoutFormat="grid"
                     aria-label="Interactive graph visualization">
                 </webcola-cnd-graph>
             </div>
@@ -132,13 +132,7 @@
                 const layoutSpec = parseLayoutSpec(`
                     constraints:
                         - orientation:
-                            selector: Uses
-                            directions: [above]
-                        - orientation:
-                            selector: StateUses
-                            directions: [above]
-                        - orientation:
-                            selector: PhiCond
+                            selector: Uses + StateUses + PhiCond
                             directions: [above]
                         - orientation:
                             selector: PhiTrue
@@ -152,10 +146,26 @@
                         - align:
                             selector: "{ a : univ, b : univ | (some p : univ | a in p.PhiTrue and b in p.PhiFalse) }"
                             direction: horizontal
-                        - orientation:
-                            selector: "lit -> (univ - lit)"
-                            directions: [below]
+                    directives:
+                        - edgeColor:
+                            field: StateUses
+                            value: red
+                        - size:
+                            selector: "intrinsic"
+                            height: 50
+                            width: 160
+                        - size:
+                            selector: "lit"
+                            height: 50
+                            width: 40
+                        - size:
+                            selector: "state_phi"
+                            height: 50
+                            width: 250
                 `);
+                        // - inferredEdge:
+                        //     name: 'ancestor'
+                        //     selector: "^(Uses + StateUses + PhiCond + PhiTrue + PhiFalse)"
                 console.log(data_instance);
                 console.log(layoutSpec);
                 const evaluator = new SGraphQueryEvaluator()

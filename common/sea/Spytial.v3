@@ -53,31 +53,15 @@ component Spytial {
 
         buf.puts("\"relations\": [\n");
         var first_rel = true;
-        if (uses_edges.length > 0) {
-            if (!first_rel) buf.puts(",\n");
-            first_rel = false;
-            relation_json("uses", "Uses", uses_edges, buf);
-        }
-        if (state_uses_edges.length > 0) {
-            if (!first_rel) buf.puts(",\n");
-            first_rel = false;
-            relation_json("state_uses", "StateUses", state_uses_edges, buf);
-        }
-        if (phi_cond_edges.length > 0) {
-            if (!first_rel) buf.puts(",\n");
-            first_rel = false;
-            relation_json("phi_cond", "PhiCond", phi_cond_edges, buf);
-        }
-        if (phi_true_edges.length > 0) {
-            if (!first_rel) buf.puts(",\n");
-            first_rel = false;
-            relation_json("phi_true", "PhiTrue", phi_true_edges, buf);
-        }
-        if (phi_false_edges.length > 0) {
-            if (!first_rel) buf.puts(",\n");
-            first_rel = false;
-            relation_json("phi_false", "PhiFalse", phi_false_edges, buf);
-        }
+        relation_json("uses", "Uses", uses_edges, buf);
+        buf.puts(",\n");
+        relation_json("state_uses", "StateUses", state_uses_edges, buf);
+        buf.puts(",\n");
+        relation_json("phi_cond", "PhiCond", phi_cond_edges, buf);
+        buf.puts(",\n");
+        relation_json("phi_true", "PhiTrue", phi_true_edges, buf);
+        buf.puts(",\n");
+        relation_json("phi_false", "PhiFalse", phi_false_edges, buf);
         buf.puts("\n]\n");
 
         buf.puts("}");
