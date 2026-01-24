@@ -140,11 +140,27 @@
                         - orientation:
                             selector: PhiCond
                             directions: [above]
+                        - orientation:
+                            selector: PhiTrue
+                            directions: [right, above]
+                        - orientation:
+                            selector: PhiFalse
+                            directions: [left, above]
+                        - align:
+                            selector: "start -> finish"
+                            direction: vertical
+                        - align:
+                            selector: "{ a : univ, b : univ | (some p : univ | a in p.PhiTrue and b in p.PhiFalse) }"
+                            direction: horizontal
+                        - orientation:
+                            selector: "lit -> (univ - lit)"
+                            directions: [below]
                 `);
                 console.log(data_instance);
                 console.log(layoutSpec);
                 const evaluator = new SGraphQueryEvaluator()
                 evaluator.initialize({ sourceData: data_instance })
+                window.evaluator = evaluator;
                 const layoutInstance = new LayoutInstance(layoutSpec, evaluator);
                 const result = layoutInstance.generateLayout(data_instance, {});
 

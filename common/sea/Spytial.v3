@@ -119,7 +119,8 @@ component Spytial {
             Finish => buf.puts("finish");
             Lit => buf.puts("lit");
             Intrinsic => buf.puts("intrinsic");
-            Phi, StatePhi => buf.puts("phi");
+            Phi  => buf.puts("phi");
+            StatePhi => buf.puts("state_phi");
             Proj, Move => buf.puts("proj");
         }
         return buf;

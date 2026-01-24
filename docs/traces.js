@@ -206,6 +206,80 @@ window.traces["UNREACHABLE"]["unlem_schedule"] += `<pre class=''>def eff__0 = tr
 </pre>`;
 window.traces["UNREACHABLE"]["unlem_schedule__raw"] += `def eff__0 = trapUnreachable();
 `;
+window.traces["UNREACHABLE"]["spytial_ul"] = ''
+window.traces["UNREACHABLE"]["spytial_ul__raw"] = ''
+window.traces["UNREACHABLE"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "trapUnreachable [eff__0]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["UNREACHABLE"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "trapUnreachable [eff__0]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["UNREACHABLE"]["unlem_scheduler"] = ''
 window.traces["UNREACHABLE"]["unlem_scheduler__raw"] = ''
 window.traces["UNREACHABLE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -463,6 +537,62 @@ window.traces["NOP"]["unlem_schedule"] = ''
 window.traces["NOP"]["unlem_schedule__raw"] = ''
 window.traces["NOP"]["unlem_schedule"] += `<pre class=''></pre>`;
 window.traces["NOP"]["unlem_schedule__raw"] += ``;
+window.traces["NOP"]["spytial_ul"] = ''
+window.traces["NOP"]["spytial_ul__raw"] = ''
+window.traces["NOP"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["NOP"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+}
+]
+}
+]
+}`;
 window.traces["NOP"]["unlem_scheduler"] = ''
 window.traces["NOP"]["unlem_scheduler__raw"] = ''
 window.traces["NOP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -832,6 +962,128 @@ def eff__2 = doBlock(bt);
 window.traces["BLOCK"]["unlem_schedule__raw"] += `def bt = imm_readBlockType();
 def eff__2 = doBlock(bt);
 `;
+window.traces["BLOCK"]["spytial_ul"] = ''
+window.traces["BLOCK"]["spytial_ul__raw"] = ''
+window.traces["BLOCK"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "doBlock [eff__2]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readBlockType [bt]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_5"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["BLOCK"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "doBlock [eff__2]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readBlockType [bt]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_5"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["BLOCK"]["unlem_scheduler"] = ''
 window.traces["BLOCK"]["unlem_scheduler__raw"] = ''
 window.traces["BLOCK"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -1245,6 +1497,128 @@ def eff__4 = doLoop(bt);
 window.traces["LOOP"]["unlem_schedule__raw"] += `def bt = imm_readBlockType();
 def eff__4 = doLoop(bt);
 `;
+window.traces["LOOP"]["spytial_ul"] = ''
+window.traces["LOOP"]["spytial_ul__raw"] = ''
+window.traces["LOOP"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "doLoop [eff__4]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readBlockType [bt]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_5"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["LOOP"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "doLoop [eff__4]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readBlockType [bt]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_5"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["LOOP"]["unlem_scheduler"] = ''
 window.traces["LOOP"]["unlem_scheduler__raw"] = ''
 window.traces["LOOP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -1469,7 +1843,7 @@ window.traces["IF"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_13",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u32.== [cond__6]]"
 },
 {
@@ -1544,7 +1918,7 @@ window.traces["IF"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_1", "node_13"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_12", "node_6"],
@@ -1583,7 +1957,7 @@ window.traces["IF"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_13", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -1594,7 +1968,7 @@ window.traces["IF"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_13", "node_12"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -1605,7 +1979,7 @@ window.traces["IF"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_13", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -1620,7 +1994,7 @@ window.traces["IF"]["spytial__raw"] += `{
 },
 {
 "id": "node_13",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u32.== [cond__6]]"
 },
 {
@@ -1695,7 +2069,7 @@ window.traces["IF"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_1", "node_13"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_12", "node_6"],
@@ -1734,7 +2108,7 @@ window.traces["IF"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_13", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -1745,7 +2119,7 @@ window.traces["IF"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_13", "node_12"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -1756,7 +2130,7 @@ window.traces["IF"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_13", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -2890,6 +3264,484 @@ if (mb__17) {
 // phis: 
 def eff_st_put__13 = ctlxfer.put_IF(label);
 `;
+window.traces["IF"]["spytial_ul"] = ''
+window.traces["IF"]["spytial_ul__raw"] = ''
+window.traces["IF"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_13",
+"type": "state_phi",
+"label": "StatePhi [bool.&& [mb__17]]"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "ctlxfer.put_IF [eff_st_put__13]"
+},
+{
+"id": "node_18",
+"type": "intrinsic",
+"label": "bool.&& [mb__17]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "merge [eff_merge__18]"
+},
+{
+"id": "node_19",
+"type": "state_phi",
+"label": "StatePhi [U32_maybeTrue [mt__15]]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "doIf [label]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "U32_maybeTrue [mt__15]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "U32_maybeFalse [mf__16]"
+},
+{
+"id": "node_12",
+"type": "intrinsic",
+"label": "doBranch [eff__7]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "doFallthru [eff__9]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readBlockType [bt]"
+},
+{
+"id": "node_4",
+"type": "intrinsic",
+"label": "pop_u32 [cond]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "U32_equals [cond__6]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "lift_u32 [abs__14]"
+},
+{
+"id": "node_7",
+"type": "lit",
+"label": "0"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_18", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_18", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_12"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_10"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_16", "node_9"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_9"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_15", "node_7"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_13"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_14"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_13"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_6", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_12", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_4", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_13", "node_18"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_19", "node_16"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_13", "node_20"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_19", "node_12"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_13", "node_19"],
+"types": ["state_phi", "state_phi"]
+},
+{
+"atoms": ["node_19", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["IF"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_13",
+"type": "state_phi",
+"label": "StatePhi [bool.&& [mb__17]]"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "ctlxfer.put_IF [eff_st_put__13]"
+},
+{
+"id": "node_18",
+"type": "intrinsic",
+"label": "bool.&& [mb__17]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "merge [eff_merge__18]"
+},
+{
+"id": "node_19",
+"type": "state_phi",
+"label": "StatePhi [U32_maybeTrue [mt__15]]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "doIf [label]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "U32_maybeTrue [mt__15]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "U32_maybeFalse [mf__16]"
+},
+{
+"id": "node_12",
+"type": "intrinsic",
+"label": "doBranch [eff__7]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "doFallthru [eff__9]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readBlockType [bt]"
+},
+{
+"id": "node_4",
+"type": "intrinsic",
+"label": "pop_u32 [cond]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "U32_equals [cond__6]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "lift_u32 [abs__14]"
+},
+{
+"id": "node_7",
+"type": "lit",
+"label": "0"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_18", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_18", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_12"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_10"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_16", "node_9"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_9"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_15", "node_7"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_13"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_14"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_13"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_6", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_12", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_4", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_13", "node_18"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_19", "node_16"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_13", "node_20"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_19", "node_12"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_13", "node_19"],
+"types": ["state_phi", "state_phi"]
+},
+{
+"atoms": ["node_19", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["IF"]["unlem_scheduler"] = ''
 window.traces["IF"]["unlem_scheduler__raw"] = ''
 window.traces["IF"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -3547,6 +4399,154 @@ window.traces["ELSE"]["unlem_schedule__raw"] += `def label = doElse();
 def eff__19 = doBranch(label);
 def eff_st_put__21 = ctlxfer.put_ELSE(label);
 `;
+window.traces["ELSE"]["spytial_ul"] = ''
+window.traces["ELSE"]["spytial_ul__raw"] = ''
+window.traces["ELSE"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "doBranch [eff__19]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "ctlxfer.put_ELSE [eff_st_put__21]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "doElse [label]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_5"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_6"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["ELSE"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "doBranch [eff__19]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "ctlxfer.put_ELSE [eff_st_put__21]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "doElse [label]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_5"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_6"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["ELSE"]["unlem_scheduler"] = ''
 window.traces["ELSE"]["unlem_scheduler__raw"] = ''
 window.traces["ELSE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -3982,6 +4982,128 @@ def eff__22 = doTry(bt);
 window.traces["TRY"]["unlem_schedule__raw"] += `def bt = imm_readBlockType();
 def eff__22 = doTry(bt);
 `;
+window.traces["TRY"]["spytial_ul"] = ''
+window.traces["TRY"]["spytial_ul__raw"] = ''
+window.traces["TRY"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "doTry [eff__22]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readBlockType [bt]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_5"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["TRY"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "doTry [eff__22]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readBlockType [bt]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_5"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["TRY"]["unlem_scheduler"] = ''
 window.traces["TRY"]["unlem_scheduler__raw"] = ''
 window.traces["TRY"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -4164,7 +5286,7 @@ window.traces["END"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_6",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [f_isAtEnd [cond__24]]"
 },
 {
@@ -4196,7 +5318,7 @@ window.traces["END"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_1", "node_6"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_5", "node_3"],
@@ -4215,7 +5337,7 @@ window.traces["END"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_6", "node_4"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -4226,7 +5348,7 @@ window.traces["END"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_6", "node_5"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -4237,7 +5359,7 @@ window.traces["END"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_6", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -4252,7 +5374,7 @@ window.traces["END"]["spytial__raw"] += `{
 },
 {
 "id": "node_6",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [f_isAtEnd [cond__24]]"
 },
 {
@@ -4284,7 +5406,7 @@ window.traces["END"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_1", "node_6"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_5", "node_3"],
@@ -4303,7 +5425,7 @@ window.traces["END"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_6", "node_4"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -4314,7 +5436,7 @@ window.traces["END"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_6", "node_5"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -4325,7 +5447,7 @@ window.traces["END"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_6", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -4535,6 +5657,184 @@ if (cond__24) {
 }
 // phis: 
 `;
+window.traces["END"]["spytial_ul"] = ''
+window.traces["END"]["spytial_ul__raw"] = ''
+window.traces["END"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_6",
+"type": "state_phi",
+"label": "StatePhi [f_isAtEnd [cond__24]]"
+},
+{
+"id": "node_4",
+"type": "intrinsic",
+"label": "f_isAtEnd [cond__24]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "doReturn [eff__25]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "doEnd [eff__26]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_6"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_6", "node_4"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_6", "node_5"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_6", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["END"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_6",
+"type": "state_phi",
+"label": "StatePhi [f_isAtEnd [cond__24]]"
+},
+{
+"id": "node_4",
+"type": "intrinsic",
+"label": "f_isAtEnd [cond__24]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "doReturn [eff__25]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "doEnd [eff__26]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_6"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_6", "node_4"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_6", "node_5"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_6", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["END"]["unlem_scheduler"] = ''
 window.traces["END"]["unlem_scheduler__raw"] = ''
 window.traces["END"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -5104,6 +6404,180 @@ def label = f_getLabel(depth);
 def eff__27 = doBranch(label);
 def eff_st_put__30 = ctlxfer.put_BR(label);
 `;
+window.traces["BR"]["spytial_ul"] = ''
+window.traces["BR"]["spytial_ul__raw"] = ''
+window.traces["BR"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "doBranch [eff__27]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "ctlxfer.put_BR [eff_st_put__30]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "f_getLabel [label]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [depth]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_7", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_7"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_8"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_8", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["BR"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "doBranch [eff__27]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "ctlxfer.put_BR [eff_st_put__30]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "f_getLabel [label]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [depth]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_7", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_7"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_8"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_8", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["BR"]["unlem_scheduler"] = ''
 window.traces["BR"]["unlem_scheduler__raw"] = ''
 window.traces["BR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -5374,7 +6848,7 @@ window.traces["BR_IF"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_13",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u32.!= [cond__31]]"
 },
 {
@@ -5449,7 +6923,7 @@ window.traces["BR_IF"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_1", "node_13"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_12", "node_3"],
@@ -5492,7 +6966,7 @@ window.traces["BR_IF"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_13", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -5503,7 +6977,7 @@ window.traces["BR_IF"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_13", "node_12"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -5514,7 +6988,7 @@ window.traces["BR_IF"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_13", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -5529,7 +7003,7 @@ window.traces["BR_IF"]["spytial__raw"] += `{
 },
 {
 "id": "node_13",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u32.!= [cond__31]]"
 },
 {
@@ -5604,7 +7078,7 @@ window.traces["BR_IF"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_1", "node_13"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_12", "node_3"],
@@ -5647,7 +7121,7 @@ window.traces["BR_IF"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_13", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -5658,7 +7132,7 @@ window.traces["BR_IF"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_13", "node_12"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -5669,7 +7143,7 @@ window.traces["BR_IF"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_13", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -6083,6 +7557,492 @@ if (mb__42) {
 def label = f_getLabel(depth);
 def eff_st_put__38 = ctlxfer.put_BR_IF(label);
 `;
+window.traces["BR_IF"]["spytial_ul"] = ''
+window.traces["BR_IF"]["spytial_ul__raw"] = ''
+window.traces["BR_IF"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_13",
+"type": "state_phi",
+"label": "StatePhi [bool.&& [mb__42]]"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "ctlxfer.put_BR_IF [eff_st_put__38]"
+},
+{
+"id": "node_18",
+"type": "intrinsic",
+"label": "bool.&& [mb__42]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "merge [eff_merge__43]"
+},
+{
+"id": "node_19",
+"type": "state_phi",
+"label": "StatePhi [U32_maybeTrue [mt__40]]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "f_getLabel [label]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "U32_maybeTrue [mt__40]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "U32_maybeFalse [mf__41]"
+},
+{
+"id": "node_12",
+"type": "intrinsic",
+"label": "doBranch [eff__32]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "doFallthru [eff__34]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [depth]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "U32_not_equals [cond__31]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "pop_u32 [cond]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "lift_u32 [abs__39]"
+},
+{
+"id": "node_7",
+"type": "lit",
+"label": "0"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_18", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_18", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_12"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_10"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_16", "node_9"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_9"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_15", "node_7"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_13"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_14"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_13"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_6", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_13", "node_18"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_19", "node_16"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_13", "node_20"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_19", "node_12"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_13", "node_19"],
+"types": ["state_phi", "state_phi"]
+},
+{
+"atoms": ["node_19", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["BR_IF"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_13",
+"type": "state_phi",
+"label": "StatePhi [bool.&& [mb__42]]"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "ctlxfer.put_BR_IF [eff_st_put__38]"
+},
+{
+"id": "node_18",
+"type": "intrinsic",
+"label": "bool.&& [mb__42]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "merge [eff_merge__43]"
+},
+{
+"id": "node_19",
+"type": "state_phi",
+"label": "StatePhi [U32_maybeTrue [mt__40]]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "f_getLabel [label]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "U32_maybeTrue [mt__40]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "U32_maybeFalse [mf__41]"
+},
+{
+"id": "node_12",
+"type": "intrinsic",
+"label": "doBranch [eff__32]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "doFallthru [eff__34]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [depth]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "U32_not_equals [cond__31]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "pop_u32 [cond]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "lift_u32 [abs__39]"
+},
+{
+"id": "node_7",
+"type": "lit",
+"label": "0"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_18", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_18", "node_17"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_12"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_10"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_16", "node_9"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_9"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_15", "node_7"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_13"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_14"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_13"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_6", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_13", "node_18"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_19", "node_16"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_13", "node_20"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_19", "node_12"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_13", "node_19"],
+"types": ["state_phi", "state_phi"]
+},
+{
+"atoms": ["node_19", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["BR_IF"]["unlem_scheduler"] = ''
 window.traces["BR_IF"]["unlem_scheduler__raw"] = ''
 window.traces["BR_IF"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -6842,6 +8802,196 @@ def key = pop_u32();
 def eff__44 = doSwitch(labels, key);
 def eff_st_put__47 = ctlxfer.put_BR_TABLE(labels);
 `;
+window.traces["BR_TABLE"]["spytial_ul"] = ''
+window.traces["BR_TABLE"]["spytial_ul__raw"] = ''
+window.traces["BR_TABLE"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "doSwitch [eff__44]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "ctlxfer.put_BR_TABLE [eff_st_put__47]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readLabels [labels]"
+},
+{
+"id": "node_4",
+"type": "intrinsic",
+"label": "pop_u32 [key]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_7", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_7"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_8"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_8", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_4", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["BR_TABLE"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "doSwitch [eff__44]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "ctlxfer.put_BR_TABLE [eff_st_put__47]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readLabels [labels]"
+},
+{
+"id": "node_4",
+"type": "intrinsic",
+"label": "pop_u32 [key]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_7", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_7"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_8"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_8", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_4", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["BR_TABLE"]["unlem_scheduler"] = ''
 window.traces["BR_TABLE"]["unlem_scheduler__raw"] = ''
 window.traces["BR_TABLE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -7217,6 +9367,80 @@ window.traces["RETURN"]["unlem_schedule"] += `<pre class=''>def eff__48 = doRetu
 </pre>`;
 window.traces["RETURN"]["unlem_schedule__raw"] += `def eff__48 = doReturn();
 `;
+window.traces["RETURN"]["spytial_ul"] = ''
+window.traces["RETURN"]["spytial_ul__raw"] = ''
+window.traces["RETURN"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "doReturn [eff__48]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["RETURN"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "doReturn [eff__48]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["RETURN"]["unlem_scheduler"] = ''
 window.traces["RETURN"]["unlem_scheduler__raw"] = ''
 window.traces["RETURN"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -7710,6 +9934,172 @@ def sig = m_getFuncSignature(index);
 def target = i_getFunction(index);
 def eff__49 = doCall(sig, target);
 `;
+window.traces["CALL"]["spytial_ul"] = ''
+window.traces["CALL"]["spytial_ul__raw"] = ''
+window.traces["CALL"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "doCall [eff__49]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "m_getFuncSignature [sig]"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "i_getFunction [target]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_10", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_10"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["CALL"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "doCall [eff__49]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "m_getFuncSignature [sig]"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "i_getFunction [target]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_10", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_10"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["CALL"]["unlem_scheduler"] = ''
 window.traces["CALL"]["unlem_scheduler__raw"] = ''
 window.traces["CALL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -8028,7 +10418,7 @@ window.traces["CALL_INDIRECT"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_26",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isTable64 [is64]]"
 },
 {
@@ -8150,7 +10540,7 @@ window.traces["CALL_INDIRECT"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_1", "node_26"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_25", "node_4"],
@@ -8201,7 +10591,7 @@ window.traces["CALL_INDIRECT"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_26", "node_8"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -8212,7 +10602,7 @@ window.traces["CALL_INDIRECT"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_26", "node_25"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -8223,7 +10613,7 @@ window.traces["CALL_INDIRECT"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_26", "node_17"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -8238,7 +10628,7 @@ window.traces["CALL_INDIRECT"]["spytial__raw"] += `{
 },
 {
 "id": "node_26",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isTable64 [is64]]"
 },
 {
@@ -8360,7 +10750,7 @@ window.traces["CALL_INDIRECT"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_1", "node_26"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_25", "node_4"],
@@ -8411,7 +10801,7 @@ window.traces["CALL_INDIRECT"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_26", "node_8"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -8422,7 +10812,7 @@ window.traces["CALL_INDIRECT"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_26", "node_25"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -8433,7 +10823,7 @@ window.traces["CALL_INDIRECT"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_26", "node_17"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -8877,6 +11267,462 @@ if (is64) {
 // phis: 
 def eff_st_put__69 = ctlxfer.put_CALL_INDIRECT(is64);
 `;
+window.traces["CALL_INDIRECT"]["spytial_ul"] = ''
+window.traces["CALL_INDIRECT"]["spytial_ul__raw"] = ''
+window.traces["CALL_INDIRECT"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_26",
+"type": "state_phi",
+"label": "StatePhi [m_isTable64 [is64]]"
+},
+{
+"id": "node_27",
+"type": "intrinsic",
+"label": "ctlxfer.put_CALL_INDIRECT [eff_st_put__69]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "m_isTable64 [is64]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "doCall [eff__55]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "doCall [eff__61]"
+},
+{
+"id": "node_4",
+"type": "intrinsic",
+"label": "imm_readULEB32 [table_index]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "m_getSignature [sig]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "i_getTableFunction64 [target]"
+},
+{
+"id": "node_18",
+"type": "intrinsic",
+"label": "pop_u64 [func_index]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "i_getTableFunction32 [target]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "pop_u32 [func_index]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [sig_index]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_27", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_25", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_25", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_14"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_18"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_10"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_26"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_27"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_27", "node_26"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_25", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_25", "node_18"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_25", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_17", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_10"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_4", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_18", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_26", "node_8"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_26", "node_25"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_26", "node_17"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["CALL_INDIRECT"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_26",
+"type": "state_phi",
+"label": "StatePhi [m_isTable64 [is64]]"
+},
+{
+"id": "node_27",
+"type": "intrinsic",
+"label": "ctlxfer.put_CALL_INDIRECT [eff_st_put__69]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "m_isTable64 [is64]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "doCall [eff__55]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "doCall [eff__61]"
+},
+{
+"id": "node_4",
+"type": "intrinsic",
+"label": "imm_readULEB32 [table_index]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "m_getSignature [sig]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "i_getTableFunction64 [target]"
+},
+{
+"id": "node_18",
+"type": "intrinsic",
+"label": "pop_u64 [func_index]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "i_getTableFunction32 [target]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "pop_u32 [func_index]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [sig_index]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_27", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_25", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_25", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_14"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_18"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_10"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_26"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_27"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_27", "node_26"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_25", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_25", "node_18"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_25", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_17", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_10"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_4", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_18", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_26", "node_8"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_26", "node_25"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_26", "node_17"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["CALL_INDIRECT"]["unlem_scheduler"] = ''
 window.traces["CALL_INDIRECT"]["unlem_scheduler__raw"] = ''
 window.traces["CALL_INDIRECT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -9682,6 +12528,172 @@ def sig = m_getFuncSignature(index);
 def target = i_getFunction(index);
 def eff__70 = doReturnCall(sig, target);
 `;
+window.traces["RETURN_CALL"]["spytial_ul"] = ''
+window.traces["RETURN_CALL"]["spytial_ul__raw"] = ''
+window.traces["RETURN_CALL"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "doReturnCall [eff__70]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "m_getFuncSignature [sig]"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "i_getFunction [target]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_10", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_10"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["RETURN_CALL"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "doReturnCall [eff__70]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "m_getFuncSignature [sig]"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "i_getFunction [target]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_10", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_10"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_10", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["RETURN_CALL"]["unlem_scheduler"] = ''
 window.traces["RETURN_CALL"]["unlem_scheduler__raw"] = ''
 window.traces["RETURN_CALL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -10135,6 +13147,128 @@ def eff__75 = pop_Value(tv);
 window.traces["DROP"]["unlem_schedule__raw"] += `def tv = f_getTopOfStackType();
 def eff__75 = pop_Value(tv);
 `;
+window.traces["DROP"]["spytial_ul"] = ''
+window.traces["DROP"]["spytial_ul__raw"] = ''
+window.traces["DROP"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "pop_Value [eff__75]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "f_getTopOfStackType [tv]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_5"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["DROP"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "pop_Value [eff__75]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "f_getTopOfStackType [tv]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_5"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["DROP"]["unlem_scheduler"] = ''
 window.traces["DROP"]["unlem_scheduler__raw"] = ''
 window.traces["DROP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -10384,7 +13518,7 @@ window.traces["SELECT"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_18",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u32.!= [cond__77]]"
 },
 {
@@ -10479,7 +13613,7 @@ window.traces["SELECT"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_1", "node_18"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_17", "node_8"],
@@ -10514,7 +13648,7 @@ window.traces["SELECT"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_18", "node_11"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -10525,7 +13659,7 @@ window.traces["SELECT"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_18", "node_17"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -10536,7 +13670,7 @@ window.traces["SELECT"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_18", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -10556,7 +13690,7 @@ window.traces["SELECT"]["spytial__raw"] += `{
 },
 {
 "id": "node_18",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u32.!= [cond__77]]"
 },
 {
@@ -10651,7 +13785,7 @@ window.traces["SELECT"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_1", "node_18"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_17", "node_8"],
@@ -10686,7 +13820,7 @@ window.traces["SELECT"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_18", "node_11"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -10697,7 +13831,7 @@ window.traces["SELECT"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_18", "node_17"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -10708,7 +13842,7 @@ window.traces["SELECT"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_18", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -11126,6 +14260,542 @@ if (mb__91) {
 }
 // phis: 
 `;
+window.traces["SELECT"]["spytial_ul"] = ''
+window.traces["SELECT"]["spytial_ul__raw"] = ''
+window.traces["SELECT"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_18",
+"type": "state_phi",
+"label": "StatePhi [bool.&& [mb__91]]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "bool.&& [mb__91]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "push_Value [push__93]"
+},
+{
+"id": "node_23",
+"type": "state_phi",
+"label": "StatePhi [U32_maybeTrue [mt__89]]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "U32_maybeTrue [mt__89]"
+},
+{
+"id": "node_21",
+"type": "intrinsic",
+"label": "U32_maybeFalse [mf__90]"
+},
+{
+"id": "node_4",
+"type": "intrinsic",
+"label": "f_getTopOfStackType [tv]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "merge_Val [merge__92]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "pop_Value [a]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "push_Value [eff__78]"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "push_Value [eff__81]"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "U32_not_equals [cond__77]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "pop_u32 [c]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "pop_Value [b]"
+},
+{
+"id": "node_19",
+"type": "intrinsic",
+"label": "lift_u32 [abs__88]"
+},
+{
+"id": "node_9",
+"type": "lit",
+"label": "0"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_21"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_25", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_25", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_21", "node_11"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_19"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_19", "node_9"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_18"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_25", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_4", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_6", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_23", "node_20"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_23", "node_17"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_23"],
+"types": ["state_phi", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_14"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["SELECT"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_18",
+"type": "state_phi",
+"label": "StatePhi [bool.&& [mb__91]]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "bool.&& [mb__91]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "push_Value [push__93]"
+},
+{
+"id": "node_23",
+"type": "state_phi",
+"label": "StatePhi [U32_maybeTrue [mt__89]]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "U32_maybeTrue [mt__89]"
+},
+{
+"id": "node_21",
+"type": "intrinsic",
+"label": "U32_maybeFalse [mf__90]"
+},
+{
+"id": "node_4",
+"type": "intrinsic",
+"label": "f_getTopOfStackType [tv]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "merge_Val [merge__92]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "pop_Value [a]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "push_Value [eff__78]"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "push_Value [eff__81]"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "U32_not_equals [cond__77]"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "pop_u32 [c]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "pop_Value [b]"
+},
+{
+"id": "node_19",
+"type": "intrinsic",
+"label": "lift_u32 [abs__88]"
+},
+{
+"id": "node_9",
+"type": "lit",
+"label": "0"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_21"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_25", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_25", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_21", "node_11"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_19"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_6", "node_4"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_19", "node_9"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_18"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_25", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_4", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_6", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_23", "node_20"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_23", "node_17"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_23"],
+"types": ["state_phi", "state_phi"]
+},
+{
+"atoms": ["node_23", "node_14"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["SELECT"]["unlem_scheduler"] = ''
 window.traces["SELECT"]["unlem_scheduler__raw"] = ''
 window.traces["SELECT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -11903,6 +15573,196 @@ def tv = f_getLocalType(index);
 def val = getLocal(tv, index);
 def eff__94 = push_Value(tv, val);
 `;
+window.traces["LOCAL_GET"]["spytial_ul"] = ''
+window.traces["LOCAL_GET"]["spytial_ul__raw"] = ''
+window.traces["LOCAL_GET"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "push_Value [eff__94]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "f_getLocalType [tv]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "getLocal [val]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_11", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_11"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_11", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["LOCAL_GET"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "push_Value [eff__94]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "f_getLocalType [tv]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "getLocal [val]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_11", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_11"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_11", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["LOCAL_GET"]["unlem_scheduler"] = ''
 window.traces["LOCAL_GET"]["unlem_scheduler__raw"] = ''
 window.traces["LOCAL_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -12540,6 +16400,204 @@ def tv = f_getLocalType(index);
 def val = pop_Value(tv);
 def eff__100 = setLocal(tv, index, val);
 `;
+window.traces["LOCAL_SET"]["spytial_ul"] = ''
+window.traces["LOCAL_SET"]["spytial_ul__raw"] = ''
+window.traces["LOCAL_SET"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "pop_Value [val]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "setLocal [eff__100]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "f_getLocalType [tv]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_7", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_7"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_11"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_7", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_11", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["LOCAL_SET"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "pop_Value [val]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "setLocal [eff__100]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "f_getLocalType [tv]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_7", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_7"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_11"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_7", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_11", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["LOCAL_SET"]["unlem_scheduler"] = ''
 window.traces["LOCAL_SET"]["unlem_scheduler__raw"] = ''
 window.traces["LOCAL_SET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -13259,6 +17317,238 @@ def val = pop_Value(tv);
 def eff__106 = push_Value(tv, val);
 def eff__109 = setLocal(tv, index, val);
 `;
+window.traces["LOCAL_TEE"]["spytial_ul"] = ''
+window.traces["LOCAL_TEE"]["spytial_ul__raw"] = ''
+window.traces["LOCAL_TEE"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "push_Value [eff__106]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "setLocal [eff__109]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "f_getLocalType [tv]"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "pop_Value [val]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_14"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_11"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_14", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_7", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["LOCAL_TEE"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "push_Value [eff__106]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "setLocal [eff__109]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "f_getLocalType [tv]"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "pop_Value [val]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_14", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_14"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_11"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_14", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_7", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["LOCAL_TEE"]["unlem_scheduler"] = ''
 window.traces["LOCAL_TEE"]["unlem_scheduler__raw"] = ''
 window.traces["LOCAL_TEE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -13910,6 +18200,196 @@ def tv = m_getGlobalType(index);
 def val = getGlobal(tv, index);
 def eff__115 = push_Value(tv, val);
 `;
+window.traces["GLOBAL_GET"]["spytial_ul"] = ''
+window.traces["GLOBAL_GET"]["spytial_ul__raw"] = ''
+window.traces["GLOBAL_GET"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "push_Value [eff__115]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "m_getGlobalType [tv]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "getGlobal [val]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_11", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_11"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_11", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["GLOBAL_GET"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "push_Value [eff__115]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "m_getGlobalType [tv]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "getGlobal [val]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_11", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_11"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_11", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["GLOBAL_GET"]["unlem_scheduler"] = ''
 window.traces["GLOBAL_GET"]["unlem_scheduler__raw"] = ''
 window.traces["GLOBAL_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -14547,6 +19027,204 @@ def tv = m_getGlobalType(index);
 def val = pop_Value(tv);
 def eff__121 = setGlobal(tv, index, val);
 `;
+window.traces["GLOBAL_SET"]["spytial_ul"] = ''
+window.traces["GLOBAL_SET"]["spytial_ul__raw"] = ''
+window.traces["GLOBAL_SET"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "pop_Value [val]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "setGlobal [eff__121]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "m_getGlobalType [tv]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_7", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_7"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_11"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_7", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_11", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["GLOBAL_SET"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [index]"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "pop_Value [val]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "setGlobal [eff__121]"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "m_getGlobalType [tv]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_7", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_5"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_7"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_7"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_1", "node_11"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_7", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_11", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+}
+]
+}`;
 window.traces["GLOBAL_SET"]["unlem_scheduler"] = ''
 window.traces["GLOBAL_SET"]["unlem_scheduler__raw"] = ''
 window.traces["GLOBAL_SET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -14850,7 +19528,7 @@ window.traces["TABLE_GET"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_18",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isTable64 [cond__127]]"
 },
 {
@@ -14941,7 +19619,7 @@ window.traces["TABLE_GET"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_1", "node_18"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -14976,7 +19654,7 @@ window.traces["TABLE_GET"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_18", "node_5"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -14987,7 +19665,7 @@ window.traces["TABLE_GET"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_18", "node_17"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -14998,7 +19676,7 @@ window.traces["TABLE_GET"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_18", "node_11"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -15018,7 +19696,7 @@ window.traces["TABLE_GET"]["spytial__raw"] += `{
 },
 {
 "id": "node_18",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isTable64 [cond__127]]"
 },
 {
@@ -15109,7 +19787,7 @@ window.traces["TABLE_GET"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_1", "node_18"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -15144,7 +19822,7 @@ window.traces["TABLE_GET"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_18", "node_5"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -15155,7 +19833,7 @@ window.traces["TABLE_GET"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_18", "node_17"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -15166,7 +19844,7 @@ window.traces["TABLE_GET"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_18", "node_11"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -15506,6 +20184,344 @@ if (cond__127) {
 }
 // phis: 
 `;
+window.traces["TABLE_GET"]["spytial_ul"] = ''
+window.traces["TABLE_GET"]["spytial_ul__raw"] = ''
+window.traces["TABLE_GET"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [table_index]"
+},
+{
+"id": "node_18",
+"type": "state_phi",
+"label": "StatePhi [m_isTable64 [cond__127]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "m_isTable64 [cond__127]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "push_Object [eff__128]"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "push_Object [eff__132]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "mach_readTable64 [val]"
+},
+{
+"id": "node_12",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "mach_readTable32 [val]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_15", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_18"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_17", "node_12"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_6", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_5"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_17"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_11"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["TABLE_GET"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [table_index]"
+},
+{
+"id": "node_18",
+"type": "state_phi",
+"label": "StatePhi [m_isTable64 [cond__127]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "m_isTable64 [cond__127]"
+},
+{
+"id": "node_17",
+"type": "intrinsic",
+"label": "push_Object [eff__128]"
+},
+{
+"id": "node_11",
+"type": "intrinsic",
+"label": "push_Object [eff__132]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "mach_readTable64 [val]"
+},
+{
+"id": "node_12",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "mach_readTable32 [val]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_17", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_15", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_18"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_17", "node_12"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_6", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_5"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_17"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_11"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["TABLE_GET"]["unlem_scheduler"] = ''
 window.traces["TABLE_GET"]["unlem_scheduler__raw"] = ''
 window.traces["TABLE_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -15935,7 +20951,7 @@ window.traces["TABLE_SET"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_18",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isTable64 [cond__137]]"
 },
 {
@@ -15992,7 +21008,7 @@ window.traces["TABLE_SET"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_1", "node_18"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -16027,7 +21043,7 @@ window.traces["TABLE_SET"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_18", "node_5"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -16038,7 +21054,7 @@ window.traces["TABLE_SET"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_18", "node_13"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -16049,7 +21065,7 @@ window.traces["TABLE_SET"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_18", "node_7"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -16069,7 +21085,7 @@ window.traces["TABLE_SET"]["spytial__raw"] += `{
 },
 {
 "id": "node_18",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isTable64 [cond__137]]"
 },
 {
@@ -16126,7 +21142,7 @@ window.traces["TABLE_SET"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_1", "node_18"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -16161,7 +21177,7 @@ window.traces["TABLE_SET"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_18", "node_5"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -16172,7 +21188,7 @@ window.traces["TABLE_SET"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_18", "node_13"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -16183,7 +21199,7 @@ window.traces["TABLE_SET"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_18", "node_7"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -16463,6 +21479,276 @@ if (cond__137) {
 }
 // phis: 
 `;
+window.traces["TABLE_SET"]["spytial_ul"] = ''
+window.traces["TABLE_SET"]["spytial_ul__raw"] = ''
+window.traces["TABLE_SET"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [table_index]"
+},
+{
+"id": "node_18",
+"type": "state_phi",
+"label": "StatePhi [m_isTable64 [cond__137]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "m_isTable64 [cond__137]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_12",
+"type": "intrinsic",
+"label": "pop_Object [val]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "pop_Object [val]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_18"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_12"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_6", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_5"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_13"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_7"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["TABLE_SET"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readULEB32 [table_index]"
+},
+{
+"id": "node_18",
+"type": "state_phi",
+"label": "StatePhi [m_isTable64 [cond__137]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_5",
+"type": "intrinsic",
+"label": "m_isTable64 [cond__137]"
+},
+{
+"id": "node_13",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_7",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_12",
+"type": "intrinsic",
+"label": "pop_Object [val]"
+},
+{
+"id": "node_6",
+"type": "intrinsic",
+"label": "pop_Object [val]"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_5", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_3"],
+"types": ["finish", "intrinsic"]
+},
+{
+"atoms": ["node_1", "node_18"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_13", "node_12"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_7", "node_6"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_6", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_5"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_13"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_18", "node_7"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["TABLE_SET"]["unlem_scheduler"] = ''
 window.traces["TABLE_SET"]["unlem_scheduler__raw"] = ''
 window.traces["TABLE_SET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -16937,12 +22223,12 @@ window.traces["I32_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_31",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__147]]"
 },
 {
 "id": "node_32",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__147]]"
 },
 {
@@ -16982,7 +22268,7 @@ window.traces["I32_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__159]]"
 },
 {
@@ -17108,11 +22394,11 @@ window.traces["I32_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -17120,11 +22406,11 @@ window.traces["I32_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_30", "node_24"],
@@ -17159,11 +22445,11 @@ window.traces["I32_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -17171,7 +22457,7 @@ window.traces["I32_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -17182,11 +22468,11 @@ window.traces["I32_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -17194,7 +22480,7 @@ window.traces["I32_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -17205,11 +22491,11 @@ window.traces["I32_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -17217,7 +22503,7 @@ window.traces["I32_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -17232,12 +22518,12 @@ window.traces["I32_LOAD"]["spytial__raw"] += `{
 },
 {
 "id": "node_31",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__147]]"
 },
 {
 "id": "node_32",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__147]]"
 },
 {
@@ -17277,7 +22563,7 @@ window.traces["I32_LOAD"]["spytial__raw"] += `{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__159]]"
 },
 {
@@ -17403,11 +22689,11 @@ window.traces["I32_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -17415,11 +22701,11 @@ window.traces["I32_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_30", "node_24"],
@@ -17454,11 +22740,11 @@ window.traces["I32_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -17466,7 +22752,7 @@ window.traces["I32_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -17477,11 +22763,11 @@ window.traces["I32_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -17489,7 +22775,7 @@ window.traces["I32_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -17500,11 +22786,11 @@ window.traces["I32_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -17512,7 +22798,7 @@ window.traces["I32_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -18150,6 +23436,598 @@ if (cond__147) {
 }
 // phis: 
 `;
+window.traces["I32_LOAD"]["spytial_ul"] = ''
+window.traces["I32_LOAD"]["spytial_ul__raw"] = ''
+window.traces["I32_LOAD"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__147]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__147]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__147]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u32 [eff__148]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u32 [eff__153]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__159]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u32 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u32 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__159]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__160]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__161]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I32_LOAD"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__147]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__147]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__147]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u32 [eff__148]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u32 [eff__153]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__159]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u32 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u32 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__159]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__160]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__161]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["I32_LOAD"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD"]["unlem_scheduler__raw"] = ''
 window.traces["I32_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -18948,12 +24826,12 @@ window.traces["I64_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_31",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__167]]"
 },
 {
 "id": "node_32",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__167]]"
 },
 {
@@ -18993,7 +24871,7 @@ window.traces["I64_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__179]]"
 },
 {
@@ -19119,11 +24997,11 @@ window.traces["I64_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -19131,11 +25009,11 @@ window.traces["I64_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_30", "node_24"],
@@ -19170,11 +25048,11 @@ window.traces["I64_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -19182,7 +25060,7 @@ window.traces["I64_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -19193,11 +25071,11 @@ window.traces["I64_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -19205,7 +25083,7 @@ window.traces["I64_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -19216,11 +25094,11 @@ window.traces["I64_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -19228,7 +25106,7 @@ window.traces["I64_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -19243,12 +25121,12 @@ window.traces["I64_LOAD"]["spytial__raw"] += `{
 },
 {
 "id": "node_31",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__167]]"
 },
 {
 "id": "node_32",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__167]]"
 },
 {
@@ -19288,7 +25166,7 @@ window.traces["I64_LOAD"]["spytial__raw"] += `{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__179]]"
 },
 {
@@ -19414,11 +25292,11 @@ window.traces["I64_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -19426,11 +25304,11 @@ window.traces["I64_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_30", "node_24"],
@@ -19465,11 +25343,11 @@ window.traces["I64_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -19477,7 +25355,7 @@ window.traces["I64_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -19488,11 +25366,11 @@ window.traces["I64_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -19500,7 +25378,7 @@ window.traces["I64_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -19511,11 +25389,11 @@ window.traces["I64_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -19523,7 +25401,7 @@ window.traces["I64_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -20161,6 +26039,598 @@ if (cond__167) {
 }
 // phis: 
 `;
+window.traces["I64_LOAD"]["spytial_ul"] = ''
+window.traces["I64_LOAD"]["spytial_ul__raw"] = ''
+window.traces["I64_LOAD"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__167]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__167]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__167]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__168]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__173]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__179]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__179]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__180]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__181]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I64_LOAD"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__167]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__167]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__167]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u64 [eff__168]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u64 [eff__173]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__179]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__179]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__180]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__181]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["I64_LOAD"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD"]["unlem_scheduler__raw"] = ''
 window.traces["I64_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -20959,12 +27429,12 @@ window.traces["F32_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_31",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__187]]"
 },
 {
 "id": "node_32",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__187]]"
 },
 {
@@ -21004,7 +27474,7 @@ window.traces["F32_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__199]]"
 },
 {
@@ -21130,11 +27600,11 @@ window.traces["F32_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -21142,11 +27612,11 @@ window.traces["F32_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_30", "node_24"],
@@ -21181,11 +27651,11 @@ window.traces["F32_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -21193,7 +27663,7 @@ window.traces["F32_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -21204,11 +27674,11 @@ window.traces["F32_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -21216,7 +27686,7 @@ window.traces["F32_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -21227,11 +27697,11 @@ window.traces["F32_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -21239,7 +27709,7 @@ window.traces["F32_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -21254,12 +27724,12 @@ window.traces["F32_LOAD"]["spytial__raw"] += `{
 },
 {
 "id": "node_31",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__187]]"
 },
 {
 "id": "node_32",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__187]]"
 },
 {
@@ -21299,7 +27769,7 @@ window.traces["F32_LOAD"]["spytial__raw"] += `{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__199]]"
 },
 {
@@ -21425,11 +27895,11 @@ window.traces["F32_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -21437,11 +27907,11 @@ window.traces["F32_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_30", "node_24"],
@@ -21476,11 +27946,11 @@ window.traces["F32_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -21488,7 +27958,7 @@ window.traces["F32_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -21499,11 +27969,11 @@ window.traces["F32_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -21511,7 +27981,7 @@ window.traces["F32_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -21522,11 +27992,11 @@ window.traces["F32_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -21534,7 +28004,7 @@ window.traces["F32_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -22172,6 +28642,598 @@ if (cond__187) {
 }
 // phis: 
 `;
+window.traces["F32_LOAD"]["spytial_ul"] = ''
+window.traces["F32_LOAD"]["spytial_ul__raw"] = ''
+window.traces["F32_LOAD"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__187]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__187]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__187]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_f32 [eff__188]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_f32 [eff__193]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__199]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_f32 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_f32 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__199]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__200]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__201]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["F32_LOAD"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__187]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__187]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__187]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_f32 [eff__188]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_f32 [eff__193]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__199]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_f32 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_f32 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__199]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__200]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__201]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["F32_LOAD"]["unlem_scheduler"] = ''
 window.traces["F32_LOAD"]["unlem_scheduler__raw"] = ''
 window.traces["F32_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -22970,12 +30032,12 @@ window.traces["F64_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_31",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__207]]"
 },
 {
 "id": "node_32",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__207]]"
 },
 {
@@ -23015,7 +30077,7 @@ window.traces["F64_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__219]]"
 },
 {
@@ -23141,11 +30203,11 @@ window.traces["F64_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -23153,11 +30215,11 @@ window.traces["F64_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_30", "node_24"],
@@ -23192,11 +30254,11 @@ window.traces["F64_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -23204,7 +30266,7 @@ window.traces["F64_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -23215,11 +30277,11 @@ window.traces["F64_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -23227,7 +30289,7 @@ window.traces["F64_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -23238,11 +30300,11 @@ window.traces["F64_LOAD"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -23250,7 +30312,7 @@ window.traces["F64_LOAD"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -23265,12 +30327,12 @@ window.traces["F64_LOAD"]["spytial__raw"] += `{
 },
 {
 "id": "node_31",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__207]]"
 },
 {
 "id": "node_32",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__207]]"
 },
 {
@@ -23310,7 +30372,7 @@ window.traces["F64_LOAD"]["spytial__raw"] += `{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__219]]"
 },
 {
@@ -23436,11 +30498,11 @@ window.traces["F64_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -23448,11 +30510,11 @@ window.traces["F64_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_30", "node_24"],
@@ -23487,11 +30549,11 @@ window.traces["F64_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -23499,7 +30561,7 @@ window.traces["F64_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -23510,11 +30572,11 @@ window.traces["F64_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -23522,7 +30584,7 @@ window.traces["F64_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -23533,11 +30595,11 @@ window.traces["F64_LOAD"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -23545,7 +30607,7 @@ window.traces["F64_LOAD"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -24183,6 +31245,598 @@ if (cond__207) {
 }
 // phis: 
 `;
+window.traces["F64_LOAD"]["spytial_ul"] = ''
+window.traces["F64_LOAD"]["spytial_ul__raw"] = ''
+window.traces["F64_LOAD"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__207]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__207]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__207]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_f64 [eff__208]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_f64 [eff__213]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__219]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_f64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_f64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__219]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__220]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__221]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["F64_LOAD"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__207]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__207]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__207]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_f64 [eff__208]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_f64 [eff__213]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__219]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_f64 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_f64 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__219]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__220]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__221]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["F64_LOAD"]["unlem_scheduler"] = ''
 window.traces["F64_LOAD"]["unlem_scheduler__raw"] = ''
 window.traces["F64_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -24997,12 +32651,12 @@ window.traces["I32_LOAD8_S"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_35",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__227]]"
 },
 {
 "id": "node_36",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__227]]"
 },
 {
@@ -25042,7 +32696,7 @@ window.traces["I32_LOAD8_S"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__241]]"
 },
 {
@@ -25186,11 +32840,11 @@ window.traces["I32_LOAD8_S"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_1", "node_35"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_36"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -25198,11 +32852,11 @@ window.traces["I32_LOAD8_S"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_25", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_34", "node_26"],
@@ -25237,11 +32891,11 @@ window.traces["I32_LOAD8_S"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_35", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -25249,7 +32903,7 @@ window.traces["I32_LOAD8_S"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -25260,11 +32914,11 @@ window.traces["I32_LOAD8_S"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_35", "node_25"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_34"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -25272,7 +32926,7 @@ window.traces["I32_LOAD8_S"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -25283,11 +32937,11 @@ window.traces["I32_LOAD8_S"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_35", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_24"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -25295,7 +32949,7 @@ window.traces["I32_LOAD8_S"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -25310,12 +32964,12 @@ window.traces["I32_LOAD8_S"]["spytial__raw"] += `{
 },
 {
 "id": "node_35",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__227]]"
 },
 {
 "id": "node_36",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__227]]"
 },
 {
@@ -25355,7 +33009,7 @@ window.traces["I32_LOAD8_S"]["spytial__raw"] += `{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__241]]"
 },
 {
@@ -25499,11 +33153,11 @@ window.traces["I32_LOAD8_S"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_1", "node_35"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_36"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -25511,11 +33165,11 @@ window.traces["I32_LOAD8_S"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_25", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_34", "node_26"],
@@ -25550,11 +33204,11 @@ window.traces["I32_LOAD8_S"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_35", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -25562,7 +33216,7 @@ window.traces["I32_LOAD8_S"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -25573,11 +33227,11 @@ window.traces["I32_LOAD8_S"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_35", "node_25"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_34"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -25585,7 +33239,7 @@ window.traces["I32_LOAD8_S"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -25596,11 +33250,11 @@ window.traces["I32_LOAD8_S"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_35", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_24"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -25608,7 +33262,7 @@ window.traces["I32_LOAD8_S"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -26282,6 +33936,634 @@ if (cond__227) {
 }
 // phis: 
 `;
+window.traces["I32_LOAD8_S"]["spytial_ul"] = ''
+window.traces["I32_LOAD8_S"]["spytial_ul__raw"] = ''
+window.traces["I32_LOAD8_S"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__227]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__227]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__227]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u32 [eff__228]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u32 [eff__234]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__241]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U32_extend8_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U32_extend8_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__241]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__242]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u8 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u8 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__243]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I32_LOAD8_S"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__227]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__227]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__227]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u32 [eff__228]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u32 [eff__234]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__241]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U32_extend8_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U32_extend8_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__241]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__242]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u8 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u8 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__243]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["I32_LOAD8_S"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD8_S"]["unlem_scheduler__raw"] = ''
 window.traces["I32_LOAD8_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -27116,12 +35398,12 @@ window.traces["I32_LOAD8_U"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_31",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__249]]"
 },
 {
 "id": "node_32",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__249]]"
 },
 {
@@ -27161,7 +35443,7 @@ window.traces["I32_LOAD8_U"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__261]]"
 },
 {
@@ -27287,11 +35569,11 @@ window.traces["I32_LOAD8_U"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -27299,11 +35581,11 @@ window.traces["I32_LOAD8_U"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_30", "node_24"],
@@ -27338,11 +35620,11 @@ window.traces["I32_LOAD8_U"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -27350,7 +35632,7 @@ window.traces["I32_LOAD8_U"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -27361,11 +35643,11 @@ window.traces["I32_LOAD8_U"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -27373,7 +35655,7 @@ window.traces["I32_LOAD8_U"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -27384,11 +35666,11 @@ window.traces["I32_LOAD8_U"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -27396,7 +35678,7 @@ window.traces["I32_LOAD8_U"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -27411,12 +35693,12 @@ window.traces["I32_LOAD8_U"]["spytial__raw"] += `{
 },
 {
 "id": "node_31",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__249]]"
 },
 {
 "id": "node_32",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__249]]"
 },
 {
@@ -27456,7 +35738,7 @@ window.traces["I32_LOAD8_U"]["spytial__raw"] += `{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__261]]"
 },
 {
@@ -27582,11 +35864,11 @@ window.traces["I32_LOAD8_U"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -27594,11 +35876,11 @@ window.traces["I32_LOAD8_U"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_30", "node_24"],
@@ -27633,11 +35915,11 @@ window.traces["I32_LOAD8_U"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -27645,7 +35927,7 @@ window.traces["I32_LOAD8_U"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -27656,11 +35938,11 @@ window.traces["I32_LOAD8_U"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -27668,7 +35950,7 @@ window.traces["I32_LOAD8_U"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -27679,11 +35961,11 @@ window.traces["I32_LOAD8_U"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -27691,7 +35973,7 @@ window.traces["I32_LOAD8_U"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -28329,6 +36611,598 @@ if (cond__249) {
 }
 // phis: 
 `;
+window.traces["I32_LOAD8_U"]["spytial_ul"] = ''
+window.traces["I32_LOAD8_U"]["spytial_ul__raw"] = ''
+window.traces["I32_LOAD8_U"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__249]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__249]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__249]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u32 [eff__250]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u32 [eff__255]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__261]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u8 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u8 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__261]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__262]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__263]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I32_LOAD8_U"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__249]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__249]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__249]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u32 [eff__250]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u32 [eff__255]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__261]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u8 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u8 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__261]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__262]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__263]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["I32_LOAD8_U"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD8_U"]["unlem_scheduler__raw"] = ''
 window.traces["I32_LOAD8_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -29143,12 +38017,12 @@ window.traces["I32_LOAD16_S"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_35",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__269]]"
 },
 {
 "id": "node_36",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__269]]"
 },
 {
@@ -29188,7 +38062,7 @@ window.traces["I32_LOAD16_S"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__283]]"
 },
 {
@@ -29332,11 +38206,11 @@ window.traces["I32_LOAD16_S"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_1", "node_35"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_36"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -29344,11 +38218,11 @@ window.traces["I32_LOAD16_S"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_25", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_34", "node_26"],
@@ -29383,11 +38257,11 @@ window.traces["I32_LOAD16_S"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_35", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -29395,7 +38269,7 @@ window.traces["I32_LOAD16_S"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -29406,11 +38280,11 @@ window.traces["I32_LOAD16_S"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_35", "node_25"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_34"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -29418,7 +38292,7 @@ window.traces["I32_LOAD16_S"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -29429,11 +38303,11 @@ window.traces["I32_LOAD16_S"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_35", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_24"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -29441,7 +38315,7 @@ window.traces["I32_LOAD16_S"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -29456,12 +38330,12 @@ window.traces["I32_LOAD16_S"]["spytial__raw"] += `{
 },
 {
 "id": "node_35",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__269]]"
 },
 {
 "id": "node_36",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__269]]"
 },
 {
@@ -29501,7 +38375,7 @@ window.traces["I32_LOAD16_S"]["spytial__raw"] += `{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__283]]"
 },
 {
@@ -29645,11 +38519,11 @@ window.traces["I32_LOAD16_S"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_1", "node_35"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_36"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -29657,11 +38531,11 @@ window.traces["I32_LOAD16_S"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_25", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_34", "node_26"],
@@ -29696,11 +38570,11 @@ window.traces["I32_LOAD16_S"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_35", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -29708,7 +38582,7 @@ window.traces["I32_LOAD16_S"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -29719,11 +38593,11 @@ window.traces["I32_LOAD16_S"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_35", "node_25"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_34"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -29731,7 +38605,7 @@ window.traces["I32_LOAD16_S"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -29742,11 +38616,11 @@ window.traces["I32_LOAD16_S"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_35", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_24"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -29754,7 +38628,7 @@ window.traces["I32_LOAD16_S"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -30428,6 +39302,634 @@ if (cond__269) {
 }
 // phis: 
 `;
+window.traces["I32_LOAD16_S"]["spytial_ul"] = ''
+window.traces["I32_LOAD16_S"]["spytial_ul__raw"] = ''
+window.traces["I32_LOAD16_S"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__269]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__269]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__269]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u32 [eff__270]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u32 [eff__276]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__283]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U32_extend16_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U32_extend16_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__283]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__284]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u16 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u16 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__285]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I32_LOAD16_S"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_35",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__269]]"
+},
+{
+"id": "node_36",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__269]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__269]"
+},
+{
+"id": "node_25",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_34",
+"type": "intrinsic",
+"label": "push_u32 [eff__270]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "push_u32 [eff__276]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__283]]"
+},
+{
+"id": "node_32",
+"type": "intrinsic",
+"label": "U32_extend16_s [extend]"
+},
+{
+"id": "node_26",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "U32_extend16_s [extend]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__283]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__284]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "mach_readMemory64_u16 [val]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u16 [val]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__285]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_34", "node_32"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_22"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_30", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_30", "node_25"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_35"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_36"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_25", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_34", "node_26"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_26", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_25"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_34"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_35", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_36", "node_24"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["I32_LOAD16_S"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD16_S"]["unlem_scheduler__raw"] = ''
 window.traces["I32_LOAD16_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -31262,12 +40764,12 @@ window.traces["I32_LOAD16_U"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_31",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__291]]"
 },
 {
 "id": "node_32",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__291]]"
 },
 {
@@ -31307,7 +40809,7 @@ window.traces["I32_LOAD16_U"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__303]]"
 },
 {
@@ -31433,11 +40935,11 @@ window.traces["I32_LOAD16_U"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -31445,11 +40947,11 @@ window.traces["I32_LOAD16_U"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_30", "node_24"],
@@ -31484,11 +40986,11 @@ window.traces["I32_LOAD16_U"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -31496,7 +40998,7 @@ window.traces["I32_LOAD16_U"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -31507,11 +41009,11 @@ window.traces["I32_LOAD16_U"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -31519,7 +41021,7 @@ window.traces["I32_LOAD16_U"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -31530,11 +41032,11 @@ window.traces["I32_LOAD16_U"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -31542,7 +41044,7 @@ window.traces["I32_LOAD16_U"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -31557,12 +41059,12 @@ window.traces["I32_LOAD16_U"]["spytial__raw"] += `{
 },
 {
 "id": "node_31",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__291]]"
 },
 {
 "id": "node_32",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__291]]"
 },
 {
@@ -31602,7 +41104,7 @@ window.traces["I32_LOAD16_U"]["spytial__raw"] += `{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__303]]"
 },
 {
@@ -31728,11 +41230,11 @@ window.traces["I32_LOAD16_U"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -31740,11 +41242,11 @@ window.traces["I32_LOAD16_U"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_30", "node_24"],
@@ -31779,11 +41281,11 @@ window.traces["I32_LOAD16_U"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -31791,7 +41293,7 @@ window.traces["I32_LOAD16_U"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -31802,11 +41304,11 @@ window.traces["I32_LOAD16_U"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -31814,7 +41316,7 @@ window.traces["I32_LOAD16_U"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -31825,11 +41327,11 @@ window.traces["I32_LOAD16_U"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -31837,7 +41339,7 @@ window.traces["I32_LOAD16_U"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -32475,6 +41977,598 @@ if (cond__291) {
 }
 // phis: 
 `;
+window.traces["I32_LOAD16_U"]["spytial_ul"] = ''
+window.traces["I32_LOAD16_U"]["spytial_ul__raw"] = ''
+window.traces["I32_LOAD16_U"]["spytial_ul"] += `<pre class=''>{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__291]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__291]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__291]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u32 [eff__292]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u32 [eff__297]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__303]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u16 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u16 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__303]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__304]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__305]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}</pre>`;
+window.traces["I32_LOAD16_U"]["spytial_ul__raw"] += `{
+"atoms": [
+{
+"id": "node_1",
+"type": "finish",
+"label": "Finish"
+},
+{
+"id": "node_31",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__291]]"
+},
+{
+"id": "node_32",
+"type": "state_phi",
+"label": "StatePhi [m_isMemory64 [cond__291]]"
+},
+{
+"id": "node_0",
+"type": "start",
+"label": "Start"
+},
+{
+"id": "node_14",
+"type": "intrinsic",
+"label": "m_isMemory64 [cond__291]"
+},
+{
+"id": "node_23",
+"type": "intrinsic",
+"label": "imm_readULEB64 [offset]"
+},
+{
+"id": "node_15",
+"type": "intrinsic",
+"label": "imm_readULEB32 [offset]"
+},
+{
+"id": "node_30",
+"type": "intrinsic",
+"label": "push_u32 [eff__292]"
+},
+{
+"id": "node_22",
+"type": "intrinsic",
+"label": "push_u32 [eff__297]"
+},
+{
+"id": "node_11",
+"type": "phi",
+"label": "Phi"
+},
+{
+"id": "node_12",
+"type": "state_phi",
+"label": "StatePhi [u8.!= [cond__303]]"
+},
+{
+"id": "node_28",
+"type": "intrinsic",
+"label": "mach_readMemory64_u16 [val]"
+},
+{
+"id": "node_24",
+"type": "intrinsic",
+"label": "pop_u64 [index]"
+},
+{
+"id": "node_20",
+"type": "intrinsic",
+"label": "mach_readMemory32_u16 [val]"
+},
+{
+"id": "node_16",
+"type": "intrinsic",
+"label": "pop_u32 [index]"
+},
+{
+"id": "node_9",
+"type": "intrinsic",
+"label": "u8.!= [cond__303]"
+},
+{
+"id": "node_10",
+"type": "intrinsic",
+"label": "imm_readULEB32 [memindex__304]"
+},
+{
+"id": "node_4",
+"type": "lit",
+"label": "0u"
+},
+{
+"id": "node_3",
+"type": "intrinsic",
+"label": "imm_readU8 [flags]"
+},
+{
+"id": "node_8",
+"type": "intrinsic",
+"label": "u8.& [arg__305]"
+},
+{
+"id": "node_5",
+"type": "lit",
+"label": "0"
+},
+{
+"id": "node_6",
+"type": "lit",
+"label": "0x40u8"
+}
+],
+"relations": [
+{
+"id": "uses",
+"name": "Uses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_14", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_30", "node_28"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_20"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_28", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_28", "node_23"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_11"],
+"types": ["intrinsic", "phi"]
+},
+{
+"atoms": ["node_20", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_20", "node_15"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_8"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_9", "node_5"],
+"types": ["intrinsic", "lit"]
+},
+{
+"atoms": ["node_8", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_8", "node_6"],
+"types": ["intrinsic", "lit"]
+}
+]
+},
+{
+"id": "state_uses",
+"name": "StateUses",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_1", "node_31"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_32"],
+"types": ["finish", "state_phi"]
+},
+{
+"atoms": ["node_1", "node_0"],
+"types": ["finish", "start"]
+},
+{
+"atoms": ["node_23", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_15", "node_12"],
+"types": ["intrinsic", "state_phi"]
+},
+{
+"atoms": ["node_30", "node_24"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_22", "node_16"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_24", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_16", "node_0"],
+"types": ["intrinsic", "start"]
+},
+{
+"atoms": ["node_10", "node_3"],
+"types": ["intrinsic", "intrinsic"]
+},
+{
+"atoms": ["node_3", "node_0"],
+"types": ["intrinsic", "start"]
+}
+]
+},
+{
+"id": "phi_cond",
+"name": "PhiCond",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_14"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_9"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_9"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_true",
+"name": "PhiTrue",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_23"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_30"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_10"],
+"types": ["phi", "intrinsic"]
+},
+{
+"atoms": ["node_12", "node_10"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+},
+{
+"id": "phi_false",
+"name": "PhiFalse",
+"types": ["sea_node", "sea_node"],
+"tuples": [
+{
+"atoms": ["node_31", "node_15"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_32", "node_22"],
+"types": ["state_phi", "intrinsic"]
+},
+{
+"atoms": ["node_11", "node_4"],
+"types": ["phi", "lit"]
+},
+{
+"atoms": ["node_12", "node_3"],
+"types": ["state_phi", "intrinsic"]
+}
+]
+}
+]
+}`;
 window.traces["I32_LOAD16_U"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD16_U"]["unlem_scheduler__raw"] = ''
 window.traces["I32_LOAD16_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -33289,12 +43383,12 @@ window.traces["I64_LOAD8_S"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_35",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__311]]"
 },
 {
 "id": "node_36",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__311]]"
 },
 {
@@ -33334,7 +43428,7 @@ window.traces["I64_LOAD8_S"]["spytial"] += `<pre class=''>{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__325]]"
 },
 {
@@ -33478,11 +43572,11 @@ window.traces["I64_LOAD8_S"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_1", "node_35"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_36"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -33490,11 +43584,11 @@ window.traces["I64_LOAD8_S"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_25", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_34", "node_26"],
@@ -33529,11 +43623,11 @@ window.traces["I64_LOAD8_S"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_35", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -33541,7 +43635,7 @@ window.traces["I64_LOAD8_S"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -33552,11 +43646,11 @@ window.traces["I64_LOAD8_S"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_35", "node_25"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_34"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -33564,7 +43658,7 @@ window.traces["I64_LOAD8_S"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -33575,11 +43669,11 @@ window.traces["I64_LOAD8_S"]["spytial"] += `<pre class=''>{
 "tuples": [
 {
 "atoms": ["node_35", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_24"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -33587,7 +43681,7 @@ window.traces["I64_LOAD8_S"]["spytial"] += `<pre class=''>{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -33602,12 +43696,12 @@ window.traces["I64_LOAD8_S"]["spytial__raw"] += `{
 },
 {
 "id": "node_35",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__311]]"
 },
 {
 "id": "node_36",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [m_isMemory64 [cond__311]]"
 },
 {
@@ -33647,7 +43741,7 @@ window.traces["I64_LOAD8_S"]["spytial__raw"] += `{
 },
 {
 "id": "node_12",
-"type": "phi",
+"type": "state_phi",
 "label": "StatePhi [u8.!= [cond__325]]"
 },
 {
@@ -33791,11 +43885,11 @@ window.traces["I64_LOAD8_S"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_1", "node_35"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_36"],
-"types": ["finish", "phi"]
+"types": ["finish", "state_phi"]
 },
 {
 "atoms": ["node_1", "node_0"],
@@ -33803,11 +43897,11 @@ window.traces["I64_LOAD8_S"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_25", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
+"types": ["intrinsic", "state_phi"]
 },
 {
 "atoms": ["node_34", "node_26"],
@@ -33842,11 +43936,11 @@ window.traces["I64_LOAD8_S"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_35", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_14"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_9"],
@@ -33854,7 +43948,7 @@ window.traces["I64_LOAD8_S"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -33865,11 +43959,11 @@ window.traces["I64_LOAD8_S"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_35", "node_25"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_34"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_10"],
@@ -33877,7 +43971,7 @@ window.traces["I64_LOAD8_S"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 },
@@ -33888,11 +43982,11 @@ window.traces["I64_LOAD8_S"]["spytial__raw"] += `{
 "tuples": [
 {
 "atoms": ["node_35", "node_15"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_36", "node_24"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 },
 {
 "atoms": ["node_11", "node_4"],
@@ -33900,7 +43994,7 @@ window.traces["I64_LOAD8_S"]["spytial__raw"] += `{
 },
 {
 "atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
+"types": ["state_phi", "intrinsic"]
 }
 ]
 }
@@ -34181,12822 +44275,4 @@ graph TD
 	14 --> 35
 	25 --> 35
 	15 --> 35
-`;
-window.traces["I64_LOAD8_S"]["schedulerMermaid"] = ''
-window.traces["I64_LOAD8_S"]["schedulerMermaid__raw"] = ''
-window.traces["I64_LOAD8_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_307["Block 307"]
-	direction TB
-	b307_1[\\"Finish"/]
-end
-phi_309 --> block_307
-subgraph phi_309["Phi 309"]
-	p309_36{{"Sϕ Stack "}}
-	p309_35{{"Sϕ Codeptr "}}
-end
-block_310 --> phi_309
-block_311 --> phi_309
-subgraph block_310["Block 310"]
-	direction TB
-	b310_26["index pop_u64"]
-	b310_30["val mach_readMemory64_u8_64"]
-	b310_32["extend U64_extend8_s"]
-	b310_34["eff__312 push_u64"]
-	b310_25["offset imm_readULEB64"]
-	b310_26 --> b310_30
-	b310_30 --> b310_32
-	b310_32 --> b310_34
-	b310_34 --> b310_25
-end
-branch_308 --> block_310
-subgraph branch_308["Branch 308"]
-	br308_14["cond__311 m_isMemory64"]
-
-end
-block_312 --> branch_308
-subgraph block_312["Block 312"]
-	direction TB
-	b312_14["cond__311 m_isMemory64"]
-end
-phi_314 --> block_312
-subgraph phi_314["Phi 314"]
-	p314_12{{"Sϕ Codeptr "}}
-	p314_12{{"Sϕ Codeptr "}}
-	p314_12{{"Sϕ Codeptr "}}
-	p314_12{{"Sϕ Codeptr "}}
-	p314_11{"memindex ϕ"}
-	p314_11{"memindex ϕ"}
-	p314_11{"memindex ϕ"}
-	p314_11{"memindex ϕ"}
-	p314_11{"memindex ϕ"}
-	p314_11{"memindex ϕ"}
-	p314_12{{"Sϕ Codeptr "}}
-	p314_12{{"Sϕ Codeptr "}}
-	p314_12{{"Sϕ Codeptr "}}
-	p314_12{{"Sϕ Codeptr "}}
-end
-block_315 --> phi_314
-block_316 --> phi_314
-subgraph block_315["Block 315"]
-	direction TB
-	b315_10["memindex__326 imm_readULEB32"]
-end
-branch_313 --> block_315
-subgraph branch_313["Branch 313"]
-	br313_9["cond__325 u8.!="]
-
-end
-block_317 --> branch_313
-subgraph block_317["Block 317"]
-	direction TB
-	b317_0[/"Start"\\]
-	b317_6["arg__330 0x40u8"]
-	b317_5["arg__328 0"]
-	b317_8["arg__327 u8.&"]
-	b317_9["cond__325 u8.!="]
-	b317_0 --> b317_6
-	b317_6 --> b317_5
-	b317_5 --> b317_8
-	b317_8 --> b317_9
-end
-subgraph block_316["Block 316"]
-	direction TB
-	b316_4["memindex__332 0u"]
-	b316_3["flags imm_readU8"]
-	b316_4 --> b316_3
-end
-branch_313 --> block_316
-subgraph block_311["Block 311"]
-	direction TB
-	b311_16["index pop_u32"]
-	b311_20["val mach_readMemory32_u8_64"]
-	b311_22["extend U64_extend8_s"]
-	b311_24["eff__318 push_u64"]
-	b311_15["offset imm_readULEB32"]
-	b311_16 --> b311_20
-	b311_20 --> b311_22
-	b311_22 --> b311_24
-	b311_24 --> b311_15
-end
-branch_308 --> block_311
-
-</pre>`;
-window.traces["I64_LOAD8_S"]["schedulerMermaid__raw"] += `graph TD
-subgraph block_307["Block 307"]
-	direction TB
-	b307_1[\\"Finish"/]
-end
-phi_309 --> block_307
-subgraph phi_309["Phi 309"]
-	p309_36{{"Sϕ Stack "}}
-	p309_35{{"Sϕ Codeptr "}}
-end
-block_310 --> phi_309
-block_311 --> phi_309
-subgraph block_310["Block 310"]
-	direction TB
-	b310_26["index pop_u64"]
-	b310_30["val mach_readMemory64_u8_64"]
-	b310_32["extend U64_extend8_s"]
-	b310_34["eff__312 push_u64"]
-	b310_25["offset imm_readULEB64"]
-	b310_26 --> b310_30
-	b310_30 --> b310_32
-	b310_32 --> b310_34
-	b310_34 --> b310_25
-end
-branch_308 --> block_310
-subgraph branch_308["Branch 308"]
-	br308_14["cond__311 m_isMemory64"]
-
-end
-block_312 --> branch_308
-subgraph block_312["Block 312"]
-	direction TB
-	b312_14["cond__311 m_isMemory64"]
-end
-phi_314 --> block_312
-subgraph phi_314["Phi 314"]
-	p314_12{{"Sϕ Codeptr "}}
-	p314_12{{"Sϕ Codeptr "}}
-	p314_12{{"Sϕ Codeptr "}}
-	p314_12{{"Sϕ Codeptr "}}
-	p314_11{"memindex ϕ"}
-	p314_11{"memindex ϕ"}
-	p314_11{"memindex ϕ"}
-	p314_11{"memindex ϕ"}
-	p314_11{"memindex ϕ"}
-	p314_11{"memindex ϕ"}
-	p314_12{{"Sϕ Codeptr "}}
-	p314_12{{"Sϕ Codeptr "}}
-	p314_12{{"Sϕ Codeptr "}}
-	p314_12{{"Sϕ Codeptr "}}
-end
-block_315 --> phi_314
-block_316 --> phi_314
-subgraph block_315["Block 315"]
-	direction TB
-	b315_10["memindex__326 imm_readULEB32"]
-end
-branch_313 --> block_315
-subgraph branch_313["Branch 313"]
-	br313_9["cond__325 u8.!="]
-
-end
-block_317 --> branch_313
-subgraph block_317["Block 317"]
-	direction TB
-	b317_0[/"Start"\\]
-	b317_6["arg__330 0x40u8"]
-	b317_5["arg__328 0"]
-	b317_8["arg__327 u8.&"]
-	b317_9["cond__325 u8.!="]
-	b317_0 --> b317_6
-	b317_6 --> b317_5
-	b317_5 --> b317_8
-	b317_8 --> b317_9
-end
-subgraph block_316["Block 316"]
-	direction TB
-	b316_4["memindex__332 0u"]
-	b316_3["flags imm_readU8"]
-	b316_4 --> b316_3
-end
-branch_313 --> block_316
-subgraph block_311["Block 311"]
-	direction TB
-	b311_16["index pop_u32"]
-	b311_20["val mach_readMemory32_u8_64"]
-	b311_22["extend U64_extend8_s"]
-	b311_24["eff__318 push_u64"]
-	b311_15["offset imm_readULEB32"]
-	b311_16 --> b311_20
-	b311_20 --> b311_22
-	b311_22 --> b311_24
-	b311_24 --> b311_15
-end
-branch_308 --> block_311
-
-`;
-window.traces["I64_LOAD8_S"]["unLEM"] = ''
-window.traces["I64_LOAD8_S"]["unLEM__raw"] = ''
-window.traces["I64_LOAD8_S"]["unLEM"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__318 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend8_s"]
-	20 --> 22
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__326 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__325 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__328 0"]
-	8["arg__327 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__330 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__332 0u"]
-	34["eff__312 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend8_s"]
-	30 --> 32
-	30["val mach_readMemory64_u8_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__311 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD8_S"]["unLEM__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__318 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend8_s"]
-	20 --> 22
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__326 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__325 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__328 0"]
-	8["arg__327 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__330 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__332 0u"]
-	34["eff__312 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend8_s"]
-	30 --> 32
-	30["val mach_readMemory64_u8_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__311 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD8_S"]["unlem_schedule"] = ''
-window.traces["I64_LOAD8_S"]["unlem_schedule__raw"] = ''
-window.traces["I64_LOAD8_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__330 : byte = 0x40u8;
-def arg__327 = u8.&(flags, arg__330);
-def arg__328 : byte = 0;
-def cond__325 = u8.!=(arg__327, arg__328);
-var memindex: u32;
-if (cond__325) {
-	def memindex__326 = imm_readULEB32();
-} else {
-	def memindex__332 : u32 = 0u;
-}
-// phis: memindex <- memindex__326; memindex <- memindex__332; 
-def cond__311 = m_isMemory64(memindex);
-if (cond__311) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	def eff__312 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	def eff__318 = push_u64(extend);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD8_S"]["unlem_schedule__raw"] += `def flags = imm_readU8();
-def arg__330 : byte = 0x40u8;
-def arg__327 = u8.&(flags, arg__330);
-def arg__328 : byte = 0;
-def cond__325 = u8.!=(arg__327, arg__328);
-var memindex: u32;
-if (cond__325) {
-	def memindex__326 = imm_readULEB32();
-} else {
-	def memindex__332 : u32 = 0u;
-}
-// phis: memindex <- memindex__326; memindex <- memindex__332; 
-def cond__311 = m_isMemory64(memindex);
-if (cond__311) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	def eff__312 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	def eff__318 = push_u64(extend);
-}
-// phis: 
-`;
-window.traces["I64_LOAD8_S"]["unlem_scheduler"] = ''
-window.traces["I64_LOAD8_S"]["unlem_scheduler__raw"] = ''
-window.traces["I64_LOAD8_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_318["Block 318"]
-	direction TB
-	b318_1[\\"Finish"/]
-end
-phi_320 --> block_318
-subgraph phi_320["Phi 320"]
-	p320_36{{"Sϕ Stack "}}
-	p320_35{{"Sϕ Codeptr "}}
-end
-block_321 --> phi_320
-block_322 --> phi_320
-subgraph block_321["Block 321"]
-	direction TB
-	b321_26["index pop_u64"]
-	b321_30["val mach_readMemory64_u8_64"]
-	b321_32["extend U64_extend8_s"]
-	b321_34["eff__312 push_u64"]
-	b321_25["offset imm_readULEB64"]
-	b321_26 --> b321_30
-	b321_30 --> b321_32
-	b321_32 --> b321_34
-	b321_34 --> b321_25
-end
-branch_319 --> block_321
-subgraph branch_319["Branch 319"]
-	br319_14["cond__311 m_isMemory64"]
-
-end
-block_323 --> branch_319
-subgraph block_323["Block 323"]
-	direction TB
-	b323_14["cond__311 m_isMemory64"]
-end
-phi_325 --> block_323
-subgraph phi_325["Phi 325"]
-	p325_12{{"Sϕ Codeptr "}}
-	p325_12{{"Sϕ Codeptr "}}
-	p325_12{{"Sϕ Codeptr "}}
-	p325_12{{"Sϕ Codeptr "}}
-	p325_11{"memindex ϕ"}
-	p325_11{"memindex ϕ"}
-	p325_11{"memindex ϕ"}
-	p325_11{"memindex ϕ"}
-	p325_11{"memindex ϕ"}
-	p325_11{"memindex ϕ"}
-	p325_12{{"Sϕ Codeptr "}}
-	p325_12{{"Sϕ Codeptr "}}
-	p325_12{{"Sϕ Codeptr "}}
-	p325_12{{"Sϕ Codeptr "}}
-end
-block_326 --> phi_325
-block_327 --> phi_325
-subgraph block_326["Block 326"]
-	direction TB
-	b326_10["memindex__326 imm_readULEB32"]
-end
-branch_324 --> block_326
-subgraph branch_324["Branch 324"]
-	br324_9["cond__325 u8.!="]
-
-end
-block_328 --> branch_324
-subgraph block_328["Block 328"]
-	direction TB
-	b328_0[/"Start"\\]
-	b328_6["arg__330 0x40u8"]
-	b328_5["arg__328 0"]
-	b328_8["arg__327 u8.&"]
-	b328_9["cond__325 u8.!="]
-	b328_0 --> b328_6
-	b328_6 --> b328_5
-	b328_5 --> b328_8
-	b328_8 --> b328_9
-end
-subgraph block_327["Block 327"]
-	direction TB
-	b327_4["memindex__332 0u"]
-	b327_3["flags imm_readU8"]
-	b327_4 --> b327_3
-end
-branch_324 --> block_327
-subgraph block_322["Block 322"]
-	direction TB
-	b322_16["index pop_u32"]
-	b322_20["val mach_readMemory32_u8_64"]
-	b322_22["extend U64_extend8_s"]
-	b322_24["eff__318 push_u64"]
-	b322_15["offset imm_readULEB32"]
-	b322_16 --> b322_20
-	b322_20 --> b322_22
-	b322_22 --> b322_24
-	b322_24 --> b322_15
-end
-branch_319 --> block_322
-
-</pre>`;
-window.traces["I64_LOAD8_S"]["unlem_scheduler__raw"] += `graph TD
-subgraph block_318["Block 318"]
-	direction TB
-	b318_1[\\"Finish"/]
-end
-phi_320 --> block_318
-subgraph phi_320["Phi 320"]
-	p320_36{{"Sϕ Stack "}}
-	p320_35{{"Sϕ Codeptr "}}
-end
-block_321 --> phi_320
-block_322 --> phi_320
-subgraph block_321["Block 321"]
-	direction TB
-	b321_26["index pop_u64"]
-	b321_30["val mach_readMemory64_u8_64"]
-	b321_32["extend U64_extend8_s"]
-	b321_34["eff__312 push_u64"]
-	b321_25["offset imm_readULEB64"]
-	b321_26 --> b321_30
-	b321_30 --> b321_32
-	b321_32 --> b321_34
-	b321_34 --> b321_25
-end
-branch_319 --> block_321
-subgraph branch_319["Branch 319"]
-	br319_14["cond__311 m_isMemory64"]
-
-end
-block_323 --> branch_319
-subgraph block_323["Block 323"]
-	direction TB
-	b323_14["cond__311 m_isMemory64"]
-end
-phi_325 --> block_323
-subgraph phi_325["Phi 325"]
-	p325_12{{"Sϕ Codeptr "}}
-	p325_12{{"Sϕ Codeptr "}}
-	p325_12{{"Sϕ Codeptr "}}
-	p325_12{{"Sϕ Codeptr "}}
-	p325_11{"memindex ϕ"}
-	p325_11{"memindex ϕ"}
-	p325_11{"memindex ϕ"}
-	p325_11{"memindex ϕ"}
-	p325_11{"memindex ϕ"}
-	p325_11{"memindex ϕ"}
-	p325_12{{"Sϕ Codeptr "}}
-	p325_12{{"Sϕ Codeptr "}}
-	p325_12{{"Sϕ Codeptr "}}
-	p325_12{{"Sϕ Codeptr "}}
-end
-block_326 --> phi_325
-block_327 --> phi_325
-subgraph block_326["Block 326"]
-	direction TB
-	b326_10["memindex__326 imm_readULEB32"]
-end
-branch_324 --> block_326
-subgraph branch_324["Branch 324"]
-	br324_9["cond__325 u8.!="]
-
-end
-block_328 --> branch_324
-subgraph block_328["Block 328"]
-	direction TB
-	b328_0[/"Start"\\]
-	b328_6["arg__330 0x40u8"]
-	b328_5["arg__328 0"]
-	b328_8["arg__327 u8.&"]
-	b328_9["cond__325 u8.!="]
-	b328_0 --> b328_6
-	b328_6 --> b328_5
-	b328_5 --> b328_8
-	b328_8 --> b328_9
-end
-subgraph block_327["Block 327"]
-	direction TB
-	b327_4["memindex__332 0u"]
-	b327_3["flags imm_readU8"]
-	b327_4 --> b327_3
-end
-branch_324 --> block_327
-subgraph block_322["Block 322"]
-	direction TB
-	b322_16["index pop_u32"]
-	b322_20["val mach_readMemory32_u8_64"]
-	b322_22["extend U64_extend8_s"]
-	b322_24["eff__318 push_u64"]
-	b322_15["offset imm_readULEB32"]
-	b322_16 --> b322_20
-	b322_20 --> b322_22
-	b322_22 --> b322_24
-	b322_24 --> b322_15
-end
-branch_319 --> block_322
-
-`;
-window.traces["I64_LOAD8_S"]["unlem_pretty"] = ''
-window.traces["I64_LOAD8_S"]["unlem_pretty__raw"] = ''
-window.traces["I64_LOAD8_S"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	push_u64(extend);
-}
-</pre>`;
-window.traces["I64_LOAD8_S"]["unlem_pretty__raw"] += `def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	push_u64(extend);
-}
-`;
-window.traces["I64_LOAD8_S"]["constUnLEM"] = ''
-window.traces["I64_LOAD8_S"]["constUnLEM__raw"] = ''
-window.traces["I64_LOAD8_S"]["constUnLEM"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__318 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend8_s"]
-	20 --> 22
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__326 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__325 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__328 0"]
-	8["arg__327 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__330 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__332 0u"]
-	34["eff__312 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend8_s"]
-	30 --> 32
-	30["val mach_readMemory64_u8_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__311 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD8_S"]["constUnLEM__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__318 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend8_s"]
-	20 --> 22
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__326 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__325 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__328 0"]
-	8["arg__327 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__330 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__332 0u"]
-	34["eff__312 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend8_s"]
-	30 --> 32
-	30["val mach_readMemory64_u8_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__311 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD8_S"]["chooseMerge"] = ''
-window.traces["I64_LOAD8_S"]["chooseMerge__raw"] = ''
-window.traces["I64_LOAD8_S"]["chooseMerge"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__318 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend8_s"]
-	20 --> 22
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__326 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__325 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__328 0"]
-	8["arg__327 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__330 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__332 0u"]
-	34["eff__312 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend8_s"]
-	30 --> 32
-	30["val mach_readMemory64_u8_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__311 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD8_S"]["chooseMerge__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__318 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend8_s"]
-	20 --> 22
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__326 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__325 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__328 0"]
-	8["arg__327 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__330 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__332 0u"]
-	34["eff__312 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend8_s"]
-	30 --> 32
-	30["val mach_readMemory64_u8_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__311 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD8_S"]["scheduled"] = ''
-window.traces["I64_LOAD8_S"]["scheduled__raw"] = ''
-window.traces["I64_LOAD8_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__330 : byte = 0x40u8;
-def arg__327 = u8.&(flags, arg__330);
-def arg__328 : byte = 0;
-def cond__325 = u8.!=(arg__327, arg__328);
-var memindex: u32;
-if (cond__325) {
-	def memindex__326 = imm_readULEB32();
-} else {
-	def memindex__332 : u32 = 0u;
-}
-// phis: memindex <- memindex__326; memindex <- memindex__332; 
-def cond__311 = m_isMemory64(memindex);
-if (cond__311) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	def eff__312 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	def eff__318 = push_u64(extend);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD8_S"]["scheduled__raw"] += `def flags = imm_readU8();
-def arg__330 : byte = 0x40u8;
-def arg__327 = u8.&(flags, arg__330);
-def arg__328 : byte = 0;
-def cond__325 = u8.!=(arg__327, arg__328);
-var memindex: u32;
-if (cond__325) {
-	def memindex__326 = imm_readULEB32();
-} else {
-	def memindex__332 : u32 = 0u;
-}
-// phis: memindex <- memindex__326; memindex <- memindex__332; 
-def cond__311 = m_isMemory64(memindex);
-if (cond__311) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	def eff__312 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	def eff__318 = push_u64(extend);
-}
-// phis: 
-`;
-window.traces["I64_LOAD8_S"]["pretty"] = ''
-window.traces["I64_LOAD8_S"]["pretty__raw"] = ''
-window.traces["I64_LOAD8_S"]["pretty"] += `<pre class=''>def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	push_u64(extend);
-}
-</pre>`;
-window.traces["I64_LOAD8_S"]["pretty__raw"] += `def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	push_u64(extend);
-}
-`;
-window.traces["I64_LOAD8_U"] = {}
-window.traces["I64_LOAD8_U"]["parsed"] = ''
-window.traces["I64_LOAD8_U"]["parsed__raw"] = ''
-window.traces["I64_LOAD8_U"]["parsed"] += `<pre class=''>def flags = imm_readU8();
-def memindex : u32 = 0u;
-def arg__348 : byte = 0;
-def arg__350 : byte = 0x40u8;
-def arg__349 = (flags);
-def arg__347 = u8.&(arg__349, arg__350);
-def cond__345 = u8.!=(arg__347, arg__348);
-if (cond__345) {
-	def memindex__346 = imm_readULEB32();
-}
-// phis: memindex <- memindex__346; 
-def arg__344 = (memindex);
-def cond__333 = m_isMemory64(arg__344);
-if (cond__333) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def arg__338 = (offset);
-	def arg__337 = (index);
-	def arg__336 = (memindex);
-	def val = mach_readMemory64_u8_64(arg__336, arg__337, arg__338);
-	def arg__335 = (val);
-	def eff__334 = push_u64(arg__335);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def arg__343 = (offset);
-	def arg__342 = (index);
-	def arg__341 = (memindex);
-	def val = mach_readMemory32_u8_64(arg__341, arg__342, arg__343);
-	def arg__340 = (val);
-	def eff__339 = push_u64(arg__340);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD8_U"]["parsed__raw"] += `def flags = imm_readU8();
-def memindex : u32 = 0u;
-def arg__348 : byte = 0;
-def arg__350 : byte = 0x40u8;
-def arg__349 = (flags);
-def arg__347 = u8.&(arg__349, arg__350);
-def cond__345 = u8.!=(arg__347, arg__348);
-if (cond__345) {
-	def memindex__346 = imm_readULEB32();
-}
-// phis: memindex <- memindex__346; 
-def arg__344 = (memindex);
-def cond__333 = m_isMemory64(arg__344);
-if (cond__333) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def arg__338 = (offset);
-	def arg__337 = (index);
-	def arg__336 = (memindex);
-	def val = mach_readMemory64_u8_64(arg__336, arg__337, arg__338);
-	def arg__335 = (val);
-	def eff__334 = push_u64(arg__335);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def arg__343 = (offset);
-	def arg__342 = (index);
-	def arg__341 = (memindex);
-	def val = mach_readMemory32_u8_64(arg__341, arg__342, arg__343);
-	def arg__340 = (val);
-	def eff__339 = push_u64(arg__340);
-}
-// phis: 
-`;
-window.traces["I64_LOAD8_U"]["raw"] = ''
-window.traces["I64_LOAD8_U"]["raw__raw"] = ''
-window.traces["I64_LOAD8_U"]["raw"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__339 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__346 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__345 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__348 0"]
-	8["arg__347 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__350 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__351 0u"]
-	30["eff__334 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u8_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__333 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD8_U"]["raw__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__339 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__346 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__345 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__348 0"]
-	8["arg__347 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__350 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__351 0u"]
-	30["eff__334 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u8_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__333 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD8_U"]["spytial"] = ''
-window.traces["I64_LOAD8_U"]["spytial__raw"] = ''
-window.traces["I64_LOAD8_U"]["spytial"] += `<pre class=''>{
-"atoms": [
-{
-"id": "node_1",
-"type": "finish",
-"label": "Finish"
-},
-{
-"id": "node_31",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__333]]"
-},
-{
-"id": "node_32",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__333]]"
-},
-{
-"id": "node_0",
-"type": "start",
-"label": "Start"
-},
-{
-"id": "node_14",
-"type": "intrinsic",
-"label": "m_isMemory64 [cond__333]"
-},
-{
-"id": "node_23",
-"type": "intrinsic",
-"label": "imm_readULEB64 [offset]"
-},
-{
-"id": "node_15",
-"type": "intrinsic",
-"label": "imm_readULEB32 [offset]"
-},
-{
-"id": "node_30",
-"type": "intrinsic",
-"label": "push_u64 [eff__334]"
-},
-{
-"id": "node_22",
-"type": "intrinsic",
-"label": "push_u64 [eff__339]"
-},
-{
-"id": "node_11",
-"type": "phi",
-"label": "Phi"
-},
-{
-"id": "node_12",
-"type": "phi",
-"label": "StatePhi [u8.!= [cond__345]]"
-},
-{
-"id": "node_28",
-"type": "intrinsic",
-"label": "mach_readMemory64_u8_64 [val]"
-},
-{
-"id": "node_24",
-"type": "intrinsic",
-"label": "pop_u64 [index]"
-},
-{
-"id": "node_20",
-"type": "intrinsic",
-"label": "mach_readMemory32_u8_64 [val]"
-},
-{
-"id": "node_16",
-"type": "intrinsic",
-"label": "pop_u32 [index]"
-},
-{
-"id": "node_9",
-"type": "intrinsic",
-"label": "u8.!= [cond__345]"
-},
-{
-"id": "node_10",
-"type": "intrinsic",
-"label": "imm_readULEB32 [memindex__346]"
-},
-{
-"id": "node_4",
-"type": "lit",
-"label": "0u"
-},
-{
-"id": "node_3",
-"type": "intrinsic",
-"label": "imm_readU8 [flags]"
-},
-{
-"id": "node_8",
-"type": "intrinsic",
-"label": "u8.& [arg__347]"
-},
-{
-"id": "node_5",
-"type": "lit",
-"label": "0"
-},
-{
-"id": "node_6",
-"type": "lit",
-"label": "0x40u8"
-}
-],
-"relations": [
-{
-"id": "uses",
-"name": "Uses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_14", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_28"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_20"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_28", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_28", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_28", "node_23"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_20", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_15"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_8"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_5"],
-"types": ["intrinsic", "lit"]
-},
-{
-"atoms": ["node_8", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_6"],
-"types": ["intrinsic", "lit"]
-}
-]
-},
-{
-"id": "state_uses",
-"name": "StateUses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_0"],
-"types": ["finish", "start"]
-},
-{
-"atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_16", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_10", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_3", "node_0"],
-"types": ["intrinsic", "start"]
-}
-]
-},
-{
-"id": "phi_cond",
-"name": "PhiCond",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_9"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_true",
-"name": "PhiTrue",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_10"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_false",
-"name": "PhiFalse",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_4"],
-"types": ["phi", "lit"]
-},
-{
-"atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
-}
-]
-}
-]
-}</pre>`;
-window.traces["I64_LOAD8_U"]["spytial__raw"] += `{
-"atoms": [
-{
-"id": "node_1",
-"type": "finish",
-"label": "Finish"
-},
-{
-"id": "node_31",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__333]]"
-},
-{
-"id": "node_32",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__333]]"
-},
-{
-"id": "node_0",
-"type": "start",
-"label": "Start"
-},
-{
-"id": "node_14",
-"type": "intrinsic",
-"label": "m_isMemory64 [cond__333]"
-},
-{
-"id": "node_23",
-"type": "intrinsic",
-"label": "imm_readULEB64 [offset]"
-},
-{
-"id": "node_15",
-"type": "intrinsic",
-"label": "imm_readULEB32 [offset]"
-},
-{
-"id": "node_30",
-"type": "intrinsic",
-"label": "push_u64 [eff__334]"
-},
-{
-"id": "node_22",
-"type": "intrinsic",
-"label": "push_u64 [eff__339]"
-},
-{
-"id": "node_11",
-"type": "phi",
-"label": "Phi"
-},
-{
-"id": "node_12",
-"type": "phi",
-"label": "StatePhi [u8.!= [cond__345]]"
-},
-{
-"id": "node_28",
-"type": "intrinsic",
-"label": "mach_readMemory64_u8_64 [val]"
-},
-{
-"id": "node_24",
-"type": "intrinsic",
-"label": "pop_u64 [index]"
-},
-{
-"id": "node_20",
-"type": "intrinsic",
-"label": "mach_readMemory32_u8_64 [val]"
-},
-{
-"id": "node_16",
-"type": "intrinsic",
-"label": "pop_u32 [index]"
-},
-{
-"id": "node_9",
-"type": "intrinsic",
-"label": "u8.!= [cond__345]"
-},
-{
-"id": "node_10",
-"type": "intrinsic",
-"label": "imm_readULEB32 [memindex__346]"
-},
-{
-"id": "node_4",
-"type": "lit",
-"label": "0u"
-},
-{
-"id": "node_3",
-"type": "intrinsic",
-"label": "imm_readU8 [flags]"
-},
-{
-"id": "node_8",
-"type": "intrinsic",
-"label": "u8.& [arg__347]"
-},
-{
-"id": "node_5",
-"type": "lit",
-"label": "0"
-},
-{
-"id": "node_6",
-"type": "lit",
-"label": "0x40u8"
-}
-],
-"relations": [
-{
-"id": "uses",
-"name": "Uses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_14", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_28"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_20"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_28", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_28", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_28", "node_23"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_20", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_15"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_8"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_5"],
-"types": ["intrinsic", "lit"]
-},
-{
-"atoms": ["node_8", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_6"],
-"types": ["intrinsic", "lit"]
-}
-]
-},
-{
-"id": "state_uses",
-"name": "StateUses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_0"],
-"types": ["finish", "start"]
-},
-{
-"atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_16", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_10", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_3", "node_0"],
-"types": ["intrinsic", "start"]
-}
-]
-},
-{
-"id": "phi_cond",
-"name": "PhiCond",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_9"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_true",
-"name": "PhiTrue",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_10"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_false",
-"name": "PhiFalse",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_4"],
-"types": ["phi", "lit"]
-},
-{
-"atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
-}
-]
-}
-]
-}`;
-window.traces["I64_LOAD8_U"]["overloadOps"] = ''
-window.traces["I64_LOAD8_U"]["overloadOps__raw"] = ''
-window.traces["I64_LOAD8_U"]["overloadOps"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__339 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__346 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__345 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__348 0"]
-	8["arg__347 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__350 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__352 0u"]
-	30["eff__334 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u8_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__333 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD8_U"]["overloadOps__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__339 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__346 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__345 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__348 0"]
-	8["arg__347 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__350 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__352 0u"]
-	30["eff__334 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u8_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__333 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD8_U"]["addAbstractions"] = ''
-window.traces["I64_LOAD8_U"]["addAbstractions__raw"] = ''
-window.traces["I64_LOAD8_U"]["addAbstractions"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__339 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__346 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__345 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__348 0"]
-	8["arg__347 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__350 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__352 0u"]
-	30["eff__334 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u8_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__333 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD8_U"]["addAbstractions__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__339 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__346 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__345 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__348 0"]
-	8["arg__347 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__350 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__352 0u"]
-	30["eff__334 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u8_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__333 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD8_U"]["schedulerMermaid"] = ''
-window.traces["I64_LOAD8_U"]["schedulerMermaid__raw"] = ''
-window.traces["I64_LOAD8_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_329["Block 329"]
-	direction TB
-	b329_1[\\"Finish"/]
-end
-phi_331 --> block_329
-subgraph phi_331["Phi 331"]
-	p331_32{{"Sϕ Stack "}}
-	p331_31{{"Sϕ Codeptr "}}
-end
-block_332 --> phi_331
-block_333 --> phi_331
-subgraph block_332["Block 332"]
-	direction TB
-	b332_24["index pop_u64"]
-	b332_28["val mach_readMemory64_u8_64"]
-	b332_30["eff__334 push_u64"]
-	b332_23["offset imm_readULEB64"]
-	b332_24 --> b332_28
-	b332_28 --> b332_30
-	b332_30 --> b332_23
-end
-branch_330 --> block_332
-subgraph branch_330["Branch 330"]
-	br330_14["cond__333 m_isMemory64"]
-
-end
-block_334 --> branch_330
-subgraph block_334["Block 334"]
-	direction TB
-	b334_14["cond__333 m_isMemory64"]
-end
-phi_336 --> block_334
-subgraph phi_336["Phi 336"]
-	p336_12{{"Sϕ Codeptr "}}
-	p336_12{{"Sϕ Codeptr "}}
-	p336_12{{"Sϕ Codeptr "}}
-	p336_12{{"Sϕ Codeptr "}}
-	p336_11{"memindex ϕ"}
-	p336_11{"memindex ϕ"}
-	p336_11{"memindex ϕ"}
-	p336_11{"memindex ϕ"}
-	p336_11{"memindex ϕ"}
-	p336_11{"memindex ϕ"}
-	p336_12{{"Sϕ Codeptr "}}
-	p336_12{{"Sϕ Codeptr "}}
-	p336_12{{"Sϕ Codeptr "}}
-	p336_12{{"Sϕ Codeptr "}}
-end
-block_337 --> phi_336
-block_338 --> phi_336
-subgraph block_337["Block 337"]
-	direction TB
-	b337_10["memindex__346 imm_readULEB32"]
-end
-branch_335 --> block_337
-subgraph branch_335["Branch 335"]
-	br335_9["cond__345 u8.!="]
-
-end
-block_339 --> branch_335
-subgraph block_339["Block 339"]
-	direction TB
-	b339_0[/"Start"\\]
-	b339_6["arg__350 0x40u8"]
-	b339_5["arg__348 0"]
-	b339_8["arg__347 u8.&"]
-	b339_9["cond__345 u8.!="]
-	b339_0 --> b339_6
-	b339_6 --> b339_5
-	b339_5 --> b339_8
-	b339_8 --> b339_9
-end
-subgraph block_338["Block 338"]
-	direction TB
-	b338_4["memindex__352 0u"]
-	b338_3["flags imm_readU8"]
-	b338_4 --> b338_3
-end
-branch_335 --> block_338
-subgraph block_333["Block 333"]
-	direction TB
-	b333_16["index pop_u32"]
-	b333_20["val mach_readMemory32_u8_64"]
-	b333_22["eff__339 push_u64"]
-	b333_15["offset imm_readULEB32"]
-	b333_16 --> b333_20
-	b333_20 --> b333_22
-	b333_22 --> b333_15
-end
-branch_330 --> block_333
-
-</pre>`;
-window.traces["I64_LOAD8_U"]["schedulerMermaid__raw"] += `graph TD
-subgraph block_329["Block 329"]
-	direction TB
-	b329_1[\\"Finish"/]
-end
-phi_331 --> block_329
-subgraph phi_331["Phi 331"]
-	p331_32{{"Sϕ Stack "}}
-	p331_31{{"Sϕ Codeptr "}}
-end
-block_332 --> phi_331
-block_333 --> phi_331
-subgraph block_332["Block 332"]
-	direction TB
-	b332_24["index pop_u64"]
-	b332_28["val mach_readMemory64_u8_64"]
-	b332_30["eff__334 push_u64"]
-	b332_23["offset imm_readULEB64"]
-	b332_24 --> b332_28
-	b332_28 --> b332_30
-	b332_30 --> b332_23
-end
-branch_330 --> block_332
-subgraph branch_330["Branch 330"]
-	br330_14["cond__333 m_isMemory64"]
-
-end
-block_334 --> branch_330
-subgraph block_334["Block 334"]
-	direction TB
-	b334_14["cond__333 m_isMemory64"]
-end
-phi_336 --> block_334
-subgraph phi_336["Phi 336"]
-	p336_12{{"Sϕ Codeptr "}}
-	p336_12{{"Sϕ Codeptr "}}
-	p336_12{{"Sϕ Codeptr "}}
-	p336_12{{"Sϕ Codeptr "}}
-	p336_11{"memindex ϕ"}
-	p336_11{"memindex ϕ"}
-	p336_11{"memindex ϕ"}
-	p336_11{"memindex ϕ"}
-	p336_11{"memindex ϕ"}
-	p336_11{"memindex ϕ"}
-	p336_12{{"Sϕ Codeptr "}}
-	p336_12{{"Sϕ Codeptr "}}
-	p336_12{{"Sϕ Codeptr "}}
-	p336_12{{"Sϕ Codeptr "}}
-end
-block_337 --> phi_336
-block_338 --> phi_336
-subgraph block_337["Block 337"]
-	direction TB
-	b337_10["memindex__346 imm_readULEB32"]
-end
-branch_335 --> block_337
-subgraph branch_335["Branch 335"]
-	br335_9["cond__345 u8.!="]
-
-end
-block_339 --> branch_335
-subgraph block_339["Block 339"]
-	direction TB
-	b339_0[/"Start"\\]
-	b339_6["arg__350 0x40u8"]
-	b339_5["arg__348 0"]
-	b339_8["arg__347 u8.&"]
-	b339_9["cond__345 u8.!="]
-	b339_0 --> b339_6
-	b339_6 --> b339_5
-	b339_5 --> b339_8
-	b339_8 --> b339_9
-end
-subgraph block_338["Block 338"]
-	direction TB
-	b338_4["memindex__352 0u"]
-	b338_3["flags imm_readU8"]
-	b338_4 --> b338_3
-end
-branch_335 --> block_338
-subgraph block_333["Block 333"]
-	direction TB
-	b333_16["index pop_u32"]
-	b333_20["val mach_readMemory32_u8_64"]
-	b333_22["eff__339 push_u64"]
-	b333_15["offset imm_readULEB32"]
-	b333_16 --> b333_20
-	b333_20 --> b333_22
-	b333_22 --> b333_15
-end
-branch_330 --> block_333
-
-`;
-window.traces["I64_LOAD8_U"]["unLEM"] = ''
-window.traces["I64_LOAD8_U"]["unLEM__raw"] = ''
-window.traces["I64_LOAD8_U"]["unLEM"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__339 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__346 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__345 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__348 0"]
-	8["arg__347 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__350 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__352 0u"]
-	30["eff__334 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u8_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__333 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD8_U"]["unLEM__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__339 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__346 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__345 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__348 0"]
-	8["arg__347 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__350 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__352 0u"]
-	30["eff__334 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u8_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__333 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD8_U"]["unlem_schedule"] = ''
-window.traces["I64_LOAD8_U"]["unlem_schedule__raw"] = ''
-window.traces["I64_LOAD8_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__350 : byte = 0x40u8;
-def arg__347 = u8.&(flags, arg__350);
-def arg__348 : byte = 0;
-def cond__345 = u8.!=(arg__347, arg__348);
-var memindex: u32;
-if (cond__345) {
-	def memindex__346 = imm_readULEB32();
-} else {
-	def memindex__352 : u32 = 0u;
-}
-// phis: memindex <- memindex__346; memindex <- memindex__352; 
-def cond__333 = m_isMemory64(memindex);
-if (cond__333) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def eff__334 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def eff__339 = push_u64(val);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD8_U"]["unlem_schedule__raw"] += `def flags = imm_readU8();
-def arg__350 : byte = 0x40u8;
-def arg__347 = u8.&(flags, arg__350);
-def arg__348 : byte = 0;
-def cond__345 = u8.!=(arg__347, arg__348);
-var memindex: u32;
-if (cond__345) {
-	def memindex__346 = imm_readULEB32();
-} else {
-	def memindex__352 : u32 = 0u;
-}
-// phis: memindex <- memindex__346; memindex <- memindex__352; 
-def cond__333 = m_isMemory64(memindex);
-if (cond__333) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def eff__334 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def eff__339 = push_u64(val);
-}
-// phis: 
-`;
-window.traces["I64_LOAD8_U"]["unlem_scheduler"] = ''
-window.traces["I64_LOAD8_U"]["unlem_scheduler__raw"] = ''
-window.traces["I64_LOAD8_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_340["Block 340"]
-	direction TB
-	b340_1[\\"Finish"/]
-end
-phi_342 --> block_340
-subgraph phi_342["Phi 342"]
-	p342_32{{"Sϕ Stack "}}
-	p342_31{{"Sϕ Codeptr "}}
-end
-block_343 --> phi_342
-block_344 --> phi_342
-subgraph block_343["Block 343"]
-	direction TB
-	b343_24["index pop_u64"]
-	b343_28["val mach_readMemory64_u8_64"]
-	b343_30["eff__334 push_u64"]
-	b343_23["offset imm_readULEB64"]
-	b343_24 --> b343_28
-	b343_28 --> b343_30
-	b343_30 --> b343_23
-end
-branch_341 --> block_343
-subgraph branch_341["Branch 341"]
-	br341_14["cond__333 m_isMemory64"]
-
-end
-block_345 --> branch_341
-subgraph block_345["Block 345"]
-	direction TB
-	b345_14["cond__333 m_isMemory64"]
-end
-phi_347 --> block_345
-subgraph phi_347["Phi 347"]
-	p347_12{{"Sϕ Codeptr "}}
-	p347_12{{"Sϕ Codeptr "}}
-	p347_12{{"Sϕ Codeptr "}}
-	p347_12{{"Sϕ Codeptr "}}
-	p347_11{"memindex ϕ"}
-	p347_11{"memindex ϕ"}
-	p347_11{"memindex ϕ"}
-	p347_11{"memindex ϕ"}
-	p347_11{"memindex ϕ"}
-	p347_11{"memindex ϕ"}
-	p347_12{{"Sϕ Codeptr "}}
-	p347_12{{"Sϕ Codeptr "}}
-	p347_12{{"Sϕ Codeptr "}}
-	p347_12{{"Sϕ Codeptr "}}
-end
-block_348 --> phi_347
-block_349 --> phi_347
-subgraph block_348["Block 348"]
-	direction TB
-	b348_10["memindex__346 imm_readULEB32"]
-end
-branch_346 --> block_348
-subgraph branch_346["Branch 346"]
-	br346_9["cond__345 u8.!="]
-
-end
-block_350 --> branch_346
-subgraph block_350["Block 350"]
-	direction TB
-	b350_0[/"Start"\\]
-	b350_6["arg__350 0x40u8"]
-	b350_5["arg__348 0"]
-	b350_8["arg__347 u8.&"]
-	b350_9["cond__345 u8.!="]
-	b350_0 --> b350_6
-	b350_6 --> b350_5
-	b350_5 --> b350_8
-	b350_8 --> b350_9
-end
-subgraph block_349["Block 349"]
-	direction TB
-	b349_4["memindex__352 0u"]
-	b349_3["flags imm_readU8"]
-	b349_4 --> b349_3
-end
-branch_346 --> block_349
-subgraph block_344["Block 344"]
-	direction TB
-	b344_16["index pop_u32"]
-	b344_20["val mach_readMemory32_u8_64"]
-	b344_22["eff__339 push_u64"]
-	b344_15["offset imm_readULEB32"]
-	b344_16 --> b344_20
-	b344_20 --> b344_22
-	b344_22 --> b344_15
-end
-branch_341 --> block_344
-
-</pre>`;
-window.traces["I64_LOAD8_U"]["unlem_scheduler__raw"] += `graph TD
-subgraph block_340["Block 340"]
-	direction TB
-	b340_1[\\"Finish"/]
-end
-phi_342 --> block_340
-subgraph phi_342["Phi 342"]
-	p342_32{{"Sϕ Stack "}}
-	p342_31{{"Sϕ Codeptr "}}
-end
-block_343 --> phi_342
-block_344 --> phi_342
-subgraph block_343["Block 343"]
-	direction TB
-	b343_24["index pop_u64"]
-	b343_28["val mach_readMemory64_u8_64"]
-	b343_30["eff__334 push_u64"]
-	b343_23["offset imm_readULEB64"]
-	b343_24 --> b343_28
-	b343_28 --> b343_30
-	b343_30 --> b343_23
-end
-branch_341 --> block_343
-subgraph branch_341["Branch 341"]
-	br341_14["cond__333 m_isMemory64"]
-
-end
-block_345 --> branch_341
-subgraph block_345["Block 345"]
-	direction TB
-	b345_14["cond__333 m_isMemory64"]
-end
-phi_347 --> block_345
-subgraph phi_347["Phi 347"]
-	p347_12{{"Sϕ Codeptr "}}
-	p347_12{{"Sϕ Codeptr "}}
-	p347_12{{"Sϕ Codeptr "}}
-	p347_12{{"Sϕ Codeptr "}}
-	p347_11{"memindex ϕ"}
-	p347_11{"memindex ϕ"}
-	p347_11{"memindex ϕ"}
-	p347_11{"memindex ϕ"}
-	p347_11{"memindex ϕ"}
-	p347_11{"memindex ϕ"}
-	p347_12{{"Sϕ Codeptr "}}
-	p347_12{{"Sϕ Codeptr "}}
-	p347_12{{"Sϕ Codeptr "}}
-	p347_12{{"Sϕ Codeptr "}}
-end
-block_348 --> phi_347
-block_349 --> phi_347
-subgraph block_348["Block 348"]
-	direction TB
-	b348_10["memindex__346 imm_readULEB32"]
-end
-branch_346 --> block_348
-subgraph branch_346["Branch 346"]
-	br346_9["cond__345 u8.!="]
-
-end
-block_350 --> branch_346
-subgraph block_350["Block 350"]
-	direction TB
-	b350_0[/"Start"\\]
-	b350_6["arg__350 0x40u8"]
-	b350_5["arg__348 0"]
-	b350_8["arg__347 u8.&"]
-	b350_9["cond__345 u8.!="]
-	b350_0 --> b350_6
-	b350_6 --> b350_5
-	b350_5 --> b350_8
-	b350_8 --> b350_9
-end
-subgraph block_349["Block 349"]
-	direction TB
-	b349_4["memindex__352 0u"]
-	b349_3["flags imm_readU8"]
-	b349_4 --> b349_3
-end
-branch_346 --> block_349
-subgraph block_344["Block 344"]
-	direction TB
-	b344_16["index pop_u32"]
-	b344_20["val mach_readMemory32_u8_64"]
-	b344_22["eff__339 push_u64"]
-	b344_15["offset imm_readULEB32"]
-	b344_16 --> b344_20
-	b344_20 --> b344_22
-	b344_22 --> b344_15
-end
-branch_341 --> block_344
-
-`;
-window.traces["I64_LOAD8_U"]["unlem_pretty"] = ''
-window.traces["I64_LOAD8_U"]["unlem_pretty__raw"] = ''
-window.traces["I64_LOAD8_U"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	push_u64(val);
-}
-</pre>`;
-window.traces["I64_LOAD8_U"]["unlem_pretty__raw"] += `def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	push_u64(val);
-}
-`;
-window.traces["I64_LOAD8_U"]["constUnLEM"] = ''
-window.traces["I64_LOAD8_U"]["constUnLEM__raw"] = ''
-window.traces["I64_LOAD8_U"]["constUnLEM"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__339 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__346 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__345 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__348 0"]
-	8["arg__347 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__350 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__352 0u"]
-	30["eff__334 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u8_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__333 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD8_U"]["constUnLEM__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__339 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__346 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__345 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__348 0"]
-	8["arg__347 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__350 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__352 0u"]
-	30["eff__334 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u8_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__333 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD8_U"]["chooseMerge"] = ''
-window.traces["I64_LOAD8_U"]["chooseMerge__raw"] = ''
-window.traces["I64_LOAD8_U"]["chooseMerge"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__339 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__346 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__345 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__348 0"]
-	8["arg__347 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__350 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__352 0u"]
-	30["eff__334 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u8_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__333 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD8_U"]["chooseMerge__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__339 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u8_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__346 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__345 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__348 0"]
-	8["arg__347 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__350 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__352 0u"]
-	30["eff__334 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u8_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__333 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD8_U"]["scheduled"] = ''
-window.traces["I64_LOAD8_U"]["scheduled__raw"] = ''
-window.traces["I64_LOAD8_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__350 : byte = 0x40u8;
-def arg__347 = u8.&(flags, arg__350);
-def arg__348 : byte = 0;
-def cond__345 = u8.!=(arg__347, arg__348);
-var memindex: u32;
-if (cond__345) {
-	def memindex__346 = imm_readULEB32();
-} else {
-	def memindex__352 : u32 = 0u;
-}
-// phis: memindex <- memindex__346; memindex <- memindex__352; 
-def cond__333 = m_isMemory64(memindex);
-if (cond__333) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def eff__334 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def eff__339 = push_u64(val);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD8_U"]["scheduled__raw"] += `def flags = imm_readU8();
-def arg__350 : byte = 0x40u8;
-def arg__347 = u8.&(flags, arg__350);
-def arg__348 : byte = 0;
-def cond__345 = u8.!=(arg__347, arg__348);
-var memindex: u32;
-if (cond__345) {
-	def memindex__346 = imm_readULEB32();
-} else {
-	def memindex__352 : u32 = 0u;
-}
-// phis: memindex <- memindex__346; memindex <- memindex__352; 
-def cond__333 = m_isMemory64(memindex);
-if (cond__333) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def eff__334 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def eff__339 = push_u64(val);
-}
-// phis: 
-`;
-window.traces["I64_LOAD8_U"]["pretty"] = ''
-window.traces["I64_LOAD8_U"]["pretty__raw"] = ''
-window.traces["I64_LOAD8_U"]["pretty"] += `<pre class=''>def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	push_u64(val);
-}
-</pre>`;
-window.traces["I64_LOAD8_U"]["pretty__raw"] += `def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	push_u64(val);
-}
-`;
-window.traces["I64_LOAD16_S"] = {}
-window.traces["I64_LOAD16_S"]["parsed"] = ''
-window.traces["I64_LOAD16_S"]["parsed__raw"] = ''
-window.traces["I64_LOAD16_S"]["parsed"] += `<pre class=''>def flags = imm_readU8();
-def memindex : u32 = 0u;
-def arg__370 : byte = 0;
-def arg__372 : byte = 0x40u8;
-def arg__371 = (flags);
-def arg__369 = u8.&(arg__371, arg__372);
-def cond__367 = u8.!=(arg__369, arg__370);
-if (cond__367) {
-	def memindex__368 = imm_readULEB32();
-}
-// phis: memindex <- memindex__368; 
-def arg__366 = (memindex);
-def cond__353 = m_isMemory64(arg__366);
-if (cond__353) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def arg__359 = (offset);
-	def arg__358 = (index);
-	def arg__357 = (memindex);
-	def val = mach_readMemory64_u16_64(arg__357, arg__358, arg__359);
-	def arg__356 = (val);
-	def extend = U64_extend16_s(arg__356);
-	def arg__355 = (extend);
-	def eff__354 = push_u64(arg__355);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def arg__365 = (offset);
-	def arg__364 = (index);
-	def arg__363 = (memindex);
-	def val = mach_readMemory32_u16_64(arg__363, arg__364, arg__365);
-	def arg__362 = (val);
-	def extend = U64_extend16_s(arg__362);
-	def arg__361 = (extend);
-	def eff__360 = push_u64(arg__361);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD16_S"]["parsed__raw"] += `def flags = imm_readU8();
-def memindex : u32 = 0u;
-def arg__370 : byte = 0;
-def arg__372 : byte = 0x40u8;
-def arg__371 = (flags);
-def arg__369 = u8.&(arg__371, arg__372);
-def cond__367 = u8.!=(arg__369, arg__370);
-if (cond__367) {
-	def memindex__368 = imm_readULEB32();
-}
-// phis: memindex <- memindex__368; 
-def arg__366 = (memindex);
-def cond__353 = m_isMemory64(arg__366);
-if (cond__353) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def arg__359 = (offset);
-	def arg__358 = (index);
-	def arg__357 = (memindex);
-	def val = mach_readMemory64_u16_64(arg__357, arg__358, arg__359);
-	def arg__356 = (val);
-	def extend = U64_extend16_s(arg__356);
-	def arg__355 = (extend);
-	def eff__354 = push_u64(arg__355);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def arg__365 = (offset);
-	def arg__364 = (index);
-	def arg__363 = (memindex);
-	def val = mach_readMemory32_u16_64(arg__363, arg__364, arg__365);
-	def arg__362 = (val);
-	def extend = U64_extend16_s(arg__362);
-	def arg__361 = (extend);
-	def eff__360 = push_u64(arg__361);
-}
-// phis: 
-`;
-window.traces["I64_LOAD16_S"]["raw"] = ''
-window.traces["I64_LOAD16_S"]["raw__raw"] = ''
-window.traces["I64_LOAD16_S"]["raw"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__360 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend16_s"]
-	20 --> 22
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__368 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__367 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__370 0"]
-	8["arg__369 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__372 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__373 0u"]
-	34["eff__354 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend16_s"]
-	30 --> 32
-	30["val mach_readMemory64_u16_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__353 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD16_S"]["raw__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__360 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend16_s"]
-	20 --> 22
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__368 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__367 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__370 0"]
-	8["arg__369 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__372 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__373 0u"]
-	34["eff__354 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend16_s"]
-	30 --> 32
-	30["val mach_readMemory64_u16_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__353 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD16_S"]["spytial"] = ''
-window.traces["I64_LOAD16_S"]["spytial__raw"] = ''
-window.traces["I64_LOAD16_S"]["spytial"] += `<pre class=''>{
-"atoms": [
-{
-"id": "node_1",
-"type": "finish",
-"label": "Finish"
-},
-{
-"id": "node_35",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__353]]"
-},
-{
-"id": "node_36",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__353]]"
-},
-{
-"id": "node_0",
-"type": "start",
-"label": "Start"
-},
-{
-"id": "node_14",
-"type": "intrinsic",
-"label": "m_isMemory64 [cond__353]"
-},
-{
-"id": "node_25",
-"type": "intrinsic",
-"label": "imm_readULEB64 [offset]"
-},
-{
-"id": "node_15",
-"type": "intrinsic",
-"label": "imm_readULEB32 [offset]"
-},
-{
-"id": "node_34",
-"type": "intrinsic",
-"label": "push_u64 [eff__354]"
-},
-{
-"id": "node_24",
-"type": "intrinsic",
-"label": "push_u64 [eff__360]"
-},
-{
-"id": "node_11",
-"type": "phi",
-"label": "Phi"
-},
-{
-"id": "node_12",
-"type": "phi",
-"label": "StatePhi [u8.!= [cond__367]]"
-},
-{
-"id": "node_32",
-"type": "intrinsic",
-"label": "U64_extend16_s [extend]"
-},
-{
-"id": "node_26",
-"type": "intrinsic",
-"label": "pop_u64 [index]"
-},
-{
-"id": "node_22",
-"type": "intrinsic",
-"label": "U64_extend16_s [extend]"
-},
-{
-"id": "node_16",
-"type": "intrinsic",
-"label": "pop_u32 [index]"
-},
-{
-"id": "node_9",
-"type": "intrinsic",
-"label": "u8.!= [cond__367]"
-},
-{
-"id": "node_10",
-"type": "intrinsic",
-"label": "imm_readULEB32 [memindex__368]"
-},
-{
-"id": "node_4",
-"type": "lit",
-"label": "0u"
-},
-{
-"id": "node_3",
-"type": "intrinsic",
-"label": "imm_readU8 [flags]"
-},
-{
-"id": "node_30",
-"type": "intrinsic",
-"label": "mach_readMemory64_u16_64 [val]"
-},
-{
-"id": "node_20",
-"type": "intrinsic",
-"label": "mach_readMemory32_u16_64 [val]"
-},
-{
-"id": "node_8",
-"type": "intrinsic",
-"label": "u8.& [arg__369]"
-},
-{
-"id": "node_5",
-"type": "lit",
-"label": "0"
-},
-{
-"id": "node_6",
-"type": "lit",
-"label": "0x40u8"
-}
-],
-"relations": [
-{
-"id": "uses",
-"name": "Uses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_14", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_34", "node_32"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_22"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_30"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_20"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_8"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_5"],
-"types": ["intrinsic", "lit"]
-},
-{
-"atoms": ["node_30", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_26"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_30", "node_25"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_20", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_15"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_6"],
-"types": ["intrinsic", "lit"]
-}
-]
-},
-{
-"id": "state_uses",
-"name": "StateUses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_1", "node_35"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_36"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_0"],
-"types": ["finish", "start"]
-},
-{
-"atoms": ["node_25", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_34", "node_26"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_26", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_16", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_10", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_3", "node_0"],
-"types": ["intrinsic", "start"]
-}
-]
-},
-{
-"id": "phi_cond",
-"name": "PhiCond",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_35", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_36", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_9"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_true",
-"name": "PhiTrue",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_35", "node_25"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_36", "node_34"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_10"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_false",
-"name": "PhiFalse",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_35", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_36", "node_24"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_4"],
-"types": ["phi", "lit"]
-},
-{
-"atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
-}
-]
-}
-]
-}</pre>`;
-window.traces["I64_LOAD16_S"]["spytial__raw"] += `{
-"atoms": [
-{
-"id": "node_1",
-"type": "finish",
-"label": "Finish"
-},
-{
-"id": "node_35",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__353]]"
-},
-{
-"id": "node_36",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__353]]"
-},
-{
-"id": "node_0",
-"type": "start",
-"label": "Start"
-},
-{
-"id": "node_14",
-"type": "intrinsic",
-"label": "m_isMemory64 [cond__353]"
-},
-{
-"id": "node_25",
-"type": "intrinsic",
-"label": "imm_readULEB64 [offset]"
-},
-{
-"id": "node_15",
-"type": "intrinsic",
-"label": "imm_readULEB32 [offset]"
-},
-{
-"id": "node_34",
-"type": "intrinsic",
-"label": "push_u64 [eff__354]"
-},
-{
-"id": "node_24",
-"type": "intrinsic",
-"label": "push_u64 [eff__360]"
-},
-{
-"id": "node_11",
-"type": "phi",
-"label": "Phi"
-},
-{
-"id": "node_12",
-"type": "phi",
-"label": "StatePhi [u8.!= [cond__367]]"
-},
-{
-"id": "node_32",
-"type": "intrinsic",
-"label": "U64_extend16_s [extend]"
-},
-{
-"id": "node_26",
-"type": "intrinsic",
-"label": "pop_u64 [index]"
-},
-{
-"id": "node_22",
-"type": "intrinsic",
-"label": "U64_extend16_s [extend]"
-},
-{
-"id": "node_16",
-"type": "intrinsic",
-"label": "pop_u32 [index]"
-},
-{
-"id": "node_9",
-"type": "intrinsic",
-"label": "u8.!= [cond__367]"
-},
-{
-"id": "node_10",
-"type": "intrinsic",
-"label": "imm_readULEB32 [memindex__368]"
-},
-{
-"id": "node_4",
-"type": "lit",
-"label": "0u"
-},
-{
-"id": "node_3",
-"type": "intrinsic",
-"label": "imm_readU8 [flags]"
-},
-{
-"id": "node_30",
-"type": "intrinsic",
-"label": "mach_readMemory64_u16_64 [val]"
-},
-{
-"id": "node_20",
-"type": "intrinsic",
-"label": "mach_readMemory32_u16_64 [val]"
-},
-{
-"id": "node_8",
-"type": "intrinsic",
-"label": "u8.& [arg__369]"
-},
-{
-"id": "node_5",
-"type": "lit",
-"label": "0"
-},
-{
-"id": "node_6",
-"type": "lit",
-"label": "0x40u8"
-}
-],
-"relations": [
-{
-"id": "uses",
-"name": "Uses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_14", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_34", "node_32"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_22"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_30"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_20"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_8"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_5"],
-"types": ["intrinsic", "lit"]
-},
-{
-"atoms": ["node_30", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_26"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_30", "node_25"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_20", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_15"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_6"],
-"types": ["intrinsic", "lit"]
-}
-]
-},
-{
-"id": "state_uses",
-"name": "StateUses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_1", "node_35"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_36"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_0"],
-"types": ["finish", "start"]
-},
-{
-"atoms": ["node_25", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_34", "node_26"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_26", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_16", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_10", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_3", "node_0"],
-"types": ["intrinsic", "start"]
-}
-]
-},
-{
-"id": "phi_cond",
-"name": "PhiCond",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_35", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_36", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_9"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_true",
-"name": "PhiTrue",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_35", "node_25"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_36", "node_34"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_10"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_false",
-"name": "PhiFalse",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_35", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_36", "node_24"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_4"],
-"types": ["phi", "lit"]
-},
-{
-"atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
-}
-]
-}
-]
-}`;
-window.traces["I64_LOAD16_S"]["overloadOps"] = ''
-window.traces["I64_LOAD16_S"]["overloadOps__raw"] = ''
-window.traces["I64_LOAD16_S"]["overloadOps"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__360 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend16_s"]
-	20 --> 22
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__368 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__367 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__370 0"]
-	8["arg__369 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__372 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__374 0u"]
-	34["eff__354 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend16_s"]
-	30 --> 32
-	30["val mach_readMemory64_u16_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__353 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD16_S"]["overloadOps__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__360 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend16_s"]
-	20 --> 22
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__368 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__367 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__370 0"]
-	8["arg__369 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__372 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__374 0u"]
-	34["eff__354 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend16_s"]
-	30 --> 32
-	30["val mach_readMemory64_u16_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__353 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD16_S"]["addAbstractions"] = ''
-window.traces["I64_LOAD16_S"]["addAbstractions__raw"] = ''
-window.traces["I64_LOAD16_S"]["addAbstractions"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__360 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend16_s"]
-	20 --> 22
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__368 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__367 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__370 0"]
-	8["arg__369 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__372 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__374 0u"]
-	34["eff__354 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend16_s"]
-	30 --> 32
-	30["val mach_readMemory64_u16_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__353 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD16_S"]["addAbstractions__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__360 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend16_s"]
-	20 --> 22
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__368 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__367 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__370 0"]
-	8["arg__369 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__372 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__374 0u"]
-	34["eff__354 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend16_s"]
-	30 --> 32
-	30["val mach_readMemory64_u16_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__353 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD16_S"]["schedulerMermaid"] = ''
-window.traces["I64_LOAD16_S"]["schedulerMermaid__raw"] = ''
-window.traces["I64_LOAD16_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_351["Block 351"]
-	direction TB
-	b351_1[\\"Finish"/]
-end
-phi_353 --> block_351
-subgraph phi_353["Phi 353"]
-	p353_36{{"Sϕ Stack "}}
-	p353_35{{"Sϕ Codeptr "}}
-end
-block_354 --> phi_353
-block_355 --> phi_353
-subgraph block_354["Block 354"]
-	direction TB
-	b354_26["index pop_u64"]
-	b354_30["val mach_readMemory64_u16_64"]
-	b354_32["extend U64_extend16_s"]
-	b354_34["eff__354 push_u64"]
-	b354_25["offset imm_readULEB64"]
-	b354_26 --> b354_30
-	b354_30 --> b354_32
-	b354_32 --> b354_34
-	b354_34 --> b354_25
-end
-branch_352 --> block_354
-subgraph branch_352["Branch 352"]
-	br352_14["cond__353 m_isMemory64"]
-
-end
-block_356 --> branch_352
-subgraph block_356["Block 356"]
-	direction TB
-	b356_14["cond__353 m_isMemory64"]
-end
-phi_358 --> block_356
-subgraph phi_358["Phi 358"]
-	p358_12{{"Sϕ Codeptr "}}
-	p358_12{{"Sϕ Codeptr "}}
-	p358_12{{"Sϕ Codeptr "}}
-	p358_12{{"Sϕ Codeptr "}}
-	p358_11{"memindex ϕ"}
-	p358_11{"memindex ϕ"}
-	p358_11{"memindex ϕ"}
-	p358_11{"memindex ϕ"}
-	p358_11{"memindex ϕ"}
-	p358_11{"memindex ϕ"}
-	p358_12{{"Sϕ Codeptr "}}
-	p358_12{{"Sϕ Codeptr "}}
-	p358_12{{"Sϕ Codeptr "}}
-	p358_12{{"Sϕ Codeptr "}}
-end
-block_359 --> phi_358
-block_360 --> phi_358
-subgraph block_359["Block 359"]
-	direction TB
-	b359_10["memindex__368 imm_readULEB32"]
-end
-branch_357 --> block_359
-subgraph branch_357["Branch 357"]
-	br357_9["cond__367 u8.!="]
-
-end
-block_361 --> branch_357
-subgraph block_361["Block 361"]
-	direction TB
-	b361_0[/"Start"\\]
-	b361_6["arg__372 0x40u8"]
-	b361_5["arg__370 0"]
-	b361_8["arg__369 u8.&"]
-	b361_9["cond__367 u8.!="]
-	b361_0 --> b361_6
-	b361_6 --> b361_5
-	b361_5 --> b361_8
-	b361_8 --> b361_9
-end
-subgraph block_360["Block 360"]
-	direction TB
-	b360_4["memindex__374 0u"]
-	b360_3["flags imm_readU8"]
-	b360_4 --> b360_3
-end
-branch_357 --> block_360
-subgraph block_355["Block 355"]
-	direction TB
-	b355_16["index pop_u32"]
-	b355_20["val mach_readMemory32_u16_64"]
-	b355_22["extend U64_extend16_s"]
-	b355_24["eff__360 push_u64"]
-	b355_15["offset imm_readULEB32"]
-	b355_16 --> b355_20
-	b355_20 --> b355_22
-	b355_22 --> b355_24
-	b355_24 --> b355_15
-end
-branch_352 --> block_355
-
-</pre>`;
-window.traces["I64_LOAD16_S"]["schedulerMermaid__raw"] += `graph TD
-subgraph block_351["Block 351"]
-	direction TB
-	b351_1[\\"Finish"/]
-end
-phi_353 --> block_351
-subgraph phi_353["Phi 353"]
-	p353_36{{"Sϕ Stack "}}
-	p353_35{{"Sϕ Codeptr "}}
-end
-block_354 --> phi_353
-block_355 --> phi_353
-subgraph block_354["Block 354"]
-	direction TB
-	b354_26["index pop_u64"]
-	b354_30["val mach_readMemory64_u16_64"]
-	b354_32["extend U64_extend16_s"]
-	b354_34["eff__354 push_u64"]
-	b354_25["offset imm_readULEB64"]
-	b354_26 --> b354_30
-	b354_30 --> b354_32
-	b354_32 --> b354_34
-	b354_34 --> b354_25
-end
-branch_352 --> block_354
-subgraph branch_352["Branch 352"]
-	br352_14["cond__353 m_isMemory64"]
-
-end
-block_356 --> branch_352
-subgraph block_356["Block 356"]
-	direction TB
-	b356_14["cond__353 m_isMemory64"]
-end
-phi_358 --> block_356
-subgraph phi_358["Phi 358"]
-	p358_12{{"Sϕ Codeptr "}}
-	p358_12{{"Sϕ Codeptr "}}
-	p358_12{{"Sϕ Codeptr "}}
-	p358_12{{"Sϕ Codeptr "}}
-	p358_11{"memindex ϕ"}
-	p358_11{"memindex ϕ"}
-	p358_11{"memindex ϕ"}
-	p358_11{"memindex ϕ"}
-	p358_11{"memindex ϕ"}
-	p358_11{"memindex ϕ"}
-	p358_12{{"Sϕ Codeptr "}}
-	p358_12{{"Sϕ Codeptr "}}
-	p358_12{{"Sϕ Codeptr "}}
-	p358_12{{"Sϕ Codeptr "}}
-end
-block_359 --> phi_358
-block_360 --> phi_358
-subgraph block_359["Block 359"]
-	direction TB
-	b359_10["memindex__368 imm_readULEB32"]
-end
-branch_357 --> block_359
-subgraph branch_357["Branch 357"]
-	br357_9["cond__367 u8.!="]
-
-end
-block_361 --> branch_357
-subgraph block_361["Block 361"]
-	direction TB
-	b361_0[/"Start"\\]
-	b361_6["arg__372 0x40u8"]
-	b361_5["arg__370 0"]
-	b361_8["arg__369 u8.&"]
-	b361_9["cond__367 u8.!="]
-	b361_0 --> b361_6
-	b361_6 --> b361_5
-	b361_5 --> b361_8
-	b361_8 --> b361_9
-end
-subgraph block_360["Block 360"]
-	direction TB
-	b360_4["memindex__374 0u"]
-	b360_3["flags imm_readU8"]
-	b360_4 --> b360_3
-end
-branch_357 --> block_360
-subgraph block_355["Block 355"]
-	direction TB
-	b355_16["index pop_u32"]
-	b355_20["val mach_readMemory32_u16_64"]
-	b355_22["extend U64_extend16_s"]
-	b355_24["eff__360 push_u64"]
-	b355_15["offset imm_readULEB32"]
-	b355_16 --> b355_20
-	b355_20 --> b355_22
-	b355_22 --> b355_24
-	b355_24 --> b355_15
-end
-branch_352 --> block_355
-
-`;
-window.traces["I64_LOAD16_S"]["unLEM"] = ''
-window.traces["I64_LOAD16_S"]["unLEM__raw"] = ''
-window.traces["I64_LOAD16_S"]["unLEM"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__360 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend16_s"]
-	20 --> 22
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__368 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__367 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__370 0"]
-	8["arg__369 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__372 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__374 0u"]
-	34["eff__354 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend16_s"]
-	30 --> 32
-	30["val mach_readMemory64_u16_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__353 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD16_S"]["unLEM__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__360 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend16_s"]
-	20 --> 22
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__368 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__367 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__370 0"]
-	8["arg__369 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__372 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__374 0u"]
-	34["eff__354 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend16_s"]
-	30 --> 32
-	30["val mach_readMemory64_u16_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__353 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD16_S"]["unlem_schedule"] = ''
-window.traces["I64_LOAD16_S"]["unlem_schedule__raw"] = ''
-window.traces["I64_LOAD16_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__372 : byte = 0x40u8;
-def arg__369 = u8.&(flags, arg__372);
-def arg__370 : byte = 0;
-def cond__367 = u8.!=(arg__369, arg__370);
-var memindex: u32;
-if (cond__367) {
-	def memindex__368 = imm_readULEB32();
-} else {
-	def memindex__374 : u32 = 0u;
-}
-// phis: memindex <- memindex__368; memindex <- memindex__374; 
-def cond__353 = m_isMemory64(memindex);
-if (cond__353) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	def eff__354 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	def eff__360 = push_u64(extend);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD16_S"]["unlem_schedule__raw"] += `def flags = imm_readU8();
-def arg__372 : byte = 0x40u8;
-def arg__369 = u8.&(flags, arg__372);
-def arg__370 : byte = 0;
-def cond__367 = u8.!=(arg__369, arg__370);
-var memindex: u32;
-if (cond__367) {
-	def memindex__368 = imm_readULEB32();
-} else {
-	def memindex__374 : u32 = 0u;
-}
-// phis: memindex <- memindex__368; memindex <- memindex__374; 
-def cond__353 = m_isMemory64(memindex);
-if (cond__353) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	def eff__354 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	def eff__360 = push_u64(extend);
-}
-// phis: 
-`;
-window.traces["I64_LOAD16_S"]["unlem_scheduler"] = ''
-window.traces["I64_LOAD16_S"]["unlem_scheduler__raw"] = ''
-window.traces["I64_LOAD16_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_362["Block 362"]
-	direction TB
-	b362_1[\\"Finish"/]
-end
-phi_364 --> block_362
-subgraph phi_364["Phi 364"]
-	p364_36{{"Sϕ Stack "}}
-	p364_35{{"Sϕ Codeptr "}}
-end
-block_365 --> phi_364
-block_366 --> phi_364
-subgraph block_365["Block 365"]
-	direction TB
-	b365_26["index pop_u64"]
-	b365_30["val mach_readMemory64_u16_64"]
-	b365_32["extend U64_extend16_s"]
-	b365_34["eff__354 push_u64"]
-	b365_25["offset imm_readULEB64"]
-	b365_26 --> b365_30
-	b365_30 --> b365_32
-	b365_32 --> b365_34
-	b365_34 --> b365_25
-end
-branch_363 --> block_365
-subgraph branch_363["Branch 363"]
-	br363_14["cond__353 m_isMemory64"]
-
-end
-block_367 --> branch_363
-subgraph block_367["Block 367"]
-	direction TB
-	b367_14["cond__353 m_isMemory64"]
-end
-phi_369 --> block_367
-subgraph phi_369["Phi 369"]
-	p369_12{{"Sϕ Codeptr "}}
-	p369_12{{"Sϕ Codeptr "}}
-	p369_12{{"Sϕ Codeptr "}}
-	p369_12{{"Sϕ Codeptr "}}
-	p369_11{"memindex ϕ"}
-	p369_11{"memindex ϕ"}
-	p369_11{"memindex ϕ"}
-	p369_11{"memindex ϕ"}
-	p369_11{"memindex ϕ"}
-	p369_11{"memindex ϕ"}
-	p369_12{{"Sϕ Codeptr "}}
-	p369_12{{"Sϕ Codeptr "}}
-	p369_12{{"Sϕ Codeptr "}}
-	p369_12{{"Sϕ Codeptr "}}
-end
-block_370 --> phi_369
-block_371 --> phi_369
-subgraph block_370["Block 370"]
-	direction TB
-	b370_10["memindex__368 imm_readULEB32"]
-end
-branch_368 --> block_370
-subgraph branch_368["Branch 368"]
-	br368_9["cond__367 u8.!="]
-
-end
-block_372 --> branch_368
-subgraph block_372["Block 372"]
-	direction TB
-	b372_0[/"Start"\\]
-	b372_6["arg__372 0x40u8"]
-	b372_5["arg__370 0"]
-	b372_8["arg__369 u8.&"]
-	b372_9["cond__367 u8.!="]
-	b372_0 --> b372_6
-	b372_6 --> b372_5
-	b372_5 --> b372_8
-	b372_8 --> b372_9
-end
-subgraph block_371["Block 371"]
-	direction TB
-	b371_4["memindex__374 0u"]
-	b371_3["flags imm_readU8"]
-	b371_4 --> b371_3
-end
-branch_368 --> block_371
-subgraph block_366["Block 366"]
-	direction TB
-	b366_16["index pop_u32"]
-	b366_20["val mach_readMemory32_u16_64"]
-	b366_22["extend U64_extend16_s"]
-	b366_24["eff__360 push_u64"]
-	b366_15["offset imm_readULEB32"]
-	b366_16 --> b366_20
-	b366_20 --> b366_22
-	b366_22 --> b366_24
-	b366_24 --> b366_15
-end
-branch_363 --> block_366
-
-</pre>`;
-window.traces["I64_LOAD16_S"]["unlem_scheduler__raw"] += `graph TD
-subgraph block_362["Block 362"]
-	direction TB
-	b362_1[\\"Finish"/]
-end
-phi_364 --> block_362
-subgraph phi_364["Phi 364"]
-	p364_36{{"Sϕ Stack "}}
-	p364_35{{"Sϕ Codeptr "}}
-end
-block_365 --> phi_364
-block_366 --> phi_364
-subgraph block_365["Block 365"]
-	direction TB
-	b365_26["index pop_u64"]
-	b365_30["val mach_readMemory64_u16_64"]
-	b365_32["extend U64_extend16_s"]
-	b365_34["eff__354 push_u64"]
-	b365_25["offset imm_readULEB64"]
-	b365_26 --> b365_30
-	b365_30 --> b365_32
-	b365_32 --> b365_34
-	b365_34 --> b365_25
-end
-branch_363 --> block_365
-subgraph branch_363["Branch 363"]
-	br363_14["cond__353 m_isMemory64"]
-
-end
-block_367 --> branch_363
-subgraph block_367["Block 367"]
-	direction TB
-	b367_14["cond__353 m_isMemory64"]
-end
-phi_369 --> block_367
-subgraph phi_369["Phi 369"]
-	p369_12{{"Sϕ Codeptr "}}
-	p369_12{{"Sϕ Codeptr "}}
-	p369_12{{"Sϕ Codeptr "}}
-	p369_12{{"Sϕ Codeptr "}}
-	p369_11{"memindex ϕ"}
-	p369_11{"memindex ϕ"}
-	p369_11{"memindex ϕ"}
-	p369_11{"memindex ϕ"}
-	p369_11{"memindex ϕ"}
-	p369_11{"memindex ϕ"}
-	p369_12{{"Sϕ Codeptr "}}
-	p369_12{{"Sϕ Codeptr "}}
-	p369_12{{"Sϕ Codeptr "}}
-	p369_12{{"Sϕ Codeptr "}}
-end
-block_370 --> phi_369
-block_371 --> phi_369
-subgraph block_370["Block 370"]
-	direction TB
-	b370_10["memindex__368 imm_readULEB32"]
-end
-branch_368 --> block_370
-subgraph branch_368["Branch 368"]
-	br368_9["cond__367 u8.!="]
-
-end
-block_372 --> branch_368
-subgraph block_372["Block 372"]
-	direction TB
-	b372_0[/"Start"\\]
-	b372_6["arg__372 0x40u8"]
-	b372_5["arg__370 0"]
-	b372_8["arg__369 u8.&"]
-	b372_9["cond__367 u8.!="]
-	b372_0 --> b372_6
-	b372_6 --> b372_5
-	b372_5 --> b372_8
-	b372_8 --> b372_9
-end
-subgraph block_371["Block 371"]
-	direction TB
-	b371_4["memindex__374 0u"]
-	b371_3["flags imm_readU8"]
-	b371_4 --> b371_3
-end
-branch_368 --> block_371
-subgraph block_366["Block 366"]
-	direction TB
-	b366_16["index pop_u32"]
-	b366_20["val mach_readMemory32_u16_64"]
-	b366_22["extend U64_extend16_s"]
-	b366_24["eff__360 push_u64"]
-	b366_15["offset imm_readULEB32"]
-	b366_16 --> b366_20
-	b366_20 --> b366_22
-	b366_22 --> b366_24
-	b366_24 --> b366_15
-end
-branch_363 --> block_366
-
-`;
-window.traces["I64_LOAD16_S"]["unlem_pretty"] = ''
-window.traces["I64_LOAD16_S"]["unlem_pretty__raw"] = ''
-window.traces["I64_LOAD16_S"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	push_u64(extend);
-}
-</pre>`;
-window.traces["I64_LOAD16_S"]["unlem_pretty__raw"] += `def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	push_u64(extend);
-}
-`;
-window.traces["I64_LOAD16_S"]["constUnLEM"] = ''
-window.traces["I64_LOAD16_S"]["constUnLEM__raw"] = ''
-window.traces["I64_LOAD16_S"]["constUnLEM"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__360 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend16_s"]
-	20 --> 22
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__368 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__367 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__370 0"]
-	8["arg__369 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__372 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__374 0u"]
-	34["eff__354 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend16_s"]
-	30 --> 32
-	30["val mach_readMemory64_u16_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__353 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD16_S"]["constUnLEM__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__360 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend16_s"]
-	20 --> 22
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__368 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__367 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__370 0"]
-	8["arg__369 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__372 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__374 0u"]
-	34["eff__354 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend16_s"]
-	30 --> 32
-	30["val mach_readMemory64_u16_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__353 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD16_S"]["chooseMerge"] = ''
-window.traces["I64_LOAD16_S"]["chooseMerge__raw"] = ''
-window.traces["I64_LOAD16_S"]["chooseMerge"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__360 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend16_s"]
-	20 --> 22
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__368 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__367 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__370 0"]
-	8["arg__369 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__372 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__374 0u"]
-	34["eff__354 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend16_s"]
-	30 --> 32
-	30["val mach_readMemory64_u16_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__353 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD16_S"]["chooseMerge__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__360 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend16_s"]
-	20 --> 22
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__368 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__367 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__370 0"]
-	8["arg__369 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__372 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__374 0u"]
-	34["eff__354 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend16_s"]
-	30 --> 32
-	30["val mach_readMemory64_u16_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__353 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD16_S"]["scheduled"] = ''
-window.traces["I64_LOAD16_S"]["scheduled__raw"] = ''
-window.traces["I64_LOAD16_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__372 : byte = 0x40u8;
-def arg__369 = u8.&(flags, arg__372);
-def arg__370 : byte = 0;
-def cond__367 = u8.!=(arg__369, arg__370);
-var memindex: u32;
-if (cond__367) {
-	def memindex__368 = imm_readULEB32();
-} else {
-	def memindex__374 : u32 = 0u;
-}
-// phis: memindex <- memindex__368; memindex <- memindex__374; 
-def cond__353 = m_isMemory64(memindex);
-if (cond__353) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	def eff__354 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	def eff__360 = push_u64(extend);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD16_S"]["scheduled__raw"] += `def flags = imm_readU8();
-def arg__372 : byte = 0x40u8;
-def arg__369 = u8.&(flags, arg__372);
-def arg__370 : byte = 0;
-def cond__367 = u8.!=(arg__369, arg__370);
-var memindex: u32;
-if (cond__367) {
-	def memindex__368 = imm_readULEB32();
-} else {
-	def memindex__374 : u32 = 0u;
-}
-// phis: memindex <- memindex__368; memindex <- memindex__374; 
-def cond__353 = m_isMemory64(memindex);
-if (cond__353) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	def eff__354 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	def eff__360 = push_u64(extend);
-}
-// phis: 
-`;
-window.traces["I64_LOAD16_S"]["pretty"] = ''
-window.traces["I64_LOAD16_S"]["pretty__raw"] = ''
-window.traces["I64_LOAD16_S"]["pretty"] += `<pre class=''>def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	push_u64(extend);
-}
-</pre>`;
-window.traces["I64_LOAD16_S"]["pretty__raw"] += `def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	push_u64(extend);
-}
-`;
-window.traces["I64_LOAD16_U"] = {}
-window.traces["I64_LOAD16_U"]["parsed"] = ''
-window.traces["I64_LOAD16_U"]["parsed__raw"] = ''
-window.traces["I64_LOAD16_U"]["parsed"] += `<pre class=''>def flags = imm_readU8();
-def memindex : u32 = 0u;
-def arg__390 : byte = 0;
-def arg__392 : byte = 0x40u8;
-def arg__391 = (flags);
-def arg__389 = u8.&(arg__391, arg__392);
-def cond__387 = u8.!=(arg__389, arg__390);
-if (cond__387) {
-	def memindex__388 = imm_readULEB32();
-}
-// phis: memindex <- memindex__388; 
-def arg__386 = (memindex);
-def cond__375 = m_isMemory64(arg__386);
-if (cond__375) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def arg__380 = (offset);
-	def arg__379 = (index);
-	def arg__378 = (memindex);
-	def val = mach_readMemory64_u16_64(arg__378, arg__379, arg__380);
-	def arg__377 = (val);
-	def eff__376 = push_u64(arg__377);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def arg__385 = (offset);
-	def arg__384 = (index);
-	def arg__383 = (memindex);
-	def val = mach_readMemory32_u16_64(arg__383, arg__384, arg__385);
-	def arg__382 = (val);
-	def eff__381 = push_u64(arg__382);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD16_U"]["parsed__raw"] += `def flags = imm_readU8();
-def memindex : u32 = 0u;
-def arg__390 : byte = 0;
-def arg__392 : byte = 0x40u8;
-def arg__391 = (flags);
-def arg__389 = u8.&(arg__391, arg__392);
-def cond__387 = u8.!=(arg__389, arg__390);
-if (cond__387) {
-	def memindex__388 = imm_readULEB32();
-}
-// phis: memindex <- memindex__388; 
-def arg__386 = (memindex);
-def cond__375 = m_isMemory64(arg__386);
-if (cond__375) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def arg__380 = (offset);
-	def arg__379 = (index);
-	def arg__378 = (memindex);
-	def val = mach_readMemory64_u16_64(arg__378, arg__379, arg__380);
-	def arg__377 = (val);
-	def eff__376 = push_u64(arg__377);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def arg__385 = (offset);
-	def arg__384 = (index);
-	def arg__383 = (memindex);
-	def val = mach_readMemory32_u16_64(arg__383, arg__384, arg__385);
-	def arg__382 = (val);
-	def eff__381 = push_u64(arg__382);
-}
-// phis: 
-`;
-window.traces["I64_LOAD16_U"]["raw"] = ''
-window.traces["I64_LOAD16_U"]["raw__raw"] = ''
-window.traces["I64_LOAD16_U"]["raw"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__381 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__388 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__387 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__390 0"]
-	8["arg__389 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__392 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__393 0u"]
-	30["eff__376 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u16_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__375 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD16_U"]["raw__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__381 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__388 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__387 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__390 0"]
-	8["arg__389 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__392 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__393 0u"]
-	30["eff__376 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u16_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__375 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD16_U"]["spytial"] = ''
-window.traces["I64_LOAD16_U"]["spytial__raw"] = ''
-window.traces["I64_LOAD16_U"]["spytial"] += `<pre class=''>{
-"atoms": [
-{
-"id": "node_1",
-"type": "finish",
-"label": "Finish"
-},
-{
-"id": "node_31",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__375]]"
-},
-{
-"id": "node_32",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__375]]"
-},
-{
-"id": "node_0",
-"type": "start",
-"label": "Start"
-},
-{
-"id": "node_14",
-"type": "intrinsic",
-"label": "m_isMemory64 [cond__375]"
-},
-{
-"id": "node_23",
-"type": "intrinsic",
-"label": "imm_readULEB64 [offset]"
-},
-{
-"id": "node_15",
-"type": "intrinsic",
-"label": "imm_readULEB32 [offset]"
-},
-{
-"id": "node_30",
-"type": "intrinsic",
-"label": "push_u64 [eff__376]"
-},
-{
-"id": "node_22",
-"type": "intrinsic",
-"label": "push_u64 [eff__381]"
-},
-{
-"id": "node_11",
-"type": "phi",
-"label": "Phi"
-},
-{
-"id": "node_12",
-"type": "phi",
-"label": "StatePhi [u8.!= [cond__387]]"
-},
-{
-"id": "node_28",
-"type": "intrinsic",
-"label": "mach_readMemory64_u16_64 [val]"
-},
-{
-"id": "node_24",
-"type": "intrinsic",
-"label": "pop_u64 [index]"
-},
-{
-"id": "node_20",
-"type": "intrinsic",
-"label": "mach_readMemory32_u16_64 [val]"
-},
-{
-"id": "node_16",
-"type": "intrinsic",
-"label": "pop_u32 [index]"
-},
-{
-"id": "node_9",
-"type": "intrinsic",
-"label": "u8.!= [cond__387]"
-},
-{
-"id": "node_10",
-"type": "intrinsic",
-"label": "imm_readULEB32 [memindex__388]"
-},
-{
-"id": "node_4",
-"type": "lit",
-"label": "0u"
-},
-{
-"id": "node_3",
-"type": "intrinsic",
-"label": "imm_readU8 [flags]"
-},
-{
-"id": "node_8",
-"type": "intrinsic",
-"label": "u8.& [arg__389]"
-},
-{
-"id": "node_5",
-"type": "lit",
-"label": "0"
-},
-{
-"id": "node_6",
-"type": "lit",
-"label": "0x40u8"
-}
-],
-"relations": [
-{
-"id": "uses",
-"name": "Uses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_14", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_28"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_20"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_28", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_28", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_28", "node_23"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_20", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_15"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_8"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_5"],
-"types": ["intrinsic", "lit"]
-},
-{
-"atoms": ["node_8", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_6"],
-"types": ["intrinsic", "lit"]
-}
-]
-},
-{
-"id": "state_uses",
-"name": "StateUses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_0"],
-"types": ["finish", "start"]
-},
-{
-"atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_16", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_10", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_3", "node_0"],
-"types": ["intrinsic", "start"]
-}
-]
-},
-{
-"id": "phi_cond",
-"name": "PhiCond",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_9"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_true",
-"name": "PhiTrue",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_10"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_false",
-"name": "PhiFalse",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_4"],
-"types": ["phi", "lit"]
-},
-{
-"atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
-}
-]
-}
-]
-}</pre>`;
-window.traces["I64_LOAD16_U"]["spytial__raw"] += `{
-"atoms": [
-{
-"id": "node_1",
-"type": "finish",
-"label": "Finish"
-},
-{
-"id": "node_31",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__375]]"
-},
-{
-"id": "node_32",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__375]]"
-},
-{
-"id": "node_0",
-"type": "start",
-"label": "Start"
-},
-{
-"id": "node_14",
-"type": "intrinsic",
-"label": "m_isMemory64 [cond__375]"
-},
-{
-"id": "node_23",
-"type": "intrinsic",
-"label": "imm_readULEB64 [offset]"
-},
-{
-"id": "node_15",
-"type": "intrinsic",
-"label": "imm_readULEB32 [offset]"
-},
-{
-"id": "node_30",
-"type": "intrinsic",
-"label": "push_u64 [eff__376]"
-},
-{
-"id": "node_22",
-"type": "intrinsic",
-"label": "push_u64 [eff__381]"
-},
-{
-"id": "node_11",
-"type": "phi",
-"label": "Phi"
-},
-{
-"id": "node_12",
-"type": "phi",
-"label": "StatePhi [u8.!= [cond__387]]"
-},
-{
-"id": "node_28",
-"type": "intrinsic",
-"label": "mach_readMemory64_u16_64 [val]"
-},
-{
-"id": "node_24",
-"type": "intrinsic",
-"label": "pop_u64 [index]"
-},
-{
-"id": "node_20",
-"type": "intrinsic",
-"label": "mach_readMemory32_u16_64 [val]"
-},
-{
-"id": "node_16",
-"type": "intrinsic",
-"label": "pop_u32 [index]"
-},
-{
-"id": "node_9",
-"type": "intrinsic",
-"label": "u8.!= [cond__387]"
-},
-{
-"id": "node_10",
-"type": "intrinsic",
-"label": "imm_readULEB32 [memindex__388]"
-},
-{
-"id": "node_4",
-"type": "lit",
-"label": "0u"
-},
-{
-"id": "node_3",
-"type": "intrinsic",
-"label": "imm_readU8 [flags]"
-},
-{
-"id": "node_8",
-"type": "intrinsic",
-"label": "u8.& [arg__389]"
-},
-{
-"id": "node_5",
-"type": "lit",
-"label": "0"
-},
-{
-"id": "node_6",
-"type": "lit",
-"label": "0x40u8"
-}
-],
-"relations": [
-{
-"id": "uses",
-"name": "Uses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_14", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_28"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_20"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_28", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_28", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_28", "node_23"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_20", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_15"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_8"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_5"],
-"types": ["intrinsic", "lit"]
-},
-{
-"atoms": ["node_8", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_6"],
-"types": ["intrinsic", "lit"]
-}
-]
-},
-{
-"id": "state_uses",
-"name": "StateUses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_0"],
-"types": ["finish", "start"]
-},
-{
-"atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_16", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_10", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_3", "node_0"],
-"types": ["intrinsic", "start"]
-}
-]
-},
-{
-"id": "phi_cond",
-"name": "PhiCond",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_9"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_true",
-"name": "PhiTrue",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_10"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_false",
-"name": "PhiFalse",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_4"],
-"types": ["phi", "lit"]
-},
-{
-"atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
-}
-]
-}
-]
-}`;
-window.traces["I64_LOAD16_U"]["overloadOps"] = ''
-window.traces["I64_LOAD16_U"]["overloadOps__raw"] = ''
-window.traces["I64_LOAD16_U"]["overloadOps"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__381 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__388 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__387 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__390 0"]
-	8["arg__389 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__392 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__394 0u"]
-	30["eff__376 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u16_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__375 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD16_U"]["overloadOps__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__381 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__388 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__387 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__390 0"]
-	8["arg__389 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__392 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__394 0u"]
-	30["eff__376 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u16_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__375 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD16_U"]["addAbstractions"] = ''
-window.traces["I64_LOAD16_U"]["addAbstractions__raw"] = ''
-window.traces["I64_LOAD16_U"]["addAbstractions"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__381 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__388 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__387 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__390 0"]
-	8["arg__389 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__392 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__394 0u"]
-	30["eff__376 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u16_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__375 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD16_U"]["addAbstractions__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__381 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__388 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__387 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__390 0"]
-	8["arg__389 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__392 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__394 0u"]
-	30["eff__376 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u16_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__375 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD16_U"]["schedulerMermaid"] = ''
-window.traces["I64_LOAD16_U"]["schedulerMermaid__raw"] = ''
-window.traces["I64_LOAD16_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_373["Block 373"]
-	direction TB
-	b373_1[\\"Finish"/]
-end
-phi_375 --> block_373
-subgraph phi_375["Phi 375"]
-	p375_32{{"Sϕ Stack "}}
-	p375_31{{"Sϕ Codeptr "}}
-end
-block_376 --> phi_375
-block_377 --> phi_375
-subgraph block_376["Block 376"]
-	direction TB
-	b376_24["index pop_u64"]
-	b376_28["val mach_readMemory64_u16_64"]
-	b376_30["eff__376 push_u64"]
-	b376_23["offset imm_readULEB64"]
-	b376_24 --> b376_28
-	b376_28 --> b376_30
-	b376_30 --> b376_23
-end
-branch_374 --> block_376
-subgraph branch_374["Branch 374"]
-	br374_14["cond__375 m_isMemory64"]
-
-end
-block_378 --> branch_374
-subgraph block_378["Block 378"]
-	direction TB
-	b378_14["cond__375 m_isMemory64"]
-end
-phi_380 --> block_378
-subgraph phi_380["Phi 380"]
-	p380_12{{"Sϕ Codeptr "}}
-	p380_12{{"Sϕ Codeptr "}}
-	p380_12{{"Sϕ Codeptr "}}
-	p380_12{{"Sϕ Codeptr "}}
-	p380_11{"memindex ϕ"}
-	p380_11{"memindex ϕ"}
-	p380_11{"memindex ϕ"}
-	p380_11{"memindex ϕ"}
-	p380_11{"memindex ϕ"}
-	p380_11{"memindex ϕ"}
-	p380_12{{"Sϕ Codeptr "}}
-	p380_12{{"Sϕ Codeptr "}}
-	p380_12{{"Sϕ Codeptr "}}
-	p380_12{{"Sϕ Codeptr "}}
-end
-block_381 --> phi_380
-block_382 --> phi_380
-subgraph block_381["Block 381"]
-	direction TB
-	b381_10["memindex__388 imm_readULEB32"]
-end
-branch_379 --> block_381
-subgraph branch_379["Branch 379"]
-	br379_9["cond__387 u8.!="]
-
-end
-block_383 --> branch_379
-subgraph block_383["Block 383"]
-	direction TB
-	b383_0[/"Start"\\]
-	b383_6["arg__392 0x40u8"]
-	b383_5["arg__390 0"]
-	b383_8["arg__389 u8.&"]
-	b383_9["cond__387 u8.!="]
-	b383_0 --> b383_6
-	b383_6 --> b383_5
-	b383_5 --> b383_8
-	b383_8 --> b383_9
-end
-subgraph block_382["Block 382"]
-	direction TB
-	b382_4["memindex__394 0u"]
-	b382_3["flags imm_readU8"]
-	b382_4 --> b382_3
-end
-branch_379 --> block_382
-subgraph block_377["Block 377"]
-	direction TB
-	b377_16["index pop_u32"]
-	b377_20["val mach_readMemory32_u16_64"]
-	b377_22["eff__381 push_u64"]
-	b377_15["offset imm_readULEB32"]
-	b377_16 --> b377_20
-	b377_20 --> b377_22
-	b377_22 --> b377_15
-end
-branch_374 --> block_377
-
-</pre>`;
-window.traces["I64_LOAD16_U"]["schedulerMermaid__raw"] += `graph TD
-subgraph block_373["Block 373"]
-	direction TB
-	b373_1[\\"Finish"/]
-end
-phi_375 --> block_373
-subgraph phi_375["Phi 375"]
-	p375_32{{"Sϕ Stack "}}
-	p375_31{{"Sϕ Codeptr "}}
-end
-block_376 --> phi_375
-block_377 --> phi_375
-subgraph block_376["Block 376"]
-	direction TB
-	b376_24["index pop_u64"]
-	b376_28["val mach_readMemory64_u16_64"]
-	b376_30["eff__376 push_u64"]
-	b376_23["offset imm_readULEB64"]
-	b376_24 --> b376_28
-	b376_28 --> b376_30
-	b376_30 --> b376_23
-end
-branch_374 --> block_376
-subgraph branch_374["Branch 374"]
-	br374_14["cond__375 m_isMemory64"]
-
-end
-block_378 --> branch_374
-subgraph block_378["Block 378"]
-	direction TB
-	b378_14["cond__375 m_isMemory64"]
-end
-phi_380 --> block_378
-subgraph phi_380["Phi 380"]
-	p380_12{{"Sϕ Codeptr "}}
-	p380_12{{"Sϕ Codeptr "}}
-	p380_12{{"Sϕ Codeptr "}}
-	p380_12{{"Sϕ Codeptr "}}
-	p380_11{"memindex ϕ"}
-	p380_11{"memindex ϕ"}
-	p380_11{"memindex ϕ"}
-	p380_11{"memindex ϕ"}
-	p380_11{"memindex ϕ"}
-	p380_11{"memindex ϕ"}
-	p380_12{{"Sϕ Codeptr "}}
-	p380_12{{"Sϕ Codeptr "}}
-	p380_12{{"Sϕ Codeptr "}}
-	p380_12{{"Sϕ Codeptr "}}
-end
-block_381 --> phi_380
-block_382 --> phi_380
-subgraph block_381["Block 381"]
-	direction TB
-	b381_10["memindex__388 imm_readULEB32"]
-end
-branch_379 --> block_381
-subgraph branch_379["Branch 379"]
-	br379_9["cond__387 u8.!="]
-
-end
-block_383 --> branch_379
-subgraph block_383["Block 383"]
-	direction TB
-	b383_0[/"Start"\\]
-	b383_6["arg__392 0x40u8"]
-	b383_5["arg__390 0"]
-	b383_8["arg__389 u8.&"]
-	b383_9["cond__387 u8.!="]
-	b383_0 --> b383_6
-	b383_6 --> b383_5
-	b383_5 --> b383_8
-	b383_8 --> b383_9
-end
-subgraph block_382["Block 382"]
-	direction TB
-	b382_4["memindex__394 0u"]
-	b382_3["flags imm_readU8"]
-	b382_4 --> b382_3
-end
-branch_379 --> block_382
-subgraph block_377["Block 377"]
-	direction TB
-	b377_16["index pop_u32"]
-	b377_20["val mach_readMemory32_u16_64"]
-	b377_22["eff__381 push_u64"]
-	b377_15["offset imm_readULEB32"]
-	b377_16 --> b377_20
-	b377_20 --> b377_22
-	b377_22 --> b377_15
-end
-branch_374 --> block_377
-
-`;
-window.traces["I64_LOAD16_U"]["unLEM"] = ''
-window.traces["I64_LOAD16_U"]["unLEM__raw"] = ''
-window.traces["I64_LOAD16_U"]["unLEM"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__381 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__388 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__387 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__390 0"]
-	8["arg__389 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__392 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__394 0u"]
-	30["eff__376 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u16_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__375 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD16_U"]["unLEM__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__381 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__388 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__387 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__390 0"]
-	8["arg__389 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__392 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__394 0u"]
-	30["eff__376 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u16_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__375 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD16_U"]["unlem_schedule"] = ''
-window.traces["I64_LOAD16_U"]["unlem_schedule__raw"] = ''
-window.traces["I64_LOAD16_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__392 : byte = 0x40u8;
-def arg__389 = u8.&(flags, arg__392);
-def arg__390 : byte = 0;
-def cond__387 = u8.!=(arg__389, arg__390);
-var memindex: u32;
-if (cond__387) {
-	def memindex__388 = imm_readULEB32();
-} else {
-	def memindex__394 : u32 = 0u;
-}
-// phis: memindex <- memindex__388; memindex <- memindex__394; 
-def cond__375 = m_isMemory64(memindex);
-if (cond__375) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def eff__376 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def eff__381 = push_u64(val);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD16_U"]["unlem_schedule__raw"] += `def flags = imm_readU8();
-def arg__392 : byte = 0x40u8;
-def arg__389 = u8.&(flags, arg__392);
-def arg__390 : byte = 0;
-def cond__387 = u8.!=(arg__389, arg__390);
-var memindex: u32;
-if (cond__387) {
-	def memindex__388 = imm_readULEB32();
-} else {
-	def memindex__394 : u32 = 0u;
-}
-// phis: memindex <- memindex__388; memindex <- memindex__394; 
-def cond__375 = m_isMemory64(memindex);
-if (cond__375) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def eff__376 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def eff__381 = push_u64(val);
-}
-// phis: 
-`;
-window.traces["I64_LOAD16_U"]["unlem_scheduler"] = ''
-window.traces["I64_LOAD16_U"]["unlem_scheduler__raw"] = ''
-window.traces["I64_LOAD16_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_384["Block 384"]
-	direction TB
-	b384_1[\\"Finish"/]
-end
-phi_386 --> block_384
-subgraph phi_386["Phi 386"]
-	p386_32{{"Sϕ Stack "}}
-	p386_31{{"Sϕ Codeptr "}}
-end
-block_387 --> phi_386
-block_388 --> phi_386
-subgraph block_387["Block 387"]
-	direction TB
-	b387_24["index pop_u64"]
-	b387_28["val mach_readMemory64_u16_64"]
-	b387_30["eff__376 push_u64"]
-	b387_23["offset imm_readULEB64"]
-	b387_24 --> b387_28
-	b387_28 --> b387_30
-	b387_30 --> b387_23
-end
-branch_385 --> block_387
-subgraph branch_385["Branch 385"]
-	br385_14["cond__375 m_isMemory64"]
-
-end
-block_389 --> branch_385
-subgraph block_389["Block 389"]
-	direction TB
-	b389_14["cond__375 m_isMemory64"]
-end
-phi_391 --> block_389
-subgraph phi_391["Phi 391"]
-	p391_12{{"Sϕ Codeptr "}}
-	p391_12{{"Sϕ Codeptr "}}
-	p391_12{{"Sϕ Codeptr "}}
-	p391_12{{"Sϕ Codeptr "}}
-	p391_11{"memindex ϕ"}
-	p391_11{"memindex ϕ"}
-	p391_11{"memindex ϕ"}
-	p391_11{"memindex ϕ"}
-	p391_11{"memindex ϕ"}
-	p391_11{"memindex ϕ"}
-	p391_12{{"Sϕ Codeptr "}}
-	p391_12{{"Sϕ Codeptr "}}
-	p391_12{{"Sϕ Codeptr "}}
-	p391_12{{"Sϕ Codeptr "}}
-end
-block_392 --> phi_391
-block_393 --> phi_391
-subgraph block_392["Block 392"]
-	direction TB
-	b392_10["memindex__388 imm_readULEB32"]
-end
-branch_390 --> block_392
-subgraph branch_390["Branch 390"]
-	br390_9["cond__387 u8.!="]
-
-end
-block_394 --> branch_390
-subgraph block_394["Block 394"]
-	direction TB
-	b394_0[/"Start"\\]
-	b394_6["arg__392 0x40u8"]
-	b394_5["arg__390 0"]
-	b394_8["arg__389 u8.&"]
-	b394_9["cond__387 u8.!="]
-	b394_0 --> b394_6
-	b394_6 --> b394_5
-	b394_5 --> b394_8
-	b394_8 --> b394_9
-end
-subgraph block_393["Block 393"]
-	direction TB
-	b393_4["memindex__394 0u"]
-	b393_3["flags imm_readU8"]
-	b393_4 --> b393_3
-end
-branch_390 --> block_393
-subgraph block_388["Block 388"]
-	direction TB
-	b388_16["index pop_u32"]
-	b388_20["val mach_readMemory32_u16_64"]
-	b388_22["eff__381 push_u64"]
-	b388_15["offset imm_readULEB32"]
-	b388_16 --> b388_20
-	b388_20 --> b388_22
-	b388_22 --> b388_15
-end
-branch_385 --> block_388
-
-</pre>`;
-window.traces["I64_LOAD16_U"]["unlem_scheduler__raw"] += `graph TD
-subgraph block_384["Block 384"]
-	direction TB
-	b384_1[\\"Finish"/]
-end
-phi_386 --> block_384
-subgraph phi_386["Phi 386"]
-	p386_32{{"Sϕ Stack "}}
-	p386_31{{"Sϕ Codeptr "}}
-end
-block_387 --> phi_386
-block_388 --> phi_386
-subgraph block_387["Block 387"]
-	direction TB
-	b387_24["index pop_u64"]
-	b387_28["val mach_readMemory64_u16_64"]
-	b387_30["eff__376 push_u64"]
-	b387_23["offset imm_readULEB64"]
-	b387_24 --> b387_28
-	b387_28 --> b387_30
-	b387_30 --> b387_23
-end
-branch_385 --> block_387
-subgraph branch_385["Branch 385"]
-	br385_14["cond__375 m_isMemory64"]
-
-end
-block_389 --> branch_385
-subgraph block_389["Block 389"]
-	direction TB
-	b389_14["cond__375 m_isMemory64"]
-end
-phi_391 --> block_389
-subgraph phi_391["Phi 391"]
-	p391_12{{"Sϕ Codeptr "}}
-	p391_12{{"Sϕ Codeptr "}}
-	p391_12{{"Sϕ Codeptr "}}
-	p391_12{{"Sϕ Codeptr "}}
-	p391_11{"memindex ϕ"}
-	p391_11{"memindex ϕ"}
-	p391_11{"memindex ϕ"}
-	p391_11{"memindex ϕ"}
-	p391_11{"memindex ϕ"}
-	p391_11{"memindex ϕ"}
-	p391_12{{"Sϕ Codeptr "}}
-	p391_12{{"Sϕ Codeptr "}}
-	p391_12{{"Sϕ Codeptr "}}
-	p391_12{{"Sϕ Codeptr "}}
-end
-block_392 --> phi_391
-block_393 --> phi_391
-subgraph block_392["Block 392"]
-	direction TB
-	b392_10["memindex__388 imm_readULEB32"]
-end
-branch_390 --> block_392
-subgraph branch_390["Branch 390"]
-	br390_9["cond__387 u8.!="]
-
-end
-block_394 --> branch_390
-subgraph block_394["Block 394"]
-	direction TB
-	b394_0[/"Start"\\]
-	b394_6["arg__392 0x40u8"]
-	b394_5["arg__390 0"]
-	b394_8["arg__389 u8.&"]
-	b394_9["cond__387 u8.!="]
-	b394_0 --> b394_6
-	b394_6 --> b394_5
-	b394_5 --> b394_8
-	b394_8 --> b394_9
-end
-subgraph block_393["Block 393"]
-	direction TB
-	b393_4["memindex__394 0u"]
-	b393_3["flags imm_readU8"]
-	b393_4 --> b393_3
-end
-branch_390 --> block_393
-subgraph block_388["Block 388"]
-	direction TB
-	b388_16["index pop_u32"]
-	b388_20["val mach_readMemory32_u16_64"]
-	b388_22["eff__381 push_u64"]
-	b388_15["offset imm_readULEB32"]
-	b388_16 --> b388_20
-	b388_20 --> b388_22
-	b388_22 --> b388_15
-end
-branch_385 --> block_388
-
-`;
-window.traces["I64_LOAD16_U"]["unlem_pretty"] = ''
-window.traces["I64_LOAD16_U"]["unlem_pretty__raw"] = ''
-window.traces["I64_LOAD16_U"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	push_u64(val);
-}
-</pre>`;
-window.traces["I64_LOAD16_U"]["unlem_pretty__raw"] += `def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	push_u64(val);
-}
-`;
-window.traces["I64_LOAD16_U"]["constUnLEM"] = ''
-window.traces["I64_LOAD16_U"]["constUnLEM__raw"] = ''
-window.traces["I64_LOAD16_U"]["constUnLEM"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__381 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__388 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__387 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__390 0"]
-	8["arg__389 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__392 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__394 0u"]
-	30["eff__376 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u16_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__375 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD16_U"]["constUnLEM__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__381 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__388 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__387 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__390 0"]
-	8["arg__389 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__392 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__394 0u"]
-	30["eff__376 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u16_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__375 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD16_U"]["chooseMerge"] = ''
-window.traces["I64_LOAD16_U"]["chooseMerge__raw"] = ''
-window.traces["I64_LOAD16_U"]["chooseMerge"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__381 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__388 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__387 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__390 0"]
-	8["arg__389 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__392 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__394 0u"]
-	30["eff__376 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u16_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__375 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD16_U"]["chooseMerge__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__381 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u16_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__388 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__387 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__390 0"]
-	8["arg__389 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__392 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__394 0u"]
-	30["eff__376 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u16_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__375 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD16_U"]["scheduled"] = ''
-window.traces["I64_LOAD16_U"]["scheduled__raw"] = ''
-window.traces["I64_LOAD16_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__392 : byte = 0x40u8;
-def arg__389 = u8.&(flags, arg__392);
-def arg__390 : byte = 0;
-def cond__387 = u8.!=(arg__389, arg__390);
-var memindex: u32;
-if (cond__387) {
-	def memindex__388 = imm_readULEB32();
-} else {
-	def memindex__394 : u32 = 0u;
-}
-// phis: memindex <- memindex__388; memindex <- memindex__394; 
-def cond__375 = m_isMemory64(memindex);
-if (cond__375) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def eff__376 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def eff__381 = push_u64(val);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD16_U"]["scheduled__raw"] += `def flags = imm_readU8();
-def arg__392 : byte = 0x40u8;
-def arg__389 = u8.&(flags, arg__392);
-def arg__390 : byte = 0;
-def cond__387 = u8.!=(arg__389, arg__390);
-var memindex: u32;
-if (cond__387) {
-	def memindex__388 = imm_readULEB32();
-} else {
-	def memindex__394 : u32 = 0u;
-}
-// phis: memindex <- memindex__388; memindex <- memindex__394; 
-def cond__375 = m_isMemory64(memindex);
-if (cond__375) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def eff__376 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def eff__381 = push_u64(val);
-}
-// phis: 
-`;
-window.traces["I64_LOAD16_U"]["pretty"] = ''
-window.traces["I64_LOAD16_U"]["pretty__raw"] = ''
-window.traces["I64_LOAD16_U"]["pretty"] += `<pre class=''>def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	push_u64(val);
-}
-</pre>`;
-window.traces["I64_LOAD16_U"]["pretty__raw"] += `def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	push_u64(val);
-}
-`;
-window.traces["I64_LOAD32_S"] = {}
-window.traces["I64_LOAD32_S"]["parsed"] = ''
-window.traces["I64_LOAD32_S"]["parsed__raw"] = ''
-window.traces["I64_LOAD32_S"]["parsed"] += `<pre class=''>def flags = imm_readU8();
-def memindex : u32 = 0u;
-def arg__412 : byte = 0;
-def arg__414 : byte = 0x40u8;
-def arg__413 = (flags);
-def arg__411 = u8.&(arg__413, arg__414);
-def cond__409 = u8.!=(arg__411, arg__412);
-if (cond__409) {
-	def memindex__410 = imm_readULEB32();
-}
-// phis: memindex <- memindex__410; 
-def arg__408 = (memindex);
-def cond__395 = m_isMemory64(arg__408);
-if (cond__395) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def arg__401 = (offset);
-	def arg__400 = (index);
-	def arg__399 = (memindex);
-	def val = mach_readMemory64_u32_64(arg__399, arg__400, arg__401);
-	def arg__398 = (val);
-	def extend = U64_extend32_s(arg__398);
-	def arg__397 = (extend);
-	def eff__396 = push_u64(arg__397);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def arg__407 = (offset);
-	def arg__406 = (index);
-	def arg__405 = (memindex);
-	def val = mach_readMemory32_u32_64(arg__405, arg__406, arg__407);
-	def arg__404 = (val);
-	def extend = U64_extend32_s(arg__404);
-	def arg__403 = (extend);
-	def eff__402 = push_u64(arg__403);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD32_S"]["parsed__raw"] += `def flags = imm_readU8();
-def memindex : u32 = 0u;
-def arg__412 : byte = 0;
-def arg__414 : byte = 0x40u8;
-def arg__413 = (flags);
-def arg__411 = u8.&(arg__413, arg__414);
-def cond__409 = u8.!=(arg__411, arg__412);
-if (cond__409) {
-	def memindex__410 = imm_readULEB32();
-}
-// phis: memindex <- memindex__410; 
-def arg__408 = (memindex);
-def cond__395 = m_isMemory64(arg__408);
-if (cond__395) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def arg__401 = (offset);
-	def arg__400 = (index);
-	def arg__399 = (memindex);
-	def val = mach_readMemory64_u32_64(arg__399, arg__400, arg__401);
-	def arg__398 = (val);
-	def extend = U64_extend32_s(arg__398);
-	def arg__397 = (extend);
-	def eff__396 = push_u64(arg__397);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def arg__407 = (offset);
-	def arg__406 = (index);
-	def arg__405 = (memindex);
-	def val = mach_readMemory32_u32_64(arg__405, arg__406, arg__407);
-	def arg__404 = (val);
-	def extend = U64_extend32_s(arg__404);
-	def arg__403 = (extend);
-	def eff__402 = push_u64(arg__403);
-}
-// phis: 
-`;
-window.traces["I64_LOAD32_S"]["raw"] = ''
-window.traces["I64_LOAD32_S"]["raw__raw"] = ''
-window.traces["I64_LOAD32_S"]["raw"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__402 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend32_s"]
-	20 --> 22
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__410 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__409 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__412 0"]
-	8["arg__411 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__414 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__415 0u"]
-	34["eff__396 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend32_s"]
-	30 --> 32
-	30["val mach_readMemory64_u32_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__395 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD32_S"]["raw__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__402 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend32_s"]
-	20 --> 22
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__410 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__409 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__412 0"]
-	8["arg__411 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__414 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__415 0u"]
-	34["eff__396 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend32_s"]
-	30 --> 32
-	30["val mach_readMemory64_u32_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__395 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD32_S"]["spytial"] = ''
-window.traces["I64_LOAD32_S"]["spytial__raw"] = ''
-window.traces["I64_LOAD32_S"]["spytial"] += `<pre class=''>{
-"atoms": [
-{
-"id": "node_1",
-"type": "finish",
-"label": "Finish"
-},
-{
-"id": "node_35",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__395]]"
-},
-{
-"id": "node_36",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__395]]"
-},
-{
-"id": "node_0",
-"type": "start",
-"label": "Start"
-},
-{
-"id": "node_14",
-"type": "intrinsic",
-"label": "m_isMemory64 [cond__395]"
-},
-{
-"id": "node_25",
-"type": "intrinsic",
-"label": "imm_readULEB64 [offset]"
-},
-{
-"id": "node_15",
-"type": "intrinsic",
-"label": "imm_readULEB32 [offset]"
-},
-{
-"id": "node_34",
-"type": "intrinsic",
-"label": "push_u64 [eff__396]"
-},
-{
-"id": "node_24",
-"type": "intrinsic",
-"label": "push_u64 [eff__402]"
-},
-{
-"id": "node_11",
-"type": "phi",
-"label": "Phi"
-},
-{
-"id": "node_12",
-"type": "phi",
-"label": "StatePhi [u8.!= [cond__409]]"
-},
-{
-"id": "node_32",
-"type": "intrinsic",
-"label": "U64_extend32_s [extend]"
-},
-{
-"id": "node_26",
-"type": "intrinsic",
-"label": "pop_u64 [index]"
-},
-{
-"id": "node_22",
-"type": "intrinsic",
-"label": "U64_extend32_s [extend]"
-},
-{
-"id": "node_16",
-"type": "intrinsic",
-"label": "pop_u32 [index]"
-},
-{
-"id": "node_9",
-"type": "intrinsic",
-"label": "u8.!= [cond__409]"
-},
-{
-"id": "node_10",
-"type": "intrinsic",
-"label": "imm_readULEB32 [memindex__410]"
-},
-{
-"id": "node_4",
-"type": "lit",
-"label": "0u"
-},
-{
-"id": "node_3",
-"type": "intrinsic",
-"label": "imm_readU8 [flags]"
-},
-{
-"id": "node_30",
-"type": "intrinsic",
-"label": "mach_readMemory64_u32_64 [val]"
-},
-{
-"id": "node_20",
-"type": "intrinsic",
-"label": "mach_readMemory32_u32_64 [val]"
-},
-{
-"id": "node_8",
-"type": "intrinsic",
-"label": "u8.& [arg__411]"
-},
-{
-"id": "node_5",
-"type": "lit",
-"label": "0"
-},
-{
-"id": "node_6",
-"type": "lit",
-"label": "0x40u8"
-}
-],
-"relations": [
-{
-"id": "uses",
-"name": "Uses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_14", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_34", "node_32"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_22"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_30"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_20"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_8"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_5"],
-"types": ["intrinsic", "lit"]
-},
-{
-"atoms": ["node_30", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_26"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_30", "node_25"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_20", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_15"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_6"],
-"types": ["intrinsic", "lit"]
-}
-]
-},
-{
-"id": "state_uses",
-"name": "StateUses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_1", "node_35"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_36"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_0"],
-"types": ["finish", "start"]
-},
-{
-"atoms": ["node_25", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_34", "node_26"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_26", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_16", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_10", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_3", "node_0"],
-"types": ["intrinsic", "start"]
-}
-]
-},
-{
-"id": "phi_cond",
-"name": "PhiCond",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_35", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_36", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_9"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_true",
-"name": "PhiTrue",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_35", "node_25"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_36", "node_34"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_10"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_false",
-"name": "PhiFalse",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_35", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_36", "node_24"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_4"],
-"types": ["phi", "lit"]
-},
-{
-"atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
-}
-]
-}
-]
-}</pre>`;
-window.traces["I64_LOAD32_S"]["spytial__raw"] += `{
-"atoms": [
-{
-"id": "node_1",
-"type": "finish",
-"label": "Finish"
-},
-{
-"id": "node_35",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__395]]"
-},
-{
-"id": "node_36",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__395]]"
-},
-{
-"id": "node_0",
-"type": "start",
-"label": "Start"
-},
-{
-"id": "node_14",
-"type": "intrinsic",
-"label": "m_isMemory64 [cond__395]"
-},
-{
-"id": "node_25",
-"type": "intrinsic",
-"label": "imm_readULEB64 [offset]"
-},
-{
-"id": "node_15",
-"type": "intrinsic",
-"label": "imm_readULEB32 [offset]"
-},
-{
-"id": "node_34",
-"type": "intrinsic",
-"label": "push_u64 [eff__396]"
-},
-{
-"id": "node_24",
-"type": "intrinsic",
-"label": "push_u64 [eff__402]"
-},
-{
-"id": "node_11",
-"type": "phi",
-"label": "Phi"
-},
-{
-"id": "node_12",
-"type": "phi",
-"label": "StatePhi [u8.!= [cond__409]]"
-},
-{
-"id": "node_32",
-"type": "intrinsic",
-"label": "U64_extend32_s [extend]"
-},
-{
-"id": "node_26",
-"type": "intrinsic",
-"label": "pop_u64 [index]"
-},
-{
-"id": "node_22",
-"type": "intrinsic",
-"label": "U64_extend32_s [extend]"
-},
-{
-"id": "node_16",
-"type": "intrinsic",
-"label": "pop_u32 [index]"
-},
-{
-"id": "node_9",
-"type": "intrinsic",
-"label": "u8.!= [cond__409]"
-},
-{
-"id": "node_10",
-"type": "intrinsic",
-"label": "imm_readULEB32 [memindex__410]"
-},
-{
-"id": "node_4",
-"type": "lit",
-"label": "0u"
-},
-{
-"id": "node_3",
-"type": "intrinsic",
-"label": "imm_readU8 [flags]"
-},
-{
-"id": "node_30",
-"type": "intrinsic",
-"label": "mach_readMemory64_u32_64 [val]"
-},
-{
-"id": "node_20",
-"type": "intrinsic",
-"label": "mach_readMemory32_u32_64 [val]"
-},
-{
-"id": "node_8",
-"type": "intrinsic",
-"label": "u8.& [arg__411]"
-},
-{
-"id": "node_5",
-"type": "lit",
-"label": "0"
-},
-{
-"id": "node_6",
-"type": "lit",
-"label": "0x40u8"
-}
-],
-"relations": [
-{
-"id": "uses",
-"name": "Uses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_14", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_34", "node_32"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_22"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_30"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_20"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_8"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_5"],
-"types": ["intrinsic", "lit"]
-},
-{
-"atoms": ["node_30", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_26"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_30", "node_25"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_20", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_15"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_6"],
-"types": ["intrinsic", "lit"]
-}
-]
-},
-{
-"id": "state_uses",
-"name": "StateUses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_1", "node_35"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_36"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_0"],
-"types": ["finish", "start"]
-},
-{
-"atoms": ["node_25", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_34", "node_26"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_26", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_16", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_10", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_3", "node_0"],
-"types": ["intrinsic", "start"]
-}
-]
-},
-{
-"id": "phi_cond",
-"name": "PhiCond",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_35", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_36", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_9"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_true",
-"name": "PhiTrue",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_35", "node_25"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_36", "node_34"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_10"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_false",
-"name": "PhiFalse",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_35", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_36", "node_24"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_4"],
-"types": ["phi", "lit"]
-},
-{
-"atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
-}
-]
-}
-]
-}`;
-window.traces["I64_LOAD32_S"]["overloadOps"] = ''
-window.traces["I64_LOAD32_S"]["overloadOps__raw"] = ''
-window.traces["I64_LOAD32_S"]["overloadOps"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__402 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend32_s"]
-	20 --> 22
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__410 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__409 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__412 0"]
-	8["arg__411 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__414 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__416 0u"]
-	34["eff__396 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend32_s"]
-	30 --> 32
-	30["val mach_readMemory64_u32_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__395 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD32_S"]["overloadOps__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__402 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend32_s"]
-	20 --> 22
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__410 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__409 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__412 0"]
-	8["arg__411 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__414 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__416 0u"]
-	34["eff__396 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend32_s"]
-	30 --> 32
-	30["val mach_readMemory64_u32_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__395 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD32_S"]["addAbstractions"] = ''
-window.traces["I64_LOAD32_S"]["addAbstractions__raw"] = ''
-window.traces["I64_LOAD32_S"]["addAbstractions"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__402 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend32_s"]
-	20 --> 22
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__410 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__409 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__412 0"]
-	8["arg__411 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__414 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__416 0u"]
-	34["eff__396 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend32_s"]
-	30 --> 32
-	30["val mach_readMemory64_u32_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__395 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD32_S"]["addAbstractions__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__402 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend32_s"]
-	20 --> 22
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__410 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__409 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__412 0"]
-	8["arg__411 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__414 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__416 0u"]
-	34["eff__396 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend32_s"]
-	30 --> 32
-	30["val mach_readMemory64_u32_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__395 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD32_S"]["schedulerMermaid"] = ''
-window.traces["I64_LOAD32_S"]["schedulerMermaid__raw"] = ''
-window.traces["I64_LOAD32_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_395["Block 395"]
-	direction TB
-	b395_1[\\"Finish"/]
-end
-phi_397 --> block_395
-subgraph phi_397["Phi 397"]
-	p397_36{{"Sϕ Stack "}}
-	p397_35{{"Sϕ Codeptr "}}
-end
-block_398 --> phi_397
-block_399 --> phi_397
-subgraph block_398["Block 398"]
-	direction TB
-	b398_26["index pop_u64"]
-	b398_30["val mach_readMemory64_u32_64"]
-	b398_32["extend U64_extend32_s"]
-	b398_34["eff__396 push_u64"]
-	b398_25["offset imm_readULEB64"]
-	b398_26 --> b398_30
-	b398_30 --> b398_32
-	b398_32 --> b398_34
-	b398_34 --> b398_25
-end
-branch_396 --> block_398
-subgraph branch_396["Branch 396"]
-	br396_14["cond__395 m_isMemory64"]
-
-end
-block_400 --> branch_396
-subgraph block_400["Block 400"]
-	direction TB
-	b400_14["cond__395 m_isMemory64"]
-end
-phi_402 --> block_400
-subgraph phi_402["Phi 402"]
-	p402_12{{"Sϕ Codeptr "}}
-	p402_12{{"Sϕ Codeptr "}}
-	p402_12{{"Sϕ Codeptr "}}
-	p402_12{{"Sϕ Codeptr "}}
-	p402_11{"memindex ϕ"}
-	p402_11{"memindex ϕ"}
-	p402_11{"memindex ϕ"}
-	p402_11{"memindex ϕ"}
-	p402_11{"memindex ϕ"}
-	p402_11{"memindex ϕ"}
-	p402_12{{"Sϕ Codeptr "}}
-	p402_12{{"Sϕ Codeptr "}}
-	p402_12{{"Sϕ Codeptr "}}
-	p402_12{{"Sϕ Codeptr "}}
-end
-block_403 --> phi_402
-block_404 --> phi_402
-subgraph block_403["Block 403"]
-	direction TB
-	b403_10["memindex__410 imm_readULEB32"]
-end
-branch_401 --> block_403
-subgraph branch_401["Branch 401"]
-	br401_9["cond__409 u8.!="]
-
-end
-block_405 --> branch_401
-subgraph block_405["Block 405"]
-	direction TB
-	b405_0[/"Start"\\]
-	b405_6["arg__414 0x40u8"]
-	b405_5["arg__412 0"]
-	b405_8["arg__411 u8.&"]
-	b405_9["cond__409 u8.!="]
-	b405_0 --> b405_6
-	b405_6 --> b405_5
-	b405_5 --> b405_8
-	b405_8 --> b405_9
-end
-subgraph block_404["Block 404"]
-	direction TB
-	b404_4["memindex__416 0u"]
-	b404_3["flags imm_readU8"]
-	b404_4 --> b404_3
-end
-branch_401 --> block_404
-subgraph block_399["Block 399"]
-	direction TB
-	b399_16["index pop_u32"]
-	b399_20["val mach_readMemory32_u32_64"]
-	b399_22["extend U64_extend32_s"]
-	b399_24["eff__402 push_u64"]
-	b399_15["offset imm_readULEB32"]
-	b399_16 --> b399_20
-	b399_20 --> b399_22
-	b399_22 --> b399_24
-	b399_24 --> b399_15
-end
-branch_396 --> block_399
-
-</pre>`;
-window.traces["I64_LOAD32_S"]["schedulerMermaid__raw"] += `graph TD
-subgraph block_395["Block 395"]
-	direction TB
-	b395_1[\\"Finish"/]
-end
-phi_397 --> block_395
-subgraph phi_397["Phi 397"]
-	p397_36{{"Sϕ Stack "}}
-	p397_35{{"Sϕ Codeptr "}}
-end
-block_398 --> phi_397
-block_399 --> phi_397
-subgraph block_398["Block 398"]
-	direction TB
-	b398_26["index pop_u64"]
-	b398_30["val mach_readMemory64_u32_64"]
-	b398_32["extend U64_extend32_s"]
-	b398_34["eff__396 push_u64"]
-	b398_25["offset imm_readULEB64"]
-	b398_26 --> b398_30
-	b398_30 --> b398_32
-	b398_32 --> b398_34
-	b398_34 --> b398_25
-end
-branch_396 --> block_398
-subgraph branch_396["Branch 396"]
-	br396_14["cond__395 m_isMemory64"]
-
-end
-block_400 --> branch_396
-subgraph block_400["Block 400"]
-	direction TB
-	b400_14["cond__395 m_isMemory64"]
-end
-phi_402 --> block_400
-subgraph phi_402["Phi 402"]
-	p402_12{{"Sϕ Codeptr "}}
-	p402_12{{"Sϕ Codeptr "}}
-	p402_12{{"Sϕ Codeptr "}}
-	p402_12{{"Sϕ Codeptr "}}
-	p402_11{"memindex ϕ"}
-	p402_11{"memindex ϕ"}
-	p402_11{"memindex ϕ"}
-	p402_11{"memindex ϕ"}
-	p402_11{"memindex ϕ"}
-	p402_11{"memindex ϕ"}
-	p402_12{{"Sϕ Codeptr "}}
-	p402_12{{"Sϕ Codeptr "}}
-	p402_12{{"Sϕ Codeptr "}}
-	p402_12{{"Sϕ Codeptr "}}
-end
-block_403 --> phi_402
-block_404 --> phi_402
-subgraph block_403["Block 403"]
-	direction TB
-	b403_10["memindex__410 imm_readULEB32"]
-end
-branch_401 --> block_403
-subgraph branch_401["Branch 401"]
-	br401_9["cond__409 u8.!="]
-
-end
-block_405 --> branch_401
-subgraph block_405["Block 405"]
-	direction TB
-	b405_0[/"Start"\\]
-	b405_6["arg__414 0x40u8"]
-	b405_5["arg__412 0"]
-	b405_8["arg__411 u8.&"]
-	b405_9["cond__409 u8.!="]
-	b405_0 --> b405_6
-	b405_6 --> b405_5
-	b405_5 --> b405_8
-	b405_8 --> b405_9
-end
-subgraph block_404["Block 404"]
-	direction TB
-	b404_4["memindex__416 0u"]
-	b404_3["flags imm_readU8"]
-	b404_4 --> b404_3
-end
-branch_401 --> block_404
-subgraph block_399["Block 399"]
-	direction TB
-	b399_16["index pop_u32"]
-	b399_20["val mach_readMemory32_u32_64"]
-	b399_22["extend U64_extend32_s"]
-	b399_24["eff__402 push_u64"]
-	b399_15["offset imm_readULEB32"]
-	b399_16 --> b399_20
-	b399_20 --> b399_22
-	b399_22 --> b399_24
-	b399_24 --> b399_15
-end
-branch_396 --> block_399
-
-`;
-window.traces["I64_LOAD32_S"]["unLEM"] = ''
-window.traces["I64_LOAD32_S"]["unLEM__raw"] = ''
-window.traces["I64_LOAD32_S"]["unLEM"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__402 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend32_s"]
-	20 --> 22
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__410 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__409 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__412 0"]
-	8["arg__411 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__414 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__416 0u"]
-	34["eff__396 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend32_s"]
-	30 --> 32
-	30["val mach_readMemory64_u32_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__395 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD32_S"]["unLEM__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__402 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend32_s"]
-	20 --> 22
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__410 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__409 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__412 0"]
-	8["arg__411 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__414 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__416 0u"]
-	34["eff__396 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend32_s"]
-	30 --> 32
-	30["val mach_readMemory64_u32_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__395 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD32_S"]["unlem_schedule"] = ''
-window.traces["I64_LOAD32_S"]["unlem_schedule__raw"] = ''
-window.traces["I64_LOAD32_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__414 : byte = 0x40u8;
-def arg__411 = u8.&(flags, arg__414);
-def arg__412 : byte = 0;
-def cond__409 = u8.!=(arg__411, arg__412);
-var memindex: u32;
-if (cond__409) {
-	def memindex__410 = imm_readULEB32();
-} else {
-	def memindex__416 : u32 = 0u;
-}
-// phis: memindex <- memindex__410; memindex <- memindex__416; 
-def cond__395 = m_isMemory64(memindex);
-if (cond__395) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	def eff__396 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	def eff__402 = push_u64(extend);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD32_S"]["unlem_schedule__raw"] += `def flags = imm_readU8();
-def arg__414 : byte = 0x40u8;
-def arg__411 = u8.&(flags, arg__414);
-def arg__412 : byte = 0;
-def cond__409 = u8.!=(arg__411, arg__412);
-var memindex: u32;
-if (cond__409) {
-	def memindex__410 = imm_readULEB32();
-} else {
-	def memindex__416 : u32 = 0u;
-}
-// phis: memindex <- memindex__410; memindex <- memindex__416; 
-def cond__395 = m_isMemory64(memindex);
-if (cond__395) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	def eff__396 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	def eff__402 = push_u64(extend);
-}
-// phis: 
-`;
-window.traces["I64_LOAD32_S"]["unlem_scheduler"] = ''
-window.traces["I64_LOAD32_S"]["unlem_scheduler__raw"] = ''
-window.traces["I64_LOAD32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_406["Block 406"]
-	direction TB
-	b406_1[\\"Finish"/]
-end
-phi_408 --> block_406
-subgraph phi_408["Phi 408"]
-	p408_36{{"Sϕ Stack "}}
-	p408_35{{"Sϕ Codeptr "}}
-end
-block_409 --> phi_408
-block_410 --> phi_408
-subgraph block_409["Block 409"]
-	direction TB
-	b409_26["index pop_u64"]
-	b409_30["val mach_readMemory64_u32_64"]
-	b409_32["extend U64_extend32_s"]
-	b409_34["eff__396 push_u64"]
-	b409_25["offset imm_readULEB64"]
-	b409_26 --> b409_30
-	b409_30 --> b409_32
-	b409_32 --> b409_34
-	b409_34 --> b409_25
-end
-branch_407 --> block_409
-subgraph branch_407["Branch 407"]
-	br407_14["cond__395 m_isMemory64"]
-
-end
-block_411 --> branch_407
-subgraph block_411["Block 411"]
-	direction TB
-	b411_14["cond__395 m_isMemory64"]
-end
-phi_413 --> block_411
-subgraph phi_413["Phi 413"]
-	p413_12{{"Sϕ Codeptr "}}
-	p413_12{{"Sϕ Codeptr "}}
-	p413_12{{"Sϕ Codeptr "}}
-	p413_12{{"Sϕ Codeptr "}}
-	p413_11{"memindex ϕ"}
-	p413_11{"memindex ϕ"}
-	p413_11{"memindex ϕ"}
-	p413_11{"memindex ϕ"}
-	p413_11{"memindex ϕ"}
-	p413_11{"memindex ϕ"}
-	p413_12{{"Sϕ Codeptr "}}
-	p413_12{{"Sϕ Codeptr "}}
-	p413_12{{"Sϕ Codeptr "}}
-	p413_12{{"Sϕ Codeptr "}}
-end
-block_414 --> phi_413
-block_415 --> phi_413
-subgraph block_414["Block 414"]
-	direction TB
-	b414_10["memindex__410 imm_readULEB32"]
-end
-branch_412 --> block_414
-subgraph branch_412["Branch 412"]
-	br412_9["cond__409 u8.!="]
-
-end
-block_416 --> branch_412
-subgraph block_416["Block 416"]
-	direction TB
-	b416_0[/"Start"\\]
-	b416_6["arg__414 0x40u8"]
-	b416_5["arg__412 0"]
-	b416_8["arg__411 u8.&"]
-	b416_9["cond__409 u8.!="]
-	b416_0 --> b416_6
-	b416_6 --> b416_5
-	b416_5 --> b416_8
-	b416_8 --> b416_9
-end
-subgraph block_415["Block 415"]
-	direction TB
-	b415_4["memindex__416 0u"]
-	b415_3["flags imm_readU8"]
-	b415_4 --> b415_3
-end
-branch_412 --> block_415
-subgraph block_410["Block 410"]
-	direction TB
-	b410_16["index pop_u32"]
-	b410_20["val mach_readMemory32_u32_64"]
-	b410_22["extend U64_extend32_s"]
-	b410_24["eff__402 push_u64"]
-	b410_15["offset imm_readULEB32"]
-	b410_16 --> b410_20
-	b410_20 --> b410_22
-	b410_22 --> b410_24
-	b410_24 --> b410_15
-end
-branch_407 --> block_410
-
-</pre>`;
-window.traces["I64_LOAD32_S"]["unlem_scheduler__raw"] += `graph TD
-subgraph block_406["Block 406"]
-	direction TB
-	b406_1[\\"Finish"/]
-end
-phi_408 --> block_406
-subgraph phi_408["Phi 408"]
-	p408_36{{"Sϕ Stack "}}
-	p408_35{{"Sϕ Codeptr "}}
-end
-block_409 --> phi_408
-block_410 --> phi_408
-subgraph block_409["Block 409"]
-	direction TB
-	b409_26["index pop_u64"]
-	b409_30["val mach_readMemory64_u32_64"]
-	b409_32["extend U64_extend32_s"]
-	b409_34["eff__396 push_u64"]
-	b409_25["offset imm_readULEB64"]
-	b409_26 --> b409_30
-	b409_30 --> b409_32
-	b409_32 --> b409_34
-	b409_34 --> b409_25
-end
-branch_407 --> block_409
-subgraph branch_407["Branch 407"]
-	br407_14["cond__395 m_isMemory64"]
-
-end
-block_411 --> branch_407
-subgraph block_411["Block 411"]
-	direction TB
-	b411_14["cond__395 m_isMemory64"]
-end
-phi_413 --> block_411
-subgraph phi_413["Phi 413"]
-	p413_12{{"Sϕ Codeptr "}}
-	p413_12{{"Sϕ Codeptr "}}
-	p413_12{{"Sϕ Codeptr "}}
-	p413_12{{"Sϕ Codeptr "}}
-	p413_11{"memindex ϕ"}
-	p413_11{"memindex ϕ"}
-	p413_11{"memindex ϕ"}
-	p413_11{"memindex ϕ"}
-	p413_11{"memindex ϕ"}
-	p413_11{"memindex ϕ"}
-	p413_12{{"Sϕ Codeptr "}}
-	p413_12{{"Sϕ Codeptr "}}
-	p413_12{{"Sϕ Codeptr "}}
-	p413_12{{"Sϕ Codeptr "}}
-end
-block_414 --> phi_413
-block_415 --> phi_413
-subgraph block_414["Block 414"]
-	direction TB
-	b414_10["memindex__410 imm_readULEB32"]
-end
-branch_412 --> block_414
-subgraph branch_412["Branch 412"]
-	br412_9["cond__409 u8.!="]
-
-end
-block_416 --> branch_412
-subgraph block_416["Block 416"]
-	direction TB
-	b416_0[/"Start"\\]
-	b416_6["arg__414 0x40u8"]
-	b416_5["arg__412 0"]
-	b416_8["arg__411 u8.&"]
-	b416_9["cond__409 u8.!="]
-	b416_0 --> b416_6
-	b416_6 --> b416_5
-	b416_5 --> b416_8
-	b416_8 --> b416_9
-end
-subgraph block_415["Block 415"]
-	direction TB
-	b415_4["memindex__416 0u"]
-	b415_3["flags imm_readU8"]
-	b415_4 --> b415_3
-end
-branch_412 --> block_415
-subgraph block_410["Block 410"]
-	direction TB
-	b410_16["index pop_u32"]
-	b410_20["val mach_readMemory32_u32_64"]
-	b410_22["extend U64_extend32_s"]
-	b410_24["eff__402 push_u64"]
-	b410_15["offset imm_readULEB32"]
-	b410_16 --> b410_20
-	b410_20 --> b410_22
-	b410_22 --> b410_24
-	b410_24 --> b410_15
-end
-branch_407 --> block_410
-
-`;
-window.traces["I64_LOAD32_S"]["unlem_pretty"] = ''
-window.traces["I64_LOAD32_S"]["unlem_pretty__raw"] = ''
-window.traces["I64_LOAD32_S"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	push_u64(extend);
-}
-</pre>`;
-window.traces["I64_LOAD32_S"]["unlem_pretty__raw"] += `def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	push_u64(extend);
-}
-`;
-window.traces["I64_LOAD32_S"]["constUnLEM"] = ''
-window.traces["I64_LOAD32_S"]["constUnLEM__raw"] = ''
-window.traces["I64_LOAD32_S"]["constUnLEM"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__402 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend32_s"]
-	20 --> 22
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__410 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__409 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__412 0"]
-	8["arg__411 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__414 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__416 0u"]
-	34["eff__396 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend32_s"]
-	30 --> 32
-	30["val mach_readMemory64_u32_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__395 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD32_S"]["constUnLEM__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__402 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend32_s"]
-	20 --> 22
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__410 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__409 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__412 0"]
-	8["arg__411 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__414 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__416 0u"]
-	34["eff__396 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend32_s"]
-	30 --> 32
-	30["val mach_readMemory64_u32_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__395 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD32_S"]["chooseMerge"] = ''
-window.traces["I64_LOAD32_S"]["chooseMerge__raw"] = ''
-window.traces["I64_LOAD32_S"]["chooseMerge"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__402 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend32_s"]
-	20 --> 22
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__410 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__409 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__412 0"]
-	8["arg__411 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__414 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__416 0u"]
-	34["eff__396 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend32_s"]
-	30 --> 32
-	30["val mach_readMemory64_u32_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__395 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-</pre>`;
-window.traces["I64_LOAD32_S"]["chooseMerge__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	35 -. Codeptr .-> 1
-	36 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	36{{"Sϕ Stack "}}
-	14 --> 36
-	34 --> 36
-	24 --> 36
-	24["eff__402 push_u64"]
-	22 --> 24
-	16 -. Stack .-> 24
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	22["extend U64_extend32_s"]
-	20 --> 22
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__410 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__409 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__412 0"]
-	8["arg__411 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__414 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__416 0u"]
-	34["eff__396 push_u64"]
-	32 --> 34
-	26 -. Stack .-> 34
-	26["index pop_u64"]
-	0 -. Stack .-> 26
-	32["extend U64_extend32_s"]
-	30 --> 32
-	30["val mach_readMemory64_u32_64"]
-	11 --> 30
-	26 --> 30
-	25 --> 30
-	25["offset imm_readULEB64"]
-	12 -. Codeptr .-> 25
-	14["cond__395 m_isMemory64"]
-	11 --> 14
-	35{{"Sϕ Codeptr "}}
-	14 --> 35
-	25 --> 35
-	15 --> 35
-`;
-window.traces["I64_LOAD32_S"]["scheduled"] = ''
-window.traces["I64_LOAD32_S"]["scheduled__raw"] = ''
-window.traces["I64_LOAD32_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__414 : byte = 0x40u8;
-def arg__411 = u8.&(flags, arg__414);
-def arg__412 : byte = 0;
-def cond__409 = u8.!=(arg__411, arg__412);
-var memindex: u32;
-if (cond__409) {
-	def memindex__410 = imm_readULEB32();
-} else {
-	def memindex__416 : u32 = 0u;
-}
-// phis: memindex <- memindex__410; memindex <- memindex__416; 
-def cond__395 = m_isMemory64(memindex);
-if (cond__395) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	def eff__396 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	def eff__402 = push_u64(extend);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD32_S"]["scheduled__raw"] += `def flags = imm_readU8();
-def arg__414 : byte = 0x40u8;
-def arg__411 = u8.&(flags, arg__414);
-def arg__412 : byte = 0;
-def cond__409 = u8.!=(arg__411, arg__412);
-var memindex: u32;
-if (cond__409) {
-	def memindex__410 = imm_readULEB32();
-} else {
-	def memindex__416 : u32 = 0u;
-}
-// phis: memindex <- memindex__410; memindex <- memindex__416; 
-def cond__395 = m_isMemory64(memindex);
-if (cond__395) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	def eff__396 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	def eff__402 = push_u64(extend);
-}
-// phis: 
-`;
-window.traces["I64_LOAD32_S"]["pretty"] = ''
-window.traces["I64_LOAD32_S"]["pretty__raw"] = ''
-window.traces["I64_LOAD32_S"]["pretty"] += `<pre class=''>def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	push_u64(extend);
-}
-</pre>`;
-window.traces["I64_LOAD32_S"]["pretty__raw"] += `def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	push_u64(extend);
-}
-`;
-window.traces["I64_LOAD32_U"] = {}
-window.traces["I64_LOAD32_U"]["parsed"] = ''
-window.traces["I64_LOAD32_U"]["parsed__raw"] = ''
-window.traces["I64_LOAD32_U"]["parsed"] += `<pre class=''>def flags = imm_readU8();
-def memindex : u32 = 0u;
-def arg__432 : byte = 0;
-def arg__434 : byte = 0x40u8;
-def arg__433 = (flags);
-def arg__431 = u8.&(arg__433, arg__434);
-def cond__429 = u8.!=(arg__431, arg__432);
-if (cond__429) {
-	def memindex__430 = imm_readULEB32();
-}
-// phis: memindex <- memindex__430; 
-def arg__428 = (memindex);
-def cond__417 = m_isMemory64(arg__428);
-if (cond__417) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def arg__422 = (offset);
-	def arg__421 = (index);
-	def arg__420 = (memindex);
-	def val = mach_readMemory64_u32_64(arg__420, arg__421, arg__422);
-	def arg__419 = (val);
-	def eff__418 = push_u64(arg__419);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def arg__427 = (offset);
-	def arg__426 = (index);
-	def arg__425 = (memindex);
-	def val = mach_readMemory32_u32_64(arg__425, arg__426, arg__427);
-	def arg__424 = (val);
-	def eff__423 = push_u64(arg__424);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD32_U"]["parsed__raw"] += `def flags = imm_readU8();
-def memindex : u32 = 0u;
-def arg__432 : byte = 0;
-def arg__434 : byte = 0x40u8;
-def arg__433 = (flags);
-def arg__431 = u8.&(arg__433, arg__434);
-def cond__429 = u8.!=(arg__431, arg__432);
-if (cond__429) {
-	def memindex__430 = imm_readULEB32();
-}
-// phis: memindex <- memindex__430; 
-def arg__428 = (memindex);
-def cond__417 = m_isMemory64(arg__428);
-if (cond__417) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def arg__422 = (offset);
-	def arg__421 = (index);
-	def arg__420 = (memindex);
-	def val = mach_readMemory64_u32_64(arg__420, arg__421, arg__422);
-	def arg__419 = (val);
-	def eff__418 = push_u64(arg__419);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def arg__427 = (offset);
-	def arg__426 = (index);
-	def arg__425 = (memindex);
-	def val = mach_readMemory32_u32_64(arg__425, arg__426, arg__427);
-	def arg__424 = (val);
-	def eff__423 = push_u64(arg__424);
-}
-// phis: 
-`;
-window.traces["I64_LOAD32_U"]["raw"] = ''
-window.traces["I64_LOAD32_U"]["raw__raw"] = ''
-window.traces["I64_LOAD32_U"]["raw"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__423 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__430 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__429 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__432 0"]
-	8["arg__431 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__434 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__435 0u"]
-	30["eff__418 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u32_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__417 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD32_U"]["raw__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__423 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__430 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__429 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__432 0"]
-	8["arg__431 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__434 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__435 0u"]
-	30["eff__418 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u32_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__417 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD32_U"]["spytial"] = ''
-window.traces["I64_LOAD32_U"]["spytial__raw"] = ''
-window.traces["I64_LOAD32_U"]["spytial"] += `<pre class=''>{
-"atoms": [
-{
-"id": "node_1",
-"type": "finish",
-"label": "Finish"
-},
-{
-"id": "node_31",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__417]]"
-},
-{
-"id": "node_32",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__417]]"
-},
-{
-"id": "node_0",
-"type": "start",
-"label": "Start"
-},
-{
-"id": "node_14",
-"type": "intrinsic",
-"label": "m_isMemory64 [cond__417]"
-},
-{
-"id": "node_23",
-"type": "intrinsic",
-"label": "imm_readULEB64 [offset]"
-},
-{
-"id": "node_15",
-"type": "intrinsic",
-"label": "imm_readULEB32 [offset]"
-},
-{
-"id": "node_30",
-"type": "intrinsic",
-"label": "push_u64 [eff__418]"
-},
-{
-"id": "node_22",
-"type": "intrinsic",
-"label": "push_u64 [eff__423]"
-},
-{
-"id": "node_11",
-"type": "phi",
-"label": "Phi"
-},
-{
-"id": "node_12",
-"type": "phi",
-"label": "StatePhi [u8.!= [cond__429]]"
-},
-{
-"id": "node_28",
-"type": "intrinsic",
-"label": "mach_readMemory64_u32_64 [val]"
-},
-{
-"id": "node_24",
-"type": "intrinsic",
-"label": "pop_u64 [index]"
-},
-{
-"id": "node_20",
-"type": "intrinsic",
-"label": "mach_readMemory32_u32_64 [val]"
-},
-{
-"id": "node_16",
-"type": "intrinsic",
-"label": "pop_u32 [index]"
-},
-{
-"id": "node_9",
-"type": "intrinsic",
-"label": "u8.!= [cond__429]"
-},
-{
-"id": "node_10",
-"type": "intrinsic",
-"label": "imm_readULEB32 [memindex__430]"
-},
-{
-"id": "node_4",
-"type": "lit",
-"label": "0u"
-},
-{
-"id": "node_3",
-"type": "intrinsic",
-"label": "imm_readU8 [flags]"
-},
-{
-"id": "node_8",
-"type": "intrinsic",
-"label": "u8.& [arg__431]"
-},
-{
-"id": "node_5",
-"type": "lit",
-"label": "0"
-},
-{
-"id": "node_6",
-"type": "lit",
-"label": "0x40u8"
-}
-],
-"relations": [
-{
-"id": "uses",
-"name": "Uses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_14", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_28"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_20"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_28", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_28", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_28", "node_23"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_20", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_15"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_8"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_5"],
-"types": ["intrinsic", "lit"]
-},
-{
-"atoms": ["node_8", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_6"],
-"types": ["intrinsic", "lit"]
-}
-]
-},
-{
-"id": "state_uses",
-"name": "StateUses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_0"],
-"types": ["finish", "start"]
-},
-{
-"atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_16", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_10", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_3", "node_0"],
-"types": ["intrinsic", "start"]
-}
-]
-},
-{
-"id": "phi_cond",
-"name": "PhiCond",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_9"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_true",
-"name": "PhiTrue",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_10"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_false",
-"name": "PhiFalse",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_4"],
-"types": ["phi", "lit"]
-},
-{
-"atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
-}
-]
-}
-]
-}</pre>`;
-window.traces["I64_LOAD32_U"]["spytial__raw"] += `{
-"atoms": [
-{
-"id": "node_1",
-"type": "finish",
-"label": "Finish"
-},
-{
-"id": "node_31",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__417]]"
-},
-{
-"id": "node_32",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__417]]"
-},
-{
-"id": "node_0",
-"type": "start",
-"label": "Start"
-},
-{
-"id": "node_14",
-"type": "intrinsic",
-"label": "m_isMemory64 [cond__417]"
-},
-{
-"id": "node_23",
-"type": "intrinsic",
-"label": "imm_readULEB64 [offset]"
-},
-{
-"id": "node_15",
-"type": "intrinsic",
-"label": "imm_readULEB32 [offset]"
-},
-{
-"id": "node_30",
-"type": "intrinsic",
-"label": "push_u64 [eff__418]"
-},
-{
-"id": "node_22",
-"type": "intrinsic",
-"label": "push_u64 [eff__423]"
-},
-{
-"id": "node_11",
-"type": "phi",
-"label": "Phi"
-},
-{
-"id": "node_12",
-"type": "phi",
-"label": "StatePhi [u8.!= [cond__429]]"
-},
-{
-"id": "node_28",
-"type": "intrinsic",
-"label": "mach_readMemory64_u32_64 [val]"
-},
-{
-"id": "node_24",
-"type": "intrinsic",
-"label": "pop_u64 [index]"
-},
-{
-"id": "node_20",
-"type": "intrinsic",
-"label": "mach_readMemory32_u32_64 [val]"
-},
-{
-"id": "node_16",
-"type": "intrinsic",
-"label": "pop_u32 [index]"
-},
-{
-"id": "node_9",
-"type": "intrinsic",
-"label": "u8.!= [cond__429]"
-},
-{
-"id": "node_10",
-"type": "intrinsic",
-"label": "imm_readULEB32 [memindex__430]"
-},
-{
-"id": "node_4",
-"type": "lit",
-"label": "0u"
-},
-{
-"id": "node_3",
-"type": "intrinsic",
-"label": "imm_readU8 [flags]"
-},
-{
-"id": "node_8",
-"type": "intrinsic",
-"label": "u8.& [arg__431]"
-},
-{
-"id": "node_5",
-"type": "lit",
-"label": "0"
-},
-{
-"id": "node_6",
-"type": "lit",
-"label": "0x40u8"
-}
-],
-"relations": [
-{
-"id": "uses",
-"name": "Uses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_14", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_28"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_20"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_28", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_28", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_28", "node_23"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_20", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_20", "node_15"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_8"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_5"],
-"types": ["intrinsic", "lit"]
-},
-{
-"atoms": ["node_8", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_6"],
-"types": ["intrinsic", "lit"]
-}
-]
-},
-{
-"id": "state_uses",
-"name": "StateUses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_0"],
-"types": ["finish", "start"]
-},
-{
-"atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_15", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_30", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_24", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_16", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_10", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_3", "node_0"],
-"types": ["intrinsic", "start"]
-}
-]
-},
-{
-"id": "phi_cond",
-"name": "PhiCond",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_14"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_9"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_true",
-"name": "PhiTrue",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_23"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_30"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_10"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_false",
-"name": "PhiFalse",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_4"],
-"types": ["phi", "lit"]
-},
-{
-"atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
-}
-]
-}
-]
-}`;
-window.traces["I64_LOAD32_U"]["overloadOps"] = ''
-window.traces["I64_LOAD32_U"]["overloadOps__raw"] = ''
-window.traces["I64_LOAD32_U"]["overloadOps"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__423 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__430 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__429 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__432 0"]
-	8["arg__431 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__434 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__436 0u"]
-	30["eff__418 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u32_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__417 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD32_U"]["overloadOps__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__423 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__430 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__429 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__432 0"]
-	8["arg__431 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__434 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__436 0u"]
-	30["eff__418 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u32_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__417 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD32_U"]["addAbstractions"] = ''
-window.traces["I64_LOAD32_U"]["addAbstractions__raw"] = ''
-window.traces["I64_LOAD32_U"]["addAbstractions"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__423 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__430 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__429 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__432 0"]
-	8["arg__431 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__434 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__436 0u"]
-	30["eff__418 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u32_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__417 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD32_U"]["addAbstractions__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__423 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__430 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__429 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__432 0"]
-	8["arg__431 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__434 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__436 0u"]
-	30["eff__418 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u32_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__417 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD32_U"]["schedulerMermaid"] = ''
-window.traces["I64_LOAD32_U"]["schedulerMermaid__raw"] = ''
-window.traces["I64_LOAD32_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_417["Block 417"]
-	direction TB
-	b417_1[\\"Finish"/]
-end
-phi_419 --> block_417
-subgraph phi_419["Phi 419"]
-	p419_32{{"Sϕ Stack "}}
-	p419_31{{"Sϕ Codeptr "}}
-end
-block_420 --> phi_419
-block_421 --> phi_419
-subgraph block_420["Block 420"]
-	direction TB
-	b420_24["index pop_u64"]
-	b420_28["val mach_readMemory64_u32_64"]
-	b420_30["eff__418 push_u64"]
-	b420_23["offset imm_readULEB64"]
-	b420_24 --> b420_28
-	b420_28 --> b420_30
-	b420_30 --> b420_23
-end
-branch_418 --> block_420
-subgraph branch_418["Branch 418"]
-	br418_14["cond__417 m_isMemory64"]
-
-end
-block_422 --> branch_418
-subgraph block_422["Block 422"]
-	direction TB
-	b422_14["cond__417 m_isMemory64"]
-end
-phi_424 --> block_422
-subgraph phi_424["Phi 424"]
-	p424_12{{"Sϕ Codeptr "}}
-	p424_12{{"Sϕ Codeptr "}}
-	p424_12{{"Sϕ Codeptr "}}
-	p424_12{{"Sϕ Codeptr "}}
-	p424_11{"memindex ϕ"}
-	p424_11{"memindex ϕ"}
-	p424_11{"memindex ϕ"}
-	p424_11{"memindex ϕ"}
-	p424_11{"memindex ϕ"}
-	p424_11{"memindex ϕ"}
-	p424_12{{"Sϕ Codeptr "}}
-	p424_12{{"Sϕ Codeptr "}}
-	p424_12{{"Sϕ Codeptr "}}
-	p424_12{{"Sϕ Codeptr "}}
-end
-block_425 --> phi_424
-block_426 --> phi_424
-subgraph block_425["Block 425"]
-	direction TB
-	b425_10["memindex__430 imm_readULEB32"]
-end
-branch_423 --> block_425
-subgraph branch_423["Branch 423"]
-	br423_9["cond__429 u8.!="]
-
-end
-block_427 --> branch_423
-subgraph block_427["Block 427"]
-	direction TB
-	b427_0[/"Start"\\]
-	b427_6["arg__434 0x40u8"]
-	b427_5["arg__432 0"]
-	b427_8["arg__431 u8.&"]
-	b427_9["cond__429 u8.!="]
-	b427_0 --> b427_6
-	b427_6 --> b427_5
-	b427_5 --> b427_8
-	b427_8 --> b427_9
-end
-subgraph block_426["Block 426"]
-	direction TB
-	b426_4["memindex__436 0u"]
-	b426_3["flags imm_readU8"]
-	b426_4 --> b426_3
-end
-branch_423 --> block_426
-subgraph block_421["Block 421"]
-	direction TB
-	b421_16["index pop_u32"]
-	b421_20["val mach_readMemory32_u32_64"]
-	b421_22["eff__423 push_u64"]
-	b421_15["offset imm_readULEB32"]
-	b421_16 --> b421_20
-	b421_20 --> b421_22
-	b421_22 --> b421_15
-end
-branch_418 --> block_421
-
-</pre>`;
-window.traces["I64_LOAD32_U"]["schedulerMermaid__raw"] += `graph TD
-subgraph block_417["Block 417"]
-	direction TB
-	b417_1[\\"Finish"/]
-end
-phi_419 --> block_417
-subgraph phi_419["Phi 419"]
-	p419_32{{"Sϕ Stack "}}
-	p419_31{{"Sϕ Codeptr "}}
-end
-block_420 --> phi_419
-block_421 --> phi_419
-subgraph block_420["Block 420"]
-	direction TB
-	b420_24["index pop_u64"]
-	b420_28["val mach_readMemory64_u32_64"]
-	b420_30["eff__418 push_u64"]
-	b420_23["offset imm_readULEB64"]
-	b420_24 --> b420_28
-	b420_28 --> b420_30
-	b420_30 --> b420_23
-end
-branch_418 --> block_420
-subgraph branch_418["Branch 418"]
-	br418_14["cond__417 m_isMemory64"]
-
-end
-block_422 --> branch_418
-subgraph block_422["Block 422"]
-	direction TB
-	b422_14["cond__417 m_isMemory64"]
-end
-phi_424 --> block_422
-subgraph phi_424["Phi 424"]
-	p424_12{{"Sϕ Codeptr "}}
-	p424_12{{"Sϕ Codeptr "}}
-	p424_12{{"Sϕ Codeptr "}}
-	p424_12{{"Sϕ Codeptr "}}
-	p424_11{"memindex ϕ"}
-	p424_11{"memindex ϕ"}
-	p424_11{"memindex ϕ"}
-	p424_11{"memindex ϕ"}
-	p424_11{"memindex ϕ"}
-	p424_11{"memindex ϕ"}
-	p424_12{{"Sϕ Codeptr "}}
-	p424_12{{"Sϕ Codeptr "}}
-	p424_12{{"Sϕ Codeptr "}}
-	p424_12{{"Sϕ Codeptr "}}
-end
-block_425 --> phi_424
-block_426 --> phi_424
-subgraph block_425["Block 425"]
-	direction TB
-	b425_10["memindex__430 imm_readULEB32"]
-end
-branch_423 --> block_425
-subgraph branch_423["Branch 423"]
-	br423_9["cond__429 u8.!="]
-
-end
-block_427 --> branch_423
-subgraph block_427["Block 427"]
-	direction TB
-	b427_0[/"Start"\\]
-	b427_6["arg__434 0x40u8"]
-	b427_5["arg__432 0"]
-	b427_8["arg__431 u8.&"]
-	b427_9["cond__429 u8.!="]
-	b427_0 --> b427_6
-	b427_6 --> b427_5
-	b427_5 --> b427_8
-	b427_8 --> b427_9
-end
-subgraph block_426["Block 426"]
-	direction TB
-	b426_4["memindex__436 0u"]
-	b426_3["flags imm_readU8"]
-	b426_4 --> b426_3
-end
-branch_423 --> block_426
-subgraph block_421["Block 421"]
-	direction TB
-	b421_16["index pop_u32"]
-	b421_20["val mach_readMemory32_u32_64"]
-	b421_22["eff__423 push_u64"]
-	b421_15["offset imm_readULEB32"]
-	b421_16 --> b421_20
-	b421_20 --> b421_22
-	b421_22 --> b421_15
-end
-branch_418 --> block_421
-
-`;
-window.traces["I64_LOAD32_U"]["unLEM"] = ''
-window.traces["I64_LOAD32_U"]["unLEM__raw"] = ''
-window.traces["I64_LOAD32_U"]["unLEM"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__423 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__430 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__429 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__432 0"]
-	8["arg__431 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__434 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__436 0u"]
-	30["eff__418 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u32_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__417 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD32_U"]["unLEM__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__423 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__430 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__429 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__432 0"]
-	8["arg__431 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__434 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__436 0u"]
-	30["eff__418 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u32_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__417 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD32_U"]["unlem_schedule"] = ''
-window.traces["I64_LOAD32_U"]["unlem_schedule__raw"] = ''
-window.traces["I64_LOAD32_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__434 : byte = 0x40u8;
-def arg__431 = u8.&(flags, arg__434);
-def arg__432 : byte = 0;
-def cond__429 = u8.!=(arg__431, arg__432);
-var memindex: u32;
-if (cond__429) {
-	def memindex__430 = imm_readULEB32();
-} else {
-	def memindex__436 : u32 = 0u;
-}
-// phis: memindex <- memindex__430; memindex <- memindex__436; 
-def cond__417 = m_isMemory64(memindex);
-if (cond__417) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def eff__418 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def eff__423 = push_u64(val);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD32_U"]["unlem_schedule__raw"] += `def flags = imm_readU8();
-def arg__434 : byte = 0x40u8;
-def arg__431 = u8.&(flags, arg__434);
-def arg__432 : byte = 0;
-def cond__429 = u8.!=(arg__431, arg__432);
-var memindex: u32;
-if (cond__429) {
-	def memindex__430 = imm_readULEB32();
-} else {
-	def memindex__436 : u32 = 0u;
-}
-// phis: memindex <- memindex__430; memindex <- memindex__436; 
-def cond__417 = m_isMemory64(memindex);
-if (cond__417) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def eff__418 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def eff__423 = push_u64(val);
-}
-// phis: 
-`;
-window.traces["I64_LOAD32_U"]["unlem_scheduler"] = ''
-window.traces["I64_LOAD32_U"]["unlem_scheduler__raw"] = ''
-window.traces["I64_LOAD32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
-subgraph block_428["Block 428"]
-	direction TB
-	b428_1[\\"Finish"/]
-end
-phi_430 --> block_428
-subgraph phi_430["Phi 430"]
-	p430_32{{"Sϕ Stack "}}
-	p430_31{{"Sϕ Codeptr "}}
-end
-block_431 --> phi_430
-block_432 --> phi_430
-subgraph block_431["Block 431"]
-	direction TB
-	b431_24["index pop_u64"]
-	b431_28["val mach_readMemory64_u32_64"]
-	b431_30["eff__418 push_u64"]
-	b431_23["offset imm_readULEB64"]
-	b431_24 --> b431_28
-	b431_28 --> b431_30
-	b431_30 --> b431_23
-end
-branch_429 --> block_431
-subgraph branch_429["Branch 429"]
-	br429_14["cond__417 m_isMemory64"]
-
-end
-block_433 --> branch_429
-subgraph block_433["Block 433"]
-	direction TB
-	b433_14["cond__417 m_isMemory64"]
-end
-phi_435 --> block_433
-subgraph phi_435["Phi 435"]
-	p435_12{{"Sϕ Codeptr "}}
-	p435_12{{"Sϕ Codeptr "}}
-	p435_12{{"Sϕ Codeptr "}}
-	p435_12{{"Sϕ Codeptr "}}
-	p435_11{"memindex ϕ"}
-	p435_11{"memindex ϕ"}
-	p435_11{"memindex ϕ"}
-	p435_11{"memindex ϕ"}
-	p435_11{"memindex ϕ"}
-	p435_11{"memindex ϕ"}
-	p435_12{{"Sϕ Codeptr "}}
-	p435_12{{"Sϕ Codeptr "}}
-	p435_12{{"Sϕ Codeptr "}}
-	p435_12{{"Sϕ Codeptr "}}
-end
-block_436 --> phi_435
-block_437 --> phi_435
-subgraph block_436["Block 436"]
-	direction TB
-	b436_10["memindex__430 imm_readULEB32"]
-end
-branch_434 --> block_436
-subgraph branch_434["Branch 434"]
-	br434_9["cond__429 u8.!="]
-
-end
-block_438 --> branch_434
-subgraph block_438["Block 438"]
-	direction TB
-	b438_0[/"Start"\\]
-	b438_6["arg__434 0x40u8"]
-	b438_5["arg__432 0"]
-	b438_8["arg__431 u8.&"]
-	b438_9["cond__429 u8.!="]
-	b438_0 --> b438_6
-	b438_6 --> b438_5
-	b438_5 --> b438_8
-	b438_8 --> b438_9
-end
-subgraph block_437["Block 437"]
-	direction TB
-	b437_4["memindex__436 0u"]
-	b437_3["flags imm_readU8"]
-	b437_4 --> b437_3
-end
-branch_434 --> block_437
-subgraph block_432["Block 432"]
-	direction TB
-	b432_16["index pop_u32"]
-	b432_20["val mach_readMemory32_u32_64"]
-	b432_22["eff__423 push_u64"]
-	b432_15["offset imm_readULEB32"]
-	b432_16 --> b432_20
-	b432_20 --> b432_22
-	b432_22 --> b432_15
-end
-branch_429 --> block_432
-
-</pre>`;
-window.traces["I64_LOAD32_U"]["unlem_scheduler__raw"] += `graph TD
-subgraph block_428["Block 428"]
-	direction TB
-	b428_1[\\"Finish"/]
-end
-phi_430 --> block_428
-subgraph phi_430["Phi 430"]
-	p430_32{{"Sϕ Stack "}}
-	p430_31{{"Sϕ Codeptr "}}
-end
-block_431 --> phi_430
-block_432 --> phi_430
-subgraph block_431["Block 431"]
-	direction TB
-	b431_24["index pop_u64"]
-	b431_28["val mach_readMemory64_u32_64"]
-	b431_30["eff__418 push_u64"]
-	b431_23["offset imm_readULEB64"]
-	b431_24 --> b431_28
-	b431_28 --> b431_30
-	b431_30 --> b431_23
-end
-branch_429 --> block_431
-subgraph branch_429["Branch 429"]
-	br429_14["cond__417 m_isMemory64"]
-
-end
-block_433 --> branch_429
-subgraph block_433["Block 433"]
-	direction TB
-	b433_14["cond__417 m_isMemory64"]
-end
-phi_435 --> block_433
-subgraph phi_435["Phi 435"]
-	p435_12{{"Sϕ Codeptr "}}
-	p435_12{{"Sϕ Codeptr "}}
-	p435_12{{"Sϕ Codeptr "}}
-	p435_12{{"Sϕ Codeptr "}}
-	p435_11{"memindex ϕ"}
-	p435_11{"memindex ϕ"}
-	p435_11{"memindex ϕ"}
-	p435_11{"memindex ϕ"}
-	p435_11{"memindex ϕ"}
-	p435_11{"memindex ϕ"}
-	p435_12{{"Sϕ Codeptr "}}
-	p435_12{{"Sϕ Codeptr "}}
-	p435_12{{"Sϕ Codeptr "}}
-	p435_12{{"Sϕ Codeptr "}}
-end
-block_436 --> phi_435
-block_437 --> phi_435
-subgraph block_436["Block 436"]
-	direction TB
-	b436_10["memindex__430 imm_readULEB32"]
-end
-branch_434 --> block_436
-subgraph branch_434["Branch 434"]
-	br434_9["cond__429 u8.!="]
-
-end
-block_438 --> branch_434
-subgraph block_438["Block 438"]
-	direction TB
-	b438_0[/"Start"\\]
-	b438_6["arg__434 0x40u8"]
-	b438_5["arg__432 0"]
-	b438_8["arg__431 u8.&"]
-	b438_9["cond__429 u8.!="]
-	b438_0 --> b438_6
-	b438_6 --> b438_5
-	b438_5 --> b438_8
-	b438_8 --> b438_9
-end
-subgraph block_437["Block 437"]
-	direction TB
-	b437_4["memindex__436 0u"]
-	b437_3["flags imm_readU8"]
-	b437_4 --> b437_3
-end
-branch_434 --> block_437
-subgraph block_432["Block 432"]
-	direction TB
-	b432_16["index pop_u32"]
-	b432_20["val mach_readMemory32_u32_64"]
-	b432_22["eff__423 push_u64"]
-	b432_15["offset imm_readULEB32"]
-	b432_16 --> b432_20
-	b432_20 --> b432_22
-	b432_22 --> b432_15
-end
-branch_429 --> block_432
-
-`;
-window.traces["I64_LOAD32_U"]["unlem_pretty"] = ''
-window.traces["I64_LOAD32_U"]["unlem_pretty__raw"] = ''
-window.traces["I64_LOAD32_U"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	push_u64(val);
-}
-</pre>`;
-window.traces["I64_LOAD32_U"]["unlem_pretty__raw"] += `def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	push_u64(val);
-}
-`;
-window.traces["I64_LOAD32_U"]["constUnLEM"] = ''
-window.traces["I64_LOAD32_U"]["constUnLEM__raw"] = ''
-window.traces["I64_LOAD32_U"]["constUnLEM"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__423 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__430 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__429 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__432 0"]
-	8["arg__431 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__434 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__436 0u"]
-	30["eff__418 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u32_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__417 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD32_U"]["constUnLEM__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__423 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__430 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__429 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__432 0"]
-	8["arg__431 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__434 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__436 0u"]
-	30["eff__418 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u32_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__417 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD32_U"]["chooseMerge"] = ''
-window.traces["I64_LOAD32_U"]["chooseMerge__raw"] = ''
-window.traces["I64_LOAD32_U"]["chooseMerge"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__423 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__430 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__429 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__432 0"]
-	8["arg__431 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__434 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__436 0u"]
-	30["eff__418 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u32_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__417 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-</pre>`;
-window.traces["I64_LOAD32_U"]["chooseMerge__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	31 -. Codeptr .-> 1
-	32 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Memory Extra .-> 1
-	0[/"Start"\\]
-	32{{"Sϕ Stack "}}
-	14 --> 32
-	30 --> 32
-	22 --> 32
-	22["eff__423 push_u64"]
-	20 --> 22
-	16 -. Stack .-> 22
-	16["index pop_u32"]
-	0 -. Stack .-> 16
-	20["val mach_readMemory32_u32_64"]
-	11 --> 20
-	16 --> 20
-	15 --> 20
-	15["offset imm_readULEB32"]
-	12 -. Codeptr .-> 15
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__430 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__429 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__432 0"]
-	8["arg__431 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__434 0x40u8"]
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__436 0u"]
-	30["eff__418 push_u64"]
-	28 --> 30
-	24 -. Stack .-> 30
-	24["index pop_u64"]
-	0 -. Stack .-> 24
-	28["val mach_readMemory64_u32_64"]
-	11 --> 28
-	24 --> 28
-	23 --> 28
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	14["cond__417 m_isMemory64"]
-	11 --> 14
-	31{{"Sϕ Codeptr "}}
-	14 --> 31
-	23 --> 31
-	15 --> 31
-`;
-window.traces["I64_LOAD32_U"]["scheduled"] = ''
-window.traces["I64_LOAD32_U"]["scheduled__raw"] = ''
-window.traces["I64_LOAD32_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__434 : byte = 0x40u8;
-def arg__431 = u8.&(flags, arg__434);
-def arg__432 : byte = 0;
-def cond__429 = u8.!=(arg__431, arg__432);
-var memindex: u32;
-if (cond__429) {
-	def memindex__430 = imm_readULEB32();
-} else {
-	def memindex__436 : u32 = 0u;
-}
-// phis: memindex <- memindex__430; memindex <- memindex__436; 
-def cond__417 = m_isMemory64(memindex);
-if (cond__417) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def eff__418 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def eff__423 = push_u64(val);
-}
-// phis: 
-</pre>`;
-window.traces["I64_LOAD32_U"]["scheduled__raw"] += `def flags = imm_readU8();
-def arg__434 : byte = 0x40u8;
-def arg__431 = u8.&(flags, arg__434);
-def arg__432 : byte = 0;
-def cond__429 = u8.!=(arg__431, arg__432);
-var memindex: u32;
-if (cond__429) {
-	def memindex__430 = imm_readULEB32();
-} else {
-	def memindex__436 : u32 = 0u;
-}
-// phis: memindex <- memindex__430; memindex <- memindex__436; 
-def cond__417 = m_isMemory64(memindex);
-if (cond__417) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def eff__418 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def eff__423 = push_u64(val);
-}
-// phis: 
-`;
-window.traces["I64_LOAD32_U"]["pretty"] = ''
-window.traces["I64_LOAD32_U"]["pretty__raw"] = ''
-window.traces["I64_LOAD32_U"]["pretty"] += `<pre class=''>def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	push_u64(val);
-}
-</pre>`;
-window.traces["I64_LOAD32_U"]["pretty__raw"] += `def flags = imm_readU8();
-var memindex: u32;
-if (u8.!=(u8.&(flags, 0x40u8), 0)) {
-	memindex = imm_readULEB32();
-} else {
-	memindex = 0u;
-}
-def cond = m_isMemory64(memindex);
-if (cond) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	push_u64(val);
-}
-`;
-window.traces["I32_STORE"] = {}
-window.traces["I32_STORE"]["parsed"] = ''
-window.traces["I32_STORE"]["parsed__raw"] = ''
-window.traces["I32_STORE"]["parsed"] += `<pre class=''>def flags = imm_readU8();
-def memindex : u32 = 0u;
-def arg__452 : byte = 0;
-def arg__454 : byte = 0x40u8;
-def arg__453 = (flags);
-def arg__451 = u8.&(arg__453, arg__454);
-def cond__449 = u8.!=(arg__451, arg__452);
-if (cond__449) {
-	def memindex__450 = imm_readULEB32();
-}
-// phis: memindex <- memindex__450; 
-def val = pop_u32();
-def arg__448 = (memindex);
-def cond__437 = m_isMemory64(arg__448);
-if (cond__437) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def arg__442 = (val);
-	def arg__441 = (offset);
-	def arg__440 = (index);
-	def arg__439 = (memindex);
-	def eff__438 = mach_writeMemory64_u32(arg__439, arg__440, arg__441, arg__442);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def arg__447 = (val);
-	def arg__446 = (offset);
-	def arg__445 = (index);
-	def arg__444 = (memindex);
-	def eff__443 = mach_writeMemory32_u32(arg__444, arg__445, arg__446, arg__447);
-}
-// phis: 
-</pre>`;
-window.traces["I32_STORE"]["parsed__raw"] += `def flags = imm_readU8();
-def memindex : u32 = 0u;
-def arg__452 : byte = 0;
-def arg__454 : byte = 0x40u8;
-def arg__453 = (flags);
-def arg__451 = u8.&(arg__453, arg__454);
-def cond__449 = u8.!=(arg__451, arg__452);
-if (cond__449) {
-	def memindex__450 = imm_readULEB32();
-}
-// phis: memindex <- memindex__450; 
-def val = pop_u32();
-def arg__448 = (memindex);
-def cond__437 = m_isMemory64(arg__448);
-if (cond__437) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def arg__442 = (val);
-	def arg__441 = (offset);
-	def arg__440 = (index);
-	def arg__439 = (memindex);
-	def eff__438 = mach_writeMemory64_u32(arg__439, arg__440, arg__441, arg__442);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def arg__447 = (val);
-	def arg__446 = (offset);
-	def arg__445 = (index);
-	def arg__444 = (memindex);
-	def eff__443 = mach_writeMemory32_u32(arg__444, arg__445, arg__446, arg__447);
-}
-// phis: 
-`;
-window.traces["I32_STORE"]["raw"] = ''
-window.traces["I32_STORE"]["raw__raw"] = ''
-window.traces["I32_STORE"]["raw"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	30 -. Codeptr .-> 1
-	31 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Extra .-> 1
-	32 -. Memory .-> 1
-	32{{"Sϕ Memory "}}
-	15 --> 32
-	29 --> 32
-	22 --> 32
-	22["eff__443 mach_writeMemory32_u32"]
-	11 --> 22
-	17 --> 22
-	16 --> 22
-	13 --> 22
-	0 -. Memory .-> 22
-	0[/"Start"\\]
-	13["val pop_u32"]
-	0 -. Stack .-> 13
-	16["offset imm_readULEB32"]
-	12 -. Codeptr .-> 16
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__450 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__449 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__452 0"]
-	8["arg__451 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__454 0x40u8"]
-	17["index pop_u32"]
-	13 -. Stack .-> 17
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__455 0u"]
-	29["eff__438 mach_writeMemory64_u32"]
-	11 --> 29
-	24 --> 29
-	23 --> 29
-	13 --> 29
-	0 -. Memory .-> 29
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	24["index pop_u64"]
-	13 -. Stack .-> 24
-	15["cond__437 m_isMemory64"]
-	11 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	24 --> 31
-	17 --> 31
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	23 --> 30
-	16 --> 30
-</pre>`;
-window.traces["I32_STORE"]["raw__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	30 -. Codeptr .-> 1
-	31 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Extra .-> 1
-	32 -. Memory .-> 1
-	32{{"Sϕ Memory "}}
-	15 --> 32
-	29 --> 32
-	22 --> 32
-	22["eff__443 mach_writeMemory32_u32"]
-	11 --> 22
-	17 --> 22
-	16 --> 22
-	13 --> 22
-	0 -. Memory .-> 22
-	0[/"Start"\\]
-	13["val pop_u32"]
-	0 -. Stack .-> 13
-	16["offset imm_readULEB32"]
-	12 -. Codeptr .-> 16
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__450 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__449 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__452 0"]
-	8["arg__451 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__454 0x40u8"]
-	17["index pop_u32"]
-	13 -. Stack .-> 17
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__455 0u"]
-	29["eff__438 mach_writeMemory64_u32"]
-	11 --> 29
-	24 --> 29
-	23 --> 29
-	13 --> 29
-	0 -. Memory .-> 29
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	24["index pop_u64"]
-	13 -. Stack .-> 24
-	15["cond__437 m_isMemory64"]
-	11 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	24 --> 31
-	17 --> 31
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	23 --> 30
-	16 --> 30
-`;
-window.traces["I32_STORE"]["spytial"] = ''
-window.traces["I32_STORE"]["spytial__raw"] = ''
-window.traces["I32_STORE"]["spytial"] += `<pre class=''>{
-"atoms": [
-{
-"id": "node_1",
-"type": "finish",
-"label": "Finish"
-},
-{
-"id": "node_30",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__437]]"
-},
-{
-"id": "node_31",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__437]]"
-},
-{
-"id": "node_0",
-"type": "start",
-"label": "Start"
-},
-{
-"id": "node_32",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__437]]"
-},
-{
-"id": "node_15",
-"type": "intrinsic",
-"label": "m_isMemory64 [cond__437]"
-},
-{
-"id": "node_23",
-"type": "intrinsic",
-"label": "imm_readULEB64 [offset]"
-},
-{
-"id": "node_16",
-"type": "intrinsic",
-"label": "imm_readULEB32 [offset]"
-},
-{
-"id": "node_24",
-"type": "intrinsic",
-"label": "pop_u64 [index]"
-},
-{
-"id": "node_17",
-"type": "intrinsic",
-"label": "pop_u32 [index]"
-},
-{
-"id": "node_29",
-"type": "intrinsic",
-"label": "mach_writeMemory64_u32 [eff__438]"
-},
-{
-"id": "node_22",
-"type": "intrinsic",
-"label": "mach_writeMemory32_u32 [eff__443]"
-},
-{
-"id": "node_11",
-"type": "phi",
-"label": "Phi"
-},
-{
-"id": "node_12",
-"type": "phi",
-"label": "StatePhi [u8.!= [cond__449]]"
-},
-{
-"id": "node_13",
-"type": "intrinsic",
-"label": "pop_u32 [val]"
-},
-{
-"id": "node_9",
-"type": "intrinsic",
-"label": "u8.!= [cond__449]"
-},
-{
-"id": "node_10",
-"type": "intrinsic",
-"label": "imm_readULEB32 [memindex__450]"
-},
-{
-"id": "node_4",
-"type": "lit",
-"label": "0u"
-},
-{
-"id": "node_3",
-"type": "intrinsic",
-"label": "imm_readU8 [flags]"
-},
-{
-"id": "node_8",
-"type": "intrinsic",
-"label": "u8.& [arg__451]"
-},
-{
-"id": "node_5",
-"type": "lit",
-"label": "0"
-},
-{
-"id": "node_6",
-"type": "lit",
-"label": "0x40u8"
-}
-],
-"relations": [
-{
-"id": "uses",
-"name": "Uses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_15", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_29", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_29", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_29", "node_23"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_29", "node_13"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_22", "node_17"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_13"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_8"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_5"],
-"types": ["intrinsic", "lit"]
-},
-{
-"atoms": ["node_8", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_6"],
-"types": ["intrinsic", "lit"]
-}
-]
-},
-{
-"id": "state_uses",
-"name": "StateUses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_1", "node_30"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_0"],
-"types": ["finish", "start"]
-},
-{
-"atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_16", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_24", "node_13"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_17", "node_13"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_29", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_22", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_13", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_10", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_3", "node_0"],
-"types": ["intrinsic", "start"]
-}
-]
-},
-{
-"id": "phi_cond",
-"name": "PhiCond",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_30", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_9"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_true",
-"name": "PhiTrue",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_30", "node_23"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_31", "node_24"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_29"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_10"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_false",
-"name": "PhiFalse",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_30", "node_16"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_31", "node_17"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_4"],
-"types": ["phi", "lit"]
-},
-{
-"atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
-}
-]
-}
-]
-}</pre>`;
-window.traces["I32_STORE"]["spytial__raw"] += `{
-"atoms": [
-{
-"id": "node_1",
-"type": "finish",
-"label": "Finish"
-},
-{
-"id": "node_30",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__437]]"
-},
-{
-"id": "node_31",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__437]]"
-},
-{
-"id": "node_0",
-"type": "start",
-"label": "Start"
-},
-{
-"id": "node_32",
-"type": "phi",
-"label": "StatePhi [m_isMemory64 [cond__437]]"
-},
-{
-"id": "node_15",
-"type": "intrinsic",
-"label": "m_isMemory64 [cond__437]"
-},
-{
-"id": "node_23",
-"type": "intrinsic",
-"label": "imm_readULEB64 [offset]"
-},
-{
-"id": "node_16",
-"type": "intrinsic",
-"label": "imm_readULEB32 [offset]"
-},
-{
-"id": "node_24",
-"type": "intrinsic",
-"label": "pop_u64 [index]"
-},
-{
-"id": "node_17",
-"type": "intrinsic",
-"label": "pop_u32 [index]"
-},
-{
-"id": "node_29",
-"type": "intrinsic",
-"label": "mach_writeMemory64_u32 [eff__438]"
-},
-{
-"id": "node_22",
-"type": "intrinsic",
-"label": "mach_writeMemory32_u32 [eff__443]"
-},
-{
-"id": "node_11",
-"type": "phi",
-"label": "Phi"
-},
-{
-"id": "node_12",
-"type": "phi",
-"label": "StatePhi [u8.!= [cond__449]]"
-},
-{
-"id": "node_13",
-"type": "intrinsic",
-"label": "pop_u32 [val]"
-},
-{
-"id": "node_9",
-"type": "intrinsic",
-"label": "u8.!= [cond__449]"
-},
-{
-"id": "node_10",
-"type": "intrinsic",
-"label": "imm_readULEB32 [memindex__450]"
-},
-{
-"id": "node_4",
-"type": "lit",
-"label": "0u"
-},
-{
-"id": "node_3",
-"type": "intrinsic",
-"label": "imm_readU8 [flags]"
-},
-{
-"id": "node_8",
-"type": "intrinsic",
-"label": "u8.& [arg__451]"
-},
-{
-"id": "node_5",
-"type": "lit",
-"label": "0"
-},
-{
-"id": "node_6",
-"type": "lit",
-"label": "0x40u8"
-}
-],
-"relations": [
-{
-"id": "uses",
-"name": "Uses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_15", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_29", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_29", "node_24"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_29", "node_23"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_29", "node_13"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_11"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_22", "node_17"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_16"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_22", "node_13"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_8"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_9", "node_5"],
-"types": ["intrinsic", "lit"]
-},
-{
-"atoms": ["node_8", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_8", "node_6"],
-"types": ["intrinsic", "lit"]
-}
-]
-},
-{
-"id": "state_uses",
-"name": "StateUses",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_1", "node_30"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_31"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_1", "node_0"],
-"types": ["finish", "start"]
-},
-{
-"atoms": ["node_1", "node_32"],
-"types": ["finish", "phi"]
-},
-{
-"atoms": ["node_23", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_16", "node_12"],
-"types": ["intrinsic", "phi"]
-},
-{
-"atoms": ["node_24", "node_13"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_17", "node_13"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_29", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_22", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_13", "node_0"],
-"types": ["intrinsic", "start"]
-},
-{
-"atoms": ["node_10", "node_3"],
-"types": ["intrinsic", "intrinsic"]
-},
-{
-"atoms": ["node_3", "node_0"],
-"types": ["intrinsic", "start"]
-}
-]
-},
-{
-"id": "phi_cond",
-"name": "PhiCond",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_30", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_31", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_15"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_9"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_9"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_true",
-"name": "PhiTrue",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_30", "node_23"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_31", "node_24"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_29"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_10"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_12", "node_10"],
-"types": ["phi", "intrinsic"]
-}
-]
-},
-{
-"id": "phi_false",
-"name": "PhiFalse",
-"types": ["sea_node", "sea_node"],
-"tuples": [
-{
-"atoms": ["node_30", "node_16"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_31", "node_17"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_32", "node_22"],
-"types": ["phi", "intrinsic"]
-},
-{
-"atoms": ["node_11", "node_4"],
-"types": ["phi", "lit"]
-},
-{
-"atoms": ["node_12", "node_3"],
-"types": ["phi", "intrinsic"]
-}
-]
-}
-]
-}`;
-window.traces["I32_STORE"]["overloadOps"] = ''
-window.traces["I32_STORE"]["overloadOps__raw"] = ''
-window.traces["I32_STORE"]["overloadOps"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	30 -. Codeptr .-> 1
-	31 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Extra .-> 1
-	32 -. Memory .-> 1
-	32{{"Sϕ Memory "}}
-	15 --> 32
-	29 --> 32
-	22 --> 32
-	22["eff__443 mach_writeMemory32_u32"]
-	11 --> 22
-	17 --> 22
-	16 --> 22
-	13 --> 22
-	0 -. Memory .-> 22
-	0[/"Start"\\]
-	13["val pop_u32"]
-	0 -. Stack .-> 13
-	16["offset imm_readULEB32"]
-	12 -. Codeptr .-> 16
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__450 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__449 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__452 0"]
-	8["arg__451 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__454 0x40u8"]
-	17["index pop_u32"]
-	13 -. Stack .-> 17
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__456 0u"]
-	29["eff__438 mach_writeMemory64_u32"]
-	11 --> 29
-	24 --> 29
-	23 --> 29
-	13 --> 29
-	0 -. Memory .-> 29
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	24["index pop_u64"]
-	13 -. Stack .-> 24
-	15["cond__437 m_isMemory64"]
-	11 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	24 --> 31
-	17 --> 31
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	23 --> 30
-	16 --> 30
-</pre>`;
-window.traces["I32_STORE"]["overloadOps__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	30 -. Codeptr .-> 1
-	31 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Extra .-> 1
-	32 -. Memory .-> 1
-	32{{"Sϕ Memory "}}
-	15 --> 32
-	29 --> 32
-	22 --> 32
-	22["eff__443 mach_writeMemory32_u32"]
-	11 --> 22
-	17 --> 22
-	16 --> 22
-	13 --> 22
-	0 -. Memory .-> 22
-	0[/"Start"\\]
-	13["val pop_u32"]
-	0 -. Stack .-> 13
-	16["offset imm_readULEB32"]
-	12 -. Codeptr .-> 16
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__450 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__449 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__452 0"]
-	8["arg__451 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__454 0x40u8"]
-	17["index pop_u32"]
-	13 -. Stack .-> 17
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__456 0u"]
-	29["eff__438 mach_writeMemory64_u32"]
-	11 --> 29
-	24 --> 29
-	23 --> 29
-	13 --> 29
-	0 -. Memory .-> 29
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	24["index pop_u64"]
-	13 -. Stack .-> 24
-	15["cond__437 m_isMemory64"]
-	11 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	24 --> 31
-	17 --> 31
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	23 --> 30
-	16 --> 30
-`;
-window.traces["I32_STORE"]["addAbstractions"] = ''
-window.traces["I32_STORE"]["addAbstractions__raw"] = ''
-window.traces["I32_STORE"]["addAbstractions"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	30 -. Codeptr .-> 1
-	31 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Extra .-> 1
-	32 -. Memory .-> 1
-	32{{"Sϕ Memory "}}
-	15 --> 32
-	29 --> 32
-	22 --> 32
-	22["eff__443 mach_writeMemory32_u32"]
-	11 --> 22
-	17 --> 22
-	16 --> 22
-	13 --> 22
-	0 -. Memory .-> 22
-	0[/"Start"\\]
-	13["val pop_u32"]
-	0 -. Stack .-> 13
-	16["offset imm_readULEB32"]
-	12 -. Codeptr .-> 16
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__450 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__449 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__452 0"]
-	8["arg__451 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__454 0x40u8"]
-	17["index pop_u32"]
-	13 -. Stack .-> 17
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__456 0u"]
-	29["eff__438 mach_writeMemory64_u32"]
-	11 --> 29
-	24 --> 29
-	23 --> 29
-	13 --> 29
-	0 -. Memory .-> 29
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	24["index pop_u64"]
-	13 -. Stack .-> 24
-	15["cond__437 m_isMemory64"]
-	11 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	24 --> 31
-	17 --> 31
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	23 --> 30
-	16 --> 30
-</pre>`;
-window.traces["I32_STORE"]["addAbstractions__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	30 -. Codeptr .-> 1
-	31 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Extra .-> 1
-	32 -. Memory .-> 1
-	32{{"Sϕ Memory "}}
-	15 --> 32
-	29 --> 32
-	22 --> 32
-	22["eff__443 mach_writeMemory32_u32"]
-	11 --> 22
-	17 --> 22
-	16 --> 22
-	13 --> 22
-	0 -. Memory .-> 22
-	0[/"Start"\\]
-	13["val pop_u32"]
-	0 -. Stack .-> 13
-	16["offset imm_readULEB32"]
-	12 -. Codeptr .-> 16
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__450 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__449 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__452 0"]
-	8["arg__451 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__454 0x40u8"]
-	17["index pop_u32"]
-	13 -. Stack .-> 17
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__456 0u"]
-	29["eff__438 mach_writeMemory64_u32"]
-	11 --> 29
-	24 --> 29
-	23 --> 29
-	13 --> 29
-	0 -. Memory .-> 29
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	24["index pop_u64"]
-	13 -. Stack .-> 24
-	15["cond__437 m_isMemory64"]
-	11 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	24 --> 31
-	17 --> 31
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	23 --> 30
-	16 --> 30
-`;
-window.traces["I32_STORE"]["schedulerMermaid"] = ''
-window.traces["I32_STORE"]["schedulerMermaid__raw"] = ''
-window.traces["I32_STORE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
-subgraph block_439["Block 439"]
-	direction TB
-	b439_1[\\"Finish"/]
-end
-phi_441 --> block_439
-subgraph phi_441["Phi 441"]
-	p441_32{{"Sϕ Memory "}}
-	p441_31{{"Sϕ Stack "}}
-	p441_30{{"Sϕ Codeptr "}}
-end
-block_442 --> phi_441
-block_443 --> phi_441
-subgraph block_442["Block 442"]
-	direction TB
-	b442_29["eff__438 mach_writeMemory64_u32"]
-	b442_24["index pop_u64"]
-	b442_23["offset imm_readULEB64"]
-	b442_29 --> b442_24
-	b442_24 --> b442_23
-end
-branch_440 --> block_442
-subgraph branch_440["Branch 440"]
-	br440_15["cond__437 m_isMemory64"]
-
-end
-block_444 --> branch_440
-subgraph block_444["Block 444"]
-	direction TB
-	b444_13["val pop_u32"]
-	b444_15["cond__437 m_isMemory64"]
-	b444_13 --> b444_15
-end
-phi_446 --> block_444
-subgraph phi_446["Phi 446"]
-	p446_12{{"Sϕ Codeptr "}}
-	p446_12{{"Sϕ Codeptr "}}
-	p446_12{{"Sϕ Codeptr "}}
-	p446_12{{"Sϕ Codeptr "}}
-	p446_11{"memindex ϕ"}
-	p446_11{"memindex ϕ"}
-	p446_11{"memindex ϕ"}
-	p446_11{"memindex ϕ"}
-	p446_11{"memindex ϕ"}
-	p446_11{"memindex ϕ"}
-	p446_12{{"Sϕ Codeptr "}}
-	p446_12{{"Sϕ Codeptr "}}
-	p446_11{"memindex ϕ"}
-	p446_12{{"Sϕ Codeptr "}}
-	p446_12{{"Sϕ Codeptr "}}
-end
-block_447 --> phi_446
-block_448 --> phi_446
-subgraph block_447["Block 447"]
-	direction TB
-	b447_10["memindex__450 imm_readULEB32"]
-end
-branch_445 --> block_447
-subgraph branch_445["Branch 445"]
-	br445_9["cond__449 u8.!="]
-
-end
-block_449 --> branch_445
-subgraph block_449["Block 449"]
-	direction TB
-	b449_0[/"Start"\\]
-	b449_6["arg__454 0x40u8"]
-	b449_5["arg__452 0"]
-	b449_8["arg__451 u8.&"]
-	b449_9["cond__449 u8.!="]
-	b449_0 --> b449_6
-	b449_6 --> b449_5
-	b449_5 --> b449_8
-	b449_8 --> b449_9
-end
-subgraph block_448["Block 448"]
-	direction TB
-	b448_4["memindex__456 0u"]
-	b448_3["flags imm_readU8"]
-	b448_4 --> b448_3
-end
-branch_445 --> block_448
-subgraph block_443["Block 443"]
-	direction TB
-	b443_22["eff__443 mach_writeMemory32_u32"]
-	b443_17["index pop_u32"]
-	b443_16["offset imm_readULEB32"]
-	b443_22 --> b443_17
-	b443_17 --> b443_16
-end
-branch_440 --> block_443
-
-</pre>`;
-window.traces["I32_STORE"]["schedulerMermaid__raw"] += `graph TD
-subgraph block_439["Block 439"]
-	direction TB
-	b439_1[\\"Finish"/]
-end
-phi_441 --> block_439
-subgraph phi_441["Phi 441"]
-	p441_32{{"Sϕ Memory "}}
-	p441_31{{"Sϕ Stack "}}
-	p441_30{{"Sϕ Codeptr "}}
-end
-block_442 --> phi_441
-block_443 --> phi_441
-subgraph block_442["Block 442"]
-	direction TB
-	b442_29["eff__438 mach_writeMemory64_u32"]
-	b442_24["index pop_u64"]
-	b442_23["offset imm_readULEB64"]
-	b442_29 --> b442_24
-	b442_24 --> b442_23
-end
-branch_440 --> block_442
-subgraph branch_440["Branch 440"]
-	br440_15["cond__437 m_isMemory64"]
-
-end
-block_444 --> branch_440
-subgraph block_444["Block 444"]
-	direction TB
-	b444_13["val pop_u32"]
-	b444_15["cond__437 m_isMemory64"]
-	b444_13 --> b444_15
-end
-phi_446 --> block_444
-subgraph phi_446["Phi 446"]
-	p446_12{{"Sϕ Codeptr "}}
-	p446_12{{"Sϕ Codeptr "}}
-	p446_12{{"Sϕ Codeptr "}}
-	p446_12{{"Sϕ Codeptr "}}
-	p446_11{"memindex ϕ"}
-	p446_11{"memindex ϕ"}
-	p446_11{"memindex ϕ"}
-	p446_11{"memindex ϕ"}
-	p446_11{"memindex ϕ"}
-	p446_11{"memindex ϕ"}
-	p446_12{{"Sϕ Codeptr "}}
-	p446_12{{"Sϕ Codeptr "}}
-	p446_11{"memindex ϕ"}
-	p446_12{{"Sϕ Codeptr "}}
-	p446_12{{"Sϕ Codeptr "}}
-end
-block_447 --> phi_446
-block_448 --> phi_446
-subgraph block_447["Block 447"]
-	direction TB
-	b447_10["memindex__450 imm_readULEB32"]
-end
-branch_445 --> block_447
-subgraph branch_445["Branch 445"]
-	br445_9["cond__449 u8.!="]
-
-end
-block_449 --> branch_445
-subgraph block_449["Block 449"]
-	direction TB
-	b449_0[/"Start"\\]
-	b449_6["arg__454 0x40u8"]
-	b449_5["arg__452 0"]
-	b449_8["arg__451 u8.&"]
-	b449_9["cond__449 u8.!="]
-	b449_0 --> b449_6
-	b449_6 --> b449_5
-	b449_5 --> b449_8
-	b449_8 --> b449_9
-end
-subgraph block_448["Block 448"]
-	direction TB
-	b448_4["memindex__456 0u"]
-	b448_3["flags imm_readU8"]
-	b448_4 --> b448_3
-end
-branch_445 --> block_448
-subgraph block_443["Block 443"]
-	direction TB
-	b443_22["eff__443 mach_writeMemory32_u32"]
-	b443_17["index pop_u32"]
-	b443_16["offset imm_readULEB32"]
-	b443_22 --> b443_17
-	b443_17 --> b443_16
-end
-branch_440 --> block_443
-
-`;
-window.traces["I32_STORE"]["unLEM"] = ''
-window.traces["I32_STORE"]["unLEM__raw"] = ''
-window.traces["I32_STORE"]["unLEM"] += `<pre class='graph'>---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	30 -. Codeptr .-> 1
-	31 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Extra .-> 1
-	32 -. Memory .-> 1
-	32{{"Sϕ Memory "}}
-	15 --> 32
-	29 --> 32
-	22 --> 32
-	22["eff__443 mach_writeMemory32_u32"]
-	11 --> 22
-	17 --> 22
-	16 --> 22
-	13 --> 22
-	0 -. Memory .-> 22
-	0[/"Start"\\]
-	13["val pop_u32"]
-	0 -. Stack .-> 13
-	16["offset imm_readULEB32"]
-	12 -. Codeptr .-> 16
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__450 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__449 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__452 0"]
-	8["arg__451 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__454 0x40u8"]
-	17["index pop_u32"]
-	13 -. Stack .-> 17
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__456 0u"]
-	29["eff__438 mach_writeMemory64_u32"]
-	11 --> 29
-	24 --> 29
-	23 --> 29
-	13 --> 29
-	0 -. Memory .-> 29
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	24["index pop_u64"]
-	13 -. Stack .-> 24
-	15["cond__437 m_isMemory64"]
-	11 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	24 --> 31
-	17 --> 31
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	23 --> 30
-	16 --> 30
-</pre>`;
-window.traces["I32_STORE"]["unLEM__raw"] += `---
-config:
-  layout: elk
----
-graph TD
-	1[\\"Finish"/]
-	30 -. Codeptr .-> 1
-	31 -. Stack .-> 1
-	0 -. Trap Locals Globals Tables Extra .-> 1
-	32 -. Memory .-> 1
-	32{{"Sϕ Memory "}}
-	15 --> 32
-	29 --> 32
-	22 --> 32
-	22["eff__443 mach_writeMemory32_u32"]
-	11 --> 22
-	17 --> 22
-	16 --> 22
-	13 --> 22
-	0 -. Memory .-> 22
-	0[/"Start"\\]
-	13["val pop_u32"]
-	0 -. Stack .-> 13
-	16["offset imm_readULEB32"]
-	12 -. Codeptr .-> 16
-	12{{"Sϕ Codeptr "}}
-	9 --> 12
-	10 --> 12
-	3 --> 12
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	10["memindex__450 imm_readULEB32"]
-	3 -. Codeptr .-> 10
-	9["cond__449 u8.!="]
-	8 --> 9
-	5 --> 9
-	5["arg__452 0"]
-	8["arg__451 u8.&"]
-	3 --> 8
-	6 --> 8
-	6["arg__454 0x40u8"]
-	17["index pop_u32"]
-	13 -. Stack .-> 17
-	11{"memindex ϕ"}
-	9 --> 11
-	10 --> 11
-	4 --> 11
-	4["memindex__456 0u"]
-	29["eff__438 mach_writeMemory64_u32"]
-	11 --> 29
-	24 --> 29
-	23 --> 29
-	13 --> 29
-	0 -. Memory .-> 29
-	23["offset imm_readULEB64"]
-	12 -. Codeptr .-> 23
-	24["index pop_u64"]
-	13 -. Stack .-> 24
-	15["cond__437 m_isMemory64"]
-	11 --> 15
-	31{{"Sϕ Stack "}}
-	15 --> 31
-	24 --> 31
-	17 --> 31
-	30{{"Sϕ Codeptr "}}
-	15 --> 30
-	23 --> 30
-	16 --> 30
-`;
-window.traces["I32_STORE"]["unlem_schedule"] = ''
-window.traces["I32_STORE"]["unlem_schedule__raw"] = ''
-window.traces["I32_STORE"]["unlem_schedule"] += `<pre class=''>def val = pop_u32();
-def flags = imm_readU8();
-def arg__454 : byte = 0x40u8;
-def arg__451 = u8.&(flags, arg__454);
-def arg__452 : byte = 0;
-def cond__449 = u8.!=(arg__451, arg__452);
-var memindex: u32;
-if (cond__449) {
-	def memindex__450 = imm_readULEB32();
-} else {
-	def memindex__456 : u32 = 0u;
-}
-// phis: memindex <- memindex__450; memindex <- memindex__456; 
-def cond__437 = m_isMemory64(memindex);
-if (cond__437) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def eff__438 = mach_writeMemory64_u32(memindex, index, offset, val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def eff__443 = mach_writeMemory32_u32(memindex, index, offset, val);
-}
-// phis: 
-</pre>`;
-window.traces["I32_STORE"]["unlem_schedule__raw"] += `def val = pop_u32();
-def flags = imm_readU8();
-def arg__454 : byte = 0x40u8;
-def arg__451 = u8.&(flags, arg__454);
-def arg__452 : byte = 0;
-def cond__449 = u8.!=(arg__451, arg__452);
-var memindex: u32;
-if (cond__449) {
-	def memindex__450 = imm_readULEB32();
-} else {
-	def memindex__456 : u32 = 0u;
-}
-// phis: memindex <- memindex__450; memindex <- memindex__456; 
-def cond__437 = m_isMemory64(memindex);
-if (cond__437) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def eff__438 = mach_writeMemory64_u32(memindex, index, offset, val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def eff__443 = mach_writeMemory32_u32(memindex, index, offset, val);
-}
-// phis: 
 `;
