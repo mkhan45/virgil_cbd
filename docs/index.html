@@ -24,7 +24,7 @@
         </div>
         <script src="traces.js" charset="utf-8"></script>
         <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/spytial-core/dist/browser/spytial-core-complete.global.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/spytial-core@1.6.0/dist/browser/spytial-core-complete.global.js"></script>
         <script type="module">
             import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.esm.min.mjs';
             import elkLayouts from 'https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0/dist/mermaid-layout-elk.esm.min.mjs';
@@ -148,8 +148,24 @@
                             direction: horizontal
                     directives:
                         - edgeColor:
+                            field: Uses
+                            value: black
+                            weight: 3
+                            showLabel: false
+                        - edgeColor:
                             field: StateUses
-                            value: red
+                            style: dashed
+                            weight: 3
+                            showLabel: false
+                        - edgeColor:
+                            field: PhiCond
+                            weight: 3
+                        - edgeColor:
+                            field: PhiTrue
+                            weight: 3
+                        - edgeColor:
+                            field: PhiFalse
+                            weight: 3
                         - size:
                             selector: "intrinsic"
                             height: 50
