@@ -102,9 +102,18 @@ class Sea {
     var lit_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>(); // assume that lits have unique rep across types
 
     new() {
+        initEmpty();
+        initDefault();
+    }
+
+    def initEmpty() {
         nodes = NodeSet.new();
         id_count = 0;
+        var_nodes = Strings.newMap<IRNode>();
+        lit_nodes = Strings.newMap<IRNode>();
+    }
 
+    def initDefault() {
         var max_state_tag = 0;
         for (sc in StateComponent.set.all) max_state_tag = if(sc.tag > max_state_tag, sc.tag, max_state_tag);
         def state_vars = Array<IRNode>.new(max_state_tag + 1);
@@ -727,6 +736,54 @@ component Seas {
         def state_vars = sea.finish.state_deps;
         sea.addSSAD(node, state_vars, List.new(sea.start, null));
         return sea;
+    }
+
+    def clone(sea: Sea) -> Sea {
+        // Phase 1: Create empty Sea
+        def new_sea = Sea.new();
+        new_sea.initEmpty();
+        def mapping = HashMap<IRNode, IRNode>.new(IRNode.hash, IRNode.eq);
+
+        // Phase 2: Create cloned nodes using existing nodes set
+        sea.nodes.apply(fun (old_node: IRNode) {
+            def new_node = IRNode.new(old_node.op, new_sea.id_count);
+            new_sea.id_count += 1;
+            new_node.state_deps = Array<IRNode>.new(old_node.state_deps.length);
+            new_node.value_deps = Array<IRNode>.new(old_node.value_deps.length);
+            mapping[old_node] = new_node;
+            new_sea.nodes.put(new_node);
+        });
+
+        // Phase 3: Rewire edges and clone VarData
+        sea.nodes.apply(fun (old_node: IRNode) {
+            def new_node = mapping[old_node];
+
+            for (j < old_node.value_deps.length) {
+                if (old_node.value_deps[j] != null) {
+                    new_node.value_deps[j] = mapping[old_node.value_deps[j]];
+                }
+            }
+            for (j < old_node.state_deps.length) {
+                if (old_node.state_deps[j] != null) {
+                    new_node.state_deps[j] = mapping[old_node.state_deps[j]];
+                }
+            }
+
+            if (old_node.var_data != null) {
+                new_node.var_data = VarData.new(
+                    old_node.var_data.sourceName,
+                    old_node.var_data.tipe,
+                    old_node.var_data.stage
+                );
+            }
+        });
+
+        // Phase 4: Set Sea references and rebuild children
+        new_sea.start = mapping[sea.start];
+        new_sea.finish = mapping[sea.finish];
+        new_sea.rebuildChildren();
+
+        return new_sea;
     }
 }
 
