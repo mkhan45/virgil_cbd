@@ -47,6 +47,10 @@ class SeaScheduler {
             def prim = q[q_idx];
             q_idx += 1;
 
+            if (prim.node.id == top_node.id && q_idx != q.length - 1) {
+                continue;
+            }
+
             System.puts(Strings.format2("Prim: %q, q length: %d\n", prim.node.render, q.length - q_idx));
 
             // traverse existing schedule, put prim in first available spot
@@ -54,8 +58,7 @@ class SeaScheduler {
             var upper_bound = prim.highBound;
             def dest_block = lower_bound.schedule(prim, upper_bound);
             if (dest_block != null) {
-                if (prim.node.id == top_node.id) continue;
-                for (d in prim.node.deps()) if (live.has(d)) q.put(SchedulePrim.new(d, this).boundLow(lower_bound).boundHigh(upper_bound));
+                for (d in prim.node.deps()) q.put(SchedulePrim.new(d, this).boundLow(dest_block));
             } else {
                 q.put(prim);
             }
@@ -124,7 +127,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                     block: ScheduleBlock => {
                         block.prims.put(prim);
                         block.dominants.addLocal(prim.node);
-                        if (Strings.equal(scheduler.opcode, "IF")) {
+                        if (Strings.equal(scheduler.opcode, "BR_IF")) {
                             System.puts(Strings.format2("Scheduled %q into %d\n\n", prim.render, block.id));
                             CBDTrace.addString(scheduler.opcode, 
                                             Strings.format1("sched %q", prim.renderSimple), "graph", scheduler.toMermaid());
@@ -305,8 +308,6 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         if (prev != null) prev.dominants = prev.dominants.withPrivParent(branch.dominants);
 
         cond.init_move();
-        scheduler.live.put(cond.move_true);
-        scheduler.live.put(cond.move_false);
 
         left.dominants.addPrivate(cond.move_true);
         right.dominants.addPrivate(cond.move_false);
@@ -324,19 +325,50 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         var lsg = ImmNodeSet(null);
         for (i < lcas.length) lsg = lsg.union(scheduler.sea.subgraph2(lcas[i], l_branch, false));
-        // for (i < lcas.length) lsg = lsg.without(lcas[i]);
-        lsg = lsg.with(cond.move_true);
+        for (i < lcas.length) lsg = lsg.without(lcas[i]);
+        lsg = lsg.with(cond.move_true).with(l_branch);
+
+        def lsg_clone = Seas.cloneSubgraph(scheduler.sea, lsg);
+        def lsg_clone_sg = lsg_clone.0;
+        def lsg_clone_mapping = lsg_clone.1;
+
+        for (i < l_branch.children.length) {
+            def child = l_branch.children[i];
+            child.replaceDep(l_branch, lsg_clone_mapping[l_branch]);
+        }
+        for (n = lsg_clone_sg.ls; n != null; n = n.tail) scheduler.live.put(n.head);
 
         var rsg = ImmNodeSet(null);
         for (i < lcas.length) rsg = rsg.union(scheduler.sea.subgraph2(lcas[i], r_branch, false));
-        // for (i < lcas.length) rsg = rsg.without(lcas[i]);
-        rsg = rsg.with(cond.move_false);
+        for (i < lcas.length) rsg = rsg.without(lcas[i]);
+        rsg = rsg.with(cond.move_false).with(r_branch);
+
+        def rsg_clone = Seas.cloneSubgraph(scheduler.sea, rsg);
+        def rsg_clone_sg = rsg_clone.0;
+        def rsg_clone_mapping = rsg_clone.1;
+        for (i < r_branch.children.length) {
+            def child = r_branch.children[i];
+            child.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
+        }
+        for (n = rsg_clone_sg.ls; n != null; n = n.tail) scheduler.live.put(n.head);
+
+        scheduler.live.remove(l_branch);
+        scheduler.live.remove(r_branch);
+        scheduler.live.put(cond.move_true);
+        scheduler.live.put(cond.move_false);
+
+        CBDTrace.addGraph(scheduler.opcode, Strings.format1("post_surgery %d", phi_node.id), scheduler.sea);
 
         // System.puts(Strings.format3("left: %q\nright: %q\nlca: %q\n", l_branch.render, r_branch.render, lca.render));
         System.puts(Strings.format2("lsg: %q\nrsg: %q\n", lsg.render, rsg.render));
 
-        scheduler.q.put(SchedulePrim.new(l_branch, scheduler).boundLow(left).filterSubgraph(lsg));
-        scheduler.q.put(SchedulePrim.new(r_branch, scheduler).boundLow(right).filterSubgraph(rsg));
+        // scheduler.q.put(SchedulePrim.new(lsg_clone_mapping[l_branch], scheduler).boundLow(left).filterSubgraph(lsg));
+        // scheduler.q.put(SchedulePrim.new(rsg_clone_mapping[r_branch], scheduler).boundLow(right).filterSubgraph(rsg));
+        // scheduler.q.put(SchedulePrim.new(l_branch, scheduler).boundLow(left).filterSubgraph(lsg));
+        // scheduler.q.put(SchedulePrim.new(r_branch, scheduler).boundLow(right).filterSubgraph(rsg));
+        // scheduler.live = NodeSet.new();
+        scheduler.sea.rebuildChildren();
+        // scheduler.sea.apply(scheduler.live, collectLiveAux);
         // left.schedule(SchedulePrim.new(l_branch, scheduler).filterSubgraph(lsg), branch);
         // right.schedule(SchedulePrim.new(r_branch, scheduler).filterSubgraph(rsg), branch);
         // for (n = lsg.ls; n != null; n = n.tail) if (!IROp.Move.?(n.head.op))
@@ -344,7 +376,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         // for (n = rsg.ls; n != null; n = n.tail) if (!IROp.Move.?(n.head.op))
         //     right.schedule(SchedulePrim.new(n.head, scheduler).filterSubgraph(rsg), branch);
 
-        if (Strings.equal(scheduler.opcode, "IF")) {
+        if (Strings.equal(scheduler.opcode, "BR_IF")) {
             System.puts(Strings.format3("Scheduled phi %q (%d) before %d\n\n", phi.render, phi_node.id, id));
             CBDTrace.addString(scheduler.opcode, 
                             Strings.format1("sched %q", phi.render), "graph", scheduler.toMermaid());
@@ -489,8 +521,8 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         dominants.addLocal(phi);
 
         cond.init_move();
-        scheduler.live.put(cond.move_true);
-        scheduler.live.put(cond.move_false);
+        // scheduler.live.put(cond.move_true);
+        // scheduler.live.put(cond.move_false);
 
         l_source.dominants.addPrivate(cond.move_true);
         r_source.dominants.addPrivate(cond.move_false);
@@ -508,18 +540,18 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
 
         var lsg = ImmNodeSet(null);
         for (i < lcas.length) lsg = lsg.union(scheduler.sea.subgraph2(lcas[i], l_branch, false));
-        // for (i < lcas.length) lsg = lsg.without(lcas[i]);
+        for (i < lcas.length) lsg = lsg.without(lcas[i]);
         lsg = lsg.with(cond.move_true);
 
         var rsg = ImmNodeSet(null);
         for (i < lcas.length) rsg = rsg.union(scheduler.sea.subgraph2(lcas[i], r_branch, false));
-        // for (i < lcas.length) rsg = rsg.without(lcas[i]);
+        for (i < lcas.length) rsg = rsg.without(lcas[i]);
         rsg = rsg.with(cond.move_false);
 
-        // l_source.schedule(SchedulePrim.new(l_branch, scheduler).filterSubgraph(lsg), source_branch);
-        // r_source.schedule(SchedulePrim.new(r_branch, scheduler).filterSubgraph(rsg), source_branch);
-        scheduler.q.put(SchedulePrim.new(l_branch, scheduler).boundLow(l_source).filterSubgraph(lsg));
-        scheduler.q.put(SchedulePrim.new(r_branch, scheduler).boundLow(r_source).filterSubgraph(rsg));
+        l_source.schedule(SchedulePrim.new(l_branch, scheduler).filterSubgraph(lsg), source_branch);
+        r_source.schedule(SchedulePrim.new(r_branch, scheduler).filterSubgraph(rsg), source_branch);
+        // scheduler.q.put(SchedulePrim.new(l_branch, scheduler).boundLow(l_source).filterSubgraph(lsg));
+        // scheduler.q.put(SchedulePrim.new(r_branch, scheduler).boundLow(r_source).filterSubgraph(rsg));
         // for (n = lsg.ls; n != null; n = n.tail) if (!IROp.Move.?(n.head.op))
         //     l_source.schedule(SchedulePrim.new(n.head, scheduler).filterSubgraph(lsg), source_branch);
         // for (n = rsg.ls; n != null; n = n.tail) if (!IROp.Move.?(n.head.op))
@@ -538,7 +570,7 @@ class SchedulePrim {
         for (i < node.children.length) {
             def child = node.children[i];
             def live = scheduler.live.has(child);
-            // if (!live) continue;
+            if (!live) continue;
             if (child.id == node.id) continue; // XXX: why does this happen?
 
             if ((IROp.StatePhi.?(child.op) || IROp.Phi.?(child.op))

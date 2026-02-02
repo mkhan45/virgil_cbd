@@ -457,9 +457,10 @@ class Sea {
         }
     }
 
-    def subgraph(node: IRNode) -> Sea {
+    def subgraph(bottom: IRNode, top: IRNode) -> Sea {
         def sub_sea = Sea.new();
-        sub_sea.finish = node;
+        sub_sea.finish = bottom;
+        sub_sea.start = top;
         return sub_sea;
     }
 
@@ -738,9 +739,61 @@ component Seas {
         return sea;
     }
 
+    def cloneSubgraph(sea: Sea, subgraph: ImmNodeSet) -> (ImmNodeSet, HashMap<IRNode, IRNode>) {
+        def mapping = HashMap<IRNode, IRNode>.new(IRNode.hash, IRNode.eq);
+
+        // clone all nodes in the subgraph
+        for (cur = subgraph.ls; cur != null; cur = cur.tail) {
+            def old_node = cur.head;
+            def new_node = IRNode.new(old_node.op, sea.id_count);
+            sea.id_count += 1;
+
+            new_node.state_deps = Array<IRNode>.new(old_node.state_deps.length);
+            new_node.value_deps = Array<IRNode>.new(old_node.value_deps.length);
+
+            if (old_node.var_data != null) {
+                new_node.var_data = VarData.new(
+                    uidl(old_node.var_data.sourceName),
+                    old_node.var_data.tipe,
+                    old_node.var_data.stage
+                );
+            }
+
+            mapping[old_node] = new_node;
+            sea.nodes.put(new_node);
+        }
+
+        // Fix edges, remap internal deps but leave external ones
+        for (cur = subgraph.ls; cur != null; cur = cur.tail) {
+            def old_node = cur.head;
+            def new_node = mapping[old_node];
+
+            for (j < old_node.value_deps.length) {
+                def dep = old_node.value_deps[j];
+                if (dep != null) {
+                    new_node.value_deps[j] = if(subgraph.has(dep), mapping[dep], dep);
+                }
+            }
+
+            for (j < old_node.state_deps.length) {
+                def dep = old_node.state_deps[j];
+                if (dep != null) {
+                    new_node.state_deps[j] = if(subgraph.has(dep), mapping[dep], dep);
+                }
+            }
+        }
+
+        var result = ImmNodeSets.empty();
+        for (cur = subgraph.ls; cur != null; cur = cur.tail)
+            result = result.with(mapping[cur.head]);
+
+        return (result, mapping);
+    }
+
     def clone(sea: Sea) -> Sea {
         // Phase 1: Create empty Sea
         def new_sea = Sea.new();
+        sea.rebuildChildren();
         new_sea.initEmpty();
         def mapping = HashMap<IRNode, IRNode>.new(IRNode.hash, IRNode.eq);
 
@@ -869,10 +922,22 @@ class IRNode {
         return buf;
     }
 
+    def replaceDep(from: IRNode, to: IRNode) -> this {
+        for (i < value_deps.length)
+            if (value_deps[i] == from) value_deps[i] = to;
+
+        for (i < state_deps.length)
+            if (state_deps[i] == from) state_deps[i] = to;
+    }
+
     def init_move() -> bool {
         if (move_true == null) {
             move_true = IRNode.new(IROp.Move(true), -id*2);
+            move_true.value_deps = [];
+            move_true.state_deps = Array.new(state_deps.length);
             move_false = IRNode.new(IROp.Move(false), -id*2-1);
+            move_false.value_deps = [];
+            move_false.state_deps = Array.new(state_deps.length);
             return false;
         }
         return true;
