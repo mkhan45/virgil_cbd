@@ -44,7 +44,8 @@ class SeaScheduler {
 
         q_idx = 0;
         while (q_idx < q.length) {
-            def prim = q[q_idx];
+            var prim = q[q_idx];
+            prim = SchedulePrim.new(prim.node, this);
             q_idx += 1;
 
             if (prim.node.id == top_node.id && q_idx != q.length - 1) {
@@ -83,6 +84,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
     def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder;
     def linkPrependedBlock(block: ScheduleBlock);
+
+    def toSSAD() -> SSAD;
 
     def subgraphName(buf: StringBuilder) -> StringBuilder {
         match (this) {
@@ -127,7 +130,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                     block: ScheduleBlock => {
                         block.prims.put(prim);
                         block.dominants.addLocal(prim.node);
-                        if (Strings.equal(scheduler.opcode, "BR_IF")) {
+                        if (Strings.equal(scheduler.opcode, "END")) {
                             System.puts(Strings.format2("Scheduled %q into %d\n\n", prim.render, block.id));
                             CBDTrace.addString(scheduler.opcode, 
                                             Strings.format1("sched %q", prim.renderSimple), "graph", scheduler.toMermaid());
@@ -352,6 +355,11 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         }
         for (n = rsg_clone_sg.ls; n != null; n = n.tail) scheduler.live.put(n.head);
 
+        // for (i < lcas.length) {
+        //     scheduler.live.put(lcas[i]);
+        //     scheduler.top_node.children.put(lcas[i]);
+        // }
+
         scheduler.live.remove(l_branch);
         scheduler.live.remove(r_branch);
         scheduler.live.put(cond.move_true);
@@ -376,7 +384,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         // for (n = rsg.ls; n != null; n = n.tail) if (!IROp.Move.?(n.head.op))
         //     right.schedule(SchedulePrim.new(n.head, scheduler).filterSubgraph(rsg), branch);
 
-        if (Strings.equal(scheduler.opcode, "BR_IF")) {
+        if (Strings.equal(scheduler.opcode, "END")) {
             System.puts(Strings.format3("Scheduled phi %q (%d) before %d\n\n", phi.render, phi_node.id, id));
             CBDTrace.addString(scheduler.opcode, 
                             Strings.format1("sched %q", phi.render), "graph", scheduler.toMermaid());
@@ -430,6 +438,27 @@ class ScheduleBlock(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid
         return buf;
     }
 
+    def toSSAD() -> SSAD {
+        var res: SSAD = SSAD.Void;
+        for (i < prims.length) {
+            def node = prims[i].node;
+            match (node.op) {
+                Start, Finish, Proj, Move => {}
+                Intrinsic(defn) => {
+                    def args = Arrays.map(node.value_deps, fun (n: IRNode) => n.var_data.sourceName);
+                    res = res.appended(SSAD.LetApp(node.var_data.sourceName, defn.name, args, SSAD.Void));
+                }
+                Lit(tipe, rep) => {
+                    res = res.appended(SSAD.LetLit(node.var_data.sourceName, rep, tipe.long_str(), SSAD.Void));
+                }
+                Phi, StatePhi => {} // error
+            }
+        }
+
+        if (prev != null) return prev.toSSAD().appended(res);
+        else return res;
+    }
+
     def reverse() {
          forward = !forward;
          prims.reverse();
@@ -473,6 +502,11 @@ class ScheduleBranch(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(ui
         block.prev = prev;
         block.next = this;
         prev = block;
+    }
+
+    def toSSAD() -> SSAD {
+        // the actual branch and prev is emitted by phi to ssad
+        return SSAD.Void;
     }
  }
 
@@ -556,6 +590,14 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         //     l_source.schedule(SchedulePrim.new(n.head, scheduler).filterSubgraph(lsg), source_branch);
         // for (n = rsg.ls; n != null; n = n.tail) if (!IROp.Move.?(n.head.op))
         //     r_source.schedule(SchedulePrim.new(n.head, scheduler).filterSubgraph(rsg), source_branch);
+    }
+
+    def toSSAD() -> SSAD {
+        def cond_name = source_branch.condition.var_data.sourceName;
+        def left = l_source.toSSAD();
+        def right = r_source.toSSAD();
+
+        return source_branch.prev.toSSAD().appended(SSAD.If(cond_name, left, right, [], SSAD.Void));
     }
 }
 
