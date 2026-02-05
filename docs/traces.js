@@ -637,10 +637,10 @@ graph TD
 	13 -. Extra .-> 14
 	13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	9 --> 13
-	17 --> 13
-	19 --> 13
-	19["eff__9__16 doFallthru"]
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 19
+	16 --> 13
+	18 --> 13
+	18["eff__9__16 doFallthru"]
+	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 18
 	6["label doIf"]
 	3 --> 6
 	3 -. Codeptr .-> 6
@@ -651,9 +651,9 @@ graph TD
 	0 -. Stack .-> 4
 	3["bt imm_readBlockType"]
 	0 -. Codeptr .-> 3
-	17["eff__7__15 doBranch"]
-	6 --> 17
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 17
+	16["eff__7__15 doBranch"]
+	6 --> 16
+	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 16
 	9["cond__6 U32_equals"]
 	4 --> 9
 	15 --> 9
@@ -678,7 +678,7 @@ block_12 --> phi_11
 block_13 --> phi_11
 subgraph block_12["Block 12"]
 	direction TB
-	b12_17["eff__7__15 doBranch"]
+	b12_16["eff__7__15 doBranch"]
 end
 branch_10 --> block_12
 subgraph branch_10["Branch 10"]
@@ -704,7 +704,7 @@ subgraph block_14["Block 14"]
 end
 subgraph block_13["Block 13"]
 	direction TB
-	b13_19["eff__9__16 doFallthru"]
+	b13_18["eff__9__16 doFallthru"]
 end
 branch_10 --> block_13
 
@@ -737,15 +737,15 @@ graph TD
 	6 --> 14
 	13 -. Extra .-> 14
 	13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	22 --> 13
-	24 --> 13
-	23 --> 13
-	23{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	20 --> 23
-	17 --> 23
-	19 --> 23
-	19["eff__9__16 doFallthru"]
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 19
+	26 --> 13
+	28 --> 13
+	27 --> 13
+	27{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	24 --> 27
+	16 --> 27
+	18 --> 27
+	18["eff__9__16 doFallthru"]
+	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 18
 	6["label doIf"]
 	3 --> 6
 	3 -. Codeptr .-> 6
@@ -756,25 +756,25 @@ graph TD
 	0 -. Stack .-> 4
 	3["bt imm_readBlockType"]
 	0 -. Codeptr .-> 3
-	17["eff__7__15 doBranch"]
-	6 --> 17
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 17
-	20["mt__17 U32_maybeTrue"]
-	9 --> 20
+	16["eff__7__15 doBranch"]
+	6 --> 16
+	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 16
+	24["mt__19 U32_maybeTrue"]
+	9 --> 24
 	9["cond__6 U32_equals"]
 	4 --> 9
 	15 --> 9
 	15["abs__14 lift_u32"]
 	7 --> 15
 	7["arg__11 0"]
-	24["eff_merge__20 merge"]
-	17 --> 24
-	19 --> 24
-	22["mb__19 bool.&&"]
-	20 --> 22
-	21 --> 22
-	21["mf__18 U32_maybeFalse"]
-	9 --> 21
+	28["eff_merge__22 merge"]
+	16 --> 28
+	18 --> 28
+	26["mb__21 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__20 U32_maybeFalse"]
+	9 --> 25
 </pre>`;
 window.traces["IF"]["unlem_schedule"] = ''
 window.traces["IF"]["unlem_schedule"] += `<pre class=''>def bt = imm_readBlockType();
@@ -783,15 +783,15 @@ def label = doIf(bt);
 def arg__11 : u32 = 0;
 def abs__14 = lift_u32(arg__11);
 def cond__6 = U32_equals(cond, abs__14);
-def mt__17 = U32_maybeTrue(cond__6);
-def mf__18 = U32_maybeFalse(cond__6);
-def mb__19 = bool.&&(mt__17, mf__18);
-if (mb__19) {
+def mt__19 = U32_maybeTrue(cond__6);
+def mf__20 = U32_maybeFalse(cond__6);
+def mb__21 = bool.&&(mt__19, mf__20);
+if (mb__21) {
 	def eff__7__15 = doBranch(label);
 	def eff__9__16 = doFallthru();
-	def eff_merge__20 = merge(eff__7__15, eff__9__16);
+	def eff_merge__22 = merge(eff__7__15, eff__9__16);
 } else {
-	if (mt__17) {
+	if (mt__19) {
 		def eff__7__15 = doBranch(label);
 	} else {
 		def eff__9__16 = doFallthru();
@@ -815,15 +815,15 @@ graph TD
 	6 --> 14
 	13 -. Extra .-> 14
 	13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	22 --> 13
-	27 --> 13
-	31 --> 13
-	31{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	20 --> 31
-	32 --> 31
-	30 --> 31
-	30["eff__9__16__24 doFallthru"]
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 30
+	26 --> 13
+	29 --> 13
+	32 --> 13
+	32{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	24 --> 32
+	16 --> 32
+	18 --> 32
+	18["eff__9__16 doFallthru"]
+	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 18
 	6["label doIf"]
 	3 --> 6
 	3 -. Codeptr .-> 6
@@ -834,30 +834,25 @@ graph TD
 	0 -. Stack .-> 4
 	3["bt imm_readBlockType"]
 	0 -. Codeptr .-> 3
-	32["eff__7__15__25 doBranch"]
-	6 --> 32
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 32
-	20["mt__17 U32_maybeTrue"]
-	9 --> 20
+	16["eff__7__15 doBranch"]
+	6 --> 16
+	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 16
+	24["mt__19 U32_maybeTrue"]
+	9 --> 24
 	9["cond__6 U32_equals"]
 	4 --> 9
 	15 --> 9
 	15["abs__14 lift_u32"]
 	7 --> 15
 	7["arg__11 0"]
-	27["eff_merge__20__22 merge"]
-	28 --> 27
-	26 --> 27
-	26["eff__9__16__21 doFallthru"]
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 26
-	28["eff__7__15__23 doBranch"]
-	6 --> 28
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 28
-	22["mb__19 bool.&&"]
-	20 --> 22
-	21 --> 22
-	21["mf__18 U32_maybeFalse"]
-	9 --> 21
+	29["eff_merge__22__23 merge"]
+	16 --> 29
+	18 --> 29
+	26["mb__21 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__20 U32_maybeFalse"]
+	9 --> 25
 </pre>`;
 window.traces["IF_ul"]["post_surgery 21"] = ''
 window.traces["IF_ul"]["post_surgery 21"] += `<pre class='graph'>---
@@ -872,15 +867,15 @@ graph TD
 	6 --> 14
 	13 -. Extra .-> 14
 	13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	22 --> 13
-	27 --> 13
-	31 --> 13
-	31{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	20 --> 31
-	34 --> 31
-	36 --> 31
-	36["eff__9__16__24__27 doFallthru"]
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 36
+	26 --> 13
+	29 --> 13
+	32 --> 13
+	32{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	24 --> 32
+	37 --> 32
+	39 --> 32
+	39["eff__9__16__26 doFallthru"]
+	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 39
 	6["label doIf"]
 	3 --> 6
 	3 -. Codeptr .-> 6
@@ -891,30 +886,25 @@ graph TD
 	0 -. Stack .-> 4
 	3["bt imm_readBlockType"]
 	0 -. Codeptr .-> 3
-	34["eff__7__15__25__26 doBranch"]
-	6 --> 34
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 34
-	20["mt__17 U32_maybeTrue"]
-	9 --> 20
+	37["eff__7__15__25 doBranch"]
+	6 --> 37
+	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 37
+	24["mt__19 U32_maybeTrue"]
+	9 --> 24
 	9["cond__6 U32_equals"]
 	4 --> 9
 	15 --> 9
 	15["abs__14 lift_u32"]
 	7 --> 15
 	7["arg__11 0"]
-	27["eff_merge__20__22 merge"]
-	28 --> 27
-	26 --> 27
-	26["eff__9__16__21 doFallthru"]
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 26
-	28["eff__7__15__23 doBranch"]
-	6 --> 28
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 28
-	22["mb__19 bool.&&"]
-	20 --> 22
-	21 --> 22
-	21["mf__18 U32_maybeFalse"]
-	9 --> 21
+	29["eff_merge__22__23 merge"]
+	37 --> 29
+	39 --> 29
+	26["mb__21 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__20 U32_maybeFalse"]
+	9 --> 25
 </pre>`;
 window.traces["IF"]["unlem_scheduler"] = ''
 window.traces["IF"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -933,15 +923,11 @@ block_18 --> phi_17
 block_19 --> phi_17
 subgraph block_18["Block 18"]
 	direction TB
-	b18_26["eff__9__16__21 doFallthru"]
-	b18_28["eff__7__15__23 doBranch"]
-	b18_27["eff_merge__20__22 merge"]
-	b18_26 --> b18_28
-	b18_28 --> b18_27
+	b18_29["eff_merge__22__23 merge"]
 end
 branch_16 --> block_18
 subgraph branch_16["Branch 16"]
-	br16_22["mb__19 bool.&&"]
+	br16_26["mb__21 bool.&&"]
 
 end
 block_24 --> branch_16
@@ -951,46 +937,46 @@ subgraph block_24["Block 24"]
 	b24_7["arg__11 0"]
 	b24_15["abs__14 lift_u32"]
 	b24_4["cond pop_u32"]
-	b24_3["bt imm_readBlockType"]
 	b24_9["cond__6 U32_equals"]
+	b24_3["bt imm_readBlockType"]
+	b24_25["mf__20 U32_maybeFalse"]
+	b24_24["mt__19 U32_maybeTrue"]
 	b24_6["label doIf"]
-	b24_21["mf__18 U32_maybeFalse"]
-	b24_20["mt__17 U32_maybeTrue"]
-	b24_22["mb__19 bool.&&"]
+	b24_26["mb__21 bool.&&"]
 	b24_0 --> b24_7
 	b24_7 --> b24_15
 	b24_15 --> b24_4
-	b24_4 --> b24_3
-	b24_3 --> b24_9
-	b24_9 --> b24_6
-	b24_6 --> b24_21
-	b24_21 --> b24_20
-	b24_20 --> b24_22
+	b24_4 --> b24_9
+	b24_9 --> b24_3
+	b24_3 --> b24_25
+	b24_25 --> b24_24
+	b24_24 --> b24_6
+	b24_6 --> b24_26
 end
 subgraph block_19["Block 19"]
 	direction TB
 end
 phi_21 --> block_19
 subgraph phi_21["Phi 21"]
-	p21_31{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_31{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p21_31{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p21_32{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p21_32{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p21_32{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 end
 block_22 --> phi_21
 block_23 --> phi_21
 subgraph block_22["Block 22"]
 	direction TB
-	b22_34["eff__7__15__25__26 doBranch"]
+	b22_37["eff__7__15__25 doBranch"]
 end
 branch_20 --> block_22
 subgraph branch_20["Branch 20"]
-	br20_20["mt__17 U32_maybeTrue"]
+	br20_24["mt__19 U32_maybeTrue"]
 
 end
 branch_16 --> branch_20
 subgraph block_23["Block 23"]
 	direction TB
-	b23_36["eff__9__16__24__27 doFallthru"]
+	b23_39["eff__9__16__26 doFallthru"]
 end
 branch_20 --> block_23
 
@@ -1020,16 +1006,16 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	27 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	29 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	14 -. Extra .-> 1
 	14["eff_st_put__13 ctlxfer.put_IF"]
 	6 --> 14
-	27 -. Extra .-> 14
-	27["eff_merge__20__22 merge"]
-	28 --> 27
-	26 --> 27
-	26["eff__9__16__21 doFallthru"]
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 26
+	29 -. Extra .-> 14
+	29["eff_merge__22__23 merge"]
+	37 --> 29
+	39 --> 29
+	39["eff__9__16__26 doFallthru"]
+	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 39
 	6["label doIf"]
 	3 --> 6
 	3 -. Codeptr .-> 6
@@ -1040,9 +1026,9 @@ graph TD
 	0 -. Stack .-> 4
 	3["bt imm_readBlockType"]
 	0 -. Codeptr .-> 3
-	28["eff__7__15__23 doBranch"]
-	6 --> 28
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 28
+	37["eff__7__15__25 doBranch"]
+	6 --> 37
+	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 37
 </pre>`;
 window.traces["IF"]["chooseMerge"] = ''
 window.traces["IF"]["chooseMerge"] += `<pre class='graph'>---
@@ -1051,16 +1037,16 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	27 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	29 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	14 -. Extra .-> 1
 	14["eff_st_put__13 ctlxfer.put_IF"]
 	6 --> 14
-	27 -. Extra .-> 14
-	27["eff_merge__20__22 merge"]
-	28 --> 27
-	26 --> 27
-	26["eff__9__16__21 doFallthru"]
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 26
+	29 -. Extra .-> 14
+	29["eff_merge__22__23 merge"]
+	37 --> 29
+	39 --> 29
+	39["eff__9__16__26 doFallthru"]
+	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 39
 	6["label doIf"]
 	3 --> 6
 	3 -. Codeptr .-> 6
@@ -1071,17 +1057,17 @@ graph TD
 	0 -. Stack .-> 4
 	3["bt imm_readBlockType"]
 	0 -. Codeptr .-> 3
-	28["eff__7__15__23 doBranch"]
-	6 --> 28
-	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 28
+	37["eff__7__15__25 doBranch"]
+	6 --> 37
+	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 37
 </pre>`;
 window.traces["IF"]["scheduled"] = ''
 window.traces["IF"]["scheduled"] += `<pre class=''>def bt = imm_readBlockType();
 def cond = pop_u32();
 def label = doIf(bt);
-def eff__7__15__23 = doBranch(label);
-def eff__9__16__21 = doFallthru();
-def eff_merge__20__22 = merge(eff__7__15__23, eff__9__16__21);
+def eff__7__15__25 = doBranch(label);
+def eff__9__16__26 = doFallthru();
+def eff_merge__22__23 = merge(eff__7__15__25, eff__9__16__26);
 def eff_st_put__13 = ctlxfer.put_IF(label);
 </pre>`;
 window.traces["IF"]["pretty"] = ''
@@ -1095,8 +1081,8 @@ ctlxfer.put_IF(label);
 window.traces["ELSE"] = {}
 window.traces["ELSE"]["parsed"] = ''
 window.traces["ELSE"]["parsed"] += `<pre class=''>def label = doElse();
-def arg__29 = (label);
-def eff__28 = doBranch(arg__29);
+def arg__32 = (label);
+def eff__31 = doBranch(arg__32);
 </pre>`;
 window.traces["ELSE"]["raw"] = ''
 window.traces["ELSE"]["raw"] += `<pre class='graph'>---
@@ -1106,7 +1092,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	5 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	5["eff__28 doBranch"]
+	5["eff__31 doBranch"]
 	3 --> 5
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 5
 	3["label doElse"]
@@ -1122,10 +1108,10 @@ graph TD
 	1[\\"Finish"/]
 	5 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	6 -. Extra .-> 1
-	6["eff_st_put__30 ctlxfer.put_ELSE"]
+	6["eff_st_put__33 ctlxfer.put_ELSE"]
 	3 --> 6
 	5 -. Extra .-> 6
-	5["eff__28 doBranch"]
+	5["eff__31 doBranch"]
 	3 --> 5
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 5
 	3["label doElse"]
@@ -1141,10 +1127,10 @@ graph TD
 	1[\\"Finish"/]
 	5 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	6 -. Extra .-> 1
-	6["eff_st_put__30 ctlxfer.put_ELSE"]
+	6["eff_st_put__33 ctlxfer.put_ELSE"]
 	3 --> 6
 	5 -. Extra .-> 6
-	5["eff__28 doBranch"]
+	5["eff__31 doBranch"]
 	3 --> 5
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 5
 	3["label doElse"]
@@ -1157,8 +1143,8 @@ subgraph block_25["Block 25"]
 	direction TB
 	b25_0[/"Start"\\]
 	b25_3["label doElse"]
-	b25_5["eff__28 doBranch"]
-	b25_6["eff_st_put__30 ctlxfer.put_ELSE"]
+	b25_5["eff__31 doBranch"]
+	b25_6["eff_st_put__33 ctlxfer.put_ELSE"]
 	b25_1[\\"Finish"/]
 	b25_0 --> b25_3
 	b25_3 --> b25_5
@@ -1169,8 +1155,8 @@ end
 </pre>`;
 window.traces["ELSE"]["scheduler ssad"] = ''
 window.traces["ELSE"]["scheduler ssad"] += `<pre class=''>def label = doElse();
-def eff__28 = doBranch(label);
-def eff_st_put__30 = ctlxfer.put_ELSE(label);
+def eff__31 = doBranch(label);
+def eff_st_put__33 = ctlxfer.put_ELSE(label);
 </pre>`;
 window.traces["ELSE"]["unLEM"] = ''
 window.traces["ELSE"]["unLEM"] += `<pre class='graph'>---
@@ -1181,10 +1167,10 @@ graph TD
 	1[\\"Finish"/]
 	5 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	6 -. Extra .-> 1
-	6["eff_st_put__30 ctlxfer.put_ELSE"]
+	6["eff_st_put__33 ctlxfer.put_ELSE"]
 	3 --> 6
 	5 -. Extra .-> 6
-	5["eff__28 doBranch"]
+	5["eff__31 doBranch"]
 	3 --> 5
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 5
 	3["label doElse"]
@@ -1193,8 +1179,8 @@ graph TD
 </pre>`;
 window.traces["ELSE"]["unlem_schedule"] = ''
 window.traces["ELSE"]["unlem_schedule"] += `<pre class=''>def label = doElse();
-def eff__28 = doBranch(label);
-def eff_st_put__30 = ctlxfer.put_ELSE(label);
+def eff__31 = doBranch(label);
+def eff_st_put__33 = ctlxfer.put_ELSE(label);
 </pre>`;
 window.traces["ELSE"]["unlem_scheduler"] = ''
 window.traces["ELSE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -1202,8 +1188,8 @@ subgraph block_26["Block 26"]
 	direction TB
 	b26_0[/"Start"\\]
 	b26_3["label doElse"]
-	b26_5["eff__28 doBranch"]
-	b26_6["eff_st_put__30 ctlxfer.put_ELSE"]
+	b26_5["eff__31 doBranch"]
+	b26_6["eff_st_put__33 ctlxfer.put_ELSE"]
 	b26_1[\\"Finish"/]
 	b26_0 --> b26_3
 	b26_3 --> b26_5
@@ -1226,10 +1212,10 @@ graph TD
 	1[\\"Finish"/]
 	5 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	6 -. Extra .-> 1
-	6["eff_st_put__30 ctlxfer.put_ELSE"]
+	6["eff_st_put__33 ctlxfer.put_ELSE"]
 	3 --> 6
 	5 -. Extra .-> 6
-	5["eff__28 doBranch"]
+	5["eff__31 doBranch"]
 	3 --> 5
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 5
 	3["label doElse"]
@@ -1245,10 +1231,10 @@ graph TD
 	1[\\"Finish"/]
 	5 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	6 -. Extra .-> 1
-	6["eff_st_put__30 ctlxfer.put_ELSE"]
+	6["eff_st_put__33 ctlxfer.put_ELSE"]
 	3 --> 6
 	5 -. Extra .-> 6
-	5["eff__28 doBranch"]
+	5["eff__31 doBranch"]
 	3 --> 5
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 5
 	3["label doElse"]
@@ -1257,8 +1243,8 @@ graph TD
 </pre>`;
 window.traces["ELSE"]["scheduled"] = ''
 window.traces["ELSE"]["scheduled"] += `<pre class=''>def label = doElse();
-def eff__28 = doBranch(label);
-def eff_st_put__30 = ctlxfer.put_ELSE(label);
+def eff__31 = doBranch(label);
+def eff_st_put__33 = ctlxfer.put_ELSE(label);
 </pre>`;
 window.traces["ELSE"]["pretty"] = ''
 window.traces["ELSE"]["pretty"] += `<pre class=''>def label = doElse();
@@ -1268,8 +1254,8 @@ ctlxfer.put_ELSE(label);
 window.traces["TRY"] = {}
 window.traces["TRY"]["parsed"] = ''
 window.traces["TRY"]["parsed"] += `<pre class=''>def bt = imm_readBlockType();
-def arg__32 = (bt);
-def eff__31 = doTry(arg__32);
+def arg__35 = (bt);
+def eff__34 = doTry(arg__35);
 </pre>`;
 window.traces["TRY"]["raw"] = ''
 window.traces["TRY"]["raw"] += `<pre class='graph'>---
@@ -1279,7 +1265,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	5 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	5["eff__31 doTry"]
+	5["eff__34 doTry"]
 	3 --> 5
 	3 -. Codeptr .-> 5
 	0 -. Stack Trap Locals Globals Tables Memory Extra .-> 5
@@ -1295,7 +1281,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	5 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	5["eff__31 doTry"]
+	5["eff__34 doTry"]
 	3 --> 5
 	3 -. Codeptr .-> 5
 	0 -. Stack Trap Locals Globals Tables Memory Extra .-> 5
@@ -1311,7 +1297,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	5 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	5["eff__31 doTry"]
+	5["eff__34 doTry"]
 	3 --> 5
 	3 -. Codeptr .-> 5
 	0 -. Stack Trap Locals Globals Tables Memory Extra .-> 5
@@ -1325,7 +1311,7 @@ subgraph block_27["Block 27"]
 	direction TB
 	b27_0[/"Start"\\]
 	b27_3["bt imm_readBlockType"]
-	b27_5["eff__31 doTry"]
+	b27_5["eff__34 doTry"]
 	b27_1[\\"Finish"/]
 	b27_0 --> b27_3
 	b27_3 --> b27_5
@@ -1335,7 +1321,7 @@ end
 </pre>`;
 window.traces["TRY"]["scheduler ssad"] = ''
 window.traces["TRY"]["scheduler ssad"] += `<pre class=''>def bt = imm_readBlockType();
-def eff__31 = doTry(bt);
+def eff__34 = doTry(bt);
 </pre>`;
 window.traces["TRY"]["unLEM"] = ''
 window.traces["TRY"]["unLEM"] += `<pre class='graph'>---
@@ -1345,7 +1331,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	5 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	5["eff__31 doTry"]
+	5["eff__34 doTry"]
 	3 --> 5
 	3 -. Codeptr .-> 5
 	0 -. Stack Trap Locals Globals Tables Memory Extra .-> 5
@@ -1355,7 +1341,7 @@ graph TD
 </pre>`;
 window.traces["TRY"]["unlem_schedule"] = ''
 window.traces["TRY"]["unlem_schedule"] += `<pre class=''>def bt = imm_readBlockType();
-def eff__31 = doTry(bt);
+def eff__34 = doTry(bt);
 </pre>`;
 window.traces["TRY"]["unlem_scheduler"] = ''
 window.traces["TRY"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -1363,7 +1349,7 @@ subgraph block_28["Block 28"]
 	direction TB
 	b28_0[/"Start"\\]
 	b28_3["bt imm_readBlockType"]
-	b28_5["eff__31 doTry"]
+	b28_5["eff__34 doTry"]
 	b28_1[\\"Finish"/]
 	b28_0 --> b28_3
 	b28_3 --> b28_5
@@ -1383,7 +1369,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	5 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	5["eff__31 doTry"]
+	5["eff__34 doTry"]
 	3 --> 5
 	3 -. Codeptr .-> 5
 	0 -. Stack Trap Locals Globals Tables Memory Extra .-> 5
@@ -1399,7 +1385,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	5 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	5["eff__31 doTry"]
+	5["eff__34 doTry"]
 	3 --> 5
 	3 -. Codeptr .-> 5
 	0 -. Stack Trap Locals Globals Tables Memory Extra .-> 5
@@ -1409,7 +1395,7 @@ graph TD
 </pre>`;
 window.traces["TRY"]["scheduled"] = ''
 window.traces["TRY"]["scheduled"] += `<pre class=''>def bt = imm_readBlockType();
-def eff__31 = doTry(bt);
+def eff__34 = doTry(bt);
 </pre>`;
 window.traces["TRY"]["pretty"] = ''
 window.traces["TRY"]["pretty"] += `<pre class=''>def bt = imm_readBlockType();
@@ -1417,10 +1403,10 @@ doTry(bt);
 </pre>`;
 window.traces["END"] = {}
 window.traces["END"]["parsed"] = ''
-window.traces["END"]["parsed"] += `<pre class=''>def eff__35 = doEnd();
-def cond__33 = f_isAtEnd();
-if (cond__33) {
-	def eff__34 = doReturn();
+window.traces["END"]["parsed"] += `<pre class=''>def eff__38 = doEnd();
+def cond__36 = f_isAtEnd();
+if (cond__36) {
+	def eff__37 = doReturn();
 }
 // phis: 
 </pre>`;
@@ -1436,12 +1422,12 @@ graph TD
 	4 --> 6
 	5 --> 6
 	3 --> 6
-	3["eff__35 doEnd"]
+	3["eff__38 doEnd"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
-	5["eff__34 doReturn"]
+	5["eff__37 doReturn"]
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 5
-	4["cond__33 f_isAtEnd"]
+	4["cond__36 f_isAtEnd"]
 </pre>`;
 window.traces["END"]["overloadOps"] = ''
 window.traces["END"]["overloadOps"] += `<pre class='graph'>---
@@ -1455,12 +1441,12 @@ graph TD
 	4 --> 6
 	5 --> 6
 	3 --> 6
-	3["eff__35 doEnd"]
+	3["eff__38 doEnd"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
-	5["eff__34 doReturn"]
+	5["eff__37 doReturn"]
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 5
-	4["cond__33 f_isAtEnd"]
+	4["cond__36 f_isAtEnd"]
 </pre>`;
 window.traces["END"]["addAbstractions"] = ''
 window.traces["END"]["addAbstractions"] += `<pre class='graph'>---
@@ -1474,20 +1460,12 @@ graph TD
 	4 --> 6
 	5 --> 6
 	3 --> 6
-	3["eff__35 doEnd"]
+	3["eff__38 doEnd"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
-	5["eff__34 doReturn"]
+	5["eff__37 doReturn"]
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 5
-	4["cond__33 f_isAtEnd"]
-</pre>`;
-window.traces["END"]["sched Finish"] = ''
-window.traces["END"]["sched Finish"] += `<pre class='graph'>graph TD
-subgraph block_29["Block 29"]
-	direction TB
-	b29_1[\\"Finish"/]
-end
-
+	4["cond__36 f_isAtEnd"]
 </pre>`;
 window.traces["END"]["post_surgery 31"] = ''
 window.traces["END"]["post_surgery 31"] += `<pre class='graph'>---
@@ -1499,179 +1477,16 @@ graph TD
 	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
 	6{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	4 --> 6
-	8 --> 6
+	7 --> 6
 	9 --> 6
-	9["eff__35__37 doEnd"]
+	9["eff__38__40 doEnd"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 9
 	0[/"Start"\\]
-	8["eff__34__36 doReturn"]
-	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 8
-	3["eff__35 doEnd"]
+	7["eff__37__39 doReturn"]
+	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 7
+	3["eff__38 doEnd"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
-	4["cond__33 f_isAtEnd"]
-</pre>`;
-window.traces["END"]["sched StatePhi [f_isAtEnd [cond__33]]"] = ''
-window.traces["END"]["sched StatePhi [f_isAtEnd [cond__33]]"] += `<pre class='graph'>graph TD
-subgraph block_29["Block 29"]
-	direction TB
-	b29_1[\\"Finish"/]
-end
-phi_31 --> block_29
-subgraph phi_31["Phi 31"]
-	p31_6{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_32 --> phi_31
-block_33 --> phi_31
-subgraph block_32["Block 32"]
-	direction TB
-end
-branch_30 --> block_32
-subgraph branch_30["Branch 30"]
-	br30_4["cond__33 f_isAtEnd"]
-
-end
-subgraph block_33["Block 33"]
-	direction TB
-end
-branch_30 --> block_33
-
-</pre>`;
-window.traces["END"]["sched doReturn [eff__34__36]"] = ''
-window.traces["END"]["sched doReturn [eff__34__36]"] += `<pre class='graph'>graph TD
-subgraph block_29["Block 29"]
-	direction TB
-	b29_1[\\"Finish"/]
-end
-phi_31 --> block_29
-subgraph phi_31["Phi 31"]
-	p31_6{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_32 --> phi_31
-block_33 --> phi_31
-subgraph block_32["Block 32"]
-	direction TB
-	b32_8["eff__34__36 doReturn"]
-end
-branch_30 --> block_32
-subgraph branch_30["Branch 30"]
-	br30_4["cond__33 f_isAtEnd"]
-
-end
-block_34 --> branch_30
-subgraph block_34["Block 34"]
-	direction TB
-	b34_4["cond__33 f_isAtEnd"]
-end
-subgraph block_33["Block 33"]
-	direction TB
-end
-branch_30 --> block_33
-
-</pre>`;
-window.traces["END"]["sched doEnd [eff__35__37]"] = ''
-window.traces["END"]["sched doEnd [eff__35__37]"] += `<pre class='graph'>graph TD
-subgraph block_29["Block 29"]
-	direction TB
-	b29_1[\\"Finish"/]
-end
-phi_31 --> block_29
-subgraph phi_31["Phi 31"]
-	p31_6{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_32 --> phi_31
-block_33 --> phi_31
-subgraph block_32["Block 32"]
-	direction TB
-	b32_8["eff__34__36 doReturn"]
-end
-branch_30 --> block_32
-subgraph branch_30["Branch 30"]
-	br30_4["cond__33 f_isAtEnd"]
-
-end
-block_34 --> branch_30
-subgraph block_34["Block 34"]
-	direction TB
-	b34_4["cond__33 f_isAtEnd"]
-end
-subgraph block_33["Block 33"]
-	direction TB
-	b33_9["eff__35__37 doEnd"]
-end
-branch_30 --> block_33
-
-</pre>`;
-window.traces["END"]["sched doEnd [eff__35]"] = ''
-window.traces["END"]["sched doEnd [eff__35]"] += `<pre class='graph'>graph TD
-subgraph block_29["Block 29"]
-	direction TB
-	b29_1[\\"Finish"/]
-end
-phi_31 --> block_29
-subgraph phi_31["Phi 31"]
-	p31_6{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_32 --> phi_31
-block_33 --> phi_31
-subgraph block_32["Block 32"]
-	direction TB
-	b32_8["eff__34__36 doReturn"]
-	b32_3["eff__35 doEnd"]
-	b32_3 --> b32_8
-end
-branch_30 --> block_32
-subgraph branch_30["Branch 30"]
-	br30_4["cond__33 f_isAtEnd"]
-
-end
-block_34 --> branch_30
-subgraph block_34["Block 34"]
-	direction TB
-	b34_4["cond__33 f_isAtEnd"]
-end
-subgraph block_33["Block 33"]
-	direction TB
-	b33_9["eff__35__37 doEnd"]
-end
-branch_30 --> block_33
-
-</pre>`;
-window.traces["END"]["sched Start"] = ''
-window.traces["END"]["sched Start"] += `<pre class='graph'>graph TD
-subgraph block_29["Block 29"]
-	direction TB
-	b29_1[\\"Finish"/]
-end
-phi_31 --> block_29
-subgraph phi_31["Phi 31"]
-	p31_6{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-end
-block_32 --> phi_31
-block_33 --> phi_31
-subgraph block_32["Block 32"]
-	direction TB
-	b32_8["eff__34__36 doReturn"]
-	b32_3["eff__35 doEnd"]
-	b32_3 --> b32_8
-end
-branch_30 --> block_32
-subgraph branch_30["Branch 30"]
-	br30_4["cond__33 f_isAtEnd"]
-
-end
-block_34 --> branch_30
-subgraph block_34["Block 34"]
-	direction TB
-	b34_4["cond__33 f_isAtEnd"]
-end
-subgraph block_33["Block 33"]
-	direction TB
-	b33_9["eff__35__37 doEnd"]
-	b33_0[/"Start"\\]
-	b33_0 --> b33_9
-end
-branch_30 --> block_33
-
+	4["cond__36 f_isAtEnd"]
 </pre>`;
 window.traces["END"]["schedulerMermaid"] = ''
 window.traces["END"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -1687,36 +1502,36 @@ block_32 --> phi_31
 block_33 --> phi_31
 subgraph block_32["Block 32"]
 	direction TB
-	b32_3["eff__35 doEnd"]
-	b32_8["eff__34__36 doReturn"]
-	b32_3 --> b32_8
+	b32_3["eff__38 doEnd"]
+	b32_7["eff__37__39 doReturn"]
+	b32_3 --> b32_7
 end
 branch_30 --> block_32
 subgraph branch_30["Branch 30"]
-	br30_4["cond__33 f_isAtEnd"]
+	br30_4["cond__36 f_isAtEnd"]
 
 end
 block_34 --> branch_30
 subgraph block_34["Block 34"]
 	direction TB
-	b34_4["cond__33 f_isAtEnd"]
+	b34_4["cond__36 f_isAtEnd"]
 end
 subgraph block_33["Block 33"]
 	direction TB
 	b33_0[/"Start"\\]
-	b33_9["eff__35__37 doEnd"]
+	b33_9["eff__38__40 doEnd"]
 	b33_0 --> b33_9
 end
 branch_30 --> block_33
 
 </pre>`;
 window.traces["END"]["scheduler ssad"] = ''
-window.traces["END"]["scheduler ssad"] += `<pre class=''>def cond__33 = f_isAtEnd();
-if (cond__33) {
-	def eff__35 = doEnd();
-	def eff__34__36 = doReturn();
+window.traces["END"]["scheduler ssad"] += `<pre class=''>def cond__36 = f_isAtEnd();
+if (cond__36) {
+	def eff__38 = doEnd();
+	def eff__37__39 = doReturn();
 } else {
-	def eff__35__37 = doEnd();
+	def eff__38__40 = doEnd();
 }
 // phis: 
 </pre>`;
@@ -1730,24 +1545,24 @@ graph TD
 	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
 	6{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	4 --> 6
-	8 --> 6
+	7 --> 6
 	9 --> 6
-	9["eff__35__37 doEnd"]
+	9["eff__38__40 doEnd"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 9
 	0[/"Start"\\]
-	8["eff__34__36 doReturn"]
-	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 8
-	3["eff__35 doEnd"]
+	7["eff__37__39 doReturn"]
+	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 7
+	3["eff__38 doEnd"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
-	4["cond__33 f_isAtEnd"]
+	4["cond__36 f_isAtEnd"]
 </pre>`;
 window.traces["END"]["unlem_schedule"] = ''
-window.traces["END"]["unlem_schedule"] += `<pre class=''>def cond__33 = f_isAtEnd();
-if (cond__33) {
-	def eff__35 = doEnd();
-	def eff__34__36 = doReturn();
+window.traces["END"]["unlem_schedule"] += `<pre class=''>def cond__36 = f_isAtEnd();
+if (cond__36) {
+	def eff__38 = doEnd();
+	def eff__37__39 = doReturn();
 } else {
-	def eff__35__37 = doEnd();
+	def eff__38__40 = doEnd();
 }
 // phis: 
 </pre>`;
@@ -1764,14 +1579,14 @@ graph TD
 	4 --> 6
 	11 --> 6
 	13 --> 6
-	13["eff__35__37__39 doEnd"]
+	13["eff__38__40__42 doEnd"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 13
 	0[/"Start"\\]
-	11["eff__34__36__38 doReturn"]
+	11["eff__37__39__41 doReturn"]
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 11
-	3["eff__35 doEnd"]
+	3["eff__38 doEnd"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
-	4["cond__33 f_isAtEnd"]
+	4["cond__36 f_isAtEnd"]
 </pre>`;
 window.traces["END"]["unlem_scheduler"] = ''
 window.traces["END"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -1787,25 +1602,25 @@ block_38 --> phi_37
 block_39 --> phi_37
 subgraph block_38["Block 38"]
 	direction TB
-	b38_3["eff__35 doEnd"]
-	b38_11["eff__34__36__38 doReturn"]
+	b38_3["eff__38 doEnd"]
+	b38_11["eff__37__39__41 doReturn"]
 	b38_3 --> b38_11
 end
 branch_36 --> block_38
 subgraph branch_36["Branch 36"]
-	br36_4["cond__33 f_isAtEnd"]
+	br36_4["cond__36 f_isAtEnd"]
 
 end
 block_40 --> branch_36
 subgraph block_40["Block 40"]
 	direction TB
 	b40_0[/"Start"\\]
-	b40_4["cond__33 f_isAtEnd"]
+	b40_4["cond__36 f_isAtEnd"]
 	b40_0 --> b40_4
 end
 subgraph block_39["Block 39"]
 	direction TB
-	b39_13["eff__35__37__39 doEnd"]
+	b39_13["eff__38__40__42 doEnd"]
 end
 branch_36 --> block_39
 
@@ -1830,14 +1645,14 @@ graph TD
 	4 --> 6
 	11 --> 6
 	13 --> 6
-	13["eff__35__37__39 doEnd"]
+	13["eff__38__40__42 doEnd"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 13
 	0[/"Start"\\]
-	11["eff__34__36__38 doReturn"]
+	11["eff__37__39__41 doReturn"]
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 11
-	3["eff__35 doEnd"]
+	3["eff__38 doEnd"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
-	4["cond__33 f_isAtEnd"]
+	4["cond__36 f_isAtEnd"]
 </pre>`;
 window.traces["END"]["chooseMerge"] = ''
 window.traces["END"]["chooseMerge"] += `<pre class='graph'>---
@@ -1851,22 +1666,22 @@ graph TD
 	4 --> 6
 	11 --> 6
 	13 --> 6
-	13["eff__35__37__39 doEnd"]
+	13["eff__38__40__42 doEnd"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 13
 	0[/"Start"\\]
-	11["eff__34__36__38 doReturn"]
+	11["eff__37__39__41 doReturn"]
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 11
-	3["eff__35 doEnd"]
+	3["eff__38 doEnd"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
-	4["cond__33 f_isAtEnd"]
+	4["cond__36 f_isAtEnd"]
 </pre>`;
 window.traces["END"]["scheduled"] = ''
-window.traces["END"]["scheduled"] += `<pre class=''>def cond__33 = f_isAtEnd();
-if (cond__33) {
-	def eff__35 = doEnd();
-	def eff__34__36__38 = doReturn();
+window.traces["END"]["scheduled"] += `<pre class=''>def cond__36 = f_isAtEnd();
+if (cond__36) {
+	def eff__38 = doEnd();
+	def eff__37__39__41 = doReturn();
 } else {
-	def eff__35__37__39 = doEnd();
+	def eff__38__40__42 = doEnd();
 }
 // phis: 
 </pre>`;
@@ -1881,10 +1696,10 @@ window.traces["END"]["pretty"] += `<pre class=''>if (f_isAtEnd()) {
 window.traces["BR"] = {}
 window.traces["BR"]["parsed"] = ''
 window.traces["BR"]["parsed"] += `<pre class=''>def depth = imm_readULEB32();
-def arg__42 = (depth);
-def label = f_getLabel(arg__42);
-def arg__41 = (label);
-def eff__40 = doBranch(arg__41);
+def arg__45 = (depth);
+def label = f_getLabel(arg__45);
+def arg__44 = (label);
+def eff__43 = doBranch(arg__44);
 </pre>`;
 window.traces["BR"]["raw"] = ''
 window.traces["BR"]["raw"] += `<pre class='graph'>---
@@ -1894,7 +1709,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	7 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	7["eff__40 doBranch"]
+	7["eff__43 doBranch"]
 	5 --> 7
 	3 -. Codeptr .-> 7
 	0 -. Stack Trap Locals Globals Tables Memory Extra .-> 7
@@ -1913,10 +1728,10 @@ graph TD
 	1[\\"Finish"/]
 	7 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	8 -. Extra .-> 1
-	8["eff_st_put__43 ctlxfer.put_BR"]
+	8["eff_st_put__46 ctlxfer.put_BR"]
 	5 --> 8
 	7 -. Extra .-> 8
-	7["eff__40 doBranch"]
+	7["eff__43 doBranch"]
 	5 --> 7
 	3 -. Codeptr .-> 7
 	0 -. Stack Trap Locals Globals Tables Memory Extra .-> 7
@@ -1935,10 +1750,10 @@ graph TD
 	1[\\"Finish"/]
 	7 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	8 -. Extra .-> 1
-	8["eff_st_put__43 ctlxfer.put_BR"]
+	8["eff_st_put__46 ctlxfer.put_BR"]
 	5 --> 8
 	7 -. Extra .-> 8
-	7["eff__40 doBranch"]
+	7["eff__43 doBranch"]
 	5 --> 7
 	3 -. Codeptr .-> 7
 	0 -. Stack Trap Locals Globals Tables Memory Extra .-> 7
@@ -1955,8 +1770,8 @@ subgraph block_41["Block 41"]
 	b41_0[/"Start"\\]
 	b41_3["depth imm_readULEB32"]
 	b41_5["label f_getLabel"]
-	b41_7["eff__40 doBranch"]
-	b41_8["eff_st_put__43 ctlxfer.put_BR"]
+	b41_7["eff__43 doBranch"]
+	b41_8["eff_st_put__46 ctlxfer.put_BR"]
 	b41_1[\\"Finish"/]
 	b41_0 --> b41_3
 	b41_3 --> b41_5
@@ -1969,8 +1784,8 @@ end
 window.traces["BR"]["scheduler ssad"] = ''
 window.traces["BR"]["scheduler ssad"] += `<pre class=''>def depth = imm_readULEB32();
 def label = f_getLabel(depth);
-def eff__40 = doBranch(label);
-def eff_st_put__43 = ctlxfer.put_BR(label);
+def eff__43 = doBranch(label);
+def eff_st_put__46 = ctlxfer.put_BR(label);
 </pre>`;
 window.traces["BR"]["unLEM"] = ''
 window.traces["BR"]["unLEM"] += `<pre class='graph'>---
@@ -1981,10 +1796,10 @@ graph TD
 	1[\\"Finish"/]
 	7 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	8 -. Extra .-> 1
-	8["eff_st_put__43 ctlxfer.put_BR"]
+	8["eff_st_put__46 ctlxfer.put_BR"]
 	5 --> 8
 	7 -. Extra .-> 8
-	7["eff__40 doBranch"]
+	7["eff__43 doBranch"]
 	5 --> 7
 	3 -. Codeptr .-> 7
 	0 -. Stack Trap Locals Globals Tables Memory Extra .-> 7
@@ -1997,8 +1812,8 @@ graph TD
 window.traces["BR"]["unlem_schedule"] = ''
 window.traces["BR"]["unlem_schedule"] += `<pre class=''>def depth = imm_readULEB32();
 def label = f_getLabel(depth);
-def eff__40 = doBranch(label);
-def eff_st_put__43 = ctlxfer.put_BR(label);
+def eff__43 = doBranch(label);
+def eff_st_put__46 = ctlxfer.put_BR(label);
 </pre>`;
 window.traces["BR"]["unlem_scheduler"] = ''
 window.traces["BR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -2007,8 +1822,8 @@ subgraph block_42["Block 42"]
 	b42_0[/"Start"\\]
 	b42_3["depth imm_readULEB32"]
 	b42_5["label f_getLabel"]
-	b42_7["eff__40 doBranch"]
-	b42_8["eff_st_put__43 ctlxfer.put_BR"]
+	b42_7["eff__43 doBranch"]
+	b42_8["eff_st_put__46 ctlxfer.put_BR"]
 	b42_1[\\"Finish"/]
 	b42_0 --> b42_3
 	b42_3 --> b42_5
@@ -2033,10 +1848,10 @@ graph TD
 	1[\\"Finish"/]
 	7 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	8 -. Extra .-> 1
-	8["eff_st_put__43 ctlxfer.put_BR"]
+	8["eff_st_put__46 ctlxfer.put_BR"]
 	5 --> 8
 	7 -. Extra .-> 8
-	7["eff__40 doBranch"]
+	7["eff__43 doBranch"]
 	5 --> 7
 	3 -. Codeptr .-> 7
 	0 -. Stack Trap Locals Globals Tables Memory Extra .-> 7
@@ -2055,10 +1870,10 @@ graph TD
 	1[\\"Finish"/]
 	7 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	8 -. Extra .-> 1
-	8["eff_st_put__43 ctlxfer.put_BR"]
+	8["eff_st_put__46 ctlxfer.put_BR"]
 	5 --> 8
 	7 -. Extra .-> 8
-	7["eff__40 doBranch"]
+	7["eff__43 doBranch"]
 	5 --> 7
 	3 -. Codeptr .-> 7
 	0 -. Stack Trap Locals Globals Tables Memory Extra .-> 7
@@ -2071,8 +1886,8 @@ graph TD
 window.traces["BR"]["scheduled"] = ''
 window.traces["BR"]["scheduled"] += `<pre class=''>def depth = imm_readULEB32();
 def label = f_getLabel(depth);
-def eff__40 = doBranch(label);
-def eff_st_put__43 = ctlxfer.put_BR(label);
+def eff__43 = doBranch(label);
+def eff_st_put__46 = ctlxfer.put_BR(label);
 </pre>`;
 window.traces["BR"]["pretty"] = ''
 window.traces["BR"]["pretty"] += `<pre class=''>def depth = imm_readULEB32();
@@ -2083,17 +1898,17 @@ ctlxfer.put_BR(label);
 window.traces["BR_IF"] = {}
 window.traces["BR_IF"]["parsed"] = ''
 window.traces["BR_IF"]["parsed"] += `<pre class=''>def depth = imm_readULEB32();
-def arg__50 = (depth);
-def label = f_getLabel(arg__50);
+def arg__53 = (depth);
+def label = f_getLabel(arg__53);
 def cond = pop_u32();
-def arg__49 : u32 = 0;
-def arg__48 = (cond);
-def cond__44 = u32.!=(arg__48, arg__49);
-if (cond__44) {
-	def arg__46 = (label);
-	def eff__45 = doBranch(arg__46);
+def arg__52 : u32 = 0;
+def arg__51 = (cond);
+def cond__47 = u32.!=(arg__51, arg__52);
+if (cond__47) {
+	def arg__49 = (label);
+	def eff__48 = doBranch(arg__49);
 } else {
-	def eff__47 = doFallthru();
+	def eff__50 = doFallthru();
 }
 // phis: 
 </pre>`;
@@ -2109,7 +1924,7 @@ graph TD
 	9 --> 13
 	12 --> 13
 	10 --> 13
-	10["eff__47 doFallthru"]
+	10["eff__50 doFallthru"]
 	3 -. Codeptr .-> 10
 	6 -. Stack .-> 10
 	0 -. Trap Locals Globals Tables Memory Extra .-> 10
@@ -2118,17 +1933,17 @@ graph TD
 	0 -. Stack .-> 6
 	3["depth imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	12["eff__45 doBranch"]
+	12["eff__48 doBranch"]
 	5 --> 12
 	3 -. Codeptr .-> 12
 	6 -. Stack .-> 12
 	0 -. Trap Locals Globals Tables Memory Extra .-> 12
 	5["label f_getLabel"]
 	3 --> 5
-	9["cond__44 u32.!="]
+	9["cond__47 u32.!="]
 	6 --> 9
 	7 --> 9
-	7["arg__49 0"]
+	7["arg__52 0"]
 </pre>`;
 window.traces["BR_IF"]["overloadOps"] = ''
 window.traces["BR_IF"]["overloadOps"] += `<pre class='graph'>---
@@ -2139,14 +1954,14 @@ graph TD
 	1[\\"Finish"/]
 	13 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	14 -. Extra .-> 1
-	14["eff_st_put__51 ctlxfer.put_BR_IF"]
+	14["eff_st_put__54 ctlxfer.put_BR_IF"]
 	5 --> 14
 	13 -. Extra .-> 14
 	13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	9 --> 13
 	12 --> 13
 	10 --> 13
-	10["eff__47 doFallthru"]
+	10["eff__50 doFallthru"]
 	3 -. Codeptr .-> 10
 	6 -. Stack .-> 10
 	0 -. Trap Locals Globals Tables Memory Extra .-> 10
@@ -2155,17 +1970,17 @@ graph TD
 	0 -. Stack .-> 6
 	3["depth imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	12["eff__45 doBranch"]
+	12["eff__48 doBranch"]
 	5 --> 12
 	3 -. Codeptr .-> 12
 	6 -. Stack .-> 12
 	0 -. Trap Locals Globals Tables Memory Extra .-> 12
 	5["label f_getLabel"]
 	3 --> 5
-	9["cond__44 U32_not_equals"]
+	9["cond__47 U32_not_equals"]
 	6 --> 9
 	7 --> 9
-	7["arg__49 0"]
+	7["arg__52 0"]
 </pre>`;
 window.traces["BR_IF"]["addAbstractions"] = ''
 window.traces["BR_IF"]["addAbstractions"] += `<pre class='graph'>---
@@ -2176,14 +1991,14 @@ graph TD
 	1[\\"Finish"/]
 	13 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	14 -. Extra .-> 1
-	14["eff_st_put__51 ctlxfer.put_BR_IF"]
+	14["eff_st_put__54 ctlxfer.put_BR_IF"]
 	5 --> 14
 	13 -. Extra .-> 14
 	13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	9 --> 13
 	12 --> 13
 	10 --> 13
-	10["eff__47 doFallthru"]
+	10["eff__50 doFallthru"]
 	3 -. Codeptr .-> 10
 	6 -. Stack .-> 10
 	0 -. Trap Locals Globals Tables Memory Extra .-> 10
@@ -2192,19 +2007,19 @@ graph TD
 	0 -. Stack .-> 6
 	3["depth imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	12["eff__45 doBranch"]
+	12["eff__48 doBranch"]
 	5 --> 12
 	3 -. Codeptr .-> 12
 	6 -. Stack .-> 12
 	0 -. Trap Locals Globals Tables Memory Extra .-> 12
 	5["label f_getLabel"]
 	3 --> 5
-	9["cond__44 U32_not_equals"]
+	9["cond__47 U32_not_equals"]
 	6 --> 9
 	15 --> 9
-	15["abs__52 lift_u32"]
+	15["abs__55 lift_u32"]
 	7 --> 15
-	7["arg__49 0"]
+	7["arg__52 0"]
 </pre>`;
 window.traces["BR_IF"]["post_surgery 45"] = ''
 window.traces["BR_IF"]["post_surgery 45"] += `<pre class='graph'>---
@@ -2215,46 +2030,42 @@ graph TD
 	1[\\"Finish"/]
 	13 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	14 -. Extra .-> 1
-	14["eff_st_put__51 ctlxfer.put_BR_IF"]
+	14["eff_st_put__54 ctlxfer.put_BR_IF"]
 	5 --> 14
 	13 -. Extra .-> 14
 	13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	9 --> 13
+	16 --> 13
 	18 --> 13
-	20 --> 13
-	20["eff__47__55 doFallthru"]
-	3 -. Codeptr .-> 20
-	6 -. Stack .-> 20
-	0 -. Trap Locals Globals Tables Memory Extra .-> 20
+	18["eff__50__57 doFallthru"]
+	3 -. Codeptr .-> 18
+	6 -. Stack .-> 18
+	0 -. Trap Locals Globals Tables Memory Extra .-> 18
 	0[/"Start"\\]
 	6["cond pop_u32"]
 	0 -. Stack .-> 6
 	3["depth imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	18["eff__45__54 doBranch"]
-	17 --> 18
-	3 -. Codeptr .-> 18
-	6 -. Stack .-> 18
-	0 -. Trap Locals Globals Tables Memory Extra .-> 18
-	17["label__53 f_getLabel"]
-	3 --> 17
-	9["cond__44 U32_not_equals"]
-	6 --> 9
-	15 --> 9
-	15["abs__52 lift_u32"]
-	7 --> 15
-	7["arg__49 0"]
+	16["eff__48__56 doBranch"]
+	5 --> 16
+	3 -. Codeptr .-> 16
+	6 -. Stack .-> 16
+	0 -. Trap Locals Globals Tables Memory Extra .-> 16
 	5["label f_getLabel"]
 	3 --> 5
+	9["cond__47 U32_not_equals"]
+	6 --> 9
+	15 --> 9
+	15["abs__55 lift_u32"]
+	7 --> 15
+	7["arg__52 0"]
 </pre>`;
 window.traces["BR_IF"]["schedulerMermaid"] = ''
 window.traces["BR_IF"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_43["Block 43"]
 	direction TB
-	b43_5["label f_getLabel"]
-	b43_14["eff_st_put__51 ctlxfer.put_BR_IF"]
+	b43_14["eff_st_put__54 ctlxfer.put_BR_IF"]
 	b43_1[\\"Finish"/]
-	b43_5 --> b43_14
 	b43_14 --> b43_1
 end
 phi_45 --> block_43
@@ -2266,52 +2077,51 @@ block_46 --> phi_45
 block_47 --> phi_45
 subgraph block_46["Block 46"]
 	direction TB
-	b46_17["label__53 f_getLabel"]
-	b46_18["eff__45__54 doBranch"]
-	b46_17 --> b46_18
+	b46_16["eff__48__56 doBranch"]
 end
 branch_44 --> block_46
 subgraph branch_44["Branch 44"]
-	br44_9["cond__44 U32_not_equals"]
+	br44_9["cond__47 U32_not_equals"]
 
 end
 block_48 --> branch_44
 subgraph block_48["Block 48"]
 	direction TB
 	b48_0[/"Start"\\]
-	b48_7["arg__49 0"]
+	b48_7["arg__52 0"]
 	b48_3["depth imm_readULEB32"]
-	b48_15["abs__52 lift_u32"]
+	b48_15["abs__55 lift_u32"]
 	b48_6["cond pop_u32"]
-	b48_9["cond__44 U32_not_equals"]
+	b48_5["label f_getLabel"]
+	b48_9["cond__47 U32_not_equals"]
 	b48_0 --> b48_7
 	b48_7 --> b48_3
 	b48_3 --> b48_15
 	b48_15 --> b48_6
-	b48_6 --> b48_9
+	b48_6 --> b48_5
+	b48_5 --> b48_9
 end
 subgraph block_47["Block 47"]
 	direction TB
-	b47_20["eff__47__55 doFallthru"]
+	b47_18["eff__50__57 doFallthru"]
 end
 branch_44 --> block_47
 
 </pre>`;
 window.traces["BR_IF"]["scheduler ssad"] = ''
-window.traces["BR_IF"]["scheduler ssad"] += `<pre class=''>def arg__49 : u32 = 0;
+window.traces["BR_IF"]["scheduler ssad"] += `<pre class=''>def arg__52 : u32 = 0;
 def depth = imm_readULEB32();
-def abs__52 = lift_u32(arg__49);
+def abs__55 = lift_u32(arg__52);
 def cond = pop_u32();
-def cond__44 = U32_not_equals(cond, abs__52);
-if (cond__44) {
-	def label__53 = f_getLabel(depth);
-	def eff__45__54 = doBranch(label__53);
+def label = f_getLabel(depth);
+def cond__47 = U32_not_equals(cond, abs__55);
+if (cond__47) {
+	def eff__48__56 = doBranch(label);
 } else {
-	def eff__47__55 = doFallthru();
+	def eff__50__57 = doFallthru();
 }
 // phis: 
-def label = f_getLabel(depth);
-def eff_st_put__51 = ctlxfer.put_BR_IF(label);
+def eff_st_put__54 = ctlxfer.put_BR_IF(label);
 </pre>`;
 window.traces["BR_IF"]["unLEM"] = ''
 window.traces["BR_IF"]["unLEM"] += `<pre class='graph'>---
@@ -2322,78 +2132,76 @@ graph TD
 	1[\\"Finish"/]
 	13 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	14 -. Extra .-> 1
-	14["eff_st_put__51 ctlxfer.put_BR_IF"]
+	14["eff_st_put__54 ctlxfer.put_BR_IF"]
 	5 --> 14
 	13 -. Extra .-> 14
 	13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	23 --> 13
-	25 --> 13
-	24 --> 13
-	24{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	21 --> 24
-	18 --> 24
-	20 --> 24
-	20["eff__47__55 doFallthru"]
-	3 -. Codeptr .-> 20
-	6 -. Stack .-> 20
-	0 -. Trap Locals Globals Tables Memory Extra .-> 20
+	26 --> 13
+	28 --> 13
+	27 --> 13
+	27{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	24 --> 27
+	16 --> 27
+	18 --> 27
+	18["eff__50__57 doFallthru"]
+	3 -. Codeptr .-> 18
+	6 -. Stack .-> 18
+	0 -. Trap Locals Globals Tables Memory Extra .-> 18
 	0[/"Start"\\]
 	6["cond pop_u32"]
 	0 -. Stack .-> 6
 	3["depth imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	18["eff__45__54 doBranch"]
-	17 --> 18
-	3 -. Codeptr .-> 18
-	6 -. Stack .-> 18
-	0 -. Trap Locals Globals Tables Memory Extra .-> 18
-	17["label__53 f_getLabel"]
-	3 --> 17
-	21["mt__56 U32_maybeTrue"]
-	9 --> 21
-	9["cond__44 U32_not_equals"]
-	6 --> 9
-	15 --> 9
-	15["abs__52 lift_u32"]
-	7 --> 15
-	7["arg__49 0"]
-	25["eff_merge__59 merge"]
-	18 --> 25
-	20 --> 25
-	23["mb__58 bool.&&"]
-	21 --> 23
-	22 --> 23
-	22["mf__57 U32_maybeFalse"]
-	9 --> 22
+	16["eff__48__56 doBranch"]
+	5 --> 16
+	3 -. Codeptr .-> 16
+	6 -. Stack .-> 16
+	0 -. Trap Locals Globals Tables Memory Extra .-> 16
 	5["label f_getLabel"]
 	3 --> 5
+	24["mt__60 U32_maybeTrue"]
+	9 --> 24
+	9["cond__47 U32_not_equals"]
+	6 --> 9
+	15 --> 9
+	15["abs__55 lift_u32"]
+	7 --> 15
+	7["arg__52 0"]
+	28["eff_merge__63 merge"]
+	16 --> 28
+	18 --> 28
+	26["mb__62 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__61 U32_maybeFalse"]
+	9 --> 25
 </pre>`;
 window.traces["BR_IF"]["unlem_schedule"] = ''
 window.traces["BR_IF"]["unlem_schedule"] += `<pre class=''>def depth = imm_readULEB32();
 def cond = pop_u32();
-def arg__49 : u32 = 0;
-def abs__52 = lift_u32(arg__49);
-def cond__44 = U32_not_equals(cond, abs__52);
-def mt__56 = U32_maybeTrue(cond__44);
-def mf__57 = U32_maybeFalse(cond__44);
-def mb__58 = bool.&&(mt__56, mf__57);
-if (mb__58) {
-	def label__53 = f_getLabel(depth);
-	def eff__45__54 = doBranch(label__53);
-	def eff__47__55 = doFallthru();
-	def eff_merge__59 = merge(eff__45__54, eff__47__55);
+def arg__52 : u32 = 0;
+def abs__55 = lift_u32(arg__52);
+def cond__47 = U32_not_equals(cond, abs__55);
+def mt__60 = U32_maybeTrue(cond__47);
+def mf__61 = U32_maybeFalse(cond__47);
+def mb__62 = bool.&&(mt__60, mf__61);
+if (mb__62) {
+	def label = f_getLabel(depth);
+	def eff__48__56 = doBranch(label);
+	def eff__50__57 = doFallthru();
+	def eff_merge__63 = merge(eff__48__56, eff__50__57);
 } else {
-	if (mt__56) {
-		def label__53 = f_getLabel(depth);
-		def eff__45__54 = doBranch(label__53);
+	if (mt__60) {
+		def label = f_getLabel(depth);
+		def eff__48__56 = doBranch(label);
 	} else {
-		def eff__47__55 = doFallthru();
+		def eff__50__57 = doFallthru();
 	}
 // phis: 
 }
 // phis: 
 def label = f_getLabel(depth);
-def eff_st_put__51 = ctlxfer.put_BR_IF(label);
+def eff_st_put__54 = ctlxfer.put_BR_IF(label);
 </pre>`;
 window.traces["BR_IF_ul"] = {}
 window.traces["BR_IF_ul"]["post_surgery 51"] = ''
@@ -2405,60 +2213,54 @@ graph TD
 	1[\\"Finish"/]
 	13 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	14 -. Extra .-> 1
-	14["eff_st_put__51 ctlxfer.put_BR_IF"]
+	14["eff_st_put__54 ctlxfer.put_BR_IF"]
 	5 --> 14
 	13 -. Extra .-> 14
 	13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	23 --> 13
-	28 --> 13
+	26 --> 13
+	29 --> 13
 	32 --> 13
 	32{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	21 --> 32
-	33 --> 32
-	31 --> 32
-	31["eff__47__55__63 doFallthru"]
-	3 -. Codeptr .-> 31
-	6 -. Stack .-> 31
-	0 -. Trap Locals Globals Tables Memory Extra .-> 31
+	34 --> 32
+	16 --> 32
+	18 --> 32
+	18["eff__50__57 doFallthru"]
+	3 -. Codeptr .-> 18
+	6 -. Stack .-> 18
+	0 -. Trap Locals Globals Tables Memory Extra .-> 18
 	0[/"Start"\\]
 	6["cond pop_u32"]
 	0 -. Stack .-> 6
 	3["depth imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	33["eff__45__54__64 doBranch"]
-	17 --> 33
-	3 -. Codeptr .-> 33
-	6 -. Stack .-> 33
-	0 -. Trap Locals Globals Tables Memory Extra .-> 33
-	17["label__53 f_getLabel"]
-	3 --> 17
-	21["mt__56 U32_maybeTrue"]
-	9 --> 21
-	9["cond__44 U32_not_equals"]
-	6 --> 9
-	15 --> 9
-	15["abs__52 lift_u32"]
-	7 --> 15
-	7["arg__49 0"]
-	28["eff_merge__59__61 merge"]
-	29 --> 28
-	27 --> 28
-	27["eff__47__55__60 doFallthru"]
-	3 -. Codeptr .-> 27
-	6 -. Stack .-> 27
-	0 -. Trap Locals Globals Tables Memory Extra .-> 27
-	29["eff__45__54__62 doBranch"]
-	17 --> 29
-	3 -. Codeptr .-> 29
-	6 -. Stack .-> 29
-	0 -. Trap Locals Globals Tables Memory Extra .-> 29
-	23["mb__58 bool.&&"]
-	21 --> 23
-	22 --> 23
-	22["mf__57 U32_maybeFalse"]
-	9 --> 22
+	16["eff__48__56 doBranch"]
+	5 --> 16
+	3 -. Codeptr .-> 16
+	6 -. Stack .-> 16
+	0 -. Trap Locals Globals Tables Memory Extra .-> 16
 	5["label f_getLabel"]
 	3 --> 5
+	34["mt__60__66 U32_maybeTrue"]
+	33 --> 34
+	33["cond__47__65 U32_not_equals"]
+	6 --> 33
+	15 --> 33
+	15["abs__55 lift_u32"]
+	7 --> 15
+	7["arg__52 0"]
+	29["eff_merge__63__64 merge"]
+	16 --> 29
+	18 --> 29
+	26["mb__62 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__61 U32_maybeFalse"]
+	9 --> 25
+	9["cond__47 U32_not_equals"]
+	6 --> 9
+	15 --> 9
+	24["mt__60 U32_maybeTrue"]
+	9 --> 24
 </pre>`;
 window.traces["BR_IF_ul"]["post_surgery 55"] = ''
 window.traces["BR_IF_ul"]["post_surgery 55"] += `<pre class='graph'>---
@@ -2469,71 +2271,61 @@ graph TD
 	1[\\"Finish"/]
 	13 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	14 -. Extra .-> 1
-	14["eff_st_put__51 ctlxfer.put_BR_IF"]
+	14["eff_st_put__54 ctlxfer.put_BR_IF"]
 	5 --> 14
 	13 -. Extra .-> 14
 	13{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	23 --> 13
-	28 --> 13
+	26 --> 13
+	29 --> 13
 	32 --> 13
 	32{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	21 --> 32
-	36 --> 32
-	38 --> 32
-	38["eff__47__55__63__67 doFallthru"]
-	3 -. Codeptr .-> 38
-	6 -. Stack .-> 38
-	0 -. Trap Locals Globals Tables Memory Extra .-> 38
+	34 --> 32
+	41 --> 32
+	43 --> 32
+	43["eff__50__57__71 doFallthru"]
+	3 -. Codeptr .-> 43
+	6 -. Stack .-> 43
+	0 -. Trap Locals Globals Tables Memory Extra .-> 43
 	0[/"Start"\\]
 	6["cond pop_u32"]
 	0 -. Stack .-> 6
 	3["depth imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	36["eff__45__54__64__66 doBranch"]
-	35 --> 36
-	3 -. Codeptr .-> 36
-	6 -. Stack .-> 36
-	0 -. Trap Locals Globals Tables Memory Extra .-> 36
-	35["label__53__65 f_getLabel"]
-	3 --> 35
-	21["mt__56 U32_maybeTrue"]
-	9 --> 21
-	9["cond__44 U32_not_equals"]
-	6 --> 9
-	15 --> 9
-	15["abs__52 lift_u32"]
-	7 --> 15
-	7["arg__49 0"]
-	28["eff_merge__59__61 merge"]
-	29 --> 28
-	27 --> 28
-	27["eff__47__55__60 doFallthru"]
-	3 -. Codeptr .-> 27
-	6 -. Stack .-> 27
-	0 -. Trap Locals Globals Tables Memory Extra .-> 27
-	29["eff__45__54__62 doBranch"]
-	17 --> 29
-	3 -. Codeptr .-> 29
-	6 -. Stack .-> 29
-	0 -. Trap Locals Globals Tables Memory Extra .-> 29
-	17["label__53 f_getLabel"]
-	3 --> 17
-	23["mb__58 bool.&&"]
-	21 --> 23
-	22 --> 23
-	22["mf__57 U32_maybeFalse"]
-	9 --> 22
+	41["eff__48__56__70 doBranch"]
+	5 --> 41
+	3 -. Codeptr .-> 41
+	6 -. Stack .-> 41
+	0 -. Trap Locals Globals Tables Memory Extra .-> 41
 	5["label f_getLabel"]
 	3 --> 5
+	34["mt__60__66 U32_maybeTrue"]
+	33 --> 34
+	33["cond__47__65 U32_not_equals"]
+	6 --> 33
+	15 --> 33
+	15["abs__55 lift_u32"]
+	7 --> 15
+	7["arg__52 0"]
+	29["eff_merge__63__64 merge"]
+	41 --> 29
+	43 --> 29
+	26["mb__62 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__61 U32_maybeFalse"]
+	9 --> 25
+	9["cond__47 U32_not_equals"]
+	6 --> 9
+	15 --> 9
+	24["mt__60 U32_maybeTrue"]
+	9 --> 24
 </pre>`;
 window.traces["BR_IF"]["unlem_scheduler"] = ''
 window.traces["BR_IF"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_49["Block 49"]
 	direction TB
-	b49_5["label f_getLabel"]
-	b49_14["eff_st_put__51 ctlxfer.put_BR_IF"]
+	b49_14["eff_st_put__54 ctlxfer.put_BR_IF"]
 	b49_1[\\"Finish"/]
-	b49_5 --> b49_14
 	b49_14 --> b49_1
 end
 phi_51 --> block_49
@@ -2545,37 +2337,37 @@ block_52 --> phi_51
 block_53 --> phi_51
 subgraph block_52["Block 52"]
 	direction TB
-	b52_17["label__53 f_getLabel"]
-	b52_27["eff__47__55__60 doFallthru"]
-	b52_29["eff__45__54__62 doBranch"]
-	b52_28["eff_merge__59__61 merge"]
-	b52_17 --> b52_27
-	b52_27 --> b52_29
-	b52_29 --> b52_28
+	b52_29["eff_merge__63__64 merge"]
 end
 branch_50 --> block_52
 subgraph branch_50["Branch 50"]
-	br50_23["mb__58 bool.&&"]
+	br50_26["mb__62 bool.&&"]
 
 end
 block_58 --> branch_50
 subgraph block_58["Block 58"]
 	direction TB
-	b58_7["arg__49 0"]
-	b58_15["abs__52 lift_u32"]
-	b58_3["depth imm_readULEB32"]
+	b58_7["arg__52 0"]
+	b58_15["abs__55 lift_u32"]
 	b58_6["cond pop_u32"]
-	b58_9["cond__44 U32_not_equals"]
-	b58_22["mf__57 U32_maybeFalse"]
-	b58_21["mt__56 U32_maybeTrue"]
-	b58_23["mb__58 bool.&&"]
+	b58_33["cond__47__65 U32_not_equals"]
+	b58_9["cond__47 U32_not_equals"]
+	b58_3["depth imm_readULEB32"]
+	b58_34["mt__60__66 U32_maybeTrue"]
+	b58_25["mf__61 U32_maybeFalse"]
+	b58_24["mt__60 U32_maybeTrue"]
+	b58_5["label f_getLabel"]
+	b58_26["mb__62 bool.&&"]
 	b58_7 --> b58_15
-	b58_15 --> b58_3
-	b58_3 --> b58_6
-	b58_6 --> b58_9
-	b58_9 --> b58_22
-	b58_22 --> b58_21
-	b58_21 --> b58_23
+	b58_15 --> b58_6
+	b58_6 --> b58_33
+	b58_33 --> b58_9
+	b58_9 --> b58_3
+	b58_3 --> b58_34
+	b58_34 --> b58_25
+	b58_25 --> b58_24
+	b58_24 --> b58_5
+	b58_5 --> b58_26
 end
 subgraph block_53["Block 53"]
 	direction TB
@@ -2590,19 +2382,17 @@ block_56 --> phi_55
 block_57 --> phi_55
 subgraph block_56["Block 56"]
 	direction TB
-	b56_35["label__53__65 f_getLabel"]
-	b56_36["eff__45__54__64__66 doBranch"]
-	b56_35 --> b56_36
+	b56_41["eff__48__56__70 doBranch"]
 end
 branch_54 --> block_56
 subgraph branch_54["Branch 54"]
-	br54_21["mt__56 U32_maybeTrue"]
+	br54_34["mt__60__66 U32_maybeTrue"]
 
 end
 branch_50 --> branch_54
 subgraph block_57["Block 57"]
 	direction TB
-	b57_38["eff__47__55__63__67 doFallthru"]
+	b57_43["eff__50__57__71 doFallthru"]
 end
 branch_54 --> block_57
 
@@ -2625,8 +2415,8 @@ if (bool.&&(mt, mf)) {
 		doFallthru();
 	}
 }
-def label1 = f_getLabel(depth);
-ctlxfer.put_BR_IF(label1);
+def label = f_getLabel(depth);
+ctlxfer.put_BR_IF(label);
 </pre>`;
 window.traces["BR_IF"]["constUnLEM"] = ''
 window.traces["BR_IF"]["constUnLEM"] += `<pre class='graph'>---
@@ -2635,30 +2425,28 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	28 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	29 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	14 -. Extra .-> 1
-	14["eff_st_put__51 ctlxfer.put_BR_IF"]
+	14["eff_st_put__54 ctlxfer.put_BR_IF"]
 	5 --> 14
-	28 -. Extra .-> 14
-	28["eff_merge__59__61 merge"]
-	29 --> 28
-	27 --> 28
-	27["eff__47__55__60 doFallthru"]
-	3 -. Codeptr .-> 27
-	6 -. Stack .-> 27
-	0 -. Trap Locals Globals Tables Memory Extra .-> 27
+	29 -. Extra .-> 14
+	29["eff_merge__63__64 merge"]
+	41 --> 29
+	43 --> 29
+	43["eff__50__57__71 doFallthru"]
+	3 -. Codeptr .-> 43
+	6 -. Stack .-> 43
+	0 -. Trap Locals Globals Tables Memory Extra .-> 43
 	0[/"Start"\\]
 	6["cond pop_u32"]
 	0 -. Stack .-> 6
 	3["depth imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	29["eff__45__54__62 doBranch"]
-	17 --> 29
-	3 -. Codeptr .-> 29
-	6 -. Stack .-> 29
-	0 -. Trap Locals Globals Tables Memory Extra .-> 29
-	17["label__53 f_getLabel"]
-	3 --> 17
+	41["eff__48__56__70 doBranch"]
+	5 --> 41
+	3 -. Codeptr .-> 41
+	6 -. Stack .-> 41
+	0 -. Trap Locals Globals Tables Memory Extra .-> 41
 	5["label f_getLabel"]
 	3 --> 5
 </pre>`;
@@ -2669,42 +2457,39 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	28 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	29 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	14 -. Extra .-> 1
-	14["eff_st_put__51 ctlxfer.put_BR_IF"]
+	14["eff_st_put__54 ctlxfer.put_BR_IF"]
 	5 --> 14
-	28 -. Extra .-> 14
-	28["eff_merge__59__61 merge"]
-	29 --> 28
-	27 --> 28
-	27["eff__47__55__60 doFallthru"]
-	3 -. Codeptr .-> 27
-	6 -. Stack .-> 27
-	0 -. Trap Locals Globals Tables Memory Extra .-> 27
+	29 -. Extra .-> 14
+	29["eff_merge__63__64 merge"]
+	41 --> 29
+	43 --> 29
+	43["eff__50__57__71 doFallthru"]
+	3 -. Codeptr .-> 43
+	6 -. Stack .-> 43
+	0 -. Trap Locals Globals Tables Memory Extra .-> 43
 	0[/"Start"\\]
 	6["cond pop_u32"]
 	0 -. Stack .-> 6
 	3["depth imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	29["eff__45__54__62 doBranch"]
-	17 --> 29
-	3 -. Codeptr .-> 29
-	6 -. Stack .-> 29
-	0 -. Trap Locals Globals Tables Memory Extra .-> 29
-	17["label__53 f_getLabel"]
-	3 --> 17
+	41["eff__48__56__70 doBranch"]
+	5 --> 41
+	3 -. Codeptr .-> 41
+	6 -. Stack .-> 41
+	0 -. Trap Locals Globals Tables Memory Extra .-> 41
 	5["label f_getLabel"]
 	3 --> 5
 </pre>`;
 window.traces["BR_IF"]["scheduled"] = ''
 window.traces["BR_IF"]["scheduled"] += `<pre class=''>def depth = imm_readULEB32();
-def label__53 = f_getLabel(depth);
-def cond = pop_u32();
-def eff__45__54__62 = doBranch(label__53);
-def eff__47__55__60 = doFallthru();
-def eff_merge__59__61 = merge(eff__45__54__62, eff__47__55__60);
 def label = f_getLabel(depth);
-def eff_st_put__51 = ctlxfer.put_BR_IF(label);
+def cond = pop_u32();
+def eff__48__56__70 = doBranch(label);
+def eff__50__57__71 = doFallthru();
+def eff_merge__63__64 = merge(eff__48__56__70, eff__50__57__71);
+def eff_st_put__54 = ctlxfer.put_BR_IF(label);
 </pre>`;
 window.traces["BR_IF"]["pretty"] = ''
 window.traces["BR_IF"]["pretty"] += `<pre class=''>def depth = imm_readULEB32();
@@ -2712,16 +2497,15 @@ def label = f_getLabel(depth);
 def cond = pop_u32();
 doBranch(label);
 doFallthru();
-def label1 = f_getLabel(depth);
-ctlxfer.put_BR_IF(label1);
+ctlxfer.put_BR_IF(label);
 </pre>`;
 window.traces["BR_TABLE"] = {}
 window.traces["BR_TABLE"]["parsed"] = ''
 window.traces["BR_TABLE"]["parsed"] += `<pre class=''>def labels = imm_readLabels();
 def key = pop_u32();
-def arg__70 = (key);
-def arg__69 = (labels);
-def eff__68 = doSwitch(arg__69, arg__70);
+def arg__78 = (key);
+def arg__77 = (labels);
+def eff__76 = doSwitch(arg__77, arg__78);
 </pre>`;
 window.traces["BR_TABLE"]["raw"] = ''
 window.traces["BR_TABLE"]["raw"] += `<pre class='graph'>---
@@ -2731,7 +2515,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	7 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	7["eff__68 doSwitch"]
+	7["eff__76 doSwitch"]
 	3 --> 7
 	4 --> 7
 	3 -. Codeptr .-> 7
@@ -2752,10 +2536,10 @@ graph TD
 	1[\\"Finish"/]
 	7 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	8 -. Extra .-> 1
-	8["eff_st_put__71 ctlxfer.put_BR_TABLE"]
+	8["eff_st_put__79 ctlxfer.put_BR_TABLE"]
 	3 --> 8
 	7 -. Extra .-> 8
-	7["eff__68 doSwitch"]
+	7["eff__76 doSwitch"]
 	3 --> 7
 	4 --> 7
 	3 -. Codeptr .-> 7
@@ -2776,10 +2560,10 @@ graph TD
 	1[\\"Finish"/]
 	7 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	8 -. Extra .-> 1
-	8["eff_st_put__71 ctlxfer.put_BR_TABLE"]
+	8["eff_st_put__79 ctlxfer.put_BR_TABLE"]
 	3 --> 8
 	7 -. Extra .-> 8
-	7["eff__68 doSwitch"]
+	7["eff__76 doSwitch"]
 	3 --> 7
 	4 --> 7
 	3 -. Codeptr .-> 7
@@ -2798,8 +2582,8 @@ subgraph block_59["Block 59"]
 	b59_0[/"Start"\\]
 	b59_4["key pop_u32"]
 	b59_3["labels imm_readLabels"]
-	b59_7["eff__68 doSwitch"]
-	b59_8["eff_st_put__71 ctlxfer.put_BR_TABLE"]
+	b59_7["eff__76 doSwitch"]
+	b59_8["eff_st_put__79 ctlxfer.put_BR_TABLE"]
 	b59_1[\\"Finish"/]
 	b59_0 --> b59_4
 	b59_4 --> b59_3
@@ -2812,8 +2596,8 @@ end
 window.traces["BR_TABLE"]["scheduler ssad"] = ''
 window.traces["BR_TABLE"]["scheduler ssad"] += `<pre class=''>def key = pop_u32();
 def labels = imm_readLabels();
-def eff__68 = doSwitch(labels, key);
-def eff_st_put__71 = ctlxfer.put_BR_TABLE(labels);
+def eff__76 = doSwitch(labels, key);
+def eff_st_put__79 = ctlxfer.put_BR_TABLE(labels);
 </pre>`;
 window.traces["BR_TABLE"]["unLEM"] = ''
 window.traces["BR_TABLE"]["unLEM"] += `<pre class='graph'>---
@@ -2824,10 +2608,10 @@ graph TD
 	1[\\"Finish"/]
 	7 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	8 -. Extra .-> 1
-	8["eff_st_put__71 ctlxfer.put_BR_TABLE"]
+	8["eff_st_put__79 ctlxfer.put_BR_TABLE"]
 	3 --> 8
 	7 -. Extra .-> 8
-	7["eff__68 doSwitch"]
+	7["eff__76 doSwitch"]
 	3 --> 7
 	4 --> 7
 	3 -. Codeptr .-> 7
@@ -2842,8 +2626,8 @@ graph TD
 window.traces["BR_TABLE"]["unlem_schedule"] = ''
 window.traces["BR_TABLE"]["unlem_schedule"] += `<pre class=''>def labels = imm_readLabels();
 def key = pop_u32();
-def eff__68 = doSwitch(labels, key);
-def eff_st_put__71 = ctlxfer.put_BR_TABLE(labels);
+def eff__76 = doSwitch(labels, key);
+def eff_st_put__79 = ctlxfer.put_BR_TABLE(labels);
 </pre>`;
 window.traces["BR_TABLE"]["unlem_scheduler"] = ''
 window.traces["BR_TABLE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -2852,8 +2636,8 @@ subgraph block_60["Block 60"]
 	b60_0[/"Start"\\]
 	b60_4["key pop_u32"]
 	b60_3["labels imm_readLabels"]
-	b60_7["eff__68 doSwitch"]
-	b60_8["eff_st_put__71 ctlxfer.put_BR_TABLE"]
+	b60_7["eff__76 doSwitch"]
+	b60_8["eff_st_put__79 ctlxfer.put_BR_TABLE"]
 	b60_1[\\"Finish"/]
 	b60_0 --> b60_4
 	b60_4 --> b60_3
@@ -2878,10 +2662,10 @@ graph TD
 	1[\\"Finish"/]
 	7 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	8 -. Extra .-> 1
-	8["eff_st_put__71 ctlxfer.put_BR_TABLE"]
+	8["eff_st_put__79 ctlxfer.put_BR_TABLE"]
 	3 --> 8
 	7 -. Extra .-> 8
-	7["eff__68 doSwitch"]
+	7["eff__76 doSwitch"]
 	3 --> 7
 	4 --> 7
 	3 -. Codeptr .-> 7
@@ -2902,10 +2686,10 @@ graph TD
 	1[\\"Finish"/]
 	7 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	8 -. Extra .-> 1
-	8["eff_st_put__71 ctlxfer.put_BR_TABLE"]
+	8["eff_st_put__79 ctlxfer.put_BR_TABLE"]
 	3 --> 8
 	7 -. Extra .-> 8
-	7["eff__68 doSwitch"]
+	7["eff__76 doSwitch"]
 	3 --> 7
 	4 --> 7
 	3 -. Codeptr .-> 7
@@ -2920,8 +2704,8 @@ graph TD
 window.traces["BR_TABLE"]["scheduled"] = ''
 window.traces["BR_TABLE"]["scheduled"] += `<pre class=''>def labels = imm_readLabels();
 def key = pop_u32();
-def eff__68 = doSwitch(labels, key);
-def eff_st_put__71 = ctlxfer.put_BR_TABLE(labels);
+def eff__76 = doSwitch(labels, key);
+def eff_st_put__79 = ctlxfer.put_BR_TABLE(labels);
 </pre>`;
 window.traces["BR_TABLE"]["pretty"] = ''
 window.traces["BR_TABLE"]["pretty"] += `<pre class=''>def labels = imm_readLabels();
@@ -2931,7 +2715,7 @@ ctlxfer.put_BR_TABLE(labels);
 </pre>`;
 window.traces["RETURN"] = {}
 window.traces["RETURN"]["parsed"] = ''
-window.traces["RETURN"]["parsed"] += `<pre class=''>def eff__72 = doReturn();
+window.traces["RETURN"]["parsed"] += `<pre class=''>def eff__80 = doReturn();
 </pre>`;
 window.traces["RETURN"]["raw"] = ''
 window.traces["RETURN"]["raw"] += `<pre class='graph'>---
@@ -2941,7 +2725,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	3["eff__72 doReturn"]
+	3["eff__80 doReturn"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
 </pre>`;
@@ -2953,7 +2737,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	3["eff__72 doReturn"]
+	3["eff__80 doReturn"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
 </pre>`;
@@ -2965,7 +2749,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	3["eff__72 doReturn"]
+	3["eff__80 doReturn"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
 </pre>`;
@@ -2973,14 +2757,14 @@ window.traces["RETURN"]["schedulerMermaid"] = ''
 window.traces["RETURN"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_61["Block 61"]
 	direction TB
-	b61_3["eff__72 doReturn"]
+	b61_3["eff__80 doReturn"]
 	b61_1[\\"Finish"/]
 	b61_3 --> b61_1
 end
 
 </pre>`;
 window.traces["RETURN"]["scheduler ssad"] = ''
-window.traces["RETURN"]["scheduler ssad"] += `<pre class=''>def eff__72 = doReturn();
+window.traces["RETURN"]["scheduler ssad"] += `<pre class=''>def eff__80 = doReturn();
 </pre>`;
 window.traces["RETURN"]["unLEM"] = ''
 window.traces["RETURN"]["unLEM"] += `<pre class='graph'>---
@@ -2990,18 +2774,18 @@ config:
 graph TD
 	1[\\"Finish"/]
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	3["eff__72 doReturn"]
+	3["eff__80 doReturn"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
 </pre>`;
 window.traces["RETURN"]["unlem_schedule"] = ''
-window.traces["RETURN"]["unlem_schedule"] += `<pre class=''>def eff__72 = doReturn();
+window.traces["RETURN"]["unlem_schedule"] += `<pre class=''>def eff__80 = doReturn();
 </pre>`;
 window.traces["RETURN"]["unlem_scheduler"] = ''
 window.traces["RETURN"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_62["Block 62"]
 	direction TB
-	b62_3["eff__72 doReturn"]
+	b62_3["eff__80 doReturn"]
 	b62_1[\\"Finish"/]
 	b62_3 --> b62_1
 end
@@ -3018,7 +2802,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	3["eff__72 doReturn"]
+	3["eff__80 doReturn"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
 </pre>`;
@@ -3030,12 +2814,12 @@ config:
 graph TD
 	1[\\"Finish"/]
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	3["eff__72 doReturn"]
+	3["eff__80 doReturn"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
 </pre>`;
 window.traces["RETURN"]["scheduled"] = ''
-window.traces["RETURN"]["scheduled"] += `<pre class=''>def eff__72 = doReturn();
+window.traces["RETURN"]["scheduled"] += `<pre class=''>def eff__80 = doReturn();
 </pre>`;
 window.traces["RETURN"]["pretty"] = ''
 window.traces["RETURN"]["pretty"] += `<pre class=''>doReturn();
@@ -3043,13 +2827,13 @@ window.traces["RETURN"]["pretty"] += `<pre class=''>doReturn();
 window.traces["CALL"] = {}
 window.traces["CALL"]["parsed"] = ''
 window.traces["CALL"]["parsed"] += `<pre class=''>def index = imm_readULEB32();
-def arg__77 = (index);
-def sig = m_getFuncSignature(arg__77);
-def arg__76 = (index);
-def target = i_getFunction(arg__76);
-def arg__75 = (target);
-def arg__74 = (sig);
-def eff__73 = doCall(arg__74, arg__75);
+def arg__85 = (index);
+def sig = m_getFuncSignature(arg__85);
+def arg__84 = (index);
+def target = i_getFunction(arg__84);
+def arg__83 = (target);
+def arg__82 = (sig);
+def eff__81 = doCall(arg__82, arg__83);
 </pre>`;
 window.traces["CALL"]["raw"] = ''
 window.traces["CALL"]["raw"] += `<pre class='graph'>---
@@ -3059,7 +2843,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	10["eff__73 doCall"]
+	10["eff__81 doCall"]
 	5 --> 10
 	7 --> 10
 	3 -. Codeptr .-> 10
@@ -3080,7 +2864,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	10["eff__73 doCall"]
+	10["eff__81 doCall"]
 	5 --> 10
 	7 --> 10
 	3 -. Codeptr .-> 10
@@ -3101,7 +2885,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	10["eff__73 doCall"]
+	10["eff__81 doCall"]
 	5 --> 10
 	7 --> 10
 	3 -. Codeptr .-> 10
@@ -3122,7 +2906,7 @@ subgraph block_63["Block 63"]
 	b63_3["index imm_readULEB32"]
 	b63_7["target i_getFunction"]
 	b63_5["sig m_getFuncSignature"]
-	b63_10["eff__73 doCall"]
+	b63_10["eff__81 doCall"]
 	b63_1[\\"Finish"/]
 	b63_0 --> b63_3
 	b63_3 --> b63_7
@@ -3136,7 +2920,7 @@ window.traces["CALL"]["scheduler ssad"] = ''
 window.traces["CALL"]["scheduler ssad"] += `<pre class=''>def index = imm_readULEB32();
 def target = i_getFunction(index);
 def sig = m_getFuncSignature(index);
-def eff__73 = doCall(sig, target);
+def eff__81 = doCall(sig, target);
 </pre>`;
 window.traces["CALL"]["unLEM"] = ''
 window.traces["CALL"]["unLEM"] += `<pre class='graph'>---
@@ -3146,7 +2930,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	10["eff__73 doCall"]
+	10["eff__81 doCall"]
 	5 --> 10
 	7 --> 10
 	3 -. Codeptr .-> 10
@@ -3163,7 +2947,7 @@ window.traces["CALL"]["unlem_schedule"] = ''
 window.traces["CALL"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
 def sig = m_getFuncSignature(index);
 def target = i_getFunction(index);
-def eff__73 = doCall(sig, target);
+def eff__81 = doCall(sig, target);
 </pre>`;
 window.traces["CALL"]["unlem_scheduler"] = ''
 window.traces["CALL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -3173,7 +2957,7 @@ subgraph block_64["Block 64"]
 	b64_3["index imm_readULEB32"]
 	b64_7["target i_getFunction"]
 	b64_5["sig m_getFuncSignature"]
-	b64_10["eff__73 doCall"]
+	b64_10["eff__81 doCall"]
 	b64_1[\\"Finish"/]
 	b64_0 --> b64_3
 	b64_3 --> b64_7
@@ -3197,7 +2981,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	10["eff__73 doCall"]
+	10["eff__81 doCall"]
 	5 --> 10
 	7 --> 10
 	3 -. Codeptr .-> 10
@@ -3218,7 +3002,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	10["eff__73 doCall"]
+	10["eff__81 doCall"]
 	5 --> 10
 	7 --> 10
 	3 -. Codeptr .-> 10
@@ -3235,7 +3019,7 @@ window.traces["CALL"]["scheduled"] = ''
 window.traces["CALL"]["scheduled"] += `<pre class=''>def index = imm_readULEB32();
 def sig = m_getFuncSignature(index);
 def target = i_getFunction(index);
-def eff__73 = doCall(sig, target);
+def eff__81 = doCall(sig, target);
 </pre>`;
 window.traces["CALL"]["pretty"] = ''
 window.traces["CALL"]["pretty"] += `<pre class=''>def index = imm_readULEB32();
@@ -3247,29 +3031,29 @@ window.traces["CALL_INDIRECT"] = {}
 window.traces["CALL_INDIRECT"]["parsed"] = ''
 window.traces["CALL_INDIRECT"]["parsed"] += `<pre class=''>def sig_index = imm_readULEB32();
 def table_index = imm_readULEB32();
-def arg__92 = (sig_index);
-def sig = m_getSignature(arg__92);
-def arg__91 = (table_index);
-def is64 = m_isTable64(arg__91);
-def cond__78 = (is64);
-if (cond__78) {
+def arg__100 = (sig_index);
+def sig = m_getSignature(arg__100);
+def arg__99 = (table_index);
+def is64 = m_isTable64(arg__99);
+def cond__86 = (is64);
+if (cond__86) {
 	def func_index = pop_u64();
-	def arg__84 = (func_index);
-	def arg__83 = (sig);
-	def arg__82 = (table_index);
-	def target = i_getTableFunction64(arg__82, arg__83, arg__84);
-	def arg__81 = (target);
-	def arg__80 = (sig);
-	def eff__79 = doCall(arg__80, arg__81);
+	def arg__92 = (func_index);
+	def arg__91 = (sig);
+	def arg__90 = (table_index);
+	def target = i_getTableFunction64(arg__90, arg__91, arg__92);
+	def arg__89 = (target);
+	def arg__88 = (sig);
+	def eff__87 = doCall(arg__88, arg__89);
 } else {
 	def func_index = pop_u32();
-	def arg__90 = (func_index);
-	def arg__89 = (sig);
-	def arg__88 = (table_index);
-	def target = i_getTableFunction32(arg__88, arg__89, arg__90);
-	def arg__87 = (target);
-	def arg__86 = (sig);
-	def eff__85 = doCall(arg__86, arg__87);
+	def arg__98 = (func_index);
+	def arg__97 = (sig);
+	def arg__96 = (table_index);
+	def target = i_getTableFunction32(arg__96, arg__97, arg__98);
+	def arg__95 = (target);
+	def arg__94 = (sig);
+	def eff__93 = doCall(arg__94, arg__95);
 }
 // phis: 
 </pre>`;
@@ -3285,7 +3069,7 @@ graph TD
 	8 --> 26
 	25 --> 26
 	17 --> 26
-	17["eff__85 doCall"]
+	17["eff__93 doCall"]
 	6 --> 17
 	14 --> 17
 	4 -. Codeptr .-> 17
@@ -3304,7 +3088,7 @@ graph TD
 	10 --> 14
 	6["sig m_getSignature"]
 	3 --> 6
-	25["eff__79 doCall"]
+	25["eff__87 doCall"]
 	6 --> 25
 	22 --> 25
 	4 -. Codeptr .-> 25
@@ -3328,14 +3112,14 @@ graph TD
 	1[\\"Finish"/]
 	26 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	27 -. Extra .-> 1
-	27["eff_st_put__93 ctlxfer.put_CALL_INDIRECT"]
+	27["eff_st_put__101 ctlxfer.put_CALL_INDIRECT"]
 	8 --> 27
 	26 -. Extra .-> 27
 	26{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	8 --> 26
 	25 --> 26
 	17 --> 26
-	17["eff__85 doCall"]
+	17["eff__93 doCall"]
 	6 --> 17
 	14 --> 17
 	4 -. Codeptr .-> 17
@@ -3354,7 +3138,7 @@ graph TD
 	10 --> 14
 	6["sig m_getSignature"]
 	3 --> 6
-	25["eff__79 doCall"]
+	25["eff__87 doCall"]
 	6 --> 25
 	22 --> 25
 	4 -. Codeptr .-> 25
@@ -3378,14 +3162,14 @@ graph TD
 	1[\\"Finish"/]
 	26 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	27 -. Extra .-> 1
-	27["eff_st_put__93 ctlxfer.put_CALL_INDIRECT"]
+	27["eff_st_put__101 ctlxfer.put_CALL_INDIRECT"]
 	8 --> 27
 	26 -. Extra .-> 27
 	26{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	8 --> 26
 	25 --> 26
 	17 --> 26
-	17["eff__85 doCall"]
+	17["eff__93 doCall"]
 	6 --> 17
 	14 --> 17
 	4 -. Codeptr .-> 17
@@ -3404,7 +3188,7 @@ graph TD
 	10 --> 14
 	6["sig m_getSignature"]
 	3 --> 6
-	25["eff__79 doCall"]
+	25["eff__87 doCall"]
 	6 --> 25
 	22 --> 25
 	4 -. Codeptr .-> 25
@@ -3428,19 +3212,19 @@ graph TD
 	1[\\"Finish"/]
 	26 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	27 -. Extra .-> 1
-	27["eff_st_put__93 ctlxfer.put_CALL_INDIRECT"]
+	27["eff_st_put__101 ctlxfer.put_CALL_INDIRECT"]
 	8 --> 27
 	26 -. Extra .-> 27
 	26{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	8 --> 26
+	28 --> 26
 	30 --> 26
-	33 --> 26
-	33["eff__85__97 doCall"]
-	6 --> 33
-	32 --> 33
-	4 -. Codeptr .-> 33
-	10 -. Stack .-> 33
-	0 -. Trap Locals Globals Tables Memory Extra .-> 33
+	30["eff__93__103 doCall"]
+	6 --> 30
+	14 --> 30
+	4 -. Codeptr .-> 30
+	10 -. Stack .-> 30
+	0 -. Trap Locals Globals Tables Memory Extra .-> 30
 	0[/"Start"\\]
 	10["func_index pop_u32"]
 	0 -. Stack .-> 10
@@ -3448,24 +3232,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["sig_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	32["target__96 i_getTableFunction32"]
-	4 --> 32
-	6 --> 32
-	10 --> 32
+	14["target i_getTableFunction32"]
+	4 --> 14
+	6 --> 14
+	10 --> 14
 	6["sig m_getSignature"]
 	3 --> 6
-	30["eff__79__95 doCall"]
-	6 --> 30
-	29 --> 30
-	4 -. Codeptr .-> 30
-	18 -. Stack .-> 30
-	0 -. Trap Locals Globals Tables Memory Extra .-> 30
+	28["eff__87__102 doCall"]
+	6 --> 28
+	22 --> 28
+	4 -. Codeptr .-> 28
+	18 -. Stack .-> 28
+	0 -. Trap Locals Globals Tables Memory Extra .-> 28
 	18["func_index pop_u64"]
 	0 -. Stack .-> 18
-	29["target__94 i_getTableFunction64"]
-	4 --> 29
-	6 --> 29
-	18 --> 29
+	22["target i_getTableFunction64"]
+	4 --> 22
+	6 --> 22
+	18 --> 22
 	8["is64 m_isTable64"]
 	4 --> 8
 </pre>`;
@@ -3473,7 +3257,7 @@ window.traces["CALL_INDIRECT"]["schedulerMermaid"] = ''
 window.traces["CALL_INDIRECT"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_65["Block 65"]
 	direction TB
-	b65_27["eff_st_put__93 ctlxfer.put_CALL_INDIRECT"]
+	b65_27["eff_st_put__101 ctlxfer.put_CALL_INDIRECT"]
 	b65_1[\\"Finish"/]
 	b65_27 --> b65_1
 end
@@ -3487,10 +3271,10 @@ block_69 --> phi_67
 subgraph block_68["Block 68"]
 	direction TB
 	b68_18["func_index pop_u64"]
-	b68_29["target__94 i_getTableFunction64"]
-	b68_30["eff__79__95 doCall"]
-	b68_18 --> b68_29
-	b68_29 --> b68_30
+	b68_22["target i_getTableFunction64"]
+	b68_28["eff__87__102 doCall"]
+	b68_18 --> b68_22
+	b68_22 --> b68_28
 end
 branch_66 --> block_68
 subgraph branch_66["Branch 66"]
@@ -3513,10 +3297,10 @@ end
 subgraph block_69["Block 69"]
 	direction TB
 	b69_10["func_index pop_u32"]
-	b69_32["target__96 i_getTableFunction32"]
-	b69_33["eff__85__97 doCall"]
-	b69_10 --> b69_32
-	b69_32 --> b69_33
+	b69_14["target i_getTableFunction32"]
+	b69_30["eff__93__103 doCall"]
+	b69_10 --> b69_14
+	b69_14 --> b69_30
 end
 branch_66 --> block_69
 
@@ -3528,15 +3312,15 @@ def table_index = imm_readULEB32();
 def is64 = m_isTable64(table_index);
 if (is64) {
 	def func_index = pop_u64();
-	def target__94 = i_getTableFunction64(table_index, sig, func_index);
-	def eff__79__95 = doCall(sig, target__94);
+	def target = i_getTableFunction64(table_index, sig, func_index);
+	def eff__87__102 = doCall(sig, target);
 } else {
 	def func_index = pop_u32();
-	def target__96 = i_getTableFunction32(table_index, sig, func_index);
-	def eff__85__97 = doCall(sig, target__96);
+	def target = i_getTableFunction32(table_index, sig, func_index);
+	def eff__93__103 = doCall(sig, target);
 }
 // phis: 
-def eff_st_put__93 = ctlxfer.put_CALL_INDIRECT(is64);
+def eff_st_put__101 = ctlxfer.put_CALL_INDIRECT(is64);
 </pre>`;
 window.traces["CALL_INDIRECT"]["unLEM"] = ''
 window.traces["CALL_INDIRECT"]["unLEM"] += `<pre class='graph'>---
@@ -3547,19 +3331,19 @@ graph TD
 	1[\\"Finish"/]
 	26 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	27 -. Extra .-> 1
-	27["eff_st_put__93 ctlxfer.put_CALL_INDIRECT"]
+	27["eff_st_put__101 ctlxfer.put_CALL_INDIRECT"]
 	8 --> 27
 	26 -. Extra .-> 27
 	26{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	8 --> 26
+	28 --> 26
 	30 --> 26
-	33 --> 26
-	33["eff__85__97 doCall"]
-	6 --> 33
-	32 --> 33
-	4 -. Codeptr .-> 33
-	10 -. Stack .-> 33
-	0 -. Trap Locals Globals Tables Memory Extra .-> 33
+	30["eff__93__103 doCall"]
+	6 --> 30
+	14 --> 30
+	4 -. Codeptr .-> 30
+	10 -. Stack .-> 30
+	0 -. Trap Locals Globals Tables Memory Extra .-> 30
 	0[/"Start"\\]
 	10["func_index pop_u32"]
 	0 -. Stack .-> 10
@@ -3567,24 +3351,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["sig_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	32["target__96 i_getTableFunction32"]
-	4 --> 32
-	6 --> 32
-	10 --> 32
+	14["target i_getTableFunction32"]
+	4 --> 14
+	6 --> 14
+	10 --> 14
 	6["sig m_getSignature"]
 	3 --> 6
-	30["eff__79__95 doCall"]
-	6 --> 30
-	29 --> 30
-	4 -. Codeptr .-> 30
-	18 -. Stack .-> 30
-	0 -. Trap Locals Globals Tables Memory Extra .-> 30
+	28["eff__87__102 doCall"]
+	6 --> 28
+	22 --> 28
+	4 -. Codeptr .-> 28
+	18 -. Stack .-> 28
+	0 -. Trap Locals Globals Tables Memory Extra .-> 28
 	18["func_index pop_u64"]
 	0 -. Stack .-> 18
-	29["target__94 i_getTableFunction64"]
-	4 --> 29
-	6 --> 29
-	18 --> 29
+	22["target i_getTableFunction64"]
+	4 --> 22
+	6 --> 22
+	18 --> 22
 	8["is64 m_isTable64"]
 	4 --> 8
 </pre>`;
@@ -3595,15 +3379,15 @@ def table_index = imm_readULEB32();
 def is64 = m_isTable64(table_index);
 if (is64) {
 	def func_index = pop_u64();
-	def target__94 = i_getTableFunction64(table_index, sig, func_index);
-	def eff__79__95 = doCall(sig, target__94);
+	def target = i_getTableFunction64(table_index, sig, func_index);
+	def eff__87__102 = doCall(sig, target);
 } else {
 	def func_index = pop_u32();
-	def target__96 = i_getTableFunction32(table_index, sig, func_index);
-	def eff__85__97 = doCall(sig, target__96);
+	def target = i_getTableFunction32(table_index, sig, func_index);
+	def eff__93__103 = doCall(sig, target);
 }
 // phis: 
-def eff_st_put__93 = ctlxfer.put_CALL_INDIRECT(is64);
+def eff_st_put__101 = ctlxfer.put_CALL_INDIRECT(is64);
 </pre>`;
 window.traces["CALL_INDIRECT_ul"] = {}
 window.traces["CALL_INDIRECT_ul"]["post_surgery 73"] = ''
@@ -3615,19 +3399,19 @@ graph TD
 	1[\\"Finish"/]
 	26 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	27 -. Extra .-> 1
-	27["eff_st_put__93 ctlxfer.put_CALL_INDIRECT"]
+	27["eff_st_put__101 ctlxfer.put_CALL_INDIRECT"]
 	8 --> 27
 	26 -. Extra .-> 27
 	26{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	8 --> 26
 	36 --> 26
-	39 --> 26
-	39["eff__85__97__101 doCall"]
-	6 --> 39
-	38 --> 39
-	4 -. Codeptr .-> 39
-	10 -. Stack .-> 39
-	0 -. Trap Locals Globals Tables Memory Extra .-> 39
+	38 --> 26
+	38["eff__93__103__107 doCall"]
+	6 --> 38
+	14 --> 38
+	4 -. Codeptr .-> 38
+	10 -. Stack .-> 38
+	0 -. Trap Locals Globals Tables Memory Extra .-> 38
 	0[/"Start"\\]
 	10["func_index pop_u32"]
 	0 -. Stack .-> 10
@@ -3635,24 +3419,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["sig_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	38["target__96__100 i_getTableFunction32"]
-	4 --> 38
-	6 --> 38
-	10 --> 38
+	14["target i_getTableFunction32"]
+	4 --> 14
+	6 --> 14
+	10 --> 14
 	6["sig m_getSignature"]
 	3 --> 6
-	36["eff__79__95__99 doCall"]
+	36["eff__87__102__106 doCall"]
 	6 --> 36
-	35 --> 36
+	22 --> 36
 	4 -. Codeptr .-> 36
 	18 -. Stack .-> 36
 	0 -. Trap Locals Globals Tables Memory Extra .-> 36
 	18["func_index pop_u64"]
 	0 -. Stack .-> 18
-	35["target__94__98 i_getTableFunction64"]
-	4 --> 35
-	6 --> 35
-	18 --> 35
+	22["target i_getTableFunction64"]
+	4 --> 22
+	6 --> 22
+	18 --> 22
 	8["is64 m_isTable64"]
 	4 --> 8
 </pre>`;
@@ -3660,7 +3444,7 @@ window.traces["CALL_INDIRECT"]["unlem_scheduler"] = ''
 window.traces["CALL_INDIRECT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_71["Block 71"]
 	direction TB
-	b71_27["eff_st_put__93 ctlxfer.put_CALL_INDIRECT"]
+	b71_27["eff_st_put__101 ctlxfer.put_CALL_INDIRECT"]
 	b71_1[\\"Finish"/]
 	b71_27 --> b71_1
 end
@@ -3674,10 +3458,10 @@ block_75 --> phi_73
 subgraph block_74["Block 74"]
 	direction TB
 	b74_18["func_index pop_u64"]
-	b74_35["target__94__98 i_getTableFunction64"]
-	b74_36["eff__79__95__99 doCall"]
-	b74_18 --> b74_35
-	b74_35 --> b74_36
+	b74_22["target i_getTableFunction64"]
+	b74_36["eff__87__102__106 doCall"]
+	b74_18 --> b74_22
+	b74_22 --> b74_36
 end
 branch_72 --> block_74
 subgraph branch_72["Branch 72"]
@@ -3700,10 +3484,10 @@ end
 subgraph block_75["Block 75"]
 	direction TB
 	b75_10["func_index pop_u32"]
-	b75_38["target__96__100 i_getTableFunction32"]
-	b75_39["eff__85__97__101 doCall"]
-	b75_10 --> b75_38
-	b75_38 --> b75_39
+	b75_14["target i_getTableFunction32"]
+	b75_38["eff__93__103__107 doCall"]
+	b75_10 --> b75_14
+	b75_14 --> b75_38
 end
 branch_72 --> block_75
 
@@ -3719,8 +3503,8 @@ if (is64) {
 	doCall(sig, target);
 } else {
 	def func_index = pop_u32();
-	def target1 = i_getTableFunction32(table_index, sig, func_index);
-	doCall(sig, target1);
+	def target = i_getTableFunction32(table_index, sig, func_index);
+	doCall(sig, target);
 }
 ctlxfer.put_CALL_INDIRECT(is64);
 </pre>`;
@@ -3733,19 +3517,19 @@ graph TD
 	1[\\"Finish"/]
 	26 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	27 -. Extra .-> 1
-	27["eff_st_put__93 ctlxfer.put_CALL_INDIRECT"]
+	27["eff_st_put__101 ctlxfer.put_CALL_INDIRECT"]
 	8 --> 27
 	26 -. Extra .-> 27
 	26{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	8 --> 26
 	36 --> 26
-	39 --> 26
-	39["eff__85__97__101 doCall"]
-	6 --> 39
-	38 --> 39
-	4 -. Codeptr .-> 39
-	10 -. Stack .-> 39
-	0 -. Trap Locals Globals Tables Memory Extra .-> 39
+	38 --> 26
+	38["eff__93__103__107 doCall"]
+	6 --> 38
+	14 --> 38
+	4 -. Codeptr .-> 38
+	10 -. Stack .-> 38
+	0 -. Trap Locals Globals Tables Memory Extra .-> 38
 	0[/"Start"\\]
 	10["func_index pop_u32"]
 	0 -. Stack .-> 10
@@ -3753,24 +3537,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["sig_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	38["target__96__100 i_getTableFunction32"]
-	4 --> 38
-	6 --> 38
-	10 --> 38
+	14["target i_getTableFunction32"]
+	4 --> 14
+	6 --> 14
+	10 --> 14
 	6["sig m_getSignature"]
 	3 --> 6
-	36["eff__79__95__99 doCall"]
+	36["eff__87__102__106 doCall"]
 	6 --> 36
-	35 --> 36
+	22 --> 36
 	4 -. Codeptr .-> 36
 	18 -. Stack .-> 36
 	0 -. Trap Locals Globals Tables Memory Extra .-> 36
 	18["func_index pop_u64"]
 	0 -. Stack .-> 18
-	35["target__94__98 i_getTableFunction64"]
-	4 --> 35
-	6 --> 35
-	18 --> 35
+	22["target i_getTableFunction64"]
+	4 --> 22
+	6 --> 22
+	18 --> 22
 	8["is64 m_isTable64"]
 	4 --> 8
 </pre>`;
@@ -3783,19 +3567,19 @@ graph TD
 	1[\\"Finish"/]
 	26 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
 	27 -. Extra .-> 1
-	27["eff_st_put__93 ctlxfer.put_CALL_INDIRECT"]
+	27["eff_st_put__101 ctlxfer.put_CALL_INDIRECT"]
 	8 --> 27
 	26 -. Extra .-> 27
 	26{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 	8 --> 26
 	36 --> 26
-	39 --> 26
-	39["eff__85__97__101 doCall"]
-	6 --> 39
-	38 --> 39
-	4 -. Codeptr .-> 39
-	10 -. Stack .-> 39
-	0 -. Trap Locals Globals Tables Memory Extra .-> 39
+	38 --> 26
+	38["eff__93__103__107 doCall"]
+	6 --> 38
+	14 --> 38
+	4 -. Codeptr .-> 38
+	10 -. Stack .-> 38
+	0 -. Trap Locals Globals Tables Memory Extra .-> 38
 	0[/"Start"\\]
 	10["func_index pop_u32"]
 	0 -. Stack .-> 10
@@ -3803,24 +3587,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["sig_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	38["target__96__100 i_getTableFunction32"]
-	4 --> 38
-	6 --> 38
-	10 --> 38
+	14["target i_getTableFunction32"]
+	4 --> 14
+	6 --> 14
+	10 --> 14
 	6["sig m_getSignature"]
 	3 --> 6
-	36["eff__79__95__99 doCall"]
+	36["eff__87__102__106 doCall"]
 	6 --> 36
-	35 --> 36
+	22 --> 36
 	4 -. Codeptr .-> 36
 	18 -. Stack .-> 36
 	0 -. Trap Locals Globals Tables Memory Extra .-> 36
 	18["func_index pop_u64"]
 	0 -. Stack .-> 18
-	35["target__94__98 i_getTableFunction64"]
-	4 --> 35
-	6 --> 35
-	18 --> 35
+	22["target i_getTableFunction64"]
+	4 --> 22
+	6 --> 22
+	18 --> 22
 	8["is64 m_isTable64"]
 	4 --> 8
 </pre>`;
@@ -3831,15 +3615,15 @@ def table_index = imm_readULEB32();
 def is64 = m_isTable64(table_index);
 if (is64) {
 	def func_index = pop_u64();
-	def target__94__98 = i_getTableFunction64(table_index, sig, func_index);
-	def eff__79__95__99 = doCall(sig, target__94__98);
+	def target = i_getTableFunction64(table_index, sig, func_index);
+	def eff__87__102__106 = doCall(sig, target);
 } else {
 	def func_index = pop_u32();
-	def target__96__100 = i_getTableFunction32(table_index, sig, func_index);
-	def eff__85__97__101 = doCall(sig, target__96__100);
+	def target = i_getTableFunction32(table_index, sig, func_index);
+	def eff__93__103__107 = doCall(sig, target);
 }
 // phis: 
-def eff_st_put__93 = ctlxfer.put_CALL_INDIRECT(is64);
+def eff_st_put__101 = ctlxfer.put_CALL_INDIRECT(is64);
 </pre>`;
 window.traces["CALL_INDIRECT"]["pretty"] = ''
 window.traces["CALL_INDIRECT"]["pretty"] += `<pre class=''>def sig_index = imm_readULEB32();
@@ -3852,21 +3636,21 @@ if (is64) {
 	doCall(sig, target);
 } else {
 	def func_index = pop_u32();
-	def target1 = i_getTableFunction32(table_index, sig, func_index);
-	doCall(sig, target1);
+	def target = i_getTableFunction32(table_index, sig, func_index);
+	doCall(sig, target);
 }
 ctlxfer.put_CALL_INDIRECT(is64);
 </pre>`;
 window.traces["RETURN_CALL"] = {}
 window.traces["RETURN_CALL"]["parsed"] = ''
 window.traces["RETURN_CALL"]["parsed"] += `<pre class=''>def index = imm_readULEB32();
-def arg__106 = (index);
-def sig = m_getFuncSignature(arg__106);
-def arg__105 = (index);
-def target = i_getFunction(arg__105);
-def arg__104 = (target);
-def arg__103 = (sig);
-def eff__102 = doReturnCall(arg__103, arg__104);
+def arg__114 = (index);
+def sig = m_getFuncSignature(arg__114);
+def arg__113 = (index);
+def target = i_getFunction(arg__113);
+def arg__112 = (target);
+def arg__111 = (sig);
+def eff__110 = doReturnCall(arg__111, arg__112);
 </pre>`;
 window.traces["RETURN_CALL"]["raw"] = ''
 window.traces["RETURN_CALL"]["raw"] += `<pre class='graph'>---
@@ -3876,7 +3660,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	10["eff__102 doReturnCall"]
+	10["eff__110 doReturnCall"]
 	5 --> 10
 	7 --> 10
 	3 -. Codeptr .-> 10
@@ -3897,7 +3681,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	10["eff__102 doReturnCall"]
+	10["eff__110 doReturnCall"]
 	5 --> 10
 	7 --> 10
 	3 -. Codeptr .-> 10
@@ -3918,7 +3702,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	10["eff__102 doReturnCall"]
+	10["eff__110 doReturnCall"]
 	5 --> 10
 	7 --> 10
 	3 -. Codeptr .-> 10
@@ -3939,7 +3723,7 @@ subgraph block_77["Block 77"]
 	b77_3["index imm_readULEB32"]
 	b77_7["target i_getFunction"]
 	b77_5["sig m_getFuncSignature"]
-	b77_10["eff__102 doReturnCall"]
+	b77_10["eff__110 doReturnCall"]
 	b77_1[\\"Finish"/]
 	b77_0 --> b77_3
 	b77_3 --> b77_7
@@ -3953,7 +3737,7 @@ window.traces["RETURN_CALL"]["scheduler ssad"] = ''
 window.traces["RETURN_CALL"]["scheduler ssad"] += `<pre class=''>def index = imm_readULEB32();
 def target = i_getFunction(index);
 def sig = m_getFuncSignature(index);
-def eff__102 = doReturnCall(sig, target);
+def eff__110 = doReturnCall(sig, target);
 </pre>`;
 window.traces["RETURN_CALL"]["unLEM"] = ''
 window.traces["RETURN_CALL"]["unLEM"] += `<pre class='graph'>---
@@ -3963,7 +3747,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	10["eff__102 doReturnCall"]
+	10["eff__110 doReturnCall"]
 	5 --> 10
 	7 --> 10
 	3 -. Codeptr .-> 10
@@ -3980,7 +3764,7 @@ window.traces["RETURN_CALL"]["unlem_schedule"] = ''
 window.traces["RETURN_CALL"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
 def sig = m_getFuncSignature(index);
 def target = i_getFunction(index);
-def eff__102 = doReturnCall(sig, target);
+def eff__110 = doReturnCall(sig, target);
 </pre>`;
 window.traces["RETURN_CALL"]["unlem_scheduler"] = ''
 window.traces["RETURN_CALL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -3990,7 +3774,7 @@ subgraph block_78["Block 78"]
 	b78_3["index imm_readULEB32"]
 	b78_7["target i_getFunction"]
 	b78_5["sig m_getFuncSignature"]
-	b78_10["eff__102 doReturnCall"]
+	b78_10["eff__110 doReturnCall"]
 	b78_1[\\"Finish"/]
 	b78_0 --> b78_3
 	b78_3 --> b78_7
@@ -4014,7 +3798,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	10["eff__102 doReturnCall"]
+	10["eff__110 doReturnCall"]
 	5 --> 10
 	7 --> 10
 	3 -. Codeptr .-> 10
@@ -4035,7 +3819,7 @@ config:
 graph TD
 	1[\\"Finish"/]
 	10 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
-	10["eff__102 doReturnCall"]
+	10["eff__110 doReturnCall"]
 	5 --> 10
 	7 --> 10
 	3 -. Codeptr .-> 10
@@ -4052,7 +3836,7 @@ window.traces["RETURN_CALL"]["scheduled"] = ''
 window.traces["RETURN_CALL"]["scheduled"] += `<pre class=''>def index = imm_readULEB32();
 def sig = m_getFuncSignature(index);
 def target = i_getFunction(index);
-def eff__102 = doReturnCall(sig, target);
+def eff__110 = doReturnCall(sig, target);
 </pre>`;
 window.traces["RETURN_CALL"]["pretty"] = ''
 window.traces["RETURN_CALL"]["pretty"] += `<pre class=''>def index = imm_readULEB32();
@@ -4063,8 +3847,8 @@ doReturnCall(sig, target);
 window.traces["DROP"] = {}
 window.traces["DROP"]["parsed"] = ''
 window.traces["DROP"]["parsed"] += `<pre class=''>def tv = f_getTopOfStackType();
-def arg__108 = (tv);
-def eff__107 = pop_Value(arg__108);
+def arg__116 = (tv);
+def eff__115 = pop_Value(arg__116);
 </pre>`;
 window.traces["DROP"]["raw"] = ''
 window.traces["DROP"]["raw"] += `<pre class='graph'>---
@@ -4075,7 +3859,7 @@ graph TD
 	1[\\"Finish"/]
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
-	5["eff__107 pop_Value"]
+	5["eff__115 pop_Value"]
 	3 --> 5
 	0 -. Stack .-> 5
 	0[/"Start"\\]
@@ -4091,7 +3875,7 @@ graph TD
 	1[\\"Finish"/]
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
-	5["eff__107 pop_Value"]
+	5["eff__115 pop_Value"]
 	3 --> 5
 	0 -. Stack .-> 5
 	0[/"Start"\\]
@@ -4107,7 +3891,7 @@ graph TD
 	1[\\"Finish"/]
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
-	5["eff__107 pop_Value"]
+	5["eff__115 pop_Value"]
 	3 --> 5
 	0 -. Stack .-> 5
 	0[/"Start"\\]
@@ -4120,7 +3904,7 @@ subgraph block_79["Block 79"]
 	direction TB
 	b79_0[/"Start"\\]
 	b79_3["tv f_getTopOfStackType"]
-	b79_5["eff__107 pop_Value"]
+	b79_5["eff__115 pop_Value"]
 	b79_1[\\"Finish"/]
 	b79_0 --> b79_3
 	b79_3 --> b79_5
@@ -4130,7 +3914,7 @@ end
 </pre>`;
 window.traces["DROP"]["scheduler ssad"] = ''
 window.traces["DROP"]["scheduler ssad"] += `<pre class=''>def tv = f_getTopOfStackType();
-def eff__107 = pop_Value(tv);
+def eff__115 = pop_Value(tv);
 </pre>`;
 window.traces["DROP"]["unLEM"] = ''
 window.traces["DROP"]["unLEM"] += `<pre class='graph'>---
@@ -4141,7 +3925,7 @@ graph TD
 	1[\\"Finish"/]
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
-	5["eff__107 pop_Value"]
+	5["eff__115 pop_Value"]
 	3 --> 5
 	0 -. Stack .-> 5
 	0[/"Start"\\]
@@ -4150,7 +3934,7 @@ graph TD
 </pre>`;
 window.traces["DROP"]["unlem_schedule"] = ''
 window.traces["DROP"]["unlem_schedule"] += `<pre class=''>def tv = f_getTopOfStackType();
-def eff__107 = pop_Value(tv);
+def eff__115 = pop_Value(tv);
 </pre>`;
 window.traces["DROP"]["unlem_scheduler"] = ''
 window.traces["DROP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -4158,7 +3942,7 @@ subgraph block_80["Block 80"]
 	direction TB
 	b80_0[/"Start"\\]
 	b80_3["tv f_getTopOfStackType"]
-	b80_5["eff__107 pop_Value"]
+	b80_5["eff__115 pop_Value"]
 	b80_1[\\"Finish"/]
 	b80_0 --> b80_3
 	b80_3 --> b80_5
@@ -4179,7 +3963,7 @@ graph TD
 	1[\\"Finish"/]
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
-	5["eff__107 pop_Value"]
+	5["eff__115 pop_Value"]
 	3 --> 5
 	0 -. Stack .-> 5
 	0[/"Start"\\]
@@ -4195,7 +3979,7 @@ graph TD
 	1[\\"Finish"/]
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	5 -. Stack .-> 1
-	5["eff__107 pop_Value"]
+	5["eff__115 pop_Value"]
 	3 --> 5
 	0 -. Stack .-> 5
 	0[/"Start"\\]
@@ -4204,7 +3988,7 @@ graph TD
 </pre>`;
 window.traces["DROP"]["scheduled"] = ''
 window.traces["DROP"]["scheduled"] += `<pre class=''>def tv = f_getTopOfStackType();
-def eff__107 = pop_Value(tv);
+def eff__115 = pop_Value(tv);
 </pre>`;
 window.traces["DROP"]["pretty"] = ''
 window.traces["DROP"]["pretty"] += `<pre class=''>def tv = f_getTopOfStackType();
@@ -4214,21 +3998,21 @@ window.traces["SELECT"] = {}
 window.traces["SELECT"]["parsed"] = ''
 window.traces["SELECT"]["parsed"] += `<pre class=''>def c = pop_u32();
 def tv = f_getTopOfStackType();
-def arg__119 = (tv);
-def b = pop_Value(arg__119);
-def arg__118 = (tv);
-def a = pop_Value(arg__118);
-def arg__117 : u32 = 0;
-def arg__116 = (c);
-def cond__109 = u32.!=(arg__116, arg__117);
-if (cond__109) {
-	def arg__112 = (a);
-	def arg__111 = (tv);
-	def eff__110 = push_Value(arg__111, arg__112);
+def arg__127 = (tv);
+def b = pop_Value(arg__127);
+def arg__126 = (tv);
+def a = pop_Value(arg__126);
+def arg__125 : u32 = 0;
+def arg__124 = (c);
+def cond__117 = u32.!=(arg__124, arg__125);
+if (cond__117) {
+	def arg__120 = (a);
+	def arg__119 = (tv);
+	def eff__118 = push_Value(arg__119, arg__120);
 } else {
-	def arg__115 = (b);
-	def arg__114 = (tv);
-	def eff__113 = push_Value(arg__114, arg__115);
+	def arg__123 = (b);
+	def arg__122 = (tv);
+	def eff__121 = push_Value(arg__122, arg__123);
 }
 // phis: 
 </pre>`;
@@ -4245,7 +4029,7 @@ graph TD
 	11 --> 18
 	17 --> 18
 	14 --> 18
-	14["eff__113 push_Value"]
+	14["eff__121 push_Value"]
 	4 --> 14
 	6 --> 14
 	8 -. Stack .-> 14
@@ -4260,14 +4044,14 @@ graph TD
 	0[/"Start"\\]
 	4["tv f_getTopOfStackType"]
 	3 -. Stack .-> 4
-	17["eff__110 push_Value"]
+	17["eff__118 push_Value"]
 	4 --> 17
 	8 --> 17
 	8 -. Stack .-> 17
-	11["cond__109 u32.!="]
+	11["cond__117 u32.!="]
 	3 --> 11
 	9 --> 11
-	9["arg__117 0"]
+	9["arg__125 0"]
 </pre>`;
 window.traces["SELECT"]["overloadOps"] = ''
 window.traces["SELECT"]["overloadOps"] += `<pre class='graph'>---
@@ -4282,7 +4066,7 @@ graph TD
 	11 --> 18
 	17 --> 18
 	14 --> 18
-	14["eff__113 push_Value"]
+	14["eff__121 push_Value"]
 	4 --> 14
 	6 --> 14
 	8 -. Stack .-> 14
@@ -4297,14 +4081,14 @@ graph TD
 	0[/"Start"\\]
 	4["tv f_getTopOfStackType"]
 	3 -. Stack .-> 4
-	17["eff__110 push_Value"]
+	17["eff__118 push_Value"]
 	4 --> 17
 	8 --> 17
 	8 -. Stack .-> 17
-	11["cond__109 U32_not_equals"]
+	11["cond__117 U32_not_equals"]
 	3 --> 11
 	9 --> 11
-	9["arg__117 0"]
+	9["arg__125 0"]
 </pre>`;
 window.traces["SELECT"]["addAbstractions"] = ''
 window.traces["SELECT"]["addAbstractions"] += `<pre class='graph'>---
@@ -4319,7 +4103,7 @@ graph TD
 	11 --> 18
 	17 --> 18
 	14 --> 18
-	14["eff__113 push_Value"]
+	14["eff__121 push_Value"]
 	4 --> 14
 	6 --> 14
 	8 -. Stack .-> 14
@@ -4334,16 +4118,16 @@ graph TD
 	0[/"Start"\\]
 	4["tv f_getTopOfStackType"]
 	3 -. Stack .-> 4
-	17["eff__110 push_Value"]
+	17["eff__118 push_Value"]
 	4 --> 17
 	8 --> 17
 	8 -. Stack .-> 17
-	11["cond__109 U32_not_equals"]
+	11["cond__117 U32_not_equals"]
 	3 --> 11
 	19 --> 11
-	19["abs__120 lift_u32"]
+	19["abs__128 lift_u32"]
 	9 --> 19
-	9["arg__117 0"]
+	9["arg__125 0"]
 </pre>`;
 window.traces["SELECT"]["post_surgery 83"] = ''
 window.traces["SELECT"]["post_surgery 83"] += `<pre class='graph'>---
@@ -4356,12 +4140,12 @@ graph TD
 	18 -. Stack .-> 1
 	18{{"Sϕ Stack "}}
 	11 --> 18
-	21 --> 18
-	23 --> 18
-	23["eff__113__122 push_Value"]
-	4 --> 23
-	6 --> 23
-	8 -. Stack .-> 23
+	20 --> 18
+	22 --> 18
+	22["eff__121__130 push_Value"]
+	4 --> 22
+	6 --> 22
+	8 -. Stack .-> 22
 	8["a pop_Value"]
 	4 --> 8
 	6 -. Stack .-> 8
@@ -4373,16 +4157,16 @@ graph TD
 	0[/"Start"\\]
 	4["tv f_getTopOfStackType"]
 	3 -. Stack .-> 4
-	21["eff__110__121 push_Value"]
-	4 --> 21
-	8 --> 21
-	8 -. Stack .-> 21
-	11["cond__109 U32_not_equals"]
+	20["eff__118__129 push_Value"]
+	4 --> 20
+	8 --> 20
+	8 -. Stack .-> 20
+	11["cond__117 U32_not_equals"]
 	3 --> 11
 	19 --> 11
-	19["abs__120 lift_u32"]
+	19["abs__128 lift_u32"]
 	9 --> 19
-	9["arg__117 0"]
+	9["arg__125 0"]
 </pre>`;
 window.traces["SELECT"]["schedulerMermaid"] = ''
 window.traces["SELECT"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -4398,11 +4182,11 @@ block_84 --> phi_83
 block_85 --> phi_83
 subgraph block_84["Block 84"]
 	direction TB
-	b84_21["eff__110__121 push_Value"]
+	b84_20["eff__118__129 push_Value"]
 end
 branch_82 --> block_84
 subgraph branch_82["Branch 82"]
-	br82_11["cond__109 U32_not_equals"]
+	br82_11["cond__117 U32_not_equals"]
 
 end
 block_86 --> branch_82
@@ -4411,11 +4195,11 @@ subgraph block_86["Block 86"]
 	b86_0[/"Start"\\]
 	b86_3["c pop_u32"]
 	b86_4["tv f_getTopOfStackType"]
-	b86_9["arg__117 0"]
+	b86_9["arg__125 0"]
 	b86_6["b pop_Value"]
 	b86_8["a pop_Value"]
-	b86_19["abs__120 lift_u32"]
-	b86_11["cond__109 U32_not_equals"]
+	b86_19["abs__128 lift_u32"]
+	b86_11["cond__117 U32_not_equals"]
 	b86_0 --> b86_3
 	b86_3 --> b86_4
 	b86_4 --> b86_9
@@ -4426,7 +4210,7 @@ subgraph block_86["Block 86"]
 end
 subgraph block_85["Block 85"]
 	direction TB
-	b85_23["eff__113__122 push_Value"]
+	b85_22["eff__121__130 push_Value"]
 end
 branch_82 --> block_85
 
@@ -4434,15 +4218,15 @@ branch_82 --> block_85
 window.traces["SELECT"]["scheduler ssad"] = ''
 window.traces["SELECT"]["scheduler ssad"] += `<pre class=''>def c = pop_u32();
 def tv = f_getTopOfStackType();
-def arg__117 : u32 = 0;
+def arg__125 : u32 = 0;
 def b = pop_Value(tv);
 def a = pop_Value(tv);
-def abs__120 = lift_u32(arg__117);
-def cond__109 = U32_not_equals(c, abs__120);
-if (cond__109) {
-	def eff__110__121 = push_Value(tv, a);
+def abs__128 = lift_u32(arg__125);
+def cond__117 = U32_not_equals(c, abs__128);
+if (cond__117) {
+	def eff__118__129 = push_Value(tv, a);
 } else {
-	def eff__113__122 = push_Value(tv, b);
+	def eff__121__130 = push_Value(tv, b);
 }
 // phis: 
 </pre>`;
@@ -4461,12 +4245,12 @@ graph TD
 	27 --> 18
 	27{{"Sϕ Stack "}}
 	24 --> 27
-	21 --> 27
-	23 --> 27
-	23["eff__113__122 push_Value"]
-	4 --> 23
-	6 --> 23
-	8 -. Stack .-> 23
+	20 --> 27
+	22 --> 27
+	22["eff__121__130 push_Value"]
+	4 --> 22
+	6 --> 22
+	8 -. Stack .-> 22
 	8["a pop_Value"]
 	4 --> 8
 	6 -. Stack .-> 8
@@ -4478,31 +4262,31 @@ graph TD
 	0[/"Start"\\]
 	4["tv f_getTopOfStackType"]
 	3 -. Stack .-> 4
-	21["eff__110__121 push_Value"]
-	4 --> 21
-	8 --> 21
-	8 -. Stack .-> 21
-	24["mt__123 U32_maybeTrue"]
+	20["eff__118__129 push_Value"]
+	4 --> 20
+	8 --> 20
+	8 -. Stack .-> 20
+	24["mt__131 U32_maybeTrue"]
 	11 --> 24
-	11["cond__109 U32_not_equals"]
+	11["cond__117 U32_not_equals"]
 	3 --> 11
 	19 --> 11
-	19["abs__120 lift_u32"]
+	19["abs__128 lift_u32"]
 	9 --> 19
-	9["arg__117 0"]
-	29["push__127 push_Value"]
+	9["arg__125 0"]
+	29["push__135 push_Value"]
 	4 --> 29
 	28 --> 29
 	8 -. Stack .-> 29
-	28["merge__126 merge_Val"]
+	28["merge__134 merge_Val"]
 	4 --> 28
 	8 --> 28
 	6 --> 28
 	6 -. Stack .-> 28
-	26["mb__125 bool.&&"]
+	26["mb__133 bool.&&"]
 	24 --> 26
 	25 --> 26
-	25["mf__124 U32_maybeFalse"]
+	25["mf__132 U32_maybeFalse"]
 	11 --> 25
 </pre>`;
 window.traces["SELECT"]["unlem_schedule"] = ''
@@ -4510,20 +4294,20 @@ window.traces["SELECT"]["unlem_schedule"] += `<pre class=''>def c = pop_u32();
 def tv = f_getTopOfStackType();
 def b = pop_Value(tv);
 def a = pop_Value(tv);
-def arg__117 : u32 = 0;
-def abs__120 = lift_u32(arg__117);
-def cond__109 = U32_not_equals(c, abs__120);
-def mt__123 = U32_maybeTrue(cond__109);
-def mf__124 = U32_maybeFalse(cond__109);
-def mb__125 = bool.&&(mt__123, mf__124);
-if (mb__125) {
-	def merge__126 = merge_Val(tv, a, b);
-	def push__127 = push_Value(tv, merge__126);
+def arg__125 : u32 = 0;
+def abs__128 = lift_u32(arg__125);
+def cond__117 = U32_not_equals(c, abs__128);
+def mt__131 = U32_maybeTrue(cond__117);
+def mf__132 = U32_maybeFalse(cond__117);
+def mb__133 = bool.&&(mt__131, mf__132);
+if (mb__133) {
+	def merge__134 = merge_Val(tv, a, b);
+	def push__135 = push_Value(tv, merge__134);
 } else {
-	if (mt__123) {
-		def eff__110__121 = push_Value(tv, a);
+	if (mt__131) {
+		def eff__118__129 = push_Value(tv, a);
 	} else {
-		def eff__113__122 = push_Value(tv, b);
+		def eff__121__130 = push_Value(tv, b);
 	}
 // phis: 
 }
@@ -4541,19 +4325,19 @@ graph TD
 	18 -. Stack .-> 1
 	18{{"Sϕ Stack "}}
 	26 --> 18
-	32 --> 18
-	36 --> 18
-	36{{"Sϕ Stack "}}
-	24 --> 36
-	35 --> 36
-	38 --> 36
-	38["eff__113__122__133 push_Value"]
-	4 --> 38
-	6 --> 38
-	37 -. Stack .-> 38
-	37["a__132 pop_Value"]
-	4 --> 37
-	6 -. Stack .-> 37
+	30 --> 18
+	34 --> 18
+	34{{"Sϕ Stack "}}
+	24 --> 34
+	33 --> 34
+	35 --> 34
+	35["eff__121__130__138 push_Value"]
+	4 --> 35
+	6 --> 35
+	8 -. Stack .-> 35
+	8["a pop_Value"]
+	4 --> 8
+	6 -. Stack .-> 8
 	6["b pop_Value"]
 	4 --> 6
 	3 -. Stack .-> 6
@@ -4562,34 +4346,31 @@ graph TD
 	0[/"Start"\\]
 	4["tv f_getTopOfStackType"]
 	3 -. Stack .-> 4
-	35["eff__110__121__131 push_Value"]
-	4 --> 35
-	37 --> 35
-	37 -. Stack .-> 35
-	24["mt__123 U32_maybeTrue"]
+	33["eff__118__129__137 push_Value"]
+	4 --> 33
+	8 --> 33
+	8 -. Stack .-> 33
+	24["mt__131 U32_maybeTrue"]
 	11 --> 24
-	11["cond__109 U32_not_equals"]
+	11["cond__117 U32_not_equals"]
 	3 --> 11
 	19 --> 11
-	19["abs__120 lift_u32"]
+	19["abs__128 lift_u32"]
 	9 --> 19
-	9["arg__117 0"]
-	32["push__127__129 push_Value"]
-	4 --> 32
-	33 --> 32
-	31 -. Stack .-> 32
-	31["a__128 pop_Value"]
-	4 --> 31
-	6 -. Stack .-> 31
-	33["merge__126__130 merge_Val"]
-	4 --> 33
-	31 --> 33
-	6 --> 33
-	6 -. Stack .-> 33
-	26["mb__125 bool.&&"]
+	9["arg__125 0"]
+	30["push__135__136 push_Value"]
+	4 --> 30
+	28 --> 30
+	8 -. Stack .-> 30
+	28["merge__134 merge_Val"]
+	4 --> 28
+	8 --> 28
+	6 --> 28
+	6 -. Stack .-> 28
+	26["mb__133 bool.&&"]
 	24 --> 26
 	25 --> 26
-	25["mf__124 U32_maybeFalse"]
+	25["mf__132 U32_maybeFalse"]
 	11 --> 25
 </pre>`;
 window.traces["SELECT_ul"]["post_surgery 94"] = ''
@@ -4603,19 +4384,19 @@ graph TD
 	18 -. Stack .-> 1
 	18{{"Sϕ Stack "}}
 	26 --> 18
-	32 --> 18
-	36 --> 18
-	36{{"Sϕ Stack "}}
-	24 --> 36
-	40 --> 36
-	42 --> 36
-	42["eff__113__122__133__135 push_Value"]
-	4 --> 42
-	6 --> 42
-	37 -. Stack .-> 42
-	37["a__132 pop_Value"]
-	4 --> 37
-	6 -. Stack .-> 37
+	30 --> 18
+	34 --> 18
+	34{{"Sϕ Stack "}}
+	24 --> 34
+	36 --> 34
+	38 --> 34
+	38["eff__121__130__138__140 push_Value"]
+	4 --> 38
+	6 --> 38
+	8 -. Stack .-> 38
+	8["a pop_Value"]
+	4 --> 8
+	6 -. Stack .-> 8
 	6["b pop_Value"]
 	4 --> 6
 	3 -. Stack .-> 6
@@ -4624,34 +4405,31 @@ graph TD
 	0[/"Start"\\]
 	4["tv f_getTopOfStackType"]
 	3 -. Stack .-> 4
-	40["eff__110__121__131__134 push_Value"]
-	4 --> 40
-	37 --> 40
-	37 -. Stack .-> 40
-	24["mt__123 U32_maybeTrue"]
+	36["eff__118__129__137__139 push_Value"]
+	4 --> 36
+	8 --> 36
+	8 -. Stack .-> 36
+	24["mt__131 U32_maybeTrue"]
 	11 --> 24
-	11["cond__109 U32_not_equals"]
+	11["cond__117 U32_not_equals"]
 	3 --> 11
 	19 --> 11
-	19["abs__120 lift_u32"]
+	19["abs__128 lift_u32"]
 	9 --> 19
-	9["arg__117 0"]
-	32["push__127__129 push_Value"]
-	4 --> 32
-	33 --> 32
-	31 -. Stack .-> 32
-	31["a__128 pop_Value"]
-	4 --> 31
-	6 -. Stack .-> 31
-	33["merge__126__130 merge_Val"]
-	4 --> 33
-	31 --> 33
-	6 --> 33
-	6 -. Stack .-> 33
-	26["mb__125 bool.&&"]
+	9["arg__125 0"]
+	30["push__135__136 push_Value"]
+	4 --> 30
+	28 --> 30
+	8 -. Stack .-> 30
+	28["merge__134 merge_Val"]
+	4 --> 28
+	8 --> 28
+	6 --> 28
+	6 -. Stack .-> 28
+	26["mb__133 bool.&&"]
 	24 --> 26
 	25 --> 26
-	25["mf__124 U32_maybeFalse"]
+	25["mf__132 U32_maybeFalse"]
 	11 --> 25
 </pre>`;
 window.traces["SELECT"]["unlem_scheduler"] = ''
@@ -4668,38 +4446,36 @@ block_90 --> phi_89
 block_91 --> phi_89
 subgraph block_90["Block 90"]
 	direction TB
-	b90_31["a__128 pop_Value"]
-	b90_33["merge__126__130 merge_Val"]
-	b90_32["push__127__129 push_Value"]
-	b90_31 --> b90_33
-	b90_33 --> b90_32
+	b90_28["merge__134 merge_Val"]
+	b90_30["push__135__136 push_Value"]
+	b90_28 --> b90_30
 end
 branch_88 --> block_90
 subgraph branch_88["Branch 88"]
-	br88_26["mb__125 bool.&&"]
+	br88_26["mb__133 bool.&&"]
 
 end
 block_92 --> branch_88
 subgraph block_92["Block 92"]
 	direction TB
 	b92_0[/"Start"\\]
-	b92_9["arg__117 0"]
+	b92_9["arg__125 0"]
+	b92_19["abs__128 lift_u32"]
 	b92_3["c pop_u32"]
 	b92_4["tv f_getTopOfStackType"]
-	b92_19["abs__120 lift_u32"]
 	b92_6["b pop_Value"]
-	b92_37["a__132 pop_Value"]
-	b92_11["cond__109 U32_not_equals"]
-	b92_25["mf__124 U32_maybeFalse"]
-	b92_24["mt__123 U32_maybeTrue"]
-	b92_26["mb__125 bool.&&"]
+	b92_8["a pop_Value"]
+	b92_11["cond__117 U32_not_equals"]
+	b92_25["mf__132 U32_maybeFalse"]
+	b92_24["mt__131 U32_maybeTrue"]
+	b92_26["mb__133 bool.&&"]
 	b92_0 --> b92_9
-	b92_9 --> b92_3
+	b92_9 --> b92_19
+	b92_19 --> b92_3
 	b92_3 --> b92_4
-	b92_4 --> b92_19
-	b92_19 --> b92_6
-	b92_6 --> b92_37
-	b92_37 --> b92_11
+	b92_4 --> b92_6
+	b92_6 --> b92_8
+	b92_8 --> b92_11
 	b92_11 --> b92_25
 	b92_25 --> b92_24
 	b92_24 --> b92_26
@@ -4709,23 +4485,23 @@ subgraph block_91["Block 91"]
 end
 phi_94 --> block_91
 subgraph phi_94["Phi 94"]
-	p94_36{{"Sϕ Stack "}}
+	p94_34{{"Sϕ Stack "}}
 end
 block_95 --> phi_94
 block_96 --> phi_94
 subgraph block_95["Block 95"]
 	direction TB
-	b95_40["eff__110__121__131__134 push_Value"]
+	b95_36["eff__118__129__137__139 push_Value"]
 end
 branch_93 --> block_95
 subgraph branch_93["Branch 93"]
-	br93_24["mt__123 U32_maybeTrue"]
+	br93_24["mt__131 U32_maybeTrue"]
 
 end
 branch_88 --> branch_93
 subgraph block_96["Block 96"]
 	direction TB
-	b96_42["eff__113__122__133__135 push_Value"]
+	b96_38["eff__121__130__138__140 push_Value"]
 end
 branch_93 --> block_96
 
@@ -4756,14 +4532,14 @@ config:
 graph TD
 	1[\\"Finish"/]
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
-	32 -. Stack .-> 1
-	32["push__127__129 push_Value"]
-	4 --> 32
-	33 --> 32
-	31 -. Stack .-> 32
-	31["a__128 pop_Value"]
-	4 --> 31
-	6 -. Stack .-> 31
+	30 -. Stack .-> 1
+	30["push__135__136 push_Value"]
+	4 --> 30
+	28 --> 30
+	8 -. Stack .-> 30
+	8["a pop_Value"]
+	4 --> 8
+	6 -. Stack .-> 8
 	6["b pop_Value"]
 	4 --> 6
 	3 -. Stack .-> 6
@@ -4772,11 +4548,11 @@ graph TD
 	0[/"Start"\\]
 	4["tv f_getTopOfStackType"]
 	3 -. Stack .-> 4
-	33["merge__126__130 merge_Val"]
-	4 --> 33
-	31 --> 33
-	6 --> 33
-	6 -. Stack .-> 33
+	28["merge__134 merge_Val"]
+	4 --> 28
+	8 --> 28
+	6 --> 28
+	6 -. Stack .-> 28
 </pre>`;
 window.traces["SELECT"]["chooseMerge"] = ''
 window.traces["SELECT"]["chooseMerge"] += `<pre class='graph'>---
@@ -4786,14 +4562,14 @@ config:
 graph TD
 	1[\\"Finish"/]
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
-	32 -. Stack .-> 1
-	32["push__127__129 push_Value"]
-	4 --> 32
-	4 --> 32
-	31 -. Stack .-> 32
-	31["a__128 pop_Value"]
-	4 --> 31
-	6 -. Stack .-> 31
+	30 -. Stack .-> 1
+	30["push__135__136 push_Value"]
+	4 --> 30
+	4 --> 30
+	8 -. Stack .-> 30
+	8["a pop_Value"]
+	4 --> 8
+	6 -. Stack .-> 8
 	6["b pop_Value"]
 	4 --> 6
 	3 -. Stack .-> 6
@@ -4807,8 +4583,8 @@ window.traces["SELECT"]["scheduled"] = ''
 window.traces["SELECT"]["scheduled"] += `<pre class=''>def c = pop_u32();
 def tv = f_getTopOfStackType();
 def b = pop_Value(tv);
-def a__128 = pop_Value(tv);
-def push__127__129 = push_Value(tv, tv);
+def a = pop_Value(tv);
+def push__135__136 = push_Value(tv, tv);
 </pre>`;
 window.traces["SELECT"]["pretty"] = ''
 window.traces["SELECT"]["pretty"] += `<pre class=''>def c = pop_u32();
@@ -4820,14 +4596,14 @@ def push = push_Value(tv, tv);
 window.traces["LOCAL_GET"] = {}
 window.traces["LOCAL_GET"]["parsed"] = ''
 window.traces["LOCAL_GET"]["parsed"] += `<pre class=''>def index = imm_readULEB32();
-def arg__141 = (index);
-def tv = f_getLocalType(arg__141);
-def arg__140 = (index);
-def arg__139 = (tv);
-def val = getLocal(arg__139, arg__140);
-def arg__138 = (val);
-def arg__137 = (tv);
-def eff__136 = push_Value(arg__137, arg__138);
+def arg__146 = (index);
+def tv = f_getLocalType(arg__146);
+def arg__145 = (index);
+def arg__144 = (tv);
+def val = getLocal(arg__144, arg__145);
+def arg__143 = (val);
+def arg__142 = (tv);
+def eff__141 = push_Value(arg__142, arg__143);
 </pre>`;
 window.traces["LOCAL_GET"]["raw"] = ''
 window.traces["LOCAL_GET"]["raw"] += `<pre class='graph'>---
@@ -4840,7 +4616,7 @@ graph TD
 	11 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	11["eff__136 push_Value"]
+	11["eff__141 push_Value"]
 	5 --> 11
 	8 --> 11
 	8 -. Stack .-> 11
@@ -4864,7 +4640,7 @@ graph TD
 	11 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	11["eff__136 push_Value"]
+	11["eff__141 push_Value"]
 	5 --> 11
 	8 --> 11
 	8 -. Stack .-> 11
@@ -4888,7 +4664,7 @@ graph TD
 	11 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	11["eff__136 push_Value"]
+	11["eff__141 push_Value"]
 	5 --> 11
 	8 --> 11
 	8 -. Stack .-> 11
@@ -4909,7 +4685,7 @@ subgraph block_97["Block 97"]
 	b97_3["index imm_readULEB32"]
 	b97_5["tv f_getLocalType"]
 	b97_8["val getLocal"]
-	b97_11["eff__136 push_Value"]
+	b97_11["eff__141 push_Value"]
 	b97_1[\\"Finish"/]
 	b97_0 --> b97_3
 	b97_3 --> b97_5
@@ -4923,7 +4699,7 @@ window.traces["LOCAL_GET"]["scheduler ssad"] = ''
 window.traces["LOCAL_GET"]["scheduler ssad"] += `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
 def val = getLocal(tv, index);
-def eff__136 = push_Value(tv, val);
+def eff__141 = push_Value(tv, val);
 </pre>`;
 window.traces["LOCAL_GET"]["unLEM"] = ''
 window.traces["LOCAL_GET"]["unLEM"] += `<pre class='graph'>---
@@ -4936,7 +4712,7 @@ graph TD
 	11 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	11["eff__136 push_Value"]
+	11["eff__141 push_Value"]
 	5 --> 11
 	8 --> 11
 	8 -. Stack .-> 11
@@ -4953,7 +4729,7 @@ window.traces["LOCAL_GET"]["unlem_schedule"] = ''
 window.traces["LOCAL_GET"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
 def val = getLocal(tv, index);
-def eff__136 = push_Value(tv, val);
+def eff__141 = push_Value(tv, val);
 </pre>`;
 window.traces["LOCAL_GET"]["unlem_scheduler"] = ''
 window.traces["LOCAL_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -4963,7 +4739,7 @@ subgraph block_98["Block 98"]
 	b98_3["index imm_readULEB32"]
 	b98_5["tv f_getLocalType"]
 	b98_8["val getLocal"]
-	b98_11["eff__136 push_Value"]
+	b98_11["eff__141 push_Value"]
 	b98_1[\\"Finish"/]
 	b98_0 --> b98_3
 	b98_3 --> b98_5
@@ -4990,7 +4766,7 @@ graph TD
 	11 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	11["eff__136 push_Value"]
+	11["eff__141 push_Value"]
 	5 --> 11
 	8 --> 11
 	8 -. Stack .-> 11
@@ -5014,7 +4790,7 @@ graph TD
 	11 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	11["eff__136 push_Value"]
+	11["eff__141 push_Value"]
 	5 --> 11
 	8 --> 11
 	8 -. Stack .-> 11
@@ -5031,7 +4807,7 @@ window.traces["LOCAL_GET"]["scheduled"] = ''
 window.traces["LOCAL_GET"]["scheduled"] += `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
 def val = getLocal(tv, index);
-def eff__136 = push_Value(tv, val);
+def eff__141 = push_Value(tv, val);
 </pre>`;
 window.traces["LOCAL_GET"]["pretty"] = ''
 window.traces["LOCAL_GET"]["pretty"] += `<pre class=''>def index = imm_readULEB32();
@@ -5042,14 +4818,14 @@ push_Value(tv, val);
 window.traces["LOCAL_SET"] = {}
 window.traces["LOCAL_SET"]["parsed"] = ''
 window.traces["LOCAL_SET"]["parsed"] += `<pre class=''>def index = imm_readULEB32();
-def arg__147 = (index);
-def tv = f_getLocalType(arg__147);
-def arg__146 = (tv);
-def val = pop_Value(arg__146);
-def arg__145 = (val);
-def arg__144 = (index);
-def arg__143 = (tv);
-def eff__142 = setLocal(arg__143, arg__144, arg__145);
+def arg__152 = (index);
+def tv = f_getLocalType(arg__152);
+def arg__151 = (tv);
+def val = pop_Value(arg__151);
+def arg__150 = (val);
+def arg__149 = (index);
+def arg__148 = (tv);
+def eff__147 = setLocal(arg__148, arg__149, arg__150);
 </pre>`;
 window.traces["LOCAL_SET"]["raw"] = ''
 window.traces["LOCAL_SET"]["raw"] += `<pre class='graph'>---
@@ -5062,7 +4838,7 @@ graph TD
 	7 -. Stack .-> 1
 	0 -. Trap Globals Tables Memory Extra .-> 1
 	11 -. Locals .-> 1
-	11["eff__142 setLocal"]
+	11["eff__147 setLocal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5087,7 +4863,7 @@ graph TD
 	7 -. Stack .-> 1
 	0 -. Trap Globals Tables Memory Extra .-> 1
 	11 -. Locals .-> 1
-	11["eff__142 setLocal"]
+	11["eff__147 setLocal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5112,7 +4888,7 @@ graph TD
 	7 -. Stack .-> 1
 	0 -. Trap Globals Tables Memory Extra .-> 1
 	11 -. Locals .-> 1
-	11["eff__142 setLocal"]
+	11["eff__147 setLocal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5134,7 +4910,7 @@ subgraph block_99["Block 99"]
 	b99_3["index imm_readULEB32"]
 	b99_5["tv f_getLocalType"]
 	b99_7["val pop_Value"]
-	b99_11["eff__142 setLocal"]
+	b99_11["eff__147 setLocal"]
 	b99_1[\\"Finish"/]
 	b99_0 --> b99_3
 	b99_3 --> b99_5
@@ -5148,7 +4924,7 @@ window.traces["LOCAL_SET"]["scheduler ssad"] = ''
 window.traces["LOCAL_SET"]["scheduler ssad"] += `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
 def val = pop_Value(tv);
-def eff__142 = setLocal(tv, index, val);
+def eff__147 = setLocal(tv, index, val);
 </pre>`;
 window.traces["LOCAL_SET"]["unLEM"] = ''
 window.traces["LOCAL_SET"]["unLEM"] += `<pre class='graph'>---
@@ -5161,7 +4937,7 @@ graph TD
 	7 -. Stack .-> 1
 	0 -. Trap Globals Tables Memory Extra .-> 1
 	11 -. Locals .-> 1
-	11["eff__142 setLocal"]
+	11["eff__147 setLocal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5179,7 +4955,7 @@ window.traces["LOCAL_SET"]["unlem_schedule"] = ''
 window.traces["LOCAL_SET"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
 def val = pop_Value(tv);
-def eff__142 = setLocal(tv, index, val);
+def eff__147 = setLocal(tv, index, val);
 </pre>`;
 window.traces["LOCAL_SET"]["unlem_scheduler"] = ''
 window.traces["LOCAL_SET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -5189,7 +4965,7 @@ subgraph block_100["Block 100"]
 	b100_3["index imm_readULEB32"]
 	b100_5["tv f_getLocalType"]
 	b100_7["val pop_Value"]
-	b100_11["eff__142 setLocal"]
+	b100_11["eff__147 setLocal"]
 	b100_1[\\"Finish"/]
 	b100_0 --> b100_3
 	b100_3 --> b100_5
@@ -5216,7 +4992,7 @@ graph TD
 	7 -. Stack .-> 1
 	0 -. Trap Globals Tables Memory Extra .-> 1
 	11 -. Locals .-> 1
-	11["eff__142 setLocal"]
+	11["eff__147 setLocal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5241,7 +5017,7 @@ graph TD
 	7 -. Stack .-> 1
 	0 -. Trap Globals Tables Memory Extra .-> 1
 	11 -. Locals .-> 1
-	11["eff__142 setLocal"]
+	11["eff__147 setLocal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5259,7 +5035,7 @@ window.traces["LOCAL_SET"]["scheduled"] = ''
 window.traces["LOCAL_SET"]["scheduled"] += `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
 def val = pop_Value(tv);
-def eff__142 = setLocal(tv, index, val);
+def eff__147 = setLocal(tv, index, val);
 </pre>`;
 window.traces["LOCAL_SET"]["pretty"] = ''
 window.traces["LOCAL_SET"]["pretty"] += `<pre class=''>def index = imm_readULEB32();
@@ -5270,17 +5046,17 @@ setLocal(tv, index, val);
 window.traces["LOCAL_TEE"] = {}
 window.traces["LOCAL_TEE"]["parsed"] = ''
 window.traces["LOCAL_TEE"]["parsed"] += `<pre class=''>def index = imm_readULEB32();
-def arg__156 = (index);
-def tv = f_getLocalType(arg__156);
-def arg__155 = (tv);
-def val = pop_Value(arg__155);
-def arg__154 = (val);
-def arg__153 = (index);
-def arg__152 = (tv);
-def eff__151 = setLocal(arg__152, arg__153, arg__154);
-def arg__150 = (val);
-def arg__149 = (tv);
-def eff__148 = push_Value(arg__149, arg__150);
+def arg__161 = (index);
+def tv = f_getLocalType(arg__161);
+def arg__160 = (tv);
+def val = pop_Value(arg__160);
+def arg__159 = (val);
+def arg__158 = (index);
+def arg__157 = (tv);
+def eff__156 = setLocal(arg__157, arg__158, arg__159);
+def arg__155 = (val);
+def arg__154 = (tv);
+def eff__153 = push_Value(arg__154, arg__155);
 </pre>`;
 window.traces["LOCAL_TEE"]["raw"] = ''
 window.traces["LOCAL_TEE"]["raw"] += `<pre class='graph'>---
@@ -5293,7 +5069,7 @@ graph TD
 	14 -. Stack .-> 1
 	0 -. Trap Globals Tables Memory Extra .-> 1
 	11 -. Locals .-> 1
-	11["eff__151 setLocal"]
+	11["eff__156 setLocal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5306,7 +5082,7 @@ graph TD
 	3 --> 5
 	3["index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	14["eff__148 push_Value"]
+	14["eff__153 push_Value"]
 	5 --> 14
 	7 --> 14
 	7 -. Stack .-> 14
@@ -5322,7 +5098,7 @@ graph TD
 	14 -. Stack .-> 1
 	0 -. Trap Globals Tables Memory Extra .-> 1
 	11 -. Locals .-> 1
-	11["eff__151 setLocal"]
+	11["eff__156 setLocal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5335,7 +5111,7 @@ graph TD
 	3 --> 5
 	3["index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	14["eff__148 push_Value"]
+	14["eff__153 push_Value"]
 	5 --> 14
 	7 --> 14
 	7 -. Stack .-> 14
@@ -5351,7 +5127,7 @@ graph TD
 	14 -. Stack .-> 1
 	0 -. Trap Globals Tables Memory Extra .-> 1
 	11 -. Locals .-> 1
-	11["eff__151 setLocal"]
+	11["eff__156 setLocal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5364,7 +5140,7 @@ graph TD
 	3 --> 5
 	3["index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	14["eff__148 push_Value"]
+	14["eff__153 push_Value"]
 	5 --> 14
 	7 --> 14
 	7 -. Stack .-> 14
@@ -5377,8 +5153,8 @@ subgraph block_101["Block 101"]
 	b101_3["index imm_readULEB32"]
 	b101_5["tv f_getLocalType"]
 	b101_7["val pop_Value"]
-	b101_11["eff__151 setLocal"]
-	b101_14["eff__148 push_Value"]
+	b101_11["eff__156 setLocal"]
+	b101_14["eff__153 push_Value"]
 	b101_1[\\"Finish"/]
 	b101_0 --> b101_3
 	b101_3 --> b101_5
@@ -5393,8 +5169,8 @@ window.traces["LOCAL_TEE"]["scheduler ssad"] = ''
 window.traces["LOCAL_TEE"]["scheduler ssad"] += `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
 def val = pop_Value(tv);
-def eff__151 = setLocal(tv, index, val);
-def eff__148 = push_Value(tv, val);
+def eff__156 = setLocal(tv, index, val);
+def eff__153 = push_Value(tv, val);
 </pre>`;
 window.traces["LOCAL_TEE"]["unLEM"] = ''
 window.traces["LOCAL_TEE"]["unLEM"] += `<pre class='graph'>---
@@ -5407,7 +5183,7 @@ graph TD
 	14 -. Stack .-> 1
 	0 -. Trap Globals Tables Memory Extra .-> 1
 	11 -. Locals .-> 1
-	11["eff__151 setLocal"]
+	11["eff__156 setLocal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5420,7 +5196,7 @@ graph TD
 	3 --> 5
 	3["index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	14["eff__148 push_Value"]
+	14["eff__153 push_Value"]
 	5 --> 14
 	7 --> 14
 	7 -. Stack .-> 14
@@ -5429,8 +5205,8 @@ window.traces["LOCAL_TEE"]["unlem_schedule"] = ''
 window.traces["LOCAL_TEE"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
 def val = pop_Value(tv);
-def eff__148 = push_Value(tv, val);
-def eff__151 = setLocal(tv, index, val);
+def eff__153 = push_Value(tv, val);
+def eff__156 = setLocal(tv, index, val);
 </pre>`;
 window.traces["LOCAL_TEE"]["unlem_scheduler"] = ''
 window.traces["LOCAL_TEE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -5440,8 +5216,8 @@ subgraph block_102["Block 102"]
 	b102_3["index imm_readULEB32"]
 	b102_5["tv f_getLocalType"]
 	b102_7["val pop_Value"]
-	b102_11["eff__151 setLocal"]
-	b102_14["eff__148 push_Value"]
+	b102_11["eff__156 setLocal"]
+	b102_14["eff__153 push_Value"]
 	b102_1[\\"Finish"/]
 	b102_0 --> b102_3
 	b102_3 --> b102_5
@@ -5470,7 +5246,7 @@ graph TD
 	14 -. Stack .-> 1
 	0 -. Trap Globals Tables Memory Extra .-> 1
 	11 -. Locals .-> 1
-	11["eff__151 setLocal"]
+	11["eff__156 setLocal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5483,7 +5259,7 @@ graph TD
 	3 --> 5
 	3["index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	14["eff__148 push_Value"]
+	14["eff__153 push_Value"]
 	5 --> 14
 	7 --> 14
 	7 -. Stack .-> 14
@@ -5499,7 +5275,7 @@ graph TD
 	14 -. Stack .-> 1
 	0 -. Trap Globals Tables Memory Extra .-> 1
 	11 -. Locals .-> 1
-	11["eff__151 setLocal"]
+	11["eff__156 setLocal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5512,7 +5288,7 @@ graph TD
 	3 --> 5
 	3["index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	14["eff__148 push_Value"]
+	14["eff__153 push_Value"]
 	5 --> 14
 	7 --> 14
 	7 -. Stack .-> 14
@@ -5521,8 +5297,8 @@ window.traces["LOCAL_TEE"]["scheduled"] = ''
 window.traces["LOCAL_TEE"]["scheduled"] += `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
 def val = pop_Value(tv);
-def eff__148 = push_Value(tv, val);
-def eff__151 = setLocal(tv, index, val);
+def eff__153 = push_Value(tv, val);
+def eff__156 = setLocal(tv, index, val);
 </pre>`;
 window.traces["LOCAL_TEE"]["pretty"] = ''
 window.traces["LOCAL_TEE"]["pretty"] += `<pre class=''>def index = imm_readULEB32();
@@ -5534,14 +5310,14 @@ setLocal(tv, index, val);
 window.traces["GLOBAL_GET"] = {}
 window.traces["GLOBAL_GET"]["parsed"] = ''
 window.traces["GLOBAL_GET"]["parsed"] += `<pre class=''>def index = imm_readULEB32();
-def arg__162 = (index);
-def tv = m_getGlobalType(arg__162);
-def arg__161 = (index);
-def arg__160 = (tv);
-def val = getGlobal(arg__160, arg__161);
-def arg__159 = (val);
-def arg__158 = (tv);
-def eff__157 = push_Value(arg__158, arg__159);
+def arg__167 = (index);
+def tv = m_getGlobalType(arg__167);
+def arg__166 = (index);
+def arg__165 = (tv);
+def val = getGlobal(arg__165, arg__166);
+def arg__164 = (val);
+def arg__163 = (tv);
+def eff__162 = push_Value(arg__163, arg__164);
 </pre>`;
 window.traces["GLOBAL_GET"]["raw"] = ''
 window.traces["GLOBAL_GET"]["raw"] += `<pre class='graph'>---
@@ -5554,7 +5330,7 @@ graph TD
 	11 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	11["eff__157 push_Value"]
+	11["eff__162 push_Value"]
 	5 --> 11
 	8 --> 11
 	8 -. Stack .-> 11
@@ -5578,7 +5354,7 @@ graph TD
 	11 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	11["eff__157 push_Value"]
+	11["eff__162 push_Value"]
 	5 --> 11
 	8 --> 11
 	8 -. Stack .-> 11
@@ -5602,7 +5378,7 @@ graph TD
 	11 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	11["eff__157 push_Value"]
+	11["eff__162 push_Value"]
 	5 --> 11
 	8 --> 11
 	8 -. Stack .-> 11
@@ -5623,7 +5399,7 @@ subgraph block_103["Block 103"]
 	b103_3["index imm_readULEB32"]
 	b103_5["tv m_getGlobalType"]
 	b103_8["val getGlobal"]
-	b103_11["eff__157 push_Value"]
+	b103_11["eff__162 push_Value"]
 	b103_1[\\"Finish"/]
 	b103_0 --> b103_3
 	b103_3 --> b103_5
@@ -5637,7 +5413,7 @@ window.traces["GLOBAL_GET"]["scheduler ssad"] = ''
 window.traces["GLOBAL_GET"]["scheduler ssad"] += `<pre class=''>def index = imm_readULEB32();
 def tv = m_getGlobalType(index);
 def val = getGlobal(tv, index);
-def eff__157 = push_Value(tv, val);
+def eff__162 = push_Value(tv, val);
 </pre>`;
 window.traces["GLOBAL_GET"]["unLEM"] = ''
 window.traces["GLOBAL_GET"]["unLEM"] += `<pre class='graph'>---
@@ -5650,7 +5426,7 @@ graph TD
 	11 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	11["eff__157 push_Value"]
+	11["eff__162 push_Value"]
 	5 --> 11
 	8 --> 11
 	8 -. Stack .-> 11
@@ -5667,7 +5443,7 @@ window.traces["GLOBAL_GET"]["unlem_schedule"] = ''
 window.traces["GLOBAL_GET"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
 def tv = m_getGlobalType(index);
 def val = getGlobal(tv, index);
-def eff__157 = push_Value(tv, val);
+def eff__162 = push_Value(tv, val);
 </pre>`;
 window.traces["GLOBAL_GET"]["unlem_scheduler"] = ''
 window.traces["GLOBAL_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -5677,7 +5453,7 @@ subgraph block_104["Block 104"]
 	b104_3["index imm_readULEB32"]
 	b104_5["tv m_getGlobalType"]
 	b104_8["val getGlobal"]
-	b104_11["eff__157 push_Value"]
+	b104_11["eff__162 push_Value"]
 	b104_1[\\"Finish"/]
 	b104_0 --> b104_3
 	b104_3 --> b104_5
@@ -5704,7 +5480,7 @@ graph TD
 	11 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	11["eff__157 push_Value"]
+	11["eff__162 push_Value"]
 	5 --> 11
 	8 --> 11
 	8 -. Stack .-> 11
@@ -5728,7 +5504,7 @@ graph TD
 	11 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	11["eff__157 push_Value"]
+	11["eff__162 push_Value"]
 	5 --> 11
 	8 --> 11
 	8 -. Stack .-> 11
@@ -5745,7 +5521,7 @@ window.traces["GLOBAL_GET"]["scheduled"] = ''
 window.traces["GLOBAL_GET"]["scheduled"] += `<pre class=''>def index = imm_readULEB32();
 def tv = m_getGlobalType(index);
 def val = getGlobal(tv, index);
-def eff__157 = push_Value(tv, val);
+def eff__162 = push_Value(tv, val);
 </pre>`;
 window.traces["GLOBAL_GET"]["pretty"] = ''
 window.traces["GLOBAL_GET"]["pretty"] += `<pre class=''>def index = imm_readULEB32();
@@ -5756,14 +5532,14 @@ push_Value(tv, val);
 window.traces["GLOBAL_SET"] = {}
 window.traces["GLOBAL_SET"]["parsed"] = ''
 window.traces["GLOBAL_SET"]["parsed"] += `<pre class=''>def index = imm_readULEB32();
-def arg__168 = (index);
-def tv = m_getGlobalType(arg__168);
-def arg__167 = (tv);
-def val = pop_Value(arg__167);
-def arg__166 = (val);
-def arg__165 = (index);
-def arg__164 = (tv);
-def eff__163 = setGlobal(arg__164, arg__165, arg__166);
+def arg__173 = (index);
+def tv = m_getGlobalType(arg__173);
+def arg__172 = (tv);
+def val = pop_Value(arg__172);
+def arg__171 = (val);
+def arg__170 = (index);
+def arg__169 = (tv);
+def eff__168 = setGlobal(arg__169, arg__170, arg__171);
 </pre>`;
 window.traces["GLOBAL_SET"]["raw"] = ''
 window.traces["GLOBAL_SET"]["raw"] += `<pre class='graph'>---
@@ -5776,7 +5552,7 @@ graph TD
 	7 -. Stack .-> 1
 	0 -. Trap Locals Tables Memory Extra .-> 1
 	11 -. Globals .-> 1
-	11["eff__163 setGlobal"]
+	11["eff__168 setGlobal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5801,7 +5577,7 @@ graph TD
 	7 -. Stack .-> 1
 	0 -. Trap Locals Tables Memory Extra .-> 1
 	11 -. Globals .-> 1
-	11["eff__163 setGlobal"]
+	11["eff__168 setGlobal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5826,7 +5602,7 @@ graph TD
 	7 -. Stack .-> 1
 	0 -. Trap Locals Tables Memory Extra .-> 1
 	11 -. Globals .-> 1
-	11["eff__163 setGlobal"]
+	11["eff__168 setGlobal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5848,7 +5624,7 @@ subgraph block_105["Block 105"]
 	b105_3["index imm_readULEB32"]
 	b105_5["tv m_getGlobalType"]
 	b105_7["val pop_Value"]
-	b105_11["eff__163 setGlobal"]
+	b105_11["eff__168 setGlobal"]
 	b105_1[\\"Finish"/]
 	b105_0 --> b105_3
 	b105_3 --> b105_5
@@ -5862,7 +5638,7 @@ window.traces["GLOBAL_SET"]["scheduler ssad"] = ''
 window.traces["GLOBAL_SET"]["scheduler ssad"] += `<pre class=''>def index = imm_readULEB32();
 def tv = m_getGlobalType(index);
 def val = pop_Value(tv);
-def eff__163 = setGlobal(tv, index, val);
+def eff__168 = setGlobal(tv, index, val);
 </pre>`;
 window.traces["GLOBAL_SET"]["unLEM"] = ''
 window.traces["GLOBAL_SET"]["unLEM"] += `<pre class='graph'>---
@@ -5875,7 +5651,7 @@ graph TD
 	7 -. Stack .-> 1
 	0 -. Trap Locals Tables Memory Extra .-> 1
 	11 -. Globals .-> 1
-	11["eff__163 setGlobal"]
+	11["eff__168 setGlobal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5893,7 +5669,7 @@ window.traces["GLOBAL_SET"]["unlem_schedule"] = ''
 window.traces["GLOBAL_SET"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
 def tv = m_getGlobalType(index);
 def val = pop_Value(tv);
-def eff__163 = setGlobal(tv, index, val);
+def eff__168 = setGlobal(tv, index, val);
 </pre>`;
 window.traces["GLOBAL_SET"]["unlem_scheduler"] = ''
 window.traces["GLOBAL_SET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -5903,7 +5679,7 @@ subgraph block_106["Block 106"]
 	b106_3["index imm_readULEB32"]
 	b106_5["tv m_getGlobalType"]
 	b106_7["val pop_Value"]
-	b106_11["eff__163 setGlobal"]
+	b106_11["eff__168 setGlobal"]
 	b106_1[\\"Finish"/]
 	b106_0 --> b106_3
 	b106_3 --> b106_5
@@ -5930,7 +5706,7 @@ graph TD
 	7 -. Stack .-> 1
 	0 -. Trap Locals Tables Memory Extra .-> 1
 	11 -. Globals .-> 1
-	11["eff__163 setGlobal"]
+	11["eff__168 setGlobal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5955,7 +5731,7 @@ graph TD
 	7 -. Stack .-> 1
 	0 -. Trap Locals Tables Memory Extra .-> 1
 	11 -. Globals .-> 1
-	11["eff__163 setGlobal"]
+	11["eff__168 setGlobal"]
 	5 --> 11
 	3 --> 11
 	7 --> 11
@@ -5973,7 +5749,7 @@ window.traces["GLOBAL_SET"]["scheduled"] = ''
 window.traces["GLOBAL_SET"]["scheduled"] += `<pre class=''>def index = imm_readULEB32();
 def tv = m_getGlobalType(index);
 def val = pop_Value(tv);
-def eff__163 = setGlobal(tv, index, val);
+def eff__168 = setGlobal(tv, index, val);
 </pre>`;
 window.traces["GLOBAL_SET"]["pretty"] = ''
 window.traces["GLOBAL_SET"]["pretty"] += `<pre class=''>def index = imm_readULEB32();
@@ -5984,22 +5760,22 @@ setGlobal(tv, index, val);
 window.traces["TABLE_GET"] = {}
 window.traces["TABLE_GET"]["parsed"] = ''
 window.traces["TABLE_GET"]["parsed"] += `<pre class=''>def table_index = imm_readULEB32();
-def arg__178 = (table_index);
-def cond__169 = m_isTable64(arg__178);
-if (cond__169) {
+def arg__183 = (table_index);
+def cond__174 = m_isTable64(arg__183);
+if (cond__174) {
 	def index = pop_u64();
-	def arg__173 = (index);
-	def arg__172 = (table_index);
-	def val = mach_readTable64(arg__172, arg__173);
-	def arg__171 = (val);
-	def eff__170 = push_Object(arg__171);
+	def arg__178 = (index);
+	def arg__177 = (table_index);
+	def val = mach_readTable64(arg__177, arg__178);
+	def arg__176 = (val);
+	def eff__175 = push_Object(arg__176);
 } else {
 	def index = pop_u32();
-	def arg__177 = (index);
-	def arg__176 = (table_index);
-	def val = mach_readTable32(arg__176, arg__177);
-	def arg__175 = (val);
-	def eff__174 = push_Object(arg__175);
+	def arg__182 = (index);
+	def arg__181 = (table_index);
+	def val = mach_readTable32(arg__181, arg__182);
+	def arg__180 = (val);
+	def eff__179 = push_Object(arg__180);
 }
 // phis: 
 </pre>`;
@@ -6018,7 +5794,7 @@ graph TD
 	5 --> 18
 	17 --> 18
 	11 --> 18
-	11["eff__174 push_Object"]
+	11["eff__179 push_Object"]
 	9 --> 11
 	6 -. Stack .-> 11
 	6["index pop_u32"]
@@ -6028,7 +5804,7 @@ graph TD
 	6 --> 9
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	17["eff__170 push_Object"]
+	17["eff__175 push_Object"]
 	15 --> 17
 	12 -. Stack .-> 17
 	12["index pop_u64"]
@@ -6036,7 +5812,7 @@ graph TD
 	15["val mach_readTable64"]
 	3 --> 15
 	12 --> 15
-	5["cond__169 m_isTable64"]
+	5["cond__174 m_isTable64"]
 	3 --> 5
 </pre>`;
 window.traces["TABLE_GET"]["overloadOps"] = ''
@@ -6054,7 +5830,7 @@ graph TD
 	5 --> 18
 	17 --> 18
 	11 --> 18
-	11["eff__174 push_Object"]
+	11["eff__179 push_Object"]
 	9 --> 11
 	6 -. Stack .-> 11
 	6["index pop_u32"]
@@ -6064,7 +5840,7 @@ graph TD
 	6 --> 9
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	17["eff__170 push_Object"]
+	17["eff__175 push_Object"]
 	15 --> 17
 	12 -. Stack .-> 17
 	12["index pop_u64"]
@@ -6072,7 +5848,7 @@ graph TD
 	15["val mach_readTable64"]
 	3 --> 15
 	12 --> 15
-	5["cond__169 m_isTable64"]
+	5["cond__174 m_isTable64"]
 	3 --> 5
 </pre>`;
 window.traces["TABLE_GET"]["addAbstractions"] = ''
@@ -6090,7 +5866,7 @@ graph TD
 	5 --> 18
 	17 --> 18
 	11 --> 18
-	11["eff__174 push_Object"]
+	11["eff__179 push_Object"]
 	9 --> 11
 	6 -. Stack .-> 11
 	6["index pop_u32"]
@@ -6100,7 +5876,7 @@ graph TD
 	6 --> 9
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	17["eff__170 push_Object"]
+	17["eff__175 push_Object"]
 	15 --> 17
 	12 -. Stack .-> 17
 	12["index pop_u64"]
@@ -6108,7 +5884,7 @@ graph TD
 	15["val mach_readTable64"]
 	3 --> 15
 	12 --> 15
-	5["cond__169 m_isTable64"]
+	5["cond__174 m_isTable64"]
 	3 --> 5
 </pre>`;
 window.traces["TABLE_GET"]["post_surgery 109"] = ''
@@ -6124,27 +5900,27 @@ graph TD
 	0[/"Start"\\]
 	18{{"Sϕ Stack "}}
 	5 --> 18
+	19 --> 18
 	21 --> 18
-	24 --> 18
-	24["eff__174__182 push_Object"]
-	23 --> 24
-	6 -. Stack .-> 24
+	21["eff__179__185 push_Object"]
+	9 --> 21
+	6 -. Stack .-> 21
 	6["index pop_u32"]
 	0 -. Stack .-> 6
-	23["val__181 mach_readTable32"]
-	3 --> 23
-	6 --> 23
+	9["val mach_readTable32"]
+	3 --> 9
+	6 --> 9
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["eff__170__180 push_Object"]
-	20 --> 21
-	12 -. Stack .-> 21
+	19["eff__175__184 push_Object"]
+	15 --> 19
+	12 -. Stack .-> 19
 	12["index pop_u64"]
 	0 -. Stack .-> 12
-	20["val__179 mach_readTable64"]
-	3 --> 20
-	12 --> 20
-	5["cond__169 m_isTable64"]
+	15["val mach_readTable64"]
+	3 --> 15
+	12 --> 15
+	5["cond__174 m_isTable64"]
 	3 --> 5
 </pre>`;
 window.traces["TABLE_GET"]["schedulerMermaid"] = ''
@@ -6162,14 +5938,14 @@ block_111 --> phi_109
 subgraph block_110["Block 110"]
 	direction TB
 	b110_12["index pop_u64"]
-	b110_20["val__179 mach_readTable64"]
-	b110_21["eff__170__180 push_Object"]
-	b110_12 --> b110_20
-	b110_20 --> b110_21
+	b110_15["val mach_readTable64"]
+	b110_19["eff__175__184 push_Object"]
+	b110_12 --> b110_15
+	b110_15 --> b110_19
 end
 branch_108 --> block_110
 subgraph branch_108["Branch 108"]
-	br108_5["cond__169 m_isTable64"]
+	br108_5["cond__174 m_isTable64"]
 
 end
 block_112 --> branch_108
@@ -6177,32 +5953,32 @@ subgraph block_112["Block 112"]
 	direction TB
 	b112_0[/"Start"\\]
 	b112_3["table_index imm_readULEB32"]
-	b112_5["cond__169 m_isTable64"]
+	b112_5["cond__174 m_isTable64"]
 	b112_0 --> b112_3
 	b112_3 --> b112_5
 end
 subgraph block_111["Block 111"]
 	direction TB
 	b111_6["index pop_u32"]
-	b111_23["val__181 mach_readTable32"]
-	b111_24["eff__174__182 push_Object"]
-	b111_6 --> b111_23
-	b111_23 --> b111_24
+	b111_9["val mach_readTable32"]
+	b111_21["eff__179__185 push_Object"]
+	b111_6 --> b111_9
+	b111_9 --> b111_21
 end
 branch_108 --> block_111
 
 </pre>`;
 window.traces["TABLE_GET"]["scheduler ssad"] = ''
 window.traces["TABLE_GET"]["scheduler ssad"] += `<pre class=''>def table_index = imm_readULEB32();
-def cond__169 = m_isTable64(table_index);
-if (cond__169) {
+def cond__174 = m_isTable64(table_index);
+if (cond__174) {
 	def index = pop_u64();
-	def val__179 = mach_readTable64(table_index, index);
-	def eff__170__180 = push_Object(val__179);
+	def val = mach_readTable64(table_index, index);
+	def eff__175__184 = push_Object(val);
 } else {
 	def index = pop_u32();
-	def val__181 = mach_readTable32(table_index, index);
-	def eff__174__182 = push_Object(val__181);
+	def val = mach_readTable32(table_index, index);
+	def eff__179__185 = push_Object(val);
 }
 // phis: 
 </pre>`;
@@ -6219,40 +5995,40 @@ graph TD
 	0[/"Start"\\]
 	18{{"Sϕ Stack "}}
 	5 --> 18
+	19 --> 18
 	21 --> 18
-	24 --> 18
-	24["eff__174__182 push_Object"]
-	23 --> 24
-	6 -. Stack .-> 24
+	21["eff__179__185 push_Object"]
+	9 --> 21
+	6 -. Stack .-> 21
 	6["index pop_u32"]
 	0 -. Stack .-> 6
-	23["val__181 mach_readTable32"]
-	3 --> 23
-	6 --> 23
+	9["val mach_readTable32"]
+	3 --> 9
+	6 --> 9
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["eff__170__180 push_Object"]
-	20 --> 21
-	12 -. Stack .-> 21
+	19["eff__175__184 push_Object"]
+	15 --> 19
+	12 -. Stack .-> 19
 	12["index pop_u64"]
 	0 -. Stack .-> 12
-	20["val__179 mach_readTable64"]
-	3 --> 20
-	12 --> 20
-	5["cond__169 m_isTable64"]
+	15["val mach_readTable64"]
+	3 --> 15
+	12 --> 15
+	5["cond__174 m_isTable64"]
 	3 --> 5
 </pre>`;
 window.traces["TABLE_GET"]["unlem_schedule"] = ''
 window.traces["TABLE_GET"]["unlem_schedule"] += `<pre class=''>def table_index = imm_readULEB32();
-def cond__169 = m_isTable64(table_index);
-if (cond__169) {
+def cond__174 = m_isTable64(table_index);
+if (cond__174) {
 	def index = pop_u64();
-	def val__179 = mach_readTable64(table_index, index);
-	def eff__170__180 = push_Object(val__179);
+	def val = mach_readTable64(table_index, index);
+	def eff__175__184 = push_Object(val);
 } else {
 	def index = pop_u32();
-	def val__181 = mach_readTable32(table_index, index);
-	def eff__174__182 = push_Object(val__181);
+	def val = mach_readTable32(table_index, index);
+	def eff__179__185 = push_Object(val);
 }
 // phis: 
 </pre>`;
@@ -6270,27 +6046,27 @@ graph TD
 	0[/"Start"\\]
 	18{{"Sϕ Stack "}}
 	5 --> 18
-	27 --> 18
-	30 --> 18
-	30["eff__174__182__186 push_Object"]
-	29 --> 30
-	6 -. Stack .-> 30
+	23 --> 18
+	25 --> 18
+	25["eff__179__185__187 push_Object"]
+	9 --> 25
+	6 -. Stack .-> 25
 	6["index pop_u32"]
 	0 -. Stack .-> 6
-	29["val__181__185 mach_readTable32"]
-	3 --> 29
-	6 --> 29
+	9["val mach_readTable32"]
+	3 --> 9
+	6 --> 9
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	27["eff__170__180__184 push_Object"]
-	26 --> 27
-	12 -. Stack .-> 27
+	23["eff__175__184__186 push_Object"]
+	15 --> 23
+	12 -. Stack .-> 23
 	12["index pop_u64"]
 	0 -. Stack .-> 12
-	26["val__179__183 mach_readTable64"]
-	3 --> 26
-	12 --> 26
-	5["cond__169 m_isTable64"]
+	15["val mach_readTable64"]
+	3 --> 15
+	12 --> 15
+	5["cond__174 m_isTable64"]
 	3 --> 5
 </pre>`;
 window.traces["TABLE_GET"]["unlem_scheduler"] = ''
@@ -6308,14 +6084,14 @@ block_117 --> phi_115
 subgraph block_116["Block 116"]
 	direction TB
 	b116_12["index pop_u64"]
-	b116_26["val__179__183 mach_readTable64"]
-	b116_27["eff__170__180__184 push_Object"]
-	b116_12 --> b116_26
-	b116_26 --> b116_27
+	b116_15["val mach_readTable64"]
+	b116_23["eff__175__184__186 push_Object"]
+	b116_12 --> b116_15
+	b116_15 --> b116_23
 end
 branch_114 --> block_116
 subgraph branch_114["Branch 114"]
-	br114_5["cond__169 m_isTable64"]
+	br114_5["cond__174 m_isTable64"]
 
 end
 block_118 --> branch_114
@@ -6323,17 +6099,17 @@ subgraph block_118["Block 118"]
 	direction TB
 	b118_0[/"Start"\\]
 	b118_3["table_index imm_readULEB32"]
-	b118_5["cond__169 m_isTable64"]
+	b118_5["cond__174 m_isTable64"]
 	b118_0 --> b118_3
 	b118_3 --> b118_5
 end
 subgraph block_117["Block 117"]
 	direction TB
 	b117_6["index pop_u32"]
-	b117_29["val__181__185 mach_readTable32"]
-	b117_30["eff__174__182__186 push_Object"]
-	b117_6 --> b117_29
-	b117_29 --> b117_30
+	b117_9["val mach_readTable32"]
+	b117_25["eff__179__185__187 push_Object"]
+	b117_6 --> b117_9
+	b117_9 --> b117_25
 end
 branch_114 --> block_117
 
@@ -6347,8 +6123,8 @@ if (cond) {
 	push_Object(val);
 } else {
 	def index = pop_u32();
-	def val1 = mach_readTable32(table_index, index);
-	push_Object(val1);
+	def val = mach_readTable32(table_index, index);
+	push_Object(val);
 }
 </pre>`;
 window.traces["TABLE_GET"]["constUnLEM"] = ''
@@ -6364,27 +6140,27 @@ graph TD
 	0[/"Start"\\]
 	18{{"Sϕ Stack "}}
 	5 --> 18
-	27 --> 18
-	30 --> 18
-	30["eff__174__182__186 push_Object"]
-	29 --> 30
-	6 -. Stack .-> 30
+	23 --> 18
+	25 --> 18
+	25["eff__179__185__187 push_Object"]
+	9 --> 25
+	6 -. Stack .-> 25
 	6["index pop_u32"]
 	0 -. Stack .-> 6
-	29["val__181__185 mach_readTable32"]
-	3 --> 29
-	6 --> 29
+	9["val mach_readTable32"]
+	3 --> 9
+	6 --> 9
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	27["eff__170__180__184 push_Object"]
-	26 --> 27
-	12 -. Stack .-> 27
+	23["eff__175__184__186 push_Object"]
+	15 --> 23
+	12 -. Stack .-> 23
 	12["index pop_u64"]
 	0 -. Stack .-> 12
-	26["val__179__183 mach_readTable64"]
-	3 --> 26
-	12 --> 26
-	5["cond__169 m_isTable64"]
+	15["val mach_readTable64"]
+	3 --> 15
+	12 --> 15
+	5["cond__174 m_isTable64"]
 	3 --> 5
 </pre>`;
 window.traces["TABLE_GET"]["chooseMerge"] = ''
@@ -6400,40 +6176,40 @@ graph TD
 	0[/"Start"\\]
 	18{{"Sϕ Stack "}}
 	5 --> 18
-	27 --> 18
-	30 --> 18
-	30["eff__174__182__186 push_Object"]
-	29 --> 30
-	6 -. Stack .-> 30
+	23 --> 18
+	25 --> 18
+	25["eff__179__185__187 push_Object"]
+	9 --> 25
+	6 -. Stack .-> 25
 	6["index pop_u32"]
 	0 -. Stack .-> 6
-	29["val__181__185 mach_readTable32"]
-	3 --> 29
-	6 --> 29
+	9["val mach_readTable32"]
+	3 --> 9
+	6 --> 9
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	27["eff__170__180__184 push_Object"]
-	26 --> 27
-	12 -. Stack .-> 27
+	23["eff__175__184__186 push_Object"]
+	15 --> 23
+	12 -. Stack .-> 23
 	12["index pop_u64"]
 	0 -. Stack .-> 12
-	26["val__179__183 mach_readTable64"]
-	3 --> 26
-	12 --> 26
-	5["cond__169 m_isTable64"]
+	15["val mach_readTable64"]
+	3 --> 15
+	12 --> 15
+	5["cond__174 m_isTable64"]
 	3 --> 5
 </pre>`;
 window.traces["TABLE_GET"]["scheduled"] = ''
 window.traces["TABLE_GET"]["scheduled"] += `<pre class=''>def table_index = imm_readULEB32();
-def cond__169 = m_isTable64(table_index);
-if (cond__169) {
+def cond__174 = m_isTable64(table_index);
+if (cond__174) {
 	def index = pop_u64();
-	def val__179__183 = mach_readTable64(table_index, index);
-	def eff__170__180__184 = push_Object(val__179__183);
+	def val = mach_readTable64(table_index, index);
+	def eff__175__184__186 = push_Object(val);
 } else {
 	def index = pop_u32();
-	def val__181__185 = mach_readTable32(table_index, index);
-	def eff__174__182__186 = push_Object(val__181__185);
+	def val = mach_readTable32(table_index, index);
+	def eff__179__185__187 = push_Object(val);
 }
 // phis: 
 </pre>`;
@@ -6446,29 +6222,29 @@ if (cond) {
 	push_Object(val);
 } else {
 	def index = pop_u32();
-	def val1 = mach_readTable32(table_index, index);
-	push_Object(val1);
+	def val = mach_readTable32(table_index, index);
+	push_Object(val);
 }
 </pre>`;
 window.traces["TABLE_SET"] = {}
 window.traces["TABLE_SET"]["parsed"] = ''
 window.traces["TABLE_SET"]["parsed"] += `<pre class=''>def table_index = imm_readULEB32();
-def arg__196 = (table_index);
-def cond__187 = m_isTable64(arg__196);
-if (cond__187) {
+def arg__197 = (table_index);
+def cond__188 = m_isTable64(arg__197);
+if (cond__188) {
 	def val = pop_Object();
 	def index = pop_u64();
-	def arg__191 = (val);
-	def arg__190 = (index);
-	def arg__189 = (table_index);
-	def eff__188 = mach_writeTable64(arg__189, arg__190, arg__191);
+	def arg__192 = (val);
+	def arg__191 = (index);
+	def arg__190 = (table_index);
+	def eff__189 = mach_writeTable64(arg__190, arg__191, arg__192);
 } else {
 	def val = pop_Object();
 	def index = pop_u32();
-	def arg__195 = (val);
-	def arg__194 = (index);
-	def arg__193 = (table_index);
-	def eff__192 = mach_writeTable32(arg__193, arg__194, arg__195);
+	def arg__196 = (val);
+	def arg__195 = (index);
+	def arg__194 = (table_index);
+	def eff__193 = mach_writeTable32(arg__194, arg__195, arg__196);
 }
 // phis: 
 </pre>`;
@@ -6495,7 +6271,7 @@ graph TD
 	12 -. Stack .-> 13
 	12["val pop_Object"]
 	0 -. Stack .-> 12
-	5["cond__187 m_isTable64"]
+	5["cond__188 m_isTable64"]
 	3 --> 5
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
@@ -6523,7 +6299,7 @@ graph TD
 	12 -. Stack .-> 13
 	12["val pop_Object"]
 	0 -. Stack .-> 12
-	5["cond__187 m_isTable64"]
+	5["cond__188 m_isTable64"]
 	3 --> 5
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
@@ -6551,7 +6327,7 @@ graph TD
 	12 -. Stack .-> 13
 	12["val pop_Object"]
 	0 -. Stack .-> 12
-	5["cond__187 m_isTable64"]
+	5["cond__188 m_isTable64"]
 	3 --> 5
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
@@ -6571,15 +6347,15 @@ graph TD
 	5 --> 18
 	19 --> 18
 	21 --> 18
-	21["index__198 pop_u32"]
+	21["index__199 pop_u32"]
 	6 -. Stack .-> 21
 	6["val pop_Object"]
 	0 -. Stack .-> 6
-	19["index__197 pop_u64"]
+	19["index__198 pop_u64"]
 	12 -. Stack .-> 19
 	12["val pop_Object"]
 	0 -. Stack .-> 12
-	5["cond__187 m_isTable64"]
+	5["cond__188 m_isTable64"]
 	3 --> 5
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
@@ -6599,12 +6375,12 @@ block_123 --> phi_121
 subgraph block_122["Block 122"]
 	direction TB
 	b122_12["val pop_Object"]
-	b122_19["index__197 pop_u64"]
+	b122_19["index__198 pop_u64"]
 	b122_12 --> b122_19
 end
 branch_120 --> block_122
 subgraph branch_120["Branch 120"]
-	br120_5["cond__187 m_isTable64"]
+	br120_5["cond__188 m_isTable64"]
 
 end
 block_124 --> branch_120
@@ -6612,14 +6388,14 @@ subgraph block_124["Block 124"]
 	direction TB
 	b124_0[/"Start"\\]
 	b124_3["table_index imm_readULEB32"]
-	b124_5["cond__187 m_isTable64"]
+	b124_5["cond__188 m_isTable64"]
 	b124_0 --> b124_3
 	b124_3 --> b124_5
 end
 subgraph block_123["Block 123"]
 	direction TB
 	b123_6["val pop_Object"]
-	b123_21["index__198 pop_u32"]
+	b123_21["index__199 pop_u32"]
 	b123_6 --> b123_21
 end
 branch_120 --> block_123
@@ -6627,13 +6403,13 @@ branch_120 --> block_123
 </pre>`;
 window.traces["TABLE_SET"]["scheduler ssad"] = ''
 window.traces["TABLE_SET"]["scheduler ssad"] += `<pre class=''>def table_index = imm_readULEB32();
-def cond__187 = m_isTable64(table_index);
-if (cond__187) {
+def cond__188 = m_isTable64(table_index);
+if (cond__188) {
 	def val = pop_Object();
-	def index__197 = pop_u64();
+	def index__198 = pop_u64();
 } else {
 	def val = pop_Object();
-	def index__198 = pop_u32();
+	def index__199 = pop_u32();
 }
 // phis: 
 </pre>`;
@@ -6652,28 +6428,28 @@ graph TD
 	5 --> 18
 	19 --> 18
 	21 --> 18
-	21["index__198 pop_u32"]
+	21["index__199 pop_u32"]
 	6 -. Stack .-> 21
 	6["val pop_Object"]
 	0 -. Stack .-> 6
-	19["index__197 pop_u64"]
+	19["index__198 pop_u64"]
 	12 -. Stack .-> 19
 	12["val pop_Object"]
 	0 -. Stack .-> 12
-	5["cond__187 m_isTable64"]
+	5["cond__188 m_isTable64"]
 	3 --> 5
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
 </pre>`;
 window.traces["TABLE_SET"]["unlem_schedule"] = ''
 window.traces["TABLE_SET"]["unlem_schedule"] += `<pre class=''>def table_index = imm_readULEB32();
-def cond__187 = m_isTable64(table_index);
-if (cond__187) {
+def cond__188 = m_isTable64(table_index);
+if (cond__188) {
 	def val = pop_Object();
-	def index__197 = pop_u64();
+	def index__198 = pop_u64();
 } else {
 	def val = pop_Object();
-	def index__198 = pop_u32();
+	def index__199 = pop_u32();
 }
 // phis: 
 </pre>`;
@@ -6693,15 +6469,15 @@ graph TD
 	5 --> 18
 	23 --> 18
 	25 --> 18
-	25["index__198__200 pop_u32"]
+	25["index__199__201 pop_u32"]
 	6 -. Stack .-> 25
 	6["val pop_Object"]
 	0 -. Stack .-> 6
-	23["index__197__199 pop_u64"]
+	23["index__198__200 pop_u64"]
 	12 -. Stack .-> 23
 	12["val pop_Object"]
 	0 -. Stack .-> 12
-	5["cond__187 m_isTable64"]
+	5["cond__188 m_isTable64"]
 	3 --> 5
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
@@ -6721,12 +6497,12 @@ block_129 --> phi_127
 subgraph block_128["Block 128"]
 	direction TB
 	b128_12["val pop_Object"]
-	b128_23["index__197__199 pop_u64"]
+	b128_23["index__198__200 pop_u64"]
 	b128_12 --> b128_23
 end
 branch_126 --> block_128
 subgraph branch_126["Branch 126"]
-	br126_5["cond__187 m_isTable64"]
+	br126_5["cond__188 m_isTable64"]
 
 end
 block_130 --> branch_126
@@ -6734,14 +6510,14 @@ subgraph block_130["Block 130"]
 	direction TB
 	b130_0[/"Start"\\]
 	b130_3["table_index imm_readULEB32"]
-	b130_5["cond__187 m_isTable64"]
+	b130_5["cond__188 m_isTable64"]
 	b130_0 --> b130_3
 	b130_3 --> b130_5
 end
 subgraph block_129["Block 129"]
 	direction TB
 	b129_6["val pop_Object"]
-	b129_25["index__198__200 pop_u32"]
+	b129_25["index__199__201 pop_u32"]
 	b129_6 --> b129_25
 end
 branch_126 --> block_129
@@ -6773,15 +6549,15 @@ graph TD
 	5 --> 18
 	23 --> 18
 	25 --> 18
-	25["index__198__200 pop_u32"]
+	25["index__199__201 pop_u32"]
 	6 -. Stack .-> 25
 	6["val pop_Object"]
 	0 -. Stack .-> 6
-	23["index__197__199 pop_u64"]
+	23["index__198__200 pop_u64"]
 	12 -. Stack .-> 23
 	12["val pop_Object"]
 	0 -. Stack .-> 12
-	5["cond__187 m_isTable64"]
+	5["cond__188 m_isTable64"]
 	3 --> 5
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
@@ -6801,28 +6577,28 @@ graph TD
 	5 --> 18
 	23 --> 18
 	25 --> 18
-	25["index__198__200 pop_u32"]
+	25["index__199__201 pop_u32"]
 	6 -. Stack .-> 25
 	6["val pop_Object"]
 	0 -. Stack .-> 6
-	23["index__197__199 pop_u64"]
+	23["index__198__200 pop_u64"]
 	12 -. Stack .-> 23
 	12["val pop_Object"]
 	0 -. Stack .-> 12
-	5["cond__187 m_isTable64"]
+	5["cond__188 m_isTable64"]
 	3 --> 5
 	3["table_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
 </pre>`;
 window.traces["TABLE_SET"]["scheduled"] = ''
 window.traces["TABLE_SET"]["scheduled"] += `<pre class=''>def table_index = imm_readULEB32();
-def cond__187 = m_isTable64(table_index);
-if (cond__187) {
+def cond__188 = m_isTable64(table_index);
+if (cond__188) {
 	def val = pop_Object();
-	def index__197__199 = pop_u64();
+	def index__198__200 = pop_u64();
 } else {
 	def val = pop_Object();
-	def index__198__200 = pop_u32();
+	def index__199__201 = pop_u32();
 }
 // phis: 
 </pre>`;
@@ -6841,35 +6617,35 @@ window.traces["I32_LOAD"] = {}
 window.traces["I32_LOAD"]["parsed"] = ''
 window.traces["I32_LOAD"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__216 : byte = 0;
-def arg__218 : byte = 0x40u8;
-def arg__217 = (flags);
-def arg__215 = u8.&(arg__217, arg__218);
-def cond__213 = u8.!=(arg__215, arg__216);
-if (cond__213) {
-	def memindex__214 = imm_readULEB32();
+def arg__217 : byte = 0;
+def arg__219 : byte = 0x40u8;
+def arg__218 = (flags);
+def arg__216 = u8.&(arg__218, arg__219);
+def cond__214 = u8.!=(arg__216, arg__217);
+if (cond__214) {
+	def memindex__215 = imm_readULEB32();
 }
-// phis: memindex <- memindex__214; 
-def arg__212 = (memindex);
-def cond__201 = m_isMemory64(arg__212);
-if (cond__201) {
+// phis: memindex <- memindex__215; 
+def arg__213 = (memindex);
+def cond__202 = m_isMemory64(arg__213);
+if (cond__202) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__206 = (offset);
-	def arg__205 = (index);
-	def arg__204 = (memindex);
-	def val = mach_readMemory64_u32(arg__204, arg__205, arg__206);
-	def arg__203 = (val);
-	def eff__202 = push_u32(arg__203);
+	def arg__207 = (offset);
+	def arg__206 = (index);
+	def arg__205 = (memindex);
+	def val = mach_readMemory64_u32(arg__205, arg__206, arg__207);
+	def arg__204 = (val);
+	def eff__203 = push_u32(arg__204);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__211 = (offset);
-	def arg__210 = (index);
-	def arg__209 = (memindex);
-	def val = mach_readMemory32_u32(arg__209, arg__210, arg__211);
-	def arg__208 = (val);
-	def eff__207 = push_u32(arg__208);
+	def arg__212 = (offset);
+	def arg__211 = (index);
+	def arg__210 = (memindex);
+	def val = mach_readMemory32_u32(arg__210, arg__211, arg__212);
+	def arg__209 = (val);
+	def eff__208 = push_u32(arg__209);
 }
 // phis: 
 </pre>`;
@@ -6888,7 +6664,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__207 push_u32"]
+	22["eff__208 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -6905,22 +6681,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__214 imm_readULEB32"]
+	10["memindex__215 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__213 u8.!="]
+	9["cond__214 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__216 0"]
-	8["arg__215 u8.&"]
+	5["arg__217 0"]
+	8["arg__216 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__218 0x40u8"]
+	6["arg__219 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__219 0u"]
-	30["eff__202 push_u32"]
+	4["memindex__220 0u"]
+	30["eff__203 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -6931,7 +6707,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__201 m_isMemory64"]
+	14["cond__202 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -6953,7 +6729,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__207 push_u32"]
+	22["eff__208 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -6970,22 +6746,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__214 imm_readULEB32"]
+	10["memindex__215 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__213 u8.!="]
+	9["cond__214 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__216 0"]
-	8["arg__215 u8.&"]
+	5["arg__217 0"]
+	8["arg__216 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__218 0x40u8"]
+	6["arg__219 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__220 0u"]
-	30["eff__202 push_u32"]
+	4["memindex__221 0u"]
+	30["eff__203 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -6996,7 +6772,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__201 m_isMemory64"]
+	14["cond__202 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -7018,7 +6794,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__207 push_u32"]
+	22["eff__208 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -7035,22 +6811,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__214 imm_readULEB32"]
+	10["memindex__215 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__213 u8.!="]
+	9["cond__214 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__216 0"]
-	8["arg__215 u8.&"]
+	5["arg__217 0"]
+	8["arg__216 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__218 0x40u8"]
+	6["arg__219 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__220 0u"]
-	30["eff__202 push_u32"]
+	4["memindex__221 0u"]
+	30["eff__203 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -7061,7 +6837,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__201 m_isMemory64"]
+	14["cond__202 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -7083,7 +6859,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__207 push_u32"]
+	22["eff__208 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -7091,31 +6867,31 @@ graph TD
 	20["val mach_readMemory32_u32"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__222 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__223 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__214 imm_readULEB32"]
+	10["memindex__215 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__213 u8.!="]
+	9["cond__214 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__216 0"]
-	8["arg__215 u8.&"]
+	5["arg__217 0"]
+	8["arg__216 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__218 0x40u8"]
+	6["arg__219 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__220 0u"]
-	30["eff__202 push_u32"]
+	4["memindex__221 0u"]
+	30["eff__203 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -7123,15 +6899,15 @@ graph TD
 	28["val mach_readMemory64_u32"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__221 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__201 m_isMemory64"]
+	33 --> 28
+	33["offset__222 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__202 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I32_LOAD"]["post_surgery 138"] = ''
 window.traces["I32_LOAD"]["post_surgery 138"] += `<pre class='graph'>---
@@ -7148,7 +6924,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__207 push_u32"]
+	22["eff__208 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -7156,31 +6932,31 @@ graph TD
 	20["val mach_readMemory32_u32"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__222 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__223 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__214__223 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__213 u8.!="]
+	41["memindex__215__226 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__214 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__216 0"]
-	8["arg__215 u8.&"]
+	5["arg__217 0"]
+	8["arg__216 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__218 0x40u8"]
+	6["arg__219 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__220__224 0u"]
-	30["eff__202 push_u32"]
+	41 --> 11
+	43 --> 11
+	43["memindex__221__227 0u"]
+	30["eff__203 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -7188,15 +6964,15 @@ graph TD
 	28["val mach_readMemory64_u32"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__221 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__201 m_isMemory64"]
+	33 --> 28
+	33["offset__222 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__202 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I32_LOAD"]["schedulerMermaid"] = ''
 window.traces["I32_LOAD"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -7213,23 +6989,23 @@ block_134 --> phi_133
 block_135 --> phi_133
 subgraph block_134["Block 134"]
 	direction TB
-	b134_34["offset__221 imm_readULEB64"]
+	b134_33["offset__222 imm_readULEB64"]
 	b134_24["index pop_u64"]
 	b134_28["val mach_readMemory64_u32"]
-	b134_30["eff__202 push_u32"]
-	b134_34 --> b134_24
+	b134_30["eff__203 push_u32"]
+	b134_33 --> b134_24
 	b134_24 --> b134_28
 	b134_28 --> b134_30
 end
 branch_132 --> block_134
 subgraph branch_132["Branch 132"]
-	br132_14["cond__201 m_isMemory64"]
+	br132_14["cond__202 m_isMemory64"]
 
 end
 block_136 --> branch_132
 subgraph block_136["Block 136"]
 	direction TB
-	b136_14["cond__201 m_isMemory64"]
+	b136_14["cond__202 m_isMemory64"]
 end
 phi_138 --> block_136
 subgraph phi_138["Phi 138"]
@@ -7246,21 +7022,21 @@ block_139 --> phi_138
 block_140 --> phi_138
 subgraph block_139["Block 139"]
 	direction TB
-	b139_37["memindex__214__223 imm_readULEB32"]
+	b139_41["memindex__215__226 imm_readULEB32"]
 end
 branch_137 --> block_139
 subgraph branch_137["Branch 137"]
-	br137_9["cond__213 u8.!="]
+	br137_9["cond__214 u8.!="]
 
 end
 block_141 --> branch_137
 subgraph block_141["Block 141"]
 	direction TB
 	b141_0[/"Start"\\]
-	b141_6["arg__218 0x40u8"]
-	b141_5["arg__216 0"]
-	b141_8["arg__215 u8.&"]
-	b141_9["cond__213 u8.!="]
+	b141_6["arg__219 0x40u8"]
+	b141_5["arg__217 0"]
+	b141_8["arg__216 u8.&"]
+	b141_9["cond__214 u8.!="]
 	b141_0 --> b141_6
 	b141_6 --> b141_5
 	b141_5 --> b141_8
@@ -7269,17 +7045,17 @@ end
 subgraph block_140["Block 140"]
 	direction TB
 	b140_3["flags imm_readU8"]
-	b140_39["memindex__220__224 0u"]
-	b140_3 --> b140_39
+	b140_43["memindex__221__227 0u"]
+	b140_3 --> b140_43
 end
 branch_137 --> block_140
 subgraph block_135["Block 135"]
 	direction TB
-	b135_36["offset__222 imm_readULEB32"]
+	b135_35["offset__223 imm_readULEB32"]
 	b135_16["index pop_u32"]
 	b135_20["val mach_readMemory32_u32"]
-	b135_22["eff__207 push_u32"]
-	b135_36 --> b135_16
+	b135_22["eff__208 push_u32"]
+	b135_35 --> b135_16
 	b135_16 --> b135_20
 	b135_20 --> b135_22
 end
@@ -7287,28 +7063,28 @@ branch_132 --> block_135
 
 </pre>`;
 window.traces["I32_LOAD"]["scheduler ssad"] = ''
-window.traces["I32_LOAD"]["scheduler ssad"] += `<pre class=''>def arg__218 : byte = 0x40u8;
-def arg__216 : byte = 0;
-def arg__215 = u8.&(flags, arg__218);
-def cond__213 = u8.!=(arg__215, arg__216);
-if (cond__213) {
-	def memindex__214__223 = imm_readULEB32();
+window.traces["I32_LOAD"]["scheduler ssad"] += `<pre class=''>def arg__219 : byte = 0x40u8;
+def arg__217 : byte = 0;
+def arg__216 = u8.&(flags, arg__219);
+def cond__214 = u8.!=(arg__216, arg__217);
+if (cond__214) {
+	def memindex__215__226 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__220__224 : u32 = 0u;
+	def memindex__221__227 : u32 = 0u;
 }
 // phis: 
-def cond__201 = m_isMemory64(memindex);
-if (cond__201) {
-	def offset__221 = imm_readULEB64();
+def cond__202 = m_isMemory64(memindex);
+if (cond__202) {
+	def offset__222 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u32(memindex, index, offset__221);
-	def eff__202 = push_u32(val);
+	def val = mach_readMemory64_u32(memindex, index, offset__222);
+	def eff__203 = push_u32(val);
 } else {
-	def offset__222 = imm_readULEB32();
+	def offset__223 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u32(memindex, index, offset__222);
-	def eff__207 = push_u32(val);
+	def val = mach_readMemory32_u32(memindex, index, offset__223);
+	def eff__208 = push_u32(val);
 }
 // phis: 
 </pre>`;
@@ -7327,7 +7103,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__207 push_u32"]
+	22["eff__208 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -7335,31 +7111,31 @@ graph TD
 	20["val mach_readMemory32_u32"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__222 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__223 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__214__223 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__213 u8.!="]
+	41["memindex__215__226 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__214 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__216 0"]
-	8["arg__215 u8.&"]
+	5["arg__217 0"]
+	8["arg__216 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__218 0x40u8"]
+	6["arg__219 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__220__224 0u"]
-	30["eff__202 push_u32"]
+	41 --> 11
+	43 --> 11
+	43["memindex__221__227 0u"]
+	30["eff__203 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -7367,40 +7143,40 @@ graph TD
 	28["val mach_readMemory64_u32"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__221 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__201 m_isMemory64"]
+	33 --> 28
+	33["offset__222 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__202 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I32_LOAD"]["unlem_schedule"] = ''
 window.traces["I32_LOAD"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__218 : byte = 0x40u8;
-def arg__215 = u8.&(flags, arg__218);
-def arg__216 : byte = 0;
-def cond__213 = u8.!=(arg__215, arg__216);
+def arg__219 : byte = 0x40u8;
+def arg__216 = u8.&(flags, arg__219);
+def arg__217 : byte = 0;
+def cond__214 = u8.!=(arg__216, arg__217);
 var memindex: u32;
-if (cond__213) {
-	def memindex__214__223 = imm_readULEB32();
+if (cond__214) {
+	def memindex__215__226 = imm_readULEB32();
 } else {
-	def memindex__220__224 : u32 = 0u;
+	def memindex__221__227 : u32 = 0u;
 }
-// phis: memindex <- memindex__214__223; memindex <- memindex__220__224; 
-def cond__201 = m_isMemory64(memindex);
-if (cond__201) {
-	def offset__221 = imm_readULEB64();
+// phis: memindex <- memindex__215__226; memindex <- memindex__221__227; 
+def cond__202 = m_isMemory64(memindex);
+if (cond__202) {
+	def offset__222 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u32(memindex, index, offset__221);
-	def eff__202 = push_u32(val);
+	def val = mach_readMemory64_u32(memindex, index, offset__222);
+	def eff__203 = push_u32(val);
 } else {
-	def offset__222 = imm_readULEB32();
+	def offset__223 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u32(memindex, index, offset__222);
-	def eff__207 = push_u32(val);
+	def val = mach_readMemory32_u32(memindex, index, offset__223);
+	def eff__208 = push_u32(val);
 }
 // phis: 
 </pre>`;
@@ -7420,7 +7196,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__207 push_u32"]
+	22["eff__208 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -7428,31 +7204,31 @@ graph TD
 	20["val mach_readMemory32_u32"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__222__226 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__223__243 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__214__223 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__213 u8.!="]
+	41["memindex__215__226 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__214 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__216 0"]
-	8["arg__215 u8.&"]
+	5["arg__217 0"]
+	8["arg__216 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__218 0x40u8"]
+	6["arg__219 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__220__224 0u"]
-	30["eff__202 push_u32"]
+	41 --> 11
+	43 --> 11
+	43["memindex__221__227 0u"]
+	30["eff__203 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -7460,15 +7236,15 @@ graph TD
 	28["val mach_readMemory64_u32"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__221__225 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__201 m_isMemory64"]
+	73 --> 28
+	73["offset__222__242 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__202 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I32_LOAD_ul"]["post_surgery 149"] = ''
 window.traces["I32_LOAD_ul"]["post_surgery 149"] += `<pre class='graph'>---
@@ -7485,7 +7261,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__207 push_u32"]
+	22["eff__208 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -7493,31 +7269,31 @@ graph TD
 	20["val mach_readMemory32_u32"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__222__226 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__223__243 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__214__223__227 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__213 u8.!="]
+	81["memindex__215__226__246 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__214 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__216 0"]
-	8["arg__215 u8.&"]
+	5["arg__217 0"]
+	8["arg__216 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__218 0x40u8"]
+	6["arg__219 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__220__224__228 0u"]
-	30["eff__202 push_u32"]
+	81 --> 11
+	83 --> 11
+	83["memindex__221__227__247 0u"]
+	30["eff__203 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -7525,15 +7301,15 @@ graph TD
 	28["val mach_readMemory64_u32"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__221__225 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__201 m_isMemory64"]
+	73 --> 28
+	73["offset__222__242 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__202 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I32_LOAD"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -7550,23 +7326,23 @@ block_145 --> phi_144
 block_146 --> phi_144
 subgraph block_145["Block 145"]
 	direction TB
-	b145_42["offset__221__225 imm_readULEB64"]
+	b145_73["offset__222__242 imm_readULEB64"]
 	b145_24["index pop_u64"]
 	b145_28["val mach_readMemory64_u32"]
-	b145_30["eff__202 push_u32"]
-	b145_42 --> b145_24
+	b145_30["eff__203 push_u32"]
+	b145_73 --> b145_24
 	b145_24 --> b145_28
 	b145_28 --> b145_30
 end
 branch_143 --> block_145
 subgraph branch_143["Branch 143"]
-	br143_14["cond__201 m_isMemory64"]
+	br143_14["cond__202 m_isMemory64"]
 
 end
 block_147 --> branch_143
 subgraph block_147["Block 147"]
 	direction TB
-	b147_14["cond__201 m_isMemory64"]
+	b147_14["cond__202 m_isMemory64"]
 end
 phi_149 --> block_147
 subgraph phi_149["Phi 149"]
@@ -7583,21 +7359,21 @@ block_150 --> phi_149
 block_151 --> phi_149
 subgraph block_150["Block 150"]
 	direction TB
-	b150_45["memindex__214__223__227 imm_readULEB32"]
+	b150_81["memindex__215__226__246 imm_readULEB32"]
 end
 branch_148 --> block_150
 subgraph branch_148["Branch 148"]
-	br148_9["cond__213 u8.!="]
+	br148_9["cond__214 u8.!="]
 
 end
 block_152 --> branch_148
 subgraph block_152["Block 152"]
 	direction TB
 	b152_0[/"Start"\\]
-	b152_6["arg__218 0x40u8"]
-	b152_5["arg__216 0"]
-	b152_8["arg__215 u8.&"]
-	b152_9["cond__213 u8.!="]
+	b152_6["arg__219 0x40u8"]
+	b152_5["arg__217 0"]
+	b152_8["arg__216 u8.&"]
+	b152_9["cond__214 u8.!="]
 	b152_0 --> b152_6
 	b152_6 --> b152_5
 	b152_5 --> b152_8
@@ -7606,17 +7382,17 @@ end
 subgraph block_151["Block 151"]
 	direction TB
 	b151_3["flags imm_readU8"]
-	b151_47["memindex__220__224__228 0u"]
-	b151_3 --> b151_47
+	b151_83["memindex__221__227__247 0u"]
+	b151_3 --> b151_83
 end
 branch_148 --> block_151
 subgraph block_146["Block 146"]
 	direction TB
-	b146_44["offset__222__226 imm_readULEB32"]
+	b146_75["offset__223__243 imm_readULEB32"]
 	b146_16["index pop_u32"]
 	b146_20["val mach_readMemory32_u32"]
-	b146_22["eff__207 push_u32"]
-	b146_44 --> b146_16
+	b146_22["eff__208 push_u32"]
+	b146_75 --> b146_16
 	b146_16 --> b146_20
 	b146_20 --> b146_22
 end
@@ -7659,7 +7435,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__207 push_u32"]
+	22["eff__208 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -7667,31 +7443,31 @@ graph TD
 	20["val mach_readMemory32_u32"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__222__226 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__223__243 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__214__223__227 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__213 u8.!="]
+	81["memindex__215__226__246 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__214 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__216 0"]
-	8["arg__215 u8.&"]
+	5["arg__217 0"]
+	8["arg__216 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__218 0x40u8"]
+	6["arg__219 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__220__224__228 0u"]
-	30["eff__202 push_u32"]
+	81 --> 11
+	83 --> 11
+	83["memindex__221__227__247 0u"]
+	30["eff__203 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -7699,15 +7475,15 @@ graph TD
 	28["val mach_readMemory64_u32"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__221__225 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__201 m_isMemory64"]
+	73 --> 28
+	73["offset__222__242 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__202 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I32_LOAD"]["chooseMerge"] = ''
 window.traces["I32_LOAD"]["chooseMerge"] += `<pre class='graph'>---
@@ -7724,7 +7500,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__207 push_u32"]
+	22["eff__208 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -7732,31 +7508,31 @@ graph TD
 	20["val mach_readMemory32_u32"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__222__226 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__223__243 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__214__223__227 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__213 u8.!="]
+	81["memindex__215__226__246 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__214 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__216 0"]
-	8["arg__215 u8.&"]
+	5["arg__217 0"]
+	8["arg__216 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__218 0x40u8"]
+	6["arg__219 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__220__224__228 0u"]
-	30["eff__202 push_u32"]
+	81 --> 11
+	83 --> 11
+	83["memindex__221__227__247 0u"]
+	30["eff__203 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -7764,40 +7540,40 @@ graph TD
 	28["val mach_readMemory64_u32"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__221__225 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__201 m_isMemory64"]
+	73 --> 28
+	73["offset__222__242 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__202 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I32_LOAD"]["scheduled"] = ''
 window.traces["I32_LOAD"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__218 : byte = 0x40u8;
-def arg__215 = u8.&(flags, arg__218);
-def arg__216 : byte = 0;
-def cond__213 = u8.!=(arg__215, arg__216);
+def arg__219 : byte = 0x40u8;
+def arg__216 = u8.&(flags, arg__219);
+def arg__217 : byte = 0;
+def cond__214 = u8.!=(arg__216, arg__217);
 var memindex: u32;
-if (cond__213) {
-	def memindex__214__223__227 = imm_readULEB32();
+if (cond__214) {
+	def memindex__215__226__246 = imm_readULEB32();
 } else {
-	def memindex__220__224__228 : u32 = 0u;
+	def memindex__221__227__247 : u32 = 0u;
 }
-// phis: memindex <- memindex__214__223__227; memindex <- memindex__220__224__228; 
-def cond__201 = m_isMemory64(memindex);
-if (cond__201) {
-	def offset__221__225 = imm_readULEB64();
+// phis: memindex <- memindex__215__226__246; memindex <- memindex__221__227__247; 
+def cond__202 = m_isMemory64(memindex);
+if (cond__202) {
+	def offset__222__242 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u32(memindex, index, offset__221__225);
-	def eff__202 = push_u32(val);
+	def val = mach_readMemory64_u32(memindex, index, offset__222__242);
+	def eff__203 = push_u32(val);
 } else {
-	def offset__222__226 = imm_readULEB32();
+	def offset__223__243 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u32(memindex, index, offset__222__226);
-	def eff__207 = push_u32(val);
+	def val = mach_readMemory32_u32(memindex, index, offset__223__243);
+	def eff__208 = push_u32(val);
 }
 // phis: 
 </pre>`;
@@ -7826,35 +7602,35 @@ window.traces["I64_LOAD"] = {}
 window.traces["I64_LOAD"]["parsed"] = ''
 window.traces["I64_LOAD"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__244 : byte = 0;
-def arg__246 : byte = 0x40u8;
-def arg__245 = (flags);
-def arg__243 = u8.&(arg__245, arg__246);
-def cond__241 = u8.!=(arg__243, arg__244);
-if (cond__241) {
-	def memindex__242 = imm_readULEB32();
+def arg__277 : byte = 0;
+def arg__279 : byte = 0x40u8;
+def arg__278 = (flags);
+def arg__276 = u8.&(arg__278, arg__279);
+def cond__274 = u8.!=(arg__276, arg__277);
+if (cond__274) {
+	def memindex__275 = imm_readULEB32();
 }
-// phis: memindex <- memindex__242; 
-def arg__240 = (memindex);
-def cond__229 = m_isMemory64(arg__240);
-if (cond__229) {
+// phis: memindex <- memindex__275; 
+def arg__273 = (memindex);
+def cond__262 = m_isMemory64(arg__273);
+if (cond__262) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__234 = (offset);
-	def arg__233 = (index);
-	def arg__232 = (memindex);
-	def val = mach_readMemory64_u64(arg__232, arg__233, arg__234);
-	def arg__231 = (val);
-	def eff__230 = push_u64(arg__231);
+	def arg__267 = (offset);
+	def arg__266 = (index);
+	def arg__265 = (memindex);
+	def val = mach_readMemory64_u64(arg__265, arg__266, arg__267);
+	def arg__264 = (val);
+	def eff__263 = push_u64(arg__264);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__239 = (offset);
-	def arg__238 = (index);
-	def arg__237 = (memindex);
-	def val = mach_readMemory32_u64(arg__237, arg__238, arg__239);
-	def arg__236 = (val);
-	def eff__235 = push_u64(arg__236);
+	def arg__272 = (offset);
+	def arg__271 = (index);
+	def arg__270 = (memindex);
+	def val = mach_readMemory32_u64(arg__270, arg__271, arg__272);
+	def arg__269 = (val);
+	def eff__268 = push_u64(arg__269);
 }
 // phis: 
 </pre>`;
@@ -7873,7 +7649,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__235 push_u64"]
+	22["eff__268 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -7890,22 +7666,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__242 imm_readULEB32"]
+	10["memindex__275 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__241 u8.!="]
+	9["cond__274 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__244 0"]
-	8["arg__243 u8.&"]
+	5["arg__277 0"]
+	8["arg__276 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__246 0x40u8"]
+	6["arg__279 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__247 0u"]
-	30["eff__230 push_u64"]
+	4["memindex__280 0u"]
+	30["eff__263 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -7916,7 +7692,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__229 m_isMemory64"]
+	14["cond__262 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -7938,7 +7714,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__235 push_u64"]
+	22["eff__268 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -7955,22 +7731,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__242 imm_readULEB32"]
+	10["memindex__275 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__241 u8.!="]
+	9["cond__274 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__244 0"]
-	8["arg__243 u8.&"]
+	5["arg__277 0"]
+	8["arg__276 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__246 0x40u8"]
+	6["arg__279 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__248 0u"]
-	30["eff__230 push_u64"]
+	4["memindex__281 0u"]
+	30["eff__263 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -7981,7 +7757,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__229 m_isMemory64"]
+	14["cond__262 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -8003,7 +7779,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__235 push_u64"]
+	22["eff__268 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -8020,22 +7796,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__242 imm_readULEB32"]
+	10["memindex__275 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__241 u8.!="]
+	9["cond__274 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__244 0"]
-	8["arg__243 u8.&"]
+	5["arg__277 0"]
+	8["arg__276 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__246 0x40u8"]
+	6["arg__279 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__248 0u"]
-	30["eff__230 push_u64"]
+	4["memindex__281 0u"]
+	30["eff__263 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -8046,7 +7822,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__229 m_isMemory64"]
+	14["cond__262 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -8068,7 +7844,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__235 push_u64"]
+	22["eff__268 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -8076,31 +7852,31 @@ graph TD
 	20["val mach_readMemory32_u64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__250 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__283 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__242 imm_readULEB32"]
+	10["memindex__275 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__241 u8.!="]
+	9["cond__274 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__244 0"]
-	8["arg__243 u8.&"]
+	5["arg__277 0"]
+	8["arg__276 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__246 0x40u8"]
+	6["arg__279 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__248 0u"]
-	30["eff__230 push_u64"]
+	4["memindex__281 0u"]
+	30["eff__263 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -8108,15 +7884,15 @@ graph TD
 	28["val mach_readMemory64_u64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__249 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__229 m_isMemory64"]
+	33 --> 28
+	33["offset__282 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__262 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I64_LOAD"]["post_surgery 160"] = ''
 window.traces["I64_LOAD"]["post_surgery 160"] += `<pre class='graph'>---
@@ -8133,7 +7909,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__235 push_u64"]
+	22["eff__268 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -8141,31 +7917,31 @@ graph TD
 	20["val mach_readMemory32_u64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__250 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__283 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__242__251 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__241 u8.!="]
+	41["memindex__275__286 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__274 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__244 0"]
-	8["arg__243 u8.&"]
+	5["arg__277 0"]
+	8["arg__276 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__246 0x40u8"]
+	6["arg__279 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__248__252 0u"]
-	30["eff__230 push_u64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__281__287 0u"]
+	30["eff__263 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -8173,15 +7949,15 @@ graph TD
 	28["val mach_readMemory64_u64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__249 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__229 m_isMemory64"]
+	33 --> 28
+	33["offset__282 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__262 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I64_LOAD"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -8198,23 +7974,23 @@ block_156 --> phi_155
 block_157 --> phi_155
 subgraph block_156["Block 156"]
 	direction TB
-	b156_34["offset__249 imm_readULEB64"]
+	b156_33["offset__282 imm_readULEB64"]
 	b156_24["index pop_u64"]
 	b156_28["val mach_readMemory64_u64"]
-	b156_30["eff__230 push_u64"]
-	b156_34 --> b156_24
+	b156_30["eff__263 push_u64"]
+	b156_33 --> b156_24
 	b156_24 --> b156_28
 	b156_28 --> b156_30
 end
 branch_154 --> block_156
 subgraph branch_154["Branch 154"]
-	br154_14["cond__229 m_isMemory64"]
+	br154_14["cond__262 m_isMemory64"]
 
 end
 block_158 --> branch_154
 subgraph block_158["Block 158"]
 	direction TB
-	b158_14["cond__229 m_isMemory64"]
+	b158_14["cond__262 m_isMemory64"]
 end
 phi_160 --> block_158
 subgraph phi_160["Phi 160"]
@@ -8231,21 +8007,21 @@ block_161 --> phi_160
 block_162 --> phi_160
 subgraph block_161["Block 161"]
 	direction TB
-	b161_37["memindex__242__251 imm_readULEB32"]
+	b161_41["memindex__275__286 imm_readULEB32"]
 end
 branch_159 --> block_161
 subgraph branch_159["Branch 159"]
-	br159_9["cond__241 u8.!="]
+	br159_9["cond__274 u8.!="]
 
 end
 block_163 --> branch_159
 subgraph block_163["Block 163"]
 	direction TB
 	b163_0[/"Start"\\]
-	b163_6["arg__246 0x40u8"]
-	b163_5["arg__244 0"]
-	b163_8["arg__243 u8.&"]
-	b163_9["cond__241 u8.!="]
+	b163_6["arg__279 0x40u8"]
+	b163_5["arg__277 0"]
+	b163_8["arg__276 u8.&"]
+	b163_9["cond__274 u8.!="]
 	b163_0 --> b163_6
 	b163_6 --> b163_5
 	b163_5 --> b163_8
@@ -8254,17 +8030,17 @@ end
 subgraph block_162["Block 162"]
 	direction TB
 	b162_3["flags imm_readU8"]
-	b162_39["memindex__248__252 0u"]
-	b162_3 --> b162_39
+	b162_43["memindex__281__287 0u"]
+	b162_3 --> b162_43
 end
 branch_159 --> block_162
 subgraph block_157["Block 157"]
 	direction TB
-	b157_36["offset__250 imm_readULEB32"]
+	b157_35["offset__283 imm_readULEB32"]
 	b157_16["index pop_u32"]
 	b157_20["val mach_readMemory32_u64"]
-	b157_22["eff__235 push_u64"]
-	b157_36 --> b157_16
+	b157_22["eff__268 push_u64"]
+	b157_35 --> b157_16
 	b157_16 --> b157_20
 	b157_20 --> b157_22
 end
@@ -8272,28 +8048,28 @@ branch_154 --> block_157
 
 </pre>`;
 window.traces["I64_LOAD"]["scheduler ssad"] = ''
-window.traces["I64_LOAD"]["scheduler ssad"] += `<pre class=''>def arg__246 : byte = 0x40u8;
-def arg__244 : byte = 0;
-def arg__243 = u8.&(flags, arg__246);
-def cond__241 = u8.!=(arg__243, arg__244);
-if (cond__241) {
-	def memindex__242__251 = imm_readULEB32();
+window.traces["I64_LOAD"]["scheduler ssad"] += `<pre class=''>def arg__279 : byte = 0x40u8;
+def arg__277 : byte = 0;
+def arg__276 = u8.&(flags, arg__279);
+def cond__274 = u8.!=(arg__276, arg__277);
+if (cond__274) {
+	def memindex__275__286 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__248__252 : u32 = 0u;
+	def memindex__281__287 : u32 = 0u;
 }
 // phis: 
-def cond__229 = m_isMemory64(memindex);
-if (cond__229) {
-	def offset__249 = imm_readULEB64();
+def cond__262 = m_isMemory64(memindex);
+if (cond__262) {
+	def offset__282 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u64(memindex, index, offset__249);
-	def eff__230 = push_u64(val);
+	def val = mach_readMemory64_u64(memindex, index, offset__282);
+	def eff__263 = push_u64(val);
 } else {
-	def offset__250 = imm_readULEB32();
+	def offset__283 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u64(memindex, index, offset__250);
-	def eff__235 = push_u64(val);
+	def val = mach_readMemory32_u64(memindex, index, offset__283);
+	def eff__268 = push_u64(val);
 }
 // phis: 
 </pre>`;
@@ -8312,7 +8088,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__235 push_u64"]
+	22["eff__268 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -8320,31 +8096,31 @@ graph TD
 	20["val mach_readMemory32_u64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__250 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__283 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__242__251 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__241 u8.!="]
+	41["memindex__275__286 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__274 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__244 0"]
-	8["arg__243 u8.&"]
+	5["arg__277 0"]
+	8["arg__276 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__246 0x40u8"]
+	6["arg__279 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__248__252 0u"]
-	30["eff__230 push_u64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__281__287 0u"]
+	30["eff__263 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -8352,40 +8128,40 @@ graph TD
 	28["val mach_readMemory64_u64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__249 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__229 m_isMemory64"]
+	33 --> 28
+	33["offset__282 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__262 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I64_LOAD"]["unlem_schedule"] = ''
 window.traces["I64_LOAD"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__246 : byte = 0x40u8;
-def arg__243 = u8.&(flags, arg__246);
-def arg__244 : byte = 0;
-def cond__241 = u8.!=(arg__243, arg__244);
+def arg__279 : byte = 0x40u8;
+def arg__276 = u8.&(flags, arg__279);
+def arg__277 : byte = 0;
+def cond__274 = u8.!=(arg__276, arg__277);
 var memindex: u32;
-if (cond__241) {
-	def memindex__242__251 = imm_readULEB32();
+if (cond__274) {
+	def memindex__275__286 = imm_readULEB32();
 } else {
-	def memindex__248__252 : u32 = 0u;
+	def memindex__281__287 : u32 = 0u;
 }
-// phis: memindex <- memindex__242__251; memindex <- memindex__248__252; 
-def cond__229 = m_isMemory64(memindex);
-if (cond__229) {
-	def offset__249 = imm_readULEB64();
+// phis: memindex <- memindex__275__286; memindex <- memindex__281__287; 
+def cond__262 = m_isMemory64(memindex);
+if (cond__262) {
+	def offset__282 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u64(memindex, index, offset__249);
-	def eff__230 = push_u64(val);
+	def val = mach_readMemory64_u64(memindex, index, offset__282);
+	def eff__263 = push_u64(val);
 } else {
-	def offset__250 = imm_readULEB32();
+	def offset__283 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u64(memindex, index, offset__250);
-	def eff__235 = push_u64(val);
+	def val = mach_readMemory32_u64(memindex, index, offset__283);
+	def eff__268 = push_u64(val);
 }
 // phis: 
 </pre>`;
@@ -8405,7 +8181,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__235 push_u64"]
+	22["eff__268 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -8413,31 +8189,31 @@ graph TD
 	20["val mach_readMemory32_u64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__250__254 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__283__303 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__242__251 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__241 u8.!="]
+	41["memindex__275__286 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__274 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__244 0"]
-	8["arg__243 u8.&"]
+	5["arg__277 0"]
+	8["arg__276 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__246 0x40u8"]
+	6["arg__279 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__248__252 0u"]
-	30["eff__230 push_u64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__281__287 0u"]
+	30["eff__263 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -8445,15 +8221,15 @@ graph TD
 	28["val mach_readMemory64_u64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__249__253 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__229 m_isMemory64"]
+	73 --> 28
+	73["offset__282__302 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__262 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD_ul"]["post_surgery 171"] = ''
 window.traces["I64_LOAD_ul"]["post_surgery 171"] += `<pre class='graph'>---
@@ -8470,7 +8246,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__235 push_u64"]
+	22["eff__268 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -8478,31 +8254,31 @@ graph TD
 	20["val mach_readMemory32_u64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__250__254 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__283__303 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__242__251__255 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__241 u8.!="]
+	81["memindex__275__286__306 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__274 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__244 0"]
-	8["arg__243 u8.&"]
+	5["arg__277 0"]
+	8["arg__276 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__246 0x40u8"]
+	6["arg__279 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__248__252__256 0u"]
-	30["eff__230 push_u64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__281__287__307 0u"]
+	30["eff__263 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -8510,15 +8286,15 @@ graph TD
 	28["val mach_readMemory64_u64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__249__253 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__229 m_isMemory64"]
+	73 --> 28
+	73["offset__282__302 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__262 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -8535,23 +8311,23 @@ block_167 --> phi_166
 block_168 --> phi_166
 subgraph block_167["Block 167"]
 	direction TB
-	b167_42["offset__249__253 imm_readULEB64"]
+	b167_73["offset__282__302 imm_readULEB64"]
 	b167_24["index pop_u64"]
 	b167_28["val mach_readMemory64_u64"]
-	b167_30["eff__230 push_u64"]
-	b167_42 --> b167_24
+	b167_30["eff__263 push_u64"]
+	b167_73 --> b167_24
 	b167_24 --> b167_28
 	b167_28 --> b167_30
 end
 branch_165 --> block_167
 subgraph branch_165["Branch 165"]
-	br165_14["cond__229 m_isMemory64"]
+	br165_14["cond__262 m_isMemory64"]
 
 end
 block_169 --> branch_165
 subgraph block_169["Block 169"]
 	direction TB
-	b169_14["cond__229 m_isMemory64"]
+	b169_14["cond__262 m_isMemory64"]
 end
 phi_171 --> block_169
 subgraph phi_171["Phi 171"]
@@ -8568,21 +8344,21 @@ block_172 --> phi_171
 block_173 --> phi_171
 subgraph block_172["Block 172"]
 	direction TB
-	b172_45["memindex__242__251__255 imm_readULEB32"]
+	b172_81["memindex__275__286__306 imm_readULEB32"]
 end
 branch_170 --> block_172
 subgraph branch_170["Branch 170"]
-	br170_9["cond__241 u8.!="]
+	br170_9["cond__274 u8.!="]
 
 end
 block_174 --> branch_170
 subgraph block_174["Block 174"]
 	direction TB
 	b174_0[/"Start"\\]
-	b174_6["arg__246 0x40u8"]
-	b174_5["arg__244 0"]
-	b174_8["arg__243 u8.&"]
-	b174_9["cond__241 u8.!="]
+	b174_6["arg__279 0x40u8"]
+	b174_5["arg__277 0"]
+	b174_8["arg__276 u8.&"]
+	b174_9["cond__274 u8.!="]
 	b174_0 --> b174_6
 	b174_6 --> b174_5
 	b174_5 --> b174_8
@@ -8591,17 +8367,17 @@ end
 subgraph block_173["Block 173"]
 	direction TB
 	b173_3["flags imm_readU8"]
-	b173_47["memindex__248__252__256 0u"]
-	b173_3 --> b173_47
+	b173_83["memindex__281__287__307 0u"]
+	b173_3 --> b173_83
 end
 branch_170 --> block_173
 subgraph block_168["Block 168"]
 	direction TB
-	b168_44["offset__250__254 imm_readULEB32"]
+	b168_75["offset__283__303 imm_readULEB32"]
 	b168_16["index pop_u32"]
 	b168_20["val mach_readMemory32_u64"]
-	b168_22["eff__235 push_u64"]
-	b168_44 --> b168_16
+	b168_22["eff__268 push_u64"]
+	b168_75 --> b168_16
 	b168_16 --> b168_20
 	b168_20 --> b168_22
 end
@@ -8644,7 +8420,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__235 push_u64"]
+	22["eff__268 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -8652,31 +8428,31 @@ graph TD
 	20["val mach_readMemory32_u64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__250__254 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__283__303 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__242__251__255 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__241 u8.!="]
+	81["memindex__275__286__306 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__274 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__244 0"]
-	8["arg__243 u8.&"]
+	5["arg__277 0"]
+	8["arg__276 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__246 0x40u8"]
+	6["arg__279 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__248__252__256 0u"]
-	30["eff__230 push_u64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__281__287__307 0u"]
+	30["eff__263 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -8684,15 +8460,15 @@ graph TD
 	28["val mach_readMemory64_u64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__249__253 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__229 m_isMemory64"]
+	73 --> 28
+	73["offset__282__302 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__262 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD"]["chooseMerge"] = ''
 window.traces["I64_LOAD"]["chooseMerge"] += `<pre class='graph'>---
@@ -8709,7 +8485,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__235 push_u64"]
+	22["eff__268 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -8717,31 +8493,31 @@ graph TD
 	20["val mach_readMemory32_u64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__250__254 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__283__303 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__242__251__255 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__241 u8.!="]
+	81["memindex__275__286__306 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__274 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__244 0"]
-	8["arg__243 u8.&"]
+	5["arg__277 0"]
+	8["arg__276 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__246 0x40u8"]
+	6["arg__279 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__248__252__256 0u"]
-	30["eff__230 push_u64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__281__287__307 0u"]
+	30["eff__263 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -8749,40 +8525,40 @@ graph TD
 	28["val mach_readMemory64_u64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__249__253 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__229 m_isMemory64"]
+	73 --> 28
+	73["offset__282__302 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__262 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD"]["scheduled"] = ''
 window.traces["I64_LOAD"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__246 : byte = 0x40u8;
-def arg__243 = u8.&(flags, arg__246);
-def arg__244 : byte = 0;
-def cond__241 = u8.!=(arg__243, arg__244);
+def arg__279 : byte = 0x40u8;
+def arg__276 = u8.&(flags, arg__279);
+def arg__277 : byte = 0;
+def cond__274 = u8.!=(arg__276, arg__277);
 var memindex: u32;
-if (cond__241) {
-	def memindex__242__251__255 = imm_readULEB32();
+if (cond__274) {
+	def memindex__275__286__306 = imm_readULEB32();
 } else {
-	def memindex__248__252__256 : u32 = 0u;
+	def memindex__281__287__307 : u32 = 0u;
 }
-// phis: memindex <- memindex__242__251__255; memindex <- memindex__248__252__256; 
-def cond__229 = m_isMemory64(memindex);
-if (cond__229) {
-	def offset__249__253 = imm_readULEB64();
+// phis: memindex <- memindex__275__286__306; memindex <- memindex__281__287__307; 
+def cond__262 = m_isMemory64(memindex);
+if (cond__262) {
+	def offset__282__302 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u64(memindex, index, offset__249__253);
-	def eff__230 = push_u64(val);
+	def val = mach_readMemory64_u64(memindex, index, offset__282__302);
+	def eff__263 = push_u64(val);
 } else {
-	def offset__250__254 = imm_readULEB32();
+	def offset__283__303 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u64(memindex, index, offset__250__254);
-	def eff__235 = push_u64(val);
+	def val = mach_readMemory32_u64(memindex, index, offset__283__303);
+	def eff__268 = push_u64(val);
 }
 // phis: 
 </pre>`;
@@ -8811,35 +8587,35 @@ window.traces["F32_LOAD"] = {}
 window.traces["F32_LOAD"]["parsed"] = ''
 window.traces["F32_LOAD"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__272 : byte = 0;
-def arg__274 : byte = 0x40u8;
-def arg__273 = (flags);
-def arg__271 = u8.&(arg__273, arg__274);
-def cond__269 = u8.!=(arg__271, arg__272);
-if (cond__269) {
-	def memindex__270 = imm_readULEB32();
+def arg__337 : byte = 0;
+def arg__339 : byte = 0x40u8;
+def arg__338 = (flags);
+def arg__336 = u8.&(arg__338, arg__339);
+def cond__334 = u8.!=(arg__336, arg__337);
+if (cond__334) {
+	def memindex__335 = imm_readULEB32();
 }
-// phis: memindex <- memindex__270; 
-def arg__268 = (memindex);
-def cond__257 = m_isMemory64(arg__268);
-if (cond__257) {
+// phis: memindex <- memindex__335; 
+def arg__333 = (memindex);
+def cond__322 = m_isMemory64(arg__333);
+if (cond__322) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__262 = (offset);
-	def arg__261 = (index);
-	def arg__260 = (memindex);
-	def val = mach_readMemory64_f32(arg__260, arg__261, arg__262);
-	def arg__259 = (val);
-	def eff__258 = push_f32(arg__259);
+	def arg__327 = (offset);
+	def arg__326 = (index);
+	def arg__325 = (memindex);
+	def val = mach_readMemory64_f32(arg__325, arg__326, arg__327);
+	def arg__324 = (val);
+	def eff__323 = push_f32(arg__324);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__267 = (offset);
-	def arg__266 = (index);
-	def arg__265 = (memindex);
-	def val = mach_readMemory32_f32(arg__265, arg__266, arg__267);
-	def arg__264 = (val);
-	def eff__263 = push_f32(arg__264);
+	def arg__332 = (offset);
+	def arg__331 = (index);
+	def arg__330 = (memindex);
+	def val = mach_readMemory32_f32(arg__330, arg__331, arg__332);
+	def arg__329 = (val);
+	def eff__328 = push_f32(arg__329);
 }
 // phis: 
 </pre>`;
@@ -8858,7 +8634,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__263 push_f32"]
+	22["eff__328 push_f32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -8875,22 +8651,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__270 imm_readULEB32"]
+	10["memindex__335 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__269 u8.!="]
+	9["cond__334 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__272 0"]
-	8["arg__271 u8.&"]
+	5["arg__337 0"]
+	8["arg__336 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__274 0x40u8"]
+	6["arg__339 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__275 0u"]
-	30["eff__258 push_f32"]
+	4["memindex__340 0u"]
+	30["eff__323 push_f32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -8901,7 +8677,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__257 m_isMemory64"]
+	14["cond__322 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -8923,7 +8699,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__263 push_f32"]
+	22["eff__328 push_f32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -8940,22 +8716,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__270 imm_readULEB32"]
+	10["memindex__335 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__269 u8.!="]
+	9["cond__334 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__272 0"]
-	8["arg__271 u8.&"]
+	5["arg__337 0"]
+	8["arg__336 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__274 0x40u8"]
+	6["arg__339 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__276 0u"]
-	30["eff__258 push_f32"]
+	4["memindex__341 0u"]
+	30["eff__323 push_f32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -8966,7 +8742,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__257 m_isMemory64"]
+	14["cond__322 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -8988,7 +8764,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__263 push_f32"]
+	22["eff__328 push_f32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -9005,22 +8781,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__270 imm_readULEB32"]
+	10["memindex__335 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__269 u8.!="]
+	9["cond__334 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__272 0"]
-	8["arg__271 u8.&"]
+	5["arg__337 0"]
+	8["arg__336 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__274 0x40u8"]
+	6["arg__339 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__276 0u"]
-	30["eff__258 push_f32"]
+	4["memindex__341 0u"]
+	30["eff__323 push_f32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -9031,7 +8807,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__257 m_isMemory64"]
+	14["cond__322 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -9053,7 +8829,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__263 push_f32"]
+	22["eff__328 push_f32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -9061,31 +8837,31 @@ graph TD
 	20["val mach_readMemory32_f32"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__278 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__343 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__270 imm_readULEB32"]
+	10["memindex__335 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__269 u8.!="]
+	9["cond__334 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__272 0"]
-	8["arg__271 u8.&"]
+	5["arg__337 0"]
+	8["arg__336 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__274 0x40u8"]
+	6["arg__339 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__276 0u"]
-	30["eff__258 push_f32"]
+	4["memindex__341 0u"]
+	30["eff__323 push_f32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -9093,15 +8869,15 @@ graph TD
 	28["val mach_readMemory64_f32"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__277 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__257 m_isMemory64"]
+	33 --> 28
+	33["offset__342 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__322 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["F32_LOAD"]["post_surgery 182"] = ''
 window.traces["F32_LOAD"]["post_surgery 182"] += `<pre class='graph'>---
@@ -9118,7 +8894,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__263 push_f32"]
+	22["eff__328 push_f32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -9126,31 +8902,31 @@ graph TD
 	20["val mach_readMemory32_f32"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__278 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__343 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__270__279 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__269 u8.!="]
+	41["memindex__335__346 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__334 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__272 0"]
-	8["arg__271 u8.&"]
+	5["arg__337 0"]
+	8["arg__336 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__274 0x40u8"]
+	6["arg__339 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__276__280 0u"]
-	30["eff__258 push_f32"]
+	41 --> 11
+	43 --> 11
+	43["memindex__341__347 0u"]
+	30["eff__323 push_f32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -9158,15 +8934,15 @@ graph TD
 	28["val mach_readMemory64_f32"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__277 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__257 m_isMemory64"]
+	33 --> 28
+	33["offset__342 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__322 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["F32_LOAD"]["schedulerMermaid"] = ''
 window.traces["F32_LOAD"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -9183,23 +8959,23 @@ block_178 --> phi_177
 block_179 --> phi_177
 subgraph block_178["Block 178"]
 	direction TB
-	b178_34["offset__277 imm_readULEB64"]
+	b178_33["offset__342 imm_readULEB64"]
 	b178_24["index pop_u64"]
 	b178_28["val mach_readMemory64_f32"]
-	b178_30["eff__258 push_f32"]
-	b178_34 --> b178_24
+	b178_30["eff__323 push_f32"]
+	b178_33 --> b178_24
 	b178_24 --> b178_28
 	b178_28 --> b178_30
 end
 branch_176 --> block_178
 subgraph branch_176["Branch 176"]
-	br176_14["cond__257 m_isMemory64"]
+	br176_14["cond__322 m_isMemory64"]
 
 end
 block_180 --> branch_176
 subgraph block_180["Block 180"]
 	direction TB
-	b180_14["cond__257 m_isMemory64"]
+	b180_14["cond__322 m_isMemory64"]
 end
 phi_182 --> block_180
 subgraph phi_182["Phi 182"]
@@ -9216,21 +8992,21 @@ block_183 --> phi_182
 block_184 --> phi_182
 subgraph block_183["Block 183"]
 	direction TB
-	b183_37["memindex__270__279 imm_readULEB32"]
+	b183_41["memindex__335__346 imm_readULEB32"]
 end
 branch_181 --> block_183
 subgraph branch_181["Branch 181"]
-	br181_9["cond__269 u8.!="]
+	br181_9["cond__334 u8.!="]
 
 end
 block_185 --> branch_181
 subgraph block_185["Block 185"]
 	direction TB
 	b185_0[/"Start"\\]
-	b185_6["arg__274 0x40u8"]
-	b185_5["arg__272 0"]
-	b185_8["arg__271 u8.&"]
-	b185_9["cond__269 u8.!="]
+	b185_6["arg__339 0x40u8"]
+	b185_5["arg__337 0"]
+	b185_8["arg__336 u8.&"]
+	b185_9["cond__334 u8.!="]
 	b185_0 --> b185_6
 	b185_6 --> b185_5
 	b185_5 --> b185_8
@@ -9239,17 +9015,17 @@ end
 subgraph block_184["Block 184"]
 	direction TB
 	b184_3["flags imm_readU8"]
-	b184_39["memindex__276__280 0u"]
-	b184_3 --> b184_39
+	b184_43["memindex__341__347 0u"]
+	b184_3 --> b184_43
 end
 branch_181 --> block_184
 subgraph block_179["Block 179"]
 	direction TB
-	b179_36["offset__278 imm_readULEB32"]
+	b179_35["offset__343 imm_readULEB32"]
 	b179_16["index pop_u32"]
 	b179_20["val mach_readMemory32_f32"]
-	b179_22["eff__263 push_f32"]
-	b179_36 --> b179_16
+	b179_22["eff__328 push_f32"]
+	b179_35 --> b179_16
 	b179_16 --> b179_20
 	b179_20 --> b179_22
 end
@@ -9257,28 +9033,28 @@ branch_176 --> block_179
 
 </pre>`;
 window.traces["F32_LOAD"]["scheduler ssad"] = ''
-window.traces["F32_LOAD"]["scheduler ssad"] += `<pre class=''>def arg__274 : byte = 0x40u8;
-def arg__272 : byte = 0;
-def arg__271 = u8.&(flags, arg__274);
-def cond__269 = u8.!=(arg__271, arg__272);
-if (cond__269) {
-	def memindex__270__279 = imm_readULEB32();
+window.traces["F32_LOAD"]["scheduler ssad"] += `<pre class=''>def arg__339 : byte = 0x40u8;
+def arg__337 : byte = 0;
+def arg__336 = u8.&(flags, arg__339);
+def cond__334 = u8.!=(arg__336, arg__337);
+if (cond__334) {
+	def memindex__335__346 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__276__280 : u32 = 0u;
+	def memindex__341__347 : u32 = 0u;
 }
 // phis: 
-def cond__257 = m_isMemory64(memindex);
-if (cond__257) {
-	def offset__277 = imm_readULEB64();
+def cond__322 = m_isMemory64(memindex);
+if (cond__322) {
+	def offset__342 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_f32(memindex, index, offset__277);
-	def eff__258 = push_f32(val);
+	def val = mach_readMemory64_f32(memindex, index, offset__342);
+	def eff__323 = push_f32(val);
 } else {
-	def offset__278 = imm_readULEB32();
+	def offset__343 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_f32(memindex, index, offset__278);
-	def eff__263 = push_f32(val);
+	def val = mach_readMemory32_f32(memindex, index, offset__343);
+	def eff__328 = push_f32(val);
 }
 // phis: 
 </pre>`;
@@ -9297,7 +9073,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__263 push_f32"]
+	22["eff__328 push_f32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -9305,31 +9081,31 @@ graph TD
 	20["val mach_readMemory32_f32"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__278 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__343 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__270__279 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__269 u8.!="]
+	41["memindex__335__346 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__334 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__272 0"]
-	8["arg__271 u8.&"]
+	5["arg__337 0"]
+	8["arg__336 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__274 0x40u8"]
+	6["arg__339 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__276__280 0u"]
-	30["eff__258 push_f32"]
+	41 --> 11
+	43 --> 11
+	43["memindex__341__347 0u"]
+	30["eff__323 push_f32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -9337,40 +9113,40 @@ graph TD
 	28["val mach_readMemory64_f32"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__277 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__257 m_isMemory64"]
+	33 --> 28
+	33["offset__342 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__322 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["F32_LOAD"]["unlem_schedule"] = ''
 window.traces["F32_LOAD"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__274 : byte = 0x40u8;
-def arg__271 = u8.&(flags, arg__274);
-def arg__272 : byte = 0;
-def cond__269 = u8.!=(arg__271, arg__272);
+def arg__339 : byte = 0x40u8;
+def arg__336 = u8.&(flags, arg__339);
+def arg__337 : byte = 0;
+def cond__334 = u8.!=(arg__336, arg__337);
 var memindex: u32;
-if (cond__269) {
-	def memindex__270__279 = imm_readULEB32();
+if (cond__334) {
+	def memindex__335__346 = imm_readULEB32();
 } else {
-	def memindex__276__280 : u32 = 0u;
+	def memindex__341__347 : u32 = 0u;
 }
-// phis: memindex <- memindex__270__279; memindex <- memindex__276__280; 
-def cond__257 = m_isMemory64(memindex);
-if (cond__257) {
-	def offset__277 = imm_readULEB64();
+// phis: memindex <- memindex__335__346; memindex <- memindex__341__347; 
+def cond__322 = m_isMemory64(memindex);
+if (cond__322) {
+	def offset__342 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_f32(memindex, index, offset__277);
-	def eff__258 = push_f32(val);
+	def val = mach_readMemory64_f32(memindex, index, offset__342);
+	def eff__323 = push_f32(val);
 } else {
-	def offset__278 = imm_readULEB32();
+	def offset__343 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_f32(memindex, index, offset__278);
-	def eff__263 = push_f32(val);
+	def val = mach_readMemory32_f32(memindex, index, offset__343);
+	def eff__328 = push_f32(val);
 }
 // phis: 
 </pre>`;
@@ -9390,7 +9166,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__263 push_f32"]
+	22["eff__328 push_f32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -9398,31 +9174,31 @@ graph TD
 	20["val mach_readMemory32_f32"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__278__282 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__343__363 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__270__279 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__269 u8.!="]
+	41["memindex__335__346 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__334 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__272 0"]
-	8["arg__271 u8.&"]
+	5["arg__337 0"]
+	8["arg__336 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__274 0x40u8"]
+	6["arg__339 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__276__280 0u"]
-	30["eff__258 push_f32"]
+	41 --> 11
+	43 --> 11
+	43["memindex__341__347 0u"]
+	30["eff__323 push_f32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -9430,15 +9206,15 @@ graph TD
 	28["val mach_readMemory64_f32"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__277__281 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__257 m_isMemory64"]
+	73 --> 28
+	73["offset__342__362 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__322 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["F32_LOAD_ul"]["post_surgery 193"] = ''
 window.traces["F32_LOAD_ul"]["post_surgery 193"] += `<pre class='graph'>---
@@ -9455,7 +9231,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__263 push_f32"]
+	22["eff__328 push_f32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -9463,31 +9239,31 @@ graph TD
 	20["val mach_readMemory32_f32"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__278__282 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__343__363 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__270__279__283 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__269 u8.!="]
+	81["memindex__335__346__366 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__334 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__272 0"]
-	8["arg__271 u8.&"]
+	5["arg__337 0"]
+	8["arg__336 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__274 0x40u8"]
+	6["arg__339 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__276__280__284 0u"]
-	30["eff__258 push_f32"]
+	81 --> 11
+	83 --> 11
+	83["memindex__341__347__367 0u"]
+	30["eff__323 push_f32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -9495,15 +9271,15 @@ graph TD
 	28["val mach_readMemory64_f32"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__277__281 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__257 m_isMemory64"]
+	73 --> 28
+	73["offset__342__362 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__322 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["F32_LOAD"]["unlem_scheduler"] = ''
 window.traces["F32_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -9520,23 +9296,23 @@ block_189 --> phi_188
 block_190 --> phi_188
 subgraph block_189["Block 189"]
 	direction TB
-	b189_42["offset__277__281 imm_readULEB64"]
+	b189_73["offset__342__362 imm_readULEB64"]
 	b189_24["index pop_u64"]
 	b189_28["val mach_readMemory64_f32"]
-	b189_30["eff__258 push_f32"]
-	b189_42 --> b189_24
+	b189_30["eff__323 push_f32"]
+	b189_73 --> b189_24
 	b189_24 --> b189_28
 	b189_28 --> b189_30
 end
 branch_187 --> block_189
 subgraph branch_187["Branch 187"]
-	br187_14["cond__257 m_isMemory64"]
+	br187_14["cond__322 m_isMemory64"]
 
 end
 block_191 --> branch_187
 subgraph block_191["Block 191"]
 	direction TB
-	b191_14["cond__257 m_isMemory64"]
+	b191_14["cond__322 m_isMemory64"]
 end
 phi_193 --> block_191
 subgraph phi_193["Phi 193"]
@@ -9553,21 +9329,21 @@ block_194 --> phi_193
 block_195 --> phi_193
 subgraph block_194["Block 194"]
 	direction TB
-	b194_45["memindex__270__279__283 imm_readULEB32"]
+	b194_81["memindex__335__346__366 imm_readULEB32"]
 end
 branch_192 --> block_194
 subgraph branch_192["Branch 192"]
-	br192_9["cond__269 u8.!="]
+	br192_9["cond__334 u8.!="]
 
 end
 block_196 --> branch_192
 subgraph block_196["Block 196"]
 	direction TB
 	b196_0[/"Start"\\]
-	b196_6["arg__274 0x40u8"]
-	b196_5["arg__272 0"]
-	b196_8["arg__271 u8.&"]
-	b196_9["cond__269 u8.!="]
+	b196_6["arg__339 0x40u8"]
+	b196_5["arg__337 0"]
+	b196_8["arg__336 u8.&"]
+	b196_9["cond__334 u8.!="]
 	b196_0 --> b196_6
 	b196_6 --> b196_5
 	b196_5 --> b196_8
@@ -9576,17 +9352,17 @@ end
 subgraph block_195["Block 195"]
 	direction TB
 	b195_3["flags imm_readU8"]
-	b195_47["memindex__276__280__284 0u"]
-	b195_3 --> b195_47
+	b195_83["memindex__341__347__367 0u"]
+	b195_3 --> b195_83
 end
 branch_192 --> block_195
 subgraph block_190["Block 190"]
 	direction TB
-	b190_44["offset__278__282 imm_readULEB32"]
+	b190_75["offset__343__363 imm_readULEB32"]
 	b190_16["index pop_u32"]
 	b190_20["val mach_readMemory32_f32"]
-	b190_22["eff__263 push_f32"]
-	b190_44 --> b190_16
+	b190_22["eff__328 push_f32"]
+	b190_75 --> b190_16
 	b190_16 --> b190_20
 	b190_20 --> b190_22
 end
@@ -9629,7 +9405,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__263 push_f32"]
+	22["eff__328 push_f32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -9637,31 +9413,31 @@ graph TD
 	20["val mach_readMemory32_f32"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__278__282 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__343__363 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__270__279__283 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__269 u8.!="]
+	81["memindex__335__346__366 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__334 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__272 0"]
-	8["arg__271 u8.&"]
+	5["arg__337 0"]
+	8["arg__336 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__274 0x40u8"]
+	6["arg__339 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__276__280__284 0u"]
-	30["eff__258 push_f32"]
+	81 --> 11
+	83 --> 11
+	83["memindex__341__347__367 0u"]
+	30["eff__323 push_f32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -9669,15 +9445,15 @@ graph TD
 	28["val mach_readMemory64_f32"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__277__281 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__257 m_isMemory64"]
+	73 --> 28
+	73["offset__342__362 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__322 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["F32_LOAD"]["chooseMerge"] = ''
 window.traces["F32_LOAD"]["chooseMerge"] += `<pre class='graph'>---
@@ -9694,7 +9470,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__263 push_f32"]
+	22["eff__328 push_f32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -9702,31 +9478,31 @@ graph TD
 	20["val mach_readMemory32_f32"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__278__282 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__343__363 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__270__279__283 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__269 u8.!="]
+	81["memindex__335__346__366 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__334 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__272 0"]
-	8["arg__271 u8.&"]
+	5["arg__337 0"]
+	8["arg__336 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__274 0x40u8"]
+	6["arg__339 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__276__280__284 0u"]
-	30["eff__258 push_f32"]
+	81 --> 11
+	83 --> 11
+	83["memindex__341__347__367 0u"]
+	30["eff__323 push_f32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -9734,40 +9510,40 @@ graph TD
 	28["val mach_readMemory64_f32"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__277__281 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__257 m_isMemory64"]
+	73 --> 28
+	73["offset__342__362 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__322 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["F32_LOAD"]["scheduled"] = ''
 window.traces["F32_LOAD"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__274 : byte = 0x40u8;
-def arg__271 = u8.&(flags, arg__274);
-def arg__272 : byte = 0;
-def cond__269 = u8.!=(arg__271, arg__272);
+def arg__339 : byte = 0x40u8;
+def arg__336 = u8.&(flags, arg__339);
+def arg__337 : byte = 0;
+def cond__334 = u8.!=(arg__336, arg__337);
 var memindex: u32;
-if (cond__269) {
-	def memindex__270__279__283 = imm_readULEB32();
+if (cond__334) {
+	def memindex__335__346__366 = imm_readULEB32();
 } else {
-	def memindex__276__280__284 : u32 = 0u;
+	def memindex__341__347__367 : u32 = 0u;
 }
-// phis: memindex <- memindex__270__279__283; memindex <- memindex__276__280__284; 
-def cond__257 = m_isMemory64(memindex);
-if (cond__257) {
-	def offset__277__281 = imm_readULEB64();
+// phis: memindex <- memindex__335__346__366; memindex <- memindex__341__347__367; 
+def cond__322 = m_isMemory64(memindex);
+if (cond__322) {
+	def offset__342__362 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_f32(memindex, index, offset__277__281);
-	def eff__258 = push_f32(val);
+	def val = mach_readMemory64_f32(memindex, index, offset__342__362);
+	def eff__323 = push_f32(val);
 } else {
-	def offset__278__282 = imm_readULEB32();
+	def offset__343__363 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_f32(memindex, index, offset__278__282);
-	def eff__263 = push_f32(val);
+	def val = mach_readMemory32_f32(memindex, index, offset__343__363);
+	def eff__328 = push_f32(val);
 }
 // phis: 
 </pre>`;
@@ -9796,35 +9572,35 @@ window.traces["F64_LOAD"] = {}
 window.traces["F64_LOAD"]["parsed"] = ''
 window.traces["F64_LOAD"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__300 : byte = 0;
-def arg__302 : byte = 0x40u8;
-def arg__301 = (flags);
-def arg__299 = u8.&(arg__301, arg__302);
-def cond__297 = u8.!=(arg__299, arg__300);
-if (cond__297) {
-	def memindex__298 = imm_readULEB32();
+def arg__397 : byte = 0;
+def arg__399 : byte = 0x40u8;
+def arg__398 = (flags);
+def arg__396 = u8.&(arg__398, arg__399);
+def cond__394 = u8.!=(arg__396, arg__397);
+if (cond__394) {
+	def memindex__395 = imm_readULEB32();
 }
-// phis: memindex <- memindex__298; 
-def arg__296 = (memindex);
-def cond__285 = m_isMemory64(arg__296);
-if (cond__285) {
+// phis: memindex <- memindex__395; 
+def arg__393 = (memindex);
+def cond__382 = m_isMemory64(arg__393);
+if (cond__382) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__290 = (offset);
-	def arg__289 = (index);
-	def arg__288 = (memindex);
-	def val = mach_readMemory64_f64(arg__288, arg__289, arg__290);
-	def arg__287 = (val);
-	def eff__286 = push_f64(arg__287);
+	def arg__387 = (offset);
+	def arg__386 = (index);
+	def arg__385 = (memindex);
+	def val = mach_readMemory64_f64(arg__385, arg__386, arg__387);
+	def arg__384 = (val);
+	def eff__383 = push_f64(arg__384);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__295 = (offset);
-	def arg__294 = (index);
-	def arg__293 = (memindex);
-	def val = mach_readMemory32_f64(arg__293, arg__294, arg__295);
-	def arg__292 = (val);
-	def eff__291 = push_f64(arg__292);
+	def arg__392 = (offset);
+	def arg__391 = (index);
+	def arg__390 = (memindex);
+	def val = mach_readMemory32_f64(arg__390, arg__391, arg__392);
+	def arg__389 = (val);
+	def eff__388 = push_f64(arg__389);
 }
 // phis: 
 </pre>`;
@@ -9843,7 +9619,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__291 push_f64"]
+	22["eff__388 push_f64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -9860,22 +9636,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__298 imm_readULEB32"]
+	10["memindex__395 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__297 u8.!="]
+	9["cond__394 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__300 0"]
-	8["arg__299 u8.&"]
+	5["arg__397 0"]
+	8["arg__396 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__302 0x40u8"]
+	6["arg__399 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__303 0u"]
-	30["eff__286 push_f64"]
+	4["memindex__400 0u"]
+	30["eff__383 push_f64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -9886,7 +9662,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__285 m_isMemory64"]
+	14["cond__382 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -9908,7 +9684,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__291 push_f64"]
+	22["eff__388 push_f64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -9925,22 +9701,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__298 imm_readULEB32"]
+	10["memindex__395 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__297 u8.!="]
+	9["cond__394 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__300 0"]
-	8["arg__299 u8.&"]
+	5["arg__397 0"]
+	8["arg__396 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__302 0x40u8"]
+	6["arg__399 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__304 0u"]
-	30["eff__286 push_f64"]
+	4["memindex__401 0u"]
+	30["eff__383 push_f64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -9951,7 +9727,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__285 m_isMemory64"]
+	14["cond__382 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -9973,7 +9749,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__291 push_f64"]
+	22["eff__388 push_f64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -9990,22 +9766,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__298 imm_readULEB32"]
+	10["memindex__395 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__297 u8.!="]
+	9["cond__394 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__300 0"]
-	8["arg__299 u8.&"]
+	5["arg__397 0"]
+	8["arg__396 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__302 0x40u8"]
+	6["arg__399 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__304 0u"]
-	30["eff__286 push_f64"]
+	4["memindex__401 0u"]
+	30["eff__383 push_f64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -10016,7 +9792,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__285 m_isMemory64"]
+	14["cond__382 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -10038,7 +9814,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__291 push_f64"]
+	22["eff__388 push_f64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -10046,31 +9822,31 @@ graph TD
 	20["val mach_readMemory32_f64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__306 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__403 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__298 imm_readULEB32"]
+	10["memindex__395 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__297 u8.!="]
+	9["cond__394 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__300 0"]
-	8["arg__299 u8.&"]
+	5["arg__397 0"]
+	8["arg__396 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__302 0x40u8"]
+	6["arg__399 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__304 0u"]
-	30["eff__286 push_f64"]
+	4["memindex__401 0u"]
+	30["eff__383 push_f64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -10078,15 +9854,15 @@ graph TD
 	28["val mach_readMemory64_f64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__305 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__285 m_isMemory64"]
+	33 --> 28
+	33["offset__402 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__382 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["F64_LOAD"]["post_surgery 204"] = ''
 window.traces["F64_LOAD"]["post_surgery 204"] += `<pre class='graph'>---
@@ -10103,7 +9879,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__291 push_f64"]
+	22["eff__388 push_f64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -10111,31 +9887,31 @@ graph TD
 	20["val mach_readMemory32_f64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__306 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__403 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__298__307 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__297 u8.!="]
+	41["memindex__395__406 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__394 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__300 0"]
-	8["arg__299 u8.&"]
+	5["arg__397 0"]
+	8["arg__396 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__302 0x40u8"]
+	6["arg__399 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__304__308 0u"]
-	30["eff__286 push_f64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__401__407 0u"]
+	30["eff__383 push_f64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -10143,15 +9919,15 @@ graph TD
 	28["val mach_readMemory64_f64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__305 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__285 m_isMemory64"]
+	33 --> 28
+	33["offset__402 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__382 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["F64_LOAD"]["schedulerMermaid"] = ''
 window.traces["F64_LOAD"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -10168,23 +9944,23 @@ block_200 --> phi_199
 block_201 --> phi_199
 subgraph block_200["Block 200"]
 	direction TB
-	b200_34["offset__305 imm_readULEB64"]
+	b200_33["offset__402 imm_readULEB64"]
 	b200_24["index pop_u64"]
 	b200_28["val mach_readMemory64_f64"]
-	b200_30["eff__286 push_f64"]
-	b200_34 --> b200_24
+	b200_30["eff__383 push_f64"]
+	b200_33 --> b200_24
 	b200_24 --> b200_28
 	b200_28 --> b200_30
 end
 branch_198 --> block_200
 subgraph branch_198["Branch 198"]
-	br198_14["cond__285 m_isMemory64"]
+	br198_14["cond__382 m_isMemory64"]
 
 end
 block_202 --> branch_198
 subgraph block_202["Block 202"]
 	direction TB
-	b202_14["cond__285 m_isMemory64"]
+	b202_14["cond__382 m_isMemory64"]
 end
 phi_204 --> block_202
 subgraph phi_204["Phi 204"]
@@ -10201,21 +9977,21 @@ block_205 --> phi_204
 block_206 --> phi_204
 subgraph block_205["Block 205"]
 	direction TB
-	b205_37["memindex__298__307 imm_readULEB32"]
+	b205_41["memindex__395__406 imm_readULEB32"]
 end
 branch_203 --> block_205
 subgraph branch_203["Branch 203"]
-	br203_9["cond__297 u8.!="]
+	br203_9["cond__394 u8.!="]
 
 end
 block_207 --> branch_203
 subgraph block_207["Block 207"]
 	direction TB
 	b207_0[/"Start"\\]
-	b207_6["arg__302 0x40u8"]
-	b207_5["arg__300 0"]
-	b207_8["arg__299 u8.&"]
-	b207_9["cond__297 u8.!="]
+	b207_6["arg__399 0x40u8"]
+	b207_5["arg__397 0"]
+	b207_8["arg__396 u8.&"]
+	b207_9["cond__394 u8.!="]
 	b207_0 --> b207_6
 	b207_6 --> b207_5
 	b207_5 --> b207_8
@@ -10224,17 +10000,17 @@ end
 subgraph block_206["Block 206"]
 	direction TB
 	b206_3["flags imm_readU8"]
-	b206_39["memindex__304__308 0u"]
-	b206_3 --> b206_39
+	b206_43["memindex__401__407 0u"]
+	b206_3 --> b206_43
 end
 branch_203 --> block_206
 subgraph block_201["Block 201"]
 	direction TB
-	b201_36["offset__306 imm_readULEB32"]
+	b201_35["offset__403 imm_readULEB32"]
 	b201_16["index pop_u32"]
 	b201_20["val mach_readMemory32_f64"]
-	b201_22["eff__291 push_f64"]
-	b201_36 --> b201_16
+	b201_22["eff__388 push_f64"]
+	b201_35 --> b201_16
 	b201_16 --> b201_20
 	b201_20 --> b201_22
 end
@@ -10242,28 +10018,28 @@ branch_198 --> block_201
 
 </pre>`;
 window.traces["F64_LOAD"]["scheduler ssad"] = ''
-window.traces["F64_LOAD"]["scheduler ssad"] += `<pre class=''>def arg__302 : byte = 0x40u8;
-def arg__300 : byte = 0;
-def arg__299 = u8.&(flags, arg__302);
-def cond__297 = u8.!=(arg__299, arg__300);
-if (cond__297) {
-	def memindex__298__307 = imm_readULEB32();
+window.traces["F64_LOAD"]["scheduler ssad"] += `<pre class=''>def arg__399 : byte = 0x40u8;
+def arg__397 : byte = 0;
+def arg__396 = u8.&(flags, arg__399);
+def cond__394 = u8.!=(arg__396, arg__397);
+if (cond__394) {
+	def memindex__395__406 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__304__308 : u32 = 0u;
+	def memindex__401__407 : u32 = 0u;
 }
 // phis: 
-def cond__285 = m_isMemory64(memindex);
-if (cond__285) {
-	def offset__305 = imm_readULEB64();
+def cond__382 = m_isMemory64(memindex);
+if (cond__382) {
+	def offset__402 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_f64(memindex, index, offset__305);
-	def eff__286 = push_f64(val);
+	def val = mach_readMemory64_f64(memindex, index, offset__402);
+	def eff__383 = push_f64(val);
 } else {
-	def offset__306 = imm_readULEB32();
+	def offset__403 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_f64(memindex, index, offset__306);
-	def eff__291 = push_f64(val);
+	def val = mach_readMemory32_f64(memindex, index, offset__403);
+	def eff__388 = push_f64(val);
 }
 // phis: 
 </pre>`;
@@ -10282,7 +10058,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__291 push_f64"]
+	22["eff__388 push_f64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -10290,31 +10066,31 @@ graph TD
 	20["val mach_readMemory32_f64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__306 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__403 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__298__307 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__297 u8.!="]
+	41["memindex__395__406 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__394 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__300 0"]
-	8["arg__299 u8.&"]
+	5["arg__397 0"]
+	8["arg__396 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__302 0x40u8"]
+	6["arg__399 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__304__308 0u"]
-	30["eff__286 push_f64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__401__407 0u"]
+	30["eff__383 push_f64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -10322,40 +10098,40 @@ graph TD
 	28["val mach_readMemory64_f64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__305 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__285 m_isMemory64"]
+	33 --> 28
+	33["offset__402 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__382 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["F64_LOAD"]["unlem_schedule"] = ''
 window.traces["F64_LOAD"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__302 : byte = 0x40u8;
-def arg__299 = u8.&(flags, arg__302);
-def arg__300 : byte = 0;
-def cond__297 = u8.!=(arg__299, arg__300);
+def arg__399 : byte = 0x40u8;
+def arg__396 = u8.&(flags, arg__399);
+def arg__397 : byte = 0;
+def cond__394 = u8.!=(arg__396, arg__397);
 var memindex: u32;
-if (cond__297) {
-	def memindex__298__307 = imm_readULEB32();
+if (cond__394) {
+	def memindex__395__406 = imm_readULEB32();
 } else {
-	def memindex__304__308 : u32 = 0u;
+	def memindex__401__407 : u32 = 0u;
 }
-// phis: memindex <- memindex__298__307; memindex <- memindex__304__308; 
-def cond__285 = m_isMemory64(memindex);
-if (cond__285) {
-	def offset__305 = imm_readULEB64();
+// phis: memindex <- memindex__395__406; memindex <- memindex__401__407; 
+def cond__382 = m_isMemory64(memindex);
+if (cond__382) {
+	def offset__402 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_f64(memindex, index, offset__305);
-	def eff__286 = push_f64(val);
+	def val = mach_readMemory64_f64(memindex, index, offset__402);
+	def eff__383 = push_f64(val);
 } else {
-	def offset__306 = imm_readULEB32();
+	def offset__403 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_f64(memindex, index, offset__306);
-	def eff__291 = push_f64(val);
+	def val = mach_readMemory32_f64(memindex, index, offset__403);
+	def eff__388 = push_f64(val);
 }
 // phis: 
 </pre>`;
@@ -10375,7 +10151,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__291 push_f64"]
+	22["eff__388 push_f64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -10383,31 +10159,31 @@ graph TD
 	20["val mach_readMemory32_f64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__306__310 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__403__423 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__298__307 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__297 u8.!="]
+	41["memindex__395__406 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__394 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__300 0"]
-	8["arg__299 u8.&"]
+	5["arg__397 0"]
+	8["arg__396 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__302 0x40u8"]
+	6["arg__399 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__304__308 0u"]
-	30["eff__286 push_f64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__401__407 0u"]
+	30["eff__383 push_f64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -10415,15 +10191,15 @@ graph TD
 	28["val mach_readMemory64_f64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__305__309 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__285 m_isMemory64"]
+	73 --> 28
+	73["offset__402__422 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__382 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["F64_LOAD_ul"]["post_surgery 215"] = ''
 window.traces["F64_LOAD_ul"]["post_surgery 215"] += `<pre class='graph'>---
@@ -10440,7 +10216,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__291 push_f64"]
+	22["eff__388 push_f64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -10448,31 +10224,31 @@ graph TD
 	20["val mach_readMemory32_f64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__306__310 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__403__423 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__298__307__311 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__297 u8.!="]
+	81["memindex__395__406__426 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__394 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__300 0"]
-	8["arg__299 u8.&"]
+	5["arg__397 0"]
+	8["arg__396 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__302 0x40u8"]
+	6["arg__399 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__304__308__312 0u"]
-	30["eff__286 push_f64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__401__407__427 0u"]
+	30["eff__383 push_f64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -10480,15 +10256,15 @@ graph TD
 	28["val mach_readMemory64_f64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__305__309 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__285 m_isMemory64"]
+	73 --> 28
+	73["offset__402__422 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__382 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["F64_LOAD"]["unlem_scheduler"] = ''
 window.traces["F64_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -10505,23 +10281,23 @@ block_211 --> phi_210
 block_212 --> phi_210
 subgraph block_211["Block 211"]
 	direction TB
-	b211_42["offset__305__309 imm_readULEB64"]
+	b211_73["offset__402__422 imm_readULEB64"]
 	b211_24["index pop_u64"]
 	b211_28["val mach_readMemory64_f64"]
-	b211_30["eff__286 push_f64"]
-	b211_42 --> b211_24
+	b211_30["eff__383 push_f64"]
+	b211_73 --> b211_24
 	b211_24 --> b211_28
 	b211_28 --> b211_30
 end
 branch_209 --> block_211
 subgraph branch_209["Branch 209"]
-	br209_14["cond__285 m_isMemory64"]
+	br209_14["cond__382 m_isMemory64"]
 
 end
 block_213 --> branch_209
 subgraph block_213["Block 213"]
 	direction TB
-	b213_14["cond__285 m_isMemory64"]
+	b213_14["cond__382 m_isMemory64"]
 end
 phi_215 --> block_213
 subgraph phi_215["Phi 215"]
@@ -10538,21 +10314,21 @@ block_216 --> phi_215
 block_217 --> phi_215
 subgraph block_216["Block 216"]
 	direction TB
-	b216_45["memindex__298__307__311 imm_readULEB32"]
+	b216_81["memindex__395__406__426 imm_readULEB32"]
 end
 branch_214 --> block_216
 subgraph branch_214["Branch 214"]
-	br214_9["cond__297 u8.!="]
+	br214_9["cond__394 u8.!="]
 
 end
 block_218 --> branch_214
 subgraph block_218["Block 218"]
 	direction TB
 	b218_0[/"Start"\\]
-	b218_6["arg__302 0x40u8"]
-	b218_5["arg__300 0"]
-	b218_8["arg__299 u8.&"]
-	b218_9["cond__297 u8.!="]
+	b218_6["arg__399 0x40u8"]
+	b218_5["arg__397 0"]
+	b218_8["arg__396 u8.&"]
+	b218_9["cond__394 u8.!="]
 	b218_0 --> b218_6
 	b218_6 --> b218_5
 	b218_5 --> b218_8
@@ -10561,17 +10337,17 @@ end
 subgraph block_217["Block 217"]
 	direction TB
 	b217_3["flags imm_readU8"]
-	b217_47["memindex__304__308__312 0u"]
-	b217_3 --> b217_47
+	b217_83["memindex__401__407__427 0u"]
+	b217_3 --> b217_83
 end
 branch_214 --> block_217
 subgraph block_212["Block 212"]
 	direction TB
-	b212_44["offset__306__310 imm_readULEB32"]
+	b212_75["offset__403__423 imm_readULEB32"]
 	b212_16["index pop_u32"]
 	b212_20["val mach_readMemory32_f64"]
-	b212_22["eff__291 push_f64"]
-	b212_44 --> b212_16
+	b212_22["eff__388 push_f64"]
+	b212_75 --> b212_16
 	b212_16 --> b212_20
 	b212_20 --> b212_22
 end
@@ -10614,7 +10390,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__291 push_f64"]
+	22["eff__388 push_f64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -10622,31 +10398,31 @@ graph TD
 	20["val mach_readMemory32_f64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__306__310 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__403__423 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__298__307__311 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__297 u8.!="]
+	81["memindex__395__406__426 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__394 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__300 0"]
-	8["arg__299 u8.&"]
+	5["arg__397 0"]
+	8["arg__396 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__302 0x40u8"]
+	6["arg__399 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__304__308__312 0u"]
-	30["eff__286 push_f64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__401__407__427 0u"]
+	30["eff__383 push_f64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -10654,15 +10430,15 @@ graph TD
 	28["val mach_readMemory64_f64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__305__309 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__285 m_isMemory64"]
+	73 --> 28
+	73["offset__402__422 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__382 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["F64_LOAD"]["chooseMerge"] = ''
 window.traces["F64_LOAD"]["chooseMerge"] += `<pre class='graph'>---
@@ -10679,7 +10455,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__291 push_f64"]
+	22["eff__388 push_f64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -10687,31 +10463,31 @@ graph TD
 	20["val mach_readMemory32_f64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__306__310 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__403__423 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__298__307__311 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__297 u8.!="]
+	81["memindex__395__406__426 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__394 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__300 0"]
-	8["arg__299 u8.&"]
+	5["arg__397 0"]
+	8["arg__396 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__302 0x40u8"]
+	6["arg__399 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__304__308__312 0u"]
-	30["eff__286 push_f64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__401__407__427 0u"]
+	30["eff__383 push_f64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -10719,40 +10495,40 @@ graph TD
 	28["val mach_readMemory64_f64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__305__309 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__285 m_isMemory64"]
+	73 --> 28
+	73["offset__402__422 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__382 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["F64_LOAD"]["scheduled"] = ''
 window.traces["F64_LOAD"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__302 : byte = 0x40u8;
-def arg__299 = u8.&(flags, arg__302);
-def arg__300 : byte = 0;
-def cond__297 = u8.!=(arg__299, arg__300);
+def arg__399 : byte = 0x40u8;
+def arg__396 = u8.&(flags, arg__399);
+def arg__397 : byte = 0;
+def cond__394 = u8.!=(arg__396, arg__397);
 var memindex: u32;
-if (cond__297) {
-	def memindex__298__307__311 = imm_readULEB32();
+if (cond__394) {
+	def memindex__395__406__426 = imm_readULEB32();
 } else {
-	def memindex__304__308__312 : u32 = 0u;
+	def memindex__401__407__427 : u32 = 0u;
 }
-// phis: memindex <- memindex__298__307__311; memindex <- memindex__304__308__312; 
-def cond__285 = m_isMemory64(memindex);
-if (cond__285) {
-	def offset__305__309 = imm_readULEB64();
+// phis: memindex <- memindex__395__406__426; memindex <- memindex__401__407__427; 
+def cond__382 = m_isMemory64(memindex);
+if (cond__382) {
+	def offset__402__422 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_f64(memindex, index, offset__305__309);
-	def eff__286 = push_f64(val);
+	def val = mach_readMemory64_f64(memindex, index, offset__402__422);
+	def eff__383 = push_f64(val);
 } else {
-	def offset__306__310 = imm_readULEB32();
+	def offset__403__423 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_f64(memindex, index, offset__306__310);
-	def eff__291 = push_f64(val);
+	def val = mach_readMemory32_f64(memindex, index, offset__403__423);
+	def eff__388 = push_f64(val);
 }
 // phis: 
 </pre>`;
@@ -10781,39 +10557,39 @@ window.traces["I32_LOAD8_S"] = {}
 window.traces["I32_LOAD8_S"]["parsed"] = ''
 window.traces["I32_LOAD8_S"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__330 : byte = 0;
-def arg__332 : byte = 0x40u8;
-def arg__331 = (flags);
-def arg__329 = u8.&(arg__331, arg__332);
-def cond__327 = u8.!=(arg__329, arg__330);
-if (cond__327) {
-	def memindex__328 = imm_readULEB32();
+def arg__459 : byte = 0;
+def arg__461 : byte = 0x40u8;
+def arg__460 = (flags);
+def arg__458 = u8.&(arg__460, arg__461);
+def cond__456 = u8.!=(arg__458, arg__459);
+if (cond__456) {
+	def memindex__457 = imm_readULEB32();
 }
-// phis: memindex <- memindex__328; 
-def arg__326 = (memindex);
-def cond__313 = m_isMemory64(arg__326);
-if (cond__313) {
+// phis: memindex <- memindex__457; 
+def arg__455 = (memindex);
+def cond__442 = m_isMemory64(arg__455);
+if (cond__442) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__319 = (offset);
-	def arg__318 = (index);
-	def arg__317 = (memindex);
-	def val = mach_readMemory64_u8(arg__317, arg__318, arg__319);
-	def arg__316 = (val);
-	def extend = U32_extend8_s(arg__316);
-	def arg__315 = (extend);
-	def eff__314 = push_u32(arg__315);
+	def arg__448 = (offset);
+	def arg__447 = (index);
+	def arg__446 = (memindex);
+	def val = mach_readMemory64_u8(arg__446, arg__447, arg__448);
+	def arg__445 = (val);
+	def extend = U32_extend8_s(arg__445);
+	def arg__444 = (extend);
+	def eff__443 = push_u32(arg__444);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__325 = (offset);
-	def arg__324 = (index);
-	def arg__323 = (memindex);
-	def val = mach_readMemory32_u8(arg__323, arg__324, arg__325);
-	def arg__322 = (val);
-	def extend = U32_extend8_s(arg__322);
-	def arg__321 = (extend);
-	def eff__320 = push_u32(arg__321);
+	def arg__454 = (offset);
+	def arg__453 = (index);
+	def arg__452 = (memindex);
+	def val = mach_readMemory32_u8(arg__452, arg__453, arg__454);
+	def arg__451 = (val);
+	def extend = U32_extend8_s(arg__451);
+	def arg__450 = (extend);
+	def eff__449 = push_u32(arg__450);
 }
 // phis: 
 </pre>`;
@@ -10832,7 +10608,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__320 push_u32"]
+	24["eff__449 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -10851,22 +10627,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__328 imm_readULEB32"]
+	10["memindex__457 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__327 u8.!="]
+	9["cond__456 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__330 0"]
-	8["arg__329 u8.&"]
+	5["arg__459 0"]
+	8["arg__458 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__332 0x40u8"]
+	6["arg__461 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__333 0u"]
-	34["eff__314 push_u32"]
+	4["memindex__462 0u"]
+	34["eff__443 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -10879,7 +10655,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__313 m_isMemory64"]
+	14["cond__442 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -10901,7 +10677,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__320 push_u32"]
+	24["eff__449 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -10920,22 +10696,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__328 imm_readULEB32"]
+	10["memindex__457 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__327 u8.!="]
+	9["cond__456 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__330 0"]
-	8["arg__329 u8.&"]
+	5["arg__459 0"]
+	8["arg__458 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__332 0x40u8"]
+	6["arg__461 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__334 0u"]
-	34["eff__314 push_u32"]
+	4["memindex__463 0u"]
+	34["eff__443 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -10948,7 +10724,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__313 m_isMemory64"]
+	14["cond__442 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -10970,7 +10746,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__320 push_u32"]
+	24["eff__449 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -10989,22 +10765,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__328 imm_readULEB32"]
+	10["memindex__457 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__327 u8.!="]
+	9["cond__456 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__330 0"]
-	8["arg__329 u8.&"]
+	5["arg__459 0"]
+	8["arg__458 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__332 0x40u8"]
+	6["arg__461 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__334 0u"]
-	34["eff__314 push_u32"]
+	4["memindex__463 0u"]
+	34["eff__443 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -11017,7 +10793,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__313 m_isMemory64"]
+	14["cond__442 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -11039,7 +10815,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__320 push_u32"]
+	24["eff__449 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -11049,31 +10825,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__336 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__465 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__328 imm_readULEB32"]
+	10["memindex__457 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__327 u8.!="]
+	9["cond__456 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__330 0"]
-	8["arg__329 u8.&"]
+	5["arg__459 0"]
+	8["arg__458 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__332 0x40u8"]
+	6["arg__461 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__334 0u"]
-	34["eff__314 push_u32"]
+	4["memindex__463 0u"]
+	34["eff__443 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -11083,15 +10859,15 @@ graph TD
 	30["val mach_readMemory64_u8"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__335 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__313 m_isMemory64"]
+	37 --> 30
+	37["offset__464 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__442 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I32_LOAD8_S"]["post_surgery 226"] = ''
 window.traces["I32_LOAD8_S"]["post_surgery 226"] += `<pre class='graph'>---
@@ -11108,7 +10884,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__320 push_u32"]
+	24["eff__449 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -11118,31 +10894,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__336 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__465 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__328__337 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__327 u8.!="]
+	45["memindex__457__468 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__456 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__330 0"]
-	8["arg__329 u8.&"]
+	5["arg__459 0"]
+	8["arg__458 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__332 0x40u8"]
+	6["arg__461 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__334__338 0u"]
-	34["eff__314 push_u32"]
+	45 --> 11
+	47 --> 11
+	47["memindex__463__469 0u"]
+	34["eff__443 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -11152,15 +10928,15 @@ graph TD
 	30["val mach_readMemory64_u8"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__335 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__313 m_isMemory64"]
+	37 --> 30
+	37["offset__464 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__442 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I32_LOAD8_S"]["schedulerMermaid"] = ''
 window.traces["I32_LOAD8_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -11177,25 +10953,25 @@ block_222 --> phi_221
 block_223 --> phi_221
 subgraph block_222["Block 222"]
 	direction TB
-	b222_38["offset__335 imm_readULEB64"]
+	b222_37["offset__464 imm_readULEB64"]
 	b222_26["index pop_u64"]
 	b222_30["val mach_readMemory64_u8"]
 	b222_32["extend U32_extend8_s"]
-	b222_34["eff__314 push_u32"]
-	b222_38 --> b222_26
+	b222_34["eff__443 push_u32"]
+	b222_37 --> b222_26
 	b222_26 --> b222_30
 	b222_30 --> b222_32
 	b222_32 --> b222_34
 end
 branch_220 --> block_222
 subgraph branch_220["Branch 220"]
-	br220_14["cond__313 m_isMemory64"]
+	br220_14["cond__442 m_isMemory64"]
 
 end
 block_224 --> branch_220
 subgraph block_224["Block 224"]
 	direction TB
-	b224_14["cond__313 m_isMemory64"]
+	b224_14["cond__442 m_isMemory64"]
 end
 phi_226 --> block_224
 subgraph phi_226["Phi 226"]
@@ -11212,21 +10988,21 @@ block_227 --> phi_226
 block_228 --> phi_226
 subgraph block_227["Block 227"]
 	direction TB
-	b227_41["memindex__328__337 imm_readULEB32"]
+	b227_45["memindex__457__468 imm_readULEB32"]
 end
 branch_225 --> block_227
 subgraph branch_225["Branch 225"]
-	br225_9["cond__327 u8.!="]
+	br225_9["cond__456 u8.!="]
 
 end
 block_229 --> branch_225
 subgraph block_229["Block 229"]
 	direction TB
 	b229_0[/"Start"\\]
-	b229_6["arg__332 0x40u8"]
-	b229_5["arg__330 0"]
-	b229_8["arg__329 u8.&"]
-	b229_9["cond__327 u8.!="]
+	b229_6["arg__461 0x40u8"]
+	b229_5["arg__459 0"]
+	b229_8["arg__458 u8.&"]
+	b229_9["cond__456 u8.!="]
 	b229_0 --> b229_6
 	b229_6 --> b229_5
 	b229_5 --> b229_8
@@ -11235,18 +11011,18 @@ end
 subgraph block_228["Block 228"]
 	direction TB
 	b228_3["flags imm_readU8"]
-	b228_43["memindex__334__338 0u"]
-	b228_3 --> b228_43
+	b228_47["memindex__463__469 0u"]
+	b228_3 --> b228_47
 end
 branch_225 --> block_228
 subgraph block_223["Block 223"]
 	direction TB
-	b223_40["offset__336 imm_readULEB32"]
+	b223_39["offset__465 imm_readULEB32"]
 	b223_16["index pop_u32"]
 	b223_20["val mach_readMemory32_u8"]
 	b223_22["extend U32_extend8_s"]
-	b223_24["eff__320 push_u32"]
-	b223_40 --> b223_16
+	b223_24["eff__449 push_u32"]
+	b223_39 --> b223_16
 	b223_16 --> b223_20
 	b223_20 --> b223_22
 	b223_22 --> b223_24
@@ -11255,30 +11031,30 @@ branch_220 --> block_223
 
 </pre>`;
 window.traces["I32_LOAD8_S"]["scheduler ssad"] = ''
-window.traces["I32_LOAD8_S"]["scheduler ssad"] += `<pre class=''>def arg__332 : byte = 0x40u8;
-def arg__330 : byte = 0;
-def arg__329 = u8.&(flags, arg__332);
-def cond__327 = u8.!=(arg__329, arg__330);
-if (cond__327) {
-	def memindex__328__337 = imm_readULEB32();
+window.traces["I32_LOAD8_S"]["scheduler ssad"] += `<pre class=''>def arg__461 : byte = 0x40u8;
+def arg__459 : byte = 0;
+def arg__458 = u8.&(flags, arg__461);
+def cond__456 = u8.!=(arg__458, arg__459);
+if (cond__456) {
+	def memindex__457__468 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__334__338 : u32 = 0u;
+	def memindex__463__469 : u32 = 0u;
 }
 // phis: 
-def cond__313 = m_isMemory64(memindex);
-if (cond__313) {
-	def offset__335 = imm_readULEB64();
+def cond__442 = m_isMemory64(memindex);
+if (cond__442) {
+	def offset__464 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u8(memindex, index, offset__335);
+	def val = mach_readMemory64_u8(memindex, index, offset__464);
 	def extend = U32_extend8_s(val);
-	def eff__314 = push_u32(extend);
+	def eff__443 = push_u32(extend);
 } else {
-	def offset__336 = imm_readULEB32();
+	def offset__465 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u8(memindex, index, offset__336);
+	def val = mach_readMemory32_u8(memindex, index, offset__465);
 	def extend = U32_extend8_s(val);
-	def eff__320 = push_u32(extend);
+	def eff__449 = push_u32(extend);
 }
 // phis: 
 </pre>`;
@@ -11297,7 +11073,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__320 push_u32"]
+	24["eff__449 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -11307,31 +11083,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__336 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__465 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__328__337 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__327 u8.!="]
+	45["memindex__457__468 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__456 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__330 0"]
-	8["arg__329 u8.&"]
+	5["arg__459 0"]
+	8["arg__458 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__332 0x40u8"]
+	6["arg__461 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__334__338 0u"]
-	34["eff__314 push_u32"]
+	45 --> 11
+	47 --> 11
+	47["memindex__463__469 0u"]
+	34["eff__443 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -11341,42 +11117,42 @@ graph TD
 	30["val mach_readMemory64_u8"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__335 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__313 m_isMemory64"]
+	37 --> 30
+	37["offset__464 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__442 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I32_LOAD8_S"]["unlem_schedule"] = ''
 window.traces["I32_LOAD8_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__332 : byte = 0x40u8;
-def arg__329 = u8.&(flags, arg__332);
-def arg__330 : byte = 0;
-def cond__327 = u8.!=(arg__329, arg__330);
+def arg__461 : byte = 0x40u8;
+def arg__458 = u8.&(flags, arg__461);
+def arg__459 : byte = 0;
+def cond__456 = u8.!=(arg__458, arg__459);
 var memindex: u32;
-if (cond__327) {
-	def memindex__328__337 = imm_readULEB32();
+if (cond__456) {
+	def memindex__457__468 = imm_readULEB32();
 } else {
-	def memindex__334__338 : u32 = 0u;
+	def memindex__463__469 : u32 = 0u;
 }
-// phis: memindex <- memindex__328__337; memindex <- memindex__334__338; 
-def cond__313 = m_isMemory64(memindex);
-if (cond__313) {
-	def offset__335 = imm_readULEB64();
+// phis: memindex <- memindex__457__468; memindex <- memindex__463__469; 
+def cond__442 = m_isMemory64(memindex);
+if (cond__442) {
+	def offset__464 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u8(memindex, index, offset__335);
+	def val = mach_readMemory64_u8(memindex, index, offset__464);
 	def extend = U32_extend8_s(val);
-	def eff__314 = push_u32(extend);
+	def eff__443 = push_u32(extend);
 } else {
-	def offset__336 = imm_readULEB32();
+	def offset__465 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u8(memindex, index, offset__336);
+	def val = mach_readMemory32_u8(memindex, index, offset__465);
 	def extend = U32_extend8_s(val);
-	def eff__320 = push_u32(extend);
+	def eff__449 = push_u32(extend);
 }
 // phis: 
 </pre>`;
@@ -11396,7 +11172,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__320 push_u32"]
+	24["eff__449 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -11406,31 +11182,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__336__340 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__465__485 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__328__337 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__327 u8.!="]
+	45["memindex__457__468 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__456 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__330 0"]
-	8["arg__329 u8.&"]
+	5["arg__459 0"]
+	8["arg__458 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__332 0x40u8"]
+	6["arg__461 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__334__338 0u"]
-	34["eff__314 push_u32"]
+	45 --> 11
+	47 --> 11
+	47["memindex__463__469 0u"]
+	34["eff__443 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -11440,15 +11216,15 @@ graph TD
 	30["val mach_readMemory64_u8"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__335__339 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__313 m_isMemory64"]
+	77 --> 30
+	77["offset__464__484 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__442 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I32_LOAD8_S_ul"]["post_surgery 237"] = ''
 window.traces["I32_LOAD8_S_ul"]["post_surgery 237"] += `<pre class='graph'>---
@@ -11465,7 +11241,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__320 push_u32"]
+	24["eff__449 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -11475,31 +11251,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__336__340 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__465__485 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__328__337__341 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__327 u8.!="]
+	85["memindex__457__468__488 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__456 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__330 0"]
-	8["arg__329 u8.&"]
+	5["arg__459 0"]
+	8["arg__458 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__332 0x40u8"]
+	6["arg__461 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__334__338__342 0u"]
-	34["eff__314 push_u32"]
+	85 --> 11
+	87 --> 11
+	87["memindex__463__469__489 0u"]
+	34["eff__443 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -11509,15 +11285,15 @@ graph TD
 	30["val mach_readMemory64_u8"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__335__339 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__313 m_isMemory64"]
+	77 --> 30
+	77["offset__464__484 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__442 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I32_LOAD8_S"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD8_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -11534,25 +11310,25 @@ block_233 --> phi_232
 block_234 --> phi_232
 subgraph block_233["Block 233"]
 	direction TB
-	b233_46["offset__335__339 imm_readULEB64"]
+	b233_77["offset__464__484 imm_readULEB64"]
 	b233_26["index pop_u64"]
 	b233_30["val mach_readMemory64_u8"]
 	b233_32["extend U32_extend8_s"]
-	b233_34["eff__314 push_u32"]
-	b233_46 --> b233_26
+	b233_34["eff__443 push_u32"]
+	b233_77 --> b233_26
 	b233_26 --> b233_30
 	b233_30 --> b233_32
 	b233_32 --> b233_34
 end
 branch_231 --> block_233
 subgraph branch_231["Branch 231"]
-	br231_14["cond__313 m_isMemory64"]
+	br231_14["cond__442 m_isMemory64"]
 
 end
 block_235 --> branch_231
 subgraph block_235["Block 235"]
 	direction TB
-	b235_14["cond__313 m_isMemory64"]
+	b235_14["cond__442 m_isMemory64"]
 end
 phi_237 --> block_235
 subgraph phi_237["Phi 237"]
@@ -11569,21 +11345,21 @@ block_238 --> phi_237
 block_239 --> phi_237
 subgraph block_238["Block 238"]
 	direction TB
-	b238_49["memindex__328__337__341 imm_readULEB32"]
+	b238_85["memindex__457__468__488 imm_readULEB32"]
 end
 branch_236 --> block_238
 subgraph branch_236["Branch 236"]
-	br236_9["cond__327 u8.!="]
+	br236_9["cond__456 u8.!="]
 
 end
 block_240 --> branch_236
 subgraph block_240["Block 240"]
 	direction TB
 	b240_0[/"Start"\\]
-	b240_6["arg__332 0x40u8"]
-	b240_5["arg__330 0"]
-	b240_8["arg__329 u8.&"]
-	b240_9["cond__327 u8.!="]
+	b240_6["arg__461 0x40u8"]
+	b240_5["arg__459 0"]
+	b240_8["arg__458 u8.&"]
+	b240_9["cond__456 u8.!="]
 	b240_0 --> b240_6
 	b240_6 --> b240_5
 	b240_5 --> b240_8
@@ -11592,18 +11368,18 @@ end
 subgraph block_239["Block 239"]
 	direction TB
 	b239_3["flags imm_readU8"]
-	b239_51["memindex__334__338__342 0u"]
-	b239_3 --> b239_51
+	b239_87["memindex__463__469__489 0u"]
+	b239_3 --> b239_87
 end
 branch_236 --> block_239
 subgraph block_234["Block 234"]
 	direction TB
-	b234_48["offset__336__340 imm_readULEB32"]
+	b234_79["offset__465__485 imm_readULEB32"]
 	b234_16["index pop_u32"]
 	b234_20["val mach_readMemory32_u8"]
 	b234_22["extend U32_extend8_s"]
-	b234_24["eff__320 push_u32"]
-	b234_48 --> b234_16
+	b234_24["eff__449 push_u32"]
+	b234_79 --> b234_16
 	b234_16 --> b234_20
 	b234_20 --> b234_22
 	b234_22 --> b234_24
@@ -11649,7 +11425,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__320 push_u32"]
+	24["eff__449 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -11659,31 +11435,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__336__340 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__465__485 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__328__337__341 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__327 u8.!="]
+	85["memindex__457__468__488 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__456 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__330 0"]
-	8["arg__329 u8.&"]
+	5["arg__459 0"]
+	8["arg__458 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__332 0x40u8"]
+	6["arg__461 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__334__338__342 0u"]
-	34["eff__314 push_u32"]
+	85 --> 11
+	87 --> 11
+	87["memindex__463__469__489 0u"]
+	34["eff__443 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -11693,15 +11469,15 @@ graph TD
 	30["val mach_readMemory64_u8"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__335__339 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__313 m_isMemory64"]
+	77 --> 30
+	77["offset__464__484 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__442 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I32_LOAD8_S"]["chooseMerge"] = ''
 window.traces["I32_LOAD8_S"]["chooseMerge"] += `<pre class='graph'>---
@@ -11718,7 +11494,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__320 push_u32"]
+	24["eff__449 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -11728,31 +11504,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__336__340 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__465__485 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__328__337__341 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__327 u8.!="]
+	85["memindex__457__468__488 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__456 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__330 0"]
-	8["arg__329 u8.&"]
+	5["arg__459 0"]
+	8["arg__458 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__332 0x40u8"]
+	6["arg__461 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__334__338__342 0u"]
-	34["eff__314 push_u32"]
+	85 --> 11
+	87 --> 11
+	87["memindex__463__469__489 0u"]
+	34["eff__443 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -11762,42 +11538,42 @@ graph TD
 	30["val mach_readMemory64_u8"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__335__339 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__313 m_isMemory64"]
+	77 --> 30
+	77["offset__464__484 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__442 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I32_LOAD8_S"]["scheduled"] = ''
 window.traces["I32_LOAD8_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__332 : byte = 0x40u8;
-def arg__329 = u8.&(flags, arg__332);
-def arg__330 : byte = 0;
-def cond__327 = u8.!=(arg__329, arg__330);
+def arg__461 : byte = 0x40u8;
+def arg__458 = u8.&(flags, arg__461);
+def arg__459 : byte = 0;
+def cond__456 = u8.!=(arg__458, arg__459);
 var memindex: u32;
-if (cond__327) {
-	def memindex__328__337__341 = imm_readULEB32();
+if (cond__456) {
+	def memindex__457__468__488 = imm_readULEB32();
 } else {
-	def memindex__334__338__342 : u32 = 0u;
+	def memindex__463__469__489 : u32 = 0u;
 }
-// phis: memindex <- memindex__328__337__341; memindex <- memindex__334__338__342; 
-def cond__313 = m_isMemory64(memindex);
-if (cond__313) {
-	def offset__335__339 = imm_readULEB64();
+// phis: memindex <- memindex__457__468__488; memindex <- memindex__463__469__489; 
+def cond__442 = m_isMemory64(memindex);
+if (cond__442) {
+	def offset__464__484 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u8(memindex, index, offset__335__339);
+	def val = mach_readMemory64_u8(memindex, index, offset__464__484);
 	def extend = U32_extend8_s(val);
-	def eff__314 = push_u32(extend);
+	def eff__443 = push_u32(extend);
 } else {
-	def offset__336__340 = imm_readULEB32();
+	def offset__465__485 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u8(memindex, index, offset__336__340);
+	def val = mach_readMemory32_u8(memindex, index, offset__465__485);
 	def extend = U32_extend8_s(val);
-	def eff__320 = push_u32(extend);
+	def eff__449 = push_u32(extend);
 }
 // phis: 
 </pre>`;
@@ -11828,35 +11604,35 @@ window.traces["I32_LOAD8_U"] = {}
 window.traces["I32_LOAD8_U"]["parsed"] = ''
 window.traces["I32_LOAD8_U"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__358 : byte = 0;
-def arg__360 : byte = 0x40u8;
-def arg__359 = (flags);
-def arg__357 = u8.&(arg__359, arg__360);
-def cond__355 = u8.!=(arg__357, arg__358);
-if (cond__355) {
-	def memindex__356 = imm_readULEB32();
+def arg__519 : byte = 0;
+def arg__521 : byte = 0x40u8;
+def arg__520 = (flags);
+def arg__518 = u8.&(arg__520, arg__521);
+def cond__516 = u8.!=(arg__518, arg__519);
+if (cond__516) {
+	def memindex__517 = imm_readULEB32();
 }
-// phis: memindex <- memindex__356; 
-def arg__354 = (memindex);
-def cond__343 = m_isMemory64(arg__354);
-if (cond__343) {
+// phis: memindex <- memindex__517; 
+def arg__515 = (memindex);
+def cond__504 = m_isMemory64(arg__515);
+if (cond__504) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__348 = (offset);
-	def arg__347 = (index);
-	def arg__346 = (memindex);
-	def val = mach_readMemory64_u8(arg__346, arg__347, arg__348);
-	def arg__345 = (val);
-	def eff__344 = push_u32(arg__345);
+	def arg__509 = (offset);
+	def arg__508 = (index);
+	def arg__507 = (memindex);
+	def val = mach_readMemory64_u8(arg__507, arg__508, arg__509);
+	def arg__506 = (val);
+	def eff__505 = push_u32(arg__506);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__353 = (offset);
-	def arg__352 = (index);
-	def arg__351 = (memindex);
-	def val = mach_readMemory32_u8(arg__351, arg__352, arg__353);
-	def arg__350 = (val);
-	def eff__349 = push_u32(arg__350);
+	def arg__514 = (offset);
+	def arg__513 = (index);
+	def arg__512 = (memindex);
+	def val = mach_readMemory32_u8(arg__512, arg__513, arg__514);
+	def arg__511 = (val);
+	def eff__510 = push_u32(arg__511);
 }
 // phis: 
 </pre>`;
@@ -11875,7 +11651,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__349 push_u32"]
+	22["eff__510 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -11892,22 +11668,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__356 imm_readULEB32"]
+	10["memindex__517 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__355 u8.!="]
+	9["cond__516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__358 0"]
-	8["arg__357 u8.&"]
+	5["arg__519 0"]
+	8["arg__518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__360 0x40u8"]
+	6["arg__521 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__361 0u"]
-	30["eff__344 push_u32"]
+	4["memindex__522 0u"]
+	30["eff__505 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -11918,7 +11694,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__343 m_isMemory64"]
+	14["cond__504 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -11940,7 +11716,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__349 push_u32"]
+	22["eff__510 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -11957,22 +11733,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__356 imm_readULEB32"]
+	10["memindex__517 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__355 u8.!="]
+	9["cond__516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__358 0"]
-	8["arg__357 u8.&"]
+	5["arg__519 0"]
+	8["arg__518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__360 0x40u8"]
+	6["arg__521 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__362 0u"]
-	30["eff__344 push_u32"]
+	4["memindex__523 0u"]
+	30["eff__505 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -11983,7 +11759,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__343 m_isMemory64"]
+	14["cond__504 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -12005,7 +11781,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__349 push_u32"]
+	22["eff__510 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -12022,22 +11798,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__356 imm_readULEB32"]
+	10["memindex__517 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__355 u8.!="]
+	9["cond__516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__358 0"]
-	8["arg__357 u8.&"]
+	5["arg__519 0"]
+	8["arg__518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__360 0x40u8"]
+	6["arg__521 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__362 0u"]
-	30["eff__344 push_u32"]
+	4["memindex__523 0u"]
+	30["eff__505 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -12048,7 +11824,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__343 m_isMemory64"]
+	14["cond__504 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -12070,7 +11846,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__349 push_u32"]
+	22["eff__510 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -12078,31 +11854,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__364 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__525 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__356 imm_readULEB32"]
+	10["memindex__517 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__355 u8.!="]
+	9["cond__516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__358 0"]
-	8["arg__357 u8.&"]
+	5["arg__519 0"]
+	8["arg__518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__360 0x40u8"]
+	6["arg__521 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__362 0u"]
-	30["eff__344 push_u32"]
+	4["memindex__523 0u"]
+	30["eff__505 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -12110,15 +11886,15 @@ graph TD
 	28["val mach_readMemory64_u8"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__363 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__343 m_isMemory64"]
+	33 --> 28
+	33["offset__524 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__504 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I32_LOAD8_U"]["post_surgery 248"] = ''
 window.traces["I32_LOAD8_U"]["post_surgery 248"] += `<pre class='graph'>---
@@ -12135,7 +11911,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__349 push_u32"]
+	22["eff__510 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -12143,31 +11919,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__364 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__525 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__356__365 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__355 u8.!="]
+	41["memindex__517__528 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__358 0"]
-	8["arg__357 u8.&"]
+	5["arg__519 0"]
+	8["arg__518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__360 0x40u8"]
+	6["arg__521 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__362__366 0u"]
-	30["eff__344 push_u32"]
+	41 --> 11
+	43 --> 11
+	43["memindex__523__529 0u"]
+	30["eff__505 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -12175,15 +11951,15 @@ graph TD
 	28["val mach_readMemory64_u8"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__363 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__343 m_isMemory64"]
+	33 --> 28
+	33["offset__524 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__504 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I32_LOAD8_U"]["schedulerMermaid"] = ''
 window.traces["I32_LOAD8_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -12200,23 +11976,23 @@ block_244 --> phi_243
 block_245 --> phi_243
 subgraph block_244["Block 244"]
 	direction TB
-	b244_34["offset__363 imm_readULEB64"]
+	b244_33["offset__524 imm_readULEB64"]
 	b244_24["index pop_u64"]
 	b244_28["val mach_readMemory64_u8"]
-	b244_30["eff__344 push_u32"]
-	b244_34 --> b244_24
+	b244_30["eff__505 push_u32"]
+	b244_33 --> b244_24
 	b244_24 --> b244_28
 	b244_28 --> b244_30
 end
 branch_242 --> block_244
 subgraph branch_242["Branch 242"]
-	br242_14["cond__343 m_isMemory64"]
+	br242_14["cond__504 m_isMemory64"]
 
 end
 block_246 --> branch_242
 subgraph block_246["Block 246"]
 	direction TB
-	b246_14["cond__343 m_isMemory64"]
+	b246_14["cond__504 m_isMemory64"]
 end
 phi_248 --> block_246
 subgraph phi_248["Phi 248"]
@@ -12233,21 +12009,21 @@ block_249 --> phi_248
 block_250 --> phi_248
 subgraph block_249["Block 249"]
 	direction TB
-	b249_37["memindex__356__365 imm_readULEB32"]
+	b249_41["memindex__517__528 imm_readULEB32"]
 end
 branch_247 --> block_249
 subgraph branch_247["Branch 247"]
-	br247_9["cond__355 u8.!="]
+	br247_9["cond__516 u8.!="]
 
 end
 block_251 --> branch_247
 subgraph block_251["Block 251"]
 	direction TB
 	b251_0[/"Start"\\]
-	b251_6["arg__360 0x40u8"]
-	b251_5["arg__358 0"]
-	b251_8["arg__357 u8.&"]
-	b251_9["cond__355 u8.!="]
+	b251_6["arg__521 0x40u8"]
+	b251_5["arg__519 0"]
+	b251_8["arg__518 u8.&"]
+	b251_9["cond__516 u8.!="]
 	b251_0 --> b251_6
 	b251_6 --> b251_5
 	b251_5 --> b251_8
@@ -12256,17 +12032,17 @@ end
 subgraph block_250["Block 250"]
 	direction TB
 	b250_3["flags imm_readU8"]
-	b250_39["memindex__362__366 0u"]
-	b250_3 --> b250_39
+	b250_43["memindex__523__529 0u"]
+	b250_3 --> b250_43
 end
 branch_247 --> block_250
 subgraph block_245["Block 245"]
 	direction TB
-	b245_36["offset__364 imm_readULEB32"]
+	b245_35["offset__525 imm_readULEB32"]
 	b245_16["index pop_u32"]
 	b245_20["val mach_readMemory32_u8"]
-	b245_22["eff__349 push_u32"]
-	b245_36 --> b245_16
+	b245_22["eff__510 push_u32"]
+	b245_35 --> b245_16
 	b245_16 --> b245_20
 	b245_20 --> b245_22
 end
@@ -12274,28 +12050,28 @@ branch_242 --> block_245
 
 </pre>`;
 window.traces["I32_LOAD8_U"]["scheduler ssad"] = ''
-window.traces["I32_LOAD8_U"]["scheduler ssad"] += `<pre class=''>def arg__360 : byte = 0x40u8;
-def arg__358 : byte = 0;
-def arg__357 = u8.&(flags, arg__360);
-def cond__355 = u8.!=(arg__357, arg__358);
-if (cond__355) {
-	def memindex__356__365 = imm_readULEB32();
+window.traces["I32_LOAD8_U"]["scheduler ssad"] += `<pre class=''>def arg__521 : byte = 0x40u8;
+def arg__519 : byte = 0;
+def arg__518 = u8.&(flags, arg__521);
+def cond__516 = u8.!=(arg__518, arg__519);
+if (cond__516) {
+	def memindex__517__528 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__362__366 : u32 = 0u;
+	def memindex__523__529 : u32 = 0u;
 }
 // phis: 
-def cond__343 = m_isMemory64(memindex);
-if (cond__343) {
-	def offset__363 = imm_readULEB64();
+def cond__504 = m_isMemory64(memindex);
+if (cond__504) {
+	def offset__524 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u8(memindex, index, offset__363);
-	def eff__344 = push_u32(val);
+	def val = mach_readMemory64_u8(memindex, index, offset__524);
+	def eff__505 = push_u32(val);
 } else {
-	def offset__364 = imm_readULEB32();
+	def offset__525 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u8(memindex, index, offset__364);
-	def eff__349 = push_u32(val);
+	def val = mach_readMemory32_u8(memindex, index, offset__525);
+	def eff__510 = push_u32(val);
 }
 // phis: 
 </pre>`;
@@ -12314,7 +12090,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__349 push_u32"]
+	22["eff__510 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -12322,31 +12098,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__364 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__525 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__356__365 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__355 u8.!="]
+	41["memindex__517__528 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__358 0"]
-	8["arg__357 u8.&"]
+	5["arg__519 0"]
+	8["arg__518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__360 0x40u8"]
+	6["arg__521 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__362__366 0u"]
-	30["eff__344 push_u32"]
+	41 --> 11
+	43 --> 11
+	43["memindex__523__529 0u"]
+	30["eff__505 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -12354,40 +12130,40 @@ graph TD
 	28["val mach_readMemory64_u8"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__363 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__343 m_isMemory64"]
+	33 --> 28
+	33["offset__524 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__504 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I32_LOAD8_U"]["unlem_schedule"] = ''
 window.traces["I32_LOAD8_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__360 : byte = 0x40u8;
-def arg__357 = u8.&(flags, arg__360);
-def arg__358 : byte = 0;
-def cond__355 = u8.!=(arg__357, arg__358);
+def arg__521 : byte = 0x40u8;
+def arg__518 = u8.&(flags, arg__521);
+def arg__519 : byte = 0;
+def cond__516 = u8.!=(arg__518, arg__519);
 var memindex: u32;
-if (cond__355) {
-	def memindex__356__365 = imm_readULEB32();
+if (cond__516) {
+	def memindex__517__528 = imm_readULEB32();
 } else {
-	def memindex__362__366 : u32 = 0u;
+	def memindex__523__529 : u32 = 0u;
 }
-// phis: memindex <- memindex__356__365; memindex <- memindex__362__366; 
-def cond__343 = m_isMemory64(memindex);
-if (cond__343) {
-	def offset__363 = imm_readULEB64();
+// phis: memindex <- memindex__517__528; memindex <- memindex__523__529; 
+def cond__504 = m_isMemory64(memindex);
+if (cond__504) {
+	def offset__524 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u8(memindex, index, offset__363);
-	def eff__344 = push_u32(val);
+	def val = mach_readMemory64_u8(memindex, index, offset__524);
+	def eff__505 = push_u32(val);
 } else {
-	def offset__364 = imm_readULEB32();
+	def offset__525 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u8(memindex, index, offset__364);
-	def eff__349 = push_u32(val);
+	def val = mach_readMemory32_u8(memindex, index, offset__525);
+	def eff__510 = push_u32(val);
 }
 // phis: 
 </pre>`;
@@ -12407,7 +12183,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__349 push_u32"]
+	22["eff__510 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -12415,31 +12191,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__364__368 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__525__545 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__356__365 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__355 u8.!="]
+	41["memindex__517__528 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__358 0"]
-	8["arg__357 u8.&"]
+	5["arg__519 0"]
+	8["arg__518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__360 0x40u8"]
+	6["arg__521 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__362__366 0u"]
-	30["eff__344 push_u32"]
+	41 --> 11
+	43 --> 11
+	43["memindex__523__529 0u"]
+	30["eff__505 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -12447,15 +12223,15 @@ graph TD
 	28["val mach_readMemory64_u8"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__363__367 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__343 m_isMemory64"]
+	73 --> 28
+	73["offset__524__544 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__504 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I32_LOAD8_U_ul"]["post_surgery 259"] = ''
 window.traces["I32_LOAD8_U_ul"]["post_surgery 259"] += `<pre class='graph'>---
@@ -12472,7 +12248,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__349 push_u32"]
+	22["eff__510 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -12480,31 +12256,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__364__368 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__525__545 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__356__365__369 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__355 u8.!="]
+	81["memindex__517__528__548 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__358 0"]
-	8["arg__357 u8.&"]
+	5["arg__519 0"]
+	8["arg__518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__360 0x40u8"]
+	6["arg__521 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__362__366__370 0u"]
-	30["eff__344 push_u32"]
+	81 --> 11
+	83 --> 11
+	83["memindex__523__529__549 0u"]
+	30["eff__505 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -12512,15 +12288,15 @@ graph TD
 	28["val mach_readMemory64_u8"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__363__367 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__343 m_isMemory64"]
+	73 --> 28
+	73["offset__524__544 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__504 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I32_LOAD8_U"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD8_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -12537,23 +12313,23 @@ block_255 --> phi_254
 block_256 --> phi_254
 subgraph block_255["Block 255"]
 	direction TB
-	b255_42["offset__363__367 imm_readULEB64"]
+	b255_73["offset__524__544 imm_readULEB64"]
 	b255_24["index pop_u64"]
 	b255_28["val mach_readMemory64_u8"]
-	b255_30["eff__344 push_u32"]
-	b255_42 --> b255_24
+	b255_30["eff__505 push_u32"]
+	b255_73 --> b255_24
 	b255_24 --> b255_28
 	b255_28 --> b255_30
 end
 branch_253 --> block_255
 subgraph branch_253["Branch 253"]
-	br253_14["cond__343 m_isMemory64"]
+	br253_14["cond__504 m_isMemory64"]
 
 end
 block_257 --> branch_253
 subgraph block_257["Block 257"]
 	direction TB
-	b257_14["cond__343 m_isMemory64"]
+	b257_14["cond__504 m_isMemory64"]
 end
 phi_259 --> block_257
 subgraph phi_259["Phi 259"]
@@ -12570,21 +12346,21 @@ block_260 --> phi_259
 block_261 --> phi_259
 subgraph block_260["Block 260"]
 	direction TB
-	b260_45["memindex__356__365__369 imm_readULEB32"]
+	b260_81["memindex__517__528__548 imm_readULEB32"]
 end
 branch_258 --> block_260
 subgraph branch_258["Branch 258"]
-	br258_9["cond__355 u8.!="]
+	br258_9["cond__516 u8.!="]
 
 end
 block_262 --> branch_258
 subgraph block_262["Block 262"]
 	direction TB
 	b262_0[/"Start"\\]
-	b262_6["arg__360 0x40u8"]
-	b262_5["arg__358 0"]
-	b262_8["arg__357 u8.&"]
-	b262_9["cond__355 u8.!="]
+	b262_6["arg__521 0x40u8"]
+	b262_5["arg__519 0"]
+	b262_8["arg__518 u8.&"]
+	b262_9["cond__516 u8.!="]
 	b262_0 --> b262_6
 	b262_6 --> b262_5
 	b262_5 --> b262_8
@@ -12593,17 +12369,17 @@ end
 subgraph block_261["Block 261"]
 	direction TB
 	b261_3["flags imm_readU8"]
-	b261_47["memindex__362__366__370 0u"]
-	b261_3 --> b261_47
+	b261_83["memindex__523__529__549 0u"]
+	b261_3 --> b261_83
 end
 branch_258 --> block_261
 subgraph block_256["Block 256"]
 	direction TB
-	b256_44["offset__364__368 imm_readULEB32"]
+	b256_75["offset__525__545 imm_readULEB32"]
 	b256_16["index pop_u32"]
 	b256_20["val mach_readMemory32_u8"]
-	b256_22["eff__349 push_u32"]
-	b256_44 --> b256_16
+	b256_22["eff__510 push_u32"]
+	b256_75 --> b256_16
 	b256_16 --> b256_20
 	b256_20 --> b256_22
 end
@@ -12646,7 +12422,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__349 push_u32"]
+	22["eff__510 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -12654,31 +12430,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__364__368 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__525__545 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__356__365__369 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__355 u8.!="]
+	81["memindex__517__528__548 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__358 0"]
-	8["arg__357 u8.&"]
+	5["arg__519 0"]
+	8["arg__518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__360 0x40u8"]
+	6["arg__521 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__362__366__370 0u"]
-	30["eff__344 push_u32"]
+	81 --> 11
+	83 --> 11
+	83["memindex__523__529__549 0u"]
+	30["eff__505 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -12686,15 +12462,15 @@ graph TD
 	28["val mach_readMemory64_u8"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__363__367 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__343 m_isMemory64"]
+	73 --> 28
+	73["offset__524__544 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__504 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I32_LOAD8_U"]["chooseMerge"] = ''
 window.traces["I32_LOAD8_U"]["chooseMerge"] += `<pre class='graph'>---
@@ -12711,7 +12487,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__349 push_u32"]
+	22["eff__510 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -12719,31 +12495,31 @@ graph TD
 	20["val mach_readMemory32_u8"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__364__368 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__525__545 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__356__365__369 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__355 u8.!="]
+	81["memindex__517__528__548 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__358 0"]
-	8["arg__357 u8.&"]
+	5["arg__519 0"]
+	8["arg__518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__360 0x40u8"]
+	6["arg__521 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__362__366__370 0u"]
-	30["eff__344 push_u32"]
+	81 --> 11
+	83 --> 11
+	83["memindex__523__529__549 0u"]
+	30["eff__505 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -12751,40 +12527,40 @@ graph TD
 	28["val mach_readMemory64_u8"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__363__367 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__343 m_isMemory64"]
+	73 --> 28
+	73["offset__524__544 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__504 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I32_LOAD8_U"]["scheduled"] = ''
 window.traces["I32_LOAD8_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__360 : byte = 0x40u8;
-def arg__357 = u8.&(flags, arg__360);
-def arg__358 : byte = 0;
-def cond__355 = u8.!=(arg__357, arg__358);
+def arg__521 : byte = 0x40u8;
+def arg__518 = u8.&(flags, arg__521);
+def arg__519 : byte = 0;
+def cond__516 = u8.!=(arg__518, arg__519);
 var memindex: u32;
-if (cond__355) {
-	def memindex__356__365__369 = imm_readULEB32();
+if (cond__516) {
+	def memindex__517__528__548 = imm_readULEB32();
 } else {
-	def memindex__362__366__370 : u32 = 0u;
+	def memindex__523__529__549 : u32 = 0u;
 }
-// phis: memindex <- memindex__356__365__369; memindex <- memindex__362__366__370; 
-def cond__343 = m_isMemory64(memindex);
-if (cond__343) {
-	def offset__363__367 = imm_readULEB64();
+// phis: memindex <- memindex__517__528__548; memindex <- memindex__523__529__549; 
+def cond__504 = m_isMemory64(memindex);
+if (cond__504) {
+	def offset__524__544 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u8(memindex, index, offset__363__367);
-	def eff__344 = push_u32(val);
+	def val = mach_readMemory64_u8(memindex, index, offset__524__544);
+	def eff__505 = push_u32(val);
 } else {
-	def offset__364__368 = imm_readULEB32();
+	def offset__525__545 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u8(memindex, index, offset__364__368);
-	def eff__349 = push_u32(val);
+	def val = mach_readMemory32_u8(memindex, index, offset__525__545);
+	def eff__510 = push_u32(val);
 }
 // phis: 
 </pre>`;
@@ -12813,39 +12589,39 @@ window.traces["I32_LOAD16_S"] = {}
 window.traces["I32_LOAD16_S"]["parsed"] = ''
 window.traces["I32_LOAD16_S"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__388 : byte = 0;
-def arg__390 : byte = 0x40u8;
-def arg__389 = (flags);
-def arg__387 = u8.&(arg__389, arg__390);
-def cond__385 = u8.!=(arg__387, arg__388);
-if (cond__385) {
-	def memindex__386 = imm_readULEB32();
+def arg__581 : byte = 0;
+def arg__583 : byte = 0x40u8;
+def arg__582 = (flags);
+def arg__580 = u8.&(arg__582, arg__583);
+def cond__578 = u8.!=(arg__580, arg__581);
+if (cond__578) {
+	def memindex__579 = imm_readULEB32();
 }
-// phis: memindex <- memindex__386; 
-def arg__384 = (memindex);
-def cond__371 = m_isMemory64(arg__384);
-if (cond__371) {
+// phis: memindex <- memindex__579; 
+def arg__577 = (memindex);
+def cond__564 = m_isMemory64(arg__577);
+if (cond__564) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__377 = (offset);
-	def arg__376 = (index);
-	def arg__375 = (memindex);
-	def val = mach_readMemory64_u16(arg__375, arg__376, arg__377);
-	def arg__374 = (val);
-	def extend = U32_extend16_s(arg__374);
-	def arg__373 = (extend);
-	def eff__372 = push_u32(arg__373);
+	def arg__570 = (offset);
+	def arg__569 = (index);
+	def arg__568 = (memindex);
+	def val = mach_readMemory64_u16(arg__568, arg__569, arg__570);
+	def arg__567 = (val);
+	def extend = U32_extend16_s(arg__567);
+	def arg__566 = (extend);
+	def eff__565 = push_u32(arg__566);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__383 = (offset);
-	def arg__382 = (index);
-	def arg__381 = (memindex);
-	def val = mach_readMemory32_u16(arg__381, arg__382, arg__383);
-	def arg__380 = (val);
-	def extend = U32_extend16_s(arg__380);
-	def arg__379 = (extend);
-	def eff__378 = push_u32(arg__379);
+	def arg__576 = (offset);
+	def arg__575 = (index);
+	def arg__574 = (memindex);
+	def val = mach_readMemory32_u16(arg__574, arg__575, arg__576);
+	def arg__573 = (val);
+	def extend = U32_extend16_s(arg__573);
+	def arg__572 = (extend);
+	def eff__571 = push_u32(arg__572);
 }
 // phis: 
 </pre>`;
@@ -12864,7 +12640,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__378 push_u32"]
+	24["eff__571 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -12883,22 +12659,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__386 imm_readULEB32"]
+	10["memindex__579 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__385 u8.!="]
+	9["cond__578 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__388 0"]
-	8["arg__387 u8.&"]
+	5["arg__581 0"]
+	8["arg__580 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__390 0x40u8"]
+	6["arg__583 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__391 0u"]
-	34["eff__372 push_u32"]
+	4["memindex__584 0u"]
+	34["eff__565 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -12911,7 +12687,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__371 m_isMemory64"]
+	14["cond__564 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -12933,7 +12709,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__378 push_u32"]
+	24["eff__571 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -12952,22 +12728,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__386 imm_readULEB32"]
+	10["memindex__579 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__385 u8.!="]
+	9["cond__578 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__388 0"]
-	8["arg__387 u8.&"]
+	5["arg__581 0"]
+	8["arg__580 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__390 0x40u8"]
+	6["arg__583 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__392 0u"]
-	34["eff__372 push_u32"]
+	4["memindex__585 0u"]
+	34["eff__565 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -12980,7 +12756,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__371 m_isMemory64"]
+	14["cond__564 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -13002,7 +12778,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__378 push_u32"]
+	24["eff__571 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -13021,22 +12797,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__386 imm_readULEB32"]
+	10["memindex__579 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__385 u8.!="]
+	9["cond__578 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__388 0"]
-	8["arg__387 u8.&"]
+	5["arg__581 0"]
+	8["arg__580 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__390 0x40u8"]
+	6["arg__583 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__392 0u"]
-	34["eff__372 push_u32"]
+	4["memindex__585 0u"]
+	34["eff__565 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -13049,7 +12825,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__371 m_isMemory64"]
+	14["cond__564 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -13071,7 +12847,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__378 push_u32"]
+	24["eff__571 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -13081,31 +12857,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__394 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__587 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__386 imm_readULEB32"]
+	10["memindex__579 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__385 u8.!="]
+	9["cond__578 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__388 0"]
-	8["arg__387 u8.&"]
+	5["arg__581 0"]
+	8["arg__580 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__390 0x40u8"]
+	6["arg__583 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__392 0u"]
-	34["eff__372 push_u32"]
+	4["memindex__585 0u"]
+	34["eff__565 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -13115,15 +12891,15 @@ graph TD
 	30["val mach_readMemory64_u16"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__393 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__371 m_isMemory64"]
+	37 --> 30
+	37["offset__586 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__564 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I32_LOAD16_S"]["post_surgery 270"] = ''
 window.traces["I32_LOAD16_S"]["post_surgery 270"] += `<pre class='graph'>---
@@ -13140,7 +12916,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__378 push_u32"]
+	24["eff__571 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -13150,31 +12926,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__394 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__587 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__386__395 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__385 u8.!="]
+	45["memindex__579__590 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__578 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__388 0"]
-	8["arg__387 u8.&"]
+	5["arg__581 0"]
+	8["arg__580 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__390 0x40u8"]
+	6["arg__583 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__392__396 0u"]
-	34["eff__372 push_u32"]
+	45 --> 11
+	47 --> 11
+	47["memindex__585__591 0u"]
+	34["eff__565 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -13184,15 +12960,15 @@ graph TD
 	30["val mach_readMemory64_u16"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__393 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__371 m_isMemory64"]
+	37 --> 30
+	37["offset__586 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__564 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I32_LOAD16_S"]["schedulerMermaid"] = ''
 window.traces["I32_LOAD16_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -13209,25 +12985,25 @@ block_266 --> phi_265
 block_267 --> phi_265
 subgraph block_266["Block 266"]
 	direction TB
-	b266_38["offset__393 imm_readULEB64"]
+	b266_37["offset__586 imm_readULEB64"]
 	b266_26["index pop_u64"]
 	b266_30["val mach_readMemory64_u16"]
 	b266_32["extend U32_extend16_s"]
-	b266_34["eff__372 push_u32"]
-	b266_38 --> b266_26
+	b266_34["eff__565 push_u32"]
+	b266_37 --> b266_26
 	b266_26 --> b266_30
 	b266_30 --> b266_32
 	b266_32 --> b266_34
 end
 branch_264 --> block_266
 subgraph branch_264["Branch 264"]
-	br264_14["cond__371 m_isMemory64"]
+	br264_14["cond__564 m_isMemory64"]
 
 end
 block_268 --> branch_264
 subgraph block_268["Block 268"]
 	direction TB
-	b268_14["cond__371 m_isMemory64"]
+	b268_14["cond__564 m_isMemory64"]
 end
 phi_270 --> block_268
 subgraph phi_270["Phi 270"]
@@ -13244,21 +13020,21 @@ block_271 --> phi_270
 block_272 --> phi_270
 subgraph block_271["Block 271"]
 	direction TB
-	b271_41["memindex__386__395 imm_readULEB32"]
+	b271_45["memindex__579__590 imm_readULEB32"]
 end
 branch_269 --> block_271
 subgraph branch_269["Branch 269"]
-	br269_9["cond__385 u8.!="]
+	br269_9["cond__578 u8.!="]
 
 end
 block_273 --> branch_269
 subgraph block_273["Block 273"]
 	direction TB
 	b273_0[/"Start"\\]
-	b273_6["arg__390 0x40u8"]
-	b273_5["arg__388 0"]
-	b273_8["arg__387 u8.&"]
-	b273_9["cond__385 u8.!="]
+	b273_6["arg__583 0x40u8"]
+	b273_5["arg__581 0"]
+	b273_8["arg__580 u8.&"]
+	b273_9["cond__578 u8.!="]
 	b273_0 --> b273_6
 	b273_6 --> b273_5
 	b273_5 --> b273_8
@@ -13267,18 +13043,18 @@ end
 subgraph block_272["Block 272"]
 	direction TB
 	b272_3["flags imm_readU8"]
-	b272_43["memindex__392__396 0u"]
-	b272_3 --> b272_43
+	b272_47["memindex__585__591 0u"]
+	b272_3 --> b272_47
 end
 branch_269 --> block_272
 subgraph block_267["Block 267"]
 	direction TB
-	b267_40["offset__394 imm_readULEB32"]
+	b267_39["offset__587 imm_readULEB32"]
 	b267_16["index pop_u32"]
 	b267_20["val mach_readMemory32_u16"]
 	b267_22["extend U32_extend16_s"]
-	b267_24["eff__378 push_u32"]
-	b267_40 --> b267_16
+	b267_24["eff__571 push_u32"]
+	b267_39 --> b267_16
 	b267_16 --> b267_20
 	b267_20 --> b267_22
 	b267_22 --> b267_24
@@ -13287,30 +13063,30 @@ branch_264 --> block_267
 
 </pre>`;
 window.traces["I32_LOAD16_S"]["scheduler ssad"] = ''
-window.traces["I32_LOAD16_S"]["scheduler ssad"] += `<pre class=''>def arg__390 : byte = 0x40u8;
-def arg__388 : byte = 0;
-def arg__387 = u8.&(flags, arg__390);
-def cond__385 = u8.!=(arg__387, arg__388);
-if (cond__385) {
-	def memindex__386__395 = imm_readULEB32();
+window.traces["I32_LOAD16_S"]["scheduler ssad"] += `<pre class=''>def arg__583 : byte = 0x40u8;
+def arg__581 : byte = 0;
+def arg__580 = u8.&(flags, arg__583);
+def cond__578 = u8.!=(arg__580, arg__581);
+if (cond__578) {
+	def memindex__579__590 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__392__396 : u32 = 0u;
+	def memindex__585__591 : u32 = 0u;
 }
 // phis: 
-def cond__371 = m_isMemory64(memindex);
-if (cond__371) {
-	def offset__393 = imm_readULEB64();
+def cond__564 = m_isMemory64(memindex);
+if (cond__564) {
+	def offset__586 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u16(memindex, index, offset__393);
+	def val = mach_readMemory64_u16(memindex, index, offset__586);
 	def extend = U32_extend16_s(val);
-	def eff__372 = push_u32(extend);
+	def eff__565 = push_u32(extend);
 } else {
-	def offset__394 = imm_readULEB32();
+	def offset__587 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u16(memindex, index, offset__394);
+	def val = mach_readMemory32_u16(memindex, index, offset__587);
 	def extend = U32_extend16_s(val);
-	def eff__378 = push_u32(extend);
+	def eff__571 = push_u32(extend);
 }
 // phis: 
 </pre>`;
@@ -13329,7 +13105,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__378 push_u32"]
+	24["eff__571 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -13339,31 +13115,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__394 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__587 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__386__395 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__385 u8.!="]
+	45["memindex__579__590 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__578 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__388 0"]
-	8["arg__387 u8.&"]
+	5["arg__581 0"]
+	8["arg__580 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__390 0x40u8"]
+	6["arg__583 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__392__396 0u"]
-	34["eff__372 push_u32"]
+	45 --> 11
+	47 --> 11
+	47["memindex__585__591 0u"]
+	34["eff__565 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -13373,42 +13149,42 @@ graph TD
 	30["val mach_readMemory64_u16"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__393 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__371 m_isMemory64"]
+	37 --> 30
+	37["offset__586 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__564 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I32_LOAD16_S"]["unlem_schedule"] = ''
 window.traces["I32_LOAD16_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__390 : byte = 0x40u8;
-def arg__387 = u8.&(flags, arg__390);
-def arg__388 : byte = 0;
-def cond__385 = u8.!=(arg__387, arg__388);
+def arg__583 : byte = 0x40u8;
+def arg__580 = u8.&(flags, arg__583);
+def arg__581 : byte = 0;
+def cond__578 = u8.!=(arg__580, arg__581);
 var memindex: u32;
-if (cond__385) {
-	def memindex__386__395 = imm_readULEB32();
+if (cond__578) {
+	def memindex__579__590 = imm_readULEB32();
 } else {
-	def memindex__392__396 : u32 = 0u;
+	def memindex__585__591 : u32 = 0u;
 }
-// phis: memindex <- memindex__386__395; memindex <- memindex__392__396; 
-def cond__371 = m_isMemory64(memindex);
-if (cond__371) {
-	def offset__393 = imm_readULEB64();
+// phis: memindex <- memindex__579__590; memindex <- memindex__585__591; 
+def cond__564 = m_isMemory64(memindex);
+if (cond__564) {
+	def offset__586 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u16(memindex, index, offset__393);
+	def val = mach_readMemory64_u16(memindex, index, offset__586);
 	def extend = U32_extend16_s(val);
-	def eff__372 = push_u32(extend);
+	def eff__565 = push_u32(extend);
 } else {
-	def offset__394 = imm_readULEB32();
+	def offset__587 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u16(memindex, index, offset__394);
+	def val = mach_readMemory32_u16(memindex, index, offset__587);
 	def extend = U32_extend16_s(val);
-	def eff__378 = push_u32(extend);
+	def eff__571 = push_u32(extend);
 }
 // phis: 
 </pre>`;
@@ -13428,7 +13204,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__378 push_u32"]
+	24["eff__571 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -13438,31 +13214,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__394__398 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__587__607 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__386__395 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__385 u8.!="]
+	45["memindex__579__590 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__578 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__388 0"]
-	8["arg__387 u8.&"]
+	5["arg__581 0"]
+	8["arg__580 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__390 0x40u8"]
+	6["arg__583 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__392__396 0u"]
-	34["eff__372 push_u32"]
+	45 --> 11
+	47 --> 11
+	47["memindex__585__591 0u"]
+	34["eff__565 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -13472,15 +13248,15 @@ graph TD
 	30["val mach_readMemory64_u16"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__393__397 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__371 m_isMemory64"]
+	77 --> 30
+	77["offset__586__606 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__564 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I32_LOAD16_S_ul"]["post_surgery 281"] = ''
 window.traces["I32_LOAD16_S_ul"]["post_surgery 281"] += `<pre class='graph'>---
@@ -13497,7 +13273,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__378 push_u32"]
+	24["eff__571 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -13507,31 +13283,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__394__398 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__587__607 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__386__395__399 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__385 u8.!="]
+	85["memindex__579__590__610 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__578 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__388 0"]
-	8["arg__387 u8.&"]
+	5["arg__581 0"]
+	8["arg__580 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__390 0x40u8"]
+	6["arg__583 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__392__396__400 0u"]
-	34["eff__372 push_u32"]
+	85 --> 11
+	87 --> 11
+	87["memindex__585__591__611 0u"]
+	34["eff__565 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -13541,15 +13317,15 @@ graph TD
 	30["val mach_readMemory64_u16"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__393__397 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__371 m_isMemory64"]
+	77 --> 30
+	77["offset__586__606 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__564 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I32_LOAD16_S"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD16_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -13566,25 +13342,25 @@ block_277 --> phi_276
 block_278 --> phi_276
 subgraph block_277["Block 277"]
 	direction TB
-	b277_46["offset__393__397 imm_readULEB64"]
+	b277_77["offset__586__606 imm_readULEB64"]
 	b277_26["index pop_u64"]
 	b277_30["val mach_readMemory64_u16"]
 	b277_32["extend U32_extend16_s"]
-	b277_34["eff__372 push_u32"]
-	b277_46 --> b277_26
+	b277_34["eff__565 push_u32"]
+	b277_77 --> b277_26
 	b277_26 --> b277_30
 	b277_30 --> b277_32
 	b277_32 --> b277_34
 end
 branch_275 --> block_277
 subgraph branch_275["Branch 275"]
-	br275_14["cond__371 m_isMemory64"]
+	br275_14["cond__564 m_isMemory64"]
 
 end
 block_279 --> branch_275
 subgraph block_279["Block 279"]
 	direction TB
-	b279_14["cond__371 m_isMemory64"]
+	b279_14["cond__564 m_isMemory64"]
 end
 phi_281 --> block_279
 subgraph phi_281["Phi 281"]
@@ -13601,21 +13377,21 @@ block_282 --> phi_281
 block_283 --> phi_281
 subgraph block_282["Block 282"]
 	direction TB
-	b282_49["memindex__386__395__399 imm_readULEB32"]
+	b282_85["memindex__579__590__610 imm_readULEB32"]
 end
 branch_280 --> block_282
 subgraph branch_280["Branch 280"]
-	br280_9["cond__385 u8.!="]
+	br280_9["cond__578 u8.!="]
 
 end
 block_284 --> branch_280
 subgraph block_284["Block 284"]
 	direction TB
 	b284_0[/"Start"\\]
-	b284_6["arg__390 0x40u8"]
-	b284_5["arg__388 0"]
-	b284_8["arg__387 u8.&"]
-	b284_9["cond__385 u8.!="]
+	b284_6["arg__583 0x40u8"]
+	b284_5["arg__581 0"]
+	b284_8["arg__580 u8.&"]
+	b284_9["cond__578 u8.!="]
 	b284_0 --> b284_6
 	b284_6 --> b284_5
 	b284_5 --> b284_8
@@ -13624,18 +13400,18 @@ end
 subgraph block_283["Block 283"]
 	direction TB
 	b283_3["flags imm_readU8"]
-	b283_51["memindex__392__396__400 0u"]
-	b283_3 --> b283_51
+	b283_87["memindex__585__591__611 0u"]
+	b283_3 --> b283_87
 end
 branch_280 --> block_283
 subgraph block_278["Block 278"]
 	direction TB
-	b278_48["offset__394__398 imm_readULEB32"]
+	b278_79["offset__587__607 imm_readULEB32"]
 	b278_16["index pop_u32"]
 	b278_20["val mach_readMemory32_u16"]
 	b278_22["extend U32_extend16_s"]
-	b278_24["eff__378 push_u32"]
-	b278_48 --> b278_16
+	b278_24["eff__571 push_u32"]
+	b278_79 --> b278_16
 	b278_16 --> b278_20
 	b278_20 --> b278_22
 	b278_22 --> b278_24
@@ -13681,7 +13457,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__378 push_u32"]
+	24["eff__571 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -13691,31 +13467,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__394__398 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__587__607 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__386__395__399 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__385 u8.!="]
+	85["memindex__579__590__610 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__578 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__388 0"]
-	8["arg__387 u8.&"]
+	5["arg__581 0"]
+	8["arg__580 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__390 0x40u8"]
+	6["arg__583 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__392__396__400 0u"]
-	34["eff__372 push_u32"]
+	85 --> 11
+	87 --> 11
+	87["memindex__585__591__611 0u"]
+	34["eff__565 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -13725,15 +13501,15 @@ graph TD
 	30["val mach_readMemory64_u16"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__393__397 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__371 m_isMemory64"]
+	77 --> 30
+	77["offset__586__606 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__564 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I32_LOAD16_S"]["chooseMerge"] = ''
 window.traces["I32_LOAD16_S"]["chooseMerge"] += `<pre class='graph'>---
@@ -13750,7 +13526,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__378 push_u32"]
+	24["eff__571 push_u32"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -13760,31 +13536,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__394__398 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__587__607 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__386__395__399 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__385 u8.!="]
+	85["memindex__579__590__610 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__578 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__388 0"]
-	8["arg__387 u8.&"]
+	5["arg__581 0"]
+	8["arg__580 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__390 0x40u8"]
+	6["arg__583 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__392__396__400 0u"]
-	34["eff__372 push_u32"]
+	85 --> 11
+	87 --> 11
+	87["memindex__585__591__611 0u"]
+	34["eff__565 push_u32"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -13794,42 +13570,42 @@ graph TD
 	30["val mach_readMemory64_u16"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__393__397 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__371 m_isMemory64"]
+	77 --> 30
+	77["offset__586__606 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__564 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I32_LOAD16_S"]["scheduled"] = ''
 window.traces["I32_LOAD16_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__390 : byte = 0x40u8;
-def arg__387 = u8.&(flags, arg__390);
-def arg__388 : byte = 0;
-def cond__385 = u8.!=(arg__387, arg__388);
+def arg__583 : byte = 0x40u8;
+def arg__580 = u8.&(flags, arg__583);
+def arg__581 : byte = 0;
+def cond__578 = u8.!=(arg__580, arg__581);
 var memindex: u32;
-if (cond__385) {
-	def memindex__386__395__399 = imm_readULEB32();
+if (cond__578) {
+	def memindex__579__590__610 = imm_readULEB32();
 } else {
-	def memindex__392__396__400 : u32 = 0u;
+	def memindex__585__591__611 : u32 = 0u;
 }
-// phis: memindex <- memindex__386__395__399; memindex <- memindex__392__396__400; 
-def cond__371 = m_isMemory64(memindex);
-if (cond__371) {
-	def offset__393__397 = imm_readULEB64();
+// phis: memindex <- memindex__579__590__610; memindex <- memindex__585__591__611; 
+def cond__564 = m_isMemory64(memindex);
+if (cond__564) {
+	def offset__586__606 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u16(memindex, index, offset__393__397);
+	def val = mach_readMemory64_u16(memindex, index, offset__586__606);
 	def extend = U32_extend16_s(val);
-	def eff__372 = push_u32(extend);
+	def eff__565 = push_u32(extend);
 } else {
-	def offset__394__398 = imm_readULEB32();
+	def offset__587__607 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u16(memindex, index, offset__394__398);
+	def val = mach_readMemory32_u16(memindex, index, offset__587__607);
 	def extend = U32_extend16_s(val);
-	def eff__378 = push_u32(extend);
+	def eff__571 = push_u32(extend);
 }
 // phis: 
 </pre>`;
@@ -13860,35 +13636,35 @@ window.traces["I32_LOAD16_U"] = {}
 window.traces["I32_LOAD16_U"]["parsed"] = ''
 window.traces["I32_LOAD16_U"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__416 : byte = 0;
-def arg__418 : byte = 0x40u8;
-def arg__417 = (flags);
-def arg__415 = u8.&(arg__417, arg__418);
-def cond__413 = u8.!=(arg__415, arg__416);
-if (cond__413) {
-	def memindex__414 = imm_readULEB32();
+def arg__641 : byte = 0;
+def arg__643 : byte = 0x40u8;
+def arg__642 = (flags);
+def arg__640 = u8.&(arg__642, arg__643);
+def cond__638 = u8.!=(arg__640, arg__641);
+if (cond__638) {
+	def memindex__639 = imm_readULEB32();
 }
-// phis: memindex <- memindex__414; 
-def arg__412 = (memindex);
-def cond__401 = m_isMemory64(arg__412);
-if (cond__401) {
+// phis: memindex <- memindex__639; 
+def arg__637 = (memindex);
+def cond__626 = m_isMemory64(arg__637);
+if (cond__626) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__406 = (offset);
-	def arg__405 = (index);
-	def arg__404 = (memindex);
-	def val = mach_readMemory64_u16(arg__404, arg__405, arg__406);
-	def arg__403 = (val);
-	def eff__402 = push_u32(arg__403);
+	def arg__631 = (offset);
+	def arg__630 = (index);
+	def arg__629 = (memindex);
+	def val = mach_readMemory64_u16(arg__629, arg__630, arg__631);
+	def arg__628 = (val);
+	def eff__627 = push_u32(arg__628);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__411 = (offset);
-	def arg__410 = (index);
-	def arg__409 = (memindex);
-	def val = mach_readMemory32_u16(arg__409, arg__410, arg__411);
-	def arg__408 = (val);
-	def eff__407 = push_u32(arg__408);
+	def arg__636 = (offset);
+	def arg__635 = (index);
+	def arg__634 = (memindex);
+	def val = mach_readMemory32_u16(arg__634, arg__635, arg__636);
+	def arg__633 = (val);
+	def eff__632 = push_u32(arg__633);
 }
 // phis: 
 </pre>`;
@@ -13907,7 +13683,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__407 push_u32"]
+	22["eff__632 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -13924,22 +13700,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__414 imm_readULEB32"]
+	10["memindex__639 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__413 u8.!="]
+	9["cond__638 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__416 0"]
-	8["arg__415 u8.&"]
+	5["arg__641 0"]
+	8["arg__640 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__418 0x40u8"]
+	6["arg__643 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__419 0u"]
-	30["eff__402 push_u32"]
+	4["memindex__644 0u"]
+	30["eff__627 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -13950,7 +13726,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__401 m_isMemory64"]
+	14["cond__626 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -13972,7 +13748,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__407 push_u32"]
+	22["eff__632 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -13989,22 +13765,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__414 imm_readULEB32"]
+	10["memindex__639 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__413 u8.!="]
+	9["cond__638 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__416 0"]
-	8["arg__415 u8.&"]
+	5["arg__641 0"]
+	8["arg__640 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__418 0x40u8"]
+	6["arg__643 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__420 0u"]
-	30["eff__402 push_u32"]
+	4["memindex__645 0u"]
+	30["eff__627 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -14015,7 +13791,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__401 m_isMemory64"]
+	14["cond__626 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -14037,7 +13813,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__407 push_u32"]
+	22["eff__632 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -14054,22 +13830,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__414 imm_readULEB32"]
+	10["memindex__639 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__413 u8.!="]
+	9["cond__638 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__416 0"]
-	8["arg__415 u8.&"]
+	5["arg__641 0"]
+	8["arg__640 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__418 0x40u8"]
+	6["arg__643 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__420 0u"]
-	30["eff__402 push_u32"]
+	4["memindex__645 0u"]
+	30["eff__627 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -14080,7 +13856,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__401 m_isMemory64"]
+	14["cond__626 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -14102,7 +13878,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__407 push_u32"]
+	22["eff__632 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -14110,31 +13886,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__422 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__647 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__414 imm_readULEB32"]
+	10["memindex__639 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__413 u8.!="]
+	9["cond__638 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__416 0"]
-	8["arg__415 u8.&"]
+	5["arg__641 0"]
+	8["arg__640 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__418 0x40u8"]
+	6["arg__643 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__420 0u"]
-	30["eff__402 push_u32"]
+	4["memindex__645 0u"]
+	30["eff__627 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -14142,15 +13918,15 @@ graph TD
 	28["val mach_readMemory64_u16"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__421 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__401 m_isMemory64"]
+	33 --> 28
+	33["offset__646 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__626 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I32_LOAD16_U"]["post_surgery 292"] = ''
 window.traces["I32_LOAD16_U"]["post_surgery 292"] += `<pre class='graph'>---
@@ -14167,7 +13943,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__407 push_u32"]
+	22["eff__632 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -14175,31 +13951,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__422 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__647 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__414__423 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__413 u8.!="]
+	41["memindex__639__650 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__638 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__416 0"]
-	8["arg__415 u8.&"]
+	5["arg__641 0"]
+	8["arg__640 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__418 0x40u8"]
+	6["arg__643 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__420__424 0u"]
-	30["eff__402 push_u32"]
+	41 --> 11
+	43 --> 11
+	43["memindex__645__651 0u"]
+	30["eff__627 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -14207,15 +13983,15 @@ graph TD
 	28["val mach_readMemory64_u16"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__421 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__401 m_isMemory64"]
+	33 --> 28
+	33["offset__646 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__626 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I32_LOAD16_U"]["schedulerMermaid"] = ''
 window.traces["I32_LOAD16_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -14232,23 +14008,23 @@ block_288 --> phi_287
 block_289 --> phi_287
 subgraph block_288["Block 288"]
 	direction TB
-	b288_34["offset__421 imm_readULEB64"]
+	b288_33["offset__646 imm_readULEB64"]
 	b288_24["index pop_u64"]
 	b288_28["val mach_readMemory64_u16"]
-	b288_30["eff__402 push_u32"]
-	b288_34 --> b288_24
+	b288_30["eff__627 push_u32"]
+	b288_33 --> b288_24
 	b288_24 --> b288_28
 	b288_28 --> b288_30
 end
 branch_286 --> block_288
 subgraph branch_286["Branch 286"]
-	br286_14["cond__401 m_isMemory64"]
+	br286_14["cond__626 m_isMemory64"]
 
 end
 block_290 --> branch_286
 subgraph block_290["Block 290"]
 	direction TB
-	b290_14["cond__401 m_isMemory64"]
+	b290_14["cond__626 m_isMemory64"]
 end
 phi_292 --> block_290
 subgraph phi_292["Phi 292"]
@@ -14265,21 +14041,21 @@ block_293 --> phi_292
 block_294 --> phi_292
 subgraph block_293["Block 293"]
 	direction TB
-	b293_37["memindex__414__423 imm_readULEB32"]
+	b293_41["memindex__639__650 imm_readULEB32"]
 end
 branch_291 --> block_293
 subgraph branch_291["Branch 291"]
-	br291_9["cond__413 u8.!="]
+	br291_9["cond__638 u8.!="]
 
 end
 block_295 --> branch_291
 subgraph block_295["Block 295"]
 	direction TB
 	b295_0[/"Start"\\]
-	b295_6["arg__418 0x40u8"]
-	b295_5["arg__416 0"]
-	b295_8["arg__415 u8.&"]
-	b295_9["cond__413 u8.!="]
+	b295_6["arg__643 0x40u8"]
+	b295_5["arg__641 0"]
+	b295_8["arg__640 u8.&"]
+	b295_9["cond__638 u8.!="]
 	b295_0 --> b295_6
 	b295_6 --> b295_5
 	b295_5 --> b295_8
@@ -14288,17 +14064,17 @@ end
 subgraph block_294["Block 294"]
 	direction TB
 	b294_3["flags imm_readU8"]
-	b294_39["memindex__420__424 0u"]
-	b294_3 --> b294_39
+	b294_43["memindex__645__651 0u"]
+	b294_3 --> b294_43
 end
 branch_291 --> block_294
 subgraph block_289["Block 289"]
 	direction TB
-	b289_36["offset__422 imm_readULEB32"]
+	b289_35["offset__647 imm_readULEB32"]
 	b289_16["index pop_u32"]
 	b289_20["val mach_readMemory32_u16"]
-	b289_22["eff__407 push_u32"]
-	b289_36 --> b289_16
+	b289_22["eff__632 push_u32"]
+	b289_35 --> b289_16
 	b289_16 --> b289_20
 	b289_20 --> b289_22
 end
@@ -14306,28 +14082,28 @@ branch_286 --> block_289
 
 </pre>`;
 window.traces["I32_LOAD16_U"]["scheduler ssad"] = ''
-window.traces["I32_LOAD16_U"]["scheduler ssad"] += `<pre class=''>def arg__418 : byte = 0x40u8;
-def arg__416 : byte = 0;
-def arg__415 = u8.&(flags, arg__418);
-def cond__413 = u8.!=(arg__415, arg__416);
-if (cond__413) {
-	def memindex__414__423 = imm_readULEB32();
+window.traces["I32_LOAD16_U"]["scheduler ssad"] += `<pre class=''>def arg__643 : byte = 0x40u8;
+def arg__641 : byte = 0;
+def arg__640 = u8.&(flags, arg__643);
+def cond__638 = u8.!=(arg__640, arg__641);
+if (cond__638) {
+	def memindex__639__650 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__420__424 : u32 = 0u;
+	def memindex__645__651 : u32 = 0u;
 }
 // phis: 
-def cond__401 = m_isMemory64(memindex);
-if (cond__401) {
-	def offset__421 = imm_readULEB64();
+def cond__626 = m_isMemory64(memindex);
+if (cond__626) {
+	def offset__646 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u16(memindex, index, offset__421);
-	def eff__402 = push_u32(val);
+	def val = mach_readMemory64_u16(memindex, index, offset__646);
+	def eff__627 = push_u32(val);
 } else {
-	def offset__422 = imm_readULEB32();
+	def offset__647 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u16(memindex, index, offset__422);
-	def eff__407 = push_u32(val);
+	def val = mach_readMemory32_u16(memindex, index, offset__647);
+	def eff__632 = push_u32(val);
 }
 // phis: 
 </pre>`;
@@ -14346,7 +14122,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__407 push_u32"]
+	22["eff__632 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -14354,31 +14130,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__422 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__647 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__414__423 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__413 u8.!="]
+	41["memindex__639__650 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__638 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__416 0"]
-	8["arg__415 u8.&"]
+	5["arg__641 0"]
+	8["arg__640 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__418 0x40u8"]
+	6["arg__643 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__420__424 0u"]
-	30["eff__402 push_u32"]
+	41 --> 11
+	43 --> 11
+	43["memindex__645__651 0u"]
+	30["eff__627 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -14386,40 +14162,40 @@ graph TD
 	28["val mach_readMemory64_u16"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__421 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__401 m_isMemory64"]
+	33 --> 28
+	33["offset__646 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__626 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I32_LOAD16_U"]["unlem_schedule"] = ''
 window.traces["I32_LOAD16_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__418 : byte = 0x40u8;
-def arg__415 = u8.&(flags, arg__418);
-def arg__416 : byte = 0;
-def cond__413 = u8.!=(arg__415, arg__416);
+def arg__643 : byte = 0x40u8;
+def arg__640 = u8.&(flags, arg__643);
+def arg__641 : byte = 0;
+def cond__638 = u8.!=(arg__640, arg__641);
 var memindex: u32;
-if (cond__413) {
-	def memindex__414__423 = imm_readULEB32();
+if (cond__638) {
+	def memindex__639__650 = imm_readULEB32();
 } else {
-	def memindex__420__424 : u32 = 0u;
+	def memindex__645__651 : u32 = 0u;
 }
-// phis: memindex <- memindex__414__423; memindex <- memindex__420__424; 
-def cond__401 = m_isMemory64(memindex);
-if (cond__401) {
-	def offset__421 = imm_readULEB64();
+// phis: memindex <- memindex__639__650; memindex <- memindex__645__651; 
+def cond__626 = m_isMemory64(memindex);
+if (cond__626) {
+	def offset__646 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u16(memindex, index, offset__421);
-	def eff__402 = push_u32(val);
+	def val = mach_readMemory64_u16(memindex, index, offset__646);
+	def eff__627 = push_u32(val);
 } else {
-	def offset__422 = imm_readULEB32();
+	def offset__647 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u16(memindex, index, offset__422);
-	def eff__407 = push_u32(val);
+	def val = mach_readMemory32_u16(memindex, index, offset__647);
+	def eff__632 = push_u32(val);
 }
 // phis: 
 </pre>`;
@@ -14439,7 +14215,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__407 push_u32"]
+	22["eff__632 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -14447,31 +14223,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__422__426 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__647__667 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__414__423 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__413 u8.!="]
+	41["memindex__639__650 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__638 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__416 0"]
-	8["arg__415 u8.&"]
+	5["arg__641 0"]
+	8["arg__640 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__418 0x40u8"]
+	6["arg__643 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__420__424 0u"]
-	30["eff__402 push_u32"]
+	41 --> 11
+	43 --> 11
+	43["memindex__645__651 0u"]
+	30["eff__627 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -14479,15 +14255,15 @@ graph TD
 	28["val mach_readMemory64_u16"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__421__425 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__401 m_isMemory64"]
+	73 --> 28
+	73["offset__646__666 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__626 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I32_LOAD16_U_ul"]["post_surgery 303"] = ''
 window.traces["I32_LOAD16_U_ul"]["post_surgery 303"] += `<pre class='graph'>---
@@ -14504,7 +14280,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__407 push_u32"]
+	22["eff__632 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -14512,31 +14288,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__422__426 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__647__667 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__414__423__427 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__413 u8.!="]
+	81["memindex__639__650__670 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__638 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__416 0"]
-	8["arg__415 u8.&"]
+	5["arg__641 0"]
+	8["arg__640 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__418 0x40u8"]
+	6["arg__643 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__420__424__428 0u"]
-	30["eff__402 push_u32"]
+	81 --> 11
+	83 --> 11
+	83["memindex__645__651__671 0u"]
+	30["eff__627 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -14544,15 +14320,15 @@ graph TD
 	28["val mach_readMemory64_u16"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__421__425 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__401 m_isMemory64"]
+	73 --> 28
+	73["offset__646__666 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__626 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I32_LOAD16_U"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD16_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -14569,23 +14345,23 @@ block_299 --> phi_298
 block_300 --> phi_298
 subgraph block_299["Block 299"]
 	direction TB
-	b299_42["offset__421__425 imm_readULEB64"]
+	b299_73["offset__646__666 imm_readULEB64"]
 	b299_24["index pop_u64"]
 	b299_28["val mach_readMemory64_u16"]
-	b299_30["eff__402 push_u32"]
-	b299_42 --> b299_24
+	b299_30["eff__627 push_u32"]
+	b299_73 --> b299_24
 	b299_24 --> b299_28
 	b299_28 --> b299_30
 end
 branch_297 --> block_299
 subgraph branch_297["Branch 297"]
-	br297_14["cond__401 m_isMemory64"]
+	br297_14["cond__626 m_isMemory64"]
 
 end
 block_301 --> branch_297
 subgraph block_301["Block 301"]
 	direction TB
-	b301_14["cond__401 m_isMemory64"]
+	b301_14["cond__626 m_isMemory64"]
 end
 phi_303 --> block_301
 subgraph phi_303["Phi 303"]
@@ -14602,21 +14378,21 @@ block_304 --> phi_303
 block_305 --> phi_303
 subgraph block_304["Block 304"]
 	direction TB
-	b304_45["memindex__414__423__427 imm_readULEB32"]
+	b304_81["memindex__639__650__670 imm_readULEB32"]
 end
 branch_302 --> block_304
 subgraph branch_302["Branch 302"]
-	br302_9["cond__413 u8.!="]
+	br302_9["cond__638 u8.!="]
 
 end
 block_306 --> branch_302
 subgraph block_306["Block 306"]
 	direction TB
 	b306_0[/"Start"\\]
-	b306_6["arg__418 0x40u8"]
-	b306_5["arg__416 0"]
-	b306_8["arg__415 u8.&"]
-	b306_9["cond__413 u8.!="]
+	b306_6["arg__643 0x40u8"]
+	b306_5["arg__641 0"]
+	b306_8["arg__640 u8.&"]
+	b306_9["cond__638 u8.!="]
 	b306_0 --> b306_6
 	b306_6 --> b306_5
 	b306_5 --> b306_8
@@ -14625,17 +14401,17 @@ end
 subgraph block_305["Block 305"]
 	direction TB
 	b305_3["flags imm_readU8"]
-	b305_47["memindex__420__424__428 0u"]
-	b305_3 --> b305_47
+	b305_83["memindex__645__651__671 0u"]
+	b305_3 --> b305_83
 end
 branch_302 --> block_305
 subgraph block_300["Block 300"]
 	direction TB
-	b300_44["offset__422__426 imm_readULEB32"]
+	b300_75["offset__647__667 imm_readULEB32"]
 	b300_16["index pop_u32"]
 	b300_20["val mach_readMemory32_u16"]
-	b300_22["eff__407 push_u32"]
-	b300_44 --> b300_16
+	b300_22["eff__632 push_u32"]
+	b300_75 --> b300_16
 	b300_16 --> b300_20
 	b300_20 --> b300_22
 end
@@ -14678,7 +14454,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__407 push_u32"]
+	22["eff__632 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -14686,31 +14462,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__422__426 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__647__667 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__414__423__427 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__413 u8.!="]
+	81["memindex__639__650__670 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__638 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__416 0"]
-	8["arg__415 u8.&"]
+	5["arg__641 0"]
+	8["arg__640 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__418 0x40u8"]
+	6["arg__643 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__420__424__428 0u"]
-	30["eff__402 push_u32"]
+	81 --> 11
+	83 --> 11
+	83["memindex__645__651__671 0u"]
+	30["eff__627 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -14718,15 +14494,15 @@ graph TD
 	28["val mach_readMemory64_u16"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__421__425 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__401 m_isMemory64"]
+	73 --> 28
+	73["offset__646__666 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__626 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I32_LOAD16_U"]["chooseMerge"] = ''
 window.traces["I32_LOAD16_U"]["chooseMerge"] += `<pre class='graph'>---
@@ -14743,7 +14519,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__407 push_u32"]
+	22["eff__632 push_u32"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -14751,31 +14527,31 @@ graph TD
 	20["val mach_readMemory32_u16"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__422__426 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__647__667 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__414__423__427 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__413 u8.!="]
+	81["memindex__639__650__670 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__638 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__416 0"]
-	8["arg__415 u8.&"]
+	5["arg__641 0"]
+	8["arg__640 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__418 0x40u8"]
+	6["arg__643 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__420__424__428 0u"]
-	30["eff__402 push_u32"]
+	81 --> 11
+	83 --> 11
+	83["memindex__645__651__671 0u"]
+	30["eff__627 push_u32"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -14783,40 +14559,40 @@ graph TD
 	28["val mach_readMemory64_u16"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__421__425 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__401 m_isMemory64"]
+	73 --> 28
+	73["offset__646__666 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__626 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I32_LOAD16_U"]["scheduled"] = ''
 window.traces["I32_LOAD16_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__418 : byte = 0x40u8;
-def arg__415 = u8.&(flags, arg__418);
-def arg__416 : byte = 0;
-def cond__413 = u8.!=(arg__415, arg__416);
+def arg__643 : byte = 0x40u8;
+def arg__640 = u8.&(flags, arg__643);
+def arg__641 : byte = 0;
+def cond__638 = u8.!=(arg__640, arg__641);
 var memindex: u32;
-if (cond__413) {
-	def memindex__414__423__427 = imm_readULEB32();
+if (cond__638) {
+	def memindex__639__650__670 = imm_readULEB32();
 } else {
-	def memindex__420__424__428 : u32 = 0u;
+	def memindex__645__651__671 : u32 = 0u;
 }
-// phis: memindex <- memindex__414__423__427; memindex <- memindex__420__424__428; 
-def cond__401 = m_isMemory64(memindex);
-if (cond__401) {
-	def offset__421__425 = imm_readULEB64();
+// phis: memindex <- memindex__639__650__670; memindex <- memindex__645__651__671; 
+def cond__626 = m_isMemory64(memindex);
+if (cond__626) {
+	def offset__646__666 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u16(memindex, index, offset__421__425);
-	def eff__402 = push_u32(val);
+	def val = mach_readMemory64_u16(memindex, index, offset__646__666);
+	def eff__627 = push_u32(val);
 } else {
-	def offset__422__426 = imm_readULEB32();
+	def offset__647__667 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u16(memindex, index, offset__422__426);
-	def eff__407 = push_u32(val);
+	def val = mach_readMemory32_u16(memindex, index, offset__647__667);
+	def eff__632 = push_u32(val);
 }
 // phis: 
 </pre>`;
@@ -14845,39 +14621,39 @@ window.traces["I64_LOAD8_S"] = {}
 window.traces["I64_LOAD8_S"]["parsed"] = ''
 window.traces["I64_LOAD8_S"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__446 : byte = 0;
-def arg__448 : byte = 0x40u8;
-def arg__447 = (flags);
-def arg__445 = u8.&(arg__447, arg__448);
-def cond__443 = u8.!=(arg__445, arg__446);
-if (cond__443) {
-	def memindex__444 = imm_readULEB32();
+def arg__703 : byte = 0;
+def arg__705 : byte = 0x40u8;
+def arg__704 = (flags);
+def arg__702 = u8.&(arg__704, arg__705);
+def cond__700 = u8.!=(arg__702, arg__703);
+if (cond__700) {
+	def memindex__701 = imm_readULEB32();
 }
-// phis: memindex <- memindex__444; 
-def arg__442 = (memindex);
-def cond__429 = m_isMemory64(arg__442);
-if (cond__429) {
+// phis: memindex <- memindex__701; 
+def arg__699 = (memindex);
+def cond__686 = m_isMemory64(arg__699);
+if (cond__686) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__435 = (offset);
-	def arg__434 = (index);
-	def arg__433 = (memindex);
-	def val = mach_readMemory64_u8_64(arg__433, arg__434, arg__435);
-	def arg__432 = (val);
-	def extend = U64_extend8_s(arg__432);
-	def arg__431 = (extend);
-	def eff__430 = push_u64(arg__431);
+	def arg__692 = (offset);
+	def arg__691 = (index);
+	def arg__690 = (memindex);
+	def val = mach_readMemory64_u8_64(arg__690, arg__691, arg__692);
+	def arg__689 = (val);
+	def extend = U64_extend8_s(arg__689);
+	def arg__688 = (extend);
+	def eff__687 = push_u64(arg__688);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__441 = (offset);
-	def arg__440 = (index);
-	def arg__439 = (memindex);
-	def val = mach_readMemory32_u8_64(arg__439, arg__440, arg__441);
-	def arg__438 = (val);
-	def extend = U64_extend8_s(arg__438);
-	def arg__437 = (extend);
-	def eff__436 = push_u64(arg__437);
+	def arg__698 = (offset);
+	def arg__697 = (index);
+	def arg__696 = (memindex);
+	def val = mach_readMemory32_u8_64(arg__696, arg__697, arg__698);
+	def arg__695 = (val);
+	def extend = U64_extend8_s(arg__695);
+	def arg__694 = (extend);
+	def eff__693 = push_u64(arg__694);
 }
 // phis: 
 </pre>`;
@@ -14896,7 +14672,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__436 push_u64"]
+	24["eff__693 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -14915,22 +14691,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__444 imm_readULEB32"]
+	10["memindex__701 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__443 u8.!="]
+	9["cond__700 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__446 0"]
-	8["arg__445 u8.&"]
+	5["arg__703 0"]
+	8["arg__702 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__448 0x40u8"]
+	6["arg__705 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__449 0u"]
-	34["eff__430 push_u64"]
+	4["memindex__706 0u"]
+	34["eff__687 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -14943,7 +14719,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__429 m_isMemory64"]
+	14["cond__686 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -14965,7 +14741,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__436 push_u64"]
+	24["eff__693 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -14984,22 +14760,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__444 imm_readULEB32"]
+	10["memindex__701 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__443 u8.!="]
+	9["cond__700 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__446 0"]
-	8["arg__445 u8.&"]
+	5["arg__703 0"]
+	8["arg__702 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__448 0x40u8"]
+	6["arg__705 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__450 0u"]
-	34["eff__430 push_u64"]
+	4["memindex__707 0u"]
+	34["eff__687 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -15012,7 +14788,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__429 m_isMemory64"]
+	14["cond__686 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -15034,7 +14810,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__436 push_u64"]
+	24["eff__693 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -15053,22 +14829,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__444 imm_readULEB32"]
+	10["memindex__701 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__443 u8.!="]
+	9["cond__700 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__446 0"]
-	8["arg__445 u8.&"]
+	5["arg__703 0"]
+	8["arg__702 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__448 0x40u8"]
+	6["arg__705 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__450 0u"]
-	34["eff__430 push_u64"]
+	4["memindex__707 0u"]
+	34["eff__687 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -15081,7 +14857,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__429 m_isMemory64"]
+	14["cond__686 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -15103,7 +14879,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__436 push_u64"]
+	24["eff__693 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -15113,31 +14889,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__452 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__709 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__444 imm_readULEB32"]
+	10["memindex__701 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__443 u8.!="]
+	9["cond__700 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__446 0"]
-	8["arg__445 u8.&"]
+	5["arg__703 0"]
+	8["arg__702 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__448 0x40u8"]
+	6["arg__705 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__450 0u"]
-	34["eff__430 push_u64"]
+	4["memindex__707 0u"]
+	34["eff__687 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -15147,15 +14923,15 @@ graph TD
 	30["val mach_readMemory64_u8_64"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__451 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__429 m_isMemory64"]
+	37 --> 30
+	37["offset__708 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__686 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I64_LOAD8_S"]["post_surgery 314"] = ''
 window.traces["I64_LOAD8_S"]["post_surgery 314"] += `<pre class='graph'>---
@@ -15172,7 +14948,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__436 push_u64"]
+	24["eff__693 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -15182,31 +14958,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__452 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__709 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__444__453 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__443 u8.!="]
+	45["memindex__701__712 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__700 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__446 0"]
-	8["arg__445 u8.&"]
+	5["arg__703 0"]
+	8["arg__702 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__448 0x40u8"]
+	6["arg__705 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__450__454 0u"]
-	34["eff__430 push_u64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__707__713 0u"]
+	34["eff__687 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -15216,15 +14992,15 @@ graph TD
 	30["val mach_readMemory64_u8_64"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__451 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__429 m_isMemory64"]
+	37 --> 30
+	37["offset__708 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__686 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I64_LOAD8_S"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD8_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -15241,25 +15017,25 @@ block_310 --> phi_309
 block_311 --> phi_309
 subgraph block_310["Block 310"]
 	direction TB
-	b310_38["offset__451 imm_readULEB64"]
+	b310_37["offset__708 imm_readULEB64"]
 	b310_26["index pop_u64"]
 	b310_30["val mach_readMemory64_u8_64"]
 	b310_32["extend U64_extend8_s"]
-	b310_34["eff__430 push_u64"]
-	b310_38 --> b310_26
+	b310_34["eff__687 push_u64"]
+	b310_37 --> b310_26
 	b310_26 --> b310_30
 	b310_30 --> b310_32
 	b310_32 --> b310_34
 end
 branch_308 --> block_310
 subgraph branch_308["Branch 308"]
-	br308_14["cond__429 m_isMemory64"]
+	br308_14["cond__686 m_isMemory64"]
 
 end
 block_312 --> branch_308
 subgraph block_312["Block 312"]
 	direction TB
-	b312_14["cond__429 m_isMemory64"]
+	b312_14["cond__686 m_isMemory64"]
 end
 phi_314 --> block_312
 subgraph phi_314["Phi 314"]
@@ -15276,21 +15052,21 @@ block_315 --> phi_314
 block_316 --> phi_314
 subgraph block_315["Block 315"]
 	direction TB
-	b315_41["memindex__444__453 imm_readULEB32"]
+	b315_45["memindex__701__712 imm_readULEB32"]
 end
 branch_313 --> block_315
 subgraph branch_313["Branch 313"]
-	br313_9["cond__443 u8.!="]
+	br313_9["cond__700 u8.!="]
 
 end
 block_317 --> branch_313
 subgraph block_317["Block 317"]
 	direction TB
 	b317_0[/"Start"\\]
-	b317_6["arg__448 0x40u8"]
-	b317_5["arg__446 0"]
-	b317_8["arg__445 u8.&"]
-	b317_9["cond__443 u8.!="]
+	b317_6["arg__705 0x40u8"]
+	b317_5["arg__703 0"]
+	b317_8["arg__702 u8.&"]
+	b317_9["cond__700 u8.!="]
 	b317_0 --> b317_6
 	b317_6 --> b317_5
 	b317_5 --> b317_8
@@ -15299,18 +15075,18 @@ end
 subgraph block_316["Block 316"]
 	direction TB
 	b316_3["flags imm_readU8"]
-	b316_43["memindex__450__454 0u"]
-	b316_3 --> b316_43
+	b316_47["memindex__707__713 0u"]
+	b316_3 --> b316_47
 end
 branch_313 --> block_316
 subgraph block_311["Block 311"]
 	direction TB
-	b311_40["offset__452 imm_readULEB32"]
+	b311_39["offset__709 imm_readULEB32"]
 	b311_16["index pop_u32"]
 	b311_20["val mach_readMemory32_u8_64"]
 	b311_22["extend U64_extend8_s"]
-	b311_24["eff__436 push_u64"]
-	b311_40 --> b311_16
+	b311_24["eff__693 push_u64"]
+	b311_39 --> b311_16
 	b311_16 --> b311_20
 	b311_20 --> b311_22
 	b311_22 --> b311_24
@@ -15319,30 +15095,30 @@ branch_308 --> block_311
 
 </pre>`;
 window.traces["I64_LOAD8_S"]["scheduler ssad"] = ''
-window.traces["I64_LOAD8_S"]["scheduler ssad"] += `<pre class=''>def arg__448 : byte = 0x40u8;
-def arg__446 : byte = 0;
-def arg__445 = u8.&(flags, arg__448);
-def cond__443 = u8.!=(arg__445, arg__446);
-if (cond__443) {
-	def memindex__444__453 = imm_readULEB32();
+window.traces["I64_LOAD8_S"]["scheduler ssad"] += `<pre class=''>def arg__705 : byte = 0x40u8;
+def arg__703 : byte = 0;
+def arg__702 = u8.&(flags, arg__705);
+def cond__700 = u8.!=(arg__702, arg__703);
+if (cond__700) {
+	def memindex__701__712 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__450__454 : u32 = 0u;
+	def memindex__707__713 : u32 = 0u;
 }
 // phis: 
-def cond__429 = m_isMemory64(memindex);
-if (cond__429) {
-	def offset__451 = imm_readULEB64();
+def cond__686 = m_isMemory64(memindex);
+if (cond__686) {
+	def offset__708 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset__451);
+	def val = mach_readMemory64_u8_64(memindex, index, offset__708);
 	def extend = U64_extend8_s(val);
-	def eff__430 = push_u64(extend);
+	def eff__687 = push_u64(extend);
 } else {
-	def offset__452 = imm_readULEB32();
+	def offset__709 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset__452);
+	def val = mach_readMemory32_u8_64(memindex, index, offset__709);
 	def extend = U64_extend8_s(val);
-	def eff__436 = push_u64(extend);
+	def eff__693 = push_u64(extend);
 }
 // phis: 
 </pre>`;
@@ -15361,7 +15137,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__436 push_u64"]
+	24["eff__693 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -15371,31 +15147,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__452 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__709 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__444__453 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__443 u8.!="]
+	45["memindex__701__712 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__700 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__446 0"]
-	8["arg__445 u8.&"]
+	5["arg__703 0"]
+	8["arg__702 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__448 0x40u8"]
+	6["arg__705 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__450__454 0u"]
-	34["eff__430 push_u64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__707__713 0u"]
+	34["eff__687 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -15405,42 +15181,42 @@ graph TD
 	30["val mach_readMemory64_u8_64"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__451 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__429 m_isMemory64"]
+	37 --> 30
+	37["offset__708 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__686 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I64_LOAD8_S"]["unlem_schedule"] = ''
 window.traces["I64_LOAD8_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__448 : byte = 0x40u8;
-def arg__445 = u8.&(flags, arg__448);
-def arg__446 : byte = 0;
-def cond__443 = u8.!=(arg__445, arg__446);
+def arg__705 : byte = 0x40u8;
+def arg__702 = u8.&(flags, arg__705);
+def arg__703 : byte = 0;
+def cond__700 = u8.!=(arg__702, arg__703);
 var memindex: u32;
-if (cond__443) {
-	def memindex__444__453 = imm_readULEB32();
+if (cond__700) {
+	def memindex__701__712 = imm_readULEB32();
 } else {
-	def memindex__450__454 : u32 = 0u;
+	def memindex__707__713 : u32 = 0u;
 }
-// phis: memindex <- memindex__444__453; memindex <- memindex__450__454; 
-def cond__429 = m_isMemory64(memindex);
-if (cond__429) {
-	def offset__451 = imm_readULEB64();
+// phis: memindex <- memindex__701__712; memindex <- memindex__707__713; 
+def cond__686 = m_isMemory64(memindex);
+if (cond__686) {
+	def offset__708 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset__451);
+	def val = mach_readMemory64_u8_64(memindex, index, offset__708);
 	def extend = U64_extend8_s(val);
-	def eff__430 = push_u64(extend);
+	def eff__687 = push_u64(extend);
 } else {
-	def offset__452 = imm_readULEB32();
+	def offset__709 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset__452);
+	def val = mach_readMemory32_u8_64(memindex, index, offset__709);
 	def extend = U64_extend8_s(val);
-	def eff__436 = push_u64(extend);
+	def eff__693 = push_u64(extend);
 }
 // phis: 
 </pre>`;
@@ -15460,7 +15236,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__436 push_u64"]
+	24["eff__693 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -15470,31 +15246,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__452__456 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__709__729 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__444__453 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__443 u8.!="]
+	45["memindex__701__712 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__700 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__446 0"]
-	8["arg__445 u8.&"]
+	5["arg__703 0"]
+	8["arg__702 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__448 0x40u8"]
+	6["arg__705 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__450__454 0u"]
-	34["eff__430 push_u64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__707__713 0u"]
+	34["eff__687 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -15504,15 +15280,15 @@ graph TD
 	30["val mach_readMemory64_u8_64"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__451__455 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__429 m_isMemory64"]
+	77 --> 30
+	77["offset__708__728 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__686 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I64_LOAD8_S_ul"]["post_surgery 325"] = ''
 window.traces["I64_LOAD8_S_ul"]["post_surgery 325"] += `<pre class='graph'>---
@@ -15529,7 +15305,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__436 push_u64"]
+	24["eff__693 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -15539,31 +15315,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__452__456 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__709__729 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__444__453__457 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__443 u8.!="]
+	85["memindex__701__712__732 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__700 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__446 0"]
-	8["arg__445 u8.&"]
+	5["arg__703 0"]
+	8["arg__702 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__448 0x40u8"]
+	6["arg__705 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__450__454__458 0u"]
-	34["eff__430 push_u64"]
+	85 --> 11
+	87 --> 11
+	87["memindex__707__713__733 0u"]
+	34["eff__687 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -15573,15 +15349,15 @@ graph TD
 	30["val mach_readMemory64_u8_64"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__451__455 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__429 m_isMemory64"]
+	77 --> 30
+	77["offset__708__728 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__686 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I64_LOAD8_S"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD8_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -15598,25 +15374,25 @@ block_321 --> phi_320
 block_322 --> phi_320
 subgraph block_321["Block 321"]
 	direction TB
-	b321_46["offset__451__455 imm_readULEB64"]
+	b321_77["offset__708__728 imm_readULEB64"]
 	b321_26["index pop_u64"]
 	b321_30["val mach_readMemory64_u8_64"]
 	b321_32["extend U64_extend8_s"]
-	b321_34["eff__430 push_u64"]
-	b321_46 --> b321_26
+	b321_34["eff__687 push_u64"]
+	b321_77 --> b321_26
 	b321_26 --> b321_30
 	b321_30 --> b321_32
 	b321_32 --> b321_34
 end
 branch_319 --> block_321
 subgraph branch_319["Branch 319"]
-	br319_14["cond__429 m_isMemory64"]
+	br319_14["cond__686 m_isMemory64"]
 
 end
 block_323 --> branch_319
 subgraph block_323["Block 323"]
 	direction TB
-	b323_14["cond__429 m_isMemory64"]
+	b323_14["cond__686 m_isMemory64"]
 end
 phi_325 --> block_323
 subgraph phi_325["Phi 325"]
@@ -15633,21 +15409,21 @@ block_326 --> phi_325
 block_327 --> phi_325
 subgraph block_326["Block 326"]
 	direction TB
-	b326_49["memindex__444__453__457 imm_readULEB32"]
+	b326_85["memindex__701__712__732 imm_readULEB32"]
 end
 branch_324 --> block_326
 subgraph branch_324["Branch 324"]
-	br324_9["cond__443 u8.!="]
+	br324_9["cond__700 u8.!="]
 
 end
 block_328 --> branch_324
 subgraph block_328["Block 328"]
 	direction TB
 	b328_0[/"Start"\\]
-	b328_6["arg__448 0x40u8"]
-	b328_5["arg__446 0"]
-	b328_8["arg__445 u8.&"]
-	b328_9["cond__443 u8.!="]
+	b328_6["arg__705 0x40u8"]
+	b328_5["arg__703 0"]
+	b328_8["arg__702 u8.&"]
+	b328_9["cond__700 u8.!="]
 	b328_0 --> b328_6
 	b328_6 --> b328_5
 	b328_5 --> b328_8
@@ -15656,18 +15432,18 @@ end
 subgraph block_327["Block 327"]
 	direction TB
 	b327_3["flags imm_readU8"]
-	b327_51["memindex__450__454__458 0u"]
-	b327_3 --> b327_51
+	b327_87["memindex__707__713__733 0u"]
+	b327_3 --> b327_87
 end
 branch_324 --> block_327
 subgraph block_322["Block 322"]
 	direction TB
-	b322_48["offset__452__456 imm_readULEB32"]
+	b322_79["offset__709__729 imm_readULEB32"]
 	b322_16["index pop_u32"]
 	b322_20["val mach_readMemory32_u8_64"]
 	b322_22["extend U64_extend8_s"]
-	b322_24["eff__436 push_u64"]
-	b322_48 --> b322_16
+	b322_24["eff__693 push_u64"]
+	b322_79 --> b322_16
 	b322_16 --> b322_20
 	b322_20 --> b322_22
 	b322_22 --> b322_24
@@ -15713,7 +15489,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__436 push_u64"]
+	24["eff__693 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -15723,31 +15499,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__452__456 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__709__729 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__444__453__457 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__443 u8.!="]
+	85["memindex__701__712__732 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__700 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__446 0"]
-	8["arg__445 u8.&"]
+	5["arg__703 0"]
+	8["arg__702 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__448 0x40u8"]
+	6["arg__705 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__450__454__458 0u"]
-	34["eff__430 push_u64"]
+	85 --> 11
+	87 --> 11
+	87["memindex__707__713__733 0u"]
+	34["eff__687 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -15757,15 +15533,15 @@ graph TD
 	30["val mach_readMemory64_u8_64"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__451__455 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__429 m_isMemory64"]
+	77 --> 30
+	77["offset__708__728 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__686 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I64_LOAD8_S"]["chooseMerge"] = ''
 window.traces["I64_LOAD8_S"]["chooseMerge"] += `<pre class='graph'>---
@@ -15782,7 +15558,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__436 push_u64"]
+	24["eff__693 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -15792,31 +15568,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__452__456 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__709__729 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__444__453__457 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__443 u8.!="]
+	85["memindex__701__712__732 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__700 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__446 0"]
-	8["arg__445 u8.&"]
+	5["arg__703 0"]
+	8["arg__702 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__448 0x40u8"]
+	6["arg__705 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__450__454__458 0u"]
-	34["eff__430 push_u64"]
+	85 --> 11
+	87 --> 11
+	87["memindex__707__713__733 0u"]
+	34["eff__687 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -15826,42 +15602,42 @@ graph TD
 	30["val mach_readMemory64_u8_64"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__451__455 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__429 m_isMemory64"]
+	77 --> 30
+	77["offset__708__728 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__686 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I64_LOAD8_S"]["scheduled"] = ''
 window.traces["I64_LOAD8_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__448 : byte = 0x40u8;
-def arg__445 = u8.&(flags, arg__448);
-def arg__446 : byte = 0;
-def cond__443 = u8.!=(arg__445, arg__446);
+def arg__705 : byte = 0x40u8;
+def arg__702 = u8.&(flags, arg__705);
+def arg__703 : byte = 0;
+def cond__700 = u8.!=(arg__702, arg__703);
 var memindex: u32;
-if (cond__443) {
-	def memindex__444__453__457 = imm_readULEB32();
+if (cond__700) {
+	def memindex__701__712__732 = imm_readULEB32();
 } else {
-	def memindex__450__454__458 : u32 = 0u;
+	def memindex__707__713__733 : u32 = 0u;
 }
-// phis: memindex <- memindex__444__453__457; memindex <- memindex__450__454__458; 
-def cond__429 = m_isMemory64(memindex);
-if (cond__429) {
-	def offset__451__455 = imm_readULEB64();
+// phis: memindex <- memindex__701__712__732; memindex <- memindex__707__713__733; 
+def cond__686 = m_isMemory64(memindex);
+if (cond__686) {
+	def offset__708__728 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset__451__455);
+	def val = mach_readMemory64_u8_64(memindex, index, offset__708__728);
 	def extend = U64_extend8_s(val);
-	def eff__430 = push_u64(extend);
+	def eff__687 = push_u64(extend);
 } else {
-	def offset__452__456 = imm_readULEB32();
+	def offset__709__729 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset__452__456);
+	def val = mach_readMemory32_u8_64(memindex, index, offset__709__729);
 	def extend = U64_extend8_s(val);
-	def eff__436 = push_u64(extend);
+	def eff__693 = push_u64(extend);
 }
 // phis: 
 </pre>`;
@@ -15892,35 +15668,35 @@ window.traces["I64_LOAD8_U"] = {}
 window.traces["I64_LOAD8_U"]["parsed"] = ''
 window.traces["I64_LOAD8_U"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__474 : byte = 0;
-def arg__476 : byte = 0x40u8;
-def arg__475 = (flags);
-def arg__473 = u8.&(arg__475, arg__476);
-def cond__471 = u8.!=(arg__473, arg__474);
-if (cond__471) {
-	def memindex__472 = imm_readULEB32();
+def arg__763 : byte = 0;
+def arg__765 : byte = 0x40u8;
+def arg__764 = (flags);
+def arg__762 = u8.&(arg__764, arg__765);
+def cond__760 = u8.!=(arg__762, arg__763);
+if (cond__760) {
+	def memindex__761 = imm_readULEB32();
 }
-// phis: memindex <- memindex__472; 
-def arg__470 = (memindex);
-def cond__459 = m_isMemory64(arg__470);
-if (cond__459) {
+// phis: memindex <- memindex__761; 
+def arg__759 = (memindex);
+def cond__748 = m_isMemory64(arg__759);
+if (cond__748) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__464 = (offset);
-	def arg__463 = (index);
-	def arg__462 = (memindex);
-	def val = mach_readMemory64_u8_64(arg__462, arg__463, arg__464);
-	def arg__461 = (val);
-	def eff__460 = push_u64(arg__461);
+	def arg__753 = (offset);
+	def arg__752 = (index);
+	def arg__751 = (memindex);
+	def val = mach_readMemory64_u8_64(arg__751, arg__752, arg__753);
+	def arg__750 = (val);
+	def eff__749 = push_u64(arg__750);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__469 = (offset);
-	def arg__468 = (index);
-	def arg__467 = (memindex);
-	def val = mach_readMemory32_u8_64(arg__467, arg__468, arg__469);
-	def arg__466 = (val);
-	def eff__465 = push_u64(arg__466);
+	def arg__758 = (offset);
+	def arg__757 = (index);
+	def arg__756 = (memindex);
+	def val = mach_readMemory32_u8_64(arg__756, arg__757, arg__758);
+	def arg__755 = (val);
+	def eff__754 = push_u64(arg__755);
 }
 // phis: 
 </pre>`;
@@ -15939,7 +15715,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__465 push_u64"]
+	22["eff__754 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -15956,22 +15732,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__472 imm_readULEB32"]
+	10["memindex__761 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__471 u8.!="]
+	9["cond__760 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__474 0"]
-	8["arg__473 u8.&"]
+	5["arg__763 0"]
+	8["arg__762 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__476 0x40u8"]
+	6["arg__765 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__477 0u"]
-	30["eff__460 push_u64"]
+	4["memindex__766 0u"]
+	30["eff__749 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -15982,7 +15758,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__459 m_isMemory64"]
+	14["cond__748 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -16004,7 +15780,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__465 push_u64"]
+	22["eff__754 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -16021,22 +15797,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__472 imm_readULEB32"]
+	10["memindex__761 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__471 u8.!="]
+	9["cond__760 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__474 0"]
-	8["arg__473 u8.&"]
+	5["arg__763 0"]
+	8["arg__762 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__476 0x40u8"]
+	6["arg__765 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__478 0u"]
-	30["eff__460 push_u64"]
+	4["memindex__767 0u"]
+	30["eff__749 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -16047,7 +15823,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__459 m_isMemory64"]
+	14["cond__748 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -16069,7 +15845,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__465 push_u64"]
+	22["eff__754 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -16086,22 +15862,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__472 imm_readULEB32"]
+	10["memindex__761 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__471 u8.!="]
+	9["cond__760 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__474 0"]
-	8["arg__473 u8.&"]
+	5["arg__763 0"]
+	8["arg__762 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__476 0x40u8"]
+	6["arg__765 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__478 0u"]
-	30["eff__460 push_u64"]
+	4["memindex__767 0u"]
+	30["eff__749 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -16112,7 +15888,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__459 m_isMemory64"]
+	14["cond__748 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -16134,7 +15910,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__465 push_u64"]
+	22["eff__754 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -16142,31 +15918,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__480 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__769 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__472 imm_readULEB32"]
+	10["memindex__761 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__471 u8.!="]
+	9["cond__760 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__474 0"]
-	8["arg__473 u8.&"]
+	5["arg__763 0"]
+	8["arg__762 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__476 0x40u8"]
+	6["arg__765 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__478 0u"]
-	30["eff__460 push_u64"]
+	4["memindex__767 0u"]
+	30["eff__749 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -16174,15 +15950,15 @@ graph TD
 	28["val mach_readMemory64_u8_64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__479 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__459 m_isMemory64"]
+	33 --> 28
+	33["offset__768 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__748 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I64_LOAD8_U"]["post_surgery 336"] = ''
 window.traces["I64_LOAD8_U"]["post_surgery 336"] += `<pre class='graph'>---
@@ -16199,7 +15975,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__465 push_u64"]
+	22["eff__754 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -16207,31 +15983,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__480 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__769 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__472__481 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__471 u8.!="]
+	41["memindex__761__772 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__760 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__474 0"]
-	8["arg__473 u8.&"]
+	5["arg__763 0"]
+	8["arg__762 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__476 0x40u8"]
+	6["arg__765 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__478__482 0u"]
-	30["eff__460 push_u64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__767__773 0u"]
+	30["eff__749 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -16239,15 +16015,15 @@ graph TD
 	28["val mach_readMemory64_u8_64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__479 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__459 m_isMemory64"]
+	33 --> 28
+	33["offset__768 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__748 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I64_LOAD8_U"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD8_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -16264,23 +16040,23 @@ block_332 --> phi_331
 block_333 --> phi_331
 subgraph block_332["Block 332"]
 	direction TB
-	b332_34["offset__479 imm_readULEB64"]
+	b332_33["offset__768 imm_readULEB64"]
 	b332_24["index pop_u64"]
 	b332_28["val mach_readMemory64_u8_64"]
-	b332_30["eff__460 push_u64"]
-	b332_34 --> b332_24
+	b332_30["eff__749 push_u64"]
+	b332_33 --> b332_24
 	b332_24 --> b332_28
 	b332_28 --> b332_30
 end
 branch_330 --> block_332
 subgraph branch_330["Branch 330"]
-	br330_14["cond__459 m_isMemory64"]
+	br330_14["cond__748 m_isMemory64"]
 
 end
 block_334 --> branch_330
 subgraph block_334["Block 334"]
 	direction TB
-	b334_14["cond__459 m_isMemory64"]
+	b334_14["cond__748 m_isMemory64"]
 end
 phi_336 --> block_334
 subgraph phi_336["Phi 336"]
@@ -16297,21 +16073,21 @@ block_337 --> phi_336
 block_338 --> phi_336
 subgraph block_337["Block 337"]
 	direction TB
-	b337_37["memindex__472__481 imm_readULEB32"]
+	b337_41["memindex__761__772 imm_readULEB32"]
 end
 branch_335 --> block_337
 subgraph branch_335["Branch 335"]
-	br335_9["cond__471 u8.!="]
+	br335_9["cond__760 u8.!="]
 
 end
 block_339 --> branch_335
 subgraph block_339["Block 339"]
 	direction TB
 	b339_0[/"Start"\\]
-	b339_6["arg__476 0x40u8"]
-	b339_5["arg__474 0"]
-	b339_8["arg__473 u8.&"]
-	b339_9["cond__471 u8.!="]
+	b339_6["arg__765 0x40u8"]
+	b339_5["arg__763 0"]
+	b339_8["arg__762 u8.&"]
+	b339_9["cond__760 u8.!="]
 	b339_0 --> b339_6
 	b339_6 --> b339_5
 	b339_5 --> b339_8
@@ -16320,17 +16096,17 @@ end
 subgraph block_338["Block 338"]
 	direction TB
 	b338_3["flags imm_readU8"]
-	b338_39["memindex__478__482 0u"]
-	b338_3 --> b338_39
+	b338_43["memindex__767__773 0u"]
+	b338_3 --> b338_43
 end
 branch_335 --> block_338
 subgraph block_333["Block 333"]
 	direction TB
-	b333_36["offset__480 imm_readULEB32"]
+	b333_35["offset__769 imm_readULEB32"]
 	b333_16["index pop_u32"]
 	b333_20["val mach_readMemory32_u8_64"]
-	b333_22["eff__465 push_u64"]
-	b333_36 --> b333_16
+	b333_22["eff__754 push_u64"]
+	b333_35 --> b333_16
 	b333_16 --> b333_20
 	b333_20 --> b333_22
 end
@@ -16338,28 +16114,28 @@ branch_330 --> block_333
 
 </pre>`;
 window.traces["I64_LOAD8_U"]["scheduler ssad"] = ''
-window.traces["I64_LOAD8_U"]["scheduler ssad"] += `<pre class=''>def arg__476 : byte = 0x40u8;
-def arg__474 : byte = 0;
-def arg__473 = u8.&(flags, arg__476);
-def cond__471 = u8.!=(arg__473, arg__474);
-if (cond__471) {
-	def memindex__472__481 = imm_readULEB32();
+window.traces["I64_LOAD8_U"]["scheduler ssad"] += `<pre class=''>def arg__765 : byte = 0x40u8;
+def arg__763 : byte = 0;
+def arg__762 = u8.&(flags, arg__765);
+def cond__760 = u8.!=(arg__762, arg__763);
+if (cond__760) {
+	def memindex__761__772 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__478__482 : u32 = 0u;
+	def memindex__767__773 : u32 = 0u;
 }
 // phis: 
-def cond__459 = m_isMemory64(memindex);
-if (cond__459) {
-	def offset__479 = imm_readULEB64();
+def cond__748 = m_isMemory64(memindex);
+if (cond__748) {
+	def offset__768 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset__479);
-	def eff__460 = push_u64(val);
+	def val = mach_readMemory64_u8_64(memindex, index, offset__768);
+	def eff__749 = push_u64(val);
 } else {
-	def offset__480 = imm_readULEB32();
+	def offset__769 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset__480);
-	def eff__465 = push_u64(val);
+	def val = mach_readMemory32_u8_64(memindex, index, offset__769);
+	def eff__754 = push_u64(val);
 }
 // phis: 
 </pre>`;
@@ -16378,7 +16154,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__465 push_u64"]
+	22["eff__754 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -16386,31 +16162,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__480 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__769 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__472__481 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__471 u8.!="]
+	41["memindex__761__772 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__760 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__474 0"]
-	8["arg__473 u8.&"]
+	5["arg__763 0"]
+	8["arg__762 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__476 0x40u8"]
+	6["arg__765 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__478__482 0u"]
-	30["eff__460 push_u64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__767__773 0u"]
+	30["eff__749 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -16418,40 +16194,40 @@ graph TD
 	28["val mach_readMemory64_u8_64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__479 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__459 m_isMemory64"]
+	33 --> 28
+	33["offset__768 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__748 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I64_LOAD8_U"]["unlem_schedule"] = ''
 window.traces["I64_LOAD8_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__476 : byte = 0x40u8;
-def arg__473 = u8.&(flags, arg__476);
-def arg__474 : byte = 0;
-def cond__471 = u8.!=(arg__473, arg__474);
+def arg__765 : byte = 0x40u8;
+def arg__762 = u8.&(flags, arg__765);
+def arg__763 : byte = 0;
+def cond__760 = u8.!=(arg__762, arg__763);
 var memindex: u32;
-if (cond__471) {
-	def memindex__472__481 = imm_readULEB32();
+if (cond__760) {
+	def memindex__761__772 = imm_readULEB32();
 } else {
-	def memindex__478__482 : u32 = 0u;
+	def memindex__767__773 : u32 = 0u;
 }
-// phis: memindex <- memindex__472__481; memindex <- memindex__478__482; 
-def cond__459 = m_isMemory64(memindex);
-if (cond__459) {
-	def offset__479 = imm_readULEB64();
+// phis: memindex <- memindex__761__772; memindex <- memindex__767__773; 
+def cond__748 = m_isMemory64(memindex);
+if (cond__748) {
+	def offset__768 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset__479);
-	def eff__460 = push_u64(val);
+	def val = mach_readMemory64_u8_64(memindex, index, offset__768);
+	def eff__749 = push_u64(val);
 } else {
-	def offset__480 = imm_readULEB32();
+	def offset__769 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset__480);
-	def eff__465 = push_u64(val);
+	def val = mach_readMemory32_u8_64(memindex, index, offset__769);
+	def eff__754 = push_u64(val);
 }
 // phis: 
 </pre>`;
@@ -16471,7 +16247,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__465 push_u64"]
+	22["eff__754 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -16479,31 +16255,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__480__484 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__769__789 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__472__481 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__471 u8.!="]
+	41["memindex__761__772 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__760 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__474 0"]
-	8["arg__473 u8.&"]
+	5["arg__763 0"]
+	8["arg__762 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__476 0x40u8"]
+	6["arg__765 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__478__482 0u"]
-	30["eff__460 push_u64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__767__773 0u"]
+	30["eff__749 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -16511,15 +16287,15 @@ graph TD
 	28["val mach_readMemory64_u8_64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__479__483 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__459 m_isMemory64"]
+	73 --> 28
+	73["offset__768__788 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__748 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD8_U_ul"]["post_surgery 347"] = ''
 window.traces["I64_LOAD8_U_ul"]["post_surgery 347"] += `<pre class='graph'>---
@@ -16536,7 +16312,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__465 push_u64"]
+	22["eff__754 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -16544,31 +16320,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__480__484 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__769__789 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__472__481__485 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__471 u8.!="]
+	81["memindex__761__772__792 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__760 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__474 0"]
-	8["arg__473 u8.&"]
+	5["arg__763 0"]
+	8["arg__762 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__476 0x40u8"]
+	6["arg__765 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__478__482__486 0u"]
-	30["eff__460 push_u64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__767__773__793 0u"]
+	30["eff__749 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -16576,15 +16352,15 @@ graph TD
 	28["val mach_readMemory64_u8_64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__479__483 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__459 m_isMemory64"]
+	73 --> 28
+	73["offset__768__788 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__748 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD8_U"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD8_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -16601,23 +16377,23 @@ block_343 --> phi_342
 block_344 --> phi_342
 subgraph block_343["Block 343"]
 	direction TB
-	b343_42["offset__479__483 imm_readULEB64"]
+	b343_73["offset__768__788 imm_readULEB64"]
 	b343_24["index pop_u64"]
 	b343_28["val mach_readMemory64_u8_64"]
-	b343_30["eff__460 push_u64"]
-	b343_42 --> b343_24
+	b343_30["eff__749 push_u64"]
+	b343_73 --> b343_24
 	b343_24 --> b343_28
 	b343_28 --> b343_30
 end
 branch_341 --> block_343
 subgraph branch_341["Branch 341"]
-	br341_14["cond__459 m_isMemory64"]
+	br341_14["cond__748 m_isMemory64"]
 
 end
 block_345 --> branch_341
 subgraph block_345["Block 345"]
 	direction TB
-	b345_14["cond__459 m_isMemory64"]
+	b345_14["cond__748 m_isMemory64"]
 end
 phi_347 --> block_345
 subgraph phi_347["Phi 347"]
@@ -16634,21 +16410,21 @@ block_348 --> phi_347
 block_349 --> phi_347
 subgraph block_348["Block 348"]
 	direction TB
-	b348_45["memindex__472__481__485 imm_readULEB32"]
+	b348_81["memindex__761__772__792 imm_readULEB32"]
 end
 branch_346 --> block_348
 subgraph branch_346["Branch 346"]
-	br346_9["cond__471 u8.!="]
+	br346_9["cond__760 u8.!="]
 
 end
 block_350 --> branch_346
 subgraph block_350["Block 350"]
 	direction TB
 	b350_0[/"Start"\\]
-	b350_6["arg__476 0x40u8"]
-	b350_5["arg__474 0"]
-	b350_8["arg__473 u8.&"]
-	b350_9["cond__471 u8.!="]
+	b350_6["arg__765 0x40u8"]
+	b350_5["arg__763 0"]
+	b350_8["arg__762 u8.&"]
+	b350_9["cond__760 u8.!="]
 	b350_0 --> b350_6
 	b350_6 --> b350_5
 	b350_5 --> b350_8
@@ -16657,17 +16433,17 @@ end
 subgraph block_349["Block 349"]
 	direction TB
 	b349_3["flags imm_readU8"]
-	b349_47["memindex__478__482__486 0u"]
-	b349_3 --> b349_47
+	b349_83["memindex__767__773__793 0u"]
+	b349_3 --> b349_83
 end
 branch_346 --> block_349
 subgraph block_344["Block 344"]
 	direction TB
-	b344_44["offset__480__484 imm_readULEB32"]
+	b344_75["offset__769__789 imm_readULEB32"]
 	b344_16["index pop_u32"]
 	b344_20["val mach_readMemory32_u8_64"]
-	b344_22["eff__465 push_u64"]
-	b344_44 --> b344_16
+	b344_22["eff__754 push_u64"]
+	b344_75 --> b344_16
 	b344_16 --> b344_20
 	b344_20 --> b344_22
 end
@@ -16710,7 +16486,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__465 push_u64"]
+	22["eff__754 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -16718,31 +16494,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__480__484 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__769__789 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__472__481__485 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__471 u8.!="]
+	81["memindex__761__772__792 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__760 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__474 0"]
-	8["arg__473 u8.&"]
+	5["arg__763 0"]
+	8["arg__762 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__476 0x40u8"]
+	6["arg__765 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__478__482__486 0u"]
-	30["eff__460 push_u64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__767__773__793 0u"]
+	30["eff__749 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -16750,15 +16526,15 @@ graph TD
 	28["val mach_readMemory64_u8_64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__479__483 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__459 m_isMemory64"]
+	73 --> 28
+	73["offset__768__788 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__748 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD8_U"]["chooseMerge"] = ''
 window.traces["I64_LOAD8_U"]["chooseMerge"] += `<pre class='graph'>---
@@ -16775,7 +16551,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__465 push_u64"]
+	22["eff__754 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -16783,31 +16559,31 @@ graph TD
 	20["val mach_readMemory32_u8_64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__480__484 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__769__789 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__472__481__485 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__471 u8.!="]
+	81["memindex__761__772__792 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__760 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__474 0"]
-	8["arg__473 u8.&"]
+	5["arg__763 0"]
+	8["arg__762 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__476 0x40u8"]
+	6["arg__765 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__478__482__486 0u"]
-	30["eff__460 push_u64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__767__773__793 0u"]
+	30["eff__749 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -16815,40 +16591,40 @@ graph TD
 	28["val mach_readMemory64_u8_64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__479__483 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__459 m_isMemory64"]
+	73 --> 28
+	73["offset__768__788 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__748 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD8_U"]["scheduled"] = ''
 window.traces["I64_LOAD8_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__476 : byte = 0x40u8;
-def arg__473 = u8.&(flags, arg__476);
-def arg__474 : byte = 0;
-def cond__471 = u8.!=(arg__473, arg__474);
+def arg__765 : byte = 0x40u8;
+def arg__762 = u8.&(flags, arg__765);
+def arg__763 : byte = 0;
+def cond__760 = u8.!=(arg__762, arg__763);
 var memindex: u32;
-if (cond__471) {
-	def memindex__472__481__485 = imm_readULEB32();
+if (cond__760) {
+	def memindex__761__772__792 = imm_readULEB32();
 } else {
-	def memindex__478__482__486 : u32 = 0u;
+	def memindex__767__773__793 : u32 = 0u;
 }
-// phis: memindex <- memindex__472__481__485; memindex <- memindex__478__482__486; 
-def cond__459 = m_isMemory64(memindex);
-if (cond__459) {
-	def offset__479__483 = imm_readULEB64();
+// phis: memindex <- memindex__761__772__792; memindex <- memindex__767__773__793; 
+def cond__748 = m_isMemory64(memindex);
+if (cond__748) {
+	def offset__768__788 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset__479__483);
-	def eff__460 = push_u64(val);
+	def val = mach_readMemory64_u8_64(memindex, index, offset__768__788);
+	def eff__749 = push_u64(val);
 } else {
-	def offset__480__484 = imm_readULEB32();
+	def offset__769__789 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset__480__484);
-	def eff__465 = push_u64(val);
+	def val = mach_readMemory32_u8_64(memindex, index, offset__769__789);
+	def eff__754 = push_u64(val);
 }
 // phis: 
 </pre>`;
@@ -16877,39 +16653,39 @@ window.traces["I64_LOAD16_S"] = {}
 window.traces["I64_LOAD16_S"]["parsed"] = ''
 window.traces["I64_LOAD16_S"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__504 : byte = 0;
-def arg__506 : byte = 0x40u8;
-def arg__505 = (flags);
-def arg__503 = u8.&(arg__505, arg__506);
-def cond__501 = u8.!=(arg__503, arg__504);
-if (cond__501) {
-	def memindex__502 = imm_readULEB32();
+def arg__825 : byte = 0;
+def arg__827 : byte = 0x40u8;
+def arg__826 = (flags);
+def arg__824 = u8.&(arg__826, arg__827);
+def cond__822 = u8.!=(arg__824, arg__825);
+if (cond__822) {
+	def memindex__823 = imm_readULEB32();
 }
-// phis: memindex <- memindex__502; 
-def arg__500 = (memindex);
-def cond__487 = m_isMemory64(arg__500);
-if (cond__487) {
+// phis: memindex <- memindex__823; 
+def arg__821 = (memindex);
+def cond__808 = m_isMemory64(arg__821);
+if (cond__808) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__493 = (offset);
-	def arg__492 = (index);
-	def arg__491 = (memindex);
-	def val = mach_readMemory64_u16_64(arg__491, arg__492, arg__493);
-	def arg__490 = (val);
-	def extend = U64_extend16_s(arg__490);
-	def arg__489 = (extend);
-	def eff__488 = push_u64(arg__489);
+	def arg__814 = (offset);
+	def arg__813 = (index);
+	def arg__812 = (memindex);
+	def val = mach_readMemory64_u16_64(arg__812, arg__813, arg__814);
+	def arg__811 = (val);
+	def extend = U64_extend16_s(arg__811);
+	def arg__810 = (extend);
+	def eff__809 = push_u64(arg__810);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__499 = (offset);
-	def arg__498 = (index);
-	def arg__497 = (memindex);
-	def val = mach_readMemory32_u16_64(arg__497, arg__498, arg__499);
-	def arg__496 = (val);
-	def extend = U64_extend16_s(arg__496);
-	def arg__495 = (extend);
-	def eff__494 = push_u64(arg__495);
+	def arg__820 = (offset);
+	def arg__819 = (index);
+	def arg__818 = (memindex);
+	def val = mach_readMemory32_u16_64(arg__818, arg__819, arg__820);
+	def arg__817 = (val);
+	def extend = U64_extend16_s(arg__817);
+	def arg__816 = (extend);
+	def eff__815 = push_u64(arg__816);
 }
 // phis: 
 </pre>`;
@@ -16928,7 +16704,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__494 push_u64"]
+	24["eff__815 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -16947,22 +16723,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__502 imm_readULEB32"]
+	10["memindex__823 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__501 u8.!="]
+	9["cond__822 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__504 0"]
-	8["arg__503 u8.&"]
+	5["arg__825 0"]
+	8["arg__824 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__506 0x40u8"]
+	6["arg__827 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__507 0u"]
-	34["eff__488 push_u64"]
+	4["memindex__828 0u"]
+	34["eff__809 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -16975,7 +16751,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__487 m_isMemory64"]
+	14["cond__808 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -16997,7 +16773,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__494 push_u64"]
+	24["eff__815 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -17016,22 +16792,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__502 imm_readULEB32"]
+	10["memindex__823 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__501 u8.!="]
+	9["cond__822 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__504 0"]
-	8["arg__503 u8.&"]
+	5["arg__825 0"]
+	8["arg__824 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__506 0x40u8"]
+	6["arg__827 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__508 0u"]
-	34["eff__488 push_u64"]
+	4["memindex__829 0u"]
+	34["eff__809 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -17044,7 +16820,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__487 m_isMemory64"]
+	14["cond__808 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -17066,7 +16842,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__494 push_u64"]
+	24["eff__815 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -17085,22 +16861,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__502 imm_readULEB32"]
+	10["memindex__823 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__501 u8.!="]
+	9["cond__822 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__504 0"]
-	8["arg__503 u8.&"]
+	5["arg__825 0"]
+	8["arg__824 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__506 0x40u8"]
+	6["arg__827 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__508 0u"]
-	34["eff__488 push_u64"]
+	4["memindex__829 0u"]
+	34["eff__809 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -17113,7 +16889,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__487 m_isMemory64"]
+	14["cond__808 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -17135,7 +16911,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__494 push_u64"]
+	24["eff__815 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -17145,31 +16921,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__510 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__831 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__502 imm_readULEB32"]
+	10["memindex__823 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__501 u8.!="]
+	9["cond__822 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__504 0"]
-	8["arg__503 u8.&"]
+	5["arg__825 0"]
+	8["arg__824 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__506 0x40u8"]
+	6["arg__827 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__508 0u"]
-	34["eff__488 push_u64"]
+	4["memindex__829 0u"]
+	34["eff__809 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -17179,15 +16955,15 @@ graph TD
 	30["val mach_readMemory64_u16_64"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__509 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__487 m_isMemory64"]
+	37 --> 30
+	37["offset__830 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__808 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I64_LOAD16_S"]["post_surgery 358"] = ''
 window.traces["I64_LOAD16_S"]["post_surgery 358"] += `<pre class='graph'>---
@@ -17204,7 +16980,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__494 push_u64"]
+	24["eff__815 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -17214,31 +16990,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__510 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__831 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__502__511 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__501 u8.!="]
+	45["memindex__823__834 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__822 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__504 0"]
-	8["arg__503 u8.&"]
+	5["arg__825 0"]
+	8["arg__824 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__506 0x40u8"]
+	6["arg__827 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__508__512 0u"]
-	34["eff__488 push_u64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__829__835 0u"]
+	34["eff__809 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -17248,15 +17024,15 @@ graph TD
 	30["val mach_readMemory64_u16_64"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__509 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__487 m_isMemory64"]
+	37 --> 30
+	37["offset__830 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__808 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I64_LOAD16_S"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD16_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -17273,25 +17049,25 @@ block_354 --> phi_353
 block_355 --> phi_353
 subgraph block_354["Block 354"]
 	direction TB
-	b354_38["offset__509 imm_readULEB64"]
+	b354_37["offset__830 imm_readULEB64"]
 	b354_26["index pop_u64"]
 	b354_30["val mach_readMemory64_u16_64"]
 	b354_32["extend U64_extend16_s"]
-	b354_34["eff__488 push_u64"]
-	b354_38 --> b354_26
+	b354_34["eff__809 push_u64"]
+	b354_37 --> b354_26
 	b354_26 --> b354_30
 	b354_30 --> b354_32
 	b354_32 --> b354_34
 end
 branch_352 --> block_354
 subgraph branch_352["Branch 352"]
-	br352_14["cond__487 m_isMemory64"]
+	br352_14["cond__808 m_isMemory64"]
 
 end
 block_356 --> branch_352
 subgraph block_356["Block 356"]
 	direction TB
-	b356_14["cond__487 m_isMemory64"]
+	b356_14["cond__808 m_isMemory64"]
 end
 phi_358 --> block_356
 subgraph phi_358["Phi 358"]
@@ -17308,21 +17084,21 @@ block_359 --> phi_358
 block_360 --> phi_358
 subgraph block_359["Block 359"]
 	direction TB
-	b359_41["memindex__502__511 imm_readULEB32"]
+	b359_45["memindex__823__834 imm_readULEB32"]
 end
 branch_357 --> block_359
 subgraph branch_357["Branch 357"]
-	br357_9["cond__501 u8.!="]
+	br357_9["cond__822 u8.!="]
 
 end
 block_361 --> branch_357
 subgraph block_361["Block 361"]
 	direction TB
 	b361_0[/"Start"\\]
-	b361_6["arg__506 0x40u8"]
-	b361_5["arg__504 0"]
-	b361_8["arg__503 u8.&"]
-	b361_9["cond__501 u8.!="]
+	b361_6["arg__827 0x40u8"]
+	b361_5["arg__825 0"]
+	b361_8["arg__824 u8.&"]
+	b361_9["cond__822 u8.!="]
 	b361_0 --> b361_6
 	b361_6 --> b361_5
 	b361_5 --> b361_8
@@ -17331,18 +17107,18 @@ end
 subgraph block_360["Block 360"]
 	direction TB
 	b360_3["flags imm_readU8"]
-	b360_43["memindex__508__512 0u"]
-	b360_3 --> b360_43
+	b360_47["memindex__829__835 0u"]
+	b360_3 --> b360_47
 end
 branch_357 --> block_360
 subgraph block_355["Block 355"]
 	direction TB
-	b355_40["offset__510 imm_readULEB32"]
+	b355_39["offset__831 imm_readULEB32"]
 	b355_16["index pop_u32"]
 	b355_20["val mach_readMemory32_u16_64"]
 	b355_22["extend U64_extend16_s"]
-	b355_24["eff__494 push_u64"]
-	b355_40 --> b355_16
+	b355_24["eff__815 push_u64"]
+	b355_39 --> b355_16
 	b355_16 --> b355_20
 	b355_20 --> b355_22
 	b355_22 --> b355_24
@@ -17351,30 +17127,30 @@ branch_352 --> block_355
 
 </pre>`;
 window.traces["I64_LOAD16_S"]["scheduler ssad"] = ''
-window.traces["I64_LOAD16_S"]["scheduler ssad"] += `<pre class=''>def arg__506 : byte = 0x40u8;
-def arg__504 : byte = 0;
-def arg__503 = u8.&(flags, arg__506);
-def cond__501 = u8.!=(arg__503, arg__504);
-if (cond__501) {
-	def memindex__502__511 = imm_readULEB32();
+window.traces["I64_LOAD16_S"]["scheduler ssad"] += `<pre class=''>def arg__827 : byte = 0x40u8;
+def arg__825 : byte = 0;
+def arg__824 = u8.&(flags, arg__827);
+def cond__822 = u8.!=(arg__824, arg__825);
+if (cond__822) {
+	def memindex__823__834 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__508__512 : u32 = 0u;
+	def memindex__829__835 : u32 = 0u;
 }
 // phis: 
-def cond__487 = m_isMemory64(memindex);
-if (cond__487) {
-	def offset__509 = imm_readULEB64();
+def cond__808 = m_isMemory64(memindex);
+if (cond__808) {
+	def offset__830 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset__509);
+	def val = mach_readMemory64_u16_64(memindex, index, offset__830);
 	def extend = U64_extend16_s(val);
-	def eff__488 = push_u64(extend);
+	def eff__809 = push_u64(extend);
 } else {
-	def offset__510 = imm_readULEB32();
+	def offset__831 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset__510);
+	def val = mach_readMemory32_u16_64(memindex, index, offset__831);
 	def extend = U64_extend16_s(val);
-	def eff__494 = push_u64(extend);
+	def eff__815 = push_u64(extend);
 }
 // phis: 
 </pre>`;
@@ -17393,7 +17169,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__494 push_u64"]
+	24["eff__815 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -17403,31 +17179,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__510 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__831 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__502__511 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__501 u8.!="]
+	45["memindex__823__834 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__822 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__504 0"]
-	8["arg__503 u8.&"]
+	5["arg__825 0"]
+	8["arg__824 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__506 0x40u8"]
+	6["arg__827 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__508__512 0u"]
-	34["eff__488 push_u64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__829__835 0u"]
+	34["eff__809 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -17437,42 +17213,42 @@ graph TD
 	30["val mach_readMemory64_u16_64"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__509 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__487 m_isMemory64"]
+	37 --> 30
+	37["offset__830 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__808 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I64_LOAD16_S"]["unlem_schedule"] = ''
 window.traces["I64_LOAD16_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__506 : byte = 0x40u8;
-def arg__503 = u8.&(flags, arg__506);
-def arg__504 : byte = 0;
-def cond__501 = u8.!=(arg__503, arg__504);
+def arg__827 : byte = 0x40u8;
+def arg__824 = u8.&(flags, arg__827);
+def arg__825 : byte = 0;
+def cond__822 = u8.!=(arg__824, arg__825);
 var memindex: u32;
-if (cond__501) {
-	def memindex__502__511 = imm_readULEB32();
+if (cond__822) {
+	def memindex__823__834 = imm_readULEB32();
 } else {
-	def memindex__508__512 : u32 = 0u;
+	def memindex__829__835 : u32 = 0u;
 }
-// phis: memindex <- memindex__502__511; memindex <- memindex__508__512; 
-def cond__487 = m_isMemory64(memindex);
-if (cond__487) {
-	def offset__509 = imm_readULEB64();
+// phis: memindex <- memindex__823__834; memindex <- memindex__829__835; 
+def cond__808 = m_isMemory64(memindex);
+if (cond__808) {
+	def offset__830 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset__509);
+	def val = mach_readMemory64_u16_64(memindex, index, offset__830);
 	def extend = U64_extend16_s(val);
-	def eff__488 = push_u64(extend);
+	def eff__809 = push_u64(extend);
 } else {
-	def offset__510 = imm_readULEB32();
+	def offset__831 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset__510);
+	def val = mach_readMemory32_u16_64(memindex, index, offset__831);
 	def extend = U64_extend16_s(val);
-	def eff__494 = push_u64(extend);
+	def eff__815 = push_u64(extend);
 }
 // phis: 
 </pre>`;
@@ -17492,7 +17268,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__494 push_u64"]
+	24["eff__815 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -17502,31 +17278,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__510__514 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__831__851 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__502__511 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__501 u8.!="]
+	45["memindex__823__834 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__822 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__504 0"]
-	8["arg__503 u8.&"]
+	5["arg__825 0"]
+	8["arg__824 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__506 0x40u8"]
+	6["arg__827 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__508__512 0u"]
-	34["eff__488 push_u64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__829__835 0u"]
+	34["eff__809 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -17536,15 +17312,15 @@ graph TD
 	30["val mach_readMemory64_u16_64"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__509__513 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__487 m_isMemory64"]
+	77 --> 30
+	77["offset__830__850 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__808 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I64_LOAD16_S_ul"]["post_surgery 369"] = ''
 window.traces["I64_LOAD16_S_ul"]["post_surgery 369"] += `<pre class='graph'>---
@@ -17561,7 +17337,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__494 push_u64"]
+	24["eff__815 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -17571,31 +17347,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__510__514 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__831__851 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__502__511__515 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__501 u8.!="]
+	85["memindex__823__834__854 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__822 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__504 0"]
-	8["arg__503 u8.&"]
+	5["arg__825 0"]
+	8["arg__824 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__506 0x40u8"]
+	6["arg__827 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__508__512__516 0u"]
-	34["eff__488 push_u64"]
+	85 --> 11
+	87 --> 11
+	87["memindex__829__835__855 0u"]
+	34["eff__809 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -17605,15 +17381,15 @@ graph TD
 	30["val mach_readMemory64_u16_64"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__509__513 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__487 m_isMemory64"]
+	77 --> 30
+	77["offset__830__850 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__808 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I64_LOAD16_S"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD16_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -17630,25 +17406,25 @@ block_365 --> phi_364
 block_366 --> phi_364
 subgraph block_365["Block 365"]
 	direction TB
-	b365_46["offset__509__513 imm_readULEB64"]
+	b365_77["offset__830__850 imm_readULEB64"]
 	b365_26["index pop_u64"]
 	b365_30["val mach_readMemory64_u16_64"]
 	b365_32["extend U64_extend16_s"]
-	b365_34["eff__488 push_u64"]
-	b365_46 --> b365_26
+	b365_34["eff__809 push_u64"]
+	b365_77 --> b365_26
 	b365_26 --> b365_30
 	b365_30 --> b365_32
 	b365_32 --> b365_34
 end
 branch_363 --> block_365
 subgraph branch_363["Branch 363"]
-	br363_14["cond__487 m_isMemory64"]
+	br363_14["cond__808 m_isMemory64"]
 
 end
 block_367 --> branch_363
 subgraph block_367["Block 367"]
 	direction TB
-	b367_14["cond__487 m_isMemory64"]
+	b367_14["cond__808 m_isMemory64"]
 end
 phi_369 --> block_367
 subgraph phi_369["Phi 369"]
@@ -17665,21 +17441,21 @@ block_370 --> phi_369
 block_371 --> phi_369
 subgraph block_370["Block 370"]
 	direction TB
-	b370_49["memindex__502__511__515 imm_readULEB32"]
+	b370_85["memindex__823__834__854 imm_readULEB32"]
 end
 branch_368 --> block_370
 subgraph branch_368["Branch 368"]
-	br368_9["cond__501 u8.!="]
+	br368_9["cond__822 u8.!="]
 
 end
 block_372 --> branch_368
 subgraph block_372["Block 372"]
 	direction TB
 	b372_0[/"Start"\\]
-	b372_6["arg__506 0x40u8"]
-	b372_5["arg__504 0"]
-	b372_8["arg__503 u8.&"]
-	b372_9["cond__501 u8.!="]
+	b372_6["arg__827 0x40u8"]
+	b372_5["arg__825 0"]
+	b372_8["arg__824 u8.&"]
+	b372_9["cond__822 u8.!="]
 	b372_0 --> b372_6
 	b372_6 --> b372_5
 	b372_5 --> b372_8
@@ -17688,18 +17464,18 @@ end
 subgraph block_371["Block 371"]
 	direction TB
 	b371_3["flags imm_readU8"]
-	b371_51["memindex__508__512__516 0u"]
-	b371_3 --> b371_51
+	b371_87["memindex__829__835__855 0u"]
+	b371_3 --> b371_87
 end
 branch_368 --> block_371
 subgraph block_366["Block 366"]
 	direction TB
-	b366_48["offset__510__514 imm_readULEB32"]
+	b366_79["offset__831__851 imm_readULEB32"]
 	b366_16["index pop_u32"]
 	b366_20["val mach_readMemory32_u16_64"]
 	b366_22["extend U64_extend16_s"]
-	b366_24["eff__494 push_u64"]
-	b366_48 --> b366_16
+	b366_24["eff__815 push_u64"]
+	b366_79 --> b366_16
 	b366_16 --> b366_20
 	b366_20 --> b366_22
 	b366_22 --> b366_24
@@ -17745,7 +17521,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__494 push_u64"]
+	24["eff__815 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -17755,31 +17531,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__510__514 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__831__851 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__502__511__515 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__501 u8.!="]
+	85["memindex__823__834__854 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__822 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__504 0"]
-	8["arg__503 u8.&"]
+	5["arg__825 0"]
+	8["arg__824 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__506 0x40u8"]
+	6["arg__827 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__508__512__516 0u"]
-	34["eff__488 push_u64"]
+	85 --> 11
+	87 --> 11
+	87["memindex__829__835__855 0u"]
+	34["eff__809 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -17789,15 +17565,15 @@ graph TD
 	30["val mach_readMemory64_u16_64"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__509__513 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__487 m_isMemory64"]
+	77 --> 30
+	77["offset__830__850 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__808 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I64_LOAD16_S"]["chooseMerge"] = ''
 window.traces["I64_LOAD16_S"]["chooseMerge"] += `<pre class='graph'>---
@@ -17814,7 +17590,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__494 push_u64"]
+	24["eff__815 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -17824,31 +17600,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__510__514 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__831__851 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__502__511__515 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__501 u8.!="]
+	85["memindex__823__834__854 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__822 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__504 0"]
-	8["arg__503 u8.&"]
+	5["arg__825 0"]
+	8["arg__824 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__506 0x40u8"]
+	6["arg__827 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__508__512__516 0u"]
-	34["eff__488 push_u64"]
+	85 --> 11
+	87 --> 11
+	87["memindex__829__835__855 0u"]
+	34["eff__809 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -17858,42 +17634,42 @@ graph TD
 	30["val mach_readMemory64_u16_64"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__509__513 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__487 m_isMemory64"]
+	77 --> 30
+	77["offset__830__850 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__808 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I64_LOAD16_S"]["scheduled"] = ''
 window.traces["I64_LOAD16_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__506 : byte = 0x40u8;
-def arg__503 = u8.&(flags, arg__506);
-def arg__504 : byte = 0;
-def cond__501 = u8.!=(arg__503, arg__504);
+def arg__827 : byte = 0x40u8;
+def arg__824 = u8.&(flags, arg__827);
+def arg__825 : byte = 0;
+def cond__822 = u8.!=(arg__824, arg__825);
 var memindex: u32;
-if (cond__501) {
-	def memindex__502__511__515 = imm_readULEB32();
+if (cond__822) {
+	def memindex__823__834__854 = imm_readULEB32();
 } else {
-	def memindex__508__512__516 : u32 = 0u;
+	def memindex__829__835__855 : u32 = 0u;
 }
-// phis: memindex <- memindex__502__511__515; memindex <- memindex__508__512__516; 
-def cond__487 = m_isMemory64(memindex);
-if (cond__487) {
-	def offset__509__513 = imm_readULEB64();
+// phis: memindex <- memindex__823__834__854; memindex <- memindex__829__835__855; 
+def cond__808 = m_isMemory64(memindex);
+if (cond__808) {
+	def offset__830__850 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset__509__513);
+	def val = mach_readMemory64_u16_64(memindex, index, offset__830__850);
 	def extend = U64_extend16_s(val);
-	def eff__488 = push_u64(extend);
+	def eff__809 = push_u64(extend);
 } else {
-	def offset__510__514 = imm_readULEB32();
+	def offset__831__851 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset__510__514);
+	def val = mach_readMemory32_u16_64(memindex, index, offset__831__851);
 	def extend = U64_extend16_s(val);
-	def eff__494 = push_u64(extend);
+	def eff__815 = push_u64(extend);
 }
 // phis: 
 </pre>`;
@@ -17924,35 +17700,35 @@ window.traces["I64_LOAD16_U"] = {}
 window.traces["I64_LOAD16_U"]["parsed"] = ''
 window.traces["I64_LOAD16_U"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__532 : byte = 0;
-def arg__534 : byte = 0x40u8;
-def arg__533 = (flags);
-def arg__531 = u8.&(arg__533, arg__534);
-def cond__529 = u8.!=(arg__531, arg__532);
-if (cond__529) {
-	def memindex__530 = imm_readULEB32();
+def arg__885 : byte = 0;
+def arg__887 : byte = 0x40u8;
+def arg__886 = (flags);
+def arg__884 = u8.&(arg__886, arg__887);
+def cond__882 = u8.!=(arg__884, arg__885);
+if (cond__882) {
+	def memindex__883 = imm_readULEB32();
 }
-// phis: memindex <- memindex__530; 
-def arg__528 = (memindex);
-def cond__517 = m_isMemory64(arg__528);
-if (cond__517) {
+// phis: memindex <- memindex__883; 
+def arg__881 = (memindex);
+def cond__870 = m_isMemory64(arg__881);
+if (cond__870) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__522 = (offset);
-	def arg__521 = (index);
-	def arg__520 = (memindex);
-	def val = mach_readMemory64_u16_64(arg__520, arg__521, arg__522);
-	def arg__519 = (val);
-	def eff__518 = push_u64(arg__519);
+	def arg__875 = (offset);
+	def arg__874 = (index);
+	def arg__873 = (memindex);
+	def val = mach_readMemory64_u16_64(arg__873, arg__874, arg__875);
+	def arg__872 = (val);
+	def eff__871 = push_u64(arg__872);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__527 = (offset);
-	def arg__526 = (index);
-	def arg__525 = (memindex);
-	def val = mach_readMemory32_u16_64(arg__525, arg__526, arg__527);
-	def arg__524 = (val);
-	def eff__523 = push_u64(arg__524);
+	def arg__880 = (offset);
+	def arg__879 = (index);
+	def arg__878 = (memindex);
+	def val = mach_readMemory32_u16_64(arg__878, arg__879, arg__880);
+	def arg__877 = (val);
+	def eff__876 = push_u64(arg__877);
 }
 // phis: 
 </pre>`;
@@ -17971,7 +17747,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__523 push_u64"]
+	22["eff__876 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -17988,22 +17764,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__530 imm_readULEB32"]
+	10["memindex__883 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__529 u8.!="]
+	9["cond__882 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__532 0"]
-	8["arg__531 u8.&"]
+	5["arg__885 0"]
+	8["arg__884 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__534 0x40u8"]
+	6["arg__887 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__535 0u"]
-	30["eff__518 push_u64"]
+	4["memindex__888 0u"]
+	30["eff__871 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -18014,7 +17790,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__517 m_isMemory64"]
+	14["cond__870 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -18036,7 +17812,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__523 push_u64"]
+	22["eff__876 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -18053,22 +17829,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__530 imm_readULEB32"]
+	10["memindex__883 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__529 u8.!="]
+	9["cond__882 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__532 0"]
-	8["arg__531 u8.&"]
+	5["arg__885 0"]
+	8["arg__884 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__534 0x40u8"]
+	6["arg__887 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__536 0u"]
-	30["eff__518 push_u64"]
+	4["memindex__889 0u"]
+	30["eff__871 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -18079,7 +17855,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__517 m_isMemory64"]
+	14["cond__870 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -18101,7 +17877,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__523 push_u64"]
+	22["eff__876 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -18118,22 +17894,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__530 imm_readULEB32"]
+	10["memindex__883 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__529 u8.!="]
+	9["cond__882 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__532 0"]
-	8["arg__531 u8.&"]
+	5["arg__885 0"]
+	8["arg__884 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__534 0x40u8"]
+	6["arg__887 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__536 0u"]
-	30["eff__518 push_u64"]
+	4["memindex__889 0u"]
+	30["eff__871 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -18144,7 +17920,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__517 m_isMemory64"]
+	14["cond__870 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -18166,7 +17942,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__523 push_u64"]
+	22["eff__876 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -18174,31 +17950,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__538 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__891 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__530 imm_readULEB32"]
+	10["memindex__883 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__529 u8.!="]
+	9["cond__882 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__532 0"]
-	8["arg__531 u8.&"]
+	5["arg__885 0"]
+	8["arg__884 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__534 0x40u8"]
+	6["arg__887 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__536 0u"]
-	30["eff__518 push_u64"]
+	4["memindex__889 0u"]
+	30["eff__871 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -18206,15 +17982,15 @@ graph TD
 	28["val mach_readMemory64_u16_64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__537 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__517 m_isMemory64"]
+	33 --> 28
+	33["offset__890 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__870 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I64_LOAD16_U"]["post_surgery 380"] = ''
 window.traces["I64_LOAD16_U"]["post_surgery 380"] += `<pre class='graph'>---
@@ -18231,7 +18007,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__523 push_u64"]
+	22["eff__876 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -18239,31 +18015,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__538 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__891 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__530__539 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__529 u8.!="]
+	41["memindex__883__894 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__882 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__532 0"]
-	8["arg__531 u8.&"]
+	5["arg__885 0"]
+	8["arg__884 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__534 0x40u8"]
+	6["arg__887 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__536__540 0u"]
-	30["eff__518 push_u64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__889__895 0u"]
+	30["eff__871 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -18271,15 +18047,15 @@ graph TD
 	28["val mach_readMemory64_u16_64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__537 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__517 m_isMemory64"]
+	33 --> 28
+	33["offset__890 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__870 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I64_LOAD16_U"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD16_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -18296,23 +18072,23 @@ block_376 --> phi_375
 block_377 --> phi_375
 subgraph block_376["Block 376"]
 	direction TB
-	b376_34["offset__537 imm_readULEB64"]
+	b376_33["offset__890 imm_readULEB64"]
 	b376_24["index pop_u64"]
 	b376_28["val mach_readMemory64_u16_64"]
-	b376_30["eff__518 push_u64"]
-	b376_34 --> b376_24
+	b376_30["eff__871 push_u64"]
+	b376_33 --> b376_24
 	b376_24 --> b376_28
 	b376_28 --> b376_30
 end
 branch_374 --> block_376
 subgraph branch_374["Branch 374"]
-	br374_14["cond__517 m_isMemory64"]
+	br374_14["cond__870 m_isMemory64"]
 
 end
 block_378 --> branch_374
 subgraph block_378["Block 378"]
 	direction TB
-	b378_14["cond__517 m_isMemory64"]
+	b378_14["cond__870 m_isMemory64"]
 end
 phi_380 --> block_378
 subgraph phi_380["Phi 380"]
@@ -18329,21 +18105,21 @@ block_381 --> phi_380
 block_382 --> phi_380
 subgraph block_381["Block 381"]
 	direction TB
-	b381_37["memindex__530__539 imm_readULEB32"]
+	b381_41["memindex__883__894 imm_readULEB32"]
 end
 branch_379 --> block_381
 subgraph branch_379["Branch 379"]
-	br379_9["cond__529 u8.!="]
+	br379_9["cond__882 u8.!="]
 
 end
 block_383 --> branch_379
 subgraph block_383["Block 383"]
 	direction TB
 	b383_0[/"Start"\\]
-	b383_6["arg__534 0x40u8"]
-	b383_5["arg__532 0"]
-	b383_8["arg__531 u8.&"]
-	b383_9["cond__529 u8.!="]
+	b383_6["arg__887 0x40u8"]
+	b383_5["arg__885 0"]
+	b383_8["arg__884 u8.&"]
+	b383_9["cond__882 u8.!="]
 	b383_0 --> b383_6
 	b383_6 --> b383_5
 	b383_5 --> b383_8
@@ -18352,17 +18128,17 @@ end
 subgraph block_382["Block 382"]
 	direction TB
 	b382_3["flags imm_readU8"]
-	b382_39["memindex__536__540 0u"]
-	b382_3 --> b382_39
+	b382_43["memindex__889__895 0u"]
+	b382_3 --> b382_43
 end
 branch_379 --> block_382
 subgraph block_377["Block 377"]
 	direction TB
-	b377_36["offset__538 imm_readULEB32"]
+	b377_35["offset__891 imm_readULEB32"]
 	b377_16["index pop_u32"]
 	b377_20["val mach_readMemory32_u16_64"]
-	b377_22["eff__523 push_u64"]
-	b377_36 --> b377_16
+	b377_22["eff__876 push_u64"]
+	b377_35 --> b377_16
 	b377_16 --> b377_20
 	b377_20 --> b377_22
 end
@@ -18370,28 +18146,28 @@ branch_374 --> block_377
 
 </pre>`;
 window.traces["I64_LOAD16_U"]["scheduler ssad"] = ''
-window.traces["I64_LOAD16_U"]["scheduler ssad"] += `<pre class=''>def arg__534 : byte = 0x40u8;
-def arg__532 : byte = 0;
-def arg__531 = u8.&(flags, arg__534);
-def cond__529 = u8.!=(arg__531, arg__532);
-if (cond__529) {
-	def memindex__530__539 = imm_readULEB32();
+window.traces["I64_LOAD16_U"]["scheduler ssad"] += `<pre class=''>def arg__887 : byte = 0x40u8;
+def arg__885 : byte = 0;
+def arg__884 = u8.&(flags, arg__887);
+def cond__882 = u8.!=(arg__884, arg__885);
+if (cond__882) {
+	def memindex__883__894 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__536__540 : u32 = 0u;
+	def memindex__889__895 : u32 = 0u;
 }
 // phis: 
-def cond__517 = m_isMemory64(memindex);
-if (cond__517) {
-	def offset__537 = imm_readULEB64();
+def cond__870 = m_isMemory64(memindex);
+if (cond__870) {
+	def offset__890 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset__537);
-	def eff__518 = push_u64(val);
+	def val = mach_readMemory64_u16_64(memindex, index, offset__890);
+	def eff__871 = push_u64(val);
 } else {
-	def offset__538 = imm_readULEB32();
+	def offset__891 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset__538);
-	def eff__523 = push_u64(val);
+	def val = mach_readMemory32_u16_64(memindex, index, offset__891);
+	def eff__876 = push_u64(val);
 }
 // phis: 
 </pre>`;
@@ -18410,7 +18186,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__523 push_u64"]
+	22["eff__876 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -18418,31 +18194,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__538 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__891 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__530__539 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__529 u8.!="]
+	41["memindex__883__894 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__882 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__532 0"]
-	8["arg__531 u8.&"]
+	5["arg__885 0"]
+	8["arg__884 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__534 0x40u8"]
+	6["arg__887 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__536__540 0u"]
-	30["eff__518 push_u64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__889__895 0u"]
+	30["eff__871 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -18450,40 +18226,40 @@ graph TD
 	28["val mach_readMemory64_u16_64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__537 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__517 m_isMemory64"]
+	33 --> 28
+	33["offset__890 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__870 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I64_LOAD16_U"]["unlem_schedule"] = ''
 window.traces["I64_LOAD16_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__534 : byte = 0x40u8;
-def arg__531 = u8.&(flags, arg__534);
-def arg__532 : byte = 0;
-def cond__529 = u8.!=(arg__531, arg__532);
+def arg__887 : byte = 0x40u8;
+def arg__884 = u8.&(flags, arg__887);
+def arg__885 : byte = 0;
+def cond__882 = u8.!=(arg__884, arg__885);
 var memindex: u32;
-if (cond__529) {
-	def memindex__530__539 = imm_readULEB32();
+if (cond__882) {
+	def memindex__883__894 = imm_readULEB32();
 } else {
-	def memindex__536__540 : u32 = 0u;
+	def memindex__889__895 : u32 = 0u;
 }
-// phis: memindex <- memindex__530__539; memindex <- memindex__536__540; 
-def cond__517 = m_isMemory64(memindex);
-if (cond__517) {
-	def offset__537 = imm_readULEB64();
+// phis: memindex <- memindex__883__894; memindex <- memindex__889__895; 
+def cond__870 = m_isMemory64(memindex);
+if (cond__870) {
+	def offset__890 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset__537);
-	def eff__518 = push_u64(val);
+	def val = mach_readMemory64_u16_64(memindex, index, offset__890);
+	def eff__871 = push_u64(val);
 } else {
-	def offset__538 = imm_readULEB32();
+	def offset__891 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset__538);
-	def eff__523 = push_u64(val);
+	def val = mach_readMemory32_u16_64(memindex, index, offset__891);
+	def eff__876 = push_u64(val);
 }
 // phis: 
 </pre>`;
@@ -18503,7 +18279,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__523 push_u64"]
+	22["eff__876 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -18511,31 +18287,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__538__542 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__891__911 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__530__539 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__529 u8.!="]
+	41["memindex__883__894 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__882 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__532 0"]
-	8["arg__531 u8.&"]
+	5["arg__885 0"]
+	8["arg__884 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__534 0x40u8"]
+	6["arg__887 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__536__540 0u"]
-	30["eff__518 push_u64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__889__895 0u"]
+	30["eff__871 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -18543,15 +18319,15 @@ graph TD
 	28["val mach_readMemory64_u16_64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__537__541 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__517 m_isMemory64"]
+	73 --> 28
+	73["offset__890__910 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__870 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD16_U_ul"]["post_surgery 391"] = ''
 window.traces["I64_LOAD16_U_ul"]["post_surgery 391"] += `<pre class='graph'>---
@@ -18568,7 +18344,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__523 push_u64"]
+	22["eff__876 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -18576,31 +18352,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__538__542 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__891__911 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__530__539__543 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__529 u8.!="]
+	81["memindex__883__894__914 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__882 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__532 0"]
-	8["arg__531 u8.&"]
+	5["arg__885 0"]
+	8["arg__884 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__534 0x40u8"]
+	6["arg__887 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__536__540__544 0u"]
-	30["eff__518 push_u64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__889__895__915 0u"]
+	30["eff__871 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -18608,15 +18384,15 @@ graph TD
 	28["val mach_readMemory64_u16_64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__537__541 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__517 m_isMemory64"]
+	73 --> 28
+	73["offset__890__910 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__870 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD16_U"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD16_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -18633,23 +18409,23 @@ block_387 --> phi_386
 block_388 --> phi_386
 subgraph block_387["Block 387"]
 	direction TB
-	b387_42["offset__537__541 imm_readULEB64"]
+	b387_73["offset__890__910 imm_readULEB64"]
 	b387_24["index pop_u64"]
 	b387_28["val mach_readMemory64_u16_64"]
-	b387_30["eff__518 push_u64"]
-	b387_42 --> b387_24
+	b387_30["eff__871 push_u64"]
+	b387_73 --> b387_24
 	b387_24 --> b387_28
 	b387_28 --> b387_30
 end
 branch_385 --> block_387
 subgraph branch_385["Branch 385"]
-	br385_14["cond__517 m_isMemory64"]
+	br385_14["cond__870 m_isMemory64"]
 
 end
 block_389 --> branch_385
 subgraph block_389["Block 389"]
 	direction TB
-	b389_14["cond__517 m_isMemory64"]
+	b389_14["cond__870 m_isMemory64"]
 end
 phi_391 --> block_389
 subgraph phi_391["Phi 391"]
@@ -18666,21 +18442,21 @@ block_392 --> phi_391
 block_393 --> phi_391
 subgraph block_392["Block 392"]
 	direction TB
-	b392_45["memindex__530__539__543 imm_readULEB32"]
+	b392_81["memindex__883__894__914 imm_readULEB32"]
 end
 branch_390 --> block_392
 subgraph branch_390["Branch 390"]
-	br390_9["cond__529 u8.!="]
+	br390_9["cond__882 u8.!="]
 
 end
 block_394 --> branch_390
 subgraph block_394["Block 394"]
 	direction TB
 	b394_0[/"Start"\\]
-	b394_6["arg__534 0x40u8"]
-	b394_5["arg__532 0"]
-	b394_8["arg__531 u8.&"]
-	b394_9["cond__529 u8.!="]
+	b394_6["arg__887 0x40u8"]
+	b394_5["arg__885 0"]
+	b394_8["arg__884 u8.&"]
+	b394_9["cond__882 u8.!="]
 	b394_0 --> b394_6
 	b394_6 --> b394_5
 	b394_5 --> b394_8
@@ -18689,17 +18465,17 @@ end
 subgraph block_393["Block 393"]
 	direction TB
 	b393_3["flags imm_readU8"]
-	b393_47["memindex__536__540__544 0u"]
-	b393_3 --> b393_47
+	b393_83["memindex__889__895__915 0u"]
+	b393_3 --> b393_83
 end
 branch_390 --> block_393
 subgraph block_388["Block 388"]
 	direction TB
-	b388_44["offset__538__542 imm_readULEB32"]
+	b388_75["offset__891__911 imm_readULEB32"]
 	b388_16["index pop_u32"]
 	b388_20["val mach_readMemory32_u16_64"]
-	b388_22["eff__523 push_u64"]
-	b388_44 --> b388_16
+	b388_22["eff__876 push_u64"]
+	b388_75 --> b388_16
 	b388_16 --> b388_20
 	b388_20 --> b388_22
 end
@@ -18742,7 +18518,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__523 push_u64"]
+	22["eff__876 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -18750,31 +18526,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__538__542 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__891__911 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__530__539__543 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__529 u8.!="]
+	81["memindex__883__894__914 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__882 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__532 0"]
-	8["arg__531 u8.&"]
+	5["arg__885 0"]
+	8["arg__884 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__534 0x40u8"]
+	6["arg__887 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__536__540__544 0u"]
-	30["eff__518 push_u64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__889__895__915 0u"]
+	30["eff__871 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -18782,15 +18558,15 @@ graph TD
 	28["val mach_readMemory64_u16_64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__537__541 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__517 m_isMemory64"]
+	73 --> 28
+	73["offset__890__910 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__870 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD16_U"]["chooseMerge"] = ''
 window.traces["I64_LOAD16_U"]["chooseMerge"] += `<pre class='graph'>---
@@ -18807,7 +18583,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__523 push_u64"]
+	22["eff__876 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -18815,31 +18591,31 @@ graph TD
 	20["val mach_readMemory32_u16_64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__538__542 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__891__911 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__530__539__543 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__529 u8.!="]
+	81["memindex__883__894__914 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__882 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__532 0"]
-	8["arg__531 u8.&"]
+	5["arg__885 0"]
+	8["arg__884 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__534 0x40u8"]
+	6["arg__887 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__536__540__544 0u"]
-	30["eff__518 push_u64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__889__895__915 0u"]
+	30["eff__871 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -18847,40 +18623,40 @@ graph TD
 	28["val mach_readMemory64_u16_64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__537__541 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__517 m_isMemory64"]
+	73 --> 28
+	73["offset__890__910 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__870 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD16_U"]["scheduled"] = ''
 window.traces["I64_LOAD16_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__534 : byte = 0x40u8;
-def arg__531 = u8.&(flags, arg__534);
-def arg__532 : byte = 0;
-def cond__529 = u8.!=(arg__531, arg__532);
+def arg__887 : byte = 0x40u8;
+def arg__884 = u8.&(flags, arg__887);
+def arg__885 : byte = 0;
+def cond__882 = u8.!=(arg__884, arg__885);
 var memindex: u32;
-if (cond__529) {
-	def memindex__530__539__543 = imm_readULEB32();
+if (cond__882) {
+	def memindex__883__894__914 = imm_readULEB32();
 } else {
-	def memindex__536__540__544 : u32 = 0u;
+	def memindex__889__895__915 : u32 = 0u;
 }
-// phis: memindex <- memindex__530__539__543; memindex <- memindex__536__540__544; 
-def cond__517 = m_isMemory64(memindex);
-if (cond__517) {
-	def offset__537__541 = imm_readULEB64();
+// phis: memindex <- memindex__883__894__914; memindex <- memindex__889__895__915; 
+def cond__870 = m_isMemory64(memindex);
+if (cond__870) {
+	def offset__890__910 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset__537__541);
-	def eff__518 = push_u64(val);
+	def val = mach_readMemory64_u16_64(memindex, index, offset__890__910);
+	def eff__871 = push_u64(val);
 } else {
-	def offset__538__542 = imm_readULEB32();
+	def offset__891__911 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset__538__542);
-	def eff__523 = push_u64(val);
+	def val = mach_readMemory32_u16_64(memindex, index, offset__891__911);
+	def eff__876 = push_u64(val);
 }
 // phis: 
 </pre>`;
@@ -18909,39 +18685,39 @@ window.traces["I64_LOAD32_S"] = {}
 window.traces["I64_LOAD32_S"]["parsed"] = ''
 window.traces["I64_LOAD32_S"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__562 : byte = 0;
-def arg__564 : byte = 0x40u8;
-def arg__563 = (flags);
-def arg__561 = u8.&(arg__563, arg__564);
-def cond__559 = u8.!=(arg__561, arg__562);
-if (cond__559) {
-	def memindex__560 = imm_readULEB32();
+def arg__947 : byte = 0;
+def arg__949 : byte = 0x40u8;
+def arg__948 = (flags);
+def arg__946 = u8.&(arg__948, arg__949);
+def cond__944 = u8.!=(arg__946, arg__947);
+if (cond__944) {
+	def memindex__945 = imm_readULEB32();
 }
-// phis: memindex <- memindex__560; 
-def arg__558 = (memindex);
-def cond__545 = m_isMemory64(arg__558);
-if (cond__545) {
+// phis: memindex <- memindex__945; 
+def arg__943 = (memindex);
+def cond__930 = m_isMemory64(arg__943);
+if (cond__930) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__551 = (offset);
-	def arg__550 = (index);
-	def arg__549 = (memindex);
-	def val = mach_readMemory64_u32_64(arg__549, arg__550, arg__551);
-	def arg__548 = (val);
-	def extend = U64_extend32_s(arg__548);
-	def arg__547 = (extend);
-	def eff__546 = push_u64(arg__547);
+	def arg__936 = (offset);
+	def arg__935 = (index);
+	def arg__934 = (memindex);
+	def val = mach_readMemory64_u32_64(arg__934, arg__935, arg__936);
+	def arg__933 = (val);
+	def extend = U64_extend32_s(arg__933);
+	def arg__932 = (extend);
+	def eff__931 = push_u64(arg__932);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__557 = (offset);
-	def arg__556 = (index);
-	def arg__555 = (memindex);
-	def val = mach_readMemory32_u32_64(arg__555, arg__556, arg__557);
-	def arg__554 = (val);
-	def extend = U64_extend32_s(arg__554);
-	def arg__553 = (extend);
-	def eff__552 = push_u64(arg__553);
+	def arg__942 = (offset);
+	def arg__941 = (index);
+	def arg__940 = (memindex);
+	def val = mach_readMemory32_u32_64(arg__940, arg__941, arg__942);
+	def arg__939 = (val);
+	def extend = U64_extend32_s(arg__939);
+	def arg__938 = (extend);
+	def eff__937 = push_u64(arg__938);
 }
 // phis: 
 </pre>`;
@@ -18960,7 +18736,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__552 push_u64"]
+	24["eff__937 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -18979,22 +18755,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__560 imm_readULEB32"]
+	10["memindex__945 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__559 u8.!="]
+	9["cond__944 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__562 0"]
-	8["arg__561 u8.&"]
+	5["arg__947 0"]
+	8["arg__946 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__564 0x40u8"]
+	6["arg__949 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__565 0u"]
-	34["eff__546 push_u64"]
+	4["memindex__950 0u"]
+	34["eff__931 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -19007,7 +18783,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__545 m_isMemory64"]
+	14["cond__930 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -19029,7 +18805,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__552 push_u64"]
+	24["eff__937 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -19048,22 +18824,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__560 imm_readULEB32"]
+	10["memindex__945 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__559 u8.!="]
+	9["cond__944 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__562 0"]
-	8["arg__561 u8.&"]
+	5["arg__947 0"]
+	8["arg__946 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__564 0x40u8"]
+	6["arg__949 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__566 0u"]
-	34["eff__546 push_u64"]
+	4["memindex__951 0u"]
+	34["eff__931 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -19076,7 +18852,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__545 m_isMemory64"]
+	14["cond__930 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -19098,7 +18874,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__552 push_u64"]
+	24["eff__937 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -19117,22 +18893,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__560 imm_readULEB32"]
+	10["memindex__945 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__559 u8.!="]
+	9["cond__944 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__562 0"]
-	8["arg__561 u8.&"]
+	5["arg__947 0"]
+	8["arg__946 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__564 0x40u8"]
+	6["arg__949 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__566 0u"]
-	34["eff__546 push_u64"]
+	4["memindex__951 0u"]
+	34["eff__931 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -19145,7 +18921,7 @@ graph TD
 	25 --> 30
 	25["offset imm_readULEB64"]
 	12 -. Codeptr .-> 25
-	14["cond__545 m_isMemory64"]
+	14["cond__930 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
@@ -19167,7 +18943,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__552 push_u64"]
+	24["eff__937 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -19177,31 +18953,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__568 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__953 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__560 imm_readULEB32"]
+	10["memindex__945 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__559 u8.!="]
+	9["cond__944 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__562 0"]
-	8["arg__561 u8.&"]
+	5["arg__947 0"]
+	8["arg__946 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__564 0x40u8"]
+	6["arg__949 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__566 0u"]
-	34["eff__546 push_u64"]
+	4["memindex__951 0u"]
+	34["eff__931 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -19211,15 +18987,15 @@ graph TD
 	30["val mach_readMemory64_u32_64"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__567 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__545 m_isMemory64"]
+	37 --> 30
+	37["offset__952 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__930 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I64_LOAD32_S"]["post_surgery 402"] = ''
 window.traces["I64_LOAD32_S"]["post_surgery 402"] += `<pre class='graph'>---
@@ -19236,7 +19012,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__552 push_u64"]
+	24["eff__937 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -19246,31 +19022,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__568 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__953 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__560__569 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__559 u8.!="]
+	45["memindex__945__956 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__944 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__562 0"]
-	8["arg__561 u8.&"]
+	5["arg__947 0"]
+	8["arg__946 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__564 0x40u8"]
+	6["arg__949 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__566__570 0u"]
-	34["eff__546 push_u64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__951__957 0u"]
+	34["eff__931 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -19280,15 +19056,15 @@ graph TD
 	30["val mach_readMemory64_u32_64"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__567 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__545 m_isMemory64"]
+	37 --> 30
+	37["offset__952 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__930 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I64_LOAD32_S"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD32_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -19305,25 +19081,25 @@ block_398 --> phi_397
 block_399 --> phi_397
 subgraph block_398["Block 398"]
 	direction TB
-	b398_38["offset__567 imm_readULEB64"]
+	b398_37["offset__952 imm_readULEB64"]
 	b398_26["index pop_u64"]
 	b398_30["val mach_readMemory64_u32_64"]
 	b398_32["extend U64_extend32_s"]
-	b398_34["eff__546 push_u64"]
-	b398_38 --> b398_26
+	b398_34["eff__931 push_u64"]
+	b398_37 --> b398_26
 	b398_26 --> b398_30
 	b398_30 --> b398_32
 	b398_32 --> b398_34
 end
 branch_396 --> block_398
 subgraph branch_396["Branch 396"]
-	br396_14["cond__545 m_isMemory64"]
+	br396_14["cond__930 m_isMemory64"]
 
 end
 block_400 --> branch_396
 subgraph block_400["Block 400"]
 	direction TB
-	b400_14["cond__545 m_isMemory64"]
+	b400_14["cond__930 m_isMemory64"]
 end
 phi_402 --> block_400
 subgraph phi_402["Phi 402"]
@@ -19340,21 +19116,21 @@ block_403 --> phi_402
 block_404 --> phi_402
 subgraph block_403["Block 403"]
 	direction TB
-	b403_41["memindex__560__569 imm_readULEB32"]
+	b403_45["memindex__945__956 imm_readULEB32"]
 end
 branch_401 --> block_403
 subgraph branch_401["Branch 401"]
-	br401_9["cond__559 u8.!="]
+	br401_9["cond__944 u8.!="]
 
 end
 block_405 --> branch_401
 subgraph block_405["Block 405"]
 	direction TB
 	b405_0[/"Start"\\]
-	b405_6["arg__564 0x40u8"]
-	b405_5["arg__562 0"]
-	b405_8["arg__561 u8.&"]
-	b405_9["cond__559 u8.!="]
+	b405_6["arg__949 0x40u8"]
+	b405_5["arg__947 0"]
+	b405_8["arg__946 u8.&"]
+	b405_9["cond__944 u8.!="]
 	b405_0 --> b405_6
 	b405_6 --> b405_5
 	b405_5 --> b405_8
@@ -19363,18 +19139,18 @@ end
 subgraph block_404["Block 404"]
 	direction TB
 	b404_3["flags imm_readU8"]
-	b404_43["memindex__566__570 0u"]
-	b404_3 --> b404_43
+	b404_47["memindex__951__957 0u"]
+	b404_3 --> b404_47
 end
 branch_401 --> block_404
 subgraph block_399["Block 399"]
 	direction TB
-	b399_40["offset__568 imm_readULEB32"]
+	b399_39["offset__953 imm_readULEB32"]
 	b399_16["index pop_u32"]
 	b399_20["val mach_readMemory32_u32_64"]
 	b399_22["extend U64_extend32_s"]
-	b399_24["eff__552 push_u64"]
-	b399_40 --> b399_16
+	b399_24["eff__937 push_u64"]
+	b399_39 --> b399_16
 	b399_16 --> b399_20
 	b399_20 --> b399_22
 	b399_22 --> b399_24
@@ -19383,30 +19159,30 @@ branch_396 --> block_399
 
 </pre>`;
 window.traces["I64_LOAD32_S"]["scheduler ssad"] = ''
-window.traces["I64_LOAD32_S"]["scheduler ssad"] += `<pre class=''>def arg__564 : byte = 0x40u8;
-def arg__562 : byte = 0;
-def arg__561 = u8.&(flags, arg__564);
-def cond__559 = u8.!=(arg__561, arg__562);
-if (cond__559) {
-	def memindex__560__569 = imm_readULEB32();
+window.traces["I64_LOAD32_S"]["scheduler ssad"] += `<pre class=''>def arg__949 : byte = 0x40u8;
+def arg__947 : byte = 0;
+def arg__946 = u8.&(flags, arg__949);
+def cond__944 = u8.!=(arg__946, arg__947);
+if (cond__944) {
+	def memindex__945__956 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__566__570 : u32 = 0u;
+	def memindex__951__957 : u32 = 0u;
 }
 // phis: 
-def cond__545 = m_isMemory64(memindex);
-if (cond__545) {
-	def offset__567 = imm_readULEB64();
+def cond__930 = m_isMemory64(memindex);
+if (cond__930) {
+	def offset__952 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset__567);
+	def val = mach_readMemory64_u32_64(memindex, index, offset__952);
 	def extend = U64_extend32_s(val);
-	def eff__546 = push_u64(extend);
+	def eff__931 = push_u64(extend);
 } else {
-	def offset__568 = imm_readULEB32();
+	def offset__953 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset__568);
+	def val = mach_readMemory32_u32_64(memindex, index, offset__953);
 	def extend = U64_extend32_s(val);
-	def eff__552 = push_u64(extend);
+	def eff__937 = push_u64(extend);
 }
 // phis: 
 </pre>`;
@@ -19425,7 +19201,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__552 push_u64"]
+	24["eff__937 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -19435,31 +19211,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	40 --> 20
-	40["offset__568 imm_readULEB32"]
-	12 -. Codeptr .-> 40
+	39 --> 20
+	39["offset__953 imm_readULEB32"]
+	12 -. Codeptr .-> 39
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__560__569 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__559 u8.!="]
+	45["memindex__945__956 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__944 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__562 0"]
-	8["arg__561 u8.&"]
+	5["arg__947 0"]
+	8["arg__946 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__564 0x40u8"]
+	6["arg__949 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__566__570 0u"]
-	34["eff__546 push_u64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__951__957 0u"]
+	34["eff__931 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -19469,42 +19245,42 @@ graph TD
 	30["val mach_readMemory64_u32_64"]
 	11 --> 30
 	26 --> 30
-	38 --> 30
-	38["offset__567 imm_readULEB64"]
-	12 -. Codeptr .-> 38
-	14["cond__545 m_isMemory64"]
+	37 --> 30
+	37["offset__952 imm_readULEB64"]
+	12 -. Codeptr .-> 37
+	14["cond__930 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	38 --> 35
-	40 --> 35
+	37 --> 35
+	39 --> 35
 </pre>`;
 window.traces["I64_LOAD32_S"]["unlem_schedule"] = ''
 window.traces["I64_LOAD32_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__564 : byte = 0x40u8;
-def arg__561 = u8.&(flags, arg__564);
-def arg__562 : byte = 0;
-def cond__559 = u8.!=(arg__561, arg__562);
+def arg__949 : byte = 0x40u8;
+def arg__946 = u8.&(flags, arg__949);
+def arg__947 : byte = 0;
+def cond__944 = u8.!=(arg__946, arg__947);
 var memindex: u32;
-if (cond__559) {
-	def memindex__560__569 = imm_readULEB32();
+if (cond__944) {
+	def memindex__945__956 = imm_readULEB32();
 } else {
-	def memindex__566__570 : u32 = 0u;
+	def memindex__951__957 : u32 = 0u;
 }
-// phis: memindex <- memindex__560__569; memindex <- memindex__566__570; 
-def cond__545 = m_isMemory64(memindex);
-if (cond__545) {
-	def offset__567 = imm_readULEB64();
+// phis: memindex <- memindex__945__956; memindex <- memindex__951__957; 
+def cond__930 = m_isMemory64(memindex);
+if (cond__930) {
+	def offset__952 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset__567);
+	def val = mach_readMemory64_u32_64(memindex, index, offset__952);
 	def extend = U64_extend32_s(val);
-	def eff__546 = push_u64(extend);
+	def eff__931 = push_u64(extend);
 } else {
-	def offset__568 = imm_readULEB32();
+	def offset__953 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset__568);
+	def val = mach_readMemory32_u32_64(memindex, index, offset__953);
 	def extend = U64_extend32_s(val);
-	def eff__552 = push_u64(extend);
+	def eff__937 = push_u64(extend);
 }
 // phis: 
 </pre>`;
@@ -19524,7 +19300,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__552 push_u64"]
+	24["eff__937 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -19534,31 +19310,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__568__572 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__953__973 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	41 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	41["memindex__560__569 imm_readULEB32"]
-	3 -. Codeptr .-> 41
-	9["cond__559 u8.!="]
+	45["memindex__945__956 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__944 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__562 0"]
-	8["arg__561 u8.&"]
+	5["arg__947 0"]
+	8["arg__946 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__564 0x40u8"]
+	6["arg__949 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	41 --> 11
-	43 --> 11
-	43["memindex__566__570 0u"]
-	34["eff__546 push_u64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__951__957 0u"]
+	34["eff__931 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -19568,15 +19344,15 @@ graph TD
 	30["val mach_readMemory64_u32_64"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__567__571 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__545 m_isMemory64"]
+	77 --> 30
+	77["offset__952__972 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__930 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I64_LOAD32_S_ul"]["post_surgery 413"] = ''
 window.traces["I64_LOAD32_S_ul"]["post_surgery 413"] += `<pre class='graph'>---
@@ -19593,7 +19369,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__552 push_u64"]
+	24["eff__937 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -19603,31 +19379,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__568__572 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__953__973 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__560__569__573 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__559 u8.!="]
+	85["memindex__945__956__976 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__944 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__562 0"]
-	8["arg__561 u8.&"]
+	5["arg__947 0"]
+	8["arg__946 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__564 0x40u8"]
+	6["arg__949 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__566__570__574 0u"]
-	34["eff__546 push_u64"]
+	85 --> 11
+	87 --> 11
+	87["memindex__951__957__977 0u"]
+	34["eff__931 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -19637,15 +19413,15 @@ graph TD
 	30["val mach_readMemory64_u32_64"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__567__571 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__545 m_isMemory64"]
+	77 --> 30
+	77["offset__952__972 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__930 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I64_LOAD32_S"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -19662,25 +19438,25 @@ block_409 --> phi_408
 block_410 --> phi_408
 subgraph block_409["Block 409"]
 	direction TB
-	b409_46["offset__567__571 imm_readULEB64"]
+	b409_77["offset__952__972 imm_readULEB64"]
 	b409_26["index pop_u64"]
 	b409_30["val mach_readMemory64_u32_64"]
 	b409_32["extend U64_extend32_s"]
-	b409_34["eff__546 push_u64"]
-	b409_46 --> b409_26
+	b409_34["eff__931 push_u64"]
+	b409_77 --> b409_26
 	b409_26 --> b409_30
 	b409_30 --> b409_32
 	b409_32 --> b409_34
 end
 branch_407 --> block_409
 subgraph branch_407["Branch 407"]
-	br407_14["cond__545 m_isMemory64"]
+	br407_14["cond__930 m_isMemory64"]
 
 end
 block_411 --> branch_407
 subgraph block_411["Block 411"]
 	direction TB
-	b411_14["cond__545 m_isMemory64"]
+	b411_14["cond__930 m_isMemory64"]
 end
 phi_413 --> block_411
 subgraph phi_413["Phi 413"]
@@ -19697,21 +19473,21 @@ block_414 --> phi_413
 block_415 --> phi_413
 subgraph block_414["Block 414"]
 	direction TB
-	b414_49["memindex__560__569__573 imm_readULEB32"]
+	b414_85["memindex__945__956__976 imm_readULEB32"]
 end
 branch_412 --> block_414
 subgraph branch_412["Branch 412"]
-	br412_9["cond__559 u8.!="]
+	br412_9["cond__944 u8.!="]
 
 end
 block_416 --> branch_412
 subgraph block_416["Block 416"]
 	direction TB
 	b416_0[/"Start"\\]
-	b416_6["arg__564 0x40u8"]
-	b416_5["arg__562 0"]
-	b416_8["arg__561 u8.&"]
-	b416_9["cond__559 u8.!="]
+	b416_6["arg__949 0x40u8"]
+	b416_5["arg__947 0"]
+	b416_8["arg__946 u8.&"]
+	b416_9["cond__944 u8.!="]
 	b416_0 --> b416_6
 	b416_6 --> b416_5
 	b416_5 --> b416_8
@@ -19720,18 +19496,18 @@ end
 subgraph block_415["Block 415"]
 	direction TB
 	b415_3["flags imm_readU8"]
-	b415_51["memindex__566__570__574 0u"]
-	b415_3 --> b415_51
+	b415_87["memindex__951__957__977 0u"]
+	b415_3 --> b415_87
 end
 branch_412 --> block_415
 subgraph block_410["Block 410"]
 	direction TB
-	b410_48["offset__568__572 imm_readULEB32"]
+	b410_79["offset__953__973 imm_readULEB32"]
 	b410_16["index pop_u32"]
 	b410_20["val mach_readMemory32_u32_64"]
 	b410_22["extend U64_extend32_s"]
-	b410_24["eff__552 push_u64"]
-	b410_48 --> b410_16
+	b410_24["eff__937 push_u64"]
+	b410_79 --> b410_16
 	b410_16 --> b410_20
 	b410_20 --> b410_22
 	b410_22 --> b410_24
@@ -19777,7 +19553,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__552 push_u64"]
+	24["eff__937 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -19787,31 +19563,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__568__572 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__953__973 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__560__569__573 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__559 u8.!="]
+	85["memindex__945__956__976 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__944 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__562 0"]
-	8["arg__561 u8.&"]
+	5["arg__947 0"]
+	8["arg__946 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__564 0x40u8"]
+	6["arg__949 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__566__570__574 0u"]
-	34["eff__546 push_u64"]
+	85 --> 11
+	87 --> 11
+	87["memindex__951__957__977 0u"]
+	34["eff__931 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -19821,15 +19597,15 @@ graph TD
 	30["val mach_readMemory64_u32_64"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__567__571 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__545 m_isMemory64"]
+	77 --> 30
+	77["offset__952__972 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__930 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I64_LOAD32_S"]["chooseMerge"] = ''
 window.traces["I64_LOAD32_S"]["chooseMerge"] += `<pre class='graph'>---
@@ -19846,7 +19622,7 @@ graph TD
 	14 --> 36
 	34 --> 36
 	24 --> 36
-	24["eff__552 push_u64"]
+	24["eff__937 push_u64"]
 	22 --> 24
 	16 -. Stack .-> 24
 	16["index pop_u32"]
@@ -19856,31 +19632,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	48 --> 20
-	48["offset__568__572 imm_readULEB32"]
-	12 -. Codeptr .-> 48
+	79 --> 20
+	79["offset__953__973 imm_readULEB32"]
+	12 -. Codeptr .-> 79
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	49 --> 12
+	85 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	49["memindex__560__569__573 imm_readULEB32"]
-	3 -. Codeptr .-> 49
-	9["cond__559 u8.!="]
+	85["memindex__945__956__976 imm_readULEB32"]
+	3 -. Codeptr .-> 85
+	9["cond__944 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__562 0"]
-	8["arg__561 u8.&"]
+	5["arg__947 0"]
+	8["arg__946 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__564 0x40u8"]
+	6["arg__949 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	49 --> 11
-	51 --> 11
-	51["memindex__566__570__574 0u"]
-	34["eff__546 push_u64"]
+	85 --> 11
+	87 --> 11
+	87["memindex__951__957__977 0u"]
+	34["eff__931 push_u64"]
 	32 --> 34
 	26 -. Stack .-> 34
 	26["index pop_u64"]
@@ -19890,42 +19666,42 @@ graph TD
 	30["val mach_readMemory64_u32_64"]
 	11 --> 30
 	26 --> 30
-	46 --> 30
-	46["offset__567__571 imm_readULEB64"]
-	12 -. Codeptr .-> 46
-	14["cond__545 m_isMemory64"]
+	77 --> 30
+	77["offset__952__972 imm_readULEB64"]
+	12 -. Codeptr .-> 77
+	14["cond__930 m_isMemory64"]
 	11 --> 14
 	35{{"Sϕ Codeptr "}}
 	14 --> 35
-	46 --> 35
-	48 --> 35
+	77 --> 35
+	79 --> 35
 </pre>`;
 window.traces["I64_LOAD32_S"]["scheduled"] = ''
 window.traces["I64_LOAD32_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__564 : byte = 0x40u8;
-def arg__561 = u8.&(flags, arg__564);
-def arg__562 : byte = 0;
-def cond__559 = u8.!=(arg__561, arg__562);
+def arg__949 : byte = 0x40u8;
+def arg__946 = u8.&(flags, arg__949);
+def arg__947 : byte = 0;
+def cond__944 = u8.!=(arg__946, arg__947);
 var memindex: u32;
-if (cond__559) {
-	def memindex__560__569__573 = imm_readULEB32();
+if (cond__944) {
+	def memindex__945__956__976 = imm_readULEB32();
 } else {
-	def memindex__566__570__574 : u32 = 0u;
+	def memindex__951__957__977 : u32 = 0u;
 }
-// phis: memindex <- memindex__560__569__573; memindex <- memindex__566__570__574; 
-def cond__545 = m_isMemory64(memindex);
-if (cond__545) {
-	def offset__567__571 = imm_readULEB64();
+// phis: memindex <- memindex__945__956__976; memindex <- memindex__951__957__977; 
+def cond__930 = m_isMemory64(memindex);
+if (cond__930) {
+	def offset__952__972 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset__567__571);
+	def val = mach_readMemory64_u32_64(memindex, index, offset__952__972);
 	def extend = U64_extend32_s(val);
-	def eff__546 = push_u64(extend);
+	def eff__931 = push_u64(extend);
 } else {
-	def offset__568__572 = imm_readULEB32();
+	def offset__953__973 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset__568__572);
+	def val = mach_readMemory32_u32_64(memindex, index, offset__953__973);
 	def extend = U64_extend32_s(val);
-	def eff__552 = push_u64(extend);
+	def eff__937 = push_u64(extend);
 }
 // phis: 
 </pre>`;
@@ -19956,35 +19732,35 @@ window.traces["I64_LOAD32_U"] = {}
 window.traces["I64_LOAD32_U"]["parsed"] = ''
 window.traces["I64_LOAD32_U"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__590 : byte = 0;
-def arg__592 : byte = 0x40u8;
-def arg__591 = (flags);
-def arg__589 = u8.&(arg__591, arg__592);
-def cond__587 = u8.!=(arg__589, arg__590);
-if (cond__587) {
-	def memindex__588 = imm_readULEB32();
+def arg__1007 : byte = 0;
+def arg__1009 : byte = 0x40u8;
+def arg__1008 = (flags);
+def arg__1006 = u8.&(arg__1008, arg__1009);
+def cond__1004 = u8.!=(arg__1006, arg__1007);
+if (cond__1004) {
+	def memindex__1005 = imm_readULEB32();
 }
-// phis: memindex <- memindex__588; 
-def arg__586 = (memindex);
-def cond__575 = m_isMemory64(arg__586);
-if (cond__575) {
+// phis: memindex <- memindex__1005; 
+def arg__1003 = (memindex);
+def cond__992 = m_isMemory64(arg__1003);
+if (cond__992) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__580 = (offset);
-	def arg__579 = (index);
-	def arg__578 = (memindex);
-	def val = mach_readMemory64_u32_64(arg__578, arg__579, arg__580);
-	def arg__577 = (val);
-	def eff__576 = push_u64(arg__577);
+	def arg__997 = (offset);
+	def arg__996 = (index);
+	def arg__995 = (memindex);
+	def val = mach_readMemory64_u32_64(arg__995, arg__996, arg__997);
+	def arg__994 = (val);
+	def eff__993 = push_u64(arg__994);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__585 = (offset);
-	def arg__584 = (index);
-	def arg__583 = (memindex);
-	def val = mach_readMemory32_u32_64(arg__583, arg__584, arg__585);
-	def arg__582 = (val);
-	def eff__581 = push_u64(arg__582);
+	def arg__1002 = (offset);
+	def arg__1001 = (index);
+	def arg__1000 = (memindex);
+	def val = mach_readMemory32_u32_64(arg__1000, arg__1001, arg__1002);
+	def arg__999 = (val);
+	def eff__998 = push_u64(arg__999);
 }
 // phis: 
 </pre>`;
@@ -20003,7 +19779,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__581 push_u64"]
+	22["eff__998 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -20020,22 +19796,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__588 imm_readULEB32"]
+	10["memindex__1005 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__587 u8.!="]
+	9["cond__1004 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__590 0"]
-	8["arg__589 u8.&"]
+	5["arg__1007 0"]
+	8["arg__1006 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__592 0x40u8"]
+	6["arg__1009 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__593 0u"]
-	30["eff__576 push_u64"]
+	4["memindex__1010 0u"]
+	30["eff__993 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -20046,7 +19822,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__575 m_isMemory64"]
+	14["cond__992 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -20068,7 +19844,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__581 push_u64"]
+	22["eff__998 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -20085,22 +19861,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__588 imm_readULEB32"]
+	10["memindex__1005 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__587 u8.!="]
+	9["cond__1004 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__590 0"]
-	8["arg__589 u8.&"]
+	5["arg__1007 0"]
+	8["arg__1006 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__592 0x40u8"]
+	6["arg__1009 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__594 0u"]
-	30["eff__576 push_u64"]
+	4["memindex__1011 0u"]
+	30["eff__993 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -20111,7 +19887,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__575 m_isMemory64"]
+	14["cond__992 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -20133,7 +19909,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__581 push_u64"]
+	22["eff__998 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -20150,22 +19926,22 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__588 imm_readULEB32"]
+	10["memindex__1005 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__587 u8.!="]
+	9["cond__1004 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__590 0"]
-	8["arg__589 u8.&"]
+	5["arg__1007 0"]
+	8["arg__1006 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__592 0x40u8"]
+	6["arg__1009 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__594 0u"]
-	30["eff__576 push_u64"]
+	4["memindex__1011 0u"]
+	30["eff__993 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -20176,7 +19952,7 @@ graph TD
 	23 --> 28
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-	14["cond__575 m_isMemory64"]
+	14["cond__992 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
@@ -20198,7 +19974,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__581 push_u64"]
+	22["eff__998 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -20206,31 +19982,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__596 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__1013 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__588 imm_readULEB32"]
+	10["memindex__1005 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__587 u8.!="]
+	9["cond__1004 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__590 0"]
-	8["arg__589 u8.&"]
+	5["arg__1007 0"]
+	8["arg__1006 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__592 0x40u8"]
+	6["arg__1009 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__594 0u"]
-	30["eff__576 push_u64"]
+	4["memindex__1011 0u"]
+	30["eff__993 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -20238,15 +20014,15 @@ graph TD
 	28["val mach_readMemory64_u32_64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__595 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__575 m_isMemory64"]
+	33 --> 28
+	33["offset__1012 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__992 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I64_LOAD32_U"]["post_surgery 424"] = ''
 window.traces["I64_LOAD32_U"]["post_surgery 424"] += `<pre class='graph'>---
@@ -20263,7 +20039,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__581 push_u64"]
+	22["eff__998 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -20271,31 +20047,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__596 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__1013 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__588__597 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__587 u8.!="]
+	41["memindex__1005__1016 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__1004 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__590 0"]
-	8["arg__589 u8.&"]
+	5["arg__1007 0"]
+	8["arg__1006 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__592 0x40u8"]
+	6["arg__1009 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__594__598 0u"]
-	30["eff__576 push_u64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__1011__1017 0u"]
+	30["eff__993 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -20303,15 +20079,15 @@ graph TD
 	28["val mach_readMemory64_u32_64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__595 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__575 m_isMemory64"]
+	33 --> 28
+	33["offset__1012 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__992 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I64_LOAD32_U"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD32_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -20328,23 +20104,23 @@ block_420 --> phi_419
 block_421 --> phi_419
 subgraph block_420["Block 420"]
 	direction TB
-	b420_34["offset__595 imm_readULEB64"]
+	b420_33["offset__1012 imm_readULEB64"]
 	b420_24["index pop_u64"]
 	b420_28["val mach_readMemory64_u32_64"]
-	b420_30["eff__576 push_u64"]
-	b420_34 --> b420_24
+	b420_30["eff__993 push_u64"]
+	b420_33 --> b420_24
 	b420_24 --> b420_28
 	b420_28 --> b420_30
 end
 branch_418 --> block_420
 subgraph branch_418["Branch 418"]
-	br418_14["cond__575 m_isMemory64"]
+	br418_14["cond__992 m_isMemory64"]
 
 end
 block_422 --> branch_418
 subgraph block_422["Block 422"]
 	direction TB
-	b422_14["cond__575 m_isMemory64"]
+	b422_14["cond__992 m_isMemory64"]
 end
 phi_424 --> block_422
 subgraph phi_424["Phi 424"]
@@ -20361,21 +20137,21 @@ block_425 --> phi_424
 block_426 --> phi_424
 subgraph block_425["Block 425"]
 	direction TB
-	b425_37["memindex__588__597 imm_readULEB32"]
+	b425_41["memindex__1005__1016 imm_readULEB32"]
 end
 branch_423 --> block_425
 subgraph branch_423["Branch 423"]
-	br423_9["cond__587 u8.!="]
+	br423_9["cond__1004 u8.!="]
 
 end
 block_427 --> branch_423
 subgraph block_427["Block 427"]
 	direction TB
 	b427_0[/"Start"\\]
-	b427_6["arg__592 0x40u8"]
-	b427_5["arg__590 0"]
-	b427_8["arg__589 u8.&"]
-	b427_9["cond__587 u8.!="]
+	b427_6["arg__1009 0x40u8"]
+	b427_5["arg__1007 0"]
+	b427_8["arg__1006 u8.&"]
+	b427_9["cond__1004 u8.!="]
 	b427_0 --> b427_6
 	b427_6 --> b427_5
 	b427_5 --> b427_8
@@ -20384,17 +20160,17 @@ end
 subgraph block_426["Block 426"]
 	direction TB
 	b426_3["flags imm_readU8"]
-	b426_39["memindex__594__598 0u"]
-	b426_3 --> b426_39
+	b426_43["memindex__1011__1017 0u"]
+	b426_3 --> b426_43
 end
 branch_423 --> block_426
 subgraph block_421["Block 421"]
 	direction TB
-	b421_36["offset__596 imm_readULEB32"]
+	b421_35["offset__1013 imm_readULEB32"]
 	b421_16["index pop_u32"]
 	b421_20["val mach_readMemory32_u32_64"]
-	b421_22["eff__581 push_u64"]
-	b421_36 --> b421_16
+	b421_22["eff__998 push_u64"]
+	b421_35 --> b421_16
 	b421_16 --> b421_20
 	b421_20 --> b421_22
 end
@@ -20402,28 +20178,28 @@ branch_418 --> block_421
 
 </pre>`;
 window.traces["I64_LOAD32_U"]["scheduler ssad"] = ''
-window.traces["I64_LOAD32_U"]["scheduler ssad"] += `<pre class=''>def arg__592 : byte = 0x40u8;
-def arg__590 : byte = 0;
-def arg__589 = u8.&(flags, arg__592);
-def cond__587 = u8.!=(arg__589, arg__590);
-if (cond__587) {
-	def memindex__588__597 = imm_readULEB32();
+window.traces["I64_LOAD32_U"]["scheduler ssad"] += `<pre class=''>def arg__1009 : byte = 0x40u8;
+def arg__1007 : byte = 0;
+def arg__1006 = u8.&(flags, arg__1009);
+def cond__1004 = u8.!=(arg__1006, arg__1007);
+if (cond__1004) {
+	def memindex__1005__1016 = imm_readULEB32();
 } else {
 	def flags = imm_readU8();
-	def memindex__594__598 : u32 = 0u;
+	def memindex__1011__1017 : u32 = 0u;
 }
 // phis: 
-def cond__575 = m_isMemory64(memindex);
-if (cond__575) {
-	def offset__595 = imm_readULEB64();
+def cond__992 = m_isMemory64(memindex);
+if (cond__992) {
+	def offset__1012 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset__595);
-	def eff__576 = push_u64(val);
+	def val = mach_readMemory64_u32_64(memindex, index, offset__1012);
+	def eff__993 = push_u64(val);
 } else {
-	def offset__596 = imm_readULEB32();
+	def offset__1013 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset__596);
-	def eff__581 = push_u64(val);
+	def val = mach_readMemory32_u32_64(memindex, index, offset__1013);
+	def eff__998 = push_u64(val);
 }
 // phis: 
 </pre>`;
@@ -20442,7 +20218,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__581 push_u64"]
+	22["eff__998 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -20450,31 +20226,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	36 --> 20
-	36["offset__596 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35 --> 20
+	35["offset__1013 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__588__597 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__587 u8.!="]
+	41["memindex__1005__1016 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__1004 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__590 0"]
-	8["arg__589 u8.&"]
+	5["arg__1007 0"]
+	8["arg__1006 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__592 0x40u8"]
+	6["arg__1009 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__594__598 0u"]
-	30["eff__576 push_u64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__1011__1017 0u"]
+	30["eff__993 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -20482,40 +20258,40 @@ graph TD
 	28["val mach_readMemory64_u32_64"]
 	11 --> 28
 	24 --> 28
-	34 --> 28
-	34["offset__595 imm_readULEB64"]
-	12 -. Codeptr .-> 34
-	14["cond__575 m_isMemory64"]
+	33 --> 28
+	33["offset__1012 imm_readULEB64"]
+	12 -. Codeptr .-> 33
+	14["cond__992 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	34 --> 31
-	36 --> 31
+	33 --> 31
+	35 --> 31
 </pre>`;
 window.traces["I64_LOAD32_U"]["unlem_schedule"] = ''
 window.traces["I64_LOAD32_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__592 : byte = 0x40u8;
-def arg__589 = u8.&(flags, arg__592);
-def arg__590 : byte = 0;
-def cond__587 = u8.!=(arg__589, arg__590);
+def arg__1009 : byte = 0x40u8;
+def arg__1006 = u8.&(flags, arg__1009);
+def arg__1007 : byte = 0;
+def cond__1004 = u8.!=(arg__1006, arg__1007);
 var memindex: u32;
-if (cond__587) {
-	def memindex__588__597 = imm_readULEB32();
+if (cond__1004) {
+	def memindex__1005__1016 = imm_readULEB32();
 } else {
-	def memindex__594__598 : u32 = 0u;
+	def memindex__1011__1017 : u32 = 0u;
 }
-// phis: memindex <- memindex__588__597; memindex <- memindex__594__598; 
-def cond__575 = m_isMemory64(memindex);
-if (cond__575) {
-	def offset__595 = imm_readULEB64();
+// phis: memindex <- memindex__1005__1016; memindex <- memindex__1011__1017; 
+def cond__992 = m_isMemory64(memindex);
+if (cond__992) {
+	def offset__1012 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset__595);
-	def eff__576 = push_u64(val);
+	def val = mach_readMemory64_u32_64(memindex, index, offset__1012);
+	def eff__993 = push_u64(val);
 } else {
-	def offset__596 = imm_readULEB32();
+	def offset__1013 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset__596);
-	def eff__581 = push_u64(val);
+	def val = mach_readMemory32_u32_64(memindex, index, offset__1013);
+	def eff__998 = push_u64(val);
 }
 // phis: 
 </pre>`;
@@ -20535,7 +20311,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__581 push_u64"]
+	22["eff__998 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -20543,31 +20319,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__596__600 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__1013__1033 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	41 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__588__597 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__587 u8.!="]
+	41["memindex__1005__1016 imm_readULEB32"]
+	3 -. Codeptr .-> 41
+	9["cond__1004 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__590 0"]
-	8["arg__589 u8.&"]
+	5["arg__1007 0"]
+	8["arg__1006 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__592 0x40u8"]
+	6["arg__1009 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__594__598 0u"]
-	30["eff__576 push_u64"]
+	41 --> 11
+	43 --> 11
+	43["memindex__1011__1017 0u"]
+	30["eff__993 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -20575,15 +20351,15 @@ graph TD
 	28["val mach_readMemory64_u32_64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__595__599 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__575 m_isMemory64"]
+	73 --> 28
+	73["offset__1012__1032 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__992 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD32_U_ul"]["post_surgery 435"] = ''
 window.traces["I64_LOAD32_U_ul"]["post_surgery 435"] += `<pre class='graph'>---
@@ -20600,7 +20376,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__581 push_u64"]
+	22["eff__998 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -20608,31 +20384,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__596__600 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__1013__1033 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__588__597__601 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__587 u8.!="]
+	81["memindex__1005__1016__1036 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__1004 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__590 0"]
-	8["arg__589 u8.&"]
+	5["arg__1007 0"]
+	8["arg__1006 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__592 0x40u8"]
+	6["arg__1009 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__594__598__602 0u"]
-	30["eff__576 push_u64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__1011__1017__1037 0u"]
+	30["eff__993 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -20640,15 +20416,15 @@ graph TD
 	28["val mach_readMemory64_u32_64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__595__599 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__575 m_isMemory64"]
+	73 --> 28
+	73["offset__1012__1032 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__992 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD32_U"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -20665,23 +20441,23 @@ block_431 --> phi_430
 block_432 --> phi_430
 subgraph block_431["Block 431"]
 	direction TB
-	b431_42["offset__595__599 imm_readULEB64"]
+	b431_73["offset__1012__1032 imm_readULEB64"]
 	b431_24["index pop_u64"]
 	b431_28["val mach_readMemory64_u32_64"]
-	b431_30["eff__576 push_u64"]
-	b431_42 --> b431_24
+	b431_30["eff__993 push_u64"]
+	b431_73 --> b431_24
 	b431_24 --> b431_28
 	b431_28 --> b431_30
 end
 branch_429 --> block_431
 subgraph branch_429["Branch 429"]
-	br429_14["cond__575 m_isMemory64"]
+	br429_14["cond__992 m_isMemory64"]
 
 end
 block_433 --> branch_429
 subgraph block_433["Block 433"]
 	direction TB
-	b433_14["cond__575 m_isMemory64"]
+	b433_14["cond__992 m_isMemory64"]
 end
 phi_435 --> block_433
 subgraph phi_435["Phi 435"]
@@ -20698,21 +20474,21 @@ block_436 --> phi_435
 block_437 --> phi_435
 subgraph block_436["Block 436"]
 	direction TB
-	b436_45["memindex__588__597__601 imm_readULEB32"]
+	b436_81["memindex__1005__1016__1036 imm_readULEB32"]
 end
 branch_434 --> block_436
 subgraph branch_434["Branch 434"]
-	br434_9["cond__587 u8.!="]
+	br434_9["cond__1004 u8.!="]
 
 end
 block_438 --> branch_434
 subgraph block_438["Block 438"]
 	direction TB
 	b438_0[/"Start"\\]
-	b438_6["arg__592 0x40u8"]
-	b438_5["arg__590 0"]
-	b438_8["arg__589 u8.&"]
-	b438_9["cond__587 u8.!="]
+	b438_6["arg__1009 0x40u8"]
+	b438_5["arg__1007 0"]
+	b438_8["arg__1006 u8.&"]
+	b438_9["cond__1004 u8.!="]
 	b438_0 --> b438_6
 	b438_6 --> b438_5
 	b438_5 --> b438_8
@@ -20721,17 +20497,17 @@ end
 subgraph block_437["Block 437"]
 	direction TB
 	b437_3["flags imm_readU8"]
-	b437_47["memindex__594__598__602 0u"]
-	b437_3 --> b437_47
+	b437_83["memindex__1011__1017__1037 0u"]
+	b437_3 --> b437_83
 end
 branch_434 --> block_437
 subgraph block_432["Block 432"]
 	direction TB
-	b432_44["offset__596__600 imm_readULEB32"]
+	b432_75["offset__1013__1033 imm_readULEB32"]
 	b432_16["index pop_u32"]
 	b432_20["val mach_readMemory32_u32_64"]
-	b432_22["eff__581 push_u64"]
-	b432_44 --> b432_16
+	b432_22["eff__998 push_u64"]
+	b432_75 --> b432_16
 	b432_16 --> b432_20
 	b432_20 --> b432_22
 end
@@ -20774,7 +20550,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__581 push_u64"]
+	22["eff__998 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -20782,31 +20558,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__596__600 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__1013__1033 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__588__597__601 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__587 u8.!="]
+	81["memindex__1005__1016__1036 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__1004 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__590 0"]
-	8["arg__589 u8.&"]
+	5["arg__1007 0"]
+	8["arg__1006 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__592 0x40u8"]
+	6["arg__1009 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__594__598__602 0u"]
-	30["eff__576 push_u64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__1011__1017__1037 0u"]
+	30["eff__993 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -20814,15 +20590,15 @@ graph TD
 	28["val mach_readMemory64_u32_64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__595__599 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__575 m_isMemory64"]
+	73 --> 28
+	73["offset__1012__1032 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__992 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD32_U"]["chooseMerge"] = ''
 window.traces["I64_LOAD32_U"]["chooseMerge"] += `<pre class='graph'>---
@@ -20839,7 +20615,7 @@ graph TD
 	14 --> 32
 	30 --> 32
 	22 --> 32
-	22["eff__581 push_u64"]
+	22["eff__998 push_u64"]
 	20 --> 22
 	16 -. Stack .-> 22
 	16["index pop_u32"]
@@ -20847,31 +20623,31 @@ graph TD
 	20["val mach_readMemory32_u32_64"]
 	11 --> 20
 	16 --> 20
-	44 --> 20
-	44["offset__596__600 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	75 --> 20
+	75["offset__1013__1033 imm_readULEB32"]
+	12 -. Codeptr .-> 75
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	81 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__588__597__601 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__587 u8.!="]
+	81["memindex__1005__1016__1036 imm_readULEB32"]
+	3 -. Codeptr .-> 81
+	9["cond__1004 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__590 0"]
-	8["arg__589 u8.&"]
+	5["arg__1007 0"]
+	8["arg__1006 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__592 0x40u8"]
+	6["arg__1009 0x40u8"]
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__594__598__602 0u"]
-	30["eff__576 push_u64"]
+	81 --> 11
+	83 --> 11
+	83["memindex__1011__1017__1037 0u"]
+	30["eff__993 push_u64"]
 	28 --> 30
 	24 -. Stack .-> 30
 	24["index pop_u64"]
@@ -20879,40 +20655,40 @@ graph TD
 	28["val mach_readMemory64_u32_64"]
 	11 --> 28
 	24 --> 28
-	42 --> 28
-	42["offset__595__599 imm_readULEB64"]
-	12 -. Codeptr .-> 42
-	14["cond__575 m_isMemory64"]
+	73 --> 28
+	73["offset__1012__1032 imm_readULEB64"]
+	12 -. Codeptr .-> 73
+	14["cond__992 m_isMemory64"]
 	11 --> 14
 	31{{"Sϕ Codeptr "}}
 	14 --> 31
-	42 --> 31
-	44 --> 31
+	73 --> 31
+	75 --> 31
 </pre>`;
 window.traces["I64_LOAD32_U"]["scheduled"] = ''
 window.traces["I64_LOAD32_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
-def arg__592 : byte = 0x40u8;
-def arg__589 = u8.&(flags, arg__592);
-def arg__590 : byte = 0;
-def cond__587 = u8.!=(arg__589, arg__590);
+def arg__1009 : byte = 0x40u8;
+def arg__1006 = u8.&(flags, arg__1009);
+def arg__1007 : byte = 0;
+def cond__1004 = u8.!=(arg__1006, arg__1007);
 var memindex: u32;
-if (cond__587) {
-	def memindex__588__597__601 = imm_readULEB32();
+if (cond__1004) {
+	def memindex__1005__1016__1036 = imm_readULEB32();
 } else {
-	def memindex__594__598__602 : u32 = 0u;
+	def memindex__1011__1017__1037 : u32 = 0u;
 }
-// phis: memindex <- memindex__588__597__601; memindex <- memindex__594__598__602; 
-def cond__575 = m_isMemory64(memindex);
-if (cond__575) {
-	def offset__595__599 = imm_readULEB64();
+// phis: memindex <- memindex__1005__1016__1036; memindex <- memindex__1011__1017__1037; 
+def cond__992 = m_isMemory64(memindex);
+if (cond__992) {
+	def offset__1012__1032 = imm_readULEB64();
 	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset__595__599);
-	def eff__576 = push_u64(val);
+	def val = mach_readMemory64_u32_64(memindex, index, offset__1012__1032);
+	def eff__993 = push_u64(val);
 } else {
-	def offset__596__600 = imm_readULEB32();
+	def offset__1013__1033 = imm_readULEB32();
 	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset__596__600);
-	def eff__581 = push_u64(val);
+	def val = mach_readMemory32_u32_64(memindex, index, offset__1013__1033);
+	def eff__998 = push_u64(val);
 }
 // phis: 
 </pre>`;
@@ -20941,34 +20717,34 @@ window.traces["I32_STORE"] = {}
 window.traces["I32_STORE"]["parsed"] = ''
 window.traces["I32_STORE"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__618 : byte = 0;
-def arg__620 : byte = 0x40u8;
-def arg__619 = (flags);
-def arg__617 = u8.&(arg__619, arg__620);
-def cond__615 = u8.!=(arg__617, arg__618);
-if (cond__615) {
-	def memindex__616 = imm_readULEB32();
+def arg__1067 : byte = 0;
+def arg__1069 : byte = 0x40u8;
+def arg__1068 = (flags);
+def arg__1066 = u8.&(arg__1068, arg__1069);
+def cond__1064 = u8.!=(arg__1066, arg__1067);
+if (cond__1064) {
+	def memindex__1065 = imm_readULEB32();
 }
-// phis: memindex <- memindex__616; 
+// phis: memindex <- memindex__1065; 
 def val = pop_u32();
-def arg__614 = (memindex);
-def cond__603 = m_isMemory64(arg__614);
-if (cond__603) {
+def arg__1063 = (memindex);
+def cond__1052 = m_isMemory64(arg__1063);
+if (cond__1052) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__608 = (val);
-	def arg__607 = (offset);
-	def arg__606 = (index);
-	def arg__605 = (memindex);
-	def eff__604 = mach_writeMemory64_u32(arg__605, arg__606, arg__607, arg__608);
+	def arg__1057 = (val);
+	def arg__1056 = (offset);
+	def arg__1055 = (index);
+	def arg__1054 = (memindex);
+	def eff__1053 = mach_writeMemory64_u32(arg__1054, arg__1055, arg__1056, arg__1057);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__613 = (val);
-	def arg__612 = (offset);
-	def arg__611 = (index);
-	def arg__610 = (memindex);
-	def eff__609 = mach_writeMemory32_u32(arg__610, arg__611, arg__612, arg__613);
+	def arg__1062 = (val);
+	def arg__1061 = (offset);
+	def arg__1060 = (index);
+	def arg__1059 = (memindex);
+	def eff__1058 = mach_writeMemory32_u32(arg__1059, arg__1060, arg__1061, arg__1062);
 }
 // phis: 
 </pre>`;
@@ -20987,7 +20763,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__609 mach_writeMemory32_u32"]
+	22["eff__1058 mach_writeMemory32_u32"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -21004,24 +20780,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__616 imm_readULEB32"]
+	10["memindex__1065 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__615 u8.!="]
+	9["cond__1064 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__618 0"]
-	8["arg__617 u8.&"]
+	5["arg__1067 0"]
+	8["arg__1066 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__620 0x40u8"]
+	6["arg__1069 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__621 0u"]
-	29["eff__604 mach_writeMemory64_u32"]
+	4["memindex__1070 0u"]
+	29["eff__1053 mach_writeMemory64_u32"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -21031,7 +20807,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__603 m_isMemory64"]
+	15["cond__1052 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -21057,7 +20833,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__609 mach_writeMemory32_u32"]
+	22["eff__1058 mach_writeMemory32_u32"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -21074,24 +20850,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__616 imm_readULEB32"]
+	10["memindex__1065 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__615 u8.!="]
+	9["cond__1064 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__618 0"]
-	8["arg__617 u8.&"]
+	5["arg__1067 0"]
+	8["arg__1066 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__620 0x40u8"]
+	6["arg__1069 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__622 0u"]
-	29["eff__604 mach_writeMemory64_u32"]
+	4["memindex__1071 0u"]
+	29["eff__1053 mach_writeMemory64_u32"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -21101,7 +20877,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__603 m_isMemory64"]
+	15["cond__1052 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -21127,7 +20903,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__609 mach_writeMemory32_u32"]
+	22["eff__1058 mach_writeMemory32_u32"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -21144,24 +20920,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__616 imm_readULEB32"]
+	10["memindex__1065 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__615 u8.!="]
+	9["cond__1064 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__618 0"]
-	8["arg__617 u8.&"]
+	5["arg__1067 0"]
+	8["arg__1066 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__620 0x40u8"]
+	6["arg__1069 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__622 0u"]
-	29["eff__604 mach_writeMemory64_u32"]
+	4["memindex__1071 0u"]
+	29["eff__1053 mach_writeMemory64_u32"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -21171,7 +20947,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__603 m_isMemory64"]
+	15["cond__1052 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -21197,51 +20973,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__609 mach_writeMemory32_u32"]
+	22["eff__1058 mach_writeMemory32_u32"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	36["offset__624 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1073 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__616 imm_readULEB32"]
+	10["memindex__1065 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__615 u8.!="]
+	9["cond__1064 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__618 0"]
-	8["arg__617 u8.&"]
+	5["arg__1067 0"]
+	8["arg__1066 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__620 0x40u8"]
+	6["arg__1069 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__622 0u"]
-	29["eff__604 mach_writeMemory64_u32"]
+	4["memindex__1071 0u"]
+	29["eff__1053 mach_writeMemory64_u32"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__623 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1072 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__603 m_isMemory64"]
+	15["cond__1052 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -21249,8 +21025,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I32_STORE"]["post_surgery 446"] = ''
 window.traces["I32_STORE"]["post_surgery 446"] += `<pre class='graph'>---
@@ -21267,51 +21043,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__609 mach_writeMemory32_u32"]
+	22["eff__1058 mach_writeMemory32_u32"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	36["offset__624 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1073 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__616__625 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__615 u8.!="]
+	45["memindex__1065__1078 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1064 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__618 0"]
-	8["arg__617 u8.&"]
+	5["arg__1067 0"]
+	8["arg__1066 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__620 0x40u8"]
+	6["arg__1069 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__622__626 0u"]
-	29["eff__604 mach_writeMemory64_u32"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1071__1079 0u"]
+	29["eff__1053 mach_writeMemory64_u32"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__623 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1072 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__603 m_isMemory64"]
+	15["cond__1052 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -21319,8 +21095,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I32_STORE"]["schedulerMermaid"] = ''
 window.traces["I32_STORE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -21338,22 +21114,22 @@ block_442 --> phi_441
 block_443 --> phi_441
 subgraph block_442["Block 442"]
 	direction TB
-	b442_34["offset__623 imm_readULEB64"]
-	b442_29["eff__604 mach_writeMemory64_u32"]
+	b442_33["offset__1072 imm_readULEB64"]
+	b442_29["eff__1053 mach_writeMemory64_u32"]
 	b442_24["index pop_u64"]
-	b442_34 --> b442_29
+	b442_33 --> b442_29
 	b442_29 --> b442_24
 end
 branch_440 --> block_442
 subgraph branch_440["Branch 440"]
-	br440_15["cond__603 m_isMemory64"]
+	br440_15["cond__1052 m_isMemory64"]
 
 end
 block_444 --> branch_440
 subgraph block_444["Block 444"]
 	direction TB
 	b444_13["val pop_u32"]
-	b444_15["cond__603 m_isMemory64"]
+	b444_15["cond__1052 m_isMemory64"]
 	b444_13 --> b444_15
 end
 phi_446 --> block_444
@@ -21372,21 +21148,21 @@ block_447 --> phi_446
 block_448 --> phi_446
 subgraph block_447["Block 447"]
 	direction TB
-	b447_37["memindex__616__625 imm_readULEB32"]
+	b447_45["memindex__1065__1078 imm_readULEB32"]
 end
 branch_445 --> block_447
 subgraph branch_445["Branch 445"]
-	br445_9["cond__615 u8.!="]
+	br445_9["cond__1064 u8.!="]
 
 end
 block_449 --> branch_445
 subgraph block_449["Block 449"]
 	direction TB
 	b449_0[/"Start"\\]
-	b449_6["arg__620 0x40u8"]
-	b449_5["arg__618 0"]
-	b449_8["arg__617 u8.&"]
-	b449_9["cond__615 u8.!="]
+	b449_6["arg__1069 0x40u8"]
+	b449_5["arg__1067 0"]
+	b449_8["arg__1066 u8.&"]
+	b449_9["cond__1064 u8.!="]
 	b449_0 --> b449_6
 	b449_6 --> b449_5
 	b449_5 --> b449_8
@@ -21394,43 +21170,43 @@ subgraph block_449["Block 449"]
 end
 subgraph block_448["Block 448"]
 	direction TB
-	b448_39["memindex__622__626 0u"]
+	b448_47["memindex__1071__1079 0u"]
 	b448_3["flags imm_readU8"]
-	b448_39 --> b448_3
+	b448_47 --> b448_3
 end
 branch_445 --> block_448
 subgraph block_443["Block 443"]
 	direction TB
-	b443_36["offset__624 imm_readULEB32"]
-	b443_22["eff__609 mach_writeMemory32_u32"]
+	b443_35["offset__1073 imm_readULEB32"]
+	b443_22["eff__1058 mach_writeMemory32_u32"]
 	b443_17["index pop_u32"]
-	b443_36 --> b443_22
+	b443_35 --> b443_22
 	b443_22 --> b443_17
 end
 branch_440 --> block_443
 
 </pre>`;
 window.traces["I32_STORE"]["scheduler ssad"] = ''
-window.traces["I32_STORE"]["scheduler ssad"] += `<pre class=''>def arg__620 : byte = 0x40u8;
-def arg__618 : byte = 0;
-def arg__617 = u8.&(flags, arg__620);
-def cond__615 = u8.!=(arg__617, arg__618);
-if (cond__615) {
-	def memindex__616__625 = imm_readULEB32();
+window.traces["I32_STORE"]["scheduler ssad"] += `<pre class=''>def arg__1069 : byte = 0x40u8;
+def arg__1067 : byte = 0;
+def arg__1066 = u8.&(flags, arg__1069);
+def cond__1064 = u8.!=(arg__1066, arg__1067);
+if (cond__1064) {
+	def memindex__1065__1078 = imm_readULEB32();
 } else {
-	def memindex__622__626 : u32 = 0u;
+	def memindex__1071__1079 : u32 = 0u;
 	def flags = imm_readU8();
 }
 // phis: 
 def val = pop_u32();
-def cond__603 = m_isMemory64(memindex);
-if (cond__603) {
-	def offset__623 = imm_readULEB64();
-	def eff__604 = mach_writeMemory64_u32(memindex, index, offset__623, val);
+def cond__1052 = m_isMemory64(memindex);
+if (cond__1052) {
+	def offset__1072 = imm_readULEB64();
+	def eff__1053 = mach_writeMemory64_u32(memindex, index, offset__1072, val);
 	def index = pop_u64();
 } else {
-	def offset__624 = imm_readULEB32();
-	def eff__609 = mach_writeMemory32_u32(memindex, index, offset__624, val);
+	def offset__1073 = imm_readULEB32();
+	def eff__1058 = mach_writeMemory32_u32(memindex, index, offset__1073, val);
 	def index = pop_u32();
 }
 // phis: 
@@ -21450,51 +21226,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__609 mach_writeMemory32_u32"]
+	22["eff__1058 mach_writeMemory32_u32"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	36["offset__624 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1073 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__616__625 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__615 u8.!="]
+	45["memindex__1065__1078 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1064 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__618 0"]
-	8["arg__617 u8.&"]
+	5["arg__1067 0"]
+	8["arg__1066 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__620 0x40u8"]
+	6["arg__1069 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__622__626 0u"]
-	29["eff__604 mach_writeMemory64_u32"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1071__1079 0u"]
+	29["eff__1053 mach_writeMemory64_u32"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__623 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1072 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__603 m_isMemory64"]
+	15["cond__1052 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -21502,32 +21278,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I32_STORE"]["unlem_schedule"] = ''
 window.traces["I32_STORE"]["unlem_schedule"] += `<pre class=''>def val = pop_u32();
 def flags = imm_readU8();
-def arg__620 : byte = 0x40u8;
-def arg__617 = u8.&(flags, arg__620);
-def arg__618 : byte = 0;
-def cond__615 = u8.!=(arg__617, arg__618);
+def arg__1069 : byte = 0x40u8;
+def arg__1066 = u8.&(flags, arg__1069);
+def arg__1067 : byte = 0;
+def cond__1064 = u8.!=(arg__1066, arg__1067);
 var memindex: u32;
-if (cond__615) {
-	def memindex__616__625 = imm_readULEB32();
+if (cond__1064) {
+	def memindex__1065__1078 = imm_readULEB32();
 } else {
-	def memindex__622__626 : u32 = 0u;
+	def memindex__1071__1079 : u32 = 0u;
 }
-// phis: memindex <- memindex__616__625; memindex <- memindex__622__626; 
-def cond__603 = m_isMemory64(memindex);
-if (cond__603) {
-	def offset__623 = imm_readULEB64();
+// phis: memindex <- memindex__1065__1078; memindex <- memindex__1071__1079; 
+def cond__1052 = m_isMemory64(memindex);
+if (cond__1052) {
+	def offset__1072 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__604 = mach_writeMemory64_u32(memindex, index, offset__623, val);
+	def eff__1053 = mach_writeMemory64_u32(memindex, index, offset__1072, val);
 } else {
-	def offset__624 = imm_readULEB32();
+	def offset__1073 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__609 = mach_writeMemory32_u32(memindex, index, offset__624, val);
+	def eff__1058 = mach_writeMemory32_u32(memindex, index, offset__1073, val);
 }
 // phis: 
 </pre>`;
@@ -21547,51 +21323,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__609 mach_writeMemory32_u32"]
+	22["eff__1058 mach_writeMemory32_u32"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	44["offset__624__628 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1073__1097 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__616__625 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__615 u8.!="]
+	45["memindex__1065__1078 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1064 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__618 0"]
-	8["arg__617 u8.&"]
+	5["arg__1067 0"]
+	8["arg__1066 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__620 0x40u8"]
+	6["arg__1069 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__622__626 0u"]
-	29["eff__604 mach_writeMemory64_u32"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1071__1079 0u"]
+	29["eff__1053 mach_writeMemory64_u32"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__623__627 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1072__1096 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__603 m_isMemory64"]
+	15["cond__1052 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -21599,8 +21375,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I32_STORE_ul"]["post_surgery 457"] = ''
 window.traces["I32_STORE_ul"]["post_surgery 457"] += `<pre class='graph'>---
@@ -21617,51 +21393,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__609 mach_writeMemory32_u32"]
+	22["eff__1058 mach_writeMemory32_u32"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	44["offset__624__628 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1073__1097 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__616__625__629 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__615 u8.!="]
+	93["memindex__1065__1078__1102 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1064 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__618 0"]
-	8["arg__617 u8.&"]
+	5["arg__1067 0"]
+	8["arg__1066 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__620 0x40u8"]
+	6["arg__1069 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__622__626__630 0u"]
-	29["eff__604 mach_writeMemory64_u32"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1071__1079__1103 0u"]
+	29["eff__1053 mach_writeMemory64_u32"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__623__627 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1072__1096 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__603 m_isMemory64"]
+	15["cond__1052 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -21669,8 +21445,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I32_STORE"]["unlem_scheduler"] = ''
 window.traces["I32_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -21688,22 +21464,22 @@ block_453 --> phi_452
 block_454 --> phi_452
 subgraph block_453["Block 453"]
 	direction TB
-	b453_42["offset__623__627 imm_readULEB64"]
-	b453_29["eff__604 mach_writeMemory64_u32"]
+	b453_81["offset__1072__1096 imm_readULEB64"]
+	b453_29["eff__1053 mach_writeMemory64_u32"]
 	b453_24["index pop_u64"]
-	b453_42 --> b453_29
+	b453_81 --> b453_29
 	b453_29 --> b453_24
 end
 branch_451 --> block_453
 subgraph branch_451["Branch 451"]
-	br451_15["cond__603 m_isMemory64"]
+	br451_15["cond__1052 m_isMemory64"]
 
 end
 block_455 --> branch_451
 subgraph block_455["Block 455"]
 	direction TB
 	b455_13["val pop_u32"]
-	b455_15["cond__603 m_isMemory64"]
+	b455_15["cond__1052 m_isMemory64"]
 	b455_13 --> b455_15
 end
 phi_457 --> block_455
@@ -21722,21 +21498,21 @@ block_458 --> phi_457
 block_459 --> phi_457
 subgraph block_458["Block 458"]
 	direction TB
-	b458_45["memindex__616__625__629 imm_readULEB32"]
+	b458_93["memindex__1065__1078__1102 imm_readULEB32"]
 end
 branch_456 --> block_458
 subgraph branch_456["Branch 456"]
-	br456_9["cond__615 u8.!="]
+	br456_9["cond__1064 u8.!="]
 
 end
 block_460 --> branch_456
 subgraph block_460["Block 460"]
 	direction TB
 	b460_0[/"Start"\\]
-	b460_6["arg__620 0x40u8"]
-	b460_5["arg__618 0"]
-	b460_8["arg__617 u8.&"]
-	b460_9["cond__615 u8.!="]
+	b460_6["arg__1069 0x40u8"]
+	b460_5["arg__1067 0"]
+	b460_8["arg__1066 u8.&"]
+	b460_9["cond__1064 u8.!="]
 	b460_0 --> b460_6
 	b460_6 --> b460_5
 	b460_5 --> b460_8
@@ -21744,17 +21520,17 @@ subgraph block_460["Block 460"]
 end
 subgraph block_459["Block 459"]
 	direction TB
-	b459_47["memindex__622__626__630 0u"]
+	b459_95["memindex__1071__1079__1103 0u"]
 	b459_3["flags imm_readU8"]
-	b459_47 --> b459_3
+	b459_95 --> b459_3
 end
 branch_456 --> block_459
 subgraph block_454["Block 454"]
 	direction TB
-	b454_44["offset__624__628 imm_readULEB32"]
-	b454_22["eff__609 mach_writeMemory32_u32"]
+	b454_83["offset__1073__1097 imm_readULEB32"]
+	b454_22["eff__1058 mach_writeMemory32_u32"]
 	b454_17["index pop_u32"]
-	b454_44 --> b454_22
+	b454_83 --> b454_22
 	b454_22 --> b454_17
 end
 branch_451 --> block_454
@@ -21795,51 +21571,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__609 mach_writeMemory32_u32"]
+	22["eff__1058 mach_writeMemory32_u32"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	44["offset__624__628 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1073__1097 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__616__625__629 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__615 u8.!="]
+	93["memindex__1065__1078__1102 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1064 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__618 0"]
-	8["arg__617 u8.&"]
+	5["arg__1067 0"]
+	8["arg__1066 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__620 0x40u8"]
+	6["arg__1069 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__622__626__630 0u"]
-	29["eff__604 mach_writeMemory64_u32"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1071__1079__1103 0u"]
+	29["eff__1053 mach_writeMemory64_u32"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__623__627 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1072__1096 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__603 m_isMemory64"]
+	15["cond__1052 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -21847,8 +21623,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I32_STORE"]["chooseMerge"] = ''
 window.traces["I32_STORE"]["chooseMerge"] += `<pre class='graph'>---
@@ -21865,51 +21641,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__609 mach_writeMemory32_u32"]
+	22["eff__1058 mach_writeMemory32_u32"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	44["offset__624__628 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1073__1097 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__616__625__629 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__615 u8.!="]
+	93["memindex__1065__1078__1102 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1064 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__618 0"]
-	8["arg__617 u8.&"]
+	5["arg__1067 0"]
+	8["arg__1066 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__620 0x40u8"]
+	6["arg__1069 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__622__626__630 0u"]
-	29["eff__604 mach_writeMemory64_u32"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1071__1079__1103 0u"]
+	29["eff__1053 mach_writeMemory64_u32"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__623__627 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1072__1096 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__603 m_isMemory64"]
+	15["cond__1052 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -21917,32 +21693,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I32_STORE"]["scheduled"] = ''
 window.traces["I32_STORE"]["scheduled"] += `<pre class=''>def val = pop_u32();
 def flags = imm_readU8();
-def arg__620 : byte = 0x40u8;
-def arg__617 = u8.&(flags, arg__620);
-def arg__618 : byte = 0;
-def cond__615 = u8.!=(arg__617, arg__618);
+def arg__1069 : byte = 0x40u8;
+def arg__1066 = u8.&(flags, arg__1069);
+def arg__1067 : byte = 0;
+def cond__1064 = u8.!=(arg__1066, arg__1067);
 var memindex: u32;
-if (cond__615) {
-	def memindex__616__625__629 = imm_readULEB32();
+if (cond__1064) {
+	def memindex__1065__1078__1102 = imm_readULEB32();
 } else {
-	def memindex__622__626__630 : u32 = 0u;
+	def memindex__1071__1079__1103 : u32 = 0u;
 }
-// phis: memindex <- memindex__616__625__629; memindex <- memindex__622__626__630; 
-def cond__603 = m_isMemory64(memindex);
-if (cond__603) {
-	def offset__623__627 = imm_readULEB64();
+// phis: memindex <- memindex__1065__1078__1102; memindex <- memindex__1071__1079__1103; 
+def cond__1052 = m_isMemory64(memindex);
+if (cond__1052) {
+	def offset__1072__1096 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__604 = mach_writeMemory64_u32(memindex, index, offset__623__627, val);
+	def eff__1053 = mach_writeMemory64_u32(memindex, index, offset__1072__1096, val);
 } else {
-	def offset__624__628 = imm_readULEB32();
+	def offset__1073__1097 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__609 = mach_writeMemory32_u32(memindex, index, offset__624__628, val);
+	def eff__1058 = mach_writeMemory32_u32(memindex, index, offset__1073__1097, val);
 }
 // phis: 
 </pre>`;
@@ -21970,34 +21746,34 @@ window.traces["I64_STORE"] = {}
 window.traces["I64_STORE"]["parsed"] = ''
 window.traces["I64_STORE"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__646 : byte = 0;
-def arg__648 : byte = 0x40u8;
-def arg__647 = (flags);
-def arg__645 = u8.&(arg__647, arg__648);
-def cond__643 = u8.!=(arg__645, arg__646);
-if (cond__643) {
-	def memindex__644 = imm_readULEB32();
+def arg__1135 : byte = 0;
+def arg__1137 : byte = 0x40u8;
+def arg__1136 = (flags);
+def arg__1134 = u8.&(arg__1136, arg__1137);
+def cond__1132 = u8.!=(arg__1134, arg__1135);
+if (cond__1132) {
+	def memindex__1133 = imm_readULEB32();
 }
-// phis: memindex <- memindex__644; 
+// phis: memindex <- memindex__1133; 
 def val = pop_u64();
-def arg__642 = (memindex);
-def cond__631 = m_isMemory64(arg__642);
-if (cond__631) {
+def arg__1131 = (memindex);
+def cond__1120 = m_isMemory64(arg__1131);
+if (cond__1120) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__636 = (val);
-	def arg__635 = (offset);
-	def arg__634 = (index);
-	def arg__633 = (memindex);
-	def eff__632 = mach_writeMemory64_u64(arg__633, arg__634, arg__635, arg__636);
+	def arg__1125 = (val);
+	def arg__1124 = (offset);
+	def arg__1123 = (index);
+	def arg__1122 = (memindex);
+	def eff__1121 = mach_writeMemory64_u64(arg__1122, arg__1123, arg__1124, arg__1125);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__641 = (val);
-	def arg__640 = (offset);
-	def arg__639 = (index);
-	def arg__638 = (memindex);
-	def eff__637 = mach_writeMemory32_u64(arg__638, arg__639, arg__640, arg__641);
+	def arg__1130 = (val);
+	def arg__1129 = (offset);
+	def arg__1128 = (index);
+	def arg__1127 = (memindex);
+	def eff__1126 = mach_writeMemory32_u64(arg__1127, arg__1128, arg__1129, arg__1130);
 }
 // phis: 
 </pre>`;
@@ -22016,7 +21792,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__637 mach_writeMemory32_u64"]
+	22["eff__1126 mach_writeMemory32_u64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -22033,24 +21809,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__644 imm_readULEB32"]
+	10["memindex__1133 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__643 u8.!="]
+	9["cond__1132 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__646 0"]
-	8["arg__645 u8.&"]
+	5["arg__1135 0"]
+	8["arg__1134 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__648 0x40u8"]
+	6["arg__1137 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__649 0u"]
-	29["eff__632 mach_writeMemory64_u64"]
+	4["memindex__1138 0u"]
+	29["eff__1121 mach_writeMemory64_u64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -22060,7 +21836,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__631 m_isMemory64"]
+	15["cond__1120 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -22086,7 +21862,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__637 mach_writeMemory32_u64"]
+	22["eff__1126 mach_writeMemory32_u64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -22103,24 +21879,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__644 imm_readULEB32"]
+	10["memindex__1133 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__643 u8.!="]
+	9["cond__1132 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__646 0"]
-	8["arg__645 u8.&"]
+	5["arg__1135 0"]
+	8["arg__1134 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__648 0x40u8"]
+	6["arg__1137 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__650 0u"]
-	29["eff__632 mach_writeMemory64_u64"]
+	4["memindex__1139 0u"]
+	29["eff__1121 mach_writeMemory64_u64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -22130,7 +21906,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__631 m_isMemory64"]
+	15["cond__1120 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -22156,7 +21932,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__637 mach_writeMemory32_u64"]
+	22["eff__1126 mach_writeMemory32_u64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -22173,24 +21949,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__644 imm_readULEB32"]
+	10["memindex__1133 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__643 u8.!="]
+	9["cond__1132 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__646 0"]
-	8["arg__645 u8.&"]
+	5["arg__1135 0"]
+	8["arg__1134 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__648 0x40u8"]
+	6["arg__1137 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__650 0u"]
-	29["eff__632 mach_writeMemory64_u64"]
+	4["memindex__1139 0u"]
+	29["eff__1121 mach_writeMemory64_u64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -22200,7 +21976,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__631 m_isMemory64"]
+	15["cond__1120 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -22226,51 +22002,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__637 mach_writeMemory32_u64"]
+	22["eff__1126 mach_writeMemory32_u64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	36["offset__652 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1141 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__644 imm_readULEB32"]
+	10["memindex__1133 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__643 u8.!="]
+	9["cond__1132 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__646 0"]
-	8["arg__645 u8.&"]
+	5["arg__1135 0"]
+	8["arg__1134 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__648 0x40u8"]
+	6["arg__1137 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__650 0u"]
-	29["eff__632 mach_writeMemory64_u64"]
+	4["memindex__1139 0u"]
+	29["eff__1121 mach_writeMemory64_u64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__651 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1140 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__631 m_isMemory64"]
+	15["cond__1120 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -22278,8 +22054,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I64_STORE"]["post_surgery 468"] = ''
 window.traces["I64_STORE"]["post_surgery 468"] += `<pre class='graph'>---
@@ -22296,51 +22072,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__637 mach_writeMemory32_u64"]
+	22["eff__1126 mach_writeMemory32_u64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	36["offset__652 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1141 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__644__653 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__643 u8.!="]
+	45["memindex__1133__1146 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1132 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__646 0"]
-	8["arg__645 u8.&"]
+	5["arg__1135 0"]
+	8["arg__1134 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__648 0x40u8"]
+	6["arg__1137 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__650__654 0u"]
-	29["eff__632 mach_writeMemory64_u64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1139__1147 0u"]
+	29["eff__1121 mach_writeMemory64_u64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__651 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1140 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__631 m_isMemory64"]
+	15["cond__1120 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -22348,8 +22124,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I64_STORE"]["schedulerMermaid"] = ''
 window.traces["I64_STORE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -22367,22 +22143,22 @@ block_464 --> phi_463
 block_465 --> phi_463
 subgraph block_464["Block 464"]
 	direction TB
-	b464_34["offset__651 imm_readULEB64"]
-	b464_29["eff__632 mach_writeMemory64_u64"]
+	b464_33["offset__1140 imm_readULEB64"]
+	b464_29["eff__1121 mach_writeMemory64_u64"]
 	b464_24["index pop_u64"]
-	b464_34 --> b464_29
+	b464_33 --> b464_29
 	b464_29 --> b464_24
 end
 branch_462 --> block_464
 subgraph branch_462["Branch 462"]
-	br462_15["cond__631 m_isMemory64"]
+	br462_15["cond__1120 m_isMemory64"]
 
 end
 block_466 --> branch_462
 subgraph block_466["Block 466"]
 	direction TB
 	b466_13["val pop_u64"]
-	b466_15["cond__631 m_isMemory64"]
+	b466_15["cond__1120 m_isMemory64"]
 	b466_13 --> b466_15
 end
 phi_468 --> block_466
@@ -22401,21 +22177,21 @@ block_469 --> phi_468
 block_470 --> phi_468
 subgraph block_469["Block 469"]
 	direction TB
-	b469_37["memindex__644__653 imm_readULEB32"]
+	b469_45["memindex__1133__1146 imm_readULEB32"]
 end
 branch_467 --> block_469
 subgraph branch_467["Branch 467"]
-	br467_9["cond__643 u8.!="]
+	br467_9["cond__1132 u8.!="]
 
 end
 block_471 --> branch_467
 subgraph block_471["Block 471"]
 	direction TB
 	b471_0[/"Start"\\]
-	b471_6["arg__648 0x40u8"]
-	b471_5["arg__646 0"]
-	b471_8["arg__645 u8.&"]
-	b471_9["cond__643 u8.!="]
+	b471_6["arg__1137 0x40u8"]
+	b471_5["arg__1135 0"]
+	b471_8["arg__1134 u8.&"]
+	b471_9["cond__1132 u8.!="]
 	b471_0 --> b471_6
 	b471_6 --> b471_5
 	b471_5 --> b471_8
@@ -22423,43 +22199,43 @@ subgraph block_471["Block 471"]
 end
 subgraph block_470["Block 470"]
 	direction TB
-	b470_39["memindex__650__654 0u"]
+	b470_47["memindex__1139__1147 0u"]
 	b470_3["flags imm_readU8"]
-	b470_39 --> b470_3
+	b470_47 --> b470_3
 end
 branch_467 --> block_470
 subgraph block_465["Block 465"]
 	direction TB
-	b465_36["offset__652 imm_readULEB32"]
-	b465_22["eff__637 mach_writeMemory32_u64"]
+	b465_35["offset__1141 imm_readULEB32"]
+	b465_22["eff__1126 mach_writeMemory32_u64"]
 	b465_17["index pop_u32"]
-	b465_36 --> b465_22
+	b465_35 --> b465_22
 	b465_22 --> b465_17
 end
 branch_462 --> block_465
 
 </pre>`;
 window.traces["I64_STORE"]["scheduler ssad"] = ''
-window.traces["I64_STORE"]["scheduler ssad"] += `<pre class=''>def arg__648 : byte = 0x40u8;
-def arg__646 : byte = 0;
-def arg__645 = u8.&(flags, arg__648);
-def cond__643 = u8.!=(arg__645, arg__646);
-if (cond__643) {
-	def memindex__644__653 = imm_readULEB32();
+window.traces["I64_STORE"]["scheduler ssad"] += `<pre class=''>def arg__1137 : byte = 0x40u8;
+def arg__1135 : byte = 0;
+def arg__1134 = u8.&(flags, arg__1137);
+def cond__1132 = u8.!=(arg__1134, arg__1135);
+if (cond__1132) {
+	def memindex__1133__1146 = imm_readULEB32();
 } else {
-	def memindex__650__654 : u32 = 0u;
+	def memindex__1139__1147 : u32 = 0u;
 	def flags = imm_readU8();
 }
 // phis: 
 def val = pop_u64();
-def cond__631 = m_isMemory64(memindex);
-if (cond__631) {
-	def offset__651 = imm_readULEB64();
-	def eff__632 = mach_writeMemory64_u64(memindex, index, offset__651, val);
+def cond__1120 = m_isMemory64(memindex);
+if (cond__1120) {
+	def offset__1140 = imm_readULEB64();
+	def eff__1121 = mach_writeMemory64_u64(memindex, index, offset__1140, val);
 	def index = pop_u64();
 } else {
-	def offset__652 = imm_readULEB32();
-	def eff__637 = mach_writeMemory32_u64(memindex, index, offset__652, val);
+	def offset__1141 = imm_readULEB32();
+	def eff__1126 = mach_writeMemory32_u64(memindex, index, offset__1141, val);
 	def index = pop_u32();
 }
 // phis: 
@@ -22479,51 +22255,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__637 mach_writeMemory32_u64"]
+	22["eff__1126 mach_writeMemory32_u64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	36["offset__652 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1141 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__644__653 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__643 u8.!="]
+	45["memindex__1133__1146 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1132 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__646 0"]
-	8["arg__645 u8.&"]
+	5["arg__1135 0"]
+	8["arg__1134 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__648 0x40u8"]
+	6["arg__1137 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__650__654 0u"]
-	29["eff__632 mach_writeMemory64_u64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1139__1147 0u"]
+	29["eff__1121 mach_writeMemory64_u64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__651 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1140 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__631 m_isMemory64"]
+	15["cond__1120 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -22531,32 +22307,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I64_STORE"]["unlem_schedule"] = ''
 window.traces["I64_STORE"]["unlem_schedule"] += `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
-def arg__648 : byte = 0x40u8;
-def arg__645 = u8.&(flags, arg__648);
-def arg__646 : byte = 0;
-def cond__643 = u8.!=(arg__645, arg__646);
+def arg__1137 : byte = 0x40u8;
+def arg__1134 = u8.&(flags, arg__1137);
+def arg__1135 : byte = 0;
+def cond__1132 = u8.!=(arg__1134, arg__1135);
 var memindex: u32;
-if (cond__643) {
-	def memindex__644__653 = imm_readULEB32();
+if (cond__1132) {
+	def memindex__1133__1146 = imm_readULEB32();
 } else {
-	def memindex__650__654 : u32 = 0u;
+	def memindex__1139__1147 : u32 = 0u;
 }
-// phis: memindex <- memindex__644__653; memindex <- memindex__650__654; 
-def cond__631 = m_isMemory64(memindex);
-if (cond__631) {
-	def offset__651 = imm_readULEB64();
+// phis: memindex <- memindex__1133__1146; memindex <- memindex__1139__1147; 
+def cond__1120 = m_isMemory64(memindex);
+if (cond__1120) {
+	def offset__1140 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__632 = mach_writeMemory64_u64(memindex, index, offset__651, val);
+	def eff__1121 = mach_writeMemory64_u64(memindex, index, offset__1140, val);
 } else {
-	def offset__652 = imm_readULEB32();
+	def offset__1141 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__637 = mach_writeMemory32_u64(memindex, index, offset__652, val);
+	def eff__1126 = mach_writeMemory32_u64(memindex, index, offset__1141, val);
 }
 // phis: 
 </pre>`;
@@ -22576,51 +22352,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__637 mach_writeMemory32_u64"]
+	22["eff__1126 mach_writeMemory32_u64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__652__656 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1141__1165 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__644__653 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__643 u8.!="]
+	45["memindex__1133__1146 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1132 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__646 0"]
-	8["arg__645 u8.&"]
+	5["arg__1135 0"]
+	8["arg__1134 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__648 0x40u8"]
+	6["arg__1137 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__650__654 0u"]
-	29["eff__632 mach_writeMemory64_u64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1139__1147 0u"]
+	29["eff__1121 mach_writeMemory64_u64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__651__655 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1140__1164 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__631 m_isMemory64"]
+	15["cond__1120 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -22628,8 +22404,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE_ul"]["post_surgery 479"] = ''
 window.traces["I64_STORE_ul"]["post_surgery 479"] += `<pre class='graph'>---
@@ -22646,51 +22422,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__637 mach_writeMemory32_u64"]
+	22["eff__1126 mach_writeMemory32_u64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__652__656 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1141__1165 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__644__653__657 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__643 u8.!="]
+	93["memindex__1133__1146__1170 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1132 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__646 0"]
-	8["arg__645 u8.&"]
+	5["arg__1135 0"]
+	8["arg__1134 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__648 0x40u8"]
+	6["arg__1137 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__650__654__658 0u"]
-	29["eff__632 mach_writeMemory64_u64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1139__1147__1171 0u"]
+	29["eff__1121 mach_writeMemory64_u64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__651__655 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1140__1164 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__631 m_isMemory64"]
+	15["cond__1120 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -22698,8 +22474,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE"]["unlem_scheduler"] = ''
 window.traces["I64_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -22717,22 +22493,22 @@ block_475 --> phi_474
 block_476 --> phi_474
 subgraph block_475["Block 475"]
 	direction TB
-	b475_42["offset__651__655 imm_readULEB64"]
-	b475_29["eff__632 mach_writeMemory64_u64"]
+	b475_81["offset__1140__1164 imm_readULEB64"]
+	b475_29["eff__1121 mach_writeMemory64_u64"]
 	b475_24["index pop_u64"]
-	b475_42 --> b475_29
+	b475_81 --> b475_29
 	b475_29 --> b475_24
 end
 branch_473 --> block_475
 subgraph branch_473["Branch 473"]
-	br473_15["cond__631 m_isMemory64"]
+	br473_15["cond__1120 m_isMemory64"]
 
 end
 block_477 --> branch_473
 subgraph block_477["Block 477"]
 	direction TB
 	b477_13["val pop_u64"]
-	b477_15["cond__631 m_isMemory64"]
+	b477_15["cond__1120 m_isMemory64"]
 	b477_13 --> b477_15
 end
 phi_479 --> block_477
@@ -22751,21 +22527,21 @@ block_480 --> phi_479
 block_481 --> phi_479
 subgraph block_480["Block 480"]
 	direction TB
-	b480_45["memindex__644__653__657 imm_readULEB32"]
+	b480_93["memindex__1133__1146__1170 imm_readULEB32"]
 end
 branch_478 --> block_480
 subgraph branch_478["Branch 478"]
-	br478_9["cond__643 u8.!="]
+	br478_9["cond__1132 u8.!="]
 
 end
 block_482 --> branch_478
 subgraph block_482["Block 482"]
 	direction TB
 	b482_0[/"Start"\\]
-	b482_6["arg__648 0x40u8"]
-	b482_5["arg__646 0"]
-	b482_8["arg__645 u8.&"]
-	b482_9["cond__643 u8.!="]
+	b482_6["arg__1137 0x40u8"]
+	b482_5["arg__1135 0"]
+	b482_8["arg__1134 u8.&"]
+	b482_9["cond__1132 u8.!="]
 	b482_0 --> b482_6
 	b482_6 --> b482_5
 	b482_5 --> b482_8
@@ -22773,17 +22549,17 @@ subgraph block_482["Block 482"]
 end
 subgraph block_481["Block 481"]
 	direction TB
-	b481_47["memindex__650__654__658 0u"]
+	b481_95["memindex__1139__1147__1171 0u"]
 	b481_3["flags imm_readU8"]
-	b481_47 --> b481_3
+	b481_95 --> b481_3
 end
 branch_478 --> block_481
 subgraph block_476["Block 476"]
 	direction TB
-	b476_44["offset__652__656 imm_readULEB32"]
-	b476_22["eff__637 mach_writeMemory32_u64"]
+	b476_83["offset__1141__1165 imm_readULEB32"]
+	b476_22["eff__1126 mach_writeMemory32_u64"]
 	b476_17["index pop_u32"]
-	b476_44 --> b476_22
+	b476_83 --> b476_22
 	b476_22 --> b476_17
 end
 branch_473 --> block_476
@@ -22824,51 +22600,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__637 mach_writeMemory32_u64"]
+	22["eff__1126 mach_writeMemory32_u64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__652__656 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1141__1165 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__644__653__657 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__643 u8.!="]
+	93["memindex__1133__1146__1170 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1132 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__646 0"]
-	8["arg__645 u8.&"]
+	5["arg__1135 0"]
+	8["arg__1134 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__648 0x40u8"]
+	6["arg__1137 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__650__654__658 0u"]
-	29["eff__632 mach_writeMemory64_u64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1139__1147__1171 0u"]
+	29["eff__1121 mach_writeMemory64_u64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__651__655 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1140__1164 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__631 m_isMemory64"]
+	15["cond__1120 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -22876,8 +22652,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE"]["chooseMerge"] = ''
 window.traces["I64_STORE"]["chooseMerge"] += `<pre class='graph'>---
@@ -22894,51 +22670,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__637 mach_writeMemory32_u64"]
+	22["eff__1126 mach_writeMemory32_u64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__652__656 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1141__1165 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__644__653__657 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__643 u8.!="]
+	93["memindex__1133__1146__1170 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1132 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__646 0"]
-	8["arg__645 u8.&"]
+	5["arg__1135 0"]
+	8["arg__1134 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__648 0x40u8"]
+	6["arg__1137 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__650__654__658 0u"]
-	29["eff__632 mach_writeMemory64_u64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1139__1147__1171 0u"]
+	29["eff__1121 mach_writeMemory64_u64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__651__655 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1140__1164 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__631 m_isMemory64"]
+	15["cond__1120 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -22946,32 +22722,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE"]["scheduled"] = ''
 window.traces["I64_STORE"]["scheduled"] += `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
-def arg__648 : byte = 0x40u8;
-def arg__645 = u8.&(flags, arg__648);
-def arg__646 : byte = 0;
-def cond__643 = u8.!=(arg__645, arg__646);
+def arg__1137 : byte = 0x40u8;
+def arg__1134 = u8.&(flags, arg__1137);
+def arg__1135 : byte = 0;
+def cond__1132 = u8.!=(arg__1134, arg__1135);
 var memindex: u32;
-if (cond__643) {
-	def memindex__644__653__657 = imm_readULEB32();
+if (cond__1132) {
+	def memindex__1133__1146__1170 = imm_readULEB32();
 } else {
-	def memindex__650__654__658 : u32 = 0u;
+	def memindex__1139__1147__1171 : u32 = 0u;
 }
-// phis: memindex <- memindex__644__653__657; memindex <- memindex__650__654__658; 
-def cond__631 = m_isMemory64(memindex);
-if (cond__631) {
-	def offset__651__655 = imm_readULEB64();
+// phis: memindex <- memindex__1133__1146__1170; memindex <- memindex__1139__1147__1171; 
+def cond__1120 = m_isMemory64(memindex);
+if (cond__1120) {
+	def offset__1140__1164 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__632 = mach_writeMemory64_u64(memindex, index, offset__651__655, val);
+	def eff__1121 = mach_writeMemory64_u64(memindex, index, offset__1140__1164, val);
 } else {
-	def offset__652__656 = imm_readULEB32();
+	def offset__1141__1165 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__637 = mach_writeMemory32_u64(memindex, index, offset__652__656, val);
+	def eff__1126 = mach_writeMemory32_u64(memindex, index, offset__1141__1165, val);
 }
 // phis: 
 </pre>`;
@@ -22999,34 +22775,34 @@ window.traces["F32_STORE"] = {}
 window.traces["F32_STORE"]["parsed"] = ''
 window.traces["F32_STORE"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__674 : byte = 0;
-def arg__676 : byte = 0x40u8;
-def arg__675 = (flags);
-def arg__673 = u8.&(arg__675, arg__676);
-def cond__671 = u8.!=(arg__673, arg__674);
-if (cond__671) {
-	def memindex__672 = imm_readULEB32();
+def arg__1203 : byte = 0;
+def arg__1205 : byte = 0x40u8;
+def arg__1204 = (flags);
+def arg__1202 = u8.&(arg__1204, arg__1205);
+def cond__1200 = u8.!=(arg__1202, arg__1203);
+if (cond__1200) {
+	def memindex__1201 = imm_readULEB32();
 }
-// phis: memindex <- memindex__672; 
+// phis: memindex <- memindex__1201; 
 def val = pop_f32();
-def arg__670 = (memindex);
-def cond__659 = m_isMemory64(arg__670);
-if (cond__659) {
+def arg__1199 = (memindex);
+def cond__1188 = m_isMemory64(arg__1199);
+if (cond__1188) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__664 = (val);
-	def arg__663 = (offset);
-	def arg__662 = (index);
-	def arg__661 = (memindex);
-	def eff__660 = mach_writeMemory64_f32(arg__661, arg__662, arg__663, arg__664);
+	def arg__1193 = (val);
+	def arg__1192 = (offset);
+	def arg__1191 = (index);
+	def arg__1190 = (memindex);
+	def eff__1189 = mach_writeMemory64_f32(arg__1190, arg__1191, arg__1192, arg__1193);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__669 = (val);
-	def arg__668 = (offset);
-	def arg__667 = (index);
-	def arg__666 = (memindex);
-	def eff__665 = mach_writeMemory32_f32(arg__666, arg__667, arg__668, arg__669);
+	def arg__1198 = (val);
+	def arg__1197 = (offset);
+	def arg__1196 = (index);
+	def arg__1195 = (memindex);
+	def eff__1194 = mach_writeMemory32_f32(arg__1195, arg__1196, arg__1197, arg__1198);
 }
 // phis: 
 </pre>`;
@@ -23051,25 +22827,25 @@ graph TD
 	0 -. Stack .-> 13
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__659 m_isMemory64"]
+	15["cond__1188 m_isMemory64"]
 	11 --> 15
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__677 0u"]
-	10["memindex__672 imm_readULEB32"]
+	4["memindex__1206 0u"]
+	10["memindex__1201 imm_readULEB32"]
 	3 -. Codeptr .-> 10
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__671 u8.!="]
+	9["cond__1200 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__674 0"]
-	8["arg__673 u8.&"]
+	5["arg__1203 0"]
+	8["arg__1202 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__676 0x40u8"]
+	6["arg__1205 0x40u8"]
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
 	23 --> 30
@@ -23104,25 +22880,25 @@ graph TD
 	0 -. Stack .-> 13
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__659 m_isMemory64"]
+	15["cond__1188 m_isMemory64"]
 	11 --> 15
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__678 0u"]
-	10["memindex__672 imm_readULEB32"]
+	4["memindex__1207 0u"]
+	10["memindex__1201 imm_readULEB32"]
 	3 -. Codeptr .-> 10
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__671 u8.!="]
+	9["cond__1200 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__674 0"]
-	8["arg__673 u8.&"]
+	5["arg__1203 0"]
+	8["arg__1202 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__676 0x40u8"]
+	6["arg__1205 0x40u8"]
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
 	23 --> 30
@@ -23157,25 +22933,25 @@ graph TD
 	0 -. Stack .-> 13
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__659 m_isMemory64"]
+	15["cond__1188 m_isMemory64"]
 	11 --> 15
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__678 0u"]
-	10["memindex__672 imm_readULEB32"]
+	4["memindex__1207 0u"]
+	10["memindex__1201 imm_readULEB32"]
 	3 -. Codeptr .-> 10
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__671 u8.!="]
+	9["cond__1200 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__674 0"]
-	8["arg__673 u8.&"]
+	5["arg__1203 0"]
+	8["arg__1202 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__676 0x40u8"]
+	6["arg__1205 0x40u8"]
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
 	23 --> 30
@@ -23210,37 +22986,37 @@ graph TD
 	0 -. Stack .-> 13
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__659 m_isMemory64"]
+	15["cond__1188 m_isMemory64"]
 	11 --> 15
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__678 0u"]
-	10["memindex__672 imm_readULEB32"]
+	4["memindex__1207 0u"]
+	10["memindex__1201 imm_readULEB32"]
 	3 -. Codeptr .-> 10
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__671 u8.!="]
+	9["cond__1200 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__674 0"]
-	8["arg__673 u8.&"]
+	5["arg__1203 0"]
+	8["arg__1202 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__676 0x40u8"]
+	6["arg__1205 0x40u8"]
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	33 --> 30
-	35 --> 30
-	35["offset__680 imm_readULEB32"]
-	12 -. Codeptr .-> 35
+	32 --> 30
+	34 --> 30
+	34["offset__1209 imm_readULEB32"]
+	12 -. Codeptr .-> 34
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
-	33["offset__679 imm_readULEB64"]
-	12 -. Codeptr .-> 33
+	32["offset__1208 imm_readULEB64"]
+	12 -. Codeptr .-> 32
 </pre>`;
 window.traces["F32_STORE"]["post_surgery 490"] = ''
 window.traces["F32_STORE"]["post_surgery 490"] += `<pre class='graph'>---
@@ -23263,37 +23039,37 @@ graph TD
 	0 -. Stack .-> 13
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__659 m_isMemory64"]
+	15["cond__1188 m_isMemory64"]
 	11 --> 15
 	11{"memindex ϕ"}
 	9 --> 11
-	36 --> 11
-	38 --> 11
-	38["memindex__678__682 0u"]
-	36["memindex__672__681 imm_readULEB32"]
-	3 -. Codeptr .-> 36
+	40 --> 11
+	42 --> 11
+	42["memindex__1207__1213 0u"]
+	40["memindex__1201__1212 imm_readULEB32"]
+	3 -. Codeptr .-> 40
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__671 u8.!="]
+	9["cond__1200 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__674 0"]
-	8["arg__673 u8.&"]
+	5["arg__1203 0"]
+	8["arg__1202 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__676 0x40u8"]
+	6["arg__1205 0x40u8"]
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	33 --> 30
-	35 --> 30
-	35["offset__680 imm_readULEB32"]
-	12 -. Codeptr .-> 35
+	32 --> 30
+	34 --> 30
+	34["offset__1209 imm_readULEB32"]
+	12 -. Codeptr .-> 34
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	36 --> 12
+	40 --> 12
 	3 --> 12
-	33["offset__679 imm_readULEB64"]
-	12 -. Codeptr .-> 33
+	32["offset__1208 imm_readULEB64"]
+	12 -. Codeptr .-> 32
 </pre>`;
 window.traces["F32_STORE"]["schedulerMermaid"] = ''
 window.traces["F32_STORE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -23310,20 +23086,20 @@ block_486 --> phi_485
 block_487 --> phi_485
 subgraph block_486["Block 486"]
 	direction TB
-	b486_33["offset__679 imm_readULEB64"]
+	b486_32["offset__1208 imm_readULEB64"]
 	b486_24["index pop_u64"]
-	b486_33 --> b486_24
+	b486_32 --> b486_24
 end
 branch_484 --> block_486
 subgraph branch_484["Branch 484"]
-	br484_15["cond__659 m_isMemory64"]
+	br484_15["cond__1188 m_isMemory64"]
 
 end
 block_488 --> branch_484
 subgraph block_488["Block 488"]
 	direction TB
 	b488_13["val pop_f32"]
-	b488_15["cond__659 m_isMemory64"]
+	b488_15["cond__1188 m_isMemory64"]
 	b488_13 --> b488_15
 end
 phi_490 --> block_488
@@ -23337,21 +23113,21 @@ block_491 --> phi_490
 block_492 --> phi_490
 subgraph block_491["Block 491"]
 	direction TB
-	b491_36["memindex__672__681 imm_readULEB32"]
+	b491_40["memindex__1201__1212 imm_readULEB32"]
 end
 branch_489 --> block_491
 subgraph branch_489["Branch 489"]
-	br489_9["cond__671 u8.!="]
+	br489_9["cond__1200 u8.!="]
 
 end
 block_493 --> branch_489
 subgraph block_493["Block 493"]
 	direction TB
 	b493_0[/"Start"\\]
-	b493_6["arg__676 0x40u8"]
-	b493_5["arg__674 0"]
-	b493_8["arg__673 u8.&"]
-	b493_9["cond__671 u8.!="]
+	b493_6["arg__1205 0x40u8"]
+	b493_5["arg__1203 0"]
+	b493_8["arg__1202 u8.&"]
+	b493_9["cond__1200 u8.!="]
 	b493_0 --> b493_6
 	b493_6 --> b493_5
 	b493_5 --> b493_8
@@ -23359,39 +23135,39 @@ subgraph block_493["Block 493"]
 end
 subgraph block_492["Block 492"]
 	direction TB
-	b492_38["memindex__678__682 0u"]
+	b492_42["memindex__1207__1213 0u"]
 	b492_3["flags imm_readU8"]
-	b492_38 --> b492_3
+	b492_42 --> b492_3
 end
 branch_489 --> block_492
 subgraph block_487["Block 487"]
 	direction TB
-	b487_35["offset__680 imm_readULEB32"]
+	b487_34["offset__1209 imm_readULEB32"]
 	b487_17["index pop_u32"]
-	b487_35 --> b487_17
+	b487_34 --> b487_17
 end
 branch_484 --> block_487
 
 </pre>`;
 window.traces["F32_STORE"]["scheduler ssad"] = ''
-window.traces["F32_STORE"]["scheduler ssad"] += `<pre class=''>def arg__676 : byte = 0x40u8;
-def arg__674 : byte = 0;
-def arg__673 = u8.&(flags, arg__676);
-def cond__671 = u8.!=(arg__673, arg__674);
-if (cond__671) {
-	def memindex__672__681 = imm_readULEB32();
+window.traces["F32_STORE"]["scheduler ssad"] += `<pre class=''>def arg__1205 : byte = 0x40u8;
+def arg__1203 : byte = 0;
+def arg__1202 = u8.&(flags, arg__1205);
+def cond__1200 = u8.!=(arg__1202, arg__1203);
+if (cond__1200) {
+	def memindex__1201__1212 = imm_readULEB32();
 } else {
-	def memindex__678__682 : u32 = 0u;
+	def memindex__1207__1213 : u32 = 0u;
 	def flags = imm_readU8();
 }
 // phis: 
 def val = pop_f32();
-def cond__659 = m_isMemory64(memindex);
-if (cond__659) {
-	def offset__679 = imm_readULEB64();
+def cond__1188 = m_isMemory64(memindex);
+if (cond__1188) {
+	def offset__1208 = imm_readULEB64();
 	def index = pop_u64();
 } else {
-	def offset__680 = imm_readULEB32();
+	def offset__1209 = imm_readULEB32();
 	def index = pop_u32();
 }
 // phis: 
@@ -23417,58 +23193,58 @@ graph TD
 	0 -. Stack .-> 13
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__659 m_isMemory64"]
+	15["cond__1188 m_isMemory64"]
 	11 --> 15
 	11{"memindex ϕ"}
 	9 --> 11
-	36 --> 11
-	38 --> 11
-	38["memindex__678__682 0u"]
-	36["memindex__672__681 imm_readULEB32"]
-	3 -. Codeptr .-> 36
+	40 --> 11
+	42 --> 11
+	42["memindex__1207__1213 0u"]
+	40["memindex__1201__1212 imm_readULEB32"]
+	3 -. Codeptr .-> 40
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__671 u8.!="]
+	9["cond__1200 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__674 0"]
-	8["arg__673 u8.&"]
+	5["arg__1203 0"]
+	8["arg__1202 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__676 0x40u8"]
+	6["arg__1205 0x40u8"]
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	33 --> 30
-	35 --> 30
-	35["offset__680 imm_readULEB32"]
-	12 -. Codeptr .-> 35
+	32 --> 30
+	34 --> 30
+	34["offset__1209 imm_readULEB32"]
+	12 -. Codeptr .-> 34
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	36 --> 12
+	40 --> 12
 	3 --> 12
-	33["offset__679 imm_readULEB64"]
-	12 -. Codeptr .-> 33
+	32["offset__1208 imm_readULEB64"]
+	12 -. Codeptr .-> 32
 </pre>`;
 window.traces["F32_STORE"]["unlem_schedule"] = ''
 window.traces["F32_STORE"]["unlem_schedule"] += `<pre class=''>def val = pop_f32();
 def flags = imm_readU8();
-def arg__676 : byte = 0x40u8;
-def arg__673 = u8.&(flags, arg__676);
-def arg__674 : byte = 0;
-def cond__671 = u8.!=(arg__673, arg__674);
+def arg__1205 : byte = 0x40u8;
+def arg__1202 = u8.&(flags, arg__1205);
+def arg__1203 : byte = 0;
+def cond__1200 = u8.!=(arg__1202, arg__1203);
 var memindex: u32;
-if (cond__671) {
-	def memindex__672__681 = imm_readULEB32();
+if (cond__1200) {
+	def memindex__1201__1212 = imm_readULEB32();
 } else {
-	def memindex__678__682 : u32 = 0u;
+	def memindex__1207__1213 : u32 = 0u;
 }
-// phis: memindex <- memindex__672__681; memindex <- memindex__678__682; 
-def cond__659 = m_isMemory64(memindex);
-if (cond__659) {
-	def offset__679 = imm_readULEB64();
+// phis: memindex <- memindex__1201__1212; memindex <- memindex__1207__1213; 
+def cond__1188 = m_isMemory64(memindex);
+if (cond__1188) {
+	def offset__1208 = imm_readULEB64();
 	def index = pop_u64();
 } else {
-	def offset__680 = imm_readULEB32();
+	def offset__1209 = imm_readULEB32();
 	def index = pop_u32();
 }
 // phis: 
@@ -23495,37 +23271,37 @@ graph TD
 	0 -. Stack .-> 13
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__659 m_isMemory64"]
+	15["cond__1188 m_isMemory64"]
 	11 --> 15
 	11{"memindex ϕ"}
 	9 --> 11
-	36 --> 11
-	38 --> 11
-	38["memindex__678__682 0u"]
-	36["memindex__672__681 imm_readULEB32"]
-	3 -. Codeptr .-> 36
+	40 --> 11
+	42 --> 11
+	42["memindex__1207__1213 0u"]
+	40["memindex__1201__1212 imm_readULEB32"]
+	3 -. Codeptr .-> 40
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__671 u8.!="]
+	9["cond__1200 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__674 0"]
-	8["arg__673 u8.&"]
+	5["arg__1203 0"]
+	8["arg__1202 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__676 0x40u8"]
+	6["arg__1205 0x40u8"]
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	41 --> 30
-	43 --> 30
-	43["offset__680__684 imm_readULEB32"]
-	12 -. Codeptr .-> 43
+	56 --> 30
+	58 --> 30
+	58["offset__1209__1221 imm_readULEB32"]
+	12 -. Codeptr .-> 58
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	36 --> 12
+	40 --> 12
 	3 --> 12
-	41["offset__679__683 imm_readULEB64"]
-	12 -. Codeptr .-> 41
+	56["offset__1208__1220 imm_readULEB64"]
+	12 -. Codeptr .-> 56
 </pre>`;
 window.traces["F32_STORE_ul"]["post_surgery 501"] = ''
 window.traces["F32_STORE_ul"]["post_surgery 501"] += `<pre class='graph'>---
@@ -23548,37 +23324,37 @@ graph TD
 	0 -. Stack .-> 13
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__659 m_isMemory64"]
+	15["cond__1188 m_isMemory64"]
 	11 --> 15
 	11{"memindex ϕ"}
 	9 --> 11
-	44 --> 11
-	46 --> 11
-	46["memindex__678__682__686 0u"]
-	44["memindex__672__681__685 imm_readULEB32"]
-	3 -. Codeptr .-> 44
+	64 --> 11
+	66 --> 11
+	66["memindex__1207__1213__1225 0u"]
+	64["memindex__1201__1212__1224 imm_readULEB32"]
+	3 -. Codeptr .-> 64
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__671 u8.!="]
+	9["cond__1200 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__674 0"]
-	8["arg__673 u8.&"]
+	5["arg__1203 0"]
+	8["arg__1202 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__676 0x40u8"]
+	6["arg__1205 0x40u8"]
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	41 --> 30
-	43 --> 30
-	43["offset__680__684 imm_readULEB32"]
-	12 -. Codeptr .-> 43
+	56 --> 30
+	58 --> 30
+	58["offset__1209__1221 imm_readULEB32"]
+	12 -. Codeptr .-> 58
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	44 --> 12
+	64 --> 12
 	3 --> 12
-	41["offset__679__683 imm_readULEB64"]
-	12 -. Codeptr .-> 41
+	56["offset__1208__1220 imm_readULEB64"]
+	12 -. Codeptr .-> 56
 </pre>`;
 window.traces["F32_STORE"]["unlem_scheduler"] = ''
 window.traces["F32_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -23595,20 +23371,20 @@ block_497 --> phi_496
 block_498 --> phi_496
 subgraph block_497["Block 497"]
 	direction TB
-	b497_41["offset__679__683 imm_readULEB64"]
+	b497_56["offset__1208__1220 imm_readULEB64"]
 	b497_24["index pop_u64"]
-	b497_41 --> b497_24
+	b497_56 --> b497_24
 end
 branch_495 --> block_497
 subgraph branch_495["Branch 495"]
-	br495_15["cond__659 m_isMemory64"]
+	br495_15["cond__1188 m_isMemory64"]
 
 end
 block_499 --> branch_495
 subgraph block_499["Block 499"]
 	direction TB
 	b499_13["val pop_f32"]
-	b499_15["cond__659 m_isMemory64"]
+	b499_15["cond__1188 m_isMemory64"]
 	b499_13 --> b499_15
 end
 phi_501 --> block_499
@@ -23622,21 +23398,21 @@ block_502 --> phi_501
 block_503 --> phi_501
 subgraph block_502["Block 502"]
 	direction TB
-	b502_44["memindex__672__681__685 imm_readULEB32"]
+	b502_64["memindex__1201__1212__1224 imm_readULEB32"]
 end
 branch_500 --> block_502
 subgraph branch_500["Branch 500"]
-	br500_9["cond__671 u8.!="]
+	br500_9["cond__1200 u8.!="]
 
 end
 block_504 --> branch_500
 subgraph block_504["Block 504"]
 	direction TB
 	b504_0[/"Start"\\]
-	b504_6["arg__676 0x40u8"]
-	b504_5["arg__674 0"]
-	b504_8["arg__673 u8.&"]
-	b504_9["cond__671 u8.!="]
+	b504_6["arg__1205 0x40u8"]
+	b504_5["arg__1203 0"]
+	b504_8["arg__1202 u8.&"]
+	b504_9["cond__1200 u8.!="]
 	b504_0 --> b504_6
 	b504_6 --> b504_5
 	b504_5 --> b504_8
@@ -23644,16 +23420,16 @@ subgraph block_504["Block 504"]
 end
 subgraph block_503["Block 503"]
 	direction TB
-	b503_46["memindex__678__682__686 0u"]
+	b503_66["memindex__1207__1213__1225 0u"]
 	b503_3["flags imm_readU8"]
-	b503_46 --> b503_3
+	b503_66 --> b503_3
 end
 branch_500 --> block_503
 subgraph block_498["Block 498"]
 	direction TB
-	b498_43["offset__680__684 imm_readULEB32"]
+	b498_58["offset__1209__1221 imm_readULEB32"]
 	b498_17["index pop_u32"]
-	b498_43 --> b498_17
+	b498_58 --> b498_17
 end
 branch_495 --> block_498
 
@@ -23697,37 +23473,37 @@ graph TD
 	0 -. Stack .-> 13
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__659 m_isMemory64"]
+	15["cond__1188 m_isMemory64"]
 	11 --> 15
 	11{"memindex ϕ"}
 	9 --> 11
-	44 --> 11
-	46 --> 11
-	46["memindex__678__682__686 0u"]
-	44["memindex__672__681__685 imm_readULEB32"]
-	3 -. Codeptr .-> 44
+	64 --> 11
+	66 --> 11
+	66["memindex__1207__1213__1225 0u"]
+	64["memindex__1201__1212__1224 imm_readULEB32"]
+	3 -. Codeptr .-> 64
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__671 u8.!="]
+	9["cond__1200 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__674 0"]
-	8["arg__673 u8.&"]
+	5["arg__1203 0"]
+	8["arg__1202 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__676 0x40u8"]
+	6["arg__1205 0x40u8"]
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	41 --> 30
-	43 --> 30
-	43["offset__680__684 imm_readULEB32"]
-	12 -. Codeptr .-> 43
+	56 --> 30
+	58 --> 30
+	58["offset__1209__1221 imm_readULEB32"]
+	12 -. Codeptr .-> 58
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	44 --> 12
+	64 --> 12
 	3 --> 12
-	41["offset__679__683 imm_readULEB64"]
-	12 -. Codeptr .-> 41
+	56["offset__1208__1220 imm_readULEB64"]
+	12 -. Codeptr .-> 56
 </pre>`;
 window.traces["F32_STORE"]["chooseMerge"] = ''
 window.traces["F32_STORE"]["chooseMerge"] += `<pre class='graph'>---
@@ -23750,58 +23526,58 @@ graph TD
 	0 -. Stack .-> 13
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__659 m_isMemory64"]
+	15["cond__1188 m_isMemory64"]
 	11 --> 15
 	11{"memindex ϕ"}
 	9 --> 11
-	44 --> 11
-	46 --> 11
-	46["memindex__678__682__686 0u"]
-	44["memindex__672__681__685 imm_readULEB32"]
-	3 -. Codeptr .-> 44
+	64 --> 11
+	66 --> 11
+	66["memindex__1207__1213__1225 0u"]
+	64["memindex__1201__1212__1224 imm_readULEB32"]
+	3 -. Codeptr .-> 64
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__671 u8.!="]
+	9["cond__1200 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__674 0"]
-	8["arg__673 u8.&"]
+	5["arg__1203 0"]
+	8["arg__1202 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__676 0x40u8"]
+	6["arg__1205 0x40u8"]
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	41 --> 30
-	43 --> 30
-	43["offset__680__684 imm_readULEB32"]
-	12 -. Codeptr .-> 43
+	56 --> 30
+	58 --> 30
+	58["offset__1209__1221 imm_readULEB32"]
+	12 -. Codeptr .-> 58
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	44 --> 12
+	64 --> 12
 	3 --> 12
-	41["offset__679__683 imm_readULEB64"]
-	12 -. Codeptr .-> 41
+	56["offset__1208__1220 imm_readULEB64"]
+	12 -. Codeptr .-> 56
 </pre>`;
 window.traces["F32_STORE"]["scheduled"] = ''
 window.traces["F32_STORE"]["scheduled"] += `<pre class=''>def val = pop_f32();
 def flags = imm_readU8();
-def arg__676 : byte = 0x40u8;
-def arg__673 = u8.&(flags, arg__676);
-def arg__674 : byte = 0;
-def cond__671 = u8.!=(arg__673, arg__674);
+def arg__1205 : byte = 0x40u8;
+def arg__1202 = u8.&(flags, arg__1205);
+def arg__1203 : byte = 0;
+def cond__1200 = u8.!=(arg__1202, arg__1203);
 var memindex: u32;
-if (cond__671) {
-	def memindex__672__681__685 = imm_readULEB32();
+if (cond__1200) {
+	def memindex__1201__1212__1224 = imm_readULEB32();
 } else {
-	def memindex__678__682__686 : u32 = 0u;
+	def memindex__1207__1213__1225 : u32 = 0u;
 }
-// phis: memindex <- memindex__672__681__685; memindex <- memindex__678__682__686; 
-def cond__659 = m_isMemory64(memindex);
-if (cond__659) {
-	def offset__679__683 = imm_readULEB64();
+// phis: memindex <- memindex__1201__1212__1224; memindex <- memindex__1207__1213__1225; 
+def cond__1188 = m_isMemory64(memindex);
+if (cond__1188) {
+	def offset__1208__1220 = imm_readULEB64();
 	def index = pop_u64();
 } else {
-	def offset__680__684 = imm_readULEB32();
+	def offset__1209__1221 = imm_readULEB32();
 	def index = pop_u32();
 }
 // phis: 
@@ -23828,34 +23604,34 @@ window.traces["F64_STORE"] = {}
 window.traces["F64_STORE"]["parsed"] = ''
 window.traces["F64_STORE"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__702 : byte = 0;
-def arg__704 : byte = 0x40u8;
-def arg__703 = (flags);
-def arg__701 = u8.&(arg__703, arg__704);
-def cond__699 = u8.!=(arg__701, arg__702);
-if (cond__699) {
-	def memindex__700 = imm_readULEB32();
+def arg__1247 : byte = 0;
+def arg__1249 : byte = 0x40u8;
+def arg__1248 = (flags);
+def arg__1246 = u8.&(arg__1248, arg__1249);
+def cond__1244 = u8.!=(arg__1246, arg__1247);
+if (cond__1244) {
+	def memindex__1245 = imm_readULEB32();
 }
-// phis: memindex <- memindex__700; 
+// phis: memindex <- memindex__1245; 
 def val = pop_f64();
-def arg__698 = (memindex);
-def cond__687 = m_isMemory64(arg__698);
-if (cond__687) {
+def arg__1243 = (memindex);
+def cond__1232 = m_isMemory64(arg__1243);
+if (cond__1232) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__692 = (val);
-	def arg__691 = (offset);
-	def arg__690 = (index);
-	def arg__689 = (memindex);
-	def eff__688 = mach_writeMemory64_f64(arg__689, arg__690, arg__691, arg__692);
+	def arg__1237 = (val);
+	def arg__1236 = (offset);
+	def arg__1235 = (index);
+	def arg__1234 = (memindex);
+	def eff__1233 = mach_writeMemory64_f64(arg__1234, arg__1235, arg__1236, arg__1237);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__697 = (val);
-	def arg__696 = (offset);
-	def arg__695 = (index);
-	def arg__694 = (memindex);
-	def eff__693 = mach_writeMemory32_f64(arg__694, arg__695, arg__696, arg__697);
+	def arg__1242 = (val);
+	def arg__1241 = (offset);
+	def arg__1240 = (index);
+	def arg__1239 = (memindex);
+	def eff__1238 = mach_writeMemory32_f64(arg__1239, arg__1240, arg__1241, arg__1242);
 }
 // phis: 
 </pre>`;
@@ -23874,7 +23650,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__693 mach_writeMemory32_f64"]
+	22["eff__1238 mach_writeMemory32_f64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -23891,24 +23667,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__700 imm_readULEB32"]
+	10["memindex__1245 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__699 u8.!="]
+	9["cond__1244 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__702 0"]
-	8["arg__701 u8.&"]
+	5["arg__1247 0"]
+	8["arg__1246 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__704 0x40u8"]
+	6["arg__1249 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__705 0u"]
-	29["eff__688 mach_writeMemory64_f64"]
+	4["memindex__1250 0u"]
+	29["eff__1233 mach_writeMemory64_f64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -23918,7 +23694,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__687 m_isMemory64"]
+	15["cond__1232 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -23944,7 +23720,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__693 mach_writeMemory32_f64"]
+	22["eff__1238 mach_writeMemory32_f64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -23961,24 +23737,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__700 imm_readULEB32"]
+	10["memindex__1245 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__699 u8.!="]
+	9["cond__1244 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__702 0"]
-	8["arg__701 u8.&"]
+	5["arg__1247 0"]
+	8["arg__1246 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__704 0x40u8"]
+	6["arg__1249 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__706 0u"]
-	29["eff__688 mach_writeMemory64_f64"]
+	4["memindex__1251 0u"]
+	29["eff__1233 mach_writeMemory64_f64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -23988,7 +23764,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__687 m_isMemory64"]
+	15["cond__1232 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -24014,7 +23790,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__693 mach_writeMemory32_f64"]
+	22["eff__1238 mach_writeMemory32_f64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -24031,24 +23807,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__700 imm_readULEB32"]
+	10["memindex__1245 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__699 u8.!="]
+	9["cond__1244 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__702 0"]
-	8["arg__701 u8.&"]
+	5["arg__1247 0"]
+	8["arg__1246 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__704 0x40u8"]
+	6["arg__1249 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__706 0u"]
-	29["eff__688 mach_writeMemory64_f64"]
+	4["memindex__1251 0u"]
+	29["eff__1233 mach_writeMemory64_f64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -24058,7 +23834,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__687 m_isMemory64"]
+	15["cond__1232 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -24084,51 +23860,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__693 mach_writeMemory32_f64"]
+	22["eff__1238 mach_writeMemory32_f64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_f64"]
 	0 -. Stack .-> 13
-	36["offset__708 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1253 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__700 imm_readULEB32"]
+	10["memindex__1245 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__699 u8.!="]
+	9["cond__1244 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__702 0"]
-	8["arg__701 u8.&"]
+	5["arg__1247 0"]
+	8["arg__1246 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__704 0x40u8"]
+	6["arg__1249 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__706 0u"]
-	29["eff__688 mach_writeMemory64_f64"]
+	4["memindex__1251 0u"]
+	29["eff__1233 mach_writeMemory64_f64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__707 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1252 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__687 m_isMemory64"]
+	15["cond__1232 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -24136,8 +23912,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["F64_STORE"]["post_surgery 512"] = ''
 window.traces["F64_STORE"]["post_surgery 512"] += `<pre class='graph'>---
@@ -24154,51 +23930,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__693 mach_writeMemory32_f64"]
+	22["eff__1238 mach_writeMemory32_f64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_f64"]
 	0 -. Stack .-> 13
-	36["offset__708 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1253 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__700__709 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__699 u8.!="]
+	45["memindex__1245__1258 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1244 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__702 0"]
-	8["arg__701 u8.&"]
+	5["arg__1247 0"]
+	8["arg__1246 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__704 0x40u8"]
+	6["arg__1249 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__706__710 0u"]
-	29["eff__688 mach_writeMemory64_f64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1251__1259 0u"]
+	29["eff__1233 mach_writeMemory64_f64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__707 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1252 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__687 m_isMemory64"]
+	15["cond__1232 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -24206,8 +23982,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["F64_STORE"]["schedulerMermaid"] = ''
 window.traces["F64_STORE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -24225,22 +24001,22 @@ block_508 --> phi_507
 block_509 --> phi_507
 subgraph block_508["Block 508"]
 	direction TB
-	b508_34["offset__707 imm_readULEB64"]
-	b508_29["eff__688 mach_writeMemory64_f64"]
+	b508_33["offset__1252 imm_readULEB64"]
+	b508_29["eff__1233 mach_writeMemory64_f64"]
 	b508_24["index pop_u64"]
-	b508_34 --> b508_29
+	b508_33 --> b508_29
 	b508_29 --> b508_24
 end
 branch_506 --> block_508
 subgraph branch_506["Branch 506"]
-	br506_15["cond__687 m_isMemory64"]
+	br506_15["cond__1232 m_isMemory64"]
 
 end
 block_510 --> branch_506
 subgraph block_510["Block 510"]
 	direction TB
 	b510_13["val pop_f64"]
-	b510_15["cond__687 m_isMemory64"]
+	b510_15["cond__1232 m_isMemory64"]
 	b510_13 --> b510_15
 end
 phi_512 --> block_510
@@ -24259,21 +24035,21 @@ block_513 --> phi_512
 block_514 --> phi_512
 subgraph block_513["Block 513"]
 	direction TB
-	b513_37["memindex__700__709 imm_readULEB32"]
+	b513_45["memindex__1245__1258 imm_readULEB32"]
 end
 branch_511 --> block_513
 subgraph branch_511["Branch 511"]
-	br511_9["cond__699 u8.!="]
+	br511_9["cond__1244 u8.!="]
 
 end
 block_515 --> branch_511
 subgraph block_515["Block 515"]
 	direction TB
 	b515_0[/"Start"\\]
-	b515_6["arg__704 0x40u8"]
-	b515_5["arg__702 0"]
-	b515_8["arg__701 u8.&"]
-	b515_9["cond__699 u8.!="]
+	b515_6["arg__1249 0x40u8"]
+	b515_5["arg__1247 0"]
+	b515_8["arg__1246 u8.&"]
+	b515_9["cond__1244 u8.!="]
 	b515_0 --> b515_6
 	b515_6 --> b515_5
 	b515_5 --> b515_8
@@ -24281,43 +24057,43 @@ subgraph block_515["Block 515"]
 end
 subgraph block_514["Block 514"]
 	direction TB
-	b514_39["memindex__706__710 0u"]
+	b514_47["memindex__1251__1259 0u"]
 	b514_3["flags imm_readU8"]
-	b514_39 --> b514_3
+	b514_47 --> b514_3
 end
 branch_511 --> block_514
 subgraph block_509["Block 509"]
 	direction TB
-	b509_36["offset__708 imm_readULEB32"]
-	b509_22["eff__693 mach_writeMemory32_f64"]
+	b509_35["offset__1253 imm_readULEB32"]
+	b509_22["eff__1238 mach_writeMemory32_f64"]
 	b509_17["index pop_u32"]
-	b509_36 --> b509_22
+	b509_35 --> b509_22
 	b509_22 --> b509_17
 end
 branch_506 --> block_509
 
 </pre>`;
 window.traces["F64_STORE"]["scheduler ssad"] = ''
-window.traces["F64_STORE"]["scheduler ssad"] += `<pre class=''>def arg__704 : byte = 0x40u8;
-def arg__702 : byte = 0;
-def arg__701 = u8.&(flags, arg__704);
-def cond__699 = u8.!=(arg__701, arg__702);
-if (cond__699) {
-	def memindex__700__709 = imm_readULEB32();
+window.traces["F64_STORE"]["scheduler ssad"] += `<pre class=''>def arg__1249 : byte = 0x40u8;
+def arg__1247 : byte = 0;
+def arg__1246 = u8.&(flags, arg__1249);
+def cond__1244 = u8.!=(arg__1246, arg__1247);
+if (cond__1244) {
+	def memindex__1245__1258 = imm_readULEB32();
 } else {
-	def memindex__706__710 : u32 = 0u;
+	def memindex__1251__1259 : u32 = 0u;
 	def flags = imm_readU8();
 }
 // phis: 
 def val = pop_f64();
-def cond__687 = m_isMemory64(memindex);
-if (cond__687) {
-	def offset__707 = imm_readULEB64();
-	def eff__688 = mach_writeMemory64_f64(memindex, index, offset__707, val);
+def cond__1232 = m_isMemory64(memindex);
+if (cond__1232) {
+	def offset__1252 = imm_readULEB64();
+	def eff__1233 = mach_writeMemory64_f64(memindex, index, offset__1252, val);
 	def index = pop_u64();
 } else {
-	def offset__708 = imm_readULEB32();
-	def eff__693 = mach_writeMemory32_f64(memindex, index, offset__708, val);
+	def offset__1253 = imm_readULEB32();
+	def eff__1238 = mach_writeMemory32_f64(memindex, index, offset__1253, val);
 	def index = pop_u32();
 }
 // phis: 
@@ -24337,51 +24113,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__693 mach_writeMemory32_f64"]
+	22["eff__1238 mach_writeMemory32_f64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_f64"]
 	0 -. Stack .-> 13
-	36["offset__708 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1253 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__700__709 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__699 u8.!="]
+	45["memindex__1245__1258 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1244 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__702 0"]
-	8["arg__701 u8.&"]
+	5["arg__1247 0"]
+	8["arg__1246 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__704 0x40u8"]
+	6["arg__1249 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__706__710 0u"]
-	29["eff__688 mach_writeMemory64_f64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1251__1259 0u"]
+	29["eff__1233 mach_writeMemory64_f64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__707 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1252 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__687 m_isMemory64"]
+	15["cond__1232 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -24389,32 +24165,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["F64_STORE"]["unlem_schedule"] = ''
 window.traces["F64_STORE"]["unlem_schedule"] += `<pre class=''>def val = pop_f64();
 def flags = imm_readU8();
-def arg__704 : byte = 0x40u8;
-def arg__701 = u8.&(flags, arg__704);
-def arg__702 : byte = 0;
-def cond__699 = u8.!=(arg__701, arg__702);
+def arg__1249 : byte = 0x40u8;
+def arg__1246 = u8.&(flags, arg__1249);
+def arg__1247 : byte = 0;
+def cond__1244 = u8.!=(arg__1246, arg__1247);
 var memindex: u32;
-if (cond__699) {
-	def memindex__700__709 = imm_readULEB32();
+if (cond__1244) {
+	def memindex__1245__1258 = imm_readULEB32();
 } else {
-	def memindex__706__710 : u32 = 0u;
+	def memindex__1251__1259 : u32 = 0u;
 }
-// phis: memindex <- memindex__700__709; memindex <- memindex__706__710; 
-def cond__687 = m_isMemory64(memindex);
-if (cond__687) {
-	def offset__707 = imm_readULEB64();
+// phis: memindex <- memindex__1245__1258; memindex <- memindex__1251__1259; 
+def cond__1232 = m_isMemory64(memindex);
+if (cond__1232) {
+	def offset__1252 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__688 = mach_writeMemory64_f64(memindex, index, offset__707, val);
+	def eff__1233 = mach_writeMemory64_f64(memindex, index, offset__1252, val);
 } else {
-	def offset__708 = imm_readULEB32();
+	def offset__1253 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__693 = mach_writeMemory32_f64(memindex, index, offset__708, val);
+	def eff__1238 = mach_writeMemory32_f64(memindex, index, offset__1253, val);
 }
 // phis: 
 </pre>`;
@@ -24434,51 +24210,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__693 mach_writeMemory32_f64"]
+	22["eff__1238 mach_writeMemory32_f64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_f64"]
 	0 -. Stack .-> 13
-	44["offset__708__712 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1253__1277 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__700__709 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__699 u8.!="]
+	45["memindex__1245__1258 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1244 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__702 0"]
-	8["arg__701 u8.&"]
+	5["arg__1247 0"]
+	8["arg__1246 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__704 0x40u8"]
+	6["arg__1249 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__706__710 0u"]
-	29["eff__688 mach_writeMemory64_f64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1251__1259 0u"]
+	29["eff__1233 mach_writeMemory64_f64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__707__711 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1252__1276 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__687 m_isMemory64"]
+	15["cond__1232 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -24486,8 +24262,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["F64_STORE_ul"]["post_surgery 523"] = ''
 window.traces["F64_STORE_ul"]["post_surgery 523"] += `<pre class='graph'>---
@@ -24504,51 +24280,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__693 mach_writeMemory32_f64"]
+	22["eff__1238 mach_writeMemory32_f64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_f64"]
 	0 -. Stack .-> 13
-	44["offset__708__712 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1253__1277 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__700__709__713 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__699 u8.!="]
+	93["memindex__1245__1258__1282 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1244 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__702 0"]
-	8["arg__701 u8.&"]
+	5["arg__1247 0"]
+	8["arg__1246 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__704 0x40u8"]
+	6["arg__1249 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__706__710__714 0u"]
-	29["eff__688 mach_writeMemory64_f64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1251__1259__1283 0u"]
+	29["eff__1233 mach_writeMemory64_f64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__707__711 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1252__1276 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__687 m_isMemory64"]
+	15["cond__1232 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -24556,8 +24332,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["F64_STORE"]["unlem_scheduler"] = ''
 window.traces["F64_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -24575,22 +24351,22 @@ block_519 --> phi_518
 block_520 --> phi_518
 subgraph block_519["Block 519"]
 	direction TB
-	b519_42["offset__707__711 imm_readULEB64"]
-	b519_29["eff__688 mach_writeMemory64_f64"]
+	b519_81["offset__1252__1276 imm_readULEB64"]
+	b519_29["eff__1233 mach_writeMemory64_f64"]
 	b519_24["index pop_u64"]
-	b519_42 --> b519_29
+	b519_81 --> b519_29
 	b519_29 --> b519_24
 end
 branch_517 --> block_519
 subgraph branch_517["Branch 517"]
-	br517_15["cond__687 m_isMemory64"]
+	br517_15["cond__1232 m_isMemory64"]
 
 end
 block_521 --> branch_517
 subgraph block_521["Block 521"]
 	direction TB
 	b521_13["val pop_f64"]
-	b521_15["cond__687 m_isMemory64"]
+	b521_15["cond__1232 m_isMemory64"]
 	b521_13 --> b521_15
 end
 phi_523 --> block_521
@@ -24609,21 +24385,21 @@ block_524 --> phi_523
 block_525 --> phi_523
 subgraph block_524["Block 524"]
 	direction TB
-	b524_45["memindex__700__709__713 imm_readULEB32"]
+	b524_93["memindex__1245__1258__1282 imm_readULEB32"]
 end
 branch_522 --> block_524
 subgraph branch_522["Branch 522"]
-	br522_9["cond__699 u8.!="]
+	br522_9["cond__1244 u8.!="]
 
 end
 block_526 --> branch_522
 subgraph block_526["Block 526"]
 	direction TB
 	b526_0[/"Start"\\]
-	b526_6["arg__704 0x40u8"]
-	b526_5["arg__702 0"]
-	b526_8["arg__701 u8.&"]
-	b526_9["cond__699 u8.!="]
+	b526_6["arg__1249 0x40u8"]
+	b526_5["arg__1247 0"]
+	b526_8["arg__1246 u8.&"]
+	b526_9["cond__1244 u8.!="]
 	b526_0 --> b526_6
 	b526_6 --> b526_5
 	b526_5 --> b526_8
@@ -24631,17 +24407,17 @@ subgraph block_526["Block 526"]
 end
 subgraph block_525["Block 525"]
 	direction TB
-	b525_47["memindex__706__710__714 0u"]
+	b525_95["memindex__1251__1259__1283 0u"]
 	b525_3["flags imm_readU8"]
-	b525_47 --> b525_3
+	b525_95 --> b525_3
 end
 branch_522 --> block_525
 subgraph block_520["Block 520"]
 	direction TB
-	b520_44["offset__708__712 imm_readULEB32"]
-	b520_22["eff__693 mach_writeMemory32_f64"]
+	b520_83["offset__1253__1277 imm_readULEB32"]
+	b520_22["eff__1238 mach_writeMemory32_f64"]
 	b520_17["index pop_u32"]
-	b520_44 --> b520_22
+	b520_83 --> b520_22
 	b520_22 --> b520_17
 end
 branch_517 --> block_520
@@ -24682,51 +24458,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__693 mach_writeMemory32_f64"]
+	22["eff__1238 mach_writeMemory32_f64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_f64"]
 	0 -. Stack .-> 13
-	44["offset__708__712 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1253__1277 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__700__709__713 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__699 u8.!="]
+	93["memindex__1245__1258__1282 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1244 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__702 0"]
-	8["arg__701 u8.&"]
+	5["arg__1247 0"]
+	8["arg__1246 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__704 0x40u8"]
+	6["arg__1249 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__706__710__714 0u"]
-	29["eff__688 mach_writeMemory64_f64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1251__1259__1283 0u"]
+	29["eff__1233 mach_writeMemory64_f64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__707__711 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1252__1276 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__687 m_isMemory64"]
+	15["cond__1232 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -24734,8 +24510,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["F64_STORE"]["chooseMerge"] = ''
 window.traces["F64_STORE"]["chooseMerge"] += `<pre class='graph'>---
@@ -24752,51 +24528,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__693 mach_writeMemory32_f64"]
+	22["eff__1238 mach_writeMemory32_f64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_f64"]
 	0 -. Stack .-> 13
-	44["offset__708__712 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1253__1277 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__700__709__713 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__699 u8.!="]
+	93["memindex__1245__1258__1282 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1244 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__702 0"]
-	8["arg__701 u8.&"]
+	5["arg__1247 0"]
+	8["arg__1246 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__704 0x40u8"]
+	6["arg__1249 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__706__710__714 0u"]
-	29["eff__688 mach_writeMemory64_f64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1251__1259__1283 0u"]
+	29["eff__1233 mach_writeMemory64_f64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__707__711 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1252__1276 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__687 m_isMemory64"]
+	15["cond__1232 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -24804,32 +24580,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["F64_STORE"]["scheduled"] = ''
 window.traces["F64_STORE"]["scheduled"] += `<pre class=''>def val = pop_f64();
 def flags = imm_readU8();
-def arg__704 : byte = 0x40u8;
-def arg__701 = u8.&(flags, arg__704);
-def arg__702 : byte = 0;
-def cond__699 = u8.!=(arg__701, arg__702);
+def arg__1249 : byte = 0x40u8;
+def arg__1246 = u8.&(flags, arg__1249);
+def arg__1247 : byte = 0;
+def cond__1244 = u8.!=(arg__1246, arg__1247);
 var memindex: u32;
-if (cond__699) {
-	def memindex__700__709__713 = imm_readULEB32();
+if (cond__1244) {
+	def memindex__1245__1258__1282 = imm_readULEB32();
 } else {
-	def memindex__706__710__714 : u32 = 0u;
+	def memindex__1251__1259__1283 : u32 = 0u;
 }
-// phis: memindex <- memindex__700__709__713; memindex <- memindex__706__710__714; 
-def cond__687 = m_isMemory64(memindex);
-if (cond__687) {
-	def offset__707__711 = imm_readULEB64();
+// phis: memindex <- memindex__1245__1258__1282; memindex <- memindex__1251__1259__1283; 
+def cond__1232 = m_isMemory64(memindex);
+if (cond__1232) {
+	def offset__1252__1276 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__688 = mach_writeMemory64_f64(memindex, index, offset__707__711, val);
+	def eff__1233 = mach_writeMemory64_f64(memindex, index, offset__1252__1276, val);
 } else {
-	def offset__708__712 = imm_readULEB32();
+	def offset__1253__1277 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__693 = mach_writeMemory32_f64(memindex, index, offset__708__712, val);
+	def eff__1238 = mach_writeMemory32_f64(memindex, index, offset__1253__1277, val);
 }
 // phis: 
 </pre>`;
@@ -24857,34 +24633,34 @@ window.traces["I32_STORE8"] = {}
 window.traces["I32_STORE8"]["parsed"] = ''
 window.traces["I32_STORE8"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__730 : byte = 0;
-def arg__732 : byte = 0x40u8;
-def arg__731 = (flags);
-def arg__729 = u8.&(arg__731, arg__732);
-def cond__727 = u8.!=(arg__729, arg__730);
-if (cond__727) {
-	def memindex__728 = imm_readULEB32();
+def arg__1315 : byte = 0;
+def arg__1317 : byte = 0x40u8;
+def arg__1316 = (flags);
+def arg__1314 = u8.&(arg__1316, arg__1317);
+def cond__1312 = u8.!=(arg__1314, arg__1315);
+if (cond__1312) {
+	def memindex__1313 = imm_readULEB32();
 }
-// phis: memindex <- memindex__728; 
+// phis: memindex <- memindex__1313; 
 def val = pop_u32();
-def arg__726 = (memindex);
-def cond__715 = m_isMemory64(arg__726);
-if (cond__715) {
+def arg__1311 = (memindex);
+def cond__1300 = m_isMemory64(arg__1311);
+if (cond__1300) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__720 = (val);
-	def arg__719 = (offset);
-	def arg__718 = (index);
-	def arg__717 = (memindex);
-	def eff__716 = mach_writeMemory64_u8(arg__717, arg__718, arg__719, arg__720);
+	def arg__1305 = (val);
+	def arg__1304 = (offset);
+	def arg__1303 = (index);
+	def arg__1302 = (memindex);
+	def eff__1301 = mach_writeMemory64_u8(arg__1302, arg__1303, arg__1304, arg__1305);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__725 = (val);
-	def arg__724 = (offset);
-	def arg__723 = (index);
-	def arg__722 = (memindex);
-	def eff__721 = mach_writeMemory32_u8(arg__722, arg__723, arg__724, arg__725);
+	def arg__1310 = (val);
+	def arg__1309 = (offset);
+	def arg__1308 = (index);
+	def arg__1307 = (memindex);
+	def eff__1306 = mach_writeMemory32_u8(arg__1307, arg__1308, arg__1309, arg__1310);
 }
 // phis: 
 </pre>`;
@@ -24903,7 +24679,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__721 mach_writeMemory32_u8"]
+	22["eff__1306 mach_writeMemory32_u8"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -24920,24 +24696,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__728 imm_readULEB32"]
+	10["memindex__1313 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__727 u8.!="]
+	9["cond__1312 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__730 0"]
-	8["arg__729 u8.&"]
+	5["arg__1315 0"]
+	8["arg__1314 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__732 0x40u8"]
+	6["arg__1317 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__733 0u"]
-	29["eff__716 mach_writeMemory64_u8"]
+	4["memindex__1318 0u"]
+	29["eff__1301 mach_writeMemory64_u8"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -24947,7 +24723,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__715 m_isMemory64"]
+	15["cond__1300 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -24973,7 +24749,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__721 mach_writeMemory32_u8"]
+	22["eff__1306 mach_writeMemory32_u8"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -24990,24 +24766,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__728 imm_readULEB32"]
+	10["memindex__1313 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__727 u8.!="]
+	9["cond__1312 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__730 0"]
-	8["arg__729 u8.&"]
+	5["arg__1315 0"]
+	8["arg__1314 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__732 0x40u8"]
+	6["arg__1317 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__734 0u"]
-	29["eff__716 mach_writeMemory64_u8"]
+	4["memindex__1319 0u"]
+	29["eff__1301 mach_writeMemory64_u8"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -25017,7 +24793,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__715 m_isMemory64"]
+	15["cond__1300 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -25043,7 +24819,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__721 mach_writeMemory32_u8"]
+	22["eff__1306 mach_writeMemory32_u8"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -25060,24 +24836,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__728 imm_readULEB32"]
+	10["memindex__1313 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__727 u8.!="]
+	9["cond__1312 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__730 0"]
-	8["arg__729 u8.&"]
+	5["arg__1315 0"]
+	8["arg__1314 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__732 0x40u8"]
+	6["arg__1317 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__734 0u"]
-	29["eff__716 mach_writeMemory64_u8"]
+	4["memindex__1319 0u"]
+	29["eff__1301 mach_writeMemory64_u8"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -25087,7 +24863,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__715 m_isMemory64"]
+	15["cond__1300 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -25113,51 +24889,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__721 mach_writeMemory32_u8"]
+	22["eff__1306 mach_writeMemory32_u8"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	36["offset__736 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1321 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__728 imm_readULEB32"]
+	10["memindex__1313 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__727 u8.!="]
+	9["cond__1312 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__730 0"]
-	8["arg__729 u8.&"]
+	5["arg__1315 0"]
+	8["arg__1314 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__732 0x40u8"]
+	6["arg__1317 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__734 0u"]
-	29["eff__716 mach_writeMemory64_u8"]
+	4["memindex__1319 0u"]
+	29["eff__1301 mach_writeMemory64_u8"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__735 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1320 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__715 m_isMemory64"]
+	15["cond__1300 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -25165,8 +24941,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I32_STORE8"]["post_surgery 534"] = ''
 window.traces["I32_STORE8"]["post_surgery 534"] += `<pre class='graph'>---
@@ -25183,51 +24959,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__721 mach_writeMemory32_u8"]
+	22["eff__1306 mach_writeMemory32_u8"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	36["offset__736 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1321 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__728__737 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__727 u8.!="]
+	45["memindex__1313__1326 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1312 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__730 0"]
-	8["arg__729 u8.&"]
+	5["arg__1315 0"]
+	8["arg__1314 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__732 0x40u8"]
+	6["arg__1317 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__734__738 0u"]
-	29["eff__716 mach_writeMemory64_u8"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1319__1327 0u"]
+	29["eff__1301 mach_writeMemory64_u8"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__735 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1320 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__715 m_isMemory64"]
+	15["cond__1300 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -25235,8 +25011,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I32_STORE8"]["schedulerMermaid"] = ''
 window.traces["I32_STORE8"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -25254,22 +25030,22 @@ block_530 --> phi_529
 block_531 --> phi_529
 subgraph block_530["Block 530"]
 	direction TB
-	b530_34["offset__735 imm_readULEB64"]
-	b530_29["eff__716 mach_writeMemory64_u8"]
+	b530_33["offset__1320 imm_readULEB64"]
+	b530_29["eff__1301 mach_writeMemory64_u8"]
 	b530_24["index pop_u64"]
-	b530_34 --> b530_29
+	b530_33 --> b530_29
 	b530_29 --> b530_24
 end
 branch_528 --> block_530
 subgraph branch_528["Branch 528"]
-	br528_15["cond__715 m_isMemory64"]
+	br528_15["cond__1300 m_isMemory64"]
 
 end
 block_532 --> branch_528
 subgraph block_532["Block 532"]
 	direction TB
 	b532_13["val pop_u32"]
-	b532_15["cond__715 m_isMemory64"]
+	b532_15["cond__1300 m_isMemory64"]
 	b532_13 --> b532_15
 end
 phi_534 --> block_532
@@ -25288,21 +25064,21 @@ block_535 --> phi_534
 block_536 --> phi_534
 subgraph block_535["Block 535"]
 	direction TB
-	b535_37["memindex__728__737 imm_readULEB32"]
+	b535_45["memindex__1313__1326 imm_readULEB32"]
 end
 branch_533 --> block_535
 subgraph branch_533["Branch 533"]
-	br533_9["cond__727 u8.!="]
+	br533_9["cond__1312 u8.!="]
 
 end
 block_537 --> branch_533
 subgraph block_537["Block 537"]
 	direction TB
 	b537_0[/"Start"\\]
-	b537_6["arg__732 0x40u8"]
-	b537_5["arg__730 0"]
-	b537_8["arg__729 u8.&"]
-	b537_9["cond__727 u8.!="]
+	b537_6["arg__1317 0x40u8"]
+	b537_5["arg__1315 0"]
+	b537_8["arg__1314 u8.&"]
+	b537_9["cond__1312 u8.!="]
 	b537_0 --> b537_6
 	b537_6 --> b537_5
 	b537_5 --> b537_8
@@ -25310,43 +25086,43 @@ subgraph block_537["Block 537"]
 end
 subgraph block_536["Block 536"]
 	direction TB
-	b536_39["memindex__734__738 0u"]
+	b536_47["memindex__1319__1327 0u"]
 	b536_3["flags imm_readU8"]
-	b536_39 --> b536_3
+	b536_47 --> b536_3
 end
 branch_533 --> block_536
 subgraph block_531["Block 531"]
 	direction TB
-	b531_36["offset__736 imm_readULEB32"]
-	b531_22["eff__721 mach_writeMemory32_u8"]
+	b531_35["offset__1321 imm_readULEB32"]
+	b531_22["eff__1306 mach_writeMemory32_u8"]
 	b531_17["index pop_u32"]
-	b531_36 --> b531_22
+	b531_35 --> b531_22
 	b531_22 --> b531_17
 end
 branch_528 --> block_531
 
 </pre>`;
 window.traces["I32_STORE8"]["scheduler ssad"] = ''
-window.traces["I32_STORE8"]["scheduler ssad"] += `<pre class=''>def arg__732 : byte = 0x40u8;
-def arg__730 : byte = 0;
-def arg__729 = u8.&(flags, arg__732);
-def cond__727 = u8.!=(arg__729, arg__730);
-if (cond__727) {
-	def memindex__728__737 = imm_readULEB32();
+window.traces["I32_STORE8"]["scheduler ssad"] += `<pre class=''>def arg__1317 : byte = 0x40u8;
+def arg__1315 : byte = 0;
+def arg__1314 = u8.&(flags, arg__1317);
+def cond__1312 = u8.!=(arg__1314, arg__1315);
+if (cond__1312) {
+	def memindex__1313__1326 = imm_readULEB32();
 } else {
-	def memindex__734__738 : u32 = 0u;
+	def memindex__1319__1327 : u32 = 0u;
 	def flags = imm_readU8();
 }
 // phis: 
 def val = pop_u32();
-def cond__715 = m_isMemory64(memindex);
-if (cond__715) {
-	def offset__735 = imm_readULEB64();
-	def eff__716 = mach_writeMemory64_u8(memindex, index, offset__735, val);
+def cond__1300 = m_isMemory64(memindex);
+if (cond__1300) {
+	def offset__1320 = imm_readULEB64();
+	def eff__1301 = mach_writeMemory64_u8(memindex, index, offset__1320, val);
 	def index = pop_u64();
 } else {
-	def offset__736 = imm_readULEB32();
-	def eff__721 = mach_writeMemory32_u8(memindex, index, offset__736, val);
+	def offset__1321 = imm_readULEB32();
+	def eff__1306 = mach_writeMemory32_u8(memindex, index, offset__1321, val);
 	def index = pop_u32();
 }
 // phis: 
@@ -25366,51 +25142,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__721 mach_writeMemory32_u8"]
+	22["eff__1306 mach_writeMemory32_u8"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	36["offset__736 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1321 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__728__737 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__727 u8.!="]
+	45["memindex__1313__1326 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1312 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__730 0"]
-	8["arg__729 u8.&"]
+	5["arg__1315 0"]
+	8["arg__1314 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__732 0x40u8"]
+	6["arg__1317 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__734__738 0u"]
-	29["eff__716 mach_writeMemory64_u8"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1319__1327 0u"]
+	29["eff__1301 mach_writeMemory64_u8"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__735 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1320 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__715 m_isMemory64"]
+	15["cond__1300 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -25418,32 +25194,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I32_STORE8"]["unlem_schedule"] = ''
 window.traces["I32_STORE8"]["unlem_schedule"] += `<pre class=''>def val = pop_u32();
 def flags = imm_readU8();
-def arg__732 : byte = 0x40u8;
-def arg__729 = u8.&(flags, arg__732);
-def arg__730 : byte = 0;
-def cond__727 = u8.!=(arg__729, arg__730);
+def arg__1317 : byte = 0x40u8;
+def arg__1314 = u8.&(flags, arg__1317);
+def arg__1315 : byte = 0;
+def cond__1312 = u8.!=(arg__1314, arg__1315);
 var memindex: u32;
-if (cond__727) {
-	def memindex__728__737 = imm_readULEB32();
+if (cond__1312) {
+	def memindex__1313__1326 = imm_readULEB32();
 } else {
-	def memindex__734__738 : u32 = 0u;
+	def memindex__1319__1327 : u32 = 0u;
 }
-// phis: memindex <- memindex__728__737; memindex <- memindex__734__738; 
-def cond__715 = m_isMemory64(memindex);
-if (cond__715) {
-	def offset__735 = imm_readULEB64();
+// phis: memindex <- memindex__1313__1326; memindex <- memindex__1319__1327; 
+def cond__1300 = m_isMemory64(memindex);
+if (cond__1300) {
+	def offset__1320 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__716 = mach_writeMemory64_u8(memindex, index, offset__735, val);
+	def eff__1301 = mach_writeMemory64_u8(memindex, index, offset__1320, val);
 } else {
-	def offset__736 = imm_readULEB32();
+	def offset__1321 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__721 = mach_writeMemory32_u8(memindex, index, offset__736, val);
+	def eff__1306 = mach_writeMemory32_u8(memindex, index, offset__1321, val);
 }
 // phis: 
 </pre>`;
@@ -25463,51 +25239,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__721 mach_writeMemory32_u8"]
+	22["eff__1306 mach_writeMemory32_u8"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	44["offset__736__740 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1321__1345 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__728__737 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__727 u8.!="]
+	45["memindex__1313__1326 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1312 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__730 0"]
-	8["arg__729 u8.&"]
+	5["arg__1315 0"]
+	8["arg__1314 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__732 0x40u8"]
+	6["arg__1317 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__734__738 0u"]
-	29["eff__716 mach_writeMemory64_u8"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1319__1327 0u"]
+	29["eff__1301 mach_writeMemory64_u8"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__735__739 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1320__1344 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__715 m_isMemory64"]
+	15["cond__1300 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -25515,8 +25291,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I32_STORE8_ul"]["post_surgery 545"] = ''
 window.traces["I32_STORE8_ul"]["post_surgery 545"] += `<pre class='graph'>---
@@ -25533,51 +25309,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__721 mach_writeMemory32_u8"]
+	22["eff__1306 mach_writeMemory32_u8"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	44["offset__736__740 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1321__1345 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__728__737__741 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__727 u8.!="]
+	93["memindex__1313__1326__1350 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1312 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__730 0"]
-	8["arg__729 u8.&"]
+	5["arg__1315 0"]
+	8["arg__1314 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__732 0x40u8"]
+	6["arg__1317 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__734__738__742 0u"]
-	29["eff__716 mach_writeMemory64_u8"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1319__1327__1351 0u"]
+	29["eff__1301 mach_writeMemory64_u8"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__735__739 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1320__1344 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__715 m_isMemory64"]
+	15["cond__1300 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -25585,8 +25361,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I32_STORE8"]["unlem_scheduler"] = ''
 window.traces["I32_STORE8"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -25604,22 +25380,22 @@ block_541 --> phi_540
 block_542 --> phi_540
 subgraph block_541["Block 541"]
 	direction TB
-	b541_42["offset__735__739 imm_readULEB64"]
-	b541_29["eff__716 mach_writeMemory64_u8"]
+	b541_81["offset__1320__1344 imm_readULEB64"]
+	b541_29["eff__1301 mach_writeMemory64_u8"]
 	b541_24["index pop_u64"]
-	b541_42 --> b541_29
+	b541_81 --> b541_29
 	b541_29 --> b541_24
 end
 branch_539 --> block_541
 subgraph branch_539["Branch 539"]
-	br539_15["cond__715 m_isMemory64"]
+	br539_15["cond__1300 m_isMemory64"]
 
 end
 block_543 --> branch_539
 subgraph block_543["Block 543"]
 	direction TB
 	b543_13["val pop_u32"]
-	b543_15["cond__715 m_isMemory64"]
+	b543_15["cond__1300 m_isMemory64"]
 	b543_13 --> b543_15
 end
 phi_545 --> block_543
@@ -25638,21 +25414,21 @@ block_546 --> phi_545
 block_547 --> phi_545
 subgraph block_546["Block 546"]
 	direction TB
-	b546_45["memindex__728__737__741 imm_readULEB32"]
+	b546_93["memindex__1313__1326__1350 imm_readULEB32"]
 end
 branch_544 --> block_546
 subgraph branch_544["Branch 544"]
-	br544_9["cond__727 u8.!="]
+	br544_9["cond__1312 u8.!="]
 
 end
 block_548 --> branch_544
 subgraph block_548["Block 548"]
 	direction TB
 	b548_0[/"Start"\\]
-	b548_6["arg__732 0x40u8"]
-	b548_5["arg__730 0"]
-	b548_8["arg__729 u8.&"]
-	b548_9["cond__727 u8.!="]
+	b548_6["arg__1317 0x40u8"]
+	b548_5["arg__1315 0"]
+	b548_8["arg__1314 u8.&"]
+	b548_9["cond__1312 u8.!="]
 	b548_0 --> b548_6
 	b548_6 --> b548_5
 	b548_5 --> b548_8
@@ -25660,17 +25436,17 @@ subgraph block_548["Block 548"]
 end
 subgraph block_547["Block 547"]
 	direction TB
-	b547_47["memindex__734__738__742 0u"]
+	b547_95["memindex__1319__1327__1351 0u"]
 	b547_3["flags imm_readU8"]
-	b547_47 --> b547_3
+	b547_95 --> b547_3
 end
 branch_544 --> block_547
 subgraph block_542["Block 542"]
 	direction TB
-	b542_44["offset__736__740 imm_readULEB32"]
-	b542_22["eff__721 mach_writeMemory32_u8"]
+	b542_83["offset__1321__1345 imm_readULEB32"]
+	b542_22["eff__1306 mach_writeMemory32_u8"]
 	b542_17["index pop_u32"]
-	b542_44 --> b542_22
+	b542_83 --> b542_22
 	b542_22 --> b542_17
 end
 branch_539 --> block_542
@@ -25711,51 +25487,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__721 mach_writeMemory32_u8"]
+	22["eff__1306 mach_writeMemory32_u8"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	44["offset__736__740 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1321__1345 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__728__737__741 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__727 u8.!="]
+	93["memindex__1313__1326__1350 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1312 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__730 0"]
-	8["arg__729 u8.&"]
+	5["arg__1315 0"]
+	8["arg__1314 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__732 0x40u8"]
+	6["arg__1317 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__734__738__742 0u"]
-	29["eff__716 mach_writeMemory64_u8"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1319__1327__1351 0u"]
+	29["eff__1301 mach_writeMemory64_u8"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__735__739 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1320__1344 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__715 m_isMemory64"]
+	15["cond__1300 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -25763,8 +25539,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I32_STORE8"]["chooseMerge"] = ''
 window.traces["I32_STORE8"]["chooseMerge"] += `<pre class='graph'>---
@@ -25781,51 +25557,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__721 mach_writeMemory32_u8"]
+	22["eff__1306 mach_writeMemory32_u8"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	44["offset__736__740 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1321__1345 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__728__737__741 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__727 u8.!="]
+	93["memindex__1313__1326__1350 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1312 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__730 0"]
-	8["arg__729 u8.&"]
+	5["arg__1315 0"]
+	8["arg__1314 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__732 0x40u8"]
+	6["arg__1317 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__734__738__742 0u"]
-	29["eff__716 mach_writeMemory64_u8"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1319__1327__1351 0u"]
+	29["eff__1301 mach_writeMemory64_u8"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__735__739 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1320__1344 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__715 m_isMemory64"]
+	15["cond__1300 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -25833,32 +25609,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I32_STORE8"]["scheduled"] = ''
 window.traces["I32_STORE8"]["scheduled"] += `<pre class=''>def val = pop_u32();
 def flags = imm_readU8();
-def arg__732 : byte = 0x40u8;
-def arg__729 = u8.&(flags, arg__732);
-def arg__730 : byte = 0;
-def cond__727 = u8.!=(arg__729, arg__730);
+def arg__1317 : byte = 0x40u8;
+def arg__1314 = u8.&(flags, arg__1317);
+def arg__1315 : byte = 0;
+def cond__1312 = u8.!=(arg__1314, arg__1315);
 var memindex: u32;
-if (cond__727) {
-	def memindex__728__737__741 = imm_readULEB32();
+if (cond__1312) {
+	def memindex__1313__1326__1350 = imm_readULEB32();
 } else {
-	def memindex__734__738__742 : u32 = 0u;
+	def memindex__1319__1327__1351 : u32 = 0u;
 }
-// phis: memindex <- memindex__728__737__741; memindex <- memindex__734__738__742; 
-def cond__715 = m_isMemory64(memindex);
-if (cond__715) {
-	def offset__735__739 = imm_readULEB64();
+// phis: memindex <- memindex__1313__1326__1350; memindex <- memindex__1319__1327__1351; 
+def cond__1300 = m_isMemory64(memindex);
+if (cond__1300) {
+	def offset__1320__1344 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__716 = mach_writeMemory64_u8(memindex, index, offset__735__739, val);
+	def eff__1301 = mach_writeMemory64_u8(memindex, index, offset__1320__1344, val);
 } else {
-	def offset__736__740 = imm_readULEB32();
+	def offset__1321__1345 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__721 = mach_writeMemory32_u8(memindex, index, offset__736__740, val);
+	def eff__1306 = mach_writeMemory32_u8(memindex, index, offset__1321__1345, val);
 }
 // phis: 
 </pre>`;
@@ -25886,34 +25662,34 @@ window.traces["I32_STORE16"] = {}
 window.traces["I32_STORE16"]["parsed"] = ''
 window.traces["I32_STORE16"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__758 : byte = 0;
-def arg__760 : byte = 0x40u8;
-def arg__759 = (flags);
-def arg__757 = u8.&(arg__759, arg__760);
-def cond__755 = u8.!=(arg__757, arg__758);
-if (cond__755) {
-	def memindex__756 = imm_readULEB32();
+def arg__1383 : byte = 0;
+def arg__1385 : byte = 0x40u8;
+def arg__1384 = (flags);
+def arg__1382 = u8.&(arg__1384, arg__1385);
+def cond__1380 = u8.!=(arg__1382, arg__1383);
+if (cond__1380) {
+	def memindex__1381 = imm_readULEB32();
 }
-// phis: memindex <- memindex__756; 
+// phis: memindex <- memindex__1381; 
 def val = pop_u32();
-def arg__754 = (memindex);
-def cond__743 = m_isMemory64(arg__754);
-if (cond__743) {
+def arg__1379 = (memindex);
+def cond__1368 = m_isMemory64(arg__1379);
+if (cond__1368) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__748 = (val);
-	def arg__747 = (offset);
-	def arg__746 = (index);
-	def arg__745 = (memindex);
-	def eff__744 = mach_writeMemory64_u16(arg__745, arg__746, arg__747, arg__748);
+	def arg__1373 = (val);
+	def arg__1372 = (offset);
+	def arg__1371 = (index);
+	def arg__1370 = (memindex);
+	def eff__1369 = mach_writeMemory64_u16(arg__1370, arg__1371, arg__1372, arg__1373);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__753 = (val);
-	def arg__752 = (offset);
-	def arg__751 = (index);
-	def arg__750 = (memindex);
-	def eff__749 = mach_writeMemory32_u16(arg__750, arg__751, arg__752, arg__753);
+	def arg__1378 = (val);
+	def arg__1377 = (offset);
+	def arg__1376 = (index);
+	def arg__1375 = (memindex);
+	def eff__1374 = mach_writeMemory32_u16(arg__1375, arg__1376, arg__1377, arg__1378);
 }
 // phis: 
 </pre>`;
@@ -25932,7 +25708,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__749 mach_writeMemory32_u16"]
+	22["eff__1374 mach_writeMemory32_u16"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -25949,24 +25725,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__756 imm_readULEB32"]
+	10["memindex__1381 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__755 u8.!="]
+	9["cond__1380 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__758 0"]
-	8["arg__757 u8.&"]
+	5["arg__1383 0"]
+	8["arg__1382 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__760 0x40u8"]
+	6["arg__1385 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__761 0u"]
-	29["eff__744 mach_writeMemory64_u16"]
+	4["memindex__1386 0u"]
+	29["eff__1369 mach_writeMemory64_u16"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -25976,7 +25752,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__743 m_isMemory64"]
+	15["cond__1368 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -26002,7 +25778,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__749 mach_writeMemory32_u16"]
+	22["eff__1374 mach_writeMemory32_u16"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -26019,24 +25795,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__756 imm_readULEB32"]
+	10["memindex__1381 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__755 u8.!="]
+	9["cond__1380 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__758 0"]
-	8["arg__757 u8.&"]
+	5["arg__1383 0"]
+	8["arg__1382 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__760 0x40u8"]
+	6["arg__1385 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__762 0u"]
-	29["eff__744 mach_writeMemory64_u16"]
+	4["memindex__1387 0u"]
+	29["eff__1369 mach_writeMemory64_u16"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -26046,7 +25822,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__743 m_isMemory64"]
+	15["cond__1368 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -26072,7 +25848,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__749 mach_writeMemory32_u16"]
+	22["eff__1374 mach_writeMemory32_u16"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -26089,24 +25865,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__756 imm_readULEB32"]
+	10["memindex__1381 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__755 u8.!="]
+	9["cond__1380 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__758 0"]
-	8["arg__757 u8.&"]
+	5["arg__1383 0"]
+	8["arg__1382 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__760 0x40u8"]
+	6["arg__1385 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__762 0u"]
-	29["eff__744 mach_writeMemory64_u16"]
+	4["memindex__1387 0u"]
+	29["eff__1369 mach_writeMemory64_u16"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -26116,7 +25892,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__743 m_isMemory64"]
+	15["cond__1368 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -26142,51 +25918,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__749 mach_writeMemory32_u16"]
+	22["eff__1374 mach_writeMemory32_u16"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	36["offset__764 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1389 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__756 imm_readULEB32"]
+	10["memindex__1381 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__755 u8.!="]
+	9["cond__1380 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__758 0"]
-	8["arg__757 u8.&"]
+	5["arg__1383 0"]
+	8["arg__1382 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__760 0x40u8"]
+	6["arg__1385 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__762 0u"]
-	29["eff__744 mach_writeMemory64_u16"]
+	4["memindex__1387 0u"]
+	29["eff__1369 mach_writeMemory64_u16"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__763 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1388 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__743 m_isMemory64"]
+	15["cond__1368 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -26194,8 +25970,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I32_STORE16"]["post_surgery 556"] = ''
 window.traces["I32_STORE16"]["post_surgery 556"] += `<pre class='graph'>---
@@ -26212,51 +25988,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__749 mach_writeMemory32_u16"]
+	22["eff__1374 mach_writeMemory32_u16"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	36["offset__764 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1389 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__756__765 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__755 u8.!="]
+	45["memindex__1381__1394 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1380 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__758 0"]
-	8["arg__757 u8.&"]
+	5["arg__1383 0"]
+	8["arg__1382 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__760 0x40u8"]
+	6["arg__1385 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__762__766 0u"]
-	29["eff__744 mach_writeMemory64_u16"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1387__1395 0u"]
+	29["eff__1369 mach_writeMemory64_u16"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__763 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1388 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__743 m_isMemory64"]
+	15["cond__1368 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -26264,8 +26040,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I32_STORE16"]["schedulerMermaid"] = ''
 window.traces["I32_STORE16"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -26283,22 +26059,22 @@ block_552 --> phi_551
 block_553 --> phi_551
 subgraph block_552["Block 552"]
 	direction TB
-	b552_34["offset__763 imm_readULEB64"]
-	b552_29["eff__744 mach_writeMemory64_u16"]
+	b552_33["offset__1388 imm_readULEB64"]
+	b552_29["eff__1369 mach_writeMemory64_u16"]
 	b552_24["index pop_u64"]
-	b552_34 --> b552_29
+	b552_33 --> b552_29
 	b552_29 --> b552_24
 end
 branch_550 --> block_552
 subgraph branch_550["Branch 550"]
-	br550_15["cond__743 m_isMemory64"]
+	br550_15["cond__1368 m_isMemory64"]
 
 end
 block_554 --> branch_550
 subgraph block_554["Block 554"]
 	direction TB
 	b554_13["val pop_u32"]
-	b554_15["cond__743 m_isMemory64"]
+	b554_15["cond__1368 m_isMemory64"]
 	b554_13 --> b554_15
 end
 phi_556 --> block_554
@@ -26317,21 +26093,21 @@ block_557 --> phi_556
 block_558 --> phi_556
 subgraph block_557["Block 557"]
 	direction TB
-	b557_37["memindex__756__765 imm_readULEB32"]
+	b557_45["memindex__1381__1394 imm_readULEB32"]
 end
 branch_555 --> block_557
 subgraph branch_555["Branch 555"]
-	br555_9["cond__755 u8.!="]
+	br555_9["cond__1380 u8.!="]
 
 end
 block_559 --> branch_555
 subgraph block_559["Block 559"]
 	direction TB
 	b559_0[/"Start"\\]
-	b559_6["arg__760 0x40u8"]
-	b559_5["arg__758 0"]
-	b559_8["arg__757 u8.&"]
-	b559_9["cond__755 u8.!="]
+	b559_6["arg__1385 0x40u8"]
+	b559_5["arg__1383 0"]
+	b559_8["arg__1382 u8.&"]
+	b559_9["cond__1380 u8.!="]
 	b559_0 --> b559_6
 	b559_6 --> b559_5
 	b559_5 --> b559_8
@@ -26339,43 +26115,43 @@ subgraph block_559["Block 559"]
 end
 subgraph block_558["Block 558"]
 	direction TB
-	b558_39["memindex__762__766 0u"]
+	b558_47["memindex__1387__1395 0u"]
 	b558_3["flags imm_readU8"]
-	b558_39 --> b558_3
+	b558_47 --> b558_3
 end
 branch_555 --> block_558
 subgraph block_553["Block 553"]
 	direction TB
-	b553_36["offset__764 imm_readULEB32"]
-	b553_22["eff__749 mach_writeMemory32_u16"]
+	b553_35["offset__1389 imm_readULEB32"]
+	b553_22["eff__1374 mach_writeMemory32_u16"]
 	b553_17["index pop_u32"]
-	b553_36 --> b553_22
+	b553_35 --> b553_22
 	b553_22 --> b553_17
 end
 branch_550 --> block_553
 
 </pre>`;
 window.traces["I32_STORE16"]["scheduler ssad"] = ''
-window.traces["I32_STORE16"]["scheduler ssad"] += `<pre class=''>def arg__760 : byte = 0x40u8;
-def arg__758 : byte = 0;
-def arg__757 = u8.&(flags, arg__760);
-def cond__755 = u8.!=(arg__757, arg__758);
-if (cond__755) {
-	def memindex__756__765 = imm_readULEB32();
+window.traces["I32_STORE16"]["scheduler ssad"] += `<pre class=''>def arg__1385 : byte = 0x40u8;
+def arg__1383 : byte = 0;
+def arg__1382 = u8.&(flags, arg__1385);
+def cond__1380 = u8.!=(arg__1382, arg__1383);
+if (cond__1380) {
+	def memindex__1381__1394 = imm_readULEB32();
 } else {
-	def memindex__762__766 : u32 = 0u;
+	def memindex__1387__1395 : u32 = 0u;
 	def flags = imm_readU8();
 }
 // phis: 
 def val = pop_u32();
-def cond__743 = m_isMemory64(memindex);
-if (cond__743) {
-	def offset__763 = imm_readULEB64();
-	def eff__744 = mach_writeMemory64_u16(memindex, index, offset__763, val);
+def cond__1368 = m_isMemory64(memindex);
+if (cond__1368) {
+	def offset__1388 = imm_readULEB64();
+	def eff__1369 = mach_writeMemory64_u16(memindex, index, offset__1388, val);
 	def index = pop_u64();
 } else {
-	def offset__764 = imm_readULEB32();
-	def eff__749 = mach_writeMemory32_u16(memindex, index, offset__764, val);
+	def offset__1389 = imm_readULEB32();
+	def eff__1374 = mach_writeMemory32_u16(memindex, index, offset__1389, val);
 	def index = pop_u32();
 }
 // phis: 
@@ -26395,51 +26171,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__749 mach_writeMemory32_u16"]
+	22["eff__1374 mach_writeMemory32_u16"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	36["offset__764 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1389 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__756__765 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__755 u8.!="]
+	45["memindex__1381__1394 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1380 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__758 0"]
-	8["arg__757 u8.&"]
+	5["arg__1383 0"]
+	8["arg__1382 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__760 0x40u8"]
+	6["arg__1385 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__762__766 0u"]
-	29["eff__744 mach_writeMemory64_u16"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1387__1395 0u"]
+	29["eff__1369 mach_writeMemory64_u16"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__763 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1388 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__743 m_isMemory64"]
+	15["cond__1368 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -26447,32 +26223,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I32_STORE16"]["unlem_schedule"] = ''
 window.traces["I32_STORE16"]["unlem_schedule"] += `<pre class=''>def val = pop_u32();
 def flags = imm_readU8();
-def arg__760 : byte = 0x40u8;
-def arg__757 = u8.&(flags, arg__760);
-def arg__758 : byte = 0;
-def cond__755 = u8.!=(arg__757, arg__758);
+def arg__1385 : byte = 0x40u8;
+def arg__1382 = u8.&(flags, arg__1385);
+def arg__1383 : byte = 0;
+def cond__1380 = u8.!=(arg__1382, arg__1383);
 var memindex: u32;
-if (cond__755) {
-	def memindex__756__765 = imm_readULEB32();
+if (cond__1380) {
+	def memindex__1381__1394 = imm_readULEB32();
 } else {
-	def memindex__762__766 : u32 = 0u;
+	def memindex__1387__1395 : u32 = 0u;
 }
-// phis: memindex <- memindex__756__765; memindex <- memindex__762__766; 
-def cond__743 = m_isMemory64(memindex);
-if (cond__743) {
-	def offset__763 = imm_readULEB64();
+// phis: memindex <- memindex__1381__1394; memindex <- memindex__1387__1395; 
+def cond__1368 = m_isMemory64(memindex);
+if (cond__1368) {
+	def offset__1388 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__744 = mach_writeMemory64_u16(memindex, index, offset__763, val);
+	def eff__1369 = mach_writeMemory64_u16(memindex, index, offset__1388, val);
 } else {
-	def offset__764 = imm_readULEB32();
+	def offset__1389 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__749 = mach_writeMemory32_u16(memindex, index, offset__764, val);
+	def eff__1374 = mach_writeMemory32_u16(memindex, index, offset__1389, val);
 }
 // phis: 
 </pre>`;
@@ -26492,51 +26268,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__749 mach_writeMemory32_u16"]
+	22["eff__1374 mach_writeMemory32_u16"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	44["offset__764__768 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1389__1413 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__756__765 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__755 u8.!="]
+	45["memindex__1381__1394 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1380 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__758 0"]
-	8["arg__757 u8.&"]
+	5["arg__1383 0"]
+	8["arg__1382 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__760 0x40u8"]
+	6["arg__1385 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__762__766 0u"]
-	29["eff__744 mach_writeMemory64_u16"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1387__1395 0u"]
+	29["eff__1369 mach_writeMemory64_u16"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__763__767 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1388__1412 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__743 m_isMemory64"]
+	15["cond__1368 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -26544,8 +26320,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I32_STORE16_ul"]["post_surgery 567"] = ''
 window.traces["I32_STORE16_ul"]["post_surgery 567"] += `<pre class='graph'>---
@@ -26562,51 +26338,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__749 mach_writeMemory32_u16"]
+	22["eff__1374 mach_writeMemory32_u16"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	44["offset__764__768 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1389__1413 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__756__765__769 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__755 u8.!="]
+	93["memindex__1381__1394__1418 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1380 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__758 0"]
-	8["arg__757 u8.&"]
+	5["arg__1383 0"]
+	8["arg__1382 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__760 0x40u8"]
+	6["arg__1385 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__762__766__770 0u"]
-	29["eff__744 mach_writeMemory64_u16"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1387__1395__1419 0u"]
+	29["eff__1369 mach_writeMemory64_u16"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__763__767 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1388__1412 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__743 m_isMemory64"]
+	15["cond__1368 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -26614,8 +26390,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I32_STORE16"]["unlem_scheduler"] = ''
 window.traces["I32_STORE16"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -26633,22 +26409,22 @@ block_563 --> phi_562
 block_564 --> phi_562
 subgraph block_563["Block 563"]
 	direction TB
-	b563_42["offset__763__767 imm_readULEB64"]
-	b563_29["eff__744 mach_writeMemory64_u16"]
+	b563_81["offset__1388__1412 imm_readULEB64"]
+	b563_29["eff__1369 mach_writeMemory64_u16"]
 	b563_24["index pop_u64"]
-	b563_42 --> b563_29
+	b563_81 --> b563_29
 	b563_29 --> b563_24
 end
 branch_561 --> block_563
 subgraph branch_561["Branch 561"]
-	br561_15["cond__743 m_isMemory64"]
+	br561_15["cond__1368 m_isMemory64"]
 
 end
 block_565 --> branch_561
 subgraph block_565["Block 565"]
 	direction TB
 	b565_13["val pop_u32"]
-	b565_15["cond__743 m_isMemory64"]
+	b565_15["cond__1368 m_isMemory64"]
 	b565_13 --> b565_15
 end
 phi_567 --> block_565
@@ -26667,21 +26443,21 @@ block_568 --> phi_567
 block_569 --> phi_567
 subgraph block_568["Block 568"]
 	direction TB
-	b568_45["memindex__756__765__769 imm_readULEB32"]
+	b568_93["memindex__1381__1394__1418 imm_readULEB32"]
 end
 branch_566 --> block_568
 subgraph branch_566["Branch 566"]
-	br566_9["cond__755 u8.!="]
+	br566_9["cond__1380 u8.!="]
 
 end
 block_570 --> branch_566
 subgraph block_570["Block 570"]
 	direction TB
 	b570_0[/"Start"\\]
-	b570_6["arg__760 0x40u8"]
-	b570_5["arg__758 0"]
-	b570_8["arg__757 u8.&"]
-	b570_9["cond__755 u8.!="]
+	b570_6["arg__1385 0x40u8"]
+	b570_5["arg__1383 0"]
+	b570_8["arg__1382 u8.&"]
+	b570_9["cond__1380 u8.!="]
 	b570_0 --> b570_6
 	b570_6 --> b570_5
 	b570_5 --> b570_8
@@ -26689,17 +26465,17 @@ subgraph block_570["Block 570"]
 end
 subgraph block_569["Block 569"]
 	direction TB
-	b569_47["memindex__762__766__770 0u"]
+	b569_95["memindex__1387__1395__1419 0u"]
 	b569_3["flags imm_readU8"]
-	b569_47 --> b569_3
+	b569_95 --> b569_3
 end
 branch_566 --> block_569
 subgraph block_564["Block 564"]
 	direction TB
-	b564_44["offset__764__768 imm_readULEB32"]
-	b564_22["eff__749 mach_writeMemory32_u16"]
+	b564_83["offset__1389__1413 imm_readULEB32"]
+	b564_22["eff__1374 mach_writeMemory32_u16"]
 	b564_17["index pop_u32"]
-	b564_44 --> b564_22
+	b564_83 --> b564_22
 	b564_22 --> b564_17
 end
 branch_561 --> block_564
@@ -26740,51 +26516,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__749 mach_writeMemory32_u16"]
+	22["eff__1374 mach_writeMemory32_u16"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	44["offset__764__768 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1389__1413 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__756__765__769 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__755 u8.!="]
+	93["memindex__1381__1394__1418 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1380 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__758 0"]
-	8["arg__757 u8.&"]
+	5["arg__1383 0"]
+	8["arg__1382 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__760 0x40u8"]
+	6["arg__1385 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__762__766__770 0u"]
-	29["eff__744 mach_writeMemory64_u16"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1387__1395__1419 0u"]
+	29["eff__1369 mach_writeMemory64_u16"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__763__767 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1388__1412 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__743 m_isMemory64"]
+	15["cond__1368 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -26792,8 +26568,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I32_STORE16"]["chooseMerge"] = ''
 window.traces["I32_STORE16"]["chooseMerge"] += `<pre class='graph'>---
@@ -26810,51 +26586,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__749 mach_writeMemory32_u16"]
+	22["eff__1374 mach_writeMemory32_u16"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u32"]
 	0 -. Stack .-> 13
-	44["offset__764__768 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1389__1413 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__756__765__769 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__755 u8.!="]
+	93["memindex__1381__1394__1418 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1380 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__758 0"]
-	8["arg__757 u8.&"]
+	5["arg__1383 0"]
+	8["arg__1382 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__760 0x40u8"]
+	6["arg__1385 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__762__766__770 0u"]
-	29["eff__744 mach_writeMemory64_u16"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1387__1395__1419 0u"]
+	29["eff__1369 mach_writeMemory64_u16"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__763__767 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1388__1412 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__743 m_isMemory64"]
+	15["cond__1368 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -26862,32 +26638,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I32_STORE16"]["scheduled"] = ''
 window.traces["I32_STORE16"]["scheduled"] += `<pre class=''>def val = pop_u32();
 def flags = imm_readU8();
-def arg__760 : byte = 0x40u8;
-def arg__757 = u8.&(flags, arg__760);
-def arg__758 : byte = 0;
-def cond__755 = u8.!=(arg__757, arg__758);
+def arg__1385 : byte = 0x40u8;
+def arg__1382 = u8.&(flags, arg__1385);
+def arg__1383 : byte = 0;
+def cond__1380 = u8.!=(arg__1382, arg__1383);
 var memindex: u32;
-if (cond__755) {
-	def memindex__756__765__769 = imm_readULEB32();
+if (cond__1380) {
+	def memindex__1381__1394__1418 = imm_readULEB32();
 } else {
-	def memindex__762__766__770 : u32 = 0u;
+	def memindex__1387__1395__1419 : u32 = 0u;
 }
-// phis: memindex <- memindex__756__765__769; memindex <- memindex__762__766__770; 
-def cond__743 = m_isMemory64(memindex);
-if (cond__743) {
-	def offset__763__767 = imm_readULEB64();
+// phis: memindex <- memindex__1381__1394__1418; memindex <- memindex__1387__1395__1419; 
+def cond__1368 = m_isMemory64(memindex);
+if (cond__1368) {
+	def offset__1388__1412 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__744 = mach_writeMemory64_u16(memindex, index, offset__763__767, val);
+	def eff__1369 = mach_writeMemory64_u16(memindex, index, offset__1388__1412, val);
 } else {
-	def offset__764__768 = imm_readULEB32();
+	def offset__1389__1413 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__749 = mach_writeMemory32_u16(memindex, index, offset__764__768, val);
+	def eff__1374 = mach_writeMemory32_u16(memindex, index, offset__1389__1413, val);
 }
 // phis: 
 </pre>`;
@@ -26915,34 +26691,34 @@ window.traces["I64_STORE8"] = {}
 window.traces["I64_STORE8"]["parsed"] = ''
 window.traces["I64_STORE8"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__786 : byte = 0;
-def arg__788 : byte = 0x40u8;
-def arg__787 = (flags);
-def arg__785 = u8.&(arg__787, arg__788);
-def cond__783 = u8.!=(arg__785, arg__786);
-if (cond__783) {
-	def memindex__784 = imm_readULEB32();
+def arg__1451 : byte = 0;
+def arg__1453 : byte = 0x40u8;
+def arg__1452 = (flags);
+def arg__1450 = u8.&(arg__1452, arg__1453);
+def cond__1448 = u8.!=(arg__1450, arg__1451);
+if (cond__1448) {
+	def memindex__1449 = imm_readULEB32();
 }
-// phis: memindex <- memindex__784; 
+// phis: memindex <- memindex__1449; 
 def val = pop_u64();
-def arg__782 = (memindex);
-def cond__771 = m_isMemory64(arg__782);
-if (cond__771) {
+def arg__1447 = (memindex);
+def cond__1436 = m_isMemory64(arg__1447);
+if (cond__1436) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__776 = (val);
-	def arg__775 = (offset);
-	def arg__774 = (index);
-	def arg__773 = (memindex);
-	def eff__772 = mach_writeMemory64_u8_64(arg__773, arg__774, arg__775, arg__776);
+	def arg__1441 = (val);
+	def arg__1440 = (offset);
+	def arg__1439 = (index);
+	def arg__1438 = (memindex);
+	def eff__1437 = mach_writeMemory64_u8_64(arg__1438, arg__1439, arg__1440, arg__1441);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__781 = (val);
-	def arg__780 = (offset);
-	def arg__779 = (index);
-	def arg__778 = (memindex);
-	def eff__777 = mach_writeMemory32_u8_64(arg__778, arg__779, arg__780, arg__781);
+	def arg__1446 = (val);
+	def arg__1445 = (offset);
+	def arg__1444 = (index);
+	def arg__1443 = (memindex);
+	def eff__1442 = mach_writeMemory32_u8_64(arg__1443, arg__1444, arg__1445, arg__1446);
 }
 // phis: 
 </pre>`;
@@ -26961,7 +26737,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__777 mach_writeMemory32_u8_64"]
+	22["eff__1442 mach_writeMemory32_u8_64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -26978,24 +26754,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__784 imm_readULEB32"]
+	10["memindex__1449 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__783 u8.!="]
+	9["cond__1448 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__786 0"]
-	8["arg__785 u8.&"]
+	5["arg__1451 0"]
+	8["arg__1450 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__788 0x40u8"]
+	6["arg__1453 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__789 0u"]
-	29["eff__772 mach_writeMemory64_u8_64"]
+	4["memindex__1454 0u"]
+	29["eff__1437 mach_writeMemory64_u8_64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -27005,7 +26781,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__771 m_isMemory64"]
+	15["cond__1436 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -27031,7 +26807,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__777 mach_writeMemory32_u8_64"]
+	22["eff__1442 mach_writeMemory32_u8_64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -27048,24 +26824,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__784 imm_readULEB32"]
+	10["memindex__1449 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__783 u8.!="]
+	9["cond__1448 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__786 0"]
-	8["arg__785 u8.&"]
+	5["arg__1451 0"]
+	8["arg__1450 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__788 0x40u8"]
+	6["arg__1453 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__790 0u"]
-	29["eff__772 mach_writeMemory64_u8_64"]
+	4["memindex__1455 0u"]
+	29["eff__1437 mach_writeMemory64_u8_64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -27075,7 +26851,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__771 m_isMemory64"]
+	15["cond__1436 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -27101,7 +26877,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__777 mach_writeMemory32_u8_64"]
+	22["eff__1442 mach_writeMemory32_u8_64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -27118,24 +26894,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__784 imm_readULEB32"]
+	10["memindex__1449 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__783 u8.!="]
+	9["cond__1448 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__786 0"]
-	8["arg__785 u8.&"]
+	5["arg__1451 0"]
+	8["arg__1450 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__788 0x40u8"]
+	6["arg__1453 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__790 0u"]
-	29["eff__772 mach_writeMemory64_u8_64"]
+	4["memindex__1455 0u"]
+	29["eff__1437 mach_writeMemory64_u8_64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -27145,7 +26921,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__771 m_isMemory64"]
+	15["cond__1436 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -27171,51 +26947,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__777 mach_writeMemory32_u8_64"]
+	22["eff__1442 mach_writeMemory32_u8_64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	36["offset__792 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1457 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__784 imm_readULEB32"]
+	10["memindex__1449 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__783 u8.!="]
+	9["cond__1448 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__786 0"]
-	8["arg__785 u8.&"]
+	5["arg__1451 0"]
+	8["arg__1450 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__788 0x40u8"]
+	6["arg__1453 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__790 0u"]
-	29["eff__772 mach_writeMemory64_u8_64"]
+	4["memindex__1455 0u"]
+	29["eff__1437 mach_writeMemory64_u8_64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__791 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1456 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__771 m_isMemory64"]
+	15["cond__1436 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -27223,8 +26999,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I64_STORE8"]["post_surgery 578"] = ''
 window.traces["I64_STORE8"]["post_surgery 578"] += `<pre class='graph'>---
@@ -27241,51 +27017,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__777 mach_writeMemory32_u8_64"]
+	22["eff__1442 mach_writeMemory32_u8_64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	36["offset__792 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1457 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__784__793 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__783 u8.!="]
+	45["memindex__1449__1462 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1448 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__786 0"]
-	8["arg__785 u8.&"]
+	5["arg__1451 0"]
+	8["arg__1450 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__788 0x40u8"]
+	6["arg__1453 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__790__794 0u"]
-	29["eff__772 mach_writeMemory64_u8_64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1455__1463 0u"]
+	29["eff__1437 mach_writeMemory64_u8_64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__791 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1456 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__771 m_isMemory64"]
+	15["cond__1436 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -27293,8 +27069,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I64_STORE8"]["schedulerMermaid"] = ''
 window.traces["I64_STORE8"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -27312,22 +27088,22 @@ block_574 --> phi_573
 block_575 --> phi_573
 subgraph block_574["Block 574"]
 	direction TB
-	b574_34["offset__791 imm_readULEB64"]
-	b574_29["eff__772 mach_writeMemory64_u8_64"]
+	b574_33["offset__1456 imm_readULEB64"]
+	b574_29["eff__1437 mach_writeMemory64_u8_64"]
 	b574_24["index pop_u64"]
-	b574_34 --> b574_29
+	b574_33 --> b574_29
 	b574_29 --> b574_24
 end
 branch_572 --> block_574
 subgraph branch_572["Branch 572"]
-	br572_15["cond__771 m_isMemory64"]
+	br572_15["cond__1436 m_isMemory64"]
 
 end
 block_576 --> branch_572
 subgraph block_576["Block 576"]
 	direction TB
 	b576_13["val pop_u64"]
-	b576_15["cond__771 m_isMemory64"]
+	b576_15["cond__1436 m_isMemory64"]
 	b576_13 --> b576_15
 end
 phi_578 --> block_576
@@ -27346,21 +27122,21 @@ block_579 --> phi_578
 block_580 --> phi_578
 subgraph block_579["Block 579"]
 	direction TB
-	b579_37["memindex__784__793 imm_readULEB32"]
+	b579_45["memindex__1449__1462 imm_readULEB32"]
 end
 branch_577 --> block_579
 subgraph branch_577["Branch 577"]
-	br577_9["cond__783 u8.!="]
+	br577_9["cond__1448 u8.!="]
 
 end
 block_581 --> branch_577
 subgraph block_581["Block 581"]
 	direction TB
 	b581_0[/"Start"\\]
-	b581_6["arg__788 0x40u8"]
-	b581_5["arg__786 0"]
-	b581_8["arg__785 u8.&"]
-	b581_9["cond__783 u8.!="]
+	b581_6["arg__1453 0x40u8"]
+	b581_5["arg__1451 0"]
+	b581_8["arg__1450 u8.&"]
+	b581_9["cond__1448 u8.!="]
 	b581_0 --> b581_6
 	b581_6 --> b581_5
 	b581_5 --> b581_8
@@ -27368,43 +27144,43 @@ subgraph block_581["Block 581"]
 end
 subgraph block_580["Block 580"]
 	direction TB
-	b580_39["memindex__790__794 0u"]
+	b580_47["memindex__1455__1463 0u"]
 	b580_3["flags imm_readU8"]
-	b580_39 --> b580_3
+	b580_47 --> b580_3
 end
 branch_577 --> block_580
 subgraph block_575["Block 575"]
 	direction TB
-	b575_36["offset__792 imm_readULEB32"]
-	b575_22["eff__777 mach_writeMemory32_u8_64"]
+	b575_35["offset__1457 imm_readULEB32"]
+	b575_22["eff__1442 mach_writeMemory32_u8_64"]
 	b575_17["index pop_u32"]
-	b575_36 --> b575_22
+	b575_35 --> b575_22
 	b575_22 --> b575_17
 end
 branch_572 --> block_575
 
 </pre>`;
 window.traces["I64_STORE8"]["scheduler ssad"] = ''
-window.traces["I64_STORE8"]["scheduler ssad"] += `<pre class=''>def arg__788 : byte = 0x40u8;
-def arg__786 : byte = 0;
-def arg__785 = u8.&(flags, arg__788);
-def cond__783 = u8.!=(arg__785, arg__786);
-if (cond__783) {
-	def memindex__784__793 = imm_readULEB32();
+window.traces["I64_STORE8"]["scheduler ssad"] += `<pre class=''>def arg__1453 : byte = 0x40u8;
+def arg__1451 : byte = 0;
+def arg__1450 = u8.&(flags, arg__1453);
+def cond__1448 = u8.!=(arg__1450, arg__1451);
+if (cond__1448) {
+	def memindex__1449__1462 = imm_readULEB32();
 } else {
-	def memindex__790__794 : u32 = 0u;
+	def memindex__1455__1463 : u32 = 0u;
 	def flags = imm_readU8();
 }
 // phis: 
 def val = pop_u64();
-def cond__771 = m_isMemory64(memindex);
-if (cond__771) {
-	def offset__791 = imm_readULEB64();
-	def eff__772 = mach_writeMemory64_u8_64(memindex, index, offset__791, val);
+def cond__1436 = m_isMemory64(memindex);
+if (cond__1436) {
+	def offset__1456 = imm_readULEB64();
+	def eff__1437 = mach_writeMemory64_u8_64(memindex, index, offset__1456, val);
 	def index = pop_u64();
 } else {
-	def offset__792 = imm_readULEB32();
-	def eff__777 = mach_writeMemory32_u8_64(memindex, index, offset__792, val);
+	def offset__1457 = imm_readULEB32();
+	def eff__1442 = mach_writeMemory32_u8_64(memindex, index, offset__1457, val);
 	def index = pop_u32();
 }
 // phis: 
@@ -27424,51 +27200,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__777 mach_writeMemory32_u8_64"]
+	22["eff__1442 mach_writeMemory32_u8_64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	36["offset__792 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1457 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__784__793 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__783 u8.!="]
+	45["memindex__1449__1462 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1448 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__786 0"]
-	8["arg__785 u8.&"]
+	5["arg__1451 0"]
+	8["arg__1450 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__788 0x40u8"]
+	6["arg__1453 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__790__794 0u"]
-	29["eff__772 mach_writeMemory64_u8_64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1455__1463 0u"]
+	29["eff__1437 mach_writeMemory64_u8_64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__791 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1456 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__771 m_isMemory64"]
+	15["cond__1436 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -27476,32 +27252,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I64_STORE8"]["unlem_schedule"] = ''
 window.traces["I64_STORE8"]["unlem_schedule"] += `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
-def arg__788 : byte = 0x40u8;
-def arg__785 = u8.&(flags, arg__788);
-def arg__786 : byte = 0;
-def cond__783 = u8.!=(arg__785, arg__786);
+def arg__1453 : byte = 0x40u8;
+def arg__1450 = u8.&(flags, arg__1453);
+def arg__1451 : byte = 0;
+def cond__1448 = u8.!=(arg__1450, arg__1451);
 var memindex: u32;
-if (cond__783) {
-	def memindex__784__793 = imm_readULEB32();
+if (cond__1448) {
+	def memindex__1449__1462 = imm_readULEB32();
 } else {
-	def memindex__790__794 : u32 = 0u;
+	def memindex__1455__1463 : u32 = 0u;
 }
-// phis: memindex <- memindex__784__793; memindex <- memindex__790__794; 
-def cond__771 = m_isMemory64(memindex);
-if (cond__771) {
-	def offset__791 = imm_readULEB64();
+// phis: memindex <- memindex__1449__1462; memindex <- memindex__1455__1463; 
+def cond__1436 = m_isMemory64(memindex);
+if (cond__1436) {
+	def offset__1456 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__772 = mach_writeMemory64_u8_64(memindex, index, offset__791, val);
+	def eff__1437 = mach_writeMemory64_u8_64(memindex, index, offset__1456, val);
 } else {
-	def offset__792 = imm_readULEB32();
+	def offset__1457 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__777 = mach_writeMemory32_u8_64(memindex, index, offset__792, val);
+	def eff__1442 = mach_writeMemory32_u8_64(memindex, index, offset__1457, val);
 }
 // phis: 
 </pre>`;
@@ -27521,51 +27297,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__777 mach_writeMemory32_u8_64"]
+	22["eff__1442 mach_writeMemory32_u8_64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__792__796 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1457__1481 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__784__793 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__783 u8.!="]
+	45["memindex__1449__1462 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1448 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__786 0"]
-	8["arg__785 u8.&"]
+	5["arg__1451 0"]
+	8["arg__1450 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__788 0x40u8"]
+	6["arg__1453 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__790__794 0u"]
-	29["eff__772 mach_writeMemory64_u8_64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1455__1463 0u"]
+	29["eff__1437 mach_writeMemory64_u8_64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__791__795 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1456__1480 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__771 m_isMemory64"]
+	15["cond__1436 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -27573,8 +27349,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE8_ul"]["post_surgery 589"] = ''
 window.traces["I64_STORE8_ul"]["post_surgery 589"] += `<pre class='graph'>---
@@ -27591,51 +27367,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__777 mach_writeMemory32_u8_64"]
+	22["eff__1442 mach_writeMemory32_u8_64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__792__796 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1457__1481 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__784__793__797 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__783 u8.!="]
+	93["memindex__1449__1462__1486 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1448 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__786 0"]
-	8["arg__785 u8.&"]
+	5["arg__1451 0"]
+	8["arg__1450 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__788 0x40u8"]
+	6["arg__1453 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__790__794__798 0u"]
-	29["eff__772 mach_writeMemory64_u8_64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1455__1463__1487 0u"]
+	29["eff__1437 mach_writeMemory64_u8_64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__791__795 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1456__1480 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__771 m_isMemory64"]
+	15["cond__1436 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -27643,8 +27419,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE8"]["unlem_scheduler"] = ''
 window.traces["I64_STORE8"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -27662,22 +27438,22 @@ block_585 --> phi_584
 block_586 --> phi_584
 subgraph block_585["Block 585"]
 	direction TB
-	b585_42["offset__791__795 imm_readULEB64"]
-	b585_29["eff__772 mach_writeMemory64_u8_64"]
+	b585_81["offset__1456__1480 imm_readULEB64"]
+	b585_29["eff__1437 mach_writeMemory64_u8_64"]
 	b585_24["index pop_u64"]
-	b585_42 --> b585_29
+	b585_81 --> b585_29
 	b585_29 --> b585_24
 end
 branch_583 --> block_585
 subgraph branch_583["Branch 583"]
-	br583_15["cond__771 m_isMemory64"]
+	br583_15["cond__1436 m_isMemory64"]
 
 end
 block_587 --> branch_583
 subgraph block_587["Block 587"]
 	direction TB
 	b587_13["val pop_u64"]
-	b587_15["cond__771 m_isMemory64"]
+	b587_15["cond__1436 m_isMemory64"]
 	b587_13 --> b587_15
 end
 phi_589 --> block_587
@@ -27696,21 +27472,21 @@ block_590 --> phi_589
 block_591 --> phi_589
 subgraph block_590["Block 590"]
 	direction TB
-	b590_45["memindex__784__793__797 imm_readULEB32"]
+	b590_93["memindex__1449__1462__1486 imm_readULEB32"]
 end
 branch_588 --> block_590
 subgraph branch_588["Branch 588"]
-	br588_9["cond__783 u8.!="]
+	br588_9["cond__1448 u8.!="]
 
 end
 block_592 --> branch_588
 subgraph block_592["Block 592"]
 	direction TB
 	b592_0[/"Start"\\]
-	b592_6["arg__788 0x40u8"]
-	b592_5["arg__786 0"]
-	b592_8["arg__785 u8.&"]
-	b592_9["cond__783 u8.!="]
+	b592_6["arg__1453 0x40u8"]
+	b592_5["arg__1451 0"]
+	b592_8["arg__1450 u8.&"]
+	b592_9["cond__1448 u8.!="]
 	b592_0 --> b592_6
 	b592_6 --> b592_5
 	b592_5 --> b592_8
@@ -27718,17 +27494,17 @@ subgraph block_592["Block 592"]
 end
 subgraph block_591["Block 591"]
 	direction TB
-	b591_47["memindex__790__794__798 0u"]
+	b591_95["memindex__1455__1463__1487 0u"]
 	b591_3["flags imm_readU8"]
-	b591_47 --> b591_3
+	b591_95 --> b591_3
 end
 branch_588 --> block_591
 subgraph block_586["Block 586"]
 	direction TB
-	b586_44["offset__792__796 imm_readULEB32"]
-	b586_22["eff__777 mach_writeMemory32_u8_64"]
+	b586_83["offset__1457__1481 imm_readULEB32"]
+	b586_22["eff__1442 mach_writeMemory32_u8_64"]
 	b586_17["index pop_u32"]
-	b586_44 --> b586_22
+	b586_83 --> b586_22
 	b586_22 --> b586_17
 end
 branch_583 --> block_586
@@ -27769,51 +27545,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__777 mach_writeMemory32_u8_64"]
+	22["eff__1442 mach_writeMemory32_u8_64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__792__796 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1457__1481 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__784__793__797 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__783 u8.!="]
+	93["memindex__1449__1462__1486 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1448 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__786 0"]
-	8["arg__785 u8.&"]
+	5["arg__1451 0"]
+	8["arg__1450 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__788 0x40u8"]
+	6["arg__1453 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__790__794__798 0u"]
-	29["eff__772 mach_writeMemory64_u8_64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1455__1463__1487 0u"]
+	29["eff__1437 mach_writeMemory64_u8_64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__791__795 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1456__1480 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__771 m_isMemory64"]
+	15["cond__1436 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -27821,8 +27597,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE8"]["chooseMerge"] = ''
 window.traces["I64_STORE8"]["chooseMerge"] += `<pre class='graph'>---
@@ -27839,51 +27615,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__777 mach_writeMemory32_u8_64"]
+	22["eff__1442 mach_writeMemory32_u8_64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__792__796 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1457__1481 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__784__793__797 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__783 u8.!="]
+	93["memindex__1449__1462__1486 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1448 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__786 0"]
-	8["arg__785 u8.&"]
+	5["arg__1451 0"]
+	8["arg__1450 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__788 0x40u8"]
+	6["arg__1453 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__790__794__798 0u"]
-	29["eff__772 mach_writeMemory64_u8_64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1455__1463__1487 0u"]
+	29["eff__1437 mach_writeMemory64_u8_64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__791__795 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1456__1480 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__771 m_isMemory64"]
+	15["cond__1436 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -27891,32 +27667,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE8"]["scheduled"] = ''
 window.traces["I64_STORE8"]["scheduled"] += `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
-def arg__788 : byte = 0x40u8;
-def arg__785 = u8.&(flags, arg__788);
-def arg__786 : byte = 0;
-def cond__783 = u8.!=(arg__785, arg__786);
+def arg__1453 : byte = 0x40u8;
+def arg__1450 = u8.&(flags, arg__1453);
+def arg__1451 : byte = 0;
+def cond__1448 = u8.!=(arg__1450, arg__1451);
 var memindex: u32;
-if (cond__783) {
-	def memindex__784__793__797 = imm_readULEB32();
+if (cond__1448) {
+	def memindex__1449__1462__1486 = imm_readULEB32();
 } else {
-	def memindex__790__794__798 : u32 = 0u;
+	def memindex__1455__1463__1487 : u32 = 0u;
 }
-// phis: memindex <- memindex__784__793__797; memindex <- memindex__790__794__798; 
-def cond__771 = m_isMemory64(memindex);
-if (cond__771) {
-	def offset__791__795 = imm_readULEB64();
+// phis: memindex <- memindex__1449__1462__1486; memindex <- memindex__1455__1463__1487; 
+def cond__1436 = m_isMemory64(memindex);
+if (cond__1436) {
+	def offset__1456__1480 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__772 = mach_writeMemory64_u8_64(memindex, index, offset__791__795, val);
+	def eff__1437 = mach_writeMemory64_u8_64(memindex, index, offset__1456__1480, val);
 } else {
-	def offset__792__796 = imm_readULEB32();
+	def offset__1457__1481 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__777 = mach_writeMemory32_u8_64(memindex, index, offset__792__796, val);
+	def eff__1442 = mach_writeMemory32_u8_64(memindex, index, offset__1457__1481, val);
 }
 // phis: 
 </pre>`;
@@ -27944,34 +27720,34 @@ window.traces["I64_STORE16"] = {}
 window.traces["I64_STORE16"]["parsed"] = ''
 window.traces["I64_STORE16"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__814 : byte = 0;
-def arg__816 : byte = 0x40u8;
-def arg__815 = (flags);
-def arg__813 = u8.&(arg__815, arg__816);
-def cond__811 = u8.!=(arg__813, arg__814);
-if (cond__811) {
-	def memindex__812 = imm_readULEB32();
+def arg__1519 : byte = 0;
+def arg__1521 : byte = 0x40u8;
+def arg__1520 = (flags);
+def arg__1518 = u8.&(arg__1520, arg__1521);
+def cond__1516 = u8.!=(arg__1518, arg__1519);
+if (cond__1516) {
+	def memindex__1517 = imm_readULEB32();
 }
-// phis: memindex <- memindex__812; 
+// phis: memindex <- memindex__1517; 
 def val = pop_u64();
-def arg__810 = (memindex);
-def cond__799 = m_isMemory64(arg__810);
-if (cond__799) {
+def arg__1515 = (memindex);
+def cond__1504 = m_isMemory64(arg__1515);
+if (cond__1504) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__804 = (val);
-	def arg__803 = (offset);
-	def arg__802 = (index);
-	def arg__801 = (memindex);
-	def eff__800 = mach_writeMemory64_u16_64(arg__801, arg__802, arg__803, arg__804);
+	def arg__1509 = (val);
+	def arg__1508 = (offset);
+	def arg__1507 = (index);
+	def arg__1506 = (memindex);
+	def eff__1505 = mach_writeMemory64_u16_64(arg__1506, arg__1507, arg__1508, arg__1509);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__809 = (val);
-	def arg__808 = (offset);
-	def arg__807 = (index);
-	def arg__806 = (memindex);
-	def eff__805 = mach_writeMemory32_u16_64(arg__806, arg__807, arg__808, arg__809);
+	def arg__1514 = (val);
+	def arg__1513 = (offset);
+	def arg__1512 = (index);
+	def arg__1511 = (memindex);
+	def eff__1510 = mach_writeMemory32_u16_64(arg__1511, arg__1512, arg__1513, arg__1514);
 }
 // phis: 
 </pre>`;
@@ -27990,7 +27766,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__805 mach_writeMemory32_u16_64"]
+	22["eff__1510 mach_writeMemory32_u16_64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -28007,24 +27783,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__812 imm_readULEB32"]
+	10["memindex__1517 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__811 u8.!="]
+	9["cond__1516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__814 0"]
-	8["arg__813 u8.&"]
+	5["arg__1519 0"]
+	8["arg__1518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__816 0x40u8"]
+	6["arg__1521 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__817 0u"]
-	29["eff__800 mach_writeMemory64_u16_64"]
+	4["memindex__1522 0u"]
+	29["eff__1505 mach_writeMemory64_u16_64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -28034,7 +27810,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__799 m_isMemory64"]
+	15["cond__1504 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -28060,7 +27836,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__805 mach_writeMemory32_u16_64"]
+	22["eff__1510 mach_writeMemory32_u16_64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -28077,24 +27853,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__812 imm_readULEB32"]
+	10["memindex__1517 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__811 u8.!="]
+	9["cond__1516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__814 0"]
-	8["arg__813 u8.&"]
+	5["arg__1519 0"]
+	8["arg__1518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__816 0x40u8"]
+	6["arg__1521 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__818 0u"]
-	29["eff__800 mach_writeMemory64_u16_64"]
+	4["memindex__1523 0u"]
+	29["eff__1505 mach_writeMemory64_u16_64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -28104,7 +27880,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__799 m_isMemory64"]
+	15["cond__1504 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -28130,7 +27906,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__805 mach_writeMemory32_u16_64"]
+	22["eff__1510 mach_writeMemory32_u16_64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -28147,24 +27923,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__812 imm_readULEB32"]
+	10["memindex__1517 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__811 u8.!="]
+	9["cond__1516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__814 0"]
-	8["arg__813 u8.&"]
+	5["arg__1519 0"]
+	8["arg__1518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__816 0x40u8"]
+	6["arg__1521 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__818 0u"]
-	29["eff__800 mach_writeMemory64_u16_64"]
+	4["memindex__1523 0u"]
+	29["eff__1505 mach_writeMemory64_u16_64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -28174,7 +27950,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__799 m_isMemory64"]
+	15["cond__1504 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -28200,51 +27976,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__805 mach_writeMemory32_u16_64"]
+	22["eff__1510 mach_writeMemory32_u16_64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	36["offset__820 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1525 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__812 imm_readULEB32"]
+	10["memindex__1517 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__811 u8.!="]
+	9["cond__1516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__814 0"]
-	8["arg__813 u8.&"]
+	5["arg__1519 0"]
+	8["arg__1518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__816 0x40u8"]
+	6["arg__1521 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__818 0u"]
-	29["eff__800 mach_writeMemory64_u16_64"]
+	4["memindex__1523 0u"]
+	29["eff__1505 mach_writeMemory64_u16_64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__819 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1524 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__799 m_isMemory64"]
+	15["cond__1504 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -28252,8 +28028,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I64_STORE16"]["post_surgery 600"] = ''
 window.traces["I64_STORE16"]["post_surgery 600"] += `<pre class='graph'>---
@@ -28270,51 +28046,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__805 mach_writeMemory32_u16_64"]
+	22["eff__1510 mach_writeMemory32_u16_64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	36["offset__820 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1525 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__812__821 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__811 u8.!="]
+	45["memindex__1517__1530 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__814 0"]
-	8["arg__813 u8.&"]
+	5["arg__1519 0"]
+	8["arg__1518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__816 0x40u8"]
+	6["arg__1521 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__818__822 0u"]
-	29["eff__800 mach_writeMemory64_u16_64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1523__1531 0u"]
+	29["eff__1505 mach_writeMemory64_u16_64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__819 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1524 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__799 m_isMemory64"]
+	15["cond__1504 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -28322,8 +28098,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I64_STORE16"]["schedulerMermaid"] = ''
 window.traces["I64_STORE16"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -28341,22 +28117,22 @@ block_596 --> phi_595
 block_597 --> phi_595
 subgraph block_596["Block 596"]
 	direction TB
-	b596_34["offset__819 imm_readULEB64"]
-	b596_29["eff__800 mach_writeMemory64_u16_64"]
+	b596_33["offset__1524 imm_readULEB64"]
+	b596_29["eff__1505 mach_writeMemory64_u16_64"]
 	b596_24["index pop_u64"]
-	b596_34 --> b596_29
+	b596_33 --> b596_29
 	b596_29 --> b596_24
 end
 branch_594 --> block_596
 subgraph branch_594["Branch 594"]
-	br594_15["cond__799 m_isMemory64"]
+	br594_15["cond__1504 m_isMemory64"]
 
 end
 block_598 --> branch_594
 subgraph block_598["Block 598"]
 	direction TB
 	b598_13["val pop_u64"]
-	b598_15["cond__799 m_isMemory64"]
+	b598_15["cond__1504 m_isMemory64"]
 	b598_13 --> b598_15
 end
 phi_600 --> block_598
@@ -28375,21 +28151,21 @@ block_601 --> phi_600
 block_602 --> phi_600
 subgraph block_601["Block 601"]
 	direction TB
-	b601_37["memindex__812__821 imm_readULEB32"]
+	b601_45["memindex__1517__1530 imm_readULEB32"]
 end
 branch_599 --> block_601
 subgraph branch_599["Branch 599"]
-	br599_9["cond__811 u8.!="]
+	br599_9["cond__1516 u8.!="]
 
 end
 block_603 --> branch_599
 subgraph block_603["Block 603"]
 	direction TB
 	b603_0[/"Start"\\]
-	b603_6["arg__816 0x40u8"]
-	b603_5["arg__814 0"]
-	b603_8["arg__813 u8.&"]
-	b603_9["cond__811 u8.!="]
+	b603_6["arg__1521 0x40u8"]
+	b603_5["arg__1519 0"]
+	b603_8["arg__1518 u8.&"]
+	b603_9["cond__1516 u8.!="]
 	b603_0 --> b603_6
 	b603_6 --> b603_5
 	b603_5 --> b603_8
@@ -28397,43 +28173,43 @@ subgraph block_603["Block 603"]
 end
 subgraph block_602["Block 602"]
 	direction TB
-	b602_39["memindex__818__822 0u"]
+	b602_47["memindex__1523__1531 0u"]
 	b602_3["flags imm_readU8"]
-	b602_39 --> b602_3
+	b602_47 --> b602_3
 end
 branch_599 --> block_602
 subgraph block_597["Block 597"]
 	direction TB
-	b597_36["offset__820 imm_readULEB32"]
-	b597_22["eff__805 mach_writeMemory32_u16_64"]
+	b597_35["offset__1525 imm_readULEB32"]
+	b597_22["eff__1510 mach_writeMemory32_u16_64"]
 	b597_17["index pop_u32"]
-	b597_36 --> b597_22
+	b597_35 --> b597_22
 	b597_22 --> b597_17
 end
 branch_594 --> block_597
 
 </pre>`;
 window.traces["I64_STORE16"]["scheduler ssad"] = ''
-window.traces["I64_STORE16"]["scheduler ssad"] += `<pre class=''>def arg__816 : byte = 0x40u8;
-def arg__814 : byte = 0;
-def arg__813 = u8.&(flags, arg__816);
-def cond__811 = u8.!=(arg__813, arg__814);
-if (cond__811) {
-	def memindex__812__821 = imm_readULEB32();
+window.traces["I64_STORE16"]["scheduler ssad"] += `<pre class=''>def arg__1521 : byte = 0x40u8;
+def arg__1519 : byte = 0;
+def arg__1518 = u8.&(flags, arg__1521);
+def cond__1516 = u8.!=(arg__1518, arg__1519);
+if (cond__1516) {
+	def memindex__1517__1530 = imm_readULEB32();
 } else {
-	def memindex__818__822 : u32 = 0u;
+	def memindex__1523__1531 : u32 = 0u;
 	def flags = imm_readU8();
 }
 // phis: 
 def val = pop_u64();
-def cond__799 = m_isMemory64(memindex);
-if (cond__799) {
-	def offset__819 = imm_readULEB64();
-	def eff__800 = mach_writeMemory64_u16_64(memindex, index, offset__819, val);
+def cond__1504 = m_isMemory64(memindex);
+if (cond__1504) {
+	def offset__1524 = imm_readULEB64();
+	def eff__1505 = mach_writeMemory64_u16_64(memindex, index, offset__1524, val);
 	def index = pop_u64();
 } else {
-	def offset__820 = imm_readULEB32();
-	def eff__805 = mach_writeMemory32_u16_64(memindex, index, offset__820, val);
+	def offset__1525 = imm_readULEB32();
+	def eff__1510 = mach_writeMemory32_u16_64(memindex, index, offset__1525, val);
 	def index = pop_u32();
 }
 // phis: 
@@ -28453,51 +28229,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__805 mach_writeMemory32_u16_64"]
+	22["eff__1510 mach_writeMemory32_u16_64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	36["offset__820 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1525 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__812__821 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__811 u8.!="]
+	45["memindex__1517__1530 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__814 0"]
-	8["arg__813 u8.&"]
+	5["arg__1519 0"]
+	8["arg__1518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__816 0x40u8"]
+	6["arg__1521 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__818__822 0u"]
-	29["eff__800 mach_writeMemory64_u16_64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1523__1531 0u"]
+	29["eff__1505 mach_writeMemory64_u16_64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__819 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1524 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__799 m_isMemory64"]
+	15["cond__1504 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -28505,32 +28281,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I64_STORE16"]["unlem_schedule"] = ''
 window.traces["I64_STORE16"]["unlem_schedule"] += `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
-def arg__816 : byte = 0x40u8;
-def arg__813 = u8.&(flags, arg__816);
-def arg__814 : byte = 0;
-def cond__811 = u8.!=(arg__813, arg__814);
+def arg__1521 : byte = 0x40u8;
+def arg__1518 = u8.&(flags, arg__1521);
+def arg__1519 : byte = 0;
+def cond__1516 = u8.!=(arg__1518, arg__1519);
 var memindex: u32;
-if (cond__811) {
-	def memindex__812__821 = imm_readULEB32();
+if (cond__1516) {
+	def memindex__1517__1530 = imm_readULEB32();
 } else {
-	def memindex__818__822 : u32 = 0u;
+	def memindex__1523__1531 : u32 = 0u;
 }
-// phis: memindex <- memindex__812__821; memindex <- memindex__818__822; 
-def cond__799 = m_isMemory64(memindex);
-if (cond__799) {
-	def offset__819 = imm_readULEB64();
+// phis: memindex <- memindex__1517__1530; memindex <- memindex__1523__1531; 
+def cond__1504 = m_isMemory64(memindex);
+if (cond__1504) {
+	def offset__1524 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__800 = mach_writeMemory64_u16_64(memindex, index, offset__819, val);
+	def eff__1505 = mach_writeMemory64_u16_64(memindex, index, offset__1524, val);
 } else {
-	def offset__820 = imm_readULEB32();
+	def offset__1525 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__805 = mach_writeMemory32_u16_64(memindex, index, offset__820, val);
+	def eff__1510 = mach_writeMemory32_u16_64(memindex, index, offset__1525, val);
 }
 // phis: 
 </pre>`;
@@ -28550,51 +28326,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__805 mach_writeMemory32_u16_64"]
+	22["eff__1510 mach_writeMemory32_u16_64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__820__824 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1525__1549 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__812__821 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__811 u8.!="]
+	45["memindex__1517__1530 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__814 0"]
-	8["arg__813 u8.&"]
+	5["arg__1519 0"]
+	8["arg__1518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__816 0x40u8"]
+	6["arg__1521 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__818__822 0u"]
-	29["eff__800 mach_writeMemory64_u16_64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1523__1531 0u"]
+	29["eff__1505 mach_writeMemory64_u16_64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__819__823 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1524__1548 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__799 m_isMemory64"]
+	15["cond__1504 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -28602,8 +28378,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE16_ul"]["post_surgery 611"] = ''
 window.traces["I64_STORE16_ul"]["post_surgery 611"] += `<pre class='graph'>---
@@ -28620,51 +28396,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__805 mach_writeMemory32_u16_64"]
+	22["eff__1510 mach_writeMemory32_u16_64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__820__824 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1525__1549 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__812__821__825 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__811 u8.!="]
+	93["memindex__1517__1530__1554 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__814 0"]
-	8["arg__813 u8.&"]
+	5["arg__1519 0"]
+	8["arg__1518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__816 0x40u8"]
+	6["arg__1521 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__818__822__826 0u"]
-	29["eff__800 mach_writeMemory64_u16_64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1523__1531__1555 0u"]
+	29["eff__1505 mach_writeMemory64_u16_64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__819__823 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1524__1548 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__799 m_isMemory64"]
+	15["cond__1504 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -28672,8 +28448,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE16"]["unlem_scheduler"] = ''
 window.traces["I64_STORE16"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -28691,22 +28467,22 @@ block_607 --> phi_606
 block_608 --> phi_606
 subgraph block_607["Block 607"]
 	direction TB
-	b607_42["offset__819__823 imm_readULEB64"]
-	b607_29["eff__800 mach_writeMemory64_u16_64"]
+	b607_81["offset__1524__1548 imm_readULEB64"]
+	b607_29["eff__1505 mach_writeMemory64_u16_64"]
 	b607_24["index pop_u64"]
-	b607_42 --> b607_29
+	b607_81 --> b607_29
 	b607_29 --> b607_24
 end
 branch_605 --> block_607
 subgraph branch_605["Branch 605"]
-	br605_15["cond__799 m_isMemory64"]
+	br605_15["cond__1504 m_isMemory64"]
 
 end
 block_609 --> branch_605
 subgraph block_609["Block 609"]
 	direction TB
 	b609_13["val pop_u64"]
-	b609_15["cond__799 m_isMemory64"]
+	b609_15["cond__1504 m_isMemory64"]
 	b609_13 --> b609_15
 end
 phi_611 --> block_609
@@ -28725,21 +28501,21 @@ block_612 --> phi_611
 block_613 --> phi_611
 subgraph block_612["Block 612"]
 	direction TB
-	b612_45["memindex__812__821__825 imm_readULEB32"]
+	b612_93["memindex__1517__1530__1554 imm_readULEB32"]
 end
 branch_610 --> block_612
 subgraph branch_610["Branch 610"]
-	br610_9["cond__811 u8.!="]
+	br610_9["cond__1516 u8.!="]
 
 end
 block_614 --> branch_610
 subgraph block_614["Block 614"]
 	direction TB
 	b614_0[/"Start"\\]
-	b614_6["arg__816 0x40u8"]
-	b614_5["arg__814 0"]
-	b614_8["arg__813 u8.&"]
-	b614_9["cond__811 u8.!="]
+	b614_6["arg__1521 0x40u8"]
+	b614_5["arg__1519 0"]
+	b614_8["arg__1518 u8.&"]
+	b614_9["cond__1516 u8.!="]
 	b614_0 --> b614_6
 	b614_6 --> b614_5
 	b614_5 --> b614_8
@@ -28747,17 +28523,17 @@ subgraph block_614["Block 614"]
 end
 subgraph block_613["Block 613"]
 	direction TB
-	b613_47["memindex__818__822__826 0u"]
+	b613_95["memindex__1523__1531__1555 0u"]
 	b613_3["flags imm_readU8"]
-	b613_47 --> b613_3
+	b613_95 --> b613_3
 end
 branch_610 --> block_613
 subgraph block_608["Block 608"]
 	direction TB
-	b608_44["offset__820__824 imm_readULEB32"]
-	b608_22["eff__805 mach_writeMemory32_u16_64"]
+	b608_83["offset__1525__1549 imm_readULEB32"]
+	b608_22["eff__1510 mach_writeMemory32_u16_64"]
 	b608_17["index pop_u32"]
-	b608_44 --> b608_22
+	b608_83 --> b608_22
 	b608_22 --> b608_17
 end
 branch_605 --> block_608
@@ -28798,51 +28574,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__805 mach_writeMemory32_u16_64"]
+	22["eff__1510 mach_writeMemory32_u16_64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__820__824 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1525__1549 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__812__821__825 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__811 u8.!="]
+	93["memindex__1517__1530__1554 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__814 0"]
-	8["arg__813 u8.&"]
+	5["arg__1519 0"]
+	8["arg__1518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__816 0x40u8"]
+	6["arg__1521 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__818__822__826 0u"]
-	29["eff__800 mach_writeMemory64_u16_64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1523__1531__1555 0u"]
+	29["eff__1505 mach_writeMemory64_u16_64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__819__823 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1524__1548 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__799 m_isMemory64"]
+	15["cond__1504 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -28850,8 +28626,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE16"]["chooseMerge"] = ''
 window.traces["I64_STORE16"]["chooseMerge"] += `<pre class='graph'>---
@@ -28868,51 +28644,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__805 mach_writeMemory32_u16_64"]
+	22["eff__1510 mach_writeMemory32_u16_64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__820__824 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1525__1549 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__812__821__825 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__811 u8.!="]
+	93["memindex__1517__1530__1554 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1516 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__814 0"]
-	8["arg__813 u8.&"]
+	5["arg__1519 0"]
+	8["arg__1518 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__816 0x40u8"]
+	6["arg__1521 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__818__822__826 0u"]
-	29["eff__800 mach_writeMemory64_u16_64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1523__1531__1555 0u"]
+	29["eff__1505 mach_writeMemory64_u16_64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__819__823 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1524__1548 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__799 m_isMemory64"]
+	15["cond__1504 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -28920,32 +28696,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE16"]["scheduled"] = ''
 window.traces["I64_STORE16"]["scheduled"] += `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
-def arg__816 : byte = 0x40u8;
-def arg__813 = u8.&(flags, arg__816);
-def arg__814 : byte = 0;
-def cond__811 = u8.!=(arg__813, arg__814);
+def arg__1521 : byte = 0x40u8;
+def arg__1518 = u8.&(flags, arg__1521);
+def arg__1519 : byte = 0;
+def cond__1516 = u8.!=(arg__1518, arg__1519);
 var memindex: u32;
-if (cond__811) {
-	def memindex__812__821__825 = imm_readULEB32();
+if (cond__1516) {
+	def memindex__1517__1530__1554 = imm_readULEB32();
 } else {
-	def memindex__818__822__826 : u32 = 0u;
+	def memindex__1523__1531__1555 : u32 = 0u;
 }
-// phis: memindex <- memindex__812__821__825; memindex <- memindex__818__822__826; 
-def cond__799 = m_isMemory64(memindex);
-if (cond__799) {
-	def offset__819__823 = imm_readULEB64();
+// phis: memindex <- memindex__1517__1530__1554; memindex <- memindex__1523__1531__1555; 
+def cond__1504 = m_isMemory64(memindex);
+if (cond__1504) {
+	def offset__1524__1548 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__800 = mach_writeMemory64_u16_64(memindex, index, offset__819__823, val);
+	def eff__1505 = mach_writeMemory64_u16_64(memindex, index, offset__1524__1548, val);
 } else {
-	def offset__820__824 = imm_readULEB32();
+	def offset__1525__1549 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__805 = mach_writeMemory32_u16_64(memindex, index, offset__820__824, val);
+	def eff__1510 = mach_writeMemory32_u16_64(memindex, index, offset__1525__1549, val);
 }
 // phis: 
 </pre>`;
@@ -28973,34 +28749,34 @@ window.traces["I64_STORE32"] = {}
 window.traces["I64_STORE32"]["parsed"] = ''
 window.traces["I64_STORE32"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__842 : byte = 0;
-def arg__844 : byte = 0x40u8;
-def arg__843 = (flags);
-def arg__841 = u8.&(arg__843, arg__844);
-def cond__839 = u8.!=(arg__841, arg__842);
-if (cond__839) {
-	def memindex__840 = imm_readULEB32();
+def arg__1587 : byte = 0;
+def arg__1589 : byte = 0x40u8;
+def arg__1588 = (flags);
+def arg__1586 = u8.&(arg__1588, arg__1589);
+def cond__1584 = u8.!=(arg__1586, arg__1587);
+if (cond__1584) {
+	def memindex__1585 = imm_readULEB32();
 }
-// phis: memindex <- memindex__840; 
+// phis: memindex <- memindex__1585; 
 def val = pop_u64();
-def arg__838 = (memindex);
-def cond__827 = m_isMemory64(arg__838);
-if (cond__827) {
+def arg__1583 = (memindex);
+def cond__1572 = m_isMemory64(arg__1583);
+if (cond__1572) {
 	def offset = imm_readULEB64();
 	def index = pop_u64();
-	def arg__832 = (val);
-	def arg__831 = (offset);
-	def arg__830 = (index);
-	def arg__829 = (memindex);
-	def eff__828 = mach_writeMemory64_u32_64(arg__829, arg__830, arg__831, arg__832);
+	def arg__1577 = (val);
+	def arg__1576 = (offset);
+	def arg__1575 = (index);
+	def arg__1574 = (memindex);
+	def eff__1573 = mach_writeMemory64_u32_64(arg__1574, arg__1575, arg__1576, arg__1577);
 } else {
 	def offset = imm_readULEB32();
 	def index = pop_u32();
-	def arg__837 = (val);
-	def arg__836 = (offset);
-	def arg__835 = (index);
-	def arg__834 = (memindex);
-	def eff__833 = mach_writeMemory32_u32_64(arg__834, arg__835, arg__836, arg__837);
+	def arg__1582 = (val);
+	def arg__1581 = (offset);
+	def arg__1580 = (index);
+	def arg__1579 = (memindex);
+	def eff__1578 = mach_writeMemory32_u32_64(arg__1579, arg__1580, arg__1581, arg__1582);
 }
 // phis: 
 </pre>`;
@@ -29019,7 +28795,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__833 mach_writeMemory32_u32_64"]
+	22["eff__1578 mach_writeMemory32_u32_64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -29036,24 +28812,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__840 imm_readULEB32"]
+	10["memindex__1585 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__839 u8.!="]
+	9["cond__1584 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__842 0"]
-	8["arg__841 u8.&"]
+	5["arg__1587 0"]
+	8["arg__1586 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__844 0x40u8"]
+	6["arg__1589 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__845 0u"]
-	29["eff__828 mach_writeMemory64_u32_64"]
+	4["memindex__1590 0u"]
+	29["eff__1573 mach_writeMemory64_u32_64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -29063,7 +28839,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__827 m_isMemory64"]
+	15["cond__1572 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -29089,7 +28865,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__833 mach_writeMemory32_u32_64"]
+	22["eff__1578 mach_writeMemory32_u32_64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -29106,24 +28882,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__840 imm_readULEB32"]
+	10["memindex__1585 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__839 u8.!="]
+	9["cond__1584 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__842 0"]
-	8["arg__841 u8.&"]
+	5["arg__1587 0"]
+	8["arg__1586 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__844 0x40u8"]
+	6["arg__1589 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__846 0u"]
-	29["eff__828 mach_writeMemory64_u32_64"]
+	4["memindex__1591 0u"]
+	29["eff__1573 mach_writeMemory64_u32_64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -29133,7 +28909,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__827 m_isMemory64"]
+	15["cond__1572 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -29159,7 +28935,7 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__833 mach_writeMemory32_u32_64"]
+	22["eff__1578 mach_writeMemory32_u32_64"]
 	11 --> 22
 	17 --> 22
 	16 --> 22
@@ -29176,24 +28952,24 @@ graph TD
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__840 imm_readULEB32"]
+	10["memindex__1585 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__839 u8.!="]
+	9["cond__1584 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__842 0"]
-	8["arg__841 u8.&"]
+	5["arg__1587 0"]
+	8["arg__1586 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__844 0x40u8"]
+	6["arg__1589 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__846 0u"]
-	29["eff__828 mach_writeMemory64_u32_64"]
+	4["memindex__1591 0u"]
+	29["eff__1573 mach_writeMemory64_u32_64"]
 	11 --> 29
 	24 --> 29
 	23 --> 29
@@ -29203,7 +28979,7 @@ graph TD
 	12 -. Codeptr .-> 23
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__827 m_isMemory64"]
+	15["cond__1572 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -29229,51 +29005,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__833 mach_writeMemory32_u32_64"]
+	22["eff__1578 mach_writeMemory32_u32_64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	36["offset__848 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1593 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	10["memindex__840 imm_readULEB32"]
+	10["memindex__1585 imm_readULEB32"]
 	3 -. Codeptr .-> 10
-	9["cond__839 u8.!="]
+	9["cond__1584 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__842 0"]
-	8["arg__841 u8.&"]
+	5["arg__1587 0"]
+	8["arg__1586 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__844 0x40u8"]
+	6["arg__1589 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__846 0u"]
-	29["eff__828 mach_writeMemory64_u32_64"]
+	4["memindex__1591 0u"]
+	29["eff__1573 mach_writeMemory64_u32_64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__847 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1592 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__827 m_isMemory64"]
+	15["cond__1572 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -29281,8 +29057,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I64_STORE32"]["post_surgery 622"] = ''
 window.traces["I64_STORE32"]["post_surgery 622"] += `<pre class='graph'>---
@@ -29299,51 +29075,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__833 mach_writeMemory32_u32_64"]
+	22["eff__1578 mach_writeMemory32_u32_64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	36["offset__848 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1593 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__840__849 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__839 u8.!="]
+	45["memindex__1585__1598 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1584 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__842 0"]
-	8["arg__841 u8.&"]
+	5["arg__1587 0"]
+	8["arg__1586 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__844 0x40u8"]
+	6["arg__1589 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__846__850 0u"]
-	29["eff__828 mach_writeMemory64_u32_64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1591__1599 0u"]
+	29["eff__1573 mach_writeMemory64_u32_64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__847 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1592 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__827 m_isMemory64"]
+	15["cond__1572 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -29351,8 +29127,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I64_STORE32"]["schedulerMermaid"] = ''
 window.traces["I64_STORE32"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -29370,22 +29146,22 @@ block_618 --> phi_617
 block_619 --> phi_617
 subgraph block_618["Block 618"]
 	direction TB
-	b618_34["offset__847 imm_readULEB64"]
-	b618_29["eff__828 mach_writeMemory64_u32_64"]
+	b618_33["offset__1592 imm_readULEB64"]
+	b618_29["eff__1573 mach_writeMemory64_u32_64"]
 	b618_24["index pop_u64"]
-	b618_34 --> b618_29
+	b618_33 --> b618_29
 	b618_29 --> b618_24
 end
 branch_616 --> block_618
 subgraph branch_616["Branch 616"]
-	br616_15["cond__827 m_isMemory64"]
+	br616_15["cond__1572 m_isMemory64"]
 
 end
 block_620 --> branch_616
 subgraph block_620["Block 620"]
 	direction TB
 	b620_13["val pop_u64"]
-	b620_15["cond__827 m_isMemory64"]
+	b620_15["cond__1572 m_isMemory64"]
 	b620_13 --> b620_15
 end
 phi_622 --> block_620
@@ -29404,21 +29180,21 @@ block_623 --> phi_622
 block_624 --> phi_622
 subgraph block_623["Block 623"]
 	direction TB
-	b623_37["memindex__840__849 imm_readULEB32"]
+	b623_45["memindex__1585__1598 imm_readULEB32"]
 end
 branch_621 --> block_623
 subgraph branch_621["Branch 621"]
-	br621_9["cond__839 u8.!="]
+	br621_9["cond__1584 u8.!="]
 
 end
 block_625 --> branch_621
 subgraph block_625["Block 625"]
 	direction TB
 	b625_0[/"Start"\\]
-	b625_6["arg__844 0x40u8"]
-	b625_5["arg__842 0"]
-	b625_8["arg__841 u8.&"]
-	b625_9["cond__839 u8.!="]
+	b625_6["arg__1589 0x40u8"]
+	b625_5["arg__1587 0"]
+	b625_8["arg__1586 u8.&"]
+	b625_9["cond__1584 u8.!="]
 	b625_0 --> b625_6
 	b625_6 --> b625_5
 	b625_5 --> b625_8
@@ -29426,43 +29202,43 @@ subgraph block_625["Block 625"]
 end
 subgraph block_624["Block 624"]
 	direction TB
-	b624_39["memindex__846__850 0u"]
+	b624_47["memindex__1591__1599 0u"]
 	b624_3["flags imm_readU8"]
-	b624_39 --> b624_3
+	b624_47 --> b624_3
 end
 branch_621 --> block_624
 subgraph block_619["Block 619"]
 	direction TB
-	b619_36["offset__848 imm_readULEB32"]
-	b619_22["eff__833 mach_writeMemory32_u32_64"]
+	b619_35["offset__1593 imm_readULEB32"]
+	b619_22["eff__1578 mach_writeMemory32_u32_64"]
 	b619_17["index pop_u32"]
-	b619_36 --> b619_22
+	b619_35 --> b619_22
 	b619_22 --> b619_17
 end
 branch_616 --> block_619
 
 </pre>`;
 window.traces["I64_STORE32"]["scheduler ssad"] = ''
-window.traces["I64_STORE32"]["scheduler ssad"] += `<pre class=''>def arg__844 : byte = 0x40u8;
-def arg__842 : byte = 0;
-def arg__841 = u8.&(flags, arg__844);
-def cond__839 = u8.!=(arg__841, arg__842);
-if (cond__839) {
-	def memindex__840__849 = imm_readULEB32();
+window.traces["I64_STORE32"]["scheduler ssad"] += `<pre class=''>def arg__1589 : byte = 0x40u8;
+def arg__1587 : byte = 0;
+def arg__1586 = u8.&(flags, arg__1589);
+def cond__1584 = u8.!=(arg__1586, arg__1587);
+if (cond__1584) {
+	def memindex__1585__1598 = imm_readULEB32();
 } else {
-	def memindex__846__850 : u32 = 0u;
+	def memindex__1591__1599 : u32 = 0u;
 	def flags = imm_readU8();
 }
 // phis: 
 def val = pop_u64();
-def cond__827 = m_isMemory64(memindex);
-if (cond__827) {
-	def offset__847 = imm_readULEB64();
-	def eff__828 = mach_writeMemory64_u32_64(memindex, index, offset__847, val);
+def cond__1572 = m_isMemory64(memindex);
+if (cond__1572) {
+	def offset__1592 = imm_readULEB64();
+	def eff__1573 = mach_writeMemory64_u32_64(memindex, index, offset__1592, val);
 	def index = pop_u64();
 } else {
-	def offset__848 = imm_readULEB32();
-	def eff__833 = mach_writeMemory32_u32_64(memindex, index, offset__848, val);
+	def offset__1593 = imm_readULEB32();
+	def eff__1578 = mach_writeMemory32_u32_64(memindex, index, offset__1593, val);
 	def index = pop_u32();
 }
 // phis: 
@@ -29482,51 +29258,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__833 mach_writeMemory32_u32_64"]
+	22["eff__1578 mach_writeMemory32_u32_64"]
 	11 --> 22
 	17 --> 22
-	36 --> 22
+	35 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	36["offset__848 imm_readULEB32"]
-	12 -. Codeptr .-> 36
+	35["offset__1593 imm_readULEB32"]
+	12 -. Codeptr .-> 35
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__840__849 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__839 u8.!="]
+	45["memindex__1585__1598 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1584 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__842 0"]
-	8["arg__841 u8.&"]
+	5["arg__1587 0"]
+	8["arg__1586 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__844 0x40u8"]
+	6["arg__1589 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__846__850 0u"]
-	29["eff__828 mach_writeMemory64_u32_64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1591__1599 0u"]
+	29["eff__1573 mach_writeMemory64_u32_64"]
 	11 --> 29
 	24 --> 29
-	34 --> 29
+	33 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	34["offset__847 imm_readULEB64"]
-	12 -. Codeptr .-> 34
+	33["offset__1592 imm_readULEB64"]
+	12 -. Codeptr .-> 33
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__827 m_isMemory64"]
+	15["cond__1572 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -29534,32 +29310,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	34 --> 30
-	36 --> 30
+	33 --> 30
+	35 --> 30
 </pre>`;
 window.traces["I64_STORE32"]["unlem_schedule"] = ''
 window.traces["I64_STORE32"]["unlem_schedule"] += `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
-def arg__844 : byte = 0x40u8;
-def arg__841 = u8.&(flags, arg__844);
-def arg__842 : byte = 0;
-def cond__839 = u8.!=(arg__841, arg__842);
+def arg__1589 : byte = 0x40u8;
+def arg__1586 = u8.&(flags, arg__1589);
+def arg__1587 : byte = 0;
+def cond__1584 = u8.!=(arg__1586, arg__1587);
 var memindex: u32;
-if (cond__839) {
-	def memindex__840__849 = imm_readULEB32();
+if (cond__1584) {
+	def memindex__1585__1598 = imm_readULEB32();
 } else {
-	def memindex__846__850 : u32 = 0u;
+	def memindex__1591__1599 : u32 = 0u;
 }
-// phis: memindex <- memindex__840__849; memindex <- memindex__846__850; 
-def cond__827 = m_isMemory64(memindex);
-if (cond__827) {
-	def offset__847 = imm_readULEB64();
+// phis: memindex <- memindex__1585__1598; memindex <- memindex__1591__1599; 
+def cond__1572 = m_isMemory64(memindex);
+if (cond__1572) {
+	def offset__1592 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__828 = mach_writeMemory64_u32_64(memindex, index, offset__847, val);
+	def eff__1573 = mach_writeMemory64_u32_64(memindex, index, offset__1592, val);
 } else {
-	def offset__848 = imm_readULEB32();
+	def offset__1593 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__833 = mach_writeMemory32_u32_64(memindex, index, offset__848, val);
+	def eff__1578 = mach_writeMemory32_u32_64(memindex, index, offset__1593, val);
 }
 // phis: 
 </pre>`;
@@ -29579,51 +29355,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__833 mach_writeMemory32_u32_64"]
+	22["eff__1578 mach_writeMemory32_u32_64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__848__852 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1593__1617 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	37 --> 12
+	45 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	37["memindex__840__849 imm_readULEB32"]
-	3 -. Codeptr .-> 37
-	9["cond__839 u8.!="]
+	45["memindex__1585__1598 imm_readULEB32"]
+	3 -. Codeptr .-> 45
+	9["cond__1584 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__842 0"]
-	8["arg__841 u8.&"]
+	5["arg__1587 0"]
+	8["arg__1586 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__844 0x40u8"]
+	6["arg__1589 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	37 --> 11
-	39 --> 11
-	39["memindex__846__850 0u"]
-	29["eff__828 mach_writeMemory64_u32_64"]
+	45 --> 11
+	47 --> 11
+	47["memindex__1591__1599 0u"]
+	29["eff__1573 mach_writeMemory64_u32_64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__847__851 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1592__1616 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__827 m_isMemory64"]
+	15["cond__1572 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -29631,8 +29407,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE32_ul"]["post_surgery 633"] = ''
 window.traces["I64_STORE32_ul"]["post_surgery 633"] += `<pre class='graph'>---
@@ -29649,51 +29425,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__833 mach_writeMemory32_u32_64"]
+	22["eff__1578 mach_writeMemory32_u32_64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__848__852 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1593__1617 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__840__849__853 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__839 u8.!="]
+	93["memindex__1585__1598__1622 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1584 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__842 0"]
-	8["arg__841 u8.&"]
+	5["arg__1587 0"]
+	8["arg__1586 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__844 0x40u8"]
+	6["arg__1589 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__846__850__854 0u"]
-	29["eff__828 mach_writeMemory64_u32_64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1591__1599__1623 0u"]
+	29["eff__1573 mach_writeMemory64_u32_64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__847__851 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1592__1616 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__827 m_isMemory64"]
+	15["cond__1572 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -29701,8 +29477,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE32"]["unlem_scheduler"] = ''
 window.traces["I64_STORE32"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -29720,22 +29496,22 @@ block_629 --> phi_628
 block_630 --> phi_628
 subgraph block_629["Block 629"]
 	direction TB
-	b629_42["offset__847__851 imm_readULEB64"]
-	b629_29["eff__828 mach_writeMemory64_u32_64"]
+	b629_81["offset__1592__1616 imm_readULEB64"]
+	b629_29["eff__1573 mach_writeMemory64_u32_64"]
 	b629_24["index pop_u64"]
-	b629_42 --> b629_29
+	b629_81 --> b629_29
 	b629_29 --> b629_24
 end
 branch_627 --> block_629
 subgraph branch_627["Branch 627"]
-	br627_15["cond__827 m_isMemory64"]
+	br627_15["cond__1572 m_isMemory64"]
 
 end
 block_631 --> branch_627
 subgraph block_631["Block 631"]
 	direction TB
 	b631_13["val pop_u64"]
-	b631_15["cond__827 m_isMemory64"]
+	b631_15["cond__1572 m_isMemory64"]
 	b631_13 --> b631_15
 end
 phi_633 --> block_631
@@ -29754,21 +29530,21 @@ block_634 --> phi_633
 block_635 --> phi_633
 subgraph block_634["Block 634"]
 	direction TB
-	b634_45["memindex__840__849__853 imm_readULEB32"]
+	b634_93["memindex__1585__1598__1622 imm_readULEB32"]
 end
 branch_632 --> block_634
 subgraph branch_632["Branch 632"]
-	br632_9["cond__839 u8.!="]
+	br632_9["cond__1584 u8.!="]
 
 end
 block_636 --> branch_632
 subgraph block_636["Block 636"]
 	direction TB
 	b636_0[/"Start"\\]
-	b636_6["arg__844 0x40u8"]
-	b636_5["arg__842 0"]
-	b636_8["arg__841 u8.&"]
-	b636_9["cond__839 u8.!="]
+	b636_6["arg__1589 0x40u8"]
+	b636_5["arg__1587 0"]
+	b636_8["arg__1586 u8.&"]
+	b636_9["cond__1584 u8.!="]
 	b636_0 --> b636_6
 	b636_6 --> b636_5
 	b636_5 --> b636_8
@@ -29776,17 +29552,17 @@ subgraph block_636["Block 636"]
 end
 subgraph block_635["Block 635"]
 	direction TB
-	b635_47["memindex__846__850__854 0u"]
+	b635_95["memindex__1591__1599__1623 0u"]
 	b635_3["flags imm_readU8"]
-	b635_47 --> b635_3
+	b635_95 --> b635_3
 end
 branch_632 --> block_635
 subgraph block_630["Block 630"]
 	direction TB
-	b630_44["offset__848__852 imm_readULEB32"]
-	b630_22["eff__833 mach_writeMemory32_u32_64"]
+	b630_83["offset__1593__1617 imm_readULEB32"]
+	b630_22["eff__1578 mach_writeMemory32_u32_64"]
 	b630_17["index pop_u32"]
-	b630_44 --> b630_22
+	b630_83 --> b630_22
 	b630_22 --> b630_17
 end
 branch_627 --> block_630
@@ -29827,51 +29603,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__833 mach_writeMemory32_u32_64"]
+	22["eff__1578 mach_writeMemory32_u32_64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__848__852 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1593__1617 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__840__849__853 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__839 u8.!="]
+	93["memindex__1585__1598__1622 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1584 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__842 0"]
-	8["arg__841 u8.&"]
+	5["arg__1587 0"]
+	8["arg__1586 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__844 0x40u8"]
+	6["arg__1589 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__846__850__854 0u"]
-	29["eff__828 mach_writeMemory64_u32_64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1591__1599__1623 0u"]
+	29["eff__1573 mach_writeMemory64_u32_64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__847__851 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1592__1616 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__827 m_isMemory64"]
+	15["cond__1572 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -29879,8 +29655,8 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE32"]["chooseMerge"] = ''
 window.traces["I64_STORE32"]["chooseMerge"] += `<pre class='graph'>---
@@ -29897,51 +29673,51 @@ graph TD
 	15 --> 32
 	29 --> 32
 	22 --> 32
-	22["eff__833 mach_writeMemory32_u32_64"]
+	22["eff__1578 mach_writeMemory32_u32_64"]
 	11 --> 22
 	17 --> 22
-	44 --> 22
+	83 --> 22
 	13 --> 22
 	0 -. Memory .-> 22
 	0[/"Start"\\]
 	13["val pop_u64"]
 	0 -. Stack .-> 13
-	44["offset__848__852 imm_readULEB32"]
-	12 -. Codeptr .-> 44
+	83["offset__1593__1617 imm_readULEB32"]
+	12 -. Codeptr .-> 83
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	45 --> 12
+	93 --> 12
 	3 --> 12
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	45["memindex__840__849__853 imm_readULEB32"]
-	3 -. Codeptr .-> 45
-	9["cond__839 u8.!="]
+	93["memindex__1585__1598__1622 imm_readULEB32"]
+	3 -. Codeptr .-> 93
+	9["cond__1584 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__842 0"]
-	8["arg__841 u8.&"]
+	5["arg__1587 0"]
+	8["arg__1586 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__844 0x40u8"]
+	6["arg__1589 0x40u8"]
 	17["index pop_u32"]
 	13 -. Stack .-> 17
 	11{"memindex ϕ"}
 	9 --> 11
-	45 --> 11
-	47 --> 11
-	47["memindex__846__850__854 0u"]
-	29["eff__828 mach_writeMemory64_u32_64"]
+	93 --> 11
+	95 --> 11
+	95["memindex__1591__1599__1623 0u"]
+	29["eff__1573 mach_writeMemory64_u32_64"]
 	11 --> 29
 	24 --> 29
-	42 --> 29
+	81 --> 29
 	13 --> 29
 	0 -. Memory .-> 29
-	42["offset__847__851 imm_readULEB64"]
-	12 -. Codeptr .-> 42
+	81["offset__1592__1616 imm_readULEB64"]
+	12 -. Codeptr .-> 81
 	24["index pop_u64"]
 	13 -. Stack .-> 24
-	15["cond__827 m_isMemory64"]
+	15["cond__1572 m_isMemory64"]
 	11 --> 15
 	31{{"Sϕ Stack "}}
 	15 --> 31
@@ -29949,32 +29725,32 @@ graph TD
 	17 --> 31
 	30{{"Sϕ Codeptr "}}
 	15 --> 30
-	42 --> 30
-	44 --> 30
+	81 --> 30
+	83 --> 30
 </pre>`;
 window.traces["I64_STORE32"]["scheduled"] = ''
 window.traces["I64_STORE32"]["scheduled"] += `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
-def arg__844 : byte = 0x40u8;
-def arg__841 = u8.&(flags, arg__844);
-def arg__842 : byte = 0;
-def cond__839 = u8.!=(arg__841, arg__842);
+def arg__1589 : byte = 0x40u8;
+def arg__1586 = u8.&(flags, arg__1589);
+def arg__1587 : byte = 0;
+def cond__1584 = u8.!=(arg__1586, arg__1587);
 var memindex: u32;
-if (cond__839) {
-	def memindex__840__849__853 = imm_readULEB32();
+if (cond__1584) {
+	def memindex__1585__1598__1622 = imm_readULEB32();
 } else {
-	def memindex__846__850__854 : u32 = 0u;
+	def memindex__1591__1599__1623 : u32 = 0u;
 }
-// phis: memindex <- memindex__840__849__853; memindex <- memindex__846__850__854; 
-def cond__827 = m_isMemory64(memindex);
-if (cond__827) {
-	def offset__847__851 = imm_readULEB64();
+// phis: memindex <- memindex__1585__1598__1622; memindex <- memindex__1591__1599__1623; 
+def cond__1572 = m_isMemory64(memindex);
+if (cond__1572) {
+	def offset__1592__1616 = imm_readULEB64();
 	def index = pop_u64();
-	def eff__828 = mach_writeMemory64_u32_64(memindex, index, offset__847__851, val);
+	def eff__1573 = mach_writeMemory64_u32_64(memindex, index, offset__1592__1616, val);
 } else {
-	def offset__848__852 = imm_readULEB32();
+	def offset__1593__1617 = imm_readULEB32();
 	def index = pop_u32();
-	def eff__833 = mach_writeMemory32_u32_64(memindex, index, offset__848__852, val);
+	def eff__1578 = mach_writeMemory32_u32_64(memindex, index, offset__1593__1617, val);
 }
 // phis: 
 </pre>`;
@@ -30002,27 +29778,27 @@ window.traces["MEMORY_SIZE"] = {}
 window.traces["MEMORY_SIZE"]["parsed"] = ''
 window.traces["MEMORY_SIZE"]["parsed"] += `<pre class=''>def flags = imm_readU8();
 def memindex : u32 = 0u;
-def arg__866 : byte = 0;
-def arg__868 : byte = 0x40u8;
-def arg__867 = (flags);
-def arg__865 = u8.&(arg__867, arg__868);
-def cond__863 = u8.!=(arg__865, arg__866);
-if (cond__863) {
-	def memindex__864 = imm_readULEB32();
+def arg__1651 : byte = 0;
+def arg__1653 : byte = 0x40u8;
+def arg__1652 = (flags);
+def arg__1650 = u8.&(arg__1652, arg__1653);
+def cond__1648 = u8.!=(arg__1650, arg__1651);
+if (cond__1648) {
+	def memindex__1649 = imm_readULEB32();
 }
-// phis: memindex <- memindex__864; 
-def arg__862 = (memindex);
-def cond__855 = m_isMemory64(arg__862);
-if (cond__855) {
-	def arg__858 = (memindex);
-	def r = mach_memorySize64(arg__858);
-	def arg__857 = (r);
-	def eff__856 = push_u64(arg__857);
+// phis: memindex <- memindex__1649; 
+def arg__1647 = (memindex);
+def cond__1640 = m_isMemory64(arg__1647);
+if (cond__1640) {
+	def arg__1643 = (memindex);
+	def r = mach_memorySize64(arg__1643);
+	def arg__1642 = (r);
+	def eff__1641 = push_u64(arg__1642);
 } else {
-	def arg__861 = (memindex);
-	def r = mach_memorySize32(arg__861);
-	def arg__860 = (r);
-	def eff__859 = push_u32(arg__860);
+	def arg__1646 = (memindex);
+	def r = mach_memorySize32(arg__1646);
+	def arg__1645 = (r);
+	def eff__1644 = push_u32(arg__1645);
 }
 // phis: 
 </pre>`;
@@ -30041,7 +29817,7 @@ graph TD
 	14 --> 23
 	22 --> 23
 	18 --> 23
-	18["eff__859 push_u32"]
+	18["eff__1644 push_u32"]
 	16 --> 18
 	0 -. Stack .-> 18
 	16["r mach_memorySize32"]
@@ -30050,25 +29826,25 @@ graph TD
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__869 0u"]
-	10["memindex__864 imm_readULEB32"]
+	4["memindex__1654 0u"]
+	10["memindex__1649 imm_readULEB32"]
 	3 -. Codeptr .-> 10
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__863 u8.!="]
+	9["cond__1648 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__866 0"]
-	8["arg__865 u8.&"]
+	5["arg__1651 0"]
+	8["arg__1650 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__868 0x40u8"]
-	22["eff__856 push_u64"]
+	6["arg__1653 0x40u8"]
+	22["eff__1641 push_u64"]
 	20 --> 22
 	0 -. Stack .-> 22
 	20["r mach_memorySize64"]
 	11 --> 20
-	14["cond__855 m_isMemory64"]
+	14["cond__1640 m_isMemory64"]
 	11 --> 14
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
@@ -30090,7 +29866,7 @@ graph TD
 	14 --> 23
 	22 --> 23
 	18 --> 23
-	18["eff__859 push_u32"]
+	18["eff__1644 push_u32"]
 	16 --> 18
 	0 -. Stack .-> 18
 	16["r mach_memorySize32"]
@@ -30099,25 +29875,25 @@ graph TD
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__870 0u"]
-	10["memindex__864 imm_readULEB32"]
+	4["memindex__1655 0u"]
+	10["memindex__1649 imm_readULEB32"]
 	3 -. Codeptr .-> 10
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__863 u8.!="]
+	9["cond__1648 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__866 0"]
-	8["arg__865 u8.&"]
+	5["arg__1651 0"]
+	8["arg__1650 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__868 0x40u8"]
-	22["eff__856 push_u64"]
+	6["arg__1653 0x40u8"]
+	22["eff__1641 push_u64"]
 	20 --> 22
 	0 -. Stack .-> 22
 	20["r mach_memorySize64"]
 	11 --> 20
-	14["cond__855 m_isMemory64"]
+	14["cond__1640 m_isMemory64"]
 	11 --> 14
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
@@ -30139,7 +29915,7 @@ graph TD
 	14 --> 23
 	22 --> 23
 	18 --> 23
-	18["eff__859 push_u32"]
+	18["eff__1644 push_u32"]
 	16 --> 18
 	0 -. Stack .-> 18
 	16["r mach_memorySize32"]
@@ -30148,30 +29924,38 @@ graph TD
 	9 --> 11
 	10 --> 11
 	4 --> 11
-	4["memindex__870 0u"]
-	10["memindex__864 imm_readULEB32"]
+	4["memindex__1655 0u"]
+	10["memindex__1649 imm_readULEB32"]
 	3 -. Codeptr .-> 10
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__863 u8.!="]
+	9["cond__1648 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__866 0"]
-	8["arg__865 u8.&"]
+	5["arg__1651 0"]
+	8["arg__1650 u8.&"]
 	3 --> 8
 	6 --> 8
-	6["arg__868 0x40u8"]
-	22["eff__856 push_u64"]
+	6["arg__1653 0x40u8"]
+	22["eff__1641 push_u64"]
 	20 --> 22
 	0 -. Stack .-> 22
 	20["r mach_memorySize64"]
 	11 --> 20
-	14["cond__855 m_isMemory64"]
+	14["cond__1640 m_isMemory64"]
 	11 --> 14
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
 	10 --> 12
 	3 --> 12
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched Finish"] = ''
+window.traces["MEMORY_SIZE"]["sched Finish"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+
 </pre>`;
 window.traces["MEMORY_SIZE"]["post_surgery 639"] = ''
 window.traces["MEMORY_SIZE"]["post_surgery 639"] += `<pre class='graph'>---
@@ -30188,41 +29972,67 @@ graph TD
 	14 --> 23
 	22 --> 23
 	18 --> 23
-	18["eff__859 push_u32"]
+	18["eff__1644 push_u32"]
 	16 --> 18
 	0 -. Stack .-> 18
 	16["r mach_memorySize32"]
 	11 --> 16
 	11{"memindex ϕ"}
 	9 --> 11
-	25 --> 11
+	24 --> 11
 	4 --> 11
-	4["memindex__870 0u"]
-	25["memindex__864__871 imm_readULEB32"]
-	3 -. Codeptr .-> 25
+	4["memindex__1655 0u"]
+	24["memindex__1649__1656 imm_readULEB32"]
+	3 -. Codeptr .-> 24
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__863 u8.!="]
+	9["cond__1648 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__866 0"]
-	8["arg__865 u8.&"]
+	5["arg__1651 0"]
+	8["arg__1650 u8.&"]
 	26 --> 8
 	6 --> 8
-	6["arg__868 0x40u8"]
-	26["flags__872 imm_readU8"]
+	6["arg__1653 0x40u8"]
+	26["flags__1657 imm_readU8"]
 	0 -. Codeptr .-> 26
-	22["eff__856 push_u64"]
+	22["eff__1641 push_u64"]
 	20 --> 22
 	0 -. Stack .-> 22
 	20["r mach_memorySize64"]
 	11 --> 20
-	14["cond__855 m_isMemory64"]
+	14["cond__1640 m_isMemory64"]
 	11 --> 14
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	25 --> 12
+	24 --> 12
 	26 --> 12
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched StatePhi [u8.!= [cond__1648]]"] = ''
+window.traces["MEMORY_SIZE"]["sched StatePhi [u8.!= [cond__1648]]"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+subgraph block_641["Block 641"]
+	direction TB
+end
+branch_638 --> block_641
+
 </pre>`;
 window.traces["MEMORY_SIZE"]["post_surgery 643"] = ''
 window.traces["MEMORY_SIZE"]["post_surgery 643"] += `<pre class='graph'>---
@@ -30237,43 +30047,403 @@ graph TD
 	0[/"Start"\\]
 	23{{"Sϕ Stack "}}
 	14 --> 23
+	28 --> 23
 	30 --> 23
-	33 --> 23
-	33["eff__859__876 push_u32"]
-	32 --> 33
-	0 -. Stack .-> 33
-	32["r__875 mach_memorySize32"]
-	11 --> 32
+	30["eff__1644__1659 push_u32"]
+	16 --> 30
+	0 -. Stack .-> 30
+	16["r mach_memorySize32"]
+	11 --> 16
 	11{"memindex ϕ"}
 	9 --> 11
-	25 --> 11
+	24 --> 11
 	4 --> 11
-	4["memindex__870 0u"]
-	25["memindex__864__871 imm_readULEB32"]
-	3 -. Codeptr .-> 25
+	4["memindex__1655 0u"]
+	24["memindex__1649__1656 imm_readULEB32"]
+	3 -. Codeptr .-> 24
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__863 u8.!="]
+	9["cond__1648 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__866 0"]
-	8["arg__865 u8.&"]
+	5["arg__1651 0"]
+	8["arg__1650 u8.&"]
 	26 --> 8
 	6 --> 8
-	6["arg__868 0x40u8"]
-	26["flags__872 imm_readU8"]
+	6["arg__1653 0x40u8"]
+	26["flags__1657 imm_readU8"]
 	0 -. Codeptr .-> 26
-	30["eff__856__874 push_u64"]
-	29 --> 30
-	0 -. Stack .-> 30
-	29["r__873 mach_memorySize64"]
-	11 --> 29
-	14["cond__855 m_isMemory64"]
+	28["eff__1641__1658 push_u64"]
+	20 --> 28
+	0 -. Stack .-> 28
+	20["r mach_memorySize64"]
+	11 --> 20
+	14["cond__1640 m_isMemory64"]
 	11 --> 14
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	25 --> 12
+	24 --> 12
 	26 --> 12
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched StatePhi [m_isMemory64 [cond__1640]]"] = ''
+window.traces["MEMORY_SIZE"]["sched StatePhi [m_isMemory64 [cond__1640]]"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+subgraph block_645["Block 645"]
+	direction TB
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+end
+branch_638 --> block_641
+
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched imm_readULEB32 [memindex__1649__1656]"] = ''
+window.traces["MEMORY_SIZE"]["sched imm_readULEB32 [memindex__1649__1656]"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+subgraph block_645["Block 645"]
+	direction TB
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+end
+branch_638 --> block_641
+
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched push_u64 [eff__1641__1658]"] = ''
+window.traces["MEMORY_SIZE"]["sched push_u64 [eff__1641__1658]"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+	b644_28["eff__1641__1658 push_u64"]
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+block_646 --> branch_642
+subgraph block_646["Block 646"]
+	direction TB
+	b646_14["cond__1640 m_isMemory64"]
+end
+subgraph block_645["Block 645"]
+	direction TB
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+end
+branch_638 --> block_641
+
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched push_u32 [eff__1644__1659]"] = ''
+window.traces["MEMORY_SIZE"]["sched push_u32 [eff__1644__1659]"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+	b644_28["eff__1641__1658 push_u64"]
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+block_646 --> branch_642
+subgraph block_646["Block 646"]
+	direction TB
+	b646_14["cond__1640 m_isMemory64"]
+end
+subgraph block_645["Block 645"]
+	direction TB
+	b645_30["eff__1644__1659 push_u32"]
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+end
+branch_638 --> block_641
+
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched imm_readU8 [flags]"] = ''
+window.traces["MEMORY_SIZE"]["sched imm_readU8 [flags]"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+	b640_3["flags imm_readU8"]
+	b640_3 --> b640_24
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+	b644_28["eff__1641__1658 push_u64"]
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+block_646 --> branch_642
+subgraph block_646["Block 646"]
+	direction TB
+	b646_14["cond__1640 m_isMemory64"]
+end
+subgraph block_645["Block 645"]
+	direction TB
+	b645_30["eff__1644__1659 push_u32"]
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+end
+branch_638 --> block_641
+
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched mach_memorySize64 [r]"] = ''
+window.traces["MEMORY_SIZE"]["sched mach_memorySize64 [r]"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+	b640_3["flags imm_readU8"]
+	b640_3 --> b640_24
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+	b644_28["eff__1641__1658 push_u64"]
+	b644_20["r mach_memorySize64"]
+	b644_20 --> b644_28
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+block_646 --> branch_642
+subgraph block_646["Block 646"]
+	direction TB
+	b646_14["cond__1640 m_isMemory64"]
+end
+subgraph block_645["Block 645"]
+	direction TB
+	b645_30["eff__1644__1659 push_u32"]
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+end
+branch_638 --> block_641
+
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched mach_memorySize32 [r]"] = ''
+window.traces["MEMORY_SIZE"]["sched mach_memorySize32 [r]"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+	b640_3["flags imm_readU8"]
+	b640_3 --> b640_24
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+	b644_28["eff__1641__1658 push_u64"]
+	b644_20["r mach_memorySize64"]
+	b644_20 --> b644_28
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+block_646 --> branch_642
+subgraph block_646["Block 646"]
+	direction TB
+	b646_14["cond__1640 m_isMemory64"]
+end
+subgraph block_645["Block 645"]
+	direction TB
+	b645_30["eff__1644__1659 push_u32"]
+	b645_16["r mach_memorySize32"]
+	b645_16 --> b645_30
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+end
+branch_638 --> block_641
+
 </pre>`;
 window.traces["MEMORY_SIZE"]["post_surgery 648"] = ''
 window.traces["MEMORY_SIZE"]["post_surgery 648"] += `<pre class='graph'>---
@@ -30288,41 +30458,723 @@ graph TD
 	0[/"Start"\\]
 	23{{"Sϕ Stack "}}
 	14 --> 23
+	28 --> 23
 	30 --> 23
-	33 --> 23
-	33["eff__859__876 push_u32"]
-	32 --> 33
-	0 -. Stack .-> 33
-	32["r__875 mach_memorySize32"]
-	11 --> 32
+	30["eff__1644__1659 push_u32"]
+	16 --> 30
+	0 -. Stack .-> 30
+	16["r mach_memorySize32"]
+	11 --> 16
 	11{"memindex ϕ"}
 	9 --> 11
+	32 --> 11
 	34 --> 11
-	36 --> 11
-	36["memindex__870__878 0u"]
-	34["memindex__864__871__877 imm_readULEB32"]
-	3 -. Codeptr .-> 34
+	34["memindex__1655__1661 0u"]
+	32["memindex__1649__1656__1660 imm_readULEB32"]
+	3 -. Codeptr .-> 32
 	3["flags imm_readU8"]
 	0 -. Codeptr .-> 3
-	9["cond__863 u8.!="]
+	9["cond__1648 u8.!="]
 	8 --> 9
 	5 --> 9
-	5["arg__866 0"]
-	8["arg__865 u8.&"]
+	5["arg__1651 0"]
+	8["arg__1650 u8.&"]
 	26 --> 8
 	6 --> 8
-	6["arg__868 0x40u8"]
-	26["flags__872 imm_readU8"]
+	6["arg__1653 0x40u8"]
+	26["flags__1657 imm_readU8"]
 	0 -. Codeptr .-> 26
-	30["eff__856__874 push_u64"]
-	29 --> 30
-	0 -. Stack .-> 30
-	29["r__873 mach_memorySize64"]
-	11 --> 29
-	14["cond__855 m_isMemory64"]
+	28["eff__1641__1658 push_u64"]
+	20 --> 28
+	0 -. Stack .-> 28
+	20["r mach_memorySize64"]
+	11 --> 20
+	14["cond__1640 m_isMemory64"]
 	11 --> 14
 	12{{"Sϕ Codeptr "}}
 	9 --> 12
-	34 --> 12
+	32 --> 12
 	26 --> 12
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched Phi"] = ''
+window.traces["MEMORY_SIZE"]["sched Phi"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+	b640_3["flags imm_readU8"]
+	b640_3 --> b640_24
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+	b644_28["eff__1641__1658 push_u64"]
+	b644_20["r mach_memorySize64"]
+	b644_20 --> b644_28
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+block_646 --> branch_642
+subgraph block_646["Block 646"]
+	direction TB
+	b646_14["cond__1640 m_isMemory64"]
+end
+phi_648 --> block_646
+subgraph phi_648["Phi 648"]
+	p648_11{"memindex ϕ"}
+end
+block_649 --> phi_648
+block_650 --> phi_648
+subgraph block_649["Block 649"]
+	direction TB
+end
+branch_647 --> block_649
+subgraph branch_647["Branch 647"]
+	br647_9["cond__1648 u8.!="]
+
+end
+subgraph block_650["Block 650"]
+	direction TB
+end
+branch_647 --> block_650
+subgraph block_645["Block 645"]
+	direction TB
+	b645_30["eff__1644__1659 push_u32"]
+	b645_16["r mach_memorySize32"]
+	b645_16 --> b645_30
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+end
+branch_638 --> block_641
+
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched imm_readULEB32 [memindex__1649__1656__1660]"] = ''
+window.traces["MEMORY_SIZE"]["sched imm_readULEB32 [memindex__1649__1656__1660]"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+	b640_3["flags imm_readU8"]
+	b640_3 --> b640_24
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+	b644_28["eff__1641__1658 push_u64"]
+	b644_20["r mach_memorySize64"]
+	b644_20 --> b644_28
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+block_646 --> branch_642
+subgraph block_646["Block 646"]
+	direction TB
+	b646_14["cond__1640 m_isMemory64"]
+end
+phi_648 --> block_646
+subgraph phi_648["Phi 648"]
+	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
+end
+block_649 --> phi_648
+block_650 --> phi_648
+subgraph block_649["Block 649"]
+	direction TB
+	b649_32["memindex__1649__1656__1660 imm_readULEB32"]
+end
+branch_647 --> block_649
+subgraph branch_647["Branch 647"]
+	br647_9["cond__1648 u8.!="]
+
+end
+subgraph block_650["Block 650"]
+	direction TB
+end
+branch_647 --> block_650
+subgraph block_645["Block 645"]
+	direction TB
+	b645_30["eff__1644__1659 push_u32"]
+	b645_16["r mach_memorySize32"]
+	b645_16 --> b645_30
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+end
+branch_638 --> block_641
+
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched 0u"] = ''
+window.traces["MEMORY_SIZE"]["sched 0u"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+	b640_3["flags imm_readU8"]
+	b640_3 --> b640_24
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+	b644_28["eff__1641__1658 push_u64"]
+	b644_20["r mach_memorySize64"]
+	b644_20 --> b644_28
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+block_646 --> branch_642
+subgraph block_646["Block 646"]
+	direction TB
+	b646_14["cond__1640 m_isMemory64"]
+end
+phi_648 --> block_646
+subgraph phi_648["Phi 648"]
+	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
+end
+block_649 --> phi_648
+block_650 --> phi_648
+subgraph block_649["Block 649"]
+	direction TB
+	b649_32["memindex__1649__1656__1660 imm_readULEB32"]
+end
+branch_647 --> block_649
+subgraph branch_647["Branch 647"]
+	br647_9["cond__1648 u8.!="]
+
+end
+subgraph block_650["Block 650"]
+	direction TB
+	b650_34["memindex__1655__1661 0u"]
+end
+branch_647 --> block_650
+subgraph block_645["Block 645"]
+	direction TB
+	b645_30["eff__1644__1659 push_u32"]
+	b645_16["r mach_memorySize32"]
+	b645_16 --> b645_30
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+end
+branch_638 --> block_641
+
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched imm_readULEB32 [memindex__1649__1656__1660]"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+	b640_3["flags imm_readU8"]
+	b640_32["memindex__1649__1656__1660 imm_readULEB32"]
+	b640_3 --> b640_24
+	b640_32 --> b640_3
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+	b644_28["eff__1641__1658 push_u64"]
+	b644_20["r mach_memorySize64"]
+	b644_20 --> b644_28
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+block_646 --> branch_642
+subgraph block_646["Block 646"]
+	direction TB
+	b646_14["cond__1640 m_isMemory64"]
+end
+phi_648 --> block_646
+subgraph phi_648["Phi 648"]
+	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
+end
+block_649 --> phi_648
+block_650 --> phi_648
+subgraph block_649["Block 649"]
+	direction TB
+	b649_32["memindex__1649__1656__1660 imm_readULEB32"]
+end
+branch_647 --> block_649
+subgraph branch_647["Branch 647"]
+	br647_9["cond__1648 u8.!="]
+
+end
+block_651 --> branch_647
+subgraph block_651["Block 651"]
+	direction TB
+	b651_9["cond__1648 u8.!="]
+end
+subgraph block_650["Block 650"]
+	direction TB
+	b650_34["memindex__1655__1661 0u"]
+end
+branch_647 --> block_650
+subgraph block_645["Block 645"]
+	direction TB
+	b645_30["eff__1644__1659 push_u32"]
+	b645_16["r mach_memorySize32"]
+	b645_16 --> b645_30
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+end
+branch_638 --> block_641
+
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched 0u"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+	b640_3["flags imm_readU8"]
+	b640_32["memindex__1649__1656__1660 imm_readULEB32"]
+	b640_3 --> b640_24
+	b640_32 --> b640_3
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+	b644_28["eff__1641__1658 push_u64"]
+	b644_20["r mach_memorySize64"]
+	b644_20 --> b644_28
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+block_646 --> branch_642
+subgraph block_646["Block 646"]
+	direction TB
+	b646_14["cond__1640 m_isMemory64"]
+end
+phi_648 --> block_646
+subgraph phi_648["Phi 648"]
+	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
+end
+block_649 --> phi_648
+block_650 --> phi_648
+subgraph block_649["Block 649"]
+	direction TB
+	b649_32["memindex__1649__1656__1660 imm_readULEB32"]
+end
+branch_647 --> block_649
+subgraph branch_647["Branch 647"]
+	br647_9["cond__1648 u8.!="]
+
+end
+block_651 --> branch_647
+subgraph block_651["Block 651"]
+	direction TB
+	b651_9["cond__1648 u8.!="]
+end
+subgraph block_650["Block 650"]
+	direction TB
+	b650_34["memindex__1655__1661 0u"]
+end
+branch_647 --> block_650
+subgraph block_645["Block 645"]
+	direction TB
+	b645_30["eff__1644__1659 push_u32"]
+	b645_16["r mach_memorySize32"]
+	b645_16 --> b645_30
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+	b641_34["memindex__1655__1661 0u"]
+end
+branch_638 --> block_641
+
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched u8.& [arg__1650]"] = ''
+window.traces["MEMORY_SIZE"]["sched u8.& [arg__1650]"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+	b640_3["flags imm_readU8"]
+	b640_32["memindex__1649__1656__1660 imm_readULEB32"]
+	b640_3 --> b640_24
+	b640_32 --> b640_3
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+	b644_28["eff__1641__1658 push_u64"]
+	b644_20["r mach_memorySize64"]
+	b644_20 --> b644_28
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+block_646 --> branch_642
+subgraph block_646["Block 646"]
+	direction TB
+	b646_14["cond__1640 m_isMemory64"]
+end
+phi_648 --> block_646
+subgraph phi_648["Phi 648"]
+	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
+end
+block_649 --> phi_648
+block_650 --> phi_648
+subgraph block_649["Block 649"]
+	direction TB
+	b649_32["memindex__1649__1656__1660 imm_readULEB32"]
+end
+branch_647 --> block_649
+subgraph branch_647["Branch 647"]
+	br647_9["cond__1648 u8.!="]
+
+end
+block_651 --> branch_647
+subgraph block_651["Block 651"]
+	direction TB
+	b651_9["cond__1648 u8.!="]
+	b651_8["arg__1650 u8.&"]
+	b651_8 --> b651_9
+end
+subgraph block_650["Block 650"]
+	direction TB
+	b650_34["memindex__1655__1661 0u"]
+end
+branch_647 --> block_650
+subgraph block_645["Block 645"]
+	direction TB
+	b645_30["eff__1644__1659 push_u32"]
+	b645_16["r mach_memorySize32"]
+	b645_16 --> b645_30
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+	b641_34["memindex__1655__1661 0u"]
+end
+branch_638 --> block_641
+
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched 0"] = ''
+window.traces["MEMORY_SIZE"]["sched 0"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+	b640_3["flags imm_readU8"]
+	b640_32["memindex__1649__1656__1660 imm_readULEB32"]
+	b640_3 --> b640_24
+	b640_32 --> b640_3
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+	b644_28["eff__1641__1658 push_u64"]
+	b644_20["r mach_memorySize64"]
+	b644_20 --> b644_28
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+block_646 --> branch_642
+subgraph block_646["Block 646"]
+	direction TB
+	b646_14["cond__1640 m_isMemory64"]
+end
+phi_648 --> block_646
+subgraph phi_648["Phi 648"]
+	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
+end
+block_649 --> phi_648
+block_650 --> phi_648
+subgraph block_649["Block 649"]
+	direction TB
+	b649_32["memindex__1649__1656__1660 imm_readULEB32"]
+end
+branch_647 --> block_649
+subgraph branch_647["Branch 647"]
+	br647_9["cond__1648 u8.!="]
+
+end
+block_651 --> branch_647
+subgraph block_651["Block 651"]
+	direction TB
+	b651_9["cond__1648 u8.!="]
+	b651_8["arg__1650 u8.&"]
+	b651_5["arg__1651 0"]
+	b651_8 --> b651_9
+	b651_5 --> b651_8
+end
+subgraph block_650["Block 650"]
+	direction TB
+	b650_34["memindex__1655__1661 0u"]
+end
+branch_647 --> block_650
+subgraph block_645["Block 645"]
+	direction TB
+	b645_30["eff__1644__1659 push_u32"]
+	b645_16["r mach_memorySize32"]
+	b645_16 --> b645_30
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+	b641_34["memindex__1655__1661 0u"]
+end
+branch_638 --> block_641
+
+</pre>`;
+window.traces["MEMORY_SIZE"]["sched 0x40u8"] = ''
+window.traces["MEMORY_SIZE"]["sched 0x40u8"] += `<pre class='graph'>graph TD
+subgraph block_637["Block 637"]
+	direction TB
+	b637_1[\\"Finish"/]
+end
+phi_639 --> block_637
+subgraph phi_639["Phi 639"]
+	p639_12{{"Sϕ Codeptr "}}
+end
+block_640 --> phi_639
+block_641 --> phi_639
+subgraph block_640["Block 640"]
+	direction TB
+	b640_24["memindex__1649__1656 imm_readULEB32"]
+	b640_3["flags imm_readU8"]
+	b640_32["memindex__1649__1656__1660 imm_readULEB32"]
+	b640_3 --> b640_24
+	b640_32 --> b640_3
+end
+branch_638 --> block_640
+subgraph branch_638["Branch 638"]
+	br638_9["cond__1648 u8.!="]
+
+end
+phi_643 --> branch_638
+subgraph phi_643["Phi 643"]
+	p643_23{{"Sϕ Stack "}}
+end
+block_644 --> phi_643
+block_645 --> phi_643
+subgraph block_644["Block 644"]
+	direction TB
+	b644_28["eff__1641__1658 push_u64"]
+	b644_20["r mach_memorySize64"]
+	b644_20 --> b644_28
+end
+branch_642 --> block_644
+subgraph branch_642["Branch 642"]
+	br642_14["cond__1640 m_isMemory64"]
+
+end
+block_646 --> branch_642
+subgraph block_646["Block 646"]
+	direction TB
+	b646_14["cond__1640 m_isMemory64"]
+end
+phi_648 --> block_646
+subgraph phi_648["Phi 648"]
+	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
+	p648_11{"memindex ϕ"}
+end
+block_649 --> phi_648
+block_650 --> phi_648
+subgraph block_649["Block 649"]
+	direction TB
+	b649_32["memindex__1649__1656__1660 imm_readULEB32"]
+end
+branch_647 --> block_649
+subgraph branch_647["Branch 647"]
+	br647_9["cond__1648 u8.!="]
+
+end
+block_651 --> branch_647
+subgraph block_651["Block 651"]
+	direction TB
+	b651_9["cond__1648 u8.!="]
+	b651_8["arg__1650 u8.&"]
+	b651_5["arg__1651 0"]
+	b651_6["arg__1653 0x40u8"]
+	b651_8 --> b651_9
+	b651_5 --> b651_8
+	b651_6 --> b651_5
+end
+subgraph block_650["Block 650"]
+	direction TB
+	b650_34["memindex__1655__1661 0u"]
+end
+branch_647 --> block_650
+subgraph block_645["Block 645"]
+	direction TB
+	b645_30["eff__1644__1659 push_u32"]
+	b645_16["r mach_memorySize32"]
+	b645_16 --> b645_30
+end
+branch_642 --> block_645
+subgraph block_641["Block 641"]
+	direction TB
+	b641_34["memindex__1655__1661 0u"]
+end
+branch_638 --> block_641
+
 </pre>`;

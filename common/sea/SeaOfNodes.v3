@@ -213,8 +213,21 @@ class Sea {
                     break;
                 }
             }
-            if (isRoot) return results.put(cn);
+            if (isRoot) results.put(cn);
         }
+        // XXX
+        leftDeps.apply(fun (n: IRNode) {
+            if (!common.has(n)) results.put(n);
+            // if (!common.has(n)) {
+            //     for (d in n.deps()) if (isDescendant(d, right)) results.put(n);
+            // }
+        });
+        rightDeps.apply(fun (n: IRNode) {
+            if (!common.has(n)) results.put(n);
+            // if (!common.has(n)) {
+            //     for (d in n.deps()) if (isDescendant(d, left)) results.put(n);
+            // }
+        });
 
         return results;
     }
@@ -858,7 +871,7 @@ class IRNode {
 
     var value_deps: Array<IRNode>;
     var state_deps: Array<IRNode>; // idx = statecomp.tag
-    var children: Vector<IRNode>;
+    var children: Vector<IRNode> = Vector.new();
 
     var schedule_children: Vector<IRNode>;
     var schedule_parent: IRNode;
