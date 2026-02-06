@@ -50,6 +50,14 @@ The project depends on the `wizard-engine` WebAssembly engine (included as submo
 2. **Generators** (`*Gen.v3`) read Canonical Definitions and Templates to produce specialized implementations
 3. **Generated Code** (`generated/Validator.v3`, `generated/Interpreter.v3`, `generated/Compiler.v3`) are the final runnable components
 
+Generators may use the Sea of Nodes IR internally for analysis and optimization. The validator generator's full pipeline is:
+
+```
+SSAD → Sea of Nodes → [graph rewrites] → schedule → SSAD → PrettyIR → generated code
+```
+
+The interpreter generator uses simpler direct SSAD transformations without the sea of nodes.
+
 ### Directory Structure
 
 ```
@@ -67,9 +75,11 @@ common/                         # Shared code
 │   ├── IR.v3                  # SSAD representation
 │   ├── IRAnalysis.v3          # Static analysis and optimizations
 │   └── PrettyIR.v3            # IR pretty printing
-├── sea/                        # Sea of nodes representation
-│   ├── SeaOfNodes.v3
-│   └── Trace.v3
+├── sea/                        # Sea of nodes IR framework
+│   ├── SeaOfNodes.v3          # Sea graph, IRNode, graph rewrites, DFS schedulers
+│   ├── Schedule.v3            # Bottom-up CFG scheduler (WIP)
+│   ├── DomGraph.v3            # Hierarchical dominance tracking for scheduler
+│   └── Trace.v3               # Mermaid/JS visualization trace output
 ├── runtime/                    # Shared runtime types
 │   └── Types.v3               # Runtime type definitions
 └── codegen/                    # Code generation utilities
@@ -88,6 +98,36 @@ common/                         # Shared code
 - `tiers/validator/ValidatorTemplate.v3` - Type checking semantics with TypeVar system and stack validation
 - `tiers/interpreter/InterpreterTemplate.v3` - Runtime execution with Value boxing/unboxing and Frame management
 - `tiers/compiler/CompilerTemplate.v3` - Code generation with string-based IR and control flow handling
+
+#### Sea of Nodes (`common/sea/`)
+
+The sea of nodes is a graph-based IR used for analysis, optimization, and scheduling. It sits between the SSAD textual IR and the final generated code. Constructed from SSAD via `Seas.ofSSAD()`, it represents computations as an unordered dependency graph that is then scheduled back into a linear/structured form.
+
+**Core types:**
+- **`Sea`** - The graph container holding `IRNode`s. Provides graph analysis (LCA, subgraph extraction), Mermaid visualization, scheduling, and cloning (`Seas.clone()`, `Seas.cloneSubgraph()`).
+- **`IRNode`** - Graph nodes with `value_deps` (data flow), `state_deps` (indexed by `StateComponent.tag`), and `children` (reverse edges). Each carries `VarData` (name, type, stage) and an `IROp`.
+- **`IROp`** - Node operation enum: `Start`, `Finish`, `Intrinsic(defn)`, `Lit(tipe, rep)`, `Phi`, `StatePhi(statecomps)`, `Proj(val)`, `Move(val)`.
+- **`NodeSet` / `ImmNodeSet`** - Mutable and immutable node set types used throughout for graph analysis.
+
+**Graph rewrite passes** (applied via `sea.apply()`):
+- `id_propagate` - Eliminates identity intrinsics
+- `removeViews` - Eliminates view intrinsics
+- `overloadOps` - Resolves type-polymorphic operators to type-specific ones (e.g., `+` -> `i32_+`)
+- `addAbstractions` - Inserts `lift_*` operations for static-to-runtime transitions
+- `unLEM` - Rewrites runtime conditionals for abstract interpretation (both-branches execution)
+- `constUnLEM` - Constant-folds trivial unLEM rewrites
+- `reifyConds` - Inserts `startIf`/`startElse`/`end` control flow markers
+- `chooseMerge` - Simplifies merge nodes
+
+**Scheduling** converts the unordered sea graph back into structured code. Multiple strategies coexist:
+
+1. **DFS scheduler** (`Sea.schedule()` / `Sea.scheduleNodes()` in `SeaOfNodes.v3`) - Directly produces SSAD by recursive DFS traversal. Detects phi/branch structures by checking children for phi nodes whose condition matches the current node. This is the more mature path currently used for final code output.
+
+2. **Bottom-up CFG scheduler** (`Schedule.v3`, WIP) - Produces a `ScheduleNode` CFG (hierarchy of `ScheduleBlock`, `ScheduleBranch`, `SchedulePhi`) which can then be lowered to SSAD via `toSSAD()`. Uses readiness-based placement with `DomGraph` for dominance tracking. Handles phi nodes by inserting branch/merge structures and cloning subgraphs into left/right branch arms ("graph surgery"). Under active development.
+
+3. **Tree scheduler** (`Sea.scheduleExp()`) - Experimental tree-based scheduler using `schedule_children`/`schedule_parent` fields on `IRNode`.
+
+**`DomGraph`** (`common/sea/DomGraph.v3`) - Hierarchical dominance tracking with public/private node sets and parent chains. Used by the bottom-up scheduler to track which `IRNode`s have been scheduled before a given point, enabling readiness checks. The public/private distinction allows branch-specific nodes (like `Move` nodes) to be visible only within their branch.
 
 #### Parser Infrastructure
 - `common/codegen/VirgilSexpr.v3` - S-expression parsing for meta-programming
@@ -150,6 +190,7 @@ rewriting conditionals based off of effects.
 - **Side Table Generation**: Primary output is a side table for the interpreter that maps control flow labels to jump targets
 - **Control Flow**: Uses `ControlEntry` and `SidetableBuilder` for tracking nested control structures
 - **Effect-Based Rewriting**: Transforms conditionals based on `CBDEffect` analysis - if condition is not statically known, executes both branches
+- **Sea of Nodes Pipeline**: The generator constructs a Sea of Nodes graph from SSAD, applies optimization passes (`id_propagate`, `overloadOps`, `addAbstractions`, `unLEM`, `constUnLEM`, `chooseMerge`), and schedules back to SSAD before generating Virgil code. The `unLEM` rewrite is key: it transforms runtime conditionals so both branches execute, since the validator must verify all paths.
 
 ### Template Structure:
 - `tiers/validator/ValidatorTemplate.v3` - Core validation logic with TypeVar operations
@@ -194,6 +235,7 @@ All tiers share:
 - **CBDType**: Common type system (`I32`, `U32`, `F32`, `Bot`, etc.)
 - **CBDEffect**: Effect annotations for tracking instruction side effects
 - **SSAD**: Shared SSA-based intermediate representation
+- **Sea of Nodes IR**: Graph-based intermediate representation (`common/sea/`) used for analysis, optimization passes, and scheduling. Currently integrated into the validator generator; potentially applicable to other tiers.
 - **Template System**: Common meta-programming approach with tier-specific transformations
 
 # Amp Tools
