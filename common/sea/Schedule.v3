@@ -6,15 +6,12 @@ def fresh_id() -> int {
 
 def trap();
 
-def collectLiveAux(node: IRNode, sea: Sea, state: NodeSet) -> Range<IRNode> {
-    state.put(node);
-    return node.deps();
-}
-
 class SeaScheduler {
     var sea: Sea;
+    var orig_sea: Sea;
+    var mapping: HashMap<IRNode, IRNode>;
     var opcode: string = "";
-    var live = NodeSet.new();
+    var live: NodeSet;
     var q: Vector<SchedulePrim>;
     var q_idx: int;
 
@@ -23,8 +20,15 @@ class SeaScheduler {
 
     var bottom_block: ScheduleNode;
 
-    new(sea, top_node, bottom_node) {
-        sea.apply(live, collectLiveAux);
+    new(orig_sea, orig_top_node: IRNode, orig_bottom_node: IRNode) {
+        def clone = Seas.clone(orig_sea);
+        sea = clone.0;
+        mapping = clone.1;
+
+        top_node = mapping[orig_top_node];
+        bottom_node = mapping[orig_bottom_node];
+
+        live = Seas.live(sea);
         live.apply(fun (n: IRNode) => void(top_node.children.put(n)));
     }
 
@@ -44,6 +48,11 @@ class SeaScheduler {
 
         q_idx = 0;
         while (q_idx < q.length) {
+            if (q_idx > 250) {
+                System.puts(Strings.format1("ERROR: Scheduling %s reached limit\n", opcode));
+                break;
+            }
+
             var prim = q[q_idx];
             prim = SchedulePrim.new(prim.node, this);
             q_idx += 1;
@@ -66,6 +75,18 @@ class SeaScheduler {
         }
 
         bottom_block.finalize();
+
+        check();
+    }
+
+    def check() {
+        def sc = ScheduleChecker.new(bottom_block, orig_sea, mapping);
+        sc.check();
+        def errors = sc.errors;
+        if (errors.length > 0) {
+            System.puts(Strings.format1("ERROR: Invalid schedule for %s\n", opcode));
+            for (i < errors.length) System.puts(Strings.format2("%d: %q\n", i, errors[i].render));
+        }
     }
 }
 
@@ -511,7 +532,7 @@ class ScheduleBranch(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(ui
         // the actual branch and prev is emitted by phi to ssad
         return SSAD.Void;
     }
- }
+}
 
 class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, scheduler_) {
     var source_branch: ScheduleBranch;
@@ -648,7 +669,8 @@ class SchedulePrim {
 
             if ((IROp.StatePhi.?(child.op) || IROp.Phi.?(child.op))
                 && !(node.id == child.value_deps[0].id)
-                && (node.id == child.value_deps[1].id || node.id == child.value_deps[2].id)) {
+                && (node.id == child.value_deps[1].id || node.id == child.value_deps[2].id)) 
+            {
                 def cond = child.value_deps[0];
                 cond.init_move();
                 if (node.id == child.value_deps[1].id) neededBefore.put(cond.move_true);

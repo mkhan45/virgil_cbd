@@ -79,7 +79,6 @@ class Sea {
     var start: IRNode;
     var finish: IRNode;
     var void_node: IRNode;
-    var nodes: NodeSet;
     var id_count: int;
 
     var var_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>();
@@ -91,7 +90,6 @@ class Sea {
     }
 
     def initEmpty() {
-        nodes = NodeSet.new();
         id_count = 0;
         var_nodes = Strings.newMap<IRNode>();
         lit_nodes = Strings.newMap<IRNode>();
@@ -410,9 +408,7 @@ class Sea {
             completed.put(node);
 
             def next = f(node, this, init);
-            for (arg in next) {
-                wl.put(arg);
-            }
+            for (arg in next) wl.put(arg);
         }
     }
 
@@ -504,7 +500,6 @@ component Seas {
             }
 
             mapping[old_node] = new_node;
-            sea.nodes.put(new_node);
         }
 
         // Fix edges, remap internal deps but leave external ones
@@ -534,7 +529,9 @@ component Seas {
         return (result, mapping);
     }
 
-    def clone(sea: Sea) -> Sea {
+    def clone(sea: Sea) -> (Sea, HashMap<IRNode, IRNode>) {
+        def liveNodes = live(sea);
+
         // Phase 1: Create empty Sea
         def new_sea = Sea.new();
         sea.rebuildChildren();
@@ -542,29 +539,22 @@ component Seas {
         def mapping = HashMap<IRNode, IRNode>.new(IRNode.hash, IRNode.eq);
 
         // Phase 2: Create cloned nodes using existing nodes set
-        sea.nodes.apply(fun (old_node: IRNode) {
+        liveNodes.apply(fun (old_node: IRNode) {
             def new_node = IRNode.new(old_node.op, new_sea.id_count);
             new_sea.id_count += 1;
             new_node.state_deps = Array<IRNode>.new(old_node.state_deps.length);
             new_node.value_deps = Array<IRNode>.new(old_node.value_deps.length);
             mapping[old_node] = new_node;
-            new_sea.nodes.put(new_node);
         });
 
         // Phase 3: Rewire edges and clone VarData
-        sea.nodes.apply(fun (old_node: IRNode) {
+        liveNodes.apply(fun (old_node: IRNode) {
             def new_node = mapping[old_node];
 
-            for (j < old_node.value_deps.length) {
-                if (old_node.value_deps[j] != null) {
-                    new_node.value_deps[j] = mapping[old_node.value_deps[j]];
-                }
-            }
-            for (j < old_node.state_deps.length) {
-                if (old_node.state_deps[j] != null) {
-                    new_node.state_deps[j] = mapping[old_node.state_deps[j]];
-                }
-            }
+            for (j < old_node.value_deps.length) if (old_node.value_deps[j] != null)
+                new_node.value_deps[j] = mapping[old_node.value_deps[j]];
+            for (j < old_node.state_deps.length) if (old_node.state_deps[j] != null)
+                new_node.state_deps[j] = mapping[old_node.state_deps[j]];
 
             if (old_node.var_data != null) {
                 new_node.var_data = VarData.new(
@@ -580,7 +570,18 @@ component Seas {
         new_sea.finish = mapping[sea.finish];
         new_sea.rebuildChildren();
 
-        return new_sea;
+        return (new_sea, mapping);
+    }
+
+    def collectLiveAux(node: IRNode, sea: Sea, state: NodeSet) -> Range<IRNode> {
+        state.put(node);
+        return node.deps();
+    }
+
+    def live(sea: Sea) -> NodeSet {
+        def liveSet = NodeSet.new();
+        sea.apply(liveSet, collectLiveAux);
+        return liveSet;
     }
 }
 
@@ -612,7 +613,9 @@ class IRNode {
     }
 
     def deps() -> Array<IRNode> {
-        return dedup(Arrays.concat(value_deps, state_deps));
+        // should be empty, special case is to remove null state deps
+        if (IROp.Start.?(op)) return dedup(value_deps);
+        else return dedup(Arrays.concat(value_deps, state_deps));
     }
 
     def transitiveDeps(limit: IRNode) -> Array<IRNode> {
@@ -660,10 +663,10 @@ class IRNode {
         if (move_true == null) {
             move_true = IRNode.new(IROp.Move(true), -id*2);
             move_true.value_deps = [];
-            move_true.state_deps = Array.new(StateComponent.count);
+            move_true.state_deps = Arrays.dup(state_deps);
             move_false = IRNode.new(IROp.Move(false), -id*2-1);
             move_false.value_deps = [];
-            move_false.state_deps = Array.new(StateComponent.count);
+            move_false.state_deps = Arrays.dup(state_deps);
             return false;
         }
         return true;
