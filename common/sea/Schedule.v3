@@ -30,7 +30,6 @@ class SeaScheduler {
         bottom_node = mapping[orig_bottom_node];
 
         live = Seas.live(sea);
-        live.apply(fun (n: IRNode) => void(top_node.children.put(n)));
     }
 
     def toMermaid() -> string {
@@ -58,9 +57,9 @@ class SeaScheduler {
             prim = SchedulePrim.new(prim.node, this);
             q_idx += 1;
 
-            if (prim.node.id == top_node.id && q_idx != q.length - 1) {
-                continue;
-            }
+            // if (prim.node.id == top_node.id && q_idx != q.length - 1) {
+            //     continue;
+            // }
 
             System.puts(Strings.format2("Prim: %q, q length: %d\n", prim.node.render, q.length - q_idx));
 
@@ -130,14 +129,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         for (i < prim.neededBefore.length) {
             def child = prim.neededBefore[i];
             def live = scheduler.live.has(child);
-            if (!live) continue;
+            if (!live && !IROp.Move.?(child.op)) continue;
             if (child.id == prim.node.id) continue; // XXX: why does this happen?
-
-            // this kind of partitions branches by subgraph,
-            // this is kind of equivalent to if we'd made an entirely
-            // new scheduler for branch subgraph. But it doesn't schedule
-            // ancestors, which we need (TODO XXX)
-            // if (upper_limit != null && !upper_limit.dominants.has(child)) continue;
 
             if(!dominants.has(child)) System.puts(Strings.format2("Missing: %q (%d)\n", child.render, child.id));
             else System.puts(Strings.format1("Have: %q\n", child.render));
@@ -153,7 +146,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                     block: ScheduleBlock => {
                         block.prims.put(prim);
                         block.dominants.addLocal(prim.node);
-                        if (Strings.equal(scheduler.opcode, "MEMORY_SIZE")) {
+                        if (Strings.equal(scheduler.opcode, "END")) {
                             System.puts(Strings.format2("Scheduled %q into %d\n\n", prim.render, block.id));
                             CBDTrace.addString(scheduler.opcode, 
                                             Strings.format1("sched %q", prim.renderSimple), "graph", scheduler.toMermaid());
@@ -161,10 +154,10 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                         return block;
                     }
                     cond: ScheduleBranch => {
-                        def dest_block = if(cond.prev != null, 
-                                        cond.prev.schedule(prim, upper_limit),
-                                        cond.prependScheduleBlock(prim));
-                        return dest_block;
+                        if (cond.prev != null)
+                            return cond.prev.schedule(prim, upper_limit);
+                        else
+                            return cond.prependScheduleBlock(prim);
                     }
                     phi: SchedulePhi => {
                         var dest_block = phi.l_source.schedule(prim, phi.source_branch);
@@ -387,10 +380,11 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         //     scheduler.top_node.children.put(lcas[i]);
         // }
 
-        scheduler.live.remove(l_branch);
-        scheduler.live.remove(r_branch);
-        scheduler.live.put(cond.move_true);
-        scheduler.live.put(cond.move_false);
+        // scheduler.live.remove(l_branch);
+        // scheduler.live.remove(r_branch);
+        // scheduler.live.put(cond.move_true);
+        // scheduler.live.put(cond.move_false);
+        scheduler.live = Seas.live(scheduler.sea);
 
         CBDTrace.addGraph(scheduler.opcode, Strings.format1("post_surgery %d", phi_node.id), scheduler.sea);
 
@@ -399,7 +393,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         scheduler.sea.rebuildChildren();
 
-        if (Strings.equal(scheduler.opcode, "MEMORY_SIZE")) {
+        if (Strings.equal(scheduler.opcode, "END")) {
             System.puts(Strings.format3("Scheduled phi %q (%d) before %d\n\n", phi.render, phi_node.id, id));
             CBDTrace.addString(scheduler.opcode, 
                             Strings.format1("sched %q", phi.render), "graph", scheduler.toMermaid());
@@ -653,6 +647,14 @@ class SchedulePrim {
     var highBound: ScheduleNode;
 
     new(node, scheduler) {
+        if (IROp.Start.?(node.op)) {
+            scheduler.live = Seas.live(scheduler.sea);
+            scheduler.live.apply(fun (n: IRNode) {
+                if (n.id != node.id) neededBefore.put(n);
+            });
+            return;
+        }
+
         for (i < node.children.length) {
             def child = node.children[i];
             def live = scheduler.live.has(child);
