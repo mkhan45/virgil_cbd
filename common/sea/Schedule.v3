@@ -58,9 +58,9 @@ class SeaScheduler {
             prim = SchedulePrim.new(prim.node, this);
             q_idx += 1;
 
-            // if (prim.node.id == top_node.id && q_idx != q.length - 1) {
-            //     continue;
-            // }
+            if (prim.node.id == top_node.id && q_idx != q.length - 1) {
+                continue;
+            }
 
             System.puts(Strings.format2("Prim: %q, q length: %d\n", prim.node.render, q.length - q_idx));
 
@@ -600,7 +600,7 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
 
         for (i < l_branch.children.length) {
             def child = l_branch.children[i];
-            child.replaceDep(l_branch, lsg_clone_mapping[l_branch]);
+            // child.replaceDep(l_branch, lsg_clone_mapping[l_branch]);
         }
         for (n = lsg_clone_sg.ls; n != null; n = n.tail) scheduler.live.put(n.head);
 
@@ -614,7 +614,7 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         def rsg_clone_mapping = rsg_clone.1;
         for (i < r_branch.children.length) {
             def child = r_branch.children[i];
-            child.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
+            // child.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
         }
         for (n = rsg_clone_sg.ls; n != null; n = n.tail) scheduler.live.put(n.head);
 

@@ -197,13 +197,13 @@ class Sea {
         }
         // XXX
         leftDeps.apply(fun (n: IRNode) {
-            if (!common.has(n)) results.put(n);
+            // if (!common.has(n)) results.put(n);
             // if (!common.has(n)) {
             //     for (d in n.deps()) if (isDescendant(d, right)) results.put(n);
             // }
         });
         rightDeps.apply(fun (n: IRNode) {
-            if (!common.has(n)) results.put(n);
+            // if (!common.has(n)) results.put(n);
             // if (!common.has(n)) {
             //     for (d in n.deps()) if (isDescendant(d, left)) results.put(n);
             // }
