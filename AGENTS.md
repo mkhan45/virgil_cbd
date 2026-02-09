@@ -76,7 +76,8 @@ common/                         # Shared code
 │   ├── IRAnalysis.v3          # Static analysis and optimizations
 │   └── PrettyIR.v3            # IR pretty printing
 ├── sea/                        # Sea of nodes IR framework
-│   ├── SeaOfNodes.v3          # Sea graph, IRNode, graph rewrites, DFS schedulers
+│   ├── SeaOfNodes.v3          # Sea graph, IRNode, graph rewrites
+│   ├── SearchSchedule.v3     # Search-based DFS scheduler
 │   ├── Schedule.v3            # Bottom-up CFG scheduler (WIP)
 │   ├── DomGraph.v3            # Hierarchical dominance tracking for scheduler
 │   └── Trace.v3               # Mermaid/JS visualization trace output
@@ -104,8 +105,8 @@ common/                         # Shared code
 The sea of nodes is a graph-based IR used for analysis, optimization, and scheduling. It sits between the SSAD textual IR and the final generated code. Constructed from SSAD via `Seas.ofSSAD()`, it represents computations as an unordered dependency graph that is then scheduled back into a linear/structured form.
 
 **Core types:**
-- **`Sea`** - The graph container holding `IRNode`s. Provides graph analysis (LCA, subgraph extraction), Mermaid visualization, scheduling, and cloning (`Seas.clone()`, `Seas.cloneSubgraph()`).
-- **`IRNode`** - Graph nodes with `value_deps` (data flow), `state_deps` (indexed by `StateComponent.tag`), and `children` (reverse edges). Each carries `VarData` (name, type, stage) and an `IROp`.
+- **`Sea`** - The graph container holding `IRNode`s. Provides graph analysis (LCA), Mermaid visualization, and cloning (`Seas.clone()`, `Seas.cloneSubgraph()`).
+- **`IRNode`** - Graph nodes with `value_deps` (data flow), `state_deps` (one slot per `StateComponent` variant, sized to `StateComponent.count` and indexed by `.tag`), and `children` (reverse edges). Each carries `VarData` (name, type, stage) and an `IROp`.
 - **`IROp`** - Node operation enum: `Start`, `Finish`, `Intrinsic(defn)`, `Lit(tipe, rep)`, `Phi`, `StatePhi(statecomps)`, `Proj(val)`, `Move(val)`.
 - **`NodeSet` / `ImmNodeSet`** - Mutable and immutable node set types used throughout for graph analysis.
 
@@ -119,13 +120,7 @@ The sea of nodes is a graph-based IR used for analysis, optimization, and schedu
 - `reifyConds` - Inserts `startIf`/`startElse`/`end` control flow markers
 - `chooseMerge` - Simplifies merge nodes
 
-**Scheduling** converts the unordered sea graph back into structured code. Multiple strategies coexist:
-
-1. **DFS scheduler** (`Sea.schedule()` / `Sea.scheduleNodes()` in `SeaOfNodes.v3`) - Directly produces SSAD by recursive DFS traversal. Detects phi/branch structures by checking children for phi nodes whose condition matches the current node. This is the more mature path currently used for final code output.
-
-2. **Bottom-up CFG scheduler** (`Schedule.v3`, WIP) - Produces a `ScheduleNode` CFG (hierarchy of `ScheduleBlock`, `ScheduleBranch`, `SchedulePhi`) which can then be lowered to SSAD via `toSSAD()`. Uses readiness-based placement with `DomGraph` for dominance tracking. Handles phi nodes by inserting branch/merge structures and cloning subgraphs into left/right branch arms ("graph surgery"). Under active development.
-
-3. **Tree scheduler** (`Sea.scheduleExp()`) - Experimental tree-based scheduler using `schedule_children`/`schedule_parent` fields on `IRNode`.
+**Scheduling** converts the unordered sea graph back into structured code. Scheduling is handled by separate modules outside of `SeaOfNodes.v3`.
 
 **`DomGraph`** (`common/sea/DomGraph.v3`) - Hierarchical dominance tracking with public/private node sets and parent chains. Used by the bottom-up scheduler to track which `IRNode`s have been scheduled before a given point, enabling readiness checks. The public/private distinction allows branch-specific nodes (like `Move` nodes) to be visible only within their branch.
 

@@ -70,7 +70,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def state = HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq);
     sea.apply(state, IRNode.unLEM);
     CBDTrace.addGraph(opcode, "unLEM", sea);
-    def unlem_ssa = sea.schedule();
+    def unlem_ssa = SearchSchedule.schedule(sea);
     CBDTrace.addCode(opcode, "unlem_schedule", unlem_ssa.toString(0));
 
     def ulscheduler = Scheduler.of_full_sea(sea);
@@ -108,7 +108,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // System.puts(mbuf.toString());
     // System.puts("------");
 
-    def scheduled = sea.schedule();
+    def scheduled = SearchSchedule.schedule(sea);
     ctx = SSADCtx.new(scheduled);
     ctx.getPhis();
     CBDTrace.addCode(opcode, "scheduled", scheduled.toString(0));
