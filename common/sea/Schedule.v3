@@ -19,6 +19,7 @@ class SeaScheduler {
     var bottom_node: IRNode;
 
     var bottom_block: ScheduleNode;
+    var top_block: ScheduleNode;
 
     new(orig_sea, orig_top_node: IRNode, orig_bottom_node: IRNode) {
         def clone = Seas.clone(orig_sea);
@@ -57,9 +58,9 @@ class SeaScheduler {
             prim = SchedulePrim.new(prim.node, this);
             q_idx += 1;
 
-            if (prim.node.id == top_node.id && q_idx != q.length - 1) {
-                continue;
-            }
+            // if (prim.node.id == top_node.id && q_idx != q.length - 1) {
+            //     continue;
+            // }
 
             System.puts(Strings.format2("Prim: %q, q length: %d\n", prim.node.render, q.length - q_idx));
 
@@ -80,7 +81,7 @@ class SeaScheduler {
     }
 
     def check() {
-        def sc = ScheduleChecker.new(bottom_block, orig_sea, mapping);
+        def sc = ScheduleChecker.new(top_block, bottom_block, orig_sea, mapping);
         sc.check();
         def errors = sc.errors;
         if (errors.length > 0) {
@@ -96,6 +97,7 @@ component Scheduler {
         def s = SeaScheduler.new(sea, sea.start, sea.finish);
         def b = ScheduleBlock.new(fresh_id(), s);
         s.bottom_block = b;
+        s.top_block = b;
         return s;
     }
 }
@@ -221,6 +223,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
     def prependScheduleBlock(prim: SchedulePrim) -> ScheduleBlock {
         def block = ScheduleBlock.new(fresh_id(), scheduler);
+        if (scheduler.top_block.id == this.id) scheduler.top_block = block;
 
         var prev: ScheduleNode;
         match (this) {
@@ -295,8 +298,11 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         def branch = ScheduleBranch.new(fresh_id(), scheduler);
         def phi_node = SchedulePhi.new(fresh_id(), scheduler);
 
+        if (scheduler.top_block.id == this.id) scheduler.top_block = branch;
+
         phi_node.next = this;
         phi_node.source_branch = branch;
+        branch.phi = phi_node;
 
         def prev = getSinglePrev();
         if (prev != null) {
@@ -347,9 +353,6 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         for (i < lcas.length) System.puts(Strings.format1("%q, ", lcas[i].render));
         System.puts("\n");
 
-        // TODO XXX for getLabel duplication: 
-        // only clone if all uses dominated by lcas? or if all uses are on path
-        // from branch to lcas? really findTop should include nodes of this type
         var lsg = ImmNodeSet(null);
         for (i < lcas.length) lsg = lsg.union(scheduler.sea.subgraph2(lcas[i], l_branch, false));
         for (i < lcas.length) lsg = lsg.without(lcas[i]);
@@ -394,19 +397,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         // System.puts(Strings.format3("left: %q\nright: %q\nlca: %q\n", l_branch.render, r_branch.render, lca.render));
         System.puts(Strings.format2("lsg: %q\nrsg: %q\n", lsg.render, rsg.render));
 
-        // scheduler.q.put(SchedulePrim.new(lsg_clone_mapping[l_branch], scheduler).boundLow(left).filterSubgraph(lsg));
-        // scheduler.q.put(SchedulePrim.new(rsg_clone_mapping[r_branch], scheduler).boundLow(right).filterSubgraph(rsg));
-        // scheduler.q.put(SchedulePrim.new(l_branch, scheduler).boundLow(left).filterSubgraph(lsg));
-        // scheduler.q.put(SchedulePrim.new(r_branch, scheduler).boundLow(right).filterSubgraph(rsg));
-        // scheduler.live = NodeSet.new();
         scheduler.sea.rebuildChildren();
-        // scheduler.sea.apply(scheduler.live, collectLiveAux);
-        // left.schedule(SchedulePrim.new(l_branch, scheduler).filterSubgraph(lsg), branch);
-        // right.schedule(SchedulePrim.new(r_branch, scheduler).filterSubgraph(rsg), branch);
-        // for (n = lsg.ls; n != null; n = n.tail) if (!IROp.Move.?(n.head.op))
-        //     left.schedule(SchedulePrim.new(n.head, scheduler).filterSubgraph(lsg), branch);
-        // for (n = rsg.ls; n != null; n = n.tail) if (!IROp.Move.?(n.head.op))
-        //     right.schedule(SchedulePrim.new(n.head, scheduler).filterSubgraph(rsg), branch);
 
         if (Strings.equal(scheduler.opcode, "MEMORY_SIZE")) {
             System.puts(Strings.format3("Scheduled phi %q (%d) before %d\n\n", phi.render, phi_node.id, id));
@@ -500,6 +491,7 @@ class ScheduleBranch(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(ui
     var l_branch: ScheduleNode = null;
     var r_branch: ScheduleNode = null;
     var prev: ScheduleNode = null;
+    var phi: SchedulePhi = null;
 
     def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
         if (visited.has(id)) return buf;
@@ -608,7 +600,7 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
 
         for (i < l_branch.children.length) {
             def child = l_branch.children[i];
-            // child.replaceDep(l_branch, lsg_clone_mapping[l_branch]);
+            child.replaceDep(l_branch, lsg_clone_mapping[l_branch]);
         }
         for (n = lsg_clone_sg.ls; n != null; n = n.tail) scheduler.live.put(n.head);
 
@@ -622,7 +614,7 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         def rsg_clone_mapping = rsg_clone.1;
         for (i < r_branch.children.length) {
             def child = r_branch.children[i];
-            // child.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
+            child.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
         }
         for (n = rsg_clone_sg.ls; n != null; n = n.tail) scheduler.live.put(n.head);
 
@@ -634,8 +626,8 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         // I think we may want to store left and right subgraphs on the phi
         // l_source.schedule(SchedulePrim.new(lsg_clone_mapping[l_branch], scheduler).filterSubgraph(lsg), source_branch);
         // r_source.schedule(SchedulePrim.new(rsg_clone_mapping[r_branch], scheduler).filterSubgraph(rsg), source_branch);
-        l_source.schedule(SchedulePrim.new(l_branch, scheduler).filterSubgraph(lsg), source_branch);
-        r_source.schedule(SchedulePrim.new(r_branch, scheduler).filterSubgraph(rsg), source_branch);
+        // l_source.schedule(SchedulePrim.new(l_branch, scheduler).filterSubgraph(lsg), source_branch);
+        // r_source.schedule(SchedulePrim.new(r_branch, scheduler).filterSubgraph(rsg), source_branch);
         // scheduler.q.put(SchedulePrim.new(l_branch, scheduler).boundLow(l_source).filterSubgraph(lsg));
         // scheduler.q.put(SchedulePrim.new(r_branch, scheduler).boundLow(r_source).filterSubgraph(rsg));
         // for (n = lsg.ls; n != null; n = n.tail) if (!IROp.Move.?(n.head.op))

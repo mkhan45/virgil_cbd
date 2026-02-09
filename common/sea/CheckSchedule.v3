@@ -1,10 +1,13 @@
 type ScheduleError {
     case BadOrdering(want_fst: IRNode, want_snd: IRNode);
+    case UnsatNeed(user: IRNode, needed: IRNode);
 
     def render(sb: StringBuilder) -> StringBuilder {
         match (this) {
             BadOrdering(fst, snd) =>
                 sb.puts("Scheduled ").putq(fst.render).puts(" not dominating child ").putq(snd.render);
+            UnsatNeed(user, needed) =>
+                sb.puts("Scheduled ").putq(user.render).puts(" without ").putq(needed.render);
         }
 
         return sb;
@@ -14,19 +17,21 @@ type ScheduleError {
 class ScheduleChecker {
     var errors: Vector<ScheduleError> = Vector.new();
 
+    var cfg_top: ScheduleNode;
     var cfg_bottom: ScheduleNode;
     var orig_sea: Sea;
     var orig_to_new: HashMap<IRNode, IRNode>;
-    new(cfg_bottom, orig_sea, orig_to_new) {
+    new(cfg_top, cfg_bottom, orig_sea, orig_to_new) {
     }
 
     def check() {
         orig_sea.rebuildChildren();
-        check_ordering(cfg_bottom, ImmNodeSets.empty());
+        // check_bottom_up(cfg_bottom, ImmNodeSets.empty());
+        check_top_down(cfg_top, ImmNodeSets.empty());
     }
 
     // returns dominants after check
-    def check_ordering(cfg_node: ScheduleNode, dominants: ImmNodeSet) -> ImmNodeSet {
+    def check_bottom_up(cfg_node: ScheduleNode, dominants: ImmNodeSet) -> ImmNodeSet {
         match (cfg_node) {
             block: ScheduleBlock => {
                 // iterate backwards through `prims`, updating `d` and checking
@@ -39,7 +44,7 @@ class ScheduleChecker {
                     d = d.with(node);
                 }
 
-                return if (block.prev != null, check_ordering(block.prev, d), d);
+                return if (block.prev != null, check_bottom_up(block.prev, d), d);
             }
             branch: ScheduleBranch => {
                 // just check prev; phi checked branches
@@ -61,10 +66,10 @@ class ScheduleChecker {
                 def move_true = phi.source_branch.condition.move_true;
                 def move_false = phi.source_branch.condition.move_false;
 
-                def l_doms = check_ordering(phi.l_source, dominants.with(move_true));
-                def r_doms = check_ordering(phi.r_source, dominants.with(move_false));
+                def l_doms = check_bottom_up(phi.l_source, dominants.with(move_true));
+                def r_doms = check_bottom_up(phi.r_source, dominants.with(move_false));
 
-                return check_ordering(phi.source_branch.prev, l_doms.union(r_doms).without(move_true).without(move_false).union(phi_set));
+                return check_bottom_up(phi.source_branch.prev, l_doms.union(r_doms).without(move_true).without(move_false).union(phi_set));
             }
             _ => return dominants; // unreachable
         }
@@ -90,6 +95,49 @@ class ScheduleChecker {
             } else if (!dominants.has(child)) {
                 errors.put(ScheduleError.BadOrdering(node, child));
             }
+        }
+
+        return errors.length == prev_err_len;
+    }
+
+    // returns scope
+    def check_top_down(cfg_node: ScheduleNode, scope: ImmNodeSet) -> ImmNodeSet {
+        match (cfg_node) {
+            block: ScheduleBlock => {
+                // iterate forwards through `prims`, updating s
+                var s = scope;
+                for (i < block.prims.length) {
+                    def prim = block.prims[i];
+                    def node = prim.node;
+                    check_deps_in_scope(node, s);
+                    s = s.with(node);
+                }
+
+                return if (block.next != null, check_top_down(block.next, s), s);
+            }
+            branch: ScheduleBranch => {
+                check_deps_in_scope(branch.condition, scope);
+                check_top_down(branch.l_branch, scope);
+                check_top_down(branch.r_branch, scope);
+                return check_top_down(branch.phi, scope);
+            }
+            phi: SchedulePhi => {
+                var s = scope;
+                for (p = phi.phis; p != null; p = p.tail) s = s.with(p.head);
+                return if (phi.next != null, check_top_down(phi.next, s), s);
+            }
+            _ => return scope; // unreachable
+        }
+    }
+
+    def check_deps_in_scope(node: IRNode, scope: ImmNodeSet) -> bool {
+        def prev_err_len = errors.length;
+
+        def deps = node.deps();
+        for (i < deps.length) {
+            def dep = deps[i];
+            if (dep.id == node.id) continue;
+            if (!scope.has(dep)) errors.put(ScheduleError.UnsatNeed(node, dep));
         }
 
         return errors.length == prev_err_len;
