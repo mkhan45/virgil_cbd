@@ -1,6 +1,7 @@
 type ScheduleError {
     case BadOrdering(want_fst: IRNode, want_snd: IRNode);
     case UnsatNeed(user: IRNode, needed: IRNode);
+    case GraphDiff;
 
     def render(sb: StringBuilder) -> StringBuilder {
         match (this) {
@@ -8,6 +9,8 @@ type ScheduleError {
                 sb.puts("Scheduled ").putq(fst.render).puts(" not dominating child ").putq(snd.render);
             UnsatNeed(user, needed) =>
                 sb.puts("Scheduled ").putq(user.render).puts(" without ").putq(needed.render);
+            GraphDiff =>
+                sb.puts("GraphDiff");
         }
 
         return sb;
@@ -20,84 +23,17 @@ class ScheduleChecker {
     var cfg_top: ScheduleNode;
     var cfg_bottom: ScheduleNode;
     var orig_sea: Sea;
+    var new_sea: Sea;
     var orig_to_new: HashMap<IRNode, IRNode>;
-    new(cfg_top, cfg_bottom, orig_sea, orig_to_new) {
-    }
+    new(cfg_top, cfg_bottom, orig_sea, new_sea, orig_to_new) { }
 
     def check() {
         orig_sea.rebuildChildren();
-        // check_bottom_up(cfg_bottom, ImmNodeSets.empty());
+        new_sea.rebuildChildren();
         check_top_down(cfg_top, ImmNodeSets.empty());
-    }
-
-    // returns dominants after check
-    def check_bottom_up(cfg_node: ScheduleNode, dominants: ImmNodeSet) -> ImmNodeSet {
-        match (cfg_node) {
-            block: ScheduleBlock => {
-                // iterate backwards through `prims`, updating `d` and checking
-                // that all uses are dominated
-                var d = dominants;
-                for (i = block.prims.length - 1; i >= 0; i--) {
-                    def prim = block.prims[i];
-                    def node = prim.node;
-                    check_uses_dominated(node, d);
-                    d = d.with(node);
-                }
-
-                return if (block.prev != null, check_bottom_up(block.prev, d), d);
-            }
-            branch: ScheduleBranch => {
-                // just check prev; phi checked branches
-                // no-op, this is already checked by phi, and will already be encountered
-                // when traversing l/r branches
-                return dominants;
-            }
-            phi: SchedulePhi => {
-                // Check phi uses are dominated
-                // Check l and r source, dominating moves and phi node,
-                // check source_branch, dominating nodes in each branch
-                var phi_set = ImmNodeSet(null);
-                for (cur = phi.phis; cur != null; cur = cur.tail) {
-                    def phi_node = cur.head;
-                    check_uses_dominated(phi_node, dominants);
-                    phi_set = phi_set.with(phi_node);
-                }
-
-                def move_true = phi.source_branch.condition.move_true;
-                def move_false = phi.source_branch.condition.move_false;
-
-                def l_doms = check_bottom_up(phi.l_source, dominants.with(move_true));
-                def r_doms = check_bottom_up(phi.r_source, dominants.with(move_false));
-
-                return check_bottom_up(phi.source_branch.prev, l_doms.union(r_doms).without(move_true).without(move_false).union(phi_set));
-            }
-            _ => return dominants; // unreachable
-        }
-    }
-
-    def check_uses_dominated(node: IRNode, dominants: ImmNodeSet) -> bool {
-        def prev_err_len = errors.length;
-
-        def children = node.children;
-        for (i < children.length) {
-            def child = children[i];
-            if (child.id == node.id) continue;
-
-            if ((IROp.StatePhi.?(child.op) || IROp.Phi.?(child.op))
-                && !(node.id == child.value_deps[0].id)
-                && (node.id == child.value_deps[1].id || node.id == child.value_deps[2].id)) 
-            {
-                def cond = child.value_deps[0];
-                if (node.id == child.value_deps[1].id && !dominants.has(cond.move_true))
-                    errors.put(ScheduleError.BadOrdering(node, cond.move_true));
-                else if (node.id == child.value_deps[2].id && !dominants.has(cond.move_false))
-                    errors.put(ScheduleError.BadOrdering(node, cond.move_false));
-            } else if (!dominants.has(child)) {
-                errors.put(ScheduleError.BadOrdering(node, child));
-            }
-        }
-
-        return errors.length == prev_err_len;
+        def graphs_eq = new_sea.finish.graph_eq(orig_sea.finish);
+        if (!graphs_eq) errors.put(ScheduleError.GraphDiff);
+        else System.puts("Graphs Equal\n");
     }
 
     // returns scope

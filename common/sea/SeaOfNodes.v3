@@ -467,7 +467,6 @@ class Sea {
             for (dep in node.deps()) dep.children.put(node);
         }
     }
-
 }
 
 component Seas {
@@ -1002,6 +1001,24 @@ class IRNode {
         }
         return deps();
     }
+
+    def graph_eq(rhs: IRNode) -> bool {
+        if (!op.eq(rhs.op)) return false;
+
+        if (value_deps.length != rhs.value_deps.length) return false;
+        if (state_deps.length != rhs.state_deps.length) return false;
+
+        for (i < value_deps.length) 
+            if (!value_deps[i].graph_eq(rhs.value_deps[i])) return false;
+
+        for (i < state_deps.length) {
+            if (state_deps[i] == null && rhs.state_deps[i] == null) return true; // both null
+            if (state_deps[i] == null || rhs.state_deps[i] == null) return false; // one but not both null
+            if (!state_deps[i].graph_eq(rhs.state_deps[i])) return false; // neither-null but not eq
+        }
+
+        return true;
+    }
 }
 
 class VarData {
@@ -1023,4 +1040,32 @@ type IROp {
 
     case Proj(val: bool);
     case Move(val: bool); // child should be statephi?
+
+    def eq(rhs: IROp) -> bool {
+        match (this) {
+            Start => return IROp.Start.?(rhs);
+            Finish => return IROp.Finish.?(rhs);
+            Phi => return IROp.Phi.?(rhs);
+            Intrinsic(d1) => match (rhs) {
+                Intrinsic(d2) => return Strings.equal(d1.name, d2.name);
+                _ => return false;
+            }
+            Lit(t1, r1) => match (rhs) {
+                Lit(t2, r2) => return t1 == t2 && Strings.equal(r1, r2);
+                _ => return false;
+            }
+            StatePhi(sc1) => match (rhs) {
+                StatePhi(sc2) => return sc1 == sc2;
+                _ => return false;
+            }
+            Proj(v1) => match (rhs) {
+                Proj(v2) => return v1 == v2;
+                _ => return false;
+            }
+            Move(v1) => match (rhs) {
+                Move(v2) => return v1 == v2;
+                _ => return false;
+            }
+        }
+    }
 }

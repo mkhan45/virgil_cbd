@@ -80,7 +80,7 @@ class SeaScheduler {
     }
 
     def check() {
-        def sc = ScheduleChecker.new(top_block, bottom_block, orig_sea, mapping);
+        def sc = ScheduleChecker.new(top_block, bottom_block, orig_sea, sea, mapping);
         sc.check();
         def errors = sc.errors;
         if (errors.length > 0) {
