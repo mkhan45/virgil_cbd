@@ -1,7 +1,7 @@
 type ScheduleError {
     case BadOrdering(want_fst: IRNode, want_snd: IRNode);
     case UnsatNeed(user: IRNode, needed: IRNode);
-    case GraphDiff;
+    case GraphDiff(diff: DiffResult);
 
     def render(sb: StringBuilder) -> StringBuilder {
         match (this) {
@@ -9,8 +9,8 @@ type ScheduleError {
                 sb.puts("Scheduled ").putq(fst.render).puts(" not dominating child ").putq(snd.render);
             UnsatNeed(user, needed) =>
                 sb.puts("Scheduled ").putq(user.render).puts(" without ").putq(needed.render);
-            GraphDiff =>
-                sb.puts("GraphDiff");
+            GraphDiff(diff) =>
+                sb.puts("GraphDiff: ").putq(diff.render);
         }
 
         return sb;
@@ -31,9 +31,8 @@ class ScheduleChecker {
         orig_sea.rebuildChildren();
         new_sea.rebuildChildren();
         check_top_down(cfg_top, ImmNodeSets.empty());
-        def graphs_eq = new_sea.finish.graph_eq(orig_sea.finish);
-        if (!graphs_eq) errors.put(ScheduleError.GraphDiff);
-        else System.puts("Graphs Equal\n");
+        def graph_diff = new_sea.finish.graph_eq(orig_sea.finish);
+        if (!DiffResult.GraphsEqual.?(graph_diff)) errors.put(ScheduleError.GraphDiff(graph_diff));
     }
 
     // returns scope

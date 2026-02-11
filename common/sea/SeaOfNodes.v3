@@ -1002,22 +1002,60 @@ class IRNode {
         return deps();
     }
 
-    def graph_eq(rhs: IRNode) -> bool {
-        if (!op.eq(rhs.op)) return false;
+    def graph_eq(rhs: IRNode) -> DiffResult {
+        if (!op.eq(rhs.op)) return DiffResult.OpDiff(this, rhs);
 
-        if (value_deps.length != rhs.value_deps.length) return false;
-        if (state_deps.length != rhs.state_deps.length) return false;
+        if (value_deps.length != rhs.value_deps.length) return DiffResult.ValueDepLen(this, rhs);
+        if (state_deps.length != rhs.state_deps.length) return DiffResult.StateDepLen(this, rhs);
 
-        for (i < value_deps.length) 
-            if (!value_deps[i].graph_eq(rhs.value_deps[i])) return false;
+        for (i < value_deps.length) {
+            if (value_deps[i] == null && rhs.value_deps[i] == null) continue; // both null
+            if (value_deps[i] == null || rhs.value_deps[i] == null) 
+                return DiffResult.ValueDiff(this, rhs, i, DiffResult.OneNull(value_deps[i], rhs.value_deps[i]));
 
-        for (i < state_deps.length) {
-            if (state_deps[i] == null && rhs.state_deps[i] == null) return true; // both null
-            if (state_deps[i] == null || rhs.state_deps[i] == null) return false; // one but not both null
-            if (!state_deps[i].graph_eq(rhs.state_deps[i])) return false; // neither-null but not eq
+            def diff_res = value_deps[i].graph_eq(rhs.value_deps[i]);
+            if (!DiffResult.GraphsEqual.?(diff_res))
+                return DiffResult.ValueDiff(this, rhs, i, diff_res);
         }
 
-        return true;
+        for (sc in StateComponent.set.all) {
+            if (state_deps[sc.tag] == null && rhs.state_deps[sc.tag] == null) continue; // both null
+            if (state_deps[sc.tag] == null || rhs.state_deps[sc.tag] == null) 
+                return DiffResult.OneNull(state_deps[sc.tag], rhs.state_deps[sc.tag]);
+
+            def diff_res = state_deps[sc.tag].graph_eq(rhs.state_deps[sc.tag]);
+            if (!DiffResult.GraphsEqual.?(diff_res))
+                return DiffResult.StateDiff(this, rhs, sc, diff_res);
+        }
+
+        return DiffResult.GraphsEqual;
+    }
+}
+
+type DiffResult {
+    case GraphsEqual;
+    case OpDiff(lhs: IRNode, rhs: IRNode);
+    case OneNull(lhs: IRNode, rhs: IRNode);
+    case ValueDepLen(lhs: IRNode, rhs: IRNode);
+    case StateDepLen(lhs: IRNode, rhs: IRNode);
+
+    case ValueDiff(lhs: IRNode, rhs: IRNode, idx: int, reason: DiffResult);
+    case StateDiff(lhs: IRNode, rhs: IRNode, statecomp: StateComponent, reason: DiffResult);
+
+    def render(sb: StringBuilder) -> StringBuilder {
+        match (this) {
+            GraphsEqual => return sb.puts("Graphs Equal");
+            OpDiff(lhs, rhs) => return sb.puts("OpDiff: ").putq(lhs.render).puts(", ").putq(rhs.render);
+            OneNull(lhs, rhs) => return sb.puts("One Null");
+            ValueDepLen(lhs, rhs) => return sb.puts("ValueDepLen difference: ").putq(lhs.render).puts(", ").putq(rhs.render);
+            StateDepLen(lhs, rhs) => return sb.puts("StateDepLen difference: ").putq(lhs.render).puts(", ").putq(rhs.render);
+            ValueDiff(lhs, rhs, idx, reason) => 
+                return sb.puts("ValueDiff between ").putq(lhs.render).puts(" and ").putq(rhs.render).puts(" at idx ").putd(idx)
+                         .puts(": ").putq(reason.render);
+            StateDiff(lhs, rhs, sc, reason) => 
+                return sb.puts("StateDiff between ").putq(lhs.render).puts(" and ").putq(rhs.render).puts(" for statecomp ").puts(sc.name)
+                         .puts(": ").putq(reason.render);
+        }
     }
 }
 
