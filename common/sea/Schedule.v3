@@ -8,14 +8,28 @@ def trap();
 
 class BranchLattice {
     var sea: Sea;
+    var condition: IRNode;
     var frontier: Vector<IRNode>;
     var phis: Vector<IRNode>;
 
     new(sea, frontier, phis) {}
 
     def frontier_eq(rhs: Vector<IRNode>) -> bool {
-        // TODO
-        return false;
+        if (frontier.length != rhs.length) return false;
+
+        for (i < frontier.length) {
+            var has_eq = false;
+            for (j < rhs.length) {
+                if (frontier[i].id == rhs[j].id) {
+                    has_eq = true;
+                    break;
+                }
+            }
+
+            if (!has_eq) return false;
+        }
+
+        return true;
     }
 
     def add_phi(phi: IRNode) -> this {
@@ -50,6 +64,17 @@ class SeaScheduler {
 
         live = Seas.live(sea);
         find_branch_lattices();
+        for (i < branch_lattices.length) {
+            System.puts(Strings.format1("Branch Lattice %d: ", i));
+            for (j < branch_lattices[i].phis.length) {
+                System.puts(Strings.format1("%q, ", branch_lattices[i].phis[j].render));
+            }
+            System.puts(" | Frontier: ");
+            for (j < branch_lattices[i].frontier.length) {
+                System.puts(Strings.format1("%q, ", branch_lattices[i].frontier[j].render));
+            }
+            System.ln();
+        }
     }
 
     def find_branch_lattices() {
