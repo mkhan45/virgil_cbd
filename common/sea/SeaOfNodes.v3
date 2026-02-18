@@ -1030,6 +1030,8 @@ class IRNode {
 
         return DiffResult.GraphsEqual;
     }
+
+    def is_phi() -> bool => IROp.Phi.?(op) || IROp.StatePhi.?(op);
 }
 
 type DiffResult {

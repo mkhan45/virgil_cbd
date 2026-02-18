@@ -6,6 +6,23 @@ def fresh_id() -> int {
 
 def trap();
 
+class BranchLattice {
+    var sea: Sea;
+    var frontier: Vector<IRNode>;
+    var phis: Vector<IRNode>;
+
+    new(sea, frontier, phis) {}
+
+    def frontier_eq(rhs: Vector<IRNode>) -> bool {
+        // TODO
+        return false;
+    }
+
+    def add_phi(phi: IRNode) -> this {
+        phis.put(phi);
+    }
+}
+
 class SeaScheduler {
     var sea: Sea;
     var orig_sea: Sea;
@@ -21,6 +38,8 @@ class SeaScheduler {
     var bottom_block: ScheduleNode;
     var top_block: ScheduleNode;
 
+    var branch_lattices: Vector<BranchLattice> = Vector.new();
+
     new(orig_sea, orig_top_node: IRNode, orig_bottom_node: IRNode) {
         def clone = Seas.clone(orig_sea);
         sea = clone.0;
@@ -30,6 +49,34 @@ class SeaScheduler {
         bottom_node = mapping[orig_bottom_node];
 
         live = Seas.live(sea);
+        find_branch_lattices();
+    }
+
+    def find_branch_lattices() {
+        branch_lattices = Vector.new();
+
+        live.apply(fun (n: IRNode) {
+            if (!n.is_phi()) return;
+
+            def left = n.value_deps[1], right = n.value_deps[2];
+            def frontier = sea.findTop2(left, right);
+
+            var dest_bl: BranchLattice = null;
+            for (i < branch_lattices.length) {
+                def bl = branch_lattices[i];
+                if (bl.frontier_eq(frontier)) {
+                    dest_bl = bl;
+                    break;
+                }
+            }
+
+            if (dest_bl != null) {
+                dest_bl.add_phi(n);
+            } else {
+                dest_bl = BranchLattice.new(sea, frontier, Vectors.of1(n));
+                branch_lattices.put(dest_bl);
+            }
+        });
     }
 
     def toMermaid() -> string {
