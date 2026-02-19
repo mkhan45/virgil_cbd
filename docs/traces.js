@@ -81,6 +81,9 @@ subgraph block_2["Block 2"]
 end
 
 </pre>`;
+window.traces["UNREACHABLE"]["unlem_scheduler_ssa"] = ''
+window.traces["UNREACHABLE"]["unlem_scheduler_ssa"] += `<pre class=''>def eff__0 = trapUnreachable();
+</pre>`;
 window.traces["UNREACHABLE"]["unlem_pretty"] = ''
 window.traces["UNREACHABLE"]["unlem_pretty"] += `<pre class=''>trapUnreachable();
 </pre>`;
@@ -182,6 +185,8 @@ subgraph block_4["Block 4"]
 end
 
 </pre>`;
+window.traces["NOP"]["unlem_scheduler_ssa"] = ''
+window.traces["NOP"]["unlem_scheduler_ssa"] += `<pre class=''></pre>`;
 window.traces["NOP"]["unlem_pretty"] = ''
 window.traces["NOP"]["unlem_pretty"] += `<pre class=''></pre>`;
 window.traces["NOP"]["constUnLEM"] = ''
@@ -313,6 +318,10 @@ subgraph block_6["Block 6"]
 	b6_3 --> b6_1
 end
 
+</pre>`;
+window.traces["BLOCK"]["unlem_scheduler_ssa"] = ''
+window.traces["BLOCK"]["unlem_scheduler_ssa"] += `<pre class=''>def bt = imm_readBlockType();
+def eff__2 = doBlock(bt);
 </pre>`;
 window.traces["BLOCK"]["unlem_pretty"] = ''
 window.traces["BLOCK"]["unlem_pretty"] += `<pre class=''>def bt = imm_readBlockType();
@@ -463,6 +472,10 @@ subgraph block_8["Block 8"]
 	b8_3 --> b8_1
 end
 
+</pre>`;
+window.traces["LOOP"]["unlem_scheduler_ssa"] = ''
+window.traces["LOOP"]["unlem_scheduler_ssa"] += `<pre class=''>def bt = imm_readBlockType();
+def eff__4 = doLoop(bt);
 </pre>`;
 window.traces["LOOP"]["unlem_pretty"] = ''
 window.traces["LOOP"]["unlem_pretty"] += `<pre class=''>def bt = imm_readBlockType();
@@ -1002,6 +1015,31 @@ end
 branch_21 --> block_24
 
 </pre>`;
+window.traces["IF"]["unlem_scheduler_ssa"] = ''
+window.traces["IF"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__11 : u32 = 0;
+def abs__14 = lift_u32(arg__11);
+def cond = pop_u32();
+def bt = imm_readBlockType();
+def cond__6 = U32_equals(cond, abs__14);
+def label = doIf(bt);
+def mf__20 = U32_maybeFalse(cond__6);
+def mt__19 = U32_maybeTrue(cond__6);
+def mb__21 = bool.&&(mt__19, mf__20);
+if (mb__21) {
+	def eff__9__23 = doFallthru();
+	def eff__7__25 = doBranch(label);
+	def eff_merge__22__24 = merge(eff__7__25, eff__9__23);
+} else {
+	if (mt__19) {
+		def eff__7__27__33 = doBranch(label);
+	} else {
+		def eff__9__26__34 = doFallthru();
+	}
+// phis: 
+}
+// phis: 
+def eff_st_put__13 = ctlxfer.put_IF(label);
+</pre>`;
 window.traces["IF"]["unlem_pretty"] = ''
 window.traces["IF"]["unlem_pretty"] += `<pre class=''>def bt = imm_readBlockType();
 def cond = pop_u32();
@@ -1219,6 +1257,11 @@ subgraph block_26["Block 26"]
 end
 
 </pre>`;
+window.traces["ELSE"]["unlem_scheduler_ssa"] = ''
+window.traces["ELSE"]["unlem_scheduler_ssa"] += `<pre class=''>def label = doElse();
+def eff__37 = doBranch(label);
+def eff_st_put__39 = ctlxfer.put_ELSE(label);
+</pre>`;
 window.traces["ELSE"]["unlem_pretty"] = ''
 window.traces["ELSE"]["unlem_pretty"] += `<pre class=''>def label = doElse();
 doBranch(label);
@@ -1377,6 +1420,10 @@ subgraph block_28["Block 28"]
 	b28_3 --> b28_1
 end
 
+</pre>`;
+window.traces["TRY"]["unlem_scheduler_ssa"] = ''
+window.traces["TRY"]["unlem_scheduler_ssa"] += `<pre class=''>def bt = imm_readBlockType();
+def eff__40 = doTry(bt);
 </pre>`;
 window.traces["TRY"]["unlem_pretty"] = ''
 window.traces["TRY"]["unlem_pretty"] += `<pre class=''>def bt = imm_readBlockType();
@@ -1815,6 +1862,16 @@ end
 branch_36 --> block_39
 
 </pre>`;
+window.traces["END"]["unlem_scheduler_ssa"] = ''
+window.traces["END"]["unlem_scheduler_ssa"] += `<pre class=''>def cond__42 = f_isAtEnd();
+if (cond__42) {
+	def eff__44 = doEnd();
+	def eff__43__47 = doReturn();
+} else {
+	def eff__44__48 = doEnd();
+}
+// phis: 
+</pre>`;
 window.traces["END"]["unlem_pretty"] = ''
 window.traces["END"]["unlem_pretty"] += `<pre class=''>if (f_isAtEnd()) {
 	doEnd();
@@ -2018,6 +2075,12 @@ subgraph block_42["Block 42"]
 	b42_5 --> b42_1
 end
 
+</pre>`;
+window.traces["BR"]["unlem_scheduler_ssa"] = ''
+window.traces["BR"]["unlem_scheduler_ssa"] += `<pre class=''>def depth = imm_readULEB32();
+def label = f_getLabel(depth);
+def eff__49 = doBranch(label);
+def eff_st_put__52 = ctlxfer.put_BR(label);
 </pre>`;
 window.traces["BR"]["unlem_pretty"] = ''
 window.traces["BR"]["unlem_pretty"] += `<pre class=''>def depth = imm_readULEB32();
@@ -2623,6 +2686,35 @@ end
 branch_55 --> block_58
 
 </pre>`;
+window.traces["BR_IF"]["unlem_scheduler_ssa"] = ''
+window.traces["BR_IF"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__58 : u32 = 0;
+def abs__61 = lift_u32(arg__58);
+def cond = pop_u32();
+def depth = imm_readULEB32();
+def cond__53__77 = U32_not_equals(cond, abs__61);
+def cond__53 = U32_not_equals(cond, abs__61);
+def mt__68__76 = U32_maybeTrue(cond__53__77);
+def mf__69 = U32_maybeFalse(cond__53);
+def mt__68 = U32_maybeTrue(cond__53);
+def mb__70 = bool.&&(mt__68, mf__69);
+if (mb__70) {
+	def label__75 = f_getLabel(depth);
+	def eff__56__72 = doFallthru();
+	def eff__54__73 = doBranch(label__75);
+	def eff_merge__71__74 = merge(eff__54__73, eff__56__72);
+} else {
+	if (mt__68__76) {
+		def label__80__88 = f_getLabel(depth);
+		def eff__54__79__89 = doBranch(label__80__88);
+	} else {
+		def eff__56__78__90 = doFallthru();
+	}
+// phis: 
+}
+// phis: 
+def label = f_getLabel(depth);
+def eff_st_put__60 = ctlxfer.put_BR_IF(label);
+</pre>`;
 window.traces["BR_IF"]["unlem_pretty"] = ''
 window.traces["BR_IF"]["unlem_pretty"] += `<pre class=''>def depth = imm_readULEB32();
 def cond = pop_u32();
@@ -2873,6 +2965,12 @@ subgraph block_60["Block 60"]
 end
 
 </pre>`;
+window.traces["BR_TABLE"]["unlem_scheduler_ssa"] = ''
+window.traces["BR_TABLE"]["unlem_scheduler_ssa"] += `<pre class=''>def key = pop_u32();
+def labels = imm_readLabels();
+def eff__94 = doSwitch(labels, key);
+def eff_st_put__97 = ctlxfer.put_BR_TABLE(labels);
+</pre>`;
 window.traces["BR_TABLE"]["unlem_pretty"] = ''
 window.traces["BR_TABLE"]["unlem_pretty"] += `<pre class=''>def labels = imm_readLabels();
 def key = pop_u32();
@@ -3020,6 +3118,9 @@ subgraph block_62["Block 62"]
 	b62_2 --> b62_1
 end
 
+</pre>`;
+window.traces["RETURN"]["unlem_scheduler_ssa"] = ''
+window.traces["RETURN"]["unlem_scheduler_ssa"] += `<pre class=''>def eff__98 = doReturn();
 </pre>`;
 window.traces["RETURN"]["unlem_pretty"] = ''
 window.traces["RETURN"]["unlem_pretty"] += `<pre class=''>doReturn();
@@ -3196,6 +3297,12 @@ subgraph block_64["Block 64"]
 	b64_5 --> b64_1
 end
 
+</pre>`;
+window.traces["CALL"]["unlem_scheduler_ssa"] = ''
+window.traces["CALL"]["unlem_scheduler_ssa"] += `<pre class=''>def index = imm_readULEB32();
+def target = i_getFunction(index);
+def sig = m_getFuncSignature(index);
+def eff__99 = doCall(sig, target);
 </pre>`;
 window.traces["CALL"]["unlem_pretty"] = ''
 window.traces["CALL"]["unlem_pretty"] += `<pre class=''>def index = imm_readULEB32();
@@ -3722,6 +3829,23 @@ end
 branch_72 --> block_75
 
 </pre>`;
+window.traces["CALL_INDIRECT"]["unlem_scheduler_ssa"] = ''
+window.traces["CALL_INDIRECT"]["unlem_scheduler_ssa"] += `<pre class=''>def sig_index = imm_readULEB32();
+def sig = m_getSignature(sig_index);
+def table_index = imm_readULEB32();
+def is64 = m_isTable64(table_index);
+if (is64) {
+	def func_index = pop_u64();
+	def target__128 = i_getTableFunction64(table_index, sig, func_index);
+	def eff__105__129 = doCall(sig, target__128);
+} else {
+	def func_index = pop_u32();
+	def target__130 = i_getTableFunction32(table_index, sig, func_index);
+	def eff__111__131 = doCall(sig, target__130);
+}
+// phis: 
+def eff_st_put__119 = ctlxfer.put_CALL_INDIRECT(is64);
+</pre>`;
 window.traces["CALL_INDIRECT"]["unlem_pretty"] = ''
 window.traces["CALL_INDIRECT"]["unlem_pretty"] += `<pre class=''>def sig_index = imm_readULEB32();
 def sig = m_getSignature(sig_index);
@@ -4014,6 +4138,12 @@ subgraph block_78["Block 78"]
 end
 
 </pre>`;
+window.traces["RETURN_CALL"]["unlem_scheduler_ssa"] = ''
+window.traces["RETURN_CALL"]["unlem_scheduler_ssa"] += `<pre class=''>def index = imm_readULEB32();
+def target = i_getFunction(index);
+def sig = m_getFuncSignature(index);
+def eff__136 = doReturnCall(sig, target);
+</pre>`;
 window.traces["RETURN_CALL"]["unlem_pretty"] = ''
 window.traces["RETURN_CALL"]["unlem_pretty"] += `<pre class=''>def index = imm_readULEB32();
 def sig = m_getFuncSignature(index);
@@ -4179,6 +4309,10 @@ subgraph block_80["Block 80"]
 	b80_3 --> b80_1
 end
 
+</pre>`;
+window.traces["DROP"]["unlem_scheduler_ssa"] = ''
+window.traces["DROP"]["unlem_scheduler_ssa"] += `<pre class=''>def tv = f_getTopOfStackType();
+def eff__141 = pop_Value(tv);
 </pre>`;
 window.traces["DROP"]["unlem_pretty"] = ''
 window.traces["DROP"]["unlem_pretty"] += `<pre class=''>def tv = f_getTopOfStackType();
@@ -4736,6 +4870,30 @@ end
 branch_93 --> block_96
 
 </pre>`;
+window.traces["SELECT"]["unlem_scheduler_ssa"] = ''
+window.traces["SELECT"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__151 : u32 = 0;
+def abs__154 = lift_u32(arg__151);
+def c = pop_u32();
+def tv = f_getTopOfStackType();
+def b = pop_Value(tv);
+def a = pop_Value(tv);
+def cond__143 = U32_not_equals(c, abs__154);
+def mf__158 = U32_maybeFalse(cond__143);
+def mt__157 = U32_maybeTrue(cond__143);
+def mb__159 = bool.&&(mt__157, mf__158);
+if (mb__159) {
+	def merge__160__162 = merge_Val(tv, a, b);
+	def push__161__163 = push_Value(tv, merge__160__162);
+} else {
+	if (mt__157) {
+		def eff__144__165__166 = push_Value(tv, a);
+	} else {
+		def eff__147__164__167 = push_Value(tv, b);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["SELECT"]["unlem_pretty"] = ''
 window.traces["SELECT"]["unlem_pretty"] += `<pre class=''>def c = pop_u32();
 def tv = f_getTopOfStackType();
@@ -4979,6 +5137,12 @@ subgraph block_98["Block 98"]
 end
 
 </pre>`;
+window.traces["LOCAL_GET"]["unlem_scheduler_ssa"] = ''
+window.traces["LOCAL_GET"]["unlem_scheduler_ssa"] += `<pre class=''>def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = getLocal(tv, index);
+def eff__168 = push_Value(tv, val);
+</pre>`;
 window.traces["LOCAL_GET"]["unlem_pretty"] = ''
 window.traces["LOCAL_GET"]["unlem_pretty"] += `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
@@ -5204,6 +5368,12 @@ subgraph block_100["Block 100"]
 	b100_5 --> b100_1
 end
 
+</pre>`;
+window.traces["LOCAL_SET"]["unlem_scheduler_ssa"] = ''
+window.traces["LOCAL_SET"]["unlem_scheduler_ssa"] += `<pre class=''>def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__174 = setLocal(tv, index, val);
 </pre>`;
 window.traces["LOCAL_SET"]["unlem_pretty"] = ''
 window.traces["LOCAL_SET"]["unlem_pretty"] += `<pre class=''>def index = imm_readULEB32();
@@ -5458,6 +5628,13 @@ subgraph block_102["Block 102"]
 end
 
 </pre>`;
+window.traces["LOCAL_TEE"]["unlem_scheduler_ssa"] = ''
+window.traces["LOCAL_TEE"]["unlem_scheduler_ssa"] += `<pre class=''>def index = imm_readULEB32();
+def tv = f_getLocalType(index);
+def val = pop_Value(tv);
+def eff__183 = setLocal(tv, index, val);
+def eff__180 = push_Value(tv, val);
+</pre>`;
 window.traces["LOCAL_TEE"]["unlem_pretty"] = ''
 window.traces["LOCAL_TEE"]["unlem_pretty"] += `<pre class=''>def index = imm_readULEB32();
 def tv = f_getLocalType(index);
@@ -5693,6 +5870,12 @@ subgraph block_104["Block 104"]
 end
 
 </pre>`;
+window.traces["GLOBAL_GET"]["unlem_scheduler_ssa"] = ''
+window.traces["GLOBAL_GET"]["unlem_scheduler_ssa"] += `<pre class=''>def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = getGlobal(tv, index);
+def eff__189 = push_Value(tv, val);
+</pre>`;
 window.traces["GLOBAL_GET"]["unlem_pretty"] = ''
 window.traces["GLOBAL_GET"]["unlem_pretty"] += `<pre class=''>def index = imm_readULEB32();
 def tv = m_getGlobalType(index);
@@ -5918,6 +6101,12 @@ subgraph block_106["Block 106"]
 	b106_5 --> b106_1
 end
 
+</pre>`;
+window.traces["GLOBAL_SET"]["unlem_scheduler_ssa"] = ''
+window.traces["GLOBAL_SET"]["unlem_scheduler_ssa"] += `<pre class=''>def index = imm_readULEB32();
+def tv = m_getGlobalType(index);
+def val = pop_Value(tv);
+def eff__195 = setGlobal(tv, index, val);
 </pre>`;
 window.traces["GLOBAL_SET"]["unlem_pretty"] = ''
 window.traces["GLOBAL_SET"]["unlem_pretty"] += `<pre class=''>def index = imm_readULEB32();
@@ -6344,6 +6533,20 @@ end
 branch_114 --> block_117
 
 </pre>`;
+window.traces["TABLE_GET"]["unlem_scheduler_ssa"] = ''
+window.traces["TABLE_GET"]["unlem_scheduler_ssa"] += `<pre class=''>def table_index = imm_readULEB32();
+def cond__201 = m_isTable64(table_index);
+if (cond__201) {
+	def index = pop_u64();
+	def val__215 = mach_readTable64(table_index, index);
+	def eff__202__216 = push_Object(val__215);
+} else {
+	def index = pop_u32();
+	def val__217 = mach_readTable32(table_index, index);
+	def eff__206__218 = push_Object(val__217);
+}
+// phis: 
+</pre>`;
 window.traces["TABLE_GET"]["unlem_pretty"] = ''
 window.traces["TABLE_GET"]["unlem_pretty"] += `<pre class=''>def table_index = imm_readULEB32();
 def cond = m_isTable64(table_index);
@@ -6752,6 +6955,18 @@ subgraph block_129["Block 129"]
 end
 branch_126 --> block_129
 
+</pre>`;
+window.traces["TABLE_SET"]["unlem_scheduler_ssa"] = ''
+window.traces["TABLE_SET"]["unlem_scheduler_ssa"] += `<pre class=''>def table_index = imm_readULEB32();
+def cond__219 = m_isTable64(table_index);
+if (cond__219) {
+	def val__233 = pop_Object();
+	def index__234 = pop_u64();
+} else {
+	def val__235 = pop_Object();
+	def index__236 = pop_u32();
+}
+// phis: 
 </pre>`;
 window.traces["TABLE_SET"]["unlem_pretty"] = ''
 window.traces["TABLE_SET"]["unlem_pretty"] += `<pre class=''>def table_index = imm_readULEB32();
@@ -7619,6 +7834,31 @@ subgraph block_146["Block 146"]
 end
 branch_143 --> block_146
 
+</pre>`;
+window.traces["I32_LOAD"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_LOAD"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__254 : byte = 0x40u8;
+def arg__252 : byte = 0;
+def arg__251 = u8.&(flags, arg__254);
+def cond__249 = u8.!=(arg__251, arg__252);
+if (cond__249) {
+	def memindex__250__289 = imm_readULEB32();
+} else {
+	def memindex__256__290 : u32 = 0u;
+}
+// phis: 
+def cond__237 = m_isMemory64(memindex);
+if (cond__237) {
+	def offset__281 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32(memindex, index, offset__281);
+	def eff__238 = push_u32(val);
+} else {
+	def offset__282 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32(memindex, index, offset__282);
+	def eff__243 = push_u32(val);
+}
+// phis: 
 </pre>`;
 window.traces["I32_LOAD"]["unlem_pretty"] = ''
 window.traces["I32_LOAD"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
@@ -8596,6 +8836,31 @@ end
 branch_165 --> block_168
 
 </pre>`;
+window.traces["I64_LOAD"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_LOAD"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__322 : byte = 0x40u8;
+def arg__320 : byte = 0;
+def arg__319 = u8.&(flags, arg__322);
+def cond__317 = u8.!=(arg__319, arg__320);
+if (cond__317) {
+	def memindex__318__357 = imm_readULEB32();
+} else {
+	def memindex__324__358 : u32 = 0u;
+}
+// phis: 
+def cond__305 = m_isMemory64(memindex);
+if (cond__305) {
+	def offset__349 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u64(memindex, index, offset__349);
+	def eff__306 = push_u64(val);
+} else {
+	def offset__350 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u64(memindex, index, offset__350);
+	def eff__311 = push_u64(val);
+}
+// phis: 
+</pre>`;
 window.traces["I64_LOAD"]["unlem_pretty"] = ''
 window.traces["I64_LOAD"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -9572,6 +9837,31 @@ end
 branch_187 --> block_190
 
 </pre>`;
+window.traces["F32_LOAD"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_LOAD"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__390 : byte = 0x40u8;
+def arg__388 : byte = 0;
+def arg__387 = u8.&(flags, arg__390);
+def cond__385 = u8.!=(arg__387, arg__388);
+if (cond__385) {
+	def memindex__386__425 = imm_readULEB32();
+} else {
+	def memindex__392__426 : u32 = 0u;
+}
+// phis: 
+def cond__373 = m_isMemory64(memindex);
+if (cond__373) {
+	def offset__417 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_f32(memindex, index, offset__417);
+	def eff__374 = push_f32(val);
+} else {
+	def offset__418 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_f32(memindex, index, offset__418);
+	def eff__379 = push_f32(val);
+}
+// phis: 
+</pre>`;
 window.traces["F32_LOAD"]["unlem_pretty"] = ''
 window.traces["F32_LOAD"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -10547,6 +10837,31 @@ subgraph block_212["Block 212"]
 end
 branch_209 --> block_212
 
+</pre>`;
+window.traces["F64_LOAD"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_LOAD"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__458 : byte = 0x40u8;
+def arg__456 : byte = 0;
+def arg__455 = u8.&(flags, arg__458);
+def cond__453 = u8.!=(arg__455, arg__456);
+if (cond__453) {
+	def memindex__454__493 = imm_readULEB32();
+} else {
+	def memindex__460__494 : u32 = 0u;
+}
+// phis: 
+def cond__441 = m_isMemory64(memindex);
+if (cond__441) {
+	def offset__485 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_f64(memindex, index, offset__485);
+	def eff__442 = push_f64(val);
+} else {
+	def offset__486 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_f64(memindex, index, offset__486);
+	def eff__447 = push_f64(val);
+}
+// phis: 
 </pre>`;
 window.traces["F64_LOAD"]["unlem_pretty"] = ''
 window.traces["F64_LOAD"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
@@ -11572,6 +11887,33 @@ end
 branch_231 --> block_234
 
 </pre>`;
+window.traces["I32_LOAD8_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_LOAD8_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__528 : byte = 0x40u8;
+def arg__526 : byte = 0;
+def arg__525 = u8.&(flags, arg__528);
+def cond__523 = u8.!=(arg__525, arg__526);
+if (cond__523) {
+	def memindex__524__567 = imm_readULEB32();
+} else {
+	def memindex__530__568 : u32 = 0u;
+}
+// phis: 
+def cond__509 = m_isMemory64(memindex);
+if (cond__509) {
+	def offset__557 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8(memindex, index, offset__557);
+	def extend = U32_extend8_s(val);
+	def eff__510 = push_u32(extend);
+} else {
+	def offset__558 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8(memindex, index, offset__558);
+	def extend = U32_extend8_s(val);
+	def eff__516 = push_u32(extend);
+}
+// phis: 
+</pre>`;
 window.traces["I32_LOAD8_S"]["unlem_pretty"] = ''
 window.traces["I32_LOAD8_S"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -12561,6 +12903,31 @@ subgraph block_256["Block 256"]
 end
 branch_253 --> block_256
 
+</pre>`;
+window.traces["I32_LOAD8_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_LOAD8_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__600 : byte = 0x40u8;
+def arg__598 : byte = 0;
+def arg__597 = u8.&(flags, arg__600);
+def cond__595 = u8.!=(arg__597, arg__598);
+if (cond__595) {
+	def memindex__596__635 = imm_readULEB32();
+} else {
+	def memindex__602__636 : u32 = 0u;
+}
+// phis: 
+def cond__583 = m_isMemory64(memindex);
+if (cond__583) {
+	def offset__627 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8(memindex, index, offset__627);
+	def eff__584 = push_u32(val);
+} else {
+	def offset__628 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8(memindex, index, offset__628);
+	def eff__589 = push_u32(val);
+}
+// phis: 
 </pre>`;
 window.traces["I32_LOAD8_U"]["unlem_pretty"] = ''
 window.traces["I32_LOAD8_U"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
@@ -13586,6 +13953,33 @@ end
 branch_275 --> block_278
 
 </pre>`;
+window.traces["I32_LOAD16_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_LOAD16_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__670 : byte = 0x40u8;
+def arg__668 : byte = 0;
+def arg__667 = u8.&(flags, arg__670);
+def cond__665 = u8.!=(arg__667, arg__668);
+if (cond__665) {
+	def memindex__666__709 = imm_readULEB32();
+} else {
+	def memindex__672__710 : u32 = 0u;
+}
+// phis: 
+def cond__651 = m_isMemory64(memindex);
+if (cond__651) {
+	def offset__699 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16(memindex, index, offset__699);
+	def extend = U32_extend16_s(val);
+	def eff__652 = push_u32(extend);
+} else {
+	def offset__700 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16(memindex, index, offset__700);
+	def extend = U32_extend16_s(val);
+	def eff__658 = push_u32(extend);
+}
+// phis: 
+</pre>`;
 window.traces["I32_LOAD16_S"]["unlem_pretty"] = ''
 window.traces["I32_LOAD16_S"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -14575,6 +14969,31 @@ subgraph block_300["Block 300"]
 end
 branch_297 --> block_300
 
+</pre>`;
+window.traces["I32_LOAD16_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_LOAD16_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__742 : byte = 0x40u8;
+def arg__740 : byte = 0;
+def arg__739 = u8.&(flags, arg__742);
+def cond__737 = u8.!=(arg__739, arg__740);
+if (cond__737) {
+	def memindex__738__777 = imm_readULEB32();
+} else {
+	def memindex__744__778 : u32 = 0u;
+}
+// phis: 
+def cond__725 = m_isMemory64(memindex);
+if (cond__725) {
+	def offset__769 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16(memindex, index, offset__769);
+	def eff__726 = push_u32(val);
+} else {
+	def offset__770 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16(memindex, index, offset__770);
+	def eff__731 = push_u32(val);
+}
+// phis: 
 </pre>`;
 window.traces["I32_LOAD16_U"]["unlem_pretty"] = ''
 window.traces["I32_LOAD16_U"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
@@ -15600,6 +16019,33 @@ end
 branch_319 --> block_322
 
 </pre>`;
+window.traces["I64_LOAD8_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_LOAD8_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__812 : byte = 0x40u8;
+def arg__810 : byte = 0;
+def arg__809 = u8.&(flags, arg__812);
+def cond__807 = u8.!=(arg__809, arg__810);
+if (cond__807) {
+	def memindex__808__851 = imm_readULEB32();
+} else {
+	def memindex__814__852 : u32 = 0u;
+}
+// phis: 
+def cond__793 = m_isMemory64(memindex);
+if (cond__793) {
+	def offset__841 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset__841);
+	def extend = U64_extend8_s(val);
+	def eff__794 = push_u64(extend);
+} else {
+	def offset__842 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset__842);
+	def extend = U64_extend8_s(val);
+	def eff__800 = push_u64(extend);
+}
+// phis: 
+</pre>`;
 window.traces["I64_LOAD8_S"]["unlem_pretty"] = ''
 window.traces["I64_LOAD8_S"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -16589,6 +17035,31 @@ subgraph block_344["Block 344"]
 end
 branch_341 --> block_344
 
+</pre>`;
+window.traces["I64_LOAD8_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_LOAD8_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__884 : byte = 0x40u8;
+def arg__882 : byte = 0;
+def arg__881 = u8.&(flags, arg__884);
+def cond__879 = u8.!=(arg__881, arg__882);
+if (cond__879) {
+	def memindex__880__919 = imm_readULEB32();
+} else {
+	def memindex__886__920 : u32 = 0u;
+}
+// phis: 
+def cond__867 = m_isMemory64(memindex);
+if (cond__867) {
+	def offset__911 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u8_64(memindex, index, offset__911);
+	def eff__868 = push_u64(val);
+} else {
+	def offset__912 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u8_64(memindex, index, offset__912);
+	def eff__873 = push_u64(val);
+}
+// phis: 
 </pre>`;
 window.traces["I64_LOAD8_U"]["unlem_pretty"] = ''
 window.traces["I64_LOAD8_U"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
@@ -17614,6 +18085,33 @@ end
 branch_363 --> block_366
 
 </pre>`;
+window.traces["I64_LOAD16_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_LOAD16_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__954 : byte = 0x40u8;
+def arg__952 : byte = 0;
+def arg__951 = u8.&(flags, arg__954);
+def cond__949 = u8.!=(arg__951, arg__952);
+if (cond__949) {
+	def memindex__950__993 = imm_readULEB32();
+} else {
+	def memindex__956__994 : u32 = 0u;
+}
+// phis: 
+def cond__935 = m_isMemory64(memindex);
+if (cond__935) {
+	def offset__983 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset__983);
+	def extend = U64_extend16_s(val);
+	def eff__936 = push_u64(extend);
+} else {
+	def offset__984 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset__984);
+	def extend = U64_extend16_s(val);
+	def eff__942 = push_u64(extend);
+}
+// phis: 
+</pre>`;
 window.traces["I64_LOAD16_S"]["unlem_pretty"] = ''
 window.traces["I64_LOAD16_S"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -18603,6 +19101,31 @@ subgraph block_388["Block 388"]
 end
 branch_385 --> block_388
 
+</pre>`;
+window.traces["I64_LOAD16_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_LOAD16_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1026 : byte = 0x40u8;
+def arg__1024 : byte = 0;
+def arg__1023 = u8.&(flags, arg__1026);
+def cond__1021 = u8.!=(arg__1023, arg__1024);
+if (cond__1021) {
+	def memindex__1022__1061 = imm_readULEB32();
+} else {
+	def memindex__1028__1062 : u32 = 0u;
+}
+// phis: 
+def cond__1009 = m_isMemory64(memindex);
+if (cond__1009) {
+	def offset__1053 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u16_64(memindex, index, offset__1053);
+	def eff__1010 = push_u64(val);
+} else {
+	def offset__1054 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u16_64(memindex, index, offset__1054);
+	def eff__1015 = push_u64(val);
+}
+// phis: 
 </pre>`;
 window.traces["I64_LOAD16_U"]["unlem_pretty"] = ''
 window.traces["I64_LOAD16_U"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
@@ -19628,6 +20151,33 @@ end
 branch_407 --> block_410
 
 </pre>`;
+window.traces["I64_LOAD32_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_LOAD32_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1096 : byte = 0x40u8;
+def arg__1094 : byte = 0;
+def arg__1093 = u8.&(flags, arg__1096);
+def cond__1091 = u8.!=(arg__1093, arg__1094);
+if (cond__1091) {
+	def memindex__1092__1135 = imm_readULEB32();
+} else {
+	def memindex__1098__1136 : u32 = 0u;
+}
+// phis: 
+def cond__1077 = m_isMemory64(memindex);
+if (cond__1077) {
+	def offset__1125 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset__1125);
+	def extend = U64_extend32_s(val);
+	def eff__1078 = push_u64(extend);
+} else {
+	def offset__1126 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset__1126);
+	def extend = U64_extend32_s(val);
+	def eff__1084 = push_u64(extend);
+}
+// phis: 
+</pre>`;
 window.traces["I64_LOAD32_S"]["unlem_pretty"] = ''
 window.traces["I64_LOAD32_S"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
 var memindex: u32;
@@ -20617,6 +21167,31 @@ subgraph block_432["Block 432"]
 end
 branch_429 --> block_432
 
+</pre>`;
+window.traces["I64_LOAD32_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_LOAD32_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1168 : byte = 0x40u8;
+def arg__1166 : byte = 0;
+def arg__1165 = u8.&(flags, arg__1168);
+def cond__1163 = u8.!=(arg__1165, arg__1166);
+if (cond__1163) {
+	def memindex__1164__1203 = imm_readULEB32();
+} else {
+	def memindex__1170__1204 : u32 = 0u;
+}
+// phis: 
+def cond__1151 = m_isMemory64(memindex);
+if (cond__1151) {
+	def offset__1195 = imm_readULEB64();
+	def index = pop_u64();
+	def val = mach_readMemory64_u32_64(memindex, index, offset__1195);
+	def eff__1152 = push_u64(val);
+} else {
+	def offset__1196 = imm_readULEB32();
+	def index = pop_u32();
+	def val = mach_readMemory32_u32_64(memindex, index, offset__1196);
+	def eff__1157 = push_u64(val);
+}
+// phis: 
 </pre>`;
 window.traces["I64_LOAD32_U"]["unlem_pretty"] = ''
 window.traces["I64_LOAD32_U"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
@@ -21630,6 +22205,30 @@ subgraph block_454["Block 454"]
 end
 branch_451 --> block_454
 
+</pre>`;
+window.traces["I32_STORE"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_STORE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1236 : byte = 0x40u8;
+def arg__1234 : byte = 0;
+def arg__1233 = u8.&(flags, arg__1236);
+def cond__1231 = u8.!=(arg__1233, arg__1234);
+if (cond__1231) {
+	def memindex__1232__1277 = imm_readULEB32();
+} else {
+	def memindex__1238__1278 : u32 = 0u;
+}
+// phis: 
+def val = pop_u32();
+def cond__1219 = m_isMemory64(memindex);
+if (cond__1219) {
+	def index = pop_u64();
+	def offset__1267 = imm_readULEB64();
+	def eff__1220 = mach_writeMemory64_u32(memindex, index, offset__1267, val);
+} else {
+	def index = pop_u32();
+	def offset__1268 = imm_readULEB32();
+	def eff__1225 = mach_writeMemory32_u32(memindex, index, offset__1268, val);
+}
+// phis: 
 </pre>`;
 window.traces["I32_STORE"]["unlem_pretty"] = ''
 window.traces["I32_STORE"]["unlem_pretty"] += `<pre class=''>def val = pop_u32();
@@ -22651,6 +23250,30 @@ end
 branch_473 --> block_476
 
 </pre>`;
+window.traces["I64_STORE"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_STORE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1312 : byte = 0x40u8;
+def arg__1310 : byte = 0;
+def arg__1309 = u8.&(flags, arg__1312);
+def cond__1307 = u8.!=(arg__1309, arg__1310);
+if (cond__1307) {
+	def memindex__1308__1353 = imm_readULEB32();
+} else {
+	def memindex__1314__1354 : u32 = 0u;
+}
+// phis: 
+def val = pop_u64();
+def cond__1295 = m_isMemory64(memindex);
+if (cond__1295) {
+	def index = pop_u64();
+	def offset__1343 = imm_readULEB64();
+	def eff__1296 = mach_writeMemory64_u64(memindex, index, offset__1343, val);
+} else {
+	def index = pop_u32();
+	def offset__1344 = imm_readULEB32();
+	def eff__1301 = mach_writeMemory32_u64(memindex, index, offset__1344, val);
+}
+// phis: 
+</pre>`;
 window.traces["I64_STORE"]["unlem_pretty"] = ''
 window.traces["I64_STORE"]["unlem_pretty"] += `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
@@ -23510,6 +24133,28 @@ subgraph block_498["Block 498"]
 end
 branch_495 --> block_498
 
+</pre>`;
+window.traces["F32_STORE"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_STORE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1388 : byte = 0x40u8;
+def arg__1386 : byte = 0;
+def arg__1385 = u8.&(flags, arg__1388);
+def cond__1383 = u8.!=(arg__1385, arg__1386);
+if (cond__1383) {
+	def memindex__1384__1407 = imm_readULEB32();
+} else {
+	def memindex__1390__1408 : u32 = 0u;
+}
+// phis: 
+def val = pop_f32();
+def cond__1371 = m_isMemory64(memindex);
+if (cond__1371) {
+	def index = pop_u64();
+	def offset__1403 = imm_readULEB64();
+} else {
+	def index = pop_u32();
+	def offset__1404 = imm_readULEB32();
+}
+// phis: 
 </pre>`;
 window.traces["F32_STORE"]["unlem_pretty"] = ''
 window.traces["F32_STORE"]["unlem_pretty"] += `<pre class=''>def val = pop_f32();
@@ -24490,6 +25135,30 @@ subgraph block_520["Block 520"]
 end
 branch_517 --> block_520
 
+</pre>`;
+window.traces["F64_STORE"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_STORE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1432 : byte = 0x40u8;
+def arg__1430 : byte = 0;
+def arg__1429 = u8.&(flags, arg__1432);
+def cond__1427 = u8.!=(arg__1429, arg__1430);
+if (cond__1427) {
+	def memindex__1428__1473 = imm_readULEB32();
+} else {
+	def memindex__1434__1474 : u32 = 0u;
+}
+// phis: 
+def val = pop_f64();
+def cond__1415 = m_isMemory64(memindex);
+if (cond__1415) {
+	def index = pop_u64();
+	def offset__1463 = imm_readULEB64();
+	def eff__1416 = mach_writeMemory64_f64(memindex, index, offset__1463, val);
+} else {
+	def index = pop_u32();
+	def offset__1464 = imm_readULEB32();
+	def eff__1421 = mach_writeMemory32_f64(memindex, index, offset__1464, val);
+}
+// phis: 
 </pre>`;
 window.traces["F64_STORE"]["unlem_pretty"] = ''
 window.traces["F64_STORE"]["unlem_pretty"] += `<pre class=''>def val = pop_f64();
@@ -25511,6 +26180,30 @@ end
 branch_539 --> block_542
 
 </pre>`;
+window.traces["I32_STORE8"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_STORE8"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1508 : byte = 0x40u8;
+def arg__1506 : byte = 0;
+def arg__1505 = u8.&(flags, arg__1508);
+def cond__1503 = u8.!=(arg__1505, arg__1506);
+if (cond__1503) {
+	def memindex__1504__1549 = imm_readULEB32();
+} else {
+	def memindex__1510__1550 : u32 = 0u;
+}
+// phis: 
+def val = pop_u32();
+def cond__1491 = m_isMemory64(memindex);
+if (cond__1491) {
+	def index = pop_u64();
+	def offset__1539 = imm_readULEB64();
+	def eff__1492 = mach_writeMemory64_u8(memindex, index, offset__1539, val);
+} else {
+	def index = pop_u32();
+	def offset__1540 = imm_readULEB32();
+	def eff__1497 = mach_writeMemory32_u8(memindex, index, offset__1540, val);
+}
+// phis: 
+</pre>`;
 window.traces["I32_STORE8"]["unlem_pretty"] = ''
 window.traces["I32_STORE8"]["unlem_pretty"] += `<pre class=''>def val = pop_u32();
 def flags = imm_readU8();
@@ -26530,6 +27223,30 @@ subgraph block_564["Block 564"]
 end
 branch_561 --> block_564
 
+</pre>`;
+window.traces["I32_STORE16"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_STORE16"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1584 : byte = 0x40u8;
+def arg__1582 : byte = 0;
+def arg__1581 = u8.&(flags, arg__1584);
+def cond__1579 = u8.!=(arg__1581, arg__1582);
+if (cond__1579) {
+	def memindex__1580__1625 = imm_readULEB32();
+} else {
+	def memindex__1586__1626 : u32 = 0u;
+}
+// phis: 
+def val = pop_u32();
+def cond__1567 = m_isMemory64(memindex);
+if (cond__1567) {
+	def index = pop_u64();
+	def offset__1615 = imm_readULEB64();
+	def eff__1568 = mach_writeMemory64_u16(memindex, index, offset__1615, val);
+} else {
+	def index = pop_u32();
+	def offset__1616 = imm_readULEB32();
+	def eff__1573 = mach_writeMemory32_u16(memindex, index, offset__1616, val);
+}
+// phis: 
 </pre>`;
 window.traces["I32_STORE16"]["unlem_pretty"] = ''
 window.traces["I32_STORE16"]["unlem_pretty"] += `<pre class=''>def val = pop_u32();
@@ -27551,6 +28268,30 @@ end
 branch_583 --> block_586
 
 </pre>`;
+window.traces["I64_STORE8"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_STORE8"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1660 : byte = 0x40u8;
+def arg__1658 : byte = 0;
+def arg__1657 = u8.&(flags, arg__1660);
+def cond__1655 = u8.!=(arg__1657, arg__1658);
+if (cond__1655) {
+	def memindex__1656__1701 = imm_readULEB32();
+} else {
+	def memindex__1662__1702 : u32 = 0u;
+}
+// phis: 
+def val = pop_u64();
+def cond__1643 = m_isMemory64(memindex);
+if (cond__1643) {
+	def index = pop_u64();
+	def offset__1691 = imm_readULEB64();
+	def eff__1644 = mach_writeMemory64_u8_64(memindex, index, offset__1691, val);
+} else {
+	def index = pop_u32();
+	def offset__1692 = imm_readULEB32();
+	def eff__1649 = mach_writeMemory32_u8_64(memindex, index, offset__1692, val);
+}
+// phis: 
+</pre>`;
 window.traces["I64_STORE8"]["unlem_pretty"] = ''
 window.traces["I64_STORE8"]["unlem_pretty"] += `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
@@ -28570,6 +29311,30 @@ subgraph block_608["Block 608"]
 end
 branch_605 --> block_608
 
+</pre>`;
+window.traces["I64_STORE16"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_STORE16"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1736 : byte = 0x40u8;
+def arg__1734 : byte = 0;
+def arg__1733 = u8.&(flags, arg__1736);
+def cond__1731 = u8.!=(arg__1733, arg__1734);
+if (cond__1731) {
+	def memindex__1732__1777 = imm_readULEB32();
+} else {
+	def memindex__1738__1778 : u32 = 0u;
+}
+// phis: 
+def val = pop_u64();
+def cond__1719 = m_isMemory64(memindex);
+if (cond__1719) {
+	def index = pop_u64();
+	def offset__1767 = imm_readULEB64();
+	def eff__1720 = mach_writeMemory64_u16_64(memindex, index, offset__1767, val);
+} else {
+	def index = pop_u32();
+	def offset__1768 = imm_readULEB32();
+	def eff__1725 = mach_writeMemory32_u16_64(memindex, index, offset__1768, val);
+}
+// phis: 
 </pre>`;
 window.traces["I64_STORE16"]["unlem_pretty"] = ''
 window.traces["I64_STORE16"]["unlem_pretty"] += `<pre class=''>def val = pop_u64();
@@ -29591,6 +30356,30 @@ end
 branch_627 --> block_630
 
 </pre>`;
+window.traces["I64_STORE32"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_STORE32"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1812 : byte = 0x40u8;
+def arg__1810 : byte = 0;
+def arg__1809 = u8.&(flags, arg__1812);
+def cond__1807 = u8.!=(arg__1809, arg__1810);
+if (cond__1807) {
+	def memindex__1808__1853 = imm_readULEB32();
+} else {
+	def memindex__1814__1854 : u32 = 0u;
+}
+// phis: 
+def val = pop_u64();
+def cond__1795 = m_isMemory64(memindex);
+if (cond__1795) {
+	def index = pop_u64();
+	def offset__1843 = imm_readULEB64();
+	def eff__1796 = mach_writeMemory64_u32_64(memindex, index, offset__1843, val);
+} else {
+	def index = pop_u32();
+	def offset__1844 = imm_readULEB32();
+	def eff__1801 = mach_writeMemory32_u32_64(memindex, index, offset__1844, val);
+}
+// phis: 
+</pre>`;
 window.traces["I64_STORE32"]["unlem_pretty"] = ''
 window.traces["I64_STORE32"]["unlem_pretty"] += `<pre class=''>def val = pop_u64();
 def flags = imm_readU8();
@@ -30141,9 +30930,7 @@ subgraph block_640["Block 640"]
 	direction TB
 	b640_27["memindex__1880__1887__1893 imm_readULEB32"]
 	b640_4["flags imm_readU8"]
-	b640_18["memindex__1880__1887 imm_readULEB32"]
 	b640_27 --> b640_4
-	b640_4 --> b640_18
 end
 branch_638 --> block_640
 subgraph branch_638["Branch 638"]
@@ -30237,7 +31024,6 @@ if (cond__1871) {
 if (cond__1879) {
 	def memindex__1880__1887__1893 = imm_readULEB32();
 	def flags = imm_readU8();
-	def memindex__1880__1887 = imm_readULEB32();
 } else {
 	def memindex__1886__1894 : u32 = 0u;
 }
@@ -30485,9 +31271,7 @@ subgraph block_655["Block 655"]
 	direction TB
 	b655_27["memindex__1880__1899__1905 imm_readULEB32"]
 	b655_4["flags imm_readU8"]
-	b655_18["memindex__1880__1899 imm_readULEB32"]
 	b655_27 --> b655_4
-	b655_4 --> b655_18
 end
 branch_653 --> block_655
 subgraph branch_653["Branch 653"]
@@ -30560,6 +31344,31 @@ subgraph block_656["Block 656"]
 end
 branch_653 --> block_656
 
+</pre>`;
+window.traces["MEMORY_SIZE"]["unlem_scheduler_ssa"] = ''
+window.traces["MEMORY_SIZE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1884 : byte = 0x40u8;
+def arg__1882 : byte = 0;
+def arg__1881 = u8.&(flags__1900, arg__1884);
+def cond__1879 = u8.!=(arg__1881, arg__1882);
+if (cond__1879) {
+}
+// phis: 
+def cond__1871 = m_isMemory64(memindex);
+if (cond__1871) {
+	def r__1901 = mach_memorySize64(memindex);
+	def eff__1872__1902 = push_u64(r__1901);
+} else {
+	def r__1903 = mach_memorySize32(memindex);
+	def eff__1875__1904 = push_u32(r__1903);
+}
+// phis: 
+if (cond__1879) {
+	def memindex__1880__1899__1905 = imm_readULEB32();
+	def flags = imm_readU8();
+} else {
+	def memindex__1886__1906 : u32 = 0u;
+}
+// phis: 
 </pre>`;
 window.traces["MEMORY_SIZE"]["unlem_pretty"] = ''
 window.traces["MEMORY_SIZE"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
@@ -31100,9 +31909,7 @@ subgraph block_670["Block 670"]
 	direction TB
 	b670_29["memindex__1922__1929__1935 imm_readULEB32"]
 	b670_3["flags imm_readU8"]
-	b670_20["memindex__1922__1929 imm_readULEB32"]
 	b670_29 --> b670_3
-	b670_3 --> b670_20
 end
 branch_668 --> block_670
 subgraph branch_668["Branch 668"]
@@ -31202,7 +32009,6 @@ if (cond__1911) {
 if (cond__1921) {
 	def memindex__1922__1929__1935 = imm_readULEB32();
 	def flags = imm_readU8();
-	def memindex__1922__1929 = imm_readULEB32();
 } else {
 	def memindex__1928__1936 : u32 = 0u;
 }
@@ -31476,9 +32282,7 @@ subgraph block_685["Block 685"]
 	direction TB
 	b685_29["memindex__1922__1941__1947 imm_readULEB32"]
 	b685_3["flags imm_readU8"]
-	b685_20["memindex__1922__1941 imm_readULEB32"]
 	b685_29 --> b685_3
-	b685_3 --> b685_20
 end
 branch_683 --> block_685
 subgraph branch_683["Branch 683"]
@@ -31555,6 +32359,33 @@ subgraph block_686["Block 686"]
 end
 branch_683 --> block_686
 
+</pre>`;
+window.traces["MEMORY_GROW"]["unlem_scheduler_ssa"] = ''
+window.traces["MEMORY_GROW"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1926 : byte = 0x40u8;
+def arg__1924 : byte = 0;
+def arg__1923 = u8.&(flags__1942, arg__1926);
+def cond__1921 = u8.!=(arg__1923, arg__1924);
+if (cond__1921) {
+}
+// phis: 
+def cond__1911 = m_isMemory64(memindex);
+if (cond__1911) {
+	def val = pop_u64();
+	def r__1943 = mach_memoryGrow64(memindex, val);
+	def eff__1912__1944 = push_u64(r__1943);
+} else {
+	def val = pop_u32();
+	def r__1945 = mach_memoryGrow32(memindex, val);
+	def eff__1916__1946 = push_u32(r__1945);
+}
+// phis: 
+if (cond__1921) {
+	def memindex__1922__1941__1947 = imm_readULEB32();
+	def flags = imm_readU8();
+} else {
+	def memindex__1928__1948 : u32 = 0u;
+}
+// phis: 
 </pre>`;
 window.traces["MEMORY_GROW"]["unlem_pretty"] = ''
 window.traces["MEMORY_GROW"]["unlem_pretty"] += `<pre class=''>def flags = imm_readU8();
@@ -31849,6 +32680,11 @@ subgraph block_698["Block 698"]
 end
 
 </pre>`;
+window.traces["I32_CONST"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_CONST"]["unlem_scheduler_ssa"] += `<pre class=''>def x = imm_readILEB32();
+def abs__1955 = lift_u32(x);
+def eff__1953 = push_u32(abs__1955);
+</pre>`;
 window.traces["I32_CONST"]["unlem_pretty"] = ''
 window.traces["I32_CONST"]["unlem_pretty"] += `<pre class=''>def x = imm_readILEB32();
 push_u32(lift_u32(x));
@@ -32019,6 +32855,11 @@ subgraph block_700["Block 700"]
 	b700_3 --> b700_1
 end
 
+</pre>`;
+window.traces["I64_CONST"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_CONST"]["unlem_scheduler_ssa"] += `<pre class=''>def x = imm_readILEB64();
+def abs__1958 = lift_u64(x);
+def eff__1956 = push_u64(abs__1958);
 </pre>`;
 window.traces["I64_CONST"]["unlem_pretty"] = ''
 window.traces["I64_CONST"]["unlem_pretty"] += `<pre class=''>def x = imm_readILEB64();
@@ -32197,6 +33038,12 @@ subgraph block_702["Block 702"]
 	b702_4 --> b702_1
 end
 
+</pre>`;
+window.traces["F32_CONST"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_CONST"]["unlem_scheduler_ssa"] += `<pre class=''>def x = imm_readU32();
+def abs__1962 = lift_u32(x);
+def arg__1960 = f32_reinterpret_u32(abs__1962);
+def eff__1959 = push_f32(arg__1960);
 </pre>`;
 window.traces["F32_CONST"]["unlem_pretty"] = ''
 window.traces["F32_CONST"]["unlem_pretty"] += `<pre class=''>def x = imm_readU32();
@@ -32378,6 +33225,12 @@ subgraph block_704["Block 704"]
 	b704_4 --> b704_1
 end
 
+</pre>`;
+window.traces["F64_CONST"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_CONST"]["unlem_scheduler_ssa"] += `<pre class=''>def x = imm_readU64();
+def abs__1966 = lift_u64(x);
+def arg__1964 = f64_reinterpret_u64(abs__1966);
+def eff__1963 = push_f64(arg__1964);
 </pre>`;
 window.traces["F64_CONST"]["unlem_pretty"] = ''
 window.traces["F64_CONST"]["unlem_pretty"] += `<pre class=''>def x = imm_readU64();
@@ -32898,6 +33751,31 @@ subgraph block_719["Block 719"]
 end
 branch_716 --> block_719
 
+</pre>`;
+window.traces["I32_EQZ"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_EQZ"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1973 : u32 = 0;
+def arg__1969 : u32 = 1;
+def abs__1974 = lift_u32(arg__1973);
+def a = pop_u32();
+def cond__1967__1985 = U32_equals(a, abs__1974);
+def abs__1976 = lift_u32(arg__1973);
+def abs__1975 = lift_u32(arg__1969);
+def mt__1979__1986 = U32_maybeTrue(cond__1967__1985);
+if (mb__1981) {
+	def cond__1967 = U32_equals(a, abs__1974);
+	def merge__1982 = merge_u(abs__1975, abs__1976);
+	def mf__1980 = U32_maybeFalse(cond__1967);
+	def mt__1979 = U32_maybeTrue(cond__1967);
+	def eff_push__1983__1984 = push_u32(merge__1982);
+} else {
+	if (mt__1979__1986) {
+		def eff__1968__1987__1989 = push_u32(abs__1975);
+	} else {
+		def eff__1970__1988__1990 = push_u32(abs__1976);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I32_EQZ"]["unlem_pretty"] = ''
 window.traces["I32_EQZ"]["unlem_pretty"] += `<pre class=''>def a = pop_u32();
@@ -33442,6 +34320,32 @@ subgraph block_736["Block 736"]
 end
 branch_733 --> block_736
 
+</pre>`;
+window.traces["I32_EQ"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_EQ"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1995 : u32 = 0;
+def arg__1993 : u32 = 1;
+def b = pop_u32();
+def a = pop_u32();
+def cond__1991__2008 = U32_equals(a, b);
+def abs__1999 = lift_u32(arg__1995);
+def abs__1998 = lift_u32(arg__1993);
+def cond__1991 = U32_equals(a, b);
+def mt__2002__2009 = U32_maybeTrue(cond__1991__2008);
+def mf__2003 = U32_maybeFalse(cond__1991);
+def mt__2002 = U32_maybeTrue(cond__1991);
+def mb__2004 = bool.&&(mt__2002, mf__2003);
+if (mb__2004) {
+	def merge__2005 = merge_u(abs__1998, abs__1999);
+	def eff_push__2006__2007 = push_u32(merge__2005);
+} else {
+	if (mt__2002__2009) {
+		def eff__1992__2010__2012 = push_u32(abs__1998);
+	} else {
+		def eff__1994__2011__2013 = push_u32(abs__1999);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I32_EQ"]["unlem_pretty"] = ''
 window.traces["I32_EQ"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -33993,6 +34897,32 @@ subgraph block_752["Block 752"]
 end
 branch_749 --> block_752
 
+</pre>`;
+window.traces["I32_NE"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_NE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2018 : u32 = 0;
+def arg__2016 : u32 = 1;
+def b = pop_u32();
+def a = pop_u32();
+def cond__2014__2031 = U32_not_equals(a, b);
+def abs__2022 = lift_u32(arg__2018);
+def abs__2021 = lift_u32(arg__2016);
+def cond__2014 = U32_not_equals(a, b);
+def mt__2025__2032 = U32_maybeTrue(cond__2014__2031);
+def mf__2026 = U32_maybeFalse(cond__2014);
+def mt__2025 = U32_maybeTrue(cond__2014);
+def mb__2027 = bool.&&(mt__2025, mf__2026);
+if (mb__2027) {
+	def merge__2028 = merge_u(abs__2021, abs__2022);
+	def eff_push__2029__2030 = push_u32(merge__2028);
+} else {
+	if (mt__2025__2032) {
+		def eff__2015__2033__2035 = push_u32(abs__2021);
+	} else {
+		def eff__2017__2034__2036 = push_u32(abs__2022);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I32_NE"]["unlem_pretty"] = ''
 window.traces["I32_NE"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -34546,6 +35476,32 @@ end
 branch_765 --> block_768
 
 </pre>`;
+window.traces["I32_LT_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_LT_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2041 : u32 = 0;
+def arg__2039 : u32 = 1;
+def b = pop_u32();
+def a = pop_u32();
+def cond__2037__2054 = U32_lt_s(a, b);
+def abs__2045 = lift_u32(arg__2041);
+def abs__2044 = lift_u32(arg__2039);
+def cond__2037 = U32_lt_s(a, b);
+def mt__2048__2055 = U32_maybeTrue(cond__2037__2054);
+def mf__2049 = U32_maybeFalse(cond__2037);
+def mt__2048 = U32_maybeTrue(cond__2037);
+def mb__2050 = bool.&&(mt__2048, mf__2049);
+if (mb__2050) {
+	def merge__2051 = merge_u(abs__2044, abs__2045);
+	def eff_push__2052__2053 = push_u32(merge__2051);
+} else {
+	if (mt__2048__2055) {
+		def eff__2038__2056__2058 = push_u32(abs__2044);
+	} else {
+		def eff__2040__2057__2059 = push_u32(abs__2045);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["I32_LT_S"]["unlem_pretty"] = ''
 window.traces["I32_LT_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -35096,6 +36052,32 @@ subgraph block_784["Block 784"]
 end
 branch_781 --> block_784
 
+</pre>`;
+window.traces["I32_LT_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_LT_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2064 : u32 = 0;
+def arg__2062 : u32 = 1;
+def b = pop_u32();
+def a = pop_u32();
+def cond__2060__2077 = U32_lt(a, b);
+def abs__2068 = lift_u32(arg__2064);
+def abs__2067 = lift_u32(arg__2062);
+def cond__2060 = U32_lt(a, b);
+def mt__2071__2078 = U32_maybeTrue(cond__2060__2077);
+def mf__2072 = U32_maybeFalse(cond__2060);
+def mt__2071 = U32_maybeTrue(cond__2060);
+def mb__2073 = bool.&&(mt__2071, mf__2072);
+if (mb__2073) {
+	def merge__2074 = merge_u(abs__2067, abs__2068);
+	def eff_push__2075__2076 = push_u32(merge__2074);
+} else {
+	if (mt__2071__2078) {
+		def eff__2061__2079__2081 = push_u32(abs__2067);
+	} else {
+		def eff__2063__2080__2082 = push_u32(abs__2068);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I32_LT_U"]["unlem_pretty"] = ''
 window.traces["I32_LT_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -35648,6 +36630,32 @@ end
 branch_797 --> block_800
 
 </pre>`;
+window.traces["I32_GT_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_GT_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2087 : u32 = 0;
+def arg__2085 : u32 = 1;
+def b = pop_u32();
+def a = pop_u32();
+def cond__2083__2100 = U32_gt_s(a, b);
+def abs__2091 = lift_u32(arg__2087);
+def abs__2090 = lift_u32(arg__2085);
+def cond__2083 = U32_gt_s(a, b);
+def mt__2094__2101 = U32_maybeTrue(cond__2083__2100);
+def mf__2095 = U32_maybeFalse(cond__2083);
+def mt__2094 = U32_maybeTrue(cond__2083);
+def mb__2096 = bool.&&(mt__2094, mf__2095);
+if (mb__2096) {
+	def merge__2097 = merge_u(abs__2090, abs__2091);
+	def eff_push__2098__2099 = push_u32(merge__2097);
+} else {
+	if (mt__2094__2101) {
+		def eff__2084__2102__2104 = push_u32(abs__2090);
+	} else {
+		def eff__2086__2103__2105 = push_u32(abs__2091);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["I32_GT_S"]["unlem_pretty"] = ''
 window.traces["I32_GT_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -36198,6 +37206,32 @@ subgraph block_816["Block 816"]
 end
 branch_813 --> block_816
 
+</pre>`;
+window.traces["I32_GT_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_GT_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2110 : u32 = 0;
+def arg__2108 : u32 = 1;
+def b = pop_u32();
+def a = pop_u32();
+def cond__2106__2123 = U32_gt(a, b);
+def abs__2114 = lift_u32(arg__2110);
+def abs__2113 = lift_u32(arg__2108);
+def cond__2106 = U32_gt(a, b);
+def mt__2117__2124 = U32_maybeTrue(cond__2106__2123);
+def mf__2118 = U32_maybeFalse(cond__2106);
+def mt__2117 = U32_maybeTrue(cond__2106);
+def mb__2119 = bool.&&(mt__2117, mf__2118);
+if (mb__2119) {
+	def merge__2120 = merge_u(abs__2113, abs__2114);
+	def eff_push__2121__2122 = push_u32(merge__2120);
+} else {
+	if (mt__2117__2124) {
+		def eff__2107__2125__2127 = push_u32(abs__2113);
+	} else {
+		def eff__2109__2126__2128 = push_u32(abs__2114);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I32_GT_U"]["unlem_pretty"] = ''
 window.traces["I32_GT_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -36750,6 +37784,32 @@ end
 branch_829 --> block_832
 
 </pre>`;
+window.traces["I32_LE_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_LE_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2133 : u32 = 0;
+def arg__2131 : u32 = 1;
+def b = pop_u32();
+def a = pop_u32();
+def cond__2129__2146 = U32_le_s(a, b);
+def abs__2137 = lift_u32(arg__2133);
+def abs__2136 = lift_u32(arg__2131);
+def cond__2129 = U32_le_s(a, b);
+def mt__2140__2147 = U32_maybeTrue(cond__2129__2146);
+def mf__2141 = U32_maybeFalse(cond__2129);
+def mt__2140 = U32_maybeTrue(cond__2129);
+def mb__2142 = bool.&&(mt__2140, mf__2141);
+if (mb__2142) {
+	def merge__2143 = merge_u(abs__2136, abs__2137);
+	def eff_push__2144__2145 = push_u32(merge__2143);
+} else {
+	if (mt__2140__2147) {
+		def eff__2130__2148__2150 = push_u32(abs__2136);
+	} else {
+		def eff__2132__2149__2151 = push_u32(abs__2137);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["I32_LE_S"]["unlem_pretty"] = ''
 window.traces["I32_LE_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -37300,6 +38360,32 @@ subgraph block_848["Block 848"]
 end
 branch_845 --> block_848
 
+</pre>`;
+window.traces["I32_LE_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_LE_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2156 : u32 = 0;
+def arg__2154 : u32 = 1;
+def b = pop_u32();
+def a = pop_u32();
+def cond__2152__2169 = U32_lte(a, b);
+def abs__2160 = lift_u32(arg__2156);
+def abs__2159 = lift_u32(arg__2154);
+def cond__2152 = U32_lte(a, b);
+def mt__2163__2170 = U32_maybeTrue(cond__2152__2169);
+def mf__2164 = U32_maybeFalse(cond__2152);
+def mt__2163 = U32_maybeTrue(cond__2152);
+def mb__2165 = bool.&&(mt__2163, mf__2164);
+if (mb__2165) {
+	def merge__2166 = merge_u(abs__2159, abs__2160);
+	def eff_push__2167__2168 = push_u32(merge__2166);
+} else {
+	if (mt__2163__2170) {
+		def eff__2153__2171__2173 = push_u32(abs__2159);
+	} else {
+		def eff__2155__2172__2174 = push_u32(abs__2160);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I32_LE_U"]["unlem_pretty"] = ''
 window.traces["I32_LE_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -37852,6 +38938,32 @@ end
 branch_861 --> block_864
 
 </pre>`;
+window.traces["I32_GE_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_GE_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2179 : u32 = 0;
+def arg__2177 : u32 = 1;
+def b = pop_u32();
+def a = pop_u32();
+def cond__2175__2192 = U32_ge_s(a, b);
+def abs__2183 = lift_u32(arg__2179);
+def abs__2182 = lift_u32(arg__2177);
+def cond__2175 = U32_ge_s(a, b);
+def mt__2186__2193 = U32_maybeTrue(cond__2175__2192);
+def mf__2187 = U32_maybeFalse(cond__2175);
+def mt__2186 = U32_maybeTrue(cond__2175);
+def mb__2188 = bool.&&(mt__2186, mf__2187);
+if (mb__2188) {
+	def merge__2189 = merge_u(abs__2182, abs__2183);
+	def eff_push__2190__2191 = push_u32(merge__2189);
+} else {
+	if (mt__2186__2193) {
+		def eff__2176__2194__2196 = push_u32(abs__2182);
+	} else {
+		def eff__2178__2195__2197 = push_u32(abs__2183);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["I32_GE_S"]["unlem_pretty"] = ''
 window.traces["I32_GE_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -38403,6 +39515,32 @@ end
 branch_877 --> block_880
 
 </pre>`;
+window.traces["I32_GE_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_GE_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2202 : u32 = 0;
+def arg__2200 : u32 = 1;
+def b = pop_u32();
+def a = pop_u32();
+def cond__2198__2215 = U32_gte(a, b);
+def abs__2206 = lift_u32(arg__2202);
+def abs__2205 = lift_u32(arg__2200);
+def cond__2198 = U32_gte(a, b);
+def mt__2209__2216 = bot_maybeTrue(cond__2198__2215);
+def mf__2210 = bot_maybeFalse(cond__2198);
+def mt__2209 = bot_maybeTrue(cond__2198);
+def mb__2211 = bool.&&(mt__2209, mf__2210);
+if (mb__2211) {
+	def merge__2212 = merge_u(abs__2205, abs__2206);
+	def eff_push__2213__2214 = push_u32(merge__2212);
+} else {
+	if (mt__2209__2216) {
+		def eff__2199__2217__2219 = push_u32(abs__2205);
+	} else {
+		def eff__2201__2218__2220 = push_u32(abs__2206);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["I32_GE_U"]["unlem_pretty"] = ''
 window.traces["I32_GE_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -38943,6 +40081,31 @@ subgraph block_895["Block 895"]
 end
 branch_892 --> block_895
 
+</pre>`;
+window.traces["I64_EQZ"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_EQZ"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2227 : u64 = 0;
+def arg__2223 : u32 = 1;
+def abs__2228 = lift_u64(arg__2227);
+def a = pop_u64();
+def cond__2221__2239 = U64_equals(a, abs__2228);
+def abs__2230 = lift_u32(arg__2227);
+def abs__2229 = lift_u32(arg__2223);
+def mt__2233__2240 = U64_maybeTrue(cond__2221__2239);
+if (mb__2235) {
+	def cond__2221 = U64_equals(a, abs__2228);
+	def merge__2236 = merge_u(abs__2229, abs__2230);
+	def mf__2234 = U64_maybeFalse(cond__2221);
+	def mt__2233 = U64_maybeTrue(cond__2221);
+	def eff_push__2237__2238 = push_u32(merge__2236);
+} else {
+	if (mt__2233__2240) {
+		def eff__2222__2241__2243 = push_u32(abs__2229);
+	} else {
+		def eff__2224__2242__2244 = push_u32(abs__2230);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I64_EQZ"]["unlem_pretty"] = ''
 window.traces["I64_EQZ"]["unlem_pretty"] += `<pre class=''>def a = pop_u64();
@@ -39487,6 +40650,32 @@ subgraph block_912["Block 912"]
 end
 branch_909 --> block_912
 
+</pre>`;
+window.traces["I64_EQ"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_EQ"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2249 : u32 = 0;
+def arg__2247 : u32 = 1;
+def b = pop_u64();
+def a = pop_u64();
+def cond__2245__2262 = U64_equals(a, b);
+def abs__2253 = lift_u32(arg__2249);
+def abs__2252 = lift_u32(arg__2247);
+def cond__2245 = U64_equals(a, b);
+def mt__2256__2263 = U64_maybeTrue(cond__2245__2262);
+def mf__2257 = U64_maybeFalse(cond__2245);
+def mt__2256 = U64_maybeTrue(cond__2245);
+def mb__2258 = bool.&&(mt__2256, mf__2257);
+if (mb__2258) {
+	def merge__2259 = merge_u(abs__2252, abs__2253);
+	def eff_push__2260__2261 = push_u32(merge__2259);
+} else {
+	if (mt__2256__2263) {
+		def eff__2246__2264__2266 = push_u32(abs__2252);
+	} else {
+		def eff__2248__2265__2267 = push_u32(abs__2253);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I64_EQ"]["unlem_pretty"] = ''
 window.traces["I64_EQ"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -40038,6 +41227,32 @@ subgraph block_928["Block 928"]
 end
 branch_925 --> block_928
 
+</pre>`;
+window.traces["I64_NE"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_NE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2272 : u32 = 0;
+def arg__2270 : u32 = 1;
+def b = pop_u64();
+def a = pop_u64();
+def cond__2268__2285 = U64_not_equals(a, b);
+def abs__2276 = lift_u32(arg__2272);
+def abs__2275 = lift_u32(arg__2270);
+def cond__2268 = U64_not_equals(a, b);
+def mt__2279__2286 = U64_maybeTrue(cond__2268__2285);
+def mf__2280 = U64_maybeFalse(cond__2268);
+def mt__2279 = U64_maybeTrue(cond__2268);
+def mb__2281 = bool.&&(mt__2279, mf__2280);
+if (mb__2281) {
+	def merge__2282 = merge_u(abs__2275, abs__2276);
+	def eff_push__2283__2284 = push_u32(merge__2282);
+} else {
+	if (mt__2279__2286) {
+		def eff__2269__2287__2289 = push_u32(abs__2275);
+	} else {
+		def eff__2271__2288__2290 = push_u32(abs__2276);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I64_NE"]["unlem_pretty"] = ''
 window.traces["I64_NE"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -40591,6 +41806,32 @@ end
 branch_941 --> block_944
 
 </pre>`;
+window.traces["I64_LT_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_LT_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2295 : u32 = 0;
+def arg__2293 : u32 = 1;
+def b = pop_u64();
+def a = pop_u64();
+def cond__2291__2308 = U64_lt_s(a, b);
+def abs__2299 = lift_u32(arg__2295);
+def abs__2298 = lift_u32(arg__2293);
+def cond__2291 = U64_lt_s(a, b);
+def mt__2302__2309 = U64_maybeTrue(cond__2291__2308);
+def mf__2303 = U64_maybeFalse(cond__2291);
+def mt__2302 = U64_maybeTrue(cond__2291);
+def mb__2304 = bool.&&(mt__2302, mf__2303);
+if (mb__2304) {
+	def merge__2305 = merge_u(abs__2298, abs__2299);
+	def eff_push__2306__2307 = push_u32(merge__2305);
+} else {
+	if (mt__2302__2309) {
+		def eff__2292__2310__2312 = push_u32(abs__2298);
+	} else {
+		def eff__2294__2311__2313 = push_u32(abs__2299);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["I64_LT_S"]["unlem_pretty"] = ''
 window.traces["I64_LT_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -41141,6 +42382,32 @@ subgraph block_960["Block 960"]
 end
 branch_957 --> block_960
 
+</pre>`;
+window.traces["I64_LT_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_LT_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2318 : u32 = 0;
+def arg__2316 : u32 = 1;
+def b = pop_u64();
+def a = pop_u64();
+def cond__2314__2331 = U64_lt(a, b);
+def abs__2322 = lift_u32(arg__2318);
+def abs__2321 = lift_u32(arg__2316);
+def cond__2314 = U64_lt(a, b);
+def mt__2325__2332 = U64_maybeTrue(cond__2314__2331);
+def mf__2326 = U64_maybeFalse(cond__2314);
+def mt__2325 = U64_maybeTrue(cond__2314);
+def mb__2327 = bool.&&(mt__2325, mf__2326);
+if (mb__2327) {
+	def merge__2328 = merge_u(abs__2321, abs__2322);
+	def eff_push__2329__2330 = push_u32(merge__2328);
+} else {
+	if (mt__2325__2332) {
+		def eff__2315__2333__2335 = push_u32(abs__2321);
+	} else {
+		def eff__2317__2334__2336 = push_u32(abs__2322);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I64_LT_U"]["unlem_pretty"] = ''
 window.traces["I64_LT_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -41693,6 +42960,32 @@ end
 branch_973 --> block_976
 
 </pre>`;
+window.traces["I64_GT_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_GT_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2341 : u32 = 0;
+def arg__2339 : u32 = 1;
+def b = pop_u64();
+def a = pop_u64();
+def cond__2337__2354 = U64_gt_s(a, b);
+def abs__2345 = lift_u32(arg__2341);
+def abs__2344 = lift_u32(arg__2339);
+def cond__2337 = U64_gt_s(a, b);
+def mt__2348__2355 = U64_maybeTrue(cond__2337__2354);
+def mf__2349 = U64_maybeFalse(cond__2337);
+def mt__2348 = U64_maybeTrue(cond__2337);
+def mb__2350 = bool.&&(mt__2348, mf__2349);
+if (mb__2350) {
+	def merge__2351 = merge_u(abs__2344, abs__2345);
+	def eff_push__2352__2353 = push_u32(merge__2351);
+} else {
+	if (mt__2348__2355) {
+		def eff__2338__2356__2358 = push_u32(abs__2344);
+	} else {
+		def eff__2340__2357__2359 = push_u32(abs__2345);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["I64_GT_S"]["unlem_pretty"] = ''
 window.traces["I64_GT_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -42243,6 +43536,32 @@ subgraph block_992["Block 992"]
 end
 branch_989 --> block_992
 
+</pre>`;
+window.traces["I64_GT_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_GT_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2364 : u32 = 0;
+def arg__2362 : u32 = 1;
+def b = pop_u64();
+def a = pop_u64();
+def cond__2360__2377 = U64_gt(a, b);
+def abs__2368 = lift_u32(arg__2364);
+def abs__2367 = lift_u32(arg__2362);
+def cond__2360 = U64_gt(a, b);
+def mt__2371__2378 = U64_maybeTrue(cond__2360__2377);
+def mf__2372 = U64_maybeFalse(cond__2360);
+def mt__2371 = U64_maybeTrue(cond__2360);
+def mb__2373 = bool.&&(mt__2371, mf__2372);
+if (mb__2373) {
+	def merge__2374 = merge_u(abs__2367, abs__2368);
+	def eff_push__2375__2376 = push_u32(merge__2374);
+} else {
+	if (mt__2371__2378) {
+		def eff__2361__2379__2381 = push_u32(abs__2367);
+	} else {
+		def eff__2363__2380__2382 = push_u32(abs__2368);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I64_GT_U"]["unlem_pretty"] = ''
 window.traces["I64_GT_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -42795,6 +44114,32 @@ end
 branch_1005 --> block_1008
 
 </pre>`;
+window.traces["I64_LE_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_LE_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2387 : u32 = 0;
+def arg__2385 : u32 = 1;
+def b = pop_u64();
+def a = pop_u64();
+def cond__2383__2400 = U64_le_s(a, b);
+def abs__2391 = lift_u32(arg__2387);
+def abs__2390 = lift_u32(arg__2385);
+def cond__2383 = U64_le_s(a, b);
+def mt__2394__2401 = U64_maybeTrue(cond__2383__2400);
+def mf__2395 = U64_maybeFalse(cond__2383);
+def mt__2394 = U64_maybeTrue(cond__2383);
+def mb__2396 = bool.&&(mt__2394, mf__2395);
+if (mb__2396) {
+	def merge__2397 = merge_u(abs__2390, abs__2391);
+	def eff_push__2398__2399 = push_u32(merge__2397);
+} else {
+	if (mt__2394__2401) {
+		def eff__2384__2402__2404 = push_u32(abs__2390);
+	} else {
+		def eff__2386__2403__2405 = push_u32(abs__2391);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["I64_LE_S"]["unlem_pretty"] = ''
 window.traces["I64_LE_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -43345,6 +44690,32 @@ subgraph block_1024["Block 1024"]
 end
 branch_1021 --> block_1024
 
+</pre>`;
+window.traces["I64_LE_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_LE_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2410 : u32 = 0;
+def arg__2408 : u32 = 1;
+def b = pop_u64();
+def a = pop_u64();
+def cond__2406__2423 = U64_lte(a, b);
+def abs__2414 = lift_u32(arg__2410);
+def abs__2413 = lift_u32(arg__2408);
+def cond__2406 = U64_lte(a, b);
+def mt__2417__2424 = U64_maybeTrue(cond__2406__2423);
+def mf__2418 = U64_maybeFalse(cond__2406);
+def mt__2417 = U64_maybeTrue(cond__2406);
+def mb__2419 = bool.&&(mt__2417, mf__2418);
+if (mb__2419) {
+	def merge__2420 = merge_u(abs__2413, abs__2414);
+	def eff_push__2421__2422 = push_u32(merge__2420);
+} else {
+	if (mt__2417__2424) {
+		def eff__2407__2425__2427 = push_u32(abs__2413);
+	} else {
+		def eff__2409__2426__2428 = push_u32(abs__2414);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I64_LE_U"]["unlem_pretty"] = ''
 window.traces["I64_LE_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -43897,6 +45268,32 @@ end
 branch_1037 --> block_1040
 
 </pre>`;
+window.traces["I64_GE_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_GE_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2433 : u32 = 0;
+def arg__2431 : u32 = 1;
+def b = pop_u64();
+def a = pop_u64();
+def cond__2429__2446 = U64_ge_s(a, b);
+def abs__2437 = lift_u32(arg__2433);
+def abs__2436 = lift_u32(arg__2431);
+def cond__2429 = U64_ge_s(a, b);
+def mt__2440__2447 = U64_maybeTrue(cond__2429__2446);
+def mf__2441 = U64_maybeFalse(cond__2429);
+def mt__2440 = U64_maybeTrue(cond__2429);
+def mb__2442 = bool.&&(mt__2440, mf__2441);
+if (mb__2442) {
+	def merge__2443 = merge_u(abs__2436, abs__2437);
+	def eff_push__2444__2445 = push_u32(merge__2443);
+} else {
+	if (mt__2440__2447) {
+		def eff__2430__2448__2450 = push_u32(abs__2436);
+	} else {
+		def eff__2432__2449__2451 = push_u32(abs__2437);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["I64_GE_S"]["unlem_pretty"] = ''
 window.traces["I64_GE_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -44447,6 +45844,32 @@ subgraph block_1056["Block 1056"]
 end
 branch_1053 --> block_1056
 
+</pre>`;
+window.traces["I64_GE_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_GE_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2456 : u32 = 0;
+def arg__2454 : u32 = 1;
+def b = pop_u64();
+def a = pop_u64();
+def cond__2452__2469 = U64_gte(a, b);
+def abs__2460 = lift_u32(arg__2456);
+def abs__2459 = lift_u32(arg__2454);
+def cond__2452 = U64_gte(a, b);
+def mt__2463__2470 = bot_maybeTrue(cond__2452__2469);
+def mf__2464 = bot_maybeFalse(cond__2452);
+def mt__2463 = bot_maybeTrue(cond__2452);
+def mb__2465 = bool.&&(mt__2463, mf__2464);
+if (mb__2465) {
+	def merge__2466 = merge_u(abs__2459, abs__2460);
+	def eff_push__2467__2468 = push_u32(merge__2466);
+} else {
+	if (mt__2463__2470) {
+		def eff__2453__2471__2473 = push_u32(abs__2459);
+	} else {
+		def eff__2455__2472__2474 = push_u32(abs__2460);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I64_GE_U"]["unlem_pretty"] = ''
 window.traces["I64_GE_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -44999,6 +46422,32 @@ end
 branch_1069 --> block_1072
 
 </pre>`;
+window.traces["F32_EQ"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_EQ"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2479 : u32 = 0;
+def arg__2477 : u32 = 1;
+def b = pop_f32();
+def a = pop_f32();
+def cond__2475__2492 = F32_equals(a, b);
+def abs__2483 = lift_u32(arg__2479);
+def abs__2482 = lift_u32(arg__2477);
+def cond__2475 = F32_equals(a, b);
+def mt__2486__2493 = U32_maybeTrue(cond__2475__2492);
+def mf__2487 = U32_maybeFalse(cond__2475);
+def mt__2486 = U32_maybeTrue(cond__2475);
+def mb__2488 = bool.&&(mt__2486, mf__2487);
+if (mb__2488) {
+	def merge__2489 = merge_u(abs__2482, abs__2483);
+	def eff_push__2490__2491 = push_u32(merge__2489);
+} else {
+	if (mt__2486__2493) {
+		def eff__2476__2494__2496 = push_u32(abs__2482);
+	} else {
+		def eff__2478__2495__2497 = push_u32(abs__2483);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["F32_EQ"]["unlem_pretty"] = ''
 window.traces["F32_EQ"]["unlem_pretty"] += `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -45549,6 +46998,32 @@ subgraph block_1088["Block 1088"]
 end
 branch_1085 --> block_1088
 
+</pre>`;
+window.traces["F32_NE"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_NE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2502 : u32 = 0;
+def arg__2500 : u32 = 1;
+def b = pop_f32();
+def a = pop_f32();
+def cond__2498__2515 = F32_not_equals(a, b);
+def abs__2506 = lift_u32(arg__2502);
+def abs__2505 = lift_u32(arg__2500);
+def cond__2498 = F32_not_equals(a, b);
+def mt__2509__2516 = U32_maybeTrue(cond__2498__2515);
+def mf__2510 = U32_maybeFalse(cond__2498);
+def mt__2509 = U32_maybeTrue(cond__2498);
+def mb__2511 = bool.&&(mt__2509, mf__2510);
+if (mb__2511) {
+	def merge__2512 = merge_u(abs__2505, abs__2506);
+	def eff_push__2513__2514 = push_u32(merge__2512);
+} else {
+	if (mt__2509__2516) {
+		def eff__2499__2517__2519 = push_u32(abs__2505);
+	} else {
+		def eff__2501__2518__2520 = push_u32(abs__2506);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["F32_NE"]["unlem_pretty"] = ''
 window.traces["F32_NE"]["unlem_pretty"] += `<pre class=''>def b = pop_f32();
@@ -46102,6 +47577,32 @@ end
 branch_1101 --> block_1104
 
 </pre>`;
+window.traces["F32_LT"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_LT"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2525 : u32 = 0;
+def arg__2523 : u32 = 1;
+def b = pop_f32();
+def a = pop_f32();
+def cond__2521__2538 = F32_lt(a, b);
+def abs__2529 = lift_u32(arg__2525);
+def abs__2528 = lift_u32(arg__2523);
+def cond__2521 = F32_lt(a, b);
+def mt__2532__2539 = U32_maybeTrue(cond__2521__2538);
+def mf__2533 = U32_maybeFalse(cond__2521);
+def mt__2532 = U32_maybeTrue(cond__2521);
+def mb__2534 = bool.&&(mt__2532, mf__2533);
+if (mb__2534) {
+	def merge__2535 = merge_u(abs__2528, abs__2529);
+	def eff_push__2536__2537 = push_u32(merge__2535);
+} else {
+	if (mt__2532__2539) {
+		def eff__2522__2540__2542 = push_u32(abs__2528);
+	} else {
+		def eff__2524__2541__2543 = push_u32(abs__2529);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["F32_LT"]["unlem_pretty"] = ''
 window.traces["F32_LT"]["unlem_pretty"] += `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -46652,6 +48153,32 @@ subgraph block_1120["Block 1120"]
 end
 branch_1117 --> block_1120
 
+</pre>`;
+window.traces["F32_GT"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_GT"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2548 : u32 = 0;
+def arg__2546 : u32 = 1;
+def b = pop_f32();
+def a = pop_f32();
+def cond__2544__2561 = F32_gt(a, b);
+def abs__2552 = lift_u32(arg__2548);
+def abs__2551 = lift_u32(arg__2546);
+def cond__2544 = F32_gt(a, b);
+def mt__2555__2562 = U32_maybeTrue(cond__2544__2561);
+def mf__2556 = U32_maybeFalse(cond__2544);
+def mt__2555 = U32_maybeTrue(cond__2544);
+def mb__2557 = bool.&&(mt__2555, mf__2556);
+if (mb__2557) {
+	def merge__2558 = merge_u(abs__2551, abs__2552);
+	def eff_push__2559__2560 = push_u32(merge__2558);
+} else {
+	if (mt__2555__2562) {
+		def eff__2545__2563__2565 = push_u32(abs__2551);
+	} else {
+		def eff__2547__2564__2566 = push_u32(abs__2552);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["F32_GT"]["unlem_pretty"] = ''
 window.traces["F32_GT"]["unlem_pretty"] += `<pre class=''>def b = pop_f32();
@@ -47204,6 +48731,32 @@ end
 branch_1133 --> block_1136
 
 </pre>`;
+window.traces["F32_LE"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_LE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2571 : u32 = 0;
+def arg__2569 : u32 = 1;
+def b = pop_f32();
+def a = pop_f32();
+def cond__2567__2584 = F32_lte(a, b);
+def abs__2575 = lift_u32(arg__2571);
+def abs__2574 = lift_u32(arg__2569);
+def cond__2567 = F32_lte(a, b);
+def mt__2578__2585 = U32_maybeTrue(cond__2567__2584);
+def mf__2579 = U32_maybeFalse(cond__2567);
+def mt__2578 = U32_maybeTrue(cond__2567);
+def mb__2580 = bool.&&(mt__2578, mf__2579);
+if (mb__2580) {
+	def merge__2581 = merge_u(abs__2574, abs__2575);
+	def eff_push__2582__2583 = push_u32(merge__2581);
+} else {
+	if (mt__2578__2585) {
+		def eff__2568__2586__2588 = push_u32(abs__2574);
+	} else {
+		def eff__2570__2587__2589 = push_u32(abs__2575);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["F32_LE"]["unlem_pretty"] = ''
 window.traces["F32_LE"]["unlem_pretty"] += `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -47754,6 +49307,32 @@ subgraph block_1152["Block 1152"]
 end
 branch_1149 --> block_1152
 
+</pre>`;
+window.traces["F32_GE"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_GE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2594 : u32 = 0;
+def arg__2592 : u32 = 1;
+def b = pop_f32();
+def a = pop_f32();
+def cond__2590__2607 = F32_gte(a, b);
+def abs__2598 = lift_u32(arg__2594);
+def abs__2597 = lift_u32(arg__2592);
+def cond__2590 = F32_gte(a, b);
+def mt__2601__2608 = U32_maybeTrue(cond__2590__2607);
+def mf__2602 = U32_maybeFalse(cond__2590);
+def mt__2601 = U32_maybeTrue(cond__2590);
+def mb__2603 = bool.&&(mt__2601, mf__2602);
+if (mb__2603) {
+	def merge__2604 = merge_u(abs__2597, abs__2598);
+	def eff_push__2605__2606 = push_u32(merge__2604);
+} else {
+	if (mt__2601__2608) {
+		def eff__2591__2609__2611 = push_u32(abs__2597);
+	} else {
+		def eff__2593__2610__2612 = push_u32(abs__2598);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["F32_GE"]["unlem_pretty"] = ''
 window.traces["F32_GE"]["unlem_pretty"] += `<pre class=''>def b = pop_f32();
@@ -48306,6 +49885,32 @@ end
 branch_1165 --> block_1168
 
 </pre>`;
+window.traces["F64_EQ"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_EQ"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2617 : u32 = 0;
+def arg__2615 : u32 = 1;
+def b = pop_f64();
+def a = pop_f64();
+def cond__2613__2630 = F64_equals(a, b);
+def abs__2621 = lift_u32(arg__2617);
+def abs__2620 = lift_u32(arg__2615);
+def cond__2613 = F64_equals(a, b);
+def mt__2624__2631 = U32_maybeTrue(cond__2613__2630);
+def mf__2625 = U32_maybeFalse(cond__2613);
+def mt__2624 = U32_maybeTrue(cond__2613);
+def mb__2626 = bool.&&(mt__2624, mf__2625);
+if (mb__2626) {
+	def merge__2627 = merge_u(abs__2620, abs__2621);
+	def eff_push__2628__2629 = push_u32(merge__2627);
+} else {
+	if (mt__2624__2631) {
+		def eff__2614__2632__2634 = push_u32(abs__2620);
+	} else {
+		def eff__2616__2633__2635 = push_u32(abs__2621);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["F64_EQ"]["unlem_pretty"] = ''
 window.traces["F64_EQ"]["unlem_pretty"] += `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -48856,6 +50461,32 @@ subgraph block_1184["Block 1184"]
 end
 branch_1181 --> block_1184
 
+</pre>`;
+window.traces["F64_NE"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_NE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2640 : u32 = 0;
+def arg__2638 : u32 = 1;
+def b = pop_f64();
+def a = pop_f64();
+def cond__2636__2653 = F64_not_equals(a, b);
+def abs__2644 = lift_u32(arg__2640);
+def abs__2643 = lift_u32(arg__2638);
+def cond__2636 = F64_not_equals(a, b);
+def mt__2647__2654 = U32_maybeTrue(cond__2636__2653);
+def mf__2648 = U32_maybeFalse(cond__2636);
+def mt__2647 = U32_maybeTrue(cond__2636);
+def mb__2649 = bool.&&(mt__2647, mf__2648);
+if (mb__2649) {
+	def merge__2650 = merge_u(abs__2643, abs__2644);
+	def eff_push__2651__2652 = push_u32(merge__2650);
+} else {
+	if (mt__2647__2654) {
+		def eff__2637__2655__2657 = push_u32(abs__2643);
+	} else {
+		def eff__2639__2656__2658 = push_u32(abs__2644);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["F64_NE"]["unlem_pretty"] = ''
 window.traces["F64_NE"]["unlem_pretty"] += `<pre class=''>def b = pop_f64();
@@ -49409,6 +51040,32 @@ end
 branch_1197 --> block_1200
 
 </pre>`;
+window.traces["F64_LT"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_LT"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2663 : u32 = 0;
+def arg__2661 : u32 = 1;
+def b = pop_f64();
+def a = pop_f64();
+def cond__2659__2676 = F64_lt(a, b);
+def abs__2667 = lift_u32(arg__2663);
+def abs__2666 = lift_u32(arg__2661);
+def cond__2659 = F64_lt(a, b);
+def mt__2670__2677 = U32_maybeTrue(cond__2659__2676);
+def mf__2671 = U32_maybeFalse(cond__2659);
+def mt__2670 = U32_maybeTrue(cond__2659);
+def mb__2672 = bool.&&(mt__2670, mf__2671);
+if (mb__2672) {
+	def merge__2673 = merge_u(abs__2666, abs__2667);
+	def eff_push__2674__2675 = push_u32(merge__2673);
+} else {
+	if (mt__2670__2677) {
+		def eff__2660__2678__2680 = push_u32(abs__2666);
+	} else {
+		def eff__2662__2679__2681 = push_u32(abs__2667);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["F64_LT"]["unlem_pretty"] = ''
 window.traces["F64_LT"]["unlem_pretty"] += `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -49959,6 +51616,32 @@ subgraph block_1216["Block 1216"]
 end
 branch_1213 --> block_1216
 
+</pre>`;
+window.traces["F64_GT"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_GT"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2686 : u32 = 0;
+def arg__2684 : u32 = 1;
+def b = pop_f64();
+def a = pop_f64();
+def cond__2682__2699 = F64_gt(a, b);
+def abs__2690 = lift_u32(arg__2686);
+def abs__2689 = lift_u32(arg__2684);
+def cond__2682 = F64_gt(a, b);
+def mt__2693__2700 = U32_maybeTrue(cond__2682__2699);
+def mf__2694 = U32_maybeFalse(cond__2682);
+def mt__2693 = U32_maybeTrue(cond__2682);
+def mb__2695 = bool.&&(mt__2693, mf__2694);
+if (mb__2695) {
+	def merge__2696 = merge_u(abs__2689, abs__2690);
+	def eff_push__2697__2698 = push_u32(merge__2696);
+} else {
+	if (mt__2693__2700) {
+		def eff__2683__2701__2703 = push_u32(abs__2689);
+	} else {
+		def eff__2685__2702__2704 = push_u32(abs__2690);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["F64_GT"]["unlem_pretty"] = ''
 window.traces["F64_GT"]["unlem_pretty"] += `<pre class=''>def b = pop_f64();
@@ -50511,6 +52194,32 @@ end
 branch_1229 --> block_1232
 
 </pre>`;
+window.traces["F64_LE"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_LE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2709 : u32 = 0;
+def arg__2707 : u32 = 1;
+def b = pop_f64();
+def a = pop_f64();
+def cond__2705__2722 = F64_lte(a, b);
+def abs__2713 = lift_u32(arg__2709);
+def abs__2712 = lift_u32(arg__2707);
+def cond__2705 = F64_lte(a, b);
+def mt__2716__2723 = U32_maybeTrue(cond__2705__2722);
+def mf__2717 = U32_maybeFalse(cond__2705);
+def mt__2716 = U32_maybeTrue(cond__2705);
+def mb__2718 = bool.&&(mt__2716, mf__2717);
+if (mb__2718) {
+	def merge__2719 = merge_u(abs__2712, abs__2713);
+	def eff_push__2720__2721 = push_u32(merge__2719);
+} else {
+	if (mt__2716__2723) {
+		def eff__2706__2724__2726 = push_u32(abs__2712);
+	} else {
+		def eff__2708__2725__2727 = push_u32(abs__2713);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["F64_LE"]["unlem_pretty"] = ''
 window.traces["F64_LE"]["unlem_pretty"] += `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -51062,6 +52771,32 @@ end
 branch_1245 --> block_1248
 
 </pre>`;
+window.traces["F64_GE"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_GE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2732 : u32 = 0;
+def arg__2730 : u32 = 1;
+def b = pop_f64();
+def a = pop_f64();
+def cond__2728__2745 = F64_gte(a, b);
+def abs__2736 = lift_u32(arg__2732);
+def abs__2735 = lift_u32(arg__2730);
+def cond__2728 = F64_gte(a, b);
+def mt__2739__2746 = U32_maybeTrue(cond__2728__2745);
+def mf__2740 = U32_maybeFalse(cond__2728);
+def mt__2739 = U32_maybeTrue(cond__2728);
+def mb__2741 = bool.&&(mt__2739, mf__2740);
+if (mb__2741) {
+	def merge__2742 = merge_u(abs__2735, abs__2736);
+	def eff_push__2743__2744 = push_u32(merge__2742);
+} else {
+	if (mt__2739__2746) {
+		def eff__2729__2747__2749 = push_u32(abs__2735);
+	} else {
+		def eff__2731__2748__2750 = push_u32(abs__2736);
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["F64_GE"]["unlem_pretty"] = ''
 window.traces["F64_GE"]["unlem_pretty"] += `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -51259,6 +52994,11 @@ subgraph block_1250["Block 1250"]
 end
 
 </pre>`;
+window.traces["I32_CLZ"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_CLZ"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u32();
+def r = U32_clz(a);
+def eff__2751 = push_u32(r);
+</pre>`;
 window.traces["I32_CLZ"]["unlem_pretty"] = ''
 window.traces["I32_CLZ"]["unlem_pretty"] += `<pre class=''>def a = pop_u32();
 push_u32(U32_clz(a));
@@ -51430,6 +53170,11 @@ subgraph block_1252["Block 1252"]
 end
 
 </pre>`;
+window.traces["I32_CTZ"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_CTZ"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u32();
+def r = U32_ctz(a);
+def eff__2754 = push_u32(r);
+</pre>`;
 window.traces["I32_CTZ"]["unlem_pretty"] = ''
 window.traces["I32_CTZ"]["unlem_pretty"] += `<pre class=''>def a = pop_u32();
 push_u32(U32_ctz(a));
@@ -51600,6 +53345,11 @@ subgraph block_1254["Block 1254"]
 	b1254_4 --> b1254_1
 end
 
+</pre>`;
+window.traces["I32_POPCNT"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_POPCNT"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u32();
+def r = U32_popcnt(a);
+def eff__2757 = push_u32(r);
 </pre>`;
 window.traces["I32_POPCNT"]["unlem_pretty"] = ''
 window.traces["I32_POPCNT"]["unlem_pretty"] += `<pre class=''>def a = pop_u32();
@@ -51791,6 +53541,12 @@ subgraph block_1256["Block 1256"]
 	b1256_5 --> b1256_1
 end
 
+</pre>`;
+window.traces["I32_ADD"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_ADD"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def a = pop_u32();
+def r = U32_plus(a, b);
+def eff__2760 = push_u32(r);
 </pre>`;
 window.traces["I32_ADD"]["unlem_pretty"] = ''
 window.traces["I32_ADD"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -51992,6 +53748,12 @@ subgraph block_1258["Block 1258"]
 end
 
 </pre>`;
+window.traces["I32_SUB"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_SUB"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def a = pop_u32();
+def r = U32_minus(a, b);
+def eff__2764 = push_u32(r);
+</pre>`;
 window.traces["I32_SUB"]["unlem_pretty"] = ''
 window.traces["I32_SUB"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -52191,6 +53953,12 @@ subgraph block_1260["Block 1260"]
 	b1260_5 --> b1260_1
 end
 
+</pre>`;
+window.traces["I32_MUL"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_MUL"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def a = pop_u32();
+def r = U32_times(a, b);
+def eff__2768 = push_u32(r);
 </pre>`;
 window.traces["I32_MUL"]["unlem_pretty"] = ''
 window.traces["I32_MUL"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -54814,13 +56582,7 @@ window.traces["I32_DIV_S"]["unlem_scheduler"] = ''
 window.traces["I32_DIV_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1276["Block 1276"]
 	direction TB
-	b1276_14["eff__2775 trapDivideUnrepresentable"]
-	b1276_12["eff__2776 push_u32"]
-	b1276_116["eff_merge__2830__2887 merge"]
 	b1276_4[\\"Finish"/]
-	b1276_14 --> b1276_12
-	b1276_12 --> b1276_116
-	b1276_116 --> b1276_4
 end
 phi_1278 --> block_1276
 subgraph phi_1278["Phi 1278"]
@@ -55081,6 +56843,87 @@ subgraph block_1310["Block 1310"]
 end
 branch_1307 --> block_1310
 
+</pre>`;
+window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>if (mb__2826) {
+}
+// phis: 
+def arg__2787 : u32 = 0;
+def abs__2790 = lift_u32(arg__2787);
+def cond__2772 = U32_equals(b, abs__2790);
+def mt__2816 = U32_maybeTrue(cond__2772);
+if (mt__2816) {
+	def eff__2773__2858 = trapDivideByZero();
+}
+// phis: 
+def b__2850 = pop_u32();
+def b__2871 = pop_u32();
+def b__2883 = pop_u32();
+def a__2855 = pop_u32();
+def a__2875 = pop_u32();
+def arg__2778__2886 = U32_equals(b__2883, abs__2791);
+def arg__2779__2851 = U32_equals(a__2855, abs__2792);
+def arg__2779__2872 = U32_equals(a__2875, abs__2792);
+def cond__2774__2854__2884 = U32_and(arg__2778__2886, arg__2779__2851);
+def cond__2774__2854 = U32_and(arg__2778, arg__2779__2851);
+def cond__2774__2874 = U32_and(arg__2778, arg__2779__2872);
+def mt__2824__2852__2885 = U32_maybeTrue(cond__2774__2854__2884);
+def mt__2824__2852 = U32_maybeTrue(cond__2774__2854);
+def b__2835 = pop_u32();
+def mt__2824__2873 = U32_maybeTrue(cond__2774__2874);
+def mt__2824 = U32_maybeTrue(cond__2774);
+def mb__2826__2853 = bool.&&(mt__2824__2852, mf__2825);
+def cond__2772__2837 = U32_equals(b__2835, abs__2790);
+def mb__2826 = bool.&&(mt__2824, mf__2825);
+def mt__2816__2836 = U32_maybeTrue(cond__2772__2837);
+def mf__2817 = U32_maybeFalse(cond__2772);
+def mb__2818 = bool.&&(mt__2816, mf__2817);
+if (mb__2818) {
+	if (mb__2826) {
+		if (mt__2824) {
+		}
+// phis: 
+		def b__2867 = pop_u32();
+		def a__2869 = pop_u32();
+		def eff__2775__2868 = trapDivideUnrepresentable();
+		def eff_merge__2828__2831__2870 = merge(eff__2775__2868, r_state__2827__2891__2895);
+	} else {
+		if (mt__2824__2873) {
+			def b__2871__2888 = pop_u32();
+			def a__2875__2889 = pop_u32();
+			def eff__2775__2876__2890 = trapDivideUnrepresentable();
+		}
+// phis: 
+	}
+// phis: 
+	def eff_nop__2821 = nop();
+	def eff__2773__2834 = trapDivideByZero();
+	def eff_merge__2823 = merge(eff_nop__2821, r_state__2822__2864);
+	def eff_merge__2820__2833 = merge(eff__2773__2834, r_state__2819__2832);
+} else {
+	if (mt__2816__2836) {
+		def b__2847 = pop_u32();
+		def a__2848 = pop_u32();
+		def eff__2773__2838__2849 = trapDivideByZero();
+	} else {
+		if (mb__2826__2853) {
+			def b__2877 = pop_u32();
+			def a__2879 = pop_u32();
+			def eff__2775__2878 = trapDivideUnrepresentable();
+			def eff_merge__2828__2840__2857__2880 = merge(eff__2775__2878, r_state__2827__2891__2895);
+		} else {
+			if (mt__2824__2852__2885) {
+				def b__2883__2892 = pop_u32();
+				def a__2881__2893 = pop_u32();
+				def eff__2775__2882__2894 = trapDivideUnrepresentable();
+			}
+// phis: 
+		}
+// phis: 
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I32_DIV_S"]["unlem_pretty"] = ''
 window.traces["I32_DIV_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -55781,9 +57624,7 @@ window.traces["I32_DIV_U"]["unlem_scheduler"] = ''
 window.traces["I32_DIV_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1321["Block 1321"]
 	direction TB
-	b1321_11["r U32_div"]
 	b1321_3[\\"Finish"/]
-	b1321_11 --> b1321_3
 end
 phi_1323 --> block_1321
 subgraph phi_1323["Phi 1323"]
@@ -55841,12 +57682,10 @@ subgraph block_1335["Block 1335"]
 	b1335_13["arg__2903 0"]
 	b1335_0["abs__2906 lift_u32"]
 	b1335_15["cond__2898 U32_equals"]
-	b1335_16["eff__2900 push_u32"]
 	b1335_2["mt__2912 U32_maybeTrue"]
 	b1335_13 --> b1335_0
 	b1335_0 --> b1335_15
-	b1335_15 --> b1335_16
-	b1335_16 --> b1335_2
+	b1335_15 --> b1335_2
 end
 subgraph block_1334["Block 1334"]
 	direction TB
@@ -55880,6 +57719,35 @@ subgraph block_1330["Block 1330"]
 end
 branch_1327 --> block_1330
 
+</pre>`;
+window.traces["I32_DIV_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_DIV_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2903 : u32 = 0;
+def abs__2906 = lift_u32(arg__2903);
+def cond__2898 = U32_equals(b, abs__2906);
+def mt__2912 = U32_maybeTrue(cond__2898);
+if (mt__2912) {
+	def eff__2899__2933 = trapDivideByZero();
+}
+// phis: 
+def b__2921 = pop_u32();
+def cond__2898__2923 = U32_equals(b__2921, abs__2906);
+def mt__2912__2922 = U32_maybeTrue(cond__2898__2923);
+def mf__2913 = U32_maybeFalse(cond__2898);
+def mb__2914 = bool.&&(mt__2912, mf__2913);
+if (mb__2914) {
+	def eff_nop__2917 = nop();
+	def eff__2899__2919 = trapDivideByZero();
+	def eff_merge__2918 = merge(eff_nop__2917, eff__2900__2935);
+	def eff_merge__2916__2920 = merge(eff__2899__2919, r_state__2915__2932);
+} else {
+	if (mt__2912__2922) {
+		def b__2929 = pop_u32();
+		def a__2930 = pop_u32();
+		def eff__2899__2924__2931 = trapDivideByZero();
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I32_DIV_U"]["unlem_pretty"] = ''
 window.traces["I32_DIV_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -56531,9 +58399,7 @@ window.traces["I32_REM_S"]["unlem_scheduler"] = ''
 window.traces["I32_REM_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1342["Block 1342"]
 	direction TB
-	b1342_11["r U32_rem_s"]
 	b1342_3[\\"Finish"/]
-	b1342_11 --> b1342_3
 end
 phi_1344 --> block_1342
 subgraph phi_1344["Phi 1344"]
@@ -56591,12 +58457,10 @@ subgraph block_1356["Block 1356"]
 	b1356_13["arg__2941 0"]
 	b1356_0["abs__2944 lift_u32"]
 	b1356_15["cond__2936 U32_equals"]
-	b1356_16["eff__2938 push_u32"]
 	b1356_2["mt__2950 U32_maybeTrue"]
 	b1356_13 --> b1356_0
 	b1356_0 --> b1356_15
-	b1356_15 --> b1356_16
-	b1356_16 --> b1356_2
+	b1356_15 --> b1356_2
 end
 subgraph block_1355["Block 1355"]
 	direction TB
@@ -56630,6 +58494,35 @@ subgraph block_1351["Block 1351"]
 end
 branch_1348 --> block_1351
 
+</pre>`;
+window.traces["I32_REM_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_REM_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2941 : u32 = 0;
+def abs__2944 = lift_u32(arg__2941);
+def cond__2936 = U32_equals(b, abs__2944);
+def mt__2950 = U32_maybeTrue(cond__2936);
+if (mt__2950) {
+	def eff__2937__2971 = trapDivideByZero();
+}
+// phis: 
+def b__2959 = pop_u32();
+def cond__2936__2961 = U32_equals(b__2959, abs__2944);
+def mt__2950__2960 = U32_maybeTrue(cond__2936__2961);
+def mf__2951 = U32_maybeFalse(cond__2936);
+def mb__2952 = bool.&&(mt__2950, mf__2951);
+if (mb__2952) {
+	def eff_nop__2955 = nop();
+	def eff__2937__2957 = trapDivideByZero();
+	def eff_merge__2956 = merge(eff_nop__2955, eff__2938__2973);
+	def eff_merge__2954__2958 = merge(eff__2937__2957, r_state__2953__2970);
+} else {
+	if (mt__2950__2960) {
+		def b__2967 = pop_u32();
+		def a__2968 = pop_u32();
+		def eff__2937__2962__2969 = trapDivideByZero();
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I32_REM_S"]["unlem_pretty"] = ''
 window.traces["I32_REM_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -57281,9 +59174,7 @@ window.traces["I32_REM_U"]["unlem_scheduler"] = ''
 window.traces["I32_REM_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1363["Block 1363"]
 	direction TB
-	b1363_11["r U32_rem_u"]
 	b1363_3[\\"Finish"/]
-	b1363_11 --> b1363_3
 end
 phi_1365 --> block_1363
 subgraph phi_1365["Phi 1365"]
@@ -57341,12 +59232,10 @@ subgraph block_1377["Block 1377"]
 	b1377_13["arg__2979 0"]
 	b1377_0["abs__2982 lift_u32"]
 	b1377_15["cond__2974 U32_equals"]
-	b1377_16["eff__2976 push_u32"]
 	b1377_2["mt__2988 U32_maybeTrue"]
 	b1377_13 --> b1377_0
 	b1377_0 --> b1377_15
-	b1377_15 --> b1377_16
-	b1377_16 --> b1377_2
+	b1377_15 --> b1377_2
 end
 subgraph block_1376["Block 1376"]
 	direction TB
@@ -57380,6 +59269,35 @@ subgraph block_1372["Block 1372"]
 end
 branch_1369 --> block_1372
 
+</pre>`;
+window.traces["I32_REM_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_REM_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2979 : u32 = 0;
+def abs__2982 = lift_u32(arg__2979);
+def cond__2974 = U32_equals(b, abs__2982);
+def mt__2988 = U32_maybeTrue(cond__2974);
+if (mt__2988) {
+	def eff__2975__3009 = trapDivideByZero();
+}
+// phis: 
+def b__2997 = pop_u32();
+def cond__2974__2999 = U32_equals(b__2997, abs__2982);
+def mt__2988__2998 = U32_maybeTrue(cond__2974__2999);
+def mf__2989 = U32_maybeFalse(cond__2974);
+def mb__2990 = bool.&&(mt__2988, mf__2989);
+if (mb__2990) {
+	def eff_nop__2993 = nop();
+	def eff__2975__2995 = trapDivideByZero();
+	def eff_merge__2994 = merge(eff_nop__2993, eff__2976__3011);
+	def eff_merge__2992__2996 = merge(eff__2975__2995, r_state__2991__3008);
+} else {
+	if (mt__2988__2998) {
+		def b__3005 = pop_u32();
+		def a__3006 = pop_u32();
+		def eff__2975__3000__3007 = trapDivideByZero();
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I32_REM_U"]["unlem_pretty"] = ''
 window.traces["I32_REM_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -57617,6 +59535,12 @@ subgraph block_1379["Block 1379"]
 end
 
 </pre>`;
+window.traces["I32_AND"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_AND"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def a = pop_u32();
+def r = U32_and(a, b);
+def eff__3012 = push_u32(r);
+</pre>`;
 window.traces["I32_AND"]["unlem_pretty"] = ''
 window.traces["I32_AND"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -57816,6 +59740,12 @@ subgraph block_1381["Block 1381"]
 	b1381_5 --> b1381_1
 end
 
+</pre>`;
+window.traces["I32_OR"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_OR"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def a = pop_u32();
+def r = U32_or(a, b);
+def eff__3016 = push_u32(r);
 </pre>`;
 window.traces["I32_OR"]["unlem_pretty"] = ''
 window.traces["I32_OR"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -58017,6 +59947,12 @@ subgraph block_1383["Block 1383"]
 end
 
 </pre>`;
+window.traces["I32_XOR"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_XOR"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def a = pop_u32();
+def r = U32_or(a, b);
+def eff__3020 = push_u32(r);
+</pre>`;
 window.traces["I32_XOR"]["unlem_pretty"] = ''
 window.traces["I32_XOR"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -58216,6 +60152,12 @@ subgraph block_1385["Block 1385"]
 	b1385_5 --> b1385_1
 end
 
+</pre>`;
+window.traces["I32_SHL"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_SHL"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def a = pop_u32();
+def r = U32_shl(a, b);
+def eff__3024 = push_u32(r);
 </pre>`;
 window.traces["I32_SHL"]["unlem_pretty"] = ''
 window.traces["I32_SHL"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -58417,6 +60359,12 @@ subgraph block_1387["Block 1387"]
 end
 
 </pre>`;
+window.traces["I32_SHR_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_SHR_S"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def a = pop_u32();
+def r = U32_shr_s(a, b);
+def eff__3028 = push_u32(r);
+</pre>`;
 window.traces["I32_SHR_S"]["unlem_pretty"] = ''
 window.traces["I32_SHR_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -58616,6 +60564,12 @@ subgraph block_1389["Block 1389"]
 	b1389_5 --> b1389_1
 end
 
+</pre>`;
+window.traces["I32_SHR_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_SHR_U"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def a = pop_u32();
+def r = U32_shr_u(a, b);
+def eff__3032 = push_u32(r);
 </pre>`;
 window.traces["I32_SHR_U"]["unlem_pretty"] = ''
 window.traces["I32_SHR_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -58817,6 +60771,12 @@ subgraph block_1391["Block 1391"]
 end
 
 </pre>`;
+window.traces["I32_ROTL"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_ROTL"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def a = pop_u32();
+def r = U32_rotl(a, b);
+def eff__3036 = push_u32(r);
+</pre>`;
 window.traces["I32_ROTL"]["unlem_pretty"] = ''
 window.traces["I32_ROTL"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -59017,6 +60977,12 @@ subgraph block_1393["Block 1393"]
 end
 
 </pre>`;
+window.traces["I32_ROTR"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_ROTR"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def a = pop_u32();
+def r = U32_rotr(a, b);
+def eff__3040 = push_u32(r);
+</pre>`;
 window.traces["I32_ROTR"]["unlem_pretty"] = ''
 window.traces["I32_ROTR"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def a = pop_u32();
@@ -59197,6 +61163,11 @@ subgraph block_1395["Block 1395"]
 end
 
 </pre>`;
+window.traces["I64_CLZ"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_CLZ"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u64();
+def r = U64_clz(a);
+def eff__3044 = push_u64(r);
+</pre>`;
 window.traces["I64_CLZ"]["unlem_pretty"] = ''
 window.traces["I64_CLZ"]["unlem_pretty"] += `<pre class=''>def a = pop_u64();
 push_u64(U64_clz(a));
@@ -59368,6 +61339,11 @@ subgraph block_1397["Block 1397"]
 end
 
 </pre>`;
+window.traces["I64_CTZ"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_CTZ"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u64();
+def r = U64_ctz(a);
+def eff__3047 = push_u64(r);
+</pre>`;
 window.traces["I64_CTZ"]["unlem_pretty"] = ''
 window.traces["I64_CTZ"]["unlem_pretty"] += `<pre class=''>def a = pop_u64();
 push_u64(U64_ctz(a));
@@ -59538,6 +61514,11 @@ subgraph block_1399["Block 1399"]
 	b1399_4 --> b1399_1
 end
 
+</pre>`;
+window.traces["I64_POPCNT"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_POPCNT"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u64();
+def r = U64_popcnt(a);
+def eff__3050 = push_u64(r);
 </pre>`;
 window.traces["I64_POPCNT"]["unlem_pretty"] = ''
 window.traces["I64_POPCNT"]["unlem_pretty"] += `<pre class=''>def a = pop_u64();
@@ -59729,6 +61710,12 @@ subgraph block_1401["Block 1401"]
 	b1401_5 --> b1401_1
 end
 
+</pre>`;
+window.traces["I64_ADD"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_ADD"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def a = pop_u64();
+def r = U64_plus(a, b);
+def eff__3053 = push_u64(r);
 </pre>`;
 window.traces["I64_ADD"]["unlem_pretty"] = ''
 window.traces["I64_ADD"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -59930,6 +61917,12 @@ subgraph block_1403["Block 1403"]
 end
 
 </pre>`;
+window.traces["I64_SUB"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_SUB"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def a = pop_u64();
+def r = U64_minus(a, b);
+def eff__3057 = push_u64(r);
+</pre>`;
 window.traces["I64_SUB"]["unlem_pretty"] = ''
 window.traces["I64_SUB"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -60129,6 +62122,12 @@ subgraph block_1405["Block 1405"]
 	b1405_5 --> b1405_1
 end
 
+</pre>`;
+window.traces["I64_MUL"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_MUL"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def a = pop_u64();
+def r = U64_times(a, b);
+def eff__3061 = push_u64(r);
 </pre>`;
 window.traces["I64_MUL"]["unlem_pretty"] = ''
 window.traces["I64_MUL"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -62752,13 +64751,7 @@ window.traces["I64_DIV_S"]["unlem_scheduler"] = ''
 window.traces["I64_DIV_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1421["Block 1421"]
 	direction TB
-	b1421_14["eff__3068 trapDivideUnrepresentable"]
-	b1421_12["eff__3069 push_u64"]
-	b1421_116["eff_merge__3123__3180 merge"]
 	b1421_4[\\"Finish"/]
-	b1421_14 --> b1421_12
-	b1421_12 --> b1421_116
-	b1421_116 --> b1421_4
 end
 phi_1423 --> block_1421
 subgraph phi_1423["Phi 1423"]
@@ -63019,6 +65012,87 @@ subgraph block_1455["Block 1455"]
 end
 branch_1452 --> block_1455
 
+</pre>`;
+window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>if (mb__3119) {
+}
+// phis: 
+def arg__3080 : u64 = 0;
+def abs__3083 = lift_u64(arg__3080);
+def cond__3065 = U64_equals(b, abs__3083);
+def mt__3109 = U64_maybeTrue(cond__3065);
+if (mt__3109) {
+	def eff__3066__3151 = trapDivideByZero();
+}
+// phis: 
+def b__3143 = pop_u64();
+def b__3164 = pop_u64();
+def b__3176 = pop_u64();
+def a__3148 = pop_u64();
+def a__3168 = pop_u64();
+def arg__3071__3179 = U64_equals(b__3176, abs__3084);
+def arg__3072__3144 = U64_equals(a__3148, abs__3085);
+def arg__3072__3165 = U64_equals(a__3168, abs__3085);
+def cond__3067__3147__3177 = bot_and(arg__3071__3179, arg__3072__3144);
+def cond__3067__3147 = bot_and(arg__3071, arg__3072__3144);
+def cond__3067__3167 = bot_and(arg__3071, arg__3072__3165);
+def mt__3117__3145__3178 = bot_maybeTrue(cond__3067__3147__3177);
+def mt__3117__3145 = bot_maybeTrue(cond__3067__3147);
+def b__3128 = pop_u64();
+def mt__3117__3166 = bot_maybeTrue(cond__3067__3167);
+def mt__3117 = bot_maybeTrue(cond__3067);
+def mb__3119__3146 = bool.&&(mt__3117__3145, mf__3118);
+def cond__3065__3130 = U64_equals(b__3128, abs__3083);
+def mb__3119 = bool.&&(mt__3117, mf__3118);
+def mt__3109__3129 = U64_maybeTrue(cond__3065__3130);
+def mf__3110 = U64_maybeFalse(cond__3065);
+def mb__3111 = bool.&&(mt__3109, mf__3110);
+if (mb__3111) {
+	if (mb__3119) {
+		if (mt__3117) {
+		}
+// phis: 
+		def b__3160 = pop_u64();
+		def a__3162 = pop_u64();
+		def eff__3068__3161 = trapDivideUnrepresentable();
+		def eff_merge__3121__3124__3163 = merge(eff__3068__3161, r_state__3120__3184__3188);
+	} else {
+		if (mt__3117__3166) {
+			def b__3164__3181 = pop_u64();
+			def a__3168__3182 = pop_u64();
+			def eff__3068__3169__3183 = trapDivideUnrepresentable();
+		}
+// phis: 
+	}
+// phis: 
+	def eff_nop__3114 = nop();
+	def eff__3066__3127 = trapDivideByZero();
+	def eff_merge__3116 = merge(eff_nop__3114, r_state__3115__3157);
+	def eff_merge__3113__3126 = merge(eff__3066__3127, r_state__3112__3125);
+} else {
+	if (mt__3109__3129) {
+		def b__3140 = pop_u64();
+		def a__3141 = pop_u64();
+		def eff__3066__3131__3142 = trapDivideByZero();
+	} else {
+		if (mb__3119__3146) {
+			def b__3170 = pop_u64();
+			def a__3172 = pop_u64();
+			def eff__3068__3171 = trapDivideUnrepresentable();
+			def eff_merge__3121__3133__3150__3173 = merge(eff__3068__3171, r_state__3120__3184__3188);
+		} else {
+			if (mt__3117__3145__3178) {
+				def b__3176__3185 = pop_u64();
+				def a__3174__3186 = pop_u64();
+				def eff__3068__3175__3187 = trapDivideUnrepresentable();
+			}
+// phis: 
+		}
+// phis: 
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I64_DIV_S"]["unlem_pretty"] = ''
 window.traces["I64_DIV_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -63719,9 +65793,7 @@ window.traces["I64_DIV_U"]["unlem_scheduler"] = ''
 window.traces["I64_DIV_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1466["Block 1466"]
 	direction TB
-	b1466_11["r U64_div"]
 	b1466_3[\\"Finish"/]
-	b1466_11 --> b1466_3
 end
 phi_1468 --> block_1466
 subgraph phi_1468["Phi 1468"]
@@ -63779,12 +65851,10 @@ subgraph block_1480["Block 1480"]
 	b1480_13["arg__3196 0"]
 	b1480_0["abs__3199 lift_u64"]
 	b1480_15["cond__3191 U64_equals"]
-	b1480_16["eff__3193 push_u64"]
 	b1480_2["mt__3205 U64_maybeTrue"]
 	b1480_13 --> b1480_0
 	b1480_0 --> b1480_15
-	b1480_15 --> b1480_16
-	b1480_16 --> b1480_2
+	b1480_15 --> b1480_2
 end
 subgraph block_1479["Block 1479"]
 	direction TB
@@ -63818,6 +65888,35 @@ subgraph block_1475["Block 1475"]
 end
 branch_1472 --> block_1475
 
+</pre>`;
+window.traces["I64_DIV_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_DIV_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3196 : u64 = 0;
+def abs__3199 = lift_u64(arg__3196);
+def cond__3191 = U64_equals(b, abs__3199);
+def mt__3205 = U64_maybeTrue(cond__3191);
+if (mt__3205) {
+	def eff__3192__3226 = trapDivideByZero();
+}
+// phis: 
+def b__3214 = pop_u64();
+def cond__3191__3216 = U64_equals(b__3214, abs__3199);
+def mt__3205__3215 = U64_maybeTrue(cond__3191__3216);
+def mf__3206 = U64_maybeFalse(cond__3191);
+def mb__3207 = bool.&&(mt__3205, mf__3206);
+if (mb__3207) {
+	def eff_nop__3210 = nop();
+	def eff__3192__3212 = trapDivideByZero();
+	def eff_merge__3211 = merge(eff_nop__3210, eff__3193__3228);
+	def eff_merge__3209__3213 = merge(eff__3192__3212, r_state__3208__3225);
+} else {
+	if (mt__3205__3215) {
+		def b__3222 = pop_u64();
+		def a__3223 = pop_u64();
+		def eff__3192__3217__3224 = trapDivideByZero();
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I64_DIV_U"]["unlem_pretty"] = ''
 window.traces["I64_DIV_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -64469,9 +66568,7 @@ window.traces["I64_REM_S"]["unlem_scheduler"] = ''
 window.traces["I64_REM_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1487["Block 1487"]
 	direction TB
-	b1487_11["r U64_rem_s"]
 	b1487_3[\\"Finish"/]
-	b1487_11 --> b1487_3
 end
 phi_1489 --> block_1487
 subgraph phi_1489["Phi 1489"]
@@ -64529,12 +66626,10 @@ subgraph block_1501["Block 1501"]
 	b1501_13["arg__3234 0"]
 	b1501_0["abs__3237 lift_u64"]
 	b1501_15["cond__3229 U64_equals"]
-	b1501_16["eff__3231 push_u64"]
 	b1501_2["mt__3243 U64_maybeTrue"]
 	b1501_13 --> b1501_0
 	b1501_0 --> b1501_15
-	b1501_15 --> b1501_16
-	b1501_16 --> b1501_2
+	b1501_15 --> b1501_2
 end
 subgraph block_1500["Block 1500"]
 	direction TB
@@ -64568,6 +66663,35 @@ subgraph block_1496["Block 1496"]
 end
 branch_1493 --> block_1496
 
+</pre>`;
+window.traces["I64_REM_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_REM_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3234 : u64 = 0;
+def abs__3237 = lift_u64(arg__3234);
+def cond__3229 = U64_equals(b, abs__3237);
+def mt__3243 = U64_maybeTrue(cond__3229);
+if (mt__3243) {
+	def eff__3230__3264 = trapDivideByZero();
+}
+// phis: 
+def b__3252 = pop_u64();
+def cond__3229__3254 = U64_equals(b__3252, abs__3237);
+def mt__3243__3253 = U64_maybeTrue(cond__3229__3254);
+def mf__3244 = U64_maybeFalse(cond__3229);
+def mb__3245 = bool.&&(mt__3243, mf__3244);
+if (mb__3245) {
+	def eff_nop__3248 = nop();
+	def eff__3230__3250 = trapDivideByZero();
+	def eff_merge__3249 = merge(eff_nop__3248, eff__3231__3266);
+	def eff_merge__3247__3251 = merge(eff__3230__3250, r_state__3246__3263);
+} else {
+	if (mt__3243__3253) {
+		def b__3260 = pop_u64();
+		def a__3261 = pop_u64();
+		def eff__3230__3255__3262 = trapDivideByZero();
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I64_REM_S"]["unlem_pretty"] = ''
 window.traces["I64_REM_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -65219,9 +67343,7 @@ window.traces["I64_REM_U"]["unlem_scheduler"] = ''
 window.traces["I64_REM_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1508["Block 1508"]
 	direction TB
-	b1508_11["r U64_rem_u"]
 	b1508_3[\\"Finish"/]
-	b1508_11 --> b1508_3
 end
 phi_1510 --> block_1508
 subgraph phi_1510["Phi 1510"]
@@ -65279,12 +67401,10 @@ subgraph block_1522["Block 1522"]
 	b1522_13["arg__3272 0"]
 	b1522_0["abs__3275 lift_u64"]
 	b1522_15["cond__3267 U64_equals"]
-	b1522_16["eff__3269 push_u64"]
 	b1522_2["mt__3281 U64_maybeTrue"]
 	b1522_13 --> b1522_0
 	b1522_0 --> b1522_15
-	b1522_15 --> b1522_16
-	b1522_16 --> b1522_2
+	b1522_15 --> b1522_2
 end
 subgraph block_1521["Block 1521"]
 	direction TB
@@ -65318,6 +67438,35 @@ subgraph block_1517["Block 1517"]
 end
 branch_1514 --> block_1517
 
+</pre>`;
+window.traces["I64_REM_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_REM_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3272 : u64 = 0;
+def abs__3275 = lift_u64(arg__3272);
+def cond__3267 = U64_equals(b, abs__3275);
+def mt__3281 = U64_maybeTrue(cond__3267);
+if (mt__3281) {
+	def eff__3268__3302 = trapDivideByZero();
+}
+// phis: 
+def b__3290 = pop_u64();
+def cond__3267__3292 = U64_equals(b__3290, abs__3275);
+def mt__3281__3291 = U64_maybeTrue(cond__3267__3292);
+def mf__3282 = U64_maybeFalse(cond__3267);
+def mb__3283 = bool.&&(mt__3281, mf__3282);
+if (mb__3283) {
+	def eff_nop__3286 = nop();
+	def eff__3268__3288 = trapDivideByZero();
+	def eff_merge__3287 = merge(eff_nop__3286, eff__3269__3304);
+	def eff_merge__3285__3289 = merge(eff__3268__3288, r_state__3284__3301);
+} else {
+	if (mt__3281__3291) {
+		def b__3298 = pop_u64();
+		def a__3299 = pop_u64();
+		def eff__3268__3293__3300 = trapDivideByZero();
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["I64_REM_U"]["unlem_pretty"] = ''
 window.traces["I64_REM_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -65555,6 +67704,12 @@ subgraph block_1524["Block 1524"]
 end
 
 </pre>`;
+window.traces["I64_AND"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_AND"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def a = pop_u64();
+def r = U64_and(a, b);
+def eff__3305 = push_u64(r);
+</pre>`;
 window.traces["I64_AND"]["unlem_pretty"] = ''
 window.traces["I64_AND"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -65754,6 +67909,12 @@ subgraph block_1526["Block 1526"]
 	b1526_5 --> b1526_1
 end
 
+</pre>`;
+window.traces["I64_OR"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_OR"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def a = pop_u64();
+def r = U64_or(a, b);
+def eff__3309 = push_u64(r);
 </pre>`;
 window.traces["I64_OR"]["unlem_pretty"] = ''
 window.traces["I64_OR"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -65955,6 +68116,12 @@ subgraph block_1528["Block 1528"]
 end
 
 </pre>`;
+window.traces["I64_XOR"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_XOR"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def a = pop_u64();
+def r = U64_or(a, b);
+def eff__3313 = push_u64(r);
+</pre>`;
 window.traces["I64_XOR"]["unlem_pretty"] = ''
 window.traces["I64_XOR"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -66154,6 +68321,12 @@ subgraph block_1530["Block 1530"]
 	b1530_5 --> b1530_1
 end
 
+</pre>`;
+window.traces["I64_SHL"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_SHL"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def a = pop_u64();
+def r = U64_shl(a, b);
+def eff__3317 = push_u64(r);
 </pre>`;
 window.traces["I64_SHL"]["unlem_pretty"] = ''
 window.traces["I64_SHL"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -66355,6 +68528,12 @@ subgraph block_1532["Block 1532"]
 end
 
 </pre>`;
+window.traces["I64_SHR_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_SHR_S"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def a = pop_u64();
+def r = U64_shr_s(a, b);
+def eff__3321 = push_u64(r);
+</pre>`;
 window.traces["I64_SHR_S"]["unlem_pretty"] = ''
 window.traces["I64_SHR_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -66554,6 +68733,12 @@ subgraph block_1534["Block 1534"]
 	b1534_5 --> b1534_1
 end
 
+</pre>`;
+window.traces["I64_SHR_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_SHR_U"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def a = pop_u64();
+def r = U64_shr_u(a, b);
+def eff__3325 = push_u64(r);
 </pre>`;
 window.traces["I64_SHR_U"]["unlem_pretty"] = ''
 window.traces["I64_SHR_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -66755,6 +68940,12 @@ subgraph block_1536["Block 1536"]
 end
 
 </pre>`;
+window.traces["I64_ROTL"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_ROTL"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def a = pop_u64();
+def r = U64_rotl(a, b);
+def eff__3329 = push_u64(r);
+</pre>`;
 window.traces["I64_ROTL"]["unlem_pretty"] = ''
 window.traces["I64_ROTL"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -66955,6 +69146,12 @@ subgraph block_1538["Block 1538"]
 end
 
 </pre>`;
+window.traces["I64_ROTR"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_ROTR"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def a = pop_u64();
+def r = U64_rotr(a, b);
+def eff__3333 = push_u64(r);
+</pre>`;
 window.traces["I64_ROTR"]["unlem_pretty"] = ''
 window.traces["I64_ROTR"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
 def a = pop_u64();
@@ -67135,6 +69332,11 @@ subgraph block_1540["Block 1540"]
 end
 
 </pre>`;
+window.traces["F32_ABS"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_ABS"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f32();
+def r = F32_abs(a);
+def eff__3337 = push_f32(r);
+</pre>`;
 window.traces["F32_ABS"]["unlem_pretty"] = ''
 window.traces["F32_ABS"]["unlem_pretty"] += `<pre class=''>def a = pop_f32();
 push_f32(F32_abs(a));
@@ -67305,6 +69507,11 @@ subgraph block_1542["Block 1542"]
 	b1542_4 --> b1542_1
 end
 
+</pre>`;
+window.traces["F32_NEG"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_NEG"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f32();
+def r = F32_neg(a);
+def eff__3340 = push_f32(r);
 </pre>`;
 window.traces["F32_NEG"]["unlem_pretty"] = ''
 window.traces["F32_NEG"]["unlem_pretty"] += `<pre class=''>def a = pop_f32();
@@ -67477,6 +69684,11 @@ subgraph block_1544["Block 1544"]
 end
 
 </pre>`;
+window.traces["F32_CEIL"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_CEIL"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f32();
+def r = F32_ceil(a);
+def eff__3343 = push_f32(r);
+</pre>`;
 window.traces["F32_CEIL"]["unlem_pretty"] = ''
 window.traces["F32_CEIL"]["unlem_pretty"] += `<pre class=''>def a = pop_f32();
 push_f32(F32_ceil(a));
@@ -67647,6 +69859,11 @@ subgraph block_1546["Block 1546"]
 	b1546_4 --> b1546_1
 end
 
+</pre>`;
+window.traces["F32_FLOOR"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_FLOOR"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f32();
+def r = F32_floor(a);
+def eff__3346 = push_f32(r);
 </pre>`;
 window.traces["F32_FLOOR"]["unlem_pretty"] = ''
 window.traces["F32_FLOOR"]["unlem_pretty"] += `<pre class=''>def a = pop_f32();
@@ -67819,6 +70036,11 @@ subgraph block_1548["Block 1548"]
 end
 
 </pre>`;
+window.traces["F32_TRUNC"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_TRUNC"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f32();
+def r = F32_trunc(a);
+def eff__3349 = push_f32(r);
+</pre>`;
 window.traces["F32_TRUNC"]["unlem_pretty"] = ''
 window.traces["F32_TRUNC"]["unlem_pretty"] += `<pre class=''>def a = pop_f32();
 push_f32(F32_trunc(a));
@@ -67990,6 +70212,11 @@ subgraph block_1550["Block 1550"]
 end
 
 </pre>`;
+window.traces["F32_NEAREST"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_NEAREST"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f32();
+def r = F32_round(a);
+def eff__3352 = push_f32(r);
+</pre>`;
 window.traces["F32_NEAREST"]["unlem_pretty"] = ''
 window.traces["F32_NEAREST"]["unlem_pretty"] += `<pre class=''>def a = pop_f32();
 push_f32(F32_round(a));
@@ -68160,6 +70387,11 @@ subgraph block_1552["Block 1552"]
 	b1552_4 --> b1552_1
 end
 
+</pre>`;
+window.traces["F32_SQRT"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_SQRT"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f32();
+def r = F32_sqrt(a);
+def eff__3355 = push_f32(r);
 </pre>`;
 window.traces["F32_SQRT"]["unlem_pretty"] = ''
 window.traces["F32_SQRT"]["unlem_pretty"] += `<pre class=''>def a = pop_f32();
@@ -68351,6 +70583,12 @@ subgraph block_1554["Block 1554"]
 	b1554_5 --> b1554_1
 end
 
+</pre>`;
+window.traces["F32_ADD"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_ADD"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_f32();
+def a = pop_f32();
+def r = F32_plus(a, b);
+def eff__3358 = push_f32(r);
 </pre>`;
 window.traces["F32_ADD"]["unlem_pretty"] = ''
 window.traces["F32_ADD"]["unlem_pretty"] += `<pre class=''>def b = pop_f32();
@@ -68552,6 +70790,12 @@ subgraph block_1556["Block 1556"]
 end
 
 </pre>`;
+window.traces["F32_SUB"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_SUB"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_f32();
+def a = pop_f32();
+def r = F32_minus(a, b);
+def eff__3362 = push_f32(r);
+</pre>`;
 window.traces["F32_SUB"]["unlem_pretty"] = ''
 window.traces["F32_SUB"]["unlem_pretty"] += `<pre class=''>def b = pop_f32();
 def a = pop_f32();
@@ -68751,6 +70995,12 @@ subgraph block_1558["Block 1558"]
 	b1558_5 --> b1558_1
 end
 
+</pre>`;
+window.traces["F32_MUL"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_MUL"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_f32();
+def a = pop_f32();
+def r = F32_times(a, b);
+def eff__3366 = push_f32(r);
 </pre>`;
 window.traces["F32_MUL"]["unlem_pretty"] = ''
 window.traces["F32_MUL"]["unlem_pretty"] += `<pre class=''>def b = pop_f32();
@@ -69366,9 +71616,7 @@ window.traces["F32_DIV"]["unlem_scheduler"] = ''
 window.traces["F32_DIV"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1565["Block 1565"]
 	direction TB
-	b1565_11["r F32_div"]
 	b1565_3[\\"Finish"/]
-	b1565_11 --> b1565_3
 end
 phi_1567 --> block_1565
 subgraph phi_1567["Phi 1567"]
@@ -69426,12 +71674,10 @@ subgraph block_1579["Block 1579"]
 	b1579_13["arg__3375 0.0f"]
 	b1579_0["abs__3378 lift_f32"]
 	b1579_15["cond__3370 F32_equals"]
-	b1579_16["eff__3372 push_f32"]
 	b1579_2["mt__3384 U32_maybeTrue"]
 	b1579_13 --> b1579_0
 	b1579_0 --> b1579_15
-	b1579_15 --> b1579_16
-	b1579_16 --> b1579_2
+	b1579_15 --> b1579_2
 end
 subgraph block_1578["Block 1578"]
 	direction TB
@@ -69465,6 +71711,35 @@ subgraph block_1574["Block 1574"]
 end
 branch_1571 --> block_1574
 
+</pre>`;
+window.traces["F32_DIV"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_DIV"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3375 : f32 = 0.0f;
+def abs__3378 = lift_f32(arg__3375);
+def cond__3370 = F32_equals(b, abs__3378);
+def mt__3384 = U32_maybeTrue(cond__3370);
+if (mt__3384) {
+	def eff__3371__3405 = trapDivideByZero();
+}
+// phis: 
+def b__3393 = pop_f32();
+def cond__3370__3395 = F32_equals(b__3393, abs__3378);
+def mt__3384__3394 = U32_maybeTrue(cond__3370__3395);
+def mf__3385 = U32_maybeFalse(cond__3370);
+def mb__3386 = bool.&&(mt__3384, mf__3385);
+if (mb__3386) {
+	def eff_nop__3389 = nop();
+	def eff__3371__3391 = trapDivideByZero();
+	def eff_merge__3390 = merge(eff_nop__3389, eff__3372__3407);
+	def eff_merge__3388__3392 = merge(eff__3371__3391, r_state__3387__3404);
+} else {
+	if (mt__3384__3394) {
+		def b__3401 = pop_f32();
+		def a__3402 = pop_f32();
+		def eff__3371__3396__3403 = trapDivideByZero();
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["F32_DIV"]["unlem_pretty"] = ''
 window.traces["F32_DIV"]["unlem_pretty"] += `<pre class=''>def b = pop_f32();
@@ -69682,6 +71957,11 @@ subgraph block_1581["Block 1581"]
 end
 
 </pre>`;
+window.traces["F64_ABS"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_ABS"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f64();
+def r = F64_abs(a);
+def eff__3408 = push_f64(r);
+</pre>`;
 window.traces["F64_ABS"]["unlem_pretty"] = ''
 window.traces["F64_ABS"]["unlem_pretty"] += `<pre class=''>def a = pop_f64();
 push_f64(F64_abs(a));
@@ -69852,6 +72132,11 @@ subgraph block_1583["Block 1583"]
 	b1583_4 --> b1583_1
 end
 
+</pre>`;
+window.traces["F64_NEG"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_NEG"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f64();
+def r = F64_neg(a);
+def eff__3411 = push_f64(r);
 </pre>`;
 window.traces["F64_NEG"]["unlem_pretty"] = ''
 window.traces["F64_NEG"]["unlem_pretty"] += `<pre class=''>def a = pop_f64();
@@ -70024,6 +72309,11 @@ subgraph block_1585["Block 1585"]
 end
 
 </pre>`;
+window.traces["F64_CEIL"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_CEIL"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f64();
+def r = F64_ceil(a);
+def eff__3414 = push_f64(r);
+</pre>`;
 window.traces["F64_CEIL"]["unlem_pretty"] = ''
 window.traces["F64_CEIL"]["unlem_pretty"] += `<pre class=''>def a = pop_f64();
 push_f64(F64_ceil(a));
@@ -70194,6 +72484,11 @@ subgraph block_1587["Block 1587"]
 	b1587_4 --> b1587_1
 end
 
+</pre>`;
+window.traces["F64_FLOOR"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_FLOOR"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f64();
+def r = F64_floor(a);
+def eff__3417 = push_f64(r);
 </pre>`;
 window.traces["F64_FLOOR"]["unlem_pretty"] = ''
 window.traces["F64_FLOOR"]["unlem_pretty"] += `<pre class=''>def a = pop_f64();
@@ -70366,6 +72661,11 @@ subgraph block_1589["Block 1589"]
 end
 
 </pre>`;
+window.traces["F64_TRUNC"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_TRUNC"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f64();
+def r = F64_trunc(a);
+def eff__3420 = push_f64(r);
+</pre>`;
 window.traces["F64_TRUNC"]["unlem_pretty"] = ''
 window.traces["F64_TRUNC"]["unlem_pretty"] += `<pre class=''>def a = pop_f64();
 push_f64(F64_trunc(a));
@@ -70537,6 +72837,11 @@ subgraph block_1591["Block 1591"]
 end
 
 </pre>`;
+window.traces["F64_NEAREST"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_NEAREST"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f64();
+def r = F64_round(a);
+def eff__3423 = push_f64(r);
+</pre>`;
 window.traces["F64_NEAREST"]["unlem_pretty"] = ''
 window.traces["F64_NEAREST"]["unlem_pretty"] += `<pre class=''>def a = pop_f64();
 push_f64(F64_round(a));
@@ -70707,6 +73012,11 @@ subgraph block_1593["Block 1593"]
 	b1593_4 --> b1593_1
 end
 
+</pre>`;
+window.traces["F64_SQRT"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_SQRT"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f64();
+def r = F64_sqrt(a);
+def eff__3426 = push_f64(r);
 </pre>`;
 window.traces["F64_SQRT"]["unlem_pretty"] = ''
 window.traces["F64_SQRT"]["unlem_pretty"] += `<pre class=''>def a = pop_f64();
@@ -70898,6 +73208,12 @@ subgraph block_1595["Block 1595"]
 	b1595_5 --> b1595_1
 end
 
+</pre>`;
+window.traces["F64_ADD"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_ADD"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_f64();
+def a = pop_f64();
+def r = F64_plus(a, b);
+def eff__3429 = push_f64(r);
 </pre>`;
 window.traces["F64_ADD"]["unlem_pretty"] = ''
 window.traces["F64_ADD"]["unlem_pretty"] += `<pre class=''>def b = pop_f64();
@@ -71099,6 +73415,12 @@ subgraph block_1597["Block 1597"]
 end
 
 </pre>`;
+window.traces["F64_SUB"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_SUB"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_f64();
+def a = pop_f64();
+def r = F64_minus(a, b);
+def eff__3433 = push_f64(r);
+</pre>`;
 window.traces["F64_SUB"]["unlem_pretty"] = ''
 window.traces["F64_SUB"]["unlem_pretty"] += `<pre class=''>def b = pop_f64();
 def a = pop_f64();
@@ -71298,6 +73620,12 @@ subgraph block_1599["Block 1599"]
 	b1599_5 --> b1599_1
 end
 
+</pre>`;
+window.traces["F64_MUL"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_MUL"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_f64();
+def a = pop_f64();
+def r = F64_times(a, b);
+def eff__3437 = push_f64(r);
 </pre>`;
 window.traces["F64_MUL"]["unlem_pretty"] = ''
 window.traces["F64_MUL"]["unlem_pretty"] += `<pre class=''>def b = pop_f64();
@@ -71913,9 +74241,7 @@ window.traces["F64_DIV"]["unlem_scheduler"] = ''
 window.traces["F64_DIV"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1606["Block 1606"]
 	direction TB
-	b1606_11["r F64_div"]
 	b1606_3[\\"Finish"/]
-	b1606_11 --> b1606_3
 end
 phi_1608 --> block_1606
 subgraph phi_1608["Phi 1608"]
@@ -71973,12 +74299,10 @@ subgraph block_1620["Block 1620"]
 	b1620_13["arg__3446 0.0f"]
 	b1620_0["abs__3449 lift_f64"]
 	b1620_15["cond__3441 F64_equals"]
-	b1620_16["eff__3443 push_f64"]
 	b1620_2["mt__3455 U32_maybeTrue"]
 	b1620_13 --> b1620_0
 	b1620_0 --> b1620_15
-	b1620_15 --> b1620_16
-	b1620_16 --> b1620_2
+	b1620_15 --> b1620_2
 end
 subgraph block_1619["Block 1619"]
 	direction TB
@@ -72012,6 +74336,35 @@ subgraph block_1615["Block 1615"]
 end
 branch_1612 --> block_1615
 
+</pre>`;
+window.traces["F64_DIV"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_DIV"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3446 : f32 = 0.0f;
+def abs__3449 = lift_f64(arg__3446);
+def cond__3441 = F64_equals(b, abs__3449);
+def mt__3455 = U32_maybeTrue(cond__3441);
+if (mt__3455) {
+	def eff__3442__3476 = trapDivideByZero();
+}
+// phis: 
+def b__3464 = pop_f64();
+def cond__3441__3466 = F64_equals(b__3464, abs__3449);
+def mt__3455__3465 = U32_maybeTrue(cond__3441__3466);
+def mf__3456 = U32_maybeFalse(cond__3441);
+def mb__3457 = bool.&&(mt__3455, mf__3456);
+if (mb__3457) {
+	def eff_nop__3460 = nop();
+	def eff__3442__3462 = trapDivideByZero();
+	def eff_merge__3461 = merge(eff_nop__3460, eff__3443__3478);
+	def eff_merge__3459__3463 = merge(eff__3442__3462, r_state__3458__3475);
+} else {
+	if (mt__3455__3465) {
+		def b__3472 = pop_f64();
+		def a__3473 = pop_f64();
+		def eff__3442__3467__3474 = trapDivideByZero();
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["F64_DIV"]["unlem_pretty"] = ''
 window.traces["F64_DIV"]["unlem_pretty"] += `<pre class=''>def b = pop_f64();
@@ -72229,6 +74582,11 @@ subgraph block_1622["Block 1622"]
 end
 
 </pre>`;
+window.traces["I32_WRAP_I64"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_WRAP_I64"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u64();
+def r = U32_wrap_u64(a);
+def eff__3479 = push_u32(r);
+</pre>`;
 window.traces["I32_WRAP_I64"]["unlem_pretty"] = ''
 window.traces["I32_WRAP_I64"]["unlem_pretty"] += `<pre class=''>def a = pop_u64();
 def r = U32_wrap_u64(a);
@@ -72401,6 +74759,11 @@ subgraph block_1624["Block 1624"]
 	b1624_4 --> b1624_1
 end
 
+</pre>`;
+window.traces["I32_TRUNC_F32_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_TRUNC_F32_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f32();
+def r = U32_trunc_f32_s(a);
+def eff__3482 = push_u32(r);
 </pre>`;
 window.traces["I32_TRUNC_F32_S"]["unlem_pretty"] = ''
 window.traces["I32_TRUNC_F32_S"]["unlem_pretty"] += `<pre class=''>def a = pop_f32();
@@ -72575,6 +74938,11 @@ subgraph block_1626["Block 1626"]
 end
 
 </pre>`;
+window.traces["I32_TRUNC_F32_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_TRUNC_F32_U"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f32();
+def r = U32_trunc_f32_u(a);
+def eff__3485 = push_u32(r);
+</pre>`;
 window.traces["I32_TRUNC_F32_U"]["unlem_pretty"] = ''
 window.traces["I32_TRUNC_F32_U"]["unlem_pretty"] += `<pre class=''>def a = pop_f32();
 def r = U32_trunc_f32_u(a);
@@ -72747,6 +75115,11 @@ subgraph block_1628["Block 1628"]
 	b1628_4 --> b1628_1
 end
 
+</pre>`;
+window.traces["I32_TRUNC_F64_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_TRUNC_F64_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f64();
+def r = U32_trunc_f64_s(a);
+def eff__3488 = push_u32(r);
 </pre>`;
 window.traces["I32_TRUNC_F64_S"]["unlem_pretty"] = ''
 window.traces["I32_TRUNC_F64_S"]["unlem_pretty"] += `<pre class=''>def a = pop_f64();
@@ -72921,6 +75294,11 @@ subgraph block_1630["Block 1630"]
 end
 
 </pre>`;
+window.traces["I32_TRUNC_F64_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_TRUNC_F64_U"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f64();
+def r = U32_trunc_f64_u(a);
+def eff__3491 = push_u32(r);
+</pre>`;
 window.traces["I32_TRUNC_F64_U"]["unlem_pretty"] = ''
 window.traces["I32_TRUNC_F64_U"]["unlem_pretty"] += `<pre class=''>def a = pop_f64();
 def r = U32_trunc_f64_u(a);
@@ -73093,6 +75471,11 @@ subgraph block_1632["Block 1632"]
 	b1632_4 --> b1632_1
 end
 
+</pre>`;
+window.traces["I64_EXTEND_I32_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_EXTEND_I32_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u32();
+def r = U64_extend_i32_s(a);
+def eff__3494 = push_u64(r);
 </pre>`;
 window.traces["I64_EXTEND_I32_S"]["unlem_pretty"] = ''
 window.traces["I64_EXTEND_I32_S"]["unlem_pretty"] += `<pre class=''>def a = pop_u32();
@@ -73267,6 +75650,11 @@ subgraph block_1634["Block 1634"]
 end
 
 </pre>`;
+window.traces["I64_EXTEND_I32_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_EXTEND_I32_U"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u32();
+def r = U64_extend_i32_u(a);
+def eff__3497 = push_u64(r);
+</pre>`;
 window.traces["I64_EXTEND_I32_U"]["unlem_pretty"] = ''
 window.traces["I64_EXTEND_I32_U"]["unlem_pretty"] += `<pre class=''>def a = pop_u32();
 def r = U64_extend_i32_u(a);
@@ -73439,6 +75827,11 @@ subgraph block_1636["Block 1636"]
 	b1636_4 --> b1636_1
 end
 
+</pre>`;
+window.traces["I64_TRUNC_F32_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_TRUNC_F32_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f32();
+def r = U64_trunc_f32_s(a);
+def eff__3500 = push_u64(r);
 </pre>`;
 window.traces["I64_TRUNC_F32_S"]["unlem_pretty"] = ''
 window.traces["I64_TRUNC_F32_S"]["unlem_pretty"] += `<pre class=''>def a = pop_f32();
@@ -73613,6 +76006,11 @@ subgraph block_1638["Block 1638"]
 end
 
 </pre>`;
+window.traces["I64_TRUNC_F32_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_TRUNC_F32_U"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f32();
+def r = U64_trunc_f32_u(a);
+def eff__3503 = push_u64(r);
+</pre>`;
 window.traces["I64_TRUNC_F32_U"]["unlem_pretty"] = ''
 window.traces["I64_TRUNC_F32_U"]["unlem_pretty"] += `<pre class=''>def a = pop_f32();
 def r = U64_trunc_f32_u(a);
@@ -73785,6 +76183,11 @@ subgraph block_1640["Block 1640"]
 	b1640_4 --> b1640_1
 end
 
+</pre>`;
+window.traces["I64_TRUNC_F64_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_TRUNC_F64_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f64();
+def r = U64_trunc_f64_s(a);
+def eff__3506 = push_u64(r);
 </pre>`;
 window.traces["I64_TRUNC_F64_S"]["unlem_pretty"] = ''
 window.traces["I64_TRUNC_F64_S"]["unlem_pretty"] += `<pre class=''>def a = pop_f64();
@@ -73959,6 +76362,11 @@ subgraph block_1642["Block 1642"]
 end
 
 </pre>`;
+window.traces["I64_TRUNC_F64_U"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_TRUNC_F64_U"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f64();
+def r = U64_trunc_f64_u(a);
+def eff__3509 = push_u64(r);
+</pre>`;
 window.traces["I64_TRUNC_F64_U"]["unlem_pretty"] = ''
 window.traces["I64_TRUNC_F64_U"]["unlem_pretty"] += `<pre class=''>def a = pop_f64();
 def r = U64_trunc_f64_u(a);
@@ -74131,6 +76539,11 @@ subgraph block_1644["Block 1644"]
 	b1644_4 --> b1644_1
 end
 
+</pre>`;
+window.traces["F32_CONVERT_I32_S"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_CONVERT_I32_S"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def r = F32_convert_i32_s(b);
+def eff__3512 = push_f32(r);
 </pre>`;
 window.traces["F32_CONVERT_I32_S"]["unlem_pretty"] = ''
 window.traces["F32_CONVERT_I32_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -74305,6 +76718,11 @@ subgraph block_1646["Block 1646"]
 end
 
 </pre>`;
+window.traces["F32_CONVERT_I32_U"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_CONVERT_I32_U"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def r = F32_convert_i32_u(b);
+def eff__3515 = push_f32(r);
+</pre>`;
 window.traces["F32_CONVERT_I32_U"]["unlem_pretty"] = ''
 window.traces["F32_CONVERT_I32_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def r = F32_convert_i32_u(b);
@@ -74477,6 +76895,11 @@ subgraph block_1648["Block 1648"]
 	b1648_4 --> b1648_1
 end
 
+</pre>`;
+window.traces["F32_CONVERT_I64_S"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_CONVERT_I64_S"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def r = F32_convert_i64_s(b);
+def eff__3518 = push_f32(r);
 </pre>`;
 window.traces["F32_CONVERT_I64_S"]["unlem_pretty"] = ''
 window.traces["F32_CONVERT_I64_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -74651,6 +77074,11 @@ subgraph block_1650["Block 1650"]
 end
 
 </pre>`;
+window.traces["F32_CONVERT_I64_U"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_CONVERT_I64_U"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def r = F32_convert_i64_u(b);
+def eff__3521 = push_f32(r);
+</pre>`;
 window.traces["F32_CONVERT_I64_U"]["unlem_pretty"] = ''
 window.traces["F32_CONVERT_I64_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
 def r = F32_convert_i64_u(b);
@@ -74823,6 +77251,11 @@ subgraph block_1652["Block 1652"]
 	b1652_4 --> b1652_1
 end
 
+</pre>`;
+window.traces["F64_CONVERT_I32_S"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_CONVERT_I32_S"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def r = F64_convert_i32_s(b);
+def eff__3524 = push_f64(r);
 </pre>`;
 window.traces["F64_CONVERT_I32_S"]["unlem_pretty"] = ''
 window.traces["F64_CONVERT_I32_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
@@ -74997,6 +77430,11 @@ subgraph block_1654["Block 1654"]
 end
 
 </pre>`;
+window.traces["F64_CONVERT_I32_U"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_CONVERT_I32_U"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def r = F64_convert_i32_u(b);
+def eff__3527 = push_f64(r);
+</pre>`;
 window.traces["F64_CONVERT_I32_U"]["unlem_pretty"] = ''
 window.traces["F64_CONVERT_I32_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def r = F64_convert_i32_u(b);
@@ -75169,6 +77607,11 @@ subgraph block_1656["Block 1656"]
 	b1656_4 --> b1656_1
 end
 
+</pre>`;
+window.traces["F64_CONVERT_I64_S"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_CONVERT_I64_S"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def r = F64_convert_i64_s(b);
+def eff__3530 = push_f64(r);
 </pre>`;
 window.traces["F64_CONVERT_I64_S"]["unlem_pretty"] = ''
 window.traces["F64_CONVERT_I64_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
@@ -75343,6 +77786,11 @@ subgraph block_1658["Block 1658"]
 end
 
 </pre>`;
+window.traces["F64_CONVERT_I64_U"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_CONVERT_I64_U"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def r = F64_convert_i64_u(b);
+def eff__3533 = push_f64(r);
+</pre>`;
 window.traces["F64_CONVERT_I64_U"]["unlem_pretty"] = ''
 window.traces["F64_CONVERT_I64_U"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
 def r = F64_convert_i64_u(b);
@@ -75515,6 +77963,11 @@ subgraph block_1660["Block 1660"]
 	b1660_4 --> b1660_1
 end
 
+</pre>`;
+window.traces["I32_REINTERPRET_F32"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_REINTERPRET_F32"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f32();
+def r = u32_reinterpret_f32(a);
+def eff__3536 = push_u32(r);
 </pre>`;
 window.traces["I32_REINTERPRET_F32"]["unlem_pretty"] = ''
 window.traces["I32_REINTERPRET_F32"]["unlem_pretty"] += `<pre class=''>def a = pop_f32();
@@ -75689,6 +78142,11 @@ subgraph block_1662["Block 1662"]
 end
 
 </pre>`;
+window.traces["I64_REINTERPRET_F64"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_REINTERPRET_F64"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_f64();
+def r = u64_reinterpret_f64(a);
+def eff__3539 = push_u64(r);
+</pre>`;
 window.traces["I64_REINTERPRET_F64"]["unlem_pretty"] = ''
 window.traces["I64_REINTERPRET_F64"]["unlem_pretty"] += `<pre class=''>def a = pop_f64();
 def r = u64_reinterpret_f64(a);
@@ -75861,6 +78319,11 @@ subgraph block_1664["Block 1664"]
 	b1664_4 --> b1664_1
 end
 
+</pre>`;
+window.traces["F32_REINTERPRET_I32"]["unlem_scheduler_ssa"] = ''
+window.traces["F32_REINTERPRET_I32"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u32();
+def r = f32_reinterpret_u32(a);
+def eff__3542 = push_f32(r);
 </pre>`;
 window.traces["F32_REINTERPRET_I32"]["unlem_pretty"] = ''
 window.traces["F32_REINTERPRET_I32"]["unlem_pretty"] += `<pre class=''>def a = pop_u32();
@@ -76035,6 +78498,11 @@ subgraph block_1666["Block 1666"]
 end
 
 </pre>`;
+window.traces["F64_REINTERPRET_I64"]["unlem_scheduler_ssa"] = ''
+window.traces["F64_REINTERPRET_I64"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u64();
+def r = f64_reinterpret_u64(a);
+def eff__3545 = push_f64(r);
+</pre>`;
 window.traces["F64_REINTERPRET_I64"]["unlem_pretty"] = ''
 window.traces["F64_REINTERPRET_I64"]["unlem_pretty"] += `<pre class=''>def a = pop_u64();
 def r = f64_reinterpret_u64(a);
@@ -76207,6 +78675,11 @@ subgraph block_1668["Block 1668"]
 	b1668_4 --> b1668_1
 end
 
+</pre>`;
+window.traces["I32_EXTEND8_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_EXTEND8_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u32();
+def r = U32_extend8_s(a);
+def eff__3548 = push_u32(r);
 </pre>`;
 window.traces["I32_EXTEND8_S"]["unlem_pretty"] = ''
 window.traces["I32_EXTEND8_S"]["unlem_pretty"] += `<pre class=''>def a = pop_u32();
@@ -76381,6 +78854,11 @@ subgraph block_1670["Block 1670"]
 end
 
 </pre>`;
+window.traces["I32_EXTEND16_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I32_EXTEND16_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u32();
+def r = U32_extend16_s(a);
+def eff__3551 = push_u32(r);
+</pre>`;
 window.traces["I32_EXTEND16_S"]["unlem_pretty"] = ''
 window.traces["I32_EXTEND16_S"]["unlem_pretty"] += `<pre class=''>def a = pop_u32();
 def r = U32_extend16_s(a);
@@ -76553,6 +79031,11 @@ subgraph block_1672["Block 1672"]
 	b1672_4 --> b1672_1
 end
 
+</pre>`;
+window.traces["I64_EXTEND8_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_EXTEND8_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u64();
+def r = U64_extend8_s(a);
+def eff__3554 = push_u64(r);
 </pre>`;
 window.traces["I64_EXTEND8_S"]["unlem_pretty"] = ''
 window.traces["I64_EXTEND8_S"]["unlem_pretty"] += `<pre class=''>def a = pop_u64();
@@ -76727,6 +79210,11 @@ subgraph block_1674["Block 1674"]
 end
 
 </pre>`;
+window.traces["I64_EXTEND16_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_EXTEND16_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u64();
+def r = U64_extend16_s(a);
+def eff__3557 = push_u64(r);
+</pre>`;
 window.traces["I64_EXTEND16_S"]["unlem_pretty"] = ''
 window.traces["I64_EXTEND16_S"]["unlem_pretty"] += `<pre class=''>def a = pop_u64();
 def r = U64_extend16_s(a);
@@ -76900,6 +79388,11 @@ subgraph block_1676["Block 1676"]
 end
 
 </pre>`;
+window.traces["I64_EXTEND32_S"]["unlem_scheduler_ssa"] = ''
+window.traces["I64_EXTEND32_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u64();
+def r = U64_extend32_s(a);
+def eff__3560 = push_u64(r);
+</pre>`;
 window.traces["I64_EXTEND32_S"]["unlem_pretty"] = ''
 window.traces["I64_EXTEND32_S"]["unlem_pretty"] += `<pre class=''>def a = pop_u64();
 def r = U64_extend32_s(a);
@@ -77070,6 +79563,11 @@ subgraph block_1678["Block 1678"]
 	b1678_2 --> b1678_1
 end
 
+</pre>`;
+window.traces["REF_NULL"]["unlem_scheduler_ssa"] = ''
+window.traces["REF_NULL"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3564 = object_Null();
+def eff__3563 = push_Object(arg__3564);
+def idx = imm_readULEB32();
 </pre>`;
 window.traces["REF_NULL"]["unlem_pretty"] = ''
 window.traces["REF_NULL"]["unlem_pretty"] += `<pre class=''>def idx = imm_readULEB32();
@@ -77566,6 +80064,31 @@ subgraph block_1694["Block 1694"]
 end
 branch_1691 --> block_1694
 
+</pre>`;
+window.traces["REF_IS_NULL"]["unlem_scheduler_ssa"] = ''
+window.traces["REF_IS_NULL"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3569 : u32 = 0;
+def arg__3567 : u32 = 1;
+def obj = pop_Object();
+def cond__3565__3581 = object_isNull(obj);
+def abs__3572 = lift_u32(arg__3569);
+def abs__3571 = lift_u32(arg__3567);
+def cond__3565 = object_isNull(obj);
+def mt__3575__3582 = U32_maybeTrue(cond__3565__3581);
+def mf__3576 = U32_maybeFalse(cond__3565);
+def mt__3575 = U32_maybeTrue(cond__3565);
+def mb__3577 = bool.&&(mt__3575, mf__3576);
+if (mb__3577) {
+	def merge__3578 = merge_u(abs__3571, abs__3572);
+	def eff_push__3579__3580 = push_u32(merge__3578);
+} else {
+	if (mt__3575__3582) {
+		def eff__3566__3583__3585 = push_u32(abs__3571);
+	} else {
+		def eff__3568__3584__3586 = push_u32(abs__3572);
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["REF_IS_NULL"]["unlem_pretty"] = ''
 window.traces["REF_IS_NULL"]["unlem_pretty"] += `<pre class=''>def obj = pop_Object();
@@ -78188,6 +80711,35 @@ end
 branch_1706 --> block_1709
 
 </pre>`;
+window.traces["REF_AS_NON_NULL"]["unlem_scheduler_ssa"] = ''
+window.traces["REF_AS_NON_NULL"]["unlem_scheduler_ssa"] += `<pre class=''>def cond__3589 = object_isNull(obj__3618);
+def mt__3596 = U32_maybeTrue(cond__3589);
+if (mt__3596) {
+	def obj = pop_Object();
+	def eff__3590__3617 = trapNull();
+}
+// phis: 
+def obj__3607 = pop_Object();
+def cond__3589__3609 = object_isNull(obj__3607);
+def mf__3597 = U32_maybeFalse(cond__3589);
+def mt__3596__3608 = U32_maybeTrue(cond__3589__3609);
+def mb__3598 = bool.&&(mt__3596, mf__3597);
+if (mb__3598) {
+	def eff_nop__3601 = nop();
+	def obj__3603 = pop_Object();
+	def eff_merge__3602 = merge(eff_nop__3601, obj__3618);
+	def eff__3590__3604 = trapNull();
+	def eff_merge__3600__3605 = merge(eff__3590__3604, r_state__3599__3612);
+} else {
+	if (mt__3596__3608) {
+		def obj__3607__3610 = pop_Object();
+		def eff__3590__3606__3611 = trapNull();
+	}
+// phis: 
+}
+// phis: 
+def eff__3587 = push_Object(obj__3618);
+</pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_pretty"] = ''
 window.traces["REF_AS_NON_NULL"]["unlem_pretty"] += `<pre class=''>def obj = pop_Object();
 def cond = object_isNull(obj);
@@ -78408,6 +80960,12 @@ subgraph block_1717["Block 1717"]
 	b1717_5 --> b1717_1
 end
 
+</pre>`;
+window.traces["STRUCT_NEW"]["unlem_scheduler_ssa"] = ''
+window.traces["STRUCT_NEW"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_idx = imm_readULEB32();
+def sig = m_getSignature(struct_idx);
+def obj = object_New(sig);
+def eff__3619 = push_Object(obj);
 </pre>`;
 window.traces["STRUCT_NEW"]["unlem_pretty"] = ''
 window.traces["STRUCT_NEW"]["unlem_pretty"] += `<pre class=''>def struct_idx = imm_readULEB32();
@@ -78999,6 +81557,28 @@ subgraph block_1733["Block 1733"]
 end
 branch_1730 --> block_1733
 
+</pre>`;
+window.traces["STRUCT_GET"]["unlem_scheduler_ssa"] = ''
+window.traces["STRUCT_GET"]["unlem_scheduler_ssa"] += `<pre class=''>def cond__3648 = object_isNull(obj);
+def mf__3665 = U32_maybeFalse(cond__3648);
+def mt__3664 = U32_maybeTrue(cond__3648);
+def mb__3666 = bool.&&(mt__3664, mf__3665);
+if (mb__3666) {
+	def eff_nop__3670 = nop();
+	def eff_nop__3668 = nop();
+	def ret__3649__3673 = trapNull();
+	def eff_merge__3672 = merge(eff_nop__3670, r_state__3671);
+	def eff_merge__3669 = merge(eff_nop__3668, obj);
+	def eff_merge__3667__3674 = merge(ret__3649__3673, field_index__3686);
+} else {
+	if (mt__3664) {
+		def field_index = imm_readULEB32();
+		def ret__3649 = trapNull();
+		def ret__3649__3675__3685 = trapNull();
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["STRUCT_GET"]["unlem_pretty"] = ''
 window.traces["STRUCT_GET"]["unlem_pretty"] += `<pre class=''>def struct_index = imm_readULEB32();
@@ -79634,6 +82214,28 @@ end
 branch_1746 --> block_1749
 
 </pre>`;
+window.traces["STRUCT_GET_S"]["unlem_scheduler_ssa"] = ''
+window.traces["STRUCT_GET_S"]["unlem_scheduler_ssa"] += `<pre class=''>def cond__3705 = object_isNull(obj);
+def mf__3722 = U32_maybeFalse(cond__3705);
+def mt__3721 = U32_maybeTrue(cond__3705);
+def mb__3723 = bool.&&(mt__3721, mf__3722);
+if (mb__3723) {
+	def eff_nop__3727 = nop();
+	def eff_nop__3725 = nop();
+	def ret__3706__3730 = trapNull();
+	def eff_merge__3729 = merge(eff_nop__3727, r_state__3728);
+	def eff_merge__3726 = merge(eff_nop__3725, obj);
+	def eff_merge__3724__3731 = merge(ret__3706__3730, field_index__3743);
+} else {
+	if (mt__3721) {
+		def field_index = imm_readULEB32();
+		def ret__3706 = trapNull();
+		def ret__3706__3732__3742 = trapNull();
+	}
+// phis: 
+}
+// phis: 
+</pre>`;
 window.traces["STRUCT_GET_S"]["unlem_pretty"] = ''
 window.traces["STRUCT_GET_S"]["unlem_pretty"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
@@ -80267,6 +82869,28 @@ subgraph block_1765["Block 1765"]
 end
 branch_1762 --> block_1765
 
+</pre>`;
+window.traces["STRUCT_GET_U"]["unlem_scheduler_ssa"] = ''
+window.traces["STRUCT_GET_U"]["unlem_scheduler_ssa"] += `<pre class=''>def cond__3762 = object_isNull(obj);
+def mf__3779 = U32_maybeFalse(cond__3762);
+def mt__3778 = U32_maybeTrue(cond__3762);
+def mb__3780 = bool.&&(mt__3778, mf__3779);
+if (mb__3780) {
+	def eff_nop__3784 = nop();
+	def eff_nop__3782 = nop();
+	def ret__3763__3787 = trapNull();
+	def eff_merge__3786 = merge(eff_nop__3784, r_state__3785);
+	def eff_merge__3783 = merge(eff_nop__3782, obj);
+	def eff_merge__3781__3788 = merge(ret__3763__3787, field_index__3800);
+} else {
+	if (mt__3778) {
+		def field_index = imm_readULEB32();
+		def ret__3763 = trapNull();
+		def ret__3763__3789__3799 = trapNull();
+	}
+// phis: 
+}
+// phis: 
 </pre>`;
 window.traces["STRUCT_GET_U"]["unlem_pretty"] = ''
 window.traces["STRUCT_GET_U"]["unlem_pretty"] += `<pre class=''>def struct_index = imm_readULEB32();

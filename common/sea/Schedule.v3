@@ -10,11 +10,11 @@ class BranchLattice {
     var sea: Sea;
     var condition: IRNode;
     var frontier: Vector<IRNode>;
-    var left_subgraph: ImmNodeSet;
-    var right_subgraph: ImmNodeSet;
+    var l_subgraph: ImmNodeSet;
+    var r_subgraph: ImmNodeSet;
     var phis: Vector<IRNode>;
 
-    new(sea, condition, frontier, left_subgraph, right_subgraph, phis) {}
+    new(sea, condition, frontier, l_subgraph, r_subgraph, phis) {}
 
     def frontier_eq(rhs: Vector<IRNode>) -> bool {
         if (frontier.length != rhs.length) return false;
@@ -46,8 +46,10 @@ class BranchLattice {
         return true;
     }
 
-    def add_phi(phi: IRNode) -> this {
+    def add_phi(phi: IRNode, partition: BranchPartition) -> this {
         phis.put(phi);
+        l_subgraph = l_subgraph.union(partition.l_subgraph);
+        r_subgraph = r_subgraph.union(partition.r_subgraph);
     }
 }
 
@@ -117,7 +119,7 @@ class SeaScheduler {
             }
 
             if (dest_bl != null) {
-                dest_bl.add_phi(n);
+                dest_bl.add_phi(n, partition);
             } else {
                 dest_bl = BranchLattice.new(sea, cond, frontier, lsg, rsg, Vectors.of1(n));
                 branch_lattices.put(dest_bl);
@@ -147,6 +149,7 @@ class SeaScheduler {
             }
 
             var prim = q[q_idx];
+
             prim = SchedulePrim.new(prim.node, this);
             q_idx += 1;
 
@@ -167,6 +170,8 @@ class SeaScheduler {
             }
         }
 
+
+        live = Seas.live(sea);
         bottom_block.finalize();
 
         check();
@@ -335,11 +340,17 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         return block;
     }
 
-    // traverses schedule graph and reverses all blocks
+    // traverses schedule graph, reverses blocks, and removes non-live nodes
     def finalize() {
         match (this) {
             block: ScheduleBlock => {
                 if (!block.forward) block.reverse();
+                def live_prims = Vector<SchedulePrim>.new();
+                for (i < block.prims.length) {
+                    def prim = block.prims[i];
+                    if (scheduler.live.has(prim.node)) live_prims.put(prim);
+                }
+                block.prims = live_prims;
                 if (block.prev != null) block.prev.finalize();
             }
             branch: ScheduleBranch => if (branch.prev != null) branch.prev.finalize();
@@ -721,7 +732,8 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         def left = l_source.toSSAD();
         def right = r_source.toSSAD();
 
-        return source_branch.prev.toSSAD().appended(SSAD.If(cond_name, left, right, [], SSAD.Void));
+        def prev_ssad = if(source_branch.prev != null, source_branch.prev.toSSAD(), SSAD.Void);
+        return prev_ssad.appended(SSAD.If(cond_name, left, right, [], SSAD.Void));
     }
 }
 
