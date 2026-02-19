@@ -144,82 +144,48 @@ class Sea {
 
     def isDescendant(low: IRNode, high: IRNode) => isAncestor(high, low);
 
-    def lowestCommonAncestor(a: IRNode, b: IRNode) -> IRNode {
-        // Collect ancestors of a
-        def a_ancestors = a.transitiveDepsSet();
-        a_ancestors.put(a);
+    def collectLeafNodes(node: IRNode, out: Vector<IRNode>) {
+        if (node.is_phi()) {
+            collectLeafNodes(node.value_deps[1], out);
+            collectLeafNodes(node.value_deps[2], out);
+        } else {
+            out.put(node);
+        }
+    }
 
-        // BFS from b to find first intersection
-        def wl = Vector<IRNode>.new();
-        def visited = NodeSet.new();
-        wl.put(b);
-        var idx = 0;
-        while (idx < wl.length) {
-            def node = wl[idx];
-            idx += 1;
-            if (node == null || visited.has(node)) continue;
-            if (a_ancestors.has(node)) return node;
-            visited.put(node);
-            for (dep in node.deps()) wl.put(dep);
+    def lowestCommonAncestors(nodes: Range<IRNode>) -> Vector<IRNode> {
+        if (nodes.length == 0) return Vector.new();
+        if (nodes.length == 1) return Vectors.of1(nodes[0]);
+
+        // Intersect transitive deps of all nodes
+        var common = nodes[0].transitiveDepsSet().put(nodes[0]);
+        for (i = 1; i < nodes.length; i++) {
+            def nodeDeps = nodes[i].transitiveDepsSet().put(nodes[i]);
+            common = common.intersection(nodeDeps);
         }
 
-        return start;
-    }
-
-    def lca2(a: IRNode, b: IRNode) -> IRNode {
-        var a_lca: IRNode = a;
-        if (IROp.Phi.?(a.op) || IROp.StatePhi.?(a.op)) a_lca = lca2(a.value_deps[1], a.value_deps[2]);
-
-        var b_lca: IRNode = b;
-        if (IROp.Phi.?(b.op) || IROp.StatePhi.?(b.op)) b_lca = lca2(b.value_deps[1], b.value_deps[2]);
-
-        return lowestCommonAncestor(a_lca, b_lca);
-    }
-
-    def findTop(left: IRNode, right: IRNode) -> Vector<IRNode> {
-        def leftDeps = left.transitiveDepsSet().put(left);
-        def rightDeps = right.transitiveDepsSet().put(right);
-
-        def common = leftDeps.intersection(rightDeps);
+        // Find roots (nodes with no children in common set)
         def commonVec = common.toVector();
-
         def results = Vector<IRNode>.new();
         for (i < commonVec.length) {
             def cn = commonVec[i];
             var isRoot = true;
-            for (i < cn.children.length) {
-                if (common.has(cn.children[i])) {
+            for (j < cn.children.length) {
+                if (common.has(cn.children[j])) {
                     isRoot = false;
                     break;
                 }
             }
             if (isRoot) results.put(cn);
         }
-        // XXX
-        leftDeps.apply(fun (n: IRNode) {
-            // if (!common.has(n)) results.put(n);
-            // if (!common.has(n)) {
-            //     for (d in n.deps()) if (isDescendant(d, right)) results.put(n);
-            // }
-        });
-        rightDeps.apply(fun (n: IRNode) {
-            // if (!common.has(n)) results.put(n);
-            // if (!common.has(n)) {
-            //     for (d in n.deps()) if (isDescendant(d, left)) results.put(n);
-            // }
-        });
-
         return results;
     }
 
-    def findTop2(a: IRNode, b: IRNode) -> Vector<IRNode> {
-        var a_lca: IRNode = a;
-        if (IROp.Phi.?(a.op) || IROp.StatePhi.?(a.op)) a_lca = lca2(a.value_deps[1], a.value_deps[2]);
-
-        var b_lca: IRNode = b;
-        if (IROp.Phi.?(b.op) || IROp.StatePhi.?(b.op)) b_lca = lca2(b.value_deps[1], b.value_deps[2]);
-
-        return findTop(a_lca, b_lca);
+    def findTop(a: IRNode, b: IRNode) -> Vector<IRNode> {
+        def nodes = Vector<IRNode>.new();
+        collectLeafNodes(a, nodes);
+        collectLeafNodes(b, nodes);
+        return lowestCommonAncestors(nodes.copy());
     }
 
     def addSSAD(ssad: SSAD, state_vars: Array<IRNode>, deps: List<IRNode>) {
@@ -472,7 +438,7 @@ class Sea {
         def cond = node.value_deps[0], l_branch = node.value_deps[1], r_branch = node.value_deps[2];
         cond.init_move();
 
-        def lcas = findTop2(l_branch, r_branch);
+        def lcas = findTop(l_branch, r_branch);
 
         var lsg = ImmNodeSet(null);
         for (i < lcas.length) lsg = lsg.union(subgraph2(lcas[i], l_branch, false));

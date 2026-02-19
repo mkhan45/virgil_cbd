@@ -23,6 +23,9 @@ make validator          # Generate generated/validator/Validator.v3
 make interpreter        # Generate generated/interpreter/Interpreter.v3  
 make compiler          # Generate generated/compiler/Compiler.v3
 
+# Build ValidatorGen (can be used to check compile errors and basic functionality)
+make ValidatorGen
+
 # Run components with arguments
 make run_validator ARGS='file.wasm'
 make run_interpreter ARGS='file.wasm'

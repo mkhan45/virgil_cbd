@@ -430,11 +430,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         phi_node.phis = List.new(phi, phi_node.phis);
 
-        // def lca = scheduler.sea.lca2(l_branch, r_branch);
-        // def lsg = scheduler.sea.subgraph2(lca, l_branch, true).with(cond.move_true).without(lca);
-        // def rsg = scheduler.sea.subgraph2(lca, r_branch, true).with(cond.move_false).without(lca);
-
-        def lcas = scheduler.sea.findTop2(l_branch, r_branch);
+        def lcas = scheduler.sea.findTop(l_branch, r_branch);
         System.puts(Strings.format2("lcas(%q, %q): ", l_branch.render, r_branch.render));
         for (i < lcas.length) System.puts(Strings.format1("%q, ", lcas[i].render));
         System.puts("\n");
@@ -666,12 +662,9 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
 
         phis = List.new(phi, phis);
 
-        // def lca = scheduler.sea.lca2(l_branch, r_branch);
-        // def lsg = scheduler.sea.subgraph2(lca, l_branch, true).with(cond.move_true).without(lca);
-        // def rsg = scheduler.sea.subgraph2(lca, r_branch, true).with(cond.move_false).without(lca);
         scheduler.sea.rebuildChildren();
 
-        def lcas = scheduler.sea.findTop2(l_branch, r_branch);
+        def lcas = scheduler.sea.findTop(l_branch, r_branch);
         System.puts(Strings.format2("lcas(%q, %q): ", l_branch.render, r_branch.render));
         for (i < lcas.length) System.puts(Strings.format1("%q, ", lcas[i].render));
         System.puts("\n");
