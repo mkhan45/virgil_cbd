@@ -467,6 +467,25 @@ class Sea {
             for (dep in node.deps()) dep.children.put(node);
         }
     }
+
+    def branch_partition(node: IRNode) -> BranchPartition {
+        def cond = node.value_deps[0], l_branch = node.value_deps[1], r_branch = node.value_deps[2];
+        cond.init_move();
+
+        def lcas = findTop2(l_branch, r_branch);
+
+        var lsg = ImmNodeSet(null);
+        for (i < lcas.length) lsg = lsg.union(subgraph2(lcas[i], l_branch, false));
+        for (i < lcas.length) lsg = lsg.without(lcas[i]);
+        lsg = lsg.with(cond.move_true).with(l_branch);
+
+        var rsg = ImmNodeSet(null);
+        for (i < lcas.length) rsg = rsg.union(subgraph2(lcas[i], r_branch, false));
+        for (i < lcas.length) rsg = rsg.without(lcas[i]);
+        rsg = rsg.with(cond.move_false).with(r_branch);
+
+        return BranchPartition(lcas, lsg, rsg);
+    }
 }
 
 component Seas {
@@ -583,6 +602,8 @@ component Seas {
         return liveSet;
     }
 }
+
+type BranchPartition(frontier: Vector<IRNode>, l_subgraph: ImmNodeSet, r_subgraph: ImmNodeSet);
 
 def dedup(arr: Array<IRNode>) -> Array<IRNode> {
     def res = Vector<IRNode>.new();

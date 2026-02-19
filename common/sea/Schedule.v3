@@ -10,9 +10,11 @@ class BranchLattice {
     var sea: Sea;
     var condition: IRNode;
     var frontier: Vector<IRNode>;
+    var left_subgraph: ImmNodeSet;
+    var right_subgraph: ImmNodeSet;
     var phis: Vector<IRNode>;
 
-    new(sea, frontier, phis) {}
+    new(sea, condition, frontier, left_subgraph, right_subgraph, phis) {}
 
     def frontier_eq(rhs: Vector<IRNode>) -> bool {
         if (frontier.length != rhs.length) return false;
@@ -28,6 +30,18 @@ class BranchLattice {
 
             if (!has_eq) return false;
         }
+
+        return true;
+    }
+
+    def can_merge_branches(phi: IRNode) -> bool {
+        def left = phi.value_deps[1], right = phi.value_deps[2];
+        // def partition = sea.branch_partition(phi);
+        // def lsg = partition.l_subgraph, rsg = partition.r_subgraph;
+        for (i < phis.length)
+            if (sea.isDescendant(phi, phis[i]) || sea.isDescendant(phis[i], phi)) return false;
+
+        // TODO: check cross deps between subgraphs
 
         return true;
     }
@@ -82,23 +96,30 @@ class SeaScheduler {
 
         live.apply(fun (n: IRNode) {
             if (!n.is_phi()) return;
+            def cond = n.value_deps[0];
 
-            def left = n.value_deps[1], right = n.value_deps[2];
-            def frontier = sea.findTop2(left, right);
+            def partition = sea.branch_partition(n);
+            def frontier = partition.frontier, lsg = partition.l_subgraph, rsg = partition.r_subgraph;
 
             var dest_bl: BranchLattice = null;
             for (i < branch_lattices.length) {
                 def bl = branch_lattices[i];
-                if (bl.frontier_eq(frontier)) {
+                if (bl.condition.id != cond.id) continue;
+
+                if (bl.can_merge_branches(n)) {
                     dest_bl = bl;
                     break;
                 }
+                // if (bl.frontier_eq(frontier)) {
+                //     dest_bl = bl;
+                //     break;
+                // }
             }
 
             if (dest_bl != null) {
                 dest_bl.add_phi(n);
             } else {
-                dest_bl = BranchLattice.new(sea, frontier, Vectors.of1(n));
+                dest_bl = BranchLattice.new(sea, cond, frontier, lsg, rsg, Vectors.of1(n));
                 branch_lattices.put(dest_bl);
             }
         });
