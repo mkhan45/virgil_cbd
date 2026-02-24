@@ -113,16 +113,6 @@ class Sea {
         return node;
     }
 
-    def project(parent: IRNode, val: bool) -> IRNode {
-        def node = IRNode.new(IROp.Proj(val), 0);
-        node.state_deps = Array<IRNode>.new(StateComponent.count);
-        node.value_deps = [parent];
-
-        for (dep in node.deps()) dep.children.put(node);
-
-        return node;
-    }
-
     def dupNode(node: IRNode) -> IRNode {
         def n = mkNode(node.op, node.state_deps, node.value_deps);
         if(node.var_data != null) n.var_data = VarData.new(Seas.uidl(node.var_data.sourceName), node.var_data.tipe, node.var_data.stage);
@@ -316,16 +306,15 @@ class Sea {
         }
     }
 
-    def subgraph2(top: IRNode, bot: IRNode, stop_at_phis: bool) -> ImmNodeSet {
+    def subgraph2(top: IRNode, bot: IRNode) -> ImmNodeSet {
         if (top == null || bot == null) return ImmNodeSets.empty();
         if (top.id == bot.id) return ImmNodeSets.single(top);
         
         def visited = NodeSet.new();
-        return collectPaths(top, bot, top, visited, stop_at_phis);
+        return collectPaths(top, bot, top, visited);
     }
 
-    // TODO: stopping at phis here is not completely good
-    def collectPaths(top: IRNode, bot: IRNode, node: IRNode, visited: NodeSet, stop_at_phis: bool) -> ImmNodeSet {
+    def collectPaths(top: IRNode, bot: IRNode, node: IRNode, visited: NodeSet) -> ImmNodeSet {
         if (visited.has(node)) return ImmNodeSets.empty();
         
         visited.put(node);
@@ -338,8 +327,7 @@ class Sea {
         var result = ImmNodeSets.empty();
         for (i < node.children.length) {
             def child = node.children[i];
-            if (stop_at_phis && (IROp.Phi.?(child.op) || IROp.StatePhi.?(child.op))) continue;
-            def childPaths = collectPaths(top, bot, child, visited, stop_at_phis);
+            def childPaths = collectPaths(top, bot, child, visited);
             if (childPaths.ls != null) {
                 result = result.with(node).union(childPaths);
             }
@@ -379,12 +367,12 @@ class Sea {
         def lcas = findTop(l_branch, r_branch);
 
         var lsg = ImmNodeSet(null);
-        for (i < lcas.length) lsg = lsg.union(subgraph2(lcas[i], l_branch, false));
+        for (i < lcas.length) lsg = lsg.union(subgraph2(lcas[i], l_branch));
         for (i < lcas.length) lsg = lsg.without(lcas[i]);
         lsg = lsg.with(cond.move_true).with(l_branch);
 
         var rsg = ImmNodeSet(null);
-        for (i < lcas.length) rsg = rsg.union(subgraph2(lcas[i], r_branch, false));
+        for (i < lcas.length) rsg = rsg.union(subgraph2(lcas[i], r_branch));
         for (i < lcas.length) rsg = rsg.without(lcas[i]);
         rsg = rsg.with(cond.move_false).with(r_branch);
 
@@ -550,6 +538,7 @@ class IRNode {
         else return dedup(Arrays.concat(value_deps, state_deps));
     }
 
+    // only used by search based scheduler, should be removed after
     def transitiveDeps(limit: IRNode) -> Array<IRNode> {
         def res = Vector<IRNode>.new();
         match (op) {
@@ -686,8 +675,7 @@ type IROp {
     case StatePhi(statecomps: StateComponent.set);
     // case MatchPhi(subj: IRNode, end: IRNode, cases: Array<IRNode>);
 
-    case Proj(val: bool);
-    case Move(val: bool); // child should be statephi?
+    case Move(val: bool);
 
     def eq(rhs: IROp) -> bool {
         match (this) {
@@ -704,10 +692,6 @@ type IROp {
             }
             StatePhi(sc1) => match (rhs) {
                 StatePhi(sc2) => return sc1 == sc2;
-                _ => return false;
-            }
-            Proj(v1) => match (rhs) {
-                Proj(v2) => return v1 == v2;
                 _ => return false;
             }
             Move(v1) => match (rhs) {

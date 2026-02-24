@@ -77,7 +77,6 @@ component SeaRender {
             Finish => sb.puts("Finish");
             Phi => sb.puts("Phi");
             StatePhi => sb.puts("StatePhi [").putq(renderIRNode(node.value_deps[0], _)).putc(']');
-            Proj(val) => sb.puts(if(val, "|True|", "|False|"));
             Move(val) => sb.puts(if(val, "|True|", "|False|"));
         }
 
@@ -104,7 +103,6 @@ component SeaRender {
                 buf.puts("Sϕ ");
                 for (sc in scs) buf.puts(sc.name).puts(" ");
             }
-            Proj(val) => buf.puts(if(val, "|True|", "|False|"));
             Move(val) => buf.puts(if(val, "|True|", "|False|"));
         }
         match (node.op) {

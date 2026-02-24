@@ -18,12 +18,10 @@ class BranchLattice {
 
     def can_merge_branches(phi: IRNode) -> bool {
         def left = phi.value_deps[1], right = phi.value_deps[2];
-        // def partition = sea.branch_partition(phi);
-        // def lsg = partition.l_subgraph, rsg = partition.r_subgraph;
         for (i < phis.length)
             if (sea.isDescendant(phi, phis[i]) || sea.isDescendant(phis[i], phi)) return false;
 
-        // TODO: check cross deps between subgraphs
+        // TODO: check cross deps between subgraphs ?
 
         return true;
     }
@@ -100,10 +98,6 @@ class SeaScheduler {
                     dest_bl = bl;
                     break;
                 }
-                // if (bl.frontier_eq(frontier)) {
-                //     dest_bl = bl;
-                //     break;
-                // }
             }
 
             if (dest_bl != null) {
@@ -416,17 +410,9 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         phi_node.phis = List.new(phi, phi_node.phis);
 
-        // def lcas = scheduler.sea.findTop(l_branch, r_branch);
-        // System.puts(Strings.format2("lcas(%q, %q): ", l_branch.render, r_branch.render));
-        // for (i < lcas.length) System.puts(Strings.format1("%q, ", lcas[i].render));
-        // System.puts("\n");
+        // Clone left/right subgraphs
 
-        // var lsg = ImmNodeSet(null);
-        // for (i < lcas.length) lsg = lsg.union(scheduler.sea.subgraph2(lcas[i], l_branch, false));
-        // for (i < lcas.length) lsg = lsg.without(lcas[i]);
-        // lsg = lsg.with(cond.move_true).with(l_branch);
         def lsg = bl.l_subgraph;
-
         def lsg_clone = Seas.cloneSubgraph(scheduler.sea, lsg);
         def lsg_clone_sg = lsg_clone.0;
         def lsg_clone_mapping = lsg_clone.1;
@@ -437,38 +423,23 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         }
         for (n = lsg_clone_sg.ls; n != null; n = n.tail) scheduler.live.put(n.head);
 
-        // var rsg = ImmNodeSet(null);
-        // for (i < lcas.length) rsg = rsg.union(scheduler.sea.subgraph2(lcas[i], r_branch, false));
-        // for (i < lcas.length) rsg = rsg.without(lcas[i]);
-        // rsg = rsg.with(cond.move_false).with(r_branch);
         def rsg = bl.r_subgraph;
-
         def rsg_clone = Seas.cloneSubgraph(scheduler.sea, rsg);
         def rsg_clone_sg = rsg_clone.0;
         def rsg_clone_mapping = rsg_clone.1;
+
         for (i < r_branch.children.length) {
             def child = r_branch.children[i];
             child.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
         }
         for (n = rsg_clone_sg.ls; n != null; n = n.tail) scheduler.live.put(n.head);
 
-        // for (i < lcas.length) {
-        //     scheduler.live.put(lcas[i]);
-        //     scheduler.top_node.children.put(lcas[i]);
-        // }
-
-        // scheduler.live.remove(l_branch);
-        // scheduler.live.remove(r_branch);
-        // scheduler.live.put(cond.move_true);
-        // scheduler.live.put(cond.move_false);
+        // rebuild metadata from scratch
         scheduler.live = Seas.live(scheduler.sea);
+        scheduler.sea.rebuildChildren();
 
         CBDTrace.addGraph(scheduler.opcode, Strings.format1("post_surgery %d", phi_node.id), scheduler.sea);
-
-        // System.puts(Strings.format3("left: %q\nright: %q\nlca: %q\n", l_branch.render, r_branch.render, lca.render));
         System.puts(Strings.format2("lsg: %q\nrsg: %q\n", lsg.render, rsg.render));
-
-        scheduler.sea.rebuildChildren();
 
         if (Strings.equal(scheduler.opcode, "END")) {
             System.puts(Strings.format3("Scheduled phi %q (%d) before %d\n\n", phi.render, phi_node.id, id));
@@ -493,7 +464,7 @@ class ScheduleBlock(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid
         for (i < prims.length) {
             def node = prims[i].node;
             match (node.op) {
-                Start, Finish, Proj, Move => {}
+                Start, Finish, Move => {}
                 Intrinsic(defn) => {
                     def args = Arrays.map(node.value_deps, fun (n: IRNode) => n.var_data.sourceName);
                     res = res.appended(SSAD.LetApp(node.var_data.sourceName, defn.name, args, SSAD.Void));
@@ -574,7 +545,7 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         System.puts("\n");
 
         var lsg = ImmNodeSet(null);
-        for (i < lcas.length) lsg = lsg.union(scheduler.sea.subgraph2(lcas[i], l_branch, false));
+        for (i < lcas.length) lsg = lsg.union(scheduler.sea.subgraph2(lcas[i], l_branch));
         for (i < lcas.length) lsg = lsg.without(lcas[i]);
         lsg = lsg.with(cond.move_true).with(l_branch);
 
@@ -589,7 +560,7 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         for (n = lsg_clone_sg.ls; n != null; n = n.tail) scheduler.live.put(n.head);
 
         var rsg = ImmNodeSet(null);
-        for (i < lcas.length) rsg = rsg.union(scheduler.sea.subgraph2(lcas[i], r_branch, false));
+        for (i < lcas.length) rsg = rsg.union(scheduler.sea.subgraph2(lcas[i], r_branch));
         for (i < lcas.length) rsg = rsg.without(lcas[i]);
         rsg = rsg.with(cond.move_false).with(r_branch);
 
@@ -603,21 +574,6 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         for (n = rsg_clone_sg.ls; n != null; n = n.tail) scheduler.live.put(n.head);
 
         scheduler.sea.rebuildChildren();
-
-        // TODO XXX: state phis need to sometimes consume value phis
-
-        // XXX: infinite loop due to bad fusing
-        // I think we may want to store left and right subgraphs on the phi
-        // l_source.schedule(SchedulePrim.new(lsg_clone_mapping[l_branch], scheduler).filterSubgraph(lsg), source_branch);
-        // r_source.schedule(SchedulePrim.new(rsg_clone_mapping[r_branch], scheduler).filterSubgraph(rsg), source_branch);
-        // l_source.schedule(SchedulePrim.new(l_branch, scheduler).filterSubgraph(lsg), source_branch);
-        // r_source.schedule(SchedulePrim.new(r_branch, scheduler).filterSubgraph(rsg), source_branch);
-        // scheduler.q.put(SchedulePrim.new(l_branch, scheduler).boundLow(l_source).filterSubgraph(lsg));
-        // scheduler.q.put(SchedulePrim.new(r_branch, scheduler).boundLow(r_source).filterSubgraph(rsg));
-        // for (n = lsg.ls; n != null; n = n.tail) if (!IROp.Move.?(n.head.op))
-        //     l_source.schedule(SchedulePrim.new(n.head, scheduler).filterSubgraph(lsg), source_branch);
-        // for (n = rsg.ls; n != null; n = n.tail) if (!IROp.Move.?(n.head.op))
-        //     r_source.schedule(SchedulePrim.new(n.head, scheduler).filterSubgraph(rsg), source_branch);
     }
 
     def toSSAD() -> SSAD {
@@ -713,17 +669,5 @@ class SchedulePrim {
     }
 
     def renderSimple(sb: StringBuilder) => SeaRender.renderSimpleSchedulePrim(this, sb);
-
     def render(buf: StringBuilder) -> StringBuilder => SeaRender.renderSchedulePrim(this, buf);
-}
-
-def dedup(arr: Array<IRNode>) -> Array<IRNode> {
-    def res = Vector<IRNode>.new();
-    for (n in arr) {
-        if (n == null) continue;
-        var dup = false;
-        for (i < res.length) dup |= res[i].id == n.id;
-        if (!dup) res.put(n);
-    }
-    return res.copy();
 }
