@@ -30,7 +30,10 @@ component SeaRender {
             visited.put(n);
             toMermaidNodeIRNode(n, buf, tag);
 
+            var arg_idx = 0;
             for (arg in n.value_deps) {
+                if (arg == null) System.puts(Strings.format2("HERE: arg %d of %q null\n", arg_idx, n.render));
+                arg_idx += 1;
                 buf.tab().puts(tag).putd(arg.id).puts(" --> ").puts(tag).putd(n.id).ln();
             }
             def state_set = Vector<(IRNode, StateComponent.set)>.new();
