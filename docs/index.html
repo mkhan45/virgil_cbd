@@ -63,7 +63,7 @@
                 await setGraph(currentCode, tagSelect.value);
             };
 
-            async function setGraph(code, tag) {
+            async function setGraph(code, tag, updateHistory = true) {
                 const rect = graph.getBoundingClientRect();
                 const barrierDiv = graph.cloneNode(true);
 
@@ -85,6 +85,7 @@
 
                 currentCode = code;
                 currentTagList = Object.keys(traces[code]);
+                if (updateHistory) history.pushState(null, '', '#' + code + '#' + tag);
 
                 tagSelect.innerHTML = '';
                 for (const t of currentTagList) {
@@ -116,8 +117,24 @@
                 barrierDiv.remove();
                 graph.style.opacity = 1;
             }
-            const initialCode = traces["BR_IF"] != undefined ? "BR_IF" : "UNREACHABLE";
-            await setGraph(initialCode, getDefaultTag(initialCode));
+            function parseHash() {
+                const parts = window.location.hash.slice(1).split('#');
+                return { code: parts[0] || null, tag: parts[1] || null };
+            }
+
+            window.addEventListener('hashchange', async () => {
+                const { code, tag } = parseHash();
+                if (code && traces[code]) {
+                    const resolvedTag = (tag && traces[code][tag]) ? tag : getDefaultTag(code);
+                    await setGraph(code, resolvedTag, false);
+                }
+            });
+
+            const { code: hashCode, tag: hashTag } = parseHash();
+            const initialCode = (hashCode && traces[hashCode]) ? hashCode
+                : (traces["BR_IF"] != undefined ? "BR_IF" : "UNREACHABLE");
+            const initialTag = (hashTag && traces[initialCode]?.[hashTag]) ? hashTag : getDefaultTag(initialCode);
+            await setGraph(initialCode, initialTag, false);
 
             const codes = document.getElementById('codes');
             for (const op in traces) {
