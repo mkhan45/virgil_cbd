@@ -55,10 +55,7 @@ type ImmNodeSet(ls: List<IRNode>) {
         return res;
     }
 
-    def render(sb: StringBuilder) -> StringBuilder {
-        for (cur = ls; cur != null; cur = cur.tail) sb.putq(cur.head.render).puts(", ");
-        return sb;
-    }
+    def render(sb: StringBuilder) -> StringBuilder => SeaRender.renderImmNodeSet(this, sb);
 }
 
 component ImmNodeSets {
@@ -69,15 +66,6 @@ component ImmNodeSets {
         for (i < v.length) s = s.with(v[i]);
         return s;
     }
-}
-
-def uidl = SSAD_IR.uidl;
-def intrinsic(name: string) -> IntrinsicTypedef {
-    def defn = IntrinsicTypes.intrinsic_types[name];
-    if (defn != null) 
-        return defn;
-    else
-        return IntrinsicTypedef.new(name, null, null, CBDEffect.None);
 }
 
 class Sea {
@@ -137,7 +125,7 @@ class Sea {
 
     def dupNode(node: IRNode) -> IRNode {
         def n = mkNode(node.op, node.state_deps, node.value_deps);
-        if(node.var_data != null) n.var_data = VarData.new(uidl(node.var_data.sourceName), node.var_data.tipe, node.var_data.stage);
+        if(node.var_data != null) n.var_data = VarData.new(Seas.uidl(node.var_data.sourceName), node.var_data.tipe, node.var_data.stage);
         return n;
     }
 
@@ -197,7 +185,7 @@ class Sea {
         match (ssad) {
             LetApp(n, f, args, rest) => {
                 def arg_nodes: Array<IRNode> = Arrays.map(args, fun (a: string) => var_nodes[a]);
-                var intrinsic_def = intrinsic(f);
+                var intrinsic_def = Seas.intrinsic(f);
 
                 def state_deps = Array<IRNode>.new(state_vars.length);
                 for (sc in intrinsic_def.reads | intrinsic_def.writes)
@@ -259,7 +247,7 @@ class Sea {
                     def phi_var = phi.0;
                     if (!phi_map.has(phi_var)) {
                         def left = then_phis[phi_var], right = else_phis[phi_var];
-                        right.var_data.sourceName = uidl(phi_var);
+                        right.var_data.sourceName = Seas.uidl(phi_var);
                         def node = mkNode(IROp.Phi, Array.new(state_vars.length), [cond_node, left, right]);
                         var_nodes[phi_var] = node;
                         var stage = cond_node.var_data.stage;
@@ -305,64 +293,9 @@ class Sea {
         }
     }
 
-    def toMermaid() -> string {
-        def buf = StringBuilder.new();
-        buf.puts("---").ln();
-        buf.puts("config:").ln();
-        buf.puts("  layout: elk").ln();
-        buf.puts("---").ln();
-        buf.puts("graph TD").ln();
+    def toMermaid() -> string => SeaRender.toMermaidSea(this);
 
-        return toMermaidExt("", buf).toString();
-    }
-
-    def toMermaidExt(tag: string, buf: StringBuilder) -> StringBuilder {
-        def wl = ArrayStack<IRNode>.new();
-        def visited = NodeSet.new();
-        wl.push(finish);
-
-        while (!wl.empty()) {
-            def n = wl.pop();
-            if (n == null || visited.has(n)) continue;
-            visited.put(n);
-            n.toMermaidNode(buf, tag);
-
-            for (arg in n.value_deps) {
-                buf.tab().puts(tag).putd(arg.id).puts(" --> ").puts(tag).putd(n.id).ln();
-            }
-            def state_set = Vector<(IRNode, StateComponent.set)>.new();
-            for (sc in StateComponent.set.all) if (n.state_deps[sc.tag] != null) {
-                def dep = n.state_deps[sc.tag];
-                var idx = -1;
-                for (i < state_set.length) {
-                    if (state_set[i].0.id == dep.id) {
-                        idx = i;
-                        break;
-                    }
-                }
-                if (idx == -1) state_set.put((dep, sc));
-                else state_set[idx] = (dep, state_set[idx].1 | sc);
-            }
-            for (i < state_set.length) {
-                def dep = state_set[i].0, scs = state_set[i].1;
-                buf.tab().puts(tag).putd(dep.id).puts(" -. ");
-                for (sc in scs) {
-                    buf.puts(sc.name).puts(" ");
-                }
-                buf.puts(".-> ").puts(tag).putd(n.id).ln();
-            }
-
-            // for (dep in n.ctl_deps()) {
-            //     buf.tab().puts(tag).putd(dep.id).puts(".-> ").puts(tag).putd(n.id).ln();
-            // }
-
-            for (dep in n.deps()) {
-                wl.push(dep);
-            }
-        }
-
-        return buf;
-    }
+    def toMermaidExt(tag: string, buf: StringBuilder) -> StringBuilder => SeaRender.toMermaidExtSea(this, tag, buf);
 
     def apply<T>(init: T, f: (IRNode, Sea, T) -> Range<IRNode>) {
         def wl: Vector<IRNode> = Vector.new();
@@ -460,6 +393,16 @@ class Sea {
 }
 
 component Seas {
+    def uidl = SSAD_IR.uidl;
+
+    def intrinsic(name: string) -> IntrinsicTypedef {
+        def defn = IntrinsicTypes.intrinsic_types[name];
+        if (defn != null) 
+            return defn;
+        else
+            return IntrinsicTypedef.new(name, null, null, CBDEffect.None);
+    }
+
     def ofSSAD(node: SSAD) -> Sea {
         def sea = Sea.new();
 
@@ -482,7 +425,7 @@ component Seas {
 
             if (old_node.var_data != null) {
                 new_node.var_data = VarData.new(
-                    uidl(old_node.var_data.sourceName),
+                    Seas.uidl(old_node.var_data.sourceName),
                     old_node.var_data.tipe,
                     old_node.var_data.stage
                 );
@@ -599,9 +542,7 @@ class IRNode {
     var move_true: IRNode;
     var move_false: IRNode;
 
-    new(op, id) {
-        children = Vector.new();
-    }
+    new(op, id) { }
 
     def deps() -> Array<IRNode> {
         // should be empty, special case is to remove null state deps
@@ -666,59 +607,9 @@ class IRNode {
     def hash() -> int => id;
     def eq(rhs: IRNode) -> bool => id == rhs.id;
 
-    def render(sb: StringBuilder) -> StringBuilder {
-        match (op) {
-            Intrinsic(defn) => {
-                sb.puts(defn.name);
-                if (var_data != null && var_data.sourceName != null) {
-                    sb.sp().putc('[').puts(var_data.sourceName).putc(']');
-                }
-            }
-            Lit(tipe, rep) => sb.puts(rep);
-            Start => sb.puts("Start");
-            Finish => sb.puts("Finish");
-            Phi => sb.puts("Phi");
-            StatePhi => sb.puts("StatePhi [").putq(value_deps[0].render).putc(']');
-            // MatchPhi => sb.puts("MatchPhi");
-            Proj(val) => sb.puts(if(val, "|True|", "|False|"));
-            Move(val) => sb.puts(if(val, "|True|", "|False|"));
-        }
+    def render(sb: StringBuilder) -> StringBuilder => SeaRender.renderIRNode(this, sb);
 
-        return sb;
-    }
-
-    def toMermaidNode(buf: StringBuilder, tag: string) -> StringBuilder {
-        buf.tab().puts(tag).putd(id);
-        match (op) {
-            Start => buf.puts("[/\"");
-            Finish => buf.puts("[\\\\\"");
-            Phi => buf.puts("{\"");
-            StatePhi => buf.puts("{{\"");
-            _ => buf.puts("[\"");
-        }
-        if (var_data != null && var_data.sourceName != null) buf.puts(var_data.sourceName).puts(" ");
-        match (op) {
-            Start => buf.puts("Start");
-            Finish => buf.puts("Finish");
-            Intrinsic(defn) => buf.puts(defn.name);
-            Lit(_, rep) => buf.puts(rep);
-            Phi => buf.puts("ϕ");
-            StatePhi(scs) => {
-                buf.puts("Sϕ ");
-                for (sc in scs) buf.puts(sc.name).puts(" ");
-            }
-            Proj(val) => buf.puts(if(val, "|True|", "|False|"));
-            Move(val) => buf.puts(if(val, "|True|", "|False|"));
-        }
-        match (op) {
-            Start => buf.puts("\"\\\\]").ln();
-            Finish => buf.puts("\"/]").ln();
-            Phi => buf.puts("\"}").ln();
-            StatePhi => buf.puts("\"}}").ln();
-            _ => buf.puts("\"]").ln();
-        }
-        return buf;
-    }
+    def toMermaidNode(buf: StringBuilder, tag: string) -> StringBuilder => SeaRender.toMermaidNodeIRNode(this, buf, tag);
 
     def become(other: IRNode) -> this {
         op = other.op;
@@ -731,267 +622,6 @@ class IRNode {
             for (j < child.state_deps.length) if (child.state_deps[j] == this) child.state_deps[j] = other;
         }
         children = other.children;
-    }
-
-    def id_propagate(sea: Sea) -> Range<IRNode> {
-        match (op) {
-            Intrinsic(defn) => {
-                if (Strings.equal(defn.name, "id")) {
-                    become(value_deps[0]);
-                }
-                return deps();
-            }
-            _ => return deps();
-        }
-    }
-
-    def removeViews(sea: Sea) -> Range<IRNode> {
-        match (op) {
-            Intrinsic(defn) => {
-                if (Strings.endsWith(defn.name, ".view")) become(value_deps[0]);
-            }
-            _ => {}
-        }
-        return deps();
-    }
-
-    
-    def overloadOps(sea: Sea) -> Range<IRNode> {
-        match (op) {
-            Intrinsic(defn) => {
-                def op_spl = IntrinsicTypes.split_op(defn.name);
-                def op_fn = op_spl.1;
-                def is_rt = var_data.stage != Stage.VALIDATE;
-                if (op_fn != null && is_rt) {
-                    def tp = value_deps[0].var_data.tipe;
-                    def prefix = tp.rt_str();
-                    def new_f = Strings.format2("%s_%s", prefix, op_fn);
-                    def intrinsic_def = intrinsic(new_f);
-                    op = IROp.Intrinsic(intrinsic_def);
-                    if (intrinsic_def.return_type != null) var_data.tipe = intrinsic_def.return_type.primitive;
-                }
-            }
-            _ => {}
-        }
-        return deps();
-    }
-
-    def addAbstractions(sea: Sea) -> Range<IRNode> {
-        match (op) {
-            Intrinsic(defn) => {
-                if (defn.args == null) return deps(); // unknown intrinsic
-                def args = value_deps;
-                def unchanged_args = Vector<IRNode>.new();
-                for (i < args.length) {
-                    if (i >= defn.args.length) {
-                        unchanged_args.put(args[i]);
-                        continue;
-                    }
-                    def is_rt = args[i].var_data.stage != Stage.VALIDATE;
-                    def should_be_runtime = !defn.args[i].isStatic();
-                    if (!is_rt && should_be_runtime) {
-                        def tp = if(defn.args[i].primitive.is_bot(), args[i].var_data.tipe, defn.args[i].primitive);
-                        def abstract_fn = Strings.format1("lift_%s", tp.long_str());
-
-                        def it = IntrinsicType.new(tp, var_data.stage);
-                        def ot = IntrinsicType.new(tp, Stage.INTERPRET);
-                        def abstraction_op = IROp.Intrinsic(IntrinsicTypedef.new(abstract_fn, [it], ot, CBDEffect.None));
-
-                        def abstraction_node = sea.mkNode(abstraction_op, Array.new(StateComponent.count), [args[i]]);
-                        abstraction_node.var_data = VarData.new(uidl("abs"), tp, Stage.INTERPRET);
-                        abstraction_node.children = Vectors.of1(this);
-
-                        value_deps[i] = abstraction_node;
-                    } else {
-                        unchanged_args.put(args[i]);
-                    }
-                }
-                return unchanged_args.copy();
-            }
-            _ => return deps();
-        }
-    }
-
-    def mergeEffsAI(sea: Sea, left: IRNode, right: IRNode) -> IRNode {
-        def nstates = StateComponent.count;
-        if (IROp.Intrinsic.?(left.op) && IROp.Intrinsic.?(right.op)) {
-            def l_defn = IROp.Intrinsic.!(left.op).defn, r_defn = IROp.Intrinsic.!(right.op).defn;
-            if (Strings.startsWith(l_defn.name, "push") && Strings.startsWith(r_defn.name, "push")) {
-                // TODO: should recursively merge effs from state deps
-                if (left.value_deps.length == 1) {
-                    // no typevar
-                    def l_push = left.value_deps[0], r_push = right.value_deps[0];
-                    def merge_fn = Strings.format1("merge_%s", l_push.var_data.tipe.short_str());
-                    def merge = sea.mkNode(IROp.Intrinsic(intrinsic(merge_fn)), Arrays.dup(l_push.state_deps), [l_push, r_push]);
-                    merge.var_data = VarData.new(uidl("merge"), l_push.var_data.tipe, Stage.INTERPRET);
-                    def push = sea.mkNode(left.op, left.state_deps, [merge]);
-                    push.var_data = VarData.new(uidl("eff_push"), TypeVar.Bot("void"), Stage.INTERPRET);
-                    return push;
-                } else {
-                    // has typevar
-                    def l_push = left.value_deps[1], r_push = right.value_deps[1], tv = left.value_deps[0];
-                    def merge = sea.mkNode(IROp.Intrinsic(intrinsic("merge_Val")), Arrays.dup(l_push.state_deps), [tv, l_push, r_push]);
-                    merge.var_data = VarData.new(uidl("merge"), l_push.var_data.tipe, Stage.INTERPRET);
-                    def push = sea.mkNode(left.op, left.state_deps, [tv, merge]);
-                    push.var_data = VarData.new(uidl("push"), TypeVar.Bot("void"), Stage.INTERPRET);
-                    return push;
-                }
-            }
-        }
-
-        // default case, run both
-        return mergeEffsValidator(sea, left, right);
-    }
-
-    def mergeEffsValidator(sea: Sea, left: IRNode, right: IRNode) -> IRNode {
-        def nstates = StateComponent.count;
-        if (left.var_data == null) left.var_data = VarData.new(uidl("l_state"), TypeVar.Bot("void"), Stage.INTERPRET);
-        if (right.var_data == null) right.var_data = VarData.new(uidl("r_state"), TypeVar.Bot("void"), Stage.INTERPRET);
-        def new_left = sea.mkNode(IROp.Intrinsic(intrinsic("merge")), Array.new(nstates), [left, right]);
-        new_left.var_data = VarData.new(uidl("eff_merge"), left.var_data.tipe, Stage.INTERPRET);
-        return new_left;
-    }
-
-    def unLEM(sea: Sea, state: HashMap<IRNode, (IRNode, Vector<IRNode>)>) -> Range<IRNode> {
-        match (op) {
-            Phi, StatePhi => {
-                def nstates = StateComponent.count;
-                def cond = value_deps[0], left = value_deps[1], right = value_deps[2];
-
-                if (cond.var_data.stage == Stage.VALIDATE) return deps();
-
-                var new_cond: IRNode;
-                var merged_effs: Vector<IRNode>;
-                if (state.has(cond)) {
-                    new_cond = state[cond].0;
-                    merged_effs = state[cond].1;
-                    if (new_cond.id == cond.id) return [];
-                } else {
-                    def tp = cond.var_data.tipe;
-                    def maybeTrueI = intrinsic(Strings.format1("%s_maybeTrue", tp.rt_str()));
-                    def maybeFalseI = intrinsic(Strings.format1("%s_maybeFalse", tp.rt_str()));
-                    def andI = intrinsic("bool.&&");
-                    
-                    def maybeTrue = sea.mkNode(IROp.Intrinsic(maybeTrueI), Array.new(nstates), [cond]);
-                    maybeTrue.var_data = VarData.new(uidl("mt"), TypeVar.Bot("bool"), Stage.INTERPRET);
-                    def maybeFalse = sea.mkNode(IROp.Intrinsic(maybeFalseI), Array.new(nstates), [cond]);
-                    maybeFalse.var_data = VarData.new(uidl("mf"), TypeVar.Bot("bool"), Stage.INTERPRET);
-                    def and = sea.mkNode(IROp.Intrinsic(andI), Array.new(nstates), [maybeTrue, maybeFalse]);
-                    and.var_data = VarData.new(uidl("mb"), TypeVar.Bot("bool"), Stage.INTERPRET);
-
-                    state[cond] = (and, Vector.new());
-                    new_cond = state[cond].0;
-                    merged_effs = state[cond].1;
-                }
-
-                def maybeTrue = new_cond.value_deps[0];
-                def innerPhi = sea.mkNode(op, Array.new(nstates), [maybeTrue, left, right]);
-
-                value_deps[0] = new_cond;
-                new_cond.children.put(this);
-
-                var new_left: IRNode;
-                match (op) {
-                    Phi => {
-                        new_left = sea.mkNode(IROp.Intrinsic(intrinsic("merge")), Array.new(nstates), [left, right]);
-                        new_left.var_data = VarData.new(uidl("merge"), left.var_data.tipe, Stage.INTERPRET);
-                        merged_effs.put(left).put(right);
-                    }
-                    StatePhi => {
-                        var left_dup = false, right_dup = false;
-                        for (i < merged_effs.length) {
-                            left_dup |= merged_effs[i].id == left.id;
-                            right_dup |= merged_effs[i].id == right.id;
-                        }
-                        var merge_left = left, merge_right = right;
-                        if (left_dup) {
-                            merge_left = sea.mkNode(IROp.Intrinsic(intrinsic("nop")), Array.new(nstates), []);
-                            merge_left.var_data = VarData.new(uidl("eff_nop"), TypeVar.Bot("void"), Stage.INTERPRET);
-                        }
-                        if (right_dup) {
-                            merge_right = sea.mkNode(IROp.Intrinsic(intrinsic("nop")), Array.new(nstates), []);
-                            merge_right.var_data = VarData.new(uidl("eff_nop"), TypeVar.Bot("void"), Stage.INTERPRET);
-                        }
-                        merged_effs.put(left).put(right);
-                        new_left = mergeEffsAI(sea, merge_left, merge_right);
-                    }
-                    _ => {}
-                }
-                var new_right = innerPhi;
-
-                value_deps[1] = new_left;
-                new_left.children.put(this);
-                value_deps[2] = new_right;
-                new_right.children.put(this);
-                return [left, right];
-            }
-            _ => {
-                return deps();
-            }
-        }
-    }
-
-    def constUnLEM(sea: Sea) -> Range<IRNode> {
-        match (op) {
-            Phi, StatePhi => {
-                def cond = value_deps[0], then = value_deps[1], els = value_deps[2];
-
-                if (IROp.Intrinsic.?(cond.op)) {
-                    def intrinsic = IROp.Intrinsic.!(cond.op);
-                    if (Strings.equal(intrinsic.defn.name, "bool.&&")) {
-                        def left = cond.value_deps[0], right = cond.value_deps[1];
-                        if (IROp.Intrinsic.?(left.op) && IROp.Intrinsic.?(right.op)) {
-                            def l_defn = IROp.Intrinsic.!(left.op).defn, r_defn = IROp.Intrinsic.!(right.op).defn;
-                            if (Strings.endsWith(l_defn.name, "maybeTrue") && Strings.endsWith(r_defn.name, "maybeFalse")) {
-                                become(then);
-                            }
-                        }
-                    }
-                }
-            }
-            _ => {}
-        }
-        return deps();
-    }
-
-    def reifyConds(sea: Sea, state: HashMap<IRNode, (IRNode, IRNode, IRNode)>) -> Range<IRNode> {
-        def nstates = StateComponent.count;
-        match (op) {
-            Phi, StatePhi => {
-                def cond = value_deps[0], then = value_deps[1], els = value_deps[2];
-                if (cond.var_data.stage == Stage.VALIDATE) return deps();
-
-                var start_if: IRNode, start_else: IRNode, end: IRNode;
-                if (state.has(cond)) {
-                    start_if = state[cond].0;
-                    start_else = state[cond].1;
-                    end = state[cond].2;
-                } else {
-                    start_if = sea.mkNode(IROp.Intrinsic(intrinsic("startIf")), Array.new(nstates), [cond]);
-                    start_else = sea.mkNode(IROp.Intrinsic(intrinsic("startElse")), Array.new(nstates), [cond]);
-                    end = sea.mkNode(IROp.Intrinsic(intrinsic("end")), Array.new(nstates), [cond]);
-                    state[cond] = (start_if, start_else, end);
-                }
-
-                then.state_deps[StateComponent.Extra.tag] = start_if;
-                els.state_deps[StateComponent.Extra.tag] = start_else;
-                end.state_deps[StateComponent.Extra.tag] = this;
-            }
-            _ => {}
-        }
-        return deps();
-    }
-
-    def chooseMerge(sea: Sea) -> Range<IRNode> {
-        match (op) {
-            Intrinsic(defn) => {
-                if (Strings.startsWith(defn.name, "merge_")) {
-                    become(value_deps[0]);
-                }
-            }
-            _ => {}
-        }
-        return deps();
     }
 
     def graph_eq(rhs: IRNode) -> DiffResult {
@@ -1036,21 +666,7 @@ type DiffResult {
     case ValueDiff(lhs: IRNode, rhs: IRNode, idx: int, reason: DiffResult);
     case StateDiff(lhs: IRNode, rhs: IRNode, statecomp: StateComponent, reason: DiffResult);
 
-    def render(sb: StringBuilder) -> StringBuilder {
-        match (this) {
-            GraphsEqual => return sb.puts("Graphs Equal");
-            OpDiff(lhs, rhs) => return sb.puts("OpDiff: ").putq(lhs.render).puts(", ").putq(rhs.render);
-            OneNull(lhs, rhs) => return sb.puts("One Null");
-            ValueDepLen(lhs, rhs) => return sb.puts("ValueDepLen difference: ").putq(lhs.render).puts(", ").putq(rhs.render);
-            StateDepLen(lhs, rhs) => return sb.puts("StateDepLen difference: ").putq(lhs.render).puts(", ").putq(rhs.render);
-            ValueDiff(lhs, rhs, idx, reason) => 
-                return sb.puts("ValueDiff between ").putq(lhs.render).puts(" and ").putq(rhs.render).puts(" at idx ").putd(idx)
-                         .puts(": ").putq(reason.render);
-            StateDiff(lhs, rhs, sc, reason) => 
-                return sb.puts("StateDiff between ").putq(lhs.render).puts(" and ").putq(rhs.render).puts(" for statecomp ").puts(sc.name)
-                         .puts(": ").putq(reason.render);
-        }
-    }
+    def render(sb: StringBuilder) -> StringBuilder => SeaRender.renderDiffResult(this, sb);
 }
 
 class VarData {

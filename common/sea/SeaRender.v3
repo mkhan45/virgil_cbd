@@ -1,0 +1,293 @@
+// Rendering and visualization methods for Sea of Nodes data structures.
+
+component SeaRender {
+    // === ImmNodeSet ===
+    def renderImmNodeSet(ns: ImmNodeSet, sb: StringBuilder) -> StringBuilder {
+        for (cur = ns.ls; cur != null; cur = cur.tail) sb.putq(renderIRNode(cur.head, _)).puts(", ");
+        return sb;
+    }
+
+    // === Sea ===
+    def toMermaidSea(sea: Sea) -> string {
+        def buf = StringBuilder.new();
+        buf.puts("---").ln();
+        buf.puts("config:").ln();
+        buf.puts("  layout: elk").ln();
+        buf.puts("---").ln();
+        buf.puts("graph TD").ln();
+
+        return toMermaidExtSea(sea, "", buf).toString();
+    }
+
+    def toMermaidExtSea(sea: Sea, tag: string, buf: StringBuilder) -> StringBuilder {
+        def wl = ArrayStack<IRNode>.new();
+        def visited = NodeSet.new();
+        wl.push(sea.finish);
+
+        while (!wl.empty()) {
+            def n = wl.pop();
+            if (n == null || visited.has(n)) continue;
+            visited.put(n);
+            toMermaidNodeIRNode(n, buf, tag);
+
+            for (arg in n.value_deps) {
+                buf.tab().puts(tag).putd(arg.id).puts(" --> ").puts(tag).putd(n.id).ln();
+            }
+            def state_set = Vector<(IRNode, StateComponent.set)>.new();
+            for (sc in StateComponent.set.all) if (n.state_deps[sc.tag] != null) {
+                def dep = n.state_deps[sc.tag];
+                var idx = -1;
+                for (i < state_set.length) {
+                    if (state_set[i].0.id == dep.id) {
+                        idx = i;
+                        break;
+                    }
+                }
+                if (idx == -1) state_set.put((dep, sc));
+                else state_set[idx] = (dep, state_set[idx].1 | sc);
+            }
+            for (i < state_set.length) {
+                def dep = state_set[i].0, scs = state_set[i].1;
+                buf.tab().puts(tag).putd(dep.id).puts(" -. ");
+                for (sc in scs) {
+                    buf.puts(sc.name).puts(" ");
+                }
+                buf.puts(".-> ").puts(tag).putd(n.id).ln();
+            }
+
+            for (dep in n.deps()) {
+                wl.push(dep);
+            }
+        }
+
+        return buf;
+    }
+
+    // === IRNode ===
+    def renderIRNode(node: IRNode, sb: StringBuilder) -> StringBuilder {
+        match (node.op) {
+            Intrinsic(defn) => {
+                sb.puts(defn.name);
+                if (node.var_data != null && node.var_data.sourceName != null) {
+                    sb.sp().putc('[').puts(node.var_data.sourceName).putc(']');
+                }
+            }
+            Lit(tipe, rep) => sb.puts(rep);
+            Start => sb.puts("Start");
+            Finish => sb.puts("Finish");
+            Phi => sb.puts("Phi");
+            StatePhi => sb.puts("StatePhi [").putq(renderIRNode(node.value_deps[0], _)).putc(']');
+            Proj(val) => sb.puts(if(val, "|True|", "|False|"));
+            Move(val) => sb.puts(if(val, "|True|", "|False|"));
+        }
+
+        return sb;
+    }
+
+    def toMermaidNodeIRNode(node: IRNode, buf: StringBuilder, tag: string) -> StringBuilder {
+        buf.tab().puts(tag).putd(node.id);
+        match (node.op) {
+            Start => buf.puts("[/\"");
+            Finish => buf.puts("[\\\\\"");
+            Phi => buf.puts("{\"");
+            StatePhi => buf.puts("{{\"");
+            _ => buf.puts("[\"");
+        }
+        if (node.var_data != null && node.var_data.sourceName != null) buf.puts(node.var_data.sourceName).puts(" ");
+        match (node.op) {
+            Start => buf.puts("Start");
+            Finish => buf.puts("Finish");
+            Intrinsic(defn) => buf.puts(defn.name);
+            Lit(_, rep) => buf.puts(rep);
+            Phi => buf.puts("ϕ");
+            StatePhi(scs) => {
+                buf.puts("Sϕ ");
+                for (sc in scs) buf.puts(sc.name).puts(" ");
+            }
+            Proj(val) => buf.puts(if(val, "|True|", "|False|"));
+            Move(val) => buf.puts(if(val, "|True|", "|False|"));
+        }
+        match (node.op) {
+            Start => buf.puts("\"\\\\]").ln();
+            Finish => buf.puts("\"/]").ln();
+            Phi => buf.puts("\"}").ln();
+            StatePhi => buf.puts("\"}}").ln();
+            _ => buf.puts("\"]").ln();
+        }
+        return buf;
+    }
+
+    // === DiffResult ===
+    def renderDiffResult(diff: DiffResult, sb: StringBuilder) -> StringBuilder {
+        match (diff) {
+            GraphsEqual => return sb.puts("Graphs Equal");
+            OpDiff(lhs, rhs) => return sb.puts("OpDiff: ").putq(renderIRNode(lhs, _)).puts(", ").putq(renderIRNode(rhs, _));
+            OneNull(lhs, rhs) => return sb.puts("One Null");
+            ValueDepLen(lhs, rhs) => return sb.puts("ValueDepLen difference: ").putq(renderIRNode(lhs, _)).puts(", ").putq(renderIRNode(rhs, _));
+            StateDepLen(lhs, rhs) => return sb.puts("StateDepLen difference: ").putq(renderIRNode(lhs, _)).puts(", ").putq(renderIRNode(rhs, _));
+            ValueDiff(lhs, rhs, idx, reason) => 
+                return sb.puts("ValueDiff between ").putq(renderIRNode(lhs, _)).puts(" and ").putq(renderIRNode(rhs, _)).puts(" at idx ").putd(idx)
+                         .puts(": ").putq(renderDiffResult(reason, _));
+            StateDiff(lhs, rhs, sc, reason) => 
+                return sb.puts("StateDiff between ").putq(renderIRNode(lhs, _)).puts(" and ").putq(renderIRNode(rhs, _)).puts(" for statecomp ").puts(sc.name)
+                         .puts(": ").putq(renderDiffResult(reason, _));
+        }
+    }
+
+    // === SeaScheduler ===
+    def toMermaidScheduler(scheduler: SeaScheduler) -> string {
+        def buf = StringBuilder.new();
+        def visited = HashMap<int, void>.new(int.!<int>, int.==);
+        buf.puts("graph TD").ln();
+        toMermaidScheduleNode(scheduler.bottom_block, buf, visited);
+        buf.ln();
+        return buf.toString();
+    }
+
+    // === ScheduleNode (polymorphic dispatch) ===
+    def toMermaidScheduleNode(node: ScheduleNode, buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
+        match (node) {
+            block: ScheduleBlock => return toMermaidScheduleBlock(block, buf, visited);
+            branch: ScheduleBranch => return toMermaidScheduleBranch(branch, buf, visited);
+            phi: SchedulePhi => return toMermaidSchedulePhi(phi, buf, visited);
+        }
+        return buf;
+    }
+
+    def subgraphNameScheduleNode(node: ScheduleNode, buf: StringBuilder) -> StringBuilder {
+        match (node) {
+            block: ScheduleBlock => buf.puts("block_").putd(node.id);
+            branch: ScheduleBranch => buf.puts("branch_").putd(node.id);
+            phi: SchedulePhi => buf.puts("phi_").putd(node.id);
+        }
+        return buf;
+    }
+
+    // === ScheduleBlock ===
+    def toMermaidScheduleBlock(block: ScheduleBlock, buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
+        if (visited.has(block.id)) return buf;
+        visited[block.id] = void;
+        buf.puts("subgraph block_").putd(block.id).puts("[\"Block ").putd(block.id).puts("\"]").ln();
+        buf.tab().puts("direction TB").ln();
+        for (i < block.prims.length) {
+            def prim = block.prims[i];
+            toMermaidNodeIRNode(prim.node, buf, Strings.format1("b%d_", block.id));
+        }
+        for (i < block.prims.length) {
+            if (i + 1 < block.prims.length) {
+                buf.tab();
+                if (!block.forward) {
+                    buf.puts("b").putd(block.id).puts("_").putd(block.prims[i + 1].node.id);
+                    buf.puts(" --> ");
+                    buf.puts("b").putd(block.id).puts("_").putd(block.prims[i].node.id).ln();
+                } else {
+                    buf.puts("b").putd(block.id).puts("_").putd(block.prims[i].node.id);
+                    buf.puts(" --> ");
+                    buf.puts("b").putd(block.id).puts("_").putd(block.prims[i + 1].node.id).ln();
+                }
+            }
+        }
+        buf.puts("end").ln();
+        if (block.prev != null) {
+            subgraphNameScheduleNode(block.prev, buf);
+            buf.puts(" --> ");
+            subgraphNameScheduleNode(block, buf);
+            buf.ln();
+        }
+        if (block.prev != null) toMermaidScheduleNode(block.prev, buf, visited);
+        return buf;
+    }
+
+    // === ScheduleBranch ===
+    def toMermaidScheduleBranch(branch: ScheduleBranch, buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
+        if (visited.has(branch.id)) return buf;
+        visited[branch.id] = void;
+        buf.puts("subgraph branch_").putd(branch.id).puts("[\"Branch ").putd(branch.id).puts("\"]").ln();
+        if (branch.condition != null) {
+            toMermaidNodeIRNode(branch.condition, buf, Strings.format1("br%d_", branch.id));
+        }
+        buf.ln().puts("end").ln();
+        if (branch.prev != null) {
+            subgraphNameScheduleNode(branch.prev, buf);
+            buf.puts(" --> ");
+            subgraphNameScheduleNode(branch, buf);
+            buf.ln();
+        }
+        if (branch.prev != null) toMermaidScheduleNode(branch.prev, buf, visited);
+        return buf;
+    }
+
+    // === SchedulePhi ===
+    def toMermaidSchedulePhi(phi: SchedulePhi, buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
+        if (visited.has(phi.id)) return buf;
+        visited[phi.id] = void;
+        buf.puts("subgraph phi_").putd(phi.id).puts("[\"Phi ").putd(phi.id).puts("\"]").ln();
+        for (cur = phi.phis; cur != null; cur = cur.tail) {
+            def p = cur.head;
+            toMermaidNodeIRNode(p, buf, Strings.format1("p%d_", phi.id));
+        }
+        buf.puts("end").ln();
+        if (phi.l_source != null) {
+            subgraphNameScheduleNode(phi.l_source, buf);
+            buf.puts(" --> ");
+            subgraphNameScheduleNode(phi, buf);
+            buf.ln();
+        }
+        if (phi.r_source != null) {
+            subgraphNameScheduleNode(phi.r_source, buf);
+            buf.puts(" --> ");
+            subgraphNameScheduleNode(phi, buf);
+            buf.ln();
+        }
+        if (phi.l_source != null) toMermaidScheduleNode(phi.l_source, buf, visited);
+        if (phi.r_source != null) toMermaidScheduleNode(phi.r_source, buf, visited);
+        if (phi.source_branch != null) toMermaidScheduleNode(phi.source_branch, buf, visited);
+        return buf;
+    }
+
+    // === SchedulePrim ===
+    def renderSimpleSchedulePrim(prim: SchedulePrim, sb: StringBuilder) -> StringBuilder {
+        return renderIRNode(prim.node, sb);
+    }
+
+    def renderSchedulePrim(prim: SchedulePrim, buf: StringBuilder) -> StringBuilder {
+        buf.puts("{ ").putq(renderIRNode(prim.node, _)).puts(" }");
+        return buf;
+    }
+
+    // === ScheduleError ===
+    def renderScheduleError(err: ScheduleError, sb: StringBuilder) -> StringBuilder {
+        match (err) {
+            BadOrdering(fst, snd) =>
+                sb.puts("Scheduled ").putq(renderIRNode(fst, _)).puts(" not dominating child ").putq(renderIRNode(snd, _));
+            UnsatNeed(user, needed) =>
+                sb.puts("Scheduled ").putq(renderIRNode(user, _)).puts(" without ").putq(renderIRNode(needed, _));
+            GraphDiff(diff) =>
+                sb.puts("GraphDiff: ").putq(renderDiffResult(diff, _));
+        }
+
+        return sb;
+    }
+
+    // === DomGraph ===
+    def renderDomGraph(dg: DomGraph, buf: StringBuilder) -> StringBuilder {
+        buf.puts("[");
+        def nodes = Vector<IRNode>.new();
+        dg.local_nodes.apply(fun n => void(nodes.put(n)));
+        dg.private_nodes.apply(fun n => void(nodes.put(n)));
+        for (i < nodes.length) {
+            def node = nodes[i];
+            if (i > 0) buf.puts(", ");
+            buf.putq(renderIRNode(node, _)).put1(" (%d)", node.id);
+        }
+
+        for (i < dg.parents.length) {
+            buf.puts("; ");
+            renderDomGraph(dg.parents[i], buf);
+        }
+
+        buf.puts("]");
+
+        return buf;
+    }
+}

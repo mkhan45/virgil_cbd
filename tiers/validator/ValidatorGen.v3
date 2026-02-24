@@ -40,7 +40,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     //var sea_ir = ctx.id_propagate(ir, Strings.newMap<string>());
     var sea_ir = ir;
     var sea = Seas.ofSSAD(sea_ir);
-    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.id_propagate(sea));
+    sea.apply(void, SeaTransforms.id_propagate);
 
     // sea.scheduleExp();
 
@@ -51,11 +51,11 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     ir = ir.appended(stbuilder_call);
     sea_ir = ir;
     sea = Seas.ofSSAD(sea_ir);
-    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.id_propagate(sea));
-    // sea.apply(IRNode.removeViews);
-    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.overloadOps(sea));
+    sea.apply(void, SeaTransforms.id_propagate);
+    // sea.apply(void, SeaTransforms.removeViews);
+    sea.apply(void, SeaTransforms.overloadOps);
     CBDTrace.addGraph(opcode, "overloadOps", sea);
-    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.addAbstractions(sea));
+    sea.apply(void, SeaTransforms.addAbstractions);
     CBDTrace.addGraph(opcode, "addAbstractions", sea);
 
     def scheduler = Scheduler.of_full_sea(sea);
@@ -69,7 +69,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     CBDTrace.addCode(opcode, "scheduler_ssad_pretty", scheduler_ssad.toStringPretty(0));
 
     def state = HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq);
-    sea.apply(state, IRNode.unLEM);
+    sea.apply(state, SeaTransforms.unLEM);
     CBDTrace.addGraph(opcode, "unLEM", sea);
     def unlem_ssa = SearchSchedule.schedule(sea);
     CBDTrace.addCode(opcode, "unlem_schedule", unlem_ssa.toString(0));
@@ -83,9 +83,9 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     CBDTrace.addCode(opcode, "unlem_scheduler_ssa", ulscheduler.bottom_block.toSSAD().toStringPretty(0));
 
     CBDTrace.addCode(opcode, "unlem_pretty", unlem_ssa.toStringPretty(0));
-    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.constUnLEM(sea));
+    sea.apply(void, SeaTransforms.constUnLEM);
     CBDTrace.addGraph(opcode, "constUnLEM", sea);
-    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.chooseMerge(sea));
+    sea.apply(void, SeaTransforms.chooseMerge);
     CBDTrace.addGraph(opcode, "chooseMerge", sea);
     def mermaid = sea.toMermaid();
 

@@ -28,24 +28,5 @@ class DomGraph {
         priv_parents.put(parent);
     }
 
-    def render(buf: StringBuilder) -> StringBuilder {
-        buf.puts("[");
-        def nodes = Vector<IRNode>.new();
-        local_nodes.apply(fun n => void(nodes.put(n)));
-        private_nodes.apply(fun n => void(nodes.put(n)));
-        for (i < nodes.length) {
-            def node = nodes[i];
-            if (i > 0) buf.puts(", ");
-            buf.putq(node.render).put1(" (%d)", node.id);
-        }
-
-        for (i < parents.length) {
-            buf.puts("; ");
-            parents[i].render(buf);
-        }
-
-        buf.puts("]");
-
-        return buf;
-    }
+    def render(buf: StringBuilder) -> StringBuilder => SeaRender.renderDomGraph(this, buf);
 }

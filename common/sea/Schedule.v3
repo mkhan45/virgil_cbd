@@ -116,14 +116,7 @@ class SeaScheduler {
         });
     }
 
-    def toMermaid() -> string {
-        def buf = StringBuilder.new();
-        def visited = HashMap<int, void>.new(int.!<int>, int.==);
-        buf.puts("graph TD").ln();
-        bottom_block.toMermaid(buf, visited);
-        buf.ln();
-        return buf.toString();
-    }
+    def toMermaid() -> string => SeaRender.toMermaidScheduler(this);
 
     def schedule() {
         if (opcode != null) System.puts(Strings.format1("==============%s=============\n", opcode));
@@ -196,14 +189,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
     def toSSAD() -> SSAD;
 
-    def subgraphName(buf: StringBuilder) -> StringBuilder {
-        match (this) {
-            block: ScheduleBlock => buf.puts("block_").putd(id);
-            branch: ScheduleBranch => buf.puts("branch_").putd(id);
-            phi: SchedulePhi => buf.puts("phi_").putd(id);
-        }
-        return buf;
-    }
+    def subgraphName(buf: StringBuilder) -> StringBuilder => SeaRender.subgraphNameScheduleNode(this, buf);
 
     def schedule(prim: SchedulePrim, upper_limit: ScheduleNode) -> ScheduleNode {
         if (upper_limit != null && this.id == upper_limit.id) return null;
@@ -500,43 +486,7 @@ class ScheduleBlock(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid
     var prev: ScheduleNode = null;
     var next: ScheduleNode = null;
 
-    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
-        if (visited.has(id)) return buf;
-        visited[id] = void;
-        buf.puts("subgraph block_").putd(id).puts("[\"Block ").putd(id).puts("\"]").ln();
-        buf.tab().puts("direction TB").ln(); // works in interactive but not with cdn
-        // Render IRNodes linearly within this block
-        for (i < prims.length) {
-            def prim = prims[i];
-            prim.node.toMermaidNode(buf, Strings.format1("b%d_", id));
-        }
-        // Connect prims linearly
-        for (i < prims.length) {
-            if (i + 1 < prims.length) {
-                buf.tab();
-                if (!forward) {
-                    buf.puts("b").putd(id).puts("_").putd(prims[i + 1].node.id);
-                    buf.puts(" --> ");
-                    buf.puts("b").putd(id).puts("_").putd(prims[i].node.id).ln();
-                } else {
-                    buf.puts("b").putd(id).puts("_").putd(prims[i].node.id);
-                    buf.puts(" --> ");
-                    buf.puts("b").putd(id).puts("_").putd(prims[i + 1].node.id).ln();
-                }
-            }
-        }
-        buf.puts("end").ln();
-        // Edge to prev
-        if (prev != null) {
-            prev.subgraphName(buf);
-            buf.puts(" --> ");
-            this.subgraphName(buf);
-            buf.ln();
-        }
-        // Recurse backwards via prev
-        if (prev != null) prev.toMermaid(buf, visited);
-        return buf;
-    }
+    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder => SeaRender.toMermaidScheduleBlock(this, buf, visited);
 
     def toSSAD() -> SSAD {
         var res: SSAD = SSAD.Void;
@@ -578,26 +528,7 @@ class ScheduleBranch(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(ui
     var prev: ScheduleNode = null;
     var phi: SchedulePhi = null;
 
-    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
-        if (visited.has(id)) return buf;
-        visited[id] = void;
-        buf.puts("subgraph branch_").putd(id).puts("[\"Branch ").putd(id).puts("\"]").ln();
-        // Render the condition node
-        if (condition != null) {
-            condition.toMermaidNode(buf, Strings.format1("br%d_", id));
-        }
-        buf.ln().puts("end").ln();
-        // Edge to prev
-        if (prev != null) {
-            prev.subgraphName(buf);
-            buf.puts(" --> ");
-            this.subgraphName(buf);
-            buf.ln();
-        }
-        // Recurse backwards via prev
-        if (prev != null) prev.toMermaid(buf, visited);
-        return buf;
-    }
+    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder => SeaRender.toMermaidScheduleBranch(this, buf, visited);
 
     def linkPrependedBlock(block: ScheduleBlock) {
         block.prev = prev;
@@ -618,36 +549,7 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
     var next: ScheduleNode = null;
     var phis: List<IRNode> = null;
 
-    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
-        if (visited.has(id)) return buf;
-        visited[id] = void;
-        buf.puts("subgraph phi_").putd(id).puts("[\"Phi ").putd(id).puts("\"]").ln();
-        // Render phi nodes
-        for (cur = phis; cur != null; cur = cur.tail) {
-            def phi = cur.head;
-            phi.toMermaidNode(buf, Strings.format1("p%d_", id));
-        }
-        buf.puts("end").ln();
-        // Edges from l_source and r_source to this phi
-        if (l_source != null) {
-            l_source.subgraphName(buf);
-            buf.puts(" --> ");
-            this.subgraphName(buf);
-            buf.ln();
-        }
-        if (r_source != null) {
-            r_source.subgraphName(buf);
-            buf.puts(" --> ");
-            this.subgraphName(buf);
-            buf.ln();
-        }
-        // Recurse backwards via l_source and r_source
-        if (l_source != null) l_source.toMermaid(buf, visited);
-        if (r_source != null) r_source.toMermaid(buf, visited);
-        // Also recurse via source_branch
-        if (source_branch != null) source_branch.toMermaid(buf, visited);
-        return buf;
-    }
+    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder => SeaRender.toMermaidSchedulePhi(this, buf, visited);
 
     def fuseReadyPhi(prim: SchedulePrim) -> this {
         def phi = prim.node;
@@ -810,12 +712,9 @@ class SchedulePrim {
         return ready.v;
     }
 
-    def renderSimple(sb: StringBuilder) => node.render(sb);
+    def renderSimple(sb: StringBuilder) => SeaRender.renderSimpleSchedulePrim(this, sb);
 
-    def render(buf: StringBuilder) -> StringBuilder {
-        buf.puts("{ ").putq(node.render).puts(" }");
-        return buf;
-    }
+    def render(buf: StringBuilder) -> StringBuilder => SeaRender.renderSchedulePrim(this, buf);
 }
 
 def dedup(arr: Array<IRNode>) -> Array<IRNode> {

@@ -1,0 +1,265 @@
+// Sea of Nodes graph transformation passes.
+// These transforms are designed to be used with Sea::apply().
+
+component SeaTransforms {
+    def id_propagate(node: IRNode, sea: Sea, u: void) -> Range<IRNode> {
+        match (node.op) {
+            Intrinsic(defn) => {
+                if (Strings.equal(defn.name, "id")) {
+                    node.become(node.value_deps[0]);
+                }
+                return node.deps();
+            }
+            _ => return node.deps();
+        }
+    }
+
+    def removeViews(node: IRNode, sea: Sea, u: void) -> Range<IRNode> {
+        match (node.op) {
+            Intrinsic(defn) => {
+                if (Strings.endsWith(defn.name, ".view")) node.become(node.value_deps[0]);
+            }
+            _ => {}
+        }
+        return node.deps();
+    }
+
+    
+    def overloadOps(node: IRNode, sea: Sea, u: void) -> Range<IRNode> {
+        match (node.op) {
+            Intrinsic(defn) => {
+                def op_spl = IntrinsicTypes.split_op(defn.name);
+                def op_fn = op_spl.1;
+                def is_rt = node.var_data.stage != Stage.VALIDATE;
+                if (op_fn != null && is_rt) {
+                    def tp = node.value_deps[0].var_data.tipe;
+                    def prefix = tp.rt_str();
+                    def new_f = Strings.format2("%s_%s", prefix, op_fn);
+                    def intrinsic_def = Seas.intrinsic(new_f);
+                    node.op = IROp.Intrinsic(intrinsic_def);
+                    if (intrinsic_def.return_type != null) node.var_data.tipe = intrinsic_def.return_type.primitive;
+                }
+            }
+            _ => {}
+        }
+        return node.deps();
+    }
+
+    def addAbstractions(node: IRNode, sea: Sea, u: void) -> Range<IRNode> {
+        match (node.op) {
+            Intrinsic(defn) => {
+                if (defn.args == null) return node.deps(); // unknown intrinsic
+                def args = node.value_deps;
+                def unchanged_args = Vector<IRNode>.new();
+                for (i < args.length) {
+                    if (i >= defn.args.length) {
+                        unchanged_args.put(args[i]);
+                        continue;
+                    }
+                    def is_rt = args[i].var_data.stage != Stage.VALIDATE;
+                    def should_be_runtime = !defn.args[i].isStatic();
+                    if (!is_rt && should_be_runtime) {
+                        def tp = if(defn.args[i].primitive.is_bot(), args[i].var_data.tipe, defn.args[i].primitive);
+                        def abstract_fn = Strings.format1("lift_%s", tp.long_str());
+
+                        def it = IntrinsicType.new(tp, node.var_data.stage);
+                        def ot = IntrinsicType.new(tp, Stage.INTERPRET);
+                        def abstraction_op = IROp.Intrinsic(IntrinsicTypedef.new(abstract_fn, [it], ot, CBDEffect.None));
+
+                        def abstraction_node = sea.mkNode(abstraction_op, Array.new(StateComponent.count), [args[i]]);
+                        abstraction_node.var_data = VarData.new(Seas.uidl("abs"), tp, Stage.INTERPRET);
+                        abstraction_node.children = Vectors.of1(node);
+
+                        node.value_deps[i] = abstraction_node;
+                    } else {
+                        unchanged_args.put(args[i]);
+                    }
+                }
+                return unchanged_args.copy();
+            }
+            _ => return node.deps();
+        }
+    }
+
+    def mergeEffsAI(node: IRNode, sea: Sea, left: IRNode, right: IRNode) -> IRNode {
+        def nstates = StateComponent.count;
+        if (IROp.Intrinsic.?(left.op) && IROp.Intrinsic.?(right.op)) {
+            def l_defn = IROp.Intrinsic.!(left.op).defn, r_defn = IROp.Intrinsic.!(right.op).defn;
+            if (Strings.startsWith(l_defn.name, "push") && Strings.startsWith(r_defn.name, "push")) {
+                // TODO: should recursively merge effs from state deps
+                if (left.value_deps.length == 1) {
+                    // no typevar
+                    def l_push = left.value_deps[0], r_push = right.value_deps[0];
+                    def merge_fn = Strings.format1("merge_%s", l_push.var_data.tipe.short_str());
+                    def merge = sea.mkNode(IROp.Intrinsic(Seas.intrinsic(merge_fn)), Arrays.dup(l_push.state_deps), [l_push, r_push]);
+                    merge.var_data = VarData.new(Seas.uidl("merge"), l_push.var_data.tipe, Stage.INTERPRET);
+                    def push = sea.mkNode(left.op, left.state_deps, [merge]);
+                    push.var_data = VarData.new(Seas.uidl("eff_push"), TypeVar.Bot("void"), Stage.INTERPRET);
+                    return push;
+                } else {
+                    // has typevar
+                    def l_push = left.value_deps[1], r_push = right.value_deps[1], tv = left.value_deps[0];
+                    def merge = sea.mkNode(IROp.Intrinsic(Seas.intrinsic("merge_Val")), Arrays.dup(l_push.state_deps), [tv, l_push, r_push]);
+                    merge.var_data = VarData.new(Seas.uidl("merge"), l_push.var_data.tipe, Stage.INTERPRET);
+                    def push = sea.mkNode(left.op, left.state_deps, [tv, merge]);
+                    push.var_data = VarData.new(Seas.uidl("push"), TypeVar.Bot("void"), Stage.INTERPRET);
+                    return push;
+                }
+            }
+        }
+
+        // default case, run both
+        return mergeEffsValidator(sea, left, right);
+    }
+
+    def mergeEffsValidator(sea: Sea, left: IRNode, right: IRNode) -> IRNode {
+        def nstates = StateComponent.count;
+        if (left.var_data == null) left.var_data = VarData.new(Seas.uidl("l_state"), TypeVar.Bot("void"), Stage.INTERPRET);
+        if (right.var_data == null) right.var_data = VarData.new(Seas.uidl("r_state"), TypeVar.Bot("void"), Stage.INTERPRET);
+        def new_left = sea.mkNode(IROp.Intrinsic(Seas.intrinsic("merge")), Array.new(nstates), [left, right]);
+        new_left.var_data = VarData.new(Seas.uidl("eff_merge"), left.var_data.tipe, Stage.INTERPRET);
+        return new_left;
+    }
+
+    def unLEM(node: IRNode, sea: Sea, state: HashMap<IRNode, (IRNode, Vector<IRNode>)>) -> Range<IRNode> {
+        match (node.op) {
+            Phi, StatePhi => {
+                def nstates = StateComponent.count;
+                def cond = node.value_deps[0], left = node.value_deps[1], right = node.value_deps[2];
+
+                if (cond.var_data.stage == Stage.VALIDATE) return node.deps();
+
+                var new_cond: IRNode;
+                var merged_effs: Vector<IRNode>;
+                if (state.has(cond)) {
+                    new_cond = state[cond].0;
+                    merged_effs = state[cond].1;
+                    if (new_cond.id == cond.id) return [];
+                } else {
+                    def tp = cond.var_data.tipe;
+                    def maybeTrueI = Seas.intrinsic(Strings.format1("%s_maybeTrue", tp.rt_str()));
+                    def maybeFalseI = Seas.intrinsic(Strings.format1("%s_maybeFalse", tp.rt_str()));
+                    def andI = Seas.intrinsic("bool.&&");
+                    
+                    def maybeTrue = sea.mkNode(IROp.Intrinsic(maybeTrueI), Array.new(nstates), [cond]);
+                    maybeTrue.var_data = VarData.new(Seas.uidl("mt"), TypeVar.Bot("bool"), Stage.INTERPRET);
+                    def maybeFalse = sea.mkNode(IROp.Intrinsic(maybeFalseI), Array.new(nstates), [cond]);
+                    maybeFalse.var_data = VarData.new(Seas.uidl("mf"), TypeVar.Bot("bool"), Stage.INTERPRET);
+                    def and = sea.mkNode(IROp.Intrinsic(andI), Array.new(nstates), [maybeTrue, maybeFalse]);
+                    and.var_data = VarData.new(Seas.uidl("mb"), TypeVar.Bot("bool"), Stage.INTERPRET);
+
+                    state[cond] = (and, Vector.new());
+                    new_cond = state[cond].0;
+                    merged_effs = state[cond].1;
+                }
+
+                def maybeTrue = new_cond.value_deps[0];
+                def innerPhi = sea.mkNode(node.op, Array.new(nstates), [maybeTrue, left, right]);
+
+                node.value_deps[0] = new_cond;
+                new_cond.children.put(node);
+
+                var new_left: IRNode;
+                match (node.op) {
+                    Phi => {
+                        new_left = sea.mkNode(IROp.Intrinsic(Seas.intrinsic("merge")), Array.new(nstates), [left, right]);
+                        new_left.var_data = VarData.new(Seas.uidl("merge"), left.var_data.tipe, Stage.INTERPRET);
+                        merged_effs.put(left).put(right);
+                    }
+                    StatePhi => {
+                        var left_dup = false, right_dup = false;
+                        for (i < merged_effs.length) {
+                            left_dup |= merged_effs[i].id == left.id;
+                            right_dup |= merged_effs[i].id == right.id;
+                        }
+                        var merge_left = left, merge_right = right;
+                        if (left_dup) {
+                            merge_left = sea.mkNode(IROp.Intrinsic(Seas.intrinsic("nop")), Array.new(nstates), []);
+                            merge_left.var_data = VarData.new(Seas.uidl("eff_nop"), TypeVar.Bot("void"), Stage.INTERPRET);
+                        }
+                        if (right_dup) {
+                            merge_right = sea.mkNode(IROp.Intrinsic(Seas.intrinsic("nop")), Array.new(nstates), []);
+                            merge_right.var_data = VarData.new(Seas.uidl("eff_nop"), TypeVar.Bot("void"), Stage.INTERPRET);
+                        }
+                        merged_effs.put(left).put(right);
+                        new_left = mergeEffsAI(node, sea, merge_left, merge_right);
+                    }
+                    _ => {}
+                }
+                var new_right = innerPhi;
+
+                node.value_deps[1] = new_left;
+                new_left.children.put(node);
+                node.value_deps[2] = new_right;
+                new_right.children.put(node);
+                return [left, right];
+            }
+            _ => {
+                return node.deps();
+            }
+        }
+    }
+
+    def constUnLEM(node: IRNode, sea: Sea, u: void) -> Range<IRNode> {
+        match (node.op) {
+            Phi, StatePhi => {
+                def cond = node.value_deps[0], then = node.value_deps[1], els = node.value_deps[2];
+
+                if (IROp.Intrinsic.?(cond.op)) {
+                    def intrinsic = IROp.Intrinsic.!(cond.op);
+                    if (Strings.equal(intrinsic.defn.name, "bool.&&")) {
+                        def left = cond.value_deps[0], right = cond.value_deps[1];
+                        if (IROp.Intrinsic.?(left.op) && IROp.Intrinsic.?(right.op)) {
+                            def l_defn = IROp.Intrinsic.!(left.op).defn, r_defn = IROp.Intrinsic.!(right.op).defn;
+                            if (Strings.endsWith(l_defn.name, "maybeTrue") && Strings.endsWith(r_defn.name, "maybeFalse")) {
+                                node.become(then);
+                            }
+                        }
+                    }
+                }
+            }
+            _ => {}
+        }
+        return node.deps();
+    }
+
+    def reifyConds(node: IRNode, sea: Sea, state: HashMap<IRNode, (IRNode, IRNode, IRNode)>) -> Range<IRNode> {
+        def nstates = StateComponent.count;
+        match (node.op) {
+            Phi, StatePhi => {
+                def cond = node.value_deps[0], then = node.value_deps[1], els = node.value_deps[2];
+                if (cond.var_data.stage == Stage.VALIDATE) return node.deps();
+
+                var start_if: IRNode, start_else: IRNode, end: IRNode;
+                if (state.has(cond)) {
+                    start_if = state[cond].0;
+                    start_else = state[cond].1;
+                    end = state[cond].2;
+                } else {
+                    start_if = sea.mkNode(IROp.Intrinsic(Seas.intrinsic("startIf")), Array.new(nstates), [cond]);
+                    start_else = sea.mkNode(IROp.Intrinsic(Seas.intrinsic("startElse")), Array.new(nstates), [cond]);
+                    end = sea.mkNode(IROp.Intrinsic(Seas.intrinsic("end")), Array.new(nstates), [cond]);
+                    state[cond] = (start_if, start_else, end);
+                }
+
+                then.state_deps[StateComponent.Extra.tag] = start_if;
+                els.state_deps[StateComponent.Extra.tag] = start_else;
+                end.state_deps[StateComponent.Extra.tag] = node;
+            }
+            _ => {}
+        }
+        return node.deps();
+    }
+
+    def chooseMerge(node: IRNode, sea: Sea, u: void) -> Range<IRNode> {
+        match (node.op) {
+            Intrinsic(defn) => {
+                if (Strings.startsWith(defn.name, "merge_")) {
+                    node.become(node.value_deps[0]);
+                }
+            }
+            _ => {}
+        }
+        return node.deps();
+    }
+}

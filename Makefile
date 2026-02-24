@@ -14,7 +14,7 @@ VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -O2 -run -fun-exprs -simple-
 V3C ?= ../virgil/bin/v3c-x86-64-linux -O2 -fun-exprs -simple-bodies
 
 # Common libraries
-COMMON_LIB = $(wildcard common/*/*.v3)
+COMMON_LIB = $(wildcard common/*.v3 common/*/*.v3)
 CBD_IR_TYPES = common/ir/Types.v3
 CBD_RUNTIME = common/runtime/*.v3
 

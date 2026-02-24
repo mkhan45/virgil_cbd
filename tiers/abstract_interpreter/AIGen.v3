@@ -101,12 +101,12 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     var ctx = SSADCtx.new(ir);
     var sea_ir = ctx.id_propagate(ir, Strings.newMap<string>());
     var sea = Seas.ofSSAD(sea_ir);
-    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.id_propagate(sea));
+    sea.apply(void, SeaTransforms.id_propagate);
 
-    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.overloadOps(sea));
-    sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.addAbstractions(sea));
+    sea.apply(void, SeaTransforms.overloadOps);
+    sea.apply(void, SeaTransforms.addAbstractions);
     def state = HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq);
-    sea.apply(state, IRNode.unLEM);
+    sea.apply(state, SeaTransforms.unLEM);
     // System.puts("mermaid: "); System.puts(opcode); System.ln();
     // System.puts(sea.toMermaid());
     // System.ln();

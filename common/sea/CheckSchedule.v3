@@ -3,18 +3,7 @@ type ScheduleError {
     case UnsatNeed(user: IRNode, needed: IRNode);
     case GraphDiff(diff: DiffResult);
 
-    def render(sb: StringBuilder) -> StringBuilder {
-        match (this) {
-            BadOrdering(fst, snd) =>
-                sb.puts("Scheduled ").putq(fst.render).puts(" not dominating child ").putq(snd.render);
-            UnsatNeed(user, needed) =>
-                sb.puts("Scheduled ").putq(user.render).puts(" without ").putq(needed.render);
-            GraphDiff(diff) =>
-                sb.puts("GraphDiff: ").putq(diff.render);
-        }
-
-        return sb;
-    }
+    def render(sb: StringBuilder) -> StringBuilder => SeaRender.renderScheduleError(this, sb);
 }
 
 class ScheduleChecker {

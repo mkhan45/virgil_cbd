@@ -62,9 +62,9 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     def eff_ctx = CBDEffects.run_fx(fx);
 
     
-    // sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.overloadOps(sea));
-    // sea.apply(void, fun (node: IRNode, sea: Sea, u: void) => node.addAbstractions(sea));
-    // sea.apply(HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq), IRNode.unLEM);
+    // sea.apply(void, SeaTransforms.overloadOps);
+    // sea.apply(void, SeaTransforms.addAbstractions);
+    // sea.apply(HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq), SeaTransforms.unLEM);
     def transformer = SSATransformer.new(analysis);
     transformer.onIf = flatten_ifs;
     transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
