@@ -64,6 +64,11 @@ type ImmNodeSet(ls: List<IRNode>) {
 component ImmNodeSets {
     def empty() => ImmNodeSet(null);
     def single(n: IRNode) => ImmNodeSet(List.new(n, null));
+    def of_vec(v: Vector<IRNode>) -> ImmNodeSet {
+        var s = ImmNodeSet(null);
+        for (i < v.length) s = s.with(v[i]);
+        return s;
+    }
 }
 
 def uidl = SSAD_IR.uidl;
@@ -450,7 +455,7 @@ class Sea {
         for (i < lcas.length) rsg = rsg.without(lcas[i]);
         rsg = rsg.with(cond.move_false).with(r_branch);
 
-        return BranchPartition(lcas, lsg, rsg);
+        return BranchPartition(ImmNodeSets.of_vec(lcas), lsg, rsg);
     }
 }
 
@@ -569,7 +574,7 @@ component Seas {
     }
 }
 
-type BranchPartition(frontier: Vector<IRNode>, l_subgraph: ImmNodeSet, r_subgraph: ImmNodeSet);
+type BranchPartition(frontier: ImmNodeSet, l_subgraph: ImmNodeSet, r_subgraph: ImmNodeSet);
 
 def dedup(arr: Array<IRNode>) -> Array<IRNode> {
     def res = Vector<IRNode>.new();

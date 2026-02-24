@@ -9,30 +9,12 @@ def trap();
 class BranchLattice {
     var sea: Sea;
     var condition: IRNode;
-    var frontier: Vector<IRNode>;
+    var frontier: ImmNodeSet;
     var l_subgraph: ImmNodeSet;
     var r_subgraph: ImmNodeSet;
     var phis: Vector<IRNode>;
 
     new(sea, condition, frontier, l_subgraph, r_subgraph, phis) {}
-
-    def frontier_eq(rhs: Vector<IRNode>) -> bool {
-        if (frontier.length != rhs.length) return false;
-
-        for (i < frontier.length) {
-            var has_eq = false;
-            for (j < rhs.length) {
-                if (frontier[i].id == rhs[j].id) {
-                    has_eq = true;
-                    break;
-                }
-            }
-
-            if (!has_eq) return false;
-        }
-
-        return true;
-    }
 
     def can_merge_branches(phi: IRNode) -> bool {
         def left = phi.value_deps[1], right = phi.value_deps[2];
@@ -48,8 +30,13 @@ class BranchLattice {
 
     def add_phi(phi: IRNode, partition: BranchPartition) -> this {
         phis.put(phi);
+        frontier = frontier.union(partition.frontier);
         l_subgraph = l_subgraph.union(partition.l_subgraph);
         r_subgraph = r_subgraph.union(partition.r_subgraph);
+        for (f = frontier.ls; f != null; f = f.tail) {
+            l_subgraph = l_subgraph.without(f.head);
+            r_subgraph = r_subgraph.without(f.head);
+        }
     }
 }
 
@@ -87,8 +74,8 @@ class SeaScheduler {
                 System.puts(Strings.format1("%q, ", branch_lattices[i].phis[j].render));
             }
             System.puts(" | Frontier: ");
-            for (j < branch_lattices[i].frontier.length) {
-                System.puts(Strings.format1("%q, ", branch_lattices[i].frontier[j].render));
+            for (j = branch_lattices[i].frontier.ls; j != null; j = j.tail) {
+                System.puts(Strings.format1("%q, ", j.head.render));
             }
             System.ln();
         }
@@ -255,7 +242,10 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                             return cond.prependScheduleBlock(prim);
                     }
                     phi: SchedulePhi => {
-                        var dest_block = phi.l_source.schedule(prim, phi.source_branch);
+                        // XXX: maybe we shouldn't try each branch here? because uses after phi are not dominated
+                        // by either branch
+                        var dest_block: ScheduleNode = null;
+                        dest_block = phi.l_source.schedule(prim, phi.source_branch);
                         if (dest_block == null) dest_block = phi.r_source.schedule(prim, phi.source_branch);
                         if (dest_block == null) dest_block = phi.source_branch.schedule(prim, upper_limit);
                         return dest_block;
