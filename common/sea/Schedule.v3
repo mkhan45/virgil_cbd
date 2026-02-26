@@ -61,6 +61,8 @@ class SeaScheduler {
         sea = clone.0;
         mapping = clone.1;
 
+        sea.apply(void, SeaTransforms.addMoves);
+
         top_node = mapping[orig_top_node];
         bottom_node = mapping[orig_bottom_node];
 
@@ -103,6 +105,7 @@ class SeaScheduler {
 
     def schedule() {
         if (opcode != null) System.puts(Strings.format1("==============%s=============\n", opcode));
+        // if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
         q = Vector<SchedulePrim>.new();
         q.put(SchedulePrim.new(bottom_node, this));
 
