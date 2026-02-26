@@ -119,7 +119,7 @@ class SeaScheduler {
 
         q_idx = 0;
         while (q_idx < q.length) {
-            if (q_idx > 300) {
+            if (q_idx > 200) {
                 System.puts(Strings.format1("ERROR: Scheduling %s reached limit\n", opcode));
                 break;
             }
@@ -257,6 +257,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
     def scheduleReadyPhi(prim: SchedulePrim, upper_limit: ScheduleNode) -> ScheduleNode {
         if (upper_limit != null && this.id == upper_limit.id) return null;
+        if (dominants.has(prim.node)) return this;
+
         def phi = prim.node;
         match (this) {
             block: ScheduleBlock => return if(block.prev == null || ScheduleBranch.?(block.prev), block.prependScheduleBranch(prim), block.prev.scheduleReadyPhi(prim, upper_limit));
@@ -266,7 +268,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
             phi_node: SchedulePhi => {
                 def phi_cond = phi.value_deps[0];
                 if (phi_node.source_branch.condition.id == phi_cond.id) {
-                    return phi_node.fuseReadyPhi(prim);
+                    System.puts("ERROR: Fusing");
+                    return null;
                 } else {
                     // return phi_node.source_branch.schedule(prim, upper_limit);
                     var dest_block = phi_node.l_source.schedule(prim, upper_limit);
@@ -533,60 +536,6 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
     var phis: List<IRNode> = null;
 
     def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder => SeaRender.toMermaidSchedulePhi(this, buf, visited);
-
-    def fuseReadyPhi(prim: SchedulePrim) -> this {
-        def phi = prim.node;
-        def cond = phi.value_deps[0], l_branch = phi.value_deps[1], r_branch = phi.value_deps[2];
-
-        dominants.addLocal(phi);
-
-        cond.init_move();
-        scheduler.live.put(cond.move_true);
-        scheduler.live.put(cond.move_false);
-
-        l_source.dominants.addPrivate(cond.move_true);
-        r_source.dominants.addPrivate(cond.move_false);
-
-        phis = List.new(phi, phis);
-
-        scheduler.sea.rebuildChildren();
-
-        def lcas = scheduler.sea.findTop(l_branch, r_branch);
-        System.puts(Strings.format2("lcas(%q, %q): ", l_branch.render, r_branch.render));
-        for (i < lcas.length) System.puts(Strings.format1("%q, ", lcas[i].render));
-        System.puts("\n");
-
-        var lsg = ImmNodeSet(null);
-        for (i < lcas.length) lsg = lsg.union(scheduler.sea.subgraph2(lcas[i], l_branch));
-        for (i < lcas.length) lsg = lsg.without(lcas[i]);
-        lsg = lsg.with(cond.move_true).with(l_branch);
-
-        def lsg_clone = Seas.cloneSubgraph(scheduler.sea, lsg);
-        def lsg_clone_sg = lsg_clone.0;
-        def lsg_clone_mapping = lsg_clone.1;
-
-        for (i < l_branch.children.length) {
-            def child = l_branch.children[i];
-            // child.replaceDep(l_branch, lsg_clone_mapping[l_branch]);
-        }
-        for (n = lsg_clone_sg.ls; n != null; n = n.tail) scheduler.live.put(n.head);
-
-        var rsg = ImmNodeSet(null);
-        for (i < lcas.length) rsg = rsg.union(scheduler.sea.subgraph2(lcas[i], r_branch));
-        for (i < lcas.length) rsg = rsg.without(lcas[i]);
-        rsg = rsg.with(cond.move_false).with(r_branch);
-
-        def rsg_clone = Seas.cloneSubgraph(scheduler.sea, rsg);
-        def rsg_clone_sg = rsg_clone.0;
-        def rsg_clone_mapping = rsg_clone.1;
-        for (i < r_branch.children.length) {
-            def child = r_branch.children[i];
-            // child.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
-        }
-        for (n = rsg_clone_sg.ls; n != null; n = n.tail) scheduler.live.put(n.head);
-
-        scheduler.sea.rebuildChildren();
-    }
 
     def toSSAD() -> SSAD {
         def cond_name = source_branch.condition.var_data.sourceName;
