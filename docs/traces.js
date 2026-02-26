@@ -862,56 +862,56 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	14 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 3
-	15 -. Extra .-> 3
-	15["eff_st_put__13 ctlxfer.put_IF"]
-	9 --> 15
-	14 -. Extra .-> 15
-	14{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	4 --> 14
-	21 --> 14
-	25 --> 14
-	25{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	1 --> 25
-	27 --> 25
-	26 --> 25
-	26["eff__9__26 doFallthru"]
-	9 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 26
-	9["label doIf"]
-	5 --> 9
-	5 -. Codeptr .-> 9
-	7 -. Stack .-> 9
-	0 -. Trap Locals Globals Tables Memory Extra .-> 9
-	0[/"Start"\\]
-	7["cond pop_u32"]
-	0 -. Stack .-> 7
-	5["bt imm_readBlockType"]
-	0 -. Codeptr .-> 5
-	27["eff__7__27 doBranch"]
-	9 --> 27
-	9 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 27
-	1["mt__19 U32_maybeTrue"]
-	11 --> 1
-	11["cond__6 U32_equals"]
-	7 --> 11
-	16 --> 11
-	16["abs__14 lift_u32"]
-	10 --> 16
-	10["arg__11 0"]
-	21["eff_merge__22__23 merge"]
-	23 --> 21
-	22 --> 21
-	22["eff__9__24 doFallthru"]
-	9 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 22
-	23["eff__7__25 doBranch"]
-	9 --> 23
-	9 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 23
-	4["mb__21 bool.&&"]
-	1 --> 4
+	1[\\"Finish"/]
+	9 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	10 -. Extra .-> 1
+	10["eff_st_put__13 ctlxfer.put_IF"]
+	4 --> 10
+	9 -. Extra .-> 10
+	9{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	23 --> 9
+	27 --> 9
+	27{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	12 --> 27
+	26 --> 27
+	25 --> 27
+	25["eff__9__26 doFallthru"]
+	4 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 25
+	4["label doIf"]
 	2 --> 4
-	2["mf__20 U32_maybeFalse"]
-	11 --> 2
+	2 -. Codeptr .-> 4
+	3 -. Stack .-> 4
+	0 -. Trap Locals Globals Tables Memory Extra .-> 4
+	0[/"Start"\\]
+	3["cond pop_u32"]
+	0 -. Stack .-> 3
+	2["bt imm_readBlockType"]
+	0 -. Codeptr .-> 2
+	26["eff__7__27 doBranch"]
+	4 --> 26
+	4 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 26
+	12["mt__19 U32_maybeTrue"]
+	6 --> 12
+	6["cond__6 U32_equals"]
+	3 --> 6
+	11 --> 6
+	11["abs__14 lift_u32"]
+	5 --> 11
+	5["arg__11 0"]
+	23["eff_merge__22__25 merge"]
+	22 --> 23
+	21 --> 23
+	21["eff__9__23 doFallthru"]
+	4 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 21
+	22["eff__7__24 doBranch"]
+	4 --> 22
+	4 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 22
+	14["mb__21 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__20 U32_maybeFalse"]
+	6 --> 13
 </pre>`;
 window.traces["IF_ul"]["post_surgery 22"] = ''
 window.traces["IF_ul"]["post_surgery 22"] += `<pre class='graph'>---
@@ -919,115 +919,115 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	14 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 3
-	15 -. Extra .-> 3
-	15["eff_st_put__13 ctlxfer.put_IF"]
-	9 --> 15
-	14 -. Extra .-> 15
-	14{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	4 --> 14
-	21 --> 14
-	25 --> 14
-	25{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	1 --> 25
-	38 --> 25
-	40 --> 25
+	1[\\"Finish"/]
+	9 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	10 -. Extra .-> 1
+	10["eff_st_put__13 ctlxfer.put_IF"]
+	4 --> 10
+	9 -. Extra .-> 10
+	9{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	23 --> 9
+	27 --> 9
+	27{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	12 --> 27
+	38 --> 27
+	40 --> 27
 	40["eff__9__26__34 doFallthru"]
-	9 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 40
-	9["label doIf"]
-	5 --> 9
-	5 -. Codeptr .-> 9
-	7 -. Stack .-> 9
-	0 -. Trap Locals Globals Tables Memory Extra .-> 9
-	0[/"Start"\\]
-	7["cond pop_u32"]
-	0 -. Stack .-> 7
-	5["bt imm_readBlockType"]
-	0 -. Codeptr .-> 5
-	38["eff__7__27__33 doBranch"]
-	9 --> 38
-	9 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 38
-	1["mt__19 U32_maybeTrue"]
-	11 --> 1
-	11["cond__6 U32_equals"]
-	7 --> 11
-	16 --> 11
-	16["abs__14 lift_u32"]
-	10 --> 16
-	10["arg__11 0"]
-	21["eff_merge__22__23 merge"]
-	23 --> 21
-	22 --> 21
-	22["eff__9__24 doFallthru"]
-	9 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 22
-	23["eff__7__25 doBranch"]
-	9 --> 23
-	9 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 23
-	4["mb__21 bool.&&"]
-	1 --> 4
+	4 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 40
+	4["label doIf"]
 	2 --> 4
-	2["mf__20 U32_maybeFalse"]
-	11 --> 2
+	2 -. Codeptr .-> 4
+	3 -. Stack .-> 4
+	0 -. Trap Locals Globals Tables Memory Extra .-> 4
+	0[/"Start"\\]
+	3["cond pop_u32"]
+	0 -. Stack .-> 3
+	2["bt imm_readBlockType"]
+	0 -. Codeptr .-> 2
+	38["eff__7__27__33 doBranch"]
+	4 --> 38
+	4 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 38
+	12["mt__19 U32_maybeTrue"]
+	6 --> 12
+	6["cond__6 U32_equals"]
+	3 --> 6
+	11 --> 6
+	11["abs__14 lift_u32"]
+	5 --> 11
+	5["arg__11 0"]
+	23["eff_merge__22__25 merge"]
+	22 --> 23
+	21 --> 23
+	21["eff__9__23 doFallthru"]
+	4 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 21
+	22["eff__7__24 doBranch"]
+	4 --> 22
+	4 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 22
+	14["mb__21 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__20 U32_maybeFalse"]
+	6 --> 13
 </pre>`;
 window.traces["IF"]["unlem_scheduler"] = ''
 window.traces["IF"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_15["Block 15"]
 	direction TB
-	b15_15["eff_st_put__13 ctlxfer.put_IF"]
-	b15_3[\\"Finish"/]
-	b15_15 --> b15_3
+	b15_10["eff_st_put__13 ctlxfer.put_IF"]
+	b15_1[\\"Finish"/]
+	b15_10 --> b15_1
 end
 phi_17 --> block_15
 subgraph phi_17["Phi 17"]
-	p17_14{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p17_14{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p17_9{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p17_9{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 end
 block_18 --> phi_17
 block_19 --> phi_17
 subgraph block_18["Block 18"]
 	direction TB
-	b18_22["eff__9__24 doFallthru"]
-	b18_23["eff__7__25 doBranch"]
-	b18_21["eff_merge__22__23 merge"]
+	b18_21["eff__9__23 doFallthru"]
+	b18_22["eff__7__24 doBranch"]
+	b18_23["eff_merge__22__25 merge"]
+	b18_21 --> b18_22
 	b18_22 --> b18_23
-	b18_23 --> b18_21
 end
 branch_16 --> block_18
 subgraph branch_16["Branch 16"]
-	br16_4["mb__21 bool.&&"]
+	br16_14["mb__21 bool.&&"]
 
 end
 block_20 --> branch_16
 subgraph block_20["Block 20"]
 	direction TB
 	b20_0[/"Start"\\]
-	b20_10["arg__11 0"]
-	b20_16["abs__14 lift_u32"]
-	b20_7["cond pop_u32"]
-	b20_5["bt imm_readBlockType"]
-	b20_11["cond__6 U32_equals"]
-	b20_9["label doIf"]
-	b20_2["mf__20 U32_maybeFalse"]
-	b20_1["mt__19 U32_maybeTrue"]
-	b20_4["mb__21 bool.&&"]
-	b20_0 --> b20_10
-	b20_10 --> b20_16
-	b20_16 --> b20_7
-	b20_7 --> b20_5
+	b20_5["arg__11 0"]
+	b20_11["abs__14 lift_u32"]
+	b20_3["cond pop_u32"]
+	b20_2["bt imm_readBlockType"]
+	b20_6["cond__6 U32_equals"]
+	b20_4["label doIf"]
+	b20_13["mf__20 U32_maybeFalse"]
+	b20_12["mt__19 U32_maybeTrue"]
+	b20_14["mb__21 bool.&&"]
+	b20_0 --> b20_5
 	b20_5 --> b20_11
-	b20_11 --> b20_9
-	b20_9 --> b20_2
-	b20_2 --> b20_1
-	b20_1 --> b20_4
+	b20_11 --> b20_3
+	b20_3 --> b20_2
+	b20_2 --> b20_6
+	b20_6 --> b20_4
+	b20_4 --> b20_13
+	b20_13 --> b20_12
+	b20_12 --> b20_14
 end
 subgraph block_19["Block 19"]
 	direction TB
 end
 phi_22 --> block_19
 subgraph phi_22["Phi 22"]
-	p22_25{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p22_25{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p22_27{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p22_27{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 end
 block_23 --> phi_22
 block_24 --> phi_22
@@ -1037,7 +1037,7 @@ subgraph block_23["Block 23"]
 end
 branch_21 --> block_23
 subgraph branch_21["Branch 21"]
-	br21_1["mt__19 U32_maybeTrue"]
+	br21_12["mt__19 U32_maybeTrue"]
 
 end
 branch_16 --> branch_21
@@ -1059,9 +1059,9 @@ def mf__20 = U32_maybeFalse(cond__6);
 def mt__19 = U32_maybeTrue(cond__6);
 def mb__21 = bool.&&(mt__19, mf__20);
 if (mb__21) {
-	def eff__9__24 = doFallthru();
-	def eff__7__25 = doBranch(label);
-	def eff_merge__22__23 = merge(eff__7__25, eff__9__24);
+	def eff__9__23 = doFallthru();
+	def eff__7__24 = doBranch(label);
+	def eff_merge__22__25 = merge(eff__7__24, eff__9__23);
 } else {
 	if (mt__19) {
 		def eff__7__27__33 = doBranch(label);
@@ -2398,70 +2398,70 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	14 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 3
-	15 -. Extra .-> 3
-	15["eff_st_put__60 ctlxfer.put_BR_IF"]
-	8 --> 15
-	14 -. Extra .-> 15
-	14{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	4 --> 14
-	21 --> 14
-	27 --> 14
-	27{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	26 --> 27
-	31 --> 27
-	30 --> 27
-	30["eff__56__79 doFallthru"]
-	5 -. Codeptr .-> 30
-	9 -. Stack .-> 30
-	0 -. Trap Locals Globals Tables Memory Extra .-> 30
-	0[/"Start"\\]
-	9["cond pop_u32"]
-	0 -. Stack .-> 9
-	5["depth imm_readULEB32"]
-	0 -. Codeptr .-> 5
-	31["eff__54__80 doBranch"]
+	1[\\"Finish"/]
+	9 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	10 -. Extra .-> 1
+	10["eff_st_put__60 ctlxfer.put_BR_IF"]
+	3 --> 10
+	9 -. Extra .-> 10
+	9{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	24 --> 9
+	31 --> 9
+	31{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	30 --> 31
+	29 --> 31
 	28 --> 31
-	5 -. Codeptr .-> 31
-	9 -. Stack .-> 31
-	0 -. Trap Locals Globals Tables Memory Extra .-> 31
-	28["label__77 f_getLabel"]
-	5 --> 28
-	26["mt__68__76 U32_maybeTrue"]
-	29 --> 26
-	29["cond__53__78 U32_not_equals"]
-	9 --> 29
-	16 --> 29
-	16["abs__61 lift_u32"]
-	10 --> 16
-	10["arg__58 0"]
-	21["eff_merge__71__72 merge"]
-	24 --> 21
-	23 --> 21
-	23["eff__56__74 doFallthru"]
-	5 -. Codeptr .-> 23
-	9 -. Stack .-> 23
-	0 -. Trap Locals Globals Tables Memory Extra .-> 23
-	24["eff__54__75 doBranch"]
+	28["eff__56__78 doFallthru"]
+	2 -. Codeptr .-> 28
+	4 -. Stack .-> 28
+	0 -. Trap Locals Globals Tables Memory Extra .-> 28
+	0[/"Start"\\]
+	4["cond pop_u32"]
+	0 -. Stack .-> 4
+	2["depth imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	29["eff__54__79 doBranch"]
+	26 --> 29
+	2 -. Codeptr .-> 29
+	4 -. Stack .-> 29
+	0 -. Trap Locals Globals Tables Memory Extra .-> 29
+	26["label__76 f_getLabel"]
+	2 --> 26
+	30["mt__68__80 U32_maybeTrue"]
+	27 --> 30
+	27["cond__53__77 U32_not_equals"]
+	4 --> 27
+	11 --> 27
+	11["abs__61 lift_u32"]
+	5 --> 11
+	5["arg__58 0"]
+	24["eff_merge__71__75 merge"]
+	23 --> 24
 	22 --> 24
-	5 -. Codeptr .-> 24
-	9 -. Stack .-> 24
-	0 -. Trap Locals Globals Tables Memory Extra .-> 24
-	22["label__73 f_getLabel"]
-	5 --> 22
-	4["mb__70 bool.&&"]
-	1 --> 4
-	2 --> 4
-	2["mf__69 U32_maybeFalse"]
-	11 --> 2
-	11["cond__53 U32_not_equals"]
-	9 --> 11
-	16 --> 11
-	1["mt__68 U32_maybeTrue"]
-	11 --> 1
-	8["label f_getLabel"]
-	5 --> 8
+	22["eff__56__73 doFallthru"]
+	2 -. Codeptr .-> 22
+	4 -. Stack .-> 22
+	0 -. Trap Locals Globals Tables Memory Extra .-> 22
+	23["eff__54__74 doBranch"]
+	21 --> 23
+	2 -. Codeptr .-> 23
+	4 -. Stack .-> 23
+	0 -. Trap Locals Globals Tables Memory Extra .-> 23
+	21["label__72 f_getLabel"]
+	2 --> 21
+	14["mb__70 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__69 U32_maybeFalse"]
+	6 --> 13
+	6["cond__53 U32_not_equals"]
+	4 --> 6
+	11 --> 6
+	12["mt__68 U32_maybeTrue"]
+	6 --> 12
+	3["label f_getLabel"]
+	2 --> 3
 </pre>`;
 window.traces["BR_IF_ul"]["post_surgery 56"] = ''
 window.traces["BR_IF_ul"]["post_surgery 56"] += `<pre class='graph'>---
@@ -2469,153 +2469,153 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	14 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 3
-	15 -. Extra .-> 3
-	15["eff_st_put__60 ctlxfer.put_BR_IF"]
-	8 --> 15
-	14 -. Extra .-> 15
-	14{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	4 --> 14
-	21 --> 14
-	27 --> 14
-	27{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	26 --> 27
-	46 --> 27
-	48 --> 27
-	48["eff__56__79__90 doFallthru"]
-	5 -. Codeptr .-> 48
-	9 -. Stack .-> 48
+	1[\\"Finish"/]
+	9 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	10 -. Extra .-> 1
+	10["eff_st_put__60 ctlxfer.put_BR_IF"]
+	3 --> 10
+	9 -. Extra .-> 10
+	9{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	24 --> 9
+	31 --> 9
+	31{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	30 --> 31
+	46 --> 31
+	48 --> 31
+	48["eff__56__78__90 doFallthru"]
+	2 -. Codeptr .-> 48
+	4 -. Stack .-> 48
 	0 -. Trap Locals Globals Tables Memory Extra .-> 48
 	0[/"Start"\\]
-	9["cond pop_u32"]
-	0 -. Stack .-> 9
-	5["depth imm_readULEB32"]
-	0 -. Codeptr .-> 5
-	46["eff__54__80__89 doBranch"]
+	4["cond pop_u32"]
+	0 -. Stack .-> 4
+	2["depth imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	46["eff__54__79__89 doBranch"]
 	45 --> 46
-	5 -. Codeptr .-> 46
-	9 -. Stack .-> 46
+	2 -. Codeptr .-> 46
+	4 -. Stack .-> 46
 	0 -. Trap Locals Globals Tables Memory Extra .-> 46
-	45["label__77__88 f_getLabel"]
-	5 --> 45
-	26["mt__68__76 U32_maybeTrue"]
-	29 --> 26
-	29["cond__53__78 U32_not_equals"]
-	9 --> 29
-	16 --> 29
-	16["abs__61 lift_u32"]
-	10 --> 16
-	10["arg__58 0"]
-	21["eff_merge__71__72 merge"]
-	24 --> 21
-	23 --> 21
-	23["eff__56__74 doFallthru"]
-	5 -. Codeptr .-> 23
-	9 -. Stack .-> 23
-	0 -. Trap Locals Globals Tables Memory Extra .-> 23
-	24["eff__54__75 doBranch"]
+	45["label__76__88 f_getLabel"]
+	2 --> 45
+	30["mt__68__80 U32_maybeTrue"]
+	27 --> 30
+	27["cond__53__77 U32_not_equals"]
+	4 --> 27
+	11 --> 27
+	11["abs__61 lift_u32"]
+	5 --> 11
+	5["arg__58 0"]
+	24["eff_merge__71__75 merge"]
+	23 --> 24
 	22 --> 24
-	5 -. Codeptr .-> 24
-	9 -. Stack .-> 24
-	0 -. Trap Locals Globals Tables Memory Extra .-> 24
-	22["label__73 f_getLabel"]
-	5 --> 22
-	4["mb__70 bool.&&"]
-	1 --> 4
-	2 --> 4
-	2["mf__69 U32_maybeFalse"]
-	11 --> 2
-	11["cond__53 U32_not_equals"]
-	9 --> 11
-	16 --> 11
-	1["mt__68 U32_maybeTrue"]
-	11 --> 1
-	8["label f_getLabel"]
-	5 --> 8
+	22["eff__56__73 doFallthru"]
+	2 -. Codeptr .-> 22
+	4 -. Stack .-> 22
+	0 -. Trap Locals Globals Tables Memory Extra .-> 22
+	23["eff__54__74 doBranch"]
+	21 --> 23
+	2 -. Codeptr .-> 23
+	4 -. Stack .-> 23
+	0 -. Trap Locals Globals Tables Memory Extra .-> 23
+	21["label__72 f_getLabel"]
+	2 --> 21
+	14["mb__70 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__69 U32_maybeFalse"]
+	6 --> 13
+	6["cond__53 U32_not_equals"]
+	4 --> 6
+	11 --> 6
+	12["mt__68 U32_maybeTrue"]
+	6 --> 12
+	3["label f_getLabel"]
+	2 --> 3
 </pre>`;
 window.traces["BR_IF"]["unlem_scheduler"] = ''
 window.traces["BR_IF"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_49["Block 49"]
 	direction TB
-	b49_8["label f_getLabel"]
-	b49_15["eff_st_put__60 ctlxfer.put_BR_IF"]
-	b49_3[\\"Finish"/]
-	b49_8 --> b49_15
-	b49_15 --> b49_3
+	b49_3["label f_getLabel"]
+	b49_10["eff_st_put__60 ctlxfer.put_BR_IF"]
+	b49_1[\\"Finish"/]
+	b49_3 --> b49_10
+	b49_10 --> b49_1
 end
 phi_51 --> block_49
 subgraph phi_51["Phi 51"]
-	p51_14{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p51_14{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p51_9{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p51_9{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 end
 block_52 --> phi_51
 block_53 --> phi_51
 subgraph block_52["Block 52"]
 	direction TB
-	b52_22["label__73 f_getLabel"]
-	b52_23["eff__56__74 doFallthru"]
-	b52_24["eff__54__75 doBranch"]
-	b52_21["eff_merge__71__72 merge"]
+	b52_21["label__72 f_getLabel"]
+	b52_22["eff__56__73 doFallthru"]
+	b52_23["eff__54__74 doBranch"]
+	b52_24["eff_merge__71__75 merge"]
+	b52_21 --> b52_22
 	b52_22 --> b52_23
 	b52_23 --> b52_24
-	b52_24 --> b52_21
 end
 branch_50 --> block_52
 subgraph branch_50["Branch 50"]
-	br50_4["mb__70 bool.&&"]
+	br50_14["mb__70 bool.&&"]
 
 end
 block_54 --> branch_50
 subgraph block_54["Block 54"]
 	direction TB
 	b54_0[/"Start"\\]
-	b54_10["arg__58 0"]
-	b54_16["abs__61 lift_u32"]
-	b54_9["cond pop_u32"]
-	b54_5["depth imm_readULEB32"]
-	b54_29["cond__53__78 U32_not_equals"]
-	b54_11["cond__53 U32_not_equals"]
-	b54_26["mt__68__76 U32_maybeTrue"]
-	b54_2["mf__69 U32_maybeFalse"]
-	b54_1["mt__68 U32_maybeTrue"]
-	b54_4["mb__70 bool.&&"]
-	b54_0 --> b54_10
-	b54_10 --> b54_16
-	b54_16 --> b54_9
-	b54_9 --> b54_5
-	b54_5 --> b54_29
-	b54_29 --> b54_11
-	b54_11 --> b54_26
-	b54_26 --> b54_2
-	b54_2 --> b54_1
-	b54_1 --> b54_4
+	b54_5["arg__58 0"]
+	b54_11["abs__61 lift_u32"]
+	b54_4["cond pop_u32"]
+	b54_2["depth imm_readULEB32"]
+	b54_27["cond__53__77 U32_not_equals"]
+	b54_6["cond__53 U32_not_equals"]
+	b54_30["mt__68__80 U32_maybeTrue"]
+	b54_13["mf__69 U32_maybeFalse"]
+	b54_12["mt__68 U32_maybeTrue"]
+	b54_14["mb__70 bool.&&"]
+	b54_0 --> b54_5
+	b54_5 --> b54_11
+	b54_11 --> b54_4
+	b54_4 --> b54_2
+	b54_2 --> b54_27
+	b54_27 --> b54_6
+	b54_6 --> b54_30
+	b54_30 --> b54_13
+	b54_13 --> b54_12
+	b54_12 --> b54_14
 end
 subgraph block_53["Block 53"]
 	direction TB
 end
 phi_56 --> block_53
 subgraph phi_56["Phi 56"]
-	p56_27{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p56_27{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p56_31{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p56_31{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 end
 block_57 --> phi_56
 block_58 --> phi_56
 subgraph block_57["Block 57"]
 	direction TB
-	b57_45["label__77__88 f_getLabel"]
-	b57_46["eff__54__80__89 doBranch"]
+	b57_45["label__76__88 f_getLabel"]
+	b57_46["eff__54__79__89 doBranch"]
 	b57_45 --> b57_46
 end
 branch_55 --> block_57
 subgraph branch_55["Branch 55"]
-	br55_26["mt__68__76 U32_maybeTrue"]
+	br55_30["mt__68__80 U32_maybeTrue"]
 
 end
 branch_50 --> branch_55
 subgraph block_58["Block 58"]
 	direction TB
-	b58_48["eff__56__79__90 doFallthru"]
+	b58_48["eff__56__78__90 doFallthru"]
 end
 branch_55 --> block_58
 
@@ -2625,23 +2625,23 @@ window.traces["BR_IF"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__58 : u3
 def abs__61 = lift_u32(arg__58);
 def cond = pop_u32();
 def depth = imm_readULEB32();
-def cond__53__78 = U32_not_equals(cond, abs__61);
+def cond__53__77 = U32_not_equals(cond, abs__61);
 def cond__53 = U32_not_equals(cond, abs__61);
-def mt__68__76 = U32_maybeTrue(cond__53__78);
+def mt__68__80 = U32_maybeTrue(cond__53__77);
 def mf__69 = U32_maybeFalse(cond__53);
 def mt__68 = U32_maybeTrue(cond__53);
 def mb__70 = bool.&&(mt__68, mf__69);
 if (mb__70) {
-	def label__73 = f_getLabel(depth);
-	def eff__56__74 = doFallthru();
-	def eff__54__75 = doBranch(label__73);
-	def eff_merge__71__72 = merge(eff__54__75, eff__56__74);
+	def label__72 = f_getLabel(depth);
+	def eff__56__73 = doFallthru();
+	def eff__54__74 = doBranch(label__72);
+	def eff_merge__71__75 = merge(eff__54__74, eff__56__73);
 } else {
-	if (mt__68__76) {
-		def label__77__88 = f_getLabel(depth);
-		def eff__54__80__89 = doBranch(label__77__88);
+	if (mt__68__80) {
+		def label__76__88 = f_getLabel(depth);
+		def eff__54__79__89 = doBranch(label__76__88);
 	} else {
-		def eff__56__79__90 = doFallthru();
+		def eff__56__78__90 = doFallthru();
 	}
 // phis: 
 }
@@ -3529,98 +3529,98 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	11 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 2
-	12 -. Extra .-> 2
-	12["eff_st_put__119 ctlxfer.put_CALL_INDIRECT"]
-	8 --> 12
-	11 -. Extra .-> 12
-	11{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	8 --> 11
-	17 --> 11
-	19 --> 11
-	19["eff__111__122 doCall"]
-	7 --> 19
-	20 --> 19
-	5 -. Codeptr .-> 19
-	10 -. Stack .-> 19
-	0 -. Trap Locals Globals Tables Memory Extra .-> 19
+	1[\\"Finish"/]
+	12 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	13 -. Extra .-> 1
+	13["eff_st_put__119 ctlxfer.put_CALL_INDIRECT"]
+	5 --> 13
+	12 -. Extra .-> 13
+	12{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	5 --> 12
+	17 --> 12
+	20 --> 12
+	20["eff__111__123 doCall"]
+	4 --> 20
+	19 --> 20
+	3 -. Codeptr .-> 20
+	6 -. Stack .-> 20
+	0 -. Trap Locals Globals Tables Memory Extra .-> 20
 	0[/"Start"\\]
-	10["func_index pop_u32"]
-	0 -. Stack .-> 10
-	5["table_index imm_readULEB32"]
-	4 -. Codeptr .-> 5
-	4["sig_index imm_readULEB32"]
-	0 -. Codeptr .-> 4
-	20["target__123 i_getTableFunction32"]
-	5 --> 20
-	7 --> 20
-	10 --> 20
-	7["sig m_getSignature"]
-	4 --> 7
+	6["func_index pop_u32"]
+	0 -. Stack .-> 6
+	3["table_index imm_readULEB32"]
+	2 -. Codeptr .-> 3
+	2["sig_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	19["target__122 i_getTableFunction32"]
+	3 --> 19
+	4 --> 19
+	6 --> 19
+	4["sig m_getSignature"]
+	2 --> 4
 	17["eff__105__121 doCall"]
-	7 --> 17
+	4 --> 17
 	16 --> 17
-	5 -. Codeptr .-> 17
-	3 -. Stack .-> 17
+	3 -. Codeptr .-> 17
+	9 -. Stack .-> 17
 	0 -. Trap Locals Globals Tables Memory Extra .-> 17
-	3["func_index pop_u64"]
-	0 -. Stack .-> 3
+	9["func_index pop_u64"]
+	0 -. Stack .-> 9
 	16["target__120 i_getTableFunction64"]
-	5 --> 16
-	7 --> 16
 	3 --> 16
-	8["is64 m_isTable64"]
-	5 --> 8
+	4 --> 16
+	9 --> 16
+	5["is64 m_isTable64"]
+	3 --> 5
 </pre>`;
 window.traces["CALL_INDIRECT"]["schedulerMermaid"] = ''
 window.traces["CALL_INDIRECT"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_65["Block 65"]
 	direction TB
-	b65_12["eff_st_put__119 ctlxfer.put_CALL_INDIRECT"]
-	b65_2[\\"Finish"/]
-	b65_12 --> b65_2
+	b65_13["eff_st_put__119 ctlxfer.put_CALL_INDIRECT"]
+	b65_1[\\"Finish"/]
+	b65_13 --> b65_1
 end
 phi_67 --> block_65
 subgraph phi_67["Phi 67"]
-	p67_11{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p67_11{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p67_12{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p67_12{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 end
 block_68 --> phi_67
 block_69 --> phi_67
 subgraph block_68["Block 68"]
 	direction TB
-	b68_3["func_index pop_u64"]
+	b68_9["func_index pop_u64"]
 	b68_16["target__120 i_getTableFunction64"]
 	b68_17["eff__105__121 doCall"]
-	b68_3 --> b68_16
+	b68_9 --> b68_16
 	b68_16 --> b68_17
 end
 branch_66 --> block_68
 subgraph branch_66["Branch 66"]
-	br66_8["is64 m_isTable64"]
+	br66_5["is64 m_isTable64"]
 
 end
 block_70 --> branch_66
 subgraph block_70["Block 70"]
 	direction TB
 	b70_0[/"Start"\\]
-	b70_4["sig_index imm_readULEB32"]
-	b70_7["sig m_getSignature"]
-	b70_5["table_index imm_readULEB32"]
-	b70_8["is64 m_isTable64"]
-	b70_0 --> b70_4
-	b70_4 --> b70_7
-	b70_7 --> b70_5
-	b70_5 --> b70_8
+	b70_2["sig_index imm_readULEB32"]
+	b70_4["sig m_getSignature"]
+	b70_3["table_index imm_readULEB32"]
+	b70_5["is64 m_isTable64"]
+	b70_0 --> b70_2
+	b70_2 --> b70_4
+	b70_4 --> b70_3
+	b70_3 --> b70_5
 end
 subgraph block_69["Block 69"]
 	direction TB
-	b69_10["func_index pop_u32"]
-	b69_20["target__123 i_getTableFunction32"]
-	b69_19["eff__111__122 doCall"]
-	b69_10 --> b69_20
-	b69_20 --> b69_19
+	b69_6["func_index pop_u32"]
+	b69_19["target__122 i_getTableFunction32"]
+	b69_20["eff__111__123 doCall"]
+	b69_6 --> b69_19
+	b69_19 --> b69_20
 end
 branch_66 --> block_69
 
@@ -3636,8 +3636,8 @@ if (is64) {
 	def eff__105__121 = doCall(sig, target__120);
 } else {
 	def func_index = pop_u32();
-	def target__123 = i_getTableFunction32(table_index, sig, func_index);
-	def eff__111__122 = doCall(sig, target__123);
+	def target__122 = i_getTableFunction32(table_index, sig, func_index);
+	def eff__111__123 = doCall(sig, target__122);
 }
 // phis: 
 def eff_st_put__119 = ctlxfer.put_CALL_INDIRECT(is64);
@@ -3732,98 +3732,98 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	11 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 2
-	12 -. Extra .-> 2
-	12["eff_st_put__119 ctlxfer.put_CALL_INDIRECT"]
-	8 --> 12
-	11 -. Extra .-> 12
-	11{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	8 --> 11
-	17 --> 11
-	19 --> 11
-	19["eff__111__130 doCall"]
-	7 --> 19
-	20 --> 19
-	5 -. Codeptr .-> 19
-	10 -. Stack .-> 19
-	0 -. Trap Locals Globals Tables Memory Extra .-> 19
+	1[\\"Finish"/]
+	12 -. Codeptr Stack Trap Locals Globals Tables Memory .-> 1
+	13 -. Extra .-> 1
+	13["eff_st_put__119 ctlxfer.put_CALL_INDIRECT"]
+	5 --> 13
+	12 -. Extra .-> 13
+	12{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	5 --> 12
+	17 --> 12
+	20 --> 12
+	20["eff__111__131 doCall"]
+	4 --> 20
+	19 --> 20
+	3 -. Codeptr .-> 20
+	6 -. Stack .-> 20
+	0 -. Trap Locals Globals Tables Memory Extra .-> 20
 	0[/"Start"\\]
-	10["func_index pop_u32"]
-	0 -. Stack .-> 10
-	5["table_index imm_readULEB32"]
-	4 -. Codeptr .-> 5
-	4["sig_index imm_readULEB32"]
-	0 -. Codeptr .-> 4
-	20["target__131 i_getTableFunction32"]
-	5 --> 20
-	7 --> 20
-	10 --> 20
-	7["sig m_getSignature"]
-	4 --> 7
+	6["func_index pop_u32"]
+	0 -. Stack .-> 6
+	3["table_index imm_readULEB32"]
+	2 -. Codeptr .-> 3
+	2["sig_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	19["target__130 i_getTableFunction32"]
+	3 --> 19
+	4 --> 19
+	6 --> 19
+	4["sig m_getSignature"]
+	2 --> 4
 	17["eff__105__129 doCall"]
-	7 --> 17
+	4 --> 17
 	16 --> 17
-	5 -. Codeptr .-> 17
-	3 -. Stack .-> 17
+	3 -. Codeptr .-> 17
+	9 -. Stack .-> 17
 	0 -. Trap Locals Globals Tables Memory Extra .-> 17
-	3["func_index pop_u64"]
-	0 -. Stack .-> 3
+	9["func_index pop_u64"]
+	0 -. Stack .-> 9
 	16["target__128 i_getTableFunction64"]
-	5 --> 16
-	7 --> 16
 	3 --> 16
-	8["is64 m_isTable64"]
-	5 --> 8
+	4 --> 16
+	9 --> 16
+	5["is64 m_isTable64"]
+	3 --> 5
 </pre>`;
 window.traces["CALL_INDIRECT"]["unlem_scheduler"] = ''
 window.traces["CALL_INDIRECT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_71["Block 71"]
 	direction TB
-	b71_12["eff_st_put__119 ctlxfer.put_CALL_INDIRECT"]
-	b71_2[\\"Finish"/]
-	b71_12 --> b71_2
+	b71_13["eff_st_put__119 ctlxfer.put_CALL_INDIRECT"]
+	b71_1[\\"Finish"/]
+	b71_13 --> b71_1
 end
 phi_73 --> block_71
 subgraph phi_73["Phi 73"]
-	p73_11{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
-	p73_11{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p73_12{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
+	p73_12{{"Sϕ Codeptr Stack Trap Locals Globals Tables Memory Extra "}}
 end
 block_74 --> phi_73
 block_75 --> phi_73
 subgraph block_74["Block 74"]
 	direction TB
-	b74_3["func_index pop_u64"]
+	b74_9["func_index pop_u64"]
 	b74_16["target__128 i_getTableFunction64"]
 	b74_17["eff__105__129 doCall"]
-	b74_3 --> b74_16
+	b74_9 --> b74_16
 	b74_16 --> b74_17
 end
 branch_72 --> block_74
 subgraph branch_72["Branch 72"]
-	br72_8["is64 m_isTable64"]
+	br72_5["is64 m_isTable64"]
 
 end
 block_76 --> branch_72
 subgraph block_76["Block 76"]
 	direction TB
 	b76_0[/"Start"\\]
-	b76_4["sig_index imm_readULEB32"]
-	b76_7["sig m_getSignature"]
-	b76_5["table_index imm_readULEB32"]
-	b76_8["is64 m_isTable64"]
-	b76_0 --> b76_4
-	b76_4 --> b76_7
-	b76_7 --> b76_5
-	b76_5 --> b76_8
+	b76_2["sig_index imm_readULEB32"]
+	b76_4["sig m_getSignature"]
+	b76_3["table_index imm_readULEB32"]
+	b76_5["is64 m_isTable64"]
+	b76_0 --> b76_2
+	b76_2 --> b76_4
+	b76_4 --> b76_3
+	b76_3 --> b76_5
 end
 subgraph block_75["Block 75"]
 	direction TB
-	b75_10["func_index pop_u32"]
-	b75_20["target__131 i_getTableFunction32"]
-	b75_19["eff__111__130 doCall"]
-	b75_10 --> b75_20
-	b75_20 --> b75_19
+	b75_6["func_index pop_u32"]
+	b75_19["target__130 i_getTableFunction32"]
+	b75_20["eff__111__131 doCall"]
+	b75_6 --> b75_19
+	b75_19 --> b75_20
 end
 branch_72 --> block_75
 
@@ -3839,8 +3839,8 @@ if (is64) {
 	def eff__105__129 = doCall(sig, target__128);
 } else {
 	def func_index = pop_u32();
-	def target__131 = i_getTableFunction32(table_index, sig, func_index);
-	def eff__111__130 = doCall(sig, target__131);
+	def target__130 = i_getTableFunction32(table_index, sig, func_index);
+	def eff__111__131 = doCall(sig, target__130);
 }
 // phis: 
 def eff_st_put__119 = ctlxfer.put_CALL_INDIRECT(is64);
@@ -4531,48 +4531,48 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	3 -. Stack .-> 2
-	3{{"Sϕ Stack "}}
-	10 --> 3
-	14 --> 3
-	16 --> 3
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	7 --> 10
+	14 --> 10
+	16 --> 10
 	16["eff__147__156 push_Value"]
-	6 --> 16
-	7 --> 16
-	8 -. Stack .-> 16
-	8["a pop_Value"]
-	6 --> 8
-	7 -. Stack .-> 8
-	7["b pop_Value"]
-	6 --> 7
-	5 -. Stack .-> 7
-	5["c pop_u32"]
-	0 -. Stack .-> 5
+	3 --> 16
+	4 --> 16
+	5 -. Stack .-> 16
+	5["a pop_Value"]
+	3 --> 5
+	4 -. Stack .-> 5
+	4["b pop_Value"]
+	3 --> 4
+	2 -. Stack .-> 4
+	2["c pop_u32"]
+	0 -. Stack .-> 2
 	0[/"Start"\\]
-	6["tv f_getTopOfStackType"]
-	5 -. Stack .-> 6
+	3["tv f_getTopOfStackType"]
+	2 -. Stack .-> 3
 	14["eff__144__155 push_Value"]
-	6 --> 14
-	8 --> 14
-	8 -. Stack .-> 14
-	10["cond__143 U32_not_equals"]
-	5 --> 10
-	4 --> 10
-	4["abs__154 lift_u32"]
-	9 --> 4
-	9["arg__151 0"]
+	3 --> 14
+	5 --> 14
+	5 -. Stack .-> 14
+	7["cond__143 U32_not_equals"]
+	2 --> 7
+	11 --> 7
+	11["abs__154 lift_u32"]
+	6 --> 11
+	6["arg__151 0"]
 </pre>`;
 window.traces["SELECT"]["schedulerMermaid"] = ''
 window.traces["SELECT"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_81["Block 81"]
 	direction TB
-	b81_2[\\"Finish"/]
+	b81_1[\\"Finish"/]
 end
 phi_83 --> block_81
 subgraph phi_83["Phi 83"]
-	p83_3{{"Sϕ Stack "}}
+	p83_10{{"Sϕ Stack "}}
 end
 block_84 --> phi_83
 block_85 --> phi_83
@@ -4582,27 +4582,27 @@ subgraph block_84["Block 84"]
 end
 branch_82 --> block_84
 subgraph branch_82["Branch 82"]
-	br82_10["cond__143 U32_not_equals"]
+	br82_7["cond__143 U32_not_equals"]
 
 end
 block_86 --> branch_82
 subgraph block_86["Block 86"]
 	direction TB
 	b86_0[/"Start"\\]
-	b86_5["c pop_u32"]
-	b86_6["tv f_getTopOfStackType"]
-	b86_9["arg__151 0"]
-	b86_7["b pop_Value"]
-	b86_8["a pop_Value"]
-	b86_4["abs__154 lift_u32"]
-	b86_10["cond__143 U32_not_equals"]
-	b86_0 --> b86_5
-	b86_5 --> b86_6
-	b86_6 --> b86_9
-	b86_9 --> b86_7
-	b86_7 --> b86_8
-	b86_8 --> b86_4
-	b86_4 --> b86_10
+	b86_2["c pop_u32"]
+	b86_3["tv f_getTopOfStackType"]
+	b86_6["arg__151 0"]
+	b86_4["b pop_Value"]
+	b86_5["a pop_Value"]
+	b86_11["abs__154 lift_u32"]
+	b86_7["cond__143 U32_not_equals"]
+	b86_0 --> b86_2
+	b86_2 --> b86_3
+	b86_3 --> b86_6
+	b86_6 --> b86_4
+	b86_4 --> b86_5
+	b86_5 --> b86_11
+	b86_11 --> b86_7
 end
 subgraph block_85["Block 85"]
 	direction TB
@@ -4728,58 +4728,58 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	3 -. Stack .-> 2
-	3{{"Sϕ Stack "}}
-	10 --> 3
-	23 --> 3
-	26 --> 3
-	26{{"Sϕ Stack "}}
-	7 --> 26
-	25 --> 26
-	27 --> 26
-	27["eff__147__165 push_Value"]
-	6 --> 27
-	9 --> 27
-	12 -. Stack .-> 27
-	12["a pop_Value"]
-	6 --> 12
-	9 -. Stack .-> 12
-	9["b pop_Value"]
-	6 --> 9
-	5 -. Stack .-> 9
-	5["c pop_u32"]
-	0 -. Stack .-> 5
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	23 --> 10
+	27 --> 10
+	27{{"Sϕ Stack "}}
+	12 --> 27
+	26 --> 27
+	25 --> 27
+	25["eff__147__164 push_Value"]
+	3 --> 25
+	4 --> 25
+	5 -. Stack .-> 25
+	5["a pop_Value"]
+	3 --> 5
+	4 -. Stack .-> 5
+	4["b pop_Value"]
+	3 --> 4
+	2 -. Stack .-> 4
+	2["c pop_u32"]
+	0 -. Stack .-> 2
 	0[/"Start"\\]
-	6["tv f_getTopOfStackType"]
-	5 -. Stack .-> 6
-	25["eff__144__164 push_Value"]
-	6 --> 25
-	12 --> 25
-	12 -. Stack .-> 25
-	7["mt__157 U32_maybeTrue"]
-	16 --> 7
-	16["cond__143 U32_not_equals"]
-	5 --> 16
-	4 --> 16
-	4["abs__154 lift_u32"]
-	14 --> 4
-	14["arg__151 0"]
+	3["tv f_getTopOfStackType"]
+	2 -. Stack .-> 3
+	26["eff__144__165 push_Value"]
+	3 --> 26
+	5 --> 26
+	5 -. Stack .-> 26
+	12["mt__157 U32_maybeTrue"]
+	7 --> 12
+	7["cond__143 U32_not_equals"]
+	2 --> 7
+	11 --> 7
+	11["abs__154 lift_u32"]
+	6 --> 11
+	6["arg__151 0"]
 	23["push__161__163 push_Value"]
-	6 --> 23
+	3 --> 23
 	22 --> 23
-	12 -. Stack .-> 23
+	5 -. Stack .-> 23
 	22["merge__160__162 merge_Val"]
-	6 --> 22
-	12 --> 22
-	9 --> 22
-	9 -. Stack .-> 22
-	10["mb__159 bool.&&"]
-	7 --> 10
-	8 --> 10
-	8["mf__158 U32_maybeFalse"]
-	16 --> 8
+	3 --> 22
+	5 --> 22
+	4 --> 22
+	4 -. Stack .-> 22
+	14["mb__159 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__158 U32_maybeFalse"]
+	7 --> 13
 </pre>`;
 window.traces["SELECT_ul"]["post_surgery 94"] = ''
 window.traces["SELECT_ul"]["post_surgery 94"] += `<pre class='graph'>---
@@ -4787,68 +4787,68 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	3 -. Stack .-> 2
-	3{{"Sϕ Stack "}}
-	10 --> 3
-	23 --> 3
-	26 --> 3
-	26{{"Sϕ Stack "}}
-	7 --> 26
-	30 --> 26
-	32 --> 26
-	32["eff__147__165__167 push_Value"]
-	6 --> 32
-	9 --> 32
-	12 -. Stack .-> 32
-	12["a pop_Value"]
-	6 --> 12
-	9 -. Stack .-> 12
-	9["b pop_Value"]
-	6 --> 9
-	5 -. Stack .-> 9
-	5["c pop_u32"]
-	0 -. Stack .-> 5
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	23 --> 10
+	27 --> 10
+	27{{"Sϕ Stack "}}
+	12 --> 27
+	30 --> 27
+	32 --> 27
+	32["eff__147__164__167 push_Value"]
+	3 --> 32
+	4 --> 32
+	5 -. Stack .-> 32
+	5["a pop_Value"]
+	3 --> 5
+	4 -. Stack .-> 5
+	4["b pop_Value"]
+	3 --> 4
+	2 -. Stack .-> 4
+	2["c pop_u32"]
+	0 -. Stack .-> 2
 	0[/"Start"\\]
-	6["tv f_getTopOfStackType"]
-	5 -. Stack .-> 6
-	30["eff__144__164__166 push_Value"]
-	6 --> 30
-	12 --> 30
-	12 -. Stack .-> 30
-	7["mt__157 U32_maybeTrue"]
-	16 --> 7
-	16["cond__143 U32_not_equals"]
-	5 --> 16
-	4 --> 16
-	4["abs__154 lift_u32"]
-	14 --> 4
-	14["arg__151 0"]
+	3["tv f_getTopOfStackType"]
+	2 -. Stack .-> 3
+	30["eff__144__165__166 push_Value"]
+	3 --> 30
+	5 --> 30
+	5 -. Stack .-> 30
+	12["mt__157 U32_maybeTrue"]
+	7 --> 12
+	7["cond__143 U32_not_equals"]
+	2 --> 7
+	11 --> 7
+	11["abs__154 lift_u32"]
+	6 --> 11
+	6["arg__151 0"]
 	23["push__161__163 push_Value"]
-	6 --> 23
+	3 --> 23
 	22 --> 23
-	12 -. Stack .-> 23
+	5 -. Stack .-> 23
 	22["merge__160__162 merge_Val"]
-	6 --> 22
-	12 --> 22
-	9 --> 22
-	9 -. Stack .-> 22
-	10["mb__159 bool.&&"]
-	7 --> 10
-	8 --> 10
-	8["mf__158 U32_maybeFalse"]
-	16 --> 8
+	3 --> 22
+	5 --> 22
+	4 --> 22
+	4 -. Stack .-> 22
+	14["mb__159 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__158 U32_maybeFalse"]
+	7 --> 13
 </pre>`;
 window.traces["SELECT"]["unlem_scheduler"] = ''
 window.traces["SELECT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_87["Block 87"]
 	direction TB
-	b87_2[\\"Finish"/]
+	b87_1[\\"Finish"/]
 end
 phi_89 --> block_87
 subgraph phi_89["Phi 89"]
-	p89_3{{"Sϕ Stack "}}
+	p89_10{{"Sϕ Stack "}}
 end
 block_90 --> phi_89
 block_91 --> phi_89
@@ -4860,56 +4860,56 @@ subgraph block_90["Block 90"]
 end
 branch_88 --> block_90
 subgraph branch_88["Branch 88"]
-	br88_10["mb__159 bool.&&"]
+	br88_14["mb__159 bool.&&"]
 
 end
 block_92 --> branch_88
 subgraph block_92["Block 92"]
 	direction TB
 	b92_0[/"Start"\\]
-	b92_14["arg__151 0"]
-	b92_4["abs__154 lift_u32"]
-	b92_5["c pop_u32"]
-	b92_6["tv f_getTopOfStackType"]
-	b92_9["b pop_Value"]
-	b92_12["a pop_Value"]
-	b92_16["cond__143 U32_not_equals"]
-	b92_8["mf__158 U32_maybeFalse"]
-	b92_7["mt__157 U32_maybeTrue"]
-	b92_10["mb__159 bool.&&"]
-	b92_0 --> b92_14
-	b92_14 --> b92_4
+	b92_6["arg__151 0"]
+	b92_11["abs__154 lift_u32"]
+	b92_2["c pop_u32"]
+	b92_3["tv f_getTopOfStackType"]
+	b92_4["b pop_Value"]
+	b92_5["a pop_Value"]
+	b92_7["cond__143 U32_not_equals"]
+	b92_13["mf__158 U32_maybeFalse"]
+	b92_12["mt__157 U32_maybeTrue"]
+	b92_14["mb__159 bool.&&"]
+	b92_0 --> b92_6
+	b92_6 --> b92_11
+	b92_11 --> b92_2
+	b92_2 --> b92_3
+	b92_3 --> b92_4
 	b92_4 --> b92_5
-	b92_5 --> b92_6
-	b92_6 --> b92_9
-	b92_9 --> b92_12
-	b92_12 --> b92_16
-	b92_16 --> b92_8
-	b92_8 --> b92_7
-	b92_7 --> b92_10
+	b92_5 --> b92_7
+	b92_7 --> b92_13
+	b92_13 --> b92_12
+	b92_12 --> b92_14
 end
 subgraph block_91["Block 91"]
 	direction TB
 end
 phi_94 --> block_91
 subgraph phi_94["Phi 94"]
-	p94_26{{"Sϕ Stack "}}
+	p94_27{{"Sϕ Stack "}}
 end
 block_95 --> phi_94
 block_96 --> phi_94
 subgraph block_95["Block 95"]
 	direction TB
-	b95_30["eff__144__164__166 push_Value"]
+	b95_30["eff__144__165__166 push_Value"]
 end
 branch_93 --> block_95
 subgraph branch_93["Branch 93"]
-	br93_7["mt__157 U32_maybeTrue"]
+	br93_12["mt__157 U32_maybeTrue"]
 
 end
 branch_88 --> branch_93
 subgraph block_96["Block 96"]
 	direction TB
-	b96_32["eff__147__165__167 push_Value"]
+	b96_32["eff__147__164__167 push_Value"]
 end
 branch_93 --> block_96
 
@@ -4930,9 +4930,9 @@ if (mb__159) {
 	def push__161__163 = push_Value(tv, merge__160__162);
 } else {
 	if (mt__157) {
-		def eff__144__164__166 = push_Value(tv, a);
+		def eff__144__165__166 = push_Value(tv, a);
 	} else {
-		def eff__147__165__167 = push_Value(tv, b);
+		def eff__147__164__167 = push_Value(tv, b);
 	}
 // phis: 
 }
@@ -6430,76 +6430,76 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	4 -. Codeptr .-> 2
-	3 -. Stack .-> 2
-	0 -. Trap Locals Globals Tables Memory Extra .-> 2
+	1[\\"Finish"/]
+	2 -. Codeptr .-> 1
+	10 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	3{{"Sϕ Stack "}}
-	5 --> 3
-	13 --> 3
-	17 --> 3
+	10{{"Sϕ Stack "}}
+	3 --> 10
+	14 --> 10
+	17 --> 10
 	17["eff__206__214 push_Object"]
 	16 --> 17
-	6 -. Stack .-> 17
-	6["index pop_u32"]
-	0 -. Stack .-> 6
+	4 -. Stack .-> 17
+	4["index pop_u32"]
+	0 -. Stack .-> 4
 	16["val__213 mach_readTable32"]
+	2 --> 16
 	4 --> 16
-	6 --> 16
-	4["table_index imm_readULEB32"]
-	0 -. Codeptr .-> 4
-	13["eff__202__211 push_Object"]
-	14 --> 13
-	9 -. Stack .-> 13
-	9["index pop_u64"]
-	0 -. Stack .-> 9
-	14["val__212 mach_readTable64"]
-	4 --> 14
-	9 --> 14
-	5["cond__201 m_isTable64"]
-	4 --> 5
+	2["table_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	14["eff__202__212 push_Object"]
+	13 --> 14
+	7 -. Stack .-> 14
+	7["index pop_u64"]
+	0 -. Stack .-> 7
+	13["val__211 mach_readTable64"]
+	2 --> 13
+	7 --> 13
+	3["cond__201 m_isTable64"]
+	2 --> 3
 </pre>`;
 window.traces["TABLE_GET"]["schedulerMermaid"] = ''
 window.traces["TABLE_GET"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_107["Block 107"]
 	direction TB
-	b107_2[\\"Finish"/]
+	b107_1[\\"Finish"/]
 end
 phi_109 --> block_107
 subgraph phi_109["Phi 109"]
-	p109_3{{"Sϕ Stack "}}
+	p109_10{{"Sϕ Stack "}}
 end
 block_110 --> phi_109
 block_111 --> phi_109
 subgraph block_110["Block 110"]
 	direction TB
-	b110_9["index pop_u64"]
-	b110_14["val__212 mach_readTable64"]
-	b110_13["eff__202__211 push_Object"]
-	b110_9 --> b110_14
-	b110_14 --> b110_13
+	b110_7["index pop_u64"]
+	b110_13["val__211 mach_readTable64"]
+	b110_14["eff__202__212 push_Object"]
+	b110_7 --> b110_13
+	b110_13 --> b110_14
 end
 branch_108 --> block_110
 subgraph branch_108["Branch 108"]
-	br108_5["cond__201 m_isTable64"]
+	br108_3["cond__201 m_isTable64"]
 
 end
 block_112 --> branch_108
 subgraph block_112["Block 112"]
 	direction TB
 	b112_0[/"Start"\\]
-	b112_4["table_index imm_readULEB32"]
-	b112_5["cond__201 m_isTable64"]
-	b112_0 --> b112_4
-	b112_4 --> b112_5
+	b112_2["table_index imm_readULEB32"]
+	b112_3["cond__201 m_isTable64"]
+	b112_0 --> b112_2
+	b112_2 --> b112_3
 end
 subgraph block_111["Block 111"]
 	direction TB
-	b111_6["index pop_u32"]
+	b111_4["index pop_u32"]
 	b111_16["val__213 mach_readTable32"]
 	b111_17["eff__206__214 push_Object"]
-	b111_6 --> b111_16
+	b111_4 --> b111_16
 	b111_16 --> b111_17
 end
 branch_108 --> block_111
@@ -6510,8 +6510,8 @@ window.traces["TABLE_GET"]["scheduler_ssad"] += `<pre class=''>def table_index =
 def cond__201 = m_isTable64(table_index);
 if (cond__201) {
 	def index = pop_u64();
-	def val__212 = mach_readTable64(table_index, index);
-	def eff__202__211 = push_Object(val__212);
+	def val__211 = mach_readTable64(table_index, index);
+	def eff__202__212 = push_Object(val__211);
 } else {
 	def index = pop_u32();
 	def val__213 = mach_readTable32(table_index, index);
@@ -6589,76 +6589,76 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	4 -. Codeptr .-> 2
-	3 -. Stack .-> 2
-	0 -. Trap Locals Globals Tables Memory Extra .-> 2
+	1[\\"Finish"/]
+	2 -. Codeptr .-> 1
+	10 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	3{{"Sϕ Stack "}}
-	5 --> 3
-	13 --> 3
-	17 --> 3
+	10{{"Sϕ Stack "}}
+	3 --> 10
+	14 --> 10
+	17 --> 10
 	17["eff__206__218 push_Object"]
 	16 --> 17
-	6 -. Stack .-> 17
-	6["index pop_u32"]
-	0 -. Stack .-> 6
+	4 -. Stack .-> 17
+	4["index pop_u32"]
+	0 -. Stack .-> 4
 	16["val__217 mach_readTable32"]
+	2 --> 16
 	4 --> 16
-	6 --> 16
-	4["table_index imm_readULEB32"]
-	0 -. Codeptr .-> 4
-	13["eff__202__215 push_Object"]
-	14 --> 13
-	9 -. Stack .-> 13
-	9["index pop_u64"]
-	0 -. Stack .-> 9
-	14["val__216 mach_readTable64"]
-	4 --> 14
-	9 --> 14
-	5["cond__201 m_isTable64"]
-	4 --> 5
+	2["table_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	14["eff__202__216 push_Object"]
+	13 --> 14
+	7 -. Stack .-> 14
+	7["index pop_u64"]
+	0 -. Stack .-> 7
+	13["val__215 mach_readTable64"]
+	2 --> 13
+	7 --> 13
+	3["cond__201 m_isTable64"]
+	2 --> 3
 </pre>`;
 window.traces["TABLE_GET"]["unlem_scheduler"] = ''
 window.traces["TABLE_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_113["Block 113"]
 	direction TB
-	b113_2[\\"Finish"/]
+	b113_1[\\"Finish"/]
 end
 phi_115 --> block_113
 subgraph phi_115["Phi 115"]
-	p115_3{{"Sϕ Stack "}}
+	p115_10{{"Sϕ Stack "}}
 end
 block_116 --> phi_115
 block_117 --> phi_115
 subgraph block_116["Block 116"]
 	direction TB
-	b116_9["index pop_u64"]
-	b116_14["val__216 mach_readTable64"]
-	b116_13["eff__202__215 push_Object"]
-	b116_9 --> b116_14
-	b116_14 --> b116_13
+	b116_7["index pop_u64"]
+	b116_13["val__215 mach_readTable64"]
+	b116_14["eff__202__216 push_Object"]
+	b116_7 --> b116_13
+	b116_13 --> b116_14
 end
 branch_114 --> block_116
 subgraph branch_114["Branch 114"]
-	br114_5["cond__201 m_isTable64"]
+	br114_3["cond__201 m_isTable64"]
 
 end
 block_118 --> branch_114
 subgraph block_118["Block 118"]
 	direction TB
 	b118_0[/"Start"\\]
-	b118_4["table_index imm_readULEB32"]
-	b118_5["cond__201 m_isTable64"]
-	b118_0 --> b118_4
-	b118_4 --> b118_5
+	b118_2["table_index imm_readULEB32"]
+	b118_3["cond__201 m_isTable64"]
+	b118_0 --> b118_2
+	b118_2 --> b118_3
 end
 subgraph block_117["Block 117"]
 	direction TB
-	b117_6["index pop_u32"]
+	b117_4["index pop_u32"]
 	b117_16["val__217 mach_readTable32"]
 	b117_17["eff__206__218 push_Object"]
-	b117_6 --> b117_16
+	b117_4 --> b117_16
 	b117_16 --> b117_17
 end
 branch_114 --> block_117
@@ -6669,8 +6669,8 @@ window.traces["TABLE_GET"]["unlem_scheduler_ssa"] += `<pre class=''>def table_in
 def cond__201 = m_isTable64(table_index);
 if (cond__201) {
 	def index = pop_u64();
-	def val__216 = mach_readTable64(table_index, index);
-	def eff__202__215 = push_Object(val__216);
+	def val__215 = mach_readTable64(table_index, index);
+	def eff__202__216 = push_Object(val__215);
 } else {
 	def index = pop_u32();
 	def val__217 = mach_readTable32(table_index, index);
@@ -6915,14 +6915,14 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	3 -. Codeptr .-> 1
-	2 -. Stack .-> 1
+	2 -. Codeptr .-> 1
+	8 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	4 --> 2
-	12 --> 2
-	15 --> 2
+	8{{"Sϕ Stack "}}
+	3 --> 8
+	12 --> 8
+	15 --> 8
 	15["index__232 pop_u32"]
 	14 -. Stack .-> 15
 	14["val__231 pop_Object"]
@@ -6931,10 +6931,10 @@ graph TD
 	11 -. Stack .-> 12
 	11["val__229 pop_Object"]
 	0 -. Stack .-> 11
-	4["cond__219 m_isTable64"]
-	3 --> 4
-	3["table_index imm_readULEB32"]
-	0 -. Codeptr .-> 3
+	3["cond__219 m_isTable64"]
+	2 --> 3
+	2["table_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
 </pre>`;
 window.traces["TABLE_SET"]["schedulerMermaid"] = ''
 window.traces["TABLE_SET"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -6944,7 +6944,7 @@ subgraph block_119["Block 119"]
 end
 phi_121 --> block_119
 subgraph phi_121["Phi 121"]
-	p121_2{{"Sϕ Stack "}}
+	p121_8{{"Sϕ Stack "}}
 end
 block_122 --> phi_121
 block_123 --> phi_121
@@ -6956,17 +6956,17 @@ subgraph block_122["Block 122"]
 end
 branch_120 --> block_122
 subgraph branch_120["Branch 120"]
-	br120_4["cond__219 m_isTable64"]
+	br120_3["cond__219 m_isTable64"]
 
 end
 block_124 --> branch_120
 subgraph block_124["Block 124"]
 	direction TB
 	b124_0[/"Start"\\]
-	b124_3["table_index imm_readULEB32"]
-	b124_4["cond__219 m_isTable64"]
-	b124_0 --> b124_3
-	b124_3 --> b124_4
+	b124_2["table_index imm_readULEB32"]
+	b124_3["cond__219 m_isTable64"]
+	b124_0 --> b124_2
+	b124_2 --> b124_3
 end
 subgraph block_123["Block 123"]
 	direction TB
@@ -7048,14 +7048,14 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	3 -. Codeptr .-> 1
-	2 -. Stack .-> 1
+	2 -. Codeptr .-> 1
+	8 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	4 --> 2
-	12 --> 2
-	15 --> 2
+	8{{"Sϕ Stack "}}
+	3 --> 8
+	12 --> 8
+	15 --> 8
 	15["index__236 pop_u32"]
 	14 -. Stack .-> 15
 	14["val__235 pop_Object"]
@@ -7064,10 +7064,10 @@ graph TD
 	11 -. Stack .-> 12
 	11["val__233 pop_Object"]
 	0 -. Stack .-> 11
-	4["cond__219 m_isTable64"]
-	3 --> 4
-	3["table_index imm_readULEB32"]
-	0 -. Codeptr .-> 3
+	3["cond__219 m_isTable64"]
+	2 --> 3
+	2["table_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
 </pre>`;
 window.traces["TABLE_SET"]["unlem_scheduler"] = ''
 window.traces["TABLE_SET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -7077,7 +7077,7 @@ subgraph block_125["Block 125"]
 end
 phi_127 --> block_125
 subgraph phi_127["Phi 127"]
-	p127_2{{"Sϕ Stack "}}
+	p127_8{{"Sϕ Stack "}}
 end
 block_128 --> phi_127
 block_129 --> phi_127
@@ -7089,17 +7089,17 @@ subgraph block_128["Block 128"]
 end
 branch_126 --> block_128
 subgraph branch_126["Branch 126"]
-	br126_4["cond__219 m_isTable64"]
+	br126_3["cond__219 m_isTable64"]
 
 end
 block_130 --> branch_126
 subgraph block_130["Block 130"]
 	direction TB
 	b130_0[/"Start"\\]
-	b130_3["table_index imm_readULEB32"]
-	b130_4["cond__219 m_isTable64"]
-	b130_0 --> b130_3
-	b130_3 --> b130_4
+	b130_2["table_index imm_readULEB32"]
+	b130_3["cond__219 m_isTable64"]
+	b130_0 --> b130_2
+	b130_2 --> b130_3
 end
 subgraph block_129["Block 129"]
 	direction TB
@@ -7459,64 +7459,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__243__261 push_u32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__243__262 push_u32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__261 mach_readMemory32_u32"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__260 mach_readMemory32_u32"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__262 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__250 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__249 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__252 0"]
-	11["arg__251 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__254 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__256 0u"]
+	30["offset__260 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__250 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__249 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__252 0"]
+	6["arg__251 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__254 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__256 0u"]
 	28["eff__238__259 push_u32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__258 mach_readMemory64_u32"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__257 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__237 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__237 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I32_LOAD"]["post_surgery 138"] = ''
 window.traces["I32_LOAD"]["post_surgery 138"] += `<pre class='graph'>---
@@ -7524,110 +7524,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__243__261 push_u32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__243__262 push_u32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__261 mach_readMemory32_u32"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__260 mach_readMemory32_u32"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__262 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__260 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__250__269 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__249 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__252 0"]
-	11["arg__251 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__254 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__249 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__252 0"]
+	6["arg__251 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__254 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__256__270 0u"]
 	28["eff__238__259 push_u32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__258 mach_readMemory64_u32"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__257 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__237 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__237 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I32_LOAD"]["schedulerMermaid"] = ''
 window.traces["I32_LOAD"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_131["Block 131"]
 	direction TB
-	b131_3[\\"Finish"/]
+	b131_1[\\"Finish"/]
 end
 phi_133 --> block_131
 subgraph phi_133["Phi 133"]
-	p133_2{{"Sϕ Stack "}}
-	p133_21{{"Sϕ Codeptr "}}
-	p133_2{{"Sϕ Stack "}}
+	p133_21{{"Sϕ Stack "}}
+	p133_21{{"Sϕ Stack "}}
+	p133_20{{"Sϕ Codeptr "}}
 end
 block_134 --> phi_133
 block_135 --> phi_133
 subgraph block_134["Block 134"]
 	direction TB
 	b134_26["offset__257 imm_readULEB64"]
-	b134_12["index pop_u64"]
+	b134_17["index pop_u64"]
 	b134_27["val__258 mach_readMemory64_u32"]
 	b134_28["eff__238__259 push_u32"]
-	b134_26 --> b134_12
-	b134_12 --> b134_27
+	b134_26 --> b134_17
+	b134_17 --> b134_27
 	b134_27 --> b134_28
 end
 branch_132 --> block_134
 subgraph branch_132["Branch 132"]
-	br132_19["cond__237 m_isMemory64"]
+	br132_11["cond__237 m_isMemory64"]
 
 end
 block_136 --> branch_132
 subgraph block_136["Block 136"]
 	direction TB
-	b136_19["cond__237 m_isMemory64"]
+	b136_11["cond__237 m_isMemory64"]
 end
 phi_138 --> block_136
 subgraph phi_138["Phi 138"]
-	p138_17{{"Sϕ Codeptr "}}
-	p138_17{{"Sϕ Codeptr "}}
-	p138_17{{"Sϕ Codeptr "}}
-	p138_17{{"Sϕ Codeptr "}}
-	p138_15{"memindex ϕ"}
-	p138_15{"memindex ϕ"}
-	p138_15{"memindex ϕ"}
-	p138_15{"memindex ϕ"}
-	p138_17{{"Sϕ Codeptr "}}
+	p138_10{{"Sϕ Codeptr "}}
+	p138_10{{"Sϕ Codeptr "}}
+	p138_10{{"Sϕ Codeptr "}}
+	p138_10{{"Sϕ Codeptr "}}
+	p138_9{"memindex ϕ"}
+	p138_9{"memindex ϕ"}
+	p138_9{"memindex ϕ"}
+	p138_10{{"Sϕ Codeptr "}}
+	p138_9{"memindex ϕ"}
 end
 block_139 --> phi_138
 block_140 --> phi_138
@@ -7637,19 +7637,19 @@ subgraph block_139["Block 139"]
 end
 branch_137 --> block_139
 subgraph branch_137["Branch 137"]
-	br137_13["cond__249 u8.!="]
+	br137_7["cond__249 u8.!="]
 
 end
 block_141 --> branch_137
 subgraph block_141["Block 141"]
 	direction TB
-	b141_8["arg__254 0x40u8"]
-	b141_7["arg__252 0"]
-	b141_11["arg__251 u8.&"]
-	b141_13["cond__249 u8.!="]
-	b141_8 --> b141_7
-	b141_7 --> b141_11
-	b141_11 --> b141_13
+	b141_5["arg__254 0x40u8"]
+	b141_4["arg__252 0"]
+	b141_6["arg__251 u8.&"]
+	b141_7["cond__249 u8.!="]
+	b141_5 --> b141_4
+	b141_4 --> b141_6
+	b141_6 --> b141_7
 end
 subgraph block_140["Block 140"]
 	direction TB
@@ -7658,13 +7658,13 @@ end
 branch_137 --> block_140
 subgraph block_135["Block 135"]
 	direction TB
-	b135_32["offset__262 imm_readULEB32"]
-	b135_0["index pop_u32"]
-	b135_30["val__260 mach_readMemory32_u32"]
-	b135_31["eff__243__261 push_u32"]
-	b135_32 --> b135_0
-	b135_0 --> b135_30
-	b135_30 --> b135_31
+	b135_30["offset__260 imm_readULEB32"]
+	b135_13["index pop_u32"]
+	b135_31["val__261 mach_readMemory32_u32"]
+	b135_32["eff__243__262 push_u32"]
+	b135_30 --> b135_13
+	b135_13 --> b135_31
+	b135_31 --> b135_32
 end
 branch_132 --> block_135
 
@@ -7687,10 +7687,10 @@ if (cond__237) {
 	def val__258 = mach_readMemory64_u32(memindex, index, offset__257);
 	def eff__238__259 = push_u32(val__258);
 } else {
-	def offset__262 = imm_readULEB32();
+	def offset__260 = imm_readULEB32();
 	def index = pop_u32();
-	def val__260 = mach_readMemory32_u32(memindex, index, offset__262);
-	def eff__243__261 = push_u32(val__260);
+	def val__261 = mach_readMemory32_u32(memindex, index, offset__260);
+	def eff__243__262 = push_u32(val__261);
 }
 // phis: 
 </pre>`;
@@ -7812,64 +7812,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__243__289 push_u32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__243__290 push_u32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__289 mach_readMemory32_u32"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__288 mach_readMemory32_u32"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__290 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__250 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__249 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__252 0"]
-	11["arg__251 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__254 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__256 0u"]
+	30["offset__288 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__250 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__249 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__252 0"]
+	6["arg__251 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__254 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__256 0u"]
 	28["eff__238__287 push_u32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__286 mach_readMemory64_u32"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__285 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__237 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__237 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I32_LOAD_ul"]["post_surgery 149"] = ''
 window.traces["I32_LOAD_ul"]["post_surgery 149"] += `<pre class='graph'>---
@@ -7877,110 +7877,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__243__289 push_u32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__243__290 push_u32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__289 mach_readMemory32_u32"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__288 mach_readMemory32_u32"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__290 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__288 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__250__297 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__249 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__252 0"]
-	11["arg__251 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__254 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__249 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__252 0"]
+	6["arg__251 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__254 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__256__298 0u"]
 	28["eff__238__287 push_u32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__286 mach_readMemory64_u32"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__285 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__237 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__237 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I32_LOAD"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_142["Block 142"]
 	direction TB
-	b142_3[\\"Finish"/]
+	b142_1[\\"Finish"/]
 end
 phi_144 --> block_142
 subgraph phi_144["Phi 144"]
-	p144_2{{"Sϕ Stack "}}
-	p144_21{{"Sϕ Codeptr "}}
-	p144_2{{"Sϕ Stack "}}
+	p144_21{{"Sϕ Stack "}}
+	p144_21{{"Sϕ Stack "}}
+	p144_20{{"Sϕ Codeptr "}}
 end
 block_145 --> phi_144
 block_146 --> phi_144
 subgraph block_145["Block 145"]
 	direction TB
 	b145_26["offset__285 imm_readULEB64"]
-	b145_12["index pop_u64"]
+	b145_17["index pop_u64"]
 	b145_27["val__286 mach_readMemory64_u32"]
 	b145_28["eff__238__287 push_u32"]
-	b145_26 --> b145_12
-	b145_12 --> b145_27
+	b145_26 --> b145_17
+	b145_17 --> b145_27
 	b145_27 --> b145_28
 end
 branch_143 --> block_145
 subgraph branch_143["Branch 143"]
-	br143_19["cond__237 m_isMemory64"]
+	br143_11["cond__237 m_isMemory64"]
 
 end
 block_147 --> branch_143
 subgraph block_147["Block 147"]
 	direction TB
-	b147_19["cond__237 m_isMemory64"]
+	b147_11["cond__237 m_isMemory64"]
 end
 phi_149 --> block_147
 subgraph phi_149["Phi 149"]
-	p149_17{{"Sϕ Codeptr "}}
-	p149_17{{"Sϕ Codeptr "}}
-	p149_17{{"Sϕ Codeptr "}}
-	p149_17{{"Sϕ Codeptr "}}
-	p149_15{"memindex ϕ"}
-	p149_15{"memindex ϕ"}
-	p149_15{"memindex ϕ"}
-	p149_15{"memindex ϕ"}
-	p149_17{{"Sϕ Codeptr "}}
+	p149_10{{"Sϕ Codeptr "}}
+	p149_10{{"Sϕ Codeptr "}}
+	p149_10{{"Sϕ Codeptr "}}
+	p149_10{{"Sϕ Codeptr "}}
+	p149_9{"memindex ϕ"}
+	p149_9{"memindex ϕ"}
+	p149_9{"memindex ϕ"}
+	p149_10{{"Sϕ Codeptr "}}
+	p149_9{"memindex ϕ"}
 end
 block_150 --> phi_149
 block_151 --> phi_149
@@ -7990,19 +7990,19 @@ subgraph block_150["Block 150"]
 end
 branch_148 --> block_150
 subgraph branch_148["Branch 148"]
-	br148_13["cond__249 u8.!="]
+	br148_7["cond__249 u8.!="]
 
 end
 block_152 --> branch_148
 subgraph block_152["Block 152"]
 	direction TB
-	b152_8["arg__254 0x40u8"]
-	b152_7["arg__252 0"]
-	b152_11["arg__251 u8.&"]
-	b152_13["cond__249 u8.!="]
-	b152_8 --> b152_7
-	b152_7 --> b152_11
-	b152_11 --> b152_13
+	b152_5["arg__254 0x40u8"]
+	b152_4["arg__252 0"]
+	b152_6["arg__251 u8.&"]
+	b152_7["cond__249 u8.!="]
+	b152_5 --> b152_4
+	b152_4 --> b152_6
+	b152_6 --> b152_7
 end
 subgraph block_151["Block 151"]
 	direction TB
@@ -8011,13 +8011,13 @@ end
 branch_148 --> block_151
 subgraph block_146["Block 146"]
 	direction TB
-	b146_32["offset__290 imm_readULEB32"]
-	b146_0["index pop_u32"]
-	b146_30["val__288 mach_readMemory32_u32"]
-	b146_31["eff__243__289 push_u32"]
-	b146_32 --> b146_0
-	b146_0 --> b146_30
-	b146_30 --> b146_31
+	b146_30["offset__288 imm_readULEB32"]
+	b146_13["index pop_u32"]
+	b146_31["val__289 mach_readMemory32_u32"]
+	b146_32["eff__243__290 push_u32"]
+	b146_30 --> b146_13
+	b146_13 --> b146_31
+	b146_31 --> b146_32
 end
 branch_143 --> block_146
 
@@ -8040,10 +8040,10 @@ if (cond__237) {
 	def val__286 = mach_readMemory64_u32(memindex, index, offset__285);
 	def eff__238__287 = push_u32(val__286);
 } else {
-	def offset__290 = imm_readULEB32();
+	def offset__288 = imm_readULEB32();
 	def index = pop_u32();
-	def val__288 = mach_readMemory32_u32(memindex, index, offset__290);
-	def eff__243__289 = push_u32(val__288);
+	def val__289 = mach_readMemory32_u32(memindex, index, offset__288);
+	def eff__243__290 = push_u32(val__289);
 }
 // phis: 
 </pre>`;
@@ -8501,64 +8501,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__319__337 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__319__338 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__337 mach_readMemory32_u64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__336 mach_readMemory32_u64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__338 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__326 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__325 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__328 0"]
-	11["arg__327 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__330 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__332 0u"]
+	30["offset__336 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__326 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__325 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__328 0"]
+	6["arg__327 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__330 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__332 0u"]
 	28["eff__314__335 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__334 mach_readMemory64_u64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__333 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__313 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__313 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD"]["post_surgery 160"] = ''
 window.traces["I64_LOAD"]["post_surgery 160"] += `<pre class='graph'>---
@@ -8566,110 +8566,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__319__337 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__319__338 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__337 mach_readMemory32_u64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__336 mach_readMemory32_u64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__338 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__336 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__326__345 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__325 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__328 0"]
-	11["arg__327 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__330 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__325 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__328 0"]
+	6["arg__327 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__330 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__332__346 0u"]
 	28["eff__314__335 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__334 mach_readMemory64_u64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__333 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__313 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__313 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_153["Block 153"]
 	direction TB
-	b153_3[\\"Finish"/]
+	b153_1[\\"Finish"/]
 end
 phi_155 --> block_153
 subgraph phi_155["Phi 155"]
-	p155_2{{"Sϕ Stack "}}
-	p155_21{{"Sϕ Codeptr "}}
-	p155_2{{"Sϕ Stack "}}
+	p155_21{{"Sϕ Stack "}}
+	p155_21{{"Sϕ Stack "}}
+	p155_20{{"Sϕ Codeptr "}}
 end
 block_156 --> phi_155
 block_157 --> phi_155
 subgraph block_156["Block 156"]
 	direction TB
 	b156_26["offset__333 imm_readULEB64"]
-	b156_12["index pop_u64"]
+	b156_17["index pop_u64"]
 	b156_27["val__334 mach_readMemory64_u64"]
 	b156_28["eff__314__335 push_u64"]
-	b156_26 --> b156_12
-	b156_12 --> b156_27
+	b156_26 --> b156_17
+	b156_17 --> b156_27
 	b156_27 --> b156_28
 end
 branch_154 --> block_156
 subgraph branch_154["Branch 154"]
-	br154_19["cond__313 m_isMemory64"]
+	br154_11["cond__313 m_isMemory64"]
 
 end
 block_158 --> branch_154
 subgraph block_158["Block 158"]
 	direction TB
-	b158_19["cond__313 m_isMemory64"]
+	b158_11["cond__313 m_isMemory64"]
 end
 phi_160 --> block_158
 subgraph phi_160["Phi 160"]
-	p160_17{{"Sϕ Codeptr "}}
-	p160_17{{"Sϕ Codeptr "}}
-	p160_17{{"Sϕ Codeptr "}}
-	p160_17{{"Sϕ Codeptr "}}
-	p160_15{"memindex ϕ"}
-	p160_15{"memindex ϕ"}
-	p160_15{"memindex ϕ"}
-	p160_15{"memindex ϕ"}
-	p160_17{{"Sϕ Codeptr "}}
+	p160_10{{"Sϕ Codeptr "}}
+	p160_10{{"Sϕ Codeptr "}}
+	p160_10{{"Sϕ Codeptr "}}
+	p160_10{{"Sϕ Codeptr "}}
+	p160_9{"memindex ϕ"}
+	p160_9{"memindex ϕ"}
+	p160_9{"memindex ϕ"}
+	p160_10{{"Sϕ Codeptr "}}
+	p160_9{"memindex ϕ"}
 end
 block_161 --> phi_160
 block_162 --> phi_160
@@ -8679,19 +8679,19 @@ subgraph block_161["Block 161"]
 end
 branch_159 --> block_161
 subgraph branch_159["Branch 159"]
-	br159_13["cond__325 u8.!="]
+	br159_7["cond__325 u8.!="]
 
 end
 block_163 --> branch_159
 subgraph block_163["Block 163"]
 	direction TB
-	b163_8["arg__330 0x40u8"]
-	b163_7["arg__328 0"]
-	b163_11["arg__327 u8.&"]
-	b163_13["cond__325 u8.!="]
-	b163_8 --> b163_7
-	b163_7 --> b163_11
-	b163_11 --> b163_13
+	b163_5["arg__330 0x40u8"]
+	b163_4["arg__328 0"]
+	b163_6["arg__327 u8.&"]
+	b163_7["cond__325 u8.!="]
+	b163_5 --> b163_4
+	b163_4 --> b163_6
+	b163_6 --> b163_7
 end
 subgraph block_162["Block 162"]
 	direction TB
@@ -8700,13 +8700,13 @@ end
 branch_159 --> block_162
 subgraph block_157["Block 157"]
 	direction TB
-	b157_32["offset__338 imm_readULEB32"]
-	b157_0["index pop_u32"]
-	b157_30["val__336 mach_readMemory32_u64"]
-	b157_31["eff__319__337 push_u64"]
-	b157_32 --> b157_0
-	b157_0 --> b157_30
-	b157_30 --> b157_31
+	b157_30["offset__336 imm_readULEB32"]
+	b157_13["index pop_u32"]
+	b157_31["val__337 mach_readMemory32_u64"]
+	b157_32["eff__319__338 push_u64"]
+	b157_30 --> b157_13
+	b157_13 --> b157_31
+	b157_31 --> b157_32
 end
 branch_154 --> block_157
 
@@ -8729,10 +8729,10 @@ if (cond__313) {
 	def val__334 = mach_readMemory64_u64(memindex, index, offset__333);
 	def eff__314__335 = push_u64(val__334);
 } else {
-	def offset__338 = imm_readULEB32();
+	def offset__336 = imm_readULEB32();
 	def index = pop_u32();
-	def val__336 = mach_readMemory32_u64(memindex, index, offset__338);
-	def eff__319__337 = push_u64(val__336);
+	def val__337 = mach_readMemory32_u64(memindex, index, offset__336);
+	def eff__319__338 = push_u64(val__337);
 }
 // phis: 
 </pre>`;
@@ -8854,64 +8854,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__319__365 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__319__366 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__365 mach_readMemory32_u64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__364 mach_readMemory32_u64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__366 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__326 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__325 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__328 0"]
-	11["arg__327 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__330 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__332 0u"]
+	30["offset__364 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__326 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__325 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__328 0"]
+	6["arg__327 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__330 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__332 0u"]
 	28["eff__314__363 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__362 mach_readMemory64_u64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__361 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__313 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__313 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD_ul"]["post_surgery 171"] = ''
 window.traces["I64_LOAD_ul"]["post_surgery 171"] += `<pre class='graph'>---
@@ -8919,110 +8919,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__319__365 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__319__366 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__365 mach_readMemory32_u64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__364 mach_readMemory32_u64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__366 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__364 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__326__373 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__325 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__328 0"]
-	11["arg__327 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__330 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__325 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__328 0"]
+	6["arg__327 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__330 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__332__374 0u"]
 	28["eff__314__363 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__362 mach_readMemory64_u64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__361 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__313 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__313 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_164["Block 164"]
 	direction TB
-	b164_3[\\"Finish"/]
+	b164_1[\\"Finish"/]
 end
 phi_166 --> block_164
 subgraph phi_166["Phi 166"]
-	p166_2{{"Sϕ Stack "}}
-	p166_21{{"Sϕ Codeptr "}}
-	p166_2{{"Sϕ Stack "}}
+	p166_21{{"Sϕ Stack "}}
+	p166_21{{"Sϕ Stack "}}
+	p166_20{{"Sϕ Codeptr "}}
 end
 block_167 --> phi_166
 block_168 --> phi_166
 subgraph block_167["Block 167"]
 	direction TB
 	b167_26["offset__361 imm_readULEB64"]
-	b167_12["index pop_u64"]
+	b167_17["index pop_u64"]
 	b167_27["val__362 mach_readMemory64_u64"]
 	b167_28["eff__314__363 push_u64"]
-	b167_26 --> b167_12
-	b167_12 --> b167_27
+	b167_26 --> b167_17
+	b167_17 --> b167_27
 	b167_27 --> b167_28
 end
 branch_165 --> block_167
 subgraph branch_165["Branch 165"]
-	br165_19["cond__313 m_isMemory64"]
+	br165_11["cond__313 m_isMemory64"]
 
 end
 block_169 --> branch_165
 subgraph block_169["Block 169"]
 	direction TB
-	b169_19["cond__313 m_isMemory64"]
+	b169_11["cond__313 m_isMemory64"]
 end
 phi_171 --> block_169
 subgraph phi_171["Phi 171"]
-	p171_17{{"Sϕ Codeptr "}}
-	p171_17{{"Sϕ Codeptr "}}
-	p171_17{{"Sϕ Codeptr "}}
-	p171_17{{"Sϕ Codeptr "}}
-	p171_15{"memindex ϕ"}
-	p171_15{"memindex ϕ"}
-	p171_15{"memindex ϕ"}
-	p171_15{"memindex ϕ"}
-	p171_17{{"Sϕ Codeptr "}}
+	p171_10{{"Sϕ Codeptr "}}
+	p171_10{{"Sϕ Codeptr "}}
+	p171_10{{"Sϕ Codeptr "}}
+	p171_10{{"Sϕ Codeptr "}}
+	p171_9{"memindex ϕ"}
+	p171_9{"memindex ϕ"}
+	p171_9{"memindex ϕ"}
+	p171_10{{"Sϕ Codeptr "}}
+	p171_9{"memindex ϕ"}
 end
 block_172 --> phi_171
 block_173 --> phi_171
@@ -9032,19 +9032,19 @@ subgraph block_172["Block 172"]
 end
 branch_170 --> block_172
 subgraph branch_170["Branch 170"]
-	br170_13["cond__325 u8.!="]
+	br170_7["cond__325 u8.!="]
 
 end
 block_174 --> branch_170
 subgraph block_174["Block 174"]
 	direction TB
-	b174_8["arg__330 0x40u8"]
-	b174_7["arg__328 0"]
-	b174_11["arg__327 u8.&"]
-	b174_13["cond__325 u8.!="]
-	b174_8 --> b174_7
-	b174_7 --> b174_11
-	b174_11 --> b174_13
+	b174_5["arg__330 0x40u8"]
+	b174_4["arg__328 0"]
+	b174_6["arg__327 u8.&"]
+	b174_7["cond__325 u8.!="]
+	b174_5 --> b174_4
+	b174_4 --> b174_6
+	b174_6 --> b174_7
 end
 subgraph block_173["Block 173"]
 	direction TB
@@ -9053,13 +9053,13 @@ end
 branch_170 --> block_173
 subgraph block_168["Block 168"]
 	direction TB
-	b168_32["offset__366 imm_readULEB32"]
-	b168_0["index pop_u32"]
-	b168_30["val__364 mach_readMemory32_u64"]
-	b168_31["eff__319__365 push_u64"]
-	b168_32 --> b168_0
-	b168_0 --> b168_30
-	b168_30 --> b168_31
+	b168_30["offset__364 imm_readULEB32"]
+	b168_13["index pop_u32"]
+	b168_31["val__365 mach_readMemory32_u64"]
+	b168_32["eff__319__366 push_u64"]
+	b168_30 --> b168_13
+	b168_13 --> b168_31
+	b168_31 --> b168_32
 end
 branch_165 --> block_168
 
@@ -9082,10 +9082,10 @@ if (cond__313) {
 	def val__362 = mach_readMemory64_u64(memindex, index, offset__361);
 	def eff__314__363 = push_u64(val__362);
 } else {
-	def offset__366 = imm_readULEB32();
+	def offset__364 = imm_readULEB32();
 	def index = pop_u32();
-	def val__364 = mach_readMemory32_u64(memindex, index, offset__366);
-	def eff__319__365 = push_u64(val__364);
+	def val__365 = mach_readMemory32_u64(memindex, index, offset__364);
+	def eff__319__366 = push_u64(val__365);
 }
 // phis: 
 </pre>`;
@@ -9543,64 +9543,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__395__413 push_f32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__395__414 push_f32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__413 mach_readMemory32_f32"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__412 mach_readMemory32_f32"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__414 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__402 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__401 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__404 0"]
-	11["arg__403 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__406 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__408 0u"]
+	30["offset__412 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__402 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__401 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__404 0"]
+	6["arg__403 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__406 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__408 0u"]
 	28["eff__390__411 push_f32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__410 mach_readMemory64_f32"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__409 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__389 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__389 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["F32_LOAD"]["post_surgery 182"] = ''
 window.traces["F32_LOAD"]["post_surgery 182"] += `<pre class='graph'>---
@@ -9608,110 +9608,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__395__413 push_f32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__395__414 push_f32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__413 mach_readMemory32_f32"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__412 mach_readMemory32_f32"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__414 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__412 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__402__421 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__401 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__404 0"]
-	11["arg__403 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__406 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__401 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__404 0"]
+	6["arg__403 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__406 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__408__422 0u"]
 	28["eff__390__411 push_f32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__410 mach_readMemory64_f32"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__409 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__389 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__389 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["F32_LOAD"]["schedulerMermaid"] = ''
 window.traces["F32_LOAD"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_175["Block 175"]
 	direction TB
-	b175_3[\\"Finish"/]
+	b175_1[\\"Finish"/]
 end
 phi_177 --> block_175
 subgraph phi_177["Phi 177"]
-	p177_2{{"Sϕ Stack "}}
-	p177_21{{"Sϕ Codeptr "}}
-	p177_2{{"Sϕ Stack "}}
+	p177_21{{"Sϕ Stack "}}
+	p177_21{{"Sϕ Stack "}}
+	p177_20{{"Sϕ Codeptr "}}
 end
 block_178 --> phi_177
 block_179 --> phi_177
 subgraph block_178["Block 178"]
 	direction TB
 	b178_26["offset__409 imm_readULEB64"]
-	b178_12["index pop_u64"]
+	b178_17["index pop_u64"]
 	b178_27["val__410 mach_readMemory64_f32"]
 	b178_28["eff__390__411 push_f32"]
-	b178_26 --> b178_12
-	b178_12 --> b178_27
+	b178_26 --> b178_17
+	b178_17 --> b178_27
 	b178_27 --> b178_28
 end
 branch_176 --> block_178
 subgraph branch_176["Branch 176"]
-	br176_19["cond__389 m_isMemory64"]
+	br176_11["cond__389 m_isMemory64"]
 
 end
 block_180 --> branch_176
 subgraph block_180["Block 180"]
 	direction TB
-	b180_19["cond__389 m_isMemory64"]
+	b180_11["cond__389 m_isMemory64"]
 end
 phi_182 --> block_180
 subgraph phi_182["Phi 182"]
-	p182_17{{"Sϕ Codeptr "}}
-	p182_17{{"Sϕ Codeptr "}}
-	p182_17{{"Sϕ Codeptr "}}
-	p182_17{{"Sϕ Codeptr "}}
-	p182_15{"memindex ϕ"}
-	p182_15{"memindex ϕ"}
-	p182_15{"memindex ϕ"}
-	p182_15{"memindex ϕ"}
-	p182_17{{"Sϕ Codeptr "}}
+	p182_10{{"Sϕ Codeptr "}}
+	p182_10{{"Sϕ Codeptr "}}
+	p182_10{{"Sϕ Codeptr "}}
+	p182_10{{"Sϕ Codeptr "}}
+	p182_9{"memindex ϕ"}
+	p182_9{"memindex ϕ"}
+	p182_9{"memindex ϕ"}
+	p182_10{{"Sϕ Codeptr "}}
+	p182_9{"memindex ϕ"}
 end
 block_183 --> phi_182
 block_184 --> phi_182
@@ -9721,19 +9721,19 @@ subgraph block_183["Block 183"]
 end
 branch_181 --> block_183
 subgraph branch_181["Branch 181"]
-	br181_13["cond__401 u8.!="]
+	br181_7["cond__401 u8.!="]
 
 end
 block_185 --> branch_181
 subgraph block_185["Block 185"]
 	direction TB
-	b185_8["arg__406 0x40u8"]
-	b185_7["arg__404 0"]
-	b185_11["arg__403 u8.&"]
-	b185_13["cond__401 u8.!="]
-	b185_8 --> b185_7
-	b185_7 --> b185_11
-	b185_11 --> b185_13
+	b185_5["arg__406 0x40u8"]
+	b185_4["arg__404 0"]
+	b185_6["arg__403 u8.&"]
+	b185_7["cond__401 u8.!="]
+	b185_5 --> b185_4
+	b185_4 --> b185_6
+	b185_6 --> b185_7
 end
 subgraph block_184["Block 184"]
 	direction TB
@@ -9742,13 +9742,13 @@ end
 branch_181 --> block_184
 subgraph block_179["Block 179"]
 	direction TB
-	b179_32["offset__414 imm_readULEB32"]
-	b179_0["index pop_u32"]
-	b179_30["val__412 mach_readMemory32_f32"]
-	b179_31["eff__395__413 push_f32"]
-	b179_32 --> b179_0
-	b179_0 --> b179_30
-	b179_30 --> b179_31
+	b179_30["offset__412 imm_readULEB32"]
+	b179_13["index pop_u32"]
+	b179_31["val__413 mach_readMemory32_f32"]
+	b179_32["eff__395__414 push_f32"]
+	b179_30 --> b179_13
+	b179_13 --> b179_31
+	b179_31 --> b179_32
 end
 branch_176 --> block_179
 
@@ -9771,10 +9771,10 @@ if (cond__389) {
 	def val__410 = mach_readMemory64_f32(memindex, index, offset__409);
 	def eff__390__411 = push_f32(val__410);
 } else {
-	def offset__414 = imm_readULEB32();
+	def offset__412 = imm_readULEB32();
 	def index = pop_u32();
-	def val__412 = mach_readMemory32_f32(memindex, index, offset__414);
-	def eff__395__413 = push_f32(val__412);
+	def val__413 = mach_readMemory32_f32(memindex, index, offset__412);
+	def eff__395__414 = push_f32(val__413);
 }
 // phis: 
 </pre>`;
@@ -9896,64 +9896,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__395__441 push_f32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__395__442 push_f32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__441 mach_readMemory32_f32"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__440 mach_readMemory32_f32"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__442 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__402 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__401 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__404 0"]
-	11["arg__403 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__406 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__408 0u"]
+	30["offset__440 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__402 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__401 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__404 0"]
+	6["arg__403 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__406 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__408 0u"]
 	28["eff__390__439 push_f32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__438 mach_readMemory64_f32"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__437 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__389 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__389 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["F32_LOAD_ul"]["post_surgery 193"] = ''
 window.traces["F32_LOAD_ul"]["post_surgery 193"] += `<pre class='graph'>---
@@ -9961,110 +9961,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__395__441 push_f32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__395__442 push_f32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__441 mach_readMemory32_f32"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__440 mach_readMemory32_f32"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__442 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__440 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__402__449 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__401 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__404 0"]
-	11["arg__403 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__406 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__401 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__404 0"]
+	6["arg__403 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__406 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__408__450 0u"]
 	28["eff__390__439 push_f32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__438 mach_readMemory64_f32"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__437 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__389 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__389 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["F32_LOAD"]["unlem_scheduler"] = ''
 window.traces["F32_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_186["Block 186"]
 	direction TB
-	b186_3[\\"Finish"/]
+	b186_1[\\"Finish"/]
 end
 phi_188 --> block_186
 subgraph phi_188["Phi 188"]
-	p188_2{{"Sϕ Stack "}}
-	p188_21{{"Sϕ Codeptr "}}
-	p188_2{{"Sϕ Stack "}}
+	p188_21{{"Sϕ Stack "}}
+	p188_21{{"Sϕ Stack "}}
+	p188_20{{"Sϕ Codeptr "}}
 end
 block_189 --> phi_188
 block_190 --> phi_188
 subgraph block_189["Block 189"]
 	direction TB
 	b189_26["offset__437 imm_readULEB64"]
-	b189_12["index pop_u64"]
+	b189_17["index pop_u64"]
 	b189_27["val__438 mach_readMemory64_f32"]
 	b189_28["eff__390__439 push_f32"]
-	b189_26 --> b189_12
-	b189_12 --> b189_27
+	b189_26 --> b189_17
+	b189_17 --> b189_27
 	b189_27 --> b189_28
 end
 branch_187 --> block_189
 subgraph branch_187["Branch 187"]
-	br187_19["cond__389 m_isMemory64"]
+	br187_11["cond__389 m_isMemory64"]
 
 end
 block_191 --> branch_187
 subgraph block_191["Block 191"]
 	direction TB
-	b191_19["cond__389 m_isMemory64"]
+	b191_11["cond__389 m_isMemory64"]
 end
 phi_193 --> block_191
 subgraph phi_193["Phi 193"]
-	p193_17{{"Sϕ Codeptr "}}
-	p193_17{{"Sϕ Codeptr "}}
-	p193_17{{"Sϕ Codeptr "}}
-	p193_17{{"Sϕ Codeptr "}}
-	p193_15{"memindex ϕ"}
-	p193_15{"memindex ϕ"}
-	p193_15{"memindex ϕ"}
-	p193_15{"memindex ϕ"}
-	p193_17{{"Sϕ Codeptr "}}
+	p193_10{{"Sϕ Codeptr "}}
+	p193_10{{"Sϕ Codeptr "}}
+	p193_10{{"Sϕ Codeptr "}}
+	p193_10{{"Sϕ Codeptr "}}
+	p193_9{"memindex ϕ"}
+	p193_9{"memindex ϕ"}
+	p193_9{"memindex ϕ"}
+	p193_10{{"Sϕ Codeptr "}}
+	p193_9{"memindex ϕ"}
 end
 block_194 --> phi_193
 block_195 --> phi_193
@@ -10074,19 +10074,19 @@ subgraph block_194["Block 194"]
 end
 branch_192 --> block_194
 subgraph branch_192["Branch 192"]
-	br192_13["cond__401 u8.!="]
+	br192_7["cond__401 u8.!="]
 
 end
 block_196 --> branch_192
 subgraph block_196["Block 196"]
 	direction TB
-	b196_8["arg__406 0x40u8"]
-	b196_7["arg__404 0"]
-	b196_11["arg__403 u8.&"]
-	b196_13["cond__401 u8.!="]
-	b196_8 --> b196_7
-	b196_7 --> b196_11
-	b196_11 --> b196_13
+	b196_5["arg__406 0x40u8"]
+	b196_4["arg__404 0"]
+	b196_6["arg__403 u8.&"]
+	b196_7["cond__401 u8.!="]
+	b196_5 --> b196_4
+	b196_4 --> b196_6
+	b196_6 --> b196_7
 end
 subgraph block_195["Block 195"]
 	direction TB
@@ -10095,13 +10095,13 @@ end
 branch_192 --> block_195
 subgraph block_190["Block 190"]
 	direction TB
-	b190_32["offset__442 imm_readULEB32"]
-	b190_0["index pop_u32"]
-	b190_30["val__440 mach_readMemory32_f32"]
-	b190_31["eff__395__441 push_f32"]
-	b190_32 --> b190_0
-	b190_0 --> b190_30
-	b190_30 --> b190_31
+	b190_30["offset__440 imm_readULEB32"]
+	b190_13["index pop_u32"]
+	b190_31["val__441 mach_readMemory32_f32"]
+	b190_32["eff__395__442 push_f32"]
+	b190_30 --> b190_13
+	b190_13 --> b190_31
+	b190_31 --> b190_32
 end
 branch_187 --> block_190
 
@@ -10124,10 +10124,10 @@ if (cond__389) {
 	def val__438 = mach_readMemory64_f32(memindex, index, offset__437);
 	def eff__390__439 = push_f32(val__438);
 } else {
-	def offset__442 = imm_readULEB32();
+	def offset__440 = imm_readULEB32();
 	def index = pop_u32();
-	def val__440 = mach_readMemory32_f32(memindex, index, offset__442);
-	def eff__395__441 = push_f32(val__440);
+	def val__441 = mach_readMemory32_f32(memindex, index, offset__440);
+	def eff__395__442 = push_f32(val__441);
 }
 // phis: 
 </pre>`;
@@ -10585,64 +10585,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__471__489 push_f64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__471__490 push_f64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__489 mach_readMemory32_f64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__488 mach_readMemory32_f64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__490 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__478 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__477 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__480 0"]
-	11["arg__479 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__482 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__484 0u"]
+	30["offset__488 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__478 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__477 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__480 0"]
+	6["arg__479 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__482 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__484 0u"]
 	28["eff__466__487 push_f64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__486 mach_readMemory64_f64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__485 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__465 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__465 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["F64_LOAD"]["post_surgery 204"] = ''
 window.traces["F64_LOAD"]["post_surgery 204"] += `<pre class='graph'>---
@@ -10650,110 +10650,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__471__489 push_f64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__471__490 push_f64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__489 mach_readMemory32_f64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__488 mach_readMemory32_f64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__490 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__488 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__478__497 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__477 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__480 0"]
-	11["arg__479 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__482 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__477 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__480 0"]
+	6["arg__479 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__482 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__484__498 0u"]
 	28["eff__466__487 push_f64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__486 mach_readMemory64_f64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__485 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__465 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__465 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["F64_LOAD"]["schedulerMermaid"] = ''
 window.traces["F64_LOAD"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_197["Block 197"]
 	direction TB
-	b197_3[\\"Finish"/]
+	b197_1[\\"Finish"/]
 end
 phi_199 --> block_197
 subgraph phi_199["Phi 199"]
-	p199_2{{"Sϕ Stack "}}
-	p199_21{{"Sϕ Codeptr "}}
-	p199_2{{"Sϕ Stack "}}
+	p199_21{{"Sϕ Stack "}}
+	p199_21{{"Sϕ Stack "}}
+	p199_20{{"Sϕ Codeptr "}}
 end
 block_200 --> phi_199
 block_201 --> phi_199
 subgraph block_200["Block 200"]
 	direction TB
 	b200_26["offset__485 imm_readULEB64"]
-	b200_12["index pop_u64"]
+	b200_17["index pop_u64"]
 	b200_27["val__486 mach_readMemory64_f64"]
 	b200_28["eff__466__487 push_f64"]
-	b200_26 --> b200_12
-	b200_12 --> b200_27
+	b200_26 --> b200_17
+	b200_17 --> b200_27
 	b200_27 --> b200_28
 end
 branch_198 --> block_200
 subgraph branch_198["Branch 198"]
-	br198_19["cond__465 m_isMemory64"]
+	br198_11["cond__465 m_isMemory64"]
 
 end
 block_202 --> branch_198
 subgraph block_202["Block 202"]
 	direction TB
-	b202_19["cond__465 m_isMemory64"]
+	b202_11["cond__465 m_isMemory64"]
 end
 phi_204 --> block_202
 subgraph phi_204["Phi 204"]
-	p204_17{{"Sϕ Codeptr "}}
-	p204_17{{"Sϕ Codeptr "}}
-	p204_17{{"Sϕ Codeptr "}}
-	p204_17{{"Sϕ Codeptr "}}
-	p204_15{"memindex ϕ"}
-	p204_15{"memindex ϕ"}
-	p204_15{"memindex ϕ"}
-	p204_15{"memindex ϕ"}
-	p204_17{{"Sϕ Codeptr "}}
+	p204_10{{"Sϕ Codeptr "}}
+	p204_10{{"Sϕ Codeptr "}}
+	p204_10{{"Sϕ Codeptr "}}
+	p204_10{{"Sϕ Codeptr "}}
+	p204_9{"memindex ϕ"}
+	p204_9{"memindex ϕ"}
+	p204_9{"memindex ϕ"}
+	p204_10{{"Sϕ Codeptr "}}
+	p204_9{"memindex ϕ"}
 end
 block_205 --> phi_204
 block_206 --> phi_204
@@ -10763,19 +10763,19 @@ subgraph block_205["Block 205"]
 end
 branch_203 --> block_205
 subgraph branch_203["Branch 203"]
-	br203_13["cond__477 u8.!="]
+	br203_7["cond__477 u8.!="]
 
 end
 block_207 --> branch_203
 subgraph block_207["Block 207"]
 	direction TB
-	b207_8["arg__482 0x40u8"]
-	b207_7["arg__480 0"]
-	b207_11["arg__479 u8.&"]
-	b207_13["cond__477 u8.!="]
-	b207_8 --> b207_7
-	b207_7 --> b207_11
-	b207_11 --> b207_13
+	b207_5["arg__482 0x40u8"]
+	b207_4["arg__480 0"]
+	b207_6["arg__479 u8.&"]
+	b207_7["cond__477 u8.!="]
+	b207_5 --> b207_4
+	b207_4 --> b207_6
+	b207_6 --> b207_7
 end
 subgraph block_206["Block 206"]
 	direction TB
@@ -10784,13 +10784,13 @@ end
 branch_203 --> block_206
 subgraph block_201["Block 201"]
 	direction TB
-	b201_32["offset__490 imm_readULEB32"]
-	b201_0["index pop_u32"]
-	b201_30["val__488 mach_readMemory32_f64"]
-	b201_31["eff__471__489 push_f64"]
-	b201_32 --> b201_0
-	b201_0 --> b201_30
-	b201_30 --> b201_31
+	b201_30["offset__488 imm_readULEB32"]
+	b201_13["index pop_u32"]
+	b201_31["val__489 mach_readMemory32_f64"]
+	b201_32["eff__471__490 push_f64"]
+	b201_30 --> b201_13
+	b201_13 --> b201_31
+	b201_31 --> b201_32
 end
 branch_198 --> block_201
 
@@ -10813,10 +10813,10 @@ if (cond__465) {
 	def val__486 = mach_readMemory64_f64(memindex, index, offset__485);
 	def eff__466__487 = push_f64(val__486);
 } else {
-	def offset__490 = imm_readULEB32();
+	def offset__488 = imm_readULEB32();
 	def index = pop_u32();
-	def val__488 = mach_readMemory32_f64(memindex, index, offset__490);
-	def eff__471__489 = push_f64(val__488);
+	def val__489 = mach_readMemory32_f64(memindex, index, offset__488);
+	def eff__471__490 = push_f64(val__489);
 }
 // phis: 
 </pre>`;
@@ -10938,64 +10938,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__471__517 push_f64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__471__518 push_f64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__517 mach_readMemory32_f64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__516 mach_readMemory32_f64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__518 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__478 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__477 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__480 0"]
-	11["arg__479 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__482 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__484 0u"]
+	30["offset__516 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__478 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__477 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__480 0"]
+	6["arg__479 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__482 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__484 0u"]
 	28["eff__466__515 push_f64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__514 mach_readMemory64_f64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__513 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__465 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__465 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["F64_LOAD_ul"]["post_surgery 215"] = ''
 window.traces["F64_LOAD_ul"]["post_surgery 215"] += `<pre class='graph'>---
@@ -11003,110 +11003,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__471__517 push_f64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__471__518 push_f64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__517 mach_readMemory32_f64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__516 mach_readMemory32_f64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__518 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__516 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__478__525 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__477 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__480 0"]
-	11["arg__479 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__482 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__477 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__480 0"]
+	6["arg__479 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__482 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__484__526 0u"]
 	28["eff__466__515 push_f64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__514 mach_readMemory64_f64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__513 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__465 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__465 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["F64_LOAD"]["unlem_scheduler"] = ''
 window.traces["F64_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_208["Block 208"]
 	direction TB
-	b208_3[\\"Finish"/]
+	b208_1[\\"Finish"/]
 end
 phi_210 --> block_208
 subgraph phi_210["Phi 210"]
-	p210_2{{"Sϕ Stack "}}
-	p210_21{{"Sϕ Codeptr "}}
-	p210_2{{"Sϕ Stack "}}
+	p210_21{{"Sϕ Stack "}}
+	p210_21{{"Sϕ Stack "}}
+	p210_20{{"Sϕ Codeptr "}}
 end
 block_211 --> phi_210
 block_212 --> phi_210
 subgraph block_211["Block 211"]
 	direction TB
 	b211_26["offset__513 imm_readULEB64"]
-	b211_12["index pop_u64"]
+	b211_17["index pop_u64"]
 	b211_27["val__514 mach_readMemory64_f64"]
 	b211_28["eff__466__515 push_f64"]
-	b211_26 --> b211_12
-	b211_12 --> b211_27
+	b211_26 --> b211_17
+	b211_17 --> b211_27
 	b211_27 --> b211_28
 end
 branch_209 --> block_211
 subgraph branch_209["Branch 209"]
-	br209_19["cond__465 m_isMemory64"]
+	br209_11["cond__465 m_isMemory64"]
 
 end
 block_213 --> branch_209
 subgraph block_213["Block 213"]
 	direction TB
-	b213_19["cond__465 m_isMemory64"]
+	b213_11["cond__465 m_isMemory64"]
 end
 phi_215 --> block_213
 subgraph phi_215["Phi 215"]
-	p215_17{{"Sϕ Codeptr "}}
-	p215_17{{"Sϕ Codeptr "}}
-	p215_17{{"Sϕ Codeptr "}}
-	p215_17{{"Sϕ Codeptr "}}
-	p215_15{"memindex ϕ"}
-	p215_15{"memindex ϕ"}
-	p215_15{"memindex ϕ"}
-	p215_15{"memindex ϕ"}
-	p215_17{{"Sϕ Codeptr "}}
+	p215_10{{"Sϕ Codeptr "}}
+	p215_10{{"Sϕ Codeptr "}}
+	p215_10{{"Sϕ Codeptr "}}
+	p215_10{{"Sϕ Codeptr "}}
+	p215_9{"memindex ϕ"}
+	p215_9{"memindex ϕ"}
+	p215_9{"memindex ϕ"}
+	p215_10{{"Sϕ Codeptr "}}
+	p215_9{"memindex ϕ"}
 end
 block_216 --> phi_215
 block_217 --> phi_215
@@ -11116,19 +11116,19 @@ subgraph block_216["Block 216"]
 end
 branch_214 --> block_216
 subgraph branch_214["Branch 214"]
-	br214_13["cond__477 u8.!="]
+	br214_7["cond__477 u8.!="]
 
 end
 block_218 --> branch_214
 subgraph block_218["Block 218"]
 	direction TB
-	b218_8["arg__482 0x40u8"]
-	b218_7["arg__480 0"]
-	b218_11["arg__479 u8.&"]
-	b218_13["cond__477 u8.!="]
-	b218_8 --> b218_7
-	b218_7 --> b218_11
-	b218_11 --> b218_13
+	b218_5["arg__482 0x40u8"]
+	b218_4["arg__480 0"]
+	b218_6["arg__479 u8.&"]
+	b218_7["cond__477 u8.!="]
+	b218_5 --> b218_4
+	b218_4 --> b218_6
+	b218_6 --> b218_7
 end
 subgraph block_217["Block 217"]
 	direction TB
@@ -11137,13 +11137,13 @@ end
 branch_214 --> block_217
 subgraph block_212["Block 212"]
 	direction TB
-	b212_32["offset__518 imm_readULEB32"]
-	b212_0["index pop_u32"]
-	b212_30["val__516 mach_readMemory32_f64"]
-	b212_31["eff__471__517 push_f64"]
-	b212_32 --> b212_0
-	b212_0 --> b212_30
-	b212_30 --> b212_31
+	b212_30["offset__516 imm_readULEB32"]
+	b212_13["index pop_u32"]
+	b212_31["val__517 mach_readMemory32_f64"]
+	b212_32["eff__471__518 push_f64"]
+	b212_30 --> b212_13
+	b212_13 --> b212_31
+	b212_31 --> b212_32
 end
 branch_209 --> block_212
 
@@ -11166,10 +11166,10 @@ if (cond__465) {
 	def val__514 = mach_readMemory64_f64(memindex, index, offset__513);
 	def eff__466__515 = push_f64(val__514);
 } else {
-	def offset__518 = imm_readULEB32();
+	def offset__516 = imm_readULEB32();
 	def index = pop_u32();
-	def val__516 = mach_readMemory32_f64(memindex, index, offset__518);
-	def eff__471__517 = push_f64(val__516);
+	def val__517 = mach_readMemory32_f64(memindex, index, offset__516);
+	def eff__471__518 = push_f64(val__517);
 }
 // phis: 
 </pre>`;
@@ -11643,68 +11643,68 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__548__569 push_u32"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__548__570 push_u32"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__569 U32_extend8_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__568 U32_extend8_s"]
+	34["val__568 mach_readMemory32_u8"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__567 mach_readMemory32_u8"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__570 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	17 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	17["memindex__556 imm_readULEB32"]
-	5 -. Codeptr .-> 17
-	15["cond__555 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__558 0"]
-	13["arg__557 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__560 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	17 --> 19
-	8 --> 19
-	8["memindex__562 0u"]
-	29["eff__542__564 push_u32"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__563 U32_extend8_s"]
-	31 --> 28
-	31["val__566 mach_readMemory64_u8"]
-	19 --> 31
-	18 --> 31
+	33["offset__567 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__556 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__555 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__558 0"]
+	6["arg__557 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__560 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__562 0u"]
+	31["eff__542__566 push_u32"]
 	30 --> 31
-	30["offset__565 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__541 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__565 U32_extend8_s"]
+	29 --> 30
+	29["val__564 mach_readMemory64_u8"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__563 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__541 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I32_LOAD8_S"]["post_surgery 226"] = ''
 window.traces["I32_LOAD8_S"]["post_surgery 226"] += `<pre class='graph'>---
@@ -11712,116 +11712,116 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__548__569 push_u32"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__548__570 push_u32"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__569 U32_extend8_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__568 U32_extend8_s"]
+	34["val__568 mach_readMemory32_u8"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__567 mach_readMemory32_u8"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__570 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	48 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	33["offset__567 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	48 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	48["memindex__556__579 imm_readULEB32"]
-	5 -. Codeptr .-> 48
-	15["cond__555 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__558 0"]
-	13["arg__557 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__560 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	48 --> 19
-	50 --> 19
+	2 -. Codeptr .-> 48
+	7["cond__555 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__558 0"]
+	6["arg__557 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__560 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	48 --> 9
+	50 --> 9
 	50["memindex__562__580 0u"]
-	29["eff__542__564 push_u32"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__563 U32_extend8_s"]
-	31 --> 28
-	31["val__566 mach_readMemory64_u8"]
-	19 --> 31
-	18 --> 31
+	31["eff__542__566 push_u32"]
 	30 --> 31
-	30["offset__565 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__541 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__565 U32_extend8_s"]
+	29 --> 30
+	29["val__564 mach_readMemory64_u8"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__563 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__541 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I32_LOAD8_S"]["schedulerMermaid"] = ''
 window.traces["I32_LOAD8_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_219["Block 219"]
 	direction TB
-	b219_3[\\"Finish"/]
+	b219_1[\\"Finish"/]
 end
 phi_221 --> block_219
 subgraph phi_221["Phi 221"]
-	p221_9{{"Sϕ Stack "}}
-	p221_9{{"Sϕ Stack "}}
-	p221_6{{"Sϕ Codeptr "}}
+	p221_23{{"Sϕ Stack "}}
+	p221_23{{"Sϕ Stack "}}
+	p221_22{{"Sϕ Codeptr "}}
 end
 block_222 --> phi_221
 block_223 --> phi_221
 subgraph block_222["Block 222"]
 	direction TB
-	b222_30["offset__565 imm_readULEB64"]
+	b222_28["offset__563 imm_readULEB64"]
 	b222_18["index pop_u64"]
-	b222_31["val__566 mach_readMemory64_u8"]
-	b222_28["extend__563 U32_extend8_s"]
-	b222_29["eff__542__564 push_u32"]
-	b222_30 --> b222_18
-	b222_18 --> b222_31
-	b222_31 --> b222_28
-	b222_28 --> b222_29
+	b222_29["val__564 mach_readMemory64_u8"]
+	b222_30["extend__565 U32_extend8_s"]
+	b222_31["eff__542__566 push_u32"]
+	b222_28 --> b222_18
+	b222_18 --> b222_29
+	b222_29 --> b222_30
+	b222_30 --> b222_31
 end
 branch_220 --> block_222
 subgraph branch_220["Branch 220"]
-	br220_22["cond__541 m_isMemory64"]
+	br220_11["cond__541 m_isMemory64"]
 
 end
 block_224 --> branch_220
 subgraph block_224["Block 224"]
 	direction TB
-	b224_22["cond__541 m_isMemory64"]
+	b224_11["cond__541 m_isMemory64"]
 end
 phi_226 --> block_224
 subgraph phi_226["Phi 226"]
-	p226_20{{"Sϕ Codeptr "}}
-	p226_20{{"Sϕ Codeptr "}}
-	p226_20{{"Sϕ Codeptr "}}
-	p226_20{{"Sϕ Codeptr "}}
-	p226_19{"memindex ϕ"}
-	p226_19{"memindex ϕ"}
-	p226_19{"memindex ϕ"}
-	p226_20{{"Sϕ Codeptr "}}
-	p226_19{"memindex ϕ"}
+	p226_10{{"Sϕ Codeptr "}}
+	p226_10{{"Sϕ Codeptr "}}
+	p226_10{{"Sϕ Codeptr "}}
+	p226_10{{"Sϕ Codeptr "}}
+	p226_9{"memindex ϕ"}
+	p226_9{"memindex ϕ"}
+	p226_9{"memindex ϕ"}
+	p226_10{{"Sϕ Codeptr "}}
+	p226_9{"memindex ϕ"}
 end
 block_227 --> phi_226
 block_228 --> phi_226
@@ -11831,19 +11831,19 @@ subgraph block_227["Block 227"]
 end
 branch_225 --> block_227
 subgraph branch_225["Branch 225"]
-	br225_15["cond__555 u8.!="]
+	br225_7["cond__555 u8.!="]
 
 end
 block_229 --> branch_225
 subgraph block_229["Block 229"]
 	direction TB
-	b229_11["arg__560 0x40u8"]
-	b229_10["arg__558 0"]
-	b229_13["arg__557 u8.&"]
-	b229_15["cond__555 u8.!="]
-	b229_11 --> b229_10
-	b229_10 --> b229_13
-	b229_13 --> b229_15
+	b229_5["arg__560 0x40u8"]
+	b229_4["arg__558 0"]
+	b229_6["arg__557 u8.&"]
+	b229_7["cond__555 u8.!="]
+	b229_5 --> b229_4
+	b229_4 --> b229_6
+	b229_6 --> b229_7
 end
 subgraph block_228["Block 228"]
 	direction TB
@@ -11852,15 +11852,15 @@ end
 branch_225 --> block_228
 subgraph block_223["Block 223"]
 	direction TB
-	b223_36["offset__570 imm_readULEB32"]
-	b223_0["index pop_u32"]
-	b223_33["val__567 mach_readMemory32_u8"]
-	b223_34["extend__568 U32_extend8_s"]
-	b223_35["eff__548__569 push_u32"]
-	b223_36 --> b223_0
-	b223_0 --> b223_33
-	b223_33 --> b223_34
+	b223_33["offset__567 imm_readULEB32"]
+	b223_13["index pop_u32"]
+	b223_34["val__568 mach_readMemory32_u8"]
+	b223_35["extend__569 U32_extend8_s"]
+	b223_36["eff__548__570 push_u32"]
+	b223_33 --> b223_13
+	b223_13 --> b223_34
 	b223_34 --> b223_35
+	b223_35 --> b223_36
 end
 branch_220 --> block_223
 
@@ -11878,17 +11878,17 @@ if (cond__555) {
 // phis: memindex <- memindex__556__579; memindex <- memindex__562__580; memindex <- memindex__556__579; memindex <- memindex__562__580; memindex <- memindex__556__579; memindex <- memindex__562__580; memindex <- memindex__556__579; memindex <- memindex__562__580; 
 def cond__541 = m_isMemory64(memindex);
 if (cond__541) {
-	def offset__565 = imm_readULEB64();
+	def offset__563 = imm_readULEB64();
 	def index = pop_u64();
-	def val__566 = mach_readMemory64_u8(memindex, index, offset__565);
-	def extend__563 = U32_extend8_s(val__566);
-	def eff__542__564 = push_u32(extend__563);
+	def val__564 = mach_readMemory64_u8(memindex, index, offset__563);
+	def extend__565 = U32_extend8_s(val__564);
+	def eff__542__566 = push_u32(extend__565);
 } else {
-	def offset__570 = imm_readULEB32();
+	def offset__567 = imm_readULEB32();
 	def index = pop_u32();
-	def val__567 = mach_readMemory32_u8(memindex, index, offset__570);
-	def extend__568 = U32_extend8_s(val__567);
-	def eff__548__569 = push_u32(extend__568);
+	def val__568 = mach_readMemory32_u8(memindex, index, offset__567);
+	def extend__569 = U32_extend8_s(val__568);
+	def eff__548__570 = push_u32(extend__569);
 }
 // phis: 
 </pre>`;
@@ -12018,68 +12018,68 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__548__601 push_u32"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__548__602 push_u32"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__601 U32_extend8_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__600 U32_extend8_s"]
+	34["val__600 mach_readMemory32_u8"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__599 mach_readMemory32_u8"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__602 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	17 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	17["memindex__556 imm_readULEB32"]
-	5 -. Codeptr .-> 17
-	15["cond__555 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__558 0"]
-	13["arg__557 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__560 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	17 --> 19
-	8 --> 19
-	8["memindex__562 0u"]
-	29["eff__542__596 push_u32"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__595 U32_extend8_s"]
-	31 --> 28
-	31["val__598 mach_readMemory64_u8"]
-	19 --> 31
-	18 --> 31
+	33["offset__599 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__556 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__555 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__558 0"]
+	6["arg__557 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__560 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__562 0u"]
+	31["eff__542__598 push_u32"]
 	30 --> 31
-	30["offset__597 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__541 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__597 U32_extend8_s"]
+	29 --> 30
+	29["val__596 mach_readMemory64_u8"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__595 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__541 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I32_LOAD8_S_ul"]["post_surgery 237"] = ''
 window.traces["I32_LOAD8_S_ul"]["post_surgery 237"] += `<pre class='graph'>---
@@ -12087,116 +12087,116 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__548__601 push_u32"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__548__602 push_u32"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__601 U32_extend8_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__600 U32_extend8_s"]
+	34["val__600 mach_readMemory32_u8"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__599 mach_readMemory32_u8"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__602 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	48 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	33["offset__599 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	48 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	48["memindex__556__611 imm_readULEB32"]
-	5 -. Codeptr .-> 48
-	15["cond__555 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__558 0"]
-	13["arg__557 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__560 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	48 --> 19
-	50 --> 19
+	2 -. Codeptr .-> 48
+	7["cond__555 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__558 0"]
+	6["arg__557 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__560 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	48 --> 9
+	50 --> 9
 	50["memindex__562__612 0u"]
-	29["eff__542__596 push_u32"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__595 U32_extend8_s"]
-	31 --> 28
-	31["val__598 mach_readMemory64_u8"]
-	19 --> 31
-	18 --> 31
+	31["eff__542__598 push_u32"]
 	30 --> 31
-	30["offset__597 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__541 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__597 U32_extend8_s"]
+	29 --> 30
+	29["val__596 mach_readMemory64_u8"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__595 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__541 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I32_LOAD8_S"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD8_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_230["Block 230"]
 	direction TB
-	b230_3[\\"Finish"/]
+	b230_1[\\"Finish"/]
 end
 phi_232 --> block_230
 subgraph phi_232["Phi 232"]
-	p232_9{{"Sϕ Stack "}}
-	p232_9{{"Sϕ Stack "}}
-	p232_6{{"Sϕ Codeptr "}}
+	p232_23{{"Sϕ Stack "}}
+	p232_23{{"Sϕ Stack "}}
+	p232_22{{"Sϕ Codeptr "}}
 end
 block_233 --> phi_232
 block_234 --> phi_232
 subgraph block_233["Block 233"]
 	direction TB
-	b233_30["offset__597 imm_readULEB64"]
+	b233_28["offset__595 imm_readULEB64"]
 	b233_18["index pop_u64"]
-	b233_31["val__598 mach_readMemory64_u8"]
-	b233_28["extend__595 U32_extend8_s"]
-	b233_29["eff__542__596 push_u32"]
-	b233_30 --> b233_18
-	b233_18 --> b233_31
-	b233_31 --> b233_28
-	b233_28 --> b233_29
+	b233_29["val__596 mach_readMemory64_u8"]
+	b233_30["extend__597 U32_extend8_s"]
+	b233_31["eff__542__598 push_u32"]
+	b233_28 --> b233_18
+	b233_18 --> b233_29
+	b233_29 --> b233_30
+	b233_30 --> b233_31
 end
 branch_231 --> block_233
 subgraph branch_231["Branch 231"]
-	br231_22["cond__541 m_isMemory64"]
+	br231_11["cond__541 m_isMemory64"]
 
 end
 block_235 --> branch_231
 subgraph block_235["Block 235"]
 	direction TB
-	b235_22["cond__541 m_isMemory64"]
+	b235_11["cond__541 m_isMemory64"]
 end
 phi_237 --> block_235
 subgraph phi_237["Phi 237"]
-	p237_20{{"Sϕ Codeptr "}}
-	p237_20{{"Sϕ Codeptr "}}
-	p237_20{{"Sϕ Codeptr "}}
-	p237_20{{"Sϕ Codeptr "}}
-	p237_19{"memindex ϕ"}
-	p237_19{"memindex ϕ"}
-	p237_19{"memindex ϕ"}
-	p237_20{{"Sϕ Codeptr "}}
-	p237_19{"memindex ϕ"}
+	p237_10{{"Sϕ Codeptr "}}
+	p237_10{{"Sϕ Codeptr "}}
+	p237_10{{"Sϕ Codeptr "}}
+	p237_10{{"Sϕ Codeptr "}}
+	p237_9{"memindex ϕ"}
+	p237_9{"memindex ϕ"}
+	p237_9{"memindex ϕ"}
+	p237_10{{"Sϕ Codeptr "}}
+	p237_9{"memindex ϕ"}
 end
 block_238 --> phi_237
 block_239 --> phi_237
@@ -12206,19 +12206,19 @@ subgraph block_238["Block 238"]
 end
 branch_236 --> block_238
 subgraph branch_236["Branch 236"]
-	br236_15["cond__555 u8.!="]
+	br236_7["cond__555 u8.!="]
 
 end
 block_240 --> branch_236
 subgraph block_240["Block 240"]
 	direction TB
-	b240_11["arg__560 0x40u8"]
-	b240_10["arg__558 0"]
-	b240_13["arg__557 u8.&"]
-	b240_15["cond__555 u8.!="]
-	b240_11 --> b240_10
-	b240_10 --> b240_13
-	b240_13 --> b240_15
+	b240_5["arg__560 0x40u8"]
+	b240_4["arg__558 0"]
+	b240_6["arg__557 u8.&"]
+	b240_7["cond__555 u8.!="]
+	b240_5 --> b240_4
+	b240_4 --> b240_6
+	b240_6 --> b240_7
 end
 subgraph block_239["Block 239"]
 	direction TB
@@ -12227,15 +12227,15 @@ end
 branch_236 --> block_239
 subgraph block_234["Block 234"]
 	direction TB
-	b234_36["offset__602 imm_readULEB32"]
-	b234_0["index pop_u32"]
-	b234_33["val__599 mach_readMemory32_u8"]
-	b234_34["extend__600 U32_extend8_s"]
-	b234_35["eff__548__601 push_u32"]
-	b234_36 --> b234_0
-	b234_0 --> b234_33
-	b234_33 --> b234_34
+	b234_33["offset__599 imm_readULEB32"]
+	b234_13["index pop_u32"]
+	b234_34["val__600 mach_readMemory32_u8"]
+	b234_35["extend__601 U32_extend8_s"]
+	b234_36["eff__548__602 push_u32"]
+	b234_33 --> b234_13
+	b234_13 --> b234_34
 	b234_34 --> b234_35
+	b234_35 --> b234_36
 end
 branch_231 --> block_234
 
@@ -12253,17 +12253,17 @@ if (cond__555) {
 // phis: memindex <- memindex__556__611; memindex <- memindex__562__612; memindex <- memindex__556__611; memindex <- memindex__562__612; memindex <- memindex__556__611; memindex <- memindex__562__612; memindex <- memindex__556__611; memindex <- memindex__562__612; 
 def cond__541 = m_isMemory64(memindex);
 if (cond__541) {
-	def offset__597 = imm_readULEB64();
+	def offset__595 = imm_readULEB64();
 	def index = pop_u64();
-	def val__598 = mach_readMemory64_u8(memindex, index, offset__597);
-	def extend__595 = U32_extend8_s(val__598);
-	def eff__542__596 = push_u32(extend__595);
+	def val__596 = mach_readMemory64_u8(memindex, index, offset__595);
+	def extend__597 = U32_extend8_s(val__596);
+	def eff__542__598 = push_u32(extend__597);
 } else {
-	def offset__602 = imm_readULEB32();
+	def offset__599 = imm_readULEB32();
 	def index = pop_u32();
-	def val__599 = mach_readMemory32_u8(memindex, index, offset__602);
-	def extend__600 = U32_extend8_s(val__599);
-	def eff__548__601 = push_u32(extend__600);
+	def val__600 = mach_readMemory32_u8(memindex, index, offset__599);
+	def extend__601 = U32_extend8_s(val__600);
+	def eff__548__602 = push_u32(extend__601);
 }
 // phis: 
 </pre>`;
@@ -12737,64 +12737,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__633__651 push_u32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__633__652 push_u32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__651 mach_readMemory32_u8"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__650 mach_readMemory32_u8"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__652 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__640 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__639 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__642 0"]
-	11["arg__641 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__644 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__646 0u"]
+	30["offset__650 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__640 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__639 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__642 0"]
+	6["arg__641 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__644 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__646 0u"]
 	28["eff__628__649 push_u32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__648 mach_readMemory64_u8"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__647 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__627 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__627 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I32_LOAD8_U"]["post_surgery 248"] = ''
 window.traces["I32_LOAD8_U"]["post_surgery 248"] += `<pre class='graph'>---
@@ -12802,110 +12802,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__633__651 push_u32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__633__652 push_u32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__651 mach_readMemory32_u8"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__650 mach_readMemory32_u8"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__652 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__650 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__640__659 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__639 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__642 0"]
-	11["arg__641 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__644 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__639 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__642 0"]
+	6["arg__641 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__644 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__646__660 0u"]
 	28["eff__628__649 push_u32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__648 mach_readMemory64_u8"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__647 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__627 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__627 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I32_LOAD8_U"]["schedulerMermaid"] = ''
 window.traces["I32_LOAD8_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_241["Block 241"]
 	direction TB
-	b241_3[\\"Finish"/]
+	b241_1[\\"Finish"/]
 end
 phi_243 --> block_241
 subgraph phi_243["Phi 243"]
-	p243_2{{"Sϕ Stack "}}
-	p243_21{{"Sϕ Codeptr "}}
-	p243_2{{"Sϕ Stack "}}
+	p243_21{{"Sϕ Stack "}}
+	p243_21{{"Sϕ Stack "}}
+	p243_20{{"Sϕ Codeptr "}}
 end
 block_244 --> phi_243
 block_245 --> phi_243
 subgraph block_244["Block 244"]
 	direction TB
 	b244_26["offset__647 imm_readULEB64"]
-	b244_12["index pop_u64"]
+	b244_17["index pop_u64"]
 	b244_27["val__648 mach_readMemory64_u8"]
 	b244_28["eff__628__649 push_u32"]
-	b244_26 --> b244_12
-	b244_12 --> b244_27
+	b244_26 --> b244_17
+	b244_17 --> b244_27
 	b244_27 --> b244_28
 end
 branch_242 --> block_244
 subgraph branch_242["Branch 242"]
-	br242_19["cond__627 m_isMemory64"]
+	br242_11["cond__627 m_isMemory64"]
 
 end
 block_246 --> branch_242
 subgraph block_246["Block 246"]
 	direction TB
-	b246_19["cond__627 m_isMemory64"]
+	b246_11["cond__627 m_isMemory64"]
 end
 phi_248 --> block_246
 subgraph phi_248["Phi 248"]
-	p248_17{{"Sϕ Codeptr "}}
-	p248_17{{"Sϕ Codeptr "}}
-	p248_17{{"Sϕ Codeptr "}}
-	p248_17{{"Sϕ Codeptr "}}
-	p248_15{"memindex ϕ"}
-	p248_15{"memindex ϕ"}
-	p248_15{"memindex ϕ"}
-	p248_15{"memindex ϕ"}
-	p248_17{{"Sϕ Codeptr "}}
+	p248_10{{"Sϕ Codeptr "}}
+	p248_10{{"Sϕ Codeptr "}}
+	p248_10{{"Sϕ Codeptr "}}
+	p248_10{{"Sϕ Codeptr "}}
+	p248_9{"memindex ϕ"}
+	p248_9{"memindex ϕ"}
+	p248_9{"memindex ϕ"}
+	p248_10{{"Sϕ Codeptr "}}
+	p248_9{"memindex ϕ"}
 end
 block_249 --> phi_248
 block_250 --> phi_248
@@ -12915,19 +12915,19 @@ subgraph block_249["Block 249"]
 end
 branch_247 --> block_249
 subgraph branch_247["Branch 247"]
-	br247_13["cond__639 u8.!="]
+	br247_7["cond__639 u8.!="]
 
 end
 block_251 --> branch_247
 subgraph block_251["Block 251"]
 	direction TB
-	b251_8["arg__644 0x40u8"]
-	b251_7["arg__642 0"]
-	b251_11["arg__641 u8.&"]
-	b251_13["cond__639 u8.!="]
-	b251_8 --> b251_7
-	b251_7 --> b251_11
-	b251_11 --> b251_13
+	b251_5["arg__644 0x40u8"]
+	b251_4["arg__642 0"]
+	b251_6["arg__641 u8.&"]
+	b251_7["cond__639 u8.!="]
+	b251_5 --> b251_4
+	b251_4 --> b251_6
+	b251_6 --> b251_7
 end
 subgraph block_250["Block 250"]
 	direction TB
@@ -12936,13 +12936,13 @@ end
 branch_247 --> block_250
 subgraph block_245["Block 245"]
 	direction TB
-	b245_32["offset__652 imm_readULEB32"]
-	b245_0["index pop_u32"]
-	b245_30["val__650 mach_readMemory32_u8"]
-	b245_31["eff__633__651 push_u32"]
-	b245_32 --> b245_0
-	b245_0 --> b245_30
-	b245_30 --> b245_31
+	b245_30["offset__650 imm_readULEB32"]
+	b245_13["index pop_u32"]
+	b245_31["val__651 mach_readMemory32_u8"]
+	b245_32["eff__633__652 push_u32"]
+	b245_30 --> b245_13
+	b245_13 --> b245_31
+	b245_31 --> b245_32
 end
 branch_242 --> block_245
 
@@ -12965,10 +12965,10 @@ if (cond__627) {
 	def val__648 = mach_readMemory64_u8(memindex, index, offset__647);
 	def eff__628__649 = push_u32(val__648);
 } else {
-	def offset__652 = imm_readULEB32();
+	def offset__650 = imm_readULEB32();
 	def index = pop_u32();
-	def val__650 = mach_readMemory32_u8(memindex, index, offset__652);
-	def eff__633__651 = push_u32(val__650);
+	def val__651 = mach_readMemory32_u8(memindex, index, offset__650);
+	def eff__633__652 = push_u32(val__651);
 }
 // phis: 
 </pre>`;
@@ -13090,64 +13090,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__633__679 push_u32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__633__680 push_u32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__679 mach_readMemory32_u8"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__678 mach_readMemory32_u8"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__680 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__640 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__639 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__642 0"]
-	11["arg__641 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__644 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__646 0u"]
+	30["offset__678 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__640 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__639 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__642 0"]
+	6["arg__641 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__644 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__646 0u"]
 	28["eff__628__677 push_u32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__676 mach_readMemory64_u8"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__675 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__627 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__627 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I32_LOAD8_U_ul"]["post_surgery 259"] = ''
 window.traces["I32_LOAD8_U_ul"]["post_surgery 259"] += `<pre class='graph'>---
@@ -13155,110 +13155,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__633__679 push_u32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__633__680 push_u32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__679 mach_readMemory32_u8"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__678 mach_readMemory32_u8"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__680 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__678 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__640__687 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__639 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__642 0"]
-	11["arg__641 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__644 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__639 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__642 0"]
+	6["arg__641 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__644 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__646__688 0u"]
 	28["eff__628__677 push_u32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__676 mach_readMemory64_u8"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__675 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__627 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__627 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I32_LOAD8_U"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD8_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_252["Block 252"]
 	direction TB
-	b252_3[\\"Finish"/]
+	b252_1[\\"Finish"/]
 end
 phi_254 --> block_252
 subgraph phi_254["Phi 254"]
-	p254_2{{"Sϕ Stack "}}
-	p254_21{{"Sϕ Codeptr "}}
-	p254_2{{"Sϕ Stack "}}
+	p254_21{{"Sϕ Stack "}}
+	p254_21{{"Sϕ Stack "}}
+	p254_20{{"Sϕ Codeptr "}}
 end
 block_255 --> phi_254
 block_256 --> phi_254
 subgraph block_255["Block 255"]
 	direction TB
 	b255_26["offset__675 imm_readULEB64"]
-	b255_12["index pop_u64"]
+	b255_17["index pop_u64"]
 	b255_27["val__676 mach_readMemory64_u8"]
 	b255_28["eff__628__677 push_u32"]
-	b255_26 --> b255_12
-	b255_12 --> b255_27
+	b255_26 --> b255_17
+	b255_17 --> b255_27
 	b255_27 --> b255_28
 end
 branch_253 --> block_255
 subgraph branch_253["Branch 253"]
-	br253_19["cond__627 m_isMemory64"]
+	br253_11["cond__627 m_isMemory64"]
 
 end
 block_257 --> branch_253
 subgraph block_257["Block 257"]
 	direction TB
-	b257_19["cond__627 m_isMemory64"]
+	b257_11["cond__627 m_isMemory64"]
 end
 phi_259 --> block_257
 subgraph phi_259["Phi 259"]
-	p259_17{{"Sϕ Codeptr "}}
-	p259_17{{"Sϕ Codeptr "}}
-	p259_17{{"Sϕ Codeptr "}}
-	p259_17{{"Sϕ Codeptr "}}
-	p259_15{"memindex ϕ"}
-	p259_15{"memindex ϕ"}
-	p259_15{"memindex ϕ"}
-	p259_15{"memindex ϕ"}
-	p259_17{{"Sϕ Codeptr "}}
+	p259_10{{"Sϕ Codeptr "}}
+	p259_10{{"Sϕ Codeptr "}}
+	p259_10{{"Sϕ Codeptr "}}
+	p259_10{{"Sϕ Codeptr "}}
+	p259_9{"memindex ϕ"}
+	p259_9{"memindex ϕ"}
+	p259_9{"memindex ϕ"}
+	p259_10{{"Sϕ Codeptr "}}
+	p259_9{"memindex ϕ"}
 end
 block_260 --> phi_259
 block_261 --> phi_259
@@ -13268,19 +13268,19 @@ subgraph block_260["Block 260"]
 end
 branch_258 --> block_260
 subgraph branch_258["Branch 258"]
-	br258_13["cond__639 u8.!="]
+	br258_7["cond__639 u8.!="]
 
 end
 block_262 --> branch_258
 subgraph block_262["Block 262"]
 	direction TB
-	b262_8["arg__644 0x40u8"]
-	b262_7["arg__642 0"]
-	b262_11["arg__641 u8.&"]
-	b262_13["cond__639 u8.!="]
-	b262_8 --> b262_7
-	b262_7 --> b262_11
-	b262_11 --> b262_13
+	b262_5["arg__644 0x40u8"]
+	b262_4["arg__642 0"]
+	b262_6["arg__641 u8.&"]
+	b262_7["cond__639 u8.!="]
+	b262_5 --> b262_4
+	b262_4 --> b262_6
+	b262_6 --> b262_7
 end
 subgraph block_261["Block 261"]
 	direction TB
@@ -13289,13 +13289,13 @@ end
 branch_258 --> block_261
 subgraph block_256["Block 256"]
 	direction TB
-	b256_32["offset__680 imm_readULEB32"]
-	b256_0["index pop_u32"]
-	b256_30["val__678 mach_readMemory32_u8"]
-	b256_31["eff__633__679 push_u32"]
-	b256_32 --> b256_0
-	b256_0 --> b256_30
-	b256_30 --> b256_31
+	b256_30["offset__678 imm_readULEB32"]
+	b256_13["index pop_u32"]
+	b256_31["val__679 mach_readMemory32_u8"]
+	b256_32["eff__633__680 push_u32"]
+	b256_30 --> b256_13
+	b256_13 --> b256_31
+	b256_31 --> b256_32
 end
 branch_253 --> block_256
 
@@ -13318,10 +13318,10 @@ if (cond__627) {
 	def val__676 = mach_readMemory64_u8(memindex, index, offset__675);
 	def eff__628__677 = push_u32(val__676);
 } else {
-	def offset__680 = imm_readULEB32();
+	def offset__678 = imm_readULEB32();
 	def index = pop_u32();
-	def val__678 = mach_readMemory32_u8(memindex, index, offset__680);
-	def eff__633__679 = push_u32(val__678);
+	def val__679 = mach_readMemory32_u8(memindex, index, offset__678);
+	def eff__633__680 = push_u32(val__679);
 }
 // phis: 
 </pre>`;
@@ -13795,68 +13795,68 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__710__731 push_u32"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__710__732 push_u32"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__731 U32_extend16_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__730 U32_extend16_s"]
+	34["val__730 mach_readMemory32_u16"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__729 mach_readMemory32_u16"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__732 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	17 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	17["memindex__718 imm_readULEB32"]
-	5 -. Codeptr .-> 17
-	15["cond__717 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__720 0"]
-	13["arg__719 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__722 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	17 --> 19
-	8 --> 19
-	8["memindex__724 0u"]
-	29["eff__704__726 push_u32"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__725 U32_extend16_s"]
-	31 --> 28
-	31["val__728 mach_readMemory64_u16"]
-	19 --> 31
-	18 --> 31
+	33["offset__729 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__718 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__717 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__720 0"]
+	6["arg__719 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__722 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__724 0u"]
+	31["eff__704__728 push_u32"]
 	30 --> 31
-	30["offset__727 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__703 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__727 U32_extend16_s"]
+	29 --> 30
+	29["val__726 mach_readMemory64_u16"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__725 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__703 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I32_LOAD16_S"]["post_surgery 270"] = ''
 window.traces["I32_LOAD16_S"]["post_surgery 270"] += `<pre class='graph'>---
@@ -13864,116 +13864,116 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__710__731 push_u32"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__710__732 push_u32"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__731 U32_extend16_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__730 U32_extend16_s"]
+	34["val__730 mach_readMemory32_u16"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__729 mach_readMemory32_u16"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__732 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	48 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	33["offset__729 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	48 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	48["memindex__718__741 imm_readULEB32"]
-	5 -. Codeptr .-> 48
-	15["cond__717 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__720 0"]
-	13["arg__719 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__722 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	48 --> 19
-	50 --> 19
+	2 -. Codeptr .-> 48
+	7["cond__717 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__720 0"]
+	6["arg__719 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__722 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	48 --> 9
+	50 --> 9
 	50["memindex__724__742 0u"]
-	29["eff__704__726 push_u32"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__725 U32_extend16_s"]
-	31 --> 28
-	31["val__728 mach_readMemory64_u16"]
-	19 --> 31
-	18 --> 31
+	31["eff__704__728 push_u32"]
 	30 --> 31
-	30["offset__727 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__703 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__727 U32_extend16_s"]
+	29 --> 30
+	29["val__726 mach_readMemory64_u16"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__725 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__703 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I32_LOAD16_S"]["schedulerMermaid"] = ''
 window.traces["I32_LOAD16_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_263["Block 263"]
 	direction TB
-	b263_3[\\"Finish"/]
+	b263_1[\\"Finish"/]
 end
 phi_265 --> block_263
 subgraph phi_265["Phi 265"]
-	p265_9{{"Sϕ Stack "}}
-	p265_9{{"Sϕ Stack "}}
-	p265_6{{"Sϕ Codeptr "}}
+	p265_23{{"Sϕ Stack "}}
+	p265_23{{"Sϕ Stack "}}
+	p265_22{{"Sϕ Codeptr "}}
 end
 block_266 --> phi_265
 block_267 --> phi_265
 subgraph block_266["Block 266"]
 	direction TB
-	b266_30["offset__727 imm_readULEB64"]
+	b266_28["offset__725 imm_readULEB64"]
 	b266_18["index pop_u64"]
-	b266_31["val__728 mach_readMemory64_u16"]
-	b266_28["extend__725 U32_extend16_s"]
-	b266_29["eff__704__726 push_u32"]
-	b266_30 --> b266_18
-	b266_18 --> b266_31
-	b266_31 --> b266_28
-	b266_28 --> b266_29
+	b266_29["val__726 mach_readMemory64_u16"]
+	b266_30["extend__727 U32_extend16_s"]
+	b266_31["eff__704__728 push_u32"]
+	b266_28 --> b266_18
+	b266_18 --> b266_29
+	b266_29 --> b266_30
+	b266_30 --> b266_31
 end
 branch_264 --> block_266
 subgraph branch_264["Branch 264"]
-	br264_22["cond__703 m_isMemory64"]
+	br264_11["cond__703 m_isMemory64"]
 
 end
 block_268 --> branch_264
 subgraph block_268["Block 268"]
 	direction TB
-	b268_22["cond__703 m_isMemory64"]
+	b268_11["cond__703 m_isMemory64"]
 end
 phi_270 --> block_268
 subgraph phi_270["Phi 270"]
-	p270_20{{"Sϕ Codeptr "}}
-	p270_20{{"Sϕ Codeptr "}}
-	p270_20{{"Sϕ Codeptr "}}
-	p270_20{{"Sϕ Codeptr "}}
-	p270_19{"memindex ϕ"}
-	p270_19{"memindex ϕ"}
-	p270_19{"memindex ϕ"}
-	p270_20{{"Sϕ Codeptr "}}
-	p270_19{"memindex ϕ"}
+	p270_10{{"Sϕ Codeptr "}}
+	p270_10{{"Sϕ Codeptr "}}
+	p270_10{{"Sϕ Codeptr "}}
+	p270_10{{"Sϕ Codeptr "}}
+	p270_9{"memindex ϕ"}
+	p270_9{"memindex ϕ"}
+	p270_9{"memindex ϕ"}
+	p270_10{{"Sϕ Codeptr "}}
+	p270_9{"memindex ϕ"}
 end
 block_271 --> phi_270
 block_272 --> phi_270
@@ -13983,19 +13983,19 @@ subgraph block_271["Block 271"]
 end
 branch_269 --> block_271
 subgraph branch_269["Branch 269"]
-	br269_15["cond__717 u8.!="]
+	br269_7["cond__717 u8.!="]
 
 end
 block_273 --> branch_269
 subgraph block_273["Block 273"]
 	direction TB
-	b273_11["arg__722 0x40u8"]
-	b273_10["arg__720 0"]
-	b273_13["arg__719 u8.&"]
-	b273_15["cond__717 u8.!="]
-	b273_11 --> b273_10
-	b273_10 --> b273_13
-	b273_13 --> b273_15
+	b273_5["arg__722 0x40u8"]
+	b273_4["arg__720 0"]
+	b273_6["arg__719 u8.&"]
+	b273_7["cond__717 u8.!="]
+	b273_5 --> b273_4
+	b273_4 --> b273_6
+	b273_6 --> b273_7
 end
 subgraph block_272["Block 272"]
 	direction TB
@@ -14004,15 +14004,15 @@ end
 branch_269 --> block_272
 subgraph block_267["Block 267"]
 	direction TB
-	b267_36["offset__732 imm_readULEB32"]
-	b267_0["index pop_u32"]
-	b267_33["val__729 mach_readMemory32_u16"]
-	b267_34["extend__730 U32_extend16_s"]
-	b267_35["eff__710__731 push_u32"]
-	b267_36 --> b267_0
-	b267_0 --> b267_33
-	b267_33 --> b267_34
+	b267_33["offset__729 imm_readULEB32"]
+	b267_13["index pop_u32"]
+	b267_34["val__730 mach_readMemory32_u16"]
+	b267_35["extend__731 U32_extend16_s"]
+	b267_36["eff__710__732 push_u32"]
+	b267_33 --> b267_13
+	b267_13 --> b267_34
 	b267_34 --> b267_35
+	b267_35 --> b267_36
 end
 branch_264 --> block_267
 
@@ -14030,17 +14030,17 @@ if (cond__717) {
 // phis: memindex <- memindex__718__741; memindex <- memindex__724__742; memindex <- memindex__718__741; memindex <- memindex__724__742; memindex <- memindex__718__741; memindex <- memindex__724__742; memindex <- memindex__718__741; memindex <- memindex__724__742; 
 def cond__703 = m_isMemory64(memindex);
 if (cond__703) {
-	def offset__727 = imm_readULEB64();
+	def offset__725 = imm_readULEB64();
 	def index = pop_u64();
-	def val__728 = mach_readMemory64_u16(memindex, index, offset__727);
-	def extend__725 = U32_extend16_s(val__728);
-	def eff__704__726 = push_u32(extend__725);
+	def val__726 = mach_readMemory64_u16(memindex, index, offset__725);
+	def extend__727 = U32_extend16_s(val__726);
+	def eff__704__728 = push_u32(extend__727);
 } else {
-	def offset__732 = imm_readULEB32();
+	def offset__729 = imm_readULEB32();
 	def index = pop_u32();
-	def val__729 = mach_readMemory32_u16(memindex, index, offset__732);
-	def extend__730 = U32_extend16_s(val__729);
-	def eff__710__731 = push_u32(extend__730);
+	def val__730 = mach_readMemory32_u16(memindex, index, offset__729);
+	def extend__731 = U32_extend16_s(val__730);
+	def eff__710__732 = push_u32(extend__731);
 }
 // phis: 
 </pre>`;
@@ -14170,68 +14170,68 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__710__763 push_u32"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__710__764 push_u32"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__763 U32_extend16_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__762 U32_extend16_s"]
+	34["val__762 mach_readMemory32_u16"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__761 mach_readMemory32_u16"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__764 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	17 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	17["memindex__718 imm_readULEB32"]
-	5 -. Codeptr .-> 17
-	15["cond__717 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__720 0"]
-	13["arg__719 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__722 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	17 --> 19
-	8 --> 19
-	8["memindex__724 0u"]
-	29["eff__704__758 push_u32"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__757 U32_extend16_s"]
-	31 --> 28
-	31["val__760 mach_readMemory64_u16"]
-	19 --> 31
-	18 --> 31
+	33["offset__761 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__718 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__717 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__720 0"]
+	6["arg__719 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__722 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__724 0u"]
+	31["eff__704__760 push_u32"]
 	30 --> 31
-	30["offset__759 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__703 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__759 U32_extend16_s"]
+	29 --> 30
+	29["val__758 mach_readMemory64_u16"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__757 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__703 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I32_LOAD16_S_ul"]["post_surgery 281"] = ''
 window.traces["I32_LOAD16_S_ul"]["post_surgery 281"] += `<pre class='graph'>---
@@ -14239,116 +14239,116 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__710__763 push_u32"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__710__764 push_u32"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__763 U32_extend16_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__762 U32_extend16_s"]
+	34["val__762 mach_readMemory32_u16"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__761 mach_readMemory32_u16"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__764 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	48 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	33["offset__761 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	48 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	48["memindex__718__773 imm_readULEB32"]
-	5 -. Codeptr .-> 48
-	15["cond__717 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__720 0"]
-	13["arg__719 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__722 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	48 --> 19
-	50 --> 19
+	2 -. Codeptr .-> 48
+	7["cond__717 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__720 0"]
+	6["arg__719 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__722 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	48 --> 9
+	50 --> 9
 	50["memindex__724__774 0u"]
-	29["eff__704__758 push_u32"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__757 U32_extend16_s"]
-	31 --> 28
-	31["val__760 mach_readMemory64_u16"]
-	19 --> 31
-	18 --> 31
+	31["eff__704__760 push_u32"]
 	30 --> 31
-	30["offset__759 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__703 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__759 U32_extend16_s"]
+	29 --> 30
+	29["val__758 mach_readMemory64_u16"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__757 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__703 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I32_LOAD16_S"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD16_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_274["Block 274"]
 	direction TB
-	b274_3[\\"Finish"/]
+	b274_1[\\"Finish"/]
 end
 phi_276 --> block_274
 subgraph phi_276["Phi 276"]
-	p276_9{{"Sϕ Stack "}}
-	p276_9{{"Sϕ Stack "}}
-	p276_6{{"Sϕ Codeptr "}}
+	p276_23{{"Sϕ Stack "}}
+	p276_23{{"Sϕ Stack "}}
+	p276_22{{"Sϕ Codeptr "}}
 end
 block_277 --> phi_276
 block_278 --> phi_276
 subgraph block_277["Block 277"]
 	direction TB
-	b277_30["offset__759 imm_readULEB64"]
+	b277_28["offset__757 imm_readULEB64"]
 	b277_18["index pop_u64"]
-	b277_31["val__760 mach_readMemory64_u16"]
-	b277_28["extend__757 U32_extend16_s"]
-	b277_29["eff__704__758 push_u32"]
-	b277_30 --> b277_18
-	b277_18 --> b277_31
-	b277_31 --> b277_28
-	b277_28 --> b277_29
+	b277_29["val__758 mach_readMemory64_u16"]
+	b277_30["extend__759 U32_extend16_s"]
+	b277_31["eff__704__760 push_u32"]
+	b277_28 --> b277_18
+	b277_18 --> b277_29
+	b277_29 --> b277_30
+	b277_30 --> b277_31
 end
 branch_275 --> block_277
 subgraph branch_275["Branch 275"]
-	br275_22["cond__703 m_isMemory64"]
+	br275_11["cond__703 m_isMemory64"]
 
 end
 block_279 --> branch_275
 subgraph block_279["Block 279"]
 	direction TB
-	b279_22["cond__703 m_isMemory64"]
+	b279_11["cond__703 m_isMemory64"]
 end
 phi_281 --> block_279
 subgraph phi_281["Phi 281"]
-	p281_20{{"Sϕ Codeptr "}}
-	p281_20{{"Sϕ Codeptr "}}
-	p281_20{{"Sϕ Codeptr "}}
-	p281_20{{"Sϕ Codeptr "}}
-	p281_19{"memindex ϕ"}
-	p281_19{"memindex ϕ"}
-	p281_19{"memindex ϕ"}
-	p281_20{{"Sϕ Codeptr "}}
-	p281_19{"memindex ϕ"}
+	p281_10{{"Sϕ Codeptr "}}
+	p281_10{{"Sϕ Codeptr "}}
+	p281_10{{"Sϕ Codeptr "}}
+	p281_10{{"Sϕ Codeptr "}}
+	p281_9{"memindex ϕ"}
+	p281_9{"memindex ϕ"}
+	p281_9{"memindex ϕ"}
+	p281_10{{"Sϕ Codeptr "}}
+	p281_9{"memindex ϕ"}
 end
 block_282 --> phi_281
 block_283 --> phi_281
@@ -14358,19 +14358,19 @@ subgraph block_282["Block 282"]
 end
 branch_280 --> block_282
 subgraph branch_280["Branch 280"]
-	br280_15["cond__717 u8.!="]
+	br280_7["cond__717 u8.!="]
 
 end
 block_284 --> branch_280
 subgraph block_284["Block 284"]
 	direction TB
-	b284_11["arg__722 0x40u8"]
-	b284_10["arg__720 0"]
-	b284_13["arg__719 u8.&"]
-	b284_15["cond__717 u8.!="]
-	b284_11 --> b284_10
-	b284_10 --> b284_13
-	b284_13 --> b284_15
+	b284_5["arg__722 0x40u8"]
+	b284_4["arg__720 0"]
+	b284_6["arg__719 u8.&"]
+	b284_7["cond__717 u8.!="]
+	b284_5 --> b284_4
+	b284_4 --> b284_6
+	b284_6 --> b284_7
 end
 subgraph block_283["Block 283"]
 	direction TB
@@ -14379,15 +14379,15 @@ end
 branch_280 --> block_283
 subgraph block_278["Block 278"]
 	direction TB
-	b278_36["offset__764 imm_readULEB32"]
-	b278_0["index pop_u32"]
-	b278_33["val__761 mach_readMemory32_u16"]
-	b278_34["extend__762 U32_extend16_s"]
-	b278_35["eff__710__763 push_u32"]
-	b278_36 --> b278_0
-	b278_0 --> b278_33
-	b278_33 --> b278_34
+	b278_33["offset__761 imm_readULEB32"]
+	b278_13["index pop_u32"]
+	b278_34["val__762 mach_readMemory32_u16"]
+	b278_35["extend__763 U32_extend16_s"]
+	b278_36["eff__710__764 push_u32"]
+	b278_33 --> b278_13
+	b278_13 --> b278_34
 	b278_34 --> b278_35
+	b278_35 --> b278_36
 end
 branch_275 --> block_278
 
@@ -14405,17 +14405,17 @@ if (cond__717) {
 // phis: memindex <- memindex__718__773; memindex <- memindex__724__774; memindex <- memindex__718__773; memindex <- memindex__724__774; memindex <- memindex__718__773; memindex <- memindex__724__774; memindex <- memindex__718__773; memindex <- memindex__724__774; 
 def cond__703 = m_isMemory64(memindex);
 if (cond__703) {
-	def offset__759 = imm_readULEB64();
+	def offset__757 = imm_readULEB64();
 	def index = pop_u64();
-	def val__760 = mach_readMemory64_u16(memindex, index, offset__759);
-	def extend__757 = U32_extend16_s(val__760);
-	def eff__704__758 = push_u32(extend__757);
+	def val__758 = mach_readMemory64_u16(memindex, index, offset__757);
+	def extend__759 = U32_extend16_s(val__758);
+	def eff__704__760 = push_u32(extend__759);
 } else {
-	def offset__764 = imm_readULEB32();
+	def offset__761 = imm_readULEB32();
 	def index = pop_u32();
-	def val__761 = mach_readMemory32_u16(memindex, index, offset__764);
-	def extend__762 = U32_extend16_s(val__761);
-	def eff__710__763 = push_u32(extend__762);
+	def val__762 = mach_readMemory32_u16(memindex, index, offset__761);
+	def extend__763 = U32_extend16_s(val__762);
+	def eff__710__764 = push_u32(extend__763);
 }
 // phis: 
 </pre>`;
@@ -14889,64 +14889,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__795__813 push_u32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__795__814 push_u32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__813 mach_readMemory32_u16"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__812 mach_readMemory32_u16"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__814 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__802 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__801 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__804 0"]
-	11["arg__803 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__806 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__808 0u"]
+	30["offset__812 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__802 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__801 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__804 0"]
+	6["arg__803 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__806 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__808 0u"]
 	28["eff__790__811 push_u32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__810 mach_readMemory64_u16"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__809 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__789 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__789 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I32_LOAD16_U"]["post_surgery 292"] = ''
 window.traces["I32_LOAD16_U"]["post_surgery 292"] += `<pre class='graph'>---
@@ -14954,110 +14954,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__795__813 push_u32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__795__814 push_u32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__813 mach_readMemory32_u16"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__812 mach_readMemory32_u16"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__814 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__812 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__802__821 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__801 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__804 0"]
-	11["arg__803 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__806 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__801 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__804 0"]
+	6["arg__803 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__806 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__808__822 0u"]
 	28["eff__790__811 push_u32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__810 mach_readMemory64_u16"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__809 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__789 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__789 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I32_LOAD16_U"]["schedulerMermaid"] = ''
 window.traces["I32_LOAD16_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_285["Block 285"]
 	direction TB
-	b285_3[\\"Finish"/]
+	b285_1[\\"Finish"/]
 end
 phi_287 --> block_285
 subgraph phi_287["Phi 287"]
-	p287_2{{"Sϕ Stack "}}
-	p287_21{{"Sϕ Codeptr "}}
-	p287_2{{"Sϕ Stack "}}
+	p287_21{{"Sϕ Stack "}}
+	p287_21{{"Sϕ Stack "}}
+	p287_20{{"Sϕ Codeptr "}}
 end
 block_288 --> phi_287
 block_289 --> phi_287
 subgraph block_288["Block 288"]
 	direction TB
 	b288_26["offset__809 imm_readULEB64"]
-	b288_12["index pop_u64"]
+	b288_17["index pop_u64"]
 	b288_27["val__810 mach_readMemory64_u16"]
 	b288_28["eff__790__811 push_u32"]
-	b288_26 --> b288_12
-	b288_12 --> b288_27
+	b288_26 --> b288_17
+	b288_17 --> b288_27
 	b288_27 --> b288_28
 end
 branch_286 --> block_288
 subgraph branch_286["Branch 286"]
-	br286_19["cond__789 m_isMemory64"]
+	br286_11["cond__789 m_isMemory64"]
 
 end
 block_290 --> branch_286
 subgraph block_290["Block 290"]
 	direction TB
-	b290_19["cond__789 m_isMemory64"]
+	b290_11["cond__789 m_isMemory64"]
 end
 phi_292 --> block_290
 subgraph phi_292["Phi 292"]
-	p292_17{{"Sϕ Codeptr "}}
-	p292_17{{"Sϕ Codeptr "}}
-	p292_17{{"Sϕ Codeptr "}}
-	p292_17{{"Sϕ Codeptr "}}
-	p292_15{"memindex ϕ"}
-	p292_15{"memindex ϕ"}
-	p292_15{"memindex ϕ"}
-	p292_15{"memindex ϕ"}
-	p292_17{{"Sϕ Codeptr "}}
+	p292_10{{"Sϕ Codeptr "}}
+	p292_10{{"Sϕ Codeptr "}}
+	p292_10{{"Sϕ Codeptr "}}
+	p292_10{{"Sϕ Codeptr "}}
+	p292_9{"memindex ϕ"}
+	p292_9{"memindex ϕ"}
+	p292_9{"memindex ϕ"}
+	p292_10{{"Sϕ Codeptr "}}
+	p292_9{"memindex ϕ"}
 end
 block_293 --> phi_292
 block_294 --> phi_292
@@ -15067,19 +15067,19 @@ subgraph block_293["Block 293"]
 end
 branch_291 --> block_293
 subgraph branch_291["Branch 291"]
-	br291_13["cond__801 u8.!="]
+	br291_7["cond__801 u8.!="]
 
 end
 block_295 --> branch_291
 subgraph block_295["Block 295"]
 	direction TB
-	b295_8["arg__806 0x40u8"]
-	b295_7["arg__804 0"]
-	b295_11["arg__803 u8.&"]
-	b295_13["cond__801 u8.!="]
-	b295_8 --> b295_7
-	b295_7 --> b295_11
-	b295_11 --> b295_13
+	b295_5["arg__806 0x40u8"]
+	b295_4["arg__804 0"]
+	b295_6["arg__803 u8.&"]
+	b295_7["cond__801 u8.!="]
+	b295_5 --> b295_4
+	b295_4 --> b295_6
+	b295_6 --> b295_7
 end
 subgraph block_294["Block 294"]
 	direction TB
@@ -15088,13 +15088,13 @@ end
 branch_291 --> block_294
 subgraph block_289["Block 289"]
 	direction TB
-	b289_32["offset__814 imm_readULEB32"]
-	b289_0["index pop_u32"]
-	b289_30["val__812 mach_readMemory32_u16"]
-	b289_31["eff__795__813 push_u32"]
-	b289_32 --> b289_0
-	b289_0 --> b289_30
-	b289_30 --> b289_31
+	b289_30["offset__812 imm_readULEB32"]
+	b289_13["index pop_u32"]
+	b289_31["val__813 mach_readMemory32_u16"]
+	b289_32["eff__795__814 push_u32"]
+	b289_30 --> b289_13
+	b289_13 --> b289_31
+	b289_31 --> b289_32
 end
 branch_286 --> block_289
 
@@ -15117,10 +15117,10 @@ if (cond__789) {
 	def val__810 = mach_readMemory64_u16(memindex, index, offset__809);
 	def eff__790__811 = push_u32(val__810);
 } else {
-	def offset__814 = imm_readULEB32();
+	def offset__812 = imm_readULEB32();
 	def index = pop_u32();
-	def val__812 = mach_readMemory32_u16(memindex, index, offset__814);
-	def eff__795__813 = push_u32(val__812);
+	def val__813 = mach_readMemory32_u16(memindex, index, offset__812);
+	def eff__795__814 = push_u32(val__813);
 }
 // phis: 
 </pre>`;
@@ -15242,64 +15242,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__795__841 push_u32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__795__842 push_u32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__841 mach_readMemory32_u16"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__840 mach_readMemory32_u16"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__842 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__802 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__801 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__804 0"]
-	11["arg__803 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__806 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__808 0u"]
+	30["offset__840 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__802 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__801 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__804 0"]
+	6["arg__803 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__806 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__808 0u"]
 	28["eff__790__839 push_u32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__838 mach_readMemory64_u16"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__837 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__789 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__789 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I32_LOAD16_U_ul"]["post_surgery 303"] = ''
 window.traces["I32_LOAD16_U_ul"]["post_surgery 303"] += `<pre class='graph'>---
@@ -15307,110 +15307,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__795__841 push_u32"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__795__842 push_u32"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__841 mach_readMemory32_u16"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__840 mach_readMemory32_u16"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__842 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__840 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__802__849 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__801 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__804 0"]
-	11["arg__803 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__806 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__801 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__804 0"]
+	6["arg__803 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__806 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__808__850 0u"]
 	28["eff__790__839 push_u32"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__838 mach_readMemory64_u16"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__837 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__789 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__789 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I32_LOAD16_U"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD16_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_296["Block 296"]
 	direction TB
-	b296_3[\\"Finish"/]
+	b296_1[\\"Finish"/]
 end
 phi_298 --> block_296
 subgraph phi_298["Phi 298"]
-	p298_2{{"Sϕ Stack "}}
-	p298_21{{"Sϕ Codeptr "}}
-	p298_2{{"Sϕ Stack "}}
+	p298_21{{"Sϕ Stack "}}
+	p298_21{{"Sϕ Stack "}}
+	p298_20{{"Sϕ Codeptr "}}
 end
 block_299 --> phi_298
 block_300 --> phi_298
 subgraph block_299["Block 299"]
 	direction TB
 	b299_26["offset__837 imm_readULEB64"]
-	b299_12["index pop_u64"]
+	b299_17["index pop_u64"]
 	b299_27["val__838 mach_readMemory64_u16"]
 	b299_28["eff__790__839 push_u32"]
-	b299_26 --> b299_12
-	b299_12 --> b299_27
+	b299_26 --> b299_17
+	b299_17 --> b299_27
 	b299_27 --> b299_28
 end
 branch_297 --> block_299
 subgraph branch_297["Branch 297"]
-	br297_19["cond__789 m_isMemory64"]
+	br297_11["cond__789 m_isMemory64"]
 
 end
 block_301 --> branch_297
 subgraph block_301["Block 301"]
 	direction TB
-	b301_19["cond__789 m_isMemory64"]
+	b301_11["cond__789 m_isMemory64"]
 end
 phi_303 --> block_301
 subgraph phi_303["Phi 303"]
-	p303_17{{"Sϕ Codeptr "}}
-	p303_17{{"Sϕ Codeptr "}}
-	p303_17{{"Sϕ Codeptr "}}
-	p303_17{{"Sϕ Codeptr "}}
-	p303_15{"memindex ϕ"}
-	p303_15{"memindex ϕ"}
-	p303_15{"memindex ϕ"}
-	p303_15{"memindex ϕ"}
-	p303_17{{"Sϕ Codeptr "}}
+	p303_10{{"Sϕ Codeptr "}}
+	p303_10{{"Sϕ Codeptr "}}
+	p303_10{{"Sϕ Codeptr "}}
+	p303_10{{"Sϕ Codeptr "}}
+	p303_9{"memindex ϕ"}
+	p303_9{"memindex ϕ"}
+	p303_9{"memindex ϕ"}
+	p303_10{{"Sϕ Codeptr "}}
+	p303_9{"memindex ϕ"}
 end
 block_304 --> phi_303
 block_305 --> phi_303
@@ -15420,19 +15420,19 @@ subgraph block_304["Block 304"]
 end
 branch_302 --> block_304
 subgraph branch_302["Branch 302"]
-	br302_13["cond__801 u8.!="]
+	br302_7["cond__801 u8.!="]
 
 end
 block_306 --> branch_302
 subgraph block_306["Block 306"]
 	direction TB
-	b306_8["arg__806 0x40u8"]
-	b306_7["arg__804 0"]
-	b306_11["arg__803 u8.&"]
-	b306_13["cond__801 u8.!="]
-	b306_8 --> b306_7
-	b306_7 --> b306_11
-	b306_11 --> b306_13
+	b306_5["arg__806 0x40u8"]
+	b306_4["arg__804 0"]
+	b306_6["arg__803 u8.&"]
+	b306_7["cond__801 u8.!="]
+	b306_5 --> b306_4
+	b306_4 --> b306_6
+	b306_6 --> b306_7
 end
 subgraph block_305["Block 305"]
 	direction TB
@@ -15441,13 +15441,13 @@ end
 branch_302 --> block_305
 subgraph block_300["Block 300"]
 	direction TB
-	b300_32["offset__842 imm_readULEB32"]
-	b300_0["index pop_u32"]
-	b300_30["val__840 mach_readMemory32_u16"]
-	b300_31["eff__795__841 push_u32"]
-	b300_32 --> b300_0
-	b300_0 --> b300_30
-	b300_30 --> b300_31
+	b300_30["offset__840 imm_readULEB32"]
+	b300_13["index pop_u32"]
+	b300_31["val__841 mach_readMemory32_u16"]
+	b300_32["eff__795__842 push_u32"]
+	b300_30 --> b300_13
+	b300_13 --> b300_31
+	b300_31 --> b300_32
 end
 branch_297 --> block_300
 
@@ -15470,10 +15470,10 @@ if (cond__789) {
 	def val__838 = mach_readMemory64_u16(memindex, index, offset__837);
 	def eff__790__839 = push_u32(val__838);
 } else {
-	def offset__842 = imm_readULEB32();
+	def offset__840 = imm_readULEB32();
 	def index = pop_u32();
-	def val__840 = mach_readMemory32_u16(memindex, index, offset__842);
-	def eff__795__841 = push_u32(val__840);
+	def val__841 = mach_readMemory32_u16(memindex, index, offset__840);
+	def eff__795__842 = push_u32(val__841);
 }
 // phis: 
 </pre>`;
@@ -15947,68 +15947,68 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__872__893 push_u64"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__872__894 push_u64"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__893 U64_extend8_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__892 U64_extend8_s"]
+	34["val__892 mach_readMemory32_u8_64"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__891 mach_readMemory32_u8_64"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__894 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	17 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	17["memindex__880 imm_readULEB32"]
-	5 -. Codeptr .-> 17
-	15["cond__879 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__882 0"]
-	13["arg__881 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__884 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	17 --> 19
-	8 --> 19
-	8["memindex__886 0u"]
-	29["eff__866__888 push_u64"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__887 U64_extend8_s"]
-	31 --> 28
-	31["val__890 mach_readMemory64_u8_64"]
-	19 --> 31
-	18 --> 31
+	33["offset__891 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__880 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__879 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__882 0"]
+	6["arg__881 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__884 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__886 0u"]
+	31["eff__866__890 push_u64"]
 	30 --> 31
-	30["offset__889 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__865 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__889 U64_extend8_s"]
+	29 --> 30
+	29["val__888 mach_readMemory64_u8_64"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__887 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__865 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I64_LOAD8_S"]["post_surgery 314"] = ''
 window.traces["I64_LOAD8_S"]["post_surgery 314"] += `<pre class='graph'>---
@@ -16016,116 +16016,116 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__872__893 push_u64"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__872__894 push_u64"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__893 U64_extend8_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__892 U64_extend8_s"]
+	34["val__892 mach_readMemory32_u8_64"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__891 mach_readMemory32_u8_64"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__894 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	48 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	33["offset__891 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	48 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	48["memindex__880__903 imm_readULEB32"]
-	5 -. Codeptr .-> 48
-	15["cond__879 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__882 0"]
-	13["arg__881 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__884 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	48 --> 19
-	50 --> 19
+	2 -. Codeptr .-> 48
+	7["cond__879 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__882 0"]
+	6["arg__881 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__884 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	48 --> 9
+	50 --> 9
 	50["memindex__886__904 0u"]
-	29["eff__866__888 push_u64"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__887 U64_extend8_s"]
-	31 --> 28
-	31["val__890 mach_readMemory64_u8_64"]
-	19 --> 31
-	18 --> 31
+	31["eff__866__890 push_u64"]
 	30 --> 31
-	30["offset__889 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__865 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__889 U64_extend8_s"]
+	29 --> 30
+	29["val__888 mach_readMemory64_u8_64"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__887 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__865 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I64_LOAD8_S"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD8_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_307["Block 307"]
 	direction TB
-	b307_3[\\"Finish"/]
+	b307_1[\\"Finish"/]
 end
 phi_309 --> block_307
 subgraph phi_309["Phi 309"]
-	p309_9{{"Sϕ Stack "}}
-	p309_9{{"Sϕ Stack "}}
-	p309_6{{"Sϕ Codeptr "}}
+	p309_23{{"Sϕ Stack "}}
+	p309_23{{"Sϕ Stack "}}
+	p309_22{{"Sϕ Codeptr "}}
 end
 block_310 --> phi_309
 block_311 --> phi_309
 subgraph block_310["Block 310"]
 	direction TB
-	b310_30["offset__889 imm_readULEB64"]
+	b310_28["offset__887 imm_readULEB64"]
 	b310_18["index pop_u64"]
-	b310_31["val__890 mach_readMemory64_u8_64"]
-	b310_28["extend__887 U64_extend8_s"]
-	b310_29["eff__866__888 push_u64"]
-	b310_30 --> b310_18
-	b310_18 --> b310_31
-	b310_31 --> b310_28
-	b310_28 --> b310_29
+	b310_29["val__888 mach_readMemory64_u8_64"]
+	b310_30["extend__889 U64_extend8_s"]
+	b310_31["eff__866__890 push_u64"]
+	b310_28 --> b310_18
+	b310_18 --> b310_29
+	b310_29 --> b310_30
+	b310_30 --> b310_31
 end
 branch_308 --> block_310
 subgraph branch_308["Branch 308"]
-	br308_22["cond__865 m_isMemory64"]
+	br308_11["cond__865 m_isMemory64"]
 
 end
 block_312 --> branch_308
 subgraph block_312["Block 312"]
 	direction TB
-	b312_22["cond__865 m_isMemory64"]
+	b312_11["cond__865 m_isMemory64"]
 end
 phi_314 --> block_312
 subgraph phi_314["Phi 314"]
-	p314_20{{"Sϕ Codeptr "}}
-	p314_20{{"Sϕ Codeptr "}}
-	p314_20{{"Sϕ Codeptr "}}
-	p314_20{{"Sϕ Codeptr "}}
-	p314_19{"memindex ϕ"}
-	p314_19{"memindex ϕ"}
-	p314_19{"memindex ϕ"}
-	p314_20{{"Sϕ Codeptr "}}
-	p314_19{"memindex ϕ"}
+	p314_10{{"Sϕ Codeptr "}}
+	p314_10{{"Sϕ Codeptr "}}
+	p314_10{{"Sϕ Codeptr "}}
+	p314_10{{"Sϕ Codeptr "}}
+	p314_9{"memindex ϕ"}
+	p314_9{"memindex ϕ"}
+	p314_9{"memindex ϕ"}
+	p314_10{{"Sϕ Codeptr "}}
+	p314_9{"memindex ϕ"}
 end
 block_315 --> phi_314
 block_316 --> phi_314
@@ -16135,19 +16135,19 @@ subgraph block_315["Block 315"]
 end
 branch_313 --> block_315
 subgraph branch_313["Branch 313"]
-	br313_15["cond__879 u8.!="]
+	br313_7["cond__879 u8.!="]
 
 end
 block_317 --> branch_313
 subgraph block_317["Block 317"]
 	direction TB
-	b317_11["arg__884 0x40u8"]
-	b317_10["arg__882 0"]
-	b317_13["arg__881 u8.&"]
-	b317_15["cond__879 u8.!="]
-	b317_11 --> b317_10
-	b317_10 --> b317_13
-	b317_13 --> b317_15
+	b317_5["arg__884 0x40u8"]
+	b317_4["arg__882 0"]
+	b317_6["arg__881 u8.&"]
+	b317_7["cond__879 u8.!="]
+	b317_5 --> b317_4
+	b317_4 --> b317_6
+	b317_6 --> b317_7
 end
 subgraph block_316["Block 316"]
 	direction TB
@@ -16156,15 +16156,15 @@ end
 branch_313 --> block_316
 subgraph block_311["Block 311"]
 	direction TB
-	b311_36["offset__894 imm_readULEB32"]
-	b311_0["index pop_u32"]
-	b311_33["val__891 mach_readMemory32_u8_64"]
-	b311_34["extend__892 U64_extend8_s"]
-	b311_35["eff__872__893 push_u64"]
-	b311_36 --> b311_0
-	b311_0 --> b311_33
-	b311_33 --> b311_34
+	b311_33["offset__891 imm_readULEB32"]
+	b311_13["index pop_u32"]
+	b311_34["val__892 mach_readMemory32_u8_64"]
+	b311_35["extend__893 U64_extend8_s"]
+	b311_36["eff__872__894 push_u64"]
+	b311_33 --> b311_13
+	b311_13 --> b311_34
 	b311_34 --> b311_35
+	b311_35 --> b311_36
 end
 branch_308 --> block_311
 
@@ -16182,17 +16182,17 @@ if (cond__879) {
 // phis: memindex <- memindex__880__903; memindex <- memindex__886__904; memindex <- memindex__880__903; memindex <- memindex__886__904; memindex <- memindex__880__903; memindex <- memindex__886__904; memindex <- memindex__880__903; memindex <- memindex__886__904; 
 def cond__865 = m_isMemory64(memindex);
 if (cond__865) {
-	def offset__889 = imm_readULEB64();
+	def offset__887 = imm_readULEB64();
 	def index = pop_u64();
-	def val__890 = mach_readMemory64_u8_64(memindex, index, offset__889);
-	def extend__887 = U64_extend8_s(val__890);
-	def eff__866__888 = push_u64(extend__887);
+	def val__888 = mach_readMemory64_u8_64(memindex, index, offset__887);
+	def extend__889 = U64_extend8_s(val__888);
+	def eff__866__890 = push_u64(extend__889);
 } else {
-	def offset__894 = imm_readULEB32();
+	def offset__891 = imm_readULEB32();
 	def index = pop_u32();
-	def val__891 = mach_readMemory32_u8_64(memindex, index, offset__894);
-	def extend__892 = U64_extend8_s(val__891);
-	def eff__872__893 = push_u64(extend__892);
+	def val__892 = mach_readMemory32_u8_64(memindex, index, offset__891);
+	def extend__893 = U64_extend8_s(val__892);
+	def eff__872__894 = push_u64(extend__893);
 }
 // phis: 
 </pre>`;
@@ -16322,68 +16322,68 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__872__925 push_u64"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__872__926 push_u64"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__925 U64_extend8_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__924 U64_extend8_s"]
+	34["val__924 mach_readMemory32_u8_64"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__923 mach_readMemory32_u8_64"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__926 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	17 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	17["memindex__880 imm_readULEB32"]
-	5 -. Codeptr .-> 17
-	15["cond__879 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__882 0"]
-	13["arg__881 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__884 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	17 --> 19
-	8 --> 19
-	8["memindex__886 0u"]
-	29["eff__866__920 push_u64"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__919 U64_extend8_s"]
-	31 --> 28
-	31["val__922 mach_readMemory64_u8_64"]
-	19 --> 31
-	18 --> 31
+	33["offset__923 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__880 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__879 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__882 0"]
+	6["arg__881 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__884 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__886 0u"]
+	31["eff__866__922 push_u64"]
 	30 --> 31
-	30["offset__921 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__865 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__921 U64_extend8_s"]
+	29 --> 30
+	29["val__920 mach_readMemory64_u8_64"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__919 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__865 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I64_LOAD8_S_ul"]["post_surgery 325"] = ''
 window.traces["I64_LOAD8_S_ul"]["post_surgery 325"] += `<pre class='graph'>---
@@ -16391,116 +16391,116 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__872__925 push_u64"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__872__926 push_u64"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__925 U64_extend8_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__924 U64_extend8_s"]
+	34["val__924 mach_readMemory32_u8_64"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__923 mach_readMemory32_u8_64"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__926 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	48 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	33["offset__923 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	48 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	48["memindex__880__935 imm_readULEB32"]
-	5 -. Codeptr .-> 48
-	15["cond__879 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__882 0"]
-	13["arg__881 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__884 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	48 --> 19
-	50 --> 19
+	2 -. Codeptr .-> 48
+	7["cond__879 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__882 0"]
+	6["arg__881 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__884 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	48 --> 9
+	50 --> 9
 	50["memindex__886__936 0u"]
-	29["eff__866__920 push_u64"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__919 U64_extend8_s"]
-	31 --> 28
-	31["val__922 mach_readMemory64_u8_64"]
-	19 --> 31
-	18 --> 31
+	31["eff__866__922 push_u64"]
 	30 --> 31
-	30["offset__921 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__865 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__921 U64_extend8_s"]
+	29 --> 30
+	29["val__920 mach_readMemory64_u8_64"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__919 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__865 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I64_LOAD8_S"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD8_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_318["Block 318"]
 	direction TB
-	b318_3[\\"Finish"/]
+	b318_1[\\"Finish"/]
 end
 phi_320 --> block_318
 subgraph phi_320["Phi 320"]
-	p320_9{{"Sϕ Stack "}}
-	p320_9{{"Sϕ Stack "}}
-	p320_6{{"Sϕ Codeptr "}}
+	p320_23{{"Sϕ Stack "}}
+	p320_23{{"Sϕ Stack "}}
+	p320_22{{"Sϕ Codeptr "}}
 end
 block_321 --> phi_320
 block_322 --> phi_320
 subgraph block_321["Block 321"]
 	direction TB
-	b321_30["offset__921 imm_readULEB64"]
+	b321_28["offset__919 imm_readULEB64"]
 	b321_18["index pop_u64"]
-	b321_31["val__922 mach_readMemory64_u8_64"]
-	b321_28["extend__919 U64_extend8_s"]
-	b321_29["eff__866__920 push_u64"]
-	b321_30 --> b321_18
-	b321_18 --> b321_31
-	b321_31 --> b321_28
-	b321_28 --> b321_29
+	b321_29["val__920 mach_readMemory64_u8_64"]
+	b321_30["extend__921 U64_extend8_s"]
+	b321_31["eff__866__922 push_u64"]
+	b321_28 --> b321_18
+	b321_18 --> b321_29
+	b321_29 --> b321_30
+	b321_30 --> b321_31
 end
 branch_319 --> block_321
 subgraph branch_319["Branch 319"]
-	br319_22["cond__865 m_isMemory64"]
+	br319_11["cond__865 m_isMemory64"]
 
 end
 block_323 --> branch_319
 subgraph block_323["Block 323"]
 	direction TB
-	b323_22["cond__865 m_isMemory64"]
+	b323_11["cond__865 m_isMemory64"]
 end
 phi_325 --> block_323
 subgraph phi_325["Phi 325"]
-	p325_20{{"Sϕ Codeptr "}}
-	p325_20{{"Sϕ Codeptr "}}
-	p325_20{{"Sϕ Codeptr "}}
-	p325_20{{"Sϕ Codeptr "}}
-	p325_19{"memindex ϕ"}
-	p325_19{"memindex ϕ"}
-	p325_19{"memindex ϕ"}
-	p325_20{{"Sϕ Codeptr "}}
-	p325_19{"memindex ϕ"}
+	p325_10{{"Sϕ Codeptr "}}
+	p325_10{{"Sϕ Codeptr "}}
+	p325_10{{"Sϕ Codeptr "}}
+	p325_10{{"Sϕ Codeptr "}}
+	p325_9{"memindex ϕ"}
+	p325_9{"memindex ϕ"}
+	p325_9{"memindex ϕ"}
+	p325_10{{"Sϕ Codeptr "}}
+	p325_9{"memindex ϕ"}
 end
 block_326 --> phi_325
 block_327 --> phi_325
@@ -16510,19 +16510,19 @@ subgraph block_326["Block 326"]
 end
 branch_324 --> block_326
 subgraph branch_324["Branch 324"]
-	br324_15["cond__879 u8.!="]
+	br324_7["cond__879 u8.!="]
 
 end
 block_328 --> branch_324
 subgraph block_328["Block 328"]
 	direction TB
-	b328_11["arg__884 0x40u8"]
-	b328_10["arg__882 0"]
-	b328_13["arg__881 u8.&"]
-	b328_15["cond__879 u8.!="]
-	b328_11 --> b328_10
-	b328_10 --> b328_13
-	b328_13 --> b328_15
+	b328_5["arg__884 0x40u8"]
+	b328_4["arg__882 0"]
+	b328_6["arg__881 u8.&"]
+	b328_7["cond__879 u8.!="]
+	b328_5 --> b328_4
+	b328_4 --> b328_6
+	b328_6 --> b328_7
 end
 subgraph block_327["Block 327"]
 	direction TB
@@ -16531,15 +16531,15 @@ end
 branch_324 --> block_327
 subgraph block_322["Block 322"]
 	direction TB
-	b322_36["offset__926 imm_readULEB32"]
-	b322_0["index pop_u32"]
-	b322_33["val__923 mach_readMemory32_u8_64"]
-	b322_34["extend__924 U64_extend8_s"]
-	b322_35["eff__872__925 push_u64"]
-	b322_36 --> b322_0
-	b322_0 --> b322_33
-	b322_33 --> b322_34
+	b322_33["offset__923 imm_readULEB32"]
+	b322_13["index pop_u32"]
+	b322_34["val__924 mach_readMemory32_u8_64"]
+	b322_35["extend__925 U64_extend8_s"]
+	b322_36["eff__872__926 push_u64"]
+	b322_33 --> b322_13
+	b322_13 --> b322_34
 	b322_34 --> b322_35
+	b322_35 --> b322_36
 end
 branch_319 --> block_322
 
@@ -16557,17 +16557,17 @@ if (cond__879) {
 // phis: memindex <- memindex__880__935; memindex <- memindex__886__936; memindex <- memindex__880__935; memindex <- memindex__886__936; memindex <- memindex__880__935; memindex <- memindex__886__936; memindex <- memindex__880__935; memindex <- memindex__886__936; 
 def cond__865 = m_isMemory64(memindex);
 if (cond__865) {
-	def offset__921 = imm_readULEB64();
+	def offset__919 = imm_readULEB64();
 	def index = pop_u64();
-	def val__922 = mach_readMemory64_u8_64(memindex, index, offset__921);
-	def extend__919 = U64_extend8_s(val__922);
-	def eff__866__920 = push_u64(extend__919);
+	def val__920 = mach_readMemory64_u8_64(memindex, index, offset__919);
+	def extend__921 = U64_extend8_s(val__920);
+	def eff__866__922 = push_u64(extend__921);
 } else {
-	def offset__926 = imm_readULEB32();
+	def offset__923 = imm_readULEB32();
 	def index = pop_u32();
-	def val__923 = mach_readMemory32_u8_64(memindex, index, offset__926);
-	def extend__924 = U64_extend8_s(val__923);
-	def eff__872__925 = push_u64(extend__924);
+	def val__924 = mach_readMemory32_u8_64(memindex, index, offset__923);
+	def extend__925 = U64_extend8_s(val__924);
+	def eff__872__926 = push_u64(extend__925);
 }
 // phis: 
 </pre>`;
@@ -17041,64 +17041,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__957__975 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__957__976 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__975 mach_readMemory32_u8_64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__974 mach_readMemory32_u8_64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__976 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__964 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__963 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__966 0"]
-	11["arg__965 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__968 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__970 0u"]
+	30["offset__974 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__964 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__963 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__966 0"]
+	6["arg__965 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__968 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__970 0u"]
 	28["eff__952__973 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__972 mach_readMemory64_u8_64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__971 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__951 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__951 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD8_U"]["post_surgery 336"] = ''
 window.traces["I64_LOAD8_U"]["post_surgery 336"] += `<pre class='graph'>---
@@ -17106,110 +17106,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__957__975 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__957__976 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__975 mach_readMemory32_u8_64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__974 mach_readMemory32_u8_64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__976 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__974 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__964__983 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__963 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__966 0"]
-	11["arg__965 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__968 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__963 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__966 0"]
+	6["arg__965 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__968 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__970__984 0u"]
 	28["eff__952__973 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__972 mach_readMemory64_u8_64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__971 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__951 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__951 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD8_U"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD8_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_329["Block 329"]
 	direction TB
-	b329_3[\\"Finish"/]
+	b329_1[\\"Finish"/]
 end
 phi_331 --> block_329
 subgraph phi_331["Phi 331"]
-	p331_2{{"Sϕ Stack "}}
-	p331_21{{"Sϕ Codeptr "}}
-	p331_2{{"Sϕ Stack "}}
+	p331_21{{"Sϕ Stack "}}
+	p331_21{{"Sϕ Stack "}}
+	p331_20{{"Sϕ Codeptr "}}
 end
 block_332 --> phi_331
 block_333 --> phi_331
 subgraph block_332["Block 332"]
 	direction TB
 	b332_26["offset__971 imm_readULEB64"]
-	b332_12["index pop_u64"]
+	b332_17["index pop_u64"]
 	b332_27["val__972 mach_readMemory64_u8_64"]
 	b332_28["eff__952__973 push_u64"]
-	b332_26 --> b332_12
-	b332_12 --> b332_27
+	b332_26 --> b332_17
+	b332_17 --> b332_27
 	b332_27 --> b332_28
 end
 branch_330 --> block_332
 subgraph branch_330["Branch 330"]
-	br330_19["cond__951 m_isMemory64"]
+	br330_11["cond__951 m_isMemory64"]
 
 end
 block_334 --> branch_330
 subgraph block_334["Block 334"]
 	direction TB
-	b334_19["cond__951 m_isMemory64"]
+	b334_11["cond__951 m_isMemory64"]
 end
 phi_336 --> block_334
 subgraph phi_336["Phi 336"]
-	p336_17{{"Sϕ Codeptr "}}
-	p336_17{{"Sϕ Codeptr "}}
-	p336_17{{"Sϕ Codeptr "}}
-	p336_17{{"Sϕ Codeptr "}}
-	p336_15{"memindex ϕ"}
-	p336_15{"memindex ϕ"}
-	p336_15{"memindex ϕ"}
-	p336_15{"memindex ϕ"}
-	p336_17{{"Sϕ Codeptr "}}
+	p336_10{{"Sϕ Codeptr "}}
+	p336_10{{"Sϕ Codeptr "}}
+	p336_10{{"Sϕ Codeptr "}}
+	p336_10{{"Sϕ Codeptr "}}
+	p336_9{"memindex ϕ"}
+	p336_9{"memindex ϕ"}
+	p336_9{"memindex ϕ"}
+	p336_10{{"Sϕ Codeptr "}}
+	p336_9{"memindex ϕ"}
 end
 block_337 --> phi_336
 block_338 --> phi_336
@@ -17219,19 +17219,19 @@ subgraph block_337["Block 337"]
 end
 branch_335 --> block_337
 subgraph branch_335["Branch 335"]
-	br335_13["cond__963 u8.!="]
+	br335_7["cond__963 u8.!="]
 
 end
 block_339 --> branch_335
 subgraph block_339["Block 339"]
 	direction TB
-	b339_8["arg__968 0x40u8"]
-	b339_7["arg__966 0"]
-	b339_11["arg__965 u8.&"]
-	b339_13["cond__963 u8.!="]
-	b339_8 --> b339_7
-	b339_7 --> b339_11
-	b339_11 --> b339_13
+	b339_5["arg__968 0x40u8"]
+	b339_4["arg__966 0"]
+	b339_6["arg__965 u8.&"]
+	b339_7["cond__963 u8.!="]
+	b339_5 --> b339_4
+	b339_4 --> b339_6
+	b339_6 --> b339_7
 end
 subgraph block_338["Block 338"]
 	direction TB
@@ -17240,13 +17240,13 @@ end
 branch_335 --> block_338
 subgraph block_333["Block 333"]
 	direction TB
-	b333_32["offset__976 imm_readULEB32"]
-	b333_0["index pop_u32"]
-	b333_30["val__974 mach_readMemory32_u8_64"]
-	b333_31["eff__957__975 push_u64"]
-	b333_32 --> b333_0
-	b333_0 --> b333_30
-	b333_30 --> b333_31
+	b333_30["offset__974 imm_readULEB32"]
+	b333_13["index pop_u32"]
+	b333_31["val__975 mach_readMemory32_u8_64"]
+	b333_32["eff__957__976 push_u64"]
+	b333_30 --> b333_13
+	b333_13 --> b333_31
+	b333_31 --> b333_32
 end
 branch_330 --> block_333
 
@@ -17269,10 +17269,10 @@ if (cond__951) {
 	def val__972 = mach_readMemory64_u8_64(memindex, index, offset__971);
 	def eff__952__973 = push_u64(val__972);
 } else {
-	def offset__976 = imm_readULEB32();
+	def offset__974 = imm_readULEB32();
 	def index = pop_u32();
-	def val__974 = mach_readMemory32_u8_64(memindex, index, offset__976);
-	def eff__957__975 = push_u64(val__974);
+	def val__975 = mach_readMemory32_u8_64(memindex, index, offset__974);
+	def eff__957__976 = push_u64(val__975);
 }
 // phis: 
 </pre>`;
@@ -17394,64 +17394,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__957__1003 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__957__1004 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__1003 mach_readMemory32_u8_64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__1002 mach_readMemory32_u8_64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__1004 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__964 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__963 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__966 0"]
-	11["arg__965 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__968 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__970 0u"]
+	30["offset__1002 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__964 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__963 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__966 0"]
+	6["arg__965 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__968 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__970 0u"]
 	28["eff__952__1001 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__1000 mach_readMemory64_u8_64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__999 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__951 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__951 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD8_U_ul"]["post_surgery 347"] = ''
 window.traces["I64_LOAD8_U_ul"]["post_surgery 347"] += `<pre class='graph'>---
@@ -17459,110 +17459,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__957__1003 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__957__1004 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__1003 mach_readMemory32_u8_64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__1002 mach_readMemory32_u8_64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__1004 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__1002 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__964__1011 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__963 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__966 0"]
-	11["arg__965 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__968 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__963 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__966 0"]
+	6["arg__965 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__968 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__970__1012 0u"]
 	28["eff__952__1001 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__1000 mach_readMemory64_u8_64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__999 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__951 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__951 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD8_U"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD8_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_340["Block 340"]
 	direction TB
-	b340_3[\\"Finish"/]
+	b340_1[\\"Finish"/]
 end
 phi_342 --> block_340
 subgraph phi_342["Phi 342"]
-	p342_2{{"Sϕ Stack "}}
-	p342_21{{"Sϕ Codeptr "}}
-	p342_2{{"Sϕ Stack "}}
+	p342_21{{"Sϕ Stack "}}
+	p342_21{{"Sϕ Stack "}}
+	p342_20{{"Sϕ Codeptr "}}
 end
 block_343 --> phi_342
 block_344 --> phi_342
 subgraph block_343["Block 343"]
 	direction TB
 	b343_26["offset__999 imm_readULEB64"]
-	b343_12["index pop_u64"]
+	b343_17["index pop_u64"]
 	b343_27["val__1000 mach_readMemory64_u8_64"]
 	b343_28["eff__952__1001 push_u64"]
-	b343_26 --> b343_12
-	b343_12 --> b343_27
+	b343_26 --> b343_17
+	b343_17 --> b343_27
 	b343_27 --> b343_28
 end
 branch_341 --> block_343
 subgraph branch_341["Branch 341"]
-	br341_19["cond__951 m_isMemory64"]
+	br341_11["cond__951 m_isMemory64"]
 
 end
 block_345 --> branch_341
 subgraph block_345["Block 345"]
 	direction TB
-	b345_19["cond__951 m_isMemory64"]
+	b345_11["cond__951 m_isMemory64"]
 end
 phi_347 --> block_345
 subgraph phi_347["Phi 347"]
-	p347_17{{"Sϕ Codeptr "}}
-	p347_17{{"Sϕ Codeptr "}}
-	p347_17{{"Sϕ Codeptr "}}
-	p347_17{{"Sϕ Codeptr "}}
-	p347_15{"memindex ϕ"}
-	p347_15{"memindex ϕ"}
-	p347_15{"memindex ϕ"}
-	p347_15{"memindex ϕ"}
-	p347_17{{"Sϕ Codeptr "}}
+	p347_10{{"Sϕ Codeptr "}}
+	p347_10{{"Sϕ Codeptr "}}
+	p347_10{{"Sϕ Codeptr "}}
+	p347_10{{"Sϕ Codeptr "}}
+	p347_9{"memindex ϕ"}
+	p347_9{"memindex ϕ"}
+	p347_9{"memindex ϕ"}
+	p347_10{{"Sϕ Codeptr "}}
+	p347_9{"memindex ϕ"}
 end
 block_348 --> phi_347
 block_349 --> phi_347
@@ -17572,19 +17572,19 @@ subgraph block_348["Block 348"]
 end
 branch_346 --> block_348
 subgraph branch_346["Branch 346"]
-	br346_13["cond__963 u8.!="]
+	br346_7["cond__963 u8.!="]
 
 end
 block_350 --> branch_346
 subgraph block_350["Block 350"]
 	direction TB
-	b350_8["arg__968 0x40u8"]
-	b350_7["arg__966 0"]
-	b350_11["arg__965 u8.&"]
-	b350_13["cond__963 u8.!="]
-	b350_8 --> b350_7
-	b350_7 --> b350_11
-	b350_11 --> b350_13
+	b350_5["arg__968 0x40u8"]
+	b350_4["arg__966 0"]
+	b350_6["arg__965 u8.&"]
+	b350_7["cond__963 u8.!="]
+	b350_5 --> b350_4
+	b350_4 --> b350_6
+	b350_6 --> b350_7
 end
 subgraph block_349["Block 349"]
 	direction TB
@@ -17593,13 +17593,13 @@ end
 branch_346 --> block_349
 subgraph block_344["Block 344"]
 	direction TB
-	b344_32["offset__1004 imm_readULEB32"]
-	b344_0["index pop_u32"]
-	b344_30["val__1002 mach_readMemory32_u8_64"]
-	b344_31["eff__957__1003 push_u64"]
-	b344_32 --> b344_0
-	b344_0 --> b344_30
-	b344_30 --> b344_31
+	b344_30["offset__1002 imm_readULEB32"]
+	b344_13["index pop_u32"]
+	b344_31["val__1003 mach_readMemory32_u8_64"]
+	b344_32["eff__957__1004 push_u64"]
+	b344_30 --> b344_13
+	b344_13 --> b344_31
+	b344_31 --> b344_32
 end
 branch_341 --> block_344
 
@@ -17622,10 +17622,10 @@ if (cond__951) {
 	def val__1000 = mach_readMemory64_u8_64(memindex, index, offset__999);
 	def eff__952__1001 = push_u64(val__1000);
 } else {
-	def offset__1004 = imm_readULEB32();
+	def offset__1002 = imm_readULEB32();
 	def index = pop_u32();
-	def val__1002 = mach_readMemory32_u8_64(memindex, index, offset__1004);
-	def eff__957__1003 = push_u64(val__1002);
+	def val__1003 = mach_readMemory32_u8_64(memindex, index, offset__1002);
+	def eff__957__1004 = push_u64(val__1003);
 }
 // phis: 
 </pre>`;
@@ -18099,68 +18099,68 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__1034__1055 push_u64"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__1034__1056 push_u64"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__1055 U64_extend16_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__1054 U64_extend16_s"]
+	34["val__1054 mach_readMemory32_u16_64"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__1053 mach_readMemory32_u16_64"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__1056 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	17 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	17["memindex__1042 imm_readULEB32"]
-	5 -. Codeptr .-> 17
-	15["cond__1041 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__1044 0"]
-	13["arg__1043 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__1046 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	17 --> 19
-	8 --> 19
-	8["memindex__1048 0u"]
-	29["eff__1028__1050 push_u64"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__1049 U64_extend16_s"]
-	31 --> 28
-	31["val__1052 mach_readMemory64_u16_64"]
-	19 --> 31
-	18 --> 31
+	33["offset__1053 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1042 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1041 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1044 0"]
+	6["arg__1043 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1046 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1048 0u"]
+	31["eff__1028__1052 push_u64"]
 	30 --> 31
-	30["offset__1051 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__1027 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__1051 U64_extend16_s"]
+	29 --> 30
+	29["val__1050 mach_readMemory64_u16_64"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__1049 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__1027 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I64_LOAD16_S"]["post_surgery 358"] = ''
 window.traces["I64_LOAD16_S"]["post_surgery 358"] += `<pre class='graph'>---
@@ -18168,116 +18168,116 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__1034__1055 push_u64"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__1034__1056 push_u64"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__1055 U64_extend16_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__1054 U64_extend16_s"]
+	34["val__1054 mach_readMemory32_u16_64"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__1053 mach_readMemory32_u16_64"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__1056 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	48 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	33["offset__1053 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	48 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	48["memindex__1042__1065 imm_readULEB32"]
-	5 -. Codeptr .-> 48
-	15["cond__1041 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__1044 0"]
-	13["arg__1043 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__1046 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	48 --> 19
-	50 --> 19
+	2 -. Codeptr .-> 48
+	7["cond__1041 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1044 0"]
+	6["arg__1043 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1046 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	48 --> 9
+	50 --> 9
 	50["memindex__1048__1066 0u"]
-	29["eff__1028__1050 push_u64"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__1049 U64_extend16_s"]
-	31 --> 28
-	31["val__1052 mach_readMemory64_u16_64"]
-	19 --> 31
-	18 --> 31
+	31["eff__1028__1052 push_u64"]
 	30 --> 31
-	30["offset__1051 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__1027 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__1051 U64_extend16_s"]
+	29 --> 30
+	29["val__1050 mach_readMemory64_u16_64"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__1049 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__1027 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I64_LOAD16_S"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD16_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_351["Block 351"]
 	direction TB
-	b351_3[\\"Finish"/]
+	b351_1[\\"Finish"/]
 end
 phi_353 --> block_351
 subgraph phi_353["Phi 353"]
-	p353_9{{"Sϕ Stack "}}
-	p353_9{{"Sϕ Stack "}}
-	p353_6{{"Sϕ Codeptr "}}
+	p353_23{{"Sϕ Stack "}}
+	p353_23{{"Sϕ Stack "}}
+	p353_22{{"Sϕ Codeptr "}}
 end
 block_354 --> phi_353
 block_355 --> phi_353
 subgraph block_354["Block 354"]
 	direction TB
-	b354_30["offset__1051 imm_readULEB64"]
+	b354_28["offset__1049 imm_readULEB64"]
 	b354_18["index pop_u64"]
-	b354_31["val__1052 mach_readMemory64_u16_64"]
-	b354_28["extend__1049 U64_extend16_s"]
-	b354_29["eff__1028__1050 push_u64"]
-	b354_30 --> b354_18
-	b354_18 --> b354_31
-	b354_31 --> b354_28
-	b354_28 --> b354_29
+	b354_29["val__1050 mach_readMemory64_u16_64"]
+	b354_30["extend__1051 U64_extend16_s"]
+	b354_31["eff__1028__1052 push_u64"]
+	b354_28 --> b354_18
+	b354_18 --> b354_29
+	b354_29 --> b354_30
+	b354_30 --> b354_31
 end
 branch_352 --> block_354
 subgraph branch_352["Branch 352"]
-	br352_22["cond__1027 m_isMemory64"]
+	br352_11["cond__1027 m_isMemory64"]
 
 end
 block_356 --> branch_352
 subgraph block_356["Block 356"]
 	direction TB
-	b356_22["cond__1027 m_isMemory64"]
+	b356_11["cond__1027 m_isMemory64"]
 end
 phi_358 --> block_356
 subgraph phi_358["Phi 358"]
-	p358_20{{"Sϕ Codeptr "}}
-	p358_20{{"Sϕ Codeptr "}}
-	p358_20{{"Sϕ Codeptr "}}
-	p358_20{{"Sϕ Codeptr "}}
-	p358_19{"memindex ϕ"}
-	p358_19{"memindex ϕ"}
-	p358_19{"memindex ϕ"}
-	p358_20{{"Sϕ Codeptr "}}
-	p358_19{"memindex ϕ"}
+	p358_10{{"Sϕ Codeptr "}}
+	p358_10{{"Sϕ Codeptr "}}
+	p358_10{{"Sϕ Codeptr "}}
+	p358_10{{"Sϕ Codeptr "}}
+	p358_9{"memindex ϕ"}
+	p358_9{"memindex ϕ"}
+	p358_9{"memindex ϕ"}
+	p358_10{{"Sϕ Codeptr "}}
+	p358_9{"memindex ϕ"}
 end
 block_359 --> phi_358
 block_360 --> phi_358
@@ -18287,19 +18287,19 @@ subgraph block_359["Block 359"]
 end
 branch_357 --> block_359
 subgraph branch_357["Branch 357"]
-	br357_15["cond__1041 u8.!="]
+	br357_7["cond__1041 u8.!="]
 
 end
 block_361 --> branch_357
 subgraph block_361["Block 361"]
 	direction TB
-	b361_11["arg__1046 0x40u8"]
-	b361_10["arg__1044 0"]
-	b361_13["arg__1043 u8.&"]
-	b361_15["cond__1041 u8.!="]
-	b361_11 --> b361_10
-	b361_10 --> b361_13
-	b361_13 --> b361_15
+	b361_5["arg__1046 0x40u8"]
+	b361_4["arg__1044 0"]
+	b361_6["arg__1043 u8.&"]
+	b361_7["cond__1041 u8.!="]
+	b361_5 --> b361_4
+	b361_4 --> b361_6
+	b361_6 --> b361_7
 end
 subgraph block_360["Block 360"]
 	direction TB
@@ -18308,15 +18308,15 @@ end
 branch_357 --> block_360
 subgraph block_355["Block 355"]
 	direction TB
-	b355_36["offset__1056 imm_readULEB32"]
-	b355_0["index pop_u32"]
-	b355_33["val__1053 mach_readMemory32_u16_64"]
-	b355_34["extend__1054 U64_extend16_s"]
-	b355_35["eff__1034__1055 push_u64"]
-	b355_36 --> b355_0
-	b355_0 --> b355_33
-	b355_33 --> b355_34
+	b355_33["offset__1053 imm_readULEB32"]
+	b355_13["index pop_u32"]
+	b355_34["val__1054 mach_readMemory32_u16_64"]
+	b355_35["extend__1055 U64_extend16_s"]
+	b355_36["eff__1034__1056 push_u64"]
+	b355_33 --> b355_13
+	b355_13 --> b355_34
 	b355_34 --> b355_35
+	b355_35 --> b355_36
 end
 branch_352 --> block_355
 
@@ -18334,17 +18334,17 @@ if (cond__1041) {
 // phis: memindex <- memindex__1042__1065; memindex <- memindex__1048__1066; memindex <- memindex__1042__1065; memindex <- memindex__1048__1066; memindex <- memindex__1042__1065; memindex <- memindex__1048__1066; memindex <- memindex__1042__1065; memindex <- memindex__1048__1066; 
 def cond__1027 = m_isMemory64(memindex);
 if (cond__1027) {
-	def offset__1051 = imm_readULEB64();
+	def offset__1049 = imm_readULEB64();
 	def index = pop_u64();
-	def val__1052 = mach_readMemory64_u16_64(memindex, index, offset__1051);
-	def extend__1049 = U64_extend16_s(val__1052);
-	def eff__1028__1050 = push_u64(extend__1049);
+	def val__1050 = mach_readMemory64_u16_64(memindex, index, offset__1049);
+	def extend__1051 = U64_extend16_s(val__1050);
+	def eff__1028__1052 = push_u64(extend__1051);
 } else {
-	def offset__1056 = imm_readULEB32();
+	def offset__1053 = imm_readULEB32();
 	def index = pop_u32();
-	def val__1053 = mach_readMemory32_u16_64(memindex, index, offset__1056);
-	def extend__1054 = U64_extend16_s(val__1053);
-	def eff__1034__1055 = push_u64(extend__1054);
+	def val__1054 = mach_readMemory32_u16_64(memindex, index, offset__1053);
+	def extend__1055 = U64_extend16_s(val__1054);
+	def eff__1034__1056 = push_u64(extend__1055);
 }
 // phis: 
 </pre>`;
@@ -18474,68 +18474,68 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__1034__1087 push_u64"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__1034__1088 push_u64"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__1087 U64_extend16_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__1086 U64_extend16_s"]
+	34["val__1086 mach_readMemory32_u16_64"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__1085 mach_readMemory32_u16_64"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__1088 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	17 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	17["memindex__1042 imm_readULEB32"]
-	5 -. Codeptr .-> 17
-	15["cond__1041 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__1044 0"]
-	13["arg__1043 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__1046 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	17 --> 19
-	8 --> 19
-	8["memindex__1048 0u"]
-	29["eff__1028__1082 push_u64"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__1081 U64_extend16_s"]
-	31 --> 28
-	31["val__1084 mach_readMemory64_u16_64"]
-	19 --> 31
-	18 --> 31
+	33["offset__1085 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1042 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1041 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1044 0"]
+	6["arg__1043 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1046 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1048 0u"]
+	31["eff__1028__1084 push_u64"]
 	30 --> 31
-	30["offset__1083 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__1027 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__1083 U64_extend16_s"]
+	29 --> 30
+	29["val__1082 mach_readMemory64_u16_64"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__1081 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__1027 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I64_LOAD16_S_ul"]["post_surgery 369"] = ''
 window.traces["I64_LOAD16_S_ul"]["post_surgery 369"] += `<pre class='graph'>---
@@ -18543,116 +18543,116 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__1034__1087 push_u64"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__1034__1088 push_u64"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__1087 U64_extend16_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__1086 U64_extend16_s"]
+	34["val__1086 mach_readMemory32_u16_64"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__1085 mach_readMemory32_u16_64"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__1088 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	48 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	33["offset__1085 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	48 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	48["memindex__1042__1097 imm_readULEB32"]
-	5 -. Codeptr .-> 48
-	15["cond__1041 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__1044 0"]
-	13["arg__1043 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__1046 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	48 --> 19
-	50 --> 19
+	2 -. Codeptr .-> 48
+	7["cond__1041 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1044 0"]
+	6["arg__1043 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1046 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	48 --> 9
+	50 --> 9
 	50["memindex__1048__1098 0u"]
-	29["eff__1028__1082 push_u64"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__1081 U64_extend16_s"]
-	31 --> 28
-	31["val__1084 mach_readMemory64_u16_64"]
-	19 --> 31
-	18 --> 31
+	31["eff__1028__1084 push_u64"]
 	30 --> 31
-	30["offset__1083 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__1027 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__1083 U64_extend16_s"]
+	29 --> 30
+	29["val__1082 mach_readMemory64_u16_64"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__1081 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__1027 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I64_LOAD16_S"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD16_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_362["Block 362"]
 	direction TB
-	b362_3[\\"Finish"/]
+	b362_1[\\"Finish"/]
 end
 phi_364 --> block_362
 subgraph phi_364["Phi 364"]
-	p364_9{{"Sϕ Stack "}}
-	p364_9{{"Sϕ Stack "}}
-	p364_6{{"Sϕ Codeptr "}}
+	p364_23{{"Sϕ Stack "}}
+	p364_23{{"Sϕ Stack "}}
+	p364_22{{"Sϕ Codeptr "}}
 end
 block_365 --> phi_364
 block_366 --> phi_364
 subgraph block_365["Block 365"]
 	direction TB
-	b365_30["offset__1083 imm_readULEB64"]
+	b365_28["offset__1081 imm_readULEB64"]
 	b365_18["index pop_u64"]
-	b365_31["val__1084 mach_readMemory64_u16_64"]
-	b365_28["extend__1081 U64_extend16_s"]
-	b365_29["eff__1028__1082 push_u64"]
-	b365_30 --> b365_18
-	b365_18 --> b365_31
-	b365_31 --> b365_28
-	b365_28 --> b365_29
+	b365_29["val__1082 mach_readMemory64_u16_64"]
+	b365_30["extend__1083 U64_extend16_s"]
+	b365_31["eff__1028__1084 push_u64"]
+	b365_28 --> b365_18
+	b365_18 --> b365_29
+	b365_29 --> b365_30
+	b365_30 --> b365_31
 end
 branch_363 --> block_365
 subgraph branch_363["Branch 363"]
-	br363_22["cond__1027 m_isMemory64"]
+	br363_11["cond__1027 m_isMemory64"]
 
 end
 block_367 --> branch_363
 subgraph block_367["Block 367"]
 	direction TB
-	b367_22["cond__1027 m_isMemory64"]
+	b367_11["cond__1027 m_isMemory64"]
 end
 phi_369 --> block_367
 subgraph phi_369["Phi 369"]
-	p369_20{{"Sϕ Codeptr "}}
-	p369_20{{"Sϕ Codeptr "}}
-	p369_20{{"Sϕ Codeptr "}}
-	p369_20{{"Sϕ Codeptr "}}
-	p369_19{"memindex ϕ"}
-	p369_19{"memindex ϕ"}
-	p369_19{"memindex ϕ"}
-	p369_20{{"Sϕ Codeptr "}}
-	p369_19{"memindex ϕ"}
+	p369_10{{"Sϕ Codeptr "}}
+	p369_10{{"Sϕ Codeptr "}}
+	p369_10{{"Sϕ Codeptr "}}
+	p369_10{{"Sϕ Codeptr "}}
+	p369_9{"memindex ϕ"}
+	p369_9{"memindex ϕ"}
+	p369_9{"memindex ϕ"}
+	p369_10{{"Sϕ Codeptr "}}
+	p369_9{"memindex ϕ"}
 end
 block_370 --> phi_369
 block_371 --> phi_369
@@ -18662,19 +18662,19 @@ subgraph block_370["Block 370"]
 end
 branch_368 --> block_370
 subgraph branch_368["Branch 368"]
-	br368_15["cond__1041 u8.!="]
+	br368_7["cond__1041 u8.!="]
 
 end
 block_372 --> branch_368
 subgraph block_372["Block 372"]
 	direction TB
-	b372_11["arg__1046 0x40u8"]
-	b372_10["arg__1044 0"]
-	b372_13["arg__1043 u8.&"]
-	b372_15["cond__1041 u8.!="]
-	b372_11 --> b372_10
-	b372_10 --> b372_13
-	b372_13 --> b372_15
+	b372_5["arg__1046 0x40u8"]
+	b372_4["arg__1044 0"]
+	b372_6["arg__1043 u8.&"]
+	b372_7["cond__1041 u8.!="]
+	b372_5 --> b372_4
+	b372_4 --> b372_6
+	b372_6 --> b372_7
 end
 subgraph block_371["Block 371"]
 	direction TB
@@ -18683,15 +18683,15 @@ end
 branch_368 --> block_371
 subgraph block_366["Block 366"]
 	direction TB
-	b366_36["offset__1088 imm_readULEB32"]
-	b366_0["index pop_u32"]
-	b366_33["val__1085 mach_readMemory32_u16_64"]
-	b366_34["extend__1086 U64_extend16_s"]
-	b366_35["eff__1034__1087 push_u64"]
-	b366_36 --> b366_0
-	b366_0 --> b366_33
-	b366_33 --> b366_34
+	b366_33["offset__1085 imm_readULEB32"]
+	b366_13["index pop_u32"]
+	b366_34["val__1086 mach_readMemory32_u16_64"]
+	b366_35["extend__1087 U64_extend16_s"]
+	b366_36["eff__1034__1088 push_u64"]
+	b366_33 --> b366_13
+	b366_13 --> b366_34
 	b366_34 --> b366_35
+	b366_35 --> b366_36
 end
 branch_363 --> block_366
 
@@ -18709,17 +18709,17 @@ if (cond__1041) {
 // phis: memindex <- memindex__1042__1097; memindex <- memindex__1048__1098; memindex <- memindex__1042__1097; memindex <- memindex__1048__1098; memindex <- memindex__1042__1097; memindex <- memindex__1048__1098; memindex <- memindex__1042__1097; memindex <- memindex__1048__1098; 
 def cond__1027 = m_isMemory64(memindex);
 if (cond__1027) {
-	def offset__1083 = imm_readULEB64();
+	def offset__1081 = imm_readULEB64();
 	def index = pop_u64();
-	def val__1084 = mach_readMemory64_u16_64(memindex, index, offset__1083);
-	def extend__1081 = U64_extend16_s(val__1084);
-	def eff__1028__1082 = push_u64(extend__1081);
+	def val__1082 = mach_readMemory64_u16_64(memindex, index, offset__1081);
+	def extend__1083 = U64_extend16_s(val__1082);
+	def eff__1028__1084 = push_u64(extend__1083);
 } else {
-	def offset__1088 = imm_readULEB32();
+	def offset__1085 = imm_readULEB32();
 	def index = pop_u32();
-	def val__1085 = mach_readMemory32_u16_64(memindex, index, offset__1088);
-	def extend__1086 = U64_extend16_s(val__1085);
-	def eff__1034__1087 = push_u64(extend__1086);
+	def val__1086 = mach_readMemory32_u16_64(memindex, index, offset__1085);
+	def extend__1087 = U64_extend16_s(val__1086);
+	def eff__1034__1088 = push_u64(extend__1087);
 }
 // phis: 
 </pre>`;
@@ -19193,64 +19193,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__1119__1137 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__1119__1138 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__1137 mach_readMemory32_u16_64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__1136 mach_readMemory32_u16_64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__1138 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__1126 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__1125 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1128 0"]
-	11["arg__1127 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__1130 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__1132 0u"]
+	30["offset__1136 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1126 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1125 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1128 0"]
+	6["arg__1127 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1130 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1132 0u"]
 	28["eff__1114__1135 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__1134 mach_readMemory64_u16_64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__1133 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__1113 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__1113 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD16_U"]["post_surgery 380"] = ''
 window.traces["I64_LOAD16_U"]["post_surgery 380"] += `<pre class='graph'>---
@@ -19258,110 +19258,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__1119__1137 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__1119__1138 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__1137 mach_readMemory32_u16_64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__1136 mach_readMemory32_u16_64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__1138 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__1136 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__1126__1145 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__1125 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1128 0"]
-	11["arg__1127 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__1130 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__1125 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1128 0"]
+	6["arg__1127 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1130 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__1132__1146 0u"]
 	28["eff__1114__1135 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__1134 mach_readMemory64_u16_64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__1133 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__1113 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__1113 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD16_U"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD16_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_373["Block 373"]
 	direction TB
-	b373_3[\\"Finish"/]
+	b373_1[\\"Finish"/]
 end
 phi_375 --> block_373
 subgraph phi_375["Phi 375"]
-	p375_2{{"Sϕ Stack "}}
-	p375_21{{"Sϕ Codeptr "}}
-	p375_2{{"Sϕ Stack "}}
+	p375_21{{"Sϕ Stack "}}
+	p375_21{{"Sϕ Stack "}}
+	p375_20{{"Sϕ Codeptr "}}
 end
 block_376 --> phi_375
 block_377 --> phi_375
 subgraph block_376["Block 376"]
 	direction TB
 	b376_26["offset__1133 imm_readULEB64"]
-	b376_12["index pop_u64"]
+	b376_17["index pop_u64"]
 	b376_27["val__1134 mach_readMemory64_u16_64"]
 	b376_28["eff__1114__1135 push_u64"]
-	b376_26 --> b376_12
-	b376_12 --> b376_27
+	b376_26 --> b376_17
+	b376_17 --> b376_27
 	b376_27 --> b376_28
 end
 branch_374 --> block_376
 subgraph branch_374["Branch 374"]
-	br374_19["cond__1113 m_isMemory64"]
+	br374_11["cond__1113 m_isMemory64"]
 
 end
 block_378 --> branch_374
 subgraph block_378["Block 378"]
 	direction TB
-	b378_19["cond__1113 m_isMemory64"]
+	b378_11["cond__1113 m_isMemory64"]
 end
 phi_380 --> block_378
 subgraph phi_380["Phi 380"]
-	p380_17{{"Sϕ Codeptr "}}
-	p380_17{{"Sϕ Codeptr "}}
-	p380_17{{"Sϕ Codeptr "}}
-	p380_17{{"Sϕ Codeptr "}}
-	p380_15{"memindex ϕ"}
-	p380_15{"memindex ϕ"}
-	p380_15{"memindex ϕ"}
-	p380_15{"memindex ϕ"}
-	p380_17{{"Sϕ Codeptr "}}
+	p380_10{{"Sϕ Codeptr "}}
+	p380_10{{"Sϕ Codeptr "}}
+	p380_10{{"Sϕ Codeptr "}}
+	p380_10{{"Sϕ Codeptr "}}
+	p380_9{"memindex ϕ"}
+	p380_9{"memindex ϕ"}
+	p380_9{"memindex ϕ"}
+	p380_10{{"Sϕ Codeptr "}}
+	p380_9{"memindex ϕ"}
 end
 block_381 --> phi_380
 block_382 --> phi_380
@@ -19371,19 +19371,19 @@ subgraph block_381["Block 381"]
 end
 branch_379 --> block_381
 subgraph branch_379["Branch 379"]
-	br379_13["cond__1125 u8.!="]
+	br379_7["cond__1125 u8.!="]
 
 end
 block_383 --> branch_379
 subgraph block_383["Block 383"]
 	direction TB
-	b383_8["arg__1130 0x40u8"]
-	b383_7["arg__1128 0"]
-	b383_11["arg__1127 u8.&"]
-	b383_13["cond__1125 u8.!="]
-	b383_8 --> b383_7
-	b383_7 --> b383_11
-	b383_11 --> b383_13
+	b383_5["arg__1130 0x40u8"]
+	b383_4["arg__1128 0"]
+	b383_6["arg__1127 u8.&"]
+	b383_7["cond__1125 u8.!="]
+	b383_5 --> b383_4
+	b383_4 --> b383_6
+	b383_6 --> b383_7
 end
 subgraph block_382["Block 382"]
 	direction TB
@@ -19392,13 +19392,13 @@ end
 branch_379 --> block_382
 subgraph block_377["Block 377"]
 	direction TB
-	b377_32["offset__1138 imm_readULEB32"]
-	b377_0["index pop_u32"]
-	b377_30["val__1136 mach_readMemory32_u16_64"]
-	b377_31["eff__1119__1137 push_u64"]
-	b377_32 --> b377_0
-	b377_0 --> b377_30
-	b377_30 --> b377_31
+	b377_30["offset__1136 imm_readULEB32"]
+	b377_13["index pop_u32"]
+	b377_31["val__1137 mach_readMemory32_u16_64"]
+	b377_32["eff__1119__1138 push_u64"]
+	b377_30 --> b377_13
+	b377_13 --> b377_31
+	b377_31 --> b377_32
 end
 branch_374 --> block_377
 
@@ -19421,10 +19421,10 @@ if (cond__1113) {
 	def val__1134 = mach_readMemory64_u16_64(memindex, index, offset__1133);
 	def eff__1114__1135 = push_u64(val__1134);
 } else {
-	def offset__1138 = imm_readULEB32();
+	def offset__1136 = imm_readULEB32();
 	def index = pop_u32();
-	def val__1136 = mach_readMemory32_u16_64(memindex, index, offset__1138);
-	def eff__1119__1137 = push_u64(val__1136);
+	def val__1137 = mach_readMemory32_u16_64(memindex, index, offset__1136);
+	def eff__1119__1138 = push_u64(val__1137);
 }
 // phis: 
 </pre>`;
@@ -19546,64 +19546,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__1119__1165 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__1119__1166 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__1165 mach_readMemory32_u16_64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__1164 mach_readMemory32_u16_64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__1166 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__1126 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__1125 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1128 0"]
-	11["arg__1127 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__1130 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__1132 0u"]
+	30["offset__1164 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1126 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1125 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1128 0"]
+	6["arg__1127 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1130 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1132 0u"]
 	28["eff__1114__1163 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__1162 mach_readMemory64_u16_64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__1161 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__1113 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__1113 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD16_U_ul"]["post_surgery 391"] = ''
 window.traces["I64_LOAD16_U_ul"]["post_surgery 391"] += `<pre class='graph'>---
@@ -19611,110 +19611,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__1119__1165 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__1119__1166 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__1165 mach_readMemory32_u16_64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__1164 mach_readMemory32_u16_64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__1166 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__1164 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__1126__1173 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__1125 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1128 0"]
-	11["arg__1127 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__1130 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__1125 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1128 0"]
+	6["arg__1127 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1130 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__1132__1174 0u"]
 	28["eff__1114__1163 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__1162 mach_readMemory64_u16_64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__1161 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__1113 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__1113 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD16_U"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD16_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_384["Block 384"]
 	direction TB
-	b384_3[\\"Finish"/]
+	b384_1[\\"Finish"/]
 end
 phi_386 --> block_384
 subgraph phi_386["Phi 386"]
-	p386_2{{"Sϕ Stack "}}
-	p386_21{{"Sϕ Codeptr "}}
-	p386_2{{"Sϕ Stack "}}
+	p386_21{{"Sϕ Stack "}}
+	p386_21{{"Sϕ Stack "}}
+	p386_20{{"Sϕ Codeptr "}}
 end
 block_387 --> phi_386
 block_388 --> phi_386
 subgraph block_387["Block 387"]
 	direction TB
 	b387_26["offset__1161 imm_readULEB64"]
-	b387_12["index pop_u64"]
+	b387_17["index pop_u64"]
 	b387_27["val__1162 mach_readMemory64_u16_64"]
 	b387_28["eff__1114__1163 push_u64"]
-	b387_26 --> b387_12
-	b387_12 --> b387_27
+	b387_26 --> b387_17
+	b387_17 --> b387_27
 	b387_27 --> b387_28
 end
 branch_385 --> block_387
 subgraph branch_385["Branch 385"]
-	br385_19["cond__1113 m_isMemory64"]
+	br385_11["cond__1113 m_isMemory64"]
 
 end
 block_389 --> branch_385
 subgraph block_389["Block 389"]
 	direction TB
-	b389_19["cond__1113 m_isMemory64"]
+	b389_11["cond__1113 m_isMemory64"]
 end
 phi_391 --> block_389
 subgraph phi_391["Phi 391"]
-	p391_17{{"Sϕ Codeptr "}}
-	p391_17{{"Sϕ Codeptr "}}
-	p391_17{{"Sϕ Codeptr "}}
-	p391_17{{"Sϕ Codeptr "}}
-	p391_15{"memindex ϕ"}
-	p391_15{"memindex ϕ"}
-	p391_15{"memindex ϕ"}
-	p391_15{"memindex ϕ"}
-	p391_17{{"Sϕ Codeptr "}}
+	p391_10{{"Sϕ Codeptr "}}
+	p391_10{{"Sϕ Codeptr "}}
+	p391_10{{"Sϕ Codeptr "}}
+	p391_10{{"Sϕ Codeptr "}}
+	p391_9{"memindex ϕ"}
+	p391_9{"memindex ϕ"}
+	p391_9{"memindex ϕ"}
+	p391_10{{"Sϕ Codeptr "}}
+	p391_9{"memindex ϕ"}
 end
 block_392 --> phi_391
 block_393 --> phi_391
@@ -19724,19 +19724,19 @@ subgraph block_392["Block 392"]
 end
 branch_390 --> block_392
 subgraph branch_390["Branch 390"]
-	br390_13["cond__1125 u8.!="]
+	br390_7["cond__1125 u8.!="]
 
 end
 block_394 --> branch_390
 subgraph block_394["Block 394"]
 	direction TB
-	b394_8["arg__1130 0x40u8"]
-	b394_7["arg__1128 0"]
-	b394_11["arg__1127 u8.&"]
-	b394_13["cond__1125 u8.!="]
-	b394_8 --> b394_7
-	b394_7 --> b394_11
-	b394_11 --> b394_13
+	b394_5["arg__1130 0x40u8"]
+	b394_4["arg__1128 0"]
+	b394_6["arg__1127 u8.&"]
+	b394_7["cond__1125 u8.!="]
+	b394_5 --> b394_4
+	b394_4 --> b394_6
+	b394_6 --> b394_7
 end
 subgraph block_393["Block 393"]
 	direction TB
@@ -19745,13 +19745,13 @@ end
 branch_390 --> block_393
 subgraph block_388["Block 388"]
 	direction TB
-	b388_32["offset__1166 imm_readULEB32"]
-	b388_0["index pop_u32"]
-	b388_30["val__1164 mach_readMemory32_u16_64"]
-	b388_31["eff__1119__1165 push_u64"]
-	b388_32 --> b388_0
-	b388_0 --> b388_30
-	b388_30 --> b388_31
+	b388_30["offset__1164 imm_readULEB32"]
+	b388_13["index pop_u32"]
+	b388_31["val__1165 mach_readMemory32_u16_64"]
+	b388_32["eff__1119__1166 push_u64"]
+	b388_30 --> b388_13
+	b388_13 --> b388_31
+	b388_31 --> b388_32
 end
 branch_385 --> block_388
 
@@ -19774,10 +19774,10 @@ if (cond__1113) {
 	def val__1162 = mach_readMemory64_u16_64(memindex, index, offset__1161);
 	def eff__1114__1163 = push_u64(val__1162);
 } else {
-	def offset__1166 = imm_readULEB32();
+	def offset__1164 = imm_readULEB32();
 	def index = pop_u32();
-	def val__1164 = mach_readMemory32_u16_64(memindex, index, offset__1166);
-	def eff__1119__1165 = push_u64(val__1164);
+	def val__1165 = mach_readMemory32_u16_64(memindex, index, offset__1164);
+	def eff__1119__1166 = push_u64(val__1165);
 }
 // phis: 
 </pre>`;
@@ -20251,68 +20251,68 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__1196__1217 push_u64"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__1196__1218 push_u64"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__1217 U64_extend32_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__1216 U64_extend32_s"]
+	34["val__1216 mach_readMemory32_u32_64"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__1215 mach_readMemory32_u32_64"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__1218 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	17 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	17["memindex__1204 imm_readULEB32"]
-	5 -. Codeptr .-> 17
-	15["cond__1203 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__1206 0"]
-	13["arg__1205 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__1208 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	17 --> 19
-	8 --> 19
-	8["memindex__1210 0u"]
-	29["eff__1190__1212 push_u64"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__1211 U64_extend32_s"]
-	31 --> 28
-	31["val__1214 mach_readMemory64_u32_64"]
-	19 --> 31
-	18 --> 31
+	33["offset__1215 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1204 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1203 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1206 0"]
+	6["arg__1205 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1208 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1210 0u"]
+	31["eff__1190__1214 push_u64"]
 	30 --> 31
-	30["offset__1213 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__1189 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__1213 U64_extend32_s"]
+	29 --> 30
+	29["val__1212 mach_readMemory64_u32_64"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__1211 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__1189 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I64_LOAD32_S"]["post_surgery 402"] = ''
 window.traces["I64_LOAD32_S"]["post_surgery 402"] += `<pre class='graph'>---
@@ -20320,116 +20320,116 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__1196__1217 push_u64"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__1196__1218 push_u64"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__1217 U64_extend32_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__1216 U64_extend32_s"]
+	34["val__1216 mach_readMemory32_u32_64"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__1215 mach_readMemory32_u32_64"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__1218 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	48 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	33["offset__1215 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	48 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	48["memindex__1204__1227 imm_readULEB32"]
-	5 -. Codeptr .-> 48
-	15["cond__1203 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__1206 0"]
-	13["arg__1205 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__1208 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	48 --> 19
-	50 --> 19
+	2 -. Codeptr .-> 48
+	7["cond__1203 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1206 0"]
+	6["arg__1205 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1208 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	48 --> 9
+	50 --> 9
 	50["memindex__1210__1228 0u"]
-	29["eff__1190__1212 push_u64"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__1211 U64_extend32_s"]
-	31 --> 28
-	31["val__1214 mach_readMemory64_u32_64"]
-	19 --> 31
-	18 --> 31
+	31["eff__1190__1214 push_u64"]
 	30 --> 31
-	30["offset__1213 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__1189 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__1213 U64_extend32_s"]
+	29 --> 30
+	29["val__1212 mach_readMemory64_u32_64"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__1211 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__1189 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I64_LOAD32_S"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD32_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_395["Block 395"]
 	direction TB
-	b395_3[\\"Finish"/]
+	b395_1[\\"Finish"/]
 end
 phi_397 --> block_395
 subgraph phi_397["Phi 397"]
-	p397_9{{"Sϕ Stack "}}
-	p397_9{{"Sϕ Stack "}}
-	p397_6{{"Sϕ Codeptr "}}
+	p397_23{{"Sϕ Stack "}}
+	p397_23{{"Sϕ Stack "}}
+	p397_22{{"Sϕ Codeptr "}}
 end
 block_398 --> phi_397
 block_399 --> phi_397
 subgraph block_398["Block 398"]
 	direction TB
-	b398_30["offset__1213 imm_readULEB64"]
+	b398_28["offset__1211 imm_readULEB64"]
 	b398_18["index pop_u64"]
-	b398_31["val__1214 mach_readMemory64_u32_64"]
-	b398_28["extend__1211 U64_extend32_s"]
-	b398_29["eff__1190__1212 push_u64"]
-	b398_30 --> b398_18
-	b398_18 --> b398_31
-	b398_31 --> b398_28
-	b398_28 --> b398_29
+	b398_29["val__1212 mach_readMemory64_u32_64"]
+	b398_30["extend__1213 U64_extend32_s"]
+	b398_31["eff__1190__1214 push_u64"]
+	b398_28 --> b398_18
+	b398_18 --> b398_29
+	b398_29 --> b398_30
+	b398_30 --> b398_31
 end
 branch_396 --> block_398
 subgraph branch_396["Branch 396"]
-	br396_22["cond__1189 m_isMemory64"]
+	br396_11["cond__1189 m_isMemory64"]
 
 end
 block_400 --> branch_396
 subgraph block_400["Block 400"]
 	direction TB
-	b400_22["cond__1189 m_isMemory64"]
+	b400_11["cond__1189 m_isMemory64"]
 end
 phi_402 --> block_400
 subgraph phi_402["Phi 402"]
-	p402_20{{"Sϕ Codeptr "}}
-	p402_20{{"Sϕ Codeptr "}}
-	p402_20{{"Sϕ Codeptr "}}
-	p402_20{{"Sϕ Codeptr "}}
-	p402_19{"memindex ϕ"}
-	p402_19{"memindex ϕ"}
-	p402_19{"memindex ϕ"}
-	p402_20{{"Sϕ Codeptr "}}
-	p402_19{"memindex ϕ"}
+	p402_10{{"Sϕ Codeptr "}}
+	p402_10{{"Sϕ Codeptr "}}
+	p402_10{{"Sϕ Codeptr "}}
+	p402_10{{"Sϕ Codeptr "}}
+	p402_9{"memindex ϕ"}
+	p402_9{"memindex ϕ"}
+	p402_9{"memindex ϕ"}
+	p402_10{{"Sϕ Codeptr "}}
+	p402_9{"memindex ϕ"}
 end
 block_403 --> phi_402
 block_404 --> phi_402
@@ -20439,19 +20439,19 @@ subgraph block_403["Block 403"]
 end
 branch_401 --> block_403
 subgraph branch_401["Branch 401"]
-	br401_15["cond__1203 u8.!="]
+	br401_7["cond__1203 u8.!="]
 
 end
 block_405 --> branch_401
 subgraph block_405["Block 405"]
 	direction TB
-	b405_11["arg__1208 0x40u8"]
-	b405_10["arg__1206 0"]
-	b405_13["arg__1205 u8.&"]
-	b405_15["cond__1203 u8.!="]
-	b405_11 --> b405_10
-	b405_10 --> b405_13
-	b405_13 --> b405_15
+	b405_5["arg__1208 0x40u8"]
+	b405_4["arg__1206 0"]
+	b405_6["arg__1205 u8.&"]
+	b405_7["cond__1203 u8.!="]
+	b405_5 --> b405_4
+	b405_4 --> b405_6
+	b405_6 --> b405_7
 end
 subgraph block_404["Block 404"]
 	direction TB
@@ -20460,15 +20460,15 @@ end
 branch_401 --> block_404
 subgraph block_399["Block 399"]
 	direction TB
-	b399_36["offset__1218 imm_readULEB32"]
-	b399_0["index pop_u32"]
-	b399_33["val__1215 mach_readMemory32_u32_64"]
-	b399_34["extend__1216 U64_extend32_s"]
-	b399_35["eff__1196__1217 push_u64"]
-	b399_36 --> b399_0
-	b399_0 --> b399_33
-	b399_33 --> b399_34
+	b399_33["offset__1215 imm_readULEB32"]
+	b399_13["index pop_u32"]
+	b399_34["val__1216 mach_readMemory32_u32_64"]
+	b399_35["extend__1217 U64_extend32_s"]
+	b399_36["eff__1196__1218 push_u64"]
+	b399_33 --> b399_13
+	b399_13 --> b399_34
 	b399_34 --> b399_35
+	b399_35 --> b399_36
 end
 branch_396 --> block_399
 
@@ -20486,17 +20486,17 @@ if (cond__1203) {
 // phis: memindex <- memindex__1204__1227; memindex <- memindex__1210__1228; memindex <- memindex__1204__1227; memindex <- memindex__1210__1228; memindex <- memindex__1204__1227; memindex <- memindex__1210__1228; memindex <- memindex__1204__1227; memindex <- memindex__1210__1228; 
 def cond__1189 = m_isMemory64(memindex);
 if (cond__1189) {
-	def offset__1213 = imm_readULEB64();
+	def offset__1211 = imm_readULEB64();
 	def index = pop_u64();
-	def val__1214 = mach_readMemory64_u32_64(memindex, index, offset__1213);
-	def extend__1211 = U64_extend32_s(val__1214);
-	def eff__1190__1212 = push_u64(extend__1211);
+	def val__1212 = mach_readMemory64_u32_64(memindex, index, offset__1211);
+	def extend__1213 = U64_extend32_s(val__1212);
+	def eff__1190__1214 = push_u64(extend__1213);
 } else {
-	def offset__1218 = imm_readULEB32();
+	def offset__1215 = imm_readULEB32();
 	def index = pop_u32();
-	def val__1215 = mach_readMemory32_u32_64(memindex, index, offset__1218);
-	def extend__1216 = U64_extend32_s(val__1215);
-	def eff__1196__1217 = push_u64(extend__1216);
+	def val__1216 = mach_readMemory32_u32_64(memindex, index, offset__1215);
+	def extend__1217 = U64_extend32_s(val__1216);
+	def eff__1196__1218 = push_u64(extend__1217);
 }
 // phis: 
 </pre>`;
@@ -20626,68 +20626,68 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__1196__1249 push_u64"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__1196__1250 push_u64"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__1249 U64_extend32_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__1248 U64_extend32_s"]
+	34["val__1248 mach_readMemory32_u32_64"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__1247 mach_readMemory32_u32_64"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__1250 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	17 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	17["memindex__1204 imm_readULEB32"]
-	5 -. Codeptr .-> 17
-	15["cond__1203 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__1206 0"]
-	13["arg__1205 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__1208 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	17 --> 19
-	8 --> 19
-	8["memindex__1210 0u"]
-	29["eff__1190__1244 push_u64"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__1243 U64_extend32_s"]
-	31 --> 28
-	31["val__1246 mach_readMemory64_u32_64"]
-	19 --> 31
-	18 --> 31
+	33["offset__1247 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1204 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1203 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1206 0"]
+	6["arg__1205 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1208 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1210 0u"]
+	31["eff__1190__1246 push_u64"]
 	30 --> 31
-	30["offset__1245 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__1189 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__1245 U64_extend32_s"]
+	29 --> 30
+	29["val__1244 mach_readMemory64_u32_64"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__1243 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__1189 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I64_LOAD32_S_ul"]["post_surgery 413"] = ''
 window.traces["I64_LOAD32_S_ul"]["post_surgery 413"] += `<pre class='graph'>---
@@ -20695,116 +20695,116 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	6 -. Codeptr .-> 3
-	9 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2[/"Start"\\]
-	9{{"Sϕ Stack "}}
-	22 --> 9
-	29 --> 9
-	35 --> 9
-	35["eff__1196__1249 push_u64"]
+	1[\\"Finish"/]
+	22 -. Codeptr .-> 1
+	23 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	23{{"Sϕ Stack "}}
+	11 --> 23
+	31 --> 23
+	36 --> 23
+	36["eff__1196__1250 push_u64"]
+	35 --> 36
+	13 -. Stack .-> 36
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	35["extend__1249 U64_extend32_s"]
 	34 --> 35
-	0 -. Stack .-> 35
-	0["index pop_u32"]
-	2 -. Stack .-> 0
-	34["extend__1248 U64_extend32_s"]
+	34["val__1248 mach_readMemory32_u32_64"]
+	9 --> 34
+	13 --> 34
 	33 --> 34
-	33["val__1247 mach_readMemory32_u32_64"]
-	19 --> 33
-	0 --> 33
-	36 --> 33
-	36["offset__1250 imm_readULEB32"]
-	20 -. Codeptr .-> 36
-	20{{"Sϕ Codeptr "}}
-	15 --> 20
-	48 --> 20
-	5 --> 20
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	33["offset__1247 imm_readULEB32"]
+	10 -. Codeptr .-> 33
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	48 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	48["memindex__1204__1259 imm_readULEB32"]
-	5 -. Codeptr .-> 48
-	15["cond__1203 u8.!="]
-	13 --> 15
-	10 --> 15
-	10["arg__1206 0"]
-	13["arg__1205 u8.&"]
-	5 --> 13
-	11 --> 13
-	11["arg__1208 0x40u8"]
-	19{"memindex ϕ"}
-	15 --> 19
-	48 --> 19
-	50 --> 19
+	2 -. Codeptr .-> 48
+	7["cond__1203 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1206 0"]
+	6["arg__1205 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1208 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	48 --> 9
+	50 --> 9
 	50["memindex__1210__1260 0u"]
-	29["eff__1190__1244 push_u64"]
-	28 --> 29
-	18 -. Stack .-> 29
-	18["index pop_u64"]
-	2 -. Stack .-> 18
-	28["extend__1243 U64_extend32_s"]
-	31 --> 28
-	31["val__1246 mach_readMemory64_u32_64"]
-	19 --> 31
-	18 --> 31
+	31["eff__1190__1246 push_u64"]
 	30 --> 31
-	30["offset__1245 imm_readULEB64"]
-	20 -. Codeptr .-> 30
-	22["cond__1189 m_isMemory64"]
-	19 --> 22
-	6{{"Sϕ Codeptr "}}
-	22 --> 6
-	30 --> 6
-	36 --> 6
+	18 -. Stack .-> 31
+	18["index pop_u64"]
+	0 -. Stack .-> 18
+	30["extend__1245 U64_extend32_s"]
+	29 --> 30
+	29["val__1244 mach_readMemory64_u32_64"]
+	9 --> 29
+	18 --> 29
+	28 --> 29
+	28["offset__1243 imm_readULEB64"]
+	10 -. Codeptr .-> 28
+	11["cond__1189 m_isMemory64"]
+	9 --> 11
+	22{{"Sϕ Codeptr "}}
+	11 --> 22
+	28 --> 22
+	33 --> 22
 </pre>`;
 window.traces["I64_LOAD32_S"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_406["Block 406"]
 	direction TB
-	b406_3[\\"Finish"/]
+	b406_1[\\"Finish"/]
 end
 phi_408 --> block_406
 subgraph phi_408["Phi 408"]
-	p408_9{{"Sϕ Stack "}}
-	p408_9{{"Sϕ Stack "}}
-	p408_6{{"Sϕ Codeptr "}}
+	p408_23{{"Sϕ Stack "}}
+	p408_23{{"Sϕ Stack "}}
+	p408_22{{"Sϕ Codeptr "}}
 end
 block_409 --> phi_408
 block_410 --> phi_408
 subgraph block_409["Block 409"]
 	direction TB
-	b409_30["offset__1245 imm_readULEB64"]
+	b409_28["offset__1243 imm_readULEB64"]
 	b409_18["index pop_u64"]
-	b409_31["val__1246 mach_readMemory64_u32_64"]
-	b409_28["extend__1243 U64_extend32_s"]
-	b409_29["eff__1190__1244 push_u64"]
-	b409_30 --> b409_18
-	b409_18 --> b409_31
-	b409_31 --> b409_28
-	b409_28 --> b409_29
+	b409_29["val__1244 mach_readMemory64_u32_64"]
+	b409_30["extend__1245 U64_extend32_s"]
+	b409_31["eff__1190__1246 push_u64"]
+	b409_28 --> b409_18
+	b409_18 --> b409_29
+	b409_29 --> b409_30
+	b409_30 --> b409_31
 end
 branch_407 --> block_409
 subgraph branch_407["Branch 407"]
-	br407_22["cond__1189 m_isMemory64"]
+	br407_11["cond__1189 m_isMemory64"]
 
 end
 block_411 --> branch_407
 subgraph block_411["Block 411"]
 	direction TB
-	b411_22["cond__1189 m_isMemory64"]
+	b411_11["cond__1189 m_isMemory64"]
 end
 phi_413 --> block_411
 subgraph phi_413["Phi 413"]
-	p413_20{{"Sϕ Codeptr "}}
-	p413_20{{"Sϕ Codeptr "}}
-	p413_20{{"Sϕ Codeptr "}}
-	p413_20{{"Sϕ Codeptr "}}
-	p413_19{"memindex ϕ"}
-	p413_19{"memindex ϕ"}
-	p413_19{"memindex ϕ"}
-	p413_20{{"Sϕ Codeptr "}}
-	p413_19{"memindex ϕ"}
+	p413_10{{"Sϕ Codeptr "}}
+	p413_10{{"Sϕ Codeptr "}}
+	p413_10{{"Sϕ Codeptr "}}
+	p413_10{{"Sϕ Codeptr "}}
+	p413_9{"memindex ϕ"}
+	p413_9{"memindex ϕ"}
+	p413_9{"memindex ϕ"}
+	p413_10{{"Sϕ Codeptr "}}
+	p413_9{"memindex ϕ"}
 end
 block_414 --> phi_413
 block_415 --> phi_413
@@ -20814,19 +20814,19 @@ subgraph block_414["Block 414"]
 end
 branch_412 --> block_414
 subgraph branch_412["Branch 412"]
-	br412_15["cond__1203 u8.!="]
+	br412_7["cond__1203 u8.!="]
 
 end
 block_416 --> branch_412
 subgraph block_416["Block 416"]
 	direction TB
-	b416_11["arg__1208 0x40u8"]
-	b416_10["arg__1206 0"]
-	b416_13["arg__1205 u8.&"]
-	b416_15["cond__1203 u8.!="]
-	b416_11 --> b416_10
-	b416_10 --> b416_13
-	b416_13 --> b416_15
+	b416_5["arg__1208 0x40u8"]
+	b416_4["arg__1206 0"]
+	b416_6["arg__1205 u8.&"]
+	b416_7["cond__1203 u8.!="]
+	b416_5 --> b416_4
+	b416_4 --> b416_6
+	b416_6 --> b416_7
 end
 subgraph block_415["Block 415"]
 	direction TB
@@ -20835,15 +20835,15 @@ end
 branch_412 --> block_415
 subgraph block_410["Block 410"]
 	direction TB
-	b410_36["offset__1250 imm_readULEB32"]
-	b410_0["index pop_u32"]
-	b410_33["val__1247 mach_readMemory32_u32_64"]
-	b410_34["extend__1248 U64_extend32_s"]
-	b410_35["eff__1196__1249 push_u64"]
-	b410_36 --> b410_0
-	b410_0 --> b410_33
-	b410_33 --> b410_34
+	b410_33["offset__1247 imm_readULEB32"]
+	b410_13["index pop_u32"]
+	b410_34["val__1248 mach_readMemory32_u32_64"]
+	b410_35["extend__1249 U64_extend32_s"]
+	b410_36["eff__1196__1250 push_u64"]
+	b410_33 --> b410_13
+	b410_13 --> b410_34
 	b410_34 --> b410_35
+	b410_35 --> b410_36
 end
 branch_407 --> block_410
 
@@ -20861,17 +20861,17 @@ if (cond__1203) {
 // phis: memindex <- memindex__1204__1259; memindex <- memindex__1210__1260; memindex <- memindex__1204__1259; memindex <- memindex__1210__1260; memindex <- memindex__1204__1259; memindex <- memindex__1210__1260; memindex <- memindex__1204__1259; memindex <- memindex__1210__1260; 
 def cond__1189 = m_isMemory64(memindex);
 if (cond__1189) {
-	def offset__1245 = imm_readULEB64();
+	def offset__1243 = imm_readULEB64();
 	def index = pop_u64();
-	def val__1246 = mach_readMemory64_u32_64(memindex, index, offset__1245);
-	def extend__1243 = U64_extend32_s(val__1246);
-	def eff__1190__1244 = push_u64(extend__1243);
+	def val__1244 = mach_readMemory64_u32_64(memindex, index, offset__1243);
+	def extend__1245 = U64_extend32_s(val__1244);
+	def eff__1190__1246 = push_u64(extend__1245);
 } else {
-	def offset__1250 = imm_readULEB32();
+	def offset__1247 = imm_readULEB32();
 	def index = pop_u32();
-	def val__1247 = mach_readMemory32_u32_64(memindex, index, offset__1250);
-	def extend__1248 = U64_extend32_s(val__1247);
-	def eff__1196__1249 = push_u64(extend__1248);
+	def val__1248 = mach_readMemory32_u32_64(memindex, index, offset__1247);
+	def extend__1249 = U64_extend32_s(val__1248);
+	def eff__1196__1250 = push_u64(extend__1249);
 }
 // phis: 
 </pre>`;
@@ -21345,64 +21345,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__1281__1299 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__1281__1300 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__1299 mach_readMemory32_u32_64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__1298 mach_readMemory32_u32_64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__1300 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__1288 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__1287 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1290 0"]
-	11["arg__1289 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__1292 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__1294 0u"]
+	30["offset__1298 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1288 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1287 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1290 0"]
+	6["arg__1289 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1292 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1294 0u"]
 	28["eff__1276__1297 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__1296 mach_readMemory64_u32_64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__1295 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__1275 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__1275 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD32_U"]["post_surgery 424"] = ''
 window.traces["I64_LOAD32_U"]["post_surgery 424"] += `<pre class='graph'>---
@@ -21410,110 +21410,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__1281__1299 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__1281__1300 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__1299 mach_readMemory32_u32_64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__1298 mach_readMemory32_u32_64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__1300 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__1298 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__1288__1307 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__1287 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1290 0"]
-	11["arg__1289 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__1292 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__1287 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1290 0"]
+	6["arg__1289 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1292 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__1294__1308 0u"]
 	28["eff__1276__1297 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__1296 mach_readMemory64_u32_64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__1295 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__1275 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__1275 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD32_U"]["schedulerMermaid"] = ''
 window.traces["I64_LOAD32_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_417["Block 417"]
 	direction TB
-	b417_3[\\"Finish"/]
+	b417_1[\\"Finish"/]
 end
 phi_419 --> block_417
 subgraph phi_419["Phi 419"]
-	p419_2{{"Sϕ Stack "}}
-	p419_21{{"Sϕ Codeptr "}}
-	p419_2{{"Sϕ Stack "}}
+	p419_21{{"Sϕ Stack "}}
+	p419_21{{"Sϕ Stack "}}
+	p419_20{{"Sϕ Codeptr "}}
 end
 block_420 --> phi_419
 block_421 --> phi_419
 subgraph block_420["Block 420"]
 	direction TB
 	b420_26["offset__1295 imm_readULEB64"]
-	b420_12["index pop_u64"]
+	b420_17["index pop_u64"]
 	b420_27["val__1296 mach_readMemory64_u32_64"]
 	b420_28["eff__1276__1297 push_u64"]
-	b420_26 --> b420_12
-	b420_12 --> b420_27
+	b420_26 --> b420_17
+	b420_17 --> b420_27
 	b420_27 --> b420_28
 end
 branch_418 --> block_420
 subgraph branch_418["Branch 418"]
-	br418_19["cond__1275 m_isMemory64"]
+	br418_11["cond__1275 m_isMemory64"]
 
 end
 block_422 --> branch_418
 subgraph block_422["Block 422"]
 	direction TB
-	b422_19["cond__1275 m_isMemory64"]
+	b422_11["cond__1275 m_isMemory64"]
 end
 phi_424 --> block_422
 subgraph phi_424["Phi 424"]
-	p424_17{{"Sϕ Codeptr "}}
-	p424_17{{"Sϕ Codeptr "}}
-	p424_17{{"Sϕ Codeptr "}}
-	p424_17{{"Sϕ Codeptr "}}
-	p424_15{"memindex ϕ"}
-	p424_15{"memindex ϕ"}
-	p424_15{"memindex ϕ"}
-	p424_15{"memindex ϕ"}
-	p424_17{{"Sϕ Codeptr "}}
+	p424_10{{"Sϕ Codeptr "}}
+	p424_10{{"Sϕ Codeptr "}}
+	p424_10{{"Sϕ Codeptr "}}
+	p424_10{{"Sϕ Codeptr "}}
+	p424_9{"memindex ϕ"}
+	p424_9{"memindex ϕ"}
+	p424_9{"memindex ϕ"}
+	p424_10{{"Sϕ Codeptr "}}
+	p424_9{"memindex ϕ"}
 end
 block_425 --> phi_424
 block_426 --> phi_424
@@ -21523,19 +21523,19 @@ subgraph block_425["Block 425"]
 end
 branch_423 --> block_425
 subgraph branch_423["Branch 423"]
-	br423_13["cond__1287 u8.!="]
+	br423_7["cond__1287 u8.!="]
 
 end
 block_427 --> branch_423
 subgraph block_427["Block 427"]
 	direction TB
-	b427_8["arg__1292 0x40u8"]
-	b427_7["arg__1290 0"]
-	b427_11["arg__1289 u8.&"]
-	b427_13["cond__1287 u8.!="]
-	b427_8 --> b427_7
-	b427_7 --> b427_11
-	b427_11 --> b427_13
+	b427_5["arg__1292 0x40u8"]
+	b427_4["arg__1290 0"]
+	b427_6["arg__1289 u8.&"]
+	b427_7["cond__1287 u8.!="]
+	b427_5 --> b427_4
+	b427_4 --> b427_6
+	b427_6 --> b427_7
 end
 subgraph block_426["Block 426"]
 	direction TB
@@ -21544,13 +21544,13 @@ end
 branch_423 --> block_426
 subgraph block_421["Block 421"]
 	direction TB
-	b421_32["offset__1300 imm_readULEB32"]
-	b421_0["index pop_u32"]
-	b421_30["val__1298 mach_readMemory32_u32_64"]
-	b421_31["eff__1281__1299 push_u64"]
-	b421_32 --> b421_0
-	b421_0 --> b421_30
-	b421_30 --> b421_31
+	b421_30["offset__1298 imm_readULEB32"]
+	b421_13["index pop_u32"]
+	b421_31["val__1299 mach_readMemory32_u32_64"]
+	b421_32["eff__1281__1300 push_u64"]
+	b421_30 --> b421_13
+	b421_13 --> b421_31
+	b421_31 --> b421_32
 end
 branch_418 --> block_421
 
@@ -21573,10 +21573,10 @@ if (cond__1275) {
 	def val__1296 = mach_readMemory64_u32_64(memindex, index, offset__1295);
 	def eff__1276__1297 = push_u64(val__1296);
 } else {
-	def offset__1300 = imm_readULEB32();
+	def offset__1298 = imm_readULEB32();
 	def index = pop_u32();
-	def val__1298 = mach_readMemory32_u32_64(memindex, index, offset__1300);
-	def eff__1281__1299 = push_u64(val__1298);
+	def val__1299 = mach_readMemory32_u32_64(memindex, index, offset__1298);
+	def eff__1281__1300 = push_u64(val__1299);
 }
 // phis: 
 </pre>`;
@@ -21698,64 +21698,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__1281__1327 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__1281__1328 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__1327 mach_readMemory32_u32_64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__1326 mach_readMemory32_u32_64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__1328 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	14 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	14["memindex__1288 imm_readULEB32"]
-	4 -. Codeptr .-> 14
-	13["cond__1287 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1290 0"]
-	11["arg__1289 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__1292 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	5 --> 15
-	5["memindex__1294 0u"]
+	30["offset__1326 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1288 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1287 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1290 0"]
+	6["arg__1289 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1292 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1294 0u"]
 	28["eff__1276__1325 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__1324 mach_readMemory64_u32_64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__1323 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__1275 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__1275 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD32_U_ul"]["post_surgery 435"] = ''
 window.traces["I64_LOAD32_U_ul"]["post_surgery 435"] += `<pre class='graph'>---
@@ -21763,110 +21763,110 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	21 -. Codeptr .-> 3
-	2 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
-	2{{"Sϕ Stack "}}
-	19 --> 2
-	28 --> 2
-	31 --> 2
-	31["eff__1281__1327 push_u64"]
+	1[\\"Finish"/]
+	20 -. Codeptr .-> 1
+	21 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	21{{"Sϕ Stack "}}
+	11 --> 21
+	28 --> 21
+	32 --> 21
+	32["eff__1281__1328 push_u64"]
+	31 --> 32
+	13 -. Stack .-> 32
+	13["index pop_u32"]
+	0 -. Stack .-> 13
+	31["val__1327 mach_readMemory32_u32_64"]
+	9 --> 31
+	13 --> 31
 	30 --> 31
-	0 -. Stack .-> 31
-	0["index pop_u32"]
-	1 -. Stack .-> 0
-	30["val__1326 mach_readMemory32_u32_64"]
-	15 --> 30
-	0 --> 30
-	32 --> 30
-	32["offset__1328 imm_readULEB32"]
-	17 -. Codeptr .-> 32
-	17{{"Sϕ Codeptr "}}
-	13 --> 17
-	42 --> 17
-	4 --> 17
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
+	30["offset__1326 imm_readULEB32"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	42 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	42["memindex__1288__1335 imm_readULEB32"]
-	4 -. Codeptr .-> 42
-	13["cond__1287 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1290 0"]
-	11["arg__1289 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__1292 0x40u8"]
-	15{"memindex ϕ"}
-	13 --> 15
-	42 --> 15
-	44 --> 15
+	2 -. Codeptr .-> 42
+	7["cond__1287 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1290 0"]
+	6["arg__1289 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1292 0x40u8"]
+	9{"memindex ϕ"}
+	7 --> 9
+	42 --> 9
+	44 --> 9
 	44["memindex__1294__1336 0u"]
 	28["eff__1276__1325 push_u64"]
 	27 --> 28
-	12 -. Stack .-> 28
-	12["index pop_u64"]
-	1 -. Stack .-> 12
+	17 -. Stack .-> 28
+	17["index pop_u64"]
+	0 -. Stack .-> 17
 	27["val__1324 mach_readMemory64_u32_64"]
-	15 --> 27
-	12 --> 27
+	9 --> 27
+	17 --> 27
 	26 --> 27
 	26["offset__1323 imm_readULEB64"]
-	17 -. Codeptr .-> 26
-	19["cond__1275 m_isMemory64"]
-	15 --> 19
-	21{{"Sϕ Codeptr "}}
-	19 --> 21
-	26 --> 21
-	32 --> 21
+	10 -. Codeptr .-> 26
+	11["cond__1275 m_isMemory64"]
+	9 --> 11
+	20{{"Sϕ Codeptr "}}
+	11 --> 20
+	26 --> 20
+	30 --> 20
 </pre>`;
 window.traces["I64_LOAD32_U"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_428["Block 428"]
 	direction TB
-	b428_3[\\"Finish"/]
+	b428_1[\\"Finish"/]
 end
 phi_430 --> block_428
 subgraph phi_430["Phi 430"]
-	p430_2{{"Sϕ Stack "}}
-	p430_21{{"Sϕ Codeptr "}}
-	p430_2{{"Sϕ Stack "}}
+	p430_21{{"Sϕ Stack "}}
+	p430_21{{"Sϕ Stack "}}
+	p430_20{{"Sϕ Codeptr "}}
 end
 block_431 --> phi_430
 block_432 --> phi_430
 subgraph block_431["Block 431"]
 	direction TB
 	b431_26["offset__1323 imm_readULEB64"]
-	b431_12["index pop_u64"]
+	b431_17["index pop_u64"]
 	b431_27["val__1324 mach_readMemory64_u32_64"]
 	b431_28["eff__1276__1325 push_u64"]
-	b431_26 --> b431_12
-	b431_12 --> b431_27
+	b431_26 --> b431_17
+	b431_17 --> b431_27
 	b431_27 --> b431_28
 end
 branch_429 --> block_431
 subgraph branch_429["Branch 429"]
-	br429_19["cond__1275 m_isMemory64"]
+	br429_11["cond__1275 m_isMemory64"]
 
 end
 block_433 --> branch_429
 subgraph block_433["Block 433"]
 	direction TB
-	b433_19["cond__1275 m_isMemory64"]
+	b433_11["cond__1275 m_isMemory64"]
 end
 phi_435 --> block_433
 subgraph phi_435["Phi 435"]
-	p435_17{{"Sϕ Codeptr "}}
-	p435_17{{"Sϕ Codeptr "}}
-	p435_17{{"Sϕ Codeptr "}}
-	p435_17{{"Sϕ Codeptr "}}
-	p435_15{"memindex ϕ"}
-	p435_15{"memindex ϕ"}
-	p435_15{"memindex ϕ"}
-	p435_15{"memindex ϕ"}
-	p435_17{{"Sϕ Codeptr "}}
+	p435_10{{"Sϕ Codeptr "}}
+	p435_10{{"Sϕ Codeptr "}}
+	p435_10{{"Sϕ Codeptr "}}
+	p435_10{{"Sϕ Codeptr "}}
+	p435_9{"memindex ϕ"}
+	p435_9{"memindex ϕ"}
+	p435_9{"memindex ϕ"}
+	p435_10{{"Sϕ Codeptr "}}
+	p435_9{"memindex ϕ"}
 end
 block_436 --> phi_435
 block_437 --> phi_435
@@ -21876,19 +21876,19 @@ subgraph block_436["Block 436"]
 end
 branch_434 --> block_436
 subgraph branch_434["Branch 434"]
-	br434_13["cond__1287 u8.!="]
+	br434_7["cond__1287 u8.!="]
 
 end
 block_438 --> branch_434
 subgraph block_438["Block 438"]
 	direction TB
-	b438_8["arg__1292 0x40u8"]
-	b438_7["arg__1290 0"]
-	b438_11["arg__1289 u8.&"]
-	b438_13["cond__1287 u8.!="]
-	b438_8 --> b438_7
-	b438_7 --> b438_11
-	b438_11 --> b438_13
+	b438_5["arg__1292 0x40u8"]
+	b438_4["arg__1290 0"]
+	b438_6["arg__1289 u8.&"]
+	b438_7["cond__1287 u8.!="]
+	b438_5 --> b438_4
+	b438_4 --> b438_6
+	b438_6 --> b438_7
 end
 subgraph block_437["Block 437"]
 	direction TB
@@ -21897,13 +21897,13 @@ end
 branch_434 --> block_437
 subgraph block_432["Block 432"]
 	direction TB
-	b432_32["offset__1328 imm_readULEB32"]
-	b432_0["index pop_u32"]
-	b432_30["val__1326 mach_readMemory32_u32_64"]
-	b432_31["eff__1281__1327 push_u64"]
-	b432_32 --> b432_0
-	b432_0 --> b432_30
-	b432_30 --> b432_31
+	b432_30["offset__1326 imm_readULEB32"]
+	b432_13["index pop_u32"]
+	b432_31["val__1327 mach_readMemory32_u32_64"]
+	b432_32["eff__1281__1328 push_u64"]
+	b432_30 --> b432_13
+	b432_13 --> b432_31
+	b432_31 --> b432_32
 end
 branch_429 --> block_432
 
@@ -21926,10 +21926,10 @@ if (cond__1275) {
 	def val__1324 = mach_readMemory64_u32_64(memindex, index, offset__1323);
 	def eff__1276__1325 = push_u64(val__1324);
 } else {
-	def offset__1328 = imm_readULEB32();
+	def offset__1326 = imm_readULEB32();
 	def index = pop_u32();
-	def val__1326 = mach_readMemory32_u32_64(memindex, index, offset__1328);
-	def eff__1281__1327 = push_u64(val__1326);
+	def val__1327 = mach_readMemory32_u32_64(memindex, index, offset__1326);
+	def eff__1281__1328 = push_u64(val__1327);
 }
 // phis: 
 </pre>`;
@@ -22401,67 +22401,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1357__1376 mach_writeMemory32_u32"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u32"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u32"]
+	0 -. Stack .-> 11
 	30["offset__1374 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1364 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1363 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1366 0"]
-	11["arg__1365 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1368 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1364 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1363 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1366 0"]
+	6["arg__1365 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1368 0x40u8"]
 	31["index__1375 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1370 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1370 0u"]
 	28["eff__1352__1373 mach_writeMemory64_u32"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1371 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1372 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1351 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1351 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -22471,67 +22471,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1357__1376 mach_writeMemory32_u32"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u32"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u32"]
+	0 -. Stack .-> 11
 	30["offset__1374 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1364__1385 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1363 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1366 0"]
-	11["arg__1365 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1368 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1363 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1366 0"]
+	6["arg__1365 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1368 0x40u8"]
 	31["index__1375 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1370__1386 0u"]
 	28["eff__1352__1373 mach_writeMemory64_u32"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1371 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1372 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1351 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1351 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -22539,15 +22539,15 @@ window.traces["I32_STORE"]["schedulerMermaid"] = ''
 window.traces["I32_STORE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_439["Block 439"]
 	direction TB
-	b439_4[\\"Finish"/]
+	b439_1[\\"Finish"/]
 end
 phi_441 --> block_439
 subgraph phi_441["Phi 441"]
-	p441_1{{"Sϕ Memory "}}
-	p441_21{{"Sϕ Stack "}}
-	p441_21{{"Sϕ Stack "}}
+	p441_21{{"Sϕ Memory "}}
+	p441_20{{"Sϕ Stack "}}
+	p441_21{{"Sϕ Memory "}}
+	p441_20{{"Sϕ Stack "}}
 	p441_19{{"Sϕ Codeptr "}}
-	p441_1{{"Sϕ Memory "}}
 end
 block_442 --> phi_441
 block_443 --> phi_441
@@ -22561,28 +22561,28 @@ subgraph block_442["Block 442"]
 end
 branch_440 --> block_442
 subgraph branch_440["Branch 440"]
-	br440_20["cond__1351 m_isMemory64"]
+	br440_12["cond__1351 m_isMemory64"]
 
 end
 block_444 --> branch_440
 subgraph block_444["Block 444"]
 	direction TB
-	b444_17["val pop_u32"]
-	b444_20["cond__1351 m_isMemory64"]
-	b444_17 --> b444_20
+	b444_11["val pop_u32"]
+	b444_12["cond__1351 m_isMemory64"]
+	b444_11 --> b444_12
 end
 phi_446 --> block_444
 subgraph phi_446["Phi 446"]
-	p446_16{{"Sϕ Codeptr "}}
-	p446_16{{"Sϕ Codeptr "}}
-	p446_16{{"Sϕ Codeptr "}}
-	p446_16{{"Sϕ Codeptr "}}
-	p446_15{"memindex ϕ"}
-	p446_15{"memindex ϕ"}
-	p446_15{"memindex ϕ"}
-	p446_15{"memindex ϕ"}
-	p446_15{"memindex ϕ"}
-	p446_16{{"Sϕ Codeptr "}}
+	p446_10{{"Sϕ Codeptr "}}
+	p446_10{{"Sϕ Codeptr "}}
+	p446_10{{"Sϕ Codeptr "}}
+	p446_10{{"Sϕ Codeptr "}}
+	p446_9{"memindex ϕ"}
+	p446_9{"memindex ϕ"}
+	p446_9{"memindex ϕ"}
+	p446_9{"memindex ϕ"}
+	p446_10{{"Sϕ Codeptr "}}
+	p446_9{"memindex ϕ"}
 end
 block_447 --> phi_446
 block_448 --> phi_446
@@ -22592,19 +22592,19 @@ subgraph block_447["Block 447"]
 end
 branch_445 --> block_447
 subgraph branch_445["Branch 445"]
-	br445_13["cond__1363 u8.!="]
+	br445_7["cond__1363 u8.!="]
 
 end
 block_449 --> branch_445
 subgraph block_449["Block 449"]
 	direction TB
-	b449_8["arg__1368 0x40u8"]
-	b449_7["arg__1366 0"]
-	b449_11["arg__1365 u8.&"]
-	b449_13["cond__1363 u8.!="]
-	b449_8 --> b449_7
-	b449_7 --> b449_11
-	b449_11 --> b449_13
+	b449_5["arg__1368 0x40u8"]
+	b449_4["arg__1366 0"]
+	b449_6["arg__1365 u8.&"]
+	b449_7["cond__1363 u8.!="]
+	b449_5 --> b449_4
+	b449_4 --> b449_6
+	b449_6 --> b449_7
 end
 subgraph block_448["Block 448"]
 	direction TB
@@ -22767,67 +22767,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1357__1408 mach_writeMemory32_u32"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u32"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u32"]
+	0 -. Stack .-> 11
 	30["offset__1406 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1364 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1363 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1366 0"]
-	11["arg__1365 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1368 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1364 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1363 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1366 0"]
+	6["arg__1365 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1368 0x40u8"]
 	31["index__1407 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1370 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1370 0u"]
 	28["eff__1352__1405 mach_writeMemory64_u32"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1403 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1404 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1351 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1351 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -22837,67 +22837,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1357__1408 mach_writeMemory32_u32"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u32"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u32"]
+	0 -. Stack .-> 11
 	30["offset__1406 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1364__1417 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1363 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1366 0"]
-	11["arg__1365 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1368 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1363 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1366 0"]
+	6["arg__1365 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1368 0x40u8"]
 	31["index__1407 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1370__1418 0u"]
 	28["eff__1352__1405 mach_writeMemory64_u32"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1403 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1404 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1351 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1351 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -22905,15 +22905,15 @@ window.traces["I32_STORE"]["unlem_scheduler"] = ''
 window.traces["I32_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_450["Block 450"]
 	direction TB
-	b450_4[\\"Finish"/]
+	b450_1[\\"Finish"/]
 end
 phi_452 --> block_450
 subgraph phi_452["Phi 452"]
-	p452_1{{"Sϕ Memory "}}
-	p452_21{{"Sϕ Stack "}}
-	p452_21{{"Sϕ Stack "}}
+	p452_21{{"Sϕ Memory "}}
+	p452_20{{"Sϕ Stack "}}
+	p452_21{{"Sϕ Memory "}}
+	p452_20{{"Sϕ Stack "}}
 	p452_19{{"Sϕ Codeptr "}}
-	p452_1{{"Sϕ Memory "}}
 end
 block_453 --> phi_452
 block_454 --> phi_452
@@ -22927,28 +22927,28 @@ subgraph block_453["Block 453"]
 end
 branch_451 --> block_453
 subgraph branch_451["Branch 451"]
-	br451_20["cond__1351 m_isMemory64"]
+	br451_12["cond__1351 m_isMemory64"]
 
 end
 block_455 --> branch_451
 subgraph block_455["Block 455"]
 	direction TB
-	b455_17["val pop_u32"]
-	b455_20["cond__1351 m_isMemory64"]
-	b455_17 --> b455_20
+	b455_11["val pop_u32"]
+	b455_12["cond__1351 m_isMemory64"]
+	b455_11 --> b455_12
 end
 phi_457 --> block_455
 subgraph phi_457["Phi 457"]
-	p457_16{{"Sϕ Codeptr "}}
-	p457_16{{"Sϕ Codeptr "}}
-	p457_16{{"Sϕ Codeptr "}}
-	p457_16{{"Sϕ Codeptr "}}
-	p457_15{"memindex ϕ"}
-	p457_15{"memindex ϕ"}
-	p457_15{"memindex ϕ"}
-	p457_15{"memindex ϕ"}
-	p457_15{"memindex ϕ"}
-	p457_16{{"Sϕ Codeptr "}}
+	p457_10{{"Sϕ Codeptr "}}
+	p457_10{{"Sϕ Codeptr "}}
+	p457_10{{"Sϕ Codeptr "}}
+	p457_10{{"Sϕ Codeptr "}}
+	p457_9{"memindex ϕ"}
+	p457_9{"memindex ϕ"}
+	p457_9{"memindex ϕ"}
+	p457_9{"memindex ϕ"}
+	p457_10{{"Sϕ Codeptr "}}
+	p457_9{"memindex ϕ"}
 end
 block_458 --> phi_457
 block_459 --> phi_457
@@ -22958,19 +22958,19 @@ subgraph block_458["Block 458"]
 end
 branch_456 --> block_458
 subgraph branch_456["Branch 456"]
-	br456_13["cond__1363 u8.!="]
+	br456_7["cond__1363 u8.!="]
 
 end
 block_460 --> branch_456
 subgraph block_460["Block 460"]
 	direction TB
-	b460_8["arg__1368 0x40u8"]
-	b460_7["arg__1366 0"]
-	b460_11["arg__1365 u8.&"]
-	b460_13["cond__1363 u8.!="]
-	b460_8 --> b460_7
-	b460_7 --> b460_11
-	b460_11 --> b460_13
+	b460_5["arg__1368 0x40u8"]
+	b460_4["arg__1366 0"]
+	b460_6["arg__1365 u8.&"]
+	b460_7["cond__1363 u8.!="]
+	b460_5 --> b460_4
+	b460_4 --> b460_6
+	b460_6 --> b460_7
 end
 subgraph block_459["Block 459"]
 	direction TB
@@ -23486,67 +23486,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1441__1460 mach_writeMemory32_u64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__1458 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1448 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1447 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1450 0"]
-	11["arg__1449 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1452 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1448 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1447 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1450 0"]
+	6["arg__1449 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1452 0x40u8"]
 	31["index__1459 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1454 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1454 0u"]
 	28["eff__1436__1457 mach_writeMemory64_u64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1455 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1456 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1435 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1435 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -23556,67 +23556,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1441__1460 mach_writeMemory32_u64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__1458 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1448__1469 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1447 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1450 0"]
-	11["arg__1449 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1452 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1447 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1450 0"]
+	6["arg__1449 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1452 0x40u8"]
 	31["index__1459 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1454__1470 0u"]
 	28["eff__1436__1457 mach_writeMemory64_u64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1455 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1456 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1435 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1435 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -23624,15 +23624,15 @@ window.traces["I64_STORE"]["schedulerMermaid"] = ''
 window.traces["I64_STORE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_461["Block 461"]
 	direction TB
-	b461_4[\\"Finish"/]
+	b461_1[\\"Finish"/]
 end
 phi_463 --> block_461
 subgraph phi_463["Phi 463"]
-	p463_1{{"Sϕ Memory "}}
-	p463_21{{"Sϕ Stack "}}
-	p463_21{{"Sϕ Stack "}}
+	p463_21{{"Sϕ Memory "}}
+	p463_20{{"Sϕ Stack "}}
+	p463_21{{"Sϕ Memory "}}
+	p463_20{{"Sϕ Stack "}}
 	p463_19{{"Sϕ Codeptr "}}
-	p463_1{{"Sϕ Memory "}}
 end
 block_464 --> phi_463
 block_465 --> phi_463
@@ -23646,28 +23646,28 @@ subgraph block_464["Block 464"]
 end
 branch_462 --> block_464
 subgraph branch_462["Branch 462"]
-	br462_20["cond__1435 m_isMemory64"]
+	br462_12["cond__1435 m_isMemory64"]
 
 end
 block_466 --> branch_462
 subgraph block_466["Block 466"]
 	direction TB
-	b466_17["val pop_u64"]
-	b466_20["cond__1435 m_isMemory64"]
-	b466_17 --> b466_20
+	b466_11["val pop_u64"]
+	b466_12["cond__1435 m_isMemory64"]
+	b466_11 --> b466_12
 end
 phi_468 --> block_466
 subgraph phi_468["Phi 468"]
-	p468_16{{"Sϕ Codeptr "}}
-	p468_16{{"Sϕ Codeptr "}}
-	p468_16{{"Sϕ Codeptr "}}
-	p468_16{{"Sϕ Codeptr "}}
-	p468_15{"memindex ϕ"}
-	p468_15{"memindex ϕ"}
-	p468_15{"memindex ϕ"}
-	p468_15{"memindex ϕ"}
-	p468_15{"memindex ϕ"}
-	p468_16{{"Sϕ Codeptr "}}
+	p468_10{{"Sϕ Codeptr "}}
+	p468_10{{"Sϕ Codeptr "}}
+	p468_10{{"Sϕ Codeptr "}}
+	p468_10{{"Sϕ Codeptr "}}
+	p468_9{"memindex ϕ"}
+	p468_9{"memindex ϕ"}
+	p468_9{"memindex ϕ"}
+	p468_9{"memindex ϕ"}
+	p468_10{{"Sϕ Codeptr "}}
+	p468_9{"memindex ϕ"}
 end
 block_469 --> phi_468
 block_470 --> phi_468
@@ -23677,19 +23677,19 @@ subgraph block_469["Block 469"]
 end
 branch_467 --> block_469
 subgraph branch_467["Branch 467"]
-	br467_13["cond__1447 u8.!="]
+	br467_7["cond__1447 u8.!="]
 
 end
 block_471 --> branch_467
 subgraph block_471["Block 471"]
 	direction TB
-	b471_8["arg__1452 0x40u8"]
-	b471_7["arg__1450 0"]
-	b471_11["arg__1449 u8.&"]
-	b471_13["cond__1447 u8.!="]
-	b471_8 --> b471_7
-	b471_7 --> b471_11
-	b471_11 --> b471_13
+	b471_5["arg__1452 0x40u8"]
+	b471_4["arg__1450 0"]
+	b471_6["arg__1449 u8.&"]
+	b471_7["cond__1447 u8.!="]
+	b471_5 --> b471_4
+	b471_4 --> b471_6
+	b471_6 --> b471_7
 end
 subgraph block_470["Block 470"]
 	direction TB
@@ -23852,67 +23852,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1441__1492 mach_writeMemory32_u64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__1490 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1448 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1447 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1450 0"]
-	11["arg__1449 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1452 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1448 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1447 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1450 0"]
+	6["arg__1449 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1452 0x40u8"]
 	31["index__1491 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1454 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1454 0u"]
 	28["eff__1436__1489 mach_writeMemory64_u64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1487 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1488 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1435 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1435 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -23922,67 +23922,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1441__1492 mach_writeMemory32_u64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__1490 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1448__1501 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1447 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1450 0"]
-	11["arg__1449 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1452 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1447 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1450 0"]
+	6["arg__1449 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1452 0x40u8"]
 	31["index__1491 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1454__1502 0u"]
 	28["eff__1436__1489 mach_writeMemory64_u64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1487 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1488 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1435 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1435 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -23990,15 +23990,15 @@ window.traces["I64_STORE"]["unlem_scheduler"] = ''
 window.traces["I64_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_472["Block 472"]
 	direction TB
-	b472_4[\\"Finish"/]
+	b472_1[\\"Finish"/]
 end
 phi_474 --> block_472
 subgraph phi_474["Phi 474"]
-	p474_1{{"Sϕ Memory "}}
-	p474_21{{"Sϕ Stack "}}
-	p474_21{{"Sϕ Stack "}}
+	p474_21{{"Sϕ Memory "}}
+	p474_20{{"Sϕ Stack "}}
+	p474_21{{"Sϕ Memory "}}
+	p474_20{{"Sϕ Stack "}}
 	p474_19{{"Sϕ Codeptr "}}
-	p474_1{{"Sϕ Memory "}}
 end
 block_475 --> phi_474
 block_476 --> phi_474
@@ -24012,28 +24012,28 @@ subgraph block_475["Block 475"]
 end
 branch_473 --> block_475
 subgraph branch_473["Branch 473"]
-	br473_20["cond__1435 m_isMemory64"]
+	br473_12["cond__1435 m_isMemory64"]
 
 end
 block_477 --> branch_473
 subgraph block_477["Block 477"]
 	direction TB
-	b477_17["val pop_u64"]
-	b477_20["cond__1435 m_isMemory64"]
-	b477_17 --> b477_20
+	b477_11["val pop_u64"]
+	b477_12["cond__1435 m_isMemory64"]
+	b477_11 --> b477_12
 end
 phi_479 --> block_477
 subgraph phi_479["Phi 479"]
-	p479_16{{"Sϕ Codeptr "}}
-	p479_16{{"Sϕ Codeptr "}}
-	p479_16{{"Sϕ Codeptr "}}
-	p479_16{{"Sϕ Codeptr "}}
-	p479_15{"memindex ϕ"}
-	p479_15{"memindex ϕ"}
-	p479_15{"memindex ϕ"}
-	p479_15{"memindex ϕ"}
-	p479_15{"memindex ϕ"}
-	p479_16{{"Sϕ Codeptr "}}
+	p479_10{{"Sϕ Codeptr "}}
+	p479_10{{"Sϕ Codeptr "}}
+	p479_10{{"Sϕ Codeptr "}}
+	p479_10{{"Sϕ Codeptr "}}
+	p479_9{"memindex ϕ"}
+	p479_9{"memindex ϕ"}
+	p479_9{"memindex ϕ"}
+	p479_9{"memindex ϕ"}
+	p479_10{{"Sϕ Codeptr "}}
+	p479_9{"memindex ϕ"}
 end
 block_480 --> phi_479
 block_481 --> phi_479
@@ -24043,19 +24043,19 @@ subgraph block_480["Block 480"]
 end
 branch_478 --> block_480
 subgraph branch_478["Branch 478"]
-	br478_13["cond__1447 u8.!="]
+	br478_7["cond__1447 u8.!="]
 
 end
 block_482 --> branch_478
 subgraph block_482["Block 482"]
 	direction TB
-	b482_8["arg__1452 0x40u8"]
-	b482_7["arg__1450 0"]
-	b482_11["arg__1449 u8.&"]
-	b482_13["cond__1447 u8.!="]
-	b482_8 --> b482_7
-	b482_7 --> b482_11
-	b482_11 --> b482_13
+	b482_5["arg__1452 0x40u8"]
+	b482_4["arg__1450 0"]
+	b482_6["arg__1449 u8.&"]
+	b482_7["cond__1447 u8.!="]
+	b482_5 --> b482_4
+	b482_4 --> b482_6
+	b482_6 --> b482_7
 end
 subgraph block_481["Block 481"]
 	direction TB
@@ -24520,52 +24520,52 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	16 -. Codeptr .-> 3
-	18 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
+	1[\\"Finish"/]
+	17 -. Codeptr .-> 1
+	18 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
 	18{{"Sϕ Stack "}}
-	17 --> 18
+	12 --> 18
 	24 --> 18
 	27 --> 18
 	27["index__1542 pop_u32"]
-	15 -. Stack .-> 27
-	15["val pop_f32"]
-	1 -. Stack .-> 15
+	11 -. Stack .-> 27
+	11["val pop_f32"]
+	0 -. Stack .-> 11
 	24["index__1540 pop_u64"]
-	15 -. Stack .-> 24
-	17["cond__1519 m_isMemory64"]
-	13 --> 17
-	13{"memindex ϕ"}
-	11 --> 13
-	12 --> 13
-	5 --> 13
-	5["memindex__1538 0u"]
-	12["memindex__1532 imm_readULEB32"]
-	4 -. Codeptr .-> 12
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	11["cond__1531 u8.!="]
-	9 --> 11
-	6 --> 11
-	6["arg__1534 0"]
-	9["arg__1533 u8.&"]
-	4 --> 9
+	11 -. Stack .-> 24
+	12["cond__1519 m_isMemory64"]
+	9 --> 12
+	9{"memindex ϕ"}
 	7 --> 9
-	7["arg__1536 0x40u8"]
-	16{{"Sϕ Codeptr "}}
-	17 --> 16
-	23 --> 16
-	26 --> 16
+	8 --> 9
+	3 --> 9
+	3["memindex__1538 0u"]
+	8["memindex__1532 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	7["cond__1531 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1534 0"]
+	6["arg__1533 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1536 0x40u8"]
+	17{{"Sϕ Codeptr "}}
+	12 --> 17
+	23 --> 17
+	26 --> 17
 	26["offset__1541 imm_readULEB32"]
-	14 -. Codeptr .-> 26
-	14{{"Sϕ Codeptr "}}
-	11 --> 14
-	12 --> 14
-	4 --> 14
+	10 -. Codeptr .-> 26
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
 	23["offset__1539 imm_readULEB64"]
-	14 -. Codeptr .-> 23
+	10 -. Codeptr .-> 23
 </pre>`;
 window.traces["F32_STORE"]["post_surgery 490"] = ''
 window.traces["F32_STORE"]["post_surgery 490"] += `<pre class='graph'>---
@@ -24573,64 +24573,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	16 -. Codeptr .-> 3
-	18 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
+	1[\\"Finish"/]
+	17 -. Codeptr .-> 1
+	18 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
 	18{{"Sϕ Stack "}}
-	17 --> 18
+	12 --> 18
 	24 --> 18
 	27 --> 18
 	27["index__1542 pop_u32"]
-	15 -. Stack .-> 27
-	15["val pop_f32"]
-	1 -. Stack .-> 15
+	11 -. Stack .-> 27
+	11["val pop_f32"]
+	0 -. Stack .-> 11
 	24["index__1540 pop_u64"]
-	15 -. Stack .-> 24
-	17["cond__1519 m_isMemory64"]
-	13 --> 17
-	13{"memindex ϕ"}
-	11 --> 13
-	33 --> 13
-	35 --> 13
+	11 -. Stack .-> 24
+	12["cond__1519 m_isMemory64"]
+	9 --> 12
+	9{"memindex ϕ"}
+	7 --> 9
+	33 --> 9
+	35 --> 9
 	35["memindex__1538__1546 0u"]
 	33["memindex__1532__1545 imm_readULEB32"]
-	4 -. Codeptr .-> 33
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	11["cond__1531 u8.!="]
-	9 --> 11
-	6 --> 11
-	6["arg__1534 0"]
-	9["arg__1533 u8.&"]
-	4 --> 9
-	7 --> 9
-	7["arg__1536 0x40u8"]
-	16{{"Sϕ Codeptr "}}
-	17 --> 16
-	23 --> 16
-	26 --> 16
+	2 -. Codeptr .-> 33
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	7["cond__1531 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1534 0"]
+	6["arg__1533 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1536 0x40u8"]
+	17{{"Sϕ Codeptr "}}
+	12 --> 17
+	23 --> 17
+	26 --> 17
 	26["offset__1541 imm_readULEB32"]
-	14 -. Codeptr .-> 26
-	14{{"Sϕ Codeptr "}}
-	11 --> 14
-	33 --> 14
-	4 --> 14
+	10 -. Codeptr .-> 26
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	33 --> 10
+	2 --> 10
 	23["offset__1539 imm_readULEB64"]
-	14 -. Codeptr .-> 23
+	10 -. Codeptr .-> 23
 </pre>`;
 window.traces["F32_STORE"]["schedulerMermaid"] = ''
 window.traces["F32_STORE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_483["Block 483"]
 	direction TB
-	b483_3[\\"Finish"/]
+	b483_1[\\"Finish"/]
 end
 phi_485 --> block_483
 subgraph phi_485["Phi 485"]
 	p485_18{{"Sϕ Stack "}}
 	p485_18{{"Sϕ Stack "}}
-	p485_16{{"Sϕ Codeptr "}}
+	p485_17{{"Sϕ Codeptr "}}
 end
 block_486 --> phi_485
 block_487 --> phi_485
@@ -24642,23 +24642,23 @@ subgraph block_486["Block 486"]
 end
 branch_484 --> block_486
 subgraph branch_484["Branch 484"]
-	br484_17["cond__1519 m_isMemory64"]
+	br484_12["cond__1519 m_isMemory64"]
 
 end
 block_488 --> branch_484
 subgraph block_488["Block 488"]
 	direction TB
-	b488_15["val pop_f32"]
-	b488_17["cond__1519 m_isMemory64"]
-	b488_15 --> b488_17
+	b488_11["val pop_f32"]
+	b488_12["cond__1519 m_isMemory64"]
+	b488_11 --> b488_12
 end
 phi_490 --> block_488
 subgraph phi_490["Phi 490"]
-	p490_13{"memindex ϕ"}
-	p490_14{{"Sϕ Codeptr "}}
-	p490_14{{"Sϕ Codeptr "}}
-	p490_14{{"Sϕ Codeptr "}}
-	p490_13{"memindex ϕ"}
+	p490_9{"memindex ϕ"}
+	p490_10{{"Sϕ Codeptr "}}
+	p490_10{{"Sϕ Codeptr "}}
+	p490_10{{"Sϕ Codeptr "}}
+	p490_9{"memindex ϕ"}
 end
 block_491 --> phi_490
 block_492 --> phi_490
@@ -24668,19 +24668,19 @@ subgraph block_491["Block 491"]
 end
 branch_489 --> block_491
 subgraph branch_489["Branch 489"]
-	br489_11["cond__1531 u8.!="]
+	br489_7["cond__1531 u8.!="]
 
 end
 block_493 --> branch_489
 subgraph block_493["Block 493"]
 	direction TB
-	b493_7["arg__1536 0x40u8"]
-	b493_6["arg__1534 0"]
-	b493_9["arg__1533 u8.&"]
-	b493_11["cond__1531 u8.!="]
-	b493_7 --> b493_6
-	b493_6 --> b493_9
-	b493_9 --> b493_11
+	b493_5["arg__1536 0x40u8"]
+	b493_4["arg__1534 0"]
+	b493_6["arg__1533 u8.&"]
+	b493_7["cond__1531 u8.!="]
+	b493_5 --> b493_4
+	b493_4 --> b493_6
+	b493_6 --> b493_7
 end
 subgraph block_492["Block 492"]
 	direction TB
@@ -24818,52 +24818,52 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	16 -. Codeptr .-> 3
-	18 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
+	1[\\"Finish"/]
+	17 -. Codeptr .-> 1
+	18 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
 	18{{"Sϕ Stack "}}
-	17 --> 18
+	12 --> 18
 	24 --> 18
 	27 --> 18
 	27["index__1556 pop_u32"]
-	15 -. Stack .-> 27
-	15["val pop_f32"]
-	1 -. Stack .-> 15
+	11 -. Stack .-> 27
+	11["val pop_f32"]
+	0 -. Stack .-> 11
 	24["index__1554 pop_u64"]
-	15 -. Stack .-> 24
-	17["cond__1519 m_isMemory64"]
-	13 --> 17
-	13{"memindex ϕ"}
-	11 --> 13
-	12 --> 13
-	5 --> 13
-	5["memindex__1538 0u"]
-	12["memindex__1532 imm_readULEB32"]
-	4 -. Codeptr .-> 12
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	11["cond__1531 u8.!="]
-	9 --> 11
-	6 --> 11
-	6["arg__1534 0"]
-	9["arg__1533 u8.&"]
-	4 --> 9
+	11 -. Stack .-> 24
+	12["cond__1519 m_isMemory64"]
+	9 --> 12
+	9{"memindex ϕ"}
 	7 --> 9
-	7["arg__1536 0x40u8"]
-	16{{"Sϕ Codeptr "}}
-	17 --> 16
-	23 --> 16
-	26 --> 16
+	8 --> 9
+	3 --> 9
+	3["memindex__1538 0u"]
+	8["memindex__1532 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	7["cond__1531 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1534 0"]
+	6["arg__1533 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1536 0x40u8"]
+	17{{"Sϕ Codeptr "}}
+	12 --> 17
+	23 --> 17
+	26 --> 17
 	26["offset__1555 imm_readULEB32"]
-	14 -. Codeptr .-> 26
-	14{{"Sϕ Codeptr "}}
-	11 --> 14
-	12 --> 14
-	4 --> 14
+	10 -. Codeptr .-> 26
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
 	23["offset__1553 imm_readULEB64"]
-	14 -. Codeptr .-> 23
+	10 -. Codeptr .-> 23
 </pre>`;
 window.traces["F32_STORE_ul"]["post_surgery 501"] = ''
 window.traces["F32_STORE_ul"]["post_surgery 501"] += `<pre class='graph'>---
@@ -24871,64 +24871,64 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	16 -. Codeptr .-> 3
-	18 -. Stack .-> 3
-	1 -. Trap Locals Globals Tables Memory Extra .-> 3
-	1[/"Start"\\]
+	1[\\"Finish"/]
+	17 -. Codeptr .-> 1
+	18 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
 	18{{"Sϕ Stack "}}
-	17 --> 18
+	12 --> 18
 	24 --> 18
 	27 --> 18
 	27["index__1556 pop_u32"]
-	15 -. Stack .-> 27
-	15["val pop_f32"]
-	1 -. Stack .-> 15
+	11 -. Stack .-> 27
+	11["val pop_f32"]
+	0 -. Stack .-> 11
 	24["index__1554 pop_u64"]
-	15 -. Stack .-> 24
-	17["cond__1519 m_isMemory64"]
-	13 --> 17
-	13{"memindex ϕ"}
-	11 --> 13
-	33 --> 13
-	35 --> 13
+	11 -. Stack .-> 24
+	12["cond__1519 m_isMemory64"]
+	9 --> 12
+	9{"memindex ϕ"}
+	7 --> 9
+	33 --> 9
+	35 --> 9
 	35["memindex__1538__1560 0u"]
 	33["memindex__1532__1559 imm_readULEB32"]
-	4 -. Codeptr .-> 33
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	11["cond__1531 u8.!="]
-	9 --> 11
-	6 --> 11
-	6["arg__1534 0"]
-	9["arg__1533 u8.&"]
-	4 --> 9
-	7 --> 9
-	7["arg__1536 0x40u8"]
-	16{{"Sϕ Codeptr "}}
-	17 --> 16
-	23 --> 16
-	26 --> 16
+	2 -. Codeptr .-> 33
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	7["cond__1531 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1534 0"]
+	6["arg__1533 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1536 0x40u8"]
+	17{{"Sϕ Codeptr "}}
+	12 --> 17
+	23 --> 17
+	26 --> 17
 	26["offset__1555 imm_readULEB32"]
-	14 -. Codeptr .-> 26
-	14{{"Sϕ Codeptr "}}
-	11 --> 14
-	33 --> 14
-	4 --> 14
+	10 -. Codeptr .-> 26
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	33 --> 10
+	2 --> 10
 	23["offset__1553 imm_readULEB64"]
-	14 -. Codeptr .-> 23
+	10 -. Codeptr .-> 23
 </pre>`;
 window.traces["F32_STORE"]["unlem_scheduler"] = ''
 window.traces["F32_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_494["Block 494"]
 	direction TB
-	b494_3[\\"Finish"/]
+	b494_1[\\"Finish"/]
 end
 phi_496 --> block_494
 subgraph phi_496["Phi 496"]
 	p496_18{{"Sϕ Stack "}}
 	p496_18{{"Sϕ Stack "}}
-	p496_16{{"Sϕ Codeptr "}}
+	p496_17{{"Sϕ Codeptr "}}
 end
 block_497 --> phi_496
 block_498 --> phi_496
@@ -24940,23 +24940,23 @@ subgraph block_497["Block 497"]
 end
 branch_495 --> block_497
 subgraph branch_495["Branch 495"]
-	br495_17["cond__1519 m_isMemory64"]
+	br495_12["cond__1519 m_isMemory64"]
 
 end
 block_499 --> branch_495
 subgraph block_499["Block 499"]
 	direction TB
-	b499_15["val pop_f32"]
-	b499_17["cond__1519 m_isMemory64"]
-	b499_15 --> b499_17
+	b499_11["val pop_f32"]
+	b499_12["cond__1519 m_isMemory64"]
+	b499_11 --> b499_12
 end
 phi_501 --> block_499
 subgraph phi_501["Phi 501"]
-	p501_13{"memindex ϕ"}
-	p501_14{{"Sϕ Codeptr "}}
-	p501_14{{"Sϕ Codeptr "}}
-	p501_14{{"Sϕ Codeptr "}}
-	p501_13{"memindex ϕ"}
+	p501_9{"memindex ϕ"}
+	p501_10{{"Sϕ Codeptr "}}
+	p501_10{{"Sϕ Codeptr "}}
+	p501_10{{"Sϕ Codeptr "}}
+	p501_9{"memindex ϕ"}
 end
 block_502 --> phi_501
 block_503 --> phi_501
@@ -24966,19 +24966,19 @@ subgraph block_502["Block 502"]
 end
 branch_500 --> block_502
 subgraph branch_500["Branch 500"]
-	br500_11["cond__1531 u8.!="]
+	br500_7["cond__1531 u8.!="]
 
 end
 block_504 --> branch_500
 subgraph block_504["Block 504"]
 	direction TB
-	b504_7["arg__1536 0x40u8"]
-	b504_6["arg__1534 0"]
-	b504_9["arg__1533 u8.&"]
-	b504_11["cond__1531 u8.!="]
-	b504_7 --> b504_6
-	b504_6 --> b504_9
-	b504_9 --> b504_11
+	b504_5["arg__1536 0x40u8"]
+	b504_4["arg__1534 0"]
+	b504_6["arg__1533 u8.&"]
+	b504_7["cond__1531 u8.!="]
+	b504_5 --> b504_4
+	b504_4 --> b504_6
+	b504_6 --> b504_7
 end
 subgraph block_503["Block 503"]
 	direction TB
@@ -25448,67 +25448,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1573__1592 mach_writeMemory32_f64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_f64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_f64"]
+	0 -. Stack .-> 11
 	30["offset__1590 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1580 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1579 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1582 0"]
-	11["arg__1581 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1584 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1580 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1579 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1582 0"]
+	6["arg__1581 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1584 0x40u8"]
 	31["index__1591 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1586 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1586 0u"]
 	28["eff__1568__1589 mach_writeMemory64_f64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1587 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1588 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1567 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1567 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -25518,67 +25518,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1573__1592 mach_writeMemory32_f64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_f64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_f64"]
+	0 -. Stack .-> 11
 	30["offset__1590 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1580__1601 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1579 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1582 0"]
-	11["arg__1581 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1584 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1579 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1582 0"]
+	6["arg__1581 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1584 0x40u8"]
 	31["index__1591 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1586__1602 0u"]
 	28["eff__1568__1589 mach_writeMemory64_f64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1587 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1588 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1567 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1567 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -25586,15 +25586,15 @@ window.traces["F64_STORE"]["schedulerMermaid"] = ''
 window.traces["F64_STORE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_505["Block 505"]
 	direction TB
-	b505_4[\\"Finish"/]
+	b505_1[\\"Finish"/]
 end
 phi_507 --> block_505
 subgraph phi_507["Phi 507"]
-	p507_1{{"Sϕ Memory "}}
-	p507_21{{"Sϕ Stack "}}
-	p507_21{{"Sϕ Stack "}}
+	p507_21{{"Sϕ Memory "}}
+	p507_20{{"Sϕ Stack "}}
+	p507_21{{"Sϕ Memory "}}
+	p507_20{{"Sϕ Stack "}}
 	p507_19{{"Sϕ Codeptr "}}
-	p507_1{{"Sϕ Memory "}}
 end
 block_508 --> phi_507
 block_509 --> phi_507
@@ -25608,28 +25608,28 @@ subgraph block_508["Block 508"]
 end
 branch_506 --> block_508
 subgraph branch_506["Branch 506"]
-	br506_20["cond__1567 m_isMemory64"]
+	br506_12["cond__1567 m_isMemory64"]
 
 end
 block_510 --> branch_506
 subgraph block_510["Block 510"]
 	direction TB
-	b510_17["val pop_f64"]
-	b510_20["cond__1567 m_isMemory64"]
-	b510_17 --> b510_20
+	b510_11["val pop_f64"]
+	b510_12["cond__1567 m_isMemory64"]
+	b510_11 --> b510_12
 end
 phi_512 --> block_510
 subgraph phi_512["Phi 512"]
-	p512_16{{"Sϕ Codeptr "}}
-	p512_16{{"Sϕ Codeptr "}}
-	p512_16{{"Sϕ Codeptr "}}
-	p512_16{{"Sϕ Codeptr "}}
-	p512_15{"memindex ϕ"}
-	p512_15{"memindex ϕ"}
-	p512_15{"memindex ϕ"}
-	p512_15{"memindex ϕ"}
-	p512_15{"memindex ϕ"}
-	p512_16{{"Sϕ Codeptr "}}
+	p512_10{{"Sϕ Codeptr "}}
+	p512_10{{"Sϕ Codeptr "}}
+	p512_10{{"Sϕ Codeptr "}}
+	p512_10{{"Sϕ Codeptr "}}
+	p512_9{"memindex ϕ"}
+	p512_9{"memindex ϕ"}
+	p512_9{"memindex ϕ"}
+	p512_9{"memindex ϕ"}
+	p512_10{{"Sϕ Codeptr "}}
+	p512_9{"memindex ϕ"}
 end
 block_513 --> phi_512
 block_514 --> phi_512
@@ -25639,19 +25639,19 @@ subgraph block_513["Block 513"]
 end
 branch_511 --> block_513
 subgraph branch_511["Branch 511"]
-	br511_13["cond__1579 u8.!="]
+	br511_7["cond__1579 u8.!="]
 
 end
 block_515 --> branch_511
 subgraph block_515["Block 515"]
 	direction TB
-	b515_8["arg__1584 0x40u8"]
-	b515_7["arg__1582 0"]
-	b515_11["arg__1581 u8.&"]
-	b515_13["cond__1579 u8.!="]
-	b515_8 --> b515_7
-	b515_7 --> b515_11
-	b515_11 --> b515_13
+	b515_5["arg__1584 0x40u8"]
+	b515_4["arg__1582 0"]
+	b515_6["arg__1581 u8.&"]
+	b515_7["cond__1579 u8.!="]
+	b515_5 --> b515_4
+	b515_4 --> b515_6
+	b515_6 --> b515_7
 end
 subgraph block_514["Block 514"]
 	direction TB
@@ -25814,67 +25814,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1573__1624 mach_writeMemory32_f64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_f64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_f64"]
+	0 -. Stack .-> 11
 	30["offset__1622 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1580 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1579 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1582 0"]
-	11["arg__1581 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1584 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1580 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1579 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1582 0"]
+	6["arg__1581 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1584 0x40u8"]
 	31["index__1623 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1586 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1586 0u"]
 	28["eff__1568__1621 mach_writeMemory64_f64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1619 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1620 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1567 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1567 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -25884,67 +25884,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1573__1624 mach_writeMemory32_f64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_f64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_f64"]
+	0 -. Stack .-> 11
 	30["offset__1622 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1580__1633 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1579 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1582 0"]
-	11["arg__1581 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1584 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1579 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1582 0"]
+	6["arg__1581 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1584 0x40u8"]
 	31["index__1623 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1586__1634 0u"]
 	28["eff__1568__1621 mach_writeMemory64_f64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1619 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1620 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1567 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1567 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -25952,15 +25952,15 @@ window.traces["F64_STORE"]["unlem_scheduler"] = ''
 window.traces["F64_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_516["Block 516"]
 	direction TB
-	b516_4[\\"Finish"/]
+	b516_1[\\"Finish"/]
 end
 phi_518 --> block_516
 subgraph phi_518["Phi 518"]
-	p518_1{{"Sϕ Memory "}}
-	p518_21{{"Sϕ Stack "}}
-	p518_21{{"Sϕ Stack "}}
+	p518_21{{"Sϕ Memory "}}
+	p518_20{{"Sϕ Stack "}}
+	p518_21{{"Sϕ Memory "}}
+	p518_20{{"Sϕ Stack "}}
 	p518_19{{"Sϕ Codeptr "}}
-	p518_1{{"Sϕ Memory "}}
 end
 block_519 --> phi_518
 block_520 --> phi_518
@@ -25974,28 +25974,28 @@ subgraph block_519["Block 519"]
 end
 branch_517 --> block_519
 subgraph branch_517["Branch 517"]
-	br517_20["cond__1567 m_isMemory64"]
+	br517_12["cond__1567 m_isMemory64"]
 
 end
 block_521 --> branch_517
 subgraph block_521["Block 521"]
 	direction TB
-	b521_17["val pop_f64"]
-	b521_20["cond__1567 m_isMemory64"]
-	b521_17 --> b521_20
+	b521_11["val pop_f64"]
+	b521_12["cond__1567 m_isMemory64"]
+	b521_11 --> b521_12
 end
 phi_523 --> block_521
 subgraph phi_523["Phi 523"]
-	p523_16{{"Sϕ Codeptr "}}
-	p523_16{{"Sϕ Codeptr "}}
-	p523_16{{"Sϕ Codeptr "}}
-	p523_16{{"Sϕ Codeptr "}}
-	p523_15{"memindex ϕ"}
-	p523_15{"memindex ϕ"}
-	p523_15{"memindex ϕ"}
-	p523_15{"memindex ϕ"}
-	p523_15{"memindex ϕ"}
-	p523_16{{"Sϕ Codeptr "}}
+	p523_10{{"Sϕ Codeptr "}}
+	p523_10{{"Sϕ Codeptr "}}
+	p523_10{{"Sϕ Codeptr "}}
+	p523_10{{"Sϕ Codeptr "}}
+	p523_9{"memindex ϕ"}
+	p523_9{"memindex ϕ"}
+	p523_9{"memindex ϕ"}
+	p523_9{"memindex ϕ"}
+	p523_10{{"Sϕ Codeptr "}}
+	p523_9{"memindex ϕ"}
 end
 block_524 --> phi_523
 block_525 --> phi_523
@@ -26005,19 +26005,19 @@ subgraph block_524["Block 524"]
 end
 branch_522 --> block_524
 subgraph branch_522["Branch 522"]
-	br522_13["cond__1579 u8.!="]
+	br522_7["cond__1579 u8.!="]
 
 end
 block_526 --> branch_522
 subgraph block_526["Block 526"]
 	direction TB
-	b526_8["arg__1584 0x40u8"]
-	b526_7["arg__1582 0"]
-	b526_11["arg__1581 u8.&"]
-	b526_13["cond__1579 u8.!="]
-	b526_8 --> b526_7
-	b526_7 --> b526_11
-	b526_11 --> b526_13
+	b526_5["arg__1584 0x40u8"]
+	b526_4["arg__1582 0"]
+	b526_6["arg__1581 u8.&"]
+	b526_7["cond__1579 u8.!="]
+	b526_5 --> b526_4
+	b526_4 --> b526_6
+	b526_6 --> b526_7
 end
 subgraph block_525["Block 525"]
 	direction TB
@@ -26533,67 +26533,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1657__1676 mach_writeMemory32_u8"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u32"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u32"]
+	0 -. Stack .-> 11
 	30["offset__1674 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1664 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1663 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1666 0"]
-	11["arg__1665 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1668 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1664 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1663 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1666 0"]
+	6["arg__1665 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1668 0x40u8"]
 	31["index__1675 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1670 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1670 0u"]
 	28["eff__1652__1673 mach_writeMemory64_u8"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1671 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1672 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1651 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1651 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -26603,67 +26603,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1657__1676 mach_writeMemory32_u8"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u32"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u32"]
+	0 -. Stack .-> 11
 	30["offset__1674 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1664__1685 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1663 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1666 0"]
-	11["arg__1665 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1668 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1663 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1666 0"]
+	6["arg__1665 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1668 0x40u8"]
 	31["index__1675 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1670__1686 0u"]
 	28["eff__1652__1673 mach_writeMemory64_u8"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1671 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1672 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1651 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1651 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -26671,15 +26671,15 @@ window.traces["I32_STORE8"]["schedulerMermaid"] = ''
 window.traces["I32_STORE8"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_527["Block 527"]
 	direction TB
-	b527_4[\\"Finish"/]
+	b527_1[\\"Finish"/]
 end
 phi_529 --> block_527
 subgraph phi_529["Phi 529"]
-	p529_1{{"Sϕ Memory "}}
-	p529_21{{"Sϕ Stack "}}
-	p529_21{{"Sϕ Stack "}}
+	p529_21{{"Sϕ Memory "}}
+	p529_20{{"Sϕ Stack "}}
+	p529_21{{"Sϕ Memory "}}
+	p529_20{{"Sϕ Stack "}}
 	p529_19{{"Sϕ Codeptr "}}
-	p529_1{{"Sϕ Memory "}}
 end
 block_530 --> phi_529
 block_531 --> phi_529
@@ -26693,28 +26693,28 @@ subgraph block_530["Block 530"]
 end
 branch_528 --> block_530
 subgraph branch_528["Branch 528"]
-	br528_20["cond__1651 m_isMemory64"]
+	br528_12["cond__1651 m_isMemory64"]
 
 end
 block_532 --> branch_528
 subgraph block_532["Block 532"]
 	direction TB
-	b532_17["val pop_u32"]
-	b532_20["cond__1651 m_isMemory64"]
-	b532_17 --> b532_20
+	b532_11["val pop_u32"]
+	b532_12["cond__1651 m_isMemory64"]
+	b532_11 --> b532_12
 end
 phi_534 --> block_532
 subgraph phi_534["Phi 534"]
-	p534_16{{"Sϕ Codeptr "}}
-	p534_16{{"Sϕ Codeptr "}}
-	p534_16{{"Sϕ Codeptr "}}
-	p534_16{{"Sϕ Codeptr "}}
-	p534_15{"memindex ϕ"}
-	p534_15{"memindex ϕ"}
-	p534_15{"memindex ϕ"}
-	p534_15{"memindex ϕ"}
-	p534_15{"memindex ϕ"}
-	p534_16{{"Sϕ Codeptr "}}
+	p534_10{{"Sϕ Codeptr "}}
+	p534_10{{"Sϕ Codeptr "}}
+	p534_10{{"Sϕ Codeptr "}}
+	p534_10{{"Sϕ Codeptr "}}
+	p534_9{"memindex ϕ"}
+	p534_9{"memindex ϕ"}
+	p534_9{"memindex ϕ"}
+	p534_9{"memindex ϕ"}
+	p534_10{{"Sϕ Codeptr "}}
+	p534_9{"memindex ϕ"}
 end
 block_535 --> phi_534
 block_536 --> phi_534
@@ -26724,19 +26724,19 @@ subgraph block_535["Block 535"]
 end
 branch_533 --> block_535
 subgraph branch_533["Branch 533"]
-	br533_13["cond__1663 u8.!="]
+	br533_7["cond__1663 u8.!="]
 
 end
 block_537 --> branch_533
 subgraph block_537["Block 537"]
 	direction TB
-	b537_8["arg__1668 0x40u8"]
-	b537_7["arg__1666 0"]
-	b537_11["arg__1665 u8.&"]
-	b537_13["cond__1663 u8.!="]
-	b537_8 --> b537_7
-	b537_7 --> b537_11
-	b537_11 --> b537_13
+	b537_5["arg__1668 0x40u8"]
+	b537_4["arg__1666 0"]
+	b537_6["arg__1665 u8.&"]
+	b537_7["cond__1663 u8.!="]
+	b537_5 --> b537_4
+	b537_4 --> b537_6
+	b537_6 --> b537_7
 end
 subgraph block_536["Block 536"]
 	direction TB
@@ -26899,67 +26899,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1657__1708 mach_writeMemory32_u8"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u32"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u32"]
+	0 -. Stack .-> 11
 	30["offset__1706 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1664 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1663 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1666 0"]
-	11["arg__1665 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1668 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1664 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1663 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1666 0"]
+	6["arg__1665 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1668 0x40u8"]
 	31["index__1707 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1670 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1670 0u"]
 	28["eff__1652__1705 mach_writeMemory64_u8"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1703 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1704 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1651 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1651 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -26969,67 +26969,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1657__1708 mach_writeMemory32_u8"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u32"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u32"]
+	0 -. Stack .-> 11
 	30["offset__1706 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1664__1717 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1663 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1666 0"]
-	11["arg__1665 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1668 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1663 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1666 0"]
+	6["arg__1665 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1668 0x40u8"]
 	31["index__1707 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1670__1718 0u"]
 	28["eff__1652__1705 mach_writeMemory64_u8"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1703 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1704 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1651 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1651 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -27037,15 +27037,15 @@ window.traces["I32_STORE8"]["unlem_scheduler"] = ''
 window.traces["I32_STORE8"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_538["Block 538"]
 	direction TB
-	b538_4[\\"Finish"/]
+	b538_1[\\"Finish"/]
 end
 phi_540 --> block_538
 subgraph phi_540["Phi 540"]
-	p540_1{{"Sϕ Memory "}}
-	p540_21{{"Sϕ Stack "}}
-	p540_21{{"Sϕ Stack "}}
+	p540_21{{"Sϕ Memory "}}
+	p540_20{{"Sϕ Stack "}}
+	p540_21{{"Sϕ Memory "}}
+	p540_20{{"Sϕ Stack "}}
 	p540_19{{"Sϕ Codeptr "}}
-	p540_1{{"Sϕ Memory "}}
 end
 block_541 --> phi_540
 block_542 --> phi_540
@@ -27059,28 +27059,28 @@ subgraph block_541["Block 541"]
 end
 branch_539 --> block_541
 subgraph branch_539["Branch 539"]
-	br539_20["cond__1651 m_isMemory64"]
+	br539_12["cond__1651 m_isMemory64"]
 
 end
 block_543 --> branch_539
 subgraph block_543["Block 543"]
 	direction TB
-	b543_17["val pop_u32"]
-	b543_20["cond__1651 m_isMemory64"]
-	b543_17 --> b543_20
+	b543_11["val pop_u32"]
+	b543_12["cond__1651 m_isMemory64"]
+	b543_11 --> b543_12
 end
 phi_545 --> block_543
 subgraph phi_545["Phi 545"]
-	p545_16{{"Sϕ Codeptr "}}
-	p545_16{{"Sϕ Codeptr "}}
-	p545_16{{"Sϕ Codeptr "}}
-	p545_16{{"Sϕ Codeptr "}}
-	p545_15{"memindex ϕ"}
-	p545_15{"memindex ϕ"}
-	p545_15{"memindex ϕ"}
-	p545_15{"memindex ϕ"}
-	p545_15{"memindex ϕ"}
-	p545_16{{"Sϕ Codeptr "}}
+	p545_10{{"Sϕ Codeptr "}}
+	p545_10{{"Sϕ Codeptr "}}
+	p545_10{{"Sϕ Codeptr "}}
+	p545_10{{"Sϕ Codeptr "}}
+	p545_9{"memindex ϕ"}
+	p545_9{"memindex ϕ"}
+	p545_9{"memindex ϕ"}
+	p545_9{"memindex ϕ"}
+	p545_10{{"Sϕ Codeptr "}}
+	p545_9{"memindex ϕ"}
 end
 block_546 --> phi_545
 block_547 --> phi_545
@@ -27090,19 +27090,19 @@ subgraph block_546["Block 546"]
 end
 branch_544 --> block_546
 subgraph branch_544["Branch 544"]
-	br544_13["cond__1663 u8.!="]
+	br544_7["cond__1663 u8.!="]
 
 end
 block_548 --> branch_544
 subgraph block_548["Block 548"]
 	direction TB
-	b548_8["arg__1668 0x40u8"]
-	b548_7["arg__1666 0"]
-	b548_11["arg__1665 u8.&"]
-	b548_13["cond__1663 u8.!="]
-	b548_8 --> b548_7
-	b548_7 --> b548_11
-	b548_11 --> b548_13
+	b548_5["arg__1668 0x40u8"]
+	b548_4["arg__1666 0"]
+	b548_6["arg__1665 u8.&"]
+	b548_7["cond__1663 u8.!="]
+	b548_5 --> b548_4
+	b548_4 --> b548_6
+	b548_6 --> b548_7
 end
 subgraph block_547["Block 547"]
 	direction TB
@@ -27618,67 +27618,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1741__1760 mach_writeMemory32_u16"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u32"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u32"]
+	0 -. Stack .-> 11
 	30["offset__1758 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1748 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1747 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1750 0"]
-	11["arg__1749 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1752 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1748 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1747 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1750 0"]
+	6["arg__1749 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1752 0x40u8"]
 	31["index__1759 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1754 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1754 0u"]
 	28["eff__1736__1757 mach_writeMemory64_u16"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1755 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1756 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1735 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1735 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -27688,67 +27688,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1741__1760 mach_writeMemory32_u16"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u32"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u32"]
+	0 -. Stack .-> 11
 	30["offset__1758 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1748__1769 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1747 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1750 0"]
-	11["arg__1749 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1752 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1747 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1750 0"]
+	6["arg__1749 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1752 0x40u8"]
 	31["index__1759 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1754__1770 0u"]
 	28["eff__1736__1757 mach_writeMemory64_u16"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1755 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1756 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1735 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1735 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -27756,15 +27756,15 @@ window.traces["I32_STORE16"]["schedulerMermaid"] = ''
 window.traces["I32_STORE16"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_549["Block 549"]
 	direction TB
-	b549_4[\\"Finish"/]
+	b549_1[\\"Finish"/]
 end
 phi_551 --> block_549
 subgraph phi_551["Phi 551"]
-	p551_1{{"Sϕ Memory "}}
-	p551_21{{"Sϕ Stack "}}
-	p551_21{{"Sϕ Stack "}}
+	p551_21{{"Sϕ Memory "}}
+	p551_20{{"Sϕ Stack "}}
+	p551_21{{"Sϕ Memory "}}
+	p551_20{{"Sϕ Stack "}}
 	p551_19{{"Sϕ Codeptr "}}
-	p551_1{{"Sϕ Memory "}}
 end
 block_552 --> phi_551
 block_553 --> phi_551
@@ -27778,28 +27778,28 @@ subgraph block_552["Block 552"]
 end
 branch_550 --> block_552
 subgraph branch_550["Branch 550"]
-	br550_20["cond__1735 m_isMemory64"]
+	br550_12["cond__1735 m_isMemory64"]
 
 end
 block_554 --> branch_550
 subgraph block_554["Block 554"]
 	direction TB
-	b554_17["val pop_u32"]
-	b554_20["cond__1735 m_isMemory64"]
-	b554_17 --> b554_20
+	b554_11["val pop_u32"]
+	b554_12["cond__1735 m_isMemory64"]
+	b554_11 --> b554_12
 end
 phi_556 --> block_554
 subgraph phi_556["Phi 556"]
-	p556_16{{"Sϕ Codeptr "}}
-	p556_16{{"Sϕ Codeptr "}}
-	p556_16{{"Sϕ Codeptr "}}
-	p556_16{{"Sϕ Codeptr "}}
-	p556_15{"memindex ϕ"}
-	p556_15{"memindex ϕ"}
-	p556_15{"memindex ϕ"}
-	p556_15{"memindex ϕ"}
-	p556_15{"memindex ϕ"}
-	p556_16{{"Sϕ Codeptr "}}
+	p556_10{{"Sϕ Codeptr "}}
+	p556_10{{"Sϕ Codeptr "}}
+	p556_10{{"Sϕ Codeptr "}}
+	p556_10{{"Sϕ Codeptr "}}
+	p556_9{"memindex ϕ"}
+	p556_9{"memindex ϕ"}
+	p556_9{"memindex ϕ"}
+	p556_9{"memindex ϕ"}
+	p556_10{{"Sϕ Codeptr "}}
+	p556_9{"memindex ϕ"}
 end
 block_557 --> phi_556
 block_558 --> phi_556
@@ -27809,19 +27809,19 @@ subgraph block_557["Block 557"]
 end
 branch_555 --> block_557
 subgraph branch_555["Branch 555"]
-	br555_13["cond__1747 u8.!="]
+	br555_7["cond__1747 u8.!="]
 
 end
 block_559 --> branch_555
 subgraph block_559["Block 559"]
 	direction TB
-	b559_8["arg__1752 0x40u8"]
-	b559_7["arg__1750 0"]
-	b559_11["arg__1749 u8.&"]
-	b559_13["cond__1747 u8.!="]
-	b559_8 --> b559_7
-	b559_7 --> b559_11
-	b559_11 --> b559_13
+	b559_5["arg__1752 0x40u8"]
+	b559_4["arg__1750 0"]
+	b559_6["arg__1749 u8.&"]
+	b559_7["cond__1747 u8.!="]
+	b559_5 --> b559_4
+	b559_4 --> b559_6
+	b559_6 --> b559_7
 end
 subgraph block_558["Block 558"]
 	direction TB
@@ -27984,67 +27984,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1741__1792 mach_writeMemory32_u16"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u32"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u32"]
+	0 -. Stack .-> 11
 	30["offset__1790 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1748 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1747 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1750 0"]
-	11["arg__1749 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1752 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1748 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1747 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1750 0"]
+	6["arg__1749 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1752 0x40u8"]
 	31["index__1791 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1754 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1754 0u"]
 	28["eff__1736__1789 mach_writeMemory64_u16"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1787 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1788 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1735 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1735 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -28054,67 +28054,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1741__1792 mach_writeMemory32_u16"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u32"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u32"]
+	0 -. Stack .-> 11
 	30["offset__1790 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1748__1801 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1747 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1750 0"]
-	11["arg__1749 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1752 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1747 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1750 0"]
+	6["arg__1749 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1752 0x40u8"]
 	31["index__1791 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1754__1802 0u"]
 	28["eff__1736__1789 mach_writeMemory64_u16"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1787 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1788 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1735 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1735 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -28122,15 +28122,15 @@ window.traces["I32_STORE16"]["unlem_scheduler"] = ''
 window.traces["I32_STORE16"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_560["Block 560"]
 	direction TB
-	b560_4[\\"Finish"/]
+	b560_1[\\"Finish"/]
 end
 phi_562 --> block_560
 subgraph phi_562["Phi 562"]
-	p562_1{{"Sϕ Memory "}}
-	p562_21{{"Sϕ Stack "}}
-	p562_21{{"Sϕ Stack "}}
+	p562_21{{"Sϕ Memory "}}
+	p562_20{{"Sϕ Stack "}}
+	p562_21{{"Sϕ Memory "}}
+	p562_20{{"Sϕ Stack "}}
 	p562_19{{"Sϕ Codeptr "}}
-	p562_1{{"Sϕ Memory "}}
 end
 block_563 --> phi_562
 block_564 --> phi_562
@@ -28144,28 +28144,28 @@ subgraph block_563["Block 563"]
 end
 branch_561 --> block_563
 subgraph branch_561["Branch 561"]
-	br561_20["cond__1735 m_isMemory64"]
+	br561_12["cond__1735 m_isMemory64"]
 
 end
 block_565 --> branch_561
 subgraph block_565["Block 565"]
 	direction TB
-	b565_17["val pop_u32"]
-	b565_20["cond__1735 m_isMemory64"]
-	b565_17 --> b565_20
+	b565_11["val pop_u32"]
+	b565_12["cond__1735 m_isMemory64"]
+	b565_11 --> b565_12
 end
 phi_567 --> block_565
 subgraph phi_567["Phi 567"]
-	p567_16{{"Sϕ Codeptr "}}
-	p567_16{{"Sϕ Codeptr "}}
-	p567_16{{"Sϕ Codeptr "}}
-	p567_16{{"Sϕ Codeptr "}}
-	p567_15{"memindex ϕ"}
-	p567_15{"memindex ϕ"}
-	p567_15{"memindex ϕ"}
-	p567_15{"memindex ϕ"}
-	p567_15{"memindex ϕ"}
-	p567_16{{"Sϕ Codeptr "}}
+	p567_10{{"Sϕ Codeptr "}}
+	p567_10{{"Sϕ Codeptr "}}
+	p567_10{{"Sϕ Codeptr "}}
+	p567_10{{"Sϕ Codeptr "}}
+	p567_9{"memindex ϕ"}
+	p567_9{"memindex ϕ"}
+	p567_9{"memindex ϕ"}
+	p567_9{"memindex ϕ"}
+	p567_10{{"Sϕ Codeptr "}}
+	p567_9{"memindex ϕ"}
 end
 block_568 --> phi_567
 block_569 --> phi_567
@@ -28175,19 +28175,19 @@ subgraph block_568["Block 568"]
 end
 branch_566 --> block_568
 subgraph branch_566["Branch 566"]
-	br566_13["cond__1747 u8.!="]
+	br566_7["cond__1747 u8.!="]
 
 end
 block_570 --> branch_566
 subgraph block_570["Block 570"]
 	direction TB
-	b570_8["arg__1752 0x40u8"]
-	b570_7["arg__1750 0"]
-	b570_11["arg__1749 u8.&"]
-	b570_13["cond__1747 u8.!="]
-	b570_8 --> b570_7
-	b570_7 --> b570_11
-	b570_11 --> b570_13
+	b570_5["arg__1752 0x40u8"]
+	b570_4["arg__1750 0"]
+	b570_6["arg__1749 u8.&"]
+	b570_7["cond__1747 u8.!="]
+	b570_5 --> b570_4
+	b570_4 --> b570_6
+	b570_6 --> b570_7
 end
 subgraph block_569["Block 569"]
 	direction TB
@@ -28703,67 +28703,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1825__1844 mach_writeMemory32_u8_64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__1842 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1832 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1831 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1834 0"]
-	11["arg__1833 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1836 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1832 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1831 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1834 0"]
+	6["arg__1833 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1836 0x40u8"]
 	31["index__1843 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1838 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1838 0u"]
 	28["eff__1820__1841 mach_writeMemory64_u8_64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1839 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1840 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1819 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1819 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -28773,67 +28773,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1825__1844 mach_writeMemory32_u8_64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__1842 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1832__1853 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1831 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1834 0"]
-	11["arg__1833 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1836 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1831 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1834 0"]
+	6["arg__1833 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1836 0x40u8"]
 	31["index__1843 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1838__1854 0u"]
 	28["eff__1820__1841 mach_writeMemory64_u8_64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1839 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1840 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1819 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1819 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -28841,15 +28841,15 @@ window.traces["I64_STORE8"]["schedulerMermaid"] = ''
 window.traces["I64_STORE8"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_571["Block 571"]
 	direction TB
-	b571_4[\\"Finish"/]
+	b571_1[\\"Finish"/]
 end
 phi_573 --> block_571
 subgraph phi_573["Phi 573"]
-	p573_1{{"Sϕ Memory "}}
-	p573_21{{"Sϕ Stack "}}
-	p573_21{{"Sϕ Stack "}}
+	p573_21{{"Sϕ Memory "}}
+	p573_20{{"Sϕ Stack "}}
+	p573_21{{"Sϕ Memory "}}
+	p573_20{{"Sϕ Stack "}}
 	p573_19{{"Sϕ Codeptr "}}
-	p573_1{{"Sϕ Memory "}}
 end
 block_574 --> phi_573
 block_575 --> phi_573
@@ -28863,28 +28863,28 @@ subgraph block_574["Block 574"]
 end
 branch_572 --> block_574
 subgraph branch_572["Branch 572"]
-	br572_20["cond__1819 m_isMemory64"]
+	br572_12["cond__1819 m_isMemory64"]
 
 end
 block_576 --> branch_572
 subgraph block_576["Block 576"]
 	direction TB
-	b576_17["val pop_u64"]
-	b576_20["cond__1819 m_isMemory64"]
-	b576_17 --> b576_20
+	b576_11["val pop_u64"]
+	b576_12["cond__1819 m_isMemory64"]
+	b576_11 --> b576_12
 end
 phi_578 --> block_576
 subgraph phi_578["Phi 578"]
-	p578_16{{"Sϕ Codeptr "}}
-	p578_16{{"Sϕ Codeptr "}}
-	p578_16{{"Sϕ Codeptr "}}
-	p578_16{{"Sϕ Codeptr "}}
-	p578_15{"memindex ϕ"}
-	p578_15{"memindex ϕ"}
-	p578_15{"memindex ϕ"}
-	p578_15{"memindex ϕ"}
-	p578_15{"memindex ϕ"}
-	p578_16{{"Sϕ Codeptr "}}
+	p578_10{{"Sϕ Codeptr "}}
+	p578_10{{"Sϕ Codeptr "}}
+	p578_10{{"Sϕ Codeptr "}}
+	p578_10{{"Sϕ Codeptr "}}
+	p578_9{"memindex ϕ"}
+	p578_9{"memindex ϕ"}
+	p578_9{"memindex ϕ"}
+	p578_9{"memindex ϕ"}
+	p578_10{{"Sϕ Codeptr "}}
+	p578_9{"memindex ϕ"}
 end
 block_579 --> phi_578
 block_580 --> phi_578
@@ -28894,19 +28894,19 @@ subgraph block_579["Block 579"]
 end
 branch_577 --> block_579
 subgraph branch_577["Branch 577"]
-	br577_13["cond__1831 u8.!="]
+	br577_7["cond__1831 u8.!="]
 
 end
 block_581 --> branch_577
 subgraph block_581["Block 581"]
 	direction TB
-	b581_8["arg__1836 0x40u8"]
-	b581_7["arg__1834 0"]
-	b581_11["arg__1833 u8.&"]
-	b581_13["cond__1831 u8.!="]
-	b581_8 --> b581_7
-	b581_7 --> b581_11
-	b581_11 --> b581_13
+	b581_5["arg__1836 0x40u8"]
+	b581_4["arg__1834 0"]
+	b581_6["arg__1833 u8.&"]
+	b581_7["cond__1831 u8.!="]
+	b581_5 --> b581_4
+	b581_4 --> b581_6
+	b581_6 --> b581_7
 end
 subgraph block_580["Block 580"]
 	direction TB
@@ -29069,67 +29069,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1825__1876 mach_writeMemory32_u8_64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__1874 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1832 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1831 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1834 0"]
-	11["arg__1833 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1836 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1832 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1831 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1834 0"]
+	6["arg__1833 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1836 0x40u8"]
 	31["index__1875 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1838 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1838 0u"]
 	28["eff__1820__1873 mach_writeMemory64_u8_64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1871 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1872 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1819 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1819 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -29139,67 +29139,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1825__1876 mach_writeMemory32_u8_64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__1874 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1832__1885 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1831 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1834 0"]
-	11["arg__1833 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1836 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1831 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1834 0"]
+	6["arg__1833 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1836 0x40u8"]
 	31["index__1875 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1838__1886 0u"]
 	28["eff__1820__1873 mach_writeMemory64_u8_64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1871 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1872 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1819 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1819 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -29207,15 +29207,15 @@ window.traces["I64_STORE8"]["unlem_scheduler"] = ''
 window.traces["I64_STORE8"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_582["Block 582"]
 	direction TB
-	b582_4[\\"Finish"/]
+	b582_1[\\"Finish"/]
 end
 phi_584 --> block_582
 subgraph phi_584["Phi 584"]
-	p584_1{{"Sϕ Memory "}}
-	p584_21{{"Sϕ Stack "}}
-	p584_21{{"Sϕ Stack "}}
+	p584_21{{"Sϕ Memory "}}
+	p584_20{{"Sϕ Stack "}}
+	p584_21{{"Sϕ Memory "}}
+	p584_20{{"Sϕ Stack "}}
 	p584_19{{"Sϕ Codeptr "}}
-	p584_1{{"Sϕ Memory "}}
 end
 block_585 --> phi_584
 block_586 --> phi_584
@@ -29229,28 +29229,28 @@ subgraph block_585["Block 585"]
 end
 branch_583 --> block_585
 subgraph branch_583["Branch 583"]
-	br583_20["cond__1819 m_isMemory64"]
+	br583_12["cond__1819 m_isMemory64"]
 
 end
 block_587 --> branch_583
 subgraph block_587["Block 587"]
 	direction TB
-	b587_17["val pop_u64"]
-	b587_20["cond__1819 m_isMemory64"]
-	b587_17 --> b587_20
+	b587_11["val pop_u64"]
+	b587_12["cond__1819 m_isMemory64"]
+	b587_11 --> b587_12
 end
 phi_589 --> block_587
 subgraph phi_589["Phi 589"]
-	p589_16{{"Sϕ Codeptr "}}
-	p589_16{{"Sϕ Codeptr "}}
-	p589_16{{"Sϕ Codeptr "}}
-	p589_16{{"Sϕ Codeptr "}}
-	p589_15{"memindex ϕ"}
-	p589_15{"memindex ϕ"}
-	p589_15{"memindex ϕ"}
-	p589_15{"memindex ϕ"}
-	p589_15{"memindex ϕ"}
-	p589_16{{"Sϕ Codeptr "}}
+	p589_10{{"Sϕ Codeptr "}}
+	p589_10{{"Sϕ Codeptr "}}
+	p589_10{{"Sϕ Codeptr "}}
+	p589_10{{"Sϕ Codeptr "}}
+	p589_9{"memindex ϕ"}
+	p589_9{"memindex ϕ"}
+	p589_9{"memindex ϕ"}
+	p589_9{"memindex ϕ"}
+	p589_10{{"Sϕ Codeptr "}}
+	p589_9{"memindex ϕ"}
 end
 block_590 --> phi_589
 block_591 --> phi_589
@@ -29260,19 +29260,19 @@ subgraph block_590["Block 590"]
 end
 branch_588 --> block_590
 subgraph branch_588["Branch 588"]
-	br588_13["cond__1831 u8.!="]
+	br588_7["cond__1831 u8.!="]
 
 end
 block_592 --> branch_588
 subgraph block_592["Block 592"]
 	direction TB
-	b592_8["arg__1836 0x40u8"]
-	b592_7["arg__1834 0"]
-	b592_11["arg__1833 u8.&"]
-	b592_13["cond__1831 u8.!="]
-	b592_8 --> b592_7
-	b592_7 --> b592_11
-	b592_11 --> b592_13
+	b592_5["arg__1836 0x40u8"]
+	b592_4["arg__1834 0"]
+	b592_6["arg__1833 u8.&"]
+	b592_7["cond__1831 u8.!="]
+	b592_5 --> b592_4
+	b592_4 --> b592_6
+	b592_6 --> b592_7
 end
 subgraph block_591["Block 591"]
 	direction TB
@@ -29788,67 +29788,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1909__1928 mach_writeMemory32_u16_64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__1926 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1916 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1915 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1918 0"]
-	11["arg__1917 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1920 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1916 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1915 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1918 0"]
+	6["arg__1917 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1920 0x40u8"]
 	31["index__1927 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1922 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1922 0u"]
 	28["eff__1904__1925 mach_writeMemory64_u16_64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1923 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1924 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1903 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1903 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -29858,67 +29858,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1909__1928 mach_writeMemory32_u16_64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__1926 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1916__1937 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1915 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1918 0"]
-	11["arg__1917 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1920 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1915 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1918 0"]
+	6["arg__1917 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1920 0x40u8"]
 	31["index__1927 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1922__1938 0u"]
 	28["eff__1904__1925 mach_writeMemory64_u16_64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1923 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1924 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1903 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1903 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -29926,15 +29926,15 @@ window.traces["I64_STORE16"]["schedulerMermaid"] = ''
 window.traces["I64_STORE16"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_593["Block 593"]
 	direction TB
-	b593_4[\\"Finish"/]
+	b593_1[\\"Finish"/]
 end
 phi_595 --> block_593
 subgraph phi_595["Phi 595"]
-	p595_1{{"Sϕ Memory "}}
-	p595_21{{"Sϕ Stack "}}
-	p595_21{{"Sϕ Stack "}}
+	p595_21{{"Sϕ Memory "}}
+	p595_20{{"Sϕ Stack "}}
+	p595_21{{"Sϕ Memory "}}
+	p595_20{{"Sϕ Stack "}}
 	p595_19{{"Sϕ Codeptr "}}
-	p595_1{{"Sϕ Memory "}}
 end
 block_596 --> phi_595
 block_597 --> phi_595
@@ -29948,28 +29948,28 @@ subgraph block_596["Block 596"]
 end
 branch_594 --> block_596
 subgraph branch_594["Branch 594"]
-	br594_20["cond__1903 m_isMemory64"]
+	br594_12["cond__1903 m_isMemory64"]
 
 end
 block_598 --> branch_594
 subgraph block_598["Block 598"]
 	direction TB
-	b598_17["val pop_u64"]
-	b598_20["cond__1903 m_isMemory64"]
-	b598_17 --> b598_20
+	b598_11["val pop_u64"]
+	b598_12["cond__1903 m_isMemory64"]
+	b598_11 --> b598_12
 end
 phi_600 --> block_598
 subgraph phi_600["Phi 600"]
-	p600_16{{"Sϕ Codeptr "}}
-	p600_16{{"Sϕ Codeptr "}}
-	p600_16{{"Sϕ Codeptr "}}
-	p600_16{{"Sϕ Codeptr "}}
-	p600_15{"memindex ϕ"}
-	p600_15{"memindex ϕ"}
-	p600_15{"memindex ϕ"}
-	p600_15{"memindex ϕ"}
-	p600_15{"memindex ϕ"}
-	p600_16{{"Sϕ Codeptr "}}
+	p600_10{{"Sϕ Codeptr "}}
+	p600_10{{"Sϕ Codeptr "}}
+	p600_10{{"Sϕ Codeptr "}}
+	p600_10{{"Sϕ Codeptr "}}
+	p600_9{"memindex ϕ"}
+	p600_9{"memindex ϕ"}
+	p600_9{"memindex ϕ"}
+	p600_9{"memindex ϕ"}
+	p600_10{{"Sϕ Codeptr "}}
+	p600_9{"memindex ϕ"}
 end
 block_601 --> phi_600
 block_602 --> phi_600
@@ -29979,19 +29979,19 @@ subgraph block_601["Block 601"]
 end
 branch_599 --> block_601
 subgraph branch_599["Branch 599"]
-	br599_13["cond__1915 u8.!="]
+	br599_7["cond__1915 u8.!="]
 
 end
 block_603 --> branch_599
 subgraph block_603["Block 603"]
 	direction TB
-	b603_8["arg__1920 0x40u8"]
-	b603_7["arg__1918 0"]
-	b603_11["arg__1917 u8.&"]
-	b603_13["cond__1915 u8.!="]
-	b603_8 --> b603_7
-	b603_7 --> b603_11
-	b603_11 --> b603_13
+	b603_5["arg__1920 0x40u8"]
+	b603_4["arg__1918 0"]
+	b603_6["arg__1917 u8.&"]
+	b603_7["cond__1915 u8.!="]
+	b603_5 --> b603_4
+	b603_4 --> b603_6
+	b603_6 --> b603_7
 end
 subgraph block_602["Block 602"]
 	direction TB
@@ -30154,67 +30154,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1909__1960 mach_writeMemory32_u16_64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__1958 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__1916 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1915 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1918 0"]
-	11["arg__1917 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1920 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__1916 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1915 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1918 0"]
+	6["arg__1917 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1920 0x40u8"]
 	31["index__1959 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__1922 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__1922 0u"]
 	28["eff__1904__1957 mach_writeMemory64_u16_64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1955 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1956 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1903 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1903 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -30224,67 +30224,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1909__1960 mach_writeMemory32_u16_64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__1958 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__1916__1969 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1915 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__1918 0"]
-	11["arg__1917 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__1920 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1915 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__1918 0"]
+	6["arg__1917 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__1920 0x40u8"]
 	31["index__1959 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__1922__1970 0u"]
 	28["eff__1904__1957 mach_writeMemory64_u16_64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__1955 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__1956 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1903 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1903 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -30292,15 +30292,15 @@ window.traces["I64_STORE16"]["unlem_scheduler"] = ''
 window.traces["I64_STORE16"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_604["Block 604"]
 	direction TB
-	b604_4[\\"Finish"/]
+	b604_1[\\"Finish"/]
 end
 phi_606 --> block_604
 subgraph phi_606["Phi 606"]
-	p606_1{{"Sϕ Memory "}}
-	p606_21{{"Sϕ Stack "}}
-	p606_21{{"Sϕ Stack "}}
+	p606_21{{"Sϕ Memory "}}
+	p606_20{{"Sϕ Stack "}}
+	p606_21{{"Sϕ Memory "}}
+	p606_20{{"Sϕ Stack "}}
 	p606_19{{"Sϕ Codeptr "}}
-	p606_1{{"Sϕ Memory "}}
 end
 block_607 --> phi_606
 block_608 --> phi_606
@@ -30314,28 +30314,28 @@ subgraph block_607["Block 607"]
 end
 branch_605 --> block_607
 subgraph branch_605["Branch 605"]
-	br605_20["cond__1903 m_isMemory64"]
+	br605_12["cond__1903 m_isMemory64"]
 
 end
 block_609 --> branch_605
 subgraph block_609["Block 609"]
 	direction TB
-	b609_17["val pop_u64"]
-	b609_20["cond__1903 m_isMemory64"]
-	b609_17 --> b609_20
+	b609_11["val pop_u64"]
+	b609_12["cond__1903 m_isMemory64"]
+	b609_11 --> b609_12
 end
 phi_611 --> block_609
 subgraph phi_611["Phi 611"]
-	p611_16{{"Sϕ Codeptr "}}
-	p611_16{{"Sϕ Codeptr "}}
-	p611_16{{"Sϕ Codeptr "}}
-	p611_16{{"Sϕ Codeptr "}}
-	p611_15{"memindex ϕ"}
-	p611_15{"memindex ϕ"}
-	p611_15{"memindex ϕ"}
-	p611_15{"memindex ϕ"}
-	p611_15{"memindex ϕ"}
-	p611_16{{"Sϕ Codeptr "}}
+	p611_10{{"Sϕ Codeptr "}}
+	p611_10{{"Sϕ Codeptr "}}
+	p611_10{{"Sϕ Codeptr "}}
+	p611_10{{"Sϕ Codeptr "}}
+	p611_9{"memindex ϕ"}
+	p611_9{"memindex ϕ"}
+	p611_9{"memindex ϕ"}
+	p611_9{"memindex ϕ"}
+	p611_10{{"Sϕ Codeptr "}}
+	p611_9{"memindex ϕ"}
 end
 block_612 --> phi_611
 block_613 --> phi_611
@@ -30345,19 +30345,19 @@ subgraph block_612["Block 612"]
 end
 branch_610 --> block_612
 subgraph branch_610["Branch 610"]
-	br610_13["cond__1915 u8.!="]
+	br610_7["cond__1915 u8.!="]
 
 end
 block_614 --> branch_610
 subgraph block_614["Block 614"]
 	direction TB
-	b614_8["arg__1920 0x40u8"]
-	b614_7["arg__1918 0"]
-	b614_11["arg__1917 u8.&"]
-	b614_13["cond__1915 u8.!="]
-	b614_8 --> b614_7
-	b614_7 --> b614_11
-	b614_11 --> b614_13
+	b614_5["arg__1920 0x40u8"]
+	b614_4["arg__1918 0"]
+	b614_6["arg__1917 u8.&"]
+	b614_7["cond__1915 u8.!="]
+	b614_5 --> b614_4
+	b614_4 --> b614_6
+	b614_6 --> b614_7
 end
 subgraph block_613["Block 613"]
 	direction TB
@@ -30873,67 +30873,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1993__2012 mach_writeMemory32_u32_64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__2010 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__2000 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1999 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__2002 0"]
-	11["arg__2001 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__2004 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__2000 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1999 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__2002 0"]
+	6["arg__2001 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__2004 0x40u8"]
 	31["index__2011 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__2006 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__2006 0u"]
 	28["eff__1988__2009 mach_writeMemory64_u32_64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__2007 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__2008 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1987 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1987 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -30943,67 +30943,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1993__2012 mach_writeMemory32_u32_64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__2010 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__2000__2021 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1999 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__2002 0"]
-	11["arg__2001 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__2004 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1999 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__2002 0"]
+	6["arg__2001 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__2004 0x40u8"]
 	31["index__2011 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__2006__2022 0u"]
 	28["eff__1988__2009 mach_writeMemory64_u32_64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__2007 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__2008 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1987 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1987 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -31011,15 +31011,15 @@ window.traces["I64_STORE32"]["schedulerMermaid"] = ''
 window.traces["I64_STORE32"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_615["Block 615"]
 	direction TB
-	b615_4[\\"Finish"/]
+	b615_1[\\"Finish"/]
 end
 phi_617 --> block_615
 subgraph phi_617["Phi 617"]
-	p617_1{{"Sϕ Memory "}}
-	p617_21{{"Sϕ Stack "}}
-	p617_21{{"Sϕ Stack "}}
+	p617_21{{"Sϕ Memory "}}
+	p617_20{{"Sϕ Stack "}}
+	p617_21{{"Sϕ Memory "}}
+	p617_20{{"Sϕ Stack "}}
 	p617_19{{"Sϕ Codeptr "}}
-	p617_1{{"Sϕ Memory "}}
 end
 block_618 --> phi_617
 block_619 --> phi_617
@@ -31033,28 +31033,28 @@ subgraph block_618["Block 618"]
 end
 branch_616 --> block_618
 subgraph branch_616["Branch 616"]
-	br616_20["cond__1987 m_isMemory64"]
+	br616_12["cond__1987 m_isMemory64"]
 
 end
 block_620 --> branch_616
 subgraph block_620["Block 620"]
 	direction TB
-	b620_17["val pop_u64"]
-	b620_20["cond__1987 m_isMemory64"]
-	b620_17 --> b620_20
+	b620_11["val pop_u64"]
+	b620_12["cond__1987 m_isMemory64"]
+	b620_11 --> b620_12
 end
 phi_622 --> block_620
 subgraph phi_622["Phi 622"]
-	p622_16{{"Sϕ Codeptr "}}
-	p622_16{{"Sϕ Codeptr "}}
-	p622_16{{"Sϕ Codeptr "}}
-	p622_16{{"Sϕ Codeptr "}}
-	p622_15{"memindex ϕ"}
-	p622_15{"memindex ϕ"}
-	p622_15{"memindex ϕ"}
-	p622_15{"memindex ϕ"}
-	p622_15{"memindex ϕ"}
-	p622_16{{"Sϕ Codeptr "}}
+	p622_10{{"Sϕ Codeptr "}}
+	p622_10{{"Sϕ Codeptr "}}
+	p622_10{{"Sϕ Codeptr "}}
+	p622_10{{"Sϕ Codeptr "}}
+	p622_9{"memindex ϕ"}
+	p622_9{"memindex ϕ"}
+	p622_9{"memindex ϕ"}
+	p622_9{"memindex ϕ"}
+	p622_10{{"Sϕ Codeptr "}}
+	p622_9{"memindex ϕ"}
 end
 block_623 --> phi_622
 block_624 --> phi_622
@@ -31064,19 +31064,19 @@ subgraph block_623["Block 623"]
 end
 branch_621 --> block_623
 subgraph branch_621["Branch 621"]
-	br621_13["cond__1999 u8.!="]
+	br621_7["cond__1999 u8.!="]
 
 end
 block_625 --> branch_621
 subgraph block_625["Block 625"]
 	direction TB
-	b625_8["arg__2004 0x40u8"]
-	b625_7["arg__2002 0"]
-	b625_11["arg__2001 u8.&"]
-	b625_13["cond__1999 u8.!="]
-	b625_8 --> b625_7
-	b625_7 --> b625_11
-	b625_11 --> b625_13
+	b625_5["arg__2004 0x40u8"]
+	b625_4["arg__2002 0"]
+	b625_6["arg__2001 u8.&"]
+	b625_7["cond__1999 u8.!="]
+	b625_5 --> b625_4
+	b625_4 --> b625_6
+	b625_6 --> b625_7
 end
 subgraph block_624["Block 624"]
 	direction TB
@@ -31239,67 +31239,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1993__2044 mach_writeMemory32_u32_64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__2042 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	14 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
-	14["memindex__2000 imm_readULEB32"]
-	5 -. Codeptr .-> 14
-	13["cond__1999 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__2002 0"]
-	11["arg__2001 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__2004 0x40u8"]
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	8["memindex__2000 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	7["cond__1999 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__2002 0"]
+	6["arg__2001 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__2004 0x40u8"]
 	31["index__2043 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	14 --> 15
-	6 --> 15
-	6["memindex__2006 0u"]
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__2006 0u"]
 	28["eff__1988__2041 mach_writeMemory64_u32_64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__2039 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__2040 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1987 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1987 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -31309,67 +31309,67 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	19 -. Codeptr .-> 4
-	21 -. Stack .-> 4
-	2 -. Trap Locals Globals Tables Extra .-> 4
-	1 -. Memory .-> 4
-	1{{"Sϕ Memory "}}
-	20 --> 1
-	28 --> 1
-	32 --> 1
+	1[\\"Finish"/]
+	19 -. Codeptr .-> 1
+	20 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Extra .-> 1
+	21 -. Memory .-> 1
+	21{{"Sϕ Memory "}}
+	12 --> 21
+	28 --> 21
+	32 --> 21
 	32["eff__1993__2044 mach_writeMemory32_u32_64"]
-	15 --> 32
+	9 --> 32
 	31 --> 32
 	30 --> 32
-	17 --> 32
-	2 -. Memory .-> 32
-	2[/"Start"\\]
-	17["val pop_u64"]
-	2 -. Stack .-> 17
+	11 --> 32
+	0 -. Memory .-> 32
+	0[/"Start"\\]
+	11["val pop_u64"]
+	0 -. Stack .-> 11
 	30["offset__2042 imm_readULEB32"]
-	16 -. Codeptr .-> 30
-	16{{"Sϕ Codeptr "}}
-	13 --> 16
-	46 --> 16
-	5 --> 16
-	5["flags imm_readU8"]
-	2 -. Codeptr .-> 5
+	10 -. Codeptr .-> 30
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	46 --> 10
+	2 --> 10
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
 	46["memindex__2000__2053 imm_readULEB32"]
-	5 -. Codeptr .-> 46
-	13["cond__1999 u8.!="]
-	11 --> 13
-	7 --> 13
-	7["arg__2002 0"]
-	11["arg__2001 u8.&"]
-	5 --> 11
-	8 --> 11
-	8["arg__2004 0x40u8"]
+	2 -. Codeptr .-> 46
+	7["cond__1999 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__2002 0"]
+	6["arg__2001 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__2004 0x40u8"]
 	31["index__2043 pop_u32"]
-	17 -. Stack .-> 31
-	15{"memindex ϕ"}
-	13 --> 15
-	46 --> 15
-	48 --> 15
+	11 -. Stack .-> 31
+	9{"memindex ϕ"}
+	7 --> 9
+	46 --> 9
+	48 --> 9
 	48["memindex__2006__2054 0u"]
 	28["eff__1988__2041 mach_writeMemory64_u32_64"]
-	15 --> 28
+	9 --> 28
 	27 --> 28
 	26 --> 28
-	17 --> 28
-	2 -. Memory .-> 28
+	11 --> 28
+	0 -. Memory .-> 28
 	26["offset__2039 imm_readULEB64"]
-	16 -. Codeptr .-> 26
+	10 -. Codeptr .-> 26
 	27["index__2040 pop_u64"]
-	17 -. Stack .-> 27
-	20["cond__1987 m_isMemory64"]
-	15 --> 20
-	21{{"Sϕ Stack "}}
-	20 --> 21
-	27 --> 21
-	31 --> 21
+	11 -. Stack .-> 27
+	12["cond__1987 m_isMemory64"]
+	9 --> 12
+	20{{"Sϕ Stack "}}
+	12 --> 20
+	27 --> 20
+	31 --> 20
 	19{{"Sϕ Codeptr "}}
-	20 --> 19
+	12 --> 19
 	26 --> 19
 	30 --> 19
 </pre>`;
@@ -31377,15 +31377,15 @@ window.traces["I64_STORE32"]["unlem_scheduler"] = ''
 window.traces["I64_STORE32"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_626["Block 626"]
 	direction TB
-	b626_4[\\"Finish"/]
+	b626_1[\\"Finish"/]
 end
 phi_628 --> block_626
 subgraph phi_628["Phi 628"]
-	p628_1{{"Sϕ Memory "}}
-	p628_21{{"Sϕ Stack "}}
-	p628_21{{"Sϕ Stack "}}
+	p628_21{{"Sϕ Memory "}}
+	p628_20{{"Sϕ Stack "}}
+	p628_21{{"Sϕ Memory "}}
+	p628_20{{"Sϕ Stack "}}
 	p628_19{{"Sϕ Codeptr "}}
-	p628_1{{"Sϕ Memory "}}
 end
 block_629 --> phi_628
 block_630 --> phi_628
@@ -31399,28 +31399,28 @@ subgraph block_629["Block 629"]
 end
 branch_627 --> block_629
 subgraph branch_627["Branch 627"]
-	br627_20["cond__1987 m_isMemory64"]
+	br627_12["cond__1987 m_isMemory64"]
 
 end
 block_631 --> branch_627
 subgraph block_631["Block 631"]
 	direction TB
-	b631_17["val pop_u64"]
-	b631_20["cond__1987 m_isMemory64"]
-	b631_17 --> b631_20
+	b631_11["val pop_u64"]
+	b631_12["cond__1987 m_isMemory64"]
+	b631_11 --> b631_12
 end
 phi_633 --> block_631
 subgraph phi_633["Phi 633"]
-	p633_16{{"Sϕ Codeptr "}}
-	p633_16{{"Sϕ Codeptr "}}
-	p633_16{{"Sϕ Codeptr "}}
-	p633_16{{"Sϕ Codeptr "}}
-	p633_15{"memindex ϕ"}
-	p633_15{"memindex ϕ"}
-	p633_15{"memindex ϕ"}
-	p633_15{"memindex ϕ"}
-	p633_15{"memindex ϕ"}
-	p633_16{{"Sϕ Codeptr "}}
+	p633_10{{"Sϕ Codeptr "}}
+	p633_10{{"Sϕ Codeptr "}}
+	p633_10{{"Sϕ Codeptr "}}
+	p633_10{{"Sϕ Codeptr "}}
+	p633_9{"memindex ϕ"}
+	p633_9{"memindex ϕ"}
+	p633_9{"memindex ϕ"}
+	p633_9{"memindex ϕ"}
+	p633_10{{"Sϕ Codeptr "}}
+	p633_9{"memindex ϕ"}
 end
 block_634 --> phi_633
 block_635 --> phi_633
@@ -31430,19 +31430,19 @@ subgraph block_634["Block 634"]
 end
 branch_632 --> block_634
 subgraph branch_632["Branch 632"]
-	br632_13["cond__1999 u8.!="]
+	br632_7["cond__1999 u8.!="]
 
 end
 block_636 --> branch_632
 subgraph block_636["Block 636"]
 	direction TB
-	b636_8["arg__2004 0x40u8"]
-	b636_7["arg__2002 0"]
-	b636_11["arg__2001 u8.&"]
-	b636_13["cond__1999 u8.!="]
-	b636_8 --> b636_7
-	b636_7 --> b636_11
-	b636_11 --> b636_13
+	b636_5["arg__2004 0x40u8"]
+	b636_4["arg__2002 0"]
+	b636_6["arg__2001 u8.&"]
+	b636_7["cond__1999 u8.!="]
+	b636_5 --> b636_4
+	b636_4 --> b636_6
+	b636_6 --> b636_7
 end
 subgraph block_635["Block 635"]
 	direction TB
@@ -31888,48 +31888,48 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	15 -. Codeptr .-> 2
-	10 -. Stack .-> 2
-	1 -. Trap Locals Globals Tables Memory Extra .-> 2
-	1[/"Start"\\]
-	10{{"Sϕ Stack "}}
-	16 --> 10
-	22 --> 10
-	25 --> 10
+	1[\\"Finish"/]
+	10 -. Codeptr .-> 1
+	16 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	16{{"Sϕ Stack "}}
+	11 --> 16
+	22 --> 16
+	25 --> 16
 	25["eff__2075__2090 push_u32"]
 	24 --> 25
-	1 -. Stack .-> 25
+	0 -. Stack .-> 25
 	24["r__2089 mach_memorySize32"]
-	14 --> 24
-	14{"memindex ϕ"}
-	12 --> 14
-	13 --> 14
-	5 --> 14
-	5["memindex__2086 0u"]
-	13["memindex__2080 imm_readULEB32"]
-	4 -. Codeptr .-> 13
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	12["cond__2079 u8.!="]
-	11 --> 12
-	7 --> 12
-	7["arg__2082 0"]
-	11["arg__2081 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__2084 0x40u8"]
+	9 --> 24
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__2086 0u"]
+	8["memindex__2080 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	7["cond__2079 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__2082 0"]
+	6["arg__2081 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__2084 0x40u8"]
 	22["eff__2072__2088 push_u64"]
 	21 --> 22
-	1 -. Stack .-> 22
+	0 -. Stack .-> 22
 	21["r__2087 mach_memorySize64"]
-	14 --> 21
-	16["cond__2071 m_isMemory64"]
-	14 --> 16
-	15{{"Sϕ Codeptr "}}
-	12 --> 15
-	13 --> 15
-	4 --> 15
+	9 --> 21
+	11["cond__2071 m_isMemory64"]
+	9 --> 11
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
 </pre>`;
 window.traces["MEMORY_SIZE"]["post_surgery 644"] = ''
 window.traces["MEMORY_SIZE"]["post_surgery 644"] += `<pre class='graph'>---
@@ -31937,58 +31937,58 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	15 -. Codeptr .-> 2
-	10 -. Stack .-> 2
-	1 -. Trap Locals Globals Tables Memory Extra .-> 2
-	1[/"Start"\\]
-	10{{"Sϕ Stack "}}
-	16 --> 10
-	22 --> 10
-	25 --> 10
+	1[\\"Finish"/]
+	10 -. Codeptr .-> 1
+	16 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	16{{"Sϕ Stack "}}
+	11 --> 16
+	22 --> 16
+	25 --> 16
 	25["eff__2075__2090 push_u32"]
 	24 --> 25
-	1 -. Stack .-> 25
+	0 -. Stack .-> 25
 	24["r__2089 mach_memorySize32"]
-	14 --> 24
-	14{"memindex ϕ"}
-	12 --> 14
-	27 --> 14
-	29 --> 14
+	9 --> 24
+	9{"memindex ϕ"}
+	7 --> 9
+	27 --> 9
+	29 --> 9
 	29["memindex__2086__2092 0u"]
 	27["memindex__2080__2091 imm_readULEB32"]
-	4 -. Codeptr .-> 27
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	12["cond__2079 u8.!="]
-	11 --> 12
-	7 --> 12
-	7["arg__2082 0"]
-	11["arg__2081 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__2084 0x40u8"]
+	2 -. Codeptr .-> 27
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	7["cond__2079 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__2082 0"]
+	6["arg__2081 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__2084 0x40u8"]
 	22["eff__2072__2088 push_u64"]
 	21 --> 22
-	1 -. Stack .-> 22
+	0 -. Stack .-> 22
 	21["r__2087 mach_memorySize64"]
-	14 --> 21
-	16["cond__2071 m_isMemory64"]
-	14 --> 16
-	15{{"Sϕ Codeptr "}}
-	12 --> 15
-	27 --> 15
-	4 --> 15
+	9 --> 21
+	11["cond__2071 m_isMemory64"]
+	9 --> 11
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	27 --> 10
+	2 --> 10
 </pre>`;
 window.traces["MEMORY_SIZE"]["schedulerMermaid"] = ''
 window.traces["MEMORY_SIZE"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_637["Block 637"]
 	direction TB
-	b637_2[\\"Finish"/]
+	b637_1[\\"Finish"/]
 end
 phi_639 --> block_637
 subgraph phi_639["Phi 639"]
-	p639_10{{"Sϕ Stack "}}
+	p639_16{{"Sϕ Stack "}}
 end
 block_640 --> phi_639
 block_641 --> phi_639
@@ -32000,21 +32000,21 @@ subgraph block_640["Block 640"]
 end
 branch_638 --> block_640
 subgraph branch_638["Branch 638"]
-	br638_16["cond__2071 m_isMemory64"]
+	br638_11["cond__2071 m_isMemory64"]
 
 end
 block_642 --> branch_638
 subgraph block_642["Block 642"]
 	direction TB
-	b642_16["cond__2071 m_isMemory64"]
+	b642_11["cond__2071 m_isMemory64"]
 end
 phi_644 --> block_642
 subgraph phi_644["Phi 644"]
-	p644_14{"memindex ϕ"}
-	p644_14{"memindex ϕ"}
-	p644_14{"memindex ϕ"}
-	p644_15{{"Sϕ Codeptr "}}
-	p644_14{"memindex ϕ"}
+	p644_9{"memindex ϕ"}
+	p644_9{"memindex ϕ"}
+	p644_9{"memindex ϕ"}
+	p644_10{{"Sϕ Codeptr "}}
+	p644_9{"memindex ϕ"}
 end
 block_645 --> phi_644
 block_646 --> phi_644
@@ -32024,19 +32024,19 @@ subgraph block_645["Block 645"]
 end
 branch_643 --> block_645
 subgraph branch_643["Branch 643"]
-	br643_12["cond__2079 u8.!="]
+	br643_7["cond__2079 u8.!="]
 
 end
 block_647 --> branch_643
 subgraph block_647["Block 647"]
 	direction TB
-	b647_8["arg__2084 0x40u8"]
-	b647_7["arg__2082 0"]
-	b647_11["arg__2081 u8.&"]
-	b647_12["cond__2079 u8.!="]
-	b647_8 --> b647_7
-	b647_7 --> b647_11
-	b647_11 --> b647_12
+	b647_5["arg__2084 0x40u8"]
+	b647_4["arg__2082 0"]
+	b647_6["arg__2081 u8.&"]
+	b647_7["cond__2079 u8.!="]
+	b647_5 --> b647_4
+	b647_4 --> b647_6
+	b647_6 --> b647_7
 end
 subgraph block_646["Block 646"]
 	direction TB
@@ -32167,48 +32167,48 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	15 -. Codeptr .-> 2
-	10 -. Stack .-> 2
-	1 -. Trap Locals Globals Tables Memory Extra .-> 2
-	1[/"Start"\\]
-	10{{"Sϕ Stack "}}
-	16 --> 10
-	22 --> 10
-	25 --> 10
+	1[\\"Finish"/]
+	10 -. Codeptr .-> 1
+	16 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	16{{"Sϕ Stack "}}
+	11 --> 16
+	22 --> 16
+	25 --> 16
 	25["eff__2075__2102 push_u32"]
 	24 --> 25
-	1 -. Stack .-> 25
+	0 -. Stack .-> 25
 	24["r__2101 mach_memorySize32"]
-	14 --> 24
-	14{"memindex ϕ"}
-	12 --> 14
-	13 --> 14
-	5 --> 14
-	5["memindex__2086 0u"]
-	13["memindex__2080 imm_readULEB32"]
-	4 -. Codeptr .-> 13
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	12["cond__2079 u8.!="]
-	11 --> 12
-	7 --> 12
-	7["arg__2082 0"]
-	11["arg__2081 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__2084 0x40u8"]
+	9 --> 24
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__2086 0u"]
+	8["memindex__2080 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	7["cond__2079 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__2082 0"]
+	6["arg__2081 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__2084 0x40u8"]
 	22["eff__2072__2100 push_u64"]
 	21 --> 22
-	1 -. Stack .-> 22
+	0 -. Stack .-> 22
 	21["r__2099 mach_memorySize64"]
-	14 --> 21
-	16["cond__2071 m_isMemory64"]
-	14 --> 16
-	15{{"Sϕ Codeptr "}}
-	12 --> 15
-	13 --> 15
-	4 --> 15
+	9 --> 21
+	11["cond__2071 m_isMemory64"]
+	9 --> 11
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
 </pre>`;
 window.traces["MEMORY_SIZE_ul"]["post_surgery 655"] = ''
 window.traces["MEMORY_SIZE_ul"]["post_surgery 655"] += `<pre class='graph'>---
@@ -32216,58 +32216,58 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	15 -. Codeptr .-> 2
-	10 -. Stack .-> 2
-	1 -. Trap Locals Globals Tables Memory Extra .-> 2
-	1[/"Start"\\]
-	10{{"Sϕ Stack "}}
-	16 --> 10
-	22 --> 10
-	25 --> 10
+	1[\\"Finish"/]
+	10 -. Codeptr .-> 1
+	16 -. Stack .-> 1
+	0 -. Trap Locals Globals Tables Memory Extra .-> 1
+	0[/"Start"\\]
+	16{{"Sϕ Stack "}}
+	11 --> 16
+	22 --> 16
+	25 --> 16
 	25["eff__2075__2102 push_u32"]
 	24 --> 25
-	1 -. Stack .-> 25
+	0 -. Stack .-> 25
 	24["r__2101 mach_memorySize32"]
-	14 --> 24
-	14{"memindex ϕ"}
-	12 --> 14
-	27 --> 14
-	29 --> 14
+	9 --> 24
+	9{"memindex ϕ"}
+	7 --> 9
+	27 --> 9
+	29 --> 9
 	29["memindex__2086__2104 0u"]
 	27["memindex__2080__2103 imm_readULEB32"]
-	4 -. Codeptr .-> 27
-	4["flags imm_readU8"]
-	1 -. Codeptr .-> 4
-	12["cond__2079 u8.!="]
-	11 --> 12
-	7 --> 12
-	7["arg__2082 0"]
-	11["arg__2081 u8.&"]
-	4 --> 11
-	8 --> 11
-	8["arg__2084 0x40u8"]
+	2 -. Codeptr .-> 27
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	7["cond__2079 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__2082 0"]
+	6["arg__2081 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__2084 0x40u8"]
 	22["eff__2072__2100 push_u64"]
 	21 --> 22
-	1 -. Stack .-> 22
+	0 -. Stack .-> 22
 	21["r__2099 mach_memorySize64"]
-	14 --> 21
-	16["cond__2071 m_isMemory64"]
-	14 --> 16
-	15{{"Sϕ Codeptr "}}
-	12 --> 15
-	27 --> 15
-	4 --> 15
+	9 --> 21
+	11["cond__2071 m_isMemory64"]
+	9 --> 11
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	27 --> 10
+	2 --> 10
 </pre>`;
 window.traces["MEMORY_SIZE"]["unlem_scheduler"] = ''
 window.traces["MEMORY_SIZE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_648["Block 648"]
 	direction TB
-	b648_2[\\"Finish"/]
+	b648_1[\\"Finish"/]
 end
 phi_650 --> block_648
 subgraph phi_650["Phi 650"]
-	p650_10{{"Sϕ Stack "}}
+	p650_16{{"Sϕ Stack "}}
 end
 block_651 --> phi_650
 block_652 --> phi_650
@@ -32279,21 +32279,21 @@ subgraph block_651["Block 651"]
 end
 branch_649 --> block_651
 subgraph branch_649["Branch 649"]
-	br649_16["cond__2071 m_isMemory64"]
+	br649_11["cond__2071 m_isMemory64"]
 
 end
 block_653 --> branch_649
 subgraph block_653["Block 653"]
 	direction TB
-	b653_16["cond__2071 m_isMemory64"]
+	b653_11["cond__2071 m_isMemory64"]
 end
 phi_655 --> block_653
 subgraph phi_655["Phi 655"]
-	p655_14{"memindex ϕ"}
-	p655_14{"memindex ϕ"}
-	p655_14{"memindex ϕ"}
-	p655_15{{"Sϕ Codeptr "}}
-	p655_14{"memindex ϕ"}
+	p655_9{"memindex ϕ"}
+	p655_9{"memindex ϕ"}
+	p655_9{"memindex ϕ"}
+	p655_10{{"Sϕ Codeptr "}}
+	p655_9{"memindex ϕ"}
 end
 block_656 --> phi_655
 block_657 --> phi_655
@@ -32303,19 +32303,19 @@ subgraph block_656["Block 656"]
 end
 branch_654 --> block_656
 subgraph branch_654["Branch 654"]
-	br654_12["cond__2079 u8.!="]
+	br654_7["cond__2079 u8.!="]
 
 end
 block_658 --> branch_654
 subgraph block_658["Block 658"]
 	direction TB
-	b658_8["arg__2084 0x40u8"]
-	b658_7["arg__2082 0"]
-	b658_11["arg__2081 u8.&"]
-	b658_12["cond__2079 u8.!="]
-	b658_8 --> b658_7
-	b658_7 --> b658_11
-	b658_11 --> b658_12
+	b658_5["arg__2084 0x40u8"]
+	b658_4["arg__2082 0"]
+	b658_6["arg__2081 u8.&"]
+	b658_7["cond__2079 u8.!="]
+	b658_5 --> b658_4
+	b658_4 --> b658_6
+	b658_6 --> b658_7
 end
 subgraph block_657["Block 657"]
 	direction TB
@@ -32725,53 +32725,53 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	16 -. Codeptr .-> 1
-	15 -. Stack .-> 1
+	10 -. Codeptr .-> 1
+	18 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	15{{"Sϕ Stack "}}
-	17 --> 15
-	24 --> 15
-	27 --> 15
+	18{{"Sϕ Stack "}}
+	11 --> 18
+	24 --> 18
+	27 --> 18
 	27["eff__2116__2132 push_u32"]
 	26 --> 27
-	18 -. Stack .-> 27
-	18["val pop_u32"]
-	0 -. Stack .-> 18
+	12 -. Stack .-> 27
+	12["val pop_u32"]
+	0 -. Stack .-> 12
 	26["r__2131 mach_memoryGrow32"]
-	14 --> 26
-	18 --> 26
-	14{"memindex ϕ"}
-	11 --> 14
-	13 --> 14
-	4 --> 14
-	4["memindex__2128 0u"]
-	13["memindex__2122 imm_readULEB32"]
-	3 -. Codeptr .-> 13
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	11["cond__2121 u8.!="]
-	10 --> 11
-	7 --> 11
-	7["arg__2124 0"]
-	10["arg__2123 u8.&"]
-	3 --> 10
-	8 --> 10
-	8["arg__2126 0x40u8"]
+	9 --> 26
+	12 --> 26
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__2128 0u"]
+	8["memindex__2122 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	7["cond__2121 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__2124 0"]
+	6["arg__2123 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__2126 0x40u8"]
 	24["eff__2112__2130 push_u64"]
 	23 --> 24
-	6 -. Stack .-> 24
-	6["val pop_u64"]
-	0 -. Stack .-> 6
+	15 -. Stack .-> 24
+	15["val pop_u64"]
+	0 -. Stack .-> 15
 	23["r__2129 mach_memoryGrow64"]
-	14 --> 23
-	6 --> 23
-	17["cond__2111 m_isMemory64"]
-	14 --> 17
-	16{{"Sϕ Codeptr "}}
-	11 --> 16
-	13 --> 16
-	3 --> 16
+	9 --> 23
+	15 --> 23
+	11["cond__2111 m_isMemory64"]
+	9 --> 11
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
 </pre>`;
 window.traces["MEMORY_GROW"]["post_surgery 666"] = ''
 window.traces["MEMORY_GROW"]["post_surgery 666"] += `<pre class='graph'>---
@@ -32780,53 +32780,53 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	16 -. Codeptr .-> 1
-	15 -. Stack .-> 1
+	10 -. Codeptr .-> 1
+	18 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	15{{"Sϕ Stack "}}
-	17 --> 15
-	24 --> 15
-	27 --> 15
+	18{{"Sϕ Stack "}}
+	11 --> 18
+	24 --> 18
+	27 --> 18
 	27["eff__2116__2132 push_u32"]
 	26 --> 27
-	18 -. Stack .-> 27
-	18["val pop_u32"]
-	0 -. Stack .-> 18
+	12 -. Stack .-> 27
+	12["val pop_u32"]
+	0 -. Stack .-> 12
 	26["r__2131 mach_memoryGrow32"]
-	14 --> 26
-	18 --> 26
-	14{"memindex ϕ"}
-	11 --> 14
-	29 --> 14
-	31 --> 14
+	9 --> 26
+	12 --> 26
+	9{"memindex ϕ"}
+	7 --> 9
+	29 --> 9
+	31 --> 9
 	31["memindex__2128__2134 0u"]
 	29["memindex__2122__2133 imm_readULEB32"]
-	3 -. Codeptr .-> 29
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	11["cond__2121 u8.!="]
-	10 --> 11
-	7 --> 11
-	7["arg__2124 0"]
-	10["arg__2123 u8.&"]
-	3 --> 10
-	8 --> 10
-	8["arg__2126 0x40u8"]
+	2 -. Codeptr .-> 29
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	7["cond__2121 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__2124 0"]
+	6["arg__2123 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__2126 0x40u8"]
 	24["eff__2112__2130 push_u64"]
 	23 --> 24
-	6 -. Stack .-> 24
-	6["val pop_u64"]
-	0 -. Stack .-> 6
+	15 -. Stack .-> 24
+	15["val pop_u64"]
+	0 -. Stack .-> 15
 	23["r__2129 mach_memoryGrow64"]
-	14 --> 23
-	6 --> 23
-	17["cond__2111 m_isMemory64"]
-	14 --> 17
-	16{{"Sϕ Codeptr "}}
-	11 --> 16
-	29 --> 16
-	3 --> 16
+	9 --> 23
+	15 --> 23
+	11["cond__2111 m_isMemory64"]
+	9 --> 11
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	29 --> 10
+	2 --> 10
 </pre>`;
 window.traces["MEMORY_GROW"]["schedulerMermaid"] = ''
 window.traces["MEMORY_GROW"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -32836,35 +32836,35 @@ subgraph block_659["Block 659"]
 end
 phi_661 --> block_659
 subgraph phi_661["Phi 661"]
-	p661_15{{"Sϕ Stack "}}
+	p661_18{{"Sϕ Stack "}}
 end
 block_662 --> phi_661
 block_663 --> phi_661
 subgraph block_662["Block 662"]
 	direction TB
-	b662_6["val pop_u64"]
+	b662_15["val pop_u64"]
 	b662_23["r__2129 mach_memoryGrow64"]
 	b662_24["eff__2112__2130 push_u64"]
-	b662_6 --> b662_23
+	b662_15 --> b662_23
 	b662_23 --> b662_24
 end
 branch_660 --> block_662
 subgraph branch_660["Branch 660"]
-	br660_17["cond__2111 m_isMemory64"]
+	br660_11["cond__2111 m_isMemory64"]
 
 end
 block_664 --> branch_660
 subgraph block_664["Block 664"]
 	direction TB
-	b664_17["cond__2111 m_isMemory64"]
+	b664_11["cond__2111 m_isMemory64"]
 end
 phi_666 --> block_664
 subgraph phi_666["Phi 666"]
-	p666_14{"memindex ϕ"}
-	p666_14{"memindex ϕ"}
-	p666_14{"memindex ϕ"}
-	p666_14{"memindex ϕ"}
-	p666_16{{"Sϕ Codeptr "}}
+	p666_9{"memindex ϕ"}
+	p666_9{"memindex ϕ"}
+	p666_9{"memindex ϕ"}
+	p666_10{{"Sϕ Codeptr "}}
+	p666_9{"memindex ϕ"}
 end
 block_667 --> phi_666
 block_668 --> phi_666
@@ -32874,19 +32874,19 @@ subgraph block_667["Block 667"]
 end
 branch_665 --> block_667
 subgraph branch_665["Branch 665"]
-	br665_11["cond__2121 u8.!="]
+	br665_7["cond__2121 u8.!="]
 
 end
 block_669 --> branch_665
 subgraph block_669["Block 669"]
 	direction TB
-	b669_8["arg__2126 0x40u8"]
-	b669_7["arg__2124 0"]
-	b669_10["arg__2123 u8.&"]
-	b669_11["cond__2121 u8.!="]
-	b669_8 --> b669_7
-	b669_7 --> b669_10
-	b669_10 --> b669_11
+	b669_5["arg__2126 0x40u8"]
+	b669_4["arg__2124 0"]
+	b669_6["arg__2123 u8.&"]
+	b669_7["cond__2121 u8.!="]
+	b669_5 --> b669_4
+	b669_4 --> b669_6
+	b669_6 --> b669_7
 end
 subgraph block_668["Block 668"]
 	direction TB
@@ -32895,10 +32895,10 @@ end
 branch_665 --> block_668
 subgraph block_663["Block 663"]
 	direction TB
-	b663_18["val pop_u32"]
+	b663_12["val pop_u32"]
 	b663_26["r__2131 mach_memoryGrow32"]
 	b663_27["eff__2116__2132 push_u32"]
-	b663_18 --> b663_26
+	b663_12 --> b663_26
 	b663_26 --> b663_27
 end
 branch_660 --> block_663
@@ -33032,53 +33032,53 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	16 -. Codeptr .-> 1
-	15 -. Stack .-> 1
+	10 -. Codeptr .-> 1
+	18 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	15{{"Sϕ Stack "}}
-	17 --> 15
-	24 --> 15
-	27 --> 15
+	18{{"Sϕ Stack "}}
+	11 --> 18
+	24 --> 18
+	27 --> 18
 	27["eff__2116__2144 push_u32"]
 	26 --> 27
-	18 -. Stack .-> 27
-	18["val pop_u32"]
-	0 -. Stack .-> 18
+	12 -. Stack .-> 27
+	12["val pop_u32"]
+	0 -. Stack .-> 12
 	26["r__2143 mach_memoryGrow32"]
-	14 --> 26
-	18 --> 26
-	14{"memindex ϕ"}
-	11 --> 14
-	13 --> 14
-	4 --> 14
-	4["memindex__2128 0u"]
-	13["memindex__2122 imm_readULEB32"]
-	3 -. Codeptr .-> 13
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	11["cond__2121 u8.!="]
-	10 --> 11
-	7 --> 11
-	7["arg__2124 0"]
-	10["arg__2123 u8.&"]
-	3 --> 10
-	8 --> 10
-	8["arg__2126 0x40u8"]
+	9 --> 26
+	12 --> 26
+	9{"memindex ϕ"}
+	7 --> 9
+	8 --> 9
+	3 --> 9
+	3["memindex__2128 0u"]
+	8["memindex__2122 imm_readULEB32"]
+	2 -. Codeptr .-> 8
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	7["cond__2121 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__2124 0"]
+	6["arg__2123 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__2126 0x40u8"]
 	24["eff__2112__2142 push_u64"]
 	23 --> 24
-	6 -. Stack .-> 24
-	6["val pop_u64"]
-	0 -. Stack .-> 6
+	15 -. Stack .-> 24
+	15["val pop_u64"]
+	0 -. Stack .-> 15
 	23["r__2141 mach_memoryGrow64"]
-	14 --> 23
-	6 --> 23
-	17["cond__2111 m_isMemory64"]
-	14 --> 17
-	16{{"Sϕ Codeptr "}}
-	11 --> 16
-	13 --> 16
-	3 --> 16
+	9 --> 23
+	15 --> 23
+	11["cond__2111 m_isMemory64"]
+	9 --> 11
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	8 --> 10
+	2 --> 10
 </pre>`;
 window.traces["MEMORY_GROW_ul"]["post_surgery 677"] = ''
 window.traces["MEMORY_GROW_ul"]["post_surgery 677"] += `<pre class='graph'>---
@@ -33087,53 +33087,53 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	16 -. Codeptr .-> 1
-	15 -. Stack .-> 1
+	10 -. Codeptr .-> 1
+	18 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	15{{"Sϕ Stack "}}
-	17 --> 15
-	24 --> 15
-	27 --> 15
+	18{{"Sϕ Stack "}}
+	11 --> 18
+	24 --> 18
+	27 --> 18
 	27["eff__2116__2144 push_u32"]
 	26 --> 27
-	18 -. Stack .-> 27
-	18["val pop_u32"]
-	0 -. Stack .-> 18
+	12 -. Stack .-> 27
+	12["val pop_u32"]
+	0 -. Stack .-> 12
 	26["r__2143 mach_memoryGrow32"]
-	14 --> 26
-	18 --> 26
-	14{"memindex ϕ"}
-	11 --> 14
-	29 --> 14
-	31 --> 14
+	9 --> 26
+	12 --> 26
+	9{"memindex ϕ"}
+	7 --> 9
+	29 --> 9
+	31 --> 9
 	31["memindex__2128__2146 0u"]
 	29["memindex__2122__2145 imm_readULEB32"]
-	3 -. Codeptr .-> 29
-	3["flags imm_readU8"]
-	0 -. Codeptr .-> 3
-	11["cond__2121 u8.!="]
-	10 --> 11
-	7 --> 11
-	7["arg__2124 0"]
-	10["arg__2123 u8.&"]
-	3 --> 10
-	8 --> 10
-	8["arg__2126 0x40u8"]
+	2 -. Codeptr .-> 29
+	2["flags imm_readU8"]
+	0 -. Codeptr .-> 2
+	7["cond__2121 u8.!="]
+	6 --> 7
+	4 --> 7
+	4["arg__2124 0"]
+	6["arg__2123 u8.&"]
+	2 --> 6
+	5 --> 6
+	5["arg__2126 0x40u8"]
 	24["eff__2112__2142 push_u64"]
 	23 --> 24
-	6 -. Stack .-> 24
-	6["val pop_u64"]
-	0 -. Stack .-> 6
+	15 -. Stack .-> 24
+	15["val pop_u64"]
+	0 -. Stack .-> 15
 	23["r__2141 mach_memoryGrow64"]
-	14 --> 23
-	6 --> 23
-	17["cond__2111 m_isMemory64"]
-	14 --> 17
-	16{{"Sϕ Codeptr "}}
-	11 --> 16
-	29 --> 16
-	3 --> 16
+	9 --> 23
+	15 --> 23
+	11["cond__2111 m_isMemory64"]
+	9 --> 11
+	10{{"Sϕ Codeptr "}}
+	7 --> 10
+	29 --> 10
+	2 --> 10
 </pre>`;
 window.traces["MEMORY_GROW"]["unlem_scheduler"] = ''
 window.traces["MEMORY_GROW"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -33143,35 +33143,35 @@ subgraph block_670["Block 670"]
 end
 phi_672 --> block_670
 subgraph phi_672["Phi 672"]
-	p672_15{{"Sϕ Stack "}}
+	p672_18{{"Sϕ Stack "}}
 end
 block_673 --> phi_672
 block_674 --> phi_672
 subgraph block_673["Block 673"]
 	direction TB
-	b673_6["val pop_u64"]
+	b673_15["val pop_u64"]
 	b673_23["r__2141 mach_memoryGrow64"]
 	b673_24["eff__2112__2142 push_u64"]
-	b673_6 --> b673_23
+	b673_15 --> b673_23
 	b673_23 --> b673_24
 end
 branch_671 --> block_673
 subgraph branch_671["Branch 671"]
-	br671_17["cond__2111 m_isMemory64"]
+	br671_11["cond__2111 m_isMemory64"]
 
 end
 block_675 --> branch_671
 subgraph block_675["Block 675"]
 	direction TB
-	b675_17["cond__2111 m_isMemory64"]
+	b675_11["cond__2111 m_isMemory64"]
 end
 phi_677 --> block_675
 subgraph phi_677["Phi 677"]
-	p677_14{"memindex ϕ"}
-	p677_14{"memindex ϕ"}
-	p677_14{"memindex ϕ"}
-	p677_14{"memindex ϕ"}
-	p677_16{{"Sϕ Codeptr "}}
+	p677_9{"memindex ϕ"}
+	p677_9{"memindex ϕ"}
+	p677_9{"memindex ϕ"}
+	p677_10{{"Sϕ Codeptr "}}
+	p677_9{"memindex ϕ"}
 end
 block_678 --> phi_677
 block_679 --> phi_677
@@ -33181,19 +33181,19 @@ subgraph block_678["Block 678"]
 end
 branch_676 --> block_678
 subgraph branch_676["Branch 676"]
-	br676_11["cond__2121 u8.!="]
+	br676_7["cond__2121 u8.!="]
 
 end
 block_680 --> branch_676
 subgraph block_680["Block 680"]
 	direction TB
-	b680_8["arg__2126 0x40u8"]
-	b680_7["arg__2124 0"]
-	b680_10["arg__2123 u8.&"]
-	b680_11["cond__2121 u8.!="]
-	b680_8 --> b680_7
-	b680_7 --> b680_10
-	b680_10 --> b680_11
+	b680_5["arg__2126 0x40u8"]
+	b680_4["arg__2124 0"]
+	b680_6["arg__2123 u8.&"]
+	b680_7["cond__2121 u8.!="]
+	b680_5 --> b680_4
+	b680_4 --> b680_6
+	b680_6 --> b680_7
 end
 subgraph block_679["Block 679"]
 	direction TB
@@ -33202,10 +33202,10 @@ end
 branch_676 --> block_679
 subgraph block_674["Block 674"]
 	direction TB
-	b674_18["val pop_u32"]
+	b674_12["val pop_u32"]
 	b674_26["r__2143 mach_memoryGrow32"]
 	b674_27["eff__2116__2144 push_u32"]
-	b674_18 --> b674_26
+	b674_12 --> b674_26
 	b674_26 --> b674_27
 end
 branch_671 --> block_674
@@ -34475,55 +34475,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	12 -. Stack .-> 3
-	12{{"Sϕ Stack "}}
-	0 --> 12
-	22 --> 12
-	24 --> 12
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2170__2186 push_u32"]
-	15 --> 26
-	5 -. Stack .-> 26
-	5["a pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	15["abs__2176 lift_u32"]
-	7 --> 15
-	7["arg__2173 0"]
-	27["eff__2168__2187 push_u32"]
-	14 --> 27
-	5 -. Stack .-> 27
-	14["abs__2175 lift_u32"]
-	10 --> 14
-	10["arg__2169 1"]
-	28["mt__2179__2188 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	8 -. Stack .-> 1
+	8{{"Sϕ Stack "}}
+	14 --> 8
+	22 --> 8
+	28 --> 8
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2167__2185 U32_equals"]
-	5 --> 25
-	13 --> 25
-	13["abs__2174 lift_u32"]
-	7 --> 13
+	25["eff__2170__2186 push_u32"]
+	11 --> 25
+	2 -. Stack .-> 25
+	2["a pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2176 lift_u32"]
+	3 --> 11
+	3["arg__2173 0"]
+	26["eff__2168__2187 push_u32"]
+	10 --> 26
+	2 -. Stack .-> 26
+	10["abs__2175 lift_u32"]
+	6 --> 10
+	6["arg__2169 1"]
+	27["mt__2179__2188 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2167__2185 U32_equals"]
+	2 --> 24
+	9 --> 24
+	9["abs__2174 lift_u32"]
+	3 --> 9
 	22["eff_push__2183__2184 push_u32"]
-	4 --> 22
-	5 -. Stack .-> 22
-	4["merge__2182 merge_u"]
-	14 --> 4
-	15 --> 4
-	0["mb__2181 bool.&&"]
-	16 --> 0
-	17 --> 0
-	17["mf__2180 U32_maybeFalse"]
-	8 --> 17
-	8["cond__2167 U32_equals"]
-	5 --> 8
-	13 --> 8
-	16["mt__2179 U32_maybeTrue"]
-	8 --> 16
+	16 --> 22
+	2 -. Stack .-> 22
+	16["merge__2182 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2181 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2180 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2167 U32_equals"]
+	2 --> 4
+	9 --> 4
+	12["mt__2179 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_EQZ_ul"]["post_surgery 702"] = ''
 window.traces["I32_EQZ_ul"]["post_surgery 702"] += `<pre class='graph'>---
@@ -34531,114 +34531,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	12 -. Stack .-> 3
-	12{{"Sϕ Stack "}}
-	0 --> 12
-	22 --> 12
-	24 --> 12
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	8 -. Stack .-> 1
+	8{{"Sϕ Stack "}}
+	14 --> 8
+	22 --> 8
+	28 --> 8
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2170__2186__2190 push_u32"]
-	15 --> 34
-	5 -. Stack .-> 34
-	5["a pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	15["abs__2176 lift_u32"]
-	7 --> 15
-	7["arg__2173 0"]
+	11 --> 34
+	2 -. Stack .-> 34
+	2["a pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2176 lift_u32"]
+	3 --> 11
+	3["arg__2173 0"]
 	32["eff__2168__2187__2189 push_u32"]
-	14 --> 32
-	5 -. Stack .-> 32
-	14["abs__2175 lift_u32"]
-	10 --> 14
-	10["arg__2169 1"]
-	28["mt__2179__2188 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2167__2185 U32_equals"]
-	5 --> 25
-	13 --> 25
-	13["abs__2174 lift_u32"]
-	7 --> 13
+	10 --> 32
+	2 -. Stack .-> 32
+	10["abs__2175 lift_u32"]
+	6 --> 10
+	6["arg__2169 1"]
+	27["mt__2179__2188 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2167__2185 U32_equals"]
+	2 --> 24
+	9 --> 24
+	9["abs__2174 lift_u32"]
+	3 --> 9
 	22["eff_push__2183__2184 push_u32"]
-	4 --> 22
-	5 -. Stack .-> 22
-	4["merge__2182 merge_u"]
-	14 --> 4
-	15 --> 4
-	0["mb__2181 bool.&&"]
-	16 --> 0
-	17 --> 0
-	17["mf__2180 U32_maybeFalse"]
-	8 --> 17
-	8["cond__2167 U32_equals"]
-	5 --> 8
-	13 --> 8
-	16["mt__2179 U32_maybeTrue"]
-	8 --> 16
+	16 --> 22
+	2 -. Stack .-> 22
+	16["merge__2182 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2181 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2180 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2167 U32_equals"]
+	2 --> 4
+	9 --> 4
+	12["mt__2179 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_EQZ"]["unlem_scheduler"] = ''
 window.traces["I32_EQZ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_695["Block 695"]
 	direction TB
-	b695_3[\\"Finish"/]
+	b695_1[\\"Finish"/]
 end
 phi_697 --> block_695
 subgraph phi_697["Phi 697"]
-	p697_12{{"Sϕ Stack "}}
+	p697_8{{"Sϕ Stack "}}
 end
 block_698 --> phi_697
 block_699 --> phi_697
 subgraph block_698["Block 698"]
 	direction TB
-	b698_4["merge__2182 merge_u"]
+	b698_16["merge__2182 merge_u"]
 	b698_22["eff_push__2183__2184 push_u32"]
-	b698_4 --> b698_22
+	b698_16 --> b698_22
 end
 branch_696 --> block_698
 subgraph branch_696["Branch 696"]
-	br696_0["mb__2181 bool.&&"]
+	br696_14["mb__2181 bool.&&"]
 
 end
 block_700 --> branch_696
 subgraph block_700["Block 700"]
 	direction TB
-	b700_1[/"Start"\\]
-	b700_7["arg__2173 0"]
-	b700_10["arg__2169 1"]
-	b700_13["abs__2174 lift_u32"]
-	b700_5["a pop_u32"]
-	b700_25["cond__2167__2185 U32_equals"]
-	b700_15["abs__2176 lift_u32"]
-	b700_14["abs__2175 lift_u32"]
-	b700_8["cond__2167 U32_equals"]
-	b700_28["mt__2179__2188 U32_maybeTrue"]
-	b700_17["mf__2180 U32_maybeFalse"]
-	b700_16["mt__2179 U32_maybeTrue"]
-	b700_0["mb__2181 bool.&&"]
-	b700_1 --> b700_7
-	b700_7 --> b700_10
-	b700_10 --> b700_13
-	b700_13 --> b700_5
-	b700_5 --> b700_25
-	b700_25 --> b700_15
-	b700_15 --> b700_14
-	b700_14 --> b700_8
-	b700_8 --> b700_28
-	b700_28 --> b700_17
-	b700_17 --> b700_16
-	b700_16 --> b700_0
+	b700_0[/"Start"\\]
+	b700_3["arg__2173 0"]
+	b700_6["arg__2169 1"]
+	b700_9["abs__2174 lift_u32"]
+	b700_2["a pop_u32"]
+	b700_24["cond__2167__2185 U32_equals"]
+	b700_11["abs__2176 lift_u32"]
+	b700_10["abs__2175 lift_u32"]
+	b700_4["cond__2167 U32_equals"]
+	b700_27["mt__2179__2188 U32_maybeTrue"]
+	b700_13["mf__2180 U32_maybeFalse"]
+	b700_12["mt__2179 U32_maybeTrue"]
+	b700_14["mb__2181 bool.&&"]
+	b700_0 --> b700_3
+	b700_3 --> b700_6
+	b700_6 --> b700_9
+	b700_9 --> b700_2
+	b700_2 --> b700_24
+	b700_24 --> b700_11
+	b700_11 --> b700_10
+	b700_10 --> b700_4
+	b700_4 --> b700_27
+	b700_27 --> b700_13
+	b700_13 --> b700_12
+	b700_12 --> b700_14
 end
 subgraph block_699["Block 699"]
 	direction TB
 end
 phi_702 --> block_699
 subgraph phi_702["Phi 702"]
-	p702_24{{"Sϕ Stack "}}
+	p702_28{{"Sϕ Stack "}}
 end
 block_703 --> phi_702
 block_704 --> phi_702
@@ -34648,7 +34648,7 @@ subgraph block_703["Block 703"]
 end
 branch_701 --> block_703
 subgraph branch_701["Branch 701"]
-	br701_28["mt__2179__2188 U32_maybeTrue"]
+	br701_27["mt__2179__2188 U32_maybeTrue"]
 
 end
 branch_696 --> branch_701
@@ -35068,55 +35068,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2194__2209 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2199 lift_u32"]
-	10 --> 16
-	10["arg__2195 0"]
-	27["eff__2192__2210 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2198 lift_u32"]
-	12 --> 15
-	12["arg__2193 1"]
-	28["mt__2202__2211 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2191__2208 U32_equals"]
-	7 --> 25
-	5 --> 25
+	25["eff__2194__2209 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2199 lift_u32"]
+	5 --> 11
+	5["arg__2195 0"]
+	26["eff__2192__2210 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2198 lift_u32"]
+	7 --> 10
+	7["arg__2193 1"]
+	27["mt__2202__2211 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2191__2208 U32_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2206__2207 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2205 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2204 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2203 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2191 U32_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2202 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2205 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2204 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2203 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2191 U32_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2202 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_EQ_ul"]["post_surgery 718"] = ''
 window.traces["I32_EQ_ul"]["post_surgery 718"] += `<pre class='graph'>---
@@ -35124,114 +35124,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2194__2209__2213 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2199 lift_u32"]
-	10 --> 16
-	10["arg__2195 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2199 lift_u32"]
+	5 --> 11
+	5["arg__2195 0"]
 	32["eff__2192__2210__2212 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2198 lift_u32"]
-	12 --> 15
-	12["arg__2193 1"]
-	28["mt__2202__2211 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2191__2208 U32_equals"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2198 lift_u32"]
+	7 --> 10
+	7["arg__2193 1"]
+	27["mt__2202__2211 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2191__2208 U32_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2206__2207 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2205 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2204 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2203 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2191 U32_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2202 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2205 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2204 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2203 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2191 U32_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2202 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_EQ"]["unlem_scheduler"] = ''
 window.traces["I32_EQ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_711["Block 711"]
 	direction TB
-	b711_3[\\"Finish"/]
+	b711_1[\\"Finish"/]
 end
 phi_713 --> block_711
 subgraph phi_713["Phi 713"]
-	p713_14{{"Sϕ Stack "}}
+	p713_9{{"Sϕ Stack "}}
 end
 block_714 --> phi_713
 block_715 --> phi_713
 subgraph block_714["Block 714"]
 	direction TB
-	b714_6["merge__2205 merge_u"]
+	b714_16["merge__2205 merge_u"]
 	b714_22["eff_push__2206__2207 push_u32"]
-	b714_6 --> b714_22
+	b714_16 --> b714_22
 end
 branch_712 --> block_714
 subgraph branch_712["Branch 712"]
-	br712_2["mb__2204 bool.&&"]
+	br712_14["mb__2204 bool.&&"]
 
 end
 block_716 --> branch_712
 subgraph block_716["Block 716"]
 	direction TB
-	b716_1[/"Start"\\]
-	b716_10["arg__2195 0"]
-	b716_12["arg__2193 1"]
-	b716_5["b pop_u32"]
-	b716_7["a pop_u32"]
-	b716_25["cond__2191__2208 U32_equals"]
-	b716_16["abs__2199 lift_u32"]
-	b716_15["abs__2198 lift_u32"]
-	b716_9["cond__2191 U32_equals"]
-	b716_28["mt__2202__2211 U32_maybeTrue"]
-	b716_0["mf__2203 U32_maybeFalse"]
-	b716_17["mt__2202 U32_maybeTrue"]
-	b716_2["mb__2204 bool.&&"]
-	b716_1 --> b716_10
-	b716_10 --> b716_12
-	b716_12 --> b716_5
+	b716_0[/"Start"\\]
+	b716_5["arg__2195 0"]
+	b716_7["arg__2193 1"]
+	b716_2["b pop_u32"]
+	b716_3["a pop_u32"]
+	b716_24["cond__2191__2208 U32_equals"]
+	b716_11["abs__2199 lift_u32"]
+	b716_10["abs__2198 lift_u32"]
+	b716_4["cond__2191 U32_equals"]
+	b716_27["mt__2202__2211 U32_maybeTrue"]
+	b716_13["mf__2203 U32_maybeFalse"]
+	b716_12["mt__2202 U32_maybeTrue"]
+	b716_14["mb__2204 bool.&&"]
+	b716_0 --> b716_5
 	b716_5 --> b716_7
-	b716_7 --> b716_25
-	b716_25 --> b716_16
-	b716_16 --> b716_15
-	b716_15 --> b716_9
-	b716_9 --> b716_28
-	b716_28 --> b716_0
-	b716_0 --> b716_17
-	b716_17 --> b716_2
+	b716_7 --> b716_2
+	b716_2 --> b716_3
+	b716_3 --> b716_24
+	b716_24 --> b716_11
+	b716_11 --> b716_10
+	b716_10 --> b716_4
+	b716_4 --> b716_27
+	b716_27 --> b716_13
+	b716_13 --> b716_12
+	b716_12 --> b716_14
 end
 subgraph block_715["Block 715"]
 	direction TB
 end
 phi_718 --> block_715
 subgraph phi_718["Phi 718"]
-	p718_24{{"Sϕ Stack "}}
+	p718_28{{"Sϕ Stack "}}
 end
 block_719 --> phi_718
 block_720 --> phi_718
@@ -35241,7 +35241,7 @@ subgraph block_719["Block 719"]
 end
 branch_717 --> block_719
 subgraph branch_717["Branch 717"]
-	br717_28["mt__2202__2211 U32_maybeTrue"]
+	br717_27["mt__2202__2211 U32_maybeTrue"]
 
 end
 branch_712 --> branch_717
@@ -35670,55 +35670,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2217__2232 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2222 lift_u32"]
-	10 --> 16
-	10["arg__2218 0"]
-	27["eff__2215__2233 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2221 lift_u32"]
-	12 --> 15
-	12["arg__2216 1"]
-	28["mt__2225__2234 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2214__2231 U32_not_equals"]
-	7 --> 25
-	5 --> 25
+	25["eff__2217__2232 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2222 lift_u32"]
+	5 --> 11
+	5["arg__2218 0"]
+	26["eff__2215__2233 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2221 lift_u32"]
+	7 --> 10
+	7["arg__2216 1"]
+	27["mt__2225__2234 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2214__2231 U32_not_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2229__2230 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2228 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2227 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2226 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2214 U32_not_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2225 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2228 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2227 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2226 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2214 U32_not_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2225 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_NE_ul"]["post_surgery 734"] = ''
 window.traces["I32_NE_ul"]["post_surgery 734"] += `<pre class='graph'>---
@@ -35726,114 +35726,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2217__2232__2236 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2222 lift_u32"]
-	10 --> 16
-	10["arg__2218 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2222 lift_u32"]
+	5 --> 11
+	5["arg__2218 0"]
 	32["eff__2215__2233__2235 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2221 lift_u32"]
-	12 --> 15
-	12["arg__2216 1"]
-	28["mt__2225__2234 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2214__2231 U32_not_equals"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2221 lift_u32"]
+	7 --> 10
+	7["arg__2216 1"]
+	27["mt__2225__2234 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2214__2231 U32_not_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2229__2230 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2228 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2227 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2226 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2214 U32_not_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2225 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2228 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2227 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2226 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2214 U32_not_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2225 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_NE"]["unlem_scheduler"] = ''
 window.traces["I32_NE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_727["Block 727"]
 	direction TB
-	b727_3[\\"Finish"/]
+	b727_1[\\"Finish"/]
 end
 phi_729 --> block_727
 subgraph phi_729["Phi 729"]
-	p729_14{{"Sϕ Stack "}}
+	p729_9{{"Sϕ Stack "}}
 end
 block_730 --> phi_729
 block_731 --> phi_729
 subgraph block_730["Block 730"]
 	direction TB
-	b730_6["merge__2228 merge_u"]
+	b730_16["merge__2228 merge_u"]
 	b730_22["eff_push__2229__2230 push_u32"]
-	b730_6 --> b730_22
+	b730_16 --> b730_22
 end
 branch_728 --> block_730
 subgraph branch_728["Branch 728"]
-	br728_2["mb__2227 bool.&&"]
+	br728_14["mb__2227 bool.&&"]
 
 end
 block_732 --> branch_728
 subgraph block_732["Block 732"]
 	direction TB
-	b732_1[/"Start"\\]
-	b732_10["arg__2218 0"]
-	b732_12["arg__2216 1"]
-	b732_5["b pop_u32"]
-	b732_7["a pop_u32"]
-	b732_25["cond__2214__2231 U32_not_equals"]
-	b732_16["abs__2222 lift_u32"]
-	b732_15["abs__2221 lift_u32"]
-	b732_9["cond__2214 U32_not_equals"]
-	b732_28["mt__2225__2234 U32_maybeTrue"]
-	b732_0["mf__2226 U32_maybeFalse"]
-	b732_17["mt__2225 U32_maybeTrue"]
-	b732_2["mb__2227 bool.&&"]
-	b732_1 --> b732_10
-	b732_10 --> b732_12
-	b732_12 --> b732_5
+	b732_0[/"Start"\\]
+	b732_5["arg__2218 0"]
+	b732_7["arg__2216 1"]
+	b732_2["b pop_u32"]
+	b732_3["a pop_u32"]
+	b732_24["cond__2214__2231 U32_not_equals"]
+	b732_11["abs__2222 lift_u32"]
+	b732_10["abs__2221 lift_u32"]
+	b732_4["cond__2214 U32_not_equals"]
+	b732_27["mt__2225__2234 U32_maybeTrue"]
+	b732_13["mf__2226 U32_maybeFalse"]
+	b732_12["mt__2225 U32_maybeTrue"]
+	b732_14["mb__2227 bool.&&"]
+	b732_0 --> b732_5
 	b732_5 --> b732_7
-	b732_7 --> b732_25
-	b732_25 --> b732_16
-	b732_16 --> b732_15
-	b732_15 --> b732_9
-	b732_9 --> b732_28
-	b732_28 --> b732_0
-	b732_0 --> b732_17
-	b732_17 --> b732_2
+	b732_7 --> b732_2
+	b732_2 --> b732_3
+	b732_3 --> b732_24
+	b732_24 --> b732_11
+	b732_11 --> b732_10
+	b732_10 --> b732_4
+	b732_4 --> b732_27
+	b732_27 --> b732_13
+	b732_13 --> b732_12
+	b732_12 --> b732_14
 end
 subgraph block_731["Block 731"]
 	direction TB
 end
 phi_734 --> block_731
 subgraph phi_734["Phi 734"]
-	p734_24{{"Sϕ Stack "}}
+	p734_28{{"Sϕ Stack "}}
 end
 block_735 --> phi_734
 block_736 --> phi_734
@@ -35843,7 +35843,7 @@ subgraph block_735["Block 735"]
 end
 branch_733 --> block_735
 subgraph branch_733["Branch 733"]
-	br733_28["mt__2225__2234 U32_maybeTrue"]
+	br733_27["mt__2225__2234 U32_maybeTrue"]
 
 end
 branch_728 --> branch_733
@@ -36274,55 +36274,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2240__2255 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2245 lift_u32"]
-	10 --> 16
-	10["arg__2241 0"]
-	27["eff__2238__2256 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2244 lift_u32"]
-	12 --> 15
-	12["arg__2239 1"]
-	28["mt__2248__2257 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2237__2254 U32_lt_s"]
-	7 --> 25
-	5 --> 25
+	25["eff__2240__2255 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2245 lift_u32"]
+	5 --> 11
+	5["arg__2241 0"]
+	26["eff__2238__2256 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2244 lift_u32"]
+	7 --> 10
+	7["arg__2239 1"]
+	27["mt__2248__2257 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2237__2254 U32_lt_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2252__2253 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2251 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2250 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2249 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2237 U32_lt_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2248 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2251 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2250 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2249 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2237 U32_lt_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2248 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_LT_S_ul"]["post_surgery 750"] = ''
 window.traces["I32_LT_S_ul"]["post_surgery 750"] += `<pre class='graph'>---
@@ -36330,114 +36330,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2240__2255__2259 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2245 lift_u32"]
-	10 --> 16
-	10["arg__2241 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2245 lift_u32"]
+	5 --> 11
+	5["arg__2241 0"]
 	32["eff__2238__2256__2258 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2244 lift_u32"]
-	12 --> 15
-	12["arg__2239 1"]
-	28["mt__2248__2257 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2237__2254 U32_lt_s"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2244 lift_u32"]
+	7 --> 10
+	7["arg__2239 1"]
+	27["mt__2248__2257 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2237__2254 U32_lt_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2252__2253 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2251 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2250 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2249 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2237 U32_lt_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2248 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2251 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2250 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2249 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2237 U32_lt_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2248 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_LT_S"]["unlem_scheduler"] = ''
 window.traces["I32_LT_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_743["Block 743"]
 	direction TB
-	b743_3[\\"Finish"/]
+	b743_1[\\"Finish"/]
 end
 phi_745 --> block_743
 subgraph phi_745["Phi 745"]
-	p745_14{{"Sϕ Stack "}}
+	p745_9{{"Sϕ Stack "}}
 end
 block_746 --> phi_745
 block_747 --> phi_745
 subgraph block_746["Block 746"]
 	direction TB
-	b746_6["merge__2251 merge_u"]
+	b746_16["merge__2251 merge_u"]
 	b746_22["eff_push__2252__2253 push_u32"]
-	b746_6 --> b746_22
+	b746_16 --> b746_22
 end
 branch_744 --> block_746
 subgraph branch_744["Branch 744"]
-	br744_2["mb__2250 bool.&&"]
+	br744_14["mb__2250 bool.&&"]
 
 end
 block_748 --> branch_744
 subgraph block_748["Block 748"]
 	direction TB
-	b748_1[/"Start"\\]
-	b748_10["arg__2241 0"]
-	b748_12["arg__2239 1"]
-	b748_5["b pop_u32"]
-	b748_7["a pop_u32"]
-	b748_25["cond__2237__2254 U32_lt_s"]
-	b748_16["abs__2245 lift_u32"]
-	b748_15["abs__2244 lift_u32"]
-	b748_9["cond__2237 U32_lt_s"]
-	b748_28["mt__2248__2257 U32_maybeTrue"]
-	b748_0["mf__2249 U32_maybeFalse"]
-	b748_17["mt__2248 U32_maybeTrue"]
-	b748_2["mb__2250 bool.&&"]
-	b748_1 --> b748_10
-	b748_10 --> b748_12
-	b748_12 --> b748_5
+	b748_0[/"Start"\\]
+	b748_5["arg__2241 0"]
+	b748_7["arg__2239 1"]
+	b748_2["b pop_u32"]
+	b748_3["a pop_u32"]
+	b748_24["cond__2237__2254 U32_lt_s"]
+	b748_11["abs__2245 lift_u32"]
+	b748_10["abs__2244 lift_u32"]
+	b748_4["cond__2237 U32_lt_s"]
+	b748_27["mt__2248__2257 U32_maybeTrue"]
+	b748_13["mf__2249 U32_maybeFalse"]
+	b748_12["mt__2248 U32_maybeTrue"]
+	b748_14["mb__2250 bool.&&"]
+	b748_0 --> b748_5
 	b748_5 --> b748_7
-	b748_7 --> b748_25
-	b748_25 --> b748_16
-	b748_16 --> b748_15
-	b748_15 --> b748_9
-	b748_9 --> b748_28
-	b748_28 --> b748_0
-	b748_0 --> b748_17
-	b748_17 --> b748_2
+	b748_7 --> b748_2
+	b748_2 --> b748_3
+	b748_3 --> b748_24
+	b748_24 --> b748_11
+	b748_11 --> b748_10
+	b748_10 --> b748_4
+	b748_4 --> b748_27
+	b748_27 --> b748_13
+	b748_13 --> b748_12
+	b748_12 --> b748_14
 end
 subgraph block_747["Block 747"]
 	direction TB
 end
 phi_750 --> block_747
 subgraph phi_750["Phi 750"]
-	p750_24{{"Sϕ Stack "}}
+	p750_28{{"Sϕ Stack "}}
 end
 block_751 --> phi_750
 block_752 --> phi_750
@@ -36447,7 +36447,7 @@ subgraph block_751["Block 751"]
 end
 branch_749 --> block_751
 subgraph branch_749["Branch 749"]
-	br749_28["mt__2248__2257 U32_maybeTrue"]
+	br749_27["mt__2248__2257 U32_maybeTrue"]
 
 end
 branch_744 --> branch_749
@@ -36875,55 +36875,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2263__2278 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2268 lift_u32"]
-	10 --> 16
-	10["arg__2264 0"]
-	27["eff__2261__2279 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2267 lift_u32"]
-	12 --> 15
-	12["arg__2262 1"]
-	28["mt__2271__2280 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2260__2277 U32_lt"]
-	7 --> 25
-	5 --> 25
+	25["eff__2263__2278 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2268 lift_u32"]
+	5 --> 11
+	5["arg__2264 0"]
+	26["eff__2261__2279 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2267 lift_u32"]
+	7 --> 10
+	7["arg__2262 1"]
+	27["mt__2271__2280 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2260__2277 U32_lt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2275__2276 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2274 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2273 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2272 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2260 U32_lt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2271 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2274 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2273 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2272 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2260 U32_lt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2271 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_LT_U_ul"]["post_surgery 766"] = ''
 window.traces["I32_LT_U_ul"]["post_surgery 766"] += `<pre class='graph'>---
@@ -36931,114 +36931,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2263__2278__2282 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2268 lift_u32"]
-	10 --> 16
-	10["arg__2264 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2268 lift_u32"]
+	5 --> 11
+	5["arg__2264 0"]
 	32["eff__2261__2279__2281 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2267 lift_u32"]
-	12 --> 15
-	12["arg__2262 1"]
-	28["mt__2271__2280 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2260__2277 U32_lt"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2267 lift_u32"]
+	7 --> 10
+	7["arg__2262 1"]
+	27["mt__2271__2280 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2260__2277 U32_lt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2275__2276 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2274 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2273 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2272 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2260 U32_lt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2271 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2274 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2273 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2272 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2260 U32_lt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2271 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_LT_U"]["unlem_scheduler"] = ''
 window.traces["I32_LT_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_759["Block 759"]
 	direction TB
-	b759_3[\\"Finish"/]
+	b759_1[\\"Finish"/]
 end
 phi_761 --> block_759
 subgraph phi_761["Phi 761"]
-	p761_14{{"Sϕ Stack "}}
+	p761_9{{"Sϕ Stack "}}
 end
 block_762 --> phi_761
 block_763 --> phi_761
 subgraph block_762["Block 762"]
 	direction TB
-	b762_6["merge__2274 merge_u"]
+	b762_16["merge__2274 merge_u"]
 	b762_22["eff_push__2275__2276 push_u32"]
-	b762_6 --> b762_22
+	b762_16 --> b762_22
 end
 branch_760 --> block_762
 subgraph branch_760["Branch 760"]
-	br760_2["mb__2273 bool.&&"]
+	br760_14["mb__2273 bool.&&"]
 
 end
 block_764 --> branch_760
 subgraph block_764["Block 764"]
 	direction TB
-	b764_1[/"Start"\\]
-	b764_10["arg__2264 0"]
-	b764_12["arg__2262 1"]
-	b764_5["b pop_u32"]
-	b764_7["a pop_u32"]
-	b764_25["cond__2260__2277 U32_lt"]
-	b764_16["abs__2268 lift_u32"]
-	b764_15["abs__2267 lift_u32"]
-	b764_9["cond__2260 U32_lt"]
-	b764_28["mt__2271__2280 U32_maybeTrue"]
-	b764_0["mf__2272 U32_maybeFalse"]
-	b764_17["mt__2271 U32_maybeTrue"]
-	b764_2["mb__2273 bool.&&"]
-	b764_1 --> b764_10
-	b764_10 --> b764_12
-	b764_12 --> b764_5
+	b764_0[/"Start"\\]
+	b764_5["arg__2264 0"]
+	b764_7["arg__2262 1"]
+	b764_2["b pop_u32"]
+	b764_3["a pop_u32"]
+	b764_24["cond__2260__2277 U32_lt"]
+	b764_11["abs__2268 lift_u32"]
+	b764_10["abs__2267 lift_u32"]
+	b764_4["cond__2260 U32_lt"]
+	b764_27["mt__2271__2280 U32_maybeTrue"]
+	b764_13["mf__2272 U32_maybeFalse"]
+	b764_12["mt__2271 U32_maybeTrue"]
+	b764_14["mb__2273 bool.&&"]
+	b764_0 --> b764_5
 	b764_5 --> b764_7
-	b764_7 --> b764_25
-	b764_25 --> b764_16
-	b764_16 --> b764_15
-	b764_15 --> b764_9
-	b764_9 --> b764_28
-	b764_28 --> b764_0
-	b764_0 --> b764_17
-	b764_17 --> b764_2
+	b764_7 --> b764_2
+	b764_2 --> b764_3
+	b764_3 --> b764_24
+	b764_24 --> b764_11
+	b764_11 --> b764_10
+	b764_10 --> b764_4
+	b764_4 --> b764_27
+	b764_27 --> b764_13
+	b764_13 --> b764_12
+	b764_12 --> b764_14
 end
 subgraph block_763["Block 763"]
 	direction TB
 end
 phi_766 --> block_763
 subgraph phi_766["Phi 766"]
-	p766_24{{"Sϕ Stack "}}
+	p766_28{{"Sϕ Stack "}}
 end
 block_767 --> phi_766
 block_768 --> phi_766
@@ -37048,7 +37048,7 @@ subgraph block_767["Block 767"]
 end
 branch_765 --> block_767
 subgraph branch_765["Branch 765"]
-	br765_28["mt__2271__2280 U32_maybeTrue"]
+	br765_27["mt__2271__2280 U32_maybeTrue"]
 
 end
 branch_760 --> branch_765
@@ -37476,55 +37476,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2286__2301 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2291 lift_u32"]
-	10 --> 16
-	10["arg__2287 0"]
-	27["eff__2284__2302 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2290 lift_u32"]
-	12 --> 15
-	12["arg__2285 1"]
-	28["mt__2294__2303 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2283__2300 U32_gt_s"]
-	7 --> 25
-	5 --> 25
+	25["eff__2286__2301 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2291 lift_u32"]
+	5 --> 11
+	5["arg__2287 0"]
+	26["eff__2284__2302 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2290 lift_u32"]
+	7 --> 10
+	7["arg__2285 1"]
+	27["mt__2294__2303 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2283__2300 U32_gt_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2298__2299 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2297 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2296 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2295 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2283 U32_gt_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2294 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2297 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2296 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2295 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2283 U32_gt_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2294 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_GT_S_ul"]["post_surgery 782"] = ''
 window.traces["I32_GT_S_ul"]["post_surgery 782"] += `<pre class='graph'>---
@@ -37532,114 +37532,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2286__2301__2305 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2291 lift_u32"]
-	10 --> 16
-	10["arg__2287 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2291 lift_u32"]
+	5 --> 11
+	5["arg__2287 0"]
 	32["eff__2284__2302__2304 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2290 lift_u32"]
-	12 --> 15
-	12["arg__2285 1"]
-	28["mt__2294__2303 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2283__2300 U32_gt_s"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2290 lift_u32"]
+	7 --> 10
+	7["arg__2285 1"]
+	27["mt__2294__2303 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2283__2300 U32_gt_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2298__2299 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2297 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2296 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2295 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2283 U32_gt_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2294 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2297 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2296 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2295 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2283 U32_gt_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2294 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_GT_S"]["unlem_scheduler"] = ''
 window.traces["I32_GT_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_775["Block 775"]
 	direction TB
-	b775_3[\\"Finish"/]
+	b775_1[\\"Finish"/]
 end
 phi_777 --> block_775
 subgraph phi_777["Phi 777"]
-	p777_14{{"Sϕ Stack "}}
+	p777_9{{"Sϕ Stack "}}
 end
 block_778 --> phi_777
 block_779 --> phi_777
 subgraph block_778["Block 778"]
 	direction TB
-	b778_6["merge__2297 merge_u"]
+	b778_16["merge__2297 merge_u"]
 	b778_22["eff_push__2298__2299 push_u32"]
-	b778_6 --> b778_22
+	b778_16 --> b778_22
 end
 branch_776 --> block_778
 subgraph branch_776["Branch 776"]
-	br776_2["mb__2296 bool.&&"]
+	br776_14["mb__2296 bool.&&"]
 
 end
 block_780 --> branch_776
 subgraph block_780["Block 780"]
 	direction TB
-	b780_1[/"Start"\\]
-	b780_10["arg__2287 0"]
-	b780_12["arg__2285 1"]
-	b780_5["b pop_u32"]
-	b780_7["a pop_u32"]
-	b780_25["cond__2283__2300 U32_gt_s"]
-	b780_16["abs__2291 lift_u32"]
-	b780_15["abs__2290 lift_u32"]
-	b780_9["cond__2283 U32_gt_s"]
-	b780_28["mt__2294__2303 U32_maybeTrue"]
-	b780_0["mf__2295 U32_maybeFalse"]
-	b780_17["mt__2294 U32_maybeTrue"]
-	b780_2["mb__2296 bool.&&"]
-	b780_1 --> b780_10
-	b780_10 --> b780_12
-	b780_12 --> b780_5
+	b780_0[/"Start"\\]
+	b780_5["arg__2287 0"]
+	b780_7["arg__2285 1"]
+	b780_2["b pop_u32"]
+	b780_3["a pop_u32"]
+	b780_24["cond__2283__2300 U32_gt_s"]
+	b780_11["abs__2291 lift_u32"]
+	b780_10["abs__2290 lift_u32"]
+	b780_4["cond__2283 U32_gt_s"]
+	b780_27["mt__2294__2303 U32_maybeTrue"]
+	b780_13["mf__2295 U32_maybeFalse"]
+	b780_12["mt__2294 U32_maybeTrue"]
+	b780_14["mb__2296 bool.&&"]
+	b780_0 --> b780_5
 	b780_5 --> b780_7
-	b780_7 --> b780_25
-	b780_25 --> b780_16
-	b780_16 --> b780_15
-	b780_15 --> b780_9
-	b780_9 --> b780_28
-	b780_28 --> b780_0
-	b780_0 --> b780_17
-	b780_17 --> b780_2
+	b780_7 --> b780_2
+	b780_2 --> b780_3
+	b780_3 --> b780_24
+	b780_24 --> b780_11
+	b780_11 --> b780_10
+	b780_10 --> b780_4
+	b780_4 --> b780_27
+	b780_27 --> b780_13
+	b780_13 --> b780_12
+	b780_12 --> b780_14
 end
 subgraph block_779["Block 779"]
 	direction TB
 end
 phi_782 --> block_779
 subgraph phi_782["Phi 782"]
-	p782_24{{"Sϕ Stack "}}
+	p782_28{{"Sϕ Stack "}}
 end
 block_783 --> phi_782
 block_784 --> phi_782
@@ -37649,7 +37649,7 @@ subgraph block_783["Block 783"]
 end
 branch_781 --> block_783
 subgraph branch_781["Branch 781"]
-	br781_28["mt__2294__2303 U32_maybeTrue"]
+	br781_27["mt__2294__2303 U32_maybeTrue"]
 
 end
 branch_776 --> branch_781
@@ -38077,55 +38077,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2309__2324 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2314 lift_u32"]
-	10 --> 16
-	10["arg__2310 0"]
-	27["eff__2307__2325 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2313 lift_u32"]
-	12 --> 15
-	12["arg__2308 1"]
-	28["mt__2317__2326 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2306__2323 U32_gt"]
-	7 --> 25
-	5 --> 25
+	25["eff__2309__2324 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2314 lift_u32"]
+	5 --> 11
+	5["arg__2310 0"]
+	26["eff__2307__2325 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2313 lift_u32"]
+	7 --> 10
+	7["arg__2308 1"]
+	27["mt__2317__2326 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2306__2323 U32_gt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2321__2322 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2320 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2319 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2318 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2306 U32_gt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2317 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2320 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2319 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2318 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2306 U32_gt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2317 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_GT_U_ul"]["post_surgery 798"] = ''
 window.traces["I32_GT_U_ul"]["post_surgery 798"] += `<pre class='graph'>---
@@ -38133,114 +38133,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2309__2324__2328 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2314 lift_u32"]
-	10 --> 16
-	10["arg__2310 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2314 lift_u32"]
+	5 --> 11
+	5["arg__2310 0"]
 	32["eff__2307__2325__2327 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2313 lift_u32"]
-	12 --> 15
-	12["arg__2308 1"]
-	28["mt__2317__2326 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2306__2323 U32_gt"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2313 lift_u32"]
+	7 --> 10
+	7["arg__2308 1"]
+	27["mt__2317__2326 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2306__2323 U32_gt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2321__2322 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2320 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2319 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2318 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2306 U32_gt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2317 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2320 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2319 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2318 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2306 U32_gt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2317 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_GT_U"]["unlem_scheduler"] = ''
 window.traces["I32_GT_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_791["Block 791"]
 	direction TB
-	b791_3[\\"Finish"/]
+	b791_1[\\"Finish"/]
 end
 phi_793 --> block_791
 subgraph phi_793["Phi 793"]
-	p793_14{{"Sϕ Stack "}}
+	p793_9{{"Sϕ Stack "}}
 end
 block_794 --> phi_793
 block_795 --> phi_793
 subgraph block_794["Block 794"]
 	direction TB
-	b794_6["merge__2320 merge_u"]
+	b794_16["merge__2320 merge_u"]
 	b794_22["eff_push__2321__2322 push_u32"]
-	b794_6 --> b794_22
+	b794_16 --> b794_22
 end
 branch_792 --> block_794
 subgraph branch_792["Branch 792"]
-	br792_2["mb__2319 bool.&&"]
+	br792_14["mb__2319 bool.&&"]
 
 end
 block_796 --> branch_792
 subgraph block_796["Block 796"]
 	direction TB
-	b796_1[/"Start"\\]
-	b796_10["arg__2310 0"]
-	b796_12["arg__2308 1"]
-	b796_5["b pop_u32"]
-	b796_7["a pop_u32"]
-	b796_25["cond__2306__2323 U32_gt"]
-	b796_16["abs__2314 lift_u32"]
-	b796_15["abs__2313 lift_u32"]
-	b796_9["cond__2306 U32_gt"]
-	b796_28["mt__2317__2326 U32_maybeTrue"]
-	b796_0["mf__2318 U32_maybeFalse"]
-	b796_17["mt__2317 U32_maybeTrue"]
-	b796_2["mb__2319 bool.&&"]
-	b796_1 --> b796_10
-	b796_10 --> b796_12
-	b796_12 --> b796_5
+	b796_0[/"Start"\\]
+	b796_5["arg__2310 0"]
+	b796_7["arg__2308 1"]
+	b796_2["b pop_u32"]
+	b796_3["a pop_u32"]
+	b796_24["cond__2306__2323 U32_gt"]
+	b796_11["abs__2314 lift_u32"]
+	b796_10["abs__2313 lift_u32"]
+	b796_4["cond__2306 U32_gt"]
+	b796_27["mt__2317__2326 U32_maybeTrue"]
+	b796_13["mf__2318 U32_maybeFalse"]
+	b796_12["mt__2317 U32_maybeTrue"]
+	b796_14["mb__2319 bool.&&"]
+	b796_0 --> b796_5
 	b796_5 --> b796_7
-	b796_7 --> b796_25
-	b796_25 --> b796_16
-	b796_16 --> b796_15
-	b796_15 --> b796_9
-	b796_9 --> b796_28
-	b796_28 --> b796_0
-	b796_0 --> b796_17
-	b796_17 --> b796_2
+	b796_7 --> b796_2
+	b796_2 --> b796_3
+	b796_3 --> b796_24
+	b796_24 --> b796_11
+	b796_11 --> b796_10
+	b796_10 --> b796_4
+	b796_4 --> b796_27
+	b796_27 --> b796_13
+	b796_13 --> b796_12
+	b796_12 --> b796_14
 end
 subgraph block_795["Block 795"]
 	direction TB
 end
 phi_798 --> block_795
 subgraph phi_798["Phi 798"]
-	p798_24{{"Sϕ Stack "}}
+	p798_28{{"Sϕ Stack "}}
 end
 block_799 --> phi_798
 block_800 --> phi_798
@@ -38250,7 +38250,7 @@ subgraph block_799["Block 799"]
 end
 branch_797 --> block_799
 subgraph branch_797["Branch 797"]
-	br797_28["mt__2317__2326 U32_maybeTrue"]
+	br797_27["mt__2317__2326 U32_maybeTrue"]
 
 end
 branch_792 --> branch_797
@@ -38678,55 +38678,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2332__2347 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2337 lift_u32"]
-	10 --> 16
-	10["arg__2333 0"]
-	27["eff__2330__2348 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2336 lift_u32"]
-	12 --> 15
-	12["arg__2331 1"]
-	28["mt__2340__2349 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2329__2346 U32_le_s"]
-	7 --> 25
-	5 --> 25
+	25["eff__2332__2347 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2337 lift_u32"]
+	5 --> 11
+	5["arg__2333 0"]
+	26["eff__2330__2348 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2336 lift_u32"]
+	7 --> 10
+	7["arg__2331 1"]
+	27["mt__2340__2349 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2329__2346 U32_le_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2344__2345 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2343 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2342 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2341 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2329 U32_le_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2340 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2343 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2342 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2341 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2329 U32_le_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2340 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_LE_S_ul"]["post_surgery 814"] = ''
 window.traces["I32_LE_S_ul"]["post_surgery 814"] += `<pre class='graph'>---
@@ -38734,114 +38734,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2332__2347__2351 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2337 lift_u32"]
-	10 --> 16
-	10["arg__2333 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2337 lift_u32"]
+	5 --> 11
+	5["arg__2333 0"]
 	32["eff__2330__2348__2350 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2336 lift_u32"]
-	12 --> 15
-	12["arg__2331 1"]
-	28["mt__2340__2349 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2329__2346 U32_le_s"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2336 lift_u32"]
+	7 --> 10
+	7["arg__2331 1"]
+	27["mt__2340__2349 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2329__2346 U32_le_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2344__2345 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2343 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2342 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2341 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2329 U32_le_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2340 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2343 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2342 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2341 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2329 U32_le_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2340 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_LE_S"]["unlem_scheduler"] = ''
 window.traces["I32_LE_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_807["Block 807"]
 	direction TB
-	b807_3[\\"Finish"/]
+	b807_1[\\"Finish"/]
 end
 phi_809 --> block_807
 subgraph phi_809["Phi 809"]
-	p809_14{{"Sϕ Stack "}}
+	p809_9{{"Sϕ Stack "}}
 end
 block_810 --> phi_809
 block_811 --> phi_809
 subgraph block_810["Block 810"]
 	direction TB
-	b810_6["merge__2343 merge_u"]
+	b810_16["merge__2343 merge_u"]
 	b810_22["eff_push__2344__2345 push_u32"]
-	b810_6 --> b810_22
+	b810_16 --> b810_22
 end
 branch_808 --> block_810
 subgraph branch_808["Branch 808"]
-	br808_2["mb__2342 bool.&&"]
+	br808_14["mb__2342 bool.&&"]
 
 end
 block_812 --> branch_808
 subgraph block_812["Block 812"]
 	direction TB
-	b812_1[/"Start"\\]
-	b812_10["arg__2333 0"]
-	b812_12["arg__2331 1"]
-	b812_5["b pop_u32"]
-	b812_7["a pop_u32"]
-	b812_25["cond__2329__2346 U32_le_s"]
-	b812_16["abs__2337 lift_u32"]
-	b812_15["abs__2336 lift_u32"]
-	b812_9["cond__2329 U32_le_s"]
-	b812_28["mt__2340__2349 U32_maybeTrue"]
-	b812_0["mf__2341 U32_maybeFalse"]
-	b812_17["mt__2340 U32_maybeTrue"]
-	b812_2["mb__2342 bool.&&"]
-	b812_1 --> b812_10
-	b812_10 --> b812_12
-	b812_12 --> b812_5
+	b812_0[/"Start"\\]
+	b812_5["arg__2333 0"]
+	b812_7["arg__2331 1"]
+	b812_2["b pop_u32"]
+	b812_3["a pop_u32"]
+	b812_24["cond__2329__2346 U32_le_s"]
+	b812_11["abs__2337 lift_u32"]
+	b812_10["abs__2336 lift_u32"]
+	b812_4["cond__2329 U32_le_s"]
+	b812_27["mt__2340__2349 U32_maybeTrue"]
+	b812_13["mf__2341 U32_maybeFalse"]
+	b812_12["mt__2340 U32_maybeTrue"]
+	b812_14["mb__2342 bool.&&"]
+	b812_0 --> b812_5
 	b812_5 --> b812_7
-	b812_7 --> b812_25
-	b812_25 --> b812_16
-	b812_16 --> b812_15
-	b812_15 --> b812_9
-	b812_9 --> b812_28
-	b812_28 --> b812_0
-	b812_0 --> b812_17
-	b812_17 --> b812_2
+	b812_7 --> b812_2
+	b812_2 --> b812_3
+	b812_3 --> b812_24
+	b812_24 --> b812_11
+	b812_11 --> b812_10
+	b812_10 --> b812_4
+	b812_4 --> b812_27
+	b812_27 --> b812_13
+	b812_13 --> b812_12
+	b812_12 --> b812_14
 end
 subgraph block_811["Block 811"]
 	direction TB
 end
 phi_814 --> block_811
 subgraph phi_814["Phi 814"]
-	p814_24{{"Sϕ Stack "}}
+	p814_28{{"Sϕ Stack "}}
 end
 block_815 --> phi_814
 block_816 --> phi_814
@@ -38851,7 +38851,7 @@ subgraph block_815["Block 815"]
 end
 branch_813 --> block_815
 subgraph branch_813["Branch 813"]
-	br813_28["mt__2340__2349 U32_maybeTrue"]
+	br813_27["mt__2340__2349 U32_maybeTrue"]
 
 end
 branch_808 --> branch_813
@@ -39279,55 +39279,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2355__2370 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2360 lift_u32"]
-	10 --> 16
-	10["arg__2356 0"]
-	27["eff__2353__2371 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2359 lift_u32"]
-	12 --> 15
-	12["arg__2354 1"]
-	28["mt__2363__2372 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2352__2369 U32_lte"]
-	7 --> 25
-	5 --> 25
+	25["eff__2355__2370 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2360 lift_u32"]
+	5 --> 11
+	5["arg__2356 0"]
+	26["eff__2353__2371 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2359 lift_u32"]
+	7 --> 10
+	7["arg__2354 1"]
+	27["mt__2363__2372 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2352__2369 U32_lte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2367__2368 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2366 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2365 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2364 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2352 U32_lte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2363 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2366 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2365 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2364 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2352 U32_lte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2363 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_LE_U_ul"]["post_surgery 830"] = ''
 window.traces["I32_LE_U_ul"]["post_surgery 830"] += `<pre class='graph'>---
@@ -39335,114 +39335,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2355__2370__2374 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2360 lift_u32"]
-	10 --> 16
-	10["arg__2356 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2360 lift_u32"]
+	5 --> 11
+	5["arg__2356 0"]
 	32["eff__2353__2371__2373 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2359 lift_u32"]
-	12 --> 15
-	12["arg__2354 1"]
-	28["mt__2363__2372 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2352__2369 U32_lte"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2359 lift_u32"]
+	7 --> 10
+	7["arg__2354 1"]
+	27["mt__2363__2372 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2352__2369 U32_lte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2367__2368 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2366 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2365 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2364 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2352 U32_lte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2363 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2366 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2365 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2364 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2352 U32_lte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2363 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_LE_U"]["unlem_scheduler"] = ''
 window.traces["I32_LE_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_823["Block 823"]
 	direction TB
-	b823_3[\\"Finish"/]
+	b823_1[\\"Finish"/]
 end
 phi_825 --> block_823
 subgraph phi_825["Phi 825"]
-	p825_14{{"Sϕ Stack "}}
+	p825_9{{"Sϕ Stack "}}
 end
 block_826 --> phi_825
 block_827 --> phi_825
 subgraph block_826["Block 826"]
 	direction TB
-	b826_6["merge__2366 merge_u"]
+	b826_16["merge__2366 merge_u"]
 	b826_22["eff_push__2367__2368 push_u32"]
-	b826_6 --> b826_22
+	b826_16 --> b826_22
 end
 branch_824 --> block_826
 subgraph branch_824["Branch 824"]
-	br824_2["mb__2365 bool.&&"]
+	br824_14["mb__2365 bool.&&"]
 
 end
 block_828 --> branch_824
 subgraph block_828["Block 828"]
 	direction TB
-	b828_1[/"Start"\\]
-	b828_10["arg__2356 0"]
-	b828_12["arg__2354 1"]
-	b828_5["b pop_u32"]
-	b828_7["a pop_u32"]
-	b828_25["cond__2352__2369 U32_lte"]
-	b828_16["abs__2360 lift_u32"]
-	b828_15["abs__2359 lift_u32"]
-	b828_9["cond__2352 U32_lte"]
-	b828_28["mt__2363__2372 U32_maybeTrue"]
-	b828_0["mf__2364 U32_maybeFalse"]
-	b828_17["mt__2363 U32_maybeTrue"]
-	b828_2["mb__2365 bool.&&"]
-	b828_1 --> b828_10
-	b828_10 --> b828_12
-	b828_12 --> b828_5
+	b828_0[/"Start"\\]
+	b828_5["arg__2356 0"]
+	b828_7["arg__2354 1"]
+	b828_2["b pop_u32"]
+	b828_3["a pop_u32"]
+	b828_24["cond__2352__2369 U32_lte"]
+	b828_11["abs__2360 lift_u32"]
+	b828_10["abs__2359 lift_u32"]
+	b828_4["cond__2352 U32_lte"]
+	b828_27["mt__2363__2372 U32_maybeTrue"]
+	b828_13["mf__2364 U32_maybeFalse"]
+	b828_12["mt__2363 U32_maybeTrue"]
+	b828_14["mb__2365 bool.&&"]
+	b828_0 --> b828_5
 	b828_5 --> b828_7
-	b828_7 --> b828_25
-	b828_25 --> b828_16
-	b828_16 --> b828_15
-	b828_15 --> b828_9
-	b828_9 --> b828_28
-	b828_28 --> b828_0
-	b828_0 --> b828_17
-	b828_17 --> b828_2
+	b828_7 --> b828_2
+	b828_2 --> b828_3
+	b828_3 --> b828_24
+	b828_24 --> b828_11
+	b828_11 --> b828_10
+	b828_10 --> b828_4
+	b828_4 --> b828_27
+	b828_27 --> b828_13
+	b828_13 --> b828_12
+	b828_12 --> b828_14
 end
 subgraph block_827["Block 827"]
 	direction TB
 end
 phi_830 --> block_827
 subgraph phi_830["Phi 830"]
-	p830_24{{"Sϕ Stack "}}
+	p830_28{{"Sϕ Stack "}}
 end
 block_831 --> phi_830
 block_832 --> phi_830
@@ -39452,7 +39452,7 @@ subgraph block_831["Block 831"]
 end
 branch_829 --> block_831
 subgraph branch_829["Branch 829"]
-	br829_28["mt__2363__2372 U32_maybeTrue"]
+	br829_27["mt__2363__2372 U32_maybeTrue"]
 
 end
 branch_824 --> branch_829
@@ -39880,55 +39880,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2378__2393 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2383 lift_u32"]
-	10 --> 16
-	10["arg__2379 0"]
-	27["eff__2376__2394 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2382 lift_u32"]
-	12 --> 15
-	12["arg__2377 1"]
-	28["mt__2386__2395 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2375__2392 U32_ge_s"]
-	7 --> 25
-	5 --> 25
+	25["eff__2378__2393 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2383 lift_u32"]
+	5 --> 11
+	5["arg__2379 0"]
+	26["eff__2376__2394 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2382 lift_u32"]
+	7 --> 10
+	7["arg__2377 1"]
+	27["mt__2386__2395 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2375__2392 U32_ge_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2390__2391 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2389 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2388 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2387 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2375 U32_ge_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2386 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2389 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2388 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2387 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2375 U32_ge_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2386 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_GE_S_ul"]["post_surgery 846"] = ''
 window.traces["I32_GE_S_ul"]["post_surgery 846"] += `<pre class='graph'>---
@@ -39936,114 +39936,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2378__2393__2397 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2383 lift_u32"]
-	10 --> 16
-	10["arg__2379 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2383 lift_u32"]
+	5 --> 11
+	5["arg__2379 0"]
 	32["eff__2376__2394__2396 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2382 lift_u32"]
-	12 --> 15
-	12["arg__2377 1"]
-	28["mt__2386__2395 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2375__2392 U32_ge_s"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2382 lift_u32"]
+	7 --> 10
+	7["arg__2377 1"]
+	27["mt__2386__2395 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2375__2392 U32_ge_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2390__2391 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2389 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2388 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2387 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2375 U32_ge_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2386 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2389 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2388 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2387 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2375 U32_ge_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2386 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_GE_S"]["unlem_scheduler"] = ''
 window.traces["I32_GE_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_839["Block 839"]
 	direction TB
-	b839_3[\\"Finish"/]
+	b839_1[\\"Finish"/]
 end
 phi_841 --> block_839
 subgraph phi_841["Phi 841"]
-	p841_14{{"Sϕ Stack "}}
+	p841_9{{"Sϕ Stack "}}
 end
 block_842 --> phi_841
 block_843 --> phi_841
 subgraph block_842["Block 842"]
 	direction TB
-	b842_6["merge__2389 merge_u"]
+	b842_16["merge__2389 merge_u"]
 	b842_22["eff_push__2390__2391 push_u32"]
-	b842_6 --> b842_22
+	b842_16 --> b842_22
 end
 branch_840 --> block_842
 subgraph branch_840["Branch 840"]
-	br840_2["mb__2388 bool.&&"]
+	br840_14["mb__2388 bool.&&"]
 
 end
 block_844 --> branch_840
 subgraph block_844["Block 844"]
 	direction TB
-	b844_1[/"Start"\\]
-	b844_10["arg__2379 0"]
-	b844_12["arg__2377 1"]
-	b844_5["b pop_u32"]
-	b844_7["a pop_u32"]
-	b844_25["cond__2375__2392 U32_ge_s"]
-	b844_16["abs__2383 lift_u32"]
-	b844_15["abs__2382 lift_u32"]
-	b844_9["cond__2375 U32_ge_s"]
-	b844_28["mt__2386__2395 U32_maybeTrue"]
-	b844_0["mf__2387 U32_maybeFalse"]
-	b844_17["mt__2386 U32_maybeTrue"]
-	b844_2["mb__2388 bool.&&"]
-	b844_1 --> b844_10
-	b844_10 --> b844_12
-	b844_12 --> b844_5
+	b844_0[/"Start"\\]
+	b844_5["arg__2379 0"]
+	b844_7["arg__2377 1"]
+	b844_2["b pop_u32"]
+	b844_3["a pop_u32"]
+	b844_24["cond__2375__2392 U32_ge_s"]
+	b844_11["abs__2383 lift_u32"]
+	b844_10["abs__2382 lift_u32"]
+	b844_4["cond__2375 U32_ge_s"]
+	b844_27["mt__2386__2395 U32_maybeTrue"]
+	b844_13["mf__2387 U32_maybeFalse"]
+	b844_12["mt__2386 U32_maybeTrue"]
+	b844_14["mb__2388 bool.&&"]
+	b844_0 --> b844_5
 	b844_5 --> b844_7
-	b844_7 --> b844_25
-	b844_25 --> b844_16
-	b844_16 --> b844_15
-	b844_15 --> b844_9
-	b844_9 --> b844_28
-	b844_28 --> b844_0
-	b844_0 --> b844_17
-	b844_17 --> b844_2
+	b844_7 --> b844_2
+	b844_2 --> b844_3
+	b844_3 --> b844_24
+	b844_24 --> b844_11
+	b844_11 --> b844_10
+	b844_10 --> b844_4
+	b844_4 --> b844_27
+	b844_27 --> b844_13
+	b844_13 --> b844_12
+	b844_12 --> b844_14
 end
 subgraph block_843["Block 843"]
 	direction TB
 end
 phi_846 --> block_843
 subgraph phi_846["Phi 846"]
-	p846_24{{"Sϕ Stack "}}
+	p846_28{{"Sϕ Stack "}}
 end
 block_847 --> phi_846
 block_848 --> phi_846
@@ -40053,7 +40053,7 @@ subgraph block_847["Block 847"]
 end
 branch_845 --> block_847
 subgraph branch_845["Branch 845"]
-	br845_28["mt__2386__2395 U32_maybeTrue"]
+	br845_27["mt__2386__2395 U32_maybeTrue"]
 
 end
 branch_840 --> branch_845
@@ -40481,55 +40481,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2401__2416 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2406 lift_u32"]
-	10 --> 16
-	10["arg__2402 0"]
-	27["eff__2399__2417 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2405 lift_u32"]
-	12 --> 15
-	12["arg__2400 1"]
-	28["mt__2409__2418 bot_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2398__2415 U32_gte"]
-	7 --> 25
-	5 --> 25
+	25["eff__2401__2416 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2406 lift_u32"]
+	5 --> 11
+	5["arg__2402 0"]
+	26["eff__2399__2417 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2405 lift_u32"]
+	7 --> 10
+	7["arg__2400 1"]
+	27["mt__2409__2418 bot_maybeTrue"]
+	24 --> 27
+	24["cond__2398__2415 U32_gte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2413__2414 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2412 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2411 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2410 bot_maybeFalse"]
-	9 --> 0
-	9["cond__2398 U32_gte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2409 bot_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2412 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2411 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2410 bot_maybeFalse"]
+	4 --> 13
+	4["cond__2398 U32_gte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2409 bot_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_GE_U_ul"]["post_surgery 862"] = ''
 window.traces["I32_GE_U_ul"]["post_surgery 862"] += `<pre class='graph'>---
@@ -40537,114 +40537,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2401__2416__2420 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2406 lift_u32"]
-	10 --> 16
-	10["arg__2402 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2406 lift_u32"]
+	5 --> 11
+	5["arg__2402 0"]
 	32["eff__2399__2417__2419 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2405 lift_u32"]
-	12 --> 15
-	12["arg__2400 1"]
-	28["mt__2409__2418 bot_maybeTrue"]
-	25 --> 28
-	25["cond__2398__2415 U32_gte"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2405 lift_u32"]
+	7 --> 10
+	7["arg__2400 1"]
+	27["mt__2409__2418 bot_maybeTrue"]
+	24 --> 27
+	24["cond__2398__2415 U32_gte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2413__2414 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2412 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2411 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2410 bot_maybeFalse"]
-	9 --> 0
-	9["cond__2398 U32_gte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2409 bot_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2412 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2411 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2410 bot_maybeFalse"]
+	4 --> 13
+	4["cond__2398 U32_gte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2409 bot_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I32_GE_U"]["unlem_scheduler"] = ''
 window.traces["I32_GE_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_855["Block 855"]
 	direction TB
-	b855_3[\\"Finish"/]
+	b855_1[\\"Finish"/]
 end
 phi_857 --> block_855
 subgraph phi_857["Phi 857"]
-	p857_14{{"Sϕ Stack "}}
+	p857_9{{"Sϕ Stack "}}
 end
 block_858 --> phi_857
 block_859 --> phi_857
 subgraph block_858["Block 858"]
 	direction TB
-	b858_6["merge__2412 merge_u"]
+	b858_16["merge__2412 merge_u"]
 	b858_22["eff_push__2413__2414 push_u32"]
-	b858_6 --> b858_22
+	b858_16 --> b858_22
 end
 branch_856 --> block_858
 subgraph branch_856["Branch 856"]
-	br856_2["mb__2411 bool.&&"]
+	br856_14["mb__2411 bool.&&"]
 
 end
 block_860 --> branch_856
 subgraph block_860["Block 860"]
 	direction TB
-	b860_1[/"Start"\\]
-	b860_10["arg__2402 0"]
-	b860_12["arg__2400 1"]
-	b860_5["b pop_u32"]
-	b860_7["a pop_u32"]
-	b860_25["cond__2398__2415 U32_gte"]
-	b860_16["abs__2406 lift_u32"]
-	b860_15["abs__2405 lift_u32"]
-	b860_9["cond__2398 U32_gte"]
-	b860_28["mt__2409__2418 bot_maybeTrue"]
-	b860_0["mf__2410 bot_maybeFalse"]
-	b860_17["mt__2409 bot_maybeTrue"]
-	b860_2["mb__2411 bool.&&"]
-	b860_1 --> b860_10
-	b860_10 --> b860_12
-	b860_12 --> b860_5
+	b860_0[/"Start"\\]
+	b860_5["arg__2402 0"]
+	b860_7["arg__2400 1"]
+	b860_2["b pop_u32"]
+	b860_3["a pop_u32"]
+	b860_24["cond__2398__2415 U32_gte"]
+	b860_11["abs__2406 lift_u32"]
+	b860_10["abs__2405 lift_u32"]
+	b860_4["cond__2398 U32_gte"]
+	b860_27["mt__2409__2418 bot_maybeTrue"]
+	b860_13["mf__2410 bot_maybeFalse"]
+	b860_12["mt__2409 bot_maybeTrue"]
+	b860_14["mb__2411 bool.&&"]
+	b860_0 --> b860_5
 	b860_5 --> b860_7
-	b860_7 --> b860_25
-	b860_25 --> b860_16
-	b860_16 --> b860_15
-	b860_15 --> b860_9
-	b860_9 --> b860_28
-	b860_28 --> b860_0
-	b860_0 --> b860_17
-	b860_17 --> b860_2
+	b860_7 --> b860_2
+	b860_2 --> b860_3
+	b860_3 --> b860_24
+	b860_24 --> b860_11
+	b860_11 --> b860_10
+	b860_10 --> b860_4
+	b860_4 --> b860_27
+	b860_27 --> b860_13
+	b860_13 --> b860_12
+	b860_12 --> b860_14
 end
 subgraph block_859["Block 859"]
 	direction TB
 end
 phi_862 --> block_859
 subgraph phi_862["Phi 862"]
-	p862_24{{"Sϕ Stack "}}
+	p862_28{{"Sϕ Stack "}}
 end
 block_863 --> phi_862
 block_864 --> phi_862
@@ -40654,7 +40654,7 @@ subgraph block_863["Block 863"]
 end
 branch_861 --> block_863
 subgraph branch_861["Branch 861"]
-	br861_28["mt__2409__2418 bot_maybeTrue"]
+	br861_27["mt__2409__2418 bot_maybeTrue"]
 
 end
 branch_856 --> branch_861
@@ -41075,55 +41075,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	12 -. Stack .-> 3
-	12{{"Sϕ Stack "}}
-	0 --> 12
-	22 --> 12
-	24 --> 12
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2424__2440 push_u32"]
-	15 --> 26
-	5 -. Stack .-> 26
-	5["a pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	15["abs__2430 lift_u32"]
-	7 --> 15
-	7["arg__2427 0"]
-	27["eff__2422__2441 push_u32"]
-	14 --> 27
-	5 -. Stack .-> 27
-	14["abs__2429 lift_u32"]
-	10 --> 14
-	10["arg__2423 1"]
-	28["mt__2433__2442 U64_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	8 -. Stack .-> 1
+	8{{"Sϕ Stack "}}
+	14 --> 8
+	22 --> 8
+	28 --> 8
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2421__2439 U64_equals"]
-	5 --> 25
-	13 --> 25
-	13["abs__2428 lift_u64"]
-	7 --> 13
+	25["eff__2424__2440 push_u32"]
+	11 --> 25
+	2 -. Stack .-> 25
+	2["a pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2430 lift_u32"]
+	3 --> 11
+	3["arg__2427 0"]
+	26["eff__2422__2441 push_u32"]
+	10 --> 26
+	2 -. Stack .-> 26
+	10["abs__2429 lift_u32"]
+	6 --> 10
+	6["arg__2423 1"]
+	27["mt__2433__2442 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2421__2439 U64_equals"]
+	2 --> 24
+	9 --> 24
+	9["abs__2428 lift_u64"]
+	3 --> 9
 	22["eff_push__2437__2438 push_u32"]
-	4 --> 22
-	5 -. Stack .-> 22
-	4["merge__2436 merge_u"]
-	14 --> 4
-	15 --> 4
-	0["mb__2435 bool.&&"]
-	16 --> 0
-	17 --> 0
-	17["mf__2434 U64_maybeFalse"]
-	8 --> 17
-	8["cond__2421 U64_equals"]
-	5 --> 8
-	13 --> 8
-	16["mt__2433 U64_maybeTrue"]
-	8 --> 16
+	16 --> 22
+	2 -. Stack .-> 22
+	16["merge__2436 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2435 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2434 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2421 U64_equals"]
+	2 --> 4
+	9 --> 4
+	12["mt__2433 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_EQZ_ul"]["post_surgery 878"] = ''
 window.traces["I64_EQZ_ul"]["post_surgery 878"] += `<pre class='graph'>---
@@ -41131,114 +41131,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	12 -. Stack .-> 3
-	12{{"Sϕ Stack "}}
-	0 --> 12
-	22 --> 12
-	24 --> 12
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	8 -. Stack .-> 1
+	8{{"Sϕ Stack "}}
+	14 --> 8
+	22 --> 8
+	28 --> 8
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2424__2440__2444 push_u32"]
-	15 --> 34
-	5 -. Stack .-> 34
-	5["a pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	15["abs__2430 lift_u32"]
-	7 --> 15
-	7["arg__2427 0"]
+	11 --> 34
+	2 -. Stack .-> 34
+	2["a pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2430 lift_u32"]
+	3 --> 11
+	3["arg__2427 0"]
 	32["eff__2422__2441__2443 push_u32"]
-	14 --> 32
-	5 -. Stack .-> 32
-	14["abs__2429 lift_u32"]
-	10 --> 14
-	10["arg__2423 1"]
-	28["mt__2433__2442 U64_maybeTrue"]
-	25 --> 28
-	25["cond__2421__2439 U64_equals"]
-	5 --> 25
-	13 --> 25
-	13["abs__2428 lift_u64"]
-	7 --> 13
+	10 --> 32
+	2 -. Stack .-> 32
+	10["abs__2429 lift_u32"]
+	6 --> 10
+	6["arg__2423 1"]
+	27["mt__2433__2442 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2421__2439 U64_equals"]
+	2 --> 24
+	9 --> 24
+	9["abs__2428 lift_u64"]
+	3 --> 9
 	22["eff_push__2437__2438 push_u32"]
-	4 --> 22
-	5 -. Stack .-> 22
-	4["merge__2436 merge_u"]
-	14 --> 4
-	15 --> 4
-	0["mb__2435 bool.&&"]
-	16 --> 0
-	17 --> 0
-	17["mf__2434 U64_maybeFalse"]
-	8 --> 17
-	8["cond__2421 U64_equals"]
-	5 --> 8
-	13 --> 8
-	16["mt__2433 U64_maybeTrue"]
-	8 --> 16
+	16 --> 22
+	2 -. Stack .-> 22
+	16["merge__2436 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2435 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2434 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2421 U64_equals"]
+	2 --> 4
+	9 --> 4
+	12["mt__2433 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_EQZ"]["unlem_scheduler"] = ''
 window.traces["I64_EQZ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_871["Block 871"]
 	direction TB
-	b871_3[\\"Finish"/]
+	b871_1[\\"Finish"/]
 end
 phi_873 --> block_871
 subgraph phi_873["Phi 873"]
-	p873_12{{"Sϕ Stack "}}
+	p873_8{{"Sϕ Stack "}}
 end
 block_874 --> phi_873
 block_875 --> phi_873
 subgraph block_874["Block 874"]
 	direction TB
-	b874_4["merge__2436 merge_u"]
+	b874_16["merge__2436 merge_u"]
 	b874_22["eff_push__2437__2438 push_u32"]
-	b874_4 --> b874_22
+	b874_16 --> b874_22
 end
 branch_872 --> block_874
 subgraph branch_872["Branch 872"]
-	br872_0["mb__2435 bool.&&"]
+	br872_14["mb__2435 bool.&&"]
 
 end
 block_876 --> branch_872
 subgraph block_876["Block 876"]
 	direction TB
-	b876_1[/"Start"\\]
-	b876_7["arg__2427 0"]
-	b876_10["arg__2423 1"]
-	b876_13["abs__2428 lift_u64"]
-	b876_5["a pop_u64"]
-	b876_25["cond__2421__2439 U64_equals"]
-	b876_15["abs__2430 lift_u32"]
-	b876_14["abs__2429 lift_u32"]
-	b876_8["cond__2421 U64_equals"]
-	b876_28["mt__2433__2442 U64_maybeTrue"]
-	b876_17["mf__2434 U64_maybeFalse"]
-	b876_16["mt__2433 U64_maybeTrue"]
-	b876_0["mb__2435 bool.&&"]
-	b876_1 --> b876_7
-	b876_7 --> b876_10
-	b876_10 --> b876_13
-	b876_13 --> b876_5
-	b876_5 --> b876_25
-	b876_25 --> b876_15
-	b876_15 --> b876_14
-	b876_14 --> b876_8
-	b876_8 --> b876_28
-	b876_28 --> b876_17
-	b876_17 --> b876_16
-	b876_16 --> b876_0
+	b876_0[/"Start"\\]
+	b876_3["arg__2427 0"]
+	b876_6["arg__2423 1"]
+	b876_9["abs__2428 lift_u64"]
+	b876_2["a pop_u64"]
+	b876_24["cond__2421__2439 U64_equals"]
+	b876_11["abs__2430 lift_u32"]
+	b876_10["abs__2429 lift_u32"]
+	b876_4["cond__2421 U64_equals"]
+	b876_27["mt__2433__2442 U64_maybeTrue"]
+	b876_13["mf__2434 U64_maybeFalse"]
+	b876_12["mt__2433 U64_maybeTrue"]
+	b876_14["mb__2435 bool.&&"]
+	b876_0 --> b876_3
+	b876_3 --> b876_6
+	b876_6 --> b876_9
+	b876_9 --> b876_2
+	b876_2 --> b876_24
+	b876_24 --> b876_11
+	b876_11 --> b876_10
+	b876_10 --> b876_4
+	b876_4 --> b876_27
+	b876_27 --> b876_13
+	b876_13 --> b876_12
+	b876_12 --> b876_14
 end
 subgraph block_875["Block 875"]
 	direction TB
 end
 phi_878 --> block_875
 subgraph phi_878["Phi 878"]
-	p878_24{{"Sϕ Stack "}}
+	p878_28{{"Sϕ Stack "}}
 end
 block_879 --> phi_878
 block_880 --> phi_878
@@ -41248,7 +41248,7 @@ subgraph block_879["Block 879"]
 end
 branch_877 --> block_879
 subgraph branch_877["Branch 877"]
-	br877_28["mt__2433__2442 U64_maybeTrue"]
+	br877_27["mt__2433__2442 U64_maybeTrue"]
 
 end
 branch_872 --> branch_877
@@ -41668,55 +41668,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2448__2463 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2453 lift_u32"]
-	10 --> 16
-	10["arg__2449 0"]
-	27["eff__2446__2464 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2452 lift_u32"]
-	12 --> 15
-	12["arg__2447 1"]
-	28["mt__2456__2465 U64_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2445__2462 U64_equals"]
-	7 --> 25
-	5 --> 25
+	25["eff__2448__2463 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2453 lift_u32"]
+	5 --> 11
+	5["arg__2449 0"]
+	26["eff__2446__2464 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2452 lift_u32"]
+	7 --> 10
+	7["arg__2447 1"]
+	27["mt__2456__2465 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2445__2462 U64_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2460__2461 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2459 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2458 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2457 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2445 U64_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2456 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2459 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2458 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2457 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2445 U64_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2456 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_EQ_ul"]["post_surgery 894"] = ''
 window.traces["I64_EQ_ul"]["post_surgery 894"] += `<pre class='graph'>---
@@ -41724,114 +41724,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2448__2463__2467 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2453 lift_u32"]
-	10 --> 16
-	10["arg__2449 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2453 lift_u32"]
+	5 --> 11
+	5["arg__2449 0"]
 	32["eff__2446__2464__2466 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2452 lift_u32"]
-	12 --> 15
-	12["arg__2447 1"]
-	28["mt__2456__2465 U64_maybeTrue"]
-	25 --> 28
-	25["cond__2445__2462 U64_equals"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2452 lift_u32"]
+	7 --> 10
+	7["arg__2447 1"]
+	27["mt__2456__2465 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2445__2462 U64_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2460__2461 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2459 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2458 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2457 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2445 U64_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2456 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2459 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2458 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2457 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2445 U64_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2456 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_EQ"]["unlem_scheduler"] = ''
 window.traces["I64_EQ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_887["Block 887"]
 	direction TB
-	b887_3[\\"Finish"/]
+	b887_1[\\"Finish"/]
 end
 phi_889 --> block_887
 subgraph phi_889["Phi 889"]
-	p889_14{{"Sϕ Stack "}}
+	p889_9{{"Sϕ Stack "}}
 end
 block_890 --> phi_889
 block_891 --> phi_889
 subgraph block_890["Block 890"]
 	direction TB
-	b890_6["merge__2459 merge_u"]
+	b890_16["merge__2459 merge_u"]
 	b890_22["eff_push__2460__2461 push_u32"]
-	b890_6 --> b890_22
+	b890_16 --> b890_22
 end
 branch_888 --> block_890
 subgraph branch_888["Branch 888"]
-	br888_2["mb__2458 bool.&&"]
+	br888_14["mb__2458 bool.&&"]
 
 end
 block_892 --> branch_888
 subgraph block_892["Block 892"]
 	direction TB
-	b892_1[/"Start"\\]
-	b892_10["arg__2449 0"]
-	b892_12["arg__2447 1"]
-	b892_5["b pop_u64"]
-	b892_7["a pop_u64"]
-	b892_25["cond__2445__2462 U64_equals"]
-	b892_16["abs__2453 lift_u32"]
-	b892_15["abs__2452 lift_u32"]
-	b892_9["cond__2445 U64_equals"]
-	b892_28["mt__2456__2465 U64_maybeTrue"]
-	b892_0["mf__2457 U64_maybeFalse"]
-	b892_17["mt__2456 U64_maybeTrue"]
-	b892_2["mb__2458 bool.&&"]
-	b892_1 --> b892_10
-	b892_10 --> b892_12
-	b892_12 --> b892_5
+	b892_0[/"Start"\\]
+	b892_5["arg__2449 0"]
+	b892_7["arg__2447 1"]
+	b892_2["b pop_u64"]
+	b892_3["a pop_u64"]
+	b892_24["cond__2445__2462 U64_equals"]
+	b892_11["abs__2453 lift_u32"]
+	b892_10["abs__2452 lift_u32"]
+	b892_4["cond__2445 U64_equals"]
+	b892_27["mt__2456__2465 U64_maybeTrue"]
+	b892_13["mf__2457 U64_maybeFalse"]
+	b892_12["mt__2456 U64_maybeTrue"]
+	b892_14["mb__2458 bool.&&"]
+	b892_0 --> b892_5
 	b892_5 --> b892_7
-	b892_7 --> b892_25
-	b892_25 --> b892_16
-	b892_16 --> b892_15
-	b892_15 --> b892_9
-	b892_9 --> b892_28
-	b892_28 --> b892_0
-	b892_0 --> b892_17
-	b892_17 --> b892_2
+	b892_7 --> b892_2
+	b892_2 --> b892_3
+	b892_3 --> b892_24
+	b892_24 --> b892_11
+	b892_11 --> b892_10
+	b892_10 --> b892_4
+	b892_4 --> b892_27
+	b892_27 --> b892_13
+	b892_13 --> b892_12
+	b892_12 --> b892_14
 end
 subgraph block_891["Block 891"]
 	direction TB
 end
 phi_894 --> block_891
 subgraph phi_894["Phi 894"]
-	p894_24{{"Sϕ Stack "}}
+	p894_28{{"Sϕ Stack "}}
 end
 block_895 --> phi_894
 block_896 --> phi_894
@@ -41841,7 +41841,7 @@ subgraph block_895["Block 895"]
 end
 branch_893 --> block_895
 subgraph branch_893["Branch 893"]
-	br893_28["mt__2456__2465 U64_maybeTrue"]
+	br893_27["mt__2456__2465 U64_maybeTrue"]
 
 end
 branch_888 --> branch_893
@@ -42270,55 +42270,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2471__2486 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2476 lift_u32"]
-	10 --> 16
-	10["arg__2472 0"]
-	27["eff__2469__2487 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2475 lift_u32"]
-	12 --> 15
-	12["arg__2470 1"]
-	28["mt__2479__2488 U64_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2468__2485 U64_not_equals"]
-	7 --> 25
-	5 --> 25
+	25["eff__2471__2486 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2476 lift_u32"]
+	5 --> 11
+	5["arg__2472 0"]
+	26["eff__2469__2487 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2475 lift_u32"]
+	7 --> 10
+	7["arg__2470 1"]
+	27["mt__2479__2488 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2468__2485 U64_not_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2483__2484 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2482 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2481 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2480 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2468 U64_not_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2479 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2482 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2481 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2480 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2468 U64_not_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2479 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_NE_ul"]["post_surgery 910"] = ''
 window.traces["I64_NE_ul"]["post_surgery 910"] += `<pre class='graph'>---
@@ -42326,114 +42326,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2471__2486__2490 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2476 lift_u32"]
-	10 --> 16
-	10["arg__2472 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2476 lift_u32"]
+	5 --> 11
+	5["arg__2472 0"]
 	32["eff__2469__2487__2489 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2475 lift_u32"]
-	12 --> 15
-	12["arg__2470 1"]
-	28["mt__2479__2488 U64_maybeTrue"]
-	25 --> 28
-	25["cond__2468__2485 U64_not_equals"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2475 lift_u32"]
+	7 --> 10
+	7["arg__2470 1"]
+	27["mt__2479__2488 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2468__2485 U64_not_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2483__2484 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2482 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2481 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2480 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2468 U64_not_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2479 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2482 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2481 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2480 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2468 U64_not_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2479 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_NE"]["unlem_scheduler"] = ''
 window.traces["I64_NE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_903["Block 903"]
 	direction TB
-	b903_3[\\"Finish"/]
+	b903_1[\\"Finish"/]
 end
 phi_905 --> block_903
 subgraph phi_905["Phi 905"]
-	p905_14{{"Sϕ Stack "}}
+	p905_9{{"Sϕ Stack "}}
 end
 block_906 --> phi_905
 block_907 --> phi_905
 subgraph block_906["Block 906"]
 	direction TB
-	b906_6["merge__2482 merge_u"]
+	b906_16["merge__2482 merge_u"]
 	b906_22["eff_push__2483__2484 push_u32"]
-	b906_6 --> b906_22
+	b906_16 --> b906_22
 end
 branch_904 --> block_906
 subgraph branch_904["Branch 904"]
-	br904_2["mb__2481 bool.&&"]
+	br904_14["mb__2481 bool.&&"]
 
 end
 block_908 --> branch_904
 subgraph block_908["Block 908"]
 	direction TB
-	b908_1[/"Start"\\]
-	b908_10["arg__2472 0"]
-	b908_12["arg__2470 1"]
-	b908_5["b pop_u64"]
-	b908_7["a pop_u64"]
-	b908_25["cond__2468__2485 U64_not_equals"]
-	b908_16["abs__2476 lift_u32"]
-	b908_15["abs__2475 lift_u32"]
-	b908_9["cond__2468 U64_not_equals"]
-	b908_28["mt__2479__2488 U64_maybeTrue"]
-	b908_0["mf__2480 U64_maybeFalse"]
-	b908_17["mt__2479 U64_maybeTrue"]
-	b908_2["mb__2481 bool.&&"]
-	b908_1 --> b908_10
-	b908_10 --> b908_12
-	b908_12 --> b908_5
+	b908_0[/"Start"\\]
+	b908_5["arg__2472 0"]
+	b908_7["arg__2470 1"]
+	b908_2["b pop_u64"]
+	b908_3["a pop_u64"]
+	b908_24["cond__2468__2485 U64_not_equals"]
+	b908_11["abs__2476 lift_u32"]
+	b908_10["abs__2475 lift_u32"]
+	b908_4["cond__2468 U64_not_equals"]
+	b908_27["mt__2479__2488 U64_maybeTrue"]
+	b908_13["mf__2480 U64_maybeFalse"]
+	b908_12["mt__2479 U64_maybeTrue"]
+	b908_14["mb__2481 bool.&&"]
+	b908_0 --> b908_5
 	b908_5 --> b908_7
-	b908_7 --> b908_25
-	b908_25 --> b908_16
-	b908_16 --> b908_15
-	b908_15 --> b908_9
-	b908_9 --> b908_28
-	b908_28 --> b908_0
-	b908_0 --> b908_17
-	b908_17 --> b908_2
+	b908_7 --> b908_2
+	b908_2 --> b908_3
+	b908_3 --> b908_24
+	b908_24 --> b908_11
+	b908_11 --> b908_10
+	b908_10 --> b908_4
+	b908_4 --> b908_27
+	b908_27 --> b908_13
+	b908_13 --> b908_12
+	b908_12 --> b908_14
 end
 subgraph block_907["Block 907"]
 	direction TB
 end
 phi_910 --> block_907
 subgraph phi_910["Phi 910"]
-	p910_24{{"Sϕ Stack "}}
+	p910_28{{"Sϕ Stack "}}
 end
 block_911 --> phi_910
 block_912 --> phi_910
@@ -42443,7 +42443,7 @@ subgraph block_911["Block 911"]
 end
 branch_909 --> block_911
 subgraph branch_909["Branch 909"]
-	br909_28["mt__2479__2488 U64_maybeTrue"]
+	br909_27["mt__2479__2488 U64_maybeTrue"]
 
 end
 branch_904 --> branch_909
@@ -42874,55 +42874,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2494__2509 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2499 lift_u32"]
-	10 --> 16
-	10["arg__2495 0"]
-	27["eff__2492__2510 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2498 lift_u32"]
-	12 --> 15
-	12["arg__2493 1"]
-	28["mt__2502__2511 U64_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2491__2508 U64_lt_s"]
-	7 --> 25
-	5 --> 25
+	25["eff__2494__2509 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2499 lift_u32"]
+	5 --> 11
+	5["arg__2495 0"]
+	26["eff__2492__2510 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2498 lift_u32"]
+	7 --> 10
+	7["arg__2493 1"]
+	27["mt__2502__2511 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2491__2508 U64_lt_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2506__2507 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2505 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2504 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2503 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2491 U64_lt_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2502 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2505 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2504 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2503 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2491 U64_lt_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2502 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_LT_S_ul"]["post_surgery 926"] = ''
 window.traces["I64_LT_S_ul"]["post_surgery 926"] += `<pre class='graph'>---
@@ -42930,114 +42930,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2494__2509__2513 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2499 lift_u32"]
-	10 --> 16
-	10["arg__2495 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2499 lift_u32"]
+	5 --> 11
+	5["arg__2495 0"]
 	32["eff__2492__2510__2512 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2498 lift_u32"]
-	12 --> 15
-	12["arg__2493 1"]
-	28["mt__2502__2511 U64_maybeTrue"]
-	25 --> 28
-	25["cond__2491__2508 U64_lt_s"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2498 lift_u32"]
+	7 --> 10
+	7["arg__2493 1"]
+	27["mt__2502__2511 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2491__2508 U64_lt_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2506__2507 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2505 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2504 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2503 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2491 U64_lt_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2502 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2505 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2504 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2503 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2491 U64_lt_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2502 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_LT_S"]["unlem_scheduler"] = ''
 window.traces["I64_LT_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_919["Block 919"]
 	direction TB
-	b919_3[\\"Finish"/]
+	b919_1[\\"Finish"/]
 end
 phi_921 --> block_919
 subgraph phi_921["Phi 921"]
-	p921_14{{"Sϕ Stack "}}
+	p921_9{{"Sϕ Stack "}}
 end
 block_922 --> phi_921
 block_923 --> phi_921
 subgraph block_922["Block 922"]
 	direction TB
-	b922_6["merge__2505 merge_u"]
+	b922_16["merge__2505 merge_u"]
 	b922_22["eff_push__2506__2507 push_u32"]
-	b922_6 --> b922_22
+	b922_16 --> b922_22
 end
 branch_920 --> block_922
 subgraph branch_920["Branch 920"]
-	br920_2["mb__2504 bool.&&"]
+	br920_14["mb__2504 bool.&&"]
 
 end
 block_924 --> branch_920
 subgraph block_924["Block 924"]
 	direction TB
-	b924_1[/"Start"\\]
-	b924_10["arg__2495 0"]
-	b924_12["arg__2493 1"]
-	b924_5["b pop_u64"]
-	b924_7["a pop_u64"]
-	b924_25["cond__2491__2508 U64_lt_s"]
-	b924_16["abs__2499 lift_u32"]
-	b924_15["abs__2498 lift_u32"]
-	b924_9["cond__2491 U64_lt_s"]
-	b924_28["mt__2502__2511 U64_maybeTrue"]
-	b924_0["mf__2503 U64_maybeFalse"]
-	b924_17["mt__2502 U64_maybeTrue"]
-	b924_2["mb__2504 bool.&&"]
-	b924_1 --> b924_10
-	b924_10 --> b924_12
-	b924_12 --> b924_5
+	b924_0[/"Start"\\]
+	b924_5["arg__2495 0"]
+	b924_7["arg__2493 1"]
+	b924_2["b pop_u64"]
+	b924_3["a pop_u64"]
+	b924_24["cond__2491__2508 U64_lt_s"]
+	b924_11["abs__2499 lift_u32"]
+	b924_10["abs__2498 lift_u32"]
+	b924_4["cond__2491 U64_lt_s"]
+	b924_27["mt__2502__2511 U64_maybeTrue"]
+	b924_13["mf__2503 U64_maybeFalse"]
+	b924_12["mt__2502 U64_maybeTrue"]
+	b924_14["mb__2504 bool.&&"]
+	b924_0 --> b924_5
 	b924_5 --> b924_7
-	b924_7 --> b924_25
-	b924_25 --> b924_16
-	b924_16 --> b924_15
-	b924_15 --> b924_9
-	b924_9 --> b924_28
-	b924_28 --> b924_0
-	b924_0 --> b924_17
-	b924_17 --> b924_2
+	b924_7 --> b924_2
+	b924_2 --> b924_3
+	b924_3 --> b924_24
+	b924_24 --> b924_11
+	b924_11 --> b924_10
+	b924_10 --> b924_4
+	b924_4 --> b924_27
+	b924_27 --> b924_13
+	b924_13 --> b924_12
+	b924_12 --> b924_14
 end
 subgraph block_923["Block 923"]
 	direction TB
 end
 phi_926 --> block_923
 subgraph phi_926["Phi 926"]
-	p926_24{{"Sϕ Stack "}}
+	p926_28{{"Sϕ Stack "}}
 end
 block_927 --> phi_926
 block_928 --> phi_926
@@ -43047,7 +43047,7 @@ subgraph block_927["Block 927"]
 end
 branch_925 --> block_927
 subgraph branch_925["Branch 925"]
-	br925_28["mt__2502__2511 U64_maybeTrue"]
+	br925_27["mt__2502__2511 U64_maybeTrue"]
 
 end
 branch_920 --> branch_925
@@ -43475,55 +43475,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2517__2532 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2522 lift_u32"]
-	10 --> 16
-	10["arg__2518 0"]
-	27["eff__2515__2533 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2521 lift_u32"]
-	12 --> 15
-	12["arg__2516 1"]
-	28["mt__2525__2534 U64_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2514__2531 U64_lt"]
-	7 --> 25
-	5 --> 25
+	25["eff__2517__2532 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2522 lift_u32"]
+	5 --> 11
+	5["arg__2518 0"]
+	26["eff__2515__2533 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2521 lift_u32"]
+	7 --> 10
+	7["arg__2516 1"]
+	27["mt__2525__2534 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2514__2531 U64_lt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2529__2530 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2528 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2527 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2526 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2514 U64_lt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2525 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2528 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2527 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2526 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2514 U64_lt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2525 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_LT_U_ul"]["post_surgery 942"] = ''
 window.traces["I64_LT_U_ul"]["post_surgery 942"] += `<pre class='graph'>---
@@ -43531,114 +43531,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2517__2532__2536 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2522 lift_u32"]
-	10 --> 16
-	10["arg__2518 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2522 lift_u32"]
+	5 --> 11
+	5["arg__2518 0"]
 	32["eff__2515__2533__2535 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2521 lift_u32"]
-	12 --> 15
-	12["arg__2516 1"]
-	28["mt__2525__2534 U64_maybeTrue"]
-	25 --> 28
-	25["cond__2514__2531 U64_lt"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2521 lift_u32"]
+	7 --> 10
+	7["arg__2516 1"]
+	27["mt__2525__2534 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2514__2531 U64_lt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2529__2530 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2528 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2527 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2526 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2514 U64_lt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2525 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2528 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2527 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2526 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2514 U64_lt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2525 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_LT_U"]["unlem_scheduler"] = ''
 window.traces["I64_LT_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_935["Block 935"]
 	direction TB
-	b935_3[\\"Finish"/]
+	b935_1[\\"Finish"/]
 end
 phi_937 --> block_935
 subgraph phi_937["Phi 937"]
-	p937_14{{"Sϕ Stack "}}
+	p937_9{{"Sϕ Stack "}}
 end
 block_938 --> phi_937
 block_939 --> phi_937
 subgraph block_938["Block 938"]
 	direction TB
-	b938_6["merge__2528 merge_u"]
+	b938_16["merge__2528 merge_u"]
 	b938_22["eff_push__2529__2530 push_u32"]
-	b938_6 --> b938_22
+	b938_16 --> b938_22
 end
 branch_936 --> block_938
 subgraph branch_936["Branch 936"]
-	br936_2["mb__2527 bool.&&"]
+	br936_14["mb__2527 bool.&&"]
 
 end
 block_940 --> branch_936
 subgraph block_940["Block 940"]
 	direction TB
-	b940_1[/"Start"\\]
-	b940_10["arg__2518 0"]
-	b940_12["arg__2516 1"]
-	b940_5["b pop_u64"]
-	b940_7["a pop_u64"]
-	b940_25["cond__2514__2531 U64_lt"]
-	b940_16["abs__2522 lift_u32"]
-	b940_15["abs__2521 lift_u32"]
-	b940_9["cond__2514 U64_lt"]
-	b940_28["mt__2525__2534 U64_maybeTrue"]
-	b940_0["mf__2526 U64_maybeFalse"]
-	b940_17["mt__2525 U64_maybeTrue"]
-	b940_2["mb__2527 bool.&&"]
-	b940_1 --> b940_10
-	b940_10 --> b940_12
-	b940_12 --> b940_5
+	b940_0[/"Start"\\]
+	b940_5["arg__2518 0"]
+	b940_7["arg__2516 1"]
+	b940_2["b pop_u64"]
+	b940_3["a pop_u64"]
+	b940_24["cond__2514__2531 U64_lt"]
+	b940_11["abs__2522 lift_u32"]
+	b940_10["abs__2521 lift_u32"]
+	b940_4["cond__2514 U64_lt"]
+	b940_27["mt__2525__2534 U64_maybeTrue"]
+	b940_13["mf__2526 U64_maybeFalse"]
+	b940_12["mt__2525 U64_maybeTrue"]
+	b940_14["mb__2527 bool.&&"]
+	b940_0 --> b940_5
 	b940_5 --> b940_7
-	b940_7 --> b940_25
-	b940_25 --> b940_16
-	b940_16 --> b940_15
-	b940_15 --> b940_9
-	b940_9 --> b940_28
-	b940_28 --> b940_0
-	b940_0 --> b940_17
-	b940_17 --> b940_2
+	b940_7 --> b940_2
+	b940_2 --> b940_3
+	b940_3 --> b940_24
+	b940_24 --> b940_11
+	b940_11 --> b940_10
+	b940_10 --> b940_4
+	b940_4 --> b940_27
+	b940_27 --> b940_13
+	b940_13 --> b940_12
+	b940_12 --> b940_14
 end
 subgraph block_939["Block 939"]
 	direction TB
 end
 phi_942 --> block_939
 subgraph phi_942["Phi 942"]
-	p942_24{{"Sϕ Stack "}}
+	p942_28{{"Sϕ Stack "}}
 end
 block_943 --> phi_942
 block_944 --> phi_942
@@ -43648,7 +43648,7 @@ subgraph block_943["Block 943"]
 end
 branch_941 --> block_943
 subgraph branch_941["Branch 941"]
-	br941_28["mt__2525__2534 U64_maybeTrue"]
+	br941_27["mt__2525__2534 U64_maybeTrue"]
 
 end
 branch_936 --> branch_941
@@ -44076,55 +44076,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2540__2555 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2545 lift_u32"]
-	10 --> 16
-	10["arg__2541 0"]
-	27["eff__2538__2556 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2544 lift_u32"]
-	12 --> 15
-	12["arg__2539 1"]
-	28["mt__2548__2557 U64_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2537__2554 U64_gt_s"]
-	7 --> 25
-	5 --> 25
+	25["eff__2540__2555 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2545 lift_u32"]
+	5 --> 11
+	5["arg__2541 0"]
+	26["eff__2538__2556 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2544 lift_u32"]
+	7 --> 10
+	7["arg__2539 1"]
+	27["mt__2548__2557 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2537__2554 U64_gt_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2552__2553 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2551 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2550 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2549 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2537 U64_gt_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2548 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2551 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2550 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2549 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2537 U64_gt_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2548 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_GT_S_ul"]["post_surgery 958"] = ''
 window.traces["I64_GT_S_ul"]["post_surgery 958"] += `<pre class='graph'>---
@@ -44132,114 +44132,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2540__2555__2559 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2545 lift_u32"]
-	10 --> 16
-	10["arg__2541 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2545 lift_u32"]
+	5 --> 11
+	5["arg__2541 0"]
 	32["eff__2538__2556__2558 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2544 lift_u32"]
-	12 --> 15
-	12["arg__2539 1"]
-	28["mt__2548__2557 U64_maybeTrue"]
-	25 --> 28
-	25["cond__2537__2554 U64_gt_s"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2544 lift_u32"]
+	7 --> 10
+	7["arg__2539 1"]
+	27["mt__2548__2557 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2537__2554 U64_gt_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2552__2553 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2551 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2550 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2549 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2537 U64_gt_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2548 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2551 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2550 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2549 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2537 U64_gt_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2548 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_GT_S"]["unlem_scheduler"] = ''
 window.traces["I64_GT_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_951["Block 951"]
 	direction TB
-	b951_3[\\"Finish"/]
+	b951_1[\\"Finish"/]
 end
 phi_953 --> block_951
 subgraph phi_953["Phi 953"]
-	p953_14{{"Sϕ Stack "}}
+	p953_9{{"Sϕ Stack "}}
 end
 block_954 --> phi_953
 block_955 --> phi_953
 subgraph block_954["Block 954"]
 	direction TB
-	b954_6["merge__2551 merge_u"]
+	b954_16["merge__2551 merge_u"]
 	b954_22["eff_push__2552__2553 push_u32"]
-	b954_6 --> b954_22
+	b954_16 --> b954_22
 end
 branch_952 --> block_954
 subgraph branch_952["Branch 952"]
-	br952_2["mb__2550 bool.&&"]
+	br952_14["mb__2550 bool.&&"]
 
 end
 block_956 --> branch_952
 subgraph block_956["Block 956"]
 	direction TB
-	b956_1[/"Start"\\]
-	b956_10["arg__2541 0"]
-	b956_12["arg__2539 1"]
-	b956_5["b pop_u64"]
-	b956_7["a pop_u64"]
-	b956_25["cond__2537__2554 U64_gt_s"]
-	b956_16["abs__2545 lift_u32"]
-	b956_15["abs__2544 lift_u32"]
-	b956_9["cond__2537 U64_gt_s"]
-	b956_28["mt__2548__2557 U64_maybeTrue"]
-	b956_0["mf__2549 U64_maybeFalse"]
-	b956_17["mt__2548 U64_maybeTrue"]
-	b956_2["mb__2550 bool.&&"]
-	b956_1 --> b956_10
-	b956_10 --> b956_12
-	b956_12 --> b956_5
+	b956_0[/"Start"\\]
+	b956_5["arg__2541 0"]
+	b956_7["arg__2539 1"]
+	b956_2["b pop_u64"]
+	b956_3["a pop_u64"]
+	b956_24["cond__2537__2554 U64_gt_s"]
+	b956_11["abs__2545 lift_u32"]
+	b956_10["abs__2544 lift_u32"]
+	b956_4["cond__2537 U64_gt_s"]
+	b956_27["mt__2548__2557 U64_maybeTrue"]
+	b956_13["mf__2549 U64_maybeFalse"]
+	b956_12["mt__2548 U64_maybeTrue"]
+	b956_14["mb__2550 bool.&&"]
+	b956_0 --> b956_5
 	b956_5 --> b956_7
-	b956_7 --> b956_25
-	b956_25 --> b956_16
-	b956_16 --> b956_15
-	b956_15 --> b956_9
-	b956_9 --> b956_28
-	b956_28 --> b956_0
-	b956_0 --> b956_17
-	b956_17 --> b956_2
+	b956_7 --> b956_2
+	b956_2 --> b956_3
+	b956_3 --> b956_24
+	b956_24 --> b956_11
+	b956_11 --> b956_10
+	b956_10 --> b956_4
+	b956_4 --> b956_27
+	b956_27 --> b956_13
+	b956_13 --> b956_12
+	b956_12 --> b956_14
 end
 subgraph block_955["Block 955"]
 	direction TB
 end
 phi_958 --> block_955
 subgraph phi_958["Phi 958"]
-	p958_24{{"Sϕ Stack "}}
+	p958_28{{"Sϕ Stack "}}
 end
 block_959 --> phi_958
 block_960 --> phi_958
@@ -44249,7 +44249,7 @@ subgraph block_959["Block 959"]
 end
 branch_957 --> block_959
 subgraph branch_957["Branch 957"]
-	br957_28["mt__2548__2557 U64_maybeTrue"]
+	br957_27["mt__2548__2557 U64_maybeTrue"]
 
 end
 branch_952 --> branch_957
@@ -44677,55 +44677,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2563__2578 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2568 lift_u32"]
-	10 --> 16
-	10["arg__2564 0"]
-	27["eff__2561__2579 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2567 lift_u32"]
-	12 --> 15
-	12["arg__2562 1"]
-	28["mt__2571__2580 U64_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2560__2577 U64_gt"]
-	7 --> 25
-	5 --> 25
+	25["eff__2563__2578 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2568 lift_u32"]
+	5 --> 11
+	5["arg__2564 0"]
+	26["eff__2561__2579 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2567 lift_u32"]
+	7 --> 10
+	7["arg__2562 1"]
+	27["mt__2571__2580 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2560__2577 U64_gt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2575__2576 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2574 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2573 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2572 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2560 U64_gt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2571 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2574 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2573 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2572 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2560 U64_gt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2571 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_GT_U_ul"]["post_surgery 974"] = ''
 window.traces["I64_GT_U_ul"]["post_surgery 974"] += `<pre class='graph'>---
@@ -44733,114 +44733,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2563__2578__2582 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2568 lift_u32"]
-	10 --> 16
-	10["arg__2564 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2568 lift_u32"]
+	5 --> 11
+	5["arg__2564 0"]
 	32["eff__2561__2579__2581 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2567 lift_u32"]
-	12 --> 15
-	12["arg__2562 1"]
-	28["mt__2571__2580 U64_maybeTrue"]
-	25 --> 28
-	25["cond__2560__2577 U64_gt"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2567 lift_u32"]
+	7 --> 10
+	7["arg__2562 1"]
+	27["mt__2571__2580 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2560__2577 U64_gt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2575__2576 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2574 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2573 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2572 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2560 U64_gt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2571 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2574 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2573 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2572 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2560 U64_gt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2571 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_GT_U"]["unlem_scheduler"] = ''
 window.traces["I64_GT_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_967["Block 967"]
 	direction TB
-	b967_3[\\"Finish"/]
+	b967_1[\\"Finish"/]
 end
 phi_969 --> block_967
 subgraph phi_969["Phi 969"]
-	p969_14{{"Sϕ Stack "}}
+	p969_9{{"Sϕ Stack "}}
 end
 block_970 --> phi_969
 block_971 --> phi_969
 subgraph block_970["Block 970"]
 	direction TB
-	b970_6["merge__2574 merge_u"]
+	b970_16["merge__2574 merge_u"]
 	b970_22["eff_push__2575__2576 push_u32"]
-	b970_6 --> b970_22
+	b970_16 --> b970_22
 end
 branch_968 --> block_970
 subgraph branch_968["Branch 968"]
-	br968_2["mb__2573 bool.&&"]
+	br968_14["mb__2573 bool.&&"]
 
 end
 block_972 --> branch_968
 subgraph block_972["Block 972"]
 	direction TB
-	b972_1[/"Start"\\]
-	b972_10["arg__2564 0"]
-	b972_12["arg__2562 1"]
-	b972_5["b pop_u64"]
-	b972_7["a pop_u64"]
-	b972_25["cond__2560__2577 U64_gt"]
-	b972_16["abs__2568 lift_u32"]
-	b972_15["abs__2567 lift_u32"]
-	b972_9["cond__2560 U64_gt"]
-	b972_28["mt__2571__2580 U64_maybeTrue"]
-	b972_0["mf__2572 U64_maybeFalse"]
-	b972_17["mt__2571 U64_maybeTrue"]
-	b972_2["mb__2573 bool.&&"]
-	b972_1 --> b972_10
-	b972_10 --> b972_12
-	b972_12 --> b972_5
+	b972_0[/"Start"\\]
+	b972_5["arg__2564 0"]
+	b972_7["arg__2562 1"]
+	b972_2["b pop_u64"]
+	b972_3["a pop_u64"]
+	b972_24["cond__2560__2577 U64_gt"]
+	b972_11["abs__2568 lift_u32"]
+	b972_10["abs__2567 lift_u32"]
+	b972_4["cond__2560 U64_gt"]
+	b972_27["mt__2571__2580 U64_maybeTrue"]
+	b972_13["mf__2572 U64_maybeFalse"]
+	b972_12["mt__2571 U64_maybeTrue"]
+	b972_14["mb__2573 bool.&&"]
+	b972_0 --> b972_5
 	b972_5 --> b972_7
-	b972_7 --> b972_25
-	b972_25 --> b972_16
-	b972_16 --> b972_15
-	b972_15 --> b972_9
-	b972_9 --> b972_28
-	b972_28 --> b972_0
-	b972_0 --> b972_17
-	b972_17 --> b972_2
+	b972_7 --> b972_2
+	b972_2 --> b972_3
+	b972_3 --> b972_24
+	b972_24 --> b972_11
+	b972_11 --> b972_10
+	b972_10 --> b972_4
+	b972_4 --> b972_27
+	b972_27 --> b972_13
+	b972_13 --> b972_12
+	b972_12 --> b972_14
 end
 subgraph block_971["Block 971"]
 	direction TB
 end
 phi_974 --> block_971
 subgraph phi_974["Phi 974"]
-	p974_24{{"Sϕ Stack "}}
+	p974_28{{"Sϕ Stack "}}
 end
 block_975 --> phi_974
 block_976 --> phi_974
@@ -44850,7 +44850,7 @@ subgraph block_975["Block 975"]
 end
 branch_973 --> block_975
 subgraph branch_973["Branch 973"]
-	br973_28["mt__2571__2580 U64_maybeTrue"]
+	br973_27["mt__2571__2580 U64_maybeTrue"]
 
 end
 branch_968 --> branch_973
@@ -45278,55 +45278,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2586__2601 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2591 lift_u32"]
-	10 --> 16
-	10["arg__2587 0"]
-	27["eff__2584__2602 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2590 lift_u32"]
-	12 --> 15
-	12["arg__2585 1"]
-	28["mt__2594__2603 U64_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2583__2600 U64_le_s"]
-	7 --> 25
-	5 --> 25
+	25["eff__2586__2601 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2591 lift_u32"]
+	5 --> 11
+	5["arg__2587 0"]
+	26["eff__2584__2602 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2590 lift_u32"]
+	7 --> 10
+	7["arg__2585 1"]
+	27["mt__2594__2603 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2583__2600 U64_le_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2598__2599 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2597 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2596 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2595 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2583 U64_le_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2594 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2597 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2596 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2595 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2583 U64_le_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2594 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_LE_S_ul"]["post_surgery 990"] = ''
 window.traces["I64_LE_S_ul"]["post_surgery 990"] += `<pre class='graph'>---
@@ -45334,114 +45334,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2586__2601__2605 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2591 lift_u32"]
-	10 --> 16
-	10["arg__2587 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2591 lift_u32"]
+	5 --> 11
+	5["arg__2587 0"]
 	32["eff__2584__2602__2604 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2590 lift_u32"]
-	12 --> 15
-	12["arg__2585 1"]
-	28["mt__2594__2603 U64_maybeTrue"]
-	25 --> 28
-	25["cond__2583__2600 U64_le_s"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2590 lift_u32"]
+	7 --> 10
+	7["arg__2585 1"]
+	27["mt__2594__2603 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2583__2600 U64_le_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2598__2599 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2597 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2596 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2595 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2583 U64_le_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2594 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2597 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2596 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2595 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2583 U64_le_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2594 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_LE_S"]["unlem_scheduler"] = ''
 window.traces["I64_LE_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_983["Block 983"]
 	direction TB
-	b983_3[\\"Finish"/]
+	b983_1[\\"Finish"/]
 end
 phi_985 --> block_983
 subgraph phi_985["Phi 985"]
-	p985_14{{"Sϕ Stack "}}
+	p985_9{{"Sϕ Stack "}}
 end
 block_986 --> phi_985
 block_987 --> phi_985
 subgraph block_986["Block 986"]
 	direction TB
-	b986_6["merge__2597 merge_u"]
+	b986_16["merge__2597 merge_u"]
 	b986_22["eff_push__2598__2599 push_u32"]
-	b986_6 --> b986_22
+	b986_16 --> b986_22
 end
 branch_984 --> block_986
 subgraph branch_984["Branch 984"]
-	br984_2["mb__2596 bool.&&"]
+	br984_14["mb__2596 bool.&&"]
 
 end
 block_988 --> branch_984
 subgraph block_988["Block 988"]
 	direction TB
-	b988_1[/"Start"\\]
-	b988_10["arg__2587 0"]
-	b988_12["arg__2585 1"]
-	b988_5["b pop_u64"]
-	b988_7["a pop_u64"]
-	b988_25["cond__2583__2600 U64_le_s"]
-	b988_16["abs__2591 lift_u32"]
-	b988_15["abs__2590 lift_u32"]
-	b988_9["cond__2583 U64_le_s"]
-	b988_28["mt__2594__2603 U64_maybeTrue"]
-	b988_0["mf__2595 U64_maybeFalse"]
-	b988_17["mt__2594 U64_maybeTrue"]
-	b988_2["mb__2596 bool.&&"]
-	b988_1 --> b988_10
-	b988_10 --> b988_12
-	b988_12 --> b988_5
+	b988_0[/"Start"\\]
+	b988_5["arg__2587 0"]
+	b988_7["arg__2585 1"]
+	b988_2["b pop_u64"]
+	b988_3["a pop_u64"]
+	b988_24["cond__2583__2600 U64_le_s"]
+	b988_11["abs__2591 lift_u32"]
+	b988_10["abs__2590 lift_u32"]
+	b988_4["cond__2583 U64_le_s"]
+	b988_27["mt__2594__2603 U64_maybeTrue"]
+	b988_13["mf__2595 U64_maybeFalse"]
+	b988_12["mt__2594 U64_maybeTrue"]
+	b988_14["mb__2596 bool.&&"]
+	b988_0 --> b988_5
 	b988_5 --> b988_7
-	b988_7 --> b988_25
-	b988_25 --> b988_16
-	b988_16 --> b988_15
-	b988_15 --> b988_9
-	b988_9 --> b988_28
-	b988_28 --> b988_0
-	b988_0 --> b988_17
-	b988_17 --> b988_2
+	b988_7 --> b988_2
+	b988_2 --> b988_3
+	b988_3 --> b988_24
+	b988_24 --> b988_11
+	b988_11 --> b988_10
+	b988_10 --> b988_4
+	b988_4 --> b988_27
+	b988_27 --> b988_13
+	b988_13 --> b988_12
+	b988_12 --> b988_14
 end
 subgraph block_987["Block 987"]
 	direction TB
 end
 phi_990 --> block_987
 subgraph phi_990["Phi 990"]
-	p990_24{{"Sϕ Stack "}}
+	p990_28{{"Sϕ Stack "}}
 end
 block_991 --> phi_990
 block_992 --> phi_990
@@ -45451,7 +45451,7 @@ subgraph block_991["Block 991"]
 end
 branch_989 --> block_991
 subgraph branch_989["Branch 989"]
-	br989_28["mt__2594__2603 U64_maybeTrue"]
+	br989_27["mt__2594__2603 U64_maybeTrue"]
 
 end
 branch_984 --> branch_989
@@ -45879,55 +45879,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2609__2624 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2614 lift_u32"]
-	10 --> 16
-	10["arg__2610 0"]
-	27["eff__2607__2625 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2613 lift_u32"]
-	12 --> 15
-	12["arg__2608 1"]
-	28["mt__2617__2626 U64_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2606__2623 U64_lte"]
-	7 --> 25
-	5 --> 25
+	25["eff__2609__2624 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2614 lift_u32"]
+	5 --> 11
+	5["arg__2610 0"]
+	26["eff__2607__2625 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2613 lift_u32"]
+	7 --> 10
+	7["arg__2608 1"]
+	27["mt__2617__2626 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2606__2623 U64_lte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2621__2622 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2620 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2619 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2618 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2606 U64_lte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2617 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2620 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2619 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2618 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2606 U64_lte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2617 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_LE_U_ul"]["post_surgery 1006"] = ''
 window.traces["I64_LE_U_ul"]["post_surgery 1006"] += `<pre class='graph'>---
@@ -45935,114 +45935,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2609__2624__2628 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2614 lift_u32"]
-	10 --> 16
-	10["arg__2610 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2614 lift_u32"]
+	5 --> 11
+	5["arg__2610 0"]
 	32["eff__2607__2625__2627 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2613 lift_u32"]
-	12 --> 15
-	12["arg__2608 1"]
-	28["mt__2617__2626 U64_maybeTrue"]
-	25 --> 28
-	25["cond__2606__2623 U64_lte"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2613 lift_u32"]
+	7 --> 10
+	7["arg__2608 1"]
+	27["mt__2617__2626 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2606__2623 U64_lte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2621__2622 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2620 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2619 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2618 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2606 U64_lte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2617 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2620 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2619 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2618 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2606 U64_lte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2617 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_LE_U"]["unlem_scheduler"] = ''
 window.traces["I64_LE_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_999["Block 999"]
 	direction TB
-	b999_3[\\"Finish"/]
+	b999_1[\\"Finish"/]
 end
 phi_1001 --> block_999
 subgraph phi_1001["Phi 1001"]
-	p1001_14{{"Sϕ Stack "}}
+	p1001_9{{"Sϕ Stack "}}
 end
 block_1002 --> phi_1001
 block_1003 --> phi_1001
 subgraph block_1002["Block 1002"]
 	direction TB
-	b1002_6["merge__2620 merge_u"]
+	b1002_16["merge__2620 merge_u"]
 	b1002_22["eff_push__2621__2622 push_u32"]
-	b1002_6 --> b1002_22
+	b1002_16 --> b1002_22
 end
 branch_1000 --> block_1002
 subgraph branch_1000["Branch 1000"]
-	br1000_2["mb__2619 bool.&&"]
+	br1000_14["mb__2619 bool.&&"]
 
 end
 block_1004 --> branch_1000
 subgraph block_1004["Block 1004"]
 	direction TB
-	b1004_1[/"Start"\\]
-	b1004_10["arg__2610 0"]
-	b1004_12["arg__2608 1"]
-	b1004_5["b pop_u64"]
-	b1004_7["a pop_u64"]
-	b1004_25["cond__2606__2623 U64_lte"]
-	b1004_16["abs__2614 lift_u32"]
-	b1004_15["abs__2613 lift_u32"]
-	b1004_9["cond__2606 U64_lte"]
-	b1004_28["mt__2617__2626 U64_maybeTrue"]
-	b1004_0["mf__2618 U64_maybeFalse"]
-	b1004_17["mt__2617 U64_maybeTrue"]
-	b1004_2["mb__2619 bool.&&"]
-	b1004_1 --> b1004_10
-	b1004_10 --> b1004_12
-	b1004_12 --> b1004_5
+	b1004_0[/"Start"\\]
+	b1004_5["arg__2610 0"]
+	b1004_7["arg__2608 1"]
+	b1004_2["b pop_u64"]
+	b1004_3["a pop_u64"]
+	b1004_24["cond__2606__2623 U64_lte"]
+	b1004_11["abs__2614 lift_u32"]
+	b1004_10["abs__2613 lift_u32"]
+	b1004_4["cond__2606 U64_lte"]
+	b1004_27["mt__2617__2626 U64_maybeTrue"]
+	b1004_13["mf__2618 U64_maybeFalse"]
+	b1004_12["mt__2617 U64_maybeTrue"]
+	b1004_14["mb__2619 bool.&&"]
+	b1004_0 --> b1004_5
 	b1004_5 --> b1004_7
-	b1004_7 --> b1004_25
-	b1004_25 --> b1004_16
-	b1004_16 --> b1004_15
-	b1004_15 --> b1004_9
-	b1004_9 --> b1004_28
-	b1004_28 --> b1004_0
-	b1004_0 --> b1004_17
-	b1004_17 --> b1004_2
+	b1004_7 --> b1004_2
+	b1004_2 --> b1004_3
+	b1004_3 --> b1004_24
+	b1004_24 --> b1004_11
+	b1004_11 --> b1004_10
+	b1004_10 --> b1004_4
+	b1004_4 --> b1004_27
+	b1004_27 --> b1004_13
+	b1004_13 --> b1004_12
+	b1004_12 --> b1004_14
 end
 subgraph block_1003["Block 1003"]
 	direction TB
 end
 phi_1006 --> block_1003
 subgraph phi_1006["Phi 1006"]
-	p1006_24{{"Sϕ Stack "}}
+	p1006_28{{"Sϕ Stack "}}
 end
 block_1007 --> phi_1006
 block_1008 --> phi_1006
@@ -46052,7 +46052,7 @@ subgraph block_1007["Block 1007"]
 end
 branch_1005 --> block_1007
 subgraph branch_1005["Branch 1005"]
-	br1005_28["mt__2617__2626 U64_maybeTrue"]
+	br1005_27["mt__2617__2626 U64_maybeTrue"]
 
 end
 branch_1000 --> branch_1005
@@ -46480,55 +46480,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2632__2647 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2637 lift_u32"]
-	10 --> 16
-	10["arg__2633 0"]
-	27["eff__2630__2648 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2636 lift_u32"]
-	12 --> 15
-	12["arg__2631 1"]
-	28["mt__2640__2649 U64_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2629__2646 U64_ge_s"]
-	7 --> 25
-	5 --> 25
+	25["eff__2632__2647 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2637 lift_u32"]
+	5 --> 11
+	5["arg__2633 0"]
+	26["eff__2630__2648 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2636 lift_u32"]
+	7 --> 10
+	7["arg__2631 1"]
+	27["mt__2640__2649 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2629__2646 U64_ge_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2644__2645 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2643 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2642 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2641 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2629 U64_ge_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2640 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2643 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2642 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2641 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2629 U64_ge_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2640 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_GE_S_ul"]["post_surgery 1022"] = ''
 window.traces["I64_GE_S_ul"]["post_surgery 1022"] += `<pre class='graph'>---
@@ -46536,114 +46536,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2632__2647__2651 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2637 lift_u32"]
-	10 --> 16
-	10["arg__2633 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2637 lift_u32"]
+	5 --> 11
+	5["arg__2633 0"]
 	32["eff__2630__2648__2650 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2636 lift_u32"]
-	12 --> 15
-	12["arg__2631 1"]
-	28["mt__2640__2649 U64_maybeTrue"]
-	25 --> 28
-	25["cond__2629__2646 U64_ge_s"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2636 lift_u32"]
+	7 --> 10
+	7["arg__2631 1"]
+	27["mt__2640__2649 U64_maybeTrue"]
+	24 --> 27
+	24["cond__2629__2646 U64_ge_s"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2644__2645 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2643 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2642 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2641 U64_maybeFalse"]
-	9 --> 0
-	9["cond__2629 U64_ge_s"]
-	7 --> 9
-	5 --> 9
-	17["mt__2640 U64_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2643 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2642 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2641 U64_maybeFalse"]
+	4 --> 13
+	4["cond__2629 U64_ge_s"]
+	3 --> 4
+	2 --> 4
+	12["mt__2640 U64_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_GE_S"]["unlem_scheduler"] = ''
 window.traces["I64_GE_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1015["Block 1015"]
 	direction TB
-	b1015_3[\\"Finish"/]
+	b1015_1[\\"Finish"/]
 end
 phi_1017 --> block_1015
 subgraph phi_1017["Phi 1017"]
-	p1017_14{{"Sϕ Stack "}}
+	p1017_9{{"Sϕ Stack "}}
 end
 block_1018 --> phi_1017
 block_1019 --> phi_1017
 subgraph block_1018["Block 1018"]
 	direction TB
-	b1018_6["merge__2643 merge_u"]
+	b1018_16["merge__2643 merge_u"]
 	b1018_22["eff_push__2644__2645 push_u32"]
-	b1018_6 --> b1018_22
+	b1018_16 --> b1018_22
 end
 branch_1016 --> block_1018
 subgraph branch_1016["Branch 1016"]
-	br1016_2["mb__2642 bool.&&"]
+	br1016_14["mb__2642 bool.&&"]
 
 end
 block_1020 --> branch_1016
 subgraph block_1020["Block 1020"]
 	direction TB
-	b1020_1[/"Start"\\]
-	b1020_10["arg__2633 0"]
-	b1020_12["arg__2631 1"]
-	b1020_5["b pop_u64"]
-	b1020_7["a pop_u64"]
-	b1020_25["cond__2629__2646 U64_ge_s"]
-	b1020_16["abs__2637 lift_u32"]
-	b1020_15["abs__2636 lift_u32"]
-	b1020_9["cond__2629 U64_ge_s"]
-	b1020_28["mt__2640__2649 U64_maybeTrue"]
-	b1020_0["mf__2641 U64_maybeFalse"]
-	b1020_17["mt__2640 U64_maybeTrue"]
-	b1020_2["mb__2642 bool.&&"]
-	b1020_1 --> b1020_10
-	b1020_10 --> b1020_12
-	b1020_12 --> b1020_5
+	b1020_0[/"Start"\\]
+	b1020_5["arg__2633 0"]
+	b1020_7["arg__2631 1"]
+	b1020_2["b pop_u64"]
+	b1020_3["a pop_u64"]
+	b1020_24["cond__2629__2646 U64_ge_s"]
+	b1020_11["abs__2637 lift_u32"]
+	b1020_10["abs__2636 lift_u32"]
+	b1020_4["cond__2629 U64_ge_s"]
+	b1020_27["mt__2640__2649 U64_maybeTrue"]
+	b1020_13["mf__2641 U64_maybeFalse"]
+	b1020_12["mt__2640 U64_maybeTrue"]
+	b1020_14["mb__2642 bool.&&"]
+	b1020_0 --> b1020_5
 	b1020_5 --> b1020_7
-	b1020_7 --> b1020_25
-	b1020_25 --> b1020_16
-	b1020_16 --> b1020_15
-	b1020_15 --> b1020_9
-	b1020_9 --> b1020_28
-	b1020_28 --> b1020_0
-	b1020_0 --> b1020_17
-	b1020_17 --> b1020_2
+	b1020_7 --> b1020_2
+	b1020_2 --> b1020_3
+	b1020_3 --> b1020_24
+	b1020_24 --> b1020_11
+	b1020_11 --> b1020_10
+	b1020_10 --> b1020_4
+	b1020_4 --> b1020_27
+	b1020_27 --> b1020_13
+	b1020_13 --> b1020_12
+	b1020_12 --> b1020_14
 end
 subgraph block_1019["Block 1019"]
 	direction TB
 end
 phi_1022 --> block_1019
 subgraph phi_1022["Phi 1022"]
-	p1022_24{{"Sϕ Stack "}}
+	p1022_28{{"Sϕ Stack "}}
 end
 block_1023 --> phi_1022
 block_1024 --> phi_1022
@@ -46653,7 +46653,7 @@ subgraph block_1023["Block 1023"]
 end
 branch_1021 --> block_1023
 subgraph branch_1021["Branch 1021"]
-	br1021_28["mt__2640__2649 U64_maybeTrue"]
+	br1021_27["mt__2640__2649 U64_maybeTrue"]
 
 end
 branch_1016 --> branch_1021
@@ -47081,55 +47081,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2655__2670 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2660 lift_u32"]
-	10 --> 16
-	10["arg__2656 0"]
-	27["eff__2653__2671 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2659 lift_u32"]
-	12 --> 15
-	12["arg__2654 1"]
-	28["mt__2663__2672 bot_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2652__2669 U64_gte"]
-	7 --> 25
-	5 --> 25
+	25["eff__2655__2670 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2660 lift_u32"]
+	5 --> 11
+	5["arg__2656 0"]
+	26["eff__2653__2671 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2659 lift_u32"]
+	7 --> 10
+	7["arg__2654 1"]
+	27["mt__2663__2672 bot_maybeTrue"]
+	24 --> 27
+	24["cond__2652__2669 U64_gte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2667__2668 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2666 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2665 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2664 bot_maybeFalse"]
-	9 --> 0
-	9["cond__2652 U64_gte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2663 bot_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2666 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2665 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2664 bot_maybeFalse"]
+	4 --> 13
+	4["cond__2652 U64_gte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2663 bot_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_GE_U_ul"]["post_surgery 1038"] = ''
 window.traces["I64_GE_U_ul"]["post_surgery 1038"] += `<pre class='graph'>---
@@ -47137,114 +47137,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2655__2670__2674 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2660 lift_u32"]
-	10 --> 16
-	10["arg__2656 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2660 lift_u32"]
+	5 --> 11
+	5["arg__2656 0"]
 	32["eff__2653__2671__2673 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2659 lift_u32"]
-	12 --> 15
-	12["arg__2654 1"]
-	28["mt__2663__2672 bot_maybeTrue"]
-	25 --> 28
-	25["cond__2652__2669 U64_gte"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2659 lift_u32"]
+	7 --> 10
+	7["arg__2654 1"]
+	27["mt__2663__2672 bot_maybeTrue"]
+	24 --> 27
+	24["cond__2652__2669 U64_gte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2667__2668 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2666 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2665 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2664 bot_maybeFalse"]
-	9 --> 0
-	9["cond__2652 U64_gte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2663 bot_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2666 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2665 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2664 bot_maybeFalse"]
+	4 --> 13
+	4["cond__2652 U64_gte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2663 bot_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["I64_GE_U"]["unlem_scheduler"] = ''
 window.traces["I64_GE_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1031["Block 1031"]
 	direction TB
-	b1031_3[\\"Finish"/]
+	b1031_1[\\"Finish"/]
 end
 phi_1033 --> block_1031
 subgraph phi_1033["Phi 1033"]
-	p1033_14{{"Sϕ Stack "}}
+	p1033_9{{"Sϕ Stack "}}
 end
 block_1034 --> phi_1033
 block_1035 --> phi_1033
 subgraph block_1034["Block 1034"]
 	direction TB
-	b1034_6["merge__2666 merge_u"]
+	b1034_16["merge__2666 merge_u"]
 	b1034_22["eff_push__2667__2668 push_u32"]
-	b1034_6 --> b1034_22
+	b1034_16 --> b1034_22
 end
 branch_1032 --> block_1034
 subgraph branch_1032["Branch 1032"]
-	br1032_2["mb__2665 bool.&&"]
+	br1032_14["mb__2665 bool.&&"]
 
 end
 block_1036 --> branch_1032
 subgraph block_1036["Block 1036"]
 	direction TB
-	b1036_1[/"Start"\\]
-	b1036_10["arg__2656 0"]
-	b1036_12["arg__2654 1"]
-	b1036_5["b pop_u64"]
-	b1036_7["a pop_u64"]
-	b1036_25["cond__2652__2669 U64_gte"]
-	b1036_16["abs__2660 lift_u32"]
-	b1036_15["abs__2659 lift_u32"]
-	b1036_9["cond__2652 U64_gte"]
-	b1036_28["mt__2663__2672 bot_maybeTrue"]
-	b1036_0["mf__2664 bot_maybeFalse"]
-	b1036_17["mt__2663 bot_maybeTrue"]
-	b1036_2["mb__2665 bool.&&"]
-	b1036_1 --> b1036_10
-	b1036_10 --> b1036_12
-	b1036_12 --> b1036_5
+	b1036_0[/"Start"\\]
+	b1036_5["arg__2656 0"]
+	b1036_7["arg__2654 1"]
+	b1036_2["b pop_u64"]
+	b1036_3["a pop_u64"]
+	b1036_24["cond__2652__2669 U64_gte"]
+	b1036_11["abs__2660 lift_u32"]
+	b1036_10["abs__2659 lift_u32"]
+	b1036_4["cond__2652 U64_gte"]
+	b1036_27["mt__2663__2672 bot_maybeTrue"]
+	b1036_13["mf__2664 bot_maybeFalse"]
+	b1036_12["mt__2663 bot_maybeTrue"]
+	b1036_14["mb__2665 bool.&&"]
+	b1036_0 --> b1036_5
 	b1036_5 --> b1036_7
-	b1036_7 --> b1036_25
-	b1036_25 --> b1036_16
-	b1036_16 --> b1036_15
-	b1036_15 --> b1036_9
-	b1036_9 --> b1036_28
-	b1036_28 --> b1036_0
-	b1036_0 --> b1036_17
-	b1036_17 --> b1036_2
+	b1036_7 --> b1036_2
+	b1036_2 --> b1036_3
+	b1036_3 --> b1036_24
+	b1036_24 --> b1036_11
+	b1036_11 --> b1036_10
+	b1036_10 --> b1036_4
+	b1036_4 --> b1036_27
+	b1036_27 --> b1036_13
+	b1036_13 --> b1036_12
+	b1036_12 --> b1036_14
 end
 subgraph block_1035["Block 1035"]
 	direction TB
 end
 phi_1038 --> block_1035
 subgraph phi_1038["Phi 1038"]
-	p1038_24{{"Sϕ Stack "}}
+	p1038_28{{"Sϕ Stack "}}
 end
 block_1039 --> phi_1038
 block_1040 --> phi_1038
@@ -47254,7 +47254,7 @@ subgraph block_1039["Block 1039"]
 end
 branch_1037 --> block_1039
 subgraph branch_1037["Branch 1037"]
-	br1037_28["mt__2663__2672 bot_maybeTrue"]
+	br1037_27["mt__2663__2672 bot_maybeTrue"]
 
 end
 branch_1032 --> branch_1037
@@ -47682,55 +47682,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2678__2693 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2683 lift_u32"]
-	10 --> 16
-	10["arg__2679 0"]
-	27["eff__2676__2694 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2682 lift_u32"]
-	12 --> 15
-	12["arg__2677 1"]
-	28["mt__2686__2695 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2675__2692 F32_equals"]
-	7 --> 25
-	5 --> 25
+	25["eff__2678__2693 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2683 lift_u32"]
+	5 --> 11
+	5["arg__2679 0"]
+	26["eff__2676__2694 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2682 lift_u32"]
+	7 --> 10
+	7["arg__2677 1"]
+	27["mt__2686__2695 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2675__2692 F32_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2690__2691 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2689 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2688 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2687 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2675 F32_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2686 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2689 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2688 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2687 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2675 F32_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2686 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F32_EQ_ul"]["post_surgery 1054"] = ''
 window.traces["F32_EQ_ul"]["post_surgery 1054"] += `<pre class='graph'>---
@@ -47738,114 +47738,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2678__2693__2697 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2683 lift_u32"]
-	10 --> 16
-	10["arg__2679 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2683 lift_u32"]
+	5 --> 11
+	5["arg__2679 0"]
 	32["eff__2676__2694__2696 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2682 lift_u32"]
-	12 --> 15
-	12["arg__2677 1"]
-	28["mt__2686__2695 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2675__2692 F32_equals"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2682 lift_u32"]
+	7 --> 10
+	7["arg__2677 1"]
+	27["mt__2686__2695 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2675__2692 F32_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2690__2691 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2689 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2688 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2687 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2675 F32_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2686 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2689 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2688 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2687 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2675 F32_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2686 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F32_EQ"]["unlem_scheduler"] = ''
 window.traces["F32_EQ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1047["Block 1047"]
 	direction TB
-	b1047_3[\\"Finish"/]
+	b1047_1[\\"Finish"/]
 end
 phi_1049 --> block_1047
 subgraph phi_1049["Phi 1049"]
-	p1049_14{{"Sϕ Stack "}}
+	p1049_9{{"Sϕ Stack "}}
 end
 block_1050 --> phi_1049
 block_1051 --> phi_1049
 subgraph block_1050["Block 1050"]
 	direction TB
-	b1050_6["merge__2689 merge_u"]
+	b1050_16["merge__2689 merge_u"]
 	b1050_22["eff_push__2690__2691 push_u32"]
-	b1050_6 --> b1050_22
+	b1050_16 --> b1050_22
 end
 branch_1048 --> block_1050
 subgraph branch_1048["Branch 1048"]
-	br1048_2["mb__2688 bool.&&"]
+	br1048_14["mb__2688 bool.&&"]
 
 end
 block_1052 --> branch_1048
 subgraph block_1052["Block 1052"]
 	direction TB
-	b1052_1[/"Start"\\]
-	b1052_10["arg__2679 0"]
-	b1052_12["arg__2677 1"]
-	b1052_5["b pop_f32"]
-	b1052_7["a pop_f32"]
-	b1052_25["cond__2675__2692 F32_equals"]
-	b1052_16["abs__2683 lift_u32"]
-	b1052_15["abs__2682 lift_u32"]
-	b1052_9["cond__2675 F32_equals"]
-	b1052_28["mt__2686__2695 U32_maybeTrue"]
-	b1052_0["mf__2687 U32_maybeFalse"]
-	b1052_17["mt__2686 U32_maybeTrue"]
-	b1052_2["mb__2688 bool.&&"]
-	b1052_1 --> b1052_10
-	b1052_10 --> b1052_12
-	b1052_12 --> b1052_5
+	b1052_0[/"Start"\\]
+	b1052_5["arg__2679 0"]
+	b1052_7["arg__2677 1"]
+	b1052_2["b pop_f32"]
+	b1052_3["a pop_f32"]
+	b1052_24["cond__2675__2692 F32_equals"]
+	b1052_11["abs__2683 lift_u32"]
+	b1052_10["abs__2682 lift_u32"]
+	b1052_4["cond__2675 F32_equals"]
+	b1052_27["mt__2686__2695 U32_maybeTrue"]
+	b1052_13["mf__2687 U32_maybeFalse"]
+	b1052_12["mt__2686 U32_maybeTrue"]
+	b1052_14["mb__2688 bool.&&"]
+	b1052_0 --> b1052_5
 	b1052_5 --> b1052_7
-	b1052_7 --> b1052_25
-	b1052_25 --> b1052_16
-	b1052_16 --> b1052_15
-	b1052_15 --> b1052_9
-	b1052_9 --> b1052_28
-	b1052_28 --> b1052_0
-	b1052_0 --> b1052_17
-	b1052_17 --> b1052_2
+	b1052_7 --> b1052_2
+	b1052_2 --> b1052_3
+	b1052_3 --> b1052_24
+	b1052_24 --> b1052_11
+	b1052_11 --> b1052_10
+	b1052_10 --> b1052_4
+	b1052_4 --> b1052_27
+	b1052_27 --> b1052_13
+	b1052_13 --> b1052_12
+	b1052_12 --> b1052_14
 end
 subgraph block_1051["Block 1051"]
 	direction TB
 end
 phi_1054 --> block_1051
 subgraph phi_1054["Phi 1054"]
-	p1054_24{{"Sϕ Stack "}}
+	p1054_28{{"Sϕ Stack "}}
 end
 block_1055 --> phi_1054
 block_1056 --> phi_1054
@@ -47855,7 +47855,7 @@ subgraph block_1055["Block 1055"]
 end
 branch_1053 --> block_1055
 subgraph branch_1053["Branch 1053"]
-	br1053_28["mt__2686__2695 U32_maybeTrue"]
+	br1053_27["mt__2686__2695 U32_maybeTrue"]
 
 end
 branch_1048 --> branch_1053
@@ -48284,55 +48284,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2701__2716 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2706 lift_u32"]
-	10 --> 16
-	10["arg__2702 0"]
-	27["eff__2699__2717 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2705 lift_u32"]
-	12 --> 15
-	12["arg__2700 1"]
-	28["mt__2709__2718 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2698__2715 F32_not_equals"]
-	7 --> 25
-	5 --> 25
+	25["eff__2701__2716 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2706 lift_u32"]
+	5 --> 11
+	5["arg__2702 0"]
+	26["eff__2699__2717 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2705 lift_u32"]
+	7 --> 10
+	7["arg__2700 1"]
+	27["mt__2709__2718 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2698__2715 F32_not_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2713__2714 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2712 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2711 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2710 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2698 F32_not_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2709 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2712 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2711 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2710 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2698 F32_not_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2709 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F32_NE_ul"]["post_surgery 1070"] = ''
 window.traces["F32_NE_ul"]["post_surgery 1070"] += `<pre class='graph'>---
@@ -48340,114 +48340,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2701__2716__2720 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2706 lift_u32"]
-	10 --> 16
-	10["arg__2702 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2706 lift_u32"]
+	5 --> 11
+	5["arg__2702 0"]
 	32["eff__2699__2717__2719 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2705 lift_u32"]
-	12 --> 15
-	12["arg__2700 1"]
-	28["mt__2709__2718 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2698__2715 F32_not_equals"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2705 lift_u32"]
+	7 --> 10
+	7["arg__2700 1"]
+	27["mt__2709__2718 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2698__2715 F32_not_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2713__2714 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2712 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2711 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2710 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2698 F32_not_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2709 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2712 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2711 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2710 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2698 F32_not_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2709 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F32_NE"]["unlem_scheduler"] = ''
 window.traces["F32_NE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1063["Block 1063"]
 	direction TB
-	b1063_3[\\"Finish"/]
+	b1063_1[\\"Finish"/]
 end
 phi_1065 --> block_1063
 subgraph phi_1065["Phi 1065"]
-	p1065_14{{"Sϕ Stack "}}
+	p1065_9{{"Sϕ Stack "}}
 end
 block_1066 --> phi_1065
 block_1067 --> phi_1065
 subgraph block_1066["Block 1066"]
 	direction TB
-	b1066_6["merge__2712 merge_u"]
+	b1066_16["merge__2712 merge_u"]
 	b1066_22["eff_push__2713__2714 push_u32"]
-	b1066_6 --> b1066_22
+	b1066_16 --> b1066_22
 end
 branch_1064 --> block_1066
 subgraph branch_1064["Branch 1064"]
-	br1064_2["mb__2711 bool.&&"]
+	br1064_14["mb__2711 bool.&&"]
 
 end
 block_1068 --> branch_1064
 subgraph block_1068["Block 1068"]
 	direction TB
-	b1068_1[/"Start"\\]
-	b1068_10["arg__2702 0"]
-	b1068_12["arg__2700 1"]
-	b1068_5["b pop_f32"]
-	b1068_7["a pop_f32"]
-	b1068_25["cond__2698__2715 F32_not_equals"]
-	b1068_16["abs__2706 lift_u32"]
-	b1068_15["abs__2705 lift_u32"]
-	b1068_9["cond__2698 F32_not_equals"]
-	b1068_28["mt__2709__2718 U32_maybeTrue"]
-	b1068_0["mf__2710 U32_maybeFalse"]
-	b1068_17["mt__2709 U32_maybeTrue"]
-	b1068_2["mb__2711 bool.&&"]
-	b1068_1 --> b1068_10
-	b1068_10 --> b1068_12
-	b1068_12 --> b1068_5
+	b1068_0[/"Start"\\]
+	b1068_5["arg__2702 0"]
+	b1068_7["arg__2700 1"]
+	b1068_2["b pop_f32"]
+	b1068_3["a pop_f32"]
+	b1068_24["cond__2698__2715 F32_not_equals"]
+	b1068_11["abs__2706 lift_u32"]
+	b1068_10["abs__2705 lift_u32"]
+	b1068_4["cond__2698 F32_not_equals"]
+	b1068_27["mt__2709__2718 U32_maybeTrue"]
+	b1068_13["mf__2710 U32_maybeFalse"]
+	b1068_12["mt__2709 U32_maybeTrue"]
+	b1068_14["mb__2711 bool.&&"]
+	b1068_0 --> b1068_5
 	b1068_5 --> b1068_7
-	b1068_7 --> b1068_25
-	b1068_25 --> b1068_16
-	b1068_16 --> b1068_15
-	b1068_15 --> b1068_9
-	b1068_9 --> b1068_28
-	b1068_28 --> b1068_0
-	b1068_0 --> b1068_17
-	b1068_17 --> b1068_2
+	b1068_7 --> b1068_2
+	b1068_2 --> b1068_3
+	b1068_3 --> b1068_24
+	b1068_24 --> b1068_11
+	b1068_11 --> b1068_10
+	b1068_10 --> b1068_4
+	b1068_4 --> b1068_27
+	b1068_27 --> b1068_13
+	b1068_13 --> b1068_12
+	b1068_12 --> b1068_14
 end
 subgraph block_1067["Block 1067"]
 	direction TB
 end
 phi_1070 --> block_1067
 subgraph phi_1070["Phi 1070"]
-	p1070_24{{"Sϕ Stack "}}
+	p1070_28{{"Sϕ Stack "}}
 end
 block_1071 --> phi_1070
 block_1072 --> phi_1070
@@ -48457,7 +48457,7 @@ subgraph block_1071["Block 1071"]
 end
 branch_1069 --> block_1071
 subgraph branch_1069["Branch 1069"]
-	br1069_28["mt__2709__2718 U32_maybeTrue"]
+	br1069_27["mt__2709__2718 U32_maybeTrue"]
 
 end
 branch_1064 --> branch_1069
@@ -48888,55 +48888,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2724__2739 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2729 lift_u32"]
-	10 --> 16
-	10["arg__2725 0"]
-	27["eff__2722__2740 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2728 lift_u32"]
-	12 --> 15
-	12["arg__2723 1"]
-	28["mt__2732__2741 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2721__2738 F32_lt"]
-	7 --> 25
-	5 --> 25
+	25["eff__2724__2739 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2729 lift_u32"]
+	5 --> 11
+	5["arg__2725 0"]
+	26["eff__2722__2740 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2728 lift_u32"]
+	7 --> 10
+	7["arg__2723 1"]
+	27["mt__2732__2741 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2721__2738 F32_lt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2736__2737 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2735 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2734 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2733 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2721 F32_lt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2732 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2735 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2734 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2733 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2721 F32_lt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2732 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F32_LT_ul"]["post_surgery 1086"] = ''
 window.traces["F32_LT_ul"]["post_surgery 1086"] += `<pre class='graph'>---
@@ -48944,114 +48944,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2724__2739__2743 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2729 lift_u32"]
-	10 --> 16
-	10["arg__2725 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2729 lift_u32"]
+	5 --> 11
+	5["arg__2725 0"]
 	32["eff__2722__2740__2742 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2728 lift_u32"]
-	12 --> 15
-	12["arg__2723 1"]
-	28["mt__2732__2741 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2721__2738 F32_lt"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2728 lift_u32"]
+	7 --> 10
+	7["arg__2723 1"]
+	27["mt__2732__2741 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2721__2738 F32_lt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2736__2737 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2735 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2734 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2733 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2721 F32_lt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2732 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2735 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2734 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2733 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2721 F32_lt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2732 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F32_LT"]["unlem_scheduler"] = ''
 window.traces["F32_LT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1079["Block 1079"]
 	direction TB
-	b1079_3[\\"Finish"/]
+	b1079_1[\\"Finish"/]
 end
 phi_1081 --> block_1079
 subgraph phi_1081["Phi 1081"]
-	p1081_14{{"Sϕ Stack "}}
+	p1081_9{{"Sϕ Stack "}}
 end
 block_1082 --> phi_1081
 block_1083 --> phi_1081
 subgraph block_1082["Block 1082"]
 	direction TB
-	b1082_6["merge__2735 merge_u"]
+	b1082_16["merge__2735 merge_u"]
 	b1082_22["eff_push__2736__2737 push_u32"]
-	b1082_6 --> b1082_22
+	b1082_16 --> b1082_22
 end
 branch_1080 --> block_1082
 subgraph branch_1080["Branch 1080"]
-	br1080_2["mb__2734 bool.&&"]
+	br1080_14["mb__2734 bool.&&"]
 
 end
 block_1084 --> branch_1080
 subgraph block_1084["Block 1084"]
 	direction TB
-	b1084_1[/"Start"\\]
-	b1084_10["arg__2725 0"]
-	b1084_12["arg__2723 1"]
-	b1084_5["b pop_f32"]
-	b1084_7["a pop_f32"]
-	b1084_25["cond__2721__2738 F32_lt"]
-	b1084_16["abs__2729 lift_u32"]
-	b1084_15["abs__2728 lift_u32"]
-	b1084_9["cond__2721 F32_lt"]
-	b1084_28["mt__2732__2741 U32_maybeTrue"]
-	b1084_0["mf__2733 U32_maybeFalse"]
-	b1084_17["mt__2732 U32_maybeTrue"]
-	b1084_2["mb__2734 bool.&&"]
-	b1084_1 --> b1084_10
-	b1084_10 --> b1084_12
-	b1084_12 --> b1084_5
+	b1084_0[/"Start"\\]
+	b1084_5["arg__2725 0"]
+	b1084_7["arg__2723 1"]
+	b1084_2["b pop_f32"]
+	b1084_3["a pop_f32"]
+	b1084_24["cond__2721__2738 F32_lt"]
+	b1084_11["abs__2729 lift_u32"]
+	b1084_10["abs__2728 lift_u32"]
+	b1084_4["cond__2721 F32_lt"]
+	b1084_27["mt__2732__2741 U32_maybeTrue"]
+	b1084_13["mf__2733 U32_maybeFalse"]
+	b1084_12["mt__2732 U32_maybeTrue"]
+	b1084_14["mb__2734 bool.&&"]
+	b1084_0 --> b1084_5
 	b1084_5 --> b1084_7
-	b1084_7 --> b1084_25
-	b1084_25 --> b1084_16
-	b1084_16 --> b1084_15
-	b1084_15 --> b1084_9
-	b1084_9 --> b1084_28
-	b1084_28 --> b1084_0
-	b1084_0 --> b1084_17
-	b1084_17 --> b1084_2
+	b1084_7 --> b1084_2
+	b1084_2 --> b1084_3
+	b1084_3 --> b1084_24
+	b1084_24 --> b1084_11
+	b1084_11 --> b1084_10
+	b1084_10 --> b1084_4
+	b1084_4 --> b1084_27
+	b1084_27 --> b1084_13
+	b1084_13 --> b1084_12
+	b1084_12 --> b1084_14
 end
 subgraph block_1083["Block 1083"]
 	direction TB
 end
 phi_1086 --> block_1083
 subgraph phi_1086["Phi 1086"]
-	p1086_24{{"Sϕ Stack "}}
+	p1086_28{{"Sϕ Stack "}}
 end
 block_1087 --> phi_1086
 block_1088 --> phi_1086
@@ -49061,7 +49061,7 @@ subgraph block_1087["Block 1087"]
 end
 branch_1085 --> block_1087
 subgraph branch_1085["Branch 1085"]
-	br1085_28["mt__2732__2741 U32_maybeTrue"]
+	br1085_27["mt__2732__2741 U32_maybeTrue"]
 
 end
 branch_1080 --> branch_1085
@@ -49489,55 +49489,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2747__2762 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2752 lift_u32"]
-	10 --> 16
-	10["arg__2748 0"]
-	27["eff__2745__2763 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2751 lift_u32"]
-	12 --> 15
-	12["arg__2746 1"]
-	28["mt__2755__2764 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2744__2761 F32_gt"]
-	7 --> 25
-	5 --> 25
+	25["eff__2747__2762 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2752 lift_u32"]
+	5 --> 11
+	5["arg__2748 0"]
+	26["eff__2745__2763 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2751 lift_u32"]
+	7 --> 10
+	7["arg__2746 1"]
+	27["mt__2755__2764 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2744__2761 F32_gt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2759__2760 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2758 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2757 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2756 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2744 F32_gt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2755 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2758 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2757 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2756 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2744 F32_gt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2755 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F32_GT_ul"]["post_surgery 1102"] = ''
 window.traces["F32_GT_ul"]["post_surgery 1102"] += `<pre class='graph'>---
@@ -49545,114 +49545,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2747__2762__2766 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2752 lift_u32"]
-	10 --> 16
-	10["arg__2748 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2752 lift_u32"]
+	5 --> 11
+	5["arg__2748 0"]
 	32["eff__2745__2763__2765 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2751 lift_u32"]
-	12 --> 15
-	12["arg__2746 1"]
-	28["mt__2755__2764 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2744__2761 F32_gt"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2751 lift_u32"]
+	7 --> 10
+	7["arg__2746 1"]
+	27["mt__2755__2764 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2744__2761 F32_gt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2759__2760 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2758 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2757 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2756 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2744 F32_gt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2755 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2758 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2757 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2756 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2744 F32_gt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2755 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F32_GT"]["unlem_scheduler"] = ''
 window.traces["F32_GT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1095["Block 1095"]
 	direction TB
-	b1095_3[\\"Finish"/]
+	b1095_1[\\"Finish"/]
 end
 phi_1097 --> block_1095
 subgraph phi_1097["Phi 1097"]
-	p1097_14{{"Sϕ Stack "}}
+	p1097_9{{"Sϕ Stack "}}
 end
 block_1098 --> phi_1097
 block_1099 --> phi_1097
 subgraph block_1098["Block 1098"]
 	direction TB
-	b1098_6["merge__2758 merge_u"]
+	b1098_16["merge__2758 merge_u"]
 	b1098_22["eff_push__2759__2760 push_u32"]
-	b1098_6 --> b1098_22
+	b1098_16 --> b1098_22
 end
 branch_1096 --> block_1098
 subgraph branch_1096["Branch 1096"]
-	br1096_2["mb__2757 bool.&&"]
+	br1096_14["mb__2757 bool.&&"]
 
 end
 block_1100 --> branch_1096
 subgraph block_1100["Block 1100"]
 	direction TB
-	b1100_1[/"Start"\\]
-	b1100_10["arg__2748 0"]
-	b1100_12["arg__2746 1"]
-	b1100_5["b pop_f32"]
-	b1100_7["a pop_f32"]
-	b1100_25["cond__2744__2761 F32_gt"]
-	b1100_16["abs__2752 lift_u32"]
-	b1100_15["abs__2751 lift_u32"]
-	b1100_9["cond__2744 F32_gt"]
-	b1100_28["mt__2755__2764 U32_maybeTrue"]
-	b1100_0["mf__2756 U32_maybeFalse"]
-	b1100_17["mt__2755 U32_maybeTrue"]
-	b1100_2["mb__2757 bool.&&"]
-	b1100_1 --> b1100_10
-	b1100_10 --> b1100_12
-	b1100_12 --> b1100_5
+	b1100_0[/"Start"\\]
+	b1100_5["arg__2748 0"]
+	b1100_7["arg__2746 1"]
+	b1100_2["b pop_f32"]
+	b1100_3["a pop_f32"]
+	b1100_24["cond__2744__2761 F32_gt"]
+	b1100_11["abs__2752 lift_u32"]
+	b1100_10["abs__2751 lift_u32"]
+	b1100_4["cond__2744 F32_gt"]
+	b1100_27["mt__2755__2764 U32_maybeTrue"]
+	b1100_13["mf__2756 U32_maybeFalse"]
+	b1100_12["mt__2755 U32_maybeTrue"]
+	b1100_14["mb__2757 bool.&&"]
+	b1100_0 --> b1100_5
 	b1100_5 --> b1100_7
-	b1100_7 --> b1100_25
-	b1100_25 --> b1100_16
-	b1100_16 --> b1100_15
-	b1100_15 --> b1100_9
-	b1100_9 --> b1100_28
-	b1100_28 --> b1100_0
-	b1100_0 --> b1100_17
-	b1100_17 --> b1100_2
+	b1100_7 --> b1100_2
+	b1100_2 --> b1100_3
+	b1100_3 --> b1100_24
+	b1100_24 --> b1100_11
+	b1100_11 --> b1100_10
+	b1100_10 --> b1100_4
+	b1100_4 --> b1100_27
+	b1100_27 --> b1100_13
+	b1100_13 --> b1100_12
+	b1100_12 --> b1100_14
 end
 subgraph block_1099["Block 1099"]
 	direction TB
 end
 phi_1102 --> block_1099
 subgraph phi_1102["Phi 1102"]
-	p1102_24{{"Sϕ Stack "}}
+	p1102_28{{"Sϕ Stack "}}
 end
 block_1103 --> phi_1102
 block_1104 --> phi_1102
@@ -49662,7 +49662,7 @@ subgraph block_1103["Block 1103"]
 end
 branch_1101 --> block_1103
 subgraph branch_1101["Branch 1101"]
-	br1101_28["mt__2755__2764 U32_maybeTrue"]
+	br1101_27["mt__2755__2764 U32_maybeTrue"]
 
 end
 branch_1096 --> branch_1101
@@ -50090,55 +50090,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2770__2785 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2775 lift_u32"]
-	10 --> 16
-	10["arg__2771 0"]
-	27["eff__2768__2786 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2774 lift_u32"]
-	12 --> 15
-	12["arg__2769 1"]
-	28["mt__2778__2787 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2767__2784 F32_lte"]
-	7 --> 25
-	5 --> 25
+	25["eff__2770__2785 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2775 lift_u32"]
+	5 --> 11
+	5["arg__2771 0"]
+	26["eff__2768__2786 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2774 lift_u32"]
+	7 --> 10
+	7["arg__2769 1"]
+	27["mt__2778__2787 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2767__2784 F32_lte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2782__2783 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2781 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2780 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2779 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2767 F32_lte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2778 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2781 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2780 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2779 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2767 F32_lte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2778 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F32_LE_ul"]["post_surgery 1118"] = ''
 window.traces["F32_LE_ul"]["post_surgery 1118"] += `<pre class='graph'>---
@@ -50146,114 +50146,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2770__2785__2789 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2775 lift_u32"]
-	10 --> 16
-	10["arg__2771 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2775 lift_u32"]
+	5 --> 11
+	5["arg__2771 0"]
 	32["eff__2768__2786__2788 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2774 lift_u32"]
-	12 --> 15
-	12["arg__2769 1"]
-	28["mt__2778__2787 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2767__2784 F32_lte"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2774 lift_u32"]
+	7 --> 10
+	7["arg__2769 1"]
+	27["mt__2778__2787 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2767__2784 F32_lte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2782__2783 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2781 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2780 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2779 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2767 F32_lte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2778 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2781 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2780 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2779 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2767 F32_lte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2778 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F32_LE"]["unlem_scheduler"] = ''
 window.traces["F32_LE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1111["Block 1111"]
 	direction TB
-	b1111_3[\\"Finish"/]
+	b1111_1[\\"Finish"/]
 end
 phi_1113 --> block_1111
 subgraph phi_1113["Phi 1113"]
-	p1113_14{{"Sϕ Stack "}}
+	p1113_9{{"Sϕ Stack "}}
 end
 block_1114 --> phi_1113
 block_1115 --> phi_1113
 subgraph block_1114["Block 1114"]
 	direction TB
-	b1114_6["merge__2781 merge_u"]
+	b1114_16["merge__2781 merge_u"]
 	b1114_22["eff_push__2782__2783 push_u32"]
-	b1114_6 --> b1114_22
+	b1114_16 --> b1114_22
 end
 branch_1112 --> block_1114
 subgraph branch_1112["Branch 1112"]
-	br1112_2["mb__2780 bool.&&"]
+	br1112_14["mb__2780 bool.&&"]
 
 end
 block_1116 --> branch_1112
 subgraph block_1116["Block 1116"]
 	direction TB
-	b1116_1[/"Start"\\]
-	b1116_10["arg__2771 0"]
-	b1116_12["arg__2769 1"]
-	b1116_5["b pop_f32"]
-	b1116_7["a pop_f32"]
-	b1116_25["cond__2767__2784 F32_lte"]
-	b1116_16["abs__2775 lift_u32"]
-	b1116_15["abs__2774 lift_u32"]
-	b1116_9["cond__2767 F32_lte"]
-	b1116_28["mt__2778__2787 U32_maybeTrue"]
-	b1116_0["mf__2779 U32_maybeFalse"]
-	b1116_17["mt__2778 U32_maybeTrue"]
-	b1116_2["mb__2780 bool.&&"]
-	b1116_1 --> b1116_10
-	b1116_10 --> b1116_12
-	b1116_12 --> b1116_5
+	b1116_0[/"Start"\\]
+	b1116_5["arg__2771 0"]
+	b1116_7["arg__2769 1"]
+	b1116_2["b pop_f32"]
+	b1116_3["a pop_f32"]
+	b1116_24["cond__2767__2784 F32_lte"]
+	b1116_11["abs__2775 lift_u32"]
+	b1116_10["abs__2774 lift_u32"]
+	b1116_4["cond__2767 F32_lte"]
+	b1116_27["mt__2778__2787 U32_maybeTrue"]
+	b1116_13["mf__2779 U32_maybeFalse"]
+	b1116_12["mt__2778 U32_maybeTrue"]
+	b1116_14["mb__2780 bool.&&"]
+	b1116_0 --> b1116_5
 	b1116_5 --> b1116_7
-	b1116_7 --> b1116_25
-	b1116_25 --> b1116_16
-	b1116_16 --> b1116_15
-	b1116_15 --> b1116_9
-	b1116_9 --> b1116_28
-	b1116_28 --> b1116_0
-	b1116_0 --> b1116_17
-	b1116_17 --> b1116_2
+	b1116_7 --> b1116_2
+	b1116_2 --> b1116_3
+	b1116_3 --> b1116_24
+	b1116_24 --> b1116_11
+	b1116_11 --> b1116_10
+	b1116_10 --> b1116_4
+	b1116_4 --> b1116_27
+	b1116_27 --> b1116_13
+	b1116_13 --> b1116_12
+	b1116_12 --> b1116_14
 end
 subgraph block_1115["Block 1115"]
 	direction TB
 end
 phi_1118 --> block_1115
 subgraph phi_1118["Phi 1118"]
-	p1118_24{{"Sϕ Stack "}}
+	p1118_28{{"Sϕ Stack "}}
 end
 block_1119 --> phi_1118
 block_1120 --> phi_1118
@@ -50263,7 +50263,7 @@ subgraph block_1119["Block 1119"]
 end
 branch_1117 --> block_1119
 subgraph branch_1117["Branch 1117"]
-	br1117_28["mt__2778__2787 U32_maybeTrue"]
+	br1117_27["mt__2778__2787 U32_maybeTrue"]
 
 end
 branch_1112 --> branch_1117
@@ -50691,55 +50691,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2793__2808 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2798 lift_u32"]
-	10 --> 16
-	10["arg__2794 0"]
-	27["eff__2791__2809 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2797 lift_u32"]
-	12 --> 15
-	12["arg__2792 1"]
-	28["mt__2801__2810 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2790__2807 F32_gte"]
-	7 --> 25
-	5 --> 25
+	25["eff__2793__2808 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2798 lift_u32"]
+	5 --> 11
+	5["arg__2794 0"]
+	26["eff__2791__2809 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2797 lift_u32"]
+	7 --> 10
+	7["arg__2792 1"]
+	27["mt__2801__2810 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2790__2807 F32_gte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2805__2806 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2804 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2803 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2802 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2790 F32_gte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2801 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2804 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2803 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2802 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2790 F32_gte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2801 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F32_GE_ul"]["post_surgery 1134"] = ''
 window.traces["F32_GE_ul"]["post_surgery 1134"] += `<pre class='graph'>---
@@ -50747,114 +50747,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2793__2808__2812 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2798 lift_u32"]
-	10 --> 16
-	10["arg__2794 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2798 lift_u32"]
+	5 --> 11
+	5["arg__2794 0"]
 	32["eff__2791__2809__2811 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2797 lift_u32"]
-	12 --> 15
-	12["arg__2792 1"]
-	28["mt__2801__2810 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2790__2807 F32_gte"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2797 lift_u32"]
+	7 --> 10
+	7["arg__2792 1"]
+	27["mt__2801__2810 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2790__2807 F32_gte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2805__2806 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2804 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2803 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2802 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2790 F32_gte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2801 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2804 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2803 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2802 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2790 F32_gte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2801 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F32_GE"]["unlem_scheduler"] = ''
 window.traces["F32_GE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1127["Block 1127"]
 	direction TB
-	b1127_3[\\"Finish"/]
+	b1127_1[\\"Finish"/]
 end
 phi_1129 --> block_1127
 subgraph phi_1129["Phi 1129"]
-	p1129_14{{"Sϕ Stack "}}
+	p1129_9{{"Sϕ Stack "}}
 end
 block_1130 --> phi_1129
 block_1131 --> phi_1129
 subgraph block_1130["Block 1130"]
 	direction TB
-	b1130_6["merge__2804 merge_u"]
+	b1130_16["merge__2804 merge_u"]
 	b1130_22["eff_push__2805__2806 push_u32"]
-	b1130_6 --> b1130_22
+	b1130_16 --> b1130_22
 end
 branch_1128 --> block_1130
 subgraph branch_1128["Branch 1128"]
-	br1128_2["mb__2803 bool.&&"]
+	br1128_14["mb__2803 bool.&&"]
 
 end
 block_1132 --> branch_1128
 subgraph block_1132["Block 1132"]
 	direction TB
-	b1132_1[/"Start"\\]
-	b1132_10["arg__2794 0"]
-	b1132_12["arg__2792 1"]
-	b1132_5["b pop_f32"]
-	b1132_7["a pop_f32"]
-	b1132_25["cond__2790__2807 F32_gte"]
-	b1132_16["abs__2798 lift_u32"]
-	b1132_15["abs__2797 lift_u32"]
-	b1132_9["cond__2790 F32_gte"]
-	b1132_28["mt__2801__2810 U32_maybeTrue"]
-	b1132_0["mf__2802 U32_maybeFalse"]
-	b1132_17["mt__2801 U32_maybeTrue"]
-	b1132_2["mb__2803 bool.&&"]
-	b1132_1 --> b1132_10
-	b1132_10 --> b1132_12
-	b1132_12 --> b1132_5
+	b1132_0[/"Start"\\]
+	b1132_5["arg__2794 0"]
+	b1132_7["arg__2792 1"]
+	b1132_2["b pop_f32"]
+	b1132_3["a pop_f32"]
+	b1132_24["cond__2790__2807 F32_gte"]
+	b1132_11["abs__2798 lift_u32"]
+	b1132_10["abs__2797 lift_u32"]
+	b1132_4["cond__2790 F32_gte"]
+	b1132_27["mt__2801__2810 U32_maybeTrue"]
+	b1132_13["mf__2802 U32_maybeFalse"]
+	b1132_12["mt__2801 U32_maybeTrue"]
+	b1132_14["mb__2803 bool.&&"]
+	b1132_0 --> b1132_5
 	b1132_5 --> b1132_7
-	b1132_7 --> b1132_25
-	b1132_25 --> b1132_16
-	b1132_16 --> b1132_15
-	b1132_15 --> b1132_9
-	b1132_9 --> b1132_28
-	b1132_28 --> b1132_0
-	b1132_0 --> b1132_17
-	b1132_17 --> b1132_2
+	b1132_7 --> b1132_2
+	b1132_2 --> b1132_3
+	b1132_3 --> b1132_24
+	b1132_24 --> b1132_11
+	b1132_11 --> b1132_10
+	b1132_10 --> b1132_4
+	b1132_4 --> b1132_27
+	b1132_27 --> b1132_13
+	b1132_13 --> b1132_12
+	b1132_12 --> b1132_14
 end
 subgraph block_1131["Block 1131"]
 	direction TB
 end
 phi_1134 --> block_1131
 subgraph phi_1134["Phi 1134"]
-	p1134_24{{"Sϕ Stack "}}
+	p1134_28{{"Sϕ Stack "}}
 end
 block_1135 --> phi_1134
 block_1136 --> phi_1134
@@ -50864,7 +50864,7 @@ subgraph block_1135["Block 1135"]
 end
 branch_1133 --> block_1135
 subgraph branch_1133["Branch 1133"]
-	br1133_28["mt__2801__2810 U32_maybeTrue"]
+	br1133_27["mt__2801__2810 U32_maybeTrue"]
 
 end
 branch_1128 --> branch_1133
@@ -51292,55 +51292,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2816__2831 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2821 lift_u32"]
-	10 --> 16
-	10["arg__2817 0"]
-	27["eff__2814__2832 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2820 lift_u32"]
-	12 --> 15
-	12["arg__2815 1"]
-	28["mt__2824__2833 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2813__2830 F64_equals"]
-	7 --> 25
-	5 --> 25
+	25["eff__2816__2831 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2821 lift_u32"]
+	5 --> 11
+	5["arg__2817 0"]
+	26["eff__2814__2832 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2820 lift_u32"]
+	7 --> 10
+	7["arg__2815 1"]
+	27["mt__2824__2833 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2813__2830 F64_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2828__2829 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2827 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2826 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2825 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2813 F64_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2824 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2827 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2826 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2825 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2813 F64_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2824 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F64_EQ_ul"]["post_surgery 1150"] = ''
 window.traces["F64_EQ_ul"]["post_surgery 1150"] += `<pre class='graph'>---
@@ -51348,114 +51348,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2816__2831__2835 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2821 lift_u32"]
-	10 --> 16
-	10["arg__2817 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2821 lift_u32"]
+	5 --> 11
+	5["arg__2817 0"]
 	32["eff__2814__2832__2834 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2820 lift_u32"]
-	12 --> 15
-	12["arg__2815 1"]
-	28["mt__2824__2833 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2813__2830 F64_equals"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2820 lift_u32"]
+	7 --> 10
+	7["arg__2815 1"]
+	27["mt__2824__2833 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2813__2830 F64_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2828__2829 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2827 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2826 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2825 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2813 F64_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2824 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2827 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2826 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2825 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2813 F64_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2824 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F64_EQ"]["unlem_scheduler"] = ''
 window.traces["F64_EQ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1143["Block 1143"]
 	direction TB
-	b1143_3[\\"Finish"/]
+	b1143_1[\\"Finish"/]
 end
 phi_1145 --> block_1143
 subgraph phi_1145["Phi 1145"]
-	p1145_14{{"Sϕ Stack "}}
+	p1145_9{{"Sϕ Stack "}}
 end
 block_1146 --> phi_1145
 block_1147 --> phi_1145
 subgraph block_1146["Block 1146"]
 	direction TB
-	b1146_6["merge__2827 merge_u"]
+	b1146_16["merge__2827 merge_u"]
 	b1146_22["eff_push__2828__2829 push_u32"]
-	b1146_6 --> b1146_22
+	b1146_16 --> b1146_22
 end
 branch_1144 --> block_1146
 subgraph branch_1144["Branch 1144"]
-	br1144_2["mb__2826 bool.&&"]
+	br1144_14["mb__2826 bool.&&"]
 
 end
 block_1148 --> branch_1144
 subgraph block_1148["Block 1148"]
 	direction TB
-	b1148_1[/"Start"\\]
-	b1148_10["arg__2817 0"]
-	b1148_12["arg__2815 1"]
-	b1148_5["b pop_f64"]
-	b1148_7["a pop_f64"]
-	b1148_25["cond__2813__2830 F64_equals"]
-	b1148_16["abs__2821 lift_u32"]
-	b1148_15["abs__2820 lift_u32"]
-	b1148_9["cond__2813 F64_equals"]
-	b1148_28["mt__2824__2833 U32_maybeTrue"]
-	b1148_0["mf__2825 U32_maybeFalse"]
-	b1148_17["mt__2824 U32_maybeTrue"]
-	b1148_2["mb__2826 bool.&&"]
-	b1148_1 --> b1148_10
-	b1148_10 --> b1148_12
-	b1148_12 --> b1148_5
+	b1148_0[/"Start"\\]
+	b1148_5["arg__2817 0"]
+	b1148_7["arg__2815 1"]
+	b1148_2["b pop_f64"]
+	b1148_3["a pop_f64"]
+	b1148_24["cond__2813__2830 F64_equals"]
+	b1148_11["abs__2821 lift_u32"]
+	b1148_10["abs__2820 lift_u32"]
+	b1148_4["cond__2813 F64_equals"]
+	b1148_27["mt__2824__2833 U32_maybeTrue"]
+	b1148_13["mf__2825 U32_maybeFalse"]
+	b1148_12["mt__2824 U32_maybeTrue"]
+	b1148_14["mb__2826 bool.&&"]
+	b1148_0 --> b1148_5
 	b1148_5 --> b1148_7
-	b1148_7 --> b1148_25
-	b1148_25 --> b1148_16
-	b1148_16 --> b1148_15
-	b1148_15 --> b1148_9
-	b1148_9 --> b1148_28
-	b1148_28 --> b1148_0
-	b1148_0 --> b1148_17
-	b1148_17 --> b1148_2
+	b1148_7 --> b1148_2
+	b1148_2 --> b1148_3
+	b1148_3 --> b1148_24
+	b1148_24 --> b1148_11
+	b1148_11 --> b1148_10
+	b1148_10 --> b1148_4
+	b1148_4 --> b1148_27
+	b1148_27 --> b1148_13
+	b1148_13 --> b1148_12
+	b1148_12 --> b1148_14
 end
 subgraph block_1147["Block 1147"]
 	direction TB
 end
 phi_1150 --> block_1147
 subgraph phi_1150["Phi 1150"]
-	p1150_24{{"Sϕ Stack "}}
+	p1150_28{{"Sϕ Stack "}}
 end
 block_1151 --> phi_1150
 block_1152 --> phi_1150
@@ -51465,7 +51465,7 @@ subgraph block_1151["Block 1151"]
 end
 branch_1149 --> block_1151
 subgraph branch_1149["Branch 1149"]
-	br1149_28["mt__2824__2833 U32_maybeTrue"]
+	br1149_27["mt__2824__2833 U32_maybeTrue"]
 
 end
 branch_1144 --> branch_1149
@@ -51894,55 +51894,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2839__2854 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2844 lift_u32"]
-	10 --> 16
-	10["arg__2840 0"]
-	27["eff__2837__2855 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2843 lift_u32"]
-	12 --> 15
-	12["arg__2838 1"]
-	28["mt__2847__2856 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2836__2853 F64_not_equals"]
-	7 --> 25
-	5 --> 25
+	25["eff__2839__2854 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2844 lift_u32"]
+	5 --> 11
+	5["arg__2840 0"]
+	26["eff__2837__2855 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2843 lift_u32"]
+	7 --> 10
+	7["arg__2838 1"]
+	27["mt__2847__2856 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2836__2853 F64_not_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2851__2852 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2850 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2849 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2848 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2836 F64_not_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2847 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2850 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2849 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2848 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2836 F64_not_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2847 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F64_NE_ul"]["post_surgery 1166"] = ''
 window.traces["F64_NE_ul"]["post_surgery 1166"] += `<pre class='graph'>---
@@ -51950,114 +51950,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2839__2854__2858 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2844 lift_u32"]
-	10 --> 16
-	10["arg__2840 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2844 lift_u32"]
+	5 --> 11
+	5["arg__2840 0"]
 	32["eff__2837__2855__2857 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2843 lift_u32"]
-	12 --> 15
-	12["arg__2838 1"]
-	28["mt__2847__2856 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2836__2853 F64_not_equals"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2843 lift_u32"]
+	7 --> 10
+	7["arg__2838 1"]
+	27["mt__2847__2856 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2836__2853 F64_not_equals"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2851__2852 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2850 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2849 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2848 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2836 F64_not_equals"]
-	7 --> 9
-	5 --> 9
-	17["mt__2847 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2850 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2849 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2848 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2836 F64_not_equals"]
+	3 --> 4
+	2 --> 4
+	12["mt__2847 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F64_NE"]["unlem_scheduler"] = ''
 window.traces["F64_NE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1159["Block 1159"]
 	direction TB
-	b1159_3[\\"Finish"/]
+	b1159_1[\\"Finish"/]
 end
 phi_1161 --> block_1159
 subgraph phi_1161["Phi 1161"]
-	p1161_14{{"Sϕ Stack "}}
+	p1161_9{{"Sϕ Stack "}}
 end
 block_1162 --> phi_1161
 block_1163 --> phi_1161
 subgraph block_1162["Block 1162"]
 	direction TB
-	b1162_6["merge__2850 merge_u"]
+	b1162_16["merge__2850 merge_u"]
 	b1162_22["eff_push__2851__2852 push_u32"]
-	b1162_6 --> b1162_22
+	b1162_16 --> b1162_22
 end
 branch_1160 --> block_1162
 subgraph branch_1160["Branch 1160"]
-	br1160_2["mb__2849 bool.&&"]
+	br1160_14["mb__2849 bool.&&"]
 
 end
 block_1164 --> branch_1160
 subgraph block_1164["Block 1164"]
 	direction TB
-	b1164_1[/"Start"\\]
-	b1164_10["arg__2840 0"]
-	b1164_12["arg__2838 1"]
-	b1164_5["b pop_f64"]
-	b1164_7["a pop_f64"]
-	b1164_25["cond__2836__2853 F64_not_equals"]
-	b1164_16["abs__2844 lift_u32"]
-	b1164_15["abs__2843 lift_u32"]
-	b1164_9["cond__2836 F64_not_equals"]
-	b1164_28["mt__2847__2856 U32_maybeTrue"]
-	b1164_0["mf__2848 U32_maybeFalse"]
-	b1164_17["mt__2847 U32_maybeTrue"]
-	b1164_2["mb__2849 bool.&&"]
-	b1164_1 --> b1164_10
-	b1164_10 --> b1164_12
-	b1164_12 --> b1164_5
+	b1164_0[/"Start"\\]
+	b1164_5["arg__2840 0"]
+	b1164_7["arg__2838 1"]
+	b1164_2["b pop_f64"]
+	b1164_3["a pop_f64"]
+	b1164_24["cond__2836__2853 F64_not_equals"]
+	b1164_11["abs__2844 lift_u32"]
+	b1164_10["abs__2843 lift_u32"]
+	b1164_4["cond__2836 F64_not_equals"]
+	b1164_27["mt__2847__2856 U32_maybeTrue"]
+	b1164_13["mf__2848 U32_maybeFalse"]
+	b1164_12["mt__2847 U32_maybeTrue"]
+	b1164_14["mb__2849 bool.&&"]
+	b1164_0 --> b1164_5
 	b1164_5 --> b1164_7
-	b1164_7 --> b1164_25
-	b1164_25 --> b1164_16
-	b1164_16 --> b1164_15
-	b1164_15 --> b1164_9
-	b1164_9 --> b1164_28
-	b1164_28 --> b1164_0
-	b1164_0 --> b1164_17
-	b1164_17 --> b1164_2
+	b1164_7 --> b1164_2
+	b1164_2 --> b1164_3
+	b1164_3 --> b1164_24
+	b1164_24 --> b1164_11
+	b1164_11 --> b1164_10
+	b1164_10 --> b1164_4
+	b1164_4 --> b1164_27
+	b1164_27 --> b1164_13
+	b1164_13 --> b1164_12
+	b1164_12 --> b1164_14
 end
 subgraph block_1163["Block 1163"]
 	direction TB
 end
 phi_1166 --> block_1163
 subgraph phi_1166["Phi 1166"]
-	p1166_24{{"Sϕ Stack "}}
+	p1166_28{{"Sϕ Stack "}}
 end
 block_1167 --> phi_1166
 block_1168 --> phi_1166
@@ -52067,7 +52067,7 @@ subgraph block_1167["Block 1167"]
 end
 branch_1165 --> block_1167
 subgraph branch_1165["Branch 1165"]
-	br1165_28["mt__2847__2856 U32_maybeTrue"]
+	br1165_27["mt__2847__2856 U32_maybeTrue"]
 
 end
 branch_1160 --> branch_1165
@@ -52498,55 +52498,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2862__2877 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2867 lift_u32"]
-	10 --> 16
-	10["arg__2863 0"]
-	27["eff__2860__2878 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2866 lift_u32"]
-	12 --> 15
-	12["arg__2861 1"]
-	28["mt__2870__2879 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2859__2876 F64_lt"]
-	7 --> 25
-	5 --> 25
+	25["eff__2862__2877 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2867 lift_u32"]
+	5 --> 11
+	5["arg__2863 0"]
+	26["eff__2860__2878 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2866 lift_u32"]
+	7 --> 10
+	7["arg__2861 1"]
+	27["mt__2870__2879 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2859__2876 F64_lt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2874__2875 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2873 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2872 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2871 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2859 F64_lt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2870 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2873 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2872 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2871 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2859 F64_lt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2870 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F64_LT_ul"]["post_surgery 1182"] = ''
 window.traces["F64_LT_ul"]["post_surgery 1182"] += `<pre class='graph'>---
@@ -52554,114 +52554,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2862__2877__2881 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2867 lift_u32"]
-	10 --> 16
-	10["arg__2863 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2867 lift_u32"]
+	5 --> 11
+	5["arg__2863 0"]
 	32["eff__2860__2878__2880 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2866 lift_u32"]
-	12 --> 15
-	12["arg__2861 1"]
-	28["mt__2870__2879 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2859__2876 F64_lt"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2866 lift_u32"]
+	7 --> 10
+	7["arg__2861 1"]
+	27["mt__2870__2879 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2859__2876 F64_lt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2874__2875 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2873 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2872 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2871 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2859 F64_lt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2870 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2873 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2872 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2871 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2859 F64_lt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2870 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F64_LT"]["unlem_scheduler"] = ''
 window.traces["F64_LT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1175["Block 1175"]
 	direction TB
-	b1175_3[\\"Finish"/]
+	b1175_1[\\"Finish"/]
 end
 phi_1177 --> block_1175
 subgraph phi_1177["Phi 1177"]
-	p1177_14{{"Sϕ Stack "}}
+	p1177_9{{"Sϕ Stack "}}
 end
 block_1178 --> phi_1177
 block_1179 --> phi_1177
 subgraph block_1178["Block 1178"]
 	direction TB
-	b1178_6["merge__2873 merge_u"]
+	b1178_16["merge__2873 merge_u"]
 	b1178_22["eff_push__2874__2875 push_u32"]
-	b1178_6 --> b1178_22
+	b1178_16 --> b1178_22
 end
 branch_1176 --> block_1178
 subgraph branch_1176["Branch 1176"]
-	br1176_2["mb__2872 bool.&&"]
+	br1176_14["mb__2872 bool.&&"]
 
 end
 block_1180 --> branch_1176
 subgraph block_1180["Block 1180"]
 	direction TB
-	b1180_1[/"Start"\\]
-	b1180_10["arg__2863 0"]
-	b1180_12["arg__2861 1"]
-	b1180_5["b pop_f64"]
-	b1180_7["a pop_f64"]
-	b1180_25["cond__2859__2876 F64_lt"]
-	b1180_16["abs__2867 lift_u32"]
-	b1180_15["abs__2866 lift_u32"]
-	b1180_9["cond__2859 F64_lt"]
-	b1180_28["mt__2870__2879 U32_maybeTrue"]
-	b1180_0["mf__2871 U32_maybeFalse"]
-	b1180_17["mt__2870 U32_maybeTrue"]
-	b1180_2["mb__2872 bool.&&"]
-	b1180_1 --> b1180_10
-	b1180_10 --> b1180_12
-	b1180_12 --> b1180_5
+	b1180_0[/"Start"\\]
+	b1180_5["arg__2863 0"]
+	b1180_7["arg__2861 1"]
+	b1180_2["b pop_f64"]
+	b1180_3["a pop_f64"]
+	b1180_24["cond__2859__2876 F64_lt"]
+	b1180_11["abs__2867 lift_u32"]
+	b1180_10["abs__2866 lift_u32"]
+	b1180_4["cond__2859 F64_lt"]
+	b1180_27["mt__2870__2879 U32_maybeTrue"]
+	b1180_13["mf__2871 U32_maybeFalse"]
+	b1180_12["mt__2870 U32_maybeTrue"]
+	b1180_14["mb__2872 bool.&&"]
+	b1180_0 --> b1180_5
 	b1180_5 --> b1180_7
-	b1180_7 --> b1180_25
-	b1180_25 --> b1180_16
-	b1180_16 --> b1180_15
-	b1180_15 --> b1180_9
-	b1180_9 --> b1180_28
-	b1180_28 --> b1180_0
-	b1180_0 --> b1180_17
-	b1180_17 --> b1180_2
+	b1180_7 --> b1180_2
+	b1180_2 --> b1180_3
+	b1180_3 --> b1180_24
+	b1180_24 --> b1180_11
+	b1180_11 --> b1180_10
+	b1180_10 --> b1180_4
+	b1180_4 --> b1180_27
+	b1180_27 --> b1180_13
+	b1180_13 --> b1180_12
+	b1180_12 --> b1180_14
 end
 subgraph block_1179["Block 1179"]
 	direction TB
 end
 phi_1182 --> block_1179
 subgraph phi_1182["Phi 1182"]
-	p1182_24{{"Sϕ Stack "}}
+	p1182_28{{"Sϕ Stack "}}
 end
 block_1183 --> phi_1182
 block_1184 --> phi_1182
@@ -52671,7 +52671,7 @@ subgraph block_1183["Block 1183"]
 end
 branch_1181 --> block_1183
 subgraph branch_1181["Branch 1181"]
-	br1181_28["mt__2870__2879 U32_maybeTrue"]
+	br1181_27["mt__2870__2879 U32_maybeTrue"]
 
 end
 branch_1176 --> branch_1181
@@ -53099,55 +53099,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2885__2900 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2890 lift_u32"]
-	10 --> 16
-	10["arg__2886 0"]
-	27["eff__2883__2901 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2889 lift_u32"]
-	12 --> 15
-	12["arg__2884 1"]
-	28["mt__2893__2902 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2882__2899 F64_gt"]
-	7 --> 25
-	5 --> 25
+	25["eff__2885__2900 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2890 lift_u32"]
+	5 --> 11
+	5["arg__2886 0"]
+	26["eff__2883__2901 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2889 lift_u32"]
+	7 --> 10
+	7["arg__2884 1"]
+	27["mt__2893__2902 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2882__2899 F64_gt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2897__2898 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2896 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2895 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2894 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2882 F64_gt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2893 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2896 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2895 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2894 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2882 F64_gt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2893 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F64_GT_ul"]["post_surgery 1198"] = ''
 window.traces["F64_GT_ul"]["post_surgery 1198"] += `<pre class='graph'>---
@@ -53155,114 +53155,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2885__2900__2904 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2890 lift_u32"]
-	10 --> 16
-	10["arg__2886 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2890 lift_u32"]
+	5 --> 11
+	5["arg__2886 0"]
 	32["eff__2883__2901__2903 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2889 lift_u32"]
-	12 --> 15
-	12["arg__2884 1"]
-	28["mt__2893__2902 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2882__2899 F64_gt"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2889 lift_u32"]
+	7 --> 10
+	7["arg__2884 1"]
+	27["mt__2893__2902 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2882__2899 F64_gt"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2897__2898 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2896 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2895 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2894 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2882 F64_gt"]
-	7 --> 9
-	5 --> 9
-	17["mt__2893 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2896 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2895 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2894 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2882 F64_gt"]
+	3 --> 4
+	2 --> 4
+	12["mt__2893 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F64_GT"]["unlem_scheduler"] = ''
 window.traces["F64_GT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1191["Block 1191"]
 	direction TB
-	b1191_3[\\"Finish"/]
+	b1191_1[\\"Finish"/]
 end
 phi_1193 --> block_1191
 subgraph phi_1193["Phi 1193"]
-	p1193_14{{"Sϕ Stack "}}
+	p1193_9{{"Sϕ Stack "}}
 end
 block_1194 --> phi_1193
 block_1195 --> phi_1193
 subgraph block_1194["Block 1194"]
 	direction TB
-	b1194_6["merge__2896 merge_u"]
+	b1194_16["merge__2896 merge_u"]
 	b1194_22["eff_push__2897__2898 push_u32"]
-	b1194_6 --> b1194_22
+	b1194_16 --> b1194_22
 end
 branch_1192 --> block_1194
 subgraph branch_1192["Branch 1192"]
-	br1192_2["mb__2895 bool.&&"]
+	br1192_14["mb__2895 bool.&&"]
 
 end
 block_1196 --> branch_1192
 subgraph block_1196["Block 1196"]
 	direction TB
-	b1196_1[/"Start"\\]
-	b1196_10["arg__2886 0"]
-	b1196_12["arg__2884 1"]
-	b1196_5["b pop_f64"]
-	b1196_7["a pop_f64"]
-	b1196_25["cond__2882__2899 F64_gt"]
-	b1196_16["abs__2890 lift_u32"]
-	b1196_15["abs__2889 lift_u32"]
-	b1196_9["cond__2882 F64_gt"]
-	b1196_28["mt__2893__2902 U32_maybeTrue"]
-	b1196_0["mf__2894 U32_maybeFalse"]
-	b1196_17["mt__2893 U32_maybeTrue"]
-	b1196_2["mb__2895 bool.&&"]
-	b1196_1 --> b1196_10
-	b1196_10 --> b1196_12
-	b1196_12 --> b1196_5
+	b1196_0[/"Start"\\]
+	b1196_5["arg__2886 0"]
+	b1196_7["arg__2884 1"]
+	b1196_2["b pop_f64"]
+	b1196_3["a pop_f64"]
+	b1196_24["cond__2882__2899 F64_gt"]
+	b1196_11["abs__2890 lift_u32"]
+	b1196_10["abs__2889 lift_u32"]
+	b1196_4["cond__2882 F64_gt"]
+	b1196_27["mt__2893__2902 U32_maybeTrue"]
+	b1196_13["mf__2894 U32_maybeFalse"]
+	b1196_12["mt__2893 U32_maybeTrue"]
+	b1196_14["mb__2895 bool.&&"]
+	b1196_0 --> b1196_5
 	b1196_5 --> b1196_7
-	b1196_7 --> b1196_25
-	b1196_25 --> b1196_16
-	b1196_16 --> b1196_15
-	b1196_15 --> b1196_9
-	b1196_9 --> b1196_28
-	b1196_28 --> b1196_0
-	b1196_0 --> b1196_17
-	b1196_17 --> b1196_2
+	b1196_7 --> b1196_2
+	b1196_2 --> b1196_3
+	b1196_3 --> b1196_24
+	b1196_24 --> b1196_11
+	b1196_11 --> b1196_10
+	b1196_10 --> b1196_4
+	b1196_4 --> b1196_27
+	b1196_27 --> b1196_13
+	b1196_13 --> b1196_12
+	b1196_12 --> b1196_14
 end
 subgraph block_1195["Block 1195"]
 	direction TB
 end
 phi_1198 --> block_1195
 subgraph phi_1198["Phi 1198"]
-	p1198_24{{"Sϕ Stack "}}
+	p1198_28{{"Sϕ Stack "}}
 end
 block_1199 --> phi_1198
 block_1200 --> phi_1198
@@ -53272,7 +53272,7 @@ subgraph block_1199["Block 1199"]
 end
 branch_1197 --> block_1199
 subgraph branch_1197["Branch 1197"]
-	br1197_28["mt__2893__2902 U32_maybeTrue"]
+	br1197_27["mt__2893__2902 U32_maybeTrue"]
 
 end
 branch_1192 --> branch_1197
@@ -53700,55 +53700,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2908__2923 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2913 lift_u32"]
-	10 --> 16
-	10["arg__2909 0"]
-	27["eff__2906__2924 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2912 lift_u32"]
-	12 --> 15
-	12["arg__2907 1"]
-	28["mt__2916__2925 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2905__2922 F64_lte"]
-	7 --> 25
-	5 --> 25
+	25["eff__2908__2923 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2913 lift_u32"]
+	5 --> 11
+	5["arg__2909 0"]
+	26["eff__2906__2924 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2912 lift_u32"]
+	7 --> 10
+	7["arg__2907 1"]
+	27["mt__2916__2925 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2905__2922 F64_lte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2920__2921 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2919 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2918 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2917 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2905 F64_lte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2916 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2919 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2918 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2917 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2905 F64_lte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2916 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F64_LE_ul"]["post_surgery 1214"] = ''
 window.traces["F64_LE_ul"]["post_surgery 1214"] += `<pre class='graph'>---
@@ -53756,114 +53756,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2908__2923__2927 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2913 lift_u32"]
-	10 --> 16
-	10["arg__2909 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2913 lift_u32"]
+	5 --> 11
+	5["arg__2909 0"]
 	32["eff__2906__2924__2926 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2912 lift_u32"]
-	12 --> 15
-	12["arg__2907 1"]
-	28["mt__2916__2925 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2905__2922 F64_lte"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2912 lift_u32"]
+	7 --> 10
+	7["arg__2907 1"]
+	27["mt__2916__2925 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2905__2922 F64_lte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2920__2921 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2919 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2918 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2917 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2905 F64_lte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2916 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2919 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2918 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2917 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2905 F64_lte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2916 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F64_LE"]["unlem_scheduler"] = ''
 window.traces["F64_LE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1207["Block 1207"]
 	direction TB
-	b1207_3[\\"Finish"/]
+	b1207_1[\\"Finish"/]
 end
 phi_1209 --> block_1207
 subgraph phi_1209["Phi 1209"]
-	p1209_14{{"Sϕ Stack "}}
+	p1209_9{{"Sϕ Stack "}}
 end
 block_1210 --> phi_1209
 block_1211 --> phi_1209
 subgraph block_1210["Block 1210"]
 	direction TB
-	b1210_6["merge__2919 merge_u"]
+	b1210_16["merge__2919 merge_u"]
 	b1210_22["eff_push__2920__2921 push_u32"]
-	b1210_6 --> b1210_22
+	b1210_16 --> b1210_22
 end
 branch_1208 --> block_1210
 subgraph branch_1208["Branch 1208"]
-	br1208_2["mb__2918 bool.&&"]
+	br1208_14["mb__2918 bool.&&"]
 
 end
 block_1212 --> branch_1208
 subgraph block_1212["Block 1212"]
 	direction TB
-	b1212_1[/"Start"\\]
-	b1212_10["arg__2909 0"]
-	b1212_12["arg__2907 1"]
-	b1212_5["b pop_f64"]
-	b1212_7["a pop_f64"]
-	b1212_25["cond__2905__2922 F64_lte"]
-	b1212_16["abs__2913 lift_u32"]
-	b1212_15["abs__2912 lift_u32"]
-	b1212_9["cond__2905 F64_lte"]
-	b1212_28["mt__2916__2925 U32_maybeTrue"]
-	b1212_0["mf__2917 U32_maybeFalse"]
-	b1212_17["mt__2916 U32_maybeTrue"]
-	b1212_2["mb__2918 bool.&&"]
-	b1212_1 --> b1212_10
-	b1212_10 --> b1212_12
-	b1212_12 --> b1212_5
+	b1212_0[/"Start"\\]
+	b1212_5["arg__2909 0"]
+	b1212_7["arg__2907 1"]
+	b1212_2["b pop_f64"]
+	b1212_3["a pop_f64"]
+	b1212_24["cond__2905__2922 F64_lte"]
+	b1212_11["abs__2913 lift_u32"]
+	b1212_10["abs__2912 lift_u32"]
+	b1212_4["cond__2905 F64_lte"]
+	b1212_27["mt__2916__2925 U32_maybeTrue"]
+	b1212_13["mf__2917 U32_maybeFalse"]
+	b1212_12["mt__2916 U32_maybeTrue"]
+	b1212_14["mb__2918 bool.&&"]
+	b1212_0 --> b1212_5
 	b1212_5 --> b1212_7
-	b1212_7 --> b1212_25
-	b1212_25 --> b1212_16
-	b1212_16 --> b1212_15
-	b1212_15 --> b1212_9
-	b1212_9 --> b1212_28
-	b1212_28 --> b1212_0
-	b1212_0 --> b1212_17
-	b1212_17 --> b1212_2
+	b1212_7 --> b1212_2
+	b1212_2 --> b1212_3
+	b1212_3 --> b1212_24
+	b1212_24 --> b1212_11
+	b1212_11 --> b1212_10
+	b1212_10 --> b1212_4
+	b1212_4 --> b1212_27
+	b1212_27 --> b1212_13
+	b1212_13 --> b1212_12
+	b1212_12 --> b1212_14
 end
 subgraph block_1211["Block 1211"]
 	direction TB
 end
 phi_1214 --> block_1211
 subgraph phi_1214["Phi 1214"]
-	p1214_24{{"Sϕ Stack "}}
+	p1214_28{{"Sϕ Stack "}}
 end
 block_1215 --> phi_1214
 block_1216 --> phi_1214
@@ -53873,7 +53873,7 @@ subgraph block_1215["Block 1215"]
 end
 branch_1213 --> block_1215
 subgraph branch_1213["Branch 1213"]
-	br1213_28["mt__2916__2925 U32_maybeTrue"]
+	br1213_27["mt__2916__2925 U32_maybeTrue"]
 
 end
 branch_1208 --> branch_1213
@@ -54301,55 +54301,55 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	27 --> 24
-	26 --> 24
-	26["eff__2931__2946 push_u32"]
-	16 --> 26
-	7 -. Stack .-> 26
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2936 lift_u32"]
-	10 --> 16
-	10["arg__2932 0"]
-	27["eff__2929__2947 push_u32"]
-	15 --> 27
-	7 -. Stack .-> 27
-	15["abs__2935 lift_u32"]
-	12 --> 15
-	12["arg__2930 1"]
-	28["mt__2939__2948 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	26 --> 28
 	25 --> 28
-	25["cond__2928__2945 F64_gte"]
-	7 --> 25
-	5 --> 25
+	25["eff__2931__2946 push_u32"]
+	11 --> 25
+	3 -. Stack .-> 25
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2936 lift_u32"]
+	5 --> 11
+	5["arg__2932 0"]
+	26["eff__2929__2947 push_u32"]
+	10 --> 26
+	3 -. Stack .-> 26
+	10["abs__2935 lift_u32"]
+	7 --> 10
+	7["arg__2930 1"]
+	27["mt__2939__2948 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2928__2945 F64_gte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2943__2944 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2942 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2941 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2940 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2928 F64_gte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2939 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2942 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2941 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2940 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2928 F64_gte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2939 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F64_GE_ul"]["post_surgery 1230"] = ''
 window.traces["F64_GE_ul"]["post_surgery 1230"] += `<pre class='graph'>---
@@ -54357,114 +54357,114 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	14 -. Stack .-> 3
-	14{{"Sϕ Stack "}}
-	2 --> 14
-	22 --> 14
-	24 --> 14
-	24{{"Sϕ Stack "}}
-	28 --> 24
-	32 --> 24
-	34 --> 24
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Stack .-> 1
+	9{{"Sϕ Stack "}}
+	14 --> 9
+	22 --> 9
+	28 --> 9
+	28{{"Sϕ Stack "}}
+	27 --> 28
+	32 --> 28
+	34 --> 28
 	34["eff__2931__2946__2950 push_u32"]
-	16 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	16["abs__2936 lift_u32"]
-	10 --> 16
-	10["arg__2932 0"]
+	11 --> 34
+	3 -. Stack .-> 34
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	11["abs__2936 lift_u32"]
+	5 --> 11
+	5["arg__2932 0"]
 	32["eff__2929__2947__2949 push_u32"]
-	15 --> 32
-	7 -. Stack .-> 32
-	15["abs__2935 lift_u32"]
-	12 --> 15
-	12["arg__2930 1"]
-	28["mt__2939__2948 U32_maybeTrue"]
-	25 --> 28
-	25["cond__2928__2945 F64_gte"]
-	7 --> 25
-	5 --> 25
+	10 --> 32
+	3 -. Stack .-> 32
+	10["abs__2935 lift_u32"]
+	7 --> 10
+	7["arg__2930 1"]
+	27["mt__2939__2948 U32_maybeTrue"]
+	24 --> 27
+	24["cond__2928__2945 F64_gte"]
+	3 --> 24
+	2 --> 24
 	22["eff_push__2943__2944 push_u32"]
-	6 --> 22
-	7 -. Stack .-> 22
-	6["merge__2942 merge_u"]
-	15 --> 6
-	16 --> 6
-	2["mb__2941 bool.&&"]
-	17 --> 2
-	0 --> 2
-	0["mf__2940 U32_maybeFalse"]
-	9 --> 0
-	9["cond__2928 F64_gte"]
-	7 --> 9
-	5 --> 9
-	17["mt__2939 U32_maybeTrue"]
-	9 --> 17
+	16 --> 22
+	3 -. Stack .-> 22
+	16["merge__2942 merge_u"]
+	10 --> 16
+	11 --> 16
+	14["mb__2941 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__2940 U32_maybeFalse"]
+	4 --> 13
+	4["cond__2928 F64_gte"]
+	3 --> 4
+	2 --> 4
+	12["mt__2939 U32_maybeTrue"]
+	4 --> 12
 </pre>`;
 window.traces["F64_GE"]["unlem_scheduler"] = ''
 window.traces["F64_GE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1223["Block 1223"]
 	direction TB
-	b1223_3[\\"Finish"/]
+	b1223_1[\\"Finish"/]
 end
 phi_1225 --> block_1223
 subgraph phi_1225["Phi 1225"]
-	p1225_14{{"Sϕ Stack "}}
+	p1225_9{{"Sϕ Stack "}}
 end
 block_1226 --> phi_1225
 block_1227 --> phi_1225
 subgraph block_1226["Block 1226"]
 	direction TB
-	b1226_6["merge__2942 merge_u"]
+	b1226_16["merge__2942 merge_u"]
 	b1226_22["eff_push__2943__2944 push_u32"]
-	b1226_6 --> b1226_22
+	b1226_16 --> b1226_22
 end
 branch_1224 --> block_1226
 subgraph branch_1224["Branch 1224"]
-	br1224_2["mb__2941 bool.&&"]
+	br1224_14["mb__2941 bool.&&"]
 
 end
 block_1228 --> branch_1224
 subgraph block_1228["Block 1228"]
 	direction TB
-	b1228_1[/"Start"\\]
-	b1228_10["arg__2932 0"]
-	b1228_12["arg__2930 1"]
-	b1228_5["b pop_f64"]
-	b1228_7["a pop_f64"]
-	b1228_25["cond__2928__2945 F64_gte"]
-	b1228_16["abs__2936 lift_u32"]
-	b1228_15["abs__2935 lift_u32"]
-	b1228_9["cond__2928 F64_gte"]
-	b1228_28["mt__2939__2948 U32_maybeTrue"]
-	b1228_0["mf__2940 U32_maybeFalse"]
-	b1228_17["mt__2939 U32_maybeTrue"]
-	b1228_2["mb__2941 bool.&&"]
-	b1228_1 --> b1228_10
-	b1228_10 --> b1228_12
-	b1228_12 --> b1228_5
+	b1228_0[/"Start"\\]
+	b1228_5["arg__2932 0"]
+	b1228_7["arg__2930 1"]
+	b1228_2["b pop_f64"]
+	b1228_3["a pop_f64"]
+	b1228_24["cond__2928__2945 F64_gte"]
+	b1228_11["abs__2936 lift_u32"]
+	b1228_10["abs__2935 lift_u32"]
+	b1228_4["cond__2928 F64_gte"]
+	b1228_27["mt__2939__2948 U32_maybeTrue"]
+	b1228_13["mf__2940 U32_maybeFalse"]
+	b1228_12["mt__2939 U32_maybeTrue"]
+	b1228_14["mb__2941 bool.&&"]
+	b1228_0 --> b1228_5
 	b1228_5 --> b1228_7
-	b1228_7 --> b1228_25
-	b1228_25 --> b1228_16
-	b1228_16 --> b1228_15
-	b1228_15 --> b1228_9
-	b1228_9 --> b1228_28
-	b1228_28 --> b1228_0
-	b1228_0 --> b1228_17
-	b1228_17 --> b1228_2
+	b1228_7 --> b1228_2
+	b1228_2 --> b1228_3
+	b1228_3 --> b1228_24
+	b1228_24 --> b1228_11
+	b1228_11 --> b1228_10
+	b1228_10 --> b1228_4
+	b1228_4 --> b1228_27
+	b1228_27 --> b1228_13
+	b1228_13 --> b1228_12
+	b1228_12 --> b1228_14
 end
 subgraph block_1227["Block 1227"]
 	direction TB
 end
 phi_1230 --> block_1227
 subgraph phi_1230["Phi 1230"]
-	p1230_24{{"Sϕ Stack "}}
+	p1230_28{{"Sϕ Stack "}}
 end
 block_1231 --> phi_1230
 block_1232 --> phi_1230
@@ -54474,7 +54474,7 @@ subgraph block_1231["Block 1231"]
 end
 branch_1229 --> block_1231
 subgraph branch_1229["Branch 1229"]
-	br1229_28["mt__2939__2948 U32_maybeTrue"]
+	br1229_27["mt__2939__2948 U32_maybeTrue"]
 
 end
 branch_1224 --> branch_1229
@@ -56025,67 +56025,67 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	15 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	17 -. Stack .-> 2
-	17{{"Sϕ Stack "}}
-	14 --> 17
-	29 --> 17
-	36 --> 17
-	36{{"Sϕ Stack "}}
-	31 --> 36
-	34 --> 36
-	33 --> 36
-	33["eff__2976__2997 push_u32"]
-	9 --> 33
-	6 -. Stack .-> 33
-	6["a pop_u32"]
-	5 -. Stack .-> 6
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	9["r U32_div_s"]
-	6 --> 9
-	5 --> 9
-	34["eff__2975__2998 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 34
-	6 -. Stack .-> 34
-	31["cond__2974__2995 U32_and"]
-	3 --> 31
-	37 --> 31
-	37["arg__2979__2999 U32_equals"]
-	6 --> 37
-	21 --> 37
-	21["abs__2992 lift_u32"]
-	18 --> 21
-	18["arg__2984 u32.view"]
-	16 --> 18
-	16["arg__2985 -2_147_483_648"]
-	3["arg__2978 U32_equals"]
-	5 --> 3
-	20 --> 3
-	20["abs__2991 lift_u32"]
-	0 --> 20
-	0["arg__2981 u32.view"]
-	23 --> 0
-	23["arg__2982 -1"]
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	6 --> 20
+	29 --> 20
+	37 --> 20
+	37{{"Sϕ Stack "}}
+	33 --> 37
+	35 --> 37
+	34 --> 37
+	34["eff__2976__2998 push_u32"]
+	4 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	4["r U32_div_s"]
+	3 --> 4
+	2 --> 4
+	35["eff__2975__2999 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 35
+	3 -. Stack .-> 35
+	33["cond__2974__2997 U32_and"]
+	12 --> 33
+	32 --> 33
+	32["arg__2979__2996 U32_equals"]
+	3 --> 32
+	23 --> 32
+	23["abs__2992 lift_u32"]
+	8 --> 23
+	8["arg__2984 u32.view"]
+	7 --> 8
+	7["arg__2985 -2_147_483_648"]
+	12["arg__2978 U32_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__2991 lift_u32"]
+	11 --> 22
+	11["arg__2981 u32.view"]
+	10 --> 11
+	10["arg__2982 -1"]
 	29["eff__2973__2994 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 29
-	6 -. Stack .-> 29
-	14["cond__2972 U32_equals"]
-	5 --> 14
-	19 --> 14
-	19["abs__2990 lift_u32"]
-	11 --> 19
-	11["arg__2987 0"]
-	15{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	14 --> 15
-	29 --> 15
-	35 --> 15
-	35{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	31 --> 35
-	34 --> 35
-	1 --> 35
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 29
+	3 -. Stack .-> 29
+	6["cond__2972 U32_equals"]
+	2 --> 6
+	21 --> 6
+	21["abs__2990 lift_u32"]
+	5 --> 21
+	5["arg__2987 0"]
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	6 --> 19
+	29 --> 19
+	36 --> 19
+	36{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 36
+	35 --> 36
+	0 --> 36
 </pre>`;
 window.traces["I32_DIV_S"]["post_surgery 1252"] = ''
 window.traces["I32_DIV_S"]["post_surgery 1252"] += `<pre class='graph'>---
@@ -56093,79 +56093,79 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	15 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	17 -. Stack .-> 2
-	17{{"Sϕ Stack "}}
-	14 --> 17
-	29 --> 17
-	36 --> 17
-	36{{"Sϕ Stack "}}
-	31 --> 36
-	50 --> 36
-	53 --> 36
-	53["eff__2976__2997__3008 push_u32"]
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	6 --> 20
+	29 --> 20
+	37 --> 20
+	37{{"Sϕ Stack "}}
+	33 --> 37
+	50 --> 37
+	53 --> 37
+	53["eff__2976__2998__3008 push_u32"]
 	52 --> 53
-	6 -. Stack .-> 53
-	6["a pop_u32"]
-	5 -. Stack .-> 6
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
+	3 -. Stack .-> 53
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
 	52["r__3007 U32_div_s"]
-	6 --> 52
-	5 --> 52
-	50["eff__2975__2998__3006 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 50
-	6 -. Stack .-> 50
-	31["cond__2974__2995 U32_and"]
-	3 --> 31
-	37 --> 31
-	37["arg__2979__2999 U32_equals"]
-	6 --> 37
-	21 --> 37
-	21["abs__2992 lift_u32"]
-	18 --> 21
-	18["arg__2984 u32.view"]
-	16 --> 18
-	16["arg__2985 -2_147_483_648"]
-	3["arg__2978 U32_equals"]
-	5 --> 3
-	20 --> 3
-	20["abs__2991 lift_u32"]
-	0 --> 20
-	0["arg__2981 u32.view"]
-	23 --> 0
-	23["arg__2982 -1"]
+	3 --> 52
+	2 --> 52
+	50["eff__2975__2999__3006 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 50
+	3 -. Stack .-> 50
+	33["cond__2974__2997 U32_and"]
+	12 --> 33
+	32 --> 33
+	32["arg__2979__2996 U32_equals"]
+	3 --> 32
+	23 --> 32
+	23["abs__2992 lift_u32"]
+	8 --> 23
+	8["arg__2984 u32.view"]
+	7 --> 8
+	7["arg__2985 -2_147_483_648"]
+	12["arg__2978 U32_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__2991 lift_u32"]
+	11 --> 22
+	11["arg__2981 u32.view"]
+	10 --> 11
+	10["arg__2982 -1"]
 	29["eff__2973__2994 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 29
-	6 -. Stack .-> 29
-	14["cond__2972 U32_equals"]
-	5 --> 14
-	19 --> 14
-	19["abs__2990 lift_u32"]
-	11 --> 19
-	11["arg__2987 0"]
-	15{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	14 --> 15
-	29 --> 15
-	35 --> 15
-	35{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	31 --> 35
-	50 --> 35
-	1 --> 35
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 29
+	3 -. Stack .-> 29
+	6["cond__2972 U32_equals"]
+	2 --> 6
+	21 --> 6
+	21["abs__2990 lift_u32"]
+	5 --> 21
+	5["arg__2987 0"]
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	6 --> 19
+	29 --> 19
+	36 --> 19
+	36{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 36
+	50 --> 36
+	0 --> 36
 </pre>`;
 window.traces["I32_DIV_S"]["schedulerMermaid"] = ''
 window.traces["I32_DIV_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1245["Block 1245"]
 	direction TB
-	b1245_2[\\"Finish"/]
+	b1245_1[\\"Finish"/]
 end
 phi_1247 --> block_1245
 subgraph phi_1247["Phi 1247"]
-	p1247_17{{"Sϕ Stack "}}
-	p1247_15{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1247_17{{"Sϕ Stack "}}
+	p1247_20{{"Sϕ Stack "}}
+	p1247_20{{"Sϕ Stack "}}
+	p1247_19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1248 --> phi_1247
 block_1249 --> phi_1247
@@ -56175,66 +56175,66 @@ subgraph block_1248["Block 1248"]
 end
 branch_1246 --> block_1248
 subgraph branch_1246["Branch 1246"]
-	br1246_14["cond__2972 U32_equals"]
+	br1246_6["cond__2972 U32_equals"]
 
 end
 block_1250 --> branch_1246
 subgraph block_1250["Block 1250"]
 	direction TB
-	b1250_1[/"Start"\\]
-	b1250_16["arg__2985 -2_147_483_648"]
-	b1250_23["arg__2982 -1"]
-	b1250_18["arg__2984 u32.view"]
-	b1250_0["arg__2981 u32.view"]
-	b1250_21["abs__2992 lift_u32"]
-	b1250_20["abs__2991 lift_u32"]
-	b1250_5["b pop_u32"]
-	b1250_6["a pop_u32"]
-	b1250_37["arg__2979__2999 U32_equals"]
-	b1250_3["arg__2978 U32_equals"]
-	b1250_11["arg__2987 0"]
-	b1250_31["cond__2974__2995 U32_and"]
-	b1250_19["abs__2990 lift_u32"]
-	b1250_14["cond__2972 U32_equals"]
-	b1250_1 --> b1250_16
-	b1250_16 --> b1250_23
-	b1250_23 --> b1250_18
-	b1250_18 --> b1250_0
-	b1250_0 --> b1250_21
-	b1250_21 --> b1250_20
-	b1250_20 --> b1250_5
-	b1250_5 --> b1250_6
-	b1250_6 --> b1250_37
-	b1250_37 --> b1250_3
-	b1250_3 --> b1250_11
-	b1250_11 --> b1250_31
-	b1250_31 --> b1250_19
-	b1250_19 --> b1250_14
+	b1250_0[/"Start"\\]
+	b1250_7["arg__2985 -2_147_483_648"]
+	b1250_10["arg__2982 -1"]
+	b1250_8["arg__2984 u32.view"]
+	b1250_11["arg__2981 u32.view"]
+	b1250_23["abs__2992 lift_u32"]
+	b1250_22["abs__2991 lift_u32"]
+	b1250_2["b pop_u32"]
+	b1250_3["a pop_u32"]
+	b1250_32["arg__2979__2996 U32_equals"]
+	b1250_12["arg__2978 U32_equals"]
+	b1250_5["arg__2987 0"]
+	b1250_33["cond__2974__2997 U32_and"]
+	b1250_21["abs__2990 lift_u32"]
+	b1250_6["cond__2972 U32_equals"]
+	b1250_0 --> b1250_7
+	b1250_7 --> b1250_10
+	b1250_10 --> b1250_8
+	b1250_8 --> b1250_11
+	b1250_11 --> b1250_23
+	b1250_23 --> b1250_22
+	b1250_22 --> b1250_2
+	b1250_2 --> b1250_3
+	b1250_3 --> b1250_32
+	b1250_32 --> b1250_12
+	b1250_12 --> b1250_5
+	b1250_5 --> b1250_33
+	b1250_33 --> b1250_21
+	b1250_21 --> b1250_6
 end
 subgraph block_1249["Block 1249"]
 	direction TB
 end
 phi_1252 --> block_1249
 subgraph phi_1252["Phi 1252"]
-	p1252_36{{"Sϕ Stack "}}
-	p1252_35{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1252_37{{"Sϕ Stack "}}
+	p1252_36{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1253 --> phi_1252
 block_1254 --> phi_1252
 subgraph block_1253["Block 1253"]
 	direction TB
-	b1253_50["eff__2975__2998__3006 trapDivideUnrepresentable"]
+	b1253_50["eff__2975__2999__3006 trapDivideUnrepresentable"]
 end
 branch_1251 --> block_1253
 subgraph branch_1251["Branch 1251"]
-	br1251_31["cond__2974__2995 U32_and"]
+	br1251_33["cond__2974__2997 U32_and"]
 
 end
 branch_1246 --> branch_1251
 subgraph block_1254["Block 1254"]
 	direction TB
 	b1254_52["r__3007 U32_div_s"]
-	b1254_53["eff__2976__2997__3008 push_u32"]
+	b1254_53["eff__2976__2998__3008 push_u32"]
 	b1254_52 --> b1254_53
 end
 branch_1251 --> block_1254
@@ -56249,20 +56249,20 @@ def abs__2992 = lift_u32(arg__2984);
 def abs__2991 = lift_u32(arg__2981);
 def b = pop_u32();
 def a = pop_u32();
-def arg__2979__2999 = U32_equals(a, abs__2992);
+def arg__2979__2996 = U32_equals(a, abs__2992);
 def arg__2978 = U32_equals(b, abs__2991);
 def arg__2987 : u32 = 0;
-def cond__2974__2995 = U32_and(arg__2978, arg__2979__2999);
+def cond__2974__2997 = U32_and(arg__2978, arg__2979__2996);
 def abs__2990 = lift_u32(arg__2987);
 def cond__2972 = U32_equals(b, abs__2990);
 if (cond__2972) {
 	def eff__2973__2994 = trapDivideByZero();
 } else {
-	if (cond__2974__2995) {
-		def eff__2975__2998__3006 = trapDivideUnrepresentable();
+	if (cond__2974__2997) {
+		def eff__2975__2999__3006 = trapDivideUnrepresentable();
 	} else {
 		def r__3007 = U32_div_s(a, b);
-		def eff__2976__2997__3008 = push_u32(r__3007);
+		def eff__2976__2998__3008 = push_u32(r__3007);
 	}
 // phis: 
 }
@@ -56482,142 +56482,142 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	26 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 4
-	29 -. Stack .-> 4
-	29{{"Sϕ Stack "}}
-	3 --> 29
-	50 --> 29
-	59 --> 29
-	59{{"Sϕ Stack "}}
-	67 --> 59
-	63 --> 59
-	62 --> 59
-	62{{"r_state__3015__3034 Sϕ Stack "}}
-	22 --> 62
-	37 --> 62
-	66 --> 62
-	66{{"Sϕ Stack "}}
-	17 --> 66
-	60 --> 66
-	12 --> 66
-	12["eff__2976 push_u32"]
-	16 --> 12
-	10 -. Stack .-> 12
-	10["a pop_u32"]
-	8 -. Stack .-> 10
-	8["b pop_u32"]
-	1 -. Stack .-> 8
-	1[/"r_state__3020 Start"\\]
-	16["r U32_div_s"]
-	10 --> 16
-	8 --> 16
-	60["eff__2975__3032 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 60
-	10 -. Stack .-> 60
-	17["mt__3017 U32_maybeTrue"]
-	7 --> 17
-	7["cond__2974 U32_and"]
-	5 --> 7
-	36 --> 7
-	36["arg__2979 U32_equals"]
-	10 --> 36
-	35 --> 36
-	35["abs__2992 lift_u32"]
-	30 --> 35
-	30["arg__2984 u32.view"]
-	27 --> 30
-	27["arg__2985 -2_147_483_648"]
-	5["arg__2978 U32_equals"]
-	8 --> 5
-	33 --> 5
-	33["abs__2991 lift_u32"]
-	0 --> 33
-	0["arg__2981 u32.view"]
-	38 --> 0
-	38["arg__2982 -1"]
-	37["eff_merge__3023 merge"]
-	34 --> 37
-	12 --> 37
-	34["eff_nop__3022 nop"]
-	22["mb__3019 bool.&&"]
-	17 --> 22
-	20 --> 22
-	20["mf__3018 U32_maybeFalse"]
-	7 --> 20
-	63["eff__2973__3035 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 63
-	10 -. Stack .-> 63
-	67["mt__3009__3038 U32_maybeTrue"]
-	64 --> 67
-	64["cond__2972__3036 U32_equals"]
-	58 --> 64
-	31 --> 64
-	31["abs__2990 lift_u32"]
-	19 --> 31
-	19["arg__2987 0"]
-	58["b__3031 pop_u32"]
-	1 -. Stack .-> 58
-	50["eff_merge__3016__3026 merge"]
-	13 --> 50
-	52 --> 50
-	52{{"r_state__3015__3028 Sϕ Stack "}}
-	22 --> 52
-	37 --> 52
-	55 --> 52
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	26 --> 20
+	53 --> 20
+	65 --> 20
+	65{{"Sϕ Stack "}}
+	63 --> 65
+	62 --> 65
+	61 --> 65
+	61{{"r_state__3015__3035 Sϕ Stack "}}
+	34 --> 61
+	39 --> 61
+	67 --> 61
+	67{{"Sϕ Stack "}}
+	32 --> 67
+	59 --> 67
+	14 --> 67
+	14["eff__2976 push_u32"]
+	4 --> 14
+	3 -. Stack .-> 14
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"r_state__3020 Start"\\]
+	4["r U32_div_s"]
+	3 --> 4
+	2 --> 4
+	59["eff__2975__3033 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 59
+	3 -. Stack .-> 59
+	32["mt__3017 U32_maybeTrue"]
+	13 --> 32
+	13["cond__2974 U32_and"]
+	12 --> 13
+	9 --> 13
+	9["arg__2979 U32_equals"]
+	3 --> 9
+	23 --> 9
+	23["abs__2992 lift_u32"]
+	8 --> 23
+	8["arg__2984 u32.view"]
+	7 --> 8
+	7["arg__2985 -2_147_483_648"]
+	12["arg__2978 U32_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__2991 lift_u32"]
+	11 --> 22
+	11["arg__2981 u32.view"]
+	10 --> 11
+	10["arg__2982 -1"]
+	39["eff_merge__3023 merge"]
+	38 --> 39
+	14 --> 39
+	38["eff_nop__3022 nop"]
+	34["mb__3019 bool.&&"]
+	32 --> 34
+	33 --> 34
+	33["mf__3018 U32_maybeFalse"]
+	13 --> 33
+	62["eff__2973__3036 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 62
+	3 -. Stack .-> 62
+	63["mt__3009__3037 U32_maybeTrue"]
+	58 --> 63
+	58["cond__2972__3032 U32_equals"]
+	57 --> 58
+	21 --> 58
+	21["abs__2990 lift_u32"]
+	5 --> 21
+	5["arg__2987 0"]
+	57["b__3031 pop_u32"]
+	0 -. Stack .-> 57
+	53["eff_merge__3016__3029 merge"]
+	30 --> 53
+	50 --> 53
+	50{{"r_state__3015__3026 Sϕ Stack "}}
+	34 --> 50
+	39 --> 50
+	55 --> 50
 	55{{"Sϕ Stack "}}
-	17 --> 55
-	49 --> 55
-	12 --> 55
-	49["eff__2975__3025 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 49
-	10 -. Stack .-> 49
-	13["eff_nop__3014 nop"]
-	3["mb__3011 bool.&&"]
-	39 --> 3
-	2 --> 3
-	2["mf__3010 U32_maybeFalse"]
-	25 --> 2
-	25["cond__2972 U32_equals"]
-	8 --> 25
-	31 --> 25
-	39["mt__3009 U32_maybeTrue"]
-	25 --> 39
-	26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	3 --> 26
-	48 --> 26
-	57 --> 26
-	57{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	67 --> 57
-	63 --> 57
-	61 --> 57
-	61{{"r_state__3012__3033 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	22 --> 61
-	65 --> 61
-	24 --> 61
-	24{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	17 --> 24
-	14 --> 24
-	1 --> 24
-	14["eff__2975 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 14
-	10 -. Stack .-> 14
-	65["eff_merge__3021__3037 merge"]
-	60 --> 65
-	1 --> 65
-	48["eff_merge__3013__3024 merge"]
-	53 --> 48
-	51 --> 48
-	51{{"r_state__3012__3027 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	22 --> 51
-	54 --> 51
-	24 --> 51
+	32 --> 55
+	48 --> 55
+	14 --> 55
+	48["eff__2975__3024 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 48
+	3 -. Stack .-> 48
+	30["eff_nop__3014 nop"]
+	26["mb__3011 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__3010 U32_maybeFalse"]
+	6 --> 25
+	6["cond__2972 U32_equals"]
+	2 --> 6
+	21 --> 6
+	24["mt__3009 U32_maybeTrue"]
+	6 --> 24
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	26 --> 19
+	52 --> 19
+	64 --> 19
+	64{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	63 --> 64
+	62 --> 64
+	60 --> 64
+	60{{"r_state__3012__3034 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	34 --> 60
+	66 --> 60
+	35 --> 60
+	35{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	32 --> 35
+	15 --> 35
+	0 --> 35
+	15["eff__2975 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	66["eff_merge__3021__3038 merge"]
+	59 --> 66
+	0 --> 66
+	52["eff_merge__3013__3028 merge"]
+	51 --> 52
+	49 --> 52
+	49{{"r_state__3012__3025 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	34 --> 49
+	54 --> 49
+	35 --> 49
 	54["eff_merge__3021__3030 merge"]
-	49 --> 54
-	1 --> 54
-	53["eff__2973__3029 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 53
-	10 -. Stack .-> 53
+	48 --> 54
+	0 --> 54
+	51["eff__2973__3027 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 51
+	3 -. Stack .-> 51
 </pre>`;
 window.traces["I32_DIV_S_ul"]["post_surgery 1262"] = ''
 window.traces["I32_DIV_S_ul"]["post_surgery 1262"] += `<pre class='graph'>---
@@ -56625,163 +56625,163 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	26 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 4
-	29 -. Stack .-> 4
-	29{{"Sϕ Stack "}}
-	3 --> 29
-	50 --> 29
-	59 --> 29
-	59{{"Sϕ Stack "}}
-	67 --> 59
-	83 --> 59
-	95 --> 59
-	95{{"r_state__3015__3034__3056 Sϕ Stack "}}
-	89 --> 95
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	26 --> 20
+	53 --> 20
+	65 --> 20
+	65{{"Sϕ Stack "}}
+	63 --> 65
+	83 --> 65
+	95 --> 65
+	95{{"r_state__3015__3035__3056 Sϕ Stack "}}
+	90 --> 95
 	92 --> 95
 	97 --> 95
 	97{{"Sϕ Stack "}}
-	88 --> 97
+	89 --> 97
 	93 --> 97
-	87 --> 97
-	87["eff__2976__3049 push_u32"]
-	16 --> 87
-	10 -. Stack .-> 87
-	10["a pop_u32"]
-	8 -. Stack .-> 10
-	8["b pop_u32"]
-	1 -. Stack .-> 8
-	1[/"r_state__3020 Start"\\]
-	16["r U32_div_s"]
-	10 --> 16
-	8 --> 16
-	93["eff__2975__3032__3054 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
-	10 -. Stack .-> 93
-	88["mt__3017__3050 U32_maybeTrue"]
-	85 --> 88
-	85["cond__2974__3047 U32_and"]
-	5 --> 85
-	91 --> 85
-	91["arg__2979__3052 U32_equals"]
-	10 --> 91
-	35 --> 91
-	35["abs__2992 lift_u32"]
-	30 --> 35
-	30["arg__2984 u32.view"]
-	27 --> 30
-	27["arg__2985 -2_147_483_648"]
-	5["arg__2978 U32_equals"]
-	8 --> 5
-	33 --> 5
-	33["abs__2991 lift_u32"]
-	0 --> 33
-	0["arg__2981 u32.view"]
-	38 --> 0
-	38["arg__2982 -1"]
+	88 --> 97
+	88["eff__2976__3050 push_u32"]
+	4 --> 88
+	3 -. Stack .-> 88
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"r_state__3020 Start"\\]
+	4["r U32_div_s"]
+	3 --> 4
+	2 --> 4
+	93["eff__2975__3033__3054 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
+	3 -. Stack .-> 93
+	89["mt__3017__3051 U32_maybeTrue"]
+	87 --> 89
+	87["cond__2974__3049 U32_and"]
+	12 --> 87
+	86 --> 87
+	86["arg__2979__3048 U32_equals"]
+	3 --> 86
+	23 --> 86
+	23["abs__2992 lift_u32"]
+	8 --> 23
+	8["arg__2984 u32.view"]
+	7 --> 8
+	7["arg__2985 -2_147_483_648"]
+	12["arg__2978 U32_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__2991 lift_u32"]
+	11 --> 22
+	11["arg__2981 u32.view"]
+	10 --> 11
+	10["arg__2982 -1"]
 	92["eff_merge__3023__3053 merge"]
-	34 --> 92
-	87 --> 92
-	34["eff_nop__3022 nop"]
-	89["mb__3019__3051 bool.&&"]
-	88 --> 89
-	20 --> 89
-	20["mf__3018 U32_maybeFalse"]
-	7 --> 20
-	7["cond__2974 U32_and"]
-	5 --> 7
-	36 --> 7
-	36["arg__2979 U32_equals"]
-	10 --> 36
-	35 --> 36
-	83["eff__2973__3035__3046 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
-	10 -. Stack .-> 83
-	67["mt__3009__3038 U32_maybeTrue"]
-	64 --> 67
-	64["cond__2972__3036 U32_equals"]
-	58 --> 64
-	31 --> 64
-	31["abs__2990 lift_u32"]
-	19 --> 31
-	19["arg__2987 0"]
-	58["b__3031 pop_u32"]
-	1 -. Stack .-> 58
-	50["eff_merge__3016__3026 merge"]
-	13 --> 50
-	52 --> 50
-	52{{"r_state__3015__3028 Sϕ Stack "}}
-	22 --> 52
-	37 --> 52
-	55 --> 52
+	38 --> 92
+	88 --> 92
+	38["eff_nop__3022 nop"]
+	90["mb__3019__3052 bool.&&"]
+	89 --> 90
+	33 --> 90
+	33["mf__3018 U32_maybeFalse"]
+	13 --> 33
+	13["cond__2974 U32_and"]
+	12 --> 13
+	9 --> 13
+	9["arg__2979 U32_equals"]
+	3 --> 9
+	23 --> 9
+	83["eff__2973__3036__3046 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
+	3 -. Stack .-> 83
+	63["mt__3009__3037 U32_maybeTrue"]
+	58 --> 63
+	58["cond__2972__3032 U32_equals"]
+	57 --> 58
+	21 --> 58
+	21["abs__2990 lift_u32"]
+	5 --> 21
+	5["arg__2987 0"]
+	57["b__3031 pop_u32"]
+	0 -. Stack .-> 57
+	53["eff_merge__3016__3029 merge"]
+	30 --> 53
+	50 --> 53
+	50{{"r_state__3015__3026 Sϕ Stack "}}
+	34 --> 50
+	39 --> 50
+	55 --> 50
 	55{{"Sϕ Stack "}}
-	17 --> 55
-	49 --> 55
-	12 --> 55
-	12["eff__2976 push_u32"]
-	16 --> 12
-	10 -. Stack .-> 12
-	49["eff__2975__3025 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 49
-	10 -. Stack .-> 49
-	17["mt__3017 U32_maybeTrue"]
-	7 --> 17
-	37["eff_merge__3023 merge"]
-	34 --> 37
-	12 --> 37
-	22["mb__3019 bool.&&"]
-	17 --> 22
-	20 --> 22
-	13["eff_nop__3014 nop"]
-	3["mb__3011 bool.&&"]
-	39 --> 3
-	2 --> 3
-	2["mf__3010 U32_maybeFalse"]
-	25 --> 2
-	25["cond__2972 U32_equals"]
-	8 --> 25
-	31 --> 25
-	39["mt__3009 U32_maybeTrue"]
-	25 --> 39
-	26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	3 --> 26
-	48 --> 26
-	57 --> 26
-	57{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	67 --> 57
-	83 --> 57
-	94 --> 57
-	94{{"r_state__3012__3033__3055 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	89 --> 94
-	96 --> 94
+	32 --> 55
+	48 --> 55
+	14 --> 55
+	14["eff__2976 push_u32"]
+	4 --> 14
+	3 -. Stack .-> 14
+	48["eff__2975__3024 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 48
+	3 -. Stack .-> 48
+	32["mt__3017 U32_maybeTrue"]
+	13 --> 32
+	39["eff_merge__3023 merge"]
+	38 --> 39
+	14 --> 39
+	34["mb__3019 bool.&&"]
+	32 --> 34
+	33 --> 34
+	30["eff_nop__3014 nop"]
+	26["mb__3011 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__3010 U32_maybeFalse"]
+	6 --> 25
+	6["cond__2972 U32_equals"]
+	2 --> 6
+	21 --> 6
+	24["mt__3009 U32_maybeTrue"]
+	6 --> 24
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	26 --> 19
+	52 --> 19
+	64 --> 19
+	64{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	63 --> 64
+	83 --> 64
+	94 --> 64
+	94{{"r_state__3012__3034__3055 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	90 --> 94
-	90{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	88 --> 90
-	14 --> 90
-	1 --> 90
-	14["eff__2975 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 14
-	10 -. Stack .-> 14
-	96["eff_merge__3021__3037__3057 merge"]
+	96 --> 94
+	91 --> 94
+	91{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	89 --> 91
+	15 --> 91
+	0 --> 91
+	15["eff__2975 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	96["eff_merge__3021__3038__3057 merge"]
 	93 --> 96
-	1 --> 96
-	48["eff_merge__3013__3024 merge"]
-	53 --> 48
-	51 --> 48
-	51{{"r_state__3012__3027 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	22 --> 51
-	54 --> 51
-	24 --> 51
-	24{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	17 --> 24
-	14 --> 24
-	1 --> 24
+	0 --> 96
+	52["eff_merge__3013__3028 merge"]
+	51 --> 52
+	49 --> 52
+	49{{"r_state__3012__3025 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	34 --> 49
+	54 --> 49
+	35 --> 49
+	35{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	32 --> 35
+	15 --> 35
+	0 --> 35
 	54["eff_merge__3021__3030 merge"]
-	49 --> 54
-	1 --> 54
-	53["eff__2973__3029 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 53
-	10 -. Stack .-> 53
+	48 --> 54
+	0 --> 54
+	51["eff__2973__3027 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 51
+	3 -. Stack .-> 51
 </pre>`;
 window.traces["I32_DIV_S_ul"]["post_surgery 1266"] = ''
 window.traces["I32_DIV_S_ul"]["post_surgery 1266"] += `<pre class='graph'>---
@@ -56789,180 +56789,180 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	26 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 4
-	29 -. Stack .-> 4
-	29{{"Sϕ Stack "}}
-	3 --> 29
-	50 --> 29
-	59 --> 29
-	59{{"Sϕ Stack "}}
-	67 --> 59
-	83 --> 59
-	95 --> 59
-	95{{"r_state__3015__3034__3056 Sϕ Stack "}}
-	89 --> 95
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	26 --> 20
+	53 --> 20
+	65 --> 20
+	65{{"Sϕ Stack "}}
+	63 --> 65
+	83 --> 65
+	95 --> 65
+	95{{"r_state__3015__3035__3056 Sϕ Stack "}}
+	90 --> 95
 	92 --> 95
 	97 --> 95
 	97{{"Sϕ Stack "}}
-	88 --> 97
+	89 --> 97
 	93 --> 97
-	87 --> 97
-	87["eff__2976__3049 push_u32"]
-	16 --> 87
-	10 -. Stack .-> 87
-	10["a pop_u32"]
-	8 -. Stack .-> 10
-	8["b pop_u32"]
-	1 -. Stack .-> 8
-	1[/"r_state__3020 Start"\\]
-	16["r U32_div_s"]
-	10 --> 16
-	8 --> 16
-	93["eff__2975__3032__3054 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
-	10 -. Stack .-> 93
-	88["mt__3017__3050 U32_maybeTrue"]
-	85 --> 88
-	85["cond__2974__3047 U32_and"]
-	5 --> 85
-	91 --> 85
-	91["arg__2979__3052 U32_equals"]
-	10 --> 91
-	35 --> 91
-	35["abs__2992 lift_u32"]
-	30 --> 35
-	30["arg__2984 u32.view"]
-	27 --> 30
-	27["arg__2985 -2_147_483_648"]
-	5["arg__2978 U32_equals"]
-	8 --> 5
-	33 --> 5
-	33["abs__2991 lift_u32"]
-	0 --> 33
-	0["arg__2981 u32.view"]
-	38 --> 0
-	38["arg__2982 -1"]
+	88 --> 97
+	88["eff__2976__3050 push_u32"]
+	4 --> 88
+	3 -. Stack .-> 88
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"r_state__3020 Start"\\]
+	4["r U32_div_s"]
+	3 --> 4
+	2 --> 4
+	93["eff__2975__3033__3054 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
+	3 -. Stack .-> 93
+	89["mt__3017__3051 U32_maybeTrue"]
+	87 --> 89
+	87["cond__2974__3049 U32_and"]
+	12 --> 87
+	86 --> 87
+	86["arg__2979__3048 U32_equals"]
+	3 --> 86
+	23 --> 86
+	23["abs__2992 lift_u32"]
+	8 --> 23
+	8["arg__2984 u32.view"]
+	7 --> 8
+	7["arg__2985 -2_147_483_648"]
+	12["arg__2978 U32_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__2991 lift_u32"]
+	11 --> 22
+	11["arg__2981 u32.view"]
+	10 --> 11
+	10["arg__2982 -1"]
 	92["eff_merge__3023__3053 merge"]
-	34 --> 92
-	87 --> 92
-	34["eff_nop__3022 nop"]
-	89["mb__3019__3051 bool.&&"]
-	88 --> 89
-	20 --> 89
-	20["mf__3018 U32_maybeFalse"]
-	7 --> 20
-	7["cond__2974 U32_and"]
-	5 --> 7
-	36 --> 7
-	36["arg__2979 U32_equals"]
-	10 --> 36
-	35 --> 36
-	83["eff__2973__3035__3046 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
-	10 -. Stack .-> 83
-	67["mt__3009__3038 U32_maybeTrue"]
-	64 --> 67
-	64["cond__2972__3036 U32_equals"]
-	58 --> 64
-	31 --> 64
-	31["abs__2990 lift_u32"]
-	19 --> 31
-	19["arg__2987 0"]
-	58["b__3031 pop_u32"]
-	1 -. Stack .-> 58
-	50["eff_merge__3016__3026 merge"]
-	13 --> 50
-	52 --> 50
-	52{{"r_state__3015__3028 Sϕ Stack "}}
-	22 --> 52
-	105 --> 52
-	118 --> 52
+	38 --> 92
+	88 --> 92
+	38["eff_nop__3022 nop"]
+	90["mb__3019__3052 bool.&&"]
+	89 --> 90
+	33 --> 90
+	33["mf__3018 U32_maybeFalse"]
+	13 --> 33
+	13["cond__2974 U32_and"]
+	12 --> 13
+	9 --> 13
+	9["arg__2979 U32_equals"]
+	3 --> 9
+	23 --> 9
+	83["eff__2973__3036__3046 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
+	3 -. Stack .-> 83
+	63["mt__3009__3037 U32_maybeTrue"]
+	58 --> 63
+	58["cond__2972__3032 U32_equals"]
+	57 --> 58
+	21 --> 58
+	21["abs__2990 lift_u32"]
+	5 --> 21
+	5["arg__2987 0"]
+	57["b__3031 pop_u32"]
+	0 -. Stack .-> 57
+	53["eff_merge__3016__3029 merge"]
+	30 --> 53
+	50 --> 53
+	50{{"r_state__3015__3026 Sϕ Stack "}}
+	34 --> 50
+	105 --> 50
+	118 --> 50
 	118{{"Sϕ Stack "}}
-	113 --> 118
+	114 --> 118
 	117 --> 118
-	111 --> 118
-	111["eff__2976__3065 push_u32"]
-	16 --> 111
-	10 -. Stack .-> 111
-	117["eff__2975__3025__3069 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 117
-	10 -. Stack .-> 117
-	113["mt__3017__3067 U32_maybeTrue"]
-	109 --> 113
-	109["cond__2974__3063 U32_and"]
-	5 --> 109
-	115 --> 109
-	115["arg__2979__3068 U32_equals"]
-	10 --> 115
-	35 --> 115
+	112 --> 118
+	112["eff__2976__3066 push_u32"]
+	4 --> 112
+	3 -. Stack .-> 112
+	117["eff__2975__3024__3069 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 117
+	3 -. Stack .-> 117
+	114["mt__3017__3068 U32_maybeTrue"]
+	111 --> 114
+	111["cond__2974__3065 U32_and"]
+	12 --> 111
+	110 --> 111
+	110["arg__2979__3064 U32_equals"]
+	3 --> 110
+	23 --> 110
 	105["eff_merge__3023__3060 merge"]
-	34 --> 105
+	38 --> 105
 	104 --> 105
 	104["eff__2976__3059 push_u32"]
-	16 --> 104
-	10 -. Stack .-> 104
-	22["mb__3019 bool.&&"]
-	17 --> 22
-	20 --> 22
-	17["mt__3017 U32_maybeTrue"]
-	7 --> 17
-	13["eff_nop__3014 nop"]
-	3["mb__3011 bool.&&"]
-	39 --> 3
-	2 --> 3
-	2["mf__3010 U32_maybeFalse"]
-	25 --> 2
-	25["cond__2972 U32_equals"]
-	8 --> 25
-	31 --> 25
-	39["mt__3009 U32_maybeTrue"]
-	25 --> 39
-	26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	3 --> 26
-	48 --> 26
-	57 --> 26
-	57{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	67 --> 57
-	83 --> 57
-	94 --> 57
-	94{{"r_state__3012__3033__3055 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	89 --> 94
-	96 --> 94
+	4 --> 104
+	3 -. Stack .-> 104
+	34["mb__3019 bool.&&"]
+	32 --> 34
+	33 --> 34
+	32["mt__3017 U32_maybeTrue"]
+	13 --> 32
+	30["eff_nop__3014 nop"]
+	26["mb__3011 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__3010 U32_maybeFalse"]
+	6 --> 25
+	6["cond__2972 U32_equals"]
+	2 --> 6
+	21 --> 6
+	24["mt__3009 U32_maybeTrue"]
+	6 --> 24
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	26 --> 19
+	52 --> 19
+	64 --> 19
+	64{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	63 --> 64
+	83 --> 64
+	94 --> 64
+	94{{"r_state__3012__3034__3055 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	90 --> 94
-	90{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	88 --> 90
-	14 --> 90
-	1 --> 90
-	14["eff__2975 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 14
-	10 -. Stack .-> 14
-	96["eff_merge__3021__3037__3057 merge"]
+	96 --> 94
+	91 --> 94
+	91{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	89 --> 91
+	15 --> 91
+	0 --> 91
+	15["eff__2975 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	96["eff_merge__3021__3038__3057 merge"]
 	93 --> 96
-	1 --> 96
-	48["eff_merge__3013__3024 merge"]
-	53 --> 48
-	51 --> 48
-	51{{"r_state__3012__3027 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	22 --> 51
-	108 --> 51
-	114 --> 51
-	114{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	113 --> 114
-	112 --> 114
-	1 --> 114
-	112["eff__2975__3066 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 112
-	10 -. Stack .-> 112
+	0 --> 96
+	52["eff_merge__3013__3028 merge"]
+	51 --> 52
+	49 --> 52
+	49{{"r_state__3012__3025 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	34 --> 49
+	108 --> 49
+	115 --> 49
+	115{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	114 --> 115
+	113 --> 115
+	0 --> 115
+	113["eff__2975__3067 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 113
+	3 -. Stack .-> 113
 	108["eff_merge__3021__3030__3062 merge"]
 	107 --> 108
-	1 --> 108
-	107["eff__2975__3025__3061 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 107
-	10 -. Stack .-> 107
-	53["eff__2973__3029 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 53
-	10 -. Stack .-> 53
+	0 --> 108
+	107["eff__2975__3024__3061 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 107
+	3 -. Stack .-> 107
+	51["eff__2973__3027 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 51
+	3 -. Stack .-> 51
 </pre>`;
 window.traces["I32_DIV_S_ul"]["post_surgery 1270"] = ''
 window.traces["I32_DIV_S_ul"]["post_surgery 1270"] += `<pre class='graph'>---
@@ -56970,180 +56970,180 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	26 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 4
-	29 -. Stack .-> 4
-	29{{"Sϕ Stack "}}
-	3 --> 29
-	50 --> 29
-	59 --> 29
-	59{{"Sϕ Stack "}}
-	67 --> 59
-	83 --> 59
-	95 --> 59
-	95{{"r_state__3015__3034__3056 Sϕ Stack "}}
-	89 --> 95
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	26 --> 20
+	53 --> 20
+	65 --> 20
+	65{{"Sϕ Stack "}}
+	63 --> 65
+	83 --> 65
+	95 --> 65
+	95{{"r_state__3015__3035__3056 Sϕ Stack "}}
+	90 --> 95
 	92 --> 95
 	97 --> 95
 	97{{"Sϕ Stack "}}
-	88 --> 97
+	89 --> 97
 	93 --> 97
-	87 --> 97
-	87["eff__2976__3049 push_u32"]
-	16 --> 87
-	10 -. Stack .-> 87
-	10["a pop_u32"]
-	8 -. Stack .-> 10
-	8["b pop_u32"]
-	1 -. Stack .-> 8
-	1[/"r_state__3020 Start"\\]
-	16["r U32_div_s"]
-	10 --> 16
-	8 --> 16
-	93["eff__2975__3032__3054 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
-	10 -. Stack .-> 93
-	88["mt__3017__3050 U32_maybeTrue"]
-	85 --> 88
-	85["cond__2974__3047 U32_and"]
-	5 --> 85
-	91 --> 85
-	91["arg__2979__3052 U32_equals"]
-	10 --> 91
-	35 --> 91
-	35["abs__2992 lift_u32"]
-	30 --> 35
-	30["arg__2984 u32.view"]
-	27 --> 30
-	27["arg__2985 -2_147_483_648"]
-	5["arg__2978 U32_equals"]
-	8 --> 5
-	33 --> 5
-	33["abs__2991 lift_u32"]
-	0 --> 33
-	0["arg__2981 u32.view"]
-	38 --> 0
-	38["arg__2982 -1"]
+	88 --> 97
+	88["eff__2976__3050 push_u32"]
+	4 --> 88
+	3 -. Stack .-> 88
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"r_state__3020 Start"\\]
+	4["r U32_div_s"]
+	3 --> 4
+	2 --> 4
+	93["eff__2975__3033__3054 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
+	3 -. Stack .-> 93
+	89["mt__3017__3051 U32_maybeTrue"]
+	87 --> 89
+	87["cond__2974__3049 U32_and"]
+	12 --> 87
+	86 --> 87
+	86["arg__2979__3048 U32_equals"]
+	3 --> 86
+	23 --> 86
+	23["abs__2992 lift_u32"]
+	8 --> 23
+	8["arg__2984 u32.view"]
+	7 --> 8
+	7["arg__2985 -2_147_483_648"]
+	12["arg__2978 U32_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__2991 lift_u32"]
+	11 --> 22
+	11["arg__2981 u32.view"]
+	10 --> 11
+	10["arg__2982 -1"]
 	92["eff_merge__3023__3053 merge"]
-	34 --> 92
-	87 --> 92
-	34["eff_nop__3022 nop"]
-	89["mb__3019__3051 bool.&&"]
-	88 --> 89
-	20 --> 89
-	20["mf__3018 U32_maybeFalse"]
-	7 --> 20
-	7["cond__2974 U32_and"]
-	5 --> 7
-	36 --> 7
-	36["arg__2979 U32_equals"]
-	10 --> 36
-	35 --> 36
-	83["eff__2973__3035__3046 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
-	10 -. Stack .-> 83
-	67["mt__3009__3038 U32_maybeTrue"]
-	64 --> 67
-	64["cond__2972__3036 U32_equals"]
-	58 --> 64
-	31 --> 64
-	31["abs__2990 lift_u32"]
-	19 --> 31
-	19["arg__2987 0"]
-	58["b__3031 pop_u32"]
-	1 -. Stack .-> 58
-	50["eff_merge__3016__3026 merge"]
-	13 --> 50
-	52 --> 50
-	52{{"r_state__3015__3028 Sϕ Stack "}}
-	22 --> 52
-	124 --> 52
-	136 --> 52
+	38 --> 92
+	88 --> 92
+	38["eff_nop__3022 nop"]
+	90["mb__3019__3052 bool.&&"]
+	89 --> 90
+	33 --> 90
+	33["mf__3018 U32_maybeFalse"]
+	13 --> 33
+	13["cond__2974 U32_and"]
+	12 --> 13
+	9 --> 13
+	9["arg__2979 U32_equals"]
+	3 --> 9
+	23 --> 9
+	83["eff__2973__3036__3046 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
+	3 -. Stack .-> 83
+	63["mt__3009__3037 U32_maybeTrue"]
+	58 --> 63
+	58["cond__2972__3032 U32_equals"]
+	57 --> 58
+	21 --> 58
+	21["abs__2990 lift_u32"]
+	5 --> 21
+	5["arg__2987 0"]
+	57["b__3031 pop_u32"]
+	0 -. Stack .-> 57
+	53["eff_merge__3016__3029 merge"]
+	30 --> 53
+	50 --> 53
+	50{{"r_state__3015__3026 Sϕ Stack "}}
+	34 --> 50
+	124 --> 50
+	136 --> 50
 	136{{"Sϕ Stack "}}
-	132 --> 136
+	133 --> 136
 	135 --> 136
-	130 --> 136
-	130["eff__2976__3065__3077 push_u32"]
-	16 --> 130
-	10 -. Stack .-> 130
-	135["eff__2975__3025__3069__3081 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 135
-	10 -. Stack .-> 135
-	132["mt__3017__3067__3079 U32_maybeTrue"]
-	129 --> 132
-	129["cond__2974__3063__3076 U32_and"]
-	5 --> 129
-	134 --> 129
-	134["arg__2979__3068__3080 U32_equals"]
-	10 --> 134
-	35 --> 134
+	131 --> 136
+	131["eff__2976__3066__3078 push_u32"]
+	4 --> 131
+	3 -. Stack .-> 131
+	135["eff__2975__3024__3069__3081 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 135
+	3 -. Stack .-> 135
+	133["mt__3017__3068__3080 U32_maybeTrue"]
+	130 --> 133
+	130["cond__2974__3065__3077 U32_and"]
+	12 --> 130
+	129 --> 130
+	129["arg__2979__3064__3076 U32_equals"]
+	3 --> 129
+	23 --> 129
 	124["eff_merge__3023__3060__3072 merge"]
-	34 --> 124
+	38 --> 124
 	123 --> 124
 	123["eff__2976__3059__3071 push_u32"]
-	16 --> 123
-	10 -. Stack .-> 123
-	22["mb__3019 bool.&&"]
-	17 --> 22
-	20 --> 22
-	17["mt__3017 U32_maybeTrue"]
-	7 --> 17
-	13["eff_nop__3014 nop"]
-	3["mb__3011 bool.&&"]
-	39 --> 3
-	2 --> 3
-	2["mf__3010 U32_maybeFalse"]
-	25 --> 2
-	25["cond__2972 U32_equals"]
-	8 --> 25
-	31 --> 25
-	39["mt__3009 U32_maybeTrue"]
-	25 --> 39
-	26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	3 --> 26
-	48 --> 26
-	57 --> 26
-	57{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	67 --> 57
-	83 --> 57
-	94 --> 57
-	94{{"r_state__3012__3033__3055 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	89 --> 94
-	96 --> 94
+	4 --> 123
+	3 -. Stack .-> 123
+	34["mb__3019 bool.&&"]
+	32 --> 34
+	33 --> 34
+	32["mt__3017 U32_maybeTrue"]
+	13 --> 32
+	30["eff_nop__3014 nop"]
+	26["mb__3011 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__3010 U32_maybeFalse"]
+	6 --> 25
+	6["cond__2972 U32_equals"]
+	2 --> 6
+	21 --> 6
+	24["mt__3009 U32_maybeTrue"]
+	6 --> 24
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	26 --> 19
+	52 --> 19
+	64 --> 19
+	64{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	63 --> 64
+	83 --> 64
+	94 --> 64
+	94{{"r_state__3012__3034__3055 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	90 --> 94
-	90{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	88 --> 90
-	14 --> 90
-	1 --> 90
-	14["eff__2975 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 14
-	10 -. Stack .-> 14
-	96["eff_merge__3021__3037__3057 merge"]
+	96 --> 94
+	91 --> 94
+	91{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	89 --> 91
+	15 --> 91
+	0 --> 91
+	15["eff__2975 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	96["eff_merge__3021__3038__3057 merge"]
 	93 --> 96
-	1 --> 96
-	48["eff_merge__3013__3024 merge"]
-	53 --> 48
-	51 --> 48
-	51{{"r_state__3012__3027 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	22 --> 51
-	126 --> 51
-	133 --> 51
-	133{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	132 --> 133
-	131 --> 133
-	1 --> 133
-	131["eff__2975__3066__3078 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 131
-	10 -. Stack .-> 131
+	0 --> 96
+	52["eff_merge__3013__3028 merge"]
+	51 --> 52
+	49 --> 52
+	49{{"r_state__3012__3025 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	34 --> 49
+	126 --> 49
+	134 --> 49
+	134{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	133 --> 134
+	132 --> 134
+	0 --> 134
+	132["eff__2975__3067__3079 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 132
+	3 -. Stack .-> 132
 	126["eff_merge__3021__3030__3062__3074 merge"]
 	125 --> 126
-	1 --> 126
-	125["eff__2975__3025__3061__3073 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 125
-	10 -. Stack .-> 125
-	53["eff__2973__3029 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 53
-	10 -. Stack .-> 53
+	0 --> 126
+	125["eff__2975__3024__3061__3073 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 125
+	3 -. Stack .-> 125
+	51["eff__2973__3027 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 51
+	3 -. Stack .-> 51
 </pre>`;
 window.traces["I32_DIV_S_ul"]["post_surgery 1274"] = ''
 window.traces["I32_DIV_S_ul"]["post_surgery 1274"] += `<pre class='graph'>---
@@ -57151,209 +57151,209 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	26 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 4
-	29 -. Stack .-> 4
-	29{{"Sϕ Stack "}}
-	3 --> 29
-	50 --> 29
-	59 --> 29
-	59{{"Sϕ Stack "}}
-	67 --> 59
-	83 --> 59
-	95 --> 59
-	95{{"r_state__3015__3034__3056 Sϕ Stack "}}
-	89 --> 95
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	26 --> 20
+	53 --> 20
+	65 --> 20
+	65{{"Sϕ Stack "}}
+	63 --> 65
+	83 --> 65
+	95 --> 65
+	95{{"r_state__3015__3035__3056 Sϕ Stack "}}
+	90 --> 95
 	92 --> 95
 	97 --> 95
 	97{{"Sϕ Stack "}}
-	88 --> 97
+	89 --> 97
 	93 --> 97
-	87 --> 97
-	87["eff__2976__3049 push_u32"]
-	16 --> 87
-	10 -. Stack .-> 87
-	10["a pop_u32"]
-	8 -. Stack .-> 10
-	8["b pop_u32"]
-	1 -. Stack .-> 8
-	1[/"r_state__3020 Start"\\]
-	16["r U32_div_s"]
-	10 --> 16
-	8 --> 16
-	93["eff__2975__3032__3054 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
-	10 -. Stack .-> 93
-	88["mt__3017__3050 U32_maybeTrue"]
-	85 --> 88
-	85["cond__2974__3047 U32_and"]
-	5 --> 85
-	91 --> 85
-	91["arg__2979__3052 U32_equals"]
-	10 --> 91
-	35 --> 91
-	35["abs__2992 lift_u32"]
-	30 --> 35
-	30["arg__2984 u32.view"]
-	27 --> 30
-	27["arg__2985 -2_147_483_648"]
-	5["arg__2978 U32_equals"]
-	8 --> 5
-	33 --> 5
-	33["abs__2991 lift_u32"]
-	0 --> 33
-	0["arg__2981 u32.view"]
-	38 --> 0
-	38["arg__2982 -1"]
+	88 --> 97
+	88["eff__2976__3050 push_u32"]
+	4 --> 88
+	3 -. Stack .-> 88
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"r_state__3020 Start"\\]
+	4["r U32_div_s"]
+	3 --> 4
+	2 --> 4
+	93["eff__2975__3033__3054 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
+	3 -. Stack .-> 93
+	89["mt__3017__3051 U32_maybeTrue"]
+	87 --> 89
+	87["cond__2974__3049 U32_and"]
+	12 --> 87
+	86 --> 87
+	86["arg__2979__3048 U32_equals"]
+	3 --> 86
+	23 --> 86
+	23["abs__2992 lift_u32"]
+	8 --> 23
+	8["arg__2984 u32.view"]
+	7 --> 8
+	7["arg__2985 -2_147_483_648"]
+	12["arg__2978 U32_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__2991 lift_u32"]
+	11 --> 22
+	11["arg__2981 u32.view"]
+	10 --> 11
+	10["arg__2982 -1"]
 	92["eff_merge__3023__3053 merge"]
-	34 --> 92
-	87 --> 92
-	34["eff_nop__3022 nop"]
-	89["mb__3019__3051 bool.&&"]
-	88 --> 89
-	20 --> 89
-	20["mf__3018 U32_maybeFalse"]
-	7 --> 20
-	7["cond__2974 U32_and"]
-	5 --> 7
-	36 --> 7
-	36["arg__2979 U32_equals"]
-	10 --> 36
-	35 --> 36
-	83["eff__2973__3035__3046 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
-	10 -. Stack .-> 83
-	67["mt__3009__3038 U32_maybeTrue"]
-	64 --> 67
-	64["cond__2972__3036 U32_equals"]
-	58 --> 64
-	31 --> 64
-	31["abs__2990 lift_u32"]
-	19 --> 31
-	19["arg__2987 0"]
-	58["b__3031 pop_u32"]
-	1 -. Stack .-> 58
-	50["eff_merge__3016__3026 merge"]
-	13 --> 50
-	52 --> 50
-	52{{"r_state__3015__3028 Sϕ Stack "}}
-	22 --> 52
-	124 --> 52
-	136 --> 52
+	38 --> 92
+	88 --> 92
+	38["eff_nop__3022 nop"]
+	90["mb__3019__3052 bool.&&"]
+	89 --> 90
+	33 --> 90
+	33["mf__3018 U32_maybeFalse"]
+	13 --> 33
+	13["cond__2974 U32_and"]
+	12 --> 13
+	9 --> 13
+	9["arg__2979 U32_equals"]
+	3 --> 9
+	23 --> 9
+	83["eff__2973__3036__3046 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
+	3 -. Stack .-> 83
+	63["mt__3009__3037 U32_maybeTrue"]
+	58 --> 63
+	58["cond__2972__3032 U32_equals"]
+	57 --> 58
+	21 --> 58
+	21["abs__2990 lift_u32"]
+	5 --> 21
+	5["arg__2987 0"]
+	57["b__3031 pop_u32"]
+	0 -. Stack .-> 57
+	53["eff_merge__3016__3029 merge"]
+	30 --> 53
+	50 --> 53
+	50{{"r_state__3015__3026 Sϕ Stack "}}
+	34 --> 50
+	124 --> 50
+	136 --> 50
 	136{{"Sϕ Stack "}}
-	132 --> 136
+	133 --> 136
 	135 --> 136
-	130 --> 136
-	130["eff__2976__3065__3077 push_u32"]
-	16 --> 130
-	10 -. Stack .-> 130
-	135["eff__2975__3025__3069__3081 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 135
-	10 -. Stack .-> 135
-	132["mt__3017__3067__3079 U32_maybeTrue"]
-	129 --> 132
-	129["cond__2974__3063__3076 U32_and"]
-	5 --> 129
-	134 --> 129
-	134["arg__2979__3068__3080 U32_equals"]
-	10 --> 134
-	35 --> 134
+	131 --> 136
+	131["eff__2976__3066__3078 push_u32"]
+	4 --> 131
+	3 -. Stack .-> 131
+	135["eff__2975__3024__3069__3081 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 135
+	3 -. Stack .-> 135
+	133["mt__3017__3068__3080 U32_maybeTrue"]
+	130 --> 133
+	130["cond__2974__3065__3077 U32_and"]
+	12 --> 130
+	129 --> 130
+	129["arg__2979__3064__3076 U32_equals"]
+	3 --> 129
+	23 --> 129
 	124["eff_merge__3023__3060__3072 merge"]
-	34 --> 124
+	38 --> 124
 	123 --> 124
 	123["eff__2976__3059__3071 push_u32"]
-	16 --> 123
-	10 -. Stack .-> 123
-	22["mb__3019 bool.&&"]
-	17 --> 22
-	20 --> 22
-	17["mt__3017 U32_maybeTrue"]
-	7 --> 17
-	13["eff_nop__3014 nop"]
-	3["mb__3011 bool.&&"]
-	39 --> 3
-	2 --> 3
-	2["mf__3010 U32_maybeFalse"]
-	25 --> 2
-	25["cond__2972 U32_equals"]
-	8 --> 25
-	31 --> 25
-	39["mt__3009 U32_maybeTrue"]
-	25 --> 39
-	26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	3 --> 26
-	48 --> 26
-	57 --> 26
-	57{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	67 --> 57
-	83 --> 57
-	94 --> 57
-	94{{"r_state__3012__3033__3055 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	89 --> 94
-	96 --> 94
+	4 --> 123
+	3 -. Stack .-> 123
+	34["mb__3019 bool.&&"]
+	32 --> 34
+	33 --> 34
+	32["mt__3017 U32_maybeTrue"]
+	13 --> 32
+	30["eff_nop__3014 nop"]
+	26["mb__3011 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__3010 U32_maybeFalse"]
+	6 --> 25
+	6["cond__2972 U32_equals"]
+	2 --> 6
+	21 --> 6
+	24["mt__3009 U32_maybeTrue"]
+	6 --> 24
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	26 --> 19
+	52 --> 19
+	64 --> 19
+	64{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	63 --> 64
+	83 --> 64
+	94 --> 64
+	94{{"r_state__3012__3034__3055 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	90 --> 94
-	90{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	88 --> 90
-	14 --> 90
-	1 --> 90
-	14["eff__2975 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 14
-	10 -. Stack .-> 14
-	96["eff_merge__3021__3037__3057 merge"]
+	96 --> 94
+	91 --> 94
+	91{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	89 --> 91
+	15 --> 91
+	0 --> 91
+	15["eff__2975 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	96["eff_merge__3021__3038__3057 merge"]
 	93 --> 96
-	1 --> 96
-	48["eff_merge__3013__3024 merge"]
-	53 --> 48
-	51 --> 48
-	51{{"r_state__3012__3027 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	22 --> 51
-	126 --> 51
-	133 --> 51
-	133{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	132 --> 133
-	131 --> 133
-	1 --> 133
-	131["eff__2975__3066__3078 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 131
-	10 -. Stack .-> 131
+	0 --> 96
+	52["eff_merge__3013__3028 merge"]
+	51 --> 52
+	49 --> 52
+	49{{"r_state__3012__3025 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	34 --> 49
+	126 --> 49
+	134 --> 49
+	134{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	133 --> 134
+	132 --> 134
+	0 --> 134
+	132["eff__2975__3067__3079 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 132
+	3 -. Stack .-> 132
 	126["eff_merge__3021__3030__3062__3074 merge"]
 	125 --> 126
-	1 --> 126
-	125["eff__2975__3025__3061__3073 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 125
-	10 -. Stack .-> 125
-	53["eff__2973__3029 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 53
-	10 -. Stack .-> 53
+	0 --> 126
+	125["eff__2975__3024__3061__3073 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 125
+	3 -. Stack .-> 125
+	51["eff__2973__3027 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 51
+	3 -. Stack .-> 51
 </pre>`;
 window.traces["I32_DIV_S"]["unlem_scheduler"] = ''
 window.traces["I32_DIV_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1255["Block 1255"]
 	direction TB
-	b1255_4[\\"Finish"/]
+	b1255_1[\\"Finish"/]
 end
 phi_1257 --> block_1255
 subgraph phi_1257["Phi 1257"]
-	p1257_29{{"Sϕ Stack "}}
-	p1257_29{{"Sϕ Stack "}}
-	p1257_26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1257_20{{"Sϕ Stack "}}
+	p1257_20{{"Sϕ Stack "}}
+	p1257_19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1258 --> phi_1257
 block_1259 --> phi_1257
 subgraph block_1258["Block 1258"]
 	direction TB
-	b1258_13["eff_nop__3014 nop"]
-	b1258_53["eff__2973__3029 trapDivideByZero"]
-	b1258_50["eff_merge__3016__3026 merge"]
-	b1258_48["eff_merge__3013__3024 merge"]
-	b1258_13 --> b1258_53
-	b1258_53 --> b1258_50
-	b1258_50 --> b1258_48
+	b1258_30["eff_nop__3014 nop"]
+	b1258_51["eff__2973__3027 trapDivideByZero"]
+	b1258_53["eff_merge__3016__3029 merge"]
+	b1258_52["eff_merge__3013__3028 merge"]
+	b1258_30 --> b1258_51
+	b1258_51 --> b1258_53
+	b1258_53 --> b1258_52
 end
 phi_1270 --> block_1258
 subgraph phi_1270["Phi 1270"]
-	p1270_52{{"r_state__3015__3028 Sϕ Stack "}}
-	p1270_51{{"r_state__3012__3027 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1270_50{{"r_state__3015__3026 Sϕ Stack "}}
+	p1270_49{{"r_state__3012__3025 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1271 --> phi_1270
 block_1272 --> phi_1270
@@ -57365,43 +57365,43 @@ subgraph block_1271["Block 1271"]
 end
 branch_1269 --> block_1271
 subgraph branch_1269["Branch 1269"]
-	br1269_22["mb__3019 bool.&&"]
+	br1269_34["mb__3019 bool.&&"]
 
 end
 branch_1256 --> branch_1269
 subgraph branch_1256["Branch 1256"]
-	br1256_3["mb__3011 bool.&&"]
+	br1256_26["mb__3011 bool.&&"]
 
 end
 block_1260 --> branch_1256
 subgraph block_1260["Block 1260"]
 	direction TB
-	b1260_19["arg__2987 0"]
-	b1260_58["b__3031 pop_u32"]
-	b1260_17["mt__3017 U32_maybeTrue"]
-	b1260_31["abs__2990 lift_u32"]
-	b1260_64["cond__2972__3036 U32_equals"]
-	b1260_22["mb__3019 bool.&&"]
-	b1260_25["cond__2972 U32_equals"]
-	b1260_67["mt__3009__3038 U32_maybeTrue"]
-	b1260_2["mf__3010 U32_maybeFalse"]
-	b1260_39["mt__3009 U32_maybeTrue"]
-	b1260_3["mb__3011 bool.&&"]
-	b1260_19 --> b1260_58
-	b1260_58 --> b1260_17
-	b1260_17 --> b1260_31
-	b1260_31 --> b1260_64
-	b1260_64 --> b1260_22
-	b1260_22 --> b1260_25
-	b1260_25 --> b1260_67
-	b1260_67 --> b1260_2
-	b1260_2 --> b1260_39
-	b1260_39 --> b1260_3
+	b1260_5["arg__2987 0"]
+	b1260_57["b__3031 pop_u32"]
+	b1260_32["mt__3017 U32_maybeTrue"]
+	b1260_21["abs__2990 lift_u32"]
+	b1260_58["cond__2972__3032 U32_equals"]
+	b1260_34["mb__3019 bool.&&"]
+	b1260_6["cond__2972 U32_equals"]
+	b1260_63["mt__3009__3037 U32_maybeTrue"]
+	b1260_25["mf__3010 U32_maybeFalse"]
+	b1260_24["mt__3009 U32_maybeTrue"]
+	b1260_26["mb__3011 bool.&&"]
+	b1260_5 --> b1260_57
+	b1260_57 --> b1260_32
+	b1260_32 --> b1260_21
+	b1260_21 --> b1260_58
+	b1260_58 --> b1260_34
+	b1260_34 --> b1260_6
+	b1260_6 --> b1260_63
+	b1260_63 --> b1260_25
+	b1260_25 --> b1260_24
+	b1260_24 --> b1260_26
 end
 phi_1266 --> block_1260
 subgraph phi_1266["Phi 1266"]
-	p1266_52{{"r_state__3015__3028 Sϕ Stack "}}
-	p1266_51{{"r_state__3012__3027 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1266_50{{"r_state__3015__3026 Sϕ Stack "}}
+	p1266_49{{"r_state__3012__3025 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1267 --> phi_1266
 block_1268 --> phi_1266
@@ -57410,13 +57410,13 @@ subgraph block_1267["Block 1267"]
 end
 branch_1265 --> block_1267
 subgraph branch_1265["Branch 1265"]
-	br1265_22["mb__3019 bool.&&"]
+	br1265_34["mb__3019 bool.&&"]
 
 end
 phi_1274 --> branch_1265
 subgraph phi_1274["Phi 1274"]
 	p1274_118{{"Sϕ Stack "}}
-	p1274_114{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1274_115{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1275 --> phi_1274
 block_1276 --> phi_1274
@@ -57425,7 +57425,7 @@ subgraph block_1275["Block 1275"]
 end
 branch_1273 --> block_1275
 subgraph branch_1273["Branch 1273"]
-	br1273_113["mt__3017__3067 U32_maybeTrue"]
+	br1273_114["mt__3017__3068 U32_maybeTrue"]
 
 end
 subgraph block_1276["Block 1276"]
@@ -57445,18 +57445,18 @@ subgraph block_1259["Block 1259"]
 end
 phi_1262 --> block_1259
 subgraph phi_1262["Phi 1262"]
-	p1262_59{{"Sϕ Stack "}}
-	p1262_57{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1262_65{{"Sϕ Stack "}}
+	p1262_64{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1263 --> phi_1262
 block_1264 --> phi_1262
 subgraph block_1263["Block 1263"]
 	direction TB
-	b1263_83["eff__2973__3035__3046 trapDivideByZero"]
+	b1263_83["eff__2973__3036__3046 trapDivideByZero"]
 end
 branch_1261 --> block_1263
 subgraph branch_1261["Branch 1261"]
-	br1261_67["mt__3009__3038 U32_maybeTrue"]
+	br1261_63["mt__3009__3037 U32_maybeTrue"]
 
 end
 branch_1256 --> branch_1261
@@ -57467,7 +57467,7 @@ branch_1261 --> block_1264
 
 </pre>`;
 window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] = ''
-window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>if (mt__3017__3067) {
+window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>if (mt__3017__3068) {
 }
 // phis: 
 if (mb__3019) {
@@ -57477,10 +57477,10 @@ def arg__2987 : u32 = 0;
 def b__3031 = pop_u32();
 def mt__3017 = U32_maybeTrue(cond__2974);
 def abs__2990 = lift_u32(arg__2987);
-def cond__2972__3036 = U32_equals(b__3031, abs__2990);
+def cond__2972__3032 = U32_equals(b__3031, abs__2990);
 def mb__3019 = bool.&&(mt__3017, mf__3018);
 def cond__2972 = U32_equals(b, abs__2990);
-def mt__3009__3038 = U32_maybeTrue(cond__2972__3036);
+def mt__3009__3037 = U32_maybeTrue(cond__2972__3032);
 def mf__3010 = U32_maybeFalse(cond__2972);
 def mt__3009 = U32_maybeTrue(cond__2972);
 def mb__3011 = bool.&&(mt__3009, mf__3010);
@@ -57491,18 +57491,18 @@ if (mb__3011) {
 	}
 // phis: 
 	def eff_nop__3014 = nop();
-	def eff__2973__3029 = trapDivideByZero();
-	def eff_merge__3016__3026 = merge(eff_nop__3014, r_state__3015__3028);
-	def eff_merge__3013__3024 = merge(eff__2973__3029, r_state__3012__3027);
+	def eff__2973__3027 = trapDivideByZero();
+	def eff_merge__3016__3029 = merge(eff_nop__3014, r_state__3015__3026);
+	def eff_merge__3013__3028 = merge(eff__2973__3027, r_state__3012__3025);
 } else {
-	if (mt__3009__3038) {
-		def eff__2973__3035__3046 = trapDivideByZero();
+	if (mt__3009__3037) {
+		def eff__2973__3036__3046 = trapDivideByZero();
 	}
 // phis: 
 }
 // phis: 
 </pre>`;
-window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>if (mt__3017__3067) {
+window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>if (mt__3017__3068) {
 }
 if (mb__3019) {
 }
@@ -57799,49 +57799,49 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	10 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	11 -. Stack .-> 2
-	11{{"Sϕ Stack "}}
-	7 --> 11
-	15 --> 11
-	18 --> 11
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	6 --> 10
+	15 --> 10
+	18 --> 10
 	18["eff__3089__3099 push_u32"]
 	17 --> 18
-	4 -. Stack .-> 18
-	4["a pop_u32"]
-	3 -. Stack .-> 4
-	3["b pop_u32"]
-	1 -. Stack .-> 3
-	1[/"Start"\\]
+	3 -. Stack .-> 18
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
 	17["r__3098 U32_div"]
-	4 --> 17
 	3 --> 17
+	2 --> 17
 	15["eff__3088__3097 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
-	4 -. Stack .-> 15
-	7["cond__3087 U32_equals"]
-	3 --> 7
-	0 --> 7
-	0["abs__3095 lift_u32"]
-	6 --> 0
-	6["arg__3092 0"]
-	10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	7 --> 10
-	15 --> 10
-	1 --> 10
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	6["cond__3087 U32_equals"]
+	2 --> 6
+	11 --> 6
+	11["abs__3095 lift_u32"]
+	5 --> 11
+	5["arg__3092 0"]
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	6 --> 9
+	15 --> 9
+	0 --> 9
 </pre>`;
 window.traces["I32_DIV_U"]["schedulerMermaid"] = ''
 window.traces["I32_DIV_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1277["Block 1277"]
 	direction TB
-	b1277_2[\\"Finish"/]
+	b1277_1[\\"Finish"/]
 end
 phi_1279 --> block_1277
 subgraph phi_1279["Phi 1279"]
-	p1279_11{{"Sϕ Stack "}}
-	p1279_11{{"Sϕ Stack "}}
-	p1279_10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1279_10{{"Sϕ Stack "}}
+	p1279_10{{"Sϕ Stack "}}
+	p1279_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1280 --> phi_1279
 block_1281 --> phi_1279
@@ -57851,23 +57851,23 @@ subgraph block_1280["Block 1280"]
 end
 branch_1278 --> block_1280
 subgraph branch_1278["Branch 1278"]
-	br1278_7["cond__3087 U32_equals"]
+	br1278_6["cond__3087 U32_equals"]
 
 end
 block_1282 --> branch_1278
 subgraph block_1282["Block 1282"]
 	direction TB
-	b1282_1[/"Start"\\]
-	b1282_6["arg__3092 0"]
-	b1282_3["b pop_u32"]
-	b1282_4["a pop_u32"]
-	b1282_0["abs__3095 lift_u32"]
-	b1282_7["cond__3087 U32_equals"]
-	b1282_1 --> b1282_6
-	b1282_6 --> b1282_3
-	b1282_3 --> b1282_4
-	b1282_4 --> b1282_0
-	b1282_0 --> b1282_7
+	b1282_0[/"Start"\\]
+	b1282_5["arg__3092 0"]
+	b1282_2["b pop_u32"]
+	b1282_3["a pop_u32"]
+	b1282_11["abs__3095 lift_u32"]
+	b1282_6["cond__3087 U32_equals"]
+	b1282_0 --> b1282_5
+	b1282_5 --> b1282_2
+	b1282_2 --> b1282_3
+	b1282_3 --> b1282_11
+	b1282_11 --> b1282_6
 end
 subgraph block_1281["Block 1281"]
 	direction TB
@@ -57995,72 +57995,72 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	35 --> 32
-	34 --> 32
-	34["eff__3089__3117 push_u32"]
-	11 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"r_state__3106 Start"\\]
-	11["r U32_div"]
-	7 --> 11
-	5 --> 11
-	35["eff__3088__3118 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 35
-	7 -. Stack .-> 35
-	29["mt__3103__3114 U32_maybeTrue"]
-	33 --> 29
-	33["cond__3087__3116 U32_equals"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	32 --> 35
+	31 --> 35
+	31["eff__3089__3116 push_u32"]
+	4 --> 31
+	3 -. Stack .-> 31
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"r_state__3106 Start"\\]
+	4["r U32_div"]
+	3 --> 4
+	2 --> 4
+	32["eff__3088__3117 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 32
+	3 -. Stack .-> 32
+	33["mt__3103__3118 U32_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3095 lift_u32"]
-	13 --> 0
-	13["arg__3092 0"]
-	30["b__3115 pop_u32"]
-	1 -. Stack .-> 30
-	25["eff_merge__3109__3111 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3089__3112 push_u32"]
-	11 --> 26
-	7 -. Stack .-> 26
-	12["eff_nop__3108 nop"]
-	6["mb__3105 bool.&&"]
+	30["cond__3087__3115 U32_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3095 lift_u32"]
+	5 --> 11
+	5["arg__3092 0"]
+	29["b__3114 pop_u32"]
+	0 -. Stack .-> 29
+	27["eff_merge__3109__3113 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3089__3110 push_u32"]
+	4 --> 24
+	3 -. Stack .-> 24
+	18["eff_nop__3108 nop"]
+	14["mb__3105 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3104 U32_maybeFalse"]
+	6 --> 13
+	6["cond__3087 U32_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3104 U32_maybeFalse"]
-	15 --> 4
-	15["cond__3087 U32_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3103 U32_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	35 --> 31
-	1 --> 31
-	24["eff_merge__3107__3110 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3088__3113 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3103 U32_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	32 --> 34
+	0 --> 34
+	26["eff_merge__3107__3112 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3088__3111 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["I32_DIV_U_ul"]["post_surgery 1290"] = ''
 window.traces["I32_DIV_U_ul"]["post_surgery 1290"] += `<pre class='graph'>---
@@ -58068,160 +58068,160 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	47 --> 32
-	50 --> 32
-	50["eff__3089__3117__3126 push_u32"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	47 --> 35
+	50 --> 35
+	50["eff__3089__3116__3126 push_u32"]
 	49 --> 50
-	7 -. Stack .-> 50
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"r_state__3106 Start"\\]
+	3 -. Stack .-> 50
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"r_state__3106 Start"\\]
 	49["r__3125 U32_div"]
-	7 --> 49
-	5 --> 49
-	47["eff__3088__3118__3124 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
-	7 -. Stack .-> 47
-	29["mt__3103__3114 U32_maybeTrue"]
-	33 --> 29
-	33["cond__3087__3116 U32_equals"]
+	3 --> 49
+	2 --> 49
+	47["eff__3088__3117__3124 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
+	3 -. Stack .-> 47
+	33["mt__3103__3118 U32_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3095 lift_u32"]
-	13 --> 0
-	13["arg__3092 0"]
-	30["b__3115 pop_u32"]
-	1 -. Stack .-> 30
-	25["eff_merge__3109__3111 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3089__3112 push_u32"]
-	11 --> 26
-	7 -. Stack .-> 26
-	11["r U32_div"]
-	7 --> 11
+	30["cond__3087__3115 U32_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3095 lift_u32"]
 	5 --> 11
-	12["eff_nop__3108 nop"]
-	6["mb__3105 bool.&&"]
+	5["arg__3092 0"]
+	29["b__3114 pop_u32"]
+	0 -. Stack .-> 29
+	27["eff_merge__3109__3113 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3089__3110 push_u32"]
+	4 --> 24
+	3 -. Stack .-> 24
+	4["r U32_div"]
+	3 --> 4
+	2 --> 4
+	18["eff_nop__3108 nop"]
+	14["mb__3105 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3104 U32_maybeFalse"]
+	6 --> 13
+	6["cond__3087 U32_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3104 U32_maybeFalse"]
-	15 --> 4
-	15["cond__3087 U32_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3103 U32_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	47 --> 31
-	1 --> 31
-	24["eff_merge__3107__3110 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3088__3113 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3103 U32_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	47 --> 34
+	0 --> 34
+	26["eff_merge__3107__3112 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3088__3111 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["I32_DIV_U"]["unlem_scheduler"] = ''
 window.traces["I32_DIV_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1283["Block 1283"]
 	direction TB
-	b1283_3[\\"Finish"/]
+	b1283_1[\\"Finish"/]
 end
 phi_1285 --> block_1283
 subgraph phi_1285["Phi 1285"]
-	p1285_19{{"Sϕ Stack "}}
-	p1285_19{{"Sϕ Stack "}}
-	p1285_18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1285_10{{"Sϕ Stack "}}
+	p1285_10{{"Sϕ Stack "}}
+	p1285_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1286 --> phi_1285
 block_1287 --> phi_1285
 subgraph block_1286["Block 1286"]
 	direction TB
-	b1286_11["r U32_div"]
-	b1286_26["eff__3089__3112 push_u32"]
-	b1286_12["eff_nop__3108 nop"]
-	b1286_27["eff__3088__3113 trapDivideByZero"]
-	b1286_25["eff_merge__3109__3111 merge"]
-	b1286_24["eff_merge__3107__3110 merge"]
-	b1286_11 --> b1286_26
-	b1286_26 --> b1286_12
-	b1286_12 --> b1286_27
-	b1286_27 --> b1286_25
-	b1286_25 --> b1286_24
+	b1286_4["r U32_div"]
+	b1286_24["eff__3089__3110 push_u32"]
+	b1286_18["eff_nop__3108 nop"]
+	b1286_25["eff__3088__3111 trapDivideByZero"]
+	b1286_27["eff_merge__3109__3113 merge"]
+	b1286_26["eff_merge__3107__3112 merge"]
+	b1286_4 --> b1286_24
+	b1286_24 --> b1286_18
+	b1286_18 --> b1286_25
+	b1286_25 --> b1286_27
+	b1286_27 --> b1286_26
 end
 branch_1284 --> block_1286
 subgraph branch_1284["Branch 1284"]
-	br1284_6["mb__3105 bool.&&"]
+	br1284_14["mb__3105 bool.&&"]
 
 end
 block_1288 --> branch_1284
 subgraph block_1288["Block 1288"]
 	direction TB
-	b1288_1[/"r_state__3106 Start"\\]
-	b1288_13["arg__3092 0"]
-	b1288_30["b__3115 pop_u32"]
-	b1288_0["abs__3095 lift_u32"]
-	b1288_5["b pop_u32"]
-	b1288_7["a pop_u32"]
-	b1288_33["cond__3087__3116 U32_equals"]
-	b1288_15["cond__3087 U32_equals"]
-	b1288_29["mt__3103__3114 U32_maybeTrue"]
-	b1288_4["mf__3104 U32_maybeFalse"]
-	b1288_2["mt__3103 U32_maybeTrue"]
-	b1288_6["mb__3105 bool.&&"]
-	b1288_1 --> b1288_13
-	b1288_13 --> b1288_30
-	b1288_30 --> b1288_0
+	b1288_0[/"r_state__3106 Start"\\]
+	b1288_5["arg__3092 0"]
+	b1288_29["b__3114 pop_u32"]
+	b1288_11["abs__3095 lift_u32"]
+	b1288_2["b pop_u32"]
+	b1288_3["a pop_u32"]
+	b1288_30["cond__3087__3115 U32_equals"]
+	b1288_6["cond__3087 U32_equals"]
+	b1288_33["mt__3103__3118 U32_maybeTrue"]
+	b1288_13["mf__3104 U32_maybeFalse"]
+	b1288_12["mt__3103 U32_maybeTrue"]
+	b1288_14["mb__3105 bool.&&"]
 	b1288_0 --> b1288_5
-	b1288_5 --> b1288_7
-	b1288_7 --> b1288_33
-	b1288_33 --> b1288_15
-	b1288_15 --> b1288_29
-	b1288_29 --> b1288_4
-	b1288_4 --> b1288_2
-	b1288_2 --> b1288_6
+	b1288_5 --> b1288_29
+	b1288_29 --> b1288_11
+	b1288_11 --> b1288_2
+	b1288_2 --> b1288_3
+	b1288_3 --> b1288_30
+	b1288_30 --> b1288_6
+	b1288_6 --> b1288_33
+	b1288_33 --> b1288_13
+	b1288_13 --> b1288_12
+	b1288_12 --> b1288_14
 end
 subgraph block_1287["Block 1287"]
 	direction TB
 end
 phi_1290 --> block_1287
 subgraph phi_1290["Phi 1290"]
-	p1290_31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1290_32{{"Sϕ Stack "}}
+	p1290_35{{"Sϕ Stack "}}
+	p1290_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1291 --> phi_1290
 block_1292 --> phi_1290
 subgraph block_1291["Block 1291"]
 	direction TB
-	b1291_47["eff__3088__3118__3124 trapDivideByZero"]
+	b1291_47["eff__3088__3117__3124 trapDivideByZero"]
 end
 branch_1289 --> block_1291
 subgraph branch_1289["Branch 1289"]
-	br1289_29["mt__3103__3114 U32_maybeTrue"]
+	br1289_33["mt__3103__3118 U32_maybeTrue"]
 
 end
 branch_1284 --> branch_1289
 subgraph block_1292["Block 1292"]
 	direction TB
 	b1292_49["r__3125 U32_div"]
-	b1292_50["eff__3089__3117__3126 push_u32"]
+	b1292_50["eff__3089__3116__3126 push_u32"]
 	b1292_49 --> b1292_50
 end
 branch_1289 --> block_1292
@@ -58229,29 +58229,29 @@ branch_1289 --> block_1292
 </pre>`;
 window.traces["I32_DIV_U"]["unlem_scheduler_ssa"] = ''
 window.traces["I32_DIV_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3092 : u32 = 0;
-def b__3115 = pop_u32();
+def b__3114 = pop_u32();
 def abs__3095 = lift_u32(arg__3092);
 def b = pop_u32();
 def a = pop_u32();
-def cond__3087__3116 = U32_equals(b__3115, abs__3095);
+def cond__3087__3115 = U32_equals(b__3114, abs__3095);
 def cond__3087 = U32_equals(b, abs__3095);
-def mt__3103__3114 = U32_maybeTrue(cond__3087__3116);
+def mt__3103__3118 = U32_maybeTrue(cond__3087__3115);
 def mf__3104 = U32_maybeFalse(cond__3087);
 def mt__3103 = U32_maybeTrue(cond__3087);
 def mb__3105 = bool.&&(mt__3103, mf__3104);
 if (mb__3105) {
 	def r = U32_div(a, b);
-	def eff__3089__3112 = push_u32(r);
+	def eff__3089__3110 = push_u32(r);
 	def eff_nop__3108 = nop();
-	def eff__3088__3113 = trapDivideByZero();
-	def eff_merge__3109__3111 = merge(eff_nop__3108, eff__3089__3112);
-	def eff_merge__3107__3110 = merge(eff__3088__3113, r_state__3106);
+	def eff__3088__3111 = trapDivideByZero();
+	def eff_merge__3109__3113 = merge(eff_nop__3108, eff__3089__3110);
+	def eff_merge__3107__3112 = merge(eff__3088__3111, r_state__3106);
 } else {
-	if (mt__3103__3114) {
-		def eff__3088__3118__3124 = trapDivideByZero();
+	if (mt__3103__3118) {
+		def eff__3088__3117__3124 = trapDivideByZero();
 	} else {
 		def r__3125 = U32_div(a, b);
-		def eff__3089__3117__3126 = push_u32(r__3125);
+		def eff__3089__3116__3126 = push_u32(r__3125);
 	}
 // phis: 
 }
@@ -58502,49 +58502,49 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	10 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	11 -. Stack .-> 2
-	11{{"Sϕ Stack "}}
-	7 --> 11
-	15 --> 11
-	18 --> 11
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	6 --> 10
+	15 --> 10
+	18 --> 10
 	18["eff__3129__3139 push_u32"]
 	17 --> 18
-	4 -. Stack .-> 18
-	4["a pop_u32"]
-	3 -. Stack .-> 4
-	3["b pop_u32"]
-	1 -. Stack .-> 3
-	1[/"Start"\\]
+	3 -. Stack .-> 18
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
 	17["r__3138 U32_rem_s"]
-	4 --> 17
 	3 --> 17
+	2 --> 17
 	15["eff__3128__3137 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
-	4 -. Stack .-> 15
-	7["cond__3127 U32_equals"]
-	3 --> 7
-	0 --> 7
-	0["abs__3135 lift_u32"]
-	6 --> 0
-	6["arg__3132 0"]
-	10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	7 --> 10
-	15 --> 10
-	1 --> 10
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	6["cond__3127 U32_equals"]
+	2 --> 6
+	11 --> 6
+	11["abs__3135 lift_u32"]
+	5 --> 11
+	5["arg__3132 0"]
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	6 --> 9
+	15 --> 9
+	0 --> 9
 </pre>`;
 window.traces["I32_REM_S"]["schedulerMermaid"] = ''
 window.traces["I32_REM_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1293["Block 1293"]
 	direction TB
-	b1293_2[\\"Finish"/]
+	b1293_1[\\"Finish"/]
 end
 phi_1295 --> block_1293
 subgraph phi_1295["Phi 1295"]
-	p1295_11{{"Sϕ Stack "}}
-	p1295_11{{"Sϕ Stack "}}
-	p1295_10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1295_10{{"Sϕ Stack "}}
+	p1295_10{{"Sϕ Stack "}}
+	p1295_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1296 --> phi_1295
 block_1297 --> phi_1295
@@ -58554,23 +58554,23 @@ subgraph block_1296["Block 1296"]
 end
 branch_1294 --> block_1296
 subgraph branch_1294["Branch 1294"]
-	br1294_7["cond__3127 U32_equals"]
+	br1294_6["cond__3127 U32_equals"]
 
 end
 block_1298 --> branch_1294
 subgraph block_1298["Block 1298"]
 	direction TB
-	b1298_1[/"Start"\\]
-	b1298_6["arg__3132 0"]
-	b1298_3["b pop_u32"]
-	b1298_4["a pop_u32"]
-	b1298_0["abs__3135 lift_u32"]
-	b1298_7["cond__3127 U32_equals"]
-	b1298_1 --> b1298_6
-	b1298_6 --> b1298_3
-	b1298_3 --> b1298_4
-	b1298_4 --> b1298_0
-	b1298_0 --> b1298_7
+	b1298_0[/"Start"\\]
+	b1298_5["arg__3132 0"]
+	b1298_2["b pop_u32"]
+	b1298_3["a pop_u32"]
+	b1298_11["abs__3135 lift_u32"]
+	b1298_6["cond__3127 U32_equals"]
+	b1298_0 --> b1298_5
+	b1298_5 --> b1298_2
+	b1298_2 --> b1298_3
+	b1298_3 --> b1298_11
+	b1298_11 --> b1298_6
 end
 subgraph block_1297["Block 1297"]
 	direction TB
@@ -58698,72 +58698,72 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	35 --> 32
-	34 --> 32
-	34["eff__3129__3157 push_u32"]
-	11 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"r_state__3146 Start"\\]
-	11["r U32_rem_s"]
-	7 --> 11
-	5 --> 11
-	35["eff__3128__3158 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 35
-	7 -. Stack .-> 35
-	29["mt__3143__3154 U32_maybeTrue"]
-	33 --> 29
-	33["cond__3127__3156 U32_equals"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	32 --> 35
+	31 --> 35
+	31["eff__3129__3156 push_u32"]
+	4 --> 31
+	3 -. Stack .-> 31
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"r_state__3146 Start"\\]
+	4["r U32_rem_s"]
+	3 --> 4
+	2 --> 4
+	32["eff__3128__3157 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 32
+	3 -. Stack .-> 32
+	33["mt__3143__3158 U32_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3135 lift_u32"]
-	13 --> 0
-	13["arg__3132 0"]
-	30["b__3155 pop_u32"]
-	1 -. Stack .-> 30
-	25["eff_merge__3149__3151 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3129__3152 push_u32"]
-	11 --> 26
-	7 -. Stack .-> 26
-	12["eff_nop__3148 nop"]
-	6["mb__3145 bool.&&"]
+	30["cond__3127__3155 U32_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3135 lift_u32"]
+	5 --> 11
+	5["arg__3132 0"]
+	29["b__3154 pop_u32"]
+	0 -. Stack .-> 29
+	27["eff_merge__3149__3153 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3129__3150 push_u32"]
+	4 --> 24
+	3 -. Stack .-> 24
+	18["eff_nop__3148 nop"]
+	14["mb__3145 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3144 U32_maybeFalse"]
+	6 --> 13
+	6["cond__3127 U32_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3144 U32_maybeFalse"]
-	15 --> 4
-	15["cond__3127 U32_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3143 U32_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	35 --> 31
-	1 --> 31
-	24["eff_merge__3147__3150 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3128__3153 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3143 U32_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	32 --> 34
+	0 --> 34
+	26["eff_merge__3147__3152 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3128__3151 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["I32_REM_S_ul"]["post_surgery 1306"] = ''
 window.traces["I32_REM_S_ul"]["post_surgery 1306"] += `<pre class='graph'>---
@@ -58771,160 +58771,160 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	47 --> 32
-	50 --> 32
-	50["eff__3129__3157__3166 push_u32"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	47 --> 35
+	50 --> 35
+	50["eff__3129__3156__3166 push_u32"]
 	49 --> 50
-	7 -. Stack .-> 50
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"r_state__3146 Start"\\]
+	3 -. Stack .-> 50
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"r_state__3146 Start"\\]
 	49["r__3165 U32_rem_s"]
-	7 --> 49
-	5 --> 49
-	47["eff__3128__3158__3164 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
-	7 -. Stack .-> 47
-	29["mt__3143__3154 U32_maybeTrue"]
-	33 --> 29
-	33["cond__3127__3156 U32_equals"]
+	3 --> 49
+	2 --> 49
+	47["eff__3128__3157__3164 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
+	3 -. Stack .-> 47
+	33["mt__3143__3158 U32_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3135 lift_u32"]
-	13 --> 0
-	13["arg__3132 0"]
-	30["b__3155 pop_u32"]
-	1 -. Stack .-> 30
-	25["eff_merge__3149__3151 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3129__3152 push_u32"]
-	11 --> 26
-	7 -. Stack .-> 26
-	11["r U32_rem_s"]
-	7 --> 11
+	30["cond__3127__3155 U32_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3135 lift_u32"]
 	5 --> 11
-	12["eff_nop__3148 nop"]
-	6["mb__3145 bool.&&"]
+	5["arg__3132 0"]
+	29["b__3154 pop_u32"]
+	0 -. Stack .-> 29
+	27["eff_merge__3149__3153 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3129__3150 push_u32"]
+	4 --> 24
+	3 -. Stack .-> 24
+	4["r U32_rem_s"]
+	3 --> 4
+	2 --> 4
+	18["eff_nop__3148 nop"]
+	14["mb__3145 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3144 U32_maybeFalse"]
+	6 --> 13
+	6["cond__3127 U32_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3144 U32_maybeFalse"]
-	15 --> 4
-	15["cond__3127 U32_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3143 U32_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	47 --> 31
-	1 --> 31
-	24["eff_merge__3147__3150 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3128__3153 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3143 U32_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	47 --> 34
+	0 --> 34
+	26["eff_merge__3147__3152 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3128__3151 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["I32_REM_S"]["unlem_scheduler"] = ''
 window.traces["I32_REM_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1299["Block 1299"]
 	direction TB
-	b1299_3[\\"Finish"/]
+	b1299_1[\\"Finish"/]
 end
 phi_1301 --> block_1299
 subgraph phi_1301["Phi 1301"]
-	p1301_19{{"Sϕ Stack "}}
-	p1301_19{{"Sϕ Stack "}}
-	p1301_18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1301_10{{"Sϕ Stack "}}
+	p1301_10{{"Sϕ Stack "}}
+	p1301_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1302 --> phi_1301
 block_1303 --> phi_1301
 subgraph block_1302["Block 1302"]
 	direction TB
-	b1302_11["r U32_rem_s"]
-	b1302_26["eff__3129__3152 push_u32"]
-	b1302_12["eff_nop__3148 nop"]
-	b1302_27["eff__3128__3153 trapDivideByZero"]
-	b1302_25["eff_merge__3149__3151 merge"]
-	b1302_24["eff_merge__3147__3150 merge"]
-	b1302_11 --> b1302_26
-	b1302_26 --> b1302_12
-	b1302_12 --> b1302_27
-	b1302_27 --> b1302_25
-	b1302_25 --> b1302_24
+	b1302_4["r U32_rem_s"]
+	b1302_24["eff__3129__3150 push_u32"]
+	b1302_18["eff_nop__3148 nop"]
+	b1302_25["eff__3128__3151 trapDivideByZero"]
+	b1302_27["eff_merge__3149__3153 merge"]
+	b1302_26["eff_merge__3147__3152 merge"]
+	b1302_4 --> b1302_24
+	b1302_24 --> b1302_18
+	b1302_18 --> b1302_25
+	b1302_25 --> b1302_27
+	b1302_27 --> b1302_26
 end
 branch_1300 --> block_1302
 subgraph branch_1300["Branch 1300"]
-	br1300_6["mb__3145 bool.&&"]
+	br1300_14["mb__3145 bool.&&"]
 
 end
 block_1304 --> branch_1300
 subgraph block_1304["Block 1304"]
 	direction TB
-	b1304_1[/"r_state__3146 Start"\\]
-	b1304_13["arg__3132 0"]
-	b1304_30["b__3155 pop_u32"]
-	b1304_0["abs__3135 lift_u32"]
-	b1304_5["b pop_u32"]
-	b1304_7["a pop_u32"]
-	b1304_33["cond__3127__3156 U32_equals"]
-	b1304_15["cond__3127 U32_equals"]
-	b1304_29["mt__3143__3154 U32_maybeTrue"]
-	b1304_4["mf__3144 U32_maybeFalse"]
-	b1304_2["mt__3143 U32_maybeTrue"]
-	b1304_6["mb__3145 bool.&&"]
-	b1304_1 --> b1304_13
-	b1304_13 --> b1304_30
-	b1304_30 --> b1304_0
+	b1304_0[/"r_state__3146 Start"\\]
+	b1304_5["arg__3132 0"]
+	b1304_29["b__3154 pop_u32"]
+	b1304_11["abs__3135 lift_u32"]
+	b1304_2["b pop_u32"]
+	b1304_3["a pop_u32"]
+	b1304_30["cond__3127__3155 U32_equals"]
+	b1304_6["cond__3127 U32_equals"]
+	b1304_33["mt__3143__3158 U32_maybeTrue"]
+	b1304_13["mf__3144 U32_maybeFalse"]
+	b1304_12["mt__3143 U32_maybeTrue"]
+	b1304_14["mb__3145 bool.&&"]
 	b1304_0 --> b1304_5
-	b1304_5 --> b1304_7
-	b1304_7 --> b1304_33
-	b1304_33 --> b1304_15
-	b1304_15 --> b1304_29
-	b1304_29 --> b1304_4
-	b1304_4 --> b1304_2
-	b1304_2 --> b1304_6
+	b1304_5 --> b1304_29
+	b1304_29 --> b1304_11
+	b1304_11 --> b1304_2
+	b1304_2 --> b1304_3
+	b1304_3 --> b1304_30
+	b1304_30 --> b1304_6
+	b1304_6 --> b1304_33
+	b1304_33 --> b1304_13
+	b1304_13 --> b1304_12
+	b1304_12 --> b1304_14
 end
 subgraph block_1303["Block 1303"]
 	direction TB
 end
 phi_1306 --> block_1303
 subgraph phi_1306["Phi 1306"]
-	p1306_31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1306_32{{"Sϕ Stack "}}
+	p1306_35{{"Sϕ Stack "}}
+	p1306_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1307 --> phi_1306
 block_1308 --> phi_1306
 subgraph block_1307["Block 1307"]
 	direction TB
-	b1307_47["eff__3128__3158__3164 trapDivideByZero"]
+	b1307_47["eff__3128__3157__3164 trapDivideByZero"]
 end
 branch_1305 --> block_1307
 subgraph branch_1305["Branch 1305"]
-	br1305_29["mt__3143__3154 U32_maybeTrue"]
+	br1305_33["mt__3143__3158 U32_maybeTrue"]
 
 end
 branch_1300 --> branch_1305
 subgraph block_1308["Block 1308"]
 	direction TB
 	b1308_49["r__3165 U32_rem_s"]
-	b1308_50["eff__3129__3157__3166 push_u32"]
+	b1308_50["eff__3129__3156__3166 push_u32"]
 	b1308_49 --> b1308_50
 end
 branch_1305 --> block_1308
@@ -58932,29 +58932,29 @@ branch_1305 --> block_1308
 </pre>`;
 window.traces["I32_REM_S"]["unlem_scheduler_ssa"] = ''
 window.traces["I32_REM_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3132 : u32 = 0;
-def b__3155 = pop_u32();
+def b__3154 = pop_u32();
 def abs__3135 = lift_u32(arg__3132);
 def b = pop_u32();
 def a = pop_u32();
-def cond__3127__3156 = U32_equals(b__3155, abs__3135);
+def cond__3127__3155 = U32_equals(b__3154, abs__3135);
 def cond__3127 = U32_equals(b, abs__3135);
-def mt__3143__3154 = U32_maybeTrue(cond__3127__3156);
+def mt__3143__3158 = U32_maybeTrue(cond__3127__3155);
 def mf__3144 = U32_maybeFalse(cond__3127);
 def mt__3143 = U32_maybeTrue(cond__3127);
 def mb__3145 = bool.&&(mt__3143, mf__3144);
 if (mb__3145) {
 	def r = U32_rem_s(a, b);
-	def eff__3129__3152 = push_u32(r);
+	def eff__3129__3150 = push_u32(r);
 	def eff_nop__3148 = nop();
-	def eff__3128__3153 = trapDivideByZero();
-	def eff_merge__3149__3151 = merge(eff_nop__3148, eff__3129__3152);
-	def eff_merge__3147__3150 = merge(eff__3128__3153, r_state__3146);
+	def eff__3128__3151 = trapDivideByZero();
+	def eff_merge__3149__3153 = merge(eff_nop__3148, eff__3129__3150);
+	def eff_merge__3147__3152 = merge(eff__3128__3151, r_state__3146);
 } else {
-	if (mt__3143__3154) {
-		def eff__3128__3158__3164 = trapDivideByZero();
+	if (mt__3143__3158) {
+		def eff__3128__3157__3164 = trapDivideByZero();
 	} else {
 		def r__3165 = U32_rem_s(a, b);
-		def eff__3129__3157__3166 = push_u32(r__3165);
+		def eff__3129__3156__3166 = push_u32(r__3165);
 	}
 // phis: 
 }
@@ -59205,49 +59205,49 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	10 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	11 -. Stack .-> 2
-	11{{"Sϕ Stack "}}
-	7 --> 11
-	15 --> 11
-	18 --> 11
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	6 --> 10
+	15 --> 10
+	18 --> 10
 	18["eff__3169__3179 push_u32"]
 	17 --> 18
-	4 -. Stack .-> 18
-	4["a pop_u32"]
-	3 -. Stack .-> 4
-	3["b pop_u32"]
-	1 -. Stack .-> 3
-	1[/"Start"\\]
+	3 -. Stack .-> 18
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
 	17["r__3178 U32_rem_u"]
-	4 --> 17
 	3 --> 17
+	2 --> 17
 	15["eff__3168__3177 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
-	4 -. Stack .-> 15
-	7["cond__3167 U32_equals"]
-	3 --> 7
-	0 --> 7
-	0["abs__3175 lift_u32"]
-	6 --> 0
-	6["arg__3172 0"]
-	10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	7 --> 10
-	15 --> 10
-	1 --> 10
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	6["cond__3167 U32_equals"]
+	2 --> 6
+	11 --> 6
+	11["abs__3175 lift_u32"]
+	5 --> 11
+	5["arg__3172 0"]
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	6 --> 9
+	15 --> 9
+	0 --> 9
 </pre>`;
 window.traces["I32_REM_U"]["schedulerMermaid"] = ''
 window.traces["I32_REM_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1309["Block 1309"]
 	direction TB
-	b1309_2[\\"Finish"/]
+	b1309_1[\\"Finish"/]
 end
 phi_1311 --> block_1309
 subgraph phi_1311["Phi 1311"]
-	p1311_11{{"Sϕ Stack "}}
-	p1311_11{{"Sϕ Stack "}}
-	p1311_10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1311_10{{"Sϕ Stack "}}
+	p1311_10{{"Sϕ Stack "}}
+	p1311_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1312 --> phi_1311
 block_1313 --> phi_1311
@@ -59257,23 +59257,23 @@ subgraph block_1312["Block 1312"]
 end
 branch_1310 --> block_1312
 subgraph branch_1310["Branch 1310"]
-	br1310_7["cond__3167 U32_equals"]
+	br1310_6["cond__3167 U32_equals"]
 
 end
 block_1314 --> branch_1310
 subgraph block_1314["Block 1314"]
 	direction TB
-	b1314_1[/"Start"\\]
-	b1314_6["arg__3172 0"]
-	b1314_3["b pop_u32"]
-	b1314_4["a pop_u32"]
-	b1314_0["abs__3175 lift_u32"]
-	b1314_7["cond__3167 U32_equals"]
-	b1314_1 --> b1314_6
-	b1314_6 --> b1314_3
-	b1314_3 --> b1314_4
-	b1314_4 --> b1314_0
-	b1314_0 --> b1314_7
+	b1314_0[/"Start"\\]
+	b1314_5["arg__3172 0"]
+	b1314_2["b pop_u32"]
+	b1314_3["a pop_u32"]
+	b1314_11["abs__3175 lift_u32"]
+	b1314_6["cond__3167 U32_equals"]
+	b1314_0 --> b1314_5
+	b1314_5 --> b1314_2
+	b1314_2 --> b1314_3
+	b1314_3 --> b1314_11
+	b1314_11 --> b1314_6
 end
 subgraph block_1313["Block 1313"]
 	direction TB
@@ -59401,72 +59401,72 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	35 --> 32
-	34 --> 32
-	34["eff__3169__3197 push_u32"]
-	11 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"r_state__3186 Start"\\]
-	11["r U32_rem_u"]
-	7 --> 11
-	5 --> 11
-	35["eff__3168__3198 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 35
-	7 -. Stack .-> 35
-	29["mt__3183__3194 U32_maybeTrue"]
-	33 --> 29
-	33["cond__3167__3196 U32_equals"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	32 --> 35
+	31 --> 35
+	31["eff__3169__3196 push_u32"]
+	4 --> 31
+	3 -. Stack .-> 31
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"r_state__3186 Start"\\]
+	4["r U32_rem_u"]
+	3 --> 4
+	2 --> 4
+	32["eff__3168__3197 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 32
+	3 -. Stack .-> 32
+	33["mt__3183__3198 U32_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3175 lift_u32"]
-	13 --> 0
-	13["arg__3172 0"]
-	30["b__3195 pop_u32"]
-	1 -. Stack .-> 30
-	25["eff_merge__3189__3191 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3169__3192 push_u32"]
-	11 --> 26
-	7 -. Stack .-> 26
-	12["eff_nop__3188 nop"]
-	6["mb__3185 bool.&&"]
+	30["cond__3167__3195 U32_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3175 lift_u32"]
+	5 --> 11
+	5["arg__3172 0"]
+	29["b__3194 pop_u32"]
+	0 -. Stack .-> 29
+	27["eff_merge__3189__3193 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3169__3190 push_u32"]
+	4 --> 24
+	3 -. Stack .-> 24
+	18["eff_nop__3188 nop"]
+	14["mb__3185 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3184 U32_maybeFalse"]
+	6 --> 13
+	6["cond__3167 U32_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3184 U32_maybeFalse"]
-	15 --> 4
-	15["cond__3167 U32_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3183 U32_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	35 --> 31
-	1 --> 31
-	24["eff_merge__3187__3190 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3168__3193 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3183 U32_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	32 --> 34
+	0 --> 34
+	26["eff_merge__3187__3192 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3168__3191 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["I32_REM_U_ul"]["post_surgery 1322"] = ''
 window.traces["I32_REM_U_ul"]["post_surgery 1322"] += `<pre class='graph'>---
@@ -59474,160 +59474,160 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	47 --> 32
-	50 --> 32
-	50["eff__3169__3197__3206 push_u32"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	47 --> 35
+	50 --> 35
+	50["eff__3169__3196__3206 push_u32"]
 	49 --> 50
-	7 -. Stack .-> 50
-	7["a pop_u32"]
-	5 -. Stack .-> 7
-	5["b pop_u32"]
-	1 -. Stack .-> 5
-	1[/"r_state__3186 Start"\\]
+	3 -. Stack .-> 50
+	3["a pop_u32"]
+	2 -. Stack .-> 3
+	2["b pop_u32"]
+	0 -. Stack .-> 2
+	0[/"r_state__3186 Start"\\]
 	49["r__3205 U32_rem_u"]
-	7 --> 49
-	5 --> 49
-	47["eff__3168__3198__3204 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
-	7 -. Stack .-> 47
-	29["mt__3183__3194 U32_maybeTrue"]
-	33 --> 29
-	33["cond__3167__3196 U32_equals"]
+	3 --> 49
+	2 --> 49
+	47["eff__3168__3197__3204 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
+	3 -. Stack .-> 47
+	33["mt__3183__3198 U32_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3175 lift_u32"]
-	13 --> 0
-	13["arg__3172 0"]
-	30["b__3195 pop_u32"]
-	1 -. Stack .-> 30
-	25["eff_merge__3189__3191 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3169__3192 push_u32"]
-	11 --> 26
-	7 -. Stack .-> 26
-	11["r U32_rem_u"]
-	7 --> 11
+	30["cond__3167__3195 U32_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3175 lift_u32"]
 	5 --> 11
-	12["eff_nop__3188 nop"]
-	6["mb__3185 bool.&&"]
+	5["arg__3172 0"]
+	29["b__3194 pop_u32"]
+	0 -. Stack .-> 29
+	27["eff_merge__3189__3193 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3169__3190 push_u32"]
+	4 --> 24
+	3 -. Stack .-> 24
+	4["r U32_rem_u"]
+	3 --> 4
+	2 --> 4
+	18["eff_nop__3188 nop"]
+	14["mb__3185 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3184 U32_maybeFalse"]
+	6 --> 13
+	6["cond__3167 U32_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3184 U32_maybeFalse"]
-	15 --> 4
-	15["cond__3167 U32_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3183 U32_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	47 --> 31
-	1 --> 31
-	24["eff_merge__3187__3190 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3168__3193 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3183 U32_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	47 --> 34
+	0 --> 34
+	26["eff_merge__3187__3192 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3168__3191 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["I32_REM_U"]["unlem_scheduler"] = ''
 window.traces["I32_REM_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1315["Block 1315"]
 	direction TB
-	b1315_3[\\"Finish"/]
+	b1315_1[\\"Finish"/]
 end
 phi_1317 --> block_1315
 subgraph phi_1317["Phi 1317"]
-	p1317_19{{"Sϕ Stack "}}
-	p1317_19{{"Sϕ Stack "}}
-	p1317_18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1317_10{{"Sϕ Stack "}}
+	p1317_10{{"Sϕ Stack "}}
+	p1317_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1318 --> phi_1317
 block_1319 --> phi_1317
 subgraph block_1318["Block 1318"]
 	direction TB
-	b1318_11["r U32_rem_u"]
-	b1318_26["eff__3169__3192 push_u32"]
-	b1318_12["eff_nop__3188 nop"]
-	b1318_27["eff__3168__3193 trapDivideByZero"]
-	b1318_25["eff_merge__3189__3191 merge"]
-	b1318_24["eff_merge__3187__3190 merge"]
-	b1318_11 --> b1318_26
-	b1318_26 --> b1318_12
-	b1318_12 --> b1318_27
-	b1318_27 --> b1318_25
-	b1318_25 --> b1318_24
+	b1318_4["r U32_rem_u"]
+	b1318_24["eff__3169__3190 push_u32"]
+	b1318_18["eff_nop__3188 nop"]
+	b1318_25["eff__3168__3191 trapDivideByZero"]
+	b1318_27["eff_merge__3189__3193 merge"]
+	b1318_26["eff_merge__3187__3192 merge"]
+	b1318_4 --> b1318_24
+	b1318_24 --> b1318_18
+	b1318_18 --> b1318_25
+	b1318_25 --> b1318_27
+	b1318_27 --> b1318_26
 end
 branch_1316 --> block_1318
 subgraph branch_1316["Branch 1316"]
-	br1316_6["mb__3185 bool.&&"]
+	br1316_14["mb__3185 bool.&&"]
 
 end
 block_1320 --> branch_1316
 subgraph block_1320["Block 1320"]
 	direction TB
-	b1320_1[/"r_state__3186 Start"\\]
-	b1320_13["arg__3172 0"]
-	b1320_30["b__3195 pop_u32"]
-	b1320_0["abs__3175 lift_u32"]
-	b1320_5["b pop_u32"]
-	b1320_7["a pop_u32"]
-	b1320_33["cond__3167__3196 U32_equals"]
-	b1320_15["cond__3167 U32_equals"]
-	b1320_29["mt__3183__3194 U32_maybeTrue"]
-	b1320_4["mf__3184 U32_maybeFalse"]
-	b1320_2["mt__3183 U32_maybeTrue"]
-	b1320_6["mb__3185 bool.&&"]
-	b1320_1 --> b1320_13
-	b1320_13 --> b1320_30
-	b1320_30 --> b1320_0
+	b1320_0[/"r_state__3186 Start"\\]
+	b1320_5["arg__3172 0"]
+	b1320_29["b__3194 pop_u32"]
+	b1320_11["abs__3175 lift_u32"]
+	b1320_2["b pop_u32"]
+	b1320_3["a pop_u32"]
+	b1320_30["cond__3167__3195 U32_equals"]
+	b1320_6["cond__3167 U32_equals"]
+	b1320_33["mt__3183__3198 U32_maybeTrue"]
+	b1320_13["mf__3184 U32_maybeFalse"]
+	b1320_12["mt__3183 U32_maybeTrue"]
+	b1320_14["mb__3185 bool.&&"]
 	b1320_0 --> b1320_5
-	b1320_5 --> b1320_7
-	b1320_7 --> b1320_33
-	b1320_33 --> b1320_15
-	b1320_15 --> b1320_29
-	b1320_29 --> b1320_4
-	b1320_4 --> b1320_2
-	b1320_2 --> b1320_6
+	b1320_5 --> b1320_29
+	b1320_29 --> b1320_11
+	b1320_11 --> b1320_2
+	b1320_2 --> b1320_3
+	b1320_3 --> b1320_30
+	b1320_30 --> b1320_6
+	b1320_6 --> b1320_33
+	b1320_33 --> b1320_13
+	b1320_13 --> b1320_12
+	b1320_12 --> b1320_14
 end
 subgraph block_1319["Block 1319"]
 	direction TB
 end
 phi_1322 --> block_1319
 subgraph phi_1322["Phi 1322"]
-	p1322_31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1322_32{{"Sϕ Stack "}}
+	p1322_35{{"Sϕ Stack "}}
+	p1322_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1323 --> phi_1322
 block_1324 --> phi_1322
 subgraph block_1323["Block 1323"]
 	direction TB
-	b1323_47["eff__3168__3198__3204 trapDivideByZero"]
+	b1323_47["eff__3168__3197__3204 trapDivideByZero"]
 end
 branch_1321 --> block_1323
 subgraph branch_1321["Branch 1321"]
-	br1321_29["mt__3183__3194 U32_maybeTrue"]
+	br1321_33["mt__3183__3198 U32_maybeTrue"]
 
 end
 branch_1316 --> branch_1321
 subgraph block_1324["Block 1324"]
 	direction TB
 	b1324_49["r__3205 U32_rem_u"]
-	b1324_50["eff__3169__3197__3206 push_u32"]
+	b1324_50["eff__3169__3196__3206 push_u32"]
 	b1324_49 --> b1324_50
 end
 branch_1321 --> block_1324
@@ -59635,29 +59635,29 @@ branch_1321 --> block_1324
 </pre>`;
 window.traces["I32_REM_U"]["unlem_scheduler_ssa"] = ''
 window.traces["I32_REM_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3172 : u32 = 0;
-def b__3195 = pop_u32();
+def b__3194 = pop_u32();
 def abs__3175 = lift_u32(arg__3172);
 def b = pop_u32();
 def a = pop_u32();
-def cond__3167__3196 = U32_equals(b__3195, abs__3175);
+def cond__3167__3195 = U32_equals(b__3194, abs__3175);
 def cond__3167 = U32_equals(b, abs__3175);
-def mt__3183__3194 = U32_maybeTrue(cond__3167__3196);
+def mt__3183__3198 = U32_maybeTrue(cond__3167__3195);
 def mf__3184 = U32_maybeFalse(cond__3167);
 def mt__3183 = U32_maybeTrue(cond__3167);
 def mb__3185 = bool.&&(mt__3183, mf__3184);
 if (mb__3185) {
 	def r = U32_rem_u(a, b);
-	def eff__3169__3192 = push_u32(r);
+	def eff__3169__3190 = push_u32(r);
 	def eff_nop__3188 = nop();
-	def eff__3168__3193 = trapDivideByZero();
-	def eff_merge__3189__3191 = merge(eff_nop__3188, eff__3169__3192);
-	def eff_merge__3187__3190 = merge(eff__3168__3193, r_state__3186);
+	def eff__3168__3191 = trapDivideByZero();
+	def eff_merge__3189__3193 = merge(eff_nop__3188, eff__3169__3190);
+	def eff_merge__3187__3192 = merge(eff__3168__3191, r_state__3186);
 } else {
-	if (mt__3183__3194) {
-		def eff__3168__3198__3204 = trapDivideByZero();
+	if (mt__3183__3198) {
+		def eff__3168__3197__3204 = trapDivideByZero();
 	} else {
 		def r__3205 = U32_rem_u(a, b);
-		def eff__3169__3197__3206 = push_u32(r__3205);
+		def eff__3169__3196__3206 = push_u32(r__3205);
 	}
 // phis: 
 }
@@ -62918,67 +62918,67 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	15 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	17 -. Stack .-> 2
-	17{{"Sϕ Stack "}}
-	14 --> 17
-	29 --> 17
-	36 --> 17
-	36{{"Sϕ Stack "}}
-	31 --> 36
-	34 --> 36
-	33 --> 36
-	33["eff__3264__3285 push_u64"]
-	9 --> 33
-	6 -. Stack .-> 33
-	6["a pop_u64"]
-	5 -. Stack .-> 6
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	9["r U64_div_s"]
-	6 --> 9
-	5 --> 9
-	34["eff__3263__3286 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 34
-	6 -. Stack .-> 34
-	31["cond__3262__3283 bot_and"]
-	3 --> 31
-	37 --> 31
-	37["arg__3267__3287 U64_equals"]
-	6 --> 37
-	21 --> 37
-	21["abs__3280 lift_u64"]
-	18 --> 21
-	18["arg__3272 u64.view"]
-	16 --> 18
-	16["arg__3273 -9223372036854775808L"]
-	3["arg__3266 U64_equals"]
-	5 --> 3
-	20 --> 3
-	20["abs__3279 lift_u64"]
-	0 --> 20
-	0["arg__3269 u64.view"]
-	23 --> 0
-	23["arg__3270 -1"]
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	6 --> 20
+	29 --> 20
+	37 --> 20
+	37{{"Sϕ Stack "}}
+	33 --> 37
+	35 --> 37
+	34 --> 37
+	34["eff__3264__3286 push_u64"]
+	4 --> 34
+	3 -. Stack .-> 34
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	4["r U64_div_s"]
+	3 --> 4
+	2 --> 4
+	35["eff__3263__3287 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 35
+	3 -. Stack .-> 35
+	33["cond__3262__3285 bot_and"]
+	12 --> 33
+	32 --> 33
+	32["arg__3267__3284 U64_equals"]
+	3 --> 32
+	23 --> 32
+	23["abs__3280 lift_u64"]
+	8 --> 23
+	8["arg__3272 u64.view"]
+	7 --> 8
+	7["arg__3273 -9223372036854775808L"]
+	12["arg__3266 U64_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__3279 lift_u64"]
+	11 --> 22
+	11["arg__3269 u64.view"]
+	10 --> 11
+	10["arg__3270 -1"]
 	29["eff__3261__3282 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 29
-	6 -. Stack .-> 29
-	14["cond__3260 U64_equals"]
-	5 --> 14
-	19 --> 14
-	19["abs__3278 lift_u64"]
-	11 --> 19
-	11["arg__3275 0"]
-	15{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	14 --> 15
-	29 --> 15
-	35 --> 15
-	35{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	31 --> 35
-	34 --> 35
-	1 --> 35
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 29
+	3 -. Stack .-> 29
+	6["cond__3260 U64_equals"]
+	2 --> 6
+	21 --> 6
+	21["abs__3278 lift_u64"]
+	5 --> 21
+	5["arg__3275 0"]
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	6 --> 19
+	29 --> 19
+	36 --> 19
+	36{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 36
+	35 --> 36
+	0 --> 36
 </pre>`;
 window.traces["I64_DIV_S"]["post_surgery 1360"] = ''
 window.traces["I64_DIV_S"]["post_surgery 1360"] += `<pre class='graph'>---
@@ -62986,79 +62986,79 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	15 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	17 -. Stack .-> 2
-	17{{"Sϕ Stack "}}
-	14 --> 17
-	29 --> 17
-	36 --> 17
-	36{{"Sϕ Stack "}}
-	31 --> 36
-	50 --> 36
-	53 --> 36
-	53["eff__3264__3285__3296 push_u64"]
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	6 --> 20
+	29 --> 20
+	37 --> 20
+	37{{"Sϕ Stack "}}
+	33 --> 37
+	50 --> 37
+	53 --> 37
+	53["eff__3264__3286__3296 push_u64"]
 	52 --> 53
-	6 -. Stack .-> 53
-	6["a pop_u64"]
-	5 -. Stack .-> 6
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
+	3 -. Stack .-> 53
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
 	52["r__3295 U64_div_s"]
-	6 --> 52
-	5 --> 52
-	50["eff__3263__3286__3294 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 50
-	6 -. Stack .-> 50
-	31["cond__3262__3283 bot_and"]
-	3 --> 31
-	37 --> 31
-	37["arg__3267__3287 U64_equals"]
-	6 --> 37
-	21 --> 37
-	21["abs__3280 lift_u64"]
-	18 --> 21
-	18["arg__3272 u64.view"]
-	16 --> 18
-	16["arg__3273 -9223372036854775808L"]
-	3["arg__3266 U64_equals"]
-	5 --> 3
-	20 --> 3
-	20["abs__3279 lift_u64"]
-	0 --> 20
-	0["arg__3269 u64.view"]
-	23 --> 0
-	23["arg__3270 -1"]
+	3 --> 52
+	2 --> 52
+	50["eff__3263__3287__3294 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 50
+	3 -. Stack .-> 50
+	33["cond__3262__3285 bot_and"]
+	12 --> 33
+	32 --> 33
+	32["arg__3267__3284 U64_equals"]
+	3 --> 32
+	23 --> 32
+	23["abs__3280 lift_u64"]
+	8 --> 23
+	8["arg__3272 u64.view"]
+	7 --> 8
+	7["arg__3273 -9223372036854775808L"]
+	12["arg__3266 U64_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__3279 lift_u64"]
+	11 --> 22
+	11["arg__3269 u64.view"]
+	10 --> 11
+	10["arg__3270 -1"]
 	29["eff__3261__3282 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 29
-	6 -. Stack .-> 29
-	14["cond__3260 U64_equals"]
-	5 --> 14
-	19 --> 14
-	19["abs__3278 lift_u64"]
-	11 --> 19
-	11["arg__3275 0"]
-	15{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	14 --> 15
-	29 --> 15
-	35 --> 15
-	35{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	31 --> 35
-	50 --> 35
-	1 --> 35
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 29
+	3 -. Stack .-> 29
+	6["cond__3260 U64_equals"]
+	2 --> 6
+	21 --> 6
+	21["abs__3278 lift_u64"]
+	5 --> 21
+	5["arg__3275 0"]
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	6 --> 19
+	29 --> 19
+	36 --> 19
+	36{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 36
+	50 --> 36
+	0 --> 36
 </pre>`;
 window.traces["I64_DIV_S"]["schedulerMermaid"] = ''
 window.traces["I64_DIV_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1353["Block 1353"]
 	direction TB
-	b1353_2[\\"Finish"/]
+	b1353_1[\\"Finish"/]
 end
 phi_1355 --> block_1353
 subgraph phi_1355["Phi 1355"]
-	p1355_17{{"Sϕ Stack "}}
-	p1355_15{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1355_17{{"Sϕ Stack "}}
+	p1355_20{{"Sϕ Stack "}}
+	p1355_20{{"Sϕ Stack "}}
+	p1355_19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1356 --> phi_1355
 block_1357 --> phi_1355
@@ -63068,66 +63068,66 @@ subgraph block_1356["Block 1356"]
 end
 branch_1354 --> block_1356
 subgraph branch_1354["Branch 1354"]
-	br1354_14["cond__3260 U64_equals"]
+	br1354_6["cond__3260 U64_equals"]
 
 end
 block_1358 --> branch_1354
 subgraph block_1358["Block 1358"]
 	direction TB
-	b1358_1[/"Start"\\]
-	b1358_16["arg__3273 -9223372036854775808L"]
-	b1358_23["arg__3270 -1"]
-	b1358_18["arg__3272 u64.view"]
-	b1358_0["arg__3269 u64.view"]
-	b1358_21["abs__3280 lift_u64"]
-	b1358_20["abs__3279 lift_u64"]
-	b1358_5["b pop_u64"]
-	b1358_6["a pop_u64"]
-	b1358_37["arg__3267__3287 U64_equals"]
-	b1358_3["arg__3266 U64_equals"]
-	b1358_11["arg__3275 0"]
-	b1358_31["cond__3262__3283 bot_and"]
-	b1358_19["abs__3278 lift_u64"]
-	b1358_14["cond__3260 U64_equals"]
-	b1358_1 --> b1358_16
-	b1358_16 --> b1358_23
-	b1358_23 --> b1358_18
-	b1358_18 --> b1358_0
-	b1358_0 --> b1358_21
-	b1358_21 --> b1358_20
-	b1358_20 --> b1358_5
-	b1358_5 --> b1358_6
-	b1358_6 --> b1358_37
-	b1358_37 --> b1358_3
-	b1358_3 --> b1358_11
-	b1358_11 --> b1358_31
-	b1358_31 --> b1358_19
-	b1358_19 --> b1358_14
+	b1358_0[/"Start"\\]
+	b1358_7["arg__3273 -9223372036854775808L"]
+	b1358_10["arg__3270 -1"]
+	b1358_8["arg__3272 u64.view"]
+	b1358_11["arg__3269 u64.view"]
+	b1358_23["abs__3280 lift_u64"]
+	b1358_22["abs__3279 lift_u64"]
+	b1358_2["b pop_u64"]
+	b1358_3["a pop_u64"]
+	b1358_32["arg__3267__3284 U64_equals"]
+	b1358_12["arg__3266 U64_equals"]
+	b1358_5["arg__3275 0"]
+	b1358_33["cond__3262__3285 bot_and"]
+	b1358_21["abs__3278 lift_u64"]
+	b1358_6["cond__3260 U64_equals"]
+	b1358_0 --> b1358_7
+	b1358_7 --> b1358_10
+	b1358_10 --> b1358_8
+	b1358_8 --> b1358_11
+	b1358_11 --> b1358_23
+	b1358_23 --> b1358_22
+	b1358_22 --> b1358_2
+	b1358_2 --> b1358_3
+	b1358_3 --> b1358_32
+	b1358_32 --> b1358_12
+	b1358_12 --> b1358_5
+	b1358_5 --> b1358_33
+	b1358_33 --> b1358_21
+	b1358_21 --> b1358_6
 end
 subgraph block_1357["Block 1357"]
 	direction TB
 end
 phi_1360 --> block_1357
 subgraph phi_1360["Phi 1360"]
-	p1360_36{{"Sϕ Stack "}}
-	p1360_35{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1360_37{{"Sϕ Stack "}}
+	p1360_36{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1361 --> phi_1360
 block_1362 --> phi_1360
 subgraph block_1361["Block 1361"]
 	direction TB
-	b1361_50["eff__3263__3286__3294 trapDivideUnrepresentable"]
+	b1361_50["eff__3263__3287__3294 trapDivideUnrepresentable"]
 end
 branch_1359 --> block_1361
 subgraph branch_1359["Branch 1359"]
-	br1359_31["cond__3262__3283 bot_and"]
+	br1359_33["cond__3262__3285 bot_and"]
 
 end
 branch_1354 --> branch_1359
 subgraph block_1362["Block 1362"]
 	direction TB
 	b1362_52["r__3295 U64_div_s"]
-	b1362_53["eff__3264__3285__3296 push_u64"]
+	b1362_53["eff__3264__3286__3296 push_u64"]
 	b1362_52 --> b1362_53
 end
 branch_1359 --> block_1362
@@ -63142,20 +63142,20 @@ def abs__3280 = lift_u64(arg__3272);
 def abs__3279 = lift_u64(arg__3269);
 def b = pop_u64();
 def a = pop_u64();
-def arg__3267__3287 = U64_equals(a, abs__3280);
+def arg__3267__3284 = U64_equals(a, abs__3280);
 def arg__3266 = U64_equals(b, abs__3279);
 def arg__3275 : u64 = 0;
-def cond__3262__3283 = bot_and(arg__3266, arg__3267__3287);
+def cond__3262__3285 = bot_and(arg__3266, arg__3267__3284);
 def abs__3278 = lift_u64(arg__3275);
 def cond__3260 = U64_equals(b, abs__3278);
 if (cond__3260) {
 	def eff__3261__3282 = trapDivideByZero();
 } else {
-	if (cond__3262__3283) {
-		def eff__3263__3286__3294 = trapDivideUnrepresentable();
+	if (cond__3262__3285) {
+		def eff__3263__3287__3294 = trapDivideUnrepresentable();
 	} else {
 		def r__3295 = U64_div_s(a, b);
-		def eff__3264__3285__3296 = push_u64(r__3295);
+		def eff__3264__3286__3296 = push_u64(r__3295);
 	}
 // phis: 
 }
@@ -63375,142 +63375,142 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	26 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 4
-	29 -. Stack .-> 4
-	29{{"Sϕ Stack "}}
-	3 --> 29
-	50 --> 29
-	59 --> 29
-	59{{"Sϕ Stack "}}
-	67 --> 59
-	63 --> 59
-	62 --> 59
-	62{{"r_state__3303__3322 Sϕ Stack "}}
-	22 --> 62
-	37 --> 62
-	66 --> 62
-	66{{"Sϕ Stack "}}
-	17 --> 66
-	60 --> 66
-	12 --> 66
-	12["eff__3264 push_u64"]
-	16 --> 12
-	10 -. Stack .-> 12
-	10["a pop_u64"]
-	8 -. Stack .-> 10
-	8["b pop_u64"]
-	1 -. Stack .-> 8
-	1[/"r_state__3308 Start"\\]
-	16["r U64_div_s"]
-	10 --> 16
-	8 --> 16
-	60["eff__3263__3320 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 60
-	10 -. Stack .-> 60
-	17["mt__3305 bot_maybeTrue"]
-	7 --> 17
-	7["cond__3262 bot_and"]
-	5 --> 7
-	36 --> 7
-	36["arg__3267 U64_equals"]
-	10 --> 36
-	35 --> 36
-	35["abs__3280 lift_u64"]
-	30 --> 35
-	30["arg__3272 u64.view"]
-	27 --> 30
-	27["arg__3273 -9223372036854775808L"]
-	5["arg__3266 U64_equals"]
-	8 --> 5
-	33 --> 5
-	33["abs__3279 lift_u64"]
-	0 --> 33
-	0["arg__3269 u64.view"]
-	38 --> 0
-	38["arg__3270 -1"]
-	37["eff_merge__3311 merge"]
-	34 --> 37
-	12 --> 37
-	34["eff_nop__3310 nop"]
-	22["mb__3307 bool.&&"]
-	17 --> 22
-	20 --> 22
-	20["mf__3306 bot_maybeFalse"]
-	7 --> 20
-	63["eff__3261__3323 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 63
-	10 -. Stack .-> 63
-	67["mt__3297__3326 U64_maybeTrue"]
-	64 --> 67
-	64["cond__3260__3324 U64_equals"]
-	58 --> 64
-	31 --> 64
-	31["abs__3278 lift_u64"]
-	19 --> 31
-	19["arg__3275 0"]
-	58["b__3319 pop_u64"]
-	1 -. Stack .-> 58
-	50["eff_merge__3304__3314 merge"]
-	13 --> 50
-	52 --> 50
-	52{{"r_state__3303__3316 Sϕ Stack "}}
-	22 --> 52
-	37 --> 52
-	55 --> 52
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	26 --> 20
+	53 --> 20
+	65 --> 20
+	65{{"Sϕ Stack "}}
+	63 --> 65
+	62 --> 65
+	61 --> 65
+	61{{"r_state__3303__3323 Sϕ Stack "}}
+	34 --> 61
+	39 --> 61
+	67 --> 61
+	67{{"Sϕ Stack "}}
+	32 --> 67
+	59 --> 67
+	14 --> 67
+	14["eff__3264 push_u64"]
+	4 --> 14
+	3 -. Stack .-> 14
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"r_state__3308 Start"\\]
+	4["r U64_div_s"]
+	3 --> 4
+	2 --> 4
+	59["eff__3263__3321 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 59
+	3 -. Stack .-> 59
+	32["mt__3305 bot_maybeTrue"]
+	13 --> 32
+	13["cond__3262 bot_and"]
+	12 --> 13
+	9 --> 13
+	9["arg__3267 U64_equals"]
+	3 --> 9
+	23 --> 9
+	23["abs__3280 lift_u64"]
+	8 --> 23
+	8["arg__3272 u64.view"]
+	7 --> 8
+	7["arg__3273 -9223372036854775808L"]
+	12["arg__3266 U64_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__3279 lift_u64"]
+	11 --> 22
+	11["arg__3269 u64.view"]
+	10 --> 11
+	10["arg__3270 -1"]
+	39["eff_merge__3311 merge"]
+	38 --> 39
+	14 --> 39
+	38["eff_nop__3310 nop"]
+	34["mb__3307 bool.&&"]
+	32 --> 34
+	33 --> 34
+	33["mf__3306 bot_maybeFalse"]
+	13 --> 33
+	62["eff__3261__3324 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 62
+	3 -. Stack .-> 62
+	63["mt__3297__3325 U64_maybeTrue"]
+	58 --> 63
+	58["cond__3260__3320 U64_equals"]
+	57 --> 58
+	21 --> 58
+	21["abs__3278 lift_u64"]
+	5 --> 21
+	5["arg__3275 0"]
+	57["b__3319 pop_u64"]
+	0 -. Stack .-> 57
+	53["eff_merge__3304__3317 merge"]
+	30 --> 53
+	50 --> 53
+	50{{"r_state__3303__3314 Sϕ Stack "}}
+	34 --> 50
+	39 --> 50
+	55 --> 50
 	55{{"Sϕ Stack "}}
-	17 --> 55
-	49 --> 55
-	12 --> 55
-	49["eff__3263__3313 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 49
-	10 -. Stack .-> 49
-	13["eff_nop__3302 nop"]
-	3["mb__3299 bool.&&"]
-	39 --> 3
-	2 --> 3
-	2["mf__3298 U64_maybeFalse"]
-	25 --> 2
-	25["cond__3260 U64_equals"]
-	8 --> 25
-	31 --> 25
-	39["mt__3297 U64_maybeTrue"]
-	25 --> 39
-	26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	3 --> 26
-	48 --> 26
-	57 --> 26
-	57{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	67 --> 57
-	63 --> 57
-	61 --> 57
-	61{{"r_state__3300__3321 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	22 --> 61
-	65 --> 61
-	24 --> 61
-	24{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	17 --> 24
-	14 --> 24
-	1 --> 24
-	14["eff__3263 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 14
-	10 -. Stack .-> 14
-	65["eff_merge__3309__3325 merge"]
-	60 --> 65
-	1 --> 65
-	48["eff_merge__3301__3312 merge"]
-	53 --> 48
-	51 --> 48
-	51{{"r_state__3300__3315 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	22 --> 51
-	54 --> 51
-	24 --> 51
+	32 --> 55
+	48 --> 55
+	14 --> 55
+	48["eff__3263__3312 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 48
+	3 -. Stack .-> 48
+	30["eff_nop__3302 nop"]
+	26["mb__3299 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__3298 U64_maybeFalse"]
+	6 --> 25
+	6["cond__3260 U64_equals"]
+	2 --> 6
+	21 --> 6
+	24["mt__3297 U64_maybeTrue"]
+	6 --> 24
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	26 --> 19
+	52 --> 19
+	64 --> 19
+	64{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	63 --> 64
+	62 --> 64
+	60 --> 64
+	60{{"r_state__3300__3322 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	34 --> 60
+	66 --> 60
+	35 --> 60
+	35{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	32 --> 35
+	15 --> 35
+	0 --> 35
+	15["eff__3263 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	66["eff_merge__3309__3326 merge"]
+	59 --> 66
+	0 --> 66
+	52["eff_merge__3301__3316 merge"]
+	51 --> 52
+	49 --> 52
+	49{{"r_state__3300__3313 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	34 --> 49
+	54 --> 49
+	35 --> 49
 	54["eff_merge__3309__3318 merge"]
-	49 --> 54
-	1 --> 54
-	53["eff__3261__3317 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 53
-	10 -. Stack .-> 53
+	48 --> 54
+	0 --> 54
+	51["eff__3261__3315 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 51
+	3 -. Stack .-> 51
 </pre>`;
 window.traces["I64_DIV_S_ul"]["post_surgery 1370"] = ''
 window.traces["I64_DIV_S_ul"]["post_surgery 1370"] += `<pre class='graph'>---
@@ -63518,163 +63518,163 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	26 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 4
-	29 -. Stack .-> 4
-	29{{"Sϕ Stack "}}
-	3 --> 29
-	50 --> 29
-	59 --> 29
-	59{{"Sϕ Stack "}}
-	67 --> 59
-	83 --> 59
-	95 --> 59
-	95{{"r_state__3303__3322__3344 Sϕ Stack "}}
-	89 --> 95
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	26 --> 20
+	53 --> 20
+	65 --> 20
+	65{{"Sϕ Stack "}}
+	63 --> 65
+	83 --> 65
+	95 --> 65
+	95{{"r_state__3303__3323__3344 Sϕ Stack "}}
+	90 --> 95
 	92 --> 95
 	97 --> 95
 	97{{"Sϕ Stack "}}
-	88 --> 97
+	89 --> 97
 	93 --> 97
-	87 --> 97
-	87["eff__3264__3337 push_u64"]
-	16 --> 87
-	10 -. Stack .-> 87
-	10["a pop_u64"]
-	8 -. Stack .-> 10
-	8["b pop_u64"]
-	1 -. Stack .-> 8
-	1[/"r_state__3308 Start"\\]
-	16["r U64_div_s"]
-	10 --> 16
-	8 --> 16
-	93["eff__3263__3320__3342 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
-	10 -. Stack .-> 93
-	88["mt__3305__3338 bot_maybeTrue"]
-	85 --> 88
-	85["cond__3262__3335 bot_and"]
-	5 --> 85
-	91 --> 85
-	91["arg__3267__3340 U64_equals"]
-	10 --> 91
-	35 --> 91
-	35["abs__3280 lift_u64"]
-	30 --> 35
-	30["arg__3272 u64.view"]
-	27 --> 30
-	27["arg__3273 -9223372036854775808L"]
-	5["arg__3266 U64_equals"]
-	8 --> 5
-	33 --> 5
-	33["abs__3279 lift_u64"]
-	0 --> 33
-	0["arg__3269 u64.view"]
-	38 --> 0
-	38["arg__3270 -1"]
+	88 --> 97
+	88["eff__3264__3338 push_u64"]
+	4 --> 88
+	3 -. Stack .-> 88
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"r_state__3308 Start"\\]
+	4["r U64_div_s"]
+	3 --> 4
+	2 --> 4
+	93["eff__3263__3321__3342 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
+	3 -. Stack .-> 93
+	89["mt__3305__3339 bot_maybeTrue"]
+	87 --> 89
+	87["cond__3262__3337 bot_and"]
+	12 --> 87
+	86 --> 87
+	86["arg__3267__3336 U64_equals"]
+	3 --> 86
+	23 --> 86
+	23["abs__3280 lift_u64"]
+	8 --> 23
+	8["arg__3272 u64.view"]
+	7 --> 8
+	7["arg__3273 -9223372036854775808L"]
+	12["arg__3266 U64_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__3279 lift_u64"]
+	11 --> 22
+	11["arg__3269 u64.view"]
+	10 --> 11
+	10["arg__3270 -1"]
 	92["eff_merge__3311__3341 merge"]
-	34 --> 92
-	87 --> 92
-	34["eff_nop__3310 nop"]
-	89["mb__3307__3339 bool.&&"]
-	88 --> 89
-	20 --> 89
-	20["mf__3306 bot_maybeFalse"]
-	7 --> 20
-	7["cond__3262 bot_and"]
-	5 --> 7
-	36 --> 7
-	36["arg__3267 U64_equals"]
-	10 --> 36
-	35 --> 36
-	83["eff__3261__3323__3334 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
-	10 -. Stack .-> 83
-	67["mt__3297__3326 U64_maybeTrue"]
-	64 --> 67
-	64["cond__3260__3324 U64_equals"]
-	58 --> 64
-	31 --> 64
-	31["abs__3278 lift_u64"]
-	19 --> 31
-	19["arg__3275 0"]
-	58["b__3319 pop_u64"]
-	1 -. Stack .-> 58
-	50["eff_merge__3304__3314 merge"]
-	13 --> 50
-	52 --> 50
-	52{{"r_state__3303__3316 Sϕ Stack "}}
-	22 --> 52
-	37 --> 52
-	55 --> 52
+	38 --> 92
+	88 --> 92
+	38["eff_nop__3310 nop"]
+	90["mb__3307__3340 bool.&&"]
+	89 --> 90
+	33 --> 90
+	33["mf__3306 bot_maybeFalse"]
+	13 --> 33
+	13["cond__3262 bot_and"]
+	12 --> 13
+	9 --> 13
+	9["arg__3267 U64_equals"]
+	3 --> 9
+	23 --> 9
+	83["eff__3261__3324__3334 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
+	3 -. Stack .-> 83
+	63["mt__3297__3325 U64_maybeTrue"]
+	58 --> 63
+	58["cond__3260__3320 U64_equals"]
+	57 --> 58
+	21 --> 58
+	21["abs__3278 lift_u64"]
+	5 --> 21
+	5["arg__3275 0"]
+	57["b__3319 pop_u64"]
+	0 -. Stack .-> 57
+	53["eff_merge__3304__3317 merge"]
+	30 --> 53
+	50 --> 53
+	50{{"r_state__3303__3314 Sϕ Stack "}}
+	34 --> 50
+	39 --> 50
+	55 --> 50
 	55{{"Sϕ Stack "}}
-	17 --> 55
-	49 --> 55
-	12 --> 55
-	12["eff__3264 push_u64"]
-	16 --> 12
-	10 -. Stack .-> 12
-	49["eff__3263__3313 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 49
-	10 -. Stack .-> 49
-	17["mt__3305 bot_maybeTrue"]
-	7 --> 17
-	37["eff_merge__3311 merge"]
-	34 --> 37
-	12 --> 37
-	22["mb__3307 bool.&&"]
-	17 --> 22
-	20 --> 22
-	13["eff_nop__3302 nop"]
-	3["mb__3299 bool.&&"]
-	39 --> 3
-	2 --> 3
-	2["mf__3298 U64_maybeFalse"]
-	25 --> 2
-	25["cond__3260 U64_equals"]
-	8 --> 25
-	31 --> 25
-	39["mt__3297 U64_maybeTrue"]
-	25 --> 39
-	26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	3 --> 26
-	48 --> 26
-	57 --> 26
-	57{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	67 --> 57
-	83 --> 57
-	94 --> 57
-	94{{"r_state__3300__3321__3343 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	89 --> 94
-	96 --> 94
+	32 --> 55
+	48 --> 55
+	14 --> 55
+	14["eff__3264 push_u64"]
+	4 --> 14
+	3 -. Stack .-> 14
+	48["eff__3263__3312 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 48
+	3 -. Stack .-> 48
+	32["mt__3305 bot_maybeTrue"]
+	13 --> 32
+	39["eff_merge__3311 merge"]
+	38 --> 39
+	14 --> 39
+	34["mb__3307 bool.&&"]
+	32 --> 34
+	33 --> 34
+	30["eff_nop__3302 nop"]
+	26["mb__3299 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__3298 U64_maybeFalse"]
+	6 --> 25
+	6["cond__3260 U64_equals"]
+	2 --> 6
+	21 --> 6
+	24["mt__3297 U64_maybeTrue"]
+	6 --> 24
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	26 --> 19
+	52 --> 19
+	64 --> 19
+	64{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	63 --> 64
+	83 --> 64
+	94 --> 64
+	94{{"r_state__3300__3322__3343 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	90 --> 94
-	90{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	88 --> 90
-	14 --> 90
-	1 --> 90
-	14["eff__3263 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 14
-	10 -. Stack .-> 14
-	96["eff_merge__3309__3325__3345 merge"]
+	96 --> 94
+	91 --> 94
+	91{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	89 --> 91
+	15 --> 91
+	0 --> 91
+	15["eff__3263 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	96["eff_merge__3309__3326__3345 merge"]
 	93 --> 96
-	1 --> 96
-	48["eff_merge__3301__3312 merge"]
-	53 --> 48
-	51 --> 48
-	51{{"r_state__3300__3315 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	22 --> 51
-	54 --> 51
-	24 --> 51
-	24{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	17 --> 24
-	14 --> 24
-	1 --> 24
+	0 --> 96
+	52["eff_merge__3301__3316 merge"]
+	51 --> 52
+	49 --> 52
+	49{{"r_state__3300__3313 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	34 --> 49
+	54 --> 49
+	35 --> 49
+	35{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	32 --> 35
+	15 --> 35
+	0 --> 35
 	54["eff_merge__3309__3318 merge"]
-	49 --> 54
-	1 --> 54
-	53["eff__3261__3317 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 53
-	10 -. Stack .-> 53
+	48 --> 54
+	0 --> 54
+	51["eff__3261__3315 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 51
+	3 -. Stack .-> 51
 </pre>`;
 window.traces["I64_DIV_S_ul"]["post_surgery 1374"] = ''
 window.traces["I64_DIV_S_ul"]["post_surgery 1374"] += `<pre class='graph'>---
@@ -63682,180 +63682,180 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	26 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 4
-	29 -. Stack .-> 4
-	29{{"Sϕ Stack "}}
-	3 --> 29
-	50 --> 29
-	59 --> 29
-	59{{"Sϕ Stack "}}
-	67 --> 59
-	83 --> 59
-	95 --> 59
-	95{{"r_state__3303__3322__3344 Sϕ Stack "}}
-	89 --> 95
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	26 --> 20
+	53 --> 20
+	65 --> 20
+	65{{"Sϕ Stack "}}
+	63 --> 65
+	83 --> 65
+	95 --> 65
+	95{{"r_state__3303__3323__3344 Sϕ Stack "}}
+	90 --> 95
 	92 --> 95
 	97 --> 95
 	97{{"Sϕ Stack "}}
-	88 --> 97
+	89 --> 97
 	93 --> 97
-	87 --> 97
-	87["eff__3264__3337 push_u64"]
-	16 --> 87
-	10 -. Stack .-> 87
-	10["a pop_u64"]
-	8 -. Stack .-> 10
-	8["b pop_u64"]
-	1 -. Stack .-> 8
-	1[/"r_state__3308 Start"\\]
-	16["r U64_div_s"]
-	10 --> 16
-	8 --> 16
-	93["eff__3263__3320__3342 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
-	10 -. Stack .-> 93
-	88["mt__3305__3338 bot_maybeTrue"]
-	85 --> 88
-	85["cond__3262__3335 bot_and"]
-	5 --> 85
-	91 --> 85
-	91["arg__3267__3340 U64_equals"]
-	10 --> 91
-	35 --> 91
-	35["abs__3280 lift_u64"]
-	30 --> 35
-	30["arg__3272 u64.view"]
-	27 --> 30
-	27["arg__3273 -9223372036854775808L"]
-	5["arg__3266 U64_equals"]
-	8 --> 5
-	33 --> 5
-	33["abs__3279 lift_u64"]
-	0 --> 33
-	0["arg__3269 u64.view"]
-	38 --> 0
-	38["arg__3270 -1"]
+	88 --> 97
+	88["eff__3264__3338 push_u64"]
+	4 --> 88
+	3 -. Stack .-> 88
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"r_state__3308 Start"\\]
+	4["r U64_div_s"]
+	3 --> 4
+	2 --> 4
+	93["eff__3263__3321__3342 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
+	3 -. Stack .-> 93
+	89["mt__3305__3339 bot_maybeTrue"]
+	87 --> 89
+	87["cond__3262__3337 bot_and"]
+	12 --> 87
+	86 --> 87
+	86["arg__3267__3336 U64_equals"]
+	3 --> 86
+	23 --> 86
+	23["abs__3280 lift_u64"]
+	8 --> 23
+	8["arg__3272 u64.view"]
+	7 --> 8
+	7["arg__3273 -9223372036854775808L"]
+	12["arg__3266 U64_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__3279 lift_u64"]
+	11 --> 22
+	11["arg__3269 u64.view"]
+	10 --> 11
+	10["arg__3270 -1"]
 	92["eff_merge__3311__3341 merge"]
-	34 --> 92
-	87 --> 92
-	34["eff_nop__3310 nop"]
-	89["mb__3307__3339 bool.&&"]
-	88 --> 89
-	20 --> 89
-	20["mf__3306 bot_maybeFalse"]
-	7 --> 20
-	7["cond__3262 bot_and"]
-	5 --> 7
-	36 --> 7
-	36["arg__3267 U64_equals"]
-	10 --> 36
-	35 --> 36
-	83["eff__3261__3323__3334 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
-	10 -. Stack .-> 83
-	67["mt__3297__3326 U64_maybeTrue"]
-	64 --> 67
-	64["cond__3260__3324 U64_equals"]
-	58 --> 64
-	31 --> 64
-	31["abs__3278 lift_u64"]
-	19 --> 31
-	19["arg__3275 0"]
-	58["b__3319 pop_u64"]
-	1 -. Stack .-> 58
-	50["eff_merge__3304__3314 merge"]
-	13 --> 50
-	52 --> 50
-	52{{"r_state__3303__3316 Sϕ Stack "}}
-	22 --> 52
-	105 --> 52
-	118 --> 52
+	38 --> 92
+	88 --> 92
+	38["eff_nop__3310 nop"]
+	90["mb__3307__3340 bool.&&"]
+	89 --> 90
+	33 --> 90
+	33["mf__3306 bot_maybeFalse"]
+	13 --> 33
+	13["cond__3262 bot_and"]
+	12 --> 13
+	9 --> 13
+	9["arg__3267 U64_equals"]
+	3 --> 9
+	23 --> 9
+	83["eff__3261__3324__3334 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
+	3 -. Stack .-> 83
+	63["mt__3297__3325 U64_maybeTrue"]
+	58 --> 63
+	58["cond__3260__3320 U64_equals"]
+	57 --> 58
+	21 --> 58
+	21["abs__3278 lift_u64"]
+	5 --> 21
+	5["arg__3275 0"]
+	57["b__3319 pop_u64"]
+	0 -. Stack .-> 57
+	53["eff_merge__3304__3317 merge"]
+	30 --> 53
+	50 --> 53
+	50{{"r_state__3303__3314 Sϕ Stack "}}
+	34 --> 50
+	105 --> 50
+	118 --> 50
 	118{{"Sϕ Stack "}}
-	113 --> 118
+	114 --> 118
 	117 --> 118
-	111 --> 118
-	111["eff__3264__3353 push_u64"]
-	16 --> 111
-	10 -. Stack .-> 111
-	117["eff__3263__3313__3357 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 117
-	10 -. Stack .-> 117
-	113["mt__3305__3355 bot_maybeTrue"]
-	109 --> 113
-	109["cond__3262__3351 bot_and"]
-	5 --> 109
-	115 --> 109
-	115["arg__3267__3356 U64_equals"]
-	10 --> 115
-	35 --> 115
+	112 --> 118
+	112["eff__3264__3354 push_u64"]
+	4 --> 112
+	3 -. Stack .-> 112
+	117["eff__3263__3312__3357 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 117
+	3 -. Stack .-> 117
+	114["mt__3305__3356 bot_maybeTrue"]
+	111 --> 114
+	111["cond__3262__3353 bot_and"]
+	12 --> 111
+	110 --> 111
+	110["arg__3267__3352 U64_equals"]
+	3 --> 110
+	23 --> 110
 	105["eff_merge__3311__3348 merge"]
-	34 --> 105
+	38 --> 105
 	104 --> 105
 	104["eff__3264__3347 push_u64"]
-	16 --> 104
-	10 -. Stack .-> 104
-	22["mb__3307 bool.&&"]
-	17 --> 22
-	20 --> 22
-	17["mt__3305 bot_maybeTrue"]
-	7 --> 17
-	13["eff_nop__3302 nop"]
-	3["mb__3299 bool.&&"]
-	39 --> 3
-	2 --> 3
-	2["mf__3298 U64_maybeFalse"]
-	25 --> 2
-	25["cond__3260 U64_equals"]
-	8 --> 25
-	31 --> 25
-	39["mt__3297 U64_maybeTrue"]
-	25 --> 39
-	26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	3 --> 26
-	48 --> 26
-	57 --> 26
-	57{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	67 --> 57
-	83 --> 57
-	94 --> 57
-	94{{"r_state__3300__3321__3343 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	89 --> 94
-	96 --> 94
+	4 --> 104
+	3 -. Stack .-> 104
+	34["mb__3307 bool.&&"]
+	32 --> 34
+	33 --> 34
+	32["mt__3305 bot_maybeTrue"]
+	13 --> 32
+	30["eff_nop__3302 nop"]
+	26["mb__3299 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__3298 U64_maybeFalse"]
+	6 --> 25
+	6["cond__3260 U64_equals"]
+	2 --> 6
+	21 --> 6
+	24["mt__3297 U64_maybeTrue"]
+	6 --> 24
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	26 --> 19
+	52 --> 19
+	64 --> 19
+	64{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	63 --> 64
+	83 --> 64
+	94 --> 64
+	94{{"r_state__3300__3322__3343 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	90 --> 94
-	90{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	88 --> 90
-	14 --> 90
-	1 --> 90
-	14["eff__3263 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 14
-	10 -. Stack .-> 14
-	96["eff_merge__3309__3325__3345 merge"]
+	96 --> 94
+	91 --> 94
+	91{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	89 --> 91
+	15 --> 91
+	0 --> 91
+	15["eff__3263 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	96["eff_merge__3309__3326__3345 merge"]
 	93 --> 96
-	1 --> 96
-	48["eff_merge__3301__3312 merge"]
-	53 --> 48
-	51 --> 48
-	51{{"r_state__3300__3315 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	22 --> 51
-	108 --> 51
-	114 --> 51
-	114{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	113 --> 114
-	112 --> 114
-	1 --> 114
-	112["eff__3263__3354 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 112
-	10 -. Stack .-> 112
+	0 --> 96
+	52["eff_merge__3301__3316 merge"]
+	51 --> 52
+	49 --> 52
+	49{{"r_state__3300__3313 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	34 --> 49
+	108 --> 49
+	115 --> 49
+	115{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	114 --> 115
+	113 --> 115
+	0 --> 115
+	113["eff__3263__3355 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 113
+	3 -. Stack .-> 113
 	108["eff_merge__3309__3318__3350 merge"]
 	107 --> 108
-	1 --> 108
-	107["eff__3263__3313__3349 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 107
-	10 -. Stack .-> 107
-	53["eff__3261__3317 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 53
-	10 -. Stack .-> 53
+	0 --> 108
+	107["eff__3263__3312__3349 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 107
+	3 -. Stack .-> 107
+	51["eff__3261__3315 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 51
+	3 -. Stack .-> 51
 </pre>`;
 window.traces["I64_DIV_S_ul"]["post_surgery 1378"] = ''
 window.traces["I64_DIV_S_ul"]["post_surgery 1378"] += `<pre class='graph'>---
@@ -63863,180 +63863,180 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	26 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 4
-	29 -. Stack .-> 4
-	29{{"Sϕ Stack "}}
-	3 --> 29
-	50 --> 29
-	59 --> 29
-	59{{"Sϕ Stack "}}
-	67 --> 59
-	83 --> 59
-	95 --> 59
-	95{{"r_state__3303__3322__3344 Sϕ Stack "}}
-	89 --> 95
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	26 --> 20
+	53 --> 20
+	65 --> 20
+	65{{"Sϕ Stack "}}
+	63 --> 65
+	83 --> 65
+	95 --> 65
+	95{{"r_state__3303__3323__3344 Sϕ Stack "}}
+	90 --> 95
 	92 --> 95
 	97 --> 95
 	97{{"Sϕ Stack "}}
-	88 --> 97
+	89 --> 97
 	93 --> 97
-	87 --> 97
-	87["eff__3264__3337 push_u64"]
-	16 --> 87
-	10 -. Stack .-> 87
-	10["a pop_u64"]
-	8 -. Stack .-> 10
-	8["b pop_u64"]
-	1 -. Stack .-> 8
-	1[/"r_state__3308 Start"\\]
-	16["r U64_div_s"]
-	10 --> 16
-	8 --> 16
-	93["eff__3263__3320__3342 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
-	10 -. Stack .-> 93
-	88["mt__3305__3338 bot_maybeTrue"]
-	85 --> 88
-	85["cond__3262__3335 bot_and"]
-	5 --> 85
-	91 --> 85
-	91["arg__3267__3340 U64_equals"]
-	10 --> 91
-	35 --> 91
-	35["abs__3280 lift_u64"]
-	30 --> 35
-	30["arg__3272 u64.view"]
-	27 --> 30
-	27["arg__3273 -9223372036854775808L"]
-	5["arg__3266 U64_equals"]
-	8 --> 5
-	33 --> 5
-	33["abs__3279 lift_u64"]
-	0 --> 33
-	0["arg__3269 u64.view"]
-	38 --> 0
-	38["arg__3270 -1"]
+	88 --> 97
+	88["eff__3264__3338 push_u64"]
+	4 --> 88
+	3 -. Stack .-> 88
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"r_state__3308 Start"\\]
+	4["r U64_div_s"]
+	3 --> 4
+	2 --> 4
+	93["eff__3263__3321__3342 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
+	3 -. Stack .-> 93
+	89["mt__3305__3339 bot_maybeTrue"]
+	87 --> 89
+	87["cond__3262__3337 bot_and"]
+	12 --> 87
+	86 --> 87
+	86["arg__3267__3336 U64_equals"]
+	3 --> 86
+	23 --> 86
+	23["abs__3280 lift_u64"]
+	8 --> 23
+	8["arg__3272 u64.view"]
+	7 --> 8
+	7["arg__3273 -9223372036854775808L"]
+	12["arg__3266 U64_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__3279 lift_u64"]
+	11 --> 22
+	11["arg__3269 u64.view"]
+	10 --> 11
+	10["arg__3270 -1"]
 	92["eff_merge__3311__3341 merge"]
-	34 --> 92
-	87 --> 92
-	34["eff_nop__3310 nop"]
-	89["mb__3307__3339 bool.&&"]
-	88 --> 89
-	20 --> 89
-	20["mf__3306 bot_maybeFalse"]
-	7 --> 20
-	7["cond__3262 bot_and"]
-	5 --> 7
-	36 --> 7
-	36["arg__3267 U64_equals"]
-	10 --> 36
-	35 --> 36
-	83["eff__3261__3323__3334 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
-	10 -. Stack .-> 83
-	67["mt__3297__3326 U64_maybeTrue"]
-	64 --> 67
-	64["cond__3260__3324 U64_equals"]
-	58 --> 64
-	31 --> 64
-	31["abs__3278 lift_u64"]
-	19 --> 31
-	19["arg__3275 0"]
-	58["b__3319 pop_u64"]
-	1 -. Stack .-> 58
-	50["eff_merge__3304__3314 merge"]
-	13 --> 50
-	52 --> 50
-	52{{"r_state__3303__3316 Sϕ Stack "}}
-	22 --> 52
-	124 --> 52
-	136 --> 52
+	38 --> 92
+	88 --> 92
+	38["eff_nop__3310 nop"]
+	90["mb__3307__3340 bool.&&"]
+	89 --> 90
+	33 --> 90
+	33["mf__3306 bot_maybeFalse"]
+	13 --> 33
+	13["cond__3262 bot_and"]
+	12 --> 13
+	9 --> 13
+	9["arg__3267 U64_equals"]
+	3 --> 9
+	23 --> 9
+	83["eff__3261__3324__3334 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
+	3 -. Stack .-> 83
+	63["mt__3297__3325 U64_maybeTrue"]
+	58 --> 63
+	58["cond__3260__3320 U64_equals"]
+	57 --> 58
+	21 --> 58
+	21["abs__3278 lift_u64"]
+	5 --> 21
+	5["arg__3275 0"]
+	57["b__3319 pop_u64"]
+	0 -. Stack .-> 57
+	53["eff_merge__3304__3317 merge"]
+	30 --> 53
+	50 --> 53
+	50{{"r_state__3303__3314 Sϕ Stack "}}
+	34 --> 50
+	124 --> 50
+	136 --> 50
 	136{{"Sϕ Stack "}}
-	132 --> 136
+	133 --> 136
 	135 --> 136
-	130 --> 136
-	130["eff__3264__3353__3365 push_u64"]
-	16 --> 130
-	10 -. Stack .-> 130
-	135["eff__3263__3313__3357__3369 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 135
-	10 -. Stack .-> 135
-	132["mt__3305__3355__3367 bot_maybeTrue"]
-	129 --> 132
-	129["cond__3262__3351__3364 bot_and"]
-	5 --> 129
-	134 --> 129
-	134["arg__3267__3356__3368 U64_equals"]
-	10 --> 134
-	35 --> 134
+	131 --> 136
+	131["eff__3264__3354__3366 push_u64"]
+	4 --> 131
+	3 -. Stack .-> 131
+	135["eff__3263__3312__3357__3369 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 135
+	3 -. Stack .-> 135
+	133["mt__3305__3356__3368 bot_maybeTrue"]
+	130 --> 133
+	130["cond__3262__3353__3365 bot_and"]
+	12 --> 130
+	129 --> 130
+	129["arg__3267__3352__3364 U64_equals"]
+	3 --> 129
+	23 --> 129
 	124["eff_merge__3311__3348__3360 merge"]
-	34 --> 124
+	38 --> 124
 	123 --> 124
 	123["eff__3264__3347__3359 push_u64"]
-	16 --> 123
-	10 -. Stack .-> 123
-	22["mb__3307 bool.&&"]
-	17 --> 22
-	20 --> 22
-	17["mt__3305 bot_maybeTrue"]
-	7 --> 17
-	13["eff_nop__3302 nop"]
-	3["mb__3299 bool.&&"]
-	39 --> 3
-	2 --> 3
-	2["mf__3298 U64_maybeFalse"]
-	25 --> 2
-	25["cond__3260 U64_equals"]
-	8 --> 25
-	31 --> 25
-	39["mt__3297 U64_maybeTrue"]
-	25 --> 39
-	26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	3 --> 26
-	48 --> 26
-	57 --> 26
-	57{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	67 --> 57
-	83 --> 57
-	94 --> 57
-	94{{"r_state__3300__3321__3343 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	89 --> 94
-	96 --> 94
+	4 --> 123
+	3 -. Stack .-> 123
+	34["mb__3307 bool.&&"]
+	32 --> 34
+	33 --> 34
+	32["mt__3305 bot_maybeTrue"]
+	13 --> 32
+	30["eff_nop__3302 nop"]
+	26["mb__3299 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__3298 U64_maybeFalse"]
+	6 --> 25
+	6["cond__3260 U64_equals"]
+	2 --> 6
+	21 --> 6
+	24["mt__3297 U64_maybeTrue"]
+	6 --> 24
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	26 --> 19
+	52 --> 19
+	64 --> 19
+	64{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	63 --> 64
+	83 --> 64
+	94 --> 64
+	94{{"r_state__3300__3322__3343 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	90 --> 94
-	90{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	88 --> 90
-	14 --> 90
-	1 --> 90
-	14["eff__3263 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 14
-	10 -. Stack .-> 14
-	96["eff_merge__3309__3325__3345 merge"]
+	96 --> 94
+	91 --> 94
+	91{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	89 --> 91
+	15 --> 91
+	0 --> 91
+	15["eff__3263 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	96["eff_merge__3309__3326__3345 merge"]
 	93 --> 96
-	1 --> 96
-	48["eff_merge__3301__3312 merge"]
-	53 --> 48
-	51 --> 48
-	51{{"r_state__3300__3315 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	22 --> 51
-	126 --> 51
-	133 --> 51
-	133{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	132 --> 133
-	131 --> 133
-	1 --> 133
-	131["eff__3263__3354__3366 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 131
-	10 -. Stack .-> 131
+	0 --> 96
+	52["eff_merge__3301__3316 merge"]
+	51 --> 52
+	49 --> 52
+	49{{"r_state__3300__3313 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	34 --> 49
+	126 --> 49
+	134 --> 49
+	134{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	133 --> 134
+	132 --> 134
+	0 --> 134
+	132["eff__3263__3355__3367 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 132
+	3 -. Stack .-> 132
 	126["eff_merge__3309__3318__3350__3362 merge"]
 	125 --> 126
-	1 --> 126
-	125["eff__3263__3313__3349__3361 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 125
-	10 -. Stack .-> 125
-	53["eff__3261__3317 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 53
-	10 -. Stack .-> 53
+	0 --> 126
+	125["eff__3263__3312__3349__3361 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 125
+	3 -. Stack .-> 125
+	51["eff__3261__3315 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 51
+	3 -. Stack .-> 51
 </pre>`;
 window.traces["I64_DIV_S_ul"]["post_surgery 1382"] = ''
 window.traces["I64_DIV_S_ul"]["post_surgery 1382"] += `<pre class='graph'>---
@@ -64044,209 +64044,209 @@ config:
   layout: elk
 ---
 graph TD
-	4[\\"Finish"/]
-	26 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 4
-	29 -. Stack .-> 4
-	29{{"Sϕ Stack "}}
-	3 --> 29
-	50 --> 29
-	59 --> 29
-	59{{"Sϕ Stack "}}
-	67 --> 59
-	83 --> 59
-	95 --> 59
-	95{{"r_state__3303__3322__3344 Sϕ Stack "}}
-	89 --> 95
+	1[\\"Finish"/]
+	19 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	20 -. Stack .-> 1
+	20{{"Sϕ Stack "}}
+	26 --> 20
+	53 --> 20
+	65 --> 20
+	65{{"Sϕ Stack "}}
+	63 --> 65
+	83 --> 65
+	95 --> 65
+	95{{"r_state__3303__3323__3344 Sϕ Stack "}}
+	90 --> 95
 	92 --> 95
 	97 --> 95
 	97{{"Sϕ Stack "}}
-	88 --> 97
+	89 --> 97
 	93 --> 97
-	87 --> 97
-	87["eff__3264__3337 push_u64"]
-	16 --> 87
-	10 -. Stack .-> 87
-	10["a pop_u64"]
-	8 -. Stack .-> 10
-	8["b pop_u64"]
-	1 -. Stack .-> 8
-	1[/"r_state__3308 Start"\\]
-	16["r U64_div_s"]
-	10 --> 16
-	8 --> 16
-	93["eff__3263__3320__3342 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
-	10 -. Stack .-> 93
-	88["mt__3305__3338 bot_maybeTrue"]
-	85 --> 88
-	85["cond__3262__3335 bot_and"]
-	5 --> 85
-	91 --> 85
-	91["arg__3267__3340 U64_equals"]
-	10 --> 91
-	35 --> 91
-	35["abs__3280 lift_u64"]
-	30 --> 35
-	30["arg__3272 u64.view"]
-	27 --> 30
-	27["arg__3273 -9223372036854775808L"]
-	5["arg__3266 U64_equals"]
-	8 --> 5
-	33 --> 5
-	33["abs__3279 lift_u64"]
-	0 --> 33
-	0["arg__3269 u64.view"]
-	38 --> 0
-	38["arg__3270 -1"]
+	88 --> 97
+	88["eff__3264__3338 push_u64"]
+	4 --> 88
+	3 -. Stack .-> 88
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"r_state__3308 Start"\\]
+	4["r U64_div_s"]
+	3 --> 4
+	2 --> 4
+	93["eff__3263__3321__3342 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 93
+	3 -. Stack .-> 93
+	89["mt__3305__3339 bot_maybeTrue"]
+	87 --> 89
+	87["cond__3262__3337 bot_and"]
+	12 --> 87
+	86 --> 87
+	86["arg__3267__3336 U64_equals"]
+	3 --> 86
+	23 --> 86
+	23["abs__3280 lift_u64"]
+	8 --> 23
+	8["arg__3272 u64.view"]
+	7 --> 8
+	7["arg__3273 -9223372036854775808L"]
+	12["arg__3266 U64_equals"]
+	2 --> 12
+	22 --> 12
+	22["abs__3279 lift_u64"]
+	11 --> 22
+	11["arg__3269 u64.view"]
+	10 --> 11
+	10["arg__3270 -1"]
 	92["eff_merge__3311__3341 merge"]
-	34 --> 92
-	87 --> 92
-	34["eff_nop__3310 nop"]
-	89["mb__3307__3339 bool.&&"]
-	88 --> 89
-	20 --> 89
-	20["mf__3306 bot_maybeFalse"]
-	7 --> 20
-	7["cond__3262 bot_and"]
-	5 --> 7
-	36 --> 7
-	36["arg__3267 U64_equals"]
-	10 --> 36
-	35 --> 36
-	83["eff__3261__3323__3334 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
-	10 -. Stack .-> 83
-	67["mt__3297__3326 U64_maybeTrue"]
-	64 --> 67
-	64["cond__3260__3324 U64_equals"]
-	58 --> 64
-	31 --> 64
-	31["abs__3278 lift_u64"]
-	19 --> 31
-	19["arg__3275 0"]
-	58["b__3319 pop_u64"]
-	1 -. Stack .-> 58
-	50["eff_merge__3304__3314 merge"]
-	13 --> 50
-	52 --> 50
-	52{{"r_state__3303__3316 Sϕ Stack "}}
-	22 --> 52
-	124 --> 52
-	136 --> 52
+	38 --> 92
+	88 --> 92
+	38["eff_nop__3310 nop"]
+	90["mb__3307__3340 bool.&&"]
+	89 --> 90
+	33 --> 90
+	33["mf__3306 bot_maybeFalse"]
+	13 --> 33
+	13["cond__3262 bot_and"]
+	12 --> 13
+	9 --> 13
+	9["arg__3267 U64_equals"]
+	3 --> 9
+	23 --> 9
+	83["eff__3261__3324__3334 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 83
+	3 -. Stack .-> 83
+	63["mt__3297__3325 U64_maybeTrue"]
+	58 --> 63
+	58["cond__3260__3320 U64_equals"]
+	57 --> 58
+	21 --> 58
+	21["abs__3278 lift_u64"]
+	5 --> 21
+	5["arg__3275 0"]
+	57["b__3319 pop_u64"]
+	0 -. Stack .-> 57
+	53["eff_merge__3304__3317 merge"]
+	30 --> 53
+	50 --> 53
+	50{{"r_state__3303__3314 Sϕ Stack "}}
+	34 --> 50
+	124 --> 50
+	136 --> 50
 	136{{"Sϕ Stack "}}
-	132 --> 136
+	133 --> 136
 	135 --> 136
-	130 --> 136
-	130["eff__3264__3353__3365 push_u64"]
-	16 --> 130
-	10 -. Stack .-> 130
-	135["eff__3263__3313__3357__3369 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 135
-	10 -. Stack .-> 135
-	132["mt__3305__3355__3367 bot_maybeTrue"]
-	129 --> 132
-	129["cond__3262__3351__3364 bot_and"]
-	5 --> 129
-	134 --> 129
-	134["arg__3267__3356__3368 U64_equals"]
-	10 --> 134
-	35 --> 134
+	131 --> 136
+	131["eff__3264__3354__3366 push_u64"]
+	4 --> 131
+	3 -. Stack .-> 131
+	135["eff__3263__3312__3357__3369 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 135
+	3 -. Stack .-> 135
+	133["mt__3305__3356__3368 bot_maybeTrue"]
+	130 --> 133
+	130["cond__3262__3353__3365 bot_and"]
+	12 --> 130
+	129 --> 130
+	129["arg__3267__3352__3364 U64_equals"]
+	3 --> 129
+	23 --> 129
 	124["eff_merge__3311__3348__3360 merge"]
-	34 --> 124
+	38 --> 124
 	123 --> 124
 	123["eff__3264__3347__3359 push_u64"]
-	16 --> 123
-	10 -. Stack .-> 123
-	22["mb__3307 bool.&&"]
-	17 --> 22
-	20 --> 22
-	17["mt__3305 bot_maybeTrue"]
-	7 --> 17
-	13["eff_nop__3302 nop"]
-	3["mb__3299 bool.&&"]
-	39 --> 3
-	2 --> 3
-	2["mf__3298 U64_maybeFalse"]
-	25 --> 2
-	25["cond__3260 U64_equals"]
-	8 --> 25
-	31 --> 25
-	39["mt__3297 U64_maybeTrue"]
-	25 --> 39
-	26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	3 --> 26
-	48 --> 26
-	57 --> 26
-	57{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	67 --> 57
-	83 --> 57
-	94 --> 57
-	94{{"r_state__3300__3321__3343 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	89 --> 94
-	96 --> 94
+	4 --> 123
+	3 -. Stack .-> 123
+	34["mb__3307 bool.&&"]
+	32 --> 34
+	33 --> 34
+	32["mt__3305 bot_maybeTrue"]
+	13 --> 32
+	30["eff_nop__3302 nop"]
+	26["mb__3299 bool.&&"]
+	24 --> 26
+	25 --> 26
+	25["mf__3298 U64_maybeFalse"]
+	6 --> 25
+	6["cond__3260 U64_equals"]
+	2 --> 6
+	21 --> 6
+	24["mt__3297 U64_maybeTrue"]
+	6 --> 24
+	19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	26 --> 19
+	52 --> 19
+	64 --> 19
+	64{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	63 --> 64
+	83 --> 64
+	94 --> 64
+	94{{"r_state__3300__3322__3343 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	90 --> 94
-	90{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	88 --> 90
-	14 --> 90
-	1 --> 90
-	14["eff__3263 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 14
-	10 -. Stack .-> 14
-	96["eff_merge__3309__3325__3345 merge"]
+	96 --> 94
+	91 --> 94
+	91{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	89 --> 91
+	15 --> 91
+	0 --> 91
+	15["eff__3263 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	96["eff_merge__3309__3326__3345 merge"]
 	93 --> 96
-	1 --> 96
-	48["eff_merge__3301__3312 merge"]
-	53 --> 48
-	51 --> 48
-	51{{"r_state__3300__3315 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	22 --> 51
-	126 --> 51
-	133 --> 51
-	133{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	132 --> 133
-	131 --> 133
-	1 --> 133
-	131["eff__3263__3354__3366 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 131
-	10 -. Stack .-> 131
+	0 --> 96
+	52["eff_merge__3301__3316 merge"]
+	51 --> 52
+	49 --> 52
+	49{{"r_state__3300__3313 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	34 --> 49
+	126 --> 49
+	134 --> 49
+	134{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	133 --> 134
+	132 --> 134
+	0 --> 134
+	132["eff__3263__3355__3367 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 132
+	3 -. Stack .-> 132
 	126["eff_merge__3309__3318__3350__3362 merge"]
 	125 --> 126
-	1 --> 126
-	125["eff__3263__3313__3349__3361 trapDivideUnrepresentable"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 125
-	10 -. Stack .-> 125
-	53["eff__3261__3317 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 53
-	10 -. Stack .-> 53
+	0 --> 126
+	125["eff__3263__3312__3349__3361 trapDivideUnrepresentable"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 125
+	3 -. Stack .-> 125
+	51["eff__3261__3315 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 51
+	3 -. Stack .-> 51
 </pre>`;
 window.traces["I64_DIV_S"]["unlem_scheduler"] = ''
 window.traces["I64_DIV_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1363["Block 1363"]
 	direction TB
-	b1363_4[\\"Finish"/]
+	b1363_1[\\"Finish"/]
 end
 phi_1365 --> block_1363
 subgraph phi_1365["Phi 1365"]
-	p1365_29{{"Sϕ Stack "}}
-	p1365_29{{"Sϕ Stack "}}
-	p1365_26{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1365_20{{"Sϕ Stack "}}
+	p1365_20{{"Sϕ Stack "}}
+	p1365_19{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1366 --> phi_1365
 block_1367 --> phi_1365
 subgraph block_1366["Block 1366"]
 	direction TB
-	b1366_13["eff_nop__3302 nop"]
-	b1366_53["eff__3261__3317 trapDivideByZero"]
-	b1366_50["eff_merge__3304__3314 merge"]
-	b1366_48["eff_merge__3301__3312 merge"]
-	b1366_13 --> b1366_53
-	b1366_53 --> b1366_50
-	b1366_50 --> b1366_48
+	b1366_30["eff_nop__3302 nop"]
+	b1366_51["eff__3261__3315 trapDivideByZero"]
+	b1366_53["eff_merge__3304__3317 merge"]
+	b1366_52["eff_merge__3301__3316 merge"]
+	b1366_30 --> b1366_51
+	b1366_51 --> b1366_53
+	b1366_53 --> b1366_52
 end
 phi_1378 --> block_1366
 subgraph phi_1378["Phi 1378"]
-	p1378_52{{"r_state__3303__3316 Sϕ Stack "}}
-	p1378_51{{"r_state__3300__3315 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1378_50{{"r_state__3303__3314 Sϕ Stack "}}
+	p1378_49{{"r_state__3300__3313 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1379 --> phi_1378
 block_1380 --> phi_1378
@@ -64258,43 +64258,43 @@ subgraph block_1379["Block 1379"]
 end
 branch_1377 --> block_1379
 subgraph branch_1377["Branch 1377"]
-	br1377_22["mb__3307 bool.&&"]
+	br1377_34["mb__3307 bool.&&"]
 
 end
 branch_1364 --> branch_1377
 subgraph branch_1364["Branch 1364"]
-	br1364_3["mb__3299 bool.&&"]
+	br1364_26["mb__3299 bool.&&"]
 
 end
 block_1368 --> branch_1364
 subgraph block_1368["Block 1368"]
 	direction TB
-	b1368_19["arg__3275 0"]
-	b1368_58["b__3319 pop_u64"]
-	b1368_17["mt__3305 bot_maybeTrue"]
-	b1368_31["abs__3278 lift_u64"]
-	b1368_64["cond__3260__3324 U64_equals"]
-	b1368_22["mb__3307 bool.&&"]
-	b1368_25["cond__3260 U64_equals"]
-	b1368_67["mt__3297__3326 U64_maybeTrue"]
-	b1368_2["mf__3298 U64_maybeFalse"]
-	b1368_39["mt__3297 U64_maybeTrue"]
-	b1368_3["mb__3299 bool.&&"]
-	b1368_19 --> b1368_58
-	b1368_58 --> b1368_17
-	b1368_17 --> b1368_31
-	b1368_31 --> b1368_64
-	b1368_64 --> b1368_22
-	b1368_22 --> b1368_25
-	b1368_25 --> b1368_67
-	b1368_67 --> b1368_2
-	b1368_2 --> b1368_39
-	b1368_39 --> b1368_3
+	b1368_5["arg__3275 0"]
+	b1368_57["b__3319 pop_u64"]
+	b1368_32["mt__3305 bot_maybeTrue"]
+	b1368_21["abs__3278 lift_u64"]
+	b1368_58["cond__3260__3320 U64_equals"]
+	b1368_34["mb__3307 bool.&&"]
+	b1368_6["cond__3260 U64_equals"]
+	b1368_63["mt__3297__3325 U64_maybeTrue"]
+	b1368_25["mf__3298 U64_maybeFalse"]
+	b1368_24["mt__3297 U64_maybeTrue"]
+	b1368_26["mb__3299 bool.&&"]
+	b1368_5 --> b1368_57
+	b1368_57 --> b1368_32
+	b1368_32 --> b1368_21
+	b1368_21 --> b1368_58
+	b1368_58 --> b1368_34
+	b1368_34 --> b1368_6
+	b1368_6 --> b1368_63
+	b1368_63 --> b1368_25
+	b1368_25 --> b1368_24
+	b1368_24 --> b1368_26
 end
 phi_1374 --> block_1368
 subgraph phi_1374["Phi 1374"]
-	p1374_52{{"r_state__3303__3316 Sϕ Stack "}}
-	p1374_51{{"r_state__3300__3315 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1374_50{{"r_state__3303__3314 Sϕ Stack "}}
+	p1374_49{{"r_state__3300__3313 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1375 --> phi_1374
 block_1376 --> phi_1374
@@ -64303,13 +64303,13 @@ subgraph block_1375["Block 1375"]
 end
 branch_1373 --> block_1375
 subgraph branch_1373["Branch 1373"]
-	br1373_22["mb__3307 bool.&&"]
+	br1373_34["mb__3307 bool.&&"]
 
 end
 phi_1382 --> branch_1373
 subgraph phi_1382["Phi 1382"]
 	p1382_118{{"Sϕ Stack "}}
-	p1382_114{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1382_115{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1383 --> phi_1382
 block_1384 --> phi_1382
@@ -64318,7 +64318,7 @@ subgraph block_1383["Block 1383"]
 end
 branch_1381 --> block_1383
 subgraph branch_1381["Branch 1381"]
-	br1381_113["mt__3305__3355 bot_maybeTrue"]
+	br1381_114["mt__3305__3356 bot_maybeTrue"]
 
 end
 subgraph block_1384["Block 1384"]
@@ -64338,18 +64338,18 @@ subgraph block_1367["Block 1367"]
 end
 phi_1370 --> block_1367
 subgraph phi_1370["Phi 1370"]
-	p1370_59{{"Sϕ Stack "}}
-	p1370_57{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1370_65{{"Sϕ Stack "}}
+	p1370_64{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1371 --> phi_1370
 block_1372 --> phi_1370
 subgraph block_1371["Block 1371"]
 	direction TB
-	b1371_83["eff__3261__3323__3334 trapDivideByZero"]
+	b1371_83["eff__3261__3324__3334 trapDivideByZero"]
 end
 branch_1369 --> block_1371
 subgraph branch_1369["Branch 1369"]
-	br1369_67["mt__3297__3326 U64_maybeTrue"]
+	br1369_63["mt__3297__3325 U64_maybeTrue"]
 
 end
 branch_1364 --> branch_1369
@@ -64360,7 +64360,7 @@ branch_1369 --> block_1372
 
 </pre>`;
 window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] = ''
-window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>if (mt__3305__3355) {
+window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>if (mt__3305__3356) {
 }
 // phis: 
 if (mb__3307) {
@@ -64370,10 +64370,10 @@ def arg__3275 : u64 = 0;
 def b__3319 = pop_u64();
 def mt__3305 = bot_maybeTrue(cond__3262);
 def abs__3278 = lift_u64(arg__3275);
-def cond__3260__3324 = U64_equals(b__3319, abs__3278);
+def cond__3260__3320 = U64_equals(b__3319, abs__3278);
 def mb__3307 = bool.&&(mt__3305, mf__3306);
 def cond__3260 = U64_equals(b, abs__3278);
-def mt__3297__3326 = U64_maybeTrue(cond__3260__3324);
+def mt__3297__3325 = U64_maybeTrue(cond__3260__3320);
 def mf__3298 = U64_maybeFalse(cond__3260);
 def mt__3297 = U64_maybeTrue(cond__3260);
 def mb__3299 = bool.&&(mt__3297, mf__3298);
@@ -64384,18 +64384,18 @@ if (mb__3299) {
 	}
 // phis: 
 	def eff_nop__3302 = nop();
-	def eff__3261__3317 = trapDivideByZero();
-	def eff_merge__3304__3314 = merge(eff_nop__3302, r_state__3303__3316);
-	def eff_merge__3301__3312 = merge(eff__3261__3317, r_state__3300__3315);
+	def eff__3261__3315 = trapDivideByZero();
+	def eff_merge__3304__3317 = merge(eff_nop__3302, r_state__3303__3314);
+	def eff_merge__3301__3316 = merge(eff__3261__3315, r_state__3300__3313);
 } else {
-	if (mt__3297__3326) {
-		def eff__3261__3323__3334 = trapDivideByZero();
+	if (mt__3297__3325) {
+		def eff__3261__3324__3334 = trapDivideByZero();
 	}
 // phis: 
 }
 // phis: 
 </pre>`;
-window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>if (mt__3305__3355) {
+window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>if (mt__3305__3356) {
 }
 if (mb__3307) {
 }
@@ -64692,49 +64692,49 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	10 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	11 -. Stack .-> 2
-	11{{"Sϕ Stack "}}
-	7 --> 11
-	15 --> 11
-	18 --> 11
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	6 --> 10
+	15 --> 10
+	18 --> 10
 	18["eff__3377__3387 push_u64"]
 	17 --> 18
-	4 -. Stack .-> 18
-	4["a pop_u64"]
-	3 -. Stack .-> 4
-	3["b pop_u64"]
-	1 -. Stack .-> 3
-	1[/"Start"\\]
+	3 -. Stack .-> 18
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
 	17["r__3386 U64_div"]
-	4 --> 17
 	3 --> 17
+	2 --> 17
 	15["eff__3376__3385 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
-	4 -. Stack .-> 15
-	7["cond__3375 U64_equals"]
-	3 --> 7
-	0 --> 7
-	0["abs__3383 lift_u64"]
-	6 --> 0
-	6["arg__3380 0"]
-	10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	7 --> 10
-	15 --> 10
-	1 --> 10
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	6["cond__3375 U64_equals"]
+	2 --> 6
+	11 --> 6
+	11["abs__3383 lift_u64"]
+	5 --> 11
+	5["arg__3380 0"]
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	6 --> 9
+	15 --> 9
+	0 --> 9
 </pre>`;
 window.traces["I64_DIV_U"]["schedulerMermaid"] = ''
 window.traces["I64_DIV_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1385["Block 1385"]
 	direction TB
-	b1385_2[\\"Finish"/]
+	b1385_1[\\"Finish"/]
 end
 phi_1387 --> block_1385
 subgraph phi_1387["Phi 1387"]
-	p1387_11{{"Sϕ Stack "}}
-	p1387_11{{"Sϕ Stack "}}
-	p1387_10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1387_10{{"Sϕ Stack "}}
+	p1387_10{{"Sϕ Stack "}}
+	p1387_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1388 --> phi_1387
 block_1389 --> phi_1387
@@ -64744,23 +64744,23 @@ subgraph block_1388["Block 1388"]
 end
 branch_1386 --> block_1388
 subgraph branch_1386["Branch 1386"]
-	br1386_7["cond__3375 U64_equals"]
+	br1386_6["cond__3375 U64_equals"]
 
 end
 block_1390 --> branch_1386
 subgraph block_1390["Block 1390"]
 	direction TB
-	b1390_1[/"Start"\\]
-	b1390_6["arg__3380 0"]
-	b1390_3["b pop_u64"]
-	b1390_4["a pop_u64"]
-	b1390_0["abs__3383 lift_u64"]
-	b1390_7["cond__3375 U64_equals"]
-	b1390_1 --> b1390_6
-	b1390_6 --> b1390_3
-	b1390_3 --> b1390_4
-	b1390_4 --> b1390_0
-	b1390_0 --> b1390_7
+	b1390_0[/"Start"\\]
+	b1390_5["arg__3380 0"]
+	b1390_2["b pop_u64"]
+	b1390_3["a pop_u64"]
+	b1390_11["abs__3383 lift_u64"]
+	b1390_6["cond__3375 U64_equals"]
+	b1390_0 --> b1390_5
+	b1390_5 --> b1390_2
+	b1390_2 --> b1390_3
+	b1390_3 --> b1390_11
+	b1390_11 --> b1390_6
 end
 subgraph block_1389["Block 1389"]
 	direction TB
@@ -64888,72 +64888,72 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	35 --> 32
-	34 --> 32
-	34["eff__3377__3405 push_u64"]
-	11 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"r_state__3394 Start"\\]
-	11["r U64_div"]
-	7 --> 11
-	5 --> 11
-	35["eff__3376__3406 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 35
-	7 -. Stack .-> 35
-	29["mt__3391__3402 U64_maybeTrue"]
-	33 --> 29
-	33["cond__3375__3404 U64_equals"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	32 --> 35
+	31 --> 35
+	31["eff__3377__3404 push_u64"]
+	4 --> 31
+	3 -. Stack .-> 31
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"r_state__3394 Start"\\]
+	4["r U64_div"]
+	3 --> 4
+	2 --> 4
+	32["eff__3376__3405 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 32
+	3 -. Stack .-> 32
+	33["mt__3391__3406 U64_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3383 lift_u64"]
-	13 --> 0
-	13["arg__3380 0"]
-	30["b__3403 pop_u64"]
-	1 -. Stack .-> 30
-	25["eff_merge__3397__3399 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3377__3400 push_u64"]
-	11 --> 26
-	7 -. Stack .-> 26
-	12["eff_nop__3396 nop"]
-	6["mb__3393 bool.&&"]
+	30["cond__3375__3403 U64_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3383 lift_u64"]
+	5 --> 11
+	5["arg__3380 0"]
+	29["b__3402 pop_u64"]
+	0 -. Stack .-> 29
+	27["eff_merge__3397__3401 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3377__3398 push_u64"]
+	4 --> 24
+	3 -. Stack .-> 24
+	18["eff_nop__3396 nop"]
+	14["mb__3393 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3392 U64_maybeFalse"]
+	6 --> 13
+	6["cond__3375 U64_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3392 U64_maybeFalse"]
-	15 --> 4
-	15["cond__3375 U64_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3391 U64_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	35 --> 31
-	1 --> 31
-	24["eff_merge__3395__3398 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3376__3401 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3391 U64_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	32 --> 34
+	0 --> 34
+	26["eff_merge__3395__3400 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3376__3399 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["I64_DIV_U_ul"]["post_surgery 1398"] = ''
 window.traces["I64_DIV_U_ul"]["post_surgery 1398"] += `<pre class='graph'>---
@@ -64961,160 +64961,160 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	47 --> 32
-	50 --> 32
-	50["eff__3377__3405__3414 push_u64"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	47 --> 35
+	50 --> 35
+	50["eff__3377__3404__3414 push_u64"]
 	49 --> 50
-	7 -. Stack .-> 50
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"r_state__3394 Start"\\]
+	3 -. Stack .-> 50
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"r_state__3394 Start"\\]
 	49["r__3413 U64_div"]
-	7 --> 49
-	5 --> 49
-	47["eff__3376__3406__3412 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
-	7 -. Stack .-> 47
-	29["mt__3391__3402 U64_maybeTrue"]
-	33 --> 29
-	33["cond__3375__3404 U64_equals"]
+	3 --> 49
+	2 --> 49
+	47["eff__3376__3405__3412 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
+	3 -. Stack .-> 47
+	33["mt__3391__3406 U64_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3383 lift_u64"]
-	13 --> 0
-	13["arg__3380 0"]
-	30["b__3403 pop_u64"]
-	1 -. Stack .-> 30
-	25["eff_merge__3397__3399 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3377__3400 push_u64"]
-	11 --> 26
-	7 -. Stack .-> 26
-	11["r U64_div"]
-	7 --> 11
+	30["cond__3375__3403 U64_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3383 lift_u64"]
 	5 --> 11
-	12["eff_nop__3396 nop"]
-	6["mb__3393 bool.&&"]
+	5["arg__3380 0"]
+	29["b__3402 pop_u64"]
+	0 -. Stack .-> 29
+	27["eff_merge__3397__3401 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3377__3398 push_u64"]
+	4 --> 24
+	3 -. Stack .-> 24
+	4["r U64_div"]
+	3 --> 4
+	2 --> 4
+	18["eff_nop__3396 nop"]
+	14["mb__3393 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3392 U64_maybeFalse"]
+	6 --> 13
+	6["cond__3375 U64_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3392 U64_maybeFalse"]
-	15 --> 4
-	15["cond__3375 U64_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3391 U64_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	47 --> 31
-	1 --> 31
-	24["eff_merge__3395__3398 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3376__3401 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3391 U64_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	47 --> 34
+	0 --> 34
+	26["eff_merge__3395__3400 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3376__3399 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["I64_DIV_U"]["unlem_scheduler"] = ''
 window.traces["I64_DIV_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1391["Block 1391"]
 	direction TB
-	b1391_3[\\"Finish"/]
+	b1391_1[\\"Finish"/]
 end
 phi_1393 --> block_1391
 subgraph phi_1393["Phi 1393"]
-	p1393_19{{"Sϕ Stack "}}
-	p1393_19{{"Sϕ Stack "}}
-	p1393_18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1393_10{{"Sϕ Stack "}}
+	p1393_10{{"Sϕ Stack "}}
+	p1393_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1394 --> phi_1393
 block_1395 --> phi_1393
 subgraph block_1394["Block 1394"]
 	direction TB
-	b1394_11["r U64_div"]
-	b1394_26["eff__3377__3400 push_u64"]
-	b1394_12["eff_nop__3396 nop"]
-	b1394_27["eff__3376__3401 trapDivideByZero"]
-	b1394_25["eff_merge__3397__3399 merge"]
-	b1394_24["eff_merge__3395__3398 merge"]
-	b1394_11 --> b1394_26
-	b1394_26 --> b1394_12
-	b1394_12 --> b1394_27
-	b1394_27 --> b1394_25
-	b1394_25 --> b1394_24
+	b1394_4["r U64_div"]
+	b1394_24["eff__3377__3398 push_u64"]
+	b1394_18["eff_nop__3396 nop"]
+	b1394_25["eff__3376__3399 trapDivideByZero"]
+	b1394_27["eff_merge__3397__3401 merge"]
+	b1394_26["eff_merge__3395__3400 merge"]
+	b1394_4 --> b1394_24
+	b1394_24 --> b1394_18
+	b1394_18 --> b1394_25
+	b1394_25 --> b1394_27
+	b1394_27 --> b1394_26
 end
 branch_1392 --> block_1394
 subgraph branch_1392["Branch 1392"]
-	br1392_6["mb__3393 bool.&&"]
+	br1392_14["mb__3393 bool.&&"]
 
 end
 block_1396 --> branch_1392
 subgraph block_1396["Block 1396"]
 	direction TB
-	b1396_1[/"r_state__3394 Start"\\]
-	b1396_13["arg__3380 0"]
-	b1396_30["b__3403 pop_u64"]
-	b1396_0["abs__3383 lift_u64"]
-	b1396_5["b pop_u64"]
-	b1396_7["a pop_u64"]
-	b1396_33["cond__3375__3404 U64_equals"]
-	b1396_15["cond__3375 U64_equals"]
-	b1396_29["mt__3391__3402 U64_maybeTrue"]
-	b1396_4["mf__3392 U64_maybeFalse"]
-	b1396_2["mt__3391 U64_maybeTrue"]
-	b1396_6["mb__3393 bool.&&"]
-	b1396_1 --> b1396_13
-	b1396_13 --> b1396_30
-	b1396_30 --> b1396_0
+	b1396_0[/"r_state__3394 Start"\\]
+	b1396_5["arg__3380 0"]
+	b1396_29["b__3402 pop_u64"]
+	b1396_11["abs__3383 lift_u64"]
+	b1396_2["b pop_u64"]
+	b1396_3["a pop_u64"]
+	b1396_30["cond__3375__3403 U64_equals"]
+	b1396_6["cond__3375 U64_equals"]
+	b1396_33["mt__3391__3406 U64_maybeTrue"]
+	b1396_13["mf__3392 U64_maybeFalse"]
+	b1396_12["mt__3391 U64_maybeTrue"]
+	b1396_14["mb__3393 bool.&&"]
 	b1396_0 --> b1396_5
-	b1396_5 --> b1396_7
-	b1396_7 --> b1396_33
-	b1396_33 --> b1396_15
-	b1396_15 --> b1396_29
-	b1396_29 --> b1396_4
-	b1396_4 --> b1396_2
-	b1396_2 --> b1396_6
+	b1396_5 --> b1396_29
+	b1396_29 --> b1396_11
+	b1396_11 --> b1396_2
+	b1396_2 --> b1396_3
+	b1396_3 --> b1396_30
+	b1396_30 --> b1396_6
+	b1396_6 --> b1396_33
+	b1396_33 --> b1396_13
+	b1396_13 --> b1396_12
+	b1396_12 --> b1396_14
 end
 subgraph block_1395["Block 1395"]
 	direction TB
 end
 phi_1398 --> block_1395
 subgraph phi_1398["Phi 1398"]
-	p1398_31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1398_32{{"Sϕ Stack "}}
+	p1398_35{{"Sϕ Stack "}}
+	p1398_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1399 --> phi_1398
 block_1400 --> phi_1398
 subgraph block_1399["Block 1399"]
 	direction TB
-	b1399_47["eff__3376__3406__3412 trapDivideByZero"]
+	b1399_47["eff__3376__3405__3412 trapDivideByZero"]
 end
 branch_1397 --> block_1399
 subgraph branch_1397["Branch 1397"]
-	br1397_29["mt__3391__3402 U64_maybeTrue"]
+	br1397_33["mt__3391__3406 U64_maybeTrue"]
 
 end
 branch_1392 --> branch_1397
 subgraph block_1400["Block 1400"]
 	direction TB
 	b1400_49["r__3413 U64_div"]
-	b1400_50["eff__3377__3405__3414 push_u64"]
+	b1400_50["eff__3377__3404__3414 push_u64"]
 	b1400_49 --> b1400_50
 end
 branch_1397 --> block_1400
@@ -65122,29 +65122,29 @@ branch_1397 --> block_1400
 </pre>`;
 window.traces["I64_DIV_U"]["unlem_scheduler_ssa"] = ''
 window.traces["I64_DIV_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3380 : u64 = 0;
-def b__3403 = pop_u64();
+def b__3402 = pop_u64();
 def abs__3383 = lift_u64(arg__3380);
 def b = pop_u64();
 def a = pop_u64();
-def cond__3375__3404 = U64_equals(b__3403, abs__3383);
+def cond__3375__3403 = U64_equals(b__3402, abs__3383);
 def cond__3375 = U64_equals(b, abs__3383);
-def mt__3391__3402 = U64_maybeTrue(cond__3375__3404);
+def mt__3391__3406 = U64_maybeTrue(cond__3375__3403);
 def mf__3392 = U64_maybeFalse(cond__3375);
 def mt__3391 = U64_maybeTrue(cond__3375);
 def mb__3393 = bool.&&(mt__3391, mf__3392);
 if (mb__3393) {
 	def r = U64_div(a, b);
-	def eff__3377__3400 = push_u64(r);
+	def eff__3377__3398 = push_u64(r);
 	def eff_nop__3396 = nop();
-	def eff__3376__3401 = trapDivideByZero();
-	def eff_merge__3397__3399 = merge(eff_nop__3396, eff__3377__3400);
-	def eff_merge__3395__3398 = merge(eff__3376__3401, r_state__3394);
+	def eff__3376__3399 = trapDivideByZero();
+	def eff_merge__3397__3401 = merge(eff_nop__3396, eff__3377__3398);
+	def eff_merge__3395__3400 = merge(eff__3376__3399, r_state__3394);
 } else {
-	if (mt__3391__3402) {
-		def eff__3376__3406__3412 = trapDivideByZero();
+	if (mt__3391__3406) {
+		def eff__3376__3405__3412 = trapDivideByZero();
 	} else {
 		def r__3413 = U64_div(a, b);
-		def eff__3377__3405__3414 = push_u64(r__3413);
+		def eff__3377__3404__3414 = push_u64(r__3413);
 	}
 // phis: 
 }
@@ -65395,49 +65395,49 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	10 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	11 -. Stack .-> 2
-	11{{"Sϕ Stack "}}
-	7 --> 11
-	15 --> 11
-	18 --> 11
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	6 --> 10
+	15 --> 10
+	18 --> 10
 	18["eff__3417__3427 push_u64"]
 	17 --> 18
-	4 -. Stack .-> 18
-	4["a pop_u64"]
-	3 -. Stack .-> 4
-	3["b pop_u64"]
-	1 -. Stack .-> 3
-	1[/"Start"\\]
+	3 -. Stack .-> 18
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
 	17["r__3426 U64_rem_s"]
-	4 --> 17
 	3 --> 17
+	2 --> 17
 	15["eff__3416__3425 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
-	4 -. Stack .-> 15
-	7["cond__3415 U64_equals"]
-	3 --> 7
-	0 --> 7
-	0["abs__3423 lift_u64"]
-	6 --> 0
-	6["arg__3420 0"]
-	10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	7 --> 10
-	15 --> 10
-	1 --> 10
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	6["cond__3415 U64_equals"]
+	2 --> 6
+	11 --> 6
+	11["abs__3423 lift_u64"]
+	5 --> 11
+	5["arg__3420 0"]
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	6 --> 9
+	15 --> 9
+	0 --> 9
 </pre>`;
 window.traces["I64_REM_S"]["schedulerMermaid"] = ''
 window.traces["I64_REM_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1401["Block 1401"]
 	direction TB
-	b1401_2[\\"Finish"/]
+	b1401_1[\\"Finish"/]
 end
 phi_1403 --> block_1401
 subgraph phi_1403["Phi 1403"]
-	p1403_11{{"Sϕ Stack "}}
-	p1403_11{{"Sϕ Stack "}}
-	p1403_10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1403_10{{"Sϕ Stack "}}
+	p1403_10{{"Sϕ Stack "}}
+	p1403_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1404 --> phi_1403
 block_1405 --> phi_1403
@@ -65447,23 +65447,23 @@ subgraph block_1404["Block 1404"]
 end
 branch_1402 --> block_1404
 subgraph branch_1402["Branch 1402"]
-	br1402_7["cond__3415 U64_equals"]
+	br1402_6["cond__3415 U64_equals"]
 
 end
 block_1406 --> branch_1402
 subgraph block_1406["Block 1406"]
 	direction TB
-	b1406_1[/"Start"\\]
-	b1406_6["arg__3420 0"]
-	b1406_3["b pop_u64"]
-	b1406_4["a pop_u64"]
-	b1406_0["abs__3423 lift_u64"]
-	b1406_7["cond__3415 U64_equals"]
-	b1406_1 --> b1406_6
-	b1406_6 --> b1406_3
-	b1406_3 --> b1406_4
-	b1406_4 --> b1406_0
-	b1406_0 --> b1406_7
+	b1406_0[/"Start"\\]
+	b1406_5["arg__3420 0"]
+	b1406_2["b pop_u64"]
+	b1406_3["a pop_u64"]
+	b1406_11["abs__3423 lift_u64"]
+	b1406_6["cond__3415 U64_equals"]
+	b1406_0 --> b1406_5
+	b1406_5 --> b1406_2
+	b1406_2 --> b1406_3
+	b1406_3 --> b1406_11
+	b1406_11 --> b1406_6
 end
 subgraph block_1405["Block 1405"]
 	direction TB
@@ -65591,72 +65591,72 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	35 --> 32
-	34 --> 32
-	34["eff__3417__3445 push_u64"]
-	11 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"r_state__3434 Start"\\]
-	11["r U64_rem_s"]
-	7 --> 11
-	5 --> 11
-	35["eff__3416__3446 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 35
-	7 -. Stack .-> 35
-	29["mt__3431__3442 U64_maybeTrue"]
-	33 --> 29
-	33["cond__3415__3444 U64_equals"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	32 --> 35
+	31 --> 35
+	31["eff__3417__3444 push_u64"]
+	4 --> 31
+	3 -. Stack .-> 31
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"r_state__3434 Start"\\]
+	4["r U64_rem_s"]
+	3 --> 4
+	2 --> 4
+	32["eff__3416__3445 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 32
+	3 -. Stack .-> 32
+	33["mt__3431__3446 U64_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3423 lift_u64"]
-	13 --> 0
-	13["arg__3420 0"]
-	30["b__3443 pop_u64"]
-	1 -. Stack .-> 30
-	25["eff_merge__3437__3439 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3417__3440 push_u64"]
-	11 --> 26
-	7 -. Stack .-> 26
-	12["eff_nop__3436 nop"]
-	6["mb__3433 bool.&&"]
+	30["cond__3415__3443 U64_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3423 lift_u64"]
+	5 --> 11
+	5["arg__3420 0"]
+	29["b__3442 pop_u64"]
+	0 -. Stack .-> 29
+	27["eff_merge__3437__3441 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3417__3438 push_u64"]
+	4 --> 24
+	3 -. Stack .-> 24
+	18["eff_nop__3436 nop"]
+	14["mb__3433 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3432 U64_maybeFalse"]
+	6 --> 13
+	6["cond__3415 U64_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3432 U64_maybeFalse"]
-	15 --> 4
-	15["cond__3415 U64_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3431 U64_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	35 --> 31
-	1 --> 31
-	24["eff_merge__3435__3438 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3416__3441 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3431 U64_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	32 --> 34
+	0 --> 34
+	26["eff_merge__3435__3440 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3416__3439 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["I64_REM_S_ul"]["post_surgery 1414"] = ''
 window.traces["I64_REM_S_ul"]["post_surgery 1414"] += `<pre class='graph'>---
@@ -65664,160 +65664,160 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	47 --> 32
-	50 --> 32
-	50["eff__3417__3445__3454 push_u64"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	47 --> 35
+	50 --> 35
+	50["eff__3417__3444__3454 push_u64"]
 	49 --> 50
-	7 -. Stack .-> 50
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"r_state__3434 Start"\\]
+	3 -. Stack .-> 50
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"r_state__3434 Start"\\]
 	49["r__3453 U64_rem_s"]
-	7 --> 49
-	5 --> 49
-	47["eff__3416__3446__3452 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
-	7 -. Stack .-> 47
-	29["mt__3431__3442 U64_maybeTrue"]
-	33 --> 29
-	33["cond__3415__3444 U64_equals"]
+	3 --> 49
+	2 --> 49
+	47["eff__3416__3445__3452 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
+	3 -. Stack .-> 47
+	33["mt__3431__3446 U64_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3423 lift_u64"]
-	13 --> 0
-	13["arg__3420 0"]
-	30["b__3443 pop_u64"]
-	1 -. Stack .-> 30
-	25["eff_merge__3437__3439 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3417__3440 push_u64"]
-	11 --> 26
-	7 -. Stack .-> 26
-	11["r U64_rem_s"]
-	7 --> 11
+	30["cond__3415__3443 U64_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3423 lift_u64"]
 	5 --> 11
-	12["eff_nop__3436 nop"]
-	6["mb__3433 bool.&&"]
+	5["arg__3420 0"]
+	29["b__3442 pop_u64"]
+	0 -. Stack .-> 29
+	27["eff_merge__3437__3441 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3417__3438 push_u64"]
+	4 --> 24
+	3 -. Stack .-> 24
+	4["r U64_rem_s"]
+	3 --> 4
+	2 --> 4
+	18["eff_nop__3436 nop"]
+	14["mb__3433 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3432 U64_maybeFalse"]
+	6 --> 13
+	6["cond__3415 U64_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3432 U64_maybeFalse"]
-	15 --> 4
-	15["cond__3415 U64_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3431 U64_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	47 --> 31
-	1 --> 31
-	24["eff_merge__3435__3438 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3416__3441 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3431 U64_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	47 --> 34
+	0 --> 34
+	26["eff_merge__3435__3440 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3416__3439 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["I64_REM_S"]["unlem_scheduler"] = ''
 window.traces["I64_REM_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1407["Block 1407"]
 	direction TB
-	b1407_3[\\"Finish"/]
+	b1407_1[\\"Finish"/]
 end
 phi_1409 --> block_1407
 subgraph phi_1409["Phi 1409"]
-	p1409_19{{"Sϕ Stack "}}
-	p1409_19{{"Sϕ Stack "}}
-	p1409_18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1409_10{{"Sϕ Stack "}}
+	p1409_10{{"Sϕ Stack "}}
+	p1409_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1410 --> phi_1409
 block_1411 --> phi_1409
 subgraph block_1410["Block 1410"]
 	direction TB
-	b1410_11["r U64_rem_s"]
-	b1410_26["eff__3417__3440 push_u64"]
-	b1410_12["eff_nop__3436 nop"]
-	b1410_27["eff__3416__3441 trapDivideByZero"]
-	b1410_25["eff_merge__3437__3439 merge"]
-	b1410_24["eff_merge__3435__3438 merge"]
-	b1410_11 --> b1410_26
-	b1410_26 --> b1410_12
-	b1410_12 --> b1410_27
-	b1410_27 --> b1410_25
-	b1410_25 --> b1410_24
+	b1410_4["r U64_rem_s"]
+	b1410_24["eff__3417__3438 push_u64"]
+	b1410_18["eff_nop__3436 nop"]
+	b1410_25["eff__3416__3439 trapDivideByZero"]
+	b1410_27["eff_merge__3437__3441 merge"]
+	b1410_26["eff_merge__3435__3440 merge"]
+	b1410_4 --> b1410_24
+	b1410_24 --> b1410_18
+	b1410_18 --> b1410_25
+	b1410_25 --> b1410_27
+	b1410_27 --> b1410_26
 end
 branch_1408 --> block_1410
 subgraph branch_1408["Branch 1408"]
-	br1408_6["mb__3433 bool.&&"]
+	br1408_14["mb__3433 bool.&&"]
 
 end
 block_1412 --> branch_1408
 subgraph block_1412["Block 1412"]
 	direction TB
-	b1412_1[/"r_state__3434 Start"\\]
-	b1412_13["arg__3420 0"]
-	b1412_30["b__3443 pop_u64"]
-	b1412_0["abs__3423 lift_u64"]
-	b1412_5["b pop_u64"]
-	b1412_7["a pop_u64"]
-	b1412_33["cond__3415__3444 U64_equals"]
-	b1412_15["cond__3415 U64_equals"]
-	b1412_29["mt__3431__3442 U64_maybeTrue"]
-	b1412_4["mf__3432 U64_maybeFalse"]
-	b1412_2["mt__3431 U64_maybeTrue"]
-	b1412_6["mb__3433 bool.&&"]
-	b1412_1 --> b1412_13
-	b1412_13 --> b1412_30
-	b1412_30 --> b1412_0
+	b1412_0[/"r_state__3434 Start"\\]
+	b1412_5["arg__3420 0"]
+	b1412_29["b__3442 pop_u64"]
+	b1412_11["abs__3423 lift_u64"]
+	b1412_2["b pop_u64"]
+	b1412_3["a pop_u64"]
+	b1412_30["cond__3415__3443 U64_equals"]
+	b1412_6["cond__3415 U64_equals"]
+	b1412_33["mt__3431__3446 U64_maybeTrue"]
+	b1412_13["mf__3432 U64_maybeFalse"]
+	b1412_12["mt__3431 U64_maybeTrue"]
+	b1412_14["mb__3433 bool.&&"]
 	b1412_0 --> b1412_5
-	b1412_5 --> b1412_7
-	b1412_7 --> b1412_33
-	b1412_33 --> b1412_15
-	b1412_15 --> b1412_29
-	b1412_29 --> b1412_4
-	b1412_4 --> b1412_2
-	b1412_2 --> b1412_6
+	b1412_5 --> b1412_29
+	b1412_29 --> b1412_11
+	b1412_11 --> b1412_2
+	b1412_2 --> b1412_3
+	b1412_3 --> b1412_30
+	b1412_30 --> b1412_6
+	b1412_6 --> b1412_33
+	b1412_33 --> b1412_13
+	b1412_13 --> b1412_12
+	b1412_12 --> b1412_14
 end
 subgraph block_1411["Block 1411"]
 	direction TB
 end
 phi_1414 --> block_1411
 subgraph phi_1414["Phi 1414"]
-	p1414_31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1414_32{{"Sϕ Stack "}}
+	p1414_35{{"Sϕ Stack "}}
+	p1414_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1415 --> phi_1414
 block_1416 --> phi_1414
 subgraph block_1415["Block 1415"]
 	direction TB
-	b1415_47["eff__3416__3446__3452 trapDivideByZero"]
+	b1415_47["eff__3416__3445__3452 trapDivideByZero"]
 end
 branch_1413 --> block_1415
 subgraph branch_1413["Branch 1413"]
-	br1413_29["mt__3431__3442 U64_maybeTrue"]
+	br1413_33["mt__3431__3446 U64_maybeTrue"]
 
 end
 branch_1408 --> branch_1413
 subgraph block_1416["Block 1416"]
 	direction TB
 	b1416_49["r__3453 U64_rem_s"]
-	b1416_50["eff__3417__3445__3454 push_u64"]
+	b1416_50["eff__3417__3444__3454 push_u64"]
 	b1416_49 --> b1416_50
 end
 branch_1413 --> block_1416
@@ -65825,29 +65825,29 @@ branch_1413 --> block_1416
 </pre>`;
 window.traces["I64_REM_S"]["unlem_scheduler_ssa"] = ''
 window.traces["I64_REM_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3420 : u64 = 0;
-def b__3443 = pop_u64();
+def b__3442 = pop_u64();
 def abs__3423 = lift_u64(arg__3420);
 def b = pop_u64();
 def a = pop_u64();
-def cond__3415__3444 = U64_equals(b__3443, abs__3423);
+def cond__3415__3443 = U64_equals(b__3442, abs__3423);
 def cond__3415 = U64_equals(b, abs__3423);
-def mt__3431__3442 = U64_maybeTrue(cond__3415__3444);
+def mt__3431__3446 = U64_maybeTrue(cond__3415__3443);
 def mf__3432 = U64_maybeFalse(cond__3415);
 def mt__3431 = U64_maybeTrue(cond__3415);
 def mb__3433 = bool.&&(mt__3431, mf__3432);
 if (mb__3433) {
 	def r = U64_rem_s(a, b);
-	def eff__3417__3440 = push_u64(r);
+	def eff__3417__3438 = push_u64(r);
 	def eff_nop__3436 = nop();
-	def eff__3416__3441 = trapDivideByZero();
-	def eff_merge__3437__3439 = merge(eff_nop__3436, eff__3417__3440);
-	def eff_merge__3435__3438 = merge(eff__3416__3441, r_state__3434);
+	def eff__3416__3439 = trapDivideByZero();
+	def eff_merge__3437__3441 = merge(eff_nop__3436, eff__3417__3438);
+	def eff_merge__3435__3440 = merge(eff__3416__3439, r_state__3434);
 } else {
-	if (mt__3431__3442) {
-		def eff__3416__3446__3452 = trapDivideByZero();
+	if (mt__3431__3446) {
+		def eff__3416__3445__3452 = trapDivideByZero();
 	} else {
 		def r__3453 = U64_rem_s(a, b);
-		def eff__3417__3445__3454 = push_u64(r__3453);
+		def eff__3417__3444__3454 = push_u64(r__3453);
 	}
 // phis: 
 }
@@ -66098,49 +66098,49 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	10 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	11 -. Stack .-> 2
-	11{{"Sϕ Stack "}}
-	7 --> 11
-	15 --> 11
-	18 --> 11
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	6 --> 10
+	15 --> 10
+	18 --> 10
 	18["eff__3457__3467 push_u64"]
 	17 --> 18
-	4 -. Stack .-> 18
-	4["a pop_u64"]
-	3 -. Stack .-> 4
-	3["b pop_u64"]
-	1 -. Stack .-> 3
-	1[/"Start"\\]
+	3 -. Stack .-> 18
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
 	17["r__3466 U64_rem_u"]
-	4 --> 17
 	3 --> 17
+	2 --> 17
 	15["eff__3456__3465 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
-	4 -. Stack .-> 15
-	7["cond__3455 U64_equals"]
-	3 --> 7
-	0 --> 7
-	0["abs__3463 lift_u64"]
-	6 --> 0
-	6["arg__3460 0"]
-	10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	7 --> 10
-	15 --> 10
-	1 --> 10
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	6["cond__3455 U64_equals"]
+	2 --> 6
+	11 --> 6
+	11["abs__3463 lift_u64"]
+	5 --> 11
+	5["arg__3460 0"]
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	6 --> 9
+	15 --> 9
+	0 --> 9
 </pre>`;
 window.traces["I64_REM_U"]["schedulerMermaid"] = ''
 window.traces["I64_REM_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1417["Block 1417"]
 	direction TB
-	b1417_2[\\"Finish"/]
+	b1417_1[\\"Finish"/]
 end
 phi_1419 --> block_1417
 subgraph phi_1419["Phi 1419"]
-	p1419_11{{"Sϕ Stack "}}
-	p1419_11{{"Sϕ Stack "}}
-	p1419_10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1419_10{{"Sϕ Stack "}}
+	p1419_10{{"Sϕ Stack "}}
+	p1419_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1420 --> phi_1419
 block_1421 --> phi_1419
@@ -66150,23 +66150,23 @@ subgraph block_1420["Block 1420"]
 end
 branch_1418 --> block_1420
 subgraph branch_1418["Branch 1418"]
-	br1418_7["cond__3455 U64_equals"]
+	br1418_6["cond__3455 U64_equals"]
 
 end
 block_1422 --> branch_1418
 subgraph block_1422["Block 1422"]
 	direction TB
-	b1422_1[/"Start"\\]
-	b1422_6["arg__3460 0"]
-	b1422_3["b pop_u64"]
-	b1422_4["a pop_u64"]
-	b1422_0["abs__3463 lift_u64"]
-	b1422_7["cond__3455 U64_equals"]
-	b1422_1 --> b1422_6
-	b1422_6 --> b1422_3
-	b1422_3 --> b1422_4
-	b1422_4 --> b1422_0
-	b1422_0 --> b1422_7
+	b1422_0[/"Start"\\]
+	b1422_5["arg__3460 0"]
+	b1422_2["b pop_u64"]
+	b1422_3["a pop_u64"]
+	b1422_11["abs__3463 lift_u64"]
+	b1422_6["cond__3455 U64_equals"]
+	b1422_0 --> b1422_5
+	b1422_5 --> b1422_2
+	b1422_2 --> b1422_3
+	b1422_3 --> b1422_11
+	b1422_11 --> b1422_6
 end
 subgraph block_1421["Block 1421"]
 	direction TB
@@ -66294,72 +66294,72 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	35 --> 32
-	34 --> 32
-	34["eff__3457__3485 push_u64"]
-	11 --> 34
-	7 -. Stack .-> 34
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"r_state__3474 Start"\\]
-	11["r U64_rem_u"]
-	7 --> 11
-	5 --> 11
-	35["eff__3456__3486 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 35
-	7 -. Stack .-> 35
-	29["mt__3471__3482 U64_maybeTrue"]
-	33 --> 29
-	33["cond__3455__3484 U64_equals"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	32 --> 35
+	31 --> 35
+	31["eff__3457__3484 push_u64"]
+	4 --> 31
+	3 -. Stack .-> 31
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"r_state__3474 Start"\\]
+	4["r U64_rem_u"]
+	3 --> 4
+	2 --> 4
+	32["eff__3456__3485 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 32
+	3 -. Stack .-> 32
+	33["mt__3471__3486 U64_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3463 lift_u64"]
-	13 --> 0
-	13["arg__3460 0"]
-	30["b__3483 pop_u64"]
-	1 -. Stack .-> 30
-	25["eff_merge__3477__3479 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3457__3480 push_u64"]
-	11 --> 26
-	7 -. Stack .-> 26
-	12["eff_nop__3476 nop"]
-	6["mb__3473 bool.&&"]
+	30["cond__3455__3483 U64_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3463 lift_u64"]
+	5 --> 11
+	5["arg__3460 0"]
+	29["b__3482 pop_u64"]
+	0 -. Stack .-> 29
+	27["eff_merge__3477__3481 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3457__3478 push_u64"]
+	4 --> 24
+	3 -. Stack .-> 24
+	18["eff_nop__3476 nop"]
+	14["mb__3473 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3472 U64_maybeFalse"]
+	6 --> 13
+	6["cond__3455 U64_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3472 U64_maybeFalse"]
-	15 --> 4
-	15["cond__3455 U64_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3471 U64_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	35 --> 31
-	1 --> 31
-	24["eff_merge__3475__3478 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3456__3481 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3471 U64_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	32 --> 34
+	0 --> 34
+	26["eff_merge__3475__3480 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3456__3479 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["I64_REM_U_ul"]["post_surgery 1430"] = ''
 window.traces["I64_REM_U_ul"]["post_surgery 1430"] += `<pre class='graph'>---
@@ -66367,160 +66367,160 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	47 --> 32
-	50 --> 32
-	50["eff__3457__3485__3494 push_u64"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	47 --> 35
+	50 --> 35
+	50["eff__3457__3484__3494 push_u64"]
 	49 --> 50
-	7 -. Stack .-> 50
-	7["a pop_u64"]
-	5 -. Stack .-> 7
-	5["b pop_u64"]
-	1 -. Stack .-> 5
-	1[/"r_state__3474 Start"\\]
+	3 -. Stack .-> 50
+	3["a pop_u64"]
+	2 -. Stack .-> 3
+	2["b pop_u64"]
+	0 -. Stack .-> 2
+	0[/"r_state__3474 Start"\\]
 	49["r__3493 U64_rem_u"]
-	7 --> 49
-	5 --> 49
-	47["eff__3456__3486__3492 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
-	7 -. Stack .-> 47
-	29["mt__3471__3482 U64_maybeTrue"]
-	33 --> 29
-	33["cond__3455__3484 U64_equals"]
+	3 --> 49
+	2 --> 49
+	47["eff__3456__3485__3492 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
+	3 -. Stack .-> 47
+	33["mt__3471__3486 U64_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3463 lift_u64"]
-	13 --> 0
-	13["arg__3460 0"]
-	30["b__3483 pop_u64"]
-	1 -. Stack .-> 30
-	25["eff_merge__3477__3479 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3457__3480 push_u64"]
-	11 --> 26
-	7 -. Stack .-> 26
-	11["r U64_rem_u"]
-	7 --> 11
+	30["cond__3455__3483 U64_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3463 lift_u64"]
 	5 --> 11
-	12["eff_nop__3476 nop"]
-	6["mb__3473 bool.&&"]
+	5["arg__3460 0"]
+	29["b__3482 pop_u64"]
+	0 -. Stack .-> 29
+	27["eff_merge__3477__3481 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3457__3478 push_u64"]
+	4 --> 24
+	3 -. Stack .-> 24
+	4["r U64_rem_u"]
+	3 --> 4
+	2 --> 4
+	18["eff_nop__3476 nop"]
+	14["mb__3473 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3472 U64_maybeFalse"]
+	6 --> 13
+	6["cond__3455 U64_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3472 U64_maybeFalse"]
-	15 --> 4
-	15["cond__3455 U64_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3471 U64_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	47 --> 31
-	1 --> 31
-	24["eff_merge__3475__3478 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3456__3481 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3471 U64_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	47 --> 34
+	0 --> 34
+	26["eff_merge__3475__3480 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3456__3479 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["I64_REM_U"]["unlem_scheduler"] = ''
 window.traces["I64_REM_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1423["Block 1423"]
 	direction TB
-	b1423_3[\\"Finish"/]
+	b1423_1[\\"Finish"/]
 end
 phi_1425 --> block_1423
 subgraph phi_1425["Phi 1425"]
-	p1425_19{{"Sϕ Stack "}}
-	p1425_19{{"Sϕ Stack "}}
-	p1425_18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1425_10{{"Sϕ Stack "}}
+	p1425_10{{"Sϕ Stack "}}
+	p1425_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1426 --> phi_1425
 block_1427 --> phi_1425
 subgraph block_1426["Block 1426"]
 	direction TB
-	b1426_11["r U64_rem_u"]
-	b1426_26["eff__3457__3480 push_u64"]
-	b1426_12["eff_nop__3476 nop"]
-	b1426_27["eff__3456__3481 trapDivideByZero"]
-	b1426_25["eff_merge__3477__3479 merge"]
-	b1426_24["eff_merge__3475__3478 merge"]
-	b1426_11 --> b1426_26
-	b1426_26 --> b1426_12
-	b1426_12 --> b1426_27
-	b1426_27 --> b1426_25
-	b1426_25 --> b1426_24
+	b1426_4["r U64_rem_u"]
+	b1426_24["eff__3457__3478 push_u64"]
+	b1426_18["eff_nop__3476 nop"]
+	b1426_25["eff__3456__3479 trapDivideByZero"]
+	b1426_27["eff_merge__3477__3481 merge"]
+	b1426_26["eff_merge__3475__3480 merge"]
+	b1426_4 --> b1426_24
+	b1426_24 --> b1426_18
+	b1426_18 --> b1426_25
+	b1426_25 --> b1426_27
+	b1426_27 --> b1426_26
 end
 branch_1424 --> block_1426
 subgraph branch_1424["Branch 1424"]
-	br1424_6["mb__3473 bool.&&"]
+	br1424_14["mb__3473 bool.&&"]
 
 end
 block_1428 --> branch_1424
 subgraph block_1428["Block 1428"]
 	direction TB
-	b1428_1[/"r_state__3474 Start"\\]
-	b1428_13["arg__3460 0"]
-	b1428_30["b__3483 pop_u64"]
-	b1428_0["abs__3463 lift_u64"]
-	b1428_5["b pop_u64"]
-	b1428_7["a pop_u64"]
-	b1428_33["cond__3455__3484 U64_equals"]
-	b1428_15["cond__3455 U64_equals"]
-	b1428_29["mt__3471__3482 U64_maybeTrue"]
-	b1428_4["mf__3472 U64_maybeFalse"]
-	b1428_2["mt__3471 U64_maybeTrue"]
-	b1428_6["mb__3473 bool.&&"]
-	b1428_1 --> b1428_13
-	b1428_13 --> b1428_30
-	b1428_30 --> b1428_0
+	b1428_0[/"r_state__3474 Start"\\]
+	b1428_5["arg__3460 0"]
+	b1428_29["b__3482 pop_u64"]
+	b1428_11["abs__3463 lift_u64"]
+	b1428_2["b pop_u64"]
+	b1428_3["a pop_u64"]
+	b1428_30["cond__3455__3483 U64_equals"]
+	b1428_6["cond__3455 U64_equals"]
+	b1428_33["mt__3471__3486 U64_maybeTrue"]
+	b1428_13["mf__3472 U64_maybeFalse"]
+	b1428_12["mt__3471 U64_maybeTrue"]
+	b1428_14["mb__3473 bool.&&"]
 	b1428_0 --> b1428_5
-	b1428_5 --> b1428_7
-	b1428_7 --> b1428_33
-	b1428_33 --> b1428_15
-	b1428_15 --> b1428_29
-	b1428_29 --> b1428_4
-	b1428_4 --> b1428_2
-	b1428_2 --> b1428_6
+	b1428_5 --> b1428_29
+	b1428_29 --> b1428_11
+	b1428_11 --> b1428_2
+	b1428_2 --> b1428_3
+	b1428_3 --> b1428_30
+	b1428_30 --> b1428_6
+	b1428_6 --> b1428_33
+	b1428_33 --> b1428_13
+	b1428_13 --> b1428_12
+	b1428_12 --> b1428_14
 end
 subgraph block_1427["Block 1427"]
 	direction TB
 end
 phi_1430 --> block_1427
 subgraph phi_1430["Phi 1430"]
-	p1430_31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1430_32{{"Sϕ Stack "}}
+	p1430_35{{"Sϕ Stack "}}
+	p1430_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1431 --> phi_1430
 block_1432 --> phi_1430
 subgraph block_1431["Block 1431"]
 	direction TB
-	b1431_47["eff__3456__3486__3492 trapDivideByZero"]
+	b1431_47["eff__3456__3485__3492 trapDivideByZero"]
 end
 branch_1429 --> block_1431
 subgraph branch_1429["Branch 1429"]
-	br1429_29["mt__3471__3482 U64_maybeTrue"]
+	br1429_33["mt__3471__3486 U64_maybeTrue"]
 
 end
 branch_1424 --> branch_1429
 subgraph block_1432["Block 1432"]
 	direction TB
 	b1432_49["r__3493 U64_rem_u"]
-	b1432_50["eff__3457__3485__3494 push_u64"]
+	b1432_50["eff__3457__3484__3494 push_u64"]
 	b1432_49 --> b1432_50
 end
 branch_1429 --> block_1432
@@ -66528,29 +66528,29 @@ branch_1429 --> block_1432
 </pre>`;
 window.traces["I64_REM_U"]["unlem_scheduler_ssa"] = ''
 window.traces["I64_REM_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3460 : u64 = 0;
-def b__3483 = pop_u64();
+def b__3482 = pop_u64();
 def abs__3463 = lift_u64(arg__3460);
 def b = pop_u64();
 def a = pop_u64();
-def cond__3455__3484 = U64_equals(b__3483, abs__3463);
+def cond__3455__3483 = U64_equals(b__3482, abs__3463);
 def cond__3455 = U64_equals(b, abs__3463);
-def mt__3471__3482 = U64_maybeTrue(cond__3455__3484);
+def mt__3471__3486 = U64_maybeTrue(cond__3455__3483);
 def mf__3472 = U64_maybeFalse(cond__3455);
 def mt__3471 = U64_maybeTrue(cond__3455);
 def mb__3473 = bool.&&(mt__3471, mf__3472);
 if (mb__3473) {
 	def r = U64_rem_u(a, b);
-	def eff__3457__3480 = push_u64(r);
+	def eff__3457__3478 = push_u64(r);
 	def eff_nop__3476 = nop();
-	def eff__3456__3481 = trapDivideByZero();
-	def eff_merge__3477__3479 = merge(eff_nop__3476, eff__3457__3480);
-	def eff_merge__3475__3478 = merge(eff__3456__3481, r_state__3474);
+	def eff__3456__3479 = trapDivideByZero();
+	def eff_merge__3477__3481 = merge(eff_nop__3476, eff__3457__3478);
+	def eff_merge__3475__3480 = merge(eff__3456__3479, r_state__3474);
 } else {
-	if (mt__3471__3482) {
-		def eff__3456__3486__3492 = trapDivideByZero();
+	if (mt__3471__3486) {
+		def eff__3456__3485__3492 = trapDivideByZero();
 	} else {
 		def r__3493 = U64_rem_u(a, b);
-		def eff__3457__3485__3494 = push_u64(r__3493);
+		def eff__3457__3484__3494 = push_u64(r__3493);
 	}
 // phis: 
 }
@@ -70447,49 +70447,49 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	10 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	11 -. Stack .-> 2
-	11{{"Sϕ Stack "}}
-	7 --> 11
-	15 --> 11
-	18 --> 11
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	6 --> 10
+	15 --> 10
+	18 --> 10
 	18["eff__3562__3572 push_f32"]
 	17 --> 18
-	4 -. Stack .-> 18
-	4["a pop_f32"]
-	3 -. Stack .-> 4
-	3["b pop_f32"]
-	1 -. Stack .-> 3
-	1[/"Start"\\]
+	3 -. Stack .-> 18
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
 	17["r__3571 F32_div"]
-	4 --> 17
 	3 --> 17
+	2 --> 17
 	15["eff__3561__3570 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
-	4 -. Stack .-> 15
-	7["cond__3560 F32_equals"]
-	3 --> 7
-	0 --> 7
-	0["abs__3568 lift_f32"]
-	6 --> 0
-	6["arg__3565 0.0f"]
-	10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	7 --> 10
-	15 --> 10
-	1 --> 10
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	6["cond__3560 F32_equals"]
+	2 --> 6
+	11 --> 6
+	11["abs__3568 lift_f32"]
+	5 --> 11
+	5["arg__3565 0.0f"]
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	6 --> 9
+	15 --> 9
+	0 --> 9
 </pre>`;
 window.traces["F32_DIV"]["schedulerMermaid"] = ''
 window.traces["F32_DIV"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1469["Block 1469"]
 	direction TB
-	b1469_2[\\"Finish"/]
+	b1469_1[\\"Finish"/]
 end
 phi_1471 --> block_1469
 subgraph phi_1471["Phi 1471"]
-	p1471_11{{"Sϕ Stack "}}
-	p1471_11{{"Sϕ Stack "}}
-	p1471_10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1471_10{{"Sϕ Stack "}}
+	p1471_10{{"Sϕ Stack "}}
+	p1471_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1472 --> phi_1471
 block_1473 --> phi_1471
@@ -70499,23 +70499,23 @@ subgraph block_1472["Block 1472"]
 end
 branch_1470 --> block_1472
 subgraph branch_1470["Branch 1470"]
-	br1470_7["cond__3560 F32_equals"]
+	br1470_6["cond__3560 F32_equals"]
 
 end
 block_1474 --> branch_1470
 subgraph block_1474["Block 1474"]
 	direction TB
-	b1474_1[/"Start"\\]
-	b1474_6["arg__3565 0.0f"]
-	b1474_3["b pop_f32"]
-	b1474_4["a pop_f32"]
-	b1474_0["abs__3568 lift_f32"]
-	b1474_7["cond__3560 F32_equals"]
-	b1474_1 --> b1474_6
-	b1474_6 --> b1474_3
-	b1474_3 --> b1474_4
-	b1474_4 --> b1474_0
-	b1474_0 --> b1474_7
+	b1474_0[/"Start"\\]
+	b1474_5["arg__3565 0.0f"]
+	b1474_2["b pop_f32"]
+	b1474_3["a pop_f32"]
+	b1474_11["abs__3568 lift_f32"]
+	b1474_6["cond__3560 F32_equals"]
+	b1474_0 --> b1474_5
+	b1474_5 --> b1474_2
+	b1474_2 --> b1474_3
+	b1474_3 --> b1474_11
+	b1474_11 --> b1474_6
 end
 subgraph block_1473["Block 1473"]
 	direction TB
@@ -70643,72 +70643,72 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	35 --> 32
-	34 --> 32
-	34["eff__3562__3590 push_f32"]
-	11 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"r_state__3579 Start"\\]
-	11["r F32_div"]
-	7 --> 11
-	5 --> 11
-	35["eff__3561__3591 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 35
-	7 -. Stack .-> 35
-	29["mt__3576__3587 U32_maybeTrue"]
-	33 --> 29
-	33["cond__3560__3589 F32_equals"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	32 --> 35
+	31 --> 35
+	31["eff__3562__3589 push_f32"]
+	4 --> 31
+	3 -. Stack .-> 31
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"r_state__3579 Start"\\]
+	4["r F32_div"]
+	3 --> 4
+	2 --> 4
+	32["eff__3561__3590 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 32
+	3 -. Stack .-> 32
+	33["mt__3576__3591 U32_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3568 lift_f32"]
-	13 --> 0
-	13["arg__3565 0.0f"]
-	30["b__3588 pop_f32"]
-	1 -. Stack .-> 30
-	25["eff_merge__3582__3584 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3562__3585 push_f32"]
-	11 --> 26
-	7 -. Stack .-> 26
-	12["eff_nop__3581 nop"]
-	6["mb__3578 bool.&&"]
+	30["cond__3560__3588 F32_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3568 lift_f32"]
+	5 --> 11
+	5["arg__3565 0.0f"]
+	29["b__3587 pop_f32"]
+	0 -. Stack .-> 29
+	27["eff_merge__3582__3586 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3562__3583 push_f32"]
+	4 --> 24
+	3 -. Stack .-> 24
+	18["eff_nop__3581 nop"]
+	14["mb__3578 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3577 U32_maybeFalse"]
+	6 --> 13
+	6["cond__3560 F32_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3577 U32_maybeFalse"]
-	15 --> 4
-	15["cond__3560 F32_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3576 U32_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	35 --> 31
-	1 --> 31
-	24["eff_merge__3580__3583 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3561__3586 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3576 U32_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	32 --> 34
+	0 --> 34
+	26["eff_merge__3580__3585 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3561__3584 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["F32_DIV_ul"]["post_surgery 1482"] = ''
 window.traces["F32_DIV_ul"]["post_surgery 1482"] += `<pre class='graph'>---
@@ -70716,160 +70716,160 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	47 --> 32
-	50 --> 32
-	50["eff__3562__3590__3599 push_f32"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	47 --> 35
+	50 --> 35
+	50["eff__3562__3589__3599 push_f32"]
 	49 --> 50
-	7 -. Stack .-> 50
-	7["a pop_f32"]
-	5 -. Stack .-> 7
-	5["b pop_f32"]
-	1 -. Stack .-> 5
-	1[/"r_state__3579 Start"\\]
+	3 -. Stack .-> 50
+	3["a pop_f32"]
+	2 -. Stack .-> 3
+	2["b pop_f32"]
+	0 -. Stack .-> 2
+	0[/"r_state__3579 Start"\\]
 	49["r__3598 F32_div"]
-	7 --> 49
-	5 --> 49
-	47["eff__3561__3591__3597 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
-	7 -. Stack .-> 47
-	29["mt__3576__3587 U32_maybeTrue"]
-	33 --> 29
-	33["cond__3560__3589 F32_equals"]
+	3 --> 49
+	2 --> 49
+	47["eff__3561__3590__3597 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
+	3 -. Stack .-> 47
+	33["mt__3576__3591 U32_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3568 lift_f32"]
-	13 --> 0
-	13["arg__3565 0.0f"]
-	30["b__3588 pop_f32"]
-	1 -. Stack .-> 30
-	25["eff_merge__3582__3584 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3562__3585 push_f32"]
-	11 --> 26
-	7 -. Stack .-> 26
-	11["r F32_div"]
-	7 --> 11
+	30["cond__3560__3588 F32_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3568 lift_f32"]
 	5 --> 11
-	12["eff_nop__3581 nop"]
-	6["mb__3578 bool.&&"]
+	5["arg__3565 0.0f"]
+	29["b__3587 pop_f32"]
+	0 -. Stack .-> 29
+	27["eff_merge__3582__3586 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3562__3583 push_f32"]
+	4 --> 24
+	3 -. Stack .-> 24
+	4["r F32_div"]
+	3 --> 4
+	2 --> 4
+	18["eff_nop__3581 nop"]
+	14["mb__3578 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3577 U32_maybeFalse"]
+	6 --> 13
+	6["cond__3560 F32_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3577 U32_maybeFalse"]
-	15 --> 4
-	15["cond__3560 F32_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3576 U32_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	47 --> 31
-	1 --> 31
-	24["eff_merge__3580__3583 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3561__3586 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3576 U32_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	47 --> 34
+	0 --> 34
+	26["eff_merge__3580__3585 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3561__3584 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["F32_DIV"]["unlem_scheduler"] = ''
 window.traces["F32_DIV"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1475["Block 1475"]
 	direction TB
-	b1475_3[\\"Finish"/]
+	b1475_1[\\"Finish"/]
 end
 phi_1477 --> block_1475
 subgraph phi_1477["Phi 1477"]
-	p1477_19{{"Sϕ Stack "}}
-	p1477_19{{"Sϕ Stack "}}
-	p1477_18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1477_10{{"Sϕ Stack "}}
+	p1477_10{{"Sϕ Stack "}}
+	p1477_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1478 --> phi_1477
 block_1479 --> phi_1477
 subgraph block_1478["Block 1478"]
 	direction TB
-	b1478_11["r F32_div"]
-	b1478_26["eff__3562__3585 push_f32"]
-	b1478_12["eff_nop__3581 nop"]
-	b1478_27["eff__3561__3586 trapDivideByZero"]
-	b1478_25["eff_merge__3582__3584 merge"]
-	b1478_24["eff_merge__3580__3583 merge"]
-	b1478_11 --> b1478_26
-	b1478_26 --> b1478_12
-	b1478_12 --> b1478_27
-	b1478_27 --> b1478_25
-	b1478_25 --> b1478_24
+	b1478_4["r F32_div"]
+	b1478_24["eff__3562__3583 push_f32"]
+	b1478_18["eff_nop__3581 nop"]
+	b1478_25["eff__3561__3584 trapDivideByZero"]
+	b1478_27["eff_merge__3582__3586 merge"]
+	b1478_26["eff_merge__3580__3585 merge"]
+	b1478_4 --> b1478_24
+	b1478_24 --> b1478_18
+	b1478_18 --> b1478_25
+	b1478_25 --> b1478_27
+	b1478_27 --> b1478_26
 end
 branch_1476 --> block_1478
 subgraph branch_1476["Branch 1476"]
-	br1476_6["mb__3578 bool.&&"]
+	br1476_14["mb__3578 bool.&&"]
 
 end
 block_1480 --> branch_1476
 subgraph block_1480["Block 1480"]
 	direction TB
-	b1480_1[/"r_state__3579 Start"\\]
-	b1480_13["arg__3565 0.0f"]
-	b1480_30["b__3588 pop_f32"]
-	b1480_0["abs__3568 lift_f32"]
-	b1480_5["b pop_f32"]
-	b1480_7["a pop_f32"]
-	b1480_33["cond__3560__3589 F32_equals"]
-	b1480_15["cond__3560 F32_equals"]
-	b1480_29["mt__3576__3587 U32_maybeTrue"]
-	b1480_4["mf__3577 U32_maybeFalse"]
-	b1480_2["mt__3576 U32_maybeTrue"]
-	b1480_6["mb__3578 bool.&&"]
-	b1480_1 --> b1480_13
-	b1480_13 --> b1480_30
-	b1480_30 --> b1480_0
+	b1480_0[/"r_state__3579 Start"\\]
+	b1480_5["arg__3565 0.0f"]
+	b1480_29["b__3587 pop_f32"]
+	b1480_11["abs__3568 lift_f32"]
+	b1480_2["b pop_f32"]
+	b1480_3["a pop_f32"]
+	b1480_30["cond__3560__3588 F32_equals"]
+	b1480_6["cond__3560 F32_equals"]
+	b1480_33["mt__3576__3591 U32_maybeTrue"]
+	b1480_13["mf__3577 U32_maybeFalse"]
+	b1480_12["mt__3576 U32_maybeTrue"]
+	b1480_14["mb__3578 bool.&&"]
 	b1480_0 --> b1480_5
-	b1480_5 --> b1480_7
-	b1480_7 --> b1480_33
-	b1480_33 --> b1480_15
-	b1480_15 --> b1480_29
-	b1480_29 --> b1480_4
-	b1480_4 --> b1480_2
-	b1480_2 --> b1480_6
+	b1480_5 --> b1480_29
+	b1480_29 --> b1480_11
+	b1480_11 --> b1480_2
+	b1480_2 --> b1480_3
+	b1480_3 --> b1480_30
+	b1480_30 --> b1480_6
+	b1480_6 --> b1480_33
+	b1480_33 --> b1480_13
+	b1480_13 --> b1480_12
+	b1480_12 --> b1480_14
 end
 subgraph block_1479["Block 1479"]
 	direction TB
 end
 phi_1482 --> block_1479
 subgraph phi_1482["Phi 1482"]
-	p1482_31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1482_32{{"Sϕ Stack "}}
+	p1482_35{{"Sϕ Stack "}}
+	p1482_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1483 --> phi_1482
 block_1484 --> phi_1482
 subgraph block_1483["Block 1483"]
 	direction TB
-	b1483_47["eff__3561__3591__3597 trapDivideByZero"]
+	b1483_47["eff__3561__3590__3597 trapDivideByZero"]
 end
 branch_1481 --> block_1483
 subgraph branch_1481["Branch 1481"]
-	br1481_29["mt__3576__3587 U32_maybeTrue"]
+	br1481_33["mt__3576__3591 U32_maybeTrue"]
 
 end
 branch_1476 --> branch_1481
 subgraph block_1484["Block 1484"]
 	direction TB
 	b1484_49["r__3598 F32_div"]
-	b1484_50["eff__3562__3590__3599 push_f32"]
+	b1484_50["eff__3562__3589__3599 push_f32"]
 	b1484_49 --> b1484_50
 end
 branch_1481 --> block_1484
@@ -70877,29 +70877,29 @@ branch_1481 --> block_1484
 </pre>`;
 window.traces["F32_DIV"]["unlem_scheduler_ssa"] = ''
 window.traces["F32_DIV"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3565 : f32 = 0.0f;
-def b__3588 = pop_f32();
+def b__3587 = pop_f32();
 def abs__3568 = lift_f32(arg__3565);
 def b = pop_f32();
 def a = pop_f32();
-def cond__3560__3589 = F32_equals(b__3588, abs__3568);
+def cond__3560__3588 = F32_equals(b__3587, abs__3568);
 def cond__3560 = F32_equals(b, abs__3568);
-def mt__3576__3587 = U32_maybeTrue(cond__3560__3589);
+def mt__3576__3591 = U32_maybeTrue(cond__3560__3588);
 def mf__3577 = U32_maybeFalse(cond__3560);
 def mt__3576 = U32_maybeTrue(cond__3560);
 def mb__3578 = bool.&&(mt__3576, mf__3577);
 if (mb__3578) {
 	def r = F32_div(a, b);
-	def eff__3562__3585 = push_f32(r);
+	def eff__3562__3583 = push_f32(r);
 	def eff_nop__3581 = nop();
-	def eff__3561__3586 = trapDivideByZero();
-	def eff_merge__3582__3584 = merge(eff_nop__3581, eff__3562__3585);
-	def eff_merge__3580__3583 = merge(eff__3561__3586, r_state__3579);
+	def eff__3561__3584 = trapDivideByZero();
+	def eff_merge__3582__3586 = merge(eff_nop__3581, eff__3562__3583);
+	def eff_merge__3580__3585 = merge(eff__3561__3584, r_state__3579);
 } else {
-	if (mt__3576__3587) {
-		def eff__3561__3591__3597 = trapDivideByZero();
+	if (mt__3576__3591) {
+		def eff__3561__3590__3597 = trapDivideByZero();
 	} else {
 		def r__3598 = F32_div(a, b);
-		def eff__3562__3590__3599 = push_f32(r__3598);
+		def eff__3562__3589__3599 = push_f32(r__3598);
 	}
 // phis: 
 }
@@ -73076,49 +73076,49 @@ config:
   layout: elk
 ---
 graph TD
-	2[\\"Finish"/]
-	10 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 2
-	11 -. Stack .-> 2
-	11{{"Sϕ Stack "}}
-	7 --> 11
-	15 --> 11
-	18 --> 11
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	6 --> 10
+	15 --> 10
+	18 --> 10
 	18["eff__3635__3645 push_f64"]
 	17 --> 18
-	4 -. Stack .-> 18
-	4["a pop_f64"]
-	3 -. Stack .-> 4
-	3["b pop_f64"]
-	1 -. Stack .-> 3
-	1[/"Start"\\]
+	3 -. Stack .-> 18
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
 	17["r__3644 F64_div"]
-	4 --> 17
 	3 --> 17
+	2 --> 17
 	15["eff__3634__3643 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
-	4 -. Stack .-> 15
-	7["cond__3633 F64_equals"]
-	3 --> 7
-	0 --> 7
-	0["abs__3641 lift_f64"]
-	6 --> 0
-	6["arg__3638 0.0f"]
-	10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	7 --> 10
-	15 --> 10
-	1 --> 10
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 15
+	3 -. Stack .-> 15
+	6["cond__3633 F64_equals"]
+	2 --> 6
+	11 --> 6
+	11["abs__3641 lift_f64"]
+	5 --> 11
+	5["arg__3638 0.0f"]
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	6 --> 9
+	15 --> 9
+	0 --> 9
 </pre>`;
 window.traces["F64_DIV"]["schedulerMermaid"] = ''
 window.traces["F64_DIV"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1505["Block 1505"]
 	direction TB
-	b1505_2[\\"Finish"/]
+	b1505_1[\\"Finish"/]
 end
 phi_1507 --> block_1505
 subgraph phi_1507["Phi 1507"]
-	p1507_11{{"Sϕ Stack "}}
-	p1507_11{{"Sϕ Stack "}}
-	p1507_10{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1507_10{{"Sϕ Stack "}}
+	p1507_10{{"Sϕ Stack "}}
+	p1507_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1508 --> phi_1507
 block_1509 --> phi_1507
@@ -73128,23 +73128,23 @@ subgraph block_1508["Block 1508"]
 end
 branch_1506 --> block_1508
 subgraph branch_1506["Branch 1506"]
-	br1506_7["cond__3633 F64_equals"]
+	br1506_6["cond__3633 F64_equals"]
 
 end
 block_1510 --> branch_1506
 subgraph block_1510["Block 1510"]
 	direction TB
-	b1510_1[/"Start"\\]
-	b1510_6["arg__3638 0.0f"]
-	b1510_3["b pop_f64"]
-	b1510_4["a pop_f64"]
-	b1510_0["abs__3641 lift_f64"]
-	b1510_7["cond__3633 F64_equals"]
-	b1510_1 --> b1510_6
-	b1510_6 --> b1510_3
-	b1510_3 --> b1510_4
-	b1510_4 --> b1510_0
-	b1510_0 --> b1510_7
+	b1510_0[/"Start"\\]
+	b1510_5["arg__3638 0.0f"]
+	b1510_2["b pop_f64"]
+	b1510_3["a pop_f64"]
+	b1510_11["abs__3641 lift_f64"]
+	b1510_6["cond__3633 F64_equals"]
+	b1510_0 --> b1510_5
+	b1510_5 --> b1510_2
+	b1510_2 --> b1510_3
+	b1510_3 --> b1510_11
+	b1510_11 --> b1510_6
 end
 subgraph block_1509["Block 1509"]
 	direction TB
@@ -73272,72 +73272,72 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	35 --> 32
-	34 --> 32
-	34["eff__3635__3663 push_f64"]
-	11 --> 34
-	7 -. Stack .-> 34
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"r_state__3652 Start"\\]
-	11["r F64_div"]
-	7 --> 11
-	5 --> 11
-	35["eff__3634__3664 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 35
-	7 -. Stack .-> 35
-	29["mt__3649__3660 U32_maybeTrue"]
-	33 --> 29
-	33["cond__3633__3662 F64_equals"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	32 --> 35
+	31 --> 35
+	31["eff__3635__3662 push_f64"]
+	4 --> 31
+	3 -. Stack .-> 31
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"r_state__3652 Start"\\]
+	4["r F64_div"]
+	3 --> 4
+	2 --> 4
+	32["eff__3634__3663 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 32
+	3 -. Stack .-> 32
+	33["mt__3649__3664 U32_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3641 lift_f64"]
-	13 --> 0
-	13["arg__3638 0.0f"]
-	30["b__3661 pop_f64"]
-	1 -. Stack .-> 30
-	25["eff_merge__3655__3657 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3635__3658 push_f64"]
-	11 --> 26
-	7 -. Stack .-> 26
-	12["eff_nop__3654 nop"]
-	6["mb__3651 bool.&&"]
+	30["cond__3633__3661 F64_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3641 lift_f64"]
+	5 --> 11
+	5["arg__3638 0.0f"]
+	29["b__3660 pop_f64"]
+	0 -. Stack .-> 29
+	27["eff_merge__3655__3659 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3635__3656 push_f64"]
+	4 --> 24
+	3 -. Stack .-> 24
+	18["eff_nop__3654 nop"]
+	14["mb__3651 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3650 U32_maybeFalse"]
+	6 --> 13
+	6["cond__3633 F64_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3650 U32_maybeFalse"]
-	15 --> 4
-	15["cond__3633 F64_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3649 U32_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	35 --> 31
-	1 --> 31
-	24["eff_merge__3653__3656 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3634__3659 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3649 U32_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	32 --> 34
+	0 --> 34
+	26["eff_merge__3653__3658 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3634__3657 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["F64_DIV_ul"]["post_surgery 1518"] = ''
 window.traces["F64_DIV_ul"]["post_surgery 1518"] += `<pre class='graph'>---
@@ -73345,160 +73345,160 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	18 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	19 -. Stack .-> 3
-	19{{"Sϕ Stack "}}
-	6 --> 19
-	25 --> 19
-	32 --> 19
-	32{{"Sϕ Stack "}}
-	29 --> 32
-	47 --> 32
-	50 --> 32
-	50["eff__3635__3663__3672 push_f64"]
+	1[\\"Finish"/]
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	10 -. Stack .-> 1
+	10{{"Sϕ Stack "}}
+	14 --> 10
+	27 --> 10
+	35 --> 10
+	35{{"Sϕ Stack "}}
+	33 --> 35
+	47 --> 35
+	50 --> 35
+	50["eff__3635__3662__3672 push_f64"]
 	49 --> 50
-	7 -. Stack .-> 50
-	7["a pop_f64"]
-	5 -. Stack .-> 7
-	5["b pop_f64"]
-	1 -. Stack .-> 5
-	1[/"r_state__3652 Start"\\]
+	3 -. Stack .-> 50
+	3["a pop_f64"]
+	2 -. Stack .-> 3
+	2["b pop_f64"]
+	0 -. Stack .-> 2
+	0[/"r_state__3652 Start"\\]
 	49["r__3671 F64_div"]
-	7 --> 49
-	5 --> 49
-	47["eff__3634__3664__3670 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
-	7 -. Stack .-> 47
-	29["mt__3649__3660 U32_maybeTrue"]
-	33 --> 29
-	33["cond__3633__3662 F64_equals"]
+	3 --> 49
+	2 --> 49
+	47["eff__3634__3663__3670 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
+	3 -. Stack .-> 47
+	33["mt__3649__3664 U32_maybeTrue"]
 	30 --> 33
-	0 --> 33
-	0["abs__3641 lift_f64"]
-	13 --> 0
-	13["arg__3638 0.0f"]
-	30["b__3661 pop_f64"]
-	1 -. Stack .-> 30
-	25["eff_merge__3655__3657 merge"]
-	12 --> 25
-	26 --> 25
-	26["eff__3635__3658 push_f64"]
-	11 --> 26
-	7 -. Stack .-> 26
-	11["r F64_div"]
-	7 --> 11
+	30["cond__3633__3661 F64_equals"]
+	29 --> 30
+	11 --> 30
+	11["abs__3641 lift_f64"]
 	5 --> 11
-	12["eff_nop__3654 nop"]
-	6["mb__3651 bool.&&"]
+	5["arg__3638 0.0f"]
+	29["b__3660 pop_f64"]
+	0 -. Stack .-> 29
+	27["eff_merge__3655__3659 merge"]
+	18 --> 27
+	24 --> 27
+	24["eff__3635__3656 push_f64"]
+	4 --> 24
+	3 -. Stack .-> 24
+	4["r F64_div"]
+	3 --> 4
+	2 --> 4
+	18["eff_nop__3654 nop"]
+	14["mb__3651 bool.&&"]
+	12 --> 14
+	13 --> 14
+	13["mf__3650 U32_maybeFalse"]
+	6 --> 13
+	6["cond__3633 F64_equals"]
 	2 --> 6
-	4 --> 6
-	4["mf__3650 U32_maybeFalse"]
-	15 --> 4
-	15["cond__3633 F64_equals"]
-	5 --> 15
-	0 --> 15
-	2["mt__3649 U32_maybeTrue"]
-	15 --> 2
-	18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	6 --> 18
-	24 --> 18
-	31 --> 18
-	31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	29 --> 31
-	47 --> 31
-	1 --> 31
-	24["eff_merge__3653__3656 merge"]
-	27 --> 24
-	1 --> 24
-	27["eff__3634__3659 trapDivideByZero"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	7 -. Stack .-> 27
+	11 --> 6
+	12["mt__3649 U32_maybeTrue"]
+	6 --> 12
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	14 --> 9
+	26 --> 9
+	34 --> 9
+	34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	33 --> 34
+	47 --> 34
+	0 --> 34
+	26["eff_merge__3653__3658 merge"]
+	25 --> 26
+	0 --> 26
+	25["eff__3634__3657 trapDivideByZero"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	3 -. Stack .-> 25
 </pre>`;
 window.traces["F64_DIV"]["unlem_scheduler"] = ''
 window.traces["F64_DIV"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1511["Block 1511"]
 	direction TB
-	b1511_3[\\"Finish"/]
+	b1511_1[\\"Finish"/]
 end
 phi_1513 --> block_1511
 subgraph phi_1513["Phi 1513"]
-	p1513_19{{"Sϕ Stack "}}
-	p1513_19{{"Sϕ Stack "}}
-	p1513_18{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1513_10{{"Sϕ Stack "}}
+	p1513_10{{"Sϕ Stack "}}
+	p1513_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1514 --> phi_1513
 block_1515 --> phi_1513
 subgraph block_1514["Block 1514"]
 	direction TB
-	b1514_11["r F64_div"]
-	b1514_26["eff__3635__3658 push_f64"]
-	b1514_12["eff_nop__3654 nop"]
-	b1514_27["eff__3634__3659 trapDivideByZero"]
-	b1514_25["eff_merge__3655__3657 merge"]
-	b1514_24["eff_merge__3653__3656 merge"]
-	b1514_11 --> b1514_26
-	b1514_26 --> b1514_12
-	b1514_12 --> b1514_27
-	b1514_27 --> b1514_25
-	b1514_25 --> b1514_24
+	b1514_4["r F64_div"]
+	b1514_24["eff__3635__3656 push_f64"]
+	b1514_18["eff_nop__3654 nop"]
+	b1514_25["eff__3634__3657 trapDivideByZero"]
+	b1514_27["eff_merge__3655__3659 merge"]
+	b1514_26["eff_merge__3653__3658 merge"]
+	b1514_4 --> b1514_24
+	b1514_24 --> b1514_18
+	b1514_18 --> b1514_25
+	b1514_25 --> b1514_27
+	b1514_27 --> b1514_26
 end
 branch_1512 --> block_1514
 subgraph branch_1512["Branch 1512"]
-	br1512_6["mb__3651 bool.&&"]
+	br1512_14["mb__3651 bool.&&"]
 
 end
 block_1516 --> branch_1512
 subgraph block_1516["Block 1516"]
 	direction TB
-	b1516_1[/"r_state__3652 Start"\\]
-	b1516_13["arg__3638 0.0f"]
-	b1516_30["b__3661 pop_f64"]
-	b1516_0["abs__3641 lift_f64"]
-	b1516_5["b pop_f64"]
-	b1516_7["a pop_f64"]
-	b1516_33["cond__3633__3662 F64_equals"]
-	b1516_15["cond__3633 F64_equals"]
-	b1516_29["mt__3649__3660 U32_maybeTrue"]
-	b1516_4["mf__3650 U32_maybeFalse"]
-	b1516_2["mt__3649 U32_maybeTrue"]
-	b1516_6["mb__3651 bool.&&"]
-	b1516_1 --> b1516_13
-	b1516_13 --> b1516_30
-	b1516_30 --> b1516_0
+	b1516_0[/"r_state__3652 Start"\\]
+	b1516_5["arg__3638 0.0f"]
+	b1516_29["b__3660 pop_f64"]
+	b1516_11["abs__3641 lift_f64"]
+	b1516_2["b pop_f64"]
+	b1516_3["a pop_f64"]
+	b1516_30["cond__3633__3661 F64_equals"]
+	b1516_6["cond__3633 F64_equals"]
+	b1516_33["mt__3649__3664 U32_maybeTrue"]
+	b1516_13["mf__3650 U32_maybeFalse"]
+	b1516_12["mt__3649 U32_maybeTrue"]
+	b1516_14["mb__3651 bool.&&"]
 	b1516_0 --> b1516_5
-	b1516_5 --> b1516_7
-	b1516_7 --> b1516_33
-	b1516_33 --> b1516_15
-	b1516_15 --> b1516_29
-	b1516_29 --> b1516_4
-	b1516_4 --> b1516_2
-	b1516_2 --> b1516_6
+	b1516_5 --> b1516_29
+	b1516_29 --> b1516_11
+	b1516_11 --> b1516_2
+	b1516_2 --> b1516_3
+	b1516_3 --> b1516_30
+	b1516_30 --> b1516_6
+	b1516_6 --> b1516_33
+	b1516_33 --> b1516_13
+	b1516_13 --> b1516_12
+	b1516_12 --> b1516_14
 end
 subgraph block_1515["Block 1515"]
 	direction TB
 end
 phi_1518 --> block_1515
 subgraph phi_1518["Phi 1518"]
-	p1518_31{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1518_32{{"Sϕ Stack "}}
+	p1518_35{{"Sϕ Stack "}}
+	p1518_34{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1519 --> phi_1518
 block_1520 --> phi_1518
 subgraph block_1519["Block 1519"]
 	direction TB
-	b1519_47["eff__3634__3664__3670 trapDivideByZero"]
+	b1519_47["eff__3634__3663__3670 trapDivideByZero"]
 end
 branch_1517 --> block_1519
 subgraph branch_1517["Branch 1517"]
-	br1517_29["mt__3649__3660 U32_maybeTrue"]
+	br1517_33["mt__3649__3664 U32_maybeTrue"]
 
 end
 branch_1512 --> branch_1517
 subgraph block_1520["Block 1520"]
 	direction TB
 	b1520_49["r__3671 F64_div"]
-	b1520_50["eff__3635__3663__3672 push_f64"]
+	b1520_50["eff__3635__3662__3672 push_f64"]
 	b1520_49 --> b1520_50
 end
 branch_1517 --> block_1520
@@ -73506,29 +73506,29 @@ branch_1517 --> block_1520
 </pre>`;
 window.traces["F64_DIV"]["unlem_scheduler_ssa"] = ''
 window.traces["F64_DIV"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3638 : f32 = 0.0f;
-def b__3661 = pop_f64();
+def b__3660 = pop_f64();
 def abs__3641 = lift_f64(arg__3638);
 def b = pop_f64();
 def a = pop_f64();
-def cond__3633__3662 = F64_equals(b__3661, abs__3641);
+def cond__3633__3661 = F64_equals(b__3660, abs__3641);
 def cond__3633 = F64_equals(b, abs__3641);
-def mt__3649__3660 = U32_maybeTrue(cond__3633__3662);
+def mt__3649__3664 = U32_maybeTrue(cond__3633__3661);
 def mf__3650 = U32_maybeFalse(cond__3633);
 def mt__3649 = U32_maybeTrue(cond__3633);
 def mb__3651 = bool.&&(mt__3649, mf__3650);
 if (mb__3651) {
 	def r = F64_div(a, b);
-	def eff__3635__3658 = push_f64(r);
+	def eff__3635__3656 = push_f64(r);
 	def eff_nop__3654 = nop();
-	def eff__3634__3659 = trapDivideByZero();
-	def eff_merge__3655__3657 = merge(eff_nop__3654, eff__3635__3658);
-	def eff_merge__3653__3656 = merge(eff__3634__3659, r_state__3652);
+	def eff__3634__3657 = trapDivideByZero();
+	def eff_merge__3655__3659 = merge(eff_nop__3654, eff__3635__3656);
+	def eff_merge__3653__3658 = merge(eff__3634__3657, r_state__3652);
 } else {
-	if (mt__3649__3660) {
-		def eff__3634__3664__3670 = trapDivideByZero();
+	if (mt__3649__3664) {
+		def eff__3634__3663__3670 = trapDivideByZero();
 	} else {
 		def r__3671 = F64_div(a, b);
-		def eff__3635__3663__3672 = push_f64(r__3671);
+		def eff__3635__3662__3672 = push_f64(r__3671);
 	}
 // phis: 
 }
@@ -79346,51 +79346,51 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	11 -. Stack .-> 3
-	11{{"Sϕ Stack "}}
-	16 --> 11
-	21 --> 11
-	23 --> 11
-	23{{"Sϕ Stack "}}
-	27 --> 23
-	26 --> 23
-	25 --> 23
-	25["eff__3762__3776 push_u32"]
-	13 --> 25
-	5 -. Stack .-> 25
-	5["obj pop_Object"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	13["abs__3766 lift_u32"]
-	7 --> 13
-	7["arg__3763 0"]
-	26["eff__3760__3777 push_u32"]
-	12 --> 26
-	5 -. Stack .-> 26
-	12["abs__3765 lift_u32"]
-	9 --> 12
-	9["arg__3761 1"]
-	27["mt__3769__3778 U32_maybeTrue"]
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	8 -. Stack .-> 1
+	8{{"Sϕ Stack "}}
+	13 --> 8
+	21 --> 8
+	27 --> 8
+	27{{"Sϕ Stack "}}
+	26 --> 27
+	25 --> 27
 	24 --> 27
-	24["cond__3759__3775 object_isNull"]
-	5 --> 24
+	24["eff__3762__3776 push_u32"]
+	10 --> 24
+	2 -. Stack .-> 24
+	2["obj pop_Object"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	10["abs__3766 lift_u32"]
+	4 --> 10
+	4["arg__3763 0"]
+	25["eff__3760__3777 push_u32"]
+	9 --> 25
+	2 -. Stack .-> 25
+	9["abs__3765 lift_u32"]
+	6 --> 9
+	6["arg__3761 1"]
+	26["mt__3769__3778 U32_maybeTrue"]
+	23 --> 26
+	23["cond__3759__3775 object_isNull"]
+	2 --> 23
 	21["eff_push__3773__3774 push_u32"]
-	2 --> 21
-	5 -. Stack .-> 21
-	2["merge__3772 merge_u"]
-	12 --> 2
-	13 --> 2
-	16["mb__3771 bool.&&"]
-	14 --> 16
-	15 --> 16
-	15["mf__3770 U32_maybeFalse"]
-	6 --> 15
-	6["cond__3759 object_isNull"]
-	5 --> 6
-	14["mt__3769 U32_maybeTrue"]
-	6 --> 14
+	15 --> 21
+	2 -. Stack .-> 21
+	15["merge__3772 merge_u"]
+	9 --> 15
+	10 --> 15
+	13["mb__3771 bool.&&"]
+	11 --> 13
+	12 --> 13
+	12["mf__3770 U32_maybeFalse"]
+	3 --> 12
+	3["cond__3759 object_isNull"]
+	2 --> 3
+	11["mt__3769 U32_maybeTrue"]
+	3 --> 11
 </pre>`;
 window.traces["REF_IS_NULL_ul"]["post_surgery 1592"] = ''
 window.traces["REF_IS_NULL_ul"]["post_surgery 1592"] += `<pre class='graph'>---
@@ -79398,108 +79398,108 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	11 -. Stack .-> 3
-	11{{"Sϕ Stack "}}
-	16 --> 11
-	21 --> 11
-	23 --> 11
-	23{{"Sϕ Stack "}}
-	27 --> 23
-	31 --> 23
-	33 --> 23
+	1[\\"Finish"/]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	8 -. Stack .-> 1
+	8{{"Sϕ Stack "}}
+	13 --> 8
+	21 --> 8
+	27 --> 8
+	27{{"Sϕ Stack "}}
+	26 --> 27
+	31 --> 27
+	33 --> 27
 	33["eff__3762__3776__3780 push_u32"]
-	13 --> 33
-	5 -. Stack .-> 33
-	5["obj pop_Object"]
-	1 -. Stack .-> 5
-	1[/"Start"\\]
-	13["abs__3766 lift_u32"]
-	7 --> 13
-	7["arg__3763 0"]
+	10 --> 33
+	2 -. Stack .-> 33
+	2["obj pop_Object"]
+	0 -. Stack .-> 2
+	0[/"Start"\\]
+	10["abs__3766 lift_u32"]
+	4 --> 10
+	4["arg__3763 0"]
 	31["eff__3760__3777__3779 push_u32"]
-	12 --> 31
-	5 -. Stack .-> 31
-	12["abs__3765 lift_u32"]
-	9 --> 12
-	9["arg__3761 1"]
-	27["mt__3769__3778 U32_maybeTrue"]
-	24 --> 27
-	24["cond__3759__3775 object_isNull"]
-	5 --> 24
+	9 --> 31
+	2 -. Stack .-> 31
+	9["abs__3765 lift_u32"]
+	6 --> 9
+	6["arg__3761 1"]
+	26["mt__3769__3778 U32_maybeTrue"]
+	23 --> 26
+	23["cond__3759__3775 object_isNull"]
+	2 --> 23
 	21["eff_push__3773__3774 push_u32"]
-	2 --> 21
-	5 -. Stack .-> 21
-	2["merge__3772 merge_u"]
-	12 --> 2
-	13 --> 2
-	16["mb__3771 bool.&&"]
-	14 --> 16
-	15 --> 16
-	15["mf__3770 U32_maybeFalse"]
-	6 --> 15
-	6["cond__3759 object_isNull"]
-	5 --> 6
-	14["mt__3769 U32_maybeTrue"]
-	6 --> 14
+	15 --> 21
+	2 -. Stack .-> 21
+	15["merge__3772 merge_u"]
+	9 --> 15
+	10 --> 15
+	13["mb__3771 bool.&&"]
+	11 --> 13
+	12 --> 13
+	12["mf__3770 U32_maybeFalse"]
+	3 --> 12
+	3["cond__3759 object_isNull"]
+	2 --> 3
+	11["mt__3769 U32_maybeTrue"]
+	3 --> 11
 </pre>`;
 window.traces["REF_IS_NULL"]["unlem_scheduler"] = ''
 window.traces["REF_IS_NULL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1585["Block 1585"]
 	direction TB
-	b1585_3[\\"Finish"/]
+	b1585_1[\\"Finish"/]
 end
 phi_1587 --> block_1585
 subgraph phi_1587["Phi 1587"]
-	p1587_11{{"Sϕ Stack "}}
+	p1587_8{{"Sϕ Stack "}}
 end
 block_1588 --> phi_1587
 block_1589 --> phi_1587
 subgraph block_1588["Block 1588"]
 	direction TB
-	b1588_2["merge__3772 merge_u"]
+	b1588_15["merge__3772 merge_u"]
 	b1588_21["eff_push__3773__3774 push_u32"]
-	b1588_2 --> b1588_21
+	b1588_15 --> b1588_21
 end
 branch_1586 --> block_1588
 subgraph branch_1586["Branch 1586"]
-	br1586_16["mb__3771 bool.&&"]
+	br1586_13["mb__3771 bool.&&"]
 
 end
 block_1590 --> branch_1586
 subgraph block_1590["Block 1590"]
 	direction TB
-	b1590_1[/"Start"\\]
-	b1590_7["arg__3763 0"]
-	b1590_9["arg__3761 1"]
-	b1590_5["obj pop_Object"]
-	b1590_24["cond__3759__3775 object_isNull"]
-	b1590_13["abs__3766 lift_u32"]
-	b1590_12["abs__3765 lift_u32"]
-	b1590_6["cond__3759 object_isNull"]
-	b1590_27["mt__3769__3778 U32_maybeTrue"]
-	b1590_15["mf__3770 U32_maybeFalse"]
-	b1590_14["mt__3769 U32_maybeTrue"]
-	b1590_16["mb__3771 bool.&&"]
-	b1590_1 --> b1590_7
-	b1590_7 --> b1590_9
-	b1590_9 --> b1590_5
-	b1590_5 --> b1590_24
-	b1590_24 --> b1590_13
-	b1590_13 --> b1590_12
-	b1590_12 --> b1590_6
-	b1590_6 --> b1590_27
-	b1590_27 --> b1590_15
-	b1590_15 --> b1590_14
-	b1590_14 --> b1590_16
+	b1590_0[/"Start"\\]
+	b1590_4["arg__3763 0"]
+	b1590_6["arg__3761 1"]
+	b1590_2["obj pop_Object"]
+	b1590_23["cond__3759__3775 object_isNull"]
+	b1590_10["abs__3766 lift_u32"]
+	b1590_9["abs__3765 lift_u32"]
+	b1590_3["cond__3759 object_isNull"]
+	b1590_26["mt__3769__3778 U32_maybeTrue"]
+	b1590_12["mf__3770 U32_maybeFalse"]
+	b1590_11["mt__3769 U32_maybeTrue"]
+	b1590_13["mb__3771 bool.&&"]
+	b1590_0 --> b1590_4
+	b1590_4 --> b1590_6
+	b1590_6 --> b1590_2
+	b1590_2 --> b1590_23
+	b1590_23 --> b1590_10
+	b1590_10 --> b1590_9
+	b1590_9 --> b1590_3
+	b1590_3 --> b1590_26
+	b1590_26 --> b1590_12
+	b1590_12 --> b1590_11
+	b1590_11 --> b1590_13
 end
 subgraph block_1589["Block 1589"]
 	direction TB
 end
 phi_1592 --> block_1589
 subgraph phi_1592["Phi 1592"]
-	p1592_23{{"Sϕ Stack "}}
+	p1592_27{{"Sϕ Stack "}}
 end
 block_1593 --> phi_1592
 block_1594 --> phi_1592
@@ -79509,7 +79509,7 @@ subgraph block_1593["Block 1593"]
 end
 branch_1591 --> block_1593
 subgraph branch_1591["Branch 1591"]
-	br1591_27["mt__3769__3778 U32_maybeTrue"]
+	br1591_26["mt__3769__3778 U32_maybeTrue"]
 
 end
 branch_1586 --> branch_1591
@@ -79887,57 +79887,57 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	8 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	10 -. Stack .-> 3
-	10["eff__3781 push_Object"]
-	5 --> 10
-	9 -. Stack .-> 10
-	9{{"Sϕ Stack "}}
-	13 --> 9
-	20 --> 9
-	24 --> 9
-	24{{"Sϕ Stack "}}
-	27 --> 24
-	26 --> 24
-	5 --> 24
-	5["obj pop_Object"]
-	1 -. Stack .-> 5
-	1[/"r_state__3792 Start"\\]
-	26["eff__3784__3800 trapNull"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 26
-	5 -. Stack .-> 26
-	27["mt__3789__3801 U32_maybeTrue"]
-	25 --> 27
-	25["cond__3783__3799 object_isNull"]
-	5 --> 25
-	20["eff_merge__3795__3796 merge"]
-	2 --> 20
-	5 --> 20
-	2["eff_nop__3794 nop"]
-	13["mb__3791 bool.&&"]
-	11 --> 13
-	12 --> 13
-	12["mf__3790 U32_maybeFalse"]
-	6 --> 12
-	6["cond__3783 object_isNull"]
-	5 --> 6
-	11["mt__3789 U32_maybeTrue"]
-	6 --> 11
-	8{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	13 --> 8
-	22 --> 8
-	28 --> 8
-	28{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	27 --> 28
+	1[\\"Finish"/]
+	5 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	7 -. Stack .-> 1
+	7["eff__3781 push_Object"]
+	2 --> 7
+	6 -. Stack .-> 7
+	6{{"Sϕ Stack "}}
+	10 --> 6
+	22 --> 6
+	28 --> 6
+	28{{"Sϕ Stack "}}
 	26 --> 28
-	1 --> 28
-	22["eff_merge__3793__3798 merge"]
-	21 --> 22
-	1 --> 22
-	21["eff__3784__3797 trapNull"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 21
-	5 -. Stack .-> 21
+	25 --> 28
+	2 --> 28
+	2["obj pop_Object"]
+	0 -. Stack .-> 2
+	0[/"r_state__3792 Start"\\]
+	25["eff__3784__3800 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
+	2 -. Stack .-> 25
+	26["mt__3789__3801 U32_maybeTrue"]
+	24 --> 26
+	24["cond__3783__3799 object_isNull"]
+	2 --> 24
+	22["eff_merge__3795__3798 merge"]
+	14 --> 22
+	2 --> 22
+	14["eff_nop__3794 nop"]
+	10["mb__3791 bool.&&"]
+	8 --> 10
+	9 --> 10
+	9["mf__3790 U32_maybeFalse"]
+	3 --> 9
+	3["cond__3783 object_isNull"]
+	2 --> 3
+	8["mt__3789 U32_maybeTrue"]
+	3 --> 8
+	5{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	10 --> 5
+	21 --> 5
+	27 --> 5
+	27{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	26 --> 27
+	25 --> 27
+	0 --> 27
+	21["eff_merge__3793__3797 merge"]
+	20 --> 21
+	0 --> 21
+	20["eff__3784__3796 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 20
+	2 -. Stack .-> 20
 </pre>`;
 window.traces["REF_AS_NON_NULL_ul"]["post_surgery 1608"] = ''
 window.traces["REF_AS_NON_NULL_ul"]["post_surgery 1608"] += `<pre class='graph'>---
@@ -79945,111 +79945,111 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	8 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 3
-	10 -. Stack .-> 3
-	10["eff__3781 push_Object"]
-	5 --> 10
-	9 -. Stack .-> 10
-	9{{"Sϕ Stack "}}
-	13 --> 9
-	20 --> 9
-	24 --> 9
-	24{{"Sϕ Stack "}}
-	27 --> 24
-	39 --> 24
-	5 --> 24
-	5["obj pop_Object"]
-	1 -. Stack .-> 5
-	1[/"r_state__3792 Start"\\]
-	39["eff__3784__3800__3806 trapNull"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 39
-	5 -. Stack .-> 39
-	27["mt__3789__3801 U32_maybeTrue"]
-	25 --> 27
-	25["cond__3783__3799 object_isNull"]
-	5 --> 25
-	20["eff_merge__3795__3796 merge"]
-	2 --> 20
-	5 --> 20
-	2["eff_nop__3794 nop"]
-	13["mb__3791 bool.&&"]
-	11 --> 13
-	12 --> 13
-	12["mf__3790 U32_maybeFalse"]
-	6 --> 12
-	6["cond__3783 object_isNull"]
-	5 --> 6
-	11["mt__3789 U32_maybeTrue"]
-	6 --> 11
-	8{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	13 --> 8
-	22 --> 8
-	28 --> 8
-	28{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	27 --> 28
+	1[\\"Finish"/]
+	5 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	7 -. Stack .-> 1
+	7["eff__3781 push_Object"]
+	2 --> 7
+	6 -. Stack .-> 7
+	6{{"Sϕ Stack "}}
+	10 --> 6
+	22 --> 6
+	28 --> 6
+	28{{"Sϕ Stack "}}
+	26 --> 28
 	39 --> 28
-	1 --> 28
-	22["eff_merge__3793__3798 merge"]
-	21 --> 22
-	1 --> 22
-	21["eff__3784__3797 trapNull"]
-	1 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 21
-	5 -. Stack .-> 21
+	2 --> 28
+	2["obj pop_Object"]
+	0 -. Stack .-> 2
+	0[/"r_state__3792 Start"\\]
+	39["eff__3784__3800__3806 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 39
+	2 -. Stack .-> 39
+	26["mt__3789__3801 U32_maybeTrue"]
+	24 --> 26
+	24["cond__3783__3799 object_isNull"]
+	2 --> 24
+	22["eff_merge__3795__3798 merge"]
+	14 --> 22
+	2 --> 22
+	14["eff_nop__3794 nop"]
+	10["mb__3791 bool.&&"]
+	8 --> 10
+	9 --> 10
+	9["mf__3790 U32_maybeFalse"]
+	3 --> 9
+	3["cond__3783 object_isNull"]
+	2 --> 3
+	8["mt__3789 U32_maybeTrue"]
+	3 --> 8
+	5{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	10 --> 5
+	21 --> 5
+	27 --> 5
+	27{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	26 --> 27
+	39 --> 27
+	0 --> 27
+	21["eff_merge__3793__3797 merge"]
+	20 --> 21
+	0 --> 21
+	20["eff__3784__3796 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 20
+	2 -. Stack .-> 20
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler"] = ''
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1601["Block 1601"]
 	direction TB
-	b1601_10["eff__3781 push_Object"]
-	b1601_3[\\"Finish"/]
-	b1601_10 --> b1601_3
+	b1601_7["eff__3781 push_Object"]
+	b1601_1[\\"Finish"/]
+	b1601_7 --> b1601_1
 end
 phi_1603 --> block_1601
 subgraph phi_1603["Phi 1603"]
-	p1603_9{{"Sϕ Stack "}}
-	p1603_9{{"Sϕ Stack "}}
-	p1603_8{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1603_6{{"Sϕ Stack "}}
+	p1603_6{{"Sϕ Stack "}}
+	p1603_5{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1604 --> phi_1603
 block_1605 --> phi_1603
 subgraph block_1604["Block 1604"]
 	direction TB
-	b1604_2["eff_nop__3794 nop"]
-	b1604_21["eff__3784__3797 trapNull"]
-	b1604_20["eff_merge__3795__3796 merge"]
-	b1604_22["eff_merge__3793__3798 merge"]
-	b1604_2 --> b1604_21
-	b1604_21 --> b1604_20
+	b1604_14["eff_nop__3794 nop"]
+	b1604_20["eff__3784__3796 trapNull"]
+	b1604_22["eff_merge__3795__3798 merge"]
+	b1604_21["eff_merge__3793__3797 merge"]
+	b1604_14 --> b1604_20
 	b1604_20 --> b1604_22
+	b1604_22 --> b1604_21
 end
 branch_1602 --> block_1604
 subgraph branch_1602["Branch 1602"]
-	br1602_13["mb__3791 bool.&&"]
+	br1602_10["mb__3791 bool.&&"]
 
 end
 block_1606 --> branch_1602
 subgraph block_1606["Block 1606"]
 	direction TB
-	b1606_25["cond__3783__3799 object_isNull"]
-	b1606_6["cond__3783 object_isNull"]
-	b1606_27["mt__3789__3801 U32_maybeTrue"]
-	b1606_12["mf__3790 U32_maybeFalse"]
-	b1606_11["mt__3789 U32_maybeTrue"]
-	b1606_13["mb__3791 bool.&&"]
-	b1606_25 --> b1606_6
-	b1606_6 --> b1606_27
-	b1606_27 --> b1606_12
-	b1606_12 --> b1606_11
-	b1606_11 --> b1606_13
+	b1606_24["cond__3783__3799 object_isNull"]
+	b1606_3["cond__3783 object_isNull"]
+	b1606_26["mt__3789__3801 U32_maybeTrue"]
+	b1606_9["mf__3790 U32_maybeFalse"]
+	b1606_8["mt__3789 U32_maybeTrue"]
+	b1606_10["mb__3791 bool.&&"]
+	b1606_24 --> b1606_3
+	b1606_3 --> b1606_26
+	b1606_26 --> b1606_9
+	b1606_9 --> b1606_8
+	b1606_8 --> b1606_10
 end
 subgraph block_1605["Block 1605"]
 	direction TB
 end
 phi_1608 --> block_1605
 subgraph phi_1608["Phi 1608"]
-	p1608_28{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1608_24{{"Sϕ Stack "}}
+	p1608_28{{"Sϕ Stack "}}
+	p1608_27{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1609 --> phi_1608
 block_1610 --> phi_1608
@@ -80059,7 +80059,7 @@ subgraph block_1609["Block 1609"]
 end
 branch_1607 --> block_1609
 subgraph branch_1607["Branch 1607"]
-	br1607_27["mt__3789__3801 U32_maybeTrue"]
+	br1607_26["mt__3789__3801 U32_maybeTrue"]
 
 end
 branch_1602 --> branch_1607
@@ -80078,9 +80078,9 @@ def mt__3789 = U32_maybeTrue(cond__3783);
 def mb__3791 = bool.&&(mt__3789, mf__3790);
 if (mb__3791) {
 	def eff_nop__3794 = nop();
-	def eff__3784__3797 = trapNull();
-	def eff_merge__3795__3796 = merge(eff_nop__3794, obj);
-	def eff_merge__3793__3798 = merge(eff__3784__3797, r_state__3792);
+	def eff__3784__3796 = trapNull();
+	def eff_merge__3795__3798 = merge(eff_nop__3794, obj);
+	def eff_merge__3793__3797 = merge(eff__3784__3796, r_state__3792);
 } else {
 	if (mt__3789__3801) {
 		def eff__3784__3800__3806 = trapNull();
@@ -80531,49 +80531,49 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	9 -. Codeptr .-> 3
-	1 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	7 --> 2
-	13 --> 2
-	0 --> 2
+	1[\\"Finish"/]
+	7 -. Codeptr .-> 1
+	8 -. Stack .-> 1
+	9 -. Trap Locals Globals Tables Memory Extra .-> 1
+	9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	5 --> 9
+	13 --> 9
+	0 --> 9
 	0[/"Start"\\]
 	13["ret__3837__3845 trapNull"]
-	5 -. Codeptr .-> 13
-	6 -. Stack .-> 13
+	3 -. Codeptr .-> 13
+	4 -. Stack .-> 13
 	0 -. Trap Locals Globals Tables Memory Extra .-> 13
-	6["obj pop_Object"]
-	0 -. Stack .-> 6
-	5["field_index imm_readULEB32"]
-	4 -. Codeptr .-> 5
-	4["struct_index imm_readULEB32"]
-	0 -. Codeptr .-> 4
-	7["cond__3836 object_isNull"]
-	6 --> 7
-	1{{"Sϕ Stack "}}
-	7 --> 1
-	13 --> 1
-	6 --> 1
-	9{{"Sϕ Codeptr "}}
-	7 --> 9
-	13 --> 9
-	5 --> 9
+	4["obj pop_Object"]
+	0 -. Stack .-> 4
+	3["field_index imm_readULEB32"]
+	2 -. Codeptr .-> 3
+	2["struct_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	5["cond__3836 object_isNull"]
+	4 --> 5
+	8{{"Sϕ Stack "}}
+	5 --> 8
+	13 --> 8
+	4 --> 8
+	7{{"Sϕ Codeptr "}}
+	5 --> 7
+	13 --> 7
+	3 --> 7
 </pre>`;
 window.traces["STRUCT_GET"]["schedulerMermaid"] = ''
 window.traces["STRUCT_GET"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1613["Block 1613"]
 	direction TB
-	b1613_3[\\"Finish"/]
+	b1613_1[\\"Finish"/]
 end
 phi_1615 --> block_1613
 subgraph phi_1615["Phi 1615"]
-	p1615_2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1615_1{{"Sϕ Stack "}}
-	p1615_9{{"Sϕ Codeptr "}}
-	p1615_2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1615_1{{"Sϕ Stack "}}
+	p1615_9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1615_8{{"Sϕ Stack "}}
+	p1615_9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1615_8{{"Sϕ Stack "}}
+	p1615_7{{"Sϕ Codeptr "}}
 end
 block_1616 --> phi_1615
 block_1617 --> phi_1615
@@ -80583,13 +80583,13 @@ subgraph block_1616["Block 1616"]
 end
 branch_1614 --> block_1616
 subgraph branch_1614["Branch 1614"]
-	br1614_7["cond__3836 object_isNull"]
+	br1614_5["cond__3836 object_isNull"]
 
 end
 block_1618 --> branch_1614
 subgraph block_1618["Block 1618"]
 	direction TB
-	b1618_7["cond__3836 object_isNull"]
+	b1618_5["cond__3836 object_isNull"]
 end
 subgraph block_1617["Block 1617"]
 	direction TB
@@ -80709,73 +80709,73 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	20 -. Codeptr .-> 3
-	1 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	8 --> 2
-	27 --> 2
-	33 --> 2
-	33{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	30 --> 33
-	35 --> 33
-	0 --> 33
+	1[\\"Finish"/]
+	7 -. Codeptr .-> 1
+	8 -. Stack .-> 1
+	9 -. Trap Locals Globals Tables Memory Extra .-> 1
+	9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	12 --> 9
+	28 --> 9
+	35 --> 9
+	35{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	32 --> 35
+	31 --> 35
+	0 --> 35
 	0[/"r_state__3859 Start"\\]
-	35["ret__3837__3867 trapNull"]
-	6 -. Codeptr .-> 35
-	14 -. Stack .-> 35
-	0 -. Trap Locals Globals Tables Memory Extra .-> 35
-	14["obj pop_Object"]
-	0 -. Stack .-> 14
-	6["field_index imm_readULEB32"]
-	4 -. Codeptr .-> 6
-	4["struct_index imm_readULEB32"]
-	0 -. Codeptr .-> 4
-	30["mt__3852__3865 U32_maybeTrue"]
-	34 --> 30
-	34["cond__3836__3866 object_isNull"]
-	14 --> 34
-	27["eff_merge__3860__3863 merge"]
-	16 --> 27
-	0 --> 27
-	16["eff_nop__3858 nop"]
-	8["mb__3854 bool.&&"]
-	5 --> 8
-	7 --> 8
-	7["mf__3853 U32_maybeFalse"]
-	17 --> 7
-	17["cond__3836 object_isNull"]
-	14 --> 17
-	5["mt__3852 U32_maybeTrue"]
-	17 --> 5
-	1{{"Sϕ Stack "}}
-	8 --> 1
-	26 --> 1
-	32 --> 1
-	32{{"Sϕ Stack "}}
+	31["ret__3837__3866 trapNull"]
+	3 -. Codeptr .-> 31
+	4 -. Stack .-> 31
+	0 -. Trap Locals Globals Tables Memory Extra .-> 31
+	4["obj pop_Object"]
+	0 -. Stack .-> 4
+	3["field_index imm_readULEB32"]
+	2 -. Codeptr .-> 3
+	2["struct_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	32["mt__3852__3867 U32_maybeTrue"]
 	30 --> 32
-	35 --> 32
-	14 --> 32
-	26["eff_merge__3857__3862 merge"]
-	12 --> 26
-	14 --> 26
-	12["eff_nop__3856 nop"]
-	20{{"Sϕ Codeptr "}}
-	8 --> 20
-	25 --> 20
-	31 --> 20
-	31{{"Sϕ Codeptr "}}
-	30 --> 31
-	35 --> 31
-	6 --> 31
-	25["eff_merge__3855__3861 merge"]
-	28 --> 25
-	6 --> 25
-	28["ret__3837__3864 trapNull"]
-	6 -. Codeptr .-> 28
-	14 -. Stack .-> 28
-	0 -. Trap Locals Globals Tables Memory Extra .-> 28
+	30["cond__3836__3865 object_isNull"]
+	4 --> 30
+	28["eff_merge__3860__3864 merge"]
+	19 --> 28
+	0 --> 28
+	19["eff_nop__3858 nop"]
+	12["mb__3854 bool.&&"]
+	10 --> 12
+	11 --> 12
+	11["mf__3853 U32_maybeFalse"]
+	5 --> 11
+	5["cond__3836 object_isNull"]
+	4 --> 5
+	10["mt__3852 U32_maybeTrue"]
+	5 --> 10
+	8{{"Sϕ Stack "}}
+	12 --> 8
+	27 --> 8
+	34 --> 8
+	34{{"Sϕ Stack "}}
+	32 --> 34
+	31 --> 34
+	4 --> 34
+	27["eff_merge__3857__3863 merge"]
+	16 --> 27
+	4 --> 27
+	16["eff_nop__3856 nop"]
+	7{{"Sϕ Codeptr "}}
+	12 --> 7
+	26 --> 7
+	33 --> 7
+	33{{"Sϕ Codeptr "}}
+	32 --> 33
+	31 --> 33
+	3 --> 33
+	26["eff_merge__3855__3862 merge"]
+	25 --> 26
+	3 --> 26
+	25["ret__3837__3861 trapNull"]
+	3 -. Codeptr .-> 25
+	4 -. Stack .-> 25
+	0 -. Trap Locals Globals Tables Memory Extra .-> 25
 </pre>`;
 window.traces["STRUCT_GET_ul"]["post_surgery 1626"] = ''
 window.traces["STRUCT_GET_ul"]["post_surgery 1626"] += `<pre class='graph'>---
@@ -80783,142 +80783,142 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	20 -. Codeptr .-> 3
-	1 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	8 --> 2
-	27 --> 2
-	33 --> 2
-	33{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	30 --> 33
-	55 --> 33
-	0 --> 33
+	1[\\"Finish"/]
+	7 -. Codeptr .-> 1
+	8 -. Stack .-> 1
+	9 -. Trap Locals Globals Tables Memory Extra .-> 1
+	9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	12 --> 9
+	28 --> 9
+	35 --> 9
+	35{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	32 --> 35
+	55 --> 35
+	0 --> 35
 	0[/"r_state__3859 Start"\\]
-	55["ret__3837__3867__3878 trapNull"]
-	6 -. Codeptr .-> 55
-	14 -. Stack .-> 55
+	55["ret__3837__3866__3878 trapNull"]
+	3 -. Codeptr .-> 55
+	4 -. Stack .-> 55
 	0 -. Trap Locals Globals Tables Memory Extra .-> 55
-	14["obj pop_Object"]
-	0 -. Stack .-> 14
-	6["field_index imm_readULEB32"]
-	4 -. Codeptr .-> 6
-	4["struct_index imm_readULEB32"]
-	0 -. Codeptr .-> 4
-	30["mt__3852__3865 U32_maybeTrue"]
-	34 --> 30
-	34["cond__3836__3866 object_isNull"]
-	14 --> 34
-	27["eff_merge__3860__3863 merge"]
-	16 --> 27
-	0 --> 27
-	16["eff_nop__3858 nop"]
-	8["mb__3854 bool.&&"]
-	5 --> 8
-	7 --> 8
-	7["mf__3853 U32_maybeFalse"]
-	17 --> 7
-	17["cond__3836 object_isNull"]
-	14 --> 17
-	5["mt__3852 U32_maybeTrue"]
-	17 --> 5
-	1{{"Sϕ Stack "}}
-	8 --> 1
-	26 --> 1
-	32 --> 1
-	32{{"Sϕ Stack "}}
+	4["obj pop_Object"]
+	0 -. Stack .-> 4
+	3["field_index imm_readULEB32"]
+	2 -. Codeptr .-> 3
+	2["struct_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	32["mt__3852__3867 U32_maybeTrue"]
 	30 --> 32
-	55 --> 32
-	14 --> 32
-	26["eff_merge__3857__3862 merge"]
-	12 --> 26
-	14 --> 26
-	12["eff_nop__3856 nop"]
-	20{{"Sϕ Codeptr "}}
-	8 --> 20
-	25 --> 20
-	31 --> 20
-	31{{"Sϕ Codeptr "}}
-	30 --> 31
-	55 --> 31
-	6 --> 31
-	25["eff_merge__3855__3861 merge"]
-	28 --> 25
-	6 --> 25
-	28["ret__3837__3864 trapNull"]
-	6 -. Codeptr .-> 28
-	14 -. Stack .-> 28
-	0 -. Trap Locals Globals Tables Memory Extra .-> 28
+	30["cond__3836__3865 object_isNull"]
+	4 --> 30
+	28["eff_merge__3860__3864 merge"]
+	19 --> 28
+	0 --> 28
+	19["eff_nop__3858 nop"]
+	12["mb__3854 bool.&&"]
+	10 --> 12
+	11 --> 12
+	11["mf__3853 U32_maybeFalse"]
+	5 --> 11
+	5["cond__3836 object_isNull"]
+	4 --> 5
+	10["mt__3852 U32_maybeTrue"]
+	5 --> 10
+	8{{"Sϕ Stack "}}
+	12 --> 8
+	27 --> 8
+	34 --> 8
+	34{{"Sϕ Stack "}}
+	32 --> 34
+	55 --> 34
+	4 --> 34
+	27["eff_merge__3857__3863 merge"]
+	16 --> 27
+	4 --> 27
+	16["eff_nop__3856 nop"]
+	7{{"Sϕ Codeptr "}}
+	12 --> 7
+	26 --> 7
+	33 --> 7
+	33{{"Sϕ Codeptr "}}
+	32 --> 33
+	55 --> 33
+	3 --> 33
+	26["eff_merge__3855__3862 merge"]
+	25 --> 26
+	3 --> 26
+	25["ret__3837__3861 trapNull"]
+	3 -. Codeptr .-> 25
+	4 -. Stack .-> 25
+	0 -. Trap Locals Globals Tables Memory Extra .-> 25
 </pre>`;
 window.traces["STRUCT_GET"]["unlem_scheduler"] = ''
 window.traces["STRUCT_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1619["Block 1619"]
 	direction TB
-	b1619_3[\\"Finish"/]
+	b1619_1[\\"Finish"/]
 end
 phi_1621 --> block_1619
 subgraph phi_1621["Phi 1621"]
-	p1621_2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1621_1{{"Sϕ Stack "}}
-	p1621_20{{"Sϕ Codeptr "}}
-	p1621_2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1621_1{{"Sϕ Stack "}}
+	p1621_9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1621_8{{"Sϕ Stack "}}
+	p1621_9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1621_8{{"Sϕ Stack "}}
+	p1621_7{{"Sϕ Codeptr "}}
 end
 block_1622 --> phi_1621
 block_1623 --> phi_1621
 subgraph block_1622["Block 1622"]
 	direction TB
-	b1622_16["eff_nop__3858 nop"]
-	b1622_12["eff_nop__3856 nop"]
-	b1622_28["ret__3837__3864 trapNull"]
-	b1622_27["eff_merge__3860__3863 merge"]
-	b1622_26["eff_merge__3857__3862 merge"]
-	b1622_25["eff_merge__3855__3861 merge"]
-	b1622_16 --> b1622_12
-	b1622_12 --> b1622_28
+	b1622_19["eff_nop__3858 nop"]
+	b1622_16["eff_nop__3856 nop"]
+	b1622_25["ret__3837__3861 trapNull"]
+	b1622_28["eff_merge__3860__3864 merge"]
+	b1622_27["eff_merge__3857__3863 merge"]
+	b1622_26["eff_merge__3855__3862 merge"]
+	b1622_19 --> b1622_16
+	b1622_16 --> b1622_25
+	b1622_25 --> b1622_28
 	b1622_28 --> b1622_27
 	b1622_27 --> b1622_26
-	b1622_26 --> b1622_25
 end
 branch_1620 --> block_1622
 subgraph branch_1620["Branch 1620"]
-	br1620_8["mb__3854 bool.&&"]
+	br1620_12["mb__3854 bool.&&"]
 
 end
 block_1624 --> branch_1620
 subgraph block_1624["Block 1624"]
 	direction TB
-	b1624_34["cond__3836__3866 object_isNull"]
-	b1624_17["cond__3836 object_isNull"]
-	b1624_30["mt__3852__3865 U32_maybeTrue"]
-	b1624_7["mf__3853 U32_maybeFalse"]
-	b1624_5["mt__3852 U32_maybeTrue"]
-	b1624_8["mb__3854 bool.&&"]
-	b1624_34 --> b1624_17
-	b1624_17 --> b1624_30
-	b1624_30 --> b1624_7
-	b1624_7 --> b1624_5
-	b1624_5 --> b1624_8
+	b1624_30["cond__3836__3865 object_isNull"]
+	b1624_5["cond__3836 object_isNull"]
+	b1624_32["mt__3852__3867 U32_maybeTrue"]
+	b1624_11["mf__3853 U32_maybeFalse"]
+	b1624_10["mt__3852 U32_maybeTrue"]
+	b1624_12["mb__3854 bool.&&"]
+	b1624_30 --> b1624_5
+	b1624_5 --> b1624_32
+	b1624_32 --> b1624_11
+	b1624_11 --> b1624_10
+	b1624_10 --> b1624_12
 end
 subgraph block_1623["Block 1623"]
 	direction TB
 end
 phi_1626 --> block_1623
 subgraph phi_1626["Phi 1626"]
-	p1626_31{{"Sϕ Codeptr "}}
-	p1626_33{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1626_32{{"Sϕ Stack "}}
+	p1626_35{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1626_34{{"Sϕ Stack "}}
+	p1626_33{{"Sϕ Codeptr "}}
 end
 block_1627 --> phi_1626
 block_1628 --> phi_1626
 subgraph block_1627["Block 1627"]
 	direction TB
-	b1627_55["ret__3837__3867__3878 trapNull"]
+	b1627_55["ret__3837__3866__3878 trapNull"]
 end
 branch_1625 --> block_1627
 subgraph branch_1625["Branch 1625"]
-	br1625_30["mt__3852__3865 U32_maybeTrue"]
+	br1625_32["mt__3852__3867 U32_maybeTrue"]
 
 end
 branch_1620 --> branch_1625
@@ -80929,22 +80929,22 @@ branch_1625 --> block_1628
 
 </pre>`;
 window.traces["STRUCT_GET"]["unlem_scheduler_ssa"] = ''
-window.traces["STRUCT_GET"]["unlem_scheduler_ssa"] += `<pre class=''>def cond__3836__3866 = object_isNull(obj);
+window.traces["STRUCT_GET"]["unlem_scheduler_ssa"] += `<pre class=''>def cond__3836__3865 = object_isNull(obj);
 def cond__3836 = object_isNull(obj);
-def mt__3852__3865 = U32_maybeTrue(cond__3836__3866);
+def mt__3852__3867 = U32_maybeTrue(cond__3836__3865);
 def mf__3853 = U32_maybeFalse(cond__3836);
 def mt__3852 = U32_maybeTrue(cond__3836);
 def mb__3854 = bool.&&(mt__3852, mf__3853);
 if (mb__3854) {
 	def eff_nop__3858 = nop();
 	def eff_nop__3856 = nop();
-	def ret__3837__3864 = trapNull();
-	def eff_merge__3860__3863 = merge(eff_nop__3858, r_state__3859);
-	def eff_merge__3857__3862 = merge(eff_nop__3856, obj);
-	def eff_merge__3855__3861 = merge(ret__3837__3864, field_index);
+	def ret__3837__3861 = trapNull();
+	def eff_merge__3860__3864 = merge(eff_nop__3858, r_state__3859);
+	def eff_merge__3857__3863 = merge(eff_nop__3856, obj);
+	def eff_merge__3855__3862 = merge(ret__3837__3861, field_index);
 } else {
-	if (mt__3852__3865) {
-		def ret__3837__3867__3878 = trapNull();
+	if (mt__3852__3867) {
+		def ret__3837__3866__3878 = trapNull();
 	}
 // phis: 
 }
@@ -81197,49 +81197,49 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	9 -. Codeptr .-> 3
-	1 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	7 --> 2
-	13 --> 2
-	0 --> 2
+	1[\\"Finish"/]
+	7 -. Codeptr .-> 1
+	8 -. Stack .-> 1
+	9 -. Trap Locals Globals Tables Memory Extra .-> 1
+	9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	5 --> 9
+	13 --> 9
+	0 --> 9
 	0[/"Start"\\]
 	13["ret__3891__3899 trapNull"]
-	5 -. Codeptr .-> 13
-	6 -. Stack .-> 13
+	3 -. Codeptr .-> 13
+	4 -. Stack .-> 13
 	0 -. Trap Locals Globals Tables Memory Extra .-> 13
-	6["obj pop_Object"]
-	0 -. Stack .-> 6
-	5["field_index imm_readULEB32"]
-	4 -. Codeptr .-> 5
-	4["struct_index imm_readULEB32"]
-	0 -. Codeptr .-> 4
-	7["cond__3890 object_isNull"]
-	6 --> 7
-	1{{"Sϕ Stack "}}
-	7 --> 1
-	13 --> 1
-	6 --> 1
-	9{{"Sϕ Codeptr "}}
-	7 --> 9
-	13 --> 9
-	5 --> 9
+	4["obj pop_Object"]
+	0 -. Stack .-> 4
+	3["field_index imm_readULEB32"]
+	2 -. Codeptr .-> 3
+	2["struct_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	5["cond__3890 object_isNull"]
+	4 --> 5
+	8{{"Sϕ Stack "}}
+	5 --> 8
+	13 --> 8
+	4 --> 8
+	7{{"Sϕ Codeptr "}}
+	5 --> 7
+	13 --> 7
+	3 --> 7
 </pre>`;
 window.traces["STRUCT_GET_S"]["schedulerMermaid"] = ''
 window.traces["STRUCT_GET_S"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1629["Block 1629"]
 	direction TB
-	b1629_3[\\"Finish"/]
+	b1629_1[\\"Finish"/]
 end
 phi_1631 --> block_1629
 subgraph phi_1631["Phi 1631"]
-	p1631_2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1631_1{{"Sϕ Stack "}}
-	p1631_9{{"Sϕ Codeptr "}}
-	p1631_2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1631_1{{"Sϕ Stack "}}
+	p1631_9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1631_8{{"Sϕ Stack "}}
+	p1631_9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1631_8{{"Sϕ Stack "}}
+	p1631_7{{"Sϕ Codeptr "}}
 end
 block_1632 --> phi_1631
 block_1633 --> phi_1631
@@ -81249,13 +81249,13 @@ subgraph block_1632["Block 1632"]
 end
 branch_1630 --> block_1632
 subgraph branch_1630["Branch 1630"]
-	br1630_7["cond__3890 object_isNull"]
+	br1630_5["cond__3890 object_isNull"]
 
 end
 block_1634 --> branch_1630
 subgraph block_1634["Block 1634"]
 	direction TB
-	b1634_7["cond__3890 object_isNull"]
+	b1634_5["cond__3890 object_isNull"]
 end
 subgraph block_1633["Block 1633"]
 	direction TB
@@ -81375,73 +81375,73 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	20 -. Codeptr .-> 3
-	1 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	8 --> 2
-	27 --> 2
-	33 --> 2
-	33{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	30 --> 33
-	35 --> 33
-	0 --> 33
+	1[\\"Finish"/]
+	7 -. Codeptr .-> 1
+	8 -. Stack .-> 1
+	9 -. Trap Locals Globals Tables Memory Extra .-> 1
+	9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	12 --> 9
+	28 --> 9
+	35 --> 9
+	35{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	32 --> 35
+	31 --> 35
+	0 --> 35
 	0[/"r_state__3913 Start"\\]
-	35["ret__3891__3921 trapNull"]
-	6 -. Codeptr .-> 35
-	14 -. Stack .-> 35
-	0 -. Trap Locals Globals Tables Memory Extra .-> 35
-	14["obj pop_Object"]
-	0 -. Stack .-> 14
-	6["field_index imm_readULEB32"]
-	4 -. Codeptr .-> 6
-	4["struct_index imm_readULEB32"]
-	0 -. Codeptr .-> 4
-	30["mt__3906__3919 U32_maybeTrue"]
-	34 --> 30
-	34["cond__3890__3920 object_isNull"]
-	14 --> 34
-	27["eff_merge__3914__3917 merge"]
-	16 --> 27
-	0 --> 27
-	16["eff_nop__3912 nop"]
-	8["mb__3908 bool.&&"]
-	5 --> 8
-	7 --> 8
-	7["mf__3907 U32_maybeFalse"]
-	17 --> 7
-	17["cond__3890 object_isNull"]
-	14 --> 17
-	5["mt__3906 U32_maybeTrue"]
-	17 --> 5
-	1{{"Sϕ Stack "}}
-	8 --> 1
-	26 --> 1
-	32 --> 1
-	32{{"Sϕ Stack "}}
+	31["ret__3891__3920 trapNull"]
+	3 -. Codeptr .-> 31
+	4 -. Stack .-> 31
+	0 -. Trap Locals Globals Tables Memory Extra .-> 31
+	4["obj pop_Object"]
+	0 -. Stack .-> 4
+	3["field_index imm_readULEB32"]
+	2 -. Codeptr .-> 3
+	2["struct_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	32["mt__3906__3921 U32_maybeTrue"]
 	30 --> 32
-	35 --> 32
-	14 --> 32
-	26["eff_merge__3911__3916 merge"]
-	12 --> 26
-	14 --> 26
-	12["eff_nop__3910 nop"]
-	20{{"Sϕ Codeptr "}}
-	8 --> 20
-	25 --> 20
-	31 --> 20
-	31{{"Sϕ Codeptr "}}
-	30 --> 31
-	35 --> 31
-	6 --> 31
-	25["eff_merge__3909__3915 merge"]
-	28 --> 25
-	6 --> 25
-	28["ret__3891__3918 trapNull"]
-	6 -. Codeptr .-> 28
-	14 -. Stack .-> 28
-	0 -. Trap Locals Globals Tables Memory Extra .-> 28
+	30["cond__3890__3919 object_isNull"]
+	4 --> 30
+	28["eff_merge__3914__3918 merge"]
+	19 --> 28
+	0 --> 28
+	19["eff_nop__3912 nop"]
+	12["mb__3908 bool.&&"]
+	10 --> 12
+	11 --> 12
+	11["mf__3907 U32_maybeFalse"]
+	5 --> 11
+	5["cond__3890 object_isNull"]
+	4 --> 5
+	10["mt__3906 U32_maybeTrue"]
+	5 --> 10
+	8{{"Sϕ Stack "}}
+	12 --> 8
+	27 --> 8
+	34 --> 8
+	34{{"Sϕ Stack "}}
+	32 --> 34
+	31 --> 34
+	4 --> 34
+	27["eff_merge__3911__3917 merge"]
+	16 --> 27
+	4 --> 27
+	16["eff_nop__3910 nop"]
+	7{{"Sϕ Codeptr "}}
+	12 --> 7
+	26 --> 7
+	33 --> 7
+	33{{"Sϕ Codeptr "}}
+	32 --> 33
+	31 --> 33
+	3 --> 33
+	26["eff_merge__3909__3916 merge"]
+	25 --> 26
+	3 --> 26
+	25["ret__3891__3915 trapNull"]
+	3 -. Codeptr .-> 25
+	4 -. Stack .-> 25
+	0 -. Trap Locals Globals Tables Memory Extra .-> 25
 </pre>`;
 window.traces["STRUCT_GET_S_ul"]["post_surgery 1642"] = ''
 window.traces["STRUCT_GET_S_ul"]["post_surgery 1642"] += `<pre class='graph'>---
@@ -81449,142 +81449,142 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	20 -. Codeptr .-> 3
-	1 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	8 --> 2
-	27 --> 2
-	33 --> 2
-	33{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	30 --> 33
-	55 --> 33
-	0 --> 33
+	1[\\"Finish"/]
+	7 -. Codeptr .-> 1
+	8 -. Stack .-> 1
+	9 -. Trap Locals Globals Tables Memory Extra .-> 1
+	9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	12 --> 9
+	28 --> 9
+	35 --> 9
+	35{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	32 --> 35
+	55 --> 35
+	0 --> 35
 	0[/"r_state__3913 Start"\\]
-	55["ret__3891__3921__3932 trapNull"]
-	6 -. Codeptr .-> 55
-	14 -. Stack .-> 55
+	55["ret__3891__3920__3932 trapNull"]
+	3 -. Codeptr .-> 55
+	4 -. Stack .-> 55
 	0 -. Trap Locals Globals Tables Memory Extra .-> 55
-	14["obj pop_Object"]
-	0 -. Stack .-> 14
-	6["field_index imm_readULEB32"]
-	4 -. Codeptr .-> 6
-	4["struct_index imm_readULEB32"]
-	0 -. Codeptr .-> 4
-	30["mt__3906__3919 U32_maybeTrue"]
-	34 --> 30
-	34["cond__3890__3920 object_isNull"]
-	14 --> 34
-	27["eff_merge__3914__3917 merge"]
-	16 --> 27
-	0 --> 27
-	16["eff_nop__3912 nop"]
-	8["mb__3908 bool.&&"]
-	5 --> 8
-	7 --> 8
-	7["mf__3907 U32_maybeFalse"]
-	17 --> 7
-	17["cond__3890 object_isNull"]
-	14 --> 17
-	5["mt__3906 U32_maybeTrue"]
-	17 --> 5
-	1{{"Sϕ Stack "}}
-	8 --> 1
-	26 --> 1
-	32 --> 1
-	32{{"Sϕ Stack "}}
+	4["obj pop_Object"]
+	0 -. Stack .-> 4
+	3["field_index imm_readULEB32"]
+	2 -. Codeptr .-> 3
+	2["struct_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	32["mt__3906__3921 U32_maybeTrue"]
 	30 --> 32
-	55 --> 32
-	14 --> 32
-	26["eff_merge__3911__3916 merge"]
-	12 --> 26
-	14 --> 26
-	12["eff_nop__3910 nop"]
-	20{{"Sϕ Codeptr "}}
-	8 --> 20
-	25 --> 20
-	31 --> 20
-	31{{"Sϕ Codeptr "}}
-	30 --> 31
-	55 --> 31
-	6 --> 31
-	25["eff_merge__3909__3915 merge"]
-	28 --> 25
-	6 --> 25
-	28["ret__3891__3918 trapNull"]
-	6 -. Codeptr .-> 28
-	14 -. Stack .-> 28
-	0 -. Trap Locals Globals Tables Memory Extra .-> 28
+	30["cond__3890__3919 object_isNull"]
+	4 --> 30
+	28["eff_merge__3914__3918 merge"]
+	19 --> 28
+	0 --> 28
+	19["eff_nop__3912 nop"]
+	12["mb__3908 bool.&&"]
+	10 --> 12
+	11 --> 12
+	11["mf__3907 U32_maybeFalse"]
+	5 --> 11
+	5["cond__3890 object_isNull"]
+	4 --> 5
+	10["mt__3906 U32_maybeTrue"]
+	5 --> 10
+	8{{"Sϕ Stack "}}
+	12 --> 8
+	27 --> 8
+	34 --> 8
+	34{{"Sϕ Stack "}}
+	32 --> 34
+	55 --> 34
+	4 --> 34
+	27["eff_merge__3911__3917 merge"]
+	16 --> 27
+	4 --> 27
+	16["eff_nop__3910 nop"]
+	7{{"Sϕ Codeptr "}}
+	12 --> 7
+	26 --> 7
+	33 --> 7
+	33{{"Sϕ Codeptr "}}
+	32 --> 33
+	55 --> 33
+	3 --> 33
+	26["eff_merge__3909__3916 merge"]
+	25 --> 26
+	3 --> 26
+	25["ret__3891__3915 trapNull"]
+	3 -. Codeptr .-> 25
+	4 -. Stack .-> 25
+	0 -. Trap Locals Globals Tables Memory Extra .-> 25
 </pre>`;
 window.traces["STRUCT_GET_S"]["unlem_scheduler"] = ''
 window.traces["STRUCT_GET_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1635["Block 1635"]
 	direction TB
-	b1635_3[\\"Finish"/]
+	b1635_1[\\"Finish"/]
 end
 phi_1637 --> block_1635
 subgraph phi_1637["Phi 1637"]
-	p1637_2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1637_1{{"Sϕ Stack "}}
-	p1637_20{{"Sϕ Codeptr "}}
-	p1637_2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1637_1{{"Sϕ Stack "}}
+	p1637_9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1637_8{{"Sϕ Stack "}}
+	p1637_9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1637_8{{"Sϕ Stack "}}
+	p1637_7{{"Sϕ Codeptr "}}
 end
 block_1638 --> phi_1637
 block_1639 --> phi_1637
 subgraph block_1638["Block 1638"]
 	direction TB
-	b1638_16["eff_nop__3912 nop"]
-	b1638_12["eff_nop__3910 nop"]
-	b1638_28["ret__3891__3918 trapNull"]
-	b1638_27["eff_merge__3914__3917 merge"]
-	b1638_26["eff_merge__3911__3916 merge"]
-	b1638_25["eff_merge__3909__3915 merge"]
-	b1638_16 --> b1638_12
-	b1638_12 --> b1638_28
+	b1638_19["eff_nop__3912 nop"]
+	b1638_16["eff_nop__3910 nop"]
+	b1638_25["ret__3891__3915 trapNull"]
+	b1638_28["eff_merge__3914__3918 merge"]
+	b1638_27["eff_merge__3911__3917 merge"]
+	b1638_26["eff_merge__3909__3916 merge"]
+	b1638_19 --> b1638_16
+	b1638_16 --> b1638_25
+	b1638_25 --> b1638_28
 	b1638_28 --> b1638_27
 	b1638_27 --> b1638_26
-	b1638_26 --> b1638_25
 end
 branch_1636 --> block_1638
 subgraph branch_1636["Branch 1636"]
-	br1636_8["mb__3908 bool.&&"]
+	br1636_12["mb__3908 bool.&&"]
 
 end
 block_1640 --> branch_1636
 subgraph block_1640["Block 1640"]
 	direction TB
-	b1640_34["cond__3890__3920 object_isNull"]
-	b1640_17["cond__3890 object_isNull"]
-	b1640_30["mt__3906__3919 U32_maybeTrue"]
-	b1640_7["mf__3907 U32_maybeFalse"]
-	b1640_5["mt__3906 U32_maybeTrue"]
-	b1640_8["mb__3908 bool.&&"]
-	b1640_34 --> b1640_17
-	b1640_17 --> b1640_30
-	b1640_30 --> b1640_7
-	b1640_7 --> b1640_5
-	b1640_5 --> b1640_8
+	b1640_30["cond__3890__3919 object_isNull"]
+	b1640_5["cond__3890 object_isNull"]
+	b1640_32["mt__3906__3921 U32_maybeTrue"]
+	b1640_11["mf__3907 U32_maybeFalse"]
+	b1640_10["mt__3906 U32_maybeTrue"]
+	b1640_12["mb__3908 bool.&&"]
+	b1640_30 --> b1640_5
+	b1640_5 --> b1640_32
+	b1640_32 --> b1640_11
+	b1640_11 --> b1640_10
+	b1640_10 --> b1640_12
 end
 subgraph block_1639["Block 1639"]
 	direction TB
 end
 phi_1642 --> block_1639
 subgraph phi_1642["Phi 1642"]
-	p1642_31{{"Sϕ Codeptr "}}
-	p1642_33{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1642_32{{"Sϕ Stack "}}
+	p1642_35{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1642_34{{"Sϕ Stack "}}
+	p1642_33{{"Sϕ Codeptr "}}
 end
 block_1643 --> phi_1642
 block_1644 --> phi_1642
 subgraph block_1643["Block 1643"]
 	direction TB
-	b1643_55["ret__3891__3921__3932 trapNull"]
+	b1643_55["ret__3891__3920__3932 trapNull"]
 end
 branch_1641 --> block_1643
 subgraph branch_1641["Branch 1641"]
-	br1641_30["mt__3906__3919 U32_maybeTrue"]
+	br1641_32["mt__3906__3921 U32_maybeTrue"]
 
 end
 branch_1636 --> branch_1641
@@ -81595,22 +81595,22 @@ branch_1641 --> block_1644
 
 </pre>`;
 window.traces["STRUCT_GET_S"]["unlem_scheduler_ssa"] = ''
-window.traces["STRUCT_GET_S"]["unlem_scheduler_ssa"] += `<pre class=''>def cond__3890__3920 = object_isNull(obj);
+window.traces["STRUCT_GET_S"]["unlem_scheduler_ssa"] += `<pre class=''>def cond__3890__3919 = object_isNull(obj);
 def cond__3890 = object_isNull(obj);
-def mt__3906__3919 = U32_maybeTrue(cond__3890__3920);
+def mt__3906__3921 = U32_maybeTrue(cond__3890__3919);
 def mf__3907 = U32_maybeFalse(cond__3890);
 def mt__3906 = U32_maybeTrue(cond__3890);
 def mb__3908 = bool.&&(mt__3906, mf__3907);
 if (mb__3908) {
 	def eff_nop__3912 = nop();
 	def eff_nop__3910 = nop();
-	def ret__3891__3918 = trapNull();
-	def eff_merge__3914__3917 = merge(eff_nop__3912, r_state__3913);
-	def eff_merge__3911__3916 = merge(eff_nop__3910, obj);
-	def eff_merge__3909__3915 = merge(ret__3891__3918, field_index);
+	def ret__3891__3915 = trapNull();
+	def eff_merge__3914__3918 = merge(eff_nop__3912, r_state__3913);
+	def eff_merge__3911__3917 = merge(eff_nop__3910, obj);
+	def eff_merge__3909__3916 = merge(ret__3891__3915, field_index);
 } else {
-	if (mt__3906__3919) {
-		def ret__3891__3921__3932 = trapNull();
+	if (mt__3906__3921) {
+		def ret__3891__3920__3932 = trapNull();
 	}
 // phis: 
 }
@@ -81863,49 +81863,49 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	9 -. Codeptr .-> 3
-	1 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	7 --> 2
-	13 --> 2
-	0 --> 2
+	1[\\"Finish"/]
+	7 -. Codeptr .-> 1
+	8 -. Stack .-> 1
+	9 -. Trap Locals Globals Tables Memory Extra .-> 1
+	9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	5 --> 9
+	13 --> 9
+	0 --> 9
 	0[/"Start"\\]
 	13["ret__3945__3953 trapNull"]
-	5 -. Codeptr .-> 13
-	6 -. Stack .-> 13
+	3 -. Codeptr .-> 13
+	4 -. Stack .-> 13
 	0 -. Trap Locals Globals Tables Memory Extra .-> 13
-	6["obj pop_Object"]
-	0 -. Stack .-> 6
-	5["field_index imm_readULEB32"]
-	4 -. Codeptr .-> 5
-	4["struct_index imm_readULEB32"]
-	0 -. Codeptr .-> 4
-	7["cond__3944 object_isNull"]
-	6 --> 7
-	1{{"Sϕ Stack "}}
-	7 --> 1
-	13 --> 1
-	6 --> 1
-	9{{"Sϕ Codeptr "}}
-	7 --> 9
-	13 --> 9
-	5 --> 9
+	4["obj pop_Object"]
+	0 -. Stack .-> 4
+	3["field_index imm_readULEB32"]
+	2 -. Codeptr .-> 3
+	2["struct_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	5["cond__3944 object_isNull"]
+	4 --> 5
+	8{{"Sϕ Stack "}}
+	5 --> 8
+	13 --> 8
+	4 --> 8
+	7{{"Sϕ Codeptr "}}
+	5 --> 7
+	13 --> 7
+	3 --> 7
 </pre>`;
 window.traces["STRUCT_GET_U"]["schedulerMermaid"] = ''
 window.traces["STRUCT_GET_U"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1645["Block 1645"]
 	direction TB
-	b1645_3[\\"Finish"/]
+	b1645_1[\\"Finish"/]
 end
 phi_1647 --> block_1645
 subgraph phi_1647["Phi 1647"]
-	p1647_2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1647_1{{"Sϕ Stack "}}
-	p1647_9{{"Sϕ Codeptr "}}
-	p1647_2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1647_1{{"Sϕ Stack "}}
+	p1647_9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1647_8{{"Sϕ Stack "}}
+	p1647_9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1647_8{{"Sϕ Stack "}}
+	p1647_7{{"Sϕ Codeptr "}}
 end
 block_1648 --> phi_1647
 block_1649 --> phi_1647
@@ -81915,13 +81915,13 @@ subgraph block_1648["Block 1648"]
 end
 branch_1646 --> block_1648
 subgraph branch_1646["Branch 1646"]
-	br1646_7["cond__3944 object_isNull"]
+	br1646_5["cond__3944 object_isNull"]
 
 end
 block_1650 --> branch_1646
 subgraph block_1650["Block 1650"]
 	direction TB
-	b1650_7["cond__3944 object_isNull"]
+	b1650_5["cond__3944 object_isNull"]
 end
 subgraph block_1649["Block 1649"]
 	direction TB
@@ -82041,73 +82041,73 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	20 -. Codeptr .-> 3
-	1 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	8 --> 2
-	27 --> 2
-	33 --> 2
-	33{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	30 --> 33
-	35 --> 33
-	0 --> 33
+	1[\\"Finish"/]
+	7 -. Codeptr .-> 1
+	8 -. Stack .-> 1
+	9 -. Trap Locals Globals Tables Memory Extra .-> 1
+	9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	12 --> 9
+	28 --> 9
+	35 --> 9
+	35{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	32 --> 35
+	31 --> 35
+	0 --> 35
 	0[/"r_state__3967 Start"\\]
-	35["ret__3945__3975 trapNull"]
-	6 -. Codeptr .-> 35
-	14 -. Stack .-> 35
-	0 -. Trap Locals Globals Tables Memory Extra .-> 35
-	14["obj pop_Object"]
-	0 -. Stack .-> 14
-	6["field_index imm_readULEB32"]
-	4 -. Codeptr .-> 6
-	4["struct_index imm_readULEB32"]
-	0 -. Codeptr .-> 4
-	30["mt__3960__3973 U32_maybeTrue"]
-	34 --> 30
-	34["cond__3944__3974 object_isNull"]
-	14 --> 34
-	27["eff_merge__3968__3971 merge"]
-	16 --> 27
-	0 --> 27
-	16["eff_nop__3966 nop"]
-	8["mb__3962 bool.&&"]
-	5 --> 8
-	7 --> 8
-	7["mf__3961 U32_maybeFalse"]
-	17 --> 7
-	17["cond__3944 object_isNull"]
-	14 --> 17
-	5["mt__3960 U32_maybeTrue"]
-	17 --> 5
-	1{{"Sϕ Stack "}}
-	8 --> 1
-	26 --> 1
-	32 --> 1
-	32{{"Sϕ Stack "}}
+	31["ret__3945__3974 trapNull"]
+	3 -. Codeptr .-> 31
+	4 -. Stack .-> 31
+	0 -. Trap Locals Globals Tables Memory Extra .-> 31
+	4["obj pop_Object"]
+	0 -. Stack .-> 4
+	3["field_index imm_readULEB32"]
+	2 -. Codeptr .-> 3
+	2["struct_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	32["mt__3960__3975 U32_maybeTrue"]
 	30 --> 32
-	35 --> 32
-	14 --> 32
-	26["eff_merge__3965__3970 merge"]
-	12 --> 26
-	14 --> 26
-	12["eff_nop__3964 nop"]
-	20{{"Sϕ Codeptr "}}
-	8 --> 20
-	25 --> 20
-	31 --> 20
-	31{{"Sϕ Codeptr "}}
-	30 --> 31
-	35 --> 31
-	6 --> 31
-	25["eff_merge__3963__3969 merge"]
-	28 --> 25
-	6 --> 25
-	28["ret__3945__3972 trapNull"]
-	6 -. Codeptr .-> 28
-	14 -. Stack .-> 28
-	0 -. Trap Locals Globals Tables Memory Extra .-> 28
+	30["cond__3944__3973 object_isNull"]
+	4 --> 30
+	28["eff_merge__3968__3972 merge"]
+	19 --> 28
+	0 --> 28
+	19["eff_nop__3966 nop"]
+	12["mb__3962 bool.&&"]
+	10 --> 12
+	11 --> 12
+	11["mf__3961 U32_maybeFalse"]
+	5 --> 11
+	5["cond__3944 object_isNull"]
+	4 --> 5
+	10["mt__3960 U32_maybeTrue"]
+	5 --> 10
+	8{{"Sϕ Stack "}}
+	12 --> 8
+	27 --> 8
+	34 --> 8
+	34{{"Sϕ Stack "}}
+	32 --> 34
+	31 --> 34
+	4 --> 34
+	27["eff_merge__3965__3971 merge"]
+	16 --> 27
+	4 --> 27
+	16["eff_nop__3964 nop"]
+	7{{"Sϕ Codeptr "}}
+	12 --> 7
+	26 --> 7
+	33 --> 7
+	33{{"Sϕ Codeptr "}}
+	32 --> 33
+	31 --> 33
+	3 --> 33
+	26["eff_merge__3963__3970 merge"]
+	25 --> 26
+	3 --> 26
+	25["ret__3945__3969 trapNull"]
+	3 -. Codeptr .-> 25
+	4 -. Stack .-> 25
+	0 -. Trap Locals Globals Tables Memory Extra .-> 25
 </pre>`;
 window.traces["STRUCT_GET_U_ul"]["post_surgery 1658"] = ''
 window.traces["STRUCT_GET_U_ul"]["post_surgery 1658"] += `<pre class='graph'>---
@@ -82115,142 +82115,142 @@ config:
   layout: elk
 ---
 graph TD
-	3[\\"Finish"/]
-	20 -. Codeptr .-> 3
-	1 -. Stack .-> 3
-	2 -. Trap Locals Globals Tables Memory Extra .-> 3
-	2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	8 --> 2
-	27 --> 2
-	33 --> 2
-	33{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	30 --> 33
-	55 --> 33
-	0 --> 33
+	1[\\"Finish"/]
+	7 -. Codeptr .-> 1
+	8 -. Stack .-> 1
+	9 -. Trap Locals Globals Tables Memory Extra .-> 1
+	9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	12 --> 9
+	28 --> 9
+	35 --> 9
+	35{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	32 --> 35
+	55 --> 35
+	0 --> 35
 	0[/"r_state__3967 Start"\\]
-	55["ret__3945__3975__3986 trapNull"]
-	6 -. Codeptr .-> 55
-	14 -. Stack .-> 55
+	55["ret__3945__3974__3986 trapNull"]
+	3 -. Codeptr .-> 55
+	4 -. Stack .-> 55
 	0 -. Trap Locals Globals Tables Memory Extra .-> 55
-	14["obj pop_Object"]
-	0 -. Stack .-> 14
-	6["field_index imm_readULEB32"]
-	4 -. Codeptr .-> 6
-	4["struct_index imm_readULEB32"]
-	0 -. Codeptr .-> 4
-	30["mt__3960__3973 U32_maybeTrue"]
-	34 --> 30
-	34["cond__3944__3974 object_isNull"]
-	14 --> 34
-	27["eff_merge__3968__3971 merge"]
-	16 --> 27
-	0 --> 27
-	16["eff_nop__3966 nop"]
-	8["mb__3962 bool.&&"]
-	5 --> 8
-	7 --> 8
-	7["mf__3961 U32_maybeFalse"]
-	17 --> 7
-	17["cond__3944 object_isNull"]
-	14 --> 17
-	5["mt__3960 U32_maybeTrue"]
-	17 --> 5
-	1{{"Sϕ Stack "}}
-	8 --> 1
-	26 --> 1
-	32 --> 1
-	32{{"Sϕ Stack "}}
+	4["obj pop_Object"]
+	0 -. Stack .-> 4
+	3["field_index imm_readULEB32"]
+	2 -. Codeptr .-> 3
+	2["struct_index imm_readULEB32"]
+	0 -. Codeptr .-> 2
+	32["mt__3960__3975 U32_maybeTrue"]
 	30 --> 32
-	55 --> 32
-	14 --> 32
-	26["eff_merge__3965__3970 merge"]
-	12 --> 26
-	14 --> 26
-	12["eff_nop__3964 nop"]
-	20{{"Sϕ Codeptr "}}
-	8 --> 20
-	25 --> 20
-	31 --> 20
-	31{{"Sϕ Codeptr "}}
-	30 --> 31
-	55 --> 31
-	6 --> 31
-	25["eff_merge__3963__3969 merge"]
-	28 --> 25
-	6 --> 25
-	28["ret__3945__3972 trapNull"]
-	6 -. Codeptr .-> 28
-	14 -. Stack .-> 28
-	0 -. Trap Locals Globals Tables Memory Extra .-> 28
+	30["cond__3944__3973 object_isNull"]
+	4 --> 30
+	28["eff_merge__3968__3972 merge"]
+	19 --> 28
+	0 --> 28
+	19["eff_nop__3966 nop"]
+	12["mb__3962 bool.&&"]
+	10 --> 12
+	11 --> 12
+	11["mf__3961 U32_maybeFalse"]
+	5 --> 11
+	5["cond__3944 object_isNull"]
+	4 --> 5
+	10["mt__3960 U32_maybeTrue"]
+	5 --> 10
+	8{{"Sϕ Stack "}}
+	12 --> 8
+	27 --> 8
+	34 --> 8
+	34{{"Sϕ Stack "}}
+	32 --> 34
+	55 --> 34
+	4 --> 34
+	27["eff_merge__3965__3971 merge"]
+	16 --> 27
+	4 --> 27
+	16["eff_nop__3964 nop"]
+	7{{"Sϕ Codeptr "}}
+	12 --> 7
+	26 --> 7
+	33 --> 7
+	33{{"Sϕ Codeptr "}}
+	32 --> 33
+	55 --> 33
+	3 --> 33
+	26["eff_merge__3963__3970 merge"]
+	25 --> 26
+	3 --> 26
+	25["ret__3945__3969 trapNull"]
+	3 -. Codeptr .-> 25
+	4 -. Stack .-> 25
+	0 -. Trap Locals Globals Tables Memory Extra .-> 25
 </pre>`;
 window.traces["STRUCT_GET_U"]["unlem_scheduler"] = ''
 window.traces["STRUCT_GET_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1651["Block 1651"]
 	direction TB
-	b1651_3[\\"Finish"/]
+	b1651_1[\\"Finish"/]
 end
 phi_1653 --> block_1651
 subgraph phi_1653["Phi 1653"]
-	p1653_2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1653_1{{"Sϕ Stack "}}
-	p1653_20{{"Sϕ Codeptr "}}
-	p1653_2{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1653_1{{"Sϕ Stack "}}
+	p1653_9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1653_8{{"Sϕ Stack "}}
+	p1653_9{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1653_8{{"Sϕ Stack "}}
+	p1653_7{{"Sϕ Codeptr "}}
 end
 block_1654 --> phi_1653
 block_1655 --> phi_1653
 subgraph block_1654["Block 1654"]
 	direction TB
-	b1654_16["eff_nop__3966 nop"]
-	b1654_12["eff_nop__3964 nop"]
-	b1654_28["ret__3945__3972 trapNull"]
-	b1654_27["eff_merge__3968__3971 merge"]
-	b1654_26["eff_merge__3965__3970 merge"]
-	b1654_25["eff_merge__3963__3969 merge"]
-	b1654_16 --> b1654_12
-	b1654_12 --> b1654_28
+	b1654_19["eff_nop__3966 nop"]
+	b1654_16["eff_nop__3964 nop"]
+	b1654_25["ret__3945__3969 trapNull"]
+	b1654_28["eff_merge__3968__3972 merge"]
+	b1654_27["eff_merge__3965__3971 merge"]
+	b1654_26["eff_merge__3963__3970 merge"]
+	b1654_19 --> b1654_16
+	b1654_16 --> b1654_25
+	b1654_25 --> b1654_28
 	b1654_28 --> b1654_27
 	b1654_27 --> b1654_26
-	b1654_26 --> b1654_25
 end
 branch_1652 --> block_1654
 subgraph branch_1652["Branch 1652"]
-	br1652_8["mb__3962 bool.&&"]
+	br1652_12["mb__3962 bool.&&"]
 
 end
 block_1656 --> branch_1652
 subgraph block_1656["Block 1656"]
 	direction TB
-	b1656_34["cond__3944__3974 object_isNull"]
-	b1656_17["cond__3944 object_isNull"]
-	b1656_30["mt__3960__3973 U32_maybeTrue"]
-	b1656_7["mf__3961 U32_maybeFalse"]
-	b1656_5["mt__3960 U32_maybeTrue"]
-	b1656_8["mb__3962 bool.&&"]
-	b1656_34 --> b1656_17
-	b1656_17 --> b1656_30
-	b1656_30 --> b1656_7
-	b1656_7 --> b1656_5
-	b1656_5 --> b1656_8
+	b1656_30["cond__3944__3973 object_isNull"]
+	b1656_5["cond__3944 object_isNull"]
+	b1656_32["mt__3960__3975 U32_maybeTrue"]
+	b1656_11["mf__3961 U32_maybeFalse"]
+	b1656_10["mt__3960 U32_maybeTrue"]
+	b1656_12["mb__3962 bool.&&"]
+	b1656_30 --> b1656_5
+	b1656_5 --> b1656_32
+	b1656_32 --> b1656_11
+	b1656_11 --> b1656_10
+	b1656_10 --> b1656_12
 end
 subgraph block_1655["Block 1655"]
 	direction TB
 end
 phi_1658 --> block_1655
 subgraph phi_1658["Phi 1658"]
-	p1658_31{{"Sϕ Codeptr "}}
-	p1658_33{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p1658_32{{"Sϕ Stack "}}
+	p1658_35{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p1658_34{{"Sϕ Stack "}}
+	p1658_33{{"Sϕ Codeptr "}}
 end
 block_1659 --> phi_1658
 block_1660 --> phi_1658
 subgraph block_1659["Block 1659"]
 	direction TB
-	b1659_55["ret__3945__3975__3986 trapNull"]
+	b1659_55["ret__3945__3974__3986 trapNull"]
 end
 branch_1657 --> block_1659
 subgraph branch_1657["Branch 1657"]
-	br1657_30["mt__3960__3973 U32_maybeTrue"]
+	br1657_32["mt__3960__3975 U32_maybeTrue"]
 
 end
 branch_1652 --> branch_1657
@@ -82261,22 +82261,22 @@ branch_1657 --> block_1660
 
 </pre>`;
 window.traces["STRUCT_GET_U"]["unlem_scheduler_ssa"] = ''
-window.traces["STRUCT_GET_U"]["unlem_scheduler_ssa"] += `<pre class=''>def cond__3944__3974 = object_isNull(obj);
+window.traces["STRUCT_GET_U"]["unlem_scheduler_ssa"] += `<pre class=''>def cond__3944__3973 = object_isNull(obj);
 def cond__3944 = object_isNull(obj);
-def mt__3960__3973 = U32_maybeTrue(cond__3944__3974);
+def mt__3960__3975 = U32_maybeTrue(cond__3944__3973);
 def mf__3961 = U32_maybeFalse(cond__3944);
 def mt__3960 = U32_maybeTrue(cond__3944);
 def mb__3962 = bool.&&(mt__3960, mf__3961);
 if (mb__3962) {
 	def eff_nop__3966 = nop();
 	def eff_nop__3964 = nop();
-	def ret__3945__3972 = trapNull();
-	def eff_merge__3968__3971 = merge(eff_nop__3966, r_state__3967);
-	def eff_merge__3965__3970 = merge(eff_nop__3964, obj);
-	def eff_merge__3963__3969 = merge(ret__3945__3972, field_index);
+	def ret__3945__3969 = trapNull();
+	def eff_merge__3968__3972 = merge(eff_nop__3966, r_state__3967);
+	def eff_merge__3965__3971 = merge(eff_nop__3964, obj);
+	def eff_merge__3963__3970 = merge(ret__3945__3969, field_index);
 } else {
-	if (mt__3960__3973) {
-		def ret__3945__3975__3986 = trapNull();
+	if (mt__3960__3975) {
+		def ret__3945__3974__3986 = trapNull();
 	}
 // phis: 
 }

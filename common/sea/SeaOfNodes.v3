@@ -231,7 +231,7 @@ class Sea {
             def node = wl[q_idx];
             q_idx += 1;
 
-            if (completed.has(node)) continue;
+            if (node == null || completed.has(node)) continue;
             completed.put(node);
 
             def next = f(node, this, init);

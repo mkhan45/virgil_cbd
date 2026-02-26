@@ -1,23 +1,34 @@
 class NodeSet {
-    var m: HashMap<IRNode, void>;
-    new() {
-        m = HashMap<IRNode, void>.new(IRNode.hash, IRNode.eq);
+    var nodes: Array<IRNode> = Array.new(16);
+
+    def has(node: IRNode) -> bool {
+        if (node == null || node.id < 0 || node.id >= nodes.length) return false;
+        return nodes[node.id] != null;
     }
 
-    def has(node: IRNode) -> bool => m.has(node);
-    def put(node: IRNode) -> this { m[node] = void; }
-    def remove(node: IRNode) -> this { if (node != null && m.has(node)) m.remove(node); }
-    def apply(f: IRNode -> void) => void(m.apply(fun (k, v) => f(k)));
+    def put(node: IRNode) -> this {
+        if (node == null || node.id < 0) return;
+        if (node.id >= nodes.length) nodes = Arrays.grow(nodes, node.id + 1);
+        nodes[node.id] = node;
+    }
+
+    def remove(node: IRNode) -> this {
+        if (node != null && node.id >= 0 && node.id < nodes.length) nodes[node.id] = null;
+    }
+
+    def apply(f: IRNode -> void) {
+        for (i < nodes.length) if (nodes[i] != null) f(nodes[i]);
+    }
+
     def toVector() -> Vector<IRNode> {
         def buf = Vector<IRNode>.new();
-        apply(fun (n: IRNode) => void(buf.put(n)));
+        apply(fun (n: IRNode) { buf.put(n); });
         return buf;
     }
+
     def intersection(other: NodeSet) -> NodeSet {
         def result = NodeSet.new();
-        m.apply(fun (k: IRNode, v: void) {
-            if (other.has(k)) result.put(k);
-        });
+        apply(fun (node: IRNode) { if (other.has(node)) result.put(node); });
         return result;
     }
 }
