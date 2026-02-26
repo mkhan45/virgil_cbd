@@ -20,9 +20,9 @@ type SearchNode(node: IRNode, path: SSAD, available: ImmNodeSet, depth: int) {
         System.puts(Strings.format1("Node: %q", node.render));
         System.ln();
         System.puts("available: ");
-        for (cur = available.ls; cur != null; cur = cur.tail) {
-            System.puts(Strings.format1("%q ", cur.head.render));
-        }
+        available.applyIds(fun (id: int) {
+            System.puts(Strings.format1("%d ", id));
+        });
         System.ln();
         System.puts("path:\n");
         System.puts(path.toString(1));
@@ -161,15 +161,15 @@ component SearchSchedule {
             }
 
             var leftPoint = SearchNode(node, SSAD.Void, availableAfter, depth + 1);
-            for (l = needed_left.ls; l != null; l = l.tail) {
-                def phi_point = SearchNode(l.head, leftPoint.path, leftPoint.available, depth + 1);
+            for (l in needed_left.toArray(sea)) {
+                def phi_point = SearchNode(l, leftPoint.path, leftPoint.available, depth + 1);
                 def phi_search = scheduleNodes(sea, phi_point);
                 if (!phi_search.success) return phi_search;
                 leftPoint = phi_search.point;
             }
             var rightPoint = SearchNode(node, SSAD.Void, availableAfter, depth + 1);
-            for (r = needed_right.ls; r != null; r = r.tail) {
-                def phi_point = SearchNode(r.head, rightPoint.path, rightPoint.available, depth + 1);
+            for (r in needed_right.toArray(sea)) {
+                def phi_point = SearchNode(r, rightPoint.path, rightPoint.available, depth + 1);
                 def phi_search = scheduleNodes(sea, phi_point);
                 if (!phi_search.success) return phi_search;
                 rightPoint = phi_search.point;

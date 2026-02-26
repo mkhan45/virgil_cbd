@@ -1,81 +1,12 @@
-class NodeSet {
-    var m: HashMap<IRNode, void>;
-    new() {
-        m = HashMap<IRNode, void>.new(IRNode.hash, IRNode.eq);
-    }
-
-    def has(node: IRNode) -> bool => m.has(node);
-    def put(node: IRNode) -> this { m[node] = void; }
-    def remove(node: IRNode) -> this { if (node != null && m.has(node)) m.remove(node); }
-    def apply(f: IRNode -> void) => void(m.apply(fun (k, v) => f(k)));
-    def toVector() -> Vector<IRNode> {
-        def buf = Vector<IRNode>.new();
-        apply(fun (n: IRNode) => void(buf.put(n)));
-        return buf;
-    }
-    def intersection(other: NodeSet) -> NodeSet {
-        def result = NodeSet.new();
-        m.apply(fun (k: IRNode, v: void) {
-            if (other.has(k)) result.put(k);
-        });
-        return result;
-    }
-}
-
-type ImmNodeSet(ls: List<IRNode>) {
-    def with(n: IRNode) => if(has(n), this, ImmNodeSet(List.new(n, ls)));
-
-    def without(n: IRNode) -> ImmNodeSet {
-        var new_ls: List<IRNode> = null;
-        for (cur = ls; cur != null; cur = cur.tail) 
-            if (cur.head.id != n.id) new_ls = List.new(cur.head, new_ls);
-
-        return ImmNodeSet(new_ls);
-    }
-
-    def has(n: IRNode) -> bool {
-        for (cur = ls; cur != null; cur = cur.tail) 
-            if (cur.head.id == n.id) return true;
-
-        return false;
-    }
-
-    def intersection(other: ImmNodeSet) -> ImmNodeSet {
-        var res = ImmNodeSet(null);
-        for (cur = ls; cur != null; cur = cur.tail) 
-            if (other.has(cur.head)) res = res.with(cur.head);
-
-        return res;
-    }
-
-    def union(other: ImmNodeSet) -> ImmNodeSet {
-        var res = ImmNodeSet(null);
-        for (cur = ls; cur != null; cur = cur.tail) res = res.with(cur.head);
-        for (cur = other.ls; cur != null; cur = cur.tail) res = res.with(cur.head);
-        return res;
-    }
-
-    def render(sb: StringBuilder) -> StringBuilder => SeaRender.renderImmNodeSet(this, sb);
-}
-
-component ImmNodeSets {
-    def empty() => ImmNodeSet(null);
-    def single(n: IRNode) => ImmNodeSet(List.new(n, null));
-    def of_vec(v: Vector<IRNode>) -> ImmNodeSet {
-        var s = ImmNodeSet(null);
-        for (i < v.length) s = s.with(v[i]);
-        return s;
-    }
-}
-
 class Sea {
     var start: IRNode;
     var finish: IRNode;
     var void_node: IRNode;
     var id_count: int;
+    var nodes_by_id: Vector<IRNode> = Vector.new();
 
     var var_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>();
-    var lit_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>(); // assume that lits have unique rep across types
+    var lit_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>();
 
     new() {
         initEmpty();
@@ -84,6 +15,7 @@ class Sea {
 
     def initEmpty() {
         id_count = 0;
+        nodes_by_id = Vector.new();
         var_nodes = Strings.newMap<IRNode>();
         lit_nodes = Strings.newMap<IRNode>();
     }
@@ -105,6 +37,7 @@ class Sea {
         def node = IRNode.new(op, id_count);
         node.state_deps = state_deps;
         node.value_deps = value_deps;
+        nodes_by_id.put(node);
         id_count += 1;
 
         if (!IROp.Lit.?(op))
@@ -328,7 +261,7 @@ class Sea {
         for (i < node.children.length) {
             def child = node.children[i];
             def childPaths = collectPaths(top, bot, child, visited);
-            if (childPaths.ls != null) {
+            if (!childPaths.isEmpty()) {
                 result = result.with(node).union(childPaths);
             }
         }
@@ -362,16 +295,16 @@ class Sea {
 
     def branch_partition(node: IRNode) -> BranchPartition {
         def cond = node.value_deps[0], l_branch = node.value_deps[1], r_branch = node.value_deps[2];
-        cond.init_move();
+        cond.init_move(this);
 
         def lcas = findTop(l_branch, r_branch);
 
-        var lsg = ImmNodeSet(null);
+        var lsg = ImmNodeSets.empty();
         for (i < lcas.length) lsg = lsg.union(subgraph2(lcas[i], l_branch));
         for (i < lcas.length) lsg = lsg.without(lcas[i]);
         lsg = lsg.with(cond.move_true).with(l_branch);
 
-        var rsg = ImmNodeSet(null);
+        var rsg = ImmNodeSets.empty();
         for (i < lcas.length) rsg = rsg.union(subgraph2(lcas[i], r_branch));
         for (i < lcas.length) rsg = rsg.without(lcas[i]);
         rsg = rsg.with(cond.move_false).with(r_branch);
@@ -401,11 +334,11 @@ component Seas {
 
     def cloneSubgraph(sea: Sea, subgraph: ImmNodeSet) -> (ImmNodeSet, HashMap<IRNode, IRNode>) {
         def mapping = HashMap<IRNode, IRNode>.new(IRNode.hash, IRNode.eq);
+        def nodes = subgraph.toArray(sea);
 
-        // clone all nodes in the subgraph
-        for (cur = subgraph.ls; cur != null; cur = cur.tail) {
-            def old_node = cur.head;
+        for (old_node in nodes) {
             def new_node = IRNode.new(old_node.op, sea.id_count);
+            sea.nodes_by_id.put(new_node);
             sea.id_count += 1;
 
             new_node.state_deps = Array<IRNode>.new(old_node.state_deps.length);
@@ -422,9 +355,7 @@ component Seas {
             mapping[old_node] = new_node;
         }
 
-        // Fix edges, remap internal deps but leave external ones
-        for (cur = subgraph.ls; cur != null; cur = cur.tail) {
-            def old_node = cur.head;
+        for (old_node in nodes) {
             def new_node = mapping[old_node];
 
             for (j < old_node.value_deps.length) {
@@ -443,8 +374,7 @@ component Seas {
         }
 
         var result = ImmNodeSets.empty();
-        for (cur = subgraph.ls; cur != null; cur = cur.tail)
-            result = result.with(mapping[cur.head]);
+        for (old_node in nodes) result = result.with(mapping[old_node]);
 
         return (result, mapping);
     }
@@ -452,22 +382,20 @@ component Seas {
     def clone(sea: Sea) -> (Sea, HashMap<IRNode, IRNode>) {
         def liveNodes = live(sea);
 
-        // Phase 1: Create empty Sea
         def new_sea = Sea.new();
         sea.rebuildChildren();
         new_sea.initEmpty();
         def mapping = HashMap<IRNode, IRNode>.new(IRNode.hash, IRNode.eq);
 
-        // Phase 2: Create cloned nodes using existing nodes set
         liveNodes.apply(fun (old_node: IRNode) {
             def new_node = IRNode.new(old_node.op, new_sea.id_count);
+            new_sea.nodes_by_id.put(new_node);
             new_sea.id_count += 1;
             new_node.state_deps = Array<IRNode>.new(old_node.state_deps.length);
             new_node.value_deps = Array<IRNode>.new(old_node.value_deps.length);
             mapping[old_node] = new_node;
         });
 
-        // Phase 3: Rewire edges and clone VarData
         liveNodes.apply(fun (old_node: IRNode) {
             def new_node = mapping[old_node];
 
@@ -485,7 +413,6 @@ component Seas {
             }
         });
 
-        // Phase 4: Set Sea references and rebuild children
         new_sea.start = mapping[sea.start];
         new_sea.finish = mapping[sea.finish];
         new_sea.rebuildChildren();
@@ -580,14 +507,10 @@ class IRNode {
             if (state_deps[i] == from) state_deps[i] = to;
     }
 
-    def init_move() -> bool {
+    def init_move(sea: Sea) -> bool {
         if (move_true == null) {
-            move_true = IRNode.new(IROp.Move(true), -id*2);
-            move_true.value_deps = [];
-            move_true.state_deps = Arrays.dup(state_deps);
-            move_false = IRNode.new(IROp.Move(false), -id*2-1);
-            move_false.value_deps = [];
-            move_false.state_deps = Arrays.dup(state_deps);
+            move_true = sea.mkNode(IROp.Move(true), Arrays.dup(state_deps), []);
+            move_false = sea.mkNode(IROp.Move(false), Arrays.dup(state_deps), []);
             return false;
         }
         return true;
