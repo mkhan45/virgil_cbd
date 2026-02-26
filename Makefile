@@ -11,7 +11,7 @@ TYPEDEFS = $(WIZARD)/src/bytecode/Intrinsics.v3
 
 # Virgil compiler command (adjust as needed)
 VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -O2 -run -fun-exprs -simple-bodies
-V3C ?= ../virgil/bin/v3c-x86-64-linux -O2 -fun-exprs -simple-bodies
+V3C ?= ../virgil/bin/v3c-x86-64-linux -O2 -fun-exprs -simple-bodies -licm=true -inline="*dedup*"
 
 # Common libraries
 COMMON_LIB = $(wildcard common/*.v3 common/*/*.v3)

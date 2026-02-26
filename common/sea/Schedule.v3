@@ -108,7 +108,7 @@ class SeaScheduler {
 
         q_idx = 0;
         while (q_idx < q.length) {
-            if (q_idx > 300) {
+            if (q_idx > 200) {
                 System.puts(Strings.format1("ERROR: Scheduling %s reached limit\n", opcode));
                 break;
             }
@@ -439,7 +439,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         scheduler.live = Seas.live(scheduler.sea);
         scheduler.sea.rebuildChildren();
 
-        CBDTrace.addGraph(scheduler.opcode, Strings.format1("post_surgery %d", phi_node.id), scheduler.sea);
+        // CBDTrace.addGraph(scheduler.opcode, Strings.format1("post_surgery %d", phi_node.id), scheduler.sea);
         // System.puts(Strings.format2("lsg: %q\nrsg: %q\n", lsg.render, rsg.render));
 
         // if (Strings.equal(scheduler.opcode, "END")) {

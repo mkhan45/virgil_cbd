@@ -1,5 +1,5 @@
 class NodeSet {
-    var nodes: Array<IRNode> = Array.new(16);
+    var nodes: Array<IRNode> = Array.new(64);
 
     def has(node: IRNode) -> bool {
         if (node == null || node.id < 0 || node.id >= nodes.length) return false;
@@ -163,7 +163,7 @@ component ImmNodeSets {
     def DEFAULT_CAPACITY: int = 64;
 
     def empty() -> ImmNodeSet {
-        return ImmNodeSet(Array<int>.new(2), DEFAULT_CAPACITY);
+        return ImmNodeSet(Array<int>.new(DEFAULT_CAPACITY / 32), DEFAULT_CAPACITY);
     }
 
     def withCapacity(capacity: int) -> ImmNodeSet {
