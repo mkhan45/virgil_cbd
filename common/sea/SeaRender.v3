@@ -3,8 +3,7 @@
 component SeaRender {
     // === ImmNodeSet ===
     def renderImmNodeSet(ns: ImmNodeSet, sb: StringBuilder) -> StringBuilder {
-        for (cur = ns.ls; cur != null; cur = cur.tail) sb.putq(renderIRNode(cur.head, _)).puts(", ");
-        return sb;
+        return ns.render(sb);
     }
 
     // === Sea ===

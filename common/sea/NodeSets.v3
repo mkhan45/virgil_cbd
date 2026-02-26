@@ -1,0 +1,180 @@
+class NodeSet {
+    var nodes: Array<IRNode> = Array.new(64);
+
+    def has(node: IRNode) -> bool {
+        if (node == null || node.id < 0 || node.id >= nodes.length) return false;
+        return nodes[node.id] != null;
+    }
+
+    def put(node: IRNode) -> this {
+        if (node == null || node.id < 0) return;
+        if (node.id >= nodes.length) nodes = Arrays.grow(nodes, node.id + 1);
+        nodes[node.id] = node;
+    }
+
+    def remove(node: IRNode) -> this {
+        if (node != null && node.id >= 0 && node.id < nodes.length) nodes[node.id] = null;
+    }
+
+    def apply(f: IRNode -> void) {
+        for (i < nodes.length) if (nodes[i] != null) f(nodes[i]);
+    }
+
+    def toVector() -> Vector<IRNode> {
+        def buf = Vector<IRNode>.new();
+        apply(fun (n: IRNode) { buf.put(n); });
+        return buf;
+    }
+
+    def intersection(other: NodeSet) -> NodeSet {
+        def result = NodeSet.new();
+        apply(fun (node: IRNode) { if (other.has(node)) result.put(node); });
+        return result;
+    }
+}
+
+type ImmNodeSet(bits: Array<int>, capacity: int) {
+    def has(n: IRNode) -> bool {
+        if (n.id < 0 || n.id >= capacity) return false;
+        def idx = n.id >>> 5;
+        def mask = 1 << u5.view(n.id);
+        return (bits[idx] & mask) != 0;
+    }
+
+    def with(n: IRNode) -> ImmNodeSet {
+        if (n.id < 0) return this;
+        if (has(n)) return this;
+
+        var newCap = capacity;
+        var newBits: Array<int>;
+        if (n.id >= capacity) {
+            newCap = if(capacity * 2 > n.id + 1, capacity * 2, n.id + 1);
+            def newLen = (newCap + 31) >>> 5;
+            newBits = Array<int>.new(newLen);
+            for (i < bits.length) newBits[i] = bits[i];
+        } else {
+            newBits = Arrays.dup(bits);
+        }
+
+        def idx = n.id >>> 5;
+        newBits[idx] = newBits[idx] | (1 << u5.view(n.id));
+        return ImmNodeSet(newBits, newCap);
+    }
+
+    def without(n: IRNode) -> ImmNodeSet {
+        if (!has(n)) return this;
+        def newBits = Arrays.dup(bits);
+        def idx = n.id >>> 5;
+        newBits[idx] = newBits[idx] & ~(1 << u5.view(n.id));
+        return ImmNodeSet(newBits, capacity);
+    }
+
+    def intersection(other: ImmNodeSet) -> ImmNodeSet {
+        def minLen = if(bits.length < other.bits.length, bits.length, other.bits.length);
+        def newBits = Array<int>.new(minLen);
+        for (i < minLen) newBits[i] = bits[i] & other.bits[i];
+        def newCap = if(capacity < other.capacity, capacity, other.capacity);
+        return ImmNodeSet(newBits, newCap);
+    }
+
+    def union(other: ImmNodeSet) -> ImmNodeSet {
+        def maxLen = if(bits.length > other.bits.length, bits.length, other.bits.length);
+        def minLen = if(bits.length < other.bits.length, bits.length, other.bits.length);
+        def newBits = Array<int>.new(maxLen);
+
+        for (i < minLen) newBits[i] = bits[i] | other.bits[i];
+        for (i = minLen; i < bits.length; i++) newBits[i] = bits[i];
+        for (i = minLen; i < other.bits.length; i++) newBits[i] = other.bits[i];
+
+        def newCap = if(capacity > other.capacity, capacity, other.capacity);
+        return ImmNodeSet(newBits, newCap);
+    }
+
+    def apply(sea: Sea, f: IRNode -> void) {
+        for (i < bits.length) {
+            var word = bits[i];
+            var id = i << 5;
+            while (word != 0) {
+                if ((word & 1) != 0) f(sea.nodes_by_id[id]);
+                word >>>= 1;
+                id++;
+            }
+        }
+    }
+
+    def applyIds(f: int -> void) {
+        for (i < bits.length) {
+            var word = bits[i];
+            var id = i << 5;
+            while (word != 0) {
+                if ((word & 1) != 0) f(id);
+                word >>>= 1;
+                id++;
+            }
+        }
+    }
+
+    def toArray(sea: Sea) -> Array<IRNode> {
+        def result = Vector<IRNode>.new();
+        for (i < bits.length) {
+            var word = bits[i];
+            var id = i << 5;
+            while (word != 0) {
+                if ((word & 1) != 0) result.put(sea.nodes_by_id[id]);
+                word >>>= 1;
+                id++;
+            }
+        }
+        return result.extract();
+    }
+
+    def count() -> int {
+        var result = 0;
+        for (i < bits.length) {
+            var word = bits[i];
+            while (word != 0) {
+                result += word & 1;
+                word >>>= 1;
+            }
+        }
+        return result;
+    }
+
+    def isEmpty() -> bool {
+        for (i < bits.length) if (bits[i] != 0) return false;
+        return true;
+    }
+
+    def render(sb: StringBuilder) -> StringBuilder {
+        sb.puts("{");
+        var first = Array<bool>.new(1);
+        first[0] = true;
+        applyIds(fun (id: int) {
+            if (!first[0]) sb.puts(", ");
+            sb.putd(id);
+            first[0] = false;
+        });
+        sb.puts("}");
+        return sb;
+    }
+}
+
+component ImmNodeSets {
+    def DEFAULT_CAPACITY: int = 64;
+
+    def empty() -> ImmNodeSet {
+        return ImmNodeSet(Array<int>.new(DEFAULT_CAPACITY / 32), DEFAULT_CAPACITY);
+    }
+
+    def withCapacity(capacity: int) -> ImmNodeSet {
+        return ImmNodeSet(Array<int>.new((capacity + 31) >>> 5), capacity);
+    }
+
+    def single(n: IRNode) -> ImmNodeSet => empty().with(n);
+
+    def of_vec(v: Vector<IRNode>) -> ImmNodeSet {
+        var s = empty();
+        for (i < v.length) s = s.with(v[i]);
+        return s;
+    }
+}
