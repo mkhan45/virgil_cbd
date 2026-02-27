@@ -53575,6 +53575,14 @@ end
 block_1260 --> branch_1256
 subgraph block_1260["Block 1260"]
 	direction TB
+	b1260_0[/"r_state__2207 Start"\\]
+	b1260_7["arg__2178 -2_147_483_648"]
+	b1260_10["arg__2175 -1"]
+	b1260_8["arg__2177 u32.view"]
+	b1260_11["arg__2174 u32.view"]
+	b1260_23["abs__2185 lift_u32"]
+	b1260_22["abs__2184 lift_u32"]
+	b1260_2["b pop_u32"]
 	b1260_3["a pop_u32"]
 	b1260_4["r U32_div_s"]
 	b1260_9["arg__2172 U32_equals"]
@@ -53589,6 +53597,14 @@ subgraph block_1260["Block 1260"]
 	b1260_24["mt__2196 U32_maybeTrue"]
 	b1260_25["mf__2197 U32_maybeFalse"]
 	b1260_26["mb__2198 bool.&&"]
+	b1260_0 --> b1260_7
+	b1260_7 --> b1260_10
+	b1260_10 --> b1260_8
+	b1260_8 --> b1260_11
+	b1260_11 --> b1260_23
+	b1260_23 --> b1260_22
+	b1260_22 --> b1260_2
+	b1260_2 --> b1260_3
 	b1260_3 --> b1260_4
 	b1260_4 --> b1260_9
 	b1260_9 --> b1260_12
@@ -53664,7 +53680,14 @@ branch_1261 --> block_1264
 
 </pre>`;
 window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] = ''
-window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u32();
+window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2178 : u32 = -2_147_483_648;
+def arg__2175 : u32 = -1;
+def arg__2177 = u32.view(arg__2178);
+def arg__2174 = u32.view(arg__2175);
+def abs__2185 = lift_u32(arg__2177);
+def abs__2184 = lift_u32(arg__2174);
+def b = pop_u32();
+def a = pop_u32();
 def r = U32_div_s(a, b);
 def arg__2172 = U32_equals(a, abs__2185);
 def arg__2171 = U32_equals(b, abs__2184);
@@ -53708,8 +53731,9 @@ if (mb__2198) {
 }
 // phis: 
 </pre>`;
-window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u32();
-def cond = U32_and(U32_equals(b, abs__2184), U32_equals(a, abs__2185));
+window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u32();
+def a = pop_u32();
+def cond = U32_and(U32_equals(b, lift_u32(u32.view(-1))), U32_equals(a, lift_u32(u32.view(-2_147_483_648))));
 def mt = U32_maybeTrue(cond);
 def mf = U32_maybeFalse(cond);
 def mt1 = U32_maybeTrue(U32_equals(b, lift_u32(0)));
@@ -60079,6 +60103,14 @@ end
 block_1364 --> branch_1360
 subgraph block_1364["Block 1364"]
 	direction TB
+	b1364_0[/"r_state__2427 Start"\\]
+	b1364_7["arg__2398 -9223372036854775808L"]
+	b1364_10["arg__2395 -1"]
+	b1364_8["arg__2397 u64.view"]
+	b1364_11["arg__2394 u64.view"]
+	b1364_23["abs__2405 lift_u64"]
+	b1364_22["abs__2404 lift_u64"]
+	b1364_2["b pop_u64"]
 	b1364_3["a pop_u64"]
 	b1364_4["r U64_div_s"]
 	b1364_9["arg__2392 U64_equals"]
@@ -60093,6 +60125,14 @@ subgraph block_1364["Block 1364"]
 	b1364_24["mt__2416 U64_maybeTrue"]
 	b1364_25["mf__2417 U64_maybeFalse"]
 	b1364_26["mb__2418 bool.&&"]
+	b1364_0 --> b1364_7
+	b1364_7 --> b1364_10
+	b1364_10 --> b1364_8
+	b1364_8 --> b1364_11
+	b1364_11 --> b1364_23
+	b1364_23 --> b1364_22
+	b1364_22 --> b1364_2
+	b1364_2 --> b1364_3
 	b1364_3 --> b1364_4
 	b1364_4 --> b1364_9
 	b1364_9 --> b1364_12
@@ -60168,7 +60208,14 @@ branch_1365 --> block_1368
 
 </pre>`;
 window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] = ''
-window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u64();
+window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2398 : long = -9223372036854775808L;
+def arg__2395 : u32 = -1;
+def arg__2397 = u64.view(arg__2398);
+def arg__2394 = u64.view(arg__2395);
+def abs__2405 = lift_u64(arg__2397);
+def abs__2404 = lift_u64(arg__2394);
+def b = pop_u64();
+def a = pop_u64();
 def r = U64_div_s(a, b);
 def arg__2392 = U64_equals(a, abs__2405);
 def arg__2391 = U64_equals(b, abs__2404);
@@ -60212,8 +60259,9 @@ if (mb__2418) {
 }
 // phis: 
 </pre>`;
-window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>def a = pop_u64();
-def cond = bot_and(U64_equals(b, abs__2404), U64_equals(a, abs__2405));
+window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_u64();
+def a = pop_u64();
+def cond = bot_and(U64_equals(b, lift_u64(u64.view(-1))), U64_equals(a, lift_u64(u64.view(-9223372036854775808L))));
 def mt = bot_maybeTrue(cond);
 def mf = bot_maybeFalse(cond);
 def mt1 = U64_maybeTrue(U64_equals(b, lift_u64(0)));

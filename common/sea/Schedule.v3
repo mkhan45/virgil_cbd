@@ -104,14 +104,14 @@ class SeaScheduler {
     def toMermaid() -> string => SeaRender.toMermaidScheduler(this);
 
     def schedule() {
-        if (opcode != null) System.puts(Strings.format1("==============%s=============\n", opcode));
+        // if (opcode != null) System.puts(Strings.format1("==============%s=============\n", opcode));
         if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
         q = Vector<SchedulePrim>.new();
         q.put(SchedulePrim.new(bottom_node, this));
 
         q_idx = 0;
         while (q_idx < q.length) {
-            if (q_idx > 200) {
+            if (q_idx > 2500) {
                 System.puts(Strings.format1("ERROR: Scheduling %s reached limit\n", opcode));
                 break;
             }
@@ -200,7 +200,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                     block: ScheduleBlock => {
                         block.prims.put(prim);
                         block.dominants.addLocal(prim.node);
-                        // if (Strings.equal(scheduler.opcode, "END")) {
+                        // if (Strings.equal(scheduler.opcode, "I32_STORE")) {
                         //     System.puts(Strings.format2("Scheduled %q into %d\n\n", prim.render, block.id));
                         //     CBDTrace.addString(scheduler.opcode, 
                         //                     Strings.format1("sched %q", prim.renderSimple), "graph", scheduler.toMermaid());
@@ -226,6 +226,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                 }
             }
         } else {
+            // virgil gc breaks without this sometimes 😭
             // System.puts(Strings.format2("%q NOT ready in %d\n\n", prim.render, id));
             match (this) {
                 block: ScheduleBlock => {
@@ -445,7 +446,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         scheduler.live = Seas.live(scheduler.sea);
         scheduler.sea.rebuildChildren();
 
-        // CBDTrace.addGraph(scheduler.opcode, Strings.format1("post_surgery %d", phi_node.id), scheduler.sea);
+        CBDTrace.addGraph(scheduler.opcode, Strings.format1("post_surgery %d", phi_node.id), scheduler.sea);
         // System.puts(Strings.format2("lsg: %q\nrsg: %q\n", lsg.render, rsg.render));
 
         // if (Strings.equal(scheduler.opcode, "END")) {
