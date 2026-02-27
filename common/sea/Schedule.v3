@@ -105,7 +105,7 @@ class SeaScheduler {
 
     def schedule() {
         if (opcode != null) System.puts(Strings.format1("==============%s=============\n", opcode));
-        // if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
+        if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
         q = Vector<SchedulePrim>.new();
         q.put(SchedulePrim.new(bottom_node, this));
 

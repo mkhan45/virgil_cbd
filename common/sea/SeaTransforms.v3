@@ -267,53 +267,54 @@ component SeaTransforms {
         match (node.op) {
             Phi => {
                 def cond = node.value_deps[0], left = node.value_deps[1], right = node.value_deps[2];
-                
-                // Skip if already wrapped with Move nodes
                 if (IROp.Move.?(left.op) && IROp.Move.?(right.op)) return node.deps();
                 
-                // Create Move(true) { value_deps = [cond, left] }
-                def mt = sea.mkNode(IROp.Move(true), Array.new(StateComponent.count), [cond, left]);
-                mt.var_data = VarData.new(Seas.uidl("mv_t"), left.var_data.tipe, left.var_data.stage);
+                cond.init_move(sea);
+                def mt = cond.move_true;
+                def mf = cond.move_false;
                 
-                // Create Move(false) { value_deps = [cond, right] }
-                def mf = sea.mkNode(IROp.Move(false), Array.new(StateComponent.count), [cond, right]);
-                mf.var_data = VarData.new(Seas.uidl("mv_f"), right.var_data.tipe, right.var_data.stage);
+                mt.value_deps = Arrays.concat(mt.value_deps, [left]);
+                mf.value_deps = Arrays.concat(mf.value_deps, [right]);
                 
-                // Update Phi to use Move nodes
+                if (mt.var_data == null) {
+                    mt.var_data = VarData.new(Seas.uidl("mv_t"), left.var_data.tipe, left.var_data.stage);
+                }
+                if (mf.var_data == null) {
+                    mf.var_data = VarData.new(Seas.uidl("mv_f"), right.var_data.tipe, right.var_data.stage);
+                }
+                
                 node.value_deps[1] = mt;
                 node.value_deps[2] = mf;
-                mt.children.put(node);
-                mf.children.put(node);
                 
                 return [cond, left, right];
             }
             StatePhi(statecomps) => {
                 def cond = node.value_deps[0], left = node.value_deps[1], right = node.value_deps[2];
-                
-                // Skip if already wrapped with Move nodes
                 if (IROp.Move.?(left.op) && IROp.Move.?(right.op)) return node.deps();
                 
-                // Create Move(true) { value_deps = [], state_deps = [..., left, ...] }
-                def mt_state_deps = Array<IRNode>.new(StateComponent.count);
-                for (sc in statecomps) mt_state_deps[sc.tag] = left;
-                def mt = sea.mkNode(IROp.Move(true), mt_state_deps, [cond]);
+                cond.init_move(sea);
+                def mt = cond.move_true;
+                def mf = cond.move_false;
+                
+                for (sc in statecomps) {
+                    mt.state_deps[sc.tag] = left;
+                    mf.state_deps[sc.tag] = right;
+                }
+                
                 def left_tipe = if(left.var_data != null, left.var_data.tipe, TypeVar.Bot("void"));
                 def left_stage = if(left.var_data != null, left.var_data.stage, Stage.INTERPRET);
-                mt.var_data = VarData.new(Seas.uidl("mv_t"), left_tipe, left_stage);
-                
-                // Create Move(false) { value_deps = [], state_deps = [..., right, ...] }
-                def mf_state_deps = Array<IRNode>.new(StateComponent.count);
-                for (sc in statecomps) mf_state_deps[sc.tag] = right;
-                def mf = sea.mkNode(IROp.Move(false), mf_state_deps, [cond]);
                 def right_tipe = if(right.var_data != null, right.var_data.tipe, TypeVar.Bot("void"));
                 def right_stage = if(right.var_data != null, right.var_data.stage, Stage.INTERPRET);
-                mf.var_data = VarData.new(Seas.uidl("mv_f"), right_tipe, right_stage);
                 
-                // Update StatePhi to use Move nodes
+                if (mt.var_data == null) {
+                    mt.var_data = VarData.new(Seas.uidl("mv_t"), left_tipe, left_stage);
+                }
+                if (mf.var_data == null) {
+                    mf.var_data = VarData.new(Seas.uidl("mv_f"), right_tipe, right_stage);
+                }
+                
                 node.value_deps[1] = mt;
                 node.value_deps[2] = mf;
-                mt.children.put(node);
-                mf.children.put(node);
                 
                 return [cond, left, right];
             }
