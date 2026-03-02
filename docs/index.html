@@ -9,6 +9,7 @@
                     <button id="next-tag">&gt;</button>
                 </div>
                 <hr>
+                <input type="text" id="search" placeholder="Search opcodes...">
                 <div id="codes"> </div>
             </div>
             <div id="graph-container">
@@ -19,6 +20,7 @@
         <script type="module">
               import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.2/dist/mermaid.esm.min.mjs';
               import elkLayouts from 'https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0/dist/mermaid-layout-elk.esm.min.mjs';
+              import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.mjs';
 
             mermaid.registerLayoutLoaders(elkLayouts);
 
@@ -145,6 +147,45 @@
                 };
                 codes.appendChild(btn);
             }
+
+            // Setup fuzzy search
+            const searchInput = document.getElementById('search');
+            const opcodeList = Object.keys(traces);
+            const fuse = new Fuse(opcodeList, { threshold: 0.2 });
+            const allButtons = codes.querySelectorAll('button');
+
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.trim();
+                if (!query) {
+                    allButtons.forEach(btn => btn.style.display = '');
+                    return;
+                }
+                const matches = new Set(fuse.search(query).map(r => r.item));
+                allButtons.forEach(btn => {
+                    btn.style.display = matches.has(btn.textContent) ? '' : 'none';
+                });
+            });
+
+            // Spacebar focuses search (when not in input)
+            document.addEventListener('keydown', (e) => {
+                if (e.key === ' ' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+            });
+
+            // Escape unfocuses search, Enter selects first visible match
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    searchInput.blur();
+                } else if (e.key === 'Enter') {
+                    const firstVisible = Array.from(allButtons).find(btn => btn.style.display !== 'none');
+                    if (firstVisible) {
+                        firstVisible.click();
+                        searchInput.blur();
+                    }
+                }
+            });
         </script>
         <style>
             body {
@@ -184,9 +225,18 @@
                 width: 100%;
             }
 
+            #search {
+                width: 100%;
+                box-sizing: border-box;
+                font-family: monospace;
+                padding: 4px;
+                margin-bottom: 5px;
+            }
+
             #codes {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(20ch, 1fr));
+                align-content: start;
                 flex: 1;
                 min-height: 0;
                 overflow-y: auto;
