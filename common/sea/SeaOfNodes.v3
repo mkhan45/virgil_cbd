@@ -537,6 +537,15 @@ class IRNode {
     }
 
     def graph_eq(rhs: IRNode) -> DiffResult {
+        // Unwrap Move nodes to compare underlying values
+        def lhs = this.unwrapMove();
+        def rhs_unwrapped = rhs.unwrapMove();
+
+        // If either was unwrapped, delegate to unwrapped comparison
+        if (lhs != this || rhs_unwrapped != rhs) {
+            return lhs.graph_eq(rhs_unwrapped);
+        }
+
         if (!op.eq(rhs.op)) return DiffResult.OpDiff(this, rhs);
 
         if (value_deps.length != rhs.value_deps.length) return DiffResult.ValueDepLen(this, rhs);
@@ -566,6 +575,27 @@ class IRNode {
     }
 
     def is_phi() -> bool => IROp.Phi.?(op) || IROp.StatePhi.?(op);
+
+    // Unwrap Move nodes to get the underlying value for comparison.
+    // - Value Move (from Phi): value_deps = [cond, actual_value], returns value_deps[1]
+    // - State Move (from StatePhi): value_deps = [cond], state in state_deps,
+    //   returns first non-null state_dep (all populated slots point to same node in practice)
+    def unwrapMove() -> IRNode {
+        match (op) {
+            Move(_) => {
+                // Value Move: underlying value in value_deps[1]
+                if (value_deps.length > 1 && value_deps[1] != null) {
+                    return value_deps[1].unwrapMove();
+                }
+                // State Move: underlying state in state_deps
+                for (i < state_deps.length) {
+                    if (state_deps[i] != null) return state_deps[i].unwrapMove();
+                }
+                return this; // Fallback (shouldn't happen for valid Moves)
+            }
+            _ => return this;
+        }
+    }
 }
 
 type DiffResult {
