@@ -1,4 +1,5 @@
 <html>
+    <head><meta charset="utf-8"></head>
     <body>
         <div id="container">
             <div id="sidebar">
@@ -14,6 +15,12 @@
             </div>
             <div id="graph-container">
                 <pre id="graph"></pre>
+                <div id="zoom-controls">
+                    <button id="zoom-in"  title="Zoom in">+</button>
+                    <button id="zoom-out" title="Zoom out">−</button>
+                    <button id="zoom-fit" title="Fit to view">⊙</button>
+                    <span id="zoom-hint">scroll · drag · dbl-click fit</span>
+                </div>
             </div>
         </div>
         <script src="traces.js" charset="utf-8"></script>
@@ -36,6 +43,7 @@
             window.mermaid = mermaid;
 
             const graph = document.getElementById('graph');
+            const graphContainer = document.getElementById('graph-container');
             const label = document.getElementById('label');
             const tagSelect = document.getElementById('tag-select');
             const prevBtn = document.getElementById('prev-tag');
@@ -44,6 +52,118 @@
             let currentCode = null;
             let currentTagList = [];
 
+            // ── Zoom / pan state ──────────────────────────────────────────────
+            let zoomState = { scale: 1, tx: 0, ty: 0 };
+            let zoomAbort = null;
+
+            function applyTransform() {
+                const { scale, tx, ty } = zoomState;
+                graph.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+            }
+
+            function fitView() {
+                const svg = graph.querySelector('svg');
+                if (!svg) return;
+                const viewBox = svg.getAttribute('viewBox');
+                if (!viewBox) return;
+                const [, , vbW, vbH] = viewBox.split(' ').map(Number);
+                if (!vbW || !vbH) return;
+
+                // Pin the SVG to its natural 1:1 viewBox size so that mermaid's internal
+                // font sizes (e.g. "16px" in SVG units) map 1:1 to CSS pixels, keeping
+                // text and box sizes consistent. All visual scaling is done via the CSS
+                // transform on #graph; overflow:visible prevents any clipping.
+                svg.setAttribute('width',  vbW + 'px');
+                svg.setAttribute('height', vbH + 'px');
+
+                const cW = graphContainer.clientWidth;
+                const cH = graphContainer.clientHeight;
+                const scale = Math.min(cW / vbW, cH / vbH) * 0.95;
+                const tx = (cW - vbW * scale) / 2;
+                const ty = (cH - vbH * scale) / 2;
+                zoomState = { scale, tx, ty };
+                applyTransform();
+            }
+
+            function setupZoomPan() {
+                if (zoomAbort) zoomAbort.abort();
+                zoomAbort = new AbortController();
+                const { signal } = zoomAbort;
+
+                // Wheel → zoom toward cursor
+                graphContainer.addEventListener('wheel', (e) => {
+                    e.preventDefault();
+                    const factor = e.deltaY < 0 ? 1.15 : 1 / 1.15;
+                    const rect = graphContainer.getBoundingClientRect();
+                    const mx = e.clientX - rect.left;
+                    const my = e.clientY - rect.top;
+                    const { scale, tx, ty } = zoomState;
+                    zoomState = {
+                        scale: scale * factor,
+                        tx: mx - (mx - tx) * factor,
+                        ty: my - (my - ty) * factor,
+                    };
+                    applyTransform();
+                }, { passive: false, signal });
+
+                // Mouse drag → pan
+                let dragging = false, startX, startY, startTx, startTy;
+
+                graphContainer.addEventListener('mousedown', (e) => {
+                    // Ignore clicks on the zoom-controls overlay
+                    if (e.target.closest('#zoom-controls')) return;
+                    dragging = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    startTx = zoomState.tx;
+                    startTy = zoomState.ty;
+                    graphContainer.style.cursor = 'grabbing';
+                    e.preventDefault();
+                }, { signal });
+
+                window.addEventListener('mousemove', (e) => {
+                    if (!dragging) return;
+                    zoomState = {
+                        ...zoomState,
+                        tx: startTx + (e.clientX - startX),
+                        ty: startTy + (e.clientY - startY),
+                    };
+                    applyTransform();
+                }, { signal });
+
+                window.addEventListener('mouseup', () => {
+                    if (!dragging) return;
+                    dragging = false;
+                    graphContainer.style.cursor = 'grab';
+                }, { signal });
+
+                // Double-click → fit to view
+                graphContainer.addEventListener('dblclick', (e) => {
+                    if (e.target.closest('#zoom-controls')) return;
+                    fitView();
+                }, { signal });
+            }
+
+            // Zoom control buttons
+            document.getElementById('zoom-in').onclick  = () => {
+                const { scale, tx, ty } = zoomState;
+                const cx = graphContainer.clientWidth  / 2;
+                const cy = graphContainer.clientHeight / 2;
+                const factor = 1.25;
+                zoomState = { scale: scale * factor, tx: cx - (cx - tx) * factor, ty: cy - (cy - ty) * factor };
+                applyTransform();
+            };
+            document.getElementById('zoom-out').onclick = () => {
+                const { scale, tx, ty } = zoomState;
+                const cx = graphContainer.clientWidth  / 2;
+                const cy = graphContainer.clientHeight / 2;
+                const factor = 1 / 1.25;
+                zoomState = { scale: scale * factor, tx: cx - (cx - tx) * factor, ty: cy - (cy - ty) * factor };
+                applyTransform();
+            };
+            document.getElementById('zoom-fit').onclick = fitView;
+
+            // ── Graph loading ─────────────────────────────────────────────────
             function getDefaultTag(code) {
                 const tags = Object.keys(traces[code]);
                 return tags.includes('raw') ? 'raw' : tags[0];
@@ -82,6 +202,10 @@
                 graph.setAttribute("data-processed", "");
                 graph.innerHTML = traces[code][tag];
                 label.innerText = "Rendering...";
+                // Reset transform to identity before mermaid renders: mermaid measures
+                // text via getBoundingClientRect(), which returns transformed coordinates.
+                // Any existing scale on #graph would corrupt its layout measurements.
+                graph.style.transform = 'none';
                 await mermaid.run({ querySelector: '.graph' });
                 label.innerText = code + ", " + tag;
 
@@ -98,27 +222,14 @@
                     tagSelect.appendChild(opt);
                 }
 
-                graph.querySelectorAll('svg').forEach(svg => {
-                    const viewBox = svg.getAttribute('viewBox');
-                    if (viewBox) {
-                        const [, , vbWidth, vbHeight] = viewBox.split(' ').map(Number);
-                        const aspectRatio = vbWidth / vbHeight;
-                        const containerWidth = graph.parentNode.clientWidth * 0.95;
-                        const minHeightPx = window.innerHeight * 0.7;
-                        let finalHeight = Math.max(vbHeight, minHeightPx);
-                        let finalWidth = aspectRatio * finalHeight;
-                        if (finalWidth > containerWidth) {
-                            finalWidth = containerWidth;
-                            finalHeight = finalWidth / aspectRatio;
-                        }
-                        svg.setAttribute('height', finalHeight + 'px');
-                        svg.setAttribute('width', finalWidth + 'px');
-                    }
-                });
+                // Fit the new graph to the viewport, then arm zoom/pan.
+                fitView();
+                setupZoomPan();
 
                 barrierDiv.remove();
                 graph.style.opacity = 1;
             }
+
             function parseHash() {
                 const parts = window.location.hash.slice(1).split('#');
                 return { code: parts[0] || null, tag: parts[1] || null };
@@ -264,19 +375,58 @@
 
             #graph-container {
                 flex: 1;
-                overflow-y: auto;
-                overflow-x: hidden;
+                overflow: hidden;
                 height: 100vh;
+                position: relative;
                 background-color: white;
+                cursor: grab;
+                user-select: none;
             }
 
             #graph {
+                position: absolute;
+                transform-origin: 0 0;
                 margin: 0;
+                padding: 0;
+            }
+
+            #zoom-controls {
+                position: absolute;
+                bottom: 12px;
+                right: 12px;
                 display: flex;
-                flex-direction: column;
                 align-items: center;
-                font-size: 1.2em;
-                padding-top: 5vh;
+                gap: 4px;
+                z-index: 10;
+                background: rgba(255,255,255,0.85);
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                padding: 4px 8px;
+            }
+
+            #zoom-controls button {
+                width: 2.2em;
+                height: 2.2em;
+                font-size: 1.1em;
+                cursor: pointer;
+                border: 1px solid #bbb;
+                border-radius: 4px;
+                background: #f5f5f5;
+            }
+
+            #zoom-controls button:hover {
+                background: #e0e0e0;
+            }
+
+            #zoom-hint {
+                font-size: 0.75em;
+                color: #888;
+                margin-left: 4px;
+                white-space: nowrap;
+            }
+
+            #graph svg {
+                overflow: visible;
             }
 
             .flowchart-link {
