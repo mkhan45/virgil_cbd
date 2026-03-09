@@ -380,14 +380,14 @@ component Seas {
     }
 
     def clone(sea: Sea) -> (Sea, HashMap<IRNode, IRNode>) {
-        def liveNodes = live(sea);
+        sea.rebuildChildren();
 
         def new_sea = Sea.new();
-        sea.rebuildChildren();
+        new_sea.id_count = sea.id_count + 1;
         new_sea.initEmpty();
         def mapping = HashMap<IRNode, IRNode>.new(IRNode.hash, IRNode.eq);
 
-        liveNodes.apply(fun (old_node: IRNode) {
+        sea.nodes_by_id.apply(fun (old_node: IRNode) {
             def new_node = IRNode.new(old_node.op, new_sea.id_count);
             new_sea.nodes_by_id.put(new_node);
             new_sea.id_count += 1;
@@ -396,7 +396,7 @@ component Seas {
             mapping[old_node] = new_node;
         });
 
-        liveNodes.apply(fun (old_node: IRNode) {
+        sea.nodes_by_id.apply(fun (old_node: IRNode) {
             def new_node = mapping[old_node];
 
             for (j < old_node.value_deps.length) if (old_node.value_deps[j] != null)
@@ -432,7 +432,7 @@ component Seas {
     }
 }
 
-type BranchPartition(frontier: ImmNodeSet, l_subgraph: ImmNodeSet, r_subgraph: ImmNodeSet);
+type BranchPartition(frontier: ImmNodeSet, l_subgraph: ImmNodeSet, r_subgraph: ImmNodeSet) #unboxed;
 
 def dedup(arr: Array<IRNode>) -> Array<IRNode> {
     def res = Vector<IRNode>.new();
@@ -459,7 +459,7 @@ class IRNode {
 
     new(op, id) { }
 
-    def deps() -> Array<IRNode> {
+    def deps() -> Array<IRNode> #inline {
         // should be empty, special case is to remove null state deps
         if (IROp.Start.?(op)) return dedup(value_deps);
         else return dedup(Arrays.concat(value_deps, state_deps));
@@ -580,7 +580,7 @@ class IRNode {
     // - Value Move (from Phi): value_deps = [cond, actual_value], returns value_deps[1]
     // - State Move (from StatePhi): value_deps = [cond], state in state_deps,
     //   returns first non-null state_dep (all populated slots point to same node in practice)
-    def unwrapMove() -> IRNode {
+    def unwrapMove() -> IRNode #inline {
         match (op) {
             Move(_) => {
                 // Value Move: underlying value in value_deps[1]

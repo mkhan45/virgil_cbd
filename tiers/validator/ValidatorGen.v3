@@ -11,7 +11,7 @@ class SidetableEntry(fields: Array<(string, string)>) {
 }
 
 def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
-    // if (!Strings.equal(opcode, "BR_IF")) return null;
+    // if (!Strings.equal(opcode, "BLOCK")) return null;
     // (name, type) -- we should have that VirgilStmt names align w/ SSA names,
     // so we can use this the same
     def st_field_buf = VirgilStmts.getSidetableFields(stmt);
