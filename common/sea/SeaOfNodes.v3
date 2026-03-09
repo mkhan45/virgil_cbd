@@ -387,7 +387,7 @@ component Seas {
         new_sea.initEmpty();
         def mapping = HashMap<IRNode, IRNode>.new(IRNode.hash, IRNode.eq);
 
-        liveNodes.apply(fun (old_node: IRNode) {
+        sea.nodes_by_id.apply(fun (old_node: IRNode) {
             def new_node = IRNode.new(old_node.op, new_sea.id_count);
             new_sea.nodes_by_id.put(new_node);
             new_sea.id_count += 1;
@@ -396,7 +396,7 @@ component Seas {
             mapping[old_node] = new_node;
         });
 
-        liveNodes.apply(fun (old_node: IRNode) {
+        sea.nodes_by_id.apply(fun (old_node: IRNode) {
             def new_node = mapping[old_node];
 
             for (j < old_node.value_deps.length) if (old_node.value_deps[j] != null)

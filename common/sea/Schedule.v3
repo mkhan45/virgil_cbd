@@ -56,6 +56,8 @@ class SeaScheduler {
     var branch_lattices: Vector<BranchLattice> = Vector.new();
     var branch_lattice_map: HashMap<IRNode, BranchLattice> = HashMap.new(IRNode.hash, IRNode.eq);
 
+    var trace_full: bool = false;
+
     new(orig_sea, orig_top_node: IRNode, orig_bottom_node: IRNode) {
         def clone = Seas.clone(orig_sea);
         sea = clone.0;
@@ -105,6 +107,7 @@ class SeaScheduler {
 
     def schedule() {
         if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
+        if (opcode != null && Strings.startsWith(opcode, "I32_DIV_S")) trace_full = true;
         q = Vector<SchedulePrim>.new();
         q.put(SchedulePrim.new(bottom_node, this));
 
@@ -199,11 +202,11 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                     block: ScheduleBlock => {
                         block.prims.put(prim);
                         block.dominants.addLocal(prim.node);
-                        // if (Strings.equal(scheduler.opcode, "I32_STORE")) {
-                        //     System.puts(Strings.format2("Scheduled %q into %d\n\n", prim.render, block.id));
-                        //     CBDTrace.addString(scheduler.opcode, 
-                        //                     Strings.format1("sched %q", prim.renderSimple), "graph", scheduler.toMermaid());
-                        // }
+                        if (scheduler.trace_full) {
+                            System.puts(Strings.format2("Scheduled %q into %d\n\n", prim.render, block.id));
+                            CBDTrace.addString(scheduler.opcode, 
+                                            Strings.format1("sched %q", prim.renderSimple), "graph", scheduler.toMermaid());
+                        }
                         return block;
                     }
                     cond: ScheduleBranch => {
@@ -448,12 +451,12 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         CBDTrace.addGraph(scheduler.opcode, Strings.format1("post_surgery %d", phi_node.id), scheduler.sea);
         // System.puts(Strings.format2("lsg: %q\nrsg: %q\n", lsg.render, rsg.render));
 
-        // if (Strings.equal(scheduler.opcode, "END")) {
-        //     System.puts(Strings.format3("Scheduled phi %q (%d) before %d\n\n", phi.render, phi_node.id, id));
-        //     CBDTrace.addString(scheduler.opcode, 
-        //                     Strings.format1("sched %q", phi.render), "graph", scheduler.toMermaid());
-        // }
+        if (scheduler.trace_full) {
+            CBDTrace.addString(scheduler.opcode, 
+                            Strings.format1("sched %q", bl.phis[0].render), "graph", scheduler.toMermaid());
+        }
 
+        scheduler.find_branch_lattices();
         return phi_node;
     }
 }
