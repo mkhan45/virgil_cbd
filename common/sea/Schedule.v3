@@ -69,14 +69,14 @@ class SeaScheduler {
         bottom_node = mapping[orig_bottom_node];
 
         live = Seas.live(sea);
+        branch_lattices = Vector.new();
         find_branch_lattices();
     }
 
     def find_branch_lattices() {
-        branch_lattices = Vector.new();
-
         live.apply(fun (n: IRNode) {
             if (!n.is_phi()) return;
+            if (branch_lattice_map[n] != null) return;
             def cond = n.value_deps[0];
 
             def partition = sea.branch_partition(n);
@@ -355,8 +355,11 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         //                |
         //               this
         // System.puts(Strings.format1("prepending branch to %d\n", id));
-        def cond = prim.node.value_deps[0];
+
+        scheduler.live = Seas.live(scheduler.sea);
+        scheduler.sea.rebuildChildren();
         scheduler.find_branch_lattices();
+        def cond = prim.node.value_deps[0];
         def bl = scheduler.branch_lattice_map[prim.node];
         def branch = ScheduleBranch.new(fresh_id(), scheduler);
         def phi_node = SchedulePhi.new(fresh_id(), scheduler);
@@ -447,6 +450,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         // rebuild metadata from scratch
         scheduler.live = Seas.live(scheduler.sea);
         scheduler.sea.rebuildChildren();
+        scheduler.find_branch_lattices();
 
         CBDTrace.addGraph(scheduler.opcode, Strings.format1("post_surgery %d", phi_node.id), scheduler.sea);
         // System.puts(Strings.format2("lsg: %q\nrsg: %q\n", lsg.render, rsg.render));
@@ -456,7 +460,6 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                             Strings.format1("sched %q", bl.phis[0].render), "graph", scheduler.toMermaid());
         }
 
-        scheduler.find_branch_lattices();
         return phi_node;
     }
 }
