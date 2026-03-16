@@ -31,8 +31,7 @@ class ScheduleChecker {
             block: ScheduleBlock => {
                 var s = scope;
                 for (i < block.prims.length) {
-                    def prim = block.prims[i];
-                    def node = prim.node;
+                    def node = block.prims[i];
                     check_deps_in_scope(node, s);
                     s = s.with(node);
                 }
@@ -147,7 +146,7 @@ class ScheduleChecker {
         match (cfg_node) {
             block: ScheduleBlock => {
                 for (i < block.prims.length) {
-                    def node = block.prims[i].node;
+                    def node = block.prims[i];
                     match (node.op) {
                         Intrinsic(defn) => {
                             if (has_writes(defn)) effects.put(node);

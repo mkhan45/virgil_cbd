@@ -44,7 +44,7 @@ class SeaScheduler {
     var mapping: HashMap<IRNode, IRNode>;
     var opcode: string = "";
     var live: NodeSet;
-    var q: Vector<SchedulePrim>;
+    var q: Vector<IRNode>;
     var q_idx: int;
 
     var top_node: IRNode;
@@ -57,6 +57,7 @@ class SeaScheduler {
     var branch_lattice_map: HashMap<IRNode, BranchLattice> = HashMap.new(IRNode.hash, IRNode.eq);
 
     var trace_full: bool = false;
+    var lowBounds: HashMap<IRNode, ScheduleNode> = HashMap.new(IRNode.hash, IRNode.eq);
 
     new(orig_sea, orig_top_node: IRNode, orig_bottom_node: IRNode) {
         def clone = Seas.clone(orig_sea);
@@ -109,8 +110,8 @@ class SeaScheduler {
         untangle();
         if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
         if (opcode != null && Strings.startsWith(opcode, "I32_DIV_S")) trace_full = true;
-        q = Vector<SchedulePrim>.new();
-        q.put(SchedulePrim.new(bottom_node, this));
+        q = Vector<IRNode>.new();
+        q.put(bottom_node);
 
         q_idx = 0;
         while (q_idx < q.length) {
@@ -119,25 +120,25 @@ class SeaScheduler {
                 break;
             }
 
-            var prim = q[q_idx];
-
-            prim = SchedulePrim.new(prim.node, this);
+            var node = q[q_idx];
             q_idx += 1;
 
-            // if (prim.node.id == top_node.id && q_idx != q.length - 1) {
+            // if (node.id == top_node.id && q_idx != q.length - 1) {
             //     continue;
             // }
 
-            if (trace_full) System.puts(Strings.format2("Prim: %q, q length: %d\n", prim.node.render, q.length - q_idx));
+            if (trace_full) System.puts(Strings.format2("Prim: %q, q length: %d\n", node.render, q.length - q_idx));
 
-            // traverse existing schedule, put prim in first available spot
-            def lower_bound = if(prim.lowBound != null, prim.lowBound, bottom_block);
-            var upper_bound = prim.highBound;
-            def dest_block = lower_bound.schedule(prim, upper_bound);
+            // traverse existing schedule, put node in first available spot
+            def lower_bound = if(lowBounds[node] != null, lowBounds[node], bottom_block);
+            def dest_block = lower_bound.schedule(node, null);
             if (dest_block != null) {
-                for (d in prim.node.deps()) q.put(SchedulePrim.new(d, this).boundLow(dest_block));
+                for (d in node.deps()) {
+                    lowBounds[d] = dest_block;
+                    q.put(d);
+                }
             } else {
-                q.put(prim);
+                q.put(node);
             }
         }
 
@@ -146,6 +147,63 @@ class SeaScheduler {
         bottom_block.finalize();
 
         check();
+    }
+
+    def isReady(node: IRNode, schedule_node: ScheduleNode) -> bool {
+        live = Seas.live(sea);
+        var ready = BoxedBool.new(true);
+
+        if (IROp.Start.?(node.op)) {
+            live.apply(fun (n: IRNode) {
+                if (n.id != node.id) {
+                    def has = schedule_node.dominants.has(n);
+                    if (!has) System.puts(Strings.format2("Missing: %q (%d)\n", n.render, n.id));
+                    ready.v &= has;
+                }
+            });
+            return ready.v;
+        }
+
+        var children = node.children;
+
+        // phis aren't ready until every use of branch lattice scheduled
+        if (branch_lattice_map.has(node)) {
+            def group = branch_lattice_map[node];
+            children = Vector.new();
+
+            for (i < group.phis.length)
+                children.putv(group.phis[i].children);
+        }
+
+        for (i < children.length) {
+            def child = children[i];
+            def live_flag = live.has(child);
+            if (!live_flag && !IROp.Move.?(child.op)) continue;
+            if (child.id == node.id) continue;
+
+            if ((IROp.StatePhi.?(child.op) || IROp.Phi.?(child.op))
+                && !(node.id == child.value_deps[0].id)
+                && (node.id == child.value_deps[1].id || node.id == child.value_deps[2].id)) 
+            {
+                def cond = child.value_deps[0];
+                cond.init_move(sea);
+                if (node.id == child.value_deps[1].id) {
+                    def has = schedule_node.dominants.has(cond.move_true);
+                    if (!has) System.puts(Strings.format2("Missing: %q (%d)\n", cond.move_true.render, cond.move_true.id));
+                    ready.v &= has;
+                }
+                if (node.id == child.value_deps[2].id) {
+                    def has = schedule_node.dominants.has(cond.move_false);
+                    if (!has) System.puts(Strings.format2("Missing: %q (%d)\n", cond.move_false.render, cond.move_false.id));
+                    ready.v &= has;
+                }
+            } else {
+                def has = schedule_node.dominants.has(child);
+                if (!has) System.puts(Strings.format2("Missing: %q (%d)\n", child.render, child.id));
+                ready.v &= has;
+            }
+        }
+        return ready.v;
     }
 
     def untangle() {
@@ -236,73 +294,66 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
     def subgraphName(buf: StringBuilder) -> StringBuilder => SeaRender.subgraphNameScheduleNode(this, buf);
 
-    def schedule(prim: SchedulePrim, upper_limit: ScheduleNode) -> ScheduleNode {
+    def schedule(node: IRNode, upper_limit: ScheduleNode) -> ScheduleNode {
         if (upper_limit != null && this.id == upper_limit.id) return null;
-        if (dominants.has(prim.node)) return this;
+        if (dominants.has(node)) return this;
 
         if (scheduler.trace_full) {
             System.puts("attempting to schedule ");
-            System.puts(Strings.format3("%q into %d\n\tdoms: %q\n", prim.render, id, dominants.render));
+            System.puts(Strings.format3("%q into %d\n\tdoms: %q\n", node.render, id, dominants.render));
         }
 
-        def ready = prim.isReady(this);
-        for (i < prim.neededBefore.length) {
-            def entry = prim.neededBefore[i];
-            if (scheduler.trace_full) {
-                if (!entry.1) System.puts(Strings.format2("Missing: %q (%d)\n", entry.0.render, entry.0.id));
-                else System.puts(Strings.format1("Have: %q\n", entry.0.render));
-            }
-        }
+        def ready = scheduler.isReady(node, this);
 
         if (ready) {
-            if (scheduler.trace_full) System.puts(Strings.format3("%q ready in %d\n\tdoms: %q\n", prim.render, id, dominants.render));
-            if (IROp.Phi.?(prim.node.op) || IROp.StatePhi.?(prim.node.op)) {
-                return scheduleReadyPhi(prim, upper_limit);
+            if (scheduler.trace_full) System.puts(Strings.format3("%q ready in %d\n\tdoms: %q\n", node.render, id, dominants.render));
+            if (IROp.Phi.?(node.op) || IROp.StatePhi.?(node.op)) {
+                return scheduleReadyPhi(node, upper_limit);
             } else {
                 match (this) {
                     block: ScheduleBlock => {
-                        block.prims.put(prim);
-                        block.dominants.addLocal(prim.node);
+                        block.prims.put(node);
+                        block.dominants.addLocal(node);
                         if (scheduler.trace_full) {
-                            System.puts(Strings.format2("Scheduled %q into %d\n\n", prim.render, block.id));
+                            System.puts(Strings.format2("Scheduled %q into %d\n\n", node.render, block.id));
                             CBDTrace.addString(scheduler.opcode, 
-                                            Strings.format1("sched %q", prim.renderSimple), "graph", scheduler.toMermaid());
+                                            Strings.format1("sched %q", node.render), "graph", scheduler.toMermaid());
                         }
                         return block;
                     }
                     cond: ScheduleBranch => {
                         if (cond.prev != null)
-                            return cond.prev.schedule(prim, upper_limit);
+                            return cond.prev.schedule(node, upper_limit);
                         else
-                            return cond.prependScheduleBlock(prim);
+                            return cond.prependScheduleBlock(node);
                     }
                     phi: SchedulePhi => {
                         // XXX: maybe we shouldn't try each branch here? because uses after phi are not dominated
                         // by either branch
                         var dest_block: ScheduleNode = null;
-                        dest_block = phi.l_source.schedule(prim, phi.source_branch);
-                        if (dest_block == null) dest_block = phi.r_source.schedule(prim, phi.source_branch);
-                        if (dest_block == null) dest_block = phi.source_branch.schedule(prim, upper_limit);
+                        dest_block = phi.l_source.schedule(node, phi.source_branch);
+                        if (dest_block == null) dest_block = phi.r_source.schedule(node, phi.source_branch);
+                        if (dest_block == null) dest_block = phi.source_branch.schedule(node, upper_limit);
                         return dest_block;
                     }
                     _ => return null; // unreachable
                 }
             }
         } else {
-            if (scheduler.trace_full) System.puts(Strings.format2("%q NOT ready in %d\n\n", prim.render, id));
+            if (scheduler.trace_full) System.puts(Strings.format2("%q NOT ready in %d\n\n", node.render, id));
             match (this) {
                 block: ScheduleBlock => {
-                    return if(block.prev != null, block.prev.schedule(prim, upper_limit));
+                    return if(block.prev != null, block.prev.schedule(node, upper_limit));
                 }
                 cond: ScheduleBranch => {
                     // dest_block remains null if schedules fail
-                    return if(cond.prev != null, cond.prev.schedule(prim, upper_limit));
+                    return if(cond.prev != null, cond.prev.schedule(node, upper_limit));
                 }
                 phi: SchedulePhi => {
-                    // return phi.source_branch.schedule(prim, upper_limit);
-                    var dest_block = phi.l_source.schedule(prim, phi.source_branch);
-                    if (dest_block == null) dest_block = phi.r_source.schedule(prim, phi.source_branch);
-                    if (dest_block == null) dest_block = phi.source_branch.schedule(prim, upper_limit);
+                    // return phi.source_branch.schedule(node, upper_limit);
+                    var dest_block = phi.l_source.schedule(node, phi.source_branch);
+                    if (dest_block == null) dest_block = phi.r_source.schedule(node, phi.source_branch);
+                    if (dest_block == null) dest_block = phi.source_branch.schedule(node, upper_limit);
                     return dest_block;
                 }
                 _ => return null; // unreachable
@@ -310,15 +361,15 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         }
     }
 
-    def scheduleReadyPhi(prim: SchedulePrim, upper_limit: ScheduleNode) -> ScheduleNode {
+    def scheduleReadyPhi(node: IRNode, upper_limit: ScheduleNode) -> ScheduleNode {
         if (upper_limit != null && this.id == upper_limit.id) return null;
-        if (dominants.has(prim.node)) return this;
+        if (dominants.has(node)) return this;
 
-        def phi = prim.node;
+        def phi = node;
         match (this) {
-            block: ScheduleBlock => return if(block.prev == null || ScheduleBranch.?(block.prev), block.prependScheduleBranch(prim), block.prev.scheduleReadyPhi(prim, upper_limit));
+            block: ScheduleBlock => return if(block.prev == null || ScheduleBranch.?(block.prev), block.prependScheduleBranch(node), block.prev.scheduleReadyPhi(node, upper_limit));
             cond: ScheduleBranch => {
-                return if (cond.prev == null, cond.prependScheduleBranch(prim), cond.prev.scheduleReadyPhi(prim, upper_limit));
+                return if (cond.prev == null, cond.prependScheduleBranch(node), cond.prev.scheduleReadyPhi(node, upper_limit));
             }
             phi_node: SchedulePhi => {
                 def phi_cond = phi.value_deps[0];
@@ -326,10 +377,10 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                     System.puts("ERROR: Fusing\n");
                     return null;
                 } else {
-                    // return phi_node.source_branch.schedule(prim, upper_limit);
-                    var dest_block = phi_node.l_source.schedule(prim, upper_limit);
-                    if (dest_block == null) dest_block = phi_node.r_source.schedule(prim, upper_limit);
-                    if (dest_block == null) dest_block = phi_node.source_branch.schedule(prim, upper_limit);
+                    // return phi_node.source_branch.schedule(node, upper_limit);
+                    var dest_block = phi_node.l_source.schedule(node, upper_limit);
+                    if (dest_block == null) dest_block = phi_node.r_source.schedule(node, upper_limit);
+                    if (dest_block == null) dest_block = phi_node.source_branch.schedule(node, upper_limit);
                     return dest_block;
                 }
             }
@@ -337,7 +388,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         }
     }
 
-    def prependScheduleBlock(prim: SchedulePrim) -> ScheduleBlock {
+    def prependScheduleBlock(node: IRNode) -> ScheduleBlock {
         def block = ScheduleBlock.new(fresh_id(), scheduler);
         if (scheduler.top_block.id == this.id) scheduler.top_block = block;
 
@@ -359,9 +410,9 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         linkPrependedBlock(block);
 
         block.dominants = dominants.newPrivChild();
-        block.dominants.addLocal(prim.node);
+        block.dominants.addLocal(node);
 
-        block.prims.put(prim);
+        block.prims.put(node);
         return block;
     }
 
@@ -370,10 +421,10 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         match (this) {
             block: ScheduleBlock => {
                 if (!block.forward) block.reverse();
-                def live_prims = Vector<SchedulePrim>.new();
+                def live_prims = Vector<IRNode>.new();
                 for (i < block.prims.length) {
-                    def prim = block.prims[i];
-                    if (scheduler.live.has(prim.node)) live_prims.put(prim);
+                    def n = block.prims[i];
+                    if (scheduler.live.has(n)) live_prims.put(n);
                 }
                 block.prims = live_prims;
                 if (block.prev != null) block.prev.finalize();
@@ -404,7 +455,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         }
     }
 
-    def prependScheduleBranch(prim: SchedulePrim) -> SchedulePhi {
+    def prependScheduleBranch(node: IRNode) -> SchedulePhi {
         //               prev
         //                |
         //              branch     (dominants all below)
@@ -416,8 +467,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         //               this
         // System.puts(Strings.format1("prepending branch to %d\n", id));
 
-        def cond = prim.node.value_deps[0];
-        def bl = scheduler.branch_lattice_map[prim.node];
+        def cond = node.value_deps[0];
+        def bl = scheduler.branch_lattice_map[node];
         def branch = ScheduleBranch.new(fresh_id(), scheduler);
         def phi_node = SchedulePhi.new(fresh_id(), scheduler);
 
@@ -478,7 +529,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 }
 
 class ScheduleBlock(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, scheduler_) {
-    var prims: Vector<SchedulePrim> = Vector.new(); // we build these backwards, so they have to be reversed.
+    var prims: Vector<IRNode> = Vector.new(); // we build these backwards, so they have to be reversed.
     var forward: bool = false;
     var prev: ScheduleNode = null;
     var next: ScheduleNode = null;
@@ -488,7 +539,7 @@ class ScheduleBlock(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid
     def toSSAD() -> SSAD {
         var res: SSAD = SSAD.Void;
         for (i < prims.length) {
-            def node = prims[i].node;
+            def node = prims[i];
             match (node.op) {
                 Start, Finish, Move => {}
                 Intrinsic(defn) => {
@@ -570,76 +621,4 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
 class BoxedBool { 
     var v: bool;
     new(v) {}
-}
-
-class SchedulePrim {
-    var node: IRNode;
-    var neededBefore: Vector<(IRNode, bool)> = Vector.new();
-    var scheduler: SeaScheduler;
-    var lowBound: ScheduleNode;
-    var highBound: ScheduleNode;
-
-    new(node, scheduler) {}
-
-    def boundLow(s: ScheduleNode) -> this { lowBound = s; }
-    def boundHigh(s: ScheduleNode) -> this { highBound = s; }
-
-    def isReady(schedule_node: ScheduleNode) -> bool {
-        scheduler.live = Seas.live(scheduler.sea);
-        neededBefore = Vector.new();
-        var ready = BoxedBool.new(true);
-
-        if (IROp.Start.?(node.op)) {
-            scheduler.live.apply(fun (n: IRNode) {
-                if (n.id != node.id) {
-                    def has = schedule_node.dominants.has(n);
-                    neededBefore.put((n, has));
-                    ready.v &= has;
-                }
-            });
-            return ready.v;
-        }
-
-        var children = node.children;
-        if (scheduler.branch_lattice_map.has(node)) {
-            def group = scheduler.branch_lattice_map[node];
-            children = Vector.new();
-
-            for (i < group.phis.length)
-                children.putv(group.phis[i].children);
-        }
-
-        for (i < children.length) {
-            def child = children[i];
-            def live = scheduler.live.has(child);
-            if (!live && !IROp.Move.?(child.op)) continue;
-            if (child.id == node.id) continue;
-
-            if ((IROp.StatePhi.?(child.op) || IROp.Phi.?(child.op))
-                && !(node.id == child.value_deps[0].id)
-                && (node.id == child.value_deps[1].id || node.id == child.value_deps[2].id)) 
-            {
-                def cond = child.value_deps[0];
-                cond.init_move(scheduler.sea);
-                if (node.id == child.value_deps[1].id) {
-                    def has = schedule_node.dominants.has(cond.move_true);
-                    neededBefore.put((cond.move_true, has));
-                    ready.v &= has;
-                }
-                if (node.id == child.value_deps[2].id) {
-                    def has = schedule_node.dominants.has(cond.move_false);
-                    neededBefore.put((cond.move_false, has));
-                    ready.v &= has;
-                }
-            } else {
-                def has = schedule_node.dominants.has(child);
-                neededBefore.put((child, has));
-                ready.v &= has;
-            }
-        }
-        return ready.v;
-    }
-
-    def renderSimple(sb: StringBuilder) => SeaRender.renderSimpleSchedulePrim(this, sb);
-    def render(buf: StringBuilder) -> StringBuilder => SeaRender.renderSchedulePrim(this, buf);
 }

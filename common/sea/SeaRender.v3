@@ -170,20 +170,20 @@ component SeaRender {
         buf.puts("subgraph block_").putd(block.id).puts("[\"Block ").putd(block.id).puts("\"]").ln();
         buf.tab().puts("direction TB").ln();
         for (i < block.prims.length) {
-            def prim = block.prims[i];
-            toMermaidNodeIRNode(prim.node, buf, Strings.format1("b%d_", block.id));
+            def node = block.prims[i];
+            toMermaidNodeIRNode(node, buf, Strings.format1("b%d_", block.id));
         }
         for (i < block.prims.length) {
             if (i + 1 < block.prims.length) {
                 buf.tab();
                 if (!block.forward) {
-                    buf.puts("b").putd(block.id).puts("_").putd(block.prims[i + 1].node.id);
+                    buf.puts("b").putd(block.id).puts("_").putd(block.prims[i + 1].id);
                     buf.puts(" --> ");
-                    buf.puts("b").putd(block.id).puts("_").putd(block.prims[i].node.id).ln();
+                    buf.puts("b").putd(block.id).puts("_").putd(block.prims[i].id).ln();
                 } else {
-                    buf.puts("b").putd(block.id).puts("_").putd(block.prims[i].node.id);
+                    buf.puts("b").putd(block.id).puts("_").putd(block.prims[i].id);
                     buf.puts(" --> ");
-                    buf.puts("b").putd(block.id).puts("_").putd(block.prims[i + 1].node.id).ln();
+                    buf.puts("b").putd(block.id).puts("_").putd(block.prims[i + 1].id).ln();
                 }
             }
         }
@@ -242,16 +242,6 @@ component SeaRender {
         if (phi.l_source != null) toMermaidScheduleNode(phi.l_source, buf, visited);
         if (phi.r_source != null) toMermaidScheduleNode(phi.r_source, buf, visited);
         if (phi.source_branch != null) toMermaidScheduleNode(phi.source_branch, buf, visited);
-        return buf;
-    }
-
-    // === SchedulePrim ===
-    def renderSimpleSchedulePrim(prim: SchedulePrim, sb: StringBuilder) -> StringBuilder {
-        return renderIRNode(prim.node, sb);
-    }
-
-    def renderSchedulePrim(prim: SchedulePrim, buf: StringBuilder) -> StringBuilder {
-        buf.puts("{ ").putq(renderIRNode(prim.node, _)).puts(" }");
         return buf;
     }
 
