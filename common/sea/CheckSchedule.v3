@@ -2,7 +2,7 @@ type ScheduleError {
     case BadOrdering(want_fst: IRNode, want_snd: IRNode);
     case UnsatNeed(user: IRNode, needed: IRNode);
     case GraphDiff(diff: DiffResult);
-    case PathEffectMismatch(path: Array<(IRNode, bool)>, sc: StateComponent, graph_only: Array<IRNode>, cfg_only: Array<IRNode>);
+    case PathEffectMismatch(path: Array<(IRNode, bool)>, graph_only: Array<IRNode>, cfg_only: Array<IRNode>);
 
     def render(sb: StringBuilder) -> StringBuilder => SeaRender.renderScheduleError(this, sb);
 }
@@ -86,77 +86,93 @@ class ScheduleChecker {
             def assignment = Array<(IRNode, bool)>.new(n);
             for (i < n) assignment[i] = (conditions[i], ((combo >> byte.!(i)) & 1) != 0);
 
-            for (sc in StateComponent.set.all) {
-                def graph_effs = NodeSet.new();
-                def visited = NodeSet.new();
-                walk_graph_chain(new_sea.finish.state_deps[sc.tag], sc, assignment, graph_effs, visited);
+            def graph_effs = NodeSet.new();
+            def visited = NodeSet.new();
+            walk_graph(new_sea.finish, assignment, graph_effs, visited);
 
-                def cfg_effs = NodeSet.new();
-                walk_cfg_chain(cfg_top, sc, assignment, cfg_effs);
+            def cfg_effs = NodeSet.new();
+            walk_cfg(cfg_top, assignment, cfg_effs);
 
-                def graph_only = Vector<IRNode>.new();
-                def cfg_only = Vector<IRNode>.new();
-                graph_effs.apply(fun (node: IRNode) { if (!cfg_effs.has(node)) graph_only.put(node); });
-                cfg_effs.apply(fun (node: IRNode) { if (!graph_effs.has(node)) cfg_only.put(node); });
+            def graph_only = Vector<IRNode>.new();
+            def cfg_only = Vector<IRNode>.new();
+            graph_effs.apply(fun (node: IRNode) { if (!cfg_effs.has(node)) graph_only.put(node); });
+            cfg_effs.apply(fun (node: IRNode) { if (!graph_effs.has(node)) cfg_only.put(node); });
 
-                if (graph_only.length > 0 || cfg_only.length > 0) {
-                    errors.put(ScheduleError.PathEffectMismatch(
-                        assignment, sc, graph_only.extract(), cfg_only.extract()));
-                }
+            if (graph_only.length > 0 || cfg_only.length > 0) {
+                errors.put(ScheduleError.PathEffectMismatch(
+                    assignment, graph_only.extract(), cfg_only.extract()));
             }
             combo++;
         }
     }
 
-    def walk_graph_chain(node: IRNode, sc: StateComponent, assignment: Array<(IRNode, bool)>,
-                         effects: NodeSet, visited: NodeSet) {
+    def walk_graph(node: IRNode, assignment: Array<(IRNode, bool)>,
+                   effects: NodeSet, visited: NodeSet) {
         if (node == null || visited.has(node)) return;
         visited.put(node);
         match (node.op) {
             Start => return;
+            Phi => {
+                def cond = node.value_deps[0];
+                walk_graph(cond, assignment, effects, visited);
+                def chosen = if(lookup_cond(cond, assignment), node.value_deps[1], node.value_deps[2]);
+                walk_graph(chosen, assignment, effects, visited);
+            }
             StatePhi(statecomps) => {
-                if (sc < statecomps) {
-                    def cond = node.value_deps[0];
-                    def chosen = if(lookup_cond(cond, assignment), node.value_deps[1], node.value_deps[2]);
-                    walk_graph_chain(chosen, sc, assignment, effects, visited);
-                } else {
-                    walk_graph_chain(node.state_deps[sc.tag], sc, assignment, effects, visited);
-                }
+                def cond = node.value_deps[0];
+                walk_graph(cond, assignment, effects, visited);
+                def chosen = if(lookup_cond(cond, assignment), node.value_deps[1], node.value_deps[2]);
+                walk_graph(chosen, assignment, effects, visited);
             }
             Intrinsic(defn) => {
-                if (sc < defn.writes) effects.put(node);
-                walk_graph_chain(node.state_deps[sc.tag], sc, assignment, effects, visited);
+                if (has_writes(defn)) effects.put(node);
+                for (i < node.value_deps.length)
+                    walk_graph(node.value_deps[i], assignment, effects, visited);
+                for (i < node.state_deps.length)
+                    walk_graph(node.state_deps[i], assignment, effects, visited);
             }
             _ => {
-                if (sc.tag < node.state_deps.length)
-                    walk_graph_chain(node.state_deps[sc.tag], sc, assignment, effects, visited);
+                for (i < node.value_deps.length)
+                    walk_graph(node.value_deps[i], assignment, effects, visited);
+                if (node.state_deps != null) {
+                    for (i < node.state_deps.length)
+                        walk_graph(node.state_deps[i], assignment, effects, visited);
+                }
             }
         }
     }
 
-    def walk_cfg_chain(cfg_node: ScheduleNode, sc: StateComponent,
-                       assignment: Array<(IRNode, bool)>, effects: NodeSet) {
+    def walk_cfg(cfg_node: ScheduleNode, assignment: Array<(IRNode, bool)>, effects: NodeSet) {
         if (cfg_node == null) return;
         match (cfg_node) {
             block: ScheduleBlock => {
                 for (i < block.prims.length) {
                     def node = block.prims[i].node;
-                    if (IROp.Intrinsic.?(node.op) && sc < IROp.Intrinsic.!(node.op).defn.writes)
-                        effects.put(node);
+                    match (node.op) {
+                        Intrinsic(defn) => {
+                            if (has_writes(defn)) effects.put(node);
+                        }
+                        _ => ;
+                    }
                 }
-                walk_cfg_chain(block.next, sc, assignment, effects);
+                walk_cfg(block.next, assignment, effects);
             }
             branch: ScheduleBranch => {
                 def val = lookup_cond(branch.condition, assignment);
-                if (val) walk_cfg_chain(branch.l_branch, sc, assignment, effects);
-                else walk_cfg_chain(branch.r_branch, sc, assignment, effects);
-                walk_cfg_chain(branch.phi, sc, assignment, effects);
+                if (val) walk_cfg(branch.l_branch, assignment, effects);
+                else walk_cfg(branch.r_branch, assignment, effects);
+                walk_cfg(branch.phi, assignment, effects);
             }
             phi: SchedulePhi => {
-                walk_cfg_chain(phi.next, sc, assignment, effects);
+                walk_cfg(phi.next, assignment, effects);
             }
             _ => ;
         }
+    }
+
+    def has_writes(defn: IntrinsicTypedef) -> bool {
+        for (sc in defn.writes) return true;
+        return false;
     }
 
     def lookup_cond(cond: IRNode, assignment: Array<(IRNode, bool)>) -> bool {
