@@ -126,7 +126,26 @@ The sea of nodes is a graph-based IR used for analysis, optimization, and schedu
 
 **Scheduling** converts the unordered sea graph back into structured code. Scheduling is handled by separate modules outside of `SeaOfNodes.v3`.
 
-**`ScheduleChecker`** (`common/sea/CheckSchedule.v3`) - Verifies scheduler output by checking two properties: (1) **dependency ordering** — walks the scheduled CFG top-down maintaining a scope of already-scheduled nodes, and for each node verifies all its dependencies are in scope; (2) **graph equivalence** — compares the scheduled graph against the original via `graph_eq` to ensure semantics are preserved. Errors are reported as `ScheduleError` variants: `UnsatNeed` (dependency not yet scheduled), `BadOrdering` (wrong node order), or `GraphDiff` (structural mismatch).
+**`ScheduleChecker`** (`common/sea/CheckSchedule.v3`) - Verifies scheduler output by checking three properties:
+
+1. **Dependency ordering** (`check_top_down`) — Walks the scheduled CFG top-down maintaining a scope of already-scheduled nodes. For each node, verifies all its dependencies are in scope before it executes.
+
+2. **Graph equivalence** — Compares the scheduled graph against the original via `graph_eq` to ensure the dependency structure is preserved.
+
+3. **Path effects** (`check_path_effects`) — Enumerates all possible branch paths (2^n combinations for n conditions) and verifies that each path executes the same set of effectful nodes in both the graph and the CFG. This catches bugs where the scheduler places an effect in the wrong branch or unconditionally when it should be conditional.
+
+The path effects check works by:
+- Finding all unique conditions from phi nodes in the graph
+- For each condition assignment (true/false for each condition):
+  - `collect_graph_effs`: Walks the sea graph backward from `Finish`, following all `value_deps` and `state_deps`. At Phi/StatePhi nodes, follows only the branch matching the current assignment. Collects all `Intrinsic` nodes with non-empty `writes`.
+  - `collect_cfg_effs`: Walks the scheduled CFG forward. At `ScheduleBranch`, follows only the active branch per assignment. Collects effectful nodes from `ScheduleBlock.prims`.
+  - Compares the two sets and reports mismatches.
+
+Errors are reported as `ScheduleError` variants:
+- `UnsatNeed(user, needed)` — A node was scheduled before one of its dependencies
+- `BadOrdering(fst, snd)` — Two nodes appear in the wrong order
+- `GraphDiff(diff)` — The scheduled graph structure differs from the original
+- `PathEffectMismatch(path, graph_only, cfg_only)` — On a given branch path, effects differ between graph and CFG. `graph_only` lists effects the graph requires but CFG doesn't execute; `cfg_only` lists effects the CFG executes but graph doesn't require.
 
 **`DomGraph`** (`common/sea/DomGraph.v3`) - Hierarchical dominance tracking with public/private node sets and parent chains. Used by the bottom-up scheduler to track which `IRNode`s have been scheduled before a given point, enabling readiness checks. The public/private distinction allows branch-specific nodes (like `Move` nodes) to be visible only within their branch.
 

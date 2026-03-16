@@ -88,10 +88,10 @@ class ScheduleChecker {
 
             def graph_effs = NodeSet.new();
             def visited = NodeSet.new();
-            walk_graph(new_sea.finish, assignment, graph_effs, visited);
+            collect_graph_effs(new_sea.finish, assignment, graph_effs, visited);
 
             def cfg_effs = NodeSet.new();
-            walk_cfg(cfg_top, assignment, cfg_effs);
+            collect_cfg_effs(cfg_top, assignment, cfg_effs);
 
             def graph_only = Vector<IRNode>.new();
             def cfg_only = Vector<IRNode>.new();
@@ -102,11 +102,11 @@ class ScheduleChecker {
                 errors.put(ScheduleError.PathEffectMismatch(
                     assignment, graph_only.extract(), cfg_only.extract()));
             }
-            combo++;
+            combo += 1;
         }
     }
 
-    def walk_graph(node: IRNode, assignment: Array<(IRNode, bool)>,
+    def collect_graph_effs(node: IRNode, assignment: Array<(IRNode, bool)>,
                    effects: NodeSet, visited: NodeSet) {
         if (node == null || visited.has(node)) return;
         visited.put(node);
@@ -114,35 +114,35 @@ class ScheduleChecker {
             Start => return;
             Phi => {
                 def cond = node.value_deps[0];
-                walk_graph(cond, assignment, effects, visited);
-                def chosen = if(lookup_cond(cond, assignment), node.value_deps[1], node.value_deps[2]);
-                walk_graph(chosen, assignment, effects, visited);
+                collect_graph_effs(cond, assignment, effects, visited);
+                def chosen = if(take_cond_branch(cond, assignment), node.value_deps[1], node.value_deps[2]);
+                collect_graph_effs(chosen, assignment, effects, visited);
             }
             StatePhi(statecomps) => {
                 def cond = node.value_deps[0];
-                walk_graph(cond, assignment, effects, visited);
-                def chosen = if(lookup_cond(cond, assignment), node.value_deps[1], node.value_deps[2]);
-                walk_graph(chosen, assignment, effects, visited);
+                collect_graph_effs(cond, assignment, effects, visited);
+                def chosen = if(take_cond_branch(cond, assignment), node.value_deps[1], node.value_deps[2]);
+                collect_graph_effs(chosen, assignment, effects, visited);
             }
             Intrinsic(defn) => {
                 if (has_writes(defn)) effects.put(node);
                 for (i < node.value_deps.length)
-                    walk_graph(node.value_deps[i], assignment, effects, visited);
+                    collect_graph_effs(node.value_deps[i], assignment, effects, visited);
                 for (i < node.state_deps.length)
-                    walk_graph(node.state_deps[i], assignment, effects, visited);
+                    collect_graph_effs(node.state_deps[i], assignment, effects, visited);
             }
             _ => {
                 for (i < node.value_deps.length)
-                    walk_graph(node.value_deps[i], assignment, effects, visited);
+                    collect_graph_effs(node.value_deps[i], assignment, effects, visited);
                 if (node.state_deps != null) {
                     for (i < node.state_deps.length)
-                        walk_graph(node.state_deps[i], assignment, effects, visited);
+                        collect_graph_effs(node.state_deps[i], assignment, effects, visited);
                 }
             }
         }
     }
 
-    def walk_cfg(cfg_node: ScheduleNode, assignment: Array<(IRNode, bool)>, effects: NodeSet) {
+    def collect_cfg_effs(cfg_node: ScheduleNode, assignment: Array<(IRNode, bool)>, effects: NodeSet) {
         if (cfg_node == null) return;
         match (cfg_node) {
             block: ScheduleBlock => {
@@ -155,16 +155,16 @@ class ScheduleChecker {
                         _ => ;
                     }
                 }
-                walk_cfg(block.next, assignment, effects);
+                collect_cfg_effs(block.next, assignment, effects);
             }
             branch: ScheduleBranch => {
-                def val = lookup_cond(branch.condition, assignment);
-                if (val) walk_cfg(branch.l_branch, assignment, effects);
-                else walk_cfg(branch.r_branch, assignment, effects);
-                walk_cfg(branch.phi, assignment, effects);
+                def val = take_cond_branch(branch.condition, assignment);
+                if (val) collect_cfg_effs(branch.l_branch, assignment, effects);
+                else collect_cfg_effs(branch.r_branch, assignment, effects);
+                collect_cfg_effs(branch.phi, assignment, effects);
             }
             phi: SchedulePhi => {
-                walk_cfg(phi.next, assignment, effects);
+                collect_cfg_effs(phi.next, assignment, effects);
             }
             _ => ;
         }
@@ -175,7 +175,7 @@ class ScheduleChecker {
         return false;
     }
 
-    def lookup_cond(cond: IRNode, assignment: Array<(IRNode, bool)>) -> bool {
+    def take_cond_branch(cond: IRNode, assignment: Array<(IRNode, bool)>) -> bool {
         for (i < assignment.length) {
             if (assignment[i].0.id == cond.id) return assignment[i].1;
         }

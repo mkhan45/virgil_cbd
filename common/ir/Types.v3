@@ -395,6 +395,9 @@ component IntrinsicTypes {
             // XXX: stopgap until we properly parse read/write effects separately
             intrinsics["f_getTopOfStackType"].reads |= StateComponent.Stack;
         }
+        if (intrinsics.has("object_isNULL")) {
+            intrinsics["object_isNULL"].writes -= StateComponent.Stack;
+        }
         return intrinsics;
     }
 

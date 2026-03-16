@@ -87626,13 +87626,14 @@ window.traces["REF_AS_NON_NULL"] = {}
 window.traces["REF_AS_NON_NULL"]["parsed"] = ''
 window.traces["REF_AS_NON_NULL"]["parsed"] += `<pre class=''>def obj = pop_Object();
 def arg__4084 = (obj);
-def cond__4082 = object_isNull(arg__4084);
-if (cond__4082) {
-	def eff__4083 = trapNull();
+def cond__4080 = object_isNull(arg__4084);
+if (cond__4080) {
+	def eff__4081 = trapNull();
+} else {
+	def arg__4083 = (obj);
+	def eff__4082 = push_Object(arg__4083);
 }
 // phis: 
-def arg__4081 = (obj);
-def eff__4080 = push_Object(arg__4081);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["raw"] = ''
 window.traces["REF_AS_NON_NULL"]["raw"] += `<pre class='graph'>---
@@ -87641,27 +87642,27 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10["eff__4080 push_Object"]
-	3 --> 10
-	8 -. Stack .-> 10
-	8{{"Sϕ Stack "}}
-	5 --> 8
-	6 --> 8
-	3 --> 8
+	10{{"Sϕ Stack "}}
+	5 --> 10
+	8 --> 10
+	7 --> 10
+	7["eff__4082 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"Start"\\]
-	6["eff__4083 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
-	5["cond__4082 object_isNull"]
+	8["eff__4081 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
+	5["cond__4080 object_isNull"]
 	3 --> 5
-	7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	5 --> 7
-	6 --> 7
-	0 --> 7
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	5 --> 9
+	8 --> 9
+	0 --> 9
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["overloadOps"] = ''
 window.traces["REF_AS_NON_NULL"]["overloadOps"] += `<pre class='graph'>---
@@ -87670,27 +87671,27 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10["eff__4080 push_Object"]
-	3 --> 10
-	8 -. Stack .-> 10
-	8{{"Sϕ Stack "}}
-	5 --> 8
-	6 --> 8
-	3 --> 8
+	10{{"Sϕ Stack "}}
+	5 --> 10
+	8 --> 10
+	7 --> 10
+	7["eff__4082 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"Start"\\]
-	6["eff__4083 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
-	5["cond__4082 object_isNull"]
+	8["eff__4081 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
+	5["cond__4080 object_isNull"]
 	3 --> 5
-	7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	5 --> 7
-	6 --> 7
-	0 --> 7
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	5 --> 9
+	8 --> 9
+	0 --> 9
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["addAbstractions"] = ''
 window.traces["REF_AS_NON_NULL"]["addAbstractions"] += `<pre class='graph'>---
@@ -87699,27 +87700,27 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10["eff__4080 push_Object"]
-	3 --> 10
-	8 -. Stack .-> 10
-	8{{"Sϕ Stack "}}
-	5 --> 8
-	6 --> 8
-	3 --> 8
+	10{{"Sϕ Stack "}}
+	5 --> 10
+	8 --> 10
+	7 --> 10
+	7["eff__4082 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"Start"\\]
-	6["eff__4083 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
-	5["cond__4082 object_isNull"]
+	8["eff__4081 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
+	5["cond__4080 object_isNull"]
 	3 --> 5
-	7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	5 --> 7
-	6 --> 7
-	0 --> 7
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	5 --> 9
+	8 --> 9
+	0 --> 9
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["scheduler_start"] = ''
 window.traces["REF_AS_NON_NULL"]["scheduler_start"] += `<pre class='graph'>---
@@ -87728,66 +87729,64 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10["eff__4080 push_Object"]
-	3 --> 10
-	8 -. Stack .-> 10
-	8{{"Sϕ Stack "}}
-	5 --> 8
-	18 --> 8
-	21 --> 8
+	10{{"Sϕ Stack "}}
+	5 --> 10
+	18 --> 10
+	21 --> 10
 	21["mv_f__4088__4092 |False|"]
 	5 --> 21
-	3 -. Stack .-> 21
+	7 -. Stack .-> 21
+	7["eff__4082 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"Start"\\]
-	5["cond__4082 object_isNull"]
+	5["cond__4080 object_isNull"]
 	3 --> 5
 	18["mv_t__4087__4090 |True|"]
 	5 --> 18
-	6 -. Stack .-> 18
-	6["eff__4083 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
-	7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	5 --> 7
-	17 --> 7
-	20 --> 7
+	8 -. Stack .-> 18
+	8["eff__4081 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	5 --> 9
+	17 --> 9
+	20 --> 9
 	20["mv_f__4086__4091 |False|"]
 	5 --> 20
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 20
 	17["mv_t__4085__4089 |True|"]
 	5 --> 17
-	6 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 17
+	8 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 17
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["schedulerMermaid"] = ''
 window.traces["REF_AS_NON_NULL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1589["Block 1589"]
 	direction TB
-	b1589_10["eff__4080 push_Object"]
 	b1589_1[\\"Finish"/]
-	b1589_10 --> b1589_1
 end
 phi_1591 --> block_1589
 subgraph phi_1591["Phi 1591"]
-	p1591_8{{"Sϕ Stack "}}
-	p1591_7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1591_10{{"Sϕ Stack "}}
+	p1591_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1592 --> phi_1591
 block_1593 --> phi_1591
 subgraph block_1592["Block 1592"]
 	direction TB
-	b1592_6["eff__4083 trapNull"]
+	b1592_8["eff__4081 trapNull"]
 	b1592_18["mv_t__4087__4090 |True|"]
 	b1592_17["mv_t__4085__4089 |True|"]
-	b1592_6 --> b1592_18
+	b1592_8 --> b1592_18
 	b1592_18 --> b1592_17
 end
 branch_1590 --> block_1592
 subgraph branch_1590["Branch 1590"]
-	br1590_5["cond__4082 object_isNull"]
+	br1590_5["cond__4080 object_isNull"]
 
 end
 block_1594 --> branch_1590
@@ -87795,14 +87794,16 @@ subgraph block_1594["Block 1594"]
 	direction TB
 	b1594_0[/"Start"\\]
 	b1594_3["obj pop_Object"]
-	b1594_5["cond__4082 object_isNull"]
+	b1594_5["cond__4080 object_isNull"]
 	b1594_0 --> b1594_3
 	b1594_3 --> b1594_5
 end
 subgraph block_1593["Block 1593"]
 	direction TB
+	b1593_7["eff__4082 push_Object"]
 	b1593_21["mv_f__4088__4092 |False|"]
 	b1593_20["mv_f__4086__4091 |False|"]
+	b1593_7 --> b1593_21
 	b1593_21 --> b1593_20
 end
 branch_1590 --> block_1593
@@ -87810,20 +87811,22 @@ branch_1590 --> block_1593
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["scheduler_ssad"] = ''
 window.traces["REF_AS_NON_NULL"]["scheduler_ssad"] += `<pre class=''>def obj = pop_Object();
-def cond__4082 = object_isNull(obj);
-if (cond__4082) {
-	def eff__4083 = trapNull();
+def cond__4080 = object_isNull(obj);
+if (cond__4080) {
+	def eff__4081 = trapNull();
+} else {
+	def eff__4082 = push_Object(obj);
 }
 // phis: 
-def eff__4080 = push_Object(obj);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["scheduler_ssad_pretty"] = ''
 window.traces["REF_AS_NON_NULL"]["scheduler_ssad_pretty"] += `<pre class=''>def obj = pop_Object();
 def cond = object_isNull(obj);
 if (cond) {
 	trapNull();
+} else {
+	push_Object(obj);
 }
-push_Object(obj);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unLEM"] = ''
 window.traces["REF_AS_NON_NULL"]["unLEM"] += `<pre class='graph'>---
@@ -87832,69 +87835,71 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10["eff__4080 push_Object"]
-	3 --> 10
-	8 -. Stack .-> 10
-	8{{"Sϕ Stack "}}
-	13 --> 8
-	18 --> 8
-	16 --> 8
+	10{{"Sϕ Stack "}}
+	13 --> 10
+	18 --> 10
+	16 --> 10
 	16{{"Sϕ Stack "}}
 	11 --> 16
-	6 --> 16
-	3 --> 16
+	8 --> 16
+	7 --> 16
+	7["eff__4082 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"r_state__4096 Start"\\]
-	6["eff__4083 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
+	8["eff__4081 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
 	11["mt__4093 U32_maybeTrue"]
 	5 --> 11
-	5["cond__4082 object_isNull"]
+	5["cond__4080 object_isNull"]
 	3 --> 5
 	18["eff_merge__4099 merge"]
 	17 --> 18
-	3 --> 18
+	7 --> 18
 	17["eff_nop__4098 nop"]
 	13["mb__4095 bool.&&"]
 	11 --> 13
 	12 --> 13
 	12["mf__4094 U32_maybeFalse"]
 	5 --> 12
-	7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	13 --> 7
-	15 --> 7
-	14 --> 7
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	13 --> 9
+	15 --> 9
+	14 --> 9
 	14{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	11 --> 14
-	6 --> 14
+	8 --> 14
 	0 --> 14
 	15["eff_merge__4097 merge"]
-	6 --> 15
+	8 --> 15
 	0 --> 15
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_schedule"] = ''
 window.traces["REF_AS_NON_NULL"]["unlem_schedule"] += `<pre class=''>def obj = pop_Object();
-def cond__4082 = object_isNull(obj);
-def mt__4093 = U32_maybeTrue(cond__4082);
-def mf__4094 = U32_maybeFalse(cond__4082);
+def cond__4080 = object_isNull(obj);
+def mt__4093 = U32_maybeTrue(cond__4080);
+def mf__4094 = U32_maybeFalse(cond__4080);
 def mb__4095 = bool.&&(mt__4093, mf__4094);
 if (mb__4095) {
-	def eff__4083 = trapNull();
-	def eff_merge__4097 = merge(eff__4083, r_state__4096);
+	def eff__4081 = trapNull();
+	def eff_merge__4097 = merge(eff__4081, r_state__4096);
 	def eff_nop__4098 = nop();
-	def eff_merge__4099 = merge(eff_nop__4098, obj);
+	def eff__4082 = push_Object(obj);
+	def eff_merge__4099 = merge(eff_nop__4098, eff__4082);
 } else {
 	if (mt__4093) {
-		def eff__4083 = trapNull();
+		def eff__4081 = trapNull();
+	} else {
+		def eff__4082 = push_Object(obj);
 	}
 // phis: 
 }
 // phis: 
-def eff__4080 = push_Object(obj);
 </pre>`;
 window.traces["REF_AS_NON_NULL_ul"] = {}
 window.traces["REF_AS_NON_NULL_ul"]["scheduler_start"] = ''
@@ -87904,100 +87909,98 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10["eff__4080 push_Object"]
-	3 --> 10
-	8 -. Stack .-> 10
-	8{{"Sϕ Stack "}}
-	13 --> 8
-	33 --> 8
-	38 --> 8
-	38["mv_f__4105__4113 |False|"]
-	13 --> 38
-	16 -. Stack .-> 38
-	16{{"Sϕ Stack "}}
-	11 --> 16
-	48 --> 16
-	51 --> 16
-	51["mv_f__4107__4117__4121 |False|"]
-	11 --> 51
-	3 -. Stack .-> 51
+	10{{"Sϕ Stack "}}
+	13 --> 10
+	34 --> 10
+	39 --> 10
+	39["mv_f__4103__4113 |False|"]
+	13 --> 39
+	37 -. Stack .-> 39
+	37{{"Sϕ Stack "}}
+	11 --> 37
+	49 --> 37
+	54 --> 37
+	54["mv_f__4107__4115__4123 |False|"]
+	11 --> 54
+	7 -. Stack .-> 54
+	7["eff__4082 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"r_state__4096 Start"\\]
 	11["mt__4093 U32_maybeTrue"]
 	5 --> 11
-	5["cond__4082 object_isNull"]
+	5["cond__4080 object_isNull"]
 	3 --> 5
-	48["mv_t__4106__4115__4119 |True|"]
-	11 --> 48
-	6 -. Stack .-> 48
-	6["eff__4083 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
+	49["mv_t__4106__4120 |True|"]
+	11 --> 49
+	8 -. Stack .-> 49
+	8["eff__4081 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
 	13["mb__4095 bool.&&"]
 	11 --> 13
 	12 --> 13
 	12["mf__4094 U32_maybeFalse"]
 	5 --> 12
-	33["mv_t__4104__4110 |True|"]
-	13 --> 33
-	18 -. Stack .-> 33
-	18["eff_merge__4099 merge"]
-	17 --> 18
-	3 --> 18
+	34["mv_t__4102__4111 |True|"]
+	13 --> 34
+	32 -. Stack .-> 34
+	32["eff_merge__4099__4109 merge"]
+	17 --> 32
+	7 --> 32
 	17["eff_nop__4098 nop"]
-	7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	13 --> 7
-	32 --> 7
-	36 --> 7
-	36["mv_f__4101__4111 |False|"]
-	13 --> 36
-	35 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 36
-	35{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	11 --> 35
-	47 --> 35
-	49 --> 35
-	49["mv_f__4103__4120 |False|"]
-	11 --> 49
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 49
-	47["mv_t__4102__4112__4118 |True|"]
-	11 --> 47
-	6 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 47
-	32["mv_t__4100__4109 |True|"]
-	13 --> 32
-	31 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 32
+	9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	13 --> 9
+	33 --> 9
+	38 --> 9
+	38["mv_f__4101__4112 |False|"]
+	13 --> 38
+	36 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 38
+	36{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	11 --> 36
+	51 --> 36
+	52 --> 36
+	52["mv_f__4105__4122 |False|"]
+	11 --> 52
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 52
+	51["mv_t__4104__4114__4121 |True|"]
+	11 --> 51
+	8 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 51
+	33["mv_t__4100__4110 |True|"]
+	13 --> 33
+	31 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 33
 	31["eff_merge__4097__4108 merge"]
-	6 --> 31
+	8 --> 31
 	0 --> 31
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler"] = ''
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1595["Block 1595"]
 	direction TB
-	b1595_10["eff__4080 push_Object"]
 	b1595_1[\\"Finish"/]
-	b1595_10 --> b1595_1
 end
 phi_1597 --> block_1595
 subgraph phi_1597["Phi 1597"]
-	p1597_8{{"Sϕ Stack "}}
-	p1597_7{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p1597_10{{"Sϕ Stack "}}
+	p1597_9{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1598 --> phi_1597
 block_1599 --> phi_1597
 subgraph block_1598["Block 1598"]
 	direction TB
 	b1598_17["eff_nop__4098 nop"]
-	b1598_18["eff_merge__4099 merge"]
+	b1598_32["eff_merge__4099__4109 merge"]
 	b1598_31["eff_merge__4097__4108 merge"]
-	b1598_33["mv_t__4104__4110 |True|"]
-	b1598_32["mv_t__4100__4109 |True|"]
-	b1598_17 --> b1598_18
-	b1598_18 --> b1598_31
-	b1598_31 --> b1598_33
-	b1598_33 --> b1598_32
+	b1598_34["mv_t__4102__4111 |True|"]
+	b1598_33["mv_t__4100__4110 |True|"]
+	b1598_17 --> b1598_32
+	b1598_32 --> b1598_31
+	b1598_31 --> b1598_34
+	b1598_34 --> b1598_33
 end
 branch_1596 --> block_1598
 subgraph branch_1596["Branch 1596"]
@@ -88009,36 +88012,38 @@ subgraph block_1600["Block 1600"]
 	direction TB
 	b1600_0[/"r_state__4096 Start"\\]
 	b1600_3["obj pop_Object"]
-	b1600_6["eff__4083 trapNull"]
-	b1600_5["cond__4082 object_isNull"]
+	b1600_7["eff__4082 push_Object"]
+	b1600_8["eff__4081 trapNull"]
+	b1600_5["cond__4080 object_isNull"]
 	b1600_11["mt__4093 U32_maybeTrue"]
 	b1600_12["mf__4094 U32_maybeFalse"]
 	b1600_13["mb__4095 bool.&&"]
 	b1600_0 --> b1600_3
-	b1600_3 --> b1600_6
-	b1600_6 --> b1600_5
+	b1600_3 --> b1600_7
+	b1600_7 --> b1600_8
+	b1600_8 --> b1600_5
 	b1600_5 --> b1600_11
 	b1600_11 --> b1600_12
 	b1600_12 --> b1600_13
 end
 subgraph block_1599["Block 1599"]
 	direction TB
-	b1599_38["mv_f__4105__4113 |False|"]
-	b1599_36["mv_f__4101__4111 |False|"]
-	b1599_38 --> b1599_36
+	b1599_39["mv_f__4103__4113 |False|"]
+	b1599_38["mv_f__4101__4112 |False|"]
+	b1599_39 --> b1599_38
 end
 phi_1602 --> block_1599
 subgraph phi_1602["Phi 1602"]
-	p1602_35{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	p1602_16{{"Sϕ Stack "}}
+	p1602_37{{"Sϕ Stack "}}
+	p1602_36{{"Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_1603 --> phi_1602
 block_1604 --> phi_1602
 subgraph block_1603["Block 1603"]
 	direction TB
-	b1603_48["mv_t__4106__4115__4119 |True|"]
-	b1603_47["mv_t__4102__4112__4118 |True|"]
-	b1603_48 --> b1603_47
+	b1603_49["mv_t__4106__4120 |True|"]
+	b1603_51["mv_t__4104__4114__4121 |True|"]
+	b1603_49 --> b1603_51
 end
 branch_1601 --> block_1603
 subgraph branch_1601["Branch 1601"]
@@ -88048,33 +88053,34 @@ end
 branch_1596 --> branch_1601
 subgraph block_1604["Block 1604"]
 	direction TB
-	b1604_51["mv_f__4107__4117__4121 |False|"]
-	b1604_49["mv_f__4103__4120 |False|"]
-	b1604_51 --> b1604_49
+	b1604_54["mv_f__4107__4115__4123 |False|"]
+	b1604_52["mv_f__4105__4122 |False|"]
+	b1604_54 --> b1604_52
 end
 branch_1601 --> block_1604
 
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler_ssa"] = ''
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler_ssa"] += `<pre class=''>def obj = pop_Object();
-def eff__4083 = trapNull();
-def cond__4082 = object_isNull(obj);
-def mt__4093 = U32_maybeTrue(cond__4082);
-def mf__4094 = U32_maybeFalse(cond__4082);
+def eff__4082 = push_Object(obj);
+def eff__4081 = trapNull();
+def cond__4080 = object_isNull(obj);
+def mt__4093 = U32_maybeTrue(cond__4080);
+def mf__4094 = U32_maybeFalse(cond__4080);
 def mb__4095 = bool.&&(mt__4093, mf__4094);
 if (mb__4095) {
 	def eff_nop__4098 = nop();
-	def eff_merge__4099 = merge(eff_nop__4098, obj);
-	def eff_merge__4097__4108 = merge(eff__4083, r_state__4096);
+	def eff_merge__4099__4109 = merge(eff_nop__4098, eff__4082);
+	def eff_merge__4097__4108 = merge(eff__4081, r_state__4096);
 } else {
 	if (mt__4093) {
 	}
 // phis: 
 }
 // phis: 
-def eff__4080 = push_Object(obj);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler_ssa"] += `<pre class=''>def obj = pop_Object();
+push_Object(obj);
 trapNull();
 def cond = object_isNull(obj);
 def mt = U32_maybeTrue(cond);
@@ -88084,7 +88090,6 @@ if (bool.&&(mt, mf)) {
 	if (mt) {
 	}
 }
-push_Object(obj);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_pretty"] = ''
 window.traces["REF_AS_NON_NULL"]["unlem_pretty"] += `<pre class=''>def obj = pop_Object();
@@ -88093,12 +88098,14 @@ def mt = U32_maybeTrue(cond);
 def mf = U32_maybeFalse(cond);
 if (bool.&&(mt, mf)) {
 	trapNull();
+	push_Object(obj);
 } else {
 	if (mt) {
 		trapNull();
+	} else {
+		push_Object(obj);
 	}
 }
-push_Object(obj);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["constUnLEM"] = ''
 window.traces["REF_AS_NON_NULL"]["constUnLEM"] += `<pre class='graph'>---
@@ -88108,23 +88115,23 @@ config:
 graph TD
 	1[\\"Finish"/]
 	15 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
-	10 -. Stack .-> 1
-	10["eff__4080 push_Object"]
-	3 --> 10
-	18 -. Stack .-> 10
+	18 -. Stack .-> 1
 	18["eff_merge__4099 merge"]
 	17 --> 18
-	3 --> 18
+	7 --> 18
+	7["eff__4082 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"r_state__4096 Start"\\]
 	17["eff_nop__4098 nop"]
 	15["eff_merge__4097 merge"]
-	6 --> 15
+	8 --> 15
 	0 --> 15
-	6["eff__4083 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
+	8["eff__4081 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["chooseMerge"] = ''
 window.traces["REF_AS_NON_NULL"]["chooseMerge"] += `<pre class='graph'>---
@@ -88134,31 +88141,31 @@ config:
 graph TD
 	1[\\"Finish"/]
 	15 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
-	10 -. Stack .-> 1
-	10["eff__4080 push_Object"]
-	3 --> 10
-	18 -. Stack .-> 10
+	18 -. Stack .-> 1
 	18["eff_merge__4099 merge"]
 	17 --> 18
-	3 --> 18
+	7 --> 18
+	7["eff__4082 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"r_state__4096 Start"\\]
 	17["eff_nop__4098 nop"]
 	15["eff_merge__4097 merge"]
-	6 --> 15
+	8 --> 15
 	0 --> 15
-	6["eff__4083 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
+	8["eff__4081 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["scheduled"] = ''
 window.traces["REF_AS_NON_NULL"]["scheduled"] += `<pre class=''>def obj = pop_Object();
-def eff__4083 = trapNull();
-def eff_merge__4097 = merge(eff__4083, r_state__4096);
+def eff__4081 = trapNull();
+def eff_merge__4097 = merge(eff__4081, r_state__4096);
 def eff_nop__4098 = nop();
-def eff_merge__4099 = merge(eff_nop__4098, obj);
-def eff__4080 = push_Object(obj);
+def eff__4082 = push_Object(obj);
+def eff_merge__4099 = merge(eff_nop__4098, eff__4082);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["pretty"] = ''
 window.traces["REF_AS_NON_NULL"]["pretty"] += `<pre class=''>def obj = pop_Object();
@@ -88168,12 +88175,12 @@ push_Object(obj);
 window.traces["STRUCT_NEW"] = {}
 window.traces["STRUCT_NEW"]["parsed"] = ''
 window.traces["STRUCT_NEW"]["parsed"] += `<pre class=''>def struct_idx = imm_readULEB32();
-def arg__4125 = (struct_idx);
-def sig = m_getSignature(arg__4125);
-def arg__4124 = (sig);
-def obj = object_New(arg__4124);
-def arg__4123 = (obj);
-def eff__4122 = push_Object(arg__4123);
+def arg__4127 = (struct_idx);
+def sig = m_getSignature(arg__4127);
+def arg__4126 = (sig);
+def obj = object_New(arg__4126);
+def arg__4125 = (obj);
+def eff__4124 = push_Object(arg__4125);
 </pre>`;
 window.traces["STRUCT_NEW"]["raw"] = ''
 window.traces["STRUCT_NEW"]["raw"] += `<pre class='graph'>---
@@ -88186,7 +88193,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__4122 push_Object"]
+	9["eff__4124 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -88207,7 +88214,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__4122 push_Object"]
+	9["eff__4124 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -88228,7 +88235,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__4122 push_Object"]
+	9["eff__4124 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -88249,7 +88256,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__4122 push_Object"]
+	9["eff__4124 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -88267,7 +88274,7 @@ subgraph block_1605["Block 1605"]
 	b1605_3["struct_idx imm_readULEB32"]
 	b1605_5["sig m_getSignature"]
 	b1605_7["obj object_New"]
-	b1605_9["eff__4122 push_Object"]
+	b1605_9["eff__4124 push_Object"]
 	b1605_1[\\"Finish"/]
 	b1605_0 --> b1605_3
 	b1605_3 --> b1605_5
@@ -88281,7 +88288,7 @@ window.traces["STRUCT_NEW"]["scheduler_ssad"] = ''
 window.traces["STRUCT_NEW"]["scheduler_ssad"] += `<pre class=''>def struct_idx = imm_readULEB32();
 def sig = m_getSignature(struct_idx);
 def obj = object_New(sig);
-def eff__4122 = push_Object(obj);
+def eff__4124 = push_Object(obj);
 </pre>`;
 window.traces["STRUCT_NEW"]["scheduler_ssad_pretty"] = ''
 window.traces["STRUCT_NEW"]["scheduler_ssad_pretty"] += `<pre class=''>def struct_idx = imm_readULEB32();
@@ -88299,7 +88306,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__4122 push_Object"]
+	9["eff__4124 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -88313,7 +88320,7 @@ window.traces["STRUCT_NEW"]["unlem_schedule"] = ''
 window.traces["STRUCT_NEW"]["unlem_schedule"] += `<pre class=''>def struct_idx = imm_readULEB32();
 def sig = m_getSignature(struct_idx);
 def obj = object_New(sig);
-def eff__4122 = push_Object(obj);
+def eff__4124 = push_Object(obj);
 </pre>`;
 window.traces["STRUCT_NEW_ul"] = {}
 window.traces["STRUCT_NEW_ul"]["scheduler_start"] = ''
@@ -88327,7 +88334,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__4122 push_Object"]
+	9["eff__4124 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -88345,7 +88352,7 @@ subgraph block_1606["Block 1606"]
 	b1606_3["struct_idx imm_readULEB32"]
 	b1606_5["sig m_getSignature"]
 	b1606_7["obj object_New"]
-	b1606_9["eff__4122 push_Object"]
+	b1606_9["eff__4124 push_Object"]
 	b1606_1[\\"Finish"/]
 	b1606_0 --> b1606_3
 	b1606_3 --> b1606_5
@@ -88359,7 +88366,7 @@ window.traces["STRUCT_NEW"]["unlem_scheduler_ssa"] = ''
 window.traces["STRUCT_NEW"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_idx = imm_readULEB32();
 def sig = m_getSignature(struct_idx);
 def obj = object_New(sig);
-def eff__4122 = push_Object(obj);
+def eff__4124 = push_Object(obj);
 </pre>`;
 window.traces["STRUCT_NEW"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_idx = imm_readULEB32();
 def sig = m_getSignature(struct_idx);
@@ -88381,7 +88388,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__4122 push_Object"]
+	9["eff__4124 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -88402,7 +88409,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__4122 push_Object"]
+	9["eff__4124 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -88416,7 +88423,7 @@ window.traces["STRUCT_NEW"]["scheduled"] = ''
 window.traces["STRUCT_NEW"]["scheduled"] += `<pre class=''>def struct_idx = imm_readULEB32();
 def sig = m_getSignature(struct_idx);
 def obj = object_New(sig);
-def eff__4122 = push_Object(obj);
+def eff__4124 = push_Object(obj);
 </pre>`;
 window.traces["STRUCT_NEW"]["pretty"] = ''
 window.traces["STRUCT_NEW"]["pretty"] += `<pre class=''>def struct_idx = imm_readULEB32();
@@ -88427,20 +88434,20 @@ window.traces["STRUCT_GET"] = {}
 window.traces["STRUCT_GET"]["parsed"] = ''
 window.traces["STRUCT_GET"]["parsed"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
+def arg__4159 = (field_index);
+def arg__4158 = (struct_index);
+def kind = m_getFieldKind(arg__4158, arg__4159);
 def arg__4157 = (field_index);
 def arg__4156 = (struct_index);
-def kind = m_getFieldKind(arg__4156, arg__4157);
-def arg__4155 = (field_index);
-def arg__4154 = (struct_index);
-def offset = m_getFieldOffset(arg__4154, arg__4155);
+def offset = m_getFieldOffset(arg__4156, arg__4157);
 def obj = pop_Object();
-def arg__4153 = (obj);
-def cond__4151 = object_isNull(arg__4153);
-if (cond__4151) {
-	def ret__4152 = trapNull();
+def arg__4155 = (obj);
+def cond__4153 = object_isNull(arg__4155);
+if (cond__4153) {
+	def ret__4154 = trapNull();
 }
 // phis: 
-def cond__4126 = (kind);
+def cond__4128 = (kind);
 </pre>`;
 window.traces["STRUCT_GET"]["raw"] = ''
 window.traces["STRUCT_GET"]["raw"] += `<pre class='graph'>---
@@ -88457,7 +88464,7 @@ graph TD
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__4152 trapNull"]
+	14["ret__4154 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -88467,7 +88474,7 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__4151 object_isNull"]
+	13["cond__4153 object_isNull"]
 	11 --> 13
 	16{{"Sϕ Stack "}}
 	13 --> 16
@@ -88493,7 +88500,7 @@ graph TD
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__4152 trapNull"]
+	14["ret__4154 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -88503,7 +88510,7 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__4151 object_isNull"]
+	13["cond__4153 object_isNull"]
 	11 --> 13
 	16{{"Sϕ Stack "}}
 	13 --> 16
@@ -88529,7 +88536,7 @@ graph TD
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__4152 trapNull"]
+	14["ret__4154 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -88539,7 +88546,7 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__4151 object_isNull"]
+	13["cond__4153 object_isNull"]
 	11 --> 13
 	16{{"Sϕ Stack "}}
 	13 --> 16
@@ -88564,18 +88571,18 @@ graph TD
 	13 --> 17
 	30 --> 17
 	34 --> 17
-	34["mv_f__4164__4171 |False|"]
+	34["mv_f__4166__4173 |False|"]
 	13 --> 34
 	0 -. Trap Locals Globals Tables Memory Extra .-> 34
 	0[/"Start"\\]
-	13["cond__4151 object_isNull"]
+	13["cond__4153 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	30["mv_t__4163__4168 |True|"]
+	30["mv_t__4165__4170 |True|"]
 	13 --> 30
 	27 -. Trap Locals Globals Tables Memory Extra .-> 30
-	27["ret__4152__4165 trapNull"]
+	27["ret__4154__4167 trapNull"]
 	4 -. Codeptr .-> 27
 	11 -. Stack .-> 27
 	0 -. Trap Locals Globals Tables Memory Extra .-> 27
@@ -88587,20 +88594,20 @@ graph TD
 	13 --> 16
 	29 --> 16
 	33 --> 16
-	33["mv_f__4162__4170 |False|"]
+	33["mv_f__4164__4172 |False|"]
 	13 --> 33
 	11 -. Stack .-> 33
-	29["mv_t__4161__4167 |True|"]
+	29["mv_t__4163__4169 |True|"]
 	13 --> 29
 	27 -. Stack .-> 29
 	15{{"Sϕ Codeptr "}}
 	13 --> 15
 	28 --> 15
 	32 --> 15
-	32["mv_f__4160__4169 |False|"]
+	32["mv_f__4162__4171 |False|"]
 	13 --> 32
 	4 -. Codeptr .-> 32
-	28["mv_t__4159__4166 |True|"]
+	28["mv_t__4161__4168 |True|"]
 	13 --> 28
 	27 -. Codeptr .-> 28
 </pre>`;
@@ -88620,17 +88627,17 @@ block_1610 --> phi_1609
 block_1611 --> phi_1609
 subgraph block_1610["Block 1610"]
 	direction TB
-	b1610_27["ret__4152__4165 trapNull"]
-	b1610_30["mv_t__4163__4168 |True|"]
-	b1610_29["mv_t__4161__4167 |True|"]
-	b1610_28["mv_t__4159__4166 |True|"]
+	b1610_27["ret__4154__4167 trapNull"]
+	b1610_30["mv_t__4165__4170 |True|"]
+	b1610_29["mv_t__4163__4169 |True|"]
+	b1610_28["mv_t__4161__4168 |True|"]
 	b1610_27 --> b1610_30
 	b1610_30 --> b1610_29
 	b1610_29 --> b1610_28
 end
 branch_1608 --> block_1610
 subgraph branch_1608["Branch 1608"]
-	br1608_13["cond__4151 object_isNull"]
+	br1608_13["cond__4153 object_isNull"]
 
 end
 block_1612 --> branch_1608
@@ -88640,7 +88647,7 @@ subgraph block_1612["Block 1612"]
 	b1612_3["struct_index imm_readULEB32"]
 	b1612_11["obj pop_Object"]
 	b1612_4["field_index imm_readULEB32"]
-	b1612_13["cond__4151 object_isNull"]
+	b1612_13["cond__4153 object_isNull"]
 	b1612_0 --> b1612_3
 	b1612_3 --> b1612_11
 	b1612_11 --> b1612_4
@@ -88648,9 +88655,9 @@ subgraph block_1612["Block 1612"]
 end
 subgraph block_1611["Block 1611"]
 	direction TB
-	b1611_34["mv_f__4164__4171 |False|"]
-	b1611_33["mv_f__4162__4170 |False|"]
-	b1611_32["mv_f__4160__4169 |False|"]
+	b1611_34["mv_f__4166__4173 |False|"]
+	b1611_33["mv_f__4164__4172 |False|"]
+	b1611_32["mv_f__4162__4171 |False|"]
 	b1611_34 --> b1611_33
 	b1611_33 --> b1611_32
 end
@@ -88661,9 +88668,9 @@ window.traces["STRUCT_GET"]["scheduler_ssad"] = ''
 window.traces["STRUCT_GET"]["scheduler_ssad"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__4151 = object_isNull(obj);
-if (cond__4151) {
-	def ret__4152__4165 = trapNull();
+def cond__4153 = object_isNull(obj);
+if (cond__4153) {
+	def ret__4154__4167 = trapNull();
 }
 // phis: 
 </pre>`;
@@ -88694,8 +88701,8 @@ graph TD
 	19 --> 27
 	14 --> 27
 	0 --> 27
-	0[/"r_state__4179 Start"\\]
-	14["ret__4152 trapNull"]
+	0[/"r_state__4181 Start"\\]
+	14["ret__4154 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -88705,18 +88712,18 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	19["mt__4172 U32_maybeTrue"]
+	19["mt__4174 U32_maybeTrue"]
 	13 --> 19
-	13["cond__4151 object_isNull"]
+	13["cond__4153 object_isNull"]
 	11 --> 13
-	29["eff_merge__4180 merge"]
+	29["eff_merge__4182 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__4178 nop"]
-	21["mb__4174 bool.&&"]
+	28["eff_nop__4180 nop"]
+	21["mb__4176 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__4173 U32_maybeFalse"]
+	20["mf__4175 U32_maybeFalse"]
 	13 --> 20
 	16{{"Sϕ Stack "}}
 	21 --> 16
@@ -88726,10 +88733,10 @@ graph TD
 	19 --> 24
 	14 --> 24
 	11 --> 24
-	26["eff_merge__4177 merge"]
+	26["eff_merge__4179 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__4176 nop"]
+	25["eff_nop__4178 nop"]
 	15{{"Sϕ Codeptr "}}
 	21 --> 15
 	23 --> 15
@@ -88738,29 +88745,29 @@ graph TD
 	19 --> 22
 	14 --> 22
 	4 --> 22
-	23["eff_merge__4175 merge"]
+	23["eff_merge__4177 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
 window.traces["STRUCT_GET"]["unlem_schedule"] = ''
 window.traces["STRUCT_GET"]["unlem_schedule"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
-def cond__4151 = object_isNull(obj);
-def mt__4172 = U32_maybeTrue(cond__4151);
-def mf__4173 = U32_maybeFalse(cond__4151);
-def mb__4174 = bool.&&(mt__4172, mf__4173);
-if (mb__4174) {
+def cond__4153 = object_isNull(obj);
+def mt__4174 = U32_maybeTrue(cond__4153);
+def mf__4175 = U32_maybeFalse(cond__4153);
+def mb__4176 = bool.&&(mt__4174, mf__4175);
+if (mb__4176) {
 	def field_index = imm_readULEB32();
-	def ret__4152 = trapNull();
-	def eff_merge__4175 = merge(ret__4152, field_index);
-	def eff_nop__4176 = nop();
-	def eff_merge__4177 = merge(eff_nop__4176, obj);
+	def ret__4154 = trapNull();
+	def eff_merge__4177 = merge(ret__4154, field_index);
 	def eff_nop__4178 = nop();
-	def eff_merge__4180 = merge(eff_nop__4178, r_state__4179);
+	def eff_merge__4179 = merge(eff_nop__4178, obj);
+	def eff_nop__4180 = nop();
+	def eff_merge__4182 = merge(eff_nop__4180, r_state__4181);
 } else {
-	if (mt__4172) {
+	if (mt__4174) {
 		def field_index = imm_readULEB32();
-		def ret__4152 = trapNull();
+		def ret__4154 = trapNull();
 	} else {
 		def field_index = imm_readULEB32();
 	}
@@ -88783,27 +88790,27 @@ graph TD
 	21 --> 17
 	49 --> 17
 	54 --> 17
-	54["mv_f__4186__4199 |False|"]
+	54["mv_f__4188__4201 |False|"]
 	21 --> 54
 	27 -. Trap Locals Globals Tables Memory Extra .-> 54
 	27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	70 --> 27
 	74 --> 27
-	74["mv_f__4192__4207__4214 |False|"]
+	74["mv_f__4194__4209__4216 |False|"]
 	19 --> 74
 	0 -. Trap Locals Globals Tables Memory Extra .-> 74
-	0[/"r_state__4179 Start"\\]
-	19["mt__4172 U32_maybeTrue"]
+	0[/"r_state__4181 Start"\\]
+	19["mt__4174 U32_maybeTrue"]
 	13 --> 19
-	13["cond__4151 object_isNull"]
+	13["cond__4153 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	70["mv_t__4191__4204__4211 |True|"]
+	70["mv_t__4193__4206__4213 |True|"]
 	19 --> 70
 	57 -. Trap Locals Globals Tables Memory Extra .-> 70
-	57["ret__4152__4201 trapNull"]
+	57["ret__4154__4203 trapNull"]
 	4 -. Codeptr .-> 57
 	11 -. Stack .-> 57
 	0 -. Trap Locals Globals Tables Memory Extra .-> 57
@@ -88811,70 +88818,70 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__4174 bool.&&"]
+	21["mb__4176 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__4173 U32_maybeFalse"]
+	20["mf__4175 U32_maybeFalse"]
 	13 --> 20
-	49["mv_t__4185__4196 |True|"]
+	49["mv_t__4187__4198 |True|"]
 	21 --> 49
 	29 -. Trap Locals Globals Tables Memory Extra .-> 49
-	29["eff_merge__4180 merge"]
+	29["eff_merge__4182 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__4178 nop"]
+	28["eff_nop__4180 nop"]
 	16{{"Sϕ Stack "}}
 	21 --> 16
 	48 --> 16
 	53 --> 16
-	53["mv_f__4184__4198 |False|"]
+	53["mv_f__4186__4200 |False|"]
 	21 --> 53
 	24 -. Stack .-> 53
 	24{{"Sϕ Stack "}}
 	19 --> 24
 	69 --> 24
 	73 --> 24
-	73["mv_f__4190__4206__4213 |False|"]
+	73["mv_f__4192__4208__4215 |False|"]
 	19 --> 73
 	11 -. Stack .-> 73
-	69["mv_t__4189__4203__4210 |True|"]
+	69["mv_t__4191__4205__4212 |True|"]
 	19 --> 69
 	57 -. Stack .-> 69
-	48["mv_t__4183__4195 |True|"]
+	48["mv_t__4185__4197 |True|"]
 	21 --> 48
 	26 -. Stack .-> 48
-	26["eff_merge__4177 merge"]
+	26["eff_merge__4179 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__4176 nop"]
+	25["eff_nop__4178 nop"]
 	15{{"Sϕ Codeptr "}}
 	21 --> 15
 	47 --> 15
 	52 --> 15
-	52["mv_f__4182__4197 |False|"]
+	52["mv_f__4184__4199 |False|"]
 	21 --> 52
 	51 -. Codeptr .-> 52
 	51{{"Sϕ Codeptr "}}
 	19 --> 51
 	68 --> 51
 	71 --> 51
-	71["mv_f__4188__4212 |False|"]
+	71["mv_f__4190__4214 |False|"]
 	19 --> 71
 	4 -. Codeptr .-> 71
-	68["mv_t__4187__4200__4209 |True|"]
+	68["mv_t__4189__4202__4211 |True|"]
 	19 --> 68
 	66 -. Codeptr .-> 68
-	66["ret__4152__4208 trapNull"]
+	66["ret__4154__4210 trapNull"]
 	4 -. Codeptr .-> 66
 	11 -. Stack .-> 66
 	0 -. Trap Locals Globals Tables Memory Extra .-> 66
-	47["mv_t__4181__4194 |True|"]
+	47["mv_t__4183__4196 |True|"]
 	21 --> 47
 	46 -. Codeptr .-> 47
-	46["eff_merge__4175__4193 merge"]
+	46["eff_merge__4177__4195 merge"]
 	14 --> 46
 	4 --> 46
-	14["ret__4152 trapNull"]
+	14["ret__4154 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -88895,15 +88902,15 @@ block_1616 --> phi_1615
 block_1617 --> phi_1615
 subgraph block_1616["Block 1616"]
 	direction TB
-	b1616_28["eff_nop__4178 nop"]
-	b1616_25["eff_nop__4176 nop"]
-	b1616_14["ret__4152 trapNull"]
-	b1616_29["eff_merge__4180 merge"]
-	b1616_26["eff_merge__4177 merge"]
-	b1616_46["eff_merge__4175__4193 merge"]
-	b1616_49["mv_t__4185__4196 |True|"]
-	b1616_48["mv_t__4183__4195 |True|"]
-	b1616_47["mv_t__4181__4194 |True|"]
+	b1616_28["eff_nop__4180 nop"]
+	b1616_25["eff_nop__4178 nop"]
+	b1616_14["ret__4154 trapNull"]
+	b1616_29["eff_merge__4182 merge"]
+	b1616_26["eff_merge__4179 merge"]
+	b1616_46["eff_merge__4177__4195 merge"]
+	b1616_49["mv_t__4187__4198 |True|"]
+	b1616_48["mv_t__4185__4197 |True|"]
+	b1616_47["mv_t__4183__4196 |True|"]
 	b1616_28 --> b1616_25
 	b1616_25 --> b1616_14
 	b1616_14 --> b1616_29
@@ -88915,20 +88922,20 @@ subgraph block_1616["Block 1616"]
 end
 branch_1614 --> block_1616
 subgraph branch_1614["Branch 1614"]
-	br1614_21["mb__4174 bool.&&"]
+	br1614_21["mb__4176 bool.&&"]
 
 end
 block_1618 --> branch_1614
 subgraph block_1618["Block 1618"]
 	direction TB
-	b1618_0[/"r_state__4179 Start"\\]
+	b1618_0[/"r_state__4181 Start"\\]
 	b1618_3["struct_index imm_readULEB32"]
 	b1618_4["field_index imm_readULEB32"]
 	b1618_11["obj pop_Object"]
-	b1618_13["cond__4151 object_isNull"]
-	b1618_19["mt__4172 U32_maybeTrue"]
-	b1618_20["mf__4173 U32_maybeFalse"]
-	b1618_21["mb__4174 bool.&&"]
+	b1618_13["cond__4153 object_isNull"]
+	b1618_19["mt__4174 U32_maybeTrue"]
+	b1618_20["mf__4175 U32_maybeFalse"]
+	b1618_21["mb__4176 bool.&&"]
 	b1618_0 --> b1618_3
 	b1618_3 --> b1618_4
 	b1618_4 --> b1618_11
@@ -88939,9 +88946,9 @@ subgraph block_1618["Block 1618"]
 end
 subgraph block_1617["Block 1617"]
 	direction TB
-	b1617_54["mv_f__4186__4199 |False|"]
-	b1617_53["mv_f__4184__4198 |False|"]
-	b1617_52["mv_f__4182__4197 |False|"]
+	b1617_54["mv_f__4188__4201 |False|"]
+	b1617_53["mv_f__4186__4200 |False|"]
+	b1617_52["mv_f__4184__4199 |False|"]
 	b1617_54 --> b1617_53
 	b1617_53 --> b1617_52
 end
@@ -88955,11 +88962,11 @@ block_1621 --> phi_1620
 block_1622 --> phi_1620
 subgraph block_1621["Block 1621"]
 	direction TB
-	b1621_57["ret__4152__4201 trapNull"]
-	b1621_66["ret__4152__4208 trapNull"]
-	b1621_70["mv_t__4191__4204__4211 |True|"]
-	b1621_69["mv_t__4189__4203__4210 |True|"]
-	b1621_68["mv_t__4187__4200__4209 |True|"]
+	b1621_57["ret__4154__4203 trapNull"]
+	b1621_66["ret__4154__4210 trapNull"]
+	b1621_70["mv_t__4193__4206__4213 |True|"]
+	b1621_69["mv_t__4191__4205__4212 |True|"]
+	b1621_68["mv_t__4189__4202__4211 |True|"]
 	b1621_57 --> b1621_66
 	b1621_66 --> b1621_70
 	b1621_70 --> b1621_69
@@ -88967,15 +88974,15 @@ subgraph block_1621["Block 1621"]
 end
 branch_1619 --> block_1621
 subgraph branch_1619["Branch 1619"]
-	br1619_19["mt__4172 U32_maybeTrue"]
+	br1619_19["mt__4174 U32_maybeTrue"]
 
 end
 branch_1614 --> branch_1619
 subgraph block_1622["Block 1622"]
 	direction TB
-	b1622_74["mv_f__4192__4207__4214 |False|"]
-	b1622_73["mv_f__4190__4206__4213 |False|"]
-	b1622_71["mv_f__4188__4212 |False|"]
+	b1622_74["mv_f__4194__4209__4216 |False|"]
+	b1622_73["mv_f__4192__4208__4215 |False|"]
+	b1622_71["mv_f__4190__4214 |False|"]
 	b1622_74 --> b1622_73
 	b1622_73 --> b1622_71
 end
@@ -88986,21 +88993,21 @@ window.traces["STRUCT_GET"]["unlem_scheduler_ssa"] = ''
 window.traces["STRUCT_GET"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
 def obj = pop_Object();
-def cond__4151 = object_isNull(obj);
-def mt__4172 = U32_maybeTrue(cond__4151);
-def mf__4173 = U32_maybeFalse(cond__4151);
-def mb__4174 = bool.&&(mt__4172, mf__4173);
-if (mb__4174) {
+def cond__4153 = object_isNull(obj);
+def mt__4174 = U32_maybeTrue(cond__4153);
+def mf__4175 = U32_maybeFalse(cond__4153);
+def mb__4176 = bool.&&(mt__4174, mf__4175);
+if (mb__4176) {
+	def eff_nop__4180 = nop();
 	def eff_nop__4178 = nop();
-	def eff_nop__4176 = nop();
-	def ret__4152 = trapNull();
-	def eff_merge__4180 = merge(eff_nop__4178, r_state__4179);
-	def eff_merge__4177 = merge(eff_nop__4176, obj);
-	def eff_merge__4175__4193 = merge(ret__4152, field_index);
+	def ret__4154 = trapNull();
+	def eff_merge__4182 = merge(eff_nop__4180, r_state__4181);
+	def eff_merge__4179 = merge(eff_nop__4178, obj);
+	def eff_merge__4177__4195 = merge(ret__4154, field_index);
 } else {
-	if (mt__4172) {
-		def ret__4152__4201 = trapNull();
-		def ret__4152__4208 = trapNull();
+	if (mt__4174) {
+		def ret__4154__4203 = trapNull();
+		def ret__4154__4210 = trapNull();
 	}
 // phis: 
 }
@@ -89049,25 +89056,25 @@ graph TD
 	23 -. Codeptr .-> 1
 	26 -. Stack .-> 1
 	29 -. Trap Locals Globals Tables Memory Extra .-> 1
-	29["eff_merge__4180 merge"]
+	29["eff_merge__4182 merge"]
 	28 --> 29
 	0 --> 29
-	0[/"r_state__4179 Start"\\]
-	28["eff_nop__4178 nop"]
-	26["eff_merge__4177 merge"]
+	0[/"r_state__4181 Start"\\]
+	28["eff_nop__4180 nop"]
+	26["eff_merge__4179 merge"]
 	25 --> 26
 	11 --> 26
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	25["eff_nop__4176 nop"]
-	23["eff_merge__4175 merge"]
+	25["eff_nop__4178 nop"]
+	23["eff_merge__4177 merge"]
 	14 --> 23
 	4 --> 23
 	4["field_index imm_readULEB32"]
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	14["ret__4152 trapNull"]
+	14["ret__4154 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -89082,25 +89089,25 @@ graph TD
 	23 -. Codeptr .-> 1
 	26 -. Stack .-> 1
 	29 -. Trap Locals Globals Tables Memory Extra .-> 1
-	29["eff_merge__4180 merge"]
+	29["eff_merge__4182 merge"]
 	28 --> 29
 	0 --> 29
-	0[/"r_state__4179 Start"\\]
-	28["eff_nop__4178 nop"]
-	26["eff_merge__4177 merge"]
+	0[/"r_state__4181 Start"\\]
+	28["eff_nop__4180 nop"]
+	26["eff_merge__4179 merge"]
 	25 --> 26
 	11 --> 26
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	25["eff_nop__4176 nop"]
-	23["eff_merge__4175 merge"]
+	25["eff_nop__4178 nop"]
+	23["eff_merge__4177 merge"]
 	14 --> 23
 	4 --> 23
 	4["field_index imm_readULEB32"]
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	14["ret__4152 trapNull"]
+	14["ret__4154 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -89109,12 +89116,12 @@ window.traces["STRUCT_GET"]["scheduled"] = ''
 window.traces["STRUCT_GET"]["scheduled"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
 def obj = pop_Object();
-def ret__4152 = trapNull();
-def eff_merge__4175 = merge(ret__4152, field_index);
-def eff_nop__4176 = nop();
-def eff_merge__4177 = merge(eff_nop__4176, obj);
+def ret__4154 = trapNull();
+def eff_merge__4177 = merge(ret__4154, field_index);
 def eff_nop__4178 = nop();
-def eff_merge__4180 = merge(eff_nop__4178, r_state__4179);
+def eff_merge__4179 = merge(eff_nop__4178, obj);
+def eff_nop__4180 = nop();
+def eff_merge__4182 = merge(eff_nop__4180, r_state__4181);
 </pre>`;
 window.traces["STRUCT_GET"]["pretty"] = ''
 window.traces["STRUCT_GET"]["pretty"] += `<pre class=''>def struct_index = imm_readULEB32();
@@ -89126,20 +89133,20 @@ window.traces["STRUCT_GET_S"] = {}
 window.traces["STRUCT_GET_S"]["parsed"] = ''
 window.traces["STRUCT_GET_S"]["parsed"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
+def arg__4234 = (field_index);
+def arg__4233 = (struct_index);
+def kind = m_getFieldKind(arg__4233, arg__4234);
 def arg__4232 = (field_index);
 def arg__4231 = (struct_index);
-def kind = m_getFieldKind(arg__4231, arg__4232);
-def arg__4230 = (field_index);
-def arg__4229 = (struct_index);
-def offset = m_getFieldOffset(arg__4229, arg__4230);
+def offset = m_getFieldOffset(arg__4231, arg__4232);
 def obj = pop_Object();
-def arg__4228 = (obj);
-def cond__4226 = object_isNull(arg__4228);
-if (cond__4226) {
-	def ret__4227 = trapNull();
+def arg__4230 = (obj);
+def cond__4228 = object_isNull(arg__4230);
+if (cond__4228) {
+	def ret__4229 = trapNull();
 }
 // phis: 
-def cond__4215 = (kind);
+def cond__4217 = (kind);
 </pre>`;
 window.traces["STRUCT_GET_S"]["raw"] = ''
 window.traces["STRUCT_GET_S"]["raw"] += `<pre class='graph'>---
@@ -89156,7 +89163,7 @@ graph TD
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__4227 trapNull"]
+	14["ret__4229 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -89166,7 +89173,7 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__4226 object_isNull"]
+	13["cond__4228 object_isNull"]
 	11 --> 13
 	16{{"Sϕ Stack "}}
 	13 --> 16
@@ -89192,7 +89199,7 @@ graph TD
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__4227 trapNull"]
+	14["ret__4229 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -89202,7 +89209,7 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__4226 object_isNull"]
+	13["cond__4228 object_isNull"]
 	11 --> 13
 	16{{"Sϕ Stack "}}
 	13 --> 16
@@ -89228,7 +89235,7 @@ graph TD
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__4227 trapNull"]
+	14["ret__4229 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -89238,7 +89245,7 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__4226 object_isNull"]
+	13["cond__4228 object_isNull"]
 	11 --> 13
 	16{{"Sϕ Stack "}}
 	13 --> 16
@@ -89263,18 +89270,18 @@ graph TD
 	13 --> 17
 	30 --> 17
 	34 --> 17
-	34["mv_f__4239__4246 |False|"]
+	34["mv_f__4241__4248 |False|"]
 	13 --> 34
 	0 -. Trap Locals Globals Tables Memory Extra .-> 34
 	0[/"Start"\\]
-	13["cond__4226 object_isNull"]
+	13["cond__4228 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	30["mv_t__4238__4243 |True|"]
+	30["mv_t__4240__4245 |True|"]
 	13 --> 30
 	27 -. Trap Locals Globals Tables Memory Extra .-> 30
-	27["ret__4227__4240 trapNull"]
+	27["ret__4229__4242 trapNull"]
 	4 -. Codeptr .-> 27
 	11 -. Stack .-> 27
 	0 -. Trap Locals Globals Tables Memory Extra .-> 27
@@ -89286,20 +89293,20 @@ graph TD
 	13 --> 16
 	29 --> 16
 	33 --> 16
-	33["mv_f__4237__4245 |False|"]
+	33["mv_f__4239__4247 |False|"]
 	13 --> 33
 	11 -. Stack .-> 33
-	29["mv_t__4236__4242 |True|"]
+	29["mv_t__4238__4244 |True|"]
 	13 --> 29
 	27 -. Stack .-> 29
 	15{{"Sϕ Codeptr "}}
 	13 --> 15
 	28 --> 15
 	32 --> 15
-	32["mv_f__4235__4244 |False|"]
+	32["mv_f__4237__4246 |False|"]
 	13 --> 32
 	4 -. Codeptr .-> 32
-	28["mv_t__4234__4241 |True|"]
+	28["mv_t__4236__4243 |True|"]
 	13 --> 28
 	27 -. Codeptr .-> 28
 </pre>`;
@@ -89319,17 +89326,17 @@ block_1626 --> phi_1625
 block_1627 --> phi_1625
 subgraph block_1626["Block 1626"]
 	direction TB
-	b1626_27["ret__4227__4240 trapNull"]
-	b1626_30["mv_t__4238__4243 |True|"]
-	b1626_29["mv_t__4236__4242 |True|"]
-	b1626_28["mv_t__4234__4241 |True|"]
+	b1626_27["ret__4229__4242 trapNull"]
+	b1626_30["mv_t__4240__4245 |True|"]
+	b1626_29["mv_t__4238__4244 |True|"]
+	b1626_28["mv_t__4236__4243 |True|"]
 	b1626_27 --> b1626_30
 	b1626_30 --> b1626_29
 	b1626_29 --> b1626_28
 end
 branch_1624 --> block_1626
 subgraph branch_1624["Branch 1624"]
-	br1624_13["cond__4226 object_isNull"]
+	br1624_13["cond__4228 object_isNull"]
 
 end
 block_1628 --> branch_1624
@@ -89339,7 +89346,7 @@ subgraph block_1628["Block 1628"]
 	b1628_3["struct_index imm_readULEB32"]
 	b1628_11["obj pop_Object"]
 	b1628_4["field_index imm_readULEB32"]
-	b1628_13["cond__4226 object_isNull"]
+	b1628_13["cond__4228 object_isNull"]
 	b1628_0 --> b1628_3
 	b1628_3 --> b1628_11
 	b1628_11 --> b1628_4
@@ -89347,9 +89354,9 @@ subgraph block_1628["Block 1628"]
 end
 subgraph block_1627["Block 1627"]
 	direction TB
-	b1627_34["mv_f__4239__4246 |False|"]
-	b1627_33["mv_f__4237__4245 |False|"]
-	b1627_32["mv_f__4235__4244 |False|"]
+	b1627_34["mv_f__4241__4248 |False|"]
+	b1627_33["mv_f__4239__4247 |False|"]
+	b1627_32["mv_f__4237__4246 |False|"]
 	b1627_34 --> b1627_33
 	b1627_33 --> b1627_32
 end
@@ -89360,9 +89367,9 @@ window.traces["STRUCT_GET_S"]["scheduler_ssad"] = ''
 window.traces["STRUCT_GET_S"]["scheduler_ssad"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__4226 = object_isNull(obj);
-if (cond__4226) {
-	def ret__4227__4240 = trapNull();
+def cond__4228 = object_isNull(obj);
+if (cond__4228) {
+	def ret__4229__4242 = trapNull();
 }
 // phis: 
 </pre>`;
@@ -89393,8 +89400,8 @@ graph TD
 	19 --> 27
 	14 --> 27
 	0 --> 27
-	0[/"r_state__4254 Start"\\]
-	14["ret__4227 trapNull"]
+	0[/"r_state__4256 Start"\\]
+	14["ret__4229 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -89404,18 +89411,18 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	19["mt__4247 U32_maybeTrue"]
+	19["mt__4249 U32_maybeTrue"]
 	13 --> 19
-	13["cond__4226 object_isNull"]
+	13["cond__4228 object_isNull"]
 	11 --> 13
-	29["eff_merge__4255 merge"]
+	29["eff_merge__4257 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__4253 nop"]
-	21["mb__4249 bool.&&"]
+	28["eff_nop__4255 nop"]
+	21["mb__4251 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__4248 U32_maybeFalse"]
+	20["mf__4250 U32_maybeFalse"]
 	13 --> 20
 	16{{"Sϕ Stack "}}
 	21 --> 16
@@ -89425,10 +89432,10 @@ graph TD
 	19 --> 24
 	14 --> 24
 	11 --> 24
-	26["eff_merge__4252 merge"]
+	26["eff_merge__4254 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__4251 nop"]
+	25["eff_nop__4253 nop"]
 	15{{"Sϕ Codeptr "}}
 	21 --> 15
 	23 --> 15
@@ -89437,29 +89444,29 @@ graph TD
 	19 --> 22
 	14 --> 22
 	4 --> 22
-	23["eff_merge__4250 merge"]
+	23["eff_merge__4252 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
 window.traces["STRUCT_GET_S"]["unlem_schedule"] = ''
 window.traces["STRUCT_GET_S"]["unlem_schedule"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
-def cond__4226 = object_isNull(obj);
-def mt__4247 = U32_maybeTrue(cond__4226);
-def mf__4248 = U32_maybeFalse(cond__4226);
-def mb__4249 = bool.&&(mt__4247, mf__4248);
-if (mb__4249) {
+def cond__4228 = object_isNull(obj);
+def mt__4249 = U32_maybeTrue(cond__4228);
+def mf__4250 = U32_maybeFalse(cond__4228);
+def mb__4251 = bool.&&(mt__4249, mf__4250);
+if (mb__4251) {
 	def field_index = imm_readULEB32();
-	def ret__4227 = trapNull();
-	def eff_merge__4250 = merge(ret__4227, field_index);
-	def eff_nop__4251 = nop();
-	def eff_merge__4252 = merge(eff_nop__4251, obj);
+	def ret__4229 = trapNull();
+	def eff_merge__4252 = merge(ret__4229, field_index);
 	def eff_nop__4253 = nop();
-	def eff_merge__4255 = merge(eff_nop__4253, r_state__4254);
+	def eff_merge__4254 = merge(eff_nop__4253, obj);
+	def eff_nop__4255 = nop();
+	def eff_merge__4257 = merge(eff_nop__4255, r_state__4256);
 } else {
-	if (mt__4247) {
+	if (mt__4249) {
 		def field_index = imm_readULEB32();
-		def ret__4227 = trapNull();
+		def ret__4229 = trapNull();
 	} else {
 		def field_index = imm_readULEB32();
 	}
@@ -89482,27 +89489,27 @@ graph TD
 	21 --> 17
 	49 --> 17
 	54 --> 17
-	54["mv_f__4261__4274 |False|"]
+	54["mv_f__4263__4276 |False|"]
 	21 --> 54
 	27 -. Trap Locals Globals Tables Memory Extra .-> 54
 	27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	70 --> 27
 	74 --> 27
-	74["mv_f__4267__4282__4289 |False|"]
+	74["mv_f__4269__4284__4291 |False|"]
 	19 --> 74
 	0 -. Trap Locals Globals Tables Memory Extra .-> 74
-	0[/"r_state__4254 Start"\\]
-	19["mt__4247 U32_maybeTrue"]
+	0[/"r_state__4256 Start"\\]
+	19["mt__4249 U32_maybeTrue"]
 	13 --> 19
-	13["cond__4226 object_isNull"]
+	13["cond__4228 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	70["mv_t__4266__4279__4286 |True|"]
+	70["mv_t__4268__4281__4288 |True|"]
 	19 --> 70
 	57 -. Trap Locals Globals Tables Memory Extra .-> 70
-	57["ret__4227__4276 trapNull"]
+	57["ret__4229__4278 trapNull"]
 	4 -. Codeptr .-> 57
 	11 -. Stack .-> 57
 	0 -. Trap Locals Globals Tables Memory Extra .-> 57
@@ -89510,70 +89517,70 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__4249 bool.&&"]
+	21["mb__4251 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__4248 U32_maybeFalse"]
+	20["mf__4250 U32_maybeFalse"]
 	13 --> 20
-	49["mv_t__4260__4271 |True|"]
+	49["mv_t__4262__4273 |True|"]
 	21 --> 49
 	29 -. Trap Locals Globals Tables Memory Extra .-> 49
-	29["eff_merge__4255 merge"]
+	29["eff_merge__4257 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__4253 nop"]
+	28["eff_nop__4255 nop"]
 	16{{"Sϕ Stack "}}
 	21 --> 16
 	48 --> 16
 	53 --> 16
-	53["mv_f__4259__4273 |False|"]
+	53["mv_f__4261__4275 |False|"]
 	21 --> 53
 	24 -. Stack .-> 53
 	24{{"Sϕ Stack "}}
 	19 --> 24
 	69 --> 24
 	73 --> 24
-	73["mv_f__4265__4281__4288 |False|"]
+	73["mv_f__4267__4283__4290 |False|"]
 	19 --> 73
 	11 -. Stack .-> 73
-	69["mv_t__4264__4278__4285 |True|"]
+	69["mv_t__4266__4280__4287 |True|"]
 	19 --> 69
 	57 -. Stack .-> 69
-	48["mv_t__4258__4270 |True|"]
+	48["mv_t__4260__4272 |True|"]
 	21 --> 48
 	26 -. Stack .-> 48
-	26["eff_merge__4252 merge"]
+	26["eff_merge__4254 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__4251 nop"]
+	25["eff_nop__4253 nop"]
 	15{{"Sϕ Codeptr "}}
 	21 --> 15
 	47 --> 15
 	52 --> 15
-	52["mv_f__4257__4272 |False|"]
+	52["mv_f__4259__4274 |False|"]
 	21 --> 52
 	51 -. Codeptr .-> 52
 	51{{"Sϕ Codeptr "}}
 	19 --> 51
 	68 --> 51
 	71 --> 51
-	71["mv_f__4263__4287 |False|"]
+	71["mv_f__4265__4289 |False|"]
 	19 --> 71
 	4 -. Codeptr .-> 71
-	68["mv_t__4262__4275__4284 |True|"]
+	68["mv_t__4264__4277__4286 |True|"]
 	19 --> 68
 	66 -. Codeptr .-> 68
-	66["ret__4227__4283 trapNull"]
+	66["ret__4229__4285 trapNull"]
 	4 -. Codeptr .-> 66
 	11 -. Stack .-> 66
 	0 -. Trap Locals Globals Tables Memory Extra .-> 66
-	47["mv_t__4256__4269 |True|"]
+	47["mv_t__4258__4271 |True|"]
 	21 --> 47
 	46 -. Codeptr .-> 47
-	46["eff_merge__4250__4268 merge"]
+	46["eff_merge__4252__4270 merge"]
 	14 --> 46
 	4 --> 46
-	14["ret__4227 trapNull"]
+	14["ret__4229 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -89594,15 +89601,15 @@ block_1632 --> phi_1631
 block_1633 --> phi_1631
 subgraph block_1632["Block 1632"]
 	direction TB
-	b1632_28["eff_nop__4253 nop"]
-	b1632_25["eff_nop__4251 nop"]
-	b1632_14["ret__4227 trapNull"]
-	b1632_29["eff_merge__4255 merge"]
-	b1632_26["eff_merge__4252 merge"]
-	b1632_46["eff_merge__4250__4268 merge"]
-	b1632_49["mv_t__4260__4271 |True|"]
-	b1632_48["mv_t__4258__4270 |True|"]
-	b1632_47["mv_t__4256__4269 |True|"]
+	b1632_28["eff_nop__4255 nop"]
+	b1632_25["eff_nop__4253 nop"]
+	b1632_14["ret__4229 trapNull"]
+	b1632_29["eff_merge__4257 merge"]
+	b1632_26["eff_merge__4254 merge"]
+	b1632_46["eff_merge__4252__4270 merge"]
+	b1632_49["mv_t__4262__4273 |True|"]
+	b1632_48["mv_t__4260__4272 |True|"]
+	b1632_47["mv_t__4258__4271 |True|"]
 	b1632_28 --> b1632_25
 	b1632_25 --> b1632_14
 	b1632_14 --> b1632_29
@@ -89614,20 +89621,20 @@ subgraph block_1632["Block 1632"]
 end
 branch_1630 --> block_1632
 subgraph branch_1630["Branch 1630"]
-	br1630_21["mb__4249 bool.&&"]
+	br1630_21["mb__4251 bool.&&"]
 
 end
 block_1634 --> branch_1630
 subgraph block_1634["Block 1634"]
 	direction TB
-	b1634_0[/"r_state__4254 Start"\\]
+	b1634_0[/"r_state__4256 Start"\\]
 	b1634_3["struct_index imm_readULEB32"]
 	b1634_4["field_index imm_readULEB32"]
 	b1634_11["obj pop_Object"]
-	b1634_13["cond__4226 object_isNull"]
-	b1634_19["mt__4247 U32_maybeTrue"]
-	b1634_20["mf__4248 U32_maybeFalse"]
-	b1634_21["mb__4249 bool.&&"]
+	b1634_13["cond__4228 object_isNull"]
+	b1634_19["mt__4249 U32_maybeTrue"]
+	b1634_20["mf__4250 U32_maybeFalse"]
+	b1634_21["mb__4251 bool.&&"]
 	b1634_0 --> b1634_3
 	b1634_3 --> b1634_4
 	b1634_4 --> b1634_11
@@ -89638,9 +89645,9 @@ subgraph block_1634["Block 1634"]
 end
 subgraph block_1633["Block 1633"]
 	direction TB
-	b1633_54["mv_f__4261__4274 |False|"]
-	b1633_53["mv_f__4259__4273 |False|"]
-	b1633_52["mv_f__4257__4272 |False|"]
+	b1633_54["mv_f__4263__4276 |False|"]
+	b1633_53["mv_f__4261__4275 |False|"]
+	b1633_52["mv_f__4259__4274 |False|"]
 	b1633_54 --> b1633_53
 	b1633_53 --> b1633_52
 end
@@ -89654,11 +89661,11 @@ block_1637 --> phi_1636
 block_1638 --> phi_1636
 subgraph block_1637["Block 1637"]
 	direction TB
-	b1637_57["ret__4227__4276 trapNull"]
-	b1637_66["ret__4227__4283 trapNull"]
-	b1637_70["mv_t__4266__4279__4286 |True|"]
-	b1637_69["mv_t__4264__4278__4285 |True|"]
-	b1637_68["mv_t__4262__4275__4284 |True|"]
+	b1637_57["ret__4229__4278 trapNull"]
+	b1637_66["ret__4229__4285 trapNull"]
+	b1637_70["mv_t__4268__4281__4288 |True|"]
+	b1637_69["mv_t__4266__4280__4287 |True|"]
+	b1637_68["mv_t__4264__4277__4286 |True|"]
 	b1637_57 --> b1637_66
 	b1637_66 --> b1637_70
 	b1637_70 --> b1637_69
@@ -89666,15 +89673,15 @@ subgraph block_1637["Block 1637"]
 end
 branch_1635 --> block_1637
 subgraph branch_1635["Branch 1635"]
-	br1635_19["mt__4247 U32_maybeTrue"]
+	br1635_19["mt__4249 U32_maybeTrue"]
 
 end
 branch_1630 --> branch_1635
 subgraph block_1638["Block 1638"]
 	direction TB
-	b1638_74["mv_f__4267__4282__4289 |False|"]
-	b1638_73["mv_f__4265__4281__4288 |False|"]
-	b1638_71["mv_f__4263__4287 |False|"]
+	b1638_74["mv_f__4269__4284__4291 |False|"]
+	b1638_73["mv_f__4267__4283__4290 |False|"]
+	b1638_71["mv_f__4265__4289 |False|"]
 	b1638_74 --> b1638_73
 	b1638_73 --> b1638_71
 end
@@ -89685,21 +89692,21 @@ window.traces["STRUCT_GET_S"]["unlem_scheduler_ssa"] = ''
 window.traces["STRUCT_GET_S"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
 def obj = pop_Object();
-def cond__4226 = object_isNull(obj);
-def mt__4247 = U32_maybeTrue(cond__4226);
-def mf__4248 = U32_maybeFalse(cond__4226);
-def mb__4249 = bool.&&(mt__4247, mf__4248);
-if (mb__4249) {
+def cond__4228 = object_isNull(obj);
+def mt__4249 = U32_maybeTrue(cond__4228);
+def mf__4250 = U32_maybeFalse(cond__4228);
+def mb__4251 = bool.&&(mt__4249, mf__4250);
+if (mb__4251) {
+	def eff_nop__4255 = nop();
 	def eff_nop__4253 = nop();
-	def eff_nop__4251 = nop();
-	def ret__4227 = trapNull();
-	def eff_merge__4255 = merge(eff_nop__4253, r_state__4254);
-	def eff_merge__4252 = merge(eff_nop__4251, obj);
-	def eff_merge__4250__4268 = merge(ret__4227, field_index);
+	def ret__4229 = trapNull();
+	def eff_merge__4257 = merge(eff_nop__4255, r_state__4256);
+	def eff_merge__4254 = merge(eff_nop__4253, obj);
+	def eff_merge__4252__4270 = merge(ret__4229, field_index);
 } else {
-	if (mt__4247) {
-		def ret__4227__4276 = trapNull();
-		def ret__4227__4283 = trapNull();
+	if (mt__4249) {
+		def ret__4229__4278 = trapNull();
+		def ret__4229__4285 = trapNull();
 	}
 // phis: 
 }
@@ -89748,25 +89755,25 @@ graph TD
 	23 -. Codeptr .-> 1
 	26 -. Stack .-> 1
 	29 -. Trap Locals Globals Tables Memory Extra .-> 1
-	29["eff_merge__4255 merge"]
+	29["eff_merge__4257 merge"]
 	28 --> 29
 	0 --> 29
-	0[/"r_state__4254 Start"\\]
-	28["eff_nop__4253 nop"]
-	26["eff_merge__4252 merge"]
+	0[/"r_state__4256 Start"\\]
+	28["eff_nop__4255 nop"]
+	26["eff_merge__4254 merge"]
 	25 --> 26
 	11 --> 26
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	25["eff_nop__4251 nop"]
-	23["eff_merge__4250 merge"]
+	25["eff_nop__4253 nop"]
+	23["eff_merge__4252 merge"]
 	14 --> 23
 	4 --> 23
 	4["field_index imm_readULEB32"]
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	14["ret__4227 trapNull"]
+	14["ret__4229 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -89781,25 +89788,25 @@ graph TD
 	23 -. Codeptr .-> 1
 	26 -. Stack .-> 1
 	29 -. Trap Locals Globals Tables Memory Extra .-> 1
-	29["eff_merge__4255 merge"]
+	29["eff_merge__4257 merge"]
 	28 --> 29
 	0 --> 29
-	0[/"r_state__4254 Start"\\]
-	28["eff_nop__4253 nop"]
-	26["eff_merge__4252 merge"]
+	0[/"r_state__4256 Start"\\]
+	28["eff_nop__4255 nop"]
+	26["eff_merge__4254 merge"]
 	25 --> 26
 	11 --> 26
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	25["eff_nop__4251 nop"]
-	23["eff_merge__4250 merge"]
+	25["eff_nop__4253 nop"]
+	23["eff_merge__4252 merge"]
 	14 --> 23
 	4 --> 23
 	4["field_index imm_readULEB32"]
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	14["ret__4227 trapNull"]
+	14["ret__4229 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -89808,12 +89815,12 @@ window.traces["STRUCT_GET_S"]["scheduled"] = ''
 window.traces["STRUCT_GET_S"]["scheduled"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
 def obj = pop_Object();
-def ret__4227 = trapNull();
-def eff_merge__4250 = merge(ret__4227, field_index);
-def eff_nop__4251 = nop();
-def eff_merge__4252 = merge(eff_nop__4251, obj);
+def ret__4229 = trapNull();
+def eff_merge__4252 = merge(ret__4229, field_index);
 def eff_nop__4253 = nop();
-def eff_merge__4255 = merge(eff_nop__4253, r_state__4254);
+def eff_merge__4254 = merge(eff_nop__4253, obj);
+def eff_nop__4255 = nop();
+def eff_merge__4257 = merge(eff_nop__4255, r_state__4256);
 </pre>`;
 window.traces["STRUCT_GET_S"]["pretty"] = ''
 window.traces["STRUCT_GET_S"]["pretty"] += `<pre class=''>def struct_index = imm_readULEB32();
@@ -89825,20 +89832,20 @@ window.traces["STRUCT_GET_U"] = {}
 window.traces["STRUCT_GET_U"]["parsed"] = ''
 window.traces["STRUCT_GET_U"]["parsed"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
+def arg__4309 = (field_index);
+def arg__4308 = (struct_index);
+def kind = m_getFieldKind(arg__4308, arg__4309);
 def arg__4307 = (field_index);
 def arg__4306 = (struct_index);
-def kind = m_getFieldKind(arg__4306, arg__4307);
-def arg__4305 = (field_index);
-def arg__4304 = (struct_index);
-def offset = m_getFieldOffset(arg__4304, arg__4305);
+def offset = m_getFieldOffset(arg__4306, arg__4307);
 def obj = pop_Object();
-def arg__4303 = (obj);
-def cond__4301 = object_isNull(arg__4303);
-if (cond__4301) {
-	def ret__4302 = trapNull();
+def arg__4305 = (obj);
+def cond__4303 = object_isNull(arg__4305);
+if (cond__4303) {
+	def ret__4304 = trapNull();
 }
 // phis: 
-def cond__4290 = (kind);
+def cond__4292 = (kind);
 </pre>`;
 window.traces["STRUCT_GET_U"]["raw"] = ''
 window.traces["STRUCT_GET_U"]["raw"] += `<pre class='graph'>---
@@ -89855,7 +89862,7 @@ graph TD
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__4302 trapNull"]
+	14["ret__4304 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -89865,7 +89872,7 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__4301 object_isNull"]
+	13["cond__4303 object_isNull"]
 	11 --> 13
 	16{{"Sϕ Stack "}}
 	13 --> 16
@@ -89891,7 +89898,7 @@ graph TD
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__4302 trapNull"]
+	14["ret__4304 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -89901,7 +89908,7 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__4301 object_isNull"]
+	13["cond__4303 object_isNull"]
 	11 --> 13
 	16{{"Sϕ Stack "}}
 	13 --> 16
@@ -89927,7 +89934,7 @@ graph TD
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__4302 trapNull"]
+	14["ret__4304 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -89937,7 +89944,7 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__4301 object_isNull"]
+	13["cond__4303 object_isNull"]
 	11 --> 13
 	16{{"Sϕ Stack "}}
 	13 --> 16
@@ -89962,18 +89969,18 @@ graph TD
 	13 --> 17
 	30 --> 17
 	34 --> 17
-	34["mv_f__4314__4321 |False|"]
+	34["mv_f__4316__4323 |False|"]
 	13 --> 34
 	0 -. Trap Locals Globals Tables Memory Extra .-> 34
 	0[/"Start"\\]
-	13["cond__4301 object_isNull"]
+	13["cond__4303 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	30["mv_t__4313__4318 |True|"]
+	30["mv_t__4315__4320 |True|"]
 	13 --> 30
 	27 -. Trap Locals Globals Tables Memory Extra .-> 30
-	27["ret__4302__4315 trapNull"]
+	27["ret__4304__4317 trapNull"]
 	4 -. Codeptr .-> 27
 	11 -. Stack .-> 27
 	0 -. Trap Locals Globals Tables Memory Extra .-> 27
@@ -89985,20 +89992,20 @@ graph TD
 	13 --> 16
 	29 --> 16
 	33 --> 16
-	33["mv_f__4312__4320 |False|"]
+	33["mv_f__4314__4322 |False|"]
 	13 --> 33
 	11 -. Stack .-> 33
-	29["mv_t__4311__4317 |True|"]
+	29["mv_t__4313__4319 |True|"]
 	13 --> 29
 	27 -. Stack .-> 29
 	15{{"Sϕ Codeptr "}}
 	13 --> 15
 	28 --> 15
 	32 --> 15
-	32["mv_f__4310__4319 |False|"]
+	32["mv_f__4312__4321 |False|"]
 	13 --> 32
 	4 -. Codeptr .-> 32
-	28["mv_t__4309__4316 |True|"]
+	28["mv_t__4311__4318 |True|"]
 	13 --> 28
 	27 -. Codeptr .-> 28
 </pre>`;
@@ -90018,17 +90025,17 @@ block_1642 --> phi_1641
 block_1643 --> phi_1641
 subgraph block_1642["Block 1642"]
 	direction TB
-	b1642_27["ret__4302__4315 trapNull"]
-	b1642_30["mv_t__4313__4318 |True|"]
-	b1642_29["mv_t__4311__4317 |True|"]
-	b1642_28["mv_t__4309__4316 |True|"]
+	b1642_27["ret__4304__4317 trapNull"]
+	b1642_30["mv_t__4315__4320 |True|"]
+	b1642_29["mv_t__4313__4319 |True|"]
+	b1642_28["mv_t__4311__4318 |True|"]
 	b1642_27 --> b1642_30
 	b1642_30 --> b1642_29
 	b1642_29 --> b1642_28
 end
 branch_1640 --> block_1642
 subgraph branch_1640["Branch 1640"]
-	br1640_13["cond__4301 object_isNull"]
+	br1640_13["cond__4303 object_isNull"]
 
 end
 block_1644 --> branch_1640
@@ -90038,7 +90045,7 @@ subgraph block_1644["Block 1644"]
 	b1644_3["struct_index imm_readULEB32"]
 	b1644_11["obj pop_Object"]
 	b1644_4["field_index imm_readULEB32"]
-	b1644_13["cond__4301 object_isNull"]
+	b1644_13["cond__4303 object_isNull"]
 	b1644_0 --> b1644_3
 	b1644_3 --> b1644_11
 	b1644_11 --> b1644_4
@@ -90046,9 +90053,9 @@ subgraph block_1644["Block 1644"]
 end
 subgraph block_1643["Block 1643"]
 	direction TB
-	b1643_34["mv_f__4314__4321 |False|"]
-	b1643_33["mv_f__4312__4320 |False|"]
-	b1643_32["mv_f__4310__4319 |False|"]
+	b1643_34["mv_f__4316__4323 |False|"]
+	b1643_33["mv_f__4314__4322 |False|"]
+	b1643_32["mv_f__4312__4321 |False|"]
 	b1643_34 --> b1643_33
 	b1643_33 --> b1643_32
 end
@@ -90059,9 +90066,9 @@ window.traces["STRUCT_GET_U"]["scheduler_ssad"] = ''
 window.traces["STRUCT_GET_U"]["scheduler_ssad"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__4301 = object_isNull(obj);
-if (cond__4301) {
-	def ret__4302__4315 = trapNull();
+def cond__4303 = object_isNull(obj);
+if (cond__4303) {
+	def ret__4304__4317 = trapNull();
 }
 // phis: 
 </pre>`;
@@ -90092,8 +90099,8 @@ graph TD
 	19 --> 27
 	14 --> 27
 	0 --> 27
-	0[/"r_state__4329 Start"\\]
-	14["ret__4302 trapNull"]
+	0[/"r_state__4331 Start"\\]
+	14["ret__4304 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -90103,18 +90110,18 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	19["mt__4322 U32_maybeTrue"]
+	19["mt__4324 U32_maybeTrue"]
 	13 --> 19
-	13["cond__4301 object_isNull"]
+	13["cond__4303 object_isNull"]
 	11 --> 13
-	29["eff_merge__4330 merge"]
+	29["eff_merge__4332 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__4328 nop"]
-	21["mb__4324 bool.&&"]
+	28["eff_nop__4330 nop"]
+	21["mb__4326 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__4323 U32_maybeFalse"]
+	20["mf__4325 U32_maybeFalse"]
 	13 --> 20
 	16{{"Sϕ Stack "}}
 	21 --> 16
@@ -90124,10 +90131,10 @@ graph TD
 	19 --> 24
 	14 --> 24
 	11 --> 24
-	26["eff_merge__4327 merge"]
+	26["eff_merge__4329 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__4326 nop"]
+	25["eff_nop__4328 nop"]
 	15{{"Sϕ Codeptr "}}
 	21 --> 15
 	23 --> 15
@@ -90136,29 +90143,29 @@ graph TD
 	19 --> 22
 	14 --> 22
 	4 --> 22
-	23["eff_merge__4325 merge"]
+	23["eff_merge__4327 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
 window.traces["STRUCT_GET_U"]["unlem_schedule"] = ''
 window.traces["STRUCT_GET_U"]["unlem_schedule"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
-def cond__4301 = object_isNull(obj);
-def mt__4322 = U32_maybeTrue(cond__4301);
-def mf__4323 = U32_maybeFalse(cond__4301);
-def mb__4324 = bool.&&(mt__4322, mf__4323);
-if (mb__4324) {
+def cond__4303 = object_isNull(obj);
+def mt__4324 = U32_maybeTrue(cond__4303);
+def mf__4325 = U32_maybeFalse(cond__4303);
+def mb__4326 = bool.&&(mt__4324, mf__4325);
+if (mb__4326) {
 	def field_index = imm_readULEB32();
-	def ret__4302 = trapNull();
-	def eff_merge__4325 = merge(ret__4302, field_index);
-	def eff_nop__4326 = nop();
-	def eff_merge__4327 = merge(eff_nop__4326, obj);
+	def ret__4304 = trapNull();
+	def eff_merge__4327 = merge(ret__4304, field_index);
 	def eff_nop__4328 = nop();
-	def eff_merge__4330 = merge(eff_nop__4328, r_state__4329);
+	def eff_merge__4329 = merge(eff_nop__4328, obj);
+	def eff_nop__4330 = nop();
+	def eff_merge__4332 = merge(eff_nop__4330, r_state__4331);
 } else {
-	if (mt__4322) {
+	if (mt__4324) {
 		def field_index = imm_readULEB32();
-		def ret__4302 = trapNull();
+		def ret__4304 = trapNull();
 	} else {
 		def field_index = imm_readULEB32();
 	}
@@ -90181,27 +90188,27 @@ graph TD
 	21 --> 17
 	49 --> 17
 	54 --> 17
-	54["mv_f__4336__4349 |False|"]
+	54["mv_f__4338__4351 |False|"]
 	21 --> 54
 	27 -. Trap Locals Globals Tables Memory Extra .-> 54
 	27{{"Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	70 --> 27
 	74 --> 27
-	74["mv_f__4342__4357__4364 |False|"]
+	74["mv_f__4344__4359__4366 |False|"]
 	19 --> 74
 	0 -. Trap Locals Globals Tables Memory Extra .-> 74
-	0[/"r_state__4329 Start"\\]
-	19["mt__4322 U32_maybeTrue"]
+	0[/"r_state__4331 Start"\\]
+	19["mt__4324 U32_maybeTrue"]
 	13 --> 19
-	13["cond__4301 object_isNull"]
+	13["cond__4303 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	70["mv_t__4341__4354__4361 |True|"]
+	70["mv_t__4343__4356__4363 |True|"]
 	19 --> 70
 	57 -. Trap Locals Globals Tables Memory Extra .-> 70
-	57["ret__4302__4351 trapNull"]
+	57["ret__4304__4353 trapNull"]
 	4 -. Codeptr .-> 57
 	11 -. Stack .-> 57
 	0 -. Trap Locals Globals Tables Memory Extra .-> 57
@@ -90209,70 +90216,70 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__4324 bool.&&"]
+	21["mb__4326 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__4323 U32_maybeFalse"]
+	20["mf__4325 U32_maybeFalse"]
 	13 --> 20
-	49["mv_t__4335__4346 |True|"]
+	49["mv_t__4337__4348 |True|"]
 	21 --> 49
 	29 -. Trap Locals Globals Tables Memory Extra .-> 49
-	29["eff_merge__4330 merge"]
+	29["eff_merge__4332 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__4328 nop"]
+	28["eff_nop__4330 nop"]
 	16{{"Sϕ Stack "}}
 	21 --> 16
 	48 --> 16
 	53 --> 16
-	53["mv_f__4334__4348 |False|"]
+	53["mv_f__4336__4350 |False|"]
 	21 --> 53
 	24 -. Stack .-> 53
 	24{{"Sϕ Stack "}}
 	19 --> 24
 	69 --> 24
 	73 --> 24
-	73["mv_f__4340__4356__4363 |False|"]
+	73["mv_f__4342__4358__4365 |False|"]
 	19 --> 73
 	11 -. Stack .-> 73
-	69["mv_t__4339__4353__4360 |True|"]
+	69["mv_t__4341__4355__4362 |True|"]
 	19 --> 69
 	57 -. Stack .-> 69
-	48["mv_t__4333__4345 |True|"]
+	48["mv_t__4335__4347 |True|"]
 	21 --> 48
 	26 -. Stack .-> 48
-	26["eff_merge__4327 merge"]
+	26["eff_merge__4329 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__4326 nop"]
+	25["eff_nop__4328 nop"]
 	15{{"Sϕ Codeptr "}}
 	21 --> 15
 	47 --> 15
 	52 --> 15
-	52["mv_f__4332__4347 |False|"]
+	52["mv_f__4334__4349 |False|"]
 	21 --> 52
 	51 -. Codeptr .-> 52
 	51{{"Sϕ Codeptr "}}
 	19 --> 51
 	68 --> 51
 	71 --> 51
-	71["mv_f__4338__4362 |False|"]
+	71["mv_f__4340__4364 |False|"]
 	19 --> 71
 	4 -. Codeptr .-> 71
-	68["mv_t__4337__4350__4359 |True|"]
+	68["mv_t__4339__4352__4361 |True|"]
 	19 --> 68
 	66 -. Codeptr .-> 68
-	66["ret__4302__4358 trapNull"]
+	66["ret__4304__4360 trapNull"]
 	4 -. Codeptr .-> 66
 	11 -. Stack .-> 66
 	0 -. Trap Locals Globals Tables Memory Extra .-> 66
-	47["mv_t__4331__4344 |True|"]
+	47["mv_t__4333__4346 |True|"]
 	21 --> 47
 	46 -. Codeptr .-> 47
-	46["eff_merge__4325__4343 merge"]
+	46["eff_merge__4327__4345 merge"]
 	14 --> 46
 	4 --> 46
-	14["ret__4302 trapNull"]
+	14["ret__4304 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -90293,15 +90300,15 @@ block_1648 --> phi_1647
 block_1649 --> phi_1647
 subgraph block_1648["Block 1648"]
 	direction TB
-	b1648_28["eff_nop__4328 nop"]
-	b1648_25["eff_nop__4326 nop"]
-	b1648_14["ret__4302 trapNull"]
-	b1648_29["eff_merge__4330 merge"]
-	b1648_26["eff_merge__4327 merge"]
-	b1648_46["eff_merge__4325__4343 merge"]
-	b1648_49["mv_t__4335__4346 |True|"]
-	b1648_48["mv_t__4333__4345 |True|"]
-	b1648_47["mv_t__4331__4344 |True|"]
+	b1648_28["eff_nop__4330 nop"]
+	b1648_25["eff_nop__4328 nop"]
+	b1648_14["ret__4304 trapNull"]
+	b1648_29["eff_merge__4332 merge"]
+	b1648_26["eff_merge__4329 merge"]
+	b1648_46["eff_merge__4327__4345 merge"]
+	b1648_49["mv_t__4337__4348 |True|"]
+	b1648_48["mv_t__4335__4347 |True|"]
+	b1648_47["mv_t__4333__4346 |True|"]
 	b1648_28 --> b1648_25
 	b1648_25 --> b1648_14
 	b1648_14 --> b1648_29
@@ -90313,20 +90320,20 @@ subgraph block_1648["Block 1648"]
 end
 branch_1646 --> block_1648
 subgraph branch_1646["Branch 1646"]
-	br1646_21["mb__4324 bool.&&"]
+	br1646_21["mb__4326 bool.&&"]
 
 end
 block_1650 --> branch_1646
 subgraph block_1650["Block 1650"]
 	direction TB
-	b1650_0[/"r_state__4329 Start"\\]
+	b1650_0[/"r_state__4331 Start"\\]
 	b1650_3["struct_index imm_readULEB32"]
 	b1650_4["field_index imm_readULEB32"]
 	b1650_11["obj pop_Object"]
-	b1650_13["cond__4301 object_isNull"]
-	b1650_19["mt__4322 U32_maybeTrue"]
-	b1650_20["mf__4323 U32_maybeFalse"]
-	b1650_21["mb__4324 bool.&&"]
+	b1650_13["cond__4303 object_isNull"]
+	b1650_19["mt__4324 U32_maybeTrue"]
+	b1650_20["mf__4325 U32_maybeFalse"]
+	b1650_21["mb__4326 bool.&&"]
 	b1650_0 --> b1650_3
 	b1650_3 --> b1650_4
 	b1650_4 --> b1650_11
@@ -90337,9 +90344,9 @@ subgraph block_1650["Block 1650"]
 end
 subgraph block_1649["Block 1649"]
 	direction TB
-	b1649_54["mv_f__4336__4349 |False|"]
-	b1649_53["mv_f__4334__4348 |False|"]
-	b1649_52["mv_f__4332__4347 |False|"]
+	b1649_54["mv_f__4338__4351 |False|"]
+	b1649_53["mv_f__4336__4350 |False|"]
+	b1649_52["mv_f__4334__4349 |False|"]
 	b1649_54 --> b1649_53
 	b1649_53 --> b1649_52
 end
@@ -90353,11 +90360,11 @@ block_1653 --> phi_1652
 block_1654 --> phi_1652
 subgraph block_1653["Block 1653"]
 	direction TB
-	b1653_57["ret__4302__4351 trapNull"]
-	b1653_66["ret__4302__4358 trapNull"]
-	b1653_70["mv_t__4341__4354__4361 |True|"]
-	b1653_69["mv_t__4339__4353__4360 |True|"]
-	b1653_68["mv_t__4337__4350__4359 |True|"]
+	b1653_57["ret__4304__4353 trapNull"]
+	b1653_66["ret__4304__4360 trapNull"]
+	b1653_70["mv_t__4343__4356__4363 |True|"]
+	b1653_69["mv_t__4341__4355__4362 |True|"]
+	b1653_68["mv_t__4339__4352__4361 |True|"]
 	b1653_57 --> b1653_66
 	b1653_66 --> b1653_70
 	b1653_70 --> b1653_69
@@ -90365,15 +90372,15 @@ subgraph block_1653["Block 1653"]
 end
 branch_1651 --> block_1653
 subgraph branch_1651["Branch 1651"]
-	br1651_19["mt__4322 U32_maybeTrue"]
+	br1651_19["mt__4324 U32_maybeTrue"]
 
 end
 branch_1646 --> branch_1651
 subgraph block_1654["Block 1654"]
 	direction TB
-	b1654_74["mv_f__4342__4357__4364 |False|"]
-	b1654_73["mv_f__4340__4356__4363 |False|"]
-	b1654_71["mv_f__4338__4362 |False|"]
+	b1654_74["mv_f__4344__4359__4366 |False|"]
+	b1654_73["mv_f__4342__4358__4365 |False|"]
+	b1654_71["mv_f__4340__4364 |False|"]
 	b1654_74 --> b1654_73
 	b1654_73 --> b1654_71
 end
@@ -90384,21 +90391,21 @@ window.traces["STRUCT_GET_U"]["unlem_scheduler_ssa"] = ''
 window.traces["STRUCT_GET_U"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
 def obj = pop_Object();
-def cond__4301 = object_isNull(obj);
-def mt__4322 = U32_maybeTrue(cond__4301);
-def mf__4323 = U32_maybeFalse(cond__4301);
-def mb__4324 = bool.&&(mt__4322, mf__4323);
-if (mb__4324) {
+def cond__4303 = object_isNull(obj);
+def mt__4324 = U32_maybeTrue(cond__4303);
+def mf__4325 = U32_maybeFalse(cond__4303);
+def mb__4326 = bool.&&(mt__4324, mf__4325);
+if (mb__4326) {
+	def eff_nop__4330 = nop();
 	def eff_nop__4328 = nop();
-	def eff_nop__4326 = nop();
-	def ret__4302 = trapNull();
-	def eff_merge__4330 = merge(eff_nop__4328, r_state__4329);
-	def eff_merge__4327 = merge(eff_nop__4326, obj);
-	def eff_merge__4325__4343 = merge(ret__4302, field_index);
+	def ret__4304 = trapNull();
+	def eff_merge__4332 = merge(eff_nop__4330, r_state__4331);
+	def eff_merge__4329 = merge(eff_nop__4328, obj);
+	def eff_merge__4327__4345 = merge(ret__4304, field_index);
 } else {
-	if (mt__4322) {
-		def ret__4302__4351 = trapNull();
-		def ret__4302__4358 = trapNull();
+	if (mt__4324) {
+		def ret__4304__4353 = trapNull();
+		def ret__4304__4360 = trapNull();
 	}
 // phis: 
 }
@@ -90447,25 +90454,25 @@ graph TD
 	23 -. Codeptr .-> 1
 	26 -. Stack .-> 1
 	29 -. Trap Locals Globals Tables Memory Extra .-> 1
-	29["eff_merge__4330 merge"]
+	29["eff_merge__4332 merge"]
 	28 --> 29
 	0 --> 29
-	0[/"r_state__4329 Start"\\]
-	28["eff_nop__4328 nop"]
-	26["eff_merge__4327 merge"]
+	0[/"r_state__4331 Start"\\]
+	28["eff_nop__4330 nop"]
+	26["eff_merge__4329 merge"]
 	25 --> 26
 	11 --> 26
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	25["eff_nop__4326 nop"]
-	23["eff_merge__4325 merge"]
+	25["eff_nop__4328 nop"]
+	23["eff_merge__4327 merge"]
 	14 --> 23
 	4 --> 23
 	4["field_index imm_readULEB32"]
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	14["ret__4302 trapNull"]
+	14["ret__4304 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -90480,25 +90487,25 @@ graph TD
 	23 -. Codeptr .-> 1
 	26 -. Stack .-> 1
 	29 -. Trap Locals Globals Tables Memory Extra .-> 1
-	29["eff_merge__4330 merge"]
+	29["eff_merge__4332 merge"]
 	28 --> 29
 	0 --> 29
-	0[/"r_state__4329 Start"\\]
-	28["eff_nop__4328 nop"]
-	26["eff_merge__4327 merge"]
+	0[/"r_state__4331 Start"\\]
+	28["eff_nop__4330 nop"]
+	26["eff_merge__4329 merge"]
 	25 --> 26
 	11 --> 26
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	25["eff_nop__4326 nop"]
-	23["eff_merge__4325 merge"]
+	25["eff_nop__4328 nop"]
+	23["eff_merge__4327 merge"]
 	14 --> 23
 	4 --> 23
 	4["field_index imm_readULEB32"]
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	14["ret__4302 trapNull"]
+	14["ret__4304 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -90507,12 +90514,12 @@ window.traces["STRUCT_GET_U"]["scheduled"] = ''
 window.traces["STRUCT_GET_U"]["scheduled"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
 def obj = pop_Object();
-def ret__4302 = trapNull();
-def eff_merge__4325 = merge(ret__4302, field_index);
-def eff_nop__4326 = nop();
-def eff_merge__4327 = merge(eff_nop__4326, obj);
+def ret__4304 = trapNull();
+def eff_merge__4327 = merge(ret__4304, field_index);
 def eff_nop__4328 = nop();
-def eff_merge__4330 = merge(eff_nop__4328, r_state__4329);
+def eff_merge__4329 = merge(eff_nop__4328, obj);
+def eff_nop__4330 = nop();
+def eff_merge__4332 = merge(eff_nop__4330, r_state__4331);
 </pre>`;
 window.traces["STRUCT_GET_U"]["pretty"] = ''
 window.traces["STRUCT_GET_U"]["pretty"] += `<pre class=''>def struct_index = imm_readULEB32();
