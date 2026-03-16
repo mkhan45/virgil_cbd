@@ -128,7 +128,7 @@ class SeaScheduler {
             //     continue;
             // }
 
-            // System.puts(Strings.format2("Prim: %q, q length: %d\n", prim.node.render, q.length - q_idx));
+            if (trace_full) System.puts(Strings.format2("Prim: %q, q length: %d\n", prim.node.render, q.length - q_idx));
 
             // traverse existing schedule, put prim in first available spot
             def lower_bound = if(prim.lowBound != null, prim.lowBound, bottom_block);
@@ -154,7 +154,7 @@ class SeaScheduler {
         while (changed) {
             changed = false;
 
-            // Reset and recompute branch lattice state
+            // Reset and recompute branch lattices
             branch_lattice_map = HashMap.new(IRNode.hash, IRNode.eq);
             branch_lattices = Vector.new();
             live = Seas.live(sea);
@@ -164,7 +164,6 @@ class SeaScheduler {
             for (i < branch_lattices.length) {
                 def bl = branch_lattices[i];
 
-                // Check if this lattice has any unprocessed phis
                 var has_new = false;
                 for (j < bl.phis.length) {
                     if (!processed_phis.has(bl.phis[j])) {
@@ -181,7 +180,7 @@ class SeaScheduler {
                 def rsg_clone = Seas.cloneSubgraph(sea, bl.r_subgraph);
                 def rsg_clone_mapping = rsg_clone.1;
 
-                // Targeted rewiring: only rewire phis in this lattice
+
                 for (j < bl.phis.length) {
                     def phi = bl.phis[j];
                     def l_branch = phi.value_deps[1], r_branch = phi.value_deps[2];
@@ -193,11 +192,11 @@ class SeaScheduler {
                         phi.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
                 }
 
+
                 changed = true;
             }
         }
 
-        // Final rebuild after untangling
         live = Seas.live(sea);
         sea.rebuildChildren();
         branch_lattice_map = HashMap.new(IRNode.hash, IRNode.eq);
@@ -241,18 +240,22 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         if (upper_limit != null && this.id == upper_limit.id) return null;
         if (dominants.has(prim.node)) return this;
 
-        // System.puts("attempting to schedule ");
-        // System.puts(Strings.format3("%q into %d\n\tdoms: %q\n", prim.render, id, dominants.render));
+        if (scheduler.trace_full) {
+            System.puts("attempting to schedule ");
+            System.puts(Strings.format3("%q into %d\n\tdoms: %q\n", prim.render, id, dominants.render));
+        }
 
         def ready = prim.isReady(this);
         for (i < prim.neededBefore.length) {
             def entry = prim.neededBefore[i];
-            // if (!entry.1) System.puts(Strings.format2("Missing: %q (%d)\n", entry.0.render, entry.0.id));
-            // else System.puts(Strings.format1("Have: %q\n", entry.0.render));
+            if (scheduler.trace_full) {
+                if (!entry.1) System.puts(Strings.format2("Missing: %q (%d)\n", entry.0.render, entry.0.id));
+                else System.puts(Strings.format1("Have: %q\n", entry.0.render));
+            }
         }
 
         if (ready) {
-            // System.puts(Strings.format3("%q ready in %d\n\tdoms: %q\n", prim.render, id, dominants.render));
+            if (scheduler.trace_full) System.puts(Strings.format3("%q ready in %d\n\tdoms: %q\n", prim.render, id, dominants.render));
             if (IROp.Phi.?(prim.node.op) || IROp.StatePhi.?(prim.node.op)) {
                 return scheduleReadyPhi(prim, upper_limit);
             } else {
@@ -286,8 +289,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                 }
             }
         } else {
-            // virgil gc breaks without this sometimes 😭
-            // System.puts(Strings.format2("%q NOT ready in %d\n\n", prim.render, id));
+            if (scheduler.trace_full) System.puts(Strings.format2("%q NOT ready in %d\n\n", prim.render, id));
             match (this) {
                 block: ScheduleBlock => {
                     return if(block.prev != null, block.prev.schedule(prim, upper_limit));
@@ -457,8 +459,6 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         if (prev != null) prev.dominants = prev.dominants.withPrivParent(branch.dominants);
 
-        cond.init_move(scheduler.sea);
-
         left.dominants.addPrivate(cond.move_true);
         right.dominants.addPrivate(cond.move_false);
 
@@ -467,8 +467,6 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
             phi_node.dominants.addLocal(phi);
             phi_node.phis = List.new(phi, phi_node.phis);
         }
-
-        CBDTrace.addGraph(scheduler.opcode, Strings.format1("post_branch %d", phi_node.id), scheduler.sea);
 
         if (scheduler.trace_full) {
             CBDTrace.addString(scheduler.opcode, 

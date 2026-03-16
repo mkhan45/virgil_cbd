@@ -264,6 +264,25 @@ component SeaRender {
                 sb.puts("Scheduled ").putq(renderIRNode(user, _)).puts(" without ").putq(renderIRNode(needed, _));
             GraphDiff(diff) =>
                 sb.puts("GraphDiff: ").putq(renderDiffResult(diff, _));
+            PathEffectMismatch(path, sc, graph_only, cfg_only) => {
+                sb.puts("PathEffectMismatch sc=").puts(sc.name).puts(" path=[");
+                for (i < path.length) {
+                    if (i > 0) sb.puts(", ");
+                    sb.putq(renderIRNode(path[i].0, _));
+                    sb.puts(if(path[i].1, "=T", "=F"));
+                }
+                sb.puts("] graph_only=[");
+                for (i < graph_only.length) {
+                    if (i > 0) sb.puts(", ");
+                    sb.putq(renderIRNode(graph_only[i], _));
+                }
+                sb.puts("] cfg_only=[");
+                for (i < cfg_only.length) {
+                    if (i > 0) sb.puts(", ");
+                    sb.putq(renderIRNode(cfg_only[i], _));
+                }
+                sb.puts("]");
+            }
         }
 
         return sb;

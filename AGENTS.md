@@ -82,6 +82,7 @@ common/                         # Shared code
 │   ├── SeaOfNodes.v3          # Sea graph, IRNode, graph rewrites
 │   ├── SearchSchedule.v3     # Search-based DFS scheduler
 │   ├── Schedule.v3            # Bottom-up CFG scheduler (WIP)
+│   ├── CheckSchedule.v3      # Schedule verification (dependency ordering + graph equivalence)
 │   ├── DomGraph.v3            # Hierarchical dominance tracking for scheduler
 │   └── Trace.v3               # Mermaid/JS visualization trace output
 ├── runtime/                    # Shared runtime types
@@ -124,6 +125,8 @@ The sea of nodes is a graph-based IR used for analysis, optimization, and schedu
 - `chooseMerge` - Simplifies merge nodes
 
 **Scheduling** converts the unordered sea graph back into structured code. Scheduling is handled by separate modules outside of `SeaOfNodes.v3`.
+
+**`ScheduleChecker`** (`common/sea/CheckSchedule.v3`) - Verifies scheduler output by checking two properties: (1) **dependency ordering** — walks the scheduled CFG top-down maintaining a scope of already-scheduled nodes, and for each node verifies all its dependencies are in scope; (2) **graph equivalence** — compares the scheduled graph against the original via `graph_eq` to ensure semantics are preserved. Errors are reported as `ScheduleError` variants: `UnsatNeed` (dependency not yet scheduled), `BadOrdering` (wrong node order), or `GraphDiff` (structural mismatch).
 
 **`DomGraph`** (`common/sea/DomGraph.v3`) - Hierarchical dominance tracking with public/private node sets and parent chains. Used by the bottom-up scheduler to track which `IRNode`s have been scheduled before a given point, enabling readiness checks. The public/private distinction allows branch-specific nodes (like `Move` nodes) to be visible only within their branch.
 
