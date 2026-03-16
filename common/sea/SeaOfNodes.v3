@@ -575,6 +575,7 @@ class IRNode {
     }
 
     def is_phi() -> bool => IROp.Phi.?(op) || IROp.StatePhi.?(op);
+    def is_move() -> bool => IROp.Move.?(op);
 
     // Unwrap Move nodes to get the underlying value for comparison.
     // - Value Move (from Phi): value_deps = [cond, actual_value], returns value_deps[1]

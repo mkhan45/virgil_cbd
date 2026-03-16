@@ -107,9 +107,10 @@ class SeaScheduler {
     def toMermaid() -> string => SeaRender.toMermaidScheduler(this);
 
     def schedule() {
-        untangle();
         if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
-        if (opcode != null && Strings.startsWith(opcode, "I32_DIV_S")) trace_full = true;
+        if (opcode != null && Strings.startsWith(opcode, "BR_IF")) trace_full = true;
+        untangle();
+        if (opcode != null) CBDTrace.addGraph(opcode, "untangled", sea);
         q = Vector<IRNode>.new();
         q.put(bottom_node);
 
@@ -157,7 +158,12 @@ class SeaScheduler {
             live.apply(fun (n: IRNode) {
                 if (n.id != node.id) {
                     def has = schedule_node.dominants.has(n);
-                    if (!has) System.puts(Strings.format2("Missing: %q (%d)\n", n.render, n.id));
+                    if (trace_full) System.puts(
+                            Strings.format3("%s, have %s : %s\n", 
+                                Strings.format1("Block %d", schedule_node.id),
+                                Strings.format2("%q (%d)", n.render, n.id),
+                                if(has, "YES", "NO")
+                            ));
                     ready.v &= has;
                 }
             });
@@ -189,17 +195,32 @@ class SeaScheduler {
                 cond.init_move(sea);
                 if (node.id == child.value_deps[1].id) {
                     def has = schedule_node.dominants.has(cond.move_true);
-                    if (!has) System.puts(Strings.format2("Missing: %q (%d)\n", cond.move_true.render, cond.move_true.id));
+                    if (trace_full) System.puts(
+                            Strings.format3("%s, have %s : %s\n", 
+                                Strings.format1("Block %d", schedule_node.id),
+                                Strings.format2("%q (%d)", child.render, child.id),
+                                if(has, "YES", "NO")
+                            ));
                     ready.v &= has;
                 }
                 if (node.id == child.value_deps[2].id) {
                     def has = schedule_node.dominants.has(cond.move_false);
-                    if (!has) System.puts(Strings.format2("Missing: %q (%d)\n", cond.move_false.render, cond.move_false.id));
+                    if (trace_full) System.puts(
+                            Strings.format3("%s, have %s : %s\n", 
+                                Strings.format1("Block %d", schedule_node.id),
+                                Strings.format2("%q (%d)", child.render, child.id),
+                                if(has, "YES", "NO")
+                            ));
                     ready.v &= has;
                 }
             } else {
                 def has = schedule_node.dominants.has(child);
-                if (!has) System.puts(Strings.format2("Missing: %q (%d)\n", child.render, child.id));
+                if (trace_full) System.puts(
+                        Strings.format3("%s, have %s : %s\n", 
+                            Strings.format1("Block %d", schedule_node.id),
+                            Strings.format2("%q (%d)", child.render, child.id),
+                            if(has, "YES", "NO")
+                        ));
                 ready.v &= has;
             }
         }
@@ -230,6 +251,11 @@ class SeaScheduler {
                     }
                 }
                 if (!has_new) continue;
+
+                if (trace_full) {
+                    System.puts(Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
+                    System.puts(Strings.format2("lsg: %q\nrsg: %q\n", bl.l_subgraph.renderFull(_, sea), bl.r_subgraph.renderFull(_, sea)));
+                }
 
                 // Clone left and right subgraphs
                 def lsg_clone = Seas.cloneSubgraph(sea, bl.l_subgraph);

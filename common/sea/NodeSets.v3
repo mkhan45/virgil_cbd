@@ -157,6 +157,19 @@ type ImmNodeSet(bits: Array<int>, capacity: int) {
         sb.puts("}");
         return sb;
     }
+
+    def renderFull(sb: StringBuilder, sea: Sea) -> StringBuilder {
+        sb.puts("{");
+        var first = Array<bool>.new(1);
+        first[0] = true;
+        apply(sea, fun (n: IRNode) {
+            if (!first[0]) sb.puts(", ");
+            sb.putq(n.render);
+            first[0] = false;
+        });
+        sb.puts("}");
+        return sb;
+    }
 }
 
 component ImmNodeSets {
