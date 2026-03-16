@@ -106,6 +106,7 @@ class SeaScheduler {
     def toMermaid() -> string => SeaRender.toMermaidScheduler(this);
 
     def schedule() {
+        untangle();
         if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
         if (opcode != null && Strings.startsWith(opcode, "I32_DIV_S")) trace_full = true;
         q = Vector<SchedulePrim>.new();
@@ -145,6 +146,63 @@ class SeaScheduler {
         bottom_block.finalize();
 
         check();
+    }
+
+    def untangle() {
+        var processed_phis = NodeSet.new();
+        var changed = true;
+        while (changed) {
+            changed = false;
+
+            // Reset and recompute branch lattice state
+            branch_lattice_map = HashMap.new(IRNode.hash, IRNode.eq);
+            branch_lattices = Vector.new();
+            live = Seas.live(sea);
+            sea.rebuildChildren();
+            find_branch_lattices();
+
+            for (i < branch_lattices.length) {
+                def bl = branch_lattices[i];
+
+                // Check if this lattice has any unprocessed phis
+                var has_new = false;
+                for (j < bl.phis.length) {
+                    if (!processed_phis.has(bl.phis[j])) {
+                        has_new = true;
+                        processed_phis.put(bl.phis[j]);
+                    }
+                }
+                if (!has_new) continue;
+
+                // Clone left and right subgraphs
+                def lsg_clone = Seas.cloneSubgraph(sea, bl.l_subgraph);
+                def lsg_clone_mapping = lsg_clone.1;
+
+                def rsg_clone = Seas.cloneSubgraph(sea, bl.r_subgraph);
+                def rsg_clone_mapping = rsg_clone.1;
+
+                // Targeted rewiring: only rewire phis in this lattice
+                for (j < bl.phis.length) {
+                    def phi = bl.phis[j];
+                    def l_branch = phi.value_deps[1], r_branch = phi.value_deps[2];
+
+                    if (lsg_clone_mapping[l_branch] != null)
+                        phi.replaceDep(l_branch, lsg_clone_mapping[l_branch]);
+
+                    if (rsg_clone_mapping[r_branch] != null)
+                        phi.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
+                }
+
+                changed = true;
+            }
+        }
+
+        // Final rebuild after untangling
+        live = Seas.live(sea);
+        sea.rebuildChildren();
+        branch_lattice_map = HashMap.new(IRNode.hash, IRNode.eq);
+        branch_lattices = Vector.new();
+        find_branch_lattices();
     }
 
     def check() {
@@ -356,9 +414,6 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         //               this
         // System.puts(Strings.format1("prepending branch to %d\n", id));
 
-        scheduler.live = Seas.live(scheduler.sea);
-        scheduler.sea.rebuildChildren();
-        scheduler.find_branch_lattices();
         def cond = prim.node.value_deps[0];
         def bl = scheduler.branch_lattice_map[prim.node];
         def branch = ScheduleBranch.new(fresh_id(), scheduler);
@@ -413,47 +468,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
             phi_node.phis = List.new(phi, phi_node.phis);
         }
 
-        // Clone left/right subgraphs
-        def lsg = bl.l_subgraph;
-        def lsg_clone = Seas.cloneSubgraph(scheduler.sea, lsg);
-        def lsg_clone_sg = lsg_clone.0;
-        def lsg_clone_mapping = lsg_clone.1;
-
-        def rsg = bl.r_subgraph;
-        def rsg_clone = Seas.cloneSubgraph(scheduler.sea, rsg);
-        def rsg_clone_sg = rsg_clone.0;
-        def rsg_clone_mapping = rsg_clone.1;
-
-        scheduler.sea.rebuildChildren();
-
-        // rewire dependencies and add new nodes to live
-        for (i < bl.phis.length) {
-            def phi = bl.phis[i];
-            def l_branch = phi.value_deps[1], r_branch = phi.value_deps[2];
-
-            // System.puts(Strings.format1("HERE: replacing deps of phi %q:\n", phi.render));
-
-            if (lsg_clone_mapping[l_branch] != null)
-            for (j < l_branch.children.length) {
-                def child = l_branch.children[j];
-                child.replaceDep(l_branch, lsg_clone_mapping[l_branch]);
-                // System.puts(Strings.format3("\tLeft Child %q: %q -> %q\n", child.render, l_branch.render, lsg_clone_mapping[l_branch].render));
-            }
-
-            if (rsg_clone_mapping[r_branch] != null)
-            for (j < r_branch.children.length) {
-                def child = r_branch.children[j];
-                child.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
-            }
-        }
-
-        // rebuild metadata from scratch
-        scheduler.live = Seas.live(scheduler.sea);
-        scheduler.sea.rebuildChildren();
-        scheduler.find_branch_lattices();
-
-        CBDTrace.addGraph(scheduler.opcode, Strings.format1("post_surgery %d", phi_node.id), scheduler.sea);
-        // System.puts(Strings.format2("lsg: %q\nrsg: %q\n", lsg.render, rsg.render));
+        CBDTrace.addGraph(scheduler.opcode, Strings.format1("post_branch %d", phi_node.id), scheduler.sea);
 
         if (scheduler.trace_full) {
             CBDTrace.addString(scheduler.opcode, 

@@ -173,6 +173,12 @@ The project includes WebAssembly test files:
   - Use `--list` to see all available benchmarks
   - Use `--show-output` to debug failures
 
+To test the Scheduler, running the following commands is good for initial checking.
+```
+make validator
+rg generated/Validator.v3 -e "ERROR" | wc -l
+```
+
 # Tiers
 
 ## Validator
