@@ -314,9 +314,10 @@
                 max-width: 48ch;
                 width: 48ch;
                 resize: horizontal;
-                overflow: hidden;
+                overflow: visible;
                 display: flex;
                 flex-direction: column;
+                z-index: 1;
             }
 
             #label {
@@ -375,7 +376,7 @@
 
             #graph-container {
                 flex: 1;
-                overflow: hidden;
+                overflow: visible;
                 height: 100vh;
                 position: relative;
                 background-color: white;
@@ -426,7 +427,7 @@
             }
 
             #graph svg {
-                overflow: visible;
+                overflow: hidden;
             }
 
             .flowchart-link {
