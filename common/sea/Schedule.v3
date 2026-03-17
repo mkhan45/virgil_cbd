@@ -58,6 +58,27 @@ class SeaScheduler {
 
     var trace_full: bool = false;
     var lowBounds: HashMap<IRNode, ScheduleNode> = HashMap.new(IRNode.hash, IRNode.eq);
+    var reverse_mapping: HashMap<IRNode, IRNode> = HashMap.new(IRNode.hash, IRNode.eq);
+
+    def canonicalize(node: IRNode) -> IRNode {
+        if (node == null) return node;
+        if (node.is_move()) {
+            def p = IROp.Move.!(node.op).val;
+            if (node.value_deps.length == 0) return node;
+            def cond = canonicalize(node.value_deps[0]);
+            return if(p, canonicalize(cond.move_true), canonicalize(cond.move_false));
+        }
+        var cur = node;
+        while (reverse_mapping[cur] != null && reverse_mapping[cur].id != cur.id) cur = reverse_mapping[cur];
+        // Path compression
+        var n = node;
+        while (n.id != cur.id) {
+            def next = reverse_mapping[n];
+            reverse_mapping[n] = cur;
+            n = next;
+        }
+        return cur;
+    }
 
     new(orig_sea, orig_top_node: IRNode, orig_bottom_node: IRNode) {
         def clone = Seas.clone(orig_sea);
@@ -108,7 +129,7 @@ class SeaScheduler {
 
     def schedule() {
         if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
-        if (opcode != null && Strings.startsWith(opcode, "BR_IF")) trace_full = true;
+        if (opcode != null && Strings.startsWith(opcode, "I32_DIV_S")) trace_full = true;
         untangle();
         if (opcode != null) CBDTrace.addGraph(opcode, "untangled", sea);
         q = Vector<IRNode>.new();
@@ -123,6 +144,11 @@ class SeaScheduler {
 
             var node = q[q_idx];
             q_idx += 1;
+
+            if (node.is_move()) {
+                for (d in node.deps()) q.put(d);
+                continue;
+            }
 
             // if (node.id == top_node.id && q_idx != q.length - 1) {
             //     continue;
@@ -156,7 +182,7 @@ class SeaScheduler {
 
         if (IROp.Start.?(node.op)) {
             live.apply(fun (n: IRNode) {
-                if (n.id != node.id) {
+                if (n.id != node.id && !n.is_move()) {
                     def has = schedule_node.dominants.has(n);
                     if (trace_full) System.puts(
                             Strings.format3("%s, have %s : %s\n", 
@@ -184,17 +210,18 @@ class SeaScheduler {
         for (i < children.length) {
             def child = children[i];
             def live_flag = live.has(child);
+            if (trace_full) System.puts(Strings.format2("child: %q, live: %s\n", child.render, if(live_flag, "YES", "NO")));
             if (!live_flag && !IROp.Move.?(child.op)) continue;
             if (child.id == node.id) continue;
 
-            if ((IROp.StatePhi.?(child.op) || IROp.Phi.?(child.op))
+            if (false && (IROp.StatePhi.?(child.op) || IROp.Phi.?(child.op))
                 && !(node.id == child.value_deps[0].id)
                 && (node.id == child.value_deps[1].id || node.id == child.value_deps[2].id)) 
             {
-                def cond = child.value_deps[0];
+                def cond = canonicalize(child.value_deps[0]);
                 cond.init_move(sea);
                 if (node.id == child.value_deps[1].id) {
-                    def has = schedule_node.dominants.has(cond.move_true);
+                    def has = schedule_node.dominants.has(canonicalize(cond.move_true));
                     if (trace_full) System.puts(
                             Strings.format3("%s, have %s : %s\n", 
                                 Strings.format1("Block %d", schedule_node.id),
@@ -204,7 +231,7 @@ class SeaScheduler {
                     ready.v &= has;
                 }
                 if (node.id == child.value_deps[2].id) {
-                    def has = schedule_node.dominants.has(cond.move_false);
+                    def has = schedule_node.dominants.has(canonicalize(cond.move_false));
                     if (trace_full) System.puts(
                             Strings.format3("%s, have %s : %s\n", 
                                 Strings.format1("Block %d", schedule_node.id),
@@ -214,11 +241,13 @@ class SeaScheduler {
                     ready.v &= has;
                 }
             } else {
-                def has = schedule_node.dominants.has(child);
+                if (child.is_move() && child.value_deps[0].id == node.id) continue;
+                def canon_child = if(child.is_move(), canonicalize(child), child);
+                def has = schedule_node.dominants.has(canon_child);
                 if (trace_full) System.puts(
                         Strings.format3("%s, have %s : %s\n", 
                             Strings.format1("Block %d", schedule_node.id),
-                            Strings.format2("%q (%d)", child.render, child.id),
+                            Strings.format2("%q (%d)", canon_child.render, canon_child.id),
                             if(has, "YES", "NO")
                         ));
                 ready.v &= has;
@@ -227,60 +256,102 @@ class SeaScheduler {
         return ready.v;
     }
 
-    def untangle() {
-        var processed_phis = NodeSet.new();
-        var changed = true;
-        while (changed) {
-            changed = false;
+    def topo_sort_lattices() -> Vector<BranchLattice> {
+        def n = branch_lattices.length;
+        def dep_count = Array<int>.new(n);
+        def dependents = Array<Vector<int>>.new(n);
+        for (i < n) dependents[i] = Vector.new();
 
-            // Reset and recompute branch lattices
-            branch_lattice_map = HashMap.new(IRNode.hash, IRNode.eq);
-            branch_lattices = Vector.new();
-            live = Seas.live(sea);
-            sea.rebuildChildren();
-            find_branch_lattices();
-
-            for (i < branch_lattices.length) {
-                def bl = branch_lattices[i];
-
-                var has_new = false;
-                for (j < bl.phis.length) {
-                    if (!processed_phis.has(bl.phis[j])) {
-                        has_new = true;
-                        processed_phis.put(bl.phis[j]);
+        // Build dependency graph: A depends on B if any of B's phis are in A's l_subgraph or r_subgraph
+        for (i < n) {
+            def a = branch_lattices[i];
+            for (j < n) {
+                if (i == j) continue;
+                def b = branch_lattices[j];
+                var depends = false;
+                for (k < b.phis.length) {
+                    def phi = b.phis[k];
+                    if (a.l_subgraph.has(phi) || a.r_subgraph.has(phi)) {
+                        depends = true;
+                        break;
                     }
                 }
-                if (!has_new) continue;
-
-                if (trace_full) {
-                    System.puts(Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
-                    System.puts(Strings.format2("lsg: %q\nrsg: %q\n", bl.l_subgraph.renderFull(_, sea), bl.r_subgraph.renderFull(_, sea)));
+                if (depends) {
+                    dep_count[i]++;
+                    dependents[j].put(i);
                 }
-
-                // Clone left and right subgraphs
-                def lsg_clone = Seas.cloneSubgraph(sea, bl.l_subgraph);
-                def lsg_clone_mapping = lsg_clone.1;
-
-                def rsg_clone = Seas.cloneSubgraph(sea, bl.r_subgraph);
-                def rsg_clone_mapping = rsg_clone.1;
-
-
-                for (j < bl.phis.length) {
-                    def phi = bl.phis[j];
-                    def l_branch = phi.value_deps[1], r_branch = phi.value_deps[2];
-
-                    if (lsg_clone_mapping[l_branch] != null)
-                        phi.replaceDep(l_branch, lsg_clone_mapping[l_branch]);
-
-                    if (rsg_clone_mapping[r_branch] != null)
-                        phi.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
-                }
-
-
-                changed = true;
             }
         }
 
+        def result = Vector<BranchLattice>.new();
+        def queue = Vector<int>.new();
+        for (i < n) if (dep_count[i] == 0) queue.put(i);
+
+        var idx = 0;
+        while (idx < queue.length) {
+            def cur = queue[idx];
+            idx++;
+            result.put(branch_lattices[cur]);
+            for (k < dependents[cur].length) {
+                def dep = dependents[cur][k];
+                dep_count[dep]--;
+                if (dep_count[dep] == 0) queue.put(dep);
+            }
+        }
+
+        for (i < n) if (dep_count[i] > 0) result.put(branch_lattices[i]);
+
+        return result;
+    }
+
+    def untangle() {
+        branch_lattice_map = HashMap.new(IRNode.hash, IRNode.eq);
+        branch_lattices = Vector.new();
+        live = Seas.live(sea);
+        sea.rebuildChildren();
+        find_branch_lattices();
+
+        def sorted = topo_sort_lattices();
+
+        // Process in topological order (leaves first)
+        for (i < sorted.length) {
+            def bl = sorted[i];
+
+            if (trace_full) {
+                System.puts(Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
+                System.puts(Strings.format2("lsg: %q\nrsg: %q\n", bl.l_subgraph.renderFull(_, sea), bl.r_subgraph.renderFull(_, sea)));
+            }
+
+            // Clone left and right subgraphs
+            def lsg_clone = Seas.cloneSubgraph(sea, bl.l_subgraph);
+            def lsg_clone_mapping = lsg_clone.1;
+
+            def rsg_clone = Seas.cloneSubgraph(sea, bl.r_subgraph);
+            def rsg_clone_mapping = rsg_clone.1;
+
+            // Record reverse clone mappings for canonicalization (new -> old)
+            lsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) { reverse_mapping[neu] = old; });
+            rsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) { reverse_mapping[neu] = old; });
+
+            for (j < bl.phis.length) {
+                def phi = bl.phis[j];
+                def l_branch = phi.value_deps[1], r_branch = phi.value_deps[2];
+
+                for (k < phi.children.length) {
+                    if (lsg_clone_mapping[l_branch] != null) {
+                        phi.children[k].replaceDep(l_branch, lsg_clone_mapping[l_branch]);
+                        phi.replaceDep(l_branch, lsg_clone_mapping[l_branch]);
+                    }
+
+                    if (rsg_clone_mapping[r_branch] != null) {
+                        phi.children[k].replaceDep(r_branch, rsg_clone_mapping[r_branch]);
+                        phi.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
+                    }
+                }
+            }
+        }
+
+        // Final rebuild
         live = Seas.live(sea);
         sea.rebuildChildren();
         branch_lattice_map = HashMap.new(IRNode.hash, IRNode.eq);
@@ -493,7 +564,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         //               this
         // System.puts(Strings.format1("prepending branch to %d\n", id));
 
-        def cond = node.value_deps[0];
+        def cond = scheduler.canonicalize(node.value_deps[0]);
+        cond.init_move(scheduler.sea);
         def bl = scheduler.branch_lattice_map[node];
         def branch = ScheduleBranch.new(fresh_id(), scheduler);
         def phi_node = SchedulePhi.new(fresh_id(), scheduler);
@@ -536,8 +608,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         if (prev != null) prev.dominants = prev.dominants.withPrivParent(branch.dominants);
 
-        left.dominants.addPrivate(cond.move_true);
-        right.dominants.addPrivate(cond.move_false);
+        left.dominants.addPrivate(scheduler.canonicalize(cond.move_true));
+        right.dominants.addPrivate(scheduler.canonicalize(cond.move_false));
 
         for (i < bl.phis.length) {
             def phi = bl.phis[i];

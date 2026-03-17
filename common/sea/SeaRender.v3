@@ -79,7 +79,7 @@ component SeaRender {
             Finish => sb.puts("Finish");
             Phi => sb.puts("Phi");
             StatePhi => sb.puts("StatePhi [").putq(renderIRNode(node.value_deps[0], _)).putc(']');
-            Move(val) => sb.puts(if(val, "|True|", "|False|")).puts(" for [").putq(node.value_deps[0].render).putc(']');
+            Move(val) => sb.puts(if(val, "|True|", "|False|"));
         }
 
         return sb;
