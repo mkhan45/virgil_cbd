@@ -242,31 +242,40 @@ class Sea {
     def subgraph2(top: IRNode, bot: IRNode) -> ImmNodeSet {
         if (top == null || bot == null) return ImmNodeSets.empty();
         if (top.id == bot.id) return ImmNodeSets.single(top);
-        
-        def visited = NodeSet.new();
-        return collectPaths(top, bot, top, visited);
-    }
 
-    def collectPaths(top: IRNode, bot: IRNode, node: IRNode, visited: NodeSet) -> ImmNodeSet {
-        if (visited.has(node)) return ImmNodeSets.empty();
-        
-        visited.put(node);
-        
-        if (node.id == bot.id) {
-            visited.remove(node);
-            return ImmNodeSets.single(node);
+        // Phase 1: Forward reachability from top via children edges
+        def forward = NodeSet.new();
+        def fwd_wl = Vector<IRNode>.new();
+        fwd_wl.put(top);
+        var fi = 0;
+        while (fi < fwd_wl.length) {
+            def node = fwd_wl[fi];
+            fi++;
+            if (node == null || forward.has(node)) continue;
+            forward.put(node);
+            for (i < node.children.length) fwd_wl.put(node.children[i]);
         }
-        
-        var result = ImmNodeSets.empty();
-        for (i < node.children.length) {
-            def child = node.children[i];
-            def childPaths = collectPaths(top, bot, child, visited);
-            if (!childPaths.isEmpty()) {
-                result = result.with(node).union(childPaths);
-            }
+
+        // Phase 2: Backward reachability from bot via dep edges
+        def backward = NodeSet.new();
+        def bwd_wl = Vector<IRNode>.new();
+        bwd_wl.put(bot);
+        var bi = 0;
+        while (bi < bwd_wl.length) {
+            def node = bwd_wl[bi];
+            bi++;
+            if (node == null || backward.has(node)) continue;
+            backward.put(node);
+            for (dep in node.deps()) bwd_wl.put(dep);
         }
-        
-        return result;
+
+        // Subgraph = intersection of forward and backward reachable sets
+        def result = Vector<IRNode>.new();
+        forward.apply(fun (node: IRNode) {
+            if (backward.has(node)) result.put(node);
+        });
+
+        return ImmNodeSets.of_vec(result);
     }
 
     def rebuildChildren() {
@@ -302,12 +311,12 @@ class Sea {
         var lsg = ImmNodeSets.empty();
         for (i < lcas.length) lsg = lsg.union(subgraph2(lcas[i], l_branch));
         for (i < lcas.length) lsg = lsg.without(lcas[i]);
-        lsg = lsg.with(cond.move_true).with(l_branch);
+        // lsg = lsg.with(cond.move_true).with(l_branch);
 
         var rsg = ImmNodeSets.empty();
         for (i < lcas.length) rsg = rsg.union(subgraph2(lcas[i], r_branch));
         for (i < lcas.length) rsg = rsg.without(lcas[i]);
-        rsg = rsg.with(cond.move_false).with(r_branch);
+        // rsg = rsg.with(cond.move_false).with(r_branch);
 
         return BranchPartition(ImmNodeSets.of_vec(lcas), lsg, rsg);
     }
@@ -501,16 +510,16 @@ class IRNode {
 
     def replaceDep(from: IRNode, to: IRNode) -> this {
         for (i < value_deps.length)
-            if (value_deps[i] == from) value_deps[i] = to;
+            if (value_deps[i].id == from.id) value_deps[i] = to;
 
         for (i < state_deps.length)
-            if (state_deps[i] == from) state_deps[i] = to;
+            if (state_deps[i] != null && state_deps[i].id == from.id) state_deps[i] = to;
     }
 
     def init_move(sea: Sea) -> bool {
         if (move_true == null) {
-            move_true = sea.mkNode(IROp.Move(true), Arrays.dup(state_deps), []);
-            move_false = sea.mkNode(IROp.Move(false), Arrays.dup(state_deps), []);
+            move_true = sea.mkNode(IROp.Move(true), Array.new(StateComponent.count), []);
+            move_false = sea.mkNode(IROp.Move(false), Array.new(StateComponent.count), []);
             return false;
         }
         return true;
