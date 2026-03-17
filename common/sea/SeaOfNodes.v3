@@ -306,19 +306,27 @@ class Sea {
         def cond = node.value_deps[0], l_branch = node.value_deps[1], r_branch = node.value_deps[2];
         cond.init_move(this);
 
-        def lcas = findTop(l_branch, r_branch);
+        // Phi-aware deps: for Phi/StatePhi nodes, only follow the condition,
+        // not the branch deps. This prevents nodes reachable only through a
+        // nested phi from being treated as shared frontier nodes.
+        def l_phi_aware = l_branch.transitiveDepsPhiAwareSet().put(l_branch);
+        def r_phi_aware = r_branch.transitiveDepsPhiAwareSet().put(r_branch);
+        def frontier_set = l_phi_aware.intersection(r_phi_aware);
 
-        var lsg = ImmNodeSets.empty();
-        for (i < lcas.length) lsg = lsg.union(subgraph2(lcas[i], l_branch));
-        for (i < lcas.length) lsg = lsg.without(lcas[i]);
-        // lsg = lsg.with(cond.move_true).with(l_branch);
+        // Full (phi-unaware) deps for subgraph membership
+        def l_full = l_branch.transitiveDepsSet().put(l_branch);
+        def r_full = r_branch.transitiveDepsSet().put(r_branch);
 
-        var rsg = ImmNodeSets.empty();
-        for (i < lcas.length) rsg = rsg.union(subgraph2(lcas[i], r_branch));
-        for (i < lcas.length) rsg = rsg.without(lcas[i]);
-        // rsg = rsg.with(cond.move_false).with(r_branch);
+        // Convert to ImmNodeSets: subgraphs = full deps minus frontier
+        def frontier_vec = Vector<IRNode>.new();
+        def lsg_vec = Vector<IRNode>.new();
+        def rsg_vec = Vector<IRNode>.new();
 
-        return BranchPartition(ImmNodeSets.of_vec(lcas), lsg, rsg);
+        frontier_set.apply(fun (n: IRNode) { frontier_vec.put(n); });
+        l_full.apply(fun (n: IRNode) { if (!frontier_set.has(n)) lsg_vec.put(n); });
+        r_full.apply(fun (n: IRNode) { if (!frontier_set.has(n)) rsg_vec.put(n); });
+
+        return BranchPartition(ImmNodeSets.of_vec(frontier_vec), ImmNodeSets.of_vec(lsg_vec), ImmNodeSets.of_vec(rsg_vec));
     }
 }
 
@@ -505,6 +513,45 @@ class IRNode {
     def transitiveDepsSet() -> NodeSet {
         def buf = NodeSet.new();
         transitiveDepsAux(buf);
+        return buf;
+    }
+
+    // Like transitiveDepsAux but for Phi/StatePhi nodes, only propagates
+    // the condition and deps that are on BOTH arms (unconditionally needed).
+    // Deps that are on only one arm of a phi are excluded, since they are
+    // conditionally needed and should be cloned into subgraphs.
+    def transitiveDepsPhiAwareAux(buf: NodeSet) {
+        match (op) {
+            Phi, StatePhi => {
+                // Always follow the condition
+                def cond = value_deps[0];
+                if (cond != null && !buf.has(cond)) {
+                    buf.put(cond);
+                    cond.transitiveDepsPhiAwareAux(buf);
+                }
+                // Follow deps that are on BOTH arms (unconditionally needed)
+                def left_deps = value_deps[1].transitiveDepsSet().put(value_deps[1]);
+                def right_deps = value_deps[2].transitiveDepsSet().put(value_deps[2]);
+                def common = left_deps.intersection(right_deps);
+                common.apply(fun (n: IRNode) {
+                    if (!buf.has(n)) {
+                        buf.put(n);
+                        n.transitiveDepsPhiAwareAux(buf);
+                    }
+                });
+            }
+            _ => {
+                for (dep in deps()) if (dep != null && !buf.has(dep)) {
+                    buf.put(dep);
+                    dep.transitiveDepsPhiAwareAux(buf);
+                }
+            }
+        }
+    }
+
+    def transitiveDepsPhiAwareSet() -> NodeSet {
+        def buf = NodeSet.new();
+        transitiveDepsPhiAwareAux(buf);
         return buf;
     }
 
