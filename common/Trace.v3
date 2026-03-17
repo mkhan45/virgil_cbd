@@ -1,10 +1,21 @@
-component CBDTrace {
-    var traces: HashMap<string, HashMap<string, string>> = Strings.newMap<HashMap<string, string>>();
+class TraceWriter(varname: string) {
+    var entries: HashMap<string, HashMap<string, string>> = Strings.newMap<HashMap<string, string>>();
     var out_file: int = -1;
 
     def init(filename: string) {
         out_file = System.fileOpen(filename, false);
-        System.write(out_file, "window.traces = {};\n");
+        writeHeader();
+    }
+
+    def init_with_file(fd: int) {
+        out_file = fd;
+        writeHeader();
+    }
+
+    def writeHeader() {
+        def sb = StringBuilder.new();
+        sb.puts("window.").puts(varname).puts(" = {};\n");
+        System.write(out_file, sb.toString());
     }
 
     def addGraph(opcode: string, tag: string, sea: Sea) {
@@ -16,34 +27,37 @@ component CBDTrace {
     def addString(opcode: string, tag: string, cssClass: string, str: string) {
         def html = Strings.format2("<pre class='%s'>%s</pre>", cssClass, str);
         if (out_file != -1) {
-            if (!traces.has(opcode)) {
-                def init_js = Strings.format1("window.traces[\"%s\"] = {}\n", opcode);
-                System.write(out_file, init_js);
+            if (!entries.has(opcode)) {
+                def sb = StringBuilder.new();
+                sb.puts("window.").puts(varname).puts("[\"").puts(opcode).puts("\"] = {}\n");
+                System.write(out_file, sb.toString());
             }
-            if (!traces.has(opcode) || !traces[opcode].has(tag)) {
-                def init_js = Strings.format2("window.traces[\"%s\"][\"%s\"] = ''\n", opcode, tag);
-                System.write(out_file, init_js);
+            if (!entries.has(opcode) || !entries[opcode].has(tag)) {
+                def sb = StringBuilder.new();
+                sb.puts("window.").puts(varname).puts("[\"").puts(opcode).puts("\"][\"").puts(tag).puts("\"] = ''\n");
+                System.write(out_file, sb.toString());
             }
-            def set_js = Strings.format3("window.traces[\"%s\"][\"%s\"] += `%s`;\n", opcode, tag, html);
-            System.write(out_file, set_js);
+            def sb = StringBuilder.new();
+            sb.puts("window.").puts(varname).puts("[\"").puts(opcode).puts("\"][\"").puts(tag).puts("\"] += `").puts(html).puts("`;\n");
+            System.write(out_file, sb.toString());
         }
 
-        if (!traces.has(opcode)) traces[opcode] = Strings.newMap<string>();
-        traces[opcode][tag] = html;
+        if (!entries.has(opcode)) entries[opcode] = Strings.newMap<string>();
+        entries[opcode][tag] = html;
     }
 
     def serialize() -> string {
         def sb = StringBuilder.new();
-        def codes = Maps.keyList(traces);
+        def codes = Maps.keyList(entries);
 
-        sb.puts("window.traces = {").ln();
+        sb.puts("window.").puts(varname).puts(" = {").ln();
         for (cur = codes; cur != null; cur = cur.tail) {
             def code = cur.head;
-            def tags = Maps.keyList(traces[code]);
+            def tags = Maps.keyList(entries[code]);
             sb.tab().put1("%s: {\n", code);
             for (curTag = tags; curTag != null; curTag = curTag.tail) {
                 def tag = curTag.head;
-                sb.tab().tab().put2("%s: `%s`,\n", tag, traces[code][tag]);
+                sb.tab().tab().put2("%s: `%s`,\n", tag, entries[code][tag]);
             }
             sb.tab().puts("}\n");
         }
@@ -51,4 +65,23 @@ component CBDTrace {
 
         return sb.toString();
     }
+}
+
+component CBDTrace {
+    def writer: TraceWriter = TraceWriter.new("traces");
+
+    def init(filename: string) => writer.init(filename);
+    def init_with_file(fd: int) => writer.init_with_file(fd);
+    def addGraph(opcode: string, tag: string, sea: Sea) => writer.addGraph(opcode, tag, sea);
+    def addCode(opcode: string, tag: string, str: string) => writer.addCode(opcode, tag, str);
+    def addString(opcode: string, tag: string, cssClass: string, str: string) => writer.addString(opcode, tag, cssClass, str);
+    def serialize() -> string => writer.serialize();
+}
+
+component CBDInfo {
+    def writer: TraceWriter = TraceWriter.new("info");
+
+    def init_with_file(fd: int) => writer.init_with_file(fd);
+    def addCode(opcode: string, tag: string, str: string) => writer.addCode(opcode, tag, str);
+    def addString(opcode: string, tag: string, cssClass: string, str: string) => writer.addString(opcode, tag, cssClass, str);
 }

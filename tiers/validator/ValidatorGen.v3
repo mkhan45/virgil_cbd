@@ -163,6 +163,7 @@ def main(args: Array<string>) {
     def template_filename = "./tiers/validator/ValidatorTemplate.v3";
 
     CBDTrace.init("docs/traces.js");
+    CBDInfo.init_with_file(CBDTrace.writer.out_file);
 
     IntrinsicTypes.init(IntrinsicTypes.TYPE_DEF_FILE);
     def v_intrinsics = IntrinsicTypes.getIntrinsicTypes("./tiers/validator/Intrinsics.v3");

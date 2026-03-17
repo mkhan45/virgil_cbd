@@ -278,6 +278,201 @@ component SeaRender {
         return sb;
     }
 
+    // === Compact text rendering helpers ===
+
+    // Writes n spaces to buf.
+    def putIndent(buf: StringBuilder, n: int) {
+        for (i < n) buf.sp();
+    }
+
+    // Renders a short node reference: #id <IRNode.render>
+    def renderNodeRef(node: IRNode, buf: StringBuilder) -> StringBuilder {
+        buf.puts("#").putd(node.id).sp();
+        renderIRNode(node, buf);
+        return buf;
+    }
+
+    // Renders one Sea node as a compact text line:
+    //   #id <render>(#dep,...) {StateComp:#dep,...}
+    def renderSeaNodeLine(node: IRNode, buf: StringBuilder) -> StringBuilder {
+        buf.puts("  ");
+        renderNodeRef(node, buf);
+        if (node.value_deps.length > 0) {
+            buf.puts("(");
+            for (i < node.value_deps.length) {
+                if (i > 0) buf.puts(",");
+                def dep = node.value_deps[i];
+                if (dep != null) renderNodeRef(dep, buf);
+                else buf.puts("?");
+            }
+            buf.puts(")");
+        }
+        // Group state deps by source node.
+        def state_set = Vector<(IRNode, StateComponent.set)>.new();
+        for (sc in StateComponent.set.all) if (node.state_deps[sc.tag] != null) {
+            def dep = node.state_deps[sc.tag];
+            var idx = -1;
+            for (i < state_set.length) {
+                if (state_set[i].0.id == dep.id) { idx = i; break; }
+            }
+            if (idx == -1) state_set.put((dep, sc));
+            else state_set[idx] = (dep, state_set[idx].1 | sc);
+        }
+        if (state_set.length > 0) {
+            buf.puts(" {");
+            for (i < state_set.length) {
+                if (i > 0) buf.puts(",");
+                for (sc in state_set[i].1) buf.puts(sc.name);
+                buf.puts(":");
+                renderNodeRef(state_set[i].0, buf);
+            }
+            buf.puts("}");
+        }
+        return buf;
+    }
+
+    // Renders all live nodes in a Sea as compact text, start→finish order.
+    def renderSeaText(sea: Sea, buf: StringBuilder) -> StringBuilder {
+        def live = Seas.live(sea);
+        def ordered = Vector<IRNode>.new();
+        def wl = ArrayStack<IRNode>.new();
+        def visited = NodeSet.new();
+        wl.push(sea.finish);
+        while (!wl.empty()) {
+            def n = wl.pop();
+            if (n == null || visited.has(n) || !live.has(n)) continue;
+            visited.put(n);
+            ordered.put(n);
+            for (dep in n.deps()) wl.push(dep);
+        }
+        var i = ordered.length - 1;
+        while (i >= 0) {
+            renderSeaNodeLine(ordered[i], buf);
+            buf.ln();
+            i -= 1;
+        }
+        return buf;
+    }
+
+    // Renders local+private dominants for a CFG node (one line, no parent recursion).
+    def renderDominantsFlat(dg: DomGraph, indent: int, buf: StringBuilder) {
+        def nodes = Vector<IRNode>.new();
+        dg.local_nodes.apply(fun n => void(nodes.put(n)));
+        dg.private_nodes.apply(fun n => void(nodes.put(n)));
+        if (nodes.length == 0) return;
+        putIndent(buf, indent);
+        buf.puts("doms:");
+        for (i < nodes.length) {
+            buf.sp();
+            renderNodeRef(nodes[i], buf);
+        }
+        buf.ln();
+    }
+
+    // Renders a CFG node and its successors top-down with indentation.
+    def renderCFGNode(node: ScheduleNode, buf: StringBuilder, indent: int, visited: HashMap<int, void>) {
+        if (node == null || visited.has(node.id)) return;
+        visited[node.id] = void;
+        match (node) {
+            block: ScheduleBlock => {
+                putIndent(buf, indent);
+                buf.puts("Block #").putd(block.id).puts(":").ln();
+                if (block.prims.length > 0) {
+                    putIndent(buf, indent + 2);
+                    buf.puts("nodes:");
+                    for (i < block.prims.length) {
+                        buf.sp();
+                        renderNodeRef(block.prims[i], buf);
+                    }
+                    buf.ln();
+                }
+                renderDominantsFlat(block.dominants, indent + 2, buf);
+                if (block.next != null) renderCFGNode(block.next, buf, indent, visited);
+            }
+            branch: ScheduleBranch => {
+                putIndent(buf, indent);
+                buf.puts("Branch #").putd(branch.id);
+                if (branch.condition != null) {
+                    buf.puts(" cond=");
+                    renderNodeRef(branch.condition, buf);
+                }
+                buf.puts(":").ln();
+                renderDominantsFlat(branch.dominants, indent + 2, buf);
+                putIndent(buf, indent + 2); buf.puts("if-true:").ln();
+                if (branch.l_branch != null) renderCFGNode(branch.l_branch, buf, indent + 4, visited);
+                putIndent(buf, indent + 2); buf.puts("if-false:").ln();
+                if (branch.r_branch != null) renderCFGNode(branch.r_branch, buf, indent + 4, visited);
+                if (branch.phi != null) renderCFGNode(branch.phi, buf, indent, visited);
+            }
+            phi: SchedulePhi => {
+                putIndent(buf, indent);
+                buf.puts("Phi #").putd(phi.id).puts("(");
+                var first = true;
+                for (cur = phi.phis; cur != null; cur = cur.tail) {
+                    if (!first) buf.puts(", ");
+                    first = false;
+                    renderNodeRef(cur.head, buf);
+                }
+                buf.puts("):").ln();
+                renderDominantsFlat(phi.dominants, indent + 2, buf);
+                if (phi.next != null) renderCFGNode(phi.next, buf, indent, visited);
+            }
+        }
+    }
+
+    // === ScheduleNode text rendering (public entry point) ===
+    def renderScheduleNode(node: ScheduleNode, buf: StringBuilder) -> StringBuilder {
+        def visited = HashMap<int, void>.new(int.!<int>, int.==);
+        renderCFGNode(node, buf, 0, visited);
+        return buf;
+    }
+
+    // === SeaScheduler text rendering ===
+    // Renders the branch lattices section.
+    def renderBranchLattices(scheduler: SeaScheduler, buf: StringBuilder) -> StringBuilder {
+        buf.puts("=== branch_lattices (").putd(scheduler.branch_lattices.length).puts(") ===").ln();
+        for (i < scheduler.branch_lattices.length) {
+            def bl = scheduler.branch_lattices[i];
+            buf.puts("[").putd(i).puts("] cond: ");
+            renderNodeRef(bl.condition, buf);
+            buf.ln();
+            buf.puts("    phis: ");
+            for (j < bl.phis.length) {
+                if (j > 0) buf.puts(", ");
+                renderNodeRef(bl.phis[j], buf);
+            }
+            buf.ln();
+            buf.puts("    frontier: "); bl.frontier.render(buf); buf.ln();
+            buf.puts("    lsg: ");      bl.l_subgraph.render(buf); buf.ln();
+            buf.puts("    rsg: ");      bl.r_subgraph.render(buf); buf.ln();
+        }
+        return buf;
+    }
+
+    // info_start: orig_sea only (never changes after this point).
+    def renderScheduler(scheduler: SeaScheduler, buf: StringBuilder) -> StringBuilder {
+        buf.puts("=== orig_sea ===").ln();
+        renderSeaText(scheduler.orig_sea, buf);
+        return buf;
+    }
+
+    // info_untangled: sea and branch lattices, which stabilise after untangle().
+    def renderSchedulerUntangled(scheduler: SeaScheduler, buf: StringBuilder) -> StringBuilder {
+        buf.puts("=== sea ===").ln();
+        renderSeaText(scheduler.sea, buf);
+        buf.ln();
+        renderBranchLattices(scheduler, buf);
+        return buf;
+    }
+
+    // info_final: CFG only, which is complete after scheduling.
+    def renderSchedulerFinal(scheduler: SeaScheduler, buf: StringBuilder) -> StringBuilder {
+        buf.puts("=== CFG ===").ln();
+        def visited = HashMap<int, void>.new(int.!<int>, int.==);
+        renderCFGNode(scheduler.top_block, buf, 0, visited);
+        return buf;
+    }
+
     // === DomGraph ===
     def renderDomGraph(dg: DomGraph, buf: StringBuilder) -> StringBuilder {
         buf.puts("[");

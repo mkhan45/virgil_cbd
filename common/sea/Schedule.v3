@@ -130,9 +130,11 @@ class SeaScheduler {
 
     def schedule() {
         if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
+        if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_start", "", SeaRender.renderScheduler(this, StringBuilder.new()).toString());
         if (opcode != null && Strings.startsWith(opcode, "I32_DIV_S")) trace_full = true;
         untangle();
         if (opcode != null) CBDTrace.addGraph(opcode, "untangled", sea);
+        if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_untangled", "", SeaRender.renderSchedulerUntangled(this, StringBuilder.new()).toString());
         q = Vector<IRNode>.new();
         q.put(bottom_node);
 
@@ -175,6 +177,7 @@ class SeaScheduler {
         bottom_block.finalize();
 
         check();
+        if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_final", "", SeaRender.renderSchedulerFinal(this, StringBuilder.new()).toString());
     }
 
     def isReady(node: IRNode, schedule_node: ScheduleNode) -> bool {
