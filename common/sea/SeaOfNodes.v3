@@ -242,9 +242,40 @@ class Sea {
     def subgraph2(top: IRNode, bot: IRNode) -> ImmNodeSet {
         if (top == null || bot == null) return ImmNodeSets.empty();
         if (top.id == bot.id) return ImmNodeSets.single(top);
-        
-        def visited = NodeSet.new();
-        return collectPaths(top, bot, top, visited);
+
+        // Phase 1: Forward reachability from top via children edges
+        def forward = NodeSet.new();
+        def fwd_wl = Vector<IRNode>.new();
+        fwd_wl.put(top);
+        var fi = 0;
+        while (fi < fwd_wl.length) {
+            def node = fwd_wl[fi];
+            fi++;
+            if (node == null || forward.has(node)) continue;
+            forward.put(node);
+            for (i < node.children.length) fwd_wl.put(node.children[i]);
+        }
+
+        // Phase 2: Backward reachability from bot via dep edges
+        def backward = NodeSet.new();
+        def bwd_wl = Vector<IRNode>.new();
+        bwd_wl.put(bot);
+        var bi = 0;
+        while (bi < bwd_wl.length) {
+            def node = bwd_wl[bi];
+            bi++;
+            if (node == null || backward.has(node)) continue;
+            backward.put(node);
+            for (dep in node.deps()) bwd_wl.put(dep);
+        }
+
+        // Subgraph = intersection of forward and backward reachable sets
+        def result = Vector<IRNode>.new();
+        forward.apply(fun (node: IRNode) {
+            if (backward.has(node)) result.put(node);
+        });
+
+        return ImmNodeSets.of_vec(result);
     }
 
     def collectPaths(top: IRNode, bot: IRNode, node: IRNode, visited: NodeSet) -> ImmNodeSet {
