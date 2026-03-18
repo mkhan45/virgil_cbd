@@ -60,15 +60,6 @@ class Sea {
 
     def isDescendant(low: IRNode, high: IRNode) => isAncestor(high, low);
 
-    def collectLeafNodes(node: IRNode, out: Vector<IRNode>) {
-        if (node.is_phi()) {
-            collectLeafNodes(node.value_deps[1], out);
-            collectLeafNodes(node.value_deps[2], out);
-        } else {
-            out.put(node);
-        }
-    }
-
     def lowestCommonAncestors(nodes: Range<IRNode>) -> Vector<IRNode> {
         if (nodes.length == 0) return Vector.new();
         if (nodes.length == 1) return Vectors.of1(nodes[0]);
@@ -95,13 +86,6 @@ class Sea {
             if (isRoot) results.put(cn);
         }
         return results;
-    }
-
-    def findTop(a: IRNode, b: IRNode) -> Vector<IRNode> {
-        def nodes = Vector<IRNode>.new();
-        collectLeafNodes(a, nodes);
-        collectLeafNodes(b, nodes);
-        return lowestCommonAncestors(nodes.copy());
     }
 
     def addSSAD(ssad: SSAD, state_vars: Array<IRNode>, deps: List<IRNode>) {
@@ -306,18 +290,17 @@ class Sea {
         def cond = node.value_deps[0], l_branch = node.value_deps[1], r_branch = node.value_deps[2];
         cond.init_move(this);
 
-        // Phi-aware deps: for Phi/StatePhi nodes, only follow the condition,
-        // not the branch deps. This prevents nodes reachable only through a
-        // nested phi from being treated as shared frontier nodes.
+        // for Phi/StatePhi nodes, only follow the condition,
+        // not the branch deps. prevents nodes reachable only through a
+        // nested phi from being put in frontier
         def l_phi_aware = l_branch.transitiveDepsPhiAwareSet().put(l_branch);
         def r_phi_aware = r_branch.transitiveDepsPhiAwareSet().put(r_branch);
         def frontier_set = l_phi_aware.intersection(r_phi_aware);
 
-        // Full (phi-unaware) deps for subgraph membership
+        // Full deps for l/r subgraphs
         def l_full = l_branch.transitiveDepsSet().put(l_branch);
         def r_full = r_branch.transitiveDepsSet().put(r_branch);
 
-        // Convert to ImmNodeSets: subgraphs = full deps minus frontier
         def frontier_vec = Vector<IRNode>.new();
         def lsg_vec = Vector<IRNode>.new();
         def rsg_vec = Vector<IRNode>.new();
