@@ -14,7 +14,7 @@ class ScheduleChecker {
     var cfg_bottom: ScheduleNode;
     var orig_sea: Sea;
     var new_sea: Sea;
-    var orig_to_new: HashMap<IRNode, IRNode>;
+    var orig_to_new: NodeMap<IRNode>;
     new(cfg_top, cfg_bottom, orig_sea, new_sea, orig_to_new) { }
 
     def check() {

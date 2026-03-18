@@ -121,7 +121,7 @@ component SeaTransforms {
         return new_left;
     }
 
-    def unLEM(node: IRNode, sea: Sea, state: HashMap<IRNode, (IRNode, Vector<IRNode>)>) -> Range<IRNode> {
+    def unLEM(node: IRNode, sea: Sea, state: NodeMap<(IRNode, Vector<IRNode>)>) -> Range<IRNode> {
         match (node.op) {
             Phi, StatePhi => {
                 def nstates = StateComponent.count;
@@ -223,7 +223,7 @@ component SeaTransforms {
         return node.deps();
     }
 
-    def reifyConds(node: IRNode, sea: Sea, state: HashMap<IRNode, (IRNode, IRNode, IRNode)>) -> Range<IRNode> {
+    def reifyConds(node: IRNode, sea: Sea, state: NodeMap<(IRNode, IRNode, IRNode)>) -> Range<IRNode> {
         def nstates = StateComponent.count;
         match (node.op) {
             Phi, StatePhi => {

@@ -349,8 +349,8 @@ component Seas {
         return sea;
     }
 
-    def cloneSubgraph(sea: Sea, subgraph: ImmNodeSet) -> (ImmNodeSet, HashMap<IRNode, IRNode>) {
-        def mapping = HashMap<IRNode, IRNode>.new(IRNode.hash, IRNode.eq);
+    def cloneSubgraph(sea: Sea, subgraph: ImmNodeSet) -> (ImmNodeSet, NodeMap<IRNode>) {
+        def mapping = NodeMap<IRNode>.new();
         def nodes = subgraph.toArray(sea);
 
         for (old_node in nodes) {
@@ -396,13 +396,13 @@ component Seas {
         return (result, mapping);
     }
 
-    def clone(sea: Sea) -> (Sea, HashMap<IRNode, IRNode>) {
+    def clone(sea: Sea) -> (Sea, NodeMap<IRNode>) {
         def liveNodes = live(sea);
 
         def new_sea = Sea.new();
         sea.rebuildChildren();
         new_sea.initEmpty();
-        def mapping = HashMap<IRNode, IRNode>.new(IRNode.hash, IRNode.eq);
+        def mapping = NodeMap<IRNode>.new();
 
         sea.nodes_by_id.apply(fun (old_node: IRNode) {
             def new_node = IRNode.new(old_node.op, new_sea.id_count);

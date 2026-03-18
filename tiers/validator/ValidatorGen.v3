@@ -68,7 +68,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     CBDTrace.addCode(opcode, "scheduler_ssad", scheduler_ssad.toString(0));
     CBDTrace.addCode(opcode, "scheduler_ssad_pretty", scheduler_ssad.toStringPretty(0));
 
-    def state = HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq);
+    def state = NodeMap<(IRNode, Vector<IRNode>)>.new();
     sea.apply(state, SeaTransforms.unLEM);
     CBDTrace.addGraph(opcode, "unLEM", sea);
     def unlem_ssa = SearchSchedule.schedule(sea);

@@ -105,7 +105,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
 
     sea.apply(void, SeaTransforms.overloadOps);
     sea.apply(void, SeaTransforms.addAbstractions);
-    def state = HashMap<IRNode, (IRNode, Vector<IRNode>)>.new(IRNode.hash, IRNode.eq);
+    def state = NodeMap<(IRNode, Vector<IRNode>)>.new();
     sea.apply(state, SeaTransforms.unLEM);
     // System.puts("mermaid: "); System.puts(opcode); System.ln();
     // System.puts(sea.toMermaid());

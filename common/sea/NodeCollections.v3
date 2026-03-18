@@ -172,6 +172,45 @@ type ImmNodeSet(bits: Array<int>, capacity: int) {
     }
 }
 
+type MapSlot<V> {
+    case Empty;
+    case Full(key: IRNode, value: V);
+}
+
+class NodeMap<V> {
+    var slots: Array<MapSlot<V>> = Array<MapSlot<V>>.new(64);
+
+    def has(node: IRNode) -> bool {
+        if (node == null || node.id < 0 || node.id >= slots.length) return false;
+        return MapSlot<V>.Full.?(slots[node.id]);
+    }
+
+    def [node: IRNode] -> V {
+        if (node == null || node.id < 0 || node.id >= slots.length) return V.default;
+        match (slots[node.id]) {
+            Full(_, value) => return value;
+            _ => return V.default;
+        }
+    }
+
+    def [node: IRNode] = v: V {
+        if (node == null || node.id < 0) return;
+        if (node.id >= slots.length) slots = Arrays.grow(slots, node.id + 1);
+        slots[node.id] = MapSlot<V>.Full(node, v);
+    }
+
+    def remove(node: IRNode) {
+        if (node != null && node.id >= 0 && node.id < slots.length) slots[node.id] = MapSlot<V>.Empty;
+    }
+
+    def apply(f: (IRNode, V) -> void) {
+        for (i < slots.length) match (slots[i]) {
+            Full(key, value) => f(key, value);
+            _ => ;
+        }
+    }
+}
+
 component ImmNodeSets {
     def DEFAULT_CAPACITY: int = 64;
 

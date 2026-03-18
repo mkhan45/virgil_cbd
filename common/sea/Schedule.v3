@@ -41,7 +41,7 @@ class BranchLattice {
 class SeaScheduler {
     var sea: Sea;
     var orig_sea: Sea;
-    var mapping: HashMap<IRNode, IRNode>;
+    var mapping: NodeMap<IRNode>;
     var opcode: string = "";
     var live: NodeSet;
     var q: Vector<IRNode>;
@@ -54,32 +54,10 @@ class SeaScheduler {
     var top_block: ScheduleNode;
 
     var branch_lattices: Vector<BranchLattice> = Vector.new();
-    var branch_lattice_map: HashMap<IRNode, BranchLattice> = HashMap.new(IRNode.hash, IRNode.eq);
+    var branch_lattice_map: NodeMap<BranchLattice> = NodeMap<BranchLattice>.new();
 
     var trace_full: bool = false;
-    var lowBounds: HashMap<IRNode, ScheduleNode> = HashMap.new(IRNode.hash, IRNode.eq);
-    var reverse_mapping: HashMap<IRNode, IRNode> = HashMap.new(IRNode.hash, IRNode.eq);
-
-    def canonicalize(node: IRNode) -> IRNode {
-        return node;
-        // if (node == null) return node;
-        // if (node.is_move()) {
-        //     def p = IROp.Move.!(node.op).val;
-        //     if (node.value_deps.length == 0) return node;
-        //     def cond = canonicalize(node.value_deps[0]);
-        //     return if(p, canonicalize(cond.move_true), canonicalize(cond.move_false));
-        // }
-        // var cur = node;
-        // while (reverse_mapping[cur] != null && reverse_mapping[cur].id != cur.id) cur = reverse_mapping[cur];
-        // // Path compression
-        // var n = node;
-        // while (n.id != cur.id) {
-        //     def next = reverse_mapping[n];
-        //     reverse_mapping[n] = cur;
-        //     n = next;
-        // }
-        // return cur;
-    }
+    var lowBounds: NodeMap<ScheduleNode> = NodeMap<ScheduleNode>.new();
 
     new(orig_sea, orig_top_node: IRNode, orig_bottom_node: IRNode) {
         def clone = Seas.clone(orig_sea);
@@ -131,7 +109,7 @@ class SeaScheduler {
     def schedule() {
         if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
         if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_start", "", SeaRender.renderScheduler(this, StringBuilder.new()).toString());
-        if (opcode != null && Strings.startsWith(opcode, "I32_DIV_S")) trace_full = true;
+        // if (opcode != null && Strings.startsWith(opcode, "I32_DIV_S")) trace_full = true;
         untangle();
         if (opcode != null) CBDTrace.addGraph(opcode, "untangled", sea);
         if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_untangled", "", SeaRender.renderSchedulerUntangled(this, StringBuilder.new()).toString());
@@ -140,7 +118,8 @@ class SeaScheduler {
 
         q_idx = 0;
         while (q_idx < q.length) {
-            if (q_idx > 2500) {
+            // max successful idx (*_DIV_S): 1053
+            if (q_idx > 1500) {
                 System.puts(Strings.format1("ERROR: Scheduling %s reached limit\n", opcode));
                 break;
             }
@@ -176,7 +155,7 @@ class SeaScheduler {
         live = Seas.live(sea);
         bottom_block.finalize();
 
-        check();
+        // check();
         if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_final", "", SeaRender.renderSchedulerFinal(this, StringBuilder.new()).toString());
     }
 
@@ -312,7 +291,7 @@ class SeaScheduler {
         var processed_conds = NodeSet.new();
 
         // Compute initial lattices
-        branch_lattice_map = HashMap.new(IRNode.hash, IRNode.eq);
+        branch_lattice_map = NodeMap<BranchLattice>.new();
         branch_lattices = Vector.new();
         live = Seas.live(sea);
         sea.rebuildChildren();
@@ -324,7 +303,7 @@ class SeaScheduler {
             // Find next unprocessed leaf lattice
             var next_bl: BranchLattice = null;
             for (i < sorted.length) {
-                def cond = canonicalize(sorted[i].condition);
+                def cond = sorted[i].condition;
                 if (!processed_conds.has(cond)) {
                     next_bl = sorted[i];
                     break;
@@ -333,7 +312,7 @@ class SeaScheduler {
             if (next_bl == null) break;
 
             def bl = next_bl;
-            processed_conds.put(canonicalize(bl.condition));
+            processed_conds.put(bl.condition);
 
             if (trace_full) {
                 System.puts(Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
@@ -347,9 +326,6 @@ class SeaScheduler {
             def rsg_clone = Seas.cloneSubgraph(sea, bl.r_subgraph);
             def rsg_clone_mapping = rsg_clone.1;
 
-            // Record reverse clone mappings for canonicalization (new -> old)
-            lsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) { reverse_mapping[neu] = old; });
-            rsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) { reverse_mapping[neu] = old; });
             lsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) { mapping[old] = neu; });
             rsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) { mapping[old] = neu; });
 
@@ -367,7 +343,8 @@ class SeaScheduler {
             // Recompute lattices after each step to avoid stale subgraphs
             live = Seas.live(sea);
             sea.rebuildChildren();
-            branch_lattice_map = HashMap.new(IRNode.hash, IRNode.eq);
+        branch_lattice_map = NodeMap<BranchLattice>.new();
+
             branch_lattices = Vector.new();
             find_branch_lattices();
         }
