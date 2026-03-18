@@ -365,8 +365,18 @@ def m_getSignature(sig_index: u32) -> HeapTypeDecl {
 }
 
 // Instance context.
-def i_getTableFunction64(table_index: u32, sig: Decl, func_index: TypeVar.U64) -> FuncDecl;
-def i_getTableFunction32(table_index: u32, sig: Decl, func_index: TypeVar.U32) -> FuncDecl;
+def i_getTableFunction64(table_index: u32, sig: Decl, func_index: TypeVar.U64) -> FuncDecl {
+    def sd = SigDecl.!(sig);
+    def fd = FuncDecl.new(sd.heaptype_index);
+    fd.sig = sd;
+    return fd;
+}
+def i_getTableFunction32(table_index: u32, sig: Decl, func_index: TypeVar.U32) -> FuncDecl {
+    def sd = SigDecl.!(sig);
+    def fd = FuncDecl.new(sd.heaptype_index);
+    fd.sig = sd;
+    return fd;
+}
 def i_getFunction(func_index: u32) => module.functions[int.view(func_index)];
 
 // Control flow.
