@@ -1,5 +1,5 @@
 class NodeSet {
-    var nodes: Array<IRNode> = Array.new(64);
+    var nodes: Array<IRNode> = Array.new(32);
 
     def has(node: IRNode) -> bool {
         if (node == null || node.id < 0 || node.id >= nodes.length) return false;
@@ -8,7 +8,7 @@ class NodeSet {
 
     def put(node: IRNode) -> this {
         if (node == null || node.id < 0) return;
-        if (node.id >= nodes.length) nodes = Arrays.grow(nodes, node.id + 1);
+        if (node.id >= nodes.length) nodes = Arrays.grow(nodes, node.id * 2);
         nodes[node.id] = node;
     }
 
@@ -172,13 +172,13 @@ type ImmNodeSet(bits: Array<int>, capacity: int) {
     }
 }
 
-type MapSlot<V> {
+type MapSlot<V> #unboxed {
     case Empty;
     case Full(key: IRNode, value: V);
 }
 
 class NodeMap<V> {
-    var slots: Array<MapSlot<V>> = Array<MapSlot<V>>.new(64);
+    var slots: Array<MapSlot<V>> = Array<MapSlot<V>>.new(32);
 
     def has(node: IRNode) -> bool {
         if (node == null || node.id < 0 || node.id >= slots.length) return false;
@@ -195,7 +195,7 @@ class NodeMap<V> {
 
     def [node: IRNode] = v: V {
         if (node == null || node.id < 0) return;
-        if (node.id >= slots.length) slots = Arrays.grow(slots, node.id + 1);
+        if (node.id >= slots.length) slots = Arrays.grow(slots, node.id * 2);
         slots[node.id] = MapSlot<V>.Full(node, v);
     }
 

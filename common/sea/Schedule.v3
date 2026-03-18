@@ -70,8 +70,6 @@ class SeaScheduler {
         bottom_node = mapping[orig_bottom_node];
 
         live = Seas.live(sea);
-        // branch_lattices = Vector.new();
-        // find_branch_lattices();
     }
 
     def find_branch_lattices() {
@@ -110,6 +108,7 @@ class SeaScheduler {
         if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
         if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_start", "", SeaRender.renderScheduler(this, StringBuilder.new()).toString());
         // if (opcode != null && Strings.startsWith(opcode, "I32_DIV_S")) trace_full = true;
+
         untangle();
         if (opcode != null) CBDTrace.addGraph(opcode, "untangled", sea);
         if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_untangled", "", SeaRender.renderSchedulerUntangled(this, StringBuilder.new()).toString());
@@ -120,7 +119,7 @@ class SeaScheduler {
 
         q_idx = 0;
         while (q_idx < q.length) {
-            // max successful idx (*_DIV_S): 30
+            // max successful idx (I32/I64_DIV_S): 30
             if (q_idx > 100) {
                 System.puts(Strings.format1("ERROR: Scheduling %s reached limit\n", opcode));
                 break;
@@ -134,7 +133,7 @@ class SeaScheduler {
                 continue;
             }
 
-            if (trace_full) System.puts(Strings.format2("Prim: %q, q length: %d\n", node.render, q.length - q_idx));
+            if (trace_full) System.puts(Strings.format2("Node: %q, q length: %d\n", node.render, q.length - q_idx));
 
             // traverse existing schedule, put node in first available spot
             def lower_bound = if(lowBounds[node] != null, lowBounds[node], bottom_block);
@@ -153,7 +152,7 @@ class SeaScheduler {
     }
 
     def isReady(node: IRNode, schedule_node: ScheduleNode) -> bool {
-        var ready = BoxedBool.new(true);
+        var ready = Box.new(true);
 
         var children = node.children;
 
@@ -183,6 +182,7 @@ class SeaScheduler {
                     ));
             ready.v &= has;
         }
+
         return ready.v;
     }
 
@@ -300,9 +300,9 @@ class SeaScheduler {
         sea.nodes_by_id.apply(fun(n: IRNode) {
             n.unscheduled_use_count = 0;
         });
-        for (i < branch_lattices.length) {
+
+        for (i < branch_lattices.length)
             branch_lattices[i].unscheduled_phi_child_count = 0;
-        }
 
         for (i < branch_lattices.length) {
             def bl = branch_lattices[i];
@@ -329,17 +329,17 @@ class SeaScheduler {
                 if (child.id == n.id) continue;
                 if (!live.has(child) && !child.is_move()) continue;
                 if (child.is_move() && child.value_deps[0].id == n.id) continue;
-                n.unscheduled_use_count++;
+                n.unscheduled_use_count += 1;
             }
         });
     }
 
     def enqueue_dep(user: IRNode, dep: IRNode) {
-        def seen_groups = Vector<int>.new();
         if (user.id == dep.id) return;
         if (!live.has(user) && !user.is_move()) return;
         if (user.is_move() && user.value_deps[0].id == dep.id) return;
 
+        def seen_groups = Vector<int>.new();
         if (dep.is_phi()) {
             def bl = branch_lattice_map[dep];
             def cond_id = bl.condition.id;
@@ -352,7 +352,7 @@ class SeaScheduler {
             return;
         }
 
-        dep.unscheduled_use_count--;
+        dep.unscheduled_use_count -= 1;
         if (dep.unscheduled_use_count == 0) q.put(dep);
     }
 
@@ -444,7 +444,6 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                     return if(cond.prev != null, cond.prev.schedule(node, upper_limit));
                 }
                 phi: SchedulePhi => {
-                    // return phi.source_branch.schedule(node, upper_limit);
                     var dest_block = phi.l_source.schedule(node, phi.source_branch);
                     if (dest_block == null) dest_block = phi.r_source.schedule(node, phi.source_branch);
                     if (dest_block == null) dest_block = phi.source_branch.schedule(node, upper_limit);
@@ -503,7 +502,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         linkPrependedBlock(block);
 
-        block.dominants = dominants.newPrivChild();
+        block.dominants = dominants.newChild();
         block.dominants.addLocal(node);
 
         block.prims.put(node);
@@ -590,7 +589,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         setSinglePrev(phi_node);
 
-        phi_node.dominants = dominants.newPrivChild();
+        phi_node.dominants = dominants.newChild();
 
         def left = ScheduleBlock.new(fresh_id(), scheduler);
         def right = ScheduleBlock.new(fresh_id(), scheduler);
@@ -601,9 +600,9 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         left.dominants = DomGraph.new();
         right.dominants = DomGraph.new();
-        branch.dominants = phi_node.dominants.newPrivChild().withParent(left.dominants).withParent(right.dominants);
+        branch.dominants = phi_node.dominants.newChild().withParent(left.dominants).withParent(right.dominants);
 
-        if (prev != null) prev.dominants = prev.dominants.withPrivParent(branch.dominants);
+        if (prev != null) prev.dominants = prev.dominants.withParent(branch.dominants);
 
         for (i < bl.phis.length) {
             def phi = bl.phis[i];
@@ -701,12 +700,10 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         def left = l_source.toSSAD();
         def right = r_source.toSSAD();
 
+        // Unwrap Move nodes
         def phi_vec = Vector<(string, string)>.new();
         for (cur = phis; cur != null; cur = cur.tail) if (IROp.Phi.?(cur.head.op)) {
             def phi = cur.head;
-            // Unwrap Move nodes: addMoves wraps phi deps as Move(cond, actual_value).
-            // Move nodes are skipped in ScheduleBlock.toSSAD, so we must reference
-            // the actual computation node (Move.value_deps[1]) as the phi source.
             var l = phi.value_deps[1];
             var r = phi.value_deps[2];
             if (l != null && IROp.Move.?(l.op) && l.value_deps.length > 1) l = l.value_deps[1];
@@ -716,8 +713,8 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         }
 
         var prev_ssad = if(source_branch.prev != null, source_branch.prev.toSSAD(), SSAD.Void);
-        // Inject var declarations for phi destinations before the if, matching SearchSchedule
-        // behavior. Track declared names to avoid duplicate declarations.
+
+        // Inject var declarations for phi destinations before the if
         def declared = Vector<string>.new();
         for (cur = phis; cur != null; cur = cur.tail) if (IROp.Phi.?(cur.head.op)) {
             def phi = cur.head;
@@ -735,7 +732,7 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
     }
 }
 
-class BoxedBool { 
-    var v: bool;
+class Box<T> { 
+    var v: T;
     new(v) {}
 }

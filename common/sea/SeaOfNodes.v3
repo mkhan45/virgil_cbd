@@ -641,15 +641,11 @@ class IRNode {
     def unwrapMove() -> IRNode {
         match (op) {
             Move(_) => {
-                // Value Move: underlying value in value_deps[1]
-                if (value_deps.length > 1 && value_deps[1] != null) {
-                    return value_deps[1].unwrapMove();
-                }
-                // State Move: underlying state in state_deps
-                for (i < state_deps.length) {
+                if (value_deps.length > 1) return value_deps[1].unwrapMove();
+                for (i < state_deps.length)
                     if (state_deps[i] != null) return state_deps[i].unwrapMove();
-                }
-                return this; // Fallback (shouldn't happen for valid Moves)
+
+                return this; // unreachable
             }
             _ => return this;
         }

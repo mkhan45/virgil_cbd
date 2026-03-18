@@ -358,7 +358,6 @@ component SeaRender {
     def renderDominantsFlat(dg: DomGraph, indent: int, buf: StringBuilder) {
         def nodes = Vector<IRNode>.new();
         dg.local_nodes.apply(fun n => void(nodes.put(n)));
-        dg.private_nodes.apply(fun n => void(nodes.put(n)));
         if (nodes.length == 0) return;
         putIndent(buf, indent);
         buf.puts("doms:");
@@ -478,7 +477,6 @@ component SeaRender {
         buf.puts("[");
         def nodes = Vector<IRNode>.new();
         dg.local_nodes.apply(fun n => void(nodes.put(n)));
-        dg.private_nodes.apply(fun n => void(nodes.put(n)));
         for (i < nodes.length) {
             def node = nodes[i];
             if (i > 0) buf.puts(", ");
