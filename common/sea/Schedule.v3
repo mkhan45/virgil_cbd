@@ -13,6 +13,7 @@ class BranchLattice {
     var l_subgraph: ImmNodeSet;
     var r_subgraph: ImmNodeSet;
     var phis: Vector<IRNode>;
+    var unscheduled_phi_child_count: int;
 
     new(sea, condition, frontier, l_subgraph, r_subgraph, phis) {}
 
@@ -58,7 +59,6 @@ class SeaScheduler {
 
     var trace_full: bool = false;
     var lowBounds: NodeMap<ScheduleNode> = NodeMap<ScheduleNode>.new();
-
     new(orig_sea, orig_top_node: IRNode, orig_bottom_node: IRNode) {
         def clone = Seas.clone(orig_sea);
         sea = clone.0;
@@ -113,13 +113,15 @@ class SeaScheduler {
         untangle();
         if (opcode != null) CBDTrace.addGraph(opcode, "untangled", sea);
         if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_untangled", "", SeaRender.renderSchedulerUntangled(this, StringBuilder.new()).toString());
+
+        compute_use_counts();
         q = Vector<IRNode>.new();
         q.put(bottom_node);
 
         q_idx = 0;
         while (q_idx < q.length) {
-            // max successful idx (*_DIV_S): 1053
-            if (q_idx > 1500) {
+            // max successful idx (*_DIV_S): 30
+            if (q_idx > 100) {
                 System.puts(Strings.format1("ERROR: Scheduling %s reached limit\n", opcode));
                 break;
             }
@@ -128,13 +130,9 @@ class SeaScheduler {
             q_idx += 1;
 
             if (node.is_move()) {
-                for (d in node.deps()) q.put(d);
+                for (d in node.deps()) enqueue_dep(node, d);
                 continue;
             }
-
-            // if (node.id == top_node.id && q_idx != q.length - 1) {
-            //     continue;
-            // }
 
             if (trace_full) System.puts(Strings.format2("Prim: %q, q length: %d\n", node.render, q.length - q_idx));
 
@@ -144,40 +142,18 @@ class SeaScheduler {
             if (dest_block != null) {
                 for (d in node.deps()) {
                     lowBounds[d] = dest_block;
-                    q.put(d);
+                    enqueue_dep(node, d);
                 }
-            } else {
-                q.put(node);
             }
         }
 
-
-        live = Seas.live(sea);
         bottom_block.finalize();
-
-        // check();
+        check();
         if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_final", "", SeaRender.renderSchedulerFinal(this, StringBuilder.new()).toString());
     }
 
     def isReady(node: IRNode, schedule_node: ScheduleNode) -> bool {
-        live = Seas.live(sea);
         var ready = BoxedBool.new(true);
-
-        if (IROp.Start.?(node.op)) {
-            live.apply(fun (n: IRNode) {
-                if (n.id != node.id && !n.is_move()) {
-                    def has = schedule_node.dominants.has(n);
-                    if (trace_full) System.puts(
-                            Strings.format3("%s, have %s : %s\n", 
-                                Strings.format1("Block %d", schedule_node.id),
-                                Strings.format2("%q (%d)", n.render, n.id),
-                                if(has, "YES", "NO")
-                            ));
-                    ready.v &= has;
-                }
-            });
-            return ready.v;
-        }
 
         var children = node.children;
 
@@ -192,49 +168,20 @@ class SeaScheduler {
 
         for (i < children.length) {
             def child = children[i];
+            if (child.id == node.id) continue;
             def live_flag = live.has(child);
             if (trace_full) System.puts(Strings.format2("child: %q, live: %s\n", child.render, if(live_flag, "YES", "NO")));
-            if (!live_flag && !IROp.Move.?(child.op)) continue;
-            if (child.id == node.id) continue;
+            if (!live_flag && !child.is_move()) continue;
+            if (child.is_move() && child.value_deps[0].id == node.id) continue;
 
-            if (false && (IROp.StatePhi.?(child.op) || IROp.Phi.?(child.op))
-                && !(node.id == child.value_deps[0].id)
-                && (node.id == child.value_deps[1].id || node.id == child.value_deps[2].id)) 
-            {
-                def cond = child.value_deps[0];
-                cond.init_move(sea);
-                if (node.id == child.value_deps[1].id) {
-                    def has = schedule_node.dominants.has(cond.move_true);
-                    if (trace_full) System.puts(
-                            Strings.format3("%s, have %s : %s\n", 
-                                Strings.format1("Block %d", schedule_node.id),
-                                Strings.format2("%q (%d)", child.render, child.id),
-                                if(has, "YES", "NO")
-                            ));
-                    ready.v &= has;
-                }
-                if (node.id == child.value_deps[2].id) {
-                    def has = schedule_node.dominants.has(cond.move_false);
-                    if (trace_full) System.puts(
-                            Strings.format3("%s, have %s : %s\n", 
-                                Strings.format1("Block %d", schedule_node.id),
-                                Strings.format2("%q (%d)", child.render, child.id),
-                                if(has, "YES", "NO")
-                            ));
-                    ready.v &= has;
-                }
-            } else {
-                if (child.is_move() && child.value_deps[0].id == node.id) continue;
-                def canon_child = child;
-                def has = schedule_node.dominants.has(canon_child);
-                if (trace_full) System.puts(
-                        Strings.format3("%s, have %s : %s\n", 
-                            Strings.format1("Block %d", schedule_node.id),
-                            Strings.format2("%q (%d)", canon_child.render, canon_child.id),
-                            if(has, "YES", "NO")
-                        ));
-                ready.v &= has;
-            }
+            def has = schedule_node.dominants.has(child);
+            if (trace_full) System.puts(
+                    Strings.format3("%s, have %s : %s\n", 
+                        Strings.format1("Block %d", schedule_node.id),
+                        Strings.format2("%q (%d)", child.render, child.id),
+                        if(has, "YES", "NO")
+                    ));
+            ready.v &= has;
         }
         return ready.v;
     }
@@ -343,11 +290,70 @@ class SeaScheduler {
             // Recompute lattices after each step to avoid stale subgraphs
             live = Seas.live(sea);
             sea.rebuildChildren();
-        branch_lattice_map = NodeMap<BranchLattice>.new();
-
+            branch_lattice_map = NodeMap<BranchLattice>.new();
             branch_lattices = Vector.new();
             find_branch_lattices();
         }
+    }
+
+    def compute_use_counts() {
+        sea.nodes_by_id.apply(fun(n: IRNode) {
+            n.unscheduled_use_count = 0;
+        });
+        for (i < branch_lattices.length) {
+            branch_lattices[i].unscheduled_phi_child_count = 0;
+        }
+
+        for (i < branch_lattices.length) {
+            def bl = branch_lattices[i];
+            def seen = NodeSet.new();
+            for (j < bl.phis.length) {
+                def phi = bl.phis[j];
+                for (k < phi.children.length) {
+                    def child = phi.children[k];
+                    if (child.id == phi.id) continue;
+                    if (!live.has(child) && !child.is_move()) continue;
+                    if (child.is_move() && child.value_deps[0].id == phi.id) continue;
+                    if (seen.has(child)) continue;
+                    seen.put(child);
+                    bl.unscheduled_phi_child_count++;
+                }
+            }
+        }
+
+        sea.nodes_by_id.apply(fun(n: IRNode) {
+            if (!live.has(n) && !n.is_move()) return;
+            if (n.is_phi()) return;
+            for (i < n.children.length) {
+                def child = n.children[i];
+                if (child.id == n.id) continue;
+                if (!live.has(child) && !child.is_move()) continue;
+                if (child.is_move() && child.value_deps[0].id == n.id) continue;
+                n.unscheduled_use_count++;
+            }
+        });
+    }
+
+    def enqueue_dep(user: IRNode, dep: IRNode) {
+        def seen_groups = Vector<int>.new();
+        if (user.id == dep.id) return;
+        if (!live.has(user) && !user.is_move()) return;
+        if (user.is_move() && user.value_deps[0].id == dep.id) return;
+
+        if (dep.is_phi()) {
+            def bl = branch_lattice_map[dep];
+            def cond_id = bl.condition.id;
+            for (i < seen_groups.length) if (seen_groups[i] == cond_id) return;
+            seen_groups.put(cond_id);
+            bl.unscheduled_phi_child_count--;
+            if (bl.unscheduled_phi_child_count == 0) {
+                for (i < bl.phis.length) q.put(bl.phis[i]);
+            }
+            return;
+        }
+
+        dep.unscheduled_use_count--;
+        if (dep.unscheduled_use_count == 0) q.put(dep);
     }
 
     def check() {
@@ -395,7 +401,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         if (ready) {
             if (scheduler.trace_full) System.puts(Strings.format3("%q ready in %d\n\tdoms: %q\n", node.render, id, dominants.render));
-            if (IROp.Phi.?(node.op) || IROp.StatePhi.?(node.op)) {
+            if (node.is_phi()) {
                 return scheduleReadyPhi(node, upper_limit);
             } else {
                 match (this) {

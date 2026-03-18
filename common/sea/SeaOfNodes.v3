@@ -473,6 +473,7 @@ class IRNode {
 
     var move_true: IRNode;
     var move_false: IRNode;
+    var unscheduled_use_count: int;
 
     new(op, id) { }
 

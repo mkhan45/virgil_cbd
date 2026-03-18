@@ -1116,17 +1116,17 @@ block_18 --> branch_14
 subgraph block_18["Block 18"]
 	direction TB
 	b18_0[/"Start"\\]
-	b18_3["bt imm_readBlockType"]
-	b18_7["arg__11 0"]
 	b18_4["cond pop_u32"]
+	b18_3["bt imm_readBlockType"]
 	b18_6["label doIf"]
+	b18_7["arg__11 0"]
 	b18_15["abs__14 lift_u32"]
 	b18_9["cond__6 U32_equals"]
-	b18_0 --> b18_3
-	b18_3 --> b18_7
-	b18_7 --> b18_4
-	b18_4 --> b18_6
-	b18_6 --> b18_15
+	b18_0 --> b18_4
+	b18_4 --> b18_3
+	b18_3 --> b18_6
+	b18_6 --> b18_7
+	b18_7 --> b18_15
 	b18_15 --> b18_9
 end
 subgraph block_17["Block 17"]
@@ -1139,10 +1139,10 @@ branch_14 --> block_17
 
 </pre>`;
 window.traces["IF"]["scheduler_ssad"] = ''
-window.traces["IF"]["scheduler_ssad"] += `<pre class=''>def bt = imm_readBlockType();
-def arg__11 : u32 = 0;
-def cond = pop_u32();
+window.traces["IF"]["scheduler_ssad"] += `<pre class=''>def cond = pop_u32();
+def bt = imm_readBlockType();
 def label = doIf(bt);
+def arg__11 : u32 = 0;
 def abs__14 = lift_u32(arg__11);
 def cond__6 = U32_equals(cond, abs__14);
 if (cond__6) {
@@ -1154,8 +1154,8 @@ if (cond__6) {
 def eff_st_put__13 = ctlxfer.put_IF(label);
 </pre>`;
 window.traces["IF"]["scheduler_ssad_pretty"] = ''
-window.traces["IF"]["scheduler_ssad_pretty"] += `<pre class=''>def bt = imm_readBlockType();
-def cond = pop_u32();
+window.traces["IF"]["scheduler_ssad_pretty"] += `<pre class=''>def cond = pop_u32();
+def bt = imm_readBlockType();
 def label = doIf(bt);
 if (U32_equals(cond, lift_u32(0))) {
 	doBranch(label);
@@ -1351,9 +1351,9 @@ graph TD
 	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 34
 </pre>`;
 window.traces["IF"]["unlem_schedule"] = ''
-window.traces["IF"]["unlem_schedule"] += `<pre class=''>def bt = imm_readBlockType();
+window.traces["IF"]["unlem_schedule"] += `<pre class=''>def cond = pop_u32();
+def bt = imm_readBlockType();
 def arg__11 : u32 = 0;
-def cond = pop_u32();
 def label = doIf(bt);
 def abs__14 = lift_u32(arg__11);
 def cond__6 = U32_equals(cond, abs__14);
@@ -1408,19 +1408,19 @@ block_24 --> branch_20
 subgraph block_24["Block 24"]
 	direction TB
 	b24_0[/"Start"\\]
+	b24_4["cond pop_u32"]
 	b24_3["bt imm_readBlockType"]
 	b24_7["arg__11 0"]
-	b24_4["cond pop_u32"]
 	b24_6["label doIf"]
 	b24_15["abs__14 lift_u32"]
 	b24_9["cond__6 U32_equals"]
 	b24_16["mt__21 U32_maybeTrue"]
 	b24_17["mf__22 U32_maybeFalse"]
 	b24_18["mb__23 bool.&&"]
-	b24_0 --> b24_3
+	b24_0 --> b24_4
+	b24_4 --> b24_3
 	b24_3 --> b24_7
-	b24_7 --> b24_4
-	b24_4 --> b24_6
+	b24_7 --> b24_6
 	b24_6 --> b24_15
 	b24_15 --> b24_9
 	b24_9 --> b24_16
@@ -1459,9 +1459,9 @@ branch_25 --> block_28
 
 </pre>`;
 window.traces["IF"]["unlem_scheduler_ssa"] = ''
-window.traces["IF"]["unlem_scheduler_ssa"] += `<pre class=''>def bt = imm_readBlockType();
+window.traces["IF"]["unlem_scheduler_ssa"] += `<pre class=''>def cond = pop_u32();
+def bt = imm_readBlockType();
 def arg__11 : u32 = 0;
-def cond = pop_u32();
 def label = doIf(bt);
 def abs__14 = lift_u32(arg__11);
 def cond__6 = U32_equals(cond, abs__14);
@@ -1483,8 +1483,8 @@ if (mb__23) {
 // phis: 
 def eff_st_put__13 = ctlxfer.put_IF(label);
 </pre>`;
-window.traces["IF"]["unlem_scheduler_ssa"] += `<pre class=''>def bt = imm_readBlockType();
-def cond = pop_u32();
+window.traces["IF"]["unlem_scheduler_ssa"] += `<pre class=''>def cond = pop_u32();
+def bt = imm_readBlockType();
 def label = doIf(bt);
 def mt = U32_maybeTrue(U32_equals(cond, lift_u32(0)));
 def mf = U32_maybeFalse(U32_equals(cond, lift_u32(0)));
@@ -1501,8 +1501,8 @@ if (bool.&&(mt, mf)) {
 ctlxfer.put_IF(label);
 </pre>`;
 window.traces["IF"]["unlem_pretty"] = ''
-window.traces["IF"]["unlem_pretty"] += `<pre class=''>def bt = imm_readBlockType();
-def cond = pop_u32();
+window.traces["IF"]["unlem_pretty"] += `<pre class=''>def cond = pop_u32();
+def bt = imm_readBlockType();
 def label = doIf(bt);
 def mt = U32_maybeTrue(U32_equals(cond, lift_u32(0)));
 def mf = U32_maybeFalse(U32_equals(cond, lift_u32(0)));
@@ -3235,14 +3235,14 @@ subgraph block_62["Block 62"]
 	direction TB
 	b62_0[/"Start"\\]
 	b62_3["depth imm_readULEB32"]
-	b62_7["arg__74 0"]
 	b62_6["cond pop_u32"]
+	b62_7["arg__74 0"]
 	b62_15["abs__77 lift_u32"]
 	b62_9["cond__69 U32_not_equals"]
 	b62_0 --> b62_3
-	b62_3 --> b62_7
-	b62_7 --> b62_6
-	b62_6 --> b62_15
+	b62_3 --> b62_6
+	b62_6 --> b62_7
+	b62_7 --> b62_15
 	b62_15 --> b62_9
 end
 subgraph block_61["Block 61"]
@@ -3256,8 +3256,8 @@ branch_58 --> block_61
 </pre>`;
 window.traces["BR_IF"]["scheduler_ssad"] = ''
 window.traces["BR_IF"]["scheduler_ssad"] += `<pre class=''>def depth = imm_readULEB32();
-def arg__74 : u32 = 0;
 def cond = pop_u32();
+def arg__74 : u32 = 0;
 def abs__77 = lift_u32(arg__74);
 def cond__69 = U32_not_equals(cond, abs__77);
 if (cond__69) {
@@ -3792,8 +3792,8 @@ graph TD
 	3 --> 5
 </pre>`;
 window.traces["BR_IF"]["scheduled"] = ''
-window.traces["BR_IF"]["scheduled"] += `<pre class=''>def cond = pop_u32();
-def depth = imm_readULEB32();
+window.traces["BR_IF"]["scheduled"] += `<pre class=''>def depth = imm_readULEB32();
+def cond = pop_u32();
 def label = f_getLabel(depth);
 def eff__72 = doFallthru();
 def eff__70 = doBranch(label);
@@ -3801,8 +3801,8 @@ def eff_merge__88 = merge(eff__70, eff__72);
 def eff_st_put__76 = ctlxfer.put_BR_IF(label);
 </pre>`;
 window.traces["BR_IF"]["pretty"] = ''
-window.traces["BR_IF"]["pretty"] += `<pre class=''>def cond = pop_u32();
-def depth = imm_readULEB32();
+window.traces["BR_IF"]["pretty"] += `<pre class=''>def depth = imm_readULEB32();
+def cond = pop_u32();
 def label = f_getLabel(depth);
 doFallthru();
 doBranch(label);
@@ -6751,8 +6751,8 @@ window.traces["SELECT"]["unlem_schedule"] = ''
 window.traces["SELECT"]["unlem_schedule"] += `<pre class=''>def c = pop_u32();
 def tv = f_getTopOfStackType();
 def b = pop_Value(tv);
-def a = pop_Value(tv);
 def arg__180 : u32 = 0;
+def a = pop_Value(tv);
 def abs__183 = lift_u32(arg__180);
 def cond__172 = U32_not_equals(c, abs__183);
 def mt__190 = U32_maybeTrue(cond__172);
@@ -6803,8 +6803,8 @@ subgraph block_118["Block 118"]
 	b118_3["c pop_u32"]
 	b118_4["tv f_getTopOfStackType"]
 	b118_6["b pop_Value"]
-	b118_8["a pop_Value"]
 	b118_9["arg__180 0"]
+	b118_8["a pop_Value"]
 	b118_19["abs__183 lift_u32"]
 	b118_11["cond__172 U32_not_equals"]
 	b118_20["mt__190 U32_maybeTrue"]
@@ -6813,9 +6813,9 @@ subgraph block_118["Block 118"]
 	b118_0 --> b118_3
 	b118_3 --> b118_4
 	b118_4 --> b118_6
-	b118_6 --> b118_8
-	b118_8 --> b118_9
-	b118_9 --> b118_19
+	b118_6 --> b118_9
+	b118_9 --> b118_8
+	b118_8 --> b118_19
 	b118_19 --> b118_11
 	b118_11 --> b118_20
 	b118_20 --> b118_21
@@ -6856,8 +6856,8 @@ window.traces["SELECT"]["unlem_scheduler_ssa"] = ''
 window.traces["SELECT"]["unlem_scheduler_ssa"] += `<pre class=''>def c = pop_u32();
 def tv = f_getTopOfStackType();
 def b = pop_Value(tv);
-def a = pop_Value(tv);
 def arg__180 : u32 = 0;
+def a = pop_Value(tv);
 def abs__183 = lift_u32(arg__180);
 def cond__172 = U32_not_equals(c, abs__183);
 def mt__190 = U32_maybeTrue(cond__172);
@@ -10799,14 +10799,14 @@ block_185 --> branch_181
 subgraph block_185["Block 185"]
 	direction TB
 	b185_0[/"Start"\\]
-	b185_6["arg__335 0x40u8"]
 	b185_3["flags imm_readU8"]
+	b185_6["arg__335 0x40u8"]
 	b185_5["arg__333 0"]
 	b185_8["arg__332 u8.&"]
 	b185_9["cond__330 u8.!="]
-	b185_0 --> b185_6
-	b185_6 --> b185_3
-	b185_3 --> b185_5
+	b185_0 --> b185_3
+	b185_3 --> b185_6
+	b185_6 --> b185_5
 	b185_5 --> b185_8
 	b185_8 --> b185_9
 end
@@ -10837,8 +10837,8 @@ branch_176 --> block_179
 
 </pre>`;
 window.traces["I32_LOAD"]["scheduler_ssad"] = ''
-window.traces["I32_LOAD"]["scheduler_ssad"] += `<pre class=''>def arg__335 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__335 : byte = 0x40u8;
 def arg__333 : byte = 0;
 def arg__332 = u8.&(flags, arg__335);
 def cond__330 = u8.!=(arg__332, arg__333);
@@ -11129,8 +11129,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I32_LOAD"]["unlem_schedule"] = ''
-window.traces["I32_LOAD"]["unlem_schedule"] += `<pre class=''>def arg__335 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__335 : byte = 0x40u8;
 def arg__333 : byte = 0;
 def arg__332 = u8.&(flags, arg__335);
 def cond__330 = u8.!=(arg__332, arg__333);
@@ -11216,14 +11216,14 @@ block_196 --> branch_192
 subgraph block_196["Block 196"]
 	direction TB
 	b196_0[/"Start"\\]
-	b196_6["arg__335 0x40u8"]
 	b196_3["flags imm_readU8"]
+	b196_6["arg__335 0x40u8"]
 	b196_5["arg__333 0"]
 	b196_8["arg__332 u8.&"]
 	b196_9["cond__330 u8.!="]
-	b196_0 --> b196_6
-	b196_6 --> b196_3
-	b196_3 --> b196_5
+	b196_0 --> b196_3
+	b196_3 --> b196_6
+	b196_6 --> b196_5
 	b196_5 --> b196_8
 	b196_8 --> b196_9
 end
@@ -11254,8 +11254,8 @@ branch_187 --> block_190
 
 </pre>`;
 window.traces["I32_LOAD"]["unlem_scheduler_ssa"] = ''
-window.traces["I32_LOAD"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__335 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__335 : byte = 0x40u8;
 def arg__333 : byte = 0;
 def arg__332 = u8.&(flags, arg__335);
 def cond__330 = u8.!=(arg__332, arg__333);
@@ -11631,8 +11631,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I32_LOAD"]["scheduled"] = ''
-window.traces["I32_LOAD"]["scheduled"] += `<pre class=''>def arg__335 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__335 : byte = 0x40u8;
 def arg__333 : byte = 0;
 def arg__332 = u8.&(flags, arg__335);
 def cond__330 = u8.!=(arg__332, arg__333);
@@ -12148,14 +12148,14 @@ block_218 --> branch_214
 subgraph block_218["Block 218"]
 	direction TB
 	b218_0[/"Start"\\]
-	b218_6["arg__469 0x40u8"]
 	b218_3["flags imm_readU8"]
+	b218_6["arg__469 0x40u8"]
 	b218_5["arg__467 0"]
 	b218_8["arg__466 u8.&"]
 	b218_9["cond__464 u8.!="]
-	b218_0 --> b218_6
-	b218_6 --> b218_3
-	b218_3 --> b218_5
+	b218_0 --> b218_3
+	b218_3 --> b218_6
+	b218_6 --> b218_5
 	b218_5 --> b218_8
 	b218_8 --> b218_9
 end
@@ -12186,8 +12186,8 @@ branch_209 --> block_212
 
 </pre>`;
 window.traces["I64_LOAD"]["scheduler_ssad"] = ''
-window.traces["I64_LOAD"]["scheduler_ssad"] += `<pre class=''>def arg__469 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__469 : byte = 0x40u8;
 def arg__467 : byte = 0;
 def arg__466 = u8.&(flags, arg__469);
 def cond__464 = u8.!=(arg__466, arg__467);
@@ -12478,8 +12478,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I64_LOAD"]["unlem_schedule"] = ''
-window.traces["I64_LOAD"]["unlem_schedule"] += `<pre class=''>def arg__469 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__469 : byte = 0x40u8;
 def arg__467 : byte = 0;
 def arg__466 = u8.&(flags, arg__469);
 def cond__464 = u8.!=(arg__466, arg__467);
@@ -12565,14 +12565,14 @@ block_229 --> branch_225
 subgraph block_229["Block 229"]
 	direction TB
 	b229_0[/"Start"\\]
-	b229_6["arg__469 0x40u8"]
 	b229_3["flags imm_readU8"]
+	b229_6["arg__469 0x40u8"]
 	b229_5["arg__467 0"]
 	b229_8["arg__466 u8.&"]
 	b229_9["cond__464 u8.!="]
-	b229_0 --> b229_6
-	b229_6 --> b229_3
-	b229_3 --> b229_5
+	b229_0 --> b229_3
+	b229_3 --> b229_6
+	b229_6 --> b229_5
 	b229_5 --> b229_8
 	b229_8 --> b229_9
 end
@@ -12603,8 +12603,8 @@ branch_220 --> block_223
 
 </pre>`;
 window.traces["I64_LOAD"]["unlem_scheduler_ssa"] = ''
-window.traces["I64_LOAD"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__469 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__469 : byte = 0x40u8;
 def arg__467 : byte = 0;
 def arg__466 = u8.&(flags, arg__469);
 def cond__464 = u8.!=(arg__466, arg__467);
@@ -12980,8 +12980,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I64_LOAD"]["scheduled"] = ''
-window.traces["I64_LOAD"]["scheduled"] += `<pre class=''>def arg__469 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__469 : byte = 0x40u8;
 def arg__467 : byte = 0;
 def arg__466 = u8.&(flags, arg__469);
 def cond__464 = u8.!=(arg__466, arg__467);
@@ -13497,14 +13497,14 @@ block_251 --> branch_247
 subgraph block_251["Block 251"]
 	direction TB
 	b251_0[/"Start"\\]
-	b251_6["arg__603 0x40u8"]
 	b251_3["flags imm_readU8"]
+	b251_6["arg__603 0x40u8"]
 	b251_5["arg__601 0"]
 	b251_8["arg__600 u8.&"]
 	b251_9["cond__598 u8.!="]
-	b251_0 --> b251_6
-	b251_6 --> b251_3
-	b251_3 --> b251_5
+	b251_0 --> b251_3
+	b251_3 --> b251_6
+	b251_6 --> b251_5
 	b251_5 --> b251_8
 	b251_8 --> b251_9
 end
@@ -13535,8 +13535,8 @@ branch_242 --> block_245
 
 </pre>`;
 window.traces["F32_LOAD"]["scheduler_ssad"] = ''
-window.traces["F32_LOAD"]["scheduler_ssad"] += `<pre class=''>def arg__603 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F32_LOAD"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__603 : byte = 0x40u8;
 def arg__601 : byte = 0;
 def arg__600 = u8.&(flags, arg__603);
 def cond__598 = u8.!=(arg__600, arg__601);
@@ -13827,8 +13827,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["F32_LOAD"]["unlem_schedule"] = ''
-window.traces["F32_LOAD"]["unlem_schedule"] += `<pre class=''>def arg__603 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F32_LOAD"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__603 : byte = 0x40u8;
 def arg__601 : byte = 0;
 def arg__600 = u8.&(flags, arg__603);
 def cond__598 = u8.!=(arg__600, arg__601);
@@ -13914,14 +13914,14 @@ block_262 --> branch_258
 subgraph block_262["Block 262"]
 	direction TB
 	b262_0[/"Start"\\]
-	b262_6["arg__603 0x40u8"]
 	b262_3["flags imm_readU8"]
+	b262_6["arg__603 0x40u8"]
 	b262_5["arg__601 0"]
 	b262_8["arg__600 u8.&"]
 	b262_9["cond__598 u8.!="]
-	b262_0 --> b262_6
-	b262_6 --> b262_3
-	b262_3 --> b262_5
+	b262_0 --> b262_3
+	b262_3 --> b262_6
+	b262_6 --> b262_5
 	b262_5 --> b262_8
 	b262_8 --> b262_9
 end
@@ -13952,8 +13952,8 @@ branch_253 --> block_256
 
 </pre>`;
 window.traces["F32_LOAD"]["unlem_scheduler_ssa"] = ''
-window.traces["F32_LOAD"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__603 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F32_LOAD"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__603 : byte = 0x40u8;
 def arg__601 : byte = 0;
 def arg__600 = u8.&(flags, arg__603);
 def cond__598 = u8.!=(arg__600, arg__601);
@@ -14329,8 +14329,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["F32_LOAD"]["scheduled"] = ''
-window.traces["F32_LOAD"]["scheduled"] += `<pre class=''>def arg__603 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F32_LOAD"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__603 : byte = 0x40u8;
 def arg__601 : byte = 0;
 def arg__600 = u8.&(flags, arg__603);
 def cond__598 = u8.!=(arg__600, arg__601);
@@ -14846,14 +14846,14 @@ block_284 --> branch_280
 subgraph block_284["Block 284"]
 	direction TB
 	b284_0[/"Start"\\]
-	b284_6["arg__737 0x40u8"]
 	b284_3["flags imm_readU8"]
+	b284_6["arg__737 0x40u8"]
 	b284_5["arg__735 0"]
 	b284_8["arg__734 u8.&"]
 	b284_9["cond__732 u8.!="]
-	b284_0 --> b284_6
-	b284_6 --> b284_3
-	b284_3 --> b284_5
+	b284_0 --> b284_3
+	b284_3 --> b284_6
+	b284_6 --> b284_5
 	b284_5 --> b284_8
 	b284_8 --> b284_9
 end
@@ -14884,8 +14884,8 @@ branch_275 --> block_278
 
 </pre>`;
 window.traces["F64_LOAD"]["scheduler_ssad"] = ''
-window.traces["F64_LOAD"]["scheduler_ssad"] += `<pre class=''>def arg__737 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F64_LOAD"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__737 : byte = 0x40u8;
 def arg__735 : byte = 0;
 def arg__734 = u8.&(flags, arg__737);
 def cond__732 = u8.!=(arg__734, arg__735);
@@ -15176,8 +15176,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["F64_LOAD"]["unlem_schedule"] = ''
-window.traces["F64_LOAD"]["unlem_schedule"] += `<pre class=''>def arg__737 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F64_LOAD"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__737 : byte = 0x40u8;
 def arg__735 : byte = 0;
 def arg__734 = u8.&(flags, arg__737);
 def cond__732 = u8.!=(arg__734, arg__735);
@@ -15263,14 +15263,14 @@ block_295 --> branch_291
 subgraph block_295["Block 295"]
 	direction TB
 	b295_0[/"Start"\\]
-	b295_6["arg__737 0x40u8"]
 	b295_3["flags imm_readU8"]
+	b295_6["arg__737 0x40u8"]
 	b295_5["arg__735 0"]
 	b295_8["arg__734 u8.&"]
 	b295_9["cond__732 u8.!="]
-	b295_0 --> b295_6
-	b295_6 --> b295_3
-	b295_3 --> b295_5
+	b295_0 --> b295_3
+	b295_3 --> b295_6
+	b295_6 --> b295_5
 	b295_5 --> b295_8
 	b295_8 --> b295_9
 end
@@ -15301,8 +15301,8 @@ branch_286 --> block_289
 
 </pre>`;
 window.traces["F64_LOAD"]["unlem_scheduler_ssa"] = ''
-window.traces["F64_LOAD"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__737 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F64_LOAD"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__737 : byte = 0x40u8;
 def arg__735 : byte = 0;
 def arg__734 = u8.&(flags, arg__737);
 def cond__732 = u8.!=(arg__734, arg__735);
@@ -15678,8 +15678,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["F64_LOAD"]["scheduled"] = ''
-window.traces["F64_LOAD"]["scheduled"] += `<pre class=''>def arg__737 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F64_LOAD"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__737 : byte = 0x40u8;
 def arg__735 : byte = 0;
 def arg__734 = u8.&(flags, arg__737);
 def cond__732 = u8.!=(arg__734, arg__735);
@@ -16221,14 +16221,14 @@ block_317 --> branch_313
 subgraph block_317["Block 317"]
 	direction TB
 	b317_0[/"Start"\\]
-	b317_6["arg__873 0x40u8"]
 	b317_3["flags imm_readU8"]
+	b317_6["arg__873 0x40u8"]
 	b317_5["arg__871 0"]
 	b317_8["arg__870 u8.&"]
 	b317_9["cond__868 u8.!="]
-	b317_0 --> b317_6
-	b317_6 --> b317_3
-	b317_3 --> b317_5
+	b317_0 --> b317_3
+	b317_3 --> b317_6
+	b317_6 --> b317_5
 	b317_5 --> b317_8
 	b317_8 --> b317_9
 end
@@ -16261,8 +16261,8 @@ branch_308 --> block_311
 
 </pre>`;
 window.traces["I32_LOAD8_S"]["scheduler_ssad"] = ''
-window.traces["I32_LOAD8_S"]["scheduler_ssad"] += `<pre class=''>def arg__873 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD8_S"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__873 : byte = 0x40u8;
 def arg__871 : byte = 0;
 def arg__870 = u8.&(flags, arg__873);
 def cond__868 = u8.!=(arg__870, arg__871);
@@ -16569,8 +16569,8 @@ graph TD
 	55 -. Codeptr .-> 60
 </pre>`;
 window.traces["I32_LOAD8_S"]["unlem_schedule"] = ''
-window.traces["I32_LOAD8_S"]["unlem_schedule"] += `<pre class=''>def arg__873 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD8_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__873 : byte = 0x40u8;
 def arg__871 : byte = 0;
 def arg__870 = u8.&(flags, arg__873);
 def cond__868 = u8.!=(arg__870, arg__871);
@@ -16660,14 +16660,14 @@ block_328 --> branch_324
 subgraph block_328["Block 328"]
 	direction TB
 	b328_0[/"Start"\\]
-	b328_6["arg__873 0x40u8"]
 	b328_3["flags imm_readU8"]
+	b328_6["arg__873 0x40u8"]
 	b328_5["arg__871 0"]
 	b328_8["arg__870 u8.&"]
 	b328_9["cond__868 u8.!="]
-	b328_0 --> b328_6
-	b328_6 --> b328_3
-	b328_3 --> b328_5
+	b328_0 --> b328_3
+	b328_3 --> b328_6
+	b328_6 --> b328_5
 	b328_5 --> b328_8
 	b328_8 --> b328_9
 end
@@ -16700,8 +16700,8 @@ branch_319 --> block_322
 
 </pre>`;
 window.traces["I32_LOAD8_S"]["unlem_scheduler_ssa"] = ''
-window.traces["I32_LOAD8_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__873 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD8_S"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__873 : byte = 0x40u8;
 def arg__871 : byte = 0;
 def arg__870 = u8.&(flags, arg__873);
 def cond__868 = u8.!=(arg__870, arg__871);
@@ -17099,8 +17099,8 @@ graph TD
 	55 -. Codeptr .-> 60
 </pre>`;
 window.traces["I32_LOAD8_S"]["scheduled"] = ''
-window.traces["I32_LOAD8_S"]["scheduled"] += `<pre class=''>def arg__873 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD8_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__873 : byte = 0x40u8;
 def arg__871 : byte = 0;
 def arg__870 = u8.&(flags, arg__873);
 def cond__868 = u8.!=(arg__870, arg__871);
@@ -17620,14 +17620,14 @@ block_350 --> branch_346
 subgraph block_350["Block 350"]
 	direction TB
 	b350_0[/"Start"\\]
-	b350_6["arg__1013 0x40u8"]
 	b350_3["flags imm_readU8"]
+	b350_6["arg__1013 0x40u8"]
 	b350_5["arg__1011 0"]
 	b350_8["arg__1010 u8.&"]
 	b350_9["cond__1008 u8.!="]
-	b350_0 --> b350_6
-	b350_6 --> b350_3
-	b350_3 --> b350_5
+	b350_0 --> b350_3
+	b350_3 --> b350_6
+	b350_6 --> b350_5
 	b350_5 --> b350_8
 	b350_8 --> b350_9
 end
@@ -17658,8 +17658,8 @@ branch_341 --> block_344
 
 </pre>`;
 window.traces["I32_LOAD8_U"]["scheduler_ssad"] = ''
-window.traces["I32_LOAD8_U"]["scheduler_ssad"] += `<pre class=''>def arg__1013 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD8_U"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__1013 : byte = 0x40u8;
 def arg__1011 : byte = 0;
 def arg__1010 = u8.&(flags, arg__1013);
 def cond__1008 = u8.!=(arg__1010, arg__1011);
@@ -17950,8 +17950,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I32_LOAD8_U"]["unlem_schedule"] = ''
-window.traces["I32_LOAD8_U"]["unlem_schedule"] += `<pre class=''>def arg__1013 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD8_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__1013 : byte = 0x40u8;
 def arg__1011 : byte = 0;
 def arg__1010 = u8.&(flags, arg__1013);
 def cond__1008 = u8.!=(arg__1010, arg__1011);
@@ -18037,14 +18037,14 @@ block_361 --> branch_357
 subgraph block_361["Block 361"]
 	direction TB
 	b361_0[/"Start"\\]
-	b361_6["arg__1013 0x40u8"]
 	b361_3["flags imm_readU8"]
+	b361_6["arg__1013 0x40u8"]
 	b361_5["arg__1011 0"]
 	b361_8["arg__1010 u8.&"]
 	b361_9["cond__1008 u8.!="]
-	b361_0 --> b361_6
-	b361_6 --> b361_3
-	b361_3 --> b361_5
+	b361_0 --> b361_3
+	b361_3 --> b361_6
+	b361_6 --> b361_5
 	b361_5 --> b361_8
 	b361_8 --> b361_9
 end
@@ -18075,8 +18075,8 @@ branch_352 --> block_355
 
 </pre>`;
 window.traces["I32_LOAD8_U"]["unlem_scheduler_ssa"] = ''
-window.traces["I32_LOAD8_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1013 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD8_U"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__1013 : byte = 0x40u8;
 def arg__1011 : byte = 0;
 def arg__1010 = u8.&(flags, arg__1013);
 def cond__1008 = u8.!=(arg__1010, arg__1011);
@@ -18452,8 +18452,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I32_LOAD8_U"]["scheduled"] = ''
-window.traces["I32_LOAD8_U"]["scheduled"] += `<pre class=''>def arg__1013 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD8_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__1013 : byte = 0x40u8;
 def arg__1011 : byte = 0;
 def arg__1010 = u8.&(flags, arg__1013);
 def cond__1008 = u8.!=(arg__1010, arg__1011);
@@ -18995,14 +18995,14 @@ block_383 --> branch_379
 subgraph block_383["Block 383"]
 	direction TB
 	b383_0[/"Start"\\]
-	b383_6["arg__1149 0x40u8"]
 	b383_3["flags imm_readU8"]
+	b383_6["arg__1149 0x40u8"]
 	b383_5["arg__1147 0"]
 	b383_8["arg__1146 u8.&"]
 	b383_9["cond__1144 u8.!="]
-	b383_0 --> b383_6
-	b383_6 --> b383_3
-	b383_3 --> b383_5
+	b383_0 --> b383_3
+	b383_3 --> b383_6
+	b383_6 --> b383_5
 	b383_5 --> b383_8
 	b383_8 --> b383_9
 end
@@ -19035,8 +19035,8 @@ branch_374 --> block_377
 
 </pre>`;
 window.traces["I32_LOAD16_S"]["scheduler_ssad"] = ''
-window.traces["I32_LOAD16_S"]["scheduler_ssad"] += `<pre class=''>def arg__1149 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD16_S"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__1149 : byte = 0x40u8;
 def arg__1147 : byte = 0;
 def arg__1146 = u8.&(flags, arg__1149);
 def cond__1144 = u8.!=(arg__1146, arg__1147);
@@ -19343,8 +19343,8 @@ graph TD
 	55 -. Codeptr .-> 60
 </pre>`;
 window.traces["I32_LOAD16_S"]["unlem_schedule"] = ''
-window.traces["I32_LOAD16_S"]["unlem_schedule"] += `<pre class=''>def arg__1149 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD16_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__1149 : byte = 0x40u8;
 def arg__1147 : byte = 0;
 def arg__1146 = u8.&(flags, arg__1149);
 def cond__1144 = u8.!=(arg__1146, arg__1147);
@@ -19434,14 +19434,14 @@ block_394 --> branch_390
 subgraph block_394["Block 394"]
 	direction TB
 	b394_0[/"Start"\\]
-	b394_6["arg__1149 0x40u8"]
 	b394_3["flags imm_readU8"]
+	b394_6["arg__1149 0x40u8"]
 	b394_5["arg__1147 0"]
 	b394_8["arg__1146 u8.&"]
 	b394_9["cond__1144 u8.!="]
-	b394_0 --> b394_6
-	b394_6 --> b394_3
-	b394_3 --> b394_5
+	b394_0 --> b394_3
+	b394_3 --> b394_6
+	b394_6 --> b394_5
 	b394_5 --> b394_8
 	b394_8 --> b394_9
 end
@@ -19474,8 +19474,8 @@ branch_385 --> block_388
 
 </pre>`;
 window.traces["I32_LOAD16_S"]["unlem_scheduler_ssa"] = ''
-window.traces["I32_LOAD16_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1149 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD16_S"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__1149 : byte = 0x40u8;
 def arg__1147 : byte = 0;
 def arg__1146 = u8.&(flags, arg__1149);
 def cond__1144 = u8.!=(arg__1146, arg__1147);
@@ -19873,8 +19873,8 @@ graph TD
 	55 -. Codeptr .-> 60
 </pre>`;
 window.traces["I32_LOAD16_S"]["scheduled"] = ''
-window.traces["I32_LOAD16_S"]["scheduled"] += `<pre class=''>def arg__1149 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD16_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__1149 : byte = 0x40u8;
 def arg__1147 : byte = 0;
 def arg__1146 = u8.&(flags, arg__1149);
 def cond__1144 = u8.!=(arg__1146, arg__1147);
@@ -20394,14 +20394,14 @@ block_416 --> branch_412
 subgraph block_416["Block 416"]
 	direction TB
 	b416_0[/"Start"\\]
-	b416_6["arg__1289 0x40u8"]
 	b416_3["flags imm_readU8"]
+	b416_6["arg__1289 0x40u8"]
 	b416_5["arg__1287 0"]
 	b416_8["arg__1286 u8.&"]
 	b416_9["cond__1284 u8.!="]
-	b416_0 --> b416_6
-	b416_6 --> b416_3
-	b416_3 --> b416_5
+	b416_0 --> b416_3
+	b416_3 --> b416_6
+	b416_6 --> b416_5
 	b416_5 --> b416_8
 	b416_8 --> b416_9
 end
@@ -20432,8 +20432,8 @@ branch_407 --> block_410
 
 </pre>`;
 window.traces["I32_LOAD16_U"]["scheduler_ssad"] = ''
-window.traces["I32_LOAD16_U"]["scheduler_ssad"] += `<pre class=''>def arg__1289 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD16_U"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__1289 : byte = 0x40u8;
 def arg__1287 : byte = 0;
 def arg__1286 = u8.&(flags, arg__1289);
 def cond__1284 = u8.!=(arg__1286, arg__1287);
@@ -20724,8 +20724,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I32_LOAD16_U"]["unlem_schedule"] = ''
-window.traces["I32_LOAD16_U"]["unlem_schedule"] += `<pre class=''>def arg__1289 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD16_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__1289 : byte = 0x40u8;
 def arg__1287 : byte = 0;
 def arg__1286 = u8.&(flags, arg__1289);
 def cond__1284 = u8.!=(arg__1286, arg__1287);
@@ -20811,14 +20811,14 @@ block_427 --> branch_423
 subgraph block_427["Block 427"]
 	direction TB
 	b427_0[/"Start"\\]
-	b427_6["arg__1289 0x40u8"]
 	b427_3["flags imm_readU8"]
+	b427_6["arg__1289 0x40u8"]
 	b427_5["arg__1287 0"]
 	b427_8["arg__1286 u8.&"]
 	b427_9["cond__1284 u8.!="]
-	b427_0 --> b427_6
-	b427_6 --> b427_3
-	b427_3 --> b427_5
+	b427_0 --> b427_3
+	b427_3 --> b427_6
+	b427_6 --> b427_5
 	b427_5 --> b427_8
 	b427_8 --> b427_9
 end
@@ -20849,8 +20849,8 @@ branch_418 --> block_421
 
 </pre>`;
 window.traces["I32_LOAD16_U"]["unlem_scheduler_ssa"] = ''
-window.traces["I32_LOAD16_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1289 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD16_U"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__1289 : byte = 0x40u8;
 def arg__1287 : byte = 0;
 def arg__1286 = u8.&(flags, arg__1289);
 def cond__1284 = u8.!=(arg__1286, arg__1287);
@@ -21226,8 +21226,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I32_LOAD16_U"]["scheduled"] = ''
-window.traces["I32_LOAD16_U"]["scheduled"] += `<pre class=''>def arg__1289 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_LOAD16_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__1289 : byte = 0x40u8;
 def arg__1287 : byte = 0;
 def arg__1286 = u8.&(flags, arg__1289);
 def cond__1284 = u8.!=(arg__1286, arg__1287);
@@ -21769,14 +21769,14 @@ block_449 --> branch_445
 subgraph block_449["Block 449"]
 	direction TB
 	b449_0[/"Start"\\]
-	b449_6["arg__1425 0x40u8"]
 	b449_3["flags imm_readU8"]
+	b449_6["arg__1425 0x40u8"]
 	b449_5["arg__1423 0"]
 	b449_8["arg__1422 u8.&"]
 	b449_9["cond__1420 u8.!="]
-	b449_0 --> b449_6
-	b449_6 --> b449_3
-	b449_3 --> b449_5
+	b449_0 --> b449_3
+	b449_3 --> b449_6
+	b449_6 --> b449_5
 	b449_5 --> b449_8
 	b449_8 --> b449_9
 end
@@ -21809,8 +21809,8 @@ branch_440 --> block_443
 
 </pre>`;
 window.traces["I64_LOAD8_S"]["scheduler_ssad"] = ''
-window.traces["I64_LOAD8_S"]["scheduler_ssad"] += `<pre class=''>def arg__1425 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD8_S"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__1425 : byte = 0x40u8;
 def arg__1423 : byte = 0;
 def arg__1422 = u8.&(flags, arg__1425);
 def cond__1420 = u8.!=(arg__1422, arg__1423);
@@ -22117,8 +22117,8 @@ graph TD
 	55 -. Codeptr .-> 60
 </pre>`;
 window.traces["I64_LOAD8_S"]["unlem_schedule"] = ''
-window.traces["I64_LOAD8_S"]["unlem_schedule"] += `<pre class=''>def arg__1425 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD8_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__1425 : byte = 0x40u8;
 def arg__1423 : byte = 0;
 def arg__1422 = u8.&(flags, arg__1425);
 def cond__1420 = u8.!=(arg__1422, arg__1423);
@@ -22208,14 +22208,14 @@ block_460 --> branch_456
 subgraph block_460["Block 460"]
 	direction TB
 	b460_0[/"Start"\\]
-	b460_6["arg__1425 0x40u8"]
 	b460_3["flags imm_readU8"]
+	b460_6["arg__1425 0x40u8"]
 	b460_5["arg__1423 0"]
 	b460_8["arg__1422 u8.&"]
 	b460_9["cond__1420 u8.!="]
-	b460_0 --> b460_6
-	b460_6 --> b460_3
-	b460_3 --> b460_5
+	b460_0 --> b460_3
+	b460_3 --> b460_6
+	b460_6 --> b460_5
 	b460_5 --> b460_8
 	b460_8 --> b460_9
 end
@@ -22248,8 +22248,8 @@ branch_451 --> block_454
 
 </pre>`;
 window.traces["I64_LOAD8_S"]["unlem_scheduler_ssa"] = ''
-window.traces["I64_LOAD8_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1425 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD8_S"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__1425 : byte = 0x40u8;
 def arg__1423 : byte = 0;
 def arg__1422 = u8.&(flags, arg__1425);
 def cond__1420 = u8.!=(arg__1422, arg__1423);
@@ -22647,8 +22647,8 @@ graph TD
 	55 -. Codeptr .-> 60
 </pre>`;
 window.traces["I64_LOAD8_S"]["scheduled"] = ''
-window.traces["I64_LOAD8_S"]["scheduled"] += `<pre class=''>def arg__1425 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD8_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__1425 : byte = 0x40u8;
 def arg__1423 : byte = 0;
 def arg__1422 = u8.&(flags, arg__1425);
 def cond__1420 = u8.!=(arg__1422, arg__1423);
@@ -23168,14 +23168,14 @@ block_482 --> branch_478
 subgraph block_482["Block 482"]
 	direction TB
 	b482_0[/"Start"\\]
-	b482_6["arg__1565 0x40u8"]
 	b482_3["flags imm_readU8"]
+	b482_6["arg__1565 0x40u8"]
 	b482_5["arg__1563 0"]
 	b482_8["arg__1562 u8.&"]
 	b482_9["cond__1560 u8.!="]
-	b482_0 --> b482_6
-	b482_6 --> b482_3
-	b482_3 --> b482_5
+	b482_0 --> b482_3
+	b482_3 --> b482_6
+	b482_6 --> b482_5
 	b482_5 --> b482_8
 	b482_8 --> b482_9
 end
@@ -23206,8 +23206,8 @@ branch_473 --> block_476
 
 </pre>`;
 window.traces["I64_LOAD8_U"]["scheduler_ssad"] = ''
-window.traces["I64_LOAD8_U"]["scheduler_ssad"] += `<pre class=''>def arg__1565 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD8_U"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__1565 : byte = 0x40u8;
 def arg__1563 : byte = 0;
 def arg__1562 = u8.&(flags, arg__1565);
 def cond__1560 = u8.!=(arg__1562, arg__1563);
@@ -23498,8 +23498,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I64_LOAD8_U"]["unlem_schedule"] = ''
-window.traces["I64_LOAD8_U"]["unlem_schedule"] += `<pre class=''>def arg__1565 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD8_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__1565 : byte = 0x40u8;
 def arg__1563 : byte = 0;
 def arg__1562 = u8.&(flags, arg__1565);
 def cond__1560 = u8.!=(arg__1562, arg__1563);
@@ -23585,14 +23585,14 @@ block_493 --> branch_489
 subgraph block_493["Block 493"]
 	direction TB
 	b493_0[/"Start"\\]
-	b493_6["arg__1565 0x40u8"]
 	b493_3["flags imm_readU8"]
+	b493_6["arg__1565 0x40u8"]
 	b493_5["arg__1563 0"]
 	b493_8["arg__1562 u8.&"]
 	b493_9["cond__1560 u8.!="]
-	b493_0 --> b493_6
-	b493_6 --> b493_3
-	b493_3 --> b493_5
+	b493_0 --> b493_3
+	b493_3 --> b493_6
+	b493_6 --> b493_5
 	b493_5 --> b493_8
 	b493_8 --> b493_9
 end
@@ -23623,8 +23623,8 @@ branch_484 --> block_487
 
 </pre>`;
 window.traces["I64_LOAD8_U"]["unlem_scheduler_ssa"] = ''
-window.traces["I64_LOAD8_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1565 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD8_U"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__1565 : byte = 0x40u8;
 def arg__1563 : byte = 0;
 def arg__1562 = u8.&(flags, arg__1565);
 def cond__1560 = u8.!=(arg__1562, arg__1563);
@@ -24000,8 +24000,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I64_LOAD8_U"]["scheduled"] = ''
-window.traces["I64_LOAD8_U"]["scheduled"] += `<pre class=''>def arg__1565 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD8_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__1565 : byte = 0x40u8;
 def arg__1563 : byte = 0;
 def arg__1562 = u8.&(flags, arg__1565);
 def cond__1560 = u8.!=(arg__1562, arg__1563);
@@ -24543,14 +24543,14 @@ block_515 --> branch_511
 subgraph block_515["Block 515"]
 	direction TB
 	b515_0[/"Start"\\]
-	b515_6["arg__1701 0x40u8"]
 	b515_3["flags imm_readU8"]
+	b515_6["arg__1701 0x40u8"]
 	b515_5["arg__1699 0"]
 	b515_8["arg__1698 u8.&"]
 	b515_9["cond__1696 u8.!="]
-	b515_0 --> b515_6
-	b515_6 --> b515_3
-	b515_3 --> b515_5
+	b515_0 --> b515_3
+	b515_3 --> b515_6
+	b515_6 --> b515_5
 	b515_5 --> b515_8
 	b515_8 --> b515_9
 end
@@ -24583,8 +24583,8 @@ branch_506 --> block_509
 
 </pre>`;
 window.traces["I64_LOAD16_S"]["scheduler_ssad"] = ''
-window.traces["I64_LOAD16_S"]["scheduler_ssad"] += `<pre class=''>def arg__1701 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD16_S"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__1701 : byte = 0x40u8;
 def arg__1699 : byte = 0;
 def arg__1698 = u8.&(flags, arg__1701);
 def cond__1696 = u8.!=(arg__1698, arg__1699);
@@ -24891,8 +24891,8 @@ graph TD
 	55 -. Codeptr .-> 60
 </pre>`;
 window.traces["I64_LOAD16_S"]["unlem_schedule"] = ''
-window.traces["I64_LOAD16_S"]["unlem_schedule"] += `<pre class=''>def arg__1701 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD16_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__1701 : byte = 0x40u8;
 def arg__1699 : byte = 0;
 def arg__1698 = u8.&(flags, arg__1701);
 def cond__1696 = u8.!=(arg__1698, arg__1699);
@@ -24982,14 +24982,14 @@ block_526 --> branch_522
 subgraph block_526["Block 526"]
 	direction TB
 	b526_0[/"Start"\\]
-	b526_6["arg__1701 0x40u8"]
 	b526_3["flags imm_readU8"]
+	b526_6["arg__1701 0x40u8"]
 	b526_5["arg__1699 0"]
 	b526_8["arg__1698 u8.&"]
 	b526_9["cond__1696 u8.!="]
-	b526_0 --> b526_6
-	b526_6 --> b526_3
-	b526_3 --> b526_5
+	b526_0 --> b526_3
+	b526_3 --> b526_6
+	b526_6 --> b526_5
 	b526_5 --> b526_8
 	b526_8 --> b526_9
 end
@@ -25022,8 +25022,8 @@ branch_517 --> block_520
 
 </pre>`;
 window.traces["I64_LOAD16_S"]["unlem_scheduler_ssa"] = ''
-window.traces["I64_LOAD16_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1701 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD16_S"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__1701 : byte = 0x40u8;
 def arg__1699 : byte = 0;
 def arg__1698 = u8.&(flags, arg__1701);
 def cond__1696 = u8.!=(arg__1698, arg__1699);
@@ -25421,8 +25421,8 @@ graph TD
 	55 -. Codeptr .-> 60
 </pre>`;
 window.traces["I64_LOAD16_S"]["scheduled"] = ''
-window.traces["I64_LOAD16_S"]["scheduled"] += `<pre class=''>def arg__1701 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD16_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__1701 : byte = 0x40u8;
 def arg__1699 : byte = 0;
 def arg__1698 = u8.&(flags, arg__1701);
 def cond__1696 = u8.!=(arg__1698, arg__1699);
@@ -25942,14 +25942,14 @@ block_548 --> branch_544
 subgraph block_548["Block 548"]
 	direction TB
 	b548_0[/"Start"\\]
-	b548_6["arg__1841 0x40u8"]
 	b548_3["flags imm_readU8"]
+	b548_6["arg__1841 0x40u8"]
 	b548_5["arg__1839 0"]
 	b548_8["arg__1838 u8.&"]
 	b548_9["cond__1836 u8.!="]
-	b548_0 --> b548_6
-	b548_6 --> b548_3
-	b548_3 --> b548_5
+	b548_0 --> b548_3
+	b548_3 --> b548_6
+	b548_6 --> b548_5
 	b548_5 --> b548_8
 	b548_8 --> b548_9
 end
@@ -25980,8 +25980,8 @@ branch_539 --> block_542
 
 </pre>`;
 window.traces["I64_LOAD16_U"]["scheduler_ssad"] = ''
-window.traces["I64_LOAD16_U"]["scheduler_ssad"] += `<pre class=''>def arg__1841 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD16_U"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__1841 : byte = 0x40u8;
 def arg__1839 : byte = 0;
 def arg__1838 = u8.&(flags, arg__1841);
 def cond__1836 = u8.!=(arg__1838, arg__1839);
@@ -26272,8 +26272,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I64_LOAD16_U"]["unlem_schedule"] = ''
-window.traces["I64_LOAD16_U"]["unlem_schedule"] += `<pre class=''>def arg__1841 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD16_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__1841 : byte = 0x40u8;
 def arg__1839 : byte = 0;
 def arg__1838 = u8.&(flags, arg__1841);
 def cond__1836 = u8.!=(arg__1838, arg__1839);
@@ -26359,14 +26359,14 @@ block_559 --> branch_555
 subgraph block_559["Block 559"]
 	direction TB
 	b559_0[/"Start"\\]
-	b559_6["arg__1841 0x40u8"]
 	b559_3["flags imm_readU8"]
+	b559_6["arg__1841 0x40u8"]
 	b559_5["arg__1839 0"]
 	b559_8["arg__1838 u8.&"]
 	b559_9["cond__1836 u8.!="]
-	b559_0 --> b559_6
-	b559_6 --> b559_3
-	b559_3 --> b559_5
+	b559_0 --> b559_3
+	b559_3 --> b559_6
+	b559_6 --> b559_5
 	b559_5 --> b559_8
 	b559_8 --> b559_9
 end
@@ -26397,8 +26397,8 @@ branch_550 --> block_553
 
 </pre>`;
 window.traces["I64_LOAD16_U"]["unlem_scheduler_ssa"] = ''
-window.traces["I64_LOAD16_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1841 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD16_U"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__1841 : byte = 0x40u8;
 def arg__1839 : byte = 0;
 def arg__1838 = u8.&(flags, arg__1841);
 def cond__1836 = u8.!=(arg__1838, arg__1839);
@@ -26774,8 +26774,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I64_LOAD16_U"]["scheduled"] = ''
-window.traces["I64_LOAD16_U"]["scheduled"] += `<pre class=''>def arg__1841 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD16_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__1841 : byte = 0x40u8;
 def arg__1839 : byte = 0;
 def arg__1838 = u8.&(flags, arg__1841);
 def cond__1836 = u8.!=(arg__1838, arg__1839);
@@ -27317,14 +27317,14 @@ block_581 --> branch_577
 subgraph block_581["Block 581"]
 	direction TB
 	b581_0[/"Start"\\]
-	b581_6["arg__1977 0x40u8"]
 	b581_3["flags imm_readU8"]
+	b581_6["arg__1977 0x40u8"]
 	b581_5["arg__1975 0"]
 	b581_8["arg__1974 u8.&"]
 	b581_9["cond__1972 u8.!="]
-	b581_0 --> b581_6
-	b581_6 --> b581_3
-	b581_3 --> b581_5
+	b581_0 --> b581_3
+	b581_3 --> b581_6
+	b581_6 --> b581_5
 	b581_5 --> b581_8
 	b581_8 --> b581_9
 end
@@ -27357,8 +27357,8 @@ branch_572 --> block_575
 
 </pre>`;
 window.traces["I64_LOAD32_S"]["scheduler_ssad"] = ''
-window.traces["I64_LOAD32_S"]["scheduler_ssad"] += `<pre class=''>def arg__1977 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD32_S"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__1977 : byte = 0x40u8;
 def arg__1975 : byte = 0;
 def arg__1974 = u8.&(flags, arg__1977);
 def cond__1972 = u8.!=(arg__1974, arg__1975);
@@ -27665,8 +27665,8 @@ graph TD
 	55 -. Codeptr .-> 60
 </pre>`;
 window.traces["I64_LOAD32_S"]["unlem_schedule"] = ''
-window.traces["I64_LOAD32_S"]["unlem_schedule"] += `<pre class=''>def arg__1977 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD32_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__1977 : byte = 0x40u8;
 def arg__1975 : byte = 0;
 def arg__1974 = u8.&(flags, arg__1977);
 def cond__1972 = u8.!=(arg__1974, arg__1975);
@@ -27756,14 +27756,14 @@ block_592 --> branch_588
 subgraph block_592["Block 592"]
 	direction TB
 	b592_0[/"Start"\\]
-	b592_6["arg__1977 0x40u8"]
 	b592_3["flags imm_readU8"]
+	b592_6["arg__1977 0x40u8"]
 	b592_5["arg__1975 0"]
 	b592_8["arg__1974 u8.&"]
 	b592_9["cond__1972 u8.!="]
-	b592_0 --> b592_6
-	b592_6 --> b592_3
-	b592_3 --> b592_5
+	b592_0 --> b592_3
+	b592_3 --> b592_6
+	b592_6 --> b592_5
 	b592_5 --> b592_8
 	b592_8 --> b592_9
 end
@@ -27796,8 +27796,8 @@ branch_583 --> block_586
 
 </pre>`;
 window.traces["I64_LOAD32_S"]["unlem_scheduler_ssa"] = ''
-window.traces["I64_LOAD32_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__1977 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD32_S"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__1977 : byte = 0x40u8;
 def arg__1975 : byte = 0;
 def arg__1974 = u8.&(flags, arg__1977);
 def cond__1972 = u8.!=(arg__1974, arg__1975);
@@ -28195,8 +28195,8 @@ graph TD
 	55 -. Codeptr .-> 60
 </pre>`;
 window.traces["I64_LOAD32_S"]["scheduled"] = ''
-window.traces["I64_LOAD32_S"]["scheduled"] += `<pre class=''>def arg__1977 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD32_S"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__1977 : byte = 0x40u8;
 def arg__1975 : byte = 0;
 def arg__1974 = u8.&(flags, arg__1977);
 def cond__1972 = u8.!=(arg__1974, arg__1975);
@@ -28716,14 +28716,14 @@ block_614 --> branch_610
 subgraph block_614["Block 614"]
 	direction TB
 	b614_0[/"Start"\\]
-	b614_6["arg__2117 0x40u8"]
 	b614_3["flags imm_readU8"]
+	b614_6["arg__2117 0x40u8"]
 	b614_5["arg__2115 0"]
 	b614_8["arg__2114 u8.&"]
 	b614_9["cond__2112 u8.!="]
-	b614_0 --> b614_6
-	b614_6 --> b614_3
-	b614_3 --> b614_5
+	b614_0 --> b614_3
+	b614_3 --> b614_6
+	b614_6 --> b614_5
 	b614_5 --> b614_8
 	b614_8 --> b614_9
 end
@@ -28754,8 +28754,8 @@ branch_605 --> block_608
 
 </pre>`;
 window.traces["I64_LOAD32_U"]["scheduler_ssad"] = ''
-window.traces["I64_LOAD32_U"]["scheduler_ssad"] += `<pre class=''>def arg__2117 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD32_U"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__2117 : byte = 0x40u8;
 def arg__2115 : byte = 0;
 def arg__2114 = u8.&(flags, arg__2117);
 def cond__2112 = u8.!=(arg__2114, arg__2115);
@@ -29046,8 +29046,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I64_LOAD32_U"]["unlem_schedule"] = ''
-window.traces["I64_LOAD32_U"]["unlem_schedule"] += `<pre class=''>def arg__2117 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD32_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__2117 : byte = 0x40u8;
 def arg__2115 : byte = 0;
 def arg__2114 = u8.&(flags, arg__2117);
 def cond__2112 = u8.!=(arg__2114, arg__2115);
@@ -29133,14 +29133,14 @@ block_625 --> branch_621
 subgraph block_625["Block 625"]
 	direction TB
 	b625_0[/"Start"\\]
-	b625_6["arg__2117 0x40u8"]
 	b625_3["flags imm_readU8"]
+	b625_6["arg__2117 0x40u8"]
 	b625_5["arg__2115 0"]
 	b625_8["arg__2114 u8.&"]
 	b625_9["cond__2112 u8.!="]
-	b625_0 --> b625_6
-	b625_6 --> b625_3
-	b625_3 --> b625_5
+	b625_0 --> b625_3
+	b625_3 --> b625_6
+	b625_6 --> b625_5
 	b625_5 --> b625_8
 	b625_8 --> b625_9
 end
@@ -29171,8 +29171,8 @@ branch_616 --> block_619
 
 </pre>`;
 window.traces["I64_LOAD32_U"]["unlem_scheduler_ssa"] = ''
-window.traces["I64_LOAD32_U"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2117 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD32_U"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__2117 : byte = 0x40u8;
 def arg__2115 : byte = 0;
 def arg__2114 = u8.&(flags, arg__2117);
 def cond__2112 = u8.!=(arg__2114, arg__2115);
@@ -29548,8 +29548,8 @@ graph TD
 	51 -. Codeptr .-> 55
 </pre>`;
 window.traces["I64_LOAD32_U"]["scheduled"] = ''
-window.traces["I64_LOAD32_U"]["scheduled"] += `<pre class=''>def arg__2117 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_LOAD32_U"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__2117 : byte = 0x40u8;
 def arg__2115 : byte = 0;
 def arg__2114 = u8.&(flags, arg__2117);
 def cond__2112 = u8.!=(arg__2114, arg__2115);
@@ -30056,14 +30056,14 @@ block_640 --> phi_639
 block_641 --> phi_639
 subgraph block_640["Block 640"]
 	direction TB
-	b640_54["index__2271 pop_u64"]
 	b640_53["offset__2270 imm_readULEB64"]
+	b640_54["index__2271 pop_u64"]
 	b640_55["eff__2235__2272 mach_writeMemory64_u32"]
 	b640_58["mv_t__2258__2275 |True|  [m_isMemory64 [cond__2234]]"]
 	b640_57["mv_t__2256__2274 |True|  [m_isMemory64 [cond__2234]]"]
 	b640_56["mv_t__2254__2273 |True|  [m_isMemory64 [cond__2234]]"]
-	b640_54 --> b640_53
-	b640_53 --> b640_55
+	b640_53 --> b640_54
+	b640_54 --> b640_55
 	b640_55 --> b640_58
 	b640_58 --> b640_57
 	b640_57 --> b640_56
@@ -30104,14 +30104,14 @@ block_647 --> branch_643
 subgraph block_647["Block 647"]
 	direction TB
 	b647_0[/"Start"\\]
-	b647_6["arg__2251 0x40u8"]
 	b647_3["flags imm_readU8"]
+	b647_6["arg__2251 0x40u8"]
 	b647_5["arg__2249 0"]
 	b647_8["arg__2248 u8.&"]
 	b647_9["cond__2246 u8.!="]
-	b647_0 --> b647_6
-	b647_6 --> b647_3
-	b647_3 --> b647_5
+	b647_0 --> b647_3
+	b647_3 --> b647_6
+	b647_6 --> b647_5
 	b647_5 --> b647_8
 	b647_8 --> b647_9
 end
@@ -30126,14 +30126,14 @@ end
 branch_643 --> block_646
 subgraph block_641["Block 641"]
 	direction TB
-	b641_66["index__2283 pop_u32"]
 	b641_65["offset__2282 imm_readULEB32"]
+	b641_66["index__2283 pop_u32"]
 	b641_67["eff__2240__2284 mach_writeMemory32_u32"]
 	b641_70["mv_f__2259__2287 |False|  [m_isMemory64 [cond__2234]]"]
 	b641_69["mv_f__2257__2286 |False|  [m_isMemory64 [cond__2234]]"]
 	b641_68["mv_f__2255__2285 |False|  [m_isMemory64 [cond__2234]]"]
-	b641_66 --> b641_65
-	b641_65 --> b641_67
+	b641_65 --> b641_66
+	b641_66 --> b641_67
 	b641_67 --> b641_70
 	b641_70 --> b641_69
 	b641_69 --> b641_68
@@ -30142,8 +30142,8 @@ branch_638 --> block_641
 
 </pre>`;
 window.traces["I32_STORE"]["scheduler_ssad"] = ''
-window.traces["I32_STORE"]["scheduler_ssad"] += `<pre class=''>def arg__2251 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_STORE"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__2251 : byte = 0x40u8;
 def arg__2249 : byte = 0;
 def arg__2248 = u8.&(flags, arg__2251);
 def cond__2246 = u8.!=(arg__2248, arg__2249);
@@ -30157,12 +30157,12 @@ if (cond__2246) {
 def val = pop_u32();
 def cond__2234 = m_isMemory64(memindex);
 if (cond__2234) {
-	def index__2271 = pop_u64();
 	def offset__2270 = imm_readULEB64();
+	def index__2271 = pop_u64();
 	def eff__2235__2272 = mach_writeMemory64_u32(memindex, index__2271, offset__2270, val);
 } else {
-	def index__2283 = pop_u32();
 	def offset__2282 = imm_readULEB32();
+	def index__2283 = pop_u32();
 	def eff__2240__2284 = mach_writeMemory32_u32(memindex, index__2283, offset__2282, val);
 }
 // phis: 
@@ -30178,12 +30178,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u32();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u32(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u32(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -30459,8 +30459,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I32_STORE"]["unlem_schedule"] = ''
-window.traces["I32_STORE"]["unlem_schedule"] += `<pre class=''>def arg__2251 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_STORE"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__2251 : byte = 0x40u8;
 def arg__2249 : byte = 0;
 def arg__2248 = u8.&(flags, arg__2251);
 def cond__2246 = u8.!=(arg__2248, arg__2249);
@@ -30474,12 +30474,12 @@ if (cond__2246) {
 def val = pop_u32();
 def cond__2234 = m_isMemory64(memindex);
 if (cond__2234) {
-	def index__2311 = pop_u64();
 	def offset__2310 = imm_readULEB64();
+	def index__2311 = pop_u64();
 	def eff__2235__2312 = mach_writeMemory64_u32(memindex, index__2311, offset__2310, val);
 } else {
-	def index__2323 = pop_u32();
 	def offset__2322 = imm_readULEB32();
+	def index__2323 = pop_u32();
 	def eff__2240__2324 = mach_writeMemory32_u32(memindex, index__2323, offset__2322, val);
 }
 // phis: 
@@ -30500,14 +30500,14 @@ block_651 --> phi_650
 block_652 --> phi_650
 subgraph block_651["Block 651"]
 	direction TB
-	b651_54["index__2311 pop_u64"]
 	b651_53["offset__2310 imm_readULEB64"]
+	b651_54["index__2311 pop_u64"]
 	b651_55["eff__2235__2312 mach_writeMemory64_u32"]
 	b651_58["mv_t__2298__2315 |True|  [m_isMemory64 [cond__2234]]"]
 	b651_57["mv_t__2296__2314 |True|  [m_isMemory64 [cond__2234]]"]
 	b651_56["mv_t__2294__2313 |True|  [m_isMemory64 [cond__2234]]"]
-	b651_54 --> b651_53
-	b651_53 --> b651_55
+	b651_53 --> b651_54
+	b651_54 --> b651_55
 	b651_55 --> b651_58
 	b651_58 --> b651_57
 	b651_57 --> b651_56
@@ -30548,14 +30548,14 @@ block_658 --> branch_654
 subgraph block_658["Block 658"]
 	direction TB
 	b658_0[/"Start"\\]
-	b658_6["arg__2251 0x40u8"]
 	b658_3["flags imm_readU8"]
+	b658_6["arg__2251 0x40u8"]
 	b658_5["arg__2249 0"]
 	b658_8["arg__2248 u8.&"]
 	b658_9["cond__2246 u8.!="]
-	b658_0 --> b658_6
-	b658_6 --> b658_3
-	b658_3 --> b658_5
+	b658_0 --> b658_3
+	b658_3 --> b658_6
+	b658_6 --> b658_5
 	b658_5 --> b658_8
 	b658_8 --> b658_9
 end
@@ -30570,14 +30570,14 @@ end
 branch_654 --> block_657
 subgraph block_652["Block 652"]
 	direction TB
-	b652_66["index__2323 pop_u32"]
 	b652_65["offset__2322 imm_readULEB32"]
+	b652_66["index__2323 pop_u32"]
 	b652_67["eff__2240__2324 mach_writeMemory32_u32"]
 	b652_70["mv_f__2299__2327 |False|  [m_isMemory64 [cond__2234]]"]
 	b652_69["mv_f__2297__2326 |False|  [m_isMemory64 [cond__2234]]"]
 	b652_68["mv_f__2295__2325 |False|  [m_isMemory64 [cond__2234]]"]
-	b652_66 --> b652_65
-	b652_65 --> b652_67
+	b652_65 --> b652_66
+	b652_66 --> b652_67
 	b652_67 --> b652_70
 	b652_70 --> b652_69
 	b652_69 --> b652_68
@@ -30586,8 +30586,8 @@ branch_649 --> block_652
 
 </pre>`;
 window.traces["I32_STORE"]["unlem_scheduler_ssa"] = ''
-window.traces["I32_STORE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2251 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_STORE"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__2251 : byte = 0x40u8;
 def arg__2249 : byte = 0;
 def arg__2248 = u8.&(flags, arg__2251);
 def cond__2246 = u8.!=(arg__2248, arg__2249);
@@ -30601,12 +30601,12 @@ if (cond__2246) {
 def val = pop_u32();
 def cond__2234 = m_isMemory64(memindex);
 if (cond__2234) {
-	def index__2311 = pop_u64();
 	def offset__2310 = imm_readULEB64();
+	def index__2311 = pop_u64();
 	def eff__2235__2312 = mach_writeMemory64_u32(memindex, index__2311, offset__2310, val);
 } else {
-	def index__2323 = pop_u32();
 	def offset__2322 = imm_readULEB32();
+	def index__2323 = pop_u32();
 	def eff__2240__2324 = mach_writeMemory32_u32(memindex, index__2323, offset__2322, val);
 }
 // phis: 
@@ -30621,12 +30621,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u32();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u32(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u32(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -30641,12 +30641,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u32();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u32(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u32(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -30992,8 +30992,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I32_STORE"]["scheduled"] = ''
-window.traces["I32_STORE"]["scheduled"] += `<pre class=''>def arg__2251 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_STORE"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__2251 : byte = 0x40u8;
 def arg__2249 : byte = 0;
 def arg__2248 = u8.&(flags, arg__2251);
 def cond__2246 = u8.!=(arg__2248, arg__2249);
@@ -31007,12 +31007,12 @@ if (cond__2246) {
 def val = pop_u32();
 def cond__2234 = m_isMemory64(memindex);
 if (cond__2234) {
-	def index__2351 = pop_u64();
 	def offset__2350 = imm_readULEB64();
+	def index__2351 = pop_u64();
 	def eff__2235__2352 = mach_writeMemory64_u32(memindex, index__2351, offset__2350, val);
 } else {
-	def index__2363 = pop_u32();
 	def offset__2362 = imm_readULEB32();
+	def index__2363 = pop_u32();
 	def eff__2240__2364 = mach_writeMemory32_u32(memindex, index__2363, offset__2362, val);
 }
 // phis: 
@@ -31028,12 +31028,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u32();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u32(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u32(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -31498,14 +31498,14 @@ block_673 --> phi_672
 block_674 --> phi_672
 subgraph block_673["Block 673"]
 	direction TB
-	b673_54["index__2411 pop_u64"]
 	b673_53["offset__2410 imm_readULEB64"]
+	b673_54["index__2411 pop_u64"]
 	b673_55["eff__2375__2412 mach_writeMemory64_u64"]
 	b673_58["mv_t__2398__2415 |True|  [m_isMemory64 [cond__2374]]"]
 	b673_57["mv_t__2396__2414 |True|  [m_isMemory64 [cond__2374]]"]
 	b673_56["mv_t__2394__2413 |True|  [m_isMemory64 [cond__2374]]"]
-	b673_54 --> b673_53
-	b673_53 --> b673_55
+	b673_53 --> b673_54
+	b673_54 --> b673_55
 	b673_55 --> b673_58
 	b673_58 --> b673_57
 	b673_57 --> b673_56
@@ -31546,14 +31546,14 @@ block_680 --> branch_676
 subgraph block_680["Block 680"]
 	direction TB
 	b680_0[/"Start"\\]
-	b680_6["arg__2391 0x40u8"]
 	b680_3["flags imm_readU8"]
+	b680_6["arg__2391 0x40u8"]
 	b680_5["arg__2389 0"]
 	b680_8["arg__2388 u8.&"]
 	b680_9["cond__2386 u8.!="]
-	b680_0 --> b680_6
-	b680_6 --> b680_3
-	b680_3 --> b680_5
+	b680_0 --> b680_3
+	b680_3 --> b680_6
+	b680_6 --> b680_5
 	b680_5 --> b680_8
 	b680_8 --> b680_9
 end
@@ -31568,14 +31568,14 @@ end
 branch_676 --> block_679
 subgraph block_674["Block 674"]
 	direction TB
-	b674_66["index__2423 pop_u32"]
 	b674_65["offset__2422 imm_readULEB32"]
+	b674_66["index__2423 pop_u32"]
 	b674_67["eff__2380__2424 mach_writeMemory32_u64"]
 	b674_70["mv_f__2399__2427 |False|  [m_isMemory64 [cond__2374]]"]
 	b674_69["mv_f__2397__2426 |False|  [m_isMemory64 [cond__2374]]"]
 	b674_68["mv_f__2395__2425 |False|  [m_isMemory64 [cond__2374]]"]
-	b674_66 --> b674_65
-	b674_65 --> b674_67
+	b674_65 --> b674_66
+	b674_66 --> b674_67
 	b674_67 --> b674_70
 	b674_70 --> b674_69
 	b674_69 --> b674_68
@@ -31584,8 +31584,8 @@ branch_671 --> block_674
 
 </pre>`;
 window.traces["I64_STORE"]["scheduler_ssad"] = ''
-window.traces["I64_STORE"]["scheduler_ssad"] += `<pre class=''>def arg__2391 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__2391 : byte = 0x40u8;
 def arg__2389 : byte = 0;
 def arg__2388 = u8.&(flags, arg__2391);
 def cond__2386 = u8.!=(arg__2388, arg__2389);
@@ -31599,12 +31599,12 @@ if (cond__2386) {
 def val = pop_u64();
 def cond__2374 = m_isMemory64(memindex);
 if (cond__2374) {
-	def index__2411 = pop_u64();
 	def offset__2410 = imm_readULEB64();
+	def index__2411 = pop_u64();
 	def eff__2375__2412 = mach_writeMemory64_u64(memindex, index__2411, offset__2410, val);
 } else {
-	def index__2423 = pop_u32();
 	def offset__2422 = imm_readULEB32();
+	def index__2423 = pop_u32();
 	def eff__2380__2424 = mach_writeMemory32_u64(memindex, index__2423, offset__2422, val);
 }
 // phis: 
@@ -31620,12 +31620,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -31901,8 +31901,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I64_STORE"]["unlem_schedule"] = ''
-window.traces["I64_STORE"]["unlem_schedule"] += `<pre class=''>def arg__2391 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__2391 : byte = 0x40u8;
 def arg__2389 : byte = 0;
 def arg__2388 = u8.&(flags, arg__2391);
 def cond__2386 = u8.!=(arg__2388, arg__2389);
@@ -31916,12 +31916,12 @@ if (cond__2386) {
 def val = pop_u64();
 def cond__2374 = m_isMemory64(memindex);
 if (cond__2374) {
-	def index__2451 = pop_u64();
 	def offset__2450 = imm_readULEB64();
+	def index__2451 = pop_u64();
 	def eff__2375__2452 = mach_writeMemory64_u64(memindex, index__2451, offset__2450, val);
 } else {
-	def index__2463 = pop_u32();
 	def offset__2462 = imm_readULEB32();
+	def index__2463 = pop_u32();
 	def eff__2380__2464 = mach_writeMemory32_u64(memindex, index__2463, offset__2462, val);
 }
 // phis: 
@@ -31942,14 +31942,14 @@ block_684 --> phi_683
 block_685 --> phi_683
 subgraph block_684["Block 684"]
 	direction TB
-	b684_54["index__2451 pop_u64"]
 	b684_53["offset__2450 imm_readULEB64"]
+	b684_54["index__2451 pop_u64"]
 	b684_55["eff__2375__2452 mach_writeMemory64_u64"]
 	b684_58["mv_t__2438__2455 |True|  [m_isMemory64 [cond__2374]]"]
 	b684_57["mv_t__2436__2454 |True|  [m_isMemory64 [cond__2374]]"]
 	b684_56["mv_t__2434__2453 |True|  [m_isMemory64 [cond__2374]]"]
-	b684_54 --> b684_53
-	b684_53 --> b684_55
+	b684_53 --> b684_54
+	b684_54 --> b684_55
 	b684_55 --> b684_58
 	b684_58 --> b684_57
 	b684_57 --> b684_56
@@ -31990,14 +31990,14 @@ block_691 --> branch_687
 subgraph block_691["Block 691"]
 	direction TB
 	b691_0[/"Start"\\]
-	b691_6["arg__2391 0x40u8"]
 	b691_3["flags imm_readU8"]
+	b691_6["arg__2391 0x40u8"]
 	b691_5["arg__2389 0"]
 	b691_8["arg__2388 u8.&"]
 	b691_9["cond__2386 u8.!="]
-	b691_0 --> b691_6
-	b691_6 --> b691_3
-	b691_3 --> b691_5
+	b691_0 --> b691_3
+	b691_3 --> b691_6
+	b691_6 --> b691_5
 	b691_5 --> b691_8
 	b691_8 --> b691_9
 end
@@ -32012,14 +32012,14 @@ end
 branch_687 --> block_690
 subgraph block_685["Block 685"]
 	direction TB
-	b685_66["index__2463 pop_u32"]
 	b685_65["offset__2462 imm_readULEB32"]
+	b685_66["index__2463 pop_u32"]
 	b685_67["eff__2380__2464 mach_writeMemory32_u64"]
 	b685_70["mv_f__2439__2467 |False|  [m_isMemory64 [cond__2374]]"]
 	b685_69["mv_f__2437__2466 |False|  [m_isMemory64 [cond__2374]]"]
 	b685_68["mv_f__2435__2465 |False|  [m_isMemory64 [cond__2374]]"]
-	b685_66 --> b685_65
-	b685_65 --> b685_67
+	b685_65 --> b685_66
+	b685_66 --> b685_67
 	b685_67 --> b685_70
 	b685_70 --> b685_69
 	b685_69 --> b685_68
@@ -32028,8 +32028,8 @@ branch_682 --> block_685
 
 </pre>`;
 window.traces["I64_STORE"]["unlem_scheduler_ssa"] = ''
-window.traces["I64_STORE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2391 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__2391 : byte = 0x40u8;
 def arg__2389 : byte = 0;
 def arg__2388 = u8.&(flags, arg__2391);
 def cond__2386 = u8.!=(arg__2388, arg__2389);
@@ -32043,12 +32043,12 @@ if (cond__2386) {
 def val = pop_u64();
 def cond__2374 = m_isMemory64(memindex);
 if (cond__2374) {
-	def index__2451 = pop_u64();
 	def offset__2450 = imm_readULEB64();
+	def index__2451 = pop_u64();
 	def eff__2375__2452 = mach_writeMemory64_u64(memindex, index__2451, offset__2450, val);
 } else {
-	def index__2463 = pop_u32();
 	def offset__2462 = imm_readULEB32();
+	def index__2463 = pop_u32();
 	def eff__2380__2464 = mach_writeMemory32_u64(memindex, index__2463, offset__2462, val);
 }
 // phis: 
@@ -32063,12 +32063,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -32083,12 +32083,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -32434,8 +32434,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I64_STORE"]["scheduled"] = ''
-window.traces["I64_STORE"]["scheduled"] += `<pre class=''>def arg__2391 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__2391 : byte = 0x40u8;
 def arg__2389 : byte = 0;
 def arg__2388 = u8.&(flags, arg__2391);
 def cond__2386 = u8.!=(arg__2388, arg__2389);
@@ -32449,12 +32449,12 @@ if (cond__2386) {
 def val = pop_u64();
 def cond__2374 = m_isMemory64(memindex);
 if (cond__2374) {
-	def index__2491 = pop_u64();
 	def offset__2490 = imm_readULEB64();
+	def index__2491 = pop_u64();
 	def eff__2375__2492 = mach_writeMemory64_u64(memindex, index__2491, offset__2490, val);
 } else {
-	def index__2503 = pop_u32();
 	def offset__2502 = imm_readULEB32();
+	def index__2503 = pop_u32();
 	def eff__2380__2504 = mach_writeMemory32_u64(memindex, index__2503, offset__2502, val);
 }
 // phis: 
@@ -32470,12 +32470,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -32886,14 +32886,14 @@ block_713 --> branch_709
 subgraph block_713["Block 713"]
 	direction TB
 	b713_0[/"Start"\\]
-	b713_6["arg__2531 0x40u8"]
 	b713_3["flags imm_readU8"]
+	b713_6["arg__2531 0x40u8"]
 	b713_5["arg__2529 0"]
 	b713_8["arg__2528 u8.&"]
 	b713_9["cond__2526 u8.!="]
-	b713_0 --> b713_6
-	b713_6 --> b713_3
-	b713_3 --> b713_5
+	b713_0 --> b713_3
+	b713_3 --> b713_6
+	b713_6 --> b713_5
 	b713_5 --> b713_8
 	b713_8 --> b713_9
 end
@@ -32920,8 +32920,8 @@ branch_704 --> block_707
 
 </pre>`;
 window.traces["F32_STORE"]["scheduler_ssad"] = ''
-window.traces["F32_STORE"]["scheduler_ssad"] += `<pre class=''>def arg__2531 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F32_STORE"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__2531 : byte = 0x40u8;
 def arg__2529 : byte = 0;
 def arg__2528 = u8.&(flags, arg__2531);
 def cond__2526 = u8.!=(arg__2528, arg__2529);
@@ -33170,8 +33170,8 @@ graph TD
 	12 -. Codeptr .-> 50
 </pre>`;
 window.traces["F32_STORE"]["unlem_schedule"] = ''
-window.traces["F32_STORE"]["unlem_schedule"] += `<pre class=''>def arg__2531 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F32_STORE"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__2531 : byte = 0x40u8;
 def arg__2529 : byte = 0;
 def arg__2528 = u8.&(flags, arg__2531);
 def cond__2526 = u8.!=(arg__2528, arg__2529);
@@ -33252,14 +33252,14 @@ block_724 --> branch_720
 subgraph block_724["Block 724"]
 	direction TB
 	b724_0[/"Start"\\]
-	b724_6["arg__2531 0x40u8"]
 	b724_3["flags imm_readU8"]
+	b724_6["arg__2531 0x40u8"]
 	b724_5["arg__2529 0"]
 	b724_8["arg__2528 u8.&"]
 	b724_9["cond__2526 u8.!="]
-	b724_0 --> b724_6
-	b724_6 --> b724_3
-	b724_3 --> b724_5
+	b724_0 --> b724_3
+	b724_3 --> b724_6
+	b724_6 --> b724_5
 	b724_5 --> b724_8
 	b724_8 --> b724_9
 end
@@ -33286,8 +33286,8 @@ branch_715 --> block_718
 
 </pre>`;
 window.traces["F32_STORE"]["unlem_scheduler_ssa"] = ''
-window.traces["F32_STORE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2531 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F32_STORE"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__2531 : byte = 0x40u8;
 def arg__2529 : byte = 0;
 def arg__2528 = u8.&(flags, arg__2531);
 def cond__2526 = u8.!=(arg__2528, arg__2529);
@@ -33606,8 +33606,8 @@ graph TD
 	12 -. Codeptr .-> 50
 </pre>`;
 window.traces["F32_STORE"]["scheduled"] = ''
-window.traces["F32_STORE"]["scheduled"] += `<pre class=''>def arg__2531 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F32_STORE"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__2531 : byte = 0x40u8;
 def arg__2529 : byte = 0;
 def arg__2528 = u8.&(flags, arg__2531);
 def cond__2526 = u8.!=(arg__2528, arg__2529);
@@ -34108,14 +34108,14 @@ block_739 --> phi_738
 block_740 --> phi_738
 subgraph block_739["Block 739"]
 	direction TB
-	b739_54["index__2673 pop_u64"]
 	b739_53["offset__2672 imm_readULEB64"]
+	b739_54["index__2673 pop_u64"]
 	b739_55["eff__2637__2674 mach_writeMemory64_f64"]
 	b739_58["mv_t__2660__2677 |True|  [m_isMemory64 [cond__2636]]"]
 	b739_57["mv_t__2658__2676 |True|  [m_isMemory64 [cond__2636]]"]
 	b739_56["mv_t__2656__2675 |True|  [m_isMemory64 [cond__2636]]"]
-	b739_54 --> b739_53
-	b739_53 --> b739_55
+	b739_53 --> b739_54
+	b739_54 --> b739_55
 	b739_55 --> b739_58
 	b739_58 --> b739_57
 	b739_57 --> b739_56
@@ -34156,14 +34156,14 @@ block_746 --> branch_742
 subgraph block_746["Block 746"]
 	direction TB
 	b746_0[/"Start"\\]
-	b746_6["arg__2653 0x40u8"]
 	b746_3["flags imm_readU8"]
+	b746_6["arg__2653 0x40u8"]
 	b746_5["arg__2651 0"]
 	b746_8["arg__2650 u8.&"]
 	b746_9["cond__2648 u8.!="]
-	b746_0 --> b746_6
-	b746_6 --> b746_3
-	b746_3 --> b746_5
+	b746_0 --> b746_3
+	b746_3 --> b746_6
+	b746_6 --> b746_5
 	b746_5 --> b746_8
 	b746_8 --> b746_9
 end
@@ -34178,14 +34178,14 @@ end
 branch_742 --> block_745
 subgraph block_740["Block 740"]
 	direction TB
-	b740_66["index__2685 pop_u32"]
 	b740_65["offset__2684 imm_readULEB32"]
+	b740_66["index__2685 pop_u32"]
 	b740_67["eff__2642__2686 mach_writeMemory32_f64"]
 	b740_70["mv_f__2661__2689 |False|  [m_isMemory64 [cond__2636]]"]
 	b740_69["mv_f__2659__2688 |False|  [m_isMemory64 [cond__2636]]"]
 	b740_68["mv_f__2657__2687 |False|  [m_isMemory64 [cond__2636]]"]
-	b740_66 --> b740_65
-	b740_65 --> b740_67
+	b740_65 --> b740_66
+	b740_66 --> b740_67
 	b740_67 --> b740_70
 	b740_70 --> b740_69
 	b740_69 --> b740_68
@@ -34194,8 +34194,8 @@ branch_737 --> block_740
 
 </pre>`;
 window.traces["F64_STORE"]["scheduler_ssad"] = ''
-window.traces["F64_STORE"]["scheduler_ssad"] += `<pre class=''>def arg__2653 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F64_STORE"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__2653 : byte = 0x40u8;
 def arg__2651 : byte = 0;
 def arg__2650 = u8.&(flags, arg__2653);
 def cond__2648 = u8.!=(arg__2650, arg__2651);
@@ -34209,12 +34209,12 @@ if (cond__2648) {
 def val = pop_f64();
 def cond__2636 = m_isMemory64(memindex);
 if (cond__2636) {
-	def index__2673 = pop_u64();
 	def offset__2672 = imm_readULEB64();
+	def index__2673 = pop_u64();
 	def eff__2637__2674 = mach_writeMemory64_f64(memindex, index__2673, offset__2672, val);
 } else {
-	def index__2685 = pop_u32();
 	def offset__2684 = imm_readULEB32();
+	def index__2685 = pop_u32();
 	def eff__2642__2686 = mach_writeMemory32_f64(memindex, index__2685, offset__2684, val);
 }
 // phis: 
@@ -34230,12 +34230,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_f64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_f64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_f64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -34511,8 +34511,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["F64_STORE"]["unlem_schedule"] = ''
-window.traces["F64_STORE"]["unlem_schedule"] += `<pre class=''>def arg__2653 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F64_STORE"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__2653 : byte = 0x40u8;
 def arg__2651 : byte = 0;
 def arg__2650 = u8.&(flags, arg__2653);
 def cond__2648 = u8.!=(arg__2650, arg__2651);
@@ -34526,12 +34526,12 @@ if (cond__2648) {
 def val = pop_f64();
 def cond__2636 = m_isMemory64(memindex);
 if (cond__2636) {
-	def index__2713 = pop_u64();
 	def offset__2712 = imm_readULEB64();
+	def index__2713 = pop_u64();
 	def eff__2637__2714 = mach_writeMemory64_f64(memindex, index__2713, offset__2712, val);
 } else {
-	def index__2725 = pop_u32();
 	def offset__2724 = imm_readULEB32();
+	def index__2725 = pop_u32();
 	def eff__2642__2726 = mach_writeMemory32_f64(memindex, index__2725, offset__2724, val);
 }
 // phis: 
@@ -34552,14 +34552,14 @@ block_750 --> phi_749
 block_751 --> phi_749
 subgraph block_750["Block 750"]
 	direction TB
-	b750_54["index__2713 pop_u64"]
 	b750_53["offset__2712 imm_readULEB64"]
+	b750_54["index__2713 pop_u64"]
 	b750_55["eff__2637__2714 mach_writeMemory64_f64"]
 	b750_58["mv_t__2700__2717 |True|  [m_isMemory64 [cond__2636]]"]
 	b750_57["mv_t__2698__2716 |True|  [m_isMemory64 [cond__2636]]"]
 	b750_56["mv_t__2696__2715 |True|  [m_isMemory64 [cond__2636]]"]
-	b750_54 --> b750_53
-	b750_53 --> b750_55
+	b750_53 --> b750_54
+	b750_54 --> b750_55
 	b750_55 --> b750_58
 	b750_58 --> b750_57
 	b750_57 --> b750_56
@@ -34600,14 +34600,14 @@ block_757 --> branch_753
 subgraph block_757["Block 757"]
 	direction TB
 	b757_0[/"Start"\\]
-	b757_6["arg__2653 0x40u8"]
 	b757_3["flags imm_readU8"]
+	b757_6["arg__2653 0x40u8"]
 	b757_5["arg__2651 0"]
 	b757_8["arg__2650 u8.&"]
 	b757_9["cond__2648 u8.!="]
-	b757_0 --> b757_6
-	b757_6 --> b757_3
-	b757_3 --> b757_5
+	b757_0 --> b757_3
+	b757_3 --> b757_6
+	b757_6 --> b757_5
 	b757_5 --> b757_8
 	b757_8 --> b757_9
 end
@@ -34622,14 +34622,14 @@ end
 branch_753 --> block_756
 subgraph block_751["Block 751"]
 	direction TB
-	b751_66["index__2725 pop_u32"]
 	b751_65["offset__2724 imm_readULEB32"]
+	b751_66["index__2725 pop_u32"]
 	b751_67["eff__2642__2726 mach_writeMemory32_f64"]
 	b751_70["mv_f__2701__2729 |False|  [m_isMemory64 [cond__2636]]"]
 	b751_69["mv_f__2699__2728 |False|  [m_isMemory64 [cond__2636]]"]
 	b751_68["mv_f__2697__2727 |False|  [m_isMemory64 [cond__2636]]"]
-	b751_66 --> b751_65
-	b751_65 --> b751_67
+	b751_65 --> b751_66
+	b751_66 --> b751_67
 	b751_67 --> b751_70
 	b751_70 --> b751_69
 	b751_69 --> b751_68
@@ -34638,8 +34638,8 @@ branch_748 --> block_751
 
 </pre>`;
 window.traces["F64_STORE"]["unlem_scheduler_ssa"] = ''
-window.traces["F64_STORE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2653 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F64_STORE"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__2653 : byte = 0x40u8;
 def arg__2651 : byte = 0;
 def arg__2650 = u8.&(flags, arg__2653);
 def cond__2648 = u8.!=(arg__2650, arg__2651);
@@ -34653,12 +34653,12 @@ if (cond__2648) {
 def val = pop_f64();
 def cond__2636 = m_isMemory64(memindex);
 if (cond__2636) {
-	def index__2713 = pop_u64();
 	def offset__2712 = imm_readULEB64();
+	def index__2713 = pop_u64();
 	def eff__2637__2714 = mach_writeMemory64_f64(memindex, index__2713, offset__2712, val);
 } else {
-	def index__2725 = pop_u32();
 	def offset__2724 = imm_readULEB32();
+	def index__2725 = pop_u32();
 	def eff__2642__2726 = mach_writeMemory32_f64(memindex, index__2725, offset__2724, val);
 }
 // phis: 
@@ -34673,12 +34673,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_f64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_f64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_f64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -34693,12 +34693,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_f64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_f64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_f64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -35044,8 +35044,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["F64_STORE"]["scheduled"] = ''
-window.traces["F64_STORE"]["scheduled"] += `<pre class=''>def arg__2653 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["F64_STORE"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__2653 : byte = 0x40u8;
 def arg__2651 : byte = 0;
 def arg__2650 = u8.&(flags, arg__2653);
 def cond__2648 = u8.!=(arg__2650, arg__2651);
@@ -35059,12 +35059,12 @@ if (cond__2648) {
 def val = pop_f64();
 def cond__2636 = m_isMemory64(memindex);
 if (cond__2636) {
-	def index__2753 = pop_u64();
 	def offset__2752 = imm_readULEB64();
+	def index__2753 = pop_u64();
 	def eff__2637__2754 = mach_writeMemory64_f64(memindex, index__2753, offset__2752, val);
 } else {
-	def index__2765 = pop_u32();
 	def offset__2764 = imm_readULEB32();
+	def index__2765 = pop_u32();
 	def eff__2642__2766 = mach_writeMemory32_f64(memindex, index__2765, offset__2764, val);
 }
 // phis: 
@@ -35080,12 +35080,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_f64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_f64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_f64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -35550,14 +35550,14 @@ block_772 --> phi_771
 block_773 --> phi_771
 subgraph block_772["Block 772"]
 	direction TB
-	b772_54["index__2813 pop_u64"]
 	b772_53["offset__2812 imm_readULEB64"]
+	b772_54["index__2813 pop_u64"]
 	b772_55["eff__2777__2814 mach_writeMemory64_u8"]
 	b772_58["mv_t__2800__2817 |True|  [m_isMemory64 [cond__2776]]"]
 	b772_57["mv_t__2798__2816 |True|  [m_isMemory64 [cond__2776]]"]
 	b772_56["mv_t__2796__2815 |True|  [m_isMemory64 [cond__2776]]"]
-	b772_54 --> b772_53
-	b772_53 --> b772_55
+	b772_53 --> b772_54
+	b772_54 --> b772_55
 	b772_55 --> b772_58
 	b772_58 --> b772_57
 	b772_57 --> b772_56
@@ -35598,14 +35598,14 @@ block_779 --> branch_775
 subgraph block_779["Block 779"]
 	direction TB
 	b779_0[/"Start"\\]
-	b779_6["arg__2793 0x40u8"]
 	b779_3["flags imm_readU8"]
+	b779_6["arg__2793 0x40u8"]
 	b779_5["arg__2791 0"]
 	b779_8["arg__2790 u8.&"]
 	b779_9["cond__2788 u8.!="]
-	b779_0 --> b779_6
-	b779_6 --> b779_3
-	b779_3 --> b779_5
+	b779_0 --> b779_3
+	b779_3 --> b779_6
+	b779_6 --> b779_5
 	b779_5 --> b779_8
 	b779_8 --> b779_9
 end
@@ -35620,14 +35620,14 @@ end
 branch_775 --> block_778
 subgraph block_773["Block 773"]
 	direction TB
-	b773_66["index__2825 pop_u32"]
 	b773_65["offset__2824 imm_readULEB32"]
+	b773_66["index__2825 pop_u32"]
 	b773_67["eff__2782__2826 mach_writeMemory32_u8"]
 	b773_70["mv_f__2801__2829 |False|  [m_isMemory64 [cond__2776]]"]
 	b773_69["mv_f__2799__2828 |False|  [m_isMemory64 [cond__2776]]"]
 	b773_68["mv_f__2797__2827 |False|  [m_isMemory64 [cond__2776]]"]
-	b773_66 --> b773_65
-	b773_65 --> b773_67
+	b773_65 --> b773_66
+	b773_66 --> b773_67
 	b773_67 --> b773_70
 	b773_70 --> b773_69
 	b773_69 --> b773_68
@@ -35636,8 +35636,8 @@ branch_770 --> block_773
 
 </pre>`;
 window.traces["I32_STORE8"]["scheduler_ssad"] = ''
-window.traces["I32_STORE8"]["scheduler_ssad"] += `<pre class=''>def arg__2793 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_STORE8"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__2793 : byte = 0x40u8;
 def arg__2791 : byte = 0;
 def arg__2790 = u8.&(flags, arg__2793);
 def cond__2788 = u8.!=(arg__2790, arg__2791);
@@ -35651,12 +35651,12 @@ if (cond__2788) {
 def val = pop_u32();
 def cond__2776 = m_isMemory64(memindex);
 if (cond__2776) {
-	def index__2813 = pop_u64();
 	def offset__2812 = imm_readULEB64();
+	def index__2813 = pop_u64();
 	def eff__2777__2814 = mach_writeMemory64_u8(memindex, index__2813, offset__2812, val);
 } else {
-	def index__2825 = pop_u32();
 	def offset__2824 = imm_readULEB32();
+	def index__2825 = pop_u32();
 	def eff__2782__2826 = mach_writeMemory32_u8(memindex, index__2825, offset__2824, val);
 }
 // phis: 
@@ -35672,12 +35672,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u32();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u8(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u8(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -35953,8 +35953,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I32_STORE8"]["unlem_schedule"] = ''
-window.traces["I32_STORE8"]["unlem_schedule"] += `<pre class=''>def arg__2793 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_STORE8"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__2793 : byte = 0x40u8;
 def arg__2791 : byte = 0;
 def arg__2790 = u8.&(flags, arg__2793);
 def cond__2788 = u8.!=(arg__2790, arg__2791);
@@ -35968,12 +35968,12 @@ if (cond__2788) {
 def val = pop_u32();
 def cond__2776 = m_isMemory64(memindex);
 if (cond__2776) {
-	def index__2853 = pop_u64();
 	def offset__2852 = imm_readULEB64();
+	def index__2853 = pop_u64();
 	def eff__2777__2854 = mach_writeMemory64_u8(memindex, index__2853, offset__2852, val);
 } else {
-	def index__2865 = pop_u32();
 	def offset__2864 = imm_readULEB32();
+	def index__2865 = pop_u32();
 	def eff__2782__2866 = mach_writeMemory32_u8(memindex, index__2865, offset__2864, val);
 }
 // phis: 
@@ -35994,14 +35994,14 @@ block_783 --> phi_782
 block_784 --> phi_782
 subgraph block_783["Block 783"]
 	direction TB
-	b783_54["index__2853 pop_u64"]
 	b783_53["offset__2852 imm_readULEB64"]
+	b783_54["index__2853 pop_u64"]
 	b783_55["eff__2777__2854 mach_writeMemory64_u8"]
 	b783_58["mv_t__2840__2857 |True|  [m_isMemory64 [cond__2776]]"]
 	b783_57["mv_t__2838__2856 |True|  [m_isMemory64 [cond__2776]]"]
 	b783_56["mv_t__2836__2855 |True|  [m_isMemory64 [cond__2776]]"]
-	b783_54 --> b783_53
-	b783_53 --> b783_55
+	b783_53 --> b783_54
+	b783_54 --> b783_55
 	b783_55 --> b783_58
 	b783_58 --> b783_57
 	b783_57 --> b783_56
@@ -36042,14 +36042,14 @@ block_790 --> branch_786
 subgraph block_790["Block 790"]
 	direction TB
 	b790_0[/"Start"\\]
-	b790_6["arg__2793 0x40u8"]
 	b790_3["flags imm_readU8"]
+	b790_6["arg__2793 0x40u8"]
 	b790_5["arg__2791 0"]
 	b790_8["arg__2790 u8.&"]
 	b790_9["cond__2788 u8.!="]
-	b790_0 --> b790_6
-	b790_6 --> b790_3
-	b790_3 --> b790_5
+	b790_0 --> b790_3
+	b790_3 --> b790_6
+	b790_6 --> b790_5
 	b790_5 --> b790_8
 	b790_8 --> b790_9
 end
@@ -36064,14 +36064,14 @@ end
 branch_786 --> block_789
 subgraph block_784["Block 784"]
 	direction TB
-	b784_66["index__2865 pop_u32"]
 	b784_65["offset__2864 imm_readULEB32"]
+	b784_66["index__2865 pop_u32"]
 	b784_67["eff__2782__2866 mach_writeMemory32_u8"]
 	b784_70["mv_f__2841__2869 |False|  [m_isMemory64 [cond__2776]]"]
 	b784_69["mv_f__2839__2868 |False|  [m_isMemory64 [cond__2776]]"]
 	b784_68["mv_f__2837__2867 |False|  [m_isMemory64 [cond__2776]]"]
-	b784_66 --> b784_65
-	b784_65 --> b784_67
+	b784_65 --> b784_66
+	b784_66 --> b784_67
 	b784_67 --> b784_70
 	b784_70 --> b784_69
 	b784_69 --> b784_68
@@ -36080,8 +36080,8 @@ branch_781 --> block_784
 
 </pre>`;
 window.traces["I32_STORE8"]["unlem_scheduler_ssa"] = ''
-window.traces["I32_STORE8"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2793 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_STORE8"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__2793 : byte = 0x40u8;
 def arg__2791 : byte = 0;
 def arg__2790 = u8.&(flags, arg__2793);
 def cond__2788 = u8.!=(arg__2790, arg__2791);
@@ -36095,12 +36095,12 @@ if (cond__2788) {
 def val = pop_u32();
 def cond__2776 = m_isMemory64(memindex);
 if (cond__2776) {
-	def index__2853 = pop_u64();
 	def offset__2852 = imm_readULEB64();
+	def index__2853 = pop_u64();
 	def eff__2777__2854 = mach_writeMemory64_u8(memindex, index__2853, offset__2852, val);
 } else {
-	def index__2865 = pop_u32();
 	def offset__2864 = imm_readULEB32();
+	def index__2865 = pop_u32();
 	def eff__2782__2866 = mach_writeMemory32_u8(memindex, index__2865, offset__2864, val);
 }
 // phis: 
@@ -36115,12 +36115,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u32();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u8(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u8(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -36135,12 +36135,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u32();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u8(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u8(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -36486,8 +36486,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I32_STORE8"]["scheduled"] = ''
-window.traces["I32_STORE8"]["scheduled"] += `<pre class=''>def arg__2793 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_STORE8"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__2793 : byte = 0x40u8;
 def arg__2791 : byte = 0;
 def arg__2790 = u8.&(flags, arg__2793);
 def cond__2788 = u8.!=(arg__2790, arg__2791);
@@ -36501,12 +36501,12 @@ if (cond__2788) {
 def val = pop_u32();
 def cond__2776 = m_isMemory64(memindex);
 if (cond__2776) {
-	def index__2893 = pop_u64();
 	def offset__2892 = imm_readULEB64();
+	def index__2893 = pop_u64();
 	def eff__2777__2894 = mach_writeMemory64_u8(memindex, index__2893, offset__2892, val);
 } else {
-	def index__2905 = pop_u32();
 	def offset__2904 = imm_readULEB32();
+	def index__2905 = pop_u32();
 	def eff__2782__2906 = mach_writeMemory32_u8(memindex, index__2905, offset__2904, val);
 }
 // phis: 
@@ -36522,12 +36522,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u32();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u8(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u8(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -36992,14 +36992,14 @@ block_805 --> phi_804
 block_806 --> phi_804
 subgraph block_805["Block 805"]
 	direction TB
-	b805_54["index__2953 pop_u64"]
 	b805_53["offset__2952 imm_readULEB64"]
+	b805_54["index__2953 pop_u64"]
 	b805_55["eff__2917__2954 mach_writeMemory64_u16"]
 	b805_58["mv_t__2940__2957 |True|  [m_isMemory64 [cond__2916]]"]
 	b805_57["mv_t__2938__2956 |True|  [m_isMemory64 [cond__2916]]"]
 	b805_56["mv_t__2936__2955 |True|  [m_isMemory64 [cond__2916]]"]
-	b805_54 --> b805_53
-	b805_53 --> b805_55
+	b805_53 --> b805_54
+	b805_54 --> b805_55
 	b805_55 --> b805_58
 	b805_58 --> b805_57
 	b805_57 --> b805_56
@@ -37040,14 +37040,14 @@ block_812 --> branch_808
 subgraph block_812["Block 812"]
 	direction TB
 	b812_0[/"Start"\\]
-	b812_6["arg__2933 0x40u8"]
 	b812_3["flags imm_readU8"]
+	b812_6["arg__2933 0x40u8"]
 	b812_5["arg__2931 0"]
 	b812_8["arg__2930 u8.&"]
 	b812_9["cond__2928 u8.!="]
-	b812_0 --> b812_6
-	b812_6 --> b812_3
-	b812_3 --> b812_5
+	b812_0 --> b812_3
+	b812_3 --> b812_6
+	b812_6 --> b812_5
 	b812_5 --> b812_8
 	b812_8 --> b812_9
 end
@@ -37062,14 +37062,14 @@ end
 branch_808 --> block_811
 subgraph block_806["Block 806"]
 	direction TB
-	b806_66["index__2965 pop_u32"]
 	b806_65["offset__2964 imm_readULEB32"]
+	b806_66["index__2965 pop_u32"]
 	b806_67["eff__2922__2966 mach_writeMemory32_u16"]
 	b806_70["mv_f__2941__2969 |False|  [m_isMemory64 [cond__2916]]"]
 	b806_69["mv_f__2939__2968 |False|  [m_isMemory64 [cond__2916]]"]
 	b806_68["mv_f__2937__2967 |False|  [m_isMemory64 [cond__2916]]"]
-	b806_66 --> b806_65
-	b806_65 --> b806_67
+	b806_65 --> b806_66
+	b806_66 --> b806_67
 	b806_67 --> b806_70
 	b806_70 --> b806_69
 	b806_69 --> b806_68
@@ -37078,8 +37078,8 @@ branch_803 --> block_806
 
 </pre>`;
 window.traces["I32_STORE16"]["scheduler_ssad"] = ''
-window.traces["I32_STORE16"]["scheduler_ssad"] += `<pre class=''>def arg__2933 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_STORE16"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__2933 : byte = 0x40u8;
 def arg__2931 : byte = 0;
 def arg__2930 = u8.&(flags, arg__2933);
 def cond__2928 = u8.!=(arg__2930, arg__2931);
@@ -37093,12 +37093,12 @@ if (cond__2928) {
 def val = pop_u32();
 def cond__2916 = m_isMemory64(memindex);
 if (cond__2916) {
-	def index__2953 = pop_u64();
 	def offset__2952 = imm_readULEB64();
+	def index__2953 = pop_u64();
 	def eff__2917__2954 = mach_writeMemory64_u16(memindex, index__2953, offset__2952, val);
 } else {
-	def index__2965 = pop_u32();
 	def offset__2964 = imm_readULEB32();
+	def index__2965 = pop_u32();
 	def eff__2922__2966 = mach_writeMemory32_u16(memindex, index__2965, offset__2964, val);
 }
 // phis: 
@@ -37114,12 +37114,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u32();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u16(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u16(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -37395,8 +37395,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I32_STORE16"]["unlem_schedule"] = ''
-window.traces["I32_STORE16"]["unlem_schedule"] += `<pre class=''>def arg__2933 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_STORE16"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__2933 : byte = 0x40u8;
 def arg__2931 : byte = 0;
 def arg__2930 = u8.&(flags, arg__2933);
 def cond__2928 = u8.!=(arg__2930, arg__2931);
@@ -37410,12 +37410,12 @@ if (cond__2928) {
 def val = pop_u32();
 def cond__2916 = m_isMemory64(memindex);
 if (cond__2916) {
-	def index__2993 = pop_u64();
 	def offset__2992 = imm_readULEB64();
+	def index__2993 = pop_u64();
 	def eff__2917__2994 = mach_writeMemory64_u16(memindex, index__2993, offset__2992, val);
 } else {
-	def index__3005 = pop_u32();
 	def offset__3004 = imm_readULEB32();
+	def index__3005 = pop_u32();
 	def eff__2922__3006 = mach_writeMemory32_u16(memindex, index__3005, offset__3004, val);
 }
 // phis: 
@@ -37436,14 +37436,14 @@ block_816 --> phi_815
 block_817 --> phi_815
 subgraph block_816["Block 816"]
 	direction TB
-	b816_54["index__2993 pop_u64"]
 	b816_53["offset__2992 imm_readULEB64"]
+	b816_54["index__2993 pop_u64"]
 	b816_55["eff__2917__2994 mach_writeMemory64_u16"]
 	b816_58["mv_t__2980__2997 |True|  [m_isMemory64 [cond__2916]]"]
 	b816_57["mv_t__2978__2996 |True|  [m_isMemory64 [cond__2916]]"]
 	b816_56["mv_t__2976__2995 |True|  [m_isMemory64 [cond__2916]]"]
-	b816_54 --> b816_53
-	b816_53 --> b816_55
+	b816_53 --> b816_54
+	b816_54 --> b816_55
 	b816_55 --> b816_58
 	b816_58 --> b816_57
 	b816_57 --> b816_56
@@ -37484,14 +37484,14 @@ block_823 --> branch_819
 subgraph block_823["Block 823"]
 	direction TB
 	b823_0[/"Start"\\]
-	b823_6["arg__2933 0x40u8"]
 	b823_3["flags imm_readU8"]
+	b823_6["arg__2933 0x40u8"]
 	b823_5["arg__2931 0"]
 	b823_8["arg__2930 u8.&"]
 	b823_9["cond__2928 u8.!="]
-	b823_0 --> b823_6
-	b823_6 --> b823_3
-	b823_3 --> b823_5
+	b823_0 --> b823_3
+	b823_3 --> b823_6
+	b823_6 --> b823_5
 	b823_5 --> b823_8
 	b823_8 --> b823_9
 end
@@ -37506,14 +37506,14 @@ end
 branch_819 --> block_822
 subgraph block_817["Block 817"]
 	direction TB
-	b817_66["index__3005 pop_u32"]
 	b817_65["offset__3004 imm_readULEB32"]
+	b817_66["index__3005 pop_u32"]
 	b817_67["eff__2922__3006 mach_writeMemory32_u16"]
 	b817_70["mv_f__2981__3009 |False|  [m_isMemory64 [cond__2916]]"]
 	b817_69["mv_f__2979__3008 |False|  [m_isMemory64 [cond__2916]]"]
 	b817_68["mv_f__2977__3007 |False|  [m_isMemory64 [cond__2916]]"]
-	b817_66 --> b817_65
-	b817_65 --> b817_67
+	b817_65 --> b817_66
+	b817_66 --> b817_67
 	b817_67 --> b817_70
 	b817_70 --> b817_69
 	b817_69 --> b817_68
@@ -37522,8 +37522,8 @@ branch_814 --> block_817
 
 </pre>`;
 window.traces["I32_STORE16"]["unlem_scheduler_ssa"] = ''
-window.traces["I32_STORE16"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__2933 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_STORE16"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__2933 : byte = 0x40u8;
 def arg__2931 : byte = 0;
 def arg__2930 = u8.&(flags, arg__2933);
 def cond__2928 = u8.!=(arg__2930, arg__2931);
@@ -37537,12 +37537,12 @@ if (cond__2928) {
 def val = pop_u32();
 def cond__2916 = m_isMemory64(memindex);
 if (cond__2916) {
-	def index__2993 = pop_u64();
 	def offset__2992 = imm_readULEB64();
+	def index__2993 = pop_u64();
 	def eff__2917__2994 = mach_writeMemory64_u16(memindex, index__2993, offset__2992, val);
 } else {
-	def index__3005 = pop_u32();
 	def offset__3004 = imm_readULEB32();
+	def index__3005 = pop_u32();
 	def eff__2922__3006 = mach_writeMemory32_u16(memindex, index__3005, offset__3004, val);
 }
 // phis: 
@@ -37557,12 +37557,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u32();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u16(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u16(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -37577,12 +37577,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u32();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u16(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u16(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -37928,8 +37928,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I32_STORE16"]["scheduled"] = ''
-window.traces["I32_STORE16"]["scheduled"] += `<pre class=''>def arg__2933 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I32_STORE16"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__2933 : byte = 0x40u8;
 def arg__2931 : byte = 0;
 def arg__2930 = u8.&(flags, arg__2933);
 def cond__2928 = u8.!=(arg__2930, arg__2931);
@@ -37943,12 +37943,12 @@ if (cond__2928) {
 def val = pop_u32();
 def cond__2916 = m_isMemory64(memindex);
 if (cond__2916) {
-	def index__3033 = pop_u64();
 	def offset__3032 = imm_readULEB64();
+	def index__3033 = pop_u64();
 	def eff__2917__3034 = mach_writeMemory64_u16(memindex, index__3033, offset__3032, val);
 } else {
-	def index__3045 = pop_u32();
 	def offset__3044 = imm_readULEB32();
+	def index__3045 = pop_u32();
 	def eff__2922__3046 = mach_writeMemory32_u16(memindex, index__3045, offset__3044, val);
 }
 // phis: 
@@ -37964,12 +37964,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u32();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u16(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u16(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -38434,14 +38434,14 @@ block_838 --> phi_837
 block_839 --> phi_837
 subgraph block_838["Block 838"]
 	direction TB
-	b838_54["index__3093 pop_u64"]
 	b838_53["offset__3092 imm_readULEB64"]
+	b838_54["index__3093 pop_u64"]
 	b838_55["eff__3057__3094 mach_writeMemory64_u8_64"]
 	b838_58["mv_t__3080__3097 |True|  [m_isMemory64 [cond__3056]]"]
 	b838_57["mv_t__3078__3096 |True|  [m_isMemory64 [cond__3056]]"]
 	b838_56["mv_t__3076__3095 |True|  [m_isMemory64 [cond__3056]]"]
-	b838_54 --> b838_53
-	b838_53 --> b838_55
+	b838_53 --> b838_54
+	b838_54 --> b838_55
 	b838_55 --> b838_58
 	b838_58 --> b838_57
 	b838_57 --> b838_56
@@ -38482,14 +38482,14 @@ block_845 --> branch_841
 subgraph block_845["Block 845"]
 	direction TB
 	b845_0[/"Start"\\]
-	b845_6["arg__3073 0x40u8"]
 	b845_3["flags imm_readU8"]
+	b845_6["arg__3073 0x40u8"]
 	b845_5["arg__3071 0"]
 	b845_8["arg__3070 u8.&"]
 	b845_9["cond__3068 u8.!="]
-	b845_0 --> b845_6
-	b845_6 --> b845_3
-	b845_3 --> b845_5
+	b845_0 --> b845_3
+	b845_3 --> b845_6
+	b845_6 --> b845_5
 	b845_5 --> b845_8
 	b845_8 --> b845_9
 end
@@ -38504,14 +38504,14 @@ end
 branch_841 --> block_844
 subgraph block_839["Block 839"]
 	direction TB
-	b839_66["index__3105 pop_u32"]
 	b839_65["offset__3104 imm_readULEB32"]
+	b839_66["index__3105 pop_u32"]
 	b839_67["eff__3062__3106 mach_writeMemory32_u8_64"]
 	b839_70["mv_f__3081__3109 |False|  [m_isMemory64 [cond__3056]]"]
 	b839_69["mv_f__3079__3108 |False|  [m_isMemory64 [cond__3056]]"]
 	b839_68["mv_f__3077__3107 |False|  [m_isMemory64 [cond__3056]]"]
-	b839_66 --> b839_65
-	b839_65 --> b839_67
+	b839_65 --> b839_66
+	b839_66 --> b839_67
 	b839_67 --> b839_70
 	b839_70 --> b839_69
 	b839_69 --> b839_68
@@ -38520,8 +38520,8 @@ branch_836 --> block_839
 
 </pre>`;
 window.traces["I64_STORE8"]["scheduler_ssad"] = ''
-window.traces["I64_STORE8"]["scheduler_ssad"] += `<pre class=''>def arg__3073 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE8"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__3073 : byte = 0x40u8;
 def arg__3071 : byte = 0;
 def arg__3070 = u8.&(flags, arg__3073);
 def cond__3068 = u8.!=(arg__3070, arg__3071);
@@ -38535,12 +38535,12 @@ if (cond__3068) {
 def val = pop_u64();
 def cond__3056 = m_isMemory64(memindex);
 if (cond__3056) {
-	def index__3093 = pop_u64();
 	def offset__3092 = imm_readULEB64();
+	def index__3093 = pop_u64();
 	def eff__3057__3094 = mach_writeMemory64_u8_64(memindex, index__3093, offset__3092, val);
 } else {
-	def index__3105 = pop_u32();
 	def offset__3104 = imm_readULEB32();
+	def index__3105 = pop_u32();
 	def eff__3062__3106 = mach_writeMemory32_u8_64(memindex, index__3105, offset__3104, val);
 }
 // phis: 
@@ -38556,12 +38556,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u8_64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u8_64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -38837,8 +38837,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I64_STORE8"]["unlem_schedule"] = ''
-window.traces["I64_STORE8"]["unlem_schedule"] += `<pre class=''>def arg__3073 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE8"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__3073 : byte = 0x40u8;
 def arg__3071 : byte = 0;
 def arg__3070 = u8.&(flags, arg__3073);
 def cond__3068 = u8.!=(arg__3070, arg__3071);
@@ -38852,12 +38852,12 @@ if (cond__3068) {
 def val = pop_u64();
 def cond__3056 = m_isMemory64(memindex);
 if (cond__3056) {
-	def index__3133 = pop_u64();
 	def offset__3132 = imm_readULEB64();
+	def index__3133 = pop_u64();
 	def eff__3057__3134 = mach_writeMemory64_u8_64(memindex, index__3133, offset__3132, val);
 } else {
-	def index__3145 = pop_u32();
 	def offset__3144 = imm_readULEB32();
+	def index__3145 = pop_u32();
 	def eff__3062__3146 = mach_writeMemory32_u8_64(memindex, index__3145, offset__3144, val);
 }
 // phis: 
@@ -38878,14 +38878,14 @@ block_849 --> phi_848
 block_850 --> phi_848
 subgraph block_849["Block 849"]
 	direction TB
-	b849_54["index__3133 pop_u64"]
 	b849_53["offset__3132 imm_readULEB64"]
+	b849_54["index__3133 pop_u64"]
 	b849_55["eff__3057__3134 mach_writeMemory64_u8_64"]
 	b849_58["mv_t__3120__3137 |True|  [m_isMemory64 [cond__3056]]"]
 	b849_57["mv_t__3118__3136 |True|  [m_isMemory64 [cond__3056]]"]
 	b849_56["mv_t__3116__3135 |True|  [m_isMemory64 [cond__3056]]"]
-	b849_54 --> b849_53
-	b849_53 --> b849_55
+	b849_53 --> b849_54
+	b849_54 --> b849_55
 	b849_55 --> b849_58
 	b849_58 --> b849_57
 	b849_57 --> b849_56
@@ -38926,14 +38926,14 @@ block_856 --> branch_852
 subgraph block_856["Block 856"]
 	direction TB
 	b856_0[/"Start"\\]
-	b856_6["arg__3073 0x40u8"]
 	b856_3["flags imm_readU8"]
+	b856_6["arg__3073 0x40u8"]
 	b856_5["arg__3071 0"]
 	b856_8["arg__3070 u8.&"]
 	b856_9["cond__3068 u8.!="]
-	b856_0 --> b856_6
-	b856_6 --> b856_3
-	b856_3 --> b856_5
+	b856_0 --> b856_3
+	b856_3 --> b856_6
+	b856_6 --> b856_5
 	b856_5 --> b856_8
 	b856_8 --> b856_9
 end
@@ -38948,14 +38948,14 @@ end
 branch_852 --> block_855
 subgraph block_850["Block 850"]
 	direction TB
-	b850_66["index__3145 pop_u32"]
 	b850_65["offset__3144 imm_readULEB32"]
+	b850_66["index__3145 pop_u32"]
 	b850_67["eff__3062__3146 mach_writeMemory32_u8_64"]
 	b850_70["mv_f__3121__3149 |False|  [m_isMemory64 [cond__3056]]"]
 	b850_69["mv_f__3119__3148 |False|  [m_isMemory64 [cond__3056]]"]
 	b850_68["mv_f__3117__3147 |False|  [m_isMemory64 [cond__3056]]"]
-	b850_66 --> b850_65
-	b850_65 --> b850_67
+	b850_65 --> b850_66
+	b850_66 --> b850_67
 	b850_67 --> b850_70
 	b850_70 --> b850_69
 	b850_69 --> b850_68
@@ -38964,8 +38964,8 @@ branch_847 --> block_850
 
 </pre>`;
 window.traces["I64_STORE8"]["unlem_scheduler_ssa"] = ''
-window.traces["I64_STORE8"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3073 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE8"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__3073 : byte = 0x40u8;
 def arg__3071 : byte = 0;
 def arg__3070 = u8.&(flags, arg__3073);
 def cond__3068 = u8.!=(arg__3070, arg__3071);
@@ -38979,12 +38979,12 @@ if (cond__3068) {
 def val = pop_u64();
 def cond__3056 = m_isMemory64(memindex);
 if (cond__3056) {
-	def index__3133 = pop_u64();
 	def offset__3132 = imm_readULEB64();
+	def index__3133 = pop_u64();
 	def eff__3057__3134 = mach_writeMemory64_u8_64(memindex, index__3133, offset__3132, val);
 } else {
-	def index__3145 = pop_u32();
 	def offset__3144 = imm_readULEB32();
+	def index__3145 = pop_u32();
 	def eff__3062__3146 = mach_writeMemory32_u8_64(memindex, index__3145, offset__3144, val);
 }
 // phis: 
@@ -38999,12 +38999,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u8_64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u8_64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -39019,12 +39019,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u8_64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u8_64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -39370,8 +39370,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I64_STORE8"]["scheduled"] = ''
-window.traces["I64_STORE8"]["scheduled"] += `<pre class=''>def arg__3073 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE8"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__3073 : byte = 0x40u8;
 def arg__3071 : byte = 0;
 def arg__3070 = u8.&(flags, arg__3073);
 def cond__3068 = u8.!=(arg__3070, arg__3071);
@@ -39385,12 +39385,12 @@ if (cond__3068) {
 def val = pop_u64();
 def cond__3056 = m_isMemory64(memindex);
 if (cond__3056) {
-	def index__3173 = pop_u64();
 	def offset__3172 = imm_readULEB64();
+	def index__3173 = pop_u64();
 	def eff__3057__3174 = mach_writeMemory64_u8_64(memindex, index__3173, offset__3172, val);
 } else {
-	def index__3185 = pop_u32();
 	def offset__3184 = imm_readULEB32();
+	def index__3185 = pop_u32();
 	def eff__3062__3186 = mach_writeMemory32_u8_64(memindex, index__3185, offset__3184, val);
 }
 // phis: 
@@ -39406,12 +39406,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u8_64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u8_64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -39876,14 +39876,14 @@ block_871 --> phi_870
 block_872 --> phi_870
 subgraph block_871["Block 871"]
 	direction TB
-	b871_54["index__3233 pop_u64"]
 	b871_53["offset__3232 imm_readULEB64"]
+	b871_54["index__3233 pop_u64"]
 	b871_55["eff__3197__3234 mach_writeMemory64_u16_64"]
 	b871_58["mv_t__3220__3237 |True|  [m_isMemory64 [cond__3196]]"]
 	b871_57["mv_t__3218__3236 |True|  [m_isMemory64 [cond__3196]]"]
 	b871_56["mv_t__3216__3235 |True|  [m_isMemory64 [cond__3196]]"]
-	b871_54 --> b871_53
-	b871_53 --> b871_55
+	b871_53 --> b871_54
+	b871_54 --> b871_55
 	b871_55 --> b871_58
 	b871_58 --> b871_57
 	b871_57 --> b871_56
@@ -39924,14 +39924,14 @@ block_878 --> branch_874
 subgraph block_878["Block 878"]
 	direction TB
 	b878_0[/"Start"\\]
-	b878_6["arg__3213 0x40u8"]
 	b878_3["flags imm_readU8"]
+	b878_6["arg__3213 0x40u8"]
 	b878_5["arg__3211 0"]
 	b878_8["arg__3210 u8.&"]
 	b878_9["cond__3208 u8.!="]
-	b878_0 --> b878_6
-	b878_6 --> b878_3
-	b878_3 --> b878_5
+	b878_0 --> b878_3
+	b878_3 --> b878_6
+	b878_6 --> b878_5
 	b878_5 --> b878_8
 	b878_8 --> b878_9
 end
@@ -39946,14 +39946,14 @@ end
 branch_874 --> block_877
 subgraph block_872["Block 872"]
 	direction TB
-	b872_66["index__3245 pop_u32"]
 	b872_65["offset__3244 imm_readULEB32"]
+	b872_66["index__3245 pop_u32"]
 	b872_67["eff__3202__3246 mach_writeMemory32_u16_64"]
 	b872_70["mv_f__3221__3249 |False|  [m_isMemory64 [cond__3196]]"]
 	b872_69["mv_f__3219__3248 |False|  [m_isMemory64 [cond__3196]]"]
 	b872_68["mv_f__3217__3247 |False|  [m_isMemory64 [cond__3196]]"]
-	b872_66 --> b872_65
-	b872_65 --> b872_67
+	b872_65 --> b872_66
+	b872_66 --> b872_67
 	b872_67 --> b872_70
 	b872_70 --> b872_69
 	b872_69 --> b872_68
@@ -39962,8 +39962,8 @@ branch_869 --> block_872
 
 </pre>`;
 window.traces["I64_STORE16"]["scheduler_ssad"] = ''
-window.traces["I64_STORE16"]["scheduler_ssad"] += `<pre class=''>def arg__3213 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE16"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__3213 : byte = 0x40u8;
 def arg__3211 : byte = 0;
 def arg__3210 = u8.&(flags, arg__3213);
 def cond__3208 = u8.!=(arg__3210, arg__3211);
@@ -39977,12 +39977,12 @@ if (cond__3208) {
 def val = pop_u64();
 def cond__3196 = m_isMemory64(memindex);
 if (cond__3196) {
-	def index__3233 = pop_u64();
 	def offset__3232 = imm_readULEB64();
+	def index__3233 = pop_u64();
 	def eff__3197__3234 = mach_writeMemory64_u16_64(memindex, index__3233, offset__3232, val);
 } else {
-	def index__3245 = pop_u32();
 	def offset__3244 = imm_readULEB32();
+	def index__3245 = pop_u32();
 	def eff__3202__3246 = mach_writeMemory32_u16_64(memindex, index__3245, offset__3244, val);
 }
 // phis: 
@@ -39998,12 +39998,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u16_64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u16_64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -40279,8 +40279,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I64_STORE16"]["unlem_schedule"] = ''
-window.traces["I64_STORE16"]["unlem_schedule"] += `<pre class=''>def arg__3213 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE16"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__3213 : byte = 0x40u8;
 def arg__3211 : byte = 0;
 def arg__3210 = u8.&(flags, arg__3213);
 def cond__3208 = u8.!=(arg__3210, arg__3211);
@@ -40294,12 +40294,12 @@ if (cond__3208) {
 def val = pop_u64();
 def cond__3196 = m_isMemory64(memindex);
 if (cond__3196) {
-	def index__3273 = pop_u64();
 	def offset__3272 = imm_readULEB64();
+	def index__3273 = pop_u64();
 	def eff__3197__3274 = mach_writeMemory64_u16_64(memindex, index__3273, offset__3272, val);
 } else {
-	def index__3285 = pop_u32();
 	def offset__3284 = imm_readULEB32();
+	def index__3285 = pop_u32();
 	def eff__3202__3286 = mach_writeMemory32_u16_64(memindex, index__3285, offset__3284, val);
 }
 // phis: 
@@ -40320,14 +40320,14 @@ block_882 --> phi_881
 block_883 --> phi_881
 subgraph block_882["Block 882"]
 	direction TB
-	b882_54["index__3273 pop_u64"]
 	b882_53["offset__3272 imm_readULEB64"]
+	b882_54["index__3273 pop_u64"]
 	b882_55["eff__3197__3274 mach_writeMemory64_u16_64"]
 	b882_58["mv_t__3260__3277 |True|  [m_isMemory64 [cond__3196]]"]
 	b882_57["mv_t__3258__3276 |True|  [m_isMemory64 [cond__3196]]"]
 	b882_56["mv_t__3256__3275 |True|  [m_isMemory64 [cond__3196]]"]
-	b882_54 --> b882_53
-	b882_53 --> b882_55
+	b882_53 --> b882_54
+	b882_54 --> b882_55
 	b882_55 --> b882_58
 	b882_58 --> b882_57
 	b882_57 --> b882_56
@@ -40368,14 +40368,14 @@ block_889 --> branch_885
 subgraph block_889["Block 889"]
 	direction TB
 	b889_0[/"Start"\\]
-	b889_6["arg__3213 0x40u8"]
 	b889_3["flags imm_readU8"]
+	b889_6["arg__3213 0x40u8"]
 	b889_5["arg__3211 0"]
 	b889_8["arg__3210 u8.&"]
 	b889_9["cond__3208 u8.!="]
-	b889_0 --> b889_6
-	b889_6 --> b889_3
-	b889_3 --> b889_5
+	b889_0 --> b889_3
+	b889_3 --> b889_6
+	b889_6 --> b889_5
 	b889_5 --> b889_8
 	b889_8 --> b889_9
 end
@@ -40390,14 +40390,14 @@ end
 branch_885 --> block_888
 subgraph block_883["Block 883"]
 	direction TB
-	b883_66["index__3285 pop_u32"]
 	b883_65["offset__3284 imm_readULEB32"]
+	b883_66["index__3285 pop_u32"]
 	b883_67["eff__3202__3286 mach_writeMemory32_u16_64"]
 	b883_70["mv_f__3261__3289 |False|  [m_isMemory64 [cond__3196]]"]
 	b883_69["mv_f__3259__3288 |False|  [m_isMemory64 [cond__3196]]"]
 	b883_68["mv_f__3257__3287 |False|  [m_isMemory64 [cond__3196]]"]
-	b883_66 --> b883_65
-	b883_65 --> b883_67
+	b883_65 --> b883_66
+	b883_66 --> b883_67
 	b883_67 --> b883_70
 	b883_70 --> b883_69
 	b883_69 --> b883_68
@@ -40406,8 +40406,8 @@ branch_880 --> block_883
 
 </pre>`;
 window.traces["I64_STORE16"]["unlem_scheduler_ssa"] = ''
-window.traces["I64_STORE16"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3213 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE16"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__3213 : byte = 0x40u8;
 def arg__3211 : byte = 0;
 def arg__3210 = u8.&(flags, arg__3213);
 def cond__3208 = u8.!=(arg__3210, arg__3211);
@@ -40421,12 +40421,12 @@ if (cond__3208) {
 def val = pop_u64();
 def cond__3196 = m_isMemory64(memindex);
 if (cond__3196) {
-	def index__3273 = pop_u64();
 	def offset__3272 = imm_readULEB64();
+	def index__3273 = pop_u64();
 	def eff__3197__3274 = mach_writeMemory64_u16_64(memindex, index__3273, offset__3272, val);
 } else {
-	def index__3285 = pop_u32();
 	def offset__3284 = imm_readULEB32();
+	def index__3285 = pop_u32();
 	def eff__3202__3286 = mach_writeMemory32_u16_64(memindex, index__3285, offset__3284, val);
 }
 // phis: 
@@ -40441,12 +40441,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u16_64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u16_64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -40461,12 +40461,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u16_64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u16_64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -40812,8 +40812,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I64_STORE16"]["scheduled"] = ''
-window.traces["I64_STORE16"]["scheduled"] += `<pre class=''>def arg__3213 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE16"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__3213 : byte = 0x40u8;
 def arg__3211 : byte = 0;
 def arg__3210 = u8.&(flags, arg__3213);
 def cond__3208 = u8.!=(arg__3210, arg__3211);
@@ -40827,12 +40827,12 @@ if (cond__3208) {
 def val = pop_u64();
 def cond__3196 = m_isMemory64(memindex);
 if (cond__3196) {
-	def index__3313 = pop_u64();
 	def offset__3312 = imm_readULEB64();
+	def index__3313 = pop_u64();
 	def eff__3197__3314 = mach_writeMemory64_u16_64(memindex, index__3313, offset__3312, val);
 } else {
-	def index__3325 = pop_u32();
 	def offset__3324 = imm_readULEB32();
+	def index__3325 = pop_u32();
 	def eff__3202__3326 = mach_writeMemory32_u16_64(memindex, index__3325, offset__3324, val);
 }
 // phis: 
@@ -40848,12 +40848,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u16_64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u16_64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -41318,14 +41318,14 @@ block_904 --> phi_903
 block_905 --> phi_903
 subgraph block_904["Block 904"]
 	direction TB
-	b904_54["index__3373 pop_u64"]
 	b904_53["offset__3372 imm_readULEB64"]
+	b904_54["index__3373 pop_u64"]
 	b904_55["eff__3337__3374 mach_writeMemory64_u32_64"]
 	b904_58["mv_t__3360__3377 |True|  [m_isMemory64 [cond__3336]]"]
 	b904_57["mv_t__3358__3376 |True|  [m_isMemory64 [cond__3336]]"]
 	b904_56["mv_t__3356__3375 |True|  [m_isMemory64 [cond__3336]]"]
-	b904_54 --> b904_53
-	b904_53 --> b904_55
+	b904_53 --> b904_54
+	b904_54 --> b904_55
 	b904_55 --> b904_58
 	b904_58 --> b904_57
 	b904_57 --> b904_56
@@ -41366,14 +41366,14 @@ block_911 --> branch_907
 subgraph block_911["Block 911"]
 	direction TB
 	b911_0[/"Start"\\]
-	b911_6["arg__3353 0x40u8"]
 	b911_3["flags imm_readU8"]
+	b911_6["arg__3353 0x40u8"]
 	b911_5["arg__3351 0"]
 	b911_8["arg__3350 u8.&"]
 	b911_9["cond__3348 u8.!="]
-	b911_0 --> b911_6
-	b911_6 --> b911_3
-	b911_3 --> b911_5
+	b911_0 --> b911_3
+	b911_3 --> b911_6
+	b911_6 --> b911_5
 	b911_5 --> b911_8
 	b911_8 --> b911_9
 end
@@ -41388,14 +41388,14 @@ end
 branch_907 --> block_910
 subgraph block_905["Block 905"]
 	direction TB
-	b905_66["index__3385 pop_u32"]
 	b905_65["offset__3384 imm_readULEB32"]
+	b905_66["index__3385 pop_u32"]
 	b905_67["eff__3342__3386 mach_writeMemory32_u32_64"]
 	b905_70["mv_f__3361__3389 |False|  [m_isMemory64 [cond__3336]]"]
 	b905_69["mv_f__3359__3388 |False|  [m_isMemory64 [cond__3336]]"]
 	b905_68["mv_f__3357__3387 |False|  [m_isMemory64 [cond__3336]]"]
-	b905_66 --> b905_65
-	b905_65 --> b905_67
+	b905_65 --> b905_66
+	b905_66 --> b905_67
 	b905_67 --> b905_70
 	b905_70 --> b905_69
 	b905_69 --> b905_68
@@ -41404,8 +41404,8 @@ branch_902 --> block_905
 
 </pre>`;
 window.traces["I64_STORE32"]["scheduler_ssad"] = ''
-window.traces["I64_STORE32"]["scheduler_ssad"] += `<pre class=''>def arg__3353 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE32"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__3353 : byte = 0x40u8;
 def arg__3351 : byte = 0;
 def arg__3350 = u8.&(flags, arg__3353);
 def cond__3348 = u8.!=(arg__3350, arg__3351);
@@ -41419,12 +41419,12 @@ if (cond__3348) {
 def val = pop_u64();
 def cond__3336 = m_isMemory64(memindex);
 if (cond__3336) {
-	def index__3373 = pop_u64();
 	def offset__3372 = imm_readULEB64();
+	def index__3373 = pop_u64();
 	def eff__3337__3374 = mach_writeMemory64_u32_64(memindex, index__3373, offset__3372, val);
 } else {
-	def index__3385 = pop_u32();
 	def offset__3384 = imm_readULEB32();
+	def index__3385 = pop_u32();
 	def eff__3342__3386 = mach_writeMemory32_u32_64(memindex, index__3385, offset__3384, val);
 }
 // phis: 
@@ -41440,12 +41440,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u32_64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u32_64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -41721,8 +41721,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I64_STORE32"]["unlem_schedule"] = ''
-window.traces["I64_STORE32"]["unlem_schedule"] += `<pre class=''>def arg__3353 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE32"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__3353 : byte = 0x40u8;
 def arg__3351 : byte = 0;
 def arg__3350 = u8.&(flags, arg__3353);
 def cond__3348 = u8.!=(arg__3350, arg__3351);
@@ -41736,12 +41736,12 @@ if (cond__3348) {
 def val = pop_u64();
 def cond__3336 = m_isMemory64(memindex);
 if (cond__3336) {
-	def index__3413 = pop_u64();
 	def offset__3412 = imm_readULEB64();
+	def index__3413 = pop_u64();
 	def eff__3337__3414 = mach_writeMemory64_u32_64(memindex, index__3413, offset__3412, val);
 } else {
-	def index__3425 = pop_u32();
 	def offset__3424 = imm_readULEB32();
+	def index__3425 = pop_u32();
 	def eff__3342__3426 = mach_writeMemory32_u32_64(memindex, index__3425, offset__3424, val);
 }
 // phis: 
@@ -41762,14 +41762,14 @@ block_915 --> phi_914
 block_916 --> phi_914
 subgraph block_915["Block 915"]
 	direction TB
-	b915_54["index__3413 pop_u64"]
 	b915_53["offset__3412 imm_readULEB64"]
+	b915_54["index__3413 pop_u64"]
 	b915_55["eff__3337__3414 mach_writeMemory64_u32_64"]
 	b915_58["mv_t__3400__3417 |True|  [m_isMemory64 [cond__3336]]"]
 	b915_57["mv_t__3398__3416 |True|  [m_isMemory64 [cond__3336]]"]
 	b915_56["mv_t__3396__3415 |True|  [m_isMemory64 [cond__3336]]"]
-	b915_54 --> b915_53
-	b915_53 --> b915_55
+	b915_53 --> b915_54
+	b915_54 --> b915_55
 	b915_55 --> b915_58
 	b915_58 --> b915_57
 	b915_57 --> b915_56
@@ -41810,14 +41810,14 @@ block_922 --> branch_918
 subgraph block_922["Block 922"]
 	direction TB
 	b922_0[/"Start"\\]
-	b922_6["arg__3353 0x40u8"]
 	b922_3["flags imm_readU8"]
+	b922_6["arg__3353 0x40u8"]
 	b922_5["arg__3351 0"]
 	b922_8["arg__3350 u8.&"]
 	b922_9["cond__3348 u8.!="]
-	b922_0 --> b922_6
-	b922_6 --> b922_3
-	b922_3 --> b922_5
+	b922_0 --> b922_3
+	b922_3 --> b922_6
+	b922_6 --> b922_5
 	b922_5 --> b922_8
 	b922_8 --> b922_9
 end
@@ -41832,14 +41832,14 @@ end
 branch_918 --> block_921
 subgraph block_916["Block 916"]
 	direction TB
-	b916_66["index__3425 pop_u32"]
 	b916_65["offset__3424 imm_readULEB32"]
+	b916_66["index__3425 pop_u32"]
 	b916_67["eff__3342__3426 mach_writeMemory32_u32_64"]
 	b916_70["mv_f__3401__3429 |False|  [m_isMemory64 [cond__3336]]"]
 	b916_69["mv_f__3399__3428 |False|  [m_isMemory64 [cond__3336]]"]
 	b916_68["mv_f__3397__3427 |False|  [m_isMemory64 [cond__3336]]"]
-	b916_66 --> b916_65
-	b916_65 --> b916_67
+	b916_65 --> b916_66
+	b916_66 --> b916_67
 	b916_67 --> b916_70
 	b916_70 --> b916_69
 	b916_69 --> b916_68
@@ -41848,8 +41848,8 @@ branch_913 --> block_916
 
 </pre>`;
 window.traces["I64_STORE32"]["unlem_scheduler_ssa"] = ''
-window.traces["I64_STORE32"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3353 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE32"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__3353 : byte = 0x40u8;
 def arg__3351 : byte = 0;
 def arg__3350 = u8.&(flags, arg__3353);
 def cond__3348 = u8.!=(arg__3350, arg__3351);
@@ -41863,12 +41863,12 @@ if (cond__3348) {
 def val = pop_u64();
 def cond__3336 = m_isMemory64(memindex);
 if (cond__3336) {
-	def index__3413 = pop_u64();
 	def offset__3412 = imm_readULEB64();
+	def index__3413 = pop_u64();
 	def eff__3337__3414 = mach_writeMemory64_u32_64(memindex, index__3413, offset__3412, val);
 } else {
-	def index__3425 = pop_u32();
 	def offset__3424 = imm_readULEB32();
+	def index__3425 = pop_u32();
 	def eff__3342__3426 = mach_writeMemory32_u32_64(memindex, index__3425, offset__3424, val);
 }
 // phis: 
@@ -41883,12 +41883,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u32_64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u32_64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -41903,12 +41903,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u32_64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u32_64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -42254,8 +42254,8 @@ graph TD
 	53 -. Codeptr .-> 56
 </pre>`;
 window.traces["I64_STORE32"]["scheduled"] = ''
-window.traces["I64_STORE32"]["scheduled"] += `<pre class=''>def arg__3353 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["I64_STORE32"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__3353 : byte = 0x40u8;
 def arg__3351 : byte = 0;
 def arg__3350 = u8.&(flags, arg__3353);
 def cond__3348 = u8.!=(arg__3350, arg__3351);
@@ -42269,12 +42269,12 @@ if (cond__3348) {
 def val = pop_u64();
 def cond__3336 = m_isMemory64(memindex);
 if (cond__3336) {
-	def index__3453 = pop_u64();
 	def offset__3452 = imm_readULEB64();
+	def index__3453 = pop_u64();
 	def eff__3337__3454 = mach_writeMemory64_u32_64(memindex, index__3453, offset__3452, val);
 } else {
-	def index__3465 = pop_u32();
 	def offset__3464 = imm_readULEB32();
+	def index__3465 = pop_u32();
 	def eff__3342__3466 = mach_writeMemory32_u32_64(memindex, index__3465, offset__3464, val);
 }
 // phis: 
@@ -42290,12 +42290,12 @@ if (u8.!=(u8.&(flags, 0x40u8), 0)) {
 def val = pop_u64();
 def cond = m_isMemory64(memindex);
 if (cond) {
-	def index = pop_u64();
 	def offset = imm_readULEB64();
+	def index = pop_u64();
 	mach_writeMemory64_u32_64(memindex, index, offset, val);
 } else {
-	def index1 = pop_u32();
 	def offset1 = imm_readULEB32();
+	def index1 = pop_u32();
 	mach_writeMemory32_u32_64(memindex, index1, offset1, val);
 }
 </pre>`;
@@ -42662,14 +42662,14 @@ block_944 --> branch_940
 subgraph block_944["Block 944"]
 	direction TB
 	b944_0[/"Start"\\]
-	b944_6["arg__3489 0x40u8"]
 	b944_3["flags imm_readU8"]
+	b944_6["arg__3489 0x40u8"]
 	b944_5["arg__3487 0"]
 	b944_8["arg__3486 u8.&"]
 	b944_9["cond__3484 u8.!="]
-	b944_0 --> b944_6
-	b944_6 --> b944_3
-	b944_3 --> b944_5
+	b944_0 --> b944_3
+	b944_3 --> b944_6
+	b944_6 --> b944_5
 	b944_5 --> b944_8
 	b944_8 --> b944_9
 end
@@ -42694,8 +42694,8 @@ branch_935 --> block_938
 
 </pre>`;
 window.traces["MEMORY_SIZE"]["scheduler_ssad"] = ''
-window.traces["MEMORY_SIZE"]["scheduler_ssad"] += `<pre class=''>def arg__3489 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["MEMORY_SIZE"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__3489 : byte = 0x40u8;
 def arg__3487 : byte = 0;
 def arg__3486 = u8.&(flags, arg__3489);
 def cond__3484 = u8.!=(arg__3486, arg__3487);
@@ -42918,8 +42918,8 @@ graph TD
 	34 -. Codeptr .-> 35
 </pre>`;
 window.traces["MEMORY_SIZE"]["unlem_schedule"] = ''
-window.traces["MEMORY_SIZE"]["unlem_schedule"] += `<pre class=''>def arg__3489 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["MEMORY_SIZE"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__3489 : byte = 0x40u8;
 def arg__3487 : byte = 0;
 def arg__3486 = u8.&(flags, arg__3489);
 def cond__3484 = u8.!=(arg__3486, arg__3487);
@@ -42994,14 +42994,14 @@ block_955 --> branch_951
 subgraph block_955["Block 955"]
 	direction TB
 	b955_0[/"Start"\\]
-	b955_6["arg__3489 0x40u8"]
 	b955_3["flags imm_readU8"]
+	b955_6["arg__3489 0x40u8"]
 	b955_5["arg__3487 0"]
 	b955_8["arg__3486 u8.&"]
 	b955_9["cond__3484 u8.!="]
-	b955_0 --> b955_6
-	b955_6 --> b955_3
-	b955_3 --> b955_5
+	b955_0 --> b955_3
+	b955_3 --> b955_6
+	b955_6 --> b955_5
 	b955_5 --> b955_8
 	b955_8 --> b955_9
 end
@@ -43026,8 +43026,8 @@ branch_946 --> block_949
 
 </pre>`;
 window.traces["MEMORY_SIZE"]["unlem_scheduler_ssa"] = ''
-window.traces["MEMORY_SIZE"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3489 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["MEMORY_SIZE"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__3489 : byte = 0x40u8;
 def arg__3487 : byte = 0;
 def arg__3486 = u8.&(flags, arg__3489);
 def cond__3484 = u8.!=(arg__3486, arg__3487);
@@ -43315,8 +43315,8 @@ graph TD
 	34 -. Codeptr .-> 35
 </pre>`;
 window.traces["MEMORY_SIZE"]["scheduled"] = ''
-window.traces["MEMORY_SIZE"]["scheduled"] += `<pre class=''>def arg__3489 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["MEMORY_SIZE"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__3489 : byte = 0x40u8;
 def arg__3487 : byte = 0;
 def arg__3486 = u8.&(flags, arg__3489);
 def cond__3484 = u8.!=(arg__3486, arg__3487);
@@ -43753,14 +43753,14 @@ block_977 --> branch_973
 subgraph block_977["Block 977"]
 	direction TB
 	b977_0[/"Start"\\]
-	b977_6["arg__3585 0x40u8"]
 	b977_3["flags imm_readU8"]
+	b977_6["arg__3585 0x40u8"]
 	b977_5["arg__3583 0"]
 	b977_8["arg__3582 u8.&"]
 	b977_9["cond__3580 u8.!="]
-	b977_0 --> b977_6
-	b977_6 --> b977_3
-	b977_3 --> b977_5
+	b977_0 --> b977_3
+	b977_3 --> b977_6
+	b977_6 --> b977_5
 	b977_5 --> b977_8
 	b977_8 --> b977_9
 end
@@ -43787,8 +43787,8 @@ branch_968 --> block_971
 
 </pre>`;
 window.traces["MEMORY_GROW"]["scheduler_ssad"] = ''
-window.traces["MEMORY_GROW"]["scheduler_ssad"] += `<pre class=''>def arg__3585 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["MEMORY_GROW"]["scheduler_ssad"] += `<pre class=''>def flags = imm_readU8();
+def arg__3585 : byte = 0x40u8;
 def arg__3583 : byte = 0;
 def arg__3582 = u8.&(flags, arg__3585);
 def cond__3580 = u8.!=(arg__3582, arg__3583);
@@ -44033,8 +44033,8 @@ graph TD
 	38 -. Codeptr .-> 39
 </pre>`;
 window.traces["MEMORY_GROW"]["unlem_schedule"] = ''
-window.traces["MEMORY_GROW"]["unlem_schedule"] += `<pre class=''>def arg__3585 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["MEMORY_GROW"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
+def arg__3585 : byte = 0x40u8;
 def arg__3583 : byte = 0;
 def arg__3582 = u8.&(flags, arg__3585);
 def cond__3580 = u8.!=(arg__3582, arg__3583);
@@ -44113,14 +44113,14 @@ block_988 --> branch_984
 subgraph block_988["Block 988"]
 	direction TB
 	b988_0[/"Start"\\]
-	b988_6["arg__3585 0x40u8"]
 	b988_3["flags imm_readU8"]
+	b988_6["arg__3585 0x40u8"]
 	b988_5["arg__3583 0"]
 	b988_8["arg__3582 u8.&"]
 	b988_9["cond__3580 u8.!="]
-	b988_0 --> b988_6
-	b988_6 --> b988_3
-	b988_3 --> b988_5
+	b988_0 --> b988_3
+	b988_3 --> b988_6
+	b988_6 --> b988_5
 	b988_5 --> b988_8
 	b988_8 --> b988_9
 end
@@ -44147,8 +44147,8 @@ branch_979 --> block_982
 
 </pre>`;
 window.traces["MEMORY_GROW"]["unlem_scheduler_ssa"] = ''
-window.traces["MEMORY_GROW"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__3585 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["MEMORY_GROW"]["unlem_scheduler_ssa"] += `<pre class=''>def flags = imm_readU8();
+def arg__3585 : byte = 0x40u8;
 def arg__3583 : byte = 0;
 def arg__3582 = u8.&(flags, arg__3585);
 def cond__3580 = u8.!=(arg__3582, arg__3583);
@@ -44466,8 +44466,8 @@ graph TD
 	38 -. Codeptr .-> 39
 </pre>`;
 window.traces["MEMORY_GROW"]["scheduled"] = ''
-window.traces["MEMORY_GROW"]["scheduled"] += `<pre class=''>def arg__3585 : byte = 0x40u8;
-def flags = imm_readU8();
+window.traces["MEMORY_GROW"]["scheduled"] += `<pre class=''>def flags = imm_readU8();
+def arg__3585 : byte = 0x40u8;
 def arg__3583 : byte = 0;
 def arg__3582 = u8.&(flags, arg__3585);
 def cond__3580 = u8.!=(arg__3582, arg__3583);
@@ -45209,15 +45209,15 @@ window.traces["F32_CONST"]["schedulerMermaid"] = ''
 window.traces["F32_CONST"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1006["Block 1006"]
 	direction TB
-	b1006_0[/"Start"\\]
 	b1006_3["x imm_readU32"]
 	b1006_7["abs__3681 lift_u32"]
+	b1006_0[/"Start"\\]
 	b1006_5["arg__3679 f32_reinterpret_u32"]
 	b1006_6["eff__3678 push_f32"]
 	b1006_1[\\"Finish"/]
-	b1006_0 --> b1006_3
 	b1006_3 --> b1006_7
-	b1006_7 --> b1006_5
+	b1006_7 --> b1006_0
+	b1006_0 --> b1006_5
 	b1006_5 --> b1006_6
 	b1006_6 --> b1006_1
 end
@@ -45302,15 +45302,15 @@ window.traces["F32_CONST"]["unlem_scheduler"] = ''
 window.traces["F32_CONST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1007["Block 1007"]
 	direction TB
-	b1007_0[/"Start"\\]
 	b1007_3["x imm_readU32"]
 	b1007_7["abs__3681 lift_u32"]
+	b1007_0[/"Start"\\]
 	b1007_5["arg__3679 f32_reinterpret_u32"]
 	b1007_6["eff__3678 push_f32"]
 	b1007_1[\\"Finish"/]
-	b1007_0 --> b1007_3
 	b1007_3 --> b1007_7
-	b1007_7 --> b1007_5
+	b1007_7 --> b1007_0
+	b1007_0 --> b1007_5
 	b1007_5 --> b1007_6
 	b1007_6 --> b1007_1
 end
@@ -45521,15 +45521,15 @@ window.traces["F64_CONST"]["schedulerMermaid"] = ''
 window.traces["F64_CONST"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_1009["Block 1009"]
 	direction TB
-	b1009_0[/"Start"\\]
 	b1009_3["x imm_readU64"]
 	b1009_7["abs__3685 lift_u64"]
+	b1009_0[/"Start"\\]
 	b1009_5["arg__3683 f64_reinterpret_u64"]
 	b1009_6["eff__3682 push_f64"]
 	b1009_1[\\"Finish"/]
-	b1009_0 --> b1009_3
 	b1009_3 --> b1009_7
-	b1009_7 --> b1009_5
+	b1009_7 --> b1009_0
+	b1009_0 --> b1009_5
 	b1009_5 --> b1009_6
 	b1009_6 --> b1009_1
 end
@@ -45614,15 +45614,15 @@ window.traces["F64_CONST"]["unlem_scheduler"] = ''
 window.traces["F64_CONST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1010["Block 1010"]
 	direction TB
-	b1010_0[/"Start"\\]
 	b1010_3["x imm_readU64"]
 	b1010_7["abs__3685 lift_u64"]
+	b1010_0[/"Start"\\]
 	b1010_5["arg__3683 f64_reinterpret_u64"]
 	b1010_6["eff__3682 push_f64"]
 	b1010_1[\\"Finish"/]
-	b1010_0 --> b1010_3
 	b1010_3 --> b1010_7
-	b1010_7 --> b1010_5
+	b1010_7 --> b1010_0
+	b1010_0 --> b1010_5
 	b1010_5 --> b1010_6
 	b1010_6 --> b1010_1
 end
@@ -72727,12 +72727,12 @@ block_1613 --> branch_1609
 subgraph block_1613["Block 1613"]
 	direction TB
 	b1613_0[/"Start"\\]
+	b1613_3["b pop_u32"]
 	b1613_53["arg__5482__5508 -2_147_483_648"]
 	b1613_56["arg__5479__5511 -1"]
+	b1613_4["a pop_u32"]
 	b1613_54["arg__5481__5509 u32.view"]
 	b1613_57["arg__5478__5512 u32.view"]
-	b1613_3["b pop_u32"]
-	b1613_4["a pop_u32"]
 	b1613_63["abs__5489__5516 lift_u32"]
 	b1613_62["abs__5488__5515 lift_u32"]
 	b1613_55["arg__5476__5510 U32_equals"]
@@ -72741,13 +72741,13 @@ subgraph block_1613["Block 1613"]
 	b1613_8["arg__5484 0"]
 	b1613_28["abs__5487 lift_u32"]
 	b1613_10["cond__5469 U32_equals"]
-	b1613_0 --> b1613_53
+	b1613_0 --> b1613_3
+	b1613_3 --> b1613_53
 	b1613_53 --> b1613_56
-	b1613_56 --> b1613_54
+	b1613_56 --> b1613_4
+	b1613_4 --> b1613_54
 	b1613_54 --> b1613_57
-	b1613_57 --> b1613_3
-	b1613_3 --> b1613_4
-	b1613_4 --> b1613_63
+	b1613_57 --> b1613_63
 	b1613_63 --> b1613_62
 	b1613_62 --> b1613_55
 	b1613_55 --> b1613_58
@@ -72797,12 +72797,12 @@ branch_1614 --> block_1617
 
 </pre>`;
 window.traces["I32_DIV_S"]["scheduler_ssad"] = ''
-window.traces["I32_DIV_S"]["scheduler_ssad"] += `<pre class=''>def arg__5482__5508 : u32 = -2_147_483_648;
+window.traces["I32_DIV_S"]["scheduler_ssad"] += `<pre class=''>def b = pop_u32();
+def arg__5482__5508 : u32 = -2_147_483_648;
 def arg__5479__5511 : u32 = -1;
+def a = pop_u32();
 def arg__5481__5509 = u32.view(arg__5482__5508);
 def arg__5478__5512 = u32.view(arg__5479__5511);
-def b = pop_u32();
-def a = pop_u32();
 def abs__5489__5516 = lift_u32(arg__5481__5509);
 def abs__5488__5515 = lift_u32(arg__5478__5512);
 def arg__5476__5510 = U32_equals(a, abs__5489__5516);
@@ -73377,11 +73377,11 @@ graph TD
 window.traces["I32_DIV_S"]["unlem_schedule"] = ''
 window.traces["I32_DIV_S"]["unlem_schedule"] += `<pre class=''>def arg__5482__5591__5690 : u32 = -2_147_483_648;
 def arg__5479__5594__5693 : u32 = -1;
+def b = pop_u32();
 def arg__5481__5592__5691 = u32.view(arg__5482__5591__5690);
 def arg__5478__5595__5694 = u32.view(arg__5479__5594__5693);
 def arg__5482__5648 : u32 = -2_147_483_648;
 def arg__5479__5651 : u32 = -1;
-def b = pop_u32();
 def a = pop_u32();
 def abs__5489__5601__5700 = lift_u32(arg__5481__5592__5691);
 def abs__5488__5600__5699 = lift_u32(arg__5478__5595__5694);
@@ -73395,15 +73395,15 @@ def cond__5471__5597__5696 = U32_and(arg__5475__5596__5695, arg__5476__5593__569
 def arg__5476__5650 = U32_equals(a, abs__5489__5659);
 def arg__5475__5653 = U32_equals(b, abs__5488__5658);
 def mt__5541__5602__5701 = U32_maybeTrue(cond__5471__5597__5696);
-def mf__5542__5603__5702 = U32_maybeFalse(cond__5471__5597__5696);
 def cond__5471__5654 = U32_and(arg__5475__5653, arg__5476__5650);
+def mf__5542__5603__5702 = U32_maybeFalse(cond__5471__5597__5696);
+def arg__5484 : u32 = 0;
 def mt__5541__5663 = U32_maybeTrue(cond__5471__5654);
 def mb__5543__5604__5703 = bool.&&(mt__5541__5602__5701, mf__5542__5603__5702);
-def mf__5542__5664 = U32_maybeFalse(cond__5471__5654);
-def arg__5484 : u32 = 0;
-def mb__5543__5665 = bool.&&(mt__5541__5663, mf__5542__5664);
 def abs__5487 = lift_u32(arg__5484);
+def mf__5542__5664 = U32_maybeFalse(cond__5471__5654);
 def cond__5469 = U32_equals(b, abs__5487);
+def mb__5543__5665 = bool.&&(mt__5541__5663, mf__5542__5664);
 def mt__5533 = U32_maybeTrue(cond__5469);
 def mf__5534 = U32_maybeFalse(cond__5469);
 def mb__5535 = bool.&&(mt__5533, mf__5534);
@@ -73523,11 +73523,11 @@ subgraph block_1623["Block 1623"]
 	b1623_0[/"r_state__5544 Start"\\]
 	b1623_211["arg__5482__5591__5690 -2_147_483_648"]
 	b1623_214["arg__5479__5594__5693 -1"]
+	b1623_3["b pop_u32"]
 	b1623_212["arg__5481__5592__5691 u32.view"]
 	b1623_215["arg__5478__5595__5694 u32.view"]
 	b1623_165["arg__5482__5648 -2_147_483_648"]
 	b1623_168["arg__5479__5651 -1"]
-	b1623_3["b pop_u32"]
 	b1623_4["a pop_u32"]
 	b1623_221["abs__5489__5601__5700 lift_u32"]
 	b1623_220["abs__5488__5600__5699 lift_u32"]
@@ -73541,26 +73541,26 @@ subgraph block_1623["Block 1623"]
 	b1623_167["arg__5476__5650 U32_equals"]
 	b1623_170["arg__5475__5653 U32_equals"]
 	b1623_222["mt__5541__5602__5701 U32_maybeTrue"]
-	b1623_223["mf__5542__5603__5702 U32_maybeFalse"]
 	b1623_171["cond__5471__5654 U32_and"]
+	b1623_223["mf__5542__5603__5702 U32_maybeFalse"]
+	b1623_8["arg__5484 0"]
 	b1623_180["mt__5541__5663 U32_maybeTrue"]
 	b1623_224["mb__5543__5604__5703 bool.&&"]
-	b1623_181["mf__5542__5664 U32_maybeFalse"]
-	b1623_8["arg__5484 0"]
-	b1623_182["mb__5543__5665 bool.&&"]
 	b1623_28["abs__5487 lift_u32"]
+	b1623_181["mf__5542__5664 U32_maybeFalse"]
 	b1623_10["cond__5469 U32_equals"]
+	b1623_182["mb__5543__5665 bool.&&"]
 	b1623_31["mt__5533 U32_maybeTrue"]
 	b1623_32["mf__5534 U32_maybeFalse"]
 	b1623_33["mb__5535 bool.&&"]
 	b1623_0 --> b1623_211
 	b1623_211 --> b1623_214
-	b1623_214 --> b1623_212
+	b1623_214 --> b1623_3
+	b1623_3 --> b1623_212
 	b1623_212 --> b1623_215
 	b1623_215 --> b1623_165
 	b1623_165 --> b1623_168
-	b1623_168 --> b1623_3
-	b1623_3 --> b1623_4
+	b1623_168 --> b1623_4
 	b1623_4 --> b1623_221
 	b1623_221 --> b1623_220
 	b1623_220 --> b1623_166
@@ -73573,16 +73573,16 @@ subgraph block_1623["Block 1623"]
 	b1623_217 --> b1623_167
 	b1623_167 --> b1623_170
 	b1623_170 --> b1623_222
-	b1623_222 --> b1623_223
-	b1623_223 --> b1623_171
-	b1623_171 --> b1623_180
+	b1623_222 --> b1623_171
+	b1623_171 --> b1623_223
+	b1623_223 --> b1623_8
+	b1623_8 --> b1623_180
 	b1623_180 --> b1623_224
-	b1623_224 --> b1623_181
-	b1623_181 --> b1623_8
-	b1623_8 --> b1623_182
-	b1623_182 --> b1623_28
-	b1623_28 --> b1623_10
-	b1623_10 --> b1623_31
+	b1623_224 --> b1623_28
+	b1623_28 --> b1623_181
+	b1623_181 --> b1623_10
+	b1623_10 --> b1623_182
+	b1623_182 --> b1623_31
 	b1623_31 --> b1623_32
 	b1623_32 --> b1623_33
 end
@@ -73731,11 +73731,11 @@ branch_1640 --> block_1643
 window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] = ''
 window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__5482__5591__5690 : u32 = -2_147_483_648;
 def arg__5479__5594__5693 : u32 = -1;
+def b = pop_u32();
 def arg__5481__5592__5691 = u32.view(arg__5482__5591__5690);
 def arg__5478__5595__5694 = u32.view(arg__5479__5594__5693);
 def arg__5482__5648 : u32 = -2_147_483_648;
 def arg__5479__5651 : u32 = -1;
-def b = pop_u32();
 def a = pop_u32();
 def abs__5489__5601__5700 = lift_u32(arg__5481__5592__5691);
 def abs__5488__5600__5699 = lift_u32(arg__5478__5595__5694);
@@ -73749,15 +73749,15 @@ def cond__5471__5597__5696 = U32_and(arg__5475__5596__5695, arg__5476__5593__569
 def arg__5476__5650 = U32_equals(a, abs__5489__5659);
 def arg__5475__5653 = U32_equals(b, abs__5488__5658);
 def mt__5541__5602__5701 = U32_maybeTrue(cond__5471__5597__5696);
-def mf__5542__5603__5702 = U32_maybeFalse(cond__5471__5597__5696);
 def cond__5471__5654 = U32_and(arg__5475__5653, arg__5476__5650);
+def mf__5542__5603__5702 = U32_maybeFalse(cond__5471__5597__5696);
+def arg__5484 : u32 = 0;
 def mt__5541__5663 = U32_maybeTrue(cond__5471__5654);
 def mb__5543__5604__5703 = bool.&&(mt__5541__5602__5701, mf__5542__5603__5702);
-def mf__5542__5664 = U32_maybeFalse(cond__5471__5654);
-def arg__5484 : u32 = 0;
-def mb__5543__5665 = bool.&&(mt__5541__5663, mf__5542__5664);
 def abs__5487 = lift_u32(arg__5484);
+def mf__5542__5664 = U32_maybeFalse(cond__5471__5654);
 def cond__5469 = U32_equals(b, abs__5487);
+def mb__5543__5665 = bool.&&(mt__5541__5663, mf__5542__5664);
 def mt__5533 = U32_maybeTrue(cond__5469);
 def mf__5534 = U32_maybeFalse(cond__5469);
 def mb__5535 = bool.&&(mt__5533, mf__5534);
@@ -73813,8 +73813,8 @@ window.traces["I32_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_
 def a = pop_u32();
 def cond = U32_and(U32_equals(b, lift_u32(u32.view(-1))), U32_equals(a, lift_u32(u32.view(-2_147_483_648))));
 def mt = U32_maybeTrue(cond);
-def mf = U32_maybeFalse(cond);
 def cond1 = U32_and(U32_equals(b, lift_u32(u32.view(-1))), U32_equals(a, lift_u32(u32.view(-2_147_483_648))));
+def mf = U32_maybeFalse(cond);
 def mt1 = U32_maybeTrue(cond1);
 def mf1 = U32_maybeFalse(cond1);
 def mt2 = U32_maybeTrue(U32_equals(b, lift_u32(0)));
@@ -73853,8 +73853,8 @@ window.traces["I32_DIV_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u32();
 def a = pop_u32();
 def cond = U32_and(U32_equals(b, lift_u32(u32.view(-1))), U32_equals(a, lift_u32(u32.view(-2_147_483_648))));
 def mt = U32_maybeTrue(cond);
-def mf = U32_maybeFalse(cond);
 def cond1 = U32_and(U32_equals(b, lift_u32(u32.view(-1))), U32_equals(a, lift_u32(u32.view(-2_147_483_648))));
+def mf = U32_maybeFalse(cond);
 def mt1 = U32_maybeTrue(cond1);
 def mf1 = U32_maybeFalse(cond1);
 def mt2 = U32_maybeTrue(U32_equals(b, lift_u32(0)));
@@ -81762,12 +81762,12 @@ block_1743 --> branch_1739
 subgraph block_1743["Block 1743"]
 	direction TB
 	b1743_0[/"Start"\\]
+	b1743_3["b pop_u64"]
 	b1743_53["arg__6014__6040 -9223372036854775808L"]
 	b1743_56["arg__6011__6043 -1"]
+	b1743_4["a pop_u64"]
 	b1743_54["arg__6013__6041 u64.view"]
 	b1743_57["arg__6010__6044 u64.view"]
-	b1743_3["b pop_u64"]
-	b1743_4["a pop_u64"]
 	b1743_63["abs__6021__6048 lift_u64"]
 	b1743_62["abs__6020__6047 lift_u64"]
 	b1743_55["arg__6008__6042 U64_equals"]
@@ -81776,13 +81776,13 @@ subgraph block_1743["Block 1743"]
 	b1743_8["arg__6016 0"]
 	b1743_28["abs__6019 lift_u64"]
 	b1743_10["cond__6001 U64_equals"]
-	b1743_0 --> b1743_53
+	b1743_0 --> b1743_3
+	b1743_3 --> b1743_53
 	b1743_53 --> b1743_56
-	b1743_56 --> b1743_54
+	b1743_56 --> b1743_4
+	b1743_4 --> b1743_54
 	b1743_54 --> b1743_57
-	b1743_57 --> b1743_3
-	b1743_3 --> b1743_4
-	b1743_4 --> b1743_63
+	b1743_57 --> b1743_63
 	b1743_63 --> b1743_62
 	b1743_62 --> b1743_55
 	b1743_55 --> b1743_58
@@ -81832,12 +81832,12 @@ branch_1744 --> block_1747
 
 </pre>`;
 window.traces["I64_DIV_S"]["scheduler_ssad"] = ''
-window.traces["I64_DIV_S"]["scheduler_ssad"] += `<pre class=''>def arg__6014__6040 : long = -9223372036854775808L;
+window.traces["I64_DIV_S"]["scheduler_ssad"] += `<pre class=''>def b = pop_u64();
+def arg__6014__6040 : long = -9223372036854775808L;
 def arg__6011__6043 : u32 = -1;
+def a = pop_u64();
 def arg__6013__6041 = u64.view(arg__6014__6040);
 def arg__6010__6044 = u64.view(arg__6011__6043);
-def b = pop_u64();
-def a = pop_u64();
 def abs__6021__6048 = lift_u64(arg__6013__6041);
 def abs__6020__6047 = lift_u64(arg__6010__6044);
 def arg__6008__6042 = U64_equals(a, abs__6021__6048);
@@ -82412,11 +82412,11 @@ graph TD
 window.traces["I64_DIV_S"]["unlem_schedule"] = ''
 window.traces["I64_DIV_S"]["unlem_schedule"] += `<pre class=''>def arg__6014__6123__6222 : long = -9223372036854775808L;
 def arg__6011__6126__6225 : u32 = -1;
+def b = pop_u64();
 def arg__6013__6124__6223 = u64.view(arg__6014__6123__6222);
 def arg__6010__6127__6226 = u64.view(arg__6011__6126__6225);
 def arg__6014__6180 : long = -9223372036854775808L;
 def arg__6011__6183 : u32 = -1;
-def b = pop_u64();
 def a = pop_u64();
 def abs__6021__6133__6232 = lift_u64(arg__6013__6124__6223);
 def abs__6020__6132__6231 = lift_u64(arg__6010__6127__6226);
@@ -82430,15 +82430,15 @@ def cond__6003__6129__6228 = bot_and(arg__6007__6128__6227, arg__6008__6125__622
 def arg__6008__6182 = U64_equals(a, abs__6021__6191);
 def arg__6007__6185 = U64_equals(b, abs__6020__6190);
 def mt__6073__6134__6233 = bot_maybeTrue(cond__6003__6129__6228);
-def mf__6074__6135__6234 = bot_maybeFalse(cond__6003__6129__6228);
 def cond__6003__6186 = bot_and(arg__6007__6185, arg__6008__6182);
+def mf__6074__6135__6234 = bot_maybeFalse(cond__6003__6129__6228);
+def arg__6016 : u64 = 0;
 def mt__6073__6195 = bot_maybeTrue(cond__6003__6186);
 def mb__6075__6136__6235 = bool.&&(mt__6073__6134__6233, mf__6074__6135__6234);
-def mf__6074__6196 = bot_maybeFalse(cond__6003__6186);
-def arg__6016 : u64 = 0;
-def mb__6075__6197 = bool.&&(mt__6073__6195, mf__6074__6196);
 def abs__6019 = lift_u64(arg__6016);
+def mf__6074__6196 = bot_maybeFalse(cond__6003__6186);
 def cond__6001 = U64_equals(b, abs__6019);
+def mb__6075__6197 = bool.&&(mt__6073__6195, mf__6074__6196);
 def mt__6065 = U64_maybeTrue(cond__6001);
 def mf__6066 = U64_maybeFalse(cond__6001);
 def mb__6067 = bool.&&(mt__6065, mf__6066);
@@ -82558,11 +82558,11 @@ subgraph block_1753["Block 1753"]
 	b1753_0[/"r_state__6076 Start"\\]
 	b1753_211["arg__6014__6123__6222 -9223372036854775808L"]
 	b1753_214["arg__6011__6126__6225 -1"]
+	b1753_3["b pop_u64"]
 	b1753_212["arg__6013__6124__6223 u64.view"]
 	b1753_215["arg__6010__6127__6226 u64.view"]
 	b1753_165["arg__6014__6180 -9223372036854775808L"]
 	b1753_168["arg__6011__6183 -1"]
-	b1753_3["b pop_u64"]
 	b1753_4["a pop_u64"]
 	b1753_221["abs__6021__6133__6232 lift_u64"]
 	b1753_220["abs__6020__6132__6231 lift_u64"]
@@ -82576,26 +82576,26 @@ subgraph block_1753["Block 1753"]
 	b1753_167["arg__6008__6182 U64_equals"]
 	b1753_170["arg__6007__6185 U64_equals"]
 	b1753_222["mt__6073__6134__6233 bot_maybeTrue"]
-	b1753_223["mf__6074__6135__6234 bot_maybeFalse"]
 	b1753_171["cond__6003__6186 bot_and"]
+	b1753_223["mf__6074__6135__6234 bot_maybeFalse"]
+	b1753_8["arg__6016 0"]
 	b1753_180["mt__6073__6195 bot_maybeTrue"]
 	b1753_224["mb__6075__6136__6235 bool.&&"]
-	b1753_181["mf__6074__6196 bot_maybeFalse"]
-	b1753_8["arg__6016 0"]
-	b1753_182["mb__6075__6197 bool.&&"]
 	b1753_28["abs__6019 lift_u64"]
+	b1753_181["mf__6074__6196 bot_maybeFalse"]
 	b1753_10["cond__6001 U64_equals"]
+	b1753_182["mb__6075__6197 bool.&&"]
 	b1753_31["mt__6065 U64_maybeTrue"]
 	b1753_32["mf__6066 U64_maybeFalse"]
 	b1753_33["mb__6067 bool.&&"]
 	b1753_0 --> b1753_211
 	b1753_211 --> b1753_214
-	b1753_214 --> b1753_212
+	b1753_214 --> b1753_3
+	b1753_3 --> b1753_212
 	b1753_212 --> b1753_215
 	b1753_215 --> b1753_165
 	b1753_165 --> b1753_168
-	b1753_168 --> b1753_3
-	b1753_3 --> b1753_4
+	b1753_168 --> b1753_4
 	b1753_4 --> b1753_221
 	b1753_221 --> b1753_220
 	b1753_220 --> b1753_166
@@ -82608,16 +82608,16 @@ subgraph block_1753["Block 1753"]
 	b1753_217 --> b1753_167
 	b1753_167 --> b1753_170
 	b1753_170 --> b1753_222
-	b1753_222 --> b1753_223
-	b1753_223 --> b1753_171
-	b1753_171 --> b1753_180
+	b1753_222 --> b1753_171
+	b1753_171 --> b1753_223
+	b1753_223 --> b1753_8
+	b1753_8 --> b1753_180
 	b1753_180 --> b1753_224
-	b1753_224 --> b1753_181
-	b1753_181 --> b1753_8
-	b1753_8 --> b1753_182
-	b1753_182 --> b1753_28
-	b1753_28 --> b1753_10
-	b1753_10 --> b1753_31
+	b1753_224 --> b1753_28
+	b1753_28 --> b1753_181
+	b1753_181 --> b1753_10
+	b1753_10 --> b1753_182
+	b1753_182 --> b1753_31
 	b1753_31 --> b1753_32
 	b1753_32 --> b1753_33
 end
@@ -82766,11 +82766,11 @@ branch_1770 --> block_1773
 window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] = ''
 window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>def arg__6014__6123__6222 : long = -9223372036854775808L;
 def arg__6011__6126__6225 : u32 = -1;
+def b = pop_u64();
 def arg__6013__6124__6223 = u64.view(arg__6014__6123__6222);
 def arg__6010__6127__6226 = u64.view(arg__6011__6126__6225);
 def arg__6014__6180 : long = -9223372036854775808L;
 def arg__6011__6183 : u32 = -1;
-def b = pop_u64();
 def a = pop_u64();
 def abs__6021__6133__6232 = lift_u64(arg__6013__6124__6223);
 def abs__6020__6132__6231 = lift_u64(arg__6010__6127__6226);
@@ -82784,15 +82784,15 @@ def cond__6003__6129__6228 = bot_and(arg__6007__6128__6227, arg__6008__6125__622
 def arg__6008__6182 = U64_equals(a, abs__6021__6191);
 def arg__6007__6185 = U64_equals(b, abs__6020__6190);
 def mt__6073__6134__6233 = bot_maybeTrue(cond__6003__6129__6228);
-def mf__6074__6135__6234 = bot_maybeFalse(cond__6003__6129__6228);
 def cond__6003__6186 = bot_and(arg__6007__6185, arg__6008__6182);
+def mf__6074__6135__6234 = bot_maybeFalse(cond__6003__6129__6228);
+def arg__6016 : u64 = 0;
 def mt__6073__6195 = bot_maybeTrue(cond__6003__6186);
 def mb__6075__6136__6235 = bool.&&(mt__6073__6134__6233, mf__6074__6135__6234);
-def mf__6074__6196 = bot_maybeFalse(cond__6003__6186);
-def arg__6016 : u64 = 0;
-def mb__6075__6197 = bool.&&(mt__6073__6195, mf__6074__6196);
 def abs__6019 = lift_u64(arg__6016);
+def mf__6074__6196 = bot_maybeFalse(cond__6003__6186);
 def cond__6001 = U64_equals(b, abs__6019);
+def mb__6075__6197 = bool.&&(mt__6073__6195, mf__6074__6196);
 def mt__6065 = U64_maybeTrue(cond__6001);
 def mf__6066 = U64_maybeFalse(cond__6001);
 def mb__6067 = bool.&&(mt__6065, mf__6066);
@@ -82848,8 +82848,8 @@ window.traces["I64_DIV_S"]["unlem_scheduler_ssa"] += `<pre class=''>def b = pop_
 def a = pop_u64();
 def cond = bot_and(U64_equals(b, lift_u64(u64.view(-1))), U64_equals(a, lift_u64(u64.view(-9223372036854775808L))));
 def mt = bot_maybeTrue(cond);
-def mf = bot_maybeFalse(cond);
 def cond1 = bot_and(U64_equals(b, lift_u64(u64.view(-1))), U64_equals(a, lift_u64(u64.view(-9223372036854775808L))));
+def mf = bot_maybeFalse(cond);
 def mt1 = bot_maybeTrue(cond1);
 def mf1 = bot_maybeFalse(cond1);
 def mt2 = U64_maybeTrue(U64_equals(b, lift_u64(0)));
@@ -82888,8 +82888,8 @@ window.traces["I64_DIV_S"]["unlem_pretty"] += `<pre class=''>def b = pop_u64();
 def a = pop_u64();
 def cond = bot_and(U64_equals(b, lift_u64(u64.view(-1))), U64_equals(a, lift_u64(u64.view(-9223372036854775808L))));
 def mt = bot_maybeTrue(cond);
-def mf = bot_maybeFalse(cond);
 def cond1 = bot_and(U64_equals(b, lift_u64(u64.view(-1))), U64_equals(a, lift_u64(u64.view(-9223372036854775808L))));
+def mf = bot_maybeFalse(cond);
 def mt1 = bot_maybeTrue(cond1);
 def mf1 = bot_maybeFalse(cond1);
 def mt2 = U64_maybeTrue(U64_equals(b, lift_u64(0)));
@@ -107608,10 +107608,10 @@ graph TD
 </pre>`;
 window.traces["STRUCT_GET"]["scheduled"] = ''
 window.traces["STRUCT_GET"]["scheduled"] += `<pre class=''>def struct_index = imm_readULEB32();
-def eff_nop__6940 = nop();
 def obj = pop_Object();
-def eff_nop__6938 = nop();
 def field_index = imm_readULEB32();
+def eff_nop__6940 = nop();
+def eff_nop__6938 = nop();
 def ret__6914 = trapNull();
 def eff_merge__6942 = merge(eff_nop__6940, r_state__6941);
 def eff_merge__6939 = merge(eff_nop__6938, obj);
@@ -108516,10 +108516,10 @@ graph TD
 </pre>`;
 window.traces["STRUCT_GET_S"]["scheduled"] = ''
 window.traces["STRUCT_GET_S"]["scheduled"] += `<pre class=''>def struct_index = imm_readULEB32();
-def eff_nop__7019 = nop();
 def obj = pop_Object();
-def eff_nop__7017 = nop();
 def field_index = imm_readULEB32();
+def eff_nop__7019 = nop();
+def eff_nop__7017 = nop();
 def ret__6993 = trapNull();
 def eff_merge__7021 = merge(eff_nop__7019, r_state__7020);
 def eff_merge__7018 = merge(eff_nop__7017, obj);
@@ -109424,10 +109424,10 @@ graph TD
 </pre>`;
 window.traces["STRUCT_GET_U"]["scheduled"] = ''
 window.traces["STRUCT_GET_U"]["scheduled"] += `<pre class=''>def struct_index = imm_readULEB32();
-def eff_nop__7098 = nop();
 def obj = pop_Object();
-def eff_nop__7096 = nop();
 def field_index = imm_readULEB32();
+def eff_nop__7098 = nop();
+def eff_nop__7096 = nop();
 def ret__7072 = trapNull();
 def eff_merge__7100 = merge(eff_nop__7098, r_state__7099);
 def eff_merge__7097 = merge(eff_nop__7096, obj);
