@@ -466,27 +466,6 @@ class IRNode {
         else return dedup(Arrays.concat(value_deps, state_deps));
     }
 
-    // only used by search based scheduler, should be removed after
-    def transitiveDeps(limit: IRNode) -> Array<IRNode> {
-        def res = Vector<IRNode>.new();
-        match (op) {
-            Phi, StatePhi => {
-                def cond = value_deps[0], left = value_deps[1], right = value_deps[2];
-                def leftDeps = left.transitiveDeps(limit), rightDeps = right.transitiveDeps(limit);
-                for (l in leftDeps) for (r in rightDeps) if (l.id == r.id && l.id != limit.id) res.put(l);
-                res.put(cond);
-                if (cond.id != limit.id) res.puta(cond.transitiveDeps(limit));
-            }
-            _ => {
-                for (d in deps()) {
-                    res.put(d);
-                    if (d.id != limit.id) res.puta(d.transitiveDeps(limit));
-                }
-            }
-        }
-        return dedup(res.copy());
-    }
-
     def transitiveDepsAux(buf: NodeSet) {
         for (dep in deps()) if (dep != null) {
             buf.put(dep);
