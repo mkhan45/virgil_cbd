@@ -71,16 +71,16 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def state = NodeMap<(IRNode, Vector<IRNode>)>.new();
     sea.apply(state, SeaTransforms.unLEM);
     CBDTrace.addGraph(opcode, "unLEM", sea);
-    def unlem_ssa = SearchSchedule.schedule(sea);
-    CBDTrace.addCode(opcode, "unlem_schedule", unlem_ssa.toString(0));
 
     def ulscheduler = Scheduler.of_full_sea(sea);
     ulscheduler.opcode = Strings.format1("%s_ul", opcode);
     ulscheduler.schedule();
+    def unlem_ssa = ulscheduler.bottom_block.toSSAD();
+    CBDTrace.addCode(opcode, "unlem_schedule", unlem_ssa.toString(0));
     def ulscheduler_mermaid = ulscheduler.toMermaid();
     CBDTrace.addString(opcode, "unlem_scheduler", "graph", ulscheduler_mermaid);
-    CBDTrace.addCode(opcode, "unlem_scheduler_ssa", ulscheduler.bottom_block.toSSAD().toString(0));
-    CBDTrace.addCode(opcode, "unlem_scheduler_ssa", ulscheduler.bottom_block.toSSAD().toStringPretty(0));
+    CBDTrace.addCode(opcode, "unlem_scheduler_ssa", unlem_ssa.toString(0));
+    CBDTrace.addCode(opcode, "unlem_scheduler_ssa", unlem_ssa.toStringPretty(0));
 
     CBDTrace.addCode(opcode, "unlem_pretty", unlem_ssa.toStringPretty(0));
     sea.apply(void, SeaTransforms.constUnLEM);
@@ -111,7 +111,10 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // System.puts(mbuf.toString());
     // System.puts("------");
 
-    def scheduled = SearchSchedule.schedule(sea);
+    def finalss = Scheduler.of_full_sea(sea);
+    finalss.opcode = Strings.format1("%s_final", opcode);
+    finalss.schedule();
+    def scheduled = finalss.bottom_block.toSSAD();
     CBDTrace.addCode(opcode, "scheduled", scheduled.toString(0));
     CBDTrace.addCode(opcode, "pretty", scheduled.toStringPretty(0));
 

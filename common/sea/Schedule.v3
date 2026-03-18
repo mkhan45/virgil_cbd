@@ -698,13 +698,33 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
         def phi_vec = Vector<(string, string)>.new();
         for (cur = phis; cur != null; cur = cur.tail) if (IROp.Phi.?(cur.head.op)) {
             def phi = cur.head;
-            def l = phi.value_deps[1];
-            def r = phi.value_deps[2];
+            // Unwrap Move nodes: addMoves wraps phi deps as Move(cond, actual_value).
+            // Move nodes are skipped in ScheduleBlock.toSSAD, so we must reference
+            // the actual computation node (Move.value_deps[1]) as the phi source.
+            var l = phi.value_deps[1];
+            var r = phi.value_deps[2];
+            if (l != null && IROp.Move.?(l.op) && l.value_deps.length > 1) l = l.value_deps[1];
+            if (r != null && IROp.Move.?(r.op) && r.value_deps.length > 1) r = r.value_deps[1];
             if (l != null) phi_vec.put((phi.var_data.sourceName, l.var_data.sourceName));
             if (r != null) phi_vec.put((phi.var_data.sourceName, r.var_data.sourceName));
         }
 
-        def prev_ssad = if(source_branch.prev != null, source_branch.prev.toSSAD(), SSAD.Void);
+        var prev_ssad = if(source_branch.prev != null, source_branch.prev.toSSAD(), SSAD.Void);
+        // Inject var declarations for phi destinations before the if, matching SearchSchedule
+        // behavior. Track declared names to avoid duplicate declarations.
+        def declared = Vector<string>.new();
+        for (cur = phis; cur != null; cur = cur.tail) if (IROp.Phi.?(cur.head.op)) {
+            def phi = cur.head;
+            def phi_name = phi.var_data.sourceName;
+            var already = false;
+            for (i < declared.length) already |= Strings.equal(declared[i], phi_name);
+            if (!already) {
+                declared.put(phi_name);
+                prev_ssad = prev_ssad.appended(SSAD.Injected(
+                    Strings.format2("var %s: %s;", phi_name, phi.var_data.tipe.long_str()),
+                    SSAD.Void));
+            }
+        }
         return prev_ssad.appended(SSAD.If(cond_name, left, right, phi_vec.copy(), SSAD.Void));
     }
 }

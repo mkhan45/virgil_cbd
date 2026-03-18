@@ -110,7 +110,9 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     // System.puts("mermaid: "); System.puts(opcode); System.ln();
     // System.puts(sea.toMermaid());
     // System.ln();
-    def scheduled = SearchSchedule.schedule(sea);
+    def aiss = Scheduler.of_full_sea(sea);
+    aiss.schedule();
+    def scheduled = aiss.bottom_block.toSSAD();
     def processed = scheduled;
 
     // SSAD_IR.counter = 0;
