@@ -15,13 +15,13 @@ All three components are code-generated from shared template files using a meta-
 ### Core Build Commands
 
 ```bash
-# Build all components (validator, interpreter, compiler)
+# Build all components (validator, interpreter, wizeng-slow, site)
 make all
 
 # Build individual components
-make validator          # Generate generated/validator/Validator.v3
-make interpreter        # Generate generated/interpreter/Interpreter.v3  
-make compiler          # Generate generated/compiler/Compiler.v3
+make validator          # Generate generated/Validator.v3
+make interpreter        # Generate generated/Interpreter.v3
+make compiler          # Generate generated/Compiler.v3
 
 # Build ValidatorGen (can be used to check compile errors and basic functionality)
 make ValidatorGen
@@ -78,13 +78,15 @@ common/                         # Shared code
 │   ├── IR.v3                  # SSAD representation
 │   ├── IRAnalysis.v3          # Static analysis and optimizations
 │   └── PrettyIR.v3            # IR pretty printing
+├── Trace.v3                   # Mermaid/JS visualization trace output
 ├── sea/                        # Sea of nodes IR framework
 │   ├── SeaOfNodes.v3          # Sea graph, IRNode, graph rewrites
-│   ├── SearchSchedule.v3     # Search-based DFS scheduler
-│   ├── Schedule.v3            # Bottom-up CFG scheduler (WIP)
+│   ├── SeaTransforms.v3       # Graph rewrite passes
+│   ├── SeaRender.v3           # Sea graph rendering
+│   ├── Schedule.v3            # Bottom-up CFG scheduler (untangle + schedule)
 │   ├── CheckSchedule.v3      # Schedule verification (dependency ordering + graph equivalence)
 │   ├── DomGraph.v3            # Hierarchical dominance tracking for scheduler
-│   └── Trace.v3               # Mermaid/JS visualization trace output
+│   └── NodeCollections.v3     # Node set types and collections
 ├── runtime/                    # Shared runtime types
 │   └── Types.v3               # Runtime type definitions
 └── codegen/                    # Code generation utilities
@@ -111,7 +113,7 @@ The sea of nodes is a graph-based IR used for analysis, optimization, and schedu
 **Core types:**
 - **`Sea`** - The graph container holding `IRNode`s. Provides graph analysis (LCA), Mermaid visualization, and cloning (`Seas.clone()`, `Seas.cloneSubgraph()`).
 - **`IRNode`** - Graph nodes with `value_deps` (data flow), `state_deps` (one slot per `StateComponent` variant, sized to `StateComponent.count` and indexed by `.tag`), and `children` (reverse edges). Each carries `VarData` (name, type, stage) and an `IROp`.
-- **`IROp`** - Node operation enum: `Start`, `Finish`, `Intrinsic(defn)`, `Lit(tipe, rep)`, `Phi`, `StatePhi(statecomps)`, `Proj(val)`, `Move(val)`.
+- **`IROp`** - Node operation enum: `Start`, `Finish`, `Intrinsic(defn)`, `Lit(tipe, rep)`, `Phi`, `StatePhi(statecomps)`, `Move(val)`.
 - **`NodeSet` / `ImmNodeSet`** - Mutable and immutable node set types used throughout for graph analysis.
 
 **Graph rewrite passes** (applied via `sea.apply()`):
@@ -124,7 +126,13 @@ The sea of nodes is a graph-based IR used for analysis, optimization, and schedu
 - `reifyConds` - Inserts `startIf`/`startElse`/`end` control flow markers
 - `chooseMerge` - Simplifies merge nodes
 
-**Scheduling** converts the unordered sea graph back into structured code. Scheduling is handled by separate modules outside of `SeaOfNodes.v3`.
+**Scheduling** (`common/sea/Schedule.v3`) converts the unordered sea graph back into structured code. The scheduler operates in two phases:
+
+1. **Untangle** — Resolves shared subgraphs between branches. Uses `branch_partition` (on `Sea`) to compute, for each phi node, a `BranchPartition` containing the left subgraph, right subgraph, and frontier (nodes reachable from both sides). `find_branch_lattices` groups phi nodes that share the same condition into `BranchLattice`s, merging their partitions. Lattices are topologically sorted so inner branches are processed first. For each lattice, the shared frontier nodes are cloned (`Seas.cloneSubgraph`) into each branch so no node belongs to both sides, then lattices are recomputed.
+
+2. **Bottom-up schedule** — Walks from `Finish` upward, placing each node into the lowest valid position in a `ScheduleNode` tree (composed of `ScheduleBlock`, `ScheduleBranch`, and `SchedulePhi` nodes). `isReady` checks whether all of a node's live children have been scheduled (tracked via `DomGraph`). Phi nodes use grouped readiness: all children across the `BranchLattice` must be scheduled before any phi in the group is enqueued. When a phi becomes ready, `prependScheduleBranch` inserts a new `ScheduleBranch`/`SchedulePhi` pair into the schedule tree.
+
+**Move nodes** (`IROp.Move(val)`) are inserted by the `addMoves` transform before scheduling. Each phi's condition node gets `move_true`/`move_false` children via `init_move`, which act as branch-side markers. The scheduler skips Move nodes during placement (they are not live) but uses them to associate values with their correct branch side. `SchedulePhi.toSSAD` unwraps Move nodes when emitting phi assignments.
 
 **`ScheduleChecker`** (`common/sea/CheckSchedule.v3`) - Verifies scheduler output by checking three properties:
 
@@ -187,9 +195,7 @@ Instructions are annotated with effects that track:
 
 ## Testing
 
-The project includes WebAssembly test files:
-- `test.wasm`, `test.wat` - Basic test cases
-- `tests/` directory contains additional test cases
+- `tests/` directory contains test cases
 - Use `scripts/run_polybench.sh` for performance testing with polybench suite
   - Example: `bash scripts/run_polybench.sh jacobi-1d.wasm`
   - Use `--list` to see all available benchmarks
@@ -276,7 +282,7 @@ This document defines Amp tools for this project that provide convenient access 
 
 **Targets:**
 
-- `all` - Build validator, interpreter, and compiler
+- `all` - Build validator, interpreter, wizeng-slow, and site
 - `validator` - Generate validator from template
 - `interpreter` - Generate interpreter from template
 - `compiler` - Generate compiler from template
