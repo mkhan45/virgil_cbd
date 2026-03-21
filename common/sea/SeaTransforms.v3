@@ -273,10 +273,12 @@ component SeaTransforms {
                 
                 // Create Move(true) { value_deps = [cond, left] }
                 def mt = sea.mkNode(IROp.Move(true), Array.new(StateComponent.count), [cond, left]);
+                if (left.var_data == null) left.var_data = VarData.new(Seas.uidl("l"), TypeVar.U32, Stage.INTERPRET);
                 mt.var_data = VarData.new(Seas.uidl("mv_t"), left.var_data.tipe, left.var_data.stage);
                 
                 // Create Move(false) { value_deps = [cond, right] }
                 def mf = sea.mkNode(IROp.Move(false), Array.new(StateComponent.count), [cond, right]);
+                if (right.var_data == null) right.var_data = VarData.new(Seas.uidl("r"), TypeVar.U32, Stage.INTERPRET);
                 mf.var_data = VarData.new(Seas.uidl("mv_f"), right.var_data.tipe, right.var_data.stage);
                 
                 // Update Phi to use Move nodes
