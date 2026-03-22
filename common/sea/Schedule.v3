@@ -72,13 +72,75 @@ class SeaScheduler {
         live = Seas.live(sea);
     }
 
-    def find_branch_lattices() {
+    // Compute a depth ordering of phis: outermost phis first.
+    // Phi A is "inside" phi B if A is in B's l_subgraph or r_subgraph.
+    // Returns phis sorted so that enclosing phis come before nested phis.
+    def sorted_phis_by_depth() -> (Array<IRNode>, NodeMap<BranchPartition>) {
+        // Collect all live phis and their partitions
+        def phis = Vector<IRNode>.new();
+        def partitions = NodeMap<BranchPartition>.new();
         live.apply(fun (n: IRNode) {
             if (!n.is_phi()) return;
-            if (branch_lattice_map[n] != null) return;
+            phis.put(n);
+            partitions[n] = sea.branch_partition(n);
+        });
+
+        def n = phis.length;
+        if (n == 0) return (Array<IRNode>.new(0), partitions);
+
+        // Build containment graph: edge from outer -> inner (outer must come first)
+        // dep_count[i] = number of phis that contain phi[i] (in-degree)
+        def dep_count = Array<int>.new(n);
+        def dependents = Array<Vector<int>>.new(n);
+        for (i < n) dependents[i] = Vector.new();
+
+        for (outer_idx < n) {
+            def outer = phis[outer_idx];
+            def p = partitions[outer];
+            def subgraph = p.l_subgraph.union(p.r_subgraph);
+            for (inner_idx < n) {
+                if (outer_idx == inner_idx) continue;
+                if (subgraph.has(phis[inner_idx])) {
+                    dep_count[inner_idx]++;
+                    dependents[outer_idx].put(inner_idx);
+                }
+            }
+        }
+
+        // Kahn's algorithm: process outermost phis first
+        def result = Vector<IRNode>.new();
+        def queue = Vector<int>.new();
+        for (i < n) if (dep_count[i] == 0) queue.put(i);
+
+        var idx = 0;
+        while (idx < queue.length) {
+            def cur = queue[idx];
+            idx++;
+            result.put(phis[cur]);
+            for (k < dependents[cur].length) {
+                def dep = dependents[cur][k];
+                dep_count[dep]--;
+                if (dep_count[dep] == 0) queue.put(dep);
+            }
+        }
+
+        // Append any remaining (cyclic) phis
+        for (i < n) if (dep_count[i] > 0) result.put(phis[i]);
+
+        return (result.extract(), partitions);
+    }
+
+    def find_branch_lattices() {
+        def sorted = sorted_phis_by_depth();
+        def sorted_phis = sorted.0;
+        def partitions = sorted.1;
+
+        for (idx < sorted_phis.length) {
+            def n = sorted_phis[idx];
+            if (branch_lattice_map[n] != null) continue;
             def cond = n.value_deps[0];
 
-            def partition = sea.branch_partition(n);
+            def partition = partitions[n];
             def frontier = partition.frontier, lsg = partition.l_subgraph, rsg = partition.r_subgraph;
 
             var dest_bl: BranchLattice = null;
@@ -86,7 +148,7 @@ class SeaScheduler {
                 def bl = branch_lattices[i];
                 if (bl.condition.id != cond.id) continue;
 
-                if (bl.can_merge_branches(n)) {
+                if (bl.can_merge_branches(n) && same_scope(n, bl)) {
                     dest_bl = bl;
                     break;
                 }
@@ -99,7 +161,27 @@ class SeaScheduler {
                 branch_lattices.put(dest_bl);
             }
             branch_lattice_map[n] = dest_bl;
-        });
+        }
+    }
+
+    // Check that phi and the existing phis in bl are in the same scope:
+    // they must not be on opposite sides of any already-formed BranchLattice.
+    def same_scope(phi: IRNode, bl: BranchLattice) -> bool {
+        for (i < branch_lattices.length) {
+            def other = branch_lattices[i];
+            if (other.condition.id == bl.condition.id) continue;
+
+            def phi_in_l = other.l_subgraph.has(phi);
+            def phi_in_r = other.r_subgraph.has(phi);
+            if (!phi_in_l && !phi_in_r) continue;
+
+            for (j < bl.phis.length) {
+                def existing = bl.phis[j];
+                if (phi_in_l && other.r_subgraph.has(existing)) return false;
+                if (phi_in_r && other.l_subgraph.has(existing)) return false;
+            }
+        }
+        return true;
     }
 
     def toMermaid() -> string => SeaRender.toMermaidScheduler(this);
