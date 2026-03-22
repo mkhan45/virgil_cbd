@@ -86,14 +86,16 @@ component SeaTransforms {
         if (IROp.Intrinsic.?(left.op) && IROp.Intrinsic.?(right.op)) {
             def l_defn = IROp.Intrinsic.!(left.op).defn, r_defn = IROp.Intrinsic.!(right.op).defn;
             if (Strings.startsWith(l_defn.name, "push") && Strings.startsWith(r_defn.name, "push")) {
-                // TODO: should recursively merge effs from state deps
+                // Recursively merge state deps (e.g. prior pushes in the chain)
+                def merged_state = mergeStateDeps(node, sea, left, right);
+
                 if (left.value_deps.length == 1) {
                     // no typevar
                     def l_push = left.value_deps[0], r_push = right.value_deps[0];
                     def merge_fn = Strings.format1("merge_%s", l_push.var_data.tipe.short_str());
                     def merge = sea.mkNode(IROp.Intrinsic(Seas.intrinsic(merge_fn)), Arrays.dup(l_push.state_deps), [l_push, r_push]);
                     merge.var_data = VarData.new(Seas.uidl("merge"), l_push.var_data.tipe, Stage.INTERPRET);
-                    def push = sea.mkNode(left.op, left.state_deps, [merge]);
+                    def push = sea.mkNode(left.op, merged_state, [merge]);
                     push.var_data = VarData.new(Seas.uidl("eff_push"), TypeVar.Bot("void"), Stage.INTERPRET);
                     return push;
                 } else {
@@ -101,7 +103,7 @@ component SeaTransforms {
                     def l_push = left.value_deps[1], r_push = right.value_deps[1], tv = left.value_deps[0];
                     def merge = sea.mkNode(IROp.Intrinsic(Seas.intrinsic("merge_Val")), Arrays.dup(l_push.state_deps), [tv, l_push, r_push]);
                     merge.var_data = VarData.new(Seas.uidl("merge"), l_push.var_data.tipe, Stage.INTERPRET);
-                    def push = sea.mkNode(left.op, left.state_deps, [tv, merge]);
+                    def push = sea.mkNode(left.op, merged_state, [tv, merge]);
                     push.var_data = VarData.new(Seas.uidl("push"), TypeVar.Bot("void"), Stage.INTERPRET);
                     return push;
                 }
@@ -110,6 +112,17 @@ component SeaTransforms {
 
         // default case, run both
         return mergeEffsValidator(sea, left, right);
+    }
+
+    def mergeStateDeps(node: IRNode, sea: Sea, left: IRNode, right: IRNode) -> Array<IRNode> {
+        def merged = Arrays.dup(left.state_deps);
+        for (i < merged.length) {
+            def l_dep = left.state_deps[i], r_dep = right.state_deps[i];
+            if (l_dep != null && r_dep != null && l_dep.id != r_dep.id) {
+                merged[i] = mergeEffsAI(node, sea, l_dep, r_dep);
+            }
+        }
+        return merged;
     }
 
     def mergeEffsValidator(sea: Sea, left: IRNode, right: IRNode) -> IRNode {
@@ -252,7 +265,7 @@ component SeaTransforms {
     }
 
     def chooseMerge(node: IRNode, sea: Sea, u: void) -> Range<IRNode> {
-        match (node.op) {
+        match (node.Oop) {
             Intrinsic(defn) => {
                 if (Strings.startsWith(defn.name, "merge_")) {
                     node.become(node.value_deps[0]);
@@ -273,6 +286,7 @@ component SeaTransforms {
                 
                 // Create Move(true) { value_deps = [cond, left] }
                 def mt = sea.mkNode(IROp.Move(true), Array.new(StateComponent.count), [cond, left]);
+                // TODO: recover proper var data here
                 if (left.var_data == null) left.var_data = VarData.new(Seas.uidl("l"), TypeVar.U32, Stage.INTERPRET);
                 mt.var_data = VarData.new(Seas.uidl("mv_t"), left.var_data.tipe, left.var_data.stage);
                 

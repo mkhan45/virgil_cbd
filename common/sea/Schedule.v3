@@ -189,7 +189,7 @@ class SeaScheduler {
     def schedule() {
         if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
         if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_start", "", SeaRender.renderScheduler(this, StringBuilder.new()).toString());
-        if (opcode != null && Strings.startsWith(opcode, "MOCK_TEST")) trace_full = true;
+        // if (opcode != null && Strings.startsWith(opcode, "MOCK_TEST")) trace_full = true;
 
         untangle();
         if (opcode != null) CBDTrace.addGraph(opcode, "untangled", sea);
@@ -202,7 +202,7 @@ class SeaScheduler {
         q_idx = 0;
         while (q_idx < q.length) {
             // max successful idx (I32/I64_DIV_S): 30
-            if (q_idx > 100) {
+            if (q_idx > 500) {
                 System.puts(Strings.format1("ERROR: Scheduling %s reached limit\n", opcode));
                 break;
             }
@@ -317,8 +317,6 @@ class SeaScheduler {
     }
 
     def untangle() {
-        var processed_conds = NodeSet.new();
-
         // Compute initial lattices
         branch_lattice_map = NodeMap<BranchLattice>.new();
         branch_lattices = Vector.new();
@@ -326,14 +324,15 @@ class SeaScheduler {
         sea.rebuildChildren();
         find_branch_lattices();
 
-        while (true) {
+        var limit = 100;
+        while (limit > 0) {
+            limit -= 1;
             def sorted = topo_sort_lattices();
 
-            // Find next unprocessed leaf lattice
+            // Find next lattice with overlapping l/r subgraphs
             var next_bl: BranchLattice = null;
             for (i < sorted.length) {
-                def cond = sorted[i].condition;
-                if (!processed_conds.has(cond)) {
+                if (!sorted[i].l_subgraph.intersection(sorted[i].r_subgraph).isEmpty()) {
                     next_bl = sorted[i];
                     break;
                 }
@@ -341,7 +340,6 @@ class SeaScheduler {
             if (next_bl == null) break;
 
             def bl = next_bl;
-            processed_conds.put(bl.condition);
 
             if (trace_full) {
                 System.puts(Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
