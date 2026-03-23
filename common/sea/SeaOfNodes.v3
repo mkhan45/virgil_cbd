@@ -128,23 +128,30 @@ class Sea {
                 addSSAD(rest, state_vars, deps);
             }
             If(cond, then, els, phis, rest) => {
-                def else_phis = Strings.newMap<IRNode>();
-
-                def else_state = Arrays.dup(state_vars);
-                addSSAD(els, else_state, deps);
+                // Collect unique dest variable names from phis.
+                def phi_vars = Vector<string>.new();
                 for (phi in phis) {
-                    if (var_nodes.has(phi.1))
-                        else_phis[phi.0] = var_nodes[phi.1]; // take from else branch
-                    else if (!else_phis.has(phi.0))
-                        else_phis[phi.0] = var_nodes[phi.0]; // default to prev val
+                    var found = false;
+                    for (i < phi_vars.length) if (Strings.equal(phi_vars[i], phi.0)) { found = true; break; }
+                    if (!found) phi_vars.put(phi.0);
                 }
 
+                // Process else branch and capture var_nodes[dest] for each phi var.
+                def else_phis = Strings.newMap<IRNode>();
+                def else_state = Arrays.dup(state_vars);
+                addSSAD(els, else_state, deps);
+                for (i < phi_vars.length) {
+                    def v = phi_vars[i];
+                    if (var_nodes.has(v)) else_phis[v] = var_nodes[v];
+                }
+
+                // Process then branch and capture var_nodes[dest] for each phi var.
                 def then_phis = Strings.newMap<IRNode>();
                 def then_state = Arrays.dup(state_vars);
                 addSSAD(then, then_state, deps);
-                for (phi in phis) {
-                    if (!else_phis.has(phi.1) && var_nodes.has(phi.1))
-                        then_phis[phi.0] = var_nodes[phi.1];
+                for (i < phi_vars.length) {
+                    def v = phi_vars[i];
+                    if (var_nodes.has(v)) then_phis[v] = var_nodes[v];
                 }
 
                 def cond_node = var_nodes[cond];

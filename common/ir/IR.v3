@@ -191,15 +191,35 @@ component SSAD_IR {
             If(c, t, e) => {
                 def c_var = uidl("cond");
                 def phis = Vector<(string, string)>.new();
+                def saved_substs = assign_substs;
+
+                // Process each branch with fresh assign_substs
                 assign_substs = Strings.newMap();
                 def t_ssa = from_virgil(t);
+                def then_substs = assign_substs;
+
+                assign_substs = Strings.newMap();
                 def e_ssa = from_virgil(e);
-                def assigned_vars = Maps.keyList(assign_substs);
-                for (n = assigned_vars; n != null; n = n.tail) {
+                def else_substs = assign_substs;
+
+                // Merge: collect phi entries from both branches
+                def all_vars = Strings.newMap<bool>();
+                for (n = Maps.keyList(then_substs); n != null; n = n.tail) all_vars[n.head] = true;
+                for (n = Maps.keyList(else_substs); n != null; n = n.tail) all_vars[n.head] = true;
+                for (n = Maps.keyList(all_vars); n != null; n = n.tail) {
                     def v = n.head;
-                    def asns = assign_substs[v];
-                    for (i < asns.length) phis.put((v, asns[i]));
+                    if (then_substs.has(v)) for (i < then_substs[v].length) phis.put((v, then_substs[v][i]));
+                    if (else_substs.has(v)) for (i < else_substs[v].length) phis.put((v, else_substs[v][i]));
                 }
+
+                // Restore outer assign_substs and propagate that these vars were modified
+                assign_substs = saved_substs;
+                for (n = Maps.keyList(all_vars); n != null; n = n.tail) {
+                    def v = n.head;
+                    if (!assign_substs.has(v)) assign_substs[v] = Vector.new();
+                    assign_substs[v].put(v);
+                }
+
                 return from_virgil_expr(c_var, c, SSAD.If(c_var, t_ssa, e_ssa, phis.copy(), rest));
             }
             Match(subj, branches) => {

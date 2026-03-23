@@ -77,7 +77,12 @@ component SeaRender {
             Lit(tipe, rep) => sb.puts(rep);
             Start => sb.puts("Start");
             Finish => sb.puts("Finish");
-            Phi => sb.puts("Phi");
+            Phi => {
+                sb.puts("Phi");
+                if (node.var_data != null && node.var_data.sourceName != null) {
+                    sb.sp().putc('[').puts(node.var_data.sourceName).putc(']');
+                }
+            }
             StatePhi => sb.puts("StatePhi [").putq(renderIRNode(node.value_deps[0], _)).putc(']');
             Move(val) => sb.puts(if(val, "|True|", "|False|"));
         }
@@ -294,6 +299,13 @@ component SeaRender {
             }
             UnscheduledPhi(phi) =>
                 sb.puts("UnscheduledPhi ").putq(renderIRNode(phi, _));
+            PhiBranchMissing(phi, value, side) => {
+                sb.puts("PhiBranchMissing phi=");
+                sb.putq(renderIRNode(phi, _));
+                sb.puts(" value=");
+                sb.putq(renderIRNode(value, _));
+                sb.puts(if(side, " missing from left branch", " missing from right branch"));
+            }
         }
 
         return sb;

@@ -5,6 +5,7 @@ type ScheduleError {
     case PathEffectMismatch(path: Array<(IRNode, bool)>, graph_only: Array<IRNode>, cfg_only: Array<IRNode>);
     case EffectCountMismatch(path: Array<(IRNode, bool)>, orig_effs: Array<IRNode>, new_effs: Array<IRNode>);
     case UnscheduledPhi(phi: IRNode);
+    case PhiBranchMissing(phi: IRNode, value: IRNode, side: bool);
 
     def render(sb: StringBuilder) -> StringBuilder => SeaRender.renderScheduleError(this, sb);
 }
@@ -27,6 +28,7 @@ class ScheduleChecker {
         def graph_diff = new_sea.finish.graph_eq(orig_sea.finish);
         if (!DiffResult.GraphsEqual.?(graph_diff)) errors.put(ScheduleError.GraphDiff(graph_diff));
         check_phi_placement();
+        check_phi_branches();
         check_path_effects();
     }
 
@@ -263,6 +265,79 @@ class ScheduleChecker {
             }
             phi: SchedulePhi => {
                 collect_cfg_effs(phi.next, assignment, effects);
+            }
+            _ => ;
+        }
+    }
+
+    // Verify that each value Phi's arm values are inside the correct
+    // branch blocks.  A value Phi's Move(true) wraps the true-arm value
+    // and sits in l_branch; Move(false) wraps the false-arm value and
+    // sits in r_branch.  The unwrapped actual value must appear as a
+    // scheduled node inside the corresponding branch subtree so that
+    // toSSAD can render the phi assignment.
+    def check_phi_branches() {
+        check_phi_branches_walk(cfg_top);
+    }
+
+    def check_phi_branches_walk(cfg_node: ScheduleNode) {
+        if (cfg_node == null) return;
+        match (cfg_node) {
+            block: ScheduleBlock => {
+                check_phi_branches_walk(block.next);
+            }
+            branch: ScheduleBranch => {
+                check_phi_branches_walk(branch.l_branch);
+                check_phi_branches_walk(branch.r_branch);
+                check_phi_branches_walk(branch.phi);
+            }
+            phi: SchedulePhi => {
+                def l_nodes = NodeSet.new();
+                def r_nodes = NodeSet.new();
+                collect_branch_nodes(phi.l_source, l_nodes);
+                collect_branch_nodes(phi.r_source, r_nodes);
+
+                for (p = phi.phis; p != null; p = p.tail) {
+                    def node = p.head;
+                    if (!IROp.Phi.?(node.op)) continue;
+
+                    var l_val = node.value_deps[1];
+                    var r_val = node.value_deps[2];
+                    if (l_val != null && IROp.Move.?(l_val.op) && l_val.value_deps.length > 1)
+                        l_val = l_val.value_deps[1];
+                    if (r_val != null && IROp.Move.?(r_val.op) && r_val.value_deps.length > 1)
+                        r_val = r_val.value_deps[1];
+
+                    // Skip trivial phis (same value both sides)
+                    if (l_val != null && r_val != null && l_val.id == r_val.id) continue;
+
+                    if (l_val != null && !l_nodes.has(l_val))
+                        errors.put(ScheduleError.PhiBranchMissing(node, l_val, true));
+                    if (r_val != null && !r_nodes.has(r_val))
+                        errors.put(ScheduleError.PhiBranchMissing(node, r_val, false));
+                }
+
+                check_phi_branches_walk(phi.next);
+            }
+            _ => ;
+        }
+    }
+
+    def collect_branch_nodes(cfg_node: ScheduleNode, nodes: NodeSet) {
+        if (cfg_node == null) return;
+        match (cfg_node) {
+            block: ScheduleBlock => {
+                for (i < block.prims.length) nodes.put(block.prims[i]);
+                collect_branch_nodes(block.next, nodes);
+            }
+            branch: ScheduleBranch => {
+                collect_branch_nodes(branch.l_branch, nodes);
+                collect_branch_nodes(branch.r_branch, nodes);
+                collect_branch_nodes(branch.phi, nodes);
+            }
+            phi: SchedulePhi => {
+                for (p = phi.phis; p != null; p = p.tail) nodes.put(p.head);
+                collect_branch_nodes(phi.next, nodes);
             }
             _ => ;
         }

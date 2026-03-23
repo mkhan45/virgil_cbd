@@ -219,7 +219,14 @@ class SeaScheduler {
             q_idx += 1;
 
             if (node.is_move()) {
-                for (d in node.deps()) enqueue_dep(node, d);
+                // Propagate the Move's lowBound to its non-condition deps
+                // so that value phi arm values get scheduled inside their
+                // branch blocks rather than floating to the outermost block.
+                def lb = lowBounds[node];
+                for (d in node.deps()) {
+                    if (lb != null && d.id != node.value_deps[0].id) lowBounds[d] = lb;
+                    enqueue_dep(node, d);
+                }
                 continue;
             }
 
