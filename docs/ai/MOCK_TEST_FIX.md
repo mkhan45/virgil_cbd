@@ -1,9 +1,9 @@
 # MOCK_TEST Fixes
 
 MOCK_TEST is a synthetic opcode with enough complexity (nested branches, multiple
-stack pushes) to exercise the full transform pipeline. Fixing it required five
-changes across two commits: three for the base MOCK_TEST (`9d27913`) and two
-more for MOCK_TEST_ul (`d2ef32c`).
+stack pushes) to exercise the full transform pipeline. Fixing it required six
+changes across three commits: two for the base MOCK_TEST (`9d27913`), three
+for MOCK_TEST_ul (`d2ef32c`), and one more for correct push counts.
 
 ---
 
@@ -158,22 +158,40 @@ def mergeStateDeps(node: IRNode, sea: Sea, left: IRNode, right: IRNode) -> Array
 
 ---
 
-## Fix 5: Scheduling queue limit
+## Fix 5: Structural merge of StatePhi nodes in `mergeEffsAI`
 
-**File:** `common/sea/Schedule.v3`, `schedule()`
-**Commit:** `d2ef32c`
+**File:** `common/sea/SeaTransforms.v3`, `mergeEffsAI()`
 
-**Problem:** The queue iteration limit was 100, calibrated for the largest real
-opcode (I32/I64_DIV_S at ~30 iterations). After unLEM, a 3-lattice graph becomes
-an 8-lattice graph (each original condition splits into `maybeTrue` and
-`maybeFalse`), roughly tripling the node count.
+**Problem:** When the outer StatePhi (condition p) was unLEM'd, its left and
+right branches were already-transformed inner StatePhi nodes (condition
+`bool.&&_q`). `mergeEffsAI` only handled the case where both operands are push
+intrinsics. Two StatePhi nodes failed the `IROp.Intrinsic.?` check and fell
+through to `mergeEffsValidator`, which created a `merge` node that "runs both"
+— executing both push chains independently, producing 4 pushes instead of 2.
 
-**Fix:** Increased the limit from 100 to 500.
+**Root cause:** `mergeEffsAI` had no case for merging two StatePhi/Phi nodes.
+When two StatePhi nodes share the same condition, the correct merge is to
+recursively merge their corresponding branches:
+```
+merge(StatePhi(c, L1, R1), StatePhi(c, L2, R2))
+  = StatePhi(c, merge(L1, L2), merge(L1, R2))
+```
+This preserves the branch structure while combining the effects at each leaf,
+keeping the push count at 2 per path.
+
+**Fix:** Added a StatePhi/Phi check at the top of `mergeEffsAI`, before the
+push-intrinsic check. When both operands are StatePhi or Phi with the same
+condition, it recursively merges their true and false branches.
 
 ```virgil
-// Before
-if (q_idx > 100) {
-
-// After
-if (q_idx > 500) {
+// Merge two StatePhi/Phi nodes with the same condition by merging their branches
+if ((IROp.StatePhi.?(left.op) || IROp.Phi.?(left.op)) &&
+    (IROp.StatePhi.?(right.op) || IROp.Phi.?(right.op))) {
+    def l_cond = left.value_deps[0], r_cond = right.value_deps[0];
+    if (l_cond.id == r_cond.id) {
+        def merged_true = mergeEffsAI(node, sea, left.value_deps[1], right.value_deps[1]);
+        def merged_false = mergeEffsAI(node, sea, left.value_deps[2], right.value_deps[2]);
+        return sea.mkNode(left.op, Array.new(nstates), [l_cond, merged_true, merged_false]);
+    }
+}
 ```

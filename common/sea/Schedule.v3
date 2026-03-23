@@ -201,11 +201,13 @@ class SeaScheduler {
 
         q_idx = 0;
         while (q_idx < q.length) {
-            // max successful idx (I32/I64_DIV_S): 30
-            if (q_idx > 500) {
-                System.puts(Strings.format1("ERROR: Scheduling %s reached limit\n", opcode));
-                break;
-            }
+            // max successful idx 
+            // - for CBD (I32/I64_DIV_S): 30
+            // - for MOCK_TEST_ul: 122
+            // if (q_idx > 250) {
+            //     System.puts(Strings.format1("ERROR: Scheduling %s reached limit\n", opcode));
+            //     break;
+            // }
 
             var node = q[q_idx];
             q_idx += 1;
@@ -324,7 +326,8 @@ class SeaScheduler {
         sea.rebuildChildren();
         find_branch_lattices();
 
-        var limit = 100;
+        var limit = branch_lattices.length; // XXX: idk if this is reasonable
+        // var limit = 100;
         while (limit > 0) {
             limit -= 1;
             def sorted = topo_sort_lattices();

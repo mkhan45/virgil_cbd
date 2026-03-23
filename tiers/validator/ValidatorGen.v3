@@ -112,7 +112,6 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // System.puts("------");
 
     def finalss = Scheduler.of_full_sea(sea);
-    finalss.opcode = Strings.format1("%s_final", opcode);
     finalss.schedule();
     def scheduled = finalss.bottom_block.toSSAD();
     CBDTrace.addCode(opcode, "scheduled", scheduled.toString(0));

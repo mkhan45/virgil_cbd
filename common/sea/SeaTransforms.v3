@@ -83,6 +83,18 @@ component SeaTransforms {
 
     def mergeEffsAI(node: IRNode, sea: Sea, left: IRNode, right: IRNode) -> IRNode {
         def nstates = StateComponent.count;
+
+        // Merge two StatePhi/Phi nodes with the same condition by merging their branches
+        if ((IROp.StatePhi.?(left.op) || IROp.Phi.?(left.op)) &&
+            (IROp.StatePhi.?(right.op) || IROp.Phi.?(right.op))) {
+            def l_cond = left.value_deps[0], r_cond = right.value_deps[0];
+            if (l_cond.id == r_cond.id) {
+                def merged_true = mergeEffsAI(node, sea, left.value_deps[1], right.value_deps[1]);
+                def merged_false = mergeEffsAI(node, sea, left.value_deps[2], right.value_deps[2]);
+                return sea.mkNode(left.op, Array.new(nstates), [l_cond, merged_true, merged_false]);
+            }
+        }
+
         if (IROp.Intrinsic.?(left.op) && IROp.Intrinsic.?(right.op)) {
             def l_defn = IROp.Intrinsic.!(left.op).defn, r_defn = IROp.Intrinsic.!(right.op).defn;
             if (Strings.startsWith(l_defn.name, "push") && Strings.startsWith(r_defn.name, "push")) {
@@ -265,7 +277,7 @@ component SeaTransforms {
     }
 
     def chooseMerge(node: IRNode, sea: Sea, u: void) -> Range<IRNode> {
-        match (node.Oop) {
+        match (node.op) {
             Intrinsic(defn) => {
                 if (Strings.startsWith(defn.name, "merge_")) {
                     node.become(node.value_deps[0]);
@@ -286,13 +298,10 @@ component SeaTransforms {
                 
                 // Create Move(true) { value_deps = [cond, left] }
                 def mt = sea.mkNode(IROp.Move(true), Array.new(StateComponent.count), [cond, left]);
-                // TODO: recover proper var data here
-                if (left.var_data == null) left.var_data = VarData.new(Seas.uidl("l"), TypeVar.U32, Stage.INTERPRET);
                 mt.var_data = VarData.new(Seas.uidl("mv_t"), left.var_data.tipe, left.var_data.stage);
                 
                 // Create Move(false) { value_deps = [cond, right] }
                 def mf = sea.mkNode(IROp.Move(false), Array.new(StateComponent.count), [cond, right]);
-                if (right.var_data == null) right.var_data = VarData.new(Seas.uidl("r"), TypeVar.U32, Stage.INTERPRET);
                 mf.var_data = VarData.new(Seas.uidl("mv_f"), right.var_data.tipe, right.var_data.stage);
                 
                 // Update Phi to use Move nodes
