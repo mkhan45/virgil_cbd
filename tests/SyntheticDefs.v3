@@ -1,0 +1,104 @@
+// Minimal type declarations for synthetic opcode testing.
+// These mirror the subset of CanonicalDefs.v3 needed by the test opcodes.
+def pop_u32() -> u32 #stage<I -> I> #rw(Stack);
+def push_u32(v: u32) #stage<I -> I> #rw(Stack);
+
+//===================================================================================================
+//@bytecode start
+def SPLIT_BRANCHES() {
+    // inspired by VSDG thesis
+    var c1 = pop_u32();
+    var p = u32.!=(c1, 0);
+    var q = u32.==(c1, 2);
+    if (p) {
+        if (q) {
+            push_u32(1);
+            push_u32(2);
+        } else {
+            push_u32(3);
+            push_u32(4);
+        }
+    } else {
+        if (q) {
+            push_u32(5);
+            push_u32(6);
+        } else {
+            push_u32(7);
+            push_u32(8);
+        }
+    }
+}
+def SPLIT_BRANCHES_PHI() {
+    var c1 = pop_u32();
+    var r3: u32 = 0;
+    var r4: u32 = 1;
+    var p = u32.!=(c1, 0);
+    var q = u32.==(c1, 2);
+    if (p) {
+        if (q) {
+            r3 = 1;
+            r4 = 2;
+        } else {
+            r3 = 3;
+            r4 = 4;
+        }
+    } else {
+        if (q) {
+            r3 = 5;
+            r4 = 6;
+        } else {
+            r3 = 6;
+            r4 = 7;
+        }
+    }
+    push_u32(r3);
+    push_u32(r4);
+}
+// P3 counterexample from GRAPH_PROPS.md: tests phi-aware traversal
+// through nested phis with a trivial phi (same value on both arms).
+//
+// Sea graph produced:
+//   deepPhi  = phi(q, A, B)           -- A on q=T only
+//   N        = u32.+(deepPhi, 0)      -- pure wrapper
+//   trivPhi  = phi(r, N, N)           -- trivially N on both arms
+//   outerPhi = phi(p, trivPhi, h(A))  -- A shared across outer branches
+//
+// In the old buggy code (transitiveDepsSet in transitiveDepsPhiAwareAux),
+// the full traversal through trivPhi's common-set computation would bleed
+// through deepPhi's arms, pulling A into l_phi_aware. Combined with A in
+// r_phi_aware (via h(A)), A would be incorrectly placed in the frontier.
+//
+// In SSAD, A = pop_u32() is unconditional (defined before all ifs), so
+// frontier placement is actually correct here. The test verifies the
+// scheduler handles this nested-phi pattern without errors.
+def P3_FRONTIER() {
+	var c1 = pop_u32();
+	var c3 = pop_u32();
+	var c2 = pop_u32();
+	var A = pop_u32();
+	var B = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c3, 0);
+	var r = u32.!=(c2, 0);
+	var deep: u32 = 0;
+	if (q) {
+		deep = A;
+	} else {
+		deep = B;
+	}
+	var N = u32.+(deep, 0);
+	var triv: u32 = 0;
+	if (r) {
+		triv = N;
+	} else {
+		triv = N;
+	}
+	var result: u32 = 0;
+	if (p) {
+		result = triv;
+	} else {
+		result = u32.+(A, 1);
+	}
+	push_u32(result);
+}
+//@bytecode end
