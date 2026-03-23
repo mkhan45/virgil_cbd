@@ -59,6 +59,7 @@ class SeaScheduler {
 
     var trace_full: bool = false;
     var lowBounds: NodeMap<ScheduleNode> = NodeMap<ScheduleNode>.new();
+    var clone_to_orig: NodeMap<IRNode> = NodeMap<IRNode>.new();
     new(orig_sea, orig_top_node: IRNode, orig_bottom_node: IRNode) {
         def clone = Seas.clone(orig_sea);
         sea = clone.0;
@@ -174,11 +175,18 @@ class SeaScheduler {
             def phi_in_l = other.l_subgraph.has(phi);
             def phi_in_r = other.r_subgraph.has(phi);
             if (!phi_in_l && !phi_in_r) continue;
+            // If phi is in both subgraphs, it's shared (will be cloned by
+            // this lattice) — not truly on one side, so skip.
+            if (phi_in_l && phi_in_r) continue;
 
             for (j < bl.phis.length) {
                 def existing = bl.phis[j];
-                if (phi_in_l && other.r_subgraph.has(existing)) return false;
-                if (phi_in_r && other.l_subgraph.has(existing)) return false;
+                // Similarly, skip if the existing phi is shared.
+                def ex_in_l = other.l_subgraph.has(existing);
+                def ex_in_r = other.r_subgraph.has(existing);
+                if (ex_in_l && ex_in_r) continue;
+                if (phi_in_l && ex_in_r) return false;
+                if (phi_in_r && ex_in_l) return false;
             }
         }
         return true;
@@ -187,9 +195,9 @@ class SeaScheduler {
     def toMermaid() -> string => SeaRender.toMermaidScheduler(this);
 
     def schedule() {
+        // if (opcode != null && Strings.startsWith(opcode, "I32_DIV_S_ul")) trace_full = true;
         if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
         if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_start", "", SeaRender.renderScheduler(this, StringBuilder.new()).toString());
-        if (opcode != null && Strings.startsWith(opcode, "I32_DIV_S_ul")) trace_full = true;
 
         untangle();
         if (opcode != null) CBDTrace.addGraph(opcode, "untangled", sea);
@@ -356,8 +364,16 @@ class SeaScheduler {
             def rsg_clone = Seas.cloneSubgraph(sea, bl.r_subgraph);
             def rsg_clone_mapping = rsg_clone.1;
 
-            lsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) { mapping[old] = neu; });
-            rsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) { mapping[old] = neu; });
+            lsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) {
+                mapping[old] = neu;
+                def root = clone_to_orig[old];
+                clone_to_orig[neu] = if(root != null, root, old);
+            });
+            rsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) {
+                mapping[old] = neu;
+                def root = clone_to_orig[old];
+                clone_to_orig[neu] = if(root != null, root, old);
+            });
 
             for (j < bl.phis.length) {
                 def phi = bl.phis[j];
@@ -440,7 +456,7 @@ class SeaScheduler {
     }
 
     def check() {
-        def sc = ScheduleChecker.new(top_block, bottom_block, orig_sea, sea, mapping);
+        def sc = ScheduleChecker.new(top_block, bottom_block, orig_sea, sea, mapping, clone_to_orig);
         sc.check();
         def errors = sc.errors;
         if (errors.length > 0) {

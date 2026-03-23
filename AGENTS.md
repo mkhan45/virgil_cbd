@@ -140,7 +140,9 @@ The sea of nodes is a graph-based IR used for analysis, optimization, and schedu
 
 2. **Graph equivalence** — Compares the scheduled graph against the original via `graph_eq` to ensure the dependency structure is preserved.
 
-3. **Path effects** (`check_path_effects`) — Enumerates all possible branch paths (2^n combinations for n conditions) and verifies that each path executes the same set of effectful nodes in both the graph and the CFG. This catches bugs where the scheduler places an effect in the wrong branch or unconditionally when it should be conditional.
+3. **Path effects** (`check_path_effects`) — Enumerates all possible branch paths (2^n combinations for n conditions, up to n=20) and verifies that each path executes the same set of effectful nodes in both the graph and the CFG. This catches bugs where the scheduler places an effect in the wrong branch or unconditionally when it should be conditional.
+
+4. **Effect count conservation** — For each path, compares the number of effectful nodes between the original sea (`orig_sea`) and the scheduled sea (`new_sea`). This detects over-cloning by untangle, where a node is duplicated onto the same execution path, producing more effects than the original graph. Conditions are mapped from `new_sea` to `orig_sea` by node ID (preserved by `Seas.clone`), bypassing the `orig_to_new` mapping which can be corrupted by untangle's clone remapping.
 
 The path effects check works by:
 - Finding all unique conditions from phi nodes in the graph
@@ -148,12 +150,14 @@ The path effects check works by:
   - `collect_graph_effs`: Walks the sea graph backward from `Finish`, following all `value_deps` and `state_deps`. At Phi/StatePhi nodes, follows only the branch matching the current assignment. Collects all `Intrinsic` nodes with non-empty `writes`.
   - `collect_cfg_effs`: Walks the scheduled CFG forward. At `ScheduleBranch`, follows only the active branch per assignment. Collects effectful nodes from `ScheduleBlock.prims`.
   - Compares the two sets and reports mismatches.
+  - Builds `orig_assignment` by looking up each condition's ID in `orig_sea.nodes_by_id`, then collects `orig_effs` via `collect_graph_effs` on `orig_sea.finish`. Compares effect counts between orig and new.
 
 Errors are reported as `ScheduleError` variants:
 - `UnsatNeed(user, needed)` — A node was scheduled before one of its dependencies
 - `BadOrdering(fst, snd)` — Two nodes appear in the wrong order
 - `GraphDiff(diff)` — The scheduled graph structure differs from the original
 - `PathEffectMismatch(path, graph_only, cfg_only)` — On a given branch path, effects differ between graph and CFG. `graph_only` lists effects the graph requires but CFG doesn't execute; `cfg_only` lists effects the CFG executes but graph doesn't require.
+- `EffectCountMismatch(path, orig_effs, new_effs)` — On a given branch path, the number of effectful nodes in the scheduled graph differs from the original. Indicates over-cloning (new > orig) or lost effects (new < orig).
 
 **`DomGraph`** (`common/sea/DomGraph.v3`) - Hierarchical dominance tracking with public/private node sets and parent chains. Used by the bottom-up scheduler to track which `IRNode`s have been scheduled before a given point, enabling readiness checks. The public/private distinction allows branch-specific nodes (like `Move` nodes) to be visible only within their branch.
 

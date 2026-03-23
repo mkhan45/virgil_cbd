@@ -16,7 +16,8 @@ class ScheduleChecker {
     var orig_sea: Sea;
     var new_sea: Sea;
     var orig_to_new: NodeMap<IRNode>;
-    new(cfg_top, cfg_bottom, orig_sea, new_sea, orig_to_new) { }
+    var clone_to_orig: NodeMap<IRNode>;
+    new(cfg_top, cfg_bottom, orig_sea, new_sea, orig_to_new, clone_to_orig) { }
 
     def check() {
         orig_sea.rebuildChildren();
@@ -65,6 +66,7 @@ class ScheduleChecker {
     }
 
     def check_path_effects() {
+        // Collect unique conditions from new_sea phi nodes.
         def conditions = Vector<IRNode>.new();
         def seen = NodeSet.new();
         for (i < new_sea.nodes_by_id.length) {
@@ -78,14 +80,41 @@ class ScheduleChecker {
             }
         }
         if (conditions.length == 0) return;
-
         def n = conditions.length;
-        if (n > 20) return; // too many conditions for exhaustive check
+
+        // Group conditions by root: cloned conditions (from untangle's
+        // cloneSubgraph) share the same root as their original via
+        // clone_to_orig.  Conditions in the same group always take the
+        // same truth value on any real execution path.
+        def roots = Vector<IRNode>.new();
+        def root_seen = NodeSet.new();
+        def cond_group = Array<int>.new(n); // maps condition index → root group index
+        for (i < n) {
+            def cloned = clone_to_orig[conditions[i]];
+            def root = if(cloned != null, cloned, conditions[i]);
+            if (!root_seen.has(root)) {
+                root_seen.put(root);
+                cond_group[i] = roots.length;
+                roots.put(root);
+            } else {
+                for (j < roots.length) {
+                    if (roots[j].id == root.id) { cond_group[i] = j; break; }
+                }
+            }
+        }
+
+        def m = roots.length;
+        if (m > 20) return; // too many independent conditions for exhaustive check
         var combo: int = 0;
-        def limit: int = 1 << byte.!(n);
+        def limit: int = 1 << byte.!(m);
         while (combo < limit) {
+            // Build assignment: all conditions in the same group get the
+            // same truth value, so cloned conditions mirror their original.
             def assignment = Array<(IRNode, bool)>.new(n);
-            for (i < n) assignment[i] = (conditions[i], ((combo >> byte.!(i)) & 1) != 0);
+            for (i < n) {
+                def val = ((combo >> byte.!(cond_group[i])) & 1) != 0;
+                assignment[i] = (conditions[i], val);
+            }
 
             def graph_effs = NodeSet.new();
             def visited = NodeSet.new();
@@ -105,13 +134,13 @@ class ScheduleChecker {
             }
 
             // Check effect count against orig_sea to detect over-cloning.
-            // Seas.clone preserves ID ordering, so orig node ID == clone node ID.
-            // Look up orig conditions directly by ID.
-            def orig_assignment = Array<(IRNode, bool)>.new(n);
-            for (i < n) {
-                def cid = conditions[i].id;
-                def orig_cond = if(cid < orig_sea.nodes_by_id.length, orig_sea.nodes_by_id[cid], null);
-                orig_assignment[i] = (if(orig_cond != null, orig_cond, conditions[i]), assignment[i].1);
+            // Map each root to its orig_sea counterpart by ID (Seas.clone
+            // preserves ID ordering).
+            def orig_assignment = Array<(IRNode, bool)>.new(m);
+            for (i < m) {
+                def rid = roots[i].id;
+                def orig_cond = if(rid < orig_sea.nodes_by_id.length, orig_sea.nodes_by_id[rid], null);
+                orig_assignment[i] = (if(orig_cond != null, orig_cond, roots[i]), ((combo >> byte.!(i)) & 1) != 0);
             }
 
             def orig_effs = NodeSet.new();
