@@ -22,8 +22,6 @@ class BranchLattice {
         for (i < phis.length)
             if (sea.isDescendant(phi, phis[i]) || sea.isDescendant(phis[i], phi)) return false;
 
-        // TODO: check cross deps between subgraphs ?
-
         return true;
     }
 

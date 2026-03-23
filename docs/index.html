@@ -245,7 +245,9 @@
 
             const { code: hashCode, tag: hashTag } = parseHash();
             const initialCode = (hashCode && traces[hashCode]) ? hashCode
-                : (traces["BR_IF"] != undefined ? "BR_IF" : "UNREACHABLE");
+                : (traces["BR_IF"] != undefined ? "BR_IF" : 
+                    traces["UNREACHABLE"] != undefined ? "UNREACHABLE" :
+                    Object.keys(traces)[0]);
             const initialTag = (hashTag && traces[initialCode]?.[hashTag]) ? hashTag : getDefaultTag(initialCode);
             await setGraph(initialCode, initialTag, false);
 

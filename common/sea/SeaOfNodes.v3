@@ -493,8 +493,8 @@ class IRNode {
                     cond.transitiveDepsPhiAwareAux(buf);
                 }
                 // Follow deps that are on BOTH arms (unconditionally needed)
-                def left_deps = value_deps[1].transitiveDepsSet().put(value_deps[1]);
-                def right_deps = value_deps[2].transitiveDepsSet().put(value_deps[2]);
+                def left_deps = value_deps[1].transitiveDepsPhiAwareSet().put(value_deps[1]);
+                def right_deps = value_deps[2].transitiveDepsPhiAwareSet().put(value_deps[2]);
                 def common = left_deps.intersection(right_deps);
                 common.apply(fun (n: IRNode) {
                     if (!buf.has(n)) {

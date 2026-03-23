@@ -21,6 +21,10 @@ CBD_RUNTIME = common/runtime/*.v3
 # Dependencies
 GENERATE_DEPS = $(COMMON_LIB) $(DEFS) $(DEFS).sexp $(TYPEDEFS)
 
+# Synthetic opcodes
+SYNTHETIC_DEFS = tests/SyntheticDefs.v3
+SYNTHETIC_SEXP = tests/SyntheticDefs.v3.sexp
+
 # Tier directories
 VALIDATOR = tiers/validator
 INTERPRETER = tiers/interpreter
@@ -32,12 +36,22 @@ V3COMPILER = tiers/v3compiler
 AI_IMPLS = $(foreach I,$(wildcard $(AI)/impls/*.v3),$(basename $I)AI.v3)
 
 # Targets
-.PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler abstract_interpreter wizeng-slow site
+.PHONY: all clean help run_interpreter run_validator run_compiler validator interpreter compiler abstract_interpreter wizeng-slow site schedule_test
 
 all: validator interpreter wizeng-slow site
 
 $(DEFS).sexp: wizard-engine/src/bytecode/CanonicalDefs.v3
 	$(VIRGIL) -print-vst $(DEFS) > $(DEFS).sexp
+
+$(SYNTHETIC_SEXP): $(SYNTHETIC_DEFS)
+	$(VIRGIL) -print-vst $(SYNTHETIC_DEFS) > $(SYNTHETIC_SEXP)
+
+schedule_test: $(SYNTHETIC_SEXP) $(COMMON_LIB) $(TYPEDEFS)
+	$(VIRGIL) $(VIRGIL_STD)\
+		$(COMMON_LIB)\
+		$(ENGINE)\
+		$(WIZARD_UTIL)\
+		tests/ScheduleTest.v3
 
 ValidatorGen: $(GENERATE_DEPS) $(VALIDATOR)/*.v3
 	$(V3C) $(VIRGIL_STD)\
@@ -166,7 +180,7 @@ V3CompilerMain: generated/V3Compiler.v3 validator $(AI)/state_mgrs/CFGStateMgr.v
 # Clean build artifacts
 clean:
 	cd wizard-engine; make clean
-	rm -f generated/Interpreter.v3 generated/Compiler.v3 generated/Validator.v3 generated/AI.v3 generated/V3Compiler.v3 $(DEFS).sexp *Main *AI docs/traces.js
+	rm -f generated/Interpreter.v3 generated/Compiler.v3 generated/Validator.v3 generated/AI.v3 generated/V3Compiler.v3 $(DEFS).sexp $(SYNTHETIC_SEXP) *Main *AI docs/traces.js
 
 # Usage instructions
 help:

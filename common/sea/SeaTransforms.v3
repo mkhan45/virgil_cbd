@@ -91,7 +91,10 @@ component SeaTransforms {
             if (l_cond.id == r_cond.id) {
                 def merged_true = mergeEffsAI(node, sea, left.value_deps[1], right.value_deps[1]);
                 def merged_false = mergeEffsAI(node, sea, left.value_deps[2], right.value_deps[2]);
-                return sea.mkNode(left.op, Array.new(nstates), [l_cond, merged_true, merged_false]);
+                def merged_phi = sea.mkNode(left.op, Array.new(nstates), [l_cond, merged_true, merged_false]);
+                def mergeTipe = if(left.var_data != null, left.var_data.tipe, TypeVar.Bot("void"));
+                merged_phi.var_data = VarData.new(Seas.uidl("merged_phi"), mergeTipe, Stage.INTERPRET);
+                return merged_phi;
             }
         }
 
@@ -180,6 +183,8 @@ component SeaTransforms {
 
                 def maybeTrue = new_cond.value_deps[0];
                 def innerPhi = sea.mkNode(node.op, Array.new(nstates), [maybeTrue, left, right]);
+                def innerTipe = if(node.var_data != null, node.var_data.tipe, TypeVar.Bot("void"));
+                innerPhi.var_data = VarData.new(Seas.uidl("innerPhi"), innerTipe, Stage.INTERPRET);
 
                 node.value_deps[0] = new_cond;
                 new_cond.children.put(node);

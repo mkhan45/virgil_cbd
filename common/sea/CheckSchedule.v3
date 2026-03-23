@@ -4,6 +4,7 @@ type ScheduleError {
     case GraphDiff(diff: DiffResult);
     case PathEffectMismatch(path: Array<(IRNode, bool)>, graph_only: Array<IRNode>, cfg_only: Array<IRNode>);
     case EffectCountMismatch(path: Array<(IRNode, bool)>, orig_effs: Array<IRNode>, new_effs: Array<IRNode>);
+    case UnscheduledPhi(phi: IRNode);
 
     def render(sb: StringBuilder) -> StringBuilder => SeaRender.renderScheduleError(this, sb);
 }
@@ -25,6 +26,7 @@ class ScheduleChecker {
         check_top_down(cfg_top, ImmNodeSets.empty());
         def graph_diff = new_sea.finish.graph_eq(orig_sea.finish);
         if (!DiffResult.GraphsEqual.?(graph_diff)) errors.put(ScheduleError.GraphDiff(graph_diff));
+        check_phi_placement();
         check_path_effects();
     }
 
@@ -63,6 +65,47 @@ class ScheduleChecker {
             if (!scope.has(dep)) errors.put(ScheduleError.UnsatNeed(node, dep));
         }
         return errors.length == prev_err_len;
+    }
+
+    def check_phi_placement() {
+        // Collect all phi nodes that appear in SchedulePhi.phis lists.
+        def scheduled = NodeSet.new();
+        collect_scheduled_phis(cfg_top, scheduled);
+
+        // Walk all live nodes reachable from finish and check each phi.
+        def visited = NodeSet.new();
+        def wl = Vector<IRNode>.new();
+        wl.put(new_sea.finish);
+        var idx = 0;
+        while (idx < wl.length) {
+            def node = wl[idx];
+            idx += 1;
+            if (node == null || visited.has(node)) continue;
+            visited.put(node);
+            if (node.is_phi() && !scheduled.has(node)) {
+                errors.put(ScheduleError.UnscheduledPhi(node));
+            }
+            for (dep in node.deps()) wl.put(dep);
+        }
+    }
+
+    def collect_scheduled_phis(cfg_node: ScheduleNode, scheduled: NodeSet) {
+        if (cfg_node == null) return;
+        match (cfg_node) {
+            block: ScheduleBlock => {
+                collect_scheduled_phis(block.next, scheduled);
+            }
+            branch: ScheduleBranch => {
+                collect_scheduled_phis(branch.l_branch, scheduled);
+                collect_scheduled_phis(branch.r_branch, scheduled);
+                collect_scheduled_phis(branch.phi, scheduled);
+            }
+            phi: SchedulePhi => {
+                for (p = phi.phis; p != null; p = p.tail) scheduled.put(p.head);
+                collect_scheduled_phis(phi.next, scheduled);
+            }
+            _ => ;
+        }
     }
 
     def check_path_effects() {

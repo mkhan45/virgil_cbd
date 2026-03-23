@@ -53,13 +53,13 @@ The project depends on the `wizard-engine` WebAssembly engine (included as submo
 2. **Generators** (`*Gen.v3`) read Canonical Definitions and Templates to produce specialized implementations
 3. **Generated Code** (`generated/Validator.v3`, `generated/Interpreter.v3`, `generated/Compiler.v3`) are the final runnable components
 
-Generators may use the Sea of Nodes IR internally for analysis and optimization. The validator generator's full pipeline is:
+Generators may use the Sea of Variables IR internally for analysis and optimization. The validator generator's full pipeline is:
 
 ```
-SSAD → Sea of Nodes → [graph rewrites] → schedule → SSAD → PrettyIR → generated code
+SSAD → Sea of Variables → [graph rewrites] → schedule → SSAD → PrettyIR → generated code
 ```
 
-The interpreter generator uses simpler direct SSAD transformations without the sea of nodes.
+The interpreter generator uses simpler direct SSAD transformations without the sea of variables.
 
 ### Directory Structure
 
@@ -80,7 +80,7 @@ common/                         # Shared code
 │   └── PrettyIR.v3            # IR pretty printing
 ├── Trace.v3                   # Mermaid/JS visualization trace output
 ├── sea/                        # Sea of nodes IR framework
-│   ├── SeaOfNodes.v3          # Sea graph, IRNode, graph rewrites
+│   ├── SeaOfVariables.v3          # Sea graph, IRNode, graph rewrites
 │   ├── SeaTransforms.v3       # Graph rewrite passes
 │   ├── SeaRender.v3           # Sea graph rendering
 │   ├── Schedule.v3            # Bottom-up CFG scheduler (untangle + schedule)
@@ -106,9 +106,9 @@ common/                         # Shared code
 - `tiers/interpreter/InterpreterTemplate.v3` - Runtime execution with Value boxing/unboxing and Frame management
 - `tiers/compiler/CompilerTemplate.v3` - Code generation with string-based IR and control flow handling
 
-#### Sea of Nodes (`common/sea/`)
+#### Sea of Variables (`common/sea/`)
 
-The sea of nodes is a graph-based IR used for analysis, optimization, and scheduling. It sits between the SSAD textual IR and the final generated code. Constructed from SSAD via `Seas.ofSSAD()`, it represents computations as an unordered dependency graph that is then scheduled back into a linear/structured form.
+The sea of variables is a graph-based IR used for analysis, optimization, and scheduling. It sits between the SSAD textual IR and the final generated code. Constructed from SSAD via `Seas.ofSSAD()`, it represents computations as an unordered dependency graph that is then scheduled back into a linear/structured form.
 
 **Core types:**
 - **`Sea`** - The graph container holding `IRNode`s. Provides graph analysis (LCA), Mermaid visualization, and cloning (`Seas.clone()`, `Seas.cloneSubgraph()`).
@@ -205,10 +205,30 @@ Instructions are annotated with effects that track:
   - Use `--list` to see all available benchmarks
   - Use `--show-output` to debug failures
 
-To test the Scheduler, running the following commands is good for initial checking.
+### Scheduler Tests
+
+**Quick check** against real opcodes:
 ```
 make validator
 rg generated/Validator.v3 -e "ERROR" | wc -l
+```
+
+**Synthetic opcode tests** (`scripts/schedule_test.sh`) run the scheduler and `ScheduleChecker` on custom-defined opcodes in `tests/SyntheticDefs.v3`:
+```bash
+bash scripts/schedule_test.sh              # test all synthetic opcodes
+bash scripts/schedule_test.sh SPLIT_BRANCHES  # test specific opcode(s)
+```
+
+Each opcode is tested in two phases: **initial** (after id_propagate, overloadOps, addAbstractions) and **unLEM** (after additionally applying unLEM, constUnLEM, chooseMerge). The test harness is `tests/ScheduleTest.v3`. It runs with `trace_full` enabled, so verbose scheduling output goes to stdout and info/graph traces are written to `docs/traces.js`.
+
+To add a new synthetic opcode, add its definition to `tests/SyntheticDefs.v3` between the `@bytecode start/end` markers. It only needs to use intrinsics declared at the top of that file (add more declarations as needed). The sexp is regenerated automatically by the script via `make tests/SyntheticDefs.v3.sexp`.
+
+**Inspecting traces** after running `schedule_test.sh`:
+```bash
+node scripts/schedule_info.js SPLIT_BRANCHES                          # info traces + scheduled SSAD
+node scripts/schedule_info.js SPLIT_BRANCHES scheduler_ssad_pretty    # initial scheduled SSAD only
+node scripts/schedule_info.js SPLIT_BRANCHES unlem_scheduler_ssa_pretty  # unLEM scheduled SSAD only
+node scripts/schedule_info.js SPLIT_BRANCHES info_start               # specific info snapshot
 ```
 
 # Tiers
@@ -226,7 +246,7 @@ rewriting conditionals based off of effects.
 - **Side Table Generation**: Primary output is a side table for the interpreter that maps control flow labels to jump targets
 - **Control Flow**: Uses `ControlEntry` and `SidetableBuilder` for tracking nested control structures
 - **Effect-Based Rewriting**: Transforms conditionals based on `CBDEffect` analysis - if condition is not statically known, executes both branches
-- **Sea of Nodes Pipeline**: The generator constructs a Sea of Nodes graph from SSAD, applies optimization passes (`id_propagate`, `overloadOps`, `addAbstractions`, `unLEM`, `constUnLEM`, `chooseMerge`), and schedules back to SSAD before generating Virgil code. The `unLEM` rewrite is key: it transforms runtime conditionals so both branches execute, since the validator must verify all paths.
+- **Sea of Variables Pipeline**: The generator constructs a Sea of Variables graph from SSAD, applies optimization passes (`id_propagate`, `overloadOps`, `addAbstractions`, `unLEM`, `constUnLEM`, `chooseMerge`), and schedules back to SSAD before generating Virgil code. The `unLEM` rewrite is key: it transforms runtime conditionals so both branches execute, since the validator must verify all paths.
 
 ### Template Structure:
 - `tiers/validator/ValidatorTemplate.v3` - Core validation logic with TypeVar operations
@@ -271,117 +291,5 @@ All tiers share:
 - **CBDType**: Common type system (`I32`, `U32`, `F32`, `Bot`, etc.)
 - **CBDEffect**: Effect annotations for tracking instruction side effects
 - **SSAD**: Shared SSA-based intermediate representation
-- **Sea of Nodes IR**: Graph-based intermediate representation (`common/sea/`) used for analysis, optimization passes, and scheduling. Currently integrated into the validator generator; potentially applicable to other tiers.
+- **Sea of Variables IR**: Graph-based intermediate representation (`common/sea/`) used for analysis, optimization passes, and scheduling. Currently integrated into the validator generator; potentially applicable to other tiers.
 - **Template System**: Common meta-programming approach with tier-specific transformations
-
-# Amp Tools
-
-This document defines Amp tools for this project that provide convenient access to common build and benchmarking tasks.
-
-## makefile
-
-**Description:** Build and run the WebAssembly CBD (Canonical Bytecode Definitions) project components.
-
-**Command:** `makefile <target> [ARGS=...]`
-
-**Targets:**
-
-- `all` - Build validator, interpreter, wizeng-slow, and site
-- `validator` - Generate validator from template
-- `interpreter` - Generate interpreter from template
-- `compiler` - Generate compiler from template
-- `run_validator [ARGS=...]` - Run the validator with optional arguments
-- `run_interpreter [ARGS=...]` - Run the interpreter with optional arguments
-- `run_compiler [ARGS=...]` - Run the compiler with optional arguments
-- `InterpreterMain` - Compile interpreter to native binary
-- `clean` - Clean build artifacts
-- `help` - Show build help message
-
-**Examples:**
-
-```bash
-makefile all
-makefile interpreter
-makefile run_validator ARGS='test.wasm'
-makefile run_interpreter ARGS='test.wasm'
-makefile InterpreterMain
-```
-
-## polybench
-
-**Description:** Run PolyBench benchmarks using the wizard-engine CBD interpreter.
-
-**Command:** `polybench [OPTIONS] BENCHMARK [-- WIZENG_ARGS]`
-
-**Options:**
-
-- `--help` - Show help message
-- `--list` - List all available benchmarks
-- `--fast` - Use optimized wizeng binary (x86-64-linux)
-- `--cbd=true|false` - Run in CBD mode (default: true)
-  - `true`: uses CBD interpreter, saves to `benches-{slow,fast}.tsv`
-  - `false`: uses base wizard interpreter, saves to `benches-{slow,fast}-base.tsv`
-- `-v, --verbose` - Show full command being executed
-- `--max-runs N` - Set hyperfine max runs (default: 10)
-- `--time=time|hyperfine` - Choose timing method (default: auto-detect)
-
-**Arguments:**
-
-- `BENCHMARK` - Benchmark name with or without `.wasm` extension
-- `WIZENG_ARGS` - Additional arguments passed to wizeng (after `--`)
-
-**Environment Variables:**
-
-- `POLYBENCH_DIR` - Override polybench directory path
-  - Default: `../wish-you-were-fast/wasm/suites/polybench`
-
-**Examples:**
-
-```bash
-polybench bicg
-polybench --list
-polybench --fast gemm
-polybench --verbose jacobi-1d
-polybench bicg -- --some-arg
-polybench --cbd=false --fast bicg
-```
-
-**Output:** Results are saved to TSV files in the `generated/` directory:
-- CBD mode: `benches-slow.tsv` or `benches-fast.tsv`
-- Base mode: `benches-slow-base.tsv` or `benches-fast-base.tsv`
-
-## run-wizard-slow
-
-**Description:** Run WebAssembly files with the CBD slow interpreter.
-
-**Command:** `run-wizard-slow [WASM_FILE] [ARGS...]`
-
-**Arguments:**
-
-- `WASM_FILE` - Path to WebAssembly file
-- `ARGS` - Additional arguments passed to wizeng
-
-**Examples:**
-
-```bash
-run-wizard-slow test.wasm
-run-wizard-slow benchmark.wasm --some-arg
-```
-
-## run-wizard-fast
-
-**Description:** Run WebAssembly files with the Wizard fast interpreter.
-
-**Command:** `run-wizard-fast [WASM_FILE] [ARGS...]`
-
-**Arguments:**
-
-- `WASM_FILE` - Path to WebAssembly file
-- `ARGS` - Additional arguments passed to wizeng
-
-**Examples:**
-
-```bash
-run-wizard-fast test.wasm
-run-wizard-fast benchmark.wasm --some-arg
-```

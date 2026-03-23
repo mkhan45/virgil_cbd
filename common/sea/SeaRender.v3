@@ -292,6 +292,8 @@ component SeaRender {
                 }
                 sb.puts("]");
             }
+            UnscheduledPhi(phi) =>
+                sb.puts("UnscheduledPhi ").putq(renderIRNode(phi, _));
         }
 
         return sb;
