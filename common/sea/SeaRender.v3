@@ -128,7 +128,7 @@ component SeaRender {
             ValueDiff(lhs, rhs, idx, reason) => 
                 return sb.puts("ValueDiff between ").putq(renderIRNode(lhs, _)).puts(" and ").putq(renderIRNode(rhs, _)).puts(" at idx ").putd(idx)
                          .puts(": ").putq(renderDiffResult(reason, _));
-            StateDiff(lhs, rhs, sc, reason) => 
+            StateDiff(lhs, rhs, sc, reason) =>
                 return sb.puts("StateDiff between ").putq(renderIRNode(lhs, _)).puts(" and ").putq(renderIRNode(rhs, _)).puts(" for statecomp ").puts(sc.name)
                          .puts(": ").putq(renderDiffResult(reason, _));
         }
@@ -270,6 +270,25 @@ component SeaRender {
                 for (i < cfg_only.length) {
                     if (i > 0) sb.puts(", ");
                     sb.putq(renderIRNode(cfg_only[i], _));
+                }
+                sb.puts("]");
+            }
+            EffectCountMismatch(path, orig_effs, new_effs) => {
+                sb.puts("EffectCountMismatch path=[");
+                for (i < path.length) {
+                    if (i > 0) sb.puts(", ");
+                    sb.putq(renderIRNode(path[i].0, _));
+                    sb.puts(if(path[i].1, "=T", "=F"));
+                }
+                sb.puts("] orig(").putd(orig_effs.length).puts(")=[");
+                for (i < orig_effs.length) {
+                    if (i > 0) sb.puts(", ");
+                    sb.putq(renderIRNode(orig_effs[i], _));
+                }
+                sb.puts("] new(").putd(new_effs.length).puts(")=[");
+                for (i < new_effs.length) {
+                    if (i > 0) sb.puts(", ");
+                    sb.putq(renderIRNode(new_effs[i], _));
                 }
                 sb.puts("]");
             }

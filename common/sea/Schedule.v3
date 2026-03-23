@@ -189,7 +189,7 @@ class SeaScheduler {
     def schedule() {
         if (opcode != null) CBDTrace.addGraph(opcode, "scheduler_start", sea);
         if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_start", "", SeaRender.renderScheduler(this, StringBuilder.new()).toString());
-        // if (opcode != null && Strings.startsWith(opcode, "MOCK_TEST")) trace_full = true;
+        if (opcode != null && Strings.startsWith(opcode, "I32_DIV_S_ul")) trace_full = true;
 
         untangle();
         if (opcode != null) CBDTrace.addGraph(opcode, "untangled", sea);

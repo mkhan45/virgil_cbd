@@ -572,7 +572,7 @@ class IRNode {
 
         for (i < value_deps.length) {
             if (value_deps[i] == null && rhs.value_deps[i] == null) continue; // both null
-            if (value_deps[i] == null || rhs.value_deps[i] == null) 
+            if (value_deps[i] == null || rhs.value_deps[i] == null)
                 return DiffResult.ValueDiff(this, rhs, i, DiffResult.OneNull(value_deps[i], rhs.value_deps[i]));
 
             def diff_res = value_deps[i].graph_eq(rhs.value_deps[i]);
@@ -582,7 +582,7 @@ class IRNode {
 
         for (sc in StateComponent.set.all) {
             if (state_deps[sc.tag] == null && rhs.state_deps[sc.tag] == null) continue; // both null
-            if (state_deps[sc.tag] == null || rhs.state_deps[sc.tag] == null) 
+            if (state_deps[sc.tag] == null || rhs.state_deps[sc.tag] == null)
                 return DiffResult.OneNull(state_deps[sc.tag], rhs.state_deps[sc.tag]);
 
             def diff_res = state_deps[sc.tag].graph_eq(rhs.state_deps[sc.tag]);
