@@ -277,25 +277,29 @@ class ScheduleChecker {
     // scheduled node inside the corresponding branch subtree so that
     // toSSAD can render the phi assignment.
     def check_phi_branches() {
-        check_phi_branches_walk(cfg_top);
+        check_phi_branches_walk(cfg_top, NodeSet.new());
     }
 
-    def check_phi_branches_walk(cfg_node: ScheduleNode) {
+    def check_phi_branches_walk(cfg_node: ScheduleNode, outer: NodeSet) {
         if (cfg_node == null) return;
         match (cfg_node) {
             block: ScheduleBlock => {
-                check_phi_branches_walk(block.next);
+                for (i < block.prims.length) outer.put(block.prims[i]);
+                check_phi_branches_walk(block.next, outer);
             }
             branch: ScheduleBranch => {
-                check_phi_branches_walk(branch.l_branch);
-                check_phi_branches_walk(branch.r_branch);
-                check_phi_branches_walk(branch.phi);
+                check_phi_branches_walk(branch.l_branch, outer);
+                check_phi_branches_walk(branch.r_branch, outer);
+                check_phi_branches_walk(branch.phi, outer);
             }
             phi: SchedulePhi => {
                 def l_nodes = NodeSet.new();
                 def r_nodes = NodeSet.new();
-                collect_branch_nodes(phi.l_source, l_nodes);
-                collect_branch_nodes(phi.r_source, r_nodes);
+                // Use source_branch.l_branch/r_branch instead of l_source/r_source
+                // because prependScheduleBranch can restructure the tree and leave
+                // l_source/r_source pointing at stale nodes.
+                collect_branch_nodes(phi.source_branch.l_branch, l_nodes);
+                collect_branch_nodes(phi.source_branch.r_branch, r_nodes);
 
                 for (p = phi.phis; p != null; p = p.tail) {
                     def node = p.head;
@@ -311,13 +315,16 @@ class ScheduleChecker {
                     // Skip trivial phis (same value both sides)
                     if (l_val != null && r_val != null && l_val.id == r_val.id) continue;
 
-                    if (l_val != null && !l_nodes.has(l_val))
+                    // A phi arm value is valid if it's inside the branch OR in scope
+                    // from an ancestor block (e.g. merged literals scheduled at top level).
+                    if (l_val != null && !l_nodes.has(l_val) && !outer.has(l_val))
                         errors.put(ScheduleError.PhiBranchMissing(node, l_val, true));
-                    if (r_val != null && !r_nodes.has(r_val))
+                    if (r_val != null && !r_nodes.has(r_val) && !outer.has(r_val))
                         errors.put(ScheduleError.PhiBranchMissing(node, r_val, false));
                 }
 
-                check_phi_branches_walk(phi.next);
+                for (p = phi.phis; p != null; p = p.tail) outer.put(p.head);
+                check_phi_branches_walk(phi.next, outer);
             }
             _ => ;
         }

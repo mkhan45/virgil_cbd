@@ -182,6 +182,7 @@ class SeaScheduler {
                 // Similarly, skip if the existing phi is shared.
                 def ex_in_l = other.l_subgraph.has(existing);
                 def ex_in_r = other.r_subgraph.has(existing);
+                if (trace_full) System.puts(Strings.format3("    same_scope:   existing %q: ex_l=%s ex_r=%s\n", existing.render, if(ex_in_l, "Y", "N"), if(ex_in_r, "Y", "N")));
                 if (ex_in_l && ex_in_r) continue;
                 if (phi_in_l && ex_in_r) return false;
                 if (phi_in_r && ex_in_l) return false;
@@ -224,7 +225,10 @@ class SeaScheduler {
                 // branch blocks rather than floating to the outermost block.
                 def lb = lowBounds[node];
                 for (d in node.deps()) {
-                    if (lb != null && d.id != node.value_deps[0].id) lowBounds[d] = lb;
+                    if (lb != null && d.id != node.value_deps[0].id) {
+                        if (trace_full) System.puts(Strings.format3("  Move %q sets lowBound[%q] = %d\n", node.render, d.render, lb.id));
+                        lowBounds[d] = lb;
+                    }
                     enqueue_dep(node, d);
                 }
                 continue;
@@ -234,6 +238,8 @@ class SeaScheduler {
 
             // traverse existing schedule, put node in first available spot
             def lower_bound = if(lowBounds[node] != null, lowBounds[node], bottom_block);
+            // def lower_bound = bottom_block;
+            if (trace_full && node.is_phi()) System.puts(Strings.format2("  lowBound: %d (bottom=%d)\n", lower_bound.id, bottom_block.id));
             def dest_block = lower_bound.schedule(node, null);
             if (dest_block != null) {
                 for (d in node.deps()) {
@@ -245,7 +251,13 @@ class SeaScheduler {
 
         bottom_block.finalize();
         check();
-        if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_final", "", SeaRender.renderSchedulerFinal(this, StringBuilder.new()).toString());
+        if (opcode != null && trace_full) {
+            def info_buf = SeaRender.renderSchedulerFinal(this, StringBuilder.new());
+            info_buf.puts("\n=== scheduled_ssad_pretty ===\n");
+            def ssad_info = bottom_block.toSSADSeaInfo();
+            info_buf.puts(ssad_info.0.toStringPrettyWithSeaInfo(0, ssad_info.1));
+            CBDInfo.addString(opcode, "info_final", "", info_buf.toString());
+        }
     }
 
     def isReady(node: IRNode, schedule_node: ScheduleNode) -> bool {
@@ -489,6 +501,12 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
     def linkPrependedBlock(block: ScheduleBlock);
 
     def toSSAD() -> SSAD;
+    def toSSADWithSeaInfo(sea_info: SSADSeaInfo) -> SSAD => toSSAD();
+
+    def toSSADSeaInfo() -> (SSAD, SSADSeaInfo) {
+        def sea_info = SSADSeaInfo.new();
+        return (toSSADWithSeaInfo(sea_info), sea_info);
+    }
 
     def subgraphName(buf: StringBuilder) -> StringBuilder => SeaRender.subgraphNameScheduleNode(this, buf);
 
@@ -737,6 +755,10 @@ class ScheduleBlock(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid
     def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder => SeaRender.toMermaidScheduleBlock(this, buf, visited);
 
     def toSSAD() -> SSAD {
+        return toSSADWithSeaInfo(SSADSeaInfo.new());
+    }
+
+    def toSSADWithSeaInfo(sea_info: SSADSeaInfo) -> SSAD {
         var res: SSAD = SSAD.Void;
         for (i < prims.length) {
             def node = prims[i];
@@ -745,15 +767,17 @@ class ScheduleBlock(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid
                 Intrinsic(defn) => {
                     def args = Arrays.map(node.value_deps, fun (n: IRNode) => n.var_data.sourceName);
                     res = res.appended(SSAD.LetApp(node.var_data.sourceName, defn.name, args, SSAD.Void));
+                    sea_info.recordLet(node.var_data.sourceName, node);
                 }
                 Lit(tipe, rep) => {
                     res = res.appended(SSAD.LetLit(node.var_data.sourceName, rep, tipe.long_str(), SSAD.Void));
+                    sea_info.recordLet(node.var_data.sourceName, node);
                 }
                 Phi, StatePhi => {} // error
             }
         }
 
-        if (prev != null) return prev.toSSAD().appended(res);
+        if (prev != null) return prev.toSSADWithSeaInfo(sea_info).appended(res);
         else return res;
     }
 
@@ -788,6 +812,10 @@ class ScheduleBranch(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(ui
         // the actual branch and prev is emitted by phi to ssad
         return SSAD.Void;
     }
+
+    def toSSADWithSeaInfo(sea_info: SSADSeaInfo) -> SSAD {
+        return SSAD.Void;
+    }
 }
 
 class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, scheduler_) {
@@ -800,9 +828,13 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
     def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder => SeaRender.toMermaidSchedulePhi(this, buf, visited);
 
     def toSSAD() -> SSAD {
+        return toSSADWithSeaInfo(SSADSeaInfo.new());
+    }
+
+    def toSSADWithSeaInfo(sea_info: SSADSeaInfo) -> SSAD {
         def cond_name = source_branch.condition.var_data.sourceName;
-        def left = l_source.toSSAD();
-        def right = r_source.toSSAD();
+        def left = l_source.toSSADWithSeaInfo(sea_info);
+        def right = r_source.toSSADWithSeaInfo(sea_info);
 
         // Unwrap Move nodes
         def phi_vec = Vector<(string, string)>.new();
@@ -812,26 +844,18 @@ class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, 
             var r = phi.value_deps[2];
             if (l != null && IROp.Move.?(l.op) && l.value_deps.length > 1) l = l.value_deps[1];
             if (r != null && IROp.Move.?(r.op) && r.value_deps.length > 1) r = r.value_deps[1];
-            if (l != null) phi_vec.put((phi.var_data.sourceName, l.var_data.sourceName));
-            if (r != null) phi_vec.put((phi.var_data.sourceName, r.var_data.sourceName));
-        }
-
-        var prev_ssad = if(source_branch.prev != null, source_branch.prev.toSSAD(), SSAD.Void);
-
-        // Inject var declarations for phi destinations before the if
-        def declared = Vector<string>.new();
-        for (cur = phis; cur != null; cur = cur.tail) if (IROp.Phi.?(cur.head.op)) {
-            def phi = cur.head;
-            def phi_name = phi.var_data.sourceName;
-            var already = false;
-            for (i < declared.length) already |= Strings.equal(declared[i], phi_name);
-            if (!already) {
-                declared.put(phi_name);
-                prev_ssad = prev_ssad.appended(SSAD.Injected(
-                    Strings.format2("var %s: %s;", phi_name, phi.var_data.tipe.long_str()),
-                    SSAD.Void));
+            if (l != null) {
+                phi_vec.put((phi.var_data.sourceName, l.var_data.sourceName));
+                sea_info.recordPhiArm(phi.var_data.sourceName, l.var_data.sourceName, phi, l);
+            }
+            if (r != null) {
+                phi_vec.put((phi.var_data.sourceName, r.var_data.sourceName));
+                sea_info.recordPhiArm(phi.var_data.sourceName, r.var_data.sourceName, phi, r);
             }
         }
+
+        var prev_ssad = if(source_branch.prev != null, source_branch.prev.toSSADWithSeaInfo(sea_info), SSAD.Void);
+
         return prev_ssad.appended(SSAD.If(cond_name, left, right, phi_vec.copy(), SSAD.Void));
     }
 }

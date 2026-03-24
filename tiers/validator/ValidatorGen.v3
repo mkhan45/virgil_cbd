@@ -61,9 +61,11 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def scheduler_mermaid = scheduler.toMermaid();
     CBDTrace.addString(opcode, "schedulerMermaid", "graph", scheduler_mermaid);
 
-    def scheduler_ssad = scheduler.bottom_block.toSSAD();
+    def scheduler_ssad_info = scheduler.bottom_block.toSSADSeaInfo();
+    def scheduler_ssad = scheduler_ssad_info.0;
+    def scheduler_sea_info = scheduler_ssad_info.1;
     CBDTrace.addCode(opcode, "scheduler_ssad", scheduler_ssad.toString(0));
-    CBDTrace.addCode(opcode, "scheduler_ssad_pretty", scheduler_ssad.toStringPretty(0));
+    CBDTrace.addCode(opcode, "scheduler_ssad_pretty", scheduler_ssad.toStringPrettyWithSeaInfo(0, scheduler_sea_info));
 
     def state = NodeMap<(IRNode, Vector<IRNode>)>.new();
     sea.apply(state, SeaTransforms.unLEM);
@@ -72,14 +74,16 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def ulscheduler = Scheduler.of_full_sea(sea);
     ulscheduler.opcode = Strings.format1("%s_ul", opcode);
     ulscheduler.schedule();
-    def unlem_ssa = ulscheduler.bottom_block.toSSAD();
+    def unlem_ssa_info = ulscheduler.bottom_block.toSSADSeaInfo();
+    def unlem_ssa = unlem_ssa_info.0;
+    def unlem_sea_info = unlem_ssa_info.1;
     CBDTrace.addCode(opcode, "unlem_schedule", unlem_ssa.toString(0));
     def ulscheduler_mermaid = ulscheduler.toMermaid();
     CBDTrace.addString(opcode, "unlem_scheduler", "graph", ulscheduler_mermaid);
     CBDTrace.addCode(opcode, "unlem_scheduler_ssa", unlem_ssa.toString(0));
-    CBDTrace.addCode(opcode, "unlem_scheduler_ssa", unlem_ssa.toStringPretty(0));
+    CBDTrace.addCode(opcode, "unlem_scheduler_ssa", unlem_ssa.toStringPrettyWithSeaInfo(0, unlem_sea_info));
 
-    CBDTrace.addCode(opcode, "unlem_pretty", unlem_ssa.toStringPretty(0));
+    CBDTrace.addCode(opcode, "unlem_pretty", unlem_ssa.toStringPrettyWithSeaInfo(0, unlem_sea_info));
     sea.apply(void, SeaTransforms.constUnLEM);
     CBDTrace.addGraph(opcode, "constUnLEM", sea);
     sea.apply(void, SeaTransforms.chooseMerge);
@@ -110,9 +114,11 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
 
     def finalss = Scheduler.of_full_sea(sea);
     finalss.schedule();
-    def scheduled = finalss.bottom_block.toSSAD();
+    def scheduled_info = finalss.bottom_block.toSSADSeaInfo();
+    def scheduled = scheduled_info.0;
+    def scheduled_sea_info = scheduled_info.1;
     CBDTrace.addCode(opcode, "scheduled", scheduled.toString(0));
-    CBDTrace.addCode(opcode, "pretty", scheduled.toStringPretty(0));
+    CBDTrace.addCode(opcode, "pretty", scheduled.toStringPrettyWithSeaInfo(0, scheduled_sea_info));
 
     // sb.puts("/**\n");
     // sb.puts("----input ir----\n");

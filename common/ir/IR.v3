@@ -15,7 +15,12 @@ type SSAD {
     }
 
     def toStringPretty(indent: int) -> string {
+        return toStringPrettyWithSeaInfo(indent, null);
+    }
+
+    def toStringPrettyWithSeaInfo(indent: int, sea_info: SSADSeaInfo) -> string {
         def ctx = SSADCtx.new(this);
+        ctx.sea_info = sea_info;
         ctx.getPhis();
         var pretty = Pretty_IR.fromSSAD(this, ctx);
         pretty = Pretty_IR.inlineLets(pretty, Pretty_IR.defaultInlinePredicate, ctx, Strings.newMap<PrettyExpr>());
@@ -72,6 +77,53 @@ type SSAD {
         }
     }
 
+}
+
+class SSADSeaInfo {
+    var let_origins: HashMap<string, IRNode> = Strings.newMap<IRNode>();
+    var phi_dest_origins: HashMap<string, IRNode> = Strings.newMap<IRNode>();
+    var phi_source_origins: HashMap<string, IRNode> = Strings.newMap<IRNode>();
+
+    def recordLet(name: string, node: IRNode) {
+        if (name != null && node != null) let_origins[name] = node;
+    }
+
+    def recordPhiArm(dest: string, src: string, phi_node: IRNode, src_node: IRNode) {
+        if (dest != null && phi_node != null && !phi_dest_origins.has(dest))
+            phi_dest_origins[dest] = phi_node;
+        if (src != null && src_node != null)
+            phi_source_origins[src] = src_node;
+    }
+
+    def phiDeclType(dest: string, if_phis: Array<(string, string)>) -> string {
+        if (phi_dest_origins.has(dest)) {
+            def t = typeOfNode(phi_dest_origins[dest]);
+            if (t != null) return t;
+        }
+
+        for (i < if_phis.length) {
+            if (!Strings.equal(if_phis[i].0, dest)) continue;
+            def src = if_phis[i].1;
+
+            if (phi_source_origins.has(src)) {
+                def t = typeOfNode(phi_source_origins[src]);
+                if (t != null) return t;
+            }
+
+            if (let_origins.has(src)) {
+                def t = typeOfNode(let_origins[src]);
+                if (t != null) return t;
+            }
+        }
+
+        return null;
+    }
+
+    def typeOfNode(node: IRNode) -> string {
+        if (node == null || node.var_data == null) return null;
+        if (node.var_data.tipe.is_bot()) return null;
+        return node.var_data.tipe.long_str();
+    }
 }
 
 type TB<A, B>(f: (A, SSATransformer) -> B) {

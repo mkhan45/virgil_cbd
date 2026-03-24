@@ -52,11 +52,16 @@ def testOpcode(opcode: string, stmt: VirgilStmt) -> CBDDef {
 	scheduler.schedule();
 
 	CBDTrace.addString(opcode, "schedulerMermaid", "graph", scheduler.toMermaid());
-	def scheduler_ssad = scheduler.bottom_block.toSSAD();
+	def scheduler_ssad_info = scheduler.bottom_block.toSSADSeaInfo();
+	def scheduler_ssad = scheduler_ssad_info.0;
+	def scheduler_sea_info = scheduler_ssad_info.1;
 	CBDTrace.addCode(opcode, "scheduler_ssad", scheduler_ssad.toString(0));
-	CBDTrace.addCode(opcode, "scheduler_ssad_pretty", scheduler_ssad.toStringPretty(0));
-	System.puts(Strings.format1("--- %s [initial] SSAD ---\n", opcode));
-	System.puts(scheduler_ssad.toStringPretty(0));
+	CBDTrace.addCode(opcode, "scheduler_ssad_pretty", scheduler_ssad.toStringPrettyWithSeaInfo(0, scheduler_sea_info));
+	System.puts(Strings.format1("--- %s [initial] raw SSAD ---\n", opcode));
+	System.puts(scheduler_ssad.toString(0));
+	System.puts("\n---\n");
+	System.puts(Strings.format1("--- %s [initial] pretty SSAD ---\n", opcode));
+	System.puts(scheduler_ssad.toStringPrettyWithSeaInfo(0, scheduler_sea_info));
 	System.puts("\n---\n");
 
 	var sc = ScheduleChecker.new(
@@ -78,13 +83,15 @@ def testOpcode(opcode: string, stmt: VirgilStmt) -> CBDDef {
 	ulscheduler.trace_full = should_trace(opcode);
 	ulscheduler.schedule();
 
-	def unlem_ssa = ulscheduler.bottom_block.toSSAD();
+	def unlem_ssa_info = ulscheduler.bottom_block.toSSADSeaInfo();
+	def unlem_ssa = unlem_ssa_info.0;
+	def unlem_sea_info = unlem_ssa_info.1;
 	CBDTrace.addCode(opcode, "unlem_schedule", unlem_ssa.toString(0));
 	CBDTrace.addString(opcode, "unlem_scheduler", "graph", ulscheduler.toMermaid());
 	CBDTrace.addCode(opcode, "unlem_scheduler_ssa", unlem_ssa.toString(0));
-	CBDTrace.addCode(opcode, "unlem_scheduler_ssa_pretty", unlem_ssa.toStringPretty(0));
+	CBDTrace.addCode(opcode, "unlem_scheduler_ssa_pretty", unlem_ssa.toStringPrettyWithSeaInfo(0, unlem_sea_info));
 	System.puts(Strings.format1("--- %s [unLEM] SSAD ---\n", opcode));
-	System.puts(unlem_ssa.toStringPretty(0));
+	System.puts(unlem_ssa.toStringPrettyWithSeaInfo(0, unlem_sea_info));
 	System.puts("\n---\n");
 
 	var ul_sc = ScheduleChecker.new(

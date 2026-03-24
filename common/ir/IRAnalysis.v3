@@ -1,5 +1,6 @@
 class SSADCtx {
     var body: SSAD;
+    var sea_info: SSADSeaInfo = null;
     var static: HashMap<string, bool>;
     var types: HashMap<string, TypeVar>;
     var effects: HashMap<string, CBDEffect>; // should it be a list?
