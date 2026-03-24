@@ -7,3 +7,4 @@ ValidatorGen
 *AI
 
 generated/*.v3~
+tests/SyntheticDefs.v3.sexp

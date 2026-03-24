@@ -6,7 +6,6 @@ class Sea {
     var nodes_by_id: Vector<IRNode> = Vector.new();
 
     var var_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>();
-    var lit_nodes: HashMap<string, IRNode> = Strings.newMap<IRNode>();
 
     new() {
         initEmpty();
@@ -17,7 +16,6 @@ class Sea {
         id_count = 0;
         nodes_by_id = Vector.new();
         var_nodes = Strings.newMap<IRNode>();
-        lit_nodes = Strings.newMap<IRNode>();
     }
 
     def initDefault() {
@@ -88,7 +86,7 @@ class Sea {
         return results;
     }
 
-    def addSSAD(ssad: SSAD, state_vars: Array<IRNode>, deps: List<IRNode>) {
+    def addSSAD(ssad: SSAD, state_vars: Array<IRNode>, deps: List<IRNode>, sea_info: SSADSeaInfo) {
         match (ssad) {
             LetApp(n, f, args, rest) => {
                 def arg_nodes: Array<IRNode> = Arrays.map(args, fun (a: string) => var_nodes[a]);
@@ -101,24 +99,20 @@ class Sea {
                 def op = IROp.Intrinsic(intrinsic_def);
                 def node = var_nodes[n] = mkNode(op, state_deps, arg_nodes);
                 node.var_data = VarData.new(n, TypeVar.Bot("bot"), Stage.VALIDATE);
+                sea_info.recordLet(n, node);
 
                 for (sc in intrinsic_def.writes) state_vars[sc.tag] = node;
 
-                addSSAD(rest, state_vars, deps);
+                addSSAD(rest, state_vars, deps, sea_info);
             }
             LetLit(n, l, t, rest) => {
-                var node: IRNode;
-                if (lit_nodes.has(l)) {
-                    node = var_nodes[n] = lit_nodes[l];
-                } else {
-                    def tp = TypeUtil.fromString(t);
-                    def op = IROp.Lit(tp, l);
-                    def node = var_nodes[n] = mkNode(op, start.state_deps, []);
-                    lit_nodes[l] = node;
-                    node.var_data = VarData.new(n, tp, Stage.VALIDATE);
-                }
+                def tp = TypeUtil.fromString(t);
+                def op = IROp.Lit(tp, l);
+                def node = var_nodes[n] = mkNode(op, start.state_deps, []);
+                node.var_data = VarData.new(n, tp, Stage.VALIDATE);
+                sea_info.recordLet(n, node);
 
-                addSSAD(rest, state_vars, deps);
+                addSSAD(rest, state_vars, deps, sea_info);
             }
             If(cond, then, els, phis, rest) => {
                 // Collect unique dest variable names from phis.
@@ -133,15 +127,21 @@ class Sea {
                 // First try phi SOURCE names (SSA-renamed), then fall back to
                 // dest name for variables not modified in this branch.
                 def else_phis = Strings.newMap<IRNode>();
+                def else_phi_names = Strings.newMap<string>();
                 def else_state = Arrays.dup(state_vars);
-                addSSAD(els, else_state, deps);
+                addSSAD(els, else_state, deps, sea_info);
                 for (phi in phis) {
-                    if (!else_phis.has(phi.0) && var_nodes.has(phi.1))
+                    if (!else_phis.has(phi.0) && var_nodes.has(phi.1)) {
                         else_phis[phi.0] = var_nodes[phi.1];
+                        else_phi_names[phi.0] = phi.1;
+                    }
                 }
                 for (i < phi_vars.length) {
                     def v = phi_vars[i];
-                    if (!else_phis.has(v) && var_nodes.has(v)) else_phis[v] = var_nodes[v];
+                    if (!else_phis.has(v) && var_nodes.has(v)) {
+                        else_phis[v] = var_nodes[v];
+                        else_phi_names[v] = v;
+                    }
                 }
 
                 // Process then branch and capture phi arm values.
@@ -149,15 +149,21 @@ class Sea {
                 // so the !has guard picks up the then-arm source before the
                 // else-arm source that persists in var_nodes.
                 def then_phis = Strings.newMap<IRNode>();
+                def then_phi_names = Strings.newMap<string>();
                 def then_state = Arrays.dup(state_vars);
-                addSSAD(then, then_state, deps);
+                addSSAD(then, then_state, deps, sea_info);
                 for (phi in phis) {
-                    if (!then_phis.has(phi.0) && var_nodes.has(phi.1))
+                    if (!then_phis.has(phi.0) && var_nodes.has(phi.1)) {
                         then_phis[phi.0] = var_nodes[phi.1];
+                        then_phi_names[phi.0] = phi.1;
+                    }
                 }
                 for (i < phi_vars.length) {
                     def v = phi_vars[i];
-                    if (!then_phis.has(v) && var_nodes.has(v)) then_phis[v] = var_nodes[v];
+                    if (!then_phis.has(v) && var_nodes.has(v)) {
+                        then_phis[v] = var_nodes[v];
+                        then_phi_names[v] = v;
+                    }
                 }
 
                 def cond_node = var_nodes[cond];
@@ -167,10 +173,12 @@ class Sea {
                     def phi_var = phi.0;
                     if (!phi_map.has(phi_var)) {
                         def left = then_phis[phi_var], right = else_phis[phi_var];
-                        right.var_data.sourceName = Seas.uidl(phi_var);
                         def node = mkNode(IROp.Phi, Array.new(state_vars.length), [cond_node, left, right]);
                         var_nodes[phi_var] = node;
                         node.var_data = VarData.new(phi_var, TypeVar.Bot("bot"), Stage.VALIDATE);
+                        sea_info.recordPhiSourceNames(node, then_phi_names[phi_var], else_phi_names[phi_var]);
+                        sea_info.recordPhiArm(phi_var, then_phi_names[phi_var], node, left);
+                        sea_info.recordPhiArm(phi_var, else_phi_names[phi_var], node, right);
                         phi_map[phi_var] = node;
                     }
                 }
@@ -201,7 +209,7 @@ class Sea {
                     for (sc in scs) state_vars[sc.tag] = node;
                 }
 
-                addSSAD(rest, state_vars, deps);
+                addSSAD(rest, state_vars, deps, sea_info);
             }
             Match => {}
             Void => {}
@@ -335,12 +343,17 @@ component Seas {
     }
 
     def ofSSAD(node: SSAD) -> Sea {
+        return ofSSADWithInfo(node).0;
+    }
+
+    def ofSSADWithInfo(node: SSAD) -> (Sea, SSADSeaInfo) {
         def sea = Sea.new();
+        def sea_info = SSADSeaInfo.new();
 
         def state_vars = sea.finish.state_deps;
-        sea.addSSAD(node, state_vars, List.new(sea.start, null));
+        sea.addSSAD(node, state_vars, List.new(sea.start, null), sea_info);
         SeaAnalysis.inferVarData(sea);
-        return sea;
+        return (sea, sea_info);
     }
 
     def cloneSubgraph(sea: Sea, subgraph: ImmNodeSet) -> (ImmNodeSet, NodeMap<IRNode>) {

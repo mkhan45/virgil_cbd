@@ -1,7 +1,7 @@
 class ValidatorCBDDef extends CBDDef {
     def field_bitset: long;
 
-    new(opcode: string, body: SSAD, field_bitset: long) super(opcode, body) {}
+    new(opcode: string, body: SSAD, sea_info: SSADSeaInfo, field_bitset: long) super(opcode, body, sea_info) {}
 }
 
 class SidetableEntry(fields: Array<(string, string)>) {
@@ -36,7 +36,9 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
 
     //var sea_ir = SSADCtx.new(ir).id_propagate(ir, Strings.newMap<string>());
     var sea_ir = ir;
-    var sea = Seas.ofSSAD(sea_ir);
+    var sea_info = Seas.ofSSADWithInfo(sea_ir);
+    var sea = sea_info.0;
+    var ssad_sea_info = sea_info.1;
     sea.apply(void, SeaTransforms.id_propagate);
 
     // sea.scheduleExp();
@@ -47,7 +49,9 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
 
     ir = ir.appended(stbuilder_call);
     sea_ir = ir;
-    sea = Seas.ofSSAD(sea_ir);
+    sea_info = Seas.ofSSADWithInfo(sea_ir);
+    sea = sea_info.0;
+    ssad_sea_info = sea_info.1;
     sea.apply(void, SeaTransforms.id_propagate);
     // sea.apply(void, SeaTransforms.removeViews);
     sea.apply(void, SeaTransforms.overloadOps);
@@ -55,7 +59,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     sea.apply(void, SeaTransforms.addAbstractions);
     CBDTrace.addGraph(opcode, "addAbstractions", sea);
 
-    def scheduler = Scheduler.of_full_sea(sea);
+    def scheduler = Scheduler.of_full_sea_info(sea, ssad_sea_info);
     scheduler.opcode = opcode;
     scheduler.schedule();
     def scheduler_mermaid = scheduler.toMermaid();
@@ -71,7 +75,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     sea.apply(state, SeaTransforms.unLEM);
     CBDTrace.addGraph(opcode, "unLEM", sea);
 
-    def ulscheduler = Scheduler.of_full_sea(sea);
+    def ulscheduler = Scheduler.of_full_sea_info(sea, ssad_sea_info);
     ulscheduler.opcode = Strings.format1("%s_ul", opcode);
     ulscheduler.schedule();
     def unlem_ssa_info = ulscheduler.bottom_block.toSSADSeaInfo();
@@ -112,7 +116,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // System.puts(mbuf.toString());
     // System.puts("------");
 
-    def finalss = Scheduler.of_full_sea(sea);
+    def finalss = Scheduler.of_full_sea_info(sea, ssad_sea_info);
     finalss.schedule();
     def scheduled_info = finalss.bottom_block.toSSADSeaInfo();
     def scheduled = scheduled_info.0;
@@ -127,39 +131,12 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     // sb.puts(scheduled.toString(1));
     // sb.puts("\n----pretty scheduled----\n");
     // sb.puts(pretty.toString(0, ctx));
-    sb.puts("\n----mermaid---- {\n");
-    sb.puts(mermaid);
-    sb.puts("\n}\n");
-    sb.puts("\t**/\n");
+    // sb.puts("\n----mermaid---- {\n");
+    // sb.puts(mermaid);
+    // sb.puts("\n}\n");
+    // sb.puts("\t**/\n");
 
-    def transform_ctx = SSADCtx.new(scheduled);
-    def analysis = transform_ctx;
-    // def transform_ctx = analysis;
-    def transformer = SSATransformer.new(transform_ctx);
-    // transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
-    // transformer.onLetApp = TB(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
-    // transformer.onIf = TB(flatten_ifs).then(SSAT.transformChildren).f;
-    var transformed = transformer.transform(scheduled);
-
-    // def transformer = SSATransformer.new(analysis);
-    // transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;
-    // transformer.onIf = TB(flatten_ifs).f;
-    // var transformed = transformer.transform(ssa);
-
-    def processed = transformed;
-
-    def vars = Maps.keyList(analysis.static);
-    for (v = vars; v != null; v = v.tail) {
-        sb.puts("// ").puts(v.head).puts(" -- ");
-        sb.puts("static: ").puts(if(analysis.static[v.head], "yes", "no")).puts(", ");
-        sb.puts("type: ").puts(analysis.types[v.head].long_str()).puts(", ");
-        sb.puts("effect: ").puts(analysis.effects[v.head].toString());
-        sb.ln();
-    }
-    var instSsa = processed;
-    // instSsa = SSAD.Injected(sb.toString(), processed);
-
-    return ValidatorCBDDef.new(opcode, instSsa, bs);
+    return ValidatorCBDDef.new(opcode, scheduled, scheduled_sea_info, bs);
 }
 
 def main(args: Array<string>) {

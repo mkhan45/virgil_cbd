@@ -44,7 +44,7 @@ def cbd_opcodes : Array<string> = [
 
 class FastIntCBDDef extends CBDDef {
     def stack_delta: int;
-    new(opcode: string, body: SSAD, stack_delta: int) super(opcode, body) {}
+    new(opcode: string, body: SSAD, stack_delta: int) super(opcode, body, null) {}
 }
 
 def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {

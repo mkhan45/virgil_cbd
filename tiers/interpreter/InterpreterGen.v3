@@ -45,8 +45,9 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
         ssa = SSAD.LetApp("sidetable_entry_bytes", Strings.format1("get_st_entry", opcode), [layout_size], ssa);
     }
     def processed = analysis.DCE(analysis.id_propagate(ssa, HashMap<string, string>.new(Strings.hash, Strings.equal)));
+    def sea_info = Seas.ofSSADWithInfo(processed).1;
 
-    return CBDDef.new(opcode, processed);
+    return CBDDef.new(opcode, processed, sea_info);
 }
 
 def main(args: Array<string>) {

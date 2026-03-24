@@ -8,11 +8,17 @@ type PrettyIR {
 
     def toString(indent: int, ctx: SSADCtx) -> string {
         def buf = StringBuilder.new();
-        this.buildString(buf, [], indent, ctx);
+        this.buildString(buf, [], indent, ctx, Strings.newMap<int>());
         return buf.toString();
     }
 
-    def buildString(buf: StringBuilder, phi_scopes: Array<Array<(string, string)>>, indent: int, ctx: SSADCtx) {
+    def buildString(
+        buf: StringBuilder,
+        phi_scopes: Array<Array<(string, string)>>,
+        indent: int,
+        ctx: SSADCtx,
+        declared: HashMap<string, int>
+    ) {
         match (this) {
             Let(n, rhs, stage, rest) => {
                 for (i < indent) buf.tab();
@@ -24,17 +30,25 @@ type PrettyIR {
                     }
                 }
                 def is_phi_for = resolvePhiDest(n, phi_scopes);
+                var declares = false;
 
                 if (is_phi_for == null && has_phi) {
-                    buf.puts("var ").puts(n).puts(" = ");
+                    if (hasPhiDest(n, phi_scopes)) {
+                        buf.puts(n).puts(" = ");
+                    } else {
+                        buf.puts("var ").puts(n).puts(" = ");
+                        declares = true;
+                    }
                 } else if (is_phi_for != null) {
                     buf.puts(is_phi_for).puts(" = ");
                 } else {
                     buf.puts("def ").puts(n).puts(" = ");
+                    declares = true;
                 }
                 rhs.buildString(buf);
                 buf.puts(";\n");
-                rest.buildString(buf, phi_scopes, indent, ctx);
+                if (declares) declared[n] = 1;
+                rest.buildString(buf, phi_scopes, indent, ctx, declared);
             }
             If(cond, then, els, if_phis, stage, rest) => {
                 def child_scopes = Array<Array<(string, string)>>.new(phi_scopes.length + 1);
@@ -44,33 +58,37 @@ type PrettyIR {
                 for (p in if_phis) {
                     def resolved = resolvePhiDest(p.0, phi_scopes);
                     if (resolved != null && !Strings.equal(resolved, p.0)) continue;
-                    var declared = false;
-                    for (i < declared_phis.length) declared |= Strings.equal(declared_phis[i], p.0);
+                    if (hasPhiDest(p.0, phi_scopes)) continue;
+                    if (hasIdentityPhiSource(p.0, if_phis) && declared.has(p.0)) continue;
+                    if (declared.has(p.0)) continue;
+                    var already_declared = false;
+                    for (i < declared_phis.length) already_declared |= Strings.equal(declared_phis[i], p.0);
 
-                    if (!declared) {
+                    if (!already_declared) {
                         declared_phis.put(p.0);
                         for (i < indent) buf.tab();
                         buf.puts("var ").puts(p.0);
                         def pt = inferPhiTypeStr(p.0, if_phis, ctx);
                         if (pt != null) buf.puts(": ").puts(pt);
                         buf.puts(";\n");
+                        declared[p.0] = 1;
                     }
                 }
                 for (i < indent) buf.tab();
                 buf.puts("if (");
                 cond.buildString(buf);
                 buf.puts(") {\n");
-                then.buildString(buf, child_scopes, indent + 1, ctx);
+                then.buildString(buf, child_scopes, indent + 1, ctx, copyVarSet(declared));
                 for (i < indent) buf.tab();
                 if (els != PrettyIR.Void) {
                     buf.puts("} else {\n");
-                    els.buildString(buf, child_scopes, indent + 1, ctx);
+                    els.buildString(buf, child_scopes, indent + 1, ctx, copyVarSet(declared));
                     for (i < indent) buf.tab();
                     buf.puts("}\n");
                 } else {
                     buf.puts("}\n");
                 }
-                rest.buildString(buf, phi_scopes, indent, ctx);
+                rest.buildString(buf, phi_scopes, indent, ctx, declared);
             }
             Match(subj, branches, stage, rest) => {
                 for (i < indent) buf.tab();
@@ -80,7 +98,7 @@ type PrettyIR {
                 for (b in branches) {
                     for (i < indent + 1) buf.tab();
                     buf.puts(b.0).puts(" => {\n");
-                    b.1.buildString(buf, phi_scopes, indent + 2, ctx);
+                    b.1.buildString(buf, phi_scopes, indent + 2, ctx, copyVarSet(declared));
                     for (i < indent + 1) buf.tab();
                     buf.puts("}\n");
                 }
@@ -88,7 +106,7 @@ type PrettyIR {
                 buf.puts("_ => trapUnreachable();\n");
                 for (i < indent) buf.tab();
                 buf.puts("}\n");
-                rest.buildString(buf, phi_scopes, indent, ctx);
+                rest.buildString(buf, phi_scopes, indent, ctx, declared);
             }
             Void => {
                 return;
@@ -98,12 +116,12 @@ type PrettyIR {
                 e.buildString(buf);
                 buf.puts(";\n");
                 // buf.puts("; // ").puts(effect.toString()).puts("\n");
-                rest.buildString(buf, phi_scopes, indent, ctx);
+                rest.buildString(buf, phi_scopes, indent, ctx, declared);
             }
             Injected(inj, stage, rest) => {
                 for (i < indent) buf.tab();
                 buf.puts(inj).ln();
-                rest.buildString(buf, phi_scopes, indent, ctx);
+                rest.buildString(buf, phi_scopes, indent, ctx, declared);
             }
         }
     }
@@ -201,6 +219,30 @@ type PrettyIR {
             }
         }
         return if(found, cur, null);
+    }
+
+    def hasPhiDest(name: string, phi_scopes: Array<Array<(string, string)>>) -> bool {
+        for (scope_i = phi_scopes.length - 1; scope_i >= 0; scope_i -= 1) {
+            def phis = phi_scopes[scope_i];
+            for (i < phis.length) if (Strings.equal(phis[i].0, name)) return true;
+        }
+        return false;
+    }
+
+    def hasIdentityPhiSource(dest: string, if_phis: Array<(string, string)>) -> bool {
+        for (i < if_phis.length)
+            if (Strings.equal(if_phis[i].0, dest) && Strings.equal(if_phis[i].1, dest))
+                return true;
+        return false;
+    }
+
+    def copyVarSet(vars: HashMap<string, int>) -> HashMap<string, int> {
+        def out = Strings.newMap<int>();
+        for (n = Maps.keyList(vars); n != null; n = n.tail) {
+            def k = n.head;
+            out[k] = vars[k];
+        }
+        return out;
     }
 
     def inferPhiTypeStr(dest: string, if_phis: Array<(string, string)>, ctx: SSADCtx) -> string {

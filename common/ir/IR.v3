@@ -83,9 +83,76 @@ class SSADSeaInfo {
     var let_origins: HashMap<string, IRNode> = Strings.newMap<IRNode>();
     var phi_dest_origins: HashMap<string, IRNode> = Strings.newMap<IRNode>();
     var phi_source_origins: HashMap<string, IRNode> = Strings.newMap<IRNode>();
+    var node_aliases: NodeMap<Vector<string>> = NodeMap<Vector<string>>.new();
+    var phi_left_sources: NodeMap<string> = NodeMap<string>.new();
+    var phi_right_sources: NodeMap<string> = NodeMap<string>.new();
+
+    def aliasesOf(node: IRNode) -> Vector<string> {
+        if (node == null || !node_aliases.has(node)) return null;
+        return node_aliases[node];
+    }
+
+    def hasAlias(node: IRNode, name: string) -> bool {
+        if (node == null || name == null) return false;
+        def aliases = aliasesOf(node);
+        if (aliases == null) return false;
+        for (i < aliases.length) if (Strings.equal(aliases[i], name)) return true;
+        return false;
+    }
+
+    def recordAlias(name: string, node: IRNode) {
+        if (name == null || node == null) return;
+        var aliases = aliasesOf(node);
+        if (aliases == null) {
+            aliases = Vector.new();
+            node_aliases[node] = aliases;
+        }
+        for (i < aliases.length) if (Strings.equal(aliases[i], name)) return;
+        aliases.put(name);
+    }
+
+    def recordPhiSourceNames(phi_node: IRNode, l_src: string, r_src: string) {
+        if (phi_node == null) return;
+        if (l_src != null) phi_left_sources[phi_node] = l_src;
+        if (r_src != null) phi_right_sources[phi_node] = r_src;
+    }
+
+    def phiLeftSource(phi_node: IRNode, fallback: string) -> string {
+        if (phi_node != null && phi_left_sources.has(phi_node)) return phi_left_sources[phi_node];
+        return fallback;
+    }
+
+    def phiRightSource(phi_node: IRNode, fallback: string) -> string {
+        if (phi_node != null && phi_right_sources.has(phi_node)) return phi_right_sources[phi_node];
+        return fallback;
+    }
+
+    def copy() -> SSADSeaInfo {
+        def out = SSADSeaInfo.new();
+
+        for (keys = Maps.keyList(let_origins); keys != null; keys = keys.tail)
+            out.let_origins[keys.head] = let_origins[keys.head];
+        for (keys = Maps.keyList(phi_dest_origins); keys != null; keys = keys.tail)
+            out.phi_dest_origins[keys.head] = phi_dest_origins[keys.head];
+        for (keys = Maps.keyList(phi_source_origins); keys != null; keys = keys.tail)
+            out.phi_source_origins[keys.head] = phi_source_origins[keys.head];
+
+        node_aliases.apply(fun (node: IRNode, aliases: Vector<string>) {
+            def dup = Vector<string>.new();
+            for (i < aliases.length) dup.put(aliases[i]);
+            out.node_aliases[node] = dup;
+        });
+        phi_left_sources.apply(fun (node: IRNode, name: string) { out.phi_left_sources[node] = name; });
+        phi_right_sources.apply(fun (node: IRNode, name: string) { out.phi_right_sources[node] = name; });
+
+        return out;
+    }
 
     def recordLet(name: string, node: IRNode) {
-        if (name != null && node != null) let_origins[name] = node;
+        if (name != null && node != null) {
+            let_origins[name] = node;
+            recordAlias(name, node);
+        }
     }
 
     def recordPhiArm(dest: string, src: string, phi_node: IRNode, src_node: IRNode) {

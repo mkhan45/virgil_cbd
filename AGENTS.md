@@ -93,3 +93,8 @@ Agent skills available for scheduler work:
 | [docs/ai/misc/PBT_PLAN.md](docs/ai/misc/PBT_PLAN.md) | Property-based testing design for the scheduler |
 | [docs/ai/misc/LIT_REVIEW.md](docs/ai/misc/LIT_REVIEW.md) | Literature review: Sea of Nodes and related compiler work |
 | [docs/ai/misc/MOCK_TEST_FIX.md](docs/ai/misc/MOCK_TEST_FIX.md) | Documentation of fixes applied to MOCK_TEST and MOCK_TEST_ul |
+
+## Coding Style
+
+It is important for code changes harmonize with the rest of the relevant code. Comment minimally in a concise casual style, only when extra
+context from the rest of the codebase is relevant to a tricky section of code.

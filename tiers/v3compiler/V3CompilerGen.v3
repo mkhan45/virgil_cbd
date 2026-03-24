@@ -240,7 +240,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     // def instSsa = SSAD.Injected(sb.toString(), processed);
     def instSsa = processed;
 
-    return CBDDef.new(opcode, instSsa);
+    return CBDDef.new(opcode, instSsa, null);
 }
 
 def main(args: Array<string>) {

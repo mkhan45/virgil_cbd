@@ -34,7 +34,9 @@ def testOpcode(opcode: string, stmt: VirgilStmt) -> CBDDef {
 	System.puts(sea_ir.toString(0));
 	System.puts("\n---\n");
 
-	var sea = Seas.ofSSAD(sea_ir);
+	def sea_info = Seas.ofSSADWithInfo(sea_ir);
+	var sea = sea_info.0;
+	def ssad_sea_info = sea_info.1;
 	sea.apply(void, SeaTransforms.id_propagate);
 
 	CBDTrace.addCode(opcode, "parsed", sea_ir.toString(0));
@@ -46,7 +48,7 @@ def testOpcode(opcode: string, stmt: VirgilStmt) -> CBDDef {
 	CBDTrace.addGraph(opcode, "addAbstractions", sea);
 
 	// --- Test 1: schedule the initial graph ---
-	var scheduler = Scheduler.of_full_sea(sea);
+	var scheduler = Scheduler.of_full_sea_info(sea, ssad_sea_info);
 	scheduler.opcode = opcode;
 	scheduler.trace_full = should_trace(opcode);
 	scheduler.schedule();
@@ -78,7 +80,7 @@ def testOpcode(opcode: string, stmt: VirgilStmt) -> CBDDef {
 
 	def ul_opcode = Strings.format1("%s_ul", opcode);
 
-	def ulscheduler = Scheduler.of_full_sea(sea);
+	def ulscheduler = Scheduler.of_full_sea_info(sea, ssad_sea_info);
 	ulscheduler.opcode = ul_opcode;
 	ulscheduler.trace_full = should_trace(opcode);
 	ulscheduler.schedule();
@@ -101,7 +103,7 @@ def testOpcode(opcode: string, stmt: VirgilStmt) -> CBDDef {
 	ul_sc.check();
 	reportResult(opcode, "unLEM", ul_sc.errors);
 
-	return CBDDef.new(opcode, unlem_ssa);
+	return CBDDef.new(opcode, unlem_ssa, unlem_sea_info);
 }
 
 def main(args: Array<string>) {

@@ -125,7 +125,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> CBDDef {
     // transformer.onIf = flatten_ifs;
     // def transformed = transformer.transform(ssa);
     // def processed = analysis.DCE(analysis.id_propagate(transformed, Strings.newMap<string>()));
-    return CBDDef.new(opcode, processed);
+    return CBDDef.new(opcode, processed, null);
 }
 
 def main(args: Array<string>) {
