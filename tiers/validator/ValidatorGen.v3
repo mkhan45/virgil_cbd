@@ -19,7 +19,6 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     def sb = StringBuilder.new();
 
     var ir = SSAD_IR.from_virgil(stmt);
-    var analysis = SSADCtx.new(ir);
     var stbuilder_call: SSAD = SSAD.Void;
     if (bs != 0) {
         // insert call to sidetable builder
@@ -30,14 +29,12 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
         for (i < st_field_buf.length) st_args[i] = st_field_buf[i].0;
         def stbuilder_fn = Strings.format1("ctlxfer.put_%s", opcode);
         stbuilder_call = SSAD.LetApp(SSAD_IR.uidl("eff_st_put"), stbuilder_fn, st_args, SSAD.Void);
-        for (arg in st_args) analysis.effects[arg] = CBDEffect.Table;
     }
 
     // System.puts("===="); System.puts(opcode);  System.puts("====\n");
     // System.puts(ir.toString(0));
 
-    var ctx = SSADCtx.new(ir);
-    //var sea_ir = ctx.id_propagate(ir, Strings.newMap<string>());
+    //var sea_ir = SSADCtx.new(ir).id_propagate(ir, Strings.newMap<string>());
     var sea_ir = ir;
     var sea = Seas.ofSSAD(sea_ir);
     sea.apply(void, SeaTransforms.id_propagate);
@@ -130,7 +127,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
     sb.puts("\t**/\n");
 
     def transform_ctx = SSADCtx.new(scheduled);
-    analysis = transform_ctx;
+    def analysis = transform_ctx;
     // def transform_ctx = analysis;
     def transformer = SSATransformer.new(transform_ctx);
     // transformer.onLetApp = TB(SSAD_IR.removeViews).then(SSAD_IR.overloadOps).then(SSAD_IR.addCasts).then(SSAT.transformChildren).f;

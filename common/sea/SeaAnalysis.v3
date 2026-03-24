@@ -1,0 +1,86 @@
+component SeaAnalysis {
+    def inferVarData(sea: Sea) {
+        var changed = true;
+        while (changed) {
+            changed = false;
+            for (i < sea.nodes_by_id.length) {
+                def node = sea.nodes_by_id[i];
+                if (node == null) continue;
+                changed |= inferNode(node);
+            }
+        }
+    }
+
+    def inferNode(node: IRNode) -> bool {
+        match (node.op) {
+            Start, Finish => return false;
+            Lit(tipe, _) => return setVarData(node, tipe, Stage.VALIDATE);
+            Intrinsic(defn) => {
+                def tipe = if(defn.return_type != null, defn.return_type.primitive, TypeVar.Bot("bot"));
+                var stage = if(defn.return_type != null, defn.return_type.stage, Stage.VALIDATE);
+                for (arg in node.value_deps) {
+                    if (arg == null || arg.var_data == null) continue;
+                    if (stage != Stage.INTERPRET && arg.var_data.stage == Stage.INTERPRET) stage = Stage.INTERPRET;
+                    if (stage == Stage.VALIDATE && arg.var_data.stage == Stage.COMPILE) stage = Stage.COMPILE;
+                }
+                return setVarData(node, tipe, stage);
+            }
+            Phi => {
+                def cond = node.value_deps[0], left = node.value_deps[1], right = node.value_deps[2];
+                def tipe = if(left != null && left.var_data != null,
+                    left.var_data.tipe,
+                    if(right != null && right.var_data != null, right.var_data.tipe, TypeVar.Bot("void")));
+
+                var stage = if(cond != null && cond.var_data != null, cond.var_data.stage, Stage.VALIDATE);
+                if (left != null && left.var_data != null && left.var_data.stage == Stage.INTERPRET) stage = Stage.INTERPRET;
+                if (right != null && right.var_data != null && right.var_data.stage == Stage.INTERPRET) stage = Stage.INTERPRET;
+                return setVarData(node, tipe, stage);
+            }
+            StatePhi(_) => {
+                def cond = node.value_deps[0], left = node.value_deps[1], right = node.value_deps[2];
+                var stage = if(cond != null && cond.var_data != null, cond.var_data.stage, Stage.VALIDATE);
+                if (left != null && left.var_data != null && left.var_data.stage == Stage.INTERPRET) stage = Stage.INTERPRET;
+                if (right != null && right.var_data != null && right.var_data.stage == Stage.INTERPRET) stage = Stage.INTERPRET;
+                return setVarData(node, TypeVar.Bot("void"), stage);
+            }
+            Move(_) => {
+                var src: IRNode = null;
+                if (node.value_deps.length > 1) src = node.value_deps[1];
+                else {
+                    for (i < node.state_deps.length) {
+                        if (node.state_deps[i] != null) {
+                            src = node.state_deps[i];
+                            break;
+                        }
+                    }
+                }
+
+                def tipe = if(src != null && src.var_data != null, src.var_data.tipe, TypeVar.Bot("void"));
+                def stage = if(src != null && src.var_data != null, src.var_data.stage, Stage.INTERPRET);
+                return setVarData(node, tipe, stage);
+            }
+        }
+    }
+
+    def setVarData(node: IRNode, tipe: TypeVar, stage: Stage) -> bool {
+        if (node.var_data == null) {
+            node.var_data = VarData.new(Seas.uidl("sea"), tipe, stage);
+            return true;
+        }
+
+        var changed = false;
+        if (node.var_data.sourceName == null) {
+            node.var_data.sourceName = Seas.uidl("sea");
+            changed = true;
+        }
+        if (node.var_data.tipe != tipe) {
+            node.var_data.tipe = tipe;
+            changed = true;
+        }
+        if (node.var_data.stage != stage) {
+            node.var_data.stage = stage;
+            changed = true;
+        }
+        return changed;
+    }
+}

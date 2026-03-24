@@ -100,16 +100,9 @@ class Sea {
 
                 def op = IROp.Intrinsic(intrinsic_def);
                 def node = var_nodes[n] = mkNode(op, state_deps, arg_nodes);
+                node.var_data = VarData.new(n, TypeVar.Bot("bot"), Stage.VALIDATE);
 
                 for (sc in intrinsic_def.writes) state_vars[sc.tag] = node;
-
-                def tipe = if(intrinsic_def.return_type != null, intrinsic_def.return_type.primitive, TypeVar.Bot("bot"));
-                var stage = if(intrinsic_def.return_type != null, intrinsic_def.return_type.stage, Stage.VALIDATE);
-                for (arg in arg_nodes) {
-                    if (stage != Stage.INTERPRET && arg.var_data.stage == Stage.INTERPRET) stage = Stage.INTERPRET;
-                    if (stage == Stage.VALIDATE && arg.var_data.stage == Stage.COMPILE) stage = Stage.COMPILE;
-                }
-                node.var_data = VarData.new(n, tipe, stage);
 
                 addSSAD(rest, state_vars, deps);
             }
@@ -164,10 +157,7 @@ class Sea {
                         right.var_data.sourceName = Seas.uidl(phi_var);
                         def node = mkNode(IROp.Phi, Array.new(state_vars.length), [cond_node, left, right]);
                         var_nodes[phi_var] = node;
-                        var stage = cond_node.var_data.stage;
-                        if (left.var_data.stage == Stage.INTERPRET) stage = Stage.INTERPRET;
-                        if (right.var_data.stage == Stage.INTERPRET) stage = Stage.INTERPRET;
-                        node.var_data = VarData.new(phi_var, left.var_data.tipe, stage);
+                        node.var_data = VarData.new(phi_var, TypeVar.Bot("bot"), Stage.VALIDATE);
                         phi_map[phi_var] = node;
                     }
                 }
@@ -336,6 +326,7 @@ component Seas {
 
         def state_vars = sea.finish.state_deps;
         sea.addSSAD(node, state_vars, List.new(sea.start, null));
+        SeaAnalysis.inferVarData(sea);
         return sea;
     }
 
