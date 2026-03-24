@@ -363,6 +363,110 @@ class SeaScheduler {
         return result;
     }
 
+    def has_writes(node: IRNode) -> bool {
+        match (node.op) {
+            Intrinsic(defn) => {
+                for (sc in defn.writes) return true;
+            }
+            _ => ;
+        }
+        return false;
+    }
+
+    def lattice_contains_phi(bl: BranchLattice, phi: IRNode) -> bool {
+        for (i < bl.phis.length) if (bl.phis[i].id == phi.id) return true;
+        return false;
+    }
+
+    // This edge will be rewritten by untangle when cloning this lattice,
+    // so it should not count as an escaping use of dep.
+    def rewired_phi_use(dep: IRNode, child: IRNode, bl: BranchLattice,
+                        lsg: ImmNodeSet, rsg: ImmNodeSet) -> bool {
+        if (child == null || !child.is_phi()) return false;
+        if (!lattice_contains_phi(bl, child)) return false;
+
+        if (child.value_deps.length > 1 && child.value_deps[1] != null &&
+            child.value_deps[1].id == dep.id && lsg.has(dep)) return true;
+
+        if (child.value_deps.length > 2 && child.value_deps[2] != null &&
+            child.value_deps[2].id == dep.id && rsg.has(dep)) return true;
+
+        return false;
+    }
+
+    // Nodes in (lsg ∪ rsg) that still have live uses outside the cloned
+    // domain after accounting for phi-edge rewrites.
+    def escaping_clone_nodes(bl: BranchLattice,
+                             lsg: ImmNodeSet, rsg: ImmNodeSet) -> NodeSet {
+        def domain = lsg.union(rsg);
+        def escaping = NodeSet.new();
+        def wl = Vector<IRNode>.new();
+
+        for (n in domain.toArray(sea)) {
+            var escapes = false;
+            for (i < n.children.length) {
+                def child = n.children[i];
+                if (child == null || child.id == n.id) continue;
+                if (!live.has(child) && !child.is_move()) continue;
+
+                // Move's condition edge is bookkeeping and does not represent
+                // a real consuming use.
+                if (child.is_move() && child.value_deps.length > 0 &&
+                    child.value_deps[0] != null && child.value_deps[0].id == n.id) continue;
+
+                if (domain.has(child)) continue;
+                if (rewired_phi_use(n, child, bl, lsg, rsg)) continue;
+
+                escapes = true;
+                break;
+            }
+            if (escapes && !escaping.has(n)) {
+                escaping.put(n);
+                wl.put(n);
+            }
+        }
+
+        // If a node escapes, all deps needed to build that escaping node
+        // also escape.
+        var wi = 0;
+        while (wi < wl.length) {
+            def node = wl[wi];
+            wi += 1;
+            for (dep in node.deps()) {
+                if (dep == null || !domain.has(dep) || escaping.has(dep)) continue;
+                escaping.put(dep);
+                wl.put(dep);
+            }
+        }
+
+        return escaping;
+    }
+
+    // Writes that still escape the clone domain cannot be safely duplicated.
+    // Remove them from clone sets; the remaining nodes are clone-safe.
+    def filtered_clone_subgraphs(bl: BranchLattice) -> (ImmNodeSet, ImmNodeSet) {
+        var lsg = bl.l_subgraph;
+        var rsg = bl.r_subgraph;
+
+        while (true) {
+            def escaping = escaping_clone_nodes(bl, lsg, rsg);
+            def remove = Vector<IRNode>.new();
+            escaping.apply(fun (n: IRNode) {
+                if (has_writes(n) && (lsg.has(n) || rsg.has(n))) remove.put(n);
+            });
+            if (remove.length == 0) break;
+
+            for (i < remove.length) {
+                def n = remove[i];
+                if (trace_full) System.puts(Strings.format1("  pin escaping write %q\n", n.render));
+                if (lsg.has(n)) lsg = lsg.without(n);
+                if (rsg.has(n)) rsg = rsg.without(n);
+            }
+        }
+
+        return (lsg, rsg);
+    }
+
     def untangle() {
         // Compute initial lattices
         branch_lattice_map = NodeMap<BranchLattice>.new();
@@ -379,9 +483,16 @@ class SeaScheduler {
 
             // Find next lattice with overlapping l/r subgraphs
             var next_bl: BranchLattice = null;
+            var next_lsg = ImmNodeSets.empty();
+            var next_rsg = ImmNodeSets.empty();
             for (i < sorted.length) {
-                if (!sorted[i].l_subgraph.intersection(sorted[i].r_subgraph).isEmpty()) {
-                    next_bl = sorted[i];
+                def bl = sorted[i];
+                def filtered = filtered_clone_subgraphs(bl);
+                def lsg = filtered.0, rsg = filtered.1;
+                if (!lsg.intersection(rsg).isEmpty()) {
+                    next_bl = bl;
+                    next_lsg = lsg;
+                    next_rsg = rsg;
                     break;
                 }
             }
@@ -391,14 +502,14 @@ class SeaScheduler {
 
             if (trace_full) {
                 System.puts(Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
-                System.puts(Strings.format2("lsg: %q\nrsg: %q\n", bl.l_subgraph.renderFull(_, sea), bl.r_subgraph.renderFull(_, sea)));
+                System.puts(Strings.format2("lsg: %q\nrsg: %q\n", next_lsg.renderFull(_, sea), next_rsg.renderFull(_, sea)));
             }
 
             // Clone left and right subgraphs
-            def lsg_clone = Seas.cloneSubgraph(sea, bl.l_subgraph);
+            def lsg_clone = Seas.cloneSubgraph(sea, next_lsg);
             def lsg_clone_mapping = lsg_clone.1;
 
-            def rsg_clone = Seas.cloneSubgraph(sea, bl.r_subgraph);
+            def rsg_clone = Seas.cloneSubgraph(sea, next_rsg);
             def rsg_clone_mapping = rsg_clone.1;
 
             lsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) {
@@ -416,10 +527,10 @@ class SeaScheduler {
                 def phi = bl.phis[j];
                 def l_branch = phi.value_deps[1], r_branch = phi.value_deps[2];
 
-                if (lsg_clone_mapping[l_branch] != null)
+                if (next_lsg.has(l_branch) && lsg_clone_mapping[l_branch] != null)
                     phi.replaceDep(l_branch, lsg_clone_mapping[l_branch]);
 
-                if (rsg_clone_mapping[r_branch] != null)
+                if (next_rsg.has(r_branch) && rsg_clone_mapping[r_branch] != null)
                     phi.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
             }
 
