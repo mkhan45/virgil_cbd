@@ -79,10 +79,16 @@ type PrettyIR {
                 cond.buildString(buf);
                 buf.puts(") {\n");
                 then.buildString(buf, child_scopes, indent + 1, ctx, copyVarSet(declared));
+                def then_missing = missingPhiAssignments(then, child_scopes, if_phis, true, ctx, declared);
+                emitPhiAssignments(buf, then_missing, indent + 1);
+
+                def else_missing = missingPhiAssignments(els, child_scopes, if_phis, false, ctx, declared);
+                def needs_else = els != PrettyIR.Void || else_missing.length > 0;
                 for (i < indent) buf.tab();
-                if (els != PrettyIR.Void) {
+                if (needs_else) {
                     buf.puts("} else {\n");
                     els.buildString(buf, child_scopes, indent + 1, ctx, copyVarSet(declared));
+                    emitPhiAssignments(buf, else_missing, indent + 1);
                     for (i < indent) buf.tab();
                     buf.puts("}\n");
                 } else {
@@ -248,6 +254,116 @@ type PrettyIR {
     def inferPhiTypeStr(dest: string, if_phis: Array<(string, string)>, ctx: SSADCtx) -> string {
         if (ctx.sea_info == null) return null;
         return ctx.sea_info.phiDeclType(dest, if_phis);
+    }
+
+    def emitPhiAssignments(buf: StringBuilder, assigns: Array<(string, string)>, indent: int) {
+        for (i < assigns.length) {
+            for (j < indent) buf.tab();
+            buf.puts(assigns[i].0).puts(" = ").puts(assigns[i].1).puts(";\n");
+        }
+    }
+
+    def missingPhiAssignments(
+        branch: PrettyIR,
+        branch_scopes: Array<Array<(string, string)>>,
+        if_phis: Array<(string, string)>,
+        is_then: bool,
+        ctx: SSADCtx,
+        declared: HashMap<string, int>
+    ) -> Array<(string, string)> {
+        def out = Vector<(string, string)>.new();
+        def seen = Strings.newMap<bool>();
+        def seen_targets = Strings.newMap<bool>();
+        for (p in if_phis) {
+            def dest = p.0;
+            if (dest == null || seen.has(dest)) continue;
+            seen[dest] = true;
+
+            var target = resolvePhiDest(dest, branch_scopes);
+            if (target == null) target = dest;
+            if (seen_targets.has(target)) continue;
+
+            var src = phiArmSource(dest, if_phis, is_then);
+            if (src == null) continue;
+            if (isPhiDest(src, ctx)) {
+                def resolved_src = resolvePhiDest(src, branch_scopes);
+                if (resolved_src != null) src = resolved_src;
+            }
+            if (Strings.equal(src, target)) continue;
+            if (!phiSourceVisible(src, branch, branch_scopes, ctx, declared)) continue;
+            if (branchAssignsPhiDest(branch, target, branch_scopes, ctx)) continue;
+
+            seen_targets[target] = true;
+            out.put((target, src));
+        }
+        return out.copy();
+    }
+
+    def phiArmSource(dest: string, if_phis: Array<(string, string)>, is_then: bool) -> string {
+        var l_src: string = null;
+        var r_src: string = null;
+        for (p in if_phis) {
+            if (!Strings.equal(p.0, dest)) continue;
+            if (l_src == null) l_src = p.1;
+            else if (r_src == null) r_src = p.1;
+        }
+        return if (is_then || r_src == null, l_src, r_src);
+    }
+
+    def branchAssignsPhiDest(
+        branch: PrettyIR,
+        dest: string,
+        phi_scopes: Array<Array<(string, string)>>,
+        ctx: SSADCtx
+    ) -> bool {
+        match (branch) {
+            Let(name, rhs, stage, rest) => {
+                def target = renderedAssignTarget(name, phi_scopes);
+                if (Strings.equal(target, dest)) return true;
+                return branchAssignsPhiDest(rest, dest, phi_scopes, ctx);
+            }
+            If(cond, then, els, if_phis, stage, rest) => {
+                def child_scopes = Array<Array<(string, string)>>.new(phi_scopes.length + 1);
+                for (i < phi_scopes.length) child_scopes[i] = phi_scopes[i];
+                child_scopes[phi_scopes.length] = if_phis;
+                if (branchAssignsPhiDest(then, dest, child_scopes, ctx)) return true;
+                if (branchAssignsPhiDest(els, dest, child_scopes, ctx)) return true;
+                return branchAssignsPhiDest(rest, dest, phi_scopes, ctx);
+            }
+            Match(subj, branches, stage, rest) => {
+                for (b in branches)
+                    if (branchAssignsPhiDest(b.1, dest, phi_scopes, ctx)) return true;
+                return branchAssignsPhiDest(rest, dest, phi_scopes, ctx);
+            }
+            Exec(e, stage, effect, rest) => return branchAssignsPhiDest(rest, dest, phi_scopes, ctx);
+            Injected(inj, stage, rest) => return branchAssignsPhiDest(rest, dest, phi_scopes, ctx);
+            Void => return false;
+        }
+    }
+
+    def renderedAssignTarget(name: string, phi_scopes: Array<Array<(string, string)>>) -> string {
+        def alias_dest = resolvePhiDest(name, phi_scopes);
+        if (alias_dest != null) return alias_dest;
+        return name;
+    }
+
+    def phiSourceVisible(
+        src: string,
+        branch: PrettyIR,
+        phi_scopes: Array<Array<(string, string)>>,
+        ctx: SSADCtx,
+        declared: HashMap<string, int>
+    ) -> bool {
+        if (src == null) return false;
+        if (declared.has(src)) return true;
+        return branchAssignsPhiDest(branch, src, phi_scopes, ctx);
+    }
+
+    def isPhiDest(name: string, ctx: SSADCtx) -> bool {
+        for (p in ctx.phis)
+            if (Strings.equal(p.0, name))
+                return true;
+        return false;
     }
 }
 

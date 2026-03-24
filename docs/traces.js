@@ -3961,11 +3961,11 @@ graph TD
 	29 --> 43
 	29{"triv ϕ"}
 	16 --> 29
-	69 --> 29
-	72 --> 29
-	72["mv_f__371__377__385__391 |False|  [U32_not_equals [r]]"]
-	16 --> 72
-	24 --> 72
+	123 --> 29
+	126 --> 29
+	126["mv_f__371__377__385__391__397__403__409__415__421__427__433__439__445 |False|  [U32_not_equals [r]]"]
+	16 --> 126
+	24 --> 126
 	24["N bot_plus"]
 	21 --> 24
 	22 --> 24
@@ -3992,9 +3992,9 @@ graph TD
 	41["abs__366 lift_u32"]
 	14 --> 41
 	14["arg__359 0"]
-	69["mv_t__370__374__382__388 |True|  [U32_not_equals [r]]"]
-	16 --> 69
-	24 --> 69
+	123["mv_t__370__374__382__388__394__400__406__412__418__424__430__436__442 |True|  [U32_not_equals [r]]"]
+	16 --> 123
+	24 --> 123
 </pre>`;
 window.traces["P3_FRONTIER"]["schedulerMermaid"] = ''
 window.traces["P3_FRONTIER"]["schedulerMermaid"] += `<pre class='graph'>graph TD
@@ -4022,7 +4022,7 @@ block_101 --> phi_100
 block_102 --> phi_100
 subgraph block_101["Block 101"]
 	direction TB
-	b101_69["mv_t__370__374__382__388 |True|  [U32_not_equals [r]]"]
+	b101_123["mv_t__370__374__382__388__394__400__406__412__418__424__430__436__442 |True|  [U32_not_equals [r]]"]
 end
 branch_99 --> block_101
 subgraph branch_99["Branch 99"]
@@ -4096,7 +4096,7 @@ end
 branch_103 --> block_106
 subgraph block_102["Block 102"]
 	direction TB
-	b102_72["mv_f__371__377__385__391 |False|  [U32_not_equals [r]]"]
+	b102_126["mv_f__371__377__385__391__397__403__409__415__421__427__433__439__445 |False|  [U32_not_equals [r]]"]
 end
 branch_99 --> block_102
 subgraph block_97["Block 97"]
@@ -4153,6 +4153,9 @@ def B = pop_u32();
 def q = U32_not_equals(c3, lift_u32(0));
 var deep: u32;
 if (q) {
+	deep = A;
+} else {
+	deep = B;
 }
 def N = bot_plus(deep, 0);
 def r = U32_not_equals(c2, lift_u32(0));
@@ -4160,6 +4163,9 @@ def p = U32_not_equals(c1, lift_u32(0));
 var result: u32;
 if (p) {
 	if (r) {
+		result = N;
+	} else {
+		result = N;
 	}
 } else {
 	result = U32_plus(A, lift_u32(1));
@@ -4193,7 +4199,7 @@ graph TD
 	45 --> 36
 	47 --> 36
 	46 --> 36
-	46{"innerPhi__395 ϕ"}
+	46{"innerPhi__449 ϕ"}
 	43 --> 46
 	29 --> 46
 	34 --> 46
@@ -4207,7 +4213,7 @@ graph TD
 	50 --> 29
 	52 --> 29
 	51 --> 29
-	51{"innerPhi__400 ϕ"}
+	51{"innerPhi__454 ϕ"}
 	48 --> 51
 	24 --> 51
 	24 --> 51
@@ -4219,11 +4225,11 @@ graph TD
 	55 --> 21
 	57 --> 21
 	56 --> 21
-	56{"innerPhi__405 ϕ"}
+	56{"innerPhi__459 ϕ"}
 	53 --> 56
 	6 --> 56
 	7 --> 56
-	53["mt__402 U32_maybeTrue"]
+	53["mt__456 U32_maybeTrue"]
 	13 --> 53
 	13["q U32_not_equals"]
 	4 --> 13
@@ -4231,15 +4237,15 @@ graph TD
 	42["abs__367 lift_u32"]
 	11 --> 42
 	11["arg__361 0"]
-	57["merge__406 merge"]
+	57["merge__460 merge"]
 	6 --> 57
 	7 --> 57
-	55["mb__404 bool.&&"]
+	55["mb__458 bool.&&"]
 	53 --> 55
 	54 --> 55
-	54["mf__403 U32_maybeFalse"]
+	54["mf__457 U32_maybeFalse"]
 	13 --> 54
-	48["mt__397 U32_maybeTrue"]
+	48["mt__451 U32_maybeTrue"]
 	16 --> 48
 	16["r U32_not_equals"]
 	5 --> 16
@@ -4247,15 +4253,15 @@ graph TD
 	41["abs__366 lift_u32"]
 	14 --> 41
 	14["arg__359 0"]
-	52["merge__401 merge"]
+	52["merge__455 merge"]
 	24 --> 52
 	24 --> 52
-	50["mb__399 bool.&&"]
+	50["mb__453 bool.&&"]
 	48 --> 50
 	49 --> 50
-	49["mf__398 U32_maybeFalse"]
+	49["mf__452 U32_maybeFalse"]
 	16 --> 49
-	43["mt__392 U32_maybeTrue"]
+	43["mt__446 U32_maybeTrue"]
 	10 --> 43
 	10["p U32_not_equals"]
 	3 --> 10
@@ -4263,13 +4269,13 @@ graph TD
 	39["abs__364 lift_u32"]
 	8 --> 39
 	8["arg__363 0"]
-	47["merge__396 merge"]
+	47["merge__450 merge"]
 	29 --> 47
 	34 --> 47
-	45["mb__394 bool.&&"]
+	45["mb__448 bool.&&"]
 	43 --> 45
 	44 --> 45
-	44["mf__393 U32_maybeFalse"]
+	44["mf__447 U32_maybeFalse"]
 	10 --> 44
 </pre>`;
 window.traces["P3_FRONTIER_ul"] = {}
@@ -4300,14 +4306,14 @@ graph TD
 	45 --> 36
 	58 --> 36
 	59 --> 36
-	59["mv_f__408 |False|  [bool.&& [mb__394]]"]
+	59["mv_f__462 |False|  [bool.&& [mb__448]]"]
 	45 --> 59
 	46 --> 59
-	46{"innerPhi__395 ϕ"}
+	46{"innerPhi__449 ϕ"}
 	43 --> 46
 	60 --> 46
 	61 --> 46
-	61["mv_f__410 |False|  [U32_maybeTrue [mt__392]]"]
+	61["mv_f__464 |False|  [U32_maybeTrue [mt__446]]"]
 	43 --> 61
 	34 --> 61
 	34["result__347 U32_plus"]
@@ -4316,7 +4322,7 @@ graph TD
 	40["abs__365 lift_u32"]
 	32 --> 40
 	32["arg__349 1"]
-	43["mt__392 U32_maybeTrue"]
+	43["mt__446 U32_maybeTrue"]
 	10 --> 43
 	10["p U32_not_equals"]
 	3 --> 10
@@ -4324,21 +4330,21 @@ graph TD
 	39["abs__364 lift_u32"]
 	8 --> 39
 	8["arg__363 0"]
-	60["mv_t__409 |True|  [U32_maybeTrue [mt__392]]"]
+	60["mv_t__463 |True|  [U32_maybeTrue [mt__446]]"]
 	43 --> 60
 	29 --> 60
 	29{"triv ϕ"}
 	50 --> 29
 	62 --> 29
 	63 --> 29
-	63["mv_f__412 |False|  [bool.&& [mb__399]]"]
+	63["mv_f__466 |False|  [bool.&& [mb__453]]"]
 	50 --> 63
 	51 --> 63
-	51{"innerPhi__400 ϕ"}
+	51{"innerPhi__454 ϕ"}
 	48 --> 51
 	64 --> 51
 	65 --> 51
-	65["mv_f__414 |False|  [U32_maybeTrue [mt__397]]"]
+	65["mv_f__468 |False|  [U32_maybeTrue [mt__451]]"]
 	48 --> 65
 	24 --> 65
 	24["N bot_plus"]
@@ -4349,17 +4355,17 @@ graph TD
 	55 --> 21
 	66 --> 21
 	67 --> 21
-	67["mv_f__416 |False|  [bool.&& [mb__404]]"]
+	67["mv_f__470 |False|  [bool.&& [mb__458]]"]
 	55 --> 67
 	56 --> 67
-	56{"innerPhi__405 ϕ"}
+	56{"innerPhi__459 ϕ"}
 	53 --> 56
 	68 --> 56
 	69 --> 56
-	69["mv_f__418 |False|  [U32_maybeTrue [mt__402]]"]
+	69["mv_f__472 |False|  [U32_maybeTrue [mt__456]]"]
 	53 --> 69
 	7 --> 69
-	53["mt__402 U32_maybeTrue"]
+	53["mt__456 U32_maybeTrue"]
 	13 --> 53
 	13["q U32_not_equals"]
 	4 --> 13
@@ -4367,21 +4373,21 @@ graph TD
 	42["abs__367 lift_u32"]
 	11 --> 42
 	11["arg__361 0"]
-	68["mv_t__417 |True|  [U32_maybeTrue [mt__402]]"]
+	68["mv_t__471 |True|  [U32_maybeTrue [mt__456]]"]
 	53 --> 68
 	6 --> 68
-	55["mb__404 bool.&&"]
+	55["mb__458 bool.&&"]
 	53 --> 55
 	54 --> 55
-	54["mf__403 U32_maybeFalse"]
+	54["mf__457 U32_maybeFalse"]
 	13 --> 54
-	66["mv_t__415 |True|  [bool.&& [mb__404]]"]
+	66["mv_t__469 |True|  [bool.&& [mb__458]]"]
 	55 --> 66
 	57 --> 66
-	57["merge__406 merge"]
+	57["merge__460 merge"]
 	6 --> 57
 	7 --> 57
-	48["mt__397 U32_maybeTrue"]
+	48["mt__451 U32_maybeTrue"]
 	16 --> 48
 	16["r U32_not_equals"]
 	5 --> 16
@@ -4389,29 +4395,29 @@ graph TD
 	41["abs__366 lift_u32"]
 	14 --> 41
 	14["arg__359 0"]
-	64["mv_t__413 |True|  [U32_maybeTrue [mt__397]]"]
+	64["mv_t__467 |True|  [U32_maybeTrue [mt__451]]"]
 	48 --> 64
 	24 --> 64
-	50["mb__399 bool.&&"]
+	50["mb__453 bool.&&"]
 	48 --> 50
 	49 --> 50
-	49["mf__398 U32_maybeFalse"]
+	49["mf__452 U32_maybeFalse"]
 	16 --> 49
-	62["mv_t__411 |True|  [bool.&& [mb__399]]"]
+	62["mv_t__465 |True|  [bool.&& [mb__453]]"]
 	50 --> 62
 	52 --> 62
-	52["merge__401 merge"]
+	52["merge__455 merge"]
 	24 --> 52
 	24 --> 52
-	45["mb__394 bool.&&"]
+	45["mb__448 bool.&&"]
 	43 --> 45
 	44 --> 45
-	44["mf__393 U32_maybeFalse"]
+	44["mf__447 U32_maybeFalse"]
 	10 --> 44
-	58["mv_t__407 |True|  [bool.&& [mb__394]]"]
+	58["mv_t__461 |True|  [bool.&& [mb__448]]"]
 	45 --> 58
 	47 --> 58
-	47["merge__396 merge"]
+	47["merge__450 merge"]
 	29 --> 47
 	34 --> 47
 </pre>`;
@@ -4442,14 +4448,14 @@ graph TD
 	45 --> 36
 	58 --> 36
 	59 --> 36
-	59["mv_f__408 |False|  [bool.&& [mb__394]]"]
+	59["mv_f__462 |False|  [bool.&& [mb__448]]"]
 	45 --> 59
 	46 --> 59
-	46{"innerPhi__395 ϕ"}
+	46{"innerPhi__449 ϕ"}
 	43 --> 46
 	60 --> 46
 	61 --> 46
-	61["mv_f__410 |False|  [U32_maybeTrue [mt__392]]"]
+	61["mv_f__464 |False|  [U32_maybeTrue [mt__446]]"]
 	43 --> 61
 	34 --> 61
 	34["result__347 U32_plus"]
@@ -4458,7 +4464,7 @@ graph TD
 	40["abs__365 lift_u32"]
 	32 --> 40
 	32["arg__349 1"]
-	43["mt__392 U32_maybeTrue"]
+	43["mt__446 U32_maybeTrue"]
 	10 --> 43
 	10["p U32_not_equals"]
 	3 --> 10
@@ -4466,23 +4472,23 @@ graph TD
 	39["abs__364 lift_u32"]
 	8 --> 39
 	8["arg__363 0"]
-	60["mv_t__409 |True|  [U32_maybeTrue [mt__392]]"]
+	60["mv_t__463 |True|  [U32_maybeTrue [mt__446]]"]
 	43 --> 60
 	29 --> 60
 	29{"triv ϕ"}
 	50 --> 29
 	62 --> 29
 	63 --> 29
-	63["mv_f__412 |False|  [bool.&& [mb__399]]"]
+	63["mv_f__466 |False|  [bool.&& [mb__453]]"]
 	50 --> 63
 	51 --> 63
-	51{"innerPhi__400 ϕ"}
+	51{"innerPhi__454 ϕ"}
 	48 --> 51
-	158 --> 51
-	165 --> 51
-	165["mv_f__414__428__446__460__474__488__502 |False|  [U32_maybeTrue [mt__397]]"]
-	48 --> 165
-	24 --> 165
+	410 --> 51
+	417 --> 51
+	417["mv_f__468__482__500__514__528__542__556__570__584__598__612__626__640__654__668__682__696__710__724__738__752__766__780__794__808 |False|  [U32_maybeTrue [mt__451]]"]
+	48 --> 417
+	24 --> 417
 	24["N bot_plus"]
 	21 --> 24
 	22 --> 24
@@ -4491,17 +4497,17 @@ graph TD
 	55 --> 21
 	66 --> 21
 	67 --> 21
-	67["mv_f__416 |False|  [bool.&& [mb__404]]"]
+	67["mv_f__470 |False|  [bool.&& [mb__458]]"]
 	55 --> 67
 	56 --> 67
-	56{"innerPhi__405 ϕ"}
+	56{"innerPhi__459 ϕ"}
 	53 --> 56
 	68 --> 56
 	69 --> 56
-	69["mv_f__418 |False|  [U32_maybeTrue [mt__402]]"]
+	69["mv_f__472 |False|  [U32_maybeTrue [mt__456]]"]
 	53 --> 69
 	7 --> 69
-	53["mt__402 U32_maybeTrue"]
+	53["mt__456 U32_maybeTrue"]
 	13 --> 53
 	13["q U32_not_equals"]
 	4 --> 13
@@ -4509,21 +4515,21 @@ graph TD
 	42["abs__367 lift_u32"]
 	11 --> 42
 	11["arg__361 0"]
-	68["mv_t__417 |True|  [U32_maybeTrue [mt__402]]"]
+	68["mv_t__471 |True|  [U32_maybeTrue [mt__456]]"]
 	53 --> 68
 	6 --> 68
-	55["mb__404 bool.&&"]
+	55["mb__458 bool.&&"]
 	53 --> 55
 	54 --> 55
-	54["mf__403 U32_maybeFalse"]
+	54["mf__457 U32_maybeFalse"]
 	13 --> 54
-	66["mv_t__415 |True|  [bool.&& [mb__404]]"]
+	66["mv_t__469 |True|  [bool.&& [mb__458]]"]
 	55 --> 66
 	57 --> 66
-	57["merge__406 merge"]
+	57["merge__460 merge"]
 	6 --> 57
 	7 --> 57
-	48["mt__397 U32_maybeTrue"]
+	48["mt__451 U32_maybeTrue"]
 	16 --> 48
 	16["r U32_not_equals"]
 	5 --> 16
@@ -4531,29 +4537,29 @@ graph TD
 	41["abs__366 lift_u32"]
 	14 --> 41
 	14["arg__359 0"]
-	158["mv_t__413__421__439__453__467__481__495 |True|  [U32_maybeTrue [mt__397]]"]
-	48 --> 158
-	24 --> 158
-	50["mb__399 bool.&&"]
+	410["mv_t__467__475__493__507__521__535__549__563__577__591__605__619__633__647__661__675__689__703__717__731__745__759__773__787__801 |True|  [U32_maybeTrue [mt__451]]"]
+	48 --> 410
+	24 --> 410
+	50["mb__453 bool.&&"]
 	48 --> 50
 	49 --> 50
-	49["mf__398 U32_maybeFalse"]
+	49["mf__452 U32_maybeFalse"]
 	16 --> 49
-	62["mv_t__411 |True|  [bool.&& [mb__399]]"]
+	62["mv_t__465 |True|  [bool.&& [mb__453]]"]
 	50 --> 62
 	52 --> 62
-	52["merge__401 merge"]
+	52["merge__455 merge"]
 	24 --> 52
 	24 --> 52
-	45["mb__394 bool.&&"]
+	45["mb__448 bool.&&"]
 	43 --> 45
 	44 --> 45
-	44["mf__393 U32_maybeFalse"]
+	44["mf__447 U32_maybeFalse"]
 	10 --> 44
-	58["mv_t__407 |True|  [bool.&& [mb__394]]"]
+	58["mv_t__461 |True|  [bool.&& [mb__448]]"]
 	45 --> 58
 	47 --> 58
-	47["merge__396 merge"]
+	47["merge__450 merge"]
 	29 --> 47
 	34 --> 47
 </pre>`;
@@ -4566,50 +4572,50 @@ def A = pop_u32();
 def abs__367 = lift_u32(arg__361);
 def B = pop_u32();
 def q = U32_not_equals(c3, abs__367);
-def mt__402 = U32_maybeTrue(q);
-def mf__403 = U32_maybeFalse(q);
-def mb__404 = bool.&&(mt__402, mf__403);
-if (mb__404) {
-	def merge__406 = merge(A, B);
+def mt__456 = U32_maybeTrue(q);
+def mf__457 = U32_maybeFalse(q);
+def mb__458 = bool.&&(mt__456, mf__457);
+if (mb__458) {
+	def merge__460 = merge(A, B);
 } else {
-	if (mt__402) {
+	if (mt__456) {
 	}
-// phis: innerPhi__405 <- A; innerPhi__405 <- B; 
+// phis: innerPhi__459 <- A; innerPhi__459 <- B; 
 }
-// phis: deep <- merge__406; deep <- innerPhi__405; 
+// phis: deep <- merge__460; deep <- innerPhi__459; 
 def arg__359 : u32 = 0;
 def arg__354 : u32 = 0;
 def abs__366 = lift_u32(arg__359);
 def N = bot_plus(deep, arg__354);
 def r = U32_not_equals(c2, abs__366);
-def mt__397 = U32_maybeTrue(r);
-def mf__398 = U32_maybeFalse(r);
-def mb__399 = bool.&&(mt__397, mf__398);
-if (mb__399) {
-	def merge__401 = merge(N, N);
+def mt__451 = U32_maybeTrue(r);
+def mf__452 = U32_maybeFalse(r);
+def mb__453 = bool.&&(mt__451, mf__452);
+if (mb__453) {
+	def merge__455 = merge(N, N);
 } else {
-	if (mt__397) {
+	if (mt__451) {
 	}
-// phis: innerPhi__400 <- N; innerPhi__400 <- N; 
+// phis: innerPhi__454 <- N; innerPhi__454 <- N; 
 }
-// phis: triv <- merge__401; triv <- innerPhi__400; 
+// phis: triv <- merge__455; triv <- innerPhi__454; 
 def arg__349 : u32 = 1;
 def arg__363 : u32 = 0;
 def abs__365 = lift_u32(arg__349);
 def abs__364 = lift_u32(arg__363);
 def result__347 = U32_plus(A, abs__365);
 def p = U32_not_equals(c1, abs__364);
-def mt__392 = U32_maybeTrue(p);
-def mf__393 = U32_maybeFalse(p);
-def mb__394 = bool.&&(mt__392, mf__393);
-if (mb__394) {
-	def merge__396 = merge(triv, result__347);
+def mt__446 = U32_maybeTrue(p);
+def mf__447 = U32_maybeFalse(p);
+def mb__448 = bool.&&(mt__446, mf__447);
+if (mb__448) {
+	def merge__450 = merge(triv, result__347);
 } else {
-	if (mt__392) {
+	if (mt__446) {
 	}
-// phis: innerPhi__395 <- triv; innerPhi__395 <- result__347; 
+// phis: innerPhi__449 <- triv; innerPhi__449 <- result__347; 
 }
-// phis: result <- merge__396; result <- innerPhi__395; 
+// phis: result <- merge__450; result <- innerPhi__449; 
 def eff__343 = push_u32(result);
 </pre>`;
 window.traces["P3_FRONTIER"]["unlem_scheduler"] = ''
@@ -4628,13 +4634,13 @@ block_111 --> phi_110
 block_112 --> phi_110
 subgraph block_111["Block 111"]
 	direction TB
-	b111_47["merge__396 merge"]
-	b111_58["mv_t__407 |True|  [bool.&& [mb__394]]"]
+	b111_47["merge__450 merge"]
+	b111_58["mv_t__461 |True|  [bool.&& [mb__448]]"]
 	b111_47 --> b111_58
 end
 branch_109 --> block_111
 subgraph branch_109["Branch 109"]
-	br109_45["mb__394 bool.&&"]
+	br109_45["mb__448 bool.&&"]
 
 end
 block_113 --> branch_109
@@ -4646,9 +4652,9 @@ subgraph block_113["Block 113"]
 	b113_39["abs__364 lift_u32"]
 	b113_34["result__347 U32_plus"]
 	b113_10["p U32_not_equals"]
-	b113_43["mt__392 U32_maybeTrue"]
-	b113_44["mf__393 U32_maybeFalse"]
-	b113_45["mb__394 bool.&&"]
+	b113_43["mt__446 U32_maybeTrue"]
+	b113_44["mf__447 U32_maybeFalse"]
+	b113_45["mb__448 bool.&&"]
 	b113_32 --> b113_8
 	b113_8 --> b113_40
 	b113_40 --> b113_39
@@ -4666,13 +4672,13 @@ block_120 --> phi_119
 block_121 --> phi_119
 subgraph block_120["Block 120"]
 	direction TB
-	b120_52["merge__401 merge"]
-	b120_62["mv_t__411 |True|  [bool.&& [mb__399]]"]
+	b120_52["merge__455 merge"]
+	b120_62["mv_t__465 |True|  [bool.&& [mb__453]]"]
 	b120_52 --> b120_62
 end
 branch_118 --> block_120
 subgraph branch_118["Branch 118"]
-	br118_50["mb__399 bool.&&"]
+	br118_50["mb__453 bool.&&"]
 
 end
 block_122 --> branch_118
@@ -4683,9 +4689,9 @@ subgraph block_122["Block 122"]
 	b122_41["abs__366 lift_u32"]
 	b122_24["N bot_plus"]
 	b122_16["r U32_not_equals"]
-	b122_48["mt__397 U32_maybeTrue"]
-	b122_49["mf__398 U32_maybeFalse"]
-	b122_50["mb__399 bool.&&"]
+	b122_48["mt__451 U32_maybeTrue"]
+	b122_49["mf__452 U32_maybeFalse"]
+	b122_50["mb__453 bool.&&"]
 	b122_14 --> b122_22
 	b122_22 --> b122_41
 	b122_41 --> b122_24
@@ -4702,13 +4708,13 @@ block_129 --> phi_128
 block_130 --> phi_128
 subgraph block_129["Block 129"]
 	direction TB
-	b129_57["merge__406 merge"]
-	b129_66["mv_t__415 |True|  [bool.&& [mb__404]]"]
+	b129_57["merge__460 merge"]
+	b129_66["mv_t__469 |True|  [bool.&& [mb__458]]"]
 	b129_57 --> b129_66
 end
 branch_127 --> block_129
 subgraph branch_127["Branch 127"]
-	br127_55["mb__404 bool.&&"]
+	br127_55["mb__458 bool.&&"]
 
 end
 block_131 --> branch_127
@@ -4723,9 +4729,9 @@ subgraph block_131["Block 131"]
 	b131_42["abs__367 lift_u32"]
 	b131_7["B pop_u32"]
 	b131_13["q U32_not_equals"]
-	b131_53["mt__402 U32_maybeTrue"]
-	b131_54["mf__403 U32_maybeFalse"]
-	b131_55["mb__404 bool.&&"]
+	b131_53["mt__456 U32_maybeTrue"]
+	b131_54["mf__457 U32_maybeFalse"]
+	b131_55["mb__458 bool.&&"]
 	b131_0 --> b131_3
 	b131_3 --> b131_4
 	b131_4 --> b131_5
@@ -4740,77 +4746,77 @@ subgraph block_131["Block 131"]
 end
 subgraph block_130["Block 130"]
 	direction TB
-	b130_67["mv_f__416 |False|  [bool.&& [mb__404]]"]
+	b130_67["mv_f__470 |False|  [bool.&& [mb__458]]"]
 end
 phi_133 --> block_130
 subgraph phi_133["Phi 133"]
-	p133_56{"innerPhi__405 ϕ"}
+	p133_56{"innerPhi__459 ϕ"}
 end
 block_134 --> phi_133
 block_135 --> phi_133
 subgraph block_134["Block 134"]
 	direction TB
-	b134_68["mv_t__417 |True|  [U32_maybeTrue [mt__402]]"]
+	b134_68["mv_t__471 |True|  [U32_maybeTrue [mt__456]]"]
 end
 branch_132 --> block_134
 subgraph branch_132["Branch 132"]
-	br132_53["mt__402 U32_maybeTrue"]
+	br132_53["mt__456 U32_maybeTrue"]
 
 end
 branch_127 --> branch_132
 subgraph block_135["Block 135"]
 	direction TB
-	b135_69["mv_f__418 |False|  [U32_maybeTrue [mt__402]]"]
+	b135_69["mv_f__472 |False|  [U32_maybeTrue [mt__456]]"]
 end
 branch_132 --> block_135
 subgraph block_121["Block 121"]
 	direction TB
-	b121_63["mv_f__412 |False|  [bool.&& [mb__399]]"]
+	b121_63["mv_f__466 |False|  [bool.&& [mb__453]]"]
 end
 phi_124 --> block_121
 subgraph phi_124["Phi 124"]
-	p124_51{"innerPhi__400 ϕ"}
+	p124_51{"innerPhi__454 ϕ"}
 end
 block_125 --> phi_124
 block_126 --> phi_124
 subgraph block_125["Block 125"]
 	direction TB
-	b125_158["mv_t__413__421__439__453__467__481__495 |True|  [U32_maybeTrue [mt__397]]"]
+	b125_410["mv_t__467__475__493__507__521__535__549__563__577__591__605__619__633__647__661__675__689__703__717__731__745__759__773__787__801 |True|  [U32_maybeTrue [mt__451]]"]
 end
 branch_123 --> block_125
 subgraph branch_123["Branch 123"]
-	br123_48["mt__397 U32_maybeTrue"]
+	br123_48["mt__451 U32_maybeTrue"]
 
 end
 branch_118 --> branch_123
 subgraph block_126["Block 126"]
 	direction TB
-	b126_165["mv_f__414__428__446__460__474__488__502 |False|  [U32_maybeTrue [mt__397]]"]
+	b126_417["mv_f__468__482__500__514__528__542__556__570__584__598__612__626__640__654__668__682__696__710__724__738__752__766__780__794__808 |False|  [U32_maybeTrue [mt__451]]"]
 end
 branch_123 --> block_126
 subgraph block_112["Block 112"]
 	direction TB
-	b112_59["mv_f__408 |False|  [bool.&& [mb__394]]"]
+	b112_59["mv_f__462 |False|  [bool.&& [mb__448]]"]
 end
 phi_115 --> block_112
 subgraph phi_115["Phi 115"]
-	p115_46{"innerPhi__395 ϕ"}
+	p115_46{"innerPhi__449 ϕ"}
 end
 block_116 --> phi_115
 block_117 --> phi_115
 subgraph block_116["Block 116"]
 	direction TB
-	b116_60["mv_t__409 |True|  [U32_maybeTrue [mt__392]]"]
+	b116_60["mv_t__463 |True|  [U32_maybeTrue [mt__446]]"]
 end
 branch_114 --> block_116
 subgraph branch_114["Branch 114"]
-	br114_43["mt__392 U32_maybeTrue"]
+	br114_43["mt__446 U32_maybeTrue"]
 
 end
 branch_109 --> branch_114
 subgraph block_117["Block 117"]
 	direction TB
-	b117_61["mv_f__410 |False|  [U32_maybeTrue [mt__392]]"]
+	b117_61["mv_f__464 |False|  [U32_maybeTrue [mt__446]]"]
 end
 branch_114 --> block_117
 
@@ -4824,50 +4830,50 @@ def A = pop_u32();
 def abs__367 = lift_u32(arg__361);
 def B = pop_u32();
 def q = U32_not_equals(c3, abs__367);
-def mt__402 = U32_maybeTrue(q);
-def mf__403 = U32_maybeFalse(q);
-def mb__404 = bool.&&(mt__402, mf__403);
-if (mb__404) {
-	def merge__406 = merge(A, B);
+def mt__456 = U32_maybeTrue(q);
+def mf__457 = U32_maybeFalse(q);
+def mb__458 = bool.&&(mt__456, mf__457);
+if (mb__458) {
+	def merge__460 = merge(A, B);
 } else {
-	if (mt__402) {
+	if (mt__456) {
 	}
-// phis: innerPhi__405 <- A; innerPhi__405 <- B; 
+// phis: innerPhi__459 <- A; innerPhi__459 <- B; 
 }
-// phis: deep <- merge__406; deep <- innerPhi__405; 
+// phis: deep <- merge__460; deep <- innerPhi__459; 
 def arg__359 : u32 = 0;
 def arg__354 : u32 = 0;
 def abs__366 = lift_u32(arg__359);
 def N = bot_plus(deep, arg__354);
 def r = U32_not_equals(c2, abs__366);
-def mt__397 = U32_maybeTrue(r);
-def mf__398 = U32_maybeFalse(r);
-def mb__399 = bool.&&(mt__397, mf__398);
-if (mb__399) {
-	def merge__401 = merge(N, N);
+def mt__451 = U32_maybeTrue(r);
+def mf__452 = U32_maybeFalse(r);
+def mb__453 = bool.&&(mt__451, mf__452);
+if (mb__453) {
+	def merge__455 = merge(N, N);
 } else {
-	if (mt__397) {
+	if (mt__451) {
 	}
-// phis: innerPhi__400 <- N; innerPhi__400 <- N; 
+// phis: innerPhi__454 <- N; innerPhi__454 <- N; 
 }
-// phis: triv <- merge__401; triv <- innerPhi__400; 
+// phis: triv <- merge__455; triv <- innerPhi__454; 
 def arg__349 : u32 = 1;
 def arg__363 : u32 = 0;
 def abs__365 = lift_u32(arg__349);
 def abs__364 = lift_u32(arg__363);
 def result__347 = U32_plus(A, abs__365);
 def p = U32_not_equals(c1, abs__364);
-def mt__392 = U32_maybeTrue(p);
-def mf__393 = U32_maybeFalse(p);
-def mb__394 = bool.&&(mt__392, mf__393);
-if (mb__394) {
-	def merge__396 = merge(triv, result__347);
+def mt__446 = U32_maybeTrue(p);
+def mf__447 = U32_maybeFalse(p);
+def mb__448 = bool.&&(mt__446, mf__447);
+if (mb__448) {
+	def merge__450 = merge(triv, result__347);
 } else {
-	if (mt__392) {
+	if (mt__446) {
 	}
-// phis: innerPhi__395 <- triv; innerPhi__395 <- result__347; 
+// phis: innerPhi__449 <- triv; innerPhi__449 <- result__347; 
 }
-// phis: result <- merge__396; result <- innerPhi__395; 
+// phis: result <- merge__450; result <- innerPhi__449; 
 def eff__343 = push_u32(result);
 </pre>`;
 window.traces["P3_FRONTIER"]["unlem_scheduler_ssa_pretty"] = ''
@@ -4884,6 +4890,9 @@ if (bool.&&(mt, mf)) {
 	deep = merge(A, B);
 } else {
 	if (mt) {
+		deep = A;
+	} else {
+		deep = B;
 	}
 }
 def N = bot_plus(deep, 0);
@@ -4895,6 +4904,9 @@ if (bool.&&(mt1, mf1)) {
 	triv = merge(N, N);
 } else {
 	if (mt1) {
+		triv = N;
+	} else {
+		triv = N;
 	}
 }
 var result = U32_plus(A, lift_u32(1));
