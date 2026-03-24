@@ -467,6 +467,15 @@ class SeaScheduler {
         return (lsg, rsg);
     }
 
+    def filter_branch_lattices_clone_domains() {
+        for (i < branch_lattices.length) {
+            def bl = branch_lattices[i];
+            def filtered = filtered_clone_subgraphs(bl);
+            bl.l_subgraph = filtered.0;
+            bl.r_subgraph = filtered.1;
+        }
+    }
+
     def untangle() {
         // Compute initial lattices
         branch_lattice_map = NodeMap<BranchLattice>.new();
@@ -474,8 +483,9 @@ class SeaScheduler {
         live = Seas.live(sea);
         sea.rebuildChildren();
         find_branch_lattices();
+        filter_branch_lattices_clone_domains();
 
-        var limit = branch_lattices.length; // XXX: idk if this is reasonable
+        var limit = branch_lattices.length * 4; // XXX: idk if this is reasonable
         // var limit = 100;
         while (limit > 0) {
             limit -= 1;
@@ -483,16 +493,9 @@ class SeaScheduler {
 
             // Find next lattice with overlapping l/r subgraphs
             var next_bl: BranchLattice = null;
-            var next_lsg = ImmNodeSets.empty();
-            var next_rsg = ImmNodeSets.empty();
             for (i < sorted.length) {
-                def bl = sorted[i];
-                def filtered = filtered_clone_subgraphs(bl);
-                def lsg = filtered.0, rsg = filtered.1;
-                if (!lsg.intersection(rsg).isEmpty()) {
-                    next_bl = bl;
-                    next_lsg = lsg;
-                    next_rsg = rsg;
+                if (!sorted[i].l_subgraph.intersection(sorted[i].r_subgraph).isEmpty()) {
+                    next_bl = sorted[i];
                     break;
                 }
             }
@@ -502,14 +505,14 @@ class SeaScheduler {
 
             if (trace_full) {
                 System.puts(Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
-                System.puts(Strings.format2("lsg: %q\nrsg: %q\n", next_lsg.renderFull(_, sea), next_rsg.renderFull(_, sea)));
+                System.puts(Strings.format2("lsg: %q\nrsg: %q\n", bl.l_subgraph.renderFull(_, sea), bl.r_subgraph.renderFull(_, sea)));
             }
 
             // Clone left and right subgraphs
-            def lsg_clone = Seas.cloneSubgraph(sea, next_lsg);
+            def lsg_clone = Seas.cloneSubgraph(sea, bl.l_subgraph);
             def lsg_clone_mapping = lsg_clone.1;
 
-            def rsg_clone = Seas.cloneSubgraph(sea, next_rsg);
+            def rsg_clone = Seas.cloneSubgraph(sea, bl.r_subgraph);
             def rsg_clone_mapping = rsg_clone.1;
 
             lsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) {
@@ -527,10 +530,10 @@ class SeaScheduler {
                 def phi = bl.phis[j];
                 def l_branch = phi.value_deps[1], r_branch = phi.value_deps[2];
 
-                if (next_lsg.has(l_branch) && lsg_clone_mapping[l_branch] != null)
+                if (bl.l_subgraph.has(l_branch) && lsg_clone_mapping[l_branch] != null)
                     phi.replaceDep(l_branch, lsg_clone_mapping[l_branch]);
 
-                if (next_rsg.has(r_branch) && rsg_clone_mapping[r_branch] != null)
+                if (bl.r_subgraph.has(r_branch) && rsg_clone_mapping[r_branch] != null)
                     phi.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
             }
 
@@ -540,6 +543,7 @@ class SeaScheduler {
             branch_lattice_map = NodeMap<BranchLattice>.new();
             branch_lattices = Vector.new();
             find_branch_lattices();
+            filter_branch_lattices_clone_domains();
         }
     }
 
