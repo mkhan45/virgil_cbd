@@ -1,11 +1,27 @@
 # Literature Review: Sea of Nodes Scheduling and Related Work
 
-## 1. Sea of Nodes and Global Code Motion
+## 1. Sea of Nodes, Sea of Variables, and Global Code Motion
 
-### The Original Papers
+### Our IR: A Sea of Variables
+
+Our IR is a **Sea of Variables** — a completely flat dataflow graph with no control structure at all. Every node is a value binding (Intrinsic, Lit, Phi, StatePhi). There are no control nodes (no Region, If, Jump, Return), no control edges, no regions or scoping boundaries, and no containment hierarchy. Control flow is entirely emergent — discovered from the dataflow by `branch_partition` and materialized by the scheduler into ScheduleBlocks/ScheduleBranches.
+
+This is structurally distinct from Click's Sea of Nodes and every other IR in this review. The key differences from Click's Sea of Nodes:
+
+| | Click's Sea of Nodes | Our Sea of Variables |
+|---|---|---|
+| Control nodes | Region, If, Return, etc. form a CFG skeleton | None — no control structure in the IR |
+| Control edges | Explicit edges pin effectful ops to control points | None — pinning is via state_deps chains |
+| Phi attachment | Phis attached to Region (merge) control nodes | Phis are free-floating dataflow selectors |
+| Scheduling | GCM assigns floating nodes to existing control points | Scheduler creates control structure from scratch |
+| Effect handling | Control + effect chains (parallel) | State_deps only (unified) |
+
+The lack of control nodes is what makes ours a Sea of *Variables* rather than a Sea of *Nodes*: each IRNode represents a named value binding from the SSAD, not an operation pinned to a control point. The entire graph is data/state dependencies; the scheduler must discover and create all control structure.
+
+### Click's Original Papers
 
 **Click & Paleczny, "A Simple Graph-Based Intermediate Representation" (1995, ACM SIGPLAN Workshop)**
-Introduces the Sea of Nodes IR, where both data and control dependencies are represented as edges between nodes, with no explicit basic block structure. The key insight: by removing the fixed schedule, optimizations don't need to maintain a legal instruction ordering, which simplifies passes like GVN and constant folding.
+Introduces the Sea of Nodes IR, where both data and control dependencies are represented as edges between nodes, with no explicit basic block structure. The key insight: by removing the fixed schedule, optimizations don't need to maintain a legal instruction ordering, which simplifies passes like GVN and constant folding. Note: Click's IR retains control nodes — it removes basic *blocks* but keeps control *flow* as explicit nodes and edges. Our Sea of Variables goes further, removing control nodes entirely.
 
 **Click, "Global Code Motion / Global Value Numbering" (PLDI 1995)**
 The companion paper on *scheduling* -- converting the unordered Sea back into a CFG. The GCM algorithm works in two phases:
@@ -15,6 +31,8 @@ The companion paper on *scheduling* -- converting the unordered Sea back into a 
 3. **Select**: Between the early and late bounds, pick the block with the shallowest loop nesting to minimize execution frequency.
 
 Phi nodes get special treatment: a phi's operand is considered used at the *predecessor* block (not the phi's own block), because phi elimination inserts copies there.
+
+GCM presupposes a control skeleton (Region, If nodes) that defines the set of possible blocks. Our scheduler has no such skeleton — it builds the block structure (ScheduleBlock, ScheduleBranch, SchedulePhi) as it schedules, discovering the nesting from `branch_partition` and BranchLattice ordering.
 
 **What GCM does NOT do**: The paper doesn't discuss *cloning* or *duplication* of nodes. If a pure computation is used in two branches, GCM hoists it to their common dominator. This can slow down paths that don't need the value. The paper treats this as acceptable.
 
@@ -38,6 +56,8 @@ V8's experience report on *abandoning* Sea of Nodes after 10 years. Key observat
 - **Turboshaft (CFG IR)**: Compile time halved. "Only pure nodes actually float freely; effectful nodes end up constrained to basic blocks." Much simpler to reason about.
 
 **Relevance to our scheduler**: V8's experience validates that the scheduling + duplication problem is genuinely hard. Our `untangle` step is doing exactly what TurboFan's scheduler tries to do -- cloning shared subgraphs so each branch has its own copy. The difference is that we do it as an explicit graph transformation before scheduling, rather than as a scheduling heuristic.
+
+V8's pain points also illuminate why our Sea of Variables approach avoids some of their problems. Their "parallel effect and control chains" led to "many subtle bugs" — we have only state_deps chains, with no separate control chain to keep in sync. Their scheduling was fragile because floating nodes had to be placed relative to an existing control skeleton — our scheduler builds the control structure from scratch, avoiding mismatches between the control skeleton and the data dependencies.
 
 ## 2. VSDG, RVSDG, and Cross-Condition Dependencies
 
@@ -185,23 +205,30 @@ The distinction is about **when scope is determined**:
 
 This is why the PDW and Sea can represent 5.2(a) directly while the VSDG cannot: `phi(P, X, Y) → op → phi(Q, _, Z)` is just three nodes with data edges. No scoping decision has been made. The scheduler discovers that Q should be outer and P should nest inside Q's true branch.
 
-### PDW γ vs Sea Phi: Same Primitive, Different Provenance
+### PDW γ vs Sea Phi: Same Primitive, Different Context
 
-At the node level, PDW γ and Sea Phi are the same thing — flat `(condition, left, right)` selectors. The difference is how they get their conditions and what guarantees surround them.
+At the node level, PDW γ and Sea Phi are the same thing — flat `(condition, left, right)` selectors. But the surrounding context is fundamentally different.
 
-**PDW γ**: Derived from SSA φ-functions by the φ-translation algorithm, which walks the CDG to find the correct predicates. The CDG serves as a "correctness certificate": each γ's predicate is guaranteed to be the right one, and the γ-tree nesting matches the control nesting. You can't have an ill-formed γ because the algorithm constructs it from known-correct control information.
+**PDW γ** exists within a richer infrastructure: the PDW retains CDG-derived structure, has explicit switch nodes for value routing at scope boundaries, and supports μ/η nodes for loops. The φ-translation algorithm walks the CDG to find correct predicates, providing a "correctness certificate" — each γ's predicate is guaranteed correct, and γ-tree nesting matches the control nesting. The CDG is a structural artifact that the PDW carries alongside its flat γ-functions.
 
-**Sea Phi from SSAD**: Constructed directly from SSAD If expressions. The SSAD is itself a structured tree with explicit conditions, so phis inherit well-formedness from the SSAD structure. The condition of each phi is the condition of the enclosing If — guaranteed correct by construction.
+**Sea Phi** exists in a completely flat graph with no CDG, no switch nodes, no structural artifacts whatsoever. The Sea is just a dataflow graph — it doesn't know or care how it was constructed. The scheduler operates on the graph structure alone, discovering control flow nesting from `branch_partition` and BranchLattice ordering. A Sea could be constructed from SSAD (our current pipeline), from a CDG (like the PDW's φ-translation), from direct graph construction, or from transforms on an existing Sea. The IR itself is agnostic to its construction method.
 
-**Sea Phi NOT from SSAD** (e.g., from transforms on an existing Sea): Here there is no CDG and no SSAD. The phis are "ungrounded" — they're dataflow selectors whose conditions were set by whatever transform created them, with no external structure validating them. The transform must maintain the invariants the scheduler relies on:
+Different construction methods provide different well-formedness guarantees:
+
+**Sea from SSAD**: Phis inherit well-formedness from the SSAD's tree structure. The condition of each phi is the condition of the enclosing If — guaranteed correct by construction.
+
+**Sea from CDG** (hypothetical): A φ-translation algorithm targeting the Sea would provide the same correctness certificates as the PDW's construction. The Sea's flat structure can represent anything the PDW can for acyclic control flow.
+
+**Sea from transforms**: No external structure validates the phis. The transform must maintain the invariants the scheduler relies on:
 
 1. **Condition consistency**: If two phis share condition P, their left/right partitions must agree. That is, the set of nodes exclusively in the left subgraph of one phi must not conflict with the other phi's partitioning.
 2. **Acyclic condition ordering**: The conditions across all phis must admit a topological ordering (the BranchLattice ordering). If phi(P) depends on phi(Q) which depends on phi(P), there's no valid nesting.
 3. **Well-formed subgraph partition**: For each phi, `branch_partition` must produce a valid frontier/left/right decomposition — no node can be exclusively in both the left and right subgraphs.
+4. **Sealed branches**: Every forward path from a branch-exclusive effectful node to a post-merge consumer must pass through a Phi/StatePhi boundary (see LINEARITY_INVARIANT.md).
 
-When these hold, a transformed Sea's phis are equivalent to PDW γ-functions or SSAD-derived phis. When they don't, the Sea is ill-formed and may not be schedulable. The φ-translation algorithm can't produce ill-formed γ's because it derives them from a CDG; SSAD can't produce ill-formed phis because of its tree structure. A raw Sea has no such safety net.
+When these hold, a Sea's phis are equivalent to PDW γ-functions regardless of construction method. When they don't, the Sea is ill-formed and may not be schedulable. The PDW's φ-translation algorithm can't produce ill-formed γ's because it derives them from a CDG; SSAD can't produce ill-formed phis because of its tree structure. A raw Sea has no such safety net — the invariants must be maintained by whatever constructs or transforms the graph.
 
-This is the central open question for Sea-as-general-IR: what is the minimal set of well-formedness conditions on phis that guarantees schedulability, independent of how the Sea was produced?
+The PDW's advantages over the Sea are at the IR level, not the construction level: μ/η nodes for loops and switch nodes for explicit value routing. Our Sea currently has no loop construct and only binary phis (the `Match` SSAD case is not yet implemented). For acyclic binary control flow, the Sea is as general as the PDW.
 
 ## 4. Bracevac et al.: Graph IRs for Impure Higher-Order Languages
 
@@ -211,9 +238,13 @@ This is the central open question for Sea-as-general-IR: what is the minimal set
 
 A formal framework (λ\*\_G) for graph IRs that handles impure higher-order programs. The key insight: use *reachability types* and a simple *effect system* to statically determine the precise dependency edges needed in the graph IR. This lets you build a Sea-of-Nodes-like IR for functional languages with effects, where the effect dependencies are synthesized from types rather than hand-maintained.
 
-### Relationship to Sea of Nodes
+### Relationship to Sea of Nodes and Our Sea of Variables
 
-The paper is directly inspired by Sea of Nodes and Scala LMS (which also uses a Sea-of-Nodes-like graph IR). The λ\*\_G IR is essentially a typed, effect-aware generalization of Sea of Nodes for higher-order languages. Graph reachability corresponds to DCE; hash-consing gives CSE.
+The paper is directly inspired by Click's Sea of Nodes and Scala LMS (which also uses a Sea-of-Nodes-like graph IR). The λ\*\_G IR is essentially a typed, effect-aware generalization of Sea of Nodes for higher-order languages. Graph reachability corresponds to DCE; hash-consing gives CSE.
+
+However, λ\*\_G is structurally different from both Click's Sea of Nodes and our Sea of Variables. Lambda abstractions create **scopes** — nodes inside a lambda body are contained within that scope and cannot float out. This gives the IR a hierarchical structure (nested lambdas = nested scopes) similar to RVSDG regions, but arising from function abstraction rather than control flow constructs. The scoping constrains code motion — operations at deeper nesting levels are "inside" operations at shallower levels, and the code generation algorithm assigns statements to nesting levels while respecting containment constraints.
+
+Our Sea of Variables is completely flat — no scoping, no containment, no hierarchy. For single-procedure first-order programs, this difference doesn't matter. But λ\*\_G's scoping preserves information about function boundaries that our flat Sea would lose if function bodies were inlined. For higher-order programs where scope boundaries guide optimization (partial evaluation, specialization, precise effect isolation between function bodies), this is a genuine structural advantage.
 
 ### Effect System and Dependencies
 
@@ -222,11 +253,11 @@ Effects are tracked per-operation and induce dependency edges:
 - Hard dependency: B must execute before A (A reads what B writes)
 - Soft dependency: B should not be scheduled after A (anti-dependence), but B might not be scheduled at all
 
-This is very close to our `reads`/`writes` on `StateComponent`, but formalized with types. The paper shows that static reachability types can precisely determine which effects alias, enabling more aggressive code motion than conservative approaches.
+The effect system uses *reachability types* to determine precisely which effects alias. Two memory operations that access provably-disjoint regions have no dependency edge between them. This is fundamentally more precise than our `reads`/`writes` on `StateComponent` — our Sea serializes all memory operations through the single `Memory` state component, even when they access different addresses. This creates unnecessary ordering constraints. The difference is about effect system granularity: λ\*\_G's aliasing precision could in principle be added to the Sea (via finer state components) without changing the graph structure.
 
 ### Scheduling / Code Generation
 
-The paper includes a code generation algorithm (building on Scala LMS's scheduler) that converts the graph IR back to sequential code. It uses a code motion algorithm that classifies dependencies as "hot" (frequently executed) or "cold" (conditional), and iteratively assigns statements to nesting levels while respecting ordering and containment constraints.
+The paper includes a code generation algorithm (building on Scala LMS's scheduler) that converts the graph IR back to sequential code. It uses a code motion algorithm that classifies dependencies as "hot" (frequently executed) or "cold" (conditional), and iteratively assigns statements to nesting levels while respecting ordering and containment constraints. The nesting levels come from lambda scopes — the hierarchical structure that our flat Sea lacks.
 
 ### What It Doesn't Address
 
@@ -336,6 +367,35 @@ No existing compiler IR that I found uses substructural types to *guide scheduli
 - Handles nested conditions via BranchLattice merging
 
 This is more principled than the ad-hoc duplication heuristics used by other compilers. The closest conceptual framework is the e-graph extraction problem (selecting a concrete program from a shared representation), but `untangle` operates on a different data structure and solves a different variant of the problem.
+
+## 10. Comparative Expressiveness: Sea of Variables vs. Other IRs
+
+For acyclic binary control flow, no IR in this review represents any program better than the Sea of Variables. The Sea handles the cross-condition pattern (5.2(a)) that structured IRs (VSDG, RVSDG) cannot represent without duplication, and is as expressive as the PDW's flat γ-functions.
+
+The structural differences between our Sea and other IRs are about **hierarchy vs. flatness**, not about which programs can be represented:
+
+| IR | Hierarchy mechanism | What it provides | Sea equivalent |
+|---|---|---|---|
+| Click's Sea of Nodes | Control nodes (Region, If) | Explicit control skeleton; effects pinned to control points | State_deps chains; scheduler creates control structure |
+| RVSDG | Regions inside gamma/theta | Effect safety by construction; structured scoping | Sealed branches invariant; scheduler discovers scoping |
+| Bracevac λ\*\_G | Lambda scopes | Containment for higher-order programs; precise nesting levels | No equivalent — Sea is flat by design |
+| PDW | CDG + switch nodes | Correctness certificates from CDG; explicit value routing | branch_partition + Moves; well-formedness invariants |
+
+Every other IR has some form of containment hierarchy. Our Sea has none — it is entirely flat. This flatness is a strength (maximum scheduling flexibility, no fixed nesting to maintain, no control skeleton to keep in sync with data flow) and a responsibility (well-formedness invariants must be maintained manually rather than enforced structurally).
+
+### What the Sea lacks at the IR level
+
+- **Loop constructs**: VSDG theta nodes, PDW μ/η, RVSDG theta regions. The Sea currently has no loop representation.
+- **N-way branching**: Click's SoN switch nodes, RVSDG gamma with N regions. The Sea has only binary Phi/StatePhi. The `Match` SSAD case is not yet implemented.
+- **Scope containment**: Bracevac's lambda scopes, RVSDG regions. The Sea is flat by design. For higher-order programs where scope boundaries guide optimization, this would be a genuine limitation.
+
+These are features that could be added without changing the Sea's fundamental character (flat dataflow with deferred nesting). The core insight — that control flow nesting should be discovered by the scheduler rather than prescribed in the IR — is orthogonal to whether the IR supports loops or N-way branches.
+
+### What the Sea gains from flatness
+
+The Sea's complete lack of hierarchy is what enables the cross-condition representation advantage. In every hierarchical IR, condition scopes must form a laminar family (any two scopes are either disjoint or one contains the other). The Sea's flat phis allow non-laminar condition scopes, which `branch_partition` and `untangle` resolve at scheduling time. This is strictly more expressive for acyclic control flow: any laminar scoping is a special case of the Sea's unrestricted scoping.
+
+The tradeoff: hierarchical IRs get structural safety guarantees for free (the RVSDG can't represent an ill-formed nesting because regions enforce it). The Sea must maintain equivalent guarantees through invariants — acyclicity, sealed branches (see LINEARITY_INVARIANT.md), condition consistency. These invariants are guaranteed by construction from SSAD but fragile under raw transforms.
 
 ## References
 
