@@ -101,4 +101,34 @@ def P3_FRONTIER() {
 	}
 	push_u32(result);
 }
+
+def EFFECT_OVERCLONE_CROSS_COND() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+
+	var x: u32 = 0;
+	if (p) {
+		x = pop_u32();
+	} else {
+		x = 7;
+	}
+
+	var y: u32 = 0;
+	if (q) {
+		y = u32.+(x, 1);
+	} else {
+		y = 9;
+	}
+
+	var z: u32 = 0;
+	if (p) {
+		z = y;
+	} else {
+		z = 3;
+	}
+
+	push_u32(z);
+}
 //@bytecode end
