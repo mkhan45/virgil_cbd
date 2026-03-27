@@ -270,7 +270,7 @@ class SeaScheduler {
         }
 
         bottom_block.finalize();
-        check();
+        // check(); // check using ./scripts/schedule_test.sh
         if (opcode != null && trace_full) {
             def info_buf = SeaRender.renderSchedulerFinal(this, StringBuilder.new());
             info_buf.puts("\n=== scheduled_ssad_pretty ===\n");
@@ -281,7 +281,7 @@ class SeaScheduler {
     }
 
     def isReady(node: IRNode, schedule_node: ScheduleNode) -> bool {
-        var ready = Box.new(true);
+        var ready = true;
 
         var children = node.children;
 
@@ -308,10 +308,10 @@ class SeaScheduler {
                         Strings.format2("%q (%d)", child.render, child.id),
                         if(has, "YES", "NO")
                     ));
-            ready.v &= has;
+            ready &= has;
         }
 
-        return ready.v;
+        return ready;
     }
 
     def topo_sort_lattices() -> Vector<BranchLattice> {
@@ -656,69 +656,54 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         }
 
         def ready = scheduler.isReady(node, this);
-
-        if (ready) {
-            if (scheduler.trace_full) System.puts(Strings.format3("%q ready in %d\n\tdoms: %q\n", node.render, id, dominants.render));
-            if (node.is_phi()) {
-                return scheduleReadyPhi(node, upper_limit);
+        if (scheduler.trace_full) {
+            if (ready) {
+                System.puts(Strings.format3("%q ready in %d\n\tdoms: %q\n", node.render, id, dominants.render));
             } else {
-                match (this) {
-                    block: ScheduleBlock => {
-                        block.prims.put(node);
-                        block.dominants.addLocal(node);
-                        if (scheduler.trace_full) {
-                            System.puts(Strings.format2("Scheduled %q into %d\n\n", node.render, block.id));
-                            CBDTrace.addString(scheduler.opcode, 
-                                            Strings.format1("sched %q", node.render), "graph", scheduler.toMermaid());
-
-                            System.puts(Strings.format2("Block %d doms: %q\n", block.id, block.dominants.render));
-                            if (block.prev != null) 
-                                System.puts(Strings.format2("Block %d doms: %q\n", block.prev.id, block.prev.dominants.render));
-                        }
-                        return block;
-                    }
-                    branch: ScheduleBranch => {
-                        if (branch.prev != null) {
-                            if (ScheduleBranch.?(branch.prev)) {
-                                // schedule before self, but not above previous branch.
-                                return branch.prependScheduleBlock(node);
-                            } else {
-                                return branch.prev.schedule(node, upper_limit);
-                            }
-                        } else {
-                            return branch.prependScheduleBlock(node);
-                        }
-                    }
-                    phi: SchedulePhi => {
-                        // XXX: maybe we shouldn't try each branch here? because uses after phi are not dominated
-                        // by either branch
-                        var dest_block: ScheduleNode = null;
-                        // dest_block = phi.l_source.schedule(node, phi.source_branch);
-                        // if (dest_block == null) dest_block = phi.r_source.schedule(node, phi.source_branch);
-                        if (dest_block == null) dest_block = phi.source_branch.schedule(node, upper_limit);
-                        return dest_block;
-                    }
-                    _ => return null; // unreachable
-                }
+                System.puts(Strings.format2("%q NOT ready in %d\n\n", node.render, id));
             }
-        } else {
-            if (scheduler.trace_full) System.puts(Strings.format2("%q NOT ready in %d\n\n", node.render, id));
-            match (this) {
-                block: ScheduleBlock => {
+        }
+
+        if (ready && node.is_phi()) return scheduleReadyPhi(node, upper_limit);
+
+        match (this) {
+            block: ScheduleBlock => {
+                if (ready) {
+                    block.prims.put(node);
+                    block.dominants.addLocal(node);
+                    if (scheduler.trace_full) {
+                        System.puts(Strings.format2("Scheduled %q into %d\n\n", node.render, block.id));
+                        CBDTrace.addString(scheduler.opcode, 
+                                        Strings.format1("sched %q", node.render), "graph", scheduler.toMermaid());
+
+                        System.puts(Strings.format2("Block %d doms: %q\n", block.id, block.dominants.render));
+                        if (block.prev != null) 
+                            System.puts(Strings.format2("Block %d doms: %q\n", block.prev.id, block.prev.dominants.render));
+                    }
+                    return block;
+                } else {
                     return if(block.prev != null, block.prev.schedule(node, upper_limit));
                 }
-                branch: ScheduleBranch => {
-                    // dest_block remains null if schedules fail
+            }
+            branch: ScheduleBranch => {
+                if (ready) {
+                    if (branch.prev != null && ScheduleBranch.?(branch.prev))
+                        return branch.prependScheduleBlock(node); // schedule before self, but not above previous branch.
+                    else if (branch.prev != null)
+                        return branch.prev.schedule(node, upper_limit);
+                    else
+                        return branch.prependScheduleBlock(node);
+                } else {
                     return if(branch.prev != null, branch.prev.schedule(node, upper_limit));
                 }
-                phi: SchedulePhi => {
-                    var dest_block = phi.l_source.schedule(node, phi.source_branch);
-                    if (dest_block == null) dest_block = phi.r_source.schedule(node, phi.source_branch);
-                    if (dest_block == null) dest_block = phi.source_branch.schedule(node, upper_limit);
-                    return dest_block;
-                }
-                _ => return null; // unreachable
             }
+            phi: SchedulePhi => {
+                var dest_block = phi.l_source.schedule(node, phi.source_branch);
+                if (dest_block == null) dest_block = phi.r_source.schedule(node, phi.source_branch);
+                if (dest_block == null) dest_block = phi.source_branch.schedule(node, upper_limit);
+                return dest_block;
+            }
+            _ => return null; // unreachable
         }
     }
 
@@ -728,7 +713,10 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         def phi = node;
         match (this) {
-            block: ScheduleBlock => return if(block.prev == null || ScheduleBranch.?(block.prev), block.prependScheduleBranch(node), block.prev.scheduleReadyPhi(node, upper_limit));
+            block: ScheduleBlock => 
+                       return if(block.prev == null || ScheduleBranch.?(block.prev),
+                               block.prependScheduleBranch(node),
+                               block.prev.scheduleReadyPhi(node, upper_limit));
             cond: ScheduleBranch => {
                 return if (cond.prev == null, cond.prependScheduleBranch(node), cond.prev.scheduleReadyPhi(node, upper_limit));
             }
