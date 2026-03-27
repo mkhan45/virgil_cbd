@@ -131,4 +131,244 @@ def EFFECT_LIFT_OVER_PARENT_COND() {
 
 	push_u32(z);
 }
+// Hard because the same q-shaped effect appears on both sides of p, so unLEM
+// has to preserve scope while reusing condition structure across branches.
+// Fails in: unLEM.
+// Symptom: over-executes both inner pops on paths where q is false,
+// producing PathEffectMismatch.
+def SAME_SCOPE_Q_ON_BOTH_P_SIDES() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+
+	var left: u32 = 0;
+	if (p) {
+		var inner: u32 = 0;
+		if (q) {
+			inner = pop_u32();
+		} else {
+			inner = 11;
+		}
+		left = u32.+(inner, 1);
+	} else {
+		var inner: u32 = 0;
+		if (q) {
+			inner = pop_u32();
+		} else {
+			inner = 21;
+		}
+		left = u32.+(inner, 2);
+	}
+
+	push_u32(left);
+}
+
+def P3_EFFECTFUL_VARIANT() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var c3 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+	var r = u32.!=(c3, 0);
+
+	var A: u32 = 0;
+	if (q) {
+		A = pop_u32();
+	} else {
+		A = 5;
+	}
+
+	var B = u32.+(A, 0);
+
+	var triv: u32 = 0;
+	if (r) {
+		triv = B;
+	} else {
+		triv = B;
+	}
+
+	var out: u32 = 0;
+	if (p) {
+		out = triv;
+	} else {
+		out = u32.+(A, 1);
+	}
+
+	push_u32(out);
+}
+
+// Very hard because unLEM turns this nested p/q/r bundle into a dense web of
+// interacting value/state phis and merges with repeated use of the same effect.
+// Fails in: unLEM.
+// Symptom: UnsatNeed, UnscheduledPhi, PhiBranchMissing, and many
+// PathEffectMismatch errors.
+def UNLEM_IMPOSSIBLE_ASSIGNMENT_BUNDLE() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var c3 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+	var r = u32.!=(c3, 0);
+
+	var x: u32 = 0;
+	if (p) {
+		if (q) {
+			x = pop_u32();
+		} else {
+			x = 10;
+		}
+	} else {
+		if (q) {
+			x = pop_u32();
+		} else {
+			x = 20;
+		}
+	}
+
+	var y: u32 = 0;
+	if (r) {
+		y = u32.+(x, 1);
+	} else {
+		y = u32.+(x, 2);
+	}
+
+	var z: u32 = 0;
+	if (p) {
+		z = y;
+	} else {
+		z = u32.+(x, 3);
+	}
+
+	push_u32(z);
+}
+
+// Very hard because overlapping p/q/r/s braids create a large non-laminar
+// branch lattice that grows sharply after unLEM.
+// Fails in: unLEM.
+// Symptom: scheduler blows up with HeapOverflow before checker results.
+def UNTANGLE_BRAID_LIMIT_STRESS() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var c3 = pop_u32();
+	var c4 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+	var r = u32.!=(c3, 0);
+	var s = u32.!=(c4, 0);
+
+	var seed = pop_u32();
+
+	var a: u32 = 0;
+	if (p) {
+		if (q) {
+			a = u32.+(seed, 1);
+		} else {
+			a = 10;
+		}
+	} else {
+		if (r) {
+			a = u32.+(seed, 2);
+		} else {
+			a = 20;
+		}
+	}
+
+	var b: u32 = 0;
+	if (q) {
+		if (r) {
+			b = u32.+(a, 1);
+		} else {
+			b = u32.+(seed, 3);
+		}
+	} else {
+		if (s) {
+			b = u32.+(a, 2);
+		} else {
+			b = 30;
+		}
+	}
+
+	var c: u32 = 0;
+	if (r) {
+		if (s) {
+			c = u32.+(b, 1);
+		} else {
+			c = u32.+(a, 3);
+		}
+	} else {
+		if (p) {
+			c = u32.+(b, 2);
+		} else {
+			c = u32.+(seed, 4);
+		}
+	}
+
+	push_u32(c);
+}
+
+def DOUBLE_TRUE_SHARED_POP() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+
+	var x = pop_u32();
+
+	var a: u32 = 1;
+	if (p) {
+		a = u32.+(x, 10);
+	} else {
+		a = 10;
+	}
+
+	var b: u32 = 2;
+	if (q) {
+		b = u32.+(x, 20);
+	} else {
+		b = 20;
+	}
+
+	push_u32(a);
+	push_u32(b);
+}
+
+// Hard because the same effectful pop is shared through crossed p->q and q->p
+// nestings, so there is no simple laminar branch structure to schedule.
+// Fails in: initial.
+// Symptom: leaves phis unscheduled and misses the pop on all paths, yielding
+// UnsatNeed, UnscheduledPhi, and PathEffectMismatch.
+def CROSSED_P_Q_SHARED_POP() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+
+	var x = pop_u32();
+
+	var left: u32 = 0;
+	if (p) {
+		if (q) {
+			left = u32.+(x, 1);
+		} else {
+			left = 11;
+		}
+	} else {
+		left = 12;
+	}
+
+	var right: u32 = 0;
+	if (q) {
+		if (p) {
+			right = u32.+(x, 2);
+		} else {
+			right = 21;
+		}
+	} else {
+		right = 22;
+	}
+
+	push_u32(left);
+	push_u32(right);
+}
 //@bytecode end
