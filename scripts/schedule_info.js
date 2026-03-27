@@ -36,7 +36,6 @@ function stripPre(html) {
 
 const [, , opcodeArg, tagArg] = process.argv;
 
-const INFO_TAGS = ['info_start', 'info_untangled', 'info_final'];
 const SSAD_TAGS = ['scheduler_ssad_pretty', 'unlem_scheduler_ssa_pretty'];
 
 function printOpcode(opcode) {
@@ -47,12 +46,12 @@ function printOpcode(opcode) {
     console.error(`Opcode "${opcode}" not found in window.info or window.traces.`);
     process.exit(1);
   }
-  const tags = tagArg ? [tagArg] : INFO_TAGS;
-  if (infoEntry) {
-    for (const tag of tags) {
-      if (!(tag in infoEntry)) continue;
-      console.log(`=== ${opcode} / ${tag} ===`);
-      console.log(stripPre(infoEntry[tag]));
+  // Keep default output compact: info_* traces are only shown when a
+  // specific tag is requested.
+  if (infoEntry && tagArg) {
+    if (tagArg in infoEntry) {
+      console.log(`=== ${opcode} / ${tagArg} ===`);
+      console.log(stripPre(infoEntry[tagArg]));
       console.log();
     }
   }

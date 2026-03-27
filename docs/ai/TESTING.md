@@ -58,8 +58,8 @@ make tests/SyntheticDefs.v3.sexp
 After running `schedule_test.sh` or `make validator` (with `trace_full` enabled):
 
 ```bash
-node scripts/schedule_info.js                                            # all opcodes, all tags
-node scripts/schedule_info.js SPLIT_BRANCHES                             # info traces + scheduled SSAD
+node scripts/schedule_info.js                                            # all opcodes, scheduled SSAD tags (compact)
+node scripts/schedule_info.js SPLIT_BRANCHES                             # scheduled SSAD tags (compact)
 node scripts/schedule_info.js SPLIT_BRANCHES scheduler_ssad_pretty       # initial scheduled SSAD only
 node scripts/schedule_info.js SPLIT_BRANCHES unlem_scheduler_ssa_pretty  # unLEM scheduled SSAD only
 node scripts/schedule_info.js SPLIT_BRANCHES info_start                  # state at start of scheduling
@@ -67,7 +67,7 @@ node scripts/schedule_info.js SPLIT_BRANCHES info_untangled              # state
 node scripts/schedule_info.js SPLIT_BRANCHES info_final                  # final scheduled CFG
 ```
 
-The script loads `docs/traces.js` and prints from both `window.info` (info snapshots) and `window.traces` (scheduled SSAD). Three info snapshots are captured per opcode: `info_start`, `info_untangled`, `info_final`.
+The script loads `docs/traces.js` and prints from both `window.info` (info snapshots) and `window.traces` (scheduled SSAD). By default it prints only scheduled SSAD tags for compact output. To view info snapshots, pass an explicit info tag argument (`info_start`, `info_untangled`, or `info_final`).
 
 ## Skills
 

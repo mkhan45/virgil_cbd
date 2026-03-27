@@ -1,16 +1,18 @@
 // Dom graph with mutable set nodes
 class DomGraph {
+    var id: int;
     var parents: Vector<DomGraph> = Vector.new();
     var local_nodes: NodeSet = NodeSet.new();
+
+    new(id) {}
 
     def has(node: IRNode) -> bool {
         if (local_nodes.has(node)) return true;
         for (i < parents.length) if (parents[i].has(node)) return true;
         return false;
     }
-    def addLocal(node: IRNode) => local_nodes.put(node);
+    def addLocal(node: IRNode) -> this { local_nodes.put(node); }
 
-    def newChild() -> DomGraph => DomGraph.new().withParent(this);
     def withParent(parent: DomGraph) -> this {
         parents.put(parent);
     }

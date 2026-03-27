@@ -230,8 +230,9 @@ class SeaScheduler {
         while (q_idx < q.length) {
             // max successful idx 
             // - for CBD (I32/I64_DIV_S): 30
-            // - for MOCK_TEST_ul: 122
-            // if (q_idx > 250) {
+            // - for SPLIT_BRANCHES: 122
+            // - for EFFECT_LIFT_OVER_PARENT_COND: 434
+            // if (q_idx > 500) {
             //     System.puts(Strings.format1("ERROR: Scheduling %s reached limit\n", opcode));
             //     break;
             // }
@@ -266,6 +267,8 @@ class SeaScheduler {
                     lowBounds[d] = dest_block;
                     enqueue_dep(node, d);
                 }
+            } else {
+                q.put(node);
             }
         }
 
@@ -298,7 +301,6 @@ class SeaScheduler {
             def child = children[i];
             if (child.id == node.id) continue;
             def live_flag = live.has(child);
-            if (trace_full) System.puts(Strings.format2("child: %q, live: %s\n", child.render, if(live_flag, "YES", "NO")));
             if (!live_flag && !child.is_move()) continue;
             if (child.is_move() && child.value_deps[0].id == node.id) continue;
 
@@ -458,7 +460,7 @@ class SeaScheduler {
 
             for (i < remove.length) {
                 def n = remove[i];
-                if (trace_full) System.puts(Strings.format1("  pin escaping write %q\n", n.render));
+                // if (trace_full) System.puts(Strings.format1("  pin escaping write %q\n", n.render));
                 if (lsg.has(n)) lsg = lsg.without(n);
                 if (rsg.has(n)) rsg = rsg.without(n);
             }
@@ -604,7 +606,7 @@ class SeaScheduler {
         }
 
         dep.unscheduled_use_count -= 1;
-        if (dep.unscheduled_use_count == 0) q.put(dep);
+        if (dep.unscheduled_use_count <= 0) q.put(dep);
     }
 
     def check() {
@@ -635,7 +637,7 @@ component Scheduler {
 }
 
 class ScheduleNode(id: int, scheduler: SeaScheduler) {
-    var dominants: DomGraph = DomGraph.new(); // set of the IRNodes dominated by this node
+    var dominants: DomGraph = DomGraph.new(id); // set of the IRNodes dominated by this node
 
     def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder;
     def linkPrependedBlock(block: ScheduleBlock);
@@ -674,14 +676,24 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                             System.puts(Strings.format2("Scheduled %q into %d\n\n", node.render, block.id));
                             CBDTrace.addString(scheduler.opcode, 
                                             Strings.format1("sched %q", node.render), "graph", scheduler.toMermaid());
+
+                            System.puts(Strings.format2("Block %d doms: %q\n", block.id, block.dominants.render));
+                            if (block.prev != null) 
+                                System.puts(Strings.format2("Block %d doms: %q\n", block.prev.id, block.prev.dominants.render));
                         }
                         return block;
                     }
-                    cond: ScheduleBranch => {
-                        if (cond.prev != null)
-                            return cond.prev.schedule(node, upper_limit);
-                        else
-                            return cond.prependScheduleBlock(node);
+                    branch: ScheduleBranch => {
+                        if (branch.prev != null) {
+                            if (ScheduleBranch.?(branch.prev)) {
+                                // schedule before self, but not above previous branch.
+                                return branch.prependScheduleBlock(node);
+                            } else {
+                                return branch.prev.schedule(node, upper_limit);
+                            }
+                        } else {
+                            return branch.prependScheduleBlock(node);
+                        }
                     }
                     phi: SchedulePhi => {
                         // XXX: maybe we shouldn't try each branch here? because uses after phi are not dominated
@@ -701,9 +713,9 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                 block: ScheduleBlock => {
                     return if(block.prev != null, block.prev.schedule(node, upper_limit));
                 }
-                cond: ScheduleBranch => {
+                branch: ScheduleBranch => {
                     // dest_block remains null if schedules fail
-                    return if(cond.prev != null, cond.prev.schedule(node, upper_limit));
+                    return if(branch.prev != null, branch.prev.schedule(node, upper_limit));
                 }
                 phi: SchedulePhi => {
                     var dest_block = phi.l_source.schedule(node, phi.source_branch);
@@ -747,6 +759,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         def block = ScheduleBlock.new(fresh_id(), scheduler);
         if (scheduler.top_block.id == this.id) scheduler.top_block = block;
 
+        if (scheduler.trace_full) System.puts(Strings.format2("Prepending new schedule block %d to %d\n", block.id, id));
+
         var prev: ScheduleNode;
         match (this) {
             b: ScheduleBlock => prev = b.prev;
@@ -761,13 +775,20 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                 if (prev_branch.r_branch.id == this.id) prev_branch.r_branch = block;
             }
         }
+        if (prev != null) prev.dominants = prev.dominants.withParent(block.dominants);
 
         linkPrependedBlock(block);
 
-        block.dominants = dominants.newChild();
+        block.dominants = block.dominants.withParent(dominants);
         block.dominants.addLocal(node);
 
         block.prims.put(node);
+
+        if (scheduler.trace_full) {
+            System.puts(Strings.format2("Block %d doms: %q\n", block.id, block.dominants.render));
+            System.puts(Strings.format2("Block %d doms: %q\n", id, dominants.render));
+        }
+
         return block;
     }
 
@@ -851,7 +872,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         setSinglePrev(phi_node);
 
-        phi_node.dominants = dominants.newChild();
+        phi_node.dominants = phi_node.dominants.withParent(dominants);
 
         def left = ScheduleBlock.new(fresh_id(), scheduler);
         def right = ScheduleBlock.new(fresh_id(), scheduler);
@@ -860,9 +881,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         phi_node.l_source = branch.l_branch = left;
         phi_node.r_source = branch.r_branch = right;
 
-        left.dominants = DomGraph.new();
-        right.dominants = DomGraph.new();
-        branch.dominants = phi_node.dominants.newChild().withParent(left.dominants).withParent(right.dominants);
+        branch.dominants = branch.dominants.withParent(phi_node.dominants).withParent(left.dominants).withParent(right.dominants);
 
         if (prev != null) prev.dominants = prev.dominants.withParent(branch.dominants);
 

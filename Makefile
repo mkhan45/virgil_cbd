@@ -180,7 +180,7 @@ V3CompilerMain: generated/V3Compiler.v3 validator $(AI)/state_mgrs/CFGStateMgr.v
 # Clean build artifacts
 clean:
 	cd wizard-engine; make clean
-	rm -f generated/Interpreter.v3 generated/Compiler.v3 generated/Validator.v3 generated/AI.v3 generated/V3Compiler.v3 $(DEFS).sexp $(SYNTHETIC_SEXP) *Main *AI docs/traces.js
+	rm -f generated/Interpreter.v3 generated/Compiler.v3 generated/Validator.v3 generated/AI.v3 generated/V3Compiler.v3 $(DEFS).sexp tests/*.sexp $(SYNTHETIC_SEXP) *Main *AI docs/traces.js
 
 # Usage instructions
 help:

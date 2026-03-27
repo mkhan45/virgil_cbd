@@ -102,7 +102,7 @@ def P3_FRONTIER() {
 	push_u32(result);
 }
 
-def EFFECT_OVERCLONE_CROSS_COND() {
+def EFFECT_LIFT_OVER_PARENT_COND() {
 	var c1 = pop_u32();
 	var c2 = pop_u32();
 	var p = u32.!=(c1, 0);

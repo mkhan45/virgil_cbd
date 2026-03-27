@@ -507,21 +507,23 @@ component SeaRender {
 
     // === DomGraph ===
     def renderDomGraph(dg: DomGraph, buf: StringBuilder) -> StringBuilder {
-        buf.puts("[");
+        buf.puts("{");
         def nodes = Vector<IRNode>.new();
         dg.local_nodes.apply(fun n => void(nodes.put(n)));
+        buf.put1("%d Local: [", dg.id);
         for (i < nodes.length) {
             def node = nodes[i];
             if (i > 0) buf.puts(", ");
             buf.putq(renderIRNode(node, _)).put1(" (%d)", node.id);
         }
+        buf.puts("] ");
 
         for (i < dg.parents.length) {
-            buf.puts("; ");
             renderDomGraph(dg.parents[i], buf);
+            buf.sp();
         }
 
-        buf.puts("]");
+        buf.puts("}");
 
         return buf;
     }
