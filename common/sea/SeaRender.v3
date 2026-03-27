@@ -142,32 +142,32 @@ component SeaRender {
         def buf = StringBuilder.new();
         def visited = HashMap<int, void>.new(int.!<int>, int.==);
         buf.puts("graph TD").ln();
-        toMermaidScheduleNode(scheduler.bottom_block, buf, visited);
+        toMermaidCFGNode(scheduler.bottom_block, buf, visited);
         buf.ln();
         return buf.toString();
     }
 
-    // === ScheduleNode (polymorphic dispatch) ===
-    def toMermaidScheduleNode(node: ScheduleNode, buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
+    // === CFGNode (polymorphic dispatch) ===
+    def toMermaidCFGNode(node: CFGNode, buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
         match (node) {
-            block: ScheduleBlock => return toMermaidScheduleBlock(block, buf, visited);
-            branch: ScheduleBranch => return toMermaidScheduleBranch(branch, buf, visited);
-            phi: SchedulePhi => return toMermaidSchedulePhi(phi, buf, visited);
+            block: CFGBlock => return toMermaidCFGBlock(block, buf, visited);
+            branch: CFGBranch => return toMermaidCFGBranch(branch, buf, visited);
+            phi: CFGPhi => return toMermaidCFGPhi(phi, buf, visited);
         }
         return buf;
     }
 
-    def subgraphNameScheduleNode(node: ScheduleNode, buf: StringBuilder) -> StringBuilder {
+    def subgraphNameCFGNode(node: CFGNode, buf: StringBuilder) -> StringBuilder {
         match (node) {
-            block: ScheduleBlock => buf.puts("block_").putd(node.id);
-            branch: ScheduleBranch => buf.puts("branch_").putd(node.id);
-            phi: SchedulePhi => buf.puts("phi_").putd(node.id);
+            block: CFGBlock => buf.puts("block_").putd(node.id);
+            branch: CFGBranch => buf.puts("branch_").putd(node.id);
+            phi: CFGPhi => buf.puts("phi_").putd(node.id);
         }
         return buf;
     }
 
-    // === ScheduleBlock ===
-    def toMermaidScheduleBlock(block: ScheduleBlock, buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
+    // === CFGBlock ===
+    def toMermaidCFGBlock(block: CFGBlock, buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
         if (visited.has(block.id)) return buf;
         visited[block.id] = void;
         buf.puts("subgraph block_").putd(block.id).puts("[\"Block ").putd(block.id).puts("\"]").ln();
@@ -192,17 +192,17 @@ component SeaRender {
         }
         buf.puts("end").ln();
         if (block.prev != null) {
-            subgraphNameScheduleNode(block.prev, buf);
+            subgraphNameCFGNode(block.prev, buf);
             buf.puts(" --> ");
-            subgraphNameScheduleNode(block, buf);
+            subgraphNameCFGNode(block, buf);
             buf.ln();
         }
-        if (block.prev != null) toMermaidScheduleNode(block.prev, buf, visited);
+        if (block.prev != null) toMermaidCFGNode(block.prev, buf, visited);
         return buf;
     }
 
-    // === ScheduleBranch ===
-    def toMermaidScheduleBranch(branch: ScheduleBranch, buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
+    // === CFGBranch ===
+    def toMermaidCFGBranch(branch: CFGBranch, buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
         if (visited.has(branch.id)) return buf;
         visited[branch.id] = void;
         buf.puts("subgraph branch_").putd(branch.id).puts("[\"Branch ").putd(branch.id).puts("\"]").ln();
@@ -211,17 +211,17 @@ component SeaRender {
         }
         buf.ln().puts("end").ln();
         if (branch.prev != null) {
-            subgraphNameScheduleNode(branch.prev, buf);
+            subgraphNameCFGNode(branch.prev, buf);
             buf.puts(" --> ");
-            subgraphNameScheduleNode(branch, buf);
+            subgraphNameCFGNode(branch, buf);
             buf.ln();
         }
-        if (branch.prev != null) toMermaidScheduleNode(branch.prev, buf, visited);
+        if (branch.prev != null) toMermaidCFGNode(branch.prev, buf, visited);
         return buf;
     }
 
-    // === SchedulePhi ===
-    def toMermaidSchedulePhi(phi: SchedulePhi, buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
+    // === CFGPhi ===
+    def toMermaidCFGPhi(phi: CFGPhi, buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
         if (visited.has(phi.id)) return buf;
         visited[phi.id] = void;
         buf.puts("subgraph phi_").putd(phi.id).puts("[\"Phi ").putd(phi.id).puts("\"]").ln();
@@ -231,20 +231,20 @@ component SeaRender {
         }
         buf.puts("end").ln();
         if (phi.l_source != null) {
-            subgraphNameScheduleNode(phi.l_source, buf);
+            subgraphNameCFGNode(phi.l_source, buf);
             buf.puts(" --> ");
-            subgraphNameScheduleNode(phi, buf);
+            subgraphNameCFGNode(phi, buf);
             buf.ln();
         }
         if (phi.r_source != null) {
-            subgraphNameScheduleNode(phi.r_source, buf);
+            subgraphNameCFGNode(phi.r_source, buf);
             buf.puts(" --> ");
-            subgraphNameScheduleNode(phi, buf);
+            subgraphNameCFGNode(phi, buf);
             buf.ln();
         }
-        if (phi.l_source != null) toMermaidScheduleNode(phi.l_source, buf, visited);
-        if (phi.r_source != null) toMermaidScheduleNode(phi.r_source, buf, visited);
-        if (phi.source_branch != null) toMermaidScheduleNode(phi.source_branch, buf, visited);
+        if (phi.l_source != null) toMermaidCFGNode(phi.l_source, buf, visited);
+        if (phi.r_source != null) toMermaidCFGNode(phi.r_source, buf, visited);
+        if (phi.source_branch != null) toMermaidCFGNode(phi.source_branch, buf, visited);
         return buf;
     }
 
@@ -400,11 +400,11 @@ component SeaRender {
     }
 
     // Renders a CFG node and its successors top-down with indentation.
-    def renderCFGNode(node: ScheduleNode, buf: StringBuilder, indent: int, visited: HashMap<int, void>) {
+    def renderCFGNodeAux(node: CFGNode, buf: StringBuilder, indent: int, visited: HashMap<int, void>) {
         if (node == null || visited.has(node.id)) return;
         visited[node.id] = void;
         match (node) {
-            block: ScheduleBlock => {
+            block: CFGBlock => {
                 putIndent(buf, indent);
                 buf.puts("Block #").putd(block.id).puts(":").ln();
                 if (block.prims.length > 0) {
@@ -417,9 +417,9 @@ component SeaRender {
                     buf.ln();
                 }
                 renderDominantsFlat(block.dominants, indent + 2, buf);
-                if (block.next != null) renderCFGNode(block.next, buf, indent, visited);
+                if (block.next != null) renderCFGNodeAux(block.next, buf, indent, visited);
             }
-            branch: ScheduleBranch => {
+            branch: CFGBranch => {
                 putIndent(buf, indent);
                 buf.puts("Branch #").putd(branch.id);
                 if (branch.condition != null) {
@@ -429,12 +429,12 @@ component SeaRender {
                 buf.puts(":").ln();
                 renderDominantsFlat(branch.dominants, indent + 2, buf);
                 putIndent(buf, indent + 2); buf.puts("if-true:").ln();
-                if (branch.l_branch != null) renderCFGNode(branch.l_branch, buf, indent + 4, visited);
+                if (branch.l_branch != null) renderCFGNodeAux(branch.l_branch, buf, indent + 4, visited);
                 putIndent(buf, indent + 2); buf.puts("if-false:").ln();
-                if (branch.r_branch != null) renderCFGNode(branch.r_branch, buf, indent + 4, visited);
-                if (branch.phi != null) renderCFGNode(branch.phi, buf, indent, visited);
+                if (branch.r_branch != null) renderCFGNodeAux(branch.r_branch, buf, indent + 4, visited);
+                if (branch.phi != null) renderCFGNodeAux(branch.phi, buf, indent, visited);
             }
-            phi: SchedulePhi => {
+            phi: CFGPhi => {
                 putIndent(buf, indent);
                 buf.puts("Phi #").putd(phi.id).puts("(");
                 var first = true;
@@ -445,15 +445,15 @@ component SeaRender {
                 }
                 buf.puts("):").ln();
                 renderDominantsFlat(phi.dominants, indent + 2, buf);
-                if (phi.next != null) renderCFGNode(phi.next, buf, indent, visited);
+                if (phi.next != null) renderCFGNodeAux(phi.next, buf, indent, visited);
             }
         }
     }
 
-    // === ScheduleNode text rendering (public entry point) ===
-    def renderScheduleNode(node: ScheduleNode, buf: StringBuilder) -> StringBuilder {
+    // === CFGNode text rendering (public entry point) ===
+    def renderCFGNode(node: CFGNode, buf: StringBuilder) -> StringBuilder {
         def visited = HashMap<int, void>.new(int.!<int>, int.==);
-        renderCFGNode(node, buf, 0, visited);
+        renderCFGNodeAux(node, buf, 0, visited);
         return buf;
     }
 
@@ -499,7 +499,7 @@ component SeaRender {
     def renderSchedulerFinal(scheduler: SeaScheduler, buf: StringBuilder) -> StringBuilder {
         buf.puts("=== CFG ===").ln();
         def visited = HashMap<int, void>.new(int.!<int>, int.==);
-        renderCFGNode(scheduler.top_block, buf, 0, visited);
+        renderCFGNodeAux(scheduler.top_block, buf, 0, visited);
         return buf;
     }
 

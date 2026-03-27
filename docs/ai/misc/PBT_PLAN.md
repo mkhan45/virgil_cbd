@@ -285,7 +285,7 @@ Mark Codeptr and Extra as copyable; Memory, Stack, Globals as non-copyable. This
 
 ### Additional properties to test
 
-**P1: Schedule completeness** -- Every live node (except Start, Move nodes) appears exactly once across all `ScheduleBlock.prims` and `SchedulePhi.phis`.
+**P1: Schedule completeness** -- Every live node (except Start, Move nodes) appears exactly once across all `ScheduleBlock.prims` and `CFGPhi.phis`.
 
 **P2: Liveness after finalize** -- Every node remaining in `ScheduleBlock.prims` after `finalize()` is in the live set.
 
@@ -293,7 +293,7 @@ Mark Codeptr and Extra as copyable; Memory, Stack, Globals as non-copyable. This
 
 **P4: Determinism** -- Scheduling the same Sea twice produces identical `ScheduleBlock.prims` orderings.
 
-**P5: Branch topology** -- Every `ScheduleBranch.condition` corresponds to a phi condition in the original graph. Every `ScheduleBranch` has a matching `SchedulePhi`.
+**P5: Branch topology** -- Every `ScheduleBranch.condition` corresponds to a phi condition in the original graph. Every `ScheduleBranch` has a matching `CFGPhi`.
 
 ## 6. Open Questions
 

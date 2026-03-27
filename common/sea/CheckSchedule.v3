@@ -13,8 +13,8 @@ type ScheduleError {
 class ScheduleChecker {
     var errors: Vector<ScheduleError> = Vector.new();
 
-    var cfg_top: ScheduleNode;
-    var cfg_bottom: ScheduleNode;
+    var cfg_top: CFGNode;
+    var cfg_bottom: CFGNode;
     var orig_sea: Sea;
     var new_sea: Sea;
     var orig_to_new: NodeMap<IRNode>;
@@ -32,9 +32,9 @@ class ScheduleChecker {
         check_path_effects();
     }
 
-    def check_top_down(cfg_node: ScheduleNode, scope: ImmNodeSet) -> ImmNodeSet {
+    def check_top_down(cfg_node: CFGNode, scope: ImmNodeSet) -> ImmNodeSet {
         match (cfg_node) {
-            block: ScheduleBlock => {
+            block: CFGBlock => {
                 var s = scope;
                 for (i < block.prims.length) {
                     def node = block.prims[i];
@@ -43,13 +43,13 @@ class ScheduleChecker {
                 }
                 return if (block.next != null, check_top_down(block.next, s), s);
             }
-            branch: ScheduleBranch => {
+            branch: CFGBranch => {
                 check_deps_in_scope(branch.condition, scope);
                 check_top_down(branch.l_branch, scope);
                 check_top_down(branch.r_branch, scope);
                 return check_top_down(branch.phi, scope);
             }
-            phi: SchedulePhi => {
+            phi: CFGPhi => {
                 var s = scope;
                 for (p = phi.phis; p != null; p = p.tail) s = s.with(p.head);
                 return if (phi.next != null, check_top_down(phi.next, s), s);
@@ -67,7 +67,7 @@ class ScheduleChecker {
     }
 
     def check_phi_placement() {
-        // Collect all phi nodes that appear in SchedulePhi.phis lists.
+        // Collect all phi nodes that appear in CFGPhi.phis lists.
         def scheduled = NodeSet.new();
         collect_scheduled_phis(cfg_top, scheduled);
 
@@ -88,18 +88,18 @@ class ScheduleChecker {
         }
     }
 
-    def collect_scheduled_phis(cfg_node: ScheduleNode, scheduled: NodeSet) {
+    def collect_scheduled_phis(cfg_node: CFGNode, scheduled: NodeSet) {
         if (cfg_node == null) return;
         match (cfg_node) {
-            block: ScheduleBlock => {
+            block: CFGBlock => {
                 collect_scheduled_phis(block.next, scheduled);
             }
-            branch: ScheduleBranch => {
+            branch: CFGBranch => {
                 collect_scheduled_phis(branch.l_branch, scheduled);
                 collect_scheduled_phis(branch.r_branch, scheduled);
                 collect_scheduled_phis(branch.phi, scheduled);
             }
-            phi: SchedulePhi => {
+            phi: CFGPhi => {
                 for (p = phi.phis; p != null; p = p.tail) scheduled.put(p.head);
                 collect_scheduled_phis(phi.next, scheduled);
             }
@@ -239,10 +239,10 @@ class ScheduleChecker {
         }
     }
 
-    def collect_cfg_effs(cfg_node: ScheduleNode, assignment: Array<(IRNode, bool)>, effects: NodeSet) {
+    def collect_cfg_effs(cfg_node: CFGNode, assignment: Array<(IRNode, bool)>, effects: NodeSet) {
         if (cfg_node == null) return;
         match (cfg_node) {
-            block: ScheduleBlock => {
+            block: CFGBlock => {
                 for (i < block.prims.length) {
                     def node = block.prims[i];
                     match (node.op) {
@@ -254,13 +254,13 @@ class ScheduleChecker {
                 }
                 collect_cfg_effs(block.next, assignment, effects);
             }
-            branch: ScheduleBranch => {
+            branch: CFGBranch => {
                 def val = take_cond_branch(branch.condition, assignment);
                 if (val) collect_cfg_effs(branch.l_branch, assignment, effects);
                 else collect_cfg_effs(branch.r_branch, assignment, effects);
                 collect_cfg_effs(branch.phi, assignment, effects);
             }
-            phi: SchedulePhi => {
+            phi: CFGPhi => {
                 collect_cfg_effs(phi.next, assignment, effects);
             }
             _ => ;
@@ -277,23 +277,23 @@ class ScheduleChecker {
         check_phi_branches_walk(cfg_top, NodeSet.new());
     }
 
-    def check_phi_branches_walk(cfg_node: ScheduleNode, outer: NodeSet) {
+    def check_phi_branches_walk(cfg_node: CFGNode, outer: NodeSet) {
         if (cfg_node == null) return;
         match (cfg_node) {
-            block: ScheduleBlock => {
+            block: CFGBlock => {
                 for (i < block.prims.length) outer.put(block.prims[i]);
                 check_phi_branches_walk(block.next, outer);
             }
-            branch: ScheduleBranch => {
+            branch: CFGBranch => {
                 check_phi_branches_walk(branch.l_branch, outer);
                 check_phi_branches_walk(branch.r_branch, outer);
                 check_phi_branches_walk(branch.phi, outer);
             }
-            phi: SchedulePhi => {
+            phi: CFGPhi => {
                 def l_nodes = NodeSet.new();
                 def r_nodes = NodeSet.new();
                 // Use source_branch.l_branch/r_branch instead of l_source/r_source
-                // because prependScheduleBranch can restructure the tree and leave
+                // because prependCFGBranch can restructure the tree and leave
                 // l_source/r_source pointing at stale nodes.
                 collect_branch_nodes(phi.source_branch.l_branch, l_nodes);
                 collect_branch_nodes(phi.source_branch.r_branch, r_nodes);
@@ -327,19 +327,19 @@ class ScheduleChecker {
         }
     }
 
-    def collect_branch_nodes(cfg_node: ScheduleNode, nodes: NodeSet) {
+    def collect_branch_nodes(cfg_node: CFGNode, nodes: NodeSet) {
         if (cfg_node == null) return;
         match (cfg_node) {
-            block: ScheduleBlock => {
+            block: CFGBlock => {
                 for (i < block.prims.length) nodes.put(block.prims[i]);
                 collect_branch_nodes(block.next, nodes);
             }
-            branch: ScheduleBranch => {
+            branch: CFGBranch => {
                 collect_branch_nodes(branch.l_branch, nodes);
                 collect_branch_nodes(branch.r_branch, nodes);
                 collect_branch_nodes(branch.phi, nodes);
             }
-            phi: SchedulePhi => {
+            phi: CFGPhi => {
                 for (p = phi.phis; p != null; p = p.tail) nodes.put(p.head);
                 collect_branch_nodes(phi.next, nodes);
             }

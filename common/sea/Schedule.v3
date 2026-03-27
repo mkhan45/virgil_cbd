@@ -46,14 +46,14 @@ class SeaScheduler {
     var top_node: IRNode;
     var bottom_node: IRNode;
 
-    var bottom_block: ScheduleNode;
-    var top_block: ScheduleNode;
+    var bottom_block: CFGNode;
+    var top_block: CFGNode;
 
     var branch_lattices: Vector<BranchLattice> = Vector.new();
     var branch_lattice_map: NodeMap<BranchLattice> = NodeMap<BranchLattice>.new();
 
     var trace_full: bool = false;
-    var lowBounds: NodeMap<ScheduleNode> = NodeMap<ScheduleNode>.new();
+    var lowBounds: NodeMap<CFGNode> = NodeMap<CFGNode>.new();
     var clone_to_orig: NodeMap<IRNode> = NodeMap<IRNode>.new();
     new(orig_sea, orig_top_node: IRNode, orig_bottom_node: IRNode) {
         def clone = Seas.clone(orig_sea);
@@ -280,7 +280,7 @@ class SeaScheduler {
         }
     }
 
-    def isReady(node: IRNode, schedule_node: ScheduleNode) -> bool {
+    def isReady(node: IRNode, schedule_node: CFGNode) -> bool {
         var ready = true;
 
         var children = node.children;
@@ -623,18 +623,18 @@ component Scheduler {
         sea.rebuildChildren();
         def s = SeaScheduler.new(sea, sea.start, sea.finish);
         s.ssad_sea_info = sea_info;
-        def b = ScheduleBlock.new(fresh_id(), s);
+        def b = CFGBlock.new(fresh_id(), s);
         s.bottom_block = b;
         s.top_block = b;
         return s;
     }
 }
 
-class ScheduleNode(id: int, scheduler: SeaScheduler) {
+class CFGNode(id: int, scheduler: SeaScheduler) {
     var dominants: DomGraph = DomGraph.new(id); // set of the IRNodes dominated by this node
 
     def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder;
-    def linkPrependedBlock(block: ScheduleBlock);
+    def linkPrependedBlock(block: CFGBlock);
 
     def toSSAD() -> SSAD;
     def toSSADWithSeaInfo(sea_info: SSADSeaInfo) -> SSAD => toSSAD();
@@ -644,9 +644,9 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         return (toSSADWithSeaInfo(sea_info), sea_info);
     }
 
-    def subgraphName(buf: StringBuilder) -> StringBuilder => SeaRender.subgraphNameScheduleNode(this, buf);
+    def subgraphName(buf: StringBuilder) -> StringBuilder => SeaRender.subgraphNameCFGNode(this, buf);
 
-    def schedule(node: IRNode, upper_limit: ScheduleNode) -> ScheduleNode {
+    def schedule(node: IRNode, upper_limit: CFGNode) -> CFGNode {
         if (upper_limit != null && this.id == upper_limit.id) return null;
         if (dominants.has(node)) return this;
 
@@ -667,7 +667,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         if (ready && node.is_phi()) return scheduleReadyPhi(node, upper_limit);
 
         match (this) {
-            block: ScheduleBlock => {
+            block: CFGBlock => {
                 if (ready) {
                     block.prims.put(node);
                     block.dominants.addLocal(node);
@@ -685,19 +685,19 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                     return if(block.prev != null, block.prev.schedule(node, upper_limit));
                 }
             }
-            branch: ScheduleBranch => {
+            branch: CFGBranch => {
                 if (ready) {
-                    if (branch.prev != null && ScheduleBranch.?(branch.prev))
-                        return branch.prependScheduleBlock(node); // schedule before self, but not above previous branch.
+                    if (branch.prev != null && CFGBranch.?(branch.prev))
+                        return branch.prependCFGBlock(node); // schedule before self, but not above previous branch.
                     else if (branch.prev != null)
                         return branch.prev.schedule(node, upper_limit);
                     else
-                        return branch.prependScheduleBlock(node);
+                        return branch.prependCFGBlock(node);
                 } else {
                     return if(branch.prev != null, branch.prev.schedule(node, upper_limit));
                 }
             }
-            phi: SchedulePhi => {
+            phi: CFGPhi => {
                 var dest_block = phi.l_source.schedule(node, phi.source_branch);
                 if (dest_block == null) dest_block = phi.r_source.schedule(node, phi.source_branch);
                 if (dest_block == null) dest_block = phi.source_branch.schedule(node, upper_limit);
@@ -707,20 +707,20 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         }
     }
 
-    def scheduleReadyPhi(node: IRNode, upper_limit: ScheduleNode) -> ScheduleNode {
+    def scheduleReadyPhi(node: IRNode, upper_limit: CFGNode) -> CFGNode {
         if (upper_limit != null && this.id == upper_limit.id) return null;
         if (dominants.has(node)) return this;
 
         def phi = node;
         match (this) {
-            block: ScheduleBlock => 
-                       return if(block.prev == null || ScheduleBranch.?(block.prev),
-                               block.prependScheduleBranch(node),
+            block: CFGBlock => 
+                       return if(block.prev == null || CFGBranch.?(block.prev),
+                               block.prependCFGBranch(node),
                                block.prev.scheduleReadyPhi(node, upper_limit));
-            cond: ScheduleBranch => {
-                return if (cond.prev == null, cond.prependScheduleBranch(node), cond.prev.scheduleReadyPhi(node, upper_limit));
+            cond: CFGBranch => {
+                return if (cond.prev == null, cond.prependCFGBranch(node), cond.prev.scheduleReadyPhi(node, upper_limit));
             }
-            phi_node: SchedulePhi => {
+            phi_node: CFGPhi => {
                 def phi_cond = phi.value_deps[0];
                 if (phi_node.source_branch.condition.id == phi_cond.id) {
                     System.puts("ERROR: Fusing\n");
@@ -737,22 +737,22 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         }
     }
 
-    def prependScheduleBlock(node: IRNode) -> ScheduleBlock {
-        def block = ScheduleBlock.new(fresh_id(), scheduler);
+    def prependCFGBlock(node: IRNode) -> CFGBlock {
+        def block = CFGBlock.new(fresh_id(), scheduler);
         if (scheduler.top_block.id == this.id) scheduler.top_block = block;
 
         if (scheduler.trace_full) System.puts(Strings.format2("Prepending new schedule block %d to %d\n", block.id, id));
 
-        var prev: ScheduleNode;
+        var prev: CFGNode;
         match (this) {
-            b: ScheduleBlock => prev = b.prev;
-            b: ScheduleBranch => prev = b.prev;
+            b: CFGBlock => prev = b.prev;
+            b: CFGBranch => prev = b.prev;
             _ => {}
         }
         match (prev) {
-            prev_block: ScheduleBlock => prev_block.next = block;
-            prev_phi: SchedulePhi => prev_phi.next = block;
-            prev_branch: ScheduleBranch => {
+            prev_block: CFGBlock => prev_block.next = block;
+            prev_phi: CFGPhi => prev_phi.next = block;
+            prev_branch: CFGBranch => {
                 if (prev_branch.l_branch.id == this.id) prev_branch.l_branch = block;
                 if (prev_branch.r_branch.id == this.id) prev_branch.r_branch = block;
             }
@@ -777,7 +777,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
     // traverses schedule graph, reverses blocks, and removes non-live nodes
     def finalize() {
         match (this) {
-            block: ScheduleBlock => {
+            block: CFGBlock => {
                 if (!block.forward) block.reverse();
                 def live_prims = Vector<IRNode>.new();
                 for (i < block.prims.length) {
@@ -787,8 +787,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                 block.prims = live_prims;
                 if (block.prev != null) block.prev.finalize();
             }
-            branch: ScheduleBranch => if (branch.prev != null) branch.prev.finalize();
-            phi: SchedulePhi => {
+            branch: CFGBranch => if (branch.prev != null) branch.prev.finalize();
+            phi: CFGPhi => {
                 phi.source_branch.finalize();
                 phi.l_source.finalize();
                 phi.r_source.finalize();
@@ -796,24 +796,24 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         }
     }
 
-    def getSinglePrev() -> ScheduleNode #inline {
+    def getSinglePrev() -> CFGNode #inline {
         match (this) {
-            block: ScheduleBlock => return block.prev;
-            branch: ScheduleBranch => return branch.prev;
+            block: CFGBlock => return block.prev;
+            branch: CFGBranch => return branch.prev;
             _ => trap();
         }
         return null;
     }
 
-    def setSinglePrev(newPrev: ScheduleNode) -> this #inline {
+    def setSinglePrev(newPrev: CFGNode) -> this #inline {
         match (this) {
-            block: ScheduleBlock => block.prev = newPrev;
-            branch: ScheduleBranch => branch.prev = newPrev;
+            block: CFGBlock => block.prev = newPrev;
+            branch: CFGBranch => branch.prev = newPrev;
             _ => trap();
         }
     }
 
-    def prependScheduleBranch(node: IRNode) -> SchedulePhi {
+    def prependCFGBranch(node: IRNode) -> CFGPhi {
         //               prev
         //                |
         //              branch     (dominants all below)
@@ -828,8 +828,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         def cond = node.value_deps[0];
         cond.init_move(scheduler.sea);
         def bl = scheduler.branch_lattice_map[node];
-        def branch = ScheduleBranch.new(fresh_id(), scheduler);
-        def phi_node = SchedulePhi.new(fresh_id(), scheduler);
+        def branch = CFGBranch.new(fresh_id(), scheduler);
+        def phi_node = CFGPhi.new(fresh_id(), scheduler);
 
         if (scheduler.top_block.id == this.id) scheduler.top_block = branch;
 
@@ -840,9 +840,9 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         def prev = getSinglePrev();
         if (prev != null) {
             match (prev) {
-                block: ScheduleBlock => block.next = branch;
-                phi: SchedulePhi => phi.next = branch;
-                prev_branch: ScheduleBranch => {
+                block: CFGBlock => block.next = branch;
+                phi: CFGPhi => phi.next = branch;
+                prev_branch: CFGBranch => {
                     if (prev_branch.l_branch.id == this.id) prev_branch.l_branch = branch;
                     if (prev_branch.r_branch.id == this.id) prev_branch.r_branch = branch;
                 }
@@ -856,8 +856,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
 
         phi_node.dominants = phi_node.dominants.withParent(dominants);
 
-        def left = ScheduleBlock.new(fresh_id(), scheduler);
-        def right = ScheduleBlock.new(fresh_id(), scheduler);
+        def left = CFGBlock.new(fresh_id(), scheduler);
+        def right = CFGBlock.new(fresh_id(), scheduler);
 
         left.prev = right.prev = branch;
         phi_node.l_source = branch.l_branch = left;
@@ -887,13 +887,13 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
     }
 }
 
-class ScheduleBlock(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, scheduler_) {
+class CFGBlock(uid: int, scheduler_: SeaScheduler) extends CFGNode(uid, scheduler_) {
     var prims: Vector<IRNode> = Vector.new(); // we build these backwards, so they have to be reversed.
     var forward: bool = false;
-    var prev: ScheduleNode = null;
-    var next: ScheduleNode = null;
+    var prev: CFGNode = null;
+    var next: CFGNode = null;
 
-    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder => SeaRender.toMermaidScheduleBlock(this, buf, visited);
+    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder => SeaRender.toMermaidCFGBlock(this, buf, visited);
 
     def toSSAD() -> SSAD {
         return toSSADWithSeaInfo(SSADSeaInfo.new());
@@ -947,23 +947,23 @@ class ScheduleBlock(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid
          prims.reverse();
     }
 
-    def linkPrependedBlock(block: ScheduleBlock) {
+    def linkPrependedBlock(block: CFGBlock) {
         block.prev = prev;
         block.next = this;
         prev = block;
     }
 }
 
-class ScheduleBranch(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, scheduler_) {
+class CFGBranch(uid: int, scheduler_: SeaScheduler) extends CFGNode(uid, scheduler_) {
     var condition: IRNode;
-    var l_branch: ScheduleNode = null;
-    var r_branch: ScheduleNode = null;
-    var prev: ScheduleNode = null;
-    var phi: SchedulePhi = null;
+    var l_branch: CFGNode = null;
+    var r_branch: CFGNode = null;
+    var prev: CFGNode = null;
+    var phi: CFGPhi = null;
 
-    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder => SeaRender.toMermaidScheduleBranch(this, buf, visited);
+    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder => SeaRender.toMermaidCFGBranch(this, buf, visited);
 
-    def linkPrependedBlock(block: ScheduleBlock) {
+    def linkPrependedBlock(block: CFGBlock) {
         block.prev = prev;
         block.next = this;
         prev = block;
@@ -979,14 +979,14 @@ class ScheduleBranch(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(ui
     }
 }
 
-class SchedulePhi(uid: int, scheduler_: SeaScheduler) extends ScheduleNode(uid, scheduler_) {
-    var source_branch: ScheduleBranch;
-    var l_source: ScheduleNode = null;
-    var r_source: ScheduleNode = null;
-    var next: ScheduleNode = null;
+class CFGPhi(uid: int, scheduler_: SeaScheduler) extends CFGNode(uid, scheduler_) {
+    var source_branch: CFGBranch;
+    var l_source: CFGNode = null;
+    var r_source: CFGNode = null;
+    var next: CFGNode = null;
     var phis: List<IRNode> = null;
 
-    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder => SeaRender.toMermaidSchedulePhi(this, buf, visited);
+    def toMermaid(buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder => SeaRender.toMermaidCFGPhi(this, buf, visited);
 
     def toSSAD() -> SSAD {
         return toSSADWithSeaInfo(SSADSeaInfo.new());

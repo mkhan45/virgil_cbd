@@ -44,11 +44,11 @@ Resolves shared subgraphs between branches. Uses `branch_partition` (on `Sea`) t
 
 ### Phase 2: Bottom-Up Schedule
 
-Walks from `Finish` upward, placing each node into the lowest valid position in a `ScheduleNode` tree (composed of `ScheduleBlock`, `ScheduleBranch`, and `SchedulePhi` nodes). `isReady` checks whether all of a node's live children have been scheduled (tracked via `DomGraph`). Phi nodes use grouped readiness: all children across the `BranchLattice` must be scheduled before any phi in the group is enqueued. When a phi becomes ready, `prependScheduleBranch` inserts a new `ScheduleBranch`/`SchedulePhi` pair into the schedule tree.
+Walks from `Finish` upward, placing each node into the lowest valid position in a `ScheduleNode` tree (composed of `ScheduleBlock`, `ScheduleBranch`, and `CFGPhi` nodes). `isReady` checks whether all of a node's live children have been scheduled (tracked via `DomGraph`). Phi nodes use grouped readiness: all children across the `BranchLattice` must be scheduled before any phi in the group is enqueued. When a phi becomes ready, `prependScheduleBranch` inserts a new `ScheduleBranch`/`CFGPhi` pair into the schedule tree.
 
 ### Move Nodes
 
-`IROp.Move(val)` nodes are inserted by the `addMoves` transform before scheduling. Each phi's condition node gets `move_true`/`move_false` children via `init_move`, which act as branch-side markers. The scheduler skips Move nodes during placement (they are not live) but uses them to associate values with their correct branch side. `SchedulePhi.toSSAD` unwraps Move nodes when emitting phi assignments.
+`IROp.Move(val)` nodes are inserted by the `addMoves` transform before scheduling. Each phi's condition node gets `move_true`/`move_false` children via `init_move`, which act as branch-side markers. The scheduler skips Move nodes during placement (they are not live) but uses them to associate values with their correct branch side. `CFGPhi.toSSAD` unwraps Move nodes when emitting phi assignments.
 
 ## ScheduleChecker
 

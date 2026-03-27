@@ -32,7 +32,7 @@ The companion paper on *scheduling* -- converting the unordered Sea back into a 
 
 Phi nodes get special treatment: a phi's operand is considered used at the *predecessor* block (not the phi's own block), because phi elimination inserts copies there.
 
-GCM presupposes a control skeleton (Region, If nodes) that defines the set of possible blocks. Our scheduler has no such skeleton — it builds the block structure (ScheduleBlock, ScheduleBranch, SchedulePhi) as it schedules, discovering the nesting from `branch_partition` and BranchLattice ordering.
+GCM presupposes a control skeleton (Region, If nodes) that defines the set of possible blocks. Our scheduler has no such skeleton — it builds the block structure (ScheduleBlock, ScheduleBranch, CFGPhi) as it schedules, discovering the nesting from `branch_partition` and BranchLattice ordering.
 
 **What GCM does NOT do**: The paper doesn't discuss *cloning* or *duplication* of nodes. If a pure computation is used in two branches, GCM hoists it to their common dominator. This can slow down paths that don't need the value. The paper treats this as acceptable.
 
