@@ -57,9 +57,7 @@ component SeaRender {
                 buf.puts(".-> ").puts(tag).putd(n.id).ln();
             }
 
-            for (dep in n.deps()) {
-                wl.push(dep);
-            }
+            n.applyDeps(fun (dep: IRNode) { wl.push(dep); });
         }
 
         return buf;
@@ -376,7 +374,7 @@ component SeaRender {
             if (n == null || visited.has(n) || !live.has(n)) continue;
             visited.put(n);
             ordered.put(n);
-            for (dep in n.deps()) wl.push(dep);
+            n.applyDeps(fun (dep: IRNode) { wl.push(dep); });
         }
         var i = ordered.length - 1;
         while (i >= 0) {

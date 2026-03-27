@@ -39,7 +39,7 @@ class Sea {
         id_count += 1;
 
         if (!IROp.Lit.?(op))
-            for (dep in node.deps()) dep.children.put(node);
+            node.applyDeps(fun (dep: IRNode) { dep.children.put(node); });
 
         return node;
     }
@@ -50,10 +50,51 @@ class Sea {
         return n;
     }
 
+    def cachedTransitiveDeps(node: IRNode) -> ImmNodeSet {
+        if (node == null) return ImmNodeSets.empty();
+        if (node.transitive_deps.bits != null) return node.transitive_deps;
+        def r = Array<ImmNodeSet>.new(1);
+        r[0] = ImmNodeSets.single(node);
+        node.applyDeps(fun (dep: IRNode) { r[0] = r[0].union(cachedTransitiveDeps(dep)); });
+        var result = r[0];
+        node.transitive_deps = result;
+        return result;
+    }
+
+    def cachedTransitiveDepsPhiAware(node: IRNode) -> ImmNodeSet {
+        if (node == null) return ImmNodeSets.empty();
+        if (node.transitive_deps_phi.bits != null) return node.transitive_deps_phi;
+        var result: ImmNodeSet;
+        match (node.op) {
+            Phi, StatePhi => {
+                def cond = node.value_deps[0];
+                def l_branch = node.value_deps[1];
+                def r_branch = node.value_deps[2];
+                result = ImmNodeSets.single(node)
+                    .union(cachedTransitiveDepsPhiAware(cond))
+                    .union(cachedTransitiveDepsPhiAware(l_branch)
+                        .intersection(cachedTransitiveDepsPhiAware(r_branch)));
+            }
+            _ => {
+                def r = Array<ImmNodeSet>.new(1);
+                r[0] = ImmNodeSets.single(node);
+                node.applyDeps(fun (dep: IRNode) { r[0] = r[0].union(cachedTransitiveDepsPhiAware(dep)); });
+                result = r[0];
+            }
+        }
+        node.transitive_deps_phi = result;
+        return result;
+    }
+
+    def clearDepsCache() {
+        def empty = ImmNodeSet(null, 0);
+        nodes_by_id.apply(fun(n: IRNode) { n.transitive_deps = empty; n.transitive_deps_phi = empty; });
+    }
+
     def isAncestor(high: IRNode, low: IRNode) -> bool {
         if (high == low) return true;
         if (high == null || low == null) return false;
-        return low.transitiveDepsSet().has(high);
+        return cachedTransitiveDeps(low).has(high);
     }
 
     def isDescendant(low: IRNode, high: IRNode) => isAncestor(high, low);
@@ -268,7 +309,7 @@ class Sea {
             bi++;
             if (node == null || backward.has(node)) continue;
             backward.put(node);
-            for (dep in node.deps()) bwd_wl.put(dep);
+            node.applyDeps(fun (dep: IRNode) { bwd_wl.put(dep); });
         }
 
         // Subgraph = intersection of forward and backward reachable sets
@@ -294,13 +335,13 @@ class Sea {
             visited.put(node);
             allNodes.put(node);
             node.children = Vector.new();
-            for (dep in node.deps()) wl.put(dep);
+            node.applyDeps(fun (dep: IRNode) { wl.put(dep); });
         }
 
         for (i < allNodes.length) {
             def node = allNodes[i];
             if (IROp.Lit.?(node.op)) continue;
-            for (dep in node.deps()) dep.children.put(node);
+            node.applyDeps(fun (dep: IRNode) { dep.children.put(node); });
         }
     }
 
@@ -308,33 +349,21 @@ class Sea {
         def cond = node.value_deps[0], l_branch = node.value_deps[1], r_branch = node.value_deps[2];
         cond.init_move(this);
 
-        // for Phi/StatePhi nodes, only follow the condition,
-        // not the branch deps. prevents nodes reachable only through a
-        // nested phi from being put in frontier
-        def l_phi_aware = l_branch.transitiveDepsPhiAwareSet().put(l_branch);
-        def r_phi_aware = r_branch.transitiveDepsPhiAwareSet().put(r_branch);
-        def frontier_set = l_phi_aware.intersection(r_phi_aware);
+        def l_phi_aware = cachedTransitiveDepsPhiAware(l_branch);
+        def r_phi_aware = cachedTransitiveDepsPhiAware(r_branch);
+        def frontier = l_phi_aware.intersection(r_phi_aware);
 
-        // Full deps for l/r subgraphs
-        def l_full = l_branch.transitiveDepsSet().put(l_branch);
-        def r_full = r_branch.transitiveDepsSet().put(r_branch);
+        def l_full = cachedTransitiveDeps(l_branch);
+        def r_full = cachedTransitiveDeps(r_branch);
 
-        def frontier_vec = Vector<IRNode>.new();
-        def lsg_vec = Vector<IRNode>.new();
-        def rsg_vec = Vector<IRNode>.new();
-
-        frontier_set.apply(fun (n: IRNode) { frontier_vec.put(n); });
-        l_full.apply(fun (n: IRNode) { if (!frontier_set.has(n)) lsg_vec.put(n); });
-        r_full.apply(fun (n: IRNode) { if (!frontier_set.has(n)) rsg_vec.put(n); });
-
-        return BranchPartition(ImmNodeSets.of_vec(frontier_vec), ImmNodeSets.of_vec(lsg_vec), ImmNodeSets.of_vec(rsg_vec));
+        return BranchPartition(frontier, l_full.withoutAll(frontier), r_full.withoutAll(frontier));
     }
 }
 
 component Seas {
     def uidl = SSAD_IR.uidl;
 
-    def intrinsic(name: string) -> IntrinsicTypedef {
+    def intrinsic(name: string) -> IntrinsicTypedef #inline {
         def defn = IntrinsicTypes.intrinsic_types[name];
         if (defn != null) 
             return defn;
@@ -397,8 +426,9 @@ component Seas {
             }
         }
 
-        var result = ImmNodeSets.empty();
-        for (old_node in nodes) result = result.with(mapping[old_node]);
+        def cloned = Vector<IRNode>.new();
+        for (old_node in nodes) cloned.put(mapping[old_node]);
+        def result = ImmNodeSets.of_array(cloned.extract());
 
         return (result, mapping);
     }
@@ -458,7 +488,7 @@ component Seas {
 
 type BranchPartition(frontier: ImmNodeSet, l_subgraph: ImmNodeSet, r_subgraph: ImmNodeSet);
 
-def dedup(arr: Array<IRNode>) -> Array<IRNode> {
+def dedup(arr: Array<IRNode>) -> Array<IRNode> #inline {
     def res = Vector<IRNode>.new();
     for (n in arr) {
         if (n == null) continue;
@@ -481,13 +511,34 @@ class IRNode {
     var move_true: IRNode;
     var move_false: IRNode;
     var unscheduled_use_count: int;
+    var transitive_deps: ImmNodeSet;
+    var transitive_deps_phi: ImmNodeSet;
 
     new(op, id) { }
 
-    def deps() -> Array<IRNode> {
+    def deps() -> Array<IRNode> #inline {
         // should be empty, special case is to remove null state deps
         if (IROp.Start.?(op)) return dedup(value_deps);
         else return dedup(Arrays.concat(value_deps, state_deps));
+    }
+
+    def applyDeps(f: IRNode -> void) {
+        for (i < value_deps.length) {
+            def d = value_deps[i];
+            if (d == null) continue;
+            var dup = false;
+            for (j < i) if (value_deps[j] != null && value_deps[j].id == d.id) { dup = true; break; }
+            if (!dup) f(d);
+        }
+        if (IROp.Start.?(op)) return;
+        for (i < state_deps.length) {
+            def d = state_deps[i];
+            if (d == null) continue;
+            var dup = false;
+            for (v in value_deps) if (v != null && v.id == d.id) { dup = true; break; }
+            if (!dup) for (j < i) if (state_deps[j] != null && state_deps[j].id == d.id) { dup = true; break; }
+            if (!dup) f(d);
+        }
     }
 
     def transitiveDepsAux(buf: NodeSet) {

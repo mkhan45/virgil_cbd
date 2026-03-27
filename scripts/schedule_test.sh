@@ -13,23 +13,30 @@ set -e
 # Ensure synthetic sexp is up to date
 make tests/SyntheticDefs.v3.sexp --quiet
 
-# If --canonical is in args, also ensure CanonicalDefs.v3.sexp is up to date
+PROFILE=false
+
 for arg in "$@"; do
   if [ "$arg" = "--canonical" ]; then
+    # If --canonical is in args, also ensure CanonicalDefs.v3.sexp is up to date
     make wizard-engine/src/bytecode/CanonicalDefs.v3.sexp --quiet
-    break
+  elif [ "$arg" = "--profile" ]; then
+    PROFILE=true
   fi
 done
 
-VIRGIL="${VIRGIL:-../virgil/bin/current/x86-64-linux/Aeneas -O2 -run -fun-exprs -simple-bodies}"
 VIRGIL_STD="../virgil/lib/util/*.v3"
 WIZARD="./wizard-engine"
 ENGINE="$WIZARD/src/engine/*.v3 $WIZARD/src/engine/continuation/BoxedContinuation.v3"
 WIZARD_UTIL="$WIZARD/src/util/*.v3"
 
-$VIRGIL $VIRGIL_STD \
-	common/*.v3 common/*/*.v3 \
-	$ENGINE \
-	$WIZARD_UTIL \
-	tests/ScheduleTest.v3 \
-	"$@"
+SOURCES="$VIRGIL_STD common/*.v3 common/*/*.v3 $ENGINE $WIZARD_UTIL tests/ScheduleTest.v3"
+
+if [ "$PROFILE" = "true" ]; then
+  VIRGIL="${VIRGIL:-../virgil/bin/current/x86-64-linux/Aeneas -profile -O2 -run -fun-exprs -simple-bodies}"
+  $VIRGIL $SOURCES "$@"
+else
+  V3C="${V3C:-../virgil/bin/v3c-x86-64-linux -O2 -fun-exprs -simple-bodies}"
+  $V3C $SOURCES
+  ./ScheduleTest "$@"
+  rm -f ./ScheduleTest
+fi

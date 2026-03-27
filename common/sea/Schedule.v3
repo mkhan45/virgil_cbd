@@ -28,12 +28,8 @@ class BranchLattice {
     def add_phi(phi: IRNode, partition: BranchPartition) -> this {
         phis.put(phi);
         frontier = frontier.union(partition.frontier);
-        l_subgraph = l_subgraph.union(partition.l_subgraph);
-        r_subgraph = r_subgraph.union(partition.r_subgraph);
-        for (f in frontier.toArray(sea)) {
-            l_subgraph = l_subgraph.without(f);
-            r_subgraph = r_subgraph.without(f);
-        }
+        l_subgraph = l_subgraph.union(partition.l_subgraph).withoutAll(frontier);
+        r_subgraph = r_subgraph.union(partition.r_subgraph).withoutAll(frontier);
     }
 }
 
@@ -150,6 +146,7 @@ class SeaScheduler {
     }
 
     def find_branch_lattices() {
+        sea.clearDepsCache();
         def sorted = sorted_phis_by_depth();
         def sorted_phis = sorted.0;
         def partitions = sorted.1;
@@ -245,13 +242,13 @@ class SeaScheduler {
                 // so that value phi arm values get scheduled inside their
                 // branch blocks rather than floating to the outermost block.
                 def lb = lowBounds[node];
-                for (d in node.deps()) {
+                node.applyDeps(fun (d: IRNode) {
                     if (lb != null && d.id != node.value_deps[0].id) {
                         if (trace_full) System.puts(Strings.format3("  Move %q sets lowBound[%q] = %d\n", node.render, d.render, lb.id));
                         lowBounds[d] = lb;
                     }
                     enqueue_dep(node, d);
-                }
+                });
                 continue;
             }
 
@@ -263,10 +260,10 @@ class SeaScheduler {
             if (trace_full && node.is_phi()) System.puts(Strings.format2("  lowBound: %d (bottom=%d)\n", lower_bound.id, bottom_block.id));
             def dest_block = lower_bound.schedule(node, null);
             if (dest_block != null) {
-                for (d in node.deps()) {
+                node.applyDeps(fun (d: IRNode) {
                     lowBounds[d] = dest_block;
                     enqueue_dep(node, d);
-                }
+                });
             } else {
                 q.put(node);
             }
@@ -434,11 +431,11 @@ class SeaScheduler {
         while (wi < wl.length) {
             def node = wl[wi];
             wi += 1;
-            for (dep in node.deps()) {
-                if (dep == null || !domain.has(dep) || escaping.has(dep)) continue;
+            node.applyDeps(fun (dep: IRNode) {
+                if (dep == null || !domain.has(dep) || escaping.has(dep)) return;
                 escaping.put(dep);
                 wl.put(dep);
-            }
+            });
         }
 
         return escaping;
@@ -458,12 +455,9 @@ class SeaScheduler {
             });
             if (remove.length == 0) break;
 
-            for (i < remove.length) {
-                def n = remove[i];
-                // if (trace_full) System.puts(Strings.format1("  pin escaping write %q\n", n.render));
-                if (lsg.has(n)) lsg = lsg.without(n);
-                if (rsg.has(n)) rsg = rsg.without(n);
-            }
+            def remove_set = ImmNodeSets.of_vec(remove);
+            lsg = lsg.withoutAll(remove_set);
+            rsg = rsg.withoutAll(remove_set);
         }
 
         return (lsg, rsg);
@@ -496,7 +490,7 @@ class SeaScheduler {
             // Find next lattice with overlapping l/r subgraphs
             var next_bl: BranchLattice = null;
             for (i < sorted.length) {
-                if (!sorted[i].l_subgraph.intersection(sorted[i].r_subgraph).isEmpty()) {
+                if (sorted[i].l_subgraph.intersects(sorted[i].r_subgraph)) {
                     next_bl = sorted[i];
                     break;
                 }
@@ -699,8 +693,8 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
                         // XXX: maybe we shouldn't try each branch here? because uses after phi are not dominated
                         // by either branch
                         var dest_block: ScheduleNode = null;
-                        dest_block = phi.l_source.schedule(node, phi.source_branch);
-                        if (dest_block == null) dest_block = phi.r_source.schedule(node, phi.source_branch);
+                        // dest_block = phi.l_source.schedule(node, phi.source_branch);
+                        // if (dest_block == null) dest_block = phi.r_source.schedule(node, phi.source_branch);
                         if (dest_block == null) dest_block = phi.source_branch.schedule(node, upper_limit);
                         return dest_block;
                     }
@@ -814,7 +808,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         }
     }
 
-    def getSinglePrev() -> ScheduleNode {
+    def getSinglePrev() -> ScheduleNode #inline {
         match (this) {
             block: ScheduleBlock => return block.prev;
             branch: ScheduleBranch => return branch.prev;
@@ -823,7 +817,7 @@ class ScheduleNode(id: int, scheduler: SeaScheduler) {
         return null;
     }
 
-    def setSinglePrev(newPrev: ScheduleNode) -> this {
+    def setSinglePrev(newPrev: ScheduleNode) -> this #inline {
         match (this) {
             block: ScheduleBlock => block.prev = newPrev;
             branch: ScheduleBranch => branch.prev = newPrev;

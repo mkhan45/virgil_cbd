@@ -60,12 +60,9 @@ class ScheduleChecker {
 
     def check_deps_in_scope(node: IRNode, scope: ImmNodeSet) -> bool {
         def prev_err_len = errors.length;
-        def deps = node.deps();
-        for (i < deps.length) {
-            def dep = deps[i];
-            if (dep.id == node.id) continue;
-            if (!scope.has(dep)) errors.put(ScheduleError.UnsatNeed(node, dep));
-        }
+        node.applyDeps(fun (dep: IRNode) {
+            if (dep.id != node.id && !scope.has(dep)) errors.put(ScheduleError.UnsatNeed(node, dep));
+        });
         return errors.length == prev_err_len;
     }
 
@@ -87,7 +84,7 @@ class ScheduleChecker {
             if (node.is_phi() && !scheduled.has(node)) {
                 errors.put(ScheduleError.UnscheduledPhi(node));
             }
-            for (dep in node.deps()) wl.put(dep);
+            node.applyDeps(fun (dep: IRNode) { wl.put(dep); });
         }
     }
 

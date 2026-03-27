@@ -6,16 +6,14 @@ class DomGraph {
 
     new(id) {}
 
-    def has(node: IRNode) -> bool {
+    def has(node: IRNode) -> bool #inline {
         if (local_nodes.has(node)) return true;
         for (i < parents.length) if (parents[i].has(node)) return true;
         return false;
     }
-    def addLocal(node: IRNode) -> this { local_nodes.put(node); }
+    def addLocal(node: IRNode) -> this #inline { local_nodes.put(node); }
 
-    def withParent(parent: DomGraph) -> this {
-        parents.put(parent);
-    }
+    def withParent(parent: DomGraph) -> this #inline { parents.put(parent); }
 
     def render(buf: StringBuilder) -> StringBuilder => SeaRender.renderDomGraph(this, buf);
 }
