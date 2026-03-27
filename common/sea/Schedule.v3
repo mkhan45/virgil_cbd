@@ -223,25 +223,16 @@ class SeaScheduler {
         q = Vector<IRNode>.new();
         q.put(bottom_node);
 
-        var gas = 1500;
         q_idx = 0;
         while (q_idx < q.length) {
             // max successful idx 
             // - for CBD (I32/I64_DIV_S): 30
             // - for SPLIT_BRANCHES: 122
             // - for EFFECT_LIFT_OVER_PARENT_COND: 434
-            gas -= 1;
-            if (gas <= 0) {
-                System.puts(Strings.format1("ERROR: Scheduling %s reached limit\n", opcode));
-                break;
-            }
-
-            if (q_idx > 500) {
-                def nq = Vector<IRNode>.new();
-                for (i = q_idx; i < q.length; i += 1) nq.put(q[i]);
-                q = nq;
-                q_idx = 0;
-            }
+            // if (q_idx > 500) {
+            //     System.puts(Strings.format1("ERROR: Scheduling %s reached limit\n", opcode));
+            //     break;
+            // }
 
             var node = q[q_idx];
             q_idx += 1;
