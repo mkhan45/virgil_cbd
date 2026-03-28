@@ -43,8 +43,7 @@ class SeaScheduler {
     var mapping: NodeMap<IRNode>;
     var opcode: string = "";
     var live: NodeSet;
-    var q: Vector<IRNode>;
-    var q_idx: int;
+    var q: VecDeque<IRNode>;
 
     var top_node: IRNode;
     var bottom_node: IRNode;
@@ -221,11 +220,10 @@ class SeaScheduler {
         if (opcode != null && trace_full) CBDInfo.addString(opcode, "info_untangled", "", SeaRender.renderSchedulerUntangled(this, StringBuilder.new()).toString());
 
         compute_use_counts();
-        q = Vector<IRNode>.new();
-        q.put(bottom_node);
+        q = VecDeque<IRNode>.new();
+        q.enqueue(bottom_node);
 
-        q_idx = 0;
-        while (q_idx < q.length) {
+        while (!q.empty()) {
             // max successful idx 
             // - for CBD (I32/I64_DIV_S): 30
             // - for SPLIT_BRANCHES: 122
@@ -235,17 +233,13 @@ class SeaScheduler {
             //     break;
             // }
 
-            var node = q[q_idx];
-            q_idx += 1;
+            var node = q.dequeue();
 
             if (node.is_move()) {
-                // Propagate the Move's lowBound to its non-condition deps
-                // so that value phi arm values get scheduled inside their
-                // branch blocks rather than floating to the outermost block.
                 def lb = lowBounds[node];
                 node.applyDeps(fun (d: IRNode) {
                     if (lb != null && d.id != node.value_deps[0].id) {
-                        if (trace_full) System.puts(Strings.format3("  Move %q sets lowBound[%q] = %d\n", node.render, d.render, lb.id));
+                        trace_print(Strings.format3("  Move %q sets lowBound[%q] = %d\n", node.render, d.render, lb.id));
                         lowBounds[d] = lb;
                     }
                     enqueue_dep(node, d);
@@ -253,12 +247,12 @@ class SeaScheduler {
                 continue;
             }
 
-            if (trace_full) System.puts(Strings.format2("Node: %q, q length: %d\n", node.render, q.length - q_idx));
+            trace_print(Strings.format2("Node: %q, q length: %d\n", node.render, q.length));
 
             // traverse existing schedule, put node in first available spot
             def lower_bound = if(lowBounds[node] != null, lowBounds[node], bottom_block);
             // def lower_bound = bottom_block;
-            if (trace_full && node.is_phi()) System.puts(Strings.format2("  lowBound: %d (bottom=%d)\n", lower_bound.id, bottom_block.id));
+            if (node.is_phi()) trace_print(Strings.format2("  lowBound: %d (bottom=%d)\n", lower_bound.id, bottom_block.id));
             def dest_block = lower_bound.schedule(node, null);
             if (dest_block != null) {
                 node.applyDeps(fun (d: IRNode) {
@@ -266,7 +260,7 @@ class SeaScheduler {
                     enqueue_dep(node, d);
                 });
             } else {
-                // q.put(node);
+                // q.enqueue(node);
             }
         }
 
@@ -303,12 +297,12 @@ class SeaScheduler {
             if (child.is_move() && child.value_deps[0].id == node.id) continue;
 
             def has = schedule_node.dominants.has(child);
-            if (trace_full) System.puts(
+            trace_print(
                     Strings.format3("%s, have %s : %s\n", 
                         Strings.format1("Block %d", schedule_node.id),
                         Strings.format2("%q (%d)", child.render, child.id),
-                        if(has, "YES", "NO")
-                    ));
+                        if(has, "YES", "NO"))
+            );
             ready &= has;
         }
 
@@ -500,10 +494,8 @@ class SeaScheduler {
 
             def bl = next_bl;
 
-            if (trace_full) {
-                System.puts(Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
-                System.puts(Strings.format2("lsg: %q\nrsg: %q\n", bl.l_subgraph.renderFull(_, sea), bl.r_subgraph.renderFull(_, sea)));
-            }
+            trace_print(Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
+            trace_print(Strings.format2("lsg: %q\nrsg: %q\n", bl.l_subgraph.renderFull(_, sea), bl.r_subgraph.renderFull(_, sea)));
 
             // Clone left and right subgraphs
             def lsg_clone = Seas.cloneSubgraph(sea, bl.l_subgraph);
@@ -594,13 +586,13 @@ class SeaScheduler {
             seen_groups.put(bl.id);
             bl.unscheduled_phi_child_count--;
             if (bl.unscheduled_phi_child_count == 0) {
-                for (i < bl.phis.length) q.put(bl.phis[i]);
+                for (i < bl.phis.length) q.enqueue(bl.phis[i]);
             }
             return;
         }
 
         dep.unscheduled_use_count -= 1;
-        if (dep.unscheduled_use_count <= 0) q.put(dep);
+        if (dep.unscheduled_use_count <= 0) q.enqueue(dep);
     }
 
     def check() {
@@ -611,6 +603,10 @@ class SeaScheduler {
             System.puts(Strings.format1("ERROR: Invalid schedule for %s\n", opcode));
             for (i < errors.length) System.puts(Strings.format2("%d: %q\n", i, errors[i].render));
         }
+    }
+
+    def trace_print(s: string) #inline {
+        if (trace_full) System.puts(s);
     }
 }
 
@@ -650,18 +646,14 @@ class CFGNode(id: int, scheduler: SeaScheduler) {
         if (upper_limit != null && this.id == upper_limit.id) return null;
         if (dominants.has(node)) return this;
 
-        if (scheduler.trace_full) {
-            System.puts("attempting to schedule ");
-            System.puts(Strings.format3("%q into %d\n\tdoms: %q\n", node.render, id, dominants.render));
-        }
+        trace_print("attempting to schedule ");
+        trace_print(Strings.format3("%q into %d\n\tdoms: %q\n", node.render, id, dominants.render));
 
         def ready = scheduler.isReady(node, this);
-        if (scheduler.trace_full) {
-            if (ready) {
-                System.puts(Strings.format3("%q ready in %d\n\tdoms: %q\n", node.render, id, dominants.render));
-            } else {
-                System.puts(Strings.format2("%q NOT ready in %d\n\n", node.render, id));
-            }
+        if (ready) {
+            trace_print(Strings.format3("%q ready in %d\n\tdoms: %q\n", node.render, id, dominants.render));
+        } else {
+            trace_print(Strings.format2("%q NOT ready in %d\n\n", node.render, id));
         }
 
         if (ready && node.is_phi()) return scheduleReadyPhi(node, upper_limit);
@@ -741,7 +733,7 @@ class CFGNode(id: int, scheduler: SeaScheduler) {
         def block = CFGBlock.new(fresh_id(), scheduler);
         if (scheduler.top_block.id == this.id) scheduler.top_block = block;
 
-        if (scheduler.trace_full) System.puts(Strings.format2("Prepending new schedule block %d to %d\n", block.id, id));
+        trace_print(Strings.format2("Prepending new schedule block %d to %d\n", block.id, id));
 
         var prev: CFGNode;
         match (this) {
@@ -766,10 +758,8 @@ class CFGNode(id: int, scheduler: SeaScheduler) {
 
         block.prims.put(node);
 
-        if (scheduler.trace_full) {
-            System.puts(Strings.format2("Block %d doms: %q\n", block.id, block.dominants.render));
-            System.puts(Strings.format2("Block %d doms: %q\n", id, dominants.render));
-        }
+        trace_print(Strings.format2("Block %d doms: %q\n", block.id, block.dominants.render));
+        trace_print(Strings.format2("Block %d doms: %q\n", id, dominants.render));
 
         return block;
     }
@@ -885,6 +875,8 @@ class CFGNode(id: int, scheduler: SeaScheduler) {
 
         return phi_node;
     }
+
+    def trace_print = scheduler.trace_print;
 }
 
 class CFGBlock(uid: int, scheduler_: SeaScheduler) extends CFGNode(uid, scheduler_) {
