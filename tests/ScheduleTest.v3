@@ -44,12 +44,8 @@ def testOpcode(opcode: string, stmt: VirgilStmt) -> CBDDef {
 	sea.apply(void, SeaTransforms.id_propagate);
 
 	CBDTrace.addCode(opcode, "parsed", sea_ir.toString(0));
+	CBDTrace.addCode(opcode, "initial_pretty", sea_ir.toStringPretty(0));
 	CBDTrace.addGraph(opcode, "raw", sea);
-
-	sea.apply(void, SeaTransforms.overloadOps);
-	CBDTrace.addGraph(opcode, "overloadOps", sea);
-	sea.apply(void, SeaTransforms.addAbstractions);
-	CBDTrace.addGraph(opcode, "addAbstractions", sea);
 
 	// --- Test 1: schedule the initial graph ---
 	var scheduler = Scheduler.of_full_sea_info(sea, ssad_sea_info);

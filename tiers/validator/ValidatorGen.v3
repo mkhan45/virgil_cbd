@@ -45,6 +45,7 @@ def transformDef(opcode: string, stmt: VirgilStmt) -> ValidatorCBDDef {
 
     def raw_mermaid = sea.toMermaid();
     CBDTrace.addCode(opcode, "parsed", sea_ir.toString(0));
+    CBDTrace.addCode(opcode, "initial_pretty", sea_ir.toStringPretty(0));
     CBDTrace.addGraph(opcode, "raw", sea);
 
     ir = ir.appended(stbuilder_call);
