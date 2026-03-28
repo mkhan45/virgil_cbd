@@ -14,8 +14,11 @@ class BranchLattice {
     var r_subgraph: ImmNodeSet;
     var phis: Vector<IRNode>;
     var unscheduled_phi_child_count: int;
+    var id: int;
 
-    new(sea, condition, frontier, l_subgraph, r_subgraph, phis) {}
+    new(sea, condition, frontier, l_subgraph, r_subgraph, phis) {
+        id = fresh_id();
+    }
 
     def can_merge_branches(phi: IRNode) -> bool {
         def left = phi.value_deps[1], right = phi.value_deps[2];
@@ -185,7 +188,7 @@ class SeaScheduler {
     def same_scope(phi: IRNode, bl: BranchLattice) -> bool {
         for (i < branch_lattices.length) {
             def other = branch_lattices[i];
-            if (other.condition.id == bl.condition.id) continue;
+            if (other.id == bl.id) continue;
 
             def phi_in_l = other.l_subgraph.has(phi);
             def phi_in_r = other.r_subgraph.has(phi);
@@ -196,13 +199,11 @@ class SeaScheduler {
 
             for (j < bl.phis.length) {
                 def existing = bl.phis[j];
-                // Similarly, skip if the existing phi is shared.
                 def ex_in_l = other.l_subgraph.has(existing);
                 def ex_in_r = other.r_subgraph.has(existing);
-                if (trace_full) System.puts(Strings.format3("    same_scope:   existing %q: ex_l=%s ex_r=%s\n", existing.render, if(ex_in_l, "Y", "N"), if(ex_in_r, "Y", "N")));
                 if (ex_in_l && ex_in_r) continue;
-                if (phi_in_l && ex_in_r) return false;
-                if (phi_in_r && ex_in_l) return false;
+                if (phi_in_l != ex_in_l) return false;
+                if (phi_in_r != ex_in_r) return false;
             }
         }
         return true;
@@ -265,7 +266,7 @@ class SeaScheduler {
                     enqueue_dep(node, d);
                 });
             } else {
-                q.put(node);
+                // q.put(node);
             }
         }
 
@@ -589,9 +590,8 @@ class SeaScheduler {
         def seen_groups = Vector<int>.new();
         if (dep.is_phi()) {
             def bl = branch_lattice_map[dep];
-            def cond_id = bl.condition.id;
-            for (i < seen_groups.length) if (seen_groups[i] == cond_id) return;
-            seen_groups.put(cond_id);
+            for (i < seen_groups.length) if (seen_groups[i] == bl.id) return;
+            seen_groups.put(bl.id);
             bl.unscheduled_phi_child_count--;
             if (bl.unscheduled_phi_child_count == 0) {
                 for (i < bl.phis.length) q.put(bl.phis[i]);
