@@ -467,3 +467,36 @@ component IntrinsicTypes {
         return (tp, prose_op);
     }
 }
+
+component TypeVars {
+    def from_value_type(vt: ValueType) -> TypeVar {
+        match (vt) {
+            I32 => return TypeVar.U32;
+            I64 => return TypeVar.U64;
+            F32 => return TypeVar.F32;
+            F64 => return TypeVar.F64;
+            V128 => return TypeVar.V128;
+            Ref => return TypeVar.Object;
+            Host => return TypeVar.Object;
+            BOTTOM => return TypeVar.Bot(null);
+        }
+    }
+
+    def args_from_decl(decl: FuncDecl) -> Array<TypeVar> {
+        def v = Vector<TypeVar>.new();
+        for (param in decl.sig.params) v.put(from_value_type(param));
+        return v.copy();
+    }
+
+    def rets_from_decl(decl: FuncDecl) -> Array<TypeVar> {
+        def v = Vector<TypeVar>.new();
+        for (result in decl.sig.results) v.put(from_value_type(result));
+        return v.copy();
+    }
+
+    def locals_from_decl(decl: FuncDecl) -> Array<TypeVar> {
+        def v = Vector<TypeVar>.new();
+        for (i < decl.num_locals) v.put(TypeVar.U32); // TODO: no type, gotta parse from body
+        return v.copy();
+    }
+}

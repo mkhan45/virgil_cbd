@@ -15,8 +15,6 @@ V3C ?= ../virgil/bin/v3c-x86-64-linux -O2 -fun-exprs -simple-bodies
 
 # Common libraries
 COMMON_LIB = $(wildcard common/*.v3 common/*/*.v3)
-CBD_IR_TYPES = common/ir/Types.v3
-CBD_RUNTIME = common/runtime/*.v3
 
 # Dependencies
 GENERATE_DEPS = $(COMMON_LIB) $(DEFS) $(DEFS).sexp $(TYPEDEFS)
@@ -119,8 +117,7 @@ interpreter: generated/Interpreter.v3
 compiler: generated/Compiler.v3
 abstract_interpreter: generated/AI.v3
 wizeng-slow: validator interpreter
-	cp $(CBD_IR_TYPES) wizard-engine/src/engine/cbd/slow/CBDTypes.v3
-	cat common/runtime/Types.v3 >> wizard-engine/src/engine/cbd/slow/CBDTypes.v3
+	cp common/CBDTypes.v3 wizard-engine/src/engine/cbd/slow/CBDTypes.v3
 	cp generated/Interpreter.v3 wizard-engine/src/engine/cbd/slow/CBDInterpreter.v3
 	cp generated/Validator.v3 wizard-engine/src/engine/cbd/slow/CBDValidator.v3
 	cd wizard-engine; ./build.sh --cbd wizeng x86-linux
@@ -131,23 +128,19 @@ wizeng-fast: generated/FastInt.v3
 
 run_interpreter: generated/Interpreter.v3 generated/Validator.v3
 	$(VIRGIL) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		$(CBD_RUNTIME)\
-		$(CBD_IR_TYPES)\
 		generated/Validator.v3 generated/Interpreter.v3 $(INTERPRETER)/InterpreterMain.v3 $(ARGS)
 
 run_validator: generated/Validator.v3
 	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		$(CBD_IR_TYPES)\
 		generated/Validator.v3 $(VALIDATOR)/ValidatorMain.v3 $(ARGS)
 
 run_compiler: generated/Compiler.v3
 	$(VIRGIL) $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		$(CBD_IR_TYPES)\
-		$(CBD_RUNTIME) generated/Validator.v3 generated/Compiler.v3 $(COMPILER)/CompilerMain.v3 $(ARGS)
+		generated/Validator.v3 generated/Compiler.v3 $(COMPILER)/CompilerMain.v3 $(ARGS)
 
 InterpreterMain: generated/Interpreter.v3 generated/Validator.v3
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		$(CBD_IR_TYPES) generated/Validator.v3\
+		generated/Validator.v3\
 		$(CBD_RUNTIME)\
 		generated/Interpreter.v3 $(INTERPRETER)/InterpreterMain.v3
 
@@ -156,21 +149,17 @@ FastInterpreterMain: generated/FastInt.v3 generated/Validator.v3
 		$(VIRGIL_X86_STD)\
 		$(WIZARD)/src/engine/compiler/*.v3\
 		$(WIZARD)/src/engine/x86-64/*.v3\
-		$(CBD_IR_TYPES) generated/Validator.v3\
-		$(CBD_RUNTIME)\
+		generated/Validator.v3\
 		generated/FastInt.v3 $(FAST_INT)/FastIntMain.v3
 
 %AI: abstract_interpreter validator
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		$(CBD_IR_TYPES)\
-		$(CBD_RUNTIME) generated/Validator.v3 generated/AI.v3\
+		generated/Validator.v3 generated/AI.v3\
 		$(AI)/state_mgrs/*.v3 $(AI)/impls/$*.v3 $(AI)/AIMain.v3
 	mv AIMain $@
 
 V3CompilerMain: generated/V3Compiler.v3 validator $(AI)/state_mgrs/CFGStateMgr.v3 generated/Compiler.v3
 	$(V3C) -O2 $(VIRGIL_STD) $(ENGINE) $(V3TARGET) $(UTIL)\
-		$(CBD_IR_TYPES)\
-		$(CBD_RUNTIME)\
 		generated/Validator.v3\
 		$(AI)/state_mgrs/CFGStateMgr.v3\
 		generated/Compiler.v3\
