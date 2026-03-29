@@ -371,4 +371,484 @@ def CROSSED_P_Q_SHARED_POP() {
 	push_u32(left);
 	push_u32(right);
 }
+
+// Initial-scheduler stress: two sibling phis under one condition, with later
+// users that each consume both phis. This targets grouped phi readiness and
+// use-count bookkeeping.
+def Q_PAIR_CHILD_UNDERCOUNT() {
+	var c1 = pop_u32();
+	var q = u32.!=(c1, 0);
+
+	var a: u32 = 0;
+	var b: u32 = 0;
+	if (q) {
+		a = pop_u32();
+		b = pop_u32();
+	} else {
+		a = 11;
+		b = 22;
+	}
+
+	var u1 = u32.+(a, b);
+	var u2 = u32.+(b, a);
+	var u3 = u32.+(u1, u2);
+
+	push_u32(u1);
+	push_u32(u2);
+	push_u32(u3);
+}
+
+// Initial-scheduler stress: the same q-shaped branch appears once outside p
+// and once nested under p, while sharing the same effectful value.
+def OUTSIDE_AND_INSIDE_SAME_Q() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+
+	var x = pop_u32();
+
+	var outer_q: u32 = 0;
+	if (q) {
+		outer_q = u32.+(x, 1);
+	} else {
+		outer_q = 10;
+	}
+
+	var inner_q: u32 = 0;
+	if (p) {
+		if (q) {
+			inner_q = u32.+(x, 2);
+		} else {
+			inner_q = 20;
+		}
+	} else {
+		inner_q = 30;
+	}
+
+	push_u32(outer_q);
+	push_u32(inner_q);
+}
+
+// Initial-scheduler stress: a three-condition crossed overlap, extending the
+// old p/q crossed case into a larger non-laminar lattice.
+def TRIANGLE_P_Q_R_SHARED_POP() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var c3 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+	var r = u32.!=(c3, 0);
+
+	var x = pop_u32();
+
+	var a: u32 = 0;
+	if (p) {
+		if (q) {
+			a = u32.+(x, 1);
+		} else {
+			a = 11;
+		}
+	} else {
+		a = 12;
+	}
+
+	var b: u32 = 0;
+	if (q) {
+		if (r) {
+			b = u32.+(x, 2);
+		} else {
+			b = 21;
+		}
+	} else {
+		b = 22;
+	}
+
+	var d: u32 = 0;
+	if (r) {
+		if (p) {
+			d = u32.+(x, 3);
+		} else {
+			d = 31;
+		}
+	} else {
+		d = 32;
+	}
+
+	push_u32(a);
+	push_u32(b);
+	push_u32(d);
+}
+
+// Initial-scheduler stress: two shared effectful values participate in crossed
+// p/q nesting, so the scheduler has to preserve two guarded effect chains.
+def CROSSED_P_Q_DOUBLE_SHARED_POP() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+
+	var x = pop_u32();
+	var y = pop_u32();
+
+	var left: u32 = 0;
+	if (p) {
+		if (q) {
+			left = u32.+(x, y);
+		} else {
+			left = u32.+(x, 11);
+		}
+	} else {
+		left = 12;
+	}
+
+	var right: u32 = 0;
+	if (q) {
+		if (p) {
+			right = u32.+(y, 2);
+		} else {
+			right = 21;
+		}
+	} else {
+		right = 22;
+	}
+
+	push_u32(left);
+	push_u32(right);
+}
+
+// Initial-scheduler stress: a shared effectful value is wrapped by stacked
+// trivial phis before meeting another branch.
+def TRIVIAL_PHI_STACK_SHARED_EFFECT() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var c3 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+	var r = u32.!=(c3, 0);
+
+	var base: u32 = 0;
+	if (q) {
+		base = pop_u32();
+	} else {
+		base = 5;
+	}
+
+	var wrap1: u32 = 0;
+	if (r) {
+		wrap1 = base;
+	} else {
+		wrap1 = base;
+	}
+
+	var wrap2: u32 = 0;
+	if (p) {
+		wrap2 = wrap1;
+	} else {
+		wrap2 = u32.+(base, 1);
+	}
+
+	push_u32(wrap2);
+}
+
+// Initial-scheduler stress: one q lattice with three sibling phis and several
+// downstream nodes that each consume more than one member of the group.
+def Q_TRIPLE_SHARED_CHILD_FANOUT() {
+	var c1 = pop_u32();
+	var q = u32.!=(c1, 0);
+
+	var a: u32 = 0;
+	var b: u32 = 0;
+	var d: u32 = 0;
+	if (q) {
+		a = pop_u32();
+		b = pop_u32();
+		d = pop_u32();
+	} else {
+		a = 11;
+		b = 22;
+		d = 33;
+	}
+
+	var u1 = u32.+(a, b);
+	var u2 = u32.+(b, d);
+	var u3 = u32.+(d, a);
+	var u4 = u32.+(u1, u2);
+	var u5 = u32.+(u4, u3);
+
+	push_u32(u5);
+}
+
+// Initial-scheduler stress: the same q branch shape appears outside p and on
+// both p sides, all sharing one effectful source.
+def OUTER_Q_AND_BOTH_P_SIDES_Q() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+	var x = pop_u32();
+
+	var outer: u32 = 0;
+	if (q) {
+		outer = u32.+(x, 1);
+	} else {
+		outer = 10;
+	}
+
+	var left: u32 = 0;
+	var right: u32 = 0;
+	if (p) {
+		if (q) {
+			left = u32.+(x, 2);
+		} else {
+			left = 20;
+		}
+		right = 30;
+	} else {
+		left = 40;
+		if (q) {
+			right = u32.+(x, 3);
+		} else {
+			right = 50;
+		}
+	}
+
+	var z = u32.+(outer, u32.+(left, right));
+	push_u32(z);
+}
+
+// Initial-scheduler stress: a 4-condition ring of crossed overlaps sharing one
+// effectful source, intended to need more untangle work than the small cases.
+def P_Q_R_S_RING_SHARED_POP() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var c3 = pop_u32();
+	var c4 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+	var r = u32.!=(c3, 0);
+	var s = u32.!=(c4, 0);
+	var x = pop_u32();
+
+	var a: u32 = 0;
+	if (p) {
+		if (q) {
+			a = u32.+(x, 1);
+		} else {
+			a = 11;
+		}
+	} else {
+		a = 12;
+	}
+
+	var b: u32 = 0;
+	if (q) {
+		if (r) {
+			b = u32.+(x, 2);
+		} else {
+			b = 21;
+		}
+	} else {
+		b = 22;
+	}
+
+	var d: u32 = 0;
+	if (r) {
+		if (s) {
+			d = u32.+(x, 3);
+		} else {
+			d = 31;
+		}
+	} else {
+		d = 32;
+	}
+
+	var e: u32 = 0;
+	if (s) {
+		if (p) {
+			e = u32.+(x, 4);
+		} else {
+			e = 41;
+		}
+	} else {
+		e = 42;
+	}
+
+	push_u32(u32.+(u32.+(a, b), u32.+(d, e)));
+}
+
+// Initial-scheduler stress: combine an outer q branch with the p/q/r triangle
+// so repeated q sites and crossed overlaps happen in the initial graph.
+def Q_OUTER_PLUS_Q_IN_TRIANGLE() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var c3 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+	var r = u32.!=(c3, 0);
+	var x = pop_u32();
+
+	var outer_q: u32 = 0;
+	if (q) {
+		outer_q = u32.+(x, 1);
+	} else {
+		outer_q = 10;
+	}
+
+	var a: u32 = 0;
+	if (p) {
+		if (q) {
+			a = u32.+(x, 2);
+		} else {
+			a = 20;
+		}
+	} else {
+		a = 21;
+	}
+
+	var b: u32 = 0;
+	if (q) {
+		if (r) {
+			b = u32.+(x, 3);
+		} else {
+			b = 30;
+		}
+	} else {
+		b = 31;
+	}
+
+	var d: u32 = 0;
+	if (r) {
+		if (p) {
+			d = u32.+(outer_q, 4);
+		} else {
+			d = 40;
+		}
+	} else {
+		d = 41;
+	}
+
+	push_u32(u32.+(u32.+(a, b), d));
+}
+
+// Initial-scheduler stress: a five-condition overlap ring around one shared
+// effectful source, aimed at outrunning untangle's fixed four-pass budget.
+def P_Q_R_S_T_RING_SHARED_POP() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var c3 = pop_u32();
+	var c4 = pop_u32();
+	var c5 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+	var r = u32.!=(c3, 0);
+	var s = u32.!=(c4, 0);
+	var t = u32.!=(c5, 0);
+	var x = pop_u32();
+
+	var a: u32 = 0;
+	if (p) {
+		if (q) {
+			a = u32.+(x, 1);
+		} else {
+			a = 11;
+		}
+	} else {
+		a = 12;
+	}
+
+	var b: u32 = 0;
+	if (q) {
+		if (r) {
+			b = u32.+(x, 2);
+		} else {
+			b = 21;
+		}
+	} else {
+		b = 22;
+	}
+
+	var d: u32 = 0;
+	if (r) {
+		if (s) {
+			d = u32.+(x, 3);
+		} else {
+			d = 31;
+		}
+	} else {
+		d = 32;
+	}
+
+	var e: u32 = 0;
+	if (s) {
+		if (t) {
+			e = u32.+(x, 4);
+		} else {
+			e = 41;
+		}
+	} else {
+		e = 42;
+	}
+
+	var f: u32 = 0;
+	if (t) {
+		if (p) {
+			f = u32.+(x, 5);
+		} else {
+			f = 51;
+		}
+	} else {
+		f = 52;
+	}
+
+	var z1 = u32.+(a, b);
+	var z2 = u32.+(d, e);
+	var z3 = u32.+(z1, z2);
+	push_u32(u32.+(z3, f));
+}
+
+// Initial-scheduler stress: repeated q sites appear outside p and at four
+// distinct places inside p's two sides, all sharing one effectful source.
+def OUTER_Q_AND_FOUR_INNER_Q_SITES() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+	var x = pop_u32();
+
+	var outer: u32 = 0;
+	if (q) {
+		outer = u32.+(x, 1);
+	} else {
+		outer = 10;
+	}
+
+	var a: u32 = 0;
+	var b: u32 = 0;
+	if (p) {
+		if (q) {
+			a = u32.+(x, 2);
+		} else {
+			a = 20;
+		}
+		if (q) {
+			b = u32.+(x, 3);
+		} else {
+			b = 30;
+		}
+	} else {
+		if (q) {
+			a = u32.+(x, 4);
+		} else {
+			a = 40;
+		}
+		if (q) {
+			b = u32.+(x, 5);
+		} else {
+			b = 50;
+		}
+	}
+
+	push_u32(u32.+(outer, u32.+(a, b)));
+}
 //@bytecode end

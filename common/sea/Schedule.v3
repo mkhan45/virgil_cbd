@@ -717,16 +717,16 @@ class CFGNode(id: int, scheduler: SeaScheduler) {
             }
             phi_node: CFGPhi => {
                 def phi_cond = phi.value_deps[0];
-                if (phi_node.source_branch.condition.id == phi_cond.id) {
-                    System.puts("ERROR: Fusing\n");
-                    return null;
-                } else {
+                // if (phi_node.source_branch.condition.id == phi_cond.id) {
+                //     System.puts("ERROR: Fusing\n");
+                //     return null;
+                // } else {
                     // return phi_node.source_branch.schedule(node, upper_limit);
                     var dest_block = phi_node.l_source.schedule(node, upper_limit);
                     if (dest_block == null) dest_block = phi_node.r_source.schedule(node, upper_limit);
                     if (dest_block == null) dest_block = phi_node.source_branch.schedule(node, upper_limit);
                     return dest_block;
-                }
+                // }
             }
             _ => return null; // unreachable
         }
