@@ -3,6 +3,7 @@
 
 InterpreterMain
 ValidatorGen
+ScheduleTest
 *Main
 *AI
 

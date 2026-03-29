@@ -476,8 +476,8 @@ class SeaScheduler {
         find_branch_lattices();
         filter_branch_lattices_clone_domains();
 
-        var limit = branch_lattices.length * 4; // XXX: idk if this is reasonable
-        // var limit = 100;
+        // var limit = branch_lattices.length * 1; // XXX: idk if this is reasonable
+        var limit = 4;
         while (limit > 0) {
             limit -= 1;
             def sorted = topo_sort_lattices();
@@ -497,33 +497,36 @@ class SeaScheduler {
             trace_print(Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
             trace_print(Strings.format2("lsg: %q\nrsg: %q\n", bl.l_subgraph.renderFull(_, sea), bl.r_subgraph.renderFull(_, sea)));
 
-            // Clone left and right subgraphs
-            def lsg_clone = Seas.cloneSubgraph(sea, bl.l_subgraph);
-            def lsg_clone_mapping = lsg_clone.1;
+            // Clone only the shared (intersecting) nodes instead of both full subgraphs.
+            // Left side keeps the originals; right side gets rewired to the clones.
+            def shared = bl.l_subgraph.intersection(bl.r_subgraph);
+            def shared_clone = Seas.cloneSubgraph(sea, shared);
+            def shared_clone_mapping = shared_clone.1;
 
-            def rsg_clone = Seas.cloneSubgraph(sea, bl.r_subgraph);
-            def rsg_clone_mapping = rsg_clone.1;
-
-            lsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) {
-                mapping[old] = neu;
-                def root = clone_to_orig[old];
-                clone_to_orig[neu] = if(root != null, root, old);
-            });
-            rsg_clone_mapping.apply(fun (old: IRNode, neu: IRNode) {
+            shared_clone_mapping.apply(fun (old: IRNode, neu: IRNode) {
                 mapping[old] = neu;
                 def root = clone_to_orig[old];
                 clone_to_orig[neu] = if(root != null, root, old);
             });
 
+            // Rewire non-shared right-subgraph nodes that depend on shared nodes.
+            def r_only = bl.r_subgraph.withoutAll(shared);
+            for (n in r_only.toArray(sea)) {
+                for (i < n.value_deps.length)
+                    if (n.value_deps[i] != null && shared.has(n.value_deps[i]) && shared_clone_mapping[n.value_deps[i]] != null)
+                        n.value_deps[i] = shared_clone_mapping[n.value_deps[i]];
+                for (i < n.state_deps.length)
+                    if (n.state_deps[i] != null && shared.has(n.state_deps[i]) && shared_clone_mapping[n.state_deps[i]] != null)
+                        n.state_deps[i] = shared_clone_mapping[n.state_deps[i]];
+            }
+
+            // Rewire right phi deps that are shared to point to clones.
             for (j < bl.phis.length) {
                 def phi = bl.phis[j];
-                def l_branch = phi.value_deps[1], r_branch = phi.value_deps[2];
+                def r_branch = phi.value_deps[2];
 
-                if (bl.l_subgraph.has(l_branch) && lsg_clone_mapping[l_branch] != null)
-                    phi.replaceDep(l_branch, lsg_clone_mapping[l_branch]);
-
-                if (bl.r_subgraph.has(r_branch) && rsg_clone_mapping[r_branch] != null)
-                    phi.replaceDep(r_branch, rsg_clone_mapping[r_branch]);
+                if (shared.has(r_branch) && shared_clone_mapping[r_branch] != null)
+                    phi.replaceDep(r_branch, shared_clone_mapping[r_branch]);
             }
 
             // Recompute lattices after each step to avoid stale subgraphs

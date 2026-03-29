@@ -15,19 +15,19 @@ Guidance for improving the performance of the Sea of Nodes scheduler and validat
 ```bash
 # 1. Baseline correctness check
 make validator
-rg generated/Validator.v3 -e "ERROR" | wc -l   # must be 0
+./scripts/schedule_test.sh --canonical | rg FAIL
 
 # 2. Make the optimization
 
 # 3. Correctness check after change
 make validator
-rg generated/Validator.v3 -e "ERROR" | wc -l   # must still be 0
+./scripts/schedule_test.sh --canonical | rg FAIL
 
 # 4. Timing comparison
-make clean && make ValidatorGen
-time ./ValidatorGen > /dev/null                  # compare vs baseline
+make clean && make validator
+hyperfine "./scripts/schedule_test.sh --canonical"
 ```
 
 Take a timing baseline **before** any changes so improvements can be quantified.
 
-If error count increases after an optimization, the optimization is incorrect — revert it before proceeding.
+If error count increases after an optimization, the optimization is incorrect — debug it or re-evaluate.
