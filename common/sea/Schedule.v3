@@ -239,7 +239,7 @@ class SeaScheduler {
                 def lb = lowBounds[node];
                 node.applyDeps(fun (d: IRNode) {
                     if (lb != null && d.id != node.value_deps[0].id) {
-                        trace_print(Strings.format3("  Move %q sets lowBound[%q] = %d\n", node.render, d.render, lb.id));
+                        trace_print(fun => Strings.format3("  Move %q sets lowBound[%q] = %d\n", node.render, d.render, lb.id));
                         lowBounds[d] = lb;
                     }
                     enqueue_dep(node, d);
@@ -247,12 +247,12 @@ class SeaScheduler {
                 continue;
             }
 
-            trace_print(Strings.format2("Node: %q, q length: %d\n", node.render, q.length));
+            trace_print(fun => Strings.format2("Node: %q, q length: %d\n", node.render, q.length));
 
             // traverse existing schedule, put node in first available spot
             def lower_bound = if(lowBounds[node] != null, lowBounds[node], bottom_block);
             // def lower_bound = bottom_block;
-            if (node.is_phi()) trace_print(Strings.format2("  lowBound: %d (bottom=%d)\n", lower_bound.id, bottom_block.id));
+            if (node.is_phi()) trace_print(fun => Strings.format2("  lowBound: %d (bottom=%d)\n", lower_bound.id, bottom_block.id));
             def dest_block = lower_bound.schedule(node, null);
             if (dest_block != null) {
                 node.applyDeps(fun (d: IRNode) {
@@ -297,7 +297,7 @@ class SeaScheduler {
             if (child.is_move() && child.value_deps[0].id == node.id) continue;
 
             def has = schedule_node.dominants.has(child);
-            trace_print(
+            trace_print(fun =>
                     Strings.format3("%s, have %s : %s\n", 
                         Strings.format1("Block %d", schedule_node.id),
                         Strings.format2("%q (%d)", child.render, child.id),
@@ -494,8 +494,8 @@ class SeaScheduler {
 
             def bl = next_bl;
 
-            trace_print(Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
-            trace_print(Strings.format2("lsg: %q\nrsg: %q\n", bl.l_subgraph.renderFull(_, sea), bl.r_subgraph.renderFull(_, sea)));
+            trace_print(fun => Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
+            trace_print(fun => Strings.format2("lsg: %q\nrsg: %q\n", bl.l_subgraph.renderFull(_, sea), bl.r_subgraph.renderFull(_, sea)));
 
             // Clone only the shared (intersecting) nodes instead of both full subgraphs.
             // Left side keeps the originals; right side gets rewired to the clones.
@@ -608,8 +608,8 @@ class SeaScheduler {
         }
     }
 
-    def trace_print(s: string) #inline {
-        if (trace_full) System.puts(s);
+    def trace_print(s: void -> string) #inline {
+        if (trace_full) System.puts(s());
     }
 }
 
@@ -649,14 +649,14 @@ class CFGNode(id: int, scheduler: SeaScheduler) {
         if (upper_limit != null && this.id == upper_limit.id) return null;
         if (dominants.has(node)) return this;
 
-        trace_print("attempting to schedule ");
-        trace_print(Strings.format3("%q into %d\n\tdoms: %q\n", node.render, id, dominants.render));
+        trace_print(fun => "attempting to schedule ");
+        trace_print(fun => Strings.format3("%q into %d\n\tdoms: %q\n", node.render, id, dominants.render));
 
         def ready = scheduler.isReady(node, this);
         if (ready) {
-            trace_print(Strings.format3("%q ready in %d\n\tdoms: %q\n", node.render, id, dominants.render));
+            trace_print(fun => Strings.format3("%q ready in %d\n\tdoms: %q\n", node.render, id, dominants.render));
         } else {
-            trace_print(Strings.format2("%q NOT ready in %d\n\n", node.render, id));
+            trace_print(fun => Strings.format2("%q NOT ready in %d\n\n", node.render, id));
         }
 
         if (ready && node.is_phi()) return scheduleReadyPhi(node, upper_limit);
@@ -736,7 +736,7 @@ class CFGNode(id: int, scheduler: SeaScheduler) {
         def block = CFGBlock.new(fresh_id(), scheduler);
         if (scheduler.top_block.id == this.id) scheduler.top_block = block;
 
-        trace_print(Strings.format2("Prepending new schedule block %d to %d\n", block.id, id));
+        trace_print(fun => Strings.format2("Prepending new schedule block %d to %d\n", block.id, id));
 
         var prev: CFGNode;
         match (this) {
@@ -761,8 +761,8 @@ class CFGNode(id: int, scheduler: SeaScheduler) {
 
         block.prims.put(node);
 
-        trace_print(Strings.format2("Block %d doms: %q\n", block.id, block.dominants.render));
-        trace_print(Strings.format2("Block %d doms: %q\n", id, dominants.render));
+        trace_print(fun => Strings.format2("Block %d doms: %q\n", block.id, block.dominants.render));
+        trace_print(fun => Strings.format2("Block %d doms: %q\n", id, dominants.render));
 
         return block;
     }

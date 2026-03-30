@@ -57,14 +57,16 @@ def testOpcode(opcode: string, stmt: VirgilStmt) -> CBDDef {
 	def scheduler_ssad_info = scheduler.bottom_block.toSSADSeaInfo();
 	def scheduler_ssad = scheduler_ssad_info.0;
 	def scheduler_sea_info = scheduler_ssad_info.1;
-	CBDTrace.addCode(opcode, "scheduler_ssad", scheduler_ssad.toString(0));
-	CBDTrace.addCode(opcode, "scheduler_ssad_pretty", scheduler_ssad.toStringPrettyWithSeaInfo(0, scheduler_sea_info));
+        def ssad_string = scheduler_ssad.toString(0);
+        def ssad_string_pretty = scheduler_ssad.toStringPrettyWithSeaInfo(0, scheduler_sea_info);
+	CBDTrace.addCode(opcode, "scheduler_ssad", ssad_string);
+	CBDTrace.addCode(opcode, "scheduler_ssad_pretty", ssad_string_pretty);
         if (trace) {
             System.puts(Strings.format1("--- %s [initial] raw SSAD ---\n", opcode));
-            System.puts(scheduler_ssad.toString(0));
+            System.puts(ssad_string);
             System.puts("\n---\n");
             System.puts(Strings.format1("--- %s [initial] pretty SSAD ---\n", opcode));
-            System.puts(scheduler_ssad.toStringPrettyWithSeaInfo(0, scheduler_sea_info));
+            System.puts(ssad_string_pretty);
             System.puts("\n---\n");
         }
 
@@ -97,13 +99,14 @@ def testOpcode(opcode: string, stmt: VirgilStmt) -> CBDDef {
 	def unlem_ssa_info = ulscheduler.bottom_block.toSSADSeaInfo();
 	def unlem_ssa = unlem_ssa_info.0;
 	def unlem_sea_info = unlem_ssa_info.1;
-	CBDTrace.addCode(opcode, "unlem_schedule", unlem_ssa.toString(0));
+        def unlem_ssa_string = unlem_ssa.toString(0);
+        def unlem_ssa_string_pretty = unlem_ssa.toStringPrettyWithSeaInfo(0, unlem_sea_info);
 	CBDTrace.addString(opcode, "unlem_scheduler", "graph", ulscheduler.toMermaid());
-	CBDTrace.addCode(opcode, "unlem_scheduler_ssa", unlem_ssa.toString(0));
-	CBDTrace.addCode(opcode, "unlem_scheduler_ssa_pretty", unlem_ssa.toStringPrettyWithSeaInfo(0, unlem_sea_info));
+	CBDTrace.addCode(opcode, "unlem_scheduler_ssa", unlem_ssa_string);
+	CBDTrace.addCode(opcode, "unlem_scheduler_ssa_pretty", unlem_ssa_string_pretty);
         if (trace) {
             System.puts(Strings.format1("--- %s [unLEM] SSAD ---\n", opcode));
-            System.puts(unlem_ssa.toStringPrettyWithSeaInfo(0, unlem_sea_info));
+            System.puts(unlem_ssa_string_pretty);
             System.puts("\n---\n");
         }
 
@@ -114,7 +117,7 @@ def testOpcode(opcode: string, stmt: VirgilStmt) -> CBDDef {
 	ul_sc.check();
 	reportResult(opcode, "unLEM", ul_sc.errors);
 
-	return CBDDef.new(opcode, unlem_ssa, unlem_sea_info);
+	return CBDDef.new(opcode, scheduler_ssad, scheduler_sea_info);
 }
 
 def main(args: Array<string>) {
