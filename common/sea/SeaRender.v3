@@ -309,6 +309,33 @@ component SeaRender {
         return sb;
     }
 
+    def renderGraphError(err: GraphError, sb: StringBuilder) -> StringBuilder {
+        match (err) {
+            Cycle => sb.puts("Cycle");
+            InvalidStructure => sb.puts("InvalidStructure");
+            NotAffine(node, sc) => {
+                sb.puts("NotAffine: ").putq(renderIRNode(node, _));
+                sb.puts(" writes ").puts(sc.name).puts(" but is not on the write chain to Finish");
+            }
+            UnsealedBranchError(phi, source, from, to, side) => {
+                if (from != null && to != null && from.is_phi() && to.is_phi()) {
+                    sb.puts("UnsealedBranchError: ").putq(renderIRNode(source, _));
+                    sb.puts(" is branch-exclusive on the ").puts(if(side, "left", "right")).puts(" side of ");
+                    sb.putq(renderIRNode(phi, _));
+                    sb.puts(" and conflicts with same-condition merge ").putq(renderIRNode(to, _));
+                    return sb;
+                }
+                sb.puts("UnsealedBranchError: ").putq(renderIRNode(source, _));
+                sb.puts(" escapes the ").puts(if(side, "left", "right")).puts(" branch of ");
+                sb.putq(renderIRNode(phi, _));
+                sb.puts(" via ").putq(renderIRNode(from, _));
+                sb.puts(" -> ").putq(renderIRNode(to, _));
+                sb.puts(" without Phi/StatePhi sealing");
+            }
+        }
+        return sb;
+    }
+
     // === Compact text rendering helpers ===
 
     // Writes n spaces to buf.

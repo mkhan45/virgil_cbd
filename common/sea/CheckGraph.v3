@@ -1,0 +1,280 @@
+type GraphError {
+    case Cycle;
+    case InvalidStructure;
+    case NotAffine(node: IRNode, sc: StateComponent);
+    case UnsealedBranchError(phi: IRNode, source: IRNode, from: IRNode, to: IRNode, side: bool);
+
+    def render(sb: StringBuilder) -> StringBuilder => SeaRender.renderGraphError(this, sb);
+}
+
+class GraphChecker {
+    var errors: Vector<GraphError> = Vector.new();
+
+    var graph: Sea;
+    new(graph) {}
+
+    def check() {
+        graph.rebuildChildren();
+        graph.clearDepsCache();
+        check_affine();
+        check_branch_effs_sealed();
+    }
+
+    def check_acyclic() {
+        // TODO
+    }
+
+    def check_structure() {
+        // TODO
+        // - check start/finish exist
+        // - check arities (intrinsics, phis)
+        // - check state dep length
+    }
+
+    // Verify that, for each state component, the write chain from Finish
+    // backward reaches every live writer.  An unreachable writer means its
+    // state modification is lost — the chain forked without a matching merge.
+    def check_affine() {
+        def live = Seas.live(graph);
+        for (sc in StateComponent.set.all) {
+            if (graph.finish.state_deps[sc.tag] == null) continue;
+            def on_chain = NodeSet.new();
+            walk_write_chain(graph.finish.state_deps[sc.tag], sc, on_chain);
+            for (i < graph.nodes_by_id.length) {
+                def node = graph.nodes_by_id[i];
+                if (node == null) continue;
+                if (live.has(node) && writes_sc(node, sc) && !on_chain.has(node))
+                    errors.put(GraphError.NotAffine(node, sc));
+            }
+        }
+    }
+
+    // Walk the write chain for sc backward from node, collecting all
+    // producers into on_chain.  At StatePhis the walk branches into both
+    // arms; at Intrinsic writers and Moves it follows state_deps.
+    def walk_write_chain(node: IRNode, sc: StateComponent, on_chain: NodeSet) {
+        if (node == null || on_chain.has(node)) return;
+        on_chain.put(node);
+        match (node.op) {
+            Start => ;
+            Intrinsic(defn) => {
+                if (defn.writes - sc != defn.writes)
+                    walk_write_chain(node.state_deps[sc.tag], sc, on_chain);
+            }
+            StatePhi(statecomps) => {
+                if (statecomps - sc != statecomps) {
+                    walk_write_chain(node.value_deps[1], sc, on_chain);
+                    walk_write_chain(node.value_deps[2], sc, on_chain);
+                }
+            }
+            Move(_) => {
+                walk_write_chain(node.state_deps[sc.tag], sc, on_chain);
+            }
+            _ => ;
+        }
+    }
+
+    def writes_sc(node: IRNode, sc: StateComponent) -> bool {
+        match (node.op) {
+            Start => return true;
+            Intrinsic(defn) => return defn.writes - sc != defn.writes;
+            StatePhi(statecomps) => return statecomps - sc != statecomps;
+            _ => return false;
+        }
+    }
+
+    def has_writes(node: IRNode) -> bool {
+        match (node.op) {
+            Intrinsic(defn) => {
+                for (sc in defn.writes) return true;
+            }
+            _ => ;
+        }
+        return false;
+    }
+
+    def depends_on(node: IRNode, dep: IRNode) -> bool {
+        for (i < node.value_deps.length)
+            if (node.value_deps[i] != null && node.value_deps[i].id == dep.id) return true;
+        for (i < node.state_deps.length)
+            if (node.state_deps[i] != null && node.state_deps[i].id == dep.id) return true;
+        return false;
+    }
+
+    def check_branch_eff_source_sealed(phi: IRNode, source: IRNode, side: bool, live: NodeSet) {
+        def visited = NodeSet.new();
+        def wl = Vector<IRNode>.new();
+        visited.put(source);
+        wl.put(source);
+        var wi = 0;
+
+        while (wi < wl.length) {
+            def node = wl[wi];
+            wi += 1;
+            for (i < node.children.length) {
+                def child = node.children[i];
+                if (child == null || !live.has(child) || visited.has(child)) continue;
+                if (child.is_phi()) {
+                    visited.put(child);
+                    continue;
+                }
+                if (depends_on(child, phi)) {
+                    errors.put(GraphError.UnsealedBranchError(phi, source, node, child, side));
+                    return;
+                }
+
+                if (!visited.has(child)) {
+                    visited.put(child);
+                    wl.put(child);
+                }
+            }
+        }
+    }
+
+    def same_scope(phi1: IRNode, phi2: IRNode,
+                   statephis: Vector<IRNode>, partitions: NodeMap<BranchPartition>) -> bool {
+        for (i < statephis.length) {
+            def other = statephis[i];
+            if (other.id == phi1.id || other.id == phi2.id) continue;
+
+            def part = partitions[other];
+            def p1_in_l = part.l_subgraph.has(phi1), p1_in_r = part.r_subgraph.has(phi1);
+            def p2_in_l = part.l_subgraph.has(phi2), p2_in_r = part.r_subgraph.has(phi2);
+
+            if ((!p1_in_l && !p1_in_r) || (p1_in_l && p1_in_r)) continue;
+            if ((!p2_in_l && !p2_in_r) || (p2_in_l && p2_in_r)) continue;
+            if (p1_in_l != p2_in_l) return false;
+            if (p1_in_r != p2_in_r) return false;
+        }
+        return true;
+    }
+
+    def edge_uses_value(parent: IRNode, child: IRNode) -> bool {
+        for (i < child.value_deps.length) {
+            def dep = child.value_deps[i];
+            if (dep == null || dep.id != parent.id) continue;
+            match (child.op) {
+                StatePhi(_) => {
+                    if (i != 1 && i != 2) return true;
+                }
+                _ => return true;
+            }
+        }
+        return false;
+    }
+
+    // Before addMoves, StatePhi arm deps live in value_deps[1/2], so distinguish
+    // true value flow from state-only flow. We only care about value escape here:
+    // a state-only writer like push_u32 is semantically contained by the
+    // StatePhi merge, but an effectful node whose value reaches a phi boundary
+    // can leak branch-local meaning out to another scope.
+    def has_value_escape_boundary(source: IRNode, live: NodeSet) -> bool {
+        def seen_state = NodeSet.new();
+        def seen_value = NodeSet.new();
+        def wl_nodes = Vector<IRNode>.new();
+        def wl_value = Vector<bool>.new();
+        seen_state.put(source);
+        wl_nodes.put(source);
+        wl_value.put(false);
+        var wi = 0;
+
+        while (wi < wl_nodes.length) {
+            def node = wl_nodes[wi];
+            def escaped_value = wl_value[wi];
+            wi += 1;
+
+            for (i < node.children.length) {
+                def child = node.children[i];
+                if (child == null || !live.has(child)) continue;
+                def child_escaped = escaped_value || edge_uses_value(node, child);
+                if (child.is_phi()) {
+                    if (child_escaped) return true;
+                    continue;
+                }
+
+                if (child_escaped) {
+                    if (seen_value.has(child)) continue;
+                    seen_value.put(child);
+                } else {
+                    if (seen_state.has(child)) continue;
+                    seen_state.put(child);
+                }
+                wl_nodes.put(child);
+                wl_value.put(child_escaped);
+            }
+        }
+        return false;
+    }
+
+    def branch_writer_witness(partition: BranchPartition, sc: StateComponent, live: NodeSet) -> (IRNode, bool) {
+        for (i < graph.nodes_by_id.length) {
+            def source = graph.nodes_by_id[i];
+            if (source == null || !live.has(source) || !has_writes(source) || !writes_sc(source, sc)) continue;
+            if (!has_value_escape_boundary(source, live)) continue;
+            if (partition.l_subgraph.has(source)) return (source, true);
+            if (partition.r_subgraph.has(source)) return (source, false);
+        }
+        return (null, false);
+    }
+
+    def check_branch_effs_sealed() {
+        def live = Seas.live(graph);
+        def statephis = Vector<IRNode>.new();
+        def partitions = NodeMap<BranchPartition>.new();
+        for (i < graph.nodes_by_id.length) {
+            def phi = graph.nodes_by_id[i];
+            if (phi == null || !live.has(phi)) continue;
+            match (phi.op) {
+                StatePhi(_) => {
+                    def partition = graph.branch_partition(phi);
+                    statephis.put(phi);
+                    partitions[phi] = partition;
+                    for (j < graph.nodes_by_id.length) {
+                        def source = graph.nodes_by_id[j];
+                        if (source == null || !live.has(source) || !has_writes(source)) continue;
+                        if (partition.l_subgraph.has(source))
+                            check_branch_eff_source_sealed(phi, source, true, live);
+                        if (partition.r_subgraph.has(source))
+                            check_branch_eff_source_sealed(phi, source, false, live);
+                    }
+                }
+                _ => ;
+            }
+        }
+
+        for (i < statephis.length) {
+            def phi1 = statephis[i];
+            def part1 = partitions[phi1];
+            def cond1 = phi1.value_deps[0];
+            match (phi1.op) {
+                StatePhi(scs1) => {
+                    // If the same condition is materialized in incompatible
+                    // enclosing branch scopes, then a branch-exclusive effectful
+                    // value may not escape both scopes unsealed. That would make
+                    // the graph's conditional meaning ambiguous even before any
+                    // particular scheduler is considered.
+                    for (j = i + 1; j < statephis.length; j++) {
+                        def phi2 = statephis[j];
+                        if (phi2.value_deps[0].id != cond1.id || same_scope(phi1, phi2, statephis, partitions)) continue;
+                        match (phi2.op) {
+                            StatePhi(scs2) => {
+                                for (sc in scs1) {
+                                    if (scs2 - sc == scs2) continue;
+                                    def w1 = branch_writer_witness(part1, sc, live);
+                                    if (w1.0 == null) continue;
+                                    def w2 = branch_writer_witness(partitions[phi2], sc, live);
+                                    if (w2.0 == null) continue;
+                                    errors.put(GraphError.UnsealedBranchError(phi1, w1.0, phi1, phi2, w1.1));
+                                    errors.put(GraphError.UnsealedBranchError(phi2, w2.0, phi2, phi1, w2.1));
+                                    break;
+                                }
+                            }
+                            _ => ;
+                        }
+                    }
+                }
+                _ => ;
+            }
+        }
+    }
+}

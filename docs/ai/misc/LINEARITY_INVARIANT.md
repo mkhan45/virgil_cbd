@@ -1,4 +1,4 @@
-# State Linearity Within Branches
+# State Affinity Within Branches
 
 ## Background: VSDG Gamma Nodes vs Sea Phi Nodes
 
@@ -33,13 +33,13 @@ Each node consumes S from exactly one predecessor and produces S for exactly one
 
 **Post-merge consumer.** For a StatePhi P, a *post-merge consumer* is any node N that directly depends on P (P appears in `N.value_deps` or `N.state_deps`).
 
-## The Principle: State Linearity
+## The Principle: State Affinity
 
-State components are linear resources in the Wadler sense: at any program point, there is exactly one "current version" of state S. An operation consumes the current version and produces the next version. The state chain for S is a single thread of control — it doesn't fork.
+State components are affine resources with respect to writes: at any program point, there is exactly one "current version" of state S, and any number of nodes may read it, but at most one write may advance it to a new version. The state chain for S — the sequence of writes — is a single thread of control that doesn't fork.
 
-At a conditional, the state chain *branches*: the version of S entering the conditional flows to both arms, each arm may produce new versions through writes, and a `StatePhi` merges the two resulting versions into one. After the merge, only the merged version exists — the branch-internal versions are consumed.
+At a conditional, the state chain *branches*: the version of S entering the conditional flows to both arms, each arm may produce new versions through writes, and a `StatePhi` merges the two resulting versions into one. After the merge, only the merged version exists — the branch-internal versions are consumed by the merge.
 
-Linearity means each version is consumed exactly once. If A writes state S inside a branch and `StatePhi` P merges S, then A's state-S output has one consumer: P (possibly through intermediate writes on the same branch, but ultimately reaching P). No other node may consume A's state-S output, because that would fork the linear resource.
+Affinity means each state version has at most one write successor. Reads don't consume the resource — any number of nodes may observe a state version without advancing it. If A writes state S inside a branch, A's state-S output has one write successor: either the next writer on the same branch, or `StatePhi` P itself. No write outside the branch may take A's output as its state-S predecessor, because that would fork the write chain.
 
 ## The Principle: Branch Isolation
 
@@ -99,7 +99,7 @@ The sealed branches invariant has two independent justifications:
 
 | Justification | What it prohibits | Why |
 |---|---|---|
-| **State linearity** | State S output from A consumed by anything other than the next writer on the same branch or P | Forks a linear resource — two consumers of the same state-S version |
+| **State affinity** | State S output from A used as write-predecessor by anything other than the next writer on the same branch or P | Forks the write chain — two writers advancing the same state-S version |
 | **Branch isolation** | Any forward-reachable descendant of A having a post-merge dependency without passing through a Phi/StatePhi | Creates a chain that pulls the effectful node out of the branch, causing unconditional execution of a conditional effect |
 
 ## What This Rules Out

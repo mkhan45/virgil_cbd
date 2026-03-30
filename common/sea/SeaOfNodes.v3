@@ -347,7 +347,6 @@ class Sea {
 
     def branch_partition(node: IRNode) -> BranchPartition {
         def cond = node.value_deps[0], l_branch = node.value_deps[1], r_branch = node.value_deps[2];
-        cond.init_move(this);
 
         def l_phi_aware = cachedTransitiveDepsPhiAware(l_branch);
         def r_phi_aware = cachedTransitiveDepsPhiAware(r_branch);

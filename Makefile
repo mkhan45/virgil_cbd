@@ -44,8 +44,8 @@ $(DEFS).sexp: wizard-engine/src/bytecode/CanonicalDefs.v3
 $(SYNTHETIC_SEXP): $(SYNTHETIC_DEFS)
 	$(VIRGIL) -print-vst $(SYNTHETIC_DEFS) > $(SYNTHETIC_SEXP)
 
-schedule_test: $(SYNTHETIC_SEXP) $(COMMON_LIB) $(TYPEDEFS)
-	$(VIRGIL) $(VIRGIL_STD)\
+ScheduleTest: $(SYNTHETIC_SEXP) $(COMMON_LIB) $(TYPEDEFS)
+	$(V3C) $(VIRGIL_STD)\
 		$(COMMON_LIB)\
 		$(ENGINE)\
 		$(WIZARD_UTIL)\
