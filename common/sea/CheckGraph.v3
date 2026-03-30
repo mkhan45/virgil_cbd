@@ -1,3 +1,15 @@
+type ObligationState(left: ImmNodeSet, right: ImmNodeSet) #unboxed {
+    def isEmpty() -> bool => left.isEmpty() && right.isEmpty();
+}
+
+type SitePos {
+    case Outside;
+    case Left;
+    case Right;
+    case Shared;
+    case Overlap;
+}
+
 type GraphError {
     case Cycle;
     case InvalidStructure;
@@ -93,60 +105,105 @@ class GraphChecker {
         return false;
     }
 
-    def depends_on(node: IRNode, dep: IRNode) -> bool {
-        for (i < node.value_deps.length)
-            if (node.value_deps[i] != null && node.value_deps[i].id == dep.id) return true;
-        for (i < node.state_deps.length)
-            if (node.state_deps[i] != null && node.state_deps[i].id == dep.id) return true;
+    def immset_eq(lhs: ImmNodeSet, rhs: ImmNodeSet) -> bool {
+        def max_len = if(lhs.bits.length > rhs.bits.length, lhs.bits.length, rhs.bits.length);
+        for (i < max_len) {
+            def l = if(i < lhs.bits.length, lhs.bits[i], 0);
+            def r = if(i < rhs.bits.length, rhs.bits[i], 0);
+            if (l != r) return false;
+        }
+        return true;
+    }
+
+    def obligations_eq(lhs: ObligationState, rhs: ObligationState) -> bool {
+        return immset_eq(lhs.left, rhs.left) && immset_eq(lhs.right, rhs.right);
+    }
+
+    def site_pos(site: IRNode, partitions: NodeMap<BranchPartition>, node: IRNode) -> SitePos {
+        if (site.value_deps.length > 2) {
+            if (site.value_deps[1] != null && site.value_deps[1].id == node.id) return SitePos.Left;
+            if (site.value_deps[2] != null && site.value_deps[2].id == node.id) return SitePos.Right;
+        }
+        def part = partitions[site];
+        def in_frontier = part.frontier.has(node);
+        def in_l = part.l_subgraph.has(node);
+        def in_r = part.r_subgraph.has(node);
+
+        if (in_frontier) return SitePos.Shared;
+        if (in_l && in_r) return SitePos.Overlap;
+        if (in_l) return SitePos.Left;
+        if (in_r) return SitePos.Right;
+        return SitePos.Outside;
+    }
+
+    def on_required_side(pos: SitePos, side: bool) -> bool {
+        match (pos) {
+            Left => return side;
+            Right => return !side;
+            _ => return false;
+        }
+    }
+
+    def same_pos(lhs: SitePos, rhs: SitePos) -> bool {
+        match (lhs) {
+            Outside => return SitePos.Outside.?(rhs);
+            Left => return SitePos.Left.?(rhs);
+            Right => return SitePos.Right.?(rhs);
+            Shared => return SitePos.Shared.?(rhs);
+            Overlap => return SitePos.Overlap.?(rhs);
+        }
+    }
+
+    def compatible_branch_sites(a: IRNode, b: IRNode, sites: Vector<IRNode>,
+                                partitions: NodeMap<BranchPartition>) -> bool {
+        for (i < sites.length) {
+            def site = sites[i];
+            if (site.id == a.id || site.id == b.id) continue;
+            if (!same_pos(site_pos(site, partitions, a), site_pos(site, partitions, b))) return false;
+        }
+        return true;
+    }
+
+    def opposite_enclosing_sides(a: IRNode, b: IRNode, sites: Vector<IRNode>,
+                                 partitions: NodeMap<BranchPartition>) -> bool {
+        for (i < sites.length) {
+            def site = sites[i];
+            if (site.id == a.id || site.id == b.id) continue;
+            def apos = site_pos(site, partitions, a);
+            def bpos = site_pos(site, partitions, b);
+            if ((SitePos.Left.?(apos) && SitePos.Right.?(bpos))
+                    || (SitePos.Right.?(apos) && SitePos.Left.?(bpos))) return true;
+        }
         return false;
     }
 
-    def check_branch_eff_source_sealed(phi: IRNode, source: IRNode, side: bool, live: NodeSet) {
-        def visited = NodeSet.new();
-        def wl = Vector<IRNode>.new();
-        visited.put(source);
-        wl.put(source);
-        var wi = 0;
-
-        while (wi < wl.length) {
-            def node = wl[wi];
-            wi += 1;
-            for (i < node.children.length) {
-                def child = node.children[i];
-                if (child == null || !live.has(child) || visited.has(child)) continue;
-                if (child.is_phi()) {
-                    visited.put(child);
-                    continue;
+    def initial_obligations(source: IRNode, sites: Vector<IRNode>,
+                            partitions: NodeMap<BranchPartition>,
+                            left_writers: NodeMap<Array<NodeSet>>,
+                            right_writers: NodeMap<Array<NodeSet>>) -> ObligationState {
+        var left = ImmNodeSets.empty();
+        var right = ImmNodeSets.empty();
+        for (i < sites.length) {
+            def site = sites[i];
+            if (site.value_deps[0] != null && graph.cachedTransitiveDeps(site.value_deps[0]).has(source)) continue;
+            def side_pos = site_pos(site, partitions, source);
+            var in_left = false, in_right = false;
+            match (site.op) {
+                StatePhi(statecomps) => {
+                    for (sc in statecomps) {
+                        if (!writes_sc(source, sc)) continue;
+                        def lset = left_writers[site][sc.tag];
+                        def rset = right_writers[site][sc.tag];
+                        if (lset != null && lset.has(source)) in_left = true;
+                        if (rset != null && rset.has(source)) in_right = true;
+                    }
                 }
-                if (depends_on(child, phi)) {
-                    errors.put(GraphError.UnsealedBranchError(phi, source, node, child, side));
-                    return;
-                }
-
-                if (!visited.has(child)) {
-                    visited.put(child);
-                    wl.put(child);
-                }
+                _ => ;
             }
+            if (SitePos.Left.?(side_pos) && in_left && !in_right) left = left.with(site);
+            if (SitePos.Right.?(side_pos) && in_right && !in_left) right = right.with(site);
         }
-    }
-
-    def same_scope(phi1: IRNode, phi2: IRNode,
-                   statephis: Vector<IRNode>, partitions: NodeMap<BranchPartition>) -> bool {
-        for (i < statephis.length) {
-            def other = statephis[i];
-            if (other.id == phi1.id || other.id == phi2.id) continue;
-
-            def part = partitions[other];
-            def p1_in_l = part.l_subgraph.has(phi1), p1_in_r = part.r_subgraph.has(phi1);
-            def p2_in_l = part.l_subgraph.has(phi2), p2_in_r = part.r_subgraph.has(phi2);
-
-            if ((!p1_in_l && !p1_in_r) || (p1_in_l && p1_in_r)) continue;
-            if ((!p2_in_l && !p2_in_r) || (p2_in_l && p2_in_r)) continue;
-            if (p1_in_l != p2_in_l) return false;
-            if (p1_in_r != p2_in_r) return false;
-        }
-        return true;
+        return ObligationState(left, right);
     }
 
     def edge_uses_value(parent: IRNode, child: IRNode) -> bool {
@@ -163,118 +220,289 @@ class GraphChecker {
         return false;
     }
 
-    // Before addMoves, StatePhi arm deps live in value_deps[1/2], so distinguish
-    // true value flow from state-only flow. We only care about value escape here:
-    // a state-only writer like push_u32 is semantically contained by the
-    // StatePhi merge, but an effectful node whose value reaches a phi boundary
-    // can leak branch-local meaning out to another scope.
+    def matches_site_cond(node: IRNode, site: IRNode) -> bool {
+        return node.value_deps[0] != null && site.value_deps[0] != null && node.value_deps[0].id == site.value_deps[0].id;
+    }
+
+    def is_merge_proxy(node: IRNode) -> bool {
+        match (node.op) {
+            Intrinsic(defn) => return Strings.equal(defn.name, "merge") || Strings.startsWith(defn.name, "merge_");
+            _ => return false;
+        }
+    }
+
+    def merge_proxy_matches(node: IRNode, site: IRNode, sites: Vector<IRNode>,
+                            partitions: NodeMap<BranchPartition>) -> bool {
+        if (!is_merge_proxy(node)) return false;
+        for (i < node.children.length) {
+            def user = node.children[i];
+            if (user == null || !user.is_phi() || user.value_deps.length < 3) continue;
+            if (matches_site_cond(user, site) && compatible_branch_sites(site, user, sites, partitions)) return true;
+            var sibling: IRNode = null;
+            if (user.value_deps[1] != null && user.value_deps[1].id == node.id) sibling = user.value_deps[2];
+            else if (user.value_deps[2] != null && user.value_deps[2].id == node.id) sibling = user.value_deps[1];
+            if (sibling != null && sibling.is_phi() && matches_site_cond(sibling, site)
+                    && compatible_branch_sites(site, sibling, sites, partitions)) return true;
+        }
+        return false;
+    }
+
+    def merge_proxy_references(node: IRNode, site: IRNode) -> bool {
+        if (!is_merge_proxy(node)) return false;
+        for (i < node.children.length) {
+            def user = node.children[i];
+            if (user == null || !user.is_phi() || user.value_deps.length < 3) continue;
+            if (matches_site_cond(user, site)) return true;
+            var sibling: IRNode = null;
+            if (user.value_deps[1] != null && user.value_deps[1].id == node.id) sibling = user.value_deps[2];
+            else if (user.value_deps[2] != null && user.value_deps[2].id == node.id) sibling = user.value_deps[1];
+            if (sibling != null && sibling.is_phi() && matches_site_cond(sibling, site)) return true;
+        }
+        return false;
+    }
+
+    def can_discharge_at(node: IRNode, site: IRNode, side: bool,
+                        sites: Vector<IRNode>,
+                        partitions: NodeMap<BranchPartition>) -> bool {
+        if (node.is_phi() && matches_site_cond(node, site)
+                && compatible_branch_sites(site, node, sites, partitions)) return true;
+        return merge_proxy_matches(node, site, sites, partitions);
+    }
+
+    def references_incompatible_same_cond_site(node: IRNode, site: IRNode, side: bool,
+                                               sites: Vector<IRNode>,
+                                               partitions: NodeMap<BranchPartition>) -> bool {
+        def candidates = Vector<IRNode>.new();
+        match (node.op) {
+            StatePhi(_) => if (matches_site_cond(node, site)) candidates.put(node);
+            _ => ;
+        }
+        if (is_merge_proxy(node)) {
+            for (i < node.children.length) {
+                def user = node.children[i];
+                if (user == null || !user.is_phi() || user.value_deps.length < 3) continue;
+                match (user.op) {
+                    StatePhi(_) => if (matches_site_cond(user, site)) candidates.put(user);
+                    _ => ;
+                }
+                var sibling: IRNode = null;
+                if (user.value_deps[1] != null && user.value_deps[1].id == node.id) sibling = user.value_deps[2];
+                else if (user.value_deps[2] != null && user.value_deps[2].id == node.id) sibling = user.value_deps[1];
+                if (sibling != null && IROp.StatePhi.?(sibling.op) && matches_site_cond(sibling, site)) candidates.put(sibling);
+            }
+        }
+
+        for (i < candidates.length) {
+            def other = candidates[i];
+            if (other.id == site.id) continue;
+            if (!compatible_branch_sites(site, other, sites, partitions)) return true;
+        }
+        return false;
+    }
+
+    def discharge_at(child: IRNode, obligations: ObligationState,
+                     sites: Vector<IRNode>,
+                     partitions: NodeMap<BranchPartition>) -> ObligationState {
+        if (!child.is_phi() && !is_merge_proxy(child)) return obligations;
+
+        var left_remove = Vector<IRNode>.new();
+        var right_remove = Vector<IRNode>.new();
+
+        obligations.left.apply(graph, fun (site: IRNode) {
+            if (can_discharge_at(child, site, true, sites, partitions))
+                left_remove.put(site);
+        });
+        obligations.right.apply(graph, fun (site: IRNode) {
+            if (can_discharge_at(child, site, false, sites, partitions))
+                right_remove.put(site);
+        });
+
+        return ObligationState(
+            obligations.left.withoutAll(ImmNodeSets.of_vec(left_remove)),
+            obligations.right.withoutAll(ImmNodeSets.of_vec(right_remove))
+        );
+    }
+
+    def violated_obligation(node: IRNode, obligations: ObligationState,
+                            sites: Vector<IRNode>,
+                            partitions: NodeMap<BranchPartition>) -> (IRNode, bool) {
+        def bad_site = Array<IRNode>.new(1);
+        def bad_side = Array<bool>.new(1);
+        obligations.left.apply(graph, fun (site: IRNode) {
+            if (bad_site[0] == null && SitePos.Right.?(site_pos(site, partitions, node))) {
+                bad_site[0] = site;
+                bad_side[0] = true;
+            }
+        });
+        obligations.right.apply(graph, fun (site: IRNode) {
+            if (bad_site[0] == null && SitePos.Left.?(site_pos(site, partitions, node))) {
+                bad_site[0] = site;
+                bad_side[0] = false;
+            }
+        });
+        return (bad_site[0], bad_side[0]);
+    }
+
+    def seen_state(states: Vector<ObligationState>, obligations: ObligationState) -> bool {
+        if (states == null) return false;
+        for (i < states.length) if (obligations_eq(states[i], obligations)) return true;
+        return false;
+    }
+
+    def remember_state(seen: NodeMap<Vector<ObligationState>>, node: IRNode,
+                       obligations: ObligationState) {
+        var states = seen[node];
+        if (states == null) {
+            states = Vector<ObligationState>.new();
+            seen[node] = states;
+        }
+        states.put(obligations);
+    }
+
     def has_value_escape_boundary(source: IRNode, live: NodeSet) -> bool {
-        def seen_state = NodeSet.new();
-        def seen_value = NodeSet.new();
-        def wl_nodes = Vector<IRNode>.new();
-        def wl_value = Vector<bool>.new();
-        seen_state.put(source);
-        wl_nodes.put(source);
-        wl_value.put(false);
+        def seen = NodeSet.new();
+        def wl = Vector<IRNode>.new();
+        seen.put(source);
+        wl.put(source);
         var wi = 0;
 
-        while (wi < wl_nodes.length) {
-            def node = wl_nodes[wi];
-            def escaped_value = wl_value[wi];
+        while (wi < wl.length) {
+            def node = wl[wi];
             wi += 1;
-
             for (i < node.children.length) {
                 def child = node.children[i];
-                if (child == null || !live.has(child)) continue;
-                def child_escaped = escaped_value || edge_uses_value(node, child);
-                if (child.is_phi()) {
-                    if (child_escaped) return true;
-                    continue;
-                }
-
-                if (child_escaped) {
-                    if (seen_value.has(child)) continue;
-                    seen_value.put(child);
-                } else {
-                    if (seen_state.has(child)) continue;
-                    seen_state.put(child);
-                }
-                wl_nodes.put(child);
-                wl_value.put(child_escaped);
+                if (child == null || !live.has(child) || !edge_uses_value(node, child)) continue;
+                if (child.is_phi() || is_merge_proxy(child)) return true;
+                if (seen.has(child)) continue;
+                seen.put(child);
+                wl.put(child);
             }
         }
         return false;
     }
 
-    def branch_writer_witness(partition: BranchPartition, sc: StateComponent, live: NodeSet) -> (IRNode, bool) {
-        for (i < graph.nodes_by_id.length) {
-            def source = graph.nodes_by_id[i];
-            if (source == null || !live.has(source) || !has_writes(source) || !writes_sc(source, sc)) continue;
-            if (!has_value_escape_boundary(source, live)) continue;
-            if (partition.l_subgraph.has(source)) return (source, true);
-            if (partition.r_subgraph.has(source)) return (source, false);
+    def source_obligation_side(source: IRNode, site: IRNode, sites: Vector<IRNode>,
+                               partitions: NodeMap<BranchPartition>,
+                               left_writers: NodeMap<Array<NodeSet>>,
+                               right_writers: NodeMap<Array<NodeSet>>) -> (bool, bool) {
+        def obligations = initial_obligations(source, sites, partitions, left_writers, right_writers);
+        if (obligations.left.has(site)) return (true, true);
+        if (obligations.right.has(site)) return (false, true);
+        return (false, false);
+    }
+
+    def check_effectful_source_sealed(source: IRNode, sites: Vector<IRNode>,
+                                      partitions: NodeMap<BranchPartition>,
+                                      left_writers: NodeMap<Array<NodeSet>>,
+                                      right_writers: NodeMap<Array<NodeSet>>, live: NodeSet) {
+        def initial = initial_obligations(source, sites, partitions, left_writers, right_writers);
+        if (initial.isEmpty()) return;
+
+        def seen = NodeMap<Vector<ObligationState>>.new();
+        def wl_nodes = Vector<IRNode>.new();
+        def wl_obligations = Vector<ObligationState>.new();
+        remember_state(seen, source, initial);
+        wl_nodes.put(source);
+        wl_obligations.put(initial);
+        var wi = 0;
+
+        while (wi < wl_nodes.length) {
+            def node = wl_nodes[wi];
+            def obligations = wl_obligations[wi];
+            wi += 1;
+
+            for (i < node.children.length) {
+                def child = node.children[i];
+                if (child == null || !live.has(child) || !edge_uses_value(node, child)) continue;
+
+                def child_obligations = discharge_at(child, obligations, sites, partitions);
+                def violated = violated_obligation(child, child_obligations, sites, partitions);
+                if (violated.0 != null) {
+                    errors.put(GraphError.UnsealedBranchError(violated.0, source, node, child, violated.1));
+                    return;
+                }
+
+                if (seen_state(seen[child], child_obligations)) continue;
+                remember_state(seen, child, child_obligations);
+                wl_nodes.put(child);
+                wl_obligations.put(child_obligations);
+            }
         }
-        return (null, false);
     }
 
     def check_branch_effs_sealed() {
         def live = Seas.live(graph);
-        def statephis = Vector<IRNode>.new();
         def partitions = NodeMap<BranchPartition>.new();
+        def left_writers = NodeMap<Array<NodeSet>>.new();
+        def right_writers = NodeMap<Array<NodeSet>>.new();
+        def sites = Vector<IRNode>.new();
         for (i < graph.nodes_by_id.length) {
-            def phi = graph.nodes_by_id[i];
-            if (phi == null || !live.has(phi)) continue;
-            match (phi.op) {
+            def site = graph.nodes_by_id[i];
+            if (site == null || !live.has(site)) continue;
+            match (site.op) {
                 StatePhi(_) => {
-                    def partition = graph.branch_partition(phi);
-                    statephis.put(phi);
-                    partitions[phi] = partition;
-                    for (j < graph.nodes_by_id.length) {
-                        def source = graph.nodes_by_id[j];
-                        if (source == null || !live.has(source) || !has_writes(source)) continue;
-                        if (partition.l_subgraph.has(source))
-                            check_branch_eff_source_sealed(phi, source, true, live);
-                        if (partition.r_subgraph.has(source))
-                            check_branch_eff_source_sealed(phi, source, false, live);
+                    partitions[site] = graph.branch_partition(site);
+                    def larr = Array<NodeSet>.new(StateComponent.count);
+                    def rarr = Array<NodeSet>.new(StateComponent.count);
+                    match (site.op) {
+                        StatePhi(statecomps) => {
+                            for (sc in statecomps) {
+                                def lset = NodeSet.new();
+                                def rset = NodeSet.new();
+                                walk_write_chain(site.value_deps[1], sc, lset);
+                                walk_write_chain(site.value_deps[2], sc, rset);
+                                larr[sc.tag] = lset;
+                                rarr[sc.tag] = rset;
+                            }
+                        }
+                        _ => ;
                     }
+                    left_writers[site] = larr;
+                    right_writers[site] = rarr;
+                    sites.put(site);
                 }
                 _ => ;
             }
         }
 
-        for (i < statephis.length) {
-            def phi1 = statephis[i];
-            def part1 = partitions[phi1];
-            def cond1 = phi1.value_deps[0];
-            match (phi1.op) {
-                StatePhi(scs1) => {
-                    // If the same condition is materialized in incompatible
-                    // enclosing branch scopes, then a branch-exclusive effectful
-                    // value may not escape both scopes unsealed. That would make
-                    // the graph's conditional meaning ambiguous even before any
-                    // particular scheduler is considered.
-                    for (j = i + 1; j < statephis.length; j++) {
-                        def phi2 = statephis[j];
-                        if (phi2.value_deps[0].id != cond1.id || same_scope(phi1, phi2, statephis, partitions)) continue;
-                        match (phi2.op) {
-                            StatePhi(scs2) => {
-                                for (sc in scs1) {
-                                    if (scs2 - sc == scs2) continue;
-                                    def w1 = branch_writer_witness(part1, sc, live);
-                                    if (w1.0 == null) continue;
-                                    def w2 = branch_writer_witness(partitions[phi2], sc, live);
-                                    if (w2.0 == null) continue;
-                                    errors.put(GraphError.UnsealedBranchError(phi1, w1.0, phi1, phi2, w1.1));
-                                    errors.put(GraphError.UnsealedBranchError(phi2, w2.0, phi2, phi1, w2.1));
-                                    break;
-                                }
-                            }
-                            _ => ;
-                        }
+        for (i < graph.nodes_by_id.length) {
+            def source = graph.nodes_by_id[i];
+            if (source == null || !live.has(source) || !has_writes(source)) continue;
+            check_effectful_source_sealed(source, sites, partitions, left_writers, right_writers, live);
+            if (errors.length > 0) return;
+        }
+
+        for (i < sites.length) {
+            def site1 = sites[i];
+            for (j = i + 1; j < sites.length; j++) {
+                def site2 = sites[j];
+                if (site1.value_deps[0] == null || site2.value_deps[0] == null || site1.value_deps[0].id != site2.value_deps[0].id) continue;
+                if (compatible_branch_sites(site1, site2, sites, partitions)) continue;
+                if (!opposite_enclosing_sides(site1, site2, sites, partitions)) continue;
+
+                var w1: IRNode = null, s1 = false;
+                var w2: IRNode = null, s2 = false;
+                for (k < graph.nodes_by_id.length) {
+                    def source = graph.nodes_by_id[k];
+                    if (source == null || !live.has(source) || !has_writes(source) || !has_value_escape_boundary(source, live)) continue;
+                    def o1 = source_obligation_side(source, site1, sites, partitions, left_writers, right_writers);
+                    if (w1 == null && o1.1) {
+                        w1 = source;
+                        s1 = o1.0;
+                    }
+                    def o2 = source_obligation_side(source, site2, sites, partitions, left_writers, right_writers);
+                    if (w2 == null && o2.1) {
+                        w2 = source;
+                        s2 = o2.0;
                     }
                 }
-                _ => ;
+                if (w1 != null && w2 != null) {
+                    errors.put(GraphError.UnsealedBranchError(site1, w1, site1, site2, s1));
+                    errors.put(GraphError.UnsealedBranchError(site2, w2, site2, site1, s2));
+                    return;
+                }
             }
         }
+
     }
 }
