@@ -38,7 +38,7 @@ component SeaTransforms {
                     def intrinsic_def = Seas.intrinsic(new_f);
                     node.op = IROp.Intrinsic(intrinsic_def);
                     if (intrinsic_def.return_type != null) node.var_data.tipe = intrinsic_def.return_type.primitive;
-                }
+               }
             }
             _ => {}
         }
@@ -269,6 +269,9 @@ component SeaTransforms {
                     start_if = sea.mkNode(IROp.Intrinsic(Seas.intrinsic("startIf")), Array.new(nstates), [cond]);
                     start_else = sea.mkNode(IROp.Intrinsic(Seas.intrinsic("startElse")), Array.new(nstates), [cond]);
                     end = sea.mkNode(IROp.Intrinsic(Seas.intrinsic("end")), Array.new(nstates), [cond]);
+                    start_if.var_data = VarData.new(Seas.uidl("start_if"), TypeVar.Bot("void"), Stage.INTERPRET);
+                    start_else.var_data = VarData.new(Seas.uidl("start_else"), TypeVar.Bot("void"), Stage.INTERPRET);
+                    end.var_data = VarData.new(Seas.uidl("end"), TypeVar.Bot("void"), Stage.INTERPRET);
                     state[cond] = (start_if, start_else, end);
                 }
 

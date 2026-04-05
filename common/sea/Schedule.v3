@@ -54,6 +54,8 @@ class SeaScheduler {
     var branch_lattices: Vector<BranchLattice> = Vector.new();
     var branch_lattice_map: NodeMap<BranchLattice> = NodeMap<BranchLattice>.new();
 
+    var reify_conds = false;
+
     var trace_full: bool = false;
     var lowBounds: NodeMap<CFGNode> = NodeMap<CFGNode>.new();
     var clone_to_orig: NodeMap<IRNode> = NodeMap<IRNode>.new();
@@ -995,8 +997,8 @@ class CFGPhi(uid: int, scheduler_: SeaScheduler) extends CFGNode(uid, scheduler_
 
     def toSSADWithSeaInfo(sea_info: SSADSeaInfo) -> SSAD {
         def cond_name = source_branch.condition.var_data.sourceName;
-        def left = l_source.toSSADWithSeaInfo(sea_info);
-        def right = r_source.toSSADWithSeaInfo(sea_info);
+        var left = l_source.toSSADWithSeaInfo(sea_info);
+        var right = r_source.toSSADWithSeaInfo(sea_info);
 
         def phi_dest_names = Strings.newMap<int>();
         for (cur = phis; cur != null; cur = cur.tail) if (IROp.Phi.?(cur.head.op))
@@ -1033,7 +1035,14 @@ class CFGPhi(uid: int, scheduler_: SeaScheduler) extends CFGNode(uid, scheduler_
 
         var prev_ssad = if(source_branch.prev != null, source_branch.prev.toSSADWithSeaInfo(sea_info), SSAD.Void);
 
-        return prev_ssad.appended(SSAD.If(cond_name, left, right, phi_vec.copy(), SSAD.Void));
+        if (scheduler.reify_conds) {
+            left = SSAD.LetApp("effStartIf", "startIf", [cond_name], left);
+            right = SSAD.LetApp("effStartElse", "startElse", [cond_name], right);
+            def end_cond: SSAD = SSAD.LetApp("effEndCond", "endCond", [cond_name], SSAD.Void);
+            return left.appended(right).appended(end_cond);
+        } else {
+            return prev_ssad.appended(SSAD.If(cond_name, left, right, phi_vec.copy(), SSAD.Void));
+        }
     }
 }
 

@@ -30,6 +30,7 @@ COMPILER = tiers/compiler
 AI = tiers/abstract_interpreter
 FAST_INT = tiers/fast_int
 V3COMPILER = tiers/v3compiler
+INTRINSIC_COMPILER = tiers/intrinsic_compiler
 
 AI_IMPLS = $(foreach I,$(wildcard $(AI)/impls/*.v3),$(basename $I)AI.v3)
 
@@ -111,6 +112,17 @@ generated/FastInt.v3: $(GENERATE_DEPS) $(FAST_INT)/*.v3 generated/Validator.v3
 		> $@~
 	mv --force $@~ $@
 
+IntrinsicCompilerGen: $(GENERATE_DEPS) $(VALIDATOR)/*.v3
+	$(V3C) $(VIRGIL_STD) \
+		$(COMMON_LIB)\
+		$(ENGINE)\
+		$(WIZARD_UTIL)\
+		$(INTRINSIC_COMPILER)/IntrinsicCompilerGen.v3
+
+generated/IntrinsicCompiler.v3: IntrinsicCompilerGen
+	./IntrinsicCompilerGen > $@~
+	rm ./IntrinsicCompilerGen
+	mv --force $@~ $@
 
 validator: generated/Validator.v3
 interpreter: generated/Interpreter.v3
