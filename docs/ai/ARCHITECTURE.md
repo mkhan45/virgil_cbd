@@ -36,7 +36,8 @@ common/                         # Shared code
 │   ├── SeaOfVariables.v3      # Sea graph, IRNode, graph rewrites
 │   ├── SeaTransforms.v3       # Graph rewrite passes
 │   ├── SeaRender.v3           # Sea graph rendering
-│   ├── Schedule.v3            # Bottom-up CFG scheduler (untangle + schedule)
+│   ├── Scheduler.v3           # Bottom-up CFG scheduler (untangle + schedule)
+│   ├── CFG.v3                 # CFG classes (CFGNode, CFGBlock, CFGBranch, CFGPhi)
 │   ├── CheckSchedule.v3       # Schedule verification
 │   ├── DomGraph.v3            # Hierarchical dominance tracking for scheduler
 │   └── NodeCollections.v3     # Node set types and collections

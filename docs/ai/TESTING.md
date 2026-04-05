@@ -78,7 +78,7 @@ Use when: investigating `ERROR` output in `generated/Validator.v3`, debugging a 
 Provides:
 - Preferred workflow: synthetic opcode tests for isolated debugging, full validator build for coverage
 - Known historically tricky opcodes: `END`, `MEMORY_SIZE`, `REF_AS_NON_NULL`, `I32_DIV_S`
-- `trace_full` flag: `common/sea/Schedule.v3:58` — pass `--trace OPCODE` to `schedule_test.sh` to enable per-opcode verbose output; off by default
+- `trace_full` flag: `common/sea/Scheduler.v3` — pass `--trace OPCODE` to `schedule_test.sh` to enable per-opcode verbose output; off by default
 - Info trace format: what `info_start`, `info_untangled`, `info_final` contain and how to read them
 - `SeaRender.renderScheduler` / `SeaRender.renderScheduleNode` for use in other debug contexts
 
