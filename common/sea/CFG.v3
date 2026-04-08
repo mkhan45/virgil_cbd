@@ -13,6 +13,151 @@ class CFGNode(id: int, scheduler: SeaScheduler) {
     }
 
     def subgraphName(buf: StringBuilder) -> StringBuilder => SeaRender.subgraphNameCFGNode(this, buf);
+
+    def getSinglePrev() -> CFGNode #inline {
+        match (this) {
+            block: CFGBlock => return block.prev;
+            branch: CFGBranch => return branch.prev;
+            _ => trap();
+        }
+        return null;
+    }
+
+    def setSinglePrev(newPrev: CFGNode) #inline {
+        match (this) {
+            block: CFGBlock => block.prev = newPrev;
+            branch: CFGBranch => branch.prev = newPrev;
+            _ => trap();
+        }
+    }
+
+    def prependCFGBlock(node: IRNode) -> CFGBlock {
+        def block = CFGBlock.new(fresh_id(), scheduler);
+        if (scheduler.top_block.id == this.id) scheduler.top_block = block;
+
+        scheduler.trace_print(fun => Strings.format2("Prepending new schedule block %d to %d\n", block.id, id));
+
+        var prev: CFGNode;
+        match (this) {
+            b: CFGBlock => prev = b.prev;
+            b: CFGBranch => prev = b.prev;
+            _ => {}
+        }
+        match (prev) {
+            prev_block: CFGBlock => prev_block.next = block;
+            prev_phi: CFGPhi => prev_phi.next = block;
+            prev_branch: CFGBranch => {
+                if (prev_branch.l_branch.id == this.id) prev_branch.l_branch = block;
+                if (prev_branch.r_branch.id == this.id) prev_branch.r_branch = block;
+            }
+        }
+        if (prev != null) prev.dominants = prev.dominants.withParent(block.dominants);
+
+        linkPrependedBlock(block);
+
+        block.dominants = block.dominants.withParent(dominants);
+        block.dominants.addLocal(node);
+
+        block.prims.put(node);
+
+        scheduler.trace_print(fun => Strings.format2("Block %d doms: %q\n", block.id, block.dominants.render));
+        scheduler.trace_print(fun => Strings.format2("Block %d doms: %q\n", id, dominants.render));
+
+        return block;
+    }
+
+    def finalize() {
+        match (this) {
+            block: CFGBlock => {
+                if (!block.forward) block.reverse();
+                def live_prims = Vector<IRNode>.new();
+                for (i < block.prims.length) {
+                    def n = block.prims[i];
+                    if (scheduler.live.has(n)) live_prims.put(n);
+                }
+                block.prims = live_prims;
+                if (block.prev != null) block.prev.finalize();
+            }
+            branch: CFGBranch => if (branch.prev != null) branch.prev.finalize();
+            phi: CFGPhi => {
+                phi.source_branch.finalize();
+                phi.l_source.finalize();
+                phi.r_source.finalize();
+            }
+        }
+    }
+
+    def prependCFGBranch(node: IRNode) -> CFGPhi {
+        //               prev
+        //                |
+        //              branch     (dominants all below)
+        //             /      \
+        //           left    right (dominants = this.dominants + phi + nodes in each branch)
+        //             \      /
+        //             phi_node (dominants = this.dominants)
+        //                |
+        //               this
+
+        def cond = node.value_deps[0];
+        cond.init_move(scheduler.sea);
+        def bl = scheduler.branch_lattice_map[node];
+        def branch = CFGBranch.new(fresh_id(), scheduler);
+        def phi_node = CFGPhi.new(fresh_id(), scheduler);
+
+        if (scheduler.top_block.id == this.id) scheduler.top_block = branch;
+
+        phi_node.next = this;
+        phi_node.source_branch = branch;
+        branch.phi = phi_node;
+
+        def prev = getSinglePrev();
+        if (prev != null) {
+            match (prev) {
+                block: CFGBlock => block.next = branch;
+                phi: CFGPhi => phi.next = branch;
+                prev_branch: CFGBranch => {
+                    if (prev_branch.l_branch.id == this.id) prev_branch.l_branch = branch;
+                    if (prev_branch.r_branch.id == this.id) prev_branch.r_branch = branch;
+                }
+            }
+        }
+
+        branch.prev = prev;
+        branch.condition = cond;
+
+        setSinglePrev(phi_node);
+
+        phi_node.dominants = phi_node.dominants.withParent(dominants);
+
+        def left = CFGBlock.new(fresh_id(), scheduler);
+        def right = CFGBlock.new(fresh_id(), scheduler);
+
+        left.prev = right.prev = branch;
+        phi_node.l_source = branch.l_branch = left;
+        phi_node.r_source = branch.r_branch = right;
+
+        branch.dominants = branch.dominants.withParent(phi_node.dominants).withParent(left.dominants).withParent(right.dominants);
+
+        if (prev != null) prev.dominants = prev.dominants.withParent(branch.dominants);
+
+        for (i < bl.phis.length) {
+            def phi = bl.phis[i];
+            phi_node.dominants.addLocal(phi);
+            phi_node.phis = List.new(phi, phi_node.phis);
+
+            left.prims.put(phi.value_deps[1]);
+            right.prims.put(phi.value_deps[2]);
+            left.dominants.addLocal(phi.value_deps[1]);
+            right.dominants.addLocal(phi.value_deps[2]);
+        }
+
+        if (scheduler.trace_full) {
+            CBDTrace.addString(scheduler.opcode, 
+                            Strings.format1("sched %q", bl.phis[0].render), "graph", scheduler.toMermaid());
+        }
+
+        return phi_node;
+    }
 }
 
 class CFGBlock(uid: int, scheduler_: SeaScheduler) extends CFGNode(uid, scheduler_) {

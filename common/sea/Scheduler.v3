@@ -266,7 +266,7 @@ class SeaScheduler {
             }
         }
 
-        finalizeCFG(bottom_block);
+        bottom_block.finalize();
         // check(); // check using ./scripts/schedule_test.sh
         if (opcode != null && trace_full) {
             def info_buf = SeaRender.renderSchedulerFinal(this, StringBuilder.new());
@@ -648,11 +648,11 @@ class SeaScheduler {
             branch: CFGBranch => {
                 if (ready) {
                     if (branch.prev != null && CFGBranch.?(branch.prev))
-                        return prependCFGBlock(branch, node); // schedule before self, but not above previous branch.
+                        return branch.prependCFGBlock(node); // schedule before self, but not above previous branch.
                     else if (branch.prev != null)
                         return trySchedule(branch.prev, node, upper_limit);
                     else
-                        return prependCFGBlock(branch, node);
+                        return branch.prependCFGBlock(node);
                 } else {
                     return if(branch.prev != null, trySchedule(branch.prev, node, upper_limit));
                 }
@@ -675,10 +675,10 @@ class SeaScheduler {
         match (cfgNode) {
             block: CFGBlock => 
                        return if(block.prev == null || CFGBranch.?(block.prev),
-                               prependCFGBranch(block, node),
+                               block.prependCFGBranch(node),
                                scheduleReadyPhi(block.prev, node, upper_limit));
             cond: CFGBranch => {
-                return if (cond.prev == null, prependCFGBranch(cond, node), scheduleReadyPhi(cond.prev, node, upper_limit));
+                return if (cond.prev == null, cond.prependCFGBranch(node), scheduleReadyPhi(cond.prev, node, upper_limit));
             }
             phi_node: CFGPhi => {
                 def phi_cond = phi.value_deps[0];
@@ -695,151 +695,6 @@ class SeaScheduler {
             }
             _ => return null; // unreachable
         }
-    }
-
-    def prependCFGBlock(cfgNode: CFGNode, node: IRNode) -> CFGBlock {
-        def block = CFGBlock.new(fresh_id(), this);
-        if (top_block.id == cfgNode.id) top_block = block;
-
-        trace_print(fun => Strings.format2("Prepending new schedule block %d to %d\n", block.id, cfgNode.id));
-
-        var prev: CFGNode;
-        match (cfgNode) {
-            b: CFGBlock => prev = b.prev;
-            b: CFGBranch => prev = b.prev;
-            _ => {}
-        }
-        match (prev) {
-            prev_block: CFGBlock => prev_block.next = block;
-            prev_phi: CFGPhi => prev_phi.next = block;
-            prev_branch: CFGBranch => {
-                if (prev_branch.l_branch.id == cfgNode.id) prev_branch.l_branch = block;
-                if (prev_branch.r_branch.id == cfgNode.id) prev_branch.r_branch = block;
-            }
-        }
-        if (prev != null) prev.dominants = prev.dominants.withParent(block.dominants);
-
-        cfgNode.linkPrependedBlock(block);
-
-        block.dominants = block.dominants.withParent(cfgNode.dominants);
-        block.dominants.addLocal(node);
-
-        block.prims.put(node);
-
-        trace_print(fun => Strings.format2("Block %d doms: %q\n", block.id, block.dominants.render));
-        trace_print(fun => Strings.format2("Block %d doms: %q\n", cfgNode.id, cfgNode.dominants.render));
-
-        return block;
-    }
-
-    def finalizeCFG(cfgNode: CFGNode) {
-        match (cfgNode) {
-            block: CFGBlock => {
-                if (!block.forward) block.reverse();
-                def live_prims = Vector<IRNode>.new();
-                for (i < block.prims.length) {
-                    def n = block.prims[i];
-                    if (live.has(n)) live_prims.put(n);
-                }
-                block.prims = live_prims;
-                if (block.prev != null) finalizeCFG(block.prev);
-            }
-            branch: CFGBranch => if (branch.prev != null) finalizeCFG(branch.prev);
-            phi: CFGPhi => {
-                finalizeCFG(phi.source_branch);
-                finalizeCFG(phi.l_source);
-                finalizeCFG(phi.r_source);
-            }
-        }
-    }
-
-    def getSinglePrev(cfgNode: CFGNode) -> CFGNode #inline {
-        match (cfgNode) {
-            block: CFGBlock => return block.prev;
-            branch: CFGBranch => return branch.prev;
-            _ => trap();
-        }
-        return null;
-    }
-
-    def setSinglePrev(cfgNode: CFGNode, newPrev: CFGNode) #inline {
-        match (cfgNode) {
-            block: CFGBlock => block.prev = newPrev;
-            branch: CFGBranch => branch.prev = newPrev;
-            _ => trap();
-        }
-    }
-
-    def prependCFGBranch(cfgNode: CFGNode, node: IRNode) -> CFGPhi {
-        //               prev
-        //                |
-        //              branch     (dominants all below)
-        //             /      \
-        //           left    right (dominants = this.dominants + phi + nodes in each branch)
-        //             \      /
-        //             phi_node (dominants = this.dominants)
-        //                |
-        //               this
-
-        def cond = node.value_deps[0];
-        cond.init_move(sea);
-        def bl = branch_lattice_map[node];
-        def branch = CFGBranch.new(fresh_id(), this);
-        def phi_node = CFGPhi.new(fresh_id(), this);
-
-        if (top_block.id == cfgNode.id) top_block = branch;
-
-        phi_node.next = cfgNode;
-        phi_node.source_branch = branch;
-        branch.phi = phi_node;
-
-        def prev = getSinglePrev(cfgNode);
-        if (prev != null) {
-            match (prev) {
-                block: CFGBlock => block.next = branch;
-                phi: CFGPhi => phi.next = branch;
-                prev_branch: CFGBranch => {
-                    if (prev_branch.l_branch.id == cfgNode.id) prev_branch.l_branch = branch;
-                    if (prev_branch.r_branch.id == cfgNode.id) prev_branch.r_branch = branch;
-                }
-            }
-        }
-
-        branch.prev = prev;
-        branch.condition = cond;
-
-        setSinglePrev(cfgNode, phi_node);
-
-        phi_node.dominants = phi_node.dominants.withParent(cfgNode.dominants);
-
-        def left = CFGBlock.new(fresh_id(), this);
-        def right = CFGBlock.new(fresh_id(), this);
-
-        left.prev = right.prev = branch;
-        phi_node.l_source = branch.l_branch = left;
-        phi_node.r_source = branch.r_branch = right;
-
-        branch.dominants = branch.dominants.withParent(phi_node.dominants).withParent(left.dominants).withParent(right.dominants);
-
-        if (prev != null) prev.dominants = prev.dominants.withParent(branch.dominants);
-
-        for (i < bl.phis.length) {
-            def phi = bl.phis[i];
-            phi_node.dominants.addLocal(phi);
-            phi_node.phis = List.new(phi, phi_node.phis);
-
-            left.prims.put(phi.value_deps[1]);
-            right.prims.put(phi.value_deps[2]);
-            left.dominants.addLocal(phi.value_deps[1]);
-            right.dominants.addLocal(phi.value_deps[2]);
-        }
-
-        if (trace_full) {
-            CBDTrace.addString(opcode, 
-                            Strings.format1("sched %q", bl.phis[0].render), "graph", toMermaid());
-        }
-
-        return phi_node;
     }
 
     def trace_print(s: void -> string) #inline {
