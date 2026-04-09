@@ -992,103 +992,6 @@ graph TD
 	18["arg__12 6"]
 	28["arg__3 2"]
 </pre>`;
-window.traces["SPLIT_BRANCHES"]["unlem_schedule"] = ''
-window.traces["SPLIT_BRANCHES"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def arg__20 : u32 = 2;
-def q = u32.==(c1, arg__20);
-def arg__22 : u32 = 0;
-def p = u32.!=(c1, arg__22);
-def mt__32 = U32_maybeTrue(p);
-def mf__33 = U32_maybeFalse(p);
-def mb__34 = bool.&&(mt__32, mf__33);
-if (mb__34) {
-	if (q) {
-		def arg__14 : u32 = 5;
-		def arg__5 : u32 = 1;
-		def merge__36 = merge_u(arg__5, arg__14);
-		def arg__12 : u32 = 6;
-		def arg__3 : u32 = 2;
-		def eff_push__37 = push_u32(merge__36);
-		def merge__38 = merge_u(arg__3, arg__12);
-		def eff_push__39 = push_u32(merge__38);
-	} else {
-		def arg__18 : u32 = 7;
-		def arg__9 : u32 = 3;
-		def merge__40 = merge_u(arg__9, arg__18);
-		def arg__16 : u32 = 8;
-		def arg__7 : u32 = 4;
-		def eff_push__41 = push_u32(merge__40);
-		def merge__42 = merge_u(arg__7, arg__16);
-		def eff_push__43 = push_u32(merge__42);
-	}
-// phis: 
-} else {
-	def mt__45 = U32_maybeTrue(q);
-	def mf__46 = U32_maybeFalse(q);
-	def mb__47 = bool.&&(mt__45, mf__46);
-	if (mt__32) {
-		if (mb__47) {
-			def arg__9__84 : u32 = 3;
-			def arg__9 = (arg__9__84);
-			def arg__5__86 : u32 = 1;
-			def arg__5 = (arg__5__86);
-			def merge__49 = merge_u(arg__5__86, arg__9__84);
-			def arg__7__85 : u32 = 4;
-			def arg__7 = (arg__7__85);
-			def arg__3__87 : u32 = 2;
-			def arg__3 = (arg__3__87);
-			def eff_push__50 = push_u32(merge__49);
-			def merge__51 = merge_u(arg__3__87, arg__7__85);
-			def eff_push__52 = push_u32(merge__51);
-		} else {
-			if (mt__45) {
-				def arg__5__78 : u32 = 1;
-				def eff__4 = push_u32(arg__5__78);
-				def arg__3__79 : u32 = 2;
-				def eff__2 = push_u32(arg__3__79);
-			} else {
-				def arg__9__76 : u32 = 3;
-				def eff__8 = push_u32(arg__9__76);
-				def arg__7__77 : u32 = 4;
-				def eff__6 = push_u32(arg__7__77);
-			}
-// phis: 
-		}
-// phis: 
-	} else {
-		if (mb__47) {
-			def arg__18__80 : u32 = 7;
-			def arg__18 = (arg__18__80);
-			def arg__14__82 : u32 = 5;
-			def arg__14 = (arg__14__82);
-			def merge__54 = merge_u(arg__14__82, arg__18__80);
-			def arg__16__81 : u32 = 8;
-			def arg__16 = (arg__16__81);
-			def arg__12__83 : u32 = 6;
-			def arg__12 = (arg__12__83);
-			def eff_push__55 = push_u32(merge__54);
-			def merge__56 = merge_u(arg__12__83, arg__16__81);
-			def eff_push__57 = push_u32(merge__56);
-		} else {
-			if (mt__45) {
-				def arg__14__74 : u32 = 5;
-				def eff__13 = push_u32(arg__14__74);
-				def arg__12__75 : u32 = 6;
-				def eff__11 = push_u32(arg__12__75);
-			} else {
-				def arg__18__72 : u32 = 7;
-				def eff__17 = push_u32(arg__18__72);
-				def arg__16__73 : u32 = 8;
-				def eff__15 = push_u32(arg__16__73);
-			}
-// phis: 
-		}
-// phis: 
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["SPLIT_BRANCHES"]["unlem_scheduler"] = ''
 window.traces["SPLIT_BRANCHES"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_18["Block 18"]
@@ -2593,107 +2496,6 @@ graph TD
 	22["r4__96 4"]
 	24["r4__94 2"]
 </pre>`;
-window.traces["SPLIT_BRANCHES_PHI"]["unlem_schedule"] = ''
-window.traces["SPLIT_BRANCHES_PHI"]["unlem_schedule"] += `<pre class=''>def arg__104 : u32 = 2;
-def c1 = pop_u32();
-def q = u32.==(c1, arg__104);
-def mt__124 = U32_maybeTrue(q);
-def mf__125 = U32_maybeFalse(q);
-def mb__126 = bool.&&(mt__124, mf__125);
-def arg__106 : u32 = 0;
-def p = u32.!=(c1, arg__106);
-def mt__119 = U32_maybeTrue(p);
-def mf__120 = U32_maybeFalse(p);
-def mb__121 = bool.&&(mt__119, mf__120);
-if (mb__121) {
-	if (mb__126) {
-		def r3__97 : u32 = 3;
-		def r3__95 : u32 = 1;
-		def r3__102 : u32 = 6;
-		def r3__100 : u32 = 5;
-		def r4__96 : u32 = 4;
-		def r4__94 : u32 = 2;
-		def r4__101 : u32 = 7;
-		def r4__99 : u32 = 6;
-		def merge__134 = merge(r3__95, r3__97);
-		def merge__136 = merge(r3__100, r3__102);
-		def merge__128 = merge(r4__94, r4__96);
-		def merge__130 = merge(r4__99, r4__101);
-	} else {
-		if (mt__124) {
-			def r3__95__167 : u32 = 1;
-			def r3__100__163 : u32 = 5;
-			def r4__94__168 : u32 = 2;
-			def r4__99__164 : u32 = 6;
-		} else {
-			def r3__97__165 : u32 = 3;
-			def r3__102__161 : u32 = 6;
-			def r4__96__166 : u32 = 4;
-			def r4__101__162 : u32 = 7;
-		}
-// phis: innerPhi__133 <- r3__95__167; innerPhi__133 <- r3__97__165; innerPhi__135 <- r3__100__163; innerPhi__135 <- r3__102__161; innerPhi__127 <- r4__94__168; innerPhi__127 <- r4__96__166; innerPhi__129 <- r4__99__164; innerPhi__129 <- r4__101__162; 
-	}
-// phis: r3 <- merge__134; r3 <- innerPhi__133; r3 <- merge__136; r3 <- innerPhi__135; r4 <- merge__128; r4 <- innerPhi__127; r4 <- merge__130; r4 <- innerPhi__129; 
-	def merge__132 = merge(r3, r3);
-	def merge__123 = merge(r4, r4);
-} else {
-	if (mt__119) {
-		if (mb__126) {
-			def r3__97__175 : u32 = 3;
-			def r3__97 = (r3__97__175);
-			def r3__95__177 : u32 = 1;
-			def r3__95 = (r3__95__177);
-			def r4__96__176 : u32 = 4;
-			def r4__96 = (r4__96__176);
-			def r4__94__178 : u32 = 2;
-			def r4__94 = (r4__94__178);
-			def merge__134__186 = merge(r3__95__177, r3__97__175);
-			def merge__134 = (merge__134__186);
-			def merge__128__182 = merge(r4__94__178, r4__96__176);
-			def merge__128 = (merge__128__182);
-		} else {
-			if (mt__124) {
-				def r3__95__167__211 : u32 = 1;
-				def r4__94__168__212 : u32 = 2;
-			} else {
-				def r3__97__165__209 : u32 = 3;
-				def r4__96__166__210 : u32 = 4;
-			}
-// phis: innerPhi__133__185 <- r3__95__167__211; innerPhi__133__185 <- r3__97__165__209; innerPhi__127__181 <- r4__94__168__212; innerPhi__127__181 <- r4__96__166__210; 
-		}
-// phis: r3__180 <- merge__134__186; r3__180 <- innerPhi__133__185; r4__179 <- merge__128__182; r4__179 <- innerPhi__127__181; 
-	} else {
-		if (mb__126) {
-			def r3__102__169 : u32 = 6;
-			def r3__102 = (r3__102__169);
-			def r3__100__171 : u32 = 5;
-			def r3__100 = (r3__100__171);
-			def r4__101__170 : u32 = 7;
-			def r4__101 = (r4__101__170);
-			def r4__99__172 : u32 = 6;
-			def r4__99 = (r4__99__172);
-			def merge__136__188 = merge(r3__100__171, r3__102__169);
-			def merge__136 = (merge__136__188);
-			def merge__130__184 = merge(r4__99__172, r4__101__170);
-			def merge__130 = (merge__130__184);
-		} else {
-			if (mt__124) {
-				def r3__100__163__207 : u32 = 5;
-				def r4__99__164__208 : u32 = 6;
-			} else {
-				def r3__102__161__205 : u32 = 6;
-				def r4__101__162__206 : u32 = 7;
-			}
-// phis: innerPhi__135__187 <- r3__100__163__207; innerPhi__135__187 <- r3__102__161__205; innerPhi__129__183 <- r4__99__164__208; innerPhi__129__183 <- r4__101__162__206; 
-		}
-// phis: r3__174 <- merge__136__188; r3__174 <- innerPhi__135__187; r4__173 <- merge__130__184; r4__173 <- innerPhi__129__183; 
-	}
-// phis: innerPhi__131 <- r3__180; innerPhi__131 <- r3__174; innerPhi__122 <- r4__179; innerPhi__122 <- r4__173; 
-}
-// phis: r3 <- merge__132; r3 <- innerPhi__131; r4 <- merge__123; r4 <- innerPhi__122; 
-def eff__90 = push_u32(r3);
-def eff__88 = push_u32(r4);
-</pre>`;
 window.traces["SPLIT_BRANCHES_PHI"]["unlem_scheduler"] = ''
 window.traces["SPLIT_BRANCHES_PHI"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_94["Block 94"]
@@ -4012,57 +3814,6 @@ graph TD
 	29 --> 43
 	34 --> 43
 </pre>`;
-window.traces["P3_FRONTIER"]["unlem_schedule"] = ''
-window.traces["P3_FRONTIER"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c3 = pop_u32();
-def c2 = pop_u32();
-def A = pop_u32();
-def arg__231 : u32 = 0;
-def B = pop_u32();
-def q = u32.!=(c3, arg__231);
-def mt__258 = U32_maybeTrue(q);
-def mf__259 = U32_maybeFalse(q);
-def mb__260 = bool.&&(mt__258, mf__259);
-if (mb__260) {
-	def merge__262 = merge(A, B);
-} else {
-	if (mt__258) {
-	}
-// phis: innerPhi__261 <- A; innerPhi__261 <- B; 
-}
-// phis: deep <- merge__262; deep <- innerPhi__261; 
-def arg__224 : u32 = 0;
-def arg__229 : u32 = 0;
-def N = u32.+(deep, arg__224);
-def r = u32.!=(c2, arg__229);
-def mt__253 = U32_maybeTrue(r);
-def mf__254 = U32_maybeFalse(r);
-def mb__255 = bool.&&(mt__253, mf__254);
-if (mb__255) {
-	def merge__257 = merge(N, N);
-} else {
-	if (mt__253) {
-	}
-// phis: innerPhi__256 <- N; innerPhi__256 <- N; 
-}
-// phis: triv <- merge__257; triv <- innerPhi__256; 
-def arg__219 : u32 = 1;
-def arg__233 : u32 = 0;
-def result__217 = u32.+(A, arg__219);
-def p = u32.!=(c1, arg__233);
-def mt__248 = U32_maybeTrue(p);
-def mf__249 = U32_maybeFalse(p);
-def mb__250 = bool.&&(mt__248, mf__249);
-if (mb__250) {
-	def merge__252 = merge(triv, result__217);
-} else {
-	if (mt__248) {
-	}
-// phis: innerPhi__251 <- triv; innerPhi__251 <- result__217; 
-}
-// phis: result <- merge__252; result <- innerPhi__251; 
-def eff__213 = push_u32(result);
-</pre>`;
 window.traces["P3_FRONTIER"]["unlem_scheduler"] = ''
 window.traces["P3_FRONTIER"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_185["Block 185"]
@@ -5293,139 +5044,6 @@ graph TD
 	14 --> 44
 	13 --> 44
 	13["x__311 7"]
-</pre>`;
-window.traces["EFFECT_LIFT_OVER_PARENT_COND"]["unlem_schedule"] = ''
-window.traces["EFFECT_LIFT_OVER_PARENT_COND"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def arg__315 : u32 = 0;
-def p = u32.!=(c1, arg__315);
-def mt__325 = U32_maybeTrue(p);
-def mf__326 = U32_maybeFalse(p);
-def mb__327 = bool.&&(mt__325, mf__326);
-if (mb__327) {
-	def x__310 = pop_u32();
-	def arg__313 : u32 = 0;
-	def q = u32.!=(c2, arg__313);
-	def mt__332 = U32_maybeTrue(q);
-	def mf__333 = U32_maybeFalse(q);
-	def mb__334 = bool.&&(mt__332, mf__333);
-	if (mb__334) {
-		if (mb__327) {
-			def x__311 : u32 = 7;
-			def merge__338 = merge(x__310, x__311);
-		} else {
-			if (mt__325) {
-			} else {
-				def x__311__355 : u32 = 7;
-			}
-// phis: innerPhi__337 <- x__310; innerPhi__337 <- x__311__355; 
-		}
-// phis: x <- merge__338; x <- innerPhi__337; 
-		def arg__307 : u32 = 1;
-		def y__308 : u32 = 9;
-		def y__305 = u32.+(x, arg__307);
-		def merge__336 = merge(y__305, y__308);
-	} else {
-		if (mt__332) {
-			def arg__315__356 : u32 = 0;
-			def arg__315 = (arg__315__356);
-			def p__357 = u32.!=(c1, arg__315__356);
-			def p = (p__357);
-			def mt__325__363 = U32_maybeTrue(p__357);
-			def mf__326__364 = U32_maybeFalse(p__357);
-			def mb__327__365 = bool.&&(mt__325__363, mf__326__364);
-			if (mb__327__365) {
-				def x__311__358 : u32 = 7;
-				def merge__338__367 = merge(x__310, x__311__358);
-			} else {
-				if (mt__325__363) {
-				} else {
-					def x__311__355__372 : u32 = 7;
-				}
-// phis: innerPhi__337__366 <- x__310; innerPhi__337__366 <- x__311__355__372; 
-			}
-// phis: x__359 <- merge__338__367; x__359 <- innerPhi__337__366; 
-			def arg__307__361 : u32 = 1;
-			def y__305__362 = u32.+(x__359, arg__307__361);
-		} else {
-			def y__308__360 : u32 = 9;
-		}
-// phis: innerPhi__335 <- y__305__362; innerPhi__335 <- y__308__360; 
-	}
-// phis: y <- merge__336; y <- innerPhi__335; 
-	def z__303 : u32 = 3;
-	def merge__329 = merge(y, z__303);
-	def eff_merge__331 = merge(x__310, c2);
-} else {
-	if (mt__325) {
-		def x__310__376 = pop_u32();
-		def x__310 = (x__310__376);
-		def arg__313__373 : u32 = 0;
-		def arg__313 = (arg__313__373);
-		def q__374 = u32.!=(c2, arg__313__373);
-		def q = (q__374);
-		def mt__332__383 = U32_maybeTrue(q__374);
-		def mt__332 = (mt__332__383);
-		def mf__333__384 = U32_maybeFalse(q__374);
-		def mf__333 = (mf__333__384);
-		def mb__334__385 = bool.&&(mt__332__383, mf__333__384);
-		def mb__334 = (mb__334__385);
-		if (mb__334__385) {
-			if (mb__327) {
-				def x__311__375 : u32 = 7;
-				def x__311 = (x__311__375);
-				def merge__338__389 = merge(x__310__376, x__311__375);
-				def merge__338 = (merge__338__389);
-			} else {
-				if (mt__325) {
-				} else {
-					def x__311__355__398 : u32 = 7;
-				}
-// phis: innerPhi__337__388 <- x__310__376; innerPhi__337__388 <- x__311__355__398; 
-			}
-// phis: x__377 <- merge__338__389; x__377 <- innerPhi__337__388; 
-			def arg__307__379 : u32 = 1;
-			def arg__307 = (arg__307__379);
-			def y__308__378 : u32 = 9;
-			def y__308 = (y__308__378);
-			def y__305__380 = u32.+(x__377, arg__307__379);
-			def y__305 = (y__305__380);
-			def merge__336__387 = merge(y__305__380, y__308__378);
-			def merge__336 = (merge__336__387);
-		} else {
-			if (mt__332__383) {
-				def arg__315__356__399 : u32 = 0;
-				def p__357__400 = u32.!=(c1, arg__315__356__399);
-				def mt__325__363__406 = U32_maybeTrue(p__357__400);
-				def mf__326__364__407 = U32_maybeFalse(p__357__400);
-				def mb__327__365__408 = bool.&&(mt__325__363__406, mf__326__364__407);
-				if (mb__327__365__408) {
-					def x__311__358__401 : u32 = 7;
-					def merge__338__367__410 = merge(x__310__376, x__311__358__401);
-				} else {
-					if (mt__325__363__406) {
-					} else {
-						def x__311__355__372__415 : u32 = 7;
-					}
-// phis: innerPhi__337__366__409 <- x__310__376; innerPhi__337__366__409 <- x__311__355__372__415; 
-				}
-// phis: x__359__402 <- merge__338__367__410; x__359__402 <- innerPhi__337__366__409; 
-				def arg__307__361__404 : u32 = 1;
-				def y__305__362__405 = u32.+(x__359__402, arg__307__361__404);
-			} else {
-				def y__308__360__403 : u32 = 9;
-			}
-// phis: innerPhi__335__386 <- y__305__362__405; innerPhi__335__386 <- y__308__360__403; 
-		}
-// phis: y__381 <- merge__336__387; y__381 <- innerPhi__335__386; 
-	} else {
-		def z__303__382 : u32 = 3;
-		def z__303 = (z__303__382);
-	}
-// phis: innerPhi__328 <- y__381; innerPhi__328 <- z__303__382; 
-}
-// phis: z <- merge__329; z <- innerPhi__328; 
-def eff__299 = push_u32(z);
 </pre>`;
 window.traces["EFFECT_LIFT_OVER_PARENT_COND"]["unlem_scheduler"] = ''
 window.traces["EFFECT_LIFT_OVER_PARENT_COND"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -7186,96 +6804,6 @@ graph TD
 	24 --> 54
 	24["inner__424 11"]
 </pre>`;
-window.traces["SAME_SCOPE_Q_ON_BOTH_P_SIDES"]["unlem_schedule"] = ''
-window.traces["SAME_SCOPE_Q_ON_BOTH_P_SIDES"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def arg__432 : u32 = 0;
-def q = u32.!=(c2, arg__432);
-def mt__459 = U32_maybeTrue(q);
-def inner__423 = pop_u32();
-def inner__429 = pop_u32();
-def mf__460 = U32_maybeFalse(q);
-def mb__461 = bool.&&(mt__459, mf__460);
-if (mb__461) {
-	def inner__424 : u32 = 11;
-	def inner__430 : u32 = 21;
-	def merge__468 = merge(inner__423, inner__424);
-	def merge__470 = merge(inner__429, inner__430);
-} else {
-	if (mt__459) {
-	} else {
-		def inner__424__498 : u32 = 11;
-		def inner__430__497 : u32 = 21;
-	}
-// phis: innerPhi__467 <- inner__423; innerPhi__467 <- inner__424__498; innerPhi__469 <- inner__429; innerPhi__469 <- inner__430__497; 
-}
-// phis: inner <- merge__468; inner <- innerPhi__467; inner <- merge__470; inner <- innerPhi__469; 
-def arg__434 : u32 = 0;
-def p = u32.!=(c1, arg__434);
-def mt__450 = U32_maybeTrue(p);
-def mf__451 = U32_maybeFalse(p);
-def mb__452 = bool.&&(mt__450, mf__451);
-if (mb__452) {
-	if (q) {
-		def eff_merge__456 = merge(inner__423, inner__429);
-	} else {
-		def eff_merge__457 = merge(c2, c2);
-	}
-// phis: 
-	def arg__427 : u32 = 2;
-	def arg__421 : u32 = 1;
-	def left__425 = u32.+(inner, arg__427);
-	def left__419 = u32.+(inner, arg__421);
-	def merge__454 = merge(left__419, left__425);
-} else {
-	if (mt__450) {
-		def inner__423__505 = pop_u32();
-		def inner__423 = (inner__423__505);
-		if (mb__461) {
-			def inner__424__504 : u32 = 11;
-			def inner__424 = (inner__424__504);
-			def eff_merge__463 = merge(inner__423__505, c2);
-			def merge__468__510 = merge(inner__423__505, inner__424__504);
-		} else {
-			if (mt__459) {
-			} else {
-				def inner__424__498__522 : u32 = 11;
-			}
-// phis: innerPhi__467__509 <- inner__423__505; innerPhi__467__509 <- inner__424__498__522; 
-		}
-// phis: inner__506 <- merge__468__510; inner__506 <- innerPhi__467__509; 
-		def arg__421__507 : u32 = 1;
-		def arg__421 = (arg__421__507);
-		def left__419__508 = u32.+(inner__506, arg__421__507);
-		def left__419 = (left__419__508);
-	} else {
-		if (mb__461) {
-			def eff_nop__465 = nop();
-			def inner__429__500 = pop_u32();
-			def inner__429 = (inner__429__500);
-			def inner__430__499 : u32 = 21;
-			def inner__430 = (inner__430__499);
-			def eff_merge__466 = merge(inner__429__500, eff_nop__465);
-			def merge__470__512 = merge(inner__429__500, inner__430__499);
-		} else {
-			if (mt__459) {
-				def inner__429__500__523 = pop_u32();
-			} else {
-				def inner__430__497__521 : u32 = 21;
-			}
-// phis: innerPhi__469__511 <- inner__429__500__523; innerPhi__469__511 <- inner__430__497__521; 
-		}
-// phis: inner__501 <- merge__470__512; inner__501 <- innerPhi__469__511; 
-		def arg__427__502 : u32 = 2;
-		def arg__427 = (arg__427__502);
-		def left__425__503 = u32.+(inner__501, arg__427__502);
-		def left__425 = (left__425__503);
-	}
-// phis: innerPhi__453 <- left__419__508; innerPhi__453 <- left__425__503; 
-}
-// phis: left <- merge__454; left <- innerPhi__453; 
-def eff__416 = push_u32(left);
-</pre>`;
 window.traces["SAME_SCOPE_Q_ON_BOTH_P_SIDES"]["unlem_scheduler"] = ''
 window.traces["SAME_SCOPE_Q_ON_BOTH_P_SIDES"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_374["Block 374"]
@@ -8637,62 +8165,6 @@ graph TD
 	42["merge__570 merge"]
 	28 --> 42
 	33 --> 42
-</pre>`;
-window.traces["P3_EFFECTFUL_VARIANT"]["unlem_schedule"] = ''
-window.traces["P3_EFFECTFUL_VARIANT"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def c3 = pop_u32();
-def arg__542 : u32 = 0;
-def q = u32.!=(c2, arg__542);
-def mt__571 = U32_maybeTrue(q);
-def mf__572 = U32_maybeFalse(q);
-def mb__573 = bool.&&(mt__571, mf__572);
-if (mb__573) {
-	def A__537 = pop_u32();
-	def A__538 : u32 = 5;
-	def eff_merge__575 = merge(A__537, c3);
-	def merge__582 = merge(A__537, A__538);
-} else {
-	if (mt__571) {
-		def A__537__600 = pop_u32();
-		def A__537 = (A__537__600);
-	} else {
-		def A__538__599 : u32 = 5;
-	}
-// phis: innerPhi__581 <- A__537__600; innerPhi__581 <- A__538__599; 
-}
-// phis: A <- merge__582; A <- innerPhi__581; 
-def arg__535 : u32 = 0;
-def arg__540 : u32 = 0;
-def B = u32.+(A, arg__535);
-def r = u32.!=(c3, arg__540);
-def mt__576 = U32_maybeTrue(r);
-def mf__577 = U32_maybeFalse(r);
-def mb__578 = bool.&&(mt__576, mf__577);
-if (mb__578) {
-	def merge__580 = merge(B, B);
-} else {
-	if (mt__576) {
-	}
-// phis: innerPhi__579 <- B; innerPhi__579 <- B; 
-}
-// phis: triv <- merge__580; triv <- innerPhi__579; 
-def arg__530 : u32 = 1;
-def arg__544 : u32 = 0;
-def out__528 = u32.+(A, arg__530);
-def p = u32.!=(c1, arg__544);
-def mt__566 = U32_maybeTrue(p);
-def mf__567 = U32_maybeFalse(p);
-def mb__568 = bool.&&(mt__566, mf__567);
-if (mb__568) {
-	def merge__570 = merge(triv, out__528);
-} else {
-	if (mt__566) {
-	}
-// phis: innerPhi__569 <- triv; innerPhi__569 <- out__528; 
-}
-// phis: out <- merge__570; out <- innerPhi__569; 
-def eff__524 = push_u32(out);
 </pre>`;
 window.traces["P3_EFFECTFUL_VARIANT"]["unlem_scheduler"] = ''
 window.traces["P3_EFFECTFUL_VARIANT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -10441,112 +9913,6 @@ graph TD
 	51["merge__715 merge"]
 	37 --> 51
 	42 --> 51
-</pre>`;
-window.traces["UNLEM_IMPOSSIBLE_ASSIGNMENT_BUNDLE"]["unlem_schedule"] = ''
-window.traces["UNLEM_IMPOSSIBLE_ASSIGNMENT_BUNDLE"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def c3 = pop_u32();
-def arg__649 : u32 = 0;
-def q = u32.!=(c2, arg__649);
-def mt__725 = U32_maybeTrue(q);
-def x__641 = pop_u32();
-def x__644 = pop_u32();
-def mf__726 = U32_maybeFalse(q);
-def mb__727 = bool.&&(mt__725, mf__726);
-if (mb__727) {
-	def x__642 : u32 = 10;
-	def x__645 : u32 = 20;
-	def merge__736 = merge(x__641, x__642);
-	def merge__738 = merge(x__644, x__645);
-} else {
-	if (mt__725) {
-	} else {
-		def x__642__774 : u32 = 10;
-		def x__645__773 : u32 = 20;
-	}
-// phis: innerPhi__735 <- x__641; innerPhi__735 <- x__642__774; innerPhi__737 <- x__644; innerPhi__737 <- x__645__773; 
-}
-// phis: x <- merge__736; x <- innerPhi__735; x <- merge__738; x <- innerPhi__737; 
-def arg__651 : u32 = 0;
-def p = u32.!=(c1, arg__651);
-def mt__711 = U32_maybeTrue(p);
-def mf__712 = U32_maybeFalse(p);
-def mb__713 = bool.&&(mt__711, mf__712);
-if (mb__713) {
-	if (q) {
-		def eff_merge__717 = merge(x__641, x__644);
-	} else {
-		def eff_merge__718 = merge(c3, c3);
-	}
-// phis: 
-	def merge__734 = merge(x, x);
-} else {
-	if (mt__711) {
-		def x__641__779 = pop_u32();
-		def x__641 = (x__641__779);
-		if (mb__727) {
-			def x__642__778 : u32 = 10;
-			def x__642 = (x__642__778);
-			def merge__736__782 = merge(x__641__779, x__642__778);
-			def eff_merge__729 = merge(x__641__779, c3);
-		} else {
-			if (mt__725) {
-			} else {
-				def x__642__774__794 : u32 = 10;
-			}
-// phis: innerPhi__735__781 <- x__641__779; innerPhi__735__781 <- x__642__774__794; 
-		}
-// phis: x__780 <- merge__736__782; x__780 <- innerPhi__735__781; 
-	} else {
-		if (mb__727) {
-			def x__645__775 : u32 = 20;
-			def x__645 = (x__645__775);
-			def x__644__776 = pop_u32();
-			def x__644 = (x__644__776);
-			def eff_nop__731 = nop();
-			def merge__738__784 = merge(x__644__776, x__645__775);
-			def eff_merge__732 = merge(x__644__776, eff_nop__731);
-		} else {
-			if (mt__725) {
-				def x__644__776__795 = pop_u32();
-			} else {
-				def x__645__773__793 : u32 = 20;
-			}
-// phis: innerPhi__737__783 <- x__644__776__795; innerPhi__737__783 <- x__645__773__793; 
-		}
-// phis: x__777 <- merge__738__784; x__777 <- innerPhi__737__783; 
-	}
-// phis: innerPhi__733 <- x__780; innerPhi__733 <- x__777; 
-}
-// phis: x <- merge__734; x <- innerPhi__733; 
-def arg__638 : u32 = 2;
-def arg__635 : u32 = 1;
-def arg__647 : u32 = 0;
-def y__636 = u32.+(x, arg__638);
-def y__633 = u32.+(x, arg__635);
-def r = u32.!=(c3, arg__647);
-def mt__720 = U32_maybeTrue(r);
-def mf__721 = U32_maybeFalse(r);
-def arg__631 : u32 = 3;
-def mb__722 = bool.&&(mt__720, mf__721);
-def z__629 = u32.+(x, arg__631);
-if (mb__722) {
-	def merge__724 = merge(y__633, y__636);
-} else {
-	if (mt__720) {
-	}
-// phis: innerPhi__723 <- y__633; innerPhi__723 <- y__636; 
-}
-// phis: y <- merge__724; y <- innerPhi__723; 
-if (mb__713) {
-	def merge__715 = merge(y, z__629);
-} else {
-	if (mt__711) {
-	}
-// phis: innerPhi__714 <- y; innerPhi__714 <- z__629; 
-}
-// phis: z <- merge__715; z <- innerPhi__714; 
-def eff__625 = push_u32(z);
 </pre>`;
 window.traces["UNLEM_IMPOSSIBLE_ASSIGNMENT_BUNDLE"]["unlem_scheduler"] = ''
 window.traces["UNLEM_IMPOSSIBLE_ASSIGNMENT_BUNDLE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -14179,289 +13545,6 @@ graph TD
 	69 --> 77
 	61 --> 77
 </pre>`;
-window.traces["UNTANGLE_BRAID_LIMIT_STRESS"]["unlem_schedule"] = ''
-window.traces["UNTANGLE_BRAID_LIMIT_STRESS"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def c3 = pop_u32();
-def c4 = pop_u32();
-def seed = pop_u32();
-def arg__840 : u32 = 0;
-def r = u32.!=(c3, arg__840);
-def mt__959 = U32_maybeTrue(r);
-def mf__960 = U32_maybeFalse(r);
-def mb__961 = bool.&&(mt__959, mf__960);
-if (mb__961) {
-	def arg__835 : u32 = 2;
-	def a__836 : u32 = 20;
-	def a__833 = u32.+(seed, arg__835);
-	def merge__988 = merge(a__833, a__836);
-} else {
-	if (mt__959) {
-		def arg__835__1026 : u32 = 2;
-		def a__833__1027 = u32.+(seed, arg__835__1026);
-	} else {
-		def a__836__1025 : u32 = 20;
-	}
-// phis: innerPhi__987 <- a__833__1027; innerPhi__987 <- a__836__1025; 
-}
-// phis: a <- merge__988; a <- innerPhi__987; 
-def arg__842 : u32 = 0;
-def q = u32.!=(c2, arg__842);
-def mt__974 = U32_maybeTrue(q);
-def arg__844 : u32 = 0;
-def mf__975 = U32_maybeFalse(q);
-def p = u32.!=(c1, arg__844);
-def mb__976 = bool.&&(mt__974, mf__975);
-def mt__969 = U32_maybeTrue(p);
-def mf__970 = U32_maybeFalse(p);
-def mb__971 = bool.&&(mt__969, mf__970);
-if (mb__971) {
-	if (mb__976) {
-		def arg__830 : u32 = 1;
-		def a__831 : u32 = 10;
-		def a__828 = u32.+(seed, arg__830);
-		def merge__986 = merge(a__828, a__831);
-	} else {
-		if (mt__974) {
-			def arg__830__1029 : u32 = 1;
-			def a__828__1030 = u32.+(seed, arg__830__1029);
-		} else {
-			def a__831__1028 : u32 = 10;
-		}
-// phis: innerPhi__985 <- a__828__1030; innerPhi__985 <- a__831__1028; 
-	}
-// phis: a <- merge__986; a <- innerPhi__985; 
-	def merge__980 = merge(a, a);
-} else {
-	if (mt__969) {
-		def arg__842__1031 : u32 = 0;
-		def q__1032 = u32.!=(c2, arg__842__1031);
-		def mt__974__1046 = U32_maybeTrue(q__1032);
-		def mf__975__1047 = U32_maybeFalse(q__1032);
-		def mb__976__1048 = bool.&&(mt__974__1046, mf__975__1047);
-		if (mb__976__1048) {
-			def arg__830__1040 : u32 = 1;
-			def a__831__1039 : u32 = 10;
-			def a__828__1041 = u32.+(seed, arg__830__1040);
-			def merge__986__1050 = merge(a__828__1041, a__831__1039);
-		} else {
-			if (mt__974__1046) {
-				def arg__830__1029__1065 : u32 = 1;
-				def a__828__1030__1066 = u32.+(seed, arg__830__1029__1065);
-			} else {
-				def a__831__1028__1064 : u32 = 10;
-			}
-// phis: innerPhi__985__1049 <- a__828__1030__1066; innerPhi__985__1049 <- a__831__1028__1064; 
-		}
-// phis: a__1042 <- merge__986__1050; a__1042 <- innerPhi__985__1049; 
-	} else {
-		def arg__840__1033 : u32 = 0;
-		def r__1034 = u32.!=(c3, arg__840__1033);
-		def mt__959__1043 = U32_maybeTrue(r__1034);
-		def mf__960__1044 = U32_maybeFalse(r__1034);
-		def mb__961__1045 = bool.&&(mt__959__1043, mf__960__1044);
-		if (mb__961__1045) {
-			def arg__835__1036 : u32 = 2;
-			def a__836__1035 : u32 = 20;
-			def a__833__1037 = u32.+(seed, arg__835__1036);
-			def merge__988__1052 = merge(a__833__1037, a__836__1035);
-		} else {
-			if (mt__959__1043) {
-				def arg__835__1026__1062 : u32 = 2;
-				def a__833__1027__1063 = u32.+(seed, arg__835__1026__1062);
-			} else {
-				def a__836__1025__1061 : u32 = 20;
-			}
-// phis: innerPhi__987__1051 <- a__833__1027__1063; innerPhi__987__1051 <- a__836__1025__1061; 
-		}
-// phis: a__1038 <- merge__988__1052; a__1038 <- innerPhi__987__1051; 
-	}
-// phis: innerPhi__979 <- a__1042; innerPhi__979 <- a__1038; 
-}
-// phis: a <- merge__980; a <- innerPhi__979; 
-def arg__838 : u32 = 0;
-def arg__820 : u32 = 3;
-def arg__817 : u32 = 1;
-def s = u32.!=(c4, arg__838);
-def b__818 = u32.+(seed, arg__820);
-def b__815 = u32.+(a, arg__817);
-def mt__964 = U32_maybeTrue(s);
-def mf__965 = U32_maybeFalse(s);
-def mb__966 = bool.&&(mt__964, mf__965);
-if (mb__966) {
-	def arg__824 : u32 = 2;
-	def b__825 : u32 = 30;
-	def b__822 = u32.+(a, arg__824);
-	def merge__984 = merge(b__822, b__825);
-} else {
-	if (mt__964) {
-		def arg__840__1071 : u32 = 0;
-		def arg__840 = (arg__840__1071);
-		def r__1072 = u32.!=(c3, arg__840__1071);
-		def r = (r__1072);
-		def mt__959__1085 = U32_maybeTrue(r__1072);
-		def mf__960__1086 = U32_maybeFalse(r__1072);
-		def mb__961__1087 = bool.&&(mt__959__1085, mf__960__1086);
-		if (mb__961__1087) {
-			def arg__835__1074 : u32 = 2;
-			def arg__835 = (arg__835__1074);
-			def a__836__1073 : u32 = 20;
-			def a__836 = (a__836__1073);
-			def a__833__1075 = u32.+(seed, arg__835__1074);
-			def a__833 = (a__833__1075);
-			def merge__988__1099 = merge(a__833__1075, a__836__1073);
-		} else {
-			if (mt__959__1085) {
-				def arg__835__1026__1113 : u32 = 2;
-				def a__833__1027__1114 = u32.+(seed, arg__835__1026__1113);
-			} else {
-				def a__836__1025__1112 : u32 = 20;
-			}
-// phis: innerPhi__987__1098 <- a__833__1027__1114; innerPhi__987__1098 <- a__836__1025__1112; 
-		}
-// phis: a__1076 <- merge__988__1099; a__1076 <- innerPhi__987__1098; 
-		def arg__844__1067 : u32 = 0;
-		def arg__844 = (arg__844__1067);
-		def p__1068 = u32.!=(c1, arg__844__1067);
-		def p = (p__1068);
-		def mt__969__1088 = U32_maybeTrue(p__1068);
-		def mf__970__1089 = U32_maybeFalse(p__1068);
-		def mb__971__1090 = bool.&&(mt__969__1088, mf__970__1089);
-		if (mb__971__1090) {
-			def arg__842__1069 : u32 = 0;
-			def arg__842 = (arg__842__1069);
-			def q__1070 = u32.!=(c2, arg__842__1069);
-			def q = (q__1070);
-			def mt__974__1091 = U32_maybeTrue(q__1070);
-			def mf__975__1092 = U32_maybeFalse(q__1070);
-			def mb__976__1093 = bool.&&(mt__974__1091, mf__975__1092);
-			if (mb__976__1093) {
-				def arg__830__1078 : u32 = 1;
-				def arg__830 = (arg__830__1078);
-				def a__831__1077 : u32 = 10;
-				def a__831 = (a__831__1077);
-				def a__828__1079 = u32.+(seed, arg__830__1078);
-				def a__828 = (a__828__1079);
-				def merge__986__1097 = merge(a__828__1079, a__831__1077);
-			} else {
-				if (mt__974__1091) {
-					def arg__830__1029__1116 : u32 = 1;
-					def a__828__1030__1117 = u32.+(seed, arg__830__1029__1116);
-				} else {
-					def a__831__1028__1115 : u32 = 10;
-				}
-// phis: innerPhi__985__1096 <- a__828__1030__1117; innerPhi__985__1096 <- a__831__1028__1115; 
-			}
-// phis: a__1080 <- merge__986__1097; a__1080 <- innerPhi__985__1096; 
-			def merge__980__1095 = merge(a__1080, a__1076);
-		} else {
-			if (mt__969__1088) {
-				def arg__842__1031__1118 : u32 = 0;
-				def q__1032__1119 = u32.!=(c2, arg__842__1031__1118);
-				def mt__974__1046__1133 = U32_maybeTrue(q__1032__1119);
-				def mf__975__1047__1134 = U32_maybeFalse(q__1032__1119);
-				def mb__976__1048__1135 = bool.&&(mt__974__1046__1133, mf__975__1047__1134);
-				if (mb__976__1048__1135) {
-					def arg__830__1040__1127 : u32 = 1;
-					def a__831__1039__1126 : u32 = 10;
-					def a__828__1041__1128 = u32.+(seed, arg__830__1040__1127);
-					def merge__986__1050__1137 = merge(a__828__1041__1128, a__831__1039__1126);
-				} else {
-					if (mt__974__1046__1133) {
-						def arg__830__1029__1065__1152 : u32 = 1;
-						def a__828__1030__1066__1153 = u32.+(seed, arg__830__1029__1065__1152);
-					} else {
-						def a__831__1028__1064__1151 : u32 = 10;
-					}
-// phis: innerPhi__985__1049__1136 <- a__828__1030__1066__1153; innerPhi__985__1049__1136 <- a__831__1028__1064__1151; 
-				}
-// phis: a__1042__1129 <- merge__986__1050__1137; a__1042__1129 <- innerPhi__985__1049__1136; 
-			} else {
-				def arg__840__1033__1120 : u32 = 0;
-				def r__1034__1121 = u32.!=(c3, arg__840__1033__1120);
-				def mt__959__1043__1130 = U32_maybeTrue(r__1034__1121);
-				def mf__960__1044__1131 = U32_maybeFalse(r__1034__1121);
-				def mb__961__1045__1132 = bool.&&(mt__959__1043__1130, mf__960__1044__1131);
-				if (mb__961__1045__1132) {
-					def arg__835__1036__1123 : u32 = 2;
-					def a__836__1035__1122 : u32 = 20;
-					def a__833__1037__1124 = u32.+(seed, arg__835__1036__1123);
-					def merge__988__1052__1139 = merge(a__833__1037__1124, a__836__1035__1122);
-				} else {
-					if (mt__959__1043__1130) {
-						def arg__835__1026__1062__1149 : u32 = 2;
-						def a__833__1027__1063__1150 = u32.+(seed, arg__835__1026__1062__1149);
-					} else {
-						def a__836__1025__1061__1148 : u32 = 20;
-					}
-// phis: innerPhi__987__1051__1138 <- a__833__1027__1063__1150; innerPhi__987__1051__1138 <- a__836__1025__1061__1148; 
-				}
-// phis: a__1038__1125 <- merge__988__1052__1139; a__1038__1125 <- innerPhi__987__1051__1138; 
-			}
-// phis: innerPhi__979__1094 <- a__1042__1129; innerPhi__979__1094 <- a__1038__1125; 
-		}
-// phis: a__1081 <- merge__980__1095; a__1081 <- innerPhi__979__1094; 
-		def arg__824__1083 : u32 = 2;
-		def arg__824 = (arg__824__1083);
-		def b__822__1084 = u32.+(a__1081, arg__824__1083);
-		def b__822 = (b__822__1084);
-	} else {
-		def b__825__1082 : u32 = 30;
-		def b__825 = (b__825__1082);
-	}
-// phis: innerPhi__983 <- b__822__1084; innerPhi__983 <- b__825__1082; 
-}
-// phis: b <- merge__984; b <- innerPhi__983; 
-if (mb__961) {
-	def merge__982 = merge(b__815, b__818);
-} else {
-	if (mt__959) {
-	}
-// phis: innerPhi__981 <- b__815; innerPhi__981 <- b__818; 
-}
-// phis: b <- merge__982; b <- innerPhi__981; 
-if (mb__976) {
-	def merge__978 = merge(b, b);
-} else {
-	if (mt__974) {
-	}
-// phis: innerPhi__977 <- b; innerPhi__977 <- b; 
-}
-// phis: b <- merge__978; b <- innerPhi__977; 
-def arg__812 : u32 = 4;
-def arg__809 : u32 = 2;
-def arg__805 : u32 = 3;
-def arg__802 : u32 = 1;
-def c__810 = u32.+(seed, arg__812);
-def c__807 = u32.+(b, arg__809);
-def c__803 = u32.+(a, arg__805);
-def c__800 = u32.+(b, arg__802);
-if (mb__971) {
-	def merge__973 = merge(c__807, c__810);
-} else {
-	if (mt__969) {
-	}
-// phis: innerPhi__972 <- c__807; innerPhi__972 <- c__810; 
-}
-// phis: c <- merge__973; c <- innerPhi__972; 
-if (mb__966) {
-	def merge__968 = merge(c__800, c__803);
-} else {
-	if (mt__964) {
-	}
-// phis: innerPhi__967 <- c__800; innerPhi__967 <- c__803; 
-}
-// phis: c <- merge__968; c <- innerPhi__967; 
-if (mb__961) {
-	def merge__963 = merge(c, c);
-} else {
-	if (mt__959) {
-	}
-// phis: innerPhi__962 <- c; innerPhi__962 <- c; 
-}
-// phis: c <- merge__963; c <- innerPhi__962; 
-def eff__796 = push_u32(c);
-</pre>`;
 window.traces["UNTANGLE_BRAID_LIMIT_STRESS"]["unlem_scheduler"] = ''
 window.traces["UNTANGLE_BRAID_LIMIT_STRESS"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_877["Block 877"]
@@ -16530,59 +15613,6 @@ graph TD
 	22 --> 24
 	22["arg__1161 20"]
 </pre>`;
-window.traces["DOUBLE_TRUE_SHARED_POP"]["unlem_schedule"] = ''
-window.traces["DOUBLE_TRUE_SHARED_POP"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def x = pop_u32();
-def arg__1171 : u32 = 0;
-def p = u32.!=(c1, arg__1171);
-def mt__1181 = U32_maybeTrue(p);
-def mf__1182 = U32_maybeFalse(p);
-def mb__1183 = bool.&&(mt__1181, mf__1182);
-if (mb__1183) {
-	def arg__1166 : u32 = 10;
-	def a__1167 : u32 = 10;
-	def a__1164 = u32.+(x, arg__1166);
-	def merge__1185 = merge(a__1164, a__1167);
-} else {
-	if (mt__1181) {
-		def arg__1166__1195 : u32 = 10;
-		def arg__1166 = (arg__1166__1195);
-		def a__1164__1196 = u32.+(x, arg__1166__1195);
-		def a__1164 = (a__1164__1196);
-	} else {
-		def a__1167__1194 : u32 = 10;
-		def a__1167 = (a__1167__1194);
-	}
-// phis: innerPhi__1184 <- a__1164__1196; innerPhi__1184 <- a__1167__1194; 
-}
-// phis: a <- merge__1185; a <- innerPhi__1184; 
-def arg__1169 : u32 = 0;
-def q = u32.!=(c2, arg__1169);
-def mt__1176 = U32_maybeTrue(q);
-def mf__1177 = U32_maybeFalse(q);
-def mb__1178 = bool.&&(mt__1176, mf__1177);
-if (mb__1178) {
-	def arg__1161 : u32 = 20;
-	def b__1162 : u32 = 20;
-	def b__1159 = u32.+(x, arg__1161);
-	def merge__1180 = merge(b__1159, b__1162);
-} else {
-	if (mt__1176) {
-		def arg__1161__1198 : u32 = 20;
-		def arg__1161 = (arg__1161__1198);
-		def b__1159__1199 = u32.+(x, arg__1161__1198);
-		def b__1159 = (b__1159__1199);
-	} else {
-		def b__1162__1197 : u32 = 20;
-		def b__1162 = (b__1162__1197);
-	}
-// phis: innerPhi__1179 <- b__1159__1199; innerPhi__1179 <- b__1162__1197; 
-}
-// phis: b <- merge__1180; b <- innerPhi__1179; 
-def eff__1156 = push_u32(a);
-def eff__1154 = push_u32(b);
-</pre>`;
 window.traces["DOUBLE_TRUE_SHARED_POP"]["unlem_scheduler"] = ''
 window.traces["DOUBLE_TRUE_SHARED_POP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1138["Block 1138"]
@@ -17809,129 +16839,6 @@ graph TD
 	11 --> 29
 	27 --> 29
 	27["arg__1208 2"]
-</pre>`;
-window.traces["CROSSED_P_Q_SHARED_POP"]["unlem_schedule"] = ''
-window.traces["CROSSED_P_Q_SHARED_POP"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def x = pop_u32();
-def arg__1219 : u32 = 0;
-def q = u32.!=(c2, arg__1219);
-def arg__1221 : u32 = 0;
-def mt__1230 = U32_maybeTrue(q);
-def p = u32.!=(c1, arg__1221);
-def mf__1231 = U32_maybeFalse(q);
-def mt__1235 = U32_maybeTrue(p);
-def mb__1232 = bool.&&(mt__1230, mf__1231);
-def mf__1236 = U32_maybeFalse(p);
-def mb__1237 = bool.&&(mt__1235, mf__1236);
-if (mb__1237) {
-	if (mb__1232) {
-		def arg__1215 : u32 = 1;
-		def left__1216 : u32 = 11;
-		def left__1213 = u32.+(x, arg__1215);
-		def merge__1243 = merge(left__1213, left__1216);
-	} else {
-		if (mt__1230) {
-			def arg__1215__1261 : u32 = 1;
-			def left__1213__1262 = u32.+(x, arg__1215__1261);
-		} else {
-			def left__1216__1260 : u32 = 11;
-		}
-// phis: innerPhi__1242 <- left__1213__1262; innerPhi__1242 <- left__1216__1260; 
-	}
-// phis: left <- merge__1243; left <- innerPhi__1242; 
-	def left : u32 = 0;
-	def merge__1241 = merge(left, left);
-} else {
-	if (mt__1235) {
-		def arg__1219__1266 : u32 = 0;
-		def arg__1219 = (arg__1219__1266);
-		def q__1267 = u32.!=(c2, arg__1219__1266);
-		def q = (q__1267);
-		def mt__1230__1273 = U32_maybeTrue(q__1267);
-		def mf__1231__1274 = U32_maybeFalse(q__1267);
-		def mb__1232__1275 = bool.&&(mt__1230__1273, mf__1231__1274);
-		if (mb__1232__1275) {
-			def arg__1215__1270 : u32 = 1;
-			def arg__1215 = (arg__1215__1270);
-			def left__1216__1269 : u32 = 11;
-			def left__1216 = (left__1216__1269);
-			def left__1213__1271 = u32.+(x, arg__1215__1270);
-			def left__1213 = (left__1213__1271);
-			def merge__1243__1277 = merge(left__1213__1271, left__1216__1269);
-			def merge__1243 = (merge__1243__1277);
-		} else {
-			if (mt__1230__1273) {
-				def arg__1215__1261__1283 : u32 = 1;
-				def left__1213__1262__1284 = u32.+(x, arg__1215__1261__1283);
-			} else {
-				def left__1216__1260__1282 : u32 = 11;
-			}
-// phis: innerPhi__1242__1276 <- left__1213__1262__1284; innerPhi__1242__1276 <- left__1216__1260__1282; 
-		}
-// phis: left__1272 <- merge__1243__1277; left__1272 <- innerPhi__1242__1276; 
-	} else {
-		def left__1268 : u32 = 0;
-		def left = (left__1268);
-	}
-// phis: innerPhi__1240 <- left__1272; innerPhi__1240 <- left__1268; 
-}
-// phis: left <- merge__1241; left <- innerPhi__1240; 
-if (mb__1232) {
-	if (mb__1237) {
-		def arg__1208 : u32 = 2;
-		def right__1209 : u32 = 21;
-		def right__1206 = u32.+(x, arg__1208);
-		def merge__1239 = merge(right__1206, right__1209);
-	} else {
-		if (mt__1235) {
-			def arg__1208__1264 : u32 = 2;
-			def right__1206__1265 = u32.+(x, arg__1208__1264);
-		} else {
-			def right__1209__1263 : u32 = 21;
-		}
-// phis: innerPhi__1238 <- right__1206__1265; innerPhi__1238 <- right__1209__1263; 
-	}
-// phis: right <- merge__1239; right <- innerPhi__1238; 
-	def right : u32 = 0;
-	def merge__1234 = merge(right, right);
-} else {
-	if (mt__1230) {
-		def arg__1221__1285 : u32 = 0;
-		def arg__1221 = (arg__1221__1285);
-		def p__1286 = u32.!=(c1, arg__1221__1285);
-		def p = (p__1286);
-		def mt__1235__1292 = U32_maybeTrue(p__1286);
-		def mf__1236__1293 = U32_maybeFalse(p__1286);
-		def mb__1237__1294 = bool.&&(mt__1235__1292, mf__1236__1293);
-		if (mb__1237__1294) {
-			def arg__1208__1289 : u32 = 2;
-			def arg__1208 = (arg__1208__1289);
-			def right__1209__1288 : u32 = 21;
-			def right__1209 = (right__1209__1288);
-			def right__1206__1290 = u32.+(x, arg__1208__1289);
-			def right__1206 = (right__1206__1290);
-			def merge__1239__1296 = merge(right__1206__1290, right__1209__1288);
-			def merge__1239 = (merge__1239__1296);
-		} else {
-			if (mt__1235__1292) {
-				def arg__1208__1264__1302 : u32 = 2;
-				def right__1206__1265__1303 = u32.+(x, arg__1208__1264__1302);
-			} else {
-				def right__1209__1263__1301 : u32 = 21;
-			}
-// phis: innerPhi__1238__1295 <- right__1206__1265__1303; innerPhi__1238__1295 <- right__1209__1263__1301; 
-		}
-// phis: right__1291 <- merge__1239__1296; right__1291 <- innerPhi__1238__1295; 
-	} else {
-		def right__1287 : u32 = 0;
-		def right = (right__1287);
-	}
-// phis: innerPhi__1233 <- right__1291; innerPhi__1233 <- right__1287; 
-}
-// phis: right <- merge__1234; right <- innerPhi__1233; 
-def eff__1202 = push_u32(left);
-def eff__1200 = push_u32(right);
 </pre>`;
 window.traces["CROSSED_P_Q_SHARED_POP"]["unlem_scheduler"] = ''
 window.traces["CROSSED_P_Q_SHARED_POP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -19181,44 +18088,6 @@ graph TD
 	19 --> 25
 	22 --> 25
 </pre>`;
-window.traces["Q_PAIR_CHILD_UNDERCOUNT"]["unlem_schedule"] = ''
-window.traces["Q_PAIR_CHILD_UNDERCOUNT"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def arg__1322 : u32 = 0;
-def q = u32.!=(c1, arg__1322);
-def mt__1330 = U32_maybeTrue(q);
-def mf__1331 = U32_maybeFalse(q);
-def mb__1332 = bool.&&(mt__1330, mf__1331);
-if (mb__1332) {
-	def a__1318 = pop_u32();
-	def eff_nop__1338 = nop();
-	def a__1320 : u32 = 11;
-	def b__1319 : u32 = 22;
-	def b__1317 = pop_u32();
-	def eff_merge__1339 = merge(eff_nop__1338, c1);
-	def merge__1334 = merge(a__1318, a__1320);
-	def merge__1336 = merge(b__1317, b__1319);
-} else {
-	if (mt__1330) {
-		def a__1318__1354 = pop_u32();
-		def a__1318 = (a__1318__1354);
-		def b__1317__1355 = pop_u32();
-		def b__1317 = (b__1317__1355);
-	} else {
-		def a__1320__1352 : u32 = 11;
-		def a__1320 = (a__1320__1352);
-		def b__1319__1353 : u32 = 22;
-		def b__1319 = (b__1319__1353);
-	}
-// phis: innerPhi__1333 <- a__1318__1354; innerPhi__1333 <- a__1320__1352; innerPhi__1335 <- b__1317__1355; innerPhi__1335 <- b__1319__1353; 
-}
-// phis: a <- merge__1334; a <- innerPhi__1333; b <- merge__1336; b <- innerPhi__1335; 
-def u1 = u32.+(a, b);
-def eff__1308 = push_u32(u1);
-def u2 = u32.+(b, a);
-def eff__1306 = push_u32(u2);
-def u3 = u32.+(u1, u2);
-def eff__1304 = push_u32(u3);
-</pre>`;
 window.traces["Q_PAIR_CHILD_UNDERCOUNT"]["unlem_scheduler"] = ''
 window.traces["Q_PAIR_CHILD_UNDERCOUNT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1296["Block 1296"]
@@ -20221,94 +19090,6 @@ graph TD
 	11 --> 26
 	24 --> 26
 	24["arg__1364 2"]
-</pre>`;
-window.traces["OUTSIDE_AND_INSIDE_SAME_Q"]["unlem_schedule"] = ''
-window.traces["OUTSIDE_AND_INSIDE_SAME_Q"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def x = pop_u32();
-def arg__1373 : u32 = 0;
-def q = u32.!=(c2, arg__1373);
-def mt__1387 = U32_maybeTrue(q);
-def mf__1388 = U32_maybeFalse(q);
-def mb__1389 = bool.&&(mt__1387, mf__1388);
-if (mb__1389) {
-	def arg__1370 : u32 = 1;
-	def outer_q__1371 : u32 = 10;
-	def outer_q__1368 = u32.+(x, arg__1370);
-	def merge__1393 = merge(outer_q__1368, outer_q__1371);
-} else {
-	if (mt__1387) {
-		def arg__1370__1407 : u32 = 1;
-		def arg__1370 = (arg__1370__1407);
-		def outer_q__1368__1408 = u32.+(x, arg__1370__1407);
-		def outer_q__1368 = (outer_q__1368__1408);
-	} else {
-		def outer_q__1371__1406 : u32 = 10;
-		def outer_q__1371 = (outer_q__1371__1406);
-	}
-// phis: innerPhi__1392 <- outer_q__1368__1408; innerPhi__1392 <- outer_q__1371__1406; 
-}
-// phis: outer_q <- merge__1393; outer_q <- innerPhi__1392; 
-def arg__1375 : u32 = 0;
-def p = u32.!=(c1, arg__1375);
-def mt__1382 = U32_maybeTrue(p);
-def mf__1383 = U32_maybeFalse(p);
-def mb__1384 = bool.&&(mt__1382, mf__1383);
-if (mb__1384) {
-	if (mb__1389) {
-		def arg__1364 : u32 = 2;
-		def inner_q__1365 : u32 = 20;
-		def inner_q__1362 = u32.+(x, arg__1364);
-		def merge__1391 = merge(inner_q__1362, inner_q__1365);
-	} else {
-		if (mt__1387) {
-			def arg__1364__1410 : u32 = 2;
-			def inner_q__1362__1411 = u32.+(x, arg__1364__1410);
-		} else {
-			def inner_q__1365__1409 : u32 = 20;
-		}
-// phis: innerPhi__1390 <- inner_q__1362__1411; innerPhi__1390 <- inner_q__1365__1409; 
-	}
-// phis: inner_q <- merge__1391; inner_q <- innerPhi__1390; 
-	def inner_q : u32 = 0;
-	def merge__1386 = merge(inner_q, inner_q);
-} else {
-	if (mt__1382) {
-		def arg__1373__1412 : u32 = 0;
-		def arg__1373 = (arg__1373__1412);
-		def q__1413 = u32.!=(c2, arg__1373__1412);
-		def q = (q__1413);
-		def mt__1387__1419 = U32_maybeTrue(q__1413);
-		def mf__1388__1420 = U32_maybeFalse(q__1413);
-		def mb__1389__1421 = bool.&&(mt__1387__1419, mf__1388__1420);
-		if (mb__1389__1421) {
-			def arg__1364__1416 : u32 = 2;
-			def arg__1364 = (arg__1364__1416);
-			def inner_q__1365__1415 : u32 = 20;
-			def inner_q__1365 = (inner_q__1365__1415);
-			def inner_q__1362__1417 = u32.+(x, arg__1364__1416);
-			def inner_q__1362 = (inner_q__1362__1417);
-			def merge__1391__1423 = merge(inner_q__1362__1417, inner_q__1365__1415);
-			def merge__1391 = (merge__1391__1423);
-		} else {
-			if (mt__1387__1419) {
-				def arg__1364__1410__1429 : u32 = 2;
-				def inner_q__1362__1411__1430 = u32.+(x, arg__1364__1410__1429);
-			} else {
-				def inner_q__1365__1409__1428 : u32 = 20;
-			}
-// phis: innerPhi__1390__1422 <- inner_q__1362__1411__1430; innerPhi__1390__1422 <- inner_q__1365__1409__1428; 
-		}
-// phis: inner_q__1418 <- merge__1391__1423; inner_q__1418 <- innerPhi__1390__1422; 
-	} else {
-		def inner_q__1414 : u32 = 0;
-		def inner_q = (inner_q__1414);
-	}
-// phis: innerPhi__1385 <- inner_q__1418; innerPhi__1385 <- inner_q__1414; 
-}
-// phis: inner_q <- merge__1386; inner_q <- innerPhi__1385; 
-def eff__1358 = push_u32(outer_q);
-def eff__1356 = push_u32(inner_q);
 </pre>`;
 window.traces["OUTSIDE_AND_INSIDE_SAME_Q"]["unlem_scheduler"] = ''
 window.traces["OUTSIDE_AND_INSIDE_SAME_Q"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -22058,137 +20839,6 @@ graph TD
 	44 --> 56
 	36 --> 56
 </pre>`;
-window.traces["TRIANGLE_P_Q_R_SHARED_POP"]["unlem_schedule"] = ''
-window.traces["TRIANGLE_P_Q_R_SHARED_POP"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def c3 = pop_u32();
-def x = pop_u32();
-def arg__1459 : u32 = 0;
-def r = u32.!=(c3, arg__1459);
-def mt__1476 = U32_maybeTrue(r);
-def mf__1477 = U32_maybeFalse(r);
-def mb__1478 = bool.&&(mt__1476, mf__1477);
-if (mb__1478) {
-	def arg__1448 : u32 = 2;
-	def b__1449 : u32 = 21;
-	def b__1446 = u32.+(x, arg__1448);
-	def merge__1492 = merge(b__1446, b__1449);
-} else {
-	if (mt__1476) {
-		def arg__1448__1525 : u32 = 2;
-		def arg__1448 = (arg__1448__1525);
-		def b__1446__1526 = u32.+(x, arg__1448__1525);
-		def b__1446 = (b__1446__1526);
-	} else {
-		def b__1449__1524 : u32 = 21;
-		def b__1449 = (b__1449__1524);
-	}
-// phis: innerPhi__1491 <- b__1446__1526; innerPhi__1491 <- b__1449__1524; 
-}
-// phis: b <- merge__1492; b <- innerPhi__1491; 
-def arg__1461 : u32 = 0;
-def q = u32.!=(c2, arg__1461);
-def arg__1463 : u32 = 0;
-def mt__1486 = U32_maybeTrue(q);
-def p = u32.!=(c1, arg__1463);
-def mf__1487 = U32_maybeFalse(q);
-def mt__1481 = U32_maybeTrue(p);
-def mb__1488 = bool.&&(mt__1486, mf__1487);
-def mf__1482 = U32_maybeFalse(p);
-def b : u32 = 0;
-def mb__1483 = bool.&&(mt__1481, mf__1482);
-def d : u32 = 0;
-if (mb__1483) {
-	def arg__1441 : u32 = 3;
-	def d__1442 : u32 = 31;
-	def d__1439 = u32.+(x, arg__1441);
-	def merge__1485 = merge(d__1439, d__1442);
-} else {
-	if (mt__1481) {
-		def arg__1441__1528 : u32 = 3;
-		def arg__1441 = (arg__1441__1528);
-		def d__1439__1529 = u32.+(x, arg__1441__1528);
-		def d__1439 = (d__1439__1529);
-	} else {
-		def d__1442__1527 : u32 = 31;
-		def d__1442 = (d__1442__1527);
-	}
-// phis: innerPhi__1484 <- d__1439__1529; innerPhi__1484 <- d__1442__1527; 
-}
-// phis: d <- merge__1485; d <- innerPhi__1484; 
-if (mb__1483) {
-	if (mb__1488) {
-		def arg__1455 : u32 = 1;
-		def a__1456 : u32 = 11;
-		def a__1453 = u32.+(x, arg__1455);
-		def merge__1496 = merge(a__1453, a__1456);
-	} else {
-		if (mt__1486) {
-			def arg__1455__1522 : u32 = 1;
-			def a__1453__1523 = u32.+(x, arg__1455__1522);
-		} else {
-			def a__1456__1521 : u32 = 11;
-		}
-// phis: innerPhi__1495 <- a__1453__1523; innerPhi__1495 <- a__1456__1521; 
-	}
-// phis: a <- merge__1496; a <- innerPhi__1495; 
-	def a : u32 = 0;
-	def merge__1494 = merge(a, a);
-} else {
-	if (mt__1481) {
-		def arg__1461__1530 : u32 = 0;
-		def arg__1461 = (arg__1461__1530);
-		def q__1531 = u32.!=(c2, arg__1461__1530);
-		def q = (q__1531);
-		def mt__1486__1537 = U32_maybeTrue(q__1531);
-		def mf__1487__1538 = U32_maybeFalse(q__1531);
-		def mb__1488__1539 = bool.&&(mt__1486__1537, mf__1487__1538);
-		if (mb__1488__1539) {
-			def arg__1455__1534 : u32 = 1;
-			def arg__1455 = (arg__1455__1534);
-			def a__1456__1533 : u32 = 11;
-			def a__1456 = (a__1456__1533);
-			def a__1453__1535 = u32.+(x, arg__1455__1534);
-			def a__1453 = (a__1453__1535);
-			def merge__1496__1541 = merge(a__1453__1535, a__1456__1533);
-			def merge__1496 = (merge__1496__1541);
-		} else {
-			if (mt__1486__1537) {
-				def arg__1455__1522__1547 : u32 = 1;
-				def a__1453__1523__1548 = u32.+(x, arg__1455__1522__1547);
-			} else {
-				def a__1456__1521__1546 : u32 = 11;
-			}
-// phis: innerPhi__1495__1540 <- a__1453__1523__1548; innerPhi__1495__1540 <- a__1456__1521__1546; 
-		}
-// phis: a__1536 <- merge__1496__1541; a__1536 <- innerPhi__1495__1540; 
-	} else {
-		def a__1532 : u32 = 0;
-		def a = (a__1532);
-	}
-// phis: innerPhi__1493 <- a__1536; innerPhi__1493 <- a__1532; 
-}
-// phis: a <- merge__1494; a <- innerPhi__1493; 
-if (mb__1488) {
-	def merge__1490 = merge(b, b);
-} else {
-	if (mt__1486) {
-	}
-// phis: innerPhi__1489 <- b; innerPhi__1489 <- b; 
-}
-// phis: b <- merge__1490; b <- innerPhi__1489; 
-if (mb__1478) {
-	def merge__1480 = merge(d, d);
-} else {
-	if (mt__1476) {
-	}
-// phis: innerPhi__1479 <- d; innerPhi__1479 <- d; 
-}
-// phis: d <- merge__1480; d <- innerPhi__1479; 
-def eff__1435 = push_u32(a);
-def eff__1433 = push_u32(b);
-def eff__1431 = push_u32(d);
-</pre>`;
 window.traces["TRIANGLE_P_Q_R_SHARED_POP"]["unlem_scheduler"] = ''
 window.traces["TRIANGLE_P_Q_R_SHARED_POP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1422["Block 1422"]
@@ -23850,130 +22500,6 @@ graph TD
 	30 --> 32
 	30["arg__1557 2"]
 </pre>`;
-window.traces["CROSSED_P_Q_DOUBLE_SHARED_POP"]["unlem_schedule"] = ''
-window.traces["CROSSED_P_Q_DOUBLE_SHARED_POP"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def x = pop_u32();
-def y = pop_u32();
-def arg__1570 : u32 = 0;
-def q = u32.!=(c2, arg__1570);
-def arg__1572 : u32 = 0;
-def mt__1581 = U32_maybeTrue(q);
-def p = u32.!=(c1, arg__1572);
-def mf__1582 = U32_maybeFalse(q);
-def mt__1586 = U32_maybeTrue(p);
-def mb__1583 = bool.&&(mt__1581, mf__1582);
-def mf__1587 = U32_maybeFalse(p);
-def mb__1588 = bool.&&(mt__1586, mf__1587);
-if (mb__1588) {
-	if (mb__1583) {
-		def arg__1567 : u32 = 11;
-		def left__1565 = u32.+(x, arg__1567);
-		def left__1562 = u32.+(x, y);
-		def merge__1594 = merge(left__1562, left__1565);
-	} else {
-		if (mt__1581) {
-			def left__1562__1613 = u32.+(x, y);
-		} else {
-			def arg__1567__1611 : u32 = 11;
-			def left__1565__1612 = u32.+(x, arg__1567__1611);
-		}
-// phis: innerPhi__1593 <- left__1562__1613; innerPhi__1593 <- left__1565__1612; 
-	}
-// phis: left <- merge__1594; left <- innerPhi__1593; 
-	def left : u32 = 0;
-	def merge__1592 = merge(left, left);
-} else {
-	if (mt__1586) {
-		def arg__1570__1617 : u32 = 0;
-		def arg__1570 = (arg__1570__1617);
-		def q__1618 = u32.!=(c2, arg__1570__1617);
-		def q = (q__1618);
-		def mt__1581__1624 = U32_maybeTrue(q__1618);
-		def mf__1582__1625 = U32_maybeFalse(q__1618);
-		def mb__1583__1626 = bool.&&(mt__1581__1624, mf__1582__1625);
-		if (mb__1583__1626) {
-			def arg__1567__1620 : u32 = 11;
-			def arg__1567 = (arg__1567__1620);
-			def left__1565__1621 = u32.+(x, arg__1567__1620);
-			def left__1565 = (left__1565__1621);
-			def left__1562__1622 = u32.+(x, y);
-			def left__1562 = (left__1562__1622);
-			def merge__1594__1628 = merge(left__1562__1622, left__1565__1621);
-			def merge__1594 = (merge__1594__1628);
-		} else {
-			if (mt__1581__1624) {
-				def left__1562__1613__1635 = u32.+(x, y);
-			} else {
-				def arg__1567__1611__1633 : u32 = 11;
-				def left__1565__1612__1634 = u32.+(x, arg__1567__1611__1633);
-			}
-// phis: innerPhi__1593__1627 <- left__1562__1613__1635; innerPhi__1593__1627 <- left__1565__1612__1634; 
-		}
-// phis: left__1623 <- merge__1594__1628; left__1623 <- innerPhi__1593__1627; 
-	} else {
-		def left__1619 : u32 = 0;
-		def left = (left__1619);
-	}
-// phis: innerPhi__1591 <- left__1623; innerPhi__1591 <- left__1619; 
-}
-// phis: left <- merge__1592; left <- innerPhi__1591; 
-if (mb__1583) {
-	if (mb__1588) {
-		def arg__1557 : u32 = 2;
-		def right__1558 : u32 = 21;
-		def right__1555 = u32.+(y, arg__1557);
-		def merge__1590 = merge(right__1555, right__1558);
-	} else {
-		if (mt__1586) {
-			def arg__1557__1615 : u32 = 2;
-			def right__1555__1616 = u32.+(y, arg__1557__1615);
-		} else {
-			def right__1558__1614 : u32 = 21;
-		}
-// phis: innerPhi__1589 <- right__1555__1616; innerPhi__1589 <- right__1558__1614; 
-	}
-// phis: right <- merge__1590; right <- innerPhi__1589; 
-	def right : u32 = 0;
-	def merge__1585 = merge(right, right);
-} else {
-	if (mt__1581) {
-		def arg__1572__1636 : u32 = 0;
-		def arg__1572 = (arg__1572__1636);
-		def p__1637 = u32.!=(c1, arg__1572__1636);
-		def p = (p__1637);
-		def mt__1586__1643 = U32_maybeTrue(p__1637);
-		def mf__1587__1644 = U32_maybeFalse(p__1637);
-		def mb__1588__1645 = bool.&&(mt__1586__1643, mf__1587__1644);
-		if (mb__1588__1645) {
-			def arg__1557__1640 : u32 = 2;
-			def arg__1557 = (arg__1557__1640);
-			def right__1558__1639 : u32 = 21;
-			def right__1558 = (right__1558__1639);
-			def right__1555__1641 = u32.+(y, arg__1557__1640);
-			def right__1555 = (right__1555__1641);
-			def merge__1590__1647 = merge(right__1555__1641, right__1558__1639);
-			def merge__1590 = (merge__1590__1647);
-		} else {
-			if (mt__1586__1643) {
-				def arg__1557__1615__1653 : u32 = 2;
-				def right__1555__1616__1654 = u32.+(y, arg__1557__1615__1653);
-			} else {
-				def right__1558__1614__1652 : u32 = 21;
-			}
-// phis: innerPhi__1589__1646 <- right__1555__1616__1654; innerPhi__1589__1646 <- right__1558__1614__1652; 
-		}
-// phis: right__1642 <- merge__1590__1647; right__1642 <- innerPhi__1589__1646; 
-	} else {
-		def right__1638 : u32 = 0;
-		def right = (right__1638);
-	}
-// phis: innerPhi__1584 <- right__1642; innerPhi__1584 <- right__1638; 
-}
-// phis: right <- merge__1585; right <- innerPhi__1584; 
-def eff__1551 = push_u32(left);
-def eff__1549 = push_u32(right);
-</pre>`;
 window.traces["CROSSED_P_Q_DOUBLE_SHARED_POP"]["unlem_scheduler"] = ''
 window.traces["CROSSED_P_Q_DOUBLE_SHARED_POP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1566["Block 1566"]
@@ -25403,60 +23929,6 @@ graph TD
 	25 --> 39
 	30 --> 39
 </pre>`;
-window.traces["TRIVIAL_PHI_STACK_SHARED_EFFECT"]["unlem_schedule"] = ''
-window.traces["TRIVIAL_PHI_STACK_SHARED_EFFECT"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def c3 = pop_u32();
-def arg__1671 : u32 = 0;
-def q = u32.!=(c2, arg__1671);
-def mt__1700 = U32_maybeTrue(q);
-def mf__1701 = U32_maybeFalse(q);
-def mb__1702 = bool.&&(mt__1700, mf__1701);
-if (mb__1702) {
-	def base__1666 = pop_u32();
-	def base__1667 : u32 = 5;
-	def eff_merge__1704 = merge(base__1666, c3);
-	def merge__1711 = merge(base__1666, base__1667);
-} else {
-	if (mt__1700) {
-		def base__1666__1729 = pop_u32();
-		def base__1666 = (base__1666__1729);
-	} else {
-		def base__1667__1728 : u32 = 5;
-	}
-// phis: innerPhi__1710 <- base__1666__1729; innerPhi__1710 <- base__1667__1728; 
-}
-// phis: base <- merge__1711; base <- innerPhi__1710; 
-def arg__1669 : u32 = 0;
-def r = u32.!=(c3, arg__1669);
-def mt__1705 = U32_maybeTrue(r);
-def mf__1706 = U32_maybeFalse(r);
-def mb__1707 = bool.&&(mt__1705, mf__1706);
-if (mb__1707) {
-	def merge__1709 = merge(base, base);
-} else {
-	if (mt__1705) {
-	}
-// phis: innerPhi__1708 <- base; innerPhi__1708 <- base; 
-}
-// phis: wrap1 <- merge__1709; wrap1 <- innerPhi__1708; 
-def arg__1661 : u32 = 1;
-def arg__1673 : u32 = 0;
-def wrap2__1659 = u32.+(base, arg__1661);
-def p = u32.!=(c1, arg__1673);
-def mt__1695 = U32_maybeTrue(p);
-def mf__1696 = U32_maybeFalse(p);
-def mb__1697 = bool.&&(mt__1695, mf__1696);
-if (mb__1697) {
-	def merge__1699 = merge(wrap1, wrap2__1659);
-} else {
-	if (mt__1695) {
-	}
-// phis: innerPhi__1698 <- wrap1; innerPhi__1698 <- wrap2__1659; 
-}
-// phis: wrap2 <- merge__1699; wrap2 <- innerPhi__1698; 
-def eff__1655 = push_u32(wrap2);
-</pre>`;
 window.traces["TRIVIAL_PHI_STACK_SHARED_EFFECT"]["unlem_scheduler"] = ''
 window.traces["TRIVIAL_PHI_STACK_SHARED_EFFECT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_1695["Block 1695"]
@@ -26545,50 +25017,6 @@ graph TD
 	23["u1 u32.+"]
 	19 --> 23
 	18 --> 23
-</pre>`;
-window.traces["Q_TRIPLE_SHARED_CHILD_FANOUT"]["unlem_schedule"] = ''
-window.traces["Q_TRIPLE_SHARED_CHILD_FANOUT"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def arg__1774 : u32 = 0;
-def q = u32.!=(c1, arg__1774);
-def mt__1784 = U32_maybeTrue(q);
-def mf__1785 = U32_maybeFalse(q);
-def mb__1786 = bool.&&(mt__1784, mf__1785);
-if (mb__1786) {
-	def a__1769 = pop_u32();
-	def b__1768 = pop_u32();
-	def d__1767 = pop_u32();
-	def a__1772 : u32 = 11;
-	def b__1771 : u32 = 22;
-	def d__1770 : u32 = 33;
-	def eff_merge__1788 = merge(d__1767, c1);
-	def merge__1792 = merge(a__1769, a__1772);
-	def merge__1794 = merge(b__1768, b__1771);
-	def merge__1790 = merge(d__1767, d__1770);
-} else {
-	if (mt__1784) {
-		def a__1769__1814 = pop_u32();
-		def a__1769 = (a__1769__1814);
-		def b__1768__1815 = pop_u32();
-		def b__1768 = (b__1768__1815);
-		def d__1767__1816 = pop_u32();
-		def d__1767 = (d__1767__1816);
-	} else {
-		def a__1772__1811 : u32 = 11;
-		def a__1772 = (a__1772__1811);
-		def b__1771__1812 : u32 = 22;
-		def b__1771 = (b__1771__1812);
-		def d__1770__1813 : u32 = 33;
-		def d__1770 = (d__1770__1813);
-	}
-// phis: innerPhi__1791 <- a__1769__1814; innerPhi__1791 <- a__1772__1811; innerPhi__1793 <- b__1768__1815; innerPhi__1793 <- b__1771__1812; innerPhi__1789 <- d__1767__1816; innerPhi__1789 <- d__1770__1813; 
-}
-// phis: a <- merge__1792; a <- innerPhi__1791; b <- merge__1794; b <- innerPhi__1793; d <- merge__1790; d <- innerPhi__1789; 
-def u2 = u32.+(b, d);
-def u1 = u32.+(a, b);
-def u3 = u32.+(d, a);
-def u4 = u32.+(u1, u2);
-def u5 = u32.+(u4, u3);
-def eff__1754 = push_u32(u5);
 </pre>`;
 window.traces["Q_TRIPLE_SHARED_CHILD_FANOUT"]["unlem_scheduler"] = ''
 window.traces["Q_TRIPLE_SHARED_CHILD_FANOUT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -27889,96 +26317,6 @@ graph TD
 	11 --> 17
 	15 --> 17
 	15["arg__1839 1"]
-</pre>`;
-window.traces["OUTER_Q_AND_BOTH_P_SIDES_Q"]["unlem_schedule"] = ''
-window.traces["OUTER_Q_AND_BOTH_P_SIDES_Q"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def x = pop_u32();
-def arg__1842__1902 : u32 = 0;
-def arg__1842 = (arg__1842__1902);
-def arg__1842 : u32 = 0;
-def q__1903 = u32.!=(c2, arg__1842__1902);
-def q = (q__1903);
-def q = u32.!=(c2, arg__1842);
-def mt__1857__1904 = U32_maybeTrue(q__1903);
-def mt__1857 = U32_maybeTrue(q);
-def mf__1858__1905 = U32_maybeFalse(q__1903);
-def mf__1858 = U32_maybeFalse(q);
-def mb__1859__1906 = bool.&&(mt__1857__1904, mf__1858__1905);
-def mb__1859 = bool.&&(mt__1857, mf__1858);
-if (mb__1859__1906) {
-	def arg__1833 : u32 = 3;
-	def right__1834 : u32 = 50;
-	def right__1831 = u32.+(x, arg__1833);
-	def merge__1872 = merge(right__1831, right__1834);
-} else {
-	if (mt__1857__1904) {
-		def arg__1833__1900 : u32 = 3;
-		def arg__1833 = (arg__1833__1900);
-		def right__1831__1901 = u32.+(x, arg__1833__1900);
-		def right__1831 = (right__1831__1901);
-	} else {
-		def right__1834__1899 : u32 = 50;
-		def right__1834 = (right__1834__1899);
-	}
-// phis: innerPhi__1871 <- right__1831__1901; innerPhi__1871 <- right__1834__1899; 
-}
-// phis: right <- merge__1872; right <- innerPhi__1871; 
-if (mb__1859) {
-	def arg__1828 : u32 = 2;
-	def left__1829 : u32 = 20;
-	def left__1826 = u32.+(x, arg__1828);
-	def merge__1870 = merge(left__1826, left__1829);
-} else {
-	if (mt__1857) {
-		def arg__1828__1897 : u32 = 2;
-		def arg__1828 = (arg__1828__1897);
-		def left__1826__1898 = u32.+(x, arg__1828__1897);
-		def left__1826 = (left__1826__1898);
-	} else {
-		def left__1829__1896 : u32 = 20;
-		def left__1829 = (left__1829__1896);
-	}
-// phis: innerPhi__1869 <- left__1826__1898; innerPhi__1869 <- left__1829__1896; 
-}
-// phis: left <- merge__1870; left <- innerPhi__1869; 
-def arg__1844 : u32 = 0;
-def right__1824 : u32 = 30;
-def p = u32.!=(c1, arg__1844);
-def left : u32 = 0;
-def mt__1862 = U32_maybeTrue(p);
-def mf__1863 = U32_maybeFalse(p);
-def mb__1864 = bool.&&(mt__1862, mf__1863);
-if (mb__1864) {
-	def merge__1868 = merge(right__1824, right);
-	def merge__1866 = merge(left, left);
-} else {
-	if (mt__1862) {
-	}
-// phis: innerPhi__1867 <- right__1824; innerPhi__1867 <- right; innerPhi__1865 <- left; innerPhi__1865 <- left; 
-}
-// phis: right <- merge__1868; right <- innerPhi__1867; left <- merge__1866; left <- innerPhi__1865; 
-if (mb__1859) {
-	def arg__1839 : u32 = 1;
-	def outer__1840 : u32 = 10;
-	def outer__1837 = u32.+(x, arg__1839);
-	def merge__1861 = merge(outer__1837, outer__1840);
-} else {
-	if (mt__1857) {
-		def arg__1839__1894 : u32 = 1;
-		def arg__1839 = (arg__1839__1894);
-		def outer__1837__1895 = u32.+(x, arg__1839__1894);
-		def outer__1837 = (outer__1837__1895);
-	} else {
-		def outer__1840__1893 : u32 = 10;
-		def outer__1840 = (outer__1840__1893);
-	}
-// phis: innerPhi__1860 <- outer__1837__1895; innerPhi__1860 <- outer__1840__1893; 
-}
-// phis: outer <- merge__1861; outer <- innerPhi__1860; 
-def arg__1820 = u32.+(left, right);
-def z = u32.+(outer, arg__1820);
-def eff__1817 = push_u32(z);
 </pre>`;
 window.traces["OUTER_Q_AND_BOTH_P_SIDES_Q"]["unlem_scheduler"] = ''
 window.traces["OUTER_Q_AND_BOTH_P_SIDES_Q"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -30085,145 +28423,6 @@ graph TD
 	72["merge__1971 merge"]
 	28 --> 72
 	20 --> 72
-</pre>`;
-window.traces["P_Q_R_S_RING_SHARED_POP"]["unlem_schedule"] = ''
-window.traces["P_Q_R_S_RING_SHARED_POP"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def c3 = pop_u32();
-def c4 = pop_u32();
-def x = pop_u32();
-def arg__1950 : u32 = 0;
-def arg__1944 : u32 = 0;
-def arg__1946 : u32 = 0;
-def p = u32.!=(c1, arg__1950);
-def s = u32.!=(c4, arg__1944);
-def r = u32.!=(c3, arg__1946);
-def mt__1967 = U32_maybeTrue(p);
-def mt__1982 = U32_maybeTrue(s);
-def mt__1977 = U32_maybeTrue(r);
-def mf__1968 = U32_maybeFalse(p);
-def mf__1983 = U32_maybeFalse(s);
-def mf__1978 = U32_maybeFalse(r);
-def mb__1969 = bool.&&(mt__1967, mf__1968);
-def mb__1984 = bool.&&(mt__1982, mf__1983);
-def mb__1979 = bool.&&(mt__1977, mf__1978);
-if (mb__1969) {
-	def arg__1919 : u32 = 4;
-	def e__1920 : u32 = 41;
-	def e__1917 = u32.+(x, arg__1919);
-	def merge__1994 = merge(e__1917, e__1920);
-} else {
-	if (mt__1967) {
-		def arg__1919__2037 : u32 = 4;
-		def arg__1919 = (arg__1919__2037);
-		def e__1917__2038 = u32.+(x, arg__1919__2037);
-		def e__1917 = (e__1917__2038);
-	} else {
-		def e__1920__2036 : u32 = 41;
-		def e__1920 = (e__1920__2036);
-	}
-// phis: innerPhi__1993 <- e__1917__2038; innerPhi__1993 <- e__1920__2036; 
-}
-// phis: e <- merge__1994; e <- innerPhi__1993; 
-if (mb__1984) {
-	def arg__1926 : u32 = 3;
-	def d__1927 : u32 = 31;
-	def d__1924 = u32.+(x, arg__1926);
-	def merge__1992 = merge(d__1924, d__1927);
-} else {
-	if (mt__1982) {
-		def arg__1926__2034 : u32 = 3;
-		def arg__1926 = (arg__1926__2034);
-		def d__1924__2035 = u32.+(x, arg__1926__2034);
-		def d__1924 = (d__1924__2035);
-	} else {
-		def d__1927__2033 : u32 = 31;
-		def d__1927 = (d__1927__2033);
-	}
-// phis: innerPhi__1991 <- d__1924__2035; innerPhi__1991 <- d__1927__2033; 
-}
-// phis: d <- merge__1992; d <- innerPhi__1991; 
-if (mb__1979) {
-	def arg__1933 : u32 = 2;
-	def b__1934 : u32 = 21;
-	def b__1931 = u32.+(x, arg__1933);
-	def merge__1990 = merge(b__1931, b__1934);
-} else {
-	if (mt__1977) {
-		def arg__1933__2031 : u32 = 2;
-		def arg__1933 = (arg__1933__2031);
-		def b__1931__2032 = u32.+(x, arg__1933__2031);
-		def b__1931 = (b__1931__2032);
-	} else {
-		def b__1934__2030 : u32 = 21;
-		def b__1934 = (b__1934__2030);
-	}
-// phis: innerPhi__1989 <- b__1931__2032; innerPhi__1989 <- b__1934__2030; 
-}
-// phis: b <- merge__1990; b <- innerPhi__1989; 
-def arg__1948 : u32 = 0;
-def q = u32.!=(c2, arg__1948);
-def mt__1972 = U32_maybeTrue(q);
-def mf__1973 = U32_maybeFalse(q);
-def mb__1974 = bool.&&(mt__1972, mf__1973);
-def e : u32 = 0;
-def d : u32 = 0;
-def b : u32 = 0;
-def a : u32 = 0;
-if (mb__1974) {
-	def arg__1940 : u32 = 1;
-	def a__1941 : u32 = 11;
-	def a__1938 = u32.+(x, arg__1940);
-	def merge__1988 = merge(a__1938, a__1941);
-} else {
-	if (mt__1972) {
-		def arg__1940__2028 : u32 = 1;
-		def arg__1940 = (arg__1940__2028);
-		def a__1938__2029 = u32.+(x, arg__1940__2028);
-		def a__1938 = (a__1938__2029);
-	} else {
-		def a__1941__2027 : u32 = 11;
-		def a__1941 = (a__1941__2027);
-	}
-// phis: innerPhi__1987 <- a__1938__2029; innerPhi__1987 <- a__1941__2027; 
-}
-// phis: a <- merge__1988; a <- innerPhi__1987; 
-if (mb__1984) {
-	def merge__1986 = merge(e, e);
-} else {
-	if (mt__1982) {
-	}
-// phis: innerPhi__1985 <- e; innerPhi__1985 <- e; 
-}
-// phis: e <- merge__1986; e <- innerPhi__1985; 
-if (mb__1979) {
-	def merge__1981 = merge(d, d);
-} else {
-	if (mt__1977) {
-	}
-// phis: innerPhi__1980 <- d; innerPhi__1980 <- d; 
-}
-// phis: d <- merge__1981; d <- innerPhi__1980; 
-if (mb__1974) {
-	def merge__1976 = merge(b, b);
-} else {
-	if (mt__1972) {
-	}
-// phis: innerPhi__1975 <- b; innerPhi__1975 <- b; 
-}
-// phis: b <- merge__1976; b <- innerPhi__1975; 
-if (mb__1969) {
-	def merge__1971 = merge(a, a);
-} else {
-	if (mt__1967) {
-	}
-// phis: innerPhi__1970 <- a; innerPhi__1970 <- a; 
-}
-// phis: a <- merge__1971; a <- innerPhi__1970; 
-def arg__1910 = u32.+(d, e);
-def arg__1909 = u32.+(a, b);
-def arg__1908 = u32.+(arg__1909, arg__1910);
-def eff__1907 = push_u32(arg__1908);
 </pre>`;
 window.traces["P_Q_R_S_RING_SHARED_POP"]["unlem_scheduler"] = ''
 window.traces["P_Q_R_S_RING_SHARED_POP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -32416,148 +30615,6 @@ graph TD
 	15 --> 30
 	28 --> 30
 	28["arg__2063 2"]
-</pre>`;
-window.traces["Q_OUTER_PLUS_Q_IN_TRIANGLE"]["unlem_schedule"] = ''
-window.traces["Q_OUTER_PLUS_Q_IN_TRIANGLE"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def c3 = pop_u32();
-def x = pop_u32();
-def arg__2074 : u32 = 0;
-def q = u32.!=(c2, arg__2074);
-def mt__2101 = U32_maybeTrue(q);
-def mf__2102 = U32_maybeFalse(q);
-def mb__2103 = bool.&&(mt__2101, mf__2102);
-if (mb__2103) {
-	def arg__2069 : u32 = 1;
-	def outer_q__2070 : u32 = 10;
-	def outer_q__2067 = u32.+(x, arg__2069);
-	def merge__2113 = merge(outer_q__2067, outer_q__2070);
-} else {
-	if (mt__2101) {
-		def arg__2069__2149 : u32 = 1;
-		def arg__2069 = (arg__2069__2149);
-		def outer_q__2067__2150 = u32.+(x, arg__2069__2149);
-		def outer_q__2067 = (outer_q__2067__2150);
-	} else {
-		def outer_q__2070__2148 : u32 = 10;
-		def outer_q__2070 = (outer_q__2070__2148);
-	}
-// phis: innerPhi__2112 <- outer_q__2067__2150; innerPhi__2112 <- outer_q__2070__2148; 
-}
-// phis: outer_q <- merge__2113; outer_q <- innerPhi__2112; 
-def arg__2072 : u32 = 0;
-def r = u32.!=(c3, arg__2072);
-def mt__2091 = U32_maybeTrue(r);
-def mf__2092 = U32_maybeFalse(r);
-def mb__2093 = bool.&&(mt__2091, mf__2092);
-if (mb__2093) {
-	def arg__2056 : u32 = 3;
-	def b__2057 : u32 = 30;
-	def b__2054 = u32.+(x, arg__2056);
-	def merge__2111 = merge(b__2054, b__2057);
-} else {
-	if (mt__2091) {
-		def arg__2056__2146 : u32 = 3;
-		def arg__2056 = (arg__2056__2146);
-		def b__2054__2147 = u32.+(x, arg__2056__2146);
-		def b__2054 = (b__2054__2147);
-	} else {
-		def b__2057__2145 : u32 = 30;
-		def b__2057 = (b__2057__2145);
-	}
-// phis: innerPhi__2110 <- b__2054__2147; innerPhi__2110 <- b__2057__2145; 
-}
-// phis: b <- merge__2111; b <- innerPhi__2110; 
-def arg__2049 : u32 = 4;
-def arg__2076 : u32 = 0;
-def d__2050 : u32 = 40;
-def d__2047 = u32.+(outer_q, arg__2049);
-def p = u32.!=(c1, arg__2076);
-def mt__2096 = U32_maybeTrue(p);
-def mf__2097 = U32_maybeFalse(p);
-def mb__2098 = bool.&&(mt__2096, mf__2097);
-def b : u32 = 0;
-def d : u32 = 0;
-if (mb__2098) {
-	def merge__2107 = merge(d__2047, d__2050);
-} else {
-	if (mt__2096) {
-	}
-// phis: innerPhi__2106 <- d__2047; innerPhi__2106 <- d__2050; 
-}
-// phis: d <- merge__2107; d <- innerPhi__2106; 
-if (mb__2103) {
-	def merge__2105 = merge(b, b);
-} else {
-	if (mt__2101) {
-	}
-// phis: innerPhi__2104 <- b; innerPhi__2104 <- b; 
-}
-// phis: b <- merge__2105; b <- innerPhi__2104; 
-if (mb__2098) {
-	if (mb__2103) {
-		def arg__2063 : u32 = 2;
-		def a__2064 : u32 = 20;
-		def a__2061 = u32.+(x, arg__2063);
-		def merge__2109 = merge(a__2061, a__2064);
-	} else {
-		if (mt__2101) {
-			def arg__2063__2143 : u32 = 2;
-			def a__2061__2144 = u32.+(x, arg__2063__2143);
-		} else {
-			def a__2064__2142 : u32 = 20;
-		}
-// phis: innerPhi__2108 <- a__2061__2144; innerPhi__2108 <- a__2064__2142; 
-	}
-// phis: a <- merge__2109; a <- innerPhi__2108; 
-	def a : u32 = 0;
-	def merge__2100 = merge(a, a);
-} else {
-	if (mt__2096) {
-		def arg__2074__2151 : u32 = 0;
-		def arg__2074 = (arg__2074__2151);
-		def q__2152 = u32.!=(c2, arg__2074__2151);
-		def q = (q__2152);
-		def mt__2101__2158 = U32_maybeTrue(q__2152);
-		def mf__2102__2159 = U32_maybeFalse(q__2152);
-		def mb__2103__2160 = bool.&&(mt__2101__2158, mf__2102__2159);
-		if (mb__2103__2160) {
-			def arg__2063__2155 : u32 = 2;
-			def arg__2063 = (arg__2063__2155);
-			def a__2064__2154 : u32 = 20;
-			def a__2064 = (a__2064__2154);
-			def a__2061__2156 = u32.+(x, arg__2063__2155);
-			def a__2061 = (a__2061__2156);
-			def merge__2109__2162 = merge(a__2061__2156, a__2064__2154);
-			def merge__2109 = (merge__2109__2162);
-		} else {
-			if (mt__2101__2158) {
-				def arg__2063__2143__2168 : u32 = 2;
-				def a__2061__2144__2169 = u32.+(x, arg__2063__2143__2168);
-			} else {
-				def a__2064__2142__2167 : u32 = 20;
-			}
-// phis: innerPhi__2108__2161 <- a__2061__2144__2169; innerPhi__2108__2161 <- a__2064__2142__2167; 
-		}
-// phis: a__2157 <- merge__2109__2162; a__2157 <- innerPhi__2108__2161; 
-	} else {
-		def a__2153 : u32 = 0;
-		def a = (a__2153);
-	}
-// phis: innerPhi__2099 <- a__2157; innerPhi__2099 <- a__2153; 
-}
-// phis: a <- merge__2100; a <- innerPhi__2099; 
-if (mb__2093) {
-	def merge__2095 = merge(d, d);
-} else {
-	if (mt__2091) {
-	}
-// phis: innerPhi__2094 <- d; innerPhi__2094 <- d; 
-}
-// phis: d <- merge__2095; d <- innerPhi__2094; 
-def arg__2041 = u32.+(a, b);
-def arg__2040 = u32.+(arg__2041, d);
-def eff__2039 = push_u32(arg__2040);
 </pre>`;
 window.traces["Q_OUTER_PLUS_Q_IN_TRIANGLE"]["unlem_scheduler"] = ''
 window.traces["Q_OUTER_PLUS_Q_IN_TRIANGLE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -35342,172 +33399,6 @@ graph TD
 	32 --> 98
 	24 --> 98
 </pre>`;
-window.traces["P_Q_R_S_T_RING_SHARED_POP"]["unlem_schedule"] = ''
-window.traces["P_Q_R_S_T_RING_SHARED_POP"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def c3 = pop_u32();
-def c4 = pop_u32();
-def c5 = pop_u32();
-def x = pop_u32();
-def arg__2216 : u32 = 0;
-def arg__2218 : u32 = 0;
-def arg__2220 : u32 = 0;
-def arg__2222 : u32 = 0;
-def t = u32.!=(c5, arg__2216);
-def s = u32.!=(c4, arg__2218);
-def r = u32.!=(c3, arg__2220);
-def q = u32.!=(c2, arg__2222);
-def mt__2245 = U32_maybeTrue(t);
-def mt__2267 = U32_maybeTrue(s);
-def mt__2262 = U32_maybeTrue(r);
-def mt__2257 = U32_maybeTrue(q);
-def mf__2246 = U32_maybeFalse(t);
-def mf__2268 = U32_maybeFalse(s);
-def mf__2263 = U32_maybeFalse(r);
-def mf__2258 = U32_maybeFalse(q);
-def mb__2247 = bool.&&(mt__2245, mf__2246);
-def mb__2269 = bool.&&(mt__2267, mf__2268);
-def mb__2264 = bool.&&(mt__2262, mf__2263);
-def mb__2259 = bool.&&(mt__2257, mf__2258);
-if (mb__2247) {
-	def arg__2191 : u32 = 4;
-	def e__2192 : u32 = 41;
-	def e__2189 = u32.+(x, arg__2191);
-	def merge__2279 = merge(e__2189, e__2192);
-} else {
-	if (mt__2245) {
-		def arg__2191__2330 : u32 = 4;
-		def arg__2191 = (arg__2191__2330);
-		def e__2189__2331 = u32.+(x, arg__2191__2330);
-		def e__2189 = (e__2189__2331);
-	} else {
-		def e__2192__2329 : u32 = 41;
-		def e__2192 = (e__2192__2329);
-	}
-// phis: innerPhi__2278 <- e__2189__2331; innerPhi__2278 <- e__2192__2329; 
-}
-// phis: e <- merge__2279; e <- innerPhi__2278; 
-if (mb__2269) {
-	def arg__2198 : u32 = 3;
-	def d__2199 : u32 = 31;
-	def d__2196 = u32.+(x, arg__2198);
-	def merge__2277 = merge(d__2196, d__2199);
-} else {
-	if (mt__2267) {
-		def arg__2198__2327 : u32 = 3;
-		def arg__2198 = (arg__2198__2327);
-		def d__2196__2328 = u32.+(x, arg__2198__2327);
-		def d__2196 = (d__2196__2328);
-	} else {
-		def d__2199__2326 : u32 = 31;
-		def d__2199 = (d__2199__2326);
-	}
-// phis: innerPhi__2276 <- d__2196__2328; innerPhi__2276 <- d__2199__2326; 
-}
-// phis: d <- merge__2277; d <- innerPhi__2276; 
-if (mb__2264) {
-	def arg__2205 : u32 = 2;
-	def b__2206 : u32 = 21;
-	def b__2203 = u32.+(x, arg__2205);
-	def merge__2275 = merge(b__2203, b__2206);
-} else {
-	if (mt__2262) {
-		def arg__2205__2324 : u32 = 2;
-		def arg__2205 = (arg__2205__2324);
-		def b__2203__2325 = u32.+(x, arg__2205__2324);
-		def b__2203 = (b__2203__2325);
-	} else {
-		def b__2206__2323 : u32 = 21;
-		def b__2206 = (b__2206__2323);
-	}
-// phis: innerPhi__2274 <- b__2203__2325; innerPhi__2274 <- b__2206__2323; 
-}
-// phis: b <- merge__2275; b <- innerPhi__2274; 
-if (mb__2259) {
-	def arg__2212 : u32 = 1;
-	def a__2213 : u32 = 11;
-	def a__2210 = u32.+(x, arg__2212);
-	def merge__2273 = merge(a__2210, a__2213);
-} else {
-	if (mt__2257) {
-		def arg__2212__2321 : u32 = 1;
-		def arg__2212 = (arg__2212__2321);
-		def a__2210__2322 = u32.+(x, arg__2212__2321);
-		def a__2210 = (a__2210__2322);
-	} else {
-		def a__2213__2320 : u32 = 11;
-		def a__2213 = (a__2213__2320);
-	}
-// phis: innerPhi__2272 <- a__2210__2322; innerPhi__2272 <- a__2213__2320; 
-}
-// phis: a <- merge__2273; a <- innerPhi__2272; 
-def arg__2184 : u32 = 5;
-def arg__2224 : u32 = 0;
-def f__2185 : u32 = 51;
-def f__2182 = u32.+(x, arg__2184);
-def p = u32.!=(c1, arg__2224);
-def mt__2250 = U32_maybeTrue(p);
-def mf__2251 = U32_maybeFalse(p);
-def e : u32 = 0;
-def d : u32 = 0;
-def b : u32 = 0;
-def a : u32 = 0;
-def mb__2252 = bool.&&(mt__2250, mf__2251);
-def f : u32 = 0;
-if (mb__2252) {
-	def merge__2254 = merge(f__2182, f__2185);
-} else {
-	if (mt__2250) {
-	}
-// phis: innerPhi__2253 <- f__2182; innerPhi__2253 <- f__2185; 
-}
-// phis: f <- merge__2254; f <- innerPhi__2253; 
-if (mb__2269) {
-	def merge__2271 = merge(e, e);
-} else {
-	if (mt__2267) {
-	}
-// phis: innerPhi__2270 <- e; innerPhi__2270 <- e; 
-}
-// phis: e <- merge__2271; e <- innerPhi__2270; 
-if (mb__2264) {
-	def merge__2266 = merge(d, d);
-} else {
-	if (mt__2262) {
-	}
-// phis: innerPhi__2265 <- d; innerPhi__2265 <- d; 
-}
-// phis: d <- merge__2266; d <- innerPhi__2265; 
-if (mb__2259) {
-	def merge__2261 = merge(b, b);
-} else {
-	if (mt__2257) {
-	}
-// phis: innerPhi__2260 <- b; innerPhi__2260 <- b; 
-}
-// phis: b <- merge__2261; b <- innerPhi__2260; 
-if (mb__2252) {
-	def merge__2256 = merge(a, a);
-} else {
-	if (mt__2250) {
-	}
-// phis: innerPhi__2255 <- a; innerPhi__2255 <- a; 
-}
-// phis: a <- merge__2256; a <- innerPhi__2255; 
-if (mb__2247) {
-	def merge__2249 = merge(f, f);
-} else {
-	if (mt__2245) {
-	}
-// phis: innerPhi__2248 <- f; innerPhi__2248 <- f; 
-}
-// phis: f <- merge__2249; f <- innerPhi__2248; 
-def z2 = u32.+(d, e);
-def z1 = u32.+(a, b);
-def z3 = u32.+(z1, z2);
-def arg__2171 = u32.+(z3, f);
-def eff__2170 = push_u32(arg__2171);
-</pre>`;
 window.traces["P_Q_R_S_T_RING_SHARED_POP"]["unlem_scheduler"] = ''
 window.traces["P_Q_R_S_T_RING_SHARED_POP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2295["Block 2295"]
@@ -37812,148 +35703,6 @@ graph TD
 	15 --> 17
 	15["arg__2362 1"]
 </pre>`;
-window.traces["OUTER_Q_AND_FOUR_INNER_Q_SITES"]["unlem_schedule"] = ''
-window.traces["OUTER_Q_AND_FOUR_INNER_Q_SITES"]["unlem_schedule"] += `<pre class=''>def c1 = pop_u32();
-def c2 = pop_u32();
-def x = pop_u32();
-def arg__2365 : u32 = 0;
-def q = u32.!=(c2, arg__2365);
-def mt__2382 = U32_maybeTrue(q);
-def mf__2383 = U32_maybeFalse(q);
-def mb__2384 = bool.&&(mt__2382, mf__2383);
-def arg__2367 : u32 = 0;
-def p = u32.!=(c1, arg__2367);
-def mt__2387 = U32_maybeTrue(p);
-def mf__2388 = U32_maybeFalse(p);
-def mb__2389 = bool.&&(mt__2387, mf__2388);
-if (mb__2389) {
-	if (mb__2384) {
-		def arg__2347 : u32 = 2;
-		def arg__2357 : u32 = 4;
-		def arg__2342 : u32 = 3;
-		def arg__2352 : u32 = 5;
-		def a__2348 : u32 = 20;
-		def a__2345 = u32.+(x, arg__2347);
-		def a__2358 : u32 = 40;
-		def a__2355 = u32.+(x, arg__2357);
-		def b__2343 : u32 = 30;
-		def b__2340 = u32.+(x, arg__2342);
-		def b__2353 : u32 = 50;
-		def b__2350 = u32.+(x, arg__2352);
-		def merge__2395 = merge(a__2345, a__2348);
-		def merge__2397 = merge(a__2355, a__2358);
-		def merge__2399 = merge(b__2340, b__2343);
-		def merge__2401 = merge(b__2350, b__2353);
-	} else {
-		if (mt__2382) {
-			def arg__2347__2440 : u32 = 2;
-			def arg__2357__2434 : u32 = 4;
-			def arg__2342__2443 : u32 = 3;
-			def arg__2352__2437 : u32 = 5;
-			def a__2345__2441 = u32.+(x, arg__2347__2440);
-			def a__2355__2435 = u32.+(x, arg__2357__2434);
-			def b__2340__2444 = u32.+(x, arg__2342__2443);
-			def b__2350__2438 = u32.+(x, arg__2352__2437);
-		} else {
-			def a__2348__2439 : u32 = 20;
-			def a__2358__2433 : u32 = 40;
-			def b__2343__2442 : u32 = 30;
-			def b__2353__2436 : u32 = 50;
-		}
-// phis: innerPhi__2394 <- a__2345__2441; innerPhi__2394 <- a__2348__2439; innerPhi__2396 <- a__2355__2435; innerPhi__2396 <- a__2358__2433; innerPhi__2398 <- b__2340__2444; innerPhi__2398 <- b__2343__2442; innerPhi__2400 <- b__2350__2438; innerPhi__2400 <- b__2353__2436; 
-	}
-// phis: a <- merge__2395; a <- innerPhi__2394; a <- merge__2397; a <- innerPhi__2396; b <- merge__2399; b <- innerPhi__2398; b <- merge__2401; b <- innerPhi__2400; 
-	def merge__2391 = merge(a, a);
-	def merge__2393 = merge(b, b);
-} else {
-	if (mt__2387) {
-		if (mb__2384) {
-			def arg__2347__2454 : u32 = 2;
-			def arg__2347 = (arg__2347__2454);
-			def arg__2342__2458 : u32 = 3;
-			def arg__2342 = (arg__2342__2458);
-			def a__2348__2453 : u32 = 20;
-			def a__2348 = (a__2348__2453);
-			def a__2345__2455 = u32.+(x, arg__2347__2454);
-			def a__2345 = (a__2345__2455);
-			def b__2343__2457 : u32 = 30;
-			def b__2343 = (b__2343__2457);
-			def b__2340__2459 = u32.+(x, arg__2342__2458);
-			def b__2340 = (b__2340__2459);
-			def merge__2395__2462 = merge(a__2345__2455, a__2348__2453);
-			def merge__2395 = (merge__2395__2462);
-			def merge__2399__2466 = merge(b__2340__2459, b__2343__2457);
-			def merge__2399 = (merge__2399__2466);
-		} else {
-			if (mt__2382) {
-				def arg__2347__2440__2492 : u32 = 2;
-				def arg__2342__2443__2495 : u32 = 3;
-				def a__2345__2441__2493 = u32.+(x, arg__2347__2440__2492);
-				def b__2340__2444__2496 = u32.+(x, arg__2342__2443__2495);
-			} else {
-				def a__2348__2439__2491 : u32 = 20;
-				def b__2343__2442__2494 : u32 = 30;
-			}
-// phis: innerPhi__2394__2461 <- a__2345__2441__2493; innerPhi__2394__2461 <- a__2348__2439__2491; innerPhi__2398__2465 <- b__2340__2444__2496; innerPhi__2398__2465 <- b__2343__2442__2494; 
-		}
-// phis: a__2456 <- merge__2395__2462; a__2456 <- innerPhi__2394__2461; b__2460 <- merge__2399__2466; b__2460 <- innerPhi__2398__2465; 
-	} else {
-		if (mb__2384) {
-			def arg__2357__2446 : u32 = 4;
-			def arg__2357 = (arg__2357__2446);
-			def arg__2352__2450 : u32 = 5;
-			def arg__2352 = (arg__2352__2450);
-			def a__2358__2445 : u32 = 40;
-			def a__2358 = (a__2358__2445);
-			def a__2355__2447 = u32.+(x, arg__2357__2446);
-			def a__2355 = (a__2355__2447);
-			def b__2353__2449 : u32 = 50;
-			def b__2353 = (b__2353__2449);
-			def b__2350__2451 = u32.+(x, arg__2352__2450);
-			def b__2350 = (b__2350__2451);
-			def merge__2397__2464 = merge(a__2355__2447, a__2358__2445);
-			def merge__2397 = (merge__2397__2464);
-			def merge__2401__2468 = merge(b__2350__2451, b__2353__2449);
-			def merge__2401 = (merge__2401__2468);
-		} else {
-			if (mt__2382) {
-				def arg__2357__2434__2486 : u32 = 4;
-				def arg__2352__2437__2489 : u32 = 5;
-				def a__2355__2435__2487 = u32.+(x, arg__2357__2434__2486);
-				def b__2350__2438__2490 = u32.+(x, arg__2352__2437__2489);
-			} else {
-				def a__2358__2433__2485 : u32 = 40;
-				def b__2353__2436__2488 : u32 = 50;
-			}
-// phis: innerPhi__2396__2463 <- a__2355__2435__2487; innerPhi__2396__2463 <- a__2358__2433__2485; innerPhi__2400__2467 <- b__2350__2438__2490; innerPhi__2400__2467 <- b__2353__2436__2488; 
-		}
-// phis: a__2448 <- merge__2397__2464; a__2448 <- innerPhi__2396__2463; b__2452 <- merge__2401__2468; b__2452 <- innerPhi__2400__2467; 
-	}
-// phis: innerPhi__2390 <- a__2456; innerPhi__2390 <- a__2448; innerPhi__2392 <- b__2460; innerPhi__2392 <- b__2452; 
-}
-// phis: a <- merge__2391; a <- innerPhi__2390; b <- merge__2393; b <- innerPhi__2392; 
-if (mb__2384) {
-	def arg__2362 : u32 = 1;
-	def outer__2363 : u32 = 10;
-	def outer__2360 = u32.+(x, arg__2362);
-	def merge__2386 = merge(outer__2360, outer__2363);
-} else {
-	if (mt__2382) {
-		def arg__2362__2431 : u32 = 1;
-		def arg__2362 = (arg__2362__2431);
-		def outer__2360__2432 = u32.+(x, arg__2362__2431);
-		def outer__2360 = (outer__2360__2432);
-	} else {
-		def outer__2363__2430 : u32 = 10;
-		def outer__2363 = (outer__2363__2430);
-	}
-// phis: innerPhi__2385 <- outer__2360__2432; innerPhi__2385 <- outer__2363__2430; 
-}
-// phis: outer <- merge__2386; outer <- innerPhi__2385; 
-def arg__2335 = u32.+(a, b);
-def arg__2333 = u32.+(outer, arg__2335);
-def eff__2332 = push_u32(arg__2333);
-</pre>`;
 window.traces["OUTER_Q_AND_FOUR_INNER_Q_SITES"]["unlem_scheduler"] = ''
 window.traces["OUTER_Q_AND_FOUR_INNER_Q_SITES"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2500["Block 2500"]
@@ -38705,9 +36454,6 @@ graph TD
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
 </pre>`;
-window.traces["UNREACHABLE"]["unlem_schedule"] = ''
-window.traces["UNREACHABLE"]["unlem_schedule"] += `<pre class=''>def eff__2497 = trapUnreachable();
-</pre>`;
 window.traces["UNREACHABLE"]["unlem_scheduler"] = ''
 window.traces["UNREACHABLE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2585["Block 2585"]
@@ -38807,8 +36553,6 @@ graph TD
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
 </pre>`;
-window.traces["NOP"]["unlem_schedule"] = ''
-window.traces["NOP"]["unlem_schedule"] += `<pre class=''></pre>`;
 window.traces["NOP"]["unlem_scheduler"] = ''
 window.traces["NOP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2587["Block 2587"]
@@ -38951,10 +36695,6 @@ graph TD
 	0[/"Start"\\]
 	3["bt imm_readBlockType"]
 	0 -. Codeptr .-> 3
-</pre>`;
-window.traces["BLOCK"]["unlem_schedule"] = ''
-window.traces["BLOCK"]["unlem_schedule"] += `<pre class=''>def bt = imm_readBlockType();
-def eff__2499 = doBlock(bt);
 </pre>`;
 window.traces["BLOCK"]["unlem_scheduler"] = ''
 window.traces["BLOCK"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -39106,10 +36846,6 @@ graph TD
 	0[/"Start"\\]
 	3["bt imm_readBlockType"]
 	0 -. Codeptr .-> 3
-</pre>`;
-window.traces["LOOP"]["unlem_schedule"] = ''
-window.traces["LOOP"]["unlem_schedule"] += `<pre class=''>def bt = imm_readBlockType();
-def eff__2501 = doLoop(bt);
 </pre>`;
 window.traces["LOOP"]["unlem_scheduler"] = ''
 window.traces["LOOP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -39506,31 +37242,6 @@ graph TD
 	6 --> 12
 	6 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 12
 </pre>`;
-window.traces["IF"]["unlem_schedule"] = ''
-window.traces["IF"]["unlem_schedule"] += `<pre class=''>def cond = pop_u32();
-def bt = imm_readBlockType();
-def label = doIf(bt);
-def arg__2508 : u32 = 0;
-def cond__2503 = u32.==(cond, arg__2508);
-def mt__2513 = U32_maybeTrue(cond__2503);
-def mf__2514 = U32_maybeFalse(cond__2503);
-def mb__2515 = bool.&&(mt__2513, mf__2514);
-if (mb__2515) {
-	def eff__2506 = doFallthru();
-	def eff__2504 = doBranch(label);
-	def eff_merge__2517 = merge(eff__2504, eff__2506);
-} else {
-	if (mt__2513) {
-		def eff__2504__2523 = doBranch(label);
-		def eff__2504 = (eff__2504__2523);
-	} else {
-		def eff__2506__2522 = doFallthru();
-		def eff__2506 = (eff__2506__2522);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["IF"]["unlem_scheduler"] = ''
 window.traces["IF"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2599["Block 2599"]
@@ -39775,10 +37486,6 @@ graph TD
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
 </pre>`;
-window.traces["ELSE"]["unlem_schedule"] = ''
-window.traces["ELSE"]["unlem_schedule"] += `<pre class=''>def label = doElse();
-def eff__2524 = doBranch(label);
-</pre>`;
 window.traces["ELSE"]["unlem_scheduler"] = ''
 window.traces["ELSE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2614["Block 2614"]
@@ -39929,10 +37636,6 @@ graph TD
 	0[/"Start"\\]
 	3["bt imm_readBlockType"]
 	0 -. Codeptr .-> 3
-</pre>`;
-window.traces["TRY"]["unlem_schedule"] = ''
-window.traces["TRY"]["unlem_schedule"] += `<pre class=''>def bt = imm_readBlockType();
-def eff__2526 = doTry(bt);
 </pre>`;
 window.traces["TRY"]["unlem_scheduler"] = ''
 window.traces["TRY"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -40163,14 +37866,6 @@ graph TD
 	5["eff__2529 doReturn"]
 	3 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 5
 </pre>`;
-window.traces["END"]["unlem_schedule"] = ''
-window.traces["END"]["unlem_schedule"] += `<pre class=''>def eff__2530 = doEnd();
-def cond__2528 = f_isAtEnd();
-if (cond__2528) {
-	def eff__2529 = doReturn();
-}
-// phis: 
-</pre>`;
 window.traces["END"]["unlem_scheduler"] = ''
 window.traces["END"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2624["Block 2624"]
@@ -40371,11 +38066,6 @@ graph TD
 	0 -. Codeptr .-> 3
 	5["label f_getLabel"]
 	3 --> 5
-</pre>`;
-window.traces["BR"]["unlem_schedule"] = ''
-window.traces["BR"]["unlem_schedule"] += `<pre class=''>def depth = imm_readULEB32();
-def label = f_getLabel(depth);
-def eff__2536 = doBranch(label);
 </pre>`;
 window.traces["BR"]["unlem_scheduler"] = ''
 window.traces["BR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -40788,33 +38478,6 @@ graph TD
 	5["label f_getLabel"]
 	3 --> 5
 </pre>`;
-window.traces["BR_IF"]["unlem_schedule"] = ''
-window.traces["BR_IF"]["unlem_schedule"] += `<pre class=''>def depth = imm_readULEB32();
-def cond = pop_u32();
-def arg__2544 : u32 = 0;
-def cond__2539 = u32.!=(cond, arg__2544);
-def mt__2549 = U32_maybeTrue(cond__2539);
-def mf__2550 = U32_maybeFalse(cond__2539);
-def mb__2551 = bool.&&(mt__2549, mf__2550);
-if (mb__2551) {
-	def label = f_getLabel(depth);
-	def eff__2542 = doFallthru();
-	def eff__2540 = doBranch(label);
-	def eff_merge__2553 = merge(eff__2540, eff__2542);
-} else {
-	if (mt__2549) {
-		def label__2558 = f_getLabel(depth);
-		def label = (label__2558);
-		def eff__2540__2560 = doBranch(label__2558);
-		def eff__2540 = (eff__2540__2560);
-	} else {
-		def eff__2542__2559 = doFallthru();
-		def eff__2542 = (eff__2542__2559);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["BR_IF"]["unlem_scheduler"] = ''
 window.traces["BR_IF"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2640["Block 2640"]
@@ -41101,11 +38764,6 @@ graph TD
 	3["labels imm_readLabels"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces["BR_TABLE"]["unlem_schedule"] = ''
-window.traces["BR_TABLE"]["unlem_schedule"] += `<pre class=''>def key = pop_u32();
-def labels = imm_readLabels();
-def eff__2561 = doSwitch(labels, key);
-</pre>`;
 window.traces["BR_TABLE"]["unlem_scheduler"] = ''
 window.traces["BR_TABLE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2655["Block 2655"]
@@ -41229,9 +38887,6 @@ graph TD
 	3["eff__2564 doReturn"]
 	0 -. Codeptr Stack Trap Locals Globals Tables Memory Extra .-> 3
 	0[/"Start"\\]
-</pre>`;
-window.traces["RETURN"]["unlem_schedule"] = ''
-window.traces["RETURN"]["unlem_schedule"] += `<pre class=''>def eff__2564 = doReturn();
 </pre>`;
 window.traces["RETURN"]["unlem_scheduler"] = ''
 window.traces["RETURN"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -41424,12 +39079,6 @@ graph TD
 	3 --> 7
 	5["sig m_getFuncSignature"]
 	3 --> 5
-</pre>`;
-window.traces["CALL"]["unlem_schedule"] = ''
-window.traces["CALL"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
-def target = i_getFunction(index);
-def sig = m_getFuncSignature(index);
-def eff__2565 = doCall(sig, target);
 </pre>`;
 window.traces["CALL"]["unlem_scheduler"] = ''
 window.traces["CALL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -41891,22 +39540,6 @@ graph TD
 	6 --> 22
 	18 --> 22
 </pre>`;
-window.traces["CALL_INDIRECT"]["unlem_schedule"] = ''
-window.traces["CALL_INDIRECT"]["unlem_schedule"] += `<pre class=''>def sig_index = imm_readULEB32();
-def sig = m_getSignature(sig_index);
-def table_index = imm_readULEB32();
-def is64 = m_isTable64(table_index);
-if (is64) {
-	def func_index = pop_u64();
-	def target = i_getTableFunction64(table_index, sig, func_index);
-	def eff__2571 = doCall(sig, target);
-} else {
-	def func_index = pop_u32();
-	def target = i_getTableFunction32(table_index, sig, func_index);
-	def eff__2577 = doCall(sig, target);
-}
-// phis: 
-</pre>`;
 window.traces["CALL_INDIRECT"]["unlem_scheduler"] = ''
 window.traces["CALL_INDIRECT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2667["Block 2667"]
@@ -42165,12 +39798,6 @@ graph TD
 	5["sig m_getFuncSignature"]
 	3 --> 5
 </pre>`;
-window.traces["RETURN_CALL"]["unlem_schedule"] = ''
-window.traces["RETURN_CALL"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
-def target = i_getFunction(index);
-def sig = m_getFuncSignature(index);
-def eff__2590 = doReturnCall(sig, target);
-</pre>`;
 window.traces["RETURN_CALL"]["unlem_scheduler"] = ''
 window.traces["RETURN_CALL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2675["Block 2675"]
@@ -42329,10 +39956,6 @@ graph TD
 	0[/"Start"\\]
 	3["tv f_getTopOfStackType"]
 	0 -. Stack .-> 3
-</pre>`;
-window.traces["DROP"]["unlem_schedule"] = ''
-window.traces["DROP"]["unlem_schedule"] += `<pre class=''>def tv = f_getTopOfStackType();
-def eff__2595 = pop_Value(tv);
 </pre>`;
 window.traces["DROP"]["unlem_scheduler"] = ''
 window.traces["DROP"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -42782,29 +40405,6 @@ graph TD
 	6 --> 23
 	6 -. Stack .-> 23
 </pre>`;
-window.traces["SELECT"]["unlem_schedule"] = ''
-window.traces["SELECT"]["unlem_schedule"] += `<pre class=''>def c = pop_u32();
-def tv = f_getTopOfStackType();
-def b = pop_Value(tv);
-def a = pop_Value(tv);
-def arg__2605 : u32 = 0;
-def cond__2597 = u32.!=(c, arg__2605);
-def mt__2611 = U32_maybeTrue(cond__2597);
-def mf__2612 = U32_maybeFalse(cond__2597);
-def mb__2613 = bool.&&(mt__2611, mf__2612);
-if (mb__2613) {
-	def merge__2615 = merge_Val(tv, a, b);
-	def push__2616 = push_Value(tv, merge__2615);
-} else {
-	if (mt__2611) {
-		def eff__2598 = push_Value(tv, a);
-	} else {
-		def eff__2601 = push_Value(tv, b);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["SELECT"]["unlem_scheduler"] = ''
 window.traces["SELECT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2685["Block 2685"]
@@ -43117,12 +40717,6 @@ graph TD
 	5["tv f_getLocalType"]
 	3 --> 5
 </pre>`;
-window.traces["LOCAL_GET"]["unlem_schedule"] = ''
-window.traces["LOCAL_GET"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
-def tv = f_getLocalType(index);
-def val = getLocal(tv, index);
-def eff__2621 = push_Value(tv, val);
-</pre>`;
 window.traces["LOCAL_GET"]["unlem_scheduler"] = ''
 window.traces["LOCAL_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2698["Block 2698"]
@@ -43351,12 +40945,6 @@ graph TD
 	3 --> 5
 	3["index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-</pre>`;
-window.traces["LOCAL_SET"]["unlem_schedule"] = ''
-window.traces["LOCAL_SET"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
-def tv = f_getLocalType(index);
-def val = pop_Value(tv);
-def eff__2627 = setLocal(tv, index, val);
 </pre>`;
 window.traces["LOCAL_SET"]["unlem_scheduler"] = ''
 window.traces["LOCAL_SET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -43619,13 +41207,6 @@ graph TD
 	7 --> 14
 	7 -. Stack .-> 14
 </pre>`;
-window.traces["LOCAL_TEE"]["unlem_schedule"] = ''
-window.traces["LOCAL_TEE"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
-def tv = f_getLocalType(index);
-def val = pop_Value(tv);
-def eff__2636 = setLocal(tv, index, val);
-def eff__2633 = push_Value(tv, val);
-</pre>`;
 window.traces["LOCAL_TEE"]["unlem_scheduler"] = ''
 window.traces["LOCAL_TEE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2702["Block 2702"]
@@ -43852,12 +41433,6 @@ graph TD
 	0 -. Codeptr .-> 3
 	5["tv m_getGlobalType"]
 	3 --> 5
-</pre>`;
-window.traces["GLOBAL_GET"]["unlem_schedule"] = ''
-window.traces["GLOBAL_GET"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
-def tv = m_getGlobalType(index);
-def val = getGlobal(tv, index);
-def eff__2642 = push_Value(tv, val);
 </pre>`;
 window.traces["GLOBAL_GET"]["unlem_scheduler"] = ''
 window.traces["GLOBAL_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -44087,12 +41662,6 @@ graph TD
 	3 --> 5
 	3["index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-</pre>`;
-window.traces["GLOBAL_SET"]["unlem_schedule"] = ''
-window.traces["GLOBAL_SET"]["unlem_schedule"] += `<pre class=''>def index = imm_readULEB32();
-def tv = m_getGlobalType(index);
-def val = pop_Value(tv);
-def eff__2648 = setGlobal(tv, index, val);
 </pre>`;
 window.traces["GLOBAL_SET"]["unlem_scheduler"] = ''
 window.traces["GLOBAL_SET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -44476,20 +42045,6 @@ graph TD
 	3 --> 15
 	12 --> 15
 </pre>`;
-window.traces["TABLE_GET"]["unlem_schedule"] = ''
-window.traces["TABLE_GET"]["unlem_schedule"] += `<pre class=''>def table_index = imm_readULEB32();
-def cond__2654 = m_isTable64(table_index);
-if (cond__2654) {
-	def index = pop_u64();
-	def val = mach_readTable64(table_index, index);
-	def eff__2655 = push_Object(val);
-} else {
-	def index = pop_u32();
-	def val = mach_readTable32(table_index, index);
-	def eff__2659 = push_Object(val);
-}
-// phis: 
-</pre>`;
 window.traces["TABLE_GET"]["unlem_scheduler"] = ''
 window.traces["TABLE_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2714["Block 2714"]
@@ -44861,18 +42416,6 @@ graph TD
 	12 -. Stack .-> 13
 	12["val pop_Object"]
 	0 -. Stack .-> 12
-</pre>`;
-window.traces["TABLE_SET"]["unlem_schedule"] = ''
-window.traces["TABLE_SET"]["unlem_schedule"] += `<pre class=''>def table_index = imm_readULEB32();
-def cond__2669 = m_isTable64(table_index);
-if (cond__2669) {
-	def val = pop_Object();
-	def index = pop_u64();
-} else {
-	def val = pop_Object();
-	def index = pop_u32();
-}
-// phis: 
 </pre>`;
 window.traces["TABLE_SET"]["unlem_scheduler"] = ''
 window.traces["TABLE_SET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -45628,32 +43171,6 @@ graph TD
 	33["mv_t__2733 |True|  [m_isMemory64 [cond__2684]]"]
 	14 --> 33
 	23 -. Codeptr .-> 33
-</pre>`;
-window.traces["I32_LOAD"]["unlem_schedule"] = ''
-window.traces["I32_LOAD"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__2701 : byte = 0x40u8;
-def arg__2699 : byte = 0;
-def arg__2698 = u8.&(flags, arg__2701);
-def cond__2696 = u8.!=(arg__2698, arg__2699);
-if (cond__2696) {
-	def memindex__2697 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__2697; memindex <- memindex; 
-def cond__2684 = m_isMemory64(memindex);
-if (cond__2684) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32(memindex, index, offset);
-	def eff__2685 = push_u32(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32(memindex, index, offset);
-	def eff__2690 = push_u32(val);
-}
-// phis: 
 </pre>`;
 window.traces["I32_LOAD"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -46487,32 +44004,6 @@ graph TD
 	14 --> 33
 	23 -. Codeptr .-> 33
 </pre>`;
-window.traces["I64_LOAD"]["unlem_schedule"] = ''
-window.traces["I64_LOAD"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__2778 : byte = 0x40u8;
-def arg__2776 : byte = 0;
-def arg__2775 = u8.&(flags, arg__2778);
-def cond__2773 = u8.!=(arg__2775, arg__2776);
-if (cond__2773) {
-	def memindex__2774 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__2774; memindex <- memindex; 
-def cond__2761 = m_isMemory64(memindex);
-if (cond__2761) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u64(memindex, index, offset);
-	def eff__2762 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u64(memindex, index, offset);
-	def eff__2767 = push_u64(val);
-}
-// phis: 
-</pre>`;
 window.traces["I64_LOAD"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2798["Block 2798"]
@@ -47345,32 +44836,6 @@ graph TD
 	14 --> 33
 	23 -. Codeptr .-> 33
 </pre>`;
-window.traces["F32_LOAD"]["unlem_schedule"] = ''
-window.traces["F32_LOAD"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__2855 : byte = 0x40u8;
-def arg__2853 : byte = 0;
-def arg__2852 = u8.&(flags, arg__2855);
-def cond__2850 = u8.!=(arg__2852, arg__2853);
-if (cond__2850) {
-	def memindex__2851 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__2851; memindex <- memindex; 
-def cond__2838 = m_isMemory64(memindex);
-if (cond__2838) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_f32(memindex, index, offset);
-	def eff__2839 = push_f32(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_f32(memindex, index, offset);
-	def eff__2844 = push_f32(val);
-}
-// phis: 
-</pre>`;
 window.traces["F32_LOAD"]["unlem_scheduler"] = ''
 window.traces["F32_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2840["Block 2840"]
@@ -48202,32 +45667,6 @@ graph TD
 	33["mv_t__2964 |True|  [m_isMemory64 [cond__2915]]"]
 	14 --> 33
 	23 -. Codeptr .-> 33
-</pre>`;
-window.traces["F64_LOAD"]["unlem_schedule"] = ''
-window.traces["F64_LOAD"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__2932 : byte = 0x40u8;
-def arg__2930 : byte = 0;
-def arg__2929 = u8.&(flags, arg__2932);
-def cond__2927 = u8.!=(arg__2929, arg__2930);
-if (cond__2927) {
-	def memindex__2928 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__2928; memindex <- memindex; 
-def cond__2915 = m_isMemory64(memindex);
-if (cond__2915) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_f64(memindex, index, offset);
-	def eff__2916 = push_f64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_f64(memindex, index, offset);
-	def eff__2921 = push_f64(val);
-}
-// phis: 
 </pre>`;
 window.traces["F64_LOAD"]["unlem_scheduler"] = ''
 window.traces["F64_LOAD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -49099,34 +46538,6 @@ graph TD
 	14 --> 37
 	25 -. Codeptr .-> 37
 </pre>`;
-window.traces["I32_LOAD8_S"]["unlem_schedule"] = ''
-window.traces["I32_LOAD8_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__3011 : byte = 0x40u8;
-def arg__3009 : byte = 0;
-def arg__3008 = u8.&(flags, arg__3011);
-def cond__3006 = u8.!=(arg__3008, arg__3009);
-if (cond__3006) {
-	def memindex__3007 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__3007; memindex <- memindex; 
-def cond__2992 = m_isMemory64(memindex);
-if (cond__2992) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8(memindex, index, offset);
-	def extend = U32_extend8_s(val);
-	def eff__2993 = push_u32(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8(memindex, index, offset);
-	def extend = U32_extend8_s(val);
-	def eff__2999 = push_u32(extend);
-}
-// phis: 
-</pre>`;
 window.traces["I32_LOAD8_S"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD8_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_2924["Block 2924"]
@@ -49966,32 +47377,6 @@ graph TD
 	33["mv_t__3120 |True|  [m_isMemory64 [cond__3071]]"]
 	14 --> 33
 	23 -. Codeptr .-> 33
-</pre>`;
-window.traces["I32_LOAD8_U"]["unlem_schedule"] = ''
-window.traces["I32_LOAD8_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__3088 : byte = 0x40u8;
-def arg__3086 : byte = 0;
-def arg__3085 = u8.&(flags, arg__3088);
-def cond__3083 = u8.!=(arg__3085, arg__3086);
-if (cond__3083) {
-	def memindex__3084 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__3084; memindex <- memindex; 
-def cond__3071 = m_isMemory64(memindex);
-if (cond__3071) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8(memindex, index, offset);
-	def eff__3072 = push_u32(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8(memindex, index, offset);
-	def eff__3077 = push_u32(val);
-}
-// phis: 
 </pre>`;
 window.traces["I32_LOAD8_U"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD8_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -50863,34 +48248,6 @@ graph TD
 	14 --> 37
 	25 -. Codeptr .-> 37
 </pre>`;
-window.traces["I32_LOAD16_S"]["unlem_schedule"] = ''
-window.traces["I32_LOAD16_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__3167 : byte = 0x40u8;
-def arg__3165 : byte = 0;
-def arg__3164 = u8.&(flags, arg__3167);
-def cond__3162 = u8.!=(arg__3164, arg__3165);
-if (cond__3162) {
-	def memindex__3163 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__3163; memindex <- memindex; 
-def cond__3148 = m_isMemory64(memindex);
-if (cond__3148) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16(memindex, index, offset);
-	def extend = U32_extend16_s(val);
-	def eff__3149 = push_u32(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16(memindex, index, offset);
-	def extend = U32_extend16_s(val);
-	def eff__3155 = push_u32(extend);
-}
-// phis: 
-</pre>`;
 window.traces["I32_LOAD16_S"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD16_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3008["Block 3008"]
@@ -51730,32 +49087,6 @@ graph TD
 	33["mv_t__3276 |True|  [m_isMemory64 [cond__3227]]"]
 	14 --> 33
 	23 -. Codeptr .-> 33
-</pre>`;
-window.traces["I32_LOAD16_U"]["unlem_schedule"] = ''
-window.traces["I32_LOAD16_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__3244 : byte = 0x40u8;
-def arg__3242 : byte = 0;
-def arg__3241 = u8.&(flags, arg__3244);
-def cond__3239 = u8.!=(arg__3241, arg__3242);
-if (cond__3239) {
-	def memindex__3240 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__3240; memindex <- memindex; 
-def cond__3227 = m_isMemory64(memindex);
-if (cond__3227) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16(memindex, index, offset);
-	def eff__3228 = push_u32(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16(memindex, index, offset);
-	def eff__3233 = push_u32(val);
-}
-// phis: 
 </pre>`;
 window.traces["I32_LOAD16_U"]["unlem_scheduler"] = ''
 window.traces["I32_LOAD16_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -52627,34 +49958,6 @@ graph TD
 	14 --> 37
 	25 -. Codeptr .-> 37
 </pre>`;
-window.traces["I64_LOAD8_S"]["unlem_schedule"] = ''
-window.traces["I64_LOAD8_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__3323 : byte = 0x40u8;
-def arg__3321 : byte = 0;
-def arg__3320 = u8.&(flags, arg__3323);
-def cond__3318 = u8.!=(arg__3320, arg__3321);
-if (cond__3318) {
-	def memindex__3319 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__3319; memindex <- memindex; 
-def cond__3304 = m_isMemory64(memindex);
-if (cond__3304) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	def eff__3305 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def extend = U64_extend8_s(val);
-	def eff__3311 = push_u64(extend);
-}
-// phis: 
-</pre>`;
 window.traces["I64_LOAD8_S"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD8_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3092["Block 3092"]
@@ -53494,32 +50797,6 @@ graph TD
 	33["mv_t__3432 |True|  [m_isMemory64 [cond__3383]]"]
 	14 --> 33
 	23 -. Codeptr .-> 33
-</pre>`;
-window.traces["I64_LOAD8_U"]["unlem_schedule"] = ''
-window.traces["I64_LOAD8_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__3400 : byte = 0x40u8;
-def arg__3398 : byte = 0;
-def arg__3397 = u8.&(flags, arg__3400);
-def cond__3395 = u8.!=(arg__3397, arg__3398);
-if (cond__3395) {
-	def memindex__3396 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__3396; memindex <- memindex; 
-def cond__3383 = m_isMemory64(memindex);
-if (cond__3383) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u8_64(memindex, index, offset);
-	def eff__3384 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u8_64(memindex, index, offset);
-	def eff__3389 = push_u64(val);
-}
-// phis: 
 </pre>`;
 window.traces["I64_LOAD8_U"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD8_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -54391,34 +51668,6 @@ graph TD
 	14 --> 37
 	25 -. Codeptr .-> 37
 </pre>`;
-window.traces["I64_LOAD16_S"]["unlem_schedule"] = ''
-window.traces["I64_LOAD16_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__3479 : byte = 0x40u8;
-def arg__3477 : byte = 0;
-def arg__3476 = u8.&(flags, arg__3479);
-def cond__3474 = u8.!=(arg__3476, arg__3477);
-if (cond__3474) {
-	def memindex__3475 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__3475; memindex <- memindex; 
-def cond__3460 = m_isMemory64(memindex);
-if (cond__3460) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	def eff__3461 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def extend = U64_extend16_s(val);
-	def eff__3467 = push_u64(extend);
-}
-// phis: 
-</pre>`;
 window.traces["I64_LOAD16_S"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD16_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3176["Block 3176"]
@@ -55258,32 +52507,6 @@ graph TD
 	33["mv_t__3588 |True|  [m_isMemory64 [cond__3539]]"]
 	14 --> 33
 	23 -. Codeptr .-> 33
-</pre>`;
-window.traces["I64_LOAD16_U"]["unlem_schedule"] = ''
-window.traces["I64_LOAD16_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__3556 : byte = 0x40u8;
-def arg__3554 : byte = 0;
-def arg__3553 = u8.&(flags, arg__3556);
-def cond__3551 = u8.!=(arg__3553, arg__3554);
-if (cond__3551) {
-	def memindex__3552 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__3552; memindex <- memindex; 
-def cond__3539 = m_isMemory64(memindex);
-if (cond__3539) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u16_64(memindex, index, offset);
-	def eff__3540 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u16_64(memindex, index, offset);
-	def eff__3545 = push_u64(val);
-}
-// phis: 
 </pre>`;
 window.traces["I64_LOAD16_U"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD16_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -56155,34 +53378,6 @@ graph TD
 	14 --> 37
 	25 -. Codeptr .-> 37
 </pre>`;
-window.traces["I64_LOAD32_S"]["unlem_schedule"] = ''
-window.traces["I64_LOAD32_S"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__3635 : byte = 0x40u8;
-def arg__3633 : byte = 0;
-def arg__3632 = u8.&(flags, arg__3635);
-def cond__3630 = u8.!=(arg__3632, arg__3633);
-if (cond__3630) {
-	def memindex__3631 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__3631; memindex <- memindex; 
-def cond__3616 = m_isMemory64(memindex);
-if (cond__3616) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	def eff__3617 = push_u64(extend);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def extend = U64_extend32_s(val);
-	def eff__3623 = push_u64(extend);
-}
-// phis: 
-</pre>`;
 window.traces["I64_LOAD32_S"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3260["Block 3260"]
@@ -57022,32 +54217,6 @@ graph TD
 	33["mv_t__3744 |True|  [m_isMemory64 [cond__3695]]"]
 	14 --> 33
 	23 -. Codeptr .-> 33
-</pre>`;
-window.traces["I64_LOAD32_U"]["unlem_schedule"] = ''
-window.traces["I64_LOAD32_U"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__3712 : byte = 0x40u8;
-def arg__3710 : byte = 0;
-def arg__3709 = u8.&(flags, arg__3712);
-def cond__3707 = u8.!=(arg__3709, arg__3710);
-if (cond__3707) {
-	def memindex__3708 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__3708; memindex <- memindex; 
-def cond__3695 = m_isMemory64(memindex);
-if (cond__3695) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def val = mach_readMemory64_u32_64(memindex, index, offset);
-	def eff__3696 = push_u64(val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def val = mach_readMemory32_u32_64(memindex, index, offset);
-	def eff__3701 = push_u64(val);
-}
-// phis: 
 </pre>`;
 window.traces["I64_LOAD32_U"]["unlem_scheduler"] = ''
 window.traces["I64_LOAD32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -57933,31 +55102,6 @@ graph TD
 	33["mv_t__3824 |True|  [m_isMemory64 [cond__3772]]"]
 	15 --> 33
 	23 -. Codeptr .-> 33
-</pre>`;
-window.traces["I32_STORE"]["unlem_schedule"] = ''
-window.traces["I32_STORE"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__3789 : byte = 0x40u8;
-def arg__3787 : byte = 0;
-def arg__3786 = u8.&(flags, arg__3789);
-def cond__3784 = u8.!=(arg__3786, arg__3787);
-if (cond__3784) {
-	def memindex__3785 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__3785; memindex <- memindex; 
-def val = pop_u32();
-def cond__3772 = m_isMemory64(memindex);
-if (cond__3772) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def eff__3773 = mach_writeMemory64_u32(memindex, index, offset, val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def eff__3778 = mach_writeMemory32_u32(memindex, index, offset, val);
-}
-// phis: 
 </pre>`;
 window.traces["I32_STORE"]["unlem_scheduler"] = ''
 window.traces["I32_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -58845,31 +55989,6 @@ graph TD
 	15 --> 33
 	23 -. Codeptr .-> 33
 </pre>`;
-window.traces["I64_STORE"]["unlem_schedule"] = ''
-window.traces["I64_STORE"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__3871 : byte = 0x40u8;
-def arg__3869 : byte = 0;
-def arg__3868 = u8.&(flags, arg__3871);
-def cond__3866 = u8.!=(arg__3868, arg__3869);
-if (cond__3866) {
-	def memindex__3867 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__3867; memindex <- memindex; 
-def val = pop_u64();
-def cond__3854 = m_isMemory64(memindex);
-if (cond__3854) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def eff__3855 = mach_writeMemory64_u64(memindex, index, offset, val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def eff__3860 = mach_writeMemory32_u64(memindex, index, offset, val);
-}
-// phis: 
-</pre>`;
 window.traces["I64_STORE"]["unlem_scheduler"] = ''
 window.traces["I64_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3386["Block 3386"]
@@ -59616,29 +56735,6 @@ graph TD
 	23 -. Codeptr .-> 32
 	23["offset imm_readULEB64"]
 	12 -. Codeptr .-> 23
-</pre>`;
-window.traces["F32_STORE"]["unlem_schedule"] = ''
-window.traces["F32_STORE"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__3953 : byte = 0x40u8;
-def arg__3951 : byte = 0;
-def arg__3950 = u8.&(flags, arg__3953);
-def cond__3948 = u8.!=(arg__3950, arg__3951);
-if (cond__3948) {
-	def memindex__3949 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__3949; memindex <- memindex; 
-def val = pop_f32();
-def cond__3936 = m_isMemory64(memindex);
-if (cond__3936) {
-	def index = pop_u64();
-	def offset = imm_readULEB64();
-} else {
-	def index = pop_u32();
-	def offset = imm_readULEB32();
-}
-// phis: 
 </pre>`;
 window.traces["F32_STORE"]["unlem_scheduler"] = ''
 window.traces["F32_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -60512,31 +57608,6 @@ graph TD
 	33["mv_t__4065 |True|  [m_isMemory64 [cond__4013]]"]
 	15 --> 33
 	23 -. Codeptr .-> 33
-</pre>`;
-window.traces["F64_STORE"]["unlem_schedule"] = ''
-window.traces["F64_STORE"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__4030 : byte = 0x40u8;
-def arg__4028 : byte = 0;
-def arg__4027 = u8.&(flags, arg__4030);
-def cond__4025 = u8.!=(arg__4027, arg__4028);
-if (cond__4025) {
-	def memindex__4026 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__4026; memindex <- memindex; 
-def val = pop_f64();
-def cond__4013 = m_isMemory64(memindex);
-if (cond__4013) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def eff__4014 = mach_writeMemory64_f64(memindex, index, offset, val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def eff__4019 = mach_writeMemory32_f64(memindex, index, offset, val);
-}
-// phis: 
 </pre>`;
 window.traces["F64_STORE"]["unlem_scheduler"] = ''
 window.traces["F64_STORE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -61424,31 +58495,6 @@ graph TD
 	15 --> 33
 	23 -. Codeptr .-> 33
 </pre>`;
-window.traces["I32_STORE8"]["unlem_schedule"] = ''
-window.traces["I32_STORE8"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__4112 : byte = 0x40u8;
-def arg__4110 : byte = 0;
-def arg__4109 = u8.&(flags, arg__4112);
-def cond__4107 = u8.!=(arg__4109, arg__4110);
-if (cond__4107) {
-	def memindex__4108 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__4108; memindex <- memindex; 
-def val = pop_u32();
-def cond__4095 = m_isMemory64(memindex);
-if (cond__4095) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def eff__4096 = mach_writeMemory64_u8(memindex, index, offset, val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def eff__4101 = mach_writeMemory32_u8(memindex, index, offset, val);
-}
-// phis: 
-</pre>`;
 window.traces["I32_STORE8"]["unlem_scheduler"] = ''
 window.traces["I32_STORE8"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3512["Block 3512"]
@@ -62334,31 +59380,6 @@ graph TD
 	33["mv_t__4229 |True|  [m_isMemory64 [cond__4177]]"]
 	15 --> 33
 	23 -. Codeptr .-> 33
-</pre>`;
-window.traces["I32_STORE16"]["unlem_schedule"] = ''
-window.traces["I32_STORE16"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__4194 : byte = 0x40u8;
-def arg__4192 : byte = 0;
-def arg__4191 = u8.&(flags, arg__4194);
-def cond__4189 = u8.!=(arg__4191, arg__4192);
-if (cond__4189) {
-	def memindex__4190 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__4190; memindex <- memindex; 
-def val = pop_u32();
-def cond__4177 = m_isMemory64(memindex);
-if (cond__4177) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def eff__4178 = mach_writeMemory64_u16(memindex, index, offset, val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def eff__4183 = mach_writeMemory32_u16(memindex, index, offset, val);
-}
-// phis: 
 </pre>`;
 window.traces["I32_STORE16"]["unlem_scheduler"] = ''
 window.traces["I32_STORE16"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -63246,31 +60267,6 @@ graph TD
 	15 --> 33
 	23 -. Codeptr .-> 33
 </pre>`;
-window.traces["I64_STORE8"]["unlem_schedule"] = ''
-window.traces["I64_STORE8"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__4276 : byte = 0x40u8;
-def arg__4274 : byte = 0;
-def arg__4273 = u8.&(flags, arg__4276);
-def cond__4271 = u8.!=(arg__4273, arg__4274);
-if (cond__4271) {
-	def memindex__4272 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__4272; memindex <- memindex; 
-def val = pop_u64();
-def cond__4259 = m_isMemory64(memindex);
-if (cond__4259) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def eff__4260 = mach_writeMemory64_u8_64(memindex, index, offset, val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def eff__4265 = mach_writeMemory32_u8_64(memindex, index, offset, val);
-}
-// phis: 
-</pre>`;
 window.traces["I64_STORE8"]["unlem_scheduler"] = ''
 window.traces["I64_STORE8"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3596["Block 3596"]
@@ -64156,31 +61152,6 @@ graph TD
 	33["mv_t__4393 |True|  [m_isMemory64 [cond__4341]]"]
 	15 --> 33
 	23 -. Codeptr .-> 33
-</pre>`;
-window.traces["I64_STORE16"]["unlem_schedule"] = ''
-window.traces["I64_STORE16"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__4358 : byte = 0x40u8;
-def arg__4356 : byte = 0;
-def arg__4355 = u8.&(flags, arg__4358);
-def cond__4353 = u8.!=(arg__4355, arg__4356);
-if (cond__4353) {
-	def memindex__4354 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__4354; memindex <- memindex; 
-def val = pop_u64();
-def cond__4341 = m_isMemory64(memindex);
-if (cond__4341) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def eff__4342 = mach_writeMemory64_u16_64(memindex, index, offset, val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def eff__4347 = mach_writeMemory32_u16_64(memindex, index, offset, val);
-}
-// phis: 
 </pre>`;
 window.traces["I64_STORE16"]["unlem_scheduler"] = ''
 window.traces["I64_STORE16"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -65068,31 +62039,6 @@ graph TD
 	15 --> 33
 	23 -. Codeptr .-> 33
 </pre>`;
-window.traces["I64_STORE32"]["unlem_schedule"] = ''
-window.traces["I64_STORE32"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__4440 : byte = 0x40u8;
-def arg__4438 : byte = 0;
-def arg__4437 = u8.&(flags, arg__4440);
-def cond__4435 = u8.!=(arg__4437, arg__4438);
-if (cond__4435) {
-	def memindex__4436 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__4436; memindex <- memindex; 
-def val = pop_u64();
-def cond__4423 = m_isMemory64(memindex);
-if (cond__4423) {
-	def offset = imm_readULEB64();
-	def index = pop_u64();
-	def eff__4424 = mach_writeMemory64_u32_64(memindex, index, offset, val);
-} else {
-	def offset = imm_readULEB32();
-	def index = pop_u32();
-	def eff__4429 = mach_writeMemory32_u32_64(memindex, index, offset, val);
-}
-// phis: 
-</pre>`;
 window.traces["I64_STORE32"]["unlem_scheduler"] = ''
 window.traces["I64_STORE32"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3680["Block 3680"]
@@ -65772,28 +62718,6 @@ graph TD
 	24["mv_t__4539 |True|  [u8.!= [cond__4513]]"]
 	9 --> 24
 	10 -. Codeptr .-> 24
-</pre>`;
-window.traces["MEMORY_SIZE"]["unlem_schedule"] = ''
-window.traces["MEMORY_SIZE"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__4518 : byte = 0x40u8;
-def arg__4516 : byte = 0;
-def arg__4515 = u8.&(flags, arg__4518);
-def cond__4513 = u8.!=(arg__4515, arg__4516);
-if (cond__4513) {
-	def memindex__4514 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__4514; memindex <- memindex; 
-def cond__4505 = m_isMemory64(memindex);
-if (cond__4505) {
-	def r = mach_memorySize64(memindex);
-	def eff__4506 = push_u64(r);
-} else {
-	def r = mach_memorySize32(memindex);
-	def eff__4509 = push_u32(r);
-}
-// phis: 
 </pre>`;
 window.traces["MEMORY_SIZE"]["unlem_scheduler"] = ''
 window.traces["MEMORY_SIZE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -66503,30 +63427,6 @@ graph TD
 	9 --> 28
 	10 -. Codeptr .-> 28
 </pre>`;
-window.traces["MEMORY_GROW"]["unlem_schedule"] = ''
-window.traces["MEMORY_GROW"]["unlem_schedule"] += `<pre class=''>def flags = imm_readU8();
-def arg__4572 : byte = 0x40u8;
-def arg__4570 : byte = 0;
-def arg__4569 = u8.&(flags, arg__4572);
-def cond__4567 = u8.!=(arg__4569, arg__4570);
-if (cond__4567) {
-	def memindex__4568 = imm_readULEB32();
-} else {
-	def memindex : u32 = 0u;
-}
-// phis: memindex <- memindex__4568; memindex <- memindex; 
-def cond__4557 = m_isMemory64(memindex);
-if (cond__4557) {
-	def val = pop_u64();
-	def r = mach_memoryGrow64(memindex, val);
-	def eff__4558 = push_u64(r);
-} else {
-	def val = pop_u32();
-	def r = mach_memoryGrow32(memindex, val);
-	def eff__4562 = push_u32(r);
-}
-// phis: 
-</pre>`;
 window.traces["MEMORY_GROW"]["unlem_scheduler"] = ''
 window.traces["MEMORY_GROW"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3764["Block 3764"]
@@ -66794,10 +63694,6 @@ graph TD
 	3["x imm_readILEB32"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces["I32_CONST"]["unlem_schedule"] = ''
-window.traces["I32_CONST"]["unlem_schedule"] += `<pre class=''>def x = imm_readILEB32();
-def eff__4611 = push_u32(x);
-</pre>`;
 window.traces["I32_CONST"]["unlem_scheduler"] = ''
 window.traces["I32_CONST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3786["Block 3786"]
@@ -66954,10 +63850,6 @@ graph TD
 	0 -. Stack .-> 5
 	3["x imm_readILEB64"]
 	0 -. Codeptr .-> 3
-</pre>`;
-window.traces["I64_CONST"]["unlem_schedule"] = ''
-window.traces["I64_CONST"]["unlem_schedule"] += `<pre class=''>def x = imm_readILEB64();
-def eff__4613 = push_u64(x);
 </pre>`;
 window.traces["I64_CONST"]["unlem_scheduler"] = ''
 window.traces["I64_CONST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -67121,11 +64013,6 @@ graph TD
 	5["arg__4616 f32_reinterpret_u32"]
 	3 --> 5
 	3["x imm_readU32"]
-</pre>`;
-window.traces["F32_CONST"]["unlem_schedule"] = ''
-window.traces["F32_CONST"]["unlem_schedule"] += `<pre class=''>def x = imm_readU32();
-def arg__4616 = f32_reinterpret_u32(x);
-def eff__4615 = push_f32(arg__4616);
 </pre>`;
 window.traces["F32_CONST"]["unlem_scheduler"] = ''
 window.traces["F32_CONST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -67293,11 +64180,6 @@ graph TD
 	5["arg__4619 f64_reinterpret_u64"]
 	3 --> 5
 	3["x imm_readU64"]
-</pre>`;
-window.traces["F64_CONST"]["unlem_schedule"] = ''
-window.traces["F64_CONST"]["unlem_schedule"] += `<pre class=''>def x = imm_readU64();
-def arg__4619 = f64_reinterpret_u64(x);
-def eff__4618 = push_f64(arg__4619);
 </pre>`;
 window.traces["F64_CONST"]["unlem_scheduler"] = ''
 window.traces["F64_CONST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -67679,32 +64561,6 @@ graph TD
 	7 --> 16
 	7["arg__4625 0"]
 	9["arg__4623 1"]
-</pre>`;
-window.traces["I32_EQZ"]["unlem_schedule"] = ''
-window.traces["I32_EQZ"]["unlem_schedule"] += `<pre class=''>def a = pop_u32();
-def arg__4627 : u32 = 0;
-def cond__4621 = u32.==(a, arg__4627);
-def mt__4631 = U32_maybeTrue(cond__4621);
-def mf__4632 = U32_maybeFalse(cond__4621);
-def mb__4633 = bool.&&(mt__4631, mf__4632);
-if (mb__4633) {
-	def arg__4625 : u32 = 0;
-	def arg__4623 : u32 = 1;
-	def merge__4635 = merge_u(arg__4623, arg__4625);
-	def eff_push__4636 = push_u32(merge__4635);
-} else {
-	if (mt__4631) {
-		def arg__4623__4642 : u32 = 1;
-		def arg__4623 = (arg__4623__4642);
-		def eff__4622 = push_u32(arg__4623__4642);
-	} else {
-		def arg__4625__4641 : u32 = 0;
-		def arg__4625 = (arg__4625__4641);
-		def eff__4624 = push_u32(arg__4625__4641);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I32_EQZ"]["unlem_scheduler"] = ''
 window.traces["I32_EQZ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -68190,32 +65046,6 @@ graph TD
 	8 --> 17
 	8["arg__4647 0"]
 	10["arg__4645 1"]
-</pre>`;
-window.traces["I32_EQ"]["unlem_schedule"] = ''
-window.traces["I32_EQ"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def cond__4643 = u32.==(a, b);
-def mt__4653 = U32_maybeTrue(cond__4643);
-def mf__4654 = U32_maybeFalse(cond__4643);
-def mb__4655 = bool.&&(mt__4653, mf__4654);
-if (mb__4655) {
-	def arg__4647 : u32 = 0;
-	def arg__4645 : u32 = 1;
-	def merge__4657 = merge_u(arg__4645, arg__4647);
-	def eff_push__4658 = push_u32(merge__4657);
-} else {
-	if (mt__4653) {
-		def arg__4645__4664 : u32 = 1;
-		def arg__4645 = (arg__4645__4664);
-		def eff__4644 = push_u32(arg__4645__4664);
-	} else {
-		def arg__4647__4663 : u32 = 0;
-		def arg__4647 = (arg__4647__4663);
-		def eff__4646 = push_u32(arg__4647__4663);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I32_EQ"]["unlem_scheduler"] = ''
 window.traces["I32_EQ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -68703,32 +65533,6 @@ graph TD
 	8["arg__4669 0"]
 	10["arg__4667 1"]
 </pre>`;
-window.traces["I32_NE"]["unlem_schedule"] = ''
-window.traces["I32_NE"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def cond__4665 = u32.!=(a, b);
-def mt__4675 = U32_maybeTrue(cond__4665);
-def mf__4676 = U32_maybeFalse(cond__4665);
-def mb__4677 = bool.&&(mt__4675, mf__4676);
-if (mb__4677) {
-	def arg__4669 : u32 = 0;
-	def arg__4667 : u32 = 1;
-	def merge__4679 = merge_u(arg__4667, arg__4669);
-	def eff_push__4680 = push_u32(merge__4679);
-} else {
-	if (mt__4675) {
-		def arg__4667__4686 : u32 = 1;
-		def arg__4667 = (arg__4667__4686);
-		def eff__4666 = push_u32(arg__4667__4686);
-	} else {
-		def arg__4669__4685 : u32 = 0;
-		def arg__4669 = (arg__4669__4685);
-		def eff__4668 = push_u32(arg__4669__4685);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I32_NE"]["unlem_scheduler"] = ''
 window.traces["I32_NE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3842["Block 3842"]
@@ -69214,32 +66018,6 @@ graph TD
 	8 --> 17
 	8["arg__4691 0"]
 	10["arg__4689 1"]
-</pre>`;
-window.traces["I32_LT_S"]["unlem_schedule"] = ''
-window.traces["I32_LT_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def cond__4687 = U32_lt_s(a, b);
-def mt__4697 = U32_maybeTrue(cond__4687);
-def mf__4698 = U32_maybeFalse(cond__4687);
-def mb__4699 = bool.&&(mt__4697, mf__4698);
-if (mb__4699) {
-	def arg__4691 : u32 = 0;
-	def arg__4689 : u32 = 1;
-	def merge__4701 = merge_u(arg__4689, arg__4691);
-	def eff_push__4702 = push_u32(merge__4701);
-} else {
-	if (mt__4697) {
-		def arg__4689__4708 : u32 = 1;
-		def arg__4689 = (arg__4689__4708);
-		def eff__4688 = push_u32(arg__4689__4708);
-	} else {
-		def arg__4691__4707 : u32 = 0;
-		def arg__4691 = (arg__4691__4707);
-		def eff__4690 = push_u32(arg__4691__4707);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I32_LT_S"]["unlem_scheduler"] = ''
 window.traces["I32_LT_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -69727,32 +66505,6 @@ graph TD
 	8["arg__4713 0"]
 	10["arg__4711 1"]
 </pre>`;
-window.traces["I32_LT_U"]["unlem_schedule"] = ''
-window.traces["I32_LT_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def cond__4709 = u32.<(a, b);
-def mt__4719 = U32_maybeTrue(cond__4709);
-def mf__4720 = U32_maybeFalse(cond__4709);
-def mb__4721 = bool.&&(mt__4719, mf__4720);
-if (mb__4721) {
-	def arg__4713 : u32 = 0;
-	def arg__4711 : u32 = 1;
-	def merge__4723 = merge_u(arg__4711, arg__4713);
-	def eff_push__4724 = push_u32(merge__4723);
-} else {
-	if (mt__4719) {
-		def arg__4711__4730 : u32 = 1;
-		def arg__4711 = (arg__4711__4730);
-		def eff__4710 = push_u32(arg__4711__4730);
-	} else {
-		def arg__4713__4729 : u32 = 0;
-		def arg__4713 = (arg__4713__4729);
-		def eff__4712 = push_u32(arg__4713__4729);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I32_LT_U"]["unlem_scheduler"] = ''
 window.traces["I32_LT_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3884["Block 3884"]
@@ -70238,32 +66990,6 @@ graph TD
 	8 --> 17
 	8["arg__4735 0"]
 	10["arg__4733 1"]
-</pre>`;
-window.traces["I32_GT_S"]["unlem_schedule"] = ''
-window.traces["I32_GT_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def cond__4731 = U32_gt_s(a, b);
-def mt__4741 = U32_maybeTrue(cond__4731);
-def mf__4742 = U32_maybeFalse(cond__4731);
-def mb__4743 = bool.&&(mt__4741, mf__4742);
-if (mb__4743) {
-	def arg__4735 : u32 = 0;
-	def arg__4733 : u32 = 1;
-	def merge__4745 = merge_u(arg__4733, arg__4735);
-	def eff_push__4746 = push_u32(merge__4745);
-} else {
-	if (mt__4741) {
-		def arg__4733__4752 : u32 = 1;
-		def arg__4733 = (arg__4733__4752);
-		def eff__4732 = push_u32(arg__4733__4752);
-	} else {
-		def arg__4735__4751 : u32 = 0;
-		def arg__4735 = (arg__4735__4751);
-		def eff__4734 = push_u32(arg__4735__4751);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I32_GT_S"]["unlem_scheduler"] = ''
 window.traces["I32_GT_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -70751,32 +67477,6 @@ graph TD
 	8["arg__4757 0"]
 	10["arg__4755 1"]
 </pre>`;
-window.traces["I32_GT_U"]["unlem_schedule"] = ''
-window.traces["I32_GT_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def cond__4753 = u32.>(a, b);
-def mt__4763 = U32_maybeTrue(cond__4753);
-def mf__4764 = U32_maybeFalse(cond__4753);
-def mb__4765 = bool.&&(mt__4763, mf__4764);
-if (mb__4765) {
-	def arg__4757 : u32 = 0;
-	def arg__4755 : u32 = 1;
-	def merge__4767 = merge_u(arg__4755, arg__4757);
-	def eff_push__4768 = push_u32(merge__4767);
-} else {
-	if (mt__4763) {
-		def arg__4755__4774 : u32 = 1;
-		def arg__4755 = (arg__4755__4774);
-		def eff__4754 = push_u32(arg__4755__4774);
-	} else {
-		def arg__4757__4773 : u32 = 0;
-		def arg__4757 = (arg__4757__4773);
-		def eff__4756 = push_u32(arg__4757__4773);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I32_GT_U"]["unlem_scheduler"] = ''
 window.traces["I32_GT_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3926["Block 3926"]
@@ -71262,32 +67962,6 @@ graph TD
 	8 --> 17
 	8["arg__4779 0"]
 	10["arg__4777 1"]
-</pre>`;
-window.traces["I32_LE_S"]["unlem_schedule"] = ''
-window.traces["I32_LE_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def cond__4775 = U32_le_s(a, b);
-def mt__4785 = U32_maybeTrue(cond__4775);
-def mf__4786 = U32_maybeFalse(cond__4775);
-def mb__4787 = bool.&&(mt__4785, mf__4786);
-if (mb__4787) {
-	def arg__4779 : u32 = 0;
-	def arg__4777 : u32 = 1;
-	def merge__4789 = merge_u(arg__4777, arg__4779);
-	def eff_push__4790 = push_u32(merge__4789);
-} else {
-	if (mt__4785) {
-		def arg__4777__4796 : u32 = 1;
-		def arg__4777 = (arg__4777__4796);
-		def eff__4776 = push_u32(arg__4777__4796);
-	} else {
-		def arg__4779__4795 : u32 = 0;
-		def arg__4779 = (arg__4779__4795);
-		def eff__4778 = push_u32(arg__4779__4795);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I32_LE_S"]["unlem_scheduler"] = ''
 window.traces["I32_LE_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -71775,32 +68449,6 @@ graph TD
 	8["arg__4801 0"]
 	10["arg__4799 1"]
 </pre>`;
-window.traces["I32_LE_U"]["unlem_schedule"] = ''
-window.traces["I32_LE_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def cond__4797 = u32.<=(a, b);
-def mt__4807 = U32_maybeTrue(cond__4797);
-def mf__4808 = U32_maybeFalse(cond__4797);
-def mb__4809 = bool.&&(mt__4807, mf__4808);
-if (mb__4809) {
-	def arg__4801 : u32 = 0;
-	def arg__4799 : u32 = 1;
-	def merge__4811 = merge_u(arg__4799, arg__4801);
-	def eff_push__4812 = push_u32(merge__4811);
-} else {
-	if (mt__4807) {
-		def arg__4799__4818 : u32 = 1;
-		def arg__4799 = (arg__4799__4818);
-		def eff__4798 = push_u32(arg__4799__4818);
-	} else {
-		def arg__4801__4817 : u32 = 0;
-		def arg__4801 = (arg__4801__4817);
-		def eff__4800 = push_u32(arg__4801__4817);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I32_LE_U"]["unlem_scheduler"] = ''
 window.traces["I32_LE_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_3968["Block 3968"]
@@ -72286,32 +68934,6 @@ graph TD
 	8 --> 17
 	8["arg__4823 0"]
 	10["arg__4821 1"]
-</pre>`;
-window.traces["I32_GE_S"]["unlem_schedule"] = ''
-window.traces["I32_GE_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def cond__4819 = U32_ge_s(a, b);
-def mt__4829 = U32_maybeTrue(cond__4819);
-def mf__4830 = U32_maybeFalse(cond__4819);
-def mb__4831 = bool.&&(mt__4829, mf__4830);
-if (mb__4831) {
-	def arg__4823 : u32 = 0;
-	def arg__4821 : u32 = 1;
-	def merge__4833 = merge_u(arg__4821, arg__4823);
-	def eff_push__4834 = push_u32(merge__4833);
-} else {
-	if (mt__4829) {
-		def arg__4821__4840 : u32 = 1;
-		def arg__4821 = (arg__4821__4840);
-		def eff__4820 = push_u32(arg__4821__4840);
-	} else {
-		def arg__4823__4839 : u32 = 0;
-		def arg__4823 = (arg__4823__4839);
-		def eff__4822 = push_u32(arg__4823__4839);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I32_GE_S"]["unlem_scheduler"] = ''
 window.traces["I32_GE_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -72799,32 +69421,6 @@ graph TD
 	8["arg__4845 0"]
 	10["arg__4843 1"]
 </pre>`;
-window.traces["I32_GE_U"]["unlem_schedule"] = ''
-window.traces["I32_GE_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def cond__4841 = u32.>=(a, b);
-def mt__4851 = bot_maybeTrue(cond__4841);
-def mf__4852 = bot_maybeFalse(cond__4841);
-def mb__4853 = bool.&&(mt__4851, mf__4852);
-if (mb__4853) {
-	def arg__4845 : u32 = 0;
-	def arg__4843 : u32 = 1;
-	def merge__4855 = merge_u(arg__4843, arg__4845);
-	def eff_push__4856 = push_u32(merge__4855);
-} else {
-	if (mt__4851) {
-		def arg__4843__4862 : u32 = 1;
-		def arg__4843 = (arg__4843__4862);
-		def eff__4842 = push_u32(arg__4843__4862);
-	} else {
-		def arg__4845__4861 : u32 = 0;
-		def arg__4845 = (arg__4845__4861);
-		def eff__4844 = push_u32(arg__4845__4861);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I32_GE_U"]["unlem_scheduler"] = ''
 window.traces["I32_GE_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4010["Block 4010"]
@@ -73301,32 +69897,6 @@ graph TD
 	7 --> 16
 	7["arg__4867 0"]
 	9["arg__4865 1"]
-</pre>`;
-window.traces["I64_EQZ"]["unlem_schedule"] = ''
-window.traces["I64_EQZ"]["unlem_schedule"] += `<pre class=''>def a = pop_u64();
-def arg__4869 : u64 = 0;
-def cond__4863 = u64.==(a, arg__4869);
-def mt__4873 = bot_maybeTrue(cond__4863);
-def mf__4874 = bot_maybeFalse(cond__4863);
-def mb__4875 = bool.&&(mt__4873, mf__4874);
-if (mb__4875) {
-	def arg__4867 : u32 = 0;
-	def arg__4865 : u32 = 1;
-	def merge__4877 = merge_u(arg__4865, arg__4867);
-	def eff_push__4878 = push_u32(merge__4877);
-} else {
-	if (mt__4873) {
-		def arg__4865__4884 : u32 = 1;
-		def arg__4865 = (arg__4865__4884);
-		def eff__4864 = push_u32(arg__4865__4884);
-	} else {
-		def arg__4867__4883 : u32 = 0;
-		def arg__4867 = (arg__4867__4883);
-		def eff__4866 = push_u32(arg__4867__4883);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I64_EQZ"]["unlem_scheduler"] = ''
 window.traces["I64_EQZ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -73812,32 +70382,6 @@ graph TD
 	8 --> 17
 	8["arg__4889 0"]
 	10["arg__4887 1"]
-</pre>`;
-window.traces["I64_EQ"]["unlem_schedule"] = ''
-window.traces["I64_EQ"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def cond__4885 = u64.==(a, b);
-def mt__4895 = bot_maybeTrue(cond__4885);
-def mf__4896 = bot_maybeFalse(cond__4885);
-def mb__4897 = bool.&&(mt__4895, mf__4896);
-if (mb__4897) {
-	def arg__4889 : u32 = 0;
-	def arg__4887 : u32 = 1;
-	def merge__4899 = merge_u(arg__4887, arg__4889);
-	def eff_push__4900 = push_u32(merge__4899);
-} else {
-	if (mt__4895) {
-		def arg__4887__4906 : u32 = 1;
-		def arg__4887 = (arg__4887__4906);
-		def eff__4886 = push_u32(arg__4887__4906);
-	} else {
-		def arg__4889__4905 : u32 = 0;
-		def arg__4889 = (arg__4889__4905);
-		def eff__4888 = push_u32(arg__4889__4905);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I64_EQ"]["unlem_scheduler"] = ''
 window.traces["I64_EQ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -74325,32 +70869,6 @@ graph TD
 	8["arg__4911 0"]
 	10["arg__4909 1"]
 </pre>`;
-window.traces["I64_NE"]["unlem_schedule"] = ''
-window.traces["I64_NE"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def cond__4907 = u64.!=(a, b);
-def mt__4917 = bot_maybeTrue(cond__4907);
-def mf__4918 = bot_maybeFalse(cond__4907);
-def mb__4919 = bool.&&(mt__4917, mf__4918);
-if (mb__4919) {
-	def arg__4911 : u32 = 0;
-	def arg__4909 : u32 = 1;
-	def merge__4921 = merge_u(arg__4909, arg__4911);
-	def eff_push__4922 = push_u32(merge__4921);
-} else {
-	if (mt__4917) {
-		def arg__4909__4928 : u32 = 1;
-		def arg__4909 = (arg__4909__4928);
-		def eff__4908 = push_u32(arg__4909__4928);
-	} else {
-		def arg__4911__4927 : u32 = 0;
-		def arg__4911 = (arg__4911__4927);
-		def eff__4910 = push_u32(arg__4911__4927);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I64_NE"]["unlem_scheduler"] = ''
 window.traces["I64_NE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4073["Block 4073"]
@@ -74836,32 +71354,6 @@ graph TD
 	8 --> 17
 	8["arg__4933 0"]
 	10["arg__4931 1"]
-</pre>`;
-window.traces["I64_LT_S"]["unlem_schedule"] = ''
-window.traces["I64_LT_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def cond__4929 = U64_lt_s(a, b);
-def mt__4939 = U64_maybeTrue(cond__4929);
-def mf__4940 = U64_maybeFalse(cond__4929);
-def mb__4941 = bool.&&(mt__4939, mf__4940);
-if (mb__4941) {
-	def arg__4933 : u32 = 0;
-	def arg__4931 : u32 = 1;
-	def merge__4943 = merge_u(arg__4931, arg__4933);
-	def eff_push__4944 = push_u32(merge__4943);
-} else {
-	if (mt__4939) {
-		def arg__4931__4950 : u32 = 1;
-		def arg__4931 = (arg__4931__4950);
-		def eff__4930 = push_u32(arg__4931__4950);
-	} else {
-		def arg__4933__4949 : u32 = 0;
-		def arg__4933 = (arg__4933__4949);
-		def eff__4932 = push_u32(arg__4933__4949);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I64_LT_S"]["unlem_scheduler"] = ''
 window.traces["I64_LT_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -75349,32 +71841,6 @@ graph TD
 	8["arg__4955 0"]
 	10["arg__4953 1"]
 </pre>`;
-window.traces["I64_LT_U"]["unlem_schedule"] = ''
-window.traces["I64_LT_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def cond__4951 = u64.<(a, b);
-def mt__4961 = bot_maybeTrue(cond__4951);
-def mf__4962 = bot_maybeFalse(cond__4951);
-def mb__4963 = bool.&&(mt__4961, mf__4962);
-if (mb__4963) {
-	def arg__4955 : u32 = 0;
-	def arg__4953 : u32 = 1;
-	def merge__4965 = merge_u(arg__4953, arg__4955);
-	def eff_push__4966 = push_u32(merge__4965);
-} else {
-	if (mt__4961) {
-		def arg__4953__4972 : u32 = 1;
-		def arg__4953 = (arg__4953__4972);
-		def eff__4952 = push_u32(arg__4953__4972);
-	} else {
-		def arg__4955__4971 : u32 = 0;
-		def arg__4955 = (arg__4955__4971);
-		def eff__4954 = push_u32(arg__4955__4971);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I64_LT_U"]["unlem_scheduler"] = ''
 window.traces["I64_LT_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4115["Block 4115"]
@@ -75860,32 +72326,6 @@ graph TD
 	8 --> 17
 	8["arg__4977 0"]
 	10["arg__4975 1"]
-</pre>`;
-window.traces["I64_GT_S"]["unlem_schedule"] = ''
-window.traces["I64_GT_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def cond__4973 = U64_gt_s(a, b);
-def mt__4983 = U64_maybeTrue(cond__4973);
-def mf__4984 = U64_maybeFalse(cond__4973);
-def mb__4985 = bool.&&(mt__4983, mf__4984);
-if (mb__4985) {
-	def arg__4977 : u32 = 0;
-	def arg__4975 : u32 = 1;
-	def merge__4987 = merge_u(arg__4975, arg__4977);
-	def eff_push__4988 = push_u32(merge__4987);
-} else {
-	if (mt__4983) {
-		def arg__4975__4994 : u32 = 1;
-		def arg__4975 = (arg__4975__4994);
-		def eff__4974 = push_u32(arg__4975__4994);
-	} else {
-		def arg__4977__4993 : u32 = 0;
-		def arg__4977 = (arg__4977__4993);
-		def eff__4976 = push_u32(arg__4977__4993);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I64_GT_S"]["unlem_scheduler"] = ''
 window.traces["I64_GT_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -76373,32 +72813,6 @@ graph TD
 	8["arg__4999 0"]
 	10["arg__4997 1"]
 </pre>`;
-window.traces["I64_GT_U"]["unlem_schedule"] = ''
-window.traces["I64_GT_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def cond__4995 = u64.>(a, b);
-def mt__5005 = bot_maybeTrue(cond__4995);
-def mf__5006 = bot_maybeFalse(cond__4995);
-def mb__5007 = bool.&&(mt__5005, mf__5006);
-if (mb__5007) {
-	def arg__4999 : u32 = 0;
-	def arg__4997 : u32 = 1;
-	def merge__5009 = merge_u(arg__4997, arg__4999);
-	def eff_push__5010 = push_u32(merge__5009);
-} else {
-	if (mt__5005) {
-		def arg__4997__5016 : u32 = 1;
-		def arg__4997 = (arg__4997__5016);
-		def eff__4996 = push_u32(arg__4997__5016);
-	} else {
-		def arg__4999__5015 : u32 = 0;
-		def arg__4999 = (arg__4999__5015);
-		def eff__4998 = push_u32(arg__4999__5015);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I64_GT_U"]["unlem_scheduler"] = ''
 window.traces["I64_GT_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4157["Block 4157"]
@@ -76884,32 +73298,6 @@ graph TD
 	8 --> 17
 	8["arg__5021 0"]
 	10["arg__5019 1"]
-</pre>`;
-window.traces["I64_LE_S"]["unlem_schedule"] = ''
-window.traces["I64_LE_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def cond__5017 = U64_le_s(a, b);
-def mt__5027 = U64_maybeTrue(cond__5017);
-def mf__5028 = U64_maybeFalse(cond__5017);
-def mb__5029 = bool.&&(mt__5027, mf__5028);
-if (mb__5029) {
-	def arg__5021 : u32 = 0;
-	def arg__5019 : u32 = 1;
-	def merge__5031 = merge_u(arg__5019, arg__5021);
-	def eff_push__5032 = push_u32(merge__5031);
-} else {
-	if (mt__5027) {
-		def arg__5019__5038 : u32 = 1;
-		def arg__5019 = (arg__5019__5038);
-		def eff__5018 = push_u32(arg__5019__5038);
-	} else {
-		def arg__5021__5037 : u32 = 0;
-		def arg__5021 = (arg__5021__5037);
-		def eff__5020 = push_u32(arg__5021__5037);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I64_LE_S"]["unlem_scheduler"] = ''
 window.traces["I64_LE_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -77397,32 +73785,6 @@ graph TD
 	8["arg__5043 0"]
 	10["arg__5041 1"]
 </pre>`;
-window.traces["I64_LE_U"]["unlem_schedule"] = ''
-window.traces["I64_LE_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def cond__5039 = u64.<=(a, b);
-def mt__5049 = bot_maybeTrue(cond__5039);
-def mf__5050 = bot_maybeFalse(cond__5039);
-def mb__5051 = bool.&&(mt__5049, mf__5050);
-if (mb__5051) {
-	def arg__5043 : u32 = 0;
-	def arg__5041 : u32 = 1;
-	def merge__5053 = merge_u(arg__5041, arg__5043);
-	def eff_push__5054 = push_u32(merge__5053);
-} else {
-	if (mt__5049) {
-		def arg__5041__5060 : u32 = 1;
-		def arg__5041 = (arg__5041__5060);
-		def eff__5040 = push_u32(arg__5041__5060);
-	} else {
-		def arg__5043__5059 : u32 = 0;
-		def arg__5043 = (arg__5043__5059);
-		def eff__5042 = push_u32(arg__5043__5059);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I64_LE_U"]["unlem_scheduler"] = ''
 window.traces["I64_LE_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4199["Block 4199"]
@@ -77908,32 +74270,6 @@ graph TD
 	8 --> 17
 	8["arg__5065 0"]
 	10["arg__5063 1"]
-</pre>`;
-window.traces["I64_GE_S"]["unlem_schedule"] = ''
-window.traces["I64_GE_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def cond__5061 = U64_ge_s(a, b);
-def mt__5071 = U64_maybeTrue(cond__5061);
-def mf__5072 = U64_maybeFalse(cond__5061);
-def mb__5073 = bool.&&(mt__5071, mf__5072);
-if (mb__5073) {
-	def arg__5065 : u32 = 0;
-	def arg__5063 : u32 = 1;
-	def merge__5075 = merge_u(arg__5063, arg__5065);
-	def eff_push__5076 = push_u32(merge__5075);
-} else {
-	if (mt__5071) {
-		def arg__5063__5082 : u32 = 1;
-		def arg__5063 = (arg__5063__5082);
-		def eff__5062 = push_u32(arg__5063__5082);
-	} else {
-		def arg__5065__5081 : u32 = 0;
-		def arg__5065 = (arg__5065__5081);
-		def eff__5064 = push_u32(arg__5065__5081);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I64_GE_S"]["unlem_scheduler"] = ''
 window.traces["I64_GE_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -78421,32 +74757,6 @@ graph TD
 	8["arg__5087 0"]
 	10["arg__5085 1"]
 </pre>`;
-window.traces["I64_GE_U"]["unlem_schedule"] = ''
-window.traces["I64_GE_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def cond__5083 = u64.>=(a, b);
-def mt__5093 = bot_maybeTrue(cond__5083);
-def mf__5094 = bot_maybeFalse(cond__5083);
-def mb__5095 = bool.&&(mt__5093, mf__5094);
-if (mb__5095) {
-	def arg__5087 : u32 = 0;
-	def arg__5085 : u32 = 1;
-	def merge__5097 = merge_u(arg__5085, arg__5087);
-	def eff_push__5098 = push_u32(merge__5097);
-} else {
-	if (mt__5093) {
-		def arg__5085__5104 : u32 = 1;
-		def arg__5085 = (arg__5085__5104);
-		def eff__5084 = push_u32(arg__5085__5104);
-	} else {
-		def arg__5087__5103 : u32 = 0;
-		def arg__5087 = (arg__5087__5103);
-		def eff__5086 = push_u32(arg__5087__5103);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I64_GE_U"]["unlem_scheduler"] = ''
 window.traces["I64_GE_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4241["Block 4241"]
@@ -78932,32 +75242,6 @@ graph TD
 	8 --> 17
 	8["arg__5109 0"]
 	10["arg__5107 1"]
-</pre>`;
-window.traces["F32_EQ"]["unlem_schedule"] = ''
-window.traces["F32_EQ"]["unlem_schedule"] += `<pre class=''>def b = pop_f32();
-def a = pop_f32();
-def cond__5105 = float.==(a, b);
-def mt__5115 = U32_maybeTrue(cond__5105);
-def mf__5116 = U32_maybeFalse(cond__5105);
-def mb__5117 = bool.&&(mt__5115, mf__5116);
-if (mb__5117) {
-	def arg__5109 : u32 = 0;
-	def arg__5107 : u32 = 1;
-	def merge__5119 = merge_u(arg__5107, arg__5109);
-	def eff_push__5120 = push_u32(merge__5119);
-} else {
-	if (mt__5115) {
-		def arg__5107__5126 : u32 = 1;
-		def arg__5107 = (arg__5107__5126);
-		def eff__5106 = push_u32(arg__5107__5126);
-	} else {
-		def arg__5109__5125 : u32 = 0;
-		def arg__5109 = (arg__5109__5125);
-		def eff__5108 = push_u32(arg__5109__5125);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["F32_EQ"]["unlem_scheduler"] = ''
 window.traces["F32_EQ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -79445,32 +75729,6 @@ graph TD
 	8["arg__5131 0"]
 	10["arg__5129 1"]
 </pre>`;
-window.traces["F32_NE"]["unlem_schedule"] = ''
-window.traces["F32_NE"]["unlem_schedule"] += `<pre class=''>def b = pop_f32();
-def a = pop_f32();
-def cond__5127 = float.!=(a, b);
-def mt__5137 = U32_maybeTrue(cond__5127);
-def mf__5138 = U32_maybeFalse(cond__5127);
-def mb__5139 = bool.&&(mt__5137, mf__5138);
-if (mb__5139) {
-	def arg__5131 : u32 = 0;
-	def arg__5129 : u32 = 1;
-	def merge__5141 = merge_u(arg__5129, arg__5131);
-	def eff_push__5142 = push_u32(merge__5141);
-} else {
-	if (mt__5137) {
-		def arg__5129__5148 : u32 = 1;
-		def arg__5129 = (arg__5129__5148);
-		def eff__5128 = push_u32(arg__5129__5148);
-	} else {
-		def arg__5131__5147 : u32 = 0;
-		def arg__5131 = (arg__5131__5147);
-		def eff__5130 = push_u32(arg__5131__5147);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["F32_NE"]["unlem_scheduler"] = ''
 window.traces["F32_NE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4283["Block 4283"]
@@ -79956,32 +76214,6 @@ graph TD
 	8 --> 17
 	8["arg__5153 0"]
 	10["arg__5151 1"]
-</pre>`;
-window.traces["F32_LT"]["unlem_schedule"] = ''
-window.traces["F32_LT"]["unlem_schedule"] += `<pre class=''>def b = pop_f32();
-def a = pop_f32();
-def cond__5149 = float.<(a, b);
-def mt__5159 = U32_maybeTrue(cond__5149);
-def mf__5160 = U32_maybeFalse(cond__5149);
-def mb__5161 = bool.&&(mt__5159, mf__5160);
-if (mb__5161) {
-	def arg__5153 : u32 = 0;
-	def arg__5151 : u32 = 1;
-	def merge__5163 = merge_u(arg__5151, arg__5153);
-	def eff_push__5164 = push_u32(merge__5163);
-} else {
-	if (mt__5159) {
-		def arg__5151__5170 : u32 = 1;
-		def arg__5151 = (arg__5151__5170);
-		def eff__5150 = push_u32(arg__5151__5170);
-	} else {
-		def arg__5153__5169 : u32 = 0;
-		def arg__5153 = (arg__5153__5169);
-		def eff__5152 = push_u32(arg__5153__5169);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["F32_LT"]["unlem_scheduler"] = ''
 window.traces["F32_LT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -80469,32 +76701,6 @@ graph TD
 	8["arg__5175 0"]
 	10["arg__5173 1"]
 </pre>`;
-window.traces["F32_GT"]["unlem_schedule"] = ''
-window.traces["F32_GT"]["unlem_schedule"] += `<pre class=''>def b = pop_f32();
-def a = pop_f32();
-def cond__5171 = float.>(a, b);
-def mt__5181 = U32_maybeTrue(cond__5171);
-def mf__5182 = U32_maybeFalse(cond__5171);
-def mb__5183 = bool.&&(mt__5181, mf__5182);
-if (mb__5183) {
-	def arg__5175 : u32 = 0;
-	def arg__5173 : u32 = 1;
-	def merge__5185 = merge_u(arg__5173, arg__5175);
-	def eff_push__5186 = push_u32(merge__5185);
-} else {
-	if (mt__5181) {
-		def arg__5173__5192 : u32 = 1;
-		def arg__5173 = (arg__5173__5192);
-		def eff__5172 = push_u32(arg__5173__5192);
-	} else {
-		def arg__5175__5191 : u32 = 0;
-		def arg__5175 = (arg__5175__5191);
-		def eff__5174 = push_u32(arg__5175__5191);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["F32_GT"]["unlem_scheduler"] = ''
 window.traces["F32_GT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4325["Block 4325"]
@@ -80980,32 +77186,6 @@ graph TD
 	8 --> 17
 	8["arg__5197 0"]
 	10["arg__5195 1"]
-</pre>`;
-window.traces["F32_LE"]["unlem_schedule"] = ''
-window.traces["F32_LE"]["unlem_schedule"] += `<pre class=''>def b = pop_f32();
-def a = pop_f32();
-def cond__5193 = float.<=(a, b);
-def mt__5203 = U32_maybeTrue(cond__5193);
-def mf__5204 = U32_maybeFalse(cond__5193);
-def mb__5205 = bool.&&(mt__5203, mf__5204);
-if (mb__5205) {
-	def arg__5197 : u32 = 0;
-	def arg__5195 : u32 = 1;
-	def merge__5207 = merge_u(arg__5195, arg__5197);
-	def eff_push__5208 = push_u32(merge__5207);
-} else {
-	if (mt__5203) {
-		def arg__5195__5214 : u32 = 1;
-		def arg__5195 = (arg__5195__5214);
-		def eff__5194 = push_u32(arg__5195__5214);
-	} else {
-		def arg__5197__5213 : u32 = 0;
-		def arg__5197 = (arg__5197__5213);
-		def eff__5196 = push_u32(arg__5197__5213);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["F32_LE"]["unlem_scheduler"] = ''
 window.traces["F32_LE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -81493,32 +77673,6 @@ graph TD
 	8["arg__5219 0"]
 	10["arg__5217 1"]
 </pre>`;
-window.traces["F32_GE"]["unlem_schedule"] = ''
-window.traces["F32_GE"]["unlem_schedule"] += `<pre class=''>def b = pop_f32();
-def a = pop_f32();
-def cond__5215 = float.>=(a, b);
-def mt__5225 = bot_maybeTrue(cond__5215);
-def mf__5226 = bot_maybeFalse(cond__5215);
-def mb__5227 = bool.&&(mt__5225, mf__5226);
-if (mb__5227) {
-	def arg__5219 : u32 = 0;
-	def arg__5217 : u32 = 1;
-	def merge__5229 = merge_u(arg__5217, arg__5219);
-	def eff_push__5230 = push_u32(merge__5229);
-} else {
-	if (mt__5225) {
-		def arg__5217__5236 : u32 = 1;
-		def arg__5217 = (arg__5217__5236);
-		def eff__5216 = push_u32(arg__5217__5236);
-	} else {
-		def arg__5219__5235 : u32 = 0;
-		def arg__5219 = (arg__5219__5235);
-		def eff__5218 = push_u32(arg__5219__5235);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["F32_GE"]["unlem_scheduler"] = ''
 window.traces["F32_GE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4367["Block 4367"]
@@ -82004,32 +78158,6 @@ graph TD
 	8 --> 17
 	8["arg__5241 0"]
 	10["arg__5239 1"]
-</pre>`;
-window.traces["F64_EQ"]["unlem_schedule"] = ''
-window.traces["F64_EQ"]["unlem_schedule"] += `<pre class=''>def b = pop_f64();
-def a = pop_f64();
-def cond__5237 = double.==(a, b);
-def mt__5247 = bot_maybeTrue(cond__5237);
-def mf__5248 = bot_maybeFalse(cond__5237);
-def mb__5249 = bool.&&(mt__5247, mf__5248);
-if (mb__5249) {
-	def arg__5241 : u32 = 0;
-	def arg__5239 : u32 = 1;
-	def merge__5251 = merge_u(arg__5239, arg__5241);
-	def eff_push__5252 = push_u32(merge__5251);
-} else {
-	if (mt__5247) {
-		def arg__5239__5258 : u32 = 1;
-		def arg__5239 = (arg__5239__5258);
-		def eff__5238 = push_u32(arg__5239__5258);
-	} else {
-		def arg__5241__5257 : u32 = 0;
-		def arg__5241 = (arg__5241__5257);
-		def eff__5240 = push_u32(arg__5241__5257);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["F64_EQ"]["unlem_scheduler"] = ''
 window.traces["F64_EQ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -82517,32 +78645,6 @@ graph TD
 	8["arg__5263 0"]
 	10["arg__5261 1"]
 </pre>`;
-window.traces["F64_NE"]["unlem_schedule"] = ''
-window.traces["F64_NE"]["unlem_schedule"] += `<pre class=''>def b = pop_f64();
-def a = pop_f64();
-def cond__5259 = double.!=(a, b);
-def mt__5269 = bot_maybeTrue(cond__5259);
-def mf__5270 = bot_maybeFalse(cond__5259);
-def mb__5271 = bool.&&(mt__5269, mf__5270);
-if (mb__5271) {
-	def arg__5263 : u32 = 0;
-	def arg__5261 : u32 = 1;
-	def merge__5273 = merge_u(arg__5261, arg__5263);
-	def eff_push__5274 = push_u32(merge__5273);
-} else {
-	if (mt__5269) {
-		def arg__5261__5280 : u32 = 1;
-		def arg__5261 = (arg__5261__5280);
-		def eff__5260 = push_u32(arg__5261__5280);
-	} else {
-		def arg__5263__5279 : u32 = 0;
-		def arg__5263 = (arg__5263__5279);
-		def eff__5262 = push_u32(arg__5263__5279);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["F64_NE"]["unlem_scheduler"] = ''
 window.traces["F64_NE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4409["Block 4409"]
@@ -83028,32 +79130,6 @@ graph TD
 	8 --> 17
 	8["arg__5285 0"]
 	10["arg__5283 1"]
-</pre>`;
-window.traces["F64_LT"]["unlem_schedule"] = ''
-window.traces["F64_LT"]["unlem_schedule"] += `<pre class=''>def b = pop_f64();
-def a = pop_f64();
-def cond__5281 = double.<(a, b);
-def mt__5291 = bot_maybeTrue(cond__5281);
-def mf__5292 = bot_maybeFalse(cond__5281);
-def mb__5293 = bool.&&(mt__5291, mf__5292);
-if (mb__5293) {
-	def arg__5285 : u32 = 0;
-	def arg__5283 : u32 = 1;
-	def merge__5295 = merge_u(arg__5283, arg__5285);
-	def eff_push__5296 = push_u32(merge__5295);
-} else {
-	if (mt__5291) {
-		def arg__5283__5302 : u32 = 1;
-		def arg__5283 = (arg__5283__5302);
-		def eff__5282 = push_u32(arg__5283__5302);
-	} else {
-		def arg__5285__5301 : u32 = 0;
-		def arg__5285 = (arg__5285__5301);
-		def eff__5284 = push_u32(arg__5285__5301);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["F64_LT"]["unlem_scheduler"] = ''
 window.traces["F64_LT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -83541,32 +79617,6 @@ graph TD
 	8["arg__5307 0"]
 	10["arg__5305 1"]
 </pre>`;
-window.traces["F64_GT"]["unlem_schedule"] = ''
-window.traces["F64_GT"]["unlem_schedule"] += `<pre class=''>def b = pop_f64();
-def a = pop_f64();
-def cond__5303 = double.>(a, b);
-def mt__5313 = bot_maybeTrue(cond__5303);
-def mf__5314 = bot_maybeFalse(cond__5303);
-def mb__5315 = bool.&&(mt__5313, mf__5314);
-if (mb__5315) {
-	def arg__5307 : u32 = 0;
-	def arg__5305 : u32 = 1;
-	def merge__5317 = merge_u(arg__5305, arg__5307);
-	def eff_push__5318 = push_u32(merge__5317);
-} else {
-	if (mt__5313) {
-		def arg__5305__5324 : u32 = 1;
-		def arg__5305 = (arg__5305__5324);
-		def eff__5304 = push_u32(arg__5305__5324);
-	} else {
-		def arg__5307__5323 : u32 = 0;
-		def arg__5307 = (arg__5307__5323);
-		def eff__5306 = push_u32(arg__5307__5323);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["F64_GT"]["unlem_scheduler"] = ''
 window.traces["F64_GT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4451["Block 4451"]
@@ -84052,32 +80102,6 @@ graph TD
 	8 --> 17
 	8["arg__5329 0"]
 	10["arg__5327 1"]
-</pre>`;
-window.traces["F64_LE"]["unlem_schedule"] = ''
-window.traces["F64_LE"]["unlem_schedule"] += `<pre class=''>def b = pop_f64();
-def a = pop_f64();
-def cond__5325 = double.<=(a, b);
-def mt__5335 = bot_maybeTrue(cond__5325);
-def mf__5336 = bot_maybeFalse(cond__5325);
-def mb__5337 = bool.&&(mt__5335, mf__5336);
-if (mb__5337) {
-	def arg__5329 : u32 = 0;
-	def arg__5327 : u32 = 1;
-	def merge__5339 = merge_u(arg__5327, arg__5329);
-	def eff_push__5340 = push_u32(merge__5339);
-} else {
-	if (mt__5335) {
-		def arg__5327__5346 : u32 = 1;
-		def arg__5327 = (arg__5327__5346);
-		def eff__5326 = push_u32(arg__5327__5346);
-	} else {
-		def arg__5329__5345 : u32 = 0;
-		def arg__5329 = (arg__5329__5345);
-		def eff__5328 = push_u32(arg__5329__5345);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["F64_LE"]["unlem_scheduler"] = ''
 window.traces["F64_LE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -84565,32 +80589,6 @@ graph TD
 	8["arg__5351 0"]
 	10["arg__5349 1"]
 </pre>`;
-window.traces["F64_GE"]["unlem_schedule"] = ''
-window.traces["F64_GE"]["unlem_schedule"] += `<pre class=''>def b = pop_f64();
-def a = pop_f64();
-def cond__5347 = double.>=(a, b);
-def mt__5357 = bot_maybeTrue(cond__5347);
-def mf__5358 = bot_maybeFalse(cond__5347);
-def mb__5359 = bool.&&(mt__5357, mf__5358);
-if (mb__5359) {
-	def arg__5351 : u32 = 0;
-	def arg__5349 : u32 = 1;
-	def merge__5361 = merge_u(arg__5349, arg__5351);
-	def eff_push__5362 = push_u32(merge__5361);
-} else {
-	if (mt__5357) {
-		def arg__5349__5368 : u32 = 1;
-		def arg__5349 = (arg__5349__5368);
-		def eff__5348 = push_u32(arg__5349__5368);
-	} else {
-		def arg__5351__5367 : u32 = 0;
-		def arg__5351 = (arg__5351__5367);
-		def eff__5350 = push_u32(arg__5351__5367);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["F64_GE"]["unlem_scheduler"] = ''
 window.traces["F64_GE"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4493["Block 4493"]
@@ -84859,11 +80857,6 @@ graph TD
 	5["r U32_clz"]
 	3 --> 5
 </pre>`;
-window.traces["I32_CLZ"]["unlem_schedule"] = ''
-window.traces["I32_CLZ"]["unlem_schedule"] += `<pre class=''>def a = pop_u32();
-def r = U32_clz(a);
-def eff__5369 = push_u32(r);
-</pre>`;
 window.traces["I32_CLZ"]["unlem_scheduler"] = ''
 window.traces["I32_CLZ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4508["Block 4508"]
@@ -85035,11 +81028,6 @@ graph TD
 	5["r U32_ctz"]
 	3 --> 5
 </pre>`;
-window.traces["I32_CTZ"]["unlem_schedule"] = ''
-window.traces["I32_CTZ"]["unlem_schedule"] += `<pre class=''>def a = pop_u32();
-def r = U32_ctz(a);
-def eff__5372 = push_u32(r);
-</pre>`;
 window.traces["I32_CTZ"]["unlem_scheduler"] = ''
 window.traces["I32_CTZ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4510["Block 4510"]
@@ -85210,11 +81198,6 @@ graph TD
 	0[/"Start"\\]
 	5["r U32_popcnt"]
 	3 --> 5
-</pre>`;
-window.traces["I32_POPCNT"]["unlem_schedule"] = ''
-window.traces["I32_POPCNT"]["unlem_schedule"] += `<pre class=''>def a = pop_u32();
-def r = U32_popcnt(a);
-def eff__5375 = push_u32(r);
 </pre>`;
 window.traces["I32_POPCNT"]["unlem_scheduler"] = ''
 window.traces["I32_POPCNT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -85411,12 +81394,6 @@ graph TD
 	7["r u32.+"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["I32_ADD"]["unlem_schedule"] = ''
-window.traces["I32_ADD"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def r = u32.+(a, b);
-def eff__5378 = push_u32(r);
 </pre>`;
 window.traces["I32_ADD"]["unlem_scheduler"] = ''
 window.traces["I32_ADD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -85618,12 +81595,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["I32_SUB"]["unlem_schedule"] = ''
-window.traces["I32_SUB"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def r = u32.-(a, b);
-def eff__5382 = push_u32(r);
-</pre>`;
 window.traces["I32_SUB"]["unlem_scheduler"] = ''
 window.traces["I32_SUB"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4516["Block 4516"]
@@ -85823,12 +81794,6 @@ graph TD
 	7["r u32.*"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["I32_MUL"]["unlem_schedule"] = ''
-window.traces["I32_MUL"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def r = u32.*(a, b);
-def eff__5386 = push_u32(r);
 </pre>`;
 window.traces["I32_MUL"]["unlem_scheduler"] = ''
 window.traces["I32_MUL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -86788,99 +82753,6 @@ graph TD
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
 	4 -. Stack .-> 25
 </pre>`;
-window.traces["I32_DIV_S"]["unlem_schedule"] = ''
-window.traces["I32_DIV_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def arg__5405 : u32 = 0;
-def cond__5390 = u32.==(b, arg__5405);
-def mt__5420 = U32_maybeTrue(cond__5390);
-def mf__5421 = U32_maybeFalse(cond__5390);
-def mb__5422 = bool.&&(mt__5420, mf__5421);
-if (mb__5422) {
-	def arg__5403 : u32 = -2_147_483_648;
-	def arg__5400 : u32 = -1;
-	def arg__5402 = u32.view(arg__5403);
-	def arg__5399 = u32.view(arg__5400);
-	def arg__5397 = u32.==(a, arg__5402);
-	def arg__5396 = u32.==(b, arg__5399);
-	def cond__5392 = bool.&&(arg__5396, arg__5397);
-	def mt__5428 = bot_maybeTrue(cond__5392);
-	def mf__5429 = bot_maybeFalse(cond__5392);
-	def mb__5430 = bool.&&(mt__5428, mf__5429);
-	if (mb__5430) {
-		def r = U32_div_s(a, b);
-		def eff__5394 = push_u32(r);
-		def eff_nop__5435 = nop();
-		def eff__5393 = trapDivideUnrepresentable();
-		def eff_merge__5436 = merge(eff_nop__5435, eff__5394);
-		def eff_merge__5433 = merge(eff__5393, r_state__5432);
-	} else {
-		if (mt__5428) {
-			def eff__5393__5455 = trapDivideUnrepresentable();
-		} else {
-			def r__5453 = U32_div_s(a, b);
-			def eff__5394__5454 = push_u32(r__5453);
-		}
-// phis: 
-	}
-// phis: 
-	def eff_nop__5426 = nop();
-	def eff__5391 = trapDivideByZero();
-	def eff_merge__5427 = merge(eff_nop__5426, sea__5409);
-	def eff_merge__5424 = merge(eff__5391, sea__5408);
-} else {
-	if (mt__5420) {
-		def eff__5391__5468 = trapDivideByZero();
-		def eff__5391 = (eff__5391__5468);
-	} else {
-		def arg__5403__5457 : u32 = -2_147_483_648;
-		def arg__5403 = (arg__5403__5457);
-		def arg__5400__5460 : u32 = -1;
-		def arg__5400 = (arg__5400__5460);
-		def arg__5402__5458 = u32.view(arg__5403__5457);
-		def arg__5402 = (arg__5402__5458);
-		def arg__5399__5461 = u32.view(arg__5400__5460);
-		def arg__5399 = (arg__5399__5461);
-		def arg__5397__5459 = u32.==(a, arg__5402__5458);
-		def arg__5397 = (arg__5397__5459);
-		def arg__5396__5462 = u32.==(b, arg__5399__5461);
-		def arg__5396 = (arg__5396__5462);
-		def cond__5392__5463 = bool.&&(arg__5396__5462, arg__5397__5459);
-		def cond__5392 = (cond__5392__5463);
-		def mt__5428__5469 = bot_maybeTrue(cond__5392__5463);
-		def mt__5428 = (mt__5428__5469);
-		def mf__5429__5470 = bot_maybeFalse(cond__5392__5463);
-		def mf__5429 = (mf__5429__5470);
-		def mb__5430__5471 = bool.&&(mt__5428__5469, mf__5429__5470);
-		def mb__5430 = (mb__5430__5471);
-		if (mb__5430__5471) {
-			def r__5456 = U32_div_s(a, b);
-			def r = (r__5456);
-			def eff__5394__5464 = push_u32(r__5456);
-			def eff__5394 = (eff__5394__5464);
-			def eff_nop__5435__5475 = nop();
-			def eff_nop__5435 = (eff_nop__5435__5475);
-			def eff__5393__5465 = trapDivideUnrepresentable();
-			def eff__5393 = (eff__5393__5465);
-			def eff_merge__5436__5476 = merge(eff_nop__5435__5475, eff__5394__5464);
-			def eff_merge__5436 = (eff_merge__5436__5476);
-			def eff_merge__5433__5473 = merge(eff__5393__5465, r_state__5432);
-			def eff_merge__5433 = (eff_merge__5433__5473);
-		} else {
-			if (mt__5428__5469) {
-				def eff__5393__5455__5487 = trapDivideUnrepresentable();
-			} else {
-				def r__5453__5485 = U32_div_s(a, b);
-				def eff__5394__5454__5486 = push_u32(r__5453__5485);
-			}
-// phis: 
-		}
-// phis: 
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I32_DIV_S"]["unlem_scheduler"] = ''
 window.traces["I32_DIV_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4532["Block 4532"]
@@ -87748,35 +83620,6 @@ graph TD
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 13
 	4 -. Stack .-> 13
 </pre>`;
-window.traces["I32_DIV_U"]["unlem_schedule"] = ''
-window.traces["I32_DIV_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def arg__5493 : u32 = 0;
-def cond__5488 = u32.==(b, arg__5493);
-def mt__5502 = U32_maybeTrue(cond__5488);
-def mf__5503 = U32_maybeFalse(cond__5488);
-def mb__5504 = bool.&&(mt__5502, mf__5503);
-if (mb__5504) {
-	def r = u32./(a, b);
-	def eff__5490 = push_u32(r);
-	def eff_nop__5509 = nop();
-	def eff__5489 = trapDivideByZero();
-	def eff_merge__5510 = merge(eff_nop__5509, eff__5490);
-	def eff_merge__5507 = merge(eff__5489, r_state__5506);
-} else {
-	if (mt__5502) {
-		def eff__5489__5521 = trapDivideByZero();
-		def eff__5489 = (eff__5489__5521);
-	} else {
-		def r__5519 = u32./(a, b);
-		def r = (r__5519);
-		def eff__5490__5520 = push_u32(r__5519);
-		def eff__5490 = (eff__5490__5520);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I32_DIV_U"]["unlem_scheduler"] = ''
 window.traces["I32_DIV_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4581["Block 4581"]
@@ -88381,35 +84224,6 @@ graph TD
 	13["eff__5523 trapDivideByZero"]
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 13
 	4 -. Stack .-> 13
-</pre>`;
-window.traces["I32_REM_S"]["unlem_schedule"] = ''
-window.traces["I32_REM_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def arg__5527 : u32 = 0;
-def cond__5522 = u32.==(b, arg__5527);
-def mt__5536 = U32_maybeTrue(cond__5522);
-def mf__5537 = U32_maybeFalse(cond__5522);
-def mb__5538 = bool.&&(mt__5536, mf__5537);
-if (mb__5538) {
-	def r = U32_rem_s(a, b);
-	def eff__5524 = push_u32(r);
-	def eff_nop__5543 = nop();
-	def eff__5523 = trapDivideByZero();
-	def eff_merge__5544 = merge(eff_nop__5543, eff__5524);
-	def eff_merge__5541 = merge(eff__5523, r_state__5540);
-} else {
-	if (mt__5536) {
-		def eff__5523__5555 = trapDivideByZero();
-		def eff__5523 = (eff__5523__5555);
-	} else {
-		def r__5553 = U32_rem_s(a, b);
-		def r = (r__5553);
-		def eff__5524__5554 = push_u32(r__5553);
-		def eff__5524 = (eff__5524__5554);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I32_REM_S"]["unlem_scheduler"] = ''
 window.traces["I32_REM_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -89016,35 +84830,6 @@ graph TD
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 13
 	4 -. Stack .-> 13
 </pre>`;
-window.traces["I32_REM_U"]["unlem_schedule"] = ''
-window.traces["I32_REM_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def arg__5561 : u32 = 0;
-def cond__5556 = u32.==(b, arg__5561);
-def mt__5570 = U32_maybeTrue(cond__5556);
-def mf__5571 = U32_maybeFalse(cond__5556);
-def mb__5572 = bool.&&(mt__5570, mf__5571);
-if (mb__5572) {
-	def r = U32_rem_u(a, b);
-	def eff__5558 = push_u32(r);
-	def eff_nop__5577 = nop();
-	def eff__5557 = trapDivideByZero();
-	def eff_merge__5578 = merge(eff_nop__5577, eff__5558);
-	def eff_merge__5575 = merge(eff__5557, r_state__5574);
-} else {
-	if (mt__5570) {
-		def eff__5557__5589 = trapDivideByZero();
-		def eff__5557 = (eff__5557__5589);
-	} else {
-		def r__5587 = U32_rem_u(a, b);
-		def r = (r__5587);
-		def eff__5558__5588 = push_u32(r__5587);
-		def eff__5558 = (eff__5558__5588);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I32_REM_U"]["unlem_scheduler"] = ''
 window.traces["I32_REM_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4623["Block 4623"]
@@ -89356,12 +85141,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["I32_AND"]["unlem_schedule"] = ''
-window.traces["I32_AND"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def r = u32.&(a, b);
-def eff__5590 = push_u32(r);
-</pre>`;
 window.traces["I32_AND"]["unlem_scheduler"] = ''
 window.traces["I32_AND"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4638["Block 4638"]
@@ -89561,12 +85340,6 @@ graph TD
 	7["r u32.|"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["I32_OR"]["unlem_schedule"] = ''
-window.traces["I32_OR"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def r = u32.|(a, b);
-def eff__5594 = push_u32(r);
 </pre>`;
 window.traces["I32_OR"]["unlem_scheduler"] = ''
 window.traces["I32_OR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -89768,12 +85541,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["I32_XOR"]["unlem_schedule"] = ''
-window.traces["I32_XOR"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def r = u32.^(a, b);
-def eff__5598 = push_u32(r);
-</pre>`;
 window.traces["I32_XOR"]["unlem_scheduler"] = ''
 window.traces["I32_XOR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4642["Block 4642"]
@@ -89973,12 +85740,6 @@ graph TD
 	7["r U32_shl"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["I32_SHL"]["unlem_schedule"] = ''
-window.traces["I32_SHL"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def r = U32_shl(a, b);
-def eff__5602 = push_u32(r);
 </pre>`;
 window.traces["I32_SHL"]["unlem_scheduler"] = ''
 window.traces["I32_SHL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -90180,12 +85941,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["I32_SHR_S"]["unlem_schedule"] = ''
-window.traces["I32_SHR_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def r = U32_shr_s(a, b);
-def eff__5606 = push_u32(r);
-</pre>`;
 window.traces["I32_SHR_S"]["unlem_scheduler"] = ''
 window.traces["I32_SHR_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4646["Block 4646"]
@@ -90385,12 +86140,6 @@ graph TD
 	7["r U32_shr_u"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["I32_SHR_U"]["unlem_schedule"] = ''
-window.traces["I32_SHR_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def r = U32_shr_u(a, b);
-def eff__5610 = push_u32(r);
 </pre>`;
 window.traces["I32_SHR_U"]["unlem_scheduler"] = ''
 window.traces["I32_SHR_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -90592,12 +86341,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["I32_ROTL"]["unlem_schedule"] = ''
-window.traces["I32_ROTL"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def r = U32_rotl(a, b);
-def eff__5614 = push_u32(r);
-</pre>`;
 window.traces["I32_ROTL"]["unlem_scheduler"] = ''
 window.traces["I32_ROTL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4650["Block 4650"]
@@ -90798,12 +86541,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["I32_ROTR"]["unlem_schedule"] = ''
-window.traces["I32_ROTR"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def a = pop_u32();
-def r = U32_rotr(a, b);
-def eff__5618 = push_u32(r);
-</pre>`;
 window.traces["I32_ROTR"]["unlem_scheduler"] = ''
 window.traces["I32_ROTR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4652["Block 4652"]
@@ -90979,11 +86716,6 @@ graph TD
 	5["r U64_clz"]
 	3 --> 5
 </pre>`;
-window.traces["I64_CLZ"]["unlem_schedule"] = ''
-window.traces["I64_CLZ"]["unlem_schedule"] += `<pre class=''>def a = pop_u64();
-def r = U64_clz(a);
-def eff__5622 = push_u64(r);
-</pre>`;
 window.traces["I64_CLZ"]["unlem_scheduler"] = ''
 window.traces["I64_CLZ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4654["Block 4654"]
@@ -91155,11 +86887,6 @@ graph TD
 	5["r U64_ctz"]
 	3 --> 5
 </pre>`;
-window.traces["I64_CTZ"]["unlem_schedule"] = ''
-window.traces["I64_CTZ"]["unlem_schedule"] += `<pre class=''>def a = pop_u64();
-def r = U64_ctz(a);
-def eff__5625 = push_u64(r);
-</pre>`;
 window.traces["I64_CTZ"]["unlem_scheduler"] = ''
 window.traces["I64_CTZ"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4656["Block 4656"]
@@ -91330,11 +87057,6 @@ graph TD
 	0[/"Start"\\]
 	5["r U64_popcnt"]
 	3 --> 5
-</pre>`;
-window.traces["I64_POPCNT"]["unlem_schedule"] = ''
-window.traces["I64_POPCNT"]["unlem_schedule"] += `<pre class=''>def a = pop_u64();
-def r = U64_popcnt(a);
-def eff__5628 = push_u64(r);
 </pre>`;
 window.traces["I64_POPCNT"]["unlem_scheduler"] = ''
 window.traces["I64_POPCNT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -91531,12 +87253,6 @@ graph TD
 	7["r u64.+"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["I64_ADD"]["unlem_schedule"] = ''
-window.traces["I64_ADD"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def r = u64.+(a, b);
-def eff__5631 = push_u64(r);
 </pre>`;
 window.traces["I64_ADD"]["unlem_scheduler"] = ''
 window.traces["I64_ADD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -91738,12 +87454,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["I64_SUB"]["unlem_schedule"] = ''
-window.traces["I64_SUB"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def r = u64.-(a, b);
-def eff__5635 = push_u64(r);
-</pre>`;
 window.traces["I64_SUB"]["unlem_scheduler"] = ''
 window.traces["I64_SUB"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4662["Block 4662"]
@@ -91943,12 +87653,6 @@ graph TD
 	7["r u64.*"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["I64_MUL"]["unlem_schedule"] = ''
-window.traces["I64_MUL"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def r = u64.*(a, b);
-def eff__5639 = push_u64(r);
 </pre>`;
 window.traces["I64_MUL"]["unlem_scheduler"] = ''
 window.traces["I64_MUL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -92908,99 +88612,6 @@ graph TD
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 25
 	4 -. Stack .-> 25
 </pre>`;
-window.traces["I64_DIV_S"]["unlem_schedule"] = ''
-window.traces["I64_DIV_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def arg__5658 : u64 = 0;
-def cond__5643 = u64.==(b, arg__5658);
-def mt__5673 = bot_maybeTrue(cond__5643);
-def mf__5674 = bot_maybeFalse(cond__5643);
-def mb__5675 = bool.&&(mt__5673, mf__5674);
-if (mb__5675) {
-	def arg__5656 : long = -9223372036854775808L;
-	def arg__5653 : u32 = -1;
-	def arg__5655 = u64.view(arg__5656);
-	def arg__5652 = u64.view(arg__5653);
-	def arg__5650 = u64.==(a, arg__5655);
-	def arg__5649 = u64.==(b, arg__5652);
-	def cond__5645 = bool.&&(arg__5649, arg__5650);
-	def mt__5681 = bot_maybeTrue(cond__5645);
-	def mf__5682 = bot_maybeFalse(cond__5645);
-	def mb__5683 = bool.&&(mt__5681, mf__5682);
-	if (mb__5683) {
-		def r = U64_div_s(a, b);
-		def eff__5647 = push_u64(r);
-		def eff_nop__5688 = nop();
-		def eff__5646 = trapDivideUnrepresentable();
-		def eff_merge__5689 = merge(eff_nop__5688, eff__5647);
-		def eff_merge__5686 = merge(eff__5646, r_state__5685);
-	} else {
-		if (mt__5681) {
-			def eff__5646__5708 = trapDivideUnrepresentable();
-		} else {
-			def r__5706 = U64_div_s(a, b);
-			def eff__5647__5707 = push_u64(r__5706);
-		}
-// phis: 
-	}
-// phis: 
-	def eff_nop__5679 = nop();
-	def eff__5644 = trapDivideByZero();
-	def eff_merge__5680 = merge(eff_nop__5679, sea__5662);
-	def eff_merge__5677 = merge(eff__5644, sea__5661);
-} else {
-	if (mt__5673) {
-		def eff__5644__5721 = trapDivideByZero();
-		def eff__5644 = (eff__5644__5721);
-	} else {
-		def arg__5656__5710 : long = -9223372036854775808L;
-		def arg__5656 = (arg__5656__5710);
-		def arg__5653__5713 : u32 = -1;
-		def arg__5653 = (arg__5653__5713);
-		def arg__5655__5711 = u64.view(arg__5656__5710);
-		def arg__5655 = (arg__5655__5711);
-		def arg__5652__5714 = u64.view(arg__5653__5713);
-		def arg__5652 = (arg__5652__5714);
-		def arg__5650__5712 = u64.==(a, arg__5655__5711);
-		def arg__5650 = (arg__5650__5712);
-		def arg__5649__5715 = u64.==(b, arg__5652__5714);
-		def arg__5649 = (arg__5649__5715);
-		def cond__5645__5716 = bool.&&(arg__5649__5715, arg__5650__5712);
-		def cond__5645 = (cond__5645__5716);
-		def mt__5681__5722 = bot_maybeTrue(cond__5645__5716);
-		def mt__5681 = (mt__5681__5722);
-		def mf__5682__5723 = bot_maybeFalse(cond__5645__5716);
-		def mf__5682 = (mf__5682__5723);
-		def mb__5683__5724 = bool.&&(mt__5681__5722, mf__5682__5723);
-		def mb__5683 = (mb__5683__5724);
-		if (mb__5683__5724) {
-			def r__5709 = U64_div_s(a, b);
-			def r = (r__5709);
-			def eff__5647__5717 = push_u64(r__5709);
-			def eff__5647 = (eff__5647__5717);
-			def eff_nop__5688__5728 = nop();
-			def eff_nop__5688 = (eff_nop__5688__5728);
-			def eff__5646__5718 = trapDivideUnrepresentable();
-			def eff__5646 = (eff__5646__5718);
-			def eff_merge__5689__5729 = merge(eff_nop__5688__5728, eff__5647__5717);
-			def eff_merge__5689 = (eff_merge__5689__5729);
-			def eff_merge__5686__5726 = merge(eff__5646__5718, r_state__5685);
-			def eff_merge__5686 = (eff_merge__5686__5726);
-		} else {
-			if (mt__5681__5722) {
-				def eff__5646__5708__5740 = trapDivideUnrepresentable();
-			} else {
-				def r__5706__5738 = U64_div_s(a, b);
-				def eff__5647__5707__5739 = push_u64(r__5706__5738);
-			}
-// phis: 
-		}
-// phis: 
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I64_DIV_S"]["unlem_scheduler"] = ''
 window.traces["I64_DIV_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4678["Block 4678"]
@@ -93868,35 +89479,6 @@ graph TD
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 13
 	4 -. Stack .-> 13
 </pre>`;
-window.traces["I64_DIV_U"]["unlem_schedule"] = ''
-window.traces["I64_DIV_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def arg__5746 : u64 = 0;
-def cond__5741 = u64.==(b, arg__5746);
-def mt__5755 = bot_maybeTrue(cond__5741);
-def mf__5756 = bot_maybeFalse(cond__5741);
-def mb__5757 = bool.&&(mt__5755, mf__5756);
-if (mb__5757) {
-	def r = u64./(a, b);
-	def eff__5743 = push_u64(r);
-	def eff_nop__5762 = nop();
-	def eff__5742 = trapDivideByZero();
-	def eff_merge__5763 = merge(eff_nop__5762, eff__5743);
-	def eff_merge__5760 = merge(eff__5742, r_state__5759);
-} else {
-	if (mt__5755) {
-		def eff__5742__5774 = trapDivideByZero();
-		def eff__5742 = (eff__5742__5774);
-	} else {
-		def r__5772 = u64./(a, b);
-		def r = (r__5772);
-		def eff__5743__5773 = push_u64(r__5772);
-		def eff__5743 = (eff__5743__5773);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I64_DIV_U"]["unlem_scheduler"] = ''
 window.traces["I64_DIV_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4727["Block 4727"]
@@ -94501,35 +90083,6 @@ graph TD
 	13["eff__5776 trapDivideByZero"]
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 13
 	4 -. Stack .-> 13
-</pre>`;
-window.traces["I64_REM_S"]["unlem_schedule"] = ''
-window.traces["I64_REM_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def arg__5780 : u64 = 0;
-def cond__5775 = u64.==(b, arg__5780);
-def mt__5789 = bot_maybeTrue(cond__5775);
-def mf__5790 = bot_maybeFalse(cond__5775);
-def mb__5791 = bool.&&(mt__5789, mf__5790);
-if (mb__5791) {
-	def r = U64_rem_s(a, b);
-	def eff__5777 = push_u64(r);
-	def eff_nop__5796 = nop();
-	def eff__5776 = trapDivideByZero();
-	def eff_merge__5797 = merge(eff_nop__5796, eff__5777);
-	def eff_merge__5794 = merge(eff__5776, r_state__5793);
-} else {
-	if (mt__5789) {
-		def eff__5776__5808 = trapDivideByZero();
-		def eff__5776 = (eff__5776__5808);
-	} else {
-		def r__5806 = U64_rem_s(a, b);
-		def r = (r__5806);
-		def eff__5777__5807 = push_u64(r__5806);
-		def eff__5777 = (eff__5777__5807);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["I64_REM_S"]["unlem_scheduler"] = ''
 window.traces["I64_REM_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -95136,35 +90689,6 @@ graph TD
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 13
 	4 -. Stack .-> 13
 </pre>`;
-window.traces["I64_REM_U"]["unlem_schedule"] = ''
-window.traces["I64_REM_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def arg__5814 : u64 = 0;
-def cond__5809 = u64.==(b, arg__5814);
-def mt__5823 = bot_maybeTrue(cond__5809);
-def mf__5824 = bot_maybeFalse(cond__5809);
-def mb__5825 = bool.&&(mt__5823, mf__5824);
-if (mb__5825) {
-	def r = U64_rem_u(a, b);
-	def eff__5811 = push_u64(r);
-	def eff_nop__5830 = nop();
-	def eff__5810 = trapDivideByZero();
-	def eff_merge__5831 = merge(eff_nop__5830, eff__5811);
-	def eff_merge__5828 = merge(eff__5810, r_state__5827);
-} else {
-	if (mt__5823) {
-		def eff__5810__5842 = trapDivideByZero();
-		def eff__5810 = (eff__5810__5842);
-	} else {
-		def r__5840 = U64_rem_u(a, b);
-		def r = (r__5840);
-		def eff__5811__5841 = push_u64(r__5840);
-		def eff__5811 = (eff__5811__5841);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["I64_REM_U"]["unlem_scheduler"] = ''
 window.traces["I64_REM_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4769["Block 4769"]
@@ -95476,12 +91000,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["I64_AND"]["unlem_schedule"] = ''
-window.traces["I64_AND"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def r = u64.&(a, b);
-def eff__5843 = push_u64(r);
-</pre>`;
 window.traces["I64_AND"]["unlem_scheduler"] = ''
 window.traces["I64_AND"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4784["Block 4784"]
@@ -95681,12 +91199,6 @@ graph TD
 	7["r u64.|"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["I64_OR"]["unlem_schedule"] = ''
-window.traces["I64_OR"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def r = u64.|(a, b);
-def eff__5847 = push_u64(r);
 </pre>`;
 window.traces["I64_OR"]["unlem_scheduler"] = ''
 window.traces["I64_OR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -95888,12 +91400,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["I64_XOR"]["unlem_schedule"] = ''
-window.traces["I64_XOR"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def r = u64.^(a, b);
-def eff__5851 = push_u64(r);
-</pre>`;
 window.traces["I64_XOR"]["unlem_scheduler"] = ''
 window.traces["I64_XOR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4788["Block 4788"]
@@ -96093,12 +91599,6 @@ graph TD
 	7["r U64_shl"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["I64_SHL"]["unlem_schedule"] = ''
-window.traces["I64_SHL"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def r = U64_shl(a, b);
-def eff__5855 = push_u64(r);
 </pre>`;
 window.traces["I64_SHL"]["unlem_scheduler"] = ''
 window.traces["I64_SHL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -96300,12 +91800,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["I64_SHR_S"]["unlem_schedule"] = ''
-window.traces["I64_SHR_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def r = U64_shr_s(a, b);
-def eff__5859 = push_u64(r);
-</pre>`;
 window.traces["I64_SHR_S"]["unlem_scheduler"] = ''
 window.traces["I64_SHR_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4792["Block 4792"]
@@ -96505,12 +91999,6 @@ graph TD
 	7["r U64_shr_u"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["I64_SHR_U"]["unlem_schedule"] = ''
-window.traces["I64_SHR_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def r = U64_shr_u(a, b);
-def eff__5863 = push_u64(r);
 </pre>`;
 window.traces["I64_SHR_U"]["unlem_scheduler"] = ''
 window.traces["I64_SHR_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -96712,12 +92200,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["I64_ROTL"]["unlem_schedule"] = ''
-window.traces["I64_ROTL"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def r = U64_rotl(a, b);
-def eff__5867 = push_u64(r);
-</pre>`;
 window.traces["I64_ROTL"]["unlem_scheduler"] = ''
 window.traces["I64_ROTL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4796["Block 4796"]
@@ -96918,12 +92400,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["I64_ROTR"]["unlem_schedule"] = ''
-window.traces["I64_ROTR"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def a = pop_u64();
-def r = U64_rotr(a, b);
-def eff__5871 = push_u64(r);
-</pre>`;
 window.traces["I64_ROTR"]["unlem_scheduler"] = ''
 window.traces["I64_ROTR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4798["Block 4798"]
@@ -97099,11 +92575,6 @@ graph TD
 	5["r float.abs"]
 	3 --> 5
 </pre>`;
-window.traces["F32_ABS"]["unlem_schedule"] = ''
-window.traces["F32_ABS"]["unlem_schedule"] += `<pre class=''>def a = pop_f32();
-def r = float.abs(a);
-def eff__5875 = push_f32(r);
-</pre>`;
 window.traces["F32_ABS"]["unlem_scheduler"] = ''
 window.traces["F32_ABS"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4800["Block 4800"]
@@ -97274,11 +92745,6 @@ graph TD
 	0[/"Start"\\]
 	5["r F32_neg"]
 	3 --> 5
-</pre>`;
-window.traces["F32_NEG"]["unlem_schedule"] = ''
-window.traces["F32_NEG"]["unlem_schedule"] += `<pre class=''>def a = pop_f32();
-def r = F32_neg(a);
-def eff__5878 = push_f32(r);
 </pre>`;
 window.traces["F32_NEG"]["unlem_scheduler"] = ''
 window.traces["F32_NEG"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -97451,11 +92917,6 @@ graph TD
 	5["r F32_ceil"]
 	3 --> 5
 </pre>`;
-window.traces["F32_CEIL"]["unlem_schedule"] = ''
-window.traces["F32_CEIL"]["unlem_schedule"] += `<pre class=''>def a = pop_f32();
-def r = F32_ceil(a);
-def eff__5881 = push_f32(r);
-</pre>`;
 window.traces["F32_CEIL"]["unlem_scheduler"] = ''
 window.traces["F32_CEIL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4804["Block 4804"]
@@ -97627,11 +93088,6 @@ graph TD
 	5["r F32_floor"]
 	3 --> 5
 </pre>`;
-window.traces["F32_FLOOR"]["unlem_schedule"] = ''
-window.traces["F32_FLOOR"]["unlem_schedule"] += `<pre class=''>def a = pop_f32();
-def r = F32_floor(a);
-def eff__5884 = push_f32(r);
-</pre>`;
 window.traces["F32_FLOOR"]["unlem_scheduler"] = ''
 window.traces["F32_FLOOR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4806["Block 4806"]
@@ -97802,11 +93258,6 @@ graph TD
 	0[/"Start"\\]
 	5["r F32_trunc"]
 	3 --> 5
-</pre>`;
-window.traces["F32_TRUNC"]["unlem_schedule"] = ''
-window.traces["F32_TRUNC"]["unlem_schedule"] += `<pre class=''>def a = pop_f32();
-def r = F32_trunc(a);
-def eff__5887 = push_f32(r);
 </pre>`;
 window.traces["F32_TRUNC"]["unlem_scheduler"] = ''
 window.traces["F32_TRUNC"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -97981,11 +93432,6 @@ graph TD
 	5["r float.round"]
 	3 --> 5
 </pre>`;
-window.traces["F32_NEAREST"]["unlem_schedule"] = ''
-window.traces["F32_NEAREST"]["unlem_schedule"] += `<pre class=''>def a = pop_f32();
-def r = float.round(a);
-def eff__5890 = push_f32(r);
-</pre>`;
 window.traces["F32_NEAREST"]["unlem_scheduler"] = ''
 window.traces["F32_NEAREST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4810["Block 4810"]
@@ -98157,11 +93603,6 @@ graph TD
 	0[/"Start"\\]
 	5["r float.sqrt"]
 	3 --> 5
-</pre>`;
-window.traces["F32_SQRT"]["unlem_schedule"] = ''
-window.traces["F32_SQRT"]["unlem_schedule"] += `<pre class=''>def a = pop_f32();
-def r = float.sqrt(a);
-def eff__5893 = push_f32(r);
 </pre>`;
 window.traces["F32_SQRT"]["unlem_scheduler"] = ''
 window.traces["F32_SQRT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -98358,12 +93799,6 @@ graph TD
 	7["r float.+"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["F32_ADD"]["unlem_schedule"] = ''
-window.traces["F32_ADD"]["unlem_schedule"] += `<pre class=''>def b = pop_f32();
-def a = pop_f32();
-def r = float.+(a, b);
-def eff__5896 = push_f32(r);
 </pre>`;
 window.traces["F32_ADD"]["unlem_scheduler"] = ''
 window.traces["F32_ADD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -98565,12 +94000,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["F32_SUB"]["unlem_schedule"] = ''
-window.traces["F32_SUB"]["unlem_schedule"] += `<pre class=''>def b = pop_f32();
-def a = pop_f32();
-def r = float.-(a, b);
-def eff__5900 = push_f32(r);
-</pre>`;
 window.traces["F32_SUB"]["unlem_scheduler"] = ''
 window.traces["F32_SUB"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4816["Block 4816"]
@@ -98770,12 +94199,6 @@ graph TD
 	7["r float.*"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["F32_MUL"]["unlem_schedule"] = ''
-window.traces["F32_MUL"]["unlem_schedule"] += `<pre class=''>def b = pop_f32();
-def a = pop_f32();
-def r = float.*(a, b);
-def eff__5904 = push_f32(r);
 </pre>`;
 window.traces["F32_MUL"]["unlem_scheduler"] = ''
 window.traces["F32_MUL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -99271,35 +94694,6 @@ graph TD
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 13
 	4 -. Stack .-> 13
 </pre>`;
-window.traces["F32_DIV"]["unlem_schedule"] = ''
-window.traces["F32_DIV"]["unlem_schedule"] += `<pre class=''>def b = pop_f32();
-def a = pop_f32();
-def arg__5913 : f32 = 0.0f;
-def cond__5908 = float.==(b, arg__5913);
-def mt__5922 = U32_maybeTrue(cond__5908);
-def mf__5923 = U32_maybeFalse(cond__5908);
-def mb__5924 = bool.&&(mt__5922, mf__5923);
-if (mb__5924) {
-	def r = float./(a, b);
-	def eff__5910 = push_f32(r);
-	def eff_nop__5929 = nop();
-	def eff__5909 = trapDivideByZero();
-	def eff_merge__5930 = merge(eff_nop__5929, eff__5910);
-	def eff_merge__5927 = merge(eff__5909, r_state__5926);
-} else {
-	if (mt__5922) {
-		def eff__5909__5941 = trapDivideByZero();
-		def eff__5909 = (eff__5909__5941);
-	} else {
-		def r__5939 = float./(a, b);
-		def r = (r__5939);
-		def eff__5910__5940 = push_f32(r__5939);
-		def eff__5910 = (eff__5910__5940);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["F32_DIV"]["unlem_scheduler"] = ''
 window.traces["F32_DIV"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4826["Block 4826"]
@@ -99586,11 +94980,6 @@ graph TD
 	5["r double.abs"]
 	3 --> 5
 </pre>`;
-window.traces["F64_ABS"]["unlem_schedule"] = ''
-window.traces["F64_ABS"]["unlem_schedule"] += `<pre class=''>def a = pop_f64();
-def r = double.abs(a);
-def eff__5942 = push_f64(r);
-</pre>`;
 window.traces["F64_ABS"]["unlem_scheduler"] = ''
 window.traces["F64_ABS"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4841["Block 4841"]
@@ -99761,11 +95150,6 @@ graph TD
 	0[/"Start"\\]
 	5["r F64_neg"]
 	3 --> 5
-</pre>`;
-window.traces["F64_NEG"]["unlem_schedule"] = ''
-window.traces["F64_NEG"]["unlem_schedule"] += `<pre class=''>def a = pop_f64();
-def r = F64_neg(a);
-def eff__5945 = push_f64(r);
 </pre>`;
 window.traces["F64_NEG"]["unlem_scheduler"] = ''
 window.traces["F64_NEG"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -99938,11 +95322,6 @@ graph TD
 	5["r F64_ceil"]
 	3 --> 5
 </pre>`;
-window.traces["F64_CEIL"]["unlem_schedule"] = ''
-window.traces["F64_CEIL"]["unlem_schedule"] += `<pre class=''>def a = pop_f64();
-def r = F64_ceil(a);
-def eff__5948 = push_f64(r);
-</pre>`;
 window.traces["F64_CEIL"]["unlem_scheduler"] = ''
 window.traces["F64_CEIL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4845["Block 4845"]
@@ -100114,11 +95493,6 @@ graph TD
 	5["r F64_floor"]
 	3 --> 5
 </pre>`;
-window.traces["F64_FLOOR"]["unlem_schedule"] = ''
-window.traces["F64_FLOOR"]["unlem_schedule"] += `<pre class=''>def a = pop_f64();
-def r = F64_floor(a);
-def eff__5951 = push_f64(r);
-</pre>`;
 window.traces["F64_FLOOR"]["unlem_scheduler"] = ''
 window.traces["F64_FLOOR"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4847["Block 4847"]
@@ -100289,11 +95663,6 @@ graph TD
 	0[/"Start"\\]
 	5["r F64_trunc"]
 	3 --> 5
-</pre>`;
-window.traces["F64_TRUNC"]["unlem_schedule"] = ''
-window.traces["F64_TRUNC"]["unlem_schedule"] += `<pre class=''>def a = pop_f64();
-def r = F64_trunc(a);
-def eff__5954 = push_f64(r);
 </pre>`;
 window.traces["F64_TRUNC"]["unlem_scheduler"] = ''
 window.traces["F64_TRUNC"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -100468,11 +95837,6 @@ graph TD
 	5["r double.round"]
 	3 --> 5
 </pre>`;
-window.traces["F64_NEAREST"]["unlem_schedule"] = ''
-window.traces["F64_NEAREST"]["unlem_schedule"] += `<pre class=''>def a = pop_f64();
-def r = double.round(a);
-def eff__5957 = push_f64(r);
-</pre>`;
 window.traces["F64_NEAREST"]["unlem_scheduler"] = ''
 window.traces["F64_NEAREST"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4851["Block 4851"]
@@ -100646,11 +96010,6 @@ graph TD
 	0[/"Start"\\]
 	5["r double.sqrt"]
 	3 --> 5
-</pre>`;
-window.traces["F64_SQRT"]["unlem_schedule"] = ''
-window.traces["F64_SQRT"]["unlem_schedule"] += `<pre class=''>def a = pop_f64();
-def r = double.sqrt(a);
-def eff__5960 = push_f64(r);
 </pre>`;
 window.traces["F64_SQRT"]["unlem_scheduler"] = ''
 window.traces["F64_SQRT"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -100848,12 +96207,6 @@ graph TD
 	7["r double.+"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["F64_ADD"]["unlem_schedule"] = ''
-window.traces["F64_ADD"]["unlem_schedule"] += `<pre class=''>def b = pop_f64();
-def a = pop_f64();
-def r = double.+(a, b);
-def eff__5963 = push_f64(r);
 </pre>`;
 window.traces["F64_ADD"]["unlem_scheduler"] = ''
 window.traces["F64_ADD"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -101055,12 +96408,6 @@ graph TD
 	4 --> 7
 	3 --> 7
 </pre>`;
-window.traces["F64_SUB"]["unlem_schedule"] = ''
-window.traces["F64_SUB"]["unlem_schedule"] += `<pre class=''>def b = pop_f64();
-def a = pop_f64();
-def r = double.-(a, b);
-def eff__5967 = push_f64(r);
-</pre>`;
 window.traces["F64_SUB"]["unlem_scheduler"] = ''
 window.traces["F64_SUB"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4857["Block 4857"]
@@ -101260,12 +96607,6 @@ graph TD
 	7["r double.*"]
 	4 --> 7
 	3 --> 7
-</pre>`;
-window.traces["F64_MUL"]["unlem_schedule"] = ''
-window.traces["F64_MUL"]["unlem_schedule"] += `<pre class=''>def b = pop_f64();
-def a = pop_f64();
-def r = double.*(a, b);
-def eff__5971 = push_f64(r);
 </pre>`;
 window.traces["F64_MUL"]["unlem_scheduler"] = ''
 window.traces["F64_MUL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -101761,35 +97102,6 @@ graph TD
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 13
 	4 -. Stack .-> 13
 </pre>`;
-window.traces["F64_DIV"]["unlem_schedule"] = ''
-window.traces["F64_DIV"]["unlem_schedule"] += `<pre class=''>def b = pop_f64();
-def a = pop_f64();
-def arg__5980 : f32 = 0.0f;
-def cond__5975 = double.==(b, arg__5980);
-def mt__5989 = bot_maybeTrue(cond__5975);
-def mf__5990 = bot_maybeFalse(cond__5975);
-def mb__5991 = bool.&&(mt__5989, mf__5990);
-if (mb__5991) {
-	def r = double./(a, b);
-	def eff__5977 = push_f64(r);
-	def eff_nop__5996 = nop();
-	def eff__5976 = trapDivideByZero();
-	def eff_merge__5997 = merge(eff_nop__5996, eff__5977);
-	def eff_merge__5994 = merge(eff__5976, r_state__5993);
-} else {
-	if (mt__5989) {
-		def eff__5976__6008 = trapDivideByZero();
-		def eff__5976 = (eff__5976__6008);
-	} else {
-		def r__6006 = double./(a, b);
-		def r = (r__6006);
-		def eff__5977__6007 = push_f64(r__6006);
-		def eff__5977 = (eff__5977__6007);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["F64_DIV"]["unlem_scheduler"] = ''
 window.traces["F64_DIV"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4867["Block 4867"]
@@ -102078,11 +97390,6 @@ graph TD
 	5["r U32_wrap_u64"]
 	3 --> 5
 </pre>`;
-window.traces["I32_WRAP_I64"]["unlem_schedule"] = ''
-window.traces["I32_WRAP_I64"]["unlem_schedule"] += `<pre class=''>def a = pop_u64();
-def r = U32_wrap_u64(a);
-def eff__6009 = push_u32(r);
-</pre>`;
 window.traces["I32_WRAP_I64"]["unlem_scheduler"] = ''
 window.traces["I32_WRAP_I64"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4882["Block 4882"]
@@ -102256,11 +97563,6 @@ graph TD
 	0[/"Start"\\]
 	5["r U32_trunc_f32_s"]
 	3 --> 5
-</pre>`;
-window.traces["I32_TRUNC_F32_S"]["unlem_schedule"] = ''
-window.traces["I32_TRUNC_F32_S"]["unlem_schedule"] += `<pre class=''>def a = pop_f32();
-def r = U32_trunc_f32_s(a);
-def eff__6012 = push_u32(r);
 </pre>`;
 window.traces["I32_TRUNC_F32_S"]["unlem_scheduler"] = ''
 window.traces["I32_TRUNC_F32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -102436,11 +97738,6 @@ graph TD
 	5["r U32_trunc_f32_u"]
 	3 --> 5
 </pre>`;
-window.traces["I32_TRUNC_F32_U"]["unlem_schedule"] = ''
-window.traces["I32_TRUNC_F32_U"]["unlem_schedule"] += `<pre class=''>def a = pop_f32();
-def r = U32_trunc_f32_u(a);
-def eff__6015 = push_u32(r);
-</pre>`;
 window.traces["I32_TRUNC_F32_U"]["unlem_scheduler"] = ''
 window.traces["I32_TRUNC_F32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4886["Block 4886"]
@@ -102614,11 +97911,6 @@ graph TD
 	0[/"Start"\\]
 	5["r U32_trunc_f64_s"]
 	3 --> 5
-</pre>`;
-window.traces["I32_TRUNC_F64_S"]["unlem_schedule"] = ''
-window.traces["I32_TRUNC_F64_S"]["unlem_schedule"] += `<pre class=''>def a = pop_f64();
-def r = U32_trunc_f64_s(a);
-def eff__6018 = push_u32(r);
 </pre>`;
 window.traces["I32_TRUNC_F64_S"]["unlem_scheduler"] = ''
 window.traces["I32_TRUNC_F64_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -102794,11 +98086,6 @@ graph TD
 	5["r U32_trunc_f64_u"]
 	3 --> 5
 </pre>`;
-window.traces["I32_TRUNC_F64_U"]["unlem_schedule"] = ''
-window.traces["I32_TRUNC_F64_U"]["unlem_schedule"] += `<pre class=''>def a = pop_f64();
-def r = U32_trunc_f64_u(a);
-def eff__6021 = push_u32(r);
-</pre>`;
 window.traces["I32_TRUNC_F64_U"]["unlem_scheduler"] = ''
 window.traces["I32_TRUNC_F64_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4890["Block 4890"]
@@ -102972,11 +98259,6 @@ graph TD
 	0[/"Start"\\]
 	5["r U64_extend_i32_s"]
 	3 --> 5
-</pre>`;
-window.traces["I64_EXTEND_I32_S"]["unlem_schedule"] = ''
-window.traces["I64_EXTEND_I32_S"]["unlem_schedule"] += `<pre class=''>def a = pop_u32();
-def r = U64_extend_i32_s(a);
-def eff__6024 = push_u64(r);
 </pre>`;
 window.traces["I64_EXTEND_I32_S"]["unlem_scheduler"] = ''
 window.traces["I64_EXTEND_I32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -103152,11 +98434,6 @@ graph TD
 	5["r U64_extend_i32_u"]
 	3 --> 5
 </pre>`;
-window.traces["I64_EXTEND_I32_U"]["unlem_schedule"] = ''
-window.traces["I64_EXTEND_I32_U"]["unlem_schedule"] += `<pre class=''>def a = pop_u32();
-def r = U64_extend_i32_u(a);
-def eff__6027 = push_u64(r);
-</pre>`;
 window.traces["I64_EXTEND_I32_U"]["unlem_scheduler"] = ''
 window.traces["I64_EXTEND_I32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4894["Block 4894"]
@@ -103330,11 +98607,6 @@ graph TD
 	0[/"Start"\\]
 	5["r U64_trunc_f32_s"]
 	3 --> 5
-</pre>`;
-window.traces["I64_TRUNC_F32_S"]["unlem_schedule"] = ''
-window.traces["I64_TRUNC_F32_S"]["unlem_schedule"] += `<pre class=''>def a = pop_f32();
-def r = U64_trunc_f32_s(a);
-def eff__6030 = push_u64(r);
 </pre>`;
 window.traces["I64_TRUNC_F32_S"]["unlem_scheduler"] = ''
 window.traces["I64_TRUNC_F32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -103510,11 +98782,6 @@ graph TD
 	5["r U64_trunc_f32_u"]
 	3 --> 5
 </pre>`;
-window.traces["I64_TRUNC_F32_U"]["unlem_schedule"] = ''
-window.traces["I64_TRUNC_F32_U"]["unlem_schedule"] += `<pre class=''>def a = pop_f32();
-def r = U64_trunc_f32_u(a);
-def eff__6033 = push_u64(r);
-</pre>`;
 window.traces["I64_TRUNC_F32_U"]["unlem_scheduler"] = ''
 window.traces["I64_TRUNC_F32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4898["Block 4898"]
@@ -103688,11 +98955,6 @@ graph TD
 	0[/"Start"\\]
 	5["r U64_trunc_f64_s"]
 	3 --> 5
-</pre>`;
-window.traces["I64_TRUNC_F64_S"]["unlem_schedule"] = ''
-window.traces["I64_TRUNC_F64_S"]["unlem_schedule"] += `<pre class=''>def a = pop_f64();
-def r = U64_trunc_f64_s(a);
-def eff__6036 = push_u64(r);
 </pre>`;
 window.traces["I64_TRUNC_F64_S"]["unlem_scheduler"] = ''
 window.traces["I64_TRUNC_F64_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -103868,11 +99130,6 @@ graph TD
 	5["r U64_trunc_f64_u"]
 	3 --> 5
 </pre>`;
-window.traces["I64_TRUNC_F64_U"]["unlem_schedule"] = ''
-window.traces["I64_TRUNC_F64_U"]["unlem_schedule"] += `<pre class=''>def a = pop_f64();
-def r = U64_trunc_f64_u(a);
-def eff__6039 = push_u64(r);
-</pre>`;
 window.traces["I64_TRUNC_F64_U"]["unlem_scheduler"] = ''
 window.traces["I64_TRUNC_F64_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4902["Block 4902"]
@@ -104046,11 +99303,6 @@ graph TD
 	0[/"Start"\\]
 	5["r F32_convert_i32_s"]
 	3 --> 5
-</pre>`;
-window.traces["F32_CONVERT_I32_S"]["unlem_schedule"] = ''
-window.traces["F32_CONVERT_I32_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def r = F32_convert_i32_s(b);
-def eff__6042 = push_f32(r);
 </pre>`;
 window.traces["F32_CONVERT_I32_S"]["unlem_scheduler"] = ''
 window.traces["F32_CONVERT_I32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -104226,11 +99478,6 @@ graph TD
 	5["r F32_convert_i32_u"]
 	3 --> 5
 </pre>`;
-window.traces["F32_CONVERT_I32_U"]["unlem_schedule"] = ''
-window.traces["F32_CONVERT_I32_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def r = F32_convert_i32_u(b);
-def eff__6045 = push_f32(r);
-</pre>`;
 window.traces["F32_CONVERT_I32_U"]["unlem_scheduler"] = ''
 window.traces["F32_CONVERT_I32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4906["Block 4906"]
@@ -104404,11 +99651,6 @@ graph TD
 	0[/"Start"\\]
 	5["r F32_convert_i64_s"]
 	3 --> 5
-</pre>`;
-window.traces["F32_CONVERT_I64_S"]["unlem_schedule"] = ''
-window.traces["F32_CONVERT_I64_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def r = F32_convert_i64_s(b);
-def eff__6048 = push_f32(r);
 </pre>`;
 window.traces["F32_CONVERT_I64_S"]["unlem_scheduler"] = ''
 window.traces["F32_CONVERT_I64_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -104584,11 +99826,6 @@ graph TD
 	5["r F32_convert_i64_u"]
 	3 --> 5
 </pre>`;
-window.traces["F32_CONVERT_I64_U"]["unlem_schedule"] = ''
-window.traces["F32_CONVERT_I64_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def r = F32_convert_i64_u(b);
-def eff__6051 = push_f32(r);
-</pre>`;
 window.traces["F32_CONVERT_I64_U"]["unlem_scheduler"] = ''
 window.traces["F32_CONVERT_I64_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4910["Block 4910"]
@@ -104762,11 +99999,6 @@ graph TD
 	0[/"Start"\\]
 	5["r F64_convert_i32_s"]
 	3 --> 5
-</pre>`;
-window.traces["F64_CONVERT_I32_S"]["unlem_schedule"] = ''
-window.traces["F64_CONVERT_I32_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def r = F64_convert_i32_s(b);
-def eff__6054 = push_f64(r);
 </pre>`;
 window.traces["F64_CONVERT_I32_S"]["unlem_scheduler"] = ''
 window.traces["F64_CONVERT_I32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -104942,11 +100174,6 @@ graph TD
 	5["r F64_convert_i32_u"]
 	3 --> 5
 </pre>`;
-window.traces["F64_CONVERT_I32_U"]["unlem_schedule"] = ''
-window.traces["F64_CONVERT_I32_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u32();
-def r = F64_convert_i32_u(b);
-def eff__6057 = push_f64(r);
-</pre>`;
 window.traces["F64_CONVERT_I32_U"]["unlem_scheduler"] = ''
 window.traces["F64_CONVERT_I32_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4914["Block 4914"]
@@ -105120,11 +100347,6 @@ graph TD
 	0[/"Start"\\]
 	5["r F64_convert_i64_s"]
 	3 --> 5
-</pre>`;
-window.traces["F64_CONVERT_I64_S"]["unlem_schedule"] = ''
-window.traces["F64_CONVERT_I64_S"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def r = F64_convert_i64_s(b);
-def eff__6060 = push_f64(r);
 </pre>`;
 window.traces["F64_CONVERT_I64_S"]["unlem_scheduler"] = ''
 window.traces["F64_CONVERT_I64_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -105300,11 +100522,6 @@ graph TD
 	5["r F64_convert_i64_u"]
 	3 --> 5
 </pre>`;
-window.traces["F64_CONVERT_I64_U"]["unlem_schedule"] = ''
-window.traces["F64_CONVERT_I64_U"]["unlem_schedule"] += `<pre class=''>def b = pop_u64();
-def r = F64_convert_i64_u(b);
-def eff__6063 = push_f64(r);
-</pre>`;
 window.traces["F64_CONVERT_I64_U"]["unlem_scheduler"] = ''
 window.traces["F64_CONVERT_I64_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4918["Block 4918"]
@@ -105478,11 +100695,6 @@ graph TD
 	0[/"Start"\\]
 	5["r u32_reinterpret_f32"]
 	3 --> 5
-</pre>`;
-window.traces["I32_REINTERPRET_F32"]["unlem_schedule"] = ''
-window.traces["I32_REINTERPRET_F32"]["unlem_schedule"] += `<pre class=''>def a = pop_f32();
-def r = u32_reinterpret_f32(a);
-def eff__6066 = push_u32(r);
 </pre>`;
 window.traces["I32_REINTERPRET_F32"]["unlem_scheduler"] = ''
 window.traces["I32_REINTERPRET_F32"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -105658,11 +100870,6 @@ graph TD
 	5["r u64_reinterpret_f64"]
 	3 --> 5
 </pre>`;
-window.traces["I64_REINTERPRET_F64"]["unlem_schedule"] = ''
-window.traces["I64_REINTERPRET_F64"]["unlem_schedule"] += `<pre class=''>def a = pop_f64();
-def r = u64_reinterpret_f64(a);
-def eff__6069 = push_u64(r);
-</pre>`;
 window.traces["I64_REINTERPRET_F64"]["unlem_scheduler"] = ''
 window.traces["I64_REINTERPRET_F64"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4922["Block 4922"]
@@ -105836,11 +101043,6 @@ graph TD
 	0[/"Start"\\]
 	5["r f32_reinterpret_u32"]
 	3 --> 5
-</pre>`;
-window.traces["F32_REINTERPRET_I32"]["unlem_schedule"] = ''
-window.traces["F32_REINTERPRET_I32"]["unlem_schedule"] += `<pre class=''>def a = pop_u32();
-def r = f32_reinterpret_u32(a);
-def eff__6072 = push_f32(r);
 </pre>`;
 window.traces["F32_REINTERPRET_I32"]["unlem_scheduler"] = ''
 window.traces["F32_REINTERPRET_I32"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -106016,11 +101218,6 @@ graph TD
 	5["r f64_reinterpret_u64"]
 	3 --> 5
 </pre>`;
-window.traces["F64_REINTERPRET_I64"]["unlem_schedule"] = ''
-window.traces["F64_REINTERPRET_I64"]["unlem_schedule"] += `<pre class=''>def a = pop_u64();
-def r = f64_reinterpret_u64(a);
-def eff__6075 = push_f64(r);
-</pre>`;
 window.traces["F64_REINTERPRET_I64"]["unlem_scheduler"] = ''
 window.traces["F64_REINTERPRET_I64"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4926["Block 4926"]
@@ -106194,11 +101391,6 @@ graph TD
 	0[/"Start"\\]
 	5["r U32_extend8_s"]
 	3 --> 5
-</pre>`;
-window.traces["I32_EXTEND8_S"]["unlem_schedule"] = ''
-window.traces["I32_EXTEND8_S"]["unlem_schedule"] += `<pre class=''>def a = pop_u32();
-def r = U32_extend8_s(a);
-def eff__6078 = push_u32(r);
 </pre>`;
 window.traces["I32_EXTEND8_S"]["unlem_scheduler"] = ''
 window.traces["I32_EXTEND8_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -106374,11 +101566,6 @@ graph TD
 	5["r U32_extend16_s"]
 	3 --> 5
 </pre>`;
-window.traces["I32_EXTEND16_S"]["unlem_schedule"] = ''
-window.traces["I32_EXTEND16_S"]["unlem_schedule"] += `<pre class=''>def a = pop_u32();
-def r = U32_extend16_s(a);
-def eff__6081 = push_u32(r);
-</pre>`;
 window.traces["I32_EXTEND16_S"]["unlem_scheduler"] = ''
 window.traces["I32_EXTEND16_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4930["Block 4930"]
@@ -106552,11 +101739,6 @@ graph TD
 	0[/"Start"\\]
 	5["r U64_extend8_s"]
 	3 --> 5
-</pre>`;
-window.traces["I64_EXTEND8_S"]["unlem_schedule"] = ''
-window.traces["I64_EXTEND8_S"]["unlem_schedule"] += `<pre class=''>def a = pop_u64();
-def r = U64_extend8_s(a);
-def eff__6084 = push_u64(r);
 </pre>`;
 window.traces["I64_EXTEND8_S"]["unlem_scheduler"] = ''
 window.traces["I64_EXTEND8_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -106732,11 +101914,6 @@ graph TD
 	5["r U64_extend16_s"]
 	3 --> 5
 </pre>`;
-window.traces["I64_EXTEND16_S"]["unlem_schedule"] = ''
-window.traces["I64_EXTEND16_S"]["unlem_schedule"] += `<pre class=''>def a = pop_u64();
-def r = U64_extend16_s(a);
-def eff__6087 = push_u64(r);
-</pre>`;
 window.traces["I64_EXTEND16_S"]["unlem_scheduler"] = ''
 window.traces["I64_EXTEND16_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4934["Block 4934"]
@@ -106911,11 +102088,6 @@ graph TD
 	5["r U64_extend32_s"]
 	3 --> 5
 </pre>`;
-window.traces["I64_EXTEND32_S"]["unlem_schedule"] = ''
-window.traces["I64_EXTEND32_S"]["unlem_schedule"] += `<pre class=''>def a = pop_u64();
-def r = U64_extend32_s(a);
-def eff__6090 = push_u64(r);
-</pre>`;
 window.traces["I64_EXTEND32_S"]["unlem_scheduler"] = ''
 window.traces["I64_EXTEND32_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4936["Block 4936"]
@@ -107087,11 +102259,6 @@ graph TD
 	4["arg__6094 object_Null"]
 	3["idx imm_readULEB32"]
 	0 -. Codeptr .-> 3
-</pre>`;
-window.traces["REF_NULL"]["unlem_schedule"] = ''
-window.traces["REF_NULL"]["unlem_schedule"] += `<pre class=''>def arg__6094 = object_Null();
-def eff__6093 = push_Object(arg__6094);
-def idx = imm_readULEB32();
 </pre>`;
 window.traces["REF_NULL"]["unlem_scheduler"] = ''
 window.traces["REF_NULL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -107460,31 +102627,6 @@ graph TD
 	6["arg__6099 0"]
 	8["arg__6097 1"]
 </pre>`;
-window.traces["REF_IS_NULL"]["unlem_schedule"] = ''
-window.traces["REF_IS_NULL"]["unlem_schedule"] += `<pre class=''>def obj = pop_Object();
-def cond__6095 = object_isNull(obj);
-def mt__6104 = U32_maybeTrue(cond__6095);
-def mf__6105 = U32_maybeFalse(cond__6095);
-def mb__6106 = bool.&&(mt__6104, mf__6105);
-if (mb__6106) {
-	def arg__6099 : u32 = 0;
-	def arg__6097 : u32 = 1;
-	def merge__6108 = merge_u(arg__6097, arg__6099);
-	def eff_push__6109 = push_u32(merge__6108);
-} else {
-	if (mt__6104) {
-		def arg__6097__6115 : u32 = 1;
-		def arg__6097 = (arg__6097__6115);
-		def eff__6096 = push_u32(arg__6097__6115);
-	} else {
-		def arg__6099__6114 : u32 = 0;
-		def arg__6099 = (arg__6099__6114);
-		def eff__6098 = push_u32(arg__6099__6114);
-	}
-// phis: 
-}
-// phis: 
-</pre>`;
 window.traces["REF_IS_NULL"]["unlem_scheduler"] = ''
 window.traces["REF_IS_NULL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4946["Block 4946"]
@@ -107608,21 +102750,23 @@ window.traces["REF_AS_NON_NULL"] = {}
 window.traces["REF_AS_NON_NULL"]["parsed"] = ''
 window.traces["REF_AS_NON_NULL"]["parsed"] += `<pre class=''>def obj = pop_Object();
 def arg__6120 = (obj);
-def cond__6118 = object_isNull(arg__6120);
-if (cond__6118) {
-	def eff__6119 = trapNull();
+def cond__6116 = object_isNull(arg__6120);
+if (cond__6116) {
+	def eff__6117 = trapNull();
+} else {
+	def arg__6119 = (obj);
+	def eff__6118 = push_Object(arg__6119);
 }
 // phis: 
-def arg__6117 = (obj);
-def eff__6116 = push_Object(arg__6117);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["initial_pretty"] = ''
 window.traces["REF_AS_NON_NULL"]["initial_pretty"] += `<pre class=''>def obj = pop_Object();
 def cond = object_isNull((obj));
 if (cond) {
 	trapNull();
+} else {
+	push_Object((obj));
 }
-push_Object((obj));
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["raw"] = ''
 window.traces["REF_AS_NON_NULL"]["raw"] += `<pre class='graph'>---
@@ -107631,27 +102775,27 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10["eff__6116 push_Object"]
-	3 --> 10
-	8 -. Stack .-> 10
-	8{{"sea__6122 Sϕ Stack "}}
-	5 --> 8
-	6 --> 8
-	3 --> 8
+	10{{"sea__6122 Sϕ Stack "}}
+	5 --> 10
+	8 --> 10
+	7 --> 10
+	7["eff__6118 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"Start"\\]
-	6["eff__6119 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
-	5["cond__6118 object_isNull"]
+	8["eff__6117 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
+	5["cond__6116 object_isNull"]
 	3 --> 5
-	7{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	5 --> 7
-	6 --> 7
-	0 --> 7
+	9{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	5 --> 9
+	8 --> 9
+	0 --> 9
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["scheduler_start"] = ''
 window.traces["REF_AS_NON_NULL"]["scheduler_start"] += `<pre class='graph'>---
@@ -107660,39 +102804,39 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10["eff__6116 push_Object"]
-	3 --> 10
-	8 -. Stack .-> 10
-	8{{"sea__6122 Sϕ Stack "}}
-	5 --> 8
-	13 --> 8
-	14 --> 8
-	14["mv_f__6126 |False|  [object_isNull [cond__6118]]"]
+	10{{"sea__6122 Sϕ Stack "}}
+	5 --> 10
+	13 --> 10
+	14 --> 10
+	14["mv_f__6126 |False|  [object_isNull [cond__6116]]"]
 	5 --> 14
-	3 -. Stack .-> 14
+	7 -. Stack .-> 14
+	7["eff__6118 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"Start"\\]
-	5["cond__6118 object_isNull"]
+	5["cond__6116 object_isNull"]
 	3 --> 5
-	13["mv_t__6125 |True|  [object_isNull [cond__6118]]"]
+	13["mv_t__6125 |True|  [object_isNull [cond__6116]]"]
 	5 --> 13
-	6 -. Stack .-> 13
-	6["eff__6119 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
-	7{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	5 --> 7
-	11 --> 7
-	12 --> 7
-	12["mv_f__6124 |False|  [object_isNull [cond__6118]]"]
+	8 -. Stack .-> 13
+	8["eff__6117 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
+	9{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	5 --> 9
+	11 --> 9
+	12 --> 9
+	12["mv_f__6124 |False|  [object_isNull [cond__6116]]"]
 	5 --> 12
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 12
-	11["mv_t__6123 |True|  [object_isNull [cond__6118]]"]
+	11["mv_t__6123 |True|  [object_isNull [cond__6116]]"]
 	5 --> 11
-	6 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 11
+	8 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 11
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["untangled"] = ''
 window.traces["REF_AS_NON_NULL"]["untangled"] += `<pre class='graph'>---
@@ -107701,66 +102845,64 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10["eff__6116 push_Object"]
-	3 --> 10
-	8 -. Stack .-> 10
-	8{{"sea__6122 Sϕ Stack "}}
-	5 --> 8
-	13 --> 8
-	14 --> 8
-	14["mv_f__6126 |False|  [object_isNull [cond__6118]]"]
+	10{{"sea__6122 Sϕ Stack "}}
+	5 --> 10
+	13 --> 10
+	14 --> 10
+	14["mv_f__6126 |False|  [object_isNull [cond__6116]]"]
 	5 --> 14
-	3 -. Stack .-> 14
+	7 -. Stack .-> 14
+	7["eff__6118 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"Start"\\]
-	5["cond__6118 object_isNull"]
+	5["cond__6116 object_isNull"]
 	3 --> 5
-	13["mv_t__6125 |True|  [object_isNull [cond__6118]]"]
+	13["mv_t__6125 |True|  [object_isNull [cond__6116]]"]
 	5 --> 13
-	6 -. Stack .-> 13
-	6["eff__6119 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
-	7{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	5 --> 7
-	11 --> 7
-	12 --> 7
-	12["mv_f__6124 |False|  [object_isNull [cond__6118]]"]
+	8 -. Stack .-> 13
+	8["eff__6117 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
+	9{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	5 --> 9
+	11 --> 9
+	12 --> 9
+	12["mv_f__6124 |False|  [object_isNull [cond__6116]]"]
 	5 --> 12
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 12
-	11["mv_t__6123 |True|  [object_isNull [cond__6118]]"]
+	11["mv_t__6123 |True|  [object_isNull [cond__6116]]"]
 	5 --> 11
-	6 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 11
+	8 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 11
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["schedulerMermaid"] = ''
 window.traces["REF_AS_NON_NULL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_4960["Block 4960"]
 	direction TB
-	b4960_10["eff__6116 push_Object"]
 	b4960_1[\\"Finish"/]
-	b4960_10 --> b4960_1
 end
 phi_4963 --> block_4960
 subgraph phi_4963["Phi 4963"]
-	p4963_8{{"sea__6122 Sϕ Stack "}}
-	p4963_7{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p4963_10{{"sea__6122 Sϕ Stack "}}
+	p4963_9{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_4964 --> phi_4963
 block_4965 --> phi_4963
 subgraph block_4964["Block 4964"]
 	direction TB
-	b4964_6["eff__6119 trapNull"]
-	b4964_13["mv_t__6125 |True|  [object_isNull [cond__6118]]"]
-	b4964_11["mv_t__6123 |True|  [object_isNull [cond__6118]]"]
-	b4964_6 --> b4964_13
+	b4964_8["eff__6117 trapNull"]
+	b4964_13["mv_t__6125 |True|  [object_isNull [cond__6116]]"]
+	b4964_11["mv_t__6123 |True|  [object_isNull [cond__6116]]"]
+	b4964_8 --> b4964_13
 	b4964_13 --> b4964_11
 end
 branch_4962 --> block_4964
 subgraph branch_4962["Branch 4962"]
-	br4962_5["cond__6118 object_isNull"]
+	br4962_5["cond__6116 object_isNull"]
 
 end
 block_4966 --> branch_4962
@@ -107768,14 +102910,16 @@ subgraph block_4966["Block 4966"]
 	direction TB
 	b4966_0[/"Start"\\]
 	b4966_3["obj pop_Object"]
-	b4966_5["cond__6118 object_isNull"]
+	b4966_5["cond__6116 object_isNull"]
 	b4966_0 --> b4966_3
 	b4966_3 --> b4966_5
 end
 subgraph block_4965["Block 4965"]
 	direction TB
-	b4965_14["mv_f__6126 |False|  [object_isNull [cond__6118]]"]
-	b4965_12["mv_f__6124 |False|  [object_isNull [cond__6118]]"]
+	b4965_7["eff__6118 push_Object"]
+	b4965_14["mv_f__6126 |False|  [object_isNull [cond__6116]]"]
+	b4965_12["mv_f__6124 |False|  [object_isNull [cond__6116]]"]
+	b4965_7 --> b4965_14
 	b4965_14 --> b4965_12
 end
 branch_4962 --> block_4965
@@ -107783,20 +102927,22 @@ branch_4962 --> block_4965
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["scheduler_ssad"] = ''
 window.traces["REF_AS_NON_NULL"]["scheduler_ssad"] += `<pre class=''>def obj = pop_Object();
-def cond__6118 = object_isNull(obj);
-if (cond__6118) {
-	def eff__6119 = trapNull();
+def cond__6116 = object_isNull(obj);
+if (cond__6116) {
+	def eff__6117 = trapNull();
+} else {
+	def eff__6118 = push_Object(obj);
 }
 // phis: 
-def eff__6116 = push_Object(obj);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["scheduler_ssad_pretty"] = ''
 window.traces["REF_AS_NON_NULL"]["scheduler_ssad_pretty"] += `<pre class=''>def obj = pop_Object();
 def cond = object_isNull(obj);
 if (cond) {
 	trapNull();
+} else {
+	push_Object(obj);
 }
-push_Object(obj);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unLEM"] = ''
 window.traces["REF_AS_NON_NULL"]["unLEM"] += `<pre class='graph'>---
@@ -107805,48 +102951,48 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10["eff__6116 push_Object"]
-	3 --> 10
-	8 -. Stack .-> 10
-	8{{"sea__6122 Sϕ Stack "}}
-	13 --> 8
-	18 --> 8
-	16 --> 8
+	10{{"sea__6122 Sϕ Stack "}}
+	13 --> 10
+	18 --> 10
+	16 --> 10
 	16{{"innerPhi__6133 Sϕ Stack "}}
 	11 --> 16
-	6 --> 16
-	3 --> 16
+	8 --> 16
+	7 --> 16
+	7["eff__6118 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"r_state__6131 Start"\\]
-	6["eff__6119 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
+	8["eff__6117 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
 	11["mt__6127 U32_maybeTrue"]
 	5 --> 11
-	5["cond__6118 object_isNull"]
+	5["cond__6116 object_isNull"]
 	3 --> 5
 	18["eff_merge__6135 merge"]
 	17 --> 18
-	3 --> 18
+	7 --> 18
 	17["eff_nop__6134 nop"]
 	13["mb__6129 bool.&&"]
 	11 --> 13
 	12 --> 13
 	12["mf__6128 U32_maybeFalse"]
 	5 --> 12
-	7{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	13 --> 7
-	15 --> 7
-	14 --> 7
+	9{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	13 --> 9
+	15 --> 9
+	14 --> 9
 	14{{"innerPhi__6130 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	11 --> 14
-	6 --> 14
+	8 --> 14
 	0 --> 14
 	15["eff_merge__6132 merge"]
-	6 --> 15
+	8 --> 15
 	0 --> 15
 </pre>`;
 window.traces["REF_AS_NON_NULL_ul"] = {}
@@ -107857,72 +103003,72 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10["eff__6116 push_Object"]
-	3 --> 10
-	8 -. Stack .-> 10
-	8{{"sea__6122 Sϕ Stack "}}
-	13 --> 8
-	23 --> 8
-	24 --> 8
-	24["mv_f__6141 |False|  [bool.&& [mb__6129]]"]
-	13 --> 24
-	16 -. Stack .-> 24
+	10{{"sea__6122 Sϕ Stack "}}
+	13 --> 10
+	21 --> 10
+	22 --> 10
+	22["mv_f__6139 |False|  [bool.&& [mb__6129]]"]
+	13 --> 22
+	16 -. Stack .-> 22
 	16{{"innerPhi__6133 Sϕ Stack "}}
 	11 --> 16
 	25 --> 16
 	26 --> 16
 	26["mv_f__6143 |False|  [U32_maybeTrue [mt__6127]]"]
 	11 --> 26
-	3 -. Stack .-> 26
+	7 -. Stack .-> 26
+	7["eff__6118 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"r_state__6131 Start"\\]
 	11["mt__6127 U32_maybeTrue"]
 	5 --> 11
-	5["cond__6118 object_isNull"]
+	5["cond__6116 object_isNull"]
 	3 --> 5
 	25["mv_t__6142 |True|  [U32_maybeTrue [mt__6127]]"]
 	11 --> 25
-	6 -. Stack .-> 25
-	6["eff__6119 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
+	8 -. Stack .-> 25
+	8["eff__6117 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
 	13["mb__6129 bool.&&"]
 	11 --> 13
 	12 --> 13
 	12["mf__6128 U32_maybeFalse"]
 	5 --> 12
-	23["mv_t__6140 |True|  [bool.&& [mb__6129]]"]
-	13 --> 23
-	18 -. Stack .-> 23
+	21["mv_t__6138 |True|  [bool.&& [mb__6129]]"]
+	13 --> 21
+	18 -. Stack .-> 21
 	18["eff_merge__6135 merge"]
 	17 --> 18
-	3 --> 18
+	7 --> 18
 	17["eff_nop__6134 nop"]
-	7{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	13 --> 7
-	19 --> 7
-	20 --> 7
+	9{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	13 --> 9
+	19 --> 9
+	20 --> 9
 	20["mv_f__6137 |False|  [bool.&& [mb__6129]]"]
 	13 --> 20
 	14 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 20
 	14{{"innerPhi__6130 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	11 --> 14
-	21 --> 14
-	22 --> 14
-	22["mv_f__6139 |False|  [U32_maybeTrue [mt__6127]]"]
-	11 --> 22
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 22
-	21["mv_t__6138 |True|  [U32_maybeTrue [mt__6127]]"]
-	11 --> 21
-	6 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 21
+	23 --> 14
+	24 --> 14
+	24["mv_f__6141 |False|  [U32_maybeTrue [mt__6127]]"]
+	11 --> 24
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 24
+	23["mv_t__6140 |True|  [U32_maybeTrue [mt__6127]]"]
+	11 --> 23
+	8 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 23
 	19["mv_t__6136 |True|  [bool.&& [mb__6129]]"]
 	13 --> 19
 	15 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 19
 	15["eff_merge__6132 merge"]
-	6 --> 15
+	8 --> 15
 	0 --> 15
 </pre>`;
 window.traces["REF_AS_NON_NULL_ul"]["untangled"] = ''
@@ -107932,126 +103078,108 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10["eff__6116 push_Object"]
-	3 --> 10
-	8 -. Stack .-> 10
-	8{{"sea__6122 Sϕ Stack "}}
-	13 --> 8
-	23 --> 8
-	24 --> 8
-	24["mv_f__6141 |False|  [bool.&& [mb__6129]]"]
-	13 --> 24
-	16 -. Stack .-> 24
+	10{{"sea__6122 Sϕ Stack "}}
+	13 --> 10
+	21 --> 10
+	22 --> 10
+	22["mv_f__6139 |False|  [bool.&& [mb__6129]]"]
+	13 --> 22
+	16 -. Stack .-> 22
 	16{{"innerPhi__6133 Sϕ Stack "}}
 	11 --> 16
 	25 --> 16
 	26 --> 16
 	26["mv_f__6143 |False|  [U32_maybeTrue [mt__6127]]"]
 	11 --> 26
-	3 -. Stack .-> 26
+	27 -. Stack .-> 26
+	27["eff__6118__6144 push_Object"]
+	3 --> 27
+	3 -. Stack .-> 27
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"r_state__6131 Start"\\]
 	11["mt__6127 U32_maybeTrue"]
 	5 --> 11
-	5["cond__6118 object_isNull"]
+	5["cond__6116 object_isNull"]
 	3 --> 5
 	25["mv_t__6142 |True|  [U32_maybeTrue [mt__6127]]"]
 	11 --> 25
-	27 -. Stack .-> 25
-	27["eff__6119__6144 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
-	3 -. Stack .-> 27
+	28 -. Stack .-> 25
+	28["eff__6117__6145 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 28
+	3 -. Stack .-> 28
 	13["mb__6129 bool.&&"]
 	11 --> 13
 	12 --> 13
 	12["mf__6128 U32_maybeFalse"]
 	5 --> 12
-	23["mv_t__6140 |True|  [bool.&& [mb__6129]]"]
-	13 --> 23
-	18 -. Stack .-> 23
+	21["mv_t__6138 |True|  [bool.&& [mb__6129]]"]
+	13 --> 21
+	18 -. Stack .-> 21
 	18["eff_merge__6135 merge"]
 	17 --> 18
-	3 --> 18
+	7 --> 18
+	7["eff__6118 push_Object"]
+	3 --> 7
+	3 -. Stack .-> 7
 	17["eff_nop__6134 nop"]
-	7{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	13 --> 7
-	19 --> 7
-	20 --> 7
+	9{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	13 --> 9
+	19 --> 9
+	20 --> 9
 	20["mv_f__6137 |False|  [bool.&& [mb__6129]]"]
 	13 --> 20
 	14 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 20
 	14{{"innerPhi__6130 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	11 --> 14
-	21 --> 14
-	22 --> 14
-	22["mv_f__6139 |False|  [U32_maybeTrue [mt__6127]]"]
-	11 --> 22
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 22
-	21["mv_t__6138 |True|  [U32_maybeTrue [mt__6127]]"]
-	11 --> 21
-	27 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 21
+	23 --> 14
+	24 --> 14
+	24["mv_f__6141 |False|  [U32_maybeTrue [mt__6127]]"]
+	11 --> 24
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 24
+	23["mv_t__6140 |True|  [U32_maybeTrue [mt__6127]]"]
+	11 --> 23
+	28 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 23
 	19["mv_t__6136 |True|  [bool.&& [mb__6129]]"]
 	13 --> 19
 	15 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 19
 	15["eff_merge__6132 merge"]
-	6 --> 15
+	8 --> 15
 	0 --> 15
-	6["eff__6119 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
-	3 -. Stack .-> 6
-</pre>`;
-window.traces["REF_AS_NON_NULL"]["unlem_schedule"] = ''
-window.traces["REF_AS_NON_NULL"]["unlem_schedule"] += `<pre class=''>def obj = pop_Object();
-def cond__6118 = object_isNull(obj);
-def mt__6127 = U32_maybeTrue(cond__6118);
-def mf__6128 = U32_maybeFalse(cond__6118);
-def mb__6129 = bool.&&(mt__6127, mf__6128);
-if (mb__6129) {
-	def eff_nop__6134 = nop();
-	def eff__6119 = trapNull();
-	def eff_merge__6135 = merge(eff_nop__6134, obj);
-	def eff_merge__6132 = merge(eff__6119, r_state__6131);
-} else {
-	if (mt__6127) {
-		def eff__6119__6144 = trapNull();
-		def eff__6119 = (eff__6119__6144);
-	}
-// phis: 
-}
-// phis: 
-def eff__6116 = push_Object(obj);
+	8["eff__6117 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
+	3 -. Stack .-> 8
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler"] = ''
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4967["Block 4967"]
 	direction TB
-	b4967_10["eff__6116 push_Object"]
 	b4967_1[\\"Finish"/]
-	b4967_10 --> b4967_1
 end
 phi_4973 --> block_4967
 subgraph phi_4973["Phi 4973"]
-	p4973_8{{"sea__6122 Sϕ Stack "}}
-	p4973_7{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p4973_10{{"sea__6122 Sϕ Stack "}}
+	p4973_9{{"sea__6121 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_4974 --> phi_4973
 block_4975 --> phi_4973
 subgraph block_4974["Block 4974"]
 	direction TB
+	b4974_7["eff__6118 push_Object"]
 	b4974_17["eff_nop__6134 nop"]
-	b4974_6["eff__6119 trapNull"]
+	b4974_8["eff__6117 trapNull"]
 	b4974_18["eff_merge__6135 merge"]
 	b4974_15["eff_merge__6132 merge"]
-	b4974_23["mv_t__6140 |True|  [bool.&& [mb__6129]]"]
+	b4974_21["mv_t__6138 |True|  [bool.&& [mb__6129]]"]
 	b4974_19["mv_t__6136 |True|  [bool.&& [mb__6129]]"]
-	b4974_17 --> b4974_6
-	b4974_6 --> b4974_18
+	b4974_7 --> b4974_17
+	b4974_17 --> b4974_8
+	b4974_8 --> b4974_18
 	b4974_18 --> b4974_15
-	b4974_15 --> b4974_23
-	b4974_23 --> b4974_19
+	b4974_15 --> b4974_21
+	b4974_21 --> b4974_19
 end
 branch_4972 --> block_4974
 subgraph branch_4972["Branch 4972"]
@@ -108063,7 +103191,7 @@ subgraph block_4976["Block 4976"]
 	direction TB
 	b4976_0[/"r_state__6131 Start"\\]
 	b4976_3["obj pop_Object"]
-	b4976_5["cond__6118 object_isNull"]
+	b4976_5["cond__6116 object_isNull"]
 	b4976_11["mt__6127 U32_maybeTrue"]
 	b4976_12["mf__6128 U32_maybeFalse"]
 	b4976_13["mb__6129 bool.&&"]
@@ -108075,9 +103203,9 @@ subgraph block_4976["Block 4976"]
 end
 subgraph block_4975["Block 4975"]
 	direction TB
-	b4975_24["mv_f__6141 |False|  [bool.&& [mb__6129]]"]
+	b4975_22["mv_f__6139 |False|  [bool.&& [mb__6129]]"]
 	b4975_20["mv_f__6137 |False|  [bool.&& [mb__6129]]"]
-	b4975_24 --> b4975_20
+	b4975_22 --> b4975_20
 end
 phi_4978 --> block_4975
 subgraph phi_4978["Phi 4978"]
@@ -108088,11 +103216,11 @@ block_4979 --> phi_4978
 block_4980 --> phi_4978
 subgraph block_4979["Block 4979"]
 	direction TB
-	b4979_27["eff__6119__6144 trapNull"]
+	b4979_28["eff__6117__6145 trapNull"]
 	b4979_25["mv_t__6142 |True|  [U32_maybeTrue [mt__6127]]"]
-	b4979_21["mv_t__6138 |True|  [U32_maybeTrue [mt__6127]]"]
-	b4979_27 --> b4979_25
-	b4979_25 --> b4979_21
+	b4979_23["mv_t__6140 |True|  [U32_maybeTrue [mt__6127]]"]
+	b4979_28 --> b4979_25
+	b4979_25 --> b4979_23
 end
 branch_4977 --> block_4979
 subgraph branch_4977["Branch 4977"]
@@ -108102,33 +103230,38 @@ end
 branch_4972 --> branch_4977
 subgraph block_4980["Block 4980"]
 	direction TB
+	b4980_27["eff__6118__6144 push_Object"]
 	b4980_26["mv_f__6143 |False|  [U32_maybeTrue [mt__6127]]"]
-	b4980_22["mv_f__6139 |False|  [U32_maybeTrue [mt__6127]]"]
-	b4980_26 --> b4980_22
+	b4980_24["mv_f__6141 |False|  [U32_maybeTrue [mt__6127]]"]
+	b4980_27 --> b4980_26
+	b4980_26 --> b4980_24
 end
 branch_4977 --> block_4980
 
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler_ssa"] = ''
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler_ssa"] += `<pre class=''>def obj = pop_Object();
-def cond__6118 = object_isNull(obj);
-def mt__6127 = U32_maybeTrue(cond__6118);
-def mf__6128 = U32_maybeFalse(cond__6118);
+def cond__6116 = object_isNull(obj);
+def mt__6127 = U32_maybeTrue(cond__6116);
+def mf__6128 = U32_maybeFalse(cond__6116);
 def mb__6129 = bool.&&(mt__6127, mf__6128);
 if (mb__6129) {
+	def eff__6118 = push_Object(obj);
 	def eff_nop__6134 = nop();
-	def eff__6119 = trapNull();
-	def eff_merge__6135 = merge(eff_nop__6134, obj);
-	def eff_merge__6132 = merge(eff__6119, r_state__6131);
+	def eff__6117 = trapNull();
+	def eff_merge__6135 = merge(eff_nop__6134, eff__6118);
+	def eff_merge__6132 = merge(eff__6117, r_state__6131);
 } else {
 	if (mt__6127) {
-		def eff__6119__6144 = trapNull();
-		def eff__6119 = (eff__6119__6144);
+		def eff__6117__6145 = trapNull();
+		def eff__6117 = (eff__6117__6145);
+	} else {
+		def eff__6118__6144 = push_Object(obj);
+		def eff__6118 = (eff__6118__6144);
 	}
 // phis: 
 }
 // phis: 
-def eff__6116 = push_Object(obj);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler_ssa_pretty"] = ''
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler_ssa_pretty"] += `<pre class=''>def obj = pop_Object();
@@ -108136,23 +103269,25 @@ def cond = object_isNull(obj);
 def mt = U32_maybeTrue(cond);
 def mf = U32_maybeFalse(cond);
 if (bool.&&(mt, mf)) {
+	push_Object(obj);
 	trapNull();
 } else {
 	if (mt) {
 		trapNull();
+	} else {
+		push_Object(obj);
 	}
 }
-push_Object(obj);
 </pre>`;
 window.traces["STRUCT_NEW"] = {}
 window.traces["STRUCT_NEW"]["parsed"] = ''
 window.traces["STRUCT_NEW"]["parsed"] += `<pre class=''>def struct_idx = imm_readULEB32();
-def arg__6148 = (struct_idx);
-def sig = m_getSignature(arg__6148);
-def arg__6147 = (sig);
-def obj = object_New(arg__6147);
-def arg__6146 = (obj);
-def eff__6145 = push_Object(arg__6146);
+def arg__6149 = (struct_idx);
+def sig = m_getSignature(arg__6149);
+def arg__6148 = (sig);
+def obj = object_New(arg__6148);
+def arg__6147 = (obj);
+def eff__6146 = push_Object(arg__6147);
 </pre>`;
 window.traces["STRUCT_NEW"]["initial_pretty"] = ''
 window.traces["STRUCT_NEW"]["initial_pretty"] += `<pre class=''>def struct_idx = imm_readULEB32();
@@ -108170,7 +103305,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__6145 push_Object"]
+	9["eff__6146 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -108191,7 +103326,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__6145 push_Object"]
+	9["eff__6146 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -108212,7 +103347,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__6145 push_Object"]
+	9["eff__6146 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -108230,7 +103365,7 @@ subgraph block_4981["Block 4981"]
 	b4981_3["struct_idx imm_readULEB32"]
 	b4981_5["sig m_getSignature"]
 	b4981_7["obj object_New"]
-	b4981_9["eff__6145 push_Object"]
+	b4981_9["eff__6146 push_Object"]
 	b4981_1[\\"Finish"/]
 	b4981_0 --> b4981_3
 	b4981_3 --> b4981_5
@@ -108244,7 +103379,7 @@ window.traces["STRUCT_NEW"]["scheduler_ssad"] = ''
 window.traces["STRUCT_NEW"]["scheduler_ssad"] += `<pre class=''>def struct_idx = imm_readULEB32();
 def sig = m_getSignature(struct_idx);
 def obj = object_New(sig);
-def eff__6145 = push_Object(obj);
+def eff__6146 = push_Object(obj);
 </pre>`;
 window.traces["STRUCT_NEW"]["scheduler_ssad_pretty"] = ''
 window.traces["STRUCT_NEW"]["scheduler_ssad_pretty"] += `<pre class=''>def struct_idx = imm_readULEB32();
@@ -108262,7 +103397,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__6145 push_Object"]
+	9["eff__6146 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -108284,7 +103419,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__6145 push_Object"]
+	9["eff__6146 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -108305,7 +103440,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__6145 push_Object"]
+	9["eff__6146 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -108315,12 +103450,6 @@ graph TD
 	3["struct_idx imm_readULEB32"]
 	0 -. Codeptr .-> 3
 </pre>`;
-window.traces["STRUCT_NEW"]["unlem_schedule"] = ''
-window.traces["STRUCT_NEW"]["unlem_schedule"] += `<pre class=''>def struct_idx = imm_readULEB32();
-def sig = m_getSignature(struct_idx);
-def obj = object_New(sig);
-def eff__6145 = push_Object(obj);
-</pre>`;
 window.traces["STRUCT_NEW"]["unlem_scheduler"] = ''
 window.traces["STRUCT_NEW"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4982["Block 4982"]
@@ -108329,7 +103458,7 @@ subgraph block_4982["Block 4982"]
 	b4982_3["struct_idx imm_readULEB32"]
 	b4982_5["sig m_getSignature"]
 	b4982_7["obj object_New"]
-	b4982_9["eff__6145 push_Object"]
+	b4982_9["eff__6146 push_Object"]
 	b4982_1[\\"Finish"/]
 	b4982_0 --> b4982_3
 	b4982_3 --> b4982_5
@@ -108343,7 +103472,7 @@ window.traces["STRUCT_NEW"]["unlem_scheduler_ssa"] = ''
 window.traces["STRUCT_NEW"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_idx = imm_readULEB32();
 def sig = m_getSignature(struct_idx);
 def obj = object_New(sig);
-def eff__6145 = push_Object(obj);
+def eff__6146 = push_Object(obj);
 </pre>`;
 window.traces["STRUCT_NEW"]["unlem_scheduler_ssa_pretty"] = ''
 window.traces["STRUCT_NEW"]["unlem_scheduler_ssa_pretty"] += `<pre class=''>def struct_idx = imm_readULEB32();
@@ -108354,20 +103483,20 @@ window.traces["STRUCT_GET"] = {}
 window.traces["STRUCT_GET"]["parsed"] = ''
 window.traces["STRUCT_GET"]["parsed"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
-def arg__6180 = (field_index);
-def arg__6179 = (struct_index);
-def kind = m_getFieldKind(arg__6179, arg__6180);
-def arg__6178 = (field_index);
-def arg__6177 = (struct_index);
-def offset = m_getFieldOffset(arg__6177, arg__6178);
+def arg__6181 = (field_index);
+def arg__6180 = (struct_index);
+def kind = m_getFieldKind(arg__6180, arg__6181);
+def arg__6179 = (field_index);
+def arg__6178 = (struct_index);
+def offset = m_getFieldOffset(arg__6178, arg__6179);
 def obj = pop_Object();
-def arg__6176 = (obj);
-def cond__6174 = object_isNull(arg__6176);
-if (cond__6174) {
-	def ret__6175 = trapNull();
+def arg__6177 = (obj);
+def cond__6175 = object_isNull(arg__6177);
+if (cond__6175) {
+	def ret__6176 = trapNull();
 }
 // phis: 
-def cond__6149 = (kind);
+def cond__6150 = (kind);
 </pre>`;
 window.traces["STRUCT_GET"]["initial_pretty"] = ''
 window.traces["STRUCT_GET"]["initial_pretty"] += `<pre class=''>def struct_index = imm_readULEB32();
@@ -108417,12 +103546,12 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6183 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6184 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__6175 trapNull"]
+	14["ret__6176 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -108432,13 +103561,13 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__6174 object_isNull"]
+	13["cond__6175 object_isNull"]
 	11 --> 13
-	16{{"sea__6182 Sϕ Stack "}}
+	16{{"sea__6183 Sϕ Stack "}}
 	13 --> 16
 	14 --> 16
 	11 --> 16
-	15{{"sea__6181 Sϕ Codeptr "}}
+	15{{"sea__6182 Sϕ Codeptr "}}
 	13 --> 15
 	14 --> 15
 	4 --> 15
@@ -108453,22 +103582,22 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6183 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6184 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	23 --> 17
 	24 --> 17
-	24["mv_f__6189 |False|  [object_isNull [cond__6174]]"]
+	24["mv_f__6190 |False|  [object_isNull [cond__6175]]"]
 	13 --> 24
 	0 -. Trap Locals Globals Tables Memory Extra .-> 24
 	0[/"Start"\\]
-	13["cond__6174 object_isNull"]
+	13["cond__6175 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	23["mv_t__6188 |True|  [object_isNull [cond__6174]]"]
+	23["mv_t__6189 |True|  [object_isNull [cond__6175]]"]
 	13 --> 23
 	14 -. Trap Locals Globals Tables Memory Extra .-> 23
-	14["ret__6175 trapNull"]
+	14["ret__6176 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -108476,24 +103605,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	16{{"sea__6182 Sϕ Stack "}}
+	16{{"sea__6183 Sϕ Stack "}}
 	13 --> 16
 	21 --> 16
 	22 --> 16
-	22["mv_f__6187 |False|  [object_isNull [cond__6174]]"]
+	22["mv_f__6188 |False|  [object_isNull [cond__6175]]"]
 	13 --> 22
 	11 -. Stack .-> 22
-	21["mv_t__6186 |True|  [object_isNull [cond__6174]]"]
+	21["mv_t__6187 |True|  [object_isNull [cond__6175]]"]
 	13 --> 21
 	14 -. Stack .-> 21
-	15{{"sea__6181 Sϕ Codeptr "}}
+	15{{"sea__6182 Sϕ Codeptr "}}
 	13 --> 15
 	19 --> 15
 	20 --> 15
-	20["mv_f__6185 |False|  [object_isNull [cond__6174]]"]
+	20["mv_f__6186 |False|  [object_isNull [cond__6175]]"]
 	13 --> 20
 	4 -. Codeptr .-> 20
-	19["mv_t__6184 |True|  [object_isNull [cond__6174]]"]
+	19["mv_t__6185 |True|  [object_isNull [cond__6175]]"]
 	13 --> 19
 	14 -. Codeptr .-> 19
 </pre>`;
@@ -108507,22 +103636,22 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6183 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6184 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	23 --> 17
 	24 --> 17
-	24["mv_f__6189 |False|  [object_isNull [cond__6174]]"]
+	24["mv_f__6190 |False|  [object_isNull [cond__6175]]"]
 	13 --> 24
 	0 -. Trap Locals Globals Tables Memory Extra .-> 24
 	0[/"Start"\\]
-	13["cond__6174 object_isNull"]
+	13["cond__6175 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	23["mv_t__6188 |True|  [object_isNull [cond__6174]]"]
+	23["mv_t__6189 |True|  [object_isNull [cond__6175]]"]
 	13 --> 23
 	14 -. Trap Locals Globals Tables Memory Extra .-> 23
-	14["ret__6175 trapNull"]
+	14["ret__6176 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -108530,24 +103659,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	16{{"sea__6182 Sϕ Stack "}}
+	16{{"sea__6183 Sϕ Stack "}}
 	13 --> 16
 	21 --> 16
 	22 --> 16
-	22["mv_f__6187 |False|  [object_isNull [cond__6174]]"]
+	22["mv_f__6188 |False|  [object_isNull [cond__6175]]"]
 	13 --> 22
 	11 -. Stack .-> 22
-	21["mv_t__6186 |True|  [object_isNull [cond__6174]]"]
+	21["mv_t__6187 |True|  [object_isNull [cond__6175]]"]
 	13 --> 21
 	14 -. Stack .-> 21
-	15{{"sea__6181 Sϕ Codeptr "}}
+	15{{"sea__6182 Sϕ Codeptr "}}
 	13 --> 15
 	19 --> 15
 	20 --> 15
-	20["mv_f__6185 |False|  [object_isNull [cond__6174]]"]
+	20["mv_f__6186 |False|  [object_isNull [cond__6175]]"]
 	13 --> 20
 	4 -. Codeptr .-> 20
-	19["mv_t__6184 |True|  [object_isNull [cond__6174]]"]
+	19["mv_t__6185 |True|  [object_isNull [cond__6175]]"]
 	13 --> 19
 	14 -. Codeptr .-> 19
 </pre>`;
@@ -108559,25 +103688,25 @@ subgraph block_4983["Block 4983"]
 end
 phi_4986 --> block_4983
 subgraph phi_4986["Phi 4986"]
-	p4986_17{{"sea__6183 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p4986_16{{"sea__6182 Sϕ Stack "}}
-	p4986_15{{"sea__6181 Sϕ Codeptr "}}
+	p4986_17{{"sea__6184 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p4986_16{{"sea__6183 Sϕ Stack "}}
+	p4986_15{{"sea__6182 Sϕ Codeptr "}}
 end
 block_4987 --> phi_4986
 block_4988 --> phi_4986
 subgraph block_4987["Block 4987"]
 	direction TB
-	b4987_14["ret__6175 trapNull"]
-	b4987_23["mv_t__6188 |True|  [object_isNull [cond__6174]]"]
-	b4987_21["mv_t__6186 |True|  [object_isNull [cond__6174]]"]
-	b4987_19["mv_t__6184 |True|  [object_isNull [cond__6174]]"]
+	b4987_14["ret__6176 trapNull"]
+	b4987_23["mv_t__6189 |True|  [object_isNull [cond__6175]]"]
+	b4987_21["mv_t__6187 |True|  [object_isNull [cond__6175]]"]
+	b4987_19["mv_t__6185 |True|  [object_isNull [cond__6175]]"]
 	b4987_14 --> b4987_23
 	b4987_23 --> b4987_21
 	b4987_21 --> b4987_19
 end
 branch_4985 --> block_4987
 subgraph branch_4985["Branch 4985"]
-	br4985_13["cond__6174 object_isNull"]
+	br4985_13["cond__6175 object_isNull"]
 
 end
 block_4989 --> branch_4985
@@ -108587,7 +103716,7 @@ subgraph block_4989["Block 4989"]
 	b4989_3["struct_index imm_readULEB32"]
 	b4989_11["obj pop_Object"]
 	b4989_4["field_index imm_readULEB32"]
-	b4989_13["cond__6174 object_isNull"]
+	b4989_13["cond__6175 object_isNull"]
 	b4989_0 --> b4989_3
 	b4989_3 --> b4989_11
 	b4989_11 --> b4989_4
@@ -108595,9 +103724,9 @@ subgraph block_4989["Block 4989"]
 end
 subgraph block_4988["Block 4988"]
 	direction TB
-	b4988_24["mv_f__6189 |False|  [object_isNull [cond__6174]]"]
-	b4988_22["mv_f__6187 |False|  [object_isNull [cond__6174]]"]
-	b4988_20["mv_f__6185 |False|  [object_isNull [cond__6174]]"]
+	b4988_24["mv_f__6190 |False|  [object_isNull [cond__6175]]"]
+	b4988_22["mv_f__6188 |False|  [object_isNull [cond__6175]]"]
+	b4988_20["mv_f__6186 |False|  [object_isNull [cond__6175]]"]
 	b4988_24 --> b4988_22
 	b4988_22 --> b4988_20
 end
@@ -108608,9 +103737,9 @@ window.traces["STRUCT_GET"]["scheduler_ssad"] = ''
 window.traces["STRUCT_GET"]["scheduler_ssad"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__6174 = object_isNull(obj);
-if (cond__6174) {
-	def ret__6175 = trapNull();
+def cond__6175 = object_isNull(obj);
+if (cond__6175) {
+	def ret__6176 = trapNull();
 }
 // phis: 
 </pre>`;
@@ -108633,16 +103762,16 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6183 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6184 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	29 --> 17
 	27 --> 17
-	27{{"innerPhi__6198 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__6199 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	14 --> 27
 	0 --> 27
-	0[/"r_state__6200 Start"\\]
-	14["ret__6175 trapNull"]
+	0[/"r_state__6201 Start"\\]
+	14["ret__6176 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -108652,40 +103781,40 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	19["mt__6190 U32_maybeTrue"]
+	19["mt__6191 U32_maybeTrue"]
 	13 --> 19
-	13["cond__6174 object_isNull"]
+	13["cond__6175 object_isNull"]
 	11 --> 13
-	29["eff_merge__6201 merge"]
+	29["eff_merge__6202 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__6199 nop"]
-	21["mb__6192 bool.&&"]
+	28["eff_nop__6200 nop"]
+	21["mb__6193 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__6191 U32_maybeFalse"]
+	20["mf__6192 U32_maybeFalse"]
 	13 --> 20
-	16{{"sea__6182 Sϕ Stack "}}
+	16{{"sea__6183 Sϕ Stack "}}
 	21 --> 16
 	26 --> 16
 	24 --> 16
-	24{{"innerPhi__6195 Sϕ Stack "}}
+	24{{"innerPhi__6196 Sϕ Stack "}}
 	19 --> 24
 	14 --> 24
 	11 --> 24
-	26["eff_merge__6197 merge"]
+	26["eff_merge__6198 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__6196 nop"]
-	15{{"sea__6181 Sϕ Codeptr "}}
+	25["eff_nop__6197 nop"]
+	15{{"sea__6182 Sϕ Codeptr "}}
 	21 --> 15
 	23 --> 15
 	22 --> 15
-	22{{"innerPhi__6193 Sϕ Codeptr "}}
+	22{{"innerPhi__6194 Sϕ Codeptr "}}
 	19 --> 22
 	14 --> 22
 	4 --> 22
-	23["eff_merge__6194 merge"]
+	23["eff_merge__6195 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
@@ -108700,31 +103829,31 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6183 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6184 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	34 --> 17
 	35 --> 17
-	35["mv_f__6207 |False|  [bool.&& [mb__6192]]"]
+	35["mv_f__6208 |False|  [bool.&& [mb__6193]]"]
 	21 --> 35
 	27 -. Trap Locals Globals Tables Memory Extra .-> 35
-	27{{"innerPhi__6198 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__6199 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	40 --> 27
 	41 --> 27
-	41["mv_f__6213 |False|  [U32_maybeTrue [mt__6190]]"]
+	41["mv_f__6214 |False|  [U32_maybeTrue [mt__6191]]"]
 	19 --> 41
 	0 -. Trap Locals Globals Tables Memory Extra .-> 41
-	0[/"r_state__6200 Start"\\]
-	19["mt__6190 U32_maybeTrue"]
+	0[/"r_state__6201 Start"\\]
+	19["mt__6191 U32_maybeTrue"]
 	13 --> 19
-	13["cond__6174 object_isNull"]
+	13["cond__6175 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	40["mv_t__6212 |True|  [U32_maybeTrue [mt__6190]]"]
+	40["mv_t__6213 |True|  [U32_maybeTrue [mt__6191]]"]
 	19 --> 40
 	14 -. Trap Locals Globals Tables Memory Extra .-> 40
-	14["ret__6175 trapNull"]
+	14["ret__6176 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -108732,63 +103861,63 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__6192 bool.&&"]
+	21["mb__6193 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__6191 U32_maybeFalse"]
+	20["mf__6192 U32_maybeFalse"]
 	13 --> 20
-	34["mv_t__6206 |True|  [bool.&& [mb__6192]]"]
+	34["mv_t__6207 |True|  [bool.&& [mb__6193]]"]
 	21 --> 34
 	29 -. Trap Locals Globals Tables Memory Extra .-> 34
-	29["eff_merge__6201 merge"]
+	29["eff_merge__6202 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__6199 nop"]
-	16{{"sea__6182 Sϕ Stack "}}
+	28["eff_nop__6200 nop"]
+	16{{"sea__6183 Sϕ Stack "}}
 	21 --> 16
 	32 --> 16
 	33 --> 16
-	33["mv_f__6205 |False|  [bool.&& [mb__6192]]"]
+	33["mv_f__6206 |False|  [bool.&& [mb__6193]]"]
 	21 --> 33
 	24 -. Stack .-> 33
-	24{{"innerPhi__6195 Sϕ Stack "}}
+	24{{"innerPhi__6196 Sϕ Stack "}}
 	19 --> 24
 	38 --> 24
 	39 --> 24
-	39["mv_f__6211 |False|  [U32_maybeTrue [mt__6190]]"]
+	39["mv_f__6212 |False|  [U32_maybeTrue [mt__6191]]"]
 	19 --> 39
 	11 -. Stack .-> 39
-	38["mv_t__6210 |True|  [U32_maybeTrue [mt__6190]]"]
+	38["mv_t__6211 |True|  [U32_maybeTrue [mt__6191]]"]
 	19 --> 38
 	14 -. Stack .-> 38
-	32["mv_t__6204 |True|  [bool.&& [mb__6192]]"]
+	32["mv_t__6205 |True|  [bool.&& [mb__6193]]"]
 	21 --> 32
 	26 -. Stack .-> 32
-	26["eff_merge__6197 merge"]
+	26["eff_merge__6198 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__6196 nop"]
-	15{{"sea__6181 Sϕ Codeptr "}}
+	25["eff_nop__6197 nop"]
+	15{{"sea__6182 Sϕ Codeptr "}}
 	21 --> 15
 	30 --> 15
 	31 --> 15
-	31["mv_f__6203 |False|  [bool.&& [mb__6192]]"]
+	31["mv_f__6204 |False|  [bool.&& [mb__6193]]"]
 	21 --> 31
 	22 -. Codeptr .-> 31
-	22{{"innerPhi__6193 Sϕ Codeptr "}}
+	22{{"innerPhi__6194 Sϕ Codeptr "}}
 	19 --> 22
 	36 --> 22
 	37 --> 22
-	37["mv_f__6209 |False|  [U32_maybeTrue [mt__6190]]"]
+	37["mv_f__6210 |False|  [U32_maybeTrue [mt__6191]]"]
 	19 --> 37
 	4 -. Codeptr .-> 37
-	36["mv_t__6208 |True|  [U32_maybeTrue [mt__6190]]"]
+	36["mv_t__6209 |True|  [U32_maybeTrue [mt__6191]]"]
 	19 --> 36
 	14 -. Codeptr .-> 36
-	30["mv_t__6202 |True|  [bool.&& [mb__6192]]"]
+	30["mv_t__6203 |True|  [bool.&& [mb__6193]]"]
 	21 --> 30
 	23 -. Codeptr .-> 30
-	23["eff_merge__6194 merge"]
+	23["eff_merge__6195 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
@@ -108802,31 +103931,31 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6183 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6184 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	34 --> 17
 	35 --> 17
-	35["mv_f__6207 |False|  [bool.&& [mb__6192]]"]
+	35["mv_f__6208 |False|  [bool.&& [mb__6193]]"]
 	21 --> 35
 	27 -. Trap Locals Globals Tables Memory Extra .-> 35
-	27{{"innerPhi__6198 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__6199 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	40 --> 27
 	41 --> 27
-	41["mv_f__6213 |False|  [U32_maybeTrue [mt__6190]]"]
+	41["mv_f__6214 |False|  [U32_maybeTrue [mt__6191]]"]
 	19 --> 41
 	0 -. Trap Locals Globals Tables Memory Extra .-> 41
-	0[/"r_state__6200 Start"\\]
-	19["mt__6190 U32_maybeTrue"]
+	0[/"r_state__6201 Start"\\]
+	19["mt__6191 U32_maybeTrue"]
 	13 --> 19
-	13["cond__6174 object_isNull"]
+	13["cond__6175 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	40["mv_t__6212 |True|  [U32_maybeTrue [mt__6190]]"]
+	40["mv_t__6213 |True|  [U32_maybeTrue [mt__6191]]"]
 	19 --> 40
 	42 -. Trap Locals Globals Tables Memory Extra .-> 40
-	42["ret__6175__6214 trapNull"]
+	42["ret__6176__6215 trapNull"]
 	4 -. Codeptr .-> 42
 	11 -. Stack .-> 42
 	0 -. Trap Locals Globals Tables Memory Extra .-> 42
@@ -108834,93 +103963,69 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__6192 bool.&&"]
+	21["mb__6193 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__6191 U32_maybeFalse"]
+	20["mf__6192 U32_maybeFalse"]
 	13 --> 20
-	34["mv_t__6206 |True|  [bool.&& [mb__6192]]"]
+	34["mv_t__6207 |True|  [bool.&& [mb__6193]]"]
 	21 --> 34
 	29 -. Trap Locals Globals Tables Memory Extra .-> 34
-	29["eff_merge__6201 merge"]
+	29["eff_merge__6202 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__6199 nop"]
-	16{{"sea__6182 Sϕ Stack "}}
+	28["eff_nop__6200 nop"]
+	16{{"sea__6183 Sϕ Stack "}}
 	21 --> 16
 	32 --> 16
 	33 --> 16
-	33["mv_f__6205 |False|  [bool.&& [mb__6192]]"]
+	33["mv_f__6206 |False|  [bool.&& [mb__6193]]"]
 	21 --> 33
 	24 -. Stack .-> 33
-	24{{"innerPhi__6195 Sϕ Stack "}}
+	24{{"innerPhi__6196 Sϕ Stack "}}
 	19 --> 24
 	38 --> 24
 	39 --> 24
-	39["mv_f__6211 |False|  [U32_maybeTrue [mt__6190]]"]
+	39["mv_f__6212 |False|  [U32_maybeTrue [mt__6191]]"]
 	19 --> 39
 	11 -. Stack .-> 39
-	38["mv_t__6210 |True|  [U32_maybeTrue [mt__6190]]"]
+	38["mv_t__6211 |True|  [U32_maybeTrue [mt__6191]]"]
 	19 --> 38
 	42 -. Stack .-> 38
-	32["mv_t__6204 |True|  [bool.&& [mb__6192]]"]
+	32["mv_t__6205 |True|  [bool.&& [mb__6193]]"]
 	21 --> 32
 	26 -. Stack .-> 32
-	26["eff_merge__6197 merge"]
+	26["eff_merge__6198 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__6196 nop"]
-	15{{"sea__6181 Sϕ Codeptr "}}
+	25["eff_nop__6197 nop"]
+	15{{"sea__6182 Sϕ Codeptr "}}
 	21 --> 15
 	30 --> 15
 	31 --> 15
-	31["mv_f__6203 |False|  [bool.&& [mb__6192]]"]
+	31["mv_f__6204 |False|  [bool.&& [mb__6193]]"]
 	21 --> 31
 	22 -. Codeptr .-> 31
-	22{{"innerPhi__6193 Sϕ Codeptr "}}
+	22{{"innerPhi__6194 Sϕ Codeptr "}}
 	19 --> 22
 	36 --> 22
 	37 --> 22
-	37["mv_f__6209 |False|  [U32_maybeTrue [mt__6190]]"]
+	37["mv_f__6210 |False|  [U32_maybeTrue [mt__6191]]"]
 	19 --> 37
 	4 -. Codeptr .-> 37
-	36["mv_t__6208 |True|  [U32_maybeTrue [mt__6190]]"]
+	36["mv_t__6209 |True|  [U32_maybeTrue [mt__6191]]"]
 	19 --> 36
 	42 -. Codeptr .-> 36
-	30["mv_t__6202 |True|  [bool.&& [mb__6192]]"]
+	30["mv_t__6203 |True|  [bool.&& [mb__6193]]"]
 	21 --> 30
 	23 -. Codeptr .-> 30
-	23["eff_merge__6194 merge"]
+	23["eff_merge__6195 merge"]
 	14 --> 23
 	4 --> 23
-	14["ret__6175 trapNull"]
+	14["ret__6176 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
-</pre>`;
-window.traces["STRUCT_GET"]["unlem_schedule"] = ''
-window.traces["STRUCT_GET"]["unlem_schedule"] += `<pre class=''>def struct_index = imm_readULEB32();
-def obj = pop_Object();
-def field_index = imm_readULEB32();
-def cond__6174 = object_isNull(obj);
-def mt__6190 = U32_maybeTrue(cond__6174);
-def mf__6191 = U32_maybeFalse(cond__6174);
-def mb__6192 = bool.&&(mt__6190, mf__6191);
-if (mb__6192) {
-	def eff_nop__6199 = nop();
-	def eff_nop__6196 = nop();
-	def ret__6175 = trapNull();
-	def eff_merge__6201 = merge(eff_nop__6199, r_state__6200);
-	def eff_merge__6197 = merge(eff_nop__6196, obj);
-	def eff_merge__6194 = merge(ret__6175, field_index);
-} else {
-	if (mt__6190) {
-		def ret__6175__6214 = trapNull();
-		def ret__6175 = (ret__6175__6214);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["STRUCT_GET"]["unlem_scheduler"] = ''
 window.traces["STRUCT_GET"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -108930,23 +104035,23 @@ subgraph block_4990["Block 4990"]
 end
 phi_4996 --> block_4990
 subgraph phi_4996["Phi 4996"]
-	p4996_17{{"sea__6183 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p4996_16{{"sea__6182 Sϕ Stack "}}
-	p4996_15{{"sea__6181 Sϕ Codeptr "}}
+	p4996_17{{"sea__6184 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p4996_16{{"sea__6183 Sϕ Stack "}}
+	p4996_15{{"sea__6182 Sϕ Codeptr "}}
 end
 block_4997 --> phi_4996
 block_4998 --> phi_4996
 subgraph block_4997["Block 4997"]
 	direction TB
-	b4997_28["eff_nop__6199 nop"]
-	b4997_25["eff_nop__6196 nop"]
-	b4997_14["ret__6175 trapNull"]
-	b4997_29["eff_merge__6201 merge"]
-	b4997_26["eff_merge__6197 merge"]
-	b4997_23["eff_merge__6194 merge"]
-	b4997_34["mv_t__6206 |True|  [bool.&& [mb__6192]]"]
-	b4997_32["mv_t__6204 |True|  [bool.&& [mb__6192]]"]
-	b4997_30["mv_t__6202 |True|  [bool.&& [mb__6192]]"]
+	b4997_28["eff_nop__6200 nop"]
+	b4997_25["eff_nop__6197 nop"]
+	b4997_14["ret__6176 trapNull"]
+	b4997_29["eff_merge__6202 merge"]
+	b4997_26["eff_merge__6198 merge"]
+	b4997_23["eff_merge__6195 merge"]
+	b4997_34["mv_t__6207 |True|  [bool.&& [mb__6193]]"]
+	b4997_32["mv_t__6205 |True|  [bool.&& [mb__6193]]"]
+	b4997_30["mv_t__6203 |True|  [bool.&& [mb__6193]]"]
 	b4997_28 --> b4997_25
 	b4997_25 --> b4997_14
 	b4997_14 --> b4997_29
@@ -108958,20 +104063,20 @@ subgraph block_4997["Block 4997"]
 end
 branch_4995 --> block_4997
 subgraph branch_4995["Branch 4995"]
-	br4995_21["mb__6192 bool.&&"]
+	br4995_21["mb__6193 bool.&&"]
 
 end
 block_4999 --> branch_4995
 subgraph block_4999["Block 4999"]
 	direction TB
-	b4999_0[/"r_state__6200 Start"\\]
+	b4999_0[/"r_state__6201 Start"\\]
 	b4999_3["struct_index imm_readULEB32"]
 	b4999_11["obj pop_Object"]
 	b4999_4["field_index imm_readULEB32"]
-	b4999_13["cond__6174 object_isNull"]
-	b4999_19["mt__6190 U32_maybeTrue"]
-	b4999_20["mf__6191 U32_maybeFalse"]
-	b4999_21["mb__6192 bool.&&"]
+	b4999_13["cond__6175 object_isNull"]
+	b4999_19["mt__6191 U32_maybeTrue"]
+	b4999_20["mf__6192 U32_maybeFalse"]
+	b4999_21["mb__6193 bool.&&"]
 	b4999_0 --> b4999_3
 	b4999_3 --> b4999_11
 	b4999_11 --> b4999_4
@@ -108982,41 +104087,41 @@ subgraph block_4999["Block 4999"]
 end
 subgraph block_4998["Block 4998"]
 	direction TB
-	b4998_35["mv_f__6207 |False|  [bool.&& [mb__6192]]"]
-	b4998_33["mv_f__6205 |False|  [bool.&& [mb__6192]]"]
-	b4998_31["mv_f__6203 |False|  [bool.&& [mb__6192]]"]
+	b4998_35["mv_f__6208 |False|  [bool.&& [mb__6193]]"]
+	b4998_33["mv_f__6206 |False|  [bool.&& [mb__6193]]"]
+	b4998_31["mv_f__6204 |False|  [bool.&& [mb__6193]]"]
 	b4998_35 --> b4998_33
 	b4998_33 --> b4998_31
 end
 phi_5001 --> block_4998
 subgraph phi_5001["Phi 5001"]
-	p5001_27{{"innerPhi__6198 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p5001_24{{"innerPhi__6195 Sϕ Stack "}}
-	p5001_22{{"innerPhi__6193 Sϕ Codeptr "}}
+	p5001_27{{"innerPhi__6199 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p5001_24{{"innerPhi__6196 Sϕ Stack "}}
+	p5001_22{{"innerPhi__6194 Sϕ Codeptr "}}
 end
 block_5002 --> phi_5001
 block_5003 --> phi_5001
 subgraph block_5002["Block 5002"]
 	direction TB
-	b5002_42["ret__6175__6214 trapNull"]
-	b5002_40["mv_t__6212 |True|  [U32_maybeTrue [mt__6190]]"]
-	b5002_38["mv_t__6210 |True|  [U32_maybeTrue [mt__6190]]"]
-	b5002_36["mv_t__6208 |True|  [U32_maybeTrue [mt__6190]]"]
+	b5002_42["ret__6176__6215 trapNull"]
+	b5002_40["mv_t__6213 |True|  [U32_maybeTrue [mt__6191]]"]
+	b5002_38["mv_t__6211 |True|  [U32_maybeTrue [mt__6191]]"]
+	b5002_36["mv_t__6209 |True|  [U32_maybeTrue [mt__6191]]"]
 	b5002_42 --> b5002_40
 	b5002_40 --> b5002_38
 	b5002_38 --> b5002_36
 end
 branch_5000 --> block_5002
 subgraph branch_5000["Branch 5000"]
-	br5000_19["mt__6190 U32_maybeTrue"]
+	br5000_19["mt__6191 U32_maybeTrue"]
 
 end
 branch_4995 --> branch_5000
 subgraph block_5003["Block 5003"]
 	direction TB
-	b5003_41["mv_f__6213 |False|  [U32_maybeTrue [mt__6190]]"]
-	b5003_39["mv_f__6211 |False|  [U32_maybeTrue [mt__6190]]"]
-	b5003_37["mv_f__6209 |False|  [U32_maybeTrue [mt__6190]]"]
+	b5003_41["mv_f__6214 |False|  [U32_maybeTrue [mt__6191]]"]
+	b5003_39["mv_f__6212 |False|  [U32_maybeTrue [mt__6191]]"]
+	b5003_37["mv_f__6210 |False|  [U32_maybeTrue [mt__6191]]"]
 	b5003_41 --> b5003_39
 	b5003_39 --> b5003_37
 end
@@ -109027,21 +104132,21 @@ window.traces["STRUCT_GET"]["unlem_scheduler_ssa"] = ''
 window.traces["STRUCT_GET"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__6174 = object_isNull(obj);
-def mt__6190 = U32_maybeTrue(cond__6174);
-def mf__6191 = U32_maybeFalse(cond__6174);
-def mb__6192 = bool.&&(mt__6190, mf__6191);
-if (mb__6192) {
-	def eff_nop__6199 = nop();
-	def eff_nop__6196 = nop();
-	def ret__6175 = trapNull();
-	def eff_merge__6201 = merge(eff_nop__6199, r_state__6200);
-	def eff_merge__6197 = merge(eff_nop__6196, obj);
-	def eff_merge__6194 = merge(ret__6175, field_index);
+def cond__6175 = object_isNull(obj);
+def mt__6191 = U32_maybeTrue(cond__6175);
+def mf__6192 = U32_maybeFalse(cond__6175);
+def mb__6193 = bool.&&(mt__6191, mf__6192);
+if (mb__6193) {
+	def eff_nop__6200 = nop();
+	def eff_nop__6197 = nop();
+	def ret__6176 = trapNull();
+	def eff_merge__6202 = merge(eff_nop__6200, r_state__6201);
+	def eff_merge__6198 = merge(eff_nop__6197, obj);
+	def eff_merge__6195 = merge(ret__6176, field_index);
 } else {
-	if (mt__6190) {
-		def ret__6175__6214 = trapNull();
-		def ret__6175 = (ret__6175__6214);
+	if (mt__6191) {
+		def ret__6176__6215 = trapNull();
+		def ret__6176 = (ret__6176__6215);
 	}
 // phis: 
 }
@@ -109066,20 +104171,20 @@ window.traces["STRUCT_GET_S"] = {}
 window.traces["STRUCT_GET_S"]["parsed"] = ''
 window.traces["STRUCT_GET_S"]["parsed"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
-def arg__6232 = (field_index);
-def arg__6231 = (struct_index);
-def kind = m_getFieldKind(arg__6231, arg__6232);
-def arg__6230 = (field_index);
-def arg__6229 = (struct_index);
-def offset = m_getFieldOffset(arg__6229, arg__6230);
+def arg__6233 = (field_index);
+def arg__6232 = (struct_index);
+def kind = m_getFieldKind(arg__6232, arg__6233);
+def arg__6231 = (field_index);
+def arg__6230 = (struct_index);
+def offset = m_getFieldOffset(arg__6230, arg__6231);
 def obj = pop_Object();
-def arg__6228 = (obj);
-def cond__6226 = object_isNull(arg__6228);
-if (cond__6226) {
-	def ret__6227 = trapNull();
+def arg__6229 = (obj);
+def cond__6227 = object_isNull(arg__6229);
+if (cond__6227) {
+	def ret__6228 = trapNull();
 }
 // phis: 
-def cond__6215 = (kind);
+def cond__6216 = (kind);
 </pre>`;
 window.traces["STRUCT_GET_S"]["initial_pretty"] = ''
 window.traces["STRUCT_GET_S"]["initial_pretty"] += `<pre class=''>def struct_index = imm_readULEB32();
@@ -109113,12 +104218,12 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6235 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6236 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__6227 trapNull"]
+	14["ret__6228 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -109128,13 +104233,13 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__6226 object_isNull"]
+	13["cond__6227 object_isNull"]
 	11 --> 13
-	16{{"sea__6234 Sϕ Stack "}}
+	16{{"sea__6235 Sϕ Stack "}}
 	13 --> 16
 	14 --> 16
 	11 --> 16
-	15{{"sea__6233 Sϕ Codeptr "}}
+	15{{"sea__6234 Sϕ Codeptr "}}
 	13 --> 15
 	14 --> 15
 	4 --> 15
@@ -109149,22 +104254,22 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6235 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6236 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	23 --> 17
 	24 --> 17
-	24["mv_f__6241 |False|  [object_isNull [cond__6226]]"]
+	24["mv_f__6242 |False|  [object_isNull [cond__6227]]"]
 	13 --> 24
 	0 -. Trap Locals Globals Tables Memory Extra .-> 24
 	0[/"Start"\\]
-	13["cond__6226 object_isNull"]
+	13["cond__6227 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	23["mv_t__6240 |True|  [object_isNull [cond__6226]]"]
+	23["mv_t__6241 |True|  [object_isNull [cond__6227]]"]
 	13 --> 23
 	14 -. Trap Locals Globals Tables Memory Extra .-> 23
-	14["ret__6227 trapNull"]
+	14["ret__6228 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -109172,24 +104277,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	16{{"sea__6234 Sϕ Stack "}}
+	16{{"sea__6235 Sϕ Stack "}}
 	13 --> 16
 	21 --> 16
 	22 --> 16
-	22["mv_f__6239 |False|  [object_isNull [cond__6226]]"]
+	22["mv_f__6240 |False|  [object_isNull [cond__6227]]"]
 	13 --> 22
 	11 -. Stack .-> 22
-	21["mv_t__6238 |True|  [object_isNull [cond__6226]]"]
+	21["mv_t__6239 |True|  [object_isNull [cond__6227]]"]
 	13 --> 21
 	14 -. Stack .-> 21
-	15{{"sea__6233 Sϕ Codeptr "}}
+	15{{"sea__6234 Sϕ Codeptr "}}
 	13 --> 15
 	19 --> 15
 	20 --> 15
-	20["mv_f__6237 |False|  [object_isNull [cond__6226]]"]
+	20["mv_f__6238 |False|  [object_isNull [cond__6227]]"]
 	13 --> 20
 	4 -. Codeptr .-> 20
-	19["mv_t__6236 |True|  [object_isNull [cond__6226]]"]
+	19["mv_t__6237 |True|  [object_isNull [cond__6227]]"]
 	13 --> 19
 	14 -. Codeptr .-> 19
 </pre>`;
@@ -109203,22 +104308,22 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6235 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6236 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	23 --> 17
 	24 --> 17
-	24["mv_f__6241 |False|  [object_isNull [cond__6226]]"]
+	24["mv_f__6242 |False|  [object_isNull [cond__6227]]"]
 	13 --> 24
 	0 -. Trap Locals Globals Tables Memory Extra .-> 24
 	0[/"Start"\\]
-	13["cond__6226 object_isNull"]
+	13["cond__6227 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	23["mv_t__6240 |True|  [object_isNull [cond__6226]]"]
+	23["mv_t__6241 |True|  [object_isNull [cond__6227]]"]
 	13 --> 23
 	14 -. Trap Locals Globals Tables Memory Extra .-> 23
-	14["ret__6227 trapNull"]
+	14["ret__6228 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -109226,24 +104331,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	16{{"sea__6234 Sϕ Stack "}}
+	16{{"sea__6235 Sϕ Stack "}}
 	13 --> 16
 	21 --> 16
 	22 --> 16
-	22["mv_f__6239 |False|  [object_isNull [cond__6226]]"]
+	22["mv_f__6240 |False|  [object_isNull [cond__6227]]"]
 	13 --> 22
 	11 -. Stack .-> 22
-	21["mv_t__6238 |True|  [object_isNull [cond__6226]]"]
+	21["mv_t__6239 |True|  [object_isNull [cond__6227]]"]
 	13 --> 21
 	14 -. Stack .-> 21
-	15{{"sea__6233 Sϕ Codeptr "}}
+	15{{"sea__6234 Sϕ Codeptr "}}
 	13 --> 15
 	19 --> 15
 	20 --> 15
-	20["mv_f__6237 |False|  [object_isNull [cond__6226]]"]
+	20["mv_f__6238 |False|  [object_isNull [cond__6227]]"]
 	13 --> 20
 	4 -. Codeptr .-> 20
-	19["mv_t__6236 |True|  [object_isNull [cond__6226]]"]
+	19["mv_t__6237 |True|  [object_isNull [cond__6227]]"]
 	13 --> 19
 	14 -. Codeptr .-> 19
 </pre>`;
@@ -109255,25 +104360,25 @@ subgraph block_5004["Block 5004"]
 end
 phi_5007 --> block_5004
 subgraph phi_5007["Phi 5007"]
-	p5007_17{{"sea__6235 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p5007_16{{"sea__6234 Sϕ Stack "}}
-	p5007_15{{"sea__6233 Sϕ Codeptr "}}
+	p5007_17{{"sea__6236 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p5007_16{{"sea__6235 Sϕ Stack "}}
+	p5007_15{{"sea__6234 Sϕ Codeptr "}}
 end
 block_5008 --> phi_5007
 block_5009 --> phi_5007
 subgraph block_5008["Block 5008"]
 	direction TB
-	b5008_14["ret__6227 trapNull"]
-	b5008_23["mv_t__6240 |True|  [object_isNull [cond__6226]]"]
-	b5008_21["mv_t__6238 |True|  [object_isNull [cond__6226]]"]
-	b5008_19["mv_t__6236 |True|  [object_isNull [cond__6226]]"]
+	b5008_14["ret__6228 trapNull"]
+	b5008_23["mv_t__6241 |True|  [object_isNull [cond__6227]]"]
+	b5008_21["mv_t__6239 |True|  [object_isNull [cond__6227]]"]
+	b5008_19["mv_t__6237 |True|  [object_isNull [cond__6227]]"]
 	b5008_14 --> b5008_23
 	b5008_23 --> b5008_21
 	b5008_21 --> b5008_19
 end
 branch_5006 --> block_5008
 subgraph branch_5006["Branch 5006"]
-	br5006_13["cond__6226 object_isNull"]
+	br5006_13["cond__6227 object_isNull"]
 
 end
 block_5010 --> branch_5006
@@ -109283,7 +104388,7 @@ subgraph block_5010["Block 5010"]
 	b5010_3["struct_index imm_readULEB32"]
 	b5010_11["obj pop_Object"]
 	b5010_4["field_index imm_readULEB32"]
-	b5010_13["cond__6226 object_isNull"]
+	b5010_13["cond__6227 object_isNull"]
 	b5010_0 --> b5010_3
 	b5010_3 --> b5010_11
 	b5010_11 --> b5010_4
@@ -109291,9 +104396,9 @@ subgraph block_5010["Block 5010"]
 end
 subgraph block_5009["Block 5009"]
 	direction TB
-	b5009_24["mv_f__6241 |False|  [object_isNull [cond__6226]]"]
-	b5009_22["mv_f__6239 |False|  [object_isNull [cond__6226]]"]
-	b5009_20["mv_f__6237 |False|  [object_isNull [cond__6226]]"]
+	b5009_24["mv_f__6242 |False|  [object_isNull [cond__6227]]"]
+	b5009_22["mv_f__6240 |False|  [object_isNull [cond__6227]]"]
+	b5009_20["mv_f__6238 |False|  [object_isNull [cond__6227]]"]
 	b5009_24 --> b5009_22
 	b5009_22 --> b5009_20
 end
@@ -109304,9 +104409,9 @@ window.traces["STRUCT_GET_S"]["scheduler_ssad"] = ''
 window.traces["STRUCT_GET_S"]["scheduler_ssad"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__6226 = object_isNull(obj);
-if (cond__6226) {
-	def ret__6227 = trapNull();
+def cond__6227 = object_isNull(obj);
+if (cond__6227) {
+	def ret__6228 = trapNull();
 }
 // phis: 
 </pre>`;
@@ -109329,16 +104434,16 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6235 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6236 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	29 --> 17
 	27 --> 17
-	27{{"innerPhi__6250 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__6251 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	14 --> 27
 	0 --> 27
-	0[/"r_state__6252 Start"\\]
-	14["ret__6227 trapNull"]
+	0[/"r_state__6253 Start"\\]
+	14["ret__6228 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -109348,40 +104453,40 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	19["mt__6242 U32_maybeTrue"]
+	19["mt__6243 U32_maybeTrue"]
 	13 --> 19
-	13["cond__6226 object_isNull"]
+	13["cond__6227 object_isNull"]
 	11 --> 13
-	29["eff_merge__6253 merge"]
+	29["eff_merge__6254 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__6251 nop"]
-	21["mb__6244 bool.&&"]
+	28["eff_nop__6252 nop"]
+	21["mb__6245 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__6243 U32_maybeFalse"]
+	20["mf__6244 U32_maybeFalse"]
 	13 --> 20
-	16{{"sea__6234 Sϕ Stack "}}
+	16{{"sea__6235 Sϕ Stack "}}
 	21 --> 16
 	26 --> 16
 	24 --> 16
-	24{{"innerPhi__6247 Sϕ Stack "}}
+	24{{"innerPhi__6248 Sϕ Stack "}}
 	19 --> 24
 	14 --> 24
 	11 --> 24
-	26["eff_merge__6249 merge"]
+	26["eff_merge__6250 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__6248 nop"]
-	15{{"sea__6233 Sϕ Codeptr "}}
+	25["eff_nop__6249 nop"]
+	15{{"sea__6234 Sϕ Codeptr "}}
 	21 --> 15
 	23 --> 15
 	22 --> 15
-	22{{"innerPhi__6245 Sϕ Codeptr "}}
+	22{{"innerPhi__6246 Sϕ Codeptr "}}
 	19 --> 22
 	14 --> 22
 	4 --> 22
-	23["eff_merge__6246 merge"]
+	23["eff_merge__6247 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
@@ -109396,31 +104501,31 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6235 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6236 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	34 --> 17
 	35 --> 17
-	35["mv_f__6259 |False|  [bool.&& [mb__6244]]"]
+	35["mv_f__6260 |False|  [bool.&& [mb__6245]]"]
 	21 --> 35
 	27 -. Trap Locals Globals Tables Memory Extra .-> 35
-	27{{"innerPhi__6250 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__6251 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	40 --> 27
 	41 --> 27
-	41["mv_f__6265 |False|  [U32_maybeTrue [mt__6242]]"]
+	41["mv_f__6266 |False|  [U32_maybeTrue [mt__6243]]"]
 	19 --> 41
 	0 -. Trap Locals Globals Tables Memory Extra .-> 41
-	0[/"r_state__6252 Start"\\]
-	19["mt__6242 U32_maybeTrue"]
+	0[/"r_state__6253 Start"\\]
+	19["mt__6243 U32_maybeTrue"]
 	13 --> 19
-	13["cond__6226 object_isNull"]
+	13["cond__6227 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	40["mv_t__6264 |True|  [U32_maybeTrue [mt__6242]]"]
+	40["mv_t__6265 |True|  [U32_maybeTrue [mt__6243]]"]
 	19 --> 40
 	14 -. Trap Locals Globals Tables Memory Extra .-> 40
-	14["ret__6227 trapNull"]
+	14["ret__6228 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -109428,63 +104533,63 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__6244 bool.&&"]
+	21["mb__6245 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__6243 U32_maybeFalse"]
+	20["mf__6244 U32_maybeFalse"]
 	13 --> 20
-	34["mv_t__6258 |True|  [bool.&& [mb__6244]]"]
+	34["mv_t__6259 |True|  [bool.&& [mb__6245]]"]
 	21 --> 34
 	29 -. Trap Locals Globals Tables Memory Extra .-> 34
-	29["eff_merge__6253 merge"]
+	29["eff_merge__6254 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__6251 nop"]
-	16{{"sea__6234 Sϕ Stack "}}
+	28["eff_nop__6252 nop"]
+	16{{"sea__6235 Sϕ Stack "}}
 	21 --> 16
 	32 --> 16
 	33 --> 16
-	33["mv_f__6257 |False|  [bool.&& [mb__6244]]"]
+	33["mv_f__6258 |False|  [bool.&& [mb__6245]]"]
 	21 --> 33
 	24 -. Stack .-> 33
-	24{{"innerPhi__6247 Sϕ Stack "}}
+	24{{"innerPhi__6248 Sϕ Stack "}}
 	19 --> 24
 	38 --> 24
 	39 --> 24
-	39["mv_f__6263 |False|  [U32_maybeTrue [mt__6242]]"]
+	39["mv_f__6264 |False|  [U32_maybeTrue [mt__6243]]"]
 	19 --> 39
 	11 -. Stack .-> 39
-	38["mv_t__6262 |True|  [U32_maybeTrue [mt__6242]]"]
+	38["mv_t__6263 |True|  [U32_maybeTrue [mt__6243]]"]
 	19 --> 38
 	14 -. Stack .-> 38
-	32["mv_t__6256 |True|  [bool.&& [mb__6244]]"]
+	32["mv_t__6257 |True|  [bool.&& [mb__6245]]"]
 	21 --> 32
 	26 -. Stack .-> 32
-	26["eff_merge__6249 merge"]
+	26["eff_merge__6250 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__6248 nop"]
-	15{{"sea__6233 Sϕ Codeptr "}}
+	25["eff_nop__6249 nop"]
+	15{{"sea__6234 Sϕ Codeptr "}}
 	21 --> 15
 	30 --> 15
 	31 --> 15
-	31["mv_f__6255 |False|  [bool.&& [mb__6244]]"]
+	31["mv_f__6256 |False|  [bool.&& [mb__6245]]"]
 	21 --> 31
 	22 -. Codeptr .-> 31
-	22{{"innerPhi__6245 Sϕ Codeptr "}}
+	22{{"innerPhi__6246 Sϕ Codeptr "}}
 	19 --> 22
 	36 --> 22
 	37 --> 22
-	37["mv_f__6261 |False|  [U32_maybeTrue [mt__6242]]"]
+	37["mv_f__6262 |False|  [U32_maybeTrue [mt__6243]]"]
 	19 --> 37
 	4 -. Codeptr .-> 37
-	36["mv_t__6260 |True|  [U32_maybeTrue [mt__6242]]"]
+	36["mv_t__6261 |True|  [U32_maybeTrue [mt__6243]]"]
 	19 --> 36
 	14 -. Codeptr .-> 36
-	30["mv_t__6254 |True|  [bool.&& [mb__6244]]"]
+	30["mv_t__6255 |True|  [bool.&& [mb__6245]]"]
 	21 --> 30
 	23 -. Codeptr .-> 30
-	23["eff_merge__6246 merge"]
+	23["eff_merge__6247 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
@@ -109498,31 +104603,31 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6235 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6236 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	34 --> 17
 	35 --> 17
-	35["mv_f__6259 |False|  [bool.&& [mb__6244]]"]
+	35["mv_f__6260 |False|  [bool.&& [mb__6245]]"]
 	21 --> 35
 	27 -. Trap Locals Globals Tables Memory Extra .-> 35
-	27{{"innerPhi__6250 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__6251 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	40 --> 27
 	41 --> 27
-	41["mv_f__6265 |False|  [U32_maybeTrue [mt__6242]]"]
+	41["mv_f__6266 |False|  [U32_maybeTrue [mt__6243]]"]
 	19 --> 41
 	0 -. Trap Locals Globals Tables Memory Extra .-> 41
-	0[/"r_state__6252 Start"\\]
-	19["mt__6242 U32_maybeTrue"]
+	0[/"r_state__6253 Start"\\]
+	19["mt__6243 U32_maybeTrue"]
 	13 --> 19
-	13["cond__6226 object_isNull"]
+	13["cond__6227 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	40["mv_t__6264 |True|  [U32_maybeTrue [mt__6242]]"]
+	40["mv_t__6265 |True|  [U32_maybeTrue [mt__6243]]"]
 	19 --> 40
 	42 -. Trap Locals Globals Tables Memory Extra .-> 40
-	42["ret__6227__6266 trapNull"]
+	42["ret__6228__6267 trapNull"]
 	4 -. Codeptr .-> 42
 	11 -. Stack .-> 42
 	0 -. Trap Locals Globals Tables Memory Extra .-> 42
@@ -109530,93 +104635,69 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__6244 bool.&&"]
+	21["mb__6245 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__6243 U32_maybeFalse"]
+	20["mf__6244 U32_maybeFalse"]
 	13 --> 20
-	34["mv_t__6258 |True|  [bool.&& [mb__6244]]"]
+	34["mv_t__6259 |True|  [bool.&& [mb__6245]]"]
 	21 --> 34
 	29 -. Trap Locals Globals Tables Memory Extra .-> 34
-	29["eff_merge__6253 merge"]
+	29["eff_merge__6254 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__6251 nop"]
-	16{{"sea__6234 Sϕ Stack "}}
+	28["eff_nop__6252 nop"]
+	16{{"sea__6235 Sϕ Stack "}}
 	21 --> 16
 	32 --> 16
 	33 --> 16
-	33["mv_f__6257 |False|  [bool.&& [mb__6244]]"]
+	33["mv_f__6258 |False|  [bool.&& [mb__6245]]"]
 	21 --> 33
 	24 -. Stack .-> 33
-	24{{"innerPhi__6247 Sϕ Stack "}}
+	24{{"innerPhi__6248 Sϕ Stack "}}
 	19 --> 24
 	38 --> 24
 	39 --> 24
-	39["mv_f__6263 |False|  [U32_maybeTrue [mt__6242]]"]
+	39["mv_f__6264 |False|  [U32_maybeTrue [mt__6243]]"]
 	19 --> 39
 	11 -. Stack .-> 39
-	38["mv_t__6262 |True|  [U32_maybeTrue [mt__6242]]"]
+	38["mv_t__6263 |True|  [U32_maybeTrue [mt__6243]]"]
 	19 --> 38
 	42 -. Stack .-> 38
-	32["mv_t__6256 |True|  [bool.&& [mb__6244]]"]
+	32["mv_t__6257 |True|  [bool.&& [mb__6245]]"]
 	21 --> 32
 	26 -. Stack .-> 32
-	26["eff_merge__6249 merge"]
+	26["eff_merge__6250 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__6248 nop"]
-	15{{"sea__6233 Sϕ Codeptr "}}
+	25["eff_nop__6249 nop"]
+	15{{"sea__6234 Sϕ Codeptr "}}
 	21 --> 15
 	30 --> 15
 	31 --> 15
-	31["mv_f__6255 |False|  [bool.&& [mb__6244]]"]
+	31["mv_f__6256 |False|  [bool.&& [mb__6245]]"]
 	21 --> 31
 	22 -. Codeptr .-> 31
-	22{{"innerPhi__6245 Sϕ Codeptr "}}
+	22{{"innerPhi__6246 Sϕ Codeptr "}}
 	19 --> 22
 	36 --> 22
 	37 --> 22
-	37["mv_f__6261 |False|  [U32_maybeTrue [mt__6242]]"]
+	37["mv_f__6262 |False|  [U32_maybeTrue [mt__6243]]"]
 	19 --> 37
 	4 -. Codeptr .-> 37
-	36["mv_t__6260 |True|  [U32_maybeTrue [mt__6242]]"]
+	36["mv_t__6261 |True|  [U32_maybeTrue [mt__6243]]"]
 	19 --> 36
 	42 -. Codeptr .-> 36
-	30["mv_t__6254 |True|  [bool.&& [mb__6244]]"]
+	30["mv_t__6255 |True|  [bool.&& [mb__6245]]"]
 	21 --> 30
 	23 -. Codeptr .-> 30
-	23["eff_merge__6246 merge"]
+	23["eff_merge__6247 merge"]
 	14 --> 23
 	4 --> 23
-	14["ret__6227 trapNull"]
+	14["ret__6228 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
-</pre>`;
-window.traces["STRUCT_GET_S"]["unlem_schedule"] = ''
-window.traces["STRUCT_GET_S"]["unlem_schedule"] += `<pre class=''>def struct_index = imm_readULEB32();
-def obj = pop_Object();
-def field_index = imm_readULEB32();
-def cond__6226 = object_isNull(obj);
-def mt__6242 = U32_maybeTrue(cond__6226);
-def mf__6243 = U32_maybeFalse(cond__6226);
-def mb__6244 = bool.&&(mt__6242, mf__6243);
-if (mb__6244) {
-	def eff_nop__6251 = nop();
-	def eff_nop__6248 = nop();
-	def ret__6227 = trapNull();
-	def eff_merge__6253 = merge(eff_nop__6251, r_state__6252);
-	def eff_merge__6249 = merge(eff_nop__6248, obj);
-	def eff_merge__6246 = merge(ret__6227, field_index);
-} else {
-	if (mt__6242) {
-		def ret__6227__6266 = trapNull();
-		def ret__6227 = (ret__6227__6266);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["STRUCT_GET_S"]["unlem_scheduler"] = ''
 window.traces["STRUCT_GET_S"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -109626,23 +104707,23 @@ subgraph block_5011["Block 5011"]
 end
 phi_5017 --> block_5011
 subgraph phi_5017["Phi 5017"]
-	p5017_17{{"sea__6235 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p5017_16{{"sea__6234 Sϕ Stack "}}
-	p5017_15{{"sea__6233 Sϕ Codeptr "}}
+	p5017_17{{"sea__6236 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p5017_16{{"sea__6235 Sϕ Stack "}}
+	p5017_15{{"sea__6234 Sϕ Codeptr "}}
 end
 block_5018 --> phi_5017
 block_5019 --> phi_5017
 subgraph block_5018["Block 5018"]
 	direction TB
-	b5018_28["eff_nop__6251 nop"]
-	b5018_25["eff_nop__6248 nop"]
-	b5018_14["ret__6227 trapNull"]
-	b5018_29["eff_merge__6253 merge"]
-	b5018_26["eff_merge__6249 merge"]
-	b5018_23["eff_merge__6246 merge"]
-	b5018_34["mv_t__6258 |True|  [bool.&& [mb__6244]]"]
-	b5018_32["mv_t__6256 |True|  [bool.&& [mb__6244]]"]
-	b5018_30["mv_t__6254 |True|  [bool.&& [mb__6244]]"]
+	b5018_28["eff_nop__6252 nop"]
+	b5018_25["eff_nop__6249 nop"]
+	b5018_14["ret__6228 trapNull"]
+	b5018_29["eff_merge__6254 merge"]
+	b5018_26["eff_merge__6250 merge"]
+	b5018_23["eff_merge__6247 merge"]
+	b5018_34["mv_t__6259 |True|  [bool.&& [mb__6245]]"]
+	b5018_32["mv_t__6257 |True|  [bool.&& [mb__6245]]"]
+	b5018_30["mv_t__6255 |True|  [bool.&& [mb__6245]]"]
 	b5018_28 --> b5018_25
 	b5018_25 --> b5018_14
 	b5018_14 --> b5018_29
@@ -109654,20 +104735,20 @@ subgraph block_5018["Block 5018"]
 end
 branch_5016 --> block_5018
 subgraph branch_5016["Branch 5016"]
-	br5016_21["mb__6244 bool.&&"]
+	br5016_21["mb__6245 bool.&&"]
 
 end
 block_5020 --> branch_5016
 subgraph block_5020["Block 5020"]
 	direction TB
-	b5020_0[/"r_state__6252 Start"\\]
+	b5020_0[/"r_state__6253 Start"\\]
 	b5020_3["struct_index imm_readULEB32"]
 	b5020_11["obj pop_Object"]
 	b5020_4["field_index imm_readULEB32"]
-	b5020_13["cond__6226 object_isNull"]
-	b5020_19["mt__6242 U32_maybeTrue"]
-	b5020_20["mf__6243 U32_maybeFalse"]
-	b5020_21["mb__6244 bool.&&"]
+	b5020_13["cond__6227 object_isNull"]
+	b5020_19["mt__6243 U32_maybeTrue"]
+	b5020_20["mf__6244 U32_maybeFalse"]
+	b5020_21["mb__6245 bool.&&"]
 	b5020_0 --> b5020_3
 	b5020_3 --> b5020_11
 	b5020_11 --> b5020_4
@@ -109678,41 +104759,41 @@ subgraph block_5020["Block 5020"]
 end
 subgraph block_5019["Block 5019"]
 	direction TB
-	b5019_35["mv_f__6259 |False|  [bool.&& [mb__6244]]"]
-	b5019_33["mv_f__6257 |False|  [bool.&& [mb__6244]]"]
-	b5019_31["mv_f__6255 |False|  [bool.&& [mb__6244]]"]
+	b5019_35["mv_f__6260 |False|  [bool.&& [mb__6245]]"]
+	b5019_33["mv_f__6258 |False|  [bool.&& [mb__6245]]"]
+	b5019_31["mv_f__6256 |False|  [bool.&& [mb__6245]]"]
 	b5019_35 --> b5019_33
 	b5019_33 --> b5019_31
 end
 phi_5022 --> block_5019
 subgraph phi_5022["Phi 5022"]
-	p5022_27{{"innerPhi__6250 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p5022_24{{"innerPhi__6247 Sϕ Stack "}}
-	p5022_22{{"innerPhi__6245 Sϕ Codeptr "}}
+	p5022_27{{"innerPhi__6251 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p5022_24{{"innerPhi__6248 Sϕ Stack "}}
+	p5022_22{{"innerPhi__6246 Sϕ Codeptr "}}
 end
 block_5023 --> phi_5022
 block_5024 --> phi_5022
 subgraph block_5023["Block 5023"]
 	direction TB
-	b5023_42["ret__6227__6266 trapNull"]
-	b5023_40["mv_t__6264 |True|  [U32_maybeTrue [mt__6242]]"]
-	b5023_38["mv_t__6262 |True|  [U32_maybeTrue [mt__6242]]"]
-	b5023_36["mv_t__6260 |True|  [U32_maybeTrue [mt__6242]]"]
+	b5023_42["ret__6228__6267 trapNull"]
+	b5023_40["mv_t__6265 |True|  [U32_maybeTrue [mt__6243]]"]
+	b5023_38["mv_t__6263 |True|  [U32_maybeTrue [mt__6243]]"]
+	b5023_36["mv_t__6261 |True|  [U32_maybeTrue [mt__6243]]"]
 	b5023_42 --> b5023_40
 	b5023_40 --> b5023_38
 	b5023_38 --> b5023_36
 end
 branch_5021 --> block_5023
 subgraph branch_5021["Branch 5021"]
-	br5021_19["mt__6242 U32_maybeTrue"]
+	br5021_19["mt__6243 U32_maybeTrue"]
 
 end
 branch_5016 --> branch_5021
 subgraph block_5024["Block 5024"]
 	direction TB
-	b5024_41["mv_f__6265 |False|  [U32_maybeTrue [mt__6242]]"]
-	b5024_39["mv_f__6263 |False|  [U32_maybeTrue [mt__6242]]"]
-	b5024_37["mv_f__6261 |False|  [U32_maybeTrue [mt__6242]]"]
+	b5024_41["mv_f__6266 |False|  [U32_maybeTrue [mt__6243]]"]
+	b5024_39["mv_f__6264 |False|  [U32_maybeTrue [mt__6243]]"]
+	b5024_37["mv_f__6262 |False|  [U32_maybeTrue [mt__6243]]"]
 	b5024_41 --> b5024_39
 	b5024_39 --> b5024_37
 end
@@ -109723,21 +104804,21 @@ window.traces["STRUCT_GET_S"]["unlem_scheduler_ssa"] = ''
 window.traces["STRUCT_GET_S"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__6226 = object_isNull(obj);
-def mt__6242 = U32_maybeTrue(cond__6226);
-def mf__6243 = U32_maybeFalse(cond__6226);
-def mb__6244 = bool.&&(mt__6242, mf__6243);
-if (mb__6244) {
-	def eff_nop__6251 = nop();
-	def eff_nop__6248 = nop();
-	def ret__6227 = trapNull();
-	def eff_merge__6253 = merge(eff_nop__6251, r_state__6252);
-	def eff_merge__6249 = merge(eff_nop__6248, obj);
-	def eff_merge__6246 = merge(ret__6227, field_index);
+def cond__6227 = object_isNull(obj);
+def mt__6243 = U32_maybeTrue(cond__6227);
+def mf__6244 = U32_maybeFalse(cond__6227);
+def mb__6245 = bool.&&(mt__6243, mf__6244);
+if (mb__6245) {
+	def eff_nop__6252 = nop();
+	def eff_nop__6249 = nop();
+	def ret__6228 = trapNull();
+	def eff_merge__6254 = merge(eff_nop__6252, r_state__6253);
+	def eff_merge__6250 = merge(eff_nop__6249, obj);
+	def eff_merge__6247 = merge(ret__6228, field_index);
 } else {
-	if (mt__6242) {
-		def ret__6227__6266 = trapNull();
-		def ret__6227 = (ret__6227__6266);
+	if (mt__6243) {
+		def ret__6228__6267 = trapNull();
+		def ret__6228 = (ret__6228__6267);
 	}
 // phis: 
 }
@@ -109762,20 +104843,20 @@ window.traces["STRUCT_GET_U"] = {}
 window.traces["STRUCT_GET_U"]["parsed"] = ''
 window.traces["STRUCT_GET_U"]["parsed"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
-def arg__6284 = (field_index);
-def arg__6283 = (struct_index);
-def kind = m_getFieldKind(arg__6283, arg__6284);
-def arg__6282 = (field_index);
-def arg__6281 = (struct_index);
-def offset = m_getFieldOffset(arg__6281, arg__6282);
+def arg__6285 = (field_index);
+def arg__6284 = (struct_index);
+def kind = m_getFieldKind(arg__6284, arg__6285);
+def arg__6283 = (field_index);
+def arg__6282 = (struct_index);
+def offset = m_getFieldOffset(arg__6282, arg__6283);
 def obj = pop_Object();
-def arg__6280 = (obj);
-def cond__6278 = object_isNull(arg__6280);
-if (cond__6278) {
-	def ret__6279 = trapNull();
+def arg__6281 = (obj);
+def cond__6279 = object_isNull(arg__6281);
+if (cond__6279) {
+	def ret__6280 = trapNull();
 }
 // phis: 
-def cond__6267 = (kind);
+def cond__6268 = (kind);
 </pre>`;
 window.traces["STRUCT_GET_U"]["initial_pretty"] = ''
 window.traces["STRUCT_GET_U"]["initial_pretty"] += `<pre class=''>def struct_index = imm_readULEB32();
@@ -109809,12 +104890,12 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6287 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6288 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__6279 trapNull"]
+	14["ret__6280 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -109824,13 +104905,13 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__6278 object_isNull"]
+	13["cond__6279 object_isNull"]
 	11 --> 13
-	16{{"sea__6286 Sϕ Stack "}}
+	16{{"sea__6287 Sϕ Stack "}}
 	13 --> 16
 	14 --> 16
 	11 --> 16
-	15{{"sea__6285 Sϕ Codeptr "}}
+	15{{"sea__6286 Sϕ Codeptr "}}
 	13 --> 15
 	14 --> 15
 	4 --> 15
@@ -109845,22 +104926,22 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6287 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6288 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	23 --> 17
 	24 --> 17
-	24["mv_f__6293 |False|  [object_isNull [cond__6278]]"]
+	24["mv_f__6294 |False|  [object_isNull [cond__6279]]"]
 	13 --> 24
 	0 -. Trap Locals Globals Tables Memory Extra .-> 24
 	0[/"Start"\\]
-	13["cond__6278 object_isNull"]
+	13["cond__6279 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	23["mv_t__6292 |True|  [object_isNull [cond__6278]]"]
+	23["mv_t__6293 |True|  [object_isNull [cond__6279]]"]
 	13 --> 23
 	14 -. Trap Locals Globals Tables Memory Extra .-> 23
-	14["ret__6279 trapNull"]
+	14["ret__6280 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -109868,24 +104949,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	16{{"sea__6286 Sϕ Stack "}}
+	16{{"sea__6287 Sϕ Stack "}}
 	13 --> 16
 	21 --> 16
 	22 --> 16
-	22["mv_f__6291 |False|  [object_isNull [cond__6278]]"]
+	22["mv_f__6292 |False|  [object_isNull [cond__6279]]"]
 	13 --> 22
 	11 -. Stack .-> 22
-	21["mv_t__6290 |True|  [object_isNull [cond__6278]]"]
+	21["mv_t__6291 |True|  [object_isNull [cond__6279]]"]
 	13 --> 21
 	14 -. Stack .-> 21
-	15{{"sea__6285 Sϕ Codeptr "}}
+	15{{"sea__6286 Sϕ Codeptr "}}
 	13 --> 15
 	19 --> 15
 	20 --> 15
-	20["mv_f__6289 |False|  [object_isNull [cond__6278]]"]
+	20["mv_f__6290 |False|  [object_isNull [cond__6279]]"]
 	13 --> 20
 	4 -. Codeptr .-> 20
-	19["mv_t__6288 |True|  [object_isNull [cond__6278]]"]
+	19["mv_t__6289 |True|  [object_isNull [cond__6279]]"]
 	13 --> 19
 	14 -. Codeptr .-> 19
 </pre>`;
@@ -109899,22 +104980,22 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6287 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6288 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	23 --> 17
 	24 --> 17
-	24["mv_f__6293 |False|  [object_isNull [cond__6278]]"]
+	24["mv_f__6294 |False|  [object_isNull [cond__6279]]"]
 	13 --> 24
 	0 -. Trap Locals Globals Tables Memory Extra .-> 24
 	0[/"Start"\\]
-	13["cond__6278 object_isNull"]
+	13["cond__6279 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	23["mv_t__6292 |True|  [object_isNull [cond__6278]]"]
+	23["mv_t__6293 |True|  [object_isNull [cond__6279]]"]
 	13 --> 23
 	14 -. Trap Locals Globals Tables Memory Extra .-> 23
-	14["ret__6279 trapNull"]
+	14["ret__6280 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -109922,24 +105003,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	16{{"sea__6286 Sϕ Stack "}}
+	16{{"sea__6287 Sϕ Stack "}}
 	13 --> 16
 	21 --> 16
 	22 --> 16
-	22["mv_f__6291 |False|  [object_isNull [cond__6278]]"]
+	22["mv_f__6292 |False|  [object_isNull [cond__6279]]"]
 	13 --> 22
 	11 -. Stack .-> 22
-	21["mv_t__6290 |True|  [object_isNull [cond__6278]]"]
+	21["mv_t__6291 |True|  [object_isNull [cond__6279]]"]
 	13 --> 21
 	14 -. Stack .-> 21
-	15{{"sea__6285 Sϕ Codeptr "}}
+	15{{"sea__6286 Sϕ Codeptr "}}
 	13 --> 15
 	19 --> 15
 	20 --> 15
-	20["mv_f__6289 |False|  [object_isNull [cond__6278]]"]
+	20["mv_f__6290 |False|  [object_isNull [cond__6279]]"]
 	13 --> 20
 	4 -. Codeptr .-> 20
-	19["mv_t__6288 |True|  [object_isNull [cond__6278]]"]
+	19["mv_t__6289 |True|  [object_isNull [cond__6279]]"]
 	13 --> 19
 	14 -. Codeptr .-> 19
 </pre>`;
@@ -109951,25 +105032,25 @@ subgraph block_5025["Block 5025"]
 end
 phi_5028 --> block_5025
 subgraph phi_5028["Phi 5028"]
-	p5028_17{{"sea__6287 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p5028_16{{"sea__6286 Sϕ Stack "}}
-	p5028_15{{"sea__6285 Sϕ Codeptr "}}
+	p5028_17{{"sea__6288 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p5028_16{{"sea__6287 Sϕ Stack "}}
+	p5028_15{{"sea__6286 Sϕ Codeptr "}}
 end
 block_5029 --> phi_5028
 block_5030 --> phi_5028
 subgraph block_5029["Block 5029"]
 	direction TB
-	b5029_14["ret__6279 trapNull"]
-	b5029_23["mv_t__6292 |True|  [object_isNull [cond__6278]]"]
-	b5029_21["mv_t__6290 |True|  [object_isNull [cond__6278]]"]
-	b5029_19["mv_t__6288 |True|  [object_isNull [cond__6278]]"]
+	b5029_14["ret__6280 trapNull"]
+	b5029_23["mv_t__6293 |True|  [object_isNull [cond__6279]]"]
+	b5029_21["mv_t__6291 |True|  [object_isNull [cond__6279]]"]
+	b5029_19["mv_t__6289 |True|  [object_isNull [cond__6279]]"]
 	b5029_14 --> b5029_23
 	b5029_23 --> b5029_21
 	b5029_21 --> b5029_19
 end
 branch_5027 --> block_5029
 subgraph branch_5027["Branch 5027"]
-	br5027_13["cond__6278 object_isNull"]
+	br5027_13["cond__6279 object_isNull"]
 
 end
 block_5031 --> branch_5027
@@ -109979,7 +105060,7 @@ subgraph block_5031["Block 5031"]
 	b5031_3["struct_index imm_readULEB32"]
 	b5031_11["obj pop_Object"]
 	b5031_4["field_index imm_readULEB32"]
-	b5031_13["cond__6278 object_isNull"]
+	b5031_13["cond__6279 object_isNull"]
 	b5031_0 --> b5031_3
 	b5031_3 --> b5031_11
 	b5031_11 --> b5031_4
@@ -109987,9 +105068,9 @@ subgraph block_5031["Block 5031"]
 end
 subgraph block_5030["Block 5030"]
 	direction TB
-	b5030_24["mv_f__6293 |False|  [object_isNull [cond__6278]]"]
-	b5030_22["mv_f__6291 |False|  [object_isNull [cond__6278]]"]
-	b5030_20["mv_f__6289 |False|  [object_isNull [cond__6278]]"]
+	b5030_24["mv_f__6294 |False|  [object_isNull [cond__6279]]"]
+	b5030_22["mv_f__6292 |False|  [object_isNull [cond__6279]]"]
+	b5030_20["mv_f__6290 |False|  [object_isNull [cond__6279]]"]
 	b5030_24 --> b5030_22
 	b5030_22 --> b5030_20
 end
@@ -110000,9 +105081,9 @@ window.traces["STRUCT_GET_U"]["scheduler_ssad"] = ''
 window.traces["STRUCT_GET_U"]["scheduler_ssad"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__6278 = object_isNull(obj);
-if (cond__6278) {
-	def ret__6279 = trapNull();
+def cond__6279 = object_isNull(obj);
+if (cond__6279) {
+	def ret__6280 = trapNull();
 }
 // phis: 
 </pre>`;
@@ -110025,16 +105106,16 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6287 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6288 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	29 --> 17
 	27 --> 17
-	27{{"innerPhi__6302 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__6303 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	14 --> 27
 	0 --> 27
-	0[/"r_state__6304 Start"\\]
-	14["ret__6279 trapNull"]
+	0[/"r_state__6305 Start"\\]
+	14["ret__6280 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -110044,40 +105125,40 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	19["mt__6294 U32_maybeTrue"]
+	19["mt__6295 U32_maybeTrue"]
 	13 --> 19
-	13["cond__6278 object_isNull"]
+	13["cond__6279 object_isNull"]
 	11 --> 13
-	29["eff_merge__6305 merge"]
+	29["eff_merge__6306 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__6303 nop"]
-	21["mb__6296 bool.&&"]
+	28["eff_nop__6304 nop"]
+	21["mb__6297 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__6295 U32_maybeFalse"]
+	20["mf__6296 U32_maybeFalse"]
 	13 --> 20
-	16{{"sea__6286 Sϕ Stack "}}
+	16{{"sea__6287 Sϕ Stack "}}
 	21 --> 16
 	26 --> 16
 	24 --> 16
-	24{{"innerPhi__6299 Sϕ Stack "}}
+	24{{"innerPhi__6300 Sϕ Stack "}}
 	19 --> 24
 	14 --> 24
 	11 --> 24
-	26["eff_merge__6301 merge"]
+	26["eff_merge__6302 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__6300 nop"]
-	15{{"sea__6285 Sϕ Codeptr "}}
+	25["eff_nop__6301 nop"]
+	15{{"sea__6286 Sϕ Codeptr "}}
 	21 --> 15
 	23 --> 15
 	22 --> 15
-	22{{"innerPhi__6297 Sϕ Codeptr "}}
+	22{{"innerPhi__6298 Sϕ Codeptr "}}
 	19 --> 22
 	14 --> 22
 	4 --> 22
-	23["eff_merge__6298 merge"]
+	23["eff_merge__6299 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
@@ -110092,31 +105173,31 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6287 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6288 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	34 --> 17
 	35 --> 17
-	35["mv_f__6311 |False|  [bool.&& [mb__6296]]"]
+	35["mv_f__6312 |False|  [bool.&& [mb__6297]]"]
 	21 --> 35
 	27 -. Trap Locals Globals Tables Memory Extra .-> 35
-	27{{"innerPhi__6302 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__6303 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	40 --> 27
 	41 --> 27
-	41["mv_f__6317 |False|  [U32_maybeTrue [mt__6294]]"]
+	41["mv_f__6318 |False|  [U32_maybeTrue [mt__6295]]"]
 	19 --> 41
 	0 -. Trap Locals Globals Tables Memory Extra .-> 41
-	0[/"r_state__6304 Start"\\]
-	19["mt__6294 U32_maybeTrue"]
+	0[/"r_state__6305 Start"\\]
+	19["mt__6295 U32_maybeTrue"]
 	13 --> 19
-	13["cond__6278 object_isNull"]
+	13["cond__6279 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	40["mv_t__6316 |True|  [U32_maybeTrue [mt__6294]]"]
+	40["mv_t__6317 |True|  [U32_maybeTrue [mt__6295]]"]
 	19 --> 40
 	14 -. Trap Locals Globals Tables Memory Extra .-> 40
-	14["ret__6279 trapNull"]
+	14["ret__6280 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -110124,63 +105205,63 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__6296 bool.&&"]
+	21["mb__6297 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__6295 U32_maybeFalse"]
+	20["mf__6296 U32_maybeFalse"]
 	13 --> 20
-	34["mv_t__6310 |True|  [bool.&& [mb__6296]]"]
+	34["mv_t__6311 |True|  [bool.&& [mb__6297]]"]
 	21 --> 34
 	29 -. Trap Locals Globals Tables Memory Extra .-> 34
-	29["eff_merge__6305 merge"]
+	29["eff_merge__6306 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__6303 nop"]
-	16{{"sea__6286 Sϕ Stack "}}
+	28["eff_nop__6304 nop"]
+	16{{"sea__6287 Sϕ Stack "}}
 	21 --> 16
 	32 --> 16
 	33 --> 16
-	33["mv_f__6309 |False|  [bool.&& [mb__6296]]"]
+	33["mv_f__6310 |False|  [bool.&& [mb__6297]]"]
 	21 --> 33
 	24 -. Stack .-> 33
-	24{{"innerPhi__6299 Sϕ Stack "}}
+	24{{"innerPhi__6300 Sϕ Stack "}}
 	19 --> 24
 	38 --> 24
 	39 --> 24
-	39["mv_f__6315 |False|  [U32_maybeTrue [mt__6294]]"]
+	39["mv_f__6316 |False|  [U32_maybeTrue [mt__6295]]"]
 	19 --> 39
 	11 -. Stack .-> 39
-	38["mv_t__6314 |True|  [U32_maybeTrue [mt__6294]]"]
+	38["mv_t__6315 |True|  [U32_maybeTrue [mt__6295]]"]
 	19 --> 38
 	14 -. Stack .-> 38
-	32["mv_t__6308 |True|  [bool.&& [mb__6296]]"]
+	32["mv_t__6309 |True|  [bool.&& [mb__6297]]"]
 	21 --> 32
 	26 -. Stack .-> 32
-	26["eff_merge__6301 merge"]
+	26["eff_merge__6302 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__6300 nop"]
-	15{{"sea__6285 Sϕ Codeptr "}}
+	25["eff_nop__6301 nop"]
+	15{{"sea__6286 Sϕ Codeptr "}}
 	21 --> 15
 	30 --> 15
 	31 --> 15
-	31["mv_f__6307 |False|  [bool.&& [mb__6296]]"]
+	31["mv_f__6308 |False|  [bool.&& [mb__6297]]"]
 	21 --> 31
 	22 -. Codeptr .-> 31
-	22{{"innerPhi__6297 Sϕ Codeptr "}}
+	22{{"innerPhi__6298 Sϕ Codeptr "}}
 	19 --> 22
 	36 --> 22
 	37 --> 22
-	37["mv_f__6313 |False|  [U32_maybeTrue [mt__6294]]"]
+	37["mv_f__6314 |False|  [U32_maybeTrue [mt__6295]]"]
 	19 --> 37
 	4 -. Codeptr .-> 37
-	36["mv_t__6312 |True|  [U32_maybeTrue [mt__6294]]"]
+	36["mv_t__6313 |True|  [U32_maybeTrue [mt__6295]]"]
 	19 --> 36
 	14 -. Codeptr .-> 36
-	30["mv_t__6306 |True|  [bool.&& [mb__6296]]"]
+	30["mv_t__6307 |True|  [bool.&& [mb__6297]]"]
 	21 --> 30
 	23 -. Codeptr .-> 30
-	23["eff_merge__6298 merge"]
+	23["eff_merge__6299 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
@@ -110194,31 +105275,31 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__6287 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__6288 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	34 --> 17
 	35 --> 17
-	35["mv_f__6311 |False|  [bool.&& [mb__6296]]"]
+	35["mv_f__6312 |False|  [bool.&& [mb__6297]]"]
 	21 --> 35
 	27 -. Trap Locals Globals Tables Memory Extra .-> 35
-	27{{"innerPhi__6302 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__6303 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	40 --> 27
 	41 --> 27
-	41["mv_f__6317 |False|  [U32_maybeTrue [mt__6294]]"]
+	41["mv_f__6318 |False|  [U32_maybeTrue [mt__6295]]"]
 	19 --> 41
 	0 -. Trap Locals Globals Tables Memory Extra .-> 41
-	0[/"r_state__6304 Start"\\]
-	19["mt__6294 U32_maybeTrue"]
+	0[/"r_state__6305 Start"\\]
+	19["mt__6295 U32_maybeTrue"]
 	13 --> 19
-	13["cond__6278 object_isNull"]
+	13["cond__6279 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	40["mv_t__6316 |True|  [U32_maybeTrue [mt__6294]]"]
+	40["mv_t__6317 |True|  [U32_maybeTrue [mt__6295]]"]
 	19 --> 40
 	42 -. Trap Locals Globals Tables Memory Extra .-> 40
-	42["ret__6279__6318 trapNull"]
+	42["ret__6280__6319 trapNull"]
 	4 -. Codeptr .-> 42
 	11 -. Stack .-> 42
 	0 -. Trap Locals Globals Tables Memory Extra .-> 42
@@ -110226,93 +105307,69 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__6296 bool.&&"]
+	21["mb__6297 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__6295 U32_maybeFalse"]
+	20["mf__6296 U32_maybeFalse"]
 	13 --> 20
-	34["mv_t__6310 |True|  [bool.&& [mb__6296]]"]
+	34["mv_t__6311 |True|  [bool.&& [mb__6297]]"]
 	21 --> 34
 	29 -. Trap Locals Globals Tables Memory Extra .-> 34
-	29["eff_merge__6305 merge"]
+	29["eff_merge__6306 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__6303 nop"]
-	16{{"sea__6286 Sϕ Stack "}}
+	28["eff_nop__6304 nop"]
+	16{{"sea__6287 Sϕ Stack "}}
 	21 --> 16
 	32 --> 16
 	33 --> 16
-	33["mv_f__6309 |False|  [bool.&& [mb__6296]]"]
+	33["mv_f__6310 |False|  [bool.&& [mb__6297]]"]
 	21 --> 33
 	24 -. Stack .-> 33
-	24{{"innerPhi__6299 Sϕ Stack "}}
+	24{{"innerPhi__6300 Sϕ Stack "}}
 	19 --> 24
 	38 --> 24
 	39 --> 24
-	39["mv_f__6315 |False|  [U32_maybeTrue [mt__6294]]"]
+	39["mv_f__6316 |False|  [U32_maybeTrue [mt__6295]]"]
 	19 --> 39
 	11 -. Stack .-> 39
-	38["mv_t__6314 |True|  [U32_maybeTrue [mt__6294]]"]
+	38["mv_t__6315 |True|  [U32_maybeTrue [mt__6295]]"]
 	19 --> 38
 	42 -. Stack .-> 38
-	32["mv_t__6308 |True|  [bool.&& [mb__6296]]"]
+	32["mv_t__6309 |True|  [bool.&& [mb__6297]]"]
 	21 --> 32
 	26 -. Stack .-> 32
-	26["eff_merge__6301 merge"]
+	26["eff_merge__6302 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__6300 nop"]
-	15{{"sea__6285 Sϕ Codeptr "}}
+	25["eff_nop__6301 nop"]
+	15{{"sea__6286 Sϕ Codeptr "}}
 	21 --> 15
 	30 --> 15
 	31 --> 15
-	31["mv_f__6307 |False|  [bool.&& [mb__6296]]"]
+	31["mv_f__6308 |False|  [bool.&& [mb__6297]]"]
 	21 --> 31
 	22 -. Codeptr .-> 31
-	22{{"innerPhi__6297 Sϕ Codeptr "}}
+	22{{"innerPhi__6298 Sϕ Codeptr "}}
 	19 --> 22
 	36 --> 22
 	37 --> 22
-	37["mv_f__6313 |False|  [U32_maybeTrue [mt__6294]]"]
+	37["mv_f__6314 |False|  [U32_maybeTrue [mt__6295]]"]
 	19 --> 37
 	4 -. Codeptr .-> 37
-	36["mv_t__6312 |True|  [U32_maybeTrue [mt__6294]]"]
+	36["mv_t__6313 |True|  [U32_maybeTrue [mt__6295]]"]
 	19 --> 36
 	42 -. Codeptr .-> 36
-	30["mv_t__6306 |True|  [bool.&& [mb__6296]]"]
+	30["mv_t__6307 |True|  [bool.&& [mb__6297]]"]
 	21 --> 30
 	23 -. Codeptr .-> 30
-	23["eff_merge__6298 merge"]
+	23["eff_merge__6299 merge"]
 	14 --> 23
 	4 --> 23
-	14["ret__6279 trapNull"]
+	14["ret__6280 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
-</pre>`;
-window.traces["STRUCT_GET_U"]["unlem_schedule"] = ''
-window.traces["STRUCT_GET_U"]["unlem_schedule"] += `<pre class=''>def struct_index = imm_readULEB32();
-def obj = pop_Object();
-def field_index = imm_readULEB32();
-def cond__6278 = object_isNull(obj);
-def mt__6294 = U32_maybeTrue(cond__6278);
-def mf__6295 = U32_maybeFalse(cond__6278);
-def mb__6296 = bool.&&(mt__6294, mf__6295);
-if (mb__6296) {
-	def eff_nop__6303 = nop();
-	def eff_nop__6300 = nop();
-	def ret__6279 = trapNull();
-	def eff_merge__6305 = merge(eff_nop__6303, r_state__6304);
-	def eff_merge__6301 = merge(eff_nop__6300, obj);
-	def eff_merge__6298 = merge(ret__6279, field_index);
-} else {
-	if (mt__6294) {
-		def ret__6279__6318 = trapNull();
-		def ret__6279 = (ret__6279__6318);
-	}
-// phis: 
-}
-// phis: 
 </pre>`;
 window.traces["STRUCT_GET_U"]["unlem_scheduler"] = ''
 window.traces["STRUCT_GET_U"]["unlem_scheduler"] += `<pre class='graph'>graph TD
@@ -110322,23 +105379,23 @@ subgraph block_5032["Block 5032"]
 end
 phi_5038 --> block_5032
 subgraph phi_5038["Phi 5038"]
-	p5038_17{{"sea__6287 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p5038_16{{"sea__6286 Sϕ Stack "}}
-	p5038_15{{"sea__6285 Sϕ Codeptr "}}
+	p5038_17{{"sea__6288 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p5038_16{{"sea__6287 Sϕ Stack "}}
+	p5038_15{{"sea__6286 Sϕ Codeptr "}}
 end
 block_5039 --> phi_5038
 block_5040 --> phi_5038
 subgraph block_5039["Block 5039"]
 	direction TB
-	b5039_28["eff_nop__6303 nop"]
-	b5039_25["eff_nop__6300 nop"]
-	b5039_14["ret__6279 trapNull"]
-	b5039_29["eff_merge__6305 merge"]
-	b5039_26["eff_merge__6301 merge"]
-	b5039_23["eff_merge__6298 merge"]
-	b5039_34["mv_t__6310 |True|  [bool.&& [mb__6296]]"]
-	b5039_32["mv_t__6308 |True|  [bool.&& [mb__6296]]"]
-	b5039_30["mv_t__6306 |True|  [bool.&& [mb__6296]]"]
+	b5039_28["eff_nop__6304 nop"]
+	b5039_25["eff_nop__6301 nop"]
+	b5039_14["ret__6280 trapNull"]
+	b5039_29["eff_merge__6306 merge"]
+	b5039_26["eff_merge__6302 merge"]
+	b5039_23["eff_merge__6299 merge"]
+	b5039_34["mv_t__6311 |True|  [bool.&& [mb__6297]]"]
+	b5039_32["mv_t__6309 |True|  [bool.&& [mb__6297]]"]
+	b5039_30["mv_t__6307 |True|  [bool.&& [mb__6297]]"]
 	b5039_28 --> b5039_25
 	b5039_25 --> b5039_14
 	b5039_14 --> b5039_29
@@ -110350,20 +105407,20 @@ subgraph block_5039["Block 5039"]
 end
 branch_5037 --> block_5039
 subgraph branch_5037["Branch 5037"]
-	br5037_21["mb__6296 bool.&&"]
+	br5037_21["mb__6297 bool.&&"]
 
 end
 block_5041 --> branch_5037
 subgraph block_5041["Block 5041"]
 	direction TB
-	b5041_0[/"r_state__6304 Start"\\]
+	b5041_0[/"r_state__6305 Start"\\]
 	b5041_3["struct_index imm_readULEB32"]
 	b5041_11["obj pop_Object"]
 	b5041_4["field_index imm_readULEB32"]
-	b5041_13["cond__6278 object_isNull"]
-	b5041_19["mt__6294 U32_maybeTrue"]
-	b5041_20["mf__6295 U32_maybeFalse"]
-	b5041_21["mb__6296 bool.&&"]
+	b5041_13["cond__6279 object_isNull"]
+	b5041_19["mt__6295 U32_maybeTrue"]
+	b5041_20["mf__6296 U32_maybeFalse"]
+	b5041_21["mb__6297 bool.&&"]
 	b5041_0 --> b5041_3
 	b5041_3 --> b5041_11
 	b5041_11 --> b5041_4
@@ -110374,41 +105431,41 @@ subgraph block_5041["Block 5041"]
 end
 subgraph block_5040["Block 5040"]
 	direction TB
-	b5040_35["mv_f__6311 |False|  [bool.&& [mb__6296]]"]
-	b5040_33["mv_f__6309 |False|  [bool.&& [mb__6296]]"]
-	b5040_31["mv_f__6307 |False|  [bool.&& [mb__6296]]"]
+	b5040_35["mv_f__6312 |False|  [bool.&& [mb__6297]]"]
+	b5040_33["mv_f__6310 |False|  [bool.&& [mb__6297]]"]
+	b5040_31["mv_f__6308 |False|  [bool.&& [mb__6297]]"]
 	b5040_35 --> b5040_33
 	b5040_33 --> b5040_31
 end
 phi_5043 --> block_5040
 subgraph phi_5043["Phi 5043"]
-	p5043_27{{"innerPhi__6302 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p5043_24{{"innerPhi__6299 Sϕ Stack "}}
-	p5043_22{{"innerPhi__6297 Sϕ Codeptr "}}
+	p5043_27{{"innerPhi__6303 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p5043_24{{"innerPhi__6300 Sϕ Stack "}}
+	p5043_22{{"innerPhi__6298 Sϕ Codeptr "}}
 end
 block_5044 --> phi_5043
 block_5045 --> phi_5043
 subgraph block_5044["Block 5044"]
 	direction TB
-	b5044_42["ret__6279__6318 trapNull"]
-	b5044_40["mv_t__6316 |True|  [U32_maybeTrue [mt__6294]]"]
-	b5044_38["mv_t__6314 |True|  [U32_maybeTrue [mt__6294]]"]
-	b5044_36["mv_t__6312 |True|  [U32_maybeTrue [mt__6294]]"]
+	b5044_42["ret__6280__6319 trapNull"]
+	b5044_40["mv_t__6317 |True|  [U32_maybeTrue [mt__6295]]"]
+	b5044_38["mv_t__6315 |True|  [U32_maybeTrue [mt__6295]]"]
+	b5044_36["mv_t__6313 |True|  [U32_maybeTrue [mt__6295]]"]
 	b5044_42 --> b5044_40
 	b5044_40 --> b5044_38
 	b5044_38 --> b5044_36
 end
 branch_5042 --> block_5044
 subgraph branch_5042["Branch 5042"]
-	br5042_19["mt__6294 U32_maybeTrue"]
+	br5042_19["mt__6295 U32_maybeTrue"]
 
 end
 branch_5037 --> branch_5042
 subgraph block_5045["Block 5045"]
 	direction TB
-	b5045_41["mv_f__6317 |False|  [U32_maybeTrue [mt__6294]]"]
-	b5045_39["mv_f__6315 |False|  [U32_maybeTrue [mt__6294]]"]
-	b5045_37["mv_f__6313 |False|  [U32_maybeTrue [mt__6294]]"]
+	b5045_41["mv_f__6318 |False|  [U32_maybeTrue [mt__6295]]"]
+	b5045_39["mv_f__6316 |False|  [U32_maybeTrue [mt__6295]]"]
+	b5045_37["mv_f__6314 |False|  [U32_maybeTrue [mt__6295]]"]
 	b5045_41 --> b5045_39
 	b5045_39 --> b5045_37
 end
@@ -110419,21 +105476,21 @@ window.traces["STRUCT_GET_U"]["unlem_scheduler_ssa"] = ''
 window.traces["STRUCT_GET_U"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__6278 = object_isNull(obj);
-def mt__6294 = U32_maybeTrue(cond__6278);
-def mf__6295 = U32_maybeFalse(cond__6278);
-def mb__6296 = bool.&&(mt__6294, mf__6295);
-if (mb__6296) {
-	def eff_nop__6303 = nop();
-	def eff_nop__6300 = nop();
-	def ret__6279 = trapNull();
-	def eff_merge__6305 = merge(eff_nop__6303, r_state__6304);
-	def eff_merge__6301 = merge(eff_nop__6300, obj);
-	def eff_merge__6298 = merge(ret__6279, field_index);
+def cond__6279 = object_isNull(obj);
+def mt__6295 = U32_maybeTrue(cond__6279);
+def mf__6296 = U32_maybeFalse(cond__6279);
+def mb__6297 = bool.&&(mt__6295, mf__6296);
+if (mb__6297) {
+	def eff_nop__6304 = nop();
+	def eff_nop__6301 = nop();
+	def ret__6280 = trapNull();
+	def eff_merge__6306 = merge(eff_nop__6304, r_state__6305);
+	def eff_merge__6302 = merge(eff_nop__6301, obj);
+	def eff_merge__6299 = merge(ret__6280, field_index);
 } else {
-	if (mt__6294) {
-		def ret__6279__6318 = trapNull();
-		def ret__6279 = (ret__6279__6318);
+	if (mt__6295) {
+		def ret__6280__6319 = trapNull();
+		def ret__6280 = (ret__6280__6319);
 	}
 // phis: 
 }

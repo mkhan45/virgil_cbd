@@ -1,6 +1,7 @@
 # Paths and variables
-VIRGIL_STD = ../virgil/lib/util/*.v3
-VIRGIL_X86_STD = ../virgil/lib/asm/x86-64/*.v3
+VIRGIL_DIR = ../virgil
+VIRGIL_STD = $(VIRGIL_DIR)/lib/util/*.v3
+VIRGIL_X86_STD = $(VIRGIL_DIR)/lib/asm/x86-64/*.v3
 WIZARD = ./wizard-engine
 ENGINE = $(WIZARD)/src/engine/*.v3 $(WIZARD)/src/engine/continuation/BoxedContinuation.v3
 WIZARD_UTIL = $(WIZARD)/src/util/*.v3
@@ -10,8 +11,8 @@ DEFS = $(WIZARD)/src/bytecode/CanonicalDefs.v3
 TYPEDEFS = $(WIZARD)/src/bytecode/Intrinsics.v3
 
 # Virgil compiler command (adjust as needed)
-VIRGIL ?= ../virgil/bin/current/x86-64-linux/Aeneas -O2 -run -fun-exprs -simple-bodies
-V3C ?= ../virgil/bin/v3c-x86-64-linux -O2 -fun-exprs -simple-bodies
+VIRGIL ?= $(VIRGIL_DIR)/bin/current/x86-64-linux/Aeneas -O2 -run -fun-exprs -simple-bodies
+V3C ?= $(VIRGIL_DIR)/bin/v3c-x86-64-linux -O2 -fun-exprs -simple-bodies
 
 # Common libraries
 COMMON_LIB = $(wildcard common/*.v3 common/*/*.v3)

@@ -53,12 +53,10 @@ class Sea {
     def cachedTransitiveDeps(node: IRNode) -> ImmNodeSet {
         if (node == null) return ImmNodeSets.empty();
         if (node.transitive_deps.bits != null) return node.transitive_deps;
-        def r = Array<ImmNodeSet>.new(1);
-        r[0] = ImmNodeSets.single(node);
+        def r = [ImmNodeSets.single(node)];
         node.applyDeps(fun (dep: IRNode) { r[0] = r[0].union(cachedTransitiveDeps(dep)); });
-        var result = r[0];
-        node.transitive_deps = result;
-        return result;
+        node.transitive_deps = r[0];
+        return r[0];
     }
 
     def cachedTransitiveDepsPhiAware(node: IRNode) -> ImmNodeSet {
@@ -67,17 +65,14 @@ class Sea {
         var result: ImmNodeSet;
         match (node.op) {
             Phi, StatePhi => {
-                def cond = node.value_deps[0];
-                def l_branch = node.value_deps[1];
-                def r_branch = node.value_deps[2];
+                def cond = node.value_deps[0], l_branch = node.value_deps[1], r_branch = node.value_deps[2];
+                def branch_common = cachedTransitiveDepsPhiAware(l_branch).intersection(cachedTransitiveDepsPhiAware(r_branch));
                 result = ImmNodeSets.single(node)
                     .union(cachedTransitiveDepsPhiAware(cond))
-                    .union(cachedTransitiveDepsPhiAware(l_branch)
-                        .intersection(cachedTransitiveDepsPhiAware(r_branch)));
+                    .union(branch_common);
             }
             _ => {
-                def r = Array<ImmNodeSet>.new(1);
-                r[0] = ImmNodeSets.single(node);
+                def r = [ImmNodeSets.single(node)];
                 node.applyDeps(fun (dep: IRNode) { r[0] = r[0].union(cachedTransitiveDepsPhiAware(dep)); });
                 result = r[0];
             }
@@ -521,7 +516,7 @@ class IRNode {
         else return dedup(Arrays.concat(value_deps, state_deps));
     }
 
-    def applyDeps(f: IRNode -> void) {
+    def applyDeps(f: IRNode -> void) #inline {
         for (i < value_deps.length) {
             def d = value_deps[i];
             if (d == null) continue;
@@ -550,45 +545,6 @@ class IRNode {
     def transitiveDepsSet() -> NodeSet {
         def buf = NodeSet.new();
         transitiveDepsAux(buf);
-        return buf;
-    }
-
-    // Like transitiveDepsAux but for Phi/StatePhi nodes, only propagates
-    // the condition and deps that are on BOTH arms (unconditionally needed).
-    // Deps that are on only one arm of a phi are excluded, since they are
-    // conditionally needed and should be cloned into subgraphs.
-    def transitiveDepsPhiAwareAux(buf: NodeSet) {
-        match (op) {
-            Phi, StatePhi => {
-                // Always follow the condition
-                def cond = value_deps[0];
-                if (cond != null && !buf.has(cond)) {
-                    buf.put(cond);
-                    cond.transitiveDepsPhiAwareAux(buf);
-                }
-                // Follow deps that are on BOTH arms (unconditionally needed)
-                def left_deps = value_deps[1].transitiveDepsPhiAwareSet().put(value_deps[1]);
-                def right_deps = value_deps[2].transitiveDepsPhiAwareSet().put(value_deps[2]);
-                def common = left_deps.intersection(right_deps);
-                common.apply(fun (n: IRNode) {
-                    if (!buf.has(n)) {
-                        buf.put(n);
-                        n.transitiveDepsPhiAwareAux(buf);
-                    }
-                });
-            }
-            _ => {
-                for (dep in deps()) if (dep != null && !buf.has(dep)) {
-                    buf.put(dep);
-                    dep.transitiveDepsPhiAwareAux(buf);
-                }
-            }
-        }
-    }
-
-    def transitiveDepsPhiAwareSet() -> NodeSet {
-        def buf = NodeSet.new();
-        transitiveDepsPhiAwareAux(buf);
         return buf;
     }
 
