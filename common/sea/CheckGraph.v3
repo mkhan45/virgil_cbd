@@ -105,18 +105,8 @@ class GraphChecker {
         return false;
     }
 
-    def immset_eq(lhs: ImmNodeSet, rhs: ImmNodeSet) -> bool {
-        def max_len = if(lhs.bits.length > rhs.bits.length, lhs.bits.length, rhs.bits.length);
-        for (i < max_len) {
-            def l = if(i < lhs.bits.length, lhs.bits[i], 0);
-            def r = if(i < rhs.bits.length, rhs.bits[i], 0);
-            if (l != r) return false;
-        }
-        return true;
-    }
-
     def obligations_eq(lhs: ObligationState, rhs: ObligationState) -> bool {
-        return immset_eq(lhs.left, rhs.left) && immset_eq(lhs.right, rhs.right);
+        return lhs.left.eq(rhs.left) && lhs.right.eq(rhs.right);
     }
 
     def site_pos(site: IRNode, partitions: NodeMap<BranchPartition>, node: IRNode) -> SitePos {

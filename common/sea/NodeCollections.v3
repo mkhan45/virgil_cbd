@@ -33,11 +33,11 @@ class NodeSet {
     }
 }
 
-type ImmNodeSet(bits: Array<int>, capacity: int) #unboxed {
+type ImmNodeSet(bits: Array<u64>, capacity: int) #unboxed {
     def has(n: IRNode) -> bool #inline {
         if (n.id < 0 || n.id >= capacity) return false;
-        def idx = n.id >>> 5;
-        def mask = 1 << u5.view(n.id);
+        def idx = n.id >>> 6;
+        def mask = 1uL << u6.view(n.id);
         return (bits[idx] & mask) != 0;
     }
 
@@ -46,26 +46,26 @@ type ImmNodeSet(bits: Array<int>, capacity: int) #unboxed {
         if (has(n)) return this;
 
         var newCap = capacity;
-        var newBits: Array<int>;
+        var newBits: Array<u64>;
         if (n.id >= capacity) {
             newCap = if(capacity * 2 > n.id + 1, capacity * 2, n.id + 1);
-            def newLen = (newCap + 31) >>> 5;
-            newBits = Array<int>.new(newLen);
+            def newLen = (newCap + 63) >>> 6;
+            newBits = Array<u64>.new(newLen);
             for (i < bits.length) newBits[i] = bits[i];
         } else {
             newBits = Arrays.dup(bits);
         }
 
-        def idx = n.id >>> 5;
-        newBits[idx] = newBits[idx] | (1 << u5.view(n.id));
+        def idx = n.id >>> 6;
+        newBits[idx] = newBits[idx] | (1uL << u6.view(n.id));
         return ImmNodeSet(newBits, newCap);
     }
 
     def without(n: IRNode) -> ImmNodeSet {
         if (!has(n)) return this;
         def newBits = Arrays.dup(bits);
-        def idx = n.id >>> 5;
-        newBits[idx] = newBits[idx] & ~(1 << u5.view(n.id));
+        def idx = n.id >>> 6;
+        newBits[idx] = newBits[idx] & ~(1uL << u6.view(n.id));
         return ImmNodeSet(newBits, capacity);
     }
 
@@ -84,7 +84,7 @@ type ImmNodeSet(bits: Array<int>, capacity: int) #unboxed {
 
     def intersection(other: ImmNodeSet) -> ImmNodeSet {
         def minLen = if(bits.length < other.bits.length, bits.length, other.bits.length);
-        def newBits = Array<int>.new(minLen);
+        def newBits = Array<u64>.new(minLen);
         for (i < minLen) newBits[i] = bits[i] & other.bits[i];
         def newCap = if(capacity < other.capacity, capacity, other.capacity);
         return ImmNodeSet(newBits, newCap);
@@ -93,7 +93,7 @@ type ImmNodeSet(bits: Array<int>, capacity: int) #unboxed {
     def union(other: ImmNodeSet) -> ImmNodeSet {
         def maxLen = if(bits.length > other.bits.length, bits.length, other.bits.length);
         def minLen = if(bits.length < other.bits.length, bits.length, other.bits.length);
-        def newBits = Array<int>.new(maxLen);
+        def newBits = Array<u64>.new(maxLen);
 
         for (i < minLen) newBits[i] = bits[i] | other.bits[i];
         for (i = minLen; i < bits.length; i++) newBits[i] = bits[i];
@@ -106,9 +106,9 @@ type ImmNodeSet(bits: Array<int>, capacity: int) #unboxed {
     def apply(sea: Sea, f: IRNode -> void) {
         for (i < bits.length) {
             var word = bits[i];
-            var id = i << 5;
+            var id = i << 6;
             while (word != 0) {
-                if ((word & 1) != 0) f(sea.nodes_by_id[id]);
+                if ((word & 1uL) != 0uL) f(sea.nodes_by_id[id]);
                 word >>>= 1;
                 id++;
             }
@@ -118,9 +118,9 @@ type ImmNodeSet(bits: Array<int>, capacity: int) #unboxed {
     def applyIds(f: int -> void) {
         for (i < bits.length) {
             var word = bits[i];
-            var id = i << 5;
+            var id = i << 6;
             while (word != 0) {
-                if ((word & 1) != 0) f(id);
+                if ((word & 1uL) != 0uL) f(id);
                 word >>>= 1;
                 id++;
             }
@@ -131,9 +131,9 @@ type ImmNodeSet(bits: Array<int>, capacity: int) #unboxed {
         def result = Vector<IRNode>.new();
         for (i < bits.length) {
             var word = bits[i];
-            var id = i << 5;
+            var id = i << 6;
             while (word != 0) {
-                if ((word & 1) != 0) result.put(sea.nodes_by_id[id]);
+                if ((word & 1uL) != 0uL) result.put(sea.nodes_by_id[id]);
                 word >>>= 1;
                 id++;
             }
@@ -146,15 +146,25 @@ type ImmNodeSet(bits: Array<int>, capacity: int) #unboxed {
         for (i < bits.length) {
             var word = bits[i];
             while (word != 0) {
-                result += word & 1;
+                if ((word & 1uL) != 0uL) result += 1;
                 word >>>= 1;
             }
         }
         return result;
     }
 
+    def eq(rhs: ImmNodeSet) -> bool {
+        def max_len = if(bits.length > rhs.bits.length, bits.length, rhs.bits.length);
+        for (i < max_len) {
+            def l = if(i < bits.length, bits[i], 0uL);
+            def r = if(i < rhs.bits.length, rhs.bits[i], 0uL);
+            if (l != r) return false;
+        }
+        return true;
+    }
+
     def isEmpty() -> bool #inline {
-        for (i < bits.length) if (bits[i] != 0) return false;
+        for (i < bits.length) if (bits[i] != 0uL) return false;
         return true;
     }
 
@@ -228,11 +238,11 @@ component ImmNodeSets {
     def DEFAULT_CAPACITY: int = 64;
 
     def empty() -> ImmNodeSet {
-        return ImmNodeSet(Array<int>.new(DEFAULT_CAPACITY / 32), DEFAULT_CAPACITY);
+        return ImmNodeSet(Array<u64>.new((DEFAULT_CAPACITY + 63) >>> 6), DEFAULT_CAPACITY);
     }
 
     def withCapacity(capacity: int) -> ImmNodeSet {
-        return ImmNodeSet(Array<int>.new((capacity + 31) >>> 5), capacity);
+        return ImmNodeSet(Array<u64>.new((capacity + 63) >>> 6), capacity);
     }
 
     def single(n: IRNode) -> ImmNodeSet => empty().with(n);
@@ -248,10 +258,10 @@ component ImmNodeSets {
         var maxId = 0;
         for (n in arr) if (n.id > maxId) maxId = n.id;
         def cap = maxId + 1;
-        def bits = Array<int>.new((cap + 31) >>> 5);
+        def bits = Array<u64>.new((cap + 63) >>> 6);
         for (n in arr) {
-            def idx = n.id >>> 5;
-            bits[idx] = bits[idx] | (1 << u5.view(n.id));
+            def idx = n.id >>> 6;
+            bits[idx] = bits[idx] | (1uL << u6.view(n.id));
         }
         return ImmNodeSet(bits, cap);
     }

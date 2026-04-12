@@ -102750,23 +102750,21 @@ window.traces["REF_AS_NON_NULL"] = {}
 window.traces["REF_AS_NON_NULL"]["parsed"] = ''
 window.traces["REF_AS_NON_NULL"]["parsed"] += `<pre class=''>def obj = pop_Object();
 def arg__5520 = (obj);
-def cond__5516 = object_isNull(arg__5520);
-if (cond__5516) {
-	def eff__5517 = trapNull();
-} else {
-	def arg__5519 = (obj);
-	def eff__5518 = push_Object(arg__5519);
+def cond__5518 = object_isNull(arg__5520);
+if (cond__5518) {
+	def eff__5519 = trapNull();
 }
 // phis: 
+def arg__5517 = (obj);
+def eff__5516 = push_Object(arg__5517);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["initial_pretty"] = ''
 window.traces["REF_AS_NON_NULL"]["initial_pretty"] += `<pre class=''>def obj = pop_Object();
 def cond = object_isNull((obj));
 if (cond) {
 	trapNull();
-} else {
-	push_Object((obj));
 }
+push_Object((obj));
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["raw"] = ''
 window.traces["REF_AS_NON_NULL"]["raw"] += `<pre class='graph'>---
@@ -102775,27 +102773,27 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10{{"sea__5522 Sϕ Stack "}}
-	5 --> 10
-	8 --> 10
-	7 --> 10
-	7["eff__5518 push_Object"]
-	3 --> 7
-	3 -. Stack .-> 7
+	10["eff__5516 push_Object"]
+	3 --> 10
+	8 -. Stack .-> 10
+	8{{"sea__5522 Sϕ Stack "}}
+	5 --> 8
+	6 --> 8
+	3 --> 8
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"Start"\\]
-	8["eff__5517 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
-	3 -. Stack .-> 8
-	5["cond__5516 object_isNull"]
+	6["eff__5519 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
+	3 -. Stack .-> 6
+	5["cond__5518 object_isNull"]
 	3 --> 5
-	9{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	5 --> 9
-	8 --> 9
-	0 --> 9
+	7{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	5 --> 7
+	6 --> 7
+	0 --> 7
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["scheduler_start"] = ''
 window.traces["REF_AS_NON_NULL"]["scheduler_start"] += `<pre class='graph'>---
@@ -102804,39 +102802,39 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10{{"sea__5522 Sϕ Stack "}}
-	5 --> 10
-	13 --> 10
-	14 --> 10
-	14["mv_f__5526 |False|  [object_isNull [cond__5516]]"]
+	10["eff__5516 push_Object"]
+	3 --> 10
+	8 -. Stack .-> 10
+	8{{"sea__5522 Sϕ Stack "}}
+	5 --> 8
+	13 --> 8
+	14 --> 8
+	14["mv_f__5526 |False|  [object_isNull [cond__5518]]"]
 	5 --> 14
-	7 -. Stack .-> 14
-	7["eff__5518 push_Object"]
-	3 --> 7
-	3 -. Stack .-> 7
+	3 -. Stack .-> 14
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"Start"\\]
-	5["cond__5516 object_isNull"]
+	5["cond__5518 object_isNull"]
 	3 --> 5
-	13["mv_t__5525 |True|  [object_isNull [cond__5516]]"]
+	13["mv_t__5525 |True|  [object_isNull [cond__5518]]"]
 	5 --> 13
-	8 -. Stack .-> 13
-	8["eff__5517 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
-	3 -. Stack .-> 8
-	9{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	5 --> 9
-	11 --> 9
-	12 --> 9
-	12["mv_f__5524 |False|  [object_isNull [cond__5516]]"]
+	6 -. Stack .-> 13
+	6["eff__5519 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
+	3 -. Stack .-> 6
+	7{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	5 --> 7
+	11 --> 7
+	12 --> 7
+	12["mv_f__5524 |False|  [object_isNull [cond__5518]]"]
 	5 --> 12
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 12
-	11["mv_t__5523 |True|  [object_isNull [cond__5516]]"]
+	11["mv_t__5523 |True|  [object_isNull [cond__5518]]"]
 	5 --> 11
-	8 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 11
+	6 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 11
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["untangled"] = ''
 window.traces["REF_AS_NON_NULL"]["untangled"] += `<pre class='graph'>---
@@ -102845,64 +102843,66 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10{{"sea__5522 Sϕ Stack "}}
-	5 --> 10
-	13 --> 10
-	14 --> 10
-	14["mv_f__5526 |False|  [object_isNull [cond__5516]]"]
+	10["eff__5516 push_Object"]
+	3 --> 10
+	8 -. Stack .-> 10
+	8{{"sea__5522 Sϕ Stack "}}
+	5 --> 8
+	13 --> 8
+	14 --> 8
+	14["mv_f__5526 |False|  [object_isNull [cond__5518]]"]
 	5 --> 14
-	7 -. Stack .-> 14
-	7["eff__5518 push_Object"]
-	3 --> 7
-	3 -. Stack .-> 7
+	3 -. Stack .-> 14
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"Start"\\]
-	5["cond__5516 object_isNull"]
+	5["cond__5518 object_isNull"]
 	3 --> 5
-	13["mv_t__5525 |True|  [object_isNull [cond__5516]]"]
+	13["mv_t__5525 |True|  [object_isNull [cond__5518]]"]
 	5 --> 13
-	8 -. Stack .-> 13
-	8["eff__5517 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
-	3 -. Stack .-> 8
-	9{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	5 --> 9
-	11 --> 9
-	12 --> 9
-	12["mv_f__5524 |False|  [object_isNull [cond__5516]]"]
+	6 -. Stack .-> 13
+	6["eff__5519 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
+	3 -. Stack .-> 6
+	7{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	5 --> 7
+	11 --> 7
+	12 --> 7
+	12["mv_f__5524 |False|  [object_isNull [cond__5518]]"]
 	5 --> 12
 	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 12
-	11["mv_t__5523 |True|  [object_isNull [cond__5516]]"]
+	11["mv_t__5523 |True|  [object_isNull [cond__5518]]"]
 	5 --> 11
-	8 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 11
+	6 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 11
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["schedulerMermaid"] = ''
 window.traces["REF_AS_NON_NULL"]["schedulerMermaid"] += `<pre class='graph'>graph TD
 subgraph block_4928["Block 4928"]
 	direction TB
+	b4928_10["eff__5516 push_Object"]
 	b4928_1[\\"Finish"/]
+	b4928_10 --> b4928_1
 end
 phi_4931 --> block_4928
 subgraph phi_4931["Phi 4931"]
-	p4931_10{{"sea__5522 Sϕ Stack "}}
-	p4931_9{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p4931_8{{"sea__5522 Sϕ Stack "}}
+	p4931_7{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_4932 --> phi_4931
 block_4933 --> phi_4931
 subgraph block_4932["Block 4932"]
 	direction TB
-	b4932_8["eff__5517 trapNull"]
-	b4932_13["mv_t__5525 |True|  [object_isNull [cond__5516]]"]
-	b4932_11["mv_t__5523 |True|  [object_isNull [cond__5516]]"]
-	b4932_8 --> b4932_13
+	b4932_6["eff__5519 trapNull"]
+	b4932_13["mv_t__5525 |True|  [object_isNull [cond__5518]]"]
+	b4932_11["mv_t__5523 |True|  [object_isNull [cond__5518]]"]
+	b4932_6 --> b4932_13
 	b4932_13 --> b4932_11
 end
 branch_4930 --> block_4932
 subgraph branch_4930["Branch 4930"]
-	br4930_5["cond__5516 object_isNull"]
+	br4930_5["cond__5518 object_isNull"]
 
 end
 block_4934 --> branch_4930
@@ -102910,16 +102910,14 @@ subgraph block_4934["Block 4934"]
 	direction TB
 	b4934_0[/"Start"\\]
 	b4934_3["obj pop_Object"]
-	b4934_5["cond__5516 object_isNull"]
+	b4934_5["cond__5518 object_isNull"]
 	b4934_0 --> b4934_3
 	b4934_3 --> b4934_5
 end
 subgraph block_4933["Block 4933"]
 	direction TB
-	b4933_7["eff__5518 push_Object"]
-	b4933_14["mv_f__5526 |False|  [object_isNull [cond__5516]]"]
-	b4933_12["mv_f__5524 |False|  [object_isNull [cond__5516]]"]
-	b4933_7 --> b4933_14
+	b4933_14["mv_f__5526 |False|  [object_isNull [cond__5518]]"]
+	b4933_12["mv_f__5524 |False|  [object_isNull [cond__5518]]"]
 	b4933_14 --> b4933_12
 end
 branch_4930 --> block_4933
@@ -102927,22 +102925,20 @@ branch_4930 --> block_4933
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["scheduler_ssad"] = ''
 window.traces["REF_AS_NON_NULL"]["scheduler_ssad"] += `<pre class=''>def obj = pop_Object();
-def cond__5516 = object_isNull(obj);
-if (cond__5516) {
-	def eff__5517 = trapNull();
-} else {
-	def eff__5518 = push_Object(obj);
+def cond__5518 = object_isNull(obj);
+if (cond__5518) {
+	def eff__5519 = trapNull();
 }
 // phis: 
+def eff__5516 = push_Object(obj);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["scheduler_ssad_pretty"] = ''
 window.traces["REF_AS_NON_NULL"]["scheduler_ssad_pretty"] += `<pre class=''>def obj = pop_Object();
 def cond = object_isNull(obj);
 if (cond) {
 	trapNull();
-} else {
-	push_Object(obj);
 }
+push_Object(obj);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unLEM"] = ''
 window.traces["REF_AS_NON_NULL"]["unLEM"] += `<pre class='graph'>---
@@ -102951,48 +102947,48 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10{{"sea__5522 Sϕ Stack "}}
-	13 --> 10
-	18 --> 10
-	16 --> 10
+	10["eff__5516 push_Object"]
+	3 --> 10
+	8 -. Stack .-> 10
+	8{{"sea__5522 Sϕ Stack "}}
+	13 --> 8
+	18 --> 8
+	16 --> 8
 	16{{"innerPhi__5533 Sϕ Stack "}}
 	11 --> 16
-	8 --> 16
-	7 --> 16
-	7["eff__5518 push_Object"]
-	3 --> 7
-	3 -. Stack .-> 7
+	6 --> 16
+	3 --> 16
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"r_state__5531 Start"\\]
-	8["eff__5517 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
-	3 -. Stack .-> 8
+	6["eff__5519 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
+	3 -. Stack .-> 6
 	11["mt__5527 U32_maybeTrue"]
 	5 --> 11
-	5["cond__5516 object_isNull"]
+	5["cond__5518 object_isNull"]
 	3 --> 5
 	18["eff_merge__5535 merge"]
 	17 --> 18
-	7 --> 18
+	3 --> 18
 	17["eff_nop__5534 nop"]
 	13["mb__5529 bool.&&"]
 	11 --> 13
 	12 --> 13
 	12["mf__5528 U32_maybeFalse"]
 	5 --> 12
-	9{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	13 --> 9
-	15 --> 9
-	14 --> 9
+	7{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	13 --> 7
+	15 --> 7
+	14 --> 7
 	14{{"innerPhi__5530 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	11 --> 14
-	8 --> 14
+	6 --> 14
 	0 --> 14
 	15["eff_merge__5532 merge"]
-	8 --> 15
+	6 --> 15
 	0 --> 15
 </pre>`;
 window.traces["REF_AS_NON_NULL_ul"] = {}
@@ -103003,72 +102999,72 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10{{"sea__5522 Sϕ Stack "}}
-	13 --> 10
-	21 --> 10
-	22 --> 10
-	22["mv_f__5539 |False|  [bool.&& [mb__5529]]"]
-	13 --> 22
-	16 -. Stack .-> 22
+	10["eff__5516 push_Object"]
+	3 --> 10
+	8 -. Stack .-> 10
+	8{{"sea__5522 Sϕ Stack "}}
+	13 --> 8
+	23 --> 8
+	24 --> 8
+	24["mv_f__5541 |False|  [bool.&& [mb__5529]]"]
+	13 --> 24
+	16 -. Stack .-> 24
 	16{{"innerPhi__5533 Sϕ Stack "}}
 	11 --> 16
 	25 --> 16
 	26 --> 16
 	26["mv_f__5543 |False|  [U32_maybeTrue [mt__5527]]"]
 	11 --> 26
-	7 -. Stack .-> 26
-	7["eff__5518 push_Object"]
-	3 --> 7
-	3 -. Stack .-> 7
+	3 -. Stack .-> 26
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"r_state__5531 Start"\\]
 	11["mt__5527 U32_maybeTrue"]
 	5 --> 11
-	5["cond__5516 object_isNull"]
+	5["cond__5518 object_isNull"]
 	3 --> 5
 	25["mv_t__5542 |True|  [U32_maybeTrue [mt__5527]]"]
 	11 --> 25
-	8 -. Stack .-> 25
-	8["eff__5517 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
-	3 -. Stack .-> 8
+	6 -. Stack .-> 25
+	6["eff__5519 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
+	3 -. Stack .-> 6
 	13["mb__5529 bool.&&"]
 	11 --> 13
 	12 --> 13
 	12["mf__5528 U32_maybeFalse"]
 	5 --> 12
-	21["mv_t__5538 |True|  [bool.&& [mb__5529]]"]
-	13 --> 21
-	18 -. Stack .-> 21
+	23["mv_t__5540 |True|  [bool.&& [mb__5529]]"]
+	13 --> 23
+	18 -. Stack .-> 23
 	18["eff_merge__5535 merge"]
 	17 --> 18
-	7 --> 18
+	3 --> 18
 	17["eff_nop__5534 nop"]
-	9{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	13 --> 9
-	19 --> 9
-	20 --> 9
+	7{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	13 --> 7
+	19 --> 7
+	20 --> 7
 	20["mv_f__5537 |False|  [bool.&& [mb__5529]]"]
 	13 --> 20
 	14 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 20
 	14{{"innerPhi__5530 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	11 --> 14
-	23 --> 14
-	24 --> 14
-	24["mv_f__5541 |False|  [U32_maybeTrue [mt__5527]]"]
-	11 --> 24
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 24
-	23["mv_t__5540 |True|  [U32_maybeTrue [mt__5527]]"]
-	11 --> 23
-	8 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 23
+	21 --> 14
+	22 --> 14
+	22["mv_f__5539 |False|  [U32_maybeTrue [mt__5527]]"]
+	11 --> 22
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 22
+	21["mv_t__5538 |True|  [U32_maybeTrue [mt__5527]]"]
+	11 --> 21
+	6 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 21
 	19["mv_t__5536 |True|  [bool.&& [mb__5529]]"]
 	13 --> 19
 	15 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 19
 	15["eff_merge__5532 merge"]
-	8 --> 15
+	6 --> 15
 	0 --> 15
 </pre>`;
 window.traces["REF_AS_NON_NULL_ul"]["untangled"] = ''
@@ -103078,108 +103074,105 @@ config:
 ---
 graph TD
 	1[\\"Finish"/]
-	9 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
+	7 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 1
 	10 -. Stack .-> 1
-	10{{"sea__5522 Sϕ Stack "}}
-	13 --> 10
-	21 --> 10
-	22 --> 10
-	22["mv_f__5539 |False|  [bool.&& [mb__5529]]"]
-	13 --> 22
-	16 -. Stack .-> 22
+	10["eff__5516 push_Object"]
+	3 --> 10
+	8 -. Stack .-> 10
+	8{{"sea__5522 Sϕ Stack "}}
+	13 --> 8
+	23 --> 8
+	24 --> 8
+	24["mv_f__5541 |False|  [bool.&& [mb__5529]]"]
+	13 --> 24
+	16 -. Stack .-> 24
 	16{{"innerPhi__5533 Sϕ Stack "}}
 	11 --> 16
 	25 --> 16
 	26 --> 16
 	26["mv_f__5543 |False|  [U32_maybeTrue [mt__5527]]"]
 	11 --> 26
-	27 -. Stack .-> 26
-	27["eff__5518__5544 push_Object"]
-	3 --> 27
-	3 -. Stack .-> 27
+	3 -. Stack .-> 26
 	3["obj pop_Object"]
 	0 -. Stack .-> 3
 	0[/"r_state__5531 Start"\\]
 	11["mt__5527 U32_maybeTrue"]
 	5 --> 11
-	5["cond__5516 object_isNull"]
+	5["cond__5518 object_isNull"]
 	3 --> 5
 	25["mv_t__5542 |True|  [U32_maybeTrue [mt__5527]]"]
 	11 --> 25
-	28 -. Stack .-> 25
-	28["eff__5517__5545 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 28
-	3 -. Stack .-> 28
+	27 -. Stack .-> 25
+	27["eff__5519__5544 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 27
+	3 -. Stack .-> 27
 	13["mb__5529 bool.&&"]
 	11 --> 13
 	12 --> 13
 	12["mf__5528 U32_maybeFalse"]
 	5 --> 12
-	21["mv_t__5538 |True|  [bool.&& [mb__5529]]"]
-	13 --> 21
-	18 -. Stack .-> 21
+	23["mv_t__5540 |True|  [bool.&& [mb__5529]]"]
+	13 --> 23
+	18 -. Stack .-> 23
 	18["eff_merge__5535 merge"]
 	17 --> 18
-	7 --> 18
-	7["eff__5518 push_Object"]
-	3 --> 7
-	3 -. Stack .-> 7
+	3 --> 18
 	17["eff_nop__5534 nop"]
-	9{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
-	13 --> 9
-	19 --> 9
-	20 --> 9
+	7{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	13 --> 7
+	19 --> 7
+	20 --> 7
 	20["mv_f__5537 |False|  [bool.&& [mb__5529]]"]
 	13 --> 20
 	14 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 20
 	14{{"innerPhi__5530 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 	11 --> 14
-	23 --> 14
-	24 --> 14
-	24["mv_f__5541 |False|  [U32_maybeTrue [mt__5527]]"]
-	11 --> 24
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 24
-	23["mv_t__5540 |True|  [U32_maybeTrue [mt__5527]]"]
-	11 --> 23
-	28 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 23
+	21 --> 14
+	22 --> 14
+	22["mv_f__5539 |False|  [U32_maybeTrue [mt__5527]]"]
+	11 --> 22
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 22
+	21["mv_t__5538 |True|  [U32_maybeTrue [mt__5527]]"]
+	11 --> 21
+	27 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 21
 	19["mv_t__5536 |True|  [bool.&& [mb__5529]]"]
 	13 --> 19
 	15 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 19
 	15["eff_merge__5532 merge"]
-	8 --> 15
+	6 --> 15
 	0 --> 15
-	8["eff__5517 trapNull"]
-	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 8
-	3 -. Stack .-> 8
+	6["eff__5519 trapNull"]
+	0 -. Codeptr Trap Locals Globals Tables Memory Extra .-> 6
+	3 -. Stack .-> 6
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler"] = ''
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler"] += `<pre class='graph'>graph TD
 subgraph block_4935["Block 4935"]
 	direction TB
+	b4935_10["eff__5516 push_Object"]
 	b4935_1[\\"Finish"/]
+	b4935_10 --> b4935_1
 end
 phi_4941 --> block_4935
 subgraph phi_4941["Phi 4941"]
-	p4941_10{{"sea__5522 Sϕ Stack "}}
-	p4941_9{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
+	p4941_8{{"sea__5522 Sϕ Stack "}}
+	p4941_7{{"sea__5521 Sϕ Codeptr Trap Locals Globals Tables Memory Extra "}}
 end
 block_4942 --> phi_4941
 block_4943 --> phi_4941
 subgraph block_4942["Block 4942"]
 	direction TB
-	b4942_7["eff__5518 push_Object"]
 	b4942_17["eff_nop__5534 nop"]
-	b4942_8["eff__5517 trapNull"]
+	b4942_6["eff__5519 trapNull"]
 	b4942_18["eff_merge__5535 merge"]
 	b4942_15["eff_merge__5532 merge"]
-	b4942_21["mv_t__5538 |True|  [bool.&& [mb__5529]]"]
+	b4942_23["mv_t__5540 |True|  [bool.&& [mb__5529]]"]
 	b4942_19["mv_t__5536 |True|  [bool.&& [mb__5529]]"]
-	b4942_7 --> b4942_17
-	b4942_17 --> b4942_8
-	b4942_8 --> b4942_18
+	b4942_17 --> b4942_6
+	b4942_6 --> b4942_18
 	b4942_18 --> b4942_15
-	b4942_15 --> b4942_21
-	b4942_21 --> b4942_19
+	b4942_15 --> b4942_23
+	b4942_23 --> b4942_19
 end
 branch_4940 --> block_4942
 subgraph branch_4940["Branch 4940"]
@@ -103191,7 +103184,7 @@ subgraph block_4944["Block 4944"]
 	direction TB
 	b4944_0[/"r_state__5531 Start"\\]
 	b4944_3["obj pop_Object"]
-	b4944_5["cond__5516 object_isNull"]
+	b4944_5["cond__5518 object_isNull"]
 	b4944_11["mt__5527 U32_maybeTrue"]
 	b4944_12["mf__5528 U32_maybeFalse"]
 	b4944_13["mb__5529 bool.&&"]
@@ -103203,9 +103196,9 @@ subgraph block_4944["Block 4944"]
 end
 subgraph block_4943["Block 4943"]
 	direction TB
-	b4943_22["mv_f__5539 |False|  [bool.&& [mb__5529]]"]
+	b4943_24["mv_f__5541 |False|  [bool.&& [mb__5529]]"]
 	b4943_20["mv_f__5537 |False|  [bool.&& [mb__5529]]"]
-	b4943_22 --> b4943_20
+	b4943_24 --> b4943_20
 end
 phi_4946 --> block_4943
 subgraph phi_4946["Phi 4946"]
@@ -103216,11 +103209,11 @@ block_4947 --> phi_4946
 block_4948 --> phi_4946
 subgraph block_4947["Block 4947"]
 	direction TB
-	b4947_28["eff__5517__5545 trapNull"]
+	b4947_27["eff__5519__5544 trapNull"]
 	b4947_25["mv_t__5542 |True|  [U32_maybeTrue [mt__5527]]"]
-	b4947_23["mv_t__5540 |True|  [U32_maybeTrue [mt__5527]]"]
-	b4947_28 --> b4947_25
-	b4947_25 --> b4947_23
+	b4947_21["mv_t__5538 |True|  [U32_maybeTrue [mt__5527]]"]
+	b4947_27 --> b4947_25
+	b4947_25 --> b4947_21
 end
 branch_4945 --> block_4947
 subgraph branch_4945["Branch 4945"]
@@ -103230,38 +103223,33 @@ end
 branch_4940 --> branch_4945
 subgraph block_4948["Block 4948"]
 	direction TB
-	b4948_27["eff__5518__5544 push_Object"]
 	b4948_26["mv_f__5543 |False|  [U32_maybeTrue [mt__5527]]"]
-	b4948_24["mv_f__5541 |False|  [U32_maybeTrue [mt__5527]]"]
-	b4948_27 --> b4948_26
-	b4948_26 --> b4948_24
+	b4948_22["mv_f__5539 |False|  [U32_maybeTrue [mt__5527]]"]
+	b4948_26 --> b4948_22
 end
 branch_4945 --> block_4948
 
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler_ssa"] = ''
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler_ssa"] += `<pre class=''>def obj = pop_Object();
-def cond__5516 = object_isNull(obj);
-def mt__5527 = U32_maybeTrue(cond__5516);
-def mf__5528 = U32_maybeFalse(cond__5516);
+def cond__5518 = object_isNull(obj);
+def mt__5527 = U32_maybeTrue(cond__5518);
+def mf__5528 = U32_maybeFalse(cond__5518);
 def mb__5529 = bool.&&(mt__5527, mf__5528);
 if (mb__5529) {
-	def eff__5518 = push_Object(obj);
 	def eff_nop__5534 = nop();
-	def eff__5517 = trapNull();
-	def eff_merge__5535 = merge(eff_nop__5534, eff__5518);
-	def eff_merge__5532 = merge(eff__5517, r_state__5531);
+	def eff__5519 = trapNull();
+	def eff_merge__5535 = merge(eff_nop__5534, obj);
+	def eff_merge__5532 = merge(eff__5519, r_state__5531);
 } else {
 	if (mt__5527) {
-		def eff__5517__5545 = trapNull();
-		def eff__5517 = (eff__5517__5545);
-	} else {
-		def eff__5518__5544 = push_Object(obj);
-		def eff__5518 = (eff__5518__5544);
+		def eff__5519__5544 = trapNull();
+		def eff__5519 = (eff__5519__5544);
 	}
 // phis: 
 }
 // phis: 
+def eff__5516 = push_Object(obj);
 </pre>`;
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler_ssa_pretty"] = ''
 window.traces["REF_AS_NON_NULL"]["unlem_scheduler_ssa_pretty"] += `<pre class=''>def obj = pop_Object();
@@ -103269,25 +103257,23 @@ def cond = object_isNull(obj);
 def mt = U32_maybeTrue(cond);
 def mf = U32_maybeFalse(cond);
 if (bool.&&(mt, mf)) {
-	push_Object(obj);
 	trapNull();
 } else {
 	if (mt) {
 		trapNull();
-	} else {
-		push_Object(obj);
 	}
 }
+push_Object(obj);
 </pre>`;
 window.traces["STRUCT_NEW"] = {}
 window.traces["STRUCT_NEW"]["parsed"] = ''
 window.traces["STRUCT_NEW"]["parsed"] += `<pre class=''>def struct_idx = imm_readULEB32();
-def arg__5549 = (struct_idx);
-def sig = m_getSignature(arg__5549);
-def arg__5548 = (sig);
-def obj = object_New(arg__5548);
-def arg__5547 = (obj);
-def eff__5546 = push_Object(arg__5547);
+def arg__5548 = (struct_idx);
+def sig = m_getSignature(arg__5548);
+def arg__5547 = (sig);
+def obj = object_New(arg__5547);
+def arg__5546 = (obj);
+def eff__5545 = push_Object(arg__5546);
 </pre>`;
 window.traces["STRUCT_NEW"]["initial_pretty"] = ''
 window.traces["STRUCT_NEW"]["initial_pretty"] += `<pre class=''>def struct_idx = imm_readULEB32();
@@ -103305,7 +103291,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__5546 push_Object"]
+	9["eff__5545 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -103326,7 +103312,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__5546 push_Object"]
+	9["eff__5545 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -103347,7 +103333,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__5546 push_Object"]
+	9["eff__5545 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -103365,7 +103351,7 @@ subgraph block_4949["Block 4949"]
 	b4949_3["struct_idx imm_readULEB32"]
 	b4949_5["sig m_getSignature"]
 	b4949_7["obj object_New"]
-	b4949_9["eff__5546 push_Object"]
+	b4949_9["eff__5545 push_Object"]
 	b4949_1[\\"Finish"/]
 	b4949_0 --> b4949_3
 	b4949_3 --> b4949_5
@@ -103379,7 +103365,7 @@ window.traces["STRUCT_NEW"]["scheduler_ssad"] = ''
 window.traces["STRUCT_NEW"]["scheduler_ssad"] += `<pre class=''>def struct_idx = imm_readULEB32();
 def sig = m_getSignature(struct_idx);
 def obj = object_New(sig);
-def eff__5546 = push_Object(obj);
+def eff__5545 = push_Object(obj);
 </pre>`;
 window.traces["STRUCT_NEW"]["scheduler_ssad_pretty"] = ''
 window.traces["STRUCT_NEW"]["scheduler_ssad_pretty"] += `<pre class=''>def struct_idx = imm_readULEB32();
@@ -103397,7 +103383,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__5546 push_Object"]
+	9["eff__5545 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -103419,7 +103405,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__5546 push_Object"]
+	9["eff__5545 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -103440,7 +103426,7 @@ graph TD
 	9 -. Stack .-> 1
 	0 -. Trap Locals Globals Tables Memory Extra .-> 1
 	0[/"Start"\\]
-	9["eff__5546 push_Object"]
+	9["eff__5545 push_Object"]
 	7 --> 9
 	0 -. Stack .-> 9
 	7["obj object_New"]
@@ -103458,7 +103444,7 @@ subgraph block_4950["Block 4950"]
 	b4950_3["struct_idx imm_readULEB32"]
 	b4950_5["sig m_getSignature"]
 	b4950_7["obj object_New"]
-	b4950_9["eff__5546 push_Object"]
+	b4950_9["eff__5545 push_Object"]
 	b4950_1[\\"Finish"/]
 	b4950_0 --> b4950_3
 	b4950_3 --> b4950_5
@@ -103472,7 +103458,7 @@ window.traces["STRUCT_NEW"]["unlem_scheduler_ssa"] = ''
 window.traces["STRUCT_NEW"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_idx = imm_readULEB32();
 def sig = m_getSignature(struct_idx);
 def obj = object_New(sig);
-def eff__5546 = push_Object(obj);
+def eff__5545 = push_Object(obj);
 </pre>`;
 window.traces["STRUCT_NEW"]["unlem_scheduler_ssa_pretty"] = ''
 window.traces["STRUCT_NEW"]["unlem_scheduler_ssa_pretty"] += `<pre class=''>def struct_idx = imm_readULEB32();
@@ -103483,20 +103469,20 @@ window.traces["STRUCT_GET"] = {}
 window.traces["STRUCT_GET"]["parsed"] = ''
 window.traces["STRUCT_GET"]["parsed"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
-def arg__5581 = (field_index);
-def arg__5580 = (struct_index);
-def kind = m_getFieldKind(arg__5580, arg__5581);
-def arg__5579 = (field_index);
-def arg__5578 = (struct_index);
-def offset = m_getFieldOffset(arg__5578, arg__5579);
+def arg__5580 = (field_index);
+def arg__5579 = (struct_index);
+def kind = m_getFieldKind(arg__5579, arg__5580);
+def arg__5578 = (field_index);
+def arg__5577 = (struct_index);
+def offset = m_getFieldOffset(arg__5577, arg__5578);
 def obj = pop_Object();
-def arg__5577 = (obj);
-def cond__5575 = object_isNull(arg__5577);
-if (cond__5575) {
-	def ret__5576 = trapNull();
+def arg__5576 = (obj);
+def cond__5574 = object_isNull(arg__5576);
+if (cond__5574) {
+	def ret__5575 = trapNull();
 }
 // phis: 
-def cond__5550 = (kind);
+def cond__5549 = (kind);
 </pre>`;
 window.traces["STRUCT_GET"]["initial_pretty"] = ''
 window.traces["STRUCT_GET"]["initial_pretty"] += `<pre class=''>def struct_index = imm_readULEB32();
@@ -103546,12 +103532,12 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5584 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5583 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__5576 trapNull"]
+	14["ret__5575 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -103561,13 +103547,13 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__5575 object_isNull"]
+	13["cond__5574 object_isNull"]
 	11 --> 13
-	16{{"sea__5583 Sϕ Stack "}}
+	16{{"sea__5582 Sϕ Stack "}}
 	13 --> 16
 	14 --> 16
 	11 --> 16
-	15{{"sea__5582 Sϕ Codeptr "}}
+	15{{"sea__5581 Sϕ Codeptr "}}
 	13 --> 15
 	14 --> 15
 	4 --> 15
@@ -103582,22 +103568,22 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5584 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5583 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	23 --> 17
 	24 --> 17
-	24["mv_f__5590 |False|  [object_isNull [cond__5575]]"]
+	24["mv_f__5589 |False|  [object_isNull [cond__5574]]"]
 	13 --> 24
 	0 -. Trap Locals Globals Tables Memory Extra .-> 24
 	0[/"Start"\\]
-	13["cond__5575 object_isNull"]
+	13["cond__5574 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	23["mv_t__5589 |True|  [object_isNull [cond__5575]]"]
+	23["mv_t__5588 |True|  [object_isNull [cond__5574]]"]
 	13 --> 23
 	14 -. Trap Locals Globals Tables Memory Extra .-> 23
-	14["ret__5576 trapNull"]
+	14["ret__5575 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -103605,24 +103591,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	16{{"sea__5583 Sϕ Stack "}}
+	16{{"sea__5582 Sϕ Stack "}}
 	13 --> 16
 	21 --> 16
 	22 --> 16
-	22["mv_f__5588 |False|  [object_isNull [cond__5575]]"]
+	22["mv_f__5587 |False|  [object_isNull [cond__5574]]"]
 	13 --> 22
 	11 -. Stack .-> 22
-	21["mv_t__5587 |True|  [object_isNull [cond__5575]]"]
+	21["mv_t__5586 |True|  [object_isNull [cond__5574]]"]
 	13 --> 21
 	14 -. Stack .-> 21
-	15{{"sea__5582 Sϕ Codeptr "}}
+	15{{"sea__5581 Sϕ Codeptr "}}
 	13 --> 15
 	19 --> 15
 	20 --> 15
-	20["mv_f__5586 |False|  [object_isNull [cond__5575]]"]
+	20["mv_f__5585 |False|  [object_isNull [cond__5574]]"]
 	13 --> 20
 	4 -. Codeptr .-> 20
-	19["mv_t__5585 |True|  [object_isNull [cond__5575]]"]
+	19["mv_t__5584 |True|  [object_isNull [cond__5574]]"]
 	13 --> 19
 	14 -. Codeptr .-> 19
 </pre>`;
@@ -103636,22 +103622,22 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5584 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5583 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	23 --> 17
 	24 --> 17
-	24["mv_f__5590 |False|  [object_isNull [cond__5575]]"]
+	24["mv_f__5589 |False|  [object_isNull [cond__5574]]"]
 	13 --> 24
 	0 -. Trap Locals Globals Tables Memory Extra .-> 24
 	0[/"Start"\\]
-	13["cond__5575 object_isNull"]
+	13["cond__5574 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	23["mv_t__5589 |True|  [object_isNull [cond__5575]]"]
+	23["mv_t__5588 |True|  [object_isNull [cond__5574]]"]
 	13 --> 23
 	14 -. Trap Locals Globals Tables Memory Extra .-> 23
-	14["ret__5576 trapNull"]
+	14["ret__5575 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -103659,24 +103645,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	16{{"sea__5583 Sϕ Stack "}}
+	16{{"sea__5582 Sϕ Stack "}}
 	13 --> 16
 	21 --> 16
 	22 --> 16
-	22["mv_f__5588 |False|  [object_isNull [cond__5575]]"]
+	22["mv_f__5587 |False|  [object_isNull [cond__5574]]"]
 	13 --> 22
 	11 -. Stack .-> 22
-	21["mv_t__5587 |True|  [object_isNull [cond__5575]]"]
+	21["mv_t__5586 |True|  [object_isNull [cond__5574]]"]
 	13 --> 21
 	14 -. Stack .-> 21
-	15{{"sea__5582 Sϕ Codeptr "}}
+	15{{"sea__5581 Sϕ Codeptr "}}
 	13 --> 15
 	19 --> 15
 	20 --> 15
-	20["mv_f__5586 |False|  [object_isNull [cond__5575]]"]
+	20["mv_f__5585 |False|  [object_isNull [cond__5574]]"]
 	13 --> 20
 	4 -. Codeptr .-> 20
-	19["mv_t__5585 |True|  [object_isNull [cond__5575]]"]
+	19["mv_t__5584 |True|  [object_isNull [cond__5574]]"]
 	13 --> 19
 	14 -. Codeptr .-> 19
 </pre>`;
@@ -103688,25 +103674,25 @@ subgraph block_4951["Block 4951"]
 end
 phi_4954 --> block_4951
 subgraph phi_4954["Phi 4954"]
-	p4954_17{{"sea__5584 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p4954_16{{"sea__5583 Sϕ Stack "}}
-	p4954_15{{"sea__5582 Sϕ Codeptr "}}
+	p4954_17{{"sea__5583 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p4954_16{{"sea__5582 Sϕ Stack "}}
+	p4954_15{{"sea__5581 Sϕ Codeptr "}}
 end
 block_4955 --> phi_4954
 block_4956 --> phi_4954
 subgraph block_4955["Block 4955"]
 	direction TB
-	b4955_14["ret__5576 trapNull"]
-	b4955_23["mv_t__5589 |True|  [object_isNull [cond__5575]]"]
-	b4955_21["mv_t__5587 |True|  [object_isNull [cond__5575]]"]
-	b4955_19["mv_t__5585 |True|  [object_isNull [cond__5575]]"]
+	b4955_14["ret__5575 trapNull"]
+	b4955_23["mv_t__5588 |True|  [object_isNull [cond__5574]]"]
+	b4955_21["mv_t__5586 |True|  [object_isNull [cond__5574]]"]
+	b4955_19["mv_t__5584 |True|  [object_isNull [cond__5574]]"]
 	b4955_14 --> b4955_23
 	b4955_23 --> b4955_21
 	b4955_21 --> b4955_19
 end
 branch_4953 --> block_4955
 subgraph branch_4953["Branch 4953"]
-	br4953_13["cond__5575 object_isNull"]
+	br4953_13["cond__5574 object_isNull"]
 
 end
 block_4957 --> branch_4953
@@ -103716,7 +103702,7 @@ subgraph block_4957["Block 4957"]
 	b4957_3["struct_index imm_readULEB32"]
 	b4957_11["obj pop_Object"]
 	b4957_4["field_index imm_readULEB32"]
-	b4957_13["cond__5575 object_isNull"]
+	b4957_13["cond__5574 object_isNull"]
 	b4957_0 --> b4957_3
 	b4957_3 --> b4957_11
 	b4957_11 --> b4957_4
@@ -103724,9 +103710,9 @@ subgraph block_4957["Block 4957"]
 end
 subgraph block_4956["Block 4956"]
 	direction TB
-	b4956_24["mv_f__5590 |False|  [object_isNull [cond__5575]]"]
-	b4956_22["mv_f__5588 |False|  [object_isNull [cond__5575]]"]
-	b4956_20["mv_f__5586 |False|  [object_isNull [cond__5575]]"]
+	b4956_24["mv_f__5589 |False|  [object_isNull [cond__5574]]"]
+	b4956_22["mv_f__5587 |False|  [object_isNull [cond__5574]]"]
+	b4956_20["mv_f__5585 |False|  [object_isNull [cond__5574]]"]
 	b4956_24 --> b4956_22
 	b4956_22 --> b4956_20
 end
@@ -103737,9 +103723,9 @@ window.traces["STRUCT_GET"]["scheduler_ssad"] = ''
 window.traces["STRUCT_GET"]["scheduler_ssad"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__5575 = object_isNull(obj);
-if (cond__5575) {
-	def ret__5576 = trapNull();
+def cond__5574 = object_isNull(obj);
+if (cond__5574) {
+	def ret__5575 = trapNull();
 }
 // phis: 
 </pre>`;
@@ -103762,16 +103748,16 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5584 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5583 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	29 --> 17
 	27 --> 17
-	27{{"innerPhi__5599 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__5598 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	14 --> 27
 	0 --> 27
-	0[/"r_state__5601 Start"\\]
-	14["ret__5576 trapNull"]
+	0[/"r_state__5600 Start"\\]
+	14["ret__5575 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -103781,40 +103767,40 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	19["mt__5591 U32_maybeTrue"]
+	19["mt__5590 U32_maybeTrue"]
 	13 --> 19
-	13["cond__5575 object_isNull"]
+	13["cond__5574 object_isNull"]
 	11 --> 13
-	29["eff_merge__5602 merge"]
+	29["eff_merge__5601 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__5600 nop"]
-	21["mb__5593 bool.&&"]
+	28["eff_nop__5599 nop"]
+	21["mb__5592 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__5592 U32_maybeFalse"]
+	20["mf__5591 U32_maybeFalse"]
 	13 --> 20
-	16{{"sea__5583 Sϕ Stack "}}
+	16{{"sea__5582 Sϕ Stack "}}
 	21 --> 16
 	26 --> 16
 	24 --> 16
-	24{{"innerPhi__5596 Sϕ Stack "}}
+	24{{"innerPhi__5595 Sϕ Stack "}}
 	19 --> 24
 	14 --> 24
 	11 --> 24
-	26["eff_merge__5598 merge"]
+	26["eff_merge__5597 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__5597 nop"]
-	15{{"sea__5582 Sϕ Codeptr "}}
+	25["eff_nop__5596 nop"]
+	15{{"sea__5581 Sϕ Codeptr "}}
 	21 --> 15
 	23 --> 15
 	22 --> 15
-	22{{"innerPhi__5594 Sϕ Codeptr "}}
+	22{{"innerPhi__5593 Sϕ Codeptr "}}
 	19 --> 22
 	14 --> 22
 	4 --> 22
-	23["eff_merge__5595 merge"]
+	23["eff_merge__5594 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
@@ -103829,31 +103815,31 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5584 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5583 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	34 --> 17
 	35 --> 17
-	35["mv_f__5608 |False|  [bool.&& [mb__5593]]"]
+	35["mv_f__5607 |False|  [bool.&& [mb__5592]]"]
 	21 --> 35
 	27 -. Trap Locals Globals Tables Memory Extra .-> 35
-	27{{"innerPhi__5599 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__5598 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	40 --> 27
 	41 --> 27
-	41["mv_f__5614 |False|  [U32_maybeTrue [mt__5591]]"]
+	41["mv_f__5613 |False|  [U32_maybeTrue [mt__5590]]"]
 	19 --> 41
 	0 -. Trap Locals Globals Tables Memory Extra .-> 41
-	0[/"r_state__5601 Start"\\]
-	19["mt__5591 U32_maybeTrue"]
+	0[/"r_state__5600 Start"\\]
+	19["mt__5590 U32_maybeTrue"]
 	13 --> 19
-	13["cond__5575 object_isNull"]
+	13["cond__5574 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	40["mv_t__5613 |True|  [U32_maybeTrue [mt__5591]]"]
+	40["mv_t__5612 |True|  [U32_maybeTrue [mt__5590]]"]
 	19 --> 40
 	14 -. Trap Locals Globals Tables Memory Extra .-> 40
-	14["ret__5576 trapNull"]
+	14["ret__5575 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -103861,63 +103847,63 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__5593 bool.&&"]
+	21["mb__5592 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__5592 U32_maybeFalse"]
+	20["mf__5591 U32_maybeFalse"]
 	13 --> 20
-	34["mv_t__5607 |True|  [bool.&& [mb__5593]]"]
+	34["mv_t__5606 |True|  [bool.&& [mb__5592]]"]
 	21 --> 34
 	29 -. Trap Locals Globals Tables Memory Extra .-> 34
-	29["eff_merge__5602 merge"]
+	29["eff_merge__5601 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__5600 nop"]
-	16{{"sea__5583 Sϕ Stack "}}
+	28["eff_nop__5599 nop"]
+	16{{"sea__5582 Sϕ Stack "}}
 	21 --> 16
 	32 --> 16
 	33 --> 16
-	33["mv_f__5606 |False|  [bool.&& [mb__5593]]"]
+	33["mv_f__5605 |False|  [bool.&& [mb__5592]]"]
 	21 --> 33
 	24 -. Stack .-> 33
-	24{{"innerPhi__5596 Sϕ Stack "}}
+	24{{"innerPhi__5595 Sϕ Stack "}}
 	19 --> 24
 	38 --> 24
 	39 --> 24
-	39["mv_f__5612 |False|  [U32_maybeTrue [mt__5591]]"]
+	39["mv_f__5611 |False|  [U32_maybeTrue [mt__5590]]"]
 	19 --> 39
 	11 -. Stack .-> 39
-	38["mv_t__5611 |True|  [U32_maybeTrue [mt__5591]]"]
+	38["mv_t__5610 |True|  [U32_maybeTrue [mt__5590]]"]
 	19 --> 38
 	14 -. Stack .-> 38
-	32["mv_t__5605 |True|  [bool.&& [mb__5593]]"]
+	32["mv_t__5604 |True|  [bool.&& [mb__5592]]"]
 	21 --> 32
 	26 -. Stack .-> 32
-	26["eff_merge__5598 merge"]
+	26["eff_merge__5597 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__5597 nop"]
-	15{{"sea__5582 Sϕ Codeptr "}}
+	25["eff_nop__5596 nop"]
+	15{{"sea__5581 Sϕ Codeptr "}}
 	21 --> 15
 	30 --> 15
 	31 --> 15
-	31["mv_f__5604 |False|  [bool.&& [mb__5593]]"]
+	31["mv_f__5603 |False|  [bool.&& [mb__5592]]"]
 	21 --> 31
 	22 -. Codeptr .-> 31
-	22{{"innerPhi__5594 Sϕ Codeptr "}}
+	22{{"innerPhi__5593 Sϕ Codeptr "}}
 	19 --> 22
 	36 --> 22
 	37 --> 22
-	37["mv_f__5610 |False|  [U32_maybeTrue [mt__5591]]"]
+	37["mv_f__5609 |False|  [U32_maybeTrue [mt__5590]]"]
 	19 --> 37
 	4 -. Codeptr .-> 37
-	36["mv_t__5609 |True|  [U32_maybeTrue [mt__5591]]"]
+	36["mv_t__5608 |True|  [U32_maybeTrue [mt__5590]]"]
 	19 --> 36
 	14 -. Codeptr .-> 36
-	30["mv_t__5603 |True|  [bool.&& [mb__5593]]"]
+	30["mv_t__5602 |True|  [bool.&& [mb__5592]]"]
 	21 --> 30
 	23 -. Codeptr .-> 30
-	23["eff_merge__5595 merge"]
+	23["eff_merge__5594 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
@@ -103931,31 +103917,31 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5584 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5583 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	34 --> 17
 	35 --> 17
-	35["mv_f__5608 |False|  [bool.&& [mb__5593]]"]
+	35["mv_f__5607 |False|  [bool.&& [mb__5592]]"]
 	21 --> 35
 	27 -. Trap Locals Globals Tables Memory Extra .-> 35
-	27{{"innerPhi__5599 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__5598 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	40 --> 27
 	41 --> 27
-	41["mv_f__5614 |False|  [U32_maybeTrue [mt__5591]]"]
+	41["mv_f__5613 |False|  [U32_maybeTrue [mt__5590]]"]
 	19 --> 41
 	0 -. Trap Locals Globals Tables Memory Extra .-> 41
-	0[/"r_state__5601 Start"\\]
-	19["mt__5591 U32_maybeTrue"]
+	0[/"r_state__5600 Start"\\]
+	19["mt__5590 U32_maybeTrue"]
 	13 --> 19
-	13["cond__5575 object_isNull"]
+	13["cond__5574 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	40["mv_t__5613 |True|  [U32_maybeTrue [mt__5591]]"]
+	40["mv_t__5612 |True|  [U32_maybeTrue [mt__5590]]"]
 	19 --> 40
 	42 -. Trap Locals Globals Tables Memory Extra .-> 40
-	42["ret__5576__5615 trapNull"]
+	42["ret__5575__5614 trapNull"]
 	4 -. Codeptr .-> 42
 	11 -. Stack .-> 42
 	0 -. Trap Locals Globals Tables Memory Extra .-> 42
@@ -103963,66 +103949,66 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__5593 bool.&&"]
+	21["mb__5592 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__5592 U32_maybeFalse"]
+	20["mf__5591 U32_maybeFalse"]
 	13 --> 20
-	34["mv_t__5607 |True|  [bool.&& [mb__5593]]"]
+	34["mv_t__5606 |True|  [bool.&& [mb__5592]]"]
 	21 --> 34
 	29 -. Trap Locals Globals Tables Memory Extra .-> 34
-	29["eff_merge__5602 merge"]
+	29["eff_merge__5601 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__5600 nop"]
-	16{{"sea__5583 Sϕ Stack "}}
+	28["eff_nop__5599 nop"]
+	16{{"sea__5582 Sϕ Stack "}}
 	21 --> 16
 	32 --> 16
 	33 --> 16
-	33["mv_f__5606 |False|  [bool.&& [mb__5593]]"]
+	33["mv_f__5605 |False|  [bool.&& [mb__5592]]"]
 	21 --> 33
 	24 -. Stack .-> 33
-	24{{"innerPhi__5596 Sϕ Stack "}}
+	24{{"innerPhi__5595 Sϕ Stack "}}
 	19 --> 24
 	38 --> 24
 	39 --> 24
-	39["mv_f__5612 |False|  [U32_maybeTrue [mt__5591]]"]
+	39["mv_f__5611 |False|  [U32_maybeTrue [mt__5590]]"]
 	19 --> 39
 	11 -. Stack .-> 39
-	38["mv_t__5611 |True|  [U32_maybeTrue [mt__5591]]"]
+	38["mv_t__5610 |True|  [U32_maybeTrue [mt__5590]]"]
 	19 --> 38
 	42 -. Stack .-> 38
-	32["mv_t__5605 |True|  [bool.&& [mb__5593]]"]
+	32["mv_t__5604 |True|  [bool.&& [mb__5592]]"]
 	21 --> 32
 	26 -. Stack .-> 32
-	26["eff_merge__5598 merge"]
+	26["eff_merge__5597 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__5597 nop"]
-	15{{"sea__5582 Sϕ Codeptr "}}
+	25["eff_nop__5596 nop"]
+	15{{"sea__5581 Sϕ Codeptr "}}
 	21 --> 15
 	30 --> 15
 	31 --> 15
-	31["mv_f__5604 |False|  [bool.&& [mb__5593]]"]
+	31["mv_f__5603 |False|  [bool.&& [mb__5592]]"]
 	21 --> 31
 	22 -. Codeptr .-> 31
-	22{{"innerPhi__5594 Sϕ Codeptr "}}
+	22{{"innerPhi__5593 Sϕ Codeptr "}}
 	19 --> 22
 	36 --> 22
 	37 --> 22
-	37["mv_f__5610 |False|  [U32_maybeTrue [mt__5591]]"]
+	37["mv_f__5609 |False|  [U32_maybeTrue [mt__5590]]"]
 	19 --> 37
 	4 -. Codeptr .-> 37
-	36["mv_t__5609 |True|  [U32_maybeTrue [mt__5591]]"]
+	36["mv_t__5608 |True|  [U32_maybeTrue [mt__5590]]"]
 	19 --> 36
 	42 -. Codeptr .-> 36
-	30["mv_t__5603 |True|  [bool.&& [mb__5593]]"]
+	30["mv_t__5602 |True|  [bool.&& [mb__5592]]"]
 	21 --> 30
 	23 -. Codeptr .-> 30
-	23["eff_merge__5595 merge"]
+	23["eff_merge__5594 merge"]
 	14 --> 23
 	4 --> 23
-	14["ret__5576 trapNull"]
+	14["ret__5575 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -104035,23 +104021,23 @@ subgraph block_4958["Block 4958"]
 end
 phi_4964 --> block_4958
 subgraph phi_4964["Phi 4964"]
-	p4964_17{{"sea__5584 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p4964_16{{"sea__5583 Sϕ Stack "}}
-	p4964_15{{"sea__5582 Sϕ Codeptr "}}
+	p4964_17{{"sea__5583 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p4964_16{{"sea__5582 Sϕ Stack "}}
+	p4964_15{{"sea__5581 Sϕ Codeptr "}}
 end
 block_4965 --> phi_4964
 block_4966 --> phi_4964
 subgraph block_4965["Block 4965"]
 	direction TB
-	b4965_28["eff_nop__5600 nop"]
-	b4965_25["eff_nop__5597 nop"]
-	b4965_14["ret__5576 trapNull"]
-	b4965_29["eff_merge__5602 merge"]
-	b4965_26["eff_merge__5598 merge"]
-	b4965_23["eff_merge__5595 merge"]
-	b4965_34["mv_t__5607 |True|  [bool.&& [mb__5593]]"]
-	b4965_32["mv_t__5605 |True|  [bool.&& [mb__5593]]"]
-	b4965_30["mv_t__5603 |True|  [bool.&& [mb__5593]]"]
+	b4965_28["eff_nop__5599 nop"]
+	b4965_25["eff_nop__5596 nop"]
+	b4965_14["ret__5575 trapNull"]
+	b4965_29["eff_merge__5601 merge"]
+	b4965_26["eff_merge__5597 merge"]
+	b4965_23["eff_merge__5594 merge"]
+	b4965_34["mv_t__5606 |True|  [bool.&& [mb__5592]]"]
+	b4965_32["mv_t__5604 |True|  [bool.&& [mb__5592]]"]
+	b4965_30["mv_t__5602 |True|  [bool.&& [mb__5592]]"]
 	b4965_28 --> b4965_25
 	b4965_25 --> b4965_14
 	b4965_14 --> b4965_29
@@ -104063,20 +104049,20 @@ subgraph block_4965["Block 4965"]
 end
 branch_4963 --> block_4965
 subgraph branch_4963["Branch 4963"]
-	br4963_21["mb__5593 bool.&&"]
+	br4963_21["mb__5592 bool.&&"]
 
 end
 block_4967 --> branch_4963
 subgraph block_4967["Block 4967"]
 	direction TB
-	b4967_0[/"r_state__5601 Start"\\]
+	b4967_0[/"r_state__5600 Start"\\]
 	b4967_3["struct_index imm_readULEB32"]
 	b4967_11["obj pop_Object"]
 	b4967_4["field_index imm_readULEB32"]
-	b4967_13["cond__5575 object_isNull"]
-	b4967_19["mt__5591 U32_maybeTrue"]
-	b4967_20["mf__5592 U32_maybeFalse"]
-	b4967_21["mb__5593 bool.&&"]
+	b4967_13["cond__5574 object_isNull"]
+	b4967_19["mt__5590 U32_maybeTrue"]
+	b4967_20["mf__5591 U32_maybeFalse"]
+	b4967_21["mb__5592 bool.&&"]
 	b4967_0 --> b4967_3
 	b4967_3 --> b4967_11
 	b4967_11 --> b4967_4
@@ -104087,41 +104073,41 @@ subgraph block_4967["Block 4967"]
 end
 subgraph block_4966["Block 4966"]
 	direction TB
-	b4966_35["mv_f__5608 |False|  [bool.&& [mb__5593]]"]
-	b4966_33["mv_f__5606 |False|  [bool.&& [mb__5593]]"]
-	b4966_31["mv_f__5604 |False|  [bool.&& [mb__5593]]"]
+	b4966_35["mv_f__5607 |False|  [bool.&& [mb__5592]]"]
+	b4966_33["mv_f__5605 |False|  [bool.&& [mb__5592]]"]
+	b4966_31["mv_f__5603 |False|  [bool.&& [mb__5592]]"]
 	b4966_35 --> b4966_33
 	b4966_33 --> b4966_31
 end
 phi_4969 --> block_4966
 subgraph phi_4969["Phi 4969"]
-	p4969_27{{"innerPhi__5599 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p4969_24{{"innerPhi__5596 Sϕ Stack "}}
-	p4969_22{{"innerPhi__5594 Sϕ Codeptr "}}
+	p4969_27{{"innerPhi__5598 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p4969_24{{"innerPhi__5595 Sϕ Stack "}}
+	p4969_22{{"innerPhi__5593 Sϕ Codeptr "}}
 end
 block_4970 --> phi_4969
 block_4971 --> phi_4969
 subgraph block_4970["Block 4970"]
 	direction TB
-	b4970_42["ret__5576__5615 trapNull"]
-	b4970_40["mv_t__5613 |True|  [U32_maybeTrue [mt__5591]]"]
-	b4970_38["mv_t__5611 |True|  [U32_maybeTrue [mt__5591]]"]
-	b4970_36["mv_t__5609 |True|  [U32_maybeTrue [mt__5591]]"]
+	b4970_42["ret__5575__5614 trapNull"]
+	b4970_40["mv_t__5612 |True|  [U32_maybeTrue [mt__5590]]"]
+	b4970_38["mv_t__5610 |True|  [U32_maybeTrue [mt__5590]]"]
+	b4970_36["mv_t__5608 |True|  [U32_maybeTrue [mt__5590]]"]
 	b4970_42 --> b4970_40
 	b4970_40 --> b4970_38
 	b4970_38 --> b4970_36
 end
 branch_4968 --> block_4970
 subgraph branch_4968["Branch 4968"]
-	br4968_19["mt__5591 U32_maybeTrue"]
+	br4968_19["mt__5590 U32_maybeTrue"]
 
 end
 branch_4963 --> branch_4968
 subgraph block_4971["Block 4971"]
 	direction TB
-	b4971_41["mv_f__5614 |False|  [U32_maybeTrue [mt__5591]]"]
-	b4971_39["mv_f__5612 |False|  [U32_maybeTrue [mt__5591]]"]
-	b4971_37["mv_f__5610 |False|  [U32_maybeTrue [mt__5591]]"]
+	b4971_41["mv_f__5613 |False|  [U32_maybeTrue [mt__5590]]"]
+	b4971_39["mv_f__5611 |False|  [U32_maybeTrue [mt__5590]]"]
+	b4971_37["mv_f__5609 |False|  [U32_maybeTrue [mt__5590]]"]
 	b4971_41 --> b4971_39
 	b4971_39 --> b4971_37
 end
@@ -104132,21 +104118,21 @@ window.traces["STRUCT_GET"]["unlem_scheduler_ssa"] = ''
 window.traces["STRUCT_GET"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__5575 = object_isNull(obj);
-def mt__5591 = U32_maybeTrue(cond__5575);
-def mf__5592 = U32_maybeFalse(cond__5575);
-def mb__5593 = bool.&&(mt__5591, mf__5592);
-if (mb__5593) {
-	def eff_nop__5600 = nop();
-	def eff_nop__5597 = nop();
-	def ret__5576 = trapNull();
-	def eff_merge__5602 = merge(eff_nop__5600, r_state__5601);
-	def eff_merge__5598 = merge(eff_nop__5597, obj);
-	def eff_merge__5595 = merge(ret__5576, field_index);
+def cond__5574 = object_isNull(obj);
+def mt__5590 = U32_maybeTrue(cond__5574);
+def mf__5591 = U32_maybeFalse(cond__5574);
+def mb__5592 = bool.&&(mt__5590, mf__5591);
+if (mb__5592) {
+	def eff_nop__5599 = nop();
+	def eff_nop__5596 = nop();
+	def ret__5575 = trapNull();
+	def eff_merge__5601 = merge(eff_nop__5599, r_state__5600);
+	def eff_merge__5597 = merge(eff_nop__5596, obj);
+	def eff_merge__5594 = merge(ret__5575, field_index);
 } else {
-	if (mt__5591) {
-		def ret__5576__5615 = trapNull();
-		def ret__5576 = (ret__5576__5615);
+	if (mt__5590) {
+		def ret__5575__5614 = trapNull();
+		def ret__5575 = (ret__5575__5614);
 	}
 // phis: 
 }
@@ -104171,20 +104157,20 @@ window.traces["STRUCT_GET_S"] = {}
 window.traces["STRUCT_GET_S"]["parsed"] = ''
 window.traces["STRUCT_GET_S"]["parsed"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
-def arg__5633 = (field_index);
-def arg__5632 = (struct_index);
-def kind = m_getFieldKind(arg__5632, arg__5633);
-def arg__5631 = (field_index);
-def arg__5630 = (struct_index);
-def offset = m_getFieldOffset(arg__5630, arg__5631);
+def arg__5632 = (field_index);
+def arg__5631 = (struct_index);
+def kind = m_getFieldKind(arg__5631, arg__5632);
+def arg__5630 = (field_index);
+def arg__5629 = (struct_index);
+def offset = m_getFieldOffset(arg__5629, arg__5630);
 def obj = pop_Object();
-def arg__5629 = (obj);
-def cond__5627 = object_isNull(arg__5629);
-if (cond__5627) {
-	def ret__5628 = trapNull();
+def arg__5628 = (obj);
+def cond__5626 = object_isNull(arg__5628);
+if (cond__5626) {
+	def ret__5627 = trapNull();
 }
 // phis: 
-def cond__5616 = (kind);
+def cond__5615 = (kind);
 </pre>`;
 window.traces["STRUCT_GET_S"]["initial_pretty"] = ''
 window.traces["STRUCT_GET_S"]["initial_pretty"] += `<pre class=''>def struct_index = imm_readULEB32();
@@ -104218,12 +104204,12 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5636 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5635 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__5628 trapNull"]
+	14["ret__5627 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -104233,13 +104219,13 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__5627 object_isNull"]
+	13["cond__5626 object_isNull"]
 	11 --> 13
-	16{{"sea__5635 Sϕ Stack "}}
+	16{{"sea__5634 Sϕ Stack "}}
 	13 --> 16
 	14 --> 16
 	11 --> 16
-	15{{"sea__5634 Sϕ Codeptr "}}
+	15{{"sea__5633 Sϕ Codeptr "}}
 	13 --> 15
 	14 --> 15
 	4 --> 15
@@ -104254,22 +104240,22 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5636 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5635 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	23 --> 17
 	24 --> 17
-	24["mv_f__5642 |False|  [object_isNull [cond__5627]]"]
+	24["mv_f__5641 |False|  [object_isNull [cond__5626]]"]
 	13 --> 24
 	0 -. Trap Locals Globals Tables Memory Extra .-> 24
 	0[/"Start"\\]
-	13["cond__5627 object_isNull"]
+	13["cond__5626 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	23["mv_t__5641 |True|  [object_isNull [cond__5627]]"]
+	23["mv_t__5640 |True|  [object_isNull [cond__5626]]"]
 	13 --> 23
 	14 -. Trap Locals Globals Tables Memory Extra .-> 23
-	14["ret__5628 trapNull"]
+	14["ret__5627 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -104277,24 +104263,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	16{{"sea__5635 Sϕ Stack "}}
+	16{{"sea__5634 Sϕ Stack "}}
 	13 --> 16
 	21 --> 16
 	22 --> 16
-	22["mv_f__5640 |False|  [object_isNull [cond__5627]]"]
+	22["mv_f__5639 |False|  [object_isNull [cond__5626]]"]
 	13 --> 22
 	11 -. Stack .-> 22
-	21["mv_t__5639 |True|  [object_isNull [cond__5627]]"]
+	21["mv_t__5638 |True|  [object_isNull [cond__5626]]"]
 	13 --> 21
 	14 -. Stack .-> 21
-	15{{"sea__5634 Sϕ Codeptr "}}
+	15{{"sea__5633 Sϕ Codeptr "}}
 	13 --> 15
 	19 --> 15
 	20 --> 15
-	20["mv_f__5638 |False|  [object_isNull [cond__5627]]"]
+	20["mv_f__5637 |False|  [object_isNull [cond__5626]]"]
 	13 --> 20
 	4 -. Codeptr .-> 20
-	19["mv_t__5637 |True|  [object_isNull [cond__5627]]"]
+	19["mv_t__5636 |True|  [object_isNull [cond__5626]]"]
 	13 --> 19
 	14 -. Codeptr .-> 19
 </pre>`;
@@ -104308,22 +104294,22 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5636 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5635 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	23 --> 17
 	24 --> 17
-	24["mv_f__5642 |False|  [object_isNull [cond__5627]]"]
+	24["mv_f__5641 |False|  [object_isNull [cond__5626]]"]
 	13 --> 24
 	0 -. Trap Locals Globals Tables Memory Extra .-> 24
 	0[/"Start"\\]
-	13["cond__5627 object_isNull"]
+	13["cond__5626 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	23["mv_t__5641 |True|  [object_isNull [cond__5627]]"]
+	23["mv_t__5640 |True|  [object_isNull [cond__5626]]"]
 	13 --> 23
 	14 -. Trap Locals Globals Tables Memory Extra .-> 23
-	14["ret__5628 trapNull"]
+	14["ret__5627 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -104331,24 +104317,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	16{{"sea__5635 Sϕ Stack "}}
+	16{{"sea__5634 Sϕ Stack "}}
 	13 --> 16
 	21 --> 16
 	22 --> 16
-	22["mv_f__5640 |False|  [object_isNull [cond__5627]]"]
+	22["mv_f__5639 |False|  [object_isNull [cond__5626]]"]
 	13 --> 22
 	11 -. Stack .-> 22
-	21["mv_t__5639 |True|  [object_isNull [cond__5627]]"]
+	21["mv_t__5638 |True|  [object_isNull [cond__5626]]"]
 	13 --> 21
 	14 -. Stack .-> 21
-	15{{"sea__5634 Sϕ Codeptr "}}
+	15{{"sea__5633 Sϕ Codeptr "}}
 	13 --> 15
 	19 --> 15
 	20 --> 15
-	20["mv_f__5638 |False|  [object_isNull [cond__5627]]"]
+	20["mv_f__5637 |False|  [object_isNull [cond__5626]]"]
 	13 --> 20
 	4 -. Codeptr .-> 20
-	19["mv_t__5637 |True|  [object_isNull [cond__5627]]"]
+	19["mv_t__5636 |True|  [object_isNull [cond__5626]]"]
 	13 --> 19
 	14 -. Codeptr .-> 19
 </pre>`;
@@ -104360,25 +104346,25 @@ subgraph block_4972["Block 4972"]
 end
 phi_4975 --> block_4972
 subgraph phi_4975["Phi 4975"]
-	p4975_17{{"sea__5636 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p4975_16{{"sea__5635 Sϕ Stack "}}
-	p4975_15{{"sea__5634 Sϕ Codeptr "}}
+	p4975_17{{"sea__5635 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p4975_16{{"sea__5634 Sϕ Stack "}}
+	p4975_15{{"sea__5633 Sϕ Codeptr "}}
 end
 block_4976 --> phi_4975
 block_4977 --> phi_4975
 subgraph block_4976["Block 4976"]
 	direction TB
-	b4976_14["ret__5628 trapNull"]
-	b4976_23["mv_t__5641 |True|  [object_isNull [cond__5627]]"]
-	b4976_21["mv_t__5639 |True|  [object_isNull [cond__5627]]"]
-	b4976_19["mv_t__5637 |True|  [object_isNull [cond__5627]]"]
+	b4976_14["ret__5627 trapNull"]
+	b4976_23["mv_t__5640 |True|  [object_isNull [cond__5626]]"]
+	b4976_21["mv_t__5638 |True|  [object_isNull [cond__5626]]"]
+	b4976_19["mv_t__5636 |True|  [object_isNull [cond__5626]]"]
 	b4976_14 --> b4976_23
 	b4976_23 --> b4976_21
 	b4976_21 --> b4976_19
 end
 branch_4974 --> block_4976
 subgraph branch_4974["Branch 4974"]
-	br4974_13["cond__5627 object_isNull"]
+	br4974_13["cond__5626 object_isNull"]
 
 end
 block_4978 --> branch_4974
@@ -104388,7 +104374,7 @@ subgraph block_4978["Block 4978"]
 	b4978_3["struct_index imm_readULEB32"]
 	b4978_11["obj pop_Object"]
 	b4978_4["field_index imm_readULEB32"]
-	b4978_13["cond__5627 object_isNull"]
+	b4978_13["cond__5626 object_isNull"]
 	b4978_0 --> b4978_3
 	b4978_3 --> b4978_11
 	b4978_11 --> b4978_4
@@ -104396,9 +104382,9 @@ subgraph block_4978["Block 4978"]
 end
 subgraph block_4977["Block 4977"]
 	direction TB
-	b4977_24["mv_f__5642 |False|  [object_isNull [cond__5627]]"]
-	b4977_22["mv_f__5640 |False|  [object_isNull [cond__5627]]"]
-	b4977_20["mv_f__5638 |False|  [object_isNull [cond__5627]]"]
+	b4977_24["mv_f__5641 |False|  [object_isNull [cond__5626]]"]
+	b4977_22["mv_f__5639 |False|  [object_isNull [cond__5626]]"]
+	b4977_20["mv_f__5637 |False|  [object_isNull [cond__5626]]"]
 	b4977_24 --> b4977_22
 	b4977_22 --> b4977_20
 end
@@ -104409,9 +104395,9 @@ window.traces["STRUCT_GET_S"]["scheduler_ssad"] = ''
 window.traces["STRUCT_GET_S"]["scheduler_ssad"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__5627 = object_isNull(obj);
-if (cond__5627) {
-	def ret__5628 = trapNull();
+def cond__5626 = object_isNull(obj);
+if (cond__5626) {
+	def ret__5627 = trapNull();
 }
 // phis: 
 </pre>`;
@@ -104434,16 +104420,16 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5636 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5635 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	29 --> 17
 	27 --> 17
-	27{{"innerPhi__5651 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__5650 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	14 --> 27
 	0 --> 27
-	0[/"r_state__5653 Start"\\]
-	14["ret__5628 trapNull"]
+	0[/"r_state__5652 Start"\\]
+	14["ret__5627 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -104453,40 +104439,40 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	19["mt__5643 U32_maybeTrue"]
+	19["mt__5642 U32_maybeTrue"]
 	13 --> 19
-	13["cond__5627 object_isNull"]
+	13["cond__5626 object_isNull"]
 	11 --> 13
-	29["eff_merge__5654 merge"]
+	29["eff_merge__5653 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__5652 nop"]
-	21["mb__5645 bool.&&"]
+	28["eff_nop__5651 nop"]
+	21["mb__5644 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__5644 U32_maybeFalse"]
+	20["mf__5643 U32_maybeFalse"]
 	13 --> 20
-	16{{"sea__5635 Sϕ Stack "}}
+	16{{"sea__5634 Sϕ Stack "}}
 	21 --> 16
 	26 --> 16
 	24 --> 16
-	24{{"innerPhi__5648 Sϕ Stack "}}
+	24{{"innerPhi__5647 Sϕ Stack "}}
 	19 --> 24
 	14 --> 24
 	11 --> 24
-	26["eff_merge__5650 merge"]
+	26["eff_merge__5649 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__5649 nop"]
-	15{{"sea__5634 Sϕ Codeptr "}}
+	25["eff_nop__5648 nop"]
+	15{{"sea__5633 Sϕ Codeptr "}}
 	21 --> 15
 	23 --> 15
 	22 --> 15
-	22{{"innerPhi__5646 Sϕ Codeptr "}}
+	22{{"innerPhi__5645 Sϕ Codeptr "}}
 	19 --> 22
 	14 --> 22
 	4 --> 22
-	23["eff_merge__5647 merge"]
+	23["eff_merge__5646 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
@@ -104501,31 +104487,31 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5636 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5635 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	34 --> 17
 	35 --> 17
-	35["mv_f__5660 |False|  [bool.&& [mb__5645]]"]
+	35["mv_f__5659 |False|  [bool.&& [mb__5644]]"]
 	21 --> 35
 	27 -. Trap Locals Globals Tables Memory Extra .-> 35
-	27{{"innerPhi__5651 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__5650 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	40 --> 27
 	41 --> 27
-	41["mv_f__5666 |False|  [U32_maybeTrue [mt__5643]]"]
+	41["mv_f__5665 |False|  [U32_maybeTrue [mt__5642]]"]
 	19 --> 41
 	0 -. Trap Locals Globals Tables Memory Extra .-> 41
-	0[/"r_state__5653 Start"\\]
-	19["mt__5643 U32_maybeTrue"]
+	0[/"r_state__5652 Start"\\]
+	19["mt__5642 U32_maybeTrue"]
 	13 --> 19
-	13["cond__5627 object_isNull"]
+	13["cond__5626 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	40["mv_t__5665 |True|  [U32_maybeTrue [mt__5643]]"]
+	40["mv_t__5664 |True|  [U32_maybeTrue [mt__5642]]"]
 	19 --> 40
 	14 -. Trap Locals Globals Tables Memory Extra .-> 40
-	14["ret__5628 trapNull"]
+	14["ret__5627 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -104533,63 +104519,63 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__5645 bool.&&"]
+	21["mb__5644 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__5644 U32_maybeFalse"]
+	20["mf__5643 U32_maybeFalse"]
 	13 --> 20
-	34["mv_t__5659 |True|  [bool.&& [mb__5645]]"]
+	34["mv_t__5658 |True|  [bool.&& [mb__5644]]"]
 	21 --> 34
 	29 -. Trap Locals Globals Tables Memory Extra .-> 34
-	29["eff_merge__5654 merge"]
+	29["eff_merge__5653 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__5652 nop"]
-	16{{"sea__5635 Sϕ Stack "}}
+	28["eff_nop__5651 nop"]
+	16{{"sea__5634 Sϕ Stack "}}
 	21 --> 16
 	32 --> 16
 	33 --> 16
-	33["mv_f__5658 |False|  [bool.&& [mb__5645]]"]
+	33["mv_f__5657 |False|  [bool.&& [mb__5644]]"]
 	21 --> 33
 	24 -. Stack .-> 33
-	24{{"innerPhi__5648 Sϕ Stack "}}
+	24{{"innerPhi__5647 Sϕ Stack "}}
 	19 --> 24
 	38 --> 24
 	39 --> 24
-	39["mv_f__5664 |False|  [U32_maybeTrue [mt__5643]]"]
+	39["mv_f__5663 |False|  [U32_maybeTrue [mt__5642]]"]
 	19 --> 39
 	11 -. Stack .-> 39
-	38["mv_t__5663 |True|  [U32_maybeTrue [mt__5643]]"]
+	38["mv_t__5662 |True|  [U32_maybeTrue [mt__5642]]"]
 	19 --> 38
 	14 -. Stack .-> 38
-	32["mv_t__5657 |True|  [bool.&& [mb__5645]]"]
+	32["mv_t__5656 |True|  [bool.&& [mb__5644]]"]
 	21 --> 32
 	26 -. Stack .-> 32
-	26["eff_merge__5650 merge"]
+	26["eff_merge__5649 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__5649 nop"]
-	15{{"sea__5634 Sϕ Codeptr "}}
+	25["eff_nop__5648 nop"]
+	15{{"sea__5633 Sϕ Codeptr "}}
 	21 --> 15
 	30 --> 15
 	31 --> 15
-	31["mv_f__5656 |False|  [bool.&& [mb__5645]]"]
+	31["mv_f__5655 |False|  [bool.&& [mb__5644]]"]
 	21 --> 31
 	22 -. Codeptr .-> 31
-	22{{"innerPhi__5646 Sϕ Codeptr "}}
+	22{{"innerPhi__5645 Sϕ Codeptr "}}
 	19 --> 22
 	36 --> 22
 	37 --> 22
-	37["mv_f__5662 |False|  [U32_maybeTrue [mt__5643]]"]
+	37["mv_f__5661 |False|  [U32_maybeTrue [mt__5642]]"]
 	19 --> 37
 	4 -. Codeptr .-> 37
-	36["mv_t__5661 |True|  [U32_maybeTrue [mt__5643]]"]
+	36["mv_t__5660 |True|  [U32_maybeTrue [mt__5642]]"]
 	19 --> 36
 	14 -. Codeptr .-> 36
-	30["mv_t__5655 |True|  [bool.&& [mb__5645]]"]
+	30["mv_t__5654 |True|  [bool.&& [mb__5644]]"]
 	21 --> 30
 	23 -. Codeptr .-> 30
-	23["eff_merge__5647 merge"]
+	23["eff_merge__5646 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
@@ -104603,31 +104589,31 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5636 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5635 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	34 --> 17
 	35 --> 17
-	35["mv_f__5660 |False|  [bool.&& [mb__5645]]"]
+	35["mv_f__5659 |False|  [bool.&& [mb__5644]]"]
 	21 --> 35
 	27 -. Trap Locals Globals Tables Memory Extra .-> 35
-	27{{"innerPhi__5651 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__5650 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	40 --> 27
 	41 --> 27
-	41["mv_f__5666 |False|  [U32_maybeTrue [mt__5643]]"]
+	41["mv_f__5665 |False|  [U32_maybeTrue [mt__5642]]"]
 	19 --> 41
 	0 -. Trap Locals Globals Tables Memory Extra .-> 41
-	0[/"r_state__5653 Start"\\]
-	19["mt__5643 U32_maybeTrue"]
+	0[/"r_state__5652 Start"\\]
+	19["mt__5642 U32_maybeTrue"]
 	13 --> 19
-	13["cond__5627 object_isNull"]
+	13["cond__5626 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	40["mv_t__5665 |True|  [U32_maybeTrue [mt__5643]]"]
+	40["mv_t__5664 |True|  [U32_maybeTrue [mt__5642]]"]
 	19 --> 40
 	42 -. Trap Locals Globals Tables Memory Extra .-> 40
-	42["ret__5628__5667 trapNull"]
+	42["ret__5627__5666 trapNull"]
 	4 -. Codeptr .-> 42
 	11 -. Stack .-> 42
 	0 -. Trap Locals Globals Tables Memory Extra .-> 42
@@ -104635,66 +104621,66 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__5645 bool.&&"]
+	21["mb__5644 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__5644 U32_maybeFalse"]
+	20["mf__5643 U32_maybeFalse"]
 	13 --> 20
-	34["mv_t__5659 |True|  [bool.&& [mb__5645]]"]
+	34["mv_t__5658 |True|  [bool.&& [mb__5644]]"]
 	21 --> 34
 	29 -. Trap Locals Globals Tables Memory Extra .-> 34
-	29["eff_merge__5654 merge"]
+	29["eff_merge__5653 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__5652 nop"]
-	16{{"sea__5635 Sϕ Stack "}}
+	28["eff_nop__5651 nop"]
+	16{{"sea__5634 Sϕ Stack "}}
 	21 --> 16
 	32 --> 16
 	33 --> 16
-	33["mv_f__5658 |False|  [bool.&& [mb__5645]]"]
+	33["mv_f__5657 |False|  [bool.&& [mb__5644]]"]
 	21 --> 33
 	24 -. Stack .-> 33
-	24{{"innerPhi__5648 Sϕ Stack "}}
+	24{{"innerPhi__5647 Sϕ Stack "}}
 	19 --> 24
 	38 --> 24
 	39 --> 24
-	39["mv_f__5664 |False|  [U32_maybeTrue [mt__5643]]"]
+	39["mv_f__5663 |False|  [U32_maybeTrue [mt__5642]]"]
 	19 --> 39
 	11 -. Stack .-> 39
-	38["mv_t__5663 |True|  [U32_maybeTrue [mt__5643]]"]
+	38["mv_t__5662 |True|  [U32_maybeTrue [mt__5642]]"]
 	19 --> 38
 	42 -. Stack .-> 38
-	32["mv_t__5657 |True|  [bool.&& [mb__5645]]"]
+	32["mv_t__5656 |True|  [bool.&& [mb__5644]]"]
 	21 --> 32
 	26 -. Stack .-> 32
-	26["eff_merge__5650 merge"]
+	26["eff_merge__5649 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__5649 nop"]
-	15{{"sea__5634 Sϕ Codeptr "}}
+	25["eff_nop__5648 nop"]
+	15{{"sea__5633 Sϕ Codeptr "}}
 	21 --> 15
 	30 --> 15
 	31 --> 15
-	31["mv_f__5656 |False|  [bool.&& [mb__5645]]"]
+	31["mv_f__5655 |False|  [bool.&& [mb__5644]]"]
 	21 --> 31
 	22 -. Codeptr .-> 31
-	22{{"innerPhi__5646 Sϕ Codeptr "}}
+	22{{"innerPhi__5645 Sϕ Codeptr "}}
 	19 --> 22
 	36 --> 22
 	37 --> 22
-	37["mv_f__5662 |False|  [U32_maybeTrue [mt__5643]]"]
+	37["mv_f__5661 |False|  [U32_maybeTrue [mt__5642]]"]
 	19 --> 37
 	4 -. Codeptr .-> 37
-	36["mv_t__5661 |True|  [U32_maybeTrue [mt__5643]]"]
+	36["mv_t__5660 |True|  [U32_maybeTrue [mt__5642]]"]
 	19 --> 36
 	42 -. Codeptr .-> 36
-	30["mv_t__5655 |True|  [bool.&& [mb__5645]]"]
+	30["mv_t__5654 |True|  [bool.&& [mb__5644]]"]
 	21 --> 30
 	23 -. Codeptr .-> 30
-	23["eff_merge__5647 merge"]
+	23["eff_merge__5646 merge"]
 	14 --> 23
 	4 --> 23
-	14["ret__5628 trapNull"]
+	14["ret__5627 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -104707,23 +104693,23 @@ subgraph block_4979["Block 4979"]
 end
 phi_4985 --> block_4979
 subgraph phi_4985["Phi 4985"]
-	p4985_17{{"sea__5636 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p4985_16{{"sea__5635 Sϕ Stack "}}
-	p4985_15{{"sea__5634 Sϕ Codeptr "}}
+	p4985_17{{"sea__5635 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p4985_16{{"sea__5634 Sϕ Stack "}}
+	p4985_15{{"sea__5633 Sϕ Codeptr "}}
 end
 block_4986 --> phi_4985
 block_4987 --> phi_4985
 subgraph block_4986["Block 4986"]
 	direction TB
-	b4986_28["eff_nop__5652 nop"]
-	b4986_25["eff_nop__5649 nop"]
-	b4986_14["ret__5628 trapNull"]
-	b4986_29["eff_merge__5654 merge"]
-	b4986_26["eff_merge__5650 merge"]
-	b4986_23["eff_merge__5647 merge"]
-	b4986_34["mv_t__5659 |True|  [bool.&& [mb__5645]]"]
-	b4986_32["mv_t__5657 |True|  [bool.&& [mb__5645]]"]
-	b4986_30["mv_t__5655 |True|  [bool.&& [mb__5645]]"]
+	b4986_28["eff_nop__5651 nop"]
+	b4986_25["eff_nop__5648 nop"]
+	b4986_14["ret__5627 trapNull"]
+	b4986_29["eff_merge__5653 merge"]
+	b4986_26["eff_merge__5649 merge"]
+	b4986_23["eff_merge__5646 merge"]
+	b4986_34["mv_t__5658 |True|  [bool.&& [mb__5644]]"]
+	b4986_32["mv_t__5656 |True|  [bool.&& [mb__5644]]"]
+	b4986_30["mv_t__5654 |True|  [bool.&& [mb__5644]]"]
 	b4986_28 --> b4986_25
 	b4986_25 --> b4986_14
 	b4986_14 --> b4986_29
@@ -104735,20 +104721,20 @@ subgraph block_4986["Block 4986"]
 end
 branch_4984 --> block_4986
 subgraph branch_4984["Branch 4984"]
-	br4984_21["mb__5645 bool.&&"]
+	br4984_21["mb__5644 bool.&&"]
 
 end
 block_4988 --> branch_4984
 subgraph block_4988["Block 4988"]
 	direction TB
-	b4988_0[/"r_state__5653 Start"\\]
+	b4988_0[/"r_state__5652 Start"\\]
 	b4988_3["struct_index imm_readULEB32"]
 	b4988_11["obj pop_Object"]
 	b4988_4["field_index imm_readULEB32"]
-	b4988_13["cond__5627 object_isNull"]
-	b4988_19["mt__5643 U32_maybeTrue"]
-	b4988_20["mf__5644 U32_maybeFalse"]
-	b4988_21["mb__5645 bool.&&"]
+	b4988_13["cond__5626 object_isNull"]
+	b4988_19["mt__5642 U32_maybeTrue"]
+	b4988_20["mf__5643 U32_maybeFalse"]
+	b4988_21["mb__5644 bool.&&"]
 	b4988_0 --> b4988_3
 	b4988_3 --> b4988_11
 	b4988_11 --> b4988_4
@@ -104759,41 +104745,41 @@ subgraph block_4988["Block 4988"]
 end
 subgraph block_4987["Block 4987"]
 	direction TB
-	b4987_35["mv_f__5660 |False|  [bool.&& [mb__5645]]"]
-	b4987_33["mv_f__5658 |False|  [bool.&& [mb__5645]]"]
-	b4987_31["mv_f__5656 |False|  [bool.&& [mb__5645]]"]
+	b4987_35["mv_f__5659 |False|  [bool.&& [mb__5644]]"]
+	b4987_33["mv_f__5657 |False|  [bool.&& [mb__5644]]"]
+	b4987_31["mv_f__5655 |False|  [bool.&& [mb__5644]]"]
 	b4987_35 --> b4987_33
 	b4987_33 --> b4987_31
 end
 phi_4990 --> block_4987
 subgraph phi_4990["Phi 4990"]
-	p4990_27{{"innerPhi__5651 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p4990_24{{"innerPhi__5648 Sϕ Stack "}}
-	p4990_22{{"innerPhi__5646 Sϕ Codeptr "}}
+	p4990_27{{"innerPhi__5650 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p4990_24{{"innerPhi__5647 Sϕ Stack "}}
+	p4990_22{{"innerPhi__5645 Sϕ Codeptr "}}
 end
 block_4991 --> phi_4990
 block_4992 --> phi_4990
 subgraph block_4991["Block 4991"]
 	direction TB
-	b4991_42["ret__5628__5667 trapNull"]
-	b4991_40["mv_t__5665 |True|  [U32_maybeTrue [mt__5643]]"]
-	b4991_38["mv_t__5663 |True|  [U32_maybeTrue [mt__5643]]"]
-	b4991_36["mv_t__5661 |True|  [U32_maybeTrue [mt__5643]]"]
+	b4991_42["ret__5627__5666 trapNull"]
+	b4991_40["mv_t__5664 |True|  [U32_maybeTrue [mt__5642]]"]
+	b4991_38["mv_t__5662 |True|  [U32_maybeTrue [mt__5642]]"]
+	b4991_36["mv_t__5660 |True|  [U32_maybeTrue [mt__5642]]"]
 	b4991_42 --> b4991_40
 	b4991_40 --> b4991_38
 	b4991_38 --> b4991_36
 end
 branch_4989 --> block_4991
 subgraph branch_4989["Branch 4989"]
-	br4989_19["mt__5643 U32_maybeTrue"]
+	br4989_19["mt__5642 U32_maybeTrue"]
 
 end
 branch_4984 --> branch_4989
 subgraph block_4992["Block 4992"]
 	direction TB
-	b4992_41["mv_f__5666 |False|  [U32_maybeTrue [mt__5643]]"]
-	b4992_39["mv_f__5664 |False|  [U32_maybeTrue [mt__5643]]"]
-	b4992_37["mv_f__5662 |False|  [U32_maybeTrue [mt__5643]]"]
+	b4992_41["mv_f__5665 |False|  [U32_maybeTrue [mt__5642]]"]
+	b4992_39["mv_f__5663 |False|  [U32_maybeTrue [mt__5642]]"]
+	b4992_37["mv_f__5661 |False|  [U32_maybeTrue [mt__5642]]"]
 	b4992_41 --> b4992_39
 	b4992_39 --> b4992_37
 end
@@ -104804,21 +104790,21 @@ window.traces["STRUCT_GET_S"]["unlem_scheduler_ssa"] = ''
 window.traces["STRUCT_GET_S"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__5627 = object_isNull(obj);
-def mt__5643 = U32_maybeTrue(cond__5627);
-def mf__5644 = U32_maybeFalse(cond__5627);
-def mb__5645 = bool.&&(mt__5643, mf__5644);
-if (mb__5645) {
-	def eff_nop__5652 = nop();
-	def eff_nop__5649 = nop();
-	def ret__5628 = trapNull();
-	def eff_merge__5654 = merge(eff_nop__5652, r_state__5653);
-	def eff_merge__5650 = merge(eff_nop__5649, obj);
-	def eff_merge__5647 = merge(ret__5628, field_index);
+def cond__5626 = object_isNull(obj);
+def mt__5642 = U32_maybeTrue(cond__5626);
+def mf__5643 = U32_maybeFalse(cond__5626);
+def mb__5644 = bool.&&(mt__5642, mf__5643);
+if (mb__5644) {
+	def eff_nop__5651 = nop();
+	def eff_nop__5648 = nop();
+	def ret__5627 = trapNull();
+	def eff_merge__5653 = merge(eff_nop__5651, r_state__5652);
+	def eff_merge__5649 = merge(eff_nop__5648, obj);
+	def eff_merge__5646 = merge(ret__5627, field_index);
 } else {
-	if (mt__5643) {
-		def ret__5628__5667 = trapNull();
-		def ret__5628 = (ret__5628__5667);
+	if (mt__5642) {
+		def ret__5627__5666 = trapNull();
+		def ret__5627 = (ret__5627__5666);
 	}
 // phis: 
 }
@@ -104843,20 +104829,20 @@ window.traces["STRUCT_GET_U"] = {}
 window.traces["STRUCT_GET_U"]["parsed"] = ''
 window.traces["STRUCT_GET_U"]["parsed"] += `<pre class=''>def struct_index = imm_readULEB32();
 def field_index = imm_readULEB32();
-def arg__5685 = (field_index);
-def arg__5684 = (struct_index);
-def kind = m_getFieldKind(arg__5684, arg__5685);
-def arg__5683 = (field_index);
-def arg__5682 = (struct_index);
-def offset = m_getFieldOffset(arg__5682, arg__5683);
+def arg__5684 = (field_index);
+def arg__5683 = (struct_index);
+def kind = m_getFieldKind(arg__5683, arg__5684);
+def arg__5682 = (field_index);
+def arg__5681 = (struct_index);
+def offset = m_getFieldOffset(arg__5681, arg__5682);
 def obj = pop_Object();
-def arg__5681 = (obj);
-def cond__5679 = object_isNull(arg__5681);
-if (cond__5679) {
-	def ret__5680 = trapNull();
+def arg__5680 = (obj);
+def cond__5678 = object_isNull(arg__5680);
+if (cond__5678) {
+	def ret__5679 = trapNull();
 }
 // phis: 
-def cond__5668 = (kind);
+def cond__5667 = (kind);
 </pre>`;
 window.traces["STRUCT_GET_U"]["initial_pretty"] = ''
 window.traces["STRUCT_GET_U"]["initial_pretty"] += `<pre class=''>def struct_index = imm_readULEB32();
@@ -104890,12 +104876,12 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5688 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5687 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	14 --> 17
 	0 --> 17
 	0[/"Start"\\]
-	14["ret__5680 trapNull"]
+	14["ret__5679 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -104905,13 +104891,13 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	13["cond__5679 object_isNull"]
+	13["cond__5678 object_isNull"]
 	11 --> 13
-	16{{"sea__5687 Sϕ Stack "}}
+	16{{"sea__5686 Sϕ Stack "}}
 	13 --> 16
 	14 --> 16
 	11 --> 16
-	15{{"sea__5686 Sϕ Codeptr "}}
+	15{{"sea__5685 Sϕ Codeptr "}}
 	13 --> 15
 	14 --> 15
 	4 --> 15
@@ -104926,22 +104912,22 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5688 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5687 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	23 --> 17
 	24 --> 17
-	24["mv_f__5694 |False|  [object_isNull [cond__5679]]"]
+	24["mv_f__5693 |False|  [object_isNull [cond__5678]]"]
 	13 --> 24
 	0 -. Trap Locals Globals Tables Memory Extra .-> 24
 	0[/"Start"\\]
-	13["cond__5679 object_isNull"]
+	13["cond__5678 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	23["mv_t__5693 |True|  [object_isNull [cond__5679]]"]
+	23["mv_t__5692 |True|  [object_isNull [cond__5678]]"]
 	13 --> 23
 	14 -. Trap Locals Globals Tables Memory Extra .-> 23
-	14["ret__5680 trapNull"]
+	14["ret__5679 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -104949,24 +104935,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	16{{"sea__5687 Sϕ Stack "}}
+	16{{"sea__5686 Sϕ Stack "}}
 	13 --> 16
 	21 --> 16
 	22 --> 16
-	22["mv_f__5692 |False|  [object_isNull [cond__5679]]"]
+	22["mv_f__5691 |False|  [object_isNull [cond__5678]]"]
 	13 --> 22
 	11 -. Stack .-> 22
-	21["mv_t__5691 |True|  [object_isNull [cond__5679]]"]
+	21["mv_t__5690 |True|  [object_isNull [cond__5678]]"]
 	13 --> 21
 	14 -. Stack .-> 21
-	15{{"sea__5686 Sϕ Codeptr "}}
+	15{{"sea__5685 Sϕ Codeptr "}}
 	13 --> 15
 	19 --> 15
 	20 --> 15
-	20["mv_f__5690 |False|  [object_isNull [cond__5679]]"]
+	20["mv_f__5689 |False|  [object_isNull [cond__5678]]"]
 	13 --> 20
 	4 -. Codeptr .-> 20
-	19["mv_t__5689 |True|  [object_isNull [cond__5679]]"]
+	19["mv_t__5688 |True|  [object_isNull [cond__5678]]"]
 	13 --> 19
 	14 -. Codeptr .-> 19
 </pre>`;
@@ -104980,22 +104966,22 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5688 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5687 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	13 --> 17
 	23 --> 17
 	24 --> 17
-	24["mv_f__5694 |False|  [object_isNull [cond__5679]]"]
+	24["mv_f__5693 |False|  [object_isNull [cond__5678]]"]
 	13 --> 24
 	0 -. Trap Locals Globals Tables Memory Extra .-> 24
 	0[/"Start"\\]
-	13["cond__5679 object_isNull"]
+	13["cond__5678 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	23["mv_t__5693 |True|  [object_isNull [cond__5679]]"]
+	23["mv_t__5692 |True|  [object_isNull [cond__5678]]"]
 	13 --> 23
 	14 -. Trap Locals Globals Tables Memory Extra .-> 23
-	14["ret__5680 trapNull"]
+	14["ret__5679 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -105003,24 +104989,24 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	16{{"sea__5687 Sϕ Stack "}}
+	16{{"sea__5686 Sϕ Stack "}}
 	13 --> 16
 	21 --> 16
 	22 --> 16
-	22["mv_f__5692 |False|  [object_isNull [cond__5679]]"]
+	22["mv_f__5691 |False|  [object_isNull [cond__5678]]"]
 	13 --> 22
 	11 -. Stack .-> 22
-	21["mv_t__5691 |True|  [object_isNull [cond__5679]]"]
+	21["mv_t__5690 |True|  [object_isNull [cond__5678]]"]
 	13 --> 21
 	14 -. Stack .-> 21
-	15{{"sea__5686 Sϕ Codeptr "}}
+	15{{"sea__5685 Sϕ Codeptr "}}
 	13 --> 15
 	19 --> 15
 	20 --> 15
-	20["mv_f__5690 |False|  [object_isNull [cond__5679]]"]
+	20["mv_f__5689 |False|  [object_isNull [cond__5678]]"]
 	13 --> 20
 	4 -. Codeptr .-> 20
-	19["mv_t__5689 |True|  [object_isNull [cond__5679]]"]
+	19["mv_t__5688 |True|  [object_isNull [cond__5678]]"]
 	13 --> 19
 	14 -. Codeptr .-> 19
 </pre>`;
@@ -105032,25 +105018,25 @@ subgraph block_4993["Block 4993"]
 end
 phi_4996 --> block_4993
 subgraph phi_4996["Phi 4996"]
-	p4996_17{{"sea__5688 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p4996_16{{"sea__5687 Sϕ Stack "}}
-	p4996_15{{"sea__5686 Sϕ Codeptr "}}
+	p4996_17{{"sea__5687 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p4996_16{{"sea__5686 Sϕ Stack "}}
+	p4996_15{{"sea__5685 Sϕ Codeptr "}}
 end
 block_4997 --> phi_4996
 block_4998 --> phi_4996
 subgraph block_4997["Block 4997"]
 	direction TB
-	b4997_14["ret__5680 trapNull"]
-	b4997_23["mv_t__5693 |True|  [object_isNull [cond__5679]]"]
-	b4997_21["mv_t__5691 |True|  [object_isNull [cond__5679]]"]
-	b4997_19["mv_t__5689 |True|  [object_isNull [cond__5679]]"]
+	b4997_14["ret__5679 trapNull"]
+	b4997_23["mv_t__5692 |True|  [object_isNull [cond__5678]]"]
+	b4997_21["mv_t__5690 |True|  [object_isNull [cond__5678]]"]
+	b4997_19["mv_t__5688 |True|  [object_isNull [cond__5678]]"]
 	b4997_14 --> b4997_23
 	b4997_23 --> b4997_21
 	b4997_21 --> b4997_19
 end
 branch_4995 --> block_4997
 subgraph branch_4995["Branch 4995"]
-	br4995_13["cond__5679 object_isNull"]
+	br4995_13["cond__5678 object_isNull"]
 
 end
 block_4999 --> branch_4995
@@ -105060,7 +105046,7 @@ subgraph block_4999["Block 4999"]
 	b4999_3["struct_index imm_readULEB32"]
 	b4999_11["obj pop_Object"]
 	b4999_4["field_index imm_readULEB32"]
-	b4999_13["cond__5679 object_isNull"]
+	b4999_13["cond__5678 object_isNull"]
 	b4999_0 --> b4999_3
 	b4999_3 --> b4999_11
 	b4999_11 --> b4999_4
@@ -105068,9 +105054,9 @@ subgraph block_4999["Block 4999"]
 end
 subgraph block_4998["Block 4998"]
 	direction TB
-	b4998_24["mv_f__5694 |False|  [object_isNull [cond__5679]]"]
-	b4998_22["mv_f__5692 |False|  [object_isNull [cond__5679]]"]
-	b4998_20["mv_f__5690 |False|  [object_isNull [cond__5679]]"]
+	b4998_24["mv_f__5693 |False|  [object_isNull [cond__5678]]"]
+	b4998_22["mv_f__5691 |False|  [object_isNull [cond__5678]]"]
+	b4998_20["mv_f__5689 |False|  [object_isNull [cond__5678]]"]
 	b4998_24 --> b4998_22
 	b4998_22 --> b4998_20
 end
@@ -105081,9 +105067,9 @@ window.traces["STRUCT_GET_U"]["scheduler_ssad"] = ''
 window.traces["STRUCT_GET_U"]["scheduler_ssad"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__5679 = object_isNull(obj);
-if (cond__5679) {
-	def ret__5680 = trapNull();
+def cond__5678 = object_isNull(obj);
+if (cond__5678) {
+	def ret__5679 = trapNull();
 }
 // phis: 
 </pre>`;
@@ -105106,16 +105092,16 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5688 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5687 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	29 --> 17
 	27 --> 17
-	27{{"innerPhi__5703 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__5702 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	14 --> 27
 	0 --> 27
-	0[/"r_state__5705 Start"\\]
-	14["ret__5680 trapNull"]
+	0[/"r_state__5704 Start"\\]
+	14["ret__5679 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -105125,40 +105111,40 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	19["mt__5695 U32_maybeTrue"]
+	19["mt__5694 U32_maybeTrue"]
 	13 --> 19
-	13["cond__5679 object_isNull"]
+	13["cond__5678 object_isNull"]
 	11 --> 13
-	29["eff_merge__5706 merge"]
+	29["eff_merge__5705 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__5704 nop"]
-	21["mb__5697 bool.&&"]
+	28["eff_nop__5703 nop"]
+	21["mb__5696 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__5696 U32_maybeFalse"]
+	20["mf__5695 U32_maybeFalse"]
 	13 --> 20
-	16{{"sea__5687 Sϕ Stack "}}
+	16{{"sea__5686 Sϕ Stack "}}
 	21 --> 16
 	26 --> 16
 	24 --> 16
-	24{{"innerPhi__5700 Sϕ Stack "}}
+	24{{"innerPhi__5699 Sϕ Stack "}}
 	19 --> 24
 	14 --> 24
 	11 --> 24
-	26["eff_merge__5702 merge"]
+	26["eff_merge__5701 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__5701 nop"]
-	15{{"sea__5686 Sϕ Codeptr "}}
+	25["eff_nop__5700 nop"]
+	15{{"sea__5685 Sϕ Codeptr "}}
 	21 --> 15
 	23 --> 15
 	22 --> 15
-	22{{"innerPhi__5698 Sϕ Codeptr "}}
+	22{{"innerPhi__5697 Sϕ Codeptr "}}
 	19 --> 22
 	14 --> 22
 	4 --> 22
-	23["eff_merge__5699 merge"]
+	23["eff_merge__5698 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
@@ -105173,31 +105159,31 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5688 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5687 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	34 --> 17
 	35 --> 17
-	35["mv_f__5712 |False|  [bool.&& [mb__5697]]"]
+	35["mv_f__5711 |False|  [bool.&& [mb__5696]]"]
 	21 --> 35
 	27 -. Trap Locals Globals Tables Memory Extra .-> 35
-	27{{"innerPhi__5703 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__5702 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	40 --> 27
 	41 --> 27
-	41["mv_f__5718 |False|  [U32_maybeTrue [mt__5695]]"]
+	41["mv_f__5717 |False|  [U32_maybeTrue [mt__5694]]"]
 	19 --> 41
 	0 -. Trap Locals Globals Tables Memory Extra .-> 41
-	0[/"r_state__5705 Start"\\]
-	19["mt__5695 U32_maybeTrue"]
+	0[/"r_state__5704 Start"\\]
+	19["mt__5694 U32_maybeTrue"]
 	13 --> 19
-	13["cond__5679 object_isNull"]
+	13["cond__5678 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	40["mv_t__5717 |True|  [U32_maybeTrue [mt__5695]]"]
+	40["mv_t__5716 |True|  [U32_maybeTrue [mt__5694]]"]
 	19 --> 40
 	14 -. Trap Locals Globals Tables Memory Extra .-> 40
-	14["ret__5680 trapNull"]
+	14["ret__5679 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -105205,63 +105191,63 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__5697 bool.&&"]
+	21["mb__5696 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__5696 U32_maybeFalse"]
+	20["mf__5695 U32_maybeFalse"]
 	13 --> 20
-	34["mv_t__5711 |True|  [bool.&& [mb__5697]]"]
+	34["mv_t__5710 |True|  [bool.&& [mb__5696]]"]
 	21 --> 34
 	29 -. Trap Locals Globals Tables Memory Extra .-> 34
-	29["eff_merge__5706 merge"]
+	29["eff_merge__5705 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__5704 nop"]
-	16{{"sea__5687 Sϕ Stack "}}
+	28["eff_nop__5703 nop"]
+	16{{"sea__5686 Sϕ Stack "}}
 	21 --> 16
 	32 --> 16
 	33 --> 16
-	33["mv_f__5710 |False|  [bool.&& [mb__5697]]"]
+	33["mv_f__5709 |False|  [bool.&& [mb__5696]]"]
 	21 --> 33
 	24 -. Stack .-> 33
-	24{{"innerPhi__5700 Sϕ Stack "}}
+	24{{"innerPhi__5699 Sϕ Stack "}}
 	19 --> 24
 	38 --> 24
 	39 --> 24
-	39["mv_f__5716 |False|  [U32_maybeTrue [mt__5695]]"]
+	39["mv_f__5715 |False|  [U32_maybeTrue [mt__5694]]"]
 	19 --> 39
 	11 -. Stack .-> 39
-	38["mv_t__5715 |True|  [U32_maybeTrue [mt__5695]]"]
+	38["mv_t__5714 |True|  [U32_maybeTrue [mt__5694]]"]
 	19 --> 38
 	14 -. Stack .-> 38
-	32["mv_t__5709 |True|  [bool.&& [mb__5697]]"]
+	32["mv_t__5708 |True|  [bool.&& [mb__5696]]"]
 	21 --> 32
 	26 -. Stack .-> 32
-	26["eff_merge__5702 merge"]
+	26["eff_merge__5701 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__5701 nop"]
-	15{{"sea__5686 Sϕ Codeptr "}}
+	25["eff_nop__5700 nop"]
+	15{{"sea__5685 Sϕ Codeptr "}}
 	21 --> 15
 	30 --> 15
 	31 --> 15
-	31["mv_f__5708 |False|  [bool.&& [mb__5697]]"]
+	31["mv_f__5707 |False|  [bool.&& [mb__5696]]"]
 	21 --> 31
 	22 -. Codeptr .-> 31
-	22{{"innerPhi__5698 Sϕ Codeptr "}}
+	22{{"innerPhi__5697 Sϕ Codeptr "}}
 	19 --> 22
 	36 --> 22
 	37 --> 22
-	37["mv_f__5714 |False|  [U32_maybeTrue [mt__5695]]"]
+	37["mv_f__5713 |False|  [U32_maybeTrue [mt__5694]]"]
 	19 --> 37
 	4 -. Codeptr .-> 37
-	36["mv_t__5713 |True|  [U32_maybeTrue [mt__5695]]"]
+	36["mv_t__5712 |True|  [U32_maybeTrue [mt__5694]]"]
 	19 --> 36
 	14 -. Codeptr .-> 36
-	30["mv_t__5707 |True|  [bool.&& [mb__5697]]"]
+	30["mv_t__5706 |True|  [bool.&& [mb__5696]]"]
 	21 --> 30
 	23 -. Codeptr .-> 30
-	23["eff_merge__5699 merge"]
+	23["eff_merge__5698 merge"]
 	14 --> 23
 	4 --> 23
 </pre>`;
@@ -105275,31 +105261,31 @@ graph TD
 	15 -. Codeptr .-> 1
 	16 -. Stack .-> 1
 	17 -. Trap Locals Globals Tables Memory Extra .-> 1
-	17{{"sea__5688 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	17{{"sea__5687 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	21 --> 17
 	34 --> 17
 	35 --> 17
-	35["mv_f__5712 |False|  [bool.&& [mb__5697]]"]
+	35["mv_f__5711 |False|  [bool.&& [mb__5696]]"]
 	21 --> 35
 	27 -. Trap Locals Globals Tables Memory Extra .-> 35
-	27{{"innerPhi__5703 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	27{{"innerPhi__5702 Sϕ Trap Locals Globals Tables Memory Extra "}}
 	19 --> 27
 	40 --> 27
 	41 --> 27
-	41["mv_f__5718 |False|  [U32_maybeTrue [mt__5695]]"]
+	41["mv_f__5717 |False|  [U32_maybeTrue [mt__5694]]"]
 	19 --> 41
 	0 -. Trap Locals Globals Tables Memory Extra .-> 41
-	0[/"r_state__5705 Start"\\]
-	19["mt__5695 U32_maybeTrue"]
+	0[/"r_state__5704 Start"\\]
+	19["mt__5694 U32_maybeTrue"]
 	13 --> 19
-	13["cond__5679 object_isNull"]
+	13["cond__5678 object_isNull"]
 	11 --> 13
 	11["obj pop_Object"]
 	0 -. Stack .-> 11
-	40["mv_t__5717 |True|  [U32_maybeTrue [mt__5695]]"]
+	40["mv_t__5716 |True|  [U32_maybeTrue [mt__5694]]"]
 	19 --> 40
 	42 -. Trap Locals Globals Tables Memory Extra .-> 40
-	42["ret__5680__5719 trapNull"]
+	42["ret__5679__5718 trapNull"]
 	4 -. Codeptr .-> 42
 	11 -. Stack .-> 42
 	0 -. Trap Locals Globals Tables Memory Extra .-> 42
@@ -105307,66 +105293,66 @@ graph TD
 	3 -. Codeptr .-> 4
 	3["struct_index imm_readULEB32"]
 	0 -. Codeptr .-> 3
-	21["mb__5697 bool.&&"]
+	21["mb__5696 bool.&&"]
 	19 --> 21
 	20 --> 21
-	20["mf__5696 U32_maybeFalse"]
+	20["mf__5695 U32_maybeFalse"]
 	13 --> 20
-	34["mv_t__5711 |True|  [bool.&& [mb__5697]]"]
+	34["mv_t__5710 |True|  [bool.&& [mb__5696]]"]
 	21 --> 34
 	29 -. Trap Locals Globals Tables Memory Extra .-> 34
-	29["eff_merge__5706 merge"]
+	29["eff_merge__5705 merge"]
 	28 --> 29
 	0 --> 29
-	28["eff_nop__5704 nop"]
-	16{{"sea__5687 Sϕ Stack "}}
+	28["eff_nop__5703 nop"]
+	16{{"sea__5686 Sϕ Stack "}}
 	21 --> 16
 	32 --> 16
 	33 --> 16
-	33["mv_f__5710 |False|  [bool.&& [mb__5697]]"]
+	33["mv_f__5709 |False|  [bool.&& [mb__5696]]"]
 	21 --> 33
 	24 -. Stack .-> 33
-	24{{"innerPhi__5700 Sϕ Stack "}}
+	24{{"innerPhi__5699 Sϕ Stack "}}
 	19 --> 24
 	38 --> 24
 	39 --> 24
-	39["mv_f__5716 |False|  [U32_maybeTrue [mt__5695]]"]
+	39["mv_f__5715 |False|  [U32_maybeTrue [mt__5694]]"]
 	19 --> 39
 	11 -. Stack .-> 39
-	38["mv_t__5715 |True|  [U32_maybeTrue [mt__5695]]"]
+	38["mv_t__5714 |True|  [U32_maybeTrue [mt__5694]]"]
 	19 --> 38
 	42 -. Stack .-> 38
-	32["mv_t__5709 |True|  [bool.&& [mb__5697]]"]
+	32["mv_t__5708 |True|  [bool.&& [mb__5696]]"]
 	21 --> 32
 	26 -. Stack .-> 32
-	26["eff_merge__5702 merge"]
+	26["eff_merge__5701 merge"]
 	25 --> 26
 	11 --> 26
-	25["eff_nop__5701 nop"]
-	15{{"sea__5686 Sϕ Codeptr "}}
+	25["eff_nop__5700 nop"]
+	15{{"sea__5685 Sϕ Codeptr "}}
 	21 --> 15
 	30 --> 15
 	31 --> 15
-	31["mv_f__5708 |False|  [bool.&& [mb__5697]]"]
+	31["mv_f__5707 |False|  [bool.&& [mb__5696]]"]
 	21 --> 31
 	22 -. Codeptr .-> 31
-	22{{"innerPhi__5698 Sϕ Codeptr "}}
+	22{{"innerPhi__5697 Sϕ Codeptr "}}
 	19 --> 22
 	36 --> 22
 	37 --> 22
-	37["mv_f__5714 |False|  [U32_maybeTrue [mt__5695]]"]
+	37["mv_f__5713 |False|  [U32_maybeTrue [mt__5694]]"]
 	19 --> 37
 	4 -. Codeptr .-> 37
-	36["mv_t__5713 |True|  [U32_maybeTrue [mt__5695]]"]
+	36["mv_t__5712 |True|  [U32_maybeTrue [mt__5694]]"]
 	19 --> 36
 	42 -. Codeptr .-> 36
-	30["mv_t__5707 |True|  [bool.&& [mb__5697]]"]
+	30["mv_t__5706 |True|  [bool.&& [mb__5696]]"]
 	21 --> 30
 	23 -. Codeptr .-> 30
-	23["eff_merge__5699 merge"]
+	23["eff_merge__5698 merge"]
 	14 --> 23
 	4 --> 23
-	14["ret__5680 trapNull"]
+	14["ret__5679 trapNull"]
 	4 -. Codeptr .-> 14
 	11 -. Stack .-> 14
 	0 -. Trap Locals Globals Tables Memory Extra .-> 14
@@ -105379,23 +105365,23 @@ subgraph block_5000["Block 5000"]
 end
 phi_5006 --> block_5000
 subgraph phi_5006["Phi 5006"]
-	p5006_17{{"sea__5688 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p5006_16{{"sea__5687 Sϕ Stack "}}
-	p5006_15{{"sea__5686 Sϕ Codeptr "}}
+	p5006_17{{"sea__5687 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p5006_16{{"sea__5686 Sϕ Stack "}}
+	p5006_15{{"sea__5685 Sϕ Codeptr "}}
 end
 block_5007 --> phi_5006
 block_5008 --> phi_5006
 subgraph block_5007["Block 5007"]
 	direction TB
-	b5007_28["eff_nop__5704 nop"]
-	b5007_25["eff_nop__5701 nop"]
-	b5007_14["ret__5680 trapNull"]
-	b5007_29["eff_merge__5706 merge"]
-	b5007_26["eff_merge__5702 merge"]
-	b5007_23["eff_merge__5699 merge"]
-	b5007_34["mv_t__5711 |True|  [bool.&& [mb__5697]]"]
-	b5007_32["mv_t__5709 |True|  [bool.&& [mb__5697]]"]
-	b5007_30["mv_t__5707 |True|  [bool.&& [mb__5697]]"]
+	b5007_28["eff_nop__5703 nop"]
+	b5007_25["eff_nop__5700 nop"]
+	b5007_14["ret__5679 trapNull"]
+	b5007_29["eff_merge__5705 merge"]
+	b5007_26["eff_merge__5701 merge"]
+	b5007_23["eff_merge__5698 merge"]
+	b5007_34["mv_t__5710 |True|  [bool.&& [mb__5696]]"]
+	b5007_32["mv_t__5708 |True|  [bool.&& [mb__5696]]"]
+	b5007_30["mv_t__5706 |True|  [bool.&& [mb__5696]]"]
 	b5007_28 --> b5007_25
 	b5007_25 --> b5007_14
 	b5007_14 --> b5007_29
@@ -105407,20 +105393,20 @@ subgraph block_5007["Block 5007"]
 end
 branch_5005 --> block_5007
 subgraph branch_5005["Branch 5005"]
-	br5005_21["mb__5697 bool.&&"]
+	br5005_21["mb__5696 bool.&&"]
 
 end
 block_5009 --> branch_5005
 subgraph block_5009["Block 5009"]
 	direction TB
-	b5009_0[/"r_state__5705 Start"\\]
+	b5009_0[/"r_state__5704 Start"\\]
 	b5009_3["struct_index imm_readULEB32"]
 	b5009_11["obj pop_Object"]
 	b5009_4["field_index imm_readULEB32"]
-	b5009_13["cond__5679 object_isNull"]
-	b5009_19["mt__5695 U32_maybeTrue"]
-	b5009_20["mf__5696 U32_maybeFalse"]
-	b5009_21["mb__5697 bool.&&"]
+	b5009_13["cond__5678 object_isNull"]
+	b5009_19["mt__5694 U32_maybeTrue"]
+	b5009_20["mf__5695 U32_maybeFalse"]
+	b5009_21["mb__5696 bool.&&"]
 	b5009_0 --> b5009_3
 	b5009_3 --> b5009_11
 	b5009_11 --> b5009_4
@@ -105431,41 +105417,41 @@ subgraph block_5009["Block 5009"]
 end
 subgraph block_5008["Block 5008"]
 	direction TB
-	b5008_35["mv_f__5712 |False|  [bool.&& [mb__5697]]"]
-	b5008_33["mv_f__5710 |False|  [bool.&& [mb__5697]]"]
-	b5008_31["mv_f__5708 |False|  [bool.&& [mb__5697]]"]
+	b5008_35["mv_f__5711 |False|  [bool.&& [mb__5696]]"]
+	b5008_33["mv_f__5709 |False|  [bool.&& [mb__5696]]"]
+	b5008_31["mv_f__5707 |False|  [bool.&& [mb__5696]]"]
 	b5008_35 --> b5008_33
 	b5008_33 --> b5008_31
 end
 phi_5011 --> block_5008
 subgraph phi_5011["Phi 5011"]
-	p5011_27{{"innerPhi__5703 Sϕ Trap Locals Globals Tables Memory Extra "}}
-	p5011_24{{"innerPhi__5700 Sϕ Stack "}}
-	p5011_22{{"innerPhi__5698 Sϕ Codeptr "}}
+	p5011_27{{"innerPhi__5702 Sϕ Trap Locals Globals Tables Memory Extra "}}
+	p5011_24{{"innerPhi__5699 Sϕ Stack "}}
+	p5011_22{{"innerPhi__5697 Sϕ Codeptr "}}
 end
 block_5012 --> phi_5011
 block_5013 --> phi_5011
 subgraph block_5012["Block 5012"]
 	direction TB
-	b5012_42["ret__5680__5719 trapNull"]
-	b5012_40["mv_t__5717 |True|  [U32_maybeTrue [mt__5695]]"]
-	b5012_38["mv_t__5715 |True|  [U32_maybeTrue [mt__5695]]"]
-	b5012_36["mv_t__5713 |True|  [U32_maybeTrue [mt__5695]]"]
+	b5012_42["ret__5679__5718 trapNull"]
+	b5012_40["mv_t__5716 |True|  [U32_maybeTrue [mt__5694]]"]
+	b5012_38["mv_t__5714 |True|  [U32_maybeTrue [mt__5694]]"]
+	b5012_36["mv_t__5712 |True|  [U32_maybeTrue [mt__5694]]"]
 	b5012_42 --> b5012_40
 	b5012_40 --> b5012_38
 	b5012_38 --> b5012_36
 end
 branch_5010 --> block_5012
 subgraph branch_5010["Branch 5010"]
-	br5010_19["mt__5695 U32_maybeTrue"]
+	br5010_19["mt__5694 U32_maybeTrue"]
 
 end
 branch_5005 --> branch_5010
 subgraph block_5013["Block 5013"]
 	direction TB
-	b5013_41["mv_f__5718 |False|  [U32_maybeTrue [mt__5695]]"]
-	b5013_39["mv_f__5716 |False|  [U32_maybeTrue [mt__5695]]"]
-	b5013_37["mv_f__5714 |False|  [U32_maybeTrue [mt__5695]]"]
+	b5013_41["mv_f__5717 |False|  [U32_maybeTrue [mt__5694]]"]
+	b5013_39["mv_f__5715 |False|  [U32_maybeTrue [mt__5694]]"]
+	b5013_37["mv_f__5713 |False|  [U32_maybeTrue [mt__5694]]"]
 	b5013_41 --> b5013_39
 	b5013_39 --> b5013_37
 end
@@ -105476,21 +105462,21 @@ window.traces["STRUCT_GET_U"]["unlem_scheduler_ssa"] = ''
 window.traces["STRUCT_GET_U"]["unlem_scheduler_ssa"] += `<pre class=''>def struct_index = imm_readULEB32();
 def obj = pop_Object();
 def field_index = imm_readULEB32();
-def cond__5679 = object_isNull(obj);
-def mt__5695 = U32_maybeTrue(cond__5679);
-def mf__5696 = U32_maybeFalse(cond__5679);
-def mb__5697 = bool.&&(mt__5695, mf__5696);
-if (mb__5697) {
-	def eff_nop__5704 = nop();
-	def eff_nop__5701 = nop();
-	def ret__5680 = trapNull();
-	def eff_merge__5706 = merge(eff_nop__5704, r_state__5705);
-	def eff_merge__5702 = merge(eff_nop__5701, obj);
-	def eff_merge__5699 = merge(ret__5680, field_index);
+def cond__5678 = object_isNull(obj);
+def mt__5694 = U32_maybeTrue(cond__5678);
+def mf__5695 = U32_maybeFalse(cond__5678);
+def mb__5696 = bool.&&(mt__5694, mf__5695);
+if (mb__5696) {
+	def eff_nop__5703 = nop();
+	def eff_nop__5700 = nop();
+	def ret__5679 = trapNull();
+	def eff_merge__5705 = merge(eff_nop__5703, r_state__5704);
+	def eff_merge__5701 = merge(eff_nop__5700, obj);
+	def eff_merge__5698 = merge(ret__5679, field_index);
 } else {
-	if (mt__5695) {
-		def ret__5680__5719 = trapNull();
-		def ret__5680 = (ret__5680__5719);
+	if (mt__5694) {
+		def ret__5679__5718 = trapNull();
+		def ret__5679 = (ret__5679__5718);
 	}
 // phis: 
 }
