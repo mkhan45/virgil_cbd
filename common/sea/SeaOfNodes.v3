@@ -343,9 +343,11 @@ class Sea {
     def branch_partition(node: IRNode) -> BranchPartition {
         def cond = node.value_deps[0], l_branch = node.value_deps[1], r_branch = node.value_deps[2];
 
+        def cond_deps = cachedTransitiveDeps(cond);
+
         def l_phi_aware = cachedTransitiveDepsPhiAware(l_branch);
         def r_phi_aware = cachedTransitiveDepsPhiAware(r_branch);
-        def frontier = l_phi_aware.intersection(r_phi_aware);
+        def frontier = cond_deps.union(l_phi_aware.intersection(r_phi_aware));
 
         def l_full = cachedTransitiveDeps(l_branch);
         def r_full = cachedTransitiveDeps(r_branch);
