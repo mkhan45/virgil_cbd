@@ -34,6 +34,18 @@ Applied via `sea.apply()`:
 - `reifyConds` — Inserts `startIf`/`startElse`/`end` control flow markers
 - `chooseMerge` — Simplifies merge nodes
 
+## Inspecting Sea Graphs
+
+Sea graphs are written to `docs/traces.js` by the scheduler test harness. To print the Mermaid form of the Sea IR for one opcode:
+
+```bash
+bash scripts/schedule_test.sh --trace SPLIT_BRANCHES
+node scripts/schedule_info.js SPLIT_BRANCHES raw
+node scripts/schedule_info.js SPLIT_BRANCHES unLEM
+```
+
+Use `--canonical` for real opcodes from `CanonicalDefs.v3`, for example `bash scripts/schedule_test.sh --canonical --trace IF IF`. The `raw` tag is the pre-schedule Sea IR; `unLEM` is the Sea IR after `SeaTransforms.unLEM`.
+
 ## Scheduling
 
 `common/sea/Schedule.v3` converts the unordered sea graph back into structured code in two phases.

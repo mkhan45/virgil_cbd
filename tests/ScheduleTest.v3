@@ -7,7 +7,7 @@ def TRACES_FILE    = "docs/traces.js";
 var total_tests: int = 0;
 var total_pass: int = 0;
 var total_fail: int = 0;
-var trace_opcodes: Array<string> = [];
+var trace_opcodes: Array<string> = ["IF", "IF_ul"];
 
 def should_trace(opcode: string) -> bool {
 	for (name in trace_opcodes) if (Strings.equal(name, opcode)) return true;

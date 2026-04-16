@@ -60,14 +60,27 @@ After running `schedule_test.sh` or `make validator` (with `trace_full` enabled)
 ```bash
 node scripts/schedule_info.js                                            # all opcodes, scheduled SSAD tags (compact)
 node scripts/schedule_info.js SPLIT_BRANCHES                             # scheduled SSAD tags (compact)
+node scripts/schedule_info.js SPLIT_BRANCHES raw                         # initial Sea IR Mermaid graph
+node scripts/schedule_info.js SPLIT_BRANCHES unLEM                       # unLEM Sea IR Mermaid graph
 node scripts/schedule_info.js SPLIT_BRANCHES scheduler_ssad_pretty       # initial scheduled SSAD only
 node scripts/schedule_info.js SPLIT_BRANCHES unlem_scheduler_ssa_pretty  # unLEM scheduled SSAD only
+node scripts/schedule_info.js SPLIT_BRANCHES schedulerMermaid            # initial scheduled CFG Mermaid graph
+node scripts/schedule_info.js SPLIT_BRANCHES unlem_scheduler             # unLEM scheduled CFG Mermaid graph
 node scripts/schedule_info.js SPLIT_BRANCHES info_start                  # state at start of scheduling
 node scripts/schedule_info.js SPLIT_BRANCHES info_untangled              # state after untangle()
 node scripts/schedule_info.js SPLIT_BRANCHES info_final                  # final scheduled CFG
 ```
 
 The script loads `docs/traces.js` and prints from both `window.info` (info snapshots) and `window.traces` (scheduled SSAD). By default it prints only scheduled SSAD tags for compact output. To view info snapshots, pass an explicit info tag argument (`info_start`, `info_untangled`, or `info_final`).
+
+To inspect a canonical opcode such as `IF`, generate traces with `--canonical` and `--trace`, then query the tag you want:
+
+```bash
+bash scripts/schedule_test.sh --canonical --trace IF IF
+node scripts/schedule_info.js IF unLEM
+```
+
+`raw` and `unLEM` are Sea IR Mermaid graphs. `schedulerMermaid` and `unlem_scheduler` are the scheduled CFG Mermaid graphs.
 
 ## Skills
 
