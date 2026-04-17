@@ -15,7 +15,7 @@ VIRGIL ?= $(VIRGIL_DIR)/bin/current/x86-64-linux/Aeneas -O2 -run -fun-exprs -sim
 V3C ?= $(VIRGIL_DIR)/bin/v3c-x86-64-linux -O2 -fun-exprs -simple-bodies
 
 # Common libraries
-COMMON_LIB = $(wildcard common/*.v3 common/*/*.v3)
+COMMON_LIB = $(filter-out common/sea/region/PartitionTest.v3,$(wildcard common/*.v3 common/*/*.v3 common/*/*/*.v3))
 
 # Dependencies
 GENERATE_DEPS = $(COMMON_LIB) $(DEFS) $(DEFS).sexp $(TYPEDEFS)
@@ -52,6 +52,13 @@ ScheduleTest: $(SYNTHETIC_SEXP) $(COMMON_LIB) $(TYPEDEFS)
 		$(ENGINE)\
 		$(WIZARD_UTIL)\
 		tests/ScheduleTest.v3
+
+PartitionTest: $(SYNTHETIC_SEXP) $(COMMON_LIB) $(TYPEDEFS) common/sea/region/PartitionTest.v3
+	$(V3C) $(VIRGIL_STD)\
+		$(COMMON_LIB)\
+		$(ENGINE)\
+		$(WIZARD_UTIL)\
+		common/sea/region/PartitionTest.v3
 
 ValidatorGen: $(GENERATE_DEPS) $(VALIDATOR)/*.v3
 	$(V3C) $(VIRGIL_STD)\

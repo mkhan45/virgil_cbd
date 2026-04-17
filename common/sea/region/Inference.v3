@@ -1,0 +1,325 @@
+class RegionCtx {
+    var boundary_values: ImmNodeSet;
+    var boundary_states: ImmNodeSet;
+    var boundary_labels: ImmNodeSet;
+    var demand_map: NodeMap<ImmNodeSet>;
+    var active: ImmNodeSet;
+
+    new(boundary_values, boundary_states, boundary_labels, demand_map, active) {}
+
+    def isEmpty() -> bool => active.isEmpty();
+}
+
+class InferredPartition {
+    var phi: IRNode;
+    var ctx: RegionCtx;
+    var support: ImmNodeSet;
+    var left: ImmNodeSet;
+    var right: ImmNodeSet;
+    var anchored: ImmNodeSet;
+    var cloneable: ImmNodeSet;
+    var left_ctx: RegionCtx;
+    var right_ctx: RegionCtx;
+
+    new(phi, ctx, support, left, right, anchored, cloneable, left_ctx, right_ctx) {}
+
+    def overlap() -> ImmNodeSet => left.intersection(right);
+}
+
+class PartitionDiscovery {
+    var root: RegionCtx;
+    var partitions: Vector<InferredPartition>;
+
+    new(root, partitions) {}
+}
+
+class SeenPartitionCtx {
+    var phi: IRNode;
+    var boundary_values: ImmNodeSet;
+    var boundary_states: ImmNodeSet;
+
+    new(phi, boundary_values, boundary_states) {}
+}
+
+component PartitionInference {
+    def normalize(set: ImmNodeSet) -> ImmNodeSet {
+        if (set.bits == null) return ImmNodeSets.empty();
+        return set;
+    }
+
+    def root_boundary_values(bottom: IRNode) -> ImmNodeSet {
+        var out = ImmNodeSets.empty();
+        for (i < bottom.value_deps.length) {
+            def dep = bottom.value_deps[i];
+            if (dep != null) out = out.with(dep.unwrapMove());
+        }
+        return out;
+    }
+
+    def root_boundary_states(bottom: IRNode) -> ImmNodeSet {
+        var out = ImmNodeSets.empty();
+        for (i < bottom.state_deps.length) {
+            def dep = bottom.state_deps[i];
+            if (dep != null) out = out.with(dep.unwrapMove());
+        }
+        return out;
+    }
+
+    def demand_labels(ctx: RegionCtx, node: IRNode) -> ImmNodeSet {
+        return normalize(ctx.demand_map[node]);
+    }
+
+    def add_label(map: NodeMap<ImmNodeSet>, node: IRNode, label: IRNode) -> bool {
+        def existing = normalize(map[node]);
+        if (existing.has(label)) return false;
+        map[node] = existing.with(label);
+        return true;
+    }
+
+    def make_ctx(sea: Sea, boundary_values: ImmNodeSet, boundary_states: ImmNodeSet) -> RegionCtx {
+        def vals = normalize(boundary_values);
+        def states = normalize(boundary_states);
+        def labels = vals.union(states);
+
+        def demand_map = NodeMap<ImmNodeSet>.new();
+        def wl_nodes = Vector<IRNode>.new();
+        def wl_labels = Vector<IRNode>.new();
+        var active = ImmNodeSets.empty();
+
+        for (label in labels.toArray(sea)) {
+            if (label == null) continue;
+            wl_nodes.put(label);
+            wl_labels.put(label);
+        }
+
+        var wi = 0;
+        while (wi < wl_nodes.length) {
+            def node = wl_nodes[wi];
+            def label = wl_labels[wi];
+            wi += 1;
+            if (node == null || label == null) continue;
+            if (!add_label(demand_map, node, label)) continue;
+
+            active = active.with(node);
+            node.applyDeps(fun (dep: IRNode) {
+                wl_nodes.put(dep);
+                wl_labels.put(label);
+            });
+        }
+
+        return RegionCtx.new(vals, states, labels, demand_map, active);
+    }
+
+    def make_root_ctx(sea: Sea, bottom: IRNode) -> RegionCtx {
+        return make_ctx(sea, root_boundary_values(bottom), root_boundary_states(bottom));
+    }
+
+    def include_phi(node: IRNode, include_value_phis: bool, include_state_phis: bool) -> bool {
+        match (node.op) {
+            Phi => return include_value_phis;
+            StatePhi(_) => return include_state_phis;
+            _ => return false;
+        }
+    }
+
+    def visible_phis(sea: Sea, ctx: RegionCtx,
+                     include_value_phis: bool, include_state_phis: bool) -> Vector<IRNode> {
+        def phis = Vector<IRNode>.new();
+        ctx.active.apply(sea, fun (node: IRNode) {
+            if (include_phi(node, include_value_phis, include_state_phis)) phis.put(node);
+        });
+        return phis;
+    }
+
+    def has_writes(node: IRNode) -> bool {
+        match (node.op) {
+            Intrinsic(defn) => {
+                for (sc in defn.writes) return true;
+            }
+            _ => ;
+        }
+        return false;
+    }
+
+    def child_uses_value(child: IRNode, dep: IRNode) -> bool {
+        if (child == null || dep == null) return false;
+        for (i < child.value_deps.length) {
+            def child_dep = child.value_deps[i];
+            if (child_dep == null || child_dep.id != dep.id) continue;
+            if (child.is_move() && i == 0) return false;
+            match (child.op) {
+                StatePhi(_) => return i == 0;
+                _ => return true;
+            }
+        }
+        return false;
+    }
+
+    def child_uses_state(child: IRNode, dep: IRNode) -> bool {
+        if (child == null || dep == null) return false;
+        match (child.op) {
+            StatePhi(_) => {
+                if (child.value_deps.length > 1 && child.value_deps[1] != null && child.value_deps[1].id == dep.id) return true;
+                if (child.value_deps.length > 2 && child.value_deps[2] != null && child.value_deps[2].id == dep.id) return true;
+            }
+            _ => ;
+        }
+        for (i < child.state_deps.length) {
+            def child_dep = child.state_deps[i];
+            if (child_dep != null && child_dep.id == dep.id) return true;
+        }
+        return false;
+    }
+
+    def boundary_uses_active_labels(ctx: RegionCtx, region_labels: ImmNodeSet, child: IRNode) -> bool {
+        if (child == null) return false;
+        def labels = demand_labels(ctx, child);
+        return labels.intersects(region_labels);
+    }
+
+    def collect_boundary_labels(sea: Sea, region: ImmNodeSet, ctx: RegionCtx) -> (ImmNodeSet, ImmNodeSet) {
+        if (region.isEmpty()) return (ImmNodeSets.empty(), ImmNodeSets.empty());
+
+        var values = ImmNodeSets.empty();
+        var states = ImmNodeSets.empty();
+
+        for (node in region.toArray(sea)) {
+            def region_labels = demand_labels(ctx, node);
+            if (region_labels.isEmpty()) continue;
+
+            for (i < node.children.length) {
+                def child = node.children[i];
+                if (child == null || region.has(child)) continue;
+                if (!ctx.active.has(child) && !ctx.boundary_labels.has(child)) continue;
+                if (!boundary_uses_active_labels(ctx, region_labels, child)) continue;
+
+                if (child_uses_value(child, node)) values = values.with(node.unwrapMove());
+                if (child_uses_state(child, node)) states = states.with(node.unwrapMove());
+            }
+        }
+
+        return (values, states);
+    }
+
+    def branch_partition_in_context(sea: Sea, phi: IRNode, ctx: RegionCtx) -> InferredPartition {
+        def cond = phi.value_deps[0].unwrapMove();
+        def left_arm = phi.value_deps[1].unwrapMove();
+        def right_arm = phi.value_deps[2].unwrapMove();
+
+        def cond_deps = sea.cachedTransitiveDeps(cond).intersection(ctx.active);
+        def left_phi = sea.cachedTransitiveDepsPhiAware(left_arm).intersection(ctx.active);
+        def right_phi = sea.cachedTransitiveDepsPhiAware(right_arm).intersection(ctx.active);
+        def support = cond_deps.union(left_phi.intersection(right_phi));
+
+        def left_full = sea.cachedTransitiveDeps(left_arm).intersection(ctx.active);
+        def right_full = sea.cachedTransitiveDeps(right_arm).intersection(ctx.active);
+        def shared = left_full.intersection(right_full).withoutAll(support);
+
+        def phi_labels = demand_labels(ctx, phi);
+        def outside_labels = ctx.boundary_labels.withoutAll(phi_labels);
+
+        def anchored_box = [ImmNodeSets.empty()];
+        shared.apply(sea, fun (node: IRNode) {
+            if (has_writes(node) && demand_labels(ctx, node).intersects(outside_labels))
+                anchored_box[0] = anchored_box[0].with(node);
+        });
+        def anchored = anchored_box[0];
+        def cloneable = shared.withoutAll(anchored);
+
+        def left = left_full.withoutAll(support).withoutAll(shared).union(cloneable);
+        def right = right_full.withoutAll(support).withoutAll(shared).union(cloneable);
+
+        def left_boundary = collect_boundary_labels(sea, left, ctx);
+        def right_boundary = collect_boundary_labels(sea, right, ctx);
+
+        return InferredPartition.new(
+            phi,
+            ctx,
+            support,
+            left,
+            right,
+            anchored,
+            cloneable,
+            make_ctx(sea, left_boundary.0, left_boundary.1),
+            make_ctx(sea, right_boundary.0, right_boundary.1)
+        );
+    }
+
+    def seen_ctx(seen: Vector<SeenPartitionCtx>, phi: IRNode, ctx: RegionCtx) -> bool {
+        for (i < seen.length) {
+            def prev = seen[i];
+            if (prev.phi.id != phi.id) continue;
+            if (!prev.boundary_values.eq(ctx.boundary_values)) continue;
+            if (!prev.boundary_states.eq(ctx.boundary_states)) continue;
+            return true;
+        }
+        return false;
+    }
+
+    def visit_ctx(sea: Sea, ctx: RegionCtx,
+                  include_value_phis: bool, include_state_phis: bool,
+                  out: Vector<InferredPartition>, seen: Vector<SeenPartitionCtx>) {
+        def phis = visible_phis(sea, ctx, include_value_phis, include_state_phis);
+        for (i < phis.length) {
+            def phi = phis[i];
+            if (seen_ctx(seen, phi, ctx)) continue;
+            seen.put(SeenPartitionCtx.new(phi, ctx.boundary_values, ctx.boundary_states));
+
+            def part = branch_partition_in_context(sea, phi, ctx);
+            out.put(part);
+
+            if (!part.left_ctx.isEmpty()) visit_ctx(sea, part.left_ctx, include_value_phis, include_state_phis, out, seen);
+            if (!part.right_ctx.isEmpty()) visit_ctx(sea, part.right_ctx, include_value_phis, include_state_phis, out, seen);
+        }
+    }
+
+    def determine_all_partitions(sea: Sea, bottom: IRNode,
+                                 include_value_phis: bool, include_state_phis: bool) -> PartitionDiscovery {
+        sea.rebuildChildren();
+        sea.clearDepsCache();
+
+        def root = make_root_ctx(sea, bottom);
+        def out = Vector<InferredPartition>.new();
+        def seen = Vector<SeenPartitionCtx>.new();
+        visit_ctx(sea, root, include_value_phis, include_state_phis, out, seen);
+        return PartitionDiscovery.new(root, out);
+    }
+
+    def render_set(sea: Sea, name: string, set: ImmNodeSet, buf: StringBuilder) -> StringBuilder {
+        buf.puts(name).puts("=");
+        normalize(set).renderFull(buf, sea);
+        return buf;
+    }
+
+    def render_ctx(sea: Sea, ctx: RegionCtx, buf: StringBuilder) -> StringBuilder {
+        render_set(sea, "values", ctx.boundary_values, buf);
+        buf.puts(" ");
+        render_set(sea, "states", ctx.boundary_states, buf);
+        return buf;
+    }
+
+    def render_partition(sea: Sea, idx: int, part: InferredPartition, buf: StringBuilder) -> StringBuilder {
+        buf.puts("#").putd(idx).puts(" phi=").putq(part.phi.render);
+        buf.puts(" cond=").putq(part.phi.value_deps[0].unwrapMove().render).puts("\n");
+
+        buf.puts("  ctx: ");
+        render_ctx(sea, part.ctx, buf).puts("\n");
+
+        buf.puts("  ");
+        render_set(sea, "support", part.support, buf).puts("\n");
+        buf.puts("  ");
+        render_set(sea, "left", part.left, buf).puts("\n");
+        buf.puts("  ");
+        render_set(sea, "right", part.right, buf).puts("\n");
+        buf.puts("  ");
+        render_set(sea, "cloneable", part.cloneable, buf).puts("\n");
+        buf.puts("  ");
+        render_set(sea, "anchored", part.anchored, buf).puts("\n");
+
+        buf.puts("  left_ctx: ");
+        render_ctx(sea, part.left_ctx, buf).puts("\n");
+        buf.puts("  right_ctx: ");
+        render_ctx(sea, part.right_ctx, buf).puts("\n");
+        return buf;
+    }
+}

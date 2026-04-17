@@ -1,0 +1,134 @@
+def SYNTHETIC_V3   = "./tests/SyntheticDefs.v3";
+def SYNTHETIC_SEXP = "./tests/SyntheticDefs.v3.sexp";
+def CANONICAL_V3   = "./wizard-engine/src/bytecode/CanonicalDefs.v3";
+def CANONICAL_SEXP = "./wizard-engine/src/bytecode/CanonicalDefs.v3.sexp";
+
+var total_opcodes: int = 0;
+var total_failures: int = 0;
+
+def render_graph_errors(errors: Vector<GraphError>) {
+    for (i < errors.length)
+        System.puts(Strings.format2("      %d: %q\n", i, errors[i].render));
+}
+
+def show_discovery(opcode: string, phase: string, sea: Sea,
+                   discovery: PartitionDiscovery, include_details: bool) {
+    System.puts(Strings.format3("  %s [%s] partitions=%d\n", opcode, phase, discovery.partitions.length));
+    if (!include_details) return;
+
+    def root = StringBuilder.new();
+    root.puts("    root: ");
+    PartitionInference.render_ctx(sea, discovery.root, root).puts("\n");
+    System.puts(root.toString());
+
+    for (i < discovery.partitions.length) {
+        def part = StringBuilder.new();
+        part.puts("    ");
+        PartitionInference.render_partition(sea, i, discovery.partitions[i], part);
+        System.puts(part.toString());
+    }
+}
+
+def testOpcode(opcode: string, stmt: VirgilStmt,
+               use_unlem: bool,
+               include_value_phis: bool,
+               include_state_phis: bool,
+               include_details: bool) -> CBDDef {
+    def ir = SSAD_IR.from_virgil(stmt);
+    def sea_info = Seas.ofSSADWithInfo(ir);
+    def sea = sea_info.0;
+
+    sea.apply(void, SeaTransforms.id_propagate);
+    if (use_unlem) {
+        def state = NodeMap<(IRNode, Vector<IRNode>)>.new();
+        sea.apply(state, SeaTransforms.unLEM);
+    }
+
+    def checker = GraphChecker.new(sea);
+    checker.check();
+    if (checker.errors.length > 0) {
+        // The driver is meant to inspect partition recovery even on graphs
+        // that still violate the current branch sealing checker.
+        System.puts(Strings.format2("  WARN  %s [graph]\n", opcode, if(use_unlem, "unLEM", "raw")));
+        render_graph_errors(checker.errors);
+    }
+
+    def discovery = PartitionInference.determine_all_partitions(sea, sea.finish, include_value_phis, include_state_phis);
+    show_discovery(opcode, if(use_unlem, "unLEM", "raw"), sea, discovery, include_details);
+    return CBDDef.new(opcode, ir, sea_info.1);
+}
+
+def main(args: Array<string>) {
+    IntrinsicTypes.init(IntrinsicTypes.TYPE_DEF_FILE);
+
+    var use_canonical = false;
+    var use_unlem = false;
+    var include_value_phis = true;
+    var include_state_phis = true;
+    var include_details = false;
+
+    def opcode_args = Vector<string>.new();
+    var i = 0;
+    while (i < args.length) {
+        def arg = args[i];
+        if (Strings.equal(arg, "--canonical")) use_canonical = true;
+        else if (Strings.equal(arg, "--unlem")) use_unlem = true;
+        else if (Strings.equal(arg, "--details")) include_details = true;
+        else if (Strings.equal(arg, "--state-only")) {
+            include_value_phis = false;
+            include_state_phis = true;
+        } else if (Strings.equal(arg, "--value-only")) {
+            include_value_phis = true;
+            include_state_phis = false;
+        } else opcode_args.put(arg);
+        i += 1;
+    }
+
+    def filter_args = opcode_args.copy();
+    if (filter_args.length > 0) include_details = true;
+
+    def filterInstrs(all_instrs: Array<string>) -> Array<string> {
+        if (filter_args.length == 0) return all_instrs;
+        def filtered = Vector<string>.new();
+        for (arg in filter_args) {
+            for (name in all_instrs) {
+                if (Strings.equal(name, arg)) {
+                    filtered.put(name);
+                    break;
+                }
+            }
+        }
+        return filtered.copy();
+    }
+
+    def runDefs(title: string, v3file: string, sexpfile: string) {
+        def v3bytes = System.fileLoad(v3file);
+        if (v3bytes == null) {
+            System.puts(Strings.format1("Error reading %s\n", v3file));
+            total_failures += 1;
+            return;
+        }
+
+        def sexp_bytes = System.fileLoad(sexpfile);
+        if (sexp_bytes == null) {
+            System.puts(Strings.format1("Error reading %s\n", sexpfile));
+            total_failures += 1;
+            return;
+        }
+
+        def instrs = filterInstrs(TierGen.extractInstrNames(v3bytes));
+        System.puts(Strings.format2("Running partition inference on %d %s opcode(s)\n", instrs.length, title));
+        total_opcodes += instrs.length;
+        TierGen.extractDefs(instrs, sexpfile, sexp_bytes,
+            fun (opcode: string, stmt: VirgilStmt) -> CBDDef {
+                return testOpcode(opcode, stmt, use_unlem, include_value_phis, include_state_phis, include_details);
+            });
+    }
+
+    runDefs("synthetic", SYNTHETIC_V3, SYNTHETIC_SEXP);
+    if (use_canonical) runDefs("canonical", CANONICAL_V3, CANONICAL_SEXP);
+
+    System.puts(Strings.format2("\nProcessed %d opcode(s), failures=%d\n", total_opcodes, total_failures));
+    if (total_failures > 0) System.puts("FAILED\n");
+    else System.puts("OK\n");
+}

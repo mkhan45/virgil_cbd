@@ -40,8 +40,8 @@ The simplest useful primitive is a contextual version of `branch_partition`. Ins
 
 ```text
 type BottomCtx(
-    boundary_values,
-    boundary_states,
+    boundary_values,   // value labels: IRNode
+    boundary_states,   // state labels: (StateComponent, IRNode)
     demand_map,
     active
 )
@@ -114,17 +114,16 @@ branch_partition_in_context(phi, ctx):
     left = left_full.withoutAll(support).withoutAll(shared).union(cloneable)
     right = right_full.withoutAll(support).withoutAll(shared).union(cloneable)
 
-    left_ctx = make_ctx(
-        live_boundary_values(left, phi, true),
-        live_boundary_states(left, phi, true)
-    )
-
-    right_ctx = make_ctx(
-        live_boundary_values(right, phi, false),
-        live_boundary_states(right, phi, false)
-    )
+    left_ctx = child_ctx(left, ctx)
+    right_ctx = child_ctx(right, ctx)
 
     return Partition(phi, support, left, right, anchored, left_ctx, right_ctx)
+
+child_ctx(region, ctx):
+    return make_ctx(
+        exposed_child_values(region, ctx),
+        exposed_child_states(region, ctx)
+    )
 ```
 
 This keeps the existing good parts of `branch_partition`:
@@ -136,6 +135,61 @@ This keeps the existing good parts of `branch_partition`:
 The new pieces are the bottom-relative `active` slice and the demand-provenance map `demand_map`. `labeled_backward_slice()` is just a backward slice that remembers which boundary values or state versions demand each node.
 
 With that information, `anchored` no longer needs a separate escape-closure loop. A shared write is anchored exactly when it is still demanded by some boundary label outside the current `Phi`'s own label set. Pure overlap may still be cloned later. Writes inside `anchored` are never treated as cloneable overlap, which is the same safety condition the current scheduler enforces later with `filtered_clone_subgraphs()`.
+
+### Exact Child Boundaries
+
+The child contexts are not heuristic summaries of "useful" exiting users. They are the exact value/state cut interface between one child region and the rest of the parent demand slice.
+
+For one side region `region` in parent context `ctx`, let:
+
+```text
+outside = ctx.active.withoutAll(region)
+
+exposed_child_values(region, ctx) =
+    ctx.boundary_values.intersection(region)
+    union {
+        n in region |
+        exists u in outside : value_exit(n, u)
+    }
+
+exposed_child_states(region, ctx) =
+    parent_boundary_states_in(region, ctx)
+    union {
+        state_label(sc, n) |
+        n in region &&
+        exists u in outside : state_exit(sc, n, u)
+    }
+```
+
+Here:
+
+- `value_exit(n, u)` means `u` consumes `n` through a real value edge
+- `state_exit(sc, n, u)` means `u` consumes state component `sc` from `n`
+- `parent_boundary_states_in(region, ctx)` means the state-boundary labels already present in the parent context whose producer node lies in `region`
+- `state_label(sc, n)` is a state-boundary label that remembers both the state component and the producing node
+
+So exact child boundaries require state labels, not just bare producer nodes. One node may carry multiple state components, and an exact child interface must preserve which component is exposed.
+
+The role tests are structural:
+
+- ordinary `value_deps` are value exits
+- `Move` condition edges are bookkeeping and are not value exits
+- `StatePhi` arm edges count as state exits, not ordinary value exits
+- ordinary `state_deps[sc]` are state exits for that component
+
+This construction is exact because every parent-visible demand path starting inside `region` either:
+
+- already ends at a parent boundary label inside `region`, or
+- has a first edge that leaves `region` and enters `outside`
+
+The tail of that first exit is exactly the child interface item that makes the inner demand visible to the rest of the parent context. Conversely, every exposed boundary item is genuinely visible from outside the child region, so the cut is both sound and complete.
+
+This also clarifies how the region sets relate to child contexts:
+
+- `support` stays above the split and is outside both child regions
+- `left` and `right` are the child regions whose cut interfaces are being recovered
+- `cloneable` overlap may appear in both child boundaries, because each child may legitimately expose its own future clone of that structure
+- `anchored` overlap remains shared in the parent context, though nodes inside a child region may still feed outward into it
 
 ### Worked Examples
 
