@@ -8,7 +8,14 @@ def trap();
 
 class BranchLattice {
     var sea: Sea;
+    var abstract_site: Site;
+    var parent_realized: BranchLattice;
+    var parent_region: Region;
+    var left_region: Region;
+    var right_region: Region;
     var condition: IRNode;
+    var planning_left_roots: Vector<IRNode>;
+    var planning_right_roots: Vector<IRNode>;
     var frontier: ImmNodeSet;
     var l_subgraph: ImmNodeSet;
     var r_subgraph: ImmNodeSet;
@@ -53,6 +60,10 @@ class SeaScheduler {
 
     var branch_lattices: Vector<BranchLattice> = Vector.new();
     var branch_lattice_map: NodeMap<BranchLattice> = NodeMap<BranchLattice>.new();
+    var scope_root: Region = null;
+    var merge_site_map: NodeMap<Site> = NodeMap<Site>.new();
+    var move_site_map: NodeMap<Site> = NodeMap<Site>.new();
+    var move_side_map: NodeMap<ParentSide> = NodeMap<ParentSide>.new();
 
     var reify_conds = false;
 
@@ -89,6 +100,792 @@ class SeaScheduler {
         def primary = mapping[root];
         if (primary != null) return primary.id == node.id;
         return root.id == node.id;
+    }
+
+    def add_unique_node(buf: Vector<IRNode>, node: IRNode) {
+        if (node == null) return;
+        for (i < buf.length) if (buf[i].id == node.id) return;
+        buf.put(node);
+    }
+
+    def add_unique_region(buf: Vector<Region>, region: Region) {
+        if (region == null) return;
+        for (i < buf.length) if (buf[i].id == region.id) return;
+        buf.put(region);
+    }
+
+    def region_parent(region: Region) -> Region {
+        if (region == null || region.parent_site == null) return null;
+        return region.parent_site.parent_region;
+    }
+
+    def region_depth(region: Region) -> int {
+        var depth = 0;
+        var cur = region;
+        while (cur != null) {
+            depth += 1;
+            cur = region_parent(cur);
+        }
+        return depth;
+    }
+
+    def region_contains(ancestor: Region, node_region: Region) -> bool {
+        var cur = node_region;
+        while (cur != null) {
+            if (cur.id == ancestor.id) return true;
+            cur = region_parent(cur);
+        }
+        return false;
+    }
+
+    def common_region(lhs: Region, rhs: Region) -> Region {
+        if (lhs == null) return rhs;
+        if (rhs == null) return lhs;
+        var l = lhs;
+        var r = rhs;
+        var ld = region_depth(l);
+        var rd = region_depth(r);
+        while (ld > rd) {
+            l = region_parent(l);
+            ld -= 1;
+        }
+        while (rd > ld) {
+            r = region_parent(r);
+            rd -= 1;
+        }
+        while (l != null && r != null && l.id != r.id) {
+            l = region_parent(l);
+            r = region_parent(r);
+        }
+        return l;
+    }
+
+    def common_region_all(regions: Vector<Region>) -> Region {
+        if (regions == null || regions.length == 0) return null;
+        var cur = regions[0];
+        for (i = 1; i < regions.length; i++) cur = common_region(cur, regions[i]);
+        return cur;
+    }
+
+    def logical_deps(node: IRNode) -> Array<IRNode> {
+        if (node == null) return Array<IRNode>.new(0);
+        if (node.is_move()) {
+            def deps = Vector<IRNode>.new();
+            def payload = ScopeState.move_payload(node);
+            add_unique_node(deps, payload);
+            return deps.copy();
+        }
+
+        def deps = Vector<IRNode>.new();
+        for (i < node.value_deps.length) add_unique_node(deps, node.value_deps[i]);
+        for (i < node.state_deps.length) add_unique_node(deps, node.state_deps[i]);
+        return deps.copy();
+    }
+
+    def move_child_region(node: IRNode) -> Region {
+        def site = move_site_map[node];
+        if (site == null) return scope_root;
+        return if (ParentSide.Left.?(move_side_map[node]), site.left_region, site.right_region);
+    }
+
+    def move_parent_region(node: IRNode) -> Region {
+        def site = move_site_map[node];
+        return if (site != null, site.parent_region, scope_root);
+    }
+
+    def logical_edge_uses_value(parent: IRNode, child: IRNode) -> bool {
+        for (i < child.value_deps.length) {
+            def dep = child.value_deps[i];
+            if (dep == null || dep.id != parent.id) continue;
+            match (child.op) {
+                StatePhi(_) => {
+                    if (i != 1 && i != 2) return true;
+                }
+                Move(_) => {
+                    if (i != 0) return true;
+                }
+                _ => return true;
+            }
+        }
+        return false;
+    }
+
+    def exposed_interface(node: IRNode, cache: NodeMap<ImmNodeSet>) -> ImmNodeSet {
+        if (node == null) return ImmNodeSets.empty();
+        def cached = cache[node];
+        if (cached.bits != null) return cached;
+
+        var result = ImmNodeSets.empty();
+        if (node.is_move()) {
+            result = exposed_interface(ScopeState.move_payload(node), cache);
+        } else {
+            match (node.op) {
+                StatePhi => {
+                    result = ImmNodeSets.single(node);
+                }
+                Phi => {
+                    if (transparent_pure_phi(node, cache)) {
+                        result = exposed_interface(node.value_deps[0], cache)
+                            .union(exposed_interface(node.value_deps[1], cache)
+                                .intersection(exposed_interface(node.value_deps[2], cache)));
+                    } else {
+                        result = ImmNodeSets.single(node);
+                    }
+                }
+                _ => {
+                    result = ImmNodeSets.single(node);
+                    def deps = logical_deps(node);
+                    for (i < deps.length) result = result.union(exposed_interface(deps[i], cache));
+                }
+            }
+        }
+
+        cache[node] = result;
+        return result;
+    }
+
+    def transparent_pure_phi(phi: IRNode, cache: NodeMap<ImmNodeSet>) -> bool {
+        if (phi == null || !IROp.Phi.?(phi.op)) return false;
+        return exposed_interface(phi.value_deps[1], cache).eq(exposed_interface(phi.value_deps[2], cache));
+    }
+
+    def expose_common_arms(left: IRNode, right: IRNode,
+                           seen: NodeSet, evidence: NodeSet,
+                           cache: NodeMap<ImmNodeSet>) {
+        def common = exposed_interface(left, cache).intersection(exposed_interface(right, cache));
+        common.apply(sea, fun (n: IRNode) {
+            expose_node(n, seen, evidence, cache);
+        });
+    }
+
+    def expose_node(node: IRNode, seen: NodeSet, evidence: NodeSet,
+                    cache: NodeMap<ImmNodeSet>) {
+        if (node == null || seen.has(node)) return;
+        if (!live.has(node) && !node.is_move()) return;
+        seen.put(node);
+
+        if (node.is_move()) {
+            expose_node(ScopeState.move_payload(node), seen, evidence, cache);
+            return;
+        }
+
+        match (node.op) {
+            StatePhi => {
+                evidence.put(node);
+                return;
+            }
+            Phi => {
+                if (transparent_pure_phi(node, cache)) {
+                    evidence.put(node);
+                    expose_node(node.value_deps[0], seen, evidence, cache);
+                    expose_common_arms(node.value_deps[1], node.value_deps[2], seen, evidence, cache);
+                } else {
+                    evidence.put(node);
+                }
+                return;
+            }
+            _ => {
+                def deps = logical_deps(node);
+                for (i < deps.length) expose_node(deps[i], seen, evidence, cache);
+            }
+        }
+    }
+
+    def exposed_site_evidence(region: Region) -> NodeSet {
+        def seen = NodeSet.new();
+        def evidence = NodeSet.new();
+        def cache = NodeMap<ImmNodeSet>.new();
+
+        for (i < region.boundary_values.length)
+            expose_node(region.boundary_values[i], seen, evidence, cache);
+        for (i < region.state_frontier.length)
+            expose_node(region.state_frontier[i], seen, evidence, cache);
+
+        return evidence;
+    }
+
+    def canonicalize_sites(region: Region, evidence: NodeSet) -> Vector<Site> {
+        def sites = Vector<Site>.new();
+        evidence.apply(fun (n: IRNode) {
+            if (!n.is_phi()) return;
+            def cond = n.value_deps[0];
+            var dest: Site = null;
+            for (i < sites.length) {
+                def site = sites[i];
+                if (site.predicate != null && cond != null && site.predicate.id == cond.id) {
+                    dest = site;
+                    break;
+                }
+            }
+            if (dest == null) {
+                dest = Site.new(region, cond, Vector<IRNode>.new(), IROp.StatePhi.?(n.op));
+                sites.put(dest);
+            }
+            dest.merge_nodes.put(n);
+            if (IROp.StatePhi.?(n.op)) dest.forced = true;
+        });
+        return sites;
+    }
+
+    def derive_child_region(parent: Region, site: Site, left_side: bool) -> Region {
+        def frontier = Arrays.dup(parent.state_frontier);
+        def boundary = Vector<IRNode>.new();
+        for (i < site.merge_nodes.length) {
+            def phi = site.merge_nodes[i];
+            add_unique_node(boundary, if(left_side, phi.value_deps[1], phi.value_deps[2]));
+            match (phi.op) {
+                StatePhi(statecomps) => {
+                    for (sc in statecomps)
+                        frontier[sc.tag] = if(left_side,
+                            ScopeState.left_state_pred(phi, sc),
+                            ScopeState.right_state_pred(phi, sc));
+                }
+                _ => ;
+            }
+        }
+        return Region.new(site,
+            if(left_side, ParentSide.Left, ParentSide.Right),
+            frontier,
+            boundary);
+    }
+
+    def discover_region(region: Region) {
+        region.sites = canonicalize_sites(region, exposed_site_evidence(region));
+        for (i < region.sites.length) {
+            def site = region.sites[i];
+            site.left_region = derive_child_region(region, site, true);
+            site.right_region = derive_child_region(region, site, false);
+            discover_region(site.left_region);
+            discover_region(site.right_region);
+        }
+    }
+
+    def infer_scope_tree() -> Region {
+        def boundary = Vector<IRNode>.new();
+        for (i < bottom_node.value_deps.length) add_unique_node(boundary, bottom_node.value_deps[i]);
+        def root = Region.new(null, ParentSide.Root, Arrays.dup(bottom_node.state_deps), boundary);
+        discover_region(root);
+        return root;
+    }
+
+    def index_scope_tree(region: Region) {
+        if (region == null) return;
+        for (i < region.sites.length) {
+            def site = region.sites[i];
+            for (j < site.merge_nodes.length) {
+                def phi = site.merge_nodes[j];
+                merge_site_map[phi] = site;
+                if (phi.value_deps.length > 1 && phi.value_deps[1] != null) {
+                    move_site_map[phi.value_deps[1]] = site;
+                    move_side_map[phi.value_deps[1]] = ParentSide.Left;
+                }
+                if (phi.value_deps.length > 2 && phi.value_deps[2] != null) {
+                    move_site_map[phi.value_deps[2]] = site;
+                    move_side_map[phi.value_deps[2]] = ParentSide.Right;
+                }
+            }
+            index_scope_tree(site.left_region);
+            index_scope_tree(site.right_region);
+        }
+    }
+
+    def can_merge_group(group: Vector<IRNode>, phi: IRNode) -> bool {
+        for (i < group.length)
+            if (sea.isDescendant(phi, group[i]) || sea.isDescendant(group[i], phi)) return false;
+        return true;
+    }
+
+    def site_ordered_members(site: Site, ordered_phis: Array<IRNode>) -> Vector<IRNode> {
+        def members = Vector<IRNode>.new();
+        for (i < ordered_phis.length) {
+            def phi = ordered_phis[i];
+            def owner = merge_site_map[phi];
+            if (owner != null && owner.id == site.id) members.put(phi);
+        }
+        return members;
+    }
+
+    def build_realized_sites(region: Region, ordered_phis: Array<IRNode>, parent_realized: BranchLattice) {
+        if (region == null) return;
+        for (i < region.sites.length) {
+            def site = region.sites[i];
+            def members = site_ordered_members(site, ordered_phis);
+            var first_realized: BranchLattice = null;
+            def groups = Vector<Vector<IRNode>>.new();
+
+            for (j < members.length) {
+                def phi = members[j];
+                var placed = false;
+                for (k < groups.length) {
+                    if (can_merge_group(groups[k], phi)) {
+                        groups[k].put(phi);
+                        placed = true;
+                        break;
+                    }
+                }
+                if (!placed) {
+                    def group = Vector<IRNode>.new();
+                    group.put(phi);
+                    groups.put(group);
+                }
+            }
+
+            for (j < groups.length) {
+                def group = groups[j];
+                def left_roots = Vector<IRNode>.new();
+                def right_roots = Vector<IRNode>.new();
+                for (k < group.length) {
+                    add_unique_node(left_roots, group[k].value_deps[1]);
+                    add_unique_node(right_roots, group[k].value_deps[2]);
+                }
+
+                def bl = BranchLattice.new(sea, site.predicate,
+                    ImmNodeSets.empty(), ImmNodeSets.empty(), ImmNodeSets.empty(), group);
+                bl.abstract_site = site;
+                bl.parent_realized = parent_realized;
+                bl.parent_region = site.parent_region;
+                bl.left_region = site.left_region;
+                bl.right_region = site.right_region;
+                bl.planning_left_roots = left_roots;
+                bl.planning_right_roots = right_roots;
+                branch_lattices.put(bl);
+                for (k < group.length) branch_lattice_map[group[k]] = bl;
+                if (first_realized == null) first_realized = bl;
+            }
+
+            build_realized_sites(site.left_region, ordered_phis, if(first_realized != null, first_realized, parent_realized));
+            build_realized_sites(site.right_region, ordered_phis, if(first_realized != null, first_realized, parent_realized));
+        }
+    }
+
+    def finalize_realized_sites() {
+        sea.rebuildChildren();
+        live = Seas.live(sea);
+        sea.clearDepsCache();
+
+        def realized = Vector<BranchLattice>.new();
+        branch_lattice_map = NodeMap<BranchLattice>.new();
+        for (i < branch_lattices.length) {
+            def bl = branch_lattices[i];
+            def live_phis = Vector<IRNode>.new();
+            var frontier = ImmNodeSets.empty();
+            var lsg = ImmNodeSets.empty();
+            var rsg = ImmNodeSets.empty();
+            for (j < bl.phis.length) {
+                def phi = bl.phis[j];
+                if (!live.has(phi)) continue;
+                live_phis.put(phi);
+                def part = sea.branch_partition(phi);
+                frontier = frontier.union(part.frontier);
+                lsg = lsg.union(part.l_subgraph);
+                rsg = rsg.union(part.r_subgraph);
+                branch_lattice_map[phi] = bl;
+            }
+            if (live_phis.length == 0) continue;
+            bl.phis = live_phis;
+            bl.frontier = frontier;
+            bl.l_subgraph = lsg.withoutAll(frontier);
+            bl.r_subgraph = rsg.withoutAll(frontier);
+            realized.put(bl);
+        }
+        branch_lattices = realized;
+    }
+
+    def add_request(reqs: NodeMap<Vector<Region>>, node: IRNode, region: Region) {
+        if (node == null || region == null) return;
+        var regions = reqs[node];
+        if (regions == null) {
+            regions = Vector<Region>.new();
+            reqs[node] = regions;
+        }
+        add_unique_region(regions, region);
+    }
+
+    def live_topological_order() -> Vector<IRNode> {
+        def live_nodes = Vector<IRNode>.new();
+        live.apply(fun (n: IRNode) {
+            live_nodes.put(n);
+        });
+
+        def dep_count = NodeMap<int>.new();
+        def dependents = NodeMap<Vector<IRNode>>.new();
+        def queue = Vector<IRNode>.new();
+        def result = Vector<IRNode>.new();
+
+        for (i < live_nodes.length) {
+            def node = live_nodes[i];
+            def deps = logical_deps(node);
+            var count = 0;
+            for (j < deps.length) {
+                def dep = deps[j];
+                if (dep == null || !live.has(dep)) continue;
+                count += 1;
+                var ds = dependents[dep];
+                if (ds == null) {
+                    ds = Vector<IRNode>.new();
+                    dependents[dep] = ds;
+                }
+                ds.put(node);
+            }
+            dep_count[node] = count;
+            if (count == 0) queue.put(node);
+        }
+
+        var qi = 0;
+        while (qi < queue.length) {
+            def node = queue[qi];
+            qi += 1;
+            result.put(node);
+            def ds = dependents[node];
+            if (ds == null) continue;
+            for (i < ds.length) {
+                def user = ds[i];
+                dep_count[user] -= 1;
+                if (dep_count[user] == 0) queue.put(user);
+            }
+        }
+
+        for (i < live_nodes.length)
+            if (dep_count[live_nodes[i]] > 0) result.put(live_nodes[i]);
+
+        return result;
+    }
+
+    def seed_requests(reqs: NodeMap<Vector<Region>>) {
+        for (i < scope_root.boundary_values.length)
+            add_request(reqs, scope_root.boundary_values[i], scope_root);
+        for (i < scope_root.state_frontier.length)
+            add_request(reqs, scope_root.state_frontier[i], scope_root);
+
+        for (i < branch_lattices.length) {
+            def bl = branch_lattices[i];
+            add_request(reqs, bl.condition, bl.parent_region);
+            for (j < bl.planning_left_roots.length)
+                add_request(reqs, bl.planning_left_roots[j], bl.left_region);
+            for (j < bl.planning_right_roots.length)
+                add_request(reqs, bl.planning_right_roots[j], bl.right_region);
+        }
+    }
+
+    def predicate_support_region(node: IRNode, region: Region) -> Region {
+        var support = region;
+        for (i < branch_lattices.length) {
+            def bl = branch_lattices[i];
+            if (bl.condition == null || node == null || bl.condition.id != node.id) continue;
+            if (!region_contains(bl.left_region, region) && !region_contains(bl.right_region, region)) continue;
+            if (support == null || region_depth(bl.parent_region) > region_depth(support))
+                support = bl.parent_region;
+        }
+        return support;
+    }
+
+    def propagate_dep_requests(node: IRNode, region: Region, reqs: NodeMap<Vector<Region>>) {
+        if (node == null || region == null) return;
+
+        if (node.is_move()) {
+            add_request(reqs, ScopeState.move_payload(node), region);
+            return;
+        }
+
+        if (node.is_phi()) {
+            def site = merge_site_map[node];
+            if (site == null) return;
+            add_request(reqs, node.value_deps[0], site.parent_region);
+            add_request(reqs, node.value_deps[1], site.left_region);
+            add_request(reqs, node.value_deps[2], site.right_region);
+            return;
+        }
+
+        def deps = logical_deps(node);
+        def dep_region = predicate_support_region(node, region);
+        for (i < deps.length) add_request(reqs, deps[i], dep_region);
+    }
+
+    def propagate_requests(reqs: NodeMap<Vector<Region>>, topo: Vector<IRNode>) {
+        for (i = topo.length - 1; i >= 0; i--) {
+            def node = topo[i];
+            def regions = reqs[node];
+            if (regions == null) continue;
+            for (j < regions.length)
+                propagate_dep_requests(node, regions[j], reqs);
+        }
+    }
+
+    def minimal_request_owners(requests: Vector<Region>) -> Vector<Region> {
+        if (requests == null || requests.length == 0) return Vectors.of1(scope_root);
+        def owners = Vector<Region>.new();
+        for (i < requests.length) add_unique_region(owners, requests[i]);
+
+        def minimal = Vector<Region>.new();
+        for (i < owners.length) {
+            def region = owners[i];
+            var covered = false;
+            for (j < owners.length) {
+                if (i == j) continue;
+                if (region_contains(owners[j], region)) {
+                    covered = true;
+                    break;
+                }
+            }
+            if (!covered) minimal.put(region);
+        }
+        return minimal;
+    }
+
+    def region_has_visible_owner(dep: IRNode, region: Region,
+                                 plan: NodeMap<Vector<Region>>) -> bool {
+        def owners = plan[dep];
+        if (owners == null) return false;
+        for (i < owners.length)
+            if (region_contains(owners[i], region)) return true;
+        return false;
+    }
+
+    def deps_visible_in_region(node: IRNode, region: Region,
+                               plan: NodeMap<Vector<Region>>) -> bool {
+        def deps = logical_deps(node);
+        for (i < deps.length) {
+            def dep = deps[i];
+            if (dep == null) continue;
+            if (!region_has_visible_owner(dep, region, plan)) return false;
+        }
+        return true;
+    }
+
+    def requests_served_by_owners(owners: Vector<Region>, requests: Vector<Region>) -> bool {
+        if (requests == null) return true;
+        for (i < requests.length) {
+            def req = requests[i];
+            var served = false;
+            for (j < owners.length) {
+                if (region_contains(owners[j], req)) {
+                    served = true;
+                    break;
+                }
+            }
+            if (!served) return false;
+        }
+        return true;
+    }
+
+    def compatible_phi_escape(node: IRNode, child: IRNode,
+                              owners: Vector<Region>) -> bool {
+        if (child == null || !child.is_phi()) return false;
+        def site = merge_site_map[child];
+        if (site == null) return false;
+        if (child.value_deps.length > 1 && child.value_deps[1] != null && child.value_deps[1].id == node.id)
+            return requests_served_by_owners(owners, Vectors.of1(site.left_region));
+        if (child.value_deps.length > 2 && child.value_deps[2] != null && child.value_deps[2].id == node.id)
+            return requests_served_by_owners(owners, Vectors.of1(site.right_region));
+        return false;
+    }
+
+    def owners_legal(node: IRNode, owners: Vector<Region>,
+                     reqs: NodeMap<Vector<Region>>,
+                     plan: NodeMap<Vector<Region>>) -> bool {
+        for (i < owners.length)
+            if (!deps_visible_in_region(node, owners[i], plan)) return false;
+        if (!has_writes(node)) return true;
+
+        for (i < node.children.length) {
+            def child = node.children[i];
+            if (child == null || child.id == node.id) continue;
+            if (!live.has(child) && !child.is_move()) continue;
+            if (!logical_edge_uses_value(node, child)) continue;
+            if (compatible_phi_escape(node, child, owners)) continue;
+            if (!requests_served_by_owners(owners, reqs[child])) return false;
+        }
+        return true;
+    }
+
+    def choose_owner_regions(node: IRNode, requests: Vector<Region>,
+                             reqs: NodeMap<Vector<Region>>,
+                             plan: NodeMap<Vector<Region>>) -> Vector<Region> {
+        if (node == null) return Vector<Region>.new();
+
+        if (node.is_phi()) return Vectors.of1(merge_site_map[node].parent_region);
+        if (node.is_move() && move_site_map[node] != null) return Vectors.of1(move_child_region(node));
+
+        def natural = minimal_request_owners(requests);
+        if (natural.length <= 1) return natural;
+
+        if (!has_writes(node)) {
+            def shared = common_region_all(natural);
+            if (shared != null && deps_visible_in_region(node, shared, plan))
+                return Vectors.of1(shared);
+            return natural;
+        }
+
+        if (owners_legal(node, natural, reqs, plan)) return natural;
+        var shared = common_region_all(natural);
+        while (shared != null) {
+            def collapsed = Vectors.of1(shared);
+            if (owners_legal(node, collapsed, reqs, plan)) return collapsed;
+            shared = region_parent(shared);
+        }
+        return Vectors.of1(scope_root);
+    }
+
+    def compute_owner_plan(reqs: NodeMap<Vector<Region>>, topo: Vector<IRNode>) -> NodeMap<Vector<Region>> {
+        def plan = NodeMap<Vector<Region>>.new();
+        for (i < topo.length) {
+            def node = topo[i];
+            plan[node] = choose_owner_regions(node, reqs[node], reqs, plan);
+        }
+        return plan;
+    }
+
+    def get_instance(instances: NodeMap<Vector<(Region, IRNode)>>,
+                     node: IRNode, region: Region) -> IRNode {
+        def entries = instances[node];
+        if (entries == null || region == null) return null;
+        for (i < entries.length)
+            if (entries[i].0.id == region.id) return entries[i].1;
+        return null;
+    }
+
+    def put_instance(instances: NodeMap<Vector<(Region, IRNode)>>,
+                     node: IRNode, region: Region, inst: IRNode) {
+        var entries = instances[node];
+        if (entries == null) {
+            entries = Vector<(Region, IRNode)>.new();
+            instances[node] = entries;
+        }
+        entries.put((region, inst));
+    }
+
+    def clone_empty_instance(node: IRNode) -> IRNode {
+        def clone = IRNode.new(node.op, sea.id_count);
+        sea.nodes_by_id.put(clone);
+        sea.id_count += 1;
+        clone.state_deps = Array<IRNode>.new(node.state_deps.length);
+        clone.value_deps = Array<IRNode>.new(node.value_deps.length);
+        if (node.var_data != null) {
+            clone.var_data = VarData.new(
+                Seas.uidl(node.var_data.sourceName),
+                node.var_data.tipe,
+                node.var_data.stage);
+        }
+        clone_to_orig[clone] = rootNode(node);
+        return clone;
+    }
+
+    def visible_instance(dep: IRNode, region: Region,
+                         plan: NodeMap<Vector<Region>>,
+                         instances: NodeMap<Vector<(Region, IRNode)>>) -> IRNode {
+        if (dep == null) return null;
+        def owners = plan[dep];
+        if (owners == null) return dep;
+
+        var best: Region = null;
+        for (i < owners.length) {
+            def owner = owners[i];
+            if (!region_contains(owner, region)) continue;
+            if (best == null || region_contains(best, owner)) best = owner;
+        }
+        if (best == null) best = owners[0];
+        return get_instance(instances, dep, best);
+    }
+
+    def wire_instance(inst: IRNode, orig: IRNode, region: Region,
+                      plan: NodeMap<Vector<Region>>,
+                      instances: NodeMap<Vector<(Region, IRNode)>>) {
+        if (inst == null || orig == null) return;
+
+        if (orig.is_phi()) {
+            def site = merge_site_map[orig];
+            inst.value_deps[0] = visible_instance(orig.value_deps[0], site.parent_region, plan, instances);
+            inst.value_deps[1] = visible_instance(orig.value_deps[1], site.left_region, plan, instances);
+            inst.value_deps[2] = visible_instance(orig.value_deps[2], site.right_region, plan, instances);
+            return;
+        }
+
+        if (orig.is_move()) {
+            def child_region = move_child_region(orig);
+            def parent_region = move_parent_region(orig);
+            inst.value_deps[0] = visible_instance(orig.value_deps[0], parent_region, plan, instances);
+            if (orig.value_deps.length > 1)
+                inst.value_deps[1] = visible_instance(orig.value_deps[1], child_region, plan, instances);
+            for (i < orig.state_deps.length)
+                if (orig.state_deps[i] != null)
+                    inst.state_deps[i] = visible_instance(orig.state_deps[i], child_region, plan, instances);
+            return;
+        }
+
+        for (i < orig.value_deps.length)
+            inst.value_deps[i] = visible_instance(orig.value_deps[i], region, plan, instances);
+        for (i < orig.state_deps.length)
+            inst.state_deps[i] = visible_instance(orig.state_deps[i], region, plan, instances);
+    }
+
+    def materialize(plan: NodeMap<Vector<Region>>, topo: Vector<IRNode>) {
+        def instances = NodeMap<Vector<(Region, IRNode)>>.new();
+        for (i < topo.length) {
+            def node = topo[i];
+            def owners = plan[node];
+            if (owners == null || owners.length == 0) continue;
+            put_instance(instances, node, owners[0], node);
+            for (j = 1; j < owners.length; j++)
+                put_instance(instances, node, owners[j], clone_empty_instance(node));
+        }
+
+        for (i < topo.length) {
+            def node = topo[i];
+            def owners = plan[node];
+            if (owners == null) continue;
+            for (j < owners.length)
+                wire_instance(get_instance(instances, node, owners[j]), node, owners[j], plan, instances);
+        }
+
+        sea.rebuildChildren();
+        live = Seas.live(sea);
+        sea.clearDepsCache();
+    }
+
+    def render_regions(regions: Vector<Region>) -> string {
+        if (regions == null) return "[]";
+        def buf = StringBuilder.new();
+        buf.putc('[');
+        for (i < regions.length) {
+            if (i > 0) buf.puts(", ");
+            buf.putc('R').putd(regions[i].id);
+        }
+        buf.putc(']');
+        return buf.toString();
+    }
+
+    def trace_instance_plan(reqs: NodeMap<Vector<Region>>, plan: NodeMap<Vector<Region>>, topo: Vector<IRNode>) {
+        if (!trace_full) return;
+        System.puts("=== scope sites ===\n");
+        for (i < branch_lattices.length) {
+            def bl = branch_lattices[i];
+            def buf = StringBuilder.new();
+            buf.puts("  cond=").putq(bl.condition.render)
+                .puts(" parent=R").putd(bl.parent_region.id)
+                .puts(" left=R").putd(bl.left_region.id)
+                .puts(" right=R").putd(bl.right_region.id)
+                .puts(" phis=").putd(bl.phis.length).ln();
+            System.puts(buf.toString());
+        }
+        System.puts("=== requests / owners ===\n");
+        for (i < topo.length) {
+            def node = topo[i];
+            if (!has_writes(node) && !node.is_phi()) continue;
+            System.puts(Strings.format3("  %q req=%s own=%s\n",
+                node.render,
+                render_regions(reqs[node]),
+                render_regions(plan[node])));
+            if (has_writes(node)) {
+                for (j < node.children.length) {
+                    def child = node.children[j];
+                    if (child == null || !logical_edge_uses_value(node, child)) continue;
+                    System.puts(Strings.format3("    child %q req=%s own=%s\n",
+                        child.render,
+                        render_regions(reqs[child]),
+                        render_regions(plan[child])));
+                }
+            }
+        }
     }
 
     // Compute a depth ordering of phis: outermost phis first.
@@ -470,75 +1267,29 @@ class SeaScheduler {
     }
 
     def untangle() {
-        // Compute initial lattices
         branch_lattice_map = NodeMap<BranchLattice>.new();
         branch_lattices = Vector.new();
+        merge_site_map = NodeMap<Site>.new();
+        move_site_map = NodeMap<Site>.new();
+        move_side_map = NodeMap<ParentSide>.new();
         live = Seas.live(sea);
         sea.rebuildChildren();
-        find_branch_lattices();
-        filter_branch_lattices_clone_domains();
+        sea.clearDepsCache();
 
-        // var limit = branch_lattices.length * 1; // XXX: idk if this is reasonable
-        var limit = 4;
-        while (limit > 0) {
-            limit -= 1;
-            def sorted = topo_sort_lattices();
+        scope_root = infer_scope_tree();
+        index_scope_tree(scope_root);
 
-            // Find next lattice with overlapping l/r subgraphs
-            var next_bl: BranchLattice = null;
-            for (i < sorted.length) {
-                if (sorted[i].l_subgraph.intersects(sorted[i].r_subgraph)) {
-                    next_bl = sorted[i];
-                    break;
-                }
-            }
-            if (next_bl == null) break;
+        def sorted = sorted_phis_by_depth();
+        build_realized_sites(scope_root, sorted.0, null);
 
-            def bl = next_bl;
-
-            trace_print(fun => Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
-            trace_print(fun => Strings.format2("lsg: %q\nrsg: %q\n", bl.l_subgraph.renderFull(_, sea), bl.r_subgraph.renderFull(_, sea)));
-
-            // Clone only the shared (intersecting) nodes instead of both full subgraphs.
-            // Left side keeps the originals; right side gets rewired to the clones.
-            def shared = bl.l_subgraph.intersection(bl.r_subgraph);
-            def shared_clone = Seas.cloneSubgraph(sea, shared);
-            def shared_clone_mapping = shared_clone.1;
-
-            shared_clone_mapping.apply(fun (old: IRNode, neu: IRNode) {
-                mapping[old] = neu;
-                def root = clone_to_orig[old];
-                clone_to_orig[neu] = if(root != null, root, old);
-            });
-
-            // Rewire non-shared right-subgraph nodes that depend on shared nodes.
-            def r_only = bl.r_subgraph.withoutAll(shared);
-            for (n in r_only.toArray(sea)) {
-                for (i < n.value_deps.length)
-                    if (n.value_deps[i] != null && shared.has(n.value_deps[i]) && shared_clone_mapping[n.value_deps[i]] != null)
-                        n.value_deps[i] = shared_clone_mapping[n.value_deps[i]];
-                for (i < n.state_deps.length)
-                    if (n.state_deps[i] != null && shared.has(n.state_deps[i]) && shared_clone_mapping[n.state_deps[i]] != null)
-                        n.state_deps[i] = shared_clone_mapping[n.state_deps[i]];
-            }
-
-            // Rewire right phi deps that are shared to point to clones.
-            for (j < bl.phis.length) {
-                def phi = bl.phis[j];
-                def r_branch = phi.value_deps[2];
-
-                if (shared.has(r_branch) && shared_clone_mapping[r_branch] != null)
-                    phi.replaceDep(r_branch, shared_clone_mapping[r_branch]);
-            }
-
-            // Recompute lattices after each step to avoid stale subgraphs
-            live = Seas.live(sea);
-            sea.rebuildChildren();
-            branch_lattice_map = NodeMap<BranchLattice>.new();
-            branch_lattices = Vector.new();
-            find_branch_lattices();
-            filter_branch_lattices_clone_domains();
-        }
+        def topo = live_topological_order();
+        def reqs = NodeMap<Vector<Region>>.new();
+        seed_requests(reqs);
+        propagate_requests(reqs, topo);
+        def plan = compute_owner_plan(reqs, topo);
+        trace_instance_plan(reqs, plan, topo);
+        materialize(plan, topo);
+        finalize_realized_sites();
     }
 
     def compute_use_counts() {

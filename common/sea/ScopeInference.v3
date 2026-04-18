@@ -1,0 +1,116 @@
+var scope_region_id: int = 0;
+var scope_site_id: int = 0;
+
+def fresh_region_id() -> int {
+    scope_region_id += 1;
+    return scope_region_id;
+}
+
+def fresh_site_id() -> int {
+    scope_site_id += 1;
+    return scope_site_id;
+}
+
+type ParentSide {
+    case Root;
+    case Left;
+    case Right;
+}
+
+class Region {
+    var id: int;
+    var parent_site: Site;
+    var parent_side: ParentSide;
+    var state_frontier: Array<IRNode>;
+    var boundary_values: Vector<IRNode>;
+    var sites: Vector<Site> = Vector.new();
+
+    new(parent_site, parent_side, state_frontier, boundary_values) {
+        id = fresh_region_id();
+    }
+}
+
+class Site {
+    var id: int;
+    var parent_region: Region;
+    var predicate: IRNode;
+    var merge_nodes: Vector<IRNode>;
+    var left_region: Region;
+    var right_region: Region;
+    var forced: bool;
+
+    new(parent_region, predicate, merge_nodes, forced) {
+        id = fresh_site_id();
+    }
+}
+
+component ScopeState {
+    def written_components(node: IRNode) -> StateComponent.set {
+        var result: StateComponent.set;
+        if (node == null) return result;
+        match (node.op) {
+            Start => return StateComponent.set.all;
+            Intrinsic(defn) => return defn.writes;
+            StatePhi(statecomps) => return statecomps;
+            Move(_) => {
+                for (sc in StateComponent.set.all)
+                    if (node.state_deps[sc.tag] != null) result |= sc;
+                return result;
+            }
+            _ => return result;
+        }
+    }
+
+    def state_input(node: IRNode, sc: StateComponent) -> IRNode {
+        if (node == null || node.state_deps == null || sc.tag >= node.state_deps.length) return null;
+        return node.state_deps[sc.tag];
+    }
+
+    def left_state_pred(statephi: IRNode, sc: StateComponent) -> IRNode {
+        if (statephi == null || statephi.value_deps.length < 2) return null;
+        def left = statephi.value_deps[1];
+        if (left == null) return null;
+        if (IROp.Move.?(left.op) && left.state_deps != null && sc.tag < left.state_deps.length)
+            return left.state_deps[sc.tag];
+        return left;
+    }
+
+    def right_state_pred(statephi: IRNode, sc: StateComponent) -> IRNode {
+        if (statephi == null || statephi.value_deps.length < 3) return null;
+        def right = statephi.value_deps[2];
+        if (right == null) return null;
+        if (IROp.Move.?(right.op) && right.state_deps != null && sc.tag < right.state_deps.length)
+            return right.state_deps[sc.tag];
+        return right;
+    }
+
+    def walk_write_chain(node: IRNode, sc: StateComponent, on_chain: NodeSet) {
+        if (node == null || on_chain.has(node)) return;
+        on_chain.put(node);
+        match (node.op) {
+            Start => ;
+            Intrinsic(defn) => {
+                if (defn.writes - sc != defn.writes)
+                    walk_write_chain(node.state_deps[sc.tag], sc, on_chain);
+            }
+            StatePhi(statecomps) => {
+                if (statecomps - sc != statecomps) {
+                    walk_write_chain(left_state_pred(node, sc), sc, on_chain);
+                    walk_write_chain(right_state_pred(node, sc), sc, on_chain);
+                }
+            }
+            Move(_) => {
+                walk_write_chain(state_input(node, sc), sc, on_chain);
+            }
+            _ => ;
+        }
+    }
+
+    def move_payload(node: IRNode) -> IRNode {
+        if (node == null || !IROp.Move.?(node.op)) return node;
+        if (node.value_deps.length > 1) return node.value_deps[1];
+        for (sc in StateComponent.set.all)
+            if (node.state_deps[sc.tag] != null) return node.state_deps[sc.tag];
+        return null;
+    }
+}

@@ -178,6 +178,8 @@ That is why effectful structure is anchored by the state frontier:
 
 This is the conceptual role of the current escaping-writer filtering in `untangle()`: cloning is constrained not just by branch structure, but by state visibility and sealing.
 
+These constraints enter the new model through each node's request set. The backward state walk from `Finish`, branching at each `StatePhi` into both arms, contributes requests just as value consumers do: each realized region the walk passes through becomes a region that demands the writer. Value demands add further request regions independently. Ownership is chosen from this unified request set, with an additional legality predicate on effectful cloning preserving the sealing constraints above. The details live in `Node Ownership And Cloning`.
+
 ## Why State Frontier Is Not Enough
 
 State reachability is the primary anchor for effectful semantics, but it is not the whole scope model.
@@ -448,16 +450,9 @@ is replaced by one explicit recursive construction:
 - resolve realized sites
 - materialize clones once
 
-## Node Classification And Cloning
+## Node Ownership And Cloning
 
-Once the realized site structure exists, graph rewrite becomes simpler.
-
-What matters is recursive ownership during rewrite:
-
-- a node may remain shared in parent support
-- it may belong only to the left realized child region
-- it may belong only to the right realized child region
-- or it may need multiple concrete instances because incompatible realized regions request it
+Once the realized site structure exists, graph rewrite becomes a matter of deciding, for each live node, which realized regions hold a concrete instance of it.
 
 The useful internal memoization key is still:
 
@@ -467,22 +462,39 @@ instance(node, region)
 
 but this is just a helper for materialization, not a separate analysis result the scheduler needs.
 
-### Effectful And State-Threading Nodes
+Ownership is driven by a single concept — the **request set** — together with a **legality predicate** that constrains effectful cloning.
 
-Effectful classification is determined primarily by the state frontier and by escaping use.
+### Request Set
 
-- a node can only be materialized in a region where its required input state versions are visible
-- an escaping writer must remain on a legal live write chain
-- effectful cloning is allowed only when it preserves that chain structure
+Each live node has a request set: the realized regions that demand a concrete instance of the node.
 
-### Pure Nodes
+Requests come from two structurally identical backward walks over the live graph:
 
-Pure nodes are classified by realized-region use and dependency structure.
+- **value demands**: a consumer in region R that uses the node as a value dep.
+- **state-chain demands**: the walk from `Finish` along `state_deps` edges, branching at each `StatePhi` into both arms, attributes each writer to the realized region the walk reaches it through.
 
-- a pure node may remain in the shallowest realized support region that can serve all uses
-- if multiple incompatible realized regions require it, it gets multiple concrete instances
-- cloning is therefore not "split an arbitrary demand group"
-- cloning is "multiple incompatible realized regions request the same pure node"
+Both propagate backward along deps, respecting the realized-region structure: an ordinary dep stays in its consumer's region; a `Phi` / `StatePhi` arm dep enters the corresponding child region; predicate deps stay in the parent region.
+
+A writer reached by the state walk under only one realized region has a single state-chain request entry. A writer whose state effect has been forced into several sibling realized regions — for example by an unLEM-style rewrite — has one state-chain request per region. Value demands add further regions independently.
+
+Pure nodes have only value demands. Effectful writers can have both kinds, and the two kinds can land in different regions.
+
+### Owner Regions
+
+Owner regions are the realized regions in which concrete instances of the node will be materialized. They are chosen by collapsing the request set:
+
+- requests sharing a dominating ancestor collapse to that ancestor.
+- requests in genuinely disjoint realized regions yield separate owners.
+- a single-region request set produces one owner and no clone.
+- a multi-region request set with no common ancestor produces one owner per cluster, and materialization produces one instance per owner.
+
+For pure nodes, that rule fully determines owners.
+
+For effectful writers, the collapsed owner set is further constrained by a **legality predicate** — the same constraint the current scheduler applies through `escaping_clone_nodes()` / `filtered_clone_subgraphs()`. It rejects an owner configuration when the writer's value would escape its clone domain through an edge that will not be rewritten by a compatible `Phi` / `StatePhi`. When the predicate rejects the natural ownership, the owners collapse to a legal shared ancestor.
+
+The worked example is the IF-after-unLEM pattern. A writer such as `doBranch` is reached by the state walk through one sibling region — the inner-left arm of the rewritten phi — and is also used as a value dep by the validator-only merge proxy in the opposite outer arm. The two requests are in disjoint realized regions, so the natural ownership places one instance in each. The legality predicate allows this because each instance's downstream uses stay inside its owner region. Effectful cloning is produced, not suppressed.
+
+So cloning in this model is simply the case where the owner set has more than one region. Both pure and effectful nodes can clone. The predicate intervenes only when a proposed owner set would break sealing.
 
 ### Partition Invariant
 
@@ -496,12 +508,12 @@ This is what keeps the rewritten graph faithful to the realized site plan.
 
 ## Materialization
 
-After the realized sites and recursive ownership are known:
+After the realized sites and ownership plan are known:
 
-- create the required concrete node instances
-- wire each instance to the appropriate dependency instance
-- clone pure overlap where realized regions require separation
-- keep effectful nodes constrained by state visibility and escaping use
+- create one concrete instance per (node, owner region) pair
+- pure nodes produce one instance when their owner set is a single region and several when the request set splits into disjoint clusters
+- effectful writers follow the same rule, restricted to owner sets that survive the legality predicate
+- wire each instance to the deepest visible instance of each dep
 - derive each `RealizedSite`'s concrete `frontier`, `l_subgraph`, and `r_subgraph` from the rewritten graph
 
 The important contract is that, after this rewrite:
@@ -557,7 +569,7 @@ The current code is already implementing the right correctness constraints, but 
 - `BranchLattice.can_merge_branches()` is a scheduler-facing mergeability constraint; in the new model that constraint belongs to `RealizedSite` formation, not abstract `Site` identity
 - `untangle()` clones shared pure overlap so that hidden region structure becomes visible in the graph
 - the recomputation loop is needed because site identity often becomes clearer only after cloning
-- escaping-writer filtering preserves the state and sealing constraints that make the current rewrite correct
+- escaping-writer filtering preserves the state and sealing constraints that make the current rewrite correct; the new model reformulates this as a legality predicate consulted when an effectful node's owner set is finalized, rather than as a lattice-local iterative removal of clone candidates
 - after that normalization, the existing CFG scheduler is already adequate
 
 So the current scheduler should be read as a conservative fixed-point approximation to the same recursive region model.
@@ -585,7 +597,7 @@ The intended scope model is:
 - resolve optional pure structure as concrete scheduler-valid `RealizedSite`s, since that is what the existing scheduler actually consumes
 - allow one abstract `Site` to realize into several `RealizedSite`s when the unchanged scheduler cannot consume all of its merge nodes as one group
 - treat obligations as a derived summary of region ancestry
-- treat cloning as a consequence of incompatible realized-region requests, constrained by state visibility and escaping use
+- treat cloning as the case where a node's request set clusters into more than one realized region, with effectful owner sets additionally filtered by the escaping-writer legality predicate
 - use `untangle()` to materialize the realized site plan into a rewritten Sea
 - hand the rewritten Sea and `RealizedSite`s to the existing CFG scheduler unchanged
 

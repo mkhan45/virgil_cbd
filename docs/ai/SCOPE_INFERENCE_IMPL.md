@@ -103,6 +103,14 @@ Notes:
 - it also keeps the extra realization data needed before scheduling, such as the back-pointer to the abstract site, chosen realized parent, and planning-time arm roots
 - if `BranchLattice` remains in the code, it should just be the old structural name for `RealizedSite`
 
+The ownership and rewiring phases use helpers:
+
+- `parent_region(rs)`
+- `left_region(rs)`
+- `right_region(rs)`
+
+These mean the realized placement regions induced by `rs` and its chosen parent attachment. Multiple `RealizedSite`s coming from the same abstract `Site` may share these realized regions.
+
 One abstract `Site` may realize into several `RealizedSite`s. Those realized groups share the same semantic branch distinction, but partition its concrete merge nodes into scheduler-valid groups.
 
 The rewrite still wants a memo key:
@@ -360,79 +368,142 @@ There are no leftover "unrealized groups" after this step. There may be other le
 
 Transparent pure `Phi`s that remain live after rewriting must be included in `realized_members(S)` for some compatible abstract site `S`, or else be rewritten away before scheduling.
 
-## Phase 3: Plan Ownership And Cloning
+## Phase 3: Compute A Global Instance Plan
 
-Once the `RealizedSite` structure is fixed, plan the rewrite.
+Once the `RealizedSite` structure is fixed, compute one global ownership plan for the whole live graph.
 
-### Site Slices
+This is the key correction to the old overlap-driven story:
+
+- cloning is not discovered per-site from overlap
+- cloning is implied by the global set of regions that request each live node
+
+Two kinds of demand feed the request set, and the pseudocode below treats both as plain region requests:
+
+- **value demands** from ordinary consumers and from realized-site arm roots
+- **state-chain demands**, picked up by the backward walk from `Finish` that branches at each `StatePhi` into both arms and attributes writers to the realized region each walk reaches them in
+
+Both contribute the same kind of entry in `reqs[n]`. A writer whose state effect has been forced into several sibling realized regions therefore has several state-chain request entries, and cloning effectful structure across those regions is legal in general — the owner set returned for such a writer may be multi-region. The existing escaping-writer filter from `escaping_clone_nodes()` / `filtered_clone_subgraphs()` reappears here only as a legality predicate on the effectful owner set in `choose_owner_regions()`, not as an overlap-derived clone removal.
+
+### Region Requests
+
+Requests come from the realized region structure.
+
+Conceptually:
 
 ```text
-compute_site_slices(rs):
-    frontier = exposed_support_from_roots(rs.planning_left_roots, rs.planning_right_roots)
-    l_full = full_live_slice(rs.planning_left_roots)
-    r_full = full_live_slice(rs.planning_right_roots)
-    l_subgraph = l_full - frontier
-    r_subgraph = r_full - frontier
-    return (frontier, l_subgraph, r_subgraph)
+seed_requests(root_region, realized_sites):
+    reqs = NodeMap<Set<Region>>.new()
+
+    for n in root_region.boundary_values:
+        reqs[n].add(root_region)
+
+    for rs in realized_sites:
+        reqs[rs.condition].add(parent_region(rs))
+        for n in rs.planning_left_roots:
+            reqs[n].add(left_region(rs))
+        for n in rs.planning_right_roots:
+            reqs[n].add(right_region(rs))
+
+    return reqs
+
+propagate_requests(reqs):
+    for n in reverse_topological_live_order():
+        for R in reqs[n]:
+            propagate_dep_requests(n, R, reqs)
+    return reqs
 ```
 
-These planning roots are only for rewrite planning. Final scheduler-facing slices must be recomputed from the rewritten graph.
+`propagate_dep_requests()` follows ordinary deps in the same region, keeps predicate deps in parent support, and respects phi/statephi arm structure.
 
-### Effectful Constraints
+### Owner Regions
 
-Effectful and state-threading nodes are constrained by state visibility and escaping use.
+After request propagation, each live node gets one or more owner regions.
 
 ```text
-effect_ok_to_clone(node, region):
-    return state_versions_visible(node, region)
-       and preserves_live_write_chain(node, region)
+compute_instance_plan(reqs):
+    plan = NodeMap<Set<Region>>.new()
+    for n in topological_live_order():
+        plan[n] = choose_owner_regions(n, reqs[n], plan)
+    return plan
 ```
 
-An escaping writer must remain on a legal live write chain.
-
-### Pure Ownership
-
-Pure nodes follow the realized region structure.
+For pure nodes:
 
 ```text
-owner_regions(node, rs):
-    if one shared support placement serves all realized uses:
-        return {support_region(rs)}
-    else:
-        return incompatible_realized_use_clusters(node, rs)
+choose_owner_regions(node, requests, plan):
+    if node is pure:
+        shared = shallowest_region_serving_all(requests, plan)
+        if shared != null:
+            return {shared}
+        return incompatible_request_clusters(requests, plan)
 ```
 
-So cloning is driven by incompatible realized-region requests, not by arbitrary demand grouping.
-
-## Phase 4: Materialize The Rewrite
-
-After ownership and clone requirements are known, rewrite the Sea once.
+For effectful and state-threading nodes:
 
 ```text
-materialize(realized_sites):
-    for rs in postorder(realized_sites):
-        slices = compute_site_slices(rs)
-        clone_set = clone_safe_overlap(rs, slices)
-        clones = cloneSubgraph(clone_set)
-        rewire_realized_site(rs, clones)
+choose_owner_regions(node, requests, plan):
+    if node is effectful:
+        legal = legal_regions_preserving_state_visibility_and_write_chain(node, requests)
+        if legal is empty:
+            trap_or_mark_invalid()
+        return minimal_legal_owner_set(legal)
+```
+
+Important invariant:
+
+- if cloning an effectful node is illegal, `choose_owner_regions()` must return one legal owner region
+- if cloning it is legal, the multi-region owner set is explicit here
+
+So the old role of `filtered_clone_subgraphs()` survives only as a correctness constraint on `choose_owner_regions()`, not as a later overlap-derived clone step.
+
+## Phase 4: Materialize The Global Plan
+
+After the global instance plan is known, rewrite the Sea once.
+
+```text
+materialize(plan):
+    for n in topological_live_order():
+        owners = plan[n]
+        primary = choose_primary_owner(owners)
+        ensure_instance(n, primary)
+        for R in owners - {primary}:
+            ensure_instance(n, R)
+
+    for n in topological_live_order():
+        for R in plan[n]:
+            inst = instance(n, R)
+            wire_instance(inst, n, R, plan)
+
     rebuild_children_and_live()
 ```
 
-The key helper is the clone filter:
+The important point is that materialization consumes an already-decided global plan. It does not rediscover clones from per-site overlap.
+
+### Rewiring Rule
+
+Each concrete instance is wired to the deepest visible instance of each dependency.
 
 ```text
-clone_safe_overlap(rs, slices):
-    shared = slices.l_subgraph intersection slices.r_subgraph
-    cloneable = shared
-    while true:
-        escaping = escaping_nodes_after_rewrite(rs, cloneable)
-        bad_writes = {n in escaping | has_writes(n)}
-        if bad_writes is empty:
-            return cloneable
-        cloneable = cloneable - bad_writes
+wire_instance(inst, orig, R, plan):
+    if orig is ordinary:
+        for dep in deps(orig):
+            inst.dep = visible_instance(dep, R, plan)
+
+    if orig is Phi or StatePhi:
+        rs = realized_site_of(orig)
+        inst.condition = visible_instance(orig.condition, parent_region(rs), plan)
+        inst.left = visible_instance(orig.left, left_region(rs), plan)
+        inst.right = visible_instance(orig.right, right_region(rs), plan)
+
+visible_instance(dep, R, plan):
+    return deepest owner A in plan[dep] such that A dominates_or_contains R
 ```
 
-This keeps the current correctness constraint from `filtered_clone_subgraphs()`, but applies it while materializing a stable realized-site plan rather than while rediscovering sites.
+This is the global rewiring story that replaces the old overlap-based untangle loop:
+
+- shared support is reused through ancestor-visible instances
+- branch-local structure gets branch-local instances
+- clones exist exactly where the global owner plan says they exist
 
 At the end of this phase:
 
@@ -453,6 +524,8 @@ finalize_realized_site(rs):
     for phi in rs.phis:
         site_map[phi] = rs
 ```
+
+Final slices must come from the actual rewritten graph, not from planning-time roots.
 
 At this point the scheduler has what it needs.
 
