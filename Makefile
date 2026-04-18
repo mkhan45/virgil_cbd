@@ -53,7 +53,7 @@ ScheduleTest: $(SYNTHETIC_SEXP) $(COMMON_LIB) $(TYPEDEFS)
 		$(WIZARD_UTIL)\
 		tests/ScheduleTest.v3
 
-PartitionTest: $(SYNTHETIC_SEXP) $(COMMON_LIB) $(TYPEDEFS) common/sea/region/PartitionTest.v3
+PartitionTest: $(SYNTHETIC_SEXP) $(COMMON_LIB) $(TYPEDEFS) common/sea/region/*.v3
 	$(V3C) $(VIRGIL_STD)\
 		$(COMMON_LIB)\
 		$(ENGINE)\

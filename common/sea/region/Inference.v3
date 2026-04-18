@@ -41,46 +41,24 @@ class SeenPartitionCtx {
     new(phi, boundary_values, boundary_states) {}
 }
 
-component PartitionInference {
-    def normalize(set: ImmNodeSet) -> ImmNodeSet {
-        if (set.bits == null) return ImmNodeSets.empty();
-        return set;
-    }
+type LabelKind #unboxed {
+    case Value;
+    case State(sc: StateComponent);
+}
 
-    def empty_state_labels() -> Array<ImmNodeSet> {
+type WorkItem(node: IRNode, label: IRNode, kind: LabelKind) #unboxed;
+
+component PartitionInference {
+    def empty_state_labels() -> Array<ImmNodeSet> #inline {
         def out = Array<ImmNodeSet>.new(StateComponent.count);
         for (sc in StateComponent.set.all) out[sc.tag] = ImmNodeSets.empty();
         return out;
     }
 
-    def state_label_set(states: Array<ImmNodeSet>, sc: StateComponent) -> ImmNodeSet {
-        return state_label_set_idx(states, sc.tag);
-    }
-
-    def state_label_set_idx(states: Array<ImmNodeSet>, sc_tag: int) -> ImmNodeSet {
-        if (states == null || sc_tag < 0 || sc_tag >= states.length) return ImmNodeSets.empty();
-        return normalize(states[sc_tag]);
-    }
-
-    def copy_state_labels(states: Array<ImmNodeSet>) -> Array<ImmNodeSet> {
-        def out = Array<ImmNodeSet>.new(StateComponent.count);
-        for (sc in StateComponent.set.all) out[sc.tag] = state_label_set(states, sc);
-        return out;
-    }
-
     def state_labels_eq(lhs: Array<ImmNodeSet>, rhs: Array<ImmNodeSet>) -> bool {
         for (sc in StateComponent.set.all)
-            if (!state_label_set(lhs, sc).eq(state_label_set(rhs, sc))) return false;
+            if (!lhs[sc.tag].eq(rhs[sc.tag])) return false;
         return true;
-    }
-
-    def root_boundary_values(bottom: IRNode) -> ImmNodeSet {
-        var out = ImmNodeSets.empty();
-        for (i < bottom.value_deps.length) {
-            def dep = bottom.value_deps[i];
-            if (dep != null) out = out.with(dep.unwrapMove());
-        }
-        return out;
     }
 
     def root_boundary_states(bottom: IRNode) -> Array<ImmNodeSet> {
@@ -92,118 +70,86 @@ component PartitionInference {
         return out;
     }
 
-    def demand_value_labels(ctx: RegionCtx, node: IRNode) -> ImmNodeSet {
-        return normalize(ctx.value_demand_map[node]);
-    }
-
-    def demand_state_labels(ctx: RegionCtx, node: IRNode, sc: StateComponent) -> ImmNodeSet {
-        return state_label_set(ctx.state_demand_map[node], sc);
-    }
-
     def add_value_label(map: NodeMap<ImmNodeSet>, node: IRNode, label: IRNode) -> bool {
-        def existing = normalize(map[node]);
-        if (existing.has(label)) return false;
-        map[node] = existing.with(label);
+        def updated = map[node].with(label);
+        if (updated.eq(map[node])) return false;
+        map[node] = updated;
         return true;
     }
 
-    def add_state_label(map: NodeMap<Array<ImmNodeSet>>, node: IRNode, sc_tag: int, label: IRNode) -> bool {
-        var existing = map[node];
-        if (existing == null) existing = empty_state_labels();
-
-        def labels = state_label_set_idx(existing, sc_tag);
-        if (labels.has(label)) return false;
-
-        existing[sc_tag] = labels.with(label);
-        map[node] = existing;
+    def add_state_label(map: NodeMap<Array<ImmNodeSet>>, node: IRNode, sc: StateComponent, label: IRNode) -> bool {
+        def updated = map[node][sc.tag].with(label);
+        if (updated.eq(map[node][sc.tag])) return false;
+        map[node][sc.tag] = updated;
         return true;
     }
 
     def make_ctx(sea: Sea, boundary_values: ImmNodeSet, boundary_states: Array<ImmNodeSet>) -> RegionCtx {
-        def vals = normalize(boundary_values);
-        def states = copy_state_labels(boundary_states);
+        def states = Arrays.dup(boundary_states);
 
         def value_demand_map = NodeMap<ImmNodeSet>.new();
         def state_demand_map = NodeMap<Array<ImmNodeSet>>.new();
-        def wl_nodes = Vector<IRNode>.new();
-        def wl_labels = Vector<IRNode>.new();
-        def wl_state_tags = Vector<int>.new();
+        def wl = VecDeque<WorkItem>.new();
         var active = ImmNodeSets.empty();
 
-        for (label in vals.toArray(sea)) {
-            if (label == null) continue;
-            wl_nodes.put(label);
-            wl_labels.put(label);
-            wl_state_tags.put(-1);
-        }
+        for (label in boundary_values.toArray(sea)) wl.enqueue(WorkItem(label, label, LabelKind.Value));
 
-        for (sc in StateComponent.set.all) for (label in states[sc.tag].toArray(sea)) {
-            if (label == null) continue;
-            wl_nodes.put(label);
-            wl_labels.put(label);
-            wl_state_tags.put(sc.tag);
-        }
+        for (sc in StateComponent.set.all) for (label in states[sc.tag].toArray(sea))
+            wl.enqueue(WorkItem(label, label, LabelKind.State(sc)));
 
-        var wi = 0;
-        while (wi < wl_nodes.length) {
-            def node = wl_nodes[wi];
-            def label = wl_labels[wi];
-            def sc_tag = wl_state_tags[wi];
-            wi += 1;
-            if (node == null || label == null) continue;
+        while (!wl.empty()) {
+            def item = wl.dequeue();
+            def node = item.node, label = item.label, kind = item.kind;
 
-            def added = if(sc_tag < 0,
-                add_value_label(value_demand_map, node, label),
-                add_state_label(state_demand_map, node, sc_tag, label));
+            if (!value_demand_map.has(node)) value_demand_map[node] = ImmNodeSets.empty();
+            if (!state_demand_map.has(node)) state_demand_map[node] = empty_state_labels();
+
+            var added = false;
+            match (kind) {
+                Value => added = add_value_label(value_demand_map, node, label);
+                State(sc) => added = add_state_label(state_demand_map, node, sc, label);
+            }
             if (!added) continue;
 
             active = active.with(node);
-            node.applyDeps(fun (dep: IRNode) {
-                wl_nodes.put(dep);
-                wl_labels.put(label);
-                wl_state_tags.put(sc_tag);
-            });
+            node.applyDeps(fun (dep: IRNode) { wl.enqueue(WorkItem(dep, label, kind)); });
         }
 
-        return RegionCtx.new(vals, states, value_demand_map, state_demand_map, active);
+        return RegionCtx.new(boundary_values, states, value_demand_map, state_demand_map, active);
     }
 
     def make_root_ctx(sea: Sea, bottom: IRNode) -> RegionCtx {
-        return make_ctx(sea, root_boundary_values(bottom), root_boundary_states(bottom));
-    }
-
-    def include_phi(node: IRNode, include_value_phis: bool, include_state_phis: bool) -> bool {
-        match (node.op) {
-            Phi => return include_value_phis;
-            StatePhi(_) => return include_state_phis;
-            _ => return false;
-        }
+        var value_labels = ImmNodeSets.empty();
+        for (i < bottom.value_deps.length) value_labels = value_labels.with(bottom.value_deps[i].unwrapMove());
+        return make_ctx(sea, value_labels, root_boundary_states(bottom));
     }
 
     def visible_phis(sea: Sea, ctx: RegionCtx,
                      include_value_phis: bool, include_state_phis: bool) -> Vector<IRNode> {
         def phis = Vector<IRNode>.new();
         ctx.active.apply(sea, fun (node: IRNode) {
-            if (include_phi(node, include_value_phis, include_state_phis)) phis.put(node);
+            match (node.op) {
+                Phi => if (include_value_phis) phis.put(node);
+                StatePhi(_) => if (include_state_phis) phis.put(node);
+                _ => ;
+            }
         });
         return phis;
     }
 
     def has_writes(node: IRNode) -> bool {
         match (node.op) {
-            Intrinsic(defn) => {
-                for (sc in defn.writes) return true;
-            }
-            _ => ;
+            Intrinsic(defn) => for (sc in defn.writes) return true;
+            _ => {}
         }
         return false;
     }
 
     def child_uses_value(child: IRNode, dep: IRNode) -> bool {
-        if (child == null || dep == null) return false;
         for (i < child.value_deps.length) {
             def child_dep = child.value_deps[i];
-            if (child_dep == null || child_dep.id != dep.id) continue;
+            if (child_dep == null) continue;
+            if (child_dep.id != dep.id) continue;
             if (child.is_move() && i == 0) return false;
             match (child.op) {
                 StatePhi(_) => return i == 0;
@@ -214,25 +160,15 @@ component PartitionInference {
     }
 
     def child_uses_state(child: IRNode, dep: IRNode, sc: StateComponent) -> bool {
-        if (child == null || dep == null) return false;
         match (child.op) {
-            StatePhi(_) => {
-                if (child.value_deps.length > 1 && child.value_deps[1] != null && child.value_deps[1].id == dep.id) {
-                    match (child.op) {
-                        StatePhi(statecomps) => if (statecomps - sc != statecomps) return true;
-                        _ => ;
-                    }
-                }
-                if (child.value_deps.length > 2 && child.value_deps[2] != null && child.value_deps[2].id == dep.id) {
-                    match (child.op) {
-                        StatePhi(statecomps) => if (statecomps - sc != statecomps) return true;
-                        _ => ;
-                    }
+            StatePhi(statecomps) => {
+                if (statecomps - sc != statecomps) {
+                    if (child.value_deps.length > 1 && child.value_deps[1].id == dep.id) return true;
+                    if (child.value_deps.length > 2 && child.value_deps[2].id == dep.id) return true;
                 }
             }
-            _ => ;
+            _ => {}
         }
-        if (sc.tag >= child.state_deps.length) return false;
         def child_dep = child.state_deps[sc.tag];
         return child_dep != null && child_dep.id == dep.id;
     }
@@ -245,7 +181,7 @@ component PartitionInference {
         var values = ctx.boundary_values.intersection(region);
         def states = empty_state_labels();
         for (sc in StateComponent.set.all)
-            states[sc.tag] = state_label_set(ctx.boundary_states, sc).intersection(region);
+            states[sc.tag] = ctx.boundary_states[sc.tag].intersection(region);
 
         for (node in region.toArray(sea)) {
             for (i < node.children.length) {
@@ -264,9 +200,9 @@ component PartitionInference {
     def has_outside_demand(ctx: RegionCtx, node: IRNode,
                            phi_value_labels: ImmNodeSet,
                            phi_state_labels: Array<ImmNodeSet>) -> bool {
-        if (!demand_value_labels(ctx, node).withoutAll(phi_value_labels).isEmpty()) return true;
+        if (!ctx.value_demand_map[node].withoutAll(phi_value_labels).isEmpty()) return true;
         for (sc in StateComponent.set.all)
-            if (!demand_state_labels(ctx, node, sc).withoutAll(state_label_set(phi_state_labels, sc)).isEmpty())
+            if (!ctx.state_demand_map[node][sc.tag].withoutAll(phi_state_labels[sc.tag]).isEmpty())
                 return true;
         return false;
     }
@@ -285,15 +221,13 @@ component PartitionInference {
         def right_full = sea.cachedTransitiveDeps(right_arm).intersection(ctx.active);
         def shared = left_full.intersection(right_full).withoutAll(support);
 
-        def phi_value_labels = demand_value_labels(ctx, phi);
+        def phi_value_labels = ctx.value_demand_map[phi];
         def phi_state_labels = ctx.state_demand_map[phi];
 
-        def anchored_box = [ImmNodeSets.empty()];
-        shared.apply(sea, fun (node: IRNode) {
+        var anchored = ImmNodeSets.empty();
+        for (node in shared.toArray(sea))
             if (has_writes(node) && has_outside_demand(ctx, node, phi_value_labels, phi_state_labels))
-                anchored_box[0] = anchored_box[0].with(node);
-        });
-        def anchored = anchored_box[0];
+                anchored = anchored.with(node);
         def cloneable = shared.withoutAll(anchored);
 
         def left = left_full.withoutAll(support).withoutAll(shared).union(cloneable);
@@ -357,7 +291,7 @@ component PartitionInference {
 
     def render_set(sea: Sea, name: string, set: ImmNodeSet, buf: StringBuilder) -> StringBuilder {
         buf.puts(name).puts("=");
-        normalize(set).renderFull(buf, sea);
+        set.renderFull(buf, sea);
         return buf;
     }
 
@@ -365,7 +299,7 @@ component PartitionInference {
         buf.puts("states={");
         var first = true;
         for (sc in StateComponent.set.all) {
-            def labels = state_label_set(states, sc);
+            def labels = states[sc.tag];
             if (labels.isEmpty()) continue;
             if (!first) buf.puts(", ");
             buf.puts(sc.name).puts(":");
