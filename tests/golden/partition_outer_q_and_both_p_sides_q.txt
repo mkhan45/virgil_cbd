@@ -1,5 +1,5 @@
 Running partition inference on 1 synthetic opcode(s)
-  OUTER_Q_AND_BOTH_P_SIDES_Q [raw] partitions=7
+  OUTER_Q_AND_BOTH_P_SIDES_Q [raw] partitions=7 sites=4
     root: values={} states={Codeptr:{Start}, Stack:{push_u32 [eff__0]}, Trap:{Start}, Locals:{Start}, Globals:{Start}, Tables:{Start}, Memory:{Start}, Extra:{Start}}
     #0 phi=Phi [outer] cond=u32.!= [q]
   ctx: values={} states={Codeptr:{Start}, Stack:{push_u32 [eff__0]}, Trap:{Start}, Locals:{Start}, Globals:{Start}, Tables:{Start}, Memory:{Start}, Extra:{Start}}
@@ -64,6 +64,44 @@ Running partition inference on 1 synthetic opcode(s)
   anchored={}
   left_ctx: values={pop_u32 [x], u32.+ [right__14]} states={Stack:{pop_u32 [x]}}
   right_ctx: values={50} states={}
+    site#1 side=root cond=u32.!= [q] phis={Phi [outer]}
+  ctx: values={} states={Codeptr:{Start}, Stack:{push_u32 [eff__0]}, Trap:{Start}, Locals:{Start}, Globals:{Start}, Tables:{Start}, Memory:{Start}, Extra:{Start}}
+  support={Start, pop_u32 [c1], pop_u32 [c2], 0, u32.!= [q]}
+  left_only={pop_u32 [x], 1, u32.+ [outer__20]}
+  right_only={10}
+  cloneable={}
+  anchored={}
+  left_ctx: values={pop_u32 [x], u32.+ [outer__20]} states={Stack:{pop_u32 [x]}}
+  right_ctx: values={10} states={}
+    site#2 side=root cond=u32.!= [p] phis={Phi [left], Phi [right]}
+  ctx: values={} states={Codeptr:{Start}, Stack:{push_u32 [eff__0]}, Trap:{Start}, Locals:{Start}, Globals:{Start}, Tables:{Start}, Memory:{Start}, Extra:{Start}}
+  support={Start, pop_u32 [c1], 0, u32.!= [p]}
+  left_only={20, 2, u32.+ [left__9], Phi [left], 30}
+  right_only={0, 50, 3, u32.+ [right__14], Phi [right]}
+  cloneable={pop_u32 [c2], 0, u32.!= [q], pop_u32 [x]}
+  anchored={}
+  left_ctx: values={u32.!= [q], pop_u32 [x], Phi [left], 30} states={Stack:{pop_u32 [x]}}
+  right_ctx: values={u32.!= [q], pop_u32 [x], 0, Phi [right]} states={Stack:{pop_u32 [x]}}
+  left:
+    site#3 side=left cond=u32.!= [q] phis={Phi [left]}
+      ctx: values={u32.!= [q], pop_u32 [x], Phi [left], 30} states={Stack:{pop_u32 [x]}}
+      support={Start, pop_u32 [c1], pop_u32 [c2], 0, u32.!= [q]}
+      left_only={pop_u32 [x], 2, u32.+ [left__9]}
+      right_only={20}
+      cloneable={}
+      anchored={}
+      left_ctx: values={pop_u32 [x], u32.+ [left__9]} states={Stack:{pop_u32 [x]}}
+      right_ctx: values={20} states={}
+  right:
+    site#4 side=right cond=u32.!= [q] phis={Phi [right]}
+      ctx: values={u32.!= [q], pop_u32 [x], 0, Phi [right]} states={Stack:{pop_u32 [x]}}
+      support={Start, pop_u32 [c1], pop_u32 [c2], 0, u32.!= [q]}
+      left_only={pop_u32 [x], 3, u32.+ [right__14]}
+      right_only={50}
+      cloneable={}
+      anchored={}
+      left_ctx: values={pop_u32 [x], u32.+ [right__14]} states={Stack:{pop_u32 [x]}}
+      right_ctx: values={50} states={}
 
 Processed 1 opcode(s), failures=0
 OK

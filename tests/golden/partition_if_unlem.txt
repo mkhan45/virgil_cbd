@@ -1,6 +1,6 @@
 Running partition inference on 0 synthetic opcode(s)
 Running partition inference on 1 canonical opcode(s)
-  IF [unLEM] partitions=3
+  IF [unLEM] partitions=3 sites=2
     root: values={} states={Codeptr:{StatePhi [bool.&& [mb__10]]}, Stack:{StatePhi [bool.&& [mb__10]]}, Trap:{StatePhi [bool.&& [mb__10]]}, Locals:{StatePhi [bool.&& [mb__10]]}, Globals:{StatePhi [bool.&& [mb__10]]}, Tables:{StatePhi [bool.&& [mb__10]]}, Memory:{StatePhi [bool.&& [mb__10]]}, Extra:{StatePhi [bool.&& [mb__10]]}}
     #0 phi=StatePhi [bool.&& [mb__10]] cond=bool.&& [mb__10]
   ctx: values={} states={Codeptr:{StatePhi [bool.&& [mb__10]]}, Stack:{StatePhi [bool.&& [mb__10]]}, Trap:{StatePhi [bool.&& [mb__10]]}, Locals:{StatePhi [bool.&& [mb__10]]}, Globals:{StatePhi [bool.&& [mb__10]]}, Tables:{StatePhi [bool.&& [mb__10]]}, Memory:{StatePhi [bool.&& [mb__10]]}, Extra:{StatePhi [bool.&& [mb__10]]}}
@@ -29,6 +29,25 @@ Running partition inference on 1 canonical opcode(s)
   anchored={}
   left_ctx: values={doBranch [eff__1]} states={Codeptr:{doBranch [eff__1]}, Stack:{doBranch [eff__1]}, Trap:{doBranch [eff__1]}, Locals:{doBranch [eff__1]}, Globals:{doBranch [eff__1]}, Tables:{doBranch [eff__1]}, Memory:{doBranch [eff__1]}, Extra:{doBranch [eff__1]}}
   right_ctx: values={doFallthru [eff__3]} states={Codeptr:{doFallthru [eff__3]}, Stack:{doFallthru [eff__3]}, Trap:{doFallthru [eff__3]}, Locals:{doFallthru [eff__3]}, Globals:{doFallthru [eff__3]}, Tables:{doFallthru [eff__3]}, Memory:{doFallthru [eff__3]}, Extra:{doFallthru [eff__3]}}
+    site#1 side=root cond=bool.&& [mb__10] phis={StatePhi [bool.&& [mb__10]]}
+  ctx: values={} states={Codeptr:{StatePhi [bool.&& [mb__10]]}, Stack:{StatePhi [bool.&& [mb__10]]}, Trap:{StatePhi [bool.&& [mb__10]]}, Locals:{StatePhi [bool.&& [mb__10]]}, Globals:{StatePhi [bool.&& [mb__10]]}, Tables:{StatePhi [bool.&& [mb__10]]}, Memory:{StatePhi [bool.&& [mb__10]]}, Extra:{StatePhi [bool.&& [mb__10]]}}
+  support={Start, imm_readBlockType [bt], pop_u32 [cond], doIf [label], 0, u32.== [cond__0], U32_maybeTrue [mt__8], U32_maybeFalse [mf__9], bool.&& [mb__10]}
+  left_only={merge [eff_merge__12]}
+  right_only={StatePhi [U32_maybeTrue [mt__8]]}
+  cloneable={doFallthru [eff__3], doBranch [eff__1]}
+  anchored={}
+  left_ctx: values={} states={Codeptr:{doFallthru [eff__3], doBranch [eff__1], merge [eff_merge__12]}, Stack:{doFallthru [eff__3], doBranch [eff__1], merge [eff_merge__12]}, Trap:{doFallthru [eff__3], doBranch [eff__1], merge [eff_merge__12]}, Locals:{doFallthru [eff__3], doBranch [eff__1], merge [eff_merge__12]}, Globals:{doFallthru [eff__3], doBranch [eff__1], merge [eff_merge__12]}, Tables:{doFallthru [eff__3], doBranch [eff__1], merge [eff_merge__12]}, Memory:{doFallthru [eff__3], doBranch [eff__1], merge [eff_merge__12]}, Extra:{doFallthru [eff__3], doBranch [eff__1], merge [eff_merge__12]}}
+  right_ctx: values={doFallthru [eff__3], doBranch [eff__1]} states={Codeptr:{StatePhi [U32_maybeTrue [mt__8]]}, Stack:{StatePhi [U32_maybeTrue [mt__8]]}, Trap:{StatePhi [U32_maybeTrue [mt__8]]}, Locals:{StatePhi [U32_maybeTrue [mt__8]]}, Globals:{StatePhi [U32_maybeTrue [mt__8]]}, Tables:{StatePhi [U32_maybeTrue [mt__8]]}, Memory:{StatePhi [U32_maybeTrue [mt__8]]}, Extra:{StatePhi [U32_maybeTrue [mt__8]]}}
+  right:
+    site#2 side=right cond=U32_maybeTrue [mt__8] phis={StatePhi [U32_maybeTrue [mt__8]]}
+      ctx: values={doFallthru [eff__3], doBranch [eff__1]} states={Codeptr:{StatePhi [U32_maybeTrue [mt__8]]}, Stack:{StatePhi [U32_maybeTrue [mt__8]]}, Trap:{StatePhi [U32_maybeTrue [mt__8]]}, Locals:{StatePhi [U32_maybeTrue [mt__8]]}, Globals:{StatePhi [U32_maybeTrue [mt__8]]}, Tables:{StatePhi [U32_maybeTrue [mt__8]]}, Memory:{StatePhi [U32_maybeTrue [mt__8]]}, Extra:{StatePhi [U32_maybeTrue [mt__8]]}}
+      support={Start, imm_readBlockType [bt], pop_u32 [cond], doIf [label], 0, u32.== [cond__0], U32_maybeTrue [mt__8]}
+      left_only={doBranch [eff__1]}
+      right_only={doFallthru [eff__3]}
+      cloneable={}
+      anchored={}
+      left_ctx: values={doBranch [eff__1]} states={Codeptr:{doBranch [eff__1]}, Stack:{doBranch [eff__1]}, Trap:{doBranch [eff__1]}, Locals:{doBranch [eff__1]}, Globals:{doBranch [eff__1]}, Tables:{doBranch [eff__1]}, Memory:{doBranch [eff__1]}, Extra:{doBranch [eff__1]}}
+      right_ctx: values={doFallthru [eff__3]} states={Codeptr:{doFallthru [eff__3]}, Stack:{doFallthru [eff__3]}, Trap:{doFallthru [eff__3]}, Locals:{doFallthru [eff__3]}, Globals:{doFallthru [eff__3]}, Tables:{doFallthru [eff__3]}, Memory:{doFallthru [eff__3]}, Extra:{doFallthru [eff__3]}}
 
 Processed 1 opcode(s), failures=0
 OK

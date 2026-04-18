@@ -314,27 +314,87 @@ The intended meaning is:
 - `anchored_overlap`: shared writes that must remain shared
 - `left_ctx` and `right_ctx`: the child demand contexts from which nested sites are discovered
 
-For a site formed from multiple phi partitions, these fields are the union over member partitions with the obvious normalization:
+For a site formed from multiple phi partitions, `support` still comes from a straight union, but clone safety does not. Merging partitions can create shared overlap that did not exist in any member partition by itself, so `anchored_overlap` must be computed at the site level.
 
 ```text
-site.support = union(part.support)
-site.left_only = union(part.left).withoutAll(site.support)
-site.right_only = union(part.right).withoutAll(site.support)
+raw_support = union(part.support)
+raw_left = union(part.left)
+raw_right = union(part.right)
 
-shared = site.left_only.intersection(site.right_only)
-site.anchored_overlap = shared.intersection(union(part.anchored))
-site.cloneable_overlap = shared.withoutAll(site.anchored_overlap)
-
-site.left_only = site.left_only.withoutAll(shared)
-site.right_only = site.right_only.withoutAll(shared)
+raw_domain = raw_left.union(raw_right)
+raw_shared = raw_left.intersection(raw_right)
 ```
 
-So the branch-lattice-style clone domains become derived values instead of primary fields:
+The site-level clone decision is driven by a structural escape check on that raw merged domain.
+
+Define the raw escape seed as the nodes in `raw_domain` that still have a real consuming use outside `raw_domain`, excluding uses that will be rewired when this site's phis are cloned:
 
 ```text
-site.left_region = site.left_only.union(site.cloneable_overlap)
-site.right_region = site.right_only.union(site.cloneable_overlap)
+escape_seed(site) = {
+    n in raw_domain |
+    exists child notin raw_domain :
+        real_use(n, child)
+        && !rewired_site_use_raw(n, child, site)
+}
 ```
+
+`real_use` follows the same edge-role rules used elsewhere in the region model:
+
+- ordinary consuming edges count
+- `Move` condition edges are bookkeeping and do not count
+- site-owned phi arm edges that will be rewritten during cloning do not count as escaping uses
+
+Then define `escaping(site)` as the backward closure of that seed inside `raw_domain`:
+
+```text
+escaping(site) = least E subseteq raw_domain such that:
+    escape_seed(site) subseteq E
+    and if n in E and dep in raw_domain and dep -> n is a real dependency,
+        then dep in E
+```
+
+Intuitively: if a node in the candidate clone domain still feeds the outside world, then everything needed to build that escaping node also escapes.
+
+The site fields then come directly from that one structural pass:
+
+```text
+site.support = raw_support
+site.anchored_overlap = raw_shared.intersection(writes).intersection(escaping(site))
+
+site.left_region = raw_left.withoutAll(site.anchored_overlap)
+site.right_region = raw_right.withoutAll(site.anchored_overlap)
+
+site.cloneable_overlap = site.left_region.intersection(site.right_region)
+site.left_only = site.left_region.withoutAll(site.cloneable_overlap)
+site.right_only = site.right_region.withoutAll(site.cloneable_overlap)
+```
+
+This is still a graph-structural property, not pure set algebra over partition summaries, because `escaping(site)` depends on actual consumers and on which phi-arm uses untangle will rewire. But it is one structural closure, not a fixed point.
+
+#### Why The Fixed Point Appears Unnecessary
+
+The earlier formulation used an iterative anchored-set fixed point: remove escaping shared writes from the domain, recompute escaping, and repeat. The one-shot rule above should be equivalent.
+
+The key observation is that removing anchored nodes only shrinks the domain. So the only "new" outside users that can appear after one round are former in-domain consumers that now point to a removed anchored node.
+
+Suppose a shared write `w` were not in the original `escaping(site)` set, but became escaping only after some earlier anchored write `a` was removed. Then `a` must be the first outside consumer witnessing that new escape. So `w` must be a dependency of `a`.
+
+But `a` was already in the original escape closure, and `escaping(site)` is closed backward over in-domain dependencies. So every in-domain dependency of `a`, including `w`, was already in `escaping(site)` from the start. That is a contradiction.
+
+So removing anchored writes cannot create a genuinely new escaping shared write. Any shared write that would be anchored in a later round is already in the first raw-domain closure.
+
+This argument relies on the current untangle model, where only escaping shared writes must stay above the split. Pure shared structure may still remain in `cloneable_overlap` even if it also feeds users outside the site, because untangle keeps the original shared instance and only duplicates the overlap needed by the branch-local rewrite.
+
+#### Tracked Opcode Intuition
+
+The tracked problem opcodes all match the one-shot rule:
+
+- `IF --unlem`: the outer `bool.&&` site has no raw outside escape that forces `doBranch` or `doFallthru` to anchor, so `anchored_overlap` stays empty
+- `OUTER_Q_AND_BOTH_P_SIDES_Q`: the merged root `p` site sees raw outside use from the root `q` site, so one closure already reaches shared `{pop_u32[c2], u32.!=[q], pop_u32[x], 0}` and anchors exactly the shared writes `{pop_u32[c2], pop_u32[x]}`
+- `TRIVIAL_PHI_STACK_SHARED_EFFECT`: the root `p` site and nested trivial `r` site both have raw outside use of the shared effect chain, so one closure already reaches the wrapped shared pops and anchors them without iteration
+- `UNLEM_IMPOSSIBLE_ASSIGNMENT_BUNDLE`: the root `z`/`p` site and the nested `y` site both already expose the shared `x`-effect chain through raw-domain users, so one closure reaches the shared effectful pops while leaving the pure `Phi[x]`/constant structure cloneable
+
+So the branch-lattice-style clone domains become derived values instead of primary fields.
 
 #### Immediate Sites In A Context
 
@@ -486,6 +546,15 @@ The immediate ones are:
 - right `p`
 
 The nested left/right `q` partitions are not immediate at root, because each lies strictly on one side of the corresponding `p` partition. The two immediate `p` partitions merge into one root `p` site, and the outer `q` partition remains a separate root site because it is not contained in either `p` side.
+
+This example is also the clearest reason that merged-site clone safety must be computed structurally instead of inherited from `union(part.anchored)`. After the two root `p` partitions merge, the merged site has new shared overlap:
+
+- `pop_u32[c2]`
+- `u32.!=[q]`
+- `pop_u32[x]`
+- `0`
+
+The shared pops still feed the outer root `q` site, so they escape the root `p` site's clone domain and must stay in `anchored_overlap`. The pure `q` condition structure remains cloneable.
 
 So the realized site forest is:
 

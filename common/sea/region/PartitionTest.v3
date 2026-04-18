@@ -13,7 +13,10 @@ def render_graph_errors(errors: Vector<GraphError>) {
 
 def show_discovery(opcode: string, phase: string, sea: Sea,
                    discovery: PartitionDiscovery, include_details: bool) {
-    System.puts(Strings.format3("  %s [%s] partitions=%d\n", opcode, phase, discovery.partitions.length));
+    def header = StringBuilder.new();
+    header.puts("  ").puts(opcode).puts(" [").puts(phase).puts("] partitions=").putd(discovery.partitions.length)
+        .puts(" sites=").putd(PartitionInference.count_sites(discovery.sites)).puts("\n");
+    System.puts(header.toString());
     if (!include_details) return;
 
     def root = StringBuilder.new();
@@ -26,6 +29,13 @@ def show_discovery(opcode: string, phase: string, sea: Sea,
         part.puts("    ");
         PartitionInference.render_partition(sea, i, discovery.partitions[i], part);
         System.puts(part.toString());
+    }
+
+    for (i < discovery.sites.length) {
+        def site = StringBuilder.new();
+        site.puts("    ");
+        PartitionInference.render_site(sea, discovery.sites[i], 0, site);
+        System.puts(site.toString());
     }
 }
 

@@ -2,7 +2,7 @@ Running partition inference on 1 synthetic opcode(s)
   WARN  SAME_SCOPE_Q_ON_BOTH_P_SIDES [graph]
       0: UnsealedBranchError: pop_u32 [inner__13] violates the left branch obligation of StatePhi [u32.!= [q]] via StatePhi [u32.!= [q]] -> StatePhi [u32.!= [q]] without scope-compatible sealing
       1: UnsealedBranchError: pop_u32 [inner__7] violates the left branch obligation of StatePhi [u32.!= [q]] via StatePhi [u32.!= [q]] -> StatePhi [u32.!= [q]] without scope-compatible sealing
-  SAME_SCOPE_Q_ON_BOTH_P_SIDES [raw] partitions=10
+  SAME_SCOPE_Q_ON_BOTH_P_SIDES [raw] partitions=10 sites=3
     root: values={} states={Codeptr:{Start}, Stack:{push_u32 [eff__0]}, Trap:{Start}, Locals:{Start}, Globals:{Start}, Tables:{Start}, Memory:{Start}, Extra:{Start}}
     #0 phi=Phi [inner] cond=u32.!= [q]
   ctx: values={} states={Codeptr:{Start}, Stack:{push_u32 [eff__0]}, Trap:{Start}, Locals:{Start}, Globals:{Start}, Tables:{Start}, Memory:{Start}, Extra:{Start}}
@@ -94,6 +94,35 @@ Running partition inference on 1 synthetic opcode(s)
   anchored={}
   left_ctx: values={pop_u32 [inner__13]} states={Stack:{pop_u32 [inner__13]}}
   right_ctx: values={} states={}
+    site#1 side=root cond=u32.!= [p] phis={Phi [left], StatePhi [u32.!= [p]]}
+  ctx: values={} states={Codeptr:{Start}, Stack:{push_u32 [eff__0]}, Trap:{Start}, Locals:{Start}, Globals:{Start}, Tables:{Start}, Memory:{Start}, Extra:{Start}}
+  support={Start, pop_u32 [c1], pop_u32 [c2], 0, u32.!= [p], 0, u32.!= [q]}
+  left_only={11, pop_u32 [inner__7], Phi [inner], StatePhi [u32.!= [q]], 1, u32.+ [left__3]}
+  right_only={21, pop_u32 [inner__13], Phi [inner], StatePhi [u32.!= [q]], 2, u32.+ [left__9]}
+  cloneable={}
+  anchored={}
+  left_ctx: values={u32.+ [left__3]} states={Stack:{StatePhi [u32.!= [q]]}}
+  right_ctx: values={u32.+ [left__9]} states={Stack:{StatePhi [u32.!= [q]]}}
+  left:
+    site#2 side=left cond=u32.!= [q] phis={Phi [inner], StatePhi [u32.!= [q]]}
+      ctx: values={u32.+ [left__3]} states={Stack:{StatePhi [u32.!= [q]]}}
+      support={Start, pop_u32 [c1], pop_u32 [c2], 0, u32.!= [q]}
+      left_only={pop_u32 [inner__7]}
+      right_only={11}
+      cloneable={}
+      anchored={}
+      left_ctx: values={pop_u32 [inner__7]} states={Stack:{pop_u32 [inner__7]}}
+      right_ctx: values={11} states={}
+  right:
+    site#3 side=right cond=u32.!= [q] phis={Phi [inner], StatePhi [u32.!= [q]]}
+      ctx: values={u32.+ [left__9]} states={Stack:{StatePhi [u32.!= [q]]}}
+      support={Start, pop_u32 [c1], pop_u32 [c2], 0, u32.!= [q]}
+      left_only={pop_u32 [inner__13]}
+      right_only={21}
+      cloneable={}
+      anchored={}
+      left_ctx: values={pop_u32 [inner__13]} states={Stack:{pop_u32 [inner__13]}}
+      right_ctx: values={21} states={}
 
 Processed 1 opcode(s), failures=0
 OK

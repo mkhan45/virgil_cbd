@@ -1,3 +1,5 @@
+var branch_site_id: int = 0;
+
 class RegionCtx {
     var boundary_values: ImmNodeSet;
     var boundary_states: Array<ImmNodeSet>; // idx = statecomp.tag
@@ -26,11 +28,51 @@ class InferredPartition {
     def overlap() -> ImmNodeSet => left.intersection(right);
 }
 
+type SiteSide #unboxed {
+    case Root;
+    case Left;
+    case Right;
+}
+
+class BranchSite {
+    var id: int;
+    var ctx: RegionCtx;
+    var condition: IRNode;
+    var phis: Vector<IRNode>;
+    var parent: BranchSite;
+    var parent_side: SiteSide;
+    var support: ImmNodeSet;
+    var left_only: ImmNodeSet;
+    var right_only: ImmNodeSet;
+    var cloneable_overlap: ImmNodeSet;
+    var anchored_overlap: ImmNodeSet;
+    var left_ctx: RegionCtx;
+    var right_ctx: RegionCtx;
+    var left_children: Vector<BranchSite>;
+    var right_children: Vector<BranchSite>;
+
+    new(id, ctx, condition, phis, parent, parent_side,
+        support, left_only, right_only, cloneable_overlap, anchored_overlap,
+        left_ctx, right_ctx, left_children, right_children) {}
+
+    def left_region() -> ImmNodeSet => left_only.union(cloneable_overlap);
+
+    def right_region() -> ImmNodeSet => right_only.union(cloneable_overlap);
+}
+
+class SiteGroup {
+    var condition: IRNode;
+    var parts: Vector<InferredPartition>;
+
+    new(condition, parts) {}
+}
+
 class PartitionDiscovery {
     var root: RegionCtx;
     var partitions: Vector<InferredPartition>;
+    var sites: Vector<BranchSite>;
 
-    new(root, partitions) {}
+    new(root, partitions, sites) {}
 }
 
 class SeenPartitionCtx {
@@ -49,11 +91,31 @@ type LabelKind #unboxed {
 type WorkItem(node: IRNode, label: IRNode, kind: LabelKind) #unboxed;
 
 component PartitionInference {
+    def fresh_site_id() -> int {
+        branch_site_id += 1;
+        return branch_site_id;
+    }
+
     def empty_state_labels() -> Array<ImmNodeSet> #inline {
         def out = Array<ImmNodeSet>.new(StateComponent.count);
         for (sc in StateComponent.set.all) out[sc.tag] = ImmNodeSets.empty();
         return out;
     }
+
+    def ctx_eq(lhs: RegionCtx, rhs: RegionCtx) -> bool {
+        if (!lhs.boundary_values.eq(rhs.boundary_values)) return false;
+        return state_labels_eq(lhs.boundary_states, rhs.boundary_states);
+    }
+
+    def side_name(side: SiteSide) -> string {
+        match (side) {
+            Root => return "root";
+            Left => return "left";
+            Right => return "right";
+        }
+    }
+
+    def partition_condition(part: InferredPartition) -> IRNode => part.phi.value_deps[0].unwrapMove();
 
     def state_labels_eq(lhs: Array<ImmNodeSet>, rhs: Array<ImmNodeSet>) -> bool {
         for (sc in StateComponent.set.all)
@@ -249,6 +311,206 @@ component PartitionInference {
         );
     }
 
+    def partitions_in_ctx(sea: Sea, ctx: RegionCtx,
+                          include_value_phis: bool, include_state_phis: bool) -> Vector<InferredPartition> {
+        def out = Vector<InferredPartition>.new();
+        def phis = visible_phis(sea, ctx, include_value_phis, include_state_phis);
+        for (i < phis.length) out.put(branch_partition_in_context(sea, phis[i], ctx));
+        return out;
+    }
+
+    def immediate_in_ctx(part: InferredPartition, visible: Vector<InferredPartition>) -> bool {
+        for (i < visible.length) {
+            def other = visible[i];
+            if (other.phi.id == part.phi.id) continue;
+
+            def in_left = other.left.has(part.phi);
+            def in_right = other.right.has(part.phi);
+            if (in_left != in_right) return false;
+        }
+        return true;
+    }
+
+    def can_merge_into_group(sea: Sea, group: SiteGroup, part: InferredPartition) -> bool {
+        if (group.condition.id != partition_condition(part).id) return false;
+        for (i < group.parts.length) {
+            def other = group.parts[i].phi;
+            if (sea.isDescendant(part.phi, other) || sea.isDescendant(other, part.phi)) return false;
+        }
+        return true;
+    }
+
+    def immediate_groups(sea: Sea, visible: Vector<InferredPartition>) -> Vector<SiteGroup> {
+        def groups = Vector<SiteGroup>.new();
+
+        for (i < visible.length) {
+            def part = visible[i];
+            if (!immediate_in_ctx(part, visible)) continue;
+
+            var dest: SiteGroup = null;
+            for (j < groups.length) {
+                def group = groups[j];
+                if (!can_merge_into_group(sea, group, part)) continue;
+                dest = group;
+                break;
+            }
+
+            if (dest == null) groups.put(SiteGroup.new(partition_condition(part), Vectors.of1(part)));
+            else dest.parts.put(part);
+        }
+
+        return groups;
+    }
+
+    def site_contains_phi(phis: Vector<IRNode>, phi: IRNode) -> bool {
+        for (i < phis.length) if (phis[i].id == phi.id) return true;
+        return false;
+    }
+
+    // This use will be rewired when the site's shared overlap is cloned, so it
+    // should not count as an escaping use of dep.
+    def rewired_site_use(dep: IRNode, child: IRNode, phis: Vector<IRNode>,
+                         left_region: ImmNodeSet, right_region: ImmNodeSet) -> bool {
+        if (child == null || !child.is_phi()) return false;
+        if (!site_contains_phi(phis, child)) return false;
+
+        if (child.value_deps.length > 1 && child.value_deps[1] != null &&
+            child.value_deps[1].id == dep.id && left_region.has(dep)) return true;
+
+        if (child.value_deps.length > 2 && child.value_deps[2] != null &&
+            child.value_deps[2].id == dep.id && right_region.has(dep)) return true;
+
+        return false;
+    }
+
+    // Shared writes that still feed users outside the site's current clone
+    // domain must stay anchored above the split.
+    def merged_site_anchored_overlap(sea: Sea, ctx: RegionCtx, phis: Vector<IRNode>,
+                                     left_region: ImmNodeSet,
+                                     right_region: ImmNodeSet) -> ImmNodeSet {
+        var cur_left = left_region;
+        var cur_right = right_region;
+        var anchored = ImmNodeSets.empty();
+
+        while (true) {
+            def domain = cur_left.union(cur_right);
+            def shared = cur_left.intersection(cur_right);
+            if (shared.isEmpty()) return anchored;
+
+            def escaping = NodeSet.new();
+            def wl = Vector<IRNode>.new();
+
+            for (node in domain.toArray(sea)) {
+                var escapes = false;
+                for (i < node.children.length) {
+                    def child = node.children[i];
+                    if (child == null || child.id == node.id) continue;
+                    if (!ctx.active.has(child) && !child.is_move()) continue;
+                    if (child.is_move() && child.value_deps.length > 0 &&
+                        child.value_deps[0] != null && child.value_deps[0].id == node.id) continue;
+                    if (domain.has(child)) continue;
+                    if (rewired_site_use(node, child, phis, cur_left, cur_right)) continue;
+
+                    escapes = true;
+                    break;
+                }
+
+                if (escapes && !escaping.has(node)) {
+                    escaping.put(node);
+                    wl.put(node);
+                }
+            }
+
+            var wi = 0;
+            while (wi < wl.length) {
+                def node = wl[wi];
+                wi += 1;
+                node.applyDeps(fun (dep: IRNode) {
+                    if (dep == null || !domain.has(dep) || escaping.has(dep)) return;
+                    escaping.put(dep);
+                    wl.put(dep);
+                });
+            }
+
+            def remove = Vector<IRNode>.new();
+            escaping.apply(fun (node: IRNode) {
+                if (shared.has(node) && has_writes(node)) remove.put(node);
+            });
+            if (remove.length == 0) return anchored;
+
+            def remove_set = ImmNodeSets.of_vec(remove);
+            anchored = anchored.union(remove_set);
+            cur_left = cur_left.withoutAll(remove_set);
+            cur_right = cur_right.withoutAll(remove_set);
+        }
+
+        return anchored;
+    }
+
+    def build_site(sea: Sea, ctx: RegionCtx, group: SiteGroup,
+                   parent: BranchSite, parent_side: SiteSide) -> BranchSite {
+        var support = ImmNodeSets.empty();
+        var left_region = ImmNodeSets.empty();
+        var right_region = ImmNodeSets.empty();
+        def phis = Vector<IRNode>.new();
+
+        for (i < group.parts.length) {
+            def part = group.parts[i];
+            phis.put(part.phi);
+            support = support.union(part.support);
+            left_region = left_region.union(part.left);
+            right_region = right_region.union(part.right);
+        }
+
+        def anchored_overlap = merged_site_anchored_overlap(sea, ctx, phis, left_region, right_region);
+        left_region = left_region.withoutAll(anchored_overlap);
+        right_region = right_region.withoutAll(anchored_overlap);
+
+        def shared = left_region.intersection(right_region);
+        def cloneable_overlap = shared;
+        def left_only = left_region.withoutAll(shared);
+        def right_only = right_region.withoutAll(shared);
+
+        def left_boundary = collect_child_boundary(sea, left_region, ctx);
+        def right_boundary = collect_child_boundary(sea, right_region, ctx);
+
+        return BranchSite.new(
+            fresh_site_id(),
+            ctx,
+            group.condition,
+            phis,
+            parent,
+            parent_side,
+            support,
+            left_only,
+            right_only,
+            cloneable_overlap,
+            anchored_overlap,
+            make_ctx(sea, left_boundary.0, left_boundary.1),
+            make_ctx(sea, right_boundary.0, right_boundary.1),
+            Vector<BranchSite>.new(),
+            Vector<BranchSite>.new()
+        );
+    }
+
+    def realize_sites(sea: Sea, ctx: RegionCtx, parent: BranchSite, parent_side: SiteSide,
+                      include_value_phis: bool, include_state_phis: bool) -> Vector<BranchSite> {
+        def visible = partitions_in_ctx(sea, ctx, include_value_phis, include_state_phis);
+        def groups = immediate_groups(sea, visible);
+        def out = Vector<BranchSite>.new();
+
+        for (i < groups.length) {
+            def site = build_site(sea, ctx, groups[i], parent, parent_side);
+            if (!site.left_ctx.isEmpty() && !ctx_eq(site.left_ctx, ctx))
+                site.left_children = realize_sites(sea, site.left_ctx, site, SiteSide.Left, include_value_phis, include_state_phis);
+            if (!site.right_ctx.isEmpty() && !ctx_eq(site.right_ctx, ctx))
+                site.right_children = realize_sites(sea, site.right_ctx, site, SiteSide.Right, include_value_phis, include_state_phis);
+            out.put(site);
+        }
+
+        return out;
+    }
+
     def seen_ctx(seen: Vector<SeenPartitionCtx>, phi: IRNode, ctx: RegionCtx) -> bool {
         for (i < seen.length) {
             def prev = seen[i];
@@ -263,13 +525,13 @@ component PartitionInference {
     def visit_ctx(sea: Sea, ctx: RegionCtx,
                   include_value_phis: bool, include_state_phis: bool,
                   out: Vector<InferredPartition>, seen: Vector<SeenPartitionCtx>) {
-        def phis = visible_phis(sea, ctx, include_value_phis, include_state_phis);
-        for (i < phis.length) {
-            def phi = phis[i];
+        def visible = partitions_in_ctx(sea, ctx, include_value_phis, include_state_phis);
+        for (i < visible.length) {
+            def part = visible[i];
+            def phi = part.phi;
             if (seen_ctx(seen, phi, ctx)) continue;
             seen.put(SeenPartitionCtx.new(phi, ctx.boundary_values, ctx.boundary_states));
 
-            def part = branch_partition_in_context(sea, phi, ctx);
             out.put(part);
 
             if (!part.left_ctx.isEmpty()) visit_ctx(sea, part.left_ctx, include_value_phis, include_state_phis, out, seen);
@@ -281,12 +543,40 @@ component PartitionInference {
                                  include_value_phis: bool, include_state_phis: bool) -> PartitionDiscovery {
         sea.rebuildChildren();
         sea.clearDepsCache();
+        branch_site_id = 0;
 
         def root = make_root_ctx(sea, bottom);
         def out = Vector<InferredPartition>.new();
         def seen = Vector<SeenPartitionCtx>.new();
         visit_ctx(sea, root, include_value_phis, include_state_phis, out, seen);
-        return PartitionDiscovery.new(root, out);
+        def sites = realize_sites(sea, root, null, SiteSide.Root, include_value_phis, include_state_phis);
+        return PartitionDiscovery.new(root, out, sites);
+    }
+
+    def count_sites(sites: Vector<BranchSite>) -> int {
+        var count = 0;
+        for (i < sites.length) {
+            def site = sites[i];
+            count += 1;
+            count += count_sites(site.left_children);
+            count += count_sites(site.right_children);
+        }
+        return count;
+    }
+
+    def put_indent(buf: StringBuilder, indent: int) -> StringBuilder {
+        for (i < indent) buf.puts(" ");
+        return buf;
+    }
+
+    def render_phis(phis: Vector<IRNode>, buf: StringBuilder) -> StringBuilder {
+        buf.puts("{");
+        for (i < phis.length) {
+            if (i > 0) buf.puts(", ");
+            buf.putq(phis[i].render);
+        }
+        buf.puts("}");
+        return buf;
     }
 
     def render_set(sea: Sea, name: string, set: ImmNodeSet, buf: StringBuilder) -> StringBuilder {
@@ -339,6 +629,43 @@ component PartitionInference {
         render_ctx(sea, part.left_ctx, buf).puts("\n");
         buf.puts("  right_ctx: ");
         render_ctx(sea, part.right_ctx, buf).puts("\n");
+        return buf;
+    }
+
+    def render_site(sea: Sea, site: BranchSite, indent: int, buf: StringBuilder) -> StringBuilder {
+        put_indent(buf, indent).puts("site#").putd(site.id)
+            .puts(" side=").puts(side_name(site.parent_side))
+            .puts(" cond=").putq(site.condition.render)
+            .puts(" phis=");
+        render_phis(site.phis, buf).puts("\n");
+
+        put_indent(buf, indent + 2).puts("ctx: ");
+        render_ctx(sea, site.ctx, buf).puts("\n");
+
+        put_indent(buf, indent + 2);
+        render_set(sea, "support", site.support, buf).puts("\n");
+        put_indent(buf, indent + 2);
+        render_set(sea, "left_only", site.left_only, buf).puts("\n");
+        put_indent(buf, indent + 2);
+        render_set(sea, "right_only", site.right_only, buf).puts("\n");
+        put_indent(buf, indent + 2);
+        render_set(sea, "cloneable", site.cloneable_overlap, buf).puts("\n");
+        put_indent(buf, indent + 2);
+        render_set(sea, "anchored", site.anchored_overlap, buf).puts("\n");
+
+        put_indent(buf, indent + 2).puts("left_ctx: ");
+        render_ctx(sea, site.left_ctx, buf).puts("\n");
+        put_indent(buf, indent + 2).puts("right_ctx: ");
+        render_ctx(sea, site.right_ctx, buf).puts("\n");
+
+        for (i < site.left_children.length) {
+            put_indent(buf, indent + 2).puts("left:\n");
+            render_site(sea, site.left_children[i], indent + 4, buf);
+        }
+        for (i < site.right_children.length) {
+            put_indent(buf, indent + 2).puts("right:\n");
+            render_site(sea, site.right_children[i], indent + 4, buf);
+        }
         return buf;
     }
 }
