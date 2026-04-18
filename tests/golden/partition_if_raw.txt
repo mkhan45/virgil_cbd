@@ -1,0 +1,16 @@
+Running partition inference on 0 synthetic opcode(s)
+Running partition inference on 1 canonical opcode(s)
+  IF [raw] partitions=1
+    root: values={} states={Codeptr:{StatePhi [u32.== [cond__0]]}, Stack:{StatePhi [u32.== [cond__0]]}, Trap:{StatePhi [u32.== [cond__0]]}, Locals:{StatePhi [u32.== [cond__0]]}, Globals:{StatePhi [u32.== [cond__0]]}, Tables:{StatePhi [u32.== [cond__0]]}, Memory:{StatePhi [u32.== [cond__0]]}, Extra:{StatePhi [u32.== [cond__0]]}}
+    #0 phi=StatePhi [u32.== [cond__0]] cond=u32.== [cond__0]
+  ctx: values={} states={Codeptr:{StatePhi [u32.== [cond__0]]}, Stack:{StatePhi [u32.== [cond__0]]}, Trap:{StatePhi [u32.== [cond__0]]}, Locals:{StatePhi [u32.== [cond__0]]}, Globals:{StatePhi [u32.== [cond__0]]}, Tables:{StatePhi [u32.== [cond__0]]}, Memory:{StatePhi [u32.== [cond__0]]}, Extra:{StatePhi [u32.== [cond__0]]}}
+  support={Start, imm_readBlockType [bt], pop_u32 [cond], doIf [label], 0, u32.== [cond__0]}
+  left={doBranch [eff__1]}
+  right={doFallthru [eff__3]}
+  cloneable={}
+  anchored={}
+  left_ctx: values={} states={Codeptr:{doBranch [eff__1]}, Stack:{doBranch [eff__1]}, Trap:{doBranch [eff__1]}, Locals:{doBranch [eff__1]}, Globals:{doBranch [eff__1]}, Tables:{doBranch [eff__1]}, Memory:{doBranch [eff__1]}, Extra:{doBranch [eff__1]}}
+  right_ctx: values={} states={Codeptr:{doFallthru [eff__3]}, Stack:{doFallthru [eff__3]}, Trap:{doFallthru [eff__3]}, Locals:{doFallthru [eff__3]}, Globals:{doFallthru [eff__3]}, Tables:{doFallthru [eff__3]}, Memory:{doFallthru [eff__3]}, Extra:{doFallthru [eff__3]}}
+
+Processed 1 opcode(s), failures=0
+OK
