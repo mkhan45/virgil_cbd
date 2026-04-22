@@ -1,0 +1,25 @@
+Running partition inference on 0 synthetic opcode(s)
+Running partition inference on 1 canonical opcode(s)
+  END [raw] partitions=1 sites=1
+    root: values={} states={Codeptr:{StatePhi [f_isAtEnd [cond__0]]}, Stack:{StatePhi [f_isAtEnd [cond__0]]}, Trap:{StatePhi [f_isAtEnd [cond__0]]}, Locals:{StatePhi [f_isAtEnd [cond__0]]}, Globals:{StatePhi [f_isAtEnd [cond__0]]}, Tables:{StatePhi [f_isAtEnd [cond__0]]}, Memory:{StatePhi [f_isAtEnd [cond__0]]}, Extra:{StatePhi [f_isAtEnd [cond__0]]}}
+    #0 phi=StatePhi [f_isAtEnd [cond__0]] cond=f_isAtEnd [cond__0]
+  ctx: values={} states={Codeptr:{StatePhi [f_isAtEnd [cond__0]]}, Stack:{StatePhi [f_isAtEnd [cond__0]]}, Trap:{StatePhi [f_isAtEnd [cond__0]]}, Locals:{StatePhi [f_isAtEnd [cond__0]]}, Globals:{StatePhi [f_isAtEnd [cond__0]]}, Tables:{StatePhi [f_isAtEnd [cond__0]]}, Memory:{StatePhi [f_isAtEnd [cond__0]]}, Extra:{StatePhi [f_isAtEnd [cond__0]]}}
+  support={Start, doEnd [eff__2], f_isAtEnd [cond__0]}
+  left={doReturn [eff__1]}
+  right={}
+  cloneable={}
+  anchored={}
+  left_ctx: values={} states={Codeptr:{doReturn [eff__1]}, Stack:{doReturn [eff__1]}, Trap:{doReturn [eff__1]}, Locals:{doReturn [eff__1]}, Globals:{doReturn [eff__1]}, Tables:{doReturn [eff__1]}, Memory:{doReturn [eff__1]}, Extra:{doReturn [eff__1]}}
+  right_ctx: values={} states={}
+    site#1 side=root cond=f_isAtEnd [cond__0] phis={StatePhi [f_isAtEnd [cond__0]]}
+  ctx: values={} states={Codeptr:{StatePhi [f_isAtEnd [cond__0]]}, Stack:{StatePhi [f_isAtEnd [cond__0]]}, Trap:{StatePhi [f_isAtEnd [cond__0]]}, Locals:{StatePhi [f_isAtEnd [cond__0]]}, Globals:{StatePhi [f_isAtEnd [cond__0]]}, Tables:{StatePhi [f_isAtEnd [cond__0]]}, Memory:{StatePhi [f_isAtEnd [cond__0]]}, Extra:{StatePhi [f_isAtEnd [cond__0]]}}
+  support={Start, doEnd [eff__2], f_isAtEnd [cond__0]}
+  left_only={doReturn [eff__1]}
+  right_only={}
+  cloneable={}
+  anchored={}
+  left_ctx: values={} states={Codeptr:{doReturn [eff__1]}, Stack:{doReturn [eff__1]}, Trap:{doReturn [eff__1]}, Locals:{doReturn [eff__1]}, Globals:{doReturn [eff__1]}, Tables:{doReturn [eff__1]}, Memory:{doReturn [eff__1]}, Extra:{doReturn [eff__1]}}
+  right_ctx: values={} states={}
+
+Processed 1 opcode(s), failures=0
+OK

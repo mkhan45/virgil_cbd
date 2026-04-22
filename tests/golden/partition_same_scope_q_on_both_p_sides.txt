@@ -1,7 +1,4 @@
 Running partition inference on 1 synthetic opcode(s)
-  WARN  SAME_SCOPE_Q_ON_BOTH_P_SIDES [graph]
-      0: UnsealedBranchError: pop_u32 [inner__13] violates the left branch obligation of StatePhi [u32.!= [q]] via StatePhi [u32.!= [q]] -> StatePhi [u32.!= [q]] without scope-compatible sealing
-      1: UnsealedBranchError: pop_u32 [inner__7] violates the left branch obligation of StatePhi [u32.!= [q]] via StatePhi [u32.!= [q]] -> StatePhi [u32.!= [q]] without scope-compatible sealing
   SAME_SCOPE_Q_ON_BOTH_P_SIDES [raw] partitions=10 sites=3
     root: values={} states={Codeptr:{Start}, Stack:{push_u32 [eff__0]}, Trap:{Start}, Locals:{Start}, Globals:{Start}, Tables:{Start}, Memory:{Start}, Extra:{Start}}
     #0 phi=Phi [inner] cond=u32.!= [q]

@@ -1,0 +1,90 @@
+=== TRIVIAL_PHI_STACK_SHARED_EFFECT [unLEM] ===
+=== sea ===
+  #39 merge [merge__24](#25 Phi [wrap1],#30 u32.+ [wrap2__4])
+  #52 |True|(#37 bool.&& [mb__22],#39 merge [merge__24])
+  #36 U32_maybeFalse [mf__21](#8 u32.!= [p])
+  #37 bool.&& [mb__22](#35 U32_maybeTrue [mt__20],#36 U32_maybeFalse [mf__21])
+  #49 merge [merge__34](#19 Phi [base],#19 Phi [base])
+  #60 |True|(#47 bool.&& [mb__32],#49 merge [merge__34])
+  #46 U32_maybeFalse [mf__31](#14 u32.!= [r])
+  #47 bool.&& [mb__32](#45 U32_maybeTrue [mt__30],#46 U32_maybeFalse [mf__31])
+  #62 |True|(#45 U32_maybeTrue [mt__30],#19 Phi [base])
+  #12 0
+  #14 u32.!= [r](#5 pop_u32 [c3],#12 0)
+  #45 U32_maybeTrue [mt__30](#14 u32.!= [r])
+  #63 |False|(#45 U32_maybeTrue [mt__30],#19 Phi [base])
+  #48 Phi [innerPhi__33](#45 U32_maybeTrue [mt__30],#62 |True|,#63 |False|)
+  #61 |False|(#47 bool.&& [mb__32],#48 Phi [innerPhi__33])
+  #25 Phi [wrap1](#47 bool.&& [mb__32],#60 |True|,#61 |False|)
+  #56 |True|(#35 U32_maybeTrue [mt__20],#25 Phi [wrap1])
+  #6 0
+  #8 u32.!= [p](#3 pop_u32 [c1],#6 0)
+  #35 U32_maybeTrue [mt__20](#8 u32.!= [p])
+  #17 5
+  #51 merge [merge__36](#18 pop_u32 [base__11],#17 5)
+  #64 |True|(#42 bool.&& [mb__27],#51 merge [merge__36])
+  #66 |True|(#40 U32_maybeTrue [mt__25],#69 pop_u32 [base__11__54])
+  #68 5
+  #67 |False|(#40 U32_maybeTrue [mt__25],#68 5)
+  #50 Phi [innerPhi__35](#40 U32_maybeTrue [mt__25],#66 |True|,#67 |False|)
+  #65 |False|(#42 bool.&& [mb__27],#50 Phi [innerPhi__35])
+  #19 Phi [base](#42 bool.&& [mb__27],#64 |True|,#65 |False|)
+  #28 1
+  #30 u32.+ [wrap2__4](#19 Phi [base],#28 1)
+  #57 |False|(#35 U32_maybeTrue [mt__20],#30 u32.+ [wrap2__4])
+  #38 Phi [innerPhi__23](#35 U32_maybeTrue [mt__20],#56 |True|,#57 |False|)
+  #53 |False|(#37 bool.&& [mb__22],#38 Phi [innerPhi__23])
+  #32 Phi [wrap2](#37 bool.&& [mb__22],#52 |True|,#53 |False|)
+  #18 pop_u32 [base__11] {Stack:#5 pop_u32 [c3]}
+  #44 merge [eff_merge__29](#18 pop_u32 [base__11],#5 pop_u32 [c3])
+  #54 |True|(#42 bool.&& [mb__27]) {Stack:#44 merge [eff_merge__29]}
+  #41 U32_maybeFalse [mf__26](#11 u32.!= [q])
+  #42 bool.&& [mb__27](#40 U32_maybeTrue [mt__25],#41 U32_maybeFalse [mf__26])
+  #69 pop_u32 [base__11__54] {Stack:#5 pop_u32 [c3]}
+  #58 |True|(#40 U32_maybeTrue [mt__25]) {Stack:#69 pop_u32 [base__11__54]}
+  #9 0
+  #11 u32.!= [q](#4 pop_u32 [c2],#9 0)
+  #40 U32_maybeTrue [mt__25](#11 u32.!= [q])
+  #0 Start
+  #3 pop_u32 [c1] {Stack:#0 Start}
+  #4 pop_u32 [c2] {Stack:#3 pop_u32 [c1]}
+  #5 pop_u32 [c3] {Stack:#4 pop_u32 [c2]}
+  #59 |False|(#40 U32_maybeTrue [mt__25]) {Stack:#5 pop_u32 [c3]}
+  #43 StatePhi [U32_maybeTrue [mt__25]](#40 U32_maybeTrue [mt__25],#58 |True|,#59 |False|)
+  #55 |False|(#42 bool.&& [mb__27]) {Stack:#43 StatePhi [U32_maybeTrue [mt__25]]}
+  #20 StatePhi [bool.&& [mb__27]](#42 bool.&& [mb__27],#54 |True|,#55 |False|)
+  #34 push_u32 [eff__0](#32 Phi [wrap2]) {Stack:#20 StatePhi [bool.&& [mb__27]]}
+  #1 Finish {CodeptrTrapLocalsGlobalsTablesMemoryExtra:#0 Start,Stack:#34 push_u32 [eff__0]}
+
+=== branch_lattices (6) ===
+[0] cond: #42 bool.&& [mb__27]
+    phis: #19 Phi [base], #20 StatePhi [bool.&& [mb__27]]
+    frontier: {0, 3, 4, 5, 9, 11, 40, 41, 42}
+    lsg: {17, 18, 44, 51, 54, 64}
+    rsg: {43, 50, 55, 58, 59, 65, 66, 67, 68, 69}
+[1] cond: #37 bool.&& [mb__22]
+    phis: #32 Phi [wrap2]
+    frontier: {0, 3, 4, 6, 8, 9, 11, 19, 35, 36, 37, 40, 41, 42}
+    lsg: {12, 14, 17, 25, 28, 30, 39, 45, 46, 47, 48, 49, 50, 51, 52, 60, 61, 62, 63, 64, 65, 66, 67, 68}
+    rsg: {12, 14, 17, 25, 28, 30, 38, 45, 46, 47, 48, 49, 50, 51, 53, 56, 57, 60, 61, 62, 63, 64, 65, 66, 67, 68}
+[2] cond: #40 U32_maybeTrue [mt__25]
+    phis: #43 StatePhi [U32_maybeTrue [mt__25]], #50 Phi [innerPhi__35]
+    frontier: {0, 3, 4, 5, 9, 11, 40}
+    lsg: {58, 66, 69}
+    rsg: {59, 67, 68}
+[3] cond: #35 U32_maybeTrue [mt__20]
+    phis: #38 Phi [innerPhi__23]
+    frontier: {0, 3, 4, 6, 8, 9, 11, 19, 35, 40, 41, 42}
+    lsg: {12, 14, 17, 25, 45, 46, 47, 48, 49, 50, 51, 56, 60, 61, 62, 63, 64, 65, 66, 67, 68}
+    rsg: {17, 28, 30, 50, 51, 57, 64, 65, 66, 67, 68}
+[4] cond: #47 bool.&& [mb__32]
+    phis: #25 Phi [wrap1]
+    frontier: {0, 3, 4, 5, 9, 11, 12, 14, 19, 40, 41, 42, 45, 46, 47}
+    lsg: {17, 49, 50, 51, 60, 64, 65, 66, 67, 68}
+    rsg: {17, 48, 50, 51, 61, 62, 63, 64, 65, 66, 67, 68}
+[5] cond: #45 U32_maybeTrue [mt__30]
+    phis: #48 Phi [innerPhi__33]
+    frontier: {0, 3, 4, 5, 9, 11, 12, 14, 19, 40, 41, 42, 45}
+    lsg: {17, 50, 51, 62, 64, 65, 66, 67, 68}
+    rsg: {17, 50, 51, 63, 64, 65, 66, 67, 68}
+

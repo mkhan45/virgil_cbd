@@ -53,6 +53,13 @@ ScheduleTest: $(SYNTHETIC_SEXP) $(COMMON_LIB) $(TYPEDEFS)
 		$(WIZARD_UTIL)\
 		tests/ScheduleTest.v3
 
+UntangleTest: $(SYNTHETIC_SEXP) $(COMMON_LIB) $(TYPEDEFS) tests/UntangleTest.v3
+	$(V3C) $(VIRGIL_STD)\
+		$(COMMON_LIB)\
+		$(ENGINE)\
+		$(WIZARD_UTIL)\
+		tests/UntangleTest.v3
+
 PartitionTest: $(SYNTHETIC_SEXP) $(COMMON_LIB) $(TYPEDEFS) common/sea/region/*.v3
 	$(V3C) $(VIRGIL_STD)\
 		$(COMMON_LIB)\

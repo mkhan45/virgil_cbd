@@ -8,16 +8,17 @@ cd "$ROOT"
 usage() {
   cat <<'EOF'
 Usage:
-  bash scripts/partition_golden_test.sh
-  bash scripts/partition_golden_test.sh if_raw if_unlem end_raw
-  bash scripts/partition_golden_test.sh --update
+  bash scripts/untangle_golden_test.sh
+  bash scripts/untangle_golden_test.sh if same_scope outer_q trivial_phi bundle ring_stress
+  bash scripts/untangle_golden_test.sh --update
 
 Cases:
-  if_raw
-  if_unlem
-  end_raw
+  if
   same_scope
   outer_q
+  trivial_phi
+  bundle
+  ring_stress
 
 Options:
   --update   Refresh the golden files with current output
@@ -37,7 +38,7 @@ while [ "$#" -gt 0 ]; do
       usage
       exit 0
       ;;
-    if_raw|if_unlem|end_raw|same_scope|outer_q)
+    if|same_scope|outer_q|trivial_phi|bundle|ring_stress)
       CASES+=("$1")
       ;;
     *)
@@ -50,12 +51,12 @@ while [ "$#" -gt 0 ]; do
 done
 
 if [ "${#CASES[@]}" -eq 0 ]; then
-  CASES=(if_raw if_unlem end_raw same_scope outer_q)
+  CASES=(if same_scope outer_q trivial_phi bundle ring_stress)
 fi
 
 needs_canonical=false
 for case_name in "${CASES[@]}"; do
-  if [ "$case_name" = "if_raw" ] || [ "$case_name" = "if_unlem" ] || [ "$case_name" = "end_raw" ]; then
+  if [ "$case_name" = "if" ]; then
     needs_canonical=true
   fi
 done
@@ -64,18 +65,19 @@ make tests/SyntheticDefs.v3.sexp --quiet
 if [ "$needs_canonical" = true ]; then
   make wizard-engine/src/bytecode/CanonicalDefs.v3.sexp --quiet
 fi
-make PartitionTest --quiet
+make UntangleTest --quiet
 
 tmpdir="$(mktemp -d)"
 trap 'rm -rf "$tmpdir"' EXIT
 
 golden_path() {
   case "$1" in
-    if_raw) echo "tests/golden/partition_if_raw.txt" ;;
-    if_unlem) echo "tests/golden/partition_if_unlem.txt" ;;
-    end_raw) echo "tests/golden/partition_end_raw.txt" ;;
-    same_scope) echo "tests/golden/partition_same_scope_q_on_both_p_sides.txt" ;;
-    outer_q) echo "tests/golden/partition_outer_q_and_both_p_sides_q.txt" ;;
+    if) echo "tests/golden/untangle_if_unlem.txt" ;;
+    same_scope) echo "tests/golden/untangle_same_scope_q_on_both_p_sides.txt" ;;
+    outer_q) echo "tests/golden/untangle_outer_q_and_both_p_sides_q.txt" ;;
+    trivial_phi) echo "tests/golden/untangle_trivial_phi_stack_shared_effect.txt" ;;
+    bundle) echo "tests/golden/untangle_unlem_impossible_assignment_bundle.txt" ;;
+    ring_stress) echo "tests/golden/untangle_p_q_r_s_t_ring_shared_pop.txt" ;;
   esac
 }
 
@@ -84,20 +86,23 @@ run_case() {
   local out="$tmpdir/${case_name}.txt"
 
   case "$case_name" in
-    if_raw)
-      ./PartitionTest --canonical --details IF > "$out"
-      ;;
-    if_unlem)
-      ./PartitionTest --canonical --unlem --details IF > "$out"
-      ;;
-    end_raw)
-      ./PartitionTest --canonical --details END > "$out"
+    if)
+      ./UntangleTest --canonical --unlem IF > "$out"
       ;;
     same_scope)
-      ./PartitionTest --details SAME_SCOPE_Q_ON_BOTH_P_SIDES > "$out"
+      ./UntangleTest --unlem SAME_SCOPE_Q_ON_BOTH_P_SIDES > "$out"
       ;;
     outer_q)
-      ./PartitionTest --details OUTER_Q_AND_BOTH_P_SIDES_Q > "$out"
+      ./UntangleTest --unlem OUTER_Q_AND_BOTH_P_SIDES_Q > "$out"
+      ;;
+    trivial_phi)
+      ./UntangleTest --unlem TRIVIAL_PHI_STACK_SHARED_EFFECT > "$out"
+      ;;
+    bundle)
+      ./UntangleTest --unlem UNLEM_IMPOSSIBLE_ASSIGNMENT_BUNDLE > "$out"
+      ;;
+    ring_stress)
+      ./UntangleTest --unlem P_Q_R_S_T_RING_SHARED_POP > "$out"
       ;;
   esac
 

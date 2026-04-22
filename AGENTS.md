@@ -74,6 +74,9 @@ Targeted scheduler check on real opcodes: `bash scripts/schedule_test.sh --canon
 
 For full testing documentation (polybench, synthetic opcode tests, trace inspection): [docs/ai/TESTING.md](docs/ai/TESTING.md)
 
+Some tests have golden test files, in the tests/golden folder. If you believe some golden output
+is stale or incorrect, ALWAYS confirm with the user before changing it.
+
 ## Skills
 
 Agent skills available for scheduler work:

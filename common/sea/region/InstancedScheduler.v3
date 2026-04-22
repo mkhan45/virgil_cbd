@@ -1,0 +1,286 @@
+var inst_sched_cfg_id: int = 0;
+
+class SchedulerInstance {
+    var root: IRNode;
+    var home: PartitionFrame;
+
+    var bottom_limit: ICFGNode;
+    var placed_in: ICFGNode;
+
+    new(root, home, bottom_limit, placed_in) {}
+}
+
+class PartitionFrame {
+    var parent: PartitionFrame;
+    var owner_site: SiteFrame;
+    var side: SiteSide;
+
+    var top_limit: ICFGNode;
+    var default_bottom: ICFGNode;
+
+    new(parent, owner_site, side, top_limit, default_bottom) {}
+}
+
+class SiteFrame {
+    var site: BranchSite;
+
+    var parent_partition: PartitionFrame;
+    var left_partition: PartitionFrame;
+    var right_partition: PartitionFrame;
+
+    var branch_cfg: ICFGBranch;
+    var merge_cfg: ICFGJoin;
+
+    var left_children: Vector<SiteFrame> = Vector<SiteFrame>.new();
+    var right_children: Vector<SiteFrame> = Vector<SiteFrame>.new();
+
+    new(site, parent_partition, left_partition, right_partition, branch_cfg, merge_cfg) {}
+}
+
+type UseRole #unboxed {
+    case Value(idx: int);
+    case State(sc: StateComponent);
+    case PhiCond;
+    case PhiLeft;
+    case PhiRight;
+}
+
+class ICFGNode(id: int) {
+    def getSinglePrev() -> ICFGNode {
+        match (this) {
+            block: ICFGBlock => return block.prev;
+            branch: ICFGBranch => return branch.prev;
+            _ => return null;
+        }
+    }
+
+    def setSinglePrev(new_prev: ICFGNode) -> this {
+        match (this) {
+            block: ICFGBlock => block.prev = new_prev;
+            branch: ICFGBranch => branch.prev = new_prev;
+            _ => ;
+        }
+    }
+}
+
+class ICFGBlock(uid: int) extends ICFGNode(uid) {
+    var prev: ICFGNode = null;
+    var next: ICFGNode = null;
+}
+
+class ICFGBranch(uid: int) extends ICFGNode(uid) {
+    var condition: IRNode = null;
+    var prev: ICFGNode = null;
+    var l_branch: ICFGNode = null;
+    var r_branch: ICFGNode = null;
+    var join: ICFGJoin = null;
+}
+
+class ICFGJoin(uid: int) extends ICFGNode(uid) {
+    var source_branch: ICFGBranch = null;
+    var l_source: ICFGNode = null;
+    var r_source: ICFGNode = null;
+    var next: ICFGNode = null;
+    var phis: Vector<IRNode> = Vector<IRNode>.new();
+}
+
+class InstancedSeaScheduler {
+    var sea: Sea;
+    var top_node: IRNode;
+    var bottom_node: IRNode;
+
+    var discovery: PartitionDiscovery;
+
+    var root_partition: PartitionFrame;
+    var root_sites: Vector<SiteFrame>;
+    var site_frames: Vector<SiteFrame>;
+
+    var top_cfg: ICFGNode;
+    var bottom_cfg: ICFGBlock;
+
+    new(sea, top_node, bottom_node, discovery,
+        root_partition, root_sites, site_frames,
+        top_cfg, bottom_cfg) {}
+
+    def renderPhase0(buf: StringBuilder) -> StringBuilder {
+        buf.puts("root_partition side=").puts(PartitionInference.side_name(root_partition.side));
+        buf.puts(" top=");
+        InstancedScheduler.render_cfg_ref(root_partition.top_limit, buf);
+        buf.puts(" bottom=");
+        InstancedScheduler.render_cfg_ref(root_partition.default_bottom, buf);
+        buf.puts("\n");
+
+        buf.puts("cfg top=");
+        InstancedScheduler.render_cfg_ref(top_cfg, buf);
+        buf.puts(" bottom=");
+        InstancedScheduler.render_cfg_ref(bottom_cfg, buf);
+        buf.puts("\n");
+
+        for (i < root_sites.length)
+            InstancedScheduler.render_site_frame(root_sites[i], 2, buf);
+        return buf;
+    }
+}
+
+component InstancedScheduler {
+    def fresh_cfg_id() -> int {
+        inst_sched_cfg_id += 1;
+        return inst_sched_cfg_id;
+    }
+
+    def of_full_sea(sea: Sea) -> InstancedSeaScheduler {
+        def discovery = PartitionInference.determine_all_partitions(sea, sea.finish, true, true);
+        def bottom_cfg = ICFGBlock.new(fresh_cfg_id());
+        def root_partition = PartitionFrame.new(null, null, SiteSide.Root, null, bottom_cfg);
+        def site_frames = Vector<SiteFrame>.new();
+        def built = build_sites(root_partition, discovery.sites, bottom_cfg, site_frames);
+
+        return InstancedSeaScheduler.new(sea, sea.start, sea.finish, discovery,
+                                         root_partition, built.1, site_frames,
+                                         built.0, bottom_cfg);
+    }
+
+    def build_sites(partition: PartitionFrame,
+                    sites: Vector<BranchSite>,
+                    sink: ICFGNode,
+                    flat_sites: Vector<SiteFrame>) -> (ICFGNode, Vector<SiteFrame>) {
+        var entry = sink;
+        def direct = Vector<SiteFrame>.new();
+
+        var i = sites.length;
+        while (i > 0) {
+            i -= 1;
+            def built = build_site(partition, sites[i], entry, flat_sites);
+            entry = built.0;
+            direct.put(built.1);
+        }
+
+        direct.reverse();
+        return (entry, direct);
+    }
+
+    def build_site(parent_partition: PartitionFrame,
+                   site: BranchSite,
+                   sink: ICFGNode,
+                   flat_sites: Vector<SiteFrame>) -> (ICFGNode, SiteFrame) {
+        def prev = sink.getSinglePrev();
+        def branch = ICFGBranch.new(fresh_cfg_id());
+        def join = ICFGJoin.new(fresh_cfg_id());
+
+        branch.condition = site.condition;
+        branch.prev = prev;
+        branch.join = join;
+
+        rewire_prev_successor(prev, sink, branch);
+        sink.setSinglePrev(join);
+
+        join.source_branch = branch;
+        join.next = sink;
+        join.phis = site.phis;
+
+        def left_leaf = ICFGBlock.new(fresh_cfg_id());
+        def right_leaf = ICFGBlock.new(fresh_cfg_id());
+        left_leaf.prev = branch;
+        right_leaf.prev = branch;
+
+        def left_partition = PartitionFrame.new(parent_partition, null, SiteSide.Left, branch, left_leaf);
+        def right_partition = PartitionFrame.new(parent_partition, null, SiteSide.Right, branch, right_leaf);
+        def frame = SiteFrame.new(site, parent_partition, left_partition, right_partition, branch, join);
+        left_partition.owner_site = frame;
+        right_partition.owner_site = frame;
+        flat_sites.put(frame);
+
+        def left_built = build_sites(left_partition, site.left_children, left_leaf, flat_sites);
+        def right_built = build_sites(right_partition, site.right_children, right_leaf, flat_sites);
+
+        frame.left_children = left_built.1;
+        frame.right_children = right_built.1;
+
+        branch.l_branch = left_built.0;
+        branch.r_branch = right_built.0;
+        join.l_source = left_partition.default_bottom;
+        join.r_source = right_partition.default_bottom;
+
+        return (branch, frame);
+    }
+
+    def rewire_prev_successor(prev: ICFGNode, old_child: ICFGNode, new_child: ICFGNode) {
+        if (prev == null) return;
+
+        match (prev) {
+            block: ICFGBlock => {
+                if (block.next != null && block.next.id == old_child.id) block.next = new_child;
+            }
+            join: ICFGJoin => {
+                if (join.next != null && join.next.id == old_child.id) join.next = new_child;
+            }
+            branch: ICFGBranch => {
+                if (branch.l_branch != null && branch.l_branch.id == old_child.id) branch.l_branch = new_child;
+                if (branch.r_branch != null && branch.r_branch.id == old_child.id) branch.r_branch = new_child;
+            }
+            _ => ;
+        }
+    }
+
+    def put_indent(buf: StringBuilder, indent: int) -> StringBuilder {
+        for (i < indent) buf.puts(" ");
+        return buf;
+    }
+
+    def render_partition_ref(partition: PartitionFrame, buf: StringBuilder) -> StringBuilder {
+        if (partition == null) return buf.puts("null");
+        if (partition.owner_site == null) return buf.puts("root");
+
+        buf.puts("site#").putd(partition.owner_site.site.id)
+            .puts(".").puts(PartitionInference.side_name(partition.side));
+        return buf;
+    }
+
+    def render_cfg_ref(node: ICFGNode, buf: StringBuilder) -> StringBuilder {
+        if (node == null) return buf.puts("null");
+        match (node) {
+            block: ICFGBlock => return buf.puts("block#").putd(block.id);
+            branch: ICFGBranch => return buf.puts("branch#").putd(branch.id);
+            join: ICFGJoin => return buf.puts("join#").putd(join.id);
+            _ => return buf.puts("cfg#").putd(node.id);
+        }
+    }
+
+    def render_site_frame(frame: SiteFrame, indent: int, buf: StringBuilder) -> StringBuilder {
+        put_indent(buf, indent).puts("site#").putd(frame.site.id)
+            .puts(" cond=").putq(frame.site.condition.render)
+            .puts(" branch=");
+        render_cfg_ref(frame.branch_cfg, buf);
+        buf.puts(" merge=");
+        render_cfg_ref(frame.merge_cfg, buf).puts("\n");
+
+        put_indent(buf, indent + 2).puts("parent=");
+        render_partition_ref(frame.parent_partition, buf).puts("\n");
+
+        put_indent(buf, indent + 2).puts("left=");
+        render_partition_ref(frame.left_partition, buf);
+        buf.puts(" top=");
+        render_cfg_ref(frame.left_partition.top_limit, buf);
+        buf.puts(" bottom=");
+        render_cfg_ref(frame.left_partition.default_bottom, buf).puts("\n");
+
+        put_indent(buf, indent + 2).puts("right=");
+        render_partition_ref(frame.right_partition, buf);
+        buf.puts(" top=");
+        render_cfg_ref(frame.right_partition.top_limit, buf);
+        buf.puts(" bottom=");
+        render_cfg_ref(frame.right_partition.default_bottom, buf).puts("\n");
+
+        for (i < frame.left_children.length) {
+            put_indent(buf, indent + 2).puts("left_child:\n");
+            render_site_frame(frame.left_children[i], indent + 4, buf);
+        }
+
+        for (i < frame.right_children.length) {
+            put_indent(buf, indent + 2).puts("right_child:\n");
+            render_site_frame(frame.right_children[i], indent + 4, buf);
+        }
+
+        return buf;
+    }
+}

@@ -1,0 +1,36 @@
+=== IF [unLEM] ===
+=== sea ===
+  #12 doBranch [eff__1](#6 doIf [label]) {CodeptrStackTrapLocalsGlobalsTablesMemoryExtra:#6 doIf [label]}
+  #10 doFallthru [eff__3] {CodeptrStackTrapLocalsGlobalsTablesMemoryExtra:#6 doIf [label]}
+  #18 merge [eff_merge__12](#12 doBranch [eff__1],#10 doFallthru [eff__3])
+  #19 |True|(#16 bool.&& [mb__10]) {CodeptrStackTrapLocalsGlobalsTablesMemoryExtra:#18 merge [eff_merge__12]}
+  #15 U32_maybeFalse [mf__9](#9 u32.== [cond__0])
+  #16 bool.&& [mb__10](#14 U32_maybeTrue [mt__8],#15 U32_maybeFalse [mf__9])
+  #24 doBranch [eff__1__18](#6 doIf [label]) {CodeptrStackTrapLocalsGlobalsTablesMemoryExtra:#6 doIf [label]}
+  #21 |True|(#14 U32_maybeTrue [mt__8]) {CodeptrStackTrapLocalsGlobalsTablesMemoryExtra:#24 doBranch [eff__1__18]}
+  #7 0
+  #9 u32.== [cond__0](#4 pop_u32 [cond],#7 0)
+  #14 U32_maybeTrue [mt__8](#9 u32.== [cond__0])
+  #3 imm_readBlockType [bt] {Codeptr:#0 Start}
+  #4 pop_u32 [cond] {Stack:#0 Start}
+  #0 Start
+  #6 doIf [label](#3 imm_readBlockType [bt]) {Codeptr:#3 imm_readBlockType [bt],Stack:#4 pop_u32 [cond],TrapLocalsGlobalsTablesMemoryExtra:#0 Start}
+  #23 doFallthru [eff__3__17] {CodeptrStackTrapLocalsGlobalsTablesMemoryExtra:#6 doIf [label]}
+  #22 |False|(#14 U32_maybeTrue [mt__8]) {CodeptrStackTrapLocalsGlobalsTablesMemoryExtra:#23 doFallthru [eff__3__17]}
+  #17 StatePhi [U32_maybeTrue [mt__8]](#14 U32_maybeTrue [mt__8],#21 |True|,#22 |False|)
+  #20 |False|(#16 bool.&& [mb__10]) {CodeptrStackTrapLocalsGlobalsTablesMemoryExtra:#17 StatePhi [U32_maybeTrue [mt__8]]}
+  #13 StatePhi [bool.&& [mb__10]](#16 bool.&& [mb__10],#19 |True|,#20 |False|)
+  #1 Finish {CodeptrStackTrapLocalsGlobalsTablesMemoryExtra:#13 StatePhi [bool.&& [mb__10]]}
+
+=== branch_lattices (2) ===
+[0] cond: #16 bool.&& [mb__10]
+    phis: #13 StatePhi [bool.&& [mb__10]]
+    frontier: {0, 3, 4, 6, 7, 9, 14, 15, 16}
+    lsg: {10, 12, 18, 19}
+    rsg: {17, 20, 21, 22, 23, 24}
+[1] cond: #14 U32_maybeTrue [mt__8]
+    phis: #17 StatePhi [U32_maybeTrue [mt__8]]
+    frontier: {0, 3, 4, 6, 7, 9, 14}
+    lsg: {21, 24}
+    rsg: {22, 23}
+

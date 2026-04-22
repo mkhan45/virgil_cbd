@@ -78,29 +78,29 @@ Running partition inference on 1 synthetic opcode(s)
   support={Start, pop_u32 [c1], 0, u32.!= [p]}
   left_only={20, 2, u32.+ [left__9], Phi [left], 30}
   right_only={0, 50, 3, u32.+ [right__14], Phi [right]}
-  cloneable={pop_u32 [c2], 0, u32.!= [q], pop_u32 [x]}
-  anchored={}
-  left_ctx: values={u32.!= [q], pop_u32 [x], Phi [left], 30} states={Stack:{pop_u32 [x]}}
-  right_ctx: values={u32.!= [q], pop_u32 [x], 0, Phi [right]} states={Stack:{pop_u32 [x]}}
+  cloneable={0, u32.!= [q]}
+  anchored={pop_u32 [c2], pop_u32 [x]}
+  left_ctx: values={u32.!= [q], Phi [left], 30} states={}
+  right_ctx: values={u32.!= [q], 0, Phi [right]} states={}
   left:
     site#3 side=left cond=u32.!= [q] phis={Phi [left]}
-      ctx: values={u32.!= [q], pop_u32 [x], Phi [left], 30} states={Stack:{pop_u32 [x]}}
+      ctx: values={u32.!= [q], Phi [left], 30} states={}
       support={Start, pop_u32 [c1], pop_u32 [c2], 0, u32.!= [q]}
       left_only={pop_u32 [x], 2, u32.+ [left__9]}
       right_only={20}
       cloneable={}
       anchored={}
-      left_ctx: values={pop_u32 [x], u32.+ [left__9]} states={Stack:{pop_u32 [x]}}
+      left_ctx: values={u32.+ [left__9]} states={}
       right_ctx: values={20} states={}
   right:
     site#4 side=right cond=u32.!= [q] phis={Phi [right]}
-      ctx: values={u32.!= [q], pop_u32 [x], 0, Phi [right]} states={Stack:{pop_u32 [x]}}
+      ctx: values={u32.!= [q], 0, Phi [right]} states={}
       support={Start, pop_u32 [c1], pop_u32 [c2], 0, u32.!= [q]}
       left_only={pop_u32 [x], 3, u32.+ [right__14]}
       right_only={50}
       cloneable={}
       anchored={}
-      left_ctx: values={pop_u32 [x], u32.+ [right__14]} states={Stack:{pop_u32 [x]}}
+      left_ctx: values={u32.+ [right__14]} states={}
       right_ctx: values={50} states={}
 
 Processed 1 opcode(s), failures=0

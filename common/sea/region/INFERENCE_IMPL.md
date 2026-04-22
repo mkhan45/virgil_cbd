@@ -322,23 +322,14 @@ This is enough to recover the intended site trees for the motivating examples:
 
 Per-partition `anchored` is computed directly from labeled demand in a single context. Merged-site `anchored_overlap` is harder, because merging immediate partitions can create shared overlap that did not exist in any member partition by itself.
 
-The current code handles that in `merged_site_anchored_overlap(...)` with an iterative helper:
-
-- start from the merged site's current `left_region` and `right_region`
-- compute structural escape inside the current clone domain
-- anchor any shared escaping writes
-- remove those anchored writes from the clone domain and repeat
-
-This fixed-point helper is intentionally conservative, and it matches the tracked examples. But the design note now records a likely simplification: one raw-domain escape closure should be enough.
-
-The proposed simplified rule is:
+The current code now handles that in `merged_site_anchored_overlap(...)` with one raw-domain escape closure:
 
 - form `raw_left = union(part.left)` and `raw_right = union(part.right)`
 - define `raw_domain = raw_left ∪ raw_right`
 - compute one structural `escaping(site)` closure inside that raw domain, excluding rewired phi-arm uses
 - set `anchored_overlap = raw_shared ∩ writes ∩ escaping(site)` where `raw_shared = raw_left ∩ raw_right`
 
-The reason the fixed point appears unnecessary is that shrinking the domain can only turn former in-domain consumers into outside consumers. If a later-round anchored write `w` only becomes escaping after some earlier anchored write `a` is removed, then `w` must already be a dependency of `a`, so backward closure from the original raw-domain escape seeds would already have included `w`.
+This matches the design note's simpler rule and removes the old fixed-point helper. The simplification relies on the same argument recorded in the design doc: shrinking the domain can only turn former in-domain consumers into outside consumers, so any shared write that would become escaping in a later round was already a dependency of an original raw-domain escape seed.
 
 The tracked opcodes support this simplification:
 
@@ -456,27 +447,9 @@ There is not yet any machinery for:
 - preserving site identity through untangle rewrites
 - distinguishing original nodes from rewrite-time clones in a persistent site model
 
-## 3. Site-Level Escape Still Uses An Iterative Helper
-
-The current merged-site anchoring code uses a fixed-point helper in `merged_site_anchored_overlap(...)`.
-
-That implementation appears to be correct on the tracked cases, but it is likely stronger than necessary. The design doc now records the likely-equivalent one-shot rule based on a single raw-domain escape closure.
-
-So one concrete next step is to replace the iterative helper with the simpler structural rule and revalidate on the tracked examples and stress cases.
-
 ## Next Steps
 
-## 1. Simplify Site-Level Escape To One Raw-Domain Closure
-
-The next core algorithmic step is likely to replace `merged_site_anchored_overlap(...)` with the simpler site-level rule from `docs/ai/REGION_INFERENCE.md`:
-
-- compute structural escape once on the merged site's raw domain
-- anchor only `raw_shared ∩ writes ∩ escaping(site)`
-- verify equivalence on the tracked opcodes and the shared-effect stress cases
-
-This should remove the need for a fixed-point anchored-set computation without changing the intended site trees.
-
-## 2. Integrate Sites Into `untangle`
+## 1. Integrate Sites Into `untangle`
 
 The current `untangle()` loop repeatedly discovers mutable branch lattices from the rewritten graph.
 
@@ -489,7 +462,7 @@ The target state is:
 
 This is the main architectural payoff of the region model.
 
-## 3. Integrate Sites Into Bottom-Up Scheduling
+## 2. Integrate Sites Into Bottom-Up Scheduling
 
 After `untangle`, the bottom-up scheduler should consume the same site tree directly for:
 
@@ -499,7 +472,7 @@ After `untangle`, the bottom-up scheduler should consume the same site tree dire
 
 This removes the current split where untangle and scheduling each reconstruct branch structure separately.
 
-## 4. Expand Assertions Beyond The Current Goldens
+## 3. Expand Assertions Beyond The Current Goldens
 
 The examples that shaped the design now have golden partition dumps, but there is still room to add more targeted assertions.
 
@@ -516,8 +489,7 @@ The next useful assertion level is structural checks over the discovered context
 
 If continuing this work from here, the most sensible order is:
 
-1. replace the iterative merged-site anchoring helper with the one-shot raw-domain closure rule
-2. switch `untangle` to consume stable inferred sites
-3. switch bottom-up scheduling to consume the same site tree
-4. fold the partition goldens into the standard scheduler debugging workflow
-5. clean up the remaining naming/docs mismatch around canonical opcodes in `schedule_test.sh`
+1. switch `untangle` to consume stable inferred sites
+2. switch bottom-up scheduling to consume the same site tree
+3. fold the partition goldens into the standard scheduler debugging workflow
+4. clean up the remaining naming/docs mismatch around canonical opcodes in `schedule_test.sh`

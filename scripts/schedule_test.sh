@@ -29,7 +29,7 @@ WIZARD="./wizard-engine"
 ENGINE="$WIZARD/src/engine/*.v3 $WIZARD/src/engine/continuation/BoxedContinuation.v3"
 WIZARD_UTIL="$WIZARD/src/util/*.v3"
 
-SOURCES="$VIRGIL_STD common/*.v3 common/*/*.v3 $ENGINE $WIZARD_UTIL tests/ScheduleTest.v3"
+SOURCES="$VIRGIL_STD common/*.v3 common/*/*.v3 common/sea/region/Inference.v3 $ENGINE $WIZARD_UTIL tests/ScheduleTest.v3"
 
 if [ "$PROFILE" = "true" ]; then
   VIRGIL="${VIRGIL:-../virgil/bin/current/x86-64-linux/Aeneas -profile -O2 -run -fun-exprs -simple-bodies}"
