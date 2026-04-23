@@ -1,37 +1,24 @@
 === IF [instances unLEM] ===
 instances=16
 instance#0 node=#13 StatePhi [bool.&& [mb__10]] home=root
+  dep=instance#1 role=phi_cond
+  dep=instance#2 role=phi_left
+  dep=instance#3 role=phi_right
 instance#1 node=#16 bool.&& [mb__10] home=root
   dep=instance#4 role=value[0]
-  dep=instance#7 role=value[1]
+  dep=instance#5 role=value[1]
 instance#2 node=#18 merge [eff_merge__12] home=site#1.left
-  dep=instance#8 role=value[0]
-  dep=instance#9 role=value[1]
+  dep=instance#6 role=value[0]
+  dep=instance#8 role=value[1]
 instance#3 node=#17 StatePhi [U32_maybeTrue [mt__8]] home=site#1.right
+  dep=instance#4 role=phi_cond
+  dep=instance#7 role=phi_left
+  dep=instance#9 role=phi_right
 instance#4 node=#14 U32_maybeTrue [mt__8] home=root
   dep=instance#10 role=value[0]
-instance#5 node=#12 doBranch [eff__1] home=site#2.left
-  dep=instance#11 role=value[0]
-  dep=instance#11 role=state[Codeptr]
-  dep=instance#11 role=state[Stack]
-  dep=instance#11 role=state[Trap]
-  dep=instance#11 role=state[Locals]
-  dep=instance#11 role=state[Globals]
-  dep=instance#11 role=state[Tables]
-  dep=instance#11 role=state[Memory]
-  dep=instance#11 role=state[Extra]
-instance#6 node=#10 doFallthru [eff__3] home=site#2.right
-  dep=instance#11 role=state[Codeptr]
-  dep=instance#11 role=state[Stack]
-  dep=instance#11 role=state[Trap]
-  dep=instance#11 role=state[Locals]
-  dep=instance#11 role=state[Globals]
-  dep=instance#11 role=state[Tables]
-  dep=instance#11 role=state[Memory]
-  dep=instance#11 role=state[Extra]
-instance#7 node=#15 U32_maybeFalse [mf__9] home=root
+instance#5 node=#15 U32_maybeFalse [mf__9] home=root
   dep=instance#10 role=value[0]
-instance#8 node=#12 doBranch [eff__1] home=site#1.left
+instance#6 node=#12 doBranch [eff__1] home=site#1.left
   dep=instance#11 role=value[0]
   dep=instance#11 role=state[Codeptr]
   dep=instance#11 role=state[Stack]
@@ -41,7 +28,26 @@ instance#8 node=#12 doBranch [eff__1] home=site#1.left
   dep=instance#11 role=state[Tables]
   dep=instance#11 role=state[Memory]
   dep=instance#11 role=state[Extra]
-instance#9 node=#10 doFallthru [eff__3] home=site#1.left
+instance#7 node=#12 doBranch [eff__1] home=site#2.left
+  dep=instance#11 role=value[0]
+  dep=instance#11 role=state[Codeptr]
+  dep=instance#11 role=state[Stack]
+  dep=instance#11 role=state[Trap]
+  dep=instance#11 role=state[Locals]
+  dep=instance#11 role=state[Globals]
+  dep=instance#11 role=state[Tables]
+  dep=instance#11 role=state[Memory]
+  dep=instance#11 role=state[Extra]
+instance#8 node=#10 doFallthru [eff__3] home=site#1.left
+  dep=instance#11 role=state[Codeptr]
+  dep=instance#11 role=state[Stack]
+  dep=instance#11 role=state[Trap]
+  dep=instance#11 role=state[Locals]
+  dep=instance#11 role=state[Globals]
+  dep=instance#11 role=state[Tables]
+  dep=instance#11 role=state[Memory]
+  dep=instance#11 role=state[Extra]
+instance#9 node=#10 doFallthru [eff__3] home=site#2.right
   dep=instance#11 role=state[Codeptr]
   dep=instance#11 role=state[Stack]
   dep=instance#11 role=state[Trap]

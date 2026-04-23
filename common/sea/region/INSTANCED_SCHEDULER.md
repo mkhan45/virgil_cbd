@@ -27,7 +27,8 @@ This keeps scope recovery in one place:
 - `PartitionInference` discovers the realized branch tree once.
 - Phase 0 lowers that fixed tree into a CFG skeleton.
 - `resolve_home(...)` decides where a particular use of a node may live.
-- Instance discovery interns `(root node, home partition)` obligations.
+- Instance discovery computes per-root home plans, then materializes `(root node,
+  home partition)` obligations.
 - Later placement will schedule those instances without rewriting the Sea.
 
 The important invariant is that branch structure is fixed before scheduling. The
@@ -41,7 +42,7 @@ Implemented:
 - `common/sea/region/InstancedScheduler.v3`
 - Phase 0 static scope skeleton construction.
 - Phase 1 `resolve_home(...)`.
-- Phase 2 eager instance discovery.
+- Phase 2 home-plan instance discovery.
 - `common/sea/region/ISRender.v3` for Phase 0, home-resolution, and instance rendering.
 - `tests/InstancedSchedulerTest.v3` with `--resolve-home` and `--instances` modes.
 - `scripts/instanced_scheduler_golden_test.sh` for Phase 0 skeleton goldens.
@@ -328,19 +329,21 @@ Useful commands:
 
 ## Phase 2: Instance Discovery
 
-Phase 2 eagerly discovers the instance graph demanded by `Finish` and by all
-site-owned phi edges.
+Phase 2 discovers the instance graph demanded by `Finish`. Phi and StatePhi
+instances then expand through their owning `SiteFrame` to demand the relevant
+condition and arms.
 
 Current scheduler tables:
 
 ```text
+InstanceHomePlan(root, demands, homes)
 instances: Vector<SchedulerInstance>
 instance_deps: Vector<Vector<InstanceDep>>
 ```
 
-The current implementation interns instances by a linear scan over
-`instances`. That is intentionally simple for now. A faster key table can be
-added later if profiling shows it matters.
+The home-plan pass is the only phase that decides whether a root has one shared
+instance or multiple path-exclusive instances. Placement must consume the final
+instances as fixed facts; it must not merge, split, or clone them.
 
 ### Demand Seeds
 
@@ -348,29 +351,40 @@ Initial demand roots:
 
 - every `Finish.value_deps[i]` in the root partition with `UseRole.Value(i)`
 - every `Finish.state_deps[sc]` in the root partition with `UseRole.State(sc)`
-- every site phi condition in `frame.parent_partition` with `UseRole.PhiCond`
-- every site phi left arm in `frame.left_partition` with `UseRole.PhiLeft`
-- every site phi right arm in `frame.right_partition` with `UseRole.PhiRight`
 
 For each demand:
 
 ```text
 home = resolve_home(root, use_partition, role)
-instance = intern(root.unwrapMove(), home)
+plan[root].demands += home
 ```
+
+The selected `plan[root].homes` are recomputed from all demands. A selected home
+covers a demand if it is equal to or an ancestor of the demanded home. If two
+selected homes for the same root are not path-exclusive, discovery replaces them
+with their nearest common partition and continues until the home set is stable.
+
+After the home plans converge, instances are materialized from the selected
+homes. Final instances for the same root must be pairwise path-exclusive.
 
 ### Dependency Expansion
 
-For each newly interned non-phi, non-move instance:
+For each selected ordinary non-move instance:
 
 - each value dependency is demanded in the instance's home partition.
 - each state dependency is demanded in the instance's home partition.
 - each discovered dependency edge records the `UseRole` that caused it.
 
-Phi dependencies are not expanded generically from the phi node. Phi condition
-and arm dependencies are site-owned and are seeded from `SiteFrame`s instead.
+For each selected Phi or StatePhi instance:
+
+- find the `SiteFrame` that contains the phi and whose `parent_partition` is the
+  instance home.
+- demand the phi condition in the site parent partition.
+- demand the left arm in the site left partition.
+- demand the right arm in the site right partition.
+
 This preserves the distinction between ordinary dependencies and branch-owned
-dependencies.
+dependencies without eagerly seeding every contextual site occurrence.
 
 Move nodes are normalized through `unwrapMove()` before interning, so they do
 not become stable instance identities.
@@ -395,18 +409,18 @@ Useful commands:
 
 `SAME_SCOPE_Q_ON_BOTH_P_SIDES` demonstrates same-condition separation:
 
-- the two local `q` sites remain distinct because their partition ancestor paths
-  differ.
-- left-arm values resolve under `p.left` and right-arm values resolve under
-  `p.right`.
-- shared support such as `pop_u32 [c2]` stays in `root`.
+- the two local `q` branch sites remain distinct because their partition
+  ancestor paths differ.
+- the shared `q` condition and `pop_u32 [c2]` stay in `root`.
+- the two inner `pop_u32` arm effects stay under their respective local `q.left`
+  homes.
 
 `OUTER_Q_AND_BOTH_P_SIDES_Q` demonstrates no sibling interference:
 
 - root `q_outer` and root `p` are siblings.
 - uses under `p` walk only the `p` ancestor path.
-- nested `q` condition structure under `p.left` and `p.right` may specialize
-  independently.
+- `pop_u32 [x]` and the shared `q` condition have one root instance, while the
+  nested `q` phi arms specialize under `p.left` and `p.right`.
 
 ## Rendering And Tests
 

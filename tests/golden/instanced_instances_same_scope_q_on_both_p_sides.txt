@@ -2,38 +2,56 @@
 instances=22
 instance#0 node=#0 Start home=root
 instance#1 node=#35 push_u32 [eff__0] home=root
+  dep=instance#2 role=value[0]
+  dep=instance#3 role=state[Stack]
+instance#2 node=#31 Phi [left] home=root
+  dep=instance#4 role=phi_cond
+  dep=instance#5 role=phi_left
+  dep=instance#6 role=phi_right
+instance#3 node=#33 StatePhi [u32.!= [p]] home=root
+  dep=instance#4 role=phi_cond
+  dep=instance#7 role=phi_left
+  dep=instance#8 role=phi_right
+instance#4 node=#7 u32.!= [p] home=root
+  dep=instance#9 role=value[0]
+  dep=instance#10 role=value[1]
+instance#5 node=#30 u32.+ [left__3] home=site#1.left
+  dep=instance#11 role=value[0]
+  dep=instance#12 role=value[1]
+instance#6 node=#21 u32.+ [left__9] home=site#1.right
   dep=instance#13 role=value[0]
-  dep=instance#14 role=state[Stack]
-instance#2 node=#7 u32.!= [p] home=root
-  dep=instance#15 role=value[0]
-  dep=instance#16 role=value[1]
-instance#3 node=#30 u32.+ [left__3] home=site#1.left
-  dep=instance#17 role=value[0]
-  dep=instance#18 role=value[1]
-instance#4 node=#21 u32.+ [left__9] home=site#1.right
-  dep=instance#19 role=value[0]
-  dep=instance#20 role=value[1]
-instance#5 node=#27 StatePhi [u32.!= [q]] home=site#1.left
-instance#6 node=#18 StatePhi [u32.!= [q]] home=site#1.right
-instance#7 node=#10 u32.!= [q] home=root
-  dep=instance#10 role=value[0]
-  dep=instance#21 role=value[1]
-instance#8 node=#25 pop_u32 [inner__7] home=site#2.left
-  dep=instance#10 role=state[Stack]
-instance#9 node=#24 11 home=site#2.right
-instance#10 node=#4 pop_u32 [c2] home=root
-  dep=instance#15 role=state[Stack]
-instance#11 node=#16 pop_u32 [inner__13] home=site#3.left
-  dep=instance#10 role=state[Stack]
-instance#12 node=#15 21 home=site#3.right
-instance#13 node=#31 Phi [left] home=root
-instance#14 node=#33 StatePhi [u32.!= [p]] home=root
-instance#15 node=#3 pop_u32 [c1] home=root
+  dep=instance#14 role=value[1]
+instance#7 node=#27 StatePhi [u32.!= [q]] home=site#1.left
+  dep=instance#15 role=phi_cond
+  dep=instance#16 role=phi_left
+  dep=instance#17 role=phi_right
+instance#8 node=#18 StatePhi [u32.!= [q]] home=site#1.right
+  dep=instance#15 role=phi_cond
+  dep=instance#18 role=phi_left
+  dep=instance#17 role=phi_right
+instance#9 node=#3 pop_u32 [c1] home=root
   dep=instance#0 role=state[Stack]
-instance#16 node=#5 0 home=root
-instance#17 node=#26 Phi [inner] home=site#1.left
-instance#18 node=#28 1 home=site#1.left
-instance#19 node=#17 Phi [inner] home=site#1.right
-instance#20 node=#19 2 home=site#1.right
+instance#10 node=#5 0 home=root
+instance#11 node=#26 Phi [inner] home=site#1.left
+  dep=instance#15 role=phi_cond
+  dep=instance#16 role=phi_left
+  dep=instance#19 role=phi_right
+instance#12 node=#28 1 home=site#1.left
+instance#13 node=#17 Phi [inner] home=site#1.right
+  dep=instance#15 role=phi_cond
+  dep=instance#18 role=phi_left
+  dep=instance#20 role=phi_right
+instance#14 node=#19 2 home=site#1.right
+instance#15 node=#10 u32.!= [q] home=root
+  dep=instance#17 role=value[0]
+  dep=instance#21 role=value[1]
+instance#16 node=#25 pop_u32 [inner__7] home=site#2.left
+  dep=instance#17 role=state[Stack]
+instance#17 node=#4 pop_u32 [c2] home=root
+  dep=instance#9 role=state[Stack]
+instance#18 node=#16 pop_u32 [inner__13] home=site#3.left
+  dep=instance#17 role=state[Stack]
+instance#19 node=#24 11 home=site#2.right
+instance#20 node=#15 21 home=site#3.right
 instance#21 node=#8 0 home=root
 

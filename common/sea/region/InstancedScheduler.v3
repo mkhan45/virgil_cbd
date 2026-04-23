@@ -19,6 +19,14 @@ class InstanceDep {
     new(dep, role) {}
 }
 
+class InstanceHomePlan {
+    var root: IRNode;
+    var demands: Vector<PartitionFrame> = Vector<PartitionFrame>.new();
+    var homes: Vector<PartitionFrame> = Vector<PartitionFrame>.new();
+
+    new(root) {}
+}
+
 class PartitionFrame {
     var id: int;
     var parent: PartitionFrame;
@@ -284,6 +292,145 @@ component InstancedScheduler {
         }
     }
 
+    def same_partition(lhs: PartitionFrame, rhs: PartitionFrame) -> bool {
+        if (lhs == null || rhs == null) return lhs == rhs;
+        return lhs.id == rhs.id;
+    }
+
+    def partition_is_ancestor(ancestor: PartitionFrame, partition: PartitionFrame) -> bool {
+        if (ancestor == null || partition == null) return false;
+        var cur = partition;
+        while (cur != null) {
+            if (same_partition(ancestor, cur)) return true;
+            cur = cur.parent;
+        }
+        return false;
+    }
+
+    def nearest_common_partition(lhs: PartitionFrame, rhs: PartitionFrame) -> PartitionFrame {
+        if (lhs == null) return rhs;
+        if (rhs == null) return lhs;
+
+        var cur = lhs;
+        while (cur != null) {
+            if (partition_is_ancestor(cur, rhs)) return cur;
+            cur = cur.parent;
+        }
+        return null;
+    }
+
+    def opposite_sides(lhs: SiteSide, rhs: SiteSide) -> bool {
+        if (SiteSide.Left.?(lhs) && SiteSide.Right.?(rhs)) return true;
+        if (SiteSide.Right.?(lhs) && SiteSide.Left.?(rhs)) return true;
+        return false;
+    }
+
+    def partitions_path_exclusive(lhs: PartitionFrame, rhs: PartitionFrame) -> bool {
+        if (lhs == null || rhs == null) return false;
+        if (partition_is_ancestor(lhs, rhs) || partition_is_ancestor(rhs, lhs)) return false;
+
+        def lhs_path = ancestor_partitions(lhs);
+        def rhs_path = ancestor_partitions(rhs);
+        var i = 0;
+        while (i < lhs_path.length && i < rhs_path.length) {
+            if (!same_partition(lhs_path[i], rhs_path[i])) break;
+            i += 1;
+        }
+
+        if (i >= lhs_path.length || i >= rhs_path.length) return false;
+        def lhs_step = lhs_path[i];
+        def rhs_step = rhs_path[i];
+        if (lhs_step.owner_site == null || rhs_step.owner_site == null) return false;
+        if (lhs_step.owner_site.site.id != rhs_step.owner_site.site.id) return false;
+        return opposite_sides(lhs_step.side, rhs_step.side);
+    }
+
+    def same_partition_vec(lhs: Vector<PartitionFrame>, rhs: Vector<PartitionFrame>) -> bool {
+        if (lhs.length != rhs.length) return false;
+        for (i < lhs.length) if (!same_partition(lhs[i], rhs[i])) return false;
+        return true;
+    }
+
+    def home_demand_exists(plan: InstanceHomePlan, home: PartitionFrame) -> bool {
+        for (i < plan.demands.length) if (same_partition(plan.demands[i], home)) return true;
+        return false;
+    }
+
+    def insert_plan_home(homes: Vector<PartitionFrame>, requested: PartitionFrame) -> Vector<PartitionFrame> {
+        var home = requested;
+        var cur_homes = homes;
+
+        while (true) {
+            for (i < cur_homes.length)
+                if (partition_is_ancestor(cur_homes[i], home)) return cur_homes;
+
+            var conflict_idx = -1;
+            for (i < cur_homes.length) {
+                if (!partitions_path_exclusive(cur_homes[i], home)) {
+                    conflict_idx = i;
+                    break;
+                }
+            }
+
+            if (conflict_idx < 0) {
+                def out = Vector<PartitionFrame>.new();
+                for (i < cur_homes.length) out.put(cur_homes[i]);
+                out.put(home);
+                return out;
+            }
+
+            home = nearest_common_partition(cur_homes[conflict_idx], home);
+            def kept = Vector<PartitionFrame>.new();
+            for (i < cur_homes.length) if (i != conflict_idx) kept.put(cur_homes[i]);
+            cur_homes = kept;
+        }
+
+        return cur_homes;
+    }
+
+    def recompute_plan_homes(plan: InstanceHomePlan) -> bool {
+        def old_homes = plan.homes;
+        var new_homes = Vector<PartitionFrame>.new();
+        for (i < plan.demands.length) new_homes = insert_plan_home(new_homes, plan.demands[i]);
+        plan.homes = new_homes;
+        return !same_partition_vec(old_homes, new_homes);
+    }
+
+    def find_home_plan(plans: Vector<InstanceHomePlan>, root: IRNode) -> InstanceHomePlan {
+        if (root == null) return null;
+        for (i < plans.length) if (plans[i].root.id == root.id) return plans[i];
+        return null;
+    }
+
+    def add_plan_demand(scheduler: InstancedSeaScheduler,
+                        plans: Vector<InstanceHomePlan>,
+                        root_: IRNode,
+                        home_: PartitionFrame) -> bool {
+        if (root_ == null) return false;
+        def root = root_.unwrapMove();
+        def home = if(home_ != null, home_, scheduler.root_partition);
+
+        var plan = find_home_plan(plans, root);
+        if (plan == null) {
+            plan = InstanceHomePlan.new(root);
+            plans.put(plan);
+        }
+
+        if (home_demand_exists(plan, home)) return false;
+        plan.demands.put(home);
+        return recompute_plan_homes(plan);
+    }
+
+    def add_resolved_plan_demand(scheduler: InstancedSeaScheduler,
+                                 plans: Vector<InstanceHomePlan>,
+                                 root: IRNode,
+                                 use_partition: PartitionFrame,
+                                 role: UseRole) -> bool {
+        if (root == null) return false;
+        def home = scheduler.resolve_home(root, use_partition, role);
+        return add_plan_demand(scheduler, plans, root, home);
+    }
+
     def resolve_home(scheduler: InstancedSeaScheduler,
                      root_: IRNode,
                      use_partition: PartitionFrame,
@@ -318,8 +465,7 @@ component InstancedScheduler {
 
     def intern_instance(scheduler: InstancedSeaScheduler,
                         root_: IRNode,
-                        home: PartitionFrame,
-                        worklist: Vector<SchedulerInstance>) -> SchedulerInstance {
+                        home: PartitionFrame) -> SchedulerInstance {
         if (root_ == null) return null;
         def root = root_.unwrapMove();
         def resolved_home = if(home != null, home, scheduler.root_partition);
@@ -332,18 +478,7 @@ component InstancedScheduler {
         def inst = SchedulerInstance.new(scheduler.instances.length, root, resolved_home, null, null);
         scheduler.instances.put(inst);
         scheduler.instance_deps.put(Vector<InstanceDep>.new());
-        worklist.put(inst);
         return inst;
-    }
-
-    def demand_instance(scheduler: InstancedSeaScheduler,
-                        root: IRNode,
-                        use_partition: PartitionFrame,
-                        role: UseRole,
-                        worklist: Vector<SchedulerInstance>) -> SchedulerInstance {
-        if (root == null) return null;
-        def home = scheduler.resolve_home(root, use_partition, role);
-        return intern_instance(scheduler, root, home, worklist);
     }
 
     def add_instance_dep(scheduler: InstancedSeaScheduler,
@@ -358,68 +493,156 @@ component InstancedScheduler {
                               user: SchedulerInstance,
                               dep_root: IRNode,
                               use_partition: PartitionFrame,
-                              role: UseRole,
-                              worklist: Vector<SchedulerInstance>) {
+                              role: UseRole) {
         if (dep_root == null) return;
-        def dep = demand_instance(scheduler, dep_root, use_partition, role, worklist);
+        def dep = find_covering_instance(scheduler, dep_root, scheduler.resolve_home(dep_root, use_partition, role));
         if (dep != null && user.id != dep.id) add_instance_dep(scheduler, user, dep, role);
     }
 
-    def seed_finish_demands(scheduler: InstancedSeaScheduler,
-                            worklist: Vector<SchedulerInstance>) {
+    def seed_finish_plan_demands(scheduler: InstancedSeaScheduler,
+                                 plans: Vector<InstanceHomePlan>) -> bool {
+        var changed = false;
         def finish = scheduler.bottom_node;
         for (i < finish.value_deps.length)
             if (finish.value_deps[i] != null)
-                demand_instance(scheduler, finish.value_deps[i], scheduler.root_partition, UseRole.Value(i), worklist);
+                changed |= add_resolved_plan_demand(scheduler, plans, finish.value_deps[i], scheduler.root_partition, UseRole.Value(i));
 
         for (sc in StateComponent.set.all)
             if (finish.state_deps[sc.tag] != null)
-                demand_instance(scheduler, finish.state_deps[sc.tag], scheduler.root_partition, UseRole.State(sc), worklist);
+                changed |= add_resolved_plan_demand(scheduler, plans, finish.state_deps[sc.tag], scheduler.root_partition, UseRole.State(sc));
+        return changed;
     }
 
-    def seed_site_phi_demands(scheduler: InstancedSeaScheduler,
-                              worklist: Vector<SchedulerInstance>) {
+    def site_frame_has_phi(frame: SiteFrame, phi: IRNode) -> bool {
+        if (frame == null || phi == null) return false;
+        for (i < frame.site.phis.length) if (frame.site.phis[i].id == phi.id) return true;
+        return false;
+    }
+
+    def find_site_frame_for_phi_home(scheduler: InstancedSeaScheduler,
+                                     phi: IRNode,
+                                     home: PartitionFrame) -> SiteFrame {
         for (i < scheduler.site_frames.length) {
             def frame = scheduler.site_frames[i];
-            for (j < frame.site.phis.length) {
-                def phi = frame.site.phis[j];
-                if (phi.value_deps.length > 0 && phi.value_deps[0] != null)
-                    demand_instance(scheduler, phi.value_deps[0], frame.parent_partition, UseRole.PhiCond, worklist);
-                if (phi.value_deps.length > 1 && phi.value_deps[1] != null)
-                    demand_instance(scheduler, phi.value_deps[1], frame.left_partition, UseRole.PhiLeft, worklist);
-                if (phi.value_deps.length > 2 && phi.value_deps[2] != null)
-                    demand_instance(scheduler, phi.value_deps[2], frame.right_partition, UseRole.PhiRight, worklist);
-            }
+            if (!site_frame_has_phi(frame, phi)) continue;
+            if (same_partition(frame.parent_partition, home)) return frame;
         }
+        return null;
     }
 
-    def discover_instance_deps(scheduler: InstancedSeaScheduler,
-                               inst: SchedulerInstance,
-                               worklist: Vector<SchedulerInstance>) {
-        def node = inst.root;
-        if (node == null || node.is_phi() || node.is_move()) return;
+    def expand_phi_plan_home(scheduler: InstancedSeaScheduler,
+                             plans: Vector<InstanceHomePlan>,
+                             phi: IRNode,
+                             home: PartitionFrame) -> bool {
+        def frame = find_site_frame_for_phi_home(scheduler, phi, home);
+        if (frame == null) return false;
 
-        for (i < node.value_deps.length)
-            add_dependency_demand(scheduler, inst, node.value_deps[i], inst.home, UseRole.Value(i), worklist);
+        var changed = false;
+        if (phi.value_deps.length > 0 && phi.value_deps[0] != null)
+            changed |= add_resolved_plan_demand(scheduler, plans, phi.value_deps[0], frame.parent_partition, UseRole.PhiCond);
+        if (phi.value_deps.length > 1 && phi.value_deps[1] != null)
+            changed |= add_resolved_plan_demand(scheduler, plans, phi.value_deps[1], frame.left_partition, UseRole.PhiLeft);
+        if (phi.value_deps.length > 2 && phi.value_deps[2] != null)
+            changed |= add_resolved_plan_demand(scheduler, plans, phi.value_deps[2], frame.right_partition, UseRole.PhiRight);
+        return changed;
+    }
+
+    def expand_plan_home(scheduler: InstancedSeaScheduler,
+                         plans: Vector<InstanceHomePlan>,
+                         root: IRNode,
+                         home: PartitionFrame) -> bool {
+        if (root == null || root.is_move()) return false;
+        if (root.is_phi()) return expand_phi_plan_home(scheduler, plans, root, home);
+
+        var changed = false;
+        for (i < root.value_deps.length)
+            changed |= add_resolved_plan_demand(scheduler, plans, root.value_deps[i], home, UseRole.Value(i));
 
         for (sc in StateComponent.set.all)
-            add_dependency_demand(scheduler, inst, node.state_deps[sc.tag], inst.home, UseRole.State(sc), worklist);
+            changed |= add_resolved_plan_demand(scheduler, plans, root.state_deps[sc.tag], home, UseRole.State(sc));
+
+        return changed;
     }
 
-    def discover_instances(scheduler: InstancedSeaScheduler) {
+    def discover_home_plans(scheduler: InstancedSeaScheduler) -> Vector<InstanceHomePlan> {
+        def plans = Vector<InstanceHomePlan>.new();
+        seed_finish_plan_demands(scheduler, plans);
+
+        var changed = true;
+        while (changed) {
+            changed = false;
+            var pidx = 0;
+            while (pidx < plans.length) {
+                def plan = plans[pidx];
+                pidx += 1;
+                for (hidx < plan.homes.length)
+                    changed |= expand_plan_home(scheduler, plans, plan.root, plan.homes[hidx]);
+            }
+        }
+
+        return plans;
+    }
+
+    def materialize_instances(scheduler: InstancedSeaScheduler,
+                              plans: Vector<InstanceHomePlan>) {
         scheduler.instances = Vector<SchedulerInstance>.new();
         scheduler.instance_deps = Vector<Vector<InstanceDep>>.new();
 
-        def worklist = Vector<SchedulerInstance>.new();
-        seed_finish_demands(scheduler, worklist);
-        seed_site_phi_demands(scheduler, worklist);
-
-        var i = 0;
-        while (i < worklist.length) {
-            def inst = worklist[i];
-            i += 1;
-            discover_instance_deps(scheduler, inst, worklist);
+        for (i < plans.length) {
+            def plan = plans[i];
+            for (j < plan.homes.length) intern_instance(scheduler, plan.root, plan.homes[j]);
         }
+    }
+
+    def find_covering_instance(scheduler: InstancedSeaScheduler,
+                               root_: IRNode,
+                               requested_home: PartitionFrame) -> SchedulerInstance {
+        if (root_ == null) return null;
+        def root = root_.unwrapMove();
+        def home = if(requested_home != null, requested_home, scheduler.root_partition);
+
+        for (i < scheduler.instances.length) {
+            def inst = scheduler.instances[i];
+            if (inst.root.id != root.id) continue;
+            if (partition_is_ancestor(inst.home, home)) return inst;
+        }
+        return null;
+    }
+
+    def add_phi_instance_deps(scheduler: InstancedSeaScheduler,
+                              inst: SchedulerInstance) {
+        def phi = inst.root;
+        def frame = find_site_frame_for_phi_home(scheduler, phi, inst.home);
+        if (frame == null) return;
+
+        if (phi.value_deps.length > 0 && phi.value_deps[0] != null)
+            add_dependency_demand(scheduler, inst, phi.value_deps[0], frame.parent_partition, UseRole.PhiCond);
+        if (phi.value_deps.length > 1 && phi.value_deps[1] != null)
+            add_dependency_demand(scheduler, inst, phi.value_deps[1], frame.left_partition, UseRole.PhiLeft);
+        if (phi.value_deps.length > 2 && phi.value_deps[2] != null)
+            add_dependency_demand(scheduler, inst, phi.value_deps[2], frame.right_partition, UseRole.PhiRight);
+    }
+
+    def discover_instance_deps(scheduler: InstancedSeaScheduler,
+                               inst: SchedulerInstance) {
+        def node = inst.root;
+        if (node == null || node.is_move()) return;
+        if (node.is_phi()) {
+            add_phi_instance_deps(scheduler, inst);
+            return;
+        }
+
+        for (i < node.value_deps.length)
+            add_dependency_demand(scheduler, inst, node.value_deps[i], inst.home, UseRole.Value(i));
+
+        for (sc in StateComponent.set.all)
+            add_dependency_demand(scheduler, inst, node.state_deps[sc.tag], inst.home, UseRole.State(sc));
+    }
+
+    def discover_instances(scheduler: InstancedSeaScheduler) {
+        def plans = discover_home_plans(scheduler);
+        materialize_instances(scheduler, plans);
+        for (i < scheduler.instances.length) discover_instance_deps(scheduler, scheduler.instances[i]);
     }
 
 }
