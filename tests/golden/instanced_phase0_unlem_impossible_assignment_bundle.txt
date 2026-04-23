@@ -1,0 +1,87 @@
+=== UNLEM_IMPOSSIBLE_ASSIGNMENT_BUNDLE [phase0 raw] ===
+root_partition side=root top=null bottom=block#1
+cfg top=branch#58 bottom=block#1
+  site#1 cond=u32.!= [p] branch=branch#58 merge=join#59
+    parent=root
+    left=site#1.left top=branch#58 bottom=block#60
+    right=site#1.right top=branch#58 bottom=block#61
+    left_child:
+      site#2 cond=u32.!= [q] branch=branch#62 merge=join#63
+        parent=site#1.left
+        left=site#2.left top=branch#62 bottom=block#64
+        right=site#2.right top=branch#62 bottom=block#65
+    right_child:
+      site#3 cond=u32.!= [q] branch=branch#66 merge=join#67
+        parent=site#1.right
+        left=site#3.left top=branch#66 bottom=block#68
+        right=site#3.right top=branch#66 bottom=block#69
+  site#4 cond=u32.!= [p] branch=branch#2 merge=join#3
+    parent=root
+    left=site#4.left top=branch#2 bottom=block#4
+    right=site#4.right top=branch#2 bottom=block#5
+    left_child:
+      site#5 cond=u32.!= [p] branch=branch#34 merge=join#35
+        parent=site#4.left
+        left=site#5.left top=branch#34 bottom=block#36
+        right=site#5.right top=branch#34 bottom=block#37
+        left_child:
+          site#6 cond=u32.!= [q] branch=branch#38 merge=join#39
+            parent=site#5.left
+            left=site#6.left top=branch#38 bottom=block#40
+            right=site#6.right top=branch#38 bottom=block#41
+        right_child:
+          site#7 cond=u32.!= [q] branch=branch#42 merge=join#43
+            parent=site#5.right
+            left=site#7.left top=branch#42 bottom=block#44
+            right=site#7.right top=branch#42 bottom=block#45
+    left_child:
+      site#8 cond=u32.!= [r] branch=branch#6 merge=join#7
+        parent=site#4.left
+        left=site#8.left top=branch#6 bottom=block#8
+        right=site#8.right top=branch#6 bottom=block#9
+        left_child:
+          site#9 cond=u32.!= [p] branch=branch#10 merge=join#11
+            parent=site#8.left
+            left=site#9.left top=branch#10 bottom=block#12
+            right=site#9.right top=branch#10 bottom=block#13
+            left_child:
+              site#10 cond=u32.!= [q] branch=branch#14 merge=join#15
+                parent=site#9.left
+                left=site#10.left top=branch#14 bottom=block#16
+                right=site#10.right top=branch#14 bottom=block#17
+            right_child:
+              site#11 cond=u32.!= [q] branch=branch#18 merge=join#19
+                parent=site#9.right
+                left=site#11.left top=branch#18 bottom=block#20
+                right=site#11.right top=branch#18 bottom=block#21
+        right_child:
+          site#12 cond=u32.!= [p] branch=branch#22 merge=join#23
+            parent=site#8.right
+            left=site#12.left top=branch#22 bottom=block#24
+            right=site#12.right top=branch#22 bottom=block#25
+            left_child:
+              site#13 cond=u32.!= [q] branch=branch#26 merge=join#27
+                parent=site#12.left
+                left=site#13.left top=branch#26 bottom=block#28
+                right=site#13.right top=branch#26 bottom=block#29
+            right_child:
+              site#14 cond=u32.!= [q] branch=branch#30 merge=join#31
+                parent=site#12.right
+                left=site#14.left top=branch#30 bottom=block#32
+                right=site#14.right top=branch#30 bottom=block#33
+    right_child:
+      site#15 cond=u32.!= [p] branch=branch#46 merge=join#47
+        parent=site#4.right
+        left=site#15.left top=branch#46 bottom=block#48
+        right=site#15.right top=branch#46 bottom=block#49
+        left_child:
+          site#16 cond=u32.!= [q] branch=branch#50 merge=join#51
+            parent=site#15.left
+            left=site#16.left top=branch#50 bottom=block#52
+            right=site#16.right top=branch#50 bottom=block#53
+        right_child:
+          site#17 cond=u32.!= [q] branch=branch#54 merge=join#55
+            parent=site#15.right
+            left=site#17.left top=branch#54 bottom=block#56
+            right=site#17.right top=branch#54 bottom=block#57
+

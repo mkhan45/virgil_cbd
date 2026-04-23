@@ -5,6 +5,7 @@ InterpreterMain
 ValidatorGen
 ScheduleTest
 PartitionTest
+InstancedSchedulerTest
 *Main
 *AI
 

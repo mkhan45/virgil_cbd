@@ -1,0 +1,123 @@
+def SYNTHETIC_V3   = "./tests/SyntheticDefs.v3";
+def SYNTHETIC_SEXP = "./tests/SyntheticDefs.v3.sexp";
+def CANONICAL_V3   = "./wizard-engine/src/bytecode/CanonicalDefs.v3";
+def CANONICAL_SEXP = "./wizard-engine/src/bytecode/CanonicalDefs.v3.sexp";
+
+def renderPhase0(opcode: string, phase: string, scheduler: InstancedSeaScheduler) {
+    def buf = StringBuilder.new();
+    buf.puts("=== ").puts(opcode).puts(" [phase0 ").puts(phase).puts("] ===\n");
+    scheduler.renderPhase0(buf);
+    buf.ln();
+    System.puts(buf.toString());
+}
+
+def renderResolveHomes(opcode: string, phase: string, scheduler: InstancedSeaScheduler) {
+    def buf = StringBuilder.new();
+    buf.puts("=== ").puts(opcode).puts(" [resolve_home ").puts(phase).puts("] ===\n");
+
+    for (i < scheduler.site_frames.length) {
+        def frame = scheduler.site_frames[i];
+        for (j < frame.site.phis.length) {
+            def phi = frame.site.phis[j];
+            buf.puts("site#").putd(frame.site.id).puts(" phi=").putq(phi.render).puts("\n");
+
+            if (phi.value_deps.length > 0 && phi.value_deps[0] != null)
+                ISRender.renderResolveHome(scheduler, phi.value_deps[0], frame.parent_partition, UseRole.PhiCond, buf);
+            if (phi.value_deps.length > 1 && phi.value_deps[1] != null)
+                ISRender.renderResolveHome(scheduler, phi.value_deps[1], frame.left_partition, UseRole.PhiLeft, buf);
+            if (phi.value_deps.length > 2 && phi.value_deps[2] != null)
+                ISRender.renderResolveHome(scheduler, phi.value_deps[2], frame.right_partition, UseRole.PhiRight, buf);
+        }
+    }
+
+    buf.ln();
+    System.puts(buf.toString());
+}
+
+def renderInstances(opcode: string, phase: string, scheduler: InstancedSeaScheduler) {
+    def buf = StringBuilder.new();
+    buf.puts("=== ").puts(opcode).puts(" [instances ").puts(phase).puts("] ===\n");
+    scheduler.discover_instances();
+    scheduler.renderInstances(buf);
+    buf.ln();
+    System.puts(buf.toString());
+}
+
+def testOpcode(opcode: string, stmt: VirgilStmt, use_unlem: bool,
+               render_resolve: bool, render_instances: bool) -> CBDDef {
+    def ir = SSAD_IR.from_virgil(stmt);
+    def sea_info = Seas.ofSSADWithInfo(ir);
+    def sea = sea_info.0;
+
+    sea.apply(void, SeaTransforms.id_propagate);
+    if (use_unlem) {
+        def state = NodeMap<(IRNode, Vector<IRNode>)>.new();
+        sea.apply(state, SeaTransforms.unLEM);
+    }
+
+    def scheduler = InstancedScheduler.of_full_sea(sea);
+    def phase = if(use_unlem, "unLEM", "raw");
+    if (render_instances) renderInstances(opcode, phase, scheduler);
+    else if (render_resolve) renderResolveHomes(opcode, phase, scheduler);
+    else renderPhase0(opcode, phase, scheduler);
+    return CBDDef.new(opcode, ir, sea_info.1);
+}
+
+def main(args: Array<string>) {
+    IntrinsicTypes.init(IntrinsicTypes.TYPE_DEF_FILE);
+
+    var use_canonical = false;
+    var use_unlem = false;
+    var render_resolve = false;
+    var render_instances = false;
+    def opcode_args = Vector<string>.new();
+    var i = 0;
+    while (i < args.length) {
+        def arg = args[i];
+        if (Strings.equal(arg, "--canonical")) use_canonical = true;
+        else if (Strings.equal(arg, "--unlem")) use_unlem = true;
+        else if (Strings.equal(arg, "--resolve-home")) render_resolve = true;
+        else if (Strings.equal(arg, "--instances")) render_instances = true;
+        else opcode_args.put(arg);
+        i += 1;
+    }
+
+    def filter_args = opcode_args.copy();
+
+    def filterInstrs(all_instrs: Array<string>) -> Array<string> {
+        if (filter_args.length == 0) return all_instrs;
+        def filtered = Vector<string>.new();
+        for (arg in filter_args) {
+            for (name in all_instrs) {
+                if (Strings.equal(name, arg)) {
+                    filtered.put(name);
+                    break;
+                }
+            }
+        }
+        return filtered.copy();
+    }
+
+    def runDefs(v3file: string, sexpfile: string) {
+        def v3bytes = System.fileLoad(v3file);
+        if (v3bytes == null) {
+            System.puts(Strings.format1("Error reading %s\n", v3file));
+            return;
+        }
+
+        def sexp_bytes = System.fileLoad(sexpfile);
+        if (sexp_bytes == null) {
+            System.puts(Strings.format1("Error reading %s\n", sexpfile));
+            return;
+        }
+
+        def instrs = filterInstrs(TierGen.extractInstrNames(v3bytes));
+        TierGen.extractDefs(instrs, sexpfile, sexp_bytes,
+            fun (opcode: string, stmt: VirgilStmt) -> CBDDef {
+                return testOpcode(opcode, stmt, use_unlem, render_resolve, render_instances);
+            });
+    }
+
+    runDefs(SYNTHETIC_V3, SYNTHETIC_SEXP);
+    if (use_canonical) runDefs(CANONICAL_V3, CANONICAL_SEXP);
+}

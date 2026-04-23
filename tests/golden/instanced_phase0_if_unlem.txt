@@ -1,0 +1,13 @@
+=== IF [phase0 unLEM] ===
+root_partition side=root top=null bottom=block#1
+cfg top=branch#2 bottom=block#1
+  site#1 cond=bool.&& [mb__10] branch=branch#2 merge=join#3
+    parent=root
+    left=site#1.left top=branch#2 bottom=block#4
+    right=site#1.right top=branch#2 bottom=block#5
+    right_child:
+      site#2 cond=U32_maybeTrue [mt__8] branch=branch#6 merge=join#7
+        parent=site#1.right
+        left=site#2.left top=branch#6 bottom=block#8
+        right=site#2.right top=branch#6 bottom=block#9
+

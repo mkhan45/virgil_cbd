@@ -1,0 +1,27 @@
+=== TRIVIAL_PHI_STACK_SHARED_EFFECT [phase0 raw] ===
+root_partition side=root top=null bottom=block#1
+cfg top=branch#18 bottom=block#1
+  site#1 cond=u32.!= [q] branch=branch#18 merge=join#19
+    parent=root
+    left=site#1.left top=branch#18 bottom=block#20
+    right=site#1.right top=branch#18 bottom=block#21
+  site#2 cond=u32.!= [p] branch=branch#2 merge=join#3
+    parent=root
+    left=site#2.left top=branch#2 bottom=block#4
+    right=site#2.right top=branch#2 bottom=block#5
+    left_child:
+      site#3 cond=u32.!= [q] branch=branch#10 merge=join#11
+        parent=site#2.left
+        left=site#3.left top=branch#10 bottom=block#12
+        right=site#3.right top=branch#10 bottom=block#13
+    left_child:
+      site#4 cond=u32.!= [r] branch=branch#6 merge=join#7
+        parent=site#2.left
+        left=site#4.left top=branch#6 bottom=block#8
+        right=site#4.right top=branch#6 bottom=block#9
+    right_child:
+      site#5 cond=u32.!= [q] branch=branch#14 merge=join#15
+        parent=site#2.right
+        left=site#5.left top=branch#14 bottom=block#16
+        right=site#5.right top=branch#14 bottom=block#17
+

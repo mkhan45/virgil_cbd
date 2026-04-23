@@ -1,0 +1,178 @@
+component ISRender {
+    def renderPhase0(scheduler: InstancedSeaScheduler, buf: StringBuilder) -> StringBuilder {
+        buf.puts("root_partition side=").puts(PartitionInference.side_name(scheduler.root_partition.side));
+        buf.puts(" top=");
+        render_cfg_ref(scheduler.root_partition.top_limit, buf);
+        buf.puts(" bottom=");
+        render_cfg_ref(scheduler.root_partition.default_bottom, buf);
+        buf.puts("\n");
+
+        buf.puts("cfg top=");
+        render_cfg_ref(scheduler.top_cfg, buf);
+        buf.puts(" bottom=");
+        render_cfg_ref(scheduler.bottom_cfg, buf);
+        buf.puts("\n");
+
+        for (i < scheduler.root_sites.length)
+            render_site_frame(scheduler.root_sites[i], 2, buf);
+        return buf;
+    }
+
+    def put_indent(buf: StringBuilder, indent: int) -> StringBuilder {
+        for (i < indent) buf.puts(" ");
+        return buf;
+    }
+
+    def render_partition_ref(partition: PartitionFrame, buf: StringBuilder) -> StringBuilder {
+        if (partition == null) return buf.puts("null");
+        if (partition.owner_site == null) return buf.puts("root");
+
+        buf.puts("site#").putd(partition.owner_site.site.id)
+            .puts(".").puts(PartitionInference.side_name(partition.side));
+        return buf;
+    }
+
+    def render_cfg_ref(node: ICFGNode, buf: StringBuilder) -> StringBuilder {
+        if (node == null) return buf.puts("null");
+        match (node) {
+            block: ICFGBlock => return buf.puts("block#").putd(block.id);
+            branch: ICFGBranch => return buf.puts("branch#").putd(branch.id);
+            join: ICFGJoin => return buf.puts("join#").putd(join.id);
+            _ => return buf.puts("cfg#").putd(node.id);
+        }
+    }
+
+    def render_site_frame(frame: SiteFrame, indent: int, buf: StringBuilder) -> StringBuilder {
+        put_indent(buf, indent).puts("site#").putd(frame.site.id)
+            .puts(" cond=").putq(frame.site.condition.render)
+            .puts(" branch=");
+        render_cfg_ref(frame.branch_cfg, buf);
+        buf.puts(" merge=");
+        render_cfg_ref(frame.merge_cfg, buf).puts("\n");
+
+        put_indent(buf, indent + 2).puts("parent=");
+        render_partition_ref(frame.parent_partition, buf).puts("\n");
+
+        put_indent(buf, indent + 2).puts("left=");
+        render_partition_ref(frame.left_partition, buf);
+        buf.puts(" top=");
+        render_cfg_ref(frame.left_partition.top_limit, buf);
+        buf.puts(" bottom=");
+        render_cfg_ref(frame.left_partition.default_bottom, buf).puts("\n");
+
+        put_indent(buf, indent + 2).puts("right=");
+        render_partition_ref(frame.right_partition, buf);
+        buf.puts(" top=");
+        render_cfg_ref(frame.right_partition.top_limit, buf);
+        buf.puts(" bottom=");
+        render_cfg_ref(frame.right_partition.default_bottom, buf).puts("\n");
+
+        for (i < frame.left_children.length) {
+            put_indent(buf, indent + 2).puts("left_child:\n");
+            render_site_frame(frame.left_children[i], indent + 4, buf);
+        }
+
+        for (i < frame.right_children.length) {
+            put_indent(buf, indent + 2).puts("right_child:\n");
+            render_site_frame(frame.right_children[i], indent + 4, buf);
+        }
+
+        return buf;
+    }
+
+    def render_use_role(role: UseRole, buf: StringBuilder) -> StringBuilder {
+        match (role) {
+            Value(idx) => return buf.puts("value[").putd(idx).puts("]");
+            State(sc) => return buf.puts("state[").puts(sc.name).puts("]");
+            PhiCond => return buf.puts("phi_cond");
+            PhiLeft => return buf.puts("phi_left");
+            PhiRight => return buf.puts("phi_right");
+        }
+    }
+
+    def render_home_decision(decision: HomeDecision, buf: StringBuilder) -> StringBuilder {
+        match (decision) {
+            StopAbove => return buf.puts("stop_above");
+            DescendLeft => return buf.puts("descend_left");
+            DescendRight => return buf.puts("descend_right");
+            DescendEither => return buf.puts("descend_either");
+        }
+    }
+
+    def renderResolveHome(scheduler: InstancedSeaScheduler,
+                          root_: IRNode,
+                          use_partition: PartitionFrame,
+                          use_role: UseRole,
+                          buf: StringBuilder) -> StringBuilder {
+        def root = root_.unwrapMove();
+        def home = scheduler.resolve_home(root, use_partition, use_role);
+
+        buf.puts("resolve_home node=");
+        SeaRender.renderNodeRef(root, buf);
+        buf.puts(" role=");
+        render_use_role(use_role, buf);
+        buf.puts(" use=");
+        render_partition_ref(use_partition, buf);
+        buf.puts(" home=");
+        render_partition_ref(home, buf).puts("\n");
+
+        def path = InstancedScheduler.ancestor_partitions(use_partition);
+        var cur = scheduler.root_partition;
+        for (i < path.length) {
+            def step = path[i];
+            def site_frame = step.owner_site;
+            if (site_frame == null) return buf;
+
+            def decision = InstancedScheduler.classify_home(site_frame.site, root);
+            put_indent(buf, 2).puts("site#").putd(site_frame.site.id)
+                .puts(".").puts(PartitionInference.side_name(step.side))
+                .puts(" decision=");
+            render_home_decision(decision, buf);
+            buf.puts(" from=");
+            render_partition_ref(cur, buf).puts("\n");
+
+            match (decision) {
+                StopAbove => return buf;
+                DescendLeft => {
+                    if (!SiteSide.Left.?(step.side)) return buf;
+                    cur = site_frame.left_partition;
+                }
+                DescendRight => {
+                    if (!SiteSide.Right.?(step.side)) return buf;
+                    cur = site_frame.right_partition;
+                }
+                DescendEither => cur = InstancedScheduler.child_partition_for_side(site_frame, step.side);
+            }
+        }
+
+        return buf;
+    }
+
+    def render_instance_ref(inst: SchedulerInstance, buf: StringBuilder) -> StringBuilder {
+        if (inst == null) return buf.puts("null");
+        return buf.puts("instance#").putd(inst.id);
+    }
+
+    def renderInstances(scheduler: InstancedSeaScheduler, buf: StringBuilder) -> StringBuilder {
+        buf.puts("instances=").putd(scheduler.instances.length).puts("\n");
+
+        for (i < scheduler.instances.length) {
+            def inst = scheduler.instances[i];
+            render_instance_ref(inst, buf).puts(" node=");
+            SeaRender.renderNodeRef(inst.root, buf);
+            buf.puts(" home=");
+            render_partition_ref(inst.home, buf).puts("\n");
+
+            def deps = scheduler.instance_deps[inst.id];
+            for (j < deps.length) {
+                def dep = deps[j];
+                put_indent(buf, 2).puts("dep=");
+                render_instance_ref(dep.dep, buf);
+                buf.puts(" role=");
+                render_use_role(dep.role, buf).puts("\n");
+            }
+        }
+
+        return buf;
+    }
+}

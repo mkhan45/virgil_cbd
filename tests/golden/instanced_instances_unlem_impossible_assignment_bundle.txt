@@ -1,0 +1,71 @@
+=== UNLEM_IMPOSSIBLE_ASSIGNMENT_BUNDLE [instances raw] ===
+instances=47
+instance#0 node=#0 Start home=root
+instance#1 node=#46 push_u32 [eff__0] home=root
+  dep=instance#36 role=value[0]
+  dep=instance#37 role=state[Stack]
+instance#2 node=#8 u32.!= [p] home=root
+  dep=instance#38 role=value[0]
+  dep=instance#39 role=value[1]
+instance#3 node=#25 Phi [x] home=site#1.left
+instance#4 node=#20 Phi [x] home=site#1.right
+instance#5 node=#26 StatePhi [u32.!= [q]] home=site#1.left
+instance#6 node=#21 StatePhi [u32.!= [q]] home=site#1.right
+instance#7 node=#11 u32.!= [q] home=root
+  dep=instance#40 role=value[0]
+  dep=instance#41 role=value[1]
+instance#8 node=#24 pop_u32 [x__16] home=site#2.left
+  dep=instance#10 role=state[Stack]
+instance#9 node=#23 10 home=site#2.right
+instance#10 node=#5 pop_u32 [c3] home=root
+  dep=instance#40 role=state[Stack]
+instance#11 node=#19 pop_u32 [x__19] home=site#3.left
+  dep=instance#10 role=state[Stack]
+instance#12 node=#18 20 home=site#3.right
+instance#13 node=#37 Phi [y] home=site#4.left
+instance#14 node=#42 u32.+ [z__4] home=site#4.right
+  dep=instance#42 role=value[0]
+  dep=instance#43 role=value[1]
+instance#15 node=#25 Phi [x] home=site#5.left
+instance#16 node=#20 Phi [x] home=site#5.right
+instance#17 node=#24 pop_u32 [x__16] home=root
+  dep=instance#10 role=state[Stack]
+instance#18 node=#23 10 home=site#6.right
+instance#19 node=#19 pop_u32 [x__19] home=root
+  dep=instance#10 role=state[Stack]
+instance#20 node=#18 20 home=site#7.right
+instance#21 node=#14 u32.!= [r] home=site#4.left
+  dep=instance#10 role=value[0]
+  dep=instance#44 role=value[1]
+instance#22 node=#36 u32.+ [y__8] home=site#8.left
+  dep=instance#42 role=value[0]
+  dep=instance#45 role=value[1]
+instance#23 node=#33 u32.+ [y__11] home=site#8.right
+  dep=instance#42 role=value[0]
+  dep=instance#46 role=value[1]
+instance#24 node=#25 Phi [x] home=site#9.left
+instance#25 node=#20 Phi [x] home=site#9.right
+instance#26 node=#23 10 home=site#10.right
+instance#27 node=#18 20 home=site#11.right
+instance#28 node=#25 Phi [x] home=site#12.left
+instance#29 node=#20 Phi [x] home=site#12.right
+instance#30 node=#23 10 home=site#13.right
+instance#31 node=#18 20 home=site#14.right
+instance#32 node=#25 Phi [x] home=site#15.left
+instance#33 node=#20 Phi [x] home=site#15.right
+instance#34 node=#23 10 home=site#16.right
+instance#35 node=#18 20 home=site#17.right
+instance#36 node=#44 Phi [z] home=root
+instance#37 node=#28 StatePhi [u32.!= [p]] home=root
+instance#38 node=#3 pop_u32 [c1] home=root
+  dep=instance#0 role=state[Stack]
+instance#39 node=#6 0 home=root
+instance#40 node=#4 pop_u32 [c2] home=root
+  dep=instance#38 role=state[Stack]
+instance#41 node=#9 0 home=root
+instance#42 node=#27 Phi [x] home=root
+instance#43 node=#40 3 home=site#4.right
+instance#44 node=#12 0 home=site#4.left
+instance#45 node=#34 1 home=site#8.left
+instance#46 node=#31 2 home=site#8.right
+

@@ -1,83 +1,96 @@
-# Instanced Scheduler Plan
+# Instanced Scheduler
 
 ## Goal
 
-Replace the explicit `untangle()` graph rewrite with a scheduler that uses the
-inferred `BranchSite` tree directly. Instead of cloning the Sea ahead of time,
-the scheduler should create multiple `SchedulerInstance`s for the same Sea node
-only when different contextual uses require different homes.
+The instanced scheduler replaces explicit `untangle()` graph rewriting with a
+scheduler that uses the inferred `BranchSite` tree directly.
 
-This keeps scope recovery in one place:
-
-- `PartitionInference` discovers the realized branch tree once.
-- `resolve_home(...)` decides how far a node may descend for a specific use.
-- duplication appears as multiple scheduler instances with different homes.
-
-The central question is no longer:
+The old question was:
 
 ```text
 Which subgraph should untangle clone next?
 ```
 
-It becomes:
+The new question is:
 
 ```text
 For this use of node N in partition P, what is the deepest legal partition that
 may own this instance?
 ```
 
-## Core Objects
+Instead of cloning the Sea before scheduling, the scheduler creates multiple
+`SchedulerInstance`s for the same original Sea node only when different
+contextual uses resolve to different homes.
 
-These are intentionally minimal. We should avoid caching derived membership
-facts inside scheduler objects.
+This keeps scope recovery in one place:
 
-### `SchedulerInstance`
+- `PartitionInference` discovers the realized branch tree once.
+- Phase 0 lowers that fixed tree into a CFG skeleton.
+- `resolve_home(...)` decides where a particular use of a node may live.
+- Instance discovery interns `(root node, home partition)` obligations.
+- Later placement will schedule those instances without rewriting the Sea.
 
-One scheduling obligation for one original Sea node in one partition.
+The important invariant is that branch structure is fixed before scheduling. The
+scheduler may create several instances of a node, but it should not rediscover or
+mutate branch scope.
 
-```text
-class SchedulerInstance {
-    var root: IRNode;
-    var home: PartitionFrame;
+## Current Status
 
-    var bottom_limit: CFGNode;
-    var placed_in: CFGNode;
-}
-```
+Implemented:
 
-Conceptual role:
+- `common/sea/region/InstancedScheduler.v3`
+- Phase 0 static scope skeleton construction.
+- Phase 1 `resolve_home(...)`.
+- Phase 2 eager instance discovery.
+- `common/sea/region/ISRender.v3` for Phase 0, home-resolution, and instance rendering.
+- `tests/InstancedSchedulerTest.v3` with `--resolve-home` and `--instances` modes.
+- `scripts/instanced_scheduler_golden_test.sh` for Phase 0 skeleton goldens.
+- `scripts/instanced_instance_golden_test.sh` for instance-discovery goldens.
 
-- `root` says which original Sea node this instance represents.
-- `home` says which partition minimally owns this instance.
-- two uses of the same `root` share work iff they resolve to the same `home`.
-- duplication is represented by two instances with the same `root` and
-  different `home`s.
+Not implemented yet:
+
+- bottom-up placement
+- pending-user counts
+- CFG mutation for placed instances
+- final SSAD lowering
+- schedule checker integration for the instanced scheduler
+
+## Core Model
 
 ### `PartitionFrame`
 
-One schedulable CFG region.
+A `PartitionFrame` is one schedulable region in the static branch skeleton.
+
+Current shape:
 
 ```text
 class PartitionFrame {
+    var id: int;
     var parent: PartitionFrame;
     var owner_site: SiteFrame;
     var side: SiteSide;
 
-    var top_limit: CFGNode;
-    var default_bottom: CFGNode;
+    var top_limit: ICFGNode;
+    var default_bottom: ICFGNode;
 }
 ```
 
-Conceptual role:
+Meaning:
 
-- defines the legal placement region for instances.
-- mostly CFG-facing.
-- should not cache a set of Sea nodes; legality comes from the ancestor site
-  path, not from mutable summaries.
+- `parent` forms the ancestor chain used by `resolve_home(...)`.
+- `owner_site` is null only for the root partition.
+- `side` records whether this is the left or right child of `owner_site`.
+- `top_limit` is the branch CFG node that an instance may not move above.
+- `default_bottom` is the leaf block for this partition before placement.
+
+`PartitionFrame` intentionally does not cache membership sets. Legality comes
+from the realized `BranchSite` fields along the ancestor path.
 
 ### `SiteFrame`
 
-Bridge from inferred branch semantics to concrete CFG structure.
+A `SiteFrame` bridges one inferred `BranchSite` to the concrete CFG skeleton.
+
+Current shape:
 
 ```text
 class SiteFrame {
@@ -87,20 +100,70 @@ class SiteFrame {
     var left_partition: PartitionFrame;
     var right_partition: PartitionFrame;
 
-    var branch_cfg: CFGBranch;
-    var merge_cfg: CFGNode;
+    var branch_cfg: ICFGBranch;
+    var merge_cfg: ICFGJoin;
+
+    var left_children: Vector<SiteFrame>;
+    var right_children: Vector<SiteFrame>;
 }
 ```
 
-Conceptual role:
+Meaning:
 
-- one realized branch point.
-- owns the branch/merge structure in CFG.
-- uses `site: BranchSite` as the semantic source of truth.
+- `site` is the semantic source of truth.
+- `parent_partition` is where the branch condition is demanded.
+- `left_partition` and `right_partition` are the child scheduling regions.
+- `branch_cfg` and `merge_cfg` define the skeleton branch and join.
+- child vectors preserve the realized site tree.
+
+### `ICFGNode`
+
+The instanced scheduler uses a parallel CFG skeleton instead of reusing the old
+`CFGNode` classes in `Schedule.v3`.
+
+Current node types:
+
+```text
+ICFGBlock
+ICFGBranch
+ICFGJoin
+```
+
+This keeps Phase 0 structural and avoids coupling new instance placement to the
+old scheduler's branch-lattice, dominance, and phi-placement assumptions.
+
+### `SchedulerInstance`
+
+A `SchedulerInstance` is one scheduling obligation for one original Sea node in
+one home partition.
+
+Current shape:
+
+```text
+class SchedulerInstance {
+    var id: int;
+    var root: IRNode;
+    var home: PartitionFrame;
+
+    var bottom_limit: ICFGNode;
+    var placed_in: ICFGNode;
+}
+```
+
+Meaning:
+
+- `root` is the original Sea node represented by this obligation.
+- `home` is the deepest legal partition returned by `resolve_home(...)`.
+- two uses share work iff they intern to the same `(root, home)` pair.
+- duplication is represented by two instances with the same `root` and different
+  `home`s.
+- `bottom_limit` and `placed_in` are reserved for Phase 3 placement.
 
 ### `UseRole`
 
-This distinguishes ordinary dependency uses from site-owned phi uses.
+`UseRole` describes why a dependency is demanded.
+
+Current shape:
 
 ```text
 type UseRole #unboxed {
@@ -112,126 +175,86 @@ type UseRole #unboxed {
 }
 ```
 
-Conceptual role:
+Meaning:
 
-- ordinary deps use the partition of the user instance.
-- phi deps use partitions determined by the owning site:
-  - `PhiCond` -> parent partition
-  - `PhiLeft` -> left child partition
-  - `PhiRight` -> right child partition
+- ordinary value deps use the user instance's home partition.
+- ordinary state deps use the user instance's home partition.
+- `PhiCond` uses the owning site's parent partition.
+- `PhiLeft` uses the owning site's left child partition.
+- `PhiRight` uses the owning site's right child partition.
 
-## Scheduler Phases
+`UseRole` is also recorded on instance dependency edges so placement and later
+lowering can preserve why each dependency was needed.
 
-### Phase 0: Build The Static Scope Skeleton
+## Phase 0: Static Scope Skeleton
 
-Infer the realized `BranchSite` forest once and lower it into a CFG branch
-skeleton.
+Phase 0 builds a fixed CFG skeleton from the realized `BranchSite` forest.
 
-Output:
+Inputs:
 
-- root `PartitionFrame`
+- original Sea
+- `PartitionInference.determine_all_partitions(sea, sea.finish, true, true)`
+
+Outputs:
+
+- one root `PartitionFrame`
 - one `SiteFrame` per realized site
-- child `PartitionFrame`s for each site
-- grouped merge/phi CFG nodes for each site
+- left and right `PartitionFrame`s for every site
+- a parallel `ICFGBranch` / `ICFGJoin` skeleton
 
-Purpose:
+Key properties:
 
-- branch structure is fixed up front
-- later scheduling no longer reconstructs scope from Sea overlap
+- branch structure is fixed up front.
+- sibling root sites stay siblings.
+- same-condition sites under different parent sides remain distinct.
+- the Sea is not cloned or rewritten.
 
-### Phase 1: Define `resolve_home(...)`
+The current Phase 0 goldens cover:
 
-This is the semantic center of the design. Given a node and a contextual use, it
-returns the deepest partition that may legally own that use.
+- canonical `IF --unlem`
+- `SAME_SCOPE_Q_ON_BOTH_P_SIDES`
+- `OUTER_Q_AND_BOTH_P_SIDES_Q`
+- `TRIVIAL_PHI_STACK_SHARED_EFFECT`
+- `UNLEM_IMPOSSIBLE_ASSIGNMENT_BUNDLE`
 
-### Phase 2: Discover The Instance Graph
+The synthetic Phase 0 goldens are currently raw, not `--unlem`. That is
+intentional for now and can be changed later if we want the skeleton suite to
+track unLEM stress shapes instead.
 
-Build all demanded `SchedulerInstance`s eagerly.
+Useful commands:
 
-Demand roots:
-
-- `Finish` deps in the root partition
-- site-owned phi demands
-
-For each demand:
-
-- compute `home = resolve_home(root, use_partition, use_role)`
-- intern `SchedulerInstance(root, home)`
-- record dependency edges between user and dep instances
-
-The scheduler should keep these tables outside the objects themselves:
-
-```text
-instance_by_key[(root, home)] -> SchedulerInstance
-deps[(root, home)] -> Vector<(dep_key, UseRole)>
-pending_users[(root, home)] -> int
+```bash
+make InstancedSchedulerTest
+bash scripts/instanced_scheduler_golden_test.sh
+bash scripts/instanced_instance_golden_test.sh
+./InstancedSchedulerTest --canonical --unlem IF
 ```
 
-### Phase 3: Bottom-Up Placement
+## Phase 1: `resolve_home(...)`
 
-Run a worklist over `SchedulerInstance`s.
+`resolve_home(...)` is the semantic replacement for explicit untangle cloning.
 
-- an instance is ready when `pending_users` reaches `0`
-- placement must stay between:
-  - `home.top_limit` as the static ceiling
-  - the accumulated `bottom_limit` from already-placed users
-
-### Phase 4: Lower To Final Output
-
-Only after placement is complete should the scheduler lower the scheduled
-instances into final CFG/SSAD output.
-
-The important property is that the Sea itself does not need an explicit untangle
-rewrite.
-
-## `resolve_home(...)`
-
-## Purpose
-
-`resolve_home(...)` answers the question that `untangle()` was approximating by
-graph cloning:
-
-```text
-For this use of node N, what is the deepest partition where one legal instance
-of N may live?
-```
-
-If two uses of the same node resolve to the same home, they share one instance.
-If they resolve to different homes, they require separate instances.
-
-This makes duplication a consequence of placement legality rather than a
-separate rewrite pass.
-
-## Inputs
+Signature:
 
 ```text
 resolve_home(root: IRNode, use_partition: PartitionFrame, use_role: UseRole)
     -> PartitionFrame
 ```
 
-`use_partition` is determined as follows:
+The implementation unwraps `Move` nodes before classification.
 
-- ordinary value/state deps use the partition of the user instance
-- site-owned phi uses use the owning site's partitions:
-  - `PhiCond` -> parent partition
-  - `PhiLeft` -> left partition
-  - `PhiRight` -> right partition
+### Ancestor-Only Rule
 
-## Ancestor-Only Rule
+`resolve_home(...)` inspects only the partition ancestor path from root to
+`use_partition`.
 
-`resolve_home(...)` must inspect only the site chain from the root partition
-down to `use_partition`.
+Sibling sites do not matter. This is essential for cases like
+`OUTER_Q_AND_BOTH_P_SIDES_Q`, where a use beneath root `p` must not be
+constrained by sibling root `q_outer`.
 
-Sibling root sites do not matter.
+### Site Classification
 
-This is essential for cases like `OUTER_Q_AND_BOTH_P_SIDES_Q`, where the outer
-root `q` site and the root `p` site are siblings. A use beneath `p` must not be
-constrained by `q_outer`, because `q_outer` is not on the ancestor path.
-
-## Site Classification
-
-For each crossed ancestor site `s`, classify the node `n` using the realized
-site fields:
+For each crossed site `s`, classify node `n` using the realized site fields:
 
 ```text
 if n in s.support or n in s.anchored_overlap:
@@ -252,313 +275,225 @@ else:
 
 Interpretation:
 
-- `support`: the node must remain above the split
-- `anchored_overlap`: the node is shared but may not be duplicated across the
-  split, so it must remain above the split
-- `left_only`: the node may exist only in the left child partition
-- `right_only`: the node may exist only in the right child partition
-- `cloneable_overlap`: the node may descend into whichever side this particular
-  use occurs on
-- defaulting to `StopAbove` is conservative and prevents accidentally sinking a
-  node into unrelated subtrees
+- `support` must stay above the split.
+- `anchored_overlap` is shared and may not be duplicated across the split.
+- `left_only` may descend only into the left child.
+- `right_only` may descend only into the right child.
+- `cloneable_overlap` may descend into the side where this use occurs.
+- unclassified nodes stop above the site conservatively.
 
-## Pseudocode
+Side mismatches also stop above the site. For example, if a node is `left_only`
+but the use path crosses the right side, the deepest legal home is the current
+partition above that split.
+
+### Pseudocode
 
 ```text
 resolve_home(n, use_partition):
     cur = root_partition
+    path = ancestor_partitions(use_partition)
 
-    for each crossed site s on the ancestor path from root to use_partition,
-        with chosen side sigma in {left, right}:
+    for child_partition in path:
+        site = child_partition.owner_site
+        side = child_partition.side
+        decision = classify(site, n)
 
-        d = classify(s, n)
-
-        if d == StopAbove:
+        if decision == StopAbove:
             return cur
 
-        if d == DescendLeft:
-            require sigma == left
-            cur = s.left_partition
+        if decision == DescendLeft:
+            if side != left: return cur
+            cur = site.left_partition
             continue
 
-        if d == DescendRight:
-            require sigma == right
-            cur = s.right_partition
+        if decision == DescendRight:
+            if side != right: return cur
+            cur = site.right_partition
             continue
 
-        if d == DescendEither:
-            cur = child_partition(s, sigma)
+        if decision == DescendEither:
+            cur = child_partition_for_side(site, side)
             continue
 
     return cur
 ```
 
-## Key Properties
+Useful commands:
 
-### Monotone Descent
-
-`resolve_home(...)` only moves downward along the use path. It never crosses to
-another subtree and never revisits siblings.
-
-### Duplication Emerges Naturally
-
-There is no separate untangle phase. If two uses of the same node follow
-different descendant paths through cloneable sites, they simply resolve to
-different homes.
-
-### Anchored And Support Nodes Stop Early
-
-`support` and `anchored_overlap` have the same scheduling effect: the node may
-not cross that split. The distinction matters semantically but not for home
-resolution.
-
-### Same-Condition Sites Stay Distinct
-
-Two same-condition sites under different ancestor paths remain distinct because
-their `use_partition`s have different ancestor chains. This is what fixes
-`SAME_SCOPE_Q_ON_BOTH_P_SIDES` without a mutable `same_scope` heuristic.
-
-### No Sibling Interference
-
-Only ancestors matter. This is what fixes `OUTER_Q_AND_BOTH_P_SIDES_Q` without
-the cloned-context overreach that appeared in the untangle rewrite attempts.
-
-### Conservative Default
-
-If a crossed site does not classify the node, the node stops above that site.
-This is safer than assuming it may descend.
-
-## Traces
-
-These traces are not full execution traces. They are home-resolution traces that
-show how the rule should behave on the tracked examples.
-
-### `END`
-
-Realized site tree:
-
-```text
-root
-- site(f_isAtEnd)
+```bash
+./InstancedSchedulerTest --canonical --unlem --resolve-home IF
+./InstancedSchedulerTest --resolve-home SAME_SCOPE_Q_ON_BOTH_P_SIDES
+./InstancedSchedulerTest --resolve-home OUTER_Q_AND_BOTH_P_SIDES_Q
 ```
 
-Key nodes:
+## Phase 2: Instance Discovery
 
-- `doEnd [eff__2]`
-  - `doEnd in support`
-  - home: `root`
-- `doReturn [eff__1]`
-  - `doReturn in left_only`
-  - a left-arm use descends to `f_isAtEnd.left`
+Phase 2 eagerly discovers the instance graph demanded by `Finish` and by all
+site-owned phi edges.
 
-Meaning:
-
-- no duplication
-- one shared support chain
-- one left-local effect
-
-### `IF [unLEM]`
-
-Realized site tree:
+Current scheduler tables:
 
 ```text
-root
-- site(bool.&&)
-  - right: site(U32_maybeTrue)
+instances: Vector<SchedulerInstance>
+instance_deps: Vector<Vector<InstanceDep>>
 ```
 
-Key nodes:
+The current implementation interns instances by a linear scan over
+`instances`. That is intentionally simple for now. A faster key table can be
+added later if profiling shows it matters.
 
-- `doBranch [eff__1]`
-  - outer merge use crosses root `bool.&&`
-  - `doBranch in cloneable_overlap`
-  - for the outer use, home: `bool&&.left`
-  - for the nested true-arm use, path continues through `bool&&.right`
-  - nested `mt` site classifies `doBranch` as `left_only`
-  - home: `bool&&.right / mt.left`
+### Demand Seeds
 
-- `doFallthru [eff__3]`
-  - outer merge use: home `bool&&.left`
-  - nested false-arm use: home `bool&&.right / mt.right`
+Initial demand roots:
 
-- `doIf [label]`, `pop_u32 [cond]`, `u32.==`, outer condition structure
-  - all are in root `support`
-  - home: `root`
+- every `Finish.value_deps[i]` in the root partition with `UseRole.Value(i)`
+- every `Finish.state_deps[sc]` in the root partition with `UseRole.State(sc)`
+- every site phi condition in `frame.parent_partition` with `UseRole.PhiCond`
+- every site phi left arm in `frame.left_partition` with `UseRole.PhiLeft`
+- every site phi right arm in `frame.right_partition` with `UseRole.PhiRight`
 
-Meaning:
-
-- `IF` is the simplest demonstration that one original node may produce multiple
-  instances without explicit graph cloning.
-
-### `SAME_SCOPE_Q_ON_BOTH_P_SIDES`
-
-Conceptual site tree:
+For each demand:
 
 ```text
-root
-- site(p)
-  - left: site(q_left)
-  - right: site(q_right)
+home = resolve_home(root, use_partition, role)
+instance = intern(root.unwrapMove(), home)
 ```
 
-The important point is that the two `q` sites are distinct realized sites even
-though they share a condition node.
+### Dependency Expansion
 
-Key nodes:
+For each newly interned non-phi, non-move instance:
 
-- `u32.+ [left__3]`
-  - at `p`, cloneable
-  - a use under the true arm resolves to `p.left`
+- each value dependency is demanded in the instance's home partition.
+- each state dependency is demanded in the instance's home partition.
+- each discovered dependency edge records the `UseRole` that caused it.
 
-- `u32.+ [left__9]`
-  - symmetric
-  - home: `p.right`
+Phi dependencies are not expanded generically from the phi node. Phi condition
+and arm dependencies are site-owned and are seeded from `SiteFrame`s instead.
+This preserves the distinction between ordinary dependencies and branch-owned
+dependencies.
 
-- `11`
-  - cloneable at `p`, so it descends to `p.left`
-  - then the local `q_left` site pushes it further toward the false arm
+Move nodes are normalized through `unwrapMove()` before interning, so they do
+not become stable instance identities.
 
-- `21`
-  - symmetric in `p.right`
+Useful commands:
 
-- `pop_u32 [c2]`
-  - root support
-  - home: `root`
+```bash
+./InstancedSchedulerTest --canonical --unlem --instances IF
+./InstancedSchedulerTest --instances SAME_SCOPE_Q_ON_BOTH_P_SIDES
+./InstancedSchedulerTest --instances OUTER_Q_AND_BOTH_P_SIDES_Q
+./InstancedSchedulerTest --instances UNLEM_IMPOSSIBLE_ASSIGNMENT_BUNDLE
+```
 
-Meaning:
+### Expected Instance Behavior
 
-- same-condition branches on different sides of `p` do not need rediscovery or
-  mutable lattice recomputation
-- the ancestor path already separates them
+`IF --unlem` demonstrates duplication without Sea cloning:
 
-### `OUTER_Q_AND_BOTH_P_SIDES_Q`
+- `doBranch [eff__1]` has one instance in the outer `bool.&&.left` home.
+- `doBranch [eff__1]` has another instance in the nested `mt.left` home.
+- `doFallthru [eff__3]` similarly appears in both outer and nested homes.
+- condition and setup nodes stay in `root`.
 
-Realized site forest:
+`SAME_SCOPE_Q_ON_BOTH_P_SIDES` demonstrates same-condition separation:
+
+- the two local `q` sites remain distinct because their partition ancestor paths
+  differ.
+- left-arm values resolve under `p.left` and right-arm values resolve under
+  `p.right`.
+- shared support such as `pop_u32 [c2]` stays in `root`.
+
+`OUTER_Q_AND_BOTH_P_SIDES_Q` demonstrates no sibling interference:
+
+- root `q_outer` and root `p` are siblings.
+- uses under `p` walk only the `p` ancestor path.
+- nested `q` condition structure under `p.left` and `p.right` may specialize
+  independently.
+
+## Rendering And Tests
+
+Rendering lives in `common/sea/region/ISRender.v3`.
+
+Current render entry points:
+
+- `renderPhase0(...)`
+- `renderResolveHome(...)`
+- `renderInstances(...)`
+
+The main inspection driver is `tests/InstancedSchedulerTest.v3`.
+
+Useful commands:
+
+```bash
+make InstancedSchedulerTest
+make PartitionTest
+bash scripts/instanced_scheduler_golden_test.sh
+bash scripts/instanced_instance_golden_test.sh
+```
+
+The Phase 0 golden script checks only the static skeleton. The instance golden
+script checks the eager `(root, home)` instance graph produced by `--instances`.
+There is not yet a separate golden suite for raw `--resolve-home` traces; the
+instance suite exercises `resolve_home(...)` indirectly.
+
+## Next Steps
+
+### 1. Compute Pending Users
+
+Add placement-oriented dependency counts derived from `instance_deps`.
+
+The likely tables are:
 
 ```text
-root
-- site(q_outer)
-- site(p)
-  - left: site(q_left)
-  - right: site(q_right)
+pending_users[inst.id] -> int
+users[dep.id] -> Vector<SchedulerInstance>
 ```
 
-Key nodes:
+An instance is ready for bottom-up placement when all users below it have been
+placed.
 
-- `pop_u32 [x]`
-  - at root `p`, `anchored_overlap`
-  - home: `root`
+### 2. Define Placement Bounds
 
-- `pop_u32 [c2]`
-  - also anchored at root `p`
-  - home: `root`
+Use two bounds for each instance:
 
-- `u32.!= [q]`
-  - at root `p`, cloneable, not anchored
-  - nested `q_left` and `q_right` may each get their own home for pure `q`
-    structure
+- static ceiling: `inst.home.top_limit`
+- dynamic floor: accumulated `inst.bottom_limit` from already-placed users
 
-- `u32.+ [outer__20]`
-  - only the `q_outer` ancestor chain matters
-  - `p` is a sibling, not an ancestor
-  - home is determined only by `q_outer`
+The first placement implementation should keep this simple and conservative.
+Correctness is more important than finding the highest or prettiest placement.
 
-- `u32.+ [left__9]`
-  - uses under `p.left` cross `p`, not `q_outer`
-  - it descends through `p.left`, then through the nested local `q`
+### 3. Implement Bottom-Up Placement
 
-Meaning:
+Run a worklist over ready instances.
 
-- sibling root sites must not interfere with one another
-- anchored effectful inputs stay at `root`
-- pure repeated `q` structure may specialize lower
+Placement must:
 
-### `TRIVIAL_PHI_STACK_SHARED_EFFECT`
+- never move an instance above `home.top_limit`.
+- never place it below an already placed user requirement incorrectly.
+- update dependency instances' `bottom_limit`s.
+- record `placed_in` for later lowering.
 
-Representative site structure:
+At this stage it is acceptable to place into existing `default_bottom` blocks if
+that keeps correctness clear. More precise insertion points can come later.
 
-```text
-root
-- site(q_base)
-- site(p_wrap2)
-  - left: site(q_base)
-  - left: site(r_wrap1)
-```
+### 4. Lower To Final CFG / SSAD
 
-Key nodes:
+Only after all instances are placed should the scheduler lower to executable
+output.
 
-- `pop_u32 [c3]`
-  - anchored at the relevant higher sites
-  - home: `root`
+Open design points:
 
-- `pop_u32 [base__11]`
-  - also stops high due to anchoring in wrap contexts
-
-- `5`
-  - pure value, cloneable at higher sites
-  - descends through wrapper sites toward the uses that need it
-
-- `merge [merge__36]`, `Phi [innerPhi__35]`
-  - pure branch-local structure
-  - continue descending into child contexts
-
-Meaning:
-
-- effect chain stays high
-- pure wrapper/value structure descends lower
-
-### `UNLEM_IMPOSSIBLE_ASSIGNMENT_BUNDLE`
-
-Representative root sites:
-
-```text
-root
-- site(p_x)
-- site(p_z)
-- nested q and r sites below them
-```
-
-Key nodes:
-
-- `pop_u32 [c3]`
-  - anchored at the relevant root `p/z` site
-  - home: `root`
-
-- `pop_u32 [x__16]`, `pop_u32 [x__19]`
-  - likewise anchored high
-  - home: `root`
-
-- `u32.+ [z__4]`
-  - pure and cloneable in the `p/z` split
-  - only the `p=false` path needs it
-  - home: the right child of that root `p` site
-
-- `Phi [y]`
-  - cloneable in the same root split
-  - used only on the `p=true` side
-  - then refined further by the nested `r` site
-
-- `10`, `20`, `Phi [x]`
-  - descend through the `p=true` side into the local `q/x` sites
-  - effect acquisition remains high, pure value structure continues downward
-
-Meaning:
-
-- this is the main case where explicit untangle cloning became hard to control
-- instance scheduling should be better suited because it reasons directly about
-  the contextual use path
+- how to name multiple instances of one root node.
+- how to map phi arms to the placed instances used by each branch.
+- how much of the old `SSADSeaInfo` alias machinery should be reused.
+- how the existing `ScheduleChecker` should be adapted for instance placement.
 
 ## Summary
 
-`resolve_home(...)` should be the semantic replacement for explicit untangle.
+The instanced scheduler now has a cohesive front half:
 
-Its key behavior is:
+- fixed branch skeleton from `BranchSite`s
+- ancestor-only home resolution
+- eager `(root, home)` instance discovery
 
-- walk only the ancestor site path of the use
-- stop at `support` or `anchored_overlap`
-- force the side for `left_only` / `right_only`
-- follow the use side for `cloneable_overlap`
-- default to stopping above an unclassified crossed site
-
-If this rule is right, the rest of the scheduler can be built around instance
-discovery and bottom-up placement without a separate graph untangle pass.
+The remaining work is placement and lowering. Those phases should consume the
+instance graph as the source of truth and should not reintroduce Sea rewriting or
+branch-scope rediscovery.

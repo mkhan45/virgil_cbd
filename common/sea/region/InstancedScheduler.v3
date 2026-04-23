@@ -1,16 +1,26 @@
 var inst_sched_cfg_id: int = 0;
+var inst_sched_partition_id: int = 0;
 
 class SchedulerInstance {
+    var id: int;
     var root: IRNode;
     var home: PartitionFrame;
 
     var bottom_limit: ICFGNode;
     var placed_in: ICFGNode;
 
-    new(root, home, bottom_limit, placed_in) {}
+    new(id, root, home, bottom_limit, placed_in) {}
+}
+
+class InstanceDep {
+    var dep: SchedulerInstance;
+    var role: UseRole;
+
+    new(dep, role) {}
 }
 
 class PartitionFrame {
+    var id: int;
     var parent: PartitionFrame;
     var owner_site: SiteFrame;
     var side: SiteSide;
@@ -18,7 +28,7 @@ class PartitionFrame {
     var top_limit: ICFGNode;
     var default_bottom: ICFGNode;
 
-    new(parent, owner_site, side, top_limit, default_bottom) {}
+    new(id, parent, owner_site, side, top_limit, default_bottom) {}
 }
 
 class SiteFrame {
@@ -43,6 +53,13 @@ type UseRole #unboxed {
     case PhiCond;
     case PhiLeft;
     case PhiRight;
+}
+
+type HomeDecision {
+    case StopAbove;
+    case DescendLeft;
+    case DescendRight;
+    case DescendEither;
 }
 
 class ICFGNode(id: int) {
@@ -98,27 +115,27 @@ class InstancedSeaScheduler {
     var top_cfg: ICFGNode;
     var bottom_cfg: ICFGBlock;
 
+    var instances: Vector<SchedulerInstance> = Vector<SchedulerInstance>.new();
+    var instance_deps: Vector<Vector<InstanceDep>> = Vector<Vector<InstanceDep>>.new();
+
     new(sea, top_node, bottom_node, discovery,
         root_partition, root_sites, site_frames,
         top_cfg, bottom_cfg) {}
 
     def renderPhase0(buf: StringBuilder) -> StringBuilder {
-        buf.puts("root_partition side=").puts(PartitionInference.side_name(root_partition.side));
-        buf.puts(" top=");
-        InstancedScheduler.render_cfg_ref(root_partition.top_limit, buf);
-        buf.puts(" bottom=");
-        InstancedScheduler.render_cfg_ref(root_partition.default_bottom, buf);
-        buf.puts("\n");
+        return ISRender.renderPhase0(this, buf);
+    }
 
-        buf.puts("cfg top=");
-        InstancedScheduler.render_cfg_ref(top_cfg, buf);
-        buf.puts(" bottom=");
-        InstancedScheduler.render_cfg_ref(bottom_cfg, buf);
-        buf.puts("\n");
+    def resolve_home(root: IRNode, use_partition: PartitionFrame, use_role: UseRole) -> PartitionFrame {
+        return InstancedScheduler.resolve_home(this, root, use_partition, use_role);
+    }
 
-        for (i < root_sites.length)
-            InstancedScheduler.render_site_frame(root_sites[i], 2, buf);
-        return buf;
+    def discover_instances() {
+        InstancedScheduler.discover_instances(this);
+    }
+
+    def renderInstances(buf: StringBuilder) -> StringBuilder {
+        return ISRender.renderInstances(this, buf);
     }
 }
 
@@ -128,12 +145,20 @@ component InstancedScheduler {
         return inst_sched_cfg_id;
     }
 
+    def fresh_partition_id() -> int {
+        inst_sched_partition_id += 1;
+        return inst_sched_partition_id;
+    }
+
     def of_full_sea(sea: Sea) -> InstancedSeaScheduler {
+        inst_sched_cfg_id = 0;
+        inst_sched_partition_id = 0;
         def discovery = PartitionInference.determine_all_partitions(sea, sea.finish, true, true);
         def bottom_cfg = ICFGBlock.new(fresh_cfg_id());
-        def root_partition = PartitionFrame.new(null, null, SiteSide.Root, null, bottom_cfg);
+        def root_partition = PartitionFrame.new(fresh_partition_id(), null, null, SiteSide.Root, null, bottom_cfg);
+        def built = build_sites(root_partition, discovery.sites, bottom_cfg);
         def site_frames = Vector<SiteFrame>.new();
-        def built = build_sites(root_partition, discovery.sites, bottom_cfg, site_frames);
+        collect_site_frames(built.1, site_frames);
 
         return InstancedSeaScheduler.new(sea, sea.start, sea.finish, discovery,
                                          root_partition, built.1, site_frames,
@@ -142,15 +167,14 @@ component InstancedScheduler {
 
     def build_sites(partition: PartitionFrame,
                     sites: Vector<BranchSite>,
-                    sink: ICFGNode,
-                    flat_sites: Vector<SiteFrame>) -> (ICFGNode, Vector<SiteFrame>) {
+                    sink: ICFGNode) -> (ICFGNode, Vector<SiteFrame>) {
         var entry = sink;
         def direct = Vector<SiteFrame>.new();
 
         var i = sites.length;
         while (i > 0) {
             i -= 1;
-            def built = build_site(partition, sites[i], entry, flat_sites);
+            def built = build_site(partition, sites[i], entry);
             entry = built.0;
             direct.put(built.1);
         }
@@ -159,10 +183,18 @@ component InstancedScheduler {
         return (entry, direct);
     }
 
+    def collect_site_frames(frames: Vector<SiteFrame>, out: Vector<SiteFrame>) {
+        for (i < frames.length) {
+            def frame = frames[i];
+            out.put(frame);
+            collect_site_frames(frame.left_children, out);
+            collect_site_frames(frame.right_children, out);
+        }
+    }
+
     def build_site(parent_partition: PartitionFrame,
                    site: BranchSite,
-                   sink: ICFGNode,
-                   flat_sites: Vector<SiteFrame>) -> (ICFGNode, SiteFrame) {
+                   sink: ICFGNode) -> (ICFGNode, SiteFrame) {
         def prev = sink.getSinglePrev();
         def branch = ICFGBranch.new(fresh_cfg_id());
         def join = ICFGJoin.new(fresh_cfg_id());
@@ -183,15 +215,14 @@ component InstancedScheduler {
         left_leaf.prev = branch;
         right_leaf.prev = branch;
 
-        def left_partition = PartitionFrame.new(parent_partition, null, SiteSide.Left, branch, left_leaf);
-        def right_partition = PartitionFrame.new(parent_partition, null, SiteSide.Right, branch, right_leaf);
+        def left_partition = PartitionFrame.new(fresh_partition_id(), parent_partition, null, SiteSide.Left, branch, left_leaf);
+        def right_partition = PartitionFrame.new(fresh_partition_id(), parent_partition, null, SiteSide.Right, branch, right_leaf);
         def frame = SiteFrame.new(site, parent_partition, left_partition, right_partition, branch, join);
         left_partition.owner_site = frame;
         right_partition.owner_site = frame;
-        flat_sites.put(frame);
 
-        def left_built = build_sites(left_partition, site.left_children, left_leaf, flat_sites);
-        def right_built = build_sites(right_partition, site.right_children, right_leaf, flat_sites);
+        def left_built = build_sites(left_partition, site.left_children, left_leaf);
+        def right_built = build_sites(right_partition, site.right_children, right_leaf);
 
         frame.left_children = left_built.1;
         frame.right_children = right_built.1;
@@ -222,65 +253,173 @@ component InstancedScheduler {
         }
     }
 
-    def put_indent(buf: StringBuilder, indent: int) -> StringBuilder {
-        for (i < indent) buf.puts(" ");
-        return buf;
+    def classify_home(site: BranchSite, node_: IRNode) -> HomeDecision {
+        if (node_ == null) return HomeDecision.StopAbove;
+        def node = node_.unwrapMove();
+
+        if (site.support.has(node) || site.anchored_overlap.has(node))
+            return HomeDecision.StopAbove;
+        if (site.left_only.has(node)) return HomeDecision.DescendLeft;
+        if (site.right_only.has(node)) return HomeDecision.DescendRight;
+        if (site.cloneable_overlap.has(node)) return HomeDecision.DescendEither;
+        return HomeDecision.StopAbove;
     }
 
-    def render_partition_ref(partition: PartitionFrame, buf: StringBuilder) -> StringBuilder {
-        if (partition == null) return buf.puts("null");
-        if (partition.owner_site == null) return buf.puts("root");
-
-        buf.puts("site#").putd(partition.owner_site.site.id)
-            .puts(".").puts(PartitionInference.side_name(partition.side));
-        return buf;
+    def ancestor_partitions(use_partition: PartitionFrame) -> Vector<PartitionFrame> {
+        def path = Vector<PartitionFrame>.new();
+        var cur = use_partition;
+        while (cur != null && cur.owner_site != null) {
+            path.put(cur);
+            cur = cur.parent;
+        }
+        path.reverse();
+        return path;
     }
 
-    def render_cfg_ref(node: ICFGNode, buf: StringBuilder) -> StringBuilder {
-        if (node == null) return buf.puts("null");
-        match (node) {
-            block: ICFGBlock => return buf.puts("block#").putd(block.id);
-            branch: ICFGBranch => return buf.puts("branch#").putd(branch.id);
-            join: ICFGJoin => return buf.puts("join#").putd(join.id);
-            _ => return buf.puts("cfg#").putd(node.id);
+    def child_partition_for_side(site: SiteFrame, side: SiteSide) -> PartitionFrame {
+        match (side) {
+            Left => return site.left_partition;
+            Right => return site.right_partition;
+            _ => return site.parent_partition;
         }
     }
 
-    def render_site_frame(frame: SiteFrame, indent: int, buf: StringBuilder) -> StringBuilder {
-        put_indent(buf, indent).puts("site#").putd(frame.site.id)
-            .puts(" cond=").putq(frame.site.condition.render)
-            .puts(" branch=");
-        render_cfg_ref(frame.branch_cfg, buf);
-        buf.puts(" merge=");
-        render_cfg_ref(frame.merge_cfg, buf).puts("\n");
+    def resolve_home(scheduler: InstancedSeaScheduler,
+                     root_: IRNode,
+                     use_partition: PartitionFrame,
+                     use_role: UseRole) -> PartitionFrame {
+        if (root_ == null) return scheduler.root_partition;
+        def root = root_.unwrapMove();
+        def path = ancestor_partitions(use_partition);
+        var cur = scheduler.root_partition;
 
-        put_indent(buf, indent + 2).puts("parent=");
-        render_partition_ref(frame.parent_partition, buf).puts("\n");
+        for (i < path.length) {
+            def step = path[i];
+            def site_frame = step.owner_site;
+            if (site_frame == null) return cur;
 
-        put_indent(buf, indent + 2).puts("left=");
-        render_partition_ref(frame.left_partition, buf);
-        buf.puts(" top=");
-        render_cfg_ref(frame.left_partition.top_limit, buf);
-        buf.puts(" bottom=");
-        render_cfg_ref(frame.left_partition.default_bottom, buf).puts("\n");
-
-        put_indent(buf, indent + 2).puts("right=");
-        render_partition_ref(frame.right_partition, buf);
-        buf.puts(" top=");
-        render_cfg_ref(frame.right_partition.top_limit, buf);
-        buf.puts(" bottom=");
-        render_cfg_ref(frame.right_partition.default_bottom, buf).puts("\n");
-
-        for (i < frame.left_children.length) {
-            put_indent(buf, indent + 2).puts("left_child:\n");
-            render_site_frame(frame.left_children[i], indent + 4, buf);
+            def decision = classify_home(site_frame.site, root);
+            match (decision) {
+                StopAbove => return cur;
+                DescendLeft => {
+                    if (!SiteSide.Left.?(step.side)) return cur;
+                    cur = site_frame.left_partition;
+                }
+                DescendRight => {
+                    if (!SiteSide.Right.?(step.side)) return cur;
+                    cur = site_frame.right_partition;
+                }
+                DescendEither => cur = child_partition_for_side(site_frame, step.side);
+            }
         }
 
-        for (i < frame.right_children.length) {
-            put_indent(buf, indent + 2).puts("right_child:\n");
-            render_site_frame(frame.right_children[i], indent + 4, buf);
-        }
-
-        return buf;
+        return cur;
     }
+
+    def intern_instance(scheduler: InstancedSeaScheduler,
+                        root_: IRNode,
+                        home: PartitionFrame,
+                        worklist: Vector<SchedulerInstance>) -> SchedulerInstance {
+        if (root_ == null) return null;
+        def root = root_.unwrapMove();
+        def resolved_home = if(home != null, home, scheduler.root_partition);
+
+        for (i < scheduler.instances.length) {
+            def inst = scheduler.instances[i];
+            if (inst.root.id == root.id && inst.home.id == resolved_home.id) return inst;
+        }
+
+        def inst = SchedulerInstance.new(scheduler.instances.length, root, resolved_home, null, null);
+        scheduler.instances.put(inst);
+        scheduler.instance_deps.put(Vector<InstanceDep>.new());
+        worklist.put(inst);
+        return inst;
+    }
+
+    def demand_instance(scheduler: InstancedSeaScheduler,
+                        root: IRNode,
+                        use_partition: PartitionFrame,
+                        role: UseRole,
+                        worklist: Vector<SchedulerInstance>) -> SchedulerInstance {
+        if (root == null) return null;
+        def home = scheduler.resolve_home(root, use_partition, role);
+        return intern_instance(scheduler, root, home, worklist);
+    }
+
+    def add_instance_dep(scheduler: InstancedSeaScheduler,
+                         user: SchedulerInstance,
+                         dep: SchedulerInstance,
+                         role: UseRole) {
+        if (user == null || dep == null) return;
+        scheduler.instance_deps[user.id].put(InstanceDep.new(dep, role));
+    }
+
+    def add_dependency_demand(scheduler: InstancedSeaScheduler,
+                              user: SchedulerInstance,
+                              dep_root: IRNode,
+                              use_partition: PartitionFrame,
+                              role: UseRole,
+                              worklist: Vector<SchedulerInstance>) {
+        if (dep_root == null) return;
+        def dep = demand_instance(scheduler, dep_root, use_partition, role, worklist);
+        if (dep != null && user.id != dep.id) add_instance_dep(scheduler, user, dep, role);
+    }
+
+    def seed_finish_demands(scheduler: InstancedSeaScheduler,
+                            worklist: Vector<SchedulerInstance>) {
+        def finish = scheduler.bottom_node;
+        for (i < finish.value_deps.length)
+            if (finish.value_deps[i] != null)
+                demand_instance(scheduler, finish.value_deps[i], scheduler.root_partition, UseRole.Value(i), worklist);
+
+        for (sc in StateComponent.set.all)
+            if (finish.state_deps[sc.tag] != null)
+                demand_instance(scheduler, finish.state_deps[sc.tag], scheduler.root_partition, UseRole.State(sc), worklist);
+    }
+
+    def seed_site_phi_demands(scheduler: InstancedSeaScheduler,
+                              worklist: Vector<SchedulerInstance>) {
+        for (i < scheduler.site_frames.length) {
+            def frame = scheduler.site_frames[i];
+            for (j < frame.site.phis.length) {
+                def phi = frame.site.phis[j];
+                if (phi.value_deps.length > 0 && phi.value_deps[0] != null)
+                    demand_instance(scheduler, phi.value_deps[0], frame.parent_partition, UseRole.PhiCond, worklist);
+                if (phi.value_deps.length > 1 && phi.value_deps[1] != null)
+                    demand_instance(scheduler, phi.value_deps[1], frame.left_partition, UseRole.PhiLeft, worklist);
+                if (phi.value_deps.length > 2 && phi.value_deps[2] != null)
+                    demand_instance(scheduler, phi.value_deps[2], frame.right_partition, UseRole.PhiRight, worklist);
+            }
+        }
+    }
+
+    def discover_instance_deps(scheduler: InstancedSeaScheduler,
+                               inst: SchedulerInstance,
+                               worklist: Vector<SchedulerInstance>) {
+        def node = inst.root;
+        if (node == null || node.is_phi() || node.is_move()) return;
+
+        for (i < node.value_deps.length)
+            add_dependency_demand(scheduler, inst, node.value_deps[i], inst.home, UseRole.Value(i), worklist);
+
+        for (sc in StateComponent.set.all)
+            add_dependency_demand(scheduler, inst, node.state_deps[sc.tag], inst.home, UseRole.State(sc), worklist);
+    }
+
+    def discover_instances(scheduler: InstancedSeaScheduler) {
+        scheduler.instances = Vector<SchedulerInstance>.new();
+        scheduler.instance_deps = Vector<Vector<InstanceDep>>.new();
+
+        def worklist = Vector<SchedulerInstance>.new();
+        seed_finish_demands(scheduler, worklist);
+        seed_site_phi_demands(scheduler, worklist);
+
+        var i = 0;
+        while (i < worklist.length) {
+            def inst = worklist[i];
+            i += 1;
+            discover_instance_deps(scheduler, inst, worklist);
+        }
+    }
+
 }

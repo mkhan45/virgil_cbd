@@ -67,6 +67,13 @@ PartitionTest: $(SYNTHETIC_SEXP) $(COMMON_LIB) $(TYPEDEFS) common/sea/region/*.v
 		$(WIZARD_UTIL)\
 		common/sea/region/PartitionTest.v3
 
+InstancedSchedulerTest: $(SYNTHETIC_SEXP) $(COMMON_LIB) $(TYPEDEFS) tests/InstancedSchedulerTest.v3
+	$(V3C) $(VIRGIL_STD)\
+		$(COMMON_LIB)\
+		$(ENGINE)\
+		$(WIZARD_UTIL)\
+		tests/InstancedSchedulerTest.v3
+
 ValidatorGen: $(GENERATE_DEPS) $(VALIDATOR)/*.v3
 	$(V3C) $(VIRGIL_STD)\
 		$(COMMON_LIB)\
