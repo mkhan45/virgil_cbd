@@ -43,16 +43,14 @@ Implemented:
 - Phase 0 static scope skeleton construction.
 - Phase 1 `resolve_home(...)`.
 - Phase 2 home-plan instance discovery.
-- `common/sea/region/ISRender.v3` for Phase 0, home-resolution, and instance rendering.
-- `tests/InstancedSchedulerTest.v3` with `--resolve-home` and `--instances` modes.
+- Phase 3 conservative bottom-up placement.
+- `common/sea/region/ISRender.v3` for Phase 0, home-resolution, instance, and placement rendering.
+- `tests/InstancedSchedulerTest.v3` with `--resolve-home`, `--instances`, and `--placement` modes.
 - `scripts/instanced_scheduler_golden_test.sh` for Phase 0 skeleton goldens.
 - `scripts/instanced_instance_golden_test.sh` for instance-discovery goldens.
 
 Not implemented yet:
 
-- bottom-up placement
-- pending-user counts
-- CFG mutation for placed instances
 - final SSAD lowering
 - schedule checker integration for the instanced scheduler
 
@@ -73,6 +71,7 @@ class PartitionFrame {
 
     var top_limit: ICFGNode;
     var default_bottom: ICFGNode;
+    var entry_block: ICFGBlock;
 }
 ```
 
@@ -83,6 +82,8 @@ Meaning:
 - `side` records whether this is the left or right child of `owner_site`.
 - `top_limit` is the branch CFG node that an instance may not move above.
 - `default_bottom` is the leaf block for this partition before placement.
+- `entry_block` is created lazily by placement when values must execute before
+  child branch sites in this partition.
 
 `PartitionFrame` intentionally does not cache membership sets. Legality comes
 from the realized `BranchSite` fields along the ancestor path.
@@ -130,6 +131,9 @@ ICFGBranch
 ICFGJoin
 ```
 
+Placement adds ordinary instances to `ICFGBlock.prims` in bottom-up order and
+Phi/StatePhi instances to `ICFGJoin.phi_instances`.
+
 This keeps Phase 0 structural and avoids coupling new instance placement to the
 old scheduler's branch-lattice, dominance, and phi-placement assumptions.
 
@@ -158,7 +162,9 @@ Meaning:
 - two uses share work iff they intern to the same `(root, home)` pair.
 - duplication is represented by two instances with the same `root` and different
   `home`s.
-- `bottom_limit` and `placed_in` are reserved for Phase 3 placement.
+- `bottom_limit` records the first already-placed user location seen during
+  bottom-up placement.
+- `placed_in` records the final `ICFGBlock` or `ICFGJoin` placement.
 
 ### `UseRole`
 
@@ -422,6 +428,48 @@ Useful commands:
 - `pop_u32 [x]` and the shared `q` condition have one root instance, while the
   nested `q` phi arms specialize under `p.left` and `p.right`.
 
+## Phase 3: Conservative Placement
+
+Phase 3 consumes the finalized instance graph. It does not create, merge, split,
+or retarget instances.
+
+Current placement tables:
+
+```text
+instance_users[dep.id] -> Vector<InstanceUse>
+pending_users[inst.id] -> int
+```
+
+Placement runs bottom-up:
+
+- start with instances that have no instance users.
+- place an instance once all users below it have been placed.
+- decrement pending counts for its dependencies.
+- enqueue dependencies whose pending count reaches zero.
+
+Ordinary instances are placed in blocks. Phi and StatePhi instances are placed at
+their owning `ICFGJoin`. Blocks store prims in bottom-up order; lowering will
+emit them in reverse order.
+
+The first placement policy is intentionally conservative:
+
+- final outputs with no instance users stay in the partition `default_bottom`.
+- dependencies whose users are in the same bottom block also stay there.
+- dependencies used by branch conditions or by users outside the partition bottom
+  go in a lazily-created partition `entry_block`.
+- entry blocks are inserted before the first child CFG node of that partition,
+  so branch conditions and shared branch inputs execute before the branch that
+  consumes them.
+
+Useful commands:
+
+```bash
+./InstancedSchedulerTest --canonical --unlem --placement IF
+./InstancedSchedulerTest --placement SAME_SCOPE_Q_ON_BOTH_P_SIDES
+./InstancedSchedulerTest --placement OUTER_Q_AND_BOTH_P_SIDES_Q
+./InstancedSchedulerTest --placement UNLEM_IMPOSSIBLE_ASSIGNMENT_BUNDLE
+```
+
 ## Rendering And Tests
 
 Rendering lives in `common/sea/region/ISRender.v3`.
@@ -431,8 +479,13 @@ Current render entry points:
 - `renderPhase0(...)`
 - `renderResolveHome(...)`
 - `renderInstances(...)`
+- `renderPlacement(...)`
+- `toMermaidICFG(...)`
 
 The main inspection driver is `tests/InstancedSchedulerTest.v3`.
+It initializes `CBDTrace` for `docs/traces.js` and emits Mermaid ICFG graphs
+under `instanced_phase0_cfg` for skeleton modes and `instanced_placement_cfg`
+for `--placement`.
 
 Useful commands:
 
@@ -441,54 +494,18 @@ make InstancedSchedulerTest
 make PartitionTest
 bash scripts/instanced_scheduler_golden_test.sh
 bash scripts/instanced_instance_golden_test.sh
+./InstancedSchedulerTest --placement OUTER_Q_AND_BOTH_P_SIDES_Q
 ```
 
 The Phase 0 golden script checks only the static skeleton. The instance golden
-script checks the eager `(root, home)` instance graph produced by `--instances`.
-There is not yet a separate golden suite for raw `--resolve-home` traces; the
-instance suite exercises `resolve_home(...)` indirectly.
+script checks the finalized `(root, home)` instance graph produced by
+`--instances`. There is not yet a separate golden suite for raw `--resolve-home`
+or `--placement` traces; the instance suite exercises `resolve_home(...)`
+indirectly.
 
 ## Next Steps
 
-### 1. Compute Pending Users
-
-Add placement-oriented dependency counts derived from `instance_deps`.
-
-The likely tables are:
-
-```text
-pending_users[inst.id] -> int
-users[dep.id] -> Vector<SchedulerInstance>
-```
-
-An instance is ready for bottom-up placement when all users below it have been
-placed.
-
-### 2. Define Placement Bounds
-
-Use two bounds for each instance:
-
-- static ceiling: `inst.home.top_limit`
-- dynamic floor: accumulated `inst.bottom_limit` from already-placed users
-
-The first placement implementation should keep this simple and conservative.
-Correctness is more important than finding the highest or prettiest placement.
-
-### 3. Implement Bottom-Up Placement
-
-Run a worklist over ready instances.
-
-Placement must:
-
-- never move an instance above `home.top_limit`.
-- never place it below an already placed user requirement incorrectly.
-- update dependency instances' `bottom_limit`s.
-- record `placed_in` for later lowering.
-
-At this stage it is acceptable to place into existing `default_bottom` blocks if
-that keeps correctness clear. More precise insertion points can come later.
-
-### 4. Lower To Final CFG / SSAD
+### 1. Lower To Final CFG / SSAD
 
 Only after all instances are placed should the scheduler lower to executable
 output.
@@ -500,14 +517,27 @@ Open design points:
 - how much of the old `SSADSeaInfo` alias machinery should be reused.
 - how the existing `ScheduleChecker` should be adapted for instance placement.
 
+### 2. Add Placement Checking
+
+Before wiring this into `ValidatorGen`, add a checker for the instanced CFG.
+
+It should verify:
+
+- dependencies are available before each placed instance executes.
+- branch conditions are placed before their `ICFGBranch`.
+- Phi arms are available on the correct side or in an ancestor partition.
+- same-root duplicate instances remain pairwise path-exclusive.
+- path effects match the original Sea by root node.
+
 ## Summary
 
 The instanced scheduler now has a cohesive front half:
 
 - fixed branch skeleton from `BranchSite`s
 - ancestor-only home resolution
-- eager `(root, home)` instance discovery
+- home-plan instance discovery
+- conservative bottom-up placement
 
-The remaining work is placement and lowering. Those phases should consume the
-instance graph as the source of truth and should not reintroduce Sea rewriting or
-branch-scope rediscovery.
+The remaining work is lowering and checking. Those phases should consume the
+placed instance graph as the source of truth and should not reintroduce Sea
+rewriting or branch-scope rediscovery.

@@ -19,6 +19,13 @@ class InstanceDep {
     new(dep, role) {}
 }
 
+class InstanceUse {
+    var user: SchedulerInstance;
+    var role: UseRole;
+
+    new(user, role) {}
+}
+
 class InstanceHomePlan {
     var root: IRNode;
     var demands: Vector<PartitionFrame> = Vector<PartitionFrame>.new();
@@ -35,6 +42,7 @@ class PartitionFrame {
 
     var top_limit: ICFGNode;
     var default_bottom: ICFGNode;
+    var entry_block: ICFGBlock = null;
 
     new(id, parent, owner_site, side, top_limit, default_bottom) {}
 }
@@ -91,6 +99,7 @@ class ICFGNode(id: int) {
 class ICFGBlock(uid: int) extends ICFGNode(uid) {
     var prev: ICFGNode = null;
     var next: ICFGNode = null;
+    var prims: Vector<SchedulerInstance> = Vector<SchedulerInstance>.new();
 }
 
 class ICFGBranch(uid: int) extends ICFGNode(uid) {
@@ -107,6 +116,7 @@ class ICFGJoin(uid: int) extends ICFGNode(uid) {
     var r_source: ICFGNode = null;
     var next: ICFGNode = null;
     var phis: Vector<IRNode> = Vector<IRNode>.new();
+    var phi_instances: Vector<SchedulerInstance> = Vector<SchedulerInstance>.new();
 }
 
 class InstancedSeaScheduler {
@@ -125,6 +135,8 @@ class InstancedSeaScheduler {
 
     var instances: Vector<SchedulerInstance> = Vector<SchedulerInstance>.new();
     var instance_deps: Vector<Vector<InstanceDep>> = Vector<Vector<InstanceDep>>.new();
+    var instance_users: Array<Vector<InstanceUse>> = null;
+    var pending_users: Array<int> = null;
 
     new(sea, top_node, bottom_node, discovery,
         root_partition, root_sites, site_frames,
@@ -132,6 +144,10 @@ class InstancedSeaScheduler {
 
     def renderPhase0(buf: StringBuilder) -> StringBuilder {
         return ISRender.renderPhase0(this, buf);
+    }
+
+    def toMermaidICFG() -> string {
+        return ISRender.toMermaidICFG(this);
     }
 
     def resolve_home(root: IRNode, use_partition: PartitionFrame, use_role: UseRole) -> PartitionFrame {
@@ -144,6 +160,14 @@ class InstancedSeaScheduler {
 
     def renderInstances(buf: StringBuilder) -> StringBuilder {
         return ISRender.renderInstances(this, buf);
+    }
+
+    def place_instances() {
+        InstancedScheduler.place_instances(this);
+    }
+
+    def renderPlacement(buf: StringBuilder) -> StringBuilder {
+        return ISRender.renderPlacement(this, buf);
     }
 }
 
@@ -293,6 +317,11 @@ component InstancedScheduler {
     }
 
     def same_partition(lhs: PartitionFrame, rhs: PartitionFrame) -> bool {
+        if (lhs == null || rhs == null) return lhs == rhs;
+        return lhs.id == rhs.id;
+    }
+
+    def same_cfg_node(lhs: ICFGNode, rhs: ICFGNode) -> bool {
         if (lhs == null || rhs == null) return lhs == rhs;
         return lhs.id == rhs.id;
     }
@@ -643,6 +672,186 @@ component InstancedScheduler {
         def plans = discover_home_plans(scheduler);
         materialize_instances(scheduler, plans);
         for (i < scheduler.instances.length) discover_instance_deps(scheduler, scheduler.instances[i]);
+    }
+
+    def clear_block_placement(node: ICFGNode) {
+        if (node == null) return;
+        match (node) {
+            block: ICFGBlock => block.prims = Vector<SchedulerInstance>.new();
+            _ => ;
+        }
+    }
+
+    def clear_join_placement(join: ICFGJoin) {
+        if (join == null) return;
+        join.phi_instances = Vector<SchedulerInstance>.new();
+    }
+
+    def clear_placements(scheduler: InstancedSeaScheduler) {
+        clear_block_placement(scheduler.bottom_cfg);
+        clear_block_placement(scheduler.root_partition.entry_block);
+        for (i < scheduler.site_frames.length) {
+            def frame = scheduler.site_frames[i];
+            clear_block_placement(frame.left_partition.entry_block);
+            clear_block_placement(frame.right_partition.entry_block);
+            clear_block_placement(frame.left_partition.default_bottom);
+            clear_block_placement(frame.right_partition.default_bottom);
+            clear_join_placement(frame.merge_cfg);
+        }
+
+        for (i < scheduler.instances.length) {
+            def inst = scheduler.instances[i];
+            inst.bottom_limit = null;
+            inst.placed_in = null;
+        }
+    }
+
+    def compute_instance_users(scheduler: InstancedSeaScheduler) {
+        def n = scheduler.instances.length;
+        scheduler.instance_users = Array<Vector<InstanceUse>>.new(n);
+        scheduler.pending_users = Array<int>.new(n);
+        for (i < n) {
+            scheduler.instance_users[i] = Vector<InstanceUse>.new();
+            scheduler.pending_users[i] = 0;
+        }
+
+        for (i < n) {
+            def user = scheduler.instances[i];
+            def deps = scheduler.instance_deps[user.id];
+            for (j < deps.length) {
+                def dep = deps[j].dep;
+                if (dep == null) continue;
+                scheduler.instance_users[dep.id].put(InstanceUse.new(user, deps[j].role));
+                scheduler.pending_users[dep.id] += 1;
+            }
+        }
+    }
+
+    def should_emit_in_block(inst: SchedulerInstance) -> bool {
+        if (inst == null || inst.root == null) return false;
+        match (inst.root.op) {
+            Start, Finish, Move, Phi, StatePhi => return false;
+            _ => return true;
+        }
+    }
+
+    def partition_first_node(scheduler: InstancedSeaScheduler, partition: PartitionFrame) -> ICFGNode {
+        if (partition == null || partition.owner_site == null) return scheduler.top_cfg;
+        def branch = partition.owner_site.branch_cfg;
+        match (partition.side) {
+            Left => return branch.l_branch;
+            Right => return branch.r_branch;
+            _ => return scheduler.top_cfg;
+        }
+    }
+
+    def set_partition_first_node(scheduler: InstancedSeaScheduler,
+                                 partition: PartitionFrame,
+                                 node: ICFGNode) {
+        if (partition == null || partition.owner_site == null) {
+            scheduler.top_cfg = node;
+            return;
+        }
+
+        def branch = partition.owner_site.branch_cfg;
+        match (partition.side) {
+            Left => branch.l_branch = node;
+            Right => branch.r_branch = node;
+            _ => scheduler.top_cfg = node;
+        }
+    }
+
+    def partition_entry_block(scheduler: InstancedSeaScheduler,
+                              partition_: PartitionFrame) -> ICFGBlock {
+        def partition = if(partition_ != null, partition_, scheduler.root_partition);
+        if (partition.entry_block != null) return partition.entry_block;
+
+        def old_first = partition_first_node(scheduler, partition);
+        def block = ICFGBlock.new(fresh_cfg_id());
+        block.next = old_first;
+        block.prev = if(partition.owner_site != null, partition.owner_site.branch_cfg, null);
+        if (old_first != null) old_first.setSinglePrev(block);
+        set_partition_first_node(scheduler, partition, block);
+        partition.entry_block = block;
+        return block;
+    }
+
+    def instance_has_users(scheduler: InstancedSeaScheduler, inst: SchedulerInstance) -> bool {
+        if (scheduler.instance_users == null || inst == null) return false;
+        return scheduler.instance_users[inst.id].length > 0;
+    }
+
+    def instance_requires_entry(scheduler: InstancedSeaScheduler, inst: SchedulerInstance) -> bool {
+        if (!instance_has_users(scheduler, inst)) return false;
+        def bottom = if(inst.home != null, inst.home.default_bottom, scheduler.bottom_cfg);
+        def uses = scheduler.instance_users[inst.id];
+
+        for (i < uses.length) {
+            def use = uses[i];
+            match (use.role) {
+                PhiCond => return true;
+                _ => ;
+            }
+            if (use.user != null && use.user.placed_in != null &&
+                !same_cfg_node(use.user.placed_in, bottom)) return true;
+        }
+
+        return false;
+    }
+
+    def place_instance(scheduler: InstancedSeaScheduler, inst: SchedulerInstance) {
+        if (inst == null || inst.placed_in != null) return;
+
+        if (inst.root != null && inst.root.is_phi()) {
+            def frame = find_site_frame_for_phi_home(scheduler, inst.root, inst.home);
+            if (frame != null) {
+                frame.merge_cfg.phi_instances.put(inst);
+                inst.placed_in = frame.merge_cfg;
+                return;
+            }
+        }
+
+        def dest = if(instance_requires_entry(scheduler, inst),
+                      partition_entry_block(scheduler, inst.home),
+                      if(inst.home != null, inst.home.default_bottom, scheduler.bottom_cfg));
+        inst.placed_in = dest;
+        match (dest) {
+            block: ICFGBlock => if (should_emit_in_block(inst)) block.prims.put(inst);
+            _ => ;
+        }
+    }
+
+    def place_instances(scheduler: InstancedSeaScheduler) {
+        if (scheduler.instances.length == 0) discover_instances(scheduler);
+        clear_placements(scheduler);
+        compute_instance_users(scheduler);
+
+        def ready = Vector<SchedulerInstance>.new();
+        for (i < scheduler.instances.length)
+            if (scheduler.pending_users[i] == 0) ready.put(scheduler.instances[i]);
+
+        var idx = 0;
+        while (idx < ready.length) {
+            def inst = ready[idx];
+            idx += 1;
+            if (inst.placed_in != null) continue;
+
+            place_instance(scheduler, inst);
+
+            def deps = scheduler.instance_deps[inst.id];
+            for (j < deps.length) {
+                def dep = deps[j].dep;
+                if (dep == null) continue;
+                if (dep.bottom_limit == null) dep.bottom_limit = inst.placed_in;
+                scheduler.pending_users[dep.id] -= 1;
+                if (scheduler.pending_users[dep.id] == 0) ready.put(dep);
+            }
+        }
+
+        // Cycles should not occur, but keep inspection output total while the
+        // checker phase is still under construction.
+        for (i < scheduler.instances.length)
+            if (scheduler.instances[i].placed_in == null) place_instance(scheduler, scheduler.instances[i]);
     }
 
 }

@@ -1,4 +1,98 @@
 component ISRender {
+    def toMermaidICFG(scheduler: InstancedSeaScheduler) -> string {
+        def buf = StringBuilder.new();
+        def visited = HashMap<int, void>.new(int.!<int>, int.==);
+        buf.puts("graph TD").ln();
+        renderMermaidICFG(scheduler.top_cfg, buf, visited);
+        buf.ln();
+        return buf.toString();
+    }
+
+    def mermaid_icfg_ref(node: ICFGNode, buf: StringBuilder) -> StringBuilder {
+        if (node == null) return buf.puts("null");
+        return buf.puts("icfg_").putd(node.id);
+    }
+
+    def mermaid_node_ref(node: IRNode, buf: StringBuilder) -> StringBuilder {
+        if (node == null) return buf.puts("null");
+        return SeaRender.renderNodeRef(node, buf);
+    }
+
+    def mermaid_instance_label(inst: SchedulerInstance, buf: StringBuilder) -> StringBuilder {
+        render_instance_ref(inst, buf).puts(" ");
+        return mermaid_node_ref(inst.root, buf);
+    }
+
+    def renderMermaidICFGNodeLabel(node: ICFGNode, buf: StringBuilder) -> StringBuilder {
+        match (node) {
+            block: ICFGBlock => {
+                mermaid_icfg_ref(block, buf).puts("[\"");
+                render_cfg_ref(block, buf);
+                for (i < block.prims.length) {
+                    buf.puts("<br/>");
+                    mermaid_instance_label(block.prims[i], buf);
+                }
+                return buf.puts("\"]").ln();
+            }
+            branch: ICFGBranch => {
+                mermaid_icfg_ref(branch, buf).puts("{\"");
+                render_cfg_ref(branch, buf);
+                if (branch.condition != null) {
+                    buf.puts("<br/>cond ");
+                    mermaid_node_ref(branch.condition, buf);
+                }
+                return buf.puts("\"}").ln();
+            }
+            join: ICFGJoin => {
+                mermaid_icfg_ref(join, buf).puts("((\"");
+                render_cfg_ref(join, buf);
+                for (i < join.phi_instances.length) {
+                    buf.puts("<br/>");
+                    mermaid_instance_label(join.phi_instances[i], buf);
+                }
+                return buf.puts("\"))").ln();
+            }
+            _ => ;
+        }
+        return buf;
+    }
+
+    def renderMermaidICFGEdge(from: ICFGNode, label: string, to: ICFGNode, buf: StringBuilder) -> StringBuilder {
+        if (from == null || to == null) return buf;
+        mermaid_icfg_ref(from, buf).puts(" -- ").puts(label).puts(" --> ");
+        return mermaid_icfg_ref(to, buf).ln();
+    }
+
+    def renderMermaidICFG(node: ICFGNode, buf: StringBuilder, visited: HashMap<int, void>) -> StringBuilder {
+        if (node == null || visited.has(node.id)) return buf;
+        visited[node.id] = void;
+
+        renderMermaidICFGNodeLabel(node, buf);
+
+        match (node) {
+            block: ICFGBlock => {
+                renderMermaidICFGEdge(block, "next", block.next, buf);
+                renderMermaidICFG(block.next, buf, visited);
+            }
+            branch: ICFGBranch => {
+                renderMermaidICFGEdge(branch, "left", branch.l_branch, buf);
+                renderMermaidICFGEdge(branch, "right", branch.r_branch, buf);
+                renderMermaidICFG(branch.l_branch, buf, visited);
+                renderMermaidICFG(branch.r_branch, buf, visited);
+                renderMermaidICFG(branch.join, buf, visited);
+            }
+            join: ICFGJoin => {
+                renderMermaidICFGEdge(join.l_source, "join", join, buf);
+                renderMermaidICFGEdge(join.r_source, "join", join, buf);
+                renderMermaidICFGEdge(join, "next", join.next, buf);
+                renderMermaidICFG(join.next, buf, visited);
+            }
+            _ => ;
+        }
+
+        return buf;
+    }
+
     def renderPhase0(scheduler: InstancedSeaScheduler, buf: StringBuilder) -> StringBuilder {
         buf.puts("root_partition side=").puts(PartitionInference.side_name(scheduler.root_partition.side));
         buf.puts(" top=");
@@ -173,6 +267,66 @@ component ISRender {
             }
         }
 
+        return buf;
+    }
+
+    def render_instance_summary(inst: SchedulerInstance, buf: StringBuilder) -> StringBuilder {
+        render_instance_ref(inst, buf).puts(" node=");
+        SeaRender.renderNodeRef(inst.root, buf);
+        buf.puts(" home=");
+        render_partition_ref(inst.home, buf);
+        buf.puts(" placed=");
+        render_cfg_ref(inst.placed_in, buf);
+        buf.puts(" bottom_limit=");
+        render_cfg_ref(inst.bottom_limit, buf);
+        return buf;
+    }
+
+    def render_cfg_placement(node: ICFGNode, indent: int, buf: StringBuilder) -> StringBuilder {
+        if (node == null) return buf;
+
+        match (node) {
+            block: ICFGBlock => {
+                put_indent(buf, indent);
+                render_cfg_ref(block, buf).puts(" prims(bottom-up)=").putd(block.prims.length).puts("\n");
+                for (i < block.prims.length) {
+                    put_indent(buf, indent + 2).puts("prim=");
+                    render_instance_summary(block.prims[i], buf).puts("\n");
+                }
+                if (block.next != null) render_cfg_placement(block.next, indent, buf);
+            }
+            branch: ICFGBranch => {
+                put_indent(buf, indent);
+                render_cfg_ref(branch, buf).puts(" cond=").putq(branch.condition.render).puts("\n");
+                put_indent(buf, indent + 2).puts("left:\n");
+                render_cfg_placement(branch.l_branch, indent + 4, buf);
+                put_indent(buf, indent + 2).puts("right:\n");
+                render_cfg_placement(branch.r_branch, indent + 4, buf);
+                put_indent(buf, indent + 2).puts("join:\n");
+                render_cfg_placement(branch.join, indent + 4, buf);
+            }
+            join: ICFGJoin => {
+                put_indent(buf, indent);
+                render_cfg_ref(join, buf).puts(" phis=").putd(join.phi_instances.length).puts("\n");
+                for (i < join.phi_instances.length) {
+                    put_indent(buf, indent + 2).puts("phi=");
+                    render_instance_summary(join.phi_instances[i], buf).puts("\n");
+                }
+                if (join.next != null) render_cfg_placement(join.next, indent, buf);
+            }
+            _ => ;
+        }
+
+        return buf;
+    }
+
+    def renderPlacement(scheduler: InstancedSeaScheduler, buf: StringBuilder) -> StringBuilder {
+        buf.puts("instances=").putd(scheduler.instances.length).puts("\n");
+        for (i < scheduler.instances.length) {
+            render_instance_summary(scheduler.instances[i], buf).puts("\n");
+        }
+        buf.puts("cfg:\n");
+        render_cfg_placement(scheduler.top_cfg, 2, buf);
         return buf;
     }
 }
