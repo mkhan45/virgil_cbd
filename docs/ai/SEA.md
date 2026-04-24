@@ -9,7 +9,8 @@ The sea of variables is a graph-based IR used for analysis, optimization, and sc
 | `common/sea/SeaOfVariables.v3` | Sea graph, IRNode, graph rewrites |
 | `common/sea/SeaTransforms.v3` | Graph rewrite passes |
 | `common/sea/SeaRender.v3` | Sea graph rendering and debug snapshots |
-| `common/sea/Schedule.v3` | Bottom-up CFG scheduler (untangle + schedule) |
+| `common/sea/Scheduler.v3` | Bottom-up CFG scheduler (untangle + schedule) |
+| `common/sea/CFG.v3` | CFG classes (CFGNode, CFGBlock, CFGBranch, CFGPhi) |
 | `common/sea/CheckSchedule.v3` | Schedule verification |
 | `common/sea/DomGraph.v3` | Hierarchical dominance tracking |
 | `common/sea/NodeCollections.v3` | Node set types and collections |
@@ -48,7 +49,7 @@ Use `--canonical` for real opcodes from `CanonicalDefs.v3`, for example `bash sc
 
 ## Scheduling
 
-`common/sea/Schedule.v3` converts the unordered sea graph back into structured code in two phases.
+`common/sea/Scheduler.v3` converts the unordered sea graph back into structured code in two phases.
 
 ### Phase 1: Untangle
 
