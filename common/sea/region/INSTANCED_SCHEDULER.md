@@ -29,7 +29,7 @@ This keeps scope recovery in one place:
 - `resolve_home(...)` decides where a particular use of a node may live.
 - Instance discovery computes per-root home plans, then materializes `(root node,
   home partition)` obligations.
-- Later placement will schedule those instances without rewriting the Sea.
+- Placement schedules those instances without rewriting the Sea.
 
 The important invariant is that branch structure is fixed before scheduling. The
 scheduler may create several instances of a node, but it should not rediscover or
@@ -44,15 +44,12 @@ Implemented:
 - Phase 1 `resolve_home(...)`.
 - Phase 2 home-plan instance discovery.
 - Phase 3 conservative bottom-up placement.
+- SSAD lowering.
+- Typed instanced schedule checking.
 - `common/sea/region/ISRender.v3` for Phase 0, home-resolution, instance, and placement rendering.
-- `tests/InstancedSchedulerTest.v3` with `--resolve-home`, `--instances`, and `--placement` modes.
+- `tests/InstancedSchedulerTest.v3` with `--resolve-home`, `--instances`, `--placement`, `--check`, and `--lowered` modes.
 - `scripts/instanced_scheduler_golden_test.sh` for Phase 0 skeleton goldens.
 - `scripts/instanced_instance_golden_test.sh` for instance-discovery goldens.
-
-Not implemented yet:
-
-- final SSAD lowering
-- schedule checker integration for the instanced scheduler
 
 ## Core Model
 
@@ -69,7 +66,6 @@ class PartitionFrame {
     var owner_site: SiteFrame;
     var side: SiteSide;
 
-    var top_limit: ICFGNode;
     var default_bottom: ICFGNode;
     var entry_block: ICFGBlock;
 }
@@ -80,7 +76,8 @@ Meaning:
 - `parent` forms the ancestor chain used by `resolve_home(...)`.
 - `owner_site` is null only for the root partition.
 - `side` records whether this is the left or right child of `owner_site`.
-- `top_limit` is the branch CFG node that an instance may not move above.
+- the top boundary is derived from `owner_site.branch_cfg`; the root partition
+  has no branch top.
 - `default_bottom` is the leaf block for this partition before placement.
 - `entry_block` is created lazily by placement when values must execute before
   child branch sites in this partition.
@@ -149,8 +146,8 @@ class SchedulerInstance {
     var id: int;
     var root: IRNode;
     var home: PartitionFrame;
+    var emit_name: string;
 
-    var bottom_limit: ICFGNode;
     var placed_in: ICFGNode;
 }
 ```
@@ -162,8 +159,7 @@ Meaning:
 - two uses share work iff they intern to the same `(root, home)` pair.
 - duplication is represented by two instances with the same `root` and different
   `home`s.
-- `bottom_limit` records the first already-placed user location seen during
-  bottom-up placement.
+- `emit_name` records the SSAD name assigned during lowering.
 - `placed_in` records the final `ICFGBlock` or `ICFGJoin` placement.
 
 ### `UseRole`
@@ -461,6 +457,11 @@ The first placement policy is intentionally conservative:
   so branch conditions and shared branch inputs execute before the branch that
   consumes them.
 
+After placement, the scheduler conservatively culls structural branches whose
+left and right bodies contain no placed instances and whose join contains no Phi
+or StatePhi instances. Branches that carry value selection through phis remain
+for lowering.
+
 Useful commands:
 
 ```bash
@@ -505,23 +506,15 @@ indirectly.
 
 ## Next Steps
 
-### 1. Lower To Final CFG / SSAD
+### 1. Harden Lowering / SSAD Integration
 
-Only after all instances are placed should the scheduler lower to executable
-output.
+Lowering to SSAD is implemented. Follow-up work should focus on integration
+coverage, name stability, and parity with old scheduler metadata expectations.
 
-Open design points:
+### 2. Harden Placement Checking
 
-- how to name multiple instances of one root node.
-- how to map phi arms to the placed instances used by each branch.
-- how much of the old `SSADSeaInfo` alias machinery should be reused.
-- how the existing `ScheduleChecker` should be adapted for instance placement.
-
-### 2. Add Placement Checking
-
-Before wiring this into `ValidatorGen`, add a checker for the instanced CFG.
-
-It should verify:
+The instanced CFG checker is implemented. Keep expanding coverage as new
+lowering and integration cases are added. It should continue to verify:
 
 - dependencies are available before each placed instance executes.
 - branch conditions are placed before their `ICFGBranch`.
@@ -531,13 +524,15 @@ It should verify:
 
 ## Summary
 
-The instanced scheduler now has a cohesive front half:
+The instanced scheduler now has a cohesive pipeline:
 
 - fixed branch skeleton from `BranchSite`s
 - ancestor-only home resolution
 - home-plan instance discovery
 - conservative bottom-up placement
+- SSAD lowering
+- typed schedule checking
 
-The remaining work is lowering and checking. Those phases should consume the
-placed instance graph as the source of truth and should not reintroduce Sea
-rewriting or branch-scope rediscovery.
+The remaining work is integration hardening. Lowering and checking should
+continue to consume the placed instance graph as the source of truth and should
+not reintroduce Sea rewriting or branch-scope rediscovery.

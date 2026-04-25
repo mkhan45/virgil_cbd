@@ -8,7 +8,6 @@ type InstancedScheduleError {
     case PhiArmUnavailable(phi: SchedulerInstance, needed: SchedulerInstance, side: SiteSide);
     case UnplacedInstance(inst: SchedulerInstance);
     case UnscheduledPhi(phi: IRNode);
-    case PhiBranchMissing(phi: SchedulerInstance, value: SchedulerInstance, side: SiteSide);
     case DuplicateInstanceNotExclusive(lhs: SchedulerInstance, rhs: SchedulerInstance);
     case PathEffectMismatch(path: Array<(IRNode, bool)>, graph_only: Array<IRNode>, cfg_only: Array<IRNode>);
     case EffectCountMismatch(path: Array<(IRNode, bool)>, graph_effs: Array<IRNode>, cfg_effs: Array<IRNode>);
@@ -29,7 +28,6 @@ class InstancedScheduleChecker {
         check_instance_graph();
         check_placement_availability();
         check_phi_placement();
-        check_phi_branches();
         check_duplicate_instance_exclusivity();
         check_path_effects();
     }
@@ -77,14 +75,7 @@ class InstancedScheduleChecker {
     def role_dep_root(user: SchedulerInstance, role: UseRole) -> IRNode {
         if (user == null || user.root == null) return null;
         def node = user.root;
-        if (node.is_phi()) {
-            match (role) {
-                PhiCond => return if(node.value_deps.length > 0, node.value_deps[0], null);
-                PhiLeft => return if(node.value_deps.length > 1, node.value_deps[1], null);
-                PhiRight => return if(node.value_deps.length > 2, node.value_deps[2], null);
-                _ => return null;
-            }
-        }
+        if (node.is_phi()) return InstancedScheduler.phi_dep_root_for_role(node, role);
 
         match (role) {
             Value(idx) => return if(idx >= 0 && idx < node.value_deps.length, node.value_deps[idx], null);
@@ -97,13 +88,7 @@ class InstancedScheduleChecker {
         if (user == null) return scheduler.root_partition;
         if (user.root != null && user.root.is_phi()) {
             def frame = InstancedScheduler.find_site_frame_for_phi_home(scheduler, user.root, user.home);
-            if (frame == null) return user.home;
-            match (role) {
-                PhiCond => return frame.parent_partition;
-                PhiLeft => return frame.left_partition;
-                PhiRight => return frame.right_partition;
-                _ => return user.home;
-            }
+            return InstancedScheduler.phi_use_partition_for_role(frame, user.home, role);
         }
         return user.home;
     }
@@ -168,11 +153,7 @@ class InstancedScheduleChecker {
     }
 
     def branch_condition_instance(branch: ICFGBranch) -> SchedulerInstance {
-        if (branch == null || branch.condition == null) return null;
-        def frame = InstancedScheduler.find_site_frame_for_branch(scheduler, branch);
-        def use_partition = if(frame != null, frame.parent_partition, scheduler.root_partition);
-        def requested_home = scheduler.resolve_home(branch.condition, use_partition, UseRole.PhiCond);
-        return InstancedScheduler.find_covering_instance(scheduler, branch.condition, requested_home);
+        return InstancedScheduler.branch_condition_instance(scheduler, branch);
     }
 
     def check_icfg_availability(node: ICFGNode, available: Array<bool>) -> Array<bool> {
@@ -245,91 +226,6 @@ class InstancedScheduleChecker {
             }
             _ => ;
         }
-    }
-
-    def check_phi_branches() {
-        check_phi_branches_walk(scheduler.top_cfg, initial_availability());
-    }
-
-    def check_phi_branches_walk(node: ICFGNode, outer: Array<bool>) -> Array<bool> {
-        if (node == null) return outer;
-
-        match (node) {
-            block: ICFGBlock => {
-                var i = block.prims.length;
-                while (i > 0) {
-                    i -= 1;
-                    mark_available(outer, block.prims[i]);
-                }
-                return check_phi_branches_walk(block.next, outer);
-            }
-            branch: ICFGBranch => {
-                def left = collect_all_available(branch.l_branch, Arrays.dup(outer));
-                def right = collect_all_available(branch.r_branch, Arrays.dup(outer));
-                check_join_phi_branches(branch.join, left, right);
-
-                def merged = Arrays.dup(outer);
-                if (branch.join != null)
-                    for (i < branch.join.phi_instances.length) mark_available(merged, branch.join.phi_instances[i]);
-                return if(branch.join != null,
-                          check_phi_branches_walk(branch.join.next, merged),
-                          merged);
-            }
-            join: ICFGJoin => return check_phi_branches_walk(join.next, outer);
-            _ => return outer;
-        }
-    }
-
-    def collect_all_available(node: ICFGNode, available: Array<bool>) -> Array<bool> {
-        if (node == null) return available;
-        match (node) {
-            block: ICFGBlock => {
-                for (i < block.prims.length) mark_available(available, block.prims[i]);
-                return collect_all_available(block.next, available);
-            }
-            branch: ICFGBranch => {
-                collect_all_available(branch.l_branch, available);
-                collect_all_available(branch.r_branch, available);
-                if (branch.join != null) {
-                    for (i < branch.join.phi_instances.length) mark_available(available, branch.join.phi_instances[i]);
-                    collect_all_available(branch.join.next, available);
-                }
-                return available;
-            }
-            join: ICFGJoin => {
-                for (i < join.phi_instances.length) mark_available(available, join.phi_instances[i]);
-                return collect_all_available(join.next, available);
-            }
-            _ => return available;
-        }
-    }
-
-    def check_join_phi_branches(join: ICFGJoin, left: Array<bool>, right: Array<bool>) {
-        if (join == null) return;
-        for (i < join.phi_instances.length) {
-            def phi_inst = join.phi_instances[i];
-            if (phi_inst.root == null || !IROp.Phi.?(phi_inst.root.op)) continue;
-            def l = phi_dep_instance(phi_inst, UseRole.PhiLeft);
-            def r = phi_dep_instance(phi_inst, UseRole.PhiRight);
-            if (l != null && r != null && l.id == r.id) continue;
-            if (l != null && !instance_available(left, l))
-                errors.put(InstancedScheduleError.PhiBranchMissing(phi_inst, l, SiteSide.Left));
-            if (r != null && !instance_available(right, r))
-                errors.put(InstancedScheduleError.PhiBranchMissing(phi_inst, r, SiteSide.Right));
-        }
-    }
-
-    def phi_dep_instance(phi_inst: SchedulerInstance, role: UseRole) -> SchedulerInstance {
-        def deps = scheduler.instance_deps[phi_inst.id];
-        for (i < deps.length) {
-            match (role) {
-                PhiLeft => if (UseRole.PhiLeft.?(deps[i].role)) return deps[i].dep;
-                PhiRight => if (UseRole.PhiRight.?(deps[i].role)) return deps[i].dep;
-                PhiCond => if (UseRole.PhiCond.?(deps[i].role)) return deps[i].dep;
-                _ => ;
-            }
-        }
-        return null;
     }
 
     def check_duplicate_instance_exclusivity() {
@@ -593,12 +489,6 @@ component CheckInstancedSchedule {
             UnscheduledPhi(phi) => {
                 sb.puts("UnscheduledPhi ");
                 SeaRender.renderNodeRef(phi, sb);
-            }
-            PhiBranchMissing(phi, value, side) => {
-                sb.puts("PhiBranchMissing phi=");
-                render_instance(phi, sb).puts(" side=");
-                render_side(side, sb).puts(" value=");
-                render_instance(value, sb);
             }
             DuplicateInstanceNotExclusive(lhs, rhs) => {
                 sb.puts("DuplicateInstanceNotExclusive lhs=");

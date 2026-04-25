@@ -77,13 +77,12 @@ component ISRender {
             branch: ICFGBranch => {
                 renderMermaidICFGEdge(branch, "left", branch.l_branch, buf);
                 renderMermaidICFGEdge(branch, "right", branch.r_branch, buf);
+                renderMermaidICFGEdge(branch, "join", branch.join, buf);
                 renderMermaidICFG(branch.l_branch, buf, visited);
                 renderMermaidICFG(branch.r_branch, buf, visited);
                 renderMermaidICFG(branch.join, buf, visited);
             }
             join: ICFGJoin => {
-                renderMermaidICFGEdge(join.l_source, "join", join, buf);
-                renderMermaidICFGEdge(join.r_source, "join", join, buf);
                 renderMermaidICFGEdge(join, "next", join.next, buf);
                 renderMermaidICFG(join.next, buf, visited);
             }
@@ -96,7 +95,7 @@ component ISRender {
     def renderPhase0(scheduler: InstancedSeaScheduler, buf: StringBuilder) -> StringBuilder {
         buf.puts("root_partition side=").puts(PartitionInference.side_name(scheduler.root_partition.side));
         buf.puts(" top=");
-        render_cfg_ref(scheduler.root_partition.top_limit, buf);
+        render_cfg_ref(partition_top_cfg(scheduler.root_partition), buf);
         buf.puts(" bottom=");
         render_cfg_ref(scheduler.root_partition.default_bottom, buf);
         buf.puts("\n");
@@ -126,6 +125,11 @@ component ISRender {
         return buf;
     }
 
+    def partition_top_cfg(partition: PartitionFrame) -> ICFGNode {
+        if (partition == null || partition.owner_site == null) return null;
+        return partition.owner_site.branch_cfg;
+    }
+
     def render_cfg_ref(node: ICFGNode, buf: StringBuilder) -> StringBuilder {
         if (node == null) return buf.puts("null");
         match (node) {
@@ -150,14 +154,14 @@ component ISRender {
         put_indent(buf, indent + 2).puts("left=");
         render_partition_ref(frame.left_partition, buf);
         buf.puts(" top=");
-        render_cfg_ref(frame.left_partition.top_limit, buf);
+        render_cfg_ref(partition_top_cfg(frame.left_partition), buf);
         buf.puts(" bottom=");
         render_cfg_ref(frame.left_partition.default_bottom, buf).puts("\n");
 
         put_indent(buf, indent + 2).puts("right=");
         render_partition_ref(frame.right_partition, buf);
         buf.puts(" top=");
-        render_cfg_ref(frame.right_partition.top_limit, buf);
+        render_cfg_ref(partition_top_cfg(frame.right_partition), buf);
         buf.puts(" bottom=");
         render_cfg_ref(frame.right_partition.default_bottom, buf).puts("\n");
 
@@ -277,8 +281,6 @@ component ISRender {
         render_partition_ref(inst.home, buf);
         buf.puts(" placed=");
         render_cfg_ref(inst.placed_in, buf);
-        buf.puts(" bottom_limit=");
-        render_cfg_ref(inst.bottom_limit, buf);
         return buf;
     }
 

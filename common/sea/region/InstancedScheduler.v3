@@ -7,10 +7,9 @@ class SchedulerInstance {
     var home: PartitionFrame;
     var emit_name: string = null;
 
-    var bottom_limit: ICFGNode;
     var placed_in: ICFGNode;
 
-    new(id, root, home, bottom_limit, placed_in) {}
+    new(id, root, home) {}
 }
 
 class InstanceDep {
@@ -41,11 +40,10 @@ class PartitionFrame {
     var owner_site: SiteFrame;
     var side: SiteSide;
 
-    var top_limit: ICFGNode;
     var default_bottom: ICFGNode;
     var entry_block: ICFGBlock = null;
 
-    new(id, parent, owner_site, side, top_limit, default_bottom) {}
+    new(id, parent, owner_site, side, default_bottom) {}
 }
 
 class SiteFrame {
@@ -112,11 +110,7 @@ class ICFGBranch(uid: int) extends ICFGNode(uid) {
 }
 
 class ICFGJoin(uid: int) extends ICFGNode(uid) {
-    var source_branch: ICFGBranch = null;
-    var l_source: ICFGNode = null;
-    var r_source: ICFGNode = null;
     var next: ICFGNode = null;
-    var phis: Vector<IRNode> = Vector<IRNode>.new();
     var phi_instances: Vector<SchedulerInstance> = Vector<SchedulerInstance>.new();
 }
 
@@ -139,6 +133,7 @@ class InstancedSeaScheduler {
     var instance_deps: Vector<Vector<InstanceDep>> = Vector<Vector<InstanceDep>>.new();
     var instance_users: Array<Vector<InstanceUse>> = null;
     var pending_users: Array<int> = null;
+    var placement_finalized: bool = false;
 
     new(sea, top_node, bottom_node, discovery,
         root_partition, root_sites, site_frames,
@@ -205,7 +200,7 @@ component InstancedScheduler {
         inst_sched_partition_id = 0;
         def discovery = PartitionInference.determine_all_partitions(sea, sea.finish, true, true);
         def bottom_cfg = ICFGBlock.new(fresh_cfg_id());
-        def root_partition = PartitionFrame.new(fresh_partition_id(), null, null, SiteSide.Root, null, bottom_cfg);
+        def root_partition = PartitionFrame.new(fresh_partition_id(), null, null, SiteSide.Root, bottom_cfg);
         def built = build_sites(root_partition, discovery.sites, bottom_cfg);
         def site_frames = Vector<SiteFrame>.new();
         collect_site_frames(built.1, site_frames);
@@ -258,17 +253,15 @@ component InstancedScheduler {
         rewire_prev_successor(prev, sink, branch);
         sink.setSinglePrev(join);
 
-        join.source_branch = branch;
         join.next = sink;
-        join.phis = site.phis;
 
         def left_leaf = ICFGBlock.new(fresh_cfg_id());
         def right_leaf = ICFGBlock.new(fresh_cfg_id());
         left_leaf.prev = branch;
         right_leaf.prev = branch;
 
-        def left_partition = PartitionFrame.new(fresh_partition_id(), parent_partition, null, SiteSide.Left, branch, left_leaf);
-        def right_partition = PartitionFrame.new(fresh_partition_id(), parent_partition, null, SiteSide.Right, branch, right_leaf);
+        def left_partition = PartitionFrame.new(fresh_partition_id(), parent_partition, null, SiteSide.Left, left_leaf);
+        def right_partition = PartitionFrame.new(fresh_partition_id(), parent_partition, null, SiteSide.Right, right_leaf);
         def frame = SiteFrame.new(site, parent_partition, left_partition, right_partition, branch, join);
         left_partition.owner_site = frame;
         right_partition.owner_site = frame;
@@ -281,9 +274,6 @@ component InstancedScheduler {
 
         branch.l_branch = left_built.0;
         branch.r_branch = right_built.0;
-        join.l_source = left_partition.default_bottom;
-        join.r_source = right_partition.default_bottom;
-
         return (branch, frame);
     }
 
@@ -524,7 +514,7 @@ component InstancedScheduler {
             if (inst.root.id == root.id && inst.home.id == resolved_home.id) return inst;
         }
 
-        def inst = SchedulerInstance.new(scheduler.instances.length, root, resolved_home, null, null);
+        def inst = SchedulerInstance.new(scheduler.instances.length, root, resolved_home);
         scheduler.instances.put(inst);
         scheduler.instance_deps.put(Vector<InstanceDep>.new());
         return inst;
@@ -579,6 +569,46 @@ component InstancedScheduler {
         return null;
     }
 
+    def phi_role_value_index(role: UseRole) -> int {
+        match (role) {
+            PhiCond => return 0;
+            PhiLeft => return 1;
+            PhiRight => return 2;
+            _ => return -1;
+        }
+    }
+
+    def phi_dep_root_for_role(phi: IRNode, role: UseRole) -> IRNode {
+        if (phi == null) return null;
+        def idx = phi_role_value_index(role);
+        if (idx < 0 || idx >= phi.value_deps.length) return null;
+        return phi.value_deps[idx];
+    }
+
+    def phi_use_partition_for_role(frame: SiteFrame,
+                                   fallback: PartitionFrame,
+                                   role: UseRole) -> PartitionFrame {
+        if (frame == null) return fallback;
+        match (role) {
+            PhiCond => return frame.parent_partition;
+            PhiLeft => return frame.left_partition;
+            PhiRight => return frame.right_partition;
+            _ => return fallback;
+        }
+    }
+
+    def add_phi_plan_demand_for_role(scheduler: InstancedSeaScheduler,
+                                     plans: Vector<InstanceHomePlan>,
+                                     phi: IRNode,
+                                     frame: SiteFrame,
+                                     role: UseRole) -> bool {
+        def dep = phi_dep_root_for_role(phi, role);
+        if (dep == null) return false;
+        return add_resolved_plan_demand(scheduler, plans, dep,
+                                        phi_use_partition_for_role(frame, frame.parent_partition, role),
+                                        role);
+    }
+
     def expand_phi_plan_home(scheduler: InstancedSeaScheduler,
                              plans: Vector<InstanceHomePlan>,
                              phi: IRNode,
@@ -587,12 +617,9 @@ component InstancedScheduler {
         if (frame == null) return false;
 
         var changed = false;
-        if (phi.value_deps.length > 0 && phi.value_deps[0] != null)
-            changed |= add_resolved_plan_demand(scheduler, plans, phi.value_deps[0], frame.parent_partition, UseRole.PhiCond);
-        if (phi.value_deps.length > 1 && phi.value_deps[1] != null)
-            changed |= add_resolved_plan_demand(scheduler, plans, phi.value_deps[1], frame.left_partition, UseRole.PhiLeft);
-        if (phi.value_deps.length > 2 && phi.value_deps[2] != null)
-            changed |= add_resolved_plan_demand(scheduler, plans, phi.value_deps[2], frame.right_partition, UseRole.PhiRight);
+        changed |= add_phi_plan_demand_for_role(scheduler, plans, phi, frame, UseRole.PhiCond);
+        changed |= add_phi_plan_demand_for_role(scheduler, plans, phi, frame, UseRole.PhiLeft);
+        changed |= add_phi_plan_demand_for_role(scheduler, plans, phi, frame, UseRole.PhiRight);
         return changed;
     }
 
@@ -664,12 +691,20 @@ component InstancedScheduler {
         def frame = find_site_frame_for_phi_home(scheduler, phi, inst.home);
         if (frame == null) return;
 
-        if (phi.value_deps.length > 0 && phi.value_deps[0] != null)
-            add_dependency_demand(scheduler, inst, phi.value_deps[0], frame.parent_partition, UseRole.PhiCond);
-        if (phi.value_deps.length > 1 && phi.value_deps[1] != null)
-            add_dependency_demand(scheduler, inst, phi.value_deps[1], frame.left_partition, UseRole.PhiLeft);
-        if (phi.value_deps.length > 2 && phi.value_deps[2] != null)
-            add_dependency_demand(scheduler, inst, phi.value_deps[2], frame.right_partition, UseRole.PhiRight);
+        add_phi_instance_dep_for_role(scheduler, inst, frame, UseRole.PhiCond);
+        add_phi_instance_dep_for_role(scheduler, inst, frame, UseRole.PhiLeft);
+        add_phi_instance_dep_for_role(scheduler, inst, frame, UseRole.PhiRight);
+    }
+
+    def add_phi_instance_dep_for_role(scheduler: InstancedSeaScheduler,
+                                      inst: SchedulerInstance,
+                                      frame: SiteFrame,
+                                      role: UseRole) {
+        def dep = phi_dep_root_for_role(inst.root, role);
+        if (dep == null) return;
+        add_dependency_demand(scheduler, inst, dep,
+                              phi_use_partition_for_role(frame, inst.home, role),
+                              role);
     }
 
     def discover_instance_deps(scheduler: InstancedSeaScheduler,
@@ -689,9 +724,71 @@ component InstancedScheduler {
     }
 
     def discover_instances(scheduler: InstancedSeaScheduler) {
+        if (scheduler.placement_finalized) return;
         def plans = discover_home_plans(scheduler);
         materialize_instances(scheduler, plans);
         for (i < scheduler.instances.length) discover_instance_deps(scheduler, scheduler.instances[i]);
+    }
+
+    def icfg_has_placed_work(node: ICFGNode) -> bool {
+        if (node == null) return false;
+
+        match (node) {
+            block: ICFGBlock => {
+                if (block.prims.length > 0) return true;
+                return icfg_has_placed_work(block.next);
+            }
+            branch: ICFGBranch => {
+                if (icfg_branch_body_has_work(branch)) return true;
+                return icfg_has_placed_work(if(branch.join != null, branch.join.next, null));
+            }
+            join: ICFGJoin => {
+                if (join.phi_instances.length > 0) return true;
+                return icfg_has_placed_work(join.next);
+            }
+            _ => return false;
+        }
+    }
+
+    def icfg_branch_body_has_work(branch: ICFGBranch) -> bool {
+        if (branch == null || branch.join == null) return true;
+        if (branch.join.phi_instances.length > 0) return true;
+        return icfg_has_placed_work(branch.l_branch) || icfg_has_placed_work(branch.r_branch);
+    }
+
+    def simplify_placed_icfg_node(node: ICFGNode) -> ICFGNode {
+        if (node == null) return null;
+
+        match (node) {
+            block: ICFGBlock => {
+                block.next = simplify_placed_icfg_node(block.next);
+                if (block.next != null) block.next.setSinglePrev(block);
+                return block;
+            }
+            branch: ICFGBranch => {
+                if (branch.join != null) {
+                    branch.l_branch = simplify_placed_icfg_node(branch.l_branch);
+                    if (branch.l_branch != null) branch.l_branch.setSinglePrev(branch);
+                    branch.r_branch = simplify_placed_icfg_node(branch.r_branch);
+                    if (branch.r_branch != null) branch.r_branch.setSinglePrev(branch);
+                    branch.join.next = simplify_placed_icfg_node(branch.join.next);
+                    if (branch.join.next != null) branch.join.next.setSinglePrev(branch.join);
+                    if (!icfg_branch_body_has_work(branch)) return branch.join.next;
+                }
+                return branch;
+            }
+            join: ICFGJoin => {
+                join.next = simplify_placed_icfg_node(join.next);
+                if (join.next != null) join.next.setSinglePrev(join);
+                return join;
+            }
+            _ => return node;
+        }
+    }
+
+    def simplify_placed_icfg(scheduler: InstancedSeaScheduler) {
+        scheduler.top_cfg = simplify_placed_icfg_node(scheduler.top_cfg);
+        if (scheduler.top_cfg != null) scheduler.top_cfg.setSinglePrev(null);
     }
 
     def clear_cfg_placements(node: ICFGNode, visited: HashMap<int, void>) {
@@ -720,7 +817,6 @@ component InstancedScheduler {
         clear_cfg_placements(scheduler.top_cfg, HashMap<int, void>.new(int.!<int>, int.==));
         for (i < scheduler.instances.length) {
             def inst = scheduler.instances[i];
-            inst.bottom_limit = null;
             inst.placed_in = null;
         }
     }
@@ -925,6 +1021,39 @@ component InstancedScheduler {
         return null;
     }
 
+    def same_use_role(lhs: UseRole, rhs: UseRole) -> bool {
+        match (lhs) {
+            Value(lidx) => match (rhs) {
+                Value(ridx) => return lidx == ridx;
+                _ => return false;
+            }
+            State(lsc) => match (rhs) {
+                State(rsc) => return lsc.tag == rsc.tag;
+                _ => return false;
+            }
+            PhiCond => return UseRole.PhiCond.?(rhs);
+            PhiLeft => return UseRole.PhiLeft.?(rhs);
+            PhiRight => return UseRole.PhiRight.?(rhs);
+        }
+    }
+
+    def instance_dep_for_role(scheduler: InstancedSeaScheduler,
+                              inst: SchedulerInstance,
+                              role: UseRole) -> SchedulerInstance {
+        if (inst == null || inst.id < 0 || inst.id >= scheduler.instance_deps.length) return null;
+        def deps = scheduler.instance_deps[inst.id];
+        for (i < deps.length)
+            if (same_use_role(deps[i].role, role)) return deps[i].dep;
+        return null;
+    }
+
+    def instance_emit_name(scheduler: InstancedSeaScheduler,
+                           inst: SchedulerInstance) -> string {
+        if (inst == null) return null;
+        if (inst.emit_name == null) assign_instance_names(scheduler);
+        return inst.emit_name;
+    }
+
     def dependency_emit_name(scheduler: InstancedSeaScheduler,
                              dep_: IRNode,
                              use_partition: PartitionFrame,
@@ -941,12 +1070,50 @@ component InstancedScheduler {
         return node_emit_base(dep, dep.id);
     }
 
+    def instance_dep_emit_name(scheduler: InstancedSeaScheduler,
+                               inst: SchedulerInstance,
+                               role: UseRole,
+                               fallback_dep: IRNode,
+                               fallback_partition: PartitionFrame) -> string {
+        def dep_inst = instance_dep_for_role(scheduler, inst, role);
+        if (dep_inst != null) return instance_emit_name(scheduler, dep_inst);
+        return dependency_emit_name(scheduler, fallback_dep, fallback_partition, role);
+    }
+
+    def branch_condition_instance(scheduler: InstancedSeaScheduler,
+                                  branch: ICFGBranch) -> SchedulerInstance {
+        if (branch == null || branch.condition == null) return null;
+        def cond = branch.condition.unwrapMove();
+
+        if (branch.join != null) {
+            for (i < branch.join.phi_instances.length) {
+                def dep = instance_dep_for_role(scheduler, branch.join.phi_instances[i], UseRole.PhiCond);
+                if (dep != null && dep.root != null && dep.root.id == cond.id) return dep;
+            }
+        }
+
+        def frame = find_site_frame_for_branch(scheduler, branch);
+        def use_partition = if(frame != null, frame.parent_partition, scheduler.root_partition);
+        def requested_home = scheduler.resolve_home(cond, use_partition, UseRole.PhiCond);
+        return find_covering_instance(scheduler, cond, requested_home);
+    }
+
+    def branch_condition_emit_name(scheduler: InstancedSeaScheduler,
+                                   branch: ICFGBranch) -> string {
+        def inst = branch_condition_instance(scheduler, branch);
+        if (inst != null) return instance_emit_name(scheduler, inst);
+
+        def frame = find_site_frame_for_branch(scheduler, branch);
+        def cond_partition = if(frame != null, frame.parent_partition, scheduler.root_partition);
+        return dependency_emit_name(scheduler, if(branch != null, branch.condition, null), cond_partition, UseRole.PhiCond);
+    }
+
     def lower_value_args(scheduler: InstancedSeaScheduler,
                          inst: SchedulerInstance) -> Array<string> {
         def node = inst.root;
         def args = Array<string>.new(node.value_deps.length);
         for (i < node.value_deps.length)
-            args[i] = dependency_emit_name(scheduler, node.value_deps[i], inst.home, UseRole.Value(i));
+            args[i] = instance_dep_emit_name(scheduler, inst, UseRole.Value(i), node.value_deps[i], inst.home);
         return args;
     }
 
@@ -972,33 +1139,6 @@ component InstancedScheduler {
         }
     }
 
-    def phi_arm_name(scheduler: InstancedSeaScheduler,
-                     phi: IRNode,
-                     frame: SiteFrame,
-                     role: UseRole) -> string {
-        match (role) {
-            PhiLeft => {
-                if (phi.value_deps.length <= 1) return null;
-                return dependency_emit_name(scheduler, phi.value_deps[1], frame.left_partition, role);
-            }
-            PhiRight => {
-                if (phi.value_deps.length <= 2) return null;
-                return dependency_emit_name(scheduler, phi.value_deps[2], frame.right_partition, role);
-            }
-            _ => return null;
-        }
-    }
-
-    def phi_arm_node(phi: IRNode, role: UseRole) -> IRNode {
-        match (role) {
-            PhiLeft => return if(phi.value_deps.length > 1 && phi.value_deps[1] != null,
-                                 phi.value_deps[1].unwrapMove(), null);
-            PhiRight => return if(phi.value_deps.length > 2 && phi.value_deps[2] != null,
-                                  phi.value_deps[2].unwrapMove(), null);
-            _ => return null;
-        }
-    }
-
     def lower_join_phi_pairs(scheduler: InstancedSeaScheduler,
                              join: ICFGJoin,
                              sea_info: SSADSeaInfo) -> Array<(string, string)> {
@@ -1010,14 +1150,13 @@ component InstancedScheduler {
             def phi = inst.root;
             if (phi == null || !IROp.Phi.?(phi.op)) continue;
 
-            def frame = find_site_frame_for_phi_home(scheduler, phi, inst.home);
-            if (frame == null) continue;
-
             def phi_name = if(inst.emit_name != null, inst.emit_name, node_emit_base(phi, inst.id));
-            def l_name = phi_arm_name(scheduler, phi, frame, UseRole.PhiLeft);
-            def r_name = phi_arm_name(scheduler, phi, frame, UseRole.PhiRight);
-            def l_node = phi_arm_node(phi, UseRole.PhiLeft);
-            def r_node = phi_arm_node(phi, UseRole.PhiRight);
+            def l_dep = instance_dep_for_role(scheduler, inst, UseRole.PhiLeft);
+            def r_dep = instance_dep_for_role(scheduler, inst, UseRole.PhiRight);
+            def l_name = instance_emit_name(scheduler, l_dep);
+            def r_name = instance_emit_name(scheduler, r_dep);
+            def l_node = if(l_dep != null, l_dep.root, null);
+            def r_node = if(r_dep != null, r_dep.root, null);
 
             if (sea_info != null) sea_info.recordPhiSourceNames(phi, l_name, r_name);
 
@@ -1048,9 +1187,7 @@ component InstancedScheduler {
                 return res;
             }
             branch: ICFGBranch => {
-                def frame = find_site_frame_for_branch(scheduler, branch);
-                def cond_partition = if(frame != null, frame.parent_partition, scheduler.root_partition);
-                def cond_name = dependency_emit_name(scheduler, branch.condition, cond_partition, UseRole.PhiCond);
+                def cond_name = branch_condition_emit_name(scheduler, branch);
                 def after = if(branch.join != null, lower_icfg(scheduler, branch.join.next, rest, sea_info), rest);
                 def left = lower_icfg(scheduler, branch.l_branch, SSAD.Void, sea_info);
                 def right = lower_icfg(scheduler, branch.r_branch, SSAD.Void, sea_info);
@@ -1095,6 +1232,7 @@ component InstancedScheduler {
     }
 
     def place_instances(scheduler: InstancedSeaScheduler) {
+        if (scheduler.placement_finalized) return;
         if (scheduler.instances.length == 0) discover_instances(scheduler);
         clear_placements(scheduler);
         compute_instance_users(scheduler);
@@ -1115,16 +1253,17 @@ component InstancedScheduler {
             for (j < deps.length) {
                 def dep = deps[j].dep;
                 if (dep == null) continue;
-                if (dep.bottom_limit == null) dep.bottom_limit = inst.placed_in;
                 scheduler.pending_users[dep.id] -= 1;
                 if (scheduler.pending_users[dep.id] == 0) ready.put(dep);
             }
         }
 
-        // Cycles should not occur, but keep inspection output total while the
-        // checker phase is still under construction.
+        // Cycles should not occur, but keep inspection output total if one slips through.
         for (i < scheduler.instances.length)
             if (scheduler.instances[i].placed_in == null) place_instance(scheduler, scheduler.instances[i]);
+
+        simplify_placed_icfg(scheduler);
+        scheduler.placement_finalized = true;
     }
 
 }
