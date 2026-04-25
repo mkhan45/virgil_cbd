@@ -58,18 +58,34 @@ def renderPlacement(opcode: string, phase: string, scheduler: InstancedSeaSchedu
     CBDTrace.addString(opcode, "instanced_placement_cfg", "graph", scheduler.toMermaidICFG());
 }
 
+def renderCheckResults(opcode: string, phase: string, errors: Vector<InstancedScheduleError>, buf: StringBuilder) {
+    buf.puts("=== ").puts(opcode).puts(" [check ").puts(phase).puts("] ===\n");
+    if (errors.length == 0) buf.puts("ok\n");
+    else for (i < errors.length) {
+        buf.putd(i).puts(": ");
+        errors[i].render(buf).puts("\n");
+    }
+}
+
+def renderCheck(opcode: string, phase: string, scheduler: InstancedSeaScheduler) {
+    def errors = scheduler.check_schedule();
+    def buf = StringBuilder.new();
+    renderCheckResults(opcode, phase, errors, buf);
+    buf.ln();
+    System.puts(buf.toString());
+    CBDTrace.addString(opcode, "instanced_placement_cfg", "graph", scheduler.toMermaidICFG());
+}
+
 def renderLowered(opcode: string, phase: string, scheduler: InstancedSeaScheduler) {
+    def errors = scheduler.check_schedule();
     def lowered = scheduler.toSSADSeaInfo();
     def ssad = lowered.0;
     def sea_info = lowered.1;
-    def errors = scheduler.check_placement();
     def raw = ssad.toString(0);
     def pretty = ssad.toStringPrettyWithSeaInfo(0, sea_info);
 
     def buf = StringBuilder.new();
-    buf.puts("=== ").puts(opcode).puts(" [lowered ").puts(phase).puts("] placement check ===\n");
-    if (errors.length == 0) buf.puts("ok\n");
-    else for (i < errors.length) buf.putd(i).puts(": ").puts(errors[i]).puts("\n");
+    renderCheckResults(opcode, phase, errors, buf);
     buf.puts("=== ").puts(opcode).puts(" [lowered ").puts(phase).puts("] raw SSAD ===\n");
     buf.puts(raw).ln();
     buf.puts("=== ").puts(opcode).puts(" [lowered ").puts(phase).puts("] pretty SSAD ===\n");
@@ -83,7 +99,8 @@ def renderLowered(opcode: string, phase: string, scheduler: InstancedSeaSchedule
 
 def testOpcode(opcode: string, stmt: VirgilStmt, use_unlem: bool,
                 render_resolve: bool, render_instances: bool,
-                render_placement: bool, render_lowered: bool) -> CBDDef {
+                render_placement: bool, render_lowered: bool,
+                render_check: bool) -> CBDDef {
     def ir = SSAD_IR.from_virgil(stmt);
     def sea_info = Seas.ofSSADWithInfo(ir);
     def sea = sea_info.0;
@@ -97,6 +114,7 @@ def testOpcode(opcode: string, stmt: VirgilStmt, use_unlem: bool,
     def scheduler = InstancedScheduler.of_full_sea_info(sea, sea_info.1);
     def phase = if(use_unlem, "unLEM", "raw");
     if (render_lowered) renderLowered(opcode, phase, scheduler);
+    else if (render_check) renderCheck(opcode, phase, scheduler);
     else if (render_placement) renderPlacement(opcode, phase, scheduler);
     else if (render_instances) renderInstances(opcode, phase, scheduler);
     else if (render_resolve) renderResolveHomes(opcode, phase, scheduler);
@@ -114,6 +132,7 @@ def main(args: Array<string>) {
     var render_instances = false;
     var render_placement = false;
     var render_lowered = false;
+    var render_check = false;
     def opcode_args = Vector<string>.new();
     var i = 0;
     while (i < args.length) {
@@ -124,6 +143,7 @@ def main(args: Array<string>) {
         else if (Strings.equal(arg, "--instances")) render_instances = true;
         else if (Strings.equal(arg, "--placement")) render_placement = true;
         else if (Strings.equal(arg, "--lowered")) render_lowered = true;
+        else if (Strings.equal(arg, "--check")) render_check = true;
         else opcode_args.put(arg);
         i += 1;
     }
@@ -160,7 +180,7 @@ def main(args: Array<string>) {
         def instrs = filterInstrs(TierGen.extractInstrNames(v3bytes));
         TierGen.extractDefs(instrs, sexpfile, sexp_bytes,
             fun (opcode: string, stmt: VirgilStmt) -> CBDDef {
-                return testOpcode(opcode, stmt, use_unlem, render_resolve, render_instances, render_placement, render_lowered);
+                return testOpcode(opcode, stmt, use_unlem, render_resolve, render_instances, render_placement, render_lowered, render_check);
             });
     }
 

@@ -180,8 +180,8 @@ class InstancedSeaScheduler {
         return InstancedScheduler.toSSADSeaInfo(this);
     }
 
-    def check_placement() -> Vector<string> {
-        return InstancedScheduler.check_placement(this);
+    def check_schedule() -> Vector<InstancedScheduleError> {
+        return CheckInstancedSchedule.check(this);
     }
 }
 
@@ -694,31 +694,30 @@ component InstancedScheduler {
         for (i < scheduler.instances.length) discover_instance_deps(scheduler, scheduler.instances[i]);
     }
 
-    def clear_block_placement(node: ICFGNode) {
-        if (node == null) return;
+    def clear_cfg_placements(node: ICFGNode, visited: HashMap<int, void>) {
+        if (node == null || visited.has(node.id)) return;
+        visited[node.id] = void;
+
         match (node) {
-            block: ICFGBlock => block.prims = Vector<SchedulerInstance>.new();
+            block: ICFGBlock => {
+                block.prims = Vector<SchedulerInstance>.new();
+                clear_cfg_placements(block.next, visited);
+            }
+            branch: ICFGBranch => {
+                clear_cfg_placements(branch.l_branch, visited);
+                clear_cfg_placements(branch.r_branch, visited);
+                clear_cfg_placements(branch.join, visited);
+            }
+            join: ICFGJoin => {
+                join.phi_instances = Vector<SchedulerInstance>.new();
+                clear_cfg_placements(join.next, visited);
+            }
             _ => ;
         }
     }
 
-    def clear_join_placement(join: ICFGJoin) {
-        if (join == null) return;
-        join.phi_instances = Vector<SchedulerInstance>.new();
-    }
-
     def clear_placements(scheduler: InstancedSeaScheduler) {
-        clear_block_placement(scheduler.bottom_cfg);
-        clear_block_placement(scheduler.root_partition.entry_block);
-        for (i < scheduler.site_frames.length) {
-            def frame = scheduler.site_frames[i];
-            clear_block_placement(frame.left_partition.entry_block);
-            clear_block_placement(frame.right_partition.entry_block);
-            clear_block_placement(frame.left_partition.default_bottom);
-            clear_block_placement(frame.right_partition.default_bottom);
-            clear_join_placement(frame.merge_cfg);
-        }
-
+        clear_cfg_placements(scheduler.top_cfg, HashMap<int, void>.new(int.!<int>, int.==));
         for (i < scheduler.instances.length) {
             def inst = scheduler.instances[i];
             inst.bottom_limit = null;
@@ -818,6 +817,67 @@ component InstancedScheduler {
         }
 
         return false;
+    }
+
+    def is_phi_arm_role(role: UseRole) -> bool {
+        match (role) {
+            PhiLeft, PhiRight => return true;
+            _ => return false;
+        }
+    }
+
+    def phi_arm_forces_partition_entry(scheduler: InstancedSeaScheduler,
+                                       inst: SchedulerInstance) -> bool {
+        if (!instance_has_users(scheduler, inst)) return false;
+        def uses = scheduler.instance_users[inst.id];
+        for (i < uses.length) {
+            def use = uses[i];
+            if (!is_phi_arm_role(use.role) || use.user == null || use.user.root == null) continue;
+            def frame = find_site_frame_for_phi_home(scheduler, use.user.root, use.user.home);
+            if (frame == null) continue;
+            if (partition_is_ancestor(inst.home, frame.parent_partition) &&
+                !same_partition(inst.home, frame.parent_partition)) return true;
+        }
+        return false;
+    }
+
+    def phi_arm_prebranch_target(scheduler: InstancedSeaScheduler,
+                                 inst: SchedulerInstance) -> ICFGBranch {
+        if (!instance_has_users(scheduler, inst)) return null;
+        var target: ICFGBranch = null;
+        def uses = scheduler.instance_users[inst.id];
+
+        for (i < uses.length) {
+            def use = uses[i];
+            if (!is_phi_arm_role(use.role) || use.user == null || use.user.root == null) continue;
+            def frame = find_site_frame_for_phi_home(scheduler, use.user.root, use.user.home);
+            if (frame == null) continue;
+            if (!same_partition(inst.home, frame.parent_partition)) continue;
+
+            if (target == null) target = frame.branch_cfg;
+            else if (target.id != frame.branch_cfg.id) return null;
+        }
+
+        return target;
+    }
+
+    def block_before_node(scheduler: InstancedSeaScheduler, node: ICFGNode) -> ICFGBlock {
+        if (node == null) return scheduler.bottom_cfg;
+        def prev = node.getSinglePrev();
+        match (prev) {
+            block: ICFGBlock => {
+                if (block.next != null && block.next.id == node.id) return block;
+            }
+            _ => ;
+        }
+
+        def block = ICFGBlock.new(fresh_cfg_id());
+        block.prev = prev;
+        block.next = node;
+        if (prev == null && scheduler.top_cfg != null && scheduler.top_cfg.id == node.id) scheduler.top_cfg = block;
+        else rewire_prev_successor(prev, node, block);
+        node.setSinglePrev(block);
+        return block;
     }
 
     def node_emit_base(node: IRNode, fallback_id: int) -> string {
@@ -1009,150 +1069,6 @@ component InstancedScheduler {
         return (lower_icfg(scheduler, scheduler.top_cfg, SSAD.Void, sea_info), sea_info);
     }
 
-    def render_instance_for_error(inst: SchedulerInstance, buf: StringBuilder) -> StringBuilder {
-        if (inst == null) return buf.puts("null");
-        buf.puts("instance#").putd(inst.id).puts(" ");
-        return SeaRender.renderNodeRef(inst.root, buf);
-    }
-
-    def add_missing_dep_error(errors: Vector<string>,
-                              user: SchedulerInstance,
-                              dep: SchedulerInstance,
-                              context: string) {
-        def buf = StringBuilder.new();
-        buf.puts("missing dependency in ").puts(context).puts(": user=");
-        render_instance_for_error(user, buf);
-        buf.puts(" dep=");
-        render_instance_for_error(dep, buf);
-        errors.put(buf.toString());
-    }
-
-    def add_branch_cond_error(errors: Vector<string>,
-                              branch: ICFGBranch,
-                              dep: SchedulerInstance) {
-        def buf = StringBuilder.new();
-        buf.puts("branch#").putd(branch.id).puts(" condition unavailable: ");
-        render_instance_for_error(dep, buf);
-        errors.put(buf.toString());
-    }
-
-    def initial_availability(scheduler: InstancedSeaScheduler) -> Array<bool> {
-        def available = Array<bool>.new(scheduler.instances.length);
-        for (i < scheduler.instances.length) {
-            def inst = scheduler.instances[i];
-            if (inst.root != null && IROp.Start.?(inst.root.op)) available[inst.id] = true;
-        }
-        return available;
-    }
-
-    def instance_available(available: Array<bool>, inst: SchedulerInstance) -> bool {
-        if (inst == null) return true;
-        if (inst.id < 0 || inst.id >= available.length) return false;
-        return available[inst.id];
-    }
-
-    def mark_available(available: Array<bool>, inst: SchedulerInstance) {
-        if (inst == null) return;
-        if (inst.id >= 0 && inst.id < available.length) available[inst.id] = true;
-    }
-
-    def check_instance_available_deps(scheduler: InstancedSeaScheduler,
-                                      inst: SchedulerInstance,
-                                      available: Array<bool>,
-                                      errors: Vector<string>,
-                                      context: string) {
-        if (inst == null || inst.root == null || inst.root.is_phi()) return;
-        def deps = scheduler.instance_deps[inst.id];
-        for (i < deps.length) {
-            def dep = deps[i].dep;
-            if (!instance_available(available, dep)) add_missing_dep_error(errors, inst, dep, context);
-        }
-    }
-
-    def check_join_phi_dep(errors: Vector<string>,
-                           phi_inst: SchedulerInstance,
-                           dep: SchedulerInstance,
-                           available: Array<bool>,
-                           context: string) {
-        if (!instance_available(available, dep)) add_missing_dep_error(errors, phi_inst, dep, context);
-    }
-
-    def check_join_phi_deps(scheduler: InstancedSeaScheduler,
-                            join: ICFGJoin,
-                            parent_available: Array<bool>,
-                            left_available: Array<bool>,
-                            right_available: Array<bool>,
-                            errors: Vector<string>) {
-        if (join == null) return;
-
-        for (i < join.phi_instances.length) {
-            def phi_inst = join.phi_instances[i];
-            def deps = scheduler.instance_deps[phi_inst.id];
-            for (j < deps.length) {
-                def dep = deps[j].dep;
-                match (deps[j].role) {
-                    PhiCond => check_join_phi_dep(errors, phi_inst, dep, parent_available, "phi condition");
-                    PhiLeft => check_join_phi_dep(errors, phi_inst, dep, left_available, "phi left arm");
-                    PhiRight => check_join_phi_dep(errors, phi_inst, dep, right_available, "phi right arm");
-                    _ => check_join_phi_dep(errors, phi_inst, dep, parent_available, "phi dependency");
-                }
-            }
-        }
-    }
-
-    def branch_condition_instance(scheduler: InstancedSeaScheduler,
-                                  branch: ICFGBranch) -> SchedulerInstance {
-        if (branch == null || branch.condition == null) return null;
-        def frame = find_site_frame_for_branch(scheduler, branch);
-        def use_partition = if(frame != null, frame.parent_partition, scheduler.root_partition);
-        def requested_home = scheduler.resolve_home(branch.condition, use_partition, UseRole.PhiCond);
-        return find_covering_instance(scheduler, branch.condition, requested_home);
-    }
-
-    def check_icfg_availability(scheduler: InstancedSeaScheduler,
-                                node: ICFGNode,
-                                available: Array<bool>,
-                                errors: Vector<string>) -> Array<bool> {
-        if (node == null) return available;
-
-        match (node) {
-            block: ICFGBlock => {
-                var i = block.prims.length;
-                while (i > 0) {
-                    i -= 1;
-                    def inst = block.prims[i];
-                    check_instance_available_deps(scheduler, inst, available, errors, "block");
-                    mark_available(available, inst);
-                }
-                return check_icfg_availability(scheduler, block.next, available, errors);
-            }
-            branch: ICFGBranch => {
-                def cond = branch_condition_instance(scheduler, branch);
-                if (!instance_available(available, cond)) add_branch_cond_error(errors, branch, cond);
-
-                def left_available = check_icfg_availability(scheduler, branch.l_branch, Arrays.dup(available), errors);
-                def right_available = check_icfg_availability(scheduler, branch.r_branch, Arrays.dup(available), errors);
-                check_join_phi_deps(scheduler, branch.join, available, left_available, right_available, errors);
-
-                def merged = Arrays.dup(available);
-                if (branch.join != null)
-                    for (i < branch.join.phi_instances.length) mark_available(merged, branch.join.phi_instances[i]);
-                return if(branch.join != null,
-                          check_icfg_availability(scheduler, branch.join.next, merged, errors),
-                          merged);
-            }
-            join: ICFGJoin => return check_icfg_availability(scheduler, join.next, available, errors);
-            _ => return available;
-        }
-    }
-
-    def check_placement(scheduler: InstancedSeaScheduler) -> Vector<string> {
-        scheduler.place_instances();
-        def errors = Vector<string>.new();
-        check_icfg_availability(scheduler, scheduler.top_cfg, initial_availability(scheduler), errors);
-        return errors;
-    }
-
     def place_instance(scheduler: InstancedSeaScheduler, inst: SchedulerInstance) {
         if (inst == null || inst.placed_in != null) return;
 
@@ -1165,9 +1081,12 @@ component InstancedScheduler {
             }
         }
 
-        def dest = if(instance_requires_entry(scheduler, inst),
+        def prebranch = phi_arm_prebranch_target(scheduler, inst);
+        def dest = if(instance_requires_entry(scheduler, inst) || phi_arm_forces_partition_entry(scheduler, inst),
                       partition_entry_block(scheduler, inst.home),
-                      if(inst.home != null, inst.home.default_bottom, scheduler.bottom_cfg));
+                      if(prebranch != null,
+                         block_before_node(scheduler, prebranch),
+                         if(inst.home != null, inst.home.default_bottom, scheduler.bottom_cfg)));
         inst.placed_in = dest;
         match (dest) {
             block: ICFGBlock => if (should_emit_in_block(inst)) block.prims.put(inst);
