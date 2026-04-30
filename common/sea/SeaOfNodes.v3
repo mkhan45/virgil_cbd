@@ -352,7 +352,7 @@ class Sea {
         def l_full = cachedTransitiveDeps(l_branch);
         def r_full = cachedTransitiveDeps(r_branch);
 
-        return BranchPartition(frontier, l_full.withoutAll(frontier), r_full.withoutAll(frontier));
+        return BranchPartition(node, frontier, l_full.withoutAll(frontier), r_full.withoutAll(frontier));
     }
 }
 
@@ -482,7 +482,7 @@ component Seas {
     }
 }
 
-type BranchPartition(frontier: ImmNodeSet, l_subgraph: ImmNodeSet, r_subgraph: ImmNodeSet);
+type BranchPartition(phi: IRNode, frontier: ImmNodeSet, l_subgraph: ImmNodeSet, r_subgraph: ImmNodeSet);
 
 def dedup(arr: Array<IRNode>) -> Array<IRNode> #inline {
     def res = Vector<IRNode>.new();

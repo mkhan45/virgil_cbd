@@ -6,15 +6,6 @@ def fresh_id() -> int {
 
 def trap();
 
-class BranchSitePartition {
-    var phi: IRNode;
-    var support: ImmNodeSet;
-    var left: ImmNodeSet;
-    var right: ImmNodeSet;
-
-    new(phi, support, left, right) {}
-}
-
 class BranchSite {
     var sea: Sea;
     var phis: Vector<IRNode>;
@@ -363,20 +354,20 @@ class SeaScheduler {
         return result;
     }
 
-    def immediate_untangle_partition(part: BranchSitePartition,
-                                     visible: Vector<BranchSitePartition>) -> bool {
+    def immediate_untangle_partition(part: BranchPartition,
+                                     visible: Vector<BranchPartition>) -> bool {
         for (i < visible.length) {
             def other = visible[i];
             if (other.phi.id == part.phi.id) continue;
 
-            def in_left = other.left.has(part.phi);
-            def in_right = other.right.has(part.phi);
+            def in_left = other.l_subgraph.has(part.phi);
+            def in_right = other.r_subgraph.has(part.phi);
             if (in_left != in_right) return false;
         }
         return true;
     }
 
-    def can_merge_untangle_group(group: Vector<BranchSitePartition>, part: BranchSitePartition) -> bool {
+    def can_merge_untangle_group(group: Vector<BranchPartition>, part: BranchPartition) -> bool {
         if (group[0].phi.value_deps[0].id != part.phi.value_deps[0].id) return false;
         for (i < group.length) {
             def other = group[i].phi;
@@ -385,14 +376,14 @@ class SeaScheduler {
         return true;
     }
 
-    def immediate_untangle_groups(visible: Vector<BranchSitePartition>) -> Vector<Vector<BranchSitePartition>> {
-        def groups = Vector<Vector<BranchSitePartition>>.new();
+    def immediate_untangle_groups(visible: Vector<BranchPartition>) -> Vector<Vector<BranchPartition>> {
+        def groups = Vector<Vector<BranchPartition>>.new();
 
         for (i < visible.length) {
             def part = visible[i];
             if (!immediate_untangle_partition(part, visible)) continue;
 
-            var dest: Vector<BranchSitePartition> = null;
+            var dest: Vector<BranchPartition> = null;
             for (j < groups.length) {
                 def group = groups[j];
                 if (!can_merge_untangle_group(group, part)) continue;
@@ -407,48 +398,25 @@ class SeaScheduler {
         return groups;
     }
 
-    def has_demand_outside_allowed(demand_active: ImmNodeSet, node: IRNode, allowed_labels: ImmNodeSet) -> bool {
+    def has_live_consumer(demand_active: ImmNodeSet, node: IRNode) -> bool {
         for (i < node.children.length) {
             def child = node.children[i];
-            if (child == null || child.id == node.id) continue;
-            if (allowed_labels.has(child)) continue;
-
             if (demand_active.has(child)) return true;
         }
-
         return false;
     }
 
-    def anchored_overlap_for_site(demand_active: ImmNodeSet, phis: Vector<IRNode>,
+    def anchored_overlap_for_site(demand_active: ImmNodeSet,
                                   left_region: ImmNodeSet, right_region: ImmNodeSet) -> ImmNodeSet {
-        var anchored = ImmNodeSets.empty();
-        var cur_left = left_region;
-        var cur_right = right_region;
-
-        while (true) {
-            def shared = cur_left.intersection(cur_right);
-            if (shared.isEmpty()) return anchored;
-
-            var allowed_labels = cur_left.union(cur_right);
-            for (i < phis.length) allowed_labels = allowed_labels.with(phis[i]);
-
-            def remove = Vector<IRNode>.new();
-            for (node in shared.toArray(sea))
-                if (has_writes(node) && has_demand_outside_allowed(demand_active, node, allowed_labels))
-                    remove.put(node);
-
-            if (remove.length == 0) return anchored;
-
-            def remove_set = ImmNodeSets.of_vec(remove);
-            anchored = anchored.union(remove_set);
-            cur_left = cur_left.withoutAll(remove_set);
-            cur_right = cur_right.withoutAll(remove_set);
-        }
-
-        return anchored;
+        def shared = left_region.intersection(right_region);
+        def remove = Vector<IRNode>.new();
+        for (node in shared.toArray(sea))
+            if (has_writes(node) && has_live_consumer(demand_active, node))
+                remove.put(node);
+        return ImmNodeSets.of_vec(remove);
     }
 
-    def build_untangle_site(demand_active: ImmNodeSet, group: Vector<BranchSitePartition>) -> BranchSite {
+    def build_untangle_site(demand_active: ImmNodeSet, group: Vector<BranchPartition>) -> BranchSite {
         var support = ImmNodeSets.empty();
         var left_region = ImmNodeSets.empty();
         var right_region = ImmNodeSets.empty();
@@ -457,12 +425,12 @@ class SeaScheduler {
         for (i < group.length) {
             def part = group[i];
             phis.put(part.phi);
-            support = support.union(part.support);
-            left_region = left_region.union(part.left);
-            right_region = right_region.union(part.right);
+            support = support.union(part.frontier);
+            left_region = left_region.union(part.l_subgraph);
+            right_region = right_region.union(part.r_subgraph);
         }
 
-        def anchored = anchored_overlap_for_site(demand_active, phis, left_region, right_region);
+        def anchored = anchored_overlap_for_site(demand_active, left_region, right_region);
         left_region = left_region.withoutAll(anchored);
         right_region = right_region.withoutAll(anchored);
 
@@ -484,41 +452,21 @@ class SeaScheduler {
         sea.clearDepsCache();
 
         def wl = VecDeque<ImmNodeSet>.new();
-        def seen = Vector<ImmNodeSet>.new();
         wl.enqueue(bottom_active);
 
         while (!wl.empty()) {
             def active = wl.dequeue();
             if (active.isEmpty()) continue;
-            var already_seen = false;
-            for (i < seen.length) if (seen[i].eq(active)) {
-                already_seen = true;
-                break;
-            }
-            if (already_seen) continue;
-            seen.put(active);
 
-            def visible = Vector<BranchSitePartition>.new();
+            def visible = Vector<BranchPartition>.new();
             active.apply(sea, fun (node: IRNode) {
                 if (!node.is_phi()) return;
-
-                def cond = node.value_deps[0];
-                def left_arm = node.value_deps[1];
-                def right_arm = node.value_deps[2];
-
-                def cond_deps = sea.cachedTransitiveDeps(cond).intersection(active);
-                def left_phi_aware = sea.cachedTransitiveDepsPhiAware(left_arm).intersection(active);
-                def right_phi_aware = sea.cachedTransitiveDepsPhiAware(right_arm).intersection(active);
-                def support = cond_deps.union(left_phi_aware.intersection(right_phi_aware));
-
-                def left_full = sea.cachedTransitiveDeps(left_arm).intersection(active);
-                def right_full = sea.cachedTransitiveDeps(right_arm).intersection(active);
-
-                visible.put(BranchSitePartition.new(
+                def part = sea.branch_partition(node);
+                visible.put(BranchPartition(
                     node,
-                    support,
-                    left_full.withoutAll(support),
-                    right_full.withoutAll(support)
+                    part.frontier.intersection(active),
+                    part.l_subgraph.intersection(active),
+                    part.r_subgraph.intersection(active)
                 ));
             });
 
@@ -682,11 +630,8 @@ class SeaScheduler {
         if (!live.has(user) && !user.is_move()) return;
         if (user.is_move() && user.value_deps[0].id == dep.id) return;
 
-        def seen_groups = Vector<int>.new();
         if (dep.is_phi()) {
             def bl = branch_site_map[dep];
-            for (i < seen_groups.length) if (seen_groups[i] == bl.id) return;
-            seen_groups.put(bl.id);
             bl.unscheduled_phi_child_count--;
             if (bl.unscheduled_phi_child_count == 0) {
                 for (i < bl.phis.length) q.enqueue(bl.phis[i]);
