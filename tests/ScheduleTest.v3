@@ -78,44 +78,44 @@ def testOpcode(opcode: string, stmt: VirgilStmt) -> CBDDef {
 	reportResult(opcode, "initial", sc.errors);
 
 	// --- Test 2: apply unLEM, then schedule again ---
-	// def state = NodeMap<(IRNode, Vector<IRNode>)>.new();
-	// sea.apply(state, SeaTransforms.unLEM);
-        // def ul_graph_checker = GraphChecker.new(sea);
-        // ul_graph_checker.check();
-        // if (ul_graph_checker.errors.length > 0) {
-            // System.puts(Strings.format1("  FAIL  %s [unLEM graph check]\n", opcode));
-            // for (i < ul_graph_checker.errors.length)
-                // System.puts(Strings.format2("        %d: %q\n", i, ul_graph_checker.errors[i].render));
-        // }
-	// CBDTrace.addGraph(opcode, "unLEM", sea);
+	def state = NodeMap<(IRNode, Vector<IRNode>)>.new();
+	sea.apply(state, SeaTransforms.unLEM);
+        def ul_graph_checker = GraphChecker.new(sea);
+        ul_graph_checker.check();
+        if (ul_graph_checker.errors.length > 0) {
+            System.puts(Strings.format1("  FAIL  %s [unLEM graph check]\n", opcode));
+            for (i < ul_graph_checker.errors.length)
+                System.puts(Strings.format2("        %d: %q\n", i, ul_graph_checker.errors[i].render));
+        }
+	CBDTrace.addGraph(opcode, "unLEM", sea);
 
-	// def ul_opcode = Strings.format1("%s_ul", opcode);
+	def ul_opcode = Strings.format1("%s_ul", opcode);
 
-	// def ulscheduler = Scheduler.of_full_sea_info(sea, ssad_sea_info);
-	// ulscheduler.opcode = ul_opcode;
-	// ulscheduler.trace_full = should_trace(opcode);
-	// ulscheduler.schedule();
+	def ulscheduler = Scheduler.of_full_sea_info(sea, ssad_sea_info);
+	ulscheduler.opcode = ul_opcode;
+	ulscheduler.trace_full = should_trace(opcode);
+	ulscheduler.schedule();
 
-	// def unlem_ssa_info = ulscheduler.bottom_block.toSSADSeaInfo();
-	// def unlem_ssa = unlem_ssa_info.0;
-	// def unlem_sea_info = unlem_ssa_info.1;
-        // def unlem_ssa_string = unlem_ssa.toString(0);
-        // def unlem_ssa_string_pretty = unlem_ssa.toStringPrettyWithSeaInfo(0, unlem_sea_info);
-	// CBDTrace.addString(opcode, "unlem_scheduler", "graph", ulscheduler.toMermaid());
-	// CBDTrace.addCode(opcode, "unlem_scheduler_ssa", unlem_ssa_string);
-	// CBDTrace.addCode(opcode, "unlem_scheduler_ssa_pretty", unlem_ssa_string_pretty);
-        // if (trace) {
-            // System.puts(Strings.format1("--- %s [unLEM] SSAD ---\n", opcode));
-            // System.puts(unlem_ssa_string_pretty);
-            // System.puts("\n---\n");
-        // }
+	def unlem_ssa_info = ulscheduler.bottom_block.toSSADSeaInfo();
+	def unlem_ssa = unlem_ssa_info.0;
+	def unlem_sea_info = unlem_ssa_info.1;
+        def unlem_ssa_string = unlem_ssa.toString(0);
+        def unlem_ssa_string_pretty = unlem_ssa.toStringPrettyWithSeaInfo(0, unlem_sea_info);
+	CBDTrace.addString(opcode, "unlem_scheduler", "graph", ulscheduler.toMermaid());
+	CBDTrace.addCode(opcode, "unlem_scheduler_ssa", unlem_ssa_string);
+	CBDTrace.addCode(opcode, "unlem_scheduler_ssa_pretty", unlem_ssa_string_pretty);
+        if (trace) {
+            System.puts(Strings.format1("--- %s [unLEM] SSAD ---\n", opcode));
+            System.puts(unlem_ssa_string_pretty);
+            System.puts("\n---\n");
+        }
 
-	// var ul_sc = ScheduleChecker.new(
-	// 	ulscheduler.top_block, ulscheduler.bottom_block,
-	// 	ulscheduler.orig_sea, ulscheduler.sea,
-	// 	ulscheduler.mapping, ulscheduler.clone_to_orig);
-	// ul_sc.check();
-	// reportResult(opcode, "unLEM", ul_sc.errors);
+	var ul_sc = ScheduleChecker.new(
+		ulscheduler.top_block, ulscheduler.bottom_block,
+		ulscheduler.orig_sea, ulscheduler.sea,
+		ulscheduler.mapping, ulscheduler.clone_to_orig);
+	ul_sc.check();
+	reportResult(opcode, "unLEM", ul_sc.errors);
 
 	return CBDDef.new(opcode, scheduler_ssad, scheduler_sea_info);
 }
