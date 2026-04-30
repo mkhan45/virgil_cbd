@@ -6,22 +6,33 @@ def fresh_id() -> int {
 
 def trap();
 
-class BranchLattice {
+class BranchSitePartition {
+    var phi: IRNode;
+    var support: ImmNodeSet;
+    var left: ImmNodeSet;
+    var right: ImmNodeSet;
+
+    new(phi, support, left, right) {}
+}
+
+class BranchSite {
     var sea: Sea;
-    var condition: IRNode;
-    var frontier: ImmNodeSet;
-    var l_subgraph: ImmNodeSet;
-    var r_subgraph: ImmNodeSet;
     var phis: Vector<IRNode>;
+    var support: ImmNodeSet;
+    var left_only: ImmNodeSet;
+    var right_only: ImmNodeSet;
+    var cloneable_overlap: ImmNodeSet;
+    var anchored_overlap: ImmNodeSet;
     var unscheduled_phi_child_count: int;
     var id: int;
 
-    new(sea, condition, frontier, l_subgraph, r_subgraph, phis) {
+    new(sea, phis, support, left_only, right_only, cloneable_overlap, anchored_overlap) {
         id = fresh_id();
     }
 
-    def can_merge_branches(phi: IRNode) -> bool {
-        def left = phi.value_deps[1], right = phi.value_deps[2];
+    def condition() -> IRNode => phis[0].value_deps[0];
+
+    def can_merge_phi(phi: IRNode) -> bool {
         for (i < phis.length)
             if (sea.isDescendant(phi, phis[i]) || sea.isDescendant(phis[i], phi)) return false;
 
@@ -30,10 +41,14 @@ class BranchLattice {
 
     def add_phi(phi: IRNode, partition: BranchPartition) -> this {
         phis.put(phi);
-        frontier = frontier.union(partition.frontier);
-        l_subgraph = l_subgraph.union(partition.l_subgraph).withoutAll(frontier);
-        r_subgraph = r_subgraph.union(partition.r_subgraph).withoutAll(frontier);
+        support = support.union(partition.frontier);
+        left_only = left_only.union(partition.l_subgraph).withoutAll(support);
+        right_only = right_only.union(partition.r_subgraph).withoutAll(support);
     }
+
+    def left_region() -> ImmNodeSet => left_only.union(cloneable_overlap);
+
+    def right_region() -> ImmNodeSet => right_only.union(cloneable_overlap);
 }
 
 class SeaScheduler {
@@ -51,12 +66,13 @@ class SeaScheduler {
     var bottom_block: CFGNode;
     var top_block: CFGNode;
 
-    var branch_lattices: Vector<BranchLattice> = Vector.new();
-    var branch_lattice_map: NodeMap<BranchLattice> = NodeMap<BranchLattice>.new();
+    var branch_sites: Vector<BranchSite> = Vector.new();
+    var branch_site_map: NodeMap<BranchSite> = NodeMap<BranchSite>.new();
 
     var reify_conds = false;
 
     var trace_full: bool = false;
+    var verify_incremental_active: bool = false;
     var lowBounds: NodeMap<CFGNode> = NodeMap<CFGNode>.new();
     var clone_to_orig: NodeMap<IRNode> = NodeMap<IRNode>.new();
     new(orig_sea, orig_top_node: IRNode, orig_bottom_node: IRNode) {
@@ -149,7 +165,7 @@ class SeaScheduler {
         return (result.extract(), partitions);
     }
 
-    def find_branch_lattices() {
+    def find_branch_sites() {
         sea.clearDepsCache();
         def sorted = sorted_phis_by_depth();
         def sorted_phis = sorted.0;
@@ -157,51 +173,51 @@ class SeaScheduler {
 
         for (idx < sorted_phis.length) {
             def n = sorted_phis[idx];
-            if (branch_lattice_map[n] != null) continue;
+            if (branch_site_map[n] != null) continue;
             def cond = n.value_deps[0];
 
             def partition = partitions[n];
             def frontier = partition.frontier, lsg = partition.l_subgraph, rsg = partition.r_subgraph;
 
-            var dest_bl: BranchLattice = null;
-            for (i < branch_lattices.length) {
-                def bl = branch_lattices[i];
-                if (bl.condition.id != cond.id) continue;
+            var dest_site: BranchSite = null;
+            for (i < branch_sites.length) {
+                def site = branch_sites[i];
+                if (site.condition().id != cond.id) continue;
 
-                if (bl.can_merge_branches(n) && same_scope(n, bl)) {
-                    dest_bl = bl;
+                if (site.can_merge_phi(n) && same_scope(n, site)) {
+                    dest_site = site;
                     break;
                 }
             }
 
-            if (dest_bl != null) {
-                dest_bl.add_phi(n, partition);
+            if (dest_site != null) {
+                dest_site.add_phi(n, partition);
             } else {
-                dest_bl = BranchLattice.new(sea, cond, frontier, lsg, rsg, Vectors.of1(n));
-                branch_lattices.put(dest_bl);
+                dest_site = BranchSite.new(sea, Vectors.of1(n), frontier, lsg, rsg, ImmNodeSets.empty(), ImmNodeSets.empty());
+                branch_sites.put(dest_site);
             }
-            branch_lattice_map[n] = dest_bl;
+            branch_site_map[n] = dest_site;
         }
     }
 
-    // Check that phi and the existing phis in bl are in the same scope:
-    // they must not be on opposite sides of any already-formed BranchLattice.
-    def same_scope(phi: IRNode, bl: BranchLattice) -> bool {
-        for (i < branch_lattices.length) {
-            def other = branch_lattices[i];
-            if (other.id == bl.id) continue;
+    // Check that phi and the existing phis in site are in the same scope:
+    // they must not be on opposite sides of any already-formed branch site.
+    def same_scope(phi: IRNode, site: BranchSite) -> bool {
+        for (i < branch_sites.length) {
+            def other = branch_sites[i];
+            if (other.id == site.id) continue;
 
-            def phi_in_l = other.l_subgraph.has(phi);
-            def phi_in_r = other.r_subgraph.has(phi);
+            def phi_in_l = other.left_region().has(phi);
+            def phi_in_r = other.right_region().has(phi);
             if (!phi_in_l && !phi_in_r) continue;
             // If phi is in both subgraphs, it's shared (will be cloned by
             // this lattice) — not truly on one side, so skip.
             if (phi_in_l && phi_in_r) continue;
 
-            for (j < bl.phis.length) {
-                def existing = bl.phis[j];
-                def ex_in_l = other.l_subgraph.has(existing);
-                def ex_in_r = other.r_subgraph.has(existing);
+            for (j < site.phis.length) {
+                def existing = site.phis[j];
+                def ex_in_l = other.left_region().has(existing);
+                def ex_in_r = other.right_region().has(existing);
                 if (ex_in_l && ex_in_r) continue;
                 if (phi_in_l != ex_in_l) return false;
                 if (phi_in_r != ex_in_r) return false;
@@ -283,8 +299,8 @@ class SeaScheduler {
         var children = node.children;
 
         // phis aren't ready until every use of branch lattice scheduled
-        if (branch_lattice_map.has(node)) {
-            def group = branch_lattice_map[node];
+        if (branch_site_map.has(node)) {
+            def group = branch_site_map[node];
             children = Vector.new();
 
             for (i < group.phis.length)
@@ -311,234 +327,316 @@ class SeaScheduler {
         return ready;
     }
 
-    def topo_sort_lattices() -> Vector<BranchLattice> {
-        def n = branch_lattices.length;
-        def dep_count = Array<int>.new(n);
-        def dependents = Array<Vector<int>>.new(n);
-        for (i < n) dependents[i] = Vector.new();
-
-        // Build dependency graph: A depends on B if any of B's phis are in A's l_subgraph or r_subgraph
-        for (i < n) {
-            def a = branch_lattices[i];
-            for (j < n) {
-                if (i == j) continue;
-                def b = branch_lattices[j];
-                var depends = false;
-                for (k < b.phis.length) {
-                    def phi = b.phis[k];
-                    if (a.l_subgraph.has(phi) || a.r_subgraph.has(phi)) {
-                        depends = true;
-                        break;
-                    }
-                }
-                if (depends) {
-                    dep_count[i]++;
-                    dependents[j].put(i);
-                }
-            }
-        }
-
-        def result = Vector<BranchLattice>.new();
-        def queue = Vector<int>.new();
-        for (i < n) if (dep_count[i] == 0) queue.put(i);
-
-        var idx = 0;
-        while (idx < queue.length) {
-            def cur = queue[idx];
-            idx++;
-            result.put(branch_lattices[cur]);
-            for (k < dependents[cur].length) {
-                def dep = dependents[cur][k];
-                dep_count[dep]--;
-                if (dep_count[dep] == 0) queue.put(dep);
-            }
-        }
-
-        for (i < n) if (dep_count[i] > 0) result.put(branch_lattices[i]);
-
-        return result;
-    }
-
     def has_writes(node: IRNode) -> bool {
+        def mt_scs: StateComponent.set;
         match (node.op) {
-            Intrinsic(defn) => {
-                for (sc in defn.writes) return true;
-            }
+            Intrinsic(defn) => return defn.writes > mt_scs;
             _ => ;
         }
         return false;
     }
 
-    def lattice_contains_phi(bl: BranchLattice, phi: IRNode) -> bool {
-        for (i < bl.phis.length) if (bl.phis[i].id == phi.id) return true;
-        return false;
-    }
-
-    // This edge will be rewritten by untangle when cloning this lattice,
-    // so it should not count as an escaping use of dep.
-    def rewired_phi_use(dep: IRNode, child: IRNode, bl: BranchLattice,
-                        lsg: ImmNodeSet, rsg: ImmNodeSet) -> bool {
-        if (child == null || !child.is_phi()) return false;
-        if (!lattice_contains_phi(bl, child)) return false;
-
-        if (child.value_deps.length > 1 && child.value_deps[1] != null &&
-            child.value_deps[1].id == dep.id && lsg.has(dep)) return true;
-
-        if (child.value_deps.length > 2 && child.value_deps[2] != null &&
-            child.value_deps[2].id == dep.id && rsg.has(dep)) return true;
+    def has_active_consumer(active: ImmNodeSet, node: IRNode) -> bool {
+        for (i < node.children.length) {
+            def child = node.children[i];
+            if (active.has(child)) return true;
+        }
 
         return false;
     }
 
-    // Nodes in (lsg ∪ rsg) that still have live uses outside the cloned
-    // domain after accounting for phi-edge rewrites.
-    def escaping_clone_nodes(bl: BranchLattice,
-                             lsg: ImmNodeSet, rsg: ImmNodeSet) -> NodeSet {
-        def domain = lsg.union(rsg);
-        def escaping = NodeSet.new();
-        def wl = Vector<IRNode>.new();
+    def prune_active_closure(active: ImmNodeSet, node: IRNode) -> ImmNodeSet {
+        def wl = VecDeque<IRNode>.new();
+        wl.enqueue(node);
+        var result = active;
 
-        for (n in domain.toArray(sea)) {
-            var escapes = false;
-            for (i < n.children.length) {
-                def child = n.children[i];
-                if (child == null || child.id == n.id) continue;
-                if (!live.has(child) && !child.is_move()) continue;
+        while (!wl.empty()) {
+            def n = wl.dequeue();
+            if (n == null) continue;
+            if (!result.has(n)) continue;
+            if (has_active_consumer(result, n)) continue;
 
-                // Move's condition edge is bookkeeping and does not represent
-                // a real consuming use.
-                if (child.is_move() && child.value_deps.length > 0 &&
-                    child.value_deps[0] != null && child.value_deps[0].id == n.id) continue;
+            result = result.without(n);
+            n.applyDeps(fun (dep: IRNode) { wl.enqueue(dep); });
+        }
 
-                if (domain.has(child)) continue;
-                if (rewired_phi_use(n, child, bl, lsg, rsg)) continue;
+        return result;
+    }
 
-                escapes = true;
+    def immediate_untangle_partition(part: BranchSitePartition,
+                                     visible: Vector<BranchSitePartition>) -> bool {
+        for (i < visible.length) {
+            def other = visible[i];
+            if (other.phi.id == part.phi.id) continue;
+
+            def in_left = other.left.has(part.phi);
+            def in_right = other.right.has(part.phi);
+            if (in_left != in_right) return false;
+        }
+        return true;
+    }
+
+    def can_merge_untangle_group(group: Vector<BranchSitePartition>, part: BranchSitePartition) -> bool {
+        if (group[0].phi.value_deps[0].id != part.phi.value_deps[0].id) return false;
+        for (i < group.length) {
+            def other = group[i].phi;
+            if (sea.isDescendant(part.phi, other) || sea.isDescendant(other, part.phi)) return false;
+        }
+        return true;
+    }
+
+    def immediate_untangle_groups(visible: Vector<BranchSitePartition>) -> Vector<Vector<BranchSitePartition>> {
+        def groups = Vector<Vector<BranchSitePartition>>.new();
+
+        for (i < visible.length) {
+            def part = visible[i];
+            if (!immediate_untangle_partition(part, visible)) continue;
+
+            var dest: Vector<BranchSitePartition> = null;
+            for (j < groups.length) {
+                def group = groups[j];
+                if (!can_merge_untangle_group(group, part)) continue;
+                dest = group;
                 break;
             }
-            if (escapes && !escaping.has(n)) {
-                escaping.put(n);
-                wl.put(n);
+
+            if (dest == null) groups.put(Vectors.of1(part));
+            else dest.put(part);
+        }
+
+        return groups;
+    }
+
+    def has_demand_outside_allowed(demand_active: ImmNodeSet, node: IRNode, allowed_labels: ImmNodeSet) -> bool {
+        for (i < node.children.length) {
+            def child = node.children[i];
+            if (child == null || child.id == node.id) continue;
+            if (allowed_labels.has(child)) continue;
+
+            if (demand_active.has(child)) return true;
+        }
+
+        return false;
+    }
+
+    def anchored_overlap_for_site(demand_active: ImmNodeSet, phis: Vector<IRNode>,
+                                  left_region: ImmNodeSet, right_region: ImmNodeSet) -> ImmNodeSet {
+        var anchored = ImmNodeSets.empty();
+        var cur_left = left_region;
+        var cur_right = right_region;
+
+        while (true) {
+            def shared = cur_left.intersection(cur_right);
+            if (shared.isEmpty()) return anchored;
+
+            var allowed_labels = cur_left.union(cur_right);
+            for (i < phis.length) allowed_labels = allowed_labels.with(phis[i]);
+
+            def remove = Vector<IRNode>.new();
+            for (node in shared.toArray(sea))
+                if (has_writes(node) && has_demand_outside_allowed(demand_active, node, allowed_labels))
+                    remove.put(node);
+
+            if (remove.length == 0) return anchored;
+
+            def remove_set = ImmNodeSets.of_vec(remove);
+            anchored = anchored.union(remove_set);
+            cur_left = cur_left.withoutAll(remove_set);
+            cur_right = cur_right.withoutAll(remove_set);
+        }
+
+        return anchored;
+    }
+
+    def build_untangle_site(demand_active: ImmNodeSet, group: Vector<BranchSitePartition>) -> BranchSite {
+        var support = ImmNodeSets.empty();
+        var left_region = ImmNodeSets.empty();
+        var right_region = ImmNodeSets.empty();
+        def phis = Vector<IRNode>.new();
+
+        for (i < group.length) {
+            def part = group[i];
+            phis.put(part.phi);
+            support = support.union(part.support);
+            left_region = left_region.union(part.left);
+            right_region = right_region.union(part.right);
+        }
+
+        def anchored = anchored_overlap_for_site(demand_active, phis, left_region, right_region);
+        left_region = left_region.withoutAll(anchored);
+        right_region = right_region.withoutAll(anchored);
+
+        def shared = left_region.intersection(right_region);
+        return BranchSite.new(
+            sea,
+            phis,
+            support,
+            left_region.withoutAll(shared),
+            right_region.withoutAll(shared),
+            shared,
+            anchored
+        );
+    }
+
+    def find_next_untangle_site(bottom_active: ImmNodeSet) -> BranchSite {
+        live = Seas.live(sea);
+        sea.rebuildChildren();
+        sea.clearDepsCache();
+
+        def wl = VecDeque<ImmNodeSet>.new();
+        def seen = Vector<ImmNodeSet>.new();
+        wl.enqueue(bottom_active);
+
+        while (!wl.empty()) {
+            def active = wl.dequeue();
+            if (active.isEmpty()) continue;
+            var already_seen = false;
+            for (i < seen.length) if (seen[i].eq(active)) {
+                already_seen = true;
+                break;
+            }
+            if (already_seen) continue;
+            seen.put(active);
+
+            def visible = Vector<BranchSitePartition>.new();
+            active.apply(sea, fun (node: IRNode) {
+                if (!node.is_phi()) return;
+
+                def cond = node.value_deps[0];
+                def left_arm = node.value_deps[1];
+                def right_arm = node.value_deps[2];
+
+                def cond_deps = sea.cachedTransitiveDeps(cond).intersection(active);
+                def left_phi_aware = sea.cachedTransitiveDepsPhiAware(left_arm).intersection(active);
+                def right_phi_aware = sea.cachedTransitiveDepsPhiAware(right_arm).intersection(active);
+                def support = cond_deps.union(left_phi_aware.intersection(right_phi_aware));
+
+                def left_full = sea.cachedTransitiveDeps(left_arm).intersection(active);
+                def right_full = sea.cachedTransitiveDeps(right_arm).intersection(active);
+
+                visible.put(BranchSitePartition.new(
+                    node,
+                    support,
+                    left_full.withoutAll(support),
+                    right_full.withoutAll(support)
+                ));
+            });
+
+            def groups = immediate_untangle_groups(visible);
+            def sites = Vector<BranchSite>.new();
+
+            for (i < groups.length) {
+                def site = build_untangle_site(bottom_active, groups[i]);
+                sites.put(site);
+                if (!site.cloneable_overlap.isEmpty()) return site;
+            }
+
+            for (i < sites.length) {
+                def site = sites[i];
+                var anchored_deps = site.anchored_overlap.intersection(active);
+                for (node in site.anchored_overlap.toArray(sea))
+                    anchored_deps = anchored_deps.union(sea.cachedTransitiveDeps(node).intersection(active));
+
+                def projected_support = site.support.union(anchored_deps).intersection(active);
+                if (!projected_support.isEmpty() && !projected_support.eq(active)) wl.enqueue(projected_support);
+
+                def projected_left = site.left_region().intersection(active);
+                if (!projected_left.isEmpty() && !projected_left.eq(active)) wl.enqueue(projected_left);
+
+                def projected_right = site.right_region().intersection(active);
+                if (!projected_right.isEmpty() && !projected_right.eq(active)) wl.enqueue(projected_right);
             }
         }
 
-        // If a node escapes, all deps needed to build that escaping node
-        // also escape.
-        var wi = 0;
-        while (wi < wl.length) {
-            def node = wl[wi];
-            wi += 1;
-            node.applyDeps(fun (dep: IRNode) {
-                if (dep == null || !domain.has(dep) || escaping.has(dep)) return;
-                escaping.put(dep);
-                wl.put(dep);
-            });
-        }
-
-        return escaping;
+        return null;
     }
 
-    // Writes that still escape the clone domain cannot be safely duplicated.
-    // Remove them from clone sets; the remaining nodes are clone-safe.
-    def filtered_clone_subgraphs(bl: BranchLattice) -> (ImmNodeSet, ImmNodeSet) {
-        var lsg = bl.l_subgraph;
-        var rsg = bl.r_subgraph;
+    def verify_active(active: ImmNodeSet) {
+        if (!verify_incremental_active) return;
 
-        while (true) {
-            def escaping = escaping_clone_nodes(bl, lsg, rsg);
-            def remove = Vector<IRNode>.new();
-            escaping.apply(fun (n: IRNode) {
-                if (has_writes(n) && (lsg.has(n) || rsg.has(n))) remove.put(n);
-            });
-            if (remove.length == 0) break;
+        sea.clearDepsCache();
+        def fresh = sea.cachedTransitiveDeps(bottom_node);
+        if (active.eq(fresh)) return;
 
-            def remove_set = ImmNodeSets.of_vec(remove);
-            lsg = lsg.withoutAll(remove_set);
-            rsg = rsg.withoutAll(remove_set);
-        }
-
-        return (lsg, rsg);
+        System.puts(Strings.format1("ERROR: Incremental active mismatch for %s\n", opcode));
+        System.puts(Strings.format1("  cached active: %q\n", active.renderFull(_, sea)));
+        System.puts(Strings.format1("  fresh active: %q\n", fresh.renderFull(_, sea)));
     }
 
-    def filter_branch_lattices_clone_domains() {
-        for (i < branch_lattices.length) {
-            def bl = branch_lattices[i];
-            def filtered = filtered_clone_subgraphs(bl);
-            bl.l_subgraph = filtered.0;
-            bl.r_subgraph = filtered.1;
+    def untangle_site(site: BranchSite, bottom_active: ImmNodeSet) -> ImmNodeSet {
+        def shared = site.cloneable_overlap;
+        def shared_clone = Seas.cloneSubgraph(sea, shared);
+        def replacements = Vector<(IRNode, IRNode)>.new();
+        var active = bottom_active;
+
+        shared_clone.1.apply(fun (old: IRNode, neu: IRNode) {
+            mapping[old] = neu;
+            def root = clone_to_orig[old];
+            clone_to_orig[neu] = if(root != null, root, old);
+        });
+
+        for (n in site.right_only.toArray(sea)) {
+            for (i < n.value_deps.length) {
+                def old_dep = n.value_deps[i];
+                if (old_dep == null || !shared.has(old_dep)) continue;
+                def new_dep = mapping[old_dep];
+                replacements.put((old_dep, new_dep));
+                n.value_deps[i] = new_dep;
+            }
+
+            for (i < n.state_deps.length) {
+                def old_dep = n.state_deps[i];
+                if (old_dep == null || !shared.has(old_dep)) continue;
+                def new_dep = mapping[old_dep];
+                replacements.put((old_dep, new_dep));
+                n.state_deps[i] = new_dep;
+            }
         }
+
+        for (j < site.phis.length) {
+            def phi = site.phis[j];
+            def r_branch = phi.value_deps[2];
+            if (!shared.has(r_branch)) continue;
+            def new_dep = mapping[r_branch];
+            replacements.put((r_branch, new_dep));
+            phi.replaceDep(r_branch, new_dep);
+        }
+
+        sea.rebuildChildren();
+        sea.clearDepsCache();
+
+        for (i < replacements.length)
+            active = active.union(sea.cachedTransitiveDeps(replacements[i].1));
+
+        for (i < replacements.length)
+            active = prune_active_closure(active, replacements[i].0);
+
+        return active;
     }
 
     def untangle() {
-        // Compute initial lattices
-        branch_lattice_map = NodeMap<BranchLattice>.new();
-        branch_lattices = Vector.new();
+        // var limit = branch_sites.length * 4; // XXX: idk if this is reasonable
+        var limit = 4;
+        sea.clearDepsCache();
+        var bottom_active = sea.cachedTransitiveDeps(bottom_node);
+        while (limit > 0) {
+            def site = find_next_untangle_site(bottom_active);
+            if (site == null) break;
+
+            trace_print(fun => Strings.format2("untangle site for cond %q, support = %q\n", site.phis[0].value_deps[0].render, site.support.renderFull(_, sea)));
+            trace_print(fun => Strings.format3("left_only: %q\nright_only: %q\ncloneable: %q\n", site.left_only.renderFull(_, sea), site.right_only.renderFull(_, sea), site.cloneable_overlap.renderFull(_, sea)));
+
+            bottom_active = untangle_site(site, bottom_active);
+            verify_active(bottom_active);
+            limit -= 1;
+        }
+
+        branch_site_map = NodeMap<BranchSite>.new();
+        branch_sites = Vector.new();
         live = Seas.live(sea);
         sea.rebuildChildren();
-        find_branch_lattices();
-        filter_branch_lattices_clone_domains();
-
-        // var limit = branch_lattices.length * 1; // XXX: idk if this is reasonable
-        var limit = 4;
-        while (limit > 0) {
-            limit -= 1;
-            def sorted = topo_sort_lattices();
-
-            // Find next lattice with overlapping l/r subgraphs
-            var next_bl: BranchLattice = null;
-            for (i < sorted.length) {
-                if (sorted[i].l_subgraph.intersects(sorted[i].r_subgraph)) {
-                    next_bl = sorted[i];
-                    break;
-                }
-            }
-            if (next_bl == null) break;
-
-            def bl = next_bl;
-
-            trace_print(fun => Strings.format2("bl for cond %q, frontier = %q\n", bl.condition.render, bl.frontier.renderFull(_, sea)));
-            trace_print(fun => Strings.format2("lsg: %q\nrsg: %q\n", bl.l_subgraph.renderFull(_, sea), bl.r_subgraph.renderFull(_, sea)));
-
-            // Clone only the shared (intersecting) nodes instead of both full subgraphs.
-            // Left side keeps the originals; right side gets rewired to the clones.
-            def shared = bl.l_subgraph.intersection(bl.r_subgraph);
-            def shared_clone = Seas.cloneSubgraph(sea, shared);
-            def shared_clone_mapping = shared_clone.1;
-
-            shared_clone_mapping.apply(fun (old: IRNode, neu: IRNode) {
-                mapping[old] = neu;
-                def root = clone_to_orig[old];
-                clone_to_orig[neu] = if(root != null, root, old);
-            });
-
-            // Rewire non-shared right-subgraph nodes that depend on shared nodes.
-            def r_only = bl.r_subgraph.withoutAll(shared);
-            for (n in r_only.toArray(sea)) {
-                for (i < n.value_deps.length)
-                    if (n.value_deps[i] != null && shared.has(n.value_deps[i]) && shared_clone_mapping[n.value_deps[i]] != null)
-                        n.value_deps[i] = shared_clone_mapping[n.value_deps[i]];
-                for (i < n.state_deps.length)
-                    if (n.state_deps[i] != null && shared.has(n.state_deps[i]) && shared_clone_mapping[n.state_deps[i]] != null)
-                        n.state_deps[i] = shared_clone_mapping[n.state_deps[i]];
-            }
-
-            // Rewire right phi deps that are shared to point to clones.
-            for (j < bl.phis.length) {
-                def phi = bl.phis[j];
-                def r_branch = phi.value_deps[2];
-
-                if (shared.has(r_branch) && shared_clone_mapping[r_branch] != null)
-                    phi.replaceDep(r_branch, shared_clone_mapping[r_branch]);
-            }
-
-            // Recompute lattices after each step to avoid stale subgraphs
-            live = Seas.live(sea);
-            sea.rebuildChildren();
-            branch_lattice_map = NodeMap<BranchLattice>.new();
-            branch_lattices = Vector.new();
-            find_branch_lattices();
-            filter_branch_lattices_clone_domains();
-        }
+        sea.clearDepsCache();
+        find_branch_sites();
     }
 
     def compute_use_counts() {
@@ -546,11 +644,11 @@ class SeaScheduler {
             n.unscheduled_use_count = 0;
         });
 
-        for (i < branch_lattices.length)
-            branch_lattices[i].unscheduled_phi_child_count = 0;
+        for (i < branch_sites.length)
+            branch_sites[i].unscheduled_phi_child_count = 0;
 
-        for (i < branch_lattices.length) {
-            def bl = branch_lattices[i];
+        for (i < branch_sites.length) {
+            def bl = branch_sites[i];
             def seen = NodeSet.new();
             for (j < bl.phis.length) {
                 def phi = bl.phis[j];
@@ -586,7 +684,7 @@ class SeaScheduler {
 
         def seen_groups = Vector<int>.new();
         if (dep.is_phi()) {
-            def bl = branch_lattice_map[dep];
+            def bl = branch_site_map[dep];
             for (i < seen_groups.length) if (seen_groups[i] == bl.id) return;
             seen_groups.put(bl.id);
             bl.unscheduled_phi_child_count--;
@@ -822,7 +920,7 @@ class CFGNode(id: int, scheduler: SeaScheduler) {
 
         def cond = node.value_deps[0];
         cond.init_move(scheduler.sea);
-        def bl = scheduler.branch_lattice_map[node];
+        def bl = scheduler.branch_site_map[node];
         def branch = CFGBranch.new(fresh_id(), scheduler);
         def phi_node = CFGPhi.new(fresh_id(), scheduler);
 

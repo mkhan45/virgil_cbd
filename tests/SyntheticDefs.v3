@@ -851,4 +851,86 @@ def OUTER_Q_AND_FOUR_INNER_Q_SITES() {
 
 	push_u32(u32.+(outer, u32.+(a, b)));
 }
+
+// Projection stress: an outside use of x can make projected contexts see stale
+// parent demand for the crossed p/q subproblem.
+def PROJECTED_CONTEXT_STALE_DEMAND() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var c3 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+	var r = u32.!=(c3, 0);
+	var x = pop_u32();
+
+	var outside: u32 = 0;
+	if (r) {
+		outside = u32.+(x, 100);
+	} else {
+		outside = 7;
+	}
+
+	var left: u32 = 0;
+	if (p) {
+		if (q) {
+			left = u32.+(x, 1);
+		} else {
+			left = 11;
+		}
+	} else {
+		left = 12;
+	}
+
+	var right: u32 = 0;
+	if (q) {
+		if (p) {
+			right = u32.+(x, 2);
+		} else {
+			right = 21;
+		}
+	} else {
+		right = 22;
+	}
+
+	push_u32(u32.+(outside, u32.+(left, right)));
+}
+
+// Projection/escaping stress: x's direct consumer is the pure wrapper sx. The
+// p-site can treat sx as internal even though sx also feeds the outer q site,
+// which risks cloning x through the wrapper.
+def PROJECTED_CONTEXT_ESCAPING_WRAPPER() {
+	var c1 = pop_u32();
+	var c2 = pop_u32();
+	var p = u32.!=(c1, 0);
+	var q = u32.!=(c2, 0);
+	var x = pop_u32();
+	var sx = u32.+(x, 0);
+
+	var outer: u32 = 0;
+	if (q) {
+		outer = u32.+(sx, 1);
+	} else {
+		outer = 10;
+	}
+
+	var left: u32 = 0;
+	var right: u32 = 0;
+	if (p) {
+		if (q) {
+			left = u32.+(sx, 2);
+		} else {
+			left = 20;
+		}
+		right = 30;
+	} else {
+		left = 40;
+		if (q) {
+			right = u32.+(sx, 3);
+		} else {
+			right = 50;
+		}
+	}
+
+	push_u32(u32.+(outer, u32.+(left, right)));
+}
 //@bytecode end

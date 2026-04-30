@@ -478,13 +478,13 @@ component SeaRender {
     }
 
     // === SeaScheduler text rendering ===
-    // Renders the branch lattices section.
-    def renderBranchLattices(scheduler: SeaScheduler, buf: StringBuilder) -> StringBuilder {
-        buf.puts("=== branch_lattices (").putd(scheduler.branch_lattices.length).puts(") ===").ln();
-        for (i < scheduler.branch_lattices.length) {
-            def bl = scheduler.branch_lattices[i];
+    // Renders the scheduled branch sites section.
+    def renderBranchSites(scheduler: SeaScheduler, buf: StringBuilder) -> StringBuilder {
+        buf.puts("=== branch_sites (").putd(scheduler.branch_sites.length).puts(") ===").ln();
+        for (i < scheduler.branch_sites.length) {
+            def bl = scheduler.branch_sites[i];
             buf.puts("[").putd(i).puts("] cond: ");
-            renderNodeRef(bl.condition, buf);
+            renderNodeRef(bl.condition(), buf);
             buf.ln();
             buf.puts("    phis: ");
             for (j < bl.phis.length) {
@@ -492,9 +492,9 @@ component SeaRender {
                 renderNodeRef(bl.phis[j], buf);
             }
             buf.ln();
-            buf.puts("    frontier: "); bl.frontier.render(buf); buf.ln();
-            buf.puts("    lsg: ");      bl.l_subgraph.render(buf); buf.ln();
-            buf.puts("    rsg: ");      bl.r_subgraph.render(buf); buf.ln();
+            buf.puts("    support: "); bl.support.render(buf); buf.ln();
+            buf.puts("    left: ");    bl.left_only.render(buf); buf.ln();
+            buf.puts("    right: ");   bl.right_only.render(buf); buf.ln();
         }
         return buf;
     }
@@ -511,7 +511,7 @@ component SeaRender {
         buf.puts("=== sea ===").ln();
         renderSeaText(scheduler.sea, buf);
         buf.ln();
-        renderBranchLattices(scheduler, buf);
+        renderBranchSites(scheduler, buf);
         return buf;
     }
 
