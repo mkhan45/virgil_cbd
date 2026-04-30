@@ -354,50 +354,6 @@ class SeaScheduler {
         return result;
     }
 
-    def immediate_untangle_partition(part: BranchPartition,
-                                     visible: Vector<BranchPartition>) -> bool {
-        for (i < visible.length) {
-            def other = visible[i];
-            if (other.phi.id == part.phi.id) continue;
-
-            def in_left = other.l_subgraph.has(part.phi);
-            def in_right = other.r_subgraph.has(part.phi);
-            if (in_left != in_right) return false;
-        }
-        return true;
-    }
-
-    def can_merge_untangle_group(group: Vector<BranchPartition>, part: BranchPartition) -> bool {
-        if (group[0].phi.value_deps[0].id != part.phi.value_deps[0].id) return false;
-        for (i < group.length) {
-            def other = group[i].phi;
-            if (sea.isDescendant(part.phi, other) || sea.isDescendant(other, part.phi)) return false;
-        }
-        return true;
-    }
-
-    def immediate_untangle_groups(visible: Vector<BranchPartition>) -> Vector<Vector<BranchPartition>> {
-        def groups = Vector<Vector<BranchPartition>>.new();
-
-        for (i < visible.length) {
-            def part = visible[i];
-            if (!immediate_untangle_partition(part, visible)) continue;
-
-            var dest: Vector<BranchPartition> = null;
-            for (j < groups.length) {
-                def group = groups[j];
-                if (!can_merge_untangle_group(group, part)) continue;
-                dest = group;
-                break;
-            }
-
-            if (dest == null) groups.put(Vectors.of1(part));
-            else dest.put(part);
-        }
-
-        return groups;
-    }
-
     def has_live_consumer(demand_active: ImmNodeSet, node: IRNode) -> bool {
         for (i < node.children.length) {
             def child = node.children[i];
@@ -451,49 +407,42 @@ class SeaScheduler {
         sea.rebuildChildren();
         sea.clearDepsCache();
 
-        def wl = VecDeque<ImmNodeSet>.new();
-        wl.enqueue(bottom_active);
+        def sorted = sorted_phis_by_depth();
+        def sorted_phis = sorted.0;
+        def partitions = sorted.1;
 
-        while (!wl.empty()) {
-            def active = wl.dequeue();
-            if (active.isEmpty()) continue;
+        def groups = Vector<Vector<BranchPartition>>.new();
 
-            def visible = Vector<BranchPartition>.new();
-            active.apply(sea, fun (node: IRNode) {
-                if (!node.is_phi()) return;
-                def part = sea.branch_partition(node);
-                visible.put(BranchPartition(
-                    node,
-                    part.frontier.intersection(active),
-                    part.l_subgraph.intersection(active),
-                    part.r_subgraph.intersection(active)
-                ));
-            });
+        for (idx < sorted_phis.length) {
+            def n = sorted_phis[idx];
+            if (!bottom_active.has(n)) continue;
+            def part_full = partitions[n];
+            def part = BranchPartition(
+                n,
+                part_full.frontier.intersection(bottom_active),
+                part_full.l_subgraph.intersection(bottom_active),
+                part_full.r_subgraph.intersection(bottom_active)
+            );
 
-            def groups = immediate_untangle_groups(visible);
-            def sites = Vector<BranchSite>.new();
-
+            var dest: Vector<BranchPartition> = null;
             for (i < groups.length) {
-                def site = build_untangle_site(bottom_active, groups[i]);
-                sites.put(site);
-                if (!site.cloneable_overlap.isEmpty()) return site;
+                def group = groups[i];
+                if (group[0].phi.value_deps[0].id != n.value_deps[0].id) continue;
+                var conflict = false;
+                for (j < group.length) {
+                    def other = group[j].phi;
+                    if (sea.isDescendant(n, other) || sea.isDescendant(other, n)) { conflict = true; break; }
+                }
+                if (!conflict) { dest = group; break; }
             }
 
-            for (i < sites.length) {
-                def site = sites[i];
-                var anchored_deps = site.anchored_overlap.intersection(active);
-                for (node in site.anchored_overlap.toArray(sea))
-                    anchored_deps = anchored_deps.union(sea.cachedTransitiveDeps(node).intersection(active));
+            if (dest == null) groups.put(Vectors.of1(part));
+            else dest.put(part);
+        }
 
-                def projected_support = site.support.union(anchored_deps).intersection(active);
-                if (!projected_support.isEmpty() && !projected_support.eq(active)) wl.enqueue(projected_support);
-
-                def projected_left = site.left_region().intersection(active);
-                if (!projected_left.isEmpty() && !projected_left.eq(active)) wl.enqueue(projected_left);
-
-                def projected_right = site.right_region().intersection(active);
-                if (!projected_right.isEmpty() && !projected_right.eq(active)) wl.enqueue(projected_right);
-            }
+        for (i < groups.length) {
+            def site = build_untangle_site(bottom_active, groups[i]);
+            if (!site.cloneable_overlap.isEmpty()) return site;
         }
 
         return null;

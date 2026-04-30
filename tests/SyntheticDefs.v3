@@ -933,4 +933,46 @@ def PROJECTED_CONTEXT_ESCAPING_WRAPPER() {
 
 	push_u32(u32.+(outer, u32.+(left, right)));
 }
+// Inner-phi cloneable_overlap that includes a node from outer P1's frontier:
+// d is non-effectful but lives in P1.cond_deps (so in P1.frontier). Two phis
+// e and f at condition alpha both have d on their left arm. P2 (q-phi) uses
+// e on left and f on right. Phi-aware short-circuits at e and f, so d is NOT
+// in P2.frontier — d ends up in P2.l_subgraph ∩ P2.r_subgraph (cloneable).
+//
+// Old slice-based algorithm correctly excluded d from P2's cloneable in slice
+// = P1.left_region (which doesn't include P1.frontier). The simplified
+// algorithm clips only to bottom_active and would clone d, redirecting f's
+// left arm (since f is in P2.right_only) to a clone d'. Then e and f share
+// condition alpha but their left-arm inputs (d vs d') live in incompatible
+// CFG scopes, breaking the schedule.
+def INNER_PHI_FRONTIER_LEAK() {
+	var c = pop_u32();
+	var d = u32.+(c, 1);
+	var p = u32.!=(d, 0);
+
+	var k = pop_u32();
+	var alpha = u32.!=(k, 0);
+
+	var e: u32 = 0;
+	if (alpha) { e = d; } else { e = 100; }
+
+	var f: u32 = 0;
+	if (alpha) { f = d; } else { f = 200; }
+
+	var m = pop_u32();
+	var q = u32.!=(m, 0);
+
+	var result: u32 = 0;
+	if (p) {
+		if (q) {
+			result = u32.+(e, 1);
+		} else {
+			result = u32.+(f, 2);
+		}
+	} else {
+		result = 999;
+	}
+
+	push_u32(result);
+}
 //@bytecode end
