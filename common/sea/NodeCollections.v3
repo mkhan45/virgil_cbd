@@ -82,6 +82,17 @@ type ImmNodeSet(bits: Array<u64>, capacity: int) #unboxed {
         return false;
     }
 
+    // this intersects (included - excluded)
+    def intersectsDifference(included: ImmNodeSet, excluded: ImmNodeSet) -> bool #inline {
+        def minLen = if(bits.length < included.bits.length, bits.length, included.bits.length);
+        for (i < minLen) {
+            var word = bits[i] & included.bits[i];
+            if (i < excluded.bits.length) word = word & ~excluded.bits[i];
+            if (word != 0uL) return true;
+        }
+        return false;
+    }
+
     def intersection(other: ImmNodeSet) -> ImmNodeSet {
         def minLen = if(bits.length < other.bits.length, bits.length, other.bits.length);
         def newBits = Array<u64>.new(minLen);
@@ -246,6 +257,23 @@ component ImmNodeSets {
     }
 
     def single(n: IRNode) -> ImmNodeSet => empty().with(n);
+
+    def dependency_closure(seeds: Range<IRNode>, admit: (IRNode, ImmNodeSet) -> bool) -> ImmNodeSet {
+        def wl = VecDeque<IRNode>.new();
+        for (seed in seeds) wl.enqueue(seed);
+
+        var closed = empty();
+        while (!wl.empty()) {
+            def node = wl.dequeue();
+            if (node == null || closed.has(node)) continue;
+            if (!admit(node, closed)) continue;
+
+            closed = closed.with(node);
+            node.applyDeps(fun (dep: IRNode) { wl.enqueue(dep); });
+        }
+
+        return closed;
+    }
 
     def of_vec(v: Vector<IRNode>) -> ImmNodeSet {
         var s = empty();

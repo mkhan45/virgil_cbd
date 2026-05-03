@@ -68,7 +68,7 @@ component SeaTransforms {
 
                         def abstraction_node = sea.mkNode(abstraction_op, Array.new(StateComponent.count), [args[i]]);
                         abstraction_node.var_data = VarData.new(Seas.uidl("abs"), tp, Stage.INTERPRET);
-                        abstraction_node.children = Vectors.of1(node);
+                        abstraction_node.addChild(node);
 
                         node.value_deps[i] = abstraction_node;
                     } else {
@@ -187,7 +187,7 @@ component SeaTransforms {
                 innerPhi.var_data = VarData.new(Seas.uidl("innerPhi"), innerTipe, Stage.INTERPRET);
 
                 node.value_deps[0] = new_cond;
-                new_cond.children.put(node);
+                new_cond.addChild(node);
 
                 var new_left: IRNode;
                 match (node.op) {
@@ -219,9 +219,9 @@ component SeaTransforms {
                 var new_right = innerPhi;
 
                 node.value_deps[1] = new_left;
-                new_left.children.put(node);
+                new_left.addChild(node);
                 node.value_deps[2] = new_right;
-                new_right.children.put(node);
+                new_right.addChild(node);
                 return [left, right];
             }
             _ => {
@@ -315,8 +315,8 @@ component SeaTransforms {
                 // Update Phi to use Move nodes
                 node.value_deps[1] = mt;
                 node.value_deps[2] = mf;
-                mt.children.put(node);
-                mf.children.put(node);
+                mt.addChild(node);
+                mf.addChild(node);
                 
                 return [cond, left, right];
             }
@@ -345,8 +345,8 @@ component SeaTransforms {
                 // Update StatePhi to use Move nodes
                 node.value_deps[1] = mt;
                 node.value_deps[2] = mf;
-                mt.children.put(node);
-                mf.children.put(node);
+                mt.addChild(node);
+                mf.addChild(node);
                 
                 return [cond, left, right];
             }

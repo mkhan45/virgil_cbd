@@ -39,7 +39,7 @@ class Sea {
         id_count += 1;
 
         if (!IROp.Lit.?(op))
-            node.applyDeps(fun (dep: IRNode) { dep.children.put(node); });
+            node.applyDeps(fun (dep: IRNode) { dep.addChild(node); });
 
         return node;
     }
@@ -330,13 +330,14 @@ class Sea {
             visited.put(node);
             allNodes.put(node);
             node.children = Vector.new();
+            node.childSet = ImmNodeSets.empty();
             node.applyDeps(fun (dep: IRNode) { wl.put(dep); });
         }
 
         for (i < allNodes.length) {
             def node = allNodes[i];
             if (IROp.Lit.?(node.op)) continue;
-            node.applyDeps(fun (dep: IRNode) { dep.children.put(node); });
+            node.applyDeps(fun (dep: IRNode) { dep.addChild(node); });
         }
     }
 
@@ -503,6 +504,7 @@ class IRNode {
     var value_deps: Array<IRNode>;
     var state_deps: Array<IRNode>; // idx = statecomp.tag
     var children: Vector<IRNode> = Vector.new();
+    var childSet: ImmNodeSet = ImmNodeSets.empty();
 
     var move_true: IRNode;
     var move_false: IRNode;
@@ -535,6 +537,11 @@ class IRNode {
             if (!dup) for (j < i) if (state_deps[j] != null && state_deps[j].id == d.id) { dup = true; break; }
             if (!dup) f(d);
         }
+    }
+
+    def addChild(child: IRNode) #inline {
+        children.put(child);
+        childSet = childSet.with(child);
     }
 
     def transitiveDepsAux(buf: NodeSet) {
@@ -585,6 +592,7 @@ class IRNode {
             for (j < child.state_deps.length) if (child.state_deps[j] == this) child.state_deps[j] = other;
         }
         children = other.children;
+        childSet = other.childSet;
     }
 
     def graph_eq(rhs: IRNode) -> DiffResult {
