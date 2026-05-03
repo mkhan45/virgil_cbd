@@ -6,7 +6,7 @@ version: 0.1.0
 
 # Optimize Scheduler
 
-Guidance for improving the performance of the Sea of Nodes scheduler and validator code generator. The scheduler runs at **build time** (not runtime), so performance here means reducing the wall-clock time of `./ValidatorGen`.
+Guidance for improving the performance of the Sea of Variables scheduler and validator code generator. The scheduler runs at **build time** (not runtime), so performance here means reducing the wall-clock time of `./ValidatorGen`.
 
 ## Correctness-First Protocol
 

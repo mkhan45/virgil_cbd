@@ -1,4 +1,4 @@
-# Literature Review: Sea of Nodes Scheduling and Related Work
+# Literature Review: Sea of Variables Scheduling and Related Work
 
 ## 1. Sea of Nodes, Sea of Variables, and Global Code Motion
 
@@ -275,16 +275,16 @@ E-graphs represent equivalence classes of terms. Equality saturation applies rew
 
 ### Extraction as Scheduling
 
-There's a structural analogy between e-graph extraction and Sea of Nodes scheduling:
+There's a structural analogy between e-graph extraction and Sea of Variables scheduling:
 
-| E-graph | Sea of Nodes |
+| E-graph | Sea of Variables |
 |---------|-------------|
 | E-class (set of equivalent terms) | Node (single operation) |
 | Extraction (pick one term per e-class) | Scheduling (assign each node to a block) |
 | DAG cost model (shared subexpressions) | Shared subgraphs between branches |
 | Cost function | Loop nesting / execution frequency |
 
-The analogy is imperfect: e-graphs represent *alternative* implementations of the same value, while Sea of Nodes represents a *single* program with floating node placement. But the DAG extraction problem -- selecting terms while accounting for shared subexpressions -- is structurally similar to the problem of scheduling shared computations across branches.
+The analogy is imperfect: e-graphs represent *alternative* implementations of the same value, while Sea of Variables represents a *single* program with floating node placement. But the DAG extraction problem -- selecting terms while accounting for shared subexpressions -- is structurally similar to the problem of scheduling shared computations across branches.
 
 ### DAG Extraction is NP-Hard
 

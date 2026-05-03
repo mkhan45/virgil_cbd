@@ -220,7 +220,7 @@ Pure branch-exclusive nodes don't need sealing — `untangle` clones them to res
 
 ## Construction and Fragility
 
-The SSAD-to-Sea translation (`addSSAD` in `SeaOfNodes.v3:89`) produces graphs that satisfy these preconditions by construction. The SSAD's tree structure ensures that every branch-internal computation is sealed behind the correct Phi/StatePhi nodes at the merge point — values and state from each branch are routed through explicit merge nodes before becoming available to post-merge code.
+The SSAD-to-Sea translation (`addSSAD` in `SeaOfVariables.v3:89`) produces graphs that satisfy these preconditions by construction. The SSAD's tree structure ensures that every branch-internal computation is sealed behind the correct Phi/StatePhi nodes at the merge point — values and state from each branch are routed through explicit merge nodes before becoming available to post-merge code.
 
 Transforms that manipulate the Sea directly (graph rewrites, optimizations) can violate the scope-compatible sealing invariant if they create forward paths from branch-internal effectful nodes to post-merge consumers that bypass the correct merge boundary, or if they re-materialize the same condition in incompatible enclosing scopes and let effectful value flow treat those occurrences as interchangeable. This is analogous to the point from the lit review about "Sea Phi NOT from SSAD": the SSAD structure guarantees well-formedness, but raw transforms have no safety net and must maintain these invariants manually.
 

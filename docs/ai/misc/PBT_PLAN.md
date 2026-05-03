@@ -1,4 +1,4 @@
-# Property-Based Testing Plan for the Sea of Nodes Scheduler
+# Property-Based Testing Plan for the Sea of Variables Scheduler
 
 ## Goal
 

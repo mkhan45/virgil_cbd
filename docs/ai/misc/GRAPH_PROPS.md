@@ -2,7 +2,7 @@
 
 ## Context
 
-The scheduler (`Schedule.v3`) converts a flat Sea of Nodes graph back into structured code (a `ScheduleNode` tree). This document catalogs the properties the input graph must satisfy for scheduling to succeed and produce correct output. The focus is on what we know with confidence, what we suspect, and what remains open.
+The scheduler (`Schedule.v3`) converts a flat Sea of Variables graph back into structured code (a `ScheduleNode` tree). This document catalogs the properties the input graph must satisfy for scheduling to succeed and produce correct output. The focus is on what we know with confidence, what we suspect, and what remains open.
 
 The scheduler is currently used by the validator tier and the abstract interpreter tier. The interpreter tier does not use the sea scheduler.
 
@@ -64,7 +64,7 @@ This matters because a node reachable from one branch of a nested phi should NOT
 
 **BUG: `transitiveDepsPhiAwareAux` uses full traversal for inner common-set computation.**
 
-At `SeaOfNodes.v3:496-497`, the phi-aware traversal computes "common deps of both arms" using `transitiveDepsSet()` (full traversal, not phi-aware). This bleeds through nested phi boundaries: a node behind a deeper phi's single arm appears in the common set if the deeper phi itself is common to both outer arms.
+At `SeaOfVariables.v3:496-497`, the phi-aware traversal computes "common deps of both arms" using `transitiveDepsSet()` (full traversal, not phi-aware). This bleeds through nested phi boundaries: a node behind a deeper phi's single arm appears in the common set if the deeper phi itself is common to both outer arms.
 
 **Counterexample:**
 

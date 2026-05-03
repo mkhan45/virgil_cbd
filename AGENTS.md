@@ -91,7 +91,7 @@ Agent skills available for scheduler work:
 | [docs/ai/TESTING.md](docs/ai/TESTING.md) | Test commands, synthetic opcodes, trace inspection, scheduler skills |
 | [docs/ai/misc/GRAPH_PROPS.md](docs/ai/misc/GRAPH_PROPS.md) | Formal schedulability properties and invariants |
 | [docs/ai/misc/PBT_PLAN.md](docs/ai/misc/PBT_PLAN.md) | Property-based testing design for the scheduler |
-| [docs/ai/misc/LIT_REVIEW.md](docs/ai/misc/LIT_REVIEW.md) | Literature review: Sea of Nodes and related compiler work |
+| [docs/ai/misc/LIT_REVIEW.md](docs/ai/misc/LIT_REVIEW.md) | Literature review: Sea of Variables and related compiler work |
 | [docs/ai/misc/MOCK_TEST_FIX.md](docs/ai/misc/MOCK_TEST_FIX.md) | Documentation of fixes applied to MOCK_TEST and MOCK_TEST_ul |
 
 ## Coding Style

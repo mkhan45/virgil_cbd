@@ -1,4 +1,4 @@
-// Sea of Nodes graph transformation passes.
+// Sea of Variables graph transformation passes.
 // These transforms are designed to be used with Sea::apply().
 
 component SeaTransforms {

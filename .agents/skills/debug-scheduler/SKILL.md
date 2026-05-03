@@ -6,7 +6,7 @@ version: 0.1.0
 
 # Debug Scheduler
 
-Guidance for debugging the Sea of Nodes scheduler, which converts the unordered sea graph into structured (scheduled) code during validator generation.
+Guidance for debugging the Sea of Variables scheduler, which converts the unordered sea graph into structured (scheduled) code during validator generation.
 
 ## Build/Test Loop
 

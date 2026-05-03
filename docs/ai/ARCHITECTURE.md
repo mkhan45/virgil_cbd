@@ -32,7 +32,7 @@ common/                         # Shared code
 │   ├── IRAnalysis.v3          # Static analysis and optimizations
 │   └── PrettyIR.v3            # IR pretty printing
 ├── Trace.v3                   # Mermaid/JS visualization trace output
-├── sea/                        # Sea of nodes IR framework
+├── sea/                        # Sea of Variables IR framework
 │   ├── SeaOfVariables.v3      # Sea graph, IRNode, graph rewrites
 │   ├── SeaTransforms.v3       # Graph rewrite passes
 │   ├── SeaRender.v3           # Sea graph rendering
