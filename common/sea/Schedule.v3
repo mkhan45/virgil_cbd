@@ -42,6 +42,16 @@ class BranchSite {
     def right_region() -> ImmNodeSet => right_only.union(cloneable_overlap);
 }
 
+class FrontierCutChoice {
+    var phi: IRNode;
+    var support: ImmNodeSet;
+    var saved: int;
+    var extra: int;
+    var score: int;
+
+    new(phi, support, saved, extra, score) {}
+}
+
 class SeaScheduler {
     var sea: Sea;
     var orig_sea: Sea;
@@ -59,6 +69,9 @@ class SeaScheduler {
 
     var branch_sites: Vector<BranchSite> = Vector.new();
     var branch_site_map: NodeMap<BranchSite> = NodeMap<BranchSite>.new();
+    var frontier_cuts: NodeSet = NodeSet.new();
+    var frontier_cut_supports: NodeMap<ImmNodeSet> = NodeMap<ImmNodeSet>.new();
+    var cut_aware_cache: NodeMap<ImmNodeSet> = NodeMap<ImmNodeSet>.new();
 
     var reify_conds = false;
 
@@ -98,6 +111,143 @@ class SeaScheduler {
         return root.id == node.id;
     }
 
+    def clear_frontier_cut_cache() {
+        cut_aware_cache = NodeMap<ImmNodeSet>.new();
+    }
+
+    def cachedTransitiveDepsCutAware(node: IRNode) -> ImmNodeSet {
+        if (node == null) return ImmNodeSets.empty();
+        if (cut_aware_cache.has(node)) return cut_aware_cache[node];
+
+        var result: ImmNodeSet;
+        if (frontier_cuts.has(node)) {
+            result = frontier_cut_supports[node];
+        } else match (node.op) {
+            Phi, StatePhi => {
+                def cond = node.value_deps[0], l_branch = node.value_deps[1], r_branch = node.value_deps[2];
+                def branch_common = cachedTransitiveDepsCutAware(l_branch).intersection(cachedTransitiveDepsCutAware(r_branch));
+                result = ImmNodeSets.single(node)
+                    .union(cachedTransitiveDepsCutAware(cond))
+                    .union(branch_common);
+            }
+            _ => {
+                def r = [ImmNodeSets.single(node)];
+                node.applyDeps(fun (dep: IRNode) { r[0] = r[0].union(cachedTransitiveDepsCutAware(dep)); });
+                result = r[0];
+            }
+        }
+
+        cut_aware_cache[node] = result;
+        return result;
+    }
+
+    def branch_partition(node: IRNode) -> BranchPartition {
+        def cond = node.value_deps[0], l_branch = node.value_deps[1], r_branch = node.value_deps[2];
+
+        def cond_deps = sea.cachedTransitiveDeps(cond);
+
+        def l_full = sea.cachedTransitiveDeps(l_branch);
+        def r_full = sea.cachedTransitiveDeps(r_branch);
+        def l_cut_aware = cachedTransitiveDepsCutAware(l_branch);
+        def r_cut_aware = cachedTransitiveDepsCutAware(r_branch);
+        def frontier = [cond_deps.union(l_cut_aware.intersection(r_cut_aware))];
+
+        // Frontier cuts are computed before this branch when both arms can
+        // reach them, trading pure extra work for less cloning.
+        frontier_cuts.apply(fun (phi: IRNode) {
+            if (l_full.has(phi) && r_full.has(phi))
+                frontier[0] = frontier[0].union(frontier_cut_supports[phi]);
+        });
+
+        return BranchPartition(node, frontier[0], l_full.withoutAll(frontier[0]), r_full.withoutAll(frontier[0]));
+    }
+
+    def frontier_cut_support(phi: IRNode) -> ImmNodeSet {
+        return ImmNodeSets.dependency_closure([phi], fun (node: IRNode, support: ImmNodeSet) =>
+            !has_writes(node));
+    }
+
+    def frontier_cut_score(site: BranchSite, support: ImmNodeSet) -> int {
+        def saved = support.intersection(site.cloneable_overlap).count();
+        if (saved < 8) return 0;
+
+        def extra = support.withoutAll(site.cloneable_overlap).withoutAll(site.support).count();
+        def cloneable = site.cloneable_overlap.count();
+        if (saved == cloneable) return saved;
+        if (cloneable < 24 && saved <= extra * 2) return 0;
+
+        return saved - extra;
+    }
+
+    def conditional_write_set() -> ImmNodeSet {
+        def writes = [ImmNodeSets.empty()];
+        live.apply(fun (node: IRNode) {
+            if (!IROp.StatePhi.?(node.op)) return;
+
+            def left = sea.cachedTransitiveDeps(node.value_deps[1]);
+            def right = sea.cachedTransitiveDeps(node.value_deps[2]);
+            left.withoutAll(right).apply(sea, fun (dep: IRNode) {
+                if (has_writes(dep)) writes[0] = writes[0].with(dep);
+            });
+            right.withoutAll(left).apply(sea, fun (dep: IRNode) {
+                if (has_writes(dep)) writes[0] = writes[0].with(dep);
+            });
+        });
+        return writes[0];
+    }
+
+    def is_site_phi(site: BranchSite, candidate: IRNode) -> bool {
+        for (i < site.phis.length)
+            if (site.phis[i].id == candidate.id) return true;
+        return false;
+    }
+
+    def is_valid_frontier_cut(site: BranchSite, candidate: IRNode, conditional_writes: ImmNodeSet) -> bool {
+        if (!IROp.Phi.?(candidate.op)) return false;
+        if (frontier_cuts.has(candidate)) return false;
+        if (is_site_phi(site, candidate)) return false;
+        if (sea.cachedTransitiveDeps(candidate).intersects(conditional_writes)) return false;
+        return true;
+    }
+
+    def choose_frontier_cut(site: BranchSite) -> FrontierCutChoice {
+        def conditional_writes = conditional_write_set();
+        if (site.cloneable_overlap.intersects(conditional_writes)) return null;
+
+        var best: FrontierCutChoice = null;
+        def candidates = site.cloneable_overlap.union(site.support).toArray(sea);
+        for (i < candidates.length) {
+            def candidate = candidates[i];
+            if (!is_valid_frontier_cut(site, candidate, conditional_writes)) continue;
+
+            def support = frontier_cut_support(candidate);
+            def saved = support.intersection(site.cloneable_overlap).count();
+            def extra = support.withoutAll(site.cloneable_overlap).withoutAll(site.support).count();
+            def score = frontier_cut_score(site, support);
+            if (score > 0 && (best == null || score > best.score))
+                best = FrontierCutChoice.new(candidate, support, saved, extra, score);
+        }
+
+        return best;
+    }
+
+    def record_frontier_cut(cut: FrontierCutChoice) {
+        frontier_cuts.put(cut.phi);
+        frontier_cut_supports[cut.phi] = cut.support;
+        clear_frontier_cut_cache();
+
+        trace_print(fun => Strings.format3("frontier cut %q saves %d overlap nodes (%d extra pure nodes)\n",
+            cut.phi.render, cut.saved, cut.extra));
+    }
+
+    def try_add_frontier_cut(site: BranchSite) -> bool {
+        def cut = choose_frontier_cut(site);
+        if (cut == null) return false;
+
+        record_frontier_cut(cut);
+        return true;
+    }
+
     // Compute a depth ordering of phis: outermost phis first.
     // Phi A is "inside" phi B if A is in B's l_subgraph or r_subgraph.
     // Returns phis sorted so that enclosing phis come before nested phis.
@@ -108,7 +258,7 @@ class SeaScheduler {
         live.apply(fun (n: IRNode) {
             if (!n.is_phi()) return;
             phis.put(n);
-            partitions[n] = sea.branch_partition(n);
+            partitions[n] = branch_partition(n);
         });
 
         def n = phis.length;
@@ -158,6 +308,7 @@ class SeaScheduler {
 
     def find_branch_sites() {
         sea.clearDepsCache();
+        clear_frontier_cut_cache();
         def sorted = sorted_phis_by_depth();
         def sorted_phis = sorted.0;
         def partitions = sorted.1;
@@ -413,6 +564,7 @@ class SeaScheduler {
         live = Seas.live(sea);
         sea.rebuildChildren();
         sea.clearDepsCache();
+        clear_frontier_cut_cache();
 
         def sorted = sorted_phis_by_depth();
         def sorted_phis = sorted.0;
@@ -525,6 +677,7 @@ class SeaScheduler {
 
         sea.rebuildChildren();
         sea.clearDepsCache();
+        clear_frontier_cut_cache();
 
         for (i < replacements.length)
             demand = demand.union(sea.cachedTransitiveDeps(replacements[i].1));
@@ -537,19 +690,28 @@ class SeaScheduler {
 
     def untangle() {
         // var limit = branch_sites.length * 4; // XXX: idk if this is reasonable
-        var limit = 4;
+        var clone_limit = 4;
+        var cut_limit = 32;
         sea.clearDepsCache();
+        clear_frontier_cut_cache();
         var bottom_demand = sea.cachedTransitiveDeps(bottom_node);
-        while (limit > 0) {
+        while (clone_limit > 0 || cut_limit > 0) {
             def site = find_next_untangle_site(bottom_demand);
             if (site == null) break;
+
+            if (cut_limit > 0 && try_add_frontier_cut(site)) {
+                cut_limit -= 1;
+                continue;
+            }
+
+            if (clone_limit <= 0) break;
 
             trace_print(fun => Strings.format2("untangle site for cond %q, support = %q\n", site.phis[0].value_deps[0].render, site.support.renderFull(_, sea)));
             trace_print(fun => Strings.format3("left_only: %q\nright_only: %q\ncloneable: %q\n", site.left_only.renderFull(_, sea), site.right_only.renderFull(_, sea), site.cloneable_overlap.renderFull(_, sea)));
 
             bottom_demand = untangle_site(site, bottom_demand);
             verify_bottom_demand(bottom_demand);
-            limit -= 1;
+            clone_limit -= 1;
         }
 
         branch_site_map = NodeMap<BranchSite>.new();
@@ -557,6 +719,7 @@ class SeaScheduler {
         live = Seas.live(sea);
         sea.rebuildChildren();
         sea.clearDepsCache();
+        clear_frontier_cut_cache();
         find_branch_sites();
     }
 
