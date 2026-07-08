@@ -319,15 +319,6 @@ class SeaScheduler {
         return ready;
     }
 
-    def has_writes(node: IRNode) -> bool {
-        def mt_scs: StateComponent.set;
-        match (node.op) {
-            Intrinsic(defn) => return defn.writes > mt_scs;
-            _ => ;
-        }
-        return false;
-    }
-
     def kill_transitive_demand(demand: ImmNodeSet, node: IRNode) -> ImmNodeSet {
         def killed = ImmNodeSets.dependency_closure([node], fun (n: IRNode, killed: ImmNodeSet) =>
             demand.has(n) && !n.childSet.intersectsDifference(demand, killed));
@@ -383,10 +374,7 @@ class SeaScheduler {
             regions.has(node) &&
                 (node.childSet.intersects(outside) || node.childSet.intersects(esc)));
 
-        var anchored = ImmNodeSets.empty();
-        for (n in shared.intersection(escaping).toArray(sea))
-            if (has_writes(n)) anchored = anchored.with(n);
-        return anchored;
+        return shared.intersection(escaping);
     }
 
     def build_untangle_site(bottom_demand: ImmNodeSet, group: Vector<BranchPartition>) -> BranchSite {
