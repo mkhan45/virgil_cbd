@@ -370,13 +370,23 @@ class SeaScheduler {
         def shared = left_region.intersection(right_region);
         if (shared.isEmpty()) return ImmNodeSets.empty();
 
-        var allowed_consumers = left_region.union(right_region);
+        def regions = left_region.union(right_region);
+        var allowed_consumers = regions;
         for (i < phis.length) allowed_consumers = allowed_consumers.with(phis[i]);
         def outside = bottom_demand.withoutAll(allowed_consumers);
 
-        return ImmNodeSets.dependency_closure(shared.toArray(sea), fun (node: IRNode, anchored: ImmNodeSet) =>
-            shared.has(node) && has_writes(node) &&
-                (node.childSet.intersects(outside) || node.childSet.intersects(anchored)));
+        // escape-hood must propagate through every region node, pure ones
+        // included: a write-gated closure lets an escape launder through a
+        // pure consumer, cloning a writer whose demand the site's condition
+        // does not gate (original + clone co-demanded on one path)
+        def escaping = ImmNodeSets.dependency_closure(regions.toArray(sea), fun (node: IRNode, esc: ImmNodeSet) =>
+            regions.has(node) &&
+                (node.childSet.intersects(outside) || node.childSet.intersects(esc)));
+
+        var anchored = ImmNodeSets.empty();
+        for (n in shared.intersection(escaping).toArray(sea))
+            if (has_writes(n)) anchored = anchored.with(n);
+        return anchored;
     }
 
     def build_untangle_site(bottom_demand: ImmNodeSet, group: Vector<BranchPartition>) -> BranchSite {
